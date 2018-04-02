@@ -1,4 +1,4 @@
-#define MAX_WEIGHT_CLASS WEIGHT_CLASS_SMALL * 2
+#define MAX_WEIGHT_CLASS WEIGHT_CLASS_SMALL
 //Food items that are eaten normally and don't leave anything behind.
 /obj/item/weapon/reagent_containers/food/snacks
 	name = "snack"
@@ -133,9 +133,10 @@
 		)
 		inaccurate = 1
 	else if(W.w_class <= WEIGHT_CLASS_SMALL && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
-		if(total_w_class > MAX_WEIGHT_CLASS)
+		var/newweight = GetTotalContentsWeight() + W.GetTotalContentsWeight() + W.w_class
+		if(newweight > MAX_WEIGHT_CLASS)
 			// Nope, no bluespace slice food
-			to_chat(user, "<span class='warning'>Something is already in [src]!</span>")
+			to_chat(user, "<span class='warning'>You cannot fit [W] in [src]!</span>")
 			return 1
 		if(!iscarbon(user))
 			return 1

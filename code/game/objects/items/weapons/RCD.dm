@@ -80,7 +80,7 @@ RCD
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
 		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 
@@ -92,7 +92,7 @@ RCD
 	ui_interact(user)
 
 /obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
@@ -187,16 +187,16 @@ RCD
 	if(!proximity) return
 	if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
 		return 0
-	if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/window)))
+	if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/window) || istype(A, /obj/structure/lattice)))
 		return 0
 
 	switch(mode)
 		if(1)
-			if(istype(A, /turf/space))
+			if(istype(A, /turf/space) || istype(A, /obj/structure/lattice))
 				if(useResource(1, user))
 					to_chat(user, "Building Floor...")
 					activate()
-					var/turf/AT = A
+					var/turf/AT = get_turf(A)
 					AT.ChangeTurf(/turf/simulated/floor/plating)
 					return 1
 				return 0
@@ -351,14 +351,14 @@ RCD
 			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
 			return 0
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/item/weapon/rcd/proc/useResource(var/amount, var/mob/user)
 	if(matter < amount)
 		return 0
 	matter -= amount
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/item/weapon/rcd/proc/checkResource(var/amount, var/mob/user)

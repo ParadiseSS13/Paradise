@@ -719,15 +719,25 @@
 /obj/item/clothing/suit/jacket/miljacket/patch/attack_self(mob/user)
 	var/list/options = list()
 	options["purple"] = "shazjacket_purple"
+	options["purple light"] = "shazjacket_purple_light"
 	options["yellow"] = "shazjacket_yellow"
 	options["blue"] = "shazjacket_blue"
+	options["cyan"] = "shazjacket_cyan"
+	options["command blue"] = "shazjacket_command"
 	options["brown"] = "shazjacket_brown"
 	options["orange"] = "shazjacket_orange"
+	options["engi orange"] = "shazjacket_engi"
 	options["grey"] = "shazjacket_grey"
 	options["black"] ="shazjacket_black"
 	options["red"] ="shazjacket_red"
+	options["red light"] ="shazjacket_red_light"
+	options["pink"] ="shazjacket_pink"
+	options["magenta"] ="shazjacket_magenta"
 	options["navy"] ="shazjacket_navy"
 	options["white"] ="shazjacket_white"
+	options["green"] ="shazjacket_green"
+	options["lime"] ="shazjacket_lime"
+	options["army green"] ="shazjacket_army"
 
 	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
 
@@ -930,6 +940,14 @@
 	flags_inv = HIDEEARS
 
 //////////// Uniforms ////////////
+/obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
+    icon = 'icons/obj/custom_items.dmi'
+    name = "Soviet Casual Uniform"
+    desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
+    icon_state = "soviet_casual_uniform"
+    item_state = "soviet_casual_uniform"
+    item_color = "soviet_casual_uniform"
+
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
 	desc = "A white and gold formal uniform, accompanied by a small pin with the numbers '004' etched upon it."

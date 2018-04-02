@@ -12,10 +12,12 @@
 	var/can_deconstruct = TRUE
 	var/damtype = "brute"
 	var/force = 0
-
+	var/list/armor
 	var/obj_integrity	//defaults to max_integrity
-	var/max_integrity = 500
+	var/max_integrity = INFINITY
 	var/integrity_failure = 0 //0 if we have no special broken behavior
+
+	var/resistance_flags = NONE // INDESTRUCTIBLE
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
@@ -28,7 +30,9 @@
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 
 /obj/New()
-	. = ..()
+	..()
+	if(!armor)
+		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
@@ -62,7 +66,7 @@
 /obj/Destroy()
 	machines -= src
 	processing_objects -= src
-	nanomanager.close_uis(src)
+	SSnanoui.close_uis(src)
 	return ..()
 
 /obj/proc/process()

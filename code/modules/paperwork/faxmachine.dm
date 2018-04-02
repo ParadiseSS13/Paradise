@@ -43,14 +43,14 @@ var/list/alldepartments = list()
 	ui_interact(user)
 
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
-	ui_interact(user)	
-	
+	ui_interact(user)
+
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user, params)
 	if(istype(item,/obj/item/weapon/card/id) && !scan)
 		scan(item)
 	else if(istype(item, /obj/item/weapon/paper) || istype(item, /obj/item/weapon/photo) || istype(item, /obj/item/weapon/paper_bundle))
 		..()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	else
 		return ..()
 
@@ -62,7 +62,7 @@ var/list/alldepartments = list()
 		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
 
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "faxmachine.tmpl", "Fax Machine UI", 540, 450)
 		ui.open()
@@ -103,11 +103,11 @@ var/list/alldepartments = list()
 	else if(user.can_admin_interact())
 		return TRUE
 	return FALSE
-	
+
 /obj/machinery/photocopier/faxmachine/Topic(href, href_list)
 	if(..())
 		return 1
-		
+
 	var/is_authenticated = is_authenticated(usr)
 	if(href_list["send"])
 		if(copyitem && is_authenticated)
@@ -119,7 +119,7 @@ var/list/alldepartments = list()
 			if(sendcooldown)
 				spawn(sendcooldown) // cooldown time
 					sendcooldown = 0
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 
 	if(href_list["paper"])
 		if(copyitem)
@@ -174,7 +174,7 @@ var/list/alldepartments = list()
 				else if(istype(copyitem, /obj/item/weapon/paper_bundle))
 					copyitem.name = "[(n_name ? text("[n_name]") : "paper")]"
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/weapon/card/id/card = null)
 	if(scan) // Card is in machine
@@ -197,14 +197,14 @@ var/list/alldepartments = list()
 			usr.drop_item()
 			card.forceMove(src)
 			scan = card
-	nanomanager.update_uis(src)
-	
+	SSnanoui.update_uis(src)
+
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.restrained())	
+	if(usr.restrained())
 		return
 
 	if(scan)
@@ -270,7 +270,7 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
 	if(stat & (BROKEN|NOPOWER))
 		return
-		
+
 	if(sendcooldown)
 		return
 

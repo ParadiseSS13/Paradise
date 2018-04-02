@@ -687,7 +687,15 @@
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
 		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS FREE CALL THE SHUTTLE")
+		"OH GOD ITS FREE CALL THE SHUTTLE",
+		"Why are there so many atmos alerts?",
+		"OH GOD WHY WOULD YOU TURN ON THE PA BEFORE CONTAINMENT IS UP?",
+		"Remember to lock the emitters!",
+		"Stop goofing off and repair the goddam station!",
+		"The singularity is not your friend!",
+		"What were the wires again?",
+		"Goddam emaggers!"
+		)
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/parrot/Poly/New()

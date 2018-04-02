@@ -239,7 +239,7 @@
 		var/temp_loss = (temperature - cooling_temperature)/TEMPERATURE_DIVISOR
 		temp_loss = between(2, round(temp_loss, 1), TEMPERATURE_CHANGE_MAX)
 		temperature = max(temperature - temp_loss, cooling_temperature)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 	if(overheating)
 		overheating--
@@ -280,7 +280,7 @@
 		to_chat(user, "<span class='notice'>You add [amount] sheet\s to the [src.name].</span>")
 		sheets += amount
 		addstack.use(amount)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	else if(!active)
 		if(istype(O, /obj/item/weapon/wrench))
@@ -325,7 +325,7 @@
 	if(IsBroken())
 		return
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "pacman.tmpl", src.name, 500, 560)
 		ui.open()
@@ -381,7 +381,7 @@
 			if(power_output < max_power_output || (emagged && power_output < round(max_power_output*2.5)))
 				power_output++
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/power/port_gen/pacman/super
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type Portable Generator"

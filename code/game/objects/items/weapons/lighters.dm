@@ -13,7 +13,7 @@
 	throwforce = 4
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	attack_verb = list("burnt", "singed")
+	attack_verb = null
 	var/lit = 0
 
 /obj/item/weapon/lighter/zippo
@@ -38,6 +38,10 @@
 			w_class = WEIGHT_CLASS_BULKY
 			icon_state = icon_on
 			item_state = icon_on
+			force = 5
+			damtype = "fire"
+			hitsound = 'sound/items/welder.ogg'
+			attack_verb = list("burnt", "singed")
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
 				user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
 				playsound(src.loc, 'sound/items/ZippoLight.ogg', 25, 1)
@@ -62,6 +66,9 @@
 			w_class = WEIGHT_CLASS_TINY
 			icon_state = icon_off
 			item_state = icon_off
+			hitsound = "swing_hit"
+			force = 0
+			attack_verb = null //human_defense.dm takes care of it
 			if(istype(src, /obj/item/weapon/lighter/zippo) )
 				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing. Wow.")
 				playsound(src.loc, 'sound/items/ZippoClose.ogg', 25, 1)
@@ -145,47 +152,74 @@
 	desc = "A simple match stick, used for lighting fine smokables."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unlit"
-	var/lit = 0
+	var/lit = FALSE
+	var/burnt = FALSE
 	var/smoketime = 5
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
-	attack_verb = list("burnt", "singed")
+	attack_verb = null
 
 /obj/item/weapon/match/process()
 	var/turf/location = get_turf(src)
 	smoketime--
 	if(smoketime < 1)
-		icon_state = "match_burnt"
-		lit = -1
-		processing_objects.Remove(src)
-		return
+		matchburnout()
 	if(location)
 		location.hotspot_expose(700, 5)
 		return
 
-/obj/item/weapon/match/dropped(mob/user as mob)
-	if(lit == 1)
-		lit = -1
+/obj/item/weapon/match/fire_act()
+	matchignite()
+
+/obj/item/weapon/match/proc/matchignite()
+	if(!lit && !burnt)
+		lit = TRUE
+		icon_state = "match_lit"
+		damtype = "fire"
+		force = 3
+		hitsound = 'sound/items/welder.ogg'
+		item_state = "cigon"
+		name = "lit match"
+		desc = "A match. This one is lit."
+		attack_verb = list("burnt","singed")
+		processing_objects.Add(src)
+		update_icon()
+
+/obj/item/weapon/match/proc/matchburnout()
+	if(lit)
+		lit = FALSE
+		burnt = TRUE
 		damtype = "brute"
+		force = initial(force)
 		icon_state = "match_burnt"
 		item_state = "cigoff"
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
+		attack_verb = list("flicked")
 		processing_objects.Remove(src)
-	return ..()
 
-/obj/item/weapon/match/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/weapon/match/dropped(mob/user)
+	matchburnout()
+	. = ..()
+
+/obj/item/weapon/match/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!isliving(M))
 		return ..()
-	if(lit == 1) M.IgniteMob()
-	if(!istype(M, /mob))
-		return ..()
-
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_sel.selecting == "mouth" && lit == 1)
-		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
+	if(lit && M.IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(M)] on fire")
+		log_game("[key_name(user)] set [key_name(M)] on fire")
+	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
+	if(lit && cig && user.a_intent == INTENT_HELP)
+		if(cig.lit)
+			to_chat(user, "<span class='notice'>[cig] is already lit.</span>")
 		if(M == user)
 			cig.attackby(src, user)
 		else
-			cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
+			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
 	else
 		..()
+
+/obj/item/proc/help_light_cig(mob/living/M)
+	var/mask_item = M.get_item_by_slot(slot_wear_mask)
+	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
+		return mask_item

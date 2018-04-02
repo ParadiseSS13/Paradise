@@ -18,6 +18,7 @@ var/global/list/captain_display_cases = list()
 	name = "display case frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_glass"
+	armor = list(melee = 30, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
 	var/obj/item/weapon/airlock_electronics/circuit = null
 	var/obj/item/device/assembly/prox_sensor/sensor = null
 	var/state = DISPLAYCASE_FRAME_CIRCUIT

@@ -140,7 +140,7 @@ var/list/pipemenu = list(
 	ui_interact(user)
 
 /obj/item/weapon/rpd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rpd.tmpl", "[name]", 400, 650, state = state)
 		ui.open()
@@ -173,7 +173,7 @@ var/list/pipemenu = list(
 		mode = text2num(sanitize(href_list["mode"]))
 	else
 		return
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 //What the RPD actually does
 
