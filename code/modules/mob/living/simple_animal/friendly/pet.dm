@@ -30,10 +30,6 @@
 		overlays += "[icon_state]collar"
 		overlays += "[icon_state]tag"
 
-/mob/living/simple_animal/pet/start_pulling(atom/movable/AM)
-	if(isliving(AM) && !ispet(AM))
-		return
-	..()
 
 /mob/living/simple_animal/pet/MobBump(mob/M)
 	if(ispet(M))
