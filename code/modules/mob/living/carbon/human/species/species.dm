@@ -232,10 +232,9 @@
 				. += H.shoes.slowdown
 		if(H.back)
 			. += H.back.slowdown
-		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
-			. += H.l_hand.slowdown
-		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
-			. += H.r_hand.slowdown
+		for(var/obj/item/I in H.held_items)
+			if(I && (I.flags & HANDSLOW))
+			. += I.slowdown
 
 		var/health_deficiency = (H.maxHealth - H.health + H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80

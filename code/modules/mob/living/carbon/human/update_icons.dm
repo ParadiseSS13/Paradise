@@ -1097,13 +1097,14 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/update_inv_hands(var/update_icons=1)
 	..()
-	if(l_hand)
-		var/t_state = l_hand.item_state
-		if(!t_state)
-			t_state = l_hand.icon_state
+	for(var/obj/item/O in held_items)
+		if(O)
+			var/t_state = O.item_state
+			if(!t_state)
+				t_state = O.icon_state
 
-		var/image/I = image("icon" = l_hand.lefthand_file, "icon_state" = "[t_state]")
-		I = center_image(I, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)
+			var/image/I = image("icon" = O.lefthand_file, "icon_state" = "[t_state]")
+			I = center_image(I, O.inhand_x_dimension, O.inhand_y_dimension)
 		overlays_standing[L_HAND_LAYER] = I
 	else
 		overlays_standing[L_HAND_LAYER] = null

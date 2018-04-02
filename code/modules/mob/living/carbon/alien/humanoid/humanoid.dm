@@ -223,10 +223,12 @@
 /mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
 	user.set_machine(src)
 
-	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_hands]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
+	var/dat = "<table>"
+	for(var/i in 1 to held_items.len)
+		var/fluff = make_titel_case(get_held_index_name(i)) + ":"
+		var/held = get_index_of_held_item(i)
+		dat += "<tr><td><B>[fluff]</B></td><td><A href='?src=[UID()];item=[held]'>[(held && !(held.flags&ABSTRACT)) ? held : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += {"<tr><td>&nbsp;</td></tr></table>
 
 	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
 

@@ -186,8 +186,11 @@
 			var/obj/item/device/radio/R
 			if(isradio(r_ear))
 				R = r_ear
-			else if(isradio(r_hand))
-				R = r_hand
+			else
+				for(var/obj/item/I in get_held_items_for_side("r", 1)
+					if(isradio(I))
+						R = I
+						break
 			if(R)
 				used_radios += R
 				R.talk_into(src, message, null, verb, speaking)
@@ -196,8 +199,11 @@
 			var/obj/item/device/radio/R
 			if(isradio(l_ear))
 				R = l_ear
-			else if(isradio(l_hand))
-				R = l_hand
+			else
+				for(var/obj/item/I in get_held_items_for_side("r", 1)
+					if(isradio(I))
+						R = I
+						break
 			if(R)
 				used_radios += R
 				R.talk_into(src, message, null, verb, speaking)

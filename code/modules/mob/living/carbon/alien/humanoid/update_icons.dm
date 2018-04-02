@@ -132,11 +132,12 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_hands(var/update_icons=1)
 	..(1)
-	if(l_hand)
-		var/t_state = l_hand.item_state
-		if(!t_state)	t_state = l_hand.icon_state
-		l_hand.screen_loc = ui_hand_position(1)
-		overlays_standing[X_L_HAND_LAYER]	= image("icon" = l_hand.lefthand_file, "icon_state" = t_state)
+	for(var/obj/item/I in held_objects)
+	if(I)
+		var/t_state = I.item_state
+		if(!t_state)	t_state = I.icon_state
+		I.screen_loc = ui_hand_position(1)
+		overlays_standing[X_L_HAND_LAYER]	= image("icon" = I.lefthand_file, "icon_state" = t_state)
 	else
 		overlays_standing[X_L_HAND_LAYER]	= null
 	if(update_icons)	update_icons()

@@ -338,9 +338,7 @@
 		if(slot_legcuffed)
 			return legcuffed
 		if(slot_hands)
-			return l_hand
-		if(slot_r_hand)
-			return r_hand
+			return held_items
 		if(slot_belt)
 			return belt
 		if(slot_wear_id)
@@ -640,15 +638,15 @@
 
 	else if(amt > old_limbs) //Grow new limbs to house your hands
 		for(var/i in old_limbs+1 to amt)
-			var/temp_limb = species.has_limb[l_arm]
+			var/temp_limb = species.has_limb["l_arm"]
 				path_arm  = temp_limb["path"]
-				temp_limb = species.has_limb[l_hand]
+				temp_limb = species.has_limb["l_hand"]
 			var/path_hand = temp_limb["path"]
 
 			if(!(i % 2))
-				temp_limb = species.has_limb[r_arm]
+				temp_limb = species.has_limb["r_arm"]
 				path_arm  = temp_limb["path"]
-				temp_limb = species.has_limb[r_hand]
+				temp_limb = species.has_limb["r_hand"]
 				path_hand = temp_limb["path"]
 
 			var/obj/item/organ/external/new_arm = new path_arm()
