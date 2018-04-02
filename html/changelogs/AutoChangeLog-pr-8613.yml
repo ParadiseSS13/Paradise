@@ -1,5 +1,0 @@
-author: "Shazbot"
-delete-after: True
-changes: 
-  - rscadd: "Adds E-pistol crates to the cargo manifest
-Change: changes the HoP's E-gun to an E-pistol"

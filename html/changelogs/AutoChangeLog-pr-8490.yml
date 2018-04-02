@@ -1,6 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Syndifox and Syndicat can now do melee damage. Paperwork (cargo sloth pet) no longer can."
-  - tweak: "Syndifox and Syndicat are no longer controllable by players by default."
-  - tweak: "Poly (parrot in Engineering) now knows more phrases."
