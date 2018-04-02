@@ -219,7 +219,6 @@
 	suit_store = /obj/item/device/flashlight/pen
 	l_hand = /obj/item/weapon/storage/firstaid/adv
 	pda = /obj/item/device/pda/medical
-	implants = list(/obj/item/weapon/implant/mindshield)
 	backpack = /obj/item/weapon/storage/backpack/medic
 	satchel = /obj/item/weapon/storage/backpack/satchel_med
 	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
