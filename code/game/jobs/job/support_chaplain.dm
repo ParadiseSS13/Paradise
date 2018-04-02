@@ -35,7 +35,7 @@
 	var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(H)
 
 	spawn()
-		H.equip_to_slot_or_del(B, slot_l_hand)
+		H.equip_to_slot_or_del(B, slot_r_hand)
 
 		var/religion_name = "Christianity"
 		var/new_religion = sanitize(copytext(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name),1,MAX_NAME_LEN))
@@ -148,7 +148,7 @@
 							if(T.icon_state == "carpetsymbol")
 								T.dir = 2
 
-			H.update_inv_l_hand() // so that it updates the bible's item_state in his hand
+			H.update_inv_r_hand() // so that it updates the bible's item_state in his hand
 
 			switch(input(H,"Look at your bible - is this what you want?") in list("Yes","No"))
 				if("Yes")
