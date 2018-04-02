@@ -7,7 +7,7 @@
 	species = "Tajaran"
 	colourblind_matrix = MATRIX_TAJ_CBLIND //The colour matrix and darksight parameters that the mob will recieve when they get the disability.
 	replace_colours = LIST_TAJ_REPLACE
-	dark_view = 8
+	dark_view = 6
 
 /obj/item/organ/internal/eyes/tajaran/farwa //Being the lesser form of Tajara, Farwas have an utterly incurable version of their colourblindness.
 	name = "farwa eyeballs"
