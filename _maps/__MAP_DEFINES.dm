@@ -33,7 +33,7 @@
 	#define DERELICT "Derelicted Station"
 //	#define MINING "Mining Asteroid"
 	#define CONSTRUCTION "Construction Area"
-	#define MINING "Lavaland"
+	#define LAVALAND "Lavaland"
 	#define EMPTY_AREA_2 "Empty Area 2"
 	#define AWAY_MISSION "Away Mission"
 	#define EMPTY_AREA "Empty Area"
