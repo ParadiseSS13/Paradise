@@ -94,7 +94,7 @@ var/list/implants = list()
 		special(M)
 		MM.name = M.real_name
 		MM.special_role = name
-		if(assigned_role)
+		if(MM.assigned_role)
 			MM.assigned_role = assigned_role
 	if(uses > 0)
 		uses--

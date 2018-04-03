@@ -25,9 +25,9 @@
 		var/mob/living/carbon/human/H = new_spawn
 		H.gender = pick(MALE, FEMALE)
 		if(H.gender == MALE)
-			H.real_name = H.species.get_random_name(MALE)
+			H.real_name = H.get_random_name(MALE)
 		else
-			H.real_name = H.species.get_random_name(FEMALE)
+			H.real_name = H.get_random_name(FEMALE)
 		H.underwear = "Nude" //You're a plant, partner
 		H.update_body()
 /obj/effect/mob_spawn/human/seed_vault/Destroy()
@@ -147,7 +147,7 @@
 		notify_ghosts("A golem shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK)
 
 /obj/effect/landmark/human/golem/special(mob/living/new_spawn)
-	var/golem_surname = pick(golem_names)
+	var/golem_surname = pick(first_names)
 	// 3% chance that our golem has a human surname, because
 	// cultural contamination
 	if(prob(3))
@@ -211,7 +211,7 @@
 			flavour_text += "you're an exile from the Tiger Cooperative. Their technological fanaticism drove you to question the power and beliefs of the Exolitics, and they saw you as a \
 			heretic and subjected you to hours of horrible torture. You were hours away from execution when a high-ranking friend of yours in the Cooperative managed to secure you a pod, \
 			scrambled its destination's coordinates, and launched it. You awoke from stasis when you landed and have been surviving - barely - ever since.</b>"
-			uniform = /obj/item/clothing/under/color/orange/prisoner
+			uniform = /obj/item/clothing/under/color/orange/prison
 			shoes = /obj/item/clothing/shoes/orange
 			back = /obj/item/weapon/storage/backpack
 		if(3)
@@ -251,7 +251,7 @@
 	mob_name = "an escaped prisoner"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "sleeper_s"
-	uniform = /obj/item/clothing/under/color/orange/prisoner
+	uniform = /obj/item/clothing/under/color/orange/prison
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/orange
 	pocket1 = /obj/item/weapon/tank/emergency_oxygen/double
