@@ -480,8 +480,8 @@ var/time_last_changed_position = 0
 				access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the [jobnamedata] to Civilian.")
-				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the [jobnamedata] to Civilian.")
+				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the [jobnamedata] to Civilian (Unassigned).")
+				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the [jobnamedata] to Civilian (Unassigned).")
 
 				modify.access = access
 				modify.rank = "Civilian"
