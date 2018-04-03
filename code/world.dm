@@ -32,7 +32,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		// dumb and hardcoded but I don't care~
 		config.server_name += " #[(world.port % 1000) / 100]"
 
-	timezoneOffset = text2num(time2text(0,"hh")) * 36000
+	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
 
 	callHook("startup")
@@ -116,7 +116,8 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["ai"] = config.allow_ai
 		s["host"] = host ? host : null
 		s["players"] = list()
-		s["stationtime"] = worldtime2text()
+		s["roundtime"] = worldtime2text()
+		s["stationtime"] = station_time_timestamp()
 		s["listed"] = "Public"
 		if(!hub_password)
 			s["listed"] = "Invisible"

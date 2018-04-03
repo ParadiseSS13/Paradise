@@ -35,7 +35,8 @@ var/round_start_time = 0
 
 	var/obj/screen/cinematic = null			//used for station explosion cinematic
 
-	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
+	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.\
+
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\

@@ -103,8 +103,7 @@
 
 	statpanel("Status")
 	if(client.statpanel == "Status" && ticker)
-		if(ticker.current_state != GAME_STATE_PREGAME)
-			stat(null, "Station Time: [worldtime2text()]")
+		show_stat_station_time()
 
 
 /mob/new_player/Topic(href, href_list[])
