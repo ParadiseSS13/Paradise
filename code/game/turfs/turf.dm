@@ -225,6 +225,7 @@
 		var/anitro = 0
 		var/aco = 0
 		var/atox = 0
+		var/awat = 0
 		var/atemp = 0
 		var/turf_count = 0
 
@@ -241,11 +242,13 @@
 					aco += S.air.carbon_dioxide
 					atox += S.air.toxins
 					atemp += S.air.temperature
+					awat += S.air.water
 				turf_count++
 		air.oxygen = (aoxy/max(turf_count,1))//Averages contents of the turfs, ignoring walls and the like
 		air.nitrogen = (anitro/max(turf_count,1))
 		air.carbon_dioxide = (aco/max(turf_count,1))
 		air.toxins = (atox/max(turf_count,1))
+		air.water = (awat/max(turf_count,1))
 		air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
 		if(SSair)
 			SSair.add_to_active(src)

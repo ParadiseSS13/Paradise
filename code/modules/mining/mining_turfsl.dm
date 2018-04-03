@@ -19,7 +19,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	mouse_opacity = 0
 	oxygen = 0
 	nitrogen = 0
-	water = 0
+	water = 1
 	opacity = 1
 	density = 1
 	blocks_air = 1
@@ -477,6 +477,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
 	oxygen = 0.01
 	nitrogen = 0.01
+	water = 500
 	temperature = TCMB
 
 /turf/simulated/floor/plating/airless/lavaland/New()

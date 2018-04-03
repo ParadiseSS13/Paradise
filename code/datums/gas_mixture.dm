@@ -117,6 +117,7 @@ What are the archived variables for?
 
 					carbon_dioxide -= reaction_rate
 					oxygen += reaction_rate
+					water -= reaction_rate
 
 					trace_gas.moles -= reaction_rate*0.05
 
