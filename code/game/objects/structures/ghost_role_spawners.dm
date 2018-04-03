@@ -1,7 +1,7 @@
 //Objects that spawn ghosts in as a certain role when they click on it, i.e. away mission bartenders.
 
 //Preserved terrarium/seed vault: Spawns in seed vault structures in lavaland. Ghosts become plantpeople and are advised to begin growing plants in the room near them.
-/obj/effect/landmark/human/seed_vault
+/obj/effect/mob_spawn/human/seed_vault
 	name = "preserved terrarium"
 	desc = "An ancient machine that seems to be used for storing plant matter. The glass is obstructed by a mat of vines."
 	mob_name = "a lifebringer"
@@ -20,7 +20,7 @@
 	for contact from your creators. Estimated time of last contact: Deployment, 5x10^3 millennia ago.</b>"
 	jobban_type = "lavaland"
 
-/obj/effect/landmark/human/seed_vault/special(mob/living/carbon/human/new_spawn)
+/obj/effect/mob_spawn/human/seed_vault/special(mob/living/carbon/human/new_spawn)
 	if(ishuman(new_spawn))
 		var/mob/living/carbon/human/H = new_spawn
 		H.gender = pick(MALE, FEMALE)
@@ -35,7 +35,7 @@
 	..()
 
 //Ash walker eggs: Spawns in ash walker dens in lavaland. Ghosts become unbreathing lizards that worship the Necropolis and are advised to retrieve corpses to create more ash walkers.
-/obj/effect/landmark/human/ash_walker
+/obj/effect/mob_spawn/human/ash_walker
 	name = "mermaid egg"
 	desc = "A man-sized yellow egg, spawned from some unfathomable creature. A humanoid silhouette lurks within."
 	mob_name = "an mermaid"
@@ -51,7 +51,7 @@
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest.</b>"
 	jobban_type = "lavaland"
 
-/obj/effect/landmark/human/ash_walker/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/ash_walker/special(mob/living/new_spawn)
 	new_spawn.real_name = H.get_random_name(gender)
 	new_spawn << "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis, and her chosen son: The Chieftain!</b>"
 	new_spawn <<"<b>The chieftain will have a special HUD over their head. Remember to show utmost respect.</b>"
@@ -65,20 +65,20 @@
 	var/datum/atom_hud/antag/ashhud = huds[ANTAG_HUD_ASHWALKER]
 	ashhud.join_hud(new_spawn)
 
-/obj/effect/landmark/human/ash_walker/New()
+/obj/effect/mob_spawn/human/ash_walker/New()
 	..()
 	var/area/A = get_area(src)
 	if(A)
 		notify_ghosts("A mermaid egg is ready to hatch in \the [A.name].", source = src, action=NOTIFY_ATTACK)
 
-/obj/effect/landmark/human/ash_walker/chief
+/obj/effect/mob_spawn/human/ash_walker/chief
 	name = "chief mermaid egg"
 	icon_state = "hero_egg"
 	mob_species = /datum/species/skrell/mermaid/chieftain
 	helmet = /obj/item/clothing/head/helmet/gladiator
 	var/mob/living/simple_animal/hostile/spawner/ash_walker/nest
 
-/obj/effect/landmark/human/ash_walker/chief/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/ash_walker/chief/special(mob/living/new_spawn)
 	..()
 	if(ishuman(new_spawn))
 		var/mob/living/carbon/human/H = new_spawn
@@ -94,7 +94,7 @@
 	new_spawn <<"<b>You are the chieftain of the mermaids. You are the only one who can use complicated machinery and speak to outsiders-Lead your tribe, for better or for worse.</b>"
 
 //Timeless prisons: Spawns in Wish Granter prisons in lavaland. Ghosts become age-old users of the Wish Granter and are advised to seek repentance for their past.
-/obj/effect/landmark/human/exile
+/obj/effect/mob_spawn/human/exile
 	name = "timeless prison"
 	desc = "Although this stasis pod looks medicinal, it seems as though it's meant to preserve something for a very long time."
 	mob_name = "a penitent exile"
@@ -106,11 +106,11 @@
 	flavour_text = "<font size=3><b>Y</b></font>ou are cursed. Years ago, you sacrificed the lives of your trusted friends and the humanity of yourself to reach the Wish Granter. Though you did so, \
 	it has come at a cost: your very body rejects the light, dooming you to wander endlessly in this horrible wasteland.</b>"
 
-/obj/effect/landmark/human/exile/Destroy()
+/obj/effect/mob_spawn/human/exile/Destroy()
 	new/obj/structure/fluff/empty_sleeper(get_turf(src))
 	..()
 
-/obj/effect/landmark/human/exile/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/exile/special(mob/living/new_spawn)
 	new_spawn.real_name = "[new_spawn.real_name] ([rand(0,999)])"
 	var/wish = rand(1,4)
 	switch(wish)
@@ -124,7 +124,7 @@
 			new_spawn << "<b>You wished for immortality, even as your friends lay dying behind you. No matter how many times you cast yourself into the lava, you awaken in this room again within a few days. There is no escape.</b>"
 
 //Golem shells: Spawns in Free Golem ships in lavaland. Ghosts become mineral golems and are advised to spread personal freedom.
-/obj/effect/landmark/human/golem
+/obj/effect/mob_spawn/human/golem
 	name = "inert golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	mob_name = "a free golem"
@@ -140,13 +140,13 @@
 	golems, so that no golem may ever be forced to serve again.</b>"
 	jobban_type = "lavaland"
 
-/obj/effect/landmark/human/golem/New()
+/obj/effect/mob_spawn/human/golem/New()
 	..()
 	var/area/A = get_area(src)
 	if(A)
 		notify_ghosts("A golem shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK)
 
-/obj/effect/landmark/human/golem/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn)
 	var/golem_surname = H.get_random_name
 	// 3% chance that our golem has a human surname, because
 	// cultural contamination
@@ -173,7 +173,7 @@
 		H.set_cloned_appearance()
 
 
-/obj/effect/landmark/human/golem/adamantine
+/obj/effect/mob_spawn/human/golem/adamantine
 	name = "dust-caked golem shell"
 	desc = "A humanoid shape, empty, lifeless, and full of potential."
 	mob_name = "a free golem"
@@ -182,7 +182,7 @@
 	mob_species = /datum/species/golem/
 
 //Malfunctioning cryostasis sleepers: Spawns in makeshift shelters in lavaland. Ghosts become hermits with knowledge of how they got to where they are now.
-/obj/effect/landmark/human/hermit
+/obj/effect/mob_spawn/human/hermit
 	name = "malfunctiong cryostasis sleeper"
 	desc = "A humming sleeper with a silhoutted occupant inside. Its stasis function is broken and it's likely being used as a bed."
 	mob_name = "a stranded hermit"
@@ -197,7 +197,7 @@
 	the fresh air of Earth. These thoughts are dispelled by yet another recollection of how you got here... "
 	jobban_type = "lavaland"
 
-/obj/effect/landmark/human/hermit/New()
+/obj/effect/mob_spawn/human/hermit/New()
 	var/arrpee = rand(1,4)
 	switch(arrpee)
 		if(1)
@@ -230,12 +230,12 @@
 			back = /obj/item/weapon/storage/backpack
 	..()
 
-/obj/effect/landmark/human/hermit/Destroy()
+/obj/effect/mob_spawn/human/hermit/Destroy()
 	new/obj/structure/fluff/empty_cryostasis_sleeper(get_turf(src))
 	..()
 
 //Broken rejuvenation pod: Spawns in animal hospitals in lavaland. Ghosts become disoriented interns and are advised to search for help.
-/obj/effect/landmark/human/doctor/alive/lavaland
+/obj/effect/mob_spawn/human/doctor/alive/lavaland
 	name = "broken rejuvenation pod"
 	desc = "A small sleeper typically used to instantly restore minor wounds. This one seems broken, and its occupant is comatose."
 	mob_name = "a translocated vet"
@@ -245,7 +245,7 @@
 	jobban_type = "lavaland"
 
 //Prisoner containment sleeper: Spawns in crashed prison ships in lavaland. Ghosts become escaped prisoners and are advised to find a way out of the mess they've gotten themselves into.
-/obj/effect/landmark/human/prisoner_transport
+/obj/effect/mob_spawn/human/prisoner_transport
 	name = "prisoner containment sleeper"
 	desc = "A sleeper designed to put its occupant into a deep coma, unbreakable until the sleeper turns off. This one's glass is cracked and you can see a pale, sleeping face staring out."
 	mob_name = "an escaped prisoner"
@@ -263,12 +263,12 @@
 	var/crime
 	jobban_type = "lavaland"
 
-/obj/effect/landmark/human/prisoner_transport/special(mob/living/L)
+/obj/effect/mob_spawn/human/prisoner_transport/special(mob/living/L)
 	L.real_name = "NTP #LL-0[rand(111,999)]"
 	L.name = L.real_name
 	L.add_memory("You were convicted of [crime].")
 
-/obj/effect/landmark/human/prisoner_transport/New()
+/obj/effect/mob_spawn/human/prisoner_transport/New()
 	var/list/crimes = list("murder", "larceny", "embezzlement", "unionization", "dereliction of duty", "kidnapping", "gross incompetence", "grand theft", "collaboration with the Syndicate", \
 	"worship of a forbidden deity", "interspecies relations", "mutiny")
 	crime = pick(crimes)
@@ -277,6 +277,6 @@
 	objectives = "Find a way to rehabilitate yourself, or choose to commit [crime] and nothing higher."
 	..()
 
-/obj/effect/landmark/human/prisoner_transport/Destroy()
+/obj/effect/mob_spawn/human/prisoner_transport/Destroy()
 	new/obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))
 	..()
