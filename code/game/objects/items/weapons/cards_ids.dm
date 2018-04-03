@@ -187,6 +187,14 @@
 /obj/item/weapon/card/id/GetID()
 	return src
 
+/obj/item/weapon/card/id/proc/getRankAndAssignment()
+	var/jobnamedata = ""
+	if(rank)
+		jobnamedata += rank
+	if(rank != assignment)
+		jobnamedata += " (" + assignment + ")"
+	return jobnamedata
+
 /obj/item/weapon/card/id/proc/is_untrackable()
 	return untrackable
 
