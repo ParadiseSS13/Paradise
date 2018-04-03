@@ -166,6 +166,9 @@
 	set category = "Robot Commands"
 	set name = "Power Warning"
 
+	if(handle_emote_CD(50))
+		return
+
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		visible_message("The power warning light on <span class='name'>[src]</span> flashes urgently.",\
 						 "You announce you are operating in low power mode.")

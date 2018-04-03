@@ -53,15 +53,15 @@
 	return cameras
 
 
-/area/proc/atmosalert(danger_level, var/alarm_source)
+/area/proc/atmosalert(danger_level, var/alarm_source, var/force = FALSE)
 	if(danger_level == ATMOS_ALARM_NONE)
 		atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
 		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
 
-	//Check all the alarms before lowering atmosalm. Raising is perfectly fine.
+	//Check all the alarms before lowering atmosalm. Raising is perfectly fine. If force = 1 we don't care.
 	for(var/obj/machinery/alarm/AA in src)
-		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
+		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level && !force)
 			danger_level = max(danger_level, AA.danger_level)
 
 	if(danger_level != atmosalm)
