@@ -373,6 +373,7 @@ var/time_last_changed_position = 0
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
 						modify.assignment = temp_t
+						log_game("[key_name(usr)] has given \"[modify.registered_name]\" the custom job title \"[temp_t]\".")
 				else
 					var/list/access = list()
 					if(is_centcom())
