@@ -1,4 +1,25 @@
-/obj/effect/landmark/human
+/obj/effect/mob_spawn
+	name = "Unknown"
+	var/mob_type = null
+	var/mob_name = ""
+	var/mob_gender = MALE
+	var/death = TRUE //Kill the mob
+	var/roundstart = TRUE //fires on initialize
+	var/instant = FALSE	//fires on New
+	var/flavour_text = "The mapper forgot to set this!"
+	var/faction = null
+	var/permanent = FALSE	//If true, the spawner will not disappear upon running out of uses.
+	var/random = FALSE		//Don't set a name or gender, just go random
+	var/objectives = null
+	var/uses = 1			//how many times can we spawn from it. set to -1 for infinite.
+	var/brute_damage = 0
+	var/oxy_damage = 0
+	var/assigned_role
+	density = 1
+	anchored = 1
+var/jobban_type
+
+/obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
 	var/mob_species = null //Set to make them a mutant race such as lizard or skeleton. Uses the datum typepath instead of the ID.
@@ -26,7 +47,7 @@
 	var/outfit_type = null // Will start with this if exists then apply specific slots
 var/list/implants = list()
 
-/obj/effect/landmark/attack_ghost(mob/user)
+/obj/effect/mob_spawn/attack_ghost(mob/user)
 	if(ticker.current_state != GAME_STATE_PLAYING || !loc)
 		return
 	if(!uses)
@@ -41,7 +62,7 @@ var/list/implants = list()
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
 
-/obj/effect/landmark/spawn_atom_to_world()
+/obj/effect/mob_spawn/spawn_atom_to_world()
 	//We no longer need to spawn mobs, deregister ourself
 	SSobj.atom_spawners -= src
 	if(roundstart)
@@ -49,7 +70,7 @@ var/list/implants = list()
 	else
 		poi_list |= src
 
-/obj/effect/landmark/New()
+/obj/effect/mob_spawn/New()
 	..()
 	if(roundstart)
 		//Add to the atom spawners register for roundstart atom spawning
@@ -60,17 +81,17 @@ var/list/implants = list()
 	else
 		poi_list |= src
 
-/obj/effect/landmark/Destroy()
+/obj/effect/mob_spawn/Destroy()
 	poi_list.Remove(src)
 	..()
 
-/obj/effect/landmark/proc/special(mob/M)
+/obj/effect/mob_spawn/proc/special(mob/M)
 	return
 
-/obj/effect/landmark/proc/equip(mob/M)
+/obj/effect/mob_spawn/proc/equip(mob/M)
 	return
 
-/obj/effect/landmark/proc/create(ckey)
+/obj/effect/mob_spawn/proc/create(ckey)
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
@@ -94,14 +115,14 @@ var/list/implants = list()
 		special(M)
 		MM.name = M.real_name
 		MM.special_role = name
-		if(MM.assigned_role)
+		if(assigned_role)
 			MM.assigned_role = assigned_role
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
 qdel(src)
 
-/obj/effect/landmark/human/equip(mob/living/carbon/human/H)
+/obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
 		H.set_species(mob_species)
 	if(husk)
