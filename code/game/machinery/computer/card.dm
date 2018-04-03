@@ -392,9 +392,9 @@ var/time_last_changed_position = 0
 						access = jobdatum.get_access()
 
 					var/jobnamedata = modify.getRankAndAssignment()
-					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from [jobnamedata] to [t1].")
+					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 					if(t1 == "Civilian")
-						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from [jobnamedata] to [t1].")
+						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					modify.access = access
 					modify.rank = t1
@@ -461,8 +461,8 @@ var/time_last_changed_position = 0
 		if("terminate")
 			if(is_authenticated(usr) && !target_dept)
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the [jobnamedata].")
-				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the [jobnamedata].")
+				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
 				callHook("terminate_employee", list(modify))
@@ -481,8 +481,8 @@ var/time_last_changed_position = 0
 				access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
-				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the [jobnamedata] to Civilian (Unassigned).")
-				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the [jobnamedata] to Civilian (Unassigned).")
+				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Unassigned)\".")
+				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Unassigned)\".")
 
 				modify.access = access
 				modify.rank = "Civilian"
