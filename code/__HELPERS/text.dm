@@ -505,7 +505,7 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"<img src = ntlogo.png>")
-		text = replacetext(text, "\[time\]", "[gameTimestamp()]") // TO DO
+		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
 	if(P)
 		text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
 	else

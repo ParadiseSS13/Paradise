@@ -1,4 +1,0 @@
-author: "MarsM0nd"
-delete-after: True
-changes: 
-  - rscadd: "Record printouts now automatically get labled with the name of the person."

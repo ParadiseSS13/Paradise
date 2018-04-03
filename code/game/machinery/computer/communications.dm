@@ -255,7 +255,7 @@
 					SSnanoui.update_uis(src)
 					return
 				Centcomm_announce(input, usr)
-				print_centcom_report(input, worldtime2text() +" Captain's Message")
+				print_centcom_report(input, station_time_timestamp() + " Captain's Message")
 				to_chat(usr, "Message transmitted.")
 				log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = 1

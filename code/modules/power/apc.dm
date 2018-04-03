@@ -104,6 +104,10 @@
 
 	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
 
+	// Nightshift
+	var/nightshift_lights = FALSE
+	var/last_nightshift_switch = 0
+
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1
@@ -773,6 +777,7 @@
 	data["siliconUser"] = istype(user, /mob/living/silicon)
 	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
+	data["nightshiftLights"] = nightshift_lights
 
 	var/powerChannels[0]
 	powerChannels[++powerChannels.len] = list(
@@ -903,6 +908,16 @@
 			return
 
 		toggle_breaker()
+
+	else if(href_list["toggle_nightshift"])
+		if(!is_authenticated(usr))
+			return
+
+		if(last_nightshift_switch > world.time + 100) // don't spam...
+			to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
+			return
+		last_nightshift_switch = world.time
+		set_nightshift(!nightshift_lights)
 
 	else if(href_list["cmode"])
 		if(!is_authenticated(usr))
@@ -1352,5 +1367,14 @@
 		return 1
 	else
 		return 0
+
+/obj/machinery/power/apc/proc/set_nightshift(on)
+	set waitfor = FALSE
+	nightshift_lights = on
+	for(var/obj/machinery/light/L in area)
+		if(L.nightshift_allowed)
+			L.nightshift_enabled = nightshift_lights
+			L.update(FALSE)
+		CHECK_TICK
 
 #undef APC_UPDATE_ICON_COOLDOWN

@@ -169,7 +169,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	data["useRetro"] = retro_mode
 
 	data["cartridge_name"] = cartridge ? cartridge.name : ""
-	data["stationTime"] = worldtime2text()
+	data["stationTime"] = station_time_timestamp()
 
 	data["app"] = list()
 	current_app.update_ui(user, data)
