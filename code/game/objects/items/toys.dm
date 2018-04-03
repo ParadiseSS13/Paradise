@@ -211,6 +211,22 @@
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
 
+/obj/item/weapon/twohanded/dualsaber/toy/attack(target as mob, mob/living/user as mob)
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
+		unwield()
+		return
+	..()
+	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
+		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
+		unwield()
+		return
+	if((wielded) && prob(50))
+		spawn(0)
+			for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2))
+				user.dir = i
+				sleep(1)
+
 /obj/item/weapon/twohanded/dualsaber/toy/hit_reaction()
 	return 0
 
