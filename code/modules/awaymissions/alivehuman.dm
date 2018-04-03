@@ -17,7 +17,7 @@
 	var/assigned_role
 	density = 1
 	anchored = 1
-var/jobban_type
+	var/jobban_type
 
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human

@@ -42,10 +42,10 @@
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
 		var/turf/T = get_step(src, SOUTH)
 		if(spawn_chief)
-			var/obj/effect/landmark/human/ash_walker/chief/hero = new /obj/effect/landmark/human/ash_walker/chief(T)
+			var/obj/effect/mob_spawn/human/ash_walker/chief/hero = new /obj/effect/landmark/human/ash_walker/chief(T)
 			hero.nest = src
 			spawn_chief = FALSE
 		else
-			new /obj/effect/landmark/human/ash_walker(T)
+			new /obj/effect/mob_spawn/human/ash_walker(T)
 		visible_message("<span class='danger'>One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!</span>")
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
