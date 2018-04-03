@@ -79,7 +79,9 @@
 			"current_positions" = job.current_positions,
 			"total_positions" = job.total_positions,
 			"can_open" = can_open_job(job),
-			"can_close" = can_close_job(job))))
+			"can_close" = can_close_job(job),
+			"can_prioritize" = can_prioritize_job(job)
+		)))
 
 	return formatted
 
@@ -120,6 +122,19 @@
 				return -2
 			return -1
 	return 0
+
+/datum/computer_file/program/card_mod/proc/can_prioritize_job(datum/job/job)
+	if(job)
+		if(!job_blacklisted(job))
+			if(job in job_master.prioritized_jobs)
+				return 2
+			else
+				if(job_master.prioritized_jobs.len >= 3)
+					return 0
+				if(job.total_positions <= job.current_positions)
+					return 0
+				return 1
+	return -1
 
 /datum/computer_file/program/card_mod/proc/format_jobs(list/jobs)
 	var/obj/item/weapon/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
@@ -210,6 +225,7 @@
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
 						modify.assignment = temp_t
+						log_game("[key_name(usr)] has given \"[modify.registered_name]\" the custom job title \"[temp_t]\".")
 				else
 					var/list/access = list()
 					if(is_centcom)
@@ -226,6 +242,11 @@
 							return
 
 						access = jobdatum.get_access()
+
+					var/jobnamedata = modify.getRankAndAssignment()
+					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
+					if(t1 == "Civilian")
+						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					modify.access = access
 					modify.assignment = t1
@@ -287,9 +308,11 @@
 
 		if("PRG_terminate")
 			if(is_authenticated(usr))
+				var/jobnamedata = modify.getRankAndAssignment()
+				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
-
 				callHook("terminate_employee", list(modify))
 
 		if("PRG_make_job_available")
@@ -322,6 +345,26 @@
 				j.total_positions--
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
+
+
+		if("PRG_prioritize_job")
+			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
+			if(is_authenticated(usr))
+				var/priority_target = href_list["job"]
+				var/datum/job/j = job_master.GetJob(priority_target)
+				if(!j)
+					return 0
+				// Unlike the proper ID computer, this does not check job_in_department
+				var/priority = TRUE
+				if(j in job_master.prioritized_jobs)
+					job_master.prioritized_jobs -= j
+					priority = FALSE
+				else if(job_master.prioritized_jobs.len < 3)
+					job_master.prioritized_jobs += j
+				else
+					return 0
+				log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
+				playsound(computer.loc, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 
 	if(modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
