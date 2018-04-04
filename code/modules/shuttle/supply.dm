@@ -428,7 +428,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/ordercomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
 		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
 		ui.open()
@@ -492,7 +492,7 @@
 	if(href_list["doorder"])
 		if(world.time < reqtime)
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return 1
 
 		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
@@ -555,7 +555,7 @@
 			content_pack = P
 
 	add_fingerprint(usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
@@ -577,7 +577,7 @@
 		return
 
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
 		ui.open()
@@ -673,7 +673,7 @@
 	else if(href_list["doorder"])
 		if(world.time < reqtime)
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return 1
 
 		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
@@ -754,7 +754,7 @@
 			content_pack = P
 
 	add_fingerprint(usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/computer/supplycomp/proc/post_signal(var/command)

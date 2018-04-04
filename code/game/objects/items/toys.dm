@@ -151,21 +151,21 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "sword0"
 	item_state = "sword0"
-	var/active = 0.0
+	var/active = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
 
-/obj/item/toy/sword/attack_self(mob/user as mob)
-	active = !(active)
+/obj/item/toy/sword/attack_self(mob/user)
+	active = !active
 	if(active)
 		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
-		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		icon_state = "swordblue"
 		item_state = "swordblue"
 		w_class = WEIGHT_CLASS_BULKY
 	else
 		to_chat(user, "<span class='notice'>You push the plastic blade back down into the handle.</span>")
-		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		icon_state = "sword0"
 		item_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL

@@ -22,6 +22,7 @@
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
+	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
@@ -342,8 +343,20 @@
 	"Lilac" = "#C7A0F6", \
 	"Orchid" = "#F62CF5")
 
+	var/bio_list = list("Rose" = "#F62C6B", \
+	"Peony" = "#E54750", \
+	"Lily" = "#F6562C", \
+	"Daisy" = "#ECCD39", \
+	"Zinnia" = "#89F62C", \
+	"Ivy" = "#5DF62C", \
+	"Iris" = "#2CF6B8", \
+	"Petunia" = "#51A9D4", \
+	"Violet" = "#8A347C", \
+	"Lilac" = "#C7A0F6", \
+	"Orchid" = "#F62CF5")
+
 	var/picked_name
-	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
+//	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
 
 	switch(theme)
 		if("magic")
@@ -372,15 +385,18 @@
 			to_chat(user, "[G.tech_fluff_string].")
 			G.speak_emote = list("states")
 		if("bio")
-			G.name_color = picked_color
-			G.icon = 'icons/mob/mob.dmi'
+			color = pick(bio_list) //technically not colors, just using the same flowers as tech currerntly
+			G.name_color = tech_list[color]
 			picked_name = pick("brood", "hive", "nest")
 			to_chat(user, "[G.bio_fluff_string].")
-			G.name = "[picked_name] swarm"
-			G.color = picked_color
-			G.real_name = "[picked_name] swarm"
-			G.icon_living = "headcrab"
-			G.icon_state = "headcrab"
+
+			G.name = "[color] [picked_name]"
+			G.real_name = "[color] [picked_name]"
+			G.icon_living = "[theme][color]"
+			G.icon_state = "[theme][color]"
+			G.icon_dead = "[theme][color]"
+
+			to_chat(user, "[G.bio_fluff_string].")
 			G.attacktext = "swarms"
 			G.speak_emote = list("chitters")
 

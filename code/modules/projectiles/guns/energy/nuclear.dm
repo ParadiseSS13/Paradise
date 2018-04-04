@@ -30,7 +30,6 @@
 	name = "miniature energy gun"
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: stun and kill."
 	icon_state = "mini"
-	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
 	charge_sections = 3

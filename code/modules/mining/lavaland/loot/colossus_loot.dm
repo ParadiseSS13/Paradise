@@ -335,6 +335,7 @@
 	friendly = "mends"
 	density = 0
 	flying = 1
+	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY

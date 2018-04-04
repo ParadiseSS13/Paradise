@@ -388,6 +388,15 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "energy gun crate"
 
+/datum/supply_packs/security/armory/epistol	// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person
+	name = "Energy Pistol Crate"
+	contains = list(/obj/item/weapon/gun/energy/gun/mini,
+					/obj/item/weapon/gun/energy/gun/mini,
+					/obj/item/weapon/gun/energy/gun/mini)
+	cost = 15
+	containertype = /obj/structure/closet/crate/secure/plasma
+	containername = "energy gun crate"
+
 /datum/supply_packs/security/armory/eweapons
 	name = "Incendiary Weapons Crate"
 	contains = list(/obj/item/weapon/flamethrower/full,

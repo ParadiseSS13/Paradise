@@ -133,7 +133,7 @@
 				item_quants[I.name]++
 			else
 				item_quants[I.name] = 1
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			amount--
 
 /obj/machinery/smartfridge/chemistry/accept_check(obj/item/O)
@@ -227,7 +227,7 @@
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 	else if(istype(O, /obj/item/weapon/storage/bag))
 		var/obj/item/weapon/storage/bag/P = O
@@ -240,7 +240,7 @@
 			if(P.contents.len > 0)
 				to_chat(user, "<span class='notice'>Some items are refused.</span>")
 
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 	else
 		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
@@ -306,7 +306,7 @@
 		"<span class='notice'>You empty \the [P] into \the [src].</span>")
 	if(P.contents.len > 0)
 		to_chat(user, "<span class='notice'>Some items are refused.</span>")
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/smartfridge/secure/emag_act(mob/user)
 	emagged = 1
@@ -320,7 +320,7 @@
 /obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	user.set_machine(src)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "smartfridge.tmpl", name, 400, 500)
 		ui.open()
@@ -352,7 +352,7 @@
 	if(..()) return 0
 
 	var/mob/user = usr
-	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 
 	add_fingerprint(user)
 
@@ -521,14 +521,14 @@
 			new dried(loc)
 			item_quants[S.name]--
 			qdel(S)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return TRUE
 	for(var/obj/item/stack/sheet/wetleather/WL in contents)
 		var/obj/item/stack/sheet/leather/L = new(loc)
 		L.amount = WL.amount
 		item_quants[WL.name]--
 		qdel(WL)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return TRUE
 	return FALSE
 
@@ -546,6 +546,6 @@
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
 		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])
 			to_chat(usr, "<span class='warning'>Access denied.</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return 0
 	return ..()

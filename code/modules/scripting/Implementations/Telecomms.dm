@@ -228,7 +228,7 @@
 
 	// Time
 	interpreter.SetProc("time",			/proc/time)
-	interpreter.SetProc("timestamp",	/proc/timestamp)
+	interpreter.SetProc("timestamp",	/proc/gameTimestamp)
 
 	// Run the compiled code
 	interpreter.Run()
