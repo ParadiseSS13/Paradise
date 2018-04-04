@@ -84,31 +84,44 @@
 
 /obj/item/weapon/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
 	..()
-	var/temp_sawing = 0
 	if(istype(A, /obj/item/weapon/circular_saw) || istype(A, /obj/item/weapon/gun/energy/plasmacutter))
-		temp_sawing = 1
+		sawoff(A, user, 0)
 	if(istype(A, /obj/item/weapon/melee/energy))
 		var/obj/item/weapon/melee/energy/W = A
 		if(W.active)
-			temp_sawing = 1
-	if(temp_sawing)
-		if(style == 2)
-			to_chat(user, "<span class='notice'>[src] is already sawn off!</span>")
-			return
-		if(chambered)
-			afterattack(user, user)
-			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-			return
-		if(magazine.ammo_count())
-			user.visible_message("<span class='danger'>[user.name] saws open [src] and the shells go goes flying around!</span>", "<span class='userdanger'>You saw open [src] and the shells go goes flying everywhere!!</span>")
-			while(get_ammo() > 0)
-				var/obj/item/ammo_casing/CB
-				CB = magazine.get_round(0)
-				if(CB)
-					CB.loc = get_turf(loc)
-					CB.update_icon()
+			sawoff(A, user, 0)
+	if(istype(A, /obj/item/pipe))
+		sawoff(A, user, 1)
+
+/obj/item/weapon/gun/projectile/shotgun/riot/sawoff(obj/item/A, mob/user, style = 0)
+	//Check to see if they match
+	if(sawn_state == SAWN_OFF & style == 0)
+		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
+		return
+	if(sawn_state != SAWN_OFF & style == 1)
+		to_chat(user, "<span class='notice'>[src] already has a full barrel and magazine!</span>")
+		return
+	//Make sure it isn't in a bag
+	if(istype(loc, /obj/item/weapon/storage))
+		to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
+		return
+//	user.changeNext_move(CLICK_CD_MELEE)
+
+	//if there's any live ammo inside the gun, makes it go off
+	if(blow_up(user))
+		user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+		return
+	//Spill the mag onto the floor
+	if(magazine.ammo_count())
+		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		while(get_ammo() > 0)
+			var/obj/item/ammo_casing/CB
+			CB = magazine.get_round(0)
+			if(CB)
+				CB.loc = get_turf(loc)
+				CB.update_icon()
+	if(style == 0)
 		if(do_after(user, 10, target = src))
-			style = 2
 			to_chat(user, "<span class='notice'>You saw the barrel and magazine of the [src].</span>")
 			w_class = WEIGHT_CLASS_NORMAL
 			slot_flags = null
@@ -116,28 +129,10 @@
 			name = "assault shotgun"
 			current_skin = "riotshotgun-short"
 			desc = "A shortened riot shotgun that has been shortened enough to fit inside a bag."
+			sawn_state = SAWN_OFF
 			update_icon()
-	if(istype(A, /obj/item/pipe))
-		if(style == 1)
-			to_chat(user, "<span class='notice'>[src] already has a full barrel and magazine!</span>")
-			return
-		if(istype(loc, /obj/item/weapon/storage))
-			to_chat(user, "<span class='info'>How do you plan to modify [src] while it's in a bag.</span>")
-			return
-		if(chambered)
-			afterattack(user, user)
-			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-			return
-		if(magazine.ammo_count())
-			user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
-			while(get_ammo() > 0)
-				var/obj/item/ammo_casing/CB
-				CB = magazine.get_round(0)
-				if(CB)
-					CB.loc = get_turf(loc)
-					CB.update_icon()
+	else
 		if(do_after(user, 10, target = src))
-			style = 1
 			to_chat(user, "<span class='notice'>You install the longer barrel and magazine onto [src].</span>")
 			w_class = WEIGHT_CLASS_BULKY
 			slot_flags = SLOT_BACK
@@ -145,8 +140,17 @@
 			name = "riot shotgun"
 			current_skin = "riotshotgun"
 			desc = "A sturdy shotgun with a longer magazine and a fixed tactical stock designed for non-lethal riot control."
+			sawn_state = null
 			update_icon()
 			qdel(A)
+	return
+
+/obj/item/weapon/gun/projectile/shotgun/riot/update_icon() //Can't use the old proc as it makes it go to riotshotgun-short_sawn
+	..()
+	if(current_skin)
+		icon_state = "[current_skin]"
+	else
+		icon_state = "[initial(icon_state)]"
 
 /obj/item/weapon/gun/projectile/shotgun/riot/short
 	name = "assault shotgun"
@@ -155,7 +159,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/riot/short
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = null
-	style = 2
+	sawn_state = SAWN_OFF
 
 ///////////////////////
 // BOLT ACTION RIFLE //
