@@ -34,8 +34,8 @@
 	var/tox_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/tox_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/tox_damage_type = TOX
-	var/wat_breath_dam_min = MIN_WATER_GAS_DAMAGE
-	var/wat_breath_dam_max = MAX_WATER_GAS_DAMAGE
+	var/wat_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
+	var/wat_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/wat_damage_type = OXY
 
 	var/cold_message = "your face freezing and an icicle forming"
