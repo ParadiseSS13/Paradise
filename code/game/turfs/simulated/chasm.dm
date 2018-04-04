@@ -4,7 +4,7 @@
 /turf/simulated/chasm
 	name = "chasm"
 	desc = "Watch your step."
-	baseturf = /turf/open/chasm
+	baseturf = /turf/simulated/chasm
 	smooth = SMOOTH_TRUE | SMOOTH_BORDER
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "smooth"
@@ -128,4 +128,8 @@
 	qdel(AM)
 
 /turf/simulated/chasm/straight_down/lava_land_surface/normal_air
-	initial_gas_mix = "o2=22;n2=82;TEMP=293.15"
+	oxygen = 0.01
+	nitrogen = 0.01
+	water = 500
+	temperature = T20C
+

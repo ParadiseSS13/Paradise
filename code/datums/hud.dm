@@ -21,7 +21,7 @@ var/datum/atom_hud/huds = list( \
 	ANTAG_HUD_CHANGELING = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_VAMPIRE = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_ASHWALKER = new/datum/atom_hud/antag/hidden()\
+	ANTAG_HUD_ASHWALKER = new/datum/atom_hud/antag/()\
  	)
 
 /datum/atom_hud

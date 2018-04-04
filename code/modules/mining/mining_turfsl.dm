@@ -688,6 +688,35 @@ var/global/list/lrockTurfEdgeCache = list(
 				new /mob/living/simple_animal/hostile/deathsquid/kraken(T)
 	return
 
+/turf/simulated/chasm/straight_down/lava_land_surface
+	oxygen = 0.01
+	nitrogen = 0.01
+	water = 500
+	temperature = T20C
+	//planetary_atmos = TRUE
+	baseturf = /turf/simulated/chasm/straight_down/lava_land_surface
+
+
+/turf/simulated/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
+	if(!AM)
+		return
+	if(!AM.invisibility)
+		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
+		into the enveloping dark.</span>")
+		if(isliving(AM))
+			var/mob/living/L = AM
+			L.notransform = TRUE
+			L.Stun(10)
+			L.resting = TRUE
+		animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
+		for(var/i in 1 to 5)
+			AM.pixel_y--
+			sleep(2)
+		if(isrobot(AM))
+			var/mob/living/silicon/robot/S = AM
+			qdel(S.mmi)
+qdel(AM)
+
 #undef NORTH_EDGING
 #undef SOUTH_EDGING
 #undef EAST_EDGING
