@@ -109,6 +109,7 @@
 	target cultists!). If this creature has a mind, a soulstone will be created and the creature's soul transported to it. Sacrificing the dead can be done alone, but sacrificing living crew <b>or your cult's target</b> will require 3 cultists. \
 	Soulstones used on construct shells will move that soul into a powerful construct of your choice.<br><br>"
 
+
 	text += "<font color='red'><b>Rite of Resurrection</b></font><br>This rune requires two corpses. To perform the ritual, place the corpse you wish to revive onto \
 	the rune and the offering body adjacent to it. When the rune is invoked, the body to be sacrificed will turn to dust, the life force flowing into the revival target. Assuming the target is not moved \
 	within a few seconds, they will be brought back to life, healed of all ailments.<br><br>"
@@ -293,7 +294,7 @@
 	var/mob/living/carbon/human/H = user
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = H.get_organ(ran_zone(dam_zone))
-	user.visible_message("<span class='warning'>[user] cuts open their \The [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
+	user.visible_message("<span class='warning'>[user] cuts open their [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE , affecting)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)

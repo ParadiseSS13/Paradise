@@ -313,14 +313,17 @@
 	egg_list.Cut()									//Destroy any excess eggs, clearing the egg_list
 
 /obj/machinery/fishtank/proc/harvest_fish(var/mob/user)
-	if(!fish_count)									//Can't catch non-existant fish!
+	if(fish_count <= 0)									//Can't catch non-existant fish!	
 		to_chat(usr, "There are no fish in \the [src] to catch!")
 		return
 	var/list/fish_names_list = list()
 	for(var/datum/fish/fish_type in fish_list)
 		fish_names_list += list("[fish_type.fish_name]" = fish_type)
 	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_names_list		//Select a fish from the tank
-	if(caught_fish)
+	if(fish_count <= 0)
+		to_chat(usr, "There are no fish in \the [src] to catch!")
+		return
+	else if(caught_fish)
 		user.visible_message("[user.name] harvests \a [caught_fish] from \the [src].", "You scoop \a [caught_fish] out of \the [src].")
 		var/datum/fish/fish_type = fish_names_list[caught_fish]
 		var/fish_item = fish_type.fish_item
@@ -595,7 +598,7 @@
 		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
 	check_health()
 
-/obj/machinery/fishtank/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
+/obj/machinery/fishtank/attack_generic(mob/living/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	cur_health -= damage

@@ -10,7 +10,9 @@ world/IsBanned(key,address,computer_id)
 	var/admin = 0
 	var/ckey = ckey(key)
 	if((ckey in admin_datums) || (ckey in deadmins))
-		admin = 1
+		var/datum/admins/A = admin_datums[ckey]
+		if(A.rights & R_ADMIN)
+			admin = 1
 
 	//Guest Checking
 	if(!guests_allowed && IsGuestKey(key))
