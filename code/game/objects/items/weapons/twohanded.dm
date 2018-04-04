@@ -79,6 +79,7 @@
 	var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 	O.name = "[name] - offhand"
 	O.desc = "Your second grip on the [name]"
+	O.wielded = TRUE
 	user.put_in_inactive_hand(O)
 	return
 
@@ -114,11 +115,19 @@
 	name = "offhand"
 	flags = ABSTRACT
 
+/obj/item/weapon/twohanded/offhand/Destroy()
+	wielded = FALSE
+	return ..()
+
 /obj/item/weapon/twohanded/offhand/unwield()
-	qdel(src)
+	if(wielded)//Only delete if we're wielded
+		wielded = FALSE
+		qdel(src)
 
 /obj/item/weapon/twohanded/offhand/wield()
-	qdel(src)
+	if(wielded)//Only delete if we're wielded
+		wielded = FALSE
+		qdel(src)
 
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
