@@ -111,23 +111,23 @@
 	payload_name = "lubricant"
 	stage = 2
 
-	New()
-		..()
-		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
-		B1.reagents.add_reagent("lube",50)
-		beakers += B1
-/obj/item/weapon/grenade/chem_grenade/lube/remote
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/signaler)
-/obj/item/weapon/grenade/chem_grenade/lube/prox
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
-/obj/item/weapon/grenade/chem_grenade/lube/tripwire
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/infra)
+/obj/item/weapon/grenade/chem_grenade/lube/New()
+	..()
+	var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
+	B1.reagents.add_reagent("lube",50)
+	beakers += B1
+
+/obj/item/weapon/grenade/chem_grenade/lube/remote/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+
+/obj/item/weapon/grenade/chem_grenade/lube/prox/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+
+/obj/item/weapon/grenade/chem_grenade/lube/tripwire/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/infra)
 
 
 // Basic explosion grenade
@@ -135,32 +135,68 @@
 	payload_name = "conventional"
 	stage = 2
 
-	New()
-		..()
-		var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
-		B1.reagents.add_reagent("glycerol",30) // todo: someone says NG is overpowered, test.
-		B1.reagents.add_reagent("sacid",15)
-		B2.reagents.add_reagent("sacid",15)
-		B2.reagents.add_reagent("facid",30)
-		beakers += B1
-		beakers += B2
+/obj/item/weapon/grenade/chem_grenade/explosion/New()
+	..()
+	var/obj/item/weapon/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/weapon/reagent_containers/glass/beaker/B2 = new(src)
+	B1.reagents.add_reagent("glycerol",30) // todo: someone says NG is overpowered, test.
+	B1.reagents.add_reagent("sacid",15)
+	B2.reagents.add_reagent("sacid",15)
+	B2.reagents.add_reagent("facid",30)
+	beakers += B1
+	beakers += B2
 
 // Assembly Variants
-/obj/item/weapon/grenade/chem_grenade/explosion/remote
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+/obj/item/weapon/grenade/chem_grenade/explosion/remote/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/signaler)
 
-/obj/item/weapon/grenade/chem_grenade/explosion/prox
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+/obj/item/weapon/grenade/chem_grenade/explosion/prox/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
 
-/obj/item/weapon/grenade/chem_grenade/explosion/mine
-	New()
-		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/mousetrap)
+/obj/item/weapon/grenade/chem_grenade/explosion/mine/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/mousetrap)
+
+
+// Water + Potassium = Boom
+
+/obj/item/weapon/grenade/chem_grenade/waterpotassium
+	payload_name = "chem explosive"
+	stage = 2
+
+/obj/item/weapon/grenade/chem_grenade/waterpotassium/New()
+	..()
+	var/obj/item/weapon/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/weapon/reagent_containers/glass/beaker/large/B2 = new(src)
+	B1.reagents.add_reagent("water",100)
+	B2.reagents.add_reagent("potassium",100)
+	beakers += B1
+	beakers += B2
+
+/obj/item/weapon/grenade/chem_grenade/waterpotassium/remote/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+
+/obj/item/weapon/grenade/chem_grenade/waterpotassium/prox/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+
+
+/obj/item/weapon/grenade/chem_grenade/waterpotassium/tripwire/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/infra)
+
+/obj/item/weapon/grenade/chem_grenade/waterpotassium/tripwire_armed/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/infra/armed)
+
+/obj/item/weapon/grenade/chem_grenade/waterpotassium/tripwire_armed_stealth/New()
+	..()
+	CreateDefaultTrigger(/obj/item/device/assembly/infra/armed/stealth)
+
+
 
 // Basic EMP grenade
 /obj/item/weapon/grenade/chem_grenade/emp

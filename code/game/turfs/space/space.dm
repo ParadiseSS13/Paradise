@@ -3,6 +3,7 @@
 	name = "\proper space"
 	icon_state = "0"
 	dynamic_lighting = 0
+	flags = RPD_ALLOWED_HERE
 	luminosity = 1
 
 	temperature = TCMB

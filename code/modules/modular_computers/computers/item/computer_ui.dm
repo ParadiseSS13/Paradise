@@ -29,7 +29,7 @@
 		to_chat(user, "<span class='danger'>\The [src] beeps three times, it's screen displaying a \"DISK ERROR\" warning.</span>")
 		return // No HDD, No HDD files list or no stored files. Something is very broken.
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
@@ -105,7 +105,7 @@
 
 		data["PC_programheaders"] = program_headers
 
-	data["PC_stationtime"] = worldtime2text()
+	data["PC_stationtime"] = station_time_timestamp()
 	data["PC_showexitprogram"] = active_program ? 1 : 0 // Hides "Exit Program" button on mainscreen
 	return data
 

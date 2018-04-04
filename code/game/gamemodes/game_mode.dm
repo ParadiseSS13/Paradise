@@ -164,7 +164,7 @@
 						T.purpose = "Payment"
 						T.amount = pay
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
 						M.mind.initial_account.transaction_log.Add(T)
 						msg += "You have been sent the $[pay], as agreed."
@@ -281,10 +281,11 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-			candidates += player.mind
-			players -= player
+		if(!player.skip_antag)
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
+				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+				candidates += player.mind
+				players -= player
 
 	// If we don't have enough antags, draft people who voted for the round.
 	if(candidates.len < recommended_enemies)

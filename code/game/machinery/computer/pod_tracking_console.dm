@@ -14,7 +14,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/podtracker/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "pod_tracking.tmpl", "Pod Tracking Console", 400, 500)
 		ui.open()
@@ -47,4 +47,4 @@
 		return 1
 
 	if(href_list["refresh"])
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)

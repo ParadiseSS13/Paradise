@@ -76,7 +76,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		ui_interact(user)
 
 /datum/wires/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "wires.tmpl", holder.name, window_x, window_y)
 		ui.open()
@@ -174,7 +174,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 					else
 						to_chat(L, "<span class='error'>You need a remote signaller!</span>")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 //
@@ -184,12 +184,12 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 // Called when wires cut/mended.
 /datum/wires/proc/UpdateCut(index, mended)
 	if(holder)
-		nanomanager.update_uis(holder)
+		SSnanoui.update_uis(holder)
 
 // Called when wire pulsed. Add code here.
 /datum/wires/proc/UpdatePulsed(index)
 	if(holder)
-		nanomanager.update_uis(holder)
+		SSnanoui.update_uis(holder)
 
 /datum/wires/proc/CanUse(mob/L)
 	return 1

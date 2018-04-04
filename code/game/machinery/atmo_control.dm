@@ -129,11 +129,11 @@ obj/machinery/air_sensor
 
 	initialize()
 		..()
-		atmos_machinery += src
+		SSair.atmos_machinery += src
 		set_frequency(frequency)
 
 	Destroy()
-		atmos_machinery -= src
+		SSair.atmos_machinery -= src
 		if(radio_controller)
 			radio_controller.remove_object(src,frequency)
 		return ..()
