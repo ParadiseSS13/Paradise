@@ -7,6 +7,7 @@
 */
 /datum/n_Scanner
 	var/code
+	var/list/charlist
 /*
 	Var: errors
 	A list of fatal errors found by the scanner. If there are any items in this list, then it is not safe to parse the returned tokens.
@@ -27,6 +28,7 @@
 */
 /datum/n_Scanner/proc/LoadCode(var/c)
 	code=c
+	charlist=string2charlist(code)
 
 /*
 	Proc: LoadCodeFromFile
@@ -109,15 +111,14 @@
 
 /datum/n_Scanner/nS_Scanner/Scan() //Creates a list of tokens from source code
 	var/list/tokens = new
-	for(, src.codepos <= length(code), src.codepos++)
-
-		var/char = copytext(code, codepos, codepos + 1)
-		var/nextchar = copytext(code, codepos + 1, codepos + 2)
+	for(, src.codepos <= charlist.len, src.codepos++)
+		var/char = charlist[codepos]
+		var/nextchar = TCOMMS_SAFE_INDEX(charlist, codepos + 1)
 		if(char == "\n")
 			line++
 			linepos = codepos
 
-		if(ignore.Find(char))
+		if(char in ignore)
 			continue
 
 		else if(char == "/" && (nextchar == "*" || nextchar == "/"))
@@ -139,6 +140,7 @@
 		else if(options.symbols.Find(char))
 			tokens += ReadSymbol()
 
+		CHECK_TICK
 
 	codepos	= initial(codepos)
 	line	= initial(line)
@@ -155,12 +157,12 @@
 */
 /datum/n_Scanner/nS_Scanner/proc/ReadString(start)
 	var/buf
-	for(, codepos <= length(code), codepos++)//codepos to length(code))
-		var/char = copytext(code, codepos, codepos + 1)
+	for(, codepos <= charlist.len, codepos++)//codepos to length(code))
+		var/char = charlist[codepos]
 		switch(char)
 			if("\\")					//Backslash (\) encountered in string
 				codepos++       //Skip next character in string, since it was escaped by a backslash
-				char = copytext(code, codepos, codepos+1)
+				char = TCOMMS_SAFE_INDEX(charlist, codepos)
 				switch(char)
 					if("\\")      //Double backslash
 						buf += "\\"
@@ -190,12 +192,14 @@
 	Reads characters separated by an item in <delim> into a token.
 */
 /datum/n_Scanner/nS_Scanner/proc/ReadWord()
-	var/char = copytext(code, codepos, codepos + 1)
+	var/char = charlist[codepos]
 	var/buf
 
-	while(!delim.Find(char) && codepos <= length(code))
+	while(!delim.Find(char))
 		buf += char
-		char = copytext(code, ++codepos, codepos + 1)
+		if(++codepos > length(code)) break
+		char = charlist[codepos]
+
 	codepos-- //allow main Scan() proc to read the delimiter
 	if(options.keywords.Find(buf))
 		return new/datum/token/keyword(buf, line, COL)
@@ -207,13 +211,13 @@
 	Reads a symbol into a token.
 */
 /datum/n_Scanner/nS_Scanner/proc/ReadSymbol()
-	var/char=copytext(code, codepos, codepos + 1)
+	var/char = charlist[codepos]
 	var/buf
 
 	while(options.symbols.Find(buf + char))
 		buf += char
 		if(++codepos > length(code)) break
-		char = copytext(code, codepos, codepos + 1)
+		char = charlist[codepos]
 
 	codepos-- //allow main Scan() proc to read the next character
 	return new /datum/token/symbol(buf, line, COL)
@@ -223,7 +227,7 @@
 	Reads a number into a token.
 */
 /datum/n_Scanner/nS_Scanner/proc/ReadNumber()
-	var/char = copytext(code, codepos, codepos + 1)
+	var/char = charlist[codepos]
 	var/buf
 	var/dec = 0
 
@@ -233,7 +237,7 @@
 
 		buf += char
 		codepos++
-		char = copytext(code, codepos, codepos + 1)
+		char = TCOMMS_SAFE_INDEX(charlist, codepos)
 
 	var/datum/token/number/T = new(buf, line, COL)
 	if(isnull(text2num(buf)))
@@ -249,8 +253,8 @@
 */
 
 /datum/n_Scanner/nS_Scanner/proc/ReadComment()
-	var/char = copytext(code, codepos, codepos + 1)
-	var/nextchar = copytext(code, codepos + 1, codepos + 2)
+	var/char = charlist[codepos]
+	var/nextchar = TCOMMS_SAFE_INDEX(charlist, codepos + 1)
 	var/charstring = char + nextchar
 	var/comm = 1
 			// 1: single-line comment
@@ -262,23 +266,23 @@
 			comm = 2 // starts a multi-line comment
 
 		while(comm)
-			if(++codepos > length(code))
+			if(++codepos > charlist.len)
 				break
 
 			if(expectedend) // ending statement expected...
-				char = copytext(code, codepos, codepos + 1)
+				char = charlist[codepos]
 				if(char == "/") // ending statement found - beak the comment
 					comm = 0
 					break
 
 			if(comm == 2)
 				// multi-line comments are broken by ending statements
-				char = copytext(code, codepos, codepos + 1)
+				char = charlist[codepos]
 				if(char == "*")
 					expectedend = 1
 					continue
 			else
-				char = copytext(code, codepos, codepos + 1)
+				char = charlist[codepos]
 				if(char == "\n")
 					comm = 0
 					break
