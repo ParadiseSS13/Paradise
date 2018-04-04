@@ -25,9 +25,9 @@
 		var/mob/living/carbon/human/H = new_spawn
 		H.gender = pick(MALE, FEMALE)
 		if(H.gender == MALE)
-			H.real_name = H.get_random_name(MALE)
+			H.real_name = random_name(MALE)
 		else
-			H.real_name = H.get_random_name(FEMALE)
+			H.real_name = random_name(FEMALE)
 		H.underwear = "Nude" //You're a plant, partner
 		H.update_body()
 /obj/effect/mob_spawn/human/seed_vault/Destroy()
@@ -147,7 +147,7 @@
 		notify_ghosts("A golem shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK)
 
 /obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn)
-	var/golem_surname = random_name
+	var/golem_surname = random_name()
 	// 3% chance that our golem has a human surname, because
 	// cultural contamination
 	//if(prob(3))
