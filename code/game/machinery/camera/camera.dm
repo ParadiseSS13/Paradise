@@ -7,7 +7,7 @@
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = 5
-
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
 	var/datum/wires/camera/wires = null // Wires datum
 	var/list/network = list("SS13")
 	var/c_tag = null

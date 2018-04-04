@@ -49,7 +49,7 @@
 	user.show_message("<span class=notice>\t Key: Suffocation/Toxin/Burns/Brute</span>", 1)
 	user.show_message("<span class=notice>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
 	if(C.timeofdeath && (C.stat == DEAD || (C.status_flags & FAKEDEATH)))
-		user.show_message("<span class=notice>\t Time of Death: [worldtime2text(C.timeofdeath)]</span>")
+		user.show_message("<span class=notice>\t Time of Death: [station_time_timestamp("hh:mm:ss", C.timeofdeath)]</span>")
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		var/list/damaged = H.get_damaged_organs(1,1)

@@ -56,7 +56,7 @@
 		beaker = B
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		icon_state = "mixer1"
 
 	else if(istype(B, /obj/item/weapon/storage/pill_bottle))
@@ -71,7 +71,7 @@
 		loaded_pill_bottle = B
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the pill bottle into the dispenser slot!</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/chem_master/Topic(href, href_list)
@@ -99,7 +99,7 @@
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
 			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
-			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
+			P.info += "<b>Time of analysis:</b> [station_time_timestamp()]<br><br>"
 			P.info += "<b>Chemical name:</b> [href_list["name"]]<br>"
 			if(href_list["name"] == "Blood")
 				var/datum/reagents/R = beaker.reagents
@@ -304,7 +304,7 @@
 			bottlesprite = href_list["bottle_sprite"]
 			usr << browse(null, "window=chem_master_iconsel")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/chem_master/attack_ai(mob/user)
@@ -323,7 +323,7 @@
 	var/datum/asset/chem_master/assets = get_asset_datum(/datum/asset/chem_master)
 	assets.send(user)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 400)
 		ui.open()

@@ -22,7 +22,8 @@
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
-	var/engraving, engraving_quality //engraving on the wall
+	var/engraving //engraving on the wall
+	var/engraving_quality
 
 	var/sheet_type = /obj/item/stack/sheet/metal
 	var/sheet_amount = 2
@@ -216,8 +217,8 @@
 /turf/simulated/wall/attack_animal(var/mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
-	if(M.environment_smash >= 2)
-		if(M.environment_smash == 3)
+	if((M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
+		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			dismantle_wall(1)
 			to_chat(M, "<span class='info'>You smash through the wall.</span>")
 		else

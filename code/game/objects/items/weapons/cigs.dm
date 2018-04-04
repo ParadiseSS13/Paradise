@@ -22,8 +22,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	slot_flags = SLOT_EARS|SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
-	attack_verb = list("burnt", "singed")
-	var/lit = 0
+	attack_verb = null
+	var/lit = FALSE
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
 	var/type_butt = /obj/item/weapon/cigbutt
@@ -128,7 +128,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(!src.lit)
 		src.lit = 1
+		name = "lit [name]"
+		attack_verb = list("burnt", "singed")
+		hitsound = 'sound/items/welder.ogg'
 		damtype = "fire"
+		force = 4
 		if(reagents.get_reagent_amount("plasma")) // the plasma explodes when exposed to fire
 			var/datum/effect_system/reagents_explosion/e = new()
 			e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)

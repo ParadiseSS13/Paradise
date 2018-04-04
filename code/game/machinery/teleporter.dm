@@ -70,7 +70,7 @@
 		return
 
 	// Set up the Nano UI
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
 		ui.open()
@@ -99,16 +99,16 @@
 
 	if(href_list["eject"])
 		eject()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	if(!check_hub_connection())
 		to_chat(usr, "<span class='warning'>Error: Unable to detect hub.</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	if(calibrating)
 		to_chat(usr, "<span class='warning'>Error: Calibration in progress. Stand by.</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	if(href_list["regimeset"])
@@ -116,32 +116,32 @@
 		power_station.teleporter_hub.update_icon()
 		power_station.teleporter_hub.calibrated = 0
 		reset_regime()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(href_list["settarget"])
 		power_station.engaged = 0
 		power_station.teleporter_hub.update_icon()
 		power_station.teleporter_hub.calibrated = 0
 		set_target(usr)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(href_list["lock"])
 		power_station.engaged = 0
 		power_station.teleporter_hub.update_icon()
 		power_station.teleporter_hub.calibrated = 0
 		target = get_turf(locked.locked_location)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(href_list["calibrate"])
 		if(!target)
 			to_chat(usr, "<span class='warning'>Error: No target set to calibrate to.</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return
 		if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
 			to_chat(usr, "<span class='notice'>Hub is already calibrated.</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return
 		src.visible_message("<span class='notice'>Processing hub calibration to target...</span>")
 
 		calibrating = 1
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		spawn(50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 			calibrating = 0
 			if(check_hub_connection())
@@ -149,9 +149,9 @@
 				src.visible_message("<span class='notice'>Calibration complete.</span>")
 			else
 				src.visible_message("<span class='warning'>Error: Unable to detect hub.</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)

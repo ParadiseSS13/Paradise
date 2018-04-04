@@ -1,4 +1,3 @@
-var/global/list/pipe_networks = list()
 var/global/list/deferred_pipenet_rebuilds = list()
 
 /datum/pipeline
@@ -13,10 +12,10 @@ var/global/list/deferred_pipenet_rebuilds = list()
 	var/alert_pressure = 0
 
 /datum/pipeline/New()
-	pipe_networks += src
+	SSair.networks += src
 
 /datum/pipeline/Destroy()
-	pipe_networks -= src
+	SSair.networks -= src
 	if(air && air.volume)
 		temporarily_store_air()
 	for(var/obj/machinery/atmospherics/pipe/P in members)

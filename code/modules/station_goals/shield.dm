@@ -46,14 +46,14 @@
 	icon_screen = "accelerator"
 	icon_keyboard = "accelerator_key"
 	var/notice
-	
+
 /obj/machinery/computer/sat_control/attack_hand(mob/user)
 	if(..())
 		return 1
 	ui_interact(user)
 
 /obj/machinery/computer/sat_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "sat_control.tmpl", name, 475, 400)
 		ui.open()
@@ -90,7 +90,7 @@
 		data["meteor_shield_coverage_max"] = G.coverage_goal
 		data["meteor_shield_coverage_percentage"] = (G.get_coverage() / G.coverage_goal) * 100
 	return data
-	
+
 /obj/machinery/satellite
 	name = "Defunct Satellite"
 	desc = ""
@@ -106,7 +106,7 @@
 /obj/machinery/satellite/New()
 	..()
 	id = gid++
-	
+
 /obj/machinery/satellite/attack_hand(mob/user)
 	if(..())
 		return 1

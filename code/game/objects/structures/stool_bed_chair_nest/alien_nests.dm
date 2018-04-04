@@ -7,6 +7,7 @@
 	icon_state = "nest"
 	var/health = 100
 	var/image/nest_overlay
+	comfort = 0
 
 /obj/structure/stool/bed/nest/New()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)

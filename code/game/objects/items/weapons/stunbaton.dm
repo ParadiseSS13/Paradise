@@ -89,7 +89,7 @@
 	return
 
 /obj/item/weapon/melee/baton/attack_self(mob/user)
-	if(bcell && bcell.charge > hitcost)
+	if(bcell && bcell.charge >= hitcost)
 		status = !status
 		to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
 		playsound(loc, "sparks", 75, 1, -1)

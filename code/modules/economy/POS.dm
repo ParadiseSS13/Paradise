@@ -173,7 +173,7 @@ var/const/POS_HEADER = {"<html>
 		receipt += myArea.name
 	receipt += "</div>"
 	receipt += {"<br />
-		<div>[worldtime2text()], [current_date_string]</div>
+		<div>[station_time_timestamp()], [current_date_string]</div>
 		<table>
 			<tr class=\"first\">
 				<th class=\"first\">Item</th>
@@ -369,7 +369,7 @@ var/const/POS_HEADER = {"<html>
 		logindata={"<a href="?src=[UID()];logout=1">[logged_in.name]</a>"}
 	var/dat = POS_HEADER + {"
 	<div class="navbar">
-		[worldtime2text()], [current_date_string]<br />
+		[station_time_timestamp()], [current_date_string]<br />
 		[logindata]
 		<a href="?src=[UID()];screen=[POS_SCREEN_ORDER]">Order</a> |
 		<a href="?src=[UID()];screen=[POS_SCREEN_PRODUCTS]">Products</a> |

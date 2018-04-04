@@ -17,6 +17,7 @@
 	maxHealth = 75
 	health = 75
 	harm_intent_damage = 5
+	obj_damage = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	attacktext = "lashes out at"
