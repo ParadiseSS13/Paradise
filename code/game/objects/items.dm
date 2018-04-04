@@ -101,6 +101,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		new path(src)
 
 /obj/item/Destroy()
+	flags &= ~DROPDEL	//prevent reqdels
 	QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
@@ -317,6 +318,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
+	if(DROPDEL & flags)
+		qdel(src)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)

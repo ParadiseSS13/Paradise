@@ -434,7 +434,8 @@
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
 
 /obj/item/weapon/grab/dropped()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 
 /obj/item/weapon/grab/Destroy()
