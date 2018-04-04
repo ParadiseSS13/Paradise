@@ -52,7 +52,7 @@
 	jobban_type = "lavaland"
 
 /obj/effect/mob_spawn/human/ash_walker/special(mob/living/new_spawn)
-	new_spawn.real_name = H.get_random_name(gender)
+	new_spawn.real_name = random_name(gender)
 	new_spawn << "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis, and her chosen son: The Chieftain!</b>"
 	new_spawn <<"<b>The chieftain will have a special HUD over their head. Remember to show utmost respect.</b>"
 	if(ishuman(new_spawn))
@@ -147,7 +147,7 @@
 		notify_ghosts("A golem shell has been completed in \the [A.name].", source = src, action=NOTIFY_ATTACK)
 
 /obj/effect/mob_spawn/human/golem/special(mob/living/new_spawn)
-	var/golem_surname = H.get_random_name
+	var/golem_surname = random_name
 	// 3% chance that our golem has a human surname, because
 	// cultural contamination
 	//if(prob(3))
