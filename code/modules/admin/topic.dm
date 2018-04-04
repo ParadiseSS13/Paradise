@@ -3023,6 +3023,24 @@
 							dat += "<tr><td>[H]</td><td>H.dna = null</td></tr>"
 				dat += "</table>"
 				usr << browse(dat, "window=fingerprints;size=440x410")
+			if("night_shift_set")
+				var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
+				switch(val)
+					if("Automatic")
+						if(config.enable_night_shifts)
+							SSnightshift.can_fire = TRUE
+							SSnightshift.fire()
+						else
+							SSnightshift.update_nightshift(FALSE, TRUE)
+						to_chat(usr, "<span class='notice'>Night shift set to automatic.</span>")
+					if("On")
+						SSnightshift.can_fire = FALSE
+						SSnightshift.update_nightshift(TRUE, FALSE)
+						to_chat(usr, "<span class='notice'>Night shift forced on.</span>")
+					if("Off")
+						SSnightshift.can_fire = FALSE
+						SSnightshift.update_nightshift(FALSE, FALSE)
+						to_chat(usr, "<span class='notice'>Night shift forced off.</span>")
 			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")

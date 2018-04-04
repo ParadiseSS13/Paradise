@@ -199,6 +199,10 @@
 	var/high_pop_mc_mode_amount = 65
 	var/disable_high_pop_mc_mode_amount = 60
 
+	// Nightshift
+	var/randomize_shift_time = FALSE
+	var/enable_night_shifts = FALSE
+
 /datum/configuration/New()
 	var/list/L = subtypesof(/datum/game_mode)
 	for(var/T in L)
@@ -605,19 +609,18 @@
 					shutdown_shell_command = value
 
 				if("disable_karma")
-					disable_karma = 1
+					config.disable_karma = 1
 
 				if("tick_limit_mc_init")
-					tick_limit_mc_init = text2num(value)
+					config.tick_limit_mc_init = text2num(value)
 				if("base_mc_tick_rate")
-					base_mc_tick_rate = text2num(value)
+					config.base_mc_tick_rate = text2num(value)
 				if("high_pop_mc_tick_rate")
-					high_pop_mc_tick_rate = text2num(value)
+					config.high_pop_mc_tick_rate = text2num(value)
 				if("high_pop_mc_mode_amount")
-					high_pop_mc_mode_amount = text2num(value)
+					config.high_pop_mc_mode_amount = text2num(value)
 				if("disable_high_pop_mc_mode_amount")
-					disable_high_pop_mc_mode_amount = text2num(value)
-
+					config.disable_high_pop_mc_mode_amount = text2num(value)
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -680,6 +683,10 @@
 					MAX_EX_FLAME_RANGE = BombCap
 				if("default_laws")
 					config.default_laws = text2num(value)
+				if("randomize_shift_time")
+					config.randomize_shift_time = TRUE
+				if("enable_night_shifts")
+					config.enable_night_shifts = TRUE
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
