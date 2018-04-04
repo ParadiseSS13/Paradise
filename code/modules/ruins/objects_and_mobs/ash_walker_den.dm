@@ -42,7 +42,7 @@
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
 		var/turf/T = get_step(src, SOUTH)
 		if(spawn_chief)
-			var/obj/effect/mob_spawn/human/ash_walker/chief/hero = new /obj/effect/landmark/human/ash_walker/chief(T)
+			var/obj/effect/mob_spawn/human/ash_walker/chief/hero = new /obj/effect/mob_spawn/human/ash_walker/chief(T)
 			hero.nest = src
 			spawn_chief = FALSE
 		else
