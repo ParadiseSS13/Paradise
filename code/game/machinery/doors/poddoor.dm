@@ -27,9 +27,9 @@
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity, target)
-  if(severity == 3)
+	if(severity == 3)
 		return
-  ..()
+	..()
 
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)
@@ -51,7 +51,7 @@
 
 /obj/machinery/door/poddoor/try_to_crowbar(obj/item/I, mob/user)
 	if(!hasPower())
-    open()
+		open()
 
  // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
  // Wise words. - Bxil
