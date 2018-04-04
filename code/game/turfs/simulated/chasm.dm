@@ -54,7 +54,7 @@
 		if(SA.flying)
 			return 0
 	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
+//		var/mob/living/carbon/human/H = AM
 //		if(istype(H.belt, /obj/item/device/wormhole_jaunter))
 //			var/obj/item/device/wormhole_jaunter/J = H.belt
 			//To freak out any bystanders

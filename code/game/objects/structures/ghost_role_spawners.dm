@@ -81,7 +81,7 @@
 /obj/effect/mob_spawn/human/ash_walker/chief/special(mob/living/new_spawn)
 	..()
 	if(ishuman(new_spawn))
-		var/mob/living/carbon/human/H = new_spawn
+//		var/mob/living/carbon/human/H = new_spawn
 //		H.languages_spoken |= HUMAN
 //		H.languages_understood |= HUMAN
 	if(nest)
@@ -169,7 +169,7 @@
 
 	new_spawn << "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked."
 	if(ishuman(new_spawn))
-		var/mob/living/carbon/human/H = new_spawn
+//		var/mob/living/carbon/human/H = new_spawn
 //		H.set_cloned_appearance()
 
 
