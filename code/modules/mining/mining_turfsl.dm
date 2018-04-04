@@ -475,7 +475,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	icon_plating = "basalt0"
 //	var/water_overlay_image = "water_deep"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
-	oxygen = 0.01
+	oxygen = 30
 	nitrogen = 0.01
 	water = 500
 	temperature = T20C
@@ -689,7 +689,7 @@ var/global/list/lrockTurfEdgeCache = list(
 	return
 
 /turf/simulated/chasm/straight_down/lava_land_surface
-	oxygen = 0.01
+	oxygen = 30
 	nitrogen = 0.01
 	water = 500
 	temperature = T20C

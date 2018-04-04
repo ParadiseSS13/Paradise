@@ -263,7 +263,7 @@
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"lungs" =    /obj/item/organ/internal/lungs/skrell,
 		"liver" =    /obj/item/organ/internal/liver/skrell,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
