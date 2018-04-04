@@ -11,7 +11,7 @@ var/list/barometers = list()
 
 
 /obj/structure/fans/tiny/invisible //For blocking air in ruin doorways
-	invisibility = INVISIBILITY_ABSTRACT
+	invisibility = 101
 
 //lavaland_surface_seed_vault.dmm
 //Seed Vault

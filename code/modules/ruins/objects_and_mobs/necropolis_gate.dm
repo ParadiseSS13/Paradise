@@ -49,7 +49,7 @@
 			M << 'sound/creatures/legion_spawn.ogg'
 			if(M.client)
 				flash_color(M, color = "#FF0000", time = 50)
-	notify_ghosts("Legion has been summoned in the [get_area(src)]!", source = src, action = NOTIFY_ORBIT)
+	notify_ghosts("Legion has been summoned in the [get_area(src)]!", source = src, action = NOTIFY_JUMP)
 	is_anyone_home = FALSE
 	new/mob/living/simple_animal/hostile/megafauna/legion(get_step(src.loc, SOUTH))
 
