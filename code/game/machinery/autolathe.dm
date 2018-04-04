@@ -82,7 +82,7 @@
 		ui_interact(user)
 
 /obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "autolathe.tmpl", name, 800, 550)
 		ui.open()
@@ -175,7 +175,7 @@
 		return 1
 
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	if(exchange_parts(user, O))
@@ -239,7 +239,7 @@
 			use_power(max(500, inserted / 10))
 			qdel(O)
 	busy = 0
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/autolathe/attack_ghost(mob/user)
 	interact(user)
@@ -318,7 +318,7 @@
 
 		screen = AUTOLATHE_SEARCH_MENU
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/autolathe/RefreshParts()
@@ -353,7 +353,7 @@
 		else
 			var/list/materials_used = list(MAT_METAL=metal_cost/coeff, MAT_GLASS=glass_cost/coeff)
 			materials.use_amount(materials_used)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		sleep(32/coeff)
 		if(is_stack)
 			var/obj/item/stack/S = new D.build_path(BuildTurf)
@@ -362,7 +362,7 @@
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.materials[MAT_METAL] /= coeff
 			new_item.materials[MAT_GLASS] /= coeff
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	desc = initial(desc)
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, multiplier = 1, custom_metal, custom_glass)

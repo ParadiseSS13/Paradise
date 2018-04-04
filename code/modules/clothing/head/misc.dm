@@ -14,11 +14,6 @@
 	desc = "Smells nice."
 	item_state = "hairflower"
 
-/obj/item/clothing/head/hairflower/purple
-	icon_state = "hairflowerp"
-	item_state = "hairflowerp"
-	item_state = "that"
-
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
 	desc = "A powdered wig."

@@ -131,7 +131,7 @@
 			T.amount = "[token_price]"
 		T.source_terminal = src.name
 		T.date = current_date_string
-		T.time = worldtime2text()
+		T.time = station_time_timestamp()
 		customer_account.transaction_log.Add(T)
 		return 1
 

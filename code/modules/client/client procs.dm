@@ -478,6 +478,8 @@
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
+	Master.UpdateTickRate()
+
 //////////////
 //DISCONNECT//
 //////////////
@@ -487,6 +489,7 @@
 		admins -= src
 	directory -= ckey
 	clients -= src
+	Master.UpdateTickRate()
 	return ..()
 
 

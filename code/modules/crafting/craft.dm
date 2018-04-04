@@ -228,7 +228,7 @@
 		qdel(DL)
 
 /datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = not_incapacitated_turf_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "personal_crafting.tmpl", "Crafting Menu", 700, 800, state = state)
 		ui.open()
@@ -265,14 +265,14 @@
 	if(href_list["make"])
 		var/datum/crafting_recipe/TR = locate(href_list["make"])
 		busy = 1
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		var/fail_msg = construct_item(usr, TR)
 		if(!fail_msg)
 			to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
 		else
 			to_chat(usr, "<span class ='warning'>Construction failed[fail_msg]</span>")
 		busy = 0
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(href_list["forwardCat"])
 		viewing_category = next_cat()
 		to_chat(usr, "<span class='notice'>Category is now [categories[viewing_category]].</span>")
@@ -290,7 +290,7 @@
 		to_chat(usr, "<span class='notice'>Crafting menu is now [display_compact? "compact" : "full size"].</span>")
 		. = TRUE
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat()

@@ -102,7 +102,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui_tick++
-	var/datum/nanoui/old_ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/old_ui = SSnanoui.get_open_ui(user, src, "main")
 	var/auto_update = 1
 	if(!current_app)
 		return
@@ -117,7 +117,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/title = "Personal Data Assistant"
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -169,7 +169,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	data["useRetro"] = retro_mode
 
 	data["cartridge_name"] = cartridge ? cartridge.name : ""
-	data["stationTime"] = worldtime2text()
+	data["stationTime"] = station_time_timestamp()
 
 	data["app"] = list()
 	current_app.update_ui(user, data)
@@ -217,7 +217,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		return
 
 	var/mob/user = usr
-	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 	var/mob/living/U = usr
 	if(usr.stat == DEAD)
 		return 0
@@ -282,7 +282,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	return // return 1 tells it to refresh the UI in NanoUI
 
 /obj/item/device/pda/proc/close(mob/user)
-	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 	ui.close()
 
 /obj/item/device/pda/verb/verb_reset_pda()
