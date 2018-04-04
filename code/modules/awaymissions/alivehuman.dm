@@ -63,13 +63,13 @@ var/list/implants = list()
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
 
-/obj/effect/mob_spawn/spawn_atom_to_world()
+///obj/effect/mob_spawn/spawn_atom_to_world()
 	//We no longer need to spawn mobs, deregister ourself
-	atom_spawners -= src
-	if(roundstart)
-		create()
-	else
-		poi_list |= src
+//	atom_spawners -= src
+//	if(roundstart)
+//		create()
+//	else
+//		poi_list |= src
 
 /obj/effect/mob_spawn/New()
 	..()
@@ -121,7 +121,7 @@ var/list/implants = list()
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
-qdel(src)
+//qdel(src)
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)

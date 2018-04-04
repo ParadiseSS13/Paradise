@@ -154,7 +154,7 @@
 	//	golem_surname = pick(last_names)
 
 	var/datum/species/X = mob_species
-	var/golem_forename = initial(X.id)
+	var/golem_forename = initial(X.name)
 
 	// The id of golem species is either their material "diamond","gold",
 	// or just "golem" for the plain ones. So we're using it for naming.
@@ -170,7 +170,7 @@
 	new_spawn << "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked."
 	if(ishuman(new_spawn))
 		var/mob/living/carbon/human/H = new_spawn
-		H.set_cloned_appearance()
+//		H.set_cloned_appearance()
 
 
 /obj/effect/mob_spawn/human/golem/adamantine

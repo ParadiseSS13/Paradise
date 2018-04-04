@@ -133,9 +133,9 @@ var/list/barometers = list()
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/equip(mob/living/carbon/human/H)
 	..()
 	var/obj/item/clothing/mask/gas/voice/M = H.wear_mask
-	if(M && M.chameleon)
-		M.chameleon.antag_only = FALSE
-		addtimer(M.chameleon, "register", 1, , H) //this needs to be delayed because the mob does not have a mind yet
+//	if(M && M.chameleon)
+//		M.chameleon.antag_only = FALSE
+//		addtimer(M.chameleon, "register", 1, , H) //this needs to be delayed because the mob does not have a mind yet
 
 
 ///Syndicate Xenobiologist

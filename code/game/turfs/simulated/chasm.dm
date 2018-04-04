@@ -18,12 +18,12 @@
 	safeties_typecache = typecacheof(safeties_typecache)
 
 /turf/simulated/chasm/Entered(atom/movable/AM)
-	START_PROCESSING(SSobj, src)
+//	START_PROCESSING(SSobj, src)
 	drop_stuff(AM)
 
-/turf/simulated/chasm/process()
-	if(!drop_stuff())
-		STOP_PROCESSING(SSobj, src)
+//turf/simulated/chasm/process()
+//	if(!drop_stuff())
+//		STOP_PROCESSING(SSobj, src)
 
 /turf/simulated/chasm/proc/drop_stuff(AM)
 	. = 0
@@ -61,8 +61,8 @@
 			visible_message("<span class='boldwarning'>[H] falls into [src]!</span>")
 			J.chasm_react(H)
 			return 0
-		if(H.dna && H.dna.species && (FLYING in H.dna.species.specflags))
-			return 0
+//		if(H.dna && H.dna.species && (FLYING in H.dna.species.specflags))
+//			return 0
 	return 1
 
 /turf/simulated/chasm/proc/is_safe()

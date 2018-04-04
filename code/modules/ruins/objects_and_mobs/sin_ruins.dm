@@ -53,8 +53,8 @@
 
 /obj/structure/cursed_money/attack_hand(mob/living/user)
 	user.visible_message("<span class='boldwarning'>You open the bag...!</span>\n<span class='danger'>And see a bag full of dice. Confused, you take one... and the bag vanishes.</span>")
-	var/obj/item/weapon/dice/d20/fate/one_use/critical_fail = new(get_turf(user))
-	user.put_in_hands(critical_fail)
+//	var/obj/item/weapon/dice/d20/fate/one_use/critical_fail = new(get_turf(user))
+//	user.put_in_hands(critical_fail)
 	qdel(src)
 
 
@@ -88,13 +88,13 @@
 	desc = "Pride cometh before the..."
 	icon_state = "magic_mirror"
 
-/obj/structure/mirror/magic/pride/curse(mob/user)
-	user.visible_message("<span class='danger'><B>The ground splits beneath [user] as their hand leaves the mirror!</B></span>", \
-	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
-	var/turf/T = get_turf(user)
-	T.ChangeTurf(/turf/simulated/chasm/straight_down)
-	var/turf/simulated/chasm/straight_down/C = T
-	C.drop(user)
+//obj/structure/mirror/magic/pride/curse(mob/user)
+//	user.visible_message("<span class='danger'><B>The ground splits beneath [user] as their hand leaves the mirror!</B></span>", \
+//	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
+//	var/turf/T = get_turf(user)
+//	T.ChangeTurf(/turf/simulated/chasm/straight_down)
+//	var/turf/simulated/chasm/straight_down/C = T
+//	C.drop(user)
 
 //can't be bothered to do sloth right now, will make later
 
@@ -119,8 +119,8 @@
 		var/mob/living/carbon/human/H = AM
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name
-			H.dna.transfer_identity(user, transfer_SE=1)
-			user.updateappearance(mutcolor_update=1)
-			user.domutcheck()
+//			H.dna.transfer_identity(user, transfer_SE=1)
+//			user.updateappearance(mutcolor_update=1)
+//			user.domutcheck()
 			user.visible_message("<span class='warning'>[user]'s appearance shifts into [H]'s!</span>", \
 			"<span class='boldannounce'>They think they're <i>sooo</i> much better than you. Not anymore, they won't.</span>")
