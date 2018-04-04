@@ -128,7 +128,7 @@ var/list/implants = list()
 	if(uses > 0)
 		uses--
 	if(!permanent && !uses)
-qdel(src)
+		qdel(src)
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
