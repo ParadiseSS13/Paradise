@@ -87,7 +87,7 @@ var/list/implants = list()
 		var/atom/A = V
 		if (!ignore_z && (zlevel && A.z != zlevel))
 			continue
-			A.spawn_atom_to_world()
+			spawn_atom_to_world()
 
 /obj/effect/mob_spawn/Destroy()
 	poi_list.Remove(src)
