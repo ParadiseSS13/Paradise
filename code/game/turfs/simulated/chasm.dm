@@ -11,7 +11,7 @@
 	var/drop_x = 1
 	var/drop_y = 1
 	var/drop_z = 1
-	var/static/list/safeties_typecache = list(/obj/structure/lattice/catwalk)
+	var/static/list/safeties_typecache = list(/turf/simulated/floor/plating/airless/catwalk)
 
 /turf/simulated/chasm/New()
 	. = ..()
@@ -28,7 +28,7 @@
 /turf/simulated/chasm/proc/drop_stuff(AM)
 	. = 0
 	for(var/obj/O in contents)
-		if(istype(O, /obj/structure/lattice/catwalk))
+		if(istype(O, /turf/simulated/floor/plating/airless/catwalk))
 			return FALSE
 	var/thing_to_check = src
 	if(AM)
@@ -94,9 +94,12 @@
 
 
 /turf/simulated/chasm/straight_down/lava_land_surface
-	initial_gas_mix = "o2=14;n2=23;TEMP=300"
-	planetary_atmos = TRUE
-	baseturf = /turf/open/chasm/straight_down/lava_land_surface
+	oxygen = 30
+	nitrogen = 0.01
+	water = 500
+	temperature = T20C
+//	planetary_atmos = TRUE
+	baseturf = /turf/simulated/chasm/straight_down/lava_land_surface
 
 /turf/simulated/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
 	//Make sure the item is still there after our sleep
@@ -128,7 +131,7 @@
 	qdel(AM)
 
 /turf/simulated/chasm/straight_down/lava_land_surface/normal_air
-	oxygen = 0.01
+	oxygen = 30
 	nitrogen = 0.01
 	water = 500
 	temperature = T20C
