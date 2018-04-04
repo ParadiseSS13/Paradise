@@ -16,7 +16,7 @@
 		if(!istype(T))
 			return
 		add_underlay(T, node, dir)
-		
+
 /obj/machinery/atmospherics/unary/tank/attackby(obj/item/weapon/W, mob/user, params)
 	if(istype(W, /obj/item/device/analyzer))
 		atmosanalyzer_scan(air_contents, user)
@@ -94,4 +94,14 @@
 	trace_gas.moles = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
 	air_contents.trace_gases += trace_gas
-	
+
+/obj/machinery/atmospherics/unary/tank/water
+	name = "Pressure Tank (Water)"
+	icon_state = "o2_map"
+
+/obj/machinery/atmospherics/unary/tank/water/New()
+	..()
+	icon_state = "o2"
+	air_contents.volume = volume
+	air_contents.temperature = T20C
+	air_contents.water = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)

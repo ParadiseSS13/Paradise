@@ -144,6 +144,10 @@
 /mob/living/carbon/human/stok/New(var/new_loc)
 	..(new_loc, "Stok")
 
+/mob/living/carbon/human/skrell/mermaid/New(var/new_loc)
+	..(new_loc, "Mermaid")
+
+
 /mob/living/carbon/human/Stat()
 	..()
 	statpanel("Status")

@@ -1,0 +1,65 @@
+"a" = (/turf/closed/mineral/volcanic/lava_land_surface,/area/lavaland/surface/outdoors)
+"b" = (/turf/closed/mineral/volcanic/lava_land_surface,/area/lavaland/surface/outdoors/mapgen_protected)
+"c" = (/turf/closed/mineral/volcanic/lava_land_surface,/area/ruin/powered)
+"d" = (/turf/closed/wall/mineral/iron{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface},/area/ruin/powered)
+"e" = (/obj/item/clothing/head/helmet/space/orange,/obj/item/clothing/mask/breath,/turf/open/floor/plating/asteroid/basalt,/area/ruin/powered)
+"f" = (/obj/item/clothing/suit/space/orange,/turf/open/floor/plating/asteroid/basalt,/area/ruin/powered)
+"g" = (/turf/open/floor/plating/asteroid/basalt,/area/ruin/powered)
+"h" = (/turf/open/floor/plating/asteroid{baseturf = /turf/open/floor/plating/asteroid/basalt; name = "dirt"},/area/ruin/powered)
+"i" = (/obj/item/weapon/shovel,/turf/open/floor/plating/asteroid{baseturf = /turf/open/floor/plating/asteroid/basalt; name = "dirt"},/area/ruin/powered)
+"j" = (/obj/machinery/portable_atmospherics/canister/oxygen,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered)
+"k" = (/obj/structure/fans/tiny/invisible,/obj/structure/mineral_door/sandstone,/turf/open/floor/plating,/area/ruin/powered)
+"l" = (/obj/item/weapon/reagent_containers/glass/bucket,/turf/open/floor/plating/asteroid{baseturf = /turf/open/floor/plating/asteroid/basalt; name = "dirt"},/area/ruin/powered)
+"m" = (/obj/structure/sink/puddle,/turf/open/floor/plating/asteroid{baseturf = /turf/open/floor/plating/asteroid/basalt; name = "dirt"},/area/ruin/powered)
+"n" = (/obj/effect/glowshroom/single,/turf/open/floor/plating/asteroid{baseturf = /turf/open/floor/plating/asteroid/basalt; name = "dirt"},/area/ruin/powered)
+"o" = (/obj/effect/spawner/structure/window,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered)
+"p" = (/obj/item/stack/sheet/mineral/mythril{amount = 50},/turf/open/floor/plating/asteroid{baseturf = /turf/open/floor/plating/asteroid/basalt; name = "dirt"},/area/ruin/powered)
+"q" = (/obj/item/weapon/storage/toolbox/emergency,/turf/open/floor/plating/asteroid{baseturf = /turf/open/floor/plating/asteroid/basalt; name = "dirt"},/area/ruin/powered)
+"r" = (/obj/structure/rack,/obj/item/seeds/reishi,/obj/item/seeds/plump,/obj/item/seeds/plump,/obj/item/weapon/reagent_containers/food/snacks/grown/mushroom/glowshroom,/obj/item/seeds/ambrosia,/turf/open/floor/plating,/area/ruin/powered)
+"s" = (/turf/closed/wall/mineral/iron,/area/ruin/powered)
+"t" = (/obj/structure/rack,/obj/item/weapon/storage/bag/ore,/obj/item/weapon/storage/firstaid/regular,/turf/open/floor/plating,/area/ruin/powered)
+"u" = (/turf/open/floor/plating{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface},/area/ruin/powered)
+"v" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered)
+"w" = (/obj/machinery/hydroponics/soil,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered)
+"x" = (/obj/structure/rack,/obj/item/weapon/pickaxe/emergency,/obj/item/weapon/tank/internals/oxygen,/turf/open/floor/plating,/area/ruin/powered)
+"y" = (/obj/effect/glowshroom/single,/turf/open/floor/plating{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface},/area/ruin/powered)
+"z" = (/turf/closed/wall/shuttle/survival/pod{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"A" = (/obj/structure/bed/pod,/obj/item/weapon/bedsheet/black,/turf/open/floor/plating{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface},/area/ruin/powered)
+"B" = (/obj/structure/fans,/turf/open/floor/pod/dark{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"C" = (/obj/machinery/smartfridge/survival_pod,/turf/open/floor/pod/dark{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"D" = (/obj/item/weapon/restraints/legcuffs/beartrap,/obj/item/weapon/restraints/legcuffs/beartrap,/obj/item/weapon/restraints/legcuffs/beartrap,/turf/open/floor/plating{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface},/area/ruin/powered)
+"E" = (/obj/effect/mob_spawn/human/hermit,/turf/open/floor/pod/dark{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"F" = (/turf/open/floor/pod/dark{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"G" = (/obj/machinery/light/small{dir = 4},/obj/structure/tubes,/turf/open/floor/plating{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface},/area/ruin/powered)
+"H" = (/obj/structure/table,/obj/item/weapon/kitchen/knife/combat/survival,/obj/item/weapon/paper_bin,/obj/item/weapon/lighter,/turf/open/floor/plating{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface},/area/ruin/powered)
+"I" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"J" = (/obj/structure/table/survival_pod,/turf/open/floor/pod/dark{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"K" = (/obj/structure/tubes,/obj/item/weapon/crowbar,/obj/effect/decal/cleanable/blood/drip,/turf/open/floor/pod/dark{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"L" = (/obj/effect/decal/cleanable/blood/footprints{tag = "icon-blood1 (NORTH)"; icon_state = "blood1"; dir = 1},/obj/machinery/door/airlock/survival_pod,/obj/structure/fans/tiny,/turf/open/floor/pod/dark{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface},/area/ruin/powered)
+"M" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors/mapgen_protected)
+"N" = (/obj/structure/shuttle/engine/propulsion/burst{dir = 4},/turf/open/floor/plating{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"O" = (/turf/closed/wall/shuttle{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; dir = 2; icon_state = "swall12"},/area/ruin/powered)
+"P" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/turf/closed/wall/shuttle{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; dir = 2; icon_state = "swall_f10"; layer = 2},/area/ruin/powered)
+"Q" = (/obj/machinery/door/airlock/shuttle{name = "Escape Pod Airlock"},/turf/open/floor/plasteel/shuttle,/area/ruin/powered)
+"R" = (/obj/structure/chair{dir = 4},/turf/open/floor/plasteel/shuttle{baseturf = /turf/open/floor/plating/asteroid/basalt},/area/ruin/powered)
+"S" = (/obj/structure/grille,/obj/structure/window/shuttle,/turf/open/floor/plating{baseturf = /turf/open/floor/plating/asteroid/basalt/lava_land_surface; initial_gas_mix = "o2=14;n2=23;TEMP=300"},/area/ruin/powered)
+"T" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/turf/closed/wall/shuttle{baseturf = /turf/open/floor/plating/lava/smooth/lava_land_surface; dir = 2; icon_state = "swall_f9"},/area/ruin/powered)
+
+(1,1,1) = {"
+aaaaaabbccdcbbaa
+aaaabbbccefccbaa
+aaaabcccghigcbaa
+aaaabcjklmhncbaa
+aaabbcodhpqgcbba
+aaabccrgghdccsba
+aaabdtuuggvwwcba
+aaabcxuyugvvvcba
+aaabzzzuuAdccsba
+aaabzBCuuDdbbbba
+aaabzEFGzHdbaaaa
+IIabzJFKzccbaaaa
+aIabzzLzzbbbaaaa
+IIIbbbMbbbaNOOPa
+aaIIIIIIIIIQRRSa
+IaIaaaIaaIINOOTa
+"}

@@ -2,9 +2,24 @@
 	name = "landmark"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
+	var/mob_type = null
+	var/mob_name = ""
+	var/mob_gender = MALE
+	var/death = TRUE //Kill the mob
+	var/roundstart = TRUE //fires on initialize
+	var/instant = FALSE	//fires on New
+	var/flavour_text = "The mapper forgot to set this!"
+	var/faction = null
+	var/permanent = FALSE	//If true, the spawner will not disappear upon running out of uses.
+	var/random = FALSE		//Don't set a name or gender, just go random
+	var/objectives = null
+	var/uses = 1			//how many times can we spawn from it. set to -1 for infinite.
+	var/brute_damage = 0
+	var/oxy_damage = 0
+var/assigned_role
 	anchored = 1.0
 	unacidable = 1
-
+	var/jobban_type
 /obj/effect/landmark/New()
 
 	..()

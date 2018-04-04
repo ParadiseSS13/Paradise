@@ -31,11 +31,11 @@
 	#define CENTCOMM "CentComm"
 	#define TELECOMMS "Telecomms Satellite"
 	#define DERELICT "Derelicted Station"
-	#define MINING "Mining Asteroid"
 	#define CONSTRUCTION "Construction Area"
-	#define EMPTY_AREA "Empty Area"
+	#define MINING "WaterWorld"
 	#define EMPTY_AREA_2 "Empty Area 2"
 	#define AWAY_MISSION "Away Mission"
+	#define EMPTY_AREA "Empty Area"
 
 // Convenience define
 	#define DECLARE_LEVEL(NAME,LINKS,TRAITS) list("name" = NAME, "linkage" = LINKS, "attributes" = TRAITS)

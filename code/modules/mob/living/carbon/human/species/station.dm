@@ -260,9 +260,10 @@
 	reagent_tag = PROCESS_ORG
 	butt_sprite = "skrell"
 
+
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"lungs" =    /obj/item/organ/internal/lungs/skrell,
 		"liver" =    /obj/item/organ/internal/liver/skrell,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
@@ -277,6 +278,16 @@
 		"is twisting their own neck!",
 		"makes like a fish and suffocates!",
 		"is strangling themselves with their own tendrils!")
+
+/datum/species/skrell/mermaid
+	name = "Mermaid"
+	name_plural = "Mermaids"
+	default_language = "Skrellian"
+	blurb = "An amphibious species. Noone really knows why they are here, but they look angry..."
+
+datum/species/skrell/mermaid/chieftain
+	default_language = "Skrellian"
+	language = "Galactic Common"
 
 /datum/species/vox
 	name = "Vox"

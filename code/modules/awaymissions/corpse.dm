@@ -26,8 +26,8 @@
 	var/corpseidicon = null //For setting it to be a gold, silver, centcomm etc ID
 	var/timeofdeath = null
 	var/coffin = 0
-	var/brute_damage = 0
-	var/oxy_damage = 0
+//	var/brute_damage = 0
+//	var/oxy_damage = 0
 
 /obj/effect/landmark/corpse/initialize()
 	if(istype(src,/obj/effect/landmark/corpse/clown))

@@ -17,6 +17,8 @@
 	var/safe_co2_max = 10 // Yes it's an arbitrary value who cares?
 	var/safe_toxins_min = 0
 	var/safe_toxins_max = 0.05
+	var/safe_water_min = 0
+	var/safe_water_max = 3
 	var/SA_para_min = 1 //Sleeping agent
 	var/SA_sleep_min = 5 //Sleeping agent
 
@@ -32,6 +34,9 @@
 	var/tox_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
 	var/tox_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/tox_damage_type = TOX
+	var/wat_breath_dam_min = MIN_TOXIC_GAS_DAMAGE
+	var/wat_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
+	var/wat_damage_type = OXY
 
 	var/cold_message = "your face freezing and an icicle forming"
 	var/cold_level_1_threshold = 260
@@ -53,12 +58,12 @@
 
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
-	for(var/thing in list("oxy", "tox", "co2", "nitro"))
+	for(var/thing in list("oxy", "tox", "co2", "nitro", "water"))
 		M.clear_alert("not_enough_[thing]")
 		M.clear_alert("too_much_[thing]")
 
 /obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
-	for(var/thing in list("oxy", "tox", "co2", "nitro"))
+	for(var/thing in list("oxy", "tox", "co2", "nitro", "water"))
 		M.clear_alert("not_enough_[thing]")
 		M.clear_alert("too_much_[thing]")
 	return ..()
@@ -95,6 +100,8 @@
 			H.throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
 		else if(safe_nitro_min)
 			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+		else if(safe_water_min)
+			H.throw_alert("not_enough_water", /obj/screen/alert/not_enough_water)
 		return FALSE
 
 	var/gas_breathed = 0
@@ -104,6 +111,7 @@
 	var/N2_pp = breath.get_breath_partial_pressure(breath.nitrogen)
 	var/Toxins_pp = breath.get_breath_partial_pressure(breath.toxins)
 	var/CO2_pp = breath.get_breath_partial_pressure(breath.carbon_dioxide)
+	var/Water_pp = breath.get_breath_partial_pressure(breath.water)
 
 
 	//-- OXY --//
@@ -225,6 +233,33 @@
 	breath.carbon_dioxide += gas_breathed
 	gas_breathed = 0
 
+		//-- WATER --//
+
+	//Too much toxins!
+	if(safe_water_max)
+		if(Water_pp > safe_water_max)
+			var/ratio = (breath.water/safe_water_max) * 10
+			H.apply_damage_type(Clamp(ratio, wat_breath_dam_min, wat_breath_dam_max), wat_damage_type)
+			H.throw_alert("too_much_wat", /obj/screen/alert/too_much_water)
+		else
+			H.clear_alert("too_much_wat")
+
+
+	//Too little water!
+	if(safe_water_min)
+		if(Water_pp < safe_water_min)
+			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_water_min, breath.water)
+			H.throw_alert("not_enough_water", /obj/screen/alert/not_enough_water)
+		else
+			H.failed_last_breath = FALSE
+			H.adjustOxyLoss(-5)
+			gas_breathed = breath.water
+			H.clear_alert("not_enough_water")
+
+	//Exhale
+	breath.water -= gas_breathed
+	breath.carbon_dioxide += gas_breathed
+	gas_breathed = 0
 
 	//-- TRACES --//
 
@@ -335,3 +370,10 @@
 	cold_level_2_damage = -COLD_GAS_DAMAGE_LEVEL_2
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
 	cold_damage_types = list(BRUTE = 1, BURN = 0.5)
+
+/obj/item/organ/internal/lungs/skrell
+	name = "Skrell lungs"
+	desc = "They're filled with seaweed....what?!?."
+	species = "Skrell"
+
+	safe_water_max = 0

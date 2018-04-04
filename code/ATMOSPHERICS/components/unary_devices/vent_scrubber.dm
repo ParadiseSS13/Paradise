@@ -28,6 +28,7 @@
 	var/scrub_CO2 = 1
 	var/scrub_Toxins = 0
 	var/scrub_N2O = 0
+	var/scrub_water = 0
 
 	var/volume_rate = 200
 	var/widenet = 0 //is this scrubber acting on the 3x3 area around it.
@@ -78,6 +79,8 @@
 		if(scrub_N2)
 			amount += idle_power_usage
 		if(scrub_N2O)
+			amount += idle_power_usage
+		if(scrub_water)
 			amount += idle_power_usage
 	else
 		amount = active_power_usage
@@ -154,6 +157,7 @@
 		"filter_co2" = scrub_CO2,
 		"filter_toxins" = scrub_Toxins,
 		"filter_n2o" = scrub_N2O,
+		"filter_water" = scrub_water,
 		"sigtype" = "status"
 	)
 	if(frequency == 1439)//We're on the frequency the air alarms and stuff use
@@ -236,6 +240,9 @@
 			if(scrub_CO2)
 				filtered_out.carbon_dioxide = removed.carbon_dioxide
 				removed.carbon_dioxide = 0
+			if(scrub_water)
+				filtered_out.water = removed.water
+				removed.water = 0
 
 			if(removed.trace_gases.len>0)
 				for(var/datum/gas/trace_gas in removed.trace_gases)
@@ -310,6 +317,11 @@
 		scrub_Toxins = text2num(signal.data["tox_scrub"])
 	if(signal.data["toggle_tox_scrub"])
 		scrub_Toxins = !scrub_Toxins
+
+	if(signal.data["wat_scrub"] != null)
+		scrub_water = text2num(signal.data["wat_scrub"])
+	if(signal.data["toggle_wat_scrub"])
+		scrub_water = !scrub_water
 
 	if(signal.data["n2o_scrub"] != null)
 		scrub_N2O = text2num(signal.data["n2o_scrub"])

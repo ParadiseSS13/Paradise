@@ -54,6 +54,7 @@
 #define ANTAG_HUD_CHANGELING 16
 #define ANTAG_HUD_VAMPIRE 17
 #define ANTAG_HUD_ABDUCTOR 18
+#define ANTAG_HUD_ASHWALKER 19
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

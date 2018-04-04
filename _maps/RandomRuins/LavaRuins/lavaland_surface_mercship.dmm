@@ -1,0 +1,77 @@
+"aa" = (/turf/template_noop,/area/lavaland/surface/outdoors)
+"ab" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"ac" = (/turf/closed/wall/mineral/iron,/area/ruin/powered/mercenary_ship)
+"ad" = (/obj/structure/barricade/sandbags,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered/mercenary_ship)
+"ae" = (/obj/machinery/flood_lamp/assembled{in_use = 1},/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered/mercenary_ship)
+"af" = (/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered/mercenary_ship)
+"ag" = (/obj/structure/table,/obj/item/weapon/storage/firstaid/regular,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered/mercenary_ship)
+"ah" = (/obj/structure/table,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered/mercenary_ship)
+"ai" = (/obj/structure/table,/obj/item/weapon/pickaxe/silver,/turf/open/floor/plating/asteroid/basalt/lava_land_surface,/area/ruin/powered/mercenary_ship)
+"aj" = (/turf/closed/wall/shuttle,/area/ruin/powered/mercenary_ship)
+"ak" = (/obj/machinery/door/airlock/glass_external,/obj/machinery/door/poddoor{id = "mercairlock"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"al" = (/turf/closed/wall/shuttle/smooth/nodiagonal,/area/ruin/powered/mercenary_ship)
+"am" = (/obj/machinery/button/door{id = "mercairlock"; pixel_x = 25},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"an" = (/obj/structure/closet/emcloset,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"ao" = (/obj/machinery/suit_storage_unit/standard_unit,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"ap" = (/obj/structure/table/reinforced,/obj/item/device/assembly/flash,/obj/item/device/assembly/flash,/obj/item/device/assembly/flash,/obj/item/device/assembly/flash,/obj/item/device/assembly/flash,/obj/item/device/assembly/flash,/obj/item/device/assembly/flash,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aq" = (/obj/structure/table/reinforced,/obj/machinery/light{dir = 1},/obj/item/weapon/storage/firstaid/brute,/obj/item/weapon/storage/firstaid/brute,/obj/item/weapon/storage/firstaid/brute,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"ar" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/fire,/obj/item/weapon/storage/firstaid/fire,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"as" = (/obj/machinery/light/small{dir = 8},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"at" = (/obj/machinery/door/airlock/glass_external,/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"au" = (/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"av" = (/obj/machinery/door/airlock/hatch,/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aw" = (/obj/structure/table/reinforced,/obj/item/weapon/paper_bin{pixel_y = 6},/obj/item/weapon/pen,/turf/open/floor/bluegrid,/area/ruin/powered/mercenary_ship)
+"ax" = (/obj/effect/mob_spawn/human/space_mercenary,/turf/open/floor/bluegrid,/area/ruin/powered/mercenary_ship)
+"ay" = (/obj/structure/table/reinforced,/obj/item/weapon/reagent_containers/food/snacks/pizza/meat,/obj/item/weapon/kitchen/knife,/turf/open/floor/bluegrid,/area/ruin/powered/mercenary_ship)
+"az" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aA" = (/obj/machinery/sleeper{icon_state = "sleeper-open"; dir = 8},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aB" = (/obj/structure/table/reinforced,/obj/item/weapon/gun/energy/gun/advtaser{pixel_y = 6},/obj/item/weapon/gun/energy/gun/advtaser,/obj/item/weapon/gun/energy/gun/advtaser,/obj/item/weapon/gun/energy/gun/advtaser,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aC" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/wallet,/obj/item/ammo_box/magazine/wt550m9,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aD" = (/obj/effect/mob_spawn/human/space_mercenary_leader,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aE" = (/obj/structure/table/reinforced,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/obj/item/clothing/mask/gas,/obj/machinery/button/door{id = "mercteleport"; pixel_y = 10},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aF" = (/obj/machinery/sleeper{icon_state = "sleeper-open"; dir = 8},/obj/machinery/sleeper{icon_state = "sleeper-open"; dir = 8},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aG" = (/obj/structure/table/reinforced,/obj/item/weapon/melee/baton/loaded{pixel_x = -4},/obj/item/weapon/melee/baton/loaded{pixel_x = -7},/obj/item/weapon/melee/baton/loaded{pixel_x = 4},/obj/item/weapon/melee/baton/loaded,/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aH" = (/obj/structure/table/reinforced,/obj/item/clothing/head/welding,/obj/item/clothing/head/welding,/obj/item/clothing/head/welding,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aI" = (/obj/structure/table/reinforced,/obj/item/stack/spacecash/c100,/obj/item/stack/spacecash/c100,/obj/item/stack/spacecash/c100,/obj/item/stack/spacecash/c100,/obj/item/stack/spacecash/c100,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aJ" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aK" = (/obj/machinery/door/poddoor{id = "mercteleport"},/obj/structure/fans/tiny/invisible,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aL" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/box/handcuffs,/obj/item/weapon/storage/box/zipties{pixel_x = 6; pixel_y = 4},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aM" = (/obj/structure/table/reinforced,/obj/item/weapon/restraints/legcuffs/bola/tactical,/obj/item/weapon/restraints/legcuffs/bola/tactical,/obj/item/weapon/restraints/legcuffs/bola/tactical,/obj/item/weapon/restraints/legcuffs/bola/tactical,/obj/item/weapon/restraints/legcuffs/bola/tactical,/obj/item/weapon/restraints/legcuffs/bola/tactical,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aN" = (/obj/item/weapon/storage/bag/money,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aO" = (/obj/item/device/radio/beacon{anchored = 1; name = "Mercenary Beacon"},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aP" = (/obj/structure/table/reinforced,/obj/item/weapon/paper{info = "Always demand immediate payment before committing to a task. Your service must only be temporary, you cannot be paid for permenant or long-term employment. If your employer perishes before you can complete the task then consider your task complete and sieze any assets offered as payment. If you cannot complete a task after accepting then you must return the owed assets back to your employer. Always demand considerable amounts depending on the ask, capturing someone with a bounty alive warrants for higher pay while bringing them in dead warrants for less, helping quell a riot can also be considered an expensive job. You are obligated to decline any request that would result in you performing hostile actions or incriminating another mercenary under corporate space law."; name = "The Mercenary Code"},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aQ" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/fancy/cigarettes/cigars/havana{pixel_y = 9},/obj/item/weapon/lighter,/obj/item/weapon/lighter,/obj/item/weapon/lighter,/obj/item/weapon/lighter,/obj/item/weapon/lighter,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aR" = (/obj/machinery/light,/obj/structure/table/reinforced,/obj/item/stack/sheet/metal/fifty,/obj/item/stack/sheet/glass/fifty,/obj/item/stack/sheet/plasteel/twenty,/obj/item/stack/sheet/rglass{amount = 50},/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aS" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/backpack/dufflebag,/obj/item/weapon/storage/backpack/dufflebag,/obj/item/weapon/storage/backpack/dufflebag,/obj/item/weapon/storage/backpack/dufflebag,/obj/item/weapon/storage/backpack/dufflebag,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aT" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/backpack/satchel_norm,/obj/item/weapon/storage/backpack/satchel_norm,/obj/item/weapon/storage/backpack/satchel_norm,/obj/item/weapon/storage/backpack/satchel_norm,/obj/item/weapon/storage/backpack/satchel_norm,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aU" = (/obj/structure/table/reinforced,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aV" = (/obj/machinery/computer/teleporter,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aW" = (/obj/machinery/teleport/station,/obj/machinery/light,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aX" = (/obj/machinery/teleport/hub,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aY" = (/obj/structure/closet/crate/freezer,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/reagent_containers/blood/random,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"aZ" = (/obj/machinery/iv_drip,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"ba" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/firstaid/regular,/obj/item/weapon/storage/firstaid/regular,/obj/item/weapon/storage/firstaid/regular,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"bb" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/toolbox/mechanical,/obj/item/weapon/storage/toolbox/mechanical,/obj/item/weapon/storage/toolbox/mechanical,/obj/item/device/multitool,/obj/item/device/multitool,/obj/item/device/multitool,/obj/machinery/light,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+"bc" = (/obj/structure/table/reinforced,/obj/item/weapon/storage/firstaid/toxin,/obj/item/weapon/storage/firstaid/toxin,/turf/open/floor/plasteel/white,/area/ruin/powered/mercenary_ship)
+
+(1,1,1) = {"
+aaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaabababaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaababacadadadacaeababababaaaaaaaaaaaaaaaaaaaaaaaa
+abababacafafafafafabababaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaabaeafafafafafafacabababaaaaaaaaaaaaaaaaaaaaaaaa
+aaabadafafagahafafafababababaaaaaaaaaaaaaaaaaaaaaa
+aaaaadafafaiahafafafabaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaabacafafafafafaeadababaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaajakajajajajajajajajajalaaaaaaaaaaaaaaaaaaaaaa
+aaaaajamajanajaoaoajapaqaralalajajajajajalaaaaaaaa
+aaaaajasatauauauauavauauauajawaxaxaxaxayajajajajaa
+aaaaajajajazauauaAajaBauauajauauauauauauajaCaDajaa
+aaaaajaEauauauauaFajaGauauavauauaHaIauauavauaJajaa
+aaaaalajaKajajauaAajaLauauajauauauauauaMajaNauajaa
+aaaaajauaOauajauauavauauauajaPaQaRaSaTaUajajajajaa
+aaaaajaVaWaXajaYaZajbabbbcalalajajajajajalaaaaaaaa
+aaaaajajajajalajajajajajajalaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}

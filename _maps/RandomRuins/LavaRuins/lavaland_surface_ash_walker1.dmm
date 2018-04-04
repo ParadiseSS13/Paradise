@@ -1,0 +1,69 @@
+"a" = (/turf/simulated/floor/plating/airless/lavaland,/area/lavaland/surface/outdoors)
+"b" = (/turf/simulated/floor/plating/airless/lavaland,/area/lavaland/surface/outdoors)
+"c" = (/turf/simulated/wall/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"d" = (/obj/effect/light_emitter,/mob/living/simple_animal/hostile/spawner/ash_walker,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"e" = (/obj/effect/decal/cleanable/blood,/obj/effect/landmark/human/ash_walker,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"f" = (/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"g" = (/obj/effect/landmark/human/ash_walker,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"h" = (/turf/simulated/floor/plating/asteroid,/area/ruin/unpowered)
+"i" = (/obj/effect/decal/cleanable/blood,/obj/item/device/flashlight/lantern,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"j" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"k" = (/obj/structure/sink/puddle{desc = "A source of water blessed with the essence of the tendril, you swear you can see ghostly apparitions in the reflection but maybe that's just your psychotic imagination"; name = "Infused Puddle"},/turf/simulated/floor/plating/asteroid,/area/ruin/unpowered)
+"l" = (/obj/item/weapon/reagent_containers/glass/bowl,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"m" = (/obj/item/weapon/pickaxe,/obj/item/weapon/pickaxe,/obj/structure/closet/crate/internals,/obj/item/weapon/pickaxe,/obj/item/weapon/pickaxe,/obj/item/weapon/pickaxe,/obj/item/weapon/storage/box/rxglasses,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"n" = (/obj/effect/landmark/human/corpse/damaged,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"o" = (/obj/structure/closet/crate/radiation,/obj/item/device/flashlight/lantern,/obj/item/device/flashlight/lantern,/obj/item/device/flashlight/lantern,/obj/item/device/flashlight/flare,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"p" = (/obj/structure/closet/crate/medical,/obj/item/device/malf_upgrade,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"q" = (/obj/structure/closet/crate/hydroponics,/obj/item/weapon/storage/belt,/obj/item/weapon/scythe,/obj/item/seeds/glowshroom,/obj/item/seeds/glowshroom,/obj/item/weapon/reagent_containers/glass/bucket,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"r" = (/obj/item/device/flashlight/lantern,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"s" = (/obj/item/device/flashlight/seclite,/obj/item/device/flashlight,/obj/structure/closet/crate,/obj/item/device/flashlight,/obj/item/device/flashlight,/obj/item/device/flashlight,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"t" = (/obj/item/device/flashlight/flare,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight/seclite,/obj/item/device/flashlight,/obj/structure/closet/crate,/obj/item/device/flashlight,/obj/item/device/flashlight,/obj/item/device/flashlight,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"u" = (/turf/closed/wall/mineral/iron{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"v" = (/obj/item/weapon/twohanded/spear,/obj/structure/mineral_door/iron,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"w" = (/obj/structure/mineral_door/iron,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"x" = (/obj/structure/table,/obj/item/weapon/rcd/loaded,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"y" = (/obj/structure/table,/obj/item/weapon/storage/toolbox/syndicate,/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"z" = (/obj/structure/closet/crate/engineering,/obj/item/weapon/rcd/loaded,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"A" = (/obj/structure/closet/crate/medical,/obj/item/weapon/storage/firstaid/regular,/obj/item/weapon/reagent_containers/blood/random,/obj/item/weapon/storage/firstaid/toxin,/obj/item/weapon/storage/firstaid/toxin,/obj/item/weapon/storage/firstaid/regular,/obj/item/weapon/storage/firstaid/o2,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"B" = (/obj/machinery/the_singularitygen,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"C" = (/obj/structure/rack{icon = 'icons/obj/stationobjs.dmi'; icon_state = "minibar_left"; name = "skeletal minibar"},/obj/item/stack/sheet/cloth/ten,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"D" = (/obj/structure/rack{icon = 'icons/obj/stationobjs.dmi'; icon_state = "minibar_right"; name = "skeletal minibar"},/obj/item/clothing/head/helmet/roman/legionaire,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"E" = (/obj/structure/table,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"F" = (/obj/machinery/iv_drip,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"G" = (/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"H" = (/obj/structure/table/optable,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"I" = (/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"J" = (/obj/item/device/flashlight,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"M" = (/obj/item/weapon/twohanded/spear,/obj/structure/rack,/obj/item/weapon/twohanded/spear,/obj/item/weapon/twohanded/spear,/obj/item/weapon/twohanded/spear,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"N" = (/obj/item/weapon/twohanded/spear,/obj/structure/rack,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"O" = (/obj/structure/mineral_door/iron,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland; blocks_air = 1},/area/ruin/unpowered)
+"R" = (/obj/item/weapon/twohanded/spear,/obj/structure/table,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"T" = (/obj/structure/closet/crate/necropolis,/obj/item/stack/sheet/mineral/mythril{amount = 50},/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/ruin/unpowered)
+"U" = (/turf/simulated/floor/plating/airless/lavaland,/area/lavaland/surface/outdoors/mapgen_protected)
+"V" = (/obj/structure/ore_box,/turf/simulated/floor/plating/airless/lavaland,/area/lavaland/surface/outdoors/mapgen_protected)
+"W" = (/obj/item/weapon/pickaxe,/obj/item/weapon/shovel,/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland; initial_gas_mix = "o2=13;n2=24;TEMP=300"},/area/lavaland/surface/outdoors/mapgen_protected)
+"X" = (/obj/structure/closet/crate/miningcar,/turf/simulated/floor/plating/airless/lavaland,/area/lavaland/surface/outdoors/mapgen_protected)
+"Y" = (/turf/simulated/wall/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland},/area/lavaland/surface/outdoors/mapgen_protected)
+"Z" = (/turf/simulated/floor/engine/cult{baseturf = /turf/simulated/floor/plating/airless/lavaland; initial_gas_mix = "o2=13;n2=24;TEMP=300"},/area/lavaland/surface/outdoors/mapgen_protected)
+
+(1,1,1) = {"
+aabaaaaaaaaabb
+aaaaaaaaaaaabb
+aaaacccccccccb
+aaaacdefgchhcb
+aaaaceijffhkcb
+baaccjfflcccca
+baacmfnffocaaa
+aaacpqfrstcccc
+aaccuuvwuucxyc
+aaczABffCDffEc
+aacFfffnGffffc
+aacHIJffffffTc
+UXuMfNuOuuuucc
+YZuRRNuZUZWVaa
+YZuuuuuUUUUUaa
+UUUZUUUUZUUZaa
+ZUUUUUZUZUUUaa
+aUUUUUUUZUUUaa
+"}
+

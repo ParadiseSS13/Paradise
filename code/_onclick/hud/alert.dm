@@ -144,6 +144,16 @@
 	name = "Choking (Plasma)"
 	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
 	icon_state = "too_much_tox"
+
+/obj/screen/alert/not_enough_water
+	name = "Choking (No Water)"
+	desc = "You're not getting enough water. Find some good air before you pass out!"
+	icon_state = "not_enough_wat"
+
+/obj/screen/alert/too_much_water
+	name = "Choking (Water)"
+	desc = "There's too much water vapor in the air, and you're breathing it in! Find some good air before you pass out!"
+	icon_state = "too_much_wat"
 //End gas alerts
 
 

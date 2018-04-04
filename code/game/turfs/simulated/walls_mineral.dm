@@ -264,3 +264,12 @@
 /turf/simulated/wall/mineral/plastitanium/copyTurf(turf/T)
 	. = ..()
 	T.transform = transform
+
+/turf/closed/wall/mineral
+	name = "mineral wall"
+	desc = "This shouldn't exist"
+	icon_state = ""
+	var/last_event = 0
+	var/active = null
+	canSmoothWith = null
+	smooth = SMOOTH_TRUE

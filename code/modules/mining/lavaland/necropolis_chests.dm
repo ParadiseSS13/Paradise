@@ -7,15 +7,15 @@
 	icon_opened = "necrocrateopen"
 	icon_closed = "necrocrate"
 	burn_state = LAVA_PROOF | FIRE_PROOF
-	unacidable = 1
-	
+//	unacidable = 1
+
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/New()
 	..()
 	var/loot = rand(1,24)
-	switch(loot) 
+	switch(loot)
 		if(1)
 			new /obj/item/device/shared_storage/red(src)
 		if(2)
