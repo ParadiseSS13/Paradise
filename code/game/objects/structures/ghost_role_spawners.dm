@@ -80,7 +80,7 @@
 
 /obj/effect/mob_spawn/human/ash_walker/chief/special(mob/living/new_spawn)
 	..()
-	if(ishuman(new_spawn))
+//	if(ishuman(new_spawn))
 //		var/mob/living/carbon/human/H = new_spawn
 //		H.languages_spoken |= HUMAN
 //		H.languages_understood |= HUMAN
