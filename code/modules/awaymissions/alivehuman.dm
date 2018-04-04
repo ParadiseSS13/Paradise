@@ -18,6 +18,7 @@
 	density = 1
 	anchored = 1
 	var/jobban_type
+	var/list/atom_spawners
 
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
@@ -64,7 +65,7 @@ var/list/implants = list()
 
 /obj/effect/mob_spawn/spawn_atom_to_world()
 	//We no longer need to spawn mobs, deregister ourself
-	SSobj.atom_spawners -= src
+	atom_spawners -= src
 	if(roundstart)
 		create()
 	else
@@ -74,7 +75,7 @@ var/list/implants = list()
 	..()
 	if(roundstart)
 		//Add to the atom spawners register for roundstart atom spawning
-		SSobj.atom_spawners += src
+		atom_spawners += src
 
 	if(instant)
 		create()
