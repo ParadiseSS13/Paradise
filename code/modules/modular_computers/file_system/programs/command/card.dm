@@ -137,7 +137,7 @@
 
 
 /datum/computer_file/program/card_mod/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
@@ -255,11 +255,11 @@
 				playsound(computer.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				spawn(50)
 					printing = 0
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					var/title
 					var/content
 					if(mode == 2)
-						title = "crew manifest ([worldtime2text()])"
+						title = "crew manifest ([station_time_timestamp()])"
 						content = "<h4>Crew Manifest</h4><br>[data_core ? data_core.get_manifest(0) : ""]"
 					else if(modify && !mode)
 						title = "access report"
@@ -326,7 +326,7 @@
 	if(modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /datum/computer_file/program/card_mod/ui_data(mob/user)

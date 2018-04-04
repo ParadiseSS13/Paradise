@@ -291,7 +291,10 @@ obj/structure/windoor_assembly/Destroy()
 							windoor.setDir(dir)
 							windoor.density = FALSE
 
-							windoor.req_access = electronics.conf_access
+							if(electronics.one_access)
+								windoor.req_one_access = electronics.conf_access
+							else
+								windoor.req_access = electronics.conf_access
 							windoor.electronics = src.electronics
 							electronics.forceMove(windoor)
 							if(created_name)

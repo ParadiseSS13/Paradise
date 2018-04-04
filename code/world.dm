@@ -4,9 +4,6 @@ var/global/datum/global_init/init = new ()
 	Pre-map initialization stuff should go here.
 */
 /datum/global_init/New()
-
-	makeDatumRefLists()
-	load_configuration()
 	setLog()
 	del(src)
 
@@ -35,7 +32,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		// dumb and hardcoded but I don't care~
 		config.server_name += " #[(world.port % 1000) / 100]"
 
-	timezoneOffset = text2num(time2text(0,"hh")) * 36000
+	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
+
 
 	callHook("startup")
 
@@ -48,6 +46,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	space_manager.initialize() //Before the MC starts up
 
+	Master.Initialize(10, FALSE)
+
 	processScheduler = new
 	master_controller = new /datum/controller/game_controller()
 	spawn(1)
@@ -55,14 +55,13 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 		processScheduler.setup()
 
 		master_controller.setup()
-		sleep_offline = 1
 
 	if(using_map && using_map.name)
 		map_name = "[using_map.name]"
 	else
 		map_name = "Unknown"
-	
-	
+
+
 	if(config && config.server_name)
 		name = "[config.server_name]: [station_name()]"
 	else
@@ -117,7 +116,11 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["ai"] = config.allow_ai
 		s["host"] = host ? host : null
 		s["players"] = list()
-		s["stationtime"] = worldtime2text()
+		s["roundtime"] = worldtime2text()
+		s["stationtime"] = station_time_timestamp()
+		s["listed"] = "Public"
+		if(!hub_password)
+			s["listed"] = "Invisible"
 		var/player_count = 0
 		var/admin_count = 0
 
@@ -269,6 +272,18 @@ var/world_topic_spam_protect_time = world.timeofday
 		setLog()
 
 		return "Logs set to current date"
+
+	else if("setlist" in input)
+		if(!key_valid)
+			return keySpamProtect(addr)
+		if(input["req"] == "public")
+			hub_password = hub_password_base
+			update_status()
+			return "Set listed status to public."
+		else
+			hub_password = ""
+			update_status()
+			return "Set listed status to invisible."
 
 /proc/keySpamProtect(var/addr)
 	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)

@@ -70,7 +70,7 @@
 		if(linked_db)
 			if(linked_account)
 				scan_card(O, user)
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 			else
 				to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to linked account.</span>")
 		else
@@ -79,7 +79,7 @@
 		..()
 
 /obj/item/device/eftpos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "eftpos.tmpl", name, 790, 310)
 		ui.open()
@@ -172,7 +172,7 @@
 					access_code = 0
 					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/item/device/eftpos/proc/scan_card(obj/item/weapon/card/I, mob/user)
@@ -203,7 +203,7 @@
 							T.amount = "[transaction_amount]"
 						T.source_terminal = machine_id
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						D.transaction_log.Add(T)
 						//
 						T = new()
@@ -212,7 +212,7 @@
 						T.amount = "[transaction_amount]"
 						T.source_terminal = machine_id
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						linked_account.transaction_log.Add(T)
 					else
 						to_chat(user, "[bicon(src)]<span class='warning'>You don't have that much money!</span>")

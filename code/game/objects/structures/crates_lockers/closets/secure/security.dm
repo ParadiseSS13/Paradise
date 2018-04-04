@@ -53,7 +53,7 @@
 	new /obj/item/weapon/storage/box/ids(src)
 	new /obj/item/weapon/storage/box/PDAs(src)
 	new /obj/item/clothing/suit/armor/vest(src)
-	new /obj/item/weapon/gun/energy/gun(src)
+	new /obj/item/weapon/gun/energy/gun/mini(src)
 	new /obj/item/device/flash(src)
 	new /obj/item/clothing/accessory/petcollar(src)
 	new /obj/item/weapon/door_remote/civillian(src)

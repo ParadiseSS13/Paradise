@@ -796,7 +796,7 @@
 	return thresholds
 
 /obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)
 		ui.open()
@@ -922,7 +922,7 @@
 		return 1
 
 	if(href_list["atmos_reset"])
-		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src))
+		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
 			apply_danger_level(ATMOS_ALARM_NONE)
 		alarmActivated = 0
 		update_icon()
