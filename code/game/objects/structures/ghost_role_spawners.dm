@@ -168,7 +168,7 @@
 	// which is clearly a feature
 
 	new_spawn << "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked."
-	if(ishuman(new_spawn))
+//	if(ishuman(new_spawn))
 //		var/mob/living/carbon/human/H = new_spawn
 //		H.set_cloned_appearance()
 
