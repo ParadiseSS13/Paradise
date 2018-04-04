@@ -318,7 +318,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
-	if(DROPDEL & flags)
+	if(flags & DROPDEL)
 		qdel(src)
 
 // called just as an item is picked up (loc is not yet changed)
