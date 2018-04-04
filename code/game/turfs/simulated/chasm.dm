@@ -133,6 +133,6 @@
 /turf/simulated/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = 30
 	nitrogen = 0.01
-	water = 500
+	water = 200
 	temperature = T20C
 
