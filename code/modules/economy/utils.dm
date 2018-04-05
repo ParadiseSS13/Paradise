@@ -72,7 +72,7 @@
 			if(terminal_id)
 				T.source_terminal = terminal_id
 			T.date = current_date_string
-			T.time = worldtime2text()
+			T.time = station_time_timestamp()
 			dest.transaction_log.Add(T)
 		//
 		T = new()
@@ -84,7 +84,7 @@
 		if(terminal_id)
 			T.source_terminal = terminal_id
 		T.date = current_date_string
-		T.time = worldtime2text()
+		T.time = station_time_timestamp()
 		transaction_log.Add(T)
 		return 1
 	else

@@ -418,7 +418,7 @@ var/global/list/rockTurfEdgeCache = list(
 	return
 
 /turf/simulated/mineral/attack_animal(mob/living/simple_animal/user as mob)
-	if(user.environment_smash >= 2)
+	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		gets_drilled()
 	..()
 

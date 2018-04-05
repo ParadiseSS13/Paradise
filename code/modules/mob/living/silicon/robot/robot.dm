@@ -49,6 +49,8 @@ var/list/robot_verbs_default = list(
 	var/datum/wires/robot/wires = null
 
 	var/opened = 0
+	var/custom_panel = null
+	var/list/custom_panel_names = list("Cricket")
 	var/emagged = 0
 
 	var/list/force_modules = list()
@@ -314,6 +316,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Default"] = "Service2"
 			module_sprites["Standard"] = "robotServ"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
+			module_sprites["Cricket"] = "Cricket-SERV"
 
 		if("Miner")
 			module = new /obj/item/weapon/robot_module/miner(src)
@@ -325,6 +328,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Treadhead"] = "Miner"
 			module_sprites["Standard"] = "robotMine"
 			module_sprites["Noble-DIG"] = "Noble-DIG"
+			module_sprites["Cricket"] = "Cricket-MINE"
 
 		if("Medical")
 			module = new /obj/item/weapon/robot_module/medical(src)
@@ -337,6 +341,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Needles"] = "medicalrobot"
 			module_sprites["Standard"] = "robotMedi"
 			module_sprites["Noble-MED"] = "Noble-MED"
+			module_sprites["Cricket"] = "Cricket-MEDI"
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -348,6 +353,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Bloodhound"] = "bloodhound"
 			module_sprites["Standard"] = "robotSecy"
 			module_sprites["Noble-SEC"] = "Noble-SEC"
+			module_sprites["Cricket"] = "Cricket-SEC"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -360,6 +366,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Landmate"] = "landmate"
 			module_sprites["Standard"] = "robotEngi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
+			module_sprites["Cricket"] = "Cricket-ENGI"
 			magpulse = 1
 
 		if("Janitor")
@@ -370,6 +377,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "robotJani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
+			module_sprites["Cricket"] = "Cricket-JANI"
 
 		if("Combat")
 			module = new /obj/item/weapon/robot_module/combat(src)
@@ -567,10 +575,7 @@ var/list/robot_verbs_default = list(
 	return 2
 
 
-/mob/living/silicon/robot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/restraints/handcuffs)) // fuck i don't even know why isrobot() in handcuff code isn't working so this will have to do
-		return
-
+/mob/living/silicon/robot/attackby(obj/item/weapon/W, mob/user, params)
 	if(opened) // Are they trying to insert something?
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
@@ -610,6 +615,7 @@ var/list/robot_verbs_default = list(
 
 
 	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
@@ -744,8 +750,12 @@ var/list/robot_verbs_default = list(
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
 
 	else
-		spark_system.start()
 		return ..()
+
+/mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
+	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
+		spark_system.start()
+	..()
 
 /mob/living/silicon/robot/emag_act(user as mob)
 	if(!ishuman(user) && !issilicon(user))
@@ -965,6 +975,9 @@ var/list/robot_verbs_default = list(
 		var/panelprefix = "ov"
 		if(custom_sprite) //Custom borgs also have custom panels, heh
 			panelprefix = "[ckey]"
+
+		if(custom_panel in custom_panel_names) //For default borgs with different panels
+			panelprefix = custom_panel
 
 		if(wiresexposed)
 			overlays += "[panelprefix]-openpanel +w"
@@ -1287,6 +1300,8 @@ var/list/robot_verbs_default = list(
 			module.module_type = "Brobot"
 			update_module_icon()
 		lockcharge = null
+		var/list/names = splittext(icontype, "-")
+		custom_panel = trim(names[1])
 	else
 		to_chat(src, "Something is badly wrong with the sprite selection. Harass a coder.")
 		icon_state = module_sprites[1]

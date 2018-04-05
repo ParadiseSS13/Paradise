@@ -23,6 +23,7 @@
 	maxHealth = 150
 	health = 150
 	environment_smash = 1
+	obj_damage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	see_in_dark = 8

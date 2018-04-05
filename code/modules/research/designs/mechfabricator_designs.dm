@@ -896,7 +896,7 @@
 /datum/design/mech_disabler
 	name = "Exosuit Weapon (CH-PD Disabler)"
 	desc = "Allows for the construction of CH-PD Disabler."
-	id = "mech_laser"
+	id = "mech_disabler"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler

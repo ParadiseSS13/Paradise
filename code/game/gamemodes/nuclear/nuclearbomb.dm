@@ -46,7 +46,7 @@ var/bomb_set
 		if(timeleft <= 0)
 			spawn
 				explode()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/nuclearbomb/attackby(obj/item/weapon/O as obj, mob/user as mob, params)
@@ -177,7 +177,7 @@ var/bomb_set
 	return
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550, state = physical_state)
 		ui.open()
@@ -280,11 +280,11 @@ var/bomb_set
 				timeleft = min(max(round(src.timeleft), 120), 600)
 			if(href_list["timer"])
 				if(timing == -1.0)
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				if(safety)
 					to_chat(usr, "<span class='warning'>The safety is still on.</span>")
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				timing = !(timing)
 				if(timing)
@@ -314,7 +314,7 @@ var/bomb_set
 				if(removal_stage == 5)
 					anchored = 0
 					visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 
 				if(!isinspace())
@@ -326,7 +326,7 @@ var/bomb_set
 				else
 					to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/nuclearbomb/ex_act(severity)
 	return
@@ -400,6 +400,7 @@ var/bomb_set
 	name = "nuclear authentication disk"
 	desc = "Better keep this safe."
 	icon_state = "nucleardisk"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
 
 /obj/item/weapon/disk/nuclear/New()
 	..()

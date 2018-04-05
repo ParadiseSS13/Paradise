@@ -25,14 +25,40 @@
 	icon_state = "box"
 	item_state = "syringe_kit"
 	burn_state = FLAMMABLE
-	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
+	var/foldable = /obj/item/stack/sheet/cardboard
+
+/obj/item/weapon/storage/box/attack_self(mob/user)
+	..()
+
+	if(!foldable)
+		return
+	if(contents.len)
+		to_chat(user, "<span class='warning'>You can't fold this box with items still inside!</span>")
+		return
+	if(!ispath(foldable))
+		return
+
+	// Close any open UI windows first
+	var/found = 0
+	for(var/mob/M in range(1))
+		if(M.s_active == src)
+			close(M)
+		if(M == user)
+			found = 1
+	if(!found)	// User is too far away
+		return
+
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	var/obj/item/I = new foldable(get_turf(src))
+	user.put_in_hands(I)
+	qdel(src)
 
 /obj/item/weapon/storage/box/large
 	name = "large box"
 	desc = "You could build a fort with this."
 	icon_state = "largebox"
 	w_class = 42 // Big, bulky.
-	foldable = /obj/item/stack/sheet/cardboard  //BubbleWrap
+	foldable = /obj/item/stack/sheet/cardboard
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 
@@ -639,19 +665,16 @@
 	slot_flags = SLOT_BELT
 	can_hold = list(/obj/item/weapon/match)
 
-	New()
-		..()
-		for(var/i=1; i <= storage_slots; i++)
-			new /obj/item/weapon/match(src)
+/obj/item/weapon/storage/box/matches/New()
+	..()
+	for(var/i in 1 to storage_slots)
+		new /obj/item/weapon/match(src)
 
-	attackby(obj/item/weapon/match/W as obj, mob/user as mob, params)
-		if(istype(W, /obj/item/weapon/match) && W.lit == 0)
-			W.lit = 1
-			W.icon_state = "match_lit"
-			processing_objects.Add(W)
-			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-		W.update_icon()
-		return
+/obj/item/weapon/storage/box/matches/attackby(obj/item/weapon/match/W, mob/user, params)
+	if(istype(W, /obj/item/weapon/match) && !W.lit)
+		W.matchignite()
+		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
+	return
 
 /obj/item/weapon/storage/box/autoinjectors
 	name = "box of injectors"
@@ -681,7 +704,7 @@
 	icon_state = "light"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
 	item_state = "syringe_kit"
-	foldable = /obj/item/stack/sheet/cardboard //BubbleWrap
+	foldable = /obj/item/stack/sheet/cardboard
 	storage_slots=21
 	can_hold = list(/obj/item/weapon/light/tube, /obj/item/weapon/light/bulb)
 	max_combined_w_class = 21

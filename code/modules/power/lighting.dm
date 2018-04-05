@@ -16,6 +16,7 @@
 	icon_state = "tube-construct-stage1"
 	anchored = 1
 	layer = 5
+	armor = list(melee = 50, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/stage = 1
 	var/fixture_type = "tube"
 	var/sheets_refunded = 2
@@ -141,7 +142,7 @@
 	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
 	var/brightness_power = 1
-	var/brightness_color = null
+	var/brightness_color = "#FFFFFF"
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = 0
 	var/light_type = /obj/item/weapon/light/tube		// the type of light item
@@ -152,6 +153,13 @@
 	var/rigged = 0				// true if rigged to explode
 	var/lightmaterials = list(MAT_GLASS=100)	//stores the materials the light is made of to stop infinite glass exploit
 
+	var/nightshift_enabled = FALSE	//Currently in night shift mode?
+	var/nightshift_allowed = TRUE	//Set to FALSE to never let this light get switched to night mode.
+	var/nightshift_light_range = 8
+	var/nightshift_light_power = 0.45
+	var/nightshift_light_color = "#FFDDCC"
+
+
 // the smaller bulb light fixture
 
 /obj/machinery/light/small
@@ -160,6 +168,7 @@
 	fitting = "bulb"
 	brightness_range = 4
 	brightness_color = "#a0a080"
+	nightshift_light_range = 4
 	desc = "A small lighting fixture."
 	light_type = /obj/item/weapon/light/bulb
 
@@ -225,18 +234,24 @@
 	return
 
 // update the icon_state and luminosity of the light depending on its state
-/obj/machinery/light/proc/update(var/trigger = 1)
-
+/obj/machinery/light/proc/update(var/trigger = TRUE)
+	switch(status)
+		if(LIGHT_BROKEN, LIGHT_BURNED, LIGHT_EMPTY)
+			on = FALSE
 	update_icon()
 	if(on)
-		if(light_range != brightness_range || light_power != brightness_power || light_color != brightness_color)
+		var/BR = nightshift_enabled ? nightshift_light_range : brightness_range
+		var/PO = nightshift_enabled ? nightshift_light_power : brightness_power
+		var/CO = nightshift_enabled ? nightshift_light_color : brightness_color
+		var/matching = light_range == BR && light_power == PO && light_color == CO
+		if(!matching)
 			switchcount++
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
 					log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast]")
 					message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast]")
 					explode()
-			else if( prob( min(60, switchcount*switchcount*0.01) ) )
+			else if(prob(min(60, switchcount * switchcount * 0.01)))
 				if(status == LIGHT_OK && trigger)
 					status = LIGHT_BURNED
 					icon_state = "[base_state]-burned"
@@ -244,7 +259,7 @@
 					set_light(0)
 			else
 				use_power = 2
-				set_light(brightness_range, brightness_power, brightness_color)
+				set_light(BR, PO, CO)
 	else
 		use_power = 1
 		set_light(0)

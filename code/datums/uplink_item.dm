@@ -963,6 +963,13 @@ var/list/uplink_items = list()
 	item = /obj/item/weapon/storage/backpack/duffel/syndie/surgery
 	cost = 4
 
+/datum/uplink_item/device_tools/bonerepair
+	name = "Prototype Bone Repair Kit"
+	desc = "Stolen prototype bone repair nanites. Contains one nanocalcium autoinjector and guide."
+	reference = "NCAI"
+	item = /obj/item/weapon/storage/box/syndie_kit/bonerepair
+	cost = 6
+
 /datum/uplink_item/device_tools/military_belt
 	name = "Military Belt"
 	desc = "A robust seven-slot red belt made for carrying a broad variety of weapons, ammunition and explosives"

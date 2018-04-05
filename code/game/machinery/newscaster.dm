@@ -78,6 +78,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
+	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/screen = NEWSCASTER_MAIN
 	var/paper_remaining = 15
 	var/securityCaster = 0
@@ -185,7 +186,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	user.set_machine(src)
 	if(can_scan(user))
 		scan_user(user)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "newscaster.tmpl", name, 400, 600)
 		ui.open()
@@ -565,7 +566,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	else if(href_list["jobs"])
 		screen = NEWSCASTER_JOBS
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/newscaster/attackby(obj/item/I, mob/living/user, params)

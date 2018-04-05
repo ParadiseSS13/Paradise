@@ -33,7 +33,7 @@
 			to_chat(user, "<span class='warning'>You have been locked out from this console!</span>")
 
 /obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 
 	if(!ui)
 		ui = new(user, src, ui_key, "ai_fixer.tmpl", "AI System Integrity Restorer", 550, 500)
@@ -90,7 +90,7 @@
 		if(radio == 0 || radio == 1)
 			occupant.aiRadio.disabledAi = radio
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	update_icon()
 	return
 
