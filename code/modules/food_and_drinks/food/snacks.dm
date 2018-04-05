@@ -137,7 +137,7 @@
 		if(!iscarbon(user))
 			return 1
 		var/contine = alert("Are you sure you want to put [W] inside [src]", "Food filling", "Yes", "No")
-		if(contine == "Yes")
+		if(contine == "Yes" && Adjacent(user))
 			to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")
 			user.unEquip(W)
 			if((user.client && user.s_active != src))
