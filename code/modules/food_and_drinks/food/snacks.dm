@@ -119,20 +119,16 @@
 	if((slices_num <= 0 || !slices_num) || !slice_path)
 		return 0
 
-	var/inaccurate = 0
-	if( \
-			istype(W, /obj/item/weapon/kitchen/knife) || \
-			istype(W, /obj/item/weapon/scalpel) \
-		)
-	else if( \
-			istype(W, /obj/item/weapon/circular_saw) || \
-			istype(W, /obj/item/weapon/melee/energy/sword/saber) && W:active || \
-			istype(W, /obj/item/weapon/melee/energy/blade) || \
-			istype(W, /obj/item/weapon/shovel) || \
-			istype(W, /obj/item/weapon/hatchet) \
-		)
-		inaccurate = 1
-	else if(W.w_class <= WEIGHT_CLASS_SMALL && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
+	if(W.sharp) // First check if the object is sharp, we're probably trying to cut the food.
+		var/success = FALSE //Assume we fail to cut it
+		if(istype(W, /obj/item/weapon/kitchen/knife) || istype(W, /obj/item/weapon/scalpel)) // We do an accurate cut with these items, everything else is assumed inaccurate
+			success = slice(W, user, FALSE)
+		else
+			success = slice(W, user, TRUE)
+		if(success) // If we successful sliced the food then we stop here, otherwise continue to the next check
+			return
+
+	if(W.w_class <= WEIGHT_CLASS_SMALL && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
 		var/newweight = GetTotalContentsWeight() + W.GetTotalContentsWeight() + W.w_class
 		if(newweight > MAX_WEIGHT_CLASS)
 			// Nope, no bluespace slice food
@@ -140,17 +136,21 @@
 			return 1
 		if(!iscarbon(user))
 			return 1
-		to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")
-		user.unEquip(W)
-		if((user.client && user.s_active != src))
-			user.client.screen -= W
-		W.dropped(user)
-		total_w_class += W.w_class
-		add_fingerprint(user)
-		contents += W
-		return
+		var/contine = alert("Are you sure you want to put [W] inside [src]", "Food filling", "Yes", "No")
+		if(contine == "Yes")
+			to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")
+			user.unEquip(W)
+			if((user.client && user.s_active != src))
+				user.client.screen -= W
+			W.dropped(user)
+			total_w_class += W.w_class
+			add_fingerprint(user)
+			contents += W
+			return
 	else
 		return 1
+
+/obj/item/weapon/reagent_containers/food/snacks/proc/slice(obj/item/weapon/W, mob/user, inaccurate = FALSE)
 	if( \
 			!isturf(loc) || \
 			!(locate(/obj/structure/table) in loc) && \
@@ -158,7 +158,7 @@
 			!(locate(/obj/item/weapon/storage/bag/tray) in loc) \
 		)
 		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
-		return 1
+		return
 	var/slices_lost = 0
 	if(!inaccurate)
 		user.visible_message( \
@@ -170,14 +170,13 @@
 			"<span class='notice'>[user] crudely slices [src] with [W]!</span>", \
 			"<span class='notice'>You crudely slice [src] with your [W]</span>!" \
 		)
-		slices_lost = rand(1,min(1,round(slices_num/2)))
+		slices_lost = round(slices_num / 3) // a third of slices lost by using inaccurate item
 	var/reagents_per_slice = reagents.total_volume/slices_num
 	for(var/i=1 to (slices_num-slices_lost))
 		var/obj/slice = new slice_path (loc)
 		reagents.trans_to(slice,reagents_per_slice)
 	qdel(src)
-
-	return
+	return TRUE //Slice successful
 
 /obj/item/weapon/reagent_containers/food/snacks/proc/generate_trash(atom/location)
 	if(trash)
