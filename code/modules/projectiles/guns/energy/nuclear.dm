@@ -53,7 +53,8 @@
 	origin_tech = null
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
-	ammo_x_offset = 4
+	ammo_x_offset = 2
+	charge_sections = 7
 
 /obj/item/weapon/gun/energy/gun/blueshield
 	name = "advanced stun revolver"
