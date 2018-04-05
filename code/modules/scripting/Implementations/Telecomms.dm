@@ -34,7 +34,7 @@
 
 	/* -- Compile a raw block of text -- */
 
-/datum/TCS_Compiler/proc/Compile(code as message)
+/datum/TCS_Compiler/proc/Compile(list/code)
 	options		= new()
 	scanner				= new(code, options)
 	tokens										= scanner.Scan()

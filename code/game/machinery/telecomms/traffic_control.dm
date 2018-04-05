@@ -117,6 +117,7 @@
 						function compileCode() {
 							var codeText = cMirror_fSubmit.getValue();
 							document.getElementById("cMirrorPost").value = codeText;
+							document.getElementById("cMirrorPostList").value = JSON.stringify(codeText.split(''));
 							document.getElementById("theform").submit();
 						}
 
@@ -135,6 +136,7 @@
 						<input type="hidden" name="choice" value="Compile">
 						<input type="hidden" name="src" value="[UID()]">
 						<input type="hidden" id="cMirrorPost" name="cMirror" value="">
+						<input type="hidden" id="cMirrorPostList" name="cMirrorList" value="">
 					</form>
 					"}
 		else
@@ -189,6 +191,10 @@
 	if(code)
 		storedcode = code
 
+	var/list/codelist = href_list["cMirrorList"]
+	if(istext(codelist))
+		codelist = json_decode(codelist)
+
 	add_fingerprint(user)
 	user.set_machine(src)
 
@@ -198,14 +204,14 @@
 
 	switch(href_list["choice"])
 		if("Compile")
-			if(!code)
+			if(!istype(codelist))
 				return 0
 			if(user != editingcode)
 				return 0 //only one editor
 
 			if(SelectedServer)
 				var/obj/machinery/telecomms/server/Server = SelectedServer
-				Server.setcode(code)
+				Server.setcode(codelist)
 
 				spawn(0)
 					// Output all the compile-time errors
@@ -234,7 +240,7 @@
 					updateUsrDialog()
 
 					for(var/obj/machinery/telecomms/server/Server in servers)
-						Server.setcode(code)
+						Server.setcode(codelist)
 						var/list/compileerrors = Server.compile(user)
 						if(!telecomms_check(user))
 							return
