@@ -24,7 +24,7 @@
 /datum/controller/process/machinery/proc/process_machines()
 	for(last_object in machine_processing)
 		var/obj/machinery/M = last_object
-		if(istype(M) && isnull(M.gcDestroyed))
+		if(istype(M) && !QDELETED(M))
 			try
 				if(M.process() == PROCESS_KILL)
 					machine_processing.Remove(M)
@@ -43,7 +43,7 @@
 /datum/controller/process/machinery/proc/process_power()
 	for(last_object in deferred_powernet_rebuilds)
 		var/obj/O = last_object
-		if(istype(O) && isnull(O.gcDestroyed))
+		if(istype(O) && !QDELETED(O))
 			try
 				var/datum/powernet/newPN = new()// creates a new powernet...
 				propagate_network(O, newPN)//... and propagates it to the other side of the cable
@@ -56,7 +56,7 @@
 
 	for(last_object in powernets)
 		var/datum/powernet/powerNetwork = last_object
-		if(istype(powerNetwork) && isnull(powerNetwork.gcDestroyed))
+		if(istype(powerNetwork) && !QDELETED(powerNetwork))
 			try
 				powerNetwork.reset()
 			catch(var/exception/e)

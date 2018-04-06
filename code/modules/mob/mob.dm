@@ -22,7 +22,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	..()
-	return QDEL_HINT_HARDDEL_NOW
+	return QDEL_HINT_HARDDEL
 
 /mob/New()
 	mob_list += src

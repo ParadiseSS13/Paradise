@@ -1576,19 +1576,19 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.mode.cultdat.entity_name]", "Voice of [ticker.mode.cultdat.entity_name]", "")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.cultdat.entity_name]", "Voice of [ticker.cultdat.entity_name]", "")
 		if(!input)
 			return
 
 		for(var/datum/mind/H in ticker.mode.cult)
 			if (H.current)
-				to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+				to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
 		for(var/mob/dead/observer/O in player_list)
-			to_chat(O, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+			to_chat(O, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
-		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.mode.cultdat.entity_name].")
-		log_admin("[key_name(usr)] Voice of [ticker.mode.cultdat.entity_name]: [input]")
+		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.cultdat.entity_name].")
+		log_admin("[key_name(usr)] Voice of [ticker.cultdat.entity_name]: [input]")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return

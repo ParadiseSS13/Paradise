@@ -134,7 +134,7 @@
 	if(stat != CONSCIOUS)
 		return
 	var/be_borer = alert("Become a cortical borer? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_borer == "No" || !src || qdeleted(src))
+	if(be_borer == "No" || !src || QDELETED(src))
 		return
 	if(key)
 		return
@@ -175,7 +175,7 @@
 	if(!input)
 		return
 
-	if(src && !qdeleted(src) && !qdeleted(host))
+	if(src && !QDELETED(src) && !QDELETED(host))
 		var/say_string = (docile) ? "slurs" :"states"
 		if(host)
 			to_chat(host, "<span class='changeling'><i>[truename] [say_string]:</i> [input]</span>")
@@ -538,7 +538,7 @@
 
 /mob/living/simple_animal/borer/proc/let_go()
 
-	if(!host || !src || qdeleted(host) || qdeleted(src))
+	if(!host || !src || QDELETED(host) || QDELETED(src))
 		return
 	if(!leaving)
 		return
@@ -605,7 +605,7 @@
 
 	to_chat(src, "You begin delicately adjusting your connection to the host brain...")
 
-	if(qdeleted(src) || qdeleted(host))
+	if(QDELETED(src) || QDELETED(host))
 		return
 
 	bonding = TRUE
@@ -805,7 +805,7 @@
 	if(!candidate || !candidate.mob)
 		return
 
-	if(!qdeleted(candidate) || !qdeleted(candidate.mob))
+	if(!QDELETED(candidate) || !QDELETED(candidate.mob))
 		var/datum/mind/M = create_borer_mind(candidate.ckey)
 		M.transfer_to(src)
 		candidate.mob = src

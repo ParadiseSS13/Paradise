@@ -93,13 +93,13 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	item_state = "tribble1"
 	w_class = 10
 	var/gestation = 0
+	flags = DROPDEL
 
 /obj/item/toy/tribble/attack_self(mob/user as mob) //hug that tribble (and play a sound if we add one)
 	..()
 	to_chat(user, "<span class='notice'>You nuzzle the tribble and it trills softly.</span>")
 
 /obj/item/toy/tribble/dropped(mob/user as mob) //now you can't item form them to get rid of them all so easily
-	..()
 	new /mob/living/simple_animal/tribble(user.loc)
 	for(var/mob/living/simple_animal/tribble/T in user.loc)
 		T.icon_state = src.icon_state
@@ -108,7 +108,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		T.gestation = src.gestation
 
 	to_chat(user, "<span class='notice'>The tribble gets up and wanders around.</span>")
-	qdel(src)
+	. = ..()
 
 /obj/item/toy/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob) //neutering and un-neutering
 	..()

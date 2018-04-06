@@ -70,7 +70,7 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	desc = "This hand of yours glows with an awesome power!"
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT | NODROP| DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN

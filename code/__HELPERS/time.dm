@@ -1,7 +1,15 @@
 // So you can be all 10 SECONDS
 #define SECONDS *10
-#define MINUTES *600
-#define HOURS   *36000
+
+#define MINUTES SECONDS*60
+
+#define HOURS MINUTES*60
+
+#define TICKS *world.tick_lag
+
+#define DS2TICKS(DS) ((DS)/world.tick_lag)
+
+#define TICKS2DS(T) ((T) TICKS)
 
 #define TimeOfGame (get_game_time())
 #define TimeOfTick (world.tick_usage*0.01*world.tick_lag)

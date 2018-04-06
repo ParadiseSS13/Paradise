@@ -31,7 +31,7 @@
 		return
 	if(error_on_humanize == "")
 		var/spider_ask = alert(humanize_prompt, "Join as Terror Spider?", "Yes", "No")
-		if(spider_ask == "No" || !src || qdeleted(src))
+		if(spider_ask == "No" || !src || QDELETED(src))
 			return
 	else
 		to_chat(user, "Cannot inhabit spider: [error_on_humanize]")
