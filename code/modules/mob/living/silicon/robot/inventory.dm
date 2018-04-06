@@ -233,7 +233,7 @@
 
 /mob/living/silicon/robot/unEquip(obj/item/I)
 	if(I == module_active)
-		deselect_module(get_selected_module())
+		uneq_active(I)
 	return ..()
 
 /mob/living/silicon/robot/proc/update_module_icon()
