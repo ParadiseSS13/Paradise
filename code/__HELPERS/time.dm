@@ -30,6 +30,14 @@
 
 	return wtime + (time_offset + wusage) * world.tick_lag
 
+/* This proc should only be used for world/Topic.
+ * If you want to display the time for which dream daemon has been running ("round time") use worldtime2text.
+ * If you want to display the canonical station "time" (aka the in-character time of the station) use station_time_timestamp
+ */
+/proc/classic_worldtime2text(time = world.time)
+	time = (round_start_time ? (time - round_start_time) : (time - world.time))
+	return "[round(time / 36000)+12]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
+
 //Returns the world time in english
 /proc/worldtime2text()
 	return gameTimestamp("hh:mm:ss", world.time)
