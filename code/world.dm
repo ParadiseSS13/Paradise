@@ -141,6 +141,7 @@ var/world_topic_spam_protect_time = world.timeofday
 				s["real_mode"] = ticker.mode.name
 
 			s["security_level"] = get_security_level()
+			s["ticker_state"] = ticker.current_state
 
 			if(shuttle_master && shuttle_master.emergency)
 				// Shuttle status, see /__DEFINES/stat.dm
