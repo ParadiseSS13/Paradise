@@ -41,16 +41,16 @@ SUBSYSTEM_DEF(garbage)
 		counts += length(L)
 	msg += "Q:[counts.Join(",")]|D:[delslasttick]|G:[gcedlasttick]|"
 	msg += "GR:"
-	if(!(delslasttick+gcedlasttick))
+	if(!(delslasttick + gcedlasttick))
 		msg += "n/a|"
 	else
-		msg += "[round((gcedlasttick/(delslasttick+gcedlasttick))*100, 0.01)]%|"
+		msg += "[round((gcedlasttick / (delslasttick + gcedlasttick)) * 100, 0.01)]%|"
 
 	msg += "TD:[totaldels]|TG:[totalgcs]|"
-	if(!(totaldels+totalgcs))
+	if(!(totaldels + totalgcs))
 		msg += "n/a|"
 	else
-		msg += "TGR:[round((totalgcs/(totaldels+totalgcs))*100, 0.01)]%"
+		msg += "TGR:[round((totalgcs / (totaldels + totalgcs)) * 100, 0.01)]%"
 	msg += " P:[pass_counts.Join(",")]"
 	msg += "|F:[fail_counts.Join(",")]"
 	..(msg)
@@ -89,10 +89,10 @@ SUBSYSTEM_DEF(garbage)
 		switch(queue)
 			if(GC_QUEUE_PREQUEUE)
 				HandlePreQueue()
-				queue = GC_QUEUE_PREQUEUE+1
+				queue = GC_QUEUE_PREQUEUE + 1
 			if(GC_QUEUE_CHECK)
 				HandleQueue(GC_QUEUE_CHECK)
-				queue = GC_QUEUE_CHECK+1
+				queue = GC_QUEUE_CHECK + 1
 			if(GC_QUEUE_HARDDELETE)
 				HandleQueue(GC_QUEUE_HARDDELETE)
 				break
@@ -108,15 +108,15 @@ SUBSYSTEM_DEF(garbage)
 	if(count)
 		var/c = count
 		count = 0 //so if we runtime on the Cut, we don't try again.
-		tobequeued.Cut(1,c+1)
+		tobequeued.Cut(1, c + 1)
 
 	for(var/ref in tobequeued)
 		count++
-		Queue(ref, GC_QUEUE_PREQUEUE+1)
+		Queue(ref, GC_QUEUE_PREQUEUE + 1)
 		if(MC_TICK_CHECK)
 			break
 	if(count)
-		tobequeued.Cut(1,count+1)
+		tobequeued.Cut(1, count + 1)
 		count = 0
 
 /datum/controller/subsystem/garbage/proc/HandleQueue(level = GC_QUEUE_CHECK)
@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(garbage)
 		var/c = count
 		count = 0 //so if we runtime on the Cut, we don't try again.
 		var/list/lastqueue = queues[lastlevel]
-		lastqueue.Cut(1, c+1)
+		lastqueue.Cut(1, c + 1)
 
 	lastlevel = level
 
@@ -175,12 +175,12 @@ SUBSYSTEM_DEF(garbage)
 					break
 				continue
 
-		Queue(D, level+1)
+		Queue(D, level + 1)
 
 		if(MC_TICK_CHECK)
 			break
 	if(count)
-		queue.Cut(1,count+1)
+		queue.Cut(1, count + 1)
 		count = 0
 
 /datum/controller/subsystem/garbage/proc/PreQueue(datum/D)
@@ -218,7 +218,7 @@ SUBSYSTEM_DEF(garbage)
 
 	del(D)
 
-	tick = (TICK_USAGE-tick+((world.time-ticktime)/world.tick_lag*100))
+	tick = (TICK_USAGE - tick + ((world.time - ticktime) / world.tick_lag * 100))
 
 	var/datum/qdel_item/I = items[type]
 
@@ -230,12 +230,12 @@ SUBSYSTEM_DEF(garbage)
 		highest_del_tickusage = tick
 	time = world.timeofday - time
 	if(!time && TICK_DELTA_TO_MS(tick) > 1)
-		time = TICK_DELTA_TO_MS(tick)/100
+		time = TICK_DELTA_TO_MS(tick) / 100
 	if(time > highest_del_time)
 		highest_del_time = time
 	if(time > 10)
-		log_game("Error: [type]([refID]) took longer than 1 second to delete (took [time/10] seconds to delete)")
-		message_admins("Error: [type]([refID]) took longer than 1 second to delete (took [time/10] seconds to delete).")
+		log_game("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete)")
+		message_admins("Error: [type]([refID]) took longer than 1 second to delete (took [time / 10] seconds to delete).")
 		postpone(time)
 
 /datum/controller/subsystem/garbage/proc/HardQueue(datum/D)
@@ -266,7 +266,7 @@ SUBSYSTEM_DEF(garbage)
 
 // Should be treated as a replacement for the 'del' keyword.
 // Datums passed to this will be given a chance to clean up references to allow the GC to collect them.
-/proc/qdel(datum/D, force=FALSE, ...)
+/proc/qdel(datum/D, force = FALSE, ...)
 	if(!istype(D))
 		del(D)
 		return
@@ -415,7 +415,7 @@ SUBSYSTEM_DEF(garbage)
 				testing("Found [src.type] \ref[src] in [D.type]'s [varname] var. [Xname]")
 
 			else if(islist(variable))
-				DoSearchVar(variable, "[Xname] -> list", recursive_limit-1)
+				DoSearchVar(variable, "[Xname] -> list", recursive_limit - 1)
 
 	else if(islist(X))
 		var/normal = IS_NORMAL_LIST(X)
@@ -427,7 +427,7 @@ SUBSYSTEM_DEF(garbage)
 				testing("Found [src.type] \ref[src] in list [Xname]\[[I]\]")
 
 			else if(islist(I))
-				DoSearchVar(I, "[Xname] -> list", recursive_limit-1)
+				DoSearchVar(I, "[Xname] -> list", recursive_limit - 1)
 
 #ifndef FIND_REF_NO_CHECK_TICK
 	CHECK_TICK
