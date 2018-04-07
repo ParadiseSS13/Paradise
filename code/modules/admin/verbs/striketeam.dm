@@ -148,7 +148,10 @@ var/global/sent_strike_team = 0
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/alt(src)
 	R.set_frequency(DTH_FREQ)
 	equip_to_slot_or_del(R, slot_l_ear)
-	equip_to_slot_or_del(new /obj/item/clothing/under/color/black(src), slot_w_uniform)
+	if(is_leader)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
+	else
+		equip_to_slot_or_del(new /obj/item/clothing/under/color/green(src), slot_w_uniform)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(src), slot_shoes)
 	equip_to_slot_or_del(new /obj/item/clothing/suit/space/deathsquad(src), slot_wear_suit)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
