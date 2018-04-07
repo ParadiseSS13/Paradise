@@ -270,6 +270,22 @@
 	projectile_type = /obj/item/projectile/bullet/dart/syringe/tranquilizer
 	materials = list(MAT_METAL=250)
 
+/obj/item/ammo_casing/foamsyringe
+	name = "foam dart syringe"
+	desc = "A foam dart with a small syringe in it. It looks too fragile to be re-used."
+	icon = 'icons/obj/guns/toy.dmi'
+	icon_state = "foamdart_chem"
+	caliber = "foam_force"
+	projectile_type = /obj/item/projectile/bullet/dart/syringe/foam
+
+/obj/item/ammo_casing/foamsyringe/New()
+	..()
+	flags |= OPENCONTAINER
+	create_reagents(5)
+
+/obj/item/ammo_casing/foamsyringe/update_icon()
+	icon_state = "foamdart_chem"
+
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."
 	caliber = "a556"

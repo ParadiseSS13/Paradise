@@ -696,6 +696,14 @@
 	build_path = /obj/item/ammo_casing/shotgun/dart
 	category = list("hacked", "Security")
 
+/datum/design/foam_syringe
+	name = "Foam Dart Syringe"
+	id = "foam_dart_syringe"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1500) //A syringe is very cheap, 10 metal and 10 glass, so 1500 metal is more then fair for 1/3 the cappasity
+	build_path = /obj/item/ammo_casing/foamsyringe
+	category = list("hacked", "Security")
+
 /datum/design/incendiary_slug
 	name = "Incendiary Slug"
 	id = "incendiary_slug"
