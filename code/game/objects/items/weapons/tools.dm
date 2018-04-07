@@ -380,7 +380,7 @@
 	var/turf/location = loc
 	if(ismob(location))
 		var/mob/M = location
-		if(M.l_hand == src || M.r_hand == src)
+		if(M.is_holding(src))
 			location = get_turf(M)
 	if(isturf(location))
 		location.hotspot_expose(700, 5)

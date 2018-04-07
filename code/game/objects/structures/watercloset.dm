@@ -396,10 +396,9 @@
 		to_chat(L, "<span class='warning'>You've been drenched in water!</span>")
 		if(iscarbon(O))
 			var/mob/living/carbon/M = O
-			if(M.r_hand)
-				M.r_hand.clean_blood()
-			if(M.l_hand)
-				M.l_hand.clean_blood()
+			for(var/obj/item/I in M.held_items)
+				if(I)
+					I.clean_blood()
 			if(M.back)
 				if(M.back.clean_blood())
 					M.update_inv_back(0)

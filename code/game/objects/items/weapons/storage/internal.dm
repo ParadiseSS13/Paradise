@@ -51,10 +51,10 @@
 			switch(over_object.name)
 				if("r_hand")
 					user.unEquip(master_item)
-					user.put_in_r_hand(master_item)
+					user.put_in_hand(master_item, 2)
 				if("l_hand")
 					user.unEquip(master_item)
-					user.put_in_l_hand(master_item)
+					user.put_in_hand(master_item, 1)
 			master_item.add_fingerprint(user)
 			return 0
 	return 0

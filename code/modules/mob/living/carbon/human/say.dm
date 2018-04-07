@@ -187,7 +187,7 @@
 			if(isradio(r_ear))
 				R = r_ear
 			else
-				for(var/obj/item/I in get_held_items_for_side("r", 1)
+				for(var/obj/item/I in get_held_items_for_side("r", 1))
 					if(isradio(I))
 						R = I
 						break
@@ -200,7 +200,7 @@
 			if(isradio(l_ear))
 				R = l_ear
 			else
-				for(var/obj/item/I in get_held_items_for_side("r", 1)
+				for(var/obj/item/I in get_held_items_for_side("r", 1))
 					if(isradio(I))
 						R = I
 						break

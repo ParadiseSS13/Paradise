@@ -96,7 +96,7 @@
 	l_ear = /obj/item/device/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/night
 	l_pocket = /obj/item/weapon/pinpointer/advpinpointer
-	l_hand = /obj/item/weapon/tank/jetpack/oxygen/harness
+	hand_items = list(/obj/item/weapon/tank/jetpack/oxygen/harness)
 
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/engineer = 1,
@@ -525,8 +525,10 @@
 	mask = /obj/item/clothing/mask/gas
 	l_ear = /obj/item/device/radio/headset
 	id = /obj/item/weapon/card/id
-	l_hand = /obj/item/weapon/storage/toolbox/mechanical
-	r_hand = /obj/item/flag/grey
+	hand_items = list(
+		/obj/item/weapon/storage/toolbox/mechanical,
+		/obj/item/flag/grey
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1
@@ -650,8 +652,7 @@
 	l_pocket = null
 	r_pocket = null
 	suit_store = null
-	l_hand = null
-	r_hand = null
+	hand_items = null
 	pda = null
 
 	backpack_contents = list(
@@ -697,11 +698,14 @@
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	id = /obj/item/weapon/card/id
-	l_hand = /obj/item/weapon/gun/projectile/automatic/ar
+	hand_items = list(
+		/obj/item/weapon/gun/projectile/automatic/ar
+		)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/weapon/kitchen/knife/combat = 1,
-		/obj/item/ammo_box/magazine/m556 = 3)
+		/obj/item/ammo_box/magazine/m556 = 3
+		)
 
 
 /datum/outfit/admin/solgov/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -719,7 +723,7 @@
 	uniform = /obj/item/clothing/under/solgov/command
 	head = /obj/item/clothing/head/soft/solgov/command
 	back = /obj/item/weapon/storage/backpack/satchel
-	l_hand = null
+	hand_items = null
 	belt = /obj/item/weapon/gun/projectile/automatic/pistol/deagle
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
@@ -836,8 +840,10 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/helmet/thunderdome
 	r_pocket = /obj/item/weapon/grenade/smokebomb
-	l_hand = /obj/item/weapon/kitchen/knife
-	r_hand = /obj/item/weapon/gun/energy/pulse/destroyer
+	hand_items = list(
+		/obj/item/weapon/kitchen/knife,
+		/obj/item/weapon/gun/energy/pulse/destroyer
+		)
 
 /datum/outfit/admin/tournament/red
 	name = "Tournament Standard Red"
@@ -867,8 +873,10 @@
 	head = /obj/item/clothing/head/chefhat
 	l_pocket = /obj/item/weapon/kitchen/knife
 	r_pocket = /obj/item/weapon/kitchen/knife
-	l_hand = /obj/item/weapon/kitchen/knife
-	r_hand = /obj/item/weapon/kitchen/rollingpin
+	hand_items = list(
+		/obj/item/weapon/kitchen/knife,
+		/obj/item/weapon/kitchen/rollingpin
+		)
 
 /datum/outfit/admin/tournament_janitor
 	name = "Tournament Janitor"
@@ -876,7 +884,9 @@
 	uniform = /obj/item/clothing/under/rank/janitor
 	back = /obj/item/weapon/storage/backpack
 	shoes = /obj/item/clothing/shoes/black
-	l_hand = /obj/item/weapon/reagent_containers/glass/bucket
+	hand_items = list(
+		/obj/item/weapon/reagent_containers/glass/bucket
+		)
 	backpack_contents = list(
 		/obj/item/weapon/grenade/chem_grenade/cleaner = 2,
 		/obj/item/stack/tile/plasteel = 7
@@ -887,7 +897,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/weapon/reagent_containers/R = H.l_hand
+	var/obj/item/weapon/reagent_containers/R = H.is_holding_item_of_type(/obj/item/weapon/reagent_containers/glass/bucket)
 	if(istype(R))
 		R.reagents.add_reagent("water", 70)
 
@@ -990,12 +1000,14 @@
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/weapon/card/id/syndicate
 	l_pocket = /obj/item/weapon/melee/energy/sword/saber
-	l_hand = /obj/item/weapon/storage/secure/briefcase/reaper
+	hand_items = list(
+		/obj/item/weapon/storage/secure/briefcase/reaper
+		)
 	pda = /obj/item/device/pda/heads
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1
-	)
+		)
 
 /datum/outfit/admin/assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -1069,7 +1081,9 @@
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/device/radio/headset/syndicate
 	id = /obj/item/weapon/card/id/syndicate
-	l_hand = /obj/item/weapon/twohanded/dualsaber/red
+	hand_items = list(
+		/obj/item/weapon/twohanded/dualsaber/red
+		)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1,
@@ -1098,8 +1112,10 @@
 	l_ear = /obj/item/device/radio/headset
 	id = /obj/item/weapon/card/id
 	r_pocket = /obj/item/weapon/teleportation_scroll
-	l_hand = /obj/item/weapon/twohanded/staff
-	r_hand = /obj/item/weapon/spellbook
+	hand_items = list(
+		/obj/item/weapon/twohanded/staff,
+		/obj/item/weapon/spellbook
+		)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/engineer = 1
 	)

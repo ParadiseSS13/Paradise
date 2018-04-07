@@ -83,17 +83,17 @@
 		var/mob/living/carbon/human/H = loc
 		switch(over_object.name)
 			if("r_hand")
-				if(H.r_hand)
+				if(H.get_item_for_held_index(2))
 					return
 				if(!H.unEquip(src))
 					return
-				H.put_in_r_hand(src)
+				H.put_in_hand(src, 2)
 			if("l_hand")
-				if(H.l_hand)
+				if(H.get_item_for_held_index(1))
 					return
 				if(!H.unEquip(src))
 					return
-				H.put_in_l_hand(src)
+				H.put_in_hand(src, 1)
 	return
 
 /obj/item/weapon/watertank/attackby(obj/item/W, mob/user, params)

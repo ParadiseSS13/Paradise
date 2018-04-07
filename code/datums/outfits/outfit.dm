@@ -17,8 +17,7 @@
 	var/l_pocket = null
 	var/r_pocket = null
 	var/suit_store = null
-	var/l_hand = null
-	var/r_hand = null
+	var/list/hand_items = null
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
@@ -71,10 +70,9 @@
 	if(suit_store)
 		equip_item(H, suit_store, slot_s_store)
 
-	if(l_hand)
-		H.put_in_l_hand(new l_hand(H))
-	if(r_hand)
-		H.put_in_r_hand(new r_hand(H))
+	for(var/obj/item/I in hand_items)
+		if(I)
+			put_in_hands(new I(H))
 
 	if(pda)
 		equip_item(H, pda, slot_wear_pda)

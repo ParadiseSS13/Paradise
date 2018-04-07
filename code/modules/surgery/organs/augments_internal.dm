@@ -55,14 +55,14 @@
 	if(active)
 		hand_objs = owner.held_items
 		hand_ignore.len = hand_objs.len
-		for(var/i 1 to hand_objs.len)
+		for(var/i in 1 to hand_objs.len)
 			if(hand_objs[i])
 				empty = 0
 				var/obj/item/I = owner.held_items[i]
 				if(I.flags & NODROP)
 					hand_ignore[i] = 1
 				else
-					owner.held_items[i].flags |= NODROP
+					I.flags |= NODROP
 					hand_ignore[i] = 0
 
 		if(empty)
@@ -74,7 +74,7 @@
 				if(hand_objs[i] && !hand_ignore[i])
 					msg += 1
 
-			if(msg < 2
+			if(msg < 2)
 				to_chat(owner, "<span class='notice'>Your hand's grip tightens.</span>")
 			else
 				to_chat(owner, "<span class='notice'>Your hand's grips tighten.</span>")
@@ -88,24 +88,21 @@
 		return
 	var/range = severity ? 10 : 5
 	var/atom/A
-	var/obj/item/L_item = owner.l_hand
-	var/obj/item/R_item = owner.r_hand
+	var/list/obj/item/hand_items = owner.held_items
 
 	release_items()
 	..()
-	if(L_item)
-		A = pick(oview(range))
-		L_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>")
-	if(R_item)
-		A = pick(oview(range))
-		R_item.throw_at(A, range, 2)
-		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
+	for(var/obj/item/I in hand_items)
+		if(I)
+			A = pick(oview(range))
+			I.throw_at(A, range, 2)
+			to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [I.name]!</span>")
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
 	for(var/i in 1 to hand_objs.len)
 		if(!hand_ignore[i] && hand_objs[i] in owner.contents)
-			hand_objs[i].flags ^= NODROP
+			var/obj/item/I = hand_objs[i]
+			I.flags ^= NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
 	. = ..()

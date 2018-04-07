@@ -206,9 +206,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(!user) return 0
 	if(hasorgans(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
-		if(user.hand)
-			temp = H.bodyparts_by_name["l_hand"]
+		var/obj/item/organ/external/temp = H.hand_bodyparts[H.active_hand_index]
 		if(!temp)
 			to_chat(user, "<span class='warning'>You try to use your hand, but it's missing!</span>")
 			return 0
@@ -385,11 +383,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(anchored) //Object isn't anchored
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
-	if(!usr.hand && usr.r_hand) //Right hand is not full
-		to_chat(usr, "<span class='warning'>Your right hand is full.</span>")
-		return
-	if(usr.hand && usr.l_hand) //Left hand is not full
-		to_chat(usr, "<span class='warning'>Your left hand is full.</span>")
+	if(usr.get_active_held_item())
+		to_chat(usr, "<span class='warning'>Your [usr.get_held_index_name(usr.active_hand_index)] is full.</span>")
 		return
 	if(!isturf(loc)) //Object is on a turf
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")

@@ -183,13 +183,7 @@
 
 			if(active)
 				icon_state = "swordrainbow"
-				// Updating overlays, copied from welder code.
-				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
-				if(user.r_hand == src)
-					user.update_inv_hands()
-				else if(user.l_hand == src)
-					user.update_inv_hands()
-
+				user.update_inv_hands()
 		else
 			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
 

@@ -73,8 +73,7 @@
 	..()
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/human/H = hit_atom
-		if(H.r_hand == src) return
-		if(H.l_hand == src) return
+		if(H.is_holding(src)) return
 		var/mob/A = H.LAssailant
 		if((H in team_alpha) && (A in team_alpha))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")

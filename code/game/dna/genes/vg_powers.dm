@@ -293,7 +293,7 @@
 
 	var/mob/target
 
-	if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab/))
+	if(H.is_holding_item_of_type(/obj/item/tk_grab))
 		to_chat(H, "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>")
 		H.remoteview_target = null
 		H.reset_perspective(0)

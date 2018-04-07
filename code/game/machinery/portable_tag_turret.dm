@@ -112,7 +112,7 @@
 
 
 	if(target_suit)//Lasertag turrets target the opposing team, how great is that? -Sieve
-		if((is_type_in_list(target_weapon, L.held_items)) || (istype(L.l_hand, target_weapon)))
+		if(L.is_holding_item_of_type(target_weapon))
 			return TURRET_PRIORITY_TARGET
 
 		if(istype(L, /mob/living/carbon/human))

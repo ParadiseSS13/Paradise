@@ -302,7 +302,7 @@ var/list/slot_equipment_priority = list( \
 
 		switch(slot)
 			if(slot_hands)
-				if(H.get_empty_held_index()
+				if(H.get_empty_held_index())
 					return 0
 				return 1
 			if(slot_wear_mask)

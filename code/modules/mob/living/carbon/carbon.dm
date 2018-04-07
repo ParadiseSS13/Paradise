@@ -174,13 +174,14 @@
 			if(item_in_hand:wielded == 1)
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
-	src.hand = !( src.hand )
-	if(hud_used && hud_used.inv_slots[slot_hands] && hud_used.inv_slots[slot_r_hand])
-		var/obj/screen/inventory/hand/H
-		H = hud_used.inv_slots[slot_hands]
-		H.update_icon()
-		H = hud_used.inv_slots[slot_r_hand]
-		H.update_icon()
+
+	if(src.active_hand_index == src.held_items.len)
+		src.active_hand_index = 1
+	else
+		src.active_hand_index += 1
+	if(hud_used && hud_used.inv_slots[slot_hands])
+		H.update_inv_hands()
+
 
 
 /mob/living/carbon/activate_hand(var/selhand) //0 or "r" or "right" for right hand; 1 or "l" or "left" for left hand.
@@ -611,8 +612,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 	var/dat = "<table>"
 	for(var/i in 1 to held_items.len)
-		var/fluff = make_titel_case(get_held_index_name(i)) + ":"
-		var/held = get_index_of_held_item(i)
+		var/fluff = make_title_case(get_held_index_name(i)) + ":"
+		var/held = get_item_for_held_index(i)
 		dat += "<tr><td><B>[fluff]</B></td><td><A href='?src=[UID()];item=[held]'>[(held && !(held.flags&ABSTRACT)) ? held : "<font color=grey>Empty</font>"]</A></td></tr>"
 	dat += "<tr><td>&nbsp;</td></tr>"
 

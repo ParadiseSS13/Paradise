@@ -127,13 +127,16 @@
 	var/mob/living/carbon/human/user = loc
 	var/obj/item/weapon/grab/G
 
-	if(src == user.r_hand && istype(user.l_hand, /obj/item/weapon/grab))
-		G = user.l_hand
+	if(user.is_holding(src))
+		var/garrote_index = user.get_index_of_held_item(src)
+		if(garrote_index % 2)
+			if(istype(user.get_item_for_held_index(garrote_index + 1), /obj/item/weapon/grab))
+				G = user.get_item_for_held_index(garrote_index + 1)
+		else
+			if(istype(user.get_item_for_held_index(garrote_index - 1), /obj/item/weapon/grab))
+				G = user.get_item_for_held_index(garrote_index - 1)
 
-	else if(src == user.l_hand && istype(user.r_hand, /obj/item/weapon/grab))
-		G = user.r_hand
-
-	else
+	if(!G)
 		user.visible_message("<span class='warning'>[user] loses \his grip on [strangling]'s neck.</span>", \
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 

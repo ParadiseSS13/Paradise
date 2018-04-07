@@ -69,11 +69,11 @@
 				if("r_hand")
 					if(!M.unEquip(src))
 						return
-					M.put_in_r_hand(src)
+					M.put_in_hand(src, 2)
 				if("l_hand")
 					if(!M.unEquip(src))
 						return
-					M.put_in_l_hand(src)
+					M.put_in_hand(src, 1)
 			src.add_fingerprint(usr)
 			return
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
