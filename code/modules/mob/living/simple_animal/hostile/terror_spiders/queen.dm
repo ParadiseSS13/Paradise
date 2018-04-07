@@ -189,9 +189,9 @@
 							var/obj/structure/spider/eggcluster/terror_eggcluster/N = locate() in get_turf(src)
 							if(!N)
 								spider_lastspawn = world.time
-								var num_purple = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
-								var num_white = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/white)
-								var num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
+								var/num_purple = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
+								var/num_white = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/white)
+								var/num_brown = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/brown)
 								if(num_purple < 4)
 									DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 2, 0)
 								else if(num_white < 2)
@@ -254,10 +254,10 @@
 	if(canlay >= 12)
 		eggtypes |= TS_DESC_MOTHER
 		eggtypes |= TS_DESC_PRINCE
-	var num_purples = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
+	var/num_purples = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/purple)
 	if(num_purples >= 2)
 		eggtypes -= TS_DESC_PURPLE
-	var num_blacks = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/black)
+	var/num_blacks = CountSpidersType(/mob/living/simple_animal/hostile/poison/terror_spider/black)
 	if(num_blacks >= 2)
 		eggtypes -= TS_DESC_BLACK
 	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
