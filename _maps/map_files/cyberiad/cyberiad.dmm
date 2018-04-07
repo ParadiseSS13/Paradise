@@ -655,7 +655,7 @@
 "amE" = (/obj/machinery/computer/prisoner,/turf/simulated/floor/plasteel{dir = 5; icon_state = "darkred"},/area/security/warden)
 "amF" = (/obj/effect/decal/warning_stripes/north,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel,/area/security/seceqstorage)
 "amG" = (/obj/machinery/vending/security,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 9},/area/security/seceqstorage)
-"amH" = (/obj/structure/rack,/obj/machinery/recharger/wallcharger{pixel_y = 25},/obj/machinery/recharger/wallcharger{pixel_y = 35},/obj/item/device/flash,/obj/effect/decal/warning_stripes/red/hollow,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 1},/area/security/seceqstorage)
+"amH" = (/obj/structure/rack,/obj/machinery/recharger/wallcharger{pixel_y = 25},/obj/machinery/recharger/wallcharger{pixel_y = 35},/obj/effect/decal/warning_stripes/red/hollow,/obj/item/device/assembly/timer{pixel_x = 3; pixel_y = -8},/obj/item/device/assembly/timer{pixel_y = -6; pixel_z = 3},/obj/item/device/flash,/turf/simulated/floor/plasteel{icon_state = "red"; dir = 1},/area/security/seceqstorage)
 "amI" = (/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plasteel,/area/security/seceqstorage)
 "amJ" = (/obj/structure/rack,/obj/structure/reagent_dispensers/peppertank{pixel_y = 30},/obj/item/weapon/restraints/handcuffs{pixel_y = -4},/obj/item/weapon/restraints/handcuffs,/obj/effect/decal/warning_stripes/red/hollow,/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel{icon_state = "red"; dir = 1},/area/security/seceqstorage)
 "amK" = (/obj/effect/decal/warning_stripes/red/partial,/turf/simulated/floor/plasteel,/area/security/main)
