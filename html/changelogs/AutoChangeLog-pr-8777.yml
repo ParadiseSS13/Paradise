@@ -1,0 +1,6 @@
+author: "MarsM0nd"
+delete-after: True
+changes: 
+  - rscadd: "Admins can make a fax machine recive the faxes Centcomm or the Syndicate does get."
+  - tweak: "Stops \"Unknown\" department to send to from coming up when a fax machine gets spawned."
+  - tweak: "Allows adding of departments to send to over a proc-call."
