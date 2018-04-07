@@ -1,0 +1,5 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - tweak: "You can't play russian roulette without a head"
+  - tweak: "using a russian revolver on another human will now hit them with the revolver instead of failing to play russian roulette with them."
