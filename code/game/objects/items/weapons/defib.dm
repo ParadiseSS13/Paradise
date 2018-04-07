@@ -17,7 +17,7 @@
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)
 
-	var/on = 0 //if the paddles are equipped (1) or on the defib (0)
+	var/paddles_on_defib = TRUE //if the paddles are on the defib (TRUE)
 	var/safety = 1 //if you can zap people with the defibs on harm mode
 	var/powered = 0 //if there's a cell in the defib with enough power for a revive, blocks paddles from reviving otherwise
 	var/obj/item/weapon/twohanded/shockpaddles/paddles
@@ -53,7 +53,7 @@
 
 /obj/item/weapon/defibrillator/proc/update_overlays()
 	overlays.Cut()
-	if(!on)
+	if(paddles_on_defib)
 		overlays += "[icon_state]-paddles"
 	if(powered)
 		overlays += "[icon_state]-powered"
@@ -130,18 +130,18 @@
 /obj/item/weapon/defibrillator/verb/toggle_paddles()
 	set name = "Toggle Paddles"
 	set category = "Object"
-	on = !on
 
 	var/mob/living/carbon/human/user = usr
-	if(on)
+
+	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
 		if(!usr.put_in_hands(paddles))
-			on = 0
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
 			update_icon()
 			return
 		paddles.loc = user
-	else
+		paddles_on_defib = FALSE
+	else if(user.is_in_active_hand(paddles))
 		//Remove from their hands and back onto the defib unit
 		remove_paddles(user)
 
@@ -163,15 +163,16 @@
 	if(slot == slot_back)
 		return 1
 
-/obj/item/weapon/defibrillator/proc/remove_paddles(mob/user)
+/obj/item/weapon/defibrillator/proc/remove_paddles(mob/user) // from your hands
 	var/mob/living/carbon/human/M = user
 	if(paddles in get_both_hands(M))
 		M.unEquip(paddles)
+		paddles_on_defib = TRUE
 	update_icon()
 	return
 
 /obj/item/weapon/defibrillator/Destroy()
-	if(on)
+	if(!paddles_on_defib)
 		var/M = get(paddles, /mob)
 		remove_paddles(M)
 	QDEL_NULL(paddles)
@@ -288,7 +289,7 @@
 		if(istype(O))
 			O.unwield()
 		to_chat(user, "<span class='notice'>The paddles snap back into the main unit.</span>")
-		defib.on = 0
+		defib.paddles_on_defib = TRUE
 		loc = defib
 		defib.update_icon()
 		update_icon()
