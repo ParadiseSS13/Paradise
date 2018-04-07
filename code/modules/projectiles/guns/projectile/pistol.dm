@@ -80,10 +80,6 @@
 	mag_type = /obj/item/ammo_box/magazine/m50
 	can_suppress = 0
 
-/obj/item/weapon/gun/projectile/automatic/pistol/deagle/update_icon()
-	..()
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
-
 /obj/item/weapon/gun/projectile/automatic/pistol/deagle/gold
 	desc = "A gold plated desert eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
 	icon_state = "deagleg"

@@ -701,7 +701,7 @@
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/weapon/kitchen/knife/combat = 1,
-		/obj/item/ammo_box/magazine/m556 = 3)
+		/obj/item/ammo_box/magazine/ar = 3)
 
 
 /datum/outfit/admin/solgov/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

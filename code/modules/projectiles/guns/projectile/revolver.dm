@@ -96,9 +96,9 @@
 /obj/item/weapon/gun/projectile/revolver/detective/New()
 	..()
 	options["The Original"] = "detective"
-	options["Leopard Spots"] = "detective_leopard"
+	options["Golden Gun"] = "detective_gold"
 	options["Black Panther"] = "detective_panther"
-	options["Gold Trim"] = "detective_gold"
+	options["Gold Trim"] = "detective_fancy"
 	options["The Peacemaker"] = "detective_peacemaker"
 	options["Cancel"] = null
 
