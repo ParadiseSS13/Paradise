@@ -124,10 +124,10 @@
 			switch(over_object.name)
 				if("r_hand")
 					M.unEquip(src)
-					M.put_in_r_hand(src)
+					M.put_in_hand(src, 2)
 				if("l_hand")
 					M.unEquip(src)
-					M.put_in_l_hand(src)
+					M.put_in_hand(src, 1)
 			add_fingerprint(usr)
 			return
 		if(over_object == usr && in_range(src, usr) || usr.contents.Find(src))
@@ -300,13 +300,12 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 
 		if(istype(M, /mob/living/carbon))
 			var/mob/living/carbon/A = M
-			if(A.l_hand || A.r_hand)
-				if(A.l_hand) holding = "They are holding \a [A.l_hand]"
-				if(A.r_hand)
+			for(var/obj/item/I in A.held_items)
+				if(I)
 					if(holding)
-						holding += " and \a [A.r_hand]"
+						holding += "and \a [I]"
 					else
-						holding = "They are holding \a [A.r_hand]"
+						holding = "They are holding \a [I]"
 
 			if(!mob_detail)
 				mob_detail = "You can see [A] on the photo[A:health < 75 ? " - [A] looks hurt":""].[holding ? " [holding]":"."]. "

@@ -58,10 +58,10 @@
 			switch(over_object.name)
 				if("r_hand")
 					usr.unEquip(src)
-					usr.put_in_r_hand(src)
+					usr.put_in_hand(src, 2)
 				if("l_hand")
 					usr.unEquip(src)
-					usr.put_in_l_hand(src)
+					usr.put_in_hand(src, 1)
 
 /obj/item/device/modular_computer/laptop/attack_hand(mob/user)
 	if(screen_on && isturf(loc))

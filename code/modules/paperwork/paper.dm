@@ -322,13 +322,12 @@
 		user.unEquip(P)
 		if(istype(user, /mob/living/carbon/human))
 			var/mob/living/carbon/human/h_user = user
-			if(h_user.r_hand == src)
-				h_user.unEquip(src)
-				h_user.put_in_r_hand(B)
-			else if(h_user.l_hand == src)
-				h_user.unEquip(src)
-				h_user.put_in_l_hand(B)
-			else if(h_user.l_store == src)
+			for(var/obj/item/I in h_user.held_items)
+				if(I == src)
+					var/hand_index = h_user.get_index_of_held_item(src)
+					h_user.unEquip(src)
+					h_user.put_in_hand(B, hand_index)
+			if(h_user.l_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
 				B.layer = 20

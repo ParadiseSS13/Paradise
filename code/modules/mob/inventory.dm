@@ -34,11 +34,28 @@
 
 //Verifies item can even be held and is in fact an item
 /mob/proc/put_in_hand_check(obj/item/I)
-	if(lying && !(I.flags&ABSTRACT))
+	if(lying && !(I.flags & ABSTRACT))
 		return 0
 	if(!istype(I))
 		return 0
 	return 1
+
+//Returns normalized name of hand
+/mob/proc/get_held_index_name(i)
+	var/list/hand = list()
+	if(i > 2)
+		hand += "upper "
+	var/num = 0
+	if(!(i % 2))
+		num = i-2
+		hand += "right hand"
+	else
+		num = i-1
+		hand += "left hand"
+	num -= (num*0.5)
+	if(num > 1) //"upper left hand #1" seems weird, but "upper left hand #2" is A-ok
+		hand += " #[num]"
+	return hand.Join()
 
 ////////////////////////////////////
 /////////HAND GETTERS///////////////
@@ -131,23 +148,6 @@ mob/proc/get_index_of_held_item(obj/item/I)
 		if(istype(I, typepath))
 			return I
 	return 0
-
-//Returns normalized name of hand
-/mob/proc/get_held_index_name(i)
-	var/list/hand = list()
-	if(i > 2)
-		hand += "upper "
-	var/num = 0
-	if(!(i % 2))
-		num = i-2
-		hand += "right hand"
-	else
-		num = i-1
-		hand += "left hand"
-	num -= (num*0.5)
-	if(num > 1) //"upper left hand #1" seems weird, but "upper left hand #2" is A-ok
-		hand += " #[num]"
-	return hand.Join()
 
 
 ////////////////////////////////////

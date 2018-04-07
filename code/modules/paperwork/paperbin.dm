@@ -39,11 +39,11 @@
 			if("r_hand")
 				if(!remove_item_from_storage(M))
 					M.unEquip(src)
-				M.put_in_r_hand(src)
+				M.put_in_hand(src, 2)
 			if("l_hand")
 				if(!remove_item_from_storage(M))
 					M.unEquip(src)
-				M.put_in_l_hand(src)
+				M.put_in_hand(src, 1)
 
 	add_fingerprint(M)
 

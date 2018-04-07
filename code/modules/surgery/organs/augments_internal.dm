@@ -42,10 +42,8 @@
 	name = "Anti-drop implant"
 	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
 	var/active = 0
-	var/l_hand_ignore = 0
-	var/r_hand_ignore = 0
-	var/obj/item/l_hand_obj = null
-	var/obj/item/r_hand_obj = null
+	var/list/hand_ignore = null
+	var/list/obj/item/hand_objs = null
 	implant_color = "#DE7E00"
 	slot = "brain_antidrop"
 	origin_tech = "materials=4;programming=5;biotech=4"
@@ -53,42 +51,37 @@
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
 	active = !active
+	var/empty = 1
 	if(active)
-		l_hand_obj = owner.l_hand
-		r_hand_obj = owner.r_hand
-		if(l_hand_obj)
-			if(owner.l_hand.flags & NODROP)
-				l_hand_ignore = 1
-			else
-				owner.l_hand.flags |= NODROP
-				l_hand_ignore = 0
+		hand_objs = owner.held_items
+		hand_ignore.len = hand_objs.len
+		for(var/i 1 to hand_objs.len)
+			if(hand_objs[i])
+				empty = 0
+				var/obj/item/I = owner.held_items[i]
+				if(I.flags & NODROP)
+					hand_ignore[i] = 1
+				else
+					owner.held_items[i].flags |= NODROP
+					hand_ignore[i] = 0
 
-		if(r_hand_obj)
-			if(owner.r_hand.flags & NODROP)
-				r_hand_ignore = 1
-			else
-				owner.r_hand.flags |= NODROP
-				r_hand_ignore = 0
-
-		if(!l_hand_obj && !r_hand_obj)
+		if(empty)
 			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
 			active = 0
 		else
 			var/msg = 0
-			msg += !l_hand_ignore && l_hand_obj ? 1 : 0
-			msg += !r_hand_ignore && r_hand_obj ? 2 : 0
-			switch(msg)
-				if(1)
-					to_chat(owner, "<span class='notice'>Your left hand's grip tightens.</span>")
-				if(2)
-					to_chat(owner, "<span class='notice'>Your right hand's grip tightens.</span>")
-				if(3)
-					to_chat(owner, "<span class='notice'>Both of your hand's grips tighten.</span>")
+			for(var/i in 1 to hand_objs.len)
+				if(hand_objs[i] && !hand_ignore[i])
+					msg += 1
+
+			if(msg < 2
+				to_chat(owner, "<span class='notice'>Your hand's grip tightens.</span>")
+			else
+				to_chat(owner, "<span class='notice'>Your hand's grips tighten.</span>")
 	else
 		release_items()
 		to_chat(owner, "<span class='notice'>Your hands relax...</span>")
-		l_hand_obj = null
-		r_hand_obj = null
+		hand_objs = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/emp_act(severity)
 	if(!owner || emp_proof)
@@ -110,10 +103,9 @@
 		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
-	if(!l_hand_ignore && l_hand_obj in owner.contents)
-		l_hand_obj.flags ^= NODROP
-	if(!r_hand_ignore && r_hand_obj in owner.contents)
-		r_hand_obj.flags ^= NODROP
+	for(var/i in 1 to hand_objs.len)
+		if(!hand_ignore[i] && hand_objs[i] in owner.contents)
+			hand_objs[i].flags ^= NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(var/mob/living/carbon/M, special = 0)
 	. = ..()
