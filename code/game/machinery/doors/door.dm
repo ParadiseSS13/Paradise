@@ -94,12 +94,8 @@
 			M.last_bumped = world.time
 			if(M.restrained() && !check_access(null))
 				return
-			if(M.mob_size > MOB_SIZE_SMALL)
+			if(M.mob_size > MOB_SIZE_TINY)
 				bumpopen(M)
-			else if(ispet(M))
-				var/mob/living/simple_animal/A = AM
-				if(A.collar)
-					bumpopen(M)
 			return
 
 	if(ismecha(AM))

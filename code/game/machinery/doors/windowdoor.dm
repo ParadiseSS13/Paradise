@@ -77,7 +77,7 @@
 	if(!ticker)
 		return
 	var/mob/living/M = AM
-	if(!M.restrained() && M.mob_size > MOB_SIZE_SMALL && (!(isrobot(M) && M.stat)))
+	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
 
 /obj/machinery/door/window/bumpopen(mob/user)
