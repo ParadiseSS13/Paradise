@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Crew demotions and terminations now generate an automatic message to admins. All job changes are also logged."
+  - tweak: "Modular computers now support toggling priority on/off for jobs. The button for doing this in both normal and modular computers is now marked 'Pri', instead of the old '*'."
