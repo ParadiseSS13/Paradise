@@ -1,0 +1,7 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - bugfix: "Deletion of human mobs now properly deletes equipment
+balance: Hotel guards now dust on death
+balance: Hotel guards no longer drop equipment when stunned
+balance: Hotel guards now are able to use the tasers they hold"
