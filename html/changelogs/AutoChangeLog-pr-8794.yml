@@ -1,6 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - tweak: "Nanocalcium can no longer be synthesised by bees or Odysseus"
-  - bugfix: "Silicons now have their diagnostic HUD removed correctly."
-  - bugfix: "Defibs no longer give endless paddles."

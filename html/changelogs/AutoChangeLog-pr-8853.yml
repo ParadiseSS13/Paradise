@@ -1,4 +1,0 @@
-author: "Dyhr"
-delete-after: True
-changes: 
-  - tweak: "Agent ID's now provide some presets for valid occupations."

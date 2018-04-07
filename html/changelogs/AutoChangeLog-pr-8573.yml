@@ -1,5 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - bugfix: "Drones will no longer shatter glass tables"
-  - tweak: "All small mobs can bump open public access doors"
