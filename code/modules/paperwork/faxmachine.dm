@@ -30,9 +30,12 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/New()
 	..()
 	allfaxes += src
+	update_network()
 
-	if( !(("[department]" in alldepartments) || ("[department]" in admin_departments)) )
-		alldepartments |= department
+/obj/machinery/photocopier/faxmachine/proc/update_network()
+	if(department != "Unknown")
+		if(!(("[department]" in alldepartments) || ("[department]" in admin_departments) || ("[department]" in hidden_admin_departments)))
+			alldepartments |= department
 
 /obj/machinery/photocopier/faxmachine/longrange
 	name = "long range fax machine"
@@ -224,7 +227,7 @@ var/list/alldepartments = list()
 
 	var/success = 0
 	for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
-		if( F.department == destination )
+		if(F.department == destination)
 			success = F.receivefax(copyitem)
 
 	if(success)
@@ -304,6 +307,9 @@ var/list/alldepartments = list()
 			message_admins(sender, "CENTCOM FAX", destination, rcvdcopy, "#006100")
 		if("Syndicate")
 			message_admins(sender, "SYNDICATE FAX", destination, rcvdcopy, "#DC143C")
+	for(var/obj/machinery/photocopier/faxmachine/F in allfaxes)
+		if(F.department == destination)
+			F.receivefax(copyitem)
 	sendcooldown = cooldown_time
 	spawn(50)
 		visible_message("[src] beeps, \"Message transmitted successfully.\"")
