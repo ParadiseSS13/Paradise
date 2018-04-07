@@ -946,11 +946,7 @@
 		M.AdjustConfused(-5)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)
-			if(R.id == "ultralube" || R.id == "lube")
-				//Flushes lube and ultra-lube even faster than other chems
-				M.reagents.remove_reagent(R.id, 5)
-			else
-				M.reagents.remove_reagent(R.id,1)
+			M.reagents.remove_reagent(R.id,1)
 	..()
 
 /datum/reagent/medicine/degreaser/reaction_turf(turf/simulated/T, volume)
