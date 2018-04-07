@@ -237,10 +237,15 @@
 /mob/living/carbon/human/interactive/proc/shitcurity(obj)
 	var/list/allContents = getAllContents()
 
-	if(retal && TARGET && Adjacent(TARGET))
-		var/obj/item/weapon/restraints/R = locate() in allContents
-		if(R)
-			R.attack(TARGET, src) // go go bluespace restraint launcher!
+	if(retal && TARGET)
+		if(Adjacent(TARGET))
+			var/obj/item/weapon/restraints/R = locate() in allContents
+			if(R)
+				R.attack(TARGET, src) // go go bluespace restraint launcher!
+		else if(TARGET in oview(7, src))
+			var/obj/item/weapon/gun/G = locate() in allContents
+			if(G)
+				G.afterattack(TARGET, src)
 
 /mob/living/carbon/human/interactive/proc/clowning(obj)
 	if(shouldModulePass())
