@@ -1108,8 +1108,6 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	//if(H.mind)
-	//	H.mind.make_wizard()
 	var/obj/item/weapon/spellbook/B = H.r_hand
 	if(istype(B))
 		B.owner = H // force-bind it so it can never be stolen, no matter what.
