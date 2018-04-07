@@ -16,6 +16,7 @@
 		new /datum/track("Engineering's Basic Beat", 					'sound/misc/disco.ogg', 	600, 	5),
 		new /datum/track("Engineering's Domination Dance", 				'sound/misc/e1m1.ogg', 		950, 	6),
 		new /datum/track("Engineering's Superiority Shimmy", 			'sound/misc/paradox.ogg', 	2400, 	4),
+		new /datum/track("Engineering's Tranquil Trance",	            'sound/misc/Uplifting.ogg',	2460, 	6),
 		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
 		)
 	var/datum/track/selection = null
