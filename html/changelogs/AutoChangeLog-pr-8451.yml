@@ -1,0 +1,4 @@
+author: "Alffd"
+delete-after: True
+changes: 
+  - tweak: "portable (stationary) scrubbers now remove 1/4th as much air per tick at maximum."
