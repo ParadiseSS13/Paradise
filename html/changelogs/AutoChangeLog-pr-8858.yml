@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes medical cyborgs having one less stack than they should have they recharge"
+  - bugfix: "Fixes inconsistency in the medical stacks amounts (they should all be 6)"
