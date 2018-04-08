@@ -214,9 +214,16 @@ datum/chemical_reaction/flash_powder
 	var/datum/effect_system/smoke_spread/chem/S = new
 	S.attach(location)
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+
+	// @Dyhr: Sets up a temporary holder for the chems while the smoke forms
+	var/datum/reagents/temp_holder = new/datum/reagents(holder.total_volume)
+	temp_holder.my_atom = holder.my_atom
+	holder.trans_to(temp_holder, holder.total_volume, 1, 1, 1)
+
 	spawn(0)
 		if(S)
-			S.set_up(holder, 10, 0, location)
+			S.set_up(temp_holder, 10, 0, location)
+			qdel(temp_holder)
 			if(created_volume < 5)
 				S.start(1)
 			if(created_volume >=5 && created_volume < 10)
