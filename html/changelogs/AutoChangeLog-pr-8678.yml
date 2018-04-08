@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Terror Spiders now have a new type in their roster (brown) and see the health status of humanoids (since some of their abilities depend on that status). The Terror Spider away mission has also been adjusted to smooth out areas of no challenge (safe spaces) as well as areas of nigh-impossible challenge (dozens of spiders stacking up together in the final room)."
