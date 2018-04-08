@@ -813,7 +813,6 @@
 /obj/item/weapon/storage/box/centcomofficer/New()
 	..()
 	contents = list()
-	sleep(1)
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/weapon/tank/emergency_oxygen/double/full(src)
 	new /obj/item/device/flashlight/seclite(src)
@@ -825,8 +824,6 @@
 
 	new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src)
 	new /obj/item/weapon/pinpointer/advpinpointer(src)
-
-	return
 
 
 #undef NODESIGN

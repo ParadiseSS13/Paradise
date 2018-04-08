@@ -22,8 +22,8 @@
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
-	var/list/implants = list()
-	var/list/cybernetic_implants = list()
+	var/list/implants = null
+	var/list/cybernetic_implants = null
 
 
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

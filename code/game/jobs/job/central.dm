@@ -29,7 +29,6 @@
 	id = /obj/item/weapon/card/id/centcom
 	pda = /obj/item/device/pda/centcom
 	belt = /obj/item/weapon/gun/energy/pulse/pistol
-	backpack_contents = list()
 	implants = list(
 		/obj/item/weapon/implant/mindshield,
 		/obj/item/weapon/implant/dust
