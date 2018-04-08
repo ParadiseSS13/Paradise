@@ -72,6 +72,7 @@
 			var/fraction = 0.5/(2 ** distance) //50/25/12/6... for a 200u splash, 25/12/6/3... for a 100u, 12/6/3/1 for a 50u
 			splash_holder.reaction(A, TOUCH, fraction)
 
+	spawn(0)
 	qdel(splash_holder)
 	return 1
 
