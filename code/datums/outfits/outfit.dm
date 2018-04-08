@@ -91,9 +91,10 @@
 			var/number = backpack_contents[path]
 			for(var/i = 0, i < number, i++)
 				equip_item(H, path, slot_in_backpack)
-		for(var/path in implants)
-			var/obj/item/weapon/implant/I = new path(H)
-			I.implant(H)
+		if(implants)
+			for(var/path in implants)
+				var/obj/item/weapon/implant/I = new path(H)
+				I.implant(H)
 		for(var/path in cybernetic_implants)
 			var/obj/item/organ/internal/O = new path(H)
 			O.insert(H)
