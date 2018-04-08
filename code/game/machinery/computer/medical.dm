@@ -5,7 +5,7 @@
 #define MED_DATA_V_DATA	5	// Virus database
 #define MED_DATA_MEDBOT	6	// Medbot monitor
 
-/obj/machinery/computer/med_data//TODO:SANITY
+/obj/machinery/computer/med_data //TODO:SANITY
 	name = "medical records console"
 	desc = "This can be used to check medical records."
 	icon_keyboard = "med_key"
@@ -22,6 +22,11 @@
 	var/printing = null
 
 	light_color = LIGHT_COLOR_DARKBLUE
+
+/obj/machinery/computer/med_data/Destroy()
+	active1 = null
+	active2 = null
+	return ..()
 
 /obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)

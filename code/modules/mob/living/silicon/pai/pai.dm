@@ -118,6 +118,14 @@
 		C.toff = 1
 	..()
 
+/mob/living/silicon/pai/Destroy()
+	medicalActive1 = null
+	medicalActive2 = null
+	securityActive1 = null
+	securityActive2 = null
+	return ..()
+
+
 /mob/living/silicon/pai/movement_delay()
 	. = ..()
 	. += slowdown
