@@ -30,7 +30,7 @@
 		data_core.general -= src
 	if(src in data_core.locked)
 		data_core.locked -= src
-	. = ..()
+	return ..()
 
 /datum/data/text
 	name = "text"
