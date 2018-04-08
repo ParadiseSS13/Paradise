@@ -23,6 +23,9 @@
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
+/obj/machinery/computer/skills/Destroy()
+	active1 = null
+	return ..()
 
 /obj/machinery/computer/skills/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)

@@ -99,7 +99,6 @@
 	var/rank = null			//actual job
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
-	var/datum/data/record/active1 = null
 	var/sex
 	var/age
 	var/photo
