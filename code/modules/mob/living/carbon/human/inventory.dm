@@ -374,8 +374,7 @@
 
 /mob/living/carbon/human/proc/get_body_slots()
 	return list(
-		l_hand,
-		r_hand,
+		held_items,
 		back,
 		s_store,
 		handcuffed,

@@ -9,7 +9,9 @@
 	name = "roman"
 	uniform = /obj/item/clothing/under/roman
 	shoes = /obj/item/clothing/shoes/roman
-	l_hand = /obj/item/weapon/shield/riot/roman
-	r_hand = /obj/item/weapon/twohanded/spear
+	hand_items = list(
+		/obj/item/weapon/shield/riot/roman,
+		/obj/item/weapon/twohanded/spear
+	)
 	head = /obj/item/clothing/head/helmet/roman
 	back = /obj/item/weapon/twohanded/spear

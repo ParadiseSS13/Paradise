@@ -463,7 +463,9 @@ var/ert_request_answered = 0
 	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
-	r_hand = /obj/item/weapon/gun/energy/laser
+	hand_items = list(
+		/obj/item/weapon/gun/energy/laser
+	)
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/ert/security = 1,
@@ -481,7 +483,9 @@ var/ert_request_answered = 0
 	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 
-	r_hand = /obj/item/weapon/gun/energy/lasercannon
+	hand_items = list(
+		/obj/item/weapon/gun/energy/lasercannon
+	)
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
@@ -500,7 +504,9 @@ var/ert_request_answered = 0
 	suit_store = /obj/item/weapon/gun/energy/gun/nuclear
 	glasses = /obj/item/clothing/glasses/hud/security/night
 
-	r_hand = /obj/item/weapon/gun/energy/pulse/carbine
+	hand_items = list(
+		/obj/item/weapon/gun/energy/pulse/carbine
+	)
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
@@ -639,7 +645,10 @@ var/ert_request_answered = 0
 
 	l_pocket = /obj/item/weapon/reagent_containers/hypospray/combat/nanites
 
-	r_hand = /obj/item/weapon/gun/medbeam
+	hand_items = list(
+		/obj/item/weapon/gun/medbeam
+	)
+
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/medical = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,

@@ -111,7 +111,7 @@
 
 /obj/item/weapon/paper/AltClick(mob/user, obj/item/I)
 	var/mob/living/carbon/human/H = user
-	I = H.is_in_hands(/obj/item/weapon/paper)
+	I = H.is_holding_item_of_type(/obj/item/weapon/paper)
 	if(I)
 		ProcFoldPlane(H, I)
 	else

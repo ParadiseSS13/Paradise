@@ -175,12 +175,12 @@
 				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
 				return
 
-	if(src.active_hand_index == src.held_items.len)
-		src.active_hand_index = 1
+	if(active_hand_index == held_items.len)
+		active_hand_index = 1
 	else
-		src.active_hand_index += 1
-	if(hud_used && hud_used.inv_slots[slot_hands])
-		H.update_inv_hands()
+		active_hand_index += 1
+	if(hud_used)
+		update_inv_hands()
 
 
 

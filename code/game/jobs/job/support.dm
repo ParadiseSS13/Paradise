@@ -124,7 +124,9 @@
 	l_ear = /obj/item/device/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/weapon/card/id/supply
-	held_items[1] = /obj/item/weapon/clipboard
+	hand_items = list(
+		/obj/item/weapon/clipboard
+	)
 	pda = /obj/item/device/pda/quartermaster
 
 
@@ -355,7 +357,9 @@
 	l_ear = /obj/item/device/radio/headset/headset_service
 	l_pocket = /obj/item/device/laser_pointer
 	r_pocket = /obj/item/weapon/barcodescanner
-	held_items[1] = /obj/item/weapon/storage/bag/books
+	hand_items = list(
+		/obj/item/weapon/storage/bag/books
+	)
 	pda = /obj/item/device/pda/librarian
 
 /datum/job/barber

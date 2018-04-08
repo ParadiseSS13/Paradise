@@ -342,16 +342,16 @@
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
-	H.unEquip(H.l_hand)
+	H.unEquip(H.get_item_for_held_index(1))
 
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	if(tank_pref)//Diseasel, here you go
-		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_hands)
+		H.put_in_hand(new /obj/item/weapon/tank/nitrogen(H), 1)
 	else
-		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_hands)
-	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
-	H.internal = H.l_hand
+		H.put_in_hand(new /obj/item/weapon/tank/emergency_oxygen/vox(H), 1)
+	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.get_item_for_held_index(1)] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
+	H.internal = H.get_item_for_held_index(1)
 	H.update_action_buttons_icon()
 
 /datum/species/vox/handle_post_spawn(var/mob/living/carbon/human/H)

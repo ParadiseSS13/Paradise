@@ -301,11 +301,13 @@
 /datum/language/grey/check_can_speak(mob/living/speaker)
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
-		var/obj/item/organ/external/rhand = S.get_organ("r_hand")
-		var/obj/item/organ/external/lhand = S.get_organ("l_hand")
-		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
-			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
-			return FALSE
+		for(var/i in 1 to S.hand_bodyparts.len)
+			var/obj/item/organ/external/cur_hand = S.hand_bodyparts[i]
+			if(cur_hand.is_usable())
+				break
+			if(i == S.hand_bodyparts.len)
+				to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
+				return FALSE
 	if(speaker.incapacitated(ignore_lying = 1))
 		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
 		return FALSE
@@ -559,7 +561,7 @@
 
 	if(!message)
 		return
-	
+
 	log_robot("[key_name(speaker)] : [message]")
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i> <span class='ibm'>\"[message]\"</span></span></span>"

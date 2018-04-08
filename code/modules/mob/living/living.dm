@@ -882,9 +882,9 @@
 
 	// What icon do we use for the attack?
 	var/image/I
-	var/obj/item/I = get_active_held_item()
-	if(I)
-		I = image(I.icon, A, I.icon_state, A.layer + 1)
+	var/obj/item/active_item = get_active_held_item()
+	if(active_item)
+		I = image(active_item.icon, A, active_item.icon_state, A.layer + 1)
 	else // Attacked with a fist?
 		return
 

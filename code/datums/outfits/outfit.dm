@@ -72,7 +72,7 @@
 
 	for(var/obj/item/I in hand_items)
 		if(I)
-			put_in_hands(new I(H))
+			H.put_in_hands(new I(H))
 
 	if(pda)
 		equip_item(H, pda, slot_wear_pda)

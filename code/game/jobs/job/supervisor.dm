@@ -261,7 +261,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	id = /obj/item/weapon/card/id/security
 	l_pocket = /obj/item/device/laser_pointer
 	r_pocket = /obj/item/device/flash
-	held_items[1] = /obj/item/weapon/storage/briefcase
+	hand_items = list(
+		/obj/item/weapon/storage/briefcase
+	)
 	pda = /obj/item/device/pda/lawyer
 	implants = list(/obj/item/weapon/implant/mindshield)
 	satchel = /obj/item/weapon/storage/backpack/satchel_sec

@@ -96,8 +96,9 @@
 	l_ear = /obj/item/device/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/night
 	l_pocket = /obj/item/weapon/pinpointer/advpinpointer
-	hand_items = list(/obj/item/weapon/tank/jetpack/oxygen/harness)
-
+	hand_items = list(
+		/obj/item/weapon/tank/jetpack/oxygen/harness
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/engineer = 1,
 		/obj/item/weapon/reagent_containers/food/pill/initropidril = 1,
@@ -373,7 +374,9 @@
 	back = /obj/item/weapon/storage/backpack/satchel
 	shoes = /obj/item/clothing/shoes/brown
 	id = /obj/item/weapon/card/id
-	r_hand = /obj/item/weapon/melee/energy/sword/pirate
+	hand_items = list(
+		/obj/item/weapon/melee/energy/sword/pirate
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1
 	)
@@ -451,7 +454,9 @@
 	id = /obj/item/weapon/card/id
 	l_pocket = /obj/item/weapon/reagent_containers/food/snacks/grown/banana
 	r_pocket = /obj/item/weapon/bikehorn
-	r_hand = /obj/item/weapon/twohanded/fireaxe
+	hand_items = list(
+		/obj/item/weapon/twohanded/fireaxe
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1,
@@ -700,7 +705,7 @@
 	id = /obj/item/weapon/card/id
 	hand_items = list(
 		/obj/item/weapon/gun/projectile/automatic/ar
-		)
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/weapon/kitchen/knife/combat = 1,
@@ -843,7 +848,7 @@
 	hand_items = list(
 		/obj/item/weapon/kitchen/knife,
 		/obj/item/weapon/gun/energy/pulse/destroyer
-		)
+	)
 
 /datum/outfit/admin/tournament/red
 	name = "Tournament Standard Red"
@@ -862,7 +867,9 @@
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	l_pocket = /obj/item/ammo_box/a357
-	r_hand = /obj/item/weapon/gun/projectile/automatic/proto
+	hand_items = list(
+		/obj/item/weapon/gun/projectile/automatic/proto
+	)
 
 /datum/outfit/admin/tournament_chef //Steven Seagal FTW
 	name = "Tournament Chef"
@@ -876,7 +883,7 @@
 	hand_items = list(
 		/obj/item/weapon/kitchen/knife,
 		/obj/item/weapon/kitchen/rollingpin
-		)
+	)
 
 /datum/outfit/admin/tournament_janitor
 	name = "Tournament Janitor"
@@ -886,7 +893,7 @@
 	shoes = /obj/item/clothing/shoes/black
 	hand_items = list(
 		/obj/item/weapon/reagent_containers/glass/bucket
-		)
+	)
 	backpack_contents = list(
 		/obj/item/weapon/grenade/chem_grenade/cleaner = 2,
 		/obj/item/stack/tile/plasteel = 7
@@ -943,7 +950,9 @@
 	id = /obj/item/weapon/card/id/syndicate
 	l_pocket = /obj/item/weapon/kitchen/knife
 	r_pocket = /obj/item/weapon/scalpel
-	r_hand = /obj/item/weapon/twohanded/fireaxe
+	hand_items = list(
+		/obj/item/weapon/twohanded/fireaxe
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1
@@ -1002,7 +1011,7 @@
 	l_pocket = /obj/item/weapon/melee/energy/sword/saber
 	hand_items = list(
 		/obj/item/weapon/storage/secure/briefcase/reaper
-		)
+	)
 	pda = /obj/item/device/pda/heads
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
@@ -1083,7 +1092,7 @@
 	id = /obj/item/weapon/card/id/syndicate
 	hand_items = list(
 		/obj/item/weapon/twohanded/dualsaber/red
-		)
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1,
@@ -1115,7 +1124,7 @@
 	hand_items = list(
 		/obj/item/weapon/twohanded/staff,
 		/obj/item/weapon/spellbook
-		)
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/engineer = 1
 	)
@@ -1158,7 +1167,9 @@
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/device/radio/headset/syndicate
 	id = /obj/item/weapon/card/id/syndicate
-	r_hand = /obj/item/weapon/nullrod/armblade
+	hand_items = list(
+		/obj/item/weapon/nullrod/armblade
+	)
 	backpack_contents = list(
 		/obj/item/weapon/storage/box/survival = 1,
 		/obj/item/device/flashlight = 1,
@@ -1171,7 +1182,7 @@
 	var/obj/item/weapon/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Dark Priest", "syndie")
-	var/obj/item/weapon/nullrod/armblade/B = H.r_hand
+	var/obj/item/weapon/nullrod/armblade/B = H.is_holding_item_of_type(/obj/item/weapon/nullrod/armblade)
 	if(istype(B))
 		B.force = 20
 		B.name = "blessing of the reaper"

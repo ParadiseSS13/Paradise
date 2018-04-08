@@ -90,7 +90,7 @@
 //This makes sure that the grab screen object is displayed in the correct hand.
 /obj/item/weapon/grab/proc/synch()
 	if(affecting)
-		if(assailant.r_hand == src)
+		if(assailant.is_holding(src))
 			hud.screen_loc = ui_hand_position(2)
 		else
 			hud.screen_loc = ui_hand_position(1)
