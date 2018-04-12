@@ -1064,7 +1064,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = list()
 	adjust_flavour = null
 	species_fit = null
@@ -1077,7 +1077,37 @@
 	icon_state = "fox_suit"
 	item_state = "g_suit"
 	item_color = "fox_suit"
-	displays_id = 0 //still appears on examine; this is pure fluff.
+	displays_id = FALSE //still appears on examine; this is pure fluff.
+
+/obj/item/toy/plushie/fluff/fox
+	name = "orange fox plushie"
+	desc = "A cute, soft, fuzzy, fluffy, and cuddly plushie. This has a small tag on it that is signed 'Fox McCloud'."
+	icon_state = "orangefox"
+	attack_verb = list("poofed", "cuddled","fluffed")
+	actions_types = list(/datum/action/item_action/adjust)
+	var/prompting_change = FALSE
+	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
+								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
+
+/obj/item/toy/plushie/fluff/fox/proc/change_color()
+	if(prompting_change)
+		return
+	prompting_change = TRUE
+	var/plushie_color = input("Select a color", "[src]") as null|anything in plush_colors
+	prompting_change = FALSE
+	if(!plushie_color)
+		return
+	if(!Adjacent(usr))
+		return
+	name = plushie_color
+	icon_state = plush_colors[plushie_color]
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/toy/plushie/fluff/fox/ui_action_click()
+	change_color()
 
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit
@@ -1304,7 +1334,7 @@
 	pod.can_paint = FALSE
 	used = 1
 	qdel(src)
-	
+
 /obj/item/weapon/bikehorn/fluff/pinkbikehorn //Xerdies: Squiddle Toodle
 	name = "Honkinator5000"
 	desc = "This horn may look ridiculous but is the new hot item for clowns in the Clown Empire. It has a fine print on its side reading: Property of Prince Honktertong the IV"
