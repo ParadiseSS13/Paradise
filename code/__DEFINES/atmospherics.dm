@@ -45,8 +45,8 @@
 #define WINDOW_HEAT_TRANSFER_COEFFICIENT	0.1		//a hack for now
 	//Must be between 0 and 1. Values closer to 1 equalize temperature faster
 	//Should not exceed 0.4 else strange heat flow occur
-#define FIRE_MINIMUM_TEMPERATURE_TO_SPREAD	150+T0C
-#define FIRE_MINIMUM_TEMPERATURE_TO_EXIST	100+T0C
+#define FIRE_MINIMUM_TEMPERATURE_TO_SPREAD	(150+T0C)
+#define FIRE_MINIMUM_TEMPERATURE_TO_EXIST	(100+T0C)
 #define FIRE_SPREAD_RADIOSITY_SCALE			0.85
 #define FIRE_CARBON_ENERGY_RELEASED			2500000		//Amount of heat released per mole of burnt carbon into the tile
 #define FIRE_PLASMA_ENERGY_RELEASED			15000000	//Amount of heat released per mole of burnt plasma into the tile
