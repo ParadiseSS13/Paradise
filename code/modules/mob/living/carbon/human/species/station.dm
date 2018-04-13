@@ -108,13 +108,16 @@
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
+			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
+			add_logs(user, C, "tail whipped")
 			if(user.restrained())
 				if(prob(50))
 					user.Weaken(5)
 					user.visible_message("<span class='danger'>[src] lost their balance! </span>", "<span class='danger'>You lost your balance!</span>")
-			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
-			add_logs(user, C, "tail whipped")
-
+					return
+			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
+				to_chat(user, "<span class='warning'>You did hit quite a few people with your tail, and lost the energy to continue.</span>")
+				return
 
 
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
