@@ -462,7 +462,7 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
+	species_traits = list(NO_BREATHE, NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
 	bodyflags = HAS_TAIL
 	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 
@@ -947,8 +947,11 @@
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
+
+	exotic_blood = "oil"
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
+
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
 	can_revive_by_healing = 1

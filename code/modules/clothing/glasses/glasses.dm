@@ -148,6 +148,7 @@
 	icon_state = "monocle"
 	item_state = "headset" // lol
 	prescription_upgradable = 1
+	species_restricted = list()
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -176,6 +177,7 @@
 	item_state = "eyepatch"
 	flags = NODROP
 	flags_cover = null
+	species_restricted = list()
 
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
@@ -496,6 +498,7 @@
 	flags = NODROP
 	flags_cover = null
 	invis_view = SEE_INVISIBLE_MINIMUM
+	species_restricted = list()
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
