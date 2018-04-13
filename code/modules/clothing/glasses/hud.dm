@@ -31,7 +31,6 @@
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	species_restricted = list()
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
@@ -84,7 +83,6 @@
 	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	species_restricted = list()
 	species_fit = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
