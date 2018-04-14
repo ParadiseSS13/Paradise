@@ -356,7 +356,7 @@
 
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
-			var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
+			var/tlimit = 3000 //past this much time the patient is unrecoverable (in deciseconds)
 			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 			var/total_burn	= 0
 			var/total_brute	= 0
@@ -501,7 +501,7 @@
 
 				QDEL_NULL(ghost)
 			var/tplus = world.time - H.timeofdeath
-			var/tlimit = 1800 //past this much time the patient is unrecoverable (in deciseconds)
+			var/tlimit = 3000 //past this much time the patient is unrecoverable (in deciseconds)
 			var/tloss = 600 //brain damage starts setting in on the patient after some time left rotting
 			var/total_burn	= 0
 			var/total_brute	= 0
