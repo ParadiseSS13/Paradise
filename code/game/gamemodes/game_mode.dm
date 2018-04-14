@@ -29,7 +29,6 @@
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
-	var/datum/cult_info/cultdat //here instead of cult for adminbus purposes
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
@@ -375,7 +374,6 @@
 
 /datum/game_mode/New()
 	newscaster_announcements = pick(newscaster_standard_feeds)
-	cultdat = setupcult()
 
 //////////////////////////
 //Reports player logouts//

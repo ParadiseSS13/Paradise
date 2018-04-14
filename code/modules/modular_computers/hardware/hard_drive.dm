@@ -65,7 +65,6 @@
 
 	if(F in stored_files)
 		stored_files -= F
-		qdel(F)
 		recalculate_size()
 		return 1
 	else
@@ -119,7 +118,6 @@
 	return null
 
 /obj/item/weapon/computer_hardware/hard_drive/Destroy()
-	QDEL_LIST(stored_files)
 	stored_files = null
 	return ..()
 

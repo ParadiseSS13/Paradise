@@ -606,7 +606,7 @@
 	var/list/obj/structure/spacevine/queue_end = list()
 
 	for(var/obj/structure/spacevine/SV in growth_queue)
-		if(qdeleted(SV))
+		if(QDELETED(SV))
 			continue
 		i++
 		queue_end += SV

@@ -144,7 +144,7 @@
 		if(throwing)
 			throwing.hit_atom(A)
 			. = 1
-			if(!A || qdeleted(A))
+			if(!A || QDELETED(A))
 				return
 		A.Bumped(src)
 
@@ -224,7 +224,7 @@
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
 	set waitfor = 0
-	if(exists(hit_atom))
+	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked)

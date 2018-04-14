@@ -361,32 +361,16 @@
 /obj/item/weapon/melee/cultblade/ghost
 	name = "eldritch sword"
 	force = 15
-	flags = NODROP
-
-/obj/item/weapon/melee/cultblade/ghost/dropped(mob/living/carbon/human/user)
-	..()
-	qdel(src)
+	flags = NODROP | DROPDEL
 
 /obj/item/clothing/head/culthood/alt/ghost
-	flags = NODROP
-
-/obj/item/clothing/head/culthood/alt/ghost/dropped(mob/living/carbon/human/user)
-	..()
-	qdel(src)
+	flags = NODROP | DROPDEL
 
 /obj/item/clothing/suit/cultrobes/alt/ghost
-	flags = NODROP
-
-/obj/item/clothing/suit/cultrobes/alt/ghost/dropped(mob/living/carbon/human/user)
-	..()
-	qdel(src)
+	flags = NODROP | DROPDEL
 
 /obj/item/clothing/shoes/cult/ghost
-	flags = NODROP
-
-/obj/item/clothing/shoes/cult/ghost/dropped(mob/living/carbon/human/user)
-	..()
-	qdel(src)
+	flags = NODROP | DROPDEL
 
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"

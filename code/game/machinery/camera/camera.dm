@@ -91,7 +91,7 @@
 							cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
 						spawn(100)
-							if(!qdeleted(src))
+							if(!QDELETED(src))
 								cancelCameraAlarm()
 			for(var/mob/O in mob_list)
 				if(O.client && O.client.eye == src)
@@ -275,7 +275,7 @@
 		change_msg = "reactivates"
 		triggerCameraAlarm()
 		spawn(100)
-			if(!qdeleted(src))
+			if(!QDELETED(src))
 				cancelCameraAlarm()
 	if(displaymessage)
 		if(user)

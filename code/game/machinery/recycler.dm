@@ -112,7 +112,7 @@ var/const/SAFETY_COOLDOWN = 100
 
 	for(var/i in to_eat)
 		var/atom/movable/AM = i
-		if(!exists(AM))
+		if(QDELETED(AM))
 			continue
 		else if(isliving(AM))
 			if(emagged)

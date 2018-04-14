@@ -125,7 +125,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT | NODROP
+	flags = ABSTRACT | NODROP | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
 	force = 25
@@ -140,7 +140,7 @@
 
 /obj/item/weapon/melee/arm_blade/dropped(mob/user)
 	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
-	qdel(src)
+	. = ..()
 
 /obj/item/weapon/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -199,7 +199,7 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
-	flags = ABSTRACT | NODROP | NOBLUDGEON
+	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = /obj/item/ammo_casing/magic/tentacle
 	fire_sound = 'sound/effects/splat.ogg'
@@ -216,10 +216,6 @@
 			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
 		else
 			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
-
-/obj/item/weapon/gun/magic/tentacle/dropped()
-	. = ..()
-	qdel(src)
 
 /obj/item/weapon/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, "<span class='warning'>The [name] is not ready yet.<span>")
@@ -377,7 +373,7 @@
 /obj/item/weapon/shield/changeling
 	name = "shield-like mass"
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
-	flags = NODROP
+	flags = NODROP | DROPDEL
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "ling_shield"
 	block_chance = 50
@@ -388,9 +384,6 @@
 	..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-
-/obj/item/weapon/shield/changeling/dropped()
-	qdel(src)
 
 /obj/item/weapon/shield/changeling/hit_reaction()
 	if(remaining_uses < 1)
@@ -429,7 +422,7 @@
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
-	flags = STOPSPRESSUREDMAGE | NODROP
+	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL
 	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/weapon/tank/oxygen)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0) //No armor at all.
 
@@ -438,9 +431,6 @@
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around their body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 	processing_objects += src
-
-/obj/item/clothing/suit/space/changeling/dropped()
-	qdel(src)
 
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
@@ -451,11 +441,8 @@
 	name = "flesh mass"
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
-	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP
+	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP | DROPDEL
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-
-/obj/item/clothing/head/helmet/space/changeling/dropped()
-	qdel(src)
 
 
 /***************************************\
@@ -481,7 +468,7 @@
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
 	icon_state = "lingarmor"
-	flags = NODROP
+	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
 	flags_inv = HIDEJUMPSUIT
@@ -495,16 +482,10 @@
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh turns black, quickly transforming into a hard, chitinous mass!</span>", "<span class='warning'>We harden our flesh, creating a suit of armor!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
-/obj/item/clothing/suit/armor/changeling/dropped()
-	qdel(src)
-
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
-	flags = BLOCKHAIR | NODROP
+	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list(melee = 30, bullet = 30, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
 	flags_inv = HIDEEARS
-
-/obj/item/clothing/head/helmet/changeling/dropped()
-	qdel(src)

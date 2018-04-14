@@ -75,7 +75,7 @@
 
 /obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
 	..()
-	if(!qdeleted(src)) //wasn't deleted by the projectile's effects.
+	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			message_admins("[key_name_admin(P.firer)] triggered a fueltank explosion.")
 			log_game("[key_name(P.firer)] triggered a fueltank explosion.")

@@ -26,8 +26,7 @@
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
 		usr << browse(null, "window=stack")
-	..()
-	return QDEL_HINT_HARDDEL_NOW // because qdel'd stacks act strange for cyborgs
+	return ..()
 
 /obj/item/stack/examine(mob/user)
 	if(..(user, 1))
@@ -195,15 +194,18 @@
 			interact(usr)
 			return
 
-/obj/item/stack/proc/use(var/used)
+/obj/item/stack/proc/use(used)
 	if(amount < used)
 		return 0
 	amount -= used
 	if(amount < 1) // Just in case a stack's amount ends up fractional somehow
+		if(isrobot(loc))
+			var/mob/living/silicon/robot/R = loc  //Horrifying cyborg snowflake code that allows stacks to GC and cyborgs not to horrendously break
+			if(locate(src) in R.module.modules)
+				R.module.modules -= src
 		if(usr)
-			usr.unEquip(src, 1)
-		spawn()
-			qdel(src)
+			usr.unEquip(src, TRUE) // this has to be unEquip() over drop_item() or something similar because of cyborgs
+		qdel(src)
 	update_icon()
 	return 1
 

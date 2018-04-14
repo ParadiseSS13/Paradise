@@ -1,8 +1,5 @@
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
-/datum
-	var/var_edited = FALSE //Warranty void if seal is broken
-
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 

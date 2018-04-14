@@ -194,7 +194,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	..()
 	for(var/M in invokers)
 		var/mob/living/L = M
-		to_chat(L, "<span class='cultitalic'><b>You feel your life force draining. [ticker.mode.cultdat.entity_title3] is displeased.</b></span>")
+		to_chat(L, "<span class='cultitalic'><b>You feel your life force draining. [ticker.cultdat.entity_title3] is displeased.</b></span>")
 	qdel(src)
 
 /mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
@@ -238,7 +238,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			possible_talismans[talisman_cult_name] = J //This is to allow the menu to let cultists select talismans by name
 	entered_talisman_name = input(user, "Choose a talisman to imbue.", "Talisman Choices") as null|anything in possible_talismans
 	talisman_type = possible_talismans[entered_talisman_name]
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || rune_in_use || !talisman_type)
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || rune_in_use || !talisman_type)
 		return
 	..()
 	visible_message("<span class='warning'>Dark power begins to channel into the paper!.</span>")
@@ -303,7 +303,7 @@ var/list/teleport_runes = list()
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || !actual_selected_rune)
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
 		fail_invoke()
 		return
 
@@ -374,7 +374,7 @@ var/list/teleport_runes = list()
 	new_cultist.mind.special_role = "Cultist"
 	to_chat(new_cultist, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 	and something evil takes root.</b></span>")
-	to_chat(new_cultist, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [ticker.mode.cultdat.entity_title3] above all else. Bring it back.\
+	to_chat(new_cultist, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [ticker.cultdat.entity_title3] above all else. Bring it back.\
 	</b></span>")
 
 //Rite of Tribute: Sacrifices a crew member to Nar-Sie. Places them into a soul shard if they're in their body.
@@ -388,7 +388,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/sacrifice/New()
 	..()
-	cultist_desc = "sacrifices a crew member to [ticker.mode.cultdat.entity_title3]. May place them into a soul shard if their spirit remains in their body."
+	cultist_desc = "sacrifices a crew member to [ticker.cultdat.entity_title3]. May place them into a soul shard if their spirit remains in their body."
 
 /obj/effect/rune/sacrifice/invoke(var/list/invokers)
 	if(rune_in_use)
@@ -406,7 +406,7 @@ var/list/teleport_runes = list()
 	var/mob/offering
 	if(possible_targets.len > 1) //If there's more than one target, allow choice
 		offering = input(user, "Choose an offering to sacrifice.", "Unholy Tribute") as null|anything in possible_targets
-		if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
+		if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 			return
 	else if(possible_targets.len) //Otherwise, if there's a target at all, pick the only one
 		offering = possible_targets[possible_targets.len]
@@ -492,8 +492,8 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/narsie/New()
 	..()
-	cultist_name = "Summon [ticker.mode.cultdat.entity_name]"
-	cultist_desc = "tears apart dimensional barriers, calling forth [ticker.mode.cultdat.entity_title3]. Requires 9 invokers."
+	cultist_name = "Summon [ticker.cultdat.entity_name]"
+	cultist_desc = "tears apart dimensional barriers, calling forth [ticker.cultdat.entity_title3]. Requires 9 invokers."
 
 
 /obj/effect/rune/narsie/check_icon()
@@ -519,7 +519,7 @@ var/list/teleport_runes = list()
 		return
 	if(!cult_mode.eldergod)
 		for(var/M in invokers)
-			to_chat(M, "<span class='warning'>[ticker.mode.cultdat.entity_name] is already on this plane!</span>")
+			to_chat(M, "<span class='warning'>[ticker.cultdat.entity_name] is already on this plane!</span>")
 		log_game("Summon god rune failed - already summoned")
 		return
 	//BEGIN THE SUMMONING
@@ -654,7 +654,7 @@ var/list/teleport_runes = list()
 		log_game("Raise Dead rune failed - no catalyst corpse")
 		return
 	mob_to_sacrifice = input(user, "Choose a corpse to sacrifice.", "Corpse to Sacrifice") as null|anything in potential_sacrifice_mobs
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || !mob_to_sacrifice || rune_in_use)
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || !mob_to_sacrifice || rune_in_use)
 		return
 	for(var/mob/living/M in T.contents)
 		if(M.stat == DEAD)
@@ -664,7 +664,7 @@ var/list/teleport_runes = list()
 		log_game("Raise Dead rune failed - no corpse to revive")
 		return
 	mob_to_revive = input(user, "Choose a corpse to revive.", "Corpse to Revive") as null|anything in potential_revive_mobs
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated() || rune_in_use || !mob_to_revive)
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || rune_in_use || !mob_to_revive)
 		return
 	if(!in_range(mob_to_sacrifice,src))
 		to_chat(user, "<span class='cultitalic'>The sacrificial target has been moved!</span>")
@@ -857,8 +857,8 @@ var/list/teleport_runes = list()
 	for(var/datum/mind/M in ticker.mode.cult)
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists |= M.current
-	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [ticker.mode.cultdat.entity_title3]") as null|anything in cultists
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
+	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [ticker.cultdat.entity_title3]") as null|anything in cultists
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
 	if(!cultist_to_summon)
 		to_chat(user, "<span class='cultitalic'>You require a summoning target!</span>")
@@ -866,7 +866,7 @@ var/list/teleport_runes = list()
 		log_game("Summon Cultist rune failed - no target")
 		return
 	if(!iscultist(cultist_to_summon))
-		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not a follower of [ticker.mode.cultdat.entity_title3]!</span>")
+		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not a follower of [ticker.cultdat.entity_title3]!</span>")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - no target")
 		return
@@ -975,7 +975,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/manifest/New(loc)
 	..()
-	cultist_desc = "manifests a spirit as a servant of [ticker.mode.cultdat.entity_title3]. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
+	cultist_desc = "manifests a spirit as a servant of [ticker.cultdat.entity_title3]. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 
 	notify_ghosts("Manifest rune created in [get_area(src)].", 'sound/effects/ghost2.ogg', source = src)
 
@@ -1034,7 +1034,7 @@ var/list/teleport_runes = list()
 	ticker.mode.add_cultist(new_human.mind, 0)
 	summoned_guys |= new_human
 	ghosts++
-	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.mode.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.mode.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
+	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [ticker.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [ticker.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 
 	while(user in get_turf(src))
 		if(user.stat)

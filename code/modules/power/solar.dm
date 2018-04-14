@@ -146,7 +146,7 @@
 
 /obj/machinery/power/solar/ex_act(severity, target)
 	..()
-	if(isnull(gcDestroyed))
+	if(!QDELETED(src))
 		switch(severity)
 			if(2)
 				if(prob(50) && broken())
@@ -516,7 +516,7 @@
 
 /obj/machinery/power/solar_control/ex_act(severity, target)
 	..()
-	if(isnull(gcDestroyed))
+	if(!QDELETED(src))
 		switch(severity)
 			if(2)
 				if(prob(50))

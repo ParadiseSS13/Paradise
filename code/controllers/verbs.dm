@@ -70,7 +70,7 @@
 			debug_variables(alarm_manager)
 			feedback_add_details("admin_verb", "DAlarm")
 		if("Garbage")
-			debug_variables(garbageCollector)
+			debug_variables(SSgarbage)
 			feedback_add_details("admin_verb","DGarbage")
 		if("Nano")
 			debug_variables(SSnanoui)

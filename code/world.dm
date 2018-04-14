@@ -118,6 +118,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["players"] = list()
 		s["roundtime"] = worldtime2text()
 		s["stationtime"] = station_time_timestamp()
+		s["oldstationtime"] = classic_worldtime2text() // more "consistent" indication of the round's running time
 		s["listed"] = "Public"
 		if(!hub_password)
 			s["listed"] = "Invisible"
@@ -141,6 +142,7 @@ var/world_topic_spam_protect_time = world.timeofday
 				s["real_mode"] = ticker.mode.name
 
 			s["security_level"] = get_security_level()
+			s["ticker_state"] = ticker.current_state
 
 			if(shuttle_master && shuttle_master.emergency)
 				// Shuttle status, see /__DEFINES/stat.dm

@@ -393,7 +393,7 @@
 			exceptions[eid] = 0
 
 /datum/controller/process/proc/catchBadType(var/datum/caught)
-	if(isnull(caught) || !istype(caught) || !isnull(caught.gcDestroyed))
+	if(isnull(caught) || !istype(caught) || QDELETED(caught))
 		return // Only bother with types we can identify and that don't belong
 	catchException("Type [caught.type] does not belong in process' queue")
 

@@ -1482,13 +1482,13 @@ var/mob/dview/dview_mob = new
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 
-/proc/IsValidSrc(var/A)
+/proc/IsValidSrc(A)
 	if(istype(A, /datum))
-		var/datum/B = A
-		return isnull(B.gcDestroyed)
+		var/datum/D = A
+		return !QDELETED(D)
 	if(istype(A, /client))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 //Get the dir to the RIGHT of dir if they were on a clock

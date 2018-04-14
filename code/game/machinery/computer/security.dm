@@ -24,6 +24,10 @@
 
 	light_color = LIGHT_COLOR_RED
 
+/obj/machinery/computer/secure_data/Destroy()
+	active1 = null
+	active2 = null
+	return ..()
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)

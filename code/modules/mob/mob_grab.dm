@@ -10,7 +10,7 @@
 
 /obj/item/weapon/grab
 	name = "grab"
-	flags = NOBLUDGEON | ABSTRACT
+	flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	var/obj/screen/grab/hud = null
 	var/mob/living/affecting = null
 	var/mob/living/assailant = null
@@ -432,10 +432,6 @@
 		return EAT_TIME_ANIMAL
 
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
-
-/obj/item/weapon/grab/dropped()
-	qdel(src)
-
 
 /obj/item/weapon/grab/Destroy()
 	if(affecting)

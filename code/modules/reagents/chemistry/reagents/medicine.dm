@@ -853,16 +853,17 @@
 	description = "A strong anesthetic and sedative."
 	reagent_state = LIQUID
 	color = "#96DEDE"
+	metabolization_rate = 0.1
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
 	M.AdjustJitter(-25)
 	switch(current_cycle)
-		if(1 to 15)
+		if(1 to 30)
 			if(prob(7))
 				M.emote("yawn")
-		if(16 to 35)
+		if(31 to 40)
 			M.Drowsy(20)
-		if(36 to INFINITY)
+		if(41 to INFINITY)
 			M.Paralyse(15)
 			M.Drowsy(20)
 	..()
@@ -1042,6 +1043,7 @@
 	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
+	can_synth = FALSE
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	switch(current_cycle)

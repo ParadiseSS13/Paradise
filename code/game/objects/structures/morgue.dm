@@ -363,7 +363,7 @@
 		icon_state = "crema_active"
 
 		for(var/mob/living/M in search_contents_for(/mob/living))
-			if(!M || !isnull(M.gcDestroyed))
+			if(QDELETED(M))
 				continue
 			if(M.stat!=2)
 				M.emote("scream")
@@ -372,7 +372,7 @@
 				user.create_attack_log("<font color='red'>Cremated [M.name] ([M.ckey])</font>")
 				log_attack("[user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
 			M.death(1)
-			if(!M || !isnull(M.gcDestroyed))
+			if(QDELETED(M))
 				continue // Re-check for mobs that delete themselves on death
 			M.ghostize()
 			qdel(M)
