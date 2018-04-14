@@ -45,6 +45,24 @@ actual development.
  conflicts for an existing pull request. New pull requests should not have any merge
  commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
 
+#### Using Changelog
+ - Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck. 
+ - Without specifying a name it will default to using your GitHub name. 
+ Some examples
+```
+:cl:
+add: The ability to change the color of wires
+del: Deleted depreciated wire merging now handled in parent
+fix: Moving wires now follows the user input instead of moving the stack
+/:cl:
+```
+```
+:cl: N3X15
+typo: Fixes some misspelled words under Using Changelog
+/:cl:
+```
+
+
 ## Specifications
 
 As mentioned before, you are expected to follow these specifications in order to make everyone's lives easier. It'll save both your time and ours, by making 
