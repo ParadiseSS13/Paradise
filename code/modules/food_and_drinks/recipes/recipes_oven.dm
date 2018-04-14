@@ -181,12 +181,11 @@
 
 /datum/recipe/oven/fortunecookie/make_food(obj/container)
 	var/obj/item/weapon/paper/P = locate() in container
+	P.loc = null //So we don't delete the paper while cooking the cookie
 	var/obj/item/weapon/reagent_containers/food/snacks/fortunecookie/being_cooked = ..()
-	if(P.info)
-		P.loc = being_cooked //Prevents the oven deleting our paper
+	if(P.info) //If there's anything written on the paper, just move it into the fortune cookie
+		P.forceMove(being_cooked) //Prevents the oven deleting our paper
 		being_cooked.trash = P //so the paper is left behind as trash without special-snowflake(TM Nodrak) code ~carn
-	else
-		being_cooked.trash = new /obj/item/weapon/paper/fortune(being_cooked)
 	return being_cooked
 
 /datum/recipe/oven/pizzamargherita

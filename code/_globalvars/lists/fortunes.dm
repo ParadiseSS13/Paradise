@@ -1,4 +1,4 @@
-var/global/list/fortune_cookie_messages = list("A woman named [pick(first_names_female)] may have an opportunity for you.",
+GLOBAL_LIST_INIT(fortune_cookie_messages, list("A woman named [pick(first_names_female)] may have an opportunity for you.",
 "A man named [pick(first_names_male)] may have an opportunity for you.",
 "If you feel you are right, stand firmly by your convictions.",
 "A stranger is a friend you have not spoken to yet.",
@@ -18,4 +18,4 @@ var/global/list/fortune_cookie_messages = list("A woman named [pick(first_names_
 "A chance meeting opens new doors to success and friendship.",
 "The greatest danger could be your stupidity.",
 "He who laughs at himself never runs out of things to laugh at.",
-"Help! I'm being held prisoner in a Nanotrasen bakery!")
+"Help! I'm being held prisoner in a Nanotrasen bakery!"))
