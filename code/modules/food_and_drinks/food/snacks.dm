@@ -1054,6 +1054,15 @@
 	icon_state = "fortune_cookie"
 	filling_color = "#E8E79E"
 	list_reagents = list("nutriment" = 3)
+	var/obj/item/weapon/paper/fortune/F
+
+/obj/item/weapon/reagent_containers/food/snacks/fortunecookie/New()
+	..()
+	F = new /obj/item/weapon/paper/fortune(src)
+
+/obj/item/weapon/reagent_containers/food/snacks/fortunecookie/Post_Consume(mob/living/carbon/human/user)
+	to_chat(user, "<span class='notice'>[F] falls out of [src]!</span>")
+	user.put_in_hands(F)
 
 /obj/item/weapon/reagent_containers/food/snacks/badrecipe
 	name = "Burned mess"
