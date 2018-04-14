@@ -113,6 +113,7 @@
 	flags = EARBANGPROTECT
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
+	actions_types = list(/datum/action/item_action/wipe_headset)
 
 /obj/item/device/radio/headset/headset_eng
 	name = "engineering radio headset"
@@ -169,6 +170,7 @@
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
+	actions_types = list(/datum/action/item_action/wipe_headset)
 
 /obj/item/device/radio/headset/heads/rd
 	name = "Research Director's headset"
@@ -190,6 +192,7 @@
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
+	actions_types = list(/datum/action/item_action/wipe_headset)
 
 /obj/item/device/radio/headset/heads/ce
 	name = "chief engineer's headset"
@@ -251,6 +254,7 @@
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
+	actions_types = list(/datum/action/item_action/wipe_headset)
 
 /obj/item/device/radio/headset/heads/blueshield
 	name = "blueshield's headset"
@@ -265,6 +269,7 @@
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
+	actions_types = list(/datum/action/item_action/wipe_headset)
 
 /obj/item/device/radio/headset/ert
 	name = "emergency response team headset"
@@ -279,6 +284,7 @@
 	flags = EARBANGPROTECT
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
+	actions_types = list(/datum/action/item_action/wipe_headset)
 
 /obj/item/device/radio/headset/centcom
 	name = "\proper centcom officer's bowman headset"
@@ -287,6 +293,7 @@
 	icon_state = "com_headset_alt"
 	item_state = "com_headset_alt"
 	ks2type = /obj/item/device/encryptionkey/centcom
+	actions_types = list(/datum/action/item_action/wipe_headset)
 
 /obj/item/device/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
@@ -348,6 +355,22 @@
 		recalculateChannels()
 	return
 
+/obj/item/device/radio/headset/proc/make_wipable()
+	for(var/X in actions)
+		var/datum/action/A = X
+		if(istype(A, /datum/action/item_action/wipe_headset/))
+			return
+	var/datum/action/A = new /datum/action/item_action/wipe_headset(src)
+	if(ismob(loc))
+		A.Grant(loc)
+
+/obj/item/device/radio/headset/proc/unmake_wipable()
+	if(!(/datum/action/item_action/wipe_headset/ in actions_types))
+		for(var/X in actions)
+			var/datum/action/A = X
+			if(ismob(loc))
+				A.Remove(loc)
+		QDEL_LIST(actions)
 
 /obj/item/device/radio/headset/proc/recalculateChannels(var/setDescription = 0)
 	src.channels = list()
@@ -370,6 +393,7 @@
 
 		if(keyslot1.syndie)
 			src.syndie = 1
+			make_wipable()
 
 	if(keyslot2)
 		for(var/ch_name in keyslot2.channels)
@@ -386,7 +410,7 @@
 
 		if(keyslot2.syndie)
 			src.syndie = 1
-
+			make_wipable()
 
 	for(var/ch_name in channels)
 		if(!radio_controller)
@@ -415,4 +439,21 @@
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/device/encryptionkey/syndicate
 	syndie = 1
+	recalculateChannels()
+
+// Remove all encryption keys, unless Syndicate, in which case it only wipes non-Syndicate keys.
+/obj/item/device/radio/headset/ui_action_click()
+	if(alert(loc, "Are you sure you want to wipe your headset? This cannot be undone!","Wipe headset?","Yes","No") != "Yes")
+		return
+
+	if(!ismob(loc))
+		return
+
+	if((syndie && keyslot1 && keyslot1.syndie) || (!syndie && keyslot1))
+		QDEL_NULL(keyslot1)
+
+	if((syndie && keyslot2 && keyslot2.syndie) || (!syndie && keyslot2))
+		QDEL_NULL(keyslot2)
+	syndie = 0
+	unmake_wipable()
 	recalculateChannels()
