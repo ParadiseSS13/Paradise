@@ -21,7 +21,7 @@ reporting bugs in the code. Refer to ISSUE_TEMPLATE for the exact format that yo
 should be in.
 
 #### Guidelines:
- - Issue reports should be as detailed as possible, and if applicable, should include
+ * Issue reports should be as detailed as possible, and if applicable, should include
  instructions on how to reproduce the bug.
 
 ## Pull requests
@@ -31,23 +31,23 @@ strongly recommended you get approval/traction for it from our forums before sta
 actual development.
 
 #### Guidelines:
- - Pull requests should be atomic; Make one commit for each distinct change, so if a part
+ * Pull requests should be atomic; Make one commit for each distinct change, so if a part
  of a pull request needs to be removed/changed, you may simply modify that single commit.
  Due to limitations of the engine, this may not always be possible; but do try your best.
- - Document and explain your pull requests thoroughly. Detail what each commit changes,
+ * Document and explain your pull requests thoroughly. Detail what each commit changes,
  and why it changes it. We do not want to have to read all of you commit names to figure
  out what your pull request is about.
- - Any pull request that is not solely composed of fixes or non gameplay-affecting
+ * Any pull request that is not solely composed of fixes or non gameplay-affecting
  refactors must have a changelog. Inline changelogs are supported through the format
  described [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
  and should be used rather than manually edited .yml file changelogs.
- - Pull requests should not have any merge commits except in the case of fixing merge
+ * Pull requests should not have any merge commits except in the case of fixing merge
  conflicts for an existing pull request. New pull requests should not have any merge
  commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
 
 #### Using Changelog
- - Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck. 
- - Without specifying a name it will default to using your GitHub name. 
+ * Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck. 
+ * Without specifying a name it will default to using your GitHub name. 
  Some examples
 ```
 :cl:
@@ -273,45 +273,45 @@ This prevents nesting levels from getting deeper then they need to be.
 SS13 has a lot of legacy code that's never been updated. Here are some examples of common legacy trends which are no longer acceptable:
   * To display messages to all mobs that can view `src`, you should use
   `visible_message()`.
-     - Bad:
+    * Bad:
      ```
      for(var/mob/M in viewers(src))
              M.show_message("<span class='warning'>Arbitrary text</span>")
      ```
-     - Good:
+    * Good:
      ```
      visible_message("<span class='warning'>Arbitrary text</span>")
      ```
   * You should not use color macros (`\red, \blue, \green, \black`) to color text,
   instead, you should use span classes. `<span class='warning'>red text</span>`,
   `<span class='notice'>blue text</span>`.
-    - Bad:
+    * Bad:
     ```
     usr << "\red Red Text \black black text"
     ```
-    - Good:
+    * Good:
     ```
     usr << "<span class='warning'>Red Text</span>black text"
     ```
   * To use variables in strings, you should **never** use the `text()` operator, use
    embedded expressions directly in the string.
-     - Bad:
+     * Bad:
      ```
      usr << text("\The [] is leaking []!", src.name, src.liquid_type)
      ```
-     - Good:
+     * Good:
      ```
      usr << "\The [src] is leaking [liquid_type]"
      ```
  * To reference a variable/proc on the src object, you should **not** use
    `src.var`/`src.proc()`. The `src.` in these cases is implied, so you should just use
    `var`/`proc()`.
-     - Bad:
+    * Bad:
      ```
      var/user = src.interactor
      src.fillReserves(user)
      ```
-     - Good:
+    * Good:
      ```
      var/user = interactor
      fillReserves(user)
@@ -465,21 +465,21 @@ responsible for properly tagging new pull requests and issues, moderating commen
 pull requests/issues, and merging/closing pull requests.
 
 ### Maintainer List
- - [tigercat2000](https://github.com/tigercat2000)
- - [Fox P McCloud](https://github.com/Fox-McCloud)
- - [Crazy Lemon](https://github.com/Crazylemon64)
+* [tigercat2000](https://github.com/tigercat2000)
+* [Fox P McCloud](https://github.com/Fox-McCloud)
+* [Crazy Lemon](https://github.com/Crazylemon64)
 
 ### Maintainer instructions
- - Do not `self-merge`; this refers to the practice of opening a pull request, then
+* Do not `self-merge`; this refers to the practice of opening a pull request, then
   merging it yourself. A different maintainer must review and merge your pull request, no
   matter how trivial. This is to ensure quality.
-  - A subset of this instruction: Do not push directly to the repository, always make a
+  * A subset of this instruction: Do not push directly to the repository, always make a
   pull request.
- - Wait for the Travis CI build to complete. If it fails, the pull request may only be
+* Wait for the Travis CI build to complete. If it fails, the pull request may only be
  merged if there is a very good reason (example: fixing the Travis configuration).
- - Pull requests labeled as bugfixes and refactors may be merged as soon as they are
+* Pull requests labeled as bugfixes and refactors may be merged as soon as they are
  reviewed.
- - The shortest waiting period for -any- feature or balancing altering pull request is 24
+* The shortest waiting period for -any- feature or balancing altering pull request is 24
  hours, to allow other coders and the community time to discuss the proposed changes.
- - If the discussion is active, or the change is controversial, the pull request is to be
+* If the discussion is active, or the change is controversial, the pull request is to be
  put on hold until a consensus is reached.
