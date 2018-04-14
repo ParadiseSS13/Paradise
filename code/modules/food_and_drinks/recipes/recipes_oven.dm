@@ -180,20 +180,14 @@
 	result = /obj/item/weapon/reagent_containers/food/snacks/fortunecookie
 
 /datum/recipe/oven/fortunecookie/make_food(obj/container)
-	var/obj/item/weapon/paper/paper = locate() in container
-	paper.loc = null //prevent deletion
+	var/obj/item/weapon/paper/P = locate() in container
 	var/obj/item/weapon/reagent_containers/food/snacks/fortunecookie/being_cooked = ..()
-	paper.loc = being_cooked
-	being_cooked.trash = paper //so the paper is left behind as trash without special-snowflake(TM Nodrak) code ~carn
+	if(P.info)
+		P.loc = being_cooked //Prevents the oven deleting our paper
+		being_cooked.trash = P //so the paper is left behind as trash without special-snowflake(TM Nodrak) code ~carn
+	else
+		being_cooked.trash = new /obj/item/weapon/paper/fortune(being_cooked)
 	return being_cooked
-
-/datum/recipe/oven/fortunecookie/check_items(obj/container)
-	. = ..()
-	if(.)
-		var/obj/item/weapon/paper/paper = locate() in container
-		if(!paper || !paper.info)
-			return -1
-	return .
 
 /datum/recipe/oven/pizzamargherita
 	items = list(
