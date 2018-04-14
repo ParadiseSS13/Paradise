@@ -588,6 +588,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	..()
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
+		// Cable merging is handled by parent proc
 		if(C.amount >= MAXCOIL)
 			to_chat(user, "The coil is as long as it will get.")
 			return
