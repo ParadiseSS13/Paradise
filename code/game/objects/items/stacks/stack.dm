@@ -13,6 +13,7 @@
 	var/list/recipes = list() // /datum/stack_recipe
 	var/singular_name
 	var/amount = 1
+	var/to_transfer = 0
 	var/max_amount //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 
@@ -231,7 +232,6 @@
 /obj/item/stack/proc/get_max_amount()
 	return max_amount
 
-var/to_transfer = 0
 /obj/item/stack/proc/get_amount_transferred()
 	return to_transfer
 
