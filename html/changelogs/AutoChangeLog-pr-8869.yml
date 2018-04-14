@@ -1,4 +1,0 @@
-author: "Anticept"
-delete-after: True
-changes: 
-  - tweak: "Changed defib timer from 3 minutes to 5 minutes"
