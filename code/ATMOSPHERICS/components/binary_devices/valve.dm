@@ -44,10 +44,10 @@
 	update_icon()
 	investigate_log("was closed by [usr ? key_name(usr) : "a remote signal"]", "atmos")
 	return
-	
+
 /obj/machinery/atmospherics/binary/valve/attack_ai(mob/user)
 	return
-	
+
 /obj/machinery/atmospherics/binary/valve/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
@@ -60,7 +60,7 @@
 		close()
 	else
 		open()
-				
+
 /obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
 	name = "digital valve"
 	desc = "A digitally controlled valve."
@@ -70,6 +70,12 @@
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
 	settagwhitelist = list("id_tag")
+
+/obj/machinery/atmospherics/binary/valve/digital/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
 
 /obj/machinery/atmospherics/binary/valve/digital/attack_ai(mob/user)
 	return attack_hand(user)

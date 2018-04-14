@@ -77,6 +77,7 @@ var/global/list/default_medbay_channels = list(
 		radio_controller.remove_object(src, frequency)
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
+	radio_connection = null
 	global_radios -= src
 	follow_target = null
 	return ..()
