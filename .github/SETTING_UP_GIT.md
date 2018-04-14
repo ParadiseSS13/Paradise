@@ -7,7 +7,7 @@ package manager, whatever that may be.
 
 ---
 
-
+## Windows user
 ## Git-SCM
 So you want to start contributing to Paradise? Where, well do you start?
 First off, you will need some tools to work with Git, the
@@ -27,17 +27,17 @@ There should be four big orange buttons on the front page of the site when you
 go there. You will want to click on the one labeled "Downloads".
 ![https://i.imgur.com/a6tX7IV.png](https://i.imgur.com/a6tX7IV.png)
 
-From here, you will want to select your operating system in this box.
+From here, you will want to select your operating system in this box.  
 ![https://i.imgur.com/Ee4wVsF.png](https://i.imgur.com/Ee4wVsF.png)
 
 Download the `setup` version, which should automatically start downloading when
 you select your operating system. Place it wherever you prefer to store your
 downloaded files. You should end up with a file that looks like
-`Git-version.number.here-32/64-bit.exe`. You should run this executable file.
+`Git-version.number.here-32/64-bit.exe`. You should run this executable file.  
 ![https://i.imgur.com/jnbodzV.png](https://i.imgur.com/jnbodzV.png)
 
 Click Next, after reading the GNU-GPL license if you wish to do so, which will
-bring you to this screen.
+bring you to this screen.  
 ![https://i.imgur.com/cl9RodU.png](https://i.imgur.com/cl9RodU.png)
 
 Your default options may be different than this- You'll want to amend them to
@@ -45,7 +45,7 @@ match this screenshot. (Future proofing: `Windows Explorer integration` partiall
 selected, just for `Git Bash Here`, `Git LFS (Large File Support)` checked,
 and `Associate .git* configuration files with the default text editor` checked.
 All other boxes should be left unchecked). Click next. The next screen is very
-important.
+important.  
 ![https://i.imgur.com/6ii7aRO.png](https://i.imgur.com/6ii7aRO.png)
 
 The screen should say `Adjusting your PATH environment`. You will definitely want
@@ -55,18 +55,18 @@ terminal emulators will be unable to use Git, as will the windows command prompt
 
 Select `Use the OpenSSL library` for `Choosing HTTPS transport backend`.
 
-For Windows, you will also get the following screen:
+For Windows, you will also get the following screen:  
 ![https://i.imgur.com/jOZJWvO.png](https://i.imgur.com/jOZJWvO.png)
 
 You will want to select "Checkout Windows-style, commit Unix-style line endings"
 for working with our repository.
 
 If you get the choice between MinTTY and Windows' default console window, select
-MinTTY.
+MinTTY.  
 ![https://i.imgur.com/ZdZU0NB.png](https://i.imgur.com/ZdZU0NB.png)
 
 For `configuring extra options`, select `Enable file system caching` and
-`Enable Git Credential Manager`, leaving `Enable symbolic links` disabled.
+`Enable Git Credential Manager`, leaving `Enable symbolic links` disabled.  
 ![https://i.imgur.com/6gspQAL.png](https://i.imgur.com/6gspQAL.png)
 
 From there, just hit `Install`.
