@@ -488,7 +488,7 @@
 	..()
 	var/fortunemessage = pick(GLOB.fortune_cookie_messages)
 	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
-	info += "<span style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</span>"
+	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
 
 /obj/item/weapon/paper/fortune/update_icon()
 	..()
