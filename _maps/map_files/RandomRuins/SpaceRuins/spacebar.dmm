@@ -30,7 +30,7 @@
 "aD" = (/obj/machinery/door_control{name = "pod door cycle"; pixel_x = 6; id = "pod cycle"},/turf/simulated/wall,/area/ruin/powered{name = "Space Bar"})
 "aE" = (/obj/machinery/vending/boozeomat,/turf/simulated/wall,/area/ruin/powered{name = "Space Bar"})
 "aF" = (/obj/structure/closet/secure_closet/freezer/kitchen,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
-"aG" = (/obj/machinery/light/small,/obj/structure/table,/obj/machinery/microwave,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
+"aG" = (/obj/machinery/light/small,/obj/structure/table,/obj/machinery/kitchen_machine/microwave,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aH" = (/obj/structure/closet/secure_closet/freezer/fridge,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aI" = (/obj/structure/table,/obj/item/stack/sheet/metal{amount = 10},/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aJ" = (/turf/simulated/wall,/area/ruin/powered)

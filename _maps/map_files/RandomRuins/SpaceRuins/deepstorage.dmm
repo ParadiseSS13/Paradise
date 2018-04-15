@@ -76,7 +76,7 @@
 "bx" = (/obj/machinery/autolathe,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "by" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/power/terminal{icon_state = "term"; dir = 1},/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "bz" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"bA" = (/obj/structure/table,/obj/machinery/microwave,/turf/simulated/floor/plasteel{tag = "icon-bar"; icon_state = "bar"},/area/ruin/unpowered)
+"bA" = (/obj/structure/table,/obj/machinery/kitchen_machine/microwave,/turf/simulated/floor/plasteel{tag = "icon-bar"; icon_state = "bar"},/area/ruin/unpowered)
 "bB" = (/turf/simulated/floor/plasteel{tag = "icon-bar"; icon_state = "bar"},/area/ruin/unpowered)
 "bC" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets,/turf/simulated/floor/plasteel{tag = "icon-bar"; icon_state = "bar"},/area/ruin/unpowered)
 "bD" = (/obj/structure/table,/obj/item/weapon/reagent_containers/food/snacks/beans,/turf/simulated/floor/plasteel{tag = "icon-bar"; icon_state = "bar"},/area/ruin/unpowered)

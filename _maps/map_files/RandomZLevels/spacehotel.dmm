@@ -369,7 +369,7 @@
 "he" = (/obj/machinery/processor,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/awaymission/spacehotel/kitchen)
 "hf" = (/obj/machinery/chem_master/condimaster,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/awaymission/spacehotel/kitchen)
 "hg" = (/obj/structure/table,/obj/machinery/reagentgrinder,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/awaymission/spacehotel/kitchen)
-"hh" = (/obj/structure/table,/obj/machinery/microwave,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/awaymission/spacehotel/kitchen)
+"hh" = (/obj/structure/table,/obj/machinery/kitchen_machine/microwave,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/awaymission/spacehotel/kitchen)
 "hi" = (/obj/structure/closet/crate/can,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/awaymission/spacehotel/kitchen)
 "hj" = (/obj/structure/closet/secure_closet/freezer/meat,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/awaymission/spacehotel/kitchen)
 "hk" = (/obj/structure/closet/secure_closet/freezer/fridge,/turf/unsimulated/floor{icon_state = "cafeteria"},/area/awaymission/spacehotel/kitchen)
