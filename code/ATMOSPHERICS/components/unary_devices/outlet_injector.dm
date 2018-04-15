@@ -31,6 +31,12 @@
 	if(id && !id_tag)//I'm not dealing with any more merge conflicts
 		id_tag = id
 
+/obj/machinery/atmospherics/unary/outlet_injector/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
+
 /obj/machinery/atmospherics/unary/outlet_injector/update_icon()
 	if(!powered())
 		icon_state = "off"

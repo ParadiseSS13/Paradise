@@ -48,13 +48,14 @@
 
 /obj/machinery/driver_button/Destroy()
 	if(radio_controller)
-		radio_controller.remove_object(src,frequency)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
 	return ..()
 
 
 /obj/machinery/driver_button/attack_ai(mob/user as mob)
 	return attack_hand(user)
-	
+
 /obj/machinery/driver_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
@@ -167,7 +168,7 @@
 
 /obj/machinery/ignition_switch/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/ignition_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)

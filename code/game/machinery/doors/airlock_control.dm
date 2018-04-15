@@ -216,6 +216,12 @@
 	if(radio_controller)
 		set_frequency(frequency)
 
+/obj/machinery/airlock_sensor/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
+
 /obj/machinery/airlock_sensor/airlock_interior
 	command = "cycle_interior"
 
@@ -278,6 +284,12 @@
 
 	if(radio_controller)
 		set_frequency(frequency)
+
+/obj/machinery/access_button/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
 
 /obj/machinery/access_button/airlock_interior
 	frequency = 1379

@@ -1,6 +1,4 @@
 /obj/machinery/bodyscanner
-	var/mob/living/carbon/occupant
-	var/locked
 	name = "body scanner"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
@@ -11,6 +9,16 @@
 	active_power_usage = 2500
 
 	light_color = "#00FF00"
+	var/obj/machinery/body_scanconsole/console = null
+	var/mob/living/carbon/occupant = null
+	var/locked
+
+/obj/machinery/bodyscanner/Destroy()
+	go_out()
+	if(console)
+		console.connected = null
+		console = null
+	return ..()
 
 /obj/machinery/bodyscanner/power_change()
 	..()
@@ -207,9 +215,6 @@
 	return
 
 /obj/machinery/body_scanconsole
-	var/obj/machinery/bodyscanner/connected
-	var/delete
-	var/temphtml
 	name = "Body Scanner Console"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "bodyscannerconsole"
@@ -218,6 +223,9 @@
 	dir = 8
 	idle_power_usage = 250
 	active_power_usage = 500
+	var/obj/machinery/bodyscanner/connected = null
+	var/delete
+	var/temphtml
 	var/printing = null
 	var/printing_text = null
 	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/mindshield, /obj/item/weapon/implant/tracking, /obj/item/weapon/implant/health)
@@ -242,6 +250,12 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 	findscanner()
+
+/obj/machinery/body_scanconsole/Destroy()
+	if(connected)
+		connected.console = null
+		connected = null
+	return ..()
 
 /obj/machinery/body_scanconsole/ex_act(severity)
 	switch(severity)
@@ -269,15 +283,13 @@
 	return
 
 /obj/machinery/body_scanconsole/proc/findscanner()
-	var/obj/machinery/bodyscanner/bodyscannernew = null
-	// Loop through every direction
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		// Try to find a scanner in that direction
 		var/temp = locate(/obj/machinery/bodyscanner, get_step(src, dir))
-		if(!isnull(temp))
-			bodyscannernew = temp
-	src.connected = bodyscannernew
-	return
+		if(temp)
+			connected = temp
+			connected.console = src
+			break
 
 
 /obj/machinery/body_scanconsole/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
