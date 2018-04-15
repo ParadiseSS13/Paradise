@@ -138,29 +138,6 @@
 	replaced(H)
 	return 1
 
-/obj/item/organ/external/attack(mob/living/carbon/C, mob/user) // Limb re-attachment
-	if(ishuman(C)) // Is it human?
-		var/mob/living/carbon/human/H = C
-		if(H.species && H.species.species_traits && EASYLIMBATTACHMENT in H.species.species_traits) // Can it attach limbs like this?
-			if((H.species.reagent_tag == PROCESS_SYN && status == ORGAN_ROBOT) || (H.species.reagent_tag = PROCESS_ORG && status != ORGAN_ROBOT)) // Robotic with Robotic, organic with organic.
-				if(!H.get_organ(limb_name))
-					H.visible_message("<span class='notice'>[H] is attempting to re-attach the [src]...</span>")
-					if(do_mob(user, H, 120)) // After a progress bar..
-						if(H == user)
-							H.visible_message("<span class='warning'>[H] jams the [src] into the empty socket!</span>",\
-							"<span class='notice'>You force [src] into your empty socket, and it locks into place!</span>")
-						else
-							H.visible_message("<span class='warning'>[user] jams the [src] into [H]'s empty socket!</span>",\
-							"<span class='notice'>[user] forces [src] into your empty socket, and it locks into place!</span>")
-						user.unEquip(src) // This was all taken from attach_limb from surgery
-						replaced(H)
-						H.update_body()
-						H.updatehealth()
-						H.UpdateDamageIcon()
-						return
-	..()
-
-
 /****************************************************
 			   DAMAGE PROCS
 ****************************************************/
