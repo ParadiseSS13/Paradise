@@ -176,21 +176,22 @@ emp_act
 	return 1
 
 //Returns 1 if the attack hit, 0 if it missed.
-/mob/living/carbon/human/proc/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
-	if(!I || !user)	return 0
+/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
+	if(!I || !user)
+		return 0
 
-	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && src.stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(src.loc))
-		newmeat.name = src.real_name + newmeat.name
-		newmeat.subjectname = src.real_name
-		newmeat.subjectjob = src.job
-		newmeat.reagents.add_reagent ("nutriment", (src.nutrition / 15) / 3)
-		src.reagents.trans_to (newmeat, round ((src.reagents.total_volume) / 3, 1))
+	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
+		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(loc))
+		newmeat.name = real_name + newmeat.name
+		newmeat.subjectname = real_name
+		newmeat.subjectjob = job
+		newmeat.reagents.add_reagent("nutriment", (nutrition / 15) / 3)
+		reagents.trans_to(newmeat, round((reagents.total_volume) / 3, 1))
 		add_mob_blood(src)
-		--src.meatleft
-		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [src.name]</span>")
-		if(!src.meatleft)
-			src.create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
+		--meatleft
+		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
+		if(!meatleft)
+			create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
 			user.create_attack_log("Chopped up <b>[key_name(src)]</b> into meat</b>")
 			msg_admin_attack("[key_name_admin(user)] chopped up [key_name_admin(src)] into meat")
 			if(!iscarbon(user))
@@ -214,19 +215,18 @@ emp_act
 	if(istype(I,/obj/item/weapon/card/emag))
 		emag_act(user, affecting)
 
-	if(! I.discrete)
-		if(I.attack_verb.len)
-			visible_message("<span class='combat danger'>[src] has been [pick(I.attack_verb)] in the [hit_area] with [I.name] by [user]!</span>")
-		else
-			visible_message("<span class='combat danger'>[src] has been attacked in the [hit_area] with [I.name] by [user]!</span>")
+	send_item_attack_message(I, user, hit_area)
 
-	var/armor = run_armor_check(affecting, "melee", "Your armor has protected your [hit_area].", "Your armor has softened hit to your [hit_area].", armour_penetration = I.armour_penetration)
+	if(!I.force)
+		return 0 //item force is zero
+
+	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_sel.selecting, "melee")))
 		weapon_sharp = 0
 
-	if(armor >= 100)	return 0
-	if(!I.force)	return 0
+	if(armor >= 100)
+		return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	apply_damage(I.force, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
@@ -234,8 +234,6 @@ emp_act
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
 		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
-//		if(user.hand)	user.update_inv_l_hand()	//updates the attacker's overlay for the (now bloodied) weapon
-//		else			user.update_inv_r_hand()	//removed because weapons don't have on-mob blood overlays
 		if(prob(I.force * 2)) //blood spatter!
 			bloody = 1
 			var/turf/location = loc

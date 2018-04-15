@@ -142,6 +142,13 @@
 	refined_type = /obj/item/stack/sheet/mineral/tranquillite
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 
+/obj/item/weapon/ore/titanium
+	name = "titanium ore"
+	icon_state = "Titanium ore"
+	points = 50
+	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
+	refined_type = /obj/item/stack/sheet/mineral/titanium
+
 /obj/item/weapon/ore/slag
 	name = "slag"
 	desc = "Completely useless"

@@ -151,21 +151,21 @@
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "sword0"
 	item_state = "sword0"
-	var/active = 0.0
+	var/active = FALSE
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "struck", "hit")
 
-/obj/item/toy/sword/attack_self(mob/user as mob)
-	active = !(active)
+/obj/item/toy/sword/attack_self(mob/user)
+	active = !active
 	if(active)
 		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
-		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		icon_state = "swordblue"
 		item_state = "swordblue"
 		w_class = WEIGHT_CLASS_BULKY
 	else
 		to_chat(user, "<span class='notice'>You push the plastic blade back down into the handle.</span>")
-		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		icon_state = "sword0"
 		item_state = "sword0"
 		w_class = WEIGHT_CLASS_SMALL
@@ -1357,6 +1357,7 @@ obj/item/toy/cards/deck/syndicate/black
 	item_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	hitsound = "swing_hit"
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -1364,14 +1365,13 @@ obj/item/toy/cards/deck/syndicate/black
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 5
-	force = 5.0
+	force = 5
 	origin_tech = "combat=1"
 	attack_verb = list("struck", "hit", "bashed")
 	var/bullet_position = 1
-	var/is_empty = 0
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into the [src.name]'s cylinder and points it at \his head before pulling the trigger! It looks like they are trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at \his head before pulling the trigger! It looks like they are trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/Gunshot.ogg', 50, 1)
 	return (BRUTELOSS)
 
@@ -1381,36 +1381,37 @@ obj/item/toy/cards/deck/syndicate/black
 
 
 /obj/item/toy/russian_revolver/attack_self(mob/user)
-	if(is_empty)
-		user.visible_message("<span class='warning'>[user] loads a bullet into the [src]'s cylinder.</span>")
-		is_empty = 0
+	if(!bullet_position)
+		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder.</span>")
+		bullet_position = 1
 	else
 		spin_cylinder()
-		user.visible_message("<span class='warning'>[user] spins the cylinder on the [src]!</span>")
+		user.visible_message("<span class='warning'>[user] spins the cylinder on [src]!</span>")
 
-
-/obj/item/toy/russian_revolver/attack(mob/living/carbon/M, mob/user)
+/obj/item/toy/russian_revolver/attack(mob/living/carbon/human/M, mob/living/carbon/human/user)
 	if(M != user) //can't use this on other people
+		return ..()
+	if(!bullet_position)
+		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 		return
-	if(is_empty)
-		to_chat(user, "<span class='notice'>The [src] is empty.</span>")
+	if(!(user.has_organ("head"))) //For sanity
+		to_chat(user, "<span class='notice'>Playing this game without a head would be classed as cheating.</span>")
 		return
-	user.visible_message("<span class='danger'>[user] points the [src] at their head, ready to pull the trigger!</span>")
-	if(do_after(user, 30, target = M))
-		if(bullet_position != 1)
+	user.visible_message("<span class='danger'>[user] points [src] at their head, ready to pull the trigger!</span>")
+	if(do_after(user, 30, target = user))
+		if(bullet_position > 1)
 			user.visible_message("<span class='danger'>*click*</span>")
 			playsound(src, 'sound/weapons/empty.ogg', 100, 1)
-			bullet_position -= 1
+			bullet_position--
 			return
-		if(bullet_position == 1)
-			is_empty = 1
+		else
+			bullet_position = null
 			playsound(src, 'sound/weapons/Gunshot.ogg', 50, 1)
-			user.visible_message("<span class='danger'>The [src] goes off!</span>")
-			M.apply_damage(200, BRUTE, "head", sharp =1, used_weapon = "Self-inflicted gunshot wound to the head.")
-			M.death()
+			user.visible_message("<span class='danger'>[src] goes off!</span>")
+			user.apply_damage(200, BRUTE, "head", sharp = 1, used_weapon = "Self-inflicted gunshot wound to the head.")
+			user.death()
 	else
-		user.visible_message("<span class='danger'>[user] lowers the [src] from their head.</span>")
-
+		user.visible_message("<span class='danger'>[user] lowers [src] from their head.</span>")
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
 	bullet_position = rand(1,6)

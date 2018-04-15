@@ -244,23 +244,28 @@
 
 
 /obj/machinery/transformer/xray/proc/scan(var/obj/item/I)
-	var/badcount = 0
-	for(var/obj/item/weapon/gun/G in src.loc)
-		badcount++
-	for(var/obj/item/device/transfer_valve/B in src.loc)
-		badcount++
-	for(var/obj/item/weapon/kitchen/knife/K in src.loc)
-		badcount++
-	for(var/obj/item/weapon/grenade/plastic/c4/KK in src.loc)
-		badcount++
-	for(var/obj/item/weapon/melee/ML in src.loc)
-		badcount++
-	if(badcount)
+	if(scan_rec(I))
 		playsound(src.loc, 'sound/effects/alert.ogg', 50, 0)
 		flick("separator-AO0",src)
 	else
 		playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 		sleep(30)
+
+/obj/machinery/transformer/xray/proc/scan_rec(var/obj/item/I)
+	if(istype(I, /obj/item/weapon/gun))
+		return TRUE
+	if(istype(I, /obj/item/device/transfer_valve))
+		return TRUE
+	if(istype(I, /obj/item/weapon/kitchen/knife))
+		return TRUE
+	if(istype(I, /obj/item/weapon/grenade/plastic/c4))
+		return TRUE
+	if(istype(I, /obj/item/weapon/melee))
+		return TRUE
+	for(var/obj/item/C in I.contents)
+		if(scan_rec(C))
+			return TRUE
+	return FALSE
 
 /obj/machinery/transformer/equipper
 	name = "Auto-equipper 9000"

@@ -41,7 +41,7 @@
 	invocation = "Ra'sha yoka!"
 
 /obj/item/weapon/paper/talisman/malformed/invoke(mob/living/user, successfuluse = 1)
-	to_chat(user, "<span class='cultitalic'>You feel a pain in your head. [ticker.mode.cultdat.entity_title3] is displeased.</span>")
+	to_chat(user, "<span class='cultitalic'>You feel a pain in your head. [ticker.cultdat.entity_title3] is displeased.</span>")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.apply_damage(10, BRUTE, "head")
@@ -148,7 +148,7 @@
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!src || qdeleted(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
+	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return ..(user, 0)
 
 	user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and they disappear in a flash of red light!</span>", \
@@ -412,7 +412,11 @@
 	trashtype = /obj/item/weapon/restraints/handcuffs/energy/used
 	origin_tech = "materials=2;magnets=5"
 
+/obj/item/weapon/restraints/handcuffs/energy/used
+	desc = "energy discharge"
+	flags = DROPDEL
+
 /obj/item/weapon/restraints/handcuffs/energy/cult/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
 							"<span class='userdanger'>Your [src] shatters in a discharge of dark magic!</span>")
-	qdel(src)
+	. = ..()

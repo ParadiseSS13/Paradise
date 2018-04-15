@@ -164,10 +164,12 @@
 /datum/dna/gene/basic/xray/activate(mob/living/M, connected, flags)
 	..()
 	M.update_sight()
+	M.update_icons() //Apply eyeshine as needed.
 
 /datum/dna/gene/basic/xray/deactivate(mob/living/M, connected, flags)
 	..()
 	M.update_sight()
+	M.update_icons() //Remove eyeshine as needed.
 
 /datum/dna/gene/basic/tk
 	name="Telekenesis"

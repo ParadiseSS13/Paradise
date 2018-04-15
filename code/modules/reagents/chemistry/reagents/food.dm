@@ -23,7 +23,6 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
-	taste_message = "bland food"
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	if(!(M.mind in ticker.mode.vampires))
@@ -49,7 +48,7 @@
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
-	taste_message = "plant matter"
+	taste_message = "vegetables"
 
 /datum/reagent/consumable/vitamin
 	name = "Vitamin"
@@ -112,7 +111,7 @@
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#792300" // rgb: 121, 35, 0
-	taste_message = "salt"
+	taste_message = "soy"
 
 /datum/reagent/consumable/ketchup
 	name = "Ketchup"
@@ -372,7 +371,7 @@
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
-	taste_message = "ramen"
+	taste_message = "cheap ramen and memories"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055

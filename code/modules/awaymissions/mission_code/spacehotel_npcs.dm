@@ -17,6 +17,26 @@
 /mob/living/carbon/human/interactive/away/hotel/guard/doSetup()
 	..("Guard")
 
+	// anti-pinata cheese
+	var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(src)
+	D.implant(src)
+
+	for(var/obj/item/I in get_all_slots())
+		I.flags |= NODROP
+
+	// FIXME(crazylemon) a hack to prevent guards from running around with an
+	// extra security jumpsuit like a goof
+	for(var/obj/item/clothing/under/U in get_all_slots())
+		if(w_uniform != U)
+			qdel(U)
+
+/mob/living/carbon/human/interactive/away/hotel/guard/KnockOut()
+	// you'll never take me alive (this triggers the implant)
+	emote("deathgasp")
+	if(stat != DEAD)
+		// mission failed. we'll get em next time
+		..()
+
 /mob/living/carbon/human/interactive/away/hotel/chef
 	default_job = /datum/job/chef
 	away_area = /area/awaymission/spacehotel/kitchen

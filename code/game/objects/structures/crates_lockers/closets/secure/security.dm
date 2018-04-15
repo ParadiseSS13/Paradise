@@ -31,6 +31,7 @@
 	new /obj/item/weapon/storage/belt/rapier(src)
 	new /obj/item/weapon/gun/energy/gun(src)
 	new /obj/item/weapon/door_remote/captain(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/mug/cap(src)
 
 
 /obj/structure/closet/secure_closet/hop
@@ -52,10 +53,11 @@
 	new /obj/item/weapon/storage/box/ids(src)
 	new /obj/item/weapon/storage/box/PDAs(src)
 	new /obj/item/clothing/suit/armor/vest(src)
-	new /obj/item/weapon/gun/energy/gun(src)
+	new /obj/item/weapon/gun/energy/gun/mini(src)
 	new /obj/item/device/flash(src)
 	new /obj/item/clothing/accessory/petcollar(src)
 	new /obj/item/weapon/door_remote/civillian(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/mug/hop(src)
 
 
 /obj/structure/closet/secure_closet/hop2
@@ -120,6 +122,7 @@
 	new /obj/item/taperoll/police(src)
 	new /obj/item/weapon/gun/energy/gun/hos(src)
 	new /obj/item/weapon/door_remote/head_of_security(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/mug/hos(src)
 
 
 /obj/structure/closet/secure_closet/warden
@@ -346,6 +349,8 @@
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
 	new /obj/item/device/flashlight/seclite(src)
 	new /obj/item/clothing/accessory/black(src)
+	new /obj/item/device/taperecorder(src)
+	new /obj/item/weapon/storage/box/tapes(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
 	if(broken)

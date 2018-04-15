@@ -67,7 +67,7 @@
 		walk_away(P,loc,rand(1,4))
 
 		spawn(rand(15,60))
-			if(P && isnull(P.gcDestroyed))
+			if(!QDELETED(P))
 				if(istype(P, /obj/item/weapon/grenade))
 					P.prime()
 			qdel(src)

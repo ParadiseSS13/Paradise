@@ -1,6 +1,7 @@
 /mob/new_player
 	var/ready = 0
-	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
+	var/skip_antag = 0	//For declining an antag roll this round.
+	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
 	universal_speak = 1
@@ -31,6 +32,11 @@
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 
+		var/list/antags = client.prefs.be_special
+		if(antags && antags.len)
+			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidancy</A>"
+			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidancy</A>"
+			output += "<br /><small>You are <b>[skip_antag ? "ineligable" : "eligable"]</b> for all antag roles.</small></p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
@@ -97,8 +103,7 @@
 
 	statpanel("Status")
 	if(client.statpanel == "Status" && ticker)
-		if(ticker.current_state != GAME_STATE_PREGAME)
-			stat(null, "Station Time: [worldtime2text()]")
+		show_stat_station_time()
 
 
 /mob/new_player/Topic(href, href_list[])
@@ -110,6 +115,10 @@
 
 	if(href_list["ready"])
 		ready = !ready
+		new_player_panel_proc()
+
+	if(href_list["skip_antag"])
+		skip_antag = !skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])

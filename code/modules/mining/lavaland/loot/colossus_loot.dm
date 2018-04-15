@@ -335,6 +335,7 @@
 	friendly = "mends"
 	density = 0
 	flying = 1
+	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
@@ -426,7 +427,7 @@
 
 /obj/structure/closet/stasis/process()
 	if(holder_animal)
-		if(holder_animal.stat == DEAD && !qdeleted(holder_animal))
+		if(holder_animal.stat == DEAD && !QDELETED(holder_animal))
 			dump_contents()
 			holder_animal.gib()
 			return
@@ -454,7 +455,7 @@
 		L.disabilities &= ~MUTE
 		L.status_flags &= ~GODMODE
 		L.notransform = 0
-		if(holder_animal && !qdeleted(holder_animal))
+		if(holder_animal && !QDELETED(holder_animal))
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
 		if(kill || !isanimal(loc))

@@ -30,7 +30,7 @@
 	dat += "<h2 ALIGN=CENTER>SpiderOS v.1.337</h2>"
 	dat += "Welcome, <b>[U.real_name]</b>.<br>"
 	dat += "<br>"
-	dat += "<img src=sos_10.png> Current Time: [worldtime2text()]<br>"
+	dat += "<img src=sos_10.png> Current Time: [station_time_timestamp()]<br>"
 	dat += "<img src=sos_9.png> Battery Life: [round(cell.charge/100)]%<br>"
 	dat += "<img src=sos_11.png> Smoke Bombs: \Roman [s_bombs]<br>"
 	dat += "<br><br>"

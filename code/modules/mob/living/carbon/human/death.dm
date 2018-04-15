@@ -119,7 +119,7 @@
 	timeofdeath = world.time
 	med_hud_set_health()
 	med_hud_set_status()
-	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
+	if(mind)	mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 	if(ticker && ticker.mode)
 //		log_to_dd("k")
 		sql_report_death(src)

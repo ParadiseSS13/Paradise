@@ -128,7 +128,7 @@
 	name = "\improper M-90gl Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
-	item_state = "m90"
+	item_state = "m90-4"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m556
 	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
@@ -168,6 +168,11 @@
 		if(2)
 			overlays += "[initial(icon_state)]gren"
 	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
+	if(magazine)
+		overlays += image(icon = icon, icon_state = "m90-[Ceiling(get_ammo(0)/6)*6]")
+		item_state = "m90-[Ceiling(get_ammo(0)/7.5)]"
+	else
+		item_state = "m90-0"
 	return
 
 /obj/item/weapon/gun/projectile/automatic/m90/burst_select()

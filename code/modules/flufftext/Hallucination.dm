@@ -264,7 +264,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Hello","Hi","You're my slave now!","Don't try to get rid of me...")]</span>")
 				break
 			sleep(4)
-		if(!qdeleted(borer))
+		if(!QDELETED(borer))
 			qdel(borer)
 	qdel(src)
 

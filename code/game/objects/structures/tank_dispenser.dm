@@ -40,7 +40,7 @@
 
 /obj/structure/dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	user.set_machine(src)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "tank_dispenser.tmpl", name, 275, 100, state = state)
 		ui.open()
@@ -62,7 +62,7 @@
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(istype(I, /obj/item/weapon/tank/plasma))
 		if(plasmatanks < 10)
 			user.drop_item()
@@ -73,7 +73,7 @@
 			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(istype(I, /obj/item/weapon/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
@@ -114,7 +114,7 @@
 				update_icon()
 		add_fingerprint(usr)
 		updateUsrDialog()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	else
-		nanomanager.close_user_uis(usr,src)
+		SSnanoui.close_user_uis(usr,src)
 	return 1

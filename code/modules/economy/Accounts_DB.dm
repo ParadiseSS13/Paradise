@@ -31,7 +31,7 @@
 	T.purpose = reason
 	T.amount = amount
 	T.date = current_date_string
-	T.time = worldtime2text()
+	T.time = station_time_timestamp()
 	T.source_terminal = machine_id
 	return T
 
@@ -69,7 +69,7 @@
 		O.loc = src
 		held_card = O
 
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 	attack_hand(user)
 
@@ -78,7 +78,7 @@
 
 /obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
 		ui.open()
@@ -153,7 +153,7 @@
 	if(!get_access_level(usr))
 		return 1
 
-	var/datum/nanoui/ui = nanomanager.get_open_ui(usr, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(usr, src, "main")
 
 	if(href_list["choice"])
 		switch(href_list["choice"])

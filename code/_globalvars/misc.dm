@@ -2,8 +2,6 @@ var/global/obj/effect/overlay/plmaster = null
 var/global/obj/effect/overlay/slmaster = null
 var/global/obj/effect/overlay/icemaster = null
 
-// nanomanager, the manager for Nano UIs
-var/datum/nanomanager/nanomanager = new()
 // Event Manager, the manager for events.
 var/datum/event_manager/event_manager = new()
 // Announcer intercom, because too much stuff creates an intercom for one message then hard del()s it.
@@ -74,8 +72,10 @@ var/score_dmgestkey = null
 
 var/TAB = "&nbsp;&nbsp;&nbsp;&nbsp;"
 
-var/timezoneOffset = 0 // The difference betwen midnight (of the host computer) and 0 world.ticks.
+GLOBAL_VAR_INIT(timezoneOffset, 0) // The difference betwen midnight (of the host computer) and 0 world.ticks.
 
 // For FTP requests. (i.e. downloading runtime logs.)
 // However it'd be ok to use for accessing attack logs and such too, which are even laggier.
 var/fileaccess_timer = 0
+
+GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds

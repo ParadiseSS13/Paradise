@@ -331,7 +331,7 @@
 				audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
 				to_chat(src, "<span class='warning'>Reprogramming machine behaviour...</span>")
 				spawn(50)
-					if(M && !qdeleted(M))
+					if(M && !QDELETED(M))
 						new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
 			else
 				to_chat(src, "<span class='notice'>Out of uses.</span>")

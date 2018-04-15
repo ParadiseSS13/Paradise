@@ -50,7 +50,7 @@ log transactions
 		linked_db = null
 		authenticated_account = null
 		visible_message("[bicon(src)]<span class='warning'>[src] buzzes rudely, \"Connection to remote database lost.\"</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 	if(ticks_left_timeout > 0)
 		ticks_left_timeout--
@@ -90,7 +90,7 @@ log transactions
 			held_card = I
 			if(authenticated_account && held_card.associated_account_number != authenticated_account.account_number)
 				authenticated_account = null
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 	else if(authenticated_account)
 		if(istype(I, /obj/item/stack/spacecash))
 			//consume the money
@@ -107,11 +107,11 @@ log transactions
 			T.amount = C.amount
 			T.source_terminal = machine_id
 			T.date = current_date_string
-			T.time = worldtime2text()
+			T.time = station_time_timestamp()
 			authenticated_account.transaction_log.Add(T)
 
 			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			C.use(C.amount)
 	else
 		..()
@@ -129,7 +129,7 @@ log transactions
 
 /obj/machinery/atm/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if (!ui)
 		ui = new(user, src, ui_key, "atm.tmpl", name, 550, 650)
 		ui.open()
@@ -183,7 +183,7 @@ log transactions
 							T.purpose = transfer_purpose
 							T.source_terminal = machine_id
 							T.date = current_date_string
-							T.time = worldtime2text()
+							T.time = station_time_timestamp()
 							T.amount = "([transfer_amount])"
 							authenticated_account.transaction_log.Add(T)
 						else
@@ -225,7 +225,7 @@ log transactions
 										T.purpose = "Unauthorised login attempt"
 										T.source_terminal = machine_id
 										T.date = current_date_string
-										T.time = worldtime2text()
+										T.time = station_time_timestamp()
 										failed_account.transaction_log.Add(T)
 								else
 									to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect pin/account combination entered, [max_pin_attempts - number_incorrect_tries] attempts remaining.</span>")
@@ -245,7 +245,7 @@ log transactions
 							T.purpose = "Remote terminal access"
 							T.source_terminal = machine_id
 							T.date = current_date_string
-							T.time = worldtime2text()
+							T.time = station_time_timestamp()
 							authenticated_account.transaction_log.Add(T)
 							to_chat(usr, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
 						previous_account_number = tried_account_num
@@ -271,7 +271,7 @@ log transactions
 						T.amount = "([amount])"
 						T.source_terminal = machine_id
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						authenticated_account.transaction_log.Add(T)
 					else
 						to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
@@ -288,7 +288,7 @@ log transactions
 						<i>Account holder:</i> [authenticated_account.owner_name]<br>
 						<i>Account number:</i> [authenticated_account.account_number]<br>
 						<i>Balance:</i> $[authenticated_account.money]<br>
-						<i>Date and time:</i> [worldtime2text()], [current_date_string]<br><br>
+						<i>Date and time:</i> [station_time_timestamp()], [current_date_string]<br><br>
 						<i>Service terminal ID:</i> [machine_id]<br>"}
 
 					//stamp the paper
@@ -317,7 +317,7 @@ log transactions
 			if("logout")
 				authenticated_account = null
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 //create the most effective combination of notes to make up the requested amount
@@ -345,8 +345,8 @@ log transactions
 					T.purpose = "Remote terminal access"
 					T.source_terminal = machine_id
 					T.date = current_date_string
-					T.time = worldtime2text()
+					T.time = station_time_timestamp()
 					authenticated_account.transaction_log.Add(T)
 
 					view_screen = NO_SCREEN
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)

@@ -19,6 +19,7 @@
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
+	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 1
 	var/mob/living/carbon/occupant = null
@@ -333,11 +334,7 @@
 
 		else if(istype(obstacle, /obj/structure/grille/))
 			var/obj/structure/grille/G = obstacle
-			G.health = (0.25*initial(G.health))
-			G.broken = 1
-			G.icon_state = "[initial(G.icon_state)]-b"
-			G.density = 0
-			new /obj/item/stack/rods(get_turf(G.loc))
+			G.obj_break()
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/table))
@@ -833,7 +830,7 @@
 	else
 		return attacked_by(W, user)
 
-/obj/mecha/proc/attacked_by(obj/item/I, mob/user)
+/obj/mecha/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -1278,7 +1275,7 @@
 			occupant = null
 			return
 		else
-			if(!AI.linked_core || qdeleted(AI.linked_core))
+			if(!AI.linked_core || QDELETED(AI.linked_core))
 				to_chat(AI, "<span class='userdanger'>Inactive core destroyed. Unable to return.</span>")
 				AI.linked_core = null
 				return

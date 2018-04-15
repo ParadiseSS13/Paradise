@@ -17,7 +17,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "exosuit_control.tmpl", "Exosuit Control Console", 420, 500)
 		ui.open()
@@ -63,7 +63,7 @@
 	if(href_list["return"])
 		screen = 0
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 /obj/item/mecha_parts/mecha_tracking

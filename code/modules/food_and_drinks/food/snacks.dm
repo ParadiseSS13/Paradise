@@ -1,3 +1,4 @@
+#define MAX_WEIGHT_CLASS WEIGHT_CLASS_SMALL
 //Food items that are eaten normally and don't leave anything behind.
 /obj/item/weapon/reagent_containers/food/snacks
 	name = "snack"
@@ -14,6 +15,7 @@
 	var/dry = 0
 	var/cooktype[0]
 	var/cooked_type = null  //for microwave cooking. path of the resulting item after microwaving
+	var/total_w_class = 0 //for the total weight an item of food can carry
 
 
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
@@ -131,6 +133,11 @@
 		)
 		inaccurate = 1
 	else if(W.w_class <= WEIGHT_CLASS_SMALL && istype(src,/obj/item/weapon/reagent_containers/food/snacks/sliceable))
+		var/newweight = GetTotalContentsWeight() + W.GetTotalContentsWeight() + W.w_class
+		if(newweight > MAX_WEIGHT_CLASS)
+			// Nope, no bluespace slice food
+			to_chat(user, "<span class='warning'>You cannot fit [W] in [src]!</span>")
+			return 1
 		if(!iscarbon(user))
 			return 1
 		to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")
@@ -138,6 +145,7 @@
 		if((user.client && user.s_active != src))
 			user.client.screen -= W
 		W.dropped(user)
+		total_w_class += W.w_class
 		add_fingerprint(user)
 		contents += W
 		return
@@ -1240,7 +1248,7 @@
 	return 1
 
 /obj/item/weapon/reagent_containers/food/snacks/monkeycube/proc/Expand()
-	if(isnull(gcDestroyed))
+	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		new/mob/living/carbon/human(get_turf(src), monkey_type)
 		qdel(src)
@@ -1837,7 +1845,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/cheesewheel
 	name = "Cheese wheel"
-	desc = "A big wheel of delcious Cheddar."
+	desc = "A big wheel of delicious Cheddar."
 	icon_state = "cheesewheel"
 	slice_path = /obj/item/weapon/reagent_containers/food/snacks/cheesewedge
 	slices_num = 5
@@ -2522,3 +2530,4 @@
 	list_reagents = list("nutriment" = 3)
 	filling_color = "#C0C9A0"
 	gender = PLURAL
+#undef MAX_WEIGHT_CLASS

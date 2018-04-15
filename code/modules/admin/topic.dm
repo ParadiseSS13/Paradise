@@ -887,7 +887,8 @@
 	else if(href_list["boot2"])
 		var/mob/M = locate(href_list["boot2"])
 		if(ismob(M))
-			if(!check_if_greater_rights_than(M.client))
+			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
+				to_chat(src, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
 				return
 			to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
 			log_admin("[key_name(usr)] booted [key_name(M)].")
@@ -959,8 +960,6 @@
 
 		var/mob/M = locate(href_list["newban"])
 		if(!ismob(M)) return
-
-		if(M.client && M.client.holder)	return	//admins cannot be banned. Even if they could, the ban doesn't affect them anyway
 
 		switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
 			if("Yes")
@@ -1577,19 +1576,19 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.mode.cultdat.entity_name]", "Voice of [ticker.mode.cultdat.entity_name]", "")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.cultdat.entity_name]", "Voice of [ticker.cultdat.entity_name]", "")
 		if(!input)
 			return
 
 		for(var/datum/mind/H in ticker.mode.cult)
 			if (H.current)
-				to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+				to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
 		for(var/mob/dead/observer/O in player_list)
-			to_chat(O, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+			to_chat(O, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
-		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.mode.cultdat.entity_name].")
-		log_admin("[key_name(usr)] Voice of [ticker.mode.cultdat.entity_name]: [input]")
+		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.cultdat.entity_name].")
+		log_admin("[key_name(usr)] Voice of [ticker.cultdat.entity_name]: [input]")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return
@@ -3024,6 +3023,24 @@
 							dat += "<tr><td>[H]</td><td>H.dna = null</td></tr>"
 				dat += "</table>"
 				usr << browse(dat, "window=fingerprints;size=440x410")
+			if("night_shift_set")
+				var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
+				switch(val)
+					if("Automatic")
+						if(config.enable_night_shifts)
+							SSnightshift.can_fire = TRUE
+							SSnightshift.fire()
+						else
+							SSnightshift.update_nightshift(FALSE, TRUE)
+						to_chat(usr, "<span class='notice'>Night shift set to automatic.</span>")
+					if("On")
+						SSnightshift.can_fire = FALSE
+						SSnightshift.update_nightshift(TRUE, FALSE)
+						to_chat(usr, "<span class='notice'>Night shift forced on.</span>")
+					if("Off")
+						SSnightshift.can_fire = FALSE
+						SSnightshift.update_nightshift(FALSE, FALSE)
+						to_chat(usr, "<span class='notice'>Night shift forced off.</span>")
 			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")

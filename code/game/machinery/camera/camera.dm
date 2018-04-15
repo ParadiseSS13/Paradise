@@ -7,7 +7,7 @@
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = 5
-
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
 	var/datum/wires/camera/wires = null // Wires datum
 	var/list/network = list("SS13")
 	var/c_tag = null
@@ -91,7 +91,7 @@
 							cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
 						spawn(100)
-							if(!qdeleted(src))
+							if(!QDELETED(src))
 								cancelCameraAlarm()
 			for(var/mob/O in mob_list)
 				if(O.client && O.client.eye == src)
@@ -275,7 +275,7 @@
 		change_msg = "reactivates"
 		triggerCameraAlarm()
 		spawn(100)
-			if(!qdeleted(src))
+			if(!QDELETED(src))
 				cancelCameraAlarm()
 	if(displaymessage)
 		if(user)

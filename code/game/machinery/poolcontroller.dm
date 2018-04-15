@@ -100,7 +100,10 @@
 		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
-		add_logs(src, drownee, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
+		if(isLivingSSD(drownee))
+			add_logs(src, drownee, "drowned", null, null, 0, 1)	// Notify admins, since the person is SSD
+		else
+			add_logs(src, drownee, "drowned", null, null, 0, 0)	// Do not notify admins.
 		if(drownee.stat) //Mob is in critical.
 			drownee.AdjustLoseBreath(3, bound_lower = 0, bound_upper = 20)
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
@@ -126,7 +129,7 @@
 
 
 /obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
 		ui.open()

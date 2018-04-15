@@ -556,8 +556,12 @@
 	var/obj/item/I = get_item_by_slot(pick(slots))
 	var/obj/item/weapon/storage/BP = get_item_by_slot(slot_back)
 	if(back && BP && I)
+		// hack to allow SNPCs to "sticky grab" items without losing their inventorying
+		var/oldnodrop = I.flags | NODROP
+		I.flags &= ~NODROP
 		if(BP.can_be_inserted(I))
 			BP.handle_item_insertion(I)
+		I.flags |= oldnodrop
 	else
 		unEquip(I,TRUE)
 	update_hands = 1

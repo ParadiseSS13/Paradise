@@ -22,7 +22,7 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	..()
-	return QDEL_HINT_HARDDEL_NOW
+	return QDEL_HINT_HARDDEL
 
 /mob/New()
 	mob_list += src
@@ -946,12 +946,32 @@ var/list/slot_equipment_priority = list( \
 
 			if(processScheduler)
 				processScheduler.statProcesses()
+		if(statpanel("MC")) //looking at that panel
+			var/turf/T = get_turf(client.eye)
+			stat("Location:", COORD(T))
+			stat("CPU:", "[world.cpu]")
+			stat("Instances:", "[num2text(world.contents.len, 10)]")
+			GLOB.stat_entry()
+			stat(null)
+			if(Master)
+				Master.stat_entry()
+			else
+				stat("Master Controller:", "ERROR")
+			if(Failsafe)
+				Failsafe.stat_entry()
+			else
+				stat("Failsafe Controller:", "ERROR")
+			if(Master)
+				stat(null)
+				for(var/datum/controller/subsystem/SS in Master.subsystems)
+					SS.stat_entry()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
-	stat(null, "Station Time: [worldtime2text()]")
+	stat(null, "Round Time: [worldtime2text()]")
+	stat(null, "Station Time: [station_time_timestamp()]")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()

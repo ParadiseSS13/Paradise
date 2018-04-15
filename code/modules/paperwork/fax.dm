@@ -42,7 +42,7 @@ var/list/adminfaxes = list()
 		html += "<td>[A.name]</td>"
 		html += "<td>[A.from_department]</td>"
 		html += "<td>[A.to_department]</td>"
-		html += "<td>[worldtime2text(A.sent_at)]</td>"
+		html += "<td>[station_time_timestamp("hh:mm:ss", A.sent_at)]</td>"
 		if(A.sent_by)
 			var/mob/living/S = A.sent_by
 			html += "<td><A HREF='?_src_=holder;adminplayeropts=\ref[A.sent_by]'>[S.name]</A></td>"
@@ -71,7 +71,7 @@ var/list/adminfaxes = list()
 		html += "<td>[F.name]</td>"
 		html += "<td>[F.from_department]</td>"
 		html += "<td>[F.to_department]</td>"
-		html += "<td>[worldtime2text(F.sent_at)]</td>"
+		html += "<td>[station_time_timestamp("hh:mm:ss", F.sent_at)]</td>"
 		if(F.sent_by)
 			var/mob/living/S = F.sent_by
 			html += "<td><A HREF='?_src_=holder;adminplayeropts=\ref[F.sent_by]'>[S.name]</A></td>"

@@ -23,6 +23,7 @@
 						<A href='?src=[UID()];secretsadmin=showgm'>Show Game Mode</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsadmin=manifest'>Show Crew Manifest</A><br>
 						<A href='?src=[UID()];secretsadmin=check_antagonist'>Show current traitors and objectives</A><BR>
+						<a href='?src=[UID()];secretsadmin=night_shift_set'>Set Night Shift Mode</a><br>
 						<B>Bombs</b><br>
 						<A href='?src=[UID()];secretsadmin=list_bombers'>Bombing List</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsadmin=clear_bombs'>Remove all bombs currently in existence</A>
