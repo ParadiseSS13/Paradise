@@ -88,7 +88,7 @@
 
 /obj/item/weapon/tank/jetpack/void
 	name = "Void Jetpack (Oxygen)"
-	desc = "A simple retro jetpack. This one is painted orange."
+	desc = "It works well in a void."
 	icon_state = "jetpack-void"
 	item_state =  "jetpack-void"
 
@@ -98,12 +98,10 @@
 
 /obj/item/weapon/tank/jetpack/void/grey
 	name = "Void Jetpack (Oxygen)"
-	desc = "A simple retro jetpack. This one is painted grey."
 	icon_state = "jetpack-void-grey"
 
 /obj/item/weapon/tank/jetpack/void/gold
 	name = "Retro Jetpack (Oxygen)"
-	desc = "A simple retro jetpack. This one is painted gold."
 	icon_state = "jetpack-void-gold"
 
 
