@@ -66,10 +66,11 @@
 		return 0
 	return parent.air
 
-/obj/machinery/atmospherics/pipe/build_network()
+/obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
 	if(!parent)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
+	..()
 
 /obj/machinery/atmospherics/pipe/setPipenet(datum/pipeline/P)
 	parent = P
