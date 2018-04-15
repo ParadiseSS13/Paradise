@@ -9,9 +9,9 @@
 	var/obj/item/stack/sheet/metal/mymetal = null
 	var/obj/item/stack/sheet/plasteel/myplasteel = null
 	var/obj/item/device/flashlight/myflashlight = null
-	var/obj/item/weapon/storage/toolbox/mechanical/mybluetoolbox = null
-	var/obj/item/weapon/storage/toolbox/electrical/myyellowtoolbox = null
-	var/obj/item/weapon/storage/toolbox/emergency/myredtoolbox = null
+	var/obj/item/storage/toolbox/mechanical/mybluetoolbox = null
+	var/obj/item/storage/toolbox/electrical/myyellowtoolbox = null
+	var/obj/item/storage/toolbox/emergency/myredtoolbox = null
 	var/obj/item/taperoll/engineering/myengitape = null
 
 /obj/structure/engineeringcart/Destroy()
@@ -62,21 +62,21 @@
 				update_icon()
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/weapon/storage/toolbox/mechanical))
+		else if(istype(I, /obj/item/storage/toolbox/mechanical))
 			if(!mybluetoolbox)
 				put_in_cart(I, user)
 				mybluetoolbox=I
 				update_icon()
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/weapon/storage/toolbox/electrical))
+		else if(istype(I, /obj/item/storage/toolbox/electrical))
 			if(!myyellowtoolbox)
 				put_in_cart(I, user)
 				myyellowtoolbox=I
 				update_icon()
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/weapon/storage/toolbox))
+		else if(istype(I, /obj/item/storage/toolbox))
 			if(!myredtoolbox)
 				put_in_cart(I, user)
 				myredtoolbox=I
@@ -90,7 +90,7 @@
 				update_icon()
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/weapon/wrench))
+		else if(istype(I, /obj/item/wrench))
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \

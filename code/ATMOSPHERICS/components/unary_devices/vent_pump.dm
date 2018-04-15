@@ -321,8 +321,8 @@
 	return !welded
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>Now welding the vent.</span>")
 			if(do_after(user, 20 * WT.toolspeed, target = src))
@@ -342,7 +342,7 @@
 		else
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 			return 1
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		if(!welded)
 			if(open)
 				to_chat(user, "<span class='notice'>Now closing the vent.</span>")
@@ -357,7 +357,7 @@
 					open = 1
 					user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
 		return
-	if(istype(W, /obj/item/weapon/paper))
+	if(istype(W, /obj/item/paper))
 		if(!welded)
 			if(open)
 				user.drop_item(W)
@@ -370,7 +370,7 @@
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1
@@ -380,7 +380,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/attack_hand()
 	if(!welded)
 		if(open)
-			for(var/obj/item/weapon/W in src)
+			for(var/obj/item/W in src)
 				W.forceMove(get_turf(src))
 
 

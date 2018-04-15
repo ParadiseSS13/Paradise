@@ -15,7 +15,7 @@
 			return 0
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant
-	if((H.get_species() == "Abductor" || (locate(/obj/item/weapon/implant/abductor) in H)))
+	if((H.get_species() == "Abductor" || (locate(/obj/item/implant/abductor) in H)))
 		return 1
 	return 0
 
@@ -85,7 +85,7 @@
 			return FALSE
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant
-	if((H.get_species() == "Abductor" || (locate(/obj/item/weapon/implant/abductor) in H)))
+	if((H.get_species() == "Abductor" || (locate(/obj/item/implant/abductor) in H)))
 		return TRUE
 	return FALSE
 

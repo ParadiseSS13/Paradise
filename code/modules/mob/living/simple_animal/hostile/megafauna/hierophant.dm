@@ -53,7 +53,7 @@ Difficulty: Hard
 	pixel_x = -16
 	ranged_cooldown_time = 40
 	aggro_vision_range = 23
-	loot = list(/obj/item/weapon/hierophant_staff)
+	loot = list(/obj/item/hierophant_staff)
 	wander = FALSE
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -567,8 +567,8 @@ Difficulty: Hard
 	color = "#CC00FF"
 
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/hierophant_staff))
-		var/obj/item/weapon/hierophant_staff/H = I
+	if(istype(I, /obj/item/hierophant_staff))
+		var/obj/item/hierophant_staff/H = I
 		if(H.rune == src)
 			to_chat(user, "<span class='notice'>You start removing your hierophant rune...</span>")
 			H.timer = world.time + 51

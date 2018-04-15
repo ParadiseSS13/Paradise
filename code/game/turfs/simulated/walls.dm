@@ -258,7 +258,7 @@
 	..()
 	return
 
-/turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/turf/simulated/wall/attackby(obj/item/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
@@ -269,8 +269,8 @@
 		return	//can't do this stuff whilst inside objects and such
 
 	if(rotting)
-		if(istype(W, /obj/item/weapon/weldingtool) )
-			var/obj/item/weapon/weldingtool/WT = W
+		if(istype(W, /obj/item/weldingtool) )
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0,user))
 				to_chat(user, "<span class='notice'>You burn away the fungi with \the [WT].</span>")
 				playsound(src, WT.usesound, 10, 1)
@@ -285,18 +285,18 @@
 
 	//THERMITE related stuff. Calls src.thermitemelt() which handles melting simulated walls and the relevant effects
 	if(thermite)
-		if(istype(W, /obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/WT = W
+		if(istype(W, /obj/item/weldingtool))
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0,user))
 				thermitemelt(user)
 				return
 
-		else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+		else if(istype(W, /obj/item/gun/energy/plasmacutter))
 			thermitemelt(user)
 			return
 
-		else if(istype(W, /obj/item/weapon/melee/energy/blade))
-			var/obj/item/weapon/melee/energy/blade/EB = W
+		else if(istype(W, /obj/item/melee/energy/blade))
+			var/obj/item/melee/energy/blade/EB = W
 
 			EB.spark_system.start()
 			to_chat(user, "<span class='notice'>You slash \the [src] with \the [EB]; the thermite ignites!</span>")
@@ -307,13 +307,13 @@
 			return
 
 	//DECONSTRUCTION
-	if(istype(W, /obj/item/weapon/weldingtool))
+	if(istype(W, /obj/item/weldingtool))
 
 		var/response = "Dismantle"
 		if(damage)
 			response = alert(user, "Would you like to repair or dismantle [src]?", "[src]", "Repair", "Dismantle")
 
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 
 		if(WT.remove_fuel(0,user))
 			if(response == "Repair")
@@ -339,7 +339,7 @@
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 			return
 
-	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 		playsound(src, W.usesound, 100, 1)
@@ -350,7 +350,7 @@
 			visible_message("<span class='warning'>[user] slices apart \the [src]!</span>","<span class='warning'>You hear metal being sliced apart.</span>")
 
 	//DRILLING
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
+	else if(istype(W, /obj/item/pickaxe/drill/diamonddrill))
 
 		to_chat(user, "<span class='notice'>You begin to drill though the wall.</span>")
 
@@ -359,7 +359,7 @@
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] drills through \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
+	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 
 		to_chat(user, "<span class='notice'>You begin to disintegrates the wall.</span>")
 
@@ -368,8 +368,8 @@
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] disintegrates \the [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 
-	else if(istype(W, /obj/item/weapon/melee/energy/blade))
-		var/obj/item/weapon/melee/energy/blade/EB = W
+	else if(istype(W, /obj/item/melee/energy/blade))
+		var/obj/item/melee/energy/blade/EB = W
 
 		EB.spark_system.start()
 		to_chat(user, "<span class='notice'>You stab \the [EB] into the wall and begin to slice it apart.</span>")
@@ -386,7 +386,7 @@
 		return
 
 	//Poster stuff
-	else if(istype(W, /obj/item/weapon/poster))
+	else if(istype(W, /obj/item/poster))
 		place_poster(W, user)
 		return
 
@@ -425,7 +425,7 @@
 				P.level = 2
 		return
 	// The magnetic gripper does a separate attackby, so bail from this one
-	else if(istype(W, /obj/item/weapon/gripper))
+	else if(istype(W, /obj/item/gripper))
 		return
 
 	else

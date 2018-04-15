@@ -1,4 +1,4 @@
-/obj/item/weapon/autopsy_scanner
+/obj/item/autopsy_scanner
 	name = "autopsy scanner"
 	desc = "Extracts information on wounds."
 	icon = 'icons/obj/autopsy_scanner.dmi'
@@ -11,7 +11,7 @@
 	var/target_name = null
 	var/timeofdeath = null
 
-/obj/item/weapon/autopsy_scanner/Destroy()
+/obj/item/autopsy_scanner/Destroy()
 	QDEL_LIST_ASSOC_VAL(wdata)
 	return ..()
 
@@ -41,7 +41,7 @@
 	W.time_inflicted = time_inflicted
 	return W
 
-/obj/item/weapon/autopsy_scanner/proc/add_data(obj/item/organ/external/O)
+/obj/item/autopsy_scanner/proc/add_data(obj/item/organ/external/O)
 	if(!O.autopsy_data.len && !O.trace_chemicals.len)
 		return
 
@@ -74,22 +74,22 @@
 		if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
 			chemtraces += V
 
-/obj/item/weapon/autopsy_scanner/attackby(obj/item/weapon/P, mob/user)
-	if(istype(P, /obj/item/weapon/pen))
+/obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
+	if(istype(P, /obj/item/pen))
 		var/dead_name = input("Insert name of deceased individual")
 		var/dead_rank = input("Insert rank of deceased individual")
 		var/dead_tod = input("Insert time of death")
 		var/dead_cause = input("Insert cause of death")
 		var/dead_chems = input("Insert any chemical traces")
 		var/dead_notes = input("Insert any relevant notes")
-		var/obj/item/weapon/paper/R = new(user.loc)
+		var/obj/item/paper/R = new(user.loc)
 		R.name = "Official Coroner's Report - [dead_name]"
 		R.info = "<b>NanoTrasen Science Station Cyberiad - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(10)
 		user.put_in_hands(R)
 
-/obj/item/weapon/autopsy_scanner/attack_self(mob/user)
+/obj/item/autopsy_scanner/attack_self(mob/user)
 	if(!wdata.len && !chemtraces.len)
 		return
 
@@ -166,14 +166,14 @@
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	sleep(10)
 
-	var/obj/item/weapon/paper/P = new(user.loc)
+	var/obj/item/paper/P = new(user.loc)
 	P.name = "Autopsy Data ([target_name])"
 	P.info = "<tt>[scan_data]</tt>"
 	P.overlays += "paper_words"
 
 	user.put_in_hands(P)
 
-/obj/item/weapon/autopsy_scanner/attack(mob/living/carbon/human/M, mob/living/carbon/user)
+/obj/item/autopsy_scanner/attack(mob/living/carbon/human/M, mob/living/carbon/user)
 	if(!istype(M))
 		return
 

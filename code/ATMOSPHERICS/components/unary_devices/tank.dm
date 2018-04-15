@@ -17,7 +17,7 @@
 			return
 		add_underlay(T, node, dir)
 		
-/obj/machinery/atmospherics/unary/tank/attackby(obj/item/weapon/W, mob/user, params)
+/obj/machinery/atmospherics/unary/tank/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/device/analyzer))
 		atmosanalyzer_scan(air_contents, user)
 		return

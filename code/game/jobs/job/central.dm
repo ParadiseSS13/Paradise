@@ -26,17 +26,17 @@
 	head = /obj/item/clothing/head/beret/centcom/officer
 	l_ear = /obj/item/device/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/centcom
+	id = /obj/item/card/id/centcom
 	pda = /obj/item/device/pda/centcom
 	backpack_contents = list(
-		/obj/item/weapon/gun/energy/pulse/pistol = 1,
-		/obj/item/weapon/implanter/dust = 1,
-		/obj/item/weapon/implanter/death_alarm = 1
+		/obj/item/gun/energy/pulse/pistol = 1,
+		/obj/item/implanter/dust = 1,
+		/obj/item/implanter/death_alarm = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield)
 
-	backpack = /obj/item/weapon/storage/backpack/satchel
+	backpack = /obj/item/storage/backpack/satchel
 
 
 
@@ -69,14 +69,14 @@
 	head = /obj/item/clothing/head/beret/centcom/officer/navy
 	l_ear = /obj/item/device/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/centcom
+	id = /obj/item/card/id/centcom
 	pda = /obj/item/device/pda/centcom
 	backpack_contents = list(
-		/obj/item/weapon/implanter/dust = 1,
-		/obj/item/weapon/gun/energy/pulse/pistol/m1911 = 1,
-		/obj/item/weapon/implanter/death_alarm = 1
+		/obj/item/implanter/dust = 1,
+		/obj/item/gun/energy/pulse/pistol/m1911 = 1,
+		/obj/item/implanter/death_alarm = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield)
 
-	backpack = /obj/item/weapon/storage/backpack/satchel
+	backpack = /obj/item/storage/backpack/satchel

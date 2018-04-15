@@ -29,7 +29,7 @@ log transactions
 	var/ticks_left_locked_down = 0
 	var/ticks_left_timeout = 0
 	var/machine_id = ""
-	var/obj/item/weapon/card/held_card
+	var/obj/item/card/held_card
 	var/editing_security_level = 0
 	var/view_screen = NO_SCREEN
 	var/lastprint = 0 // Printer needs time to cooldown
@@ -80,7 +80,7 @@ log transactions
 			break
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/card))
+	if(istype(I, /obj/item/card))
 		if(!powered())
 			return
 
@@ -282,7 +282,7 @@ log transactions
 						return
 					lastprint = world.timeofday
 					playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-					var/obj/item/weapon/paper/R = new(loc)
+					var/obj/item/paper/R = new(loc)
 					R.name = "Account balance: [authenticated_account.owner_name]"
 					R.info = {"<b>NT Automated Teller Account Statement</b><br><br>
 						<i>Account holder:</i> [authenticated_account.owner_name]<br>
@@ -296,7 +296,7 @@ log transactions
 					stampoverlay.icon_state = "paper_stamp-cent"
 					if(!R.stamped)
 						R.stamped = new()
-					R.stamped += /obj/item/weapon/stamp
+					R.stamped += /obj/item/stamp
 					R.overlays += stampoverlay
 					R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
 
@@ -310,7 +310,7 @@ log transactions
 					held_card = null
 				else
 					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/weapon/card/id))
+					if(istype(I, /obj/item/card/id))
 						usr.drop_item()
 						I.forceMove(src)
 						held_card = I
@@ -328,8 +328,8 @@ log transactions
 /obj/machinery/atm/proc/scan_user(mob/living/carbon/human/H)
 	if(!authenticated_account && linked_db)
 		if(H.wear_id)
-			var/obj/item/weapon/card/id/I
-			if(istype(H.wear_id, /obj/item/weapon/card/id) )
+			var/obj/item/card/id/I
+			if(istype(H.wear_id, /obj/item/card/id) )
 				I = H.wear_id
 			else if(istype(H.wear_id, /obj/item/device/pda) )
 				var/obj/item/device/pda/P = H.wear_id

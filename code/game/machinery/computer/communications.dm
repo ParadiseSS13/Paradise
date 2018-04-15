@@ -14,7 +14,7 @@
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(access_heads)
-	circuit = /obj/item/weapon/circuitboard/communications
+	circuit = /obj/item/circuitboard/communications
 	var/prints_intercept = 1
 	var/authenticated = COMM_AUTHENTICATION_NONE
 	var/list/messagetitle = list()
@@ -91,7 +91,7 @@
 		if(access_captain in access)
 			authenticated = COMM_AUTHENTICATION_MAX
 			var/mob/living/carbon/human/H = usr
-			var/obj/item/weapon/card/id = H.get_idcard(TRUE)
+			var/obj/item/card/id = H.get_idcard(TRUE)
 			if(istype(id))
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 
@@ -128,7 +128,7 @@
 
 			var/mob/living/carbon/human/L = usr
 			var/obj/item/card = L.get_active_hand()
-			var/obj/item/weapon/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
+			var/obj/item/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
 			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
@@ -536,11 +536,11 @@
 	shuttle_master.autoEvac()
 	return ..()
 
-/obj/item/weapon/circuitboard/communications/New()
+/obj/item/circuitboard/communications/New()
 	shuttle_caller_list += src
 	..()
 
-/obj/item/weapon/circuitboard/communications/Destroy()
+/obj/item/circuitboard/communications/Destroy()
 	shuttle_caller_list -= src
 	shuttle_master.autoEvac()
 	return ..()
@@ -548,7 +548,7 @@
 /proc/print_command_report(text = "", title = "Central Command Update")
 	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
 			P.update_icon()
@@ -558,7 +558,7 @@
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_station_contact(T.z))
 			if(P.computer)
-				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
+				var/obj/item/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
 				if(printer)
 					printer.print_text(text, "paper- '[title]'")
 			P.messagetitle.Add("[title]")
@@ -567,7 +567,7 @@
 /proc/print_centcom_report(text = "", title = "Incoming Message")
 	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
 			P.update_icon()
@@ -577,7 +577,7 @@
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_admin_level(T.z))
 			if(P.computer)
-				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
+				var/obj/item/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
 				if(printer)
 					printer.print_text(text, "paper- '[title]'")
 			P.messagetitle.Add("[title]")

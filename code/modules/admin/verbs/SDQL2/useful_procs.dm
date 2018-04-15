@@ -3,7 +3,7 @@
 // Give this a string and a location to create the object. Examples of using
 // this function:
 /*
-CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/weapon/crowbar', 'color':'#FF0000','force':5000,'name':'Greytides Gravedigger'}", loc) ON /mob/living/carbon/human WHERE ckey == 'crazylemon'".
+CALL global.json_to_object_arbitrary_vars("{'type':'/obj/item/crowbar', 'color':'#FF0000','force':5000,'name':'Greytides Gravedigger'}", loc) ON /mob/living/carbon/human WHERE ckey == 'crazylemon'".
 */
 // This is a bit more flexible than the serialization interface because that interface
 // expects a rigid structure for the data

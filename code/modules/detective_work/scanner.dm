@@ -70,7 +70,7 @@
 		spawn(100)
 
 			// Create our paper
-			var/obj/item/weapon/paper/P = new(get_turf(src))
+			var/obj/item/paper/P = new(get_turf(src))
 			P.name = "paper- 'Scanner Report'"
 			P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
 			P.info += jointext(log, "<BR>")

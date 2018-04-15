@@ -544,8 +544,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		return "You cannot ventcrawl while feeding."
 	..()
 
-/mob/living/carbon/slime/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
-	if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
+/mob/living/carbon/slime/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+	if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 		return 1
 	to_chat(user, "This creature does not seem to have a mouth!")
 	return 0

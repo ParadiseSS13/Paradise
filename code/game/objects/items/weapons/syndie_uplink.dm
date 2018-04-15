@@ -1,4 +1,4 @@
-/*/obj/item/weapon/syndicate_uplink
+/*/obj/item/syndicate_uplink
 	name = "station bounced radio"
 	desc = "Remain silent about this..."
 	icon = 'icons/obj/radio.dmi'
@@ -17,7 +17,7 @@
 	materials = list(MAT_METAL=100)
 	origin_tech = "magnets=2;syndicate=3"*/
 
-/obj/item/weapon/SWF_uplink
+/obj/item/SWF_uplink
 	name = "station-bounced radio"
 	desc = "used to comunicate it appears."
 	icon = 'icons/obj/radio.dmi'

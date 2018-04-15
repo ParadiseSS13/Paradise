@@ -300,11 +300,11 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
-	for(var/obj/item/weapon/implant/mindshield/L in C)
+	for(var/obj/item/implant/mindshield/L in C)
 		if(L && L.implanted)
 			enthrall_safe = 1
 			break
-	for(var/obj/item/weapon/implant/traitor/T in C)
+	for(var/obj/item/implant/traitor/T in C)
 		if(T && T.implanted)
 			enthrall_safe = 1
 			break

@@ -19,7 +19,7 @@
 
 	uniform = /obj/item/clothing/under/rank/bartender
 	suit = /obj/item/clothing/suit/armor/vest
-	belt = /obj/item/weapon/storage/belt/bandolier/full
+	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/device/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
@@ -94,9 +94,9 @@
 	suit_store = /obj/item/device/plant_analyzer
 	pda = /obj/item/device/pda/botanist
 
-	backpack = /obj/item/weapon/storage/backpack/botany
-	satchel = /obj/item/weapon/storage/backpack/satchel_hyd
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/hydro
+	backpack = /obj/item/storage/backpack/botany
+	satchel = /obj/item/storage/backpack/satchel_hyd
+	dufflebag = /obj/item/storage/backpack/duffel/hydro
 
 
 
@@ -123,8 +123,8 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/device/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/weapon/card/id/supply
-	l_hand = /obj/item/weapon/clipboard
+	id = /obj/item/card/id/supply
+	l_hand = /obj/item/clipboard
 	pda = /obj/item/device/pda/quartermaster
 
 
@@ -150,7 +150,7 @@
 	uniform = /obj/item/clothing/under/rank/cargotech
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/device/radio/headset/headset_cargo
-	id = /obj/item/weapon/card/id/supply
+	id = /obj/item/card/id/supply
 	pda = /obj/item/device/pda/cargo
 
 
@@ -178,17 +178,17 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/device/radio/headset/headset_cargo/mining
-	id = /obj/item/weapon/card/id/supply
-	l_pocket = /obj/item/weapon/reagent_containers/food/pill/patch/styptic
+	id = /obj/item/card/id/supply
+	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/device/flashlight/seclite
 	pda = /obj/item/device/pda/shaftminer
 	backpack_contents = list(
-		/obj/item/weapon/mining_voucher = 1,
-		/obj/item/weapon/storage/bag/ore = 1
+		/obj/item/mining_voucher = 1,
+		/obj/item/storage/bag/ore = 1
 	)
 
-	backpack = /obj/item/weapon/storage/backpack/industrial
-	satchel = /obj/item/weapon/storage/backpack/satchel_eng
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel_eng
 
 
 
@@ -215,23 +215,23 @@
 	uniform = /obj/item/clothing/under/rank/clown
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
-	l_pocket = /obj/item/weapon/bikehorn
+	l_pocket = /obj/item/bikehorn
 	l_ear = /obj/item/device/radio/headset/headset_service
-	id = /obj/item/weapon/card/id/clown
+	id = /obj/item/card/id/clown
 	pda = /obj/item/device/pda/clown
 	backpack_contents = list(
-		/obj/item/weapon/reagent_containers/food/snacks/grown/banana = 1,
-		/obj/item/weapon/stamp/clown = 1,
+		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
+		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,
-		/obj/item/weapon/storage/fancy/crayons = 1,
-		/obj/item/weapon/reagent_containers/spray/waterflower = 1,
-		/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/storage/fancy/crayons = 1,
+		/obj/item/reagent_containers/spray/waterflower = 1,
+		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
 		/obj/item/device/instrument/bikehorn = 1
 	)
 
-	backpack = /obj/item/weapon/storage/backpack/clown
-	satchel = /obj/item/weapon/storage/backpack/clown
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/clown
+	backpack = /obj/item/storage/backpack/clown
+	satchel = /obj/item/storage/backpack/clown
+	dufflebag = /obj/item/storage/backpack/duffel/clown
 
 /datum/outfit/job/clown/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -273,18 +273,18 @@
 
 	uniform = /obj/item/clothing/under/mime
 	suit = /obj/item/clothing/suit/suspenders
-	back = /obj/item/weapon/storage/backpack/mime
+	back = /obj/item/storage/backpack/mime
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/device/radio/headset/headset_service
-	id = /obj/item/weapon/card/id/mime
+	id = /obj/item/card/id/mime
 	pda = /obj/item/device/pda/mime
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
-		/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
-		/obj/item/weapon/cane = 1
+		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
+		/obj/item/cane = 1
 	)
 
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -354,8 +354,8 @@
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/device/radio/headset/headset_service
 	l_pocket = /obj/item/device/laser_pointer
-	r_pocket = /obj/item/weapon/barcodescanner
-	l_hand = /obj/item/weapon/storage/bag/books
+	r_pocket = /obj/item/barcodescanner
+	l_hand = /obj/item/storage/bag/books
 	pda = /obj/item/device/pda/librarian
 
 /datum/job/barber
@@ -382,6 +382,6 @@
 	l_ear = /obj/item/device/radio/headset/headset_service
 	backpack_contents = list(
 		/obj/item/clothing/shoes/black = 1,
-		/obj/item/weapon/storage/box/lip_stick = 1,
-		/obj/item/weapon/storage/box/barber = 1
+		/obj/item/storage/box/lip_stick = 1,
+		/obj/item/storage/box/barber = 1
 	)

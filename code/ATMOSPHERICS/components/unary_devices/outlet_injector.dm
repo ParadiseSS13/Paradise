@@ -172,11 +172,11 @@
 	</ul>
 "}
 
-/obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/weapon/W, mob/user)
+/obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/device/multitool))
 		interact(user)
 		return 1
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
 			return 1

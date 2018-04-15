@@ -9,7 +9,7 @@
  * Bike Horns
  */
 
-/obj/item/weapon/bikehorn
+/obj/item/bikehorn
 	name = "bike horn"
 	desc = "A horn off of a bicycle."
 	icon = 'icons/obj/items.dmi'
@@ -25,12 +25,12 @@
 	var/honk_sound = 'sound/items/bikehorn.ogg'
 	var/cooldowntime = 20
 
-/obj/item/weapon/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/bikehorn/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!spam_flag)
 		playsound(loc, honk_sound, 50, 1, -1) //plays instead of tap.ogg!
 	return ..()
 
-/obj/item/weapon/bikehorn/attack_self(mob/user)
+/obj/item/bikehorn/attack_self(mob/user)
 	if(!spam_flag)
 		spam_flag = 1
 		playsound(src.loc, honk_sound, 50, 1)
@@ -40,7 +40,7 @@
 	return
 
 
-/obj/item/weapon/bikehorn/airhorn
+/obj/item/bikehorn/airhorn
 	name = "air horn"
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
@@ -48,21 +48,21 @@
 	cooldowntime = 50
 	origin_tech = "materials=4;engineering=4"
 
-/obj/item/weapon/bikehorn/golden
+/obj/item/bikehorn/golden
 	name = "golden bike horn"
 	desc = "Golden? Clearly, its made with bananium! Honk!"
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
 
-/obj/item/weapon/bikehorn/golden/attack()
+/obj/item/bikehorn/golden/attack()
 	flip_mobs()
 	return ..()
 
-/obj/item/weapon/bikehorn/golden/attack_self(mob/user)
+/obj/item/bikehorn/golden/attack_self(mob/user)
 	flip_mobs()
 	..()
 
-/obj/item/weapon/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
+/obj/item/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
 	if(!spam_flag)
 		var/turf/T = get_turf(src)
 		for(M in ohearers(7, T))

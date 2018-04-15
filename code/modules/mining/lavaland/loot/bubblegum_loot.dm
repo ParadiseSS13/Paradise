@@ -10,7 +10,7 @@
 		if(2)
 			new /obj/item/blood_contract(src)
 		if(3)
-			new /obj/item/weapon/gun/magic/staff/spellblade(src)
+			new /obj/item/gun/magic/staff/spellblade(src)
 		
 // Mayhem
 		
@@ -76,6 +76,6 @@
 			if(H == L)
 				continue
 			to_chat(H, "<span class='userdanger'>You have an overwhelming desire to kill [L]. They have been marked red! Go kill them!</span>")
-			H.put_in_hands(new /obj/item/weapon/kitchen/knife/butcher(H))
+			H.put_in_hands(new /obj/item/kitchen/knife/butcher(H))
 
 	qdel(src)
