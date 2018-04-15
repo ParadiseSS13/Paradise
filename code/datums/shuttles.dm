@@ -51,6 +51,11 @@
 	description = "Troop transport with point defense turrets."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
 
+/datum/map_template/shuttle/emergency/spigot
+	suffix = "spigot"
+	name = "The Rusted Spigot"
+	description = "A barship owned by BEER."
+	admin_notes = "Has a basic medical facility,a lot of booze(might be worth spawning some antihol pills) and a cargo hold.Shuttle is not recommended for chaotic rounds."
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
