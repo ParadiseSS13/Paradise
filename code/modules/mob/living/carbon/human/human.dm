@@ -1659,8 +1659,8 @@
 /mob/living/carbon/human/proc/get_eyecon()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(istype(species) && species.eyes)
-		var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', species.eyes)
+	if(istype(dna.species) && dna.species.eyes)
+		var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', dna.species.eyes)
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
