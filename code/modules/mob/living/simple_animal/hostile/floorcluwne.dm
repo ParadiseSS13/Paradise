@@ -147,7 +147,6 @@
 	message_admins("Floor Cluwne was deleted due to a lack of valid targets, if this was a manually targeted instance please re-evaluate your choice.")
 	qdel(src)
 
-
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
 	var/obj/effect/temp_visual/fcluwne_manifest/manifest = /obj/effect/temp_visual/fcluwne_manifest
 	if(manifested)
@@ -170,12 +169,12 @@
 	density = TRUE
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/proc/Reset_View(screens, colour, mob/living/carbon/human/H)
+/mob/living/simple_animal/hostile/floor_cluwne/proc/Reset_View(screens, color, mob/living/carbon/human/H)
 	if(screens)
 		for(var/whole_screen in screens)
 			animate(whole_screen, transform = matrix(), time = 5, easing = QUAD_EASING)
-	if(colour && H)
-		H.client.color = colour
+	if(color && H)
+		animate(H.client, color = color, time = 5)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/On_Stage()
