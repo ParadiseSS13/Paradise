@@ -414,7 +414,12 @@ emp_act
 		if(get_organ(O.limb_name))
 			return ..()
 
-		visible_message("<span class='notice'>[src] is attempting to re-attach the [O]...</span>")
+		if(src == user)
+			visible_message("<span class='warning'>[src] is attempting to re-attach the [O]...</span>",\
+					"<span class='notice'>You are attempting to re-attach the [O]...</span>")
+		else
+			visible_message("<span class='warning'>[user] is attempting to re-attach the [O]...</span>",\
+					"<span class='notice'>[user] is attempting to re-attach the [O]...</span>")
 
 		if(!do_mob(user, src, 120))
 			return
