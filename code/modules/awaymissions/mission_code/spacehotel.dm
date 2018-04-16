@@ -89,7 +89,7 @@
 // The door to a hotel room, but also metadata for the room itself
 /obj/machinery/door/unpowered/hotel_door
 	name = "Room Door"
-	icon = 'icons/obj/doors/Doorsand.dmi'
+	icon = 'icons/obj/doors/doorsand.dmi'
 	icon_state = "door_closed"
 	autoclose = 1
 	var/doorOpen = 'sound/machines/airlock_open.ogg'

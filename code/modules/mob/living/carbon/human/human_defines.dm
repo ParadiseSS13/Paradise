@@ -67,7 +67,7 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/heartbeat = 0
 
-	var/fire_dmi = 'icons/mob/OnFire.dmi'
+	var/fire_dmi = 'icons/mob/onfire.dmi'
 	var/fire_sprite = "Standing"
 
 	var/datum/body_accessory/body_accessory = null

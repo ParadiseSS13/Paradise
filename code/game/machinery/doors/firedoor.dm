@@ -10,7 +10,7 @@
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "Apply crowbar."
-	icon = 'icons/obj/doors/Doorfireglass.dmi'
+	icon = 'icons/obj/doors/doorfireglass.dmi'
 	icon_state = "door_open"
 	opacity = 0
 	density = FALSE
@@ -159,7 +159,7 @@
 /obj/machinery/door/firedoor/update_icon()
 	overlays.Cut()
 	if(active_alarm && hasPower())
-		overlays += image('icons/obj/doors/Doorfire.dmi', "alarmlights")
+		overlays += image('icons/obj/doors/doorfire.dmi', "alarmlights")
 	if(density)
 		icon_state = "door_closed"
 		if(welded)
@@ -225,7 +225,7 @@
 	qdel(src)
 
 /obj/machinery/door/firedoor/border_only
-	icon = 'icons/obj/doors/edge_Doorfire.dmi'
+	icon = 'icons/obj/doors/edge_doorfire.dmi'
 	flags = ON_BORDER
 	can_crush = FALSE
 
@@ -258,7 +258,7 @@
 
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
-	icon = 'icons/obj/doors/Doorfire.dmi'
+	icon = 'icons/obj/doors/doorfire.dmi'
 	glass = FALSE
 	opacity = 1
 	explosion_block = 2
@@ -280,7 +280,7 @@
 /obj/structure/firelock_frame
 	name = "firelock frame"
 	desc = "A partially completed firelock."
-	icon = 'icons/obj/doors/Doorfire.dmi'
+	icon = 'icons/obj/doors/doorfire.dmi'
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE

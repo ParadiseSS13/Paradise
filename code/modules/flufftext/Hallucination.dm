@@ -1003,7 +1003,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 						if(2)
 							halimage = image('icons/turf/floors/lava.dmi',target,"smooth",TURF_LAYER)
 						if(3)
-							halimage = image('icons/turf/floors/Chasms.dmi',target,"smooth",TURF_LAYER)
+							halimage = image('icons/turf/floors/chasms.dmi',target,"smooth",TURF_LAYER)
 						if(4)
 							halimage = image('icons/obj/assemblies.dmi',target,"plastic-explosive2",OBJ_LAYER+0.01)
 
