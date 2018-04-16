@@ -23,6 +23,9 @@
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
+/obj/machinery/computer/skills/Destroy()
+	active1 = null
+	return ..()
 
 /obj/machinery/computer/skills/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
@@ -43,7 +46,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/skills/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "skills_data.tmpl", name, 800, 380)
 		ui.open()
@@ -232,7 +235,7 @@
 				else
 					P.info += "<B>General Record Lost!</B><BR>"
 				P.info += "</TT>"
-				P.name = "paper - 'Employment Record'"
+				P.name = "paper - 'Employment Record: [active1.fields["name"]]'"
 				printing = 0
 
 		if(href_list["field"])

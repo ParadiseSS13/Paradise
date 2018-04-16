@@ -104,6 +104,10 @@
 
 	var/shock_proof = 0 //if set to 1, this APC will not arc bolts of electricity if it's overloaded.
 
+	// Nightshift
+	var/nightshift_lights = FALSE
+	var/last_nightshift_switch = 0
+
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1
@@ -138,6 +142,8 @@
 		terminal.connect_to_network()
 
 /obj/machinery/power/apc/New(turf/loc, var/ndir, var/building=0)
+	if(!armor)
+		armor = list(melee = 20, bullet = 20, laser = 10, energy = 100, bomb = 30, bio = 100, rad = 100)
 	..()
 	apcs += src
 	apcs = sortAtom(apcs)
@@ -750,7 +756,7 @@
 		return
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new one
 		ui = new(user, src, ui_key, "apc.tmpl", "[area.name] - APC", 510, issilicon(user) ? 535 : 460)
@@ -769,7 +775,9 @@
 	data["totalLoad"] = round(lastused_equip + lastused_light + lastused_environ)
 	data["coverLocked"] = coverlocked
 	data["siliconUser"] = istype(user, /mob/living/silicon)
+	data["siliconLock"] = locked
 	data["malfStatus"] = get_malf_status(user)
+	data["nightshiftLights"] = nightshift_lights
 
 	var/powerChannels[0]
 	powerChannels[++powerChannels.len] = list(
@@ -901,6 +909,16 @@
 
 		toggle_breaker()
 
+	else if(href_list["toggle_nightshift"])
+		if(!is_authenticated(usr))
+			return
+
+		if(last_nightshift_switch > world.time + 100) // don't spam...
+			to_chat(usr, "<span class='warning'>[src]'s night lighting circuit breaker is still cycling!</span>")
+			return
+		last_nightshift_switch = world.time
+		set_nightshift(!nightshift_lights)
+
 	else if(href_list["cmode"])
 		if(!is_authenticated(usr))
 			return
@@ -937,7 +955,7 @@
 		update_icon()
 		update()
 	else if( href_list["close"] )
-		nanomanager.close_user_uis(usr, src)
+		SSnanoui.close_user_uis(usr, src)
 
 		return 0
 	else if(href_list["close2"])
@@ -1349,5 +1367,14 @@
 		return 1
 	else
 		return 0
+
+/obj/machinery/power/apc/proc/set_nightshift(on)
+	set waitfor = FALSE
+	nightshift_lights = on
+	for(var/obj/machinery/light/L in area)
+		if(L.nightshift_allowed)
+			L.nightshift_enabled = nightshift_lights
+			L.update(FALSE)
+		CHECK_TICK
 
 #undef APC_UPDATE_ICON_COOLDOWN

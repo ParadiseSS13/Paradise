@@ -157,7 +157,7 @@
 	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
 
 	if(do_after(user, PLACE_SPEED, target = src))
-		if(!D || qdeleted(D))
+		if(!D || QDELETED(D))
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there

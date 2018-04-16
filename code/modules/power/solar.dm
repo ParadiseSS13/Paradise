@@ -111,7 +111,7 @@
 		return
 
 	//find the smaller angle between the direction the panel is facing and the direction of the sun (the sign is not important here)
-	var/p_angle = min(abs(adir - sun.angle), 360 - abs(adir - sun.angle))
+	var/p_angle = min(abs(adir - SSsun.angle), 360 - abs(adir - SSsun.angle))
 
 	if(p_angle > 90)			// if facing more than 90deg from sun, zero output
 		sunfrac = 0
@@ -146,7 +146,7 @@
 
 /obj/machinery/power/solar/ex_act(severity, target)
 	..()
-	if(isnull(gcDestroyed))
+	if(!QDELETED(src))
 		switch(severity)
 			if(2)
 				if(prob(50) && broken())
@@ -174,8 +174,8 @@
 	var/ax = x		// start at the solar panel
 	var/ay = y
 	var/turf/T = null
-	var/dx = sun.dx
-	var/dy = sun.dy
+	var/dx = SSsun.dx
+	var/dy = SSsun.dy
 
 	for(var/i = 1 to 20)		// 20 steps is enough
 		ax += dx	// do step
@@ -309,7 +309,7 @@
 	if(autostart)
 		src.search_for_connected()
 		if(connected_tracker && track == 2)
-			connected_tracker.set_angle(sun.angle)
+			connected_tracker.set_angle(SSsun.angle)
 		set_panels(cdir)
 
 /obj/machinery/power/solar_control/Destroy()
@@ -321,13 +321,12 @@
 
 /obj/machinery/power/solar_control/disconnect_from_network()
 	..()
-	if(sun)
-		sun.solars.Remove(src)
+	SSsun.solars.Remove(src)
 
 /obj/machinery/power/solar_control/connect_to_network()
 	var/to_return = ..()
-	if(powernet && sun) //if connected and not already in solar list...
-		sun.solars |= src //... add it
+	if(powernet) //if connected and not already in solar list...
+		SSsun.solars |= src //... add it
 	return to_return
 
 //search for unconnected panels and trackers in the computer powernet and connect them
@@ -355,7 +354,7 @@
 				cdir = targetdir //...the current direction is the targetted one (and rotates panels to it)
 		if(2) // auto-tracking
 			if(connected_tracker)
-				connected_tracker.set_angle(sun.angle)
+				connected_tracker.set_angle(SSsun.angle)
 
 	set_panels(cdir)
 	updateDialog()
@@ -390,7 +389,7 @@
 	ui_interact(user)
 
 /obj/machinery/power/solar_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "solar_control.tmpl", name, 490, 420)
 		ui.open()
@@ -479,7 +478,7 @@
 		track = text2num(href_list["track"])
 		if(track == 2)
 			if(connected_tracker)
-				connected_tracker.set_angle(sun.angle)
+				connected_tracker.set_angle(SSsun.angle)
 				set_panels(cdir)
 		else if(track == 1) //begin manual tracking
 			src.targetdir = src.cdir
@@ -489,7 +488,7 @@
 	if(href_list["search_connected"])
 		search_for_connected()
 		if(connected_tracker && track == 2)
-			connected_tracker.set_angle(sun.angle)
+			connected_tracker.set_angle(SSsun.angle)
 		set_panels(cdir)
 
 	return
@@ -517,7 +516,7 @@
 
 /obj/machinery/power/solar_control/ex_act(severity, target)
 	..()
-	if(isnull(gcDestroyed))
+	if(!QDELETED(src))
 		switch(severity)
 			if(2)
 				if(prob(50))

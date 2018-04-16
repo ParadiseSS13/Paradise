@@ -526,6 +526,14 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 	return toReturn
 
+//Searches contents of the atom and returns the sum of all w_class of obj/item within
+/atom/proc/GetTotalContentsWeight(searchDepth = 5)
+	var/weight = 0
+	var/list/content = GetAllContents(searchDepth)
+	for(var/obj/item/I in content)
+		weight += I.w_class
+	return weight
+
 //Step-towards method of determining whether one atom can see another. Similar to viewers()
 /proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
@@ -777,15 +785,15 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 	if(toupdate.len)
 		for(var/turf/simulated/T1 in toupdate)
-			air_master.remove_from_active(T1)
+			SSair.remove_from_active(T1)
 			T1.CalculateAdjacentTurfs()
-			air_master.add_to_active(T1,1)
+			SSair.add_to_active(T1,1)
 
 	if(fromupdate.len)
 		for(var/turf/simulated/T2 in fromupdate)
-			air_master.remove_from_active(T2)
+			SSair.remove_from_active(T2)
 			T2.CalculateAdjacentTurfs()
-			air_master.add_to_active(T2,1)
+			SSair.add_to_active(T2,1)
 
 
 
@@ -941,7 +949,7 @@ proc/GaussRandRound(var/sigma,var/roundto)
 	if(toupdate.len)
 		for(var/turf/simulated/T1 in toupdate)
 			T1.CalculateAdjacentTurfs()
-			air_master.add_to_active(T1,1)
+			SSair.add_to_active(T1,1)
 
 
 	return copiedobjs
@@ -1337,7 +1345,7 @@ Standard way to write links -Sayu
 			if(covered_locations & HEAD)
 				return 0
 		if("eyes")
-			if(covered_locations & HEAD || face_covered & HIDEEYES || eyesmouth_covered & GLASSESCOVERSEYES)
+			if(face_covered & HIDEEYES || eyesmouth_covered & GLASSESCOVERSEYES || eyesmouth_covered & HEADCOVERSEYES)
 				return 0
 		if("mouth")
 			if(covered_locations & HEAD || face_covered & HIDEFACE || eyesmouth_covered & MASKCOVERSMOUTH)
@@ -1474,13 +1482,13 @@ var/mob/dview/dview_mob = new
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 
-/proc/IsValidSrc(var/A)
+/proc/IsValidSrc(A)
 	if(istype(A, /datum))
-		var/datum/B = A
-		return isnull(B.gcDestroyed)
+		var/datum/D = A
+		return !QDELETED(D)
 	if(istype(A, /client))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 //Get the dir to the RIGHT of dir if they were on a clock
@@ -1914,3 +1922,10 @@ var/mob/dview/dview_mob = new
 		for(var/atom/thing in here)
 			if(istype(thing, type) && (check_shift && thing.pixel_x == shift_x && thing.pixel_y == shift_y))
 				. += thing
+
+//gives us the stack trace from CRASH() without ending the current proc.
+/proc/stack_trace(msg)
+	CRASH(msg)
+
+/datum/proc/stack_trace(msg)
+	CRASH(msg)

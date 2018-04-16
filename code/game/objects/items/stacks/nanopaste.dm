@@ -5,7 +5,8 @@
 	icon = 'icons/obj/nanopaste.dmi'
 	icon_state = "tube"
 	origin_tech = "materials=2;engineering=3"
-	amount = 10
+	amount = 6
+	max_amount = 6
 	toolspeed = 1
 
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)

@@ -35,6 +35,7 @@
 	new /obj/item/clothing/head/beret/eng(src)
 	new /obj/item/weapon/door_remote/chief_engineer(src)
 	new /obj/item/weapon/rpd(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/mug/ce(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical

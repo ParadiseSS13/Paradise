@@ -125,7 +125,7 @@
 	return access
 
 /obj/machinery/computer/security/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "sec_camera.tmpl", "Camera Console", 900, 800)
 
@@ -211,7 +211,7 @@
 					network += net
 					break
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 // Check if camera is accessible when jumping
 /obj/machinery/computer/security/proc/can_access_camera(var/obj/machinery/camera/C, var/mob/M)

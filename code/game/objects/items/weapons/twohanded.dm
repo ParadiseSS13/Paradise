@@ -115,10 +115,12 @@
 	flags = ABSTRACT
 
 /obj/item/weapon/twohanded/offhand/unwield()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/weapon/twohanded/offhand/wield()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
@@ -545,6 +547,7 @@
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 50, bio = 0, rad = 0)
 	var/charged = 5
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 

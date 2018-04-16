@@ -47,7 +47,7 @@
 	if(crit_fail)//in case it depowers while ghost is looking at yes/no
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
 		return
-	if(qdeleted(src))
+	if(QDELETED(src))
 		to_chat(user, "Swarmer has been occupied by someone else.")
 		return
 	var/mob/living/simple_animal/hostile/swarmer/S = new /mob/living/simple_animal/hostile/swarmer(get_turf(loc))
@@ -90,6 +90,7 @@
 	melee_damage_upper = 15
 	melee_damage_type = STAMINA
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+	obj_damage = 0
 	environment_smash = 0
 	attacktext = "shocks"
 	attack_sound = 'sound/effects/EMPulse.ogg'

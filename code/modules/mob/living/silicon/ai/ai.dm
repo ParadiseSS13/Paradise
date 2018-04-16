@@ -226,6 +226,27 @@ var/list/ai_verbs_default = list(
 
 	job = "AI"
 
+/mob/living/silicon/ai/Stat()
+	..()
+	if(statpanel("Status"))
+		if(stat)
+			stat(null, text("Systems nonfunctional"))
+			return
+		show_borg_info()
+
+/mob/living/silicon/ai/proc/show_borg_info()
+	stat(null, text("Connected cyborgs: [connected_robots.len]"))
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		var/robot_status = "Nominal"
+		if(R.stat || !R.client)
+			robot_status = "OFFLINE"
+		else if(!R.cell || R.cell.charge <= 0)
+			robot_status = "DEPOWERED"
+		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+		var/area/A = get_area(R)
+		stat(null, text("[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		Module: [R.designation] | Loc: [sanitize(A.name)] | Status: [robot_status]"))
+
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))
 		return FALSE
@@ -1215,7 +1236,7 @@ var/list/ai_verbs_default = list(
 	malfhacking = 0
 	clear_alert("hackingapc")
 
-	if(!istype(apc) || qdeleted(apc) || apc.stat & BROKEN)
+	if(!istype(apc) || QDELETED(apc) || apc.stat & BROKEN)
 		to_chat(src, "<span class='danger'>Hack aborted. The designated APC no longer exists on the power network.</span>")
 		playsound(get_turf(src), 'sound/machines/buzz-two.ogg', 50, 1)
 	else if(apc.aidisabled)

@@ -111,8 +111,15 @@
 	..()
 	new /obj/item/weapon/reagent_containers/food/pill/haloperidol(src)
 	new /obj/item/weapon/reagent_containers/food/pill/haloperidol(src)
+	new /obj/item/weapon/reagent_containers/food/pill/haloperidol(src)
 	new /obj/item/weapon/reagent_containers/food/pill/methamphetamine(src)
 	new /obj/item/weapon/reagent_containers/food/pill/methamphetamine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/methamphetamine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/nicotine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/nicotine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/patch/nicotine(src)
+	new /obj/item/weapon/reagent_containers/food/pill/hydrocodone(src)
+	new /obj/item/weapon/reagent_containers/food/pill/hydrocodone(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
@@ -129,8 +136,14 @@
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/weapon/reagent_containers/syringe(src)
 	new /obj/item/weapon/reagent_containers/glass/bottle/ether(src)
+	new /obj/item/weapon/storage/fancy/cigarettes/cigpack_med(src)
+	new /obj/item/weapon/storage/fancy/cigarettes/cigpack_med(src)
+	new /obj/item/weapon/storage/fancy/cigarettes/cigpack_med(src)
 	new /obj/item/weapon/storage/pill_bottle/psychiatrist(src)
-
+	new /obj/random/plushie(src)
+	for(var/i in 0 to 3)
+		var/candy = pick(subtypesof(/obj/item/weapon/reagent_containers/food/snacks/candy/fudge))
+		new candy(src)
 
 /obj/structure/closet/secure_closet/CMO
 	name = "chief medical officer's locker"
@@ -173,6 +186,7 @@
 	new /obj/item/weapon/reagent_containers/hypospray/CMO(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/weapon/door_remote/chief_medical_officer(src)
+	new /obj/item/weapon/reagent_containers/food/drinks/mug/cmo(src)
 
 
 /obj/structure/closet/secure_closet/animal

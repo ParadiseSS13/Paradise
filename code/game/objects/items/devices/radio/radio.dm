@@ -77,6 +77,7 @@ var/global/list/default_medbay_channels = list(
 		radio_controller.remove_object(src, frequency)
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
+	radio_connection = null
 	global_radios -= src
 	follow_target = null
 	return ..()
@@ -107,7 +108,7 @@ var/global/list/default_medbay_channels = list(
 	return ui_interact(user)
 
 /obj/item/device/radio/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 400, 550)
 		ui.open()
@@ -793,7 +794,7 @@ var/global/list/default_medbay_channels = list(
 	. = ..()
 
 /obj/item/device/radio/borg/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 430, 500)
 		ui.open()

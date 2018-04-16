@@ -32,8 +32,10 @@ Pipelines + Other Objects -> Pipe network
 	var/global/datum/pipe_icon_manager/icon_manager
 
 /obj/machinery/atmospherics/New()
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)
 	..()
-	atmos_machinery += src
+	SSair.atmos_machinery += src
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -54,7 +56,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
-	atmos_machinery -= src
+	SSair.atmos_machinery -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -156,7 +158,7 @@ Pipelines + Other Objects -> Pipe network
 		P.other_atmosmch -= src
 
 //(De)construction
-/obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+/obj/machinery/atmospherics/attackby(obj/item/weapon/W, mob/user)
 	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
 		var/turf/T = get_turf(src)
 		if(level == 1 && isturf(T) && T.intact)
@@ -177,7 +179,7 @@ Pipelines + Other Objects -> Pipe network
 			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 40 * W.toolspeed, target = src) && isnull(gcDestroyed))
+		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \

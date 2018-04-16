@@ -118,6 +118,14 @@
 		C.toff = 1
 	..()
 
+/mob/living/silicon/pai/Destroy()
+	medicalActive1 = null
+	medicalActive2 = null
+	securityActive1 = null
+	securityActive2 = null
+	return ..()
+
+
 /mob/living/silicon/pai/movement_delay()
 	. = ..()
 	. += slowdown
@@ -295,7 +303,7 @@
 	medicalActive1 = null
 	medicalActive2 = null
 	medical_cannotfind = 0
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	to_chat(usr, "<span class='notice'>You reset your record-viewing software.</span>")
 
 /mob/living/silicon/pai/cancel_camera()
