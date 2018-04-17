@@ -32,6 +32,7 @@
 ********************/
 
 /obj/machinery/kitchen_machine/New()
+	..()
 	create_reagents(100)
 	reagents.set_reacting(FALSE)
 	if(!available_recipes)

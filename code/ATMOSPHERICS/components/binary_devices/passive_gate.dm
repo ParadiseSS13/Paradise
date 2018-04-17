@@ -21,6 +21,12 @@
 	if(frequency)
 		set_frequency(frequency)
 
+/obj/machinery/atmospherics/binary/passive_gate/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
+
 /obj/machinery/atmospherics/binary/passive_gate/update_icon()
 	icon_state = "[on ? "on" : "off"]"
 

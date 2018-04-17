@@ -135,7 +135,8 @@ obj/machinery/air_sensor
 	Destroy()
 		SSair.atmos_machinery -= src
 		if(radio_controller)
-			radio_controller.remove_object(src,frequency)
+			radio_controller.remove_object(src, frequency)
+		radio_connection = null
 		return ..()
 
 
@@ -155,6 +156,12 @@ obj/machinery/air_sensor
 
 	var/list/sensor_information = list()
 	var/datum/radio_frequency/radio_connection
+
+	Destroy()
+		if(radio_controller)
+			radio_controller.remove_object(src, frequency)
+		radio_connection = null
+		return ..()
 
 	attack_hand(mob/user)
 		if(..(user))

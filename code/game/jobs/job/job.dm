@@ -142,8 +142,6 @@
 	shoes = /obj/item/clothing/shoes/black
 	pda = /obj/item/device/pda
 
-	var/list/implants = null
-
 	var/backpack = /obj/item/weapon/storage/backpack
 	var/satchel = /obj/item/weapon/storage/backpack/satchel_norm
 	var/dufflebag = /obj/item/weapon/storage/backpack/duffel
@@ -209,11 +207,6 @@
 	H.sec_hud_set_ID()
 
 	imprint_pda(H)
-
-	if(implants)
-		for(var/implant_type in implants)
-			var/obj/item/weapon/implant/I = new implant_type(H)
-			I.implant(H)
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)

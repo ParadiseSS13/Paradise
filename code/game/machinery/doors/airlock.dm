@@ -140,6 +140,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/Destroy()
 	QDEL_NULL(electronics)
 	QDEL_NULL(wires)
+	QDEL_NULL(note)
 	if(main_power_timer)
 		deltimer(main_power_timer)
 		main_power_timer = null
@@ -149,7 +150,9 @@ About the new airlock wires panel:
 	if(electrified_timer)
 		deltimer(electrified_timer)
 		electrified_timer = null
-	qdel(note)
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
 	return ..()
 
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
