@@ -9,6 +9,7 @@
 	name = "control wand"
 	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
+	flags = NOBLUDGEON
 	var/mode = WAND_OPEN
 	var/region_access = 1 //See access.dm
 	var/obj/item/weapon/card/id/ID
