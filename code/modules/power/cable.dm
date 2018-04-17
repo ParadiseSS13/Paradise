@@ -588,30 +588,16 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	..()
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
+		// Cable merging is handled by parent proc
 		if(C.amount >= MAXCOIL)
-			to_chat(user, "The coil is too long, you cannot add any more cable to it.")
+			to_chat(user, "The coil is as long as it will get.")
 			return
-
 		if( (C.amount + src.amount <= MAXCOIL) )
 			to_chat(user, "You join the cable coils together.")
-			C.give(src.amount) // give it cable
-			src.use(src.amount) // make sure this one cleans up right
 			return
-
 		else
-			var/amt = MAXCOIL - C.amount
-			to_chat(user, "You transfer [amt] length\s of cable from one coil to the other.")
-			C.give(amt)
-			src.use(amt)
+			to_chat(user, "You transfer [get_amount_transferred()] length\s of cable from one coil to the other.")
 			return
-
-//add cables to the stack
-/obj/item/stack/cable_coil/proc/give(var/extra)
-	if(amount + extra > MAXCOIL)
-		amount = MAXCOIL
-	else
-		amount += extra
-	update_icon()
 
 ///////////////////////////////////////////////
 // Cable laying procedures
