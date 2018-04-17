@@ -108,6 +108,18 @@
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	..()
 
+/obj/item/weapon/restraints/handcuffs/cable/proc/cable_color(var/colorC)
+	if(colorC)
+		if(colorC == "rainbow")
+			colorC = color_rainbow()
+		color = colorC
+	else
+		color = COLOR_RED
+
+/obj/item/weapon/restraints/handcuffs/cable/proc/color_rainbow()
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	return color
+
 /obj/item/weapon/restraints/handcuffs/alien
 	icon_state = "handcuffAlien"
 
@@ -143,6 +155,9 @@
 			if(!remove_item_from_storage(user))
 				user.unEquip(src)
 			qdel(src)
+	else if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = I
+		cable_color(C.colourName)
 
 /obj/item/weapon/restraints/handcuffs/cable/zipties
 	name = "zipties"

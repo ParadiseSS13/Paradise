@@ -184,6 +184,10 @@ By design, d1 is the smallest direction and d2 is the highest
 
 		shock(user, 5, 0.2)
 
+	else if(istype(W, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = W
+		cable_color(C.colourName)
+
 	else
 		if(W.flags & CONDUCT)
 			shock(user, 50, 0.7)
@@ -218,11 +222,18 @@ By design, d1 is the smallest direction and d2 is the highest
 				qdel(src) // qdel
 	return
 
-obj/structure/cable/proc/cableColor(var/colorC)
-	var/color_n = "#DD0000"
+obj/structure/cable/proc/cable_color(var/colorC)
 	if(colorC)
-		color_n = colorC
-	color = color_n
+		if(colorC == "rainbow")
+			color = color_rainbow()
+		else
+			color = colorC
+	else
+		color = "#DD0000"
+
+/obj/structure/cable/proc/color_rainbow()
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	return color
 
 /////////////////////////////////////////////////
 // Cable laying helpers
@@ -599,13 +610,17 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 			to_chat(user, "You transfer [get_amount_transferred()] length\s of cable from one coil to the other.")
 			return
 
+	if(istype(W, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = W
+		cable_color(C.colourName)
+
 ///////////////////////////////////////////////
 // Cable laying procedures
 //////////////////////////////////////////////
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
 	var/obj/structure/cable/C = new(location)
-	C.cableColor(color)
+	C.cable_color(color)
 
 	return C
 
@@ -722,7 +737,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 				return
 
 
-		C.cableColor(color)
+		C.cable_color(color)
 
 		C.d1 = nd1
 		C.d2 = nd2
@@ -791,6 +806,18 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 /obj/item/stack/cable_coil/random/New()
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	..()
+
+/obj/item/stack/cable_coil/proc/cable_color(var/colorC)
+	if(colorC)
+		if(colorC == "rainbow")
+			colorC = color_rainbow()
+		color = colorC
+	else
+		color = COLOR_RED
+
+/obj/item/stack/cable_coil/proc/color_rainbow()
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	return color
 
 /obj/item/stack/cable_coil/cyborg
 	name = "cyborg cable coil"
