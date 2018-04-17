@@ -1,0 +1,5 @@
+author: "MINIMAN10000"
+delete-after: True
+changes: 
+  - rscadd: "The ability to change the color of cables"
+  - bugfix: "cableColor now follows the new cable_color format"
