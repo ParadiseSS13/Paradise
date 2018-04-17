@@ -1,4 +1,0 @@
-author: "MINIMAN10000"
-delete-after: True
-changes: 
-  - bugfix: "Adds NOBLUDGEON to door_remote so the remote always triggers"
