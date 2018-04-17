@@ -720,6 +720,14 @@
 	build_path = /obj/item/ammo_box/foambox/riot
 	category = list("hacked", "Security")
 
+/datum/design/foam_enforcer_magazine
+	name = "Foam enforcer magazine"
+	id = "fenforcer_mag"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 25000)
+	build_path = /obj/item/ammo_box/magazine/toy/enforcer/empty
+	category = list("initial", "Security")
+
 /datum/design/a357
 	name = "Ammo Box (.357)"
 	id = "a357"

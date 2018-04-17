@@ -424,7 +424,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 /obj/item/ammo_box/magazine/toy/enforcer
-	name = "Enforcer Foam magazine"
+	name = "Foam Enforcer magazine"
 	icon_state = "enforcer"
 	max_ammo = 8
 	multiple_sprites = 1
@@ -447,6 +447,12 @@
 	if(istype(contents[contents.len], /obj/item/ammo_casing/caseless/foam_dart/riot))
 		return 1
 	return 0
+
+/obj/item/ammo_box/magazine/toy/enforcer/empty
+
+/obj/item/ammo_box/magazine/toy/enforcer/empty/New()
+	update_icon()
+
 
 /obj/item/ammo_box/magazine/toy/smgm45
 	name = "donksoft SMG magazine"
