@@ -52,7 +52,7 @@ var/list/holopads = list()
 	var/temp = ""
 	var/list/holo_calls	//array of /datum/holocalls
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
-	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
+	var/static/force_answer_call = TRUE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/static/list/holopads = list()
 	var/obj/effect/overlay/holoray/ray
 	var/ringing = FALSE
@@ -202,7 +202,7 @@ var/list/holopads = list()
 
 			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in callnames
 
-			if(qdeleted(usr) || !result || outgoing_call)
+			if(QDELETED(usr) || !result || outgoing_call)
 				return
 
 			if(usr.loc == loc)
@@ -212,7 +212,7 @@ var/list/holopads = list()
 
 	else if(href_list["connectcall"])
 		var/datum/holocall/call_to_connect = locateUID(href_list["connectcall"])
-		if(!qdeleted(call_to_connect) && (call_to_connect in holo_calls))
+		if(!QDELETED(call_to_connect) && (call_to_connect in holo_calls))
 			call_to_connect.Answer(src)
 		temp = ""
 
@@ -252,28 +252,10 @@ var/list/holopads = list()
 		if(!istype(AI))
 			AI = null
 
-		if(!qdeleted(master) && !master.incapacitated() && master.client && (!AI || AI.eyeobj))//If there is an AI attached, it's not incapacitated, it has a client, and the client eye is centered on the projector.
-			if(!(stat & NOPOWER))//If the  machine has power
-				if(AI)	//ais are range based
-					if(HOLOPAD_MODE == RANGE_BASED)
-						if(get_dist(AI.eyeobj, src) <= holo_range)
-							continue
 
-					if(!(AI.current))//if the ai jumped to core
-						clear_holo(AI)
-						return 1
+		if((stat & NOPOWER) || !validate_user(master))
+			clear_holo(AI)
 
-					var/obj/machinery/hologram/holopad/pad_close = get_closest_atom(/obj/machinery/hologram/holopad, holopads, AI.eyeobj)
-					if(get_dist(pad_close, AI.eyeobj) <= pad_close.holo_range)
-						var/obj/effect/overlay/holo_pad_hologram/H = masters[master]
-						unset_holo(master)
-						if(!pad_close.outgoing_call)
-							pad_close.set_holo(master, H)
-						continue
-				else
-					continue
-
-		clear_holo(master)//If is a non AI holo clear it.
 
 	if(outgoing_call)
 		outgoing_call.Check()
@@ -299,19 +281,52 @@ var/list/holopads = list()
 
 	update_icon()
 
+
+//Try to transfer hologram to another pad that can project on T
+/obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T,mob/holo_owner)
+	for(var/pad in holopads)
+		var/obj/machinery/hologram/holopad/another = pad
+		if(another == src)
+			continue
+		if(another.validate_location(T))
+			var/obj/effect/overlay/holo_pad_hologram/h = masters[holo_owner]
+			unset_holo(holo_owner)
+			another.set_holo(holo_owner, h)
+			return TRUE
+	return FALSE
+
+/obj/machinery/hologram/holopad/proc/validate_user(mob/living/user)
+	if(QDELETED(user) || user.incapacitated() || !user.client)
+		to_chat(world, "FALSE")
+		return FALSE
+	to_chat(world, "TRUE")
+	return TRUE
+
+//Can we display holos there
+//Area check instead of line of sight check because this is a called a lot if AI wants to move around.
+/obj/machinery/hologram/holopad/proc/validate_location(turf/T,check_los = FALSE)
+	if(T.z == z && get_dist(T, src) <= holo_range && T.loc == get_area(src))
+		return TRUE
+	else
+		return FALSE
+
+
 /obj/machinery/hologram/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
 	if(masters[user])
-		var/obj/effect/overlay/holo_pad_hologram/H = masters[user]
-		H.setDir(get_dir(H.loc, new_turf))
-		H.forceMove(new_turf)
-		update_holoray(user, new_turf)
-		if(ishuman(user))
-			var/area/holo_area = get_area(src)
-			var/area/eye_area = get_area(new_turf.loc)
-
-			if(eye_area != holo_area)
+		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
+		var/transfered = FALSE
+		if(!validate_location(new_turf))
+			if(!transfer_to_nearby_pad(new_turf,user))
 				clear_holo(user)
-	return 1
+				return FALSE
+			else
+				transfered = TRUE
+		//All is good.
+		holo.setDir(get_dir(holo.loc, new_turf))
+		holo.forceMove(new_turf)
+		if(!transfered)
+			update_holoray(user,new_turf)
+	return TRUE
 
 /obj/machinery/hologram/holopad/proc/activate_holo(mob/living/user, var/force = 0)
 	var/mob/living/silicon/ai/AI = user
