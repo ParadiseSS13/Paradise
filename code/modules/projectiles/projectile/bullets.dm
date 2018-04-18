@@ -275,9 +275,9 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "syringeproj"
 
-/obj/item/projectile/bullet/dart/syringe/tranquilizer
+/obj/item/projectile/bullet/dart/syringe/antistimulant
 
-/obj/item/projectile/bullet/dart/syringe/tranquilizer/New()
+/obj/item/projectile/bullet/dart/syringe/antistimulant/New()
 	..()
 	reagents.add_reagent("haloperidol", 15)
 

@@ -104,10 +104,10 @@
 	materials = list(MAT_METAL=1750)
 
 
-/obj/item/ammo_box/shotgun/tranquilizer
-	name = "Shotgun Speedloader (tranquilizer darts)"
+/obj/item/ammo_box/shotgun/antistimulant
+	name = "Shotgun Speedloader (anti-stimulant darts)"
 	icon_state = "tranqloader"
-	ammo_type = /obj/item/ammo_casing/shotgun/tranquilizer
+	ammo_type = /obj/item/ammo_casing/shotgun/antistimulant
 	materials = list(MAT_METAL=1750)
 
 
