@@ -32,11 +32,10 @@
 		. = PROCESS_KILL
 
 /obj/machinery/atmospherics/pipe/cap/Destroy()
-	. = ..()
 	if(node)
 		node.disconnect(src)
-		node.defer_build_network()
 		node = null
+	return ..()
 
 /obj/machinery/atmospherics/pipe/cap/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)

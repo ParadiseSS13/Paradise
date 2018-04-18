@@ -21,7 +21,6 @@ SUBSYSTEM_DEF(air)
 	var/cost_hotspots = 0
 	var/cost_superconductivity = 0
 	var/cost_pipenets = 0
-	var/cost_deferred_pipenets = 0
 	var/cost_atmos_machinery = 0
 
 	var/list/excited_groups = list()
@@ -49,7 +48,6 @@ SUBSYSTEM_DEF(air)
 	msg += "HS:[round(cost_hotspots,1)]|"
 	msg += "SC:[round(cost_superconductivity,1)]|"
 	msg += "PN:[round(cost_pipenets,1)]|"
-	msg += "DPN:[round(cost_deferred_pipenets,1)]|"
 	msg += "AM:[round(cost_atmos_machinery,1)]"
 	msg += "} "
 	msg += "AT:[active_turfs.len]|"
@@ -72,14 +70,6 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL
-
-	if(currentpart == SSAIR_DEFERREDPIPENETS || !resumed)
-		process_deferred_pipenets(resumed)
-		cost_deferred_pipenets = MC_AVERAGE(cost_deferred_pipenets, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-		if(state != SS_RUNNING)
-			return
-		resumed = 0
-		currentpart = SSAIR_PIPENETS
 
 	if(currentpart == SSAIR_PIPENETS || !resumed)
 		process_pipenets(resumed)
@@ -142,21 +132,6 @@ SUBSYSTEM_DEF(air)
 			return
 		resumed = 0
 	currentpart = SSAIR_PIPENETS
-
-/datum/controller/subsystem/air/proc/process_deferred_pipenets(resumed = 0)
-	if(!resumed)
-		src.currentrun = deferred_pipenet_rebuilds.Copy()
-	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
-	while(currentrun.len)
-		var/obj/machinery/atmospherics/A = currentrun[currentrun.len]
-		currentrun.len--
-		if(A)
-			A.build_network()
-		else
-			deferred_pipenet_rebuilds.Remove(A)
-		if(MC_TICK_CHECK)
-			return
 
 /datum/controller/subsystem/air/proc/process_pipenets(resumed = 0)
 	if(!resumed)
