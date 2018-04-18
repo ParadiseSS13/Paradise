@@ -8,7 +8,7 @@
 "h" = (/obj/structure/fans,/turf/simulated/floor/pod,/area/survivalpod)
 "i" = (/obj/machinery/sleeper/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
 "j" = (/obj/structure/table/survival_pod,/obj/item/weapon/storage/firstaid/regular,/obj/item/weapon/storage/firstaid/brute{pixel_x = 4; pixel_y = -2},/turf/simulated/floor/pod,/area/survivalpod)
-"k" = (/obj/structure/table/wood/fancy/black{pixel_y = -9},/obj/structure/window/reinforced/survival_pod{dir = 1},/obj/machinery/microwave,/turf/simulated/floor/carpet/black,/area/survivalpod)
+"k" = (/obj/structure/table/wood/fancy/black{pixel_y = -9},/obj/structure/window/reinforced/survival_pod{dir = 1},/obj/machinery/kitchen_machine/microwave,/turf/simulated/floor/carpet/black,/area/survivalpod)
 "l" = (/obj/structure/sink/kitchen{dir = 4; pixel_x = -11},/turf/simulated/floor/carpet/black,/area/survivalpod)
 "m" = (/obj/structure/sign/mining/survival,/turf/simulated/wall/mineral/titanium/survival,/area/survivalpod)
 "n" = (/obj/structure/curtain/black,/obj/machinery/shower{pixel_y = 20},/turf/simulated/floor/pod{pixel_y = 0},/area/survivalpod)

@@ -144,7 +144,7 @@
 "cN" = (/turf/simulated/shuttle/wall{tag = "icon-swall3"; icon_state = "swall3"},/area/awaymission/BMPship/Midship)
 "cO" = (/obj/structure/table,/obj/item/weapon/kitchen/knife/butcher,/obj/item/weapon/reagent_containers/food/snacks/meat,/turf/simulated/floor/plasteel{tag = "icon-barber"; icon_state = "barber"},/area/awaymission/BMPship/Midship)
 "cP" = (/obj/structure/table,/obj/item/weapon/storage/box/donkpockets,/turf/simulated/floor/plasteel{tag = "icon-barber"; icon_state = "barber"},/area/awaymission/BMPship/Midship)
-"cQ" = (/obj/structure/table,/obj/machinery/microwave,/turf/simulated/floor/plasteel{tag = "icon-barber"; icon_state = "barber"},/area/awaymission/BMPship/Midship)
+"cQ" = (/obj/structure/table,/obj/machinery/kitchen_machine/microwave,/turf/simulated/floor/plasteel{tag = "icon-barber"; icon_state = "barber"},/area/awaymission/BMPship/Midship)
 "cR" = (/obj/machinery/processor,/obj/machinery/light{dir = 1},/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plasteel{tag = "icon-barber"; icon_state = "barber"},/area/awaymission/BMPship/Midship)
 "cS" = (/obj/structure/table,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "cT" = (/obj/structure/table,/obj/item/weapon/kitchen/knife,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)

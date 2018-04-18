@@ -418,7 +418,7 @@
 "ib" = (/obj/machinery/door/airlock/security/glass{name = "Glass Airlock"; req_access_txt = "0"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel,/area/awaymission/arrivalblock)
 "ic" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel/airless,/area/awaymission/midblock)
 "id" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor/plasteel/airless{icon_state = "floorscorched1"},/area/awaymission/midblock)
-"ie" = (/obj/machinery/microwave{pixel_x = -2; pixel_y = 7},/obj/structure/table,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
+"ie" = (/obj/machinery/kitchen_machine/microwave{pixel_x = -2; pixel_y = 7},/obj/structure/table,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "if" = (/obj/structure/stool,/obj/item/ammo_casing/c10mm,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "ig" = (/obj/item/ammo_casing/c10mm,/obj/item/ammo_casing/c10mm,/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)
 "ii" = (/obj/structure/stool/bed/chair{dir = 4},/obj/item/ammo_casing/c10mm,/obj/effect/decal/cleanable/blood/splatter,/turf/simulated/floor/plasteel,/area/awaymission/midblock)

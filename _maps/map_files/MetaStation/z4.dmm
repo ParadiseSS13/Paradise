@@ -29,7 +29,7 @@
 "aC" = (/obj/machinery/light_switch{pixel_y = 28},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/djstation)
 "aD" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/djstation)
 "aE" = (/obj/structure/table,/obj/item/device/flashlight/lamp,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/djstation)
-"aF" = (/obj/structure/table,/obj/machinery/microwave{pixel_y = 8},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/djstation)
+"aF" = (/obj/structure/table,/obj/machinery/kitchen_machine/microwave{pixel_y = 8},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/djstation)
 "aG" = (/obj/machinery/door/airlock/public/glass{name = "Kitchen"},/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/djstation)
 "aH" = (/obj/structure/table,/obj/item/device/radio/intercom/pirate{broadcasting = 0; dir = 8; listening = 1; name = "Pirate Radio Listening Channel"; pixel_x = 0},/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/djstation)
 "aI" = (/obj/structure/stool/bed/chair/office/light,/turf/simulated/floor/plasteel{icon_state = "cafeteria"},/area/djstation)

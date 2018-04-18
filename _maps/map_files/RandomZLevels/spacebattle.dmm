@@ -133,7 +133,7 @@
 "cC" = (/obj/structure/table/reinforced,/obj/item/weapon/kitchen/rollingpin,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/spacebattle/cruiser)
 "cD" = (/obj/structure/closet/secure_closet/freezer/kitchen,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/spacebattle/cruiser)
 "cE" = (/obj/structure/closet/secure_closet/freezer/fridge,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/spacebattle/cruiser)
-"cF" = (/obj/structure/table/reinforced,/obj/machinery/microwave,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/spacebattle/cruiser)
+"cF" = (/obj/structure/table/reinforced,/obj/machinery/kitchen_machine/microwave,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/spacebattle/cruiser)
 "cG" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/floor/plating,/area/awaymission/spacebattle/cruiser)
 "cH" = (/turf/simulated/floor/plating,/area/awaymission/spacebattle/cruiser)
 "cI" = (/obj/item/ammo_casing/c10mm,/obj/item/ammo_casing/c10mm,/turf/simulated/floor/plasteel,/area/awaymission/spacebattle/cruiser)

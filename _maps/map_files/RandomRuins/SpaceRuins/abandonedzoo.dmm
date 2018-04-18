@@ -67,7 +67,7 @@
 "bo" = (/obj/machinery/shieldwallgen{active = 2; anchored = 1; power = 1},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/structure/cable,/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating,/area/ruin/unpowered)
 "bp" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/green,/obj/structure/disposalpipe/segment,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "bq" = (/obj/item/stack/cable_coil/cut,/obj/item/stack/tile/plasteel{pixel_x = 3; pixel_y = -4},/obj/item/weapon/wirecutters,/turf/simulated/floor/plating,/area/ruin/unpowered)
-"br" = (/obj/structure/table/reinforced,/obj/machinery/microwave,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
+"br" = (/obj/structure/table/reinforced,/obj/machinery/kitchen_machine/microwave,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "bs" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/shieldwallgen,/turf/simulated/floor/plating,/area/ruin/unpowered)
 "bt" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/shieldwallgen,/turf/simulated/floor/plating,/area/ruin/unpowered)
 "bu" = (/obj/structure/flora/ausbushes/sunnybush,/turf/simulated/floor/plating,/area/ruin/unpowered)
