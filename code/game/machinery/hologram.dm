@@ -52,7 +52,7 @@ var/list/holopads = list()
 	var/temp = ""
 	var/list/holo_calls	//array of /datum/holocalls
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
-	var/static/force_answer_call = TRUE	//Calls will be automatically answered after a couple rings, here for debugging
+	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/static/list/holopads = list()
 	var/obj/effect/overlay/holoray/ray
 	var/ringing = FALSE
@@ -218,7 +218,7 @@ var/list/holopads = list()
 
 	else if(href_list["disconnectcall"])
 		var/datum/holocall/call_to_disconnect = locateUID(href_list["disconnectcall"])
-		if(exists(call_to_disconnect) && (call_to_disconnect in holo_calls))
+		if(!QDELETED(call_to_disconnect))
 			call_to_disconnect.Disconnect(src)
 		temp = ""
 
@@ -253,7 +253,7 @@ var/list/holopads = list()
 			AI = null
 
 
-		if((stat & NOPOWER) || !validate_user(master))
+		if((stat & NOPOWER) || !AI.current || !validate_user(AI))
 			clear_holo(AI)
 
 
@@ -297,9 +297,7 @@ var/list/holopads = list()
 
 /obj/machinery/hologram/holopad/proc/validate_user(mob/living/user)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
-		to_chat(world, "FALSE")
 		return FALSE
-	to_chat(world, "TRUE")
 	return TRUE
 
 //Can we display holos there

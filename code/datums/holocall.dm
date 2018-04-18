@@ -29,7 +29,7 @@
 
 	for(var/I in callees)
 		var/obj/machinery/hologram/holopad/H = I
-		if(!qdeleted(H) && !(H.stat & NOPOWER))
+		if(!QDELETED(H) && !(H.stat & NOPOWER))
 			dialed_holopads += H
 			var/area/area = get_area(H)
 			LAZYADD(H.holo_calls, src)
@@ -44,12 +44,12 @@
 /datum/holocall/Destroy()
 	QDEL_NULL(hangup)
 
-	var/user_good = !qdeleted(user)
+	var/user_good = !QDELETED(user)
 	if(user_good)
 		user.reset_perspective()
 		user.remote_control = null
 
-	if(exists(eye))
+	if(QDELETED(eye))
 		if(user_good && user.client)
 			for(var/datum/camerachunk/chunk in eye.visibleCameraChunks)
 				chunk.remove(eye)
@@ -157,10 +157,10 @@
 		if((H.stat & NOPOWER))
 			ConnectionFailure(H)
 
-	if(qdeleted(src))
+	if(QDELETED(src))
 		return FALSE
 
-	. = !qdeleted(user) && !user.incapacitated() && !qdeleted(calling_holopad) && !(calling_holopad.stat & NOPOWER) && user.loc == calling_holopad.loc
+	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && !(calling_holopad.stat & NOPOWER) && user.loc == calling_holopad.loc
 
 	if(.)
 		if(!connected_holopad)
