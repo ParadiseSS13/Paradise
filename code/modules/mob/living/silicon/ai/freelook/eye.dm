@@ -6,7 +6,7 @@
 /mob/camera/aiEye
 	name = "Inactive AI Eye"
 
-	icon = 'icons/mob/AI.dmi' //Allows ghosts to see what the AI is looking at.
+	icon = 'icons/mob/ai.dmi' //Allows ghosts to see what the AI is looking at.
 	icon_state = "eye"
 	alpha = 127
 	invisibility = SEE_INVISIBLE_OBSERVER

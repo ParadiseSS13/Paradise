@@ -332,7 +332,7 @@
 	name = "Circuit board (HONKputer)"
 	build_path = /obj/machinery/computer/HONKputer
 	origin_tech = "programming=2"
-	icon = 'icons/obj/machines/HONKputer.dmi'
+	icon = 'icons/obj/machines/honkputer.dmi'
 	icon_state = "bananium_board"
 	board_type = "honkcomputer"
 
@@ -515,7 +515,7 @@
 
 /obj/structure/computerframe/HONKputer
 	name = "Bananium Computer-frame"
-	icon = 'icons/obj/machines/HONKputer.dmi'
+	icon = 'icons/obj/machines/honkputer.dmi'
 
 /obj/structure/computerframe/HONKputer/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)

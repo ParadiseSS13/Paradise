@@ -4,7 +4,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 8 //Very heavy
 	attack_verb = list("bludgeoned", "smashed", "beaten")
-	icon = 'icons/obj/pneumaticCannon.dmi'
+	icon = 'icons/obj/pneumaticcannon.dmi'
 	icon_state = "pneumaticCannon"
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -170,5 +170,5 @@
 	src.overlays.Cut()
 	if(!tank)
 		return
-	src.overlays += image('icons/obj/pneumaticCannon.dmi', "[tank.icon_state]")
+	src.overlays += image('icons/obj/pneumaticcannon.dmi', "[tank.icon_state]")
 	src.update_icon()

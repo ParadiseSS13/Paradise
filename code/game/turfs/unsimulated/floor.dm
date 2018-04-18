@@ -20,7 +20,7 @@
 	name = "chasm"
 	desc = "It's difficult to see the bottom."
 	density = 0
-	icon = 'icons/turf/floors/Chasms.dmi'
+	icon = 'icons/turf/floors/chasms.dmi'
 	icon_state = "Fill"
 	smooth = SMOOTH_MORE
 	canSmoothWith = list(/turf/unsimulated/floor/chasm)
