@@ -62,7 +62,7 @@
 /var/const/access_gateway = 62
 /var/const/access_sec_doors = 63 // Security front doors
 /var/const/access_psychiatrist = 64 // Psychiatrist's office
-/var/const/access_xenoarch = 65
+
 /var/const/access_paramedic = 66
 /var/const/access_blueshield = 67
 /var/const/access_salvage_captain = 69 // Salvage ship captain's quarters
@@ -242,7 +242,7 @@ var/const/access_trade_sol = 160
 	            access_hydroponics, access_library, access_lawyer, access_virology, access_psychiatrist, access_cmo, access_qm, access_clown, access_mime, access_surgery,
 	            access_theatre, access_research, access_mining, access_mailsorting,
 	            access_heads_vault, access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce,
-	            access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_paramedic, access_blueshield, access_mechanic,access_weapons,
+	            access_keycard_auth, access_tcomsat, access_gateway, access_paramedic, access_blueshield, access_mechanic,access_weapons,
 	            access_pilot, access_ntrep, access_magistrate, access_mineral_storeroom, access_minisat, access_network)
 
 /proc/get_all_centcom_access()
@@ -268,7 +268,7 @@ var/const/access_trade_sol = 160
 		if(REGION_MEDBAY) //medbay
 			return list(access_medical, access_genetics, access_morgue, access_chemistry, access_psychiatrist, access_virology, access_surgery, access_cmo, access_paramedic)
 		if(REGION_RESEARCH) //research
-			return list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_xenoarch, access_minisat, access_rd, access_network)
+			return list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_minisat, access_rd, access_network)
 		if(REGION_ENGINEERING) //engineering and maintenance
 			return list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_minisat, access_ce, access_mechanic)
 		if(REGION_SUPPLY) //supply
@@ -414,8 +414,6 @@ var/const/access_trade_sol = 160
 			return "Mining EVA"
 		if(access_xenobiology)
 			return "Xenobiology Lab"
-		if(access_xenoarch)
-			return "Xenoarchaeology"
 		if(access_hop)
 			return "Head of Personnel"
 		if(access_hos)

@@ -672,7 +672,7 @@
 	name = "Research ID"
 	registered_name = "Scientist"
 	icon_state = "research"
-	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom)
+	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_mineral_storeroom)
 
 /obj/item/weapon/card/id/supply
 	name = "Supply ID"
@@ -710,7 +710,7 @@
 	access = list(access_rd, access_heads, access_tox, access_genetics, access_morgue,
 			            access_tox_storage, access_tech_storage, access_teleporter, access_sec_doors,
 			            access_research, access_robotics, access_xenobiology, access_ai_upload,
-			            access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_xenoarch, access_minisat, access_mineral_storeroom)
+			            access_RC_announce, access_keycard_auth, access_tcomsat, access_gateway, access_minisat, access_mineral_storeroom)
 
 /obj/item/weapon/card/id/ce
 	name = "Chief Engineer ID"
