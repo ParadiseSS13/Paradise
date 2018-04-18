@@ -237,11 +237,12 @@
 	return
 
 // Pipenet procs
-/obj/machinery/atmospherics/omni/build_network()
+/obj/machinery/atmospherics/omni/build_network(remove_deferral = FALSE)
 	for(var/datum/omni_port/P in ports)
 		if(!P.parent)
 			P.parent = new /datum/pipeline()
 			P.parent.build_pipeline(src)
+	..()
 
 /obj/machinery/atmospherics/omni/disconnect(obj/machinery/atmospherics/reference)
 	for(var/datum/omni_port/P in ports)

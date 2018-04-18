@@ -57,6 +57,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
 	SSair.atmos_machinery -= src
+	SSair.deferred_pipenet_rebuilds -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -143,12 +144,13 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/replacePipenet()
 	return
 
-/obj/machinery/atmospherics/proc/build_network()
+/obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
-	return
+	if(remove_deferral)
+		SSair.deferred_pipenet_rebuilds -= src
 
 /obj/machinery/atmospherics/proc/defer_build_network()
-	deferred_pipenet_rebuilds += src
+	SSair.deferred_pipenet_rebuilds += src
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return
