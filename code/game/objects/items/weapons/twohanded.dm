@@ -115,10 +115,12 @@
 	flags = ABSTRACT
 
 /obj/item/weapon/twohanded/offhand/unwield()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/weapon/twohanded/offhand/wield()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up

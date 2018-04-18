@@ -94,12 +94,8 @@
 			M.last_bumped = world.time
 			if(M.restrained() && !check_access(null))
 				return
-			if(M.mob_size > MOB_SIZE_SMALL)
+			if(M.mob_size > MOB_SIZE_TINY)
 				bumpopen(M)
-			else if(ispet(M))
-				var/mob/living/simple_animal/A = AM
-				if(A.collar)
-					bumpopen(M)
 			return
 
 	if(ismecha(AM))
@@ -353,7 +349,7 @@
 
 /obj/machinery/door/proc/autoclose()
 	autoclose_timer = 0
-	if(!qdeleted(src) && !density && !operating && !locked && !welded && autoclose)
+	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
 		close()
 
 /obj/machinery/door/proc/update_freelook_sight()

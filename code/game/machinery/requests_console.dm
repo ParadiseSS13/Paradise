@@ -131,7 +131,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	ui_interact(user)
 
 /obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "request_console.tmpl", "[department] Request Console", 520, 410)
 		ui.open()
@@ -221,7 +221,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				radiochannel = "AI Private"
 			if(recipient == "Cargo Bay")
 				radiochannel = "Supply"
-			message_log += "<B>Message sent to [recipient] at [worldtime2text()]</B><BR>[message]"
+			message_log += "<B>Message sent to [recipient] at [station_time_timestamp()]</B><BR>[message]"
 			Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 		else
 			audible_message(text("[bicon(src)] *The Requests Console beeps: '<b>NOTICE:</b> No server detected!'"),,4)
@@ -265,7 +265,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	if(href_list["toggleSilent"])
 		silent = !silent
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 					//err... hacking code, which has no reason for existing... but anyway... it was once supposed to unlock priority 3 messanging on that console (EXTREME priority...), but the code for that was removed.

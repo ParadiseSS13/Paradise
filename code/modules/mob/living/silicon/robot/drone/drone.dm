@@ -16,7 +16,7 @@
 	req_access = list(access_engine, access_robotics)
 	ventcrawler = 2
 	magpulse = 1
-
+	mob_size = MOB_SIZE_SMALL
 	default_language = "Drone"
 
 	// We need to keep track of a few module items so we don't need to do list operations

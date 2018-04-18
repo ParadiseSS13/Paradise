@@ -25,7 +25,6 @@
 	ventcrawler = 0
 	ai_ventcrawls = 0
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	loot = list(/obj/item/clothing/accessory/medal)
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2

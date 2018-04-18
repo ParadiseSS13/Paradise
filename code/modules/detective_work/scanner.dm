@@ -159,7 +159,7 @@
 		spawn(0)
 
 			var/found_something = 0
-			add_log("<B>[worldtime2text()][get_timestamp()] - [target_name]</B>", 0)
+			add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", 0)
 
 			// Fingerprints
 			if(fingerprints && fingerprints.len)

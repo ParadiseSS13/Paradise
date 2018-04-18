@@ -54,7 +54,6 @@
 		var/obj/item/stack/S = O
 
 		if(!S)
-			modules -= null
 			S = new T(src)
 			modules += S
 			S.amount = 1
@@ -124,10 +123,10 @@
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	stacktypes = list(
-		/obj/item/stack/medical/bruise_pack/advanced = 5,
-		/obj/item/stack/medical/ointment/advanced = 5,
-		/obj/item/stack/medical/splint = 5,
-		/obj/item/stack/nanopaste = 5
+		/obj/item/stack/medical/bruise_pack/advanced = 6,
+		/obj/item/stack/medical/ointment/advanced = 6,
+		/obj/item/stack/medical/splint = 6,
+		/obj/item/stack/nanopaste = 6
 		)
 
 /obj/item/weapon/robot_module/medical/New()

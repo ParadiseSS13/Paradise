@@ -98,7 +98,7 @@
 		return
 	var/choice = input(user, selection_prompt, selection_title) as null|anything in choosable_items
 	var/pickedtype = choosable_items[choice]
-	if(pickedtype && Adjacent(user) && src && !qdeleted(src) && !user.incapacitated() && cooldowntime <= world.time)
+	if(pickedtype && Adjacent(user) && src && !QDELETED(src) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + creation_delay
 		var/obj/item/N = new pickedtype(get_turf(src))
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[N]"))

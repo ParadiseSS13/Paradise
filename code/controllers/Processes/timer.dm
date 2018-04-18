@@ -19,7 +19,7 @@ var/global/datum/controller/process/timer/timer_master
 		return
 	for(last_object in processing_timers)
 		var/datum/timedevent/event = last_object
-		if(!event.thingToCall || qdeleted(event.thingToCall))
+		if(!event.thingToCall || check_datum_qdeleted(event.thingToCall))
 			qdel(event)
 		if(event.timeToRun <= world.time)
 			runevent(event)

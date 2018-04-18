@@ -79,7 +79,7 @@ for reference:
 		user.visible_message("<span class='notice'>[user] is prying apart \the [src].</span>", "<span class='notice'>You begin to pry apart \the [src].</span>")
 		playsound(src, W.usesound, 200, 1)
 
-		if(do_after(user, 300 * W.toolspeed, target = src) && src && !src.gcDestroyed)
+		if(do_after(user, 300 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message("<span class='notice'>[user] pries apart \the [src].</span>", "<span class='notice'>You pry apart \the [src].</span>")
 			dismantle()
 		return

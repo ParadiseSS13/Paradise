@@ -140,6 +140,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/Destroy()
 	QDEL_NULL(electronics)
 	QDEL_NULL(wires)
+	QDEL_NULL(note)
 	if(main_power_timer)
 		deltimer(main_power_timer)
 		main_power_timer = null
@@ -149,7 +150,9 @@ About the new airlock wires panel:
 	if(electrified_timer)
 		deltimer(electrified_timer)
 		electrified_timer = null
-	qdel(note)
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
 	return ..()
 
 /obj/machinery/door/airlock/handle_atom_del(atom/A)
@@ -180,7 +183,7 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/autoclose()
 	autoclose_timer = 0
-	if(!qdeleted(src) && !density && !operating && !locked && !welded && autoclose)
+	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
 		close()
 	return
 
@@ -547,7 +550,7 @@ About the new airlock wires panel:
 	ui_interact(user)
 
 /obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "door_control.tmpl", "Door Controls - [src]", 600, 375)
 		ui.open()
@@ -1161,7 +1164,7 @@ About the new airlock wires panel:
 		operating = TRUE
 		update_icon(AIRLOCK_EMAG, 1)
 		sleep(6)
-		if(qdeleted(src))
+		if(QDELETED(src))
 			return
 		operating = FALSE
 		if(!open())

@@ -5,7 +5,7 @@
 #define MED_DATA_V_DATA	5	// Virus database
 #define MED_DATA_MEDBOT	6	// Medbot monitor
 
-/obj/machinery/computer/med_data//TODO:SANITY
+/obj/machinery/computer/med_data //TODO:SANITY
 	name = "medical records console"
 	desc = "This can be used to check medical records."
 	icon_keyboard = "med_key"
@@ -22,6 +22,11 @@
 	var/printing = null
 
 	light_color = LIGHT_COLOR_DARKBLUE
+
+/obj/machinery/computer/med_data/Destroy()
+	active1 = null
+	active2 = null
+	return ..()
 
 /obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/weapon/card/id) && !scan)
@@ -41,7 +46,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/med_data/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "med_data.tmpl", name, 800, 380)
 		ui.open()
@@ -453,7 +458,7 @@
 			var/t1 = copytext(trim(sanitize(input("Add Comment:", "Med. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
 			if(!t1 || ..() || active2 != a2)
 				return 1
-			active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+			active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 
 		if(href_list["del_c"])
 			var/index = min(max(text2num(href_list["del_c"]) + 1, 1), length(active2.fields["comments"]))
@@ -515,7 +520,7 @@
 				else
 					P.info += "<B>Medical Record Lost!</B><BR>"
 				P.info += "</TT>"
-				P.name = "paper- 'Medical Record'"
+				P.name = "paper- 'Medical Record: [active1.fields["name"]]'"
 				printing = 0
 	return 1
 

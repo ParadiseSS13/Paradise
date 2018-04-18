@@ -99,7 +99,6 @@
 	var/rank = null			//actual job
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
-	var/datum/data/record/active1 = null
 	var/sex
 	var/age
 	var/photo
@@ -123,9 +122,9 @@
 	if(guest_pass)
 		to_chat(user, "<span class='notice'>There is a guest pass attached to this ID card</span>")
 		if(world.time < guest_pass.expiration_time)
-			to_chat(user, "<span class='notice'>It expires at [worldtime2text(guest_pass.expiration_time)].</span>")
+			to_chat(user, "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>")
 		else
-			to_chat(user, "<span class='warning'>It expired at [worldtime2text(guest_pass.expiration_time)].</span>")
+			to_chat(user, "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>")
 		to_chat(user, "<span class='notice'>It grants access to following areas:</span>")
 		for(var/A in guest_pass.temp_access)
 			to_chat(user, "<span class='notice'>[get_access_desc(A)].</span>")
@@ -186,6 +185,14 @@
 
 /obj/item/weapon/card/id/GetID()
 	return src
+
+/obj/item/weapon/card/id/proc/getRankAndAssignment()
+	var/jobnamedata = ""
+	if(rank)
+		jobnamedata += rank
+	if(rank != assignment)
+		jobnamedata += " (" + assignment + ")"
+	return jobnamedata
 
 /obj/item/weapon/card/id/proc/is_untrackable()
 	return untrackable
@@ -440,7 +447,37 @@
 						RebuildHTML()
 
 					if("Occupation")
-						var/new_job = sanitize(stripped_input(user,"What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
+						var/list/departments =list(
+							"Civilian",
+							"Engineering",
+							"Medical",
+							"Science",
+							"Security",
+							"Support",
+							"Command",
+							"Custom",
+						)
+
+						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+						var/new_job = "Civilian"
+
+						if(department == "Custom")
+							new_job = sanitize(stripped_input(user,"Choose a custom jon title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
+						else if(department != "Civilian")
+							switch(department)
+								if("Engineering")
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in engineering_positions
+								if("Medical")
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in medical_positions
+								if("Science")
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in science_positions
+								if("Security")
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in security_positions
+								if("Support")
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in support_positions
+								if("Command")
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in command_positions
+
 						if(!Adjacent(user))
 							return
 						src.assignment = new_job

@@ -371,7 +371,7 @@
 			cult_mode.sacrifice_target = pick(p_s_t)
 			for(var/datum/mind/H in ticker.mode.cult)
 				if(H.current)
-					to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
+					to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
 		else
 			cult_mode.bypass_phase()
 
