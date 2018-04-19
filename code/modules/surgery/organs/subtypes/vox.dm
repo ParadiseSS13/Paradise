@@ -12,7 +12,7 @@
 	slot =  "vox_stack"
 	robotic = 2
 	vital = 1
-	var/stackdamaged = 0
+	var/stackdamaged = FALSE
 
 /obj/item/organ/internal/stack/vox
 	name = "vox cortical stack"
@@ -22,7 +22,7 @@
 		owner.mutations.Remove(SCRAMBLED)
 		owner.dna.SetSEState(SCRAMBLEBLOCK,0)
 		genemutcheck(owner,SCRAMBLEBLOCK,null,MUTCHK_FORCED)
-		stackdamaged = 0
+		stackdamaged = FALSE
 	..()
 
 
@@ -31,7 +31,7 @@
 		owner.mutations.Add(SCRAMBLED)
 		owner.dna.SetSEState(SCRAMBLEBLOCK,1,1)
 		genemutcheck(owner,SCRAMBLEBLOCK,null,MUTCHK_FORCED)
-		owner.AdjustConfused(20)
+		owner.AdjustConfused(4)
 		if(!stackdamaged)
-			stackdamaged = 1
+			stackdamaged = TRUE
 	..()
