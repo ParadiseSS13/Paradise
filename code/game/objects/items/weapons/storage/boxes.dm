@@ -829,6 +829,26 @@
 				return
 	return ..()
 
+
+/obj/item/storage/box/centcomofficer
+	name = "officer kit"
+
+/obj/item/storage/box/centcomofficer/New()
+	..()
+	contents = list()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/emergency_oxygen/double/full(src)
+	new /obj/item/device/flashlight/seclite(src)
+	new /obj/item/kitchen/knife/combat(src)
+
+	new /obj/item/device/radio/centcom(src)
+	new /obj/item/door_remote/omni(src)
+	new /obj/item/implanter/death_alarm(src)
+
+	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
+	new /obj/item/pinpointer/advpinpointer(src)
+
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

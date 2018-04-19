@@ -349,6 +349,7 @@
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
 	add_logs(user, H, "vampire-thralled")
 
+
 /obj/effect/proc_holder/spell/vampire/self/cloak
 	name = "Cloak of Darkness"
 	desc = "Toggles whether you are currently cloaking yourself in darkness."

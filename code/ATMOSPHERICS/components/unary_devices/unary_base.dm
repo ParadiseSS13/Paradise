@@ -50,10 +50,11 @@
 		build_network()
 		. = 1
 
-/obj/machinery/atmospherics/unary/build_network()
+/obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
 	if(!parent)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
+	..()
 
 /obj/machinery/atmospherics/unary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)
