@@ -1,17 +1,17 @@
-/obj/item/weapon/antag_spawner
+/obj/item/antag_spawner
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	var/used = 0
 
-/obj/item/weapon/antag_spawner/proc/spawn_antag(var/client/C, var/turf/T, var/type = "")
+/obj/item/antag_spawner/proc/spawn_antag(var/client/C, var/turf/T, var/type = "")
 	return
 
-/obj/item/weapon/antag_spawner/proc/equip_antag(mob/target as mob)
+/obj/item/antag_spawner/proc/equip_antag(mob/target as mob)
 	return
 
 
-/obj/item/weapon/antag_spawner/borg_tele
+/obj/item/antag_spawner/borg_tele
 	name = "syndicate cyborg teleporter"
 	desc = "A single-use teleporter used to deploy a Syndicate Cyborg on the field."
 	icon = 'icons/obj/device.dmi'
@@ -21,7 +21,7 @@
 	var/borg_to_spawn
 	var/list/possible_types = list("Assault", "Medical")
 
-/obj/item/weapon/antag_spawner/borg_tele/attack_self(mob/user as mob)
+/obj/item/antag_spawner/borg_tele/attack_self(mob/user as mob)
 	if(used)
 		to_chat(user, "<span class='warning'>[src] is out of power!</span>")
 		return
@@ -48,7 +48,7 @@
 		to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
 		return
 
-/obj/item/weapon/antag_spawner/borg_tele/spawn_antag(var/client/C, var/turf/T, var/type = "")
+/obj/item/antag_spawner/borg_tele/spawn_antag(var/client/C, var/turf/T, var/type = "")
 	if(!borg_to_spawn) //If there's no type at all, let it still be used but don't do anything
 		used = 0
 		return
@@ -67,7 +67,7 @@
 	R.mind.special_role = SPECIAL_ROLE_NUKEOPS
 	R.faction = list("syndicate")
 
-/obj/item/weapon/antag_spawner/slaughter_demon //Warning edgiest item in the game
+/obj/item/antag_spawner/slaughter_demon //Warning edgiest item in the game
 	name = "vial of blood"
 	desc = "A magically infused bottle of blood, distilled from countless murder victims. Used in unholy rituals to attract horrifying creatures."
 	icon = 'icons/obj/wizard.dmi'
@@ -79,7 +79,7 @@
 	var/objective_verb = "Kill"
 	var/mob/living/demon_type = /mob/living/simple_animal/slaughter
 
-/obj/item/weapon/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
+/obj/item/antag_spawner/slaughter_demon/attack_self(mob/user as mob)
 	if(level_blocks_magic(user.z))//this is to make sure the wizard does NOT summon a demon from the Den..
 		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
 		return
@@ -103,7 +103,7 @@
 		used = 0
 		to_chat(user, "<span class='notice'>The demons do not respond to your summon. Perhaps you should try again later.</span>")
 
-/obj/item/weapon/antag_spawner/slaughter_demon/spawn_antag(var/client/C, var/turf/T, var/type = "", mob/user as mob)
+/obj/item/antag_spawner/slaughter_demon/spawn_antag(var/client/C, var/turf/T, var/type = "", mob/user as mob)
 	var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(T)
 	var/mob/living/simple_animal/slaughter/S = new demon_type(holder)
 	S.vialspawned = TRUE
@@ -126,7 +126,7 @@
 	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
 
 
-/obj/item/weapon/antag_spawner/slaughter_demon/laughter
+/obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
 	desc = "A magically infused bottle of clown love, distilled from \
 		countless hugging attacks. Used in funny rituals to attract \

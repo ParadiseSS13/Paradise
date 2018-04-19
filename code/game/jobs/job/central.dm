@@ -26,15 +26,15 @@
 	head = /obj/item/clothing/head/beret/centcom/officer
 	l_ear = /obj/item/device/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/centcom
+	id = /obj/item/card/id/centcom
 	pda = /obj/item/device/pda/centcom
-	belt = /obj/item/weapon/gun/energy/pulse/pistol
+	belt = /obj/item/gun/energy/pulse/pistol
 	implants = list(
-		/obj/item/weapon/implant/mindshield,
-		/obj/item/weapon/implant/dust
+		/obj/item/implant/mindshield,
+		/obj/item/implant/dust
 	)
-	backpack = /obj/item/weapon/storage/backpack/satchel
-	box = /obj/item/weapon/storage/box/centcomofficer
+	backpack = /obj/item/storage/backpack/satchel
+	box = /obj/item/storage/box/centcomofficer
 
 
 // CC Officials who lead ERTs, Death Squads, etc.
@@ -60,27 +60,27 @@
 	jobtype = /datum/job/ntspecops
 	uniform = /obj/item/clothing/under/rank/centcom_commander
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
-	back = /obj/item/weapon/storage/backpack/security
-	belt = /obj/item/weapon/gun/energy/pulse/pistol/m1911
+	back = /obj/item/storage/backpack/security
+	belt = /obj/item/gun/energy/pulse/pistol/m1911
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
 	l_ear = /obj/item/device/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/centcom
+	id = /obj/item/card/id/centcom
 	pda = /obj/item/device/pda/centcom
-	r_pocket = /obj/item/weapon/storage/box/matches
-	box = /obj/item/weapon/storage/box/centcomofficer
-	backpack = /obj/item/weapon/storage/backpack/satchel
+	r_pocket = /obj/item/storage/box/matches
+	box = /obj/item/storage/box/centcomofficer
+	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/weapon/twohanded/dualsaber/red = 1,
-		/obj/item/weapon/storage/box/zipties = 1
+		/obj/item/twohanded/dualsaber/red = 1,
+		/obj/item/storage/box/zipties = 1
 	)
 	implants = list(
-		/obj/item/weapon/implant/mindshield,
-		/obj/item/weapon/implant/dust
+		/obj/item/implant/mindshield,
+		/obj/item/implant/dust
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/xray,

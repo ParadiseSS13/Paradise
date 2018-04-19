@@ -974,14 +974,14 @@
 
 	switch(buildstage)
 		if(2)
-			if(istype(W, /obj/item/weapon/screwdriver))  // Opening that Air Alarm up.
+			if(istype(W, /obj/item/screwdriver))  // Opening that Air Alarm up.
 //				to_chat(user, "You pop the Air Alarm's maintence panel open.")
 				wiresexposed = !wiresexposed
 				to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
 				update_icon()
 				return
 
-			if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
+			if(istype(W, /obj/item/wirecutters))  // cutting the wires out
 				if(wires.wires_status == 31) // all wires cut
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
 					new_coil.amount = 5
@@ -990,10 +990,10 @@
 					update_icon()
 					return
 
-			if(wiresexposed && ((istype(W, /obj/item/device/multitool) || istype(W, /obj/item/weapon/wirecutters))))
+			if(wiresexposed && ((istype(W, /obj/item/device/multitool) || istype(W, /obj/item/wirecutters))))
 				return attack_hand(user)
 
-			if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))// trying to unlock the interface with an ID card
+			if(istype(W, /obj/item/card/id) || istype(W, /obj/item/device/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return
@@ -1026,20 +1026,20 @@
 				first_run()
 				return
 
-			else if(istype(W, /obj/item/weapon/crowbar))
+			else if(istype(W, /obj/item/crowbar))
 				to_chat(user, "You start prying out the circuit.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(buildstage != 1)
 						return
 					to_chat(user, "You pry out the circuit!")
-					var/obj/item/weapon/airalarm_electronics/circuit = new /obj/item/weapon/airalarm_electronics()
+					var/obj/item/airalarm_electronics/circuit = new /obj/item/airalarm_electronics()
 					circuit.loc = user.loc
 					buildstage = 0
 					update_icon()
 				return
 		if(0)
-			if(istype(W, /obj/item/weapon/airalarm_electronics))
+			if(istype(W, /obj/item/airalarm_electronics))
 				to_chat(user, "You insert the circuit!")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				qdel(W)
@@ -1047,7 +1047,7 @@
 				update_icon()
 				return
 
-			else if(istype(W, /obj/item/weapon/wrench))
+			else if(istype(W, /obj/item/wrench))
 				to_chat(user, "You remove the fire alarm assembly from the wall!")
 				new /obj/item/mounted/frame/alarm_frame(get_turf(user))
 				playsound(get_turf(src), W.usesound, 50, 1)
@@ -1074,7 +1074,7 @@
 AIR ALARM CIRCUIT
 Just an object used in constructing air alarms
 */
-/obj/item/weapon/airalarm_electronics
+/obj/item/airalarm_electronics
 	name = "air alarm electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"

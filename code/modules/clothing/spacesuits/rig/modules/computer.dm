@@ -51,7 +51,7 @@
 
 /obj/item/rig_module/ai_container/process()
 	if(integrated_ai)
-		var/obj/item/weapon/rig/rig = get_rig()
+		var/obj/item/rig/rig = get_rig()
 		if(rig && rig.ai_override_enabled)
 			integrated_ai.get_rig_stats = 1
 		else
@@ -251,9 +251,9 @@
 
 /obj/item/rig_module/datajack/accepts_item(var/obj/item/input_device, var/mob/living/user)
 
-	if(istype(input_device,/obj/item/weapon/disk/tech_disk))
+	if(istype(input_device,/obj/item/disk/tech_disk))
 		to_chat(user, "You slot the disk into [src].")
-		var/obj/item/weapon/disk/tech_disk/disk = input_device
+		var/obj/item/disk/tech_disk/disk = input_device
 		if(disk.stored)
 			if(load_data(disk.stored))
 				to_chat(user, "<font color='blue'>Download successful; disk erased.</font>")

@@ -217,8 +217,8 @@
 		visible_message("<span class='danger'>[user] has attacked [src] with [I]!</span>")
 
 	var/damage = I.force / 4
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = I
+	if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = I
 		if(WT.remove_fuel(0, user))
 			damage = 15
 			playsound(loc, WT.usesound, 100, 1)
@@ -378,8 +378,8 @@
 		visible_message("<span class='danger'>[user] has attacked [src] with [I]!</span>")
 
 	var/damage = I.force / 4
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = I
+	if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = I
 
 		if(WT.remove_fuel(0, user))
 			damage = 15

@@ -16,13 +16,13 @@
 
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
-#define is_pen(W) (istype(W, /obj/item/weapon/pen))
+#define is_pen(W) (istype(W, /obj/item/pen))
 
 var/list/static/global/pointed_types = typecacheof(list(
-	/obj/item/weapon/pen,
-	/obj/item/weapon/screwdriver,
-	/obj/item/weapon/reagent_containers/syringe,
-	/obj/item/weapon/kitchen/utensil/fork))
+	/obj/item/pen,
+	/obj/item/screwdriver,
+	/obj/item/reagent_containers/syringe,
+	/obj/item/kitchen/utensil/fork))
 
 #define is_pointed(W) (is_type_in_typecache(W, pointed_types))
 
@@ -44,5 +44,5 @@ var/list/static/global/pointed_types = typecacheof(list(
 // Misc
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/device/radio)
-#define ispill(A) istype(A, /obj/item/weapon/reagent_containers/food/pill)
+#define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 

@@ -9,18 +9,18 @@
 	density = 1
 	pressure_resistance = 5*ONE_ATMOSPHERE
 
-/obj/structure/ore_box/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/ore_box/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/device/t_scanner/adv_mining_scanner))
 		attack_hand(user)
 		return
-	if(istype(W, /obj/item/weapon/ore))
+	if(istype(W, /obj/item/ore))
 		if(!user.drop_item())
 			return
 		W.loc = src
-	if(istype(W, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = W
+	if(istype(W, /obj/item/storage))
+		var/obj/item/storage/S = W
 		S.hide_from(usr)
-		for(var/obj/item/weapon/ore/O in S.contents)
+		for(var/obj/item/ore/O in S.contents)
 			S.remove_from_storage(O, src) //This will move the item to this item's contents
 		to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
 	return
@@ -38,28 +38,28 @@
 	var/amt_mime = 0
 	var/amt_bluespace = 0
 
-	for(var/obj/item/weapon/ore/C in contents)
-		if(istype(C,/obj/item/weapon/ore/diamond))
+	for(var/obj/item/ore/C in contents)
+		if(istype(C,/obj/item/ore/diamond))
 			amt_diamond++
-		if(istype(C,/obj/item/weapon/ore/glass))
+		if(istype(C,/obj/item/ore/glass))
 			amt_glass++
-		if(istype(C,/obj/item/weapon/ore/plasma))
+		if(istype(C,/obj/item/ore/plasma))
 			amt_plasma++
-		if(istype(C,/obj/item/weapon/ore/iron))
+		if(istype(C,/obj/item/ore/iron))
 			amt_iron++
-		if(istype(C,/obj/item/weapon/ore/silver))
+		if(istype(C,/obj/item/ore/silver))
 			amt_silver++
-		if(istype(C,/obj/item/weapon/ore/gold))
+		if(istype(C,/obj/item/ore/gold))
 			amt_gold++
-		if(istype(C,/obj/item/weapon/ore/uranium))
+		if(istype(C,/obj/item/ore/uranium))
 			amt_uranium++
-		if(istype(C,/obj/item/weapon/ore/bananium))
+		if(istype(C,/obj/item/ore/bananium))
 			amt_clown++
-		if(istype(C,/obj/item/weapon/ore/tranquillite))
+		if(istype(C,/obj/item/ore/tranquillite))
 			amt_mime++
-		if(istype(C, /obj/item/weapon/ore/titanium))
+		if(istype(C, /obj/item/ore/titanium))
 			amt_titanium++
-		if(istype(C,/obj/item/weapon/ore/bluespace_crystal))
+		if(istype(C,/obj/item/ore/bluespace_crystal))
 			amt_bluespace++
 
 	var/dat = text("<b>The contents of the ore box reveal...</b><br>")
@@ -98,7 +98,7 @@
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["removeall"])
-		for(var/obj/item/weapon/ore/O in contents)
+		for(var/obj/item/ore/O in contents)
 			contents -= O
 			O.loc = src.loc
 		to_chat(usr, "<span class='notice'>You empty the box.</span>")
@@ -132,7 +132,7 @@ obj/structure/ore_box/ex_act(severity, target)
 		to_chat(usr, "<span class='warning'>The ore box is empty.</span>")
 		return
 
-	for(var/obj/item/weapon/ore/O in contents)
+	for(var/obj/item/ore/O in contents)
 		contents -= O
 		O.loc = src.loc
 	to_chat(usr, "<span class='notice'>You empty the ore box.</span>")

@@ -185,7 +185,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 /obj/effect/ruin_loader
 	name = "random ruin"
 	desc = "If you got lucky enough to see this..."
-	icon = 'icons/obj/weapons.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "syndballoon"
 	invisibility = 0
 

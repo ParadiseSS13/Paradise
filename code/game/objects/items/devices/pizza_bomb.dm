@@ -58,7 +58,7 @@
 	qdel(src)
 
 /obj/item/device/pizza_bomb/attackby(var/obj/item/I, var/mob/user, params)
-	if(istype(I, /obj/item/weapon/wirecutters) && primed)
+	if(istype(I, /obj/item/wirecutters) && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
 		if(!in_range(src, usr) || issilicon(usr) || !usr.canmove || usr.restrained())
@@ -79,7 +79,7 @@
 			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
 			go_boom()
 			return
-	if(istype(I, /obj/item/weapon/wirecutters) && disarmed)
+	if(istype(I, /obj/item/wirecutters) && disarmed)
 		if(!in_range(user, src))
 			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
 			return
@@ -90,7 +90,7 @@
 			user.visible_message("<span class='notice'>[user] removes the insides of \the [src]!</span>")
 			var/obj/item/stack/cable_coil/C = new /obj/item/stack/cable_coil(src.loc)
 			C.amount = 3
-			new /obj/item/weapon/bombcore/miniature(src.loc)
+			new /obj/item/bombcore/miniature(src.loc)
 			new /obj/item/pizzabox(src.loc)
 			qdel(src)
 		return

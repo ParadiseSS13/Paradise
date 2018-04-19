@@ -45,7 +45,7 @@
 
 	if(rotting)
 		if(iswelder(W))
-			var/obj/item/weapon/weldingtool/WT = W
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0,user))
 				to_chat(user, "<span class='notice'>You burn away the fungi with \the [WT].</span>")
 				playsound(src, WT.usesound, 10, 1)
@@ -61,17 +61,17 @@
 	//THERMITE related stuff. Calls src.thermitemelt() which handles melting simulated walls and the relevant effects
 	if(thermite)
 		if(iswelder(W))
-			var/obj/item/weapon/weldingtool/WT = W
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0,user))
 				thermitemelt(user)
 				return
 
-		else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+		else if(istype(W, /obj/item/gun/energy/plasmacutter))
 			thermitemelt(user)
 			return
 
-		else if(istype(W, /obj/item/weapon/melee/energy/blade))
-			var/obj/item/weapon/melee/energy/blade/EB = W
+		else if(istype(W, /obj/item/melee/energy/blade))
+			var/obj/item/melee/energy/blade/EB = W
 
 			EB.spark_system.start()
 			to_chat(user, "<span class='notice'>You slash \the [src] with \the [EB]; the thermite ignites!</span>")
@@ -81,12 +81,12 @@
 			thermitemelt(user)
 			return
 
-	else if(istype(W, /obj/item/weapon/melee/energy/blade))
+	else if(istype(W, /obj/item/melee/energy/blade))
 		to_chat(user, "<span class='notice'>This wall is too thick to slice through. You will need to find a different path.</span>")
 		return
 
 	if(damage && iswelder(W))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>You start repairing the damage to [src].</span>")
 			playsound(src, WT.usesound, 100, 1)
@@ -135,7 +135,7 @@
 
 		if(RWALL_COVER)
 			if(iswelder(W))
-				var/obj/item/weapon/weldingtool/WT = W
+				var/obj/item/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
 					playsound(src, WT.usesound, 100, 1)
@@ -149,7 +149,7 @@
 					to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 				return
 
-			if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+			if(istype(W, /obj/item/gun/energy/plasmacutter))
 				to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
 				playsound(src, W.usesound, 100, 1)
 
@@ -182,7 +182,7 @@
 				return
 
 			if(iswelder(W))
-				var/obj/item/weapon/weldingtool/WT = W
+				var/obj/item/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					to_chat(user, "<span class='notice'>You begin welding the metal cover back to the frame...</span>")
 					playsound(src, WT.usesound, 100, 1)
@@ -218,7 +218,7 @@
 
 		if(RWALL_SUPPORT_RODS)
 			if(iswelder(W))
-				var/obj/item/weapon/weldingtool/WT = W
+				var/obj/item/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
 					playsound(src, WT.usesound, 100, 1)
@@ -230,7 +230,7 @@
 					to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 				return
 
-			if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+			if(istype(W, /obj/item/gun/energy/plasmacutter))
 				to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
 				playsound(src, W.usesound, 100, 1)
 
@@ -263,14 +263,14 @@
 //vv OK, we weren't performing a valid deconstruction step or igniting thermite,let's check the other possibilities vv
 
 	//DRILLING
-	if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
+	if(istype(W, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, "<span class='notice'>You begin to drill though the wall...</span>")
 
 		if(do_after(user, 800 * W.toolspeed, target = src)) // Diamond drill has 0.25 toolspeed, so 200
 			to_chat(user, "<span class='notice'>Your drill tears through the last of the reinforced plating.</span>")
 			dismantle_wall()
 
-	if(istype(W,/obj/item/weapon/pickaxe/drill/jackhammer))
+	if(istype(W,/obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, "<span class='notice'>You begin to disintegrate the wall...</span>")
 
 		if(do_after(user, 1000 * W.toolspeed, target = src)) // Jackhammer has 0.1 toolspeed, so 100
@@ -317,7 +317,7 @@
 		return
 
 	//Poster stuff
-	else if(istype(W, /obj/item/weapon/poster))
+	else if(istype(W, /obj/item/poster))
 		place_poster(W, user)
 		return
 

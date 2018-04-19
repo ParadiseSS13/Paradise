@@ -257,7 +257,7 @@
 
 /datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/weapon/soap/homemade(location)
+	new /obj/item/soap/homemade(location)
 
 /datum/chemical_reaction/candlefication
 	name = "Candlefication"
@@ -280,7 +280,7 @@
 
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct(location)
+	new /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct(location)
 
 /datum/chemical_reaction/lye
 	name = "lye"

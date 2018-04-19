@@ -3,7 +3,7 @@
 	desc = "Used to control a linked teleportation Hub and Station."
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
-	circuit = /obj/item/weapon/circuitboard/teleporter
+	circuit = /obj/item/circuitboard/teleporter
 	var/obj/item/device/gps/locked = null
 	var/regime_set = "Teleporter"
 	var/id = null
@@ -192,7 +192,7 @@
 				areaindex[tmpname] = 1
 			L[tmpname] = R
 
-		for(var/obj/item/weapon/implant/tracking/I in tracked_implants)
+		for(var/obj/item/implant/tracking/I in tracked_implants)
 			if(!I.implanted || !ismob(I.loc))
 				continue
 			else
@@ -276,21 +276,21 @@
 	..()
 	link_power_station()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
 /obj/machinery/teleport/hub/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
 
 /obj/machinery/teleport/hub/initialize()
@@ -305,7 +305,7 @@
 
 /obj/machinery/teleport/hub/RefreshParts()
 	var/A = 0
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A += M.rating
 	accurate = A
 
@@ -386,10 +386,10 @@
 	var/tele_delay = 50
 
 /obj/machinery/teleport/perma/RefreshParts()
-	for(var/obj/item/weapon/circuitboard/teleporter_perma/C in component_parts)
+	for(var/obj/item/circuitboard/teleporter_perma/C in component_parts)
 		target = C.target
 	var/A = 40
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A -= M.rating * 10
 	tele_delay = max(A, 0)
 	update_icon()
@@ -463,12 +463,12 @@
 /obj/machinery/teleport/station/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/teleporter_station(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/teleporter_station(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 	link_console_and_hub()
 
@@ -478,7 +478,7 @@
 
 /obj/machinery/teleport/station/RefreshParts()
 	var/E
-	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		E += C.rating
 	efficiency = E - 1
 
@@ -506,7 +506,7 @@
 		teleporter_console = null
 	return ..()
 
-/obj/machinery/teleport/station/attackby(var/obj/item/weapon/W, mob/user, params)
+/obj/machinery/teleport/station/attackby(var/obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/device/multitool) && !panel_open)
 		var/obj/item/device/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
@@ -531,12 +531,12 @@
 			M.buffer = src
 			to_chat(user, "<span class='caution'>You download the data to the [W.name]'s buffer.</span>")
 			return
-		if(istype(W, /obj/item/weapon/wirecutters))
+		if(istype(W, /obj/item/wirecutters))
 			link_console_and_hub()
 			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
 			return
-		if(istype(W, /obj/item/weapon/circuitboard/teleporter_perma))
-			var/obj/item/weapon/circuitboard/teleporter_perma/C = W
+		if(istype(W, /obj/item/circuitboard/teleporter_perma))
+			var/obj/item/circuitboard/teleporter_perma/C = W
 			C.target = teleporter_console.target
 			to_chat(user, "<span class='caution'>You copy the targeting information from \the [src] to \the [W]</span>")
 			return

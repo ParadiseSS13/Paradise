@@ -39,7 +39,7 @@
 
 	var/list/donors = list()
 	var/ready_evolve = 0
-	holder_type = /obj/item/weapon/holder/diona
+	holder_type = /obj/item/holder/diona
 	can_collar = 1
 
 /mob/living/simple_animal/diona/New()
@@ -121,7 +121,7 @@
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
-			if(istype(A, /mob/living/simple_animal/borer) || istype(A, /obj/item/weapon/holder))
+			if(istype(A, /mob/living/simple_animal/borer) || istype(A, /obj/item/holder))
 				return
 	M.status_flags &= ~PASSEMOTES
 
@@ -144,8 +144,8 @@
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
 	adult.set_species("Diona")
 
-	if(istype(loc, /obj/item/weapon/holder/diona))
-		var/obj/item/weapon/holder/diona/L = loc
+	if(istype(loc, /obj/item/holder/diona))
+		var/obj/item/holder/diona/L = loc
 		forceMove(L.loc)
 		qdel(L)
 

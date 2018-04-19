@@ -144,7 +144,7 @@
 	if(logic_connect && powered(LIGHT))		//We won't send signals while unpowered, but the last signal will remain valid for anything that received it before we went dark
 		handle_output()
 
-/obj/machinery/light_switch/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/light_switch/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/device/detective_scanner))
 		return
 
@@ -152,7 +152,7 @@
 		update_multitool_menu(user)
 		return 1
 
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")

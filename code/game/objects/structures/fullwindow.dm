@@ -42,7 +42,7 @@
 	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
 	basestate = "plasmawindow"
 	icon_state = "plasmawindow"
-	shardtype = /obj/item/weapon/shard/plasma
+	shardtype = /obj/item/shard/plasma
 	glasstype = /obj/item/stack/sheet/plasmaglass
 	health = 240
 
@@ -56,7 +56,7 @@
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
 	basestate = "plasmarwindow"
 	icon_state = "plasmarwindow"
-	shardtype = /obj/item/weapon/shard/plasma
+	shardtype = /obj/item/shard/plasma
 	glasstype = /obj/item/stack/sheet/plasmaglass
 	reinf = 1
 	health = 320

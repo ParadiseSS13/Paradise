@@ -36,7 +36,7 @@
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/unary/default_change_direction_wrench(mob/user, obj/item/weapon/wrench/W)
+/obj/machinery/atmospherics/unary/default_change_direction_wrench(mob/user, obj/item/wrench/W)
 	if(..())
 		initialize_directions = dir
 		if(node)

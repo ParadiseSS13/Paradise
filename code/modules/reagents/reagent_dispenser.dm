@@ -10,7 +10,7 @@
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
 
-/obj/structure/reagent_dispensers/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
 	return
 
 /obj/structure/reagent_dispensers/New()
@@ -136,11 +136,11 @@
 				test.Shift(EAST, 6)
 				overlays += test
 
-	if(istype(I, /obj/item/weapon/weldingtool))
+	if(istype(I, /obj/item/weldingtool))
 		if(!reagents.has_reagent("fuel"))
 			to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
 			return
-		var/obj/item/weapon/weldingtool/W = I
+		var/obj/item/weldingtool/W = I
 		if(!W.welding)
 			if(W.reagents.has_reagent("fuel", W.max_fuel))
 				to_chat(user, "<span class='warning'>Your [W] is already full!</span>")
@@ -211,11 +211,11 @@
 		to_chat(user, "<span class='warning'>There aren't any cups left!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] takes a cup from [src].</span>", "<span class='notice'>You take a paper cup from [src].</span>")
-	var/obj/item/weapon/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
+	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
 	user.put_in_hands(S)
 	paper_cups--
 
-/obj/structure/reagent_dispensers/water_cooler/attackby(obj/item/weapon/W, mob/living/user, params)
+/obj/structure/reagent_dispensers/water_cooler/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))
