@@ -160,7 +160,7 @@
 		var/mob/living/carbon/human/H = L
 		H.forcesay(hit_appends)
 
-	add_logs(user, L, "stunned", object="stunbaton")
+	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/melee/baton/emp_act(severity)
 	if(bcell)

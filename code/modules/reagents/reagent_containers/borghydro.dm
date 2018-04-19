@@ -84,13 +84,9 @@
 		if(M.reagents)
 			var/datum/reagent/injected = chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
-			M.create_attack_log("<font color='orange'>Has been injected with [name] by [key_name(user)]. Reagents: [contained]</font>")
-			user.create_attack_log("<font color='red'>Used the [name] to inject [key_name(M)]. Reagents: [contained]</font>")
-			if(M.ckey)
-				msg_admin_attack("[key_name_admin(user)] injected [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
-			M.LAssailant = user
-
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
+			add_attack_logs(M, user, "Injected with [name] containing [contained], transfered [trans] units", !!M.ckey)
+			M.LAssailant = user
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 	return
 

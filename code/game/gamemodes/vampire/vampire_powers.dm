@@ -347,7 +347,7 @@
 	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
 	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>")
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
-	add_logs(user, H, "vampire-thralled")
+	add_attack_logs(user, H, "Vampire-thralled")
 
 
 /obj/effect/proc_holder/spell/vampire/self/cloak

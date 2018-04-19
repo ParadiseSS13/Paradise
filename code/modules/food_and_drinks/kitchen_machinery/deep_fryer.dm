@@ -59,7 +59,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		C.apply_damage(25, BURN, "head") //25 fire damage and disfigurement because your face was just deep fried!
 		head.disfigure("burn")
-		add_logs(user, G.affecting, "deep-fried", addition="'s face")
+		add_attack_logs(user, G.affecting, "Deep-fried with [src]")
 		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
 		return 0
 	return 0

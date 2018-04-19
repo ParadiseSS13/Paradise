@@ -391,7 +391,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		var/mob/living/carbon/human/H = L
 		H.forcesay(hit_appends)
 
-	add_logs(user, L, "stunned")
+	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
 	if(L.stunned || L.sleeping)
@@ -399,7 +399,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 		L.Sleeping(60)
-		add_logs(user, L, "put to sleep")
+		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
 		L.AdjustDrowsy(1)
 		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
@@ -419,7 +419,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
 				C.update_handcuffed()
 				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-				add_logs(user, C, "handcuffed")
+				add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
