@@ -436,7 +436,7 @@
 		to_chat(src, "<span class='userdanger'>You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream.</span>")
 		host.reagents.add_reagent(C.chemname, C.quantity)
 		chemicals -= C.chemuse
-		log_game("[src]/([src.ckey]) has injected [R.name] into their host [host]/([host.ckey])")
+		log_game("[key_name(src)] has injected [R.name] into their host [host]/([host.ckey])")
 
 		// This is used because we use a static set of datums to determine what chems are available,
 		// instead of a table or something. Thus, when we instance it, we can safely delete it

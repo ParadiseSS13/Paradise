@@ -111,7 +111,7 @@
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)
-			H.mind.kills += "[name] ([ckey])"
+			H.mind.kills += "[key_name(src)]"
 
 	if(!gibbed)
 		update_canmove()

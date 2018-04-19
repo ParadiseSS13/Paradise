@@ -74,7 +74,7 @@
 				slaved.add_serv_hud(user.mind, "master") //handles master servent icons
 				slaved.add_serv_hud(H.mind, "mindslave")
 
-			log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
+			log_admin("[key_name(user)] has mind-slaved [key_name(H)].")
 			activated = 1
 			if(jobban_isbanned(M, ROLE_SYNDICATE))
 				ticker.mode.replace_jobbanned_player(M, ROLE_SYNDICATE)

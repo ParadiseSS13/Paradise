@@ -76,11 +76,11 @@
 
 	scientist.assigned_role = "MODE"
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
-	log_game("[scientist.key] (ckey) has been selected as an abductor team [team_number] scientist.")
+	log_game("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.")
 
 	agent.assigned_role = "MODE"
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
-	log_game("[agent.key] (ckey) has been selected as an abductor team [team_number] agent.")
+	log_game("[key_name(agent)] has been selected as an abductor team [team_number] agent.")
 
 	abductors |= agent
 	abductors |= scientist

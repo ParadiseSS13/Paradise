@@ -799,7 +799,7 @@
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
-				investigate_log("had Kudzu planted in it by [user.ckey]([user]) at ([x],[y],[z])","kudzu")
+				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
 			user.unEquip(O)
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
