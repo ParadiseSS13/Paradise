@@ -370,11 +370,7 @@ in the SQL/updates folder.
 
 * If you used regex to replace code during development of your code, post the regex in your PR for the benefit of future developers and downstream users.
 
-#### Enforced not enforced
-The following coding styles are not only not enforced at all, but are generally frowned upon to change for little to no reason:
-
-* English/British spelling on var/proc names
-  * Color/Colour - both are fine, but keep in mind that BYOND uses `color` as a base variable
+* All new var/proc names should use the American English spelling of words. This is for consistency with BYOND.
 
 ### Dream Maker Quirks/Tricks
 Like all languages, Dream Maker has its quirks, some of them are beneficial to us, like these
@@ -429,7 +425,7 @@ for(var/s in bag_of_swords)
     best_sword = S
 ```
 Of course, if the list contains data of a mixed type then the above optimisation is DANGEROUS, as it will blindly typecast all data in the list as the 
-specified type, even if it isn't really that type, causing runtime errors.
+specified type, even if it isn't really that type, causing runtime errors (AKA your shit won't work if this happens).
 
 #### Dot variable
 Like other languages in the C family, DM has a ```.``` or "Dot" operator, used for accessing variables/members/functions of an object instance.
@@ -457,6 +453,23 @@ This does NOT mean that you can access it everywhere like a global var. Instead,
 Isn't that confusing? 
 
 There is also an undocumented keyword called `static` that has the same behaviour as global but more correctly describes BYOND's behaviour. Therefore, we always use static instead of global where we need it, as it reduces suprise when reading BYOND code.
+
+### Global Vars
+
+All new global vars must use the defines in code/\_\_defines/\_globals.dm. Basic usage is as follows:
+
+To declare a global var:
+```DM
+GLOBAL_VAR(my_global_here)
+```
+To access it:
+```
+GLOB.my_global_here = X
+```
+
+There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be used unless you know exactly what you're doing. 
+`GLOBAL_VAR_INIT` allows you to set an initial value on the var, like `GLOBAL_VAR_INIT(number_one, 1)`.
+`GLOBAL_LIST_INIT` allows you to define a list global var with an initial value. Etc.
 
 ## Maintainers
 The only current official role for GitHub staff are the `Maintainers`. There are up to
