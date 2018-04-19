@@ -95,7 +95,7 @@
 
 	//Logs all hrefs
 	if(config && config.log_hrefs)
-		WRITE_LOG(GLOB.world_href_log, "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>")
+		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	if(href_list["karmashop"])
 		if(config.disable_karma)

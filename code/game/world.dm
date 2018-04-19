@@ -285,6 +285,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			log_admin("[key_name(usr)] has requested an immediate world restart via client side debugging tools")
 		spawn(0)
 			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
+		shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
 			if(shutdown_shell_command)
@@ -321,6 +322,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	processScheduler.stop()
+	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
 	if(config && config.shutdown_on_reboot)
 		sleep(0)
@@ -435,12 +437,12 @@ var/failed_old_db_connections = 0
 
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"
-	GLOB.world_game_log = file("[GLOB.log_directory]/game.log")
-	GLOB.world_href_log = file("[GLOB.log_directory]/hrefs.log")
-	GLOB.world_runtime_log = file("[GLOB.log_directory]/runtime.log")
-	WRITE_FILE(GLOB.world_game_log, "\n\nStarting up. [time_stamp()]\n---------------------")
-	WRITE_FILE(GLOB.world_href_log, "\n\nStarting up. [time_stamp()]\n---------------------")
-	WRITE_FILE(GLOB.world_runtime_log, "\n\nStarting up. [time_stamp()]\n---------------------")
+	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
+	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
+	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
+	start_log(GLOB.world_game_log)
+	start_log(GLOB.world_href_log)
+	start_log(GLOB.world_runtime_log)
 
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
