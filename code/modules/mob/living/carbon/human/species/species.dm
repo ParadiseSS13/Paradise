@@ -97,7 +97,7 @@
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
-	var/meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human //What the species drops on gibbing
+	var/meat = /obj/item/reagent_containers/food/snacks/meat/human //What the species drops on gibbing
 	var/skinned_type
 	var/base_color      //Used when setting species.
 
