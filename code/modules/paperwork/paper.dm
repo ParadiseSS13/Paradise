@@ -478,19 +478,19 @@
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
-/obj/item/weapon/paper/fortune
+/obj/item/paper/fortune
 	name = "fortune"
 	icon_state = "slip"
 	paper_height = 150
 	var/fortunemessage
 
-/obj/item/weapon/paper/fortune/New()
+/obj/item/paper/fortune/New()
 	..()
 	var/fortunemessage = pick(GLOB.fortune_cookie_messages)
 	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
 	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
 
-/obj/item/weapon/paper/fortune/update_icon()
+/obj/item/paper/fortune/update_icon()
 	..()
 	icon_state = initial(icon_state)
 /*
