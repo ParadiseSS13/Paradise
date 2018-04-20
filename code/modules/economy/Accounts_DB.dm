@@ -7,7 +7,7 @@
 	req_one_access = list(access_hop, access_captain, access_cent_commander)
 	var/receipt_num
 	var/machine_id = ""
-	var/obj/item/weapon/card/id/held_card
+	var/obj/item/card/id/held_card
 	var/datum/money_account/detailed_account_view
 	var/creating_new_account = 0
 	var/activated = 1
@@ -31,7 +31,7 @@
 	T.purpose = reason
 	T.amount = amount
 	T.date = current_date_string
-	T.time = worldtime2text()
+	T.time = station_time_timestamp()
 	T.source_terminal = machine_id
 	return T
 
@@ -61,7 +61,7 @@
 	..()
 
 /obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
-	if(!istype(O, /obj/item/weapon/card/id))
+	if(!istype(O, /obj/item/card/id))
 		return ..()
 
 	if(!held_card)
@@ -69,7 +69,7 @@
 		O.loc = src
 		held_card = O
 
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 	attack_hand(user)
 
@@ -78,7 +78,7 @@
 
 /obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "accounts_terminal.tmpl", src.name, 400, 640)
 		ui.open()
@@ -144,8 +144,8 @@
 
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/weapon/card/id))
-				var/obj/item/weapon/card/id/C = I
+			if(istype(I, /obj/item/card/id))
+				var/obj/item/card/id/C = I
 				usr.drop_item()
 				C.forceMove(src)
 				held_card = C
@@ -153,7 +153,7 @@
 	if(!get_access_level(usr))
 		return 1
 
-	var/datum/nanoui/ui = nanomanager.get_open_ui(usr, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(usr, src, "main")
 
 	if(href_list["choice"])
 		switch(href_list["choice"])
@@ -221,7 +221,7 @@
 			if("print")
 				var/text
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-				var/obj/item/weapon/paper/P = new(loc)
+				var/obj/item/paper/P = new(loc)
 				if(detailed_account_view)
 					P.name = "account #[detailed_account_view.account_number] details"
 					var/title = "Account #[detailed_account_view.account_number] Details"

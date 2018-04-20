@@ -9,7 +9,7 @@
 	health = 5
 	maxHealth = 5
 	attacktext = "bites"
-	attacktext = "bites"
+	obj_damage = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 2
 	response_help  = "pets"
@@ -20,6 +20,6 @@
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	can_hide = 1
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY

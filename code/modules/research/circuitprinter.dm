@@ -35,34 +35,34 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/circuit_imprinter(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/circuit_imprinter(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
+	component_parts += new /obj/item/circuitboard/circuit_imprinter(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/circuit_imprinter/RefreshParts()
 	var/T = 0
-	for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/glass/G in component_parts)
 		G.reagents.trans_to(src, G.reagents.total_volume)
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
 	max_material_amount = T * 75000.0
 	T = 0
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T += M.rating
 	efficiency_coeff = 2 ** (T - 1) //Only 1 manipulator here, you're making runtimes Razharas
 
@@ -99,12 +99,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return
 
 	if(panel_open)
-		if(istype(O, /obj/item/weapon/crowbar))
+		if(istype(O, /obj/item/crowbar))
 			for(var/obj/I in component_parts)
-				if(istype(I, /obj/item/weapon/reagent_containers/glass/beaker))
+				if(istype(I, /obj/item/reagent_containers/glass/beaker))
 					reagents.trans_to(I, reagents.total_volume)
 				I.loc = src.loc
-			for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
+			for(var/obj/item/reagent_containers/glass/G in component_parts)
 				reagents.trans_to(G, G.reagents.maximum_volume)
 			if(g_amount >= MINERAL_MATERIAL_AMOUNT)
 				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)

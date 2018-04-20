@@ -4,15 +4,16 @@
 	icon_state = "construction"
 	anchored = FALSE
 	density = TRUE
+	max_integrity = 200
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
-	var/mineral = null
+	var/mineral
 	var/base_name = "airlock"
-	var/obj/item/weapon/airlock_electronics/electronics = null
+	var/obj/item/airlock_electronics/electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
 	var/glass_type = /obj/machinery/door/airlock/glass
 	var/glass = 0 // 0 = glass can be installed. 1 = glass is already installed.
-	var/created_name = null
+	var/created_name
 	var/heat_proof_finished = 0 //whether to heat-proof the finished airlock
 	var/previous_assembly = /obj/structure/door_assembly
 	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
@@ -53,7 +54,7 @@
 		to_chat(user, "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>")
 
 /obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/pen))
+	if(istype(W, /obj/item/pen))
 		var/t = copytext(stripped_input(user, "Enter the name for the door.", name, created_name),1,MAX_NAME_LEN)
 		if(!t)
 			return
@@ -63,7 +64,7 @@
 		return
 
 	else if(iswelder(W) && (mineral || glass || !anchored ))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			playsound(loc, WT.usesound, 50, 1)
 			if(mineral)
@@ -116,12 +117,12 @@
 
 	else if(iscoil(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored)
 		var/obj/item/stack/cable_coil/coil = W
-		if (coil.amount < 1)
+		if(coil.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly...")
 		if(do_after(user, 40 * coil.toolspeed, target = src))
-			if(coil.amount < 1 || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
+			if(coil.get_amount() < 1 || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 				return
 			coil.use(1)
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
@@ -138,7 +139,7 @@
 			new/obj/item/stack/cable_coil(get_turf(user), 1)
 			state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 
-	else if(istype(W, /obj/item/weapon/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && W.icon_state != "door_electronics_smoked")
+	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && W.icon_state != "door_electronics_smoked")
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
@@ -162,9 +163,9 @@
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			name = "wired airlock assembly"
-			var/obj/item/weapon/airlock_electronics/ae
+			var/obj/item/airlock_electronics/ae
 			if(!electronics)
-				ae = new/obj/item/weapon/airlock_electronics(loc)
+				ae = new/obj/item/airlock_electronics(loc)
 			else
 				ae = electronics
 				electronics = null
@@ -173,14 +174,14 @@
 	else if(istype(W, /obj/item/stack/sheet) && (!glass || !mineral))
 		var/obj/item/stack/sheet/S = W
 		if(S)
-			if(S.amount>=1)
+			if(S.get_amount() >= 1)
 				if(!noglass)
 					if(!glass)
 						if(istype(S, /obj/item/stack/sheet/rglass) || istype(S, /obj/item/stack/sheet/glass))
 							playsound(loc, S.usesound, 100, 1)
 							user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
 							if(do_after(user, 40 * S.toolspeed, target = src))
-								if(S.amount < 1 || glass)
+								if(S.get_amount() < 1 || glass)
 									return
 								if(S.type == /obj/item/stack/sheet/rglass)
 									to_chat(user, "<span class='notice'>You install reinforced glass windows into the airlock assembly.</span>")
@@ -192,11 +193,11 @@
 					if(!mineral)
 						if(istype(S, /obj/item/stack/sheet/mineral) && S.sheettype)
 							var/M = S.sheettype
-							if(S.amount>=2)
+							if(S.get_amount() >= 2)
 								playsound(loc, S.usesound, 100, 1)
 								user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
 								if(do_after(user, 40 * S.toolspeed, target = src))
-									if(S.amount < 2 || mineral)
+									if(S.get_amount() < 2 || mineral)
 										return
 									to_chat(user, "<span class='notice'>You install [M] plating into the airlock assembly.</span>")
 									S.use(2)
@@ -204,7 +205,7 @@
 									var/obj/structure/door_assembly/MA = new mineralassembly(loc)
 									transfer_assembly_vars(src, MA, TRUE)
 							else
-								to_chat(user, "<span class='warning'>You need at least two sheets add a mineral cover!</span>")
+								to_chat(user, "<span class='warning'>You need at least two sheets to add a mineral cover!</span>")
 					else
 						to_chat(user, "<span class='warning'>You cannot add [S] to [src]!</span>")
 				else
@@ -239,7 +240,7 @@
 				electronics.forceMove(door)
 				qdel(src)
 	else
-		..()
+		return ..()
 	update_name()
 	update_icon()
 
@@ -291,7 +292,7 @@
 				else
 					new /obj/item/stack/sheet/glass(T)
 			else
-				new /obj/item/weapon/shard(T)
+				new /obj/item/shard(T)
 		if(mineral)
 			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			new mineral_path(T, 2)

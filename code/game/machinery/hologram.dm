@@ -36,7 +36,7 @@ var/list/holopads = list()
 	icon_state = "holopad0"
 
 	layer = TURF_LAYER+0.1 //Preventing mice and drones from sneaking under them.
-
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
 	var/mob/living/silicon/ai/master//Which AI, if any, is controlling the object? Only one AI may control a hologram at any time.
 	var/last_request = 0 //to prevent request spam. ~Carn
 	var/holo_range = 5 // Change to change how far the AI can move away from the holopad before deactivating.
@@ -45,13 +45,13 @@ var/list/holopads = list()
 	..()
 	holopads += src
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/holopad(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/circuitboard/holopad(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
 /obj/machinery/hologram/holopad/RefreshParts()
 	var/holograph_range = 4
-	for(var/obj/item/weapon/stock_parts/capacitor/B in component_parts)
+	for(var/obj/item/stock_parts/capacitor/B in component_parts)
 		holograph_range += 1 * B.rating
 	holo_range = holograph_range
 

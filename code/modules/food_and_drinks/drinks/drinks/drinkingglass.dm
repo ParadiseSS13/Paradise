@@ -1,6 +1,6 @@
 
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass
+/obj/item/reagent_containers/food/drinks/drinkingglass
 	name = "glass"
 	desc = "Your standard drinking glass."
 	icon_state = "glass_empty"
@@ -13,9 +13,9 @@
 	burn_state = FLAMMABLE
 	burntime = 5
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/egg)) //breaking eggs
-		var/obj/item/weapon/reagent_containers/food/snacks/egg/E = I
+/obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
+		var/obj/item/reagent_containers/food/snacks/egg/E = I
 		if(reagents)
 			if(reagents.total_volume >= reagents.maximum_volume)
 				to_chat(user, "<span class='notice'>[src] is full.</span>")
@@ -27,16 +27,16 @@
 	else
 		..()
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/fire_act()
+/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act()
 	if(!reagents.total_volume)
 		return
 	..()
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/burn()
+/obj/item/reagent_containers/food/drinks/drinkingglass/burn()
 	reagents.clear_reagents()
 	extinguish()
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
+/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
 	overlays.Cut()
 	if(reagents.reagent_list.len)
 		var/datum/reagent/R = reagents.get_master_reagent()
@@ -54,15 +54,15 @@
 		desc = "Your standard drinking glass."
 
 // for /obj/machinery/vending/sovietsoda
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/soda
+/obj/item/reagent_containers/food/drinks/drinkingglass/soda
 	list_reagents = list("sodawater" = 50)
 
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/cola
+/obj/item/reagent_containers/food/drinks/drinkingglass/cola
 	list_reagents = list("cola" = 50)
 
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/devilskiss
+/obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss
 	list_reagents = list("devilskiss" = 50)
 	
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/alliescocktail
+/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 50)

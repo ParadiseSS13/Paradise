@@ -101,8 +101,8 @@
 	name = "Move Small Containers"
 	id = "boxes"
 	blacklist = null
-	whitelist = list(/obj/item/weapon/storage, /obj/item/weapon/moneybag, /obj/item/weapon/evidencebag,
-					/obj/item/weapon/storage/bag/tray, /obj/item/pizzabox, /obj/item/weapon/clipboard,
+	whitelist = list(/obj/item/storage, /obj/item/moneybag, /obj/item/evidencebag,
+					/obj/item/storage/bag/tray, /obj/item/pizzabox, /obj/item/clipboard,
 					/obj/item/smallDelivery, /obj/structure/bigDelivery)
 
 /datum/cargoprofile/cargo
@@ -138,46 +138,46 @@
 	whitelist = list(/obj/item/stack/cable_coil,/obj/item/stack/rods,
 					/obj/item/stack/sheet/metal,/obj/item/stack/sheet/plasteel,
 					/obj/item/stack/sheet/glass,/obj/item/stack/sheet/rglass,
-					/obj/item/stack/tile,/obj/item/weapon/light)
+					/obj/item/stack/tile,/obj/item/light)
 	//todo: maybe stack things while we're here?
 
 /datum/cargoprofile/exotics
 	name = "Exotic materials"
 	id = "exotics"
 	blacklist = null
-	whitelist = list(/obj/item/weapon/coin, /obj/item/stack/spacecash, /obj/item/seeds,
+	whitelist = list(/obj/item/coin, /obj/item/stack/spacecash, /obj/item/seeds,
 					/obj/item/stack/sheet/mineral,/obj/item/stack/sheet/wood,/obj/item/stack/sheet/leather)
 
 /datum/cargoprofile/organics
 	name = "Organics, chemicals, and Paraphernalia"
 	id = "organics"
 	blacklist = null
-	whitelist = list(/obj/item/weapon/tank,/obj/item/weapon/reagent_containers,
-					/obj/item/stack/medical,/obj/item/weapon/storage/pill_bottle,/obj/item/weapon/gun/syringe,
-					/obj/item/weapon/grenade/plastic/c4,/obj/item/weapon/grenade,/obj/item/ammo_box,
-					/obj/item/weapon/gun/grenadelauncher,/obj/item/weapon/flamethrower,	/obj/item/weapon/lighter,
-					/obj/item/weapon/match,/obj/item/weapon/weldingtool)
+	whitelist = list(/obj/item/tank,/obj/item/reagent_containers,
+					/obj/item/stack/medical,/obj/item/storage/pill_bottle,/obj/item/gun/syringe,
+					/obj/item/grenade/plastic/c4,/obj/item/grenade,/obj/item/ammo_box,
+					/obj/item/gun/grenadelauncher,/obj/item/flamethrower,	/obj/item/lighter,
+					/obj/item/match,/obj/item/weldingtool)
 
 /datum/cargoprofile/food
 	name = "Food"
 	id = "food"
 	blacklist = null // something should probably go here
-	whitelist = list(/obj/item/weapon/reagent_containers/food)
+	whitelist = list(/obj/item/reagent_containers/food)
 
 /datum/cargoprofile/chemical
 	name = "Chemicals and Paraphernalia"
 	id = "chemical"
-	blacklist = list(/obj/item/weapon/reagent_containers/food)
-	whitelist = list(/obj/item/weapon/reagent_containers,/obj/item/stack/medical,/obj/item/weapon/storage/pill_bottle,
-					/obj/item/weapon/gun/syringe,/obj/item/weapon/grenade/chem_grenade,/obj/item/weapon/dnainjector,
-					/obj/item/weapon/storage/belt/medical,/obj/item/weapon/storage/firstaid,/obj/item/weapon/implanter)
+	blacklist = list(/obj/item/reagent_containers/food)
+	whitelist = list(/obj/item/reagent_containers,/obj/item/stack/medical,/obj/item/storage/pill_bottle,
+					/obj/item/gun/syringe,/obj/item/grenade/chem_grenade,/obj/item/dnainjector,
+					/obj/item/storage/belt/medical,/obj/item/storage/firstaid,/obj/item/implanter)
 
 /datum/cargoprofile/pressure
 	name = "air tanks"
 	id = "pressure"
 	blacklist = null
-	whitelist = list(/obj/item/weapon/tank,/obj/machinery/portable_atmospherics,
-					/obj/item/weapon/flamethrower)
+	whitelist = list(/obj/item/tank,/obj/machinery/portable_atmospherics,
+					/obj/item/flamethrower)
 					//Am I missing any?
 /datum/cargoprofile/pressure/empty
 	name = "empty air tanks"
@@ -187,11 +187,11 @@
 	contains(var/atom/A)
 		if(..())
 			var/pressure = ONE_ATMOSPHERE * 10 // In case of fallthrough, fail test
-			if(istype(A,/obj/item/weapon/tank))
-				var/obj/item/weapon/tank/T = A
+			if(istype(A,/obj/item/tank))
+				var/obj/item/tank/T = A
 				pressure = T.air_contents.return_pressure()
-			if(istype(A,/obj/item/weapon/flamethrower))
-				var/obj/item/weapon/flamethrower/T = A
+			if(istype(A,/obj/item/flamethrower))
+				var/obj/item/flamethrower/T = A
 				if(!T.ptank)
 					return 0
 				pressure = T.ptank.air_contents.return_pressure()
@@ -212,11 +212,11 @@
 	contains(var/atom/A)
 		if(..())
 			var/pressure = 0 // In case of fallthrough, fail test
-			if(istype(A,/obj/item/weapon/tank))
-				var/obj/item/weapon/tank/T = A
+			if(istype(A,/obj/item/tank))
+				var/obj/item/tank/T = A
 				pressure = T.air_contents.return_pressure()
-			if(istype(A,/obj/item/weapon/flamethrower))
-				var/obj/item/weapon/flamethrower/T = A
+			if(istype(A,/obj/item/flamethrower))
+				var/obj/item/flamethrower/T = A
 				if(!T.ptank)
 					return 0
 				pressure = T.ptank.air_contents.return_pressure()
@@ -232,44 +232,44 @@
 /datum/cargoprofile/clothing
 	name = "Crew Kit"
 	id = "clothing"
-	blacklist = list(/obj/item/weapon/tank/plasma,/obj/item/weapon/tank/anesthetic, // the rest are air tanks
+	blacklist = list(/obj/item/tank/plasma,/obj/item/tank/anesthetic, // the rest are air tanks
 					/obj/item/clothing/mask/facehugger) // NOT CLOTHING AT ALLLLL
-	whitelist = list(/obj/item/clothing,/obj/item/weapon/storage/belt,/obj/item/weapon/storage/backpack,
-					/obj/item/device/radio/headset,/obj/item/device/pda,/obj/item/weapon/card/id,/obj/item/weapon/tank,
-					/obj/item/weapon/restraints/handcuffs, /obj/item/weapon/restraints/legcuffs)
+	whitelist = list(/obj/item/clothing,/obj/item/storage/belt,/obj/item/storage/backpack,
+					/obj/item/device/radio/headset,/obj/item/device/pda,/obj/item/card/id,/obj/item/tank,
+					/obj/item/restraints/handcuffs, /obj/item/restraints/legcuffs)
 
 /datum/cargoprofile/trash
 	name = "Trash"
 	id = "trash"
 	//Note that this filters out blueprints because they are a paper item.  Do NOT throw out the station blueprints unless you be trollin'.
 	blacklist = null
-	whitelist = list(/obj/item/trash,/obj/item/toy,/obj/item/weapon/reagent_containers/food/snacks/ectoplasm,/obj/item/weapon/grown/bananapeel,/obj/item/weapon/broken_bottle,/obj/item/weapon/bikehorn,
-					/obj/item/weapon/cigbutt,/obj/item/weapon/poster/random_contraband,/obj/item/weapon/grown/corncob,/obj/item/weapon/paper,/obj/item/weapon/shard,
-					/obj/item/weapon/sord,/obj/item/weapon/photo,/obj/item/weapon/folder,
-					/obj/item/areaeditor/blueprints,/obj/item/weapon/poster/random_contraband,/obj/item/weapon/kitchen,/obj/item/weapon/book,/obj/item/clothing/mask/facehugger)
+	whitelist = list(/obj/item/trash,/obj/item/toy,/obj/item/reagent_containers/food/snacks/ectoplasm,/obj/item/grown/bananapeel,/obj/item/broken_bottle,/obj/item/bikehorn,
+					/obj/item/cigbutt,/obj/item/poster/random_contraband,/obj/item/grown/corncob,/obj/item/paper,/obj/item/shard,
+					/obj/item/sord,/obj/item/photo,/obj/item/folder,
+					/obj/item/areaeditor/blueprints,/obj/item/poster/random_contraband,/obj/item/kitchen,/obj/item/book,/obj/item/clothing/mask/facehugger)
 
 /datum/cargoprofile/weapons
 	name = "Weapons & Illegals"
 	id = "weapons"
 	blacklist = null
 	//This one is hard since 'weapon contains a lot of things better categorized as devices
-	whitelist = list(/obj/item/weapon/banhammer,/obj/item/weapon/sord,/obj/item/weapon/claymore,/obj/item/weapon/holo/esword,
-					/obj/item/weapon/flamethrower,/obj/item/weapon/grenade,/obj/item/weapon/gun,/obj/item/weapon/hatchet,/obj/item/weapon/katana,
-					/obj/item/weapon/kitchen/knife,/obj/item/weapon/melee,/obj/item/weapon/nullrod,/obj/item/weapon/pickaxe,/obj/item/weapon/twohanded,
-					/obj/item/weapon/grenade/plastic/c4,/obj/item/weapon/scalpel,/obj/item/weapon/shield,/obj/item/weapon/grown/nettle/death)
+	whitelist = list(/obj/item/banhammer,/obj/item/sord,/obj/item/claymore,/obj/item/holo/esword,
+					/obj/item/flamethrower,/obj/item/grenade,/obj/item/gun,/obj/item/hatchet,/obj/item/katana,
+					/obj/item/kitchen/knife,/obj/item/melee,/obj/item/nullrod,/obj/item/pickaxe,/obj/item/twohanded,
+					/obj/item/grenade/plastic/c4,/obj/item/scalpel,/obj/item/shield,/obj/item/grown/nettle/death)
 
 /datum/cargoprofile/tools
 	name = "Devices & Tools"
 	id = "tools"
 	blacklist = null
-	whitelist = list(/obj/item/device,/obj/item/weapon/card,/obj/item/weapon/cartridge,/obj/item/weapon/cautery,/obj/item/weapon/stock_parts/cell,/obj/item/weapon/circuitboard,
-					/obj/item/weapon/aiModule,/obj/item/weapon/airalarm_electronics,/obj/item/weapon/airlock_electronics,/obj/item/weapon/circular_saw,
-					/obj/item/weapon/crowbar,/obj/item/weapon/disk,/obj/item/weapon/firealarm_electronics,/obj/item/weapon/hand_tele,
-					/obj/item/weapon/hand_labeler,/obj/item/weapon/hemostat,/obj/item/weapon/mop,/obj/item/weapon/locator,/obj/item/weapon/cultivator,
-					/obj/item/stack/packageWrap,/obj/item/weapon/pen,/obj/item/weapon/pickaxe,/obj/item/weapon/pinpointer,
-					/obj/item/weapon/rcd,/obj/item/weapon/rcd_ammo,/obj/item/weapon/retractor,/obj/item/weapon/rsf,/obj/item/weapon/scalpel,
-					/obj/item/weapon/screwdriver,/obj/item/weapon/shovel,/obj/item/weapon/soap,/obj/item/weapon/stamp,/obj/item/weapon/storage/bag/tray,/obj/item/weapon/weldingtool,
-					/obj/item/weapon/wirecutters,/obj/item/weapon/wrench,/obj/item/weapon/extinguisher)
+	whitelist = list(/obj/item/device,/obj/item/card,/obj/item/cartridge,/obj/item/cautery,/obj/item/stock_parts/cell,/obj/item/circuitboard,
+					/obj/item/aiModule,/obj/item/airalarm_electronics,/obj/item/airlock_electronics,/obj/item/circular_saw,
+					/obj/item/crowbar,/obj/item/disk,/obj/item/firealarm_electronics,/obj/item/hand_tele,
+					/obj/item/hand_labeler,/obj/item/hemostat,/obj/item/mop,/obj/item/locator,/obj/item/cultivator,
+					/obj/item/stack/packageWrap,/obj/item/pen,/obj/item/pickaxe,/obj/item/pinpointer,
+					/obj/item/rcd,/obj/item/rcd_ammo,/obj/item/retractor,/obj/item/rsf,/obj/item/scalpel,
+					/obj/item/screwdriver,/obj/item/shovel,/obj/item/soap,/obj/item/stamp,/obj/item/storage/bag/tray,/obj/item/weldingtool,
+					/obj/item/wirecutters,/obj/item/wrench,/obj/item/extinguisher)
 
 /datum/cargoprofile/finished
 	name = "Completed Robots"
@@ -519,7 +519,7 @@
 	name = "Paper Shredder"
 	id = "shredder"
 	blacklist = null
-	whitelist = list(/obj/item/weapon/paper,/obj/item/weapon/book,/obj/item/weapon/clipboard,/obj/item/weapon/folder,/obj/item/weapon/photo)
+	whitelist = list(/obj/item/paper,/obj/item/book,/obj/item/clipboard,/obj/item/folder,/obj/item/photo)
 	universal = 1
 
 	dedicated_path = /obj/machinery/programmable/unary/shredder
@@ -569,23 +569,23 @@
 
 
 	outlet_reaction(var/atom/W,var/turf/D)
-		if(istype(W,/obj/item/weapon/paper/crumpled))
+		if(istype(W,/obj/item/paper/crumpled))
 			qdel(W)
 			return
-		if(istype(W,/obj/item/weapon/clipboard) || istype(W,/obj/item/weapon/folder))
+		if(istype(W,/obj/item/clipboard) || istype(W,/obj/item/folder))
 			// destroy folder, various effects on contents
 			for(var/obj/item/I in W.contents)
 				if(prob(25))//JUNK IT
 					qdel(I)
 				else if(prob(50))  //We've been over this.  I can't just take it apart with a crowbar.
-					var/obj/item/weapon/paper/crumpled/P = new(master.loc)
+					var/obj/item/paper/crumpled/P = new(master.loc)
 					if(I.name)
 						P.name = garbletext(I.name)
 					if(prob(66))
 						P.fingerprints = I.fingerprints
 						P.fingerprintshidden = I.fingerprintshidden
-					if(istype(I,/obj/item/weapon/paper))
-						var/obj/item/weapon/paper/O = I
+					if(istype(I,/obj/item/paper))
+						var/obj/item/paper/O = I
 						P.info = garble_keeptags(O.info)
 					qdel(I)
 					..(P,D)
@@ -594,18 +594,18 @@
 			qdel(W) //destroy container
 			return
 		if(prob(50)) //JUNK IT NOW!
-			var/obj/item/weapon/paper/crumpled/P = new(master.loc)
+			var/obj/item/paper/crumpled/P = new(master.loc)
 			P.name = W.name
 			var/obj/item/I = W
 			if(prob(66))
 				P.fingerprints = I.fingerprints
 				P.fingerprintshidden = I.fingerprintshidden
-			if(istype(I,/obj/item/weapon/paper))
-				var/obj/item/weapon/paper/O = I
+			if(istype(I,/obj/item/paper))
+				var/obj/item/paper/O = I
 				if(O.info)
 					P.info = garble_keeptags(O.info)
-			if(istype(I,/obj/item/weapon/book))
-				var/obj/item/weapon/book/B = I
+			if(istype(I,/obj/item/book))
+				var/obj/item/book/B = I
 				if(B.dat)
 					P.info = garble_keeptags(B.dat)
 				if(B.carved && B.store)

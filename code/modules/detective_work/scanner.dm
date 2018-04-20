@@ -70,7 +70,7 @@
 		spawn(100)
 
 			// Create our paper
-			var/obj/item/weapon/paper/P = new(get_turf(src))
+			var/obj/item/paper/P = new(get_turf(src))
 			P.name = "paper- 'Scanner Report'"
 			P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
 			P.info += jointext(log, "<BR>")
@@ -159,7 +159,7 @@
 		spawn(0)
 
 			var/found_something = 0
-			add_log("<B>[worldtime2text()][get_timestamp()] - [target_name]</B>", 0)
+			add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", 0)
 
 			// Fingerprints
 			if(fingerprints && fingerprints.len)

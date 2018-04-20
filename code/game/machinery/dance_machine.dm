@@ -118,7 +118,7 @@
 	add_fingerprint(usr)
 	switch(href_list["action"])
 		if("toggle")
-			if(qdeleted(src))
+			if(QDELETED(src))
 				return
 			if(!active)
 				if(stop > world.time)
@@ -143,7 +143,7 @@
 			for(var/datum/track/S in songs)
 				available[S.song_name] = S
 			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
-			if(qdeleted(src) || !selected || !istype(available[selected], /datum/track))
+			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
 				return
 			selection = available[selected]
 			updateUsrDialog()
@@ -165,7 +165,7 @@
 			deejay('sound/ai/harmalarm.ogg')
 
 /obj/machinery/disco/proc/deejay(S)
-	if(qdeleted(src) || !active || charge < 5)
+	if(QDELETED(src) || !active || charge < 5)
 		to_chat(usr, "<span class='warning'>The device is not able to play more DJ sounds at this time.</span>")
 		return
 	charge -= 5
@@ -241,7 +241,7 @@
 
 /obj/machinery/disco/proc/lights_spin()
 	for(var/i in 1 to 25)
-		if(qdeleted(src) || !active)
+		if(QDELETED(src) || !active)
 			return
 		var/obj/effect/overlay/sparkles/S = new /obj/effect/overlay/sparkles(src)
 		S.alpha = 0
@@ -266,7 +266,7 @@
 		reveal.alpha = 255
 	while(active)
 		for(var/obj/item/device/flashlight/spotlight/glow in spotlights) // The multiples reflects custom adjustments to each colors after dozens of tests
-			if(qdeleted(src) || !active || qdeleted(glow))
+			if(QDELETED(src) || !active || QDELETED(glow))
 				return
 			if(glow.light_color == "red")
 				glow.light_color = "nw"

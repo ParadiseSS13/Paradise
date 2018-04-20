@@ -48,7 +48,7 @@
 /obj/machinery/holosign_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/holosign_switch/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/machinery/holosign_switch/attackby(obj/item/W, mob/user as mob, params)
 	if(istype(W, /obj/item/device/detective_scanner))
 		return
 	return src.attack_hand(user)

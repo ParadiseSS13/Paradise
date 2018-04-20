@@ -26,7 +26,7 @@
 /mob/living/simple_animal/pony/Life()
 	..()
 	if(stat == 2)
-		new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(src.loc)
+		new /obj/item/reagent_containers/food/snacks/ectoplasm(src.loc)
 		src.visible_message("<span class='warning'>\The [src] lets out a contented sigh as their form unwinds.</span>")
 		src.ghostize()
 		qdel(src)

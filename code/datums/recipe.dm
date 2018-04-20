@@ -35,10 +35,10 @@
 
 /datum/recipe
 	var/list/reagents // example:  = list("berryjuice" = 5) // do not list same reagent twice
-	var/list/items // example: =list(/obj/item/weapon/crowbar, /obj/item/weapon/welder) // place /foo/bar before /foo
-	var/result //example: = /obj/item/weapon/reagent_containers/food/snacks/donut
+	var/list/items // example: =list(/obj/item/crowbar, /obj/item/welder) // place /foo/bar before /foo
+	var/result //example: = /obj/item/reagent_containers/food/snacks/donut
 	var/time = 100 // 1/10 part of second
-	var/byproduct		// example: = /obj/item/weapon/kitchen/mould		// byproduct to return, such as a mould or trash
+	var/byproduct		// example: = /obj/item/kitchen/mould		// byproduct to return, such as a mould or trash
 
 /datum/recipe/proc/check_reagents(datum/reagents/avail_reagents) //1=precisely, 0=insufficiently, -1=superfluous
 	. = 1

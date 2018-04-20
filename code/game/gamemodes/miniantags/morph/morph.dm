@@ -23,6 +23,7 @@
 	maxHealth = 150
 	health = 150
 	environment_smash = 1
+	obj_damage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	see_in_dark = 8
@@ -31,7 +32,7 @@
 	wander = 0
 	attacktext = "glomps"
 	attack_sound = 'sound/effects/blobattack.ogg'
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/slab = 2)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 
 	var/morphed = 0
 	var/atom/movable/form = null

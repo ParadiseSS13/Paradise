@@ -9,7 +9,7 @@
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/mob/living/carbon/human/attached = null
 	var/mode = IV_INJECTING
-	var/obj/item/weapon/reagent_containers/beaker = null
+	var/obj/item/reagent_containers/beaker = null
 	var/transfer_amount = 5
 	var/possible_transfer_amounts = list(1,5,10)
 
@@ -88,8 +88,8 @@
 			to_chat(usr, "<span class='warning'>There's nothing attached to the IV drip!</span>")
 
 
-/obj/machinery/iv_drip/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/reagent_containers))
+/obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/reagent_containers))
 		if(beaker)
 			to_chat(user, "<span class='warning'>There is already a reagent container loaded!</span>")
 			return

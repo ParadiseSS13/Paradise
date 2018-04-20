@@ -23,7 +23,6 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
-	taste_message = "bland food"
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	if(!(M.mind in ticker.mode.vampires))
@@ -49,7 +48,7 @@
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
-	taste_message = "plant matter"
+	taste_message = "vegetables"
 
 /datum/reagent/consumable/vitamin
 	name = "Vitamin"
@@ -112,7 +111,7 @@
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#792300" // rgb: 121, 35, 0
-	taste_message = "salt"
+	taste_message = "soy"
 
 /datum/reagent/consumable/ketchup
 	name = "Ketchup"
@@ -372,7 +371,7 @@
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
-	taste_message = "ramen"
+	taste_message = "cheap ramen and memories"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
@@ -529,7 +528,7 @@
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/choc_pile(T)
+		new /obj/item/reagent_containers/food/snacks/choc_pile(T)
 
 /datum/reagent/consumable/mugwort
 	name = "Mugwort"
@@ -590,7 +589,7 @@
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/cheesewedge(T)
+		new /obj/item/reagent_containers/food/snacks/cheesewedge(T)
 
 /datum/reagent/consumable/fake_cheese
 	name = "Cheese substitute"
@@ -622,7 +621,7 @@
 
 /datum/reagent/consumable/weird_cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge(T)
+		new /obj/item/reagent_containers/food/snacks/weirdcheesewedge(T)
 
 /datum/reagent/consumable/beans
 	name = "Refried beans"
@@ -878,13 +877,13 @@
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
 	if(volume >= 10 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(T)
+		new /obj/item/reagent_containers/food/snacks/ectoplasm(T)
 
 ///Vomit///
 
 /datum/reagent/consumable/bread/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/breadslice(T)
+		new /obj/item/reagent_containers/food/snacks/breadslice(T)
 
 /datum/reagent/vomit
 	name = "Vomit"

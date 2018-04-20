@@ -68,7 +68,7 @@
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
 	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
-	var/obj/item/weapon/stock_parts/cell/cell = null
+	var/obj/item/stock_parts/cell/cell = null
 	var/stun_strength = 5
 	var/stun_cost = 2000
 
@@ -113,8 +113,8 @@
 	if(cell)
 		overlays += "gloves_cell"
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/weapon/W, mob/living/user, params)
-	if(istype(W, /obj/item/weapon/stock_parts/cell))
+/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
+	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] is stuck to you!</span>")

@@ -2,9 +2,9 @@
 	name = "alien"
 	icon_state = "alien_s"
 
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
-	var/obj/item/weapon/r_store = null
-	var/obj/item/weapon/l_store = null
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 5, /obj/item/stack/sheet/animalhide/xeno = 1)
+	var/obj/item/r_store = null
+	var/obj/item/l_store = null
 	var/caste = ""
 	var/alt_icon = 'icons/mob/alienleap.dmi' //used to switch between the two alien icon files.
 	var/next_attack = 0

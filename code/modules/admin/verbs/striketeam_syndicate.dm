@@ -135,28 +135,28 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)
 
-	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(src), slot_back)
+	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45)
 
 	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/x4(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
 	if(!syndicate_leader_selected)
-		equip_to_slot_or_del(new /obj/item/weapon/grenade/plastic/x4(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/weapon/card/emag(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/card/emag(src), slot_in_backpack)
 	else
-		equip_to_slot_or_del(new /obj/item/weapon/pinpointer(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/weapon/disk/nuclear(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/disk/nuclear(src), slot_in_backpack)
 
-	equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword/saber(src), slot_l_store)
-	equip_to_slot_or_del(new /obj/item/weapon/grenade/empgrenade(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen/double/full(src), slot_s_store)
-	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol/m1911(src), slot_belt)
+	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber(src), slot_l_store)
+	equip_to_slot_or_del(new /obj/item/grenade/empgrenade(src), slot_r_store)
+	equip_to_slot_or_del(new /obj/item/tank/emergency_oxygen/double/full(src), slot_s_store)
+	equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol/m1911(src), slot_belt)
 
-	equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/l6_saw(src), slot_r_hand)
+	equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
 
-	var/obj/item/weapon/card/id/syndicate/W = new(src) //Untrackable by AI
+	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
 	W.name = "[real_name]'s ID Card"
 	W.icon_state = "syndie"
 	W.access = get_all_accesses()//They get full station access because obviously the syndicate has HAAAX, and can make special IDs for their most elite members.

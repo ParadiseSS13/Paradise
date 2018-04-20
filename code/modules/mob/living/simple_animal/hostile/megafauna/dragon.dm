@@ -45,7 +45,7 @@ Difficulty: Medium
 	ranged = 1
 	pixel_x = -16
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
-	butcher_results = list(/obj/item/weapon/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
+	butcher_results = list(/obj/item/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = 0
 	var/swoop_cooldown = 0
 	medal_type = MEDAL_PREFIX
@@ -218,7 +218,7 @@ Difficulty: Medium
 		fire_rain()
 
 	icon_state = "dragon"
-	if(swoop_target && !qdeleted(swoop_target) && swoop_target.z == src.z)
+	if(swoop_target && !QDELETED(swoop_target) && swoop_target.z == src.z)
 		tturf = get_turf(swoop_target)
 	else
 		tturf = get_turf(src)
@@ -233,7 +233,7 @@ Difficulty: Medium
 			L.gib()
 		else
 			L.adjustBruteLoss(75)
-			if(L && !qdeleted(L)) // Some mobs are deleted on death
+			if(L && !QDELETED(L)) // Some mobs are deleted on death
 				var/throw_dir = get_dir(src, L)
 				if(L.loc == loc)
 					throw_dir = pick(alldirs)
@@ -267,6 +267,7 @@ Difficulty: Medium
 	maxHealth = 200
 	health = 200
 	faction = list("neutral")
+	obj_damage = 80
 	melee_damage_upper = 30
 	melee_damage_lower = 30
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)

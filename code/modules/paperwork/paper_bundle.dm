@@ -1,4 +1,4 @@
-/obj/item/weapon/paper_bundle
+/obj/item/paper_bundle
 	name = "paper bundle"
 	gender = PLURAL
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -16,13 +16,13 @@
 	var/screen = 0
 
 
-/obj/item/weapon/paper_bundle/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	var/obj/item/weapon/paper/P
-	if(istype(W, /obj/item/weapon/paper))
+	var/obj/item/paper/P
+	if(istype(W, /obj/item/paper))
 		P = W
-		if(istype(P, /obj/item/weapon/paper/carbon))
-			var/obj/item/weapon/paper/carbon/C = P
+		if(istype(P, /obj/item/paper/carbon))
+			var/obj/item/paper/carbon/C = P
 			if(!C.iscopy && !C.copied)
 				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
 				add_fingerprint(user)
@@ -38,16 +38,16 @@
 			var/mob/living/carbon/human/H = user
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
-	else if(istype(W, /obj/item/weapon/photo))
+	else if(istype(W, /obj/item/photo))
 		amount++
 		if(screen == 2)
 			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
-	else if(istype(W, /obj/item/weapon/lighter))
+	else if(istype(W, /obj/item/lighter))
 		burnpaper(W, user)
-	else if(istype(W, /obj/item/weapon/paper_bundle))
+	else if(istype(W, /obj/item/paper_bundle))
 		user.unEquip(W)
 		for(var/obj/O in W)
 			O.loc = src
@@ -60,7 +60,7 @@
 	else
 		if(istype(W, /obj/item/stack/tape_roll))
 			return 0
-		if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/toy/crayon))
+		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=[name]") //Closes the dialog
 		P = src[page]
 		P.attackby(W, user, params)
@@ -72,11 +72,11 @@
 	return
 
 
-/obj/item/weapon/paper_bundle/proc/burnpaper(obj/item/weapon/lighter/P, mob/user)
+/obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
 
 	if(P.lit && !user.restrained())
-		if(istype(P, /obj/item/weapon/lighter/zippo))
+		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
 		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like \he's trying to burn it!", \
@@ -96,34 +96,34 @@
 			else
 				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
-/obj/item/weapon/paper_bundle/examine(mob/user)
+/obj/item/paper_bundle/examine(mob/user)
 	if(..(user, 1))
 		src.show_content(user)
 	else
 		to_chat(user, "<span class='notice'>It is too far away.</span>")
 
-/obj/item/weapon/paper_bundle/proc/show_content(mob/user as mob)
+/obj/item/paper_bundle/proc/show_content(mob/user as mob)
 	var/dat
-	var/obj/item/weapon/W = src[page]
+	var/obj/item/W = src[page]
 	switch(screen)
 		if(0)
 			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/weapon/paper)) ? "paper" : "photo"]</A></DIV>"
+			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
 			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
 		if(1)
 			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/weapon/paper)) ? "paper" : "photo"]</A></DIV>"
+			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
 			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
 		if(2)
 			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/weapon/paper)) ? "paper" : "photo"]</A></DIV><BR><HR>"
+			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV><BR><HR>"
 			dat+= "<DIV STYLE='float;left; text-align:right; with:33.33333%'></DIV>"
-	if(istype(src[page], /obj/item/weapon/paper))
-		var/obj/item/weapon/paper/P = W
+	if(istype(src[page], /obj/item/paper))
+		var/obj/item/paper/P = W
 		dat += P.show_content(usr, view = 0)
 		usr << browse(dat, "window=[name]")
-	else if(istype(src[page], /obj/item/weapon/photo))
-		var/obj/item/weapon/photo/P = W
+	else if(istype(src[page], /obj/item/photo))
+		var/obj/item/photo/P = W
 		usr << browse_rsc(P.img, "tmp_photo.png")
 		usr << browse(dat + "<html><head><title>[P.name]</title></head>" \
 		+ "<body style='overflow:hidden'>" \
@@ -131,15 +131,15 @@
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ]"\
 		+ "</body></html>", "window=[name]")
 
-/obj/item/weapon/paper_bundle/attack_self(mob/user as mob)
+/obj/item/paper_bundle/attack_self(mob/user as mob)
 	src.show_content(user)
 	add_fingerprint(usr)
 	update_icon()
 	return
 
-/obj/item/weapon/paper_bundle/Topic(href, href_list)
+/obj/item/paper_bundle/Topic(href, href_list)
 	..()
-	if((src in usr.contents) || (istype(src.loc, /obj/item/weapon/folder) && (src.loc in usr.contents)))
+	if((src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents)))
 		usr.set_machine(src)
 		if(href_list["next_page"])
 			if(page == amount)
@@ -160,11 +160,11 @@
 			page--
 			playsound(src.loc, "pageturn", 50, 1)
 		if(href_list["remove"])
-			var/obj/item/weapon/W = src[page]
+			var/obj/item/W = src[page]
 			usr.put_in_hands(W)
 			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
 			if(amount == 1)
-				var/obj/item/weapon/paper/P = src[1]
+				var/obj/item/paper/P = src[1]
 				usr.unEquip(src)
 				usr.put_in_hands(P)
 				qdel(src)
@@ -183,7 +183,7 @@
 
 
 
-/obj/item/weapon/paper_bundle/verb/rename()
+/obj/item/paper_bundle/verb/rename()
 	set name = "Rename bundle"
 	set category = "Object"
 	set src in usr
@@ -195,7 +195,7 @@
 	return
 
 
-/obj/item/weapon/paper_bundle/verb/remove_all()
+/obj/item/paper_bundle/verb/remove_all()
 	set name = "Loose bundle"
 	set category = "Object"
 	set src in usr
@@ -211,9 +211,9 @@
 	return
 
 
-/obj/item/weapon/paper_bundle/update_icon()
+/obj/item/paper_bundle/update_icon()
 	if(contents.len)
-		var/obj/item/weapon/paper/P = src[1]
+		var/obj/item/paper/P = src[1]
 		icon_state = P.icon_state
 		overlays = P.overlays
 	underlays = 0
@@ -221,7 +221,7 @@
 	var/photo
 	for(var/obj/O in src)
 		var/image/img = image('icons/obj/bureaucracy.dmi')
-		if(istype(O, /obj/item/weapon/paper))
+		if(istype(O, /obj/item/paper))
 			img.icon_state = O.icon_state
 			img.pixel_x -= min(1*i, 2)
 			img.pixel_y -= min(1*i, 2)
@@ -229,8 +229,8 @@
 			pixel_y = min(  1*i, 2)
 			underlays += img
 			i++
-		else if(istype(O, /obj/item/weapon/photo))
-			var/obj/item/weapon/photo/Ph = O
+		else if(istype(O, /obj/item/photo))
+			var/obj/item/photo/Ph = O
 			img = Ph.tiny
 			photo = 1
 			overlays += img

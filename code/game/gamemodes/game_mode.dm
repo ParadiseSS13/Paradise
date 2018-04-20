@@ -29,7 +29,6 @@
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
-	var/datum/cult_info/cultdat //here instead of cult for adminbus purposes
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
@@ -164,7 +163,7 @@
 						T.purpose = "Payment"
 						T.amount = pay
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
 						M.mind.initial_account.transaction_log.Add(T)
 						msg += "You have been sent the $[pay], as agreed."
@@ -281,10 +280,11 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-			candidates += player.mind
-			players -= player
+		if(!player.skip_antag)
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
+				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+				candidates += player.mind
+				players -= player
 
 	// If we don't have enough antags, draft people who voted for the round.
 	if(candidates.len < recommended_enemies)
@@ -374,7 +374,6 @@
 
 /datum/game_mode/New()
 	newscaster_announcements = pick(newscaster_standard_feeds)
-	cultdat = setupcult()
 
 //////////////////////////
 //Reports player logouts//

@@ -268,7 +268,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 			return
 		msg_admin_attack("[key_name_admin(user)] [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
 
-/proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1)
+/proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -301,13 +301,13 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying )
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break
 	if(progress)
 		qdel(progbar)
 
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null)
 	if(!user)
 		return 0
 	var/atom/Tloc = null
@@ -342,7 +342,7 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 			drifting = 0
 			Uloc = user.loc
 
-		if(!user || user.stat || user.weakened || user.stunned  || (!drifting && user.loc != Uloc))
+		if(!user || user.stat || user.weakened || user.stunned  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break
 
@@ -369,6 +369,19 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 		var/mob/living/carbon/human/H = A
 		if(H.get_species() == species_name)
 			. = TRUE
+
+/proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
+	var/turf/T = get_turf(target)
+	if(!T)
+		CRASH("attempt to spawn atom type: [spawn_type] in nullspace")
+
+	var/list/new_args = list(T)
+	if(extra_args)
+		new_args += extra_args
+
+	for(var/j in 1 to amount)
+		var/atom/X = new spawn_type(arglist(new_args))
+		X.admin_spawned = admin_spawn
 
 /proc/admin_mob_info(mob/M, mob/user = usr)
 	if(!ismob(M))

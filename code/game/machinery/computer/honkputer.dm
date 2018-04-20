@@ -7,7 +7,7 @@
 	icon_screen = "honkcomms"
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(access_clown)
-	circuit = /obj/item/weapon/circuitboard/HONKputer
+	circuit = /obj/item/circuitboard/HONKputer
 	var/authenticated = 0
 	var/message_cooldown = 0
 	var/state = STATE_DEFAULT
@@ -33,7 +33,7 @@
 			src.state = STATE_DEFAULT
 		if("login")
 			var/mob/M = usr
-			var/obj/item/weapon/card/id/I = M.get_active_hand()
+			var/obj/item/card/id/I = M.get_active_hand()
 			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
@@ -94,19 +94,19 @@
 
 
 /obj/machinery/computer/HONKputer/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
-		var/obj/item/weapon/screwdriver/S = I
+	if(istype(I, /obj/item/screwdriver) && circuit)
+		var/obj/item/screwdriver/S = I
 		playsound(src.loc, S.usesound, 50, 1)
 		if(do_after(user, 20 * S.toolspeed, target = src))
 			var/obj/structure/computerframe/HONKputer/A = new /obj/structure/computerframe/HONKputer( src.loc )
-			var/obj/item/weapon/circuitboard/M = new circuit( A )
+			var/obj/item/circuitboard/M = new circuit( A )
 			A.circuit = M
 			A.anchored = 1
 			for(var/obj/C in src)
 				C.loc = src.loc
 			if(src.stat & BROKEN)
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-				new /obj/item/weapon/shard( src.loc )
+				new /obj/item/shard( src.loc )
 				A.state = 3
 				A.icon_state = "3"
 			else

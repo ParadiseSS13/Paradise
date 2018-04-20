@@ -19,6 +19,7 @@
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
+	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 1
 	var/mob/living/carbon/occupant = null
@@ -29,7 +30,7 @@
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	//the values in this list show how much damage will pass through, not how much will be absorbed.
 	var/list/damage_absorption = list("brute"=0.8,"fire"=1.2,"bullet"=0.9,"laser"=1,"energy"=1,"bomb"=1)
-	var/obj/item/weapon/stock_parts/cell/cell
+	var/obj/item/stock_parts/cell/cell
 	var/state = 0
 	var/list/log = new
 	var/last_message = 0
@@ -119,7 +120,7 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(var/obj/item/weapon/stock_parts/cell/C=null)
+/obj/mecha/proc/add_cell(var/obj/item/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
@@ -333,11 +334,7 @@
 
 		else if(istype(obstacle, /obj/structure/grille/))
 			var/obj/structure/grille/G = obstacle
-			G.health = (0.25*initial(G.health))
-			G.broken = 1
-			G.icon_state = "[initial(G.icon_state)]-b"
-			G.density = 0
-			new /obj/item/stack/rods(get_turf(G.loc))
+			G.obj_break()
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/table))
@@ -346,7 +343,7 @@
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/rack))
-			new /obj/item/weapon/rack_parts(obstacle.loc)
+			new /obj/item/rack_parts(obstacle.loc)
 			qdel(obstacle)
 			breakthrough = 1
 
@@ -676,7 +673,7 @@
 ////// AttackBy //////
 //////////////////////
 
-/obj/mecha/attackby(obj/item/weapon/W, mob/user, params)
+/obj/mecha/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/device/mmi))
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-MMI interface initialized successfuly")
@@ -699,8 +696,8 @@
 	if(W.GetID())
 		if(add_req_access || maint_access)
 			if(internals_access_allowed(usr))
-				var/obj/item/weapon/card/id/id_card
-				if(istype(W, /obj/item/weapon/card/id))
+				var/obj/item/card/id/id_card
+				if(istype(W, /obj/item/card/id))
 					id_card = W
 				else
 					var/obj/item/device/pda/pda = W
@@ -763,7 +760,7 @@
 			to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
 		return
 
-	else if(istype(W, /obj/item/weapon/stock_parts/cell))
+	else if(istype(W, /obj/item/stock_parts/cell))
 		if(state==4)
 			if(!cell)
 				if(!user.drop_item())
@@ -777,7 +774,7 @@
 		return
 
 	else if(iswelder(W) && user.a_intent != INTENT_HARM)
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(health<initial(health))
 			if (WT.remove_fuel(0,user))
 				if (internal_damage & MECHA_INT_TANK_BREACH)
@@ -803,12 +800,12 @@
 		diag_hud_set_mechtracking()
 		return
 
-	else if(istype(W, /obj/item/weapon/paintkit))
+	else if(istype(W, /obj/item/paintkit))
 		if(occupant)
 			to_chat(user, "You can't customize a mech while someone is piloting it - that would be unsafe!")
 			return
 
-		var/obj/item/weapon/paintkit/P = W
+		var/obj/item/paintkit/P = W
 		var/found = null
 
 		for(var/type in P.allowed_types)
@@ -833,7 +830,7 @@
 	else
 		return attacked_by(W, user)
 
-/obj/mecha/proc/attacked_by(obj/item/I, mob/user)
+/obj/mecha/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -1278,7 +1275,7 @@
 			occupant = null
 			return
 		else
-			if(!AI.linked_core || qdeleted(AI.linked_core))
+			if(!AI.linked_core || QDELETED(AI.linked_core))
 				to_chat(AI, "<span class='userdanger'>Inactive core destroyed. Unable to return.</span>")
 				AI.linked_core = null
 				return
@@ -1331,7 +1328,7 @@
 	return 0
 
 
-/obj/mecha/check_access(obj/item/weapon/card/id/I, list/access_list)
+/obj/mecha/check_access(obj/item/card/id/I, list/access_list)
 	if(!istype(access_list))
 		return 1
 	if(!access_list.len) //no requirements

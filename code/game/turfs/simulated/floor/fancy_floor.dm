@@ -18,7 +18,7 @@
 /turf/simulated/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
 		return
-	var/obj/item/weapon/tool
+	var/obj/item/tool
 	if(isscrewdriver(user.get_inactive_hand()))
 		tool = user.get_inactive_hand()
 	if(!tool && iscrowbar(user.get_inactive_hand()))
@@ -72,9 +72,9 @@
 /turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
-	if(istype(C, /obj/item/weapon/shovel))
-		new /obj/item/weapon/ore/glass(src)
-		new /obj/item/weapon/ore/glass(src) //Make some sand if you shovel grass
+	if(istype(C, /obj/item/shovel))
+		new /obj/item/ore/glass(src)
+		new /obj/item/ore/glass(src) //Make some sand if you shovel grass
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
@@ -91,9 +91,9 @@
 /turf/simulated/floor/basalt/attackby(obj/item/W, mob/user, params)
 	if(..())
 		return
-	if(istype(W, /obj/item/weapon/shovel))
-		new /obj/item/weapon/ore/glass/basalt(src)
-		new /obj/item/weapon/ore/glass/basalt(src)
+	if(istype(W, /obj/item/shovel))
+		new /obj/item/ore/glass/basalt(src)
+		new /obj/item/ore/glass/basalt(src)
 		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()

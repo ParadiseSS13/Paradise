@@ -13,6 +13,7 @@
 	var/list/recipes = list() // /datum/stack_recipe
 	var/singular_name
 	var/amount = 1
+	var/to_transfer = 0
 	var/max_amount //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 
@@ -26,8 +27,7 @@
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
 		usr << browse(null, "window=stack")
-	..()
-	return QDEL_HINT_HARDDEL_NOW // because qdel'd stacks act strange for cyborgs
+	return ..()
 
 /obj/item/stack/examine(mob/user)
 	if(..(user, 1))
@@ -185,7 +185,7 @@
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/weapon/storage))
+		if(istype(O, /obj/item/storage))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
@@ -195,15 +195,18 @@
 			interact(usr)
 			return
 
-/obj/item/stack/proc/use(var/used)
+/obj/item/stack/proc/use(used)
 	if(amount < used)
 		return 0
 	amount -= used
 	if(amount < 1) // Just in case a stack's amount ends up fractional somehow
+		if(isrobot(loc))
+			var/mob/living/silicon/robot/R = loc  //Horrifying cyborg snowflake code that allows stacks to GC and cyborgs not to horrendously break
+			if(locate(src) in R.module.modules)
+				R.module.modules -= src
 		if(usr)
-			usr.unEquip(src, 1)
-		spawn()
-			qdel(src)
+			usr.unEquip(src, TRUE) // this has to be unEquip() over drop_item() or something similar because of cyborgs
+		qdel(src)
 	update_icon()
 	return 1
 
@@ -228,6 +231,9 @@
 
 /obj/item/stack/proc/get_max_amount()
 	return max_amount
+
+/obj/item/stack/proc/get_amount_transferred()
+	return to_transfer
 
 /obj/item/stack/proc/split(mob/user, amt)
 	var/obj/item/stack/F = new type(loc, amt)
@@ -255,7 +261,6 @@
 		if(S.amount >= max_amount)
 			return 1
 
-		var/to_transfer
 		if(user.is_in_inactive_hand(src))
 			var/desired = input("How much would you like to transfer from this stack?", "How much?", 1) as null|num
 			if(!desired)

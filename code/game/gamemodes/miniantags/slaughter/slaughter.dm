@@ -29,6 +29,7 @@
 	health = 200
 	environment_smash = 1
 	//universal_understand = 1
+	obj_damage = 50
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	see_in_dark = 8
@@ -114,7 +115,7 @@
 	health = 500
 	melee_damage_upper = 60
 	melee_damage_lower = 60
-	environment_smash = 3 //Smashes through EVERYTHING - r-walls included
+	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
 	faction = list("cult")
 	playstyle_string = "<b><span class='userdanger'>You are a Harbringer of the Slaughter.</span> Brought forth by the servants of Nar-Sie, you have a single purpose: slaughter the heretics \
 	who do not worship your master. You may use the ability 'Blood Crawl' near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \

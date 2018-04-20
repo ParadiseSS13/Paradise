@@ -28,7 +28,7 @@
 "B" = (/turf/space,/turf/simulated/shuttle{tag = "icon-wall3 (SOUTHEAST)"; icon_state = "wall3"; dir = 6},/area/ruin/powered{name = "Shuttle"})
 "C" = (/obj/machinery/door/airlock/public/glass,/turf/simulated/floor/plating,/area/ruin/powered{name = "Shuttle"})
 "D" = (/turf/simulated/floor/plasteel{tag = "icon-bluefull"; icon_state = "bluefull"},/area/ruin/powered{name = "Shuttle"})
-"E" = (/obj/structure/table,/obj/item/weapon/storage/firstaid,/turf/simulated/floor/plasteel{tag = "icon-bluefull"; icon_state = "bluefull"},/area/ruin/powered{name = "Shuttle"})
+"E" = (/obj/structure/table,/obj/item/storage/firstaid,/turf/simulated/floor/plasteel{tag = "icon-bluefull"; icon_state = "bluefull"},/area/ruin/powered{name = "Shuttle"})
 "F" = (/obj/structure/shuttle/engine/heater,/turf/simulated/floor/plating/airless,/area/ruin/powered{name = "Shuttle"})
 "G" = (/obj/structure/shuttle/engine/propulsion,/turf/space,/area/ruin/powered{name = "Shuttle"})
 
