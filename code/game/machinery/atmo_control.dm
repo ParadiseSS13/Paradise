@@ -71,7 +71,7 @@ obj/machinery/air_sensor
 		if(istype(W, /obj/item/device/multitool))
 			update_multitool_menu(user)
 			return 1
-		if(istype(W, /obj/item/weapon/wrench))
+		if(istype(W, /obj/item/wrench))
 			if(bolts)
 				to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
 				return 1
@@ -129,13 +129,14 @@ obj/machinery/air_sensor
 
 	initialize()
 		..()
-		atmos_machinery += src
+		SSair.atmos_machinery += src
 		set_frequency(frequency)
 
 	Destroy()
-		atmos_machinery -= src
+		SSair.atmos_machinery -= src
 		if(radio_controller)
-			radio_controller.remove_object(src,frequency)
+			radio_controller.remove_object(src, frequency)
+		radio_connection = null
 		return ..()
 
 
@@ -143,7 +144,7 @@ obj/machinery/air_sensor
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
-	circuit = /obj/item/weapon/circuitboard/air_management
+	circuit = /obj/item/circuitboard/air_management
 	req_one_access_txt = "24;10"
 
 	name = "Computer"
@@ -155,6 +156,12 @@ obj/machinery/air_sensor
 
 	var/list/sensor_information = list()
 	var/datum/radio_frequency/radio_connection
+
+	Destroy()
+		if(radio_controller)
+			radio_controller.remove_object(src, frequency)
+		radio_connection = null
+		return ..()
 
 	attack_hand(mob/user)
 		if(..(user))
@@ -357,7 +364,7 @@ legend {
 		return 1
 
 	large_tank_control
-		circuit = /obj/item/weapon/circuitboard/large_tank_control
+		circuit = /obj/item/circuitboard/large_tank_control
 		req_one_access_txt = "24;10"
 		settagwhitelist = list("input_tag", "output_tag")
 
@@ -583,7 +590,7 @@ legend {
 	fuel_injection
 		icon = 'icons/obj/computer.dmi'
 		icon_screen = "atmos"
-		circuit = /obj/item/weapon/circuitboard/injector_control
+		circuit = /obj/item/circuitboard/injector_control
 
 		var/device_tag
 		var/list/device_info

@@ -46,7 +46,7 @@
 
 	speak_chance = 1//1% (1 in 100) chance every tick; So about once per 150 seconds, assuming an average tick is 1.5s
 	turns_per_move = 5
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/cracker = 3)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/cracker = 3)
 
 	response_help  = "pets the"
 	response_disarm = "gently moves aside the"
@@ -645,8 +645,8 @@
 		return 0
 
 	if(!drop_gently)
-		if(istype(held_item, /obj/item/weapon/grenade))
-			var/obj/item/weapon/grenade/G = held_item
+		if(istype(held_item, /obj/item/grenade))
+			var/obj/item/grenade/G = held_item
 			G.loc = src.loc
 			G.prime()
 			to_chat(src, "You let go of the [held_item]!")
@@ -728,7 +728,15 @@
 		"STOP HOT-WIRING THE ENGINE, FUCKING CHRIST!",
 		"Wire the solars, you lazy bums!",
 		"WHO TOOK THE DAMN HARDSUITS?",
-		"OH GOD ITS FREE CALL THE SHUTTLE")
+		"OH GOD ITS FREE CALL THE SHUTTLE",
+		"Why are there so many atmos alerts?",
+		"OH GOD WHY WOULD YOU TURN ON THE PA BEFORE CONTAINMENT IS UP?",
+		"Remember to lock the emitters!",
+		"Stop goofing off and repair the goddam station!",
+		"The singularity is not your friend!",
+		"What were the wires again?",
+		"Goddam emaggers!"
+		)
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 /mob/living/simple_animal/parrot/Poly/New()

@@ -1,4 +1,4 @@
-/obj/item/weapon/lipstick
+/obj/item/lipstick
 	name = "red lipstick"
 	desc = "A generic brand of lipstick."
 	icon = 'icons/obj/items.dmi'
@@ -7,40 +7,40 @@
 	var/colour = "red"
 	var/open = 0
 
-/obj/item/weapon/lipstick/purple
+/obj/item/lipstick/purple
 	name = "purple lipstick"
 	colour = "purple"
 
-/obj/item/weapon/lipstick/jade
+/obj/item/lipstick/jade
 	//It's still called Jade, but theres no HTML color for jade, so we use lime.
 	name = "jade lipstick"
 	colour = "lime"
 
-/obj/item/weapon/lipstick/black
+/obj/item/lipstick/black
 	name = "black lipstick"
 	colour = "black"
 
-/obj/item/weapon/lipstick/green
+/obj/item/lipstick/green
 	name = "green lipstick"
 	colour = "green"
 
-/obj/item/weapon/lipstick/blue
+/obj/item/lipstick/blue
 	name = "blue lipstick"
 	colour = "blue"
 
-/obj/item/weapon/lipstick/white
+/obj/item/lipstick/white
 	name = "white lipstick"
 	colour = "white"
 
-/obj/item/weapon/lipstick/random
+/obj/item/lipstick/random
 	name = "lipstick"
 
-/obj/item/weapon/lipstick/random/New()
+/obj/item/lipstick/random/New()
 	colour = pick("red","purple","lime","black","green","blue","white")
 	name = "[colour] lipstick"
 
 
-/obj/item/weapon/lipstick/attack_self(mob/user as mob)
+/obj/item/lipstick/attack_self(mob/user as mob)
 	overlays.Cut()
 	to_chat(user, "<span class='notice'>You twist \the [src] [open ? "closed" : "open"].</span>")
 	open = !open
@@ -52,7 +52,7 @@
 	else
 		icon_state = "lipstick"
 
-/obj/item/weapon/lipstick/attack(mob/M as mob, mob/user as mob)
+/obj/item/lipstick/attack(mob/M as mob, mob/user as mob)
 	if(!open)	return
 
 	if(!istype(M, /mob))	return
@@ -80,7 +80,7 @@
 	else
 		to_chat(user, "<span class='notice'>Where are the lips on that?</span>")
 
-/obj/item/weapon/razor
+/obj/item/razor
 	name = "electric razor"
 	desc = "The latest and greatest power razor born from the science of shaving."
 	icon = 'icons/obj/items.dmi'
@@ -90,7 +90,7 @@
 	usesound = 'sound/items/Welder2.ogg'
 	toolspeed = 1
 
-/obj/item/weapon/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ("head")

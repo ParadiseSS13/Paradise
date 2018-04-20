@@ -71,9 +71,9 @@
 /datum/surgery_step/robotics/external/unscrew_hatch
 	name = "unscrew hatch"
 	allowed_tools = list(
-		/obj/item/weapon/screwdriver = 100,
-		/obj/item/weapon/coin = 50,
-		/obj/item/weapon/kitchen/knife = 50
+		/obj/item/screwdriver = 100,
+		/obj/item/coin = 50,
+		/obj/item/kitchen/knife = 50
 	)
 
 	time = 16
@@ -107,9 +107,9 @@
 /datum/surgery_step/robotics/external/open_hatch
 	name = "open hatch"
 	allowed_tools = list(
-		/obj/item/weapon/retractor = 100,
-		/obj/item/weapon/crowbar = 100,
-		/obj/item/weapon/kitchen/utensil/ = 50
+		/obj/item/retractor = 100,
+		/obj/item/crowbar = 100,
+		/obj/item/kitchen/utensil/ = 50
 	)
 
 	time = 24
@@ -143,9 +143,9 @@
 /datum/surgery_step/robotics/external/close_hatch
 	name = "close hatch"
 	allowed_tools = list(
-		/obj/item/weapon/retractor = 100,
-		/obj/item/weapon/crowbar = 100,
-		/obj/item/weapon/kitchen/utensil = 50
+		/obj/item/retractor = 100,
+		/obj/item/crowbar = 100,
+		/obj/item/kitchen/utensil = 50
 	)
 
 	time = 24
@@ -181,16 +181,16 @@
 	allowed_tools = list()
 
 	var/list/implements_finish = list(
-		/obj/item/weapon/retractor = 100,
-		/obj/item/weapon/crowbar = 100,
-		/obj/item/weapon/kitchen/utensil = 50
+		/obj/item/retractor = 100,
+		/obj/item/crowbar = 100,
+		/obj/item/kitchen/utensil = 50
 	)
 	var/list/implements_heal_burn = list(
 		/obj/item/stack/cable_coil = 100
 	)
 	var/list/implements_heal_brute = list(
-		/obj/item/weapon/weldingtool = 100,
-		/obj/item/weapon/gun/energy/plasmacutter = 50
+		/obj/item/weldingtool = 100,
+		/obj/item/gun/energy/plasmacutter = 50
 	)
 	var/current_type
 	time = 32
@@ -225,8 +225,8 @@
 		if(!(affected.brute_dam > 0 || affected.disfigured))
 			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 			return -1
-		if(istype(tool,/obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/welder = tool
+		if(istype(tool,/obj/item/weldingtool))
+			var/obj/item/weldingtool/welder = tool
 			if(!welder.isOn() || !welder.remove_fuel(1,user))
 				return -1
 		user.visible_message("[user] begins to patch damage to [target]'s [affected.name]'s support structure with \the [tool]." , \
@@ -285,9 +285,9 @@
 	name = "internal part manipulation"
 	allowed_tools = list(/obj/item/device/mmi = 100)
 	var/implements_extract = list(/obj/item/device/multitool = 100)
-	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/weapon/bonegel = 30, /obj/item/weapon/screwdriver = 70)
+	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/bonegel = 30, /obj/item/screwdriver = 70)
 	var/implements_insert = list(/obj/item/organ/internal = 100)
-	var/implements_finish =list(/obj/item/weapon/retractor = 100,/obj/item/weapon/crowbar = 100,/obj/item/weapon/kitchen/utensil = 50)
+	var/implements_finish =list(/obj/item/retractor = 100,/obj/item/crowbar = 100,/obj/item/kitchen/utensil = 50)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null

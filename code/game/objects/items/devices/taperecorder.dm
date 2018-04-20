@@ -228,7 +228,7 @@
 
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
+	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i = 1, mytape.storedinfo.len >= i, i++)
 		t1 += "[mytape.storedinfo[i]]<BR>"
@@ -297,12 +297,12 @@
 
 
 /obj/item/device/tape/attackby(obj/item/I, mob/user)
-	if(ruined && istype(I, /obj/item/weapon/screwdriver))
+	if(ruined && istype(I, /obj/item/screwdriver))
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
 		if(do_after(user, 120 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
-	else if(istype(I, /obj/item/weapon/pen))
+	else if(istype(I, /obj/item/pen))
 		var/title = stripped_input(usr,"What do you want to name the tape?", "Tape Renaming", name, MAX_NAME_LEN)
 		if(!title || !length(title))
 			name = initial(name)

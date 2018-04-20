@@ -144,7 +144,7 @@
 		if(throwing)
 			throwing.hit_atom(A)
 			. = 1
-			if(!A || qdeleted(A))
+			if(!A || QDELETED(A))
 				return
 		A.Bumped(src)
 
@@ -217,14 +217,15 @@
 		return 1
 
 	inertia_last_loc = loc
-	drift_master.processing_list[src] = src
+	SSspacedrift.processing[src] = src
 	return 1
 
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
 	set waitfor = 0
-	return hit_atom.hitby(src)
+	if(!QDELETED(hit_atom))
+		return hit_atom.hitby(src)
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked)
 	if(!anchored && hitpush)
@@ -301,7 +302,7 @@
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
-	throw_master.processing_list[src] = TT
+	SSthrowing.processing[src] = TT
 	TT.tick()
 
 

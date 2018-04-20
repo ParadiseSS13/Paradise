@@ -36,7 +36,7 @@
 
 //centcomAway items
 
-/obj/item/weapon/paper/pamphlet/ccaInfo
+/obj/item/paper/pamphlet/ccaInfo
 	name = "Visitor Info Pamphlet"
 	info = "<b> XCC-P5831 Visitor Information </b><br>\
 	Greetings, visitor, to  XCC-P5831! As you may know, this outpost was once \
@@ -48,7 +48,7 @@
 	and the thrilling pay-per-view broadcasts of <i>PLASTEEL CHEF</i> and <i>THUNDERDOME LIVE</i>.<br> \
 	We hope you enjoy your stay!"
 
-/obj/item/weapon/paper/ccaMemo
+/obj/item/paper/ccaMemo
 	name = "Memo to XCC-P5831 QM"
 	info = "<b>From: XCC-P5831 Management Office</b><br>\
 	<b>To: Rolf Ingram, XCC-P5831 Quartermaster</b><br>\

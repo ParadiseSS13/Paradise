@@ -35,13 +35,13 @@ Note: Must be placed west/left of and R&D console to function.
 /obj/machinery/r_n_d/protolathe/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/protolathe(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
+	component_parts += new /obj/item/circuitboard/protolathe(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1, MAT_TRANQUILLITE=1, MAT_TITANIUM=1))
 	RefreshParts()
 
@@ -50,13 +50,13 @@ Note: Must be placed west/left of and R&D console to function.
 /obj/machinery/r_n_d/protolathe/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/protolathe(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker/large(null)
+	component_parts += new /obj/item/circuitboard/protolathe(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	RefreshParts()
 
 	reagents.my_atom = src
@@ -67,13 +67,13 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
-	for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
+	for(var/obj/item/reagent_containers/glass/G in component_parts)
 		G.reagents.trans_to(src, G.reagents.total_volume)
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
 	materials.max_amount = T * 75000
 	T = 1.2
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		T -= M.rating/10
 	efficiency_coeff = min(max(0, T), 1)
 
@@ -99,12 +99,12 @@ Note: Must be placed west/left of and R&D console to function.
 		return
 
 	if(panel_open)
-		if(istype(O, /obj/item/weapon/crowbar))
+		if(istype(O, /obj/item/crowbar))
 			for(var/obj/I in component_parts)
-				if(istype(I, /obj/item/weapon/reagent_containers/glass/beaker))
+				if(istype(I, /obj/item/reagent_containers/glass/beaker))
 					reagents.trans_to(I, reagents.total_volume)
 				I.loc = src.loc
-			for(var/obj/item/weapon/reagent_containers/glass/G in component_parts)
+			for(var/obj/item/reagent_containers/glass/G in component_parts)
 				reagents.trans_to(G, G.reagents.maximum_volume)
 			materials.retrieve_all()
 			default_deconstruction_crowbar(O)

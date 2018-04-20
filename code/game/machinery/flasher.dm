@@ -38,8 +38,8 @@
 //		sd_set_light(0)
 
 //Don't want to render prison breaks impossible
-/obj/machinery/flasher/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wirecutters))
+/obj/machinery/flasher/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/wirecutters))
 		add_fingerprint(user)
 		disable = !disable
 		if(disable)
@@ -95,8 +95,8 @@
 		if((M.m_intent != MOVE_INTENT_WALK) && (anchored))
 			flash()
 
-/obj/machinery/flasher/portable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/machinery/flasher/portable/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/wrench))
 		add_fingerprint(user)
 		anchored = !anchored
 
@@ -128,7 +128,7 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/flasher_button/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/machinery/flasher_button/attackby(obj/item/W, mob/user as mob, params)
 	return attack_hand(user)
 
 /obj/machinery/flasher_button/attack_hand(mob/user as mob)

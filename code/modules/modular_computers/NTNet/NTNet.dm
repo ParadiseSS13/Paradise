@@ -35,8 +35,8 @@ var/global/datum/ntnet/ntnet_global = new()
 	add_log("NTNet logging system activated.")
 
 // Simplified logging: Adds a log. log_string is mandatory parameter, source is optional.
-/datum/ntnet/proc/add_log(log_string, obj/item/weapon/computer_hardware/network_card/source = null)
-	var/log_text = "[worldtime2text()] - "
+/datum/ntnet/proc/add_log(log_string, obj/item/computer_hardware/network_card/source = null)
+	var/log_text = "[station_time_timestamp()] - "
 	if(source)
 		log_text += "[source.get_network_tag()] - "
 	else

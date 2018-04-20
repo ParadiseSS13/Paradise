@@ -4,7 +4,7 @@
 			Interface Lock:
 		</div>
 		<div class="itemContentFull">
-			{{:helper.link('Engaged', 'lock', {'toggleaccess' : 1}, data.locked ? 'selected' : null)}}{{:helper.link('Disengaged', 'unlock', {'toggleaccess' : 1}, data.malfStatus >= 2 ? 'linkOff' : (data.locked ? null : 'selected'))}}
+			{{:helper.link('Engaged', 'lock', {'toggleaccess' : 1}, data.siliconLock ? 'selected' : null)}}{{:helper.link('Disengaged', 'unlock', {'toggleaccess' : 1}, data.malfStatus >= 2 ? 'linkOff' : (data.siliconLock ? null : 'selected'))}}
 		</div>
 		<div class="clearBoth"></div>
 	{{else}}
@@ -176,5 +176,22 @@
 			{{/if}}
 		</div>
 	{{/if}}
+
+	<div class="item">
+		<div class="itemLabel">
+			Night Shift Lighting:
+		</div>
+		<div class="itemContent">
+			{{if data.locked}}
+				{{if data.nightshiftLights}}
+					<span class='good'>On</span>
+				{{else}}
+					<span class='bad'>Off</span>
+				{{/if}}
+			{{else}}
+				{{:helper.link('Enabled', 'lightbulb-o', {'toggle_nightshift' : 1}, data.nightshiftLights ? 'selected' : null)}}{{:helper.link('Disabled', 'lightbulb-o', {'toggle_nightshift' : 1}, data.nightshiftLights ? null : 'selected')}}
+			{{/if}}
+		</div>
+	</div>
 
 </div>

@@ -27,7 +27,11 @@
 /obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
 	. = ..()
 	if(isliving(G))
-		G.adjustFireLoss(3000)
+		if(G.get_species() == "Machine") //speshul snowfleks deserv speshul treetment
+			G.adjustFireLoss(6969)  //remember - slimes love fire
+		else
+			G.death()
+
 		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts them!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
@@ -277,7 +281,7 @@ proc/wabbajack(mob/living/M)
 				qdel(src)
 		else
 			var/obj/O = change
-			if(istype(O, /obj/item/weapon/gun))
+			if(istype(O, /obj/item/gun))
 				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
 			else
 				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)

@@ -8,7 +8,7 @@
 	//why are these here and not in human_defines.dm
 	//var/list/hud_list[10]
 	var/datum/species/species //Contains icon generation and language information, set during New().
-	var/obj/item/weapon/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
+	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
 
@@ -166,8 +166,8 @@
 				stat("Tank Pressure", internal.air_contents.return_pressure())
 				stat("Distribution Pressure", internal.distribute_pressure)
 
-		if(istype(back, /obj/item/weapon/rig))
-			var/obj/item/weapon/rig/suit = back
+		if(istype(back, /obj/item/rig))
+			var/obj/item/rig/suit = back
 			var/cell_status = "ERROR"
 			if(suit.cell)
 				cell_status = "[suit.cell.charge]/[suit.cell.maxcharge]"
@@ -434,7 +434,7 @@
 	<tr><td>&nbsp;</td></tr>"}
 
 	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? back : "<font color=grey>Empty</font>"]</A>"
-	if(has_breathable_mask && istype(back, /obj/item/weapon/tank))
+	if(has_breathable_mask && istype(back, /obj/item/tank))
 		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
@@ -485,7 +485,7 @@
 		dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"
 		if(wear_suit)
 			dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[UID()];item=[slot_s_store]'>[(s_store && !(s_store.flags&ABSTRACT)) ? s_store : "<font color=grey>Empty</font>"]</A>"
-			if(has_breathable_mask && istype(s_store, /obj/item/weapon/tank))
+			if(has_breathable_mask && istype(s_store, /obj/item/tank))
 				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_s_store]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
 		else
@@ -514,7 +514,7 @@
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>PDA:</B></font></td></tr>"
 		else
 			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[slot_belt]'>[(belt && !(belt.flags&ABSTRACT)) ? belt : "<font color=grey>Empty</font>"]</A>"
-			if(has_breathable_mask && istype(belt, /obj/item/weapon/tank))
+			if(has_breathable_mask && istype(belt, /obj/item/tank))
 				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_belt]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
 			dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>[(l_store && !(l_store.flags&ABSTRACT)) ? "Left (Full)" : "<font color=grey>Left (Empty)</font>"]</A>"
@@ -558,7 +558,7 @@
 		else
 			return pda.ownrank
 	else
-		var/obj/item/weapon/card/id/id = get_idcard()
+		var/obj/item/card/id/id = get_idcard()
 		if(id)
 			return id.rank ? id.rank : if_no_job
 		else
@@ -568,9 +568,9 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
 	var/obj/item/device/pda/pda = wear_id
-	var/obj/item/weapon/card/id/id = wear_id
+	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
-		if(pda.id && istype(pda.id, /obj/item/weapon/card/id))
+		if(pda.id && istype(pda.id, /obj/item/card/id))
 			. = pda.id.assignment
 		else
 			. = pda.ownjob
@@ -586,7 +586,7 @@
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
 	var/obj/item/device/pda/pda = wear_id
-	var/obj/item/weapon/card/id/id = wear_id
+	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
 		if(pda.id)
 			. = pda.id.registered_name
@@ -623,7 +623,7 @@
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
 	var/obj/item/device/pda/pda = wear_id
-	var/obj/item/weapon/card/id/id = wear_id
+	var/obj/item/card/id/id = wear_id
 	if(istype(pda))		. = pda.owner
 	else if(istype(id))	. = id.registered_name
 	if(!.) 				. = if_no_id	//to prevent null-names making the mob unclickable
@@ -631,15 +631,15 @@
 
 //gets ID card object from special clothes slot or, if applicable, hands as well
 /mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
-	var/obj/item/weapon/card/id/id = wear_id
+	var/obj/item/card/id/id = wear_id
 	var/obj/item/device/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
 
 	if(check_hands)
-		if(istype(get_active_hand(), /obj/item/weapon/card/id))
+		if(istype(get_active_hand(), /obj/item/card/id))
 			id = get_active_hand()
-		else if(istype(get_inactive_hand(), /obj/item/weapon/card/id))
+		else if(istype(get_inactive_hand(), /obj/item/card/id))
 			id = get_inactive_hand()
 
 	if(istype(id))
@@ -807,7 +807,7 @@
 			var/found_record = 0
 			var/perpname = "wot"
 			if(wear_id)
-				var/obj/item/weapon/card/id/I = wear_id.GetID()
+				var/obj/item/card/id/I = wear_id.GetID()
 				if(I)
 					perpname = I.registered_name
 				else
@@ -835,13 +835,13 @@
 									else
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
+											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
 										if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
+											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
 										if(isAI(usr))
 											var/mob/living/silicon/ai/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [worldtime2text()] with comment: [t1]<BR>"
+											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
 
 										R.fields["criminal"] = setcriminal
 										log_admin("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [setcriminal], comment: [t1]")
@@ -857,7 +857,7 @@
 			var/read = 0
 
 			if(wear_id)
-				if(istype(wear_id,/obj/item/weapon/card/id))
+				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
 				else if(istype(wear_id,/obj/item/device/pda))
 					var/obj/item/device/pda/tempPda = wear_id
@@ -887,7 +887,7 @@
 			var/read = 0
 
 			if(wear_id)
-				if(istype(wear_id,/obj/item/weapon/card/id))
+				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
 				else if(istype(wear_id,/obj/item/device/pda))
 					var/obj/item/device/pda/tempPda = wear_id
@@ -914,7 +914,7 @@
 		if(hasHUD(usr,"security"))
 			var/perpname = "wot"
 			if(wear_id)
-				if(istype(wear_id,/obj/item/weapon/card/id))
+				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
 				else if(istype(wear_id,/obj/item/device/pda))
 					var/obj/item/device/pda/tempPda = wear_id
@@ -931,13 +931,13 @@
 									return
 								if(ishuman(usr))
 									var/mob/living/carbon/human/U = usr
-									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
-									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 								if(isAI(usr))
 									var/mob/living/silicon/ai/U = usr
-									R.fields["comments"] += "Made by [U.name] (artificial intelligence) on [current_date_string] [worldtime2text()]<BR>[t1]"
+									R.fields["comments"] += "Made by [U.name] (artificial intelligence) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 
 	if(href_list["medical"])
 		if(hasHUD(usr,"medical"))
@@ -945,7 +945,7 @@
 			var/modified = 0
 
 			if(wear_id)
-				if(istype(wear_id,/obj/item/weapon/card/id))
+				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
 				else if(istype(wear_id,/obj/item/device/pda))
 					var/obj/item/device/pda/tempPda = wear_id
@@ -978,7 +978,7 @@
 			var/read = 0
 
 			if(wear_id)
-				if(istype(wear_id,/obj/item/weapon/card/id))
+				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
 				else if(istype(wear_id,/obj/item/device/pda))
 					var/obj/item/device/pda/tempPda = wear_id
@@ -1009,7 +1009,7 @@
 			var/read = 0
 
 			if(wear_id)
-				if(istype(wear_id,/obj/item/weapon/card/id))
+				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
 				else if(istype(wear_id,/obj/item/device/pda))
 					var/obj/item/device/pda/tempPda = wear_id
@@ -1036,7 +1036,7 @@
 		if(hasHUD(usr,"medical"))
 			var/perpname = "wot"
 			if(wear_id)
-				if(istype(wear_id,/obj/item/weapon/card/id))
+				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
 				else if(istype(wear_id,/obj/item/device/pda))
 					var/obj/item/device/pda/tempPda = wear_id
@@ -1053,10 +1053,10 @@
 									return
 								if(ishuman(usr))
 									var/mob/living/carbon/human/U = usr
-									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+									R.fields["comments"] += "Made by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 								if(isrobot(usr))
 									var/mob/living/silicon/robot/U = usr
-									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+									R.fields["comments"] += "Made by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 
 	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
@@ -1110,8 +1110,8 @@
 		tinted += MT.tint
 
 	//god help me
-	if(istype(back, /obj/item/weapon/rig))
-		var/obj/item/weapon/rig/O = back
+	if(istype(back, /obj/item/rig))
+		var/obj/item/rig/O = back
 		if(O.helmet && O.helmet == head && (O.helmet.body_parts_covered & HEAD))
 			if((O.offline && O.offline_vision_restriction == 1) || (!O.offline && O.vision_restriction == 1))
 				tinted = 2
@@ -1658,7 +1658,7 @@
 
 	src.visible_message("<span class='warning'><b>\The [src]</b> seizes [T] aggressively!</span>")
 
-	var/obj/item/weapon/grab/G = new(src,T)
+	var/obj/item/grab/G = new(src,T)
 	if(use_hand == "left")
 		l_hand = G
 	else
@@ -1667,6 +1667,41 @@
 	G.state = GRAB_AGGRESSIVE
 	G.icon_state = "grabbed1"
 	G.synch()
+
+/mob/living/carbon/human/proc/get_eyecon()
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
+	if(istype(species) && species.eyes)
+		var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', species.eyes)
+		if(eye_implant) //Eye implants override native DNA eye colo(u)r
+			eyes_icon = eye_implant.generate_icon()
+		else if(eyes)
+			eyes_icon = eyes.generate_icon()
+		else
+			eyes_icon.Blend("#800000", ICON_ADD)
+
+		return eyes_icon
+
+/mob/living/carbon/human/proc/get_eye_shine() //Referenced cult constructs for shining in the dark. Needs to be above lighting effects such as shading.
+	var/obj/item/organ/external/head/head_organ = get_organ("head")
+	var/datum/sprite_accessory/hair/hair_style = hair_styles_full_list[head_organ.h_style]
+	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
+
+	return image(get_icon_difference(get_eyecon(), hair), layer = LIGHTING_LAYER + 1) //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
+
+/*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.
+Eyes need to have significantly high darksight to shine unless the mob has the XRAY vision mutation. Eyes will not shine if they are covered in any way.*/
+/mob/living/carbon/human/proc/eyes_shine()
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
+	if(!(istype(eyes) || istype(eye_implant)))
+		return FALSE
+	if(!get_location_accessible(src, "eyes"))
+		return FALSE
+	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
+		return FALSE
+
+	return TRUE
 
 /mob/living/carbon/human/proc/gut()
 	set category = "Abilities"
@@ -1680,7 +1715,7 @@
 		to_chat(src, "<span class='warning'>You cannot do that in your current state.</span>")
 		return
 
-	var/obj/item/weapon/grab/G = locate() in src
+	var/obj/item/grab/G = locate() in src
 	if(!G || !istype(G))
 		to_chat(src, "<span class='warning'>You are not grabbing anyone.</span>")
 		return
@@ -1716,23 +1751,23 @@
 		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
 			if(istype(wear_suit, /obj/item/clothing/suit/redtag))
 				threatcount += 4
-			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/redtag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/gun/energy/laser/redtag)))
 				threatcount += 4
-			if(istype(belt, /obj/item/weapon/gun/energy/laser/redtag))
+			if(istype(belt, /obj/item/gun/energy/laser/redtag))
 				threatcount += 2
 
 		if(lasercolor == "r")
 			if(istype(wear_suit, /obj/item/clothing/suit/bluetag))
 				threatcount += 4
-			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/bluetag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/gun/energy/laser/bluetag)))
 				threatcount += 4
-			if(istype(belt, /obj/item/weapon/gun/energy/laser/bluetag))
+			if(istype(belt, /obj/item/gun/energy/laser/bluetag))
 				threatcount += 2
 
 		return threatcount
 
 	//Check for ID
-	var/obj/item/weapon/card/id/idcard = get_idcard()
+	var/obj/item/card/id/idcard = get_idcard()
 	if(judgebot.idcheck && !idcard)
 		threatcount += 4
 
@@ -1771,7 +1806,7 @@
 		threatcount -= 1
 
 	//Agent cards lower threatlevel.
-	if(istype(idcard, /obj/item/weapon/card/id/syndicate))
+	if(istype(idcard, /obj/item/card/id/syndicate))
 		threatcount -= 5
 
 	return threatcount
@@ -1847,20 +1882,20 @@
 /mob/living/carbon/human/can_eat(flags = 255)
 	return species && (species.dietflags & flags)
 
-/mob/living/carbon/human/selfFeed(var/obj/item/weapon/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
 		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
 		return 0
 	return ..()
 
-/mob/living/carbon/human/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!((istype(toEat, /obj/item/weapon/reagent_containers/food/drinks) && (get_species() == "Machine"))))
+		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (get_species() == "Machine"))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
 			return 0
 	return ..()
 
-/mob/living/carbon/human/selfDrink(var/obj/item/weapon/reagent_containers/food/drinks/toDrink)
+/mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!get_species() == "Machine")
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
@@ -1873,13 +1908,13 @@
 
 /mob/living/carbon/human/can_track(mob/living/user)
 	if(wear_id)
-		var/obj/item/weapon/card/id/id = wear_id
+		var/obj/item/card/id/id = wear_id
 		if(istype(id) && id.is_untrackable())
 			return 0
 	if(wear_pda)
 		var/obj/item/device/pda/pda = wear_pda
 		if(istype(pda))
-			var/obj/item/weapon/card/id/id = pda.id
+			var/obj/item/card/id/id = pda.id
 			if(istype(id) && id.is_untrackable())
 				return 0
 	if(istype(head, /obj/item/clothing/head))
@@ -1908,7 +1943,7 @@
 /mob/living/carbon/human/is_mechanical()
 	return ..() || (species.bodyflags & ALL_RPARTS) != 0
 
-/mob/living/carbon/human/can_use_guns(var/obj/item/weapon/gun/G)
+/mob/living/carbon/human/can_use_guns(var/obj/item/gun/G)
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)

@@ -158,7 +158,7 @@
 /mob/living/Stat()
 	. = ..()
 	if(. && get_rig_stats)
-		var/obj/item/weapon/rig/rig = get_rig()
+		var/obj/item/rig/rig = get_rig()
 		if(rig)
 			SetupStat(rig)
 
@@ -201,7 +201,7 @@
 	if(!..())
 		return FALSE
 	var/obj/item/hand_item = get_active_hand()
-	if(istype(hand_item, /obj/item/weapon/gun) && A != hand_item)
+	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [A] with [hand_item]")
 			return TRUE
@@ -356,48 +356,48 @@
 
 
 //Recursive function to find everything a mob is holding.
-/mob/living/get_contents(var/obj/item/weapon/storage/Storage = null)
+/mob/living/get_contents(var/obj/item/storage/Storage = null)
 	var/list/L = list()
 
 	if(Storage) //If it called itself
 		L += Storage.return_inv()
 
 		//Leave this commented out, it will cause storage items to exponentially add duplicate to the list
-		//for(var/obj/item/weapon/storage/S in Storage.return_inv()) //Check for storage items
+		//for(var/obj/item/storage/S in Storage.return_inv()) //Check for storage items
 		//	L += get_contents(S)
 
-		for(var/obj/item/weapon/gift/G in Storage.return_inv()) //Check for gift-wrapped items
+		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/weapon/storage))
+			if(istype(G.gift, /obj/item/storage))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/weapon/storage)) //this should never happen
+			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
 				L += get_contents(D.wrapped)
 		return L
 
 	else
 
 		L += contents
-		for(var/obj/item/weapon/storage/S in contents)	//Check for storage items
+		for(var/obj/item/storage/S in contents)	//Check for storage items
 			L += get_contents(S)
 		for(var/obj/item/clothing/suit/storage/S in contents)//Check for labcoats and jackets
 			L += get_contents(S)
 		for(var/obj/item/clothing/accessory/storage/S in contents)//Check for holsters
 			L += get_contents(S)
-		for(var/obj/item/weapon/implant/storage/I in contents) //Check for storage implants.
+		for(var/obj/item/implant/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
-		for(var/obj/item/weapon/gift/G in contents) //Check for gift-wrapped items
+		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/weapon/storage))
+			if(istype(G.gift, /obj/item/storage))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/weapon/storage)) //this should never happen
+			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
 				L += get_contents(D.wrapped)
-		for(var/obj/item/weapon/folder/F in contents)
+		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
 
 		return L
@@ -718,7 +718,7 @@
 		qdel(O)
 		resisting++
 	for(var/X in grabbed_by)
-		var/obj/item/weapon/grab/G = X
+		var/obj/item/grab/G = X
 		resisting++
 		switch(G.state)
 			if(GRAB_PASSIVE)
@@ -985,16 +985,17 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(stat == DEAD && !isnull(butcher_results)) //can we butcher it?
-		if(istype(I, /obj/item/weapon/kitchen/knife))
+	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results) //can we butcher it?
+		var/sharpness = is_sharp(I)
+		if(sharpness)
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80))
+			if(do_mob(user, src, 80 / sharpness) && Adjacent(I))
 				harvest(user)
 			return 1
 
 /mob/living/proc/harvest(mob/living/user)
-	if(qdeleted(src))
+	if(QDELETED(src))
 		return
 	if(butcher_results)
 		for(var/path in butcher_results)
@@ -1023,7 +1024,7 @@
 				. += config.walk_speed
 
 
-/mob/living/proc/can_use_guns(var/obj/item/weapon/gun/G)
+/mob/living/proc/can_use_guns(var/obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0

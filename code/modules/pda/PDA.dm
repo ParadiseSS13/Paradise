@@ -17,7 +17,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	//Main variables
 	var/owner = null
 	var/default_cartridge = 0 // Access level defined by cartridge
-	var/obj/item/weapon/cartridge/cartridge = null //current cartridge
+	var/obj/item/cartridge/cartridge = null //current cartridge
 	var/datum/data/pda/app/current_app = null
 	var/datum/data/pda/app/lastapp = null
 	var/ui_tick = 0
@@ -52,7 +52,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()
 
-	var/obj/item/weapon/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
+	var/obj/item/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
 	var/ownjob = null //related to above
 	var/ownrank = null // this one is rank, never alt title
 
@@ -71,7 +71,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	new /obj/item/weapon/pen(src)
+	new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 
 /obj/item/device/pda/proc/can_use()
@@ -102,7 +102,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui_tick++
-	var/datum/nanoui/old_ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/old_ui = SSnanoui.get_open_ui(user, src, "main")
 	var/auto_update = 1
 	if(!current_app)
 		return
@@ -117,7 +117,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	var/title = "Personal Data Assistant"
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -169,7 +169,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	data["useRetro"] = retro_mode
 
 	data["cartridge_name"] = cartridge ? cartridge.name : ""
-	data["stationTime"] = worldtime2text()
+	data["stationTime"] = station_time_timestamp()
 
 	data["app"] = list()
 	current_app.update_ui(user, data)
@@ -217,7 +217,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		return
 
 	var/mob/user = usr
-	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 	var/mob/living/U = usr
 	if(usr.stat == DEAD)
 		return 0
@@ -251,7 +251,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				var/turf/T = loc
 				if(ismob(T))
 					T = T.loc
-				var/obj/item/weapon/cartridge/C = cartridge
+				var/obj/item/cartridge/C = cartridge
 				C.forceMove(T)
 				if(scanmode in C.programs)
 					scanmode = null
@@ -282,7 +282,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	return // return 1 tells it to refresh the UI in NanoUI
 
 /obj/item/device/pda/proc/close(mob/user)
-	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 	ui.close()
 
 /obj/item/device/pda/verb/verb_reset_pda()
@@ -359,7 +359,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		return
 
 	if( can_use(user) )
-		var/obj/item/weapon/pen/O = locate() in src
+		var/obj/item/pen/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>You remove the [O] from [src].</span>")
 			if(istype(loc, /mob))
@@ -379,13 +379,13 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			remove_id(user)
 		else
 			var/obj/item/I = user.get_active_hand()
-			if(istype(I, /obj/item/weapon/card/id))
+			if(istype(I, /obj/item/card/id))
 				user.drop_item()
 				I.forceMove(src)
 				id = I
 	else
-		var/obj/item/weapon/card/I = user.get_active_hand()
-		if(istype(I, /obj/item/weapon/card/id) && I:registered_name)
+		var/obj/item/card/I = user.get_active_hand()
+		if(istype(I, /obj/item/card/id) && I:registered_name)
 			var/obj/old_id = id
 			user.drop_item()
 			I.forceMove(src)
@@ -395,7 +395,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 
 /obj/item/device/pda/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()
-	if(istype(C, /obj/item/weapon/cartridge) && !cartridge)
+	if(istype(C, /obj/item/cartridge) && !cartridge)
 		cartridge = C
 		user.drop_item()
 		cartridge.forceMove(src)
@@ -405,8 +405,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
 
-	else if(istype(C, /obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/idcard = C
+	else if(istype(C, /obj/item/card/id))
+		var/obj/item/card/id/idcard = C
 		if(!idcard.registered_name)
 			to_chat(user, "<span class='notice'>\The [src] rejects the ID.</span>")
 			return
@@ -429,16 +429,16 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		C.forceMove(src)
 		pai = C
 		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
-	else if(istype(C, /obj/item/weapon/pen))
-		var/obj/item/weapon/pen/O = locate() in src
+	else if(istype(C, /obj/item/pen))
+		var/obj/item/pen/O = locate() in src
 		if(O)
 			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
 		else
 			user.drop_item()
 			C.forceMove(src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
-	else if(istype(C, /obj/item/weapon/nanomob_card))
-		if(cartridge && istype(cartridge, /obj/item/weapon/cartridge/mob_hunt_game))
+	else if(istype(C, /obj/item/nanomob_card))
+		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
 			cartridge.attackby(C, user, params)
 
 /obj/item/device/pda/attack(mob/living/C as mob, mob/living/user as mob)

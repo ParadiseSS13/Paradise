@@ -62,7 +62,7 @@
 /turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
-	if(istype(C,/obj/item/weapon/light/bulb)) //only for light tiles
+	if(istype(C,/obj/item/light/bulb)) //only for light tiles
 		if(istype(builtin_tile, /obj/item/stack/tile/light))
 			if(!state)
 				qdel(C)

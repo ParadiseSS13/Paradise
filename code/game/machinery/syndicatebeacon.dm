@@ -158,8 +158,8 @@
 		return
 
 
-/obj/machinery/power/singularity_beacon/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/screwdriver))
+/obj/machinery/power/singularity_beacon/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W,/obj/item/screwdriver))
 		if(active)
 			to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
 			return

@@ -252,7 +252,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	M.dir = SOUTH
 
 /obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
-	for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
+	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
 			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
 			return 1

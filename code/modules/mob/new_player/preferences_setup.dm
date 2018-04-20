@@ -346,12 +346,12 @@
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
 			hair_s.Blend("[s_colour]A0", ICON_ADD)
-		else
+		else if(hair_style.do_colouration)
 			hair_s.Blend(h_colour, ICON_ADD)
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
-			if(!hair_style.no_sec_colour)
+			if(!hair_style.no_sec_colour && hair_style.do_colouration )
 				hair_secondary_s.Blend(h_sec_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 
@@ -370,12 +370,12 @@
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
 			facial_s.Blend("[s_colour]A0", ICON_ADD)
-		else
+		else if(facial_hair_style.do_colouration)
 			facial_s.Blend(f_colour, ICON_ADD)
 
 		if(facial_hair_style.secondary_theme)
 			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
-			if(!facial_hair_style.no_sec_colour)
+			if(!facial_hair_style.no_sec_colour && facial_hair_style.do_colouration)
 				facial_secondary_s.Blend(f_sec_colour, ICON_ADD)
 			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 

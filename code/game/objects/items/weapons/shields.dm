@@ -1,18 +1,18 @@
-/obj/item/weapon/shield
+/obj/item/shield
 	name = "shield"
 	block_chance = 50
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 30, bio = 0, rad = 0)
 
-/obj/item/weapon/shield/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
 	if(attack_type == LEAP_ATTACK)
 		final_block_chance = 100
 	return ..()
 
-/obj/item/weapon/shield/riot
+/obj/item/shield/riot
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "riot"
 	slot_flags = SLOT_BACK
 	force = 10
@@ -25,8 +25,8 @@
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 
-/obj/item/weapon/shield/riot/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/melee/baton))
+/obj/item/shield/riot/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/melee/baton))
 		if(cooldown < world.time - 25)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
@@ -34,13 +34,13 @@
 	else
 		..()
 
-/obj/item/weapon/shield/riot/roman
+/obj/item/shield/riot/roman
 	name = "roman shield"
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."
 	icon_state = "roman_shield"
 	item_state = "roman_shield"
 
-/obj/item/weapon/shield/riot/buckler
+/obj/item/shield/riot/buckler
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
 	icon_state = "buckler"
@@ -50,10 +50,9 @@
 	burn_state = FLAMMABLE
 	block_chance = 30
 
-/obj/item/weapon/shield/energy
+/obj/item/shield/energy
 	name = "energy combat shield"
 	desc = "A shield capable of stopping most melee attacks. Protects user from almost all energy projectiles. It can be retracted, expanded, and stored anywhere."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "eshield0" // eshield1 for expanded
 	force = 3
 	throwforce = 3
@@ -64,13 +63,13 @@
 	attack_verb = list("shoved", "bashed")
 	var/active = 0
 
-/obj/item/weapon/shield/energy/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	return 0
 
-/obj/item/weapon/shield/energy/IsReflect()
+/obj/item/shield/energy/IsReflect()
 	return (active)
 
-/obj/item/weapon/shield/energy/attack_self(mob/living/carbon/human/user)
+/obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
 	if(user.disabilities & CLUMSY && prob(50))
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
@@ -98,10 +97,9 @@
 	add_fingerprint(user)
 	return
 
-/obj/item/weapon/shield/riot/tele
+/obj/item/shield/riot/tele
 	name = "telescopic shield"
 	desc = "An advanced riot shield made of lightweight materials that collapses for easy storage."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "teleriot0"
 	origin_tech = "materials=3;combat=4;engineering=4"
 	slot_flags = null
@@ -112,12 +110,12 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/active = 0
 
-/obj/item/weapon/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
 		return ..()
 	return 0
 
-/obj/item/weapon/shield/riot/tele/attack_self(mob/living/user)
+/obj/item/shield/riot/tele/attack_self(mob/living/user)
 	active = !active
 	icon_state = "teleriot[active]"
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)

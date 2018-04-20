@@ -423,11 +423,11 @@
 	//Spawn and equip documents
 	var/mob/living/carbon/human/mob = owner.current
 
-	var/obj/item/weapon/folder/syndicate/folder
+	var/obj/item/folder/syndicate/folder
 	if(owner == exchange_red)
-		folder = new/obj/item/weapon/folder/syndicate/red(mob.locs)
+		folder = new/obj/item/folder/syndicate/red(mob.locs)
 	else
-		folder = new/obj/item/weapon/folder/syndicate/blue(mob.locs)
+		folder = new/obj/item/folder/syndicate/blue(mob.locs)
 
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,

@@ -7,6 +7,7 @@
 	icon_state = "nest"
 	var/health = 100
 	var/image/nest_overlay
+	comfort = 0
 
 /obj/structure/stool/bed/nest/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
 	if(has_buckled_mobs())
@@ -70,7 +71,7 @@
 		M.layer = initial(M.layer)
 		overlays -= nest_overlay
 
-/obj/structure/stool/bed/nest/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/stool/bed/nest/attackby(obj/item/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/aforce = W.force
 	health = max(0, health - aforce)
