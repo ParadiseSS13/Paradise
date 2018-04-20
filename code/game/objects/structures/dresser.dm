@@ -55,7 +55,7 @@
 		add_fingerprint(H)
 		H.update_body()
 
-/obj/structure/dresser/attackby(obj/item/weapon/W, mob/living/user, params)
+/obj/structure/dresser/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))

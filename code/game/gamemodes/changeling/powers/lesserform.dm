@@ -26,7 +26,7 @@
 	changeling.geneticdamage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	var/list/implants = list() //Try to preserve implants.
-	for(var/obj/item/weapon/implant/W in H)
+	for(var/obj/item/implant/W in H)
 		implants += W
 	H.monkeyize()
 	changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)

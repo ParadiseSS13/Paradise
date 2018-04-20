@@ -170,7 +170,7 @@
 /datum/surgery_step/limb/connect
 	name = "connect limb"
 	allowed_tools = list(
-	/obj/item/weapon/hemostat = 100,	\
+	/obj/item/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 90, 	\
 	/obj/item/device/assembly/mousetrap = 25
 	)

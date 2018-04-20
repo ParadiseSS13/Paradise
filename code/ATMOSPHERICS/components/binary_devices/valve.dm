@@ -140,7 +140,7 @@
 				if(open)
 					close()
 
-/obj/machinery/atmospherics/binary/valve/digital/attackby(var/obj/item/weapon/W as obj, var/mob/user)
+/obj/machinery/atmospherics/binary/valve/digital/attackby(var/obj/item/W as obj, var/mob/user)
 	if(istype(W, /obj/item/device/multitool))
 		update_multitool_menu(user)
 		return 1

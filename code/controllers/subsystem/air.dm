@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(air)
 	var/list/excited_groups = list()
 	var/list/active_turfs = list()
 	var/list/hotspots = list()
+	var/list/deferred_pipenet_rebuilds = list()
 	var/list/networks = list()
 	var/list/atmos_machinery = list()
 	var/list/pipe_init_dirs_cache = list()
@@ -39,7 +40,7 @@ SUBSYSTEM_DEF(air)
 
 
 	var/list/currentrun = list()
-	var/currentpart = SSAIR_PIPENETS
+	var/currentpart = SSAIR_DEFERREDPIPENETS
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -141,7 +142,7 @@ SUBSYSTEM_DEF(air)
 		if(state != SS_RUNNING)
 			return
 		resumed = 0
-	currentpart = SSAIR_PIPENETS
+	currentpart = SSAIR_DEFERREDPIPENETS
 
 /datum/controller/subsystem/air/proc/process_deferred_pipenets(resumed = 0)
 	if(!resumed)
@@ -152,7 +153,7 @@ SUBSYSTEM_DEF(air)
 		var/obj/machinery/atmospherics/A = currentrun[currentrun.len]
 		currentrun.len--
 		if(A)
-			A.build_network()
+			A.build_network(remove_deferral = TRUE)
 		else
 			deferred_pipenet_rebuilds.Remove(A)
 		if(MC_TICK_CHECK)

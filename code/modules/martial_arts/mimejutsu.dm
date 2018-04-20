@@ -86,14 +86,14 @@
 
 	return 1
 
-/obj/item/weapon/mimejutsu_scroll
+/obj/item/mimejutsu_scroll
 	name = "Mimejutsu 'scroll'"
 	desc =	"Its a beret with a note stapled to it..."
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret"
 	var/used = 0
 
-/obj/item/weapon/mimejutsu_scroll/attack_self(mob/user as mob)
+/obj/item/mimejutsu_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
 		return
 	if(!used)

@@ -1,4 +1,4 @@
-/obj/item/weapon/scissors
+/obj/item/scissors
 	name = "Scissors"
 	desc = "Those are scissors. Don't run with them!"
 	icon_state = "scissor"
@@ -10,7 +10,7 @@
 	attack_verb = list("slices", "cuts", "stabs", "jabs")
 	toolspeed = 1
 
-/obj/item/weapon/scissors/barber
+/obj/item/scissors/barber
 	name = "Barber's Scissors"
 	desc = "A pair of scissors used by the barber."
 	icon_state = "bscissor"
@@ -18,7 +18,7 @@
 	attack_verb = list("beautifully sliced", "artistically cut", "smoothly stabbed", "quickly jabbed")
 	toolspeed = 0.75
 
-/obj/item/weapon/scissors/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/scissors/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != INTENT_HELP)
 		..()
 		return
@@ -93,12 +93,12 @@
 		H.update_fhair()
 		user.visible_message("<span class='notice'>[user] finishes cutting [M]'s hair!</span>")
 
-/obj/item/weapon/scissors/safety //Totally safe, I assure you.
+/obj/item/scissors/safety //Totally safe, I assure you.
 	desc = "The blades of the scissors appear to be made of some sort of ultra-strong metal alloy."
 	force = 18 //same as e-daggers
 	var/is_cutting = 0 //to prevent spam clicking this for huge accumulation of losebreath.
 
-/obj/item/weapon/scissors/safety/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/scissors/safety/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != INTENT_HELP)
 		..()
 		return

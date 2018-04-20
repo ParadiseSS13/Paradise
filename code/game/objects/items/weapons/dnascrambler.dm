@@ -1,4 +1,4 @@
-/obj/item/weapon/dnascrambler
+/obj/item/dnascrambler
 	name = "dna scrambler"
 	desc = "An illegal genetic serum designed to randomize the user's identity."
 	icon = 'icons/obj/hypo.dmi'

@@ -342,17 +342,17 @@
 	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
 		return
 
-	if(istype(C, /obj/item/weapon/grenade/plastic/c4))
+	if(istype(C, /obj/item/grenade/plastic/c4))
 		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
 		return
 
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/weapon/rcd))
+	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/rcd))
 		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
 		return
 
 	add_fingerprint(user)
 	if((iswelder(C) && !operating && density))
-		var/obj/item/weapon/weldingtool/W = C
+		var/obj/item/weldingtool/W = C
 		if(W.remove_fuel(0,user))
 			welded = !welded
 			update_icon()
@@ -397,7 +397,7 @@
 
 	add_fingerprint(user)
 	if((iswelder(C) && !operating && density))
-		var/obj/item/weapon/weldingtool/W = C
+		var/obj/item/weldingtool/W = C
 		if(W.remove_fuel(0,user))
 			welded = !welded
 			update_icon()

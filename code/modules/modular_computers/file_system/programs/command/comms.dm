@@ -187,7 +187,7 @@
 		if(access_captain in access)
 			authenticated = COMM_AUTHENTICATION_MAX
 			var/mob/living/carbon/human/H = usr
-			var/obj/item/weapon/card/id = H.get_idcard(TRUE)
+			var/obj/item/card/id = H.get_idcard(TRUE)
 			if(istype(id))
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 
@@ -222,7 +222,7 @@
 
 				var/mob/living/carbon/human/L = usr
 				var/obj/item/card = L.get_active_hand()
-				var/obj/item/weapon/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
+				var/obj/item/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
 				if(istype(I, /obj/item/device/pda))
 					var/obj/item/device/pda/pda = I
 					I = pda.id

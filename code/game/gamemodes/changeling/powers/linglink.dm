@@ -10,7 +10,7 @@
 	if(!..())
 		return
 	var/datum/changeling/changeling = user.mind.changeling
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 
 	if(changeling.islinking)
 		to_chat(user, "<span class='warning'>We have already formed a link with the victim!</span>")
@@ -36,7 +36,7 @@
 
 /obj/effect/proc_holder/changeling/linglink/sting_action(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/target = G.affecting
 	changeling.islinking = 1
 	for(var/stage = 1, stage<=3, stage++)

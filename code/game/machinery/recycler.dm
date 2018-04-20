@@ -21,9 +21,9 @@ var/const/SAFETY_COOLDOWN = 100
 /obj/machinery/recycler/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/recycler(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/recycler(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	materials = new /datum/material_container(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1, MAT_TRANQUILLITE=1, MAT_TITANIUM=1))
 	RefreshParts()
 	update_icon()
@@ -35,10 +35,10 @@ var/const/SAFETY_COOLDOWN = 100
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
 	var/mat_mod = 0
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		mat_mod = 2 * B.rating
 	mat_mod *= 50000
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		amt_made = 25 * M.rating //% of materials salvaged
 	materials.max_amount = mat_mod
 	amount_produced = min(100, amt_made)
@@ -229,6 +229,6 @@ var/const/SAFETY_COOLDOWN = 100
 	crush_damage = 120
 
 
-/obj/item/weapon/paper/recycler
+/obj/item/paper/recycler
 	name = "paper - 'garbage duty instructions'"
 	info = "<h2>New Assignment</h2> You have been assigned to collect garbage from trash bins, located around the station. The crewmembers will put their trash into it and you will collect the said trash.<br><br>There is a recycling machine near your closet, inside maintenance; use it to recycle the trash for a small chance to get useful minerals. Then deliver these minerals to cargo or engineering. You are our last hope for a clean station, do not screw this up!"

@@ -1,10 +1,10 @@
-/obj/item/weapon/implant/traitor
+/obj/item/implant/traitor
 	name = "Mindslave Implant"
 	desc = "Divide and Conquer"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
 	activated = 0
 
-/obj/item/weapon/implant/traitor/get_data()
+/obj/item/implant/traitor/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Mind-Slave Implant<BR>
 				<b>Life:</b> ??? <BR>
@@ -16,7 +16,7 @@
 				<b>Integrity:</b> Implant will last so long as the nanobots are inside the bloodstream."}
 	return dat
 
-/obj/item/weapon/implant/traitor/implant(mob/M, mob/user)
+/obj/item/implant/traitor/implant(mob/M, mob/user)
 	if(!activated) //So you can't just keep taking it out and putting it back into other people.
 		var/mob/living/carbon/human/H = M
 		if(ismindslave(H))
@@ -81,7 +81,7 @@
 			return 1
 		return 0
 
-/obj/item/weapon/implant/traitor/removed(mob/target)
+/obj/item/implant/traitor/removed(mob/target)
 	if(..())
 		ticker.mode.remove_traitor_mind(target.mind)
 		return 1

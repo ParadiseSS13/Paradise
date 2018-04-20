@@ -110,7 +110,7 @@
 				qdel(B.container)
 		if(L)
 			qdel(L)
-	for(var/obj/item/weapon/spellbook/B in A)
+	for(var/obj/item/spellbook/B in A)
 		// No goodies for you
 		qdel(B)
 

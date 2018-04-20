@@ -180,9 +180,9 @@
 	H.uncuff()
 	return
 
-/obj/machinery/abductor/experiment/attackby(obj/item/weapon/G, mob/user)
-	if(istype(G, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/grabbed = G
+/obj/machinery/abductor/experiment/attackby(obj/item/G, mob/user)
+	if(istype(G, /obj/item/grab))
+		var/obj/item/grab/grabbed = G
 		if(!ishuman(grabbed.affecting))
 			return
 		if(isabductor(grabbed.affecting))

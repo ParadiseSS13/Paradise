@@ -1,7 +1,7 @@
 #define PAPERWORK	1
 #define PHOTO		2
 
-/obj/item/weapon/clipboard
+/obj/item/clipboard
 	name = "clipboard"
 	desc = "It looks like you're writing a letter. Want some help?"
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -9,39 +9,39 @@
 	item_state = "clipboard"
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	var/obj/item/weapon/pen/containedpen
-	var/obj/item/weapon/toppaper
+	var/obj/item/pen/containedpen
+	var/obj/item/toppaper
 	slot_flags = SLOT_BELT
 	burn_state = FLAMMABLE
 
-/obj/item/weapon/clipboard/New()
+/obj/item/clipboard/New()
 	..()
 	update_icon()
 
-/obj/item/weapon/clipboard/verb/removePen(mob/user)
+/obj/item/clipboard/verb/removePen(mob/user)
 	set category = "Object"
 	set name = "Remove clipboard pen"
 	if(!ishuman(user) || user.incapacitated())
 		return
 	penPlacement(user, containedpen, FALSE)
 
-/obj/item/weapon/clipboard/proc/isPaperwork(obj/item/weapon/W) //This could probably do with being somewhere else but for now it's fine here.
-	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/paper_bundle))
+/obj/item/clipboard/proc/isPaperwork(obj/item/W) //This could probably do with being somewhere else but for now it's fine here.
+	if(istype(W, /obj/item/paper) || istype(W, /obj/item/paper_bundle))
 		return PAPERWORK
-	if(istype(W, /obj/item/weapon/photo))
+	if(istype(W, /obj/item/photo))
 		return PHOTO
 
-/obj/item/weapon/clipboard/proc/checkTopPaper()
+/obj/item/clipboard/proc/checkTopPaper()
 	if(toppaper.loc != src) //Oh no! We're missing a top sheet! Better get another one to be at the top.
-		toppaper = locate(/obj/item/weapon/paper) in src
+		toppaper = locate(/obj/item/paper) in src
 		if(!toppaper) //In case there's no paper, try find a paper bundle instead (why is paper_bundle not a subtype of paper?)
-			toppaper = locate(/obj/item/weapon/paper_bundle) in src
+			toppaper = locate(/obj/item/paper_bundle) in src
 
-/obj/item/weapon/clipboard/examine(mob/user)
+/obj/item/clipboard/examine(mob/user)
 	if(..(user, 1) && toppaper)
 		toppaper.examine(user)
 
-obj/item/weapon/clipboard/proc/penPlacement(mob/user, obj/item/weapon/pen/P, placing)
+obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	if(placing)
 		if(containedpen)
 			to_chat(user, "<span class='warning'>There's already a pen in [src]!</span>")
@@ -61,12 +61,12 @@ obj/item/weapon/clipboard/proc/penPlacement(mob/user, obj/item/weapon/pen/P, pla
 		containedpen = null
 	update_icon()
 
-/obj/item/weapon/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
+/obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
 	var/dat = "<title>[src]</title>"
 	dat += "<a href='?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
 	if(toppaper)
 		dat += "<a href='?src=[UID()];remove=\ref[toppaper]'>Remove</a><a href='?src=[UID()];viewOrWrite=\ref[toppaper]'>[toppaper.name]</a><br><hr>"
-	for(var/obj/item/weapon/P in src)
+	for(var/obj/item/P in src)
 		if(isPaperwork(P) == PAPERWORK && P != toppaper)
 			dat += "<a href='?src=[UID()];remove=\ref[P]'>Remove</a><a href='?src=[UID()];topPaper=\ref[P]'>Put on top</a><a href='?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
 		if(isPaperwork(P) == PHOTO)
@@ -75,7 +75,7 @@ obj/item/weapon/clipboard/proc/penPlacement(mob/user, obj/item/weapon/pen/P, pla
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/weapon/clipboard/update_icon()
+/obj/item/clipboard/update_icon()
 	overlays.Cut()
 	if(toppaper)
 		overlays += toppaper.icon_state
@@ -85,7 +85,7 @@ obj/item/weapon/clipboard/proc/penPlacement(mob/user, obj/item/weapon/pen/P, pla
 	overlays += "clipboard_over"
 	return
 
-/obj/item/weapon/clipboard/attackby(obj/item/weapon/W, mob/user)
+/obj/item/clipboard/attackby(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.
 		user.unEquip(W)
 		W.forceMove(src)
@@ -111,14 +111,14 @@ obj/item/weapon/clipboard/proc/penPlacement(mob/user, obj/item/weapon/pen/P, pla
 				penPlacement(user, W, TRUE)
 			else
 				return
-	else if(istype(W, /obj/item/weapon/stamp) && toppaper) //We can stamp the topmost piece of paper
+	else if(istype(W, /obj/item/stamp) && toppaper) //We can stamp the topmost piece of paper
 		toppaper.attackby(W, user)
 		update_icon()
 
-/obj/item/weapon/clipboard/attack_self(mob/user)
+/obj/item/clipboard/attack_self(mob/user)
 	showClipboard(user)
 
-/obj/item/weapon/clipboard/Topic(href, href_list)
+/obj/item/clipboard/Topic(href, href_list)
 	..()
 	if(!Adjacent(usr) || usr.incapacitated())
 		return
@@ -135,7 +135,7 @@ obj/item/weapon/clipboard/proc/penPlacement(mob/user, obj/item/weapon/pen/P, pla
 			to_chat(usr, "<span class='notice'>You remove [P] from [src].</span>")
 			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
 	else if(href_list["viewOrWrite"])
-		var/obj/item/weapon/P = locate(href_list["viewOrWrite"])
+		var/obj/item/P = locate(href_list["viewOrWrite"])
 		if(!isPaperwork(P))
 			return
 		if(is_pen(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
@@ -143,10 +143,10 @@ obj/item/weapon/clipboard/proc/penPlacement(mob/user, obj/item/weapon/pen/P, pla
 		else if(isPaperwork(P) == PAPERWORK) //Why can't these be subtypes of paper
 			P.examine(usr)
 		else if(isPaperwork(P) == PHOTO)
-			var/obj/item/weapon/photo/Ph = P
+			var/obj/item/photo/Ph = P
 			Ph.show(usr)
 	else if(href_list["topPaper"])
-		var/obj/item/weapon/P = locate(href_list["topPaper"])
+		var/obj/item/P = locate(href_list["topPaper"])
 		if(P == toppaper)
 			return
 		to_chat(usr, "<span class='notice'>You flick the pages so that [P] is on top.</span>")

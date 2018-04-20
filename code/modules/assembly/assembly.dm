@@ -91,8 +91,8 @@
 //		if(radio && (wires & WIRE_RADIO_PULSE))
 			//Not sure what goes here quite yet send signal?
 
-		if(istype(loc,/obj/item/weapon/grenade)) // This is a hack.  Todo: Manage this better -Sayu
-			var/obj/item/weapon/grenade/G = loc
+		if(istype(loc,/obj/item/grenade)) // This is a hack.  Todo: Manage this better -Sayu
+			var/obj/item/grenade/G = loc
 			G.prime()                // Adios, muchachos
 
 
@@ -121,13 +121,13 @@
 		return 0
 
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	attackby(obj/item/W as obj, mob/user as mob, params)
 		if(isassembly(W))
 			var/obj/item/device/assembly/A = W
 			if((!A.secured) && (!secured))
 				attach_assembly(A,user)
 				return
-		if(istype(W, /obj/item/weapon/screwdriver))
+		if(istype(W, /obj/item/screwdriver))
 			if(toggle_secure())
 				to_chat(user, "<span class='notice'>\The [src] is ready!</span>")
 			else

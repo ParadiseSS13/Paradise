@@ -5,7 +5,7 @@
 #define RIM	    		3
 #define PAINT			4
 
-/obj/item/weapon/pod_paint_bucket
+/obj/item/pod_paint_bucket
 	name = "space pod paintkit"
 	desc = "Pimp your ride"
 	icon = 'icons/obj/items.dmi'
@@ -27,12 +27,12 @@
 	var/list/mob/pilot	//There is only ever one pilot and he gets all the privledge
 	var/list/mob/passengers = list() //passengers can't do anything and are variable in number
 	var/max_passengers = 0
-	var/obj/item/weapon/storage/internal/cargo_hold
+	var/obj/item/storage/internal/cargo_hold
 
 	var/datum/spacepod/equipment/equipment_system
 
-	var/battery_type = "/obj/item/weapon/stock_parts/cell/high"
-	var/obj/item/weapon/stock_parts/cell/battery
+	var/battery_type = "/obj/item/stock_parts/cell/high"
+	var/obj/item/stock_parts/cell/battery
 
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/portable_atmospherics/canister/internal_tank
@@ -120,7 +120,7 @@
 	equipment_system = new(src)
 	equipment_system.installed_modules += battery
 	spacepods_list += src
-	cargo_hold = new/obj/item/weapon/storage/internal(src)
+	cargo_hold = new/obj/item/storage/internal(src)
 	cargo_hold.w_class = 5	//so you can put bags in
 	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
 	cargo_hold.max_w_class = 5		//fit almost anything
@@ -313,7 +313,7 @@
 			else
 				to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
 			return
-		if(istype(W, /obj/item/weapon/stock_parts/cell))
+		if(istype(W, /obj/item/stock_parts/cell))
 			if(!hatch_open)
 				to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
 				return
@@ -357,11 +357,11 @@
 				to_chat(user, "<span class='warning'>This is the wrong key!</span>")
 				return
 
-		if(istype(W, /obj/item/weapon/weldingtool))
+		if(istype(W, /obj/item/weldingtool))
 			if(!hatch_open)
 				to_chat(user, "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>")
 				return
-			var/obj/item/weapon/weldingtool/WT = W
+			var/obj/item/weldingtool/WT = W
 			if(!WT.isOn())
 				to_chat(user, "<span class='warning'>The welder must be on for this task.</span>")
 				return
@@ -526,12 +526,12 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 
 	L += src.contents
 
-	for(var/obj/item/weapon/storage/S in src)
+	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
-	for(var/obj/item/weapon/gift/G in src)
+	for(var/obj/item/gift/G in src)
 		L += G.gift
-		if(istype(G.gift, /obj/item/weapon/storage))
-			var/obj/item/weapon/storage/inv = G.gift
+		if(istype(G.gift, /obj/item/storage))
+			var/obj/item/storage/inv = G.gift
 			L += inv.return_inv()
 	return L
 
@@ -541,7 +541,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 
 /obj/spacepod/civilian/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	if(istype(W, /obj/item/weapon/pod_paint_bucket))
+	if(istype(W, /obj/item/pod_paint_bucket))
 		apply_paint(user)
 		return
 
@@ -739,7 +739,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/device/spacepod_equipment
 	if(!istype(user))
 		return 0
 
-	var/fukkendisk = user.GetTypeInAllContents(/obj/item/weapon/disk/nuclear)
+	var/fukkendisk = user.GetTypeInAllContents(/obj/item/disk/nuclear)
 
 	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return 0

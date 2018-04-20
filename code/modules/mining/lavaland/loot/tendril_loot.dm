@@ -1,7 +1,7 @@
 //Shared Bag
 
 //Internal
-/obj/item/weapon/storage/backpack/shared
+/obj/item/storage/backpack/shared
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
 	max_combined_w_class = 60
@@ -14,7 +14,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
 	slot_flags = SLOT_BACK
-	var/obj/item/weapon/storage/backpack/shared/bag
+	var/obj/item/storage/backpack/shared/bag
 
 /obj/item/device/shared_storage/red
 	name = "paradox bag"
@@ -23,7 +23,7 @@
 /obj/item/device/shared_storage/red/New()
 	..()
 	if(!bag)
-		var/obj/item/weapon/storage/backpack/shared/S = new(src)
+		var/obj/item/storage/backpack/shared/S = new(src)
 		var/obj/item/device/shared_storage/blue = new(loc)
 
 		bag = S
@@ -79,16 +79,16 @@
 
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
-/obj/item/weapon/reagent_containers/glass/bottle/potion
+/obj/item/reagent_containers/glass/bottle/potion
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "potionflask"
 
-/obj/item/weapon/reagent_containers/glass/bottle/potion/flight
+/obj/item/reagent_containers/glass/bottle/potion/flight
 	name = "strange elixir"
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list("flightpotion" = 5)
 
-/obj/item/weapon/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/glass/bottle/potion/update_icon()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -124,7 +124,7 @@
 	desc = "A boat used for traversing lava."
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
-	keytype = /obj/item/weapon/oar
+	keytype = /obj/item/oar
 	burn_state = LAVA_PROOF | FIRE_PROOF
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
@@ -137,7 +137,7 @@
 		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
 		return 0
 
-/obj/item/weapon/oar
+/obj/item/oar
 	name = "oar"
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "oar"
@@ -149,7 +149,7 @@
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
-	result = /obj/item/weapon/oar
+	result = /obj/item/oar
 	reqs = list(/obj/item/stack/sheet/bone = 2)
 	time = 15
 	category = CAT_PRIMAL
@@ -284,7 +284,7 @@
 
 //Meat Hook
 
-/obj/item/weapon/gun/magic/hook
+/obj/item/gun/magic/hook
 	name = "meat hook"
 	desc = "Mid or feed."
 	ammo_type = /obj/item/ammo_casing/magic/hook

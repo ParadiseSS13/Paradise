@@ -38,7 +38,7 @@
 		return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
-	if(istype(user.get_inactive_hand(), /obj/item/weapon/card/emag))
+	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
 		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
 		do_break()
 		return TRUE

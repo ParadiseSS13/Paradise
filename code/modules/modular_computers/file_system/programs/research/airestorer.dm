@@ -12,7 +12,7 @@
 
 /datum/computer_file/program/aidiag/proc/get_ai(cardcheck)
 
-	var/obj/item/weapon/computer_hardware/ai_slot/ai_slot
+	var/obj/item/computer_hardware/ai_slot/ai_slot
 
 	if(computer)
 		ai_slot = computer.all_components[MC_AI]
@@ -43,7 +43,7 @@
 			return TRUE
 		if("PRG_eject")
 			if(computer.all_components[MC_AI])
-				var/obj/item/weapon/computer_hardware/ai_slot/ai_slot = computer.all_components[MC_AI]
+				var/obj/item/computer_hardware/ai_slot/ai_slot = computer.all_components[MC_AI]
 				if(ai_slot && ai_slot.stored_card)
 					ai_slot.try_eject(0,usr)
 					return TRUE
@@ -54,7 +54,7 @@
 		return
 	var/obj/item/device/aicard/cardhold = get_ai(2)
 
-	var/obj/item/weapon/computer_hardware/ai_slot/ai_slot = get_ai(1)
+	var/obj/item/computer_hardware/ai_slot/ai_slot = get_ai(1)
 
 
 	var/mob/living/silicon/ai/A = get_ai()

@@ -4,8 +4,8 @@
 	icon_state = "valve_1"
 	item_state = "ttv"
 	desc = "Regulates the transfer of air between two tanks"
-	var/obj/item/weapon/tank/tank_one = null
-	var/obj/item/weapon/tank/tank_two = null
+	var/obj/item/tank/tank_one = null
+	var/obj/item/tank/tank_two = null
 	var/obj/item/device/assembly/attached_device = null
 	var/mob/living/attacher = null
 	var/valve_open = 0
@@ -23,7 +23,7 @@
 	return 1
 
 /obj/item/device/transfer_valve/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/tank))
+	if(istype(I, /obj/item/tank))
 		if(tank_one && tank_two)
 			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first.</span>")
 			return

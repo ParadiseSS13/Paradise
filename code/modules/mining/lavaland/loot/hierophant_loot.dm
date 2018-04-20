@@ -1,4 +1,4 @@
-/obj/item/weapon/hierophant_staff
+/obj/item/hierophant_staff
 	name = "Hierophant's staff"
 	desc = "A large club with intense magic power infused into it."
 	icon_state = "hierophant_staff"
@@ -19,7 +19,7 @@
 	var/teleporting = FALSE //if we ARE teleporting
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
-/obj/item/weapon/hierophant_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/hierophant_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	var/turf/T = get_turf(target)
 	if(!T || timer > world.time)
@@ -47,7 +47,7 @@
 		else
 			to_chat(user, "<span class='warning'>That target is out of range!</span>") //too far away
 
-/obj/item/weapon/hierophant_staff/ui_action_click(mob/user, actiontype)
+/obj/item/hierophant_staff/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/toggle_unfriendly_fire) //toggle friendly fire...
 		friendly_fire_check = !friendly_fire_check
 		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
@@ -128,7 +128,7 @@
 	if(user)
 		user.update_action_buttons_icon()
 
-/obj/item/weapon/hierophant_staff/proc/teleport_mob(turf/source, mob/M, turf/target, mob/user)
+/obj/item/hierophant_staff/proc/teleport_mob(turf/source, mob/M, turf/target, mob/user)
 	var/turf/turf_to_teleport_to = get_step(target, get_dir(source, M)) //get position relative to caster
 	if(!turf_to_teleport_to || is_blocked_turf(turf_to_teleport_to))
 		return
@@ -152,7 +152,7 @@
 	if(user != M)
 		add_logs(user, M, "teleported", null, "from ([source.x],[source.y],[source.z])")
 
-/obj/item/weapon/hierophant_staff/proc/cardinal_blasts(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
+/obj/item/hierophant_staff/proc/cardinal_blasts(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
 	if(!T)
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph/cardinal(T, user)
@@ -164,7 +164,7 @@
 		spawn(0)
 			blast_wall(T, d, user)
 
-/obj/item/weapon/hierophant_staff/proc/blast_wall(turf/T, dir, mob/living/user) //make a wall of blasts blast_range tiles long
+/obj/item/hierophant_staff/proc/blast_wall(turf/T, dir, mob/living/user) //make a wall of blasts blast_range tiles long
 	if(!T)
 		return
 	var/range = blast_range
@@ -177,7 +177,7 @@
 		previousturf = J
 		J = get_step(previousturf, dir)
 
-/obj/item/weapon/hierophant_staff/proc/aoe_burst(turf/T, mob/living/user) //make a 3x3 blast around a target
+/obj/item/hierophant_staff/proc/aoe_burst(turf/T, mob/living/user) //make a 3x3 blast around a target
 	if(!T)
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph(T, user)

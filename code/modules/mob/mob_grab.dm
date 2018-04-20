@@ -8,7 +8,7 @@
 //time it takes for a mob to be eaten (in deciseconds) (overrides mob eat time)
 #define EAT_TIME_ANIMAL 30
 
-/obj/item/weapon/grab
+/obj/item/grab
 	name = "grab"
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	var/obj/screen/grab/hud = null
@@ -29,7 +29,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 
-/obj/item/weapon/grab/New(var/mob/user, var/mob/victim)
+/obj/item/grab/New(var/mob/user, var/mob/victim)
 	..()
 
 	//Okay, first off, some fucking sanity checking. No user, or no victim, or they are not mobs, no grab.
@@ -54,7 +54,7 @@
 
 	//check if assailant is grabbed by victim as well
 	if(assailant.grabbed_by)
-		for(var/obj/item/weapon/grab/G in assailant.grabbed_by)
+		for(var/obj/item/grab/G in assailant.grabbed_by)
 			if(G.assailant == affecting && G.affecting == assailant)
 				G.dancing = 1
 				G.adjust_position()
@@ -63,23 +63,23 @@
 	clean_grabbed_by(assailant, affecting)
 	adjust_position()
 
-/obj/item/weapon/grab/proc/clean_grabbed_by(var/mob/user, var/mob/victim) //Cleans up any nulls in the grabbed_by list.
+/obj/item/grab/proc/clean_grabbed_by(var/mob/user, var/mob/victim) //Cleans up any nulls in the grabbed_by list.
 	if(istype(user))
 
 		for(var/entry in user.grabbed_by)
-			if(isnull(entry) || !istype(entry, /obj/item/weapon/grab)) //the isnull() here is probably redundant- but it might outperform istype, who knows. Better safe than sorry.
+			if(isnull(entry) || !istype(entry, /obj/item/grab)) //the isnull() here is probably redundant- but it might outperform istype, who knows. Better safe than sorry.
 				user.grabbed_by -= entry
 
 	if(istype(victim))
 
 		for(var/entry in victim.grabbed_by)
-			if(isnull(entry) || !istype(entry, /obj/item/weapon/grab))
+			if(isnull(entry) || !istype(entry, /obj/item/grab))
 				victim.grabbed_by -= entry
 
 	return 1
 
 //Used by throw code to hand over the mob, instead of throwing the grab. The grab is then deleted by the throw code.
-/obj/item/weapon/grab/proc/get_mob_if_throwable()
+/obj/item/grab/proc/get_mob_if_throwable()
 	if(affecting && assailant.Adjacent(affecting))
 		if(affecting.buckled)
 			return null
@@ -88,7 +88,7 @@
 	return null
 
 //This makes sure that the grab screen object is displayed in the correct hand.
-/obj/item/weapon/grab/proc/synch()
+/obj/item/grab/proc/synch()
 	if(affecting)
 		if(assailant.r_hand == src)
 			hud.screen_loc = ui_rhand
@@ -96,7 +96,7 @@
 			hud.screen_loc = ui_lhand
 		assailant.client.screen += hud
 
-/obj/item/weapon/grab/process()
+/obj/item/grab/process()
 	if(!confirm())
 		return //If the confirm fails, the grab is about to be deleted. That means it shouldn't continue processing.
 
@@ -115,17 +115,17 @@
 	if(state <= GRAB_AGGRESSIVE)
 		allow_upgrade = 1
 		//disallow upgrading if we're grabbing more than one person
-		if((assailant.l_hand && assailant.l_hand != src && istype(assailant.l_hand, /obj/item/weapon/grab)))
-			var/obj/item/weapon/grab/G = assailant.l_hand
+		if((assailant.l_hand && assailant.l_hand != src && istype(assailant.l_hand, /obj/item/grab)))
+			var/obj/item/grab/G = assailant.l_hand
 			if(G.affecting != affecting)
 				allow_upgrade = 0
-		if((assailant.r_hand && assailant.r_hand != src && istype(assailant.r_hand, /obj/item/weapon/grab)))
-			var/obj/item/weapon/grab/G = assailant.r_hand
+		if((assailant.r_hand && assailant.r_hand != src && istype(assailant.r_hand, /obj/item/grab)))
+			var/obj/item/grab/G = assailant.r_hand
 			if(G.affecting != affecting)
 				allow_upgrade = 0
 
 		//disallow upgrading past aggressive if we're being grabbed aggressively
-		for(var/obj/item/weapon/grab/G in affecting.grabbed_by)
+		for(var/obj/item/grab/G in affecting.grabbed_by)
 			if(G == src) continue
 			if(G.state >= GRAB_AGGRESSIVE)
 				allow_upgrade = 0
@@ -185,12 +185,12 @@
 	adjust_position()
 
 
-/obj/item/weapon/grab/attack_self(mob/user)
+/obj/item/grab/attack_self(mob/user)
 	s_click(hud)
 
 //Updating pixelshift, position and direction
 //Gets called on process, when the grab gets upgraded or the assailant moves
-/obj/item/weapon/grab/proc/adjust_position()
+/obj/item/grab/proc/adjust_position()
 	if(affecting.buckled)
 		return
 	if(affecting.lying && state != GRAB_KILL)
@@ -232,7 +232,7 @@
 		if(EAST)
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 
-/obj/item/weapon/grab/proc/s_click(obj/screen/S)
+/obj/item/grab/proc/s_click(obj/screen/S)
 	if(!affecting)
 		return
 	if(state == GRAB_UPGRADING)
@@ -299,7 +299,7 @@
 	adjust_position()
 
 //This is used to make sure the victim hasn't managed to yackety sax away before using the grab.
-/obj/item/weapon/grab/proc/confirm()
+/obj/item/grab/proc/confirm()
 	if(!assailant || !affecting)
 		qdel(src)
 		return 0
@@ -311,7 +311,7 @@
 	return 1
 
 
-/obj/item/weapon/grab/attack(mob/living/M, mob/living/carbon/user)
+/obj/item/grab/attack(mob/living/M, mob/living/carbon/user)
 	if(!affecting)
 		return
 
@@ -408,7 +408,7 @@
 			attacker.stomach_contents.Add(affecting)
 			qdel(src)
 
-/obj/item/weapon/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
+/obj/item/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
 	if(ishuman(attacker) && (/datum/dna/gene/basic/grant_spell/mattereater in attacker.active_genes)) // MATTER EATER CARES NOT OF YOUR FORM
 		return 1
 
@@ -424,7 +424,7 @@
 
 	return 0
 
-/obj/item/weapon/grab/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
+/obj/item/grab/proc/checktime(var/mob/attacker, var/mob/prey) //Returns the time the attacker has to wait before they eat the prey
 	if(isalien(attacker))
 		return EAT_TIME_XENO //xenos get a speed boost
 
@@ -433,7 +433,7 @@
 
 	return EAT_TIME_FAT //if it doesn't fit into the above, it's probably a fat guy, take EAT_TIME_FAT to do it
 
-/obj/item/weapon/grab/Destroy()
+/obj/item/grab/Destroy()
 	if(affecting)
 		affecting.pixel_x = 0
 		affecting.pixel_y = 0 //used to be an animate, not quick enough for del'ing

@@ -429,7 +429,7 @@
 	if(!use_cable(1))
 		return reset()
 	var/obj/structure/cable/NC = new(new_turf)
-	NC.cableColor("red")
+	NC.cable_color("red")
 	NC.d1 = 0
 	NC.d2 = fdirn
 	NC.updateicon()

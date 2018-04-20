@@ -82,8 +82,8 @@
 		if(P.on)
 			P.toggle_light()
 			P.visible_message("<span class='danger'>[P]'s light fades and turns off.</span>")
-	else if(istype(I, /obj/item/weapon/gun))
-		var/obj/item/weapon/gun/G = I
+	else if(istype(I, /obj/item/gun))
+		var/obj/item/gun/G = I
 		if(G.gun_light)
 			var/obj/item/device/flashlight/F = G.gun_light
 			if(F.on)
@@ -320,7 +320,7 @@
 						sleep(100) //10 seconds - not spawn() so the enthralling takes longer
 						to_chat(user, "<span class='notice'>The nanobots composing the mindshield implant have been rendered inert. Now to continue.</span>")
 						user.visible_message("<span class='warning'>[user] relaxes again.</span>")
-						for(var/obj/item/weapon/implant/mindshield/L in target)
+						for(var/obj/item/implant/mindshield/L in target)
 							if(L && L.implanted)
 								qdel(L)
 						to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
@@ -469,7 +469,7 @@
 		target.visible_message("<span class='warning'>[target] suddenly bends over and coughs out a cloud of black smoke, which begins to spread rapidly!</span>")
 		to_chat(target, "<span class='deadsay'>You regurgitate a vast cloud of blinding smoke.</span>")
 		playsound(target, 'sound/effects/bamf.ogg', 50, 1)
-		var/obj/item/weapon/reagent_containers/glass/beaker/large/B = new /obj/item/weapon/reagent_containers/glass/beaker/large(target.loc)
+		var/obj/item/reagent_containers/glass/beaker/large/B = new /obj/item/reagent_containers/glass/beaker/large(target.loc)
 		B.reagents.clear_reagents() //Just in case!
 		B.icon_state = null //Invisible
 		B.reagents.add_reagent("blindness_smoke", 10)

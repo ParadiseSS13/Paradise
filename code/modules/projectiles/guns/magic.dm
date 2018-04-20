@@ -1,4 +1,4 @@
-/obj/item/weapon/gun/magic
+/obj/item/gun/magic
 	name = "staff of nothing"
 	desc = "This staff is boring to watch because even though it came first you've seen everything it can do in other staves for years."
 	icon = 'icons/obj/guns/magic.dmi'
@@ -22,7 +22,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
-/obj/item/weapon/gun/magic/afterattack(atom/target, mob/living/user, flag)
+/obj/item/gun/magic/afterattack(atom/target, mob/living/user, flag)
 	newshot()
 	if(no_den_usage)
 		var/area/A = get_area(user)
@@ -33,20 +33,20 @@
 			no_den_usage = 0
 	..()
 
-/obj/item/weapon/gun/magic/can_shoot()
+/obj/item/gun/magic/can_shoot()
 	return charges
 
-/obj/item/weapon/gun/magic/newshot(params)
+/obj/item/gun/magic/newshot(params)
 	if(charges && chambered)
 		chambered.newshot(params)
 	return
 
-/obj/item/weapon/gun/magic/process_chamber()
+/obj/item/gun/magic/process_chamber()
 	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
 		charges--//... drain a charge
 	return
 
-/obj/item/weapon/gun/magic/New()
+/obj/item/gun/magic/New()
 	..()
 	charges = max_charges
 	chambered = new ammo_type(src)
@@ -54,13 +54,13 @@
 		processing_objects.Add(src)
 
 
-/obj/item/weapon/gun/magic/Destroy()
+/obj/item/gun/magic/Destroy()
 	if(can_charge)
 		processing_objects.Remove(src)
 	return ..()
 
 
-/obj/item/weapon/gun/magic/process()
+/obj/item/gun/magic/process()
 	charge_tick++
 	if(charge_tick < recharge_rate || charges >= max_charges)
 		return 0
@@ -68,14 +68,14 @@
 	charges++
 	return 1
 
-/obj/item/weapon/gun/magic/update_icon()
+/obj/item/gun/magic/update_icon()
 	return
 
-/obj/item/weapon/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
+/obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, "<span class='warning'>The [name] whizzles quietly.<span>")
 	return
 
-/obj/item/weapon/gun/magic/suicide_act(mob/user)
+/obj/item/gun/magic/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is twisting the [name] above \his head, releasing a magical blast! It looks like \he's trying to commit suicide.</span>")
 	playsound(loc, fire_sound, 50, 1, -1)
 	return FIRELOSS

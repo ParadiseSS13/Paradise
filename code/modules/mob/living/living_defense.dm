@@ -79,8 +79,8 @@
 		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
 		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		if(istype(I, /obj/item/weapon))
-			var/obj/item/weapon/W = I
+		if(istype(I, /obj/item))
+			var/obj/item/W = I
 			dtype = W.damtype
 			if(W.throwforce > 0) //If the weapon's throwforce is greater than zero...
 				if(W.hitsound) //...and hitsound is defined...
@@ -239,14 +239,14 @@
 	if(!(status_flags & CANPUSH))
 		return 0
 
-	for(var/obj/item/weapon/grab/G in src.grabbed_by)
+	for(var/obj/item/grab/G in src.grabbed_by)
 		if(G.assailant == user)
 			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
 			return
 
 	add_logs(user, src, "grabbed", addition="passively")
 
-	var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(user, src)
+	var/obj/item/grab/G = new /obj/item/grab(user, src)
 	if(buckled)
 		to_chat(user, "<span class='notice'>You cannot grab [src], \he is buckled in!</span>")
 	if(!G)	//the grab will delete itself in New if src is anchored
