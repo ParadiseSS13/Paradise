@@ -40,8 +40,8 @@
 				"You hear a ratchet")
 		return
 	else if(user.a_intent == INTENT_GRAB)
-		if(istype(W, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = W
+		if(istype(W, /obj/item/grab))
+			var/obj/item/grab/G = W
 			if(isliving(G.affecting))
 				if(do_mob(user, src, 120))
 					var/mob/living/H = G.affecting
