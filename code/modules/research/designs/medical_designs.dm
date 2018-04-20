@@ -28,7 +28,7 @@
 	req_tech = list("bluespace" = 6, "materials" = 5, "plasmatech" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_PLASMA = 3000, MAT_DIAMOND = 500)
-	build_path = /obj/item/weapon/reagent_containers/glass/beaker/bluespace
+	build_path = /obj/item/reagent_containers/glass/beaker/bluespace
 	category = list("Medical")
 
 /datum/design/noreactbeaker
@@ -38,7 +38,7 @@
 	req_tech = list("materials" = 3, "engineering" = 3, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000)
-	build_path = /obj/item/weapon/reagent_containers/glass/beaker/noreact
+	build_path = /obj/item/reagent_containers/glass/beaker/noreact
 	category = list("Medical")
 
 /datum/design/cyborg_analyzer
@@ -68,7 +68,7 @@
 	req_tech = list("materials" = 7, "biotech" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000, MAT_SILVER = 1000)
-	build_path = /obj/item/weapon/defibrillator
+	build_path = /obj/item/defibrillator
 	category = list("Medical")
 
 
@@ -152,7 +152,7 @@
 	req_tech = list("biotech" = 2, "materials" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500)
-	build_path = /obj/item/weapon/scalpel/laser/laser1
+	build_path = /obj/item/scalpel/laser/laser1
 	category = list("Medical")
 
 /datum/design/item/scalpel_laser2
@@ -162,7 +162,7 @@
 	req_tech = list("biotech" = 3, "materials" = 4, "magnets" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000)
-	build_path = /obj/item/weapon/scalpel/laser/laser2
+	build_path = /obj/item/scalpel/laser/laser2
 	category = list("Medical")
 
 /datum/design/item/scalpel_laser3
@@ -172,7 +172,7 @@
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
-	build_path = /obj/item/weapon/scalpel/laser/laser3
+	build_path = /obj/item/scalpel/laser/laser3
 	category = list("Medical")
 
 /datum/design/item/scalpel_manager
@@ -182,7 +182,7 @@
 	req_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
 	build_type = PROTOLATHE
 	materials = list (MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
-	build_path = /obj/item/weapon/scalpel/laser/manager
+	build_path = /obj/item/scalpel/laser/manager
 	category = list("Medical")
 
 /datum/design/alienscalpel
@@ -190,7 +190,7 @@
 	desc = "An advanced scalpel obtained through Abductor technology."
 	id = "alien_scalpel"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/weapon/scalpel/alien
+	build_path = /obj/item/scalpel/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -200,7 +200,7 @@
 	desc = "An advanced hemostat obtained through Abductor technology."
 	id = "alien_hemostat"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/weapon/hemostat/alien
+	build_path = /obj/item/hemostat/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -210,7 +210,7 @@
 	desc = "An advanced retractor obtained through Abductor technology."
 	id = "alien_retractor"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/weapon/retractor/alien
+	build_path = /obj/item/retractor/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -220,7 +220,7 @@
 	desc = "An advanced surgical saw obtained through Abductor technology."
 	id = "alien_saw"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/weapon/circular_saw/alien
+	build_path = /obj/item/circular_saw/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -230,7 +230,7 @@
 	desc = "An advanced drill obtained through Abductor technology."
 	id = "alien_drill"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/weapon/surgicaldrill/alien
+	build_path = /obj/item/surgicaldrill/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 2500, MAT_PLASMA = 1000, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -240,7 +240,7 @@
 	desc = "An advanced cautery obtained through Abductor technology."
 	id = "alien_cautery"
 	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
-	build_path = /obj/item/weapon/cautery/alien
+	build_path = /obj/item/cautery/alien
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
@@ -403,7 +403,7 @@
 	req_tech = list("materials" = 2, "biotech" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
-	build_path = /obj/item/weapon/implanter
+	build_path = /obj/item/implanter
 	category = list("Medical")
 
 /datum/design/implantcase
@@ -413,7 +413,7 @@
 	req_tech = list("biotech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/weapon/implantcase
+	build_path = /obj/item/implantcase
 	category = list("Medical")
 
 /datum/design/implant_chem
@@ -423,7 +423,7 @@
 	req_tech = list("materials" = 3, "biotech" = 5,)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
-	build_path = /obj/item/weapon/implantcase/chem
+	build_path = /obj/item/implantcase/chem
 	category = list("Medical")
 
 /datum/design/implant_tracking
@@ -433,5 +433,5 @@
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/weapon/implantcase/track
+	build_path = /obj/item/implantcase/track
 	category = list("Medical")

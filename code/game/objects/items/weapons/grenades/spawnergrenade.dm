@@ -1,4 +1,4 @@
-/obj/item/weapon/grenade/spawnergrenade
+/obj/item/grenade/spawnergrenade
 	desc = "It is set to detonate in 5 seconds. It will unleash unleash an unspecified anomaly into the vicinity."
 	name = "delivery grenade"
 	icon = 'icons/obj/grenade.dmi'
@@ -31,26 +31,26 @@
 		qdel(src)
 		return
 
-/obj/item/weapon/grenade/spawnergrenade/manhacks
+/obj/item/grenade/spawnergrenade/manhacks
 	name = "manhack delivery grenade"
 	spawner_type = /mob/living/simple_animal/hostile/viscerator
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
-/obj/item/weapon/grenade/spawnergrenade/spesscarp
+/obj/item/grenade/spawnergrenade/spesscarp
 	name = "carp delivery grenade"
 	spawner_type = /mob/living/simple_animal/hostile/carp
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
-/obj/item/weapon/grenade/spawnergrenade/feral_cats
+/obj/item/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
 	desc = "This grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	spawner_type = /mob/living/simple_animal/hostile/feral_cat
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"
 
-/obj/item/weapon/grenade/spawnergrenade/feral_cats/prime()			//Own proc for this because the regular one would flash people which was dumb.
+/obj/item/grenade/spawnergrenade/feral_cats/prime()			//Own proc for this because the regular one would flash people which was dumb.
 	update_mob()
 	if(spawner_type && deliveryamt)
 		var/turf/T = get_turf(src)

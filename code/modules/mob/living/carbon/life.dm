@@ -357,7 +357,7 @@
 		if(istype(buckled, /obj/structure/stool/bed))
 			var/obj/structure/stool/bed/bed = buckled
 			comfort+= bed.comfort
-		for(var/obj/item/weapon/bedsheet/bedsheet in range(loc,0))
+		for(var/obj/item/bedsheet/bedsheet in range(loc,0))
 			if(bedsheet.loc != loc) //bedsheets in your backpack/neck don't give you comfort
 				continue
 			comfort+= bedsheet.comfort

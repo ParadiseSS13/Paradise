@@ -34,7 +34,7 @@
 
 	var/list/player_access = list()
 	var/emagged = 0
-	var/obj/item/weapon/card/id/access_card			// the ID card that the bot "holds"
+	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
 	var/list/prev_access = list()
 	var/on = 1
 	var/open = 0//Maint panel
@@ -140,7 +140,7 @@
 	bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
-	access_card = new /obj/item/weapon/card/id(src)
+	access_card = new /obj/item/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += access_robotics
 	set_custom_texts()
@@ -295,14 +295,14 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
-/mob/living/simple_animal/bot/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/screwdriver))
+/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/screwdriver))
 		if(!locked)
 			open = !open
 			to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 		else
 			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/device/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
@@ -340,7 +340,7 @@
 				to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
-	else if(istype(W, /obj/item/weapon/hemostat) && paicard)
+	else if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
 		else
@@ -351,14 +351,14 @@
 					ejectpai(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != INTENT_HARM)
+		if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM)
 			if(health >= maxHealth)
 				to_chat(user, "<span class='warning'>[src] does not need a repair!</span>")
 				return
 			if(!open)
 				to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
 				return
-			var/obj/item/weapon/weldingtool/WT = W
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
 				adjustHealth(-10)
 				add_fingerprint(user)
@@ -514,7 +514,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/area/end_area = get_area(waypoint)
 
 	//For giving the bot temporary all-access.
-	var/obj/item/weapon/card/id/all_access = new /obj/item/weapon/card/id
+	var/obj/item/card/id/all_access = new /obj/item/card/id
 	var/datum/job/captain/All = new/datum/job/captain
 	all_access.access = All.get_access()
 

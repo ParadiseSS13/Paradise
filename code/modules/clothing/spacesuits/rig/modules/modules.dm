@@ -17,7 +17,7 @@
 	toolspeed = 1
 
 	var/damage = 0
-	var/obj/item/weapon/rig/holder
+	var/obj/item/rig/holder
 
 	var/module_cooldown = 10
 	var/next_use = 0
@@ -136,7 +136,7 @@
 	stat_modules +=	new/stat_rig_module/charge(src)
 
 // Called when the module is installed into a suit.
-/obj/item/rig_module/proc/installed(var/obj/item/weapon/rig/new_holder)
+/obj/item/rig_module/proc/installed(var/obj/item/rig/new_holder)
 	holder = new_holder
 	return
 
@@ -227,7 +227,7 @@
 /obj/item/rig_module/proc/accepts_item(var/obj/item/input_device)
 	return 0
 
-/mob/proc/SetupStat(var/obj/item/weapon/rig/R)
+/mob/proc/SetupStat(var/obj/item/rig/R)
 	if(R && (R.flags & NODROP) && R.installed_modules.len && statpanel("Hardsuit Modules"))
 		var/cell_status = R.cell ? "[R.cell.charge]/[R.cell.maxcharge]" : "ERROR"
 		stat("Suit charge", cell_status)

@@ -72,7 +72,7 @@
 
 	add_fingerprint(user)
 
-/obj/structure/ladder/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/structure/ladder/attackby(obj/item/W, mob/user as mob, params)
 	return attack_hand(user)
 
 /obj/structure/ladder/dive_point/buoy

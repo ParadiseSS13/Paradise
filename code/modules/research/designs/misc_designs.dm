@@ -8,7 +8,7 @@
 	req_tech = list("programming" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
-	build_path = /obj/item/weapon/disk/design_disk
+	build_path = /obj/item/disk/design_disk
 	category = list("Miscellaneous")
 
 /datum/design/diskplantgene
@@ -18,7 +18,7 @@
 	req_tech = list("programming" = 4, "biotech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=200, MAT_GLASS=100)
-	build_path = /obj/item/weapon/disk/plantgene
+	build_path = /obj/item/disk/plantgene
 	category = list("Miscellaneous")
 
 /datum/design/intellicard
@@ -48,7 +48,7 @@
 	req_tech = list("programming" = 1)
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
-	build_path = /obj/item/weapon/disk/tech_disk
+	build_path = /obj/item/disk/tech_disk
 	category = list("Miscellaneous")
 
 /datum/design/digital_camera

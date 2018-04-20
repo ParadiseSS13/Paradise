@@ -27,7 +27,7 @@
 
 /obj/item/device/eftpos/proc/print_reference()
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	var/obj/item/weapon/paper/R = new(loc)
+	var/obj/item/paper/R = new(loc)
 	R.name = "Reference: [eftpos_name]"
 
 	// AUTOFIXED BY fix_string_idiocy.py
@@ -41,7 +41,7 @@
 	stampoverlay.icon_state = "paper_stamp-cent"
 	if(!R.stamped)
 		R.stamped = new
-	R.stamped += /obj/item/weapon/stamp
+	R.stamped += /obj/item/stamp
 	R.overlays += stampoverlay
 	R.stamps += "<HR><i>This paper has been stamped by the EFTPOS device.</i>"
 	var/obj/item/smallDelivery/D = new(R.loc)
@@ -63,7 +63,7 @@
 	ui_interact(user)
 
 /obj/item/device/eftpos/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/weapon/card))
+	if(istype(O, /obj/item/card))
 		//attempt to connect to a new db, and if that doesn't work then fail
 		if(!linked_db)
 			reconnect_database()
@@ -156,28 +156,28 @@
 					reconnect_database()
 				if(linked_db && linked_account)
 					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/weapon/card))
+					if(istype(I, /obj/item/card))
 						scan_card(I, usr)
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to link accounts.</span>")
 			if("reset")
 				//reset the access code - requires HoP/captain access
 				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/weapon/card))
-					var/obj/item/weapon/card/id/C = I
+				if(istype(I, /obj/item/card))
+					var/obj/item/card/id/C = I
 					if(access_cent_commander in C.access || access_hop in C.access || access_captain in C.access)
 						access_code = 0
 						to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
-				else if(istype(I, /obj/item/weapon/card/emag))
+				else if(istype(I, /obj/item/card/emag))
 					access_code = 0
 					to_chat(usr, "[bicon(src)]<span class='info'>Access code reset to 0.</span>")
 
 	SSnanoui.update_uis(src)
 	return 1
 
-/obj/item/device/eftpos/proc/scan_card(obj/item/weapon/card/I, mob/user)
-	if(istype(I, /obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/C = I
+/obj/item/device/eftpos/proc/scan_card(obj/item/card/I, mob/user)
+	if(istype(I, /obj/item/card/id))
+		var/obj/item/card/id/C = I
 		visible_message("<span class='info'>[user] swipes a card through [src].</span>")
 		if(transaction_locked && !transaction_paid)
 			if(linked_account)

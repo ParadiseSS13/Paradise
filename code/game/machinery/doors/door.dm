@@ -182,14 +182,14 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/door/proc/try_to_weld(obj/item/weapon/weldingtool/W, mob/user)
+/obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
 	return
 
 /obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
 	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent != INTENT_HARM && (iscrowbar(I) || istype(I, /obj/item/weapon/twohanded/fireaxe)))
+	if(user.a_intent != INTENT_HARM && (iscrowbar(I) || istype(I, /obj/item/twohanded/fireaxe)))
 		try_to_crowbar(I, user)
 		return 1
 	else if(iswelder(I))

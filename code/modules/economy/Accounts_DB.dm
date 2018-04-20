@@ -7,7 +7,7 @@
 	req_one_access = list(access_hop, access_captain, access_cent_commander)
 	var/receipt_num
 	var/machine_id = ""
-	var/obj/item/weapon/card/id/held_card
+	var/obj/item/card/id/held_card
 	var/datum/money_account/detailed_account_view
 	var/creating_new_account = 0
 	var/activated = 1
@@ -61,7 +61,7 @@
 	..()
 
 /obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
-	if(!istype(O, /obj/item/weapon/card/id))
+	if(!istype(O, /obj/item/card/id))
 		return ..()
 
 	if(!held_card)
@@ -144,8 +144,8 @@
 
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/weapon/card/id))
-				var/obj/item/weapon/card/id/C = I
+			if(istype(I, /obj/item/card/id))
+				var/obj/item/card/id/C = I
 				usr.drop_item()
 				C.forceMove(src)
 				held_card = C
@@ -221,7 +221,7 @@
 			if("print")
 				var/text
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-				var/obj/item/weapon/paper/P = new(loc)
+				var/obj/item/paper/P = new(loc)
 				if(detailed_account_view)
 					P.name = "account #[detailed_account_view.account_number] details"
 					var/title = "Account #[detailed_account_view.account_number] Details"

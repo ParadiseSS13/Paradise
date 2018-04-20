@@ -397,7 +397,7 @@ Class Procs:
 	uid = gl_uid
 	gl_uid++
 
-/obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/weapon/crowbar/C, var/ignore_panel = 0)
+/obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/crowbar/C, var/ignore_panel = 0)
 	if(istype(C) && (panel_open || ignore_panel))
 		playsound(loc, C.usesound, 50, 1)
 		deconstruct()
@@ -427,7 +427,7 @@ Class Procs:
 	if(can_deconstruct)
 		stat |= BROKEN
 
-/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
+/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/screwdriver/S)
 	if(istype(S))
 		playsound(loc, S.usesound, 50, 1)
 		if(!panel_open)
@@ -441,7 +441,7 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
+/obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/wrench/W)
 	if(panel_open && istype(W))
 		playsound(loc, W.usesound, 50, 1)
 		dir = turn(dir,-90)
@@ -449,7 +449,7 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench/W, time = 20)
 	if(istype(W))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		playsound(loc, W.usesound, 50, 1)
@@ -463,20 +463,20 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)
-			var/obj/item/weapon/circuitboard/CB = locate(/obj/item/weapon/circuitboard) in component_parts
+			var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts
 			var/P
 			if(W.works_from_distance)
 				display_parts(user)
-			for(var/obj/item/weapon/stock_parts/A in component_parts)
+			for(var/obj/item/stock_parts/A in component_parts)
 				for(var/D in CB.req_components)
 					if(ispath(A.type, D))
 						P = D
 						break
-				for(var/obj/item/weapon/stock_parts/B in W.contents)
+				for(var/obj/item/stock_parts/B in W.contents)
 					if(istype(B, P) && istype(A, P))
 						if(B.rating > A.rating)
 							W.remove_from_storage(B, src)
@@ -536,24 +536,24 @@ Class Procs:
 		return threatcount
 
 	//Agent cards lower threatlevel.
-	var/obj/item/weapon/card/id/id = GetIdCard(perp)
-	if(id && istype(id, /obj/item/weapon/card/id/syndicate))
+	var/obj/item/card/id/id = GetIdCard(perp)
+	if(id && istype(id, /obj/item/card/id/syndicate))
 		threatcount -= 2
 	// A proper	CentCom id is hard currency.
-	else if(id && istype(id, /obj/item/weapon/card/id/centcom))
+	else if(id && istype(id, /obj/item/card/id/centcom))
 		threatcount -= 2
 
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
 	if(auth_weapons && !allowed(perp))
-		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
+		if(istype(perp.l_hand, /obj/item/gun) || istype(perp.l_hand, /obj/item/melee))
 			threatcount += 4
 
-		if(istype(perp.r_hand, /obj/item/weapon/gun) || istype(perp.r_hand, /obj/item/weapon/melee))
+		if(istype(perp.r_hand, /obj/item/gun) || istype(perp.r_hand, /obj/item/melee))
 			threatcount += 4
 
-		if(istype(perp.belt, /obj/item/weapon/gun) || istype(perp.belt, /obj/item/weapon/melee))
+		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee))
 			threatcount += 2
 
 		if(perp.species.name != "Human") //beepsky so racist.

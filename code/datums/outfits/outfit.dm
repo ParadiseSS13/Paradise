@@ -22,6 +22,8 @@
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
+	var/list/implants = null
+	var/list/cybernetic_implants = null
 
 
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -89,6 +91,13 @@
 			var/number = backpack_contents[path]
 			for(var/i = 0, i < number, i++)
 				equip_item(H, path, slot_in_backpack)
+		if(implants)
+			for(var/path in implants)
+				var/obj/item/implant/I = new path(H)
+				I.implant(H)
+		for(var/path in cybernetic_implants)
+			var/obj/item/organ/internal/O = new path(H)
+			O.insert(H)
 
 	post_equip(H, visualsOnly)
 

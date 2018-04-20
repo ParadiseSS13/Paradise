@@ -14,7 +14,7 @@
 	desc = "An interface between crew and the cryogenic storage oversight systems."
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "cellconsole"
-	circuit = /obj/item/weapon/circuitboard/cryopodcontrol
+	circuit = /obj/item/circuitboard/cryopodcontrol
 	density = 0
 	interact_offline = 1
 	req_one_access = list(access_heads, access_armory) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
@@ -154,12 +154,12 @@
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
 
-/obj/item/weapon/circuitboard/cryopodcontrol
+/obj/item/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
 
-/obj/item/weapon/circuitboard/robotstoragecontrol
+/obj/item/circuitboard/robotstoragecontrol
 	name = "Circuit board (Robotic Storage Console)"
 	build_path = "/obj/machinery/computer/cryopod/robot"
 	origin_tech = "programming=1"
@@ -216,25 +216,25 @@
 
 	// These items are preserved when the process() despawn proc occurs.
 	var/list/preserve_items = list(
-		/obj/item/weapon/hand_tele,
-		/obj/item/weapon/card/id/captains_spare,
+		/obj/item/hand_tele,
+		/obj/item/card/id/captains_spare,
 		/obj/item/device/aicard,
 		/obj/item/device/mmi,
 		/obj/item/device/paicard,
-		/obj/item/weapon/gun,
-		/obj/item/weapon/pinpointer,
+		/obj/item/gun,
+		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/clothing/suit/space,
 		/obj/item/clothing/suit/armor,
-		/obj/item/weapon/defibrillator/compact,
-		/obj/item/weapon/reagent_containers/hypospray/CMO,
+		/obj/item/defibrillator/compact,
+		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
-		/obj/item/weapon/storage/internal,
+		/obj/item/storage/internal,
 		/obj/item/device/spacepod_key,
-		/obj/item/weapon/nullrod
+		/obj/item/nullrod
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -331,7 +331,7 @@
 			if(should_preserve_item(W) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
 				continue
 			for(var/obj/item/O in W.contents)
-				if(istype(O,/obj/item/weapon/tank)) //Stop eating pockets, you fuck!
+				if(istype(O,/obj/item/tank)) //Stop eating pockets, you fuck!
 					continue
 				O.forceMove(src)
 
@@ -461,9 +461,9 @@
 #undef CRYO_PRESERVE
 #undef CRYO_OBJECTIVE
 
-/obj/machinery/cryopod/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
+/obj/machinery/cryopod/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
 
-	if(istype(G, /obj/item/weapon/grab))
+	if(istype(G, /obj/item/grab))
 
 		if(occupant)
 			to_chat(user, "<span class='notice'>\The [src] is in use.</span>")
@@ -714,7 +714,7 @@
 	desc = "An interface between crew and the robotic storage systems"
 	icon = 'icons/obj/robot_storage.dmi'
 	icon_state = "console"
-	circuit = /obj/item/weapon/circuitboard/robotstoragecontrol
+	circuit = /obj/item/circuitboard/robotstoragecontrol
 
 	storage_type = "cyborgs"
 	storage_name = "Robotic Storage Control"

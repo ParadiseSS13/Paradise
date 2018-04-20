@@ -103,8 +103,8 @@ var/global/sent_honksquad = 0
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset(src)
 	R.set_frequency(1442)
 	equip_to_slot_or_del(R, slot_l_ear)
-	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/clown(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), slot_back)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
 	if(src.gender == FEMALE)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/sexyclown(src), slot_wear_mask)
 		equip_to_slot_or_del(new /obj/item/clothing/under/sexyclown(src), slot_w_uniform)
@@ -114,20 +114,20 @@ var/global/sent_honksquad = 0
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(src), slot_shoes)
 	equip_to_slot_or_del(new /obj/item/device/pda/clown(src), slot_wear_pda)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/snacks/grown/banana(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/bikehorn(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/stamp/clown(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/food/snacks/grown/banana(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/bikehorn(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/stamp/clown(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/spray/waterflower(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/spray/waterflower(src), slot_in_backpack)
 	if(prob(50))
-		equip_to_slot_or_del(new /obj/item/weapon/gun/energy/clown(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), slot_in_backpack)
 	else
-		equip_to_slot_or_del(new /obj/item/weapon/gun/throw/piecannon(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), slot_in_backpack)
 	src.mutations.Add(CLUMSY)
 
 
 
-	var/obj/item/weapon/card/id/W = new(src)
+	var/obj/item/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card"
 	W.icon_state = "centcom_old"
 	W.access = list(access_clown)//They get full station access.

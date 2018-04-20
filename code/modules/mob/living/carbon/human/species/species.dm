@@ -534,8 +534,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(hat.helmet_goggles_invis_view)
 				H.see_invisible = min(hat.helmet_goggles_invis_view, H.see_invisible)
 
-	if(istype(H.back, /obj/item/weapon/rig)) ///aghhh so snowflakey
-		var/obj/item/weapon/rig/rig = H.back
+	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
+		var/obj/item/rig/rig = H.back
 		if(rig.visor)
 			if(!rig.helmet || (H.head && rig.helmet == H.head))
 				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)

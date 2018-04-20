@@ -102,7 +102,7 @@
 				update_icon()	//is this necessary? probably not
 		return
 
-	if(istype(I, /obj/item/weapon/crowbar))
+	if(istype(I, /obj/item/crowbar))
 		to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
 		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
 		if(do_after(user, 30 * I.toolspeed, target = src))
@@ -111,10 +111,10 @@
 			update_icon()
 			return
 
-	if(istype(I, /obj/item/weapon/reagent_containers))
+	if(istype(I, /obj/item/reagent_containers))
 		if(!open)
 			return
-		var/obj/item/weapon/reagent_containers/RG = I
+		var/obj/item/reagent_containers/RG = I
 		if(RG.is_open_container())
 			if(RG.reagents.total_volume >= RG.volume)
 				to_chat(user, "<span class='warning'>[RG] is full.</span>")
@@ -123,9 +123,9 @@
 				to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
 			return
 
-	if(istype(I, /obj/item/weapon/grab))
+	if(istype(I, /obj/item/grab))
 		user.changeNext_move(CLICK_CD_MELEE)
-		var/obj/item/weapon/grab/G = I
+		var/obj/item/grab/G = I
 		if(!G.confirm())
 			return
 		if(isliving(G.affecting))
@@ -217,8 +217,8 @@
 				pixel_y = 32
 		return
 
-	if(istype(I, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = I
+	if(istype(I, /obj/item/grab))
+		var/obj/item/grab/G = I
 		if(!G.confirm())
 			return
 		if(isliving(G.affecting))
@@ -309,7 +309,7 @@
 		if(on)
 			to_chat(user, "<span class='warning'>Turn [src] off before you attempt to cut it loose.</span>")
 			return
-		var/obj/item/weapon/weldingtool/WT = I
+		var/obj/item/weldingtool/WT = I
 		if(WT.isOn())
 			user.visible_message("<span class='notice'>[user] begins to cut [src] loose.</span>", "<span class='notice'>You begin to cut [src] loose.</span>")
 			if(do_after(user, 40 * WT.toolspeed, target = src))
@@ -496,7 +496,7 @@
 			return
 
 
-/obj/item/weapon/bikehorn/rubberducky
+/obj/item/bikehorn/rubberducky
 	name = "rubber ducky"
 	desc = "Rubber ducky you're so fine, you make bathtime lots of fuuun. Rubber ducky I'm awfully fooooond of yooooouuuu~"	//thanks doohl
 	icon = 'icons/obj/watercloset.dmi'
@@ -575,7 +575,7 @@
 		return
 
 	if(iswrench(O))
-		var/obj/item/weapon/wrench/W = O
+		var/obj/item/wrench/W = O
 
 		var/choices = list()
 		if(anchored)
@@ -709,7 +709,7 @@
 	qdel(src)
 
 
-/obj/item/weapon/bathroom_parts
+/obj/item/bathroom_parts
 	name = "toilet in a box"
 	desc = "An entire toilet in a box, straight from Space Sweden. It has an unpronounceable name."
 	icon = 'icons/obj/storage.dmi'
@@ -718,21 +718,21 @@
 	var/result = /obj/structure/toilet
 	var/result_name = "toilet"
 
-/obj/item/weapon/bathroom_parts/urinal
+/obj/item/bathroom_parts/urinal
 	name = "urinal in a box"
 	result = /obj/structure/urinal
 	result_name = "urinal"
 
-/obj/item/weapon/bathroom_parts/sink
+/obj/item/bathroom_parts/sink
 	name = "sink in a box"
 	result = /obj/structure/sink
 	result_name = "sink"
 
-/obj/item/weapon/bathroom_parts/New()
+/obj/item/bathroom_parts/New()
 	..()
 	desc = "An entire [result_name] in a box, straight from Space Sweden. It has an [pick("unpronounceable", "overly accented", "entirely gibberish", "oddly normal-sounding")] name."
 
-/obj/item/weapon/bathroom_parts/attack_self(mob/user)
+/obj/item/bathroom_parts/attack_self(mob/user)
 	var/turf/T = get_turf(user)
 	if(!T)
 		to_chat(user, "<span class='warning'>You can't build that here!</span>")

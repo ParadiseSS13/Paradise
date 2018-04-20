@@ -431,7 +431,7 @@ REAGENT SCANNER
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(50)
 
-		var/obj/item/weapon/paper/P = new(get_turf(src))
+		var/obj/item/paper/P = new(get_turf(src))
 		P.name = "Mass Spectrometer Scanner Report: [station_time_timestamp()]"
 		P.info = "<center><b>Mass Spectrometer</b></center><br><center>Data Analysis:</center><br><hr><br><b>Trace chemicals detected:</b><br>[datatoprint]<br><hr>"
 
@@ -501,7 +501,7 @@ REAGENT SCANNER
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(50)
 
-		var/obj/item/weapon/paper/P = new(get_turf(src))
+		var/obj/item/paper/P = new(get_turf(src))
 		P.name = "Reagent Scanner Report: [station_time_timestamp()]"
 		P.info = "<center><b>Reagent Scanner</b></center><br><center>Data Analysis:</center><br><hr><br><b>Chemical agents detected:</b><br> [datatoprint]<br><hr>"
 

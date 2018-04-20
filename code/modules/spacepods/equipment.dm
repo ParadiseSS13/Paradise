@@ -203,7 +203,7 @@
 	icon_state = "cargo_ore"
 
 /obj/item/device/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
-	if(storage && istype(I,/obj/item/weapon/ore))
+	if(storage && istype(I,/obj/item/ore))
 		I.forceMove(storage)
 
 // Crate System

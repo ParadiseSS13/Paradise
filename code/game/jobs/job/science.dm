@@ -35,16 +35,16 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/device/radio/headset/heads/rd
-	id = /obj/item/weapon/card/id/rd
-	l_hand = /obj/item/weapon/clipboard
+	id = /obj/item/card/id/rd
+	l_hand = /obj/item/clipboard
 	pda = /obj/item/device/pda/heads/rd
 	backpack_contents = list(
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	backpack = /obj/item/weapon/storage/backpack/science
-	satchel = /obj/item/weapon/storage/backpack/satchel_tox
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/science
+	backpack = /obj/item/storage/backpack/science
+	satchel = /obj/item/storage/backpack/satchel_tox
+	dufflebag = /obj/item/storage/backpack/duffel/science
 
 
 /datum/job/scientist
@@ -78,12 +78,12 @@
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/device/radio/headset/headset_sci
-	id = /obj/item/weapon/card/id/research
+	id = /obj/item/card/id/research
 	pda = /obj/item/device/pda/toxins
 
-	backpack = /obj/item/weapon/storage/backpack/science
-	satchel = /obj/item/weapon/storage/backpack/satchel_tox
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/science
+	backpack = /obj/item/storage/backpack/science
+	satchel = /obj/item/storage/backpack/satchel_tox
+	dufflebag = /obj/item/storage/backpack/duffel/science
 
 
 /datum/job/roboticist
@@ -116,8 +116,8 @@
 
 	uniform = /obj/item/clothing/under/rank/roboticist
 	suit = /obj/item/clothing/suit/storage/labcoat
-	belt = /obj/item/weapon/storage/belt/utility/full
+	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/device/radio/headset/headset_sci
-	id = /obj/item/weapon/card/id/research
+	id = /obj/item/card/id/research
 	pda = /obj/item/device/pda/roboticist

@@ -240,8 +240,8 @@
 		equip_to_slot_or_del(W, slot)
 	else
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
-		if(istype(back, /obj/item/weapon/storage))
-			var/obj/item/weapon/storage/S = back
+		if(istype(back, /obj/item/storage))
+			var/obj/item/storage/S = back
 			//Now, B represents a container we can insert W into.
 			S.handle_item_insertion(W,1)
 			return S
@@ -279,7 +279,7 @@ var/list/slot_equipment_priority = list( \
 	if(!istype(W)) return 0
 
 	for(var/slot in slot_equipment_priority)
-		if(istype(W,/obj/item/weapon/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
+		if(istype(W,/obj/item/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
 			continue
 		if(equip_to_slot_if_possible(W, slot, 0, 1, 1)) //del_on_fail = 0; disable_warning = 0; redraw_mob = 1
 			return 1
@@ -462,7 +462,7 @@ var/list/slot_equipment_priority = list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if( istype(src, /obj/item/device/pda) || istype(src, /obj/item/weapon/pen) || is_type_in_list(src, H.wear_suit.allowed) )
+				if( istype(src, /obj/item/device/pda) || istype(src, /obj/item/pen) || is_type_in_list(src, H.wear_suit.allowed) )
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -474,18 +474,18 @@ var/list/slot_equipment_priority = list( \
 			if(slot_handcuffed)
 				if(H.handcuffed)
 					return 0
-				if(!istype(src, /obj/item/weapon/restraints/handcuffs))
+				if(!istype(src, /obj/item/restraints/handcuffs))
 					return 0
 				return 1
 			if(slot_legcuffed)
 				if(H.legcuffed)
 					return 0
-				if(!istype(src, /obj/item/weapon/restraints/legcuffs))
+				if(!istype(src, /obj/item/restraints/legcuffs))
 					return 0
 				return 1
 			if(slot_in_backpack)
-				if(H.back && istype(H.back, /obj/item/weapon/storage/backpack))
-					var/obj/item/weapon/storage/backpack/B = H.back
+				if(H.back && istype(H.back, /obj/item/storage/backpack))
+					var/obj/item/storage/backpack/B = H.back
 					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
 						return 1
 				return 0
@@ -588,7 +588,7 @@ var/list/slot_equipment_priority = list( \
 	return 1
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
+	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
 		if(!( L ))
 			return null
 		else
@@ -598,14 +598,14 @@ var/list/slot_equipment_priority = list( \
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
-		if(istype(l_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = l_hand
+		if(istype(l_hand, /obj/item/grab))
+			var/obj/item/grab/G = l_hand
 			if(!( L.container.Find(G.affecting) ))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if(istype(r_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = r_hand
+		if(istype(r_hand, /obj/item/grab))
+			var/obj/item/grab/G = r_hand
 			if(!( L.container.Find(G.affecting) ))
 				L.container += G.affecting
 				if(G.affecting)
@@ -769,7 +769,7 @@ var/list/slot_equipment_priority = list( \
 	for(var/obj/O in world)				//EWWWWWWWWWWWWWWWWWWWWWWWW ~needs to be optimised
 		if(!O.loc)
 			continue
-		if(istype(O, /obj/item/weapon/disk/nuclear))
+		if(istype(O, /obj/item/disk/nuclear))
 			var/name = "Nuclear Disk"
 			if(names.Find(name))
 				namecounts[name]++
@@ -906,7 +906,7 @@ var/list/slot_equipment_priority = list( \
 			return 0
 
 	// If they still have their ID they're not brigged.
-	for(var/obj/item/weapon/card/id/card in src)
+	for(var/obj/item/card/id/card in src)
 		return 0
 	for(var/obj/item/device/pda/P in src)
 		if(P.id)

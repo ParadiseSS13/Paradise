@@ -192,8 +192,8 @@
 	else
 		icon_state = "scrubber:0"
 
-/obj/machinery/portable_atmospherics/scrubber/huge/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/machinery/portable_atmospherics/scrubber/huge/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/wrench))
 		if(stationary)
 			to_chat(user, "<span class='warning'>The bolts are too tight for you to unscrew!</span>")
 			return

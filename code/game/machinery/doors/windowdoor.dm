@@ -13,7 +13,7 @@
 	integrity_failure = 0
 	armor = list(melee = 20, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100)
 	unacidable = 1
-	var/obj/item/weapon/airlock_electronics/electronics
+	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
 	var/shards = 2
@@ -29,7 +29,7 @@
 	if(!color)
 		color = color_windows(src)
 	for(var/i in 1 to shards)
-		debris += new /obj/item/weapon/shard(src)
+		debris += new /obj/item/shard(src)
 	if(rods)
 		debris += new /obj/item/stack/rods(src, rods)
 	if(cable)
@@ -107,7 +107,7 @@
 		return 1
 
 //used in the AStar algorithm to determinate if the turf the door is on is passable
-/obj/machinery/door/window/CanAStarPass(obj/item/weapon/card/id/ID, to_dir)
+/obj/machinery/door/window/CanAStarPass(obj/item/card/id/ID, to_dir)
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
@@ -212,7 +212,7 @@
 		open(2)
 		return 1
 
-/obj/machinery/door/window/attackby(obj/item/weapon/I, mob/living/user, params)
+/obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
@@ -263,9 +263,9 @@
 
 						to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 
-						var/obj/item/weapon/airlock_electronics/ae
+						var/obj/item/airlock_electronics/ae
 						if(!electronics)
-							ae = new/obj/item/weapon/airlock_electronics(loc)
+							ae = new/obj/item/airlock_electronics(loc)
 							if(!req_access)
 								check_access()
 							if(req_access.len)

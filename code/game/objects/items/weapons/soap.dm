@@ -1,4 +1,4 @@
-/obj/item/weapon/soap
+/obj/item/soap
 	name = "soap"
 	desc = "A cheap bar of soap. Doesn't smell."
 	gender = PLURAL
@@ -20,7 +20,7 @@
 
 
 
-/obj/item/weapon/soap/afterattack(atom/target, mob/user, proximity)
+/obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
@@ -48,26 +48,26 @@
 				var/turf/simulated/T = target
 				T.dirt = 0
 
-/obj/item/weapon/soap/attack(mob/target as mob, mob/user as mob)
+/obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_sel &&user.zone_sel.selecting == "mouth" )
 		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>")
 		return
 	..()
 
-/obj/item/weapon/soap/nanotrasen
+/obj/item/soap/nanotrasen
 	desc = "A Nanotrasen brand bar of soap. Smells of plasma."
 	icon_state = "soapnt"
 
-/obj/item/weapon/soap/homemade
+/obj/item/soap/homemade
 	desc = "A homemade bar of soap. Smells of... well...."
 	icon_state = "soapgibs"
 	cleanspeed = 45 // a little faster to reward chemists for going to the effort
 
-/obj/item/weapon/soap/ducttape
+/obj/item/soap/ducttape
 	desc = "A homemade bar of soap. It seems to be gibs and tape..Will this clean anything?"
 	icon_state = "soapgibs"
 
-/obj/item/weapon/soap/ducttape/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/soap/ducttape/afterattack(atom/target, mob/user as mob, proximity)
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))
@@ -80,7 +80,7 @@
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if(istype(target,/mob/living/carbon))
 				for(var/obj/item/carried_item in target.contents)
-					if(!istype(carried_item, /obj/item/weapon/implant))//If it's not an implant.
+					if(!istype(carried_item, /obj/item/implant))//If it's not an implant.
 						carried_item.add_mob_blood(target)//Oh yes, there will be blood...
 				var/mob/living/carbon/human/H = target
 				H.bloody_hands(target,0)
@@ -88,12 +88,12 @@
 
 	return
 
-/obj/item/weapon/soap/deluxe
+/obj/item/soap/deluxe
 	desc = "A deluxe Waffle Co. brand bar of soap. Smells of comdoms."
 	icon_state = "soapdeluxe"
 	cleanspeed = 40 //slightly better because deluxe -- captain gets one of these
 
-/obj/item/weapon/soap/syndie
+/obj/item/soap/syndie
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 10 //much faster than mop so it is useful for traitors who want to clean crime scenes

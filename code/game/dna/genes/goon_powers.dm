@@ -257,7 +257,7 @@
 	)
 	var/list/own_blacklist = list(
 		/obj/item/organ,
-		/obj/item/weapon/implant
+		/obj/item/implant
 	)
 
 /obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)
