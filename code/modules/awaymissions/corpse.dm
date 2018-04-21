@@ -189,7 +189,7 @@
 			var/obj/item/I = locate(del_type) in H
 			qdel(I)
 
-	var/obj/item/weapon/card/id/W = H.wear_id
+	var/obj/item/card/id/W = H.wear_id
 	if(W)
 		if(id_access)
 			for(var/jobtype in typesof(/datum/job))
@@ -301,15 +301,15 @@
 	name = "Station Engineer"
 
 	uniform = /obj/item/clothing/under/rank/engineer
-	belt = /obj/item/weapon/storage/belt/utility/full
+	belt = /obj/item/storage/belt/utility/full
 	suit = /obj/item/clothing/suit/space/hardsuit
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/helmet/space/hardsuit
 	mask = /obj/item/clothing/mask/breath
-	id = /obj/item/weapon/card/id/engineering
+	id = /obj/item/card/id/engineering
 	l_pocket = /obj/item/device/t_scanner
 
-	backpack = /obj/item/weapon/storage/backpack/industrial
+	backpack = /obj/item/storage/backpack/industrial
 
 
 /obj/effect/mob_spawn/human/clown
@@ -336,8 +336,8 @@
 		shoes = /obj/item/clothing/shoes/clown_shoes
 		l_ear = /obj/item/device/radio/headset
 		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/weapon/bikehorn
-		back = /obj/item/weapon/storage/backpack/clown
+		l_pocket = /obj/item/bikehorn
+		back = /obj/item/storage/backpack/clown
 		head = /obj/item/clothing/head/stalhelm
 
 /datum/outfit/clownofficer
@@ -346,8 +346,8 @@
 		shoes = /obj/item/clothing/shoes/clown_shoes
 		l_ear = /obj/item/device/radio/headset
 		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/weapon/bikehorn
-		back = /obj/item/weapon/storage/backpack/clown
+		l_pocket = /obj/item/bikehorn
+		back = /obj/item/storage/backpack/clown
 		head = /obj/item/clothing/head/naziofficer
 
 /obj/effect/mob_spawn/human/mime
@@ -378,8 +378,8 @@
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/device/radio/headset/headset_cargo/mining
-	id = /obj/item/weapon/card/id/supply
-	l_pocket = /obj/item/weapon/reagent_containers/food/pill/patch/styptic
+	id = /obj/item/card/id/supply
+	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/device/flashlight/seclite
 
 
@@ -403,10 +403,10 @@
 	name = "Space Bartender"
 	uniform = /obj/item/clothing/under/rank/bartender
 	suit = /obj/item/clothing/suit/armor/vest
-	belt = /obj/item/weapon/storage/belt/bandolier/full
+	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/black
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
-	id = /obj/item/weapon/card/id
+	id = /obj/item/card/id
 
 
 /obj/effect/mob_spawn/human/beach
@@ -459,7 +459,7 @@
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/black
 	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/weapon/card/id
+	id = /obj/item/card/id
 
 
 /obj/effect/mob_spawn/human/commander
@@ -476,7 +476,7 @@
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/centcom/officer
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/centcom
+	id = /obj/item/card/id/centcom
 
 
 
@@ -511,7 +511,7 @@
 /datum/outfit/cryobartender
 	name = "Cryogenic Bartender"
 	uniform = /obj/item/clothing/under/rank/bartender
-	back = /obj/item/weapon/storage/backpack
+	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent

@@ -34,7 +34,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	casingtype = /obj/item/ammo_casing/a357
-	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged, /obj/item/weapon/gun/projectile/revolver/mateba)
+	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged, /obj/item/gun/projectile/revolver/mateba)
 
 /mob/living/simple_animal/hostile/russian/ranged/mosin
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian/ranged,
