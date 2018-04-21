@@ -12,7 +12,10 @@ var/list/chatResources = list(
 	"goon/browserassets/css/font-awesome.css",
 	"goon/browserassets/css/browserOutput.css",
 	"goon/browserassets/json/unicode_9_annotations.json",
-	"goon/browserassets/html/saveInstructions.html"
+	"goon/browserassets/html/saveInstructions.html",
+	"goon/newbrowserassets/dist/app.js",
+	"goon/newbrowserassets/dist/manifest.js",
+	"goon/newbrowserassets/dist/vendor.js",
 )
 
 /var/savefile/iconCache = new /savefile("data/iconCache.sav")
@@ -62,7 +65,7 @@ var/list/chatResources = list(
 			owner << browse_rsc(file(asset))
 
 		for(var/subattempts in 1 to 3)
-			owner << browse(file2text("goon/browserassets/html/browserOutput.html"), "window=browseroutput")
+			owner << browse(file2text("goon/newbrowserassets/dist/index.html"), "window=browseroutput")
 			sleep(10 SECONDS)
 			if(!owner || loaded)
 				return
