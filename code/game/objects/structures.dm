@@ -3,6 +3,7 @@
 	pressure_resistance = 8
 	var/climbable
 	var/mob/climber
+	var/broken = FALSE
 
 /obj/structure/blob_act()
 	if(prob(50))
@@ -164,3 +165,24 @@
 		return 0
 	return 1
 
+/obj/structure/examine(mob/user)
+	..()
+	if(!(resistance_flags & INDESTRUCTIBLE))
+		if(burn_state == ON_FIRE)
+			to_chat(user, "<span class='warning'>It's on fire!</span>")
+		if(broken)
+			to_chat(user, "<span class='notice'>It appears to be broken.</span>")
+		var/examine_status = examine_status(user)
+		if(examine_status)
+			to_chat(user, examine_status)
+
+/obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
+	var/healthpercent = (obj_integrity/max_integrity) * 100
+	switch(healthpercent)
+		if(50 to 99)
+			return  "It looks slightly damaged."
+		if(25 to 50)
+			return  "It appears heavily damaged."
+		if(0 to 25)
+			if(!broken)
+				return  "<span class='warning'>It's falling apart!</span>"

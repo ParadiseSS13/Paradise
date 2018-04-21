@@ -46,6 +46,7 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
+	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
 	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
@@ -106,19 +107,8 @@
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = Clamp(health, 0, maxHealth)
+	med_hud_set_status()
 
-/mob/living/simple_animal/handle_hud_icons_health()
-	..()
-	if(healths && maxHealth > 0)
-		switch(health / maxHealth * 30)
-			if(30 to INFINITY)		healths.icon_state = "health0"
-			if(26 to 29)			healths.icon_state = "health1"
-			if(21 to 25)			healths.icon_state = "health2"
-			if(16 to 20)			healths.icon_state = "health3"
-			if(11 to 15)			healths.icon_state = "health4"
-			if(6 to 10)				healths.icon_state = "health5"
-			if(1 to 5)				healths.icon_state = "health6"
-			if(0)					healths.icon_state = "health7"
 
 /mob/living/simple_animal/proc/process_ai()
 	handle_automated_movement()
@@ -287,9 +277,6 @@
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attack_threshold_check(damage,M.melee_damage_type)
 
-/mob/living/simple_animal/proc/attacked_by(obj/item/I, mob/living/user) // Handled in _onclick/click.dm
-	return
-
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
 		return
@@ -314,7 +301,7 @@
 			if(!(status_flags & CANPUSH))
 				return
 
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
+			var/obj/item/grab/G = new /obj/item/grab(M, src )
 
 			M.put_in_active_hand(G)
 
@@ -396,7 +383,7 @@
 
 	return
 
-/mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
+/mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
 	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
 		user.drop_item()
@@ -410,33 +397,7 @@
 			real_name = C.tagname
 		return
 	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(attempt_harvest(O, user))
-			return
-		user.do_attack_animation(src)
-		if(istype(O) && istype(user) && !O.attack(src, user))
-			var/damage = 0
-			if(O.force)
-				if(O.force >= force_threshold)
-					damage = O.force
-					if(O.damtype == STAMINA)
-						damage = 0
-					if(O.damtype == BRUTE)
-						if(prob(33))
-							O.add_mob_blood(src)
-							var/turf/location = get_turf(src)
-							add_splatter_floor(location)
-							if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
-								user.add_mob_blood(src)
-					visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
-									"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
-				else
-					visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
-									"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
-			else
-				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
-									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-			adjustBruteLoss(damage)
+		..()
 
 /mob/living/simple_animal/movement_delay()
 	. = ..()

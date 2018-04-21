@@ -2,7 +2,7 @@
 CONTAINS:
 RCD
 */
-/obj/item/weapon/rcd
+/obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
@@ -34,20 +34,24 @@ RCD
 	var/list/door_accesses_list = list()
 	var/one_access
 	var/locked = 1
-	var/static/list/allowed_door_types = list(/obj/machinery/door/airlock = "Standard",
-		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/security = "Security",
-		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/medical = "Medical",
-		/obj/machinery/door/airlock/maintenance = "Maintenance", /obj/machinery/door/airlock/external = "External",
-		/obj/machinery/door/airlock/glass = "Standard (Glass)", /obj/machinery/door/airlock/freezer = "Freezer",
-		/obj/machinery/door/airlock/glass_command = "Command (Glass)", /obj/machinery/door/airlock/glass_engineering = "Engineering (Glass)",
-		/obj/machinery/door/airlock/glass_security = "Security (Glass)", /obj/machinery/door/airlock/glass_medical = "Medical (Glass)",
-		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/atmos = "Atmospherics",
-		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/glass_research = "Research (Glass)",
-		/obj/machinery/door/airlock/glass_mining = "Mining (Glass)", /obj/machinery/door/airlock/glass_atmos = "Atmospherics (Glass)",
-		/obj/machinery/door/airlock/science = "Science", /obj/machinery/door/airlock/glass_science = "Science (Glass)",
-		/obj/machinery/door/airlock/hatch = "Airtight Hatch", /obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
+	var/static/list/allowed_door_types = list(
+		/obj/machinery/door/airlock = "Standard", /obj/machinery/door/airlock/glass = "Standard (Glass)",
+		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/command/glass = "Command (Glass)",
+		/obj/machinery/door/airlock/security = "Security", /obj/machinery/door/airlock/security/glass = "Security (Glass)",
+		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/engineering/glass = "Engineering (Glass)",
+		/obj/machinery/door/airlock/medical = "Medical", /obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
+		/obj/machinery/door/airlock/maintenance = "Maintenance", /obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
+		/obj/machinery/door/airlock/external = "External", /obj/machinery/door/airlock/external/glass = "External (Glass)",
+		/obj/machinery/door/airlock/maintenance/external = "External Maintenance", /obj/machinery/door/airlock/maintenance/external/glass = "External Maintenance (Glass)",
+		/obj/machinery/door/airlock/freezer = "Freezer",
+		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
+		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/research/glass = "Research (Glass)",
+		/obj/machinery/door/airlock/atmos = "Atmospherics", /obj/machinery/door/airlock/atmos/glass = "Atmospherics (Glass)",
+		/obj/machinery/door/airlock/science = "Science", /obj/machinery/door/airlock/science/glass = "Science (Glass)",
+		/obj/machinery/door/airlock/hatch = "Airtight Hatch",
+		/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
 
-/obj/item/weapon/rcd/New()
+/obj/item/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -58,15 +62,15 @@ RCD
 		door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
 	return
 
-/obj/item/weapon/rcd/Destroy()
+/obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)
 	rcd_list -= src
 	return ..()
 
-/obj/item/weapon/rcd/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/rcd/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weapon/rcd_ammo))
-		var/obj/item/weapon/rcd_ammo/R = W
+	if(istype(W, /obj/item/rcd_ammo))
+		var/obj/item/rcd_ammo/R = W
 		if((matter + R.ammoamt) > max_matter)
 			to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 			return
@@ -76,25 +80,25 @@ RCD
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
 		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 
-/obj/item/weapon/rcd/attack_self(mob/user)
+/obj/item/rcd/attack_self(mob/user)
 	//Change the mode
 	ui_interact(user)
 
-/obj/item/weapon/rcd/attack_self_tk(mob/user)
+/obj/item/rcd/attack_self_tk(mob/user)
 	ui_interact(user)
 
-/obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/weapon/rcd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/rcd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 	data["mode"] = mode
 	data["door_type"] = door_type
@@ -115,7 +119,7 @@ RCD
 
 	return data
 
-/obj/item/weapon/rcd/Topic(href, href_list, nowindow, state)
+/obj/item/rcd/Topic(href, href_list, nowindow, state)
 	if(..())
 		return 1
 
@@ -146,7 +150,7 @@ RCD
 			if(istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
-			var/obj/item/weapon/card/id/ID = I
+			var/obj/item/card/id/ID = I
 			if(istype(ID) && ID && check_access(ID))
 				locked = 0
 		. = 1
@@ -175,24 +179,24 @@ RCD
 		if(temp_t)
 			door_name = temp_t
 
-/obj/item/weapon/rcd/proc/activate()
+/obj/item/rcd/proc/activate()
 	playsound(loc, usesound, 50, 1)
 
 
-/obj/item/weapon/rcd/afterattack(atom/A, mob/user, proximity)
+/obj/item/rcd/afterattack(atom/A, mob/user, proximity)
 	if(!proximity) return
 	if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
 		return 0
-	if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/window)))
+	if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/window) || istype(A, /obj/structure/lattice)))
 		return 0
 
 	switch(mode)
 		if(1)
-			if(istype(A, /turf/space))
+			if(istype(A, /turf/space) || istype(A, /obj/structure/lattice))
 				if(useResource(1, user))
 					to_chat(user, "Building Floor...")
 					activate()
-					var/turf/AT = A
+					var/turf/AT = get_turf(A)
 					AT.ChangeTurf(/turf/simulated/floor/plating)
 					return 1
 				return 0
@@ -347,55 +351,55 @@ RCD
 			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
 			return 0
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
-/obj/item/weapon/rcd/proc/useResource(var/amount, var/mob/user)
+/obj/item/rcd/proc/useResource(var/amount, var/mob/user)
 	if(matter < amount)
 		return 0
 	matter -= amount
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
-/obj/item/weapon/rcd/proc/checkResource(var/amount, var/mob/user)
+/obj/item/rcd/proc/checkResource(var/amount, var/mob/user)
 	return matter >= amount
-/obj/item/weapon/rcd/borg/useResource(var/amount, var/mob/user)
+/obj/item/rcd/borg/useResource(var/amount, var/mob/user)
 	if(!isrobot(user))
 		return 0
 	return user:cell:use(amount * 160)
 
-/obj/item/weapon/rcd/borg/checkResource(var/amount, var/mob/user)
+/obj/item/rcd/borg/checkResource(var/amount, var/mob/user)
 	if(!isrobot(user))
 		return 0
 	return user:cell:charge >= (amount * 160)
 
-/obj/item/weapon/rcd/borg/New()
+/obj/item/rcd/borg/New()
 	..()
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	canRwall = 1
 
 
-/obj/item/weapon/rcd/proc/detonate_pulse()
+/obj/item/rcd/proc/detonate_pulse()
 	audible_message("<span class='danger'><b>[src] begins to vibrate and \
 		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
 		vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
 	addtimer(src, "detonate_pulse_explode", 50)
 
-/obj/item/weapon/rcd/proc/detonate_pulse_explode()
+/obj/item/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
 
-/obj/item/weapon/rcd/preloaded
+/obj/item/rcd/preloaded
 	matter = 100
 
-/obj/item/weapon/rcd/combat
+/obj/item/rcd/combat
 	name = "combat RCD"
 	max_matter = 500
 	matter = 500
 	canRwall = 1
 
-/obj/item/weapon/rcd_ammo
+/obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
 	icon = 'icons/obj/ammo.dmi'
@@ -408,5 +412,5 @@ RCD
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
 
-/obj/item/weapon/rcd_ammo/large
+/obj/item/rcd_ammo/large
 	ammoamt = 100

@@ -25,7 +25,7 @@
 	return 1
 
 /obj/item/device/flash/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		if(battery_panel)
 			to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
 			battery_panel = 0
@@ -33,7 +33,7 @@
 			to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
 			battery_panel = 1
 	if(battery_panel && !overcharged)
-		if(istype(W, /obj/item/weapon/stock_parts/cell))
+		if(istype(W, /obj/item/stock_parts/cell))
 			to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
 			qdel(W)
 			overcharged = 1

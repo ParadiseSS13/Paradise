@@ -8,7 +8,7 @@
 	req_tech = list("bluespace" = 3, "materials" = 6, "plasmatech" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_DIAMOND = 1500, MAT_PLASMA = 1500)
-	build_path = /obj/item/weapon/ore/bluespace_crystal/artificial
+	build_path = /obj/item/ore/bluespace_crystal/artificial
 	category = list("Bluespace")
 
 /datum/design/bag_holding
@@ -18,7 +18,7 @@
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 5, "plasmatech" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250)
-	build_path = /obj/item/weapon/storage/backpack/holding
+	build_path = /obj/item/storage/backpack/holding
 	category = list("Bluespace")
 
 /datum/design/bluespace_belt
@@ -28,7 +28,7 @@
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 5, "plasmatech" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 1500, MAT_DIAMOND = 3000, MAT_URANIUM = 1000)
-	build_path = /obj/item/weapon/storage/belt/bluespace
+	build_path = /obj/item/storage/belt/bluespace
 	category = list("Bluespace")
 
 /datum/design/telesci_gps
@@ -48,7 +48,7 @@
 	req_tech = list("bluespace" = 4, "materials" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 250, MAT_URANIUM = 500) //quite cheap, for more convenience
-	build_path = /obj/item/weapon/storage/bag/ore/holding
+	build_path = /obj/item/storage/bag/ore/holding
 	category = list("Bluespace")
 
 /datum/design/telepad_beacon

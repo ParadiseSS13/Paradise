@@ -126,16 +126,16 @@
 		to_chat(user, "You use [src] on yourself.")
 		qdel(src)
 
-/obj/item/weapon/claymore/fluff // MrBarrelrolll: Maximus Greenwood
+/obj/item/claymore/fluff // MrBarrelrolll: Maximus Greenwood
 	name = "Greenwood's Blade"
 	desc = "A replica claymore with strange markings scratched into the blade."
 	force = 5
 	sharp = 0
 
-/obj/item/weapon/claymore/fluff/hit_reaction()
+/obj/item/claymore/fluff/hit_reaction()
 	return 0
 
-/obj/item/weapon/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
+/obj/item/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
 	name = "Zelda's Crowbar"
 	desc = "A pink crow bar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
 	icon = 'icons/obj/custom_items.dmi'
@@ -181,7 +181,7 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/weapon/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
+/obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
 	desc = "All craftsspacemanship is of the highest quality. It is encrusted with refined plasma sheets. On the item is an image of a dwarf and the words 'Strike the Earth!' etched onto the side."
 	icon = 'icons/obj/custom_items.dmi'
@@ -189,7 +189,7 @@
 	icon_on = "purple_zippo_on"
 	icon_off = "purple_zippo_off"
 
-/obj/item/weapon/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
+/obj/item/lighter/zippo/fluff/michael_guess_1 // mrbits: Callista Gold
 	name = "engraved lighter"
 	desc = "A golden lighter, engraved with some ornaments and a G."
 	icon = 'icons/obj/custom_items.dmi'
@@ -197,7 +197,7 @@
 	icon_on = "guessipon"
 	icon_off = "guessip"
 
-/obj/item/weapon/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
+/obj/item/lighter/zippo/fluff/duckchan // Duckchan: Rybys Romney
 	name = "Monogrammed Zippo"
 	desc = " A shiny purple zippo lighter, engraved with Rybys Romney and BuzzPing's name, with a festive green flame."
 	icon = 'icons/obj/custom_items.dmi'
@@ -205,7 +205,7 @@
 	icon_on = "rybysfluffopen"
 	icon_off = "rybysfluff"
 
-/obj/item/weapon/fluff/dogwhistle //phantasmicdream: Zeke Varloss
+/obj/item/fluff/dogwhistle //phantasmicdream: Zeke Varloss
 	name = "Sax's whistle"
 	desc = "This whistle seems to have a strange aura about it. Maybe you should blow on it?"
 	icon = 'icons/obj/custom_items.dmi'
@@ -213,7 +213,7 @@
 	item_state = "dogwhistle"
 	force = 2
 
-/obj/item/weapon/fluff/dogwhistle/attack_self(mob/user)
+/obj/item/fluff/dogwhistle/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>", "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
 	spawn(20)
 		var/mob/living/simple_animal/pet/corgi/C = new /mob/living/simple_animal/pet/corgi(get_turf(user))
@@ -226,7 +226,7 @@
 		to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
 		qdel(src)
 
-/obj/item/weapon/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
+/obj/item/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
 	name = "lunchpail"
 	desc = "A simple black lunchpail."
 	icon = 'icons/obj/custom_items.dmi'
@@ -238,11 +238,11 @@
 	max_combined_w_class = 9
 	storage_slots = 3
 
-/obj/item/weapon/storage/toolbox/fluff/lunchbox/New()
+/obj/item/storage/toolbox/fluff/lunchbox/New()
 	..()
-	new /obj/item/weapon/reagent_containers/food/snacks/sandwich(src)
-	new /obj/item/weapon/reagent_containers/food/snacks/chips(src)
-	new /obj/item/weapon/reagent_containers/food/drinks/cans/cola(src)
+	new /obj/item/reagent_containers/food/snacks/sandwich(src)
+	new /obj/item/reagent_containers/food/snacks/chips(src)
+	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
 
 
 /obj/item/device/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
@@ -276,7 +276,7 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
-/obj/item/device/fluff/desolate_coat_kit //DesolateG: Michael Smith
+/obj/item/device/fluff/desolate_coat_kit //DesolateG: Micheal Smith
 	name = "armored jacket conversion kit"
 	desc = "Flaps of dark fabric, probably used to somehow modify some sort of an armored garment. Won't help with protection, though."
 	icon_state = "modkit"
@@ -335,7 +335,7 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/device/fluff/desolate_baton_kit //DesolateG: Michael Smith
+/obj/item/device/fluff/desolate_baton_kit //DesolateG: Micheal Smith
 	name = "stun baton conversion kit"
 	desc = "Some sci-fi looking parts for a stun baton."
 	icon = 'icons/obj/custom_items.dmi'
@@ -346,9 +346,9 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/item/weapon/melee/baton) && !istype(target, /obj/item/weapon/melee/baton/cattleprod))
+	if(istype(target, /obj/item/melee/baton) && !istype(target, /obj/item/melee/baton/cattleprod))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
-		var/obj/item/weapon/melee/baton/the_baton = target
+		var/obj/item/melee/baton/the_baton = target
 		the_baton.base_icon = "desolate_baton"
 		the_baton.item_state = "desolate_baton"
 		the_baton.icon = 'icons/obj/custom_items.dmi'
@@ -588,7 +588,7 @@
 /obj/item/clothing/head/fluff/heather_winceworth // Regens: Heather Winceworth
 	name= "Heather's rose"
 	desc= "A beautiful purple rose for your hair."
-	icon= 'icons/obj/clothing/hats.dmi'
+	icon= 'icons/obj/custom_items.dmi'
 	icon_state = "hairflowerp"
 	item_state = "hairflowerp"
 
@@ -719,15 +719,25 @@
 /obj/item/clothing/suit/jacket/miljacket/patch/attack_self(mob/user)
 	var/list/options = list()
 	options["purple"] = "shazjacket_purple"
+	options["purple light"] = "shazjacket_purple_light"
 	options["yellow"] = "shazjacket_yellow"
 	options["blue"] = "shazjacket_blue"
+	options["cyan"] = "shazjacket_cyan"
+	options["command blue"] = "shazjacket_command"
 	options["brown"] = "shazjacket_brown"
 	options["orange"] = "shazjacket_orange"
+	options["engi orange"] = "shazjacket_engi"
 	options["grey"] = "shazjacket_grey"
 	options["black"] ="shazjacket_black"
 	options["red"] ="shazjacket_red"
+	options["red light"] ="shazjacket_red_light"
+	options["pink"] ="shazjacket_pink"
+	options["magenta"] ="shazjacket_magenta"
 	options["navy"] ="shazjacket_navy"
 	options["white"] ="shazjacket_white"
+	options["green"] ="shazjacket_green"
+	options["lime"] ="shazjacket_lime"
+	options["army green"] ="shazjacket_army"
 
 	var/choice = input(user, "What color do you wish your jacket to be?", "Change color") as null|anything in options
 
@@ -756,7 +766,7 @@
 	item_state = "supplymaster_jacket_open"
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/toy,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/lighter)
+	allowed = list(/obj/item/device/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/button)
@@ -917,7 +927,7 @@
 	icon_state = "xantholne_wintercoat"
 	hoodtype = /obj/item/clothing/head/hood/fluff/xantholne
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/toy, /obj/item/weapon/storage/fancy/cigarettes, /obj/item/weapon/lighter)
+	allowed = list(/obj/item/device/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 
 /obj/item/clothing/head/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
@@ -930,6 +940,14 @@
 	flags_inv = HIDEEARS
 
 //////////// Uniforms ////////////
+/obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
+    icon = 'icons/obj/custom_items.dmi'
+    name = "Soviet Casual Uniform"
+    desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
+    icon_state = "soviet_casual_uniform"
+    item_state = "soviet_casual_uniform"
+    item_color = "soviet_casual_uniform"
+
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
 	desc = "A white and gold formal uniform, accompanied by a small pin with the numbers '004' etched upon it."
@@ -1046,7 +1064,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = list()
 	adjust_flavour = null
 	species_fit = null
@@ -1059,7 +1077,37 @@
 	icon_state = "fox_suit"
 	item_state = "g_suit"
 	item_color = "fox_suit"
-	displays_id = 0 //still appears on examine; this is pure fluff.
+	displays_id = FALSE //still appears on examine; this is pure fluff.
+
+/obj/item/toy/plushie/fluff/fox
+	name = "orange fox plushie"
+	desc = "A cute, soft, fuzzy, fluffy, and cuddly plushie. This has a small tag on it that is signed 'Fox McCloud'."
+	icon_state = "orangefox"
+	attack_verb = list("poofed", "cuddled","fluffed")
+	actions_types = list(/datum/action/item_action/adjust)
+	var/prompting_change = FALSE
+	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
+								 "coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
+
+/obj/item/toy/plushie/fluff/fox/proc/change_color()
+	if(prompting_change)
+		return
+	prompting_change = TRUE
+	var/plushie_color = input("Select a color", "[src]") as null|anything in plush_colors
+	prompting_change = FALSE
+	if(!plushie_color)
+		return
+	if(!Adjacent(usr))
+		return
+	name = plushie_color
+	icon_state = plush_colors[plushie_color]
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/toy/plushie/fluff/fox/ui_action_click()
+	change_color()
 
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit
@@ -1082,10 +1130,10 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 
-/obj/item/weapon/nullrod/fluff/chronx //chronx100: Hughe O'Splash
-	fluff_transformations = list(/obj/item/weapon/nullrod/fluff/chronx/scythe)
+/obj/item/nullrod/fluff/chronx //chronx100: Hughe O'Splash
+	fluff_transformations = list(/obj/item/nullrod/fluff/chronx/scythe)
 
-/obj/item/weapon/nullrod/fluff/chronx/scythe
+/obj/item/nullrod/fluff/chronx/scythe
 	name = "Soul Collector"
 	desc = "An ancient scythe used by the worshipers of Cthulhu. Tales say it is used to prepare souls for Cthulhu's great devouring. Someone carved their name into the handle: Hughe O'Splash"
 	icon = 'icons/obj/custom_items.dmi'
@@ -1166,13 +1214,13 @@
 	species_fit = null
 	sprite_sheets = null
 
-/obj/item/weapon/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
+/obj/item/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "voxcaster_fluff"
 
-/obj/item/weapon/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
+/obj/item/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
 	name = "CatPack"
 	desc = "It's a backpack, but it's also a cat."
 	icon = 'icons/obj/custom_items.dmi'
@@ -1237,7 +1285,7 @@
 	item_color = "fethasnecklace"
 	slot_flags = SLOT_MASK | SLOT_TIE
 
-/obj/item/weapon/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
+/obj/item/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
 	name = "Cosmic space blankie"
 	desc = "Made from the dreams of space children everywhere."
 	icon = 'icons/obj/custom_items.dmi'
@@ -1262,3 +1310,37 @@
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
 	displays_id = FALSE
+
+
+/obj/item/device/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
+	name = "Spacepod mod kit"
+	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
+	icon_state = "modkit"
+
+/obj/item/device/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(!istype(target, /obj/spacepod))
+		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+		return
+
+	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kite blueprints.</span>")
+	var/obj/spacepod/pod = target
+	pod.icon = 'icons/48x48/custom_pod.dmi'
+	pod.icon_state = "pod_dece"
+	pod.name = "sleek spacepod"
+	pod.desc = "A modified varient of a space pod."
+	pod.can_paint = FALSE
+	used = 1
+	qdel(src)
+
+/obj/item/bikehorn/fluff/pinkbikehorn //Xerdies: Squiddle Toodle
+	name = "Honkinator5000"
+	desc = "This horn may look ridiculous but is the new hot item for clowns in the Clown Empire. It has a fine print on its side reading: Property of Prince Honktertong the IV"
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "teri_horn"
+	item_state = "teri_horn"
+	honk_sound = 'sound/items/teri_horn.ogg'

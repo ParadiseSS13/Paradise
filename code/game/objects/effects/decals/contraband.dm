@@ -3,7 +3,7 @@
 
 // The poster item
 
-/obj/item/weapon/poster
+/obj/item/poster
 	name = "rolled-up poster"
 	desc = "The poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
 	icon = 'icons/obj/contraband.dmi'
@@ -12,7 +12,7 @@
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
-/obj/item/weapon/poster/New(loc, obj/structure/sign/poster/new_poster_structure)
+/obj/item/poster/New(loc, obj/structure/sign/poster/new_poster_structure)
 	..()
 	poster_structure = new_poster_structure
 	if(!new_poster_structure && poster_type)
@@ -26,17 +26,17 @@
 
 		name = "[name] - [poster_structure.original_name]"
 
-/obj/item/weapon/poster/Destroy()
+/obj/item/poster/Destroy()
 	poster_structure = null
 	. = ..()
 
 // These icon_states may be overriden, but are for mapper's convinence
-/obj/item/weapon/poster/random_contraband
+/obj/item/poster/random_contraband
 	name = "random contraband poster"
 	poster_type = /obj/structure/sign/poster/contraband/random
 	icon_state = "rolled_poster"
 
-/obj/item/weapon/poster/random_official
+/obj/item/poster/random_official
 	name = "random official poster"
 	poster_type = /obj/structure/sign/poster/official/random
 	icon_state = "rolled_poster_legit"
@@ -110,12 +110,12 @@
 /obj/structure/sign/poster/proc/roll_and_drop(loc)
 	pixel_x = 0
 	pixel_y = 0
-	var/obj/item/weapon/poster/P = new(loc, src)
+	var/obj/item/poster/P = new(loc, src)
 	forceMove(P)
 	return P
 
 //seperated to reduce code duplication. Moved here for ease of reference and to unclutter r_wall/attackby()
-/turf/simulated/wall/proc/place_poster(obj/item/weapon/poster/P, mob/user)
+/turf/simulated/wall/proc/place_poster(obj/item/poster/P, mob/user)
 	if(!P.poster_structure)
 		return
 	var/stuff_on_wall = 0
@@ -157,7 +157,7 @@
 	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
 
 	if(do_after(user, PLACE_SPEED, target = src))
-		if(!D || qdeleted(D))
+		if(!D || QDELETED(D))
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there

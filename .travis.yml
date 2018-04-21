@@ -7,8 +7,8 @@ git:
 
 env:
   global:
-    - BYOND_MAJOR="512"
-    - BYOND_MINOR="1395"
+    - BYOND_MAJOR="511"
+    - BYOND_MINOR="1385"
     - BYOND_MACRO_COUNT=2
   matrix:
     - DM_MAPFILE="cyberiad"

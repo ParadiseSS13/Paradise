@@ -63,9 +63,9 @@
 	//Fortunately, we aren't likely to ever need the components list, circuitboard excepted.
 
 	for(var/obj/O in contents)
-		if(istype(O,/obj/item/weapon/circuitboard/programmable))//retrieve settings here
+		if(istype(O,/obj/item/circuitboard/programmable))//retrieve settings here
 
-			var/obj/item/weapon/circuitboard/programmable/C = O
+			var/obj/item/circuitboard/programmable/C = O
 
 			default = C.default
 			emagged = C.emagged
@@ -196,7 +196,7 @@
 			return
 
 /obj/machinery/programmable/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/weapon/wrench)) // code borrowed from pipe dispenser
+	if(istype(I,/obj/item/wrench)) // code borrowed from pipe dispenser
 		if(unwrenched==0)
 			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
@@ -225,7 +225,7 @@
 					src.stat &= ~MAINT
 				src.unwrenched = 0
 				power_change()
-	if(istype(I,/obj/item/weapon/screwdriver))
+	if(istype(I,/obj/item/screwdriver))
 		if(open)
 			open = 0
 			if(!unwrenched && !circuit_removed)
@@ -235,7 +235,7 @@
 			open = 1
 			src.stat |= MAINT
 			to_chat(user, "You open \the [src]'s maintenance panel.")
-	if(istype(I,/obj/item/weapon/crowbar))
+	if(istype(I,/obj/item/crowbar))
 		if(open)
 			to_chat(user, "<span class='notice'>You begin to pry out the [src]'s circuits.</span>")
 			if(do_after(user, 40 * I.toolspeed, target = src))
@@ -245,7 +245,7 @@
 				use_power = 0
 				on = 0
 
-				var/obj/item/weapon/circuitboard/programmable/P = new(src.loc)
+				var/obj/item/circuitboard/programmable/P = new(src.loc)
 				P.emagged = src.emagged
 				P.default = src.default
 				src.default = null
@@ -260,7 +260,7 @@
 		else
 			..(I,user)
 
-	if(istype(I,/obj/item/weapon/circuitboard/programmable))
+	if(istype(I,/obj/item/circuitboard/programmable))
 		if(!open)
 			to_chat(user, "You have to open the machine first!")
 			return
@@ -547,15 +547,15 @@
 //----------------------------------------------------------------------------
 //      For construction
 //----------------------------------------------------------------------------
-/obj/item/weapon/circuitboard/programmable
+/obj/item/circuitboard/programmable
 	name = "Circuit board (Programmable Unloader)"
 	build_path = "/obj/machinery/programmable"
 	board_type = "machine"
 	origin_tech = "engineering=1;programming=2"
 	frame_desc = "Requires 2 Manipulators, 1 Scanning Module, 1 Cable."
 	req_components = list(
-							/obj/item/weapon/stock_parts/scanning_module = 1,
-							/obj/item/weapon/stock_parts/manipulator = 2,
+							/obj/item/stock_parts/scanning_module = 1,
+							/obj/item/stock_parts/manipulator = 2,
 							/obj/item/stack/cable_coil = 1)
 
 	//Customization of the machine
@@ -594,7 +594,7 @@
 			else
 				user.set_machine(src)
 				interact(user)
-		if(istype(I,/obj/item/weapon/card/emag) && !emagged)
+		if(istype(I,/obj/item/card/emag) && !emagged)
 			if(!hacking)
 				to_chat(user, "There seems to be a data port on the card, but it's locked.  A multitool could open it.")
 			else

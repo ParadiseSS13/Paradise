@@ -67,8 +67,8 @@
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
 	allowed_tools = list(
-	/obj/item/weapon/surgicaldrill = 100,	\
-	/obj/item/weapon/pen = 90,	\
+	/obj/item/surgicaldrill = 100,	\
+	/obj/item/pen = 90,	\
 	/obj/item/stack/rods = 60
 	)
 
@@ -91,11 +91,11 @@
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser = 100, \
-	/obj/item/weapon/cautery = 100,			\
+	/obj/item/scalpel/laser = 100, \
+	/obj/item/cautery = 100,			\
 	/obj/item/clothing/mask/cigarette = 90,	\
-	/obj/item/weapon/lighter = 60,			\
-	/obj/item/weapon/weldingtool = 30
+	/obj/item/lighter = 60,			\
+	/obj/item/weldingtool = 30
 	)
 
 	time = 24
@@ -145,7 +145,7 @@
 		if(!istype(I, /obj/item/organ))
 			IC = I
 			break
-	if(istype(tool,/obj/item/weapon/cautery))
+	if(istype(tool,/obj/item/cautery))
 		to_chat(user, "<span class='notice'>You prepare to close the cavity wall.</span>")
 	else if(tool)
 		user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
@@ -161,11 +161,11 @@
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 
-	if(istype(tool, /obj/item/weapon/disk/nuclear))
+	if(istype(tool, /obj/item/disk/nuclear))
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>")
 		return 0//fail
 
-	var/obj/item/weapon/disk/nuclear/datdisk = locate() in tool
+	var/obj/item/disk/nuclear/datdisk = locate() in tool
 	if(datdisk)
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box.</span>")
 		return 0//fail
@@ -178,7 +178,7 @@
 		to_chat(user, "<span class='warning'>[tool] is stuck to your hand, you can't put it in [target]!</span>")
 		return 0
 
-	if(istype(tool,/obj/item/weapon/cautery))
+	if(istype(tool,/obj/item/cautery))
 		return 1//god this is ugly....
 	else if(tool)
 		if(IC)

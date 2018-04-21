@@ -147,7 +147,7 @@
 	..()
 	take_damage(power/400, BURN)
 
-/obj/structure/blob/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
+/obj/structure/blob/attackby(var/obj/item/W, var/mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)

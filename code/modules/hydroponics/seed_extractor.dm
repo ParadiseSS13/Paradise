@@ -10,8 +10,8 @@
 	if(extractor)
 		seedloc = extractor.loc
 
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown/))
-		var/obj/item/weapon/reagent_containers/food/snacks/grown/F = O
+	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/))
+		var/obj/item/reagent_containers/food/snacks/grown/F = O
 		if(F.seed)
 			if(user && !user.drop_item()) //couldn't drop the item
 				return
@@ -22,8 +22,8 @@
 			qdel(O)
 			return 1
 
-	else if(istype(O, /obj/item/weapon/grown))
-		var/obj/item/weapon/grown/F = O
+	else if(istype(O, /obj/item/grown))
+		var/obj/item/grown/F = O
 		if(F.seed)
 			if(user && !user.drop_item())
 				return
@@ -51,9 +51,9 @@
 /obj/machinery/seed_extractor/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/seed_extractor(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/seed_extractor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
 /obj/machinery/seed_extractor/Destroy()
@@ -61,9 +61,9 @@
 	return ..()
 
 /obj/machinery/seed_extractor/RefreshParts()
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		max_seeds = 1000 * B.rating
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		seed_multiplier = M.rating
 
 /obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
@@ -80,8 +80,8 @@
 	if(default_deconstruction_crowbar(O))
 		return
 
-	if (istype(O,/obj/item/weapon/storage/bag/plants))
-		var/obj/item/weapon/storage/P = O
+	if (istype(O,/obj/item/storage/bag/plants))
+		var/obj/item/storage/P = O
 		var/loaded = 0
 		for(var/obj/item/seeds/G in P.contents)
 			if(contents.len >= max_seeds)
@@ -196,8 +196,8 @@
 		var/mob/M = O.loc
 		if(!M.drop_item())
 			return 0
-	else if(istype(O.loc,/obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = O.loc
+	else if(istype(O.loc,/obj/item/storage))
+		var/obj/item/storage/S = O.loc
 		S.remove_from_storage(O,src)
 
 	O.forceMove(src)

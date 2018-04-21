@@ -1,11 +1,11 @@
 // the power cell
 // charge from 0 to 100%
 // fits in APC to provide backup power
-/obj/item/weapon/stock_parts/cell/proc/percent()		// return % charge of cell
+/obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100.0*charge/maxcharge
 
 // use power from a cell
-/obj/item/weapon/stock_parts/cell/proc/use(amount)
+/obj/item/stock_parts/cell/proc/use(amount)
 	if(rigged && amount > 0)
 		explode()
 		return 0
@@ -15,7 +15,7 @@
 	return 1
 
 // recharge the cell
-/obj/item/weapon/stock_parts/cell/proc/give(amount)
+/obj/item/stock_parts/cell/proc/give(amount)
 	if(rigged && amount > 0)
 		explode()
 		return 0
@@ -25,21 +25,21 @@
 	charge += power_used
 	return power_used
 
-/obj/item/weapon/stock_parts/cell/examine(mob/user)
+/obj/item/stock_parts/cell/examine(mob/user)
 	if(..(user, 1))
 		if(maxcharge <= 2500)
 			to_chat(user, "[desc]\nThe manufacturer's label states this cell has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%.")
 		else
 			to_chat(user, "This power cell has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%.")
 
-/obj/item/weapon/stock_parts/cell/attack_self(mob/user as mob)
+/obj/item/stock_parts/cell/attack_self(mob/user as mob)
 	src.add_fingerprint(user)
 	return
 
-/obj/item/weapon/stock_parts/cell/attackby(obj/item/W, mob/user, params)
+/obj/item/stock_parts/cell/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weapon/reagent_containers/syringe))
-		var/obj/item/weapon/reagent_containers/syringe/S = W
+	if(istype(W, /obj/item/reagent_containers/syringe))
+		var/obj/item/reagent_containers/syringe/S = W
 
 		to_chat(user, "You inject the solution into the power cell.")
 
@@ -53,7 +53,7 @@
 		S.reagents.clear_reagents()
 
 
-/obj/item/weapon/stock_parts/cell/proc/explode()
+/obj/item/stock_parts/cell/proc/explode()
 	var/turf/T = get_turf(src.loc)
 /*
  * 1000-cell	explosion(T, -1, 0, 1, 1)
@@ -79,13 +79,13 @@
 	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
 	qdel(src)
 
-/obj/item/weapon/stock_parts/cell/proc/corrupt()
+/obj/item/stock_parts/cell/proc/corrupt()
 	charge /= 2
 	maxcharge /= 2
 	if(prob(10))
 		rigged = 1 //broken batterys are dangerous
 
-/obj/item/weapon/stock_parts/cell/emp_act(severity)
+/obj/item/stock_parts/cell/emp_act(severity)
 	charge -= 1000 / severity
 	if(charge < 0)
 		charge = 0
@@ -93,7 +93,7 @@
 		reliability -= 10 / severity
 	..()
 
-/obj/item/weapon/stock_parts/cell/ex_act(severity)
+/obj/item/stock_parts/cell/ex_act(severity)
 
 	switch(severity)
 		if(1.0)
@@ -113,10 +113,10 @@
 				corrupt()
 	return
 
-/obj/item/weapon/stock_parts/cell/blob_act()
+/obj/item/stock_parts/cell/blob_act()
 	ex_act(1)
 
-/obj/item/weapon/stock_parts/cell/proc/get_electrocute_damage()
+/obj/item/stock_parts/cell/proc/get_electrocute_damage()
 	switch(charge)
 /*		if(9000 to INFINITY)
 			return min(rand(90,150),rand(90,150))

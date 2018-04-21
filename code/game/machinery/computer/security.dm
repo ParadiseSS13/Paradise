@@ -8,8 +8,8 @@
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	req_one_access = list(access_security, access_forensics_lockers)
-	circuit = /obj/item/weapon/circuitboard/secure_data
-	var/obj/item/weapon/card/id/scan = null
+	circuit = /obj/item/circuitboard/secure_data
+	var/obj/item/card/id/scan = null
 	var/authenticated = null
 	var/rank = null
 	var/list/authcard_access = list()
@@ -24,9 +24,13 @@
 
 	light_color = LIGHT_COLOR_RED
 
+/obj/machinery/computer/secure_data/Destroy()
+	active1 = null
+	active2 = null
+	return ..()
 
 /obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/weapon/card/id) && !scan)
+	if(istype(O, /obj/item/card/id) && !scan)
 		user.drop_item()
 		O.forceMove(src)
 		scan = O
@@ -44,7 +48,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "secure_data.tmpl", name, 800, 380)
 		ui.open()
@@ -198,7 +202,7 @@
 							active2.fields["criminal"] = "Released"
 					var/newstatus = active2.fields["criminal"]
 					log_admin("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [newstatus], comment: [t1]")
-					active2.fields["comments"] += "Set to [newstatus] by [usr.name] ([rank]) on [current_date_string] [worldtime2text()], comment: [t1]"
+					active2.fields["comments"] += "Set to [newstatus] by [usr.name] ([rank]) on [current_date_string] [station_time_timestamp()], comment: [t1]"
 					update_all_mob_security_hud()
 			if("rank")
 				if(active1)
@@ -214,7 +218,7 @@
 			scan = null
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/weapon/card/id))
+			if(istype(I, /obj/item/card/id))
 				usr.drop_item()
 				I.forceMove(src)
 				scan = I
@@ -227,7 +231,7 @@
 			authenticated = usr.name
 			var/mob/living/silicon/robot/R = usr
 			rank = "[R.modtype] [R.braintype]"
-		else if(istype(scan, /obj/item/weapon/card/id))
+		else if(istype(scan, /obj/item/card/id))
 			if(check_access(scan))
 				authenticated = scan.registered_name
 				rank = scan.assignment
@@ -341,7 +345,7 @@
 				printing = 1
 				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 				sleep(50)
-				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+				var/obj/item/paper/P = new /obj/item/paper(loc)
 				P.info = "<CENTER><B>Security Record</B></CENTER><BR>"
 				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 					P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]
@@ -366,9 +370,10 @@
 				else
 					P.info += "<B>Security Record Lost!</B><BR>"
 				P.info += "</TT>"
-				P.name = "paper - 'Security Record'"
+				P.name = "paper - 'Security Record: [active1.fields["name"]]'"
 				printing = 0
 
+/* Removed due to BYOND issue
 		else if(href_list["print_p"])
 			if(!printing)
 				printing = 1
@@ -377,17 +382,18 @@
 				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 					create_record_photo(active1)
 				printing = 0
+*/
 
 		else if(href_list["printlogs"])
 			if(cell_logs.len && !printing)
-				var/obj/item/weapon/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
+				var/obj/item/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
 				if(!P)
 					return 0
 				printing = 1
 				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 				to_chat(usr, "<span class='notice'>Printing file [P.name].</span>")
 				sleep(50)
-				var/obj/item/weapon/paper/log = new /obj/item/weapon/paper(loc)
+				var/obj/item/paper/log = new /obj/item/paper(loc)
 				log.name = P.name
 				log.info = P.info
 				printing = 0
@@ -402,7 +408,7 @@
 				var/t1 = copytext(trim(sanitize(input("Add Comment:", "Secure. records", null, null) as message)), 1, MAX_MESSAGE_LEN)
 				if(!t1 || ..() || active2 != a2)
 					return 1
-				active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [worldtime2text()]<BR>[t1]"
+				active2.fields["comments"] += "Made by [authenticated] ([rank]) on [current_date_string] [station_time_timestamp()]<BR>[t1]"
 
 		else if(href_list["del_c"])
 			var/index = min(max(text2num(href_list["del_c"]) + 1, 1), length(active2.fields["comments"]))
@@ -510,6 +516,8 @@
 /obj/machinery/computer/secure_data/proc/setTemp(text, list/buttons = list())
 	temp = list("text" = text, "buttons" = buttons, "has_buttons" = buttons.len > 0)
 
+/* Proc disabled due to BYOND Issue
+
 /obj/machinery/computer/secure_data/proc/create_record_photo(datum/data/record/R)
 	// basically copy-pasted from the camera code but different enough that it has to be redone
 	var/icon/photoimage = get_record_photo(R)
@@ -533,8 +541,10 @@
 	P.fields["pixel_y"] = rand(-10, 10)
 	P.fields["size"] = 2
 
-	var/obj/item/weapon/photo/PH = new/obj/item/weapon/photo(loc)
+	var/obj/item/photo/PH = new/obj/item/photo(loc)
 	PH.construct(P)
+
+*/
 
 /obj/machinery/computer/secure_data/proc/get_record_photo(datum/data/record/R)
 	// similar to the code to make a photo, but of course the actual rendering is completely different

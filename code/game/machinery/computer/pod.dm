@@ -3,7 +3,7 @@
 	desc = "A control for launching pods. Some people prefer firing Mechas."
 	icon_screen = "mass_driver"
 	light_color = "#555555"
-	circuit = /obj/item/weapon/circuitboard/pod
+	circuit = /obj/item/circuitboard/pod
 	var/list/id_tags = list()
 	var/list/door_only_tags = list()
 	var/list/synced = list()
@@ -262,14 +262,14 @@
 	icon_screen = "library"
 	icon_keyboard = null
 	name = "DoorMex Control Computer"
-	circuit = /obj/item/weapon/circuitboard/olddoor
+	circuit = /obj/item/circuitboard/olddoor
 
 
 /obj/machinery/computer/pod/old/syndicate
 	name = "external airlock controls"
 	desc = "The Syndicate operate on a tight budget. Operates external airlocks."
 	req_access = list(access_syndicate)
-	circuit = /obj/item/weapon/circuitboard/syndicatedoor
+	circuit = /obj/item/circuitboard/syndicatedoor
 	light_color = "#00FFFF"
 
 /obj/machinery/computer/pod/old/syndicate/attack_hand(var/mob/user as mob)
@@ -282,13 +282,13 @@
 /obj/machinery/computer/pod/old/swf
 	name = "\improper Magix System IV"
 	desc = "An arcane artifact that holds much magic. Running E-Knock 2.2: Sorceror's Edition"
-	circuit = /obj/item/weapon/circuitboard/swfdoor
+	circuit = /obj/item/circuitboard/swfdoor
 
 
 /obj/machinery/computer/pod/deathsquad
 	id_tags = list("ASSAULT0","ASSAULT1","ASSAULT2","ASSAULT3")
 	var/teleporter_dest = 0
-	circuit = /obj/item/weapon/circuitboard/pod/deathsquad
+	circuit = /obj/item/circuitboard/pod/deathsquad
 
 /obj/machinery/computer/pod/deathsquad/launch_sequence(var/ident_tag)
 	if(stat & (NOPOWER|BROKEN))

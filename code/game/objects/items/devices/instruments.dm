@@ -166,7 +166,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/weapon/screwdriver, /obj/item/weapon/wirecutters)
+	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80
 
 /datum/crafting_recipe/guitar
@@ -175,7 +175,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/weapon/screwdriver, /obj/item/weapon/wirecutters)
+	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80
 
 /datum/crafting_recipe/eguitar
@@ -184,5 +184,5 @@
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/weapon/screwdriver, /obj/item/weapon/wirecutters)
+	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80

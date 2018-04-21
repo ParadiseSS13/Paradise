@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_GREEN
 	var/hack_icon = "tcboss"
 	var/normal_icon = "comm_logs"
-	circuit = /obj/item/weapon/circuitboard/message_monitor
+	circuit = /obj/item/circuitboard/message_monitor
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
 	//Sparks effect - For emag
@@ -38,9 +38,7 @@
 	light_color = LIGHT_COLOR_DARKGREEN
 
 
-/obj/machinery/computer/message_monitor/attackby(obj/item/weapon/O as obj, mob/living/user as mob, params)
-	if(stat & (NOPOWER|BROKEN))
-		return
+/obj/machinery/computer/message_monitor/attackby(obj/item/O as obj, mob/living/user as mob, params)
 	if(!istype(user))
 		return
 	if(isscrewdriver(O) && emag)
@@ -61,7 +59,7 @@
 			screen = 2
 			spark_system.set_up(5, 0, src)
 			src.spark_system.start()
-			var/obj/item/weapon/paper/monitorkey/MK = new/obj/item/weapon/paper/monitorkey
+			var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
 			MK.loc = src.loc
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			// Will help make emagging the console not so easy to get away with.
@@ -539,12 +537,12 @@
 	return src.attack_hand(usr)
 
 
-/obj/item/weapon/paper/monitorkey
+/obj/item/paper/monitorkey
 	//..()
 	name = "Monitor Decryption Key"
 	var/obj/machinery/message_server/server = null
 
-/obj/item/weapon/paper/monitorkey/New()
+/obj/item/paper/monitorkey/New()
 	..()
 	spawn(10)
 		if(message_servers)

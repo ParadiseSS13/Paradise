@@ -5,7 +5,7 @@
 	icon_screen = "mecha"
 	light_color = LIGHT_COLOR_FADEDPURPLE
 	req_access = list(access_robotics)
-	circuit = /obj/item/weapon/circuitboard/mecha_control
+	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
 	var/stored_data
@@ -17,7 +17,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "exosuit_control.tmpl", "Exosuit Control Console", 420, 500)
 		ui.open()
@@ -63,7 +63,7 @@
 	if(href_list["return"])
 		screen = 0
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 /obj/item/mecha_parts/mecha_tracking
@@ -152,10 +152,10 @@
 	origin_tech = "programming=3;magnets=2;engineering=2"
 	ai_beacon = TRUE
 
-/obj/item/weapon/storage/box/mechabeacons
+/obj/item/storage/box/mechabeacons
 	name = "Exosuit Tracking Beacons"
 
-/obj/item/weapon/storage/box/mechabeacons/New()
+/obj/item/storage/box/mechabeacons/New()
 	..()
 	new /obj/item/mecha_parts/mecha_tracking(src)
 	new /obj/item/mecha_parts/mecha_tracking(src)

@@ -53,6 +53,7 @@
 	var/perfectsouls = 0 //How many perfect, regen-cap increasing souls the revenant has.
 	var/image/ghostimage = null //Visible to ghost with darkness off
 
+
 /mob/living/simple_animal/revenant/Life()
 	..()
 	if(revealed && essence <= 0)
@@ -117,6 +118,7 @@
 	ghostimage = image(src.icon,src,src.icon_state)
 	ghost_darkness_images |= ghostimage
 	updateallghostimages()
+	remove_from_all_data_huds()
 
 	spawn(5)
 		if(src.mind)
@@ -182,7 +184,7 @@
 		sleep(0.1)
 		alpha = i
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
-	var/obj/item/weapon/ectoplasm/revenant/R = new (get_turf(src))
+	var/obj/item/ectoplasm/revenant/R = new (get_turf(src))
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
 	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
 	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
@@ -191,7 +193,7 @@
 	return
 
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/weapon/nullrod))
+	if(istype(W, /obj/item/nullrod))
 		visible_message("<span class='warning'>[src] violently flinches!</span>", \
 						"<span class='revendanger'>As \the [W] passes through you, you feel your essence draining away!</span>")
 		adjustBruteLoss(25) //hella effective
@@ -313,7 +315,7 @@
 	return 1
 
 
-/obj/item/weapon/ectoplasm/revenant
+/obj/item/ectoplasm/revenant
 	name = "glimmering residue"
 	desc = "A pile of fine blue dust. Small tendrils of violet mist swirl around it."
 	icon = 'icons/effects/effects.dmi'
@@ -324,7 +326,7 @@
 	var/inert = 0
 	var/client/client_to_revive
 
-/obj/item/weapon/ectoplasm/revenant/New()
+/obj/item/ectoplasm/revenant/New()
 	..()
 	reforming = 0
 	spawn(600) //1 minutes
@@ -334,7 +336,7 @@
 			inert = 1
 			visible_message("<span class='warning'>[src] settles down and seems lifeless.</span>")
 
-/obj/item/weapon/ectoplasm/revenant/attack_self(mob/user)
+/obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
 		return ..()
 	user.visible_message("<span class='notice'>[user] scatters [src] in all directions.</span>", \
@@ -342,21 +344,21 @@
 	user.drop_item()
 	qdel(src)
 
-/obj/item/weapon/ectoplasm/revenant/throw_impact(atom/hit_atom)
+/obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom)
 	..()
 	if(inert)
 		return
 	visible_message("<span class='notice'>[src] breaks into particles upon impact, which fade away to nothingness.</span>")
 	qdel(src)
 
-/obj/item/weapon/ectoplasm/revenant/examine(mob/user)
+/obj/item/ectoplasm/revenant/examine(mob/user)
 	..(user)
 	if(inert)
 		to_chat(user, "<span class='revennotice'>It seems inert.</span>")
 	else if(reforming)
 		to_chat(user, "<span class='revenwarning'>It is shifting and distorted. It would be wise to destroy this.</span>")
 
-/obj/item/weapon/ectoplasm/revenant/proc/reform()
+/obj/item/ectoplasm/revenant/proc/reform()
 	if(inert || !src)
 		return
 	var/key_of_revenant

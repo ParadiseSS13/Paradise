@@ -48,7 +48,7 @@
 		attached_signaler = S
 		to_chat(user, "<span class='notice'>You attach \the [S] to the I/O connection port and secure it.</span>")
 		return
-	if(attached_signaler && istype(O, /obj/item/weapon/screwdriver))		//Makes sure we remove the attached signaler before we can open up and deconstruct the machine
+	if(attached_signaler && istype(O, /obj/item/screwdriver))		//Makes sure we remove the attached signaler before we can open up and deconstruct the machine
 		var/obj/item/device/assembly/signaler/S = attached_signaler
 		attached_signaler = null
 		S.forceMove(get_turf(src))

@@ -153,9 +153,8 @@
 /atom/proc/emp_act(var/severity)
 	return
 
-/atom/proc/bullet_act(var/obj/item/projectile/Proj, def_zone)
-	Proj.on_hit(src, 0, def_zone)
-	return 0
+/atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
@@ -611,6 +610,10 @@ var/list/blood_splatter_icons = list()
 	return
 
 /atom/proc/ratvar_act()
+	return
+
+//This proc is called on the location of an atom when the atom is Destroy()'d
+/atom/proc/handle_atom_del(atom/A)
 	return
 
 /atom/proc/atom_say(message)

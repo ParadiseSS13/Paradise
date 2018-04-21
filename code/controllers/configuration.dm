@@ -68,6 +68,7 @@
 	var/assistantratio = 2 //how many assistants to security members
 
 	var/traitor_objectives_amount = 2
+	var/shadowling_max_age = 0
 
 	var/max_maint_drones = 5				//This many drones can spawn,
 	var/allow_drone_spawn = 1				//assuming the admin allow them to.
@@ -188,22 +189,32 @@
 
 	var/disable_karma = 0 // Disable all karma functions and unlock karma jobs by default
 
-/datum/configuration/New()
-	var/list/L = subtypesof(/datum/game_mode)
-	for(var/T in L)
-		// I wish I didn't have to instance the game modes in order to look up
-		// their information, but it is the only way (at least that I know of).
-		var/datum/game_mode/M = new T()
+	// StonedMC
+	var/tick_limit_mc_init = TICK_LIMIT_MC_INIT_DEFAULT	//SSinitialization throttling
 
-		if(M.config_tag)
-			if(!(M.config_tag in modes))		// ensure each mode is added only once
-				diary << "Adding game mode [M.name] ([M.config_tag]) to configuration."
-				src.modes += M.config_tag
-				src.mode_names[M.config_tag] = M.name
-				src.probabilities[M.config_tag] = M.probability
-				if(M.votable)
-					src.votable_modes += M.config_tag
-		qdel(M)
+	// Highpop tickrates
+	var/base_mc_tick_rate = 1
+	var/high_pop_mc_tick_rate = 1.1
+
+	var/high_pop_mc_mode_amount = 65
+	var/disable_high_pop_mc_mode_amount = 60
+
+	// Nightshift
+	var/randomize_shift_time = FALSE
+	var/enable_night_shifts = FALSE
+
+/datum/configuration/New()
+	for(var/T in subtypesof(/datum/game_mode))
+		var/datum/game_mode/M = T
+
+		if(initial(M.config_tag))
+			if(!(initial(M.config_tag) in modes))		// ensure each mode is added only once
+				diary << "Adding game mode [initial(M.name)] ([initial(M.config_tag)]) to configuration."
+				src.modes += initial(M.config_tag)
+				src.mode_names[initial(M.config_tag)] = initial(M.name)
+				src.probabilities[initial(M.config_tag)] = initial(M.probability)
+				if(initial(M.votable))
+					src.votable_modes += initial(M.config_tag)
 	src.votable_modes += "secret"
 
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
@@ -259,6 +270,9 @@
 
 				if("jobs_have_minimal_access")
 					config.jobs_have_minimal_access = 1
+
+				if("shadowling_max_age")
+					config.shadowling_max_age = text2num(value)
 
 				if("log_ooc")
 					config.log_ooc = 1
@@ -591,8 +605,18 @@
 					shutdown_shell_command = value
 
 				if("disable_karma")
-					disable_karma = 1
+					config.disable_karma = 1
 
+				if("tick_limit_mc_init")
+					config.tick_limit_mc_init = text2num(value)
+				if("base_mc_tick_rate")
+					config.base_mc_tick_rate = text2num(value)
+				if("high_pop_mc_tick_rate")
+					config.high_pop_mc_tick_rate = text2num(value)
+				if("high_pop_mc_mode_amount")
+					config.high_pop_mc_mode_amount = text2num(value)
+				if("disable_high_pop_mc_mode_amount")
+					config.disable_high_pop_mc_mode_amount = text2num(value)
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -655,6 +679,10 @@
 					MAX_EX_FLAME_RANGE = BombCap
 				if("default_laws")
 					config.default_laws = text2num(value)
+				if("randomize_shift_time")
+					config.randomize_shift_time = TRUE
+				if("enable_night_shifts")
+					config.enable_night_shifts = TRUE
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -725,13 +753,10 @@
 		config.overflow_whitelist += t
 
 /datum/configuration/proc/pick_mode(mode_name)
-	// I wish I didn't have to instance the game modes in order to look up
-	// their information, but it is the only way (at least that I know of).
 	for(var/T in subtypesof(/datum/game_mode))
-		var/datum/game_mode/M = new T()
-		if(M.config_tag && M.config_tag == mode_name)
-			return M
-		qdel(M)
+		var/datum/game_mode/M = T
+		if(initial(M.config_tag) && initial(M.config_tag) == mode_name)
+			return new T()
 	return new /datum/game_mode/extended()
 
 /datum/configuration/proc/get_runnable_modes()
