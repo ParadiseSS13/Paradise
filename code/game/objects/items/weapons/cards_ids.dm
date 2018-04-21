@@ -69,6 +69,7 @@
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
+	flags_2 = NO_MAT_REDEMPTION_2
 
 /obj/item/card/emag/attack()
 	return

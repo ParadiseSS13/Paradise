@@ -145,13 +145,13 @@
 		while(sheet_amt > MAX_STACK_SIZE)
 			new M.sheet_type(get_turf(owner), MAX_STACK_SIZE)
 			count += MAX_STACK_SIZE
-			use_amount_type(sheet_amt * MINERAL_MATERIAL_AMOUNT, M.material_type)
+			use_amount_type(sheet_amt * MINERAL_MATERIAL_AMOUNT, M.id)
 			sheet_amt -= MAX_STACK_SIZE
 
 		if(round(M.amount / MINERAL_MATERIAL_AMOUNT))
 			new M.sheet_type(get_turf(owner), sheet_amt)
 			count += sheet_amt
-			use_amount_type(sheet_amt * MINERAL_MATERIAL_AMOUNT, M.material_type)
+			use_amount_type(sheet_amt * MINERAL_MATERIAL_AMOUNT, M.id)
 		return count
 	return 0
 
@@ -208,85 +208,3 @@
 	for(var/MAT in materials)
 		material_amount += I.materials[MAT]
 	return material_amount
-
-
-/datum/material
-	var/amount = 0
-	var/material_type = null
-	var/sheet_type = null
-
-/datum/material/metal
-
-/datum/material/metal/New()
-	..()
-	material_type = MAT_METAL
-	sheet_type = /obj/item/stack/sheet/metal
-
-/datum/material/glass
-
-/datum/material/glass/New()
-	..()
-	material_type = MAT_GLASS
-	sheet_type = /obj/item/stack/sheet/glass
-
-/datum/material/silver
-
-/datum/material/silver/New()
-	..()
-	material_type = MAT_SILVER
-	sheet_type = /obj/item/stack/sheet/mineral/silver
-
-/datum/material/gold
-
-/datum/material/gold/New()
-	..()
-	material_type = MAT_GOLD
-	sheet_type = /obj/item/stack/sheet/mineral/gold
-
-/datum/material/diamond
-
-/datum/material/diamond/New()
-	..()
-	material_type = MAT_DIAMOND
-	sheet_type = /obj/item/stack/sheet/mineral/diamond
-
-/datum/material/uranium
-
-/datum/material/uranium/New()
-	..()
-	material_type = MAT_URANIUM
-	sheet_type = /obj/item/stack/sheet/mineral/uranium
-
-/datum/material/plasma
-
-/datum/material/plasma/New()
-	..()
-	material_type = MAT_PLASMA
-	sheet_type = /obj/item/stack/sheet/mineral/plasma
-
-/datum/material/bananium
-
-/datum/material/bananium/New()
-	..()
-	material_type = MAT_BANANIUM
-	sheet_type = /obj/item/stack/sheet/mineral/bananium
-
-/datum/material/tranquillite
-
-/datum/material/tranquillite/New()
-	..()
-	material_type = MAT_TRANQUILLITE
-	sheet_type = /obj/item/stack/sheet/mineral/tranquillite
-
-/datum/material/titanium
-
-/datum/material/titanium/New()
-	..()
-	material_type = MAT_TITANIUM
-	sheet_type = /obj/item/stack/sheet/mineral/titanium
-
-/datum/material/biomass
-
-/datum/material/biomass/New()
-	..()
-	material_type = MAT_BIOMASS
