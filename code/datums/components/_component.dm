@@ -105,11 +105,19 @@
 	return
 
 /datum/component/proc/_GetInverseTypeList(our_type = type)
+	#if DM_VERSION >= 513
+	#warning 512 is definitely stable now, remove the old code
+	#endif
+
+	#if DM_VERSION < 512
+	//remove this when we use 512 full time
+	set invisibility = 101
+	#endif
 	//we can do this one simple trick
 	var/current_type = parent_type
 	. = list(our_type, current_type)
 	//and since most components are root level + 1, this won't even have to run
-	while (current_type != /datum/component)
+	while(current_type != /datum/component)
 		current_type = type2parent(current_type)
 		. += current_type
 
