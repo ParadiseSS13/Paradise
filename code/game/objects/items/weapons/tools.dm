@@ -398,10 +398,6 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_sel.selecting]
 
-		if(H.bleed_rate > 1 && H.isSynthetic())
-			if(get_fuel() >= 1)
-				H.bleed_rate = 0
-				user.visible_message("<span class='alert'>\The [user] welds a leak on \the [M] with \the [src].</span>")
 		if(!S)
 			return
 
