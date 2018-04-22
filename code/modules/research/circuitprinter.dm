@@ -106,11 +106,5 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			return
 	if(O.is_open_container())
 		return FALSE
-
-	if(!linked_console)
-		to_chat(user, "<span class='warning'>The [name] must be linked to an R&D console first!</span>")
-		return 1
-	if(O.is_open_container())
-		return
 	else
 		return ..()
