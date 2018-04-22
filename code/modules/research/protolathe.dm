@@ -149,3 +149,4 @@ Note: Must be placed west/left of and R&D console to function.
 	overlays += "protolathe_[stack_name]"
 	sleep(10)
 	overlays -= "protolathe_[stack_name]"
+	SSnanoui.update_uis(src)
