@@ -11,6 +11,7 @@
 	var/time_coeff = 1
 	var/component_coeff = 1
 	var/datum/research/files
+	var/id
 	var/sync = 0
 	var/part_set
 	var/datum/design/being_built
