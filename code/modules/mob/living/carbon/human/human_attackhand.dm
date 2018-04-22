@@ -19,7 +19,7 @@
 	..()
 
 	if((M != src) && M.a_intent != INTENT_HELP && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
-		add_logs(M, src, "Melee attack (failed to shield)")
+		add_attack_logs(M, src, "Melee attacked with fists (miss/block)")
 		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
 
