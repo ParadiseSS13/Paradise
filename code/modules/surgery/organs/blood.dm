@@ -1,4 +1,4 @@
-/****************************************************
+F/****************************************************
 				BLOOD SYSTEM
 ****************************************************/
 
@@ -64,7 +64,7 @@
 			var/obj/item/organ/external/BP = X
 			var/brutedamage = BP.brute_dam
 
-			if(BP.status & ORGAN_ROBOT)
+			if((BP.status & ORGAN_ROBOT) && !isSynthetic())
 				continue
 
 			//We want an accurate reading of .len

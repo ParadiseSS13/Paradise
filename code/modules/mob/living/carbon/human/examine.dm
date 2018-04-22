@@ -324,16 +324,17 @@
 		else
 			msg += "[t_He] [t_is] quite chubby.\n"
 
-	if(blood_volume < BLOOD_VOLUME_SAFE)
+	if(!isSynthetic() && blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[t_He] [t_has] pale skin.\n"
 
 	if(bleedsuppress)
 		msg += "[t_He] [t_is] bandaged with something.\n"
 	else if(bleed_rate)
+		var/bleed_message = !isSynthetic() ? "bleeding" : "leaking"
 		if(reagents.has_reagent("heparin"))
-			msg += "<B>[t_He] [t_is] bleeding uncontrollably!</B>\n"
+			msg += "<B>[t_He] [t_is] [bleed_message] uncontrollably!</B>\n"
 		else
-			msg += "<B>[t_He] [t_is] bleeding!</B>\n"
+			msg += "<B>[t_He] [t_is] [bleed_message]!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += "[t_He] is emitting a gentle blue glow!\n"

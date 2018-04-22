@@ -194,6 +194,11 @@
 	reagent_state = LIQUID
 	color = "#3C3C3C"
 	taste_message = "motor oil"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/oil/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
+		new /obj/effect/decal/cleanable/blood/oil(T)
 
 /datum/reagent/iodine
 	name = "Iodine"

@@ -205,6 +205,9 @@
 	if(!affected)
 		return -1
 
+	if(target.bleed_rate > 1)//heal bleeding if it exists while we are here.
+		target.bleed_rate = 0
+
 	if(implement_type in implements_heal_burn)
 		current_type = "burn"
 		var/obj/item/stack/cable_coil/C = tool
