@@ -63,7 +63,7 @@
 	id = "pacman"
 	req_tech = list("programming" = 2, "plasmatech" = 3, "powerstorage" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/pacman
 	category = list("Engineering Machinery")
 
@@ -73,7 +73,7 @@
 	id = "mrspacman"
 	req_tech = list("programming" = 3, "powerstorage" = 5, "engineering" = 5, "plasmatech" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 2000, "sacid" = 20)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/pacman/mrs
 	category = list("Engineering Machinery")
 
@@ -83,7 +83,7 @@
 	id = "superpacman"
 	req_tech = list("programming" = 3, "powerstorage" = 4, "engineering" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/pacman/super
 	category = list("Engineering Machinery")
 
@@ -93,7 +93,7 @@
 	id = "tesla_coil"
 	req_tech = list("programming" = 3, "powerstorage" = 3, "magnets" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/tesla_coil
 	category = list("Engineering Machinery")
 
@@ -103,6 +103,6 @@
 	id = "grounding_rod"
 	req_tech = list("programming" = 3, "powerstorage" = 3, "magnets" = 3, "plasmatech" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
+	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/grounding_rod
 	category = list("Engineering Machinery")

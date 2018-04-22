@@ -25,7 +25,6 @@
 	var/recentlyExperimented = 0
 	var/mob/trackedIan
 	var/mob/trackedRuntime
-	var/obj/item/loaded_item = null
 	var/badThingCoeff = 0
 	var/resetTime = 15
 	var/cloneMode = FALSE

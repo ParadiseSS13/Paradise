@@ -9,7 +9,6 @@ Note: Must be placed within 3 tiles of the R&D Console
 	name = "Destructive Analyzer"
 	desc = "Learn science by destroying things!"
 	icon_state = "d_analyzer"
-	var/obj/item/loaded_item = null
 	var/decon_mod = 0
 
 /obj/machinery/r_n_d/destructive_analyzer/New()
@@ -46,7 +45,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 
 /obj/machinery/r_n_d/destructive_analyzer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(shocked)
-		shock(user,50)
+		if(shock(user,50))
+			return TRUE
 	if(default_deconstruction_screwdriver(user, "d_analyzer_t", "d_analyzer", O))
 		if(linked_console)
 			linked_console.linked_destroy = null
@@ -56,7 +56,8 @@ Note: Must be placed within 3 tiles of the R&D Console
 	if(exchange_parts(user, O))
 		return
 
-	default_deconstruction_crowbar(O)
+	if(default_deconstruction_crowbar(O))
+		return
 
 	if(disabled)
 		return
@@ -85,4 +86,3 @@ Note: Must be placed within 3 tiles of the R&D Console
 		spawn(10)
 			icon_state = "d_analyzer_l"
 			busy = 0
-	return
