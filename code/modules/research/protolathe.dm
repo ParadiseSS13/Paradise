@@ -13,7 +13,6 @@ Note: Must be placed west/left of and R&D console to function.
 	icon_state = "protolathe"
 	flags = OPENCONTAINER
 
-	var/datum/material_container/materials
 	var/efficiency_coeff
 
 	var/list/categories = list(
@@ -28,11 +27,15 @@ Note: Must be placed west/left of and R&D console to function.
 								"Stock Parts",
 								"Weapons"
 								)
-
+	var/datum/component/material_container/materials	//Store for hyper speed!
 	reagents = new()
 
 
 /obj/machinery/r_n_d/protolathe/New()
+	materials = AddComponent(/datum/component/material_container,
+		list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0,
+		FALSE, list(/obj/item/stack, /obj/item/ore/bluespace_crystal), CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
+	materials.precise_insertion = TRUE
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
@@ -42,7 +45,6 @@ Note: Must be placed west/left of and R&D console to function.
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker/large(null)
-	materials = new(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1, MAT_TRANQUILLITE=1, MAT_TITANIUM=1))
 	RefreshParts()
 
 	reagents.my_atom = src
@@ -60,10 +62,6 @@ Note: Must be placed west/left of and R&D console to function.
 	RefreshParts()
 
 	reagents.my_atom = src
-
-/obj/machinery/r_n_d/protolathe/Destroy()
-	QDEL_NULL(materials)
-	return ..()
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
 	var/T = 0
@@ -88,7 +86,8 @@ Note: Must be placed west/left of and R&D console to function.
 
 /obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(shocked)
-		shock(user,50)
+		if(shock(user,50))
+			return TRUE
 	if(default_deconstruction_screwdriver(user, "protolathe_t", "protolathe", O))
 		if(linked_console)
 			linked_console.linked_lathe = null
@@ -112,39 +111,41 @@ Note: Must be placed west/left of and R&D console to function.
 		else
 			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
 			return 1
-	if(disabled)
-		return
-	if(!linked_console)
-		to_chat(user, "<span class='warning'> The [src.name] must be linked to an R&D console first!</span>")
-		return 1
-	if(busy)
-		to_chat(user, "<span class='warning'>The [src.name] is busy. Please wait for completion of previous operation.</span>")
-		return 1
 	if(O.is_open_container())
-		return
-	if(stat)
-		return 1
-	if(!istype(O,/obj/item/stack/sheet))
-		return 1
-
-	if(!materials.has_space( materials.get_item_material_amount(O) ))
-		to_chat(user, "<span class='warning'>The [src.name]'s material bin is full! Please remove material before adding more.</span>")
-		return 1
-
-	var/obj/item/stack/sheet/stack = O
-	var/amount = round(input("How many sheets do you want to add?") as num)//No decimals
-	if(!in_range(src, stack) || !user.Adjacent(src))
-		return
-	var/amount_inserted = materials.insert_stack(O,amount)
-	if(!amount_inserted)
-		return 1
+		return FALSE
 	else
-		busy = 1
-		use_power(max(1000, (MINERAL_MATERIAL_AMOUNT*amount_inserted/10)))
-		to_chat(user, "<span class='notice'>You add [amount_inserted] sheets to the [src.name].</span>")
-		var/stackname = stack.name
-		src.overlays += "protolathe_[stackname]"
-		sleep(10)
-		src.overlays -= "protolathe_[stackname]"
-		busy = 0
-	updateUsrDialog()
+		return ..()
+
+//whether the machine can have an item inserted in its current state.
+/obj/machinery/r_n_d/protolathe/proc/is_insertion_ready(mob/user)
+	if(panel_open)
+		to_chat(user, "<span class='warning'>You can't load [src] while it's opened!</span>")
+		return FALSE
+	if(disabled)
+		return FALSE
+	if(!linked_console)
+		to_chat(user, "<span class='warning'>[src] must be linked to an R&D console first!</span>")
+		return FALSE
+	if(busy)
+		to_chat(user, "<span class='warning'>[src] is busy right now.</span>")
+		return FALSE
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>[src] is broken.</span>")
+		return FALSE
+	if(stat & NOPOWER)
+		to_chat(user, "<span class='warning'>[src] has no power.</span>")
+		return FALSE
+	return TRUE
+
+/obj/machinery/r_n_d/protolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+	var/stack_name
+	if(ispath(type_inserted, /obj/item/ore/bluespace_crystal))
+		stack_name = "bluespace polycrystal"
+		use_power(MINERAL_MATERIAL_AMOUNT / 10)
+	else
+		var/obj/item/stack/S = type_inserted
+		stack_name = initial(S.name)
+		use_power(min(1000, (amount_inserted / 100)))
+	overlays += "protolathe_[stack_name]"
+	sleep(10)
+	overlays -= "protolathe_[stack_name]"
