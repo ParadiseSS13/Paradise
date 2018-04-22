@@ -8368,7 +8368,7 @@
 "deZ" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 10},/turf/simulated/floor/engine,/area/engine/mechanic_workshop)
 "dfa" = (/obj/machinery/computer/rdconsole/mechanics,/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)
 "dfb" = (/obj/machinery/door/poddoor{density = 0; icon_state = "open"; id_tag = "mechpod"; name = "Mechanic's Workshop Inner Door"; opacity = 0},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)
-"dfc" = (/obj/machinery/spod_part_fabricator,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)
+"dfc" = (/obj/machinery/mecha_part_fabricator/spacepod,/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)
 "dfd" = (/obj/machinery/camera,/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)
 "dfe" = (/obj/structure/table,/obj/item/pod_parts/core,/obj/item/circuitboard/mecha/pod,/obj/item/clothing/glasses/welding{pixel_y = 12},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)
 "dff" = (/obj/structure/rack{dir = 1},/obj/item/extinguisher,/obj/item/storage/belt/utility,/obj/item/storage/toolbox/electrical,/obj/item/storage/toolbox/mechanical{pixel_x = -2; pixel_y = -1},/obj/item/device/radio{pixel_y = 6},/turf/simulated/floor/plasteel{icon_state = "vault"; dir = 5},/area/engine/mechanic_workshop)

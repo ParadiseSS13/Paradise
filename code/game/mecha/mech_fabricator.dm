@@ -11,6 +11,7 @@
 	var/time_coeff = 1
 	var/component_coeff = 1
 	var/datum/research/files
+	var/fabricator_type = MECHFAB
 	var/id
 	var/sync = 0
 	var/part_set
@@ -93,7 +94,7 @@
 	var/output = ""
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
-		if(D.build_type & MECHFAB)
+		if(D.build_type & fabricator_type)
 			if(!(set_name in D.category))
 				continue
 			output += "<div class='part'>[output_part_info(D)]<br>\["
@@ -180,7 +181,7 @@
 	if(set_name in part_sets)
 		for(var/v in files.known_designs)
 			var/datum/design/D = files.known_designs[v]
-			if(D.build_type & MECHFAB)
+			if(D.build_type & fabricator_type)
 				if(set_name in D.category)
 					add_to_queue(D)
 
@@ -353,7 +354,7 @@
 		var/T = afilter.getStr("part")
 		for(var/v in files.known_designs)
 			var/datum/design/D = files.known_designs[v]
-			if(D.build_type & MECHFAB)
+			if(D.build_type & fabricator_type)
 				if(D.id == T)
 					if(!processing_queue)
 						build_part(D)
@@ -364,7 +365,7 @@
 		var/T = afilter.getStr("add_to_queue")
 		for(var/v in files.known_designs)
 			var/datum/design/D = files.known_designs[v]
-			if(D.build_type & MECHFAB)
+			if(D.build_type & fabricator_type)
 				if(D.id == T)
 					add_to_queue(D)
 					break
@@ -402,7 +403,7 @@
 		var/T = afilter.getStr("part_desc")
 		for(var/v in files.known_designs)
 			var/datum/design/D = files.known_designs[v]
-			if(D.build_type & MECHFAB)
+			if(D.build_type & fabricator_type)
 				if(D.id == T)
 					var/obj/part = D.build_path
 					temp = {"<h1>[initial(part.name)] description:</h1>
@@ -450,3 +451,14 @@
 		return FALSE
 
 	return TRUE
+
+/obj/machinery/mecha_part_fabricator/spacepod
+	name = "spacepod fabricator"
+	desc = "Nothing is being built."
+	fabricator_type = PODFAB
+	part_sets = list(			"Pod_Weaponry",
+								"Pod_Armor",
+								"Pod_Cargo",
+								"Pod_Parts",
+								"Pod_Frame",
+								"Misc")
