@@ -112,7 +112,7 @@
 	id = "phazon_main"
 	req_tech = list("programming" = 6, "materials" = 6, "plasmatech" = 5)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 	build_path = /obj/item/circuitboard/mecha/phazon/main
 	category = list("Exosuit Modules")
 
@@ -122,7 +122,7 @@
 	id = "phazon_peri"
 	req_tech = list("programming" = 6, "bluespace" = 5, "plasmatech" = 5)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 	build_path = /obj/item/circuitboard/mecha/phazon/peripherals
 	category = list("Exosuit Modules")
 
@@ -132,7 +132,7 @@
 	id = "phazon_targ"
 	req_tech = list("programming" = 6, "magnets" = 5, "plasmatech" = 5)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
 	build_path = /obj/item/circuitboard/mecha/phazon/targeting
 	category = list("Exosuit Modules")
 
