@@ -64,7 +64,7 @@
 			declare_arrests = 0 // Don't spam sec
 			bot_core.req_access = list(access_maint_tunnels, access_theatre, access_robotics)
 
-			if(created_name == "ED-209 Security Robot" || !created_name)
+			if(created_name == initial(name) || !created_name)
 				if(lasercolor == "b")
 					name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
 				else if (lasercolor == "r")
@@ -254,14 +254,13 @@
 						target_lastloc = null
 						return
 
-				else								// not next to perp
-					if(!disabled)
-						var/turf/olddist = get_dist(src, target)
-						walk_to(src, target,1,4)
-						if((get_dist(src, target)) >= (olddist))
-							frustration++
-						else
-							frustration = 0
+				else if(!disabled) // not next to perp
+					var/turf/olddist = get_dist(src, target)
+					walk_to(src, target,1,4)
+					if((get_dist(src, target)) >= (olddist))
+						frustration++
+					else
+						frustration = 0
 			else
 				back_to_idle()
 
