@@ -249,7 +249,7 @@
 			target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the talisman's light!</span>", \
 								   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
 		else
-			add_logs(user, target, "stunned", addition="with a talisman")
+			add_attack_logs(user, target, "Stunned with a talisman")
 			target.Weaken(10)
 			target.Stun(10)
 			target.flash_eyes(1,1)
@@ -393,7 +393,7 @@
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
 				C.update_handcuffed()
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
-				add_logs(user, C, "handcuffed")
+				add_attack_logs(user, C, "Handcuffed (shackle talisman)")
 				uses--
 			else
 				to_chat(user, "<span class='warning'>[C] is already bound.</span>")

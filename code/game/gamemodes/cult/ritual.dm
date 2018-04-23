@@ -63,7 +63,7 @@
 			var/holy2unholy = M.reagents.get_reagent_amount("holywater")
 			M.reagents.del_reagent("holywater")
 			M.reagents.add_reagent("unholywater",holy2unholy)
-			add_logs(user, M, "smacked", src, " removing the holy water from them")
+			add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return
 	M.take_organ_damage(0, 15) //Used to be a random between 5 and 20
 	playsound(M, 'sound/weapons/sear.ogg', 50, 1)
@@ -71,7 +71,7 @@
 					  "<span class='userdanger'>[user] strikes you with the tome, searing your flesh!</span>")
 	flick("tome_attack", src)
 	user.do_attack_animation(M)
-	add_logs(user, M, "smacked", src)
+	add_attack_logs(user, M, "Hit with [src]")
 
 /obj/item/tome/attack_self(mob/user)
 	if(!iscultist(user))

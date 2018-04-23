@@ -55,8 +55,8 @@
 						return 0
 				playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
 				target.Weaken(3)
-				add_logs(user, target, "stunned", object="[src]")
-				src.add_fingerprint(user)
+				add_attack_logs(user, target, "Stunned with [src]")
+				add_fingerprint(user)
 				target.visible_message("<span class ='danger'>[user] has knocked down [target] with \the [src]!</span>", \
 					"<span class ='userdanger'>[user] has knocked down [target] with \the [src]!</span>")
 				if(!iscarbon(user))

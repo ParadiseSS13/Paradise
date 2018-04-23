@@ -169,7 +169,7 @@
 
 /datum/announcement/proc/Log(message as text, message_title as text)
 	if(log)
-		log_say("[key_name(usr)] has made \a [announcement_type]: [message_title] - [message] - [announcer]")
+		log_game("[key_name(usr)] has made \a [announcement_type]: [message_title] - [message] - [announcer]")
 		message_admins("[key_name_admin(usr)] has made \a [announcement_type].", 1)
 
 /proc/GetNameAndAssignmentFromId(var/obj/item/card/id/I)

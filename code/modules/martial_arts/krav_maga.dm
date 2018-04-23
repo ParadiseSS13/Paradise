@@ -108,7 +108,7 @@ datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/livi
 /datum/martial_art/krav_maga/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(check_streak(A,D))
 		return 1
-	add_logs(A, D, "punched")
+	add_attack_logs(A, D, "Melee attacked with [src]")
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("punches", "kicks")
 	var/bonus_damage = 10

@@ -82,10 +82,7 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			injected += R.name
 		var/contained = english_list(injected)
-		M.create_attack_log("<font color='orange'>Has been splashed with [name] by [key_name(user)]. Reagents: [contained]</font>")
-		user.create_attack_log("<font color='red'>Used the [name] to splash [key_name(M)]. Reagents: [contained]</font>")
-		if(M.ckey)
-			msg_admin_attack("[key_name_admin(user)] splashed [key_name_admin(M)] with [name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)])")
+		add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey)
 		if(!iscarbon(user))
 			M.LAssailant = null
 		else

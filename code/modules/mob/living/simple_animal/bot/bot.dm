@@ -219,7 +219,7 @@
 		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
 		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
 		show_laws()
-		add_logs(user, src, "emagged")
+		add_attack_logs(user, src, "Emagged")
 		return
 	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
@@ -273,7 +273,7 @@
 		return
 	apply_damage(M.melee_damage_upper, BRUTE)
 	visible_message("<span class='userdanger'>[M] has [M.attacktext] [src]!</span>")
-	add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
+	add_attack_logs(M, src, "Animal attacked", FALSE)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
@@ -333,7 +333,7 @@
 					bot_name = name
 					name = paicard.pai.name
 					faction = user.faction
-					add_logs(user, paicard.pai, "uploaded to [src.bot_name],")
+					add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
 				else
 					to_chat(user, "<span class='warning'>[W] is inactive.</span>")
 			else
@@ -865,7 +865,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				to_chat(usr, "<span class='warning'>[text_hack]</span>")
 				show_laws()
 				bot_reset()
-				add_logs(usr, src, "hacked")
+				add_attack_logs(usr, src, "Hacked")
 			else if(!hacked)
 				to_chat(usr, "<span class='userdanger'>[text_dehack_fail]</span>")
 			else
@@ -874,7 +874,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				to_chat(usr, "<span class='notice'>[text_dehack]</span>")
 				show_laws()
 				bot_reset()
-				add_logs(usr, src, "dehacked")
+				add_attack_logs(usr, src, "Dehacked")
 		if("ejectpai")
 			if(paicard && (!locked || issilicon(usr) || usr.can_admin_interact()))
 				to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
@@ -946,9 +946,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 		key = null
 		paicard.forceMove(loc)
 		if(user)
-			add_logs(user, paicard.pai, "ejected from [src.bot_name],")
+			add_attack_logs(user, paicard.pai, "Ejected from [src.bot_name],")
 		else
-			add_logs(src, paicard.pai, "ejected")
+			add_attack_logs(src, paicard.pai, "Ejected")
 		if(announce)
 			to_chat(paicard.pai, "<span class='notice'>You feel your control fade as [paicard] ejects from [bot_name].</span>")
 		paicard = null

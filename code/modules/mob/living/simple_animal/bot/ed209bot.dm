@@ -550,7 +550,7 @@ Auto Patrol[]"},
 		C.Weaken(5)
 		C.stuttering = 5
 		C.Stun(5)
-	add_logs(src, C, "stunned")
+	add_attack_logs(src, C, "Stunned by [src]")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
