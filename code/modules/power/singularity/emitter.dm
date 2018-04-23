@@ -120,7 +120,7 @@
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 	radio_connection = null
-	msg_admin_attack("Emitter deleted at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)])", 0, 1)
 	log_game("Emitter deleted at ([x],[y],[z])")
 	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z])","singulo")
 	return ..()

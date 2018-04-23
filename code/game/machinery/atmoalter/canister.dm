@@ -437,14 +437,14 @@ update_flag
 		var/logmsg
 		if(valve_open)
 			if(holding)
-				logmsg = "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
+				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
 			else
-				logmsg = "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the <font color='red'><b>air</b></font><br>"
+				logmsg = "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the <font color='red'><b>air</b></font><br>"
 		else
 			if(holding)
-				logmsg = "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the [holding]<br>"
+				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the [holding]<br>"
 			else
-				logmsg = "Valve was <b>opened</b> by [usr] ([usr.ckey]), starting the transfer into the <font color='red'><b>air</b></font><br>"
+				logmsg = "Valve was <b>opened</b> by [key_name(usr)], starting the transfer into the <font color='red'><b>air</b></font><br>"
 				if(air_contents.toxins > 0)
 					message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [get_area(src)]! (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 					log_admin("[key_name(usr)] opened a canister that contains plasma at [get_area(src)]: [x], [y], [z]")
@@ -460,7 +460,7 @@ update_flag
 		if(holding)
 			if(valve_open)
 				valve_open = 0
-				release_log += "Valve was <b>closed</b> by [usr] ([usr.ckey]), stopping the transfer into the [holding]<br>"
+				release_log += "Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]<br>"
 			holding.loc = loc
 			holding = null
 

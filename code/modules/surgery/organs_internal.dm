@@ -276,14 +276,14 @@
 		if(target_zone == "head" && B && B.host == target)
 			user.visible_message("[user] successfully extracts [B] from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You successfully extract [B] from [target]'s [parse_zone(target_zone)].</span>")
-			add_logs(user, target, "surgically removed [B] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_attack_logs(user, target, "Surgically removed [B]. INTENT: [uppertext(user.a_intent)]")
 			B.leave_host()
 			return FALSE
 		if(I && I.owner == target)
 			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with [tool].</span>",
 			"<span class='notice'> You have separated and extracted [target]'s [I] with [tool].</span>")
 
-			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))

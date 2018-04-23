@@ -180,7 +180,7 @@
 
 		SSnanoui.update_user_uis(U, P) // Update the sending user's PDA UI so that they can see the new message
 		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=\ref[pda]'>Reply</a>)")
-		log_pda("[usr] (PDA: [src.name]) sent \"[t]\" to [P.name]")
+		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", usr)
 	else
 		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
 

@@ -54,7 +54,7 @@
 		H.sec_hud_set_implants()
 
 	if(user)
-		add_logs(user, source, "implanted", object="[name]")
+		add_attack_logs(user, source, "Implanted with [src]")
 
 	return 1
 

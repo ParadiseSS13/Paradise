@@ -254,7 +254,7 @@
 
 //remove the old powernet and replace it with a new one throughout the network.
 /proc/propagate_network(var/obj/O, var/datum/powernet/PN)
-	//log_to_dd("propagating new network")
+	//log_world("propagating new network")
 	var/list/worklist = list()
 	var/list/found_machines = list()
 	var/index = 1

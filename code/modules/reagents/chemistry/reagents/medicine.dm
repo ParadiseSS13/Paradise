@@ -666,7 +666,7 @@
 
 					M.update_revive()
 					M.stat = UNCONSCIOUS
-					add_logs(M, M, "revived", object="strange reagent") //Yes, the logs say you revived yourself.
+					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
 /datum/reagent/medicine/mannitol

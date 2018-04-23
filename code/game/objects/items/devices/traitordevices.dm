@@ -47,7 +47,7 @@ effective or pretty fucking useless.
 	for(var/mob/living/carbon/human/M in oview(7, user))
 		if(prob(50))
 			M.Weaken(rand(4,7))
-			add_logs(user, M, "stunned", src)
+			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
 			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
@@ -90,7 +90,7 @@ effective or pretty fucking useless.
 
 /obj/item/device/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)
-		add_logs(user, M, "irradiated", src)
+		add_attack_logs(user, M, "Irradiated by [src]")
 		user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>")
 		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 		used = 1

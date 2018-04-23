@@ -46,7 +46,7 @@
 			else
 				feedback_add_details("handcuffs","H")
 
-			add_logs(user, C, "handcuffed", src)
+			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
@@ -183,7 +183,7 @@
 					C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
 					C.update_handcuffed()
 					to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-					add_logs(user, C, "ziptie-cuffed")
+					add_attack_logs(user, C, "Handcuffed (ziptie-cuffed)")
 			else
 				to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
