@@ -5,13 +5,12 @@
 	if(..()) //if harm or disarm intent
 		var/damage = rand(10, 20)
 		if(prob(90))
-			add_logs(M, src, "attacked", admin=0)
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 							"<span class='userdanger'>[M] has slashed at [src]!</span>")
 			if(prob(8))
 				flash_eyes(affect_silicon = 1)
-			add_logs(M, src, "attacked", admin=0)
+			add_attack_logs(M, src, "Alien attacked")
 			adjustBruteLoss(damage)
 			updatehealth()
 		else
@@ -55,7 +54,7 @@
 			if(HULK in M.mutations)
 				var/damage = rand(10,15)
 				adjustBruteLoss(damage)
-				add_logs(M, src, "attacked", admin=0)
+				add_attack_logs(M, src, "Melee attacked with fists")
 				playsound(loc, "punch", 25, 1, -1)
 				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 						"<span class='userdanger'>[M] has punched [src]!</span>")

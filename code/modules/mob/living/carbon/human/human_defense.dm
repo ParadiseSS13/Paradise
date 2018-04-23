@@ -391,7 +391,7 @@ emp_act
 				visible_message("<span class='danger'>[M] has wounded [src]!</span>", \
  					"<span class='userdanger'>[M] has wounded [src]!</span>")
 				apply_effect(4, WEAKEN, armor_block)
-				add_logs(M, src, "attacked", admin=0)
+				add_attack_logs(M, src, "Alien attacked")
 			updatehealth()
 
 		if(M.a_intent == INTENT_DISARM)
@@ -399,7 +399,7 @@ emp_act
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
-				add_logs(M, src, "tackled", admin=0)
+				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
 			else
 				if(prob(99)) //this looks fucking stupid but it was previously 'var/randn = rand(1, 100); if(randn <= 99)'

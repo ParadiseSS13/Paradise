@@ -10,7 +10,7 @@
 					sleep(3)
 					step_away(src, M, 15)
 			playsound(loc, "punch", 25, 1, -1)
-			add_logs(M, src, "attacked", admin=0)
+			add_attack_logs(M, src, "Melee attacked with fists")
 			visible_message("<span class='danger'>[M] has kicked [src]!</span>", \
 					"<span class='userdanger'>[M] has kicked [src]!</span>")
 			if((stat != DEAD) && (damage > 4.9))

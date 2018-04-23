@@ -20,7 +20,7 @@
 								"<span class='userdanger'>[M] has weakened [src]!</span>", \
 								"<span class='danger'>You hear someone fall.</span>")
 					adjustBruteLoss(damage)
-					add_logs(M, src, "attacked", admin=0)
+					add_attack_logs(M, src, "Melee attacked with fists")
 					updatehealth()
 				else
 					playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
@@ -31,7 +31,7 @@
 					if(prob(5))//Very small chance to push an alien down.
 						Paralyse(2)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-						add_logs(M, src, "pushed", admin=0)
+						add_attack_logs(M, src, "Pushed over")
 						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
 								"<span class='userdanger'>[M] has pushed down [src]!</span>")
 					else

@@ -15,7 +15,7 @@
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
 			attack_threshold_check(harm_intent_damage)
-			add_logs(M, src, "attacked", admin=0)
+			add_attack_logs(M, src, "Melee attacked with fists")
 			updatehealth()
 			return 1
 
@@ -25,7 +25,7 @@
 		visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
 				"<span class='userdanger'>[M] has slashed at [src]!</span>")
 		playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-		add_logs(M, src, "attacked", admin=0)
+		add_attack_logs(M, src, "Alien attacked")
 		attack_threshold_check(damage)
 	return
 

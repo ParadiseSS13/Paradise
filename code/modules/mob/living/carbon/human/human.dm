@@ -1756,7 +1756,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 			to_chat(src, "<span class='alert'>Repeat at least every 7 seconds.")
-			add_logs(src, H, "CPRed")
+			add_attack_logs(src, H, "CPRed", FALSE)
 			return 1
 	else
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")

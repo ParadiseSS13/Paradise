@@ -79,7 +79,7 @@
 	if(M.is_adult)
 		damage = rand(20, 40)
 	adjustBruteLoss(damage)
-	add_attack_logs(M, src, "Slime attacked")
+	add_attack_logs(src, M, "Slime'd for [damage] damage")
 	updatehealth()
 	return
 

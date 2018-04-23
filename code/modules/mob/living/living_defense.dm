@@ -290,7 +290,7 @@
 				s.set_up(5, 1, src)
 				s.start()
 				return 1
-	add_logs(M, src, "attacked", admin=0)
+	add_attack_logs(src, M, "Slime'd")
 	return
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
@@ -303,7 +303,7 @@
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 						"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0)
+		add_attack_logs(M, src, "Animal attacked")
 		return 1
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
@@ -315,7 +315,7 @@
 		else
 			L.do_attack_animation(src)
 			if(prob(90))
-				add_logs(L, src, "attacked", admin=0)
+				add_attack_logs(L, src, "Larva attacked")
 				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
 						"<span class='userdanger'>[L.name] bites [src]!</span>")
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
