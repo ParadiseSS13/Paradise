@@ -1,7 +1,5 @@
 // Always return "Something/(Something)", even if it's an error message.
 /proc/key_name(whom, include_link = FALSE, type = null)
-	if(length(args) > 3)	// fucked up somewhere, REMOVE THIS BEFORE COMITTING
-		log_runtime(EXCEPTION("Key_name was called with more than three arguments. [json_encode(args)]"))
 	if(include_link != FALSE && include_link != TRUE)
 		log_runtime(EXCEPTION("Key_name was called with an incorrect include_link [include_link]"))
 
