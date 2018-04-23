@@ -1,3 +1,9 @@
+/mob/living/carbon/human/proc/emote_zap()
+	if(back && istype(back, /obj/item/device/radio/electropack))
+		var/obj/item/device/radio/electropack/E = back
+		if(E.noise_suppression)
+			E.do_shock()
+
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
 
 	if((stat == DEAD) || (status_flags & FAKEDEATH))
@@ -116,10 +122,13 @@
 
 		if("howl", "howls")
 			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
-			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
-			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
+			if(!muzzled)
+				message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
+				playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
+			else
+				message = "<B>[src]</B> makes an odd animal like noise."
 			m_type = 2
-
+			emote_zap()
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
 			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
@@ -132,6 +141,7 @@
 			message = "<B>[src]</B> pings[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 			m_type = 2
+			emote_zap()
 
 		if("buzz2")
 			var/M = handle_emote_param(param)
@@ -139,6 +149,7 @@
 			message = "<B>[src]</B> emits an irritated buzzing sound[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
 			m_type = 2
+			emote_zap()
 
 		if("buzz", "buzzes")
 			var/M = handle_emote_param(param)
@@ -146,6 +157,7 @@
 			message = "<B>[src]</B> buzzes[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 			m_type = 2
+			emote_zap()
 
 		if("beep", "beeps")
 			var/M = handle_emote_param(param)
@@ -153,6 +165,7 @@
 			message = "<B>[src]</B> beeps[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/twobeep.ogg', 50, 0)
 			m_type = 2
+			emote_zap()
 
 		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
 			var/M = handle_emote_param(param)
@@ -160,6 +173,7 @@
 			message = "<B>[src]</B> [M ? "drones at [M]" : "rumbles"]."
 			playsound(loc, 'sound/voice/DraskTalk.ogg', 50, 0)
 			m_type = 2
+			emote_zap()
 
 		if("squish", "squishes")
 			var/M = handle_emote_param(param)
@@ -167,6 +181,7 @@
 			message = "<B>[src]</B> squishes[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
+			emote_zap()
 
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
@@ -174,6 +189,7 @@
 			message = "<B>[src]</B> clacks their mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
+			emote_zap()
 
 		if("click", "clicks")
 			var/M = handle_emote_param(param)
@@ -181,6 +197,7 @@
 			message = "<B>[src]</B> clicks their mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
+			emote_zap()
 
 		if("creaks", "creak")
 			var/M = handle_emote_param(param)
@@ -195,6 +212,7 @@
 			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
 			m_type = 2
+			emote_zap()
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
@@ -209,6 +227,7 @@
 			message = "<B>[src]</B> emits an affirmative blip[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
 			m_type = 2
+			emote_zap()
 
 		if("no")
 			var/M = handle_emote_param(param)
@@ -216,6 +235,7 @@
 			message = "<B>[src]</B> emits a negative blip[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
 			m_type = 2
+			emote_zap()
 
 		if("wag", "wags")
 			if(body_accessory)
@@ -415,6 +435,7 @@
 					else
 						if(species.male_cough_sounds)
 							playsound(src, pick(species.male_cough_sounds), 120)
+					emote_zap()
 				else
 					message = "<B>[src]</B> makes a strong noise."
 					m_type = 2
@@ -659,6 +680,7 @@
 					else
 						playsound(src, species.male_sneeze_sound, 70)
 					m_type = 2
+					emote_zap()
 				else
 					message = "<B>[src]</B> makes a strange noise."
 					m_type = 2
@@ -768,8 +790,8 @@
 					if(gender == FEMALE)
 						playsound(loc, "[species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
 					else
-						playsound(loc, "[species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
-
+						playsound(loc, "[species.male_scream_sound]", 80, 1, 0, pitch = get_age_pitch()) //default to male screams if no gender is present.
+					emote_zap()
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
 					m_type = 2
