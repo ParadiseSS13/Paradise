@@ -710,6 +710,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
 				if(b_type & PODFAB) lathe_types += "Spacepod Fabricator"
 				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
+				if(b_type & SMELTER) lathe_types += "Smelter"
 			var/list/materials = list()
 			disk_data["materials"] = materials
 			for(var/M in d_disk.blueprint.materials)
