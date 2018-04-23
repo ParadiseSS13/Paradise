@@ -21,30 +21,30 @@
 /obj/machinery/kitchen_machine/grill/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/grill(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/grill(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
 /obj/machinery/kitchen_machine/grill/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/grill(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/grill(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
 /obj/machinery/kitchen_machine/grill/RefreshParts()
 	var/E
-	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		E += M.rating
 	efficiency = round((E/2), 1) // There's 2 lasers, so halve the effect on the efficiency to keep it balanced
 
-/obj/machinery/kitchen_machine/grill/special_attack(obj/item/weapon/grab/G, mob/user)
+/obj/machinery/kitchen_machine/grill/special_attack(obj/item/grab/G, mob/user)
 	if(ishuman(G.affecting))
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
@@ -55,7 +55,7 @@
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
 		C.adjustFireLoss(30)
-		add_logs(user, G.affecting, "burned", src)
+		add_attack_logs(user, G.affecting, "Burned with [src]")
 		qdel(G) //Removes the grip to prevent rapid sears and give you a chance to run
 		return 0
 	return 0

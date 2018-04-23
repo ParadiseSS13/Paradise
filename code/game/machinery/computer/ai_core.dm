@@ -6,7 +6,7 @@
 	icon_state = "0"
 	var/state = 0
 	var/datum/ai_laws/laws = null
-	var/obj/item/weapon/circuitboard/circuit = null
+	var/obj/item/circuitboard/circuit = null
 	var/obj/item/device/mmi/brain = null
 
 /obj/structure/AIcore/Destroy()
@@ -18,14 +18,14 @@
 /obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
 		if(0)
-			if(istype(P, /obj/item/weapon/wrench))
+			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
-			if(istype(P, /obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/WT = P
+			if(istype(P, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = P
 				if(!WT.isOn())
 					to_chat(user, "The welder must be on for this task.")
 					return
@@ -36,25 +36,25 @@
 					new /obj/item/stack/sheet/plasteel(loc, 4)
 					qdel(src)
 		if(1)
-			if(istype(P, /obj/item/weapon/wrench))
+			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
 				if(do_after(user, 20 * P.toolspeed, target = src))
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
-			if(istype(P, /obj/item/weapon/circuitboard/aicore) && !circuit)
+			if(istype(P, /obj/item/circuitboard/aicore) && !circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
 				icon_state = "1"
 				circuit = P
 				user.drop_item()
 				P.loc = src
-			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
+			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
-			if(istype(P, /obj/item/weapon/crowbar) && circuit)
+			if(istype(P, /obj/item/crowbar) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
 				state = 1
@@ -62,7 +62,7 @@
 				circuit.loc = loc
 				circuit = null
 		if(2)
-			if(istype(P, /obj/item/weapon/screwdriver) && circuit)
+			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
@@ -77,7 +77,7 @@
 						state = 3
 						icon_state = "3"
 		if(3)
-			if(istype(P, /obj/item/weapon/wirecutters))
+			if(istype(P, /obj/item/wirecutters))
 				if(brain)
 					to_chat(user, "Get that brain out of there first")
 				else
@@ -99,19 +99,19 @@
 							state = 4
 							icon_state = "4"
 
-			if(istype(P, /obj/item/weapon/aiModule/purge))
+			if(istype(P, /obj/item/aiModule/purge))
 				laws.clear_inherent_laws()
 				to_chat(usr, "<span class='notice'>Law module applied.</span>")
 				return
 
-			if(istype(P, /obj/item/weapon/aiModule/freeform))
-				var/obj/item/weapon/aiModule/freeform/M = P
+			if(istype(P, /obj/item/aiModule/freeform))
+				var/obj/item/aiModule/freeform/M = P
 				laws.add_inherent_law(M.newFreeFormLaw)
 				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
 				return
 
-			if(istype(P, /obj/item/weapon/aiModule))
-				var/obj/item/weapon/aiModule/M = P
+			if(istype(P, /obj/item/aiModule))
+				var/obj/item/aiModule/M = P
 				if(!M.laws)
 					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
 					return
@@ -143,7 +143,7 @@
 				to_chat(usr, "Added [P].")
 				icon_state = "3b"
 
-			if(istype(P, /obj/item/weapon/crowbar) && brain)
+			if(istype(P, /obj/item/crowbar) && brain)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the brain.</span>")
 				brain.loc = loc
@@ -151,7 +151,7 @@
 				icon_state = "3"
 
 		if(4)
-			if(istype(P, /obj/item/weapon/crowbar))
+			if(istype(P, /obj/item/crowbar))
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
 				state = 3
@@ -162,7 +162,7 @@
 				new /obj/item/stack/sheet/rglass( loc, 2 )
 				return
 
-			if(istype(P, /obj/item/weapon/screwdriver))
+			if(istype(P, /obj/item/screwdriver))
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
 				if(!brain)
@@ -193,7 +193,7 @@
 	if(istype(W, /obj/item/device/aicard))//Is it?
 		var/obj/item/device/aicard/card = W
 		card.transfer_ai("INACTIVE","AICARD",src,user)
-	else if(istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/wrench))
 		if(anchored)
 			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
 			if(!do_after(user, 40 * W.toolspeed, target = src))

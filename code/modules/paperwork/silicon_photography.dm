@@ -59,7 +59,7 @@
 	if(!selection)
 		return
 
-	var/obj/item/weapon/photo/P = new/obj/item/weapon/photo()
+	var/obj/item/photo/P = new/obj/item/photo()
 	P.construct(selection)
 	P.show(usr)
 	to_chat(usr, P.desc)

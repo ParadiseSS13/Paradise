@@ -117,10 +117,7 @@
 		if(spent)//checking one more time against shenanigans
 			return
 
-	M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
-	user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
-	log_attack("<font color='red'>[key_name(user)] used the [src.name] to capture the soul of [key_name(M)]</font>")
-
+	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
 	return
 

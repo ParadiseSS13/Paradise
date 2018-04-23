@@ -88,7 +88,7 @@
 		return 1
 
 	else if(iswelder(O) && user.a_intent == INTENT_HELP)
-		var/obj/item/weapon/weldingtool/WT = O
+		var/obj/item/weldingtool/WT = O
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(WT.remove_fuel(0))
 			if(health < maxHealth)
@@ -100,7 +100,7 @@
 				to_chat(user, "<span class='notice'>[src] is undamaged!</span>")
 		else
 			to_chat(user, "Need more welding fuel!")
-	else if(istype(O, /obj/item/weapon/card/id) || istype(O, /obj/item/device/pda))
+	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/device/pda))
 		if(!mmi)
 			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
 			return 0
@@ -109,9 +109,9 @@
 			to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
 			return 0
 
-		var/obj/item/weapon/card/id/id_card
+		var/obj/item/card/id/id_card
 
-		if(istype(O, /obj/item/weapon/card/id))
+		if(istype(O, /obj/item/card/id))
 			id_card = O
 		else
 			var/obj/item/device/pda/pda = O
@@ -137,7 +137,7 @@
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and their every order!</span>")
 		emagged_master = user.name
-		add_logs(user, src, "emagged")
+		add_attack_logs(user, src, "Emagged")
 		maxHealth = 60
 		health = 60
 		melee_damage_lower = 15

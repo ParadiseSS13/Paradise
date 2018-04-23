@@ -18,6 +18,7 @@
 	buildstackamount = 2
 	var/movable = 0 // For mobility checks
 	buckle_offset = -6
+	var/comfort = 2 //defualt comfort
 
 /obj/structure/stool/bed/MouseDrop(atom/over_object)
 	..(over_object, skip_fucking_stool_shit = 1)
@@ -38,6 +39,7 @@
 	buildstackamount = 10
 	buildstacktype = /obj/item/stack/sheet/wood
 	buckle_offset = 0
+	comfort = 0.5
 
 /obj/structure/stool/bed/dogbed/ian
 	name = "Ian's bed"
@@ -48,7 +50,7 @@
 	name = "resting contraption"
 	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
 	icon_state = "abed"
-
+	comfort = 0.3
 /obj/structure/stool/bed/proc/handle_rotation()
 	return
 
@@ -68,8 +70,9 @@
 	icon_state = "down"
 	burn_state = FIRE_PROOF
 	anchored = 0
+	comfort = 1
 
-/obj/structure/stool/bed/roller/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/stool/bed/roller/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/roller_holder))
 		if(buckled_mob)
 			user_unbuckle_mob(user)
@@ -102,7 +105,7 @@
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/item/roller/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/roller/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/roller_holder))
 		var/obj/item/roller_holder/RH = W
 		if(!RH.held)

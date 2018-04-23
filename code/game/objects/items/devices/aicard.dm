@@ -17,7 +17,7 @@
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI) //AI is on the card, implies user wants to upload it.
 		target.transfer_ai(AI_TRANS_FROM_CARD, user, AI, src)
-		add_logs(user, AI, "carded", object="[name]")
+		add_attack_logs(user, AI, "Carded with [src]")
 	else //No AI on the card, therefore the user wants to download one.
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 	update_state() //Whatever happened, update the card's state (icon, name) to match.
@@ -41,7 +41,7 @@
 
 
 /obj/item/device/aicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "aicard.tmpl", "[name]", 600, 400, state = state)
 		ui.open()
@@ -84,6 +84,7 @@
 		var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
 		if(confirm == "Yes" && (CanUseTopic(user, state) == STATUS_INTERACTIVE))
 			msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].")
+			log_attack(user, AI, "Wiped with [src].")
 			flush = 1
 			AI.suiciding = 1
 			to_chat(AI, "Your core files are being wiped!")

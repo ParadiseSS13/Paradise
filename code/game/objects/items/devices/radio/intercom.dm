@@ -133,7 +133,7 @@
 
 	return canhear_range
 
-/obj/item/device/radio/intercom/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/device/radio/intercom/attackby(obj/item/W as obj, mob/user as mob)
 	switch(buildstage)
 		if(3)
 			if(iswirecutter(W) && b_stat && wires.IsAllCut())
@@ -181,12 +181,12 @@
 				if(do_after(user, 10 * W.toolspeed, target = src))
 					if(buildstage != 1)
 						return
-					new /obj/item/weapon/intercom_electronics(get_turf(src))
+					new /obj/item/intercom_electronics(get_turf(src))
 					to_chat(user, "<span class='notice'>The circuitboard pops out!</span>")
 					buildstage = 0
 				return 1
 		if(0)
-			if(istype(W,/obj/item/weapon/intercom_electronics))
+			if(istype(W,/obj/item/intercom_electronics))
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src))
 					qdel(W)
@@ -194,7 +194,7 @@
 					buildstage = 1
 				return 1
 			if(iswelder(W))
-				var/obj/item/weapon/weldingtool/WT=W
+				var/obj/item/weldingtool/WT=W
 				playsound(get_turf(src), WT.usesound, 50, 1)
 				if(!WT.remove_fuel(3, user))
 					to_chat(user, "<span class='warning'>You're out of welding fuel.</span>")
@@ -226,7 +226,7 @@
 				on = A.powered(EQUIP) // set "on" to the power status
 		update_icon()
 
-/obj/item/weapon/intercom_electronics
+/obj/item/intercom_electronics
 	name = "intercom electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"

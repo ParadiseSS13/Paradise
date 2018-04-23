@@ -62,6 +62,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon_state = "none"
 	anchored = 0
 	density = 1
+	armor = list(melee = 30, bullet = 20, laser = 20, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/obj/machinery/particle_accelerator/control_box/master = null
 	var/construction_state = 0
 	var/reference = null

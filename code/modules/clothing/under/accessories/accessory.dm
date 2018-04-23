@@ -253,11 +253,11 @@
 		user.visible_message("<span class='warning'>[user] displays their Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>","<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
 /obj/item/clothing/accessory/holobadge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/card/id) || istype(O, /obj/item/device/pda))
+	if(istype(O, /obj/item/card/id) || istype(O, /obj/item/device/pda))
 
-		var/obj/item/weapon/card/id/id_card = null
+		var/obj/item/card/id/id_card = null
 
-		if(istype(O, /obj/item/weapon/card/id))
+		if(istype(O, /obj/item/card/id))
 			id_card = O
 		else
 			var/obj/item/device/pda/pda = O
@@ -286,7 +286,7 @@
 	if(isliving(user))
 		user.visible_message("<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into their face insistently.</span>","<span class='warning'>You invade [M]'s personal space, thrusting [src] into their face insistently. You are the law.</span>")
 
-/obj/item/weapon/storage/box/holobadge
+/obj/item/storage/box/holobadge
 	name = "holobadge box"
 	desc = "A box claiming to contain holobadges."
 	New()
@@ -433,7 +433,7 @@
 		to_chat(user, "You have to open it first.")
 		return
 
-	if(istype(O,/obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo) && !(istype(O, /obj/item/weapon/paper/talisman)))
+	if(istype(O,/obj/item/paper) || istype(O, /obj/item/photo) && !(istype(O, /obj/item/paper/talisman)))
 		if(held)
 			to_chat(usr, "[src] already has something inside it.")
 		else
@@ -585,7 +585,7 @@
 	icon_state = "petcollar"
 	item_color = "petcollar"
 	var/tagname = null
-	var/obj/item/weapon/card/id/access_id
+	var/obj/item/card/id/access_id
 
 /obj/item/clothing/accessory/petcollar/Destroy()
 	QDEL_NULL(access_id)
@@ -612,7 +612,7 @@
 					user.put_in_hands(access_id)
 					access_id = null
 
-/obj/item/clothing/accessory/petcollar/attackby(obj/item/weapon/card/id/W, mob/user, params)
+/obj/item/clothing/accessory/petcollar/attackby(obj/item/card/id/W, mob/user, params)
 	if(!istype(W))
 		return ..()
 	if(access_id)

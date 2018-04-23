@@ -56,12 +56,12 @@
 
 /turf/Destroy()
 // Adds the adjacent turfs to the current atmos processing
-	if(air_master)
+	if(SSair)
 		for(var/direction in cardinal)
 			if(atmos_adjacent_turfs & direction)
 				var/turf/simulated/T = get_step(src, direction)
 				if(istype(T))
-					air_master.add_to_active(T)
+					SSair.add_to_active(T)
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -167,8 +167,8 @@
 	var/old_corners = corners
 
 	BeforeChange()
-	if(air_master)
-		air_master.remove_from_active(src)
+	if(SSair)
+		SSair.remove_from_active(src)
 	var/turf/W = new path(src)
 	if(!defer_change)
 		W.AfterChange()
@@ -204,8 +204,8 @@
 	levelupdate()
 	CalculateAdjacentTurfs()
 
-	if(air_master && !ignore_air)
-		air_master.add_to_active(src)
+	if(SSair && !ignore_air)
+		SSair.add_to_active(src)
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
@@ -246,8 +246,8 @@
 		air.carbon_dioxide = (aco/max(turf_count,1))
 		air.toxins = (atox/max(turf_count,1))
 		air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
-		if(air_master)
-			air_master.add_to_active(src)
+		if(SSair)
+			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
 	src.ChangeTurf(/turf/space)
@@ -277,7 +277,7 @@
 
 // Returns the surrounding cardinal turfs with open links
 // Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(var/obj/item/weapon/card/id/ID)
+/turf/proc/CardinalTurfsWithAccess(var/obj/item/card/id/ID)
 	var/list/L = new()
 	var/turf/simulated/T
 
@@ -307,7 +307,7 @@
 
 // Returns the surrounding simulated turfs with open links
 // Including through doors openable with the ID
-/turf/proc/AdjacentTurfsWithAccess(var/obj/item/weapon/card/id/ID = null,var/list/closed)//check access if one is passed
+/turf/proc/AdjacentTurfsWithAccess(var/obj/item/card/id/ID = null,var/list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/simulated/T
 	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
@@ -333,7 +333,7 @@
 	return L
 
 // check for all turfs, including unsimulated ones
-/turf/proc/AdjacentTurfsSpace(var/obj/item/weapon/card/id/ID = null, var/list/closed)//check access if one is passed
+/turf/proc/AdjacentTurfsSpace(var/obj/item/card/id/ID = null, var/list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T
 	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
@@ -397,8 +397,8 @@
 					return
 			C.place_turf(src, user)
 			return 1
-		else if(istype(I, /obj/item/weapon/twohanded/rcl))
-			var/obj/item/weapon/twohanded/rcl/R = I
+		else if(istype(I, /obj/item/twohanded/rcl))
+			var/obj/item/twohanded/rcl/R = I
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2==0)
@@ -457,6 +457,6 @@
 
 	T0.ChangeTurf(turf_type)
 
-	air_master.remove_from_active(T0)
+	SSair.remove_from_active(T0)
 	T0.CalculateAdjacentTurfs()
-	air_master.add_to_active(T0,1)
+	SSair.add_to_active(T0,1)

@@ -76,11 +76,11 @@
 
 	scientist.assigned_role = "MODE"
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
-	log_game("[scientist.key] (ckey) has been selected as an abductor team [team_number] scientist.")
+	log_game("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.")
 
 	agent.assigned_role = "MODE"
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
-	log_game("[agent.key] (ckey) has been selected as an abductor team [team_number] agent.")
+	log_game("[key_name(agent)] has been selected as an abductor team [team_number] agent.")
 
 	abductors |= agent
 	abductors |= scientist
@@ -231,7 +231,7 @@
 	agent.equip_to_slot_or_del(R, slot_l_ear)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(agent), slot_shoes)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(agent), slot_w_uniform) //they're greys gettit
-	agent.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(agent), slot_back)
+	agent.equip_to_slot_or_del(new /obj/item/storage/backpack(agent), slot_back)
 
 /datum/game_mode/abduction/proc/get_team_console(team)
 	var/obj/machinery/abductor/console/console
@@ -251,11 +251,11 @@
 		console.vest = V
 		V.flags |= NODROP
 	agent.equip_to_slot_or_del(V, slot_wear_suit)
-	agent.equip_to_slot_or_del(new /obj/item/weapon/abductor_baton(agent), slot_in_backpack)
-	agent.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/alien(agent), slot_in_backpack)
+	agent.equip_to_slot_or_del(new /obj/item/abductor_baton(agent), slot_in_backpack)
+	agent.equip_to_slot_or_del(new /obj/item/gun/energy/alien(agent), slot_in_backpack)
 	agent.equip_to_slot_or_del(new /obj/item/device/abductor/silencer(agent), slot_in_backpack)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/abductor(agent), slot_head)
-	agent.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/military/abductor/full(agent), slot_belt)
+	agent.equip_to_slot_or_del(new /obj/item/storage/belt/military/abductor/full(agent), slot_belt)
 	agent.update_icons()
 
 
@@ -270,7 +270,7 @@
 		G.console = console
 	scientist.equip_to_slot_or_del(G, slot_in_backpack)
 
-	var/obj/item/weapon/implant/abductor/beamplant = new /obj/item/weapon/implant/abductor(scientist)
+	var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(scientist)
 	beamplant.implant(scientist)
 	scientist.update_icons()
 

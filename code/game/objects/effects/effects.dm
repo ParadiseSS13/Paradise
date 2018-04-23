@@ -4,3 +4,11 @@
 
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
+	burn_state = LAVA_PROOF | FIRE_PROOF
+	resistance_flags = INDESTRUCTIBLE
+
+/obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	return
+
+/obj/effect/fire_act()
+	return

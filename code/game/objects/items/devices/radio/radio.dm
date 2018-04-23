@@ -77,6 +77,7 @@ var/global/list/default_medbay_channels = list(
 		radio_controller.remove_object(src, frequency)
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
+	radio_connection = null
 	global_radios -= src
 	follow_target = null
 	return ..()
@@ -107,7 +108,7 @@ var/global/list/default_medbay_channels = list(
 	return ui_interact(user)
 
 /obj/item/device/radio/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 400, 550)
 		ui.open()
@@ -167,7 +168,7 @@ var/global/list/default_medbay_channels = list(
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
 /mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
-	var/obj/item/weapon/card/id/I = user.get_id_card()
+	var/obj/item/card/id/I = user.get_id_card()
 	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
 
 /mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
@@ -598,10 +599,10 @@ var/global/list/default_medbay_channels = list(
 			user.show_message("<span class='notice'>\the [src] can not be modified or attached!</span>")
 	return .
 
-/obj/item/device/radio/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/device/radio/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	user.set_machine(src)
-	if(!( istype(W, /obj/item/weapon/screwdriver) ))
+	if(!( istype(W, /obj/item/screwdriver) ))
 		return
 	b_stat = !( b_stat )
 	if(!istype(src, /obj/item/device/radio/beacon))
@@ -682,13 +683,13 @@ var/global/list/default_medbay_channels = list(
 	..()
 	set_frequency(ERT_FREQ)
 
-/obj/item/device/radio/borg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/device/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
 //	..()
 	user.set_machine(src)
-	if(!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
+	if(!( istype(W, /obj/item/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
 		return
 
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		if(keyslot)
 
 
@@ -793,7 +794,7 @@ var/global/list/default_medbay_channels = list(
 	. = ..()
 
 /obj/item/device/radio/borg/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 430, 500)
 		ui.open()

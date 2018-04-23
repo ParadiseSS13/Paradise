@@ -22,10 +22,11 @@
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
+	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
@@ -164,7 +165,7 @@
 	for(var/mob/M in mob_list)
 		if(M == summoner)
 			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
-			log_say("Guardian Communication: [key_name(src)] -> [key_name(M)] : [input]")
+			log_say("(GUARDIAN to [key_name(M)]) [input]", src)
 		else if(M in dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
@@ -185,7 +186,7 @@
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
 				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
-				log_say("Guardian Communication: [key_name(src)] -> [key_name(G)] : [input]")
+				log_say("(GUARDIAN to [key_name(G)]) [input]", src)
 
 		else if(M in dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
@@ -233,7 +234,7 @@
 
 ////////Creation
 
-/obj/item/weapon/guardiancreator
+/obj/item/guardiancreator
 	name = "deck of tarot cards"
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power. "
 	icon = 'icons/obj/toy.dmi'
@@ -248,7 +249,7 @@
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = TRUE
 
-/obj/item/weapon/guardiancreator/attack_self(mob/living/user)
+/obj/item/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
 		if(G.summoner == user)
 			to_chat(user, "You already have a [mob_name]!")
@@ -272,7 +273,7 @@
 		used = FALSE
 
 
-/obj/item/weapon/guardiancreator/proc/spawn_guardian(var/mob/living/user, var/key)
+/obj/item/guardiancreator/proc/spawn_guardian(var/mob/living/user, var/key)
 	var/gaurdiantype = "Standard"
 	if(random)
 		gaurdiantype = pick(possible_guardians)
@@ -342,8 +343,20 @@
 	"Lilac" = "#C7A0F6", \
 	"Orchid" = "#F62CF5")
 
+	var/bio_list = list("Rose" = "#F62C6B", \
+	"Peony" = "#E54750", \
+	"Lily" = "#F6562C", \
+	"Daisy" = "#ECCD39", \
+	"Zinnia" = "#89F62C", \
+	"Ivy" = "#5DF62C", \
+	"Iris" = "#2CF6B8", \
+	"Petunia" = "#51A9D4", \
+	"Violet" = "#8A347C", \
+	"Lilac" = "#C7A0F6", \
+	"Orchid" = "#F62CF5")
+
 	var/picked_name
-	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
+//	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
 
 	switch(theme)
 		if("magic")
@@ -372,22 +385,25 @@
 			to_chat(user, "[G.tech_fluff_string].")
 			G.speak_emote = list("states")
 		if("bio")
-			G.name_color = picked_color
-			G.icon = 'icons/mob/mob.dmi'
+			color = pick(bio_list) //technically not colors, just using the same flowers as tech currerntly
+			G.name_color = tech_list[color]
 			picked_name = pick("brood", "hive", "nest")
 			to_chat(user, "[G.bio_fluff_string].")
-			G.name = "[picked_name] swarm"
-			G.color = picked_color
-			G.real_name = "[picked_name] swarm"
-			G.icon_living = "headcrab"
-			G.icon_state = "headcrab"
+
+			G.name = "[color] [picked_name]"
+			G.real_name = "[color] [picked_name]"
+			G.icon_living = "[theme][color]"
+			G.icon_state = "[theme][color]"
+			G.icon_dead = "[theme][color]"
+
+			to_chat(user, "[G.bio_fluff_string].")
 			G.attacktext = "swarms"
 			G.speak_emote = list("chitters")
 
-/obj/item/weapon/guardiancreator/choose
+/obj/item/guardiancreator/choose
 	random = FALSE
 
-/obj/item/weapon/guardiancreator/tech
+/obj/item/guardiancreator/tech
 	name = "holoparasite injector"
 	desc = "It contains alien nanoswarm of unknown origin. Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, it requires an organic host as a home base and source of fuel."
 	icon = 'icons/obj/hypo.dmi'
@@ -399,10 +415,10 @@
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
 	ling_failure = "The holoparasites recoil in horror. They want nothing to do with a creature like you."
 
-/obj/item/weapon/guardiancreator/tech/choose
+/obj/item/guardiancreator/tech/choose
 	random = FALSE
 
-/obj/item/weapon/guardiancreator/biological
+/obj/item/guardiancreator/biological
 	name = "scarab egg cluster"
 	desc = "A parasitic species that will nest in the closest living creature upon birth. While not great for your health, they'll defend their new 'hive' to the death."
 	icon = 'icons/obj/fish_items.dmi'
@@ -413,11 +429,11 @@
 	used_message = "The cluster already hatched."
 	failure_message = "<B>...but soon settles again. Guess they weren't ready to hatch after all.</B>"
 
-/obj/item/weapon/guardiancreator/biological/choose
+/obj/item/guardiancreator/biological/choose
 	random = FALSE
 
 
-/obj/item/weapon/paper/guardian
+/obj/item/paper/guardian
 	name = "Holoparasite Guide"
 	icon_state = "paper"
 	info = {"<b>A list of Holoparasite Types</b><br>
@@ -434,15 +450,15 @@
  <b>Explosive</b>: High damage resist and medium power attack. Can turn any object into a bomb, dealing explosive damage to the next person to touch it. The object will return to normal after the trap is triggered.<br>
 "}
 
-/obj/item/weapon/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon()
 	return
 
 
-/obj/item/weapon/storage/box/syndie_kit/guardian
+/obj/item/storage/box/syndie_kit/guardian
 	name = "holoparasite injector kit"
 
-/obj/item/weapon/storage/box/syndie_kit/guardian/New()
+/obj/item/storage/box/syndie_kit/guardian/New()
 	..()
-	new /obj/item/weapon/guardiancreator/tech/choose(src)
-	new /obj/item/weapon/paper/guardian(src)
+	new /obj/item/guardiancreator/tech/choose(src)
+	new /obj/item/paper/guardian(src)
 	return

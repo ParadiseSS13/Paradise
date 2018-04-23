@@ -18,7 +18,7 @@
 	light_color = LIGHT_COLOR_DARKGREEN
 
 	req_access = list(access_tcomsat)
-	circuit = /obj/item/weapon/circuitboard/comm_traffic
+	circuit = /obj/item/circuitboard/comm_traffic
 
 /obj/machinery/computer/telecomms/traffic/attack_hand(mob/user)
 	interact(user)
@@ -338,15 +338,15 @@
 
 	updateUsrDialog()
 
-/obj/machinery/computer/telecomms/traffic/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
-	if(istype(D, /obj/item/weapon/screwdriver))
+/obj/machinery/computer/telecomms/traffic/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+	if(istype(D, /obj/item/screwdriver))
 		playsound(get_turf(src), D.usesound, 50, 1)
 		if(do_after(user, 20 * D.toolspeed, target = src))
 			if(src.stat & BROKEN)
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/weapon/shard(loc)
-				var/obj/item/weapon/circuitboard/comm_traffic/M = new /obj/item/weapon/circuitboard/comm_traffic( A )
+				new /obj/item/shard(loc)
+				var/obj/item/circuitboard/comm_traffic/M = new /obj/item/circuitboard/comm_traffic( A )
 				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M
@@ -357,7 +357,7 @@
 			else
 				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/weapon/circuitboard/comm_traffic/M = new /obj/item/weapon/circuitboard/comm_traffic( A )
+				var/obj/item/circuitboard/comm_traffic/M = new /obj/item/circuitboard/comm_traffic( A )
 				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M

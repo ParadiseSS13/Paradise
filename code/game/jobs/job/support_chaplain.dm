@@ -32,7 +32,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(H)
+	var/obj/item/storage/bible/B = new /obj/item/storage/bible(H)
 
 	spawn()
 		H.equip_to_slot_or_del(B, slot_l_hand)

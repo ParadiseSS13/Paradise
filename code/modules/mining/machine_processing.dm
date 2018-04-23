@@ -385,7 +385,7 @@
 					ore_mime--
 				if(selected_titanium == 1)
 					ore_titanium--
-				generate_mineral(/obj/item/weapon/ore/slag)
+				generate_mineral(/obj/item/ore/slag)
 				on = 0
 			else
 				on = 0
@@ -400,43 +400,43 @@
 			n++
 			if(n>10)
 				break
-			if(istype(O,/obj/item/weapon/ore/iron))
+			if(istype(O,/obj/item/ore/iron))
 				ore_iron++;
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/glass))
+			if(istype(O,/obj/item/ore/glass))
 				ore_glass++;
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/diamond))
+			if(istype(O,/obj/item/ore/diamond))
 				ore_diamond++;
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/plasma))
+			if(istype(O,/obj/item/ore/plasma))
 				ore_plasma++
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/gold))
+			if(istype(O,/obj/item/ore/gold))
 				ore_gold++
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/silver))
+			if(istype(O,/obj/item/ore/silver))
 				ore_silver++
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/uranium))
+			if(istype(O,/obj/item/ore/uranium))
 				ore_uranium++
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/bananium))
+			if(istype(O,/obj/item/ore/bananium))
 				ore_clown++
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/tranquillite))
+			if(istype(O,/obj/item/ore/tranquillite))
 				ore_mime++
 				O.loc = null
 				continue
-			if(istype(O,/obj/item/weapon/ore/titanium))
+			if(istype(O,/obj/item/ore/titanium))
 				ore_titanium++
 				O.loc = null
 				continue

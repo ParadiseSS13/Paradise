@@ -34,7 +34,7 @@
 
 	var/list/player_access = list()
 	var/emagged = 0
-	var/obj/item/weapon/card/id/access_card			// the ID card that the bot "holds"
+	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
 	var/list/prev_access = list()
 	var/on = 1
 	var/open = 0//Maint panel
@@ -140,7 +140,7 @@
 	bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
-	access_card = new /obj/item/weapon/card/id(src)
+	access_card = new /obj/item/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += access_robotics
 	set_custom_texts()
@@ -219,7 +219,7 @@
 		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
 		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
 		show_laws()
-		add_logs(user, src, "emagged")
+		add_attack_logs(user, src, "Emagged")
 		return
 	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
@@ -273,7 +273,7 @@
 		return
 	apply_damage(M.melee_damage_upper, BRUTE)
 	visible_message("<span class='userdanger'>[M] has [M.attacktext] [src]!</span>")
-	add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
+	add_attack_logs(M, src, "Animal attacked", FALSE)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
@@ -295,14 +295,14 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
-/mob/living/simple_animal/bot/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/screwdriver))
+/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/screwdriver))
 		if(!locked)
 			open = !open
 			to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 		else
 			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/device/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
@@ -333,14 +333,14 @@
 					bot_name = name
 					name = paicard.pai.name
 					faction = user.faction
-					add_logs(user, paicard.pai, "uploaded to [src.bot_name],")
+					add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
 				else
 					to_chat(user, "<span class='warning'>[W] is inactive.</span>")
 			else
 				to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
-	else if(istype(W, /obj/item/weapon/hemostat) && paicard)
+	else if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
 		else
@@ -351,14 +351,14 @@
 					ejectpai(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != INTENT_HARM)
+		if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM)
 			if(health >= maxHealth)
 				to_chat(user, "<span class='warning'>[src] does not need a repair!</span>")
 				return
 			if(!open)
 				to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
 				return
-			var/obj/item/weapon/weldingtool/WT = W
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
 				adjustHealth(-10)
 				add_fingerprint(user)
@@ -514,7 +514,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/area/end_area = get_area(waypoint)
 
 	//For giving the bot temporary all-access.
-	var/obj/item/weapon/card/id/all_access = new /obj/item/weapon/card/id
+	var/obj/item/card/id/all_access = new /obj/item/card/id
 	var/datum/job/captain/All = new/datum/job/captain
 	all_access.access = All.get_access()
 
@@ -865,7 +865,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				to_chat(usr, "<span class='warning'>[text_hack]</span>")
 				show_laws()
 				bot_reset()
-				add_logs(usr, src, "hacked")
+				add_attack_logs(usr, src, "Hacked")
 			else if(!hacked)
 				to_chat(usr, "<span class='userdanger'>[text_dehack_fail]</span>")
 			else
@@ -874,7 +874,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				to_chat(usr, "<span class='notice'>[text_dehack]</span>")
 				show_laws()
 				bot_reset()
-				add_logs(usr, src, "dehacked")
+				add_attack_logs(usr, src, "Dehacked")
 		if("ejectpai")
 			if(paicard && (!locked || issilicon(usr) || usr.can_admin_interact()))
 				to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
@@ -946,9 +946,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 		key = null
 		paicard.forceMove(loc)
 		if(user)
-			add_logs(user, paicard.pai, "ejected from [src.bot_name],")
+			add_attack_logs(user, paicard.pai, "Ejected from [src.bot_name],")
 		else
-			add_logs(src, paicard.pai, "ejected")
+			add_attack_logs(src, paicard.pai, "Ejected")
 		if(announce)
 			to_chat(paicard.pai, "<span class='notice'>You feel your control fade as [paicard] ejects from [bot_name].</span>")
 		paicard = null

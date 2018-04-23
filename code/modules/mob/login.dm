@@ -3,7 +3,7 @@
 	//Multikey checks and logging
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
-	log_access("Login: [key_name(src)] from [lastKnownIP ? lastKnownIP : "localhost"]-[computer_id] || BYOND v[client.byond_version]")
+	log_access_in(client)
 	if(config.log_access)
 		for(var/mob/M in player_list)
 			if(M == src)	continue
@@ -19,10 +19,10 @@
 				if(matches)
 					if(M.client)
 						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=\ref[src]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=\ref[M]'>[key_name_admin(M)]</A>.</font>", 1)
-						log_access("Notice: [key_name(src)] has the same [matches] as [key_name(M)].")
+						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)].")
 					else
 						message_admins("<font color='red'><B>Notice: </B><font color='blue'><A href='?src=[usr.UID()];priv_msg=\ref[src]'>[key_name_admin(src)]</A> has the same [matches] as [key_name_admin(M)] (no longer logged in). </font>", 1)
-						log_access("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
+						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
 
 /mob/Login()
 	player_list |= src

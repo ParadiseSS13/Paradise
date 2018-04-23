@@ -21,7 +21,6 @@
 	melee_damage_upper = 15
 	move_to_delay = 4
 	spider_tier = TS_TIER_2
-	loot = list(/obj/item/clothing/accessory/medal)
 	web_infects = 1
 
 

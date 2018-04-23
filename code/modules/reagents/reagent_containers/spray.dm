@@ -1,4 +1,4 @@
-/obj/item/weapon/reagent_containers/spray
+/obj/item/reagent_containers/spray
 	name = "spray bottle"
 	desc = "A spray bottle, with an unscrewable top."
 	icon = 'icons/obj/janitor.dmi'
@@ -17,9 +17,9 @@
 	possible_transfer_amounts = null
 
 
-/obj/item/weapon/reagent_containers/spray/afterattack(atom/A, mob/user)
-	if(istype(A, /obj/item/weapon/storage) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
-	|| istype(A, /obj/item/weapon/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
+/obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
+	if(istype(A, /obj/item/storage) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
+	|| istype(A, /obj/item/reagent_containers) || istype(A, /obj/structure/sink) || istype(A, /obj/structure/janitorialcart) || istype(A, /obj/machinery/hydroponics))
 		return
 
 	if(istype(A, /obj/effect/proc_holder/spell))
@@ -60,7 +60,7 @@
 	return
 
 
-/obj/item/weapon/reagent_containers/spray/proc/spray(var/atom/A)
+/obj/item/reagent_containers/spray/proc/spray(var/atom/A)
 	var/obj/effect/decal/chempuff/D = new /obj/effect/decal/chempuff(get_turf(src))
 	D.create_reagents(amount_per_transfer_from_this)
 	reagents.trans_to(D, amount_per_transfer_from_this, 1/spray_currentrange)
@@ -75,17 +75,17 @@
 		qdel(D)
 
 
-/obj/item/weapon/reagent_containers/spray/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/attack_self(var/mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	spray_currentrange = (spray_currentrange == 1 ? spray_maxrange : 1)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
-/obj/item/weapon/reagent_containers/spray/examine(mob/user)
+/obj/item/reagent_containers/spray/examine(mob/user)
 	if(..(user, 0) && user == loc)
 		to_chat(user, "[round(reagents.total_volume)] units left.")
 
-/obj/item/weapon/reagent_containers/spray/verb/empty()
+/obj/item/reagent_containers/spray/verb/empty()
 
 	set name = "Empty Spray Bottle"
 	set category = "Object"
@@ -100,22 +100,22 @@
 		reagents.clear_reagents()
 
 //space cleaner
-/obj/item/weapon/reagent_containers/spray/cleaner
+/obj/item/reagent_containers/spray/cleaner
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	list_reagents = list("cleaner" = 250)
 
-/obj/item/weapon/reagent_containers/spray/cleaner/drone
+/obj/item/reagent_containers/spray/cleaner/drone
 	name = "space cleaner"
 	desc = "BLAM!-brand non-foaming space cleaner!"
 	volume = 50
 	list_reagents = list("cleaner" = 50)
 
 //pepperspray
-/obj/item/weapon/reagent_containers/spray/pepper
+/obj/item/reagent_containers/spray/pepper
 	name = "pepperspray"
 	desc = "Manufactured by UhangInc, used to blind and down an opponent quickly."
-	icon = 'icons/obj/weapons.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"
 	volume = 40
@@ -124,7 +124,7 @@
 	list_reagents = list("condensedcapsaicin" = 40)
 
 //water flower
-/obj/item/weapon/reagent_containers/spray/waterflower
+/obj/item/reagent_containers/spray/waterflower
 	name = "water flower"
 	desc = "A seemingly innocent sunflower...with a twist."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
@@ -134,11 +134,11 @@
 	volume = 10
 	list_reagents = list("water" = 10)
 
-/obj/item/weapon/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
+/obj/item/reagent_containers/spray/waterflower/attack_self(mob/user) //Don't allow changing how much the flower sprays
 	return
 
 //chemsprayer
-/obj/item/weapon/reagent_containers/spray/chemsprayer
+/obj/item/reagent_containers/spray/chemsprayer
 	name = "chem sprayer"
 	desc = "A utility used to spray large amounts of reagents in a given area."
 	icon = 'icons/obj/guns/projectile.dmi'
@@ -153,7 +153,7 @@
 	origin_tech = "combat=3;materials=3;engineering=3"
 
 
-/obj/item/weapon/reagent_containers/spray/chemsprayer/spray(var/atom/A)
+/obj/item/reagent_containers/spray/chemsprayer/spray(var/atom/A)
 	var/Sprays[3]
 	for(var/i=1, i<=3, i++) // intialize sprays
 		if(reagents.total_volume < 1) break
@@ -190,14 +190,14 @@
 
 
 
-/obj/item/weapon/reagent_containers/spray/chemsprayer/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/chemsprayer/attack_self(var/mob/user)
 
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You adjust the output switch. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 
 // Plant-B-Gone
-/obj/item/weapon/reagent_containers/spray/plantbgone // -- Skie
+/obj/item/reagent_containers/spray/plantbgone // -- Skie
 	name = "Plant-B-Gone"
 	desc = "Kills those pesky weeds!"
 	icon = 'icons/obj/hydroponics/equipment.dmi'

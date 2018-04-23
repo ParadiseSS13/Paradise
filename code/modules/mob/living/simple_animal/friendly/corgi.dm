@@ -15,7 +15,7 @@
 	emote_see = list("shakes its head", "shivers")
 	speak_chance = 1
 	turns_per_move = 10
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/corgi = 3)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3)
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
@@ -84,7 +84,7 @@
 				custom_emote(1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")
 			return
 
-	if(istype(O, /obj/item/weapon/razor))
+	if(istype(O, /obj/item/razor))
 		if(shaved)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
 			return
@@ -162,7 +162,7 @@
 					if(!item_to_add)
 						usr.visible_message("[usr] pets [src].","<span class='notice'>You rest your hand on [src]'s back for a moment.</span>")
 						return
-					if(istype(item_to_add,/obj/item/weapon/grenade/plastic/c4)) // last thing he ever wears, I guess
+					if(istype(item_to_add,/obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
 						item_to_add.afterattack(src,usr,1)
 						return
 
@@ -174,9 +174,9 @@
 						/obj/item/device/radio,
 						/obj/item/device/radio/off,
 						/obj/item/clothing/suit/cardborg,
-						/obj/item/weapon/tank/oxygen,
-						/obj/item/weapon/tank/air,
-						/obj/item/weapon/extinguisher,
+						/obj/item/tank/oxygen,
+						/obj/item/tank/air,
+						/obj/item/extinguisher,
 					)
 
 					if( ! ( item_to_add.type in allowed_types ) )
@@ -215,7 +215,7 @@
 //Many  hats added, Some will probably be removed, just want to see which ones are popular.
 /mob/living/simple_animal/pet/corgi/proc/place_on_head(obj/item/item_to_add, var/mob/user as mob)
 
-	if(istype(item_to_add,/obj/item/weapon/grenade/plastic/c4)) // last thing he ever wears, I guess
+	if(istype(item_to_add,/obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
 		item_to_add.afterattack(src,user,1)
 		return
 
@@ -237,7 +237,7 @@
 		switch(item_to_add.type)
 			if( /obj/item/clothing/glasses/sunglasses, /obj/item/clothing/head/that, /obj/item/clothing/head/collectable/paper,
 					/obj/item/clothing/head/hardhat, /obj/item/clothing/head/collectable/hardhat, /obj/item/clothing/head/hardhat/white,
-					/obj/item/weapon/paper)
+					/obj/item/paper)
 				valid = 1
 
 			if(/obj/item/clothing/head/helmet)
@@ -319,7 +319,7 @@
 				desc = "Result of robotics budget cuts."
 				valid = 1
 
-			if(/obj/item/weapon/bedsheet)
+			if(/obj/item/bedsheet)
 				name = "\improper Ghost"
 				speak = list("WoooOOOooo~","AUUUUUUUUUUUUUUUUUU")
 				emote_see = list("stumbles around.", "shivers.")
@@ -430,7 +430,7 @@
 			if( !movement_target || !(movement_target.loc in oview(src, 3)) )
 				movement_target = null
 				stop_automated_movement = 0
-				for(var/obj/item/weapon/reagent_containers/food/snacks/S in oview(src,3))
+				for(var/obj/item/reagent_containers/food/snacks/S in oview(src,3))
 					if(isturf(S.loc) || ishuman(S.loc))
 						movement_target = S
 						break
@@ -468,7 +468,7 @@
 			custom_emote(1, pick("dances around.","chases its tail!"))
 			spin(20, 1)
 
-/obj/item/weapon/reagent_containers/food/snacks/meat/corgi
+/obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
 	desc = "Tastes like... well you know..."
 

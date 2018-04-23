@@ -28,7 +28,7 @@
 		master = null
 	return ..()
 
-/obj/item/device/radio/electropack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/device/radio/electropack/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/clothing/head/helmet))
 		if(!b_stat)
@@ -99,7 +99,7 @@
 
 
 /obj/item/device/radio/electropack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "radio_electro.tmpl", "[name]", 400, 500)
 		ui.open()

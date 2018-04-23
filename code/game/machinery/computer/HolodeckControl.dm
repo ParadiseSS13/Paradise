@@ -159,7 +159,7 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
 	return
 
 /obj/machinery/computer/HolodeckControl/emag_act(user as mob)
@@ -298,7 +298,7 @@
 	holographic_items = A.copy_contents_to(linkedholodeck , 1)
 
 	if(emagged)
-		for(var/obj/item/weapon/holo/H in linkedholodeck)
+		for(var/obj/item/holo/H in linkedholodeck)
 			H.damtype = BRUTE
 
 	spawn(30)
@@ -332,7 +332,7 @@
 // Holographic Items!
 /turf/simulated/floor/holofloor/
 	thermal_conductivity = 0
-
+	icon_state = "plating"
 /turf/simulated/floor/holofloor/grass
 	name = "Lush Grass"
 	icon_state = "grass1"
@@ -348,7 +348,7 @@
 	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
 		icon_state = "grass[pick("1","2","3","4")]"
 
-/turf/simulated/floor/holofloor/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
 	return
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
@@ -383,10 +383,10 @@
 /obj/structure/rack/holorack
 	can_deconstruct = FALSE
 
-/obj/item/weapon/holo
+/obj/item/holo
 	damtype = STAMINA
 
-/obj/item/weapon/holo/claymore
+/obj/item/holo/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
 	icon_state = "claymore"
@@ -398,15 +398,15 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
 
-/obj/item/weapon/holo/claymore/blue
+/obj/item/holo/claymore/blue
 	icon_state = "claymoreblue"
 	item_state = "claymoreblue"
 
-/obj/item/weapon/holo/claymore/red
+/obj/item/holo/claymore/red
 	icon_state = "claymorered"
 	item_state = "claymorered"
 
-/obj/item/weapon/holo/esword
+/obj/item/holo/esword
 	name = "Holographic Energy Sword"
 	desc = "This looks like a real energy sword!"
 	icon_state = "sword0"
@@ -420,35 +420,35 @@
 	block_chance = 50
 	var/active = 0
 
-/obj/item/weapon/holo/esword/green/New()
+/obj/item/holo/esword/green/New()
 	item_color = "green"
 
-/obj/item/weapon/holo/esword/red/New()
+/obj/item/holo/esword/red/New()
 	item_color = "red"
 
-/obj/item/weapon/holo/esword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(active)
 		return ..()
 	return 0
 
-/obj/item/weapon/holo/esword/New()
+/obj/item/holo/esword/New()
 	item_color = pick("red","blue","green","purple")
 
-/obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
+/obj/item/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
 	if(active)
 		force = 30
 		icon_state = "sword[item_color]"
 		hitsound = "sound/weapons/blade1.ogg"
 		w_class = WEIGHT_CLASS_BULKY
-		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
 		force = 3
 		icon_state = "sword0"
 		hitsound = "swing_hit"
 		w_class = WEIGHT_CLASS_SMALL
-		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	if(istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -458,7 +458,7 @@
 	return
 
 //BASKETBALL OBJECTS
-/obj/item/weapon/beach_ball/holoball
+/obj/item/beach_ball/holoball
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "basketball"
 	name = "basketball"
@@ -475,9 +475,9 @@
 	density = 1
 	pass_flags = LETPASSTHROW
 
-/obj/structure/holohoop/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/grab) && get_dist(src,user)<2)
-		var/obj/item/weapon/grab/G = W
+/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
+		var/obj/item/grab/G = W
 		if(G.state<2)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
 			return
@@ -524,7 +524,7 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)

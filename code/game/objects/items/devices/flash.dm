@@ -25,7 +25,7 @@
 	return 1
 
 /obj/item/device/flash/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		if(battery_panel)
 			to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
 			battery_panel = 0
@@ -33,7 +33,7 @@
 			to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
 			battery_panel = 1
 	if(battery_panel && !overcharged)
-		if(istype(W, /obj/item/weapon/stock_parts/cell))
+		if(istype(W, /obj/item/stock_parts/cell))
 			to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
 			qdel(W)
 			overcharged = 1
@@ -81,7 +81,7 @@
 
 
 /obj/item/device/flash/proc/flash_carbon(var/mob/living/carbon/M, var/mob/user = null, var/power = 5, targeted = 1)
-	add_logs(user, M, "flashed", object="[src.name]")
+	add_attack_logs(user, M, "Flashed with [src]")
 	if(user && targeted)
 		if(M.weakeyes)
 			M.Weaken(3) //quick weaken bypasses eye protection but has no eye flash
@@ -121,10 +121,10 @@
 			if(R.module) // Perhaps they didn't choose a module yet
 				for(var/obj/item/borg/combat/shield/S in R.module.modules)
 					if(R.activated(S))
-						add_logs(user, M, "flashed", object="[src.name]")
+						add_attack_logs(user, M, "Flashed with [src]")
 						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but is blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by their shield!</span>")
 						return 1
-		add_logs(user, M, "flashed", object="[src.name]")
+		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(affect_silicon = 1))
 			M.Weaken(rand(5,10))
 			user.visible_message("<span class='disarm'>[user] overloads [M]'s sensors with the [src.name]!</span>", "<span class='danger'>You overload [M]'s sensors with the [src.name]!</span>")

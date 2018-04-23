@@ -18,15 +18,15 @@
 /obj/machinery/processor/New()
 		..()
 		component_parts = list()
-		component_parts += new /obj/item/weapon/circuitboard/processor(null)
-		component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-		component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+		component_parts += new /obj/item/circuitboard/processor(null)
+		component_parts += new /obj/item/stock_parts/matter_bin(null)
+		component_parts += new /obj/item/stock_parts/manipulator(null)
 		RefreshParts()
 
 /obj/machinery/processor/RefreshParts()
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		rating_amount = B.rating
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		rating_speed = M.rating
 
 /obj/machinery/processor/process()
@@ -68,32 +68,32 @@
 /////OBJECT RECIPIES/////
 /////////////////////////
 /datum/food_processor_process/meat
-	input = /obj/item/weapon/reagent_containers/food/snacks/meat
-	output = /obj/item/weapon/reagent_containers/food/snacks/meatball
+	input = /obj/item/reagent_containers/food/snacks/meat
+	output = /obj/item/reagent_containers/food/snacks/meatball
 
 /datum/food_processor_process/sweetpotato
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato/sweet
-	output = /obj/item/weapon/reagent_containers/food/snacks/yakiimo
+	input = /obj/item/reagent_containers/food/snacks/grown/potato/sweet
+	output = /obj/item/reagent_containers/food/snacks/yakiimo
 
 /datum/food_processor_process/potato
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/potato
-	output = /obj/item/weapon/reagent_containers/food/snacks/tatortot
+	input = /obj/item/reagent_containers/food/snacks/grown/potato
+	output = /obj/item/reagent_containers/food/snacks/tatortot
 
 /datum/food_processor_process/soybeans
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/soybeans
-	output = /obj/item/weapon/reagent_containers/food/snacks/soydope
+	input = /obj/item/reagent_containers/food/snacks/grown/soybeans
+	output = /obj/item/reagent_containers/food/snacks/soydope
 
 /datum/food_processor_process/spaghetti
-	input = /obj/item/weapon/reagent_containers/food/snacks/doughslice
-	output = /obj/item/weapon/reagent_containers/food/snacks/spaghetti
+	input = /obj/item/reagent_containers/food/snacks/doughslice
+	output = /obj/item/reagent_containers/food/snacks/spaghetti
 
 /datum/food_processor_process/parsnip
-	input = /obj/item/weapon/reagent_containers/food/snacks/grown/parsnip
-	output = /obj/item/weapon/reagent_containers/food/snacks/roastparsnip
+	input = /obj/item/reagent_containers/food/snacks/grown/parsnip
+	output = /obj/item/reagent_containers/food/snacks/roastparsnip
 
 /datum/food_processor_process/carrot
-	input =  /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
-	output = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot/wedges
+	input =  /obj/item/reagent_containers/food/snacks/grown/carrot
+	output = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
 
 /////////////////////////
 ///END OBJECT RECIPIES///
@@ -133,7 +133,7 @@
 				"<span class='notice'>You jump out of \the [src].</span>", \
 				"<span class='notice'>You hear a chimp.</span>")
 		return
-	var/obj/item/weapon/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
+	var/obj/item/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
 	var/datum/reagent/blood/B = new()
 	B.holder = bucket_of_blood
 	B.volume = 70
@@ -178,8 +178,8 @@
 
 	var/obj/item/what = O
 
-	if(istype(O, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = O
+	if(istype(O, /obj/item/grab))
+		var/obj/item/grab/G = O
 		what = G.affecting
 
 	var/datum/food_processor_process/P = select_recipe(what)

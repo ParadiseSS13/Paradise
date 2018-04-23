@@ -38,7 +38,7 @@
 		return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
-	if(istype(user.get_inactive_hand(), /obj/item/weapon/card/emag))
+	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
 		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
 		do_break()
 		return TRUE
@@ -94,6 +94,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resist_time = 150
 	mute = MUTE_MUFFLE
+	flags = DROPDEL
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -109,9 +110,8 @@
 	R.loc = T
 	transfer_fingerprints_to(R)
 	playsound(src,'sound/items/poster_ripped.ogg',40,1)
-	spawn(0) // Because of how dropping is done, if the muzzle gets deleted now, icons won't properly update and the whole unEquip() proc will break stuff.
-		qdel(src) // This makes sure it gets deleted AFTER all that has to be done is done.
-		user.emote("scream")
+	user.emote("scream")
+	. = ..()
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
