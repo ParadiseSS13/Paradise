@@ -425,10 +425,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //If input is incorrect, nothing happens
-					var/new_coeff = coeff * being_built.lathe_time_factor
-					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * new_coeff * amount ** 0.8
+					var/time_to_construct = coeff * being_built.lathe_time_factor
+					time_to_construct *= PROTOLATHE_CONSTRUCT_DELAY * amount ** 0.8 //Construction time should correctly change with advanced components installed
 					var/enough_materials = 1
 
+					
 					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
@@ -456,7 +457,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/O = being_built.locked
-
+					
 					spawn(time_to_construct)
 						if(g2g) //And if we only fail the material requirements, we still spend time and power
 							for(var/i = 0, i<amount, i++)
@@ -488,10 +489,13 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(linked_imprinter.busy)
 				to_chat(usr, "<span class='danger'>Circuit Imprinter is busy at the moment.</span>")
 				return
-			var/datum/design/being_built = null
-			being_built = files.known_designs[href_list["imprint"]]
+			var/datum/design/being_built = files.known_designs[href_list["imprint"]]
 			if(being_built)
 				var/power = 2000
+				var/amount=text2num(href_list["amount"])
+				if(being_built.make_reagents.len)
+					return 0
+				amount = max(1, min(10, amount))
 				for(var/M in being_built.materials)
 					power += round(being_built.materials[M] / 5)
 				power = max(2000, power)
@@ -500,33 +504,42 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
 
 				if(g2g) //Again, if input is wrong, do nothing
-					add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY)
+					var/enough_materials = 1
+
+					add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY) //Flat 1.6 seconds
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
-
-					for(var/M in being_built.materials)
-						if(!linked_imprinter.check_mat(being_built, M))
-							src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough materials to complete prototype.\"</span>")
-							g2g = 0
-							break
-						switch(M)
-							if(MAT_GLASS)
-								linked_imprinter.g_amount = max(0, (linked_imprinter.g_amount-being_built.materials[M]/coeff))
-							if(MAT_GOLD)
-								linked_imprinter.gold_amount = max(0, (linked_imprinter.gold_amount-being_built.materials[M]/coeff))
-							if(MAT_DIAMOND)
-								linked_imprinter.diamond_amount = max(0, (linked_imprinter.diamond_amount-being_built.materials[M]/coeff))
-							else
-								linked_imprinter.reagents.remove_reagent(M, being_built.materials[M]/coeff)
+					
+					var/list/efficient_mats = list()
+					for(var/MAT in being_built.materials)
+						efficient_mats[MAT] = being_built.materials[MAT]*coeff
+					
+					if(!linked_imprinter.materials.has_materials(efficient_mats, amount))
+						src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough materials to complete circuit.\"</span>")
+						enough_materials = 0
+						g2g = 0
+					else
+						for(var/R in being_built.reagents)
+							if(!linked_imprinter.reagents.has_reagent(R, being_built.reagents[R])*coeff)
+								src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough reagents to complete circuit.\"</span>")
+								enough_materials = 0
+								g2g = 0
+					
+					if(enough_materials)
+						linked_imprinter.materials.use_amount(efficient_mats, amount)
+						for(var/R in being_built.reagents)
+							linked_imprinter.reagents.remove_reagent(R, being_built.reagents[R]*coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
+					
 					spawn(IMPRINTER_DELAY)
-						if(g2g)
-							var/obj/item/new_item = new P(src)
-							new_item.loc = linked_imprinter.loc
-						linked_imprinter.busy = 0
+						if(g2g) //Spending power regardless
+							for(var/i = 0, i<amount, i++)				
+								var/obj/item/new_item = new P(src)
+								new_item.loc = linked_imprinter.loc
 						clear_wait_message()
+						linked_imprinter.busy = 0
 						SSnanoui.update_uis(src)
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
@@ -563,25 +576,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
 			desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
-		var/res_amount, type
-		switch(href_list["imprinter_ejectsheet"])
-			if(MAT_GLASS)
-				type = /obj/item/stack/sheet/glass
-				res_amount = "g_amount"
-			if(MAT_GOLD)
-				type = /obj/item/stack/sheet/mineral/gold
-				res_amount = "gold_amount"
-			if(MAT_DIAMOND)
-				type = /obj/item/stack/sheet/mineral/diamond
-				res_amount = "diamond_amount"
-		if(ispath(type) && hasvar(linked_imprinter, res_amount))
-			var/obj/item/stack/sheet/sheet = new type(linked_imprinter.loc)
-			var/available_num_sheets = round(linked_imprinter.vars[res_amount]/sheet.perunit)
-			if(available_num_sheets>0)
-				sheet.amount = min(available_num_sheets, desired_num_sheets)
-				linked_imprinter.vars[res_amount] = max(0, (linked_imprinter.vars[res_amount]-sheet.amount * sheet.perunit))
-			else
-				qdel(sheet)
+		linked_imprinter.materials.retrieve_sheets(desired_num_sheets, href_list["imprinter_ejectsheet"])
 
 	else if(href_list["find_device"]) //The R&D console looks for devices nearby to link up with.
 		add_wait_message("Updating Database...", SYNC_DEVICE_DELAY)
@@ -822,8 +817,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				loaded_chemical["id"] = R.id
 
 	if(menu == 5 && linked_imprinter)
-		data["total_materials"] = linked_imprinter.TotalMaterials()
+		data["total_materials"] = linked_imprinter.materials.total_amount
+		data["max_materials"] = linked_imprinter.materials.max_amount
 		data["total_chemicals"] = linked_imprinter.reagents.total_volume
+		data["max_chemicals"] = linked_imprinter.reagents.maximum_volume
 		data["categories"] = linked_imprinter.categories
 		if(submenu == 1)
 			var/list/designs_list = list()
@@ -836,24 +833,41 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				design_list["materials"] = materials_list
 				design_list["id"] = D.id
 				design_list["name"] = sanitize(D.name)
-				var/check_materials = 1
+				var/c = 1
 				for(var/M in D.materials)
 					var/list/material_list = list()
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(M)
 					material_list["amount"] = D.materials[M] / coeff
-					if(!linked_imprinter.check_mat(D, M))
-						check_materials = 0
+					var/t = linked_imprinter.check_mat(D, M)
+					
+					if(t < 1)
 						material_list["is_red"] = 1
 					else
 						material_list["is_red"] = 0
-				design_list["can_build"] = check_materials
+					c = min(c, t)
+					
+				for(var/R in D.reagents)
+					var/list/material_list = list()
+					materials_list[++materials_list.len] = material_list
+					material_list["name"] = CallMaterialName(R)
+					material_list["amount"] = D.reagents[R]*coeff
+					var/t = linked_imprinter.check_mat(D, R)
+
+					if(t < 1)
+						material_list["is_red"] = 1
+					else
+						material_list["is_red"] = 0
+					c = min(c, t)	
+				design_list["can_build"] = c
+				
 		if(submenu == 2)
 			var/list/materials_list = list()
 			data["loaded_materials"] = materials_list
-			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = linked_imprinter.g_amount)
-			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = linked_imprinter.gold_amount)
-			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_imprinter.diamond_amount)
+			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_imprinter.materials.amount(MAT_METAL))
+			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = linked_imprinter.materials.amount(MAT_GLASS))
+			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = linked_imprinter.materials.amount(MAT_GOLD))
+			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_imprinter.materials.amount(MAT_DIAMOND))
 		if(submenu == 3)
 			var/list/loaded_chemicals = list()
 			data["loaded_chemicals"] = loaded_chemicals
