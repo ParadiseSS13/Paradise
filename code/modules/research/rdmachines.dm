@@ -128,6 +128,6 @@
 		var/obj/item/stack/S = type_inserted
 		stack_name = initial(S.name)
 		use_power(min(1000, (amount_inserted / 100)))
-	overlays += "protolathe_[stack_name]"
+	overlays += "[initial(name)]_[stack_name]"
 	sleep(10)
-	overlays -= "protolathe_[stack_name]"
+	overlays -= "[initial(name)]_[stack_name]"
