@@ -1,0 +1,4 @@
+author: "Kluys"
+delete-after: True
+changes: 
+  - bugfix: "Cleanblots not cleaning /obj/effect/decal/cleanable/trail_holder (blood trails)"
