@@ -152,7 +152,7 @@
 	if(broken)
 		to_chat(user, "<span class='warning'>You must repair or replace [src] first!</span>")
 		return
-	if (S.get_amount() < 1)
+	if(S.get_amount() < 1)
 		to_chat(user, "<span class='warning'>You need at least one sheet of glass for that!</span>")
 		return
 	if(!anchored)
