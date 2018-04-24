@@ -127,19 +127,16 @@
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
-		if(istype(O,/obj/item/stack) && O:amount>1)
-			new O.type (src)
-			O:use(1)
-			user.visible_message( \
-				"<span class='notice'>[user] has added one of [O] to [src].</span>", \
-				"<span class='notice'>You add one of [O] to [src].</span>")
+		if(istype(O,/obj/item/stack))
+			var/obj/item/stack/S = O
+			if(S.amount > 1)
+				new S.type (src)
+				S.use(1)
+				user.visible_message("<span class='notice'>[user] has added one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
+			else
+				add_item(S, user)
 		else
-			if(!user.drop_item())
-				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand, you cannot put it in [src]</span>")
-				return 0
-
-			O.forceMove(src)
-			user.visible_message("<span class='notice'>[user] has added [O] to [src].</span>", "<span class='notice'>You add [O] to [src].</span>")
+			add_item(O, user)
 	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
 		if(!O.reagents)
 			return 1
@@ -154,6 +151,14 @@
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
 		return 1
 	updateUsrDialog()
+
+/obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
+	if(!user.drop_item())
+		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
+		//return 0
+	else
+		I.forceMove(src)
+		user.visible_message("<span class='notice'>[user] has added [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
 
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return 0

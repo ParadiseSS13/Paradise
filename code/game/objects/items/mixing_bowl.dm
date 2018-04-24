@@ -29,16 +29,16 @@
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
-		if(istype(I, /obj/item/stack) && I:amount > 1)
-			new I.type (src)
-			I:use(1)
-			user.visible_message("<span class='notice'>[user] has added one of [I] to [src].</span>", "<span class='notice'>You add one of [I] to [src].</span>")
+		if(istype(I, /obj/item/stack))
+			var/obj/item/stack/S = I
+			if(S.amount > 1)
+				new S.type (src)
+				S.use(1)
+				user.visible_message("<span class='notice'>[user] has added one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
+			else
+				return add_item(S, user)
 		else
-			if(!user.drop_item())
-				to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
-				return 0
-			I.forceMove(src)
-			user.visible_message("<span class='notice'>[user] has added [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+			return add_item(I, user)
 	else if(is_type_in_list(I, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
 		if(!I.reagents)
 			return 1
@@ -49,6 +49,14 @@
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with  [I].</span>")
 		return 1
+
+/obj/item/mixing_bowl/proc/add_item(obj/item/I, mob/user)
+	if(!user.drop_item())
+		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
+		//return 0
+	else
+		I.forceMove(src)
+		user.visible_message("<span class='notice'>[user] has added [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
 
 /obj/item/mixing_bowl/attack_self(mob/user)
 	var/dat = ""
