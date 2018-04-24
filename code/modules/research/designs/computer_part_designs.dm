@@ -64,7 +64,6 @@
 	req_tech = list("programming" = 2, "engineering" = 1)
 	build_type = IMPRINTER
 	materials = list(MAT_METAL = 250, MAT_GLASS = 100)
-	reagents_list = list("sacid" = 20)
 	build_path = /obj/item/computer_hardware/network_card
 	category = list("Computer Parts")
 
@@ -93,7 +92,7 @@
 	id = "portadrive_basic"
 	req_tech = list("programming" = 1)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 800, "sacid" = 20)
+	materials = list(MAT_GLASS = 800)
 	build_path = /obj/item/computer_hardware/hard_drive/portable
 	category = list("Computer Parts")
 
