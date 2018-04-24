@@ -168,7 +168,7 @@
 	icon_state = "cleanbot-c"
 	visible_message("<span class='notice'>[src] begins to clean up [target]</span>")
 	mode = BOT_CLEANING
-	spawn(25)
+	spawn(50)
 		if(mode == BOT_CLEANING)
 			QDEL_NULL(target)
 			anchored = 0
