@@ -454,7 +454,6 @@
 
 /obj/machinery/mecha_part_fabricator/spacepod
 	name = "spacepod fabricator"
-	desc = "Nothing is being built."
 	fabricator_type = PODFAB
 	part_sets = list(			"Pod_Weaponry",
 								"Pod_Armor",
@@ -462,3 +461,7 @@
 								"Pod_Parts",
 								"Pod_Frame",
 								"Misc")
+
+/obj/machinery/mecha_part_fabricator/robot
+	name = "Robotic Fabricator"
+	part_sets = list("Cyborg")
