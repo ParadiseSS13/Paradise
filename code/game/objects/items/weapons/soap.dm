@@ -34,11 +34,11 @@
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, cleanspeed, target = target) && target)
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
-			if(istype(target.loc, /turf/simulated))
+			if(issimulatedturf(target.loc))
 				clean_turf(target.loc)
 				return
 			qdel(target)
-	else if(istype(target, /turf/simulated))
+	else if(issimulatedturf(target))
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
 		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
@@ -51,10 +51,10 @@
 			qdel(C)
 			target.clean_blood()
 
-/obj/item/soap/proc/clean_turf(turf/simulated/turf)
-	turf.clean_blood()
-	turf.dirt = 0
-	for(var/obj/effect/O in turf)
+/obj/item/soap/proc/clean_turf(turf/simulated/T)
+	T.clean_blood()
+	T.dirt = 0
+	for(var/obj/effect/O in T)
 		if(is_cleanable(O))
 			qdel(O)
 
