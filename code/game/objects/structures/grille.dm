@@ -112,7 +112,7 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSGRILLE)
 
-/obj/structure/grille/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
 	if(iswirecutter(W))
@@ -142,7 +142,7 @@
 		return
 //window placing end
 
-	else if(istype(W, /obj/item/weapon/shard) || !shock(user, 70))
+	else if(istype(W, /obj/item/shard) || !shock(user, 70))
 		return ..()
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)

@@ -1,4 +1,4 @@
-/obj/item/weapon/whetstone
+/obj/item/whetstone
 	name = "whetstone"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "whetstone"
@@ -12,7 +12,7 @@
 	var/requires_sharpness = 1
 
 
-/obj/item/weapon/whetstone/attackby(obj/item/I, mob/user, params)
+/obj/item/whetstone/attackby(obj/item/I, mob/user, params)
 	if(used)
 		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
 		return
@@ -22,8 +22,8 @@
 	if(requires_sharpness && !I.sharp)
 		to_chat(user, "<span class='warning'>You can only sharpen items that are already sharp, such as knives!</span>")
 		return
-	if(istype(I, /obj/item/weapon/twohanded))//some twohanded items should still be sharpenable, but handle force differently. therefore i need this stuff
-		var/obj/item/weapon/twohanded/TH = I
+	if(istype(I, /obj/item/twohanded))//some twohanded items should still be sharpenable, but handle force differently. therefore i need this stuff
+		var/obj/item/twohanded/TH = I
 		if(TH.force_wielded >= max)
 			to_chat(user, "<span class='warning'>[TH] is much too powerful to sharpen further!</span>")
 			return
@@ -49,7 +49,7 @@
 	used = 1
 	update_icon()
 
-/obj/item/weapon/whetstone/attack_self(mob/user as mob) //This is just fluff for now. Species datums are global and not newly created instances, so we can't adjust unarmed damage on a per mob basis.
+/obj/item/whetstone/attack_self(mob/user as mob) //This is just fluff for now. Species datums are global and not newly created instances, so we can't adjust unarmed damage on a per mob basis.
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/datum/unarmed_attack/attack = H.species.unarmed
@@ -57,7 +57,7 @@
 			H.visible_message("<span class='notice'>[H] sharpens \his claws on the [src]!</span>", "<span class='notice'>You sharpen your claws on the [src].</span>")
 			playsound(get_turf(H), usesound, 50, 1)
 
-/obj/item/weapon/whetstone/super
+/obj/item/whetstone/super
 	name = "super whetstone block"
 	desc = "A block of stone that will make your weapon sharper than Einstein on adderall."
 	increment = 200

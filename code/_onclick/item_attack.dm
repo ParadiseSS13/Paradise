@@ -2,7 +2,7 @@
 	if(pre_attackby(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
 		var/resolved = target.attackby(src, user, params)
-		if(!resolved && target && !qdeleted(src))
+		if(!resolved && target && !QDELETED(src))
 			afterattack(target, user, 1, params) // 1: clicking something Adjacent
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
@@ -66,7 +66,7 @@
 		user.do_attack_animation(M)
 	M.attacked_by(src, user, def_zone)
 
-	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", print_attack_log = (force > 0))//print it if stuff deals damage
+	add_attack_logs(user, M, "attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", admin_notify = (force > 0))
 	add_fingerprint(user)
 
 

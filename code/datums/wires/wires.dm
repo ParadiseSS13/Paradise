@@ -148,7 +148,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		holder.add_hiddenprint(L)
 		switch(href_list["action"])
 			if("cut") // Toggles the cut/mend status
-				if(istype(I, /obj/item/weapon/wirecutters) || L.can_admin_interact())
+				if(istype(I, /obj/item/wirecutters) || L.can_admin_interact())
 					if(istype(I))
 						playsound(holder, I.usesound, 20, 1)
 					CutWireColour(colour)

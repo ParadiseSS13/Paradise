@@ -96,7 +96,7 @@
 		qdel(src)
 	return T
 
-/obj/structure/falsewall/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
 	if(opening)
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
 		return
@@ -106,20 +106,20 @@
 		if(T.density)
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
-		if(istype(W, /obj/item/weapon/screwdriver))
+		if(istype(W, /obj/item/screwdriver))
 			if(!istype(T, /turf/simulated/floor))
 				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
 				return
 			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
 			ChangeToWall()
-		if(istype(W, /obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/WT = W
+		if(istype(W, /obj/item/weldingtool))
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0,user))
 				dismantle(user)
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 
-	if(istype(W, /obj/item/weapon/gun/energy/plasmacutter) || istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill) || istype(W, /obj/item/weapon/pickaxe/drill/jackhammer) || istype(W, /obj/item/weapon/melee/energy/blade))
+	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
 		dismantle(user)
 
 /obj/structure/falsewall/proc/dismantle(mob/user)
@@ -172,7 +172,7 @@
 	var/last_event = 0
 	canSmoothWith = list(/obj/structure/falsewall/uranium, /turf/simulated/wall/mineral/uranium)
 
-/obj/structure/falsewall/uranium/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/falsewall/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
 	radiate()
 	..()
 
@@ -233,7 +233,7 @@
 	walltype = "plasma"
 	canSmoothWith = list(/obj/structure/falsewall/plasma, /turf/simulated/wall/mineral/plasma, /turf/simulated/wall/mineral/alien)
 
-/obj/structure/falsewall/plasma/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)
 		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma falsewall ignited by [key_name(user)] in ([x],[y],[z])")

@@ -69,7 +69,7 @@
 
 	src.add_fingerprint(user)
 	if(mode<=0) // It's off
-		if(istype(I, /obj/item/weapon/screwdriver))
+		if(istype(I, /obj/item/screwdriver))
 			if(contents.len > 0)
 				to_chat(user, "Eject the items first!")
 				return
@@ -83,11 +83,11 @@
 				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
-		else if(istype(I,/obj/item/weapon/weldingtool) && mode==-1)
+		else if(istype(I,/obj/item/weldingtool) && mode==-1)
 			if(contents.len > 0)
 				to_chat(user, "Eject the items first!")
 				return
-			var/obj/item/weapon/weldingtool/W = I
+			var/obj/item/weldingtool/W = I
 			if(W.remove_fuel(0,user))
 				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "You start slicing the floorweld off the disposal unit.")
@@ -107,12 +107,12 @@
 				to_chat(user, "You need more welding fuel to complete this task.")
 				return
 
-	if(istype(I, /obj/item/weapon/melee/energy/blade))
+	if(istype(I, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	if(istype(I, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = I
+	if(istype(I, /obj/item/storage))
+		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
@@ -122,7 +122,7 @@
 			update()
 			return
 
-	var/obj/item/weapon/grab/G = I
+	var/obj/item/grab/G = I
 	if(istype(G))	// handle grabbed mob
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
@@ -133,10 +133,7 @@
 				for(var/mob/C in viewers(src))
 					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
 				qdel(G)
-				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
-				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
-				if(GM.ckey)
-					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey)
 		return
 
 	if(!I)
@@ -182,10 +179,7 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		user.create_attack_log("<font color='red'>Has placed [key_name(target)] in disposals.</font>")
-		target.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
-		if(target.ckey)
-			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
+		add_attack_logs(user, target, "Disposal'ed", !!target.ckey)
 	else
 		return
 	target.forceMove(src)
@@ -878,8 +872,8 @@
 
 	add_fingerprint(user)
 
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = I
+	if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/W = I
 		if(W.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>You begin slicing \the [src].</span>")
 			playsound(loc, W.usesound, 100, 1)
@@ -1199,8 +1193,8 @@
 	if(T.intact)
 		return		// prevent interaction with T-scanner revealed pipes
 	src.add_fingerprint(user)
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = I
+	if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/W = I
 
 		if(W.remove_fuel(0,user))
 			playsound(loc, W.usesound, 100, 1)
@@ -1314,7 +1308,7 @@
 		if(!I || !user)
 			return
 		src.add_fingerprint(user)
-		if(istype(I, /obj/item/weapon/screwdriver))
+		if(istype(I, /obj/item/screwdriver))
 			if(mode==0)
 				mode=1
 				playsound(src.loc, I.usesound, 50, 1)
@@ -1325,8 +1319,8 @@
 				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
-		else if(istype(I,/obj/item/weapon/weldingtool) && mode==1)
-			var/obj/item/weapon/weldingtool/W = I
+		else if(istype(I,/obj/item/weldingtool) && mode==1)
+			var/obj/item/weldingtool/W = I
 			if(W.remove_fuel(0,user))
 				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "You start slicing the floorweld off the disposal outlet.")

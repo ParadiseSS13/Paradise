@@ -14,7 +14,7 @@
 	var/stk_types = list()
 	var/stk_amt   = list()
 	var/stack_list[0] //Key: Type.  Value: Instance of type.
-	var/obj/item/weapon/card/id/inserted_id
+	var/obj/item/card/id/inserted_id
 	var/points = 0
 	var/ore_pickup_rate = 15
 	var/sheet_per_ore = 1
@@ -26,40 +26,40 @@
 /obj/machinery/mineral/ore_redemption/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/ore_redemption(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/circuitboard/ore_redemption(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/device/assembly/igniter(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/ore_redemption(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/circuitboard/ore_redemption(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/device/assembly/igniter(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
 	var/ore_pickup_rate_temp = 15
 	var/point_upgrade_temp = 1
 	var/sheet_per_ore_temp = 1
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		sheet_per_ore_temp = 0.65 + (0.35 * B.rating)
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		ore_pickup_rate_temp = 15 * M.rating
-	for(var/obj/item/weapon/stock_parts/micro_laser/L in component_parts)
+	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		point_upgrade_temp = 0.65 + (0.35 * L.rating)
 	ore_pickup_rate = ore_pickup_rate_temp
 	point_upgrade = point_upgrade_temp
 	sheet_per_ore = sheet_per_ore_temp
 
-/obj/machinery/mineral/ore_redemption/proc/process_sheet(obj/item/weapon/ore/O)
+/obj/machinery/mineral/ore_redemption/proc/process_sheet(obj/item/ore/O)
 	var/obj/item/stack/sheet/processed_sheet = SmeltMineral(O)
 	if(processed_sheet)
 		if(!(processed_sheet in stack_list)) //It's the first of this sheet added
@@ -84,7 +84,7 @@
 		var/turf/T = get_step(src, input_dir)
 		var/i = 0
 		if(T)
-			for(var/obj/item/weapon/ore/O in T)
+			for(var/obj/item/ore/O in T)
 				if(i >= ore_pickup_rate)
 					break
 				else if(!O || !O.refined_type)
@@ -95,7 +95,7 @@
 		else
 			var/obj/structure/ore_box/B = locate() in T
 			if(B)
-				for(var/obj/item/weapon/ore/O in B.contents)
+				for(var/obj/item/ore/O in B.contents)
 					if(i >= ore_pickup_rate)
 						break
 					else if(!O || !O.refined_type)
@@ -104,14 +104,14 @@
 						process_sheet(O)
 						i++
 
-/obj/machinery/mineral/ore_redemption/attackby(var/obj/item/weapon/W, var/mob/user, params)
+/obj/machinery/mineral/ore_redemption/attackby(var/obj/item/W, var/mob/user, params)
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
 		updateUsrDialog()
 		return
 	if(exchange_parts(user, W))
 		return
 	if(panel_open)
-		if(istype(W, /obj/item/weapon/crowbar))
+		if(istype(W, /obj/item/crowbar))
 			if(inserted_id)
 				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			empty_content()
@@ -123,11 +123,11 @@
 		return
 	if(default_unfasten_wrench(user, W))
 		return
-	if(istype(W,/obj/item/weapon/card/id))
+	if(istype(W,/obj/item/card/id))
 		if(!powered())
 			return
 		else
-			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			var/obj/item/card/id/I = usr.get_active_hand()
 			if(istype(I) && !istype(inserted_id))
 				if(!user.drop_item())
 					return
@@ -137,7 +137,7 @@
 			return
 	..()
 
-/obj/machinery/mineral/ore_redemption/proc/SmeltMineral(var/obj/item/weapon/ore/O)
+/obj/machinery/mineral/ore_redemption/proc/SmeltMineral(var/obj/item/ore/O)
 	if(O.refined_type)
 		var/obj/item/stack/sheet/M = O.refined_type
 		points += O.points * point_upgrade
@@ -229,7 +229,7 @@
 				else
 					to_chat(usr, "<span class='warning'>Required access not found.</span>")
 		else if(href_list["choice"] == "insert")
-			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			var/obj/item/card/id/I = usr.get_active_hand()
 			if(istype(I))
 				if(!usr.drop_item())
 					return 1
@@ -324,37 +324,37 @@
 	icon_state = "mining"
 	density = 1
 	anchored = 1.0
-	var/obj/item/weapon/card/id/inserted_id
+	var/obj/item/card/id/inserted_id
 	var/list/prize_list = list(
-		new /datum/data/mining_equipment("Stimpack",			/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack, 50),
-		new /datum/data/mining_equipment("Teporone MediPen",	/obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone, 50),
-		new /datum/data/mining_equipment("MediPen Bundle",		/obj/item/weapon/storage/box/autoinjector/utility,	 			   200),
-		new /datum/data/mining_equipment("Whiskey",             /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey,    100),
+		new /datum/data/mining_equipment("Stimpack",			/obj/item/reagent_containers/hypospray/autoinjector/stimpack, 50),
+		new /datum/data/mining_equipment("Teporone MediPen",	/obj/item/reagent_containers/hypospray/autoinjector/teporone, 50),
+		new /datum/data/mining_equipment("MediPen Bundle",		/obj/item/storage/box/autoinjector/utility,	 			   200),
+		new /datum/data/mining_equipment("Whiskey",             /obj/item/reagent_containers/food/drinks/bottle/whiskey,    100),
 		new /datum/data/mining_equipment("Cigar",               /obj/item/clothing/mask/cigarette/cigar/havana,                    150),
-		new /datum/data/mining_equipment("Soap",                /obj/item/weapon/soap/nanotrasen, 						           200),
+		new /datum/data/mining_equipment("Soap",                /obj/item/soap/nanotrasen, 						           200),
 		new /datum/data/mining_equipment("Laser Pointer",       /obj/item/device/laser_pointer, 				                   300),
 		new /datum/data/mining_equipment("Alien Toy",           /obj/item/clothing/mask/facehugger/toy, 		                   300),
 		new /datum/data/mining_equipment("Advanced Scanner",	/obj/item/device/t_scanner/adv_mining_scanner,                     400),
-		new /datum/data/mining_equipment("Hivelord Stabilizer",	/obj/item/weapon/hivelordstabilizer,                               400),
-		new /datum/data/mining_equipment("Mining Drone",        /obj/item/weapon/mining_drone_cube,                                500),
+		new /datum/data/mining_equipment("Hivelord Stabilizer",	/obj/item/hivelordstabilizer,                               400),
+		new /datum/data/mining_equipment("Mining Drone",        /obj/item/mining_drone_cube,                                500),
 		new /datum/data/mining_equipment("Drone Melee Upgrade", /obj/item/device/mine_bot_upgrade,      			   			   400),
 		new /datum/data/mining_equipment("Drone Health Upgrade",/obj/item/device/mine_bot_upgrade/health,      			   	       400),
 		new /datum/data/mining_equipment("Drone Ranged Upgrade",/obj/item/device/mine_bot_upgrade/cooldown,      			   	   600),
-		new /datum/data/mining_equipment("Kinetic Crusher", 	/obj/item/weapon/twohanded/required/mining_hammer,				   750),
+		new /datum/data/mining_equipment("Kinetic Crusher", 	/obj/item/twohanded/required/mining_hammer,				   750),
 		new /datum/data/mining_equipment("Drone AI Upgrade",    /obj/item/slimepotion/sentience/mining,      			   	      1000),
 		new /datum/data/mining_equipment("GAR mesons",			/obj/item/clothing/glasses/meson/gar,							   500),
-		new /datum/data/mining_equipment("Brute First-Aid Kit",	/obj/item/weapon/storage/firstaid/brute,						   600),
+		new /datum/data/mining_equipment("Brute First-Aid Kit",	/obj/item/storage/firstaid/brute,						   600),
 		new /datum/data/mining_equipment("Jaunter",             /obj/item/device/wormhole_jaunter,                                 600),
-		new /datum/data/mining_equipment("Kinetic Accelerator", /obj/item/weapon/gun/energy/kinetic_accelerator,               	   750),
-		new /datum/data/mining_equipment("Resonator",           /obj/item/weapon/resonator,                                    	   800),
-		new /datum/data/mining_equipment("Lazarus Injector",    /obj/item/weapon/lazarus_injector,                                1000),
-		new /datum/data/mining_equipment("Silver Pickaxe",		/obj/item/weapon/pickaxe/silver,				                  1000),
+		new /datum/data/mining_equipment("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator,               	   750),
+		new /datum/data/mining_equipment("Resonator",           /obj/item/resonator,                                    	   800),
+		new /datum/data/mining_equipment("Lazarus Injector",    /obj/item/lazarus_injector,                                1000),
+		new /datum/data/mining_equipment("Silver Pickaxe",		/obj/item/pickaxe/silver,				                  1000),
 		new /datum/data/mining_equipment("Lazarus Capsule", 	/obj/item/device/mobcapsule, 									   800),
-		new /datum/data/mining_equipment("Lazarus Capsule belt",/obj/item/weapon/storage/belt/lazarus,							   200),
-		new /datum/data/mining_equipment("Jetpack",             /obj/item/weapon/tank/jetpack/carbondioxide/mining,               2000),
+		new /datum/data/mining_equipment("Lazarus Capsule belt",/obj/item/storage/belt/lazarus,							   200),
+		new /datum/data/mining_equipment("Jetpack",             /obj/item/tank/jetpack/carbondioxide/mining,               2000),
 		new /datum/data/mining_equipment("Space Cash",    		/obj/item/stack/spacecash/c1000,                    			  2000),
-		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/weapon/pickaxe/diamond,				                  2000),
-		new /datum/data/mining_equipment("Super Resonator",     /obj/item/weapon/resonator/upgraded,                              2500),
+		new /datum/data/mining_equipment("Diamond Pickaxe",		/obj/item/pickaxe/diamond,				                  2000),
+		new /datum/data/mining_equipment("Super Resonator",     /obj/item/resonator/upgraded,                              2500),
 		new /datum/data/mining_equipment("KA White Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer,								100),
 		new /datum/data/mining_equipment("KA Adjustable Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer/adjustable,				150),
 		new /datum/data/mining_equipment("KA Super Chassis",	/obj/item/borg/upgrade/modkit/chassis_mod,								250),
@@ -363,7 +363,7 @@
 		new /datum/data/mining_equipment("KA Damage Increase",	/obj/item/borg/upgrade/modkit/damage,									1000),
 		new /datum/data/mining_equipment("KA Cooldown Decrease",/obj/item/borg/upgrade/modkit/cooldown,									1000),
 		new /datum/data/mining_equipment("KA AoE Damage",		/obj/item/borg/upgrade/modkit/aoe/mobs,									2000),
-		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/weapon/card/mining_point_card,               			   500),
+		new /datum/data/mining_equipment("Point Transfer Card", /obj/item/card/mining_point_card,               			   500),
 		)
 
 
@@ -380,11 +380,11 @@
 /obj/machinery/mineral/equipment_vendor/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/mining_equipment_vendor(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/mining_equipment_vendor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/mineral/equipment_vendor/power_change()
@@ -437,7 +437,7 @@
 				inserted_id.verb_pickup()
 				inserted_id = null
 		else if(href_list["choice"] == "insert")
-			var/obj/item/weapon/card/id/I = usr.get_active_hand()
+			var/obj/item/card/id/I = usr.get_active_hand()
 			if(istype(I))
 				if(!usr.drop_item())
 					return
@@ -461,22 +461,22 @@
 		updateUsrDialog()
 		return
 	if(panel_open)
-		if(istype(I, /obj/item/weapon/crowbar))
+		if(istype(I, /obj/item/crowbar))
 			if(inserted_id)
 				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
 			default_deconstruction_crowbar(I)
 		return 1
-	if(istype(I, /obj/item/weapon/mining_voucher))
+	if(istype(I, /obj/item/mining_voucher))
 		if(!powered())
 			return
 		else
 			RedeemVoucher(I, user)
 			return
-	if(istype(I,/obj/item/weapon/card/id))
+	if(istype(I,/obj/item/card/id))
 		if(!powered())
 			return
 		else
-			var/obj/item/weapon/card/id/C = usr.get_active_hand()
+			var/obj/item/card/id/C = usr.get_active_hand()
 			if(istype(C) && !istype(inserted_id))
 				if(!usr.drop_item())
 					return
@@ -486,21 +486,21 @@
 			return
 	..()
 
-/obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/weapon/mining_voucher/voucher, mob/redeemer)
+/obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in list("Kinetic Accelerator", "Resonator", "Mining Drone", "Advanced Scanner", "Crusher")
 	if(!selection || !Adjacent(redeemer) || voucher.loc != redeemer)
 		return
 	switch(selection)
 		if("Kinetic Accelerator")
-			new /obj/item/weapon/gun/energy/kinetic_accelerator(src.loc)
+			new /obj/item/gun/energy/kinetic_accelerator(src.loc)
 		if("Resonator")
-			new /obj/item/weapon/resonator(src.loc)
+			new /obj/item/resonator(src.loc)
 		if("Mining Drone")
-			new /obj/item/weapon/storage/box/drone_kit(src.loc)
+			new /obj/item/storage/box/drone_kit(src.loc)
 		if("Advanced Scanner")
 			new /obj/item/device/t_scanner/adv_mining_scanner(src.loc)
 		if("Crusher")
-			new /obj/item/weapon/twohanded/required/mining_hammer(loc)
+			new /obj/item/twohanded/required/mining_hammer(loc)
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
@@ -514,7 +514,7 @@
 
 /**********************Mining Equipment Voucher**********************/
 
-/obj/item/weapon/mining_voucher
+/obj/item/mining_voucher
 	name = "mining voucher"
 	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
 	icon = 'icons/obj/items.dmi'
@@ -523,16 +523,16 @@
 
 /**********************Mining Point Card**********************/
 
-/obj/item/weapon/card/mining_point_card
+/obj/item/card/mining_point_card
 	name = "mining point card"
 	desc = "A small card preloaded with mining points. Swipe your ID card over it to transfer the points, then discard."
 	icon_state = "data"
 	var/points = 500
 
-/obj/item/weapon/card/mining_point_card/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/card/id))
+/obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id))
 		if(points)
-			var/obj/item/weapon/card/id/C = I
+			var/obj/item/card/id/C = I
 			C.mining_points += points
 			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
 			points = 0
@@ -540,7 +540,7 @@
 			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
 	..()
 
-/obj/item/weapon/card/mining_point_card/examine(mob/user)
+/obj/item/card/mining_point_card/examine(mob/user)
 	..(user)
 	to_chat(user, "There's [points] points on the card.")
 
@@ -607,7 +607,7 @@
 
 /**********************Resonator**********************/
 
-/obj/item/weapon/resonator
+/obj/item/resonator
 	name = "resonator"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "resonator"
@@ -622,14 +622,14 @@
 	var/burst_time = 50
 	var/fieldlimit = 3
 
-/obj/item/weapon/resonator/upgraded
+/obj/item/resonator/upgraded
 	name = "upgraded resonator"
 	desc = "An upgraded version of the resonator that can produce more fields at once."
 	icon_state = "resonator_u"
 	origin_tech = "materials=4;powerstorage=3;engineering=3;magnets=3"
 	fieldlimit = 5
 
-/obj/item/weapon/resonator/proc/CreateResonance(var/target, var/creator)
+/obj/item/resonator/proc/CreateResonance(var/target, var/creator)
 	var/turf/T = get_turf(target)
 	if(locate(/obj/effect/resonance) in T)
 		return
@@ -640,7 +640,7 @@
 		spawn(burst_time)
 			fieldsactive--
 
-/obj/item/weapon/resonator/attack_self(mob/user)
+/obj/item/resonator/attack_self(mob/user)
 	if(burst_time == 50)
 		burst_time = 30
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 3 seconds.</span>")
@@ -648,7 +648,7 @@
 		burst_time = 50
 		to_chat(user, "<span class='info'>You set the resonator's fields to detonate after 5 seconds.</span>")
 
-/obj/item/weapon/resonator/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/resonator/afterattack(atom/target, mob/user, proximity_flag)
 	if(proximity_flag)
 		if(!check_allowed_items(target, 1)) return
 		CreateResonance(target, user)
@@ -682,7 +682,7 @@
 			playsound(src,'sound/weapons/resonator_blast.ogg',50,1)
 			if(creator)
 				for(var/mob/living/L in src.loc)
-					add_logs(creator, L, "used a resonator field on", object="resonator")
+					add_attack_logs(creator, L, "Resonance field'ed")
 					to_chat(L, "<span class='danger'>The [src.name] ruptured with you in it!</span>")
 					L.adjustBruteLoss(resonance_damage)
 			else
@@ -707,7 +707,7 @@
 
 /**********************Mining drone cube**********************/
 
-/obj/item/weapon/mining_drone_cube
+/obj/item/mining_drone_cube
 	name = "mining drone cube"
 	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
 	w_class = WEIGHT_CLASS_SMALL
@@ -715,7 +715,7 @@
 	icon_state = "minedronecube"
 	item_state = "electronic"
 
-/obj/item/weapon/mining_drone_cube/attack_self(mob/user)
+/obj/item/mining_drone_cube/attack_self(mob/user)
 	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
 	"<span class='warning'>You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!</span>")
 	new /mob/living/simple_animal/hostile/mining_drone(get_turf(src))
@@ -723,22 +723,22 @@
 
 /**********************Mining drone kit**********************/
 
-/obj/item/weapon/storage/box/drone_kit
+/obj/item/storage/box/drone_kit
 	name = "Drone Kit"
 	desc = "A boxed kit that includes one mining drone cube and a welding tool with an increased capacity."
 	icon_state = "implant"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 2
-	can_hold = list(/obj/item/weapon/mining_drone_cube, /obj/item/weapon/weldingtool/hugetank)
+	can_hold = list(/obj/item/mining_drone_cube, /obj/item/weldingtool/hugetank)
 
-/obj/item/weapon/storage/box/drone_kit/New()
+/obj/item/storage/box/drone_kit/New()
 	..()
-	new /obj/item/weapon/mining_drone_cube(src)
-	new /obj/item/weapon/weldingtool/hugetank(src)
+	new /obj/item/mining_drone_cube(src)
+	new /obj/item/weldingtool/hugetank(src)
 
 /**********************Lazarus Injector**********************/
 
-/obj/item/weapon/lazarus_injector
+/obj/item/lazarus_injector
 	name = "lazarus injector"
 	desc = "An injector with a cocktail of nanomachines and chemicals, this device can seemingly raise animals from the dead, making them become friendly to the user. Unfortunately, the process is useless on higher forms of life and incredibly costly, so these were hidden in storage until an executive thought they'd be great motivation for some of their employees."
 	icon = 'icons/obj/hypo.dmi'
@@ -752,7 +752,7 @@
 	var/loaded = 1
 	var/malfunctioning = 0
 
-/obj/item/weapon/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/lazarus_injector/afterattack(atom/target, mob/user, proximity_flag)
 	if(!loaded)
 		return
 	if(istype(target, /mob/living) && proximity_flag)
@@ -784,15 +784,15 @@
 			to_chat(user, "<span class='info'>[src] is only effective on lesser beings.</span>")
 			return
 
-/obj/item/weapon/lazarus_injector/emag_act()
+/obj/item/lazarus_injector/emag_act()
 	if(!malfunctioning)
 		malfunctioning = 1
 
-/obj/item/weapon/lazarus_injector/emp_act()
+/obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)
 		malfunctioning = 1
 
-/obj/item/weapon/lazarus_injector/examine(mob/user)
+/obj/item/lazarus_injector/examine(mob/user)
 	..(user)
 	if(!loaded)
 		to_chat(user, "<span class='info'>[src] is empty.</span>")
@@ -924,7 +924,7 @@
 	icon_state = "xeno_warning"
 
 /**********************Mining Jetpack**********************/
-/obj/item/weapon/tank/jetpack/carbondioxide/mining
+/obj/item/tank/jetpack/carbondioxide/mining
 	name = "mining jetpack"
 	icon_state = "jetpack-mining"
 	item_state = "jetpack-mining"
@@ -936,7 +936,7 @@
 
 /*********************Hivelord stabilizer****************/
 
-/obj/item/weapon/hivelordstabilizer
+/obj/item/hivelordstabilizer
 	name = "hivelord stabilizer"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
@@ -944,7 +944,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"
 
-/obj/item/weapon/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
+/obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
 	var/obj/item/organ/internal/hivelord_core/C = M
 	if(!istype(C, /obj/item/organ/internal/hivelord_core))
 		to_chat(user, "<span class='warning'>The stabilizer only works on hivelord cores.</span>")
@@ -954,7 +954,7 @@
 	qdel(src)
 
 /*********************Mining Hammer****************/
-/obj/item/weapon/twohanded/required/mining_hammer
+/obj/item/twohanded/required/mining_hammer
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining_hammer1"
 	item_state = "mining_hammer1"
@@ -988,7 +988,7 @@
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 6
-	var/obj/item/weapon/twohanded/required/mining_hammer/hammer_synced =  null
+	var/obj/item/twohanded/required/mining_hammer/hammer_synced =  null
 
 /obj/item/projectile/destabilizer/on_hit(atom/target, blocked = 0, hit_zone)
 	if(hammer_synced)
@@ -1011,7 +1011,7 @@
 			M.gets_drilled(firer)
 	..()
 
-/obj/item/weapon/twohanded/required/mining_hammer/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/twohanded/required/mining_hammer/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag && charged)//Mark a target, or mine a tile.
 		var/turf/proj_turf = get_turf(src)
 		if(!istype(proj_turf, /turf))
@@ -1046,7 +1046,7 @@
 			else
 				L.apply_damage(50, BRUTE, blocked = def_check)
 
-/obj/item/weapon/twohanded/required/mining_hammer/proc/Recharge()
+/obj/item/twohanded/required/mining_hammer/proc/Recharge()
 	if(!charged)
 		charged = 1
 		icon_state = "mining_hammer1"

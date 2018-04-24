@@ -24,7 +24,7 @@
 	status_flags = 0
 	faction = list("cult")
 	status_flags = CANPUSH
-	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
+	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 	deathmessage = "lets out a contented sigh as their form unwinds."
 

@@ -24,7 +24,7 @@
 
 	// We are still here, that means there is no program loaded. Load the BIOS/ROM/OS/whatever you want to call it.
 	// This screen simply lists available programs and user may select them.
-	var/obj/item/weapon/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	if(!hard_drive || !hard_drive.stored_files || !hard_drive.stored_files.len)
 		to_chat(user, "<span class='danger'>\The [src] beeps three times, it's screen displaying a \"DISK ERROR\" warning.</span>")
 		return // No HDD, No HDD files list or no stored files. Something is very broken.
@@ -42,7 +42,7 @@
 /obj/item/device/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()
 	data["programs"] = list()
-	var/obj/item/weapon/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	for(var/datum/computer_file/program/P in hard_drive.stored_files)
 		var/running = 0
 		if(P in idle_threads)
@@ -56,8 +56,8 @@
 /obj/item/device/modular_computer/proc/get_header_data()
 	var/list/data = list()
 
-	var/obj/item/weapon/computer_hardware/battery/battery_module = all_components[MC_CELL]
-	var/obj/item/weapon/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
 
 	if(battery_module && battery_module.battery)
 		switch(battery_module.battery.percent())
@@ -114,7 +114,7 @@
 /obj/item/device/modular_computer/Topic(href, list/href_list)
 	if(..())
 		return
-	var/obj/item/weapon/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	switch(href_list["action"])
 		if("PC_exit")
 			kill_program()
@@ -172,7 +172,7 @@
 				update_icon()
 				return
 
-			var/obj/item/weapon/computer_hardware/processor_unit/PU = all_components[MC_CPU]
+			var/obj/item/computer_hardware/processor_unit/PU = all_components[MC_CPU]
 
 			if(idle_threads.len > PU.max_idle_programs)
 				to_chat(user, "<span class='danger'>\The [src] displays a \"Maximal CPU load reached. Unable to run another program.\" error.</span>")

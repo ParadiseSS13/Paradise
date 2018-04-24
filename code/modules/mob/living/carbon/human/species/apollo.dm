@@ -78,9 +78,7 @@
 					head_organ.h_style = "Bald"
 					H.update_hair()
 
-					M.create_attack_log("<font color='red'>removed antennae [H.name] ([H.ckey])</font>")
-					H.create_attack_log("<font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
-					msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
+					add_attack_logs(M, H, "Antennae removed")
 			return 0
 
 /datum/species/nucleation
@@ -123,5 +121,5 @@
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
-//	new /obj/item/weapon/shard/supermatter( T )
+//	new /obj/item/shard/supermatter( T )
 	qdel(H)

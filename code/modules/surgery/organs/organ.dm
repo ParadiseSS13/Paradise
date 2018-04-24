@@ -306,10 +306,7 @@
 	processing_objects |= src
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
-		if(user)
-			user.create_attack_log("<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>")
-			owner.create_attack_log("<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>")
-			msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(owner)]")
+		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user)
 		owner.death()
 	owner = null
 	return src

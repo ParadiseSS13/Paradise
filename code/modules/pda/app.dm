@@ -86,7 +86,7 @@
 	var/base_name
 	category = "Scanners"
 
-/datum/data/pda/utility/scanmode/New(obj/item/weapon/cartridge/C)
+/datum/data/pda/utility/scanmode/New(obj/item/cartridge/C)
 	..(C)
 	name = "Enable [base_name]"
 

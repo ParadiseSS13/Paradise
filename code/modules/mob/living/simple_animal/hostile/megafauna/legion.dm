@@ -124,7 +124,7 @@ Difficulty: Medium
 				last_legion = FALSE
 				break
 		if(last_legion)
-			loot = list(/obj/item/weapon/staff/storm)
+			loot = list(/obj/item/staff/storm)
 			elimination = 0
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)

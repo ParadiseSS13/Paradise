@@ -482,8 +482,8 @@
 
 /obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
 	var/damage_dealt = I.force
-	if(istype(I, /obj/item/weapon/scythe))
-		var/obj/item/weapon/scythe/S = I
+	if(istype(I, /obj/item/scythe))
+		var/obj/item/scythe/S = I
 		if(S.extend)	//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
 			damage_dealt *= 4
 			for(var/obj/structure/spacevine/B in range(1,src))
@@ -606,7 +606,7 @@
 	var/list/obj/structure/spacevine/queue_end = list()
 
 	for(var/obj/structure/spacevine/SV in growth_queue)
-		if(qdeleted(SV))
+		if(QDELETED(SV))
 			continue
 		i++
 		queue_end += SV

@@ -19,38 +19,13 @@
 	..()
 
 	if((M != src) && M.a_intent != INTENT_HELP && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
-		add_logs(M, src, "attempted to touch")
+		add_attack_logs(M, src, "Melee attacked with fists (miss/block)")
 		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
 
-		if(istype(M.gloves , /obj/item/clothing/gloves/boxing/hologlove))
-
-			var/damage = rand(0, 9)
-			if(!damage)
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
-				return 0
-			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
-			var/armor_block = run_armor_check(affecting, "melee")
-
-			if(HULK in M.mutations)
-				damage += 5
-				Weaken(4)
-
-			playsound(loc, "punch", 25, 1, -1)
-
-			visible_message("<span class='danger'>[M] has punched [src]!</span>")
-
-			apply_damage(damage, STAMINA, affecting, armor_block)
-			if(damage >= 9)
-				visible_message("<span class='danger'>[M] has weakened [src]!</span>")
-				apply_effect(4, WEAKEN, armor_block)
-
-			return
-
 	var/datum/martial_art/attacker_style = M.martial_art
 
-	species.handle_attack_hand(src,M)
+	species.handle_attack_hand(src, M)
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
@@ -63,11 +38,11 @@
 							if(S.next_step(M, src))
 								return 1
 						help_shake_act(M)
-						add_logs(M, src, "shaked")
+						add_attack_logs(M, src, "Shaked")
 						return 1
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
-				add_logs(M, src, "shaked")
+				add_attack_logs(M, src, "Shaked")
 				return 1
 			if(!H.check_has_mouth())
 				to_chat(H, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
@@ -94,7 +69,7 @@
 
 					to_chat(src, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 					to_chat(M, "<span class='alert'>Repeat at least every 7 seconds.")
-					add_logs(M, src, "CPRed")
+					add_attack_logs(M, src, "CPRed", FALSE)
 					return 1
 			else
 				to_chat(M, "<span class='danger'>You need to stay still while performing CPR!</span>")
@@ -123,8 +98,7 @@
 					return
 				//we're good to suck the blood, blaah
 				M.mind.vampire.handle_bloodsucking(src)
-				add_logs(M, src, "vampirebit")
-				msg_admin_attack("[key_name_admin(M)] vampirebit [key_name_admin(src)]")
+				add_attack_logs(M, src, "vampirebit")
 				return
 				//end vampire codes
 			if(attacker_style && attacker_style.harm_act(H, src))
@@ -133,7 +107,7 @@
 				var/datum/unarmed_attack/attack = M.species.unarmed
 
 				M.do_attack_animation(src)
-				add_logs(M, src, "[pick(attack.attack_verb)]ed")
+				add_attack_logs(M, src, "Melee attacked with fists")
 
 				if(!iscarbon(M))
 					LAssailant = null
@@ -172,7 +146,7 @@
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else
-				add_logs(M, src, "disarmed")
+				add_attack_logs(M, src, "Disarmed")
 
 				if(w_uniform)
 					w_uniform.add_fingerprint(M)
@@ -182,14 +156,11 @@
 					apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					visible_message("<span class='danger'>[M] has pushed [src]!</span>")
-					M.create_attack_log("<font color='red'>Pushed [src.name] ([src.ckey])</font>")
-					src.create_attack_log("<font color='orange'>Has been pushed by [M.name] ([M.ckey])</font>")
+					add_attack_logs(M, src, "Pushed over")
 					if(!iscarbon(M))
 						LAssailant = null
 					else
 						LAssailant = M
-
-					log_attack("[M.name] ([M.ckey]) pushed [src.name] ([src.ckey])")
 					return
 
 				var/talked = 0	// BubbleWrap
@@ -202,15 +173,15 @@
 						stop_pulling()
 
 					//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
-					if(istype(l_hand, /obj/item/weapon/grab))
-						var/obj/item/weapon/grab/lgrab = l_hand
+					if(istype(l_hand, /obj/item/grab))
+						var/obj/item/grab/lgrab = l_hand
 						if(lgrab.affecting)
 							visible_message("<span class='danger'>[M] has broken [src]'s grip on [lgrab.affecting]!</span>")
 							talked = 1
 						spawn(1)
 							qdel(lgrab)
-					if(istype(r_hand, /obj/item/weapon/grab))
-						var/obj/item/weapon/grab/rgrab = r_hand
+					if(istype(r_hand, /obj/item/grab))
+						var/obj/item/grab/rgrab = r_hand
 						if(rgrab.affecting)
 							visible_message("<span class='danger'>[M] has broken [src]'s grip on [rgrab.affecting]!</span>")
 							talked = 1

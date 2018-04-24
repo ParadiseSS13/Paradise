@@ -51,43 +51,43 @@
 /obj/machinery/mecha_part_fabricator/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/mechfab(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/mechfab(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 	files = new /datum/research(src) //Setup the research data holder.
 
 /obj/machinery/mecha_part_fabricator/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/mechfab(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/mechfab(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/mecha_part_fabricator/RefreshParts()
 	var/T = 0
 
 	//maximum stocking amount (max 412000)
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		T += M.rating
 	res_max_amount = (187000+(T * 37500))
 
 	//resources adjustment coefficient (1 -> 0.85 -> 0.7 -> 0.55)
 	T = 1.15
-	for(var/obj/item/weapon/stock_parts/micro_laser/Ma in component_parts)
+	for(var/obj/item/stock_parts/micro_laser/Ma in component_parts)
 		T -= Ma.rating*0.15
 	component_coeff = T
 
 	//building time adjustment coefficient (1 -> 0.8 -> 0.6)
 	T = -1
-	for(var/obj/item/weapon/stock_parts/manipulator/Ml in component_parts)
+	for(var/obj/item/stock_parts/manipulator/Ml in component_parts)
 		T += Ml.rating
 	time_coeff = round(initial(time_coeff) - (initial(time_coeff)*(T))/5,0.01)
 
@@ -154,7 +154,7 @@
 
 	var/obj/item/I = new D.build_path
 	if(D.locked)
-		var/obj/item/weapon/storage/lockbox/large/L = new /obj/item/weapon/storage/lockbox/large(get_step(src,SOUTH)) //(Don't use capitals in paths, or single letters.
+		var/obj/item/storage/lockbox/large/L = new /obj/item/storage/lockbox/large(get_step(src,SOUTH)) //(Don't use capitals in paths, or single letters.
 		I.loc = L
 		L.name += " [initial(I.name)]"
 		L.origin_tech = I.origin_tech
@@ -465,7 +465,7 @@
 		return
 
 	if(panel_open)
-		if(istype(W, /obj/item/weapon/crowbar))
+		if(istype(W, /obj/item/crowbar))
 			for(var/material in resources)
 				remove_material(material, resources[material]/MINERAL_MATERIAL_AMOUNT)
 			default_deconstruction_crowbar(W)

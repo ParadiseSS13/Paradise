@@ -115,12 +115,12 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		to_chat(user, "<span class='notice'>Humanoid data added to local storage.<span>")
 
 
-/obj/item/weapon/circuitboard/machine/dna_vault
+/obj/item/circuitboard/machine/dna_vault
 	name = "DNA Vault (Machine Board)"
 	build_path = /obj/machinery/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
-							/obj/item/weapon/stock_parts/capacitor/quadratic = 5,
+							/obj/item/stock_parts/capacitor/quadratic = 5,
 							/obj/item/stack/cable_coil = 2)
 
 /obj/structure/filler

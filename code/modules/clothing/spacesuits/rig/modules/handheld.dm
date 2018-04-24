@@ -47,4 +47,4 @@
 	desc = "For tactical honking"
 	interface_name = "mounted bikehorn"
 	interface_desc = "Honks"
-	device_type = /obj/item/weapon/bikehorn
+	device_type = /obj/item/bikehorn

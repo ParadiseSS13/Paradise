@@ -1,7 +1,15 @@
 // So you can be all 10 SECONDS
 #define SECONDS *10
-#define MINUTES *600
-#define HOURS   *36000
+
+#define MINUTES SECONDS*60
+
+#define HOURS MINUTES*60
+
+#define TICKS *world.tick_lag
+
+#define DS2TICKS(DS) ((DS)/world.tick_lag)
+
+#define TICKS2DS(T) ((T) TICKS)
 
 #define TimeOfGame (get_game_time())
 #define TimeOfTick (world.tick_usage*0.01*world.tick_lag)
@@ -22,13 +30,24 @@
 
 	return wtime + (time_offset + wusage) * world.tick_lag
 
+/* This proc should only be used for world/Topic.
+ * If you want to display the time for which dream daemon has been running ("round time") use worldtime2text.
+ * If you want to display the canonical station "time" (aka the in-character time of the station) use station_time_timestamp
+ */
+/proc/classic_worldtime2text(time = world.time)
+	time = (round_start_time ? (time - round_start_time) : (time - world.time))
+	return "[round(time / 36000)+12]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
+
 //Returns the world time in english
 /proc/worldtime2text()
 	return gameTimestamp("hh:mm:ss", world.time)
 
-/proc/time_stamp(format = "hh:mm:ss", show_ds)
-	var/time_string = time2text(world.timeofday, format)
-	return show_ds ? "[time_string]:[world.timeofday % 10]" : time_string
+// This is ISO-8601
+// If anything that uses this proc shouldn't be ISO-8601, change that thing, not this proc. This is important for logging.
+/proc/time_stamp()
+	var/date_portion = time2text(world.timeofday, "YYYY-MM-DD")
+	var/time_portion = time2text(world.timeofday, "hh:mm:ss")
+	return "[date_portion]T[time_portion]"
 
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
 	if(!wtime)

@@ -21,7 +21,7 @@
 		death()
 		return 0
 
-	if(!eyeobj || qdeleted(eyeobj) || !eyeobj.loc)
+	if(!eyeobj || QDELETED(eyeobj) || !eyeobj.loc)
 		view_core()
 
 	if(machine)

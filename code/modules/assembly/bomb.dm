@@ -9,7 +9,7 @@
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
 	var/status = 0   //0 - not readied //1 - bomb finished with welder
 	var/obj/item/device/assembly_holder/bombassembly = null   //The first part of the bomb is an assembly holder, holding an igniter+some device
-	var/obj/item/weapon/tank/bombtank = null //the second part of the bomb is a plasma tank
+	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 	origin_tech = "materials=1;engineering=1"
 
 /obj/item/device/onetankbomb/examine(mob/user)
@@ -24,11 +24,11 @@
 		overlays += bombassembly.overlays
 		overlays += "bomb_assembly"
 
-/obj/item/device/onetankbomb/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/device/onetankbomb/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/device/analyzer))
 		bombtank.attackby(W, user, params)
 		return
-	if(istype(W, /obj/item/weapon/wrench) && !status)	//This is basically bomb assembly code inverted. apparently it works.
+	if(istype(W, /obj/item/wrench) && !status)	//This is basically bomb assembly code inverted. apparently it works.
 
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 
@@ -42,11 +42,12 @@
 
 		qdel(src)
 		return
-	if((istype(W, /obj/item/weapon/weldingtool) && W:welding))
+	if((istype(W, /obj/item/weldingtool) && W:welding))
 		if(!status)
 			status = 1
 			bombers += "[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]"
 			msg_admin_attack("[key_name_admin(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]")
+			log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
 			to_chat(user, "<span class='notice'>A pressure hole has been bored to [bombtank] valve. \The [bombtank] can now be ignited.</span>")
 		else
 			status = 0
@@ -92,7 +93,7 @@
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
-/obj/item/weapon/tank/proc/bomb_assemble(W,user)	//Bomb assembly proc. This turns assembly+tank into a bomb
+/obj/item/tank/proc/bomb_assemble(W,user)	//Bomb assembly proc. This turns assembly+tank into a bomb
 	var/obj/item/device/assembly_holder/S = W
 	var/mob/M = user
 	if(!S.secured)										//Check if the assembly is secured
@@ -116,7 +117,7 @@
 	R.update_icon()
 	return
 
-/obj/item/weapon/tank/proc/detonate()	//This happens when a bomb is told to explode
+/obj/item/tank/proc/detonate()	//This happens when a bomb is told to explode
 	var/fuel_moles = air_contents.toxins + air_contents.oxygen/6
 	var/strength = 1
 
@@ -165,7 +166,7 @@
 		qdel(master)
 	qdel(src)
 
-/obj/item/weapon/tank/proc/release()	//This happens when the bomb is not welded. Tank contents are just spat out.
+/obj/item/tank/proc/release()	//This happens when the bomb is not welded. Tank contents are just spat out.
 	var/datum/gas_mixture/removed = air_contents.remove(air_contents.total_moles())
 	var/turf/simulated/T = get_turf(src)
 	if(!T)

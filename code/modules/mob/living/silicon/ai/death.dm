@@ -21,7 +21,7 @@
 	if(nuking)
 		set_security_level("red")
 		nuking = 0
-		for(var/obj/item/weapon/pinpointer/point in pinpointer_list)
+		for(var/obj/item/pinpointer/point in pinpointer_list)
 			point.the_disk = null //Point back to the disk.
 
 	if(doomsday_device)

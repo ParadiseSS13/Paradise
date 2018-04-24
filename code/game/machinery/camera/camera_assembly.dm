@@ -1,4 +1,4 @@
-/obj/item/weapon/camera_assembly
+/obj/item/camera_assembly
 	name = "camera assembly"
 	desc = "A pre-fabricated security camera kit, ready to be assembled and mounted to a surface."
 	icon = 'icons/obj/monitors.dmi'
@@ -20,11 +20,11 @@
 				4 = Screwdriver panel closed and is fully built (you cannot attach upgrades)
 	*/
 
-/obj/item/weapon/camera_assembly/Destroy()
+/obj/item/camera_assembly/Destroy()
 	QDEL_LIST(upgrades)
 	return ..()
 
-/obj/item/weapon/camera_assembly/attackby(obj/item/W, mob/living/user, params)
+/obj/item/camera_assembly/attackby(obj/item/W, mob/living/user, params)
 
 	switch(state)
 		if(0)
@@ -149,17 +149,17 @@
 
 	..()
 
-/obj/item/weapon/camera_assembly/update_icon()
+/obj/item/camera_assembly/update_icon()
 	if(anchored)
 		icon_state = "camera1"
 	else
 		icon_state = "cameracase"
 
-/obj/item/weapon/camera_assembly/attack_hand(mob/user as mob)
+/obj/item/camera_assembly/attack_hand(mob/user as mob)
 	if(!anchored)
 		..()
 
-/obj/item/weapon/camera_assembly/proc/weld(var/obj/item/weapon/weldingtool/WT, var/mob/living/user)
+/obj/item/camera_assembly/proc/weld(var/obj/item/weldingtool/WT, var/mob/living/user)
 
 	if(busy)
 		return 0
