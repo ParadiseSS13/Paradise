@@ -547,7 +547,7 @@ Difficulty: Hard
 		L.apply_damage(damage, BURN, limb_to_hit, armor)
 		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
 			L.adjustBruteLoss(damage)
-		add_logs(caster, L, "struck with a [name]")
+		add_attack_logs(caster, L, "Struck with a [name]")
 	for(var/obj/mecha/M in T.contents - hit_things) //and mechs.
 		hit_things += M
 		if(M.occupant)

@@ -237,9 +237,8 @@
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
 			O.show_message("<span class='danger'>[M]</span> [M.attacktext] [src]!", 1)
-		M.create_attack_log("<font color='red'>attacked [name] ([ckey])</font>")
-		create_attack_log("<font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		add_attack_logs(M, src, "Animal attacked for [damage] damage")
 		adjustBruteLoss(damage)
 		updatehealth()
 

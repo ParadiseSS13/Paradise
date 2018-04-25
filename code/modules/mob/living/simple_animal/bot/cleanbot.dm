@@ -161,6 +161,7 @@
 		target_types += /obj/effect/decal/cleanable/blood/gibs/
 		target_types += /obj/effect/decal/cleanable/blood/tracks
 		target_types += /obj/effect/decal/cleanable/dirt
+		target_types += /obj/effect/decal/cleanable/trail_holder
 
 /mob/living/simple_animal/bot/cleanbot/proc/clean(obj/effect/decal/cleanable/target)
 	anchored = 1

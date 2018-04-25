@@ -137,7 +137,7 @@
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and their every order!</span>")
 		emagged_master = user.name
-		add_logs(user, src, "emagged")
+		add_attack_logs(user, src, "Emagged")
 		maxHealth = 60
 		health = 60
 		melee_damage_lower = 15

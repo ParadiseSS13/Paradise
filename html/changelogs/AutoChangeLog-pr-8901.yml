@@ -1,0 +1,9 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Can make water bottles and caution signs out of plastic sheets"
+  - tweak: "Increased cargo plastic sheet count to 50 and reduced cost to 10"
+  - rscadd: "Adds a recipe for making plastic sheets: oil, acid, and ash"
+  - bugfix: "Can now make a designs on the circuit imprinter that use metal and other exotic materials"
+  - tweak: "Removed the acid cost from most circuit recipes"
+  - tweak: "bluespace material requirement on a few parts: bluespace stock parts, phazon parts, bags of holding, and the likes all now require bluespace lattice."

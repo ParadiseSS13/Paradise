@@ -221,7 +221,8 @@
 		return
 
 	if(UserOverride)
-		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) [ADMIN_JMP(src)]")
+		log_game("[key_name(occupant)] was gibbed by an autogibber ([src]) (X:[x] Y:[y] Z:[z])")
 
 	if(operating)
 		return
@@ -259,11 +260,7 @@
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
-		occupant.create_attack_log("Was gibbed by [key_name(user)]") //One shall not simply gib a mob unnoticed!)
-		user.create_attack_log("Gibbed [key_name(occupant)]")
-
-		if(occupant.ckey)
-			msg_admin_attack("[key_name_admin(user)] gibbed [key_name_admin(occupant)]")
+		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey)
 
 		if(!iscarbon(user))
 			occupant.LAssailant = null
@@ -275,7 +272,7 @@
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
-	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed by [UserOverride ? "Autogibbing" : "[user] ([user.ckey])"]" //have to do this before ghostizing
+	victims += "\[[time_stamp()]\] [key_name(occupant)] killed by [UserOverride ? "Autogibbing" : "[key_name(user)]"]" //have to do this before ghostizing
 	occupant.death(1)
 	occupant.ghostize()
 

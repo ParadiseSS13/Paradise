@@ -55,7 +55,7 @@
 		C.emote("scream")
 		user.changeNext_move(CLICK_CD_MELEE)
 		C.adjustFireLoss(30)
-		add_logs(user, G.affecting, "burned", src)
+		add_attack_logs(user, G.affecting, "Burned with [src]")
 		qdel(G) //Removes the grip to prevent rapid sears and give you a chance to run
 		return 0
 	return 0

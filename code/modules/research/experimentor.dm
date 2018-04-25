@@ -25,7 +25,6 @@
 	var/recentlyExperimented = 0
 	var/mob/trackedIan
 	var/mob/trackedRuntime
-	var/obj/item/loaded_item = null
 	var/badThingCoeff = 0
 	var/resetTime = 15
 	var/cloneMode = FALSE
@@ -450,8 +449,9 @@
 			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening the [exp_on]!</span>")
 			new /obj/item/stack/sheet/plasteel(get_turf(pick(oview(1,src))))
 		if(linked_console.linked_lathe)
+			GET_COMPONENT_FROM(linked_materials, /datum/component/material_container, linked_console.linked_lathe)
 			for(var/material in exp_on.materials)
-				linked_console.linked_lathe.materials.insert_amount( min((linked_console.linked_lathe.materials.max_amount - linked_console.linked_lathe.materials.total_amount), (exp_on.materials[material])), material)
+				linked_materials.insert_amount( min((linked_materials.max_amount - linked_materials.total_amount), (exp_on.materials[material])), material)
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src]'s crusher goes way too many levels too high, crushing right through space-time!</span>")
 			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 1, -3)

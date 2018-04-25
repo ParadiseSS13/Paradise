@@ -38,16 +38,11 @@
 	return
 
 /obj/item/storage/bible/attack(mob/living/M as mob, mob/living/user as mob)
-
 	var/chaplain = 0
 	if(user.mind && (user.mind.assigned_role == "Chaplain"))
 		chaplain = 1
 
-
-	M.create_attack_log("<font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
-	user.create_attack_log("<font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
-	log_attack("<font color='red'>[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
-
+	add_attack_logs(user, M, "Hit with [src]")
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else

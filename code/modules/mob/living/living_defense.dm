@@ -98,7 +98,7 @@
 			var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].", I.armour_penetration)
 			apply_damage(I.throwforce, dtype, zone, armor, is_sharp(I), I)
 			if(I.thrownby)
-				add_logs(I.thrownby, src, "hit", I)
+				add_attack_logs(I.thrownby, src, "Hit with thrown [I]")
 		else
 			return 1
 	else
@@ -126,14 +126,10 @@
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 						"<span class='userdanger'>[src] has been hit by [M.name].</span>")
-		create_attack_log("<font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		M.occupant.create_attack_log("<font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
-
+		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
-
 		step_away(src,M)
-		add_logs(M.occupant, src, "pushed", object=M, admin=0, print_attack_log = 0)
+		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", FALSE)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
 		return
@@ -244,7 +240,7 @@
 			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
 			return
 
-	add_logs(user, src, "grabbed", addition="passively")
+	add_attack_logs(user, src, "Grabbed passively")
 
 	var/obj/item/grab/G = new /obj/item/grab(user, src)
 	if(buckled)

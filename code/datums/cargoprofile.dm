@@ -101,7 +101,7 @@
 	name = "Move Small Containers"
 	id = "boxes"
 	blacklist = null
-	whitelist = list(/obj/item/storage, /obj/item/moneybag, /obj/item/evidencebag,
+	whitelist = list(/obj/item/storage, /obj/item/storage/bag/money, /obj/item/evidencebag,
 					/obj/item/storage/bag/tray, /obj/item/pizzabox, /obj/item/clipboard,
 					/obj/item/smallDelivery, /obj/structure/bigDelivery)
 

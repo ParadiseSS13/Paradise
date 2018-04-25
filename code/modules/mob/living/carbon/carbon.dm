@@ -564,7 +564,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
 				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
 
-				add_logs(src, throwable_mob, "thrown", addition="from [start_T_descriptor] with the target [end_T_descriptor]")
+				add_attack_logs(src, throwable_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
@@ -1018,9 +1018,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-	create_attack_log("<font color='orange'>Has been fed [toEat.name] by [user.name] ([user.ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
-	user.create_attack_log("<font color='red'>Fed [toEat.name] to [name] ([ckey]) Reagents: [toEat.reagentlist(toEat)]</font>")
-	log_attack("[user.name] ([user.ckey]) fed [name] ([ckey]) with [toEat.name] Reagents: [toEat.reagentlist(toEat)] (INTENT: [uppertext(user.a_intent)])")
+	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagentlist(toEat)]")
 	if(!iscarbon(user))
 		LAssailant = null
 	else

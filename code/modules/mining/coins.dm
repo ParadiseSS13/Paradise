@@ -1,7 +1,7 @@
 /*****************************Coin********************************/
 
 /obj/item/coin
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/economy.dmi'
 	name = "coin"
 	icon_state = "coin__heads"
 	flags = CONDUCT
