@@ -17,7 +17,7 @@
 	else
 		icon = get_rune_cult(invocation)
 
-/obj/item/weapon/tome
+/obj/item/tome
 	name = "arcane tome"
 	desc = "An old, dusty tome with frayed edges and a sinister-looking cover."
 	icon_state ="tome"
@@ -27,32 +27,32 @@
 	var/scribereduct = 0
 	var/canbypass = 0 //ADMINBUS
 
-/obj/item/weapon/tome/accursed
+/obj/item/tome/accursed
 	name = "accursed tome"
 	desc = "An arcane tome still empowered with a shadow of its former consecration."
 	scribereduct = 30 //faster because it's made by corrupting a bible
 
-/obj/item/weapon/tome/imbued //Admin-only tome, allows instant drawing of runes
+/obj/item/tome/imbued //Admin-only tome, allows instant drawing of runes
 	name = "imbued arcane tome"
 	desc = "An arcane tome granted by the Geometer itself."
 	scribereduct = 50
 	canbypass = 1
 
-/obj/item/weapon/tome/New()
+/obj/item/tome/New()
 	if(!ticker.mode)
 		icon_state = "tome"
 	else
 		icon_state = ticker.cultdat.tome_icon
 	..()
 
-/obj/item/weapon/tome/examine(mob/user)
+/obj/item/tome/examine(mob/user)
 	..()
 	if(iscultist(user) || user.stat == DEAD)
 		to_chat(user, "<span class='cult'>The scriptures of [ticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [ticker.cultdat.entity_name].</span>")
 		to_chat(user, "<span class='cult'>Striking another cultist with it will purge holy water from them.</span>")
 		to_chat(user, "<span class='cult'>Striking a noncultist, however, will sear their flesh.</span>")
 
-/obj/item/weapon/tome/attack(mob/living/M, mob/living/user)
+/obj/item/tome/attack(mob/living/M, mob/living/user)
 	if(!istype(M))
 		return
 	if(!iscultist(user))
@@ -63,7 +63,7 @@
 			var/holy2unholy = M.reagents.get_reagent_amount("holywater")
 			M.reagents.del_reagent("holywater")
 			M.reagents.add_reagent("unholywater",holy2unholy)
-			add_logs(user, M, "smacked", src, " removing the holy water from them")
+			add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return
 	M.take_organ_damage(0, 15) //Used to be a random between 5 and 20
 	playsound(M, 'sound/weapons/sear.ogg', 50, 1)
@@ -71,15 +71,15 @@
 					  "<span class='userdanger'>[user] strikes you with the tome, searing your flesh!</span>")
 	flick("tome_attack", src)
 	user.do_attack_animation(M)
-	add_logs(user, M, "smacked", src)
+	add_attack_logs(user, M, "Hit with [src]")
 
-/obj/item/weapon/tome/attack_self(mob/user)
+/obj/item/tome/attack_self(mob/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>[src] seems full of unintelligible shapes, scribbles, and notes. Is this some sort of joke?</span>")
 		return
 	open_tome(user)
 
-/obj/item/weapon/tome/proc/open_tome(mob/user)
+/obj/item/tome/proc/open_tome(mob/user)
 	var/choice = alert(user,"You open the tome...",,"Scribe Rune","More Information","Cancel")
 	switch(choice)
 		if("More Information")
@@ -89,7 +89,7 @@
 		if("Cancel")
 			return
 
-/obj/item/weapon/tome/proc/read_tome(mob/user)
+/obj/item/tome/proc/read_tome(mob/user)
 	var/text = list()
 	text += "<center><font color='red' size=3><b><i>Archives of [ticker.cultdat.entity_title1]</i></b></font></center><br><br><br>"
 	text += "A rune's name and effects can be revealed by examining the rune.<<br><br>"
@@ -200,7 +200,7 @@
 	popup.open()
 	return 1
 
-/obj/item/weapon/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
+/obj/item/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
 	var/datum/game_mode/cult/cult_mode = ticker.mode
 	var/area/A = get_area(src)
 	if(GAMEMODE_IS_CULT)
@@ -234,7 +234,7 @@
 		else
 			return 1
 
-/obj/item/weapon/tome/proc/scribe_rune(mob/living/user)
+/obj/item/tome/proc/scribe_rune(mob/living/user)
 	var/turf/runeturf = get_turf(user)
 	var/chosen_keyword
 	var/obj/effect/rune/rune_to_scribe

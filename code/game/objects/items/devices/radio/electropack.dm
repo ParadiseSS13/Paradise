@@ -28,7 +28,7 @@
 		master = null
 	return ..()
 
-/obj/item/device/radio/electropack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/device/radio/electropack/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/clothing/head/helmet))
 		if(!b_stat)

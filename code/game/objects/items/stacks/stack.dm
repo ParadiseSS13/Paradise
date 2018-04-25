@@ -13,6 +13,7 @@
 	var/list/recipes = list() // /datum/stack_recipe
 	var/singular_name
 	var/amount = 1
+	var/to_transfer = 0
 	var/max_amount //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 
@@ -184,7 +185,7 @@
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/weapon/storage))
+		if(istype(O, /obj/item/storage))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
@@ -231,6 +232,9 @@
 /obj/item/stack/proc/get_max_amount()
 	return max_amount
 
+/obj/item/stack/proc/get_amount_transferred()
+	return to_transfer
+
 /obj/item/stack/proc/split(mob/user, amt)
 	var/obj/item/stack/F = new type(loc, amt)
 	F.copy_evidences(src)
@@ -257,7 +261,6 @@
 		if(S.amount >= max_amount)
 			return 1
 
-		var/to_transfer
 		if(user.is_in_inactive_hand(src))
 			var/desired = input("How much would you like to transfer from this stack?", "How much?", 1) as null|num
 			if(!desired)

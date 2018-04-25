@@ -97,7 +97,7 @@
 		if(bee_resources >= BEE_RESOURCE_HONEYCOMB_COST)
 			if(honeycombs.len < get_max_honeycomb())
 				bee_resources = max(bee_resources-BEE_RESOURCE_HONEYCOMB_COST, 0)
-				var/obj/item/weapon/reagent_containers/honeycomb/HC = new(src)
+				var/obj/item/reagent_containers/honeycomb/HC = new(src)
 				if(queen_bee.beegent)
 					HC.set_reagent(queen_bee.beegent.id)
 				honeycombs += HC
@@ -159,7 +159,7 @@
 		else
 			to_chat(user, "<span class='warning'>There's no room for anymore frames in the apiary!</span>")
 
-	if(istype(I, /obj/item/weapon/wrench))
+	if(istype(I, /obj/item/wrench))
 		if(default_unfasten_wrench(user, I, time = 20))
 			return
 
@@ -232,7 +232,7 @@
 						var/amtH = HF.honeycomb_capacity
 						var/fallen = 0
 						while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
-							var/obj/item/weapon/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
+							var/obj/item/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
 							if(HC)
 								HC.forceMove(get_turf(src))
 								amtH--

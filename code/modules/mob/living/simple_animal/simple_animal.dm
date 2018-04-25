@@ -273,7 +273,7 @@
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
+		add_attack_logs(M, src, "Animal attacked")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attack_threshold_check(damage,M.melee_damage_type)
 
@@ -301,7 +301,7 @@
 			if(!(status_flags & CANPUSH))
 				return
 
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
+			var/obj/item/grab/G = new /obj/item/grab(M, src )
 
 			M.put_in_active_hand(G)
 

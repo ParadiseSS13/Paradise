@@ -314,7 +314,7 @@
 	..()
 	desc = "[src] has been stabilized. It no longer crackles with power, but it's healing properties are preserved indefinitely."
 
-/obj/item/weapon/legion_skull
+/obj/item/legion_skull
 	name = "legion's head"
 	desc = "The once living, now empty eyes of the former human's skull cut deep into your soul."
 	icon = 'icons/obj/mining.dmi'

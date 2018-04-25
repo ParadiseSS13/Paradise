@@ -3,7 +3,7 @@
 	holder.update_armor()		//New dammage, new armormultiplikator.
 	return damage
 
-/obj/item/weapon/rig/proc/update_armor()
+/obj/item/rig/proc/update_armor()
 	var/multi = 1					//Multiplicative modification to the armor, maybe add an additive later on
 	if(chest)
 		multi *= (100 - chest.damage) / 100			//If we have some breaches, lower the armor value.

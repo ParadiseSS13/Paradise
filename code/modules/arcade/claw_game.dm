@@ -24,9 +24,9 @@
 	update_icon()
 
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/clawgame(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/clawgame(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	component_parts += new /obj/item/stack/sheet/glass(null, 1)
 	RefreshParts()
@@ -36,7 +36,7 @@
 
 /obj/machinery/arcade/claw/RefreshParts()
 	var/bin_upgrades = 0
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		bin_upgrades = B.rating
 	bonus_prize_chance = bin_upgrades * 5	//equals +5% chance per matter bin rating level (+20% with rating 4)
 

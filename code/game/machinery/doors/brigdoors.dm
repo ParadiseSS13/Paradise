@@ -39,7 +39,7 @@
 		return 0
 
 	for(var/obj/machinery/computer/prisoner/C in prisoncomputer_list)
-		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+		var/obj/item/paper/P = new /obj/item/paper(C.loc)
 		P.name = "[id] log - [logname] [station_time_timestamp()]"
 		P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
 		P.info += {"<center>[station_name()] - Security Department</center><br>
@@ -64,7 +64,7 @@
 		var/mob/living/carbon/human/M = usr
 		var/rank = "UNKNOWN RANK"
 		if(istype(M) && M.wear_id)
-			var/obj/item/weapon/card/id/I = M.wear_id
+			var/obj/item/card/id/I = M.wear_id
 			rank = I.assignment
 		if(!R.fields["comments"] || !islist(R.fields["comments"])) //copied from security computer code because apparently these need to be initialized
 			R.fields["comments"] = list()

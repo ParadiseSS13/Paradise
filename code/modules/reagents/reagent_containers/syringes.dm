@@ -5,7 +5,7 @@
 #define SYRINGE_INJECT 1
 #define SYRINGE_BROKEN 2
 
-/obj/item/weapon/reagent_containers/syringe
+/obj/item/reagent_containers/syringe
 	name = "Syringe"
 	desc = "A syringe."
 	icon = 'icons/goonstation/objects/syringe.dmi'
@@ -20,24 +20,24 @@
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 
-/obj/item/weapon/reagent_containers/syringe/New()
+/obj/item/reagent_containers/syringe/New()
 	..()
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 		update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/on_reagent_change()
+/obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/pickup(mob/user)
+/obj/item/reagent_containers/syringe/pickup(mob/user)
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/dropped(mob/user)
+/obj/item/reagent_containers/syringe/dropped(mob/user)
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/attack_self(mob/user)
+/obj/item/reagent_containers/syringe/attack_self(mob/user)
 	switch(mode)
 		if(SYRINGE_DRAW)
 			mode = SYRINGE_INJECT
@@ -47,19 +47,19 @@
 			return
 	update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/attack_hand()
+/obj/item/reagent_containers/syringe/attack_hand()
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/reagent_containers/syringe/attack(mob/living/M, mob/living/user, def_zone)
 	return
 
-/obj/item/weapon/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
-	if(istype(I,/obj/item/weapon/storage/bag))
+/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
+	if(istype(I,/obj/item/storage/bag))
 		..()
 	return
 
-/obj/item/weapon/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
+/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	if(!proximity)
 		return
 	if(!target.reagents)
@@ -120,7 +120,7 @@
 				to_chat(user, "<span class='notice'>[src] is empty.</span>")
 				return
 
-			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/slime_extract) && !istype(target, /obj/item/clothing/mask/cigarette) && !istype(target, /obj/item/weapon/storage/fancy/cigarettes))
+			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/reagent_containers/food) && !istype(target, /obj/item/slime_extract) && !istype(target, /obj/item/clothing/mask/cigarette) && !istype(target, /obj/item/storage/fancy/cigarettes))
 				to_chat(user, "<span class='warning'>You cannot directly fill [target]!</span>")
 				return
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
@@ -145,10 +145,7 @@
 					rinject += R.name
 				var/contained = english_list(rinject)
 
-				if(L != user)
-					add_logs(user, L, "injected", src, addition="which had [contained]")
-				else
-					log_attack("<font color='red'>[user.name] ([user.ckey]) injected [L.name] ([L.ckey]) with [src.name], which had [contained] (INTENT: [uppertext(user.a_intent)])</font>")
+				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units")
 
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INGEST, fraction)
@@ -158,7 +155,7 @@
 				mode = SYRINGE_DRAW
 				update_icon()
 
-/obj/item/weapon/reagent_containers/syringe/update_icon()
+/obj/item/reagent_containers/syringe/update_icon()
 	if(mode == SYRINGE_BROKEN)
 		icon_state = "broken"
 		overlays.Cut()
@@ -184,7 +181,7 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
 
-/obj/item/weapon/reagent_containers/ld50_syringe
+/obj/item/reagent_containers/ld50_syringe
 	name = "Lethal Injection Syringe"
 	desc = "A syringe used for lethal injections."
 	icon = 'icons/goonstation/objects/syringe.dmi'
@@ -195,29 +192,29 @@
 	volume = 50
 	var/mode = SYRINGE_DRAW
 
-/obj/item/weapon/reagent_containers/ld50_syringe/on_reagent_change()
+/obj/item/reagent_containers/ld50_syringe/on_reagent_change()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/pickup(mob/user)
+/obj/item/reagent_containers/ld50_syringe/pickup(mob/user)
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/dropped(mob/user)
+/obj/item/reagent_containers/ld50_syringe/dropped(mob/user)
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/attack_self(mob/user)
+/obj/item/reagent_containers/ld50_syringe/attack_self(mob/user)
 	mode = !mode
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/attack_hand()
+/obj/item/reagent_containers/ld50_syringe/attack_hand()
 	..()
 	update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/attackby(obj/item/I, mob/user)
+/obj/item/reagent_containers/ld50_syringe/attackby(obj/item/I, mob/user)
 	return
 
-/obj/item/weapon/reagent_containers/ld50_syringe/afterattack(obj/target, mob/user , flag)
+/obj/item/reagent_containers/ld50_syringe/afterattack(obj/target, mob/user , flag)
 	if(!target.reagents)
 		return
 
@@ -252,9 +249,9 @@
 			if(!reagents.total_volume)
 				to_chat(user, "<span class='warning'>The Syringe is empty.</span>")
 				return
-			if(istype(target, /obj/item/weapon/implantcase/chem))
+			if(istype(target, /obj/item/implantcase/chem))
 				return
-			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food))
+			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/reagent_containers/food))
 				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 				return
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
@@ -277,7 +274,7 @@
 					mode = SYRINGE_DRAW
 					update_icon()
 
-/obj/item/weapon/reagent_containers/ld50_syringe/update_icon()
+/obj/item/reagent_containers/ld50_syringe/update_icon()
 	var/rounded_vol = round(reagents.total_volume,50)
 	if(ismob(loc))
 		var/mode_t
@@ -297,30 +294,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 
-/obj/item/weapon/reagent_containers/syringe/antiviral
+/obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
 	list_reagents = list("spaceacillin" = 15)
 
-/obj/item/weapon/reagent_containers/ld50_syringe/lethal
+/obj/item/reagent_containers/ld50_syringe/lethal
 	list_reagents = list("cyanide" = 10, "neurotoxin2" = 40)
 
-/obj/item/weapon/reagent_containers/syringe/charcoal
+/obj/item/reagent_containers/syringe/charcoal
 	name = "Syringe (charcoal)"
 	desc = "Contains charcoal - used to treat toxins and damage from toxins."
 	list_reagents = list("charcoal" = 15)
 
-/obj/item/weapon/reagent_containers/syringe/epinephrine
+/obj/item/reagent_containers/syringe/epinephrine
 	name = "Syringe (Epinephrine)"
 	desc = "Contains epinephrine - used to stabilize patients."
 	list_reagents = list("epinephrine" = 15)
 
-/obj/item/weapon/reagent_containers/syringe/insulin
+/obj/item/reagent_containers/syringe/insulin
 	name = "Syringe (insulin)"
 	desc = "Contains insulin - used to treat diabetes."
 	list_reagents = list("insulin" = 15)
 
-/obj/item/weapon/reagent_containers/syringe/bioterror
+/obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
 	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)

@@ -237,9 +237,8 @@
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
 				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
-		M.create_attack_log("<font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.create_attack_log("<font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		add_attack_logs(src, M, "Slime'd for [damage] damage")
 		attacked += 10
 		adjustBruteLoss(damage)
 		updatehealth()
@@ -544,8 +543,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		return "You cannot ventcrawl while feeding."
 	..()
 
-/mob/living/carbon/slime/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
-	if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
+/mob/living/carbon/slime/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+	if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 		return 1
 	to_chat(user, "This creature does not seem to have a mouth!")
 	return 0

@@ -2,7 +2,7 @@
 /obj/structure/closet/fireaxecabinet
 	name = "fire axe cabinet"
 	desc = "There is small label that reads \"For Emergency use only\" along with details for safe use of the axe. As if."
-	var/obj/item/weapon/twohanded/fireaxe/fireaxe = new/obj/item/weapon/twohanded/fireaxe
+	var/obj/item/twohanded/fireaxe/fireaxe = new/obj/item/twohanded/fireaxe
 	icon_state = "fireaxe1000"
 	icon_closed = "fireaxe1000"
 	icon_opened = "fireaxe1100"
@@ -31,9 +31,9 @@
 					to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 					update_icon()
 				return
-			else if(istype(O, /obj/item/weapon))
+			else if(istype(O, /obj/item))
 				user.changeNext_move(CLICK_CD_MELEE)
-				var/obj/item/weapon/W = O
+				var/obj/item/W = O
 				if(src.smashed || src.localopened)
 					if(localopened)
 						localopened = 0
@@ -54,7 +54,7 @@
 						src.localopened = 1
 				update_icon()
 			return
-		if(istype(O, /obj/item/weapon/twohanded/fireaxe) && src.localopened)
+		if(istype(O, /obj/item/twohanded/fireaxe) && src.localopened)
 			if(!fireaxe)
 				if(O:wielded)
 					to_chat(user, "<span class='warning'>Unwield the axe first.</span>")

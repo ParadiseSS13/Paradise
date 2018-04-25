@@ -107,7 +107,7 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
-		log_game("[shadow.key] (ckey) has been selected as a Shadowling.")
+		log_game("[key_name(shadow)] has been selected as a Shadowling.")
 		sleep(10)
 		to_chat(shadow.current, "<br>")
 		to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")

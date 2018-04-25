@@ -99,7 +99,7 @@
 	if(!check_can_speak(speaker))
 		return FALSE
 
-	log_say("[key_name(speaker)]: ([name]) [message]")
+	log_say("([name]-HIVE) [message]", speaker)
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
@@ -553,14 +553,13 @@
 	var/drone_only
 
 /datum/language/binary/broadcast(mob/living/speaker, message, speaker_mask)
-
 	if(!speaker.binarycheck())
 		return
 
 	if(!message)
 		return
 	
-	log_robot("[key_name(speaker)] : [message]")
+	log_say("(ROBOT) [message]", speaker)
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
 

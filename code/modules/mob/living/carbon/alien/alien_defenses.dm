@@ -35,7 +35,7 @@ In all, this is a lot like the monkey code. /N
 				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
 						"<span class='userdanger'>[M.name] bites [src]!</span>")
 				adjustBruteLoss(damage)
-				add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
+				add_attack_logs(M, src, "Alien attack", FALSE)
 				updatehealth()
 			else
 				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")

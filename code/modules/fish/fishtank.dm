@@ -336,7 +336,7 @@
 	if(!deconstruct)												//Check if we are deconstructing or breaking the tank
 		var/shards_left = shard_count
 		while(shards_left > 0)										//Produce the appropriate number of glass shards
-			new /obj/item/weapon/shard(get_turf(src))
+			new /obj/item/shard(get_turf(src))
 			shards_left --
 		if(water_level)												//Spill any water that was left in the tank when it broke
 			spill_water()
@@ -612,8 +612,8 @@
 
 /obj/machinery/fishtank/attackby(var/obj/item/O, var/mob/user as mob)
 	//Welders repair damaged tanks on help intent, damage on all others
-	if(istype(O, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = O
+	if(istype(O, /obj/item/weldingtool))
+		var/obj/item/weldingtool/W = O
 		if(user.a_intent == INTENT_HELP)
 			if(W.isOn())
 				if(cur_health < max_health)
@@ -632,11 +632,11 @@
 		return
 	//Open reagent containers add and remove water
 	if(O.is_open_container())
-		if(istype(O, /obj/item/weapon/reagent_containers/glass))
+		if(istype(O, /obj/item/reagent_containers/glass))
 			if(lid_switch)
 				to_chat(usr, "Open the lid on \the [src] first!")
 				return
-			var/obj/item/weapon/reagent_containers/glass/C = O
+			var/obj/item/reagent_containers/glass/C = O
 			//Containers with any reagents will get dumped in
 			if(C.reagents.total_volume)
 				var/water_value = 0
@@ -680,7 +680,7 @@
 						user.visible_message("[user.name] scoops out some water from \the [src].", "You fill [C.name] with the last of the water in \the [src].")
 			return
 	//Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
-	if(istype(O, /obj/item/weapon/wrench))
+	if(istype(O, /obj/item/wrench))
 		if(water_level == 0)
 			to_chat(usr, "<span class='notice'>Now disassembling [src].</span>")
 			playsound(src.loc, O.usesound, 50, 1)
@@ -704,7 +704,7 @@
 				qdel(egg)
 		return
 	//Fish food
-	else if(istype(O, /obj/item/weapon/fishfood))
+	else if(istype(O, /obj/item/fishfood))
 		//Only add food if there is water and it isn't already full of food
 		if(water_level)
 			if(food_level < 10)
@@ -719,7 +719,7 @@
 			to_chat(usr, "[src] doesn't have any water in it. You should fill it with water first.")
 		return
 	//Fish egg scoop
-	else if(istype(O, /obj/item/weapon/egg_scoop))
+	else if(istype(O, /obj/item/egg_scoop))
 		if(egg_count)
 			user.visible_message("[user.name] harvests some fish eggs from \the [src].", "You scoop the fish eggs out of \the [src].")
 			harvest_eggs(user)
@@ -727,11 +727,11 @@
 			user.visible_message("[user.name] fails to harvest any fish eggs from \the [src].", "There are no fish eggs in \the [src] to scoop out.")
 		return
 	//Fish net
-	if(istype(O, /obj/item/weapon/fish_net))
+	if(istype(O, /obj/item/fish_net))
 		harvest_fish(user)
 		return
 	//Tank brush
-	if(istype(O, /obj/item/weapon/tank_brush))
+	if(istype(O, /obj/item/tank_brush))
 		if(filth_level == 0)
 			to_chat(usr, "[src] is already spotless!")
 		else

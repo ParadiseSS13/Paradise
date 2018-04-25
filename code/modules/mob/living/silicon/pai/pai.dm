@@ -8,7 +8,7 @@
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
 	density = 0
-	holder_type = /obj/item/weapon/holder/pai
+	holder_type = /obj/item/holder/pai
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
 
@@ -43,7 +43,7 @@
 
 
 
-	var/obj/item/weapon/pai_cable/cable		// The cable we produce and use when door or camera jacking
+	var/obj/item/pai_cable/cable		// The cable we produce and use when door or camera jacking
 
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
@@ -237,9 +237,8 @@
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
 			O.show_message("<span class='danger'>[M]</span> [M.attacktext] [src]!", 1)
-		M.create_attack_log("<font color='red'>attacked [name] ([ckey])</font>")
-		create_attack_log("<font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		add_attack_logs(M, src, "Animal attacked for [damage] damage")
 		adjustBruteLoss(damage)
 		updatehealth()
 
@@ -475,7 +474,7 @@
 	// Pass lying down or getting up to our pet human, if we're in a rig.
 	if(stat == CONSCIOUS && istype(loc,/obj/item/device/paicard))
 		resting = 0
-		var/obj/item/weapon/rig/rig = get_rig()
+		var/obj/item/rig/rig = get_rig()
 		if(istype(rig))
 			rig.force_rest(src)
 	else
@@ -486,7 +485,7 @@
 	update_canmove()
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/mob/living/silicon/pai/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
@@ -538,7 +537,7 @@
 	reset_perspective(card)
 
 // If we are being held, handle removing our holder from their inv.
-	var/obj/item/weapon/holder/H = loc
+	var/obj/item/holder/H = loc
 	if(istype(H))
 		var/mob/living/M = H.loc
 		if(istype(M))
@@ -609,7 +608,7 @@
 
 
 /mob/living/silicon/pai/get_scooped(mob/living/carbon/grabber)
-	var/obj/item/weapon/holder/H = ..()
+	var/obj/item/holder/H = ..()
 	if(!istype(H))
 		return
 	if(resting)

@@ -27,7 +27,9 @@ SUBSYSTEM_DEF(nightshift)
 /datum/controller/subsystem/nightshift/proc/announce(message)
 	priority_announcement.Announce(message, new_sound = 'sound/misc/notice2.ogg', new_title = "Automated Lighting System Announcement")
 
-/datum/controller/subsystem/nightshift/proc/check_nightshift()
+/datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)
+	if(check_canfire && !can_fire)
+		return
 	var/emergency = security_level >= SEC_LEVEL_RED
 	var/announcing = TRUE
 	var/time = station_time()

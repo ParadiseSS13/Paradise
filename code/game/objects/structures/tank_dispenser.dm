@@ -52,7 +52,7 @@
 	return data
 
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/tank/oxygen) || istype(I, /obj/item/weapon/tank/air) || istype(I, /obj/item/weapon/tank/anesthetic))
+	if(istype(I, /obj/item/tank/oxygen) || istype(I, /obj/item/tank/air) || istype(I, /obj/item/tank/anesthetic))
 		if(oxygentanks < 10)
 			user.drop_item()
 			I.forceMove(src)
@@ -63,7 +63,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
 		SSnanoui.update_uis(src)
-	if(istype(I, /obj/item/weapon/tank/plasma))
+	if(istype(I, /obj/item/tank/plasma))
 		if(plasmatanks < 10)
 			user.drop_item()
 			I.forceMove(src)
@@ -74,7 +74,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
 		SSnanoui.update_uis(src)
-	if(istype(I, /obj/item/weapon/wrench))
+	if(istype(I, /obj/item/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
 			anchored = 0
@@ -90,24 +90,24 @@
 		usr.set_machine(src)
 		if(href_list["oxygen"])
 			if(oxygentanks > 0)
-				var/obj/item/weapon/tank/oxygen/O
+				var/obj/item/tank/oxygen/O
 				if(oxytanks.len == oxygentanks)
 					O = oxytanks[1]
 					oxytanks.Remove(O)
 				else
-					O = new /obj/item/weapon/tank/oxygen(loc)
+					O = new /obj/item/tank/oxygen(loc)
 				O.loc = loc
 				to_chat(usr, "<span class='notice'>You take [O] out of [src].</span>")
 				oxygentanks--
 				update_icon()
 		if(href_list["plasma"])
 			if(plasmatanks > 0)
-				var/obj/item/weapon/tank/plasma/P
+				var/obj/item/tank/plasma/P
 				if(platanks.len == plasmatanks)
 					P = platanks[1]
 					platanks.Remove(P)
 				else
-					P = new /obj/item/weapon/tank/plasma(loc)
+					P = new /obj/item/tank/plasma(loc)
 				P.loc = loc
 				to_chat(usr, "<span class='notice'>You take [P] out of [src].</span>")
 				plasmatanks--

@@ -10,7 +10,7 @@
 	burn_state = FLAMMABLE
 	var/rolled = FALSE
 
-/obj/item/flag/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/flag/attackby(obj/item/W, mob/user, params)
 	..()
 	if(is_hot(W) && burn_state != ON_FIRE)
 		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")

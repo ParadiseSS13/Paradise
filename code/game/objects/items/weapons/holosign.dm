@@ -1,4 +1,4 @@
-/obj/item/weapon/holosign_creator
+/obj/item/holosign_creator
 	name = "holographic sign projector"
 	desc = "A handy-dandy hologaphic projector that displays a janitorial sign."
 	icon = 'icons/obj/janitor.dmi'
@@ -13,11 +13,11 @@
 	var/list/signs = list()
 	var/max_signs = 20
 
-/obj/item/weapon/holosign_creator/Destroy()
+/obj/item/holosign_creator/Destroy()
 	QDEL_LIST(signs)
 	return ..()
 
-/obj/item/weapon/holosign_creator/afterattack(atom/target, mob/user, flag)
+/obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
 	if(flag)
 		var/turf/T = get_turf(target)
 		var/obj/effect/overlay/holograph/H = locate() in T
@@ -33,10 +33,10 @@
 			else
 				to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
 
-/obj/item/weapon/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
+/obj/item/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
 	return
 
-/obj/item/weapon/holosign_creator/attack_self(mob/user)
+/obj/item/holosign_creator/attack_self(mob/user)
 	if(signs.len)
 		var/list/L = signs.Copy()
 		for(var/sign in L)

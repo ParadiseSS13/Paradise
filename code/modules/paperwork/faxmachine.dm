@@ -17,7 +17,7 @@ var/list/alldepartments = list()
 	idle_power_usage = 30
 	active_power_usage = 200
 
-	var/obj/item/weapon/card/id/scan = null // identification
+	var/obj/item/card/id/scan = null // identification
 
 	var/authenticated = 0
 	var/sendcooldown = 0 // to avoid spamming fax messages
@@ -48,10 +48,10 @@ var/list/alldepartments = list()
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby(obj/item/weapon/item, mob/user, params)
-	if(istype(item,/obj/item/weapon/card/id) && !scan)
+/obj/machinery/photocopier/faxmachine/attackby(obj/item/item, mob/user, params)
+	if(istype(item,/obj/item/card/id) && !scan)
 		scan(item)
-	else if(istype(item, /obj/item/weapon/paper) || istype(item, /obj/item/weapon/photo) || istype(item, /obj/item/weapon/paper_bundle))
+	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
 		..()
 		SSnanoui.update_uis(src)
 	else
@@ -134,7 +134,7 @@ var/list/alldepartments = list()
 			copyitem = null
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/paper_bundle))
+			if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 				usr.drop_item()
 				copyitem = I
 				I.forceMove(src)
@@ -169,17 +169,17 @@ var/list/alldepartments = list()
 		if(copyitem)
 			var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
 			if((copyitem && copyitem.loc == src && usr.stat == 0))
-				if(istype(copyitem, /obj/item/weapon/paper))
+				if(istype(copyitem, /obj/item/paper))
 					copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
 					copyitem.desc = "This is a paper titled '" + copyitem.name + "'."
-				else if(istype(copyitem, /obj/item/weapon/photo))
+				else if(istype(copyitem, /obj/item/photo))
 					copyitem.name = "[(n_name ? text("[n_name]") : "photo")]"
-				else if(istype(copyitem, /obj/item/weapon/paper_bundle))
+				else if(istype(copyitem, /obj/item/paper_bundle))
 					copyitem.name = "[(n_name ? text("[n_name]") : "paper")]"
 
 	SSnanoui.update_uis(src)
 
-/obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/weapon/card/id/card = null)
+/obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/card/id/card = null)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
 			scan.forceMove(get_turf(src))
@@ -192,7 +192,7 @@ var/list/alldepartments = list()
 	else if(Adjacent(usr))
 		if(!card)
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/weapon/card/id))
+			if(istype(I, /obj/item/card/id))
 				usr.drop_item()
 				I.forceMove(src)
 				scan = I
@@ -258,11 +258,11 @@ var/list/alldepartments = list()
 	// give the sprite some time to flick
 	sleep(20)
 
-	if(istype(incoming, /obj/item/weapon/paper))
+	if(istype(incoming, /obj/item/paper))
 		copy(incoming)
-	else if(istype(incoming, /obj/item/weapon/photo))
+	else if(istype(incoming, /obj/item/photo))
 		photocopy(incoming)
-	else if(istype(incoming, /obj/item/weapon/paper_bundle))
+	else if(istype(incoming, /obj/item/paper_bundle))
 		bundlecopy(incoming)
 	else
 		return 0
@@ -280,11 +280,11 @@ var/list/alldepartments = list()
 	use_power(200)
 
 	var/obj/item/rcvdcopy
-	if(istype(copyitem, /obj/item/weapon/paper))
+	if(istype(copyitem, /obj/item/paper))
 		rcvdcopy = copy(copyitem)
-	else if(istype(copyitem, /obj/item/weapon/photo))
+	else if(istype(copyitem, /obj/item/photo))
 		rcvdcopy = photocopy(copyitem)
-	else if(istype(copyitem, /obj/item/weapon/paper_bundle))
+	else if(istype(copyitem, /obj/item/paper_bundle))
 		rcvdcopy = bundlecopy(copyitem)
 	else
 		visible_message("[src] beeps, \"Error transmitting message.\"")

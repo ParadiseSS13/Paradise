@@ -658,14 +658,14 @@
 
 		switch(href_list["implant"])
 			if("remove")
-				for(var/obj/item/weapon/implant/mindshield/I in H.contents)
+				for(var/obj/item/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
 				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield implant has been deactivated.</B></FONT></span>")
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
 			if("add")
-				var/obj/item/weapon/implant/mindshield/L = new/obj/item/weapon/implant/mindshield(H)
+				var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
 				L.implant(H)
 
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield implant")
@@ -812,7 +812,7 @@
 			if("tome")
 				var/mob/living/carbon/human/H = current
 				if(istype(H))
-					var/obj/item/weapon/tome/T = new(H)
+					var/obj/item/tome/T = new(H)
 
 					var/list/slots = list (
 						"backpack" = slot_in_backpack,
@@ -1225,7 +1225,7 @@
 			if(t:traitorradio) qdel(t:traitorradio)
 			t:traitorradio = null
 			t:traitor_frequency = 0.0
-		else if(istype(t, /obj/item/weapon/SWF_uplink) || istype(t, /obj/item/weapon/syndicate_uplink))
+		else if(istype(t, /obj/item/SWF_uplink) || istype(t, /obj/item/syndicate_uplink))
 			if(t:origradio)
 				var/obj/item/device/radio/R = t:origradio
 				R.loc = current.loc
@@ -1317,7 +1317,7 @@
 			current.loc = pick(wizardstart)
 
 		ticker.mode.equip_wizard(current)
-		for(var/obj/item/weapon/spellbook/S in current.contents)
+		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
 		ticker.mode.name_wizard(current)
 		ticker.mode.forge_wizard_objectives(src)
@@ -1343,7 +1343,7 @@
 
 	var/mob/living/carbon/human/H = current
 	if(istype(H))
-		var/obj/item/weapon/tome/T = new(H)
+		var/obj/item/tome/T = new(H)
 
 		var/list/slots = list (
 			"backpack" = slot_in_backpack,
@@ -1537,7 +1537,7 @@
 			jumpsuit.color = team_color
 			H.update_inv_w_uniform(0,0)
 
-	add_logs(missionary, current, "converted", addition = "for [convert_duration/600] minutes")
+	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	addtimer(src, "remove_zealot", convert_duration, FALSE, jumpsuit)	//deconverts after the timer expires
 
 	return 1
@@ -1546,7 +1546,7 @@
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
 	ticker.mode.remove_traitor_mind(src)
-	add_logs(zealot_master, current, "lost control of", addition = "as their zealot master")
+	add_attack_logs(zealot_master, current, "Lost control of zealot")
 	zealot_master = null
 
 	if(jumpsuit)

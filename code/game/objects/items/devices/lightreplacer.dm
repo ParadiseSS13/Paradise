@@ -88,8 +88,8 @@
 			to_chat(user, "You insert a piece of glass into the [src.name]. You have [uses] lights remaining.")
 			return
 
-	if(istype(W, /obj/item/weapon/light))
-		var/obj/item/weapon/light/L = W
+	if(istype(W, /obj/item/light))
+		var/obj/item/light/L = W
 		if(L.status == 0) // LIGHT OKAY
 			if(!user.drop_item())
 				to_chat(user, "[L] is stuck to your hand!")
@@ -111,13 +111,13 @@
 				qdel(L)
 				return
 
-	if(istype(W, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = W
+	if(istype(W, /obj/item/storage))
+		var/obj/item/storage/S = W
 		var/found_lightbulbs = 0
 
 		for(var/obj/item/I in S.contents)
-			if(istype(I,/obj/item/weapon/light))
-				var/obj/item/weapon/light/L = I
+			if(istype(I,/obj/item/light))
+				var/obj/item/light/L = I
 				found_lightbulbs = 1
 				if(uses >= max_uses)
 					to_chat(user, "<span class='warning'>[src] is full!</span>")
@@ -185,7 +185,7 @@
 
 			if(target.status != LIGHT_EMPTY)
 
-				var/obj/item/weapon/light/L1 = new target.light_type(target.loc)
+				var/obj/item/light/L1 = new target.light_type(target.loc)
 				L1.status = target.status
 				L1.rigged = target.rigged
 				L1.brightness_range = target.brightness_range
@@ -198,7 +198,7 @@
 				target.status = LIGHT_EMPTY
 				target.update()
 
-			var/obj/item/weapon/light/L2 = new target.light_type()
+			var/obj/item/light/L2 = new target.light_type()
 
 			target.status = L2.status
 			target.switchcount = L2.switchcount
