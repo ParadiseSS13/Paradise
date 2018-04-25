@@ -104,7 +104,7 @@
 	return output
 
 /obj/machinery/mecha_part_fabricator/proc/output_part_info(datum/design/D)
-	var/output = "[initial(D.name)] (Cost: [output_part_cost(D)]) [get_construction_time_w_coeff(D)/10]sec"
+	var/output = "[initial(D.name)] (Cost: [output_part_cost(D)]) [get_construction_time_w_coeff(D)/10] seconds"
 	return output
 
 /obj/machinery/mecha_part_fabricator/proc/output_part_cost(datum/design/D)
@@ -327,14 +327,16 @@
 				<td style='width: 65%; padding-right: 10px;'>
 				[left_part]
 				</td>
-				<td style='width: 35%; background: #ccc;' id='queue'>
+				<td style='width: 35%; background: #000;' id='queue'>
 				[list_queue()]
 				</td>
 				<tr>
 				</table>
 				</body>
 				</html>"}
-	user << browse(dat, "window=mecha_fabricator;size=1000x430")
+	var/datum/browser/popup = new(user, "mecha_fabricator", name, 1000, 600)
+	popup.set_content(dat)
+	popup.open(0)
 	onclose(user, "mecha_fabricator")
 	return
 
