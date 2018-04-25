@@ -304,8 +304,8 @@
 			if("parts")
 				left_part += output_parts_list(part_set)
 				left_part += "<hr><a href='?src=[UID()];screen=main'>Return</a>"
-	dat = {"<html>
-			  <head>
+	dat = {"
+
 			  <title>[name]</title>
 				<style>
 				.res_name {font-weight: bold; text-transform: capitalize;}
@@ -320,8 +320,7 @@
 				<script language='javascript' type='text/javascript'>
 				[js_byjax]
 				</script>
-				</head><body>
-				<body>
+
 				<table style='width: 100%;'>
 				<tr>
 				<td style='width: 65%; padding-right: 10px;'>
@@ -331,9 +330,7 @@
 				[list_queue()]
 				</td>
 				<tr>
-				</table>
-				</body>
-				</html>"}
+				</table>"}
 	var/datum/browser/popup = new(user, "mecha_fabricator", name, 1000, 600)
 	popup.set_content(dat)
 	popup.open(0)
