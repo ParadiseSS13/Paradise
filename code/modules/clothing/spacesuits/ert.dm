@@ -9,9 +9,10 @@
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
 	strip_delay = 130
-	species_fit = list("Grey")
+	species_fit = list("Grey", "Vox")
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
@@ -41,9 +42,10 @@
 	/obj/item/device/radio, /obj/item/device/analyzer, /obj/item/weapon/gun/energy/laser, /obj/item/weapon/gun/energy/pulse, \
 	/obj/item/weapon/gun/energy/gun/advtaser, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/gun)
 	strip_delay = 130
-	species_fit = list("Drask")
+	species_fit = list("Drask", "Vox")
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
 //Commander
