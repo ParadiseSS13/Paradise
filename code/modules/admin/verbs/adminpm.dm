@@ -152,9 +152,9 @@
 
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, TRUE, type)]</b>: [emoji_msg]</span>"
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>: [emoji_msg]</span>"
 	to_chat(C, recieve_message)
-	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, TRUE, type)]</b>: [emoji_msg]</font>")
+	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>: [emoji_msg]</font>")
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
