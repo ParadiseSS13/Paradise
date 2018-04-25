@@ -22,7 +22,7 @@
 "av" = (/obj/machinery/door/poddoor{id_tag = "bayext4"; name = "mining drone bay blast door"},/turf/simulated/floor/plating/airless{dir = 1; icon_state = "warnplate"},/area/ruin/onehalf/drone_bay)
 "aw" = (/obj/structure/lattice,/turf/space,/area/space)
 "ax" = (/obj/structure/lattice,/turf/space,/area/ruin/onehalf/hallway)
-"ay" = (/obj/structure/glasstable_frame,/turf/simulated/floor/plasteel/airless{icon_state = "damaged3"},/area/ruin/onehalf/hallway)
+"ay" = (/obj/structure/table_frame,/turf/simulated/floor/plasteel/airless{icon_state = "damaged3"},/area/ruin/onehalf/hallway)
 "az" = (/obj/machinery/washing_machine,/turf/simulated/floor/plasteel/airless,/area/ruin/onehalf/hallway)
 "aA" = (/obj/structure/stool/bed/roller,/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
 "aB" = (/obj/machinery/light{dir = 4; icon_state = "tube1"},/obj/structure/table,/obj/item/storage/firstaid/brute{pixel_x = 3; pixel_y = 6},/obj/item/storage/firstaid,/turf/simulated/floor/plasteel{tag = "icon-white"; icon_state = "white"},/area/ruin/onehalf/dorms_med)
