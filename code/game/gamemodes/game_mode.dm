@@ -107,8 +107,7 @@
 			tries_left = 5		//reset our tries since we found a new chump
 	//make sure we have chumps before we try misinforming them. if we don't make a note of it.
 	if(!chumps.len)
-		message_admins("<span class='notice'>Game mode failed to find ANY chumps. Possible causes: no one is opposed/skeptical, or FalseIncarnate can't code.</span>")
-		log_admin("Game mode failed to find ANY chumps. Possible causes: no one is opposed/skeptical, or FalseIncarnate can't code.")
+		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.") 
 		return 0
 	//we've got chumps! misinform them!
 	for(var/mob/living/carbon/human/chump in chumps)

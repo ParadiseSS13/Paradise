@@ -68,7 +68,7 @@ var/world_topic_spam_protect_ip = "0.0.0.0"
 var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
-	log_debug("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
+	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
 	var/list/input = params2list(T)
 	var/key_valid = (config.comms_password && input["key"] == config.comms_password) //no password means no comms, not any password
