@@ -1,6 +1,6 @@
 /datum
 	var/gc_destroyed //Time when this object was destroyed.
-
+	var/list/datum_components //for /datum/components
 	var/var_edited = FALSE //Warranty void if seal is broken
 
 	var/tmp/unique_datum_id = null
@@ -15,4 +15,17 @@
 // Return the appropriate QDEL_HINT; in most cases this is QDEL_HINT_QUEUE.
 /datum/proc/Destroy(force = FALSE, ...)
 	tag = null
+
+	var/list/dc = datum_components
+	if(dc)
+		var/all_components = dc[/datum/component]
+		if(length(all_components))
+			for(var/I in all_components)
+				var/datum/component/C = I
+				qdel(C, FALSE, TRUE)
+		else
+			var/datum/component/C = all_components
+			qdel(C, FALSE, TRUE)
+		dc.Cut()
+
 	return QDEL_HINT_QUEUE
