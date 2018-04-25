@@ -55,7 +55,7 @@
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 
-	add_attack_logs(A, D, "Melee attacked with [src]")
+	add_attack_logs(A, D, "Melee attacked with martial-art [src]", admin_notify = (damage > 0) ? TRUE : FALSE)
 
 	if((D.stat != DEAD) && damage >= A.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \

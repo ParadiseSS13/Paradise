@@ -125,7 +125,7 @@
 		WRITE_LOG(GLOB.world_game_log, "WORLD: [html_decode(text)][log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff
-	GLOB.world_runtime_log << text
+	WRITE_LOG(GLOB.world_runtime_log, text)
 
 /proc/log_config(text)
 	WRITE_LOG(GLOB.config_error_log, text)

@@ -19,7 +19,7 @@
 	..()
 
 	if((M != src) && M.a_intent != INTENT_HELP && check_shields(0, M.name, attack_type = UNARMED_ATTACK))
-		add_attack_logs(M, src, "Melee attacked with fists (miss/block)")
+		add_attack_logs(M, src, "Melee attacked with fists (miss/block)", admin_notify = FALSE)
 		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
 
@@ -38,11 +38,9 @@
 							if(S.next_step(M, src))
 								return 1
 						help_shake_act(M)
-						add_attack_logs(M, src, "Shaked")
 						return 1
 			if(health >= config.health_threshold_crit)
 				help_shake_act(M)
-				add_attack_logs(M, src, "Shaked")
 				return 1
 			if(!H.check_has_mouth())
 				to_chat(H, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
@@ -107,7 +105,7 @@
 				var/datum/unarmed_attack/attack = M.species.unarmed
 
 				M.do_attack_animation(src)
-				add_attack_logs(M, src, "Melee attacked with fists")
+				add_attack_logs(M, src, "Melee attacked with fists", admin_notify = ckey ? TRUE : FALSE)
 
 				if(!iscarbon(M))
 					LAssailant = null
@@ -146,7 +144,7 @@
 			if(attacker_style && attacker_style.disarm_act(H, src))
 				return 1
 			else
-				add_attack_logs(M, src, "Disarmed")
+				add_attack_logs(M, src, "Disarmed", admin_notify = FALSE)
 
 				if(w_uniform)
 					w_uniform.add_fingerprint(M)
@@ -156,7 +154,7 @@
 					apply_effect(2, WEAKEN, run_armor_check(affecting, "melee"))
 					playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					visible_message("<span class='danger'>[M] has pushed [src]!</span>")
-					add_attack_logs(M, src, "Pushed over")
+					add_attack_logs(M, src, "Pushed over", admin_notify = FALSE)
 					if(!iscarbon(M))
 						LAssailant = null
 					else

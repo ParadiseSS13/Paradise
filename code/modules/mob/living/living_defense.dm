@@ -240,7 +240,7 @@
 			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
 			return
 
-	add_attack_logs(user, src, "Grabbed passively")
+	add_attack_logs(user, src, "Grabbed passively", admin_notify = FALSE)
 
 	var/obj/item/grab/G = new /obj/item/grab(user, src)
 	if(buckled)
