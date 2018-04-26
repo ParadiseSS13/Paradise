@@ -1,7 +1,0 @@
-author: "uraniummeltdown"
-delete-after: True
-changes: 
-  - rscadd: "Slimes can be injected with plasma reagent and epinephrine to control mutation chance. Plasma increases mutation chance 5% per 5u to a max of 50%, epinephrine decreases by 5% per 5u to a minimum of 0%"
-  - rscadd: "Slimes can change their face using new emotes"
-  - rscadd: "Slimes can steal nutrition from other slimes when attacking them"
-  - rscadd: "Slime docility potion no longer makes a simple animal slime, instead makes the target docile and never hungry"
