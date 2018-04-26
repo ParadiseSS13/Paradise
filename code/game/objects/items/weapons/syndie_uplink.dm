@@ -8,7 +8,7 @@
 	var/selfdestruct = 0.0
 	var/traitor_frequency = 0.0
 	var/mob/currentUser = null
-	var/obj/item/device/radio/origradio = null
+	var/obj/item/radio/origradio = null
 	flags = CONDUCT | ONBELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "radio"
@@ -26,7 +26,7 @@
 	var/uses = 4.0
 	var/selfdestruct = 0.0
 	var/traitor_frequency = 0.0
-	var/obj/item/device/radio/origradio = null
+	var/obj/item/radio/origradio = null
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "radio"

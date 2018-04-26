@@ -24,10 +24,10 @@
 	gloves =  /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/centcom/officer
-	l_ear = /obj/item/device/radio/headset/centcom
+	l_ear = /obj/item/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
-	pda = /obj/item/device/pda/centcom
+	pda = /obj/item/pda/centcom
 	belt = /obj/item/gun/energy/pulse/pistol
 	implants = list(
 		/obj/item/implant/mindshield,
@@ -66,10 +66,10 @@
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
-	l_ear = /obj/item/device/radio/headset/centcom
+	l_ear = /obj/item/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
-	pda = /obj/item/device/pda/centcom
+	pda = /obj/item/pda/centcom
 	r_pocket = /obj/item/storage/box/matches
 	box = /obj/item/storage/box/centcomofficer
 	backpack = /obj/item/storage/backpack/satchel

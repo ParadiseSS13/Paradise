@@ -175,7 +175,7 @@
 			text += "<br>Flash: <a href='?src=[UID()];revolution=flash'>give</a>"
 
 			var/list/L = current.get_contents()
-			var/obj/item/device/flash/flash = locate() in L
+			var/obj/item/flash/flash = locate() in L
 			if(flash)
 				if(!flash.broken)
 					text += "|<a href='?src=[UID()];revolution=takeflash'>take</a>."
@@ -419,7 +419,7 @@
 		ishuman(current)      )
 
 		text = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
-		var/obj/item/device/uplink/hidden/suplink = find_syndicate_uplink()
+		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
 		var/crystals
 		if(suplink)
 			crystals = suplink.uses
@@ -762,7 +762,7 @@
 
 			if("takeflash")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Deleting flash failed!</span>")
 				qdel(flash)
@@ -771,7 +771,7 @@
 
 			if("repairflash")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
 				else
@@ -781,7 +781,7 @@
 
 			if("reequip")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				qdel(flash)
 				take_uplink()
 				var/fail = 0
@@ -1183,7 +1183,7 @@
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
 			if("crystals")
 				if(usr.client.holder.rights & (R_SERVER|R_EVENT))
-					var/obj/item/device/uplink/hidden/suplink = find_syndicate_uplink()
+					var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
 					var/crystals
 					if(suplink)
 						crystals = suplink.uses
@@ -1218,16 +1218,16 @@
 	// remove traitor uplinks
 	var/list/L = current.get_contents()
 	for(var/t in L)
-		if(istype(t, /obj/item/device/pda))
+		if(istype(t, /obj/item/pda))
 			if(t:uplink) qdel(t:uplink)
 			t:uplink = null
-		else if(istype(t, /obj/item/device/radio))
+		else if(istype(t, /obj/item/radio))
 			if(t:traitorradio) qdel(t:traitorradio)
 			t:traitorradio = null
 			t:traitor_frequency = 0.0
 		else if(istype(t, /obj/item/SWF_uplink) || istype(t, /obj/item/syndicate_uplink))
 			if(t:origradio)
-				var/obj/item/device/radio/R = t:origradio
+				var/obj/item/radio/R = t:origradio
 				R.loc = current.loc
 				R.traitorradio = null
 				R.traitor_frequency = 0.0
@@ -1251,7 +1251,7 @@
 	return null
 
 /datum/mind/proc/take_uplink()
-	var/obj/item/device/uplink/hidden/H = find_syndicate_uplink()
+	var/obj/item/uplink/hidden/H = find_syndicate_uplink()
 	if(H)
 		qdel(H)
 
@@ -1380,7 +1380,7 @@
 	ticker.mode.greet_revolutionary(src,0)
 
 	var/list/L = current.get_contents()
-	var/obj/item/device/flash/flash = locate() in L
+	var/obj/item/flash/flash = locate() in L
 	qdel(flash)
 	take_uplink()
 	var/fail = 0

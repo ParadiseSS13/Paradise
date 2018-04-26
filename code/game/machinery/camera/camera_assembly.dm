@@ -8,7 +8,7 @@
 	materials = list(MAT_METAL=400, MAT_GLASS=250)
 
 	//	Motion, EMP-Proof, X-Ray
-	var/list/obj/item/possible_upgrades = list(/obj/item/device/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma, /obj/item/device/analyzer)
+	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma, /obj/item/analyzer)
 	var/list/upgrades = list()
 	var/state = 0
 	var/busy = 0

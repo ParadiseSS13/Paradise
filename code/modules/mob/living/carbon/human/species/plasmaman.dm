@@ -105,7 +105,7 @@
 		if("Medical Doctor","Brig Physician","Virologist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical
-			H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/flashlight/pen(H), slot_in_backpack)
 		if("Paramedic")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/paramedic
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/paramedic

@@ -406,7 +406,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
-	var/obj/item/device/multitool/P
+	var/obj/item/multitool/P
 	if(isrobot(user) || ishuman(user))
 		P = user.get_active_hand()
 	else if(isAI(user))
@@ -535,8 +535,8 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/device/pda) )
-				var/obj/item/device/pda/PDA = A
+			else if( search_pda && istype(A,/obj/item/pda) )
+				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
 					PDA.name = "PDA-[newname] ([PDA.ownjob])"

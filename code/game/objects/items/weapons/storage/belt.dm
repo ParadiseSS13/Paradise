@@ -53,11 +53,11 @@
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
 		/obj/item/wrench,
-		/obj/item/device/multitool,
-		/obj/item/device/flashlight,
+		/obj/item/multitool,
+		/obj/item/flashlight,
 		/obj/item/stack/cable_coil,
-		/obj/item/device/t_scanner,
-		/obj/item/device/analyzer,
+		/obj/item/t_scanner,
+		/obj/item/analyzer,
 		/obj/item/taperoll/engineering,
 		/obj/item/extinguisher/mini)
 
@@ -73,7 +73,7 @@
 
 /obj/item/storage/belt/utility/full/multitool/New()
 	..()
-	new /obj/item/device/multitool(src)
+	new /obj/item/multitool(src)
 	update_icon()
 
 /obj/item/storage/belt/utility/atmostech/New()
@@ -83,7 +83,7 @@
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
 	new /obj/item/wirecutters(src)
-	new /obj/item/device/t_scanner(src)
+	new /obj/item/t_scanner(src)
 	new /obj/item/extinguisher/mini(src)
 	update_icon()
 
@@ -98,10 +98,10 @@
 	new /obj/item/screwdriver/power(src)
 	new /obj/item/crowbar/power(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
-	new /obj/item/device/multitool(src)
+	new /obj/item/multitool(src)
 	new /obj/item/stack/cable_coil(src, 30, pick(COLOR_RED, COLOR_YELLOW, COLOR_ORANGE))
 	new /obj/item/extinguisher/mini(src)
-	new /obj/item/device/analyzer(src)
+	new /obj/item/analyzer(src)
 	update_icon()
 	//much roomier now that we've managed to remove two tools
 
@@ -113,7 +113,7 @@
 	item_state = "medical"
 	use_item_overlays = 1
 	can_hold = list(
-		/obj/item/device/healthanalyzer,
+		/obj/item/healthanalyzer,
 		/obj/item/dnainjector,
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/glass/beaker,
@@ -124,12 +124,12 @@
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/medical,
-		/obj/item/device/flashlight/pen,
+		/obj/item/flashlight/pen,
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/gloves/color/latex,
         /obj/item/reagent_containers/hypospray/autoinjector,
-        /obj/item/device/rad_laser,
-		/obj/item/device/sensor_device,
+        /obj/item/rad_laser,
+		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 	)
 
@@ -154,7 +154,7 @@
 	item_state = "botany"
 	use_item_overlays = 1
 	can_hold = list(
-		/obj/item/device/plant_analyzer,
+		/obj/item/plant_analyzer,
 		/obj/item/cultivator,
 		/obj/item/hatchet,
 		/obj/item/reagent_containers/glass/bottle,
@@ -163,7 +163,7 @@
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/shovel/spade,
-		/obj/item/device/flashlight/pen,
+		/obj/item/flashlight/pen,
 		/obj/item/seeds,
 		/obj/item/wirecutters,
         /obj/item/wrench,
@@ -183,7 +183,7 @@
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
 		/obj/item/restraints/handcuffs,
-		/obj/item/device/flash,
+		/obj/item/flash,
 		/obj/item/clothing/glasses,
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
@@ -191,21 +191,21 @@
 		/obj/item/kitchen/knife/combat,
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
-		/obj/item/device/flashlight/seclite,
+		/obj/item/flashlight/seclite,
 		/obj/item/taperoll/police,
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola)
 
 /obj/item/storage/belt/security/sec/New()
 	..()
-	new /obj/item/device/flashlight/seclite(src)
+	new /obj/item/flashlight/seclite(src)
 	update_icon()
 
 /obj/item/storage/belt/security/response_team/New()
 	..()
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/melee/baton/loaded(src)
-	new /obj/item/device/flash(src)
+	new /obj/item/flash(src)
 	new /obj/item/melee/classic_baton/telescopic(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
@@ -218,17 +218,17 @@
 	storage_slots = 6
 	use_item_overlays = 1
 	can_hold = list(
-		"/obj/item/device/soulstone"
+		"/obj/item/soulstone"
 		)
 
 /obj/item/storage/belt/soulstone/full/New()
 	..()
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
-	new /obj/item/device/soulstone(src)
+	new /obj/item/soulstone(src)
+	new /obj/item/soulstone(src)
+	new /obj/item/soulstone(src)
+	new /obj/item/soulstone(src)
+	new /obj/item/soulstone(src)
+	new /obj/item/soulstone(src)
 	update_icon()
 
 
@@ -264,7 +264,7 @@
 	new /obj/item/weldingtool/abductor(src)
 	new /obj/item/crowbar/abductor(src)
 	new /obj/item/wirecutters/abductor(src)
-	new /obj/item/device/multitool/abductor(src)
+	new /obj/item/multitool/abductor(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_WHITE)
 
 /obj/item/storage/belt/military/assault
@@ -284,8 +284,8 @@
 	use_item_overlays = 1
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,
-		/obj/item/device/lightreplacer,
-		/obj/item/device/flashlight,
+		/obj/item/lightreplacer,
+		/obj/item/flashlight,
 		/obj/item/reagent_containers/spray,
 		/obj/item/soap,
 		/obj/item/holosign_creator
@@ -293,7 +293,7 @@
 
 /obj/item/storage/belt/janitor/full/New()
 	..()
-	new /obj/item/device/lightreplacer(src)
+	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator(src)
 	new /obj/item/reagent_containers/spray(src)
 	new /obj/item/soap(src)
@@ -310,7 +310,7 @@
 	max_w_class = WEIGHT_CLASS_TINY
 	max_combined_w_class = 6
 	storage_slots = 6
-	can_hold = list(/obj/item/device/mobcapsule)
+	can_hold = list(/obj/item/mobcapsule)
 
 /obj/item/storage/belt/lazarus/New()
 	..()
@@ -593,7 +593,7 @@
 		new /obj/item/weldingtool/hugetank(src)
 		new /obj/item/wirecutters(src)
 		new /obj/item/wrench(src)
-		new /obj/item/device/multitool(src)
+		new /obj/item/multitool(src)
 		new /obj/item/stack/cable_coil(src)
 
 		new /obj/item/restraints/handcuffs(src)
@@ -622,8 +622,8 @@
 		new /obj/item/weldingtool/hugetank(src)
 		new /obj/item/wirecutters(src)
 		new /obj/item/wrench(src)
-		new /obj/item/device/multitool(src)
+		new /obj/item/multitool(src)
 		new /obj/item/stack/cable_coil(src)
 
-		new /obj/item/device/analyzer(src)
-		new /obj/item/device/healthanalyzer(src)
+		new /obj/item/analyzer(src)
+		new /obj/item/healthanalyzer(src)

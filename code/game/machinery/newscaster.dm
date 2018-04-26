@@ -616,7 +616,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		photo.forceMove(src)
 	else if(issilicon(user))
 		var/mob/living/silicon/tempAI = user
-		var/obj/item/device/camera/siliconcam/camera = tempAI.aiCamera
+		var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
 
 		if(!camera)
 			return
@@ -787,8 +787,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	if(ishuman(user))                      							 //User is a human
 		var/mob/living/carbon/human/human_user = user
 		if(human_user.wear_id)                                      //Newscaster scans you
-			if(istype(human_user.wear_id, /obj/item/device/pda))	//autorecognition, woo!
-				var/obj/item/device/pda/P = human_user.wear_id
+			if(istype(human_user.wear_id, /obj/item/pda))	//autorecognition, woo!
+				var/obj/item/pda/P = human_user.wear_id
 				if(P.id)
 					scanned_user = "[P.id.registered_name] ([P.id.assignment])"
 				else

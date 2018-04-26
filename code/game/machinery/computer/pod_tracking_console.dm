@@ -23,7 +23,7 @@
 /obj/machinery/computer/podtracker/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/list/pods[0]
-	for(var/obj/item/device/spacepod_equipment/misc/tracker/TR in world)
+	for(var/obj/item/spacepod_equipment/misc/tracker/TR in world)
 		var/obj/spacepod/my_pod = TR.my_atom
 		var/enabled = TR.enabled
 		if(my_pod && enabled)

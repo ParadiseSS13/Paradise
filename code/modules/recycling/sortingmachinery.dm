@@ -26,8 +26,8 @@
 
 
 /obj/structure/bigDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/destTagger))
-		var/obj/item/device/destTagger/O = W
+	if(istype(W, /obj/item/destTagger))
+		var/obj/item/destTagger/O = W
 
 		if(sortTag != O.currTag)
 			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
@@ -90,8 +90,8 @@
 
 
 /obj/item/smallDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/destTagger))
-		var/obj/item/device/destTagger/O = W
+	if(istype(W, /obj/item/destTagger))
+		var/obj/item/destTagger/O = W
 
 		if(sortTag != O.currTag)
 			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
@@ -208,9 +208,10 @@
 		new /obj/item/c_tube( get_turf(user) )
 	return
 
-/obj/item/device/destTagger
+/obj/item/destTagger
 	name = "destination tagger"
 	desc = "Used to set the destination of properly wrapped packages."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "dest_tagger"
 	var/currTag = 0
 	//The whole system for the sorttype var is determined based on the order of this list,

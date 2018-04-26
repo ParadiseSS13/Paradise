@@ -12,7 +12,7 @@
 	icon_state = "void-red"
 	item_state = "void"
 	desc = "A high tech, NASA Centcom branch designed space suit. Used for AI satellite maintenance."
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/device/multitool)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/multitool)
 
 //Colors!!!
 /obj/item/clothing/head/helmet/space/nasavoid/green

@@ -30,7 +30,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/device/assembly/igniter(null)
+	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
@@ -41,7 +41,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/device/assembly/igniter(null)
+	component_parts += new /obj/item/assembly/igniter(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
@@ -332,24 +332,24 @@
 		new /datum/data/mining_equipment("Whiskey",             /obj/item/reagent_containers/food/drinks/bottle/whiskey,    100),
 		new /datum/data/mining_equipment("Cigar",               /obj/item/clothing/mask/cigarette/cigar/havana,                    150),
 		new /datum/data/mining_equipment("Soap",                /obj/item/soap/nanotrasen, 						           200),
-		new /datum/data/mining_equipment("Laser Pointer",       /obj/item/device/laser_pointer, 				                   300),
+		new /datum/data/mining_equipment("Laser Pointer",       /obj/item/laser_pointer, 				                   300),
 		new /datum/data/mining_equipment("Alien Toy",           /obj/item/clothing/mask/facehugger/toy, 		                   300),
-		new /datum/data/mining_equipment("Advanced Scanner",	/obj/item/device/t_scanner/adv_mining_scanner,                     400),
+		new /datum/data/mining_equipment("Advanced Scanner",	/obj/item/t_scanner/adv_mining_scanner,                     400),
 		new /datum/data/mining_equipment("Hivelord Stabilizer",	/obj/item/hivelordstabilizer,                               400),
 		new /datum/data/mining_equipment("Mining Drone",        /obj/item/mining_drone_cube,                                500),
-		new /datum/data/mining_equipment("Drone Melee Upgrade", /obj/item/device/mine_bot_upgrade,      			   			   400),
-		new /datum/data/mining_equipment("Drone Health Upgrade",/obj/item/device/mine_bot_upgrade/health,      			   	       400),
-		new /datum/data/mining_equipment("Drone Ranged Upgrade",/obj/item/device/mine_bot_upgrade/cooldown,      			   	   600),
+		new /datum/data/mining_equipment("Drone Melee Upgrade", /obj/item/mine_bot_upgrade,      			   			   400),
+		new /datum/data/mining_equipment("Drone Health Upgrade",/obj/item/mine_bot_upgrade/health,      			   	       400),
+		new /datum/data/mining_equipment("Drone Ranged Upgrade",/obj/item/mine_bot_upgrade/cooldown,      			   	   600),
 		new /datum/data/mining_equipment("Kinetic Crusher", 	/obj/item/twohanded/required/mining_hammer,				   750),
 		new /datum/data/mining_equipment("Drone AI Upgrade",    /obj/item/slimepotion/sentience/mining,      			   	      1000),
 		new /datum/data/mining_equipment("GAR mesons",			/obj/item/clothing/glasses/meson/gar,							   500),
 		new /datum/data/mining_equipment("Brute First-Aid Kit",	/obj/item/storage/firstaid/brute,						   600),
-		new /datum/data/mining_equipment("Jaunter",             /obj/item/device/wormhole_jaunter,                                 600),
+		new /datum/data/mining_equipment("Jaunter",             /obj/item/wormhole_jaunter,                                 600),
 		new /datum/data/mining_equipment("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator,               	   750),
 		new /datum/data/mining_equipment("Resonator",           /obj/item/resonator,                                    	   800),
 		new /datum/data/mining_equipment("Lazarus Injector",    /obj/item/lazarus_injector,                                1000),
 		new /datum/data/mining_equipment("Silver Pickaxe",		/obj/item/pickaxe/silver,				                  1000),
-		new /datum/data/mining_equipment("Lazarus Capsule", 	/obj/item/device/mobcapsule, 									   800),
+		new /datum/data/mining_equipment("Lazarus Capsule", 	/obj/item/mobcapsule, 									   800),
 		new /datum/data/mining_equipment("Lazarus Capsule belt",/obj/item/storage/belt/lazarus,							   200),
 		new /datum/data/mining_equipment("Jetpack",             /obj/item/tank/jetpack/carbondioxide/mining,               2000),
 		new /datum/data/mining_equipment("Space Cash",    		/obj/item/stack/spacecash/c1000,                    			  2000),
@@ -498,7 +498,7 @@
 		if("Mining Drone")
 			new /obj/item/storage/box/drone_kit(src.loc)
 		if("Advanced Scanner")
-			new /obj/item/device/t_scanner/adv_mining_scanner(src.loc)
+			new /obj/item/t_scanner/adv_mining_scanner(src.loc)
 		if("Crusher")
 			new /obj/item/twohanded/required/mining_hammer(loc)
 	qdel(voucher)
@@ -546,7 +546,7 @@
 
 /**********************Jaunter**********************/
 
-/obj/item/device/wormhole_jaunter
+/obj/item/wormhole_jaunter
 	name = "wormhole jaunter"
 	desc = "A single use device harnessing outdated wormhole technology, Nanotrasen has since turned its eyes to blue space for more accurate teleportation. The wormholes it creates are unpleasant to travel through, to say the least."
 	icon = 'icons/obj/items.dmi'
@@ -558,7 +558,7 @@
 	throw_range = 5
 	origin_tech = "bluespace=2"
 
-/obj/item/device/wormhole_jaunter/attack_self(mob/user)
+/obj/item/wormhole_jaunter/attack_self(mob/user)
 	var/turf/device_turf = get_turf(user)
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
 		to_chat(user, "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>")
@@ -566,7 +566,7 @@
 	else
 		user.visible_message("<span class='notice'>[user.name] activates the [src.name]!</span>")
 		var/list/L = list()
-		for(var/obj/item/device/radio/beacon/B in world)
+		for(var/obj/item/radio/beacon/B in world)
 			var/turf/T = get_turf(B)
 			if(is_station_level(T.z))
 				L += B
@@ -801,9 +801,10 @@
 
 /**********************Mining Scanner**********************/
 
-/obj/item/device/mining_scanner
+/obj/item/mining_scanner
 	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
 	name = "manual mining scanner"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "mining1"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
@@ -812,7 +813,7 @@
 	var/cooldown = 0
 	origin_tech = "engineering=1;magnets=1"
 
-/obj/item/device/mining_scanner/attack_self(mob/user)
+/obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
 		return
 	if(!cooldown)
@@ -825,15 +826,15 @@
 
 
 //Debug item to identify all ore spread quickly
-/obj/item/device/mining_scanner/admin
+/obj/item/mining_scanner/admin
 
-/obj/item/device/mining_scanner/admin/attack_self(mob/user)
+/obj/item/mining_scanner/admin/attack_self(mob/user)
 	for(var/turf/simulated/mineral/M in world)
 		if(M.scan_state)
 			M.icon_state = M.scan_state
 	qdel(src)
 
-/obj/item/device/t_scanner/adv_mining_scanner
+/obj/item/t_scanner/adv_mining_scanner
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range."
 	name = "advanced automatic mining scanner"
 	icon_state = "mining0"
@@ -847,24 +848,24 @@
 	var/meson = TRUE
 	origin_tech = "engineering=3;magnets=3"
 
-/obj/item/device/t_scanner/adv_mining_scanner/cyborg
+/obj/item/t_scanner/adv_mining_scanner/cyborg
 	flags = CONDUCT | NODROP
 
-/obj/item/device/t_scanner/adv_mining_scanner/material
+/obj/item/t_scanner/adv_mining_scanner/material
 	meson = FALSE
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results. This one has an extended range."
 
-/obj/item/device/t_scanner/adv_mining_scanner/lesser
+/obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results."
 	range = 4
 	cooldown = 50
 
-/obj/item/device/t_scanner/adv_mining_scanner/lesser/material
+/obj/item/t_scanner/adv_mining_scanner/lesser/material
 	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results."
 	meson = FALSE
 
-/obj/item/device/t_scanner/adv_mining_scanner/scan()
+/obj/item/t_scanner/adv_mining_scanner/scan()
 	if(!on_cooldown)
 		on_cooldown = 1
 		spawn(cooldown)

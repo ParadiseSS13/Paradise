@@ -174,7 +174,7 @@
 	return ..()
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(!wires && istype(I, /obj/item/device/assembly/igniter))
+	if(!wires && istype(I, /obj/item/assembly/igniter))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
 		wires = new(src)
 		attacher = key_name(user)
@@ -183,7 +183,7 @@
 		return
 
 	if(wires && !primed)
-		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/device/multitool) || istype(I, /obj/item/device/assembly/signaler))
+		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler))
 			wires.Interact(user)
 			return
 
@@ -191,7 +191,7 @@
 		GibtoniteReaction(user)
 		return
 	if(primed)
-		if(istype(I, /obj/item/device/mining_scanner) || istype(I, /obj/item/device/t_scanner/adv_mining_scanner) || istype(I, /obj/item/device/multitool))
+		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
 			primed = 0
 			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
 			icon_state = "Gibtonite ore"

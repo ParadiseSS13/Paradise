@@ -16,7 +16,7 @@
 	var/list/beakers = list()
 	var/list/allowed_containers = list(/obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/glass/bottle)
 	var/affected_area = 3
-	var/obj/item/device/assembly_holder/nadeassembly = null
+	var/obj/item/assembly_holder/nadeassembly = null
 	var/label = null
 	var/assemblyattacher
 	var/ignition_temp = 10 // The amount of heat added to the reagents when this grenade goes off.
@@ -45,7 +45,7 @@
 /obj/item/grenade/chem_grenade/proc/get_trigger()
 	if(!nadeassembly) return null
 	for(var/obj/O in list(nadeassembly.a_left, nadeassembly.a_right))
-		if(!O || istype(O,/obj/item/device/assembly/igniter)) continue
+		if(!O || istype(O,/obj/item/assembly/igniter)) continue
 		return O
 	return null
 
@@ -65,7 +65,7 @@
 		icon = 'icons/obj/assemblies/new_assemblies.dmi'
 		icon_state = bomb_state
 		update_overlays()
-		var/obj/item/device/assembly/A = get_trigger()
+		var/obj/item/assembly/A = get_trigger()
 		if(stage != READY)
 			name = "bomb casing[label]"
 		else
@@ -176,8 +176,8 @@
 			else
 				to_chat(user, "<span class='notice'>[I] is empty.</span>")
 
-	else if(stage == EMPTY && istype(I, /obj/item/device/assembly_holder))
-		var/obj/item/device/assembly_holder/A = I
+	else if(stage == EMPTY && istype(I, /obj/item/assembly_holder))
+		var/obj/item/assembly_holder/A = I
 		if(!A.secured)
 			return
 		if(isigniter(A.a_left) == isigniter(A.a_right))	//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
@@ -297,9 +297,9 @@
 	qdel(src)
 
 /obj/item/grenade/chem_grenade/proc/CreateDefaultTrigger(var/typekey)
-	if(ispath(typekey,/obj/item/device/assembly))
+	if(ispath(typekey,/obj/item/assembly))
 		nadeassembly = new(src)
-		nadeassembly.a_left = new /obj/item/device/assembly/igniter(nadeassembly)
+		nadeassembly.a_left = new /obj/item/assembly/igniter(nadeassembly)
 		nadeassembly.a_left.holder = nadeassembly
 		nadeassembly.a_left.secured = 1
 		nadeassembly.a_right = new typekey(nadeassembly)

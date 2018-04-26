@@ -46,8 +46,8 @@
 	..()
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe(src)
-	new /obj/item/device/radio/headset/headset_cargo/mining(src)
-	new /obj/item/device/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/radio/headset/headset_cargo/mining(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/glasses/meson(src)
 
@@ -62,7 +62,7 @@
 
 /******************************Lantern*******************************/
 
-/obj/item/device/flashlight/lantern
+/obj/item/flashlight/lantern
 	name = "lantern"
 	icon_state = "lantern"
 	desc = "A mining lantern."
@@ -213,7 +213,7 @@
 
 /*********************Mob Capsule*************************/
 
-/obj/item/device/mobcapsule
+/obj/item/mobcapsule
 	name = "lazarus capsule"
 	desc = "It allows you to store and deploy lazarus-injected creatures easier."
 	icon = 'icons/obj/mobcap.dmi'
@@ -223,19 +223,19 @@
 	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0
 
-/obj/item/device/mobcapsule/Destroy()
+/obj/item/mobcapsule/Destroy()
 	if(captured)
 		captured.ghostize()
 		QDEL_NULL(captured)
 	return ..()
 
-/obj/item/device/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
+/obj/item/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
 	if(!istype(A, /mob/living/simple_animal) || isbot(A))
 		return ..()
 	capture(A, user)
 	return 1
 
-/obj/item/device/mobcapsule/proc/capture(var/mob/target, var/mob/U as mob)
+/obj/item/mobcapsule/proc/capture(var/mob/target, var/mob/U as mob)
 	var/mob/living/simple_animal/T = target
 	if(captured)
 		to_chat(U, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
@@ -250,17 +250,17 @@
 		else
 			to_chat(U, "You can't capture that mob!")
 
-/obj/item/device/mobcapsule/throw_impact(atom/A, mob/user)
+/obj/item/mobcapsule/throw_impact(atom/A, mob/user)
 	..()
 	if(captured)
 		dump_contents(user)
 
-/obj/item/device/mobcapsule/proc/dump_contents(mob/user)
+/obj/item/mobcapsule/proc/dump_contents(mob/user)
 	if(captured)
 		captured.forceMove(get_turf(src))
 		captured = null
 
-/obj/item/device/mobcapsule/attack_self(mob/user)
+/obj/item/mobcapsule/attack_self(mob/user)
 	colorindex += 1
 	if(colorindex >= 6)
 		colorindex = 0
@@ -412,7 +412,7 @@
 	RefreshParts()
 
 //Computer
-/obj/item/device/gps/computer
+/obj/item/gps/computer
 	name = "pod computer"
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
@@ -420,17 +420,17 @@
 	density = 1
 	pixel_y = -32
 
-/obj/item/device/gps/computer/attackby(obj/item/W, mob/user, params)
+/obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/device/gps(loc)
+			new /obj/item/gps(loc)
 			qdel(src)
 			return ..()
 
-/obj/item/device/gps/computer/attack_hand(mob/user)
+/obj/item/gps/computer/attack_hand(mob/user)
 	attack_self(user)
 
 //Bed
@@ -478,7 +478,7 @@
 		var/obj/item/storage/pill_bottle/dice/D = new(src)
 		load(D)
 	else
-		var/obj/item/device/instrument/guitar/G = new(src)
+		var/obj/item/instrument/guitar/G = new(src)
 		load(G)
 
 //Fans

@@ -253,14 +253,14 @@
 		user.visible_message("<span class='warning'>[user] displays their Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>","<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
 
 /obj/item/clothing/accessory/holobadge/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/card/id) || istype(O, /obj/item/device/pda))
+	if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
 
 		var/obj/item/card/id/id_card = null
 
 		if(istype(O, /obj/item/card/id))
 			id_card = O
 		else
-			var/obj/item/device/pda/pda = O
+			var/obj/item/pda/pda = O
 			id_card = pda.id
 
 		if(access_security in id_card.access || emagged)
@@ -644,7 +644,7 @@
 		return
 
 	var/area/t = get_area(M)
-	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(src)
+	var/obj/item/radio/headset/a = new /obj/item/radio/headset(src)
 	if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
 		//give the syndicats a bit of stealth
 		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")

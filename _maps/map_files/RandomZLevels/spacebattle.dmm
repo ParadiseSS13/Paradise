@@ -281,7 +281,7 @@
 "fu" = (/obj/machinery/bsa/full/east,/turf/simulated/floor/plating/airless,/area/awaymission/spacebattle/cruiser)
 "fv" = (/obj/machinery/computer/bsa_control,/turf/simulated/floor/plating/airless,/area/awaymission/spacebattle/cruiser)
 "fw" = (/obj/structure/closet/crate,/obj/item/stack/spacecash/c10,/obj/item/stack/spacecash/c10,/turf/simulated/floor/plating,/area/awaymission/spacebattle/cruiser)
-"fx" = (/obj/item/device/instrument/violin,/turf/simulated/floor/wood,/area/awaymission/spacebattle/cruiser)
+"fx" = (/obj/item/instrument/violin,/turf/simulated/floor/wood,/area/awaymission/spacebattle/cruiser)
 "fG" = (/obj/structure/closet/crate/internals,/obj/item/tank/emergency_oxygen,/obj/item/storage/firstaid/o2,/turf/simulated/floor/plating,/area/awaymission/spacebattle/cruiser)
 "fH" = (/turf/simulated/floor/plasteel{dir = 0; icon_state = "blue"},/area/awaymission/spacebattle/cruiser)
 "fI" = (/obj/item/ammo_casing/c10mm,/obj/item/ammo_casing/c10mm,/turf/simulated/floor/plasteel{dir = 0; icon_state = "blue"},/area/awaymission/spacebattle/cruiser)

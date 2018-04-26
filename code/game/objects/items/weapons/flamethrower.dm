@@ -19,7 +19,7 @@
 	var/operating = 0//cooldown
 	var/turf/previousturf = null
 	var/obj/item/weldingtool/weldtool = null
-	var/obj/item/device/assembly/igniter/igniter = null
+	var/obj/item/assembly/igniter/igniter = null
 	var/obj/item/tank/plasma/ptank = null
 
 
@@ -92,7 +92,7 @@
 		return
 
 	if(isigniter(W))
-		var/obj/item/device/assembly/igniter/I = W
+		var/obj/item/assembly/igniter/I = W
 		if(I.secured)	return
 		if(igniter)		return
 		user.drop_item()
@@ -111,7 +111,7 @@
 		update_icon()
 		return
 
-	if(istype(W, /obj/item/device/analyzer) && ptank)
+	if(istype(W, /obj/item/analyzer) && ptank)
 		atmosanalyzer_scan(ptank.air_contents, user)
 	..()
 	return
@@ -158,7 +158,7 @@
 /obj/item/flamethrower/CheckParts(list/parts_list)
 	..()
 	weldtool = locate(/obj/item/weldingtool) in contents
-	igniter = locate(/obj/item/device/assembly/igniter) in contents
+	igniter = locate(/obj/item/assembly/igniter) in contents
 	weldtool.status = 0
 	igniter.secured = 0
 	status = 1
@@ -203,7 +203,7 @@
 		weldtool = new /obj/item/weldingtool(src)
 	weldtool.status = 0
 	if(!igniter)
-		igniter = new /obj/item/device/assembly/igniter(src)
+		igniter = new /obj/item/assembly/igniter(src)
 	igniter.secured = 0
 	status = 1
 	update_icon()

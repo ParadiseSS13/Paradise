@@ -71,7 +71,7 @@
 
 /obj/item/clothing/suit/space/new_rig
 	name = "chestpiece"
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank)
+	allowed = list(/obj/item/flashlight,/obj/item/tank)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	cold_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -122,7 +122,7 @@
 
 /obj/item/clothing/suit/lightrig
 	name = "suit"
-	allowed = list(/obj/item/device/flashlight)
+	allowed = list(/obj/item/flashlight)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	cold_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS

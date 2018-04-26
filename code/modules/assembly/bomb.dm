@@ -1,4 +1,4 @@
-/obj/item/device/onetankbomb
+/obj/item/onetankbomb
 	name = "bomb"
 	icon = 'icons/obj/tank.dmi'
 	item_state = "assembly"
@@ -8,15 +8,15 @@
 	throw_range = 4
 	flags = CONDUCT //Copied this from old code, so this may or may not be necessary
 	var/status = 0   //0 - not readied //1 - bomb finished with welder
-	var/obj/item/device/assembly_holder/bombassembly = null   //The first part of the bomb is an assembly holder, holding an igniter+some device
+	var/obj/item/assembly_holder/bombassembly = null   //The first part of the bomb is an assembly holder, holding an igniter+some device
 	var/obj/item/tank/bombtank = null //the second part of the bomb is a plasma tank
 	origin_tech = "materials=1;engineering=1"
 
-/obj/item/device/onetankbomb/examine(mob/user)
+/obj/item/onetankbomb/examine(mob/user)
 	..(user)
 	user.examinate(bombtank)
 
-/obj/item/device/onetankbomb/update_icon()
+/obj/item/onetankbomb/update_icon()
 	if(bombtank)
 		icon_state = bombtank.icon_state
 	if(bombassembly)
@@ -24,8 +24,8 @@
 		overlays += bombassembly.overlays
 		overlays += "bomb_assembly"
 
-/obj/item/device/onetankbomb/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/analyzer))
+/obj/item/onetankbomb/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/analyzer))
 		bombtank.attackby(W, user, params)
 		return
 	if(istype(W, /obj/item/wrench) && !status)	//This is basically bomb assembly code inverted. apparently it works.
@@ -56,12 +56,12 @@
 	add_fingerprint(user)
 	..()
 
-/obj/item/device/onetankbomb/attack_self(mob/user as mob) //pressing the bomb accesses its assembly
+/obj/item/onetankbomb/attack_self(mob/user as mob) //pressing the bomb accesses its assembly
 	bombassembly.attack_self(user, 1)
 	add_fingerprint(user)
 	return
 
-/obj/item/device/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
+/obj/item/onetankbomb/receive_signal()	//This is mainly called by the sensor through sense() to the holder, and from the holder to here.
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	sleep(10)
 	if(!src)
@@ -71,37 +71,37 @@
 	else
 		bombtank.release()
 
-/obj/item/device/onetankbomb/HasProximity(atom/movable/AM as mob|obj)
+/obj/item/onetankbomb/HasProximity(atom/movable/AM as mob|obj)
 	if(bombassembly)
 		bombassembly.HasProximity(AM)
 
-/obj/item/device/onetankbomb/Crossed(atom/movable/AM as mob|obj) //for mousetraps
+/obj/item/onetankbomb/Crossed(atom/movable/AM as mob|obj) //for mousetraps
 	if(bombassembly)
 		bombassembly.Crossed(AM)
 
-/obj/item/device/onetankbomb/on_found(mob/finder as mob) //for mousetraps
+/obj/item/onetankbomb/on_found(mob/finder as mob) //for mousetraps
 	if(bombassembly)
 		bombassembly.on_found(finder)
 
-/obj/item/device/onetankbomb/hear_talk(mob/living/M as mob, msg)
+/obj/item/onetankbomb/hear_talk(mob/living/M as mob, msg)
 	if(bombassembly)
 		bombassembly.hear_talk(M, msg)
 
-/obj/item/device/onetankbomb/hear_message(mob/living/M as mob, msg)
+/obj/item/onetankbomb/hear_message(mob/living/M as mob, msg)
 	if(bombassembly)
 		bombassembly.hear_message(M, msg)
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
 /obj/item/tank/proc/bomb_assemble(W,user)	//Bomb assembly proc. This turns assembly+tank into a bomb
-	var/obj/item/device/assembly_holder/S = W
+	var/obj/item/assembly_holder/S = W
 	var/mob/M = user
 	if(!S.secured)										//Check if the assembly is secured
 		return
 	if(isigniter(S.a_left) == isigniter(S.a_right))		//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
 		return
 
-	var/obj/item/device/onetankbomb/R = new /obj/item/device/onetankbomb(loc)
+	var/obj/item/onetankbomb/R = new /obj/item/onetankbomb(loc)
 
 	M.drop_item()			//Remove the assembly from your hands
 	M.remove_from_mob(src)	//Remove the tank from your character,in case you were holding it

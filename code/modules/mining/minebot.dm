@@ -85,7 +85,7 @@
 				adjustBruteLoss(-10)
 				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 			return
-	if(istype(I, /obj/item/device/mining_scanner) || istype(I, /obj/item/device/t_scanner/adv_mining_scanner))
+	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
 		DropOre()
 		return
@@ -249,18 +249,18 @@
 
 //Melee
 
-/obj/item/device/mine_bot_upgrade
+/obj/item/mine_bot_upgrade
 	name = "minebot melee upgrade"
 	desc = "A minebot upgrade."
 	icon_state = "door_electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 
-/obj/item/device/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity)
+/obj/item/mine_bot_upgrade/afterattack(mob/living/simple_animal/hostile/mining_drone/M, mob/user, proximity)
 	if(!istype(M) || !proximity)
 		return
 	upgrade_bot(M, user)
 
-/obj/item/device/mine_bot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
+/obj/item/mine_bot_upgrade/proc/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
 	if(M.melee_damage_upper != initial(M.melee_damage_upper))
 		to_chat(user, "[M] already has a combat upgrade installed!")
 		return
@@ -271,10 +271,10 @@
 
 //Health
 
-/obj/item/device/mine_bot_upgrade/health
+/obj/item/mine_bot_upgrade/health
 	name = "minebot chassis upgrade"
 
-/obj/item/device/mine_bot_upgrade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
+/obj/item/mine_bot_upgrade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
 	if(M.maxHealth != initial(M.maxHealth))
 		to_chat(user, "[M] already has a reinforced chassis!")
 		return
@@ -285,10 +285,10 @@
 
 //Cooldown
 
-/obj/item/device/mine_bot_upgrade/cooldown
+/obj/item/mine_bot_upgrade/cooldown
 	name = "minebot cooldown upgrade"
 
-/obj/item/device/mine_bot_upgrade/cooldown/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
+/obj/item/mine_bot_upgrade/cooldown/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/M, mob/user)
 	if(M.ranged_cooldown_time != initial(M.ranged_cooldown_time))
 		to_chat(user, "[M] already has a decreased weapon cooldown!")
 		return

@@ -42,7 +42,7 @@
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
 
-		if((istype(W, /obj/item/device/multitool)) && (open == 1) && (!l_hacking))
+		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = 1
 			if(do_after(usr, 100 * W.toolspeed, target = src))

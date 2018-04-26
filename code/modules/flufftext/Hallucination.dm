@@ -681,13 +681,13 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 	/obj/item/cartridge/syndicate, /obj/item/clothing/under/chameleon,\
 	/obj/item/clothing/shoes/syndigaloshes, /obj/item/card/id/syndicate,\
 	/obj/item/clothing/mask/gas/voice, /obj/item/clothing/glasses/thermal,\
-	/obj/item/device/chameleon, /obj/item/card/emag,\
+	/obj/item/chameleon, /obj/item/card/emag,\
 	/obj/item/storage/toolbox/syndicate, /obj/item/aiModule,\
-	/obj/item/device/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\
-	/obj/item/device/powersink, /obj/item/storage/box/syndie_kit,\
+	/obj/item/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\
+	/obj/item/powersink, /obj/item/storage/box/syndie_kit,\
 	/obj/item/toy/syndicateballoon, /obj/item/gun/energy/laser/captain,\
 	/obj/item/hand_tele, /obj/item/rcd, /obj/item/tank/jetpack,\
-	/obj/item/clothing/under/rank/captain, /obj/item/device/aicard,\
+	/obj/item/clothing/under/rank/captain, /obj/item/aicard,\
 	/obj/item/clothing/shoes/magboots, /obj/item/areaeditor/blueprints, /obj/item/disk/nuclear,\
 	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank)
 

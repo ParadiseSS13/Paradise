@@ -1,4 +1,4 @@
-/obj/item/device/aicard
+/obj/item/aicard
 	name = "inteliCard"
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
@@ -10,7 +10,7 @@
 	origin_tech = "programming=3;materials=3"
 
 
-/obj/item/device/aicard/afterattack(atom/target, mob/user, proximity)
+/obj/item/aicard/afterattack(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)
 		return
@@ -22,7 +22,7 @@
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 	update_state() //Whatever happened, update the card's state (icon, name) to match.
 
-/obj/item/device/aicard/proc/update_state()
+/obj/item/aicard/proc/update_state()
 	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
 	if(AI)
 		name = "intelliCard - [AI.name]"
@@ -36,11 +36,11 @@
 		name = "intelliCard"
 		overlays.Cut()
 
-/obj/item/device/aicard/attack_self(mob/user)
+/obj/item/aicard/attack_self(mob/user)
 	ui_interact(user)
 
 
-/obj/item/device/aicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/aicard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "aicard.tmpl", "[name]", 600, 400, state = state)
@@ -48,7 +48,7 @@
 		ui.set_auto_update(1)
 
 
-/obj/item/device/aicard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/aicard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	var/mob/living/silicon/ai/AI = locate() in src
@@ -70,7 +70,7 @@
 	return data
 
 
-/obj/item/device/aicard/Topic(href, href_list, nowindow, state)
+/obj/item/aicard/Topic(href, href_list, nowindow, state)
 	if(..())
 		return 1
 
@@ -107,7 +107,7 @@
 
 	return 1
 
-/obj/item/device/aicard/ex_act(severity)
+/obj/item/aicard/ex_act(severity)
 	switch(severity)
 		if(1.0)
 			qdel(src)

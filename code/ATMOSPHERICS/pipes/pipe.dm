@@ -37,11 +37,11 @@
 	parent = null
 
 /obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/analyzer))
+	if(istype(W, /obj/item/analyzer))
 		atmosanalyzer_scan(parent.air, user)
 		return
 
-	if(istype(W,/obj/item/device/pipe_painter))
+	if(istype(W,/obj/item/pipe_painter))
 		return
 
 	return ..()

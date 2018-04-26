@@ -174,7 +174,7 @@ By design, d1 is the smallest direction and d2 is the highest
 			R.loaded.cable_join(src, user)
 			R.is_empty(user)
 
-	else if(istype(W, /obj/item/device/multitool))
+	else if(istype(W, /obj/item/multitool))
 
 		if(powernet && (powernet.avail > 0))		// is it powered?
 			to_chat(user, "<span class='warning'>[powernet.avail]W in power network.</span>")

@@ -455,7 +455,7 @@ var/list/teleport_runes = list()
 				else
 					to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
 		if(T.mind)
-			var/obj/item/device/soulstone/stone = new /obj/item/device/soulstone(get_turf(src))
+			var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 			stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
 			if(!stone.transfer_soul("VICTIM", T, usr)) //If it cannot be added
 				qdel(stone)

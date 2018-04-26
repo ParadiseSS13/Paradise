@@ -15,8 +15,8 @@
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/list/software = list()
 	var/userDNA		// The DNA string of our assigned user
-	var/obj/item/device/paicard/card	// The card we inhabit
-	var/obj/item/device/radio/radio		// Our primary radio
+	var/obj/item/paicard/card	// The card we inhabit
+	var/obj/item/radio/radio		// Our primary radio
 
 	var/chassis = "repairbot"   // A record of your chosen chassis.
 	var/global/list/possible_chassis = list(
@@ -59,7 +59,7 @@
 	var/screen				// Which screen our main window displays
 	var/subscreen			// Which specific function of the main screen is being displayed
 
-	var/obj/item/device/pda/silicon/pai/pda = null
+	var/obj/item/pda/silicon/pai/pda = null
 
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
@@ -76,7 +76,7 @@
 	var/hackprogress = 0				// Possible values: 0 - 100, >= 100 means the hack is complete and will be reset upon next check
 	var/hack_aborted = 0
 
-	var/obj/item/radio/integrated/signal/sradio // AI's signaller
+	var/obj/item/integrated_radio/signal/sradio // AI's signaller
 
 	var/translator_on = 0 // keeps track of the translator module
 
@@ -84,7 +84,7 @@
 	var/custom_sprite = 0
 	var/slowdown = 0
 
-/mob/living/silicon/pai/New(var/obj/item/device/paicard)
+/mob/living/silicon/pai/New(var/obj/item/paicard)
 	loc = paicard
 	card = paicard
 	if(card)
@@ -92,7 +92,7 @@
 	sradio = new(src)
 	if(card)
 		if(!card.radio)
-			card.radio = new /obj/item/device/radio(card)
+			card.radio = new /obj/item/radio(card)
 		radio = card.radio
 
 	//Default languages without universal translator software
@@ -169,7 +169,7 @@
 	return 0
 
 /mob/living/silicon/pai/restrained()
-	if(istype(loc,/obj/item/device/paicard))
+	if(istype(loc,/obj/item/paicard))
 		return 0
 	..()
 
@@ -342,7 +342,7 @@
 /*
 // Debug command - Maybe should be added to admin verbs later
 /mob/verb/makePAI(var/turf/t in view())
-	var/obj/item/device/paicard/card = new(t)
+	var/obj/item/paicard/card = new(t)
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.key = key
 	card.setPersonality(pai)
@@ -379,8 +379,8 @@
 	if(istype(card.loc, /mob))
 		var/mob/holder = card.loc
 		holder.unEquip(card)
-	else if(istype(card.loc, /obj/item/device/pda))
-		var/obj/item/device/pda/holder = card.loc
+	else if(istype(card.loc, /obj/item/pda))
+		var/obj/item/pda/holder = card.loc
 		holder.pai = null
 
 	forceMove(get_turf(card))
@@ -472,7 +472,7 @@
 	set category = "IC"
 
 	// Pass lying down or getting up to our pet human, if we're in a rig.
-	if(stat == CONSCIOUS && istype(loc,/obj/item/device/paicard))
+	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
 		resting = 0
 		var/obj/item/rig/rig = get_rig()
 		if(istype(rig))

@@ -139,7 +139,7 @@
 			L |= M
 			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
-		else if(include_radio && istype(A, /obj/item/device/radio))
+		else if(include_radio && istype(A, /obj/item/radio))
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= A
@@ -168,7 +168,7 @@
 			if(M.client || include_clientless)
 				hear += M
 			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(istype(A, /obj/item/device/radio))
+		else if(istype(A, /obj/item/radio))
 			hear += A
 
 		if(isobj(A) || ismob(A))
@@ -177,17 +177,17 @@
 	return hear
 
 
-/proc/get_mobs_in_radio_ranges(var/list/obj/item/device/radio/radios)
+/proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
 
 	set background = 1
 
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
-	for(var/obj/item/device/radio/R in radios)
+	for(var/obj/item/radio/R in radios)
 		if(R)
 			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
-			var/obj/item/device/radio/borg/BR = R
+			var/obj/item/radio/borg/BR = R
 			if(istype(BR) && BR.myborg)
 				var/mob/living/silicon/robot/borg = BR.myborg
 				var/datum/robot_component/CO = borg.get_component("radio")

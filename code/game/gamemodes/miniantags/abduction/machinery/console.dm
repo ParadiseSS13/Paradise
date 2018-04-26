@@ -20,7 +20,7 @@
 	icon_state = "console"
 	density = TRUE
 	anchored = TRUE
-	var/obj/item/device/abductor/gizmo/gizmo
+	var/obj/item/abductor/gizmo/gizmo
 	var/obj/item/clothing/suit/armor/abductor/vest/vest
 	var/obj/machinery/abductor/experiment/experiment
 	var/obj/machinery/abductor/pad/pad
@@ -110,9 +110,9 @@
 			if("helmet")
 				Dispense(/obj/item/clothing/head/helmet/abductor)
 			if("silencer")
-				Dispense(/obj/item/device/abductor/silencer)
+				Dispense(/obj/item/abductor/silencer)
 			if("tool")
-				Dispense(/obj/item/device/abductor/gizmo)
+				Dispense(/obj/item/abductor/gizmo)
 			if("vest")
 				Dispense(/obj/item/clothing/suit/armor/abductor/vest)
 	updateUsrDialog()
@@ -176,8 +176,8 @@
 	disguises[entry.name] = entry
 
 /obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/device/abductor/gizmo))
-		var/obj/item/device/abductor/gizmo/G = O
+	if(istype(O, /obj/item/abductor/gizmo))
+		var/obj/item/abductor/gizmo/G = O
 		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
 		gizmo = G
 		G.console = src
