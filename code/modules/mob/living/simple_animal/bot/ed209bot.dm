@@ -111,9 +111,7 @@
 	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += text({"Auto Patrol[]<BR>"},
-
-		"<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>")
+		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
 
 		if(!lasercolor)
 			dat += text({"<BR>
