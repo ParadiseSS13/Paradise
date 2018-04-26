@@ -887,7 +887,8 @@
 	else if(href_list["boot2"])
 		var/mob/M = locate(href_list["boot2"])
 		if(ismob(M))
-			if(!check_if_greater_rights_than(M.client))
+			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
+				to_chat(src, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
 				return
 			to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
 			log_admin("[key_name(usr)] booted [key_name(M)].")
@@ -959,8 +960,6 @@
 
 		var/mob/M = locate(href_list["newban"])
 		if(!ismob(M)) return
-
-		if(M.client && M.client.holder)	return	//admins cannot be banned. Even if they could, the ban doesn't affect them anyway
 
 		switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
 			if("Yes")
@@ -1577,19 +1576,19 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
 
 	else if(href_list["cult_mindspeak"])
-		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.mode.cultdat.entity_name]", "Voice of [ticker.mode.cultdat.entity_name]", "")
+		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.cultdat.entity_name]", "Voice of [ticker.cultdat.entity_name]", "")
 		if(!input)
 			return
 
 		for(var/datum/mind/H in ticker.mode.cult)
 			if (H.current)
-				to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+				to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
 		for(var/mob/dead/observer/O in player_list)
-			to_chat(O, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
+			to_chat(O, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
-		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.mode.cultdat.entity_name].")
-		log_admin("[key_name(usr)] Voice of [ticker.mode.cultdat.entity_name]: [input]")
+		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.cultdat.entity_name].")
+		log_admin("[key_name(usr)] Voice of [ticker.cultdat.entity_name]: [input]")
 
 	else if(href_list["adminplayerobservecoodjump"])
 		if(!check_rights(R_ADMIN))	return
@@ -1618,10 +1617,10 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/weapon/reagent_containers/food/snacks/cookie(H), slot_l_hand )
-		if(!(istype(H.l_hand,/obj/item/weapon/reagent_containers/food/snacks/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/weapon/reagent_containers/food/snacks/cookie(H), slot_r_hand )
-			if(!(istype(H.r_hand,/obj/item/weapon/reagent_containers/food/snacks/cookie)))
+		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+		if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
+			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has their hands full, so they did not receive their cookie, spawned by [key_name_admin(src.owner)].")
 				return
@@ -1680,7 +1679,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
 
@@ -1706,7 +1705,7 @@
 		var/customname = input(src.owner, "Pick a title for the evil fax.", "Fax Title") as text|null
 		if(!customname)
 			customname = "paper"
-		var/obj/item/weapon/paper/evilfax/P = new /obj/item/weapon/paper/evilfax(null)
+		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 
 		P.name = "Central Command - [customname]"
@@ -1726,7 +1725,7 @@
 		stampoverlay.pixel_x = P.x
 		stampoverlay.pixel_y = P.y
 		P.stamped = list()
-		P.stamped += /obj/item/weapon/stamp/centcom
+		P.stamped += /obj/item/stamp/centcom
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
@@ -1735,7 +1734,7 @@
 		P.update_icon()
 		//fax.receivefax(P) // this does not work, it does not preserve the type, we have to physically teleport the fax paper instead
 		P.loc = fax.loc
-		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
@@ -1793,7 +1792,7 @@
 				H.gene_stability = 100
 				logmsg = "superpowers."
 			if("Scarab Guardian")
-				var/obj/item/weapon/guardiancreator/biological/scarab = new /obj/item/weapon/guardiancreator/biological(H)
+				var/obj/item/guardiancreator/biological/scarab = new /obj/item/guardiancreator/biological(H)
 				var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Random")
 				var/typechoice = input("Select Guardian Type", "Type") as null|anything in possible_guardians
 				if(isnull(typechoice))
@@ -1893,7 +1892,7 @@
 				H.makeCluwne()
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
-				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
+				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
 				evilcookie.reagents.add_reagent("mutagen", 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
@@ -1902,7 +1901,7 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
-				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
+				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
 				evilcookie.reagents.add_reagent("hell_water", 25)
 				evilcookie.desc = "Sulphur-flavored."
 				evilcookie.bitesize = 100
@@ -1984,7 +1983,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null)
+		var/obj/item/paper/P = new /obj/item/paper(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
@@ -2019,7 +2018,7 @@
 		stampoverlay.pixel_x = P.x
 		stampoverlay.pixel_y = P.y
 		P.stamped = list()
-		P.stamped += /obj/item/weapon/stamp/centcom
+		P.stamped += /obj/item/stamp/centcom
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
@@ -2027,7 +2026,7 @@
 		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		fax.receivefax(P)
-		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
@@ -2043,7 +2042,7 @@
 		if(H.stat != 0)
 			to_chat(usr, "The person you are trying to contact is not conscious.")
 			return
-		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
 		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from The Syndicate", "")
@@ -2058,7 +2057,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
 
@@ -2081,7 +2080,7 @@
 			if(H.stat != 0)
 				to_chat(usr, "The person you are trying to contact is not conscious.")
 				return
-			if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 				to_chat(usr, "The person you are trying to contact is not wearing a headset")
 				return
 
@@ -2100,17 +2099,17 @@
 			return
 
 		var/obj/item/fax = locate(href_list["AdminFaxView"])
-		if(istype(fax, /obj/item/weapon/paper))
-			var/obj/item/weapon/paper/P = fax
+		if(istype(fax, /obj/item/paper))
+			var/obj/item/paper/P = fax
 			P.show_content(usr,1)
-		else if(istype(fax, /obj/item/weapon/photo))
-			var/obj/item/weapon/photo/H = fax
+		else if(istype(fax, /obj/item/photo))
+			var/obj/item/photo/H = fax
 			H.show(usr)
-		else if(istype(fax, /obj/item/weapon/paper_bundle))
+		else if(istype(fax, /obj/item/paper_bundle))
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
 			var/data = ""
-			var/obj/item/weapon/paper_bundle/B = fax
+			var/obj/item/paper_bundle/B = fax
 
 			for(var/page = 1, page <= B.amount + 1, page++)
 				var/obj/pageobj = B.contents[page]
@@ -2125,15 +2124,15 @@
 			return
 
 		var/page = text2num(href_list["AdminFaxViewPage"])
-		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
+		var/obj/item/paper_bundle/bundle = locate(href_list["paper_bundle"])
 
 		if(!bundle) return
 
-		if(istype(bundle.contents[page], /obj/item/weapon/paper))
-			var/obj/item/weapon/paper/P = bundle.contents[page]
+		if(istype(bundle.contents[page], /obj/item/paper))
+			var/obj/item/paper/P = bundle.contents[page]
 			P.show_content(usr, 1)
-		else if(istype(bundle.contents[page], /obj/item/weapon/photo))
-			var/obj/item/weapon/photo/H = bundle.contents[page]
+		else if(istype(bundle.contents[page], /obj/item/photo))
+			var/obj/item/photo/H = bundle.contents[page]
 			H.show(usr)
 		return
 
@@ -2148,7 +2147,7 @@
 		var/destination
 		var/notify
 
-		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null) //hopefully the null loc won't cause trouble for us
+		var/obj/item/paper/P = new /obj/item/paper(null) //hopefully the null loc won't cause trouble for us
 
 		if(!fax)
 			var/list/departmentoptions = alldepartments + "All Departments"
@@ -2237,14 +2236,14 @@
 			if(stamptype == "icon")
 				if(!P.stamped)
 					P.stamped = new
-				P.stamped += /obj/item/weapon/stamp/centcom
+				P.stamped += /obj/item/stamp/centcom
 				P.overlays += stampoverlay
 				P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
-				P.stamped += /obj/item/weapon/stamp
+				P.stamped += /obj/item/stamp
 				P.overlays += stampoverlay
 				P.stamps += "<HR><i>[stampvalue]</i>"
 
@@ -2275,7 +2274,7 @@
 		to_chat(src.owner, "<span class='notice'>Message transmitted successfully.</span>")
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
-			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 				to_chat(sender, "Your headset pings, notifying you that a reply to your fax has arrived.")
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
@@ -2617,13 +2616,13 @@
 						continue
 					H.Paralyse(5)
 					if(H.wear_id)
-						var/obj/item/weapon/card/id/id = H.get_idcard()
+						var/obj/item/card/id/id = H.get_idcard()
 						for(var/A in id.access)
 							if(A == access_security)
 								security++
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
-						for(var/obj/item/weapon/W in H)
+						for(var/obj/item/W in H)
 							if(istype(W, /obj/item/organ/external))
 								continue
 								//don't strip organs
@@ -2831,7 +2830,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","FG")
 				for(var/obj/item/W in world)
-					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/weapon/disk) || istype(W, /obj/item/weapon/tank))
+					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
 					W.icon = 'icons/obj/guns/projectile.dmi'
 					W.icon_state = "revolver"
@@ -3024,6 +3023,24 @@
 							dat += "<tr><td>[H]</td><td>H.dna = null</td></tr>"
 				dat += "</table>"
 				usr << browse(dat, "window=fingerprints;size=440x410")
+			if("night_shift_set")
+				var/val = alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", "On", "Off", "Automatic")
+				switch(val)
+					if("Automatic")
+						if(config.enable_night_shifts)
+							SSnightshift.can_fire = TRUE
+							SSnightshift.fire()
+						else
+							SSnightshift.update_nightshift(FALSE, TRUE)
+						to_chat(usr, "<span class='notice'>Night shift set to automatic.</span>")
+					if("On")
+						SSnightshift.can_fire = FALSE
+						SSnightshift.update_nightshift(TRUE, FALSE)
+						to_chat(usr, "<span class='notice'>Night shift forced on.</span>")
+					if("Off")
+						SSnightshift.can_fire = FALSE
+						SSnightshift.update_nightshift(FALSE, FALSE)
+						to_chat(usr, "<span class='notice'>Night shift forced off.</span>")
 			else
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
@@ -3390,14 +3407,14 @@
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(latejoin))
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)
-	var/obj/item/weapon/pinpointer/advpinpointer/N = new /obj/item/weapon/pinpointer/advpinpointer(hunter_mob)
+	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
 	N.active = 1
 	N.mode = 2
 	N.target = H
 	N.point_at(N.target)
-	if(!locate(/obj/item/weapon/implant/dust, hunter_mob))
-		var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(hunter_mob)
+	if(!locate(/obj/item/implant/dust, hunter_mob))
+		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)
 		D.implant(hunter_mob)
 	if(killthem)
 		var/datum/objective/assassinate/kill_objective = new

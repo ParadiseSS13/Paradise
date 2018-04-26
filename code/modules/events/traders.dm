@@ -50,11 +50,11 @@ var/global/list/unused_trade_stations = list("sol")
 	switch(station)
 		if("sol")
 			M = new /mob/living/carbon/human(picked_loc)
-			M.equip_to_slot_or_del(new /obj/item/device/radio/headset(M), slot_l_ear)
+			M.equip_to_slot_or_del(new /obj/item/radio/headset(M), slot_l_ear)
 			M.equip_to_slot_or_del(new /obj/item/clothing/under/rank/cargotech(M), slot_w_uniform)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), slot_shoes)
-			M.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/industrial(M), slot_back)
-			var/obj/item/weapon/card/id/supply/W = new(M)
+			M.equip_to_slot_or_del(new /obj/item/storage/backpack/industrial(M), slot_back)
+			var/obj/item/card/id/supply/W = new(M)
 			W.name = "[M.real_name]'s ID Card (Sol Trader)"
 			W.assignment = "Sol Trader"
 			W.registered_name = M.real_name

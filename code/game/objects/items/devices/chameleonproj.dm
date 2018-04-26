@@ -1,5 +1,6 @@
-/obj/item/device/chameleon
+/obj/item/chameleon
 	name = "chameleon-projector"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
@@ -11,25 +12,25 @@
 	origin_tech = "syndicate=4;magnets=4"
 	var/can_use = 1
 	var/obj/effect/dummy/chameleon/active_dummy = null
-	var/saved_item = /obj/item/weapon/cigbutt
+	var/saved_item = /obj/item/cigbutt
 	var/saved_icon = 'icons/obj/clothing/masks.dmi'
 	var/saved_icon_state = "cigbutt"
 	var/saved_overlays = null
 	var/saved_underlays = null
 
-/obj/item/device/chameleon/dropped()
+/obj/item/chameleon/dropped()
 	disrupt()
 
-/obj/item/device/chameleon/equipped()
+/obj/item/chameleon/equipped()
 	disrupt()
 
-/obj/item/device/chameleon/attack_self()
+/obj/item/chameleon/attack_self()
 	toggle()
 
-/obj/item/device/chameleon/afterattack(atom/target, mob/user , proximity)
+/obj/item/chameleon/afterattack(atom/target, mob/user , proximity)
 	if(!proximity) return
 	if(!active_dummy)
-		if(istype(target,/obj/item) && !istype(target, /obj/item/weapon/disk/nuclear))
+		if(istype(target,/obj/item) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>Scanned [target].</span>")
 			saved_item = target.type
@@ -38,7 +39,7 @@
 			saved_overlays = target.overlays
 			saved_underlays = target.underlays
 
-/obj/item/device/chameleon/proc/toggle()
+/obj/item/chameleon/proc/toggle()
 	if(!can_use || !saved_item) return
 	if(active_dummy)
 		eject_all()
@@ -64,7 +65,7 @@
 		spawn(8)
 			qdel(T)
 
-/obj/item/device/chameleon/proc/disrupt(var/delete_dummy = 1)
+/obj/item/chameleon/proc/disrupt(var/delete_dummy = 1)
 	if(active_dummy)
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread
 		spark_system.set_up(5, 0, src)
@@ -77,7 +78,7 @@
 		can_use = 0
 		spawn(50) can_use = 1
 
-/obj/item/device/chameleon/proc/eject_all()
+/obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
 		A.loc = active_dummy.loc
 		if(ismob(A))
@@ -90,9 +91,9 @@
 	density = 0
 	anchored = 1
 	var/can_move = 1
-	var/obj/item/device/chameleon/master = null
+	var/obj/item/chameleon/master = null
 
-/obj/effect/dummy/chameleon/proc/activate(var/obj/O, var/mob/M, new_icon, new_iconstate, new_overlays, new_underlays, var/obj/item/device/chameleon/C)
+/obj/effect/dummy/chameleon/proc/activate(var/obj/O, var/mob/M, new_icon, new_iconstate, new_overlays, new_underlays, var/obj/item/chameleon/C)
 	name = O.name
 	desc = O.desc
 	icon = new_icon

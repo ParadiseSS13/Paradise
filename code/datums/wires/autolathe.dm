@@ -10,10 +10,10 @@ var/const/AUTOLATHE_DISABLE_WIRE = 4
 	switch(index)
 		if(AUTOLATHE_HACK_WIRE)
 			return "Hack"
-		
+
 		if(AUTOLATHE_SHOCK_WIRE)
 			return "Shock"
-		
+
 		if(AUTOLATHE_DISABLE_WIRE)
 			return "Disable"
 
@@ -69,6 +69,6 @@ var/const/AUTOLATHE_DISABLE_WIRE = 4
 					updateUIs()
 
 /datum/wires/autolathe/proc/updateUIs()
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	if(holder)
-		nanomanager.update_uis(holder)
+		SSnanoui.update_uis(holder)

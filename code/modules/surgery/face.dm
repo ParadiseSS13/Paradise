@@ -28,9 +28,9 @@
 /datum/surgery_step/generic/cut_face
 	name = "make incision"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchen/knife = 90,	\
-	/obj/item/weapon/shard = 60, 		\
+	/obj/item/scalpel = 100,		\
+	/obj/item/kitchen/knife = 90,	\
+	/obj/item/shard = 60, 		\
 	)
 
 	time = 16
@@ -50,7 +50,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		user.visible_message("<span class='warning'> [user]'s hand slips, slicing [target]'s throat wth \the [tool]!</span>" , \
 		"<span class='warning'> Your hand slips, slicing [target]'s throat wth \the [tool]!</span>" )
-		affected.take_damage(60)
+		affected.receive_damage(60)
 		target.AdjustLoseBreath(4)
 
 		return 0
@@ -58,10 +58,10 @@
 /datum/surgery_step/face/mend_vocal
 	name = "mend vocal cords"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser/manager = 100, \
-	/obj/item/weapon/hemostat = 100, 	\
+	/obj/item/scalpel/laser/manager = 100, \
+	/obj/item/hemostat = 100, 	\
 	/obj/item/stack/cable_coil = 90, 	\
-	/obj/item/device/assembly/mousetrap = 12	//I don't know. Don't ask me. But I'm leaving it because hilarity.
+	/obj/item/assembly/mousetrap = 12	//I don't know. Don't ask me. But I'm leaving it because hilarity.
 	)
 
 	time = 24
@@ -85,10 +85,10 @@
 /datum/surgery_step/face/fix_face
 	name = "reshape face"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser/manager = 100, \
-	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 65,	\
-	/obj/item/weapon/kitchen/utensil/fork = 90)
+	/obj/item/scalpel/laser/manager = 100, \
+	/obj/item/retractor = 100, 	\
+	/obj/item/crowbar = 65,	\
+	/obj/item/kitchen/utensil/fork = 90)
 
 	time = 64
 
@@ -112,11 +112,11 @@
 /datum/surgery_step/face/cauterize
 	name = "close incision"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser = 100, \
-	/obj/item/weapon/cautery = 100,			\
+	/obj/item/scalpel/laser = 100, \
+	/obj/item/cautery = 100,			\
 	/obj/item/clothing/mask/cigarette = 90,	\
-	/obj/item/weapon/lighter = 60,			\
-	/obj/item/weapon/weldingtool = 30
+	/obj/item/lighter = 60,			\
+	/obj/item/weldingtool = 30
 	)
 
 	time = 24

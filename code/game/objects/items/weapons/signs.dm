@@ -1,4 +1,4 @@
-/obj/item/weapon/picket_sign
+/obj/item/picket_sign
 	icon_state = "picket"
 	item_state = "picket"
 	name = "blank picket sign"
@@ -12,8 +12,8 @@
 
 	var/label = ""
 
-/obj/item/weapon/picket_sign/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/pen) || istype(W, /obj/item/toy/crayon))
+/obj/item/picket_sign/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 		var/txt = stripped_input(user, "What would you like to write on the sign?", "Sign Label", null , 30)
 		if(txt)
 			label = txt
@@ -21,7 +21,7 @@
 			desc =	"It reads: [label]"
 	..()
 
-/obj/item/weapon/picket_sign/attack_self(mob/living/carbon/human/user)
+/obj/item/picket_sign/attack_self(mob/living/carbon/human/user)
 	if(delayed)
 		user.show_message("<span class='warning'>Your arm is too tired to do that again so soon!</span>")
 		return
@@ -38,7 +38,7 @@
 
 /datum/crafting_recipe/picket_sign
 	name = "Picket Sign"
-	result = /obj/item/weapon/picket_sign
+	result = /obj/item/picket_sign
 	reqs = list(/obj/item/stack/rods = 1,
 				/obj/item/stack/sheet/cardboard = 2)
 	time = 80

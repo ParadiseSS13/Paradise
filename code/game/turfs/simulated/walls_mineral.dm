@@ -75,7 +75,7 @@
 	radiate()
 	..()
 
-/turf/simulated/wall/mineral/uranium/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/turf/simulated/wall/mineral/uranium/attackby(obj/item/W as obj, mob/user as mob, params)
 	radiate()
 	..()
 
@@ -92,7 +92,7 @@
 	thermal_conductivity = 0.04
 	canSmoothWith = list(/turf/simulated/wall/mineral/plasma, /obj/structure/falsewall/plasma)
 
-/turf/simulated/wall/mineral/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/turf/simulated/wall/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
@@ -157,3 +157,110 @@
 	sheet_type = /obj/item/stack/sheet/mineral/abductor
 	explosion_block = 3
 	canSmoothWith = list(/turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor)
+
+/////////////////////Titanium walls/////////////////////
+
+/turf/simulated/wall/mineral/titanium //has to use this path due to how building walls works
+	name = "wall"
+	desc = "A light-weight titanium wall used in shuttles."
+	icon = 'icons/turf/walls/shuttle_wall.dmi'
+	icon_state = "map-shuttle"
+	explosion_block = 3
+	sheet_type = /obj/item/stack/sheet/mineral/titanium
+	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
+
+/turf/simulated/wall/mineral/titanium/nodiagonal
+	smooth = SMOOTH_MORE
+	icon_state = "map-shuttle_nd"
+
+/turf/simulated/wall/mineral/titanium/nosmooth
+	icon = 'icons/turf/shuttle.dmi'
+	icon_state = "wall"
+	smooth = SMOOTH_FALSE
+
+/turf/simulated/wall/mineral/titanium/overspace
+	icon_state = "map-overspace"
+	fixed_underlay = list("space"=1)
+
+//sub-type to be used for interior shuttle walls
+//won't get an underlay of the destination turf on shuttle move
+/turf/simulated/wall/mineral/titanium/interior/copyTurf(turf/T)
+	if(T.type != type)
+		T.ChangeTurf(type)
+		if(underlays.len)
+			T.underlays = underlays
+	if(T.icon_state != icon_state)
+		T.icon_state = icon_state
+	if(T.icon != icon)
+		T.icon = icon
+	if(T.color != color)
+		T.color = color
+	if(T.dir != dir)
+		T.dir = dir
+	T.transform = transform
+	return T
+
+/turf/simulated/wall/mineral/titanium/copyTurf(turf/T)
+	. = ..()
+	T.transform = transform
+
+/turf/simulated/wall/mineral/titanium/survival
+	name = "pod wall"
+	desc = "An easily-compressable wall used for temporary shelter."
+	icon = 'icons/turf/walls/survival_pod_walls.dmi'
+	icon_state = "smooth"
+	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock, /obj/structure/window/full, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine)
+
+/turf/simulated/wall/mineral/titanium/survival/nodiagonal
+	smooth = SMOOTH_MORE
+
+/turf/simulated/wall/mineral/titanium/survival/pod
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod)
+
+/////////////////////Plastitanium walls/////////////////////
+
+/turf/simulated/wall/mineral/plastitanium
+	name = "wall"
+	desc = "An evil wall of plasma and titanium."
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon_state = "map-shuttle"
+	explosion_block = 4
+	sheet_type = /obj/item/stack/sheet/mineral/plastitanium
+	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/shuttle/engine, /obj/structure/falsewall/plastitanium)
+
+/turf/simulated/wall/mineral/plastitanium/nodiagonal
+	smooth = SMOOTH_MORE
+	icon_state = "map-shuttle_nd"
+
+/turf/simulated/wall/mineral/plastitanium/nosmooth
+	icon = 'icons/turf/shuttle.dmi'
+	icon_state = "wall"
+	smooth = SMOOTH_FALSE
+
+/turf/simulated/wall/mineral/plastitanium/overspace
+	icon_state = "map-overspace"
+	fixed_underlay = list("space"=1)
+
+//have to copypaste this code
+/turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)
+	if(T.type != type)
+		T.ChangeTurf(type)
+		if(underlays.len)
+			T.underlays = underlays
+	if(T.icon_state != icon_state)
+		T.icon_state = icon_state
+	if(T.icon != icon)
+		T.icon = icon
+	if(T.color != color)
+		T.color = color
+	if(T.dir != dir)
+		T.dir = dir
+	T.transform = transform
+	return T
+
+/turf/simulated/wall/mineral/plastitanium/copyTurf(turf/T)
+	. = ..()
+	T.transform = transform

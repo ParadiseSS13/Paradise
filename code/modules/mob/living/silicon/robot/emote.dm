@@ -135,7 +135,7 @@
 
 
 		if("law")
-			if(istype(module,/obj/item/weapon/robot_module/security))
+			if(istype(module,/obj/item/robot_module/security))
 				message = "<B>[src]</B> shows its legal authorization barcode."
 
 				playsound(src.loc, 'sound/voice/biamthelaw.ogg', 50, 0)
@@ -144,7 +144,7 @@
 				to_chat(src, "You are not THE LAW, pal.")
 
 		if("halt")
-			if(istype(module,/obj/item/weapon/robot_module/security))
+			if(istype(module,/obj/item/robot_module/security))
 				message = "<B>[src]</B>'s speakers skreech, \"Halt! Security!\"."
 
 				playsound(src.loc, 'sound/voice/halt.ogg', 50, 0)
@@ -165,6 +165,9 @@
 /mob/living/silicon/robot/verb/powerwarn()
 	set category = "Robot Commands"
 	set name = "Power Warning"
+
+	if(handle_emote_CD(50))
+		return
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		visible_message("The power warning light on <span class='name'>[src]</span> flashes urgently.",\

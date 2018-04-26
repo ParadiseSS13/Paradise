@@ -110,7 +110,7 @@
 		user.drop_item()
 		qdel(W)
 		return
-	else if(istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/wrench))
 		if(unwrenched==0)
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")

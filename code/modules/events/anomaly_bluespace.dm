@@ -16,9 +16,9 @@
 		var/turf/T = pick(get_area_turfs(impact_area))
 		if(T)
 				// Calculate new position (searches through beacons in world)
-			var/obj/item/device/radio/beacon/chosen
+			var/obj/item/radio/beacon/chosen
 			var/list/possible = list()
-			for(var/obj/item/device/radio/beacon/W in world)
+			for(var/obj/item/radio/beacon/W in world)
 				if(!is_station_level(W.z))
 					continue
 				possible += W
@@ -43,7 +43,7 @@
 				var/y_distance = TO.y - FROM.y
 				var/x_distance = TO.x - FROM.x
 				for(var/atom/movable/A in range(12, FROM )) // iterate thru list of mobs in the area
-					if(istype(A, /obj/item/device/radio/beacon)) continue // don't teleport beacons because that's just insanely stupid
+					if(istype(A, /obj/item/radio/beacon)) continue // don't teleport beacons because that's just insanely stupid
 					if(A.anchored) continue
 
 					var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.z) // calculate the new place

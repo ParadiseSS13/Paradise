@@ -36,7 +36,7 @@
 	..()
 
 /datum/computer_file/program/ntnet_dos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
@@ -67,7 +67,7 @@
 				executed = 1
 				target.dos_sources.Add(src)
 				if(ntnet_global.intrusion_detection_enabled)
-					var/obj/item/weapon/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
+					var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
 					ntnet_global.add_log("IDS WARNING - Excess traffic flood targeting relay [target.uid] detected from device: [network_card.get_network_tag()]")
 					ntnet_global.intrusion_detection_alarm = 1
 			return 1

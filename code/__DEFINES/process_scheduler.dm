@@ -31,4 +31,4 @@
 	if(##VARNAME == src)\
 		##VARNAME = null;\
 	else\
-		message_admins("Controller '[name]' asked to release global control in spite of not having it!");}\
+		message_admins("Controller '[name]' asked to release global control in spite of not having it!");}

@@ -102,16 +102,8 @@ var/global/list/limb_icon_cache = list()
 		return
 
 	if(species.has_organ["eyes"])
-		var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
-		var/obj/item/organ/internal/cyberimp/eyes/eye_implant = owner.get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-		if(species.eyes)
-			var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', species.eyes)
-			if(eye_implant) // Eye implants override native DNA eye color
-				eyes_icon.Blend(eye_implant.eye_colour, ICON_ADD)
-			else if(eyes)
-				eyes_icon.Blend(eyes.eye_colour, ICON_ADD)
-			else
-				eyes_icon.Blend("#800000", ICON_ADD)
+		var/icon/eyes_icon = owner.get_eyecon()
+		if(eyes_icon)
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY)
 			overlays |= eyes_icon
 

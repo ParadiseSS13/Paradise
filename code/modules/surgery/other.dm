@@ -61,7 +61,7 @@
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
 	allowed_tools = list(
-	/obj/item/weapon/FixOVein = 100, \
+	/obj/item/FixOVein = 100, \
 	/obj/item/stack/cable_coil = 90
 	)
 	can_infect = 1
@@ -99,16 +99,16 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
 	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
-	affected.take_damage(5, 0)
+	affected.receive_damage(5, 0)
 
 	return 0
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
 	name = "remove dead tissue"
 	allowed_tools = list(
-		/obj/item/weapon/scalpel = 100,		\
-		/obj/item/weapon/kitchen/knife = 90,	\
-		/obj/item/weapon/shard = 60, 		\
+		/obj/item/scalpel = 100,		\
+		/obj/item/kitchen/knife = 90,	\
+		/obj/item/shard = 60, 		\
 	)
 
 	can_infect = 1
@@ -148,20 +148,20 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
-	affected.take_damage(20)
+	affected.receive_damage(20)
 
 	return 0
 
 /datum/surgery_step/treat_necrosis
 	name = "treat necrosis"
 	allowed_tools = list(
-		/obj/item/weapon/reagent_containers/dropper = 100,
-		/obj/item/weapon/reagent_containers/glass/bottle = 90,
-		/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 85,
-		/obj/item/weapon/reagent_containers/food/drinks/bottle = 80,
-		/obj/item/weapon/reagent_containers/glass/beaker = 75,
-		/obj/item/weapon/reagent_containers/spray = 60,
-		/obj/item/weapon/reagent_containers/glass/bucket = 50
+		/obj/item/reagent_containers/dropper = 100,
+		/obj/item/reagent_containers/glass/bottle = 90,
+		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
+		/obj/item/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/reagent_containers/glass/beaker = 75,
+		/obj/item/reagent_containers/spray = 60,
+		/obj/item/reagent_containers/glass/bucket = 50
 	)
 
 	can_infect = 0
@@ -170,10 +170,10 @@
 	time = 24
 
 /datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/reagent_containers))
 		return 0
 
-	var/obj/item/weapon/reagent_containers/container = tool
+	var/obj/item/reagent_containers/container = tool
 	if(!container.reagents.has_reagent("mitocholide"))
 		user.visible_message("[user] looks at \the [tool] and ponders." , \
 		"You are not sure if \the [tool] contains mitocholide to treat the necrosis.")
@@ -197,10 +197,10 @@
 /datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/reagent_containers))
 		return 0
 
-	var/obj/item/weapon/reagent_containers/container = tool
+	var/obj/item/reagent_containers/container = tool
 	var/mitocholide = 0
 
 	if(container.reagents.has_reagent("mitocholide"))
@@ -222,10 +222,10 @@
 /datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(!istype(tool, /obj/item/weapon/reagent_containers))
+	if(!istype(tool, /obj/item/reagent_containers))
 		return
 
-	var/obj/item/weapon/reagent_containers/container = tool
+	var/obj/item/reagent_containers/container = tool
 
 	var/trans = container.reagents.trans_to(target, container.amount_per_transfer_from_this)
 	container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
@@ -285,7 +285,7 @@
 
 /datum/surgery_step/internal/dethrall
 	name = "cleanse contamination"
-	allowed_tools = list(/obj/item/device/flash = 100, /obj/item/device/flashlight/pen = 80, /obj/item/device/flashlight = 40)
+	allowed_tools = list(/obj/item/flash = 100, /obj/item/flashlight/pen = 80, /obj/item/flashlight = 40)
 	blood_level = 0
 	time = 30
 

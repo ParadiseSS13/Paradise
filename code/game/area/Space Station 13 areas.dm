@@ -61,6 +61,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/no_teleportlocs = 0
 
 	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
@@ -1868,6 +1869,7 @@ area/security/podbay
 /area/toxins/xenobiology
 	name = "\improper Xenobiology Lab"
 	icon_state = "toxmix"
+	xenobiology_compatible = TRUE
 
 /area/toxins/xenobiology/xenoflora_storage
 	name = "\improper Xenoflora Storage"
@@ -2114,26 +2116,39 @@ area/security/podbay
 
 /area/constructionsite/science
 	name = "\improper Construction Site Research"
+	icon_state = "medresearch"
 
 /area/constructionsite/bridge
 	name = "\improper Construction Site Bridge"
 	icon_state = "bridge"
 
-/area/constructionsite/maintenance
-	name = "\improper Construction Site Maintenance"
-	icon_state = "yellow"
+/area/constructionsite/hallway/center
+	name = "\improper Construction Site Central Hallway"
+	icon_state = "hallC"
 
-/area/constructionsite/hallway/aft
-	name = "\improper Construction Site Aft Hallway"
-	icon_state = "hallP"
+/area/constructionsite/hallway/engcore
+	name = "\improper Construction Site Eng Core"
+	icon_state = "green"
 
 /area/constructionsite/hallway/fore
-	name = "\improper Construction Site Fore Hallway"
+	name = "\improper Construction Site Fore"
+	icon_state = "green"
+
+/area/constructionsite/hallway/port
+	name = "\improper Construction Site Port"
+	icon_state = "hallP"
+
+/area/constructionsite/hallway/aft
+	name = "\improper Construction Site Aft"
+	icon_state = "hallA"
+
+/area/constructionsite/hallway/starboard
+	name = "\improper Construction Site Starboard"
 	icon_state = "hallS"
 
 /area/constructionsite/atmospherics
 	name = "\improper Construction Site Atmospherics"
-	icon_state = "green"
+	icon_state = "atmos"
 
 /area/constructionsite/medical
 	name = "\improper Construction Site Medbay"
@@ -2149,13 +2164,7 @@ area/security/podbay
 
 /area/solar/constructionsite
 	name = "\improper Construction Site Solars"
-	icon_state = "aft"
-
-//area/constructionsite
-//	name = "\improper Construction Site Shuttle"
-
-//area/constructionsite
-//	name = "\improper Construction Site Shuttle"
+	icon_state = "panelsA"
 
 
 //Construction

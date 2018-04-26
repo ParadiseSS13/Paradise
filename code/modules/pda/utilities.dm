@@ -49,7 +49,7 @@
 	user.show_message("<span class=notice>\t Key: Suffocation/Toxin/Burns/Brute</span>", 1)
 	user.show_message("<span class=notice>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
 	if(C.timeofdeath && (C.stat == DEAD || (C.status_flags & FAKEDEATH)))
-		user.show_message("<span class=notice>\t Time of Death: [worldtime2text(C.timeofdeath)]</span>")
+		user.show_message("<span class=notice>\t Time of Death: [station_time_timestamp("hh:mm:ss", C.timeofdeath)]</span>")
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		var/list/damaged = H.get_damaged_organs(1,1)
@@ -121,8 +121,8 @@
 	icon = "tachometer"
 
 /datum/data/pda/utility/scanmode/gas/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
-	if(istype(A, /obj/item/weapon/tank))
-		var/obj/item/weapon/tank/T = A
+	if(istype(A, /obj/item/tank))
+		var/obj/item/tank/T = A
 		pda.atmosanalyzer_scan(T.air_contents, user, T)
 	else if(istype(A, /obj/machinery/portable_atmospherics))
 		var/obj/machinery/portable_atmospherics/T = A
@@ -134,8 +134,8 @@
 		var/obj/machinery/power/rad_collector/T = A
 		if(T.P)
 			pda.atmosanalyzer_scan(T.P.air_contents, user, T)
-	else if(istype(A, /obj/item/weapon/flamethrower))
-		var/obj/item/weapon/flamethrower/T = A
+	else if(istype(A, /obj/item/flamethrower))
+		var/obj/item/flamethrower/T = A
 		if(T.ptank)
 			pda.atmosanalyzer_scan(T.ptank.air_contents, user, T)
 	else if(istype(A, /obj/machinery/portable_atmospherics/scrubber/huge))
@@ -155,8 +155,8 @@
 	notes = pda.find_program(/datum/data/pda/app/notekeeper)
 
 /datum/data/pda/utility/scanmode/notes/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
-	if(notes && istype(A, /obj/item/weapon/paper))
-		var/obj/item/weapon/paper/P = A
+	if(notes && istype(A, /obj/item/paper))
+		var/obj/item/paper/P = A
 		var/list/brlist = list("p", "/p", "br", "hr", "h1", "h2", "h3", "h4", "/h1", "/h2", "/h3", "/h4")
 
 		// JMO 20140705: Makes scanned document show up properly in the notes. Not pretty for formatted documents,

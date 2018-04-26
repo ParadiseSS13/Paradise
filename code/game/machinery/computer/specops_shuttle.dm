@@ -25,7 +25,7 @@ var/specops_shuttle_timeleft = 0
 	var/specops_shuttle_timereset = 0
 
 /proc/specops_return()
-	var/obj/item/device/radio/intercom/announcer = new /obj/item/device/radio/intercom(null)//We need a fake AI to announce some stuff below. Otherwise it will be wonky.
+	var/obj/item/radio/intercom/announcer = new /obj/item/radio/intercom(null)//We need a fake AI to announce some stuff below. Otherwise it will be wonky.
 	announcer.config(list("Response Team" = 0))
 
 	var/message_tracker[] = list(0,1,2,3,5,10,30,45)//Create a a list with potential time values.
@@ -100,7 +100,7 @@ var/specops_shuttle_timeleft = 0
 
 /proc/specops_process()
 	var/area/centcom/specops/special_ops = locate()//Where is the specops area located?
-	var/obj/item/device/radio/intercom/announcer = new /obj/item/device/radio/intercom(null)//We need a fake AI to announce some stuff below. Otherwise it will be wonky.
+	var/obj/item/radio/intercom/announcer = new /obj/item/radio/intercom(null)//We need a fake AI to announce some stuff below. Otherwise it will be wonky.
 	announcer.config(list("Response Team" = 0))
 
 	var/message_tracker[] = list(0,1,2,3,5,10,30,45)//Create a a list with potential time values.
@@ -231,7 +231,7 @@ var/specops_shuttle_timeleft = 0
 
 	for(var/turf/T in get_area_turfs(end_location) )
 		var/mob/M = locate(/mob) in T
-		to_chat(M, "<span class='warning'>You have arrived to [station_name]. Commence operation!</span>")
+		to_chat(M, "<span class='warning'>You have arrived to [station_name()]. Commence operation!</span>")
 
 	for(var/obj/machinery/computer/specops_shuttle/S in world)
 		S.specops_shuttle_timereset = world.time + SPECOPS_RETURN_DELAY
@@ -251,7 +251,7 @@ var/specops_shuttle_timeleft = 0
 	return 1
 
 /obj/machinery/computer/specops_shuttle/attackby(I as obj, user as mob, params)
-	if(istype(I,/obj/item/weapon/card/emag))
+	if(istype(I,/obj/item/card/emag))
 		to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
 	else
 		return attack_hand(user)
@@ -275,8 +275,8 @@ var/specops_shuttle_timeleft = 0
 		dat = temp
 	else
 		dat += {"<BR><B>Special Operations Shuttle</B><HR>
-		\nLocation: [specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "Departing for [station_name] in ([specops_shuttle_timeleft] seconds.)":specops_shuttle_at_station ? "Station":"Dock"]<BR>
-		[specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "\n*The Special Ops. shuttle is already leaving.*<BR>\n<BR>":specops_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle standing by...</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name]</A><BR>\n<BR>"]
+		\nLocation: [specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "Departing for [station_name()] in ([specops_shuttle_timeleft] seconds.)":specops_shuttle_at_station ? "Station":"Dock"]<BR>
+		[specops_shuttle_moving_to_station || specops_shuttle_moving_to_centcom ? "\n*The Special Ops. shuttle is already leaving.*<BR>\n<BR>":specops_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle standing by...</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name()]</A><BR>\n<BR>"]
 		\n<A href='?src=[user.UID()];mach_close=computer'>Close</A>"}
 
 	user << browse(dat, "window=computer;size=575x450")
@@ -318,7 +318,7 @@ var/specops_shuttle_timeleft = 0
 			to_chat(usr, "<span class='warning'>The Special Operations shuttle is unable to leave.</span>")
 			return
 
-		to_chat(usr, "<span class='notice'>The Special Operations shuttle will arrive on [station_name] in [(SPECOPS_MOVETIME/10)] seconds.</span>")
+		to_chat(usr, "<span class='notice'>The Special Operations shuttle will arrive on [station_name()] in [(SPECOPS_MOVETIME/10)] seconds.</span>")
 
 		temp += "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()

@@ -1,4 +1,4 @@
-/obj/item/device/mmi/posibrain
+/obj/item/mmi/posibrain
 	name = "positronic brain"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
 	icon = 'icons/obj/assemblies.dmi'
@@ -15,11 +15,11 @@
 	var/silenced = 0 //if set to 1, they can't talk.
 	var/next_ping_at = 0
 
-/obj/item/device/mmi/posibrain/examine(mob/user)
+/obj/item/mmi/posibrain/examine(mob/user)
 	if(..(user, 1))
 		to_chat(user, "Its speaker is turned [silenced ? "off" : "on"].")
 
-/obj/item/device/mmi/posibrain/attack_self(mob/user)
+/obj/item/mmi/posibrain/attack_self(mob/user)
 	if(brainmob && !brainmob.key && searching == 0)
 		//Start the process of searching for a new user.
 		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>")
@@ -41,12 +41,12 @@
 		if(brainmob && brainmob.key)
 			to_chat(brainmob, "<span class='warning'>Your internal speaker has been toggled [silenced ? "off" : "on"].</span>")
 
-/obj/item/device/mmi/posibrain/proc/request_player()
+/obj/item/mmi/posibrain/proc/request_player()
 	for(var/mob/dead/observer/O in player_list)
 		if(check_observer(O))
 			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 
-/obj/item/device/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
+/obj/item/mmi/posibrain/proc/check_observer(var/mob/dead/observer/O)
 	if(cannotPossess(O))
 		return 0
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O,"nonhumandept"))
@@ -57,7 +57,7 @@
 		return 1
 	return 0
 
-/obj/item/device/mmi/posibrain/proc/question(var/client/C)
+/obj/item/mmi/posibrain/proc/question(var/client/C)
 	spawn(0)
 		if(!C)	return
 		var/response = alert(C, "Someone is requesting a personality for a positronic brain. Would you like to play as one?", "Positronic brain request", "Yes", "No", "Never for this round")
@@ -68,11 +68,11 @@
 			C.prefs.be_special -= ROLE_POSIBRAIN
 
 // This should not ever happen, but let's be safe
-/obj/item/device/mmi/posibrain/dropbrain(var/turf/dropspot)
+/obj/item/mmi/posibrain/dropbrain(var/turf/dropspot)
 	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
 	return
 
-/obj/item/device/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)
+/obj/item/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)
 	name = "positronic brain ([H])"
 	if(isnull(brainmob.dna))
 		brainmob.dna = H.dna.Clone()
@@ -88,7 +88,7 @@
 	icon_state = "posibrain-occupied"
 	return
 
-/obj/item/device/mmi/posibrain/proc/transfer_personality(var/mob/candidate)
+/obj/item/mmi/posibrain/proc/transfer_personality(var/mob/candidate)
 	src.searching = 0
 	src.brainmob.key = candidate.key
 	src.name = "positronic brain ([src.brainmob.name])"
@@ -103,7 +103,7 @@
 		M.show_message("<span class='notice'>The positronic brain chimes quietly.</span>")
 	icon_state = "posibrain-occupied"
 
-/obj/item/device/mmi/posibrain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
+/obj/item/mmi/posibrain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
 	if(src.brainmob && src.brainmob.key) return
 
 	src.searching = 0
@@ -113,13 +113,13 @@
 	for(var/mob/M in viewers(T))
 		M.show_message("<span class='notice'>The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?</span>")
 
-/obj/item/device/mmi/posibrain/Topic(href,href_list)
+/obj/item/mmi/posibrain/Topic(href,href_list)
 	if("signup" in href_list)
 		var/mob/dead/observer/O = locate(href_list["signup"])
 		if(!O) return
 		volunteer(O)
 
-/obj/item/device/mmi/posibrain/proc/volunteer(var/mob/dead/observer/O)
+/obj/item/mmi/posibrain/proc/volunteer(var/mob/dead/observer/O)
 	if(!searching)
 		to_chat(O, "Not looking for a ghost, yet.")
 		return
@@ -143,7 +143,7 @@
 	ghost_volunteers.Add(O)
 
 
-/obj/item/device/mmi/posibrain/examine(mob/user)
+/obj/item/mmi/posibrain/examine(mob/user)
 	to_chat(user, "<span class='info'>*---------*</span>")
 	if(!..(user))
 		to_chat(user, "<span class='info'>*---------*</span>")
@@ -162,7 +162,7 @@
 	msg += "*---------*</span>"
 	to_chat(user, msg)
 
-/obj/item/device/mmi/posibrain/emp_act(severity)
+/obj/item/mmi/posibrain/emp_act(severity)
 	if(!src.brainmob)
 		return
 	else
@@ -175,7 +175,7 @@
 				src.brainmob.emp_damage += rand(0,10)
 	..()
 
-/obj/item/device/mmi/posibrain/New()
+/obj/item/mmi/posibrain/New()
 	src.brainmob = new(src)
 	src.brainmob.name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
 	src.brainmob.real_name = src.brainmob.name
@@ -187,7 +187,7 @@
 
 	..()
 
-/obj/item/device/mmi/posibrain/attack_ghost(var/mob/dead/observer/O)
+/obj/item/mmi/posibrain/attack_ghost(var/mob/dead/observer/O)
 	if(searching)
 		volunteer(O)
 		return
@@ -200,6 +200,6 @@
 		for(var/mob/M in viewers(T))
 			M.show_message("<span class='notice'>The positronic brain pings softly.</span>")
 
-/obj/item/device/mmi/posibrain/ipc
+/obj/item/mmi/posibrain/ipc
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."
 	silenced = 1

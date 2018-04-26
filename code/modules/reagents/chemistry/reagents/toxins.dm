@@ -20,18 +20,6 @@
 	M.adjustToxLoss(1.5)
 	..()
 
-/datum/reagent/plasticide
-	name = "Plasticide"
-	id = "plasticide"
-	description = "Liquid plastic, do not eat."
-	reagent_state = LIQUID
-	color = "#CF3600" // rgb: 207, 54, 0
-
-/datum/reagent/plasticide/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1.5)
-	..()
-
-
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
 	id = "minttoxin"
@@ -246,7 +234,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(5, 10)
+							affecting.receive_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -272,7 +260,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(0, 20)
+							affecting.receive_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -624,7 +612,7 @@
 
 				if(!H.unacidable)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
-					affecting.take_damage(0, 75)
+					affecting.receive_damage(0, 75)
 					H.UpdateDamageIcon()
 					H.emote("scream")
 					H.status_flags |= DISFIGURED

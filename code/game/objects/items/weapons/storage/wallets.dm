@@ -1,4 +1,4 @@
-/obj/item/weapon/storage/wallet
+/obj/item/storage/wallet
 	name = "leather wallet"
 	desc = "Made from genuine leather, it is of the highest quality."
 	storage_slots = 10
@@ -8,44 +8,44 @@
 	burn_state = FLAMMABLE
 	can_hold = list(
 		/obj/item/stack/spacecash,
-		/obj/item/weapon/card,
+		/obj/item/card,
 		/obj/item/clothing/mask/cigarette,
-		/obj/item/device/flashlight/pen,
+		/obj/item/flashlight/pen,
 		/obj/item/seeds,
 		/obj/item/stack/medical,
 		/obj/item/toy/crayon,
-		/obj/item/weapon/coin,
-		/obj/item/weapon/dice,
-		/obj/item/weapon/disk,
-		/obj/item/weapon/implanter,
-		/obj/item/weapon/lighter,
-		/obj/item/weapon/match,
-		/obj/item/weapon/paper,
-		/obj/item/weapon/pen,
-		/obj/item/weapon/photo,
-		/obj/item/weapon/reagent_containers/dropper,
-		/obj/item/weapon/screwdriver,
-		/obj/item/weapon/stamp)
+		/obj/item/coin,
+		/obj/item/dice,
+		/obj/item/disk,
+		/obj/item/implanter,
+		/obj/item/lighter,
+		/obj/item/match,
+		/obj/item/paper,
+		/obj/item/pen,
+		/obj/item/photo,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/screwdriver,
+		/obj/item/stamp)
 	slot_flags = SLOT_ID
 
-	var/obj/item/weapon/card/id/front_id = null
+	var/obj/item/card/id/front_id = null
 
 
-/obj/item/weapon/storage/wallet/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/wallet/remove_from_storage(obj/item/W as obj, atom/new_location)
 	. = ..(W, new_location)
 	if(.)
 		if(W == front_id)
 			front_id = null
 			update_icon()
 
-/obj/item/weapon/storage/wallet/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
+/obj/item/storage/wallet/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
 	. = ..(W, prevent_warning)
 	if(.)
-		if(!front_id && istype(W, /obj/item/weapon/card/id))
+		if(!front_id && istype(W, /obj/item/card/id))
 			front_id = W
 			update_icon()
 
-/obj/item/weapon/storage/wallet/update_icon()
+/obj/item/storage/wallet/update_icon()
 
 	if(front_id)
 		switch(front_id.icon_state)
@@ -64,17 +64,17 @@
 	icon_state = "wallet"
 
 
-/obj/item/weapon/storage/wallet/GetID()
+/obj/item/storage/wallet/GetID()
 	return front_id
 
-/obj/item/weapon/storage/wallet/GetAccess()
+/obj/item/storage/wallet/GetAccess()
 	var/obj/item/I = GetID()
 	if(I)
 		return I.GetAccess()
 	else
 		return ..()
 
-/obj/item/weapon/storage/wallet/random/New()
+/obj/item/storage/wallet/random/New()
 	..()
 	var/item1_type = pick(/obj/item/stack/spacecash,
 		/obj/item/stack/spacecash/c10,
@@ -88,7 +88,7 @@
 		/obj/item/stack/spacecash/c100,
 		/obj/item/stack/spacecash/c500,
 		/obj/item/stack/spacecash/c1000)
-	var/item3_type = pick( /obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/gold, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron )
+	var/item3_type = pick( /obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/gold, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/iron )
 
 	spawn(2)
 		if(item1_type)
@@ -102,26 +102,26 @@
 //			Color Wallets			//
 //////////////////////////////////////
 
-/obj/item/weapon/storage/wallet/color
+/obj/item/storage/wallet/color
 	name = "cheap wallet"
 	desc = "A cheap wallet from the arcade."
 	storage_slots = 5		//smaller storage than normal wallets
 
-/obj/item/weapon/storage/wallet/color/New()
+/obj/item/storage/wallet/color/New()
 	..()
 	if(!item_color)
-		var/color_wallet = pick(subtypesof(/obj/item/weapon/storage/wallet/color))
+		var/color_wallet = pick(subtypesof(/obj/item/storage/wallet/color))
 		new color_wallet(src.loc)
 		qdel(src)
 		return
 	UpdateDesc()
 
-/obj/item/weapon/storage/wallet/color/proc/UpdateDesc()
+/obj/item/storage/wallet/color/proc/UpdateDesc()
 	name = "cheap [item_color] wallet"
 	desc = "A cheap, [item_color] wallet from the arcade."
 	icon_state = "[item_color]_wallet"
 
-/obj/item/weapon/storage/wallet/color/update_icon()
+/obj/item/storage/wallet/color/update_icon()
 	if(front_id)
 		switch(front_id.icon_state)
 			if("id")
@@ -138,20 +138,20 @@
 				return
 	icon_state = "[item_color]_wallet"
 
-/obj/item/weapon/storage/wallet/color/blue
+/obj/item/storage/wallet/color/blue
 	item_color = "blue"
 
-/obj/item/weapon/storage/wallet/color/red
+/obj/item/storage/wallet/color/red
 	item_color = "red"
 
-/obj/item/weapon/storage/wallet/color/yellow
+/obj/item/storage/wallet/color/yellow
 	item_color = "yellow"
 
-/obj/item/weapon/storage/wallet/color/green
+/obj/item/storage/wallet/color/green
 	item_color = "green"
 
-/obj/item/weapon/storage/wallet/color/pink
+/obj/item/storage/wallet/color/pink
 	item_color = "pink"
 
-/obj/item/weapon/storage/waller/color/brown
+/obj/item/storage/waller/color/brown
 	item_color = "brown"

@@ -67,18 +67,20 @@
 
 /datum/surgery_step/internal/manipulate_organs
 	name = "manipulate organs"
-	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/weapon/reagent_containers/food/snacks/organ = 0)
-	var/implements_extract = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/kitchen/utensil/fork = 70)
+	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/reagent_containers/food/snacks/organ = 0)
+	var/implements_extract = list(/obj/item/hemostat = 100, /obj/item/kitchen/utensil/fork = 70)
 	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
-	var/implements_clean = list(/obj/item/weapon/reagent_containers/dropper = 100,
-								/obj/item/weapon/reagent_containers/glass/bottle = 90,
-								/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 85,
-								/obj/item/weapon/reagent_containers/food/drinks/bottle = 80,
-								/obj/item/weapon/reagent_containers/glass/beaker = 75,
-								/obj/item/weapon/reagent_containers/spray = 60,
-								/obj/item/weapon/reagent_containers/glass/bucket = 50)
+	var/implements_clean = list(/obj/item/reagent_containers/dropper = 100,
+                /obj/item/reagent_containers/syringe = 100,
+								/obj/item/reagent_containers/glass/bottle = 90,
+								/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
+								/obj/item/reagent_containers/food/drinks/bottle = 80,
+								/obj/item/reagent_containers/glass/beaker = 75,
+								/obj/item/reagent_containers/spray = 60,
+								/obj/item/reagent_containers/glass/bucket = 50)
+
 	//Finish is just so you can close up after you do other things.
-	var/implements_finsh = list(/obj/item/weapon/scalpel/laser/manager = 100,/obj/item/weapon/retractor = 100 ,/obj/item/weapon/crowbar = 90)
+	var/implements_finsh = list(/obj/item/scalpel/laser/manager = 100,/obj/item/retractor = 100 ,/obj/item/crowbar = 90)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
@@ -122,20 +124,23 @@
 	else if(implement_type in implements_clean)
 		current_type = "clean"
 
-		if(!istype(tool, /obj/item/weapon/reagent_containers))
+		if(!istype(tool, /obj/item/reagent_containers))
 			return
 
-		var/obj/item/weapon/reagent_containers/C = tool
+		var/obj/item/reagent_containers/C = tool
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
-				if(C.reagents.total_volume < GHETTO_DISINFECT_AMOUNT)
+				if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
 					user.visible_message("[user] notices [tool] is empty.", \
-					"You notice [tool] is empty")
+					"You notice [tool] is empty.")
 					return 0
 
 				var/msg = "[user] starts pouring some of [tool] over [target]'s [I.name]."
 				var/self_msg = "You start pouring some of [tool] over [target]'s [I.name]."
+				if(istype(C,/obj/item/reagent_containers/syringe))
+					msg = "[user] begins injecting [tool] into [target]'s [I.name]."
+					self_msg = "You begin injecting [tool] into [target]'s [I.name]."
 				user.visible_message(msg, self_msg)
 				if(H && affected)
 					H.custom_pain("Something burns horribly in your [affected.name]!",1)
@@ -218,7 +223,7 @@
 		if(affected)
 			H.custom_pain("The pain in your [affected.name] is living hell!", 1)
 
-	else if(istype(tool, /obj/item/weapon/reagent_containers/food/snacks/organ))
+	else if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
 		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
 		return -1
 
@@ -271,14 +276,14 @@
 		if(target_zone == "head" && B && B.host == target)
 			user.visible_message("[user] successfully extracts [B] from [target]'s [parse_zone(target_zone)]!",
 				"<span class='notice'>You successfully extract [B] from [target]'s [parse_zone(target_zone)].</span>")
-			add_logs(user, target, "surgically removed [B] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_attack_logs(user, target, "Surgically removed [B]. INTENT: [uppertext(user.a_intent)]")
 			B.leave_host()
 			return FALSE
 		if(I && I.owner == target)
 			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with [tool].</span>",
 			"<span class='notice'> You have separated and extracted [target]'s [I] with [tool].</span>")
 
-			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user, tool)
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
@@ -294,29 +299,40 @@
 	else if(current_type == "clean")
 		if(!hasorgans(target))
 			return
-		if(!istype(tool,/obj/item/weapon/reagent_containers))
+		if(!istype(tool,/obj/item/reagent_containers))
 			return
 
-		var/obj/item/weapon/reagent_containers/C = tool
+		var/obj/item/reagent_containers/C = tool
 		var/datum/reagents/R = C.reagents
 		var/ethanol = 0 //how much alcohol is in the thing
+		var/spaceacillin = 0 //how much actual antibiotic is in the thing
 
 		if(R.reagent_list.len)
 			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
 				ethanol += alcohol.alcohol_perc * 300
 			ethanol /= R.reagent_list.len
 
+			spaceacillin = R.get_reagent_amount("spaceacillin")
+
+
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I)
 				if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
-					user.visible_message("[user] notices there is not enough of [tool].", \
-					"You notice there is not enough of [tool].")
+					user.visible_message("[user] notices there is not enough in [tool].", \
+					"You notice there is not enough in [tool].")
 					return 0
 				if(I.germ_level < INFECTION_LEVEL_ONE / 2)
 					to_chat(user, "[I] does not appear to be infected.")
 				if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
-					I.germ_level = max(I.germ_level-ethanol, 0)
-					user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
+					if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
+						I.germ_level = 0
+					else
+						I.germ_level = max(I.germ_level-ethanol, 0)
+					if(istype(C,/obj/item/reagent_containers/syringe))
+						user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
+					"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
+					else
+						user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
 					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
 					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
 					R.reaction(target, INGEST)
@@ -352,11 +368,11 @@
 		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
 			dam_amt = 5
 			target.adjustToxLoss(10)
-			affected.take_damage(5)
+			affected.receive_damage(5)
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage && !(I.tough))
-				I.take_damage(dam_amt,0)
+				I.receive_damage(dam_amt,0)
 
 		return 0
 
@@ -365,17 +381,17 @@
 		"<span class='warning'> Your hand slips, damaging [tool]!</span>")
 		var/obj/item/organ/internal/I = tool
 		if(istype(I) && !I.tough)
-			I.take_damage(rand(3,5),0)
+			I.receive_damage(rand(3,5),0)
 
 		return 0
 
 	else if(current_type == "clean")
 		if(!hasorgans(target))
 			return
-		if(!istype(tool,/obj/item/weapon/reagent_containers))
+		if(!istype(tool,/obj/item/reagent_containers))
 			return
 
-		var/obj/item/weapon/reagent_containers/C = tool
+		var/obj/item/reagent_containers/C = tool
 		var/datum/reagents/R = C.reagents
 		var/ethanol = 0 //how much alcohol is in the thing
 
@@ -386,7 +402,7 @@
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			I.germ_level = max(I.germ_level-ethanol, 0)
-			I.take_damage(rand(4,8),0)
+			I.receive_damage(rand(4,8),0)
 
 		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
 		R.reaction(target, INGEST)
@@ -400,7 +416,7 @@
 			if(affected)
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
-				affected.take_damage(20)
+				affected.receive_damage(20)
 			else
 				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
 				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
@@ -420,7 +436,7 @@
 			var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
 			user.visible_message(msg, self_msg)
 		if(affected)
-			affected.take_damage(20)
+			affected.receive_damage(20)
 		return 0
 
 
@@ -434,9 +450,9 @@
 /datum/surgery_step/saw_carapace
 	name = "saw carapace"
 	allowed_tools = list(
-	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/weapon/hatchet = 90
+	/obj/item/circular_saw = 100, \
+	/obj/item/melee/energy/sword/cyborg/saw = 100, \
+	/obj/item/hatchet = 90
 	)
 
 	time = 54
@@ -463,14 +479,14 @@
 /datum/surgery_step/cut_carapace
 	name = "cut carapace"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchen/knife = 90,	\
-	/obj/item/weapon/shard = 60, 		\
-	/obj/item/weapon/scissors = 12,		\
-	/obj/item/weapon/twohanded/chainsaw = 1, \
-	/obj/item/weapon/claymore = 6, \
-	/obj/item/weapon/melee/energy/ = 6, \
-	/obj/item/weapon/pen/edagger = 6, \
+	/obj/item/scalpel = 100,		\
+	/obj/item/kitchen/knife = 90,	\
+	/obj/item/shard = 60, 		\
+	/obj/item/scissors = 12,		\
+	/obj/item/twohanded/chainsaw = 1, \
+	/obj/item/claymore = 6, \
+	/obj/item/melee/energy/ = 6, \
+	/obj/item/pen/edagger = 6, \
 	)
 
 	time = 16
@@ -497,10 +513,10 @@
 	name = "retract carapace"
 
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser/manager = 100, \
-	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 90,	\
-	/obj/item/weapon/kitchen/utensil/fork = 60
+	/obj/item/scalpel/laser/manager = 100, \
+	/obj/item/retractor = 100, 	\
+	/obj/item/crowbar = 90,	\
+	/obj/item/kitchen/utensil/fork = 60
 	)
 
 	time = 24

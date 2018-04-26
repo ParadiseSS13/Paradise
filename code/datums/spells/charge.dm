@@ -33,9 +33,9 @@
 			charged_item = M
 			break
 		for(var/obj/item in hand_items)
-			if(istype(item, /obj/item/weapon/spellbook))
-				if(istype(item, /obj/item/weapon/spellbook/oneuse))
-					var/obj/item/weapon/spellbook/oneuse/I = item
+			if(istype(item, /obj/item/spellbook))
+				if(istype(item, /obj/item/spellbook/oneuse))
+					var/obj/item/spellbook/oneuse/I = item
 					if(prob(80))
 						L.visible_message("<span class='warning'>[I] catches fire!</span>")
 						qdel(I)
@@ -47,21 +47,21 @@
 					to_chat(L, "<span class='caution'>Glowing red letters appear on the front cover...</span>")
 					to_chat(L, "<span class='warning'>[pick("NICE TRY BUT NO!","CLEVER BUT NOT CLEVER ENOUGH!", "SUCH FLAGRANT CHEESING IS WHY WE ACCEPTED YOUR APPLICATION!", "CUTE!", "YOU DIDN'T THINK IT'D BE THAT EASY, DID YOU?")]</span>")
 					burnt_out = 1
-			else if(istype(item, /obj/item/weapon/gun/magic))
-				var/obj/item/weapon/gun/magic/I = item
+			else if(istype(item, /obj/item/gun/magic))
+				var/obj/item/gun/magic/I = item
 				if(prob(80) && !I.can_charge)
 					I.max_charges--
 				if(I.max_charges <= 0)
 					I.max_charges = 0
 					burnt_out = 1
 				I.charges = I.max_charges
-				if(istype(item,/obj/item/weapon/gun/magic/wand) && I.max_charges != 0)
-					var/obj/item/weapon/gun/magic/W = item
+				if(istype(item,/obj/item/gun/magic/wand) && I.max_charges != 0)
+					var/obj/item/gun/magic/W = item
 					W.icon_state = initial(W.icon_state)
 				charged_item = I
 				break
-			else if(istype(item, /obj/item/weapon/stock_parts/cell/))
-				var/obj/item/weapon/stock_parts/cell/C = item
+			else if(istype(item, /obj/item/stock_parts/cell/))
+				var/obj/item/stock_parts/cell/C = item
 				if(!C.self_recharge)
 					if(prob(80))
 						C.maxcharge -= 200
@@ -74,8 +74,8 @@
 			else if(item.contents)
 				var/obj/I = null
 				for(I in item.contents)
-					if(istype(I, /obj/item/weapon/stock_parts/cell/))
-						var/obj/item/weapon/stock_parts/cell/C = I
+					if(istype(I, /obj/item/stock_parts/cell/))
+						var/obj/item/stock_parts/cell/C = I
 						if(!C.self_recharge)
 							if(prob(80))
 								C.maxcharge -= 200

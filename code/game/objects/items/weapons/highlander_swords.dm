@@ -12,19 +12,19 @@
 //Highlander Claymore
 //	Grants the wielder the Highlander Style Martial Art
 
-/obj/item/weapon/claymore/highlander
+/obj/item/claymore/highlander
 	name = "Highlander Claymore"
 	desc = "Imbues the wielder with legendary martial prowress and a nigh-unquenchable thirst for glorious battle!"
 	var/datum/martial_art/highlander/style = new
 
-/obj/item/weapon/claymore/highlander/Destroy()
+/obj/item/claymore/highlander/Destroy()
 	if(ishuman(loc))	//just in case it gets destroyed while in someone's possession, such as due to acid or something?
 		var/mob/living/carbon/human/H = loc
 		style.remove(H)
 	QDEL_NULL(style)
 	return ..()
 
-/obj/item/weapon/claymore/highlander/equipped(mob/user, slot)
+/obj/item/claymore/highlander/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -34,17 +34,17 @@
 			to_chat(H, "<span class='notice'>THERE CAN ONLY BE ONE!</span>")
 	else if(H.martial_art && H.martial_art == style)
 		style.remove(H)
-		var/obj/item/weapon/claymore/highlander/sword = H.is_in_hands(/obj/item/weapon/claymore/highlander)
+		var/obj/item/claymore/highlander/sword = H.is_in_hands(/obj/item/claymore/highlander)
 		if(sword)
 			//if we have a highlander sword in the other hand, relearn the style from that sword.
 			sword.style.teach(H, 1)
 
-/obj/item/weapon/claymore/highlander/dropped(mob/user)
+/obj/item/claymore/highlander/dropped(mob/user)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	style.remove(H)
-	var/obj/item/weapon/claymore/highlander/sword = H.is_in_hands(/obj/item/weapon/claymore/highlander)
+	var/obj/item/claymore/highlander/sword = H.is_in_hands(/obj/item/claymore/highlander)
 	if(sword)
 		//if we have a highlander sword in the other hand, relearn the style from that sword.
 		sword.style.teach(H, 1)

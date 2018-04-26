@@ -20,7 +20,7 @@
 							  list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine", "charcoal", "mutadone", "mannitol", "pen_acid", "omnizine"))
 	var/emergency_chems = list("epinephrine") // Desnowflaking
 	var/amounts = list(5, 10)
-	var/obj/item/weapon/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/glass/beaker = null
 	var/filtering = 0
 	var/max_chem
 	var/initial_bin_rating = 1
@@ -42,36 +42,36 @@
 /obj/machinery/sleeper/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/sleeper(null)
+	component_parts += new /obj/item/circuitboard/sleeper(null)
 
 	// Customizable bin rating, used by the labor camp to stop people filling themselves with chemicals and escaping.
-	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	var/obj/item/stock_parts/matter_bin/B = new(null)
 	B.rating = initial_bin_rating
 	component_parts += B
 
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/sleeper/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/sleeper(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/sleeper(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
 	var/I
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		E += B.rating
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		I += M.rating
 
 	injection_chems = possible_chems[I]
@@ -140,7 +140,7 @@
 	ui_interact(user)
 
 /obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "sleeper.tmpl", "Sleeper", 550, 770)
 		ui.open()
@@ -280,8 +280,8 @@
 	return
 
 
-/obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
-	if(istype(G, /obj/item/weapon/reagent_containers/glass))
+/obj/machinery/sleeper/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
+	if(istype(G, /obj/item/reagent_containers/glass))
 		if(!beaker)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [G] is stuck to you!</span>")
@@ -296,14 +296,14 @@
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
 			return
 
-	if(istype(G, /obj/item/weapon/screwdriver))
+	if(istype(G, /obj/item/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", G)
 		return
 
-	if(istype(G, /obj/item/weapon/wrench))
+	if(istype(G, /obj/item/wrench))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
@@ -322,11 +322,11 @@
 	if(exchange_parts(user, G))
 		return
 
-	if(istype(G, /obj/item/weapon/crowbar))
+	if(istype(G, /obj/item/crowbar))
 		default_deconstruction_crowbar(G)
 		return
 
-	if(istype(G, /obj/item/weapon/grab))
+	if(istype(G, /obj/item/grab))
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
@@ -398,24 +398,6 @@
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
-
-
-// ???
-// This looks cool, although mildly broken, should it be included again?
-/obj/machinery/sleeper/alter_health(mob/living/M as mob)
-	if(M.health > 0)
-		if(M.getOxyLoss() >= 10)
-			var/amount = max(0.15, 1)
-			M.adjustOxyLoss(-amount)
-		else
-			M.adjustOxyLoss(-12)
-		M.updatehealth()
-	M.AdjustParalysis(-4)
-	M.AdjustWeakened(-4)
-	M.AdjustStunned(-4)
-	if(M:reagents.get_reagent_amount("salglu_solution") < 5)
-		M:reagents.add_reagent("salglu_solution", 5)
-	return
 
 /obj/machinery/sleeper/proc/toggle_filter()
 	if(filtering)
@@ -583,13 +565,13 @@
 /obj/machinery/sleeper/syndie/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/sleeper/syndicate(null)
-	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
+	var/obj/item/stock_parts/matter_bin/B = new(null)
 	B.rating = initial_bin_rating
 	component_parts += B
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 

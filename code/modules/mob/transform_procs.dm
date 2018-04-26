@@ -86,11 +86,11 @@
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
 		if(O.mind.role_alt_title == "Android")
-			O.mmi = new /obj/item/device/mmi/posibrain(O)
+			O.mmi = new /obj/item/mmi/posibrain(O)
 		else if(O.mind.role_alt_title == "Robot")
 			O.mmi = null //Robots do not have removable brains.
 		else
-			O.mmi = new /obj/item/device/mmi(O)
+			O.mmi = new /obj/item/mmi(O)
 
 		if(O.mmi) O.mmi.transfer_identity(src) //Does not transfer key/client.
 
@@ -255,7 +255,7 @@
 	for(var/t in bodyparts)	//this really should not be necessary
 		qdel(t)
 
-	var/obj/item/device/paicard/card = new(loc)
+	var/obj/item/paicard/card = new(loc)
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.key = key
 	card.setPersonality(pai)
@@ -274,6 +274,9 @@
 	if(!MP)
 		return 0
 
+	if(!GAMEMODE_IS_NUCLEAR)
+		if(ispath(MP, /mob/living/simple_animal/pet/cat/Syndi))
+			return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
@@ -288,6 +291,9 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/pony))
 		return 1
+	if(!GAMEMODE_IS_NUCLEAR)
+		if(ispath(MP, /mob/living/simple_animal/pet/fox/Syndifox))
+			return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/fox))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))

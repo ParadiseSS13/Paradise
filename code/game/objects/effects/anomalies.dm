@@ -9,7 +9,7 @@
 	density = 0
 	anchored = 1
 	luminosity = 3
-	var/obj/item/device/assembly/signaler/anomaly/aSignal = null
+	var/obj/item/assembly/signaler/anomaly/aSignal = null
 
 /obj/effect/anomaly/New()
 	set_light(initial(luminosity))
@@ -43,7 +43,7 @@
 
 
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/analyzer))
+	if(istype(I, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [aSignal.code]:[format_frequency(aSignal.frequency)].</span>")
 
 ///////////////////////

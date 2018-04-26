@@ -287,6 +287,7 @@
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
+// Return the parent value if processing does not explicitly stop
 // Return 0 if it shouldn't deplete and do its normal effect
 // Other return values will cause weird badness
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
@@ -533,8 +534,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(hat.helmet_goggles_invis_view)
 				H.see_invisible = min(hat.helmet_goggles_invis_view, H.see_invisible)
 
-	if(istype(H.back, /obj/item/weapon/rig)) ///aghhh so snowflakey
-		var/obj/item/weapon/rig/rig = H.back
+	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
+		var/obj/item/rig/rig = H.back
 		if(rig.visor)
 			if(!rig.helmet || (H.head && rig.helmet == H.head))
 				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
@@ -565,7 +566,5 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.see_invisible = H.see_override
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
-	if(temperature >= 330)
-		M.bodytemperature = M.bodytemperature + (temperature - M.bodytemperature)
-	if(temperature <= 280)
-		M.bodytemperature = M.bodytemperature - (M.bodytemperature - temperature)
+	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
+		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling

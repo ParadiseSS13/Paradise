@@ -32,8 +32,10 @@ Pipelines + Other Objects -> Pipe network
 	var/global/datum/pipe_icon_manager/icon_manager
 
 /obj/machinery/atmospherics/New()
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)
 	..()
-	atmos_machinery += src
+	SSair.atmos_machinery += src
 	if(!icon_manager)
 		icon_manager = new()
 
@@ -54,7 +56,8 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
-	atmos_machinery -= src
+	SSair.atmos_machinery -= src
+	SSair.deferred_pipenet_rebuilds -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -141,12 +144,13 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/replacePipenet()
 	return
 
-/obj/machinery/atmospherics/proc/build_network()
+/obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
-	return
+	if(remove_deferral)
+		SSair.deferred_pipenet_rebuilds -= src
 
 /obj/machinery/atmospherics/proc/defer_build_network()
-	deferred_pipenet_rebuilds += src
+	SSair.deferred_pipenet_rebuilds += src
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return
@@ -156,8 +160,8 @@ Pipelines + Other Objects -> Pipe network
 		P.other_atmosmch -= src
 
 //(De)construction
-/obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
+/obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
+	if(can_unwrench && istype(W, /obj/item/wrench))
 		var/turf/T = get_turf(src)
 		if(level == 1 && isturf(T) && T.intact)
 			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
@@ -177,7 +181,7 @@ Pipelines + Other Objects -> Pipe network
 			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 40 * W.toolspeed, target = src) && isnull(gcDestroyed))
+		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				"<span class='notice'>You have unfastened \the [src].</span>", \
@@ -187,7 +191,7 @@ Pipelines + Other Objects -> Pipe network
 			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
 			if(unsafe_wrenching)
 				unsafe_pressure_release(user,internal_pressure)
-			Deconstruct()
+			deconstruct(TRUE)
 	else
 		return ..()
 
@@ -208,13 +212,16 @@ Pipelines + Other Objects -> Pipe network
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
 	user.throw_at(general_direction,pressures/10,pressures/50)
 
-/obj/machinery/atmospherics/proc/Deconstruct()
-	if(can_unwrench)
-		stored.loc = get_turf(src)
-		transfer_fingerprints_to(stored)
-		stored = null
-
-	qdel(src)
+/obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
+	if(can_deconstruct)
+		if(can_unwrench)
+			if(stored)
+				stored.forceMove(get_turf(src))
+				if(!disassembled)
+					stored.obj_integrity = stored.max_integrity * 0.5
+				transfer_fingerprints_to(stored)
+				stored = null
+	..()
 
 /obj/machinery/atmospherics/on_construction(D, P, C)
 	if(C)
@@ -321,7 +328,7 @@ Pipelines + Other Objects -> Pipe network
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
-		Deconstruct()
+		deconstruct(FALSE)
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
 	user.sight |= (SEE_TURFS|BLIND)

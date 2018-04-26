@@ -244,23 +244,28 @@
 
 
 /obj/machinery/transformer/xray/proc/scan(var/obj/item/I)
-	var/badcount = 0
-	for(var/obj/item/weapon/gun/G in src.loc)
-		badcount++
-	for(var/obj/item/device/transfer_valve/B in src.loc)
-		badcount++
-	for(var/obj/item/weapon/kitchen/knife/K in src.loc)
-		badcount++
-	for(var/obj/item/weapon/grenade/plastic/c4/KK in src.loc)
-		badcount++
-	for(var/obj/item/weapon/melee/ML in src.loc)
-		badcount++
-	if(badcount)
+	if(scan_rec(I))
 		playsound(src.loc, 'sound/effects/alert.ogg', 50, 0)
 		flick("separator-AO0",src)
 	else
 		playsound(src.loc, 'sound/machines/ping.ogg', 50, 0)
 		sleep(30)
+
+/obj/machinery/transformer/xray/proc/scan_rec(var/obj/item/I)
+	if(istype(I, /obj/item/gun))
+		return TRUE
+	if(istype(I, /obj/item/transfer_valve))
+		return TRUE
+	if(istype(I, /obj/item/kitchen/knife))
+		return TRUE
+	if(istype(I, /obj/item/grenade/plastic/c4))
+		return TRUE
+	if(istype(I, /obj/item/melee))
+		return TRUE
+	for(var/obj/item/C in I.contents)
+		if(scan_rec(C))
+			return TRUE
+	return FALSE
 
 /obj/machinery/transformer/equipper
 	name = "Auto-equipper 9000"
@@ -277,7 +282,7 @@
 
 	if(prestrip)
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/weapon/implant))
+			if(istype(I, /obj/item/implant))
 				continue
 			if(istype(I, /obj/item/organ))
 				continue
@@ -340,11 +345,11 @@
 	H.update_mutations()
 
 /obj/machinery/transformer/gene_applier/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/weapon/disk/data))
+	if(istype(W, /obj/item/disk/data))
 		if(locked)
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
 			return FALSE
-		var/obj/item/weapon/disk/data/D = W
+		var/obj/item/disk/data/D = W
 		if(!D.buf)
 			to_chat(user, "<span class='warning'>Error: No data found.</span>")
 			return FALSE

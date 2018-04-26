@@ -55,7 +55,7 @@
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
 	else
-		if(istype(I, /obj/item/weapon/screwdriver))
+		if(istype(I, /obj/item/screwdriver))
 			if(BB)
 				if(initial(BB.name) == "bullet")
 					var/tmp_label = ""

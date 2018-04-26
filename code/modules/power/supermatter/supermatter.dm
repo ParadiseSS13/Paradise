@@ -56,7 +56,7 @@
 	//How much hallucination should it produce per unit of power?
 	var/config_hallucination_power = 0.1
 
-	var/obj/item/device/radio/radio
+	var/obj/item/radio/radio
 
 	//for logging
 	var/has_been_powered = 0
@@ -260,7 +260,7 @@
 
 // This is purely informational UI that may be accessed by AIs or robots
 /obj/machinery/power/supermatter_shard/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "supermatter_crystal.tmpl", "Supermatter Crystal", 500, 300)
 		ui.open()

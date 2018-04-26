@@ -22,11 +22,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	slot_flags = SLOT_EARS|SLOT_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
-	attack_verb = list("burnt", "singed")
-	var/lit = 0
+	attack_verb = null
+	var/lit = FALSE
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
-	var/type_butt = /obj/item/weapon/cigbutt
+	var/type_butt = /obj/item/cigbutt
 	var/lastHolder = null
 	var/smoketime = 300
 	var/chem_volume = 30
@@ -63,38 +63,38 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/fire_act()
 	light()
 
-/obj/item/clothing/mask/cigarette/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/clothing/mask/cigarette/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = W
 		if(WT.isOn())//Badasses dont get blinded while lighting their cig with a welding tool
 			light("<span class='notice'>[user] casually lights the [name] with [W], what a badass.</span>")
 
-	else if(istype(W, /obj/item/weapon/lighter/zippo))
-		var/obj/item/weapon/lighter/zippo/Z = W
+	else if(istype(W, /obj/item/lighter/zippo))
+		var/obj/item/lighter/zippo/Z = W
 		if(Z.lit)
 			light("<span class='rose'>With a single flick of their wrist, [user] smoothly lights their [name] with their [W]. Damn they're cool.</span>")
 
-	else if(istype(W, /obj/item/weapon/lighter))
-		var/obj/item/weapon/lighter/L = W
+	else if(istype(W, /obj/item/lighter))
+		var/obj/item/lighter/L = W
 		if(L.lit)
 			light("<span class='notice'>After some fiddling, [user] manages to light their [name] with [W].</span>")
 
-	else if(istype(W, /obj/item/weapon/match))
-		var/obj/item/weapon/match/M = W
+	else if(istype(W, /obj/item/match))
+		var/obj/item/match/M = W
 		if(M.lit == 1)
 			light("<span class='notice'>[user] lights their [name] with their [W].</span>")
 
-	else if(istype(W, /obj/item/weapon/melee/energy/sword/saber))
-		var/obj/item/weapon/melee/energy/sword/saber/S = W
+	else if(istype(W, /obj/item/melee/energy/sword/saber))
+		var/obj/item/melee/energy/sword/saber/S = W
 		if(S.active)
 			light("<span class='warning'>[user] swings their [W], barely missing their nose. They light their [name] in the process.</span>")
 
-	else if(istype(W, /obj/item/device/assembly/igniter))
+	else if(istype(W, /obj/item/assembly/igniter))
 		light("<span class='notice'>[user] fiddles with [W], and manages to light their [name].</span>")
 
-	else if(istype(W, /obj/item/weapon/gun/magic/wand/fireball))
-		var/obj/item/weapon/gun/magic/wand/fireball/F = W
+	else if(istype(W, /obj/item/gun/magic/wand/fireball))
+		var/obj/item/gun/magic/wand/fireball/F = W
 		if(F.charges)
 			if(prob(50) || user.mind.assigned_role == "Wizard")
 				light("<span class='notice'>Holy shit, did [user] just manage to light their [name] with [W], with only moderate eyebrow singing?</span>")
@@ -111,7 +111,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	return
 
 
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/weapon/reagent_containers/glass/glass, mob/user as mob, proximity)
+/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user as mob, proximity)
 	..()
 	if(!proximity) return
 	if(istype(glass))	//you can dip cigarettes into beakers
@@ -128,7 +128,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(!src.lit)
 		src.lit = 1
+		name = "lit [name]"
+		attack_verb = list("burnt", "singed")
+		hitsound = 'sound/items/welder.ogg'
 		damtype = "fire"
+		force = 4
 		if(reagents.get_reagent_amount("plasma")) // the plasma explodes when exposed to fire
 			var/datum/effect_system/reagents_explosion/e = new()
 			e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
@@ -223,7 +227,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "spliffoff"
 	icon_on = "spliffon"
 	icon_off = "spliffoff"
-	type_butt = /obj/item/weapon/cigbutt/roach
+	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
 	item_state = "spliffoff"
 	smoketime = 180
@@ -235,12 +239,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	pixel_y = rand(-5, 5)
 
 
-/obj/item/weapon/cigbutt/roach
+/obj/item/cigbutt/roach
 	name = "roach"
 	desc = "A manky old roach, or for non-stoners, a used rollup."
 	icon_state = "roach"
 
-/obj/item/weapon/cigbutt/roach/New()
+/obj/item/cigbutt/roach/New()
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -254,7 +258,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigaroff"
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
-	type_butt = /obj/item/weapon/cigbutt/cigarbutt
+	type_butt = /obj/item/cigbutt/cigarbutt
 	throw_speed = 0.5
 	item_state = "cigaroff"
 	smoketime = 1500
@@ -280,7 +284,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	smoketime = 7200
 	chem_volume = 60
 
-/obj/item/weapon/cigbutt
+/obj/item/cigbutt
 	name = "cigarette butt"
 	desc = "A manky old cigarette butt."
 	icon = 'icons/obj/clothing/masks.dmi'
@@ -288,20 +292,20 @@ LIGHTERS ARE IN LIGHTERS.DM
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 1
 
-/obj/item/weapon/cigbutt/New()
+/obj/item/cigbutt/New()
 	..()
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	transform = turn(transform,rand(0,360))
 
-/obj/item/weapon/cigbutt/cigarbutt
+/obj/item/cigbutt/cigarbutt
 	name = "cigar butt"
 	desc = "A manky old cigar butt."
 	icon_state = "cigarbutt"
 
 
-/obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/match))
+/obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/match))
 		..()
 	else
 		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such uncivilized means.</span>")
@@ -365,8 +369,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 		smoketime = initial(smoketime)
 	return
 
-/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/match))
+/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/match))
 		..()
 	else
 		to_chat(user, "<span class='notice'>\The [src] straight out REFUSES to be lit by such means.</span>")
@@ -384,18 +388,18 @@ LIGHTERS ARE IN LIGHTERS.DM
 ///////////
 //ROLLING//
 ///////////
-/obj/item/weapon/rollingpaper
+/obj/item/rollingpaper
 	name = "rolling paper"
 	desc = "A thin piece of paper used to make fine smokeables."
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/weapon/rollingpaper/afterattack(atom/target, mob/user, proximity)
+/obj/item/rollingpaper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(target, /obj/item/weapon/reagent_containers/food/snacks/grown))
-		var/obj/item/weapon/reagent_containers/food/snacks/grown/O = target
+	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
+		var/obj/item/reagent_containers/food/snacks/grown/O = target
 		if(O.dry)
 			user.unEquip(target, 1)
 			user.unEquip(src, 1)

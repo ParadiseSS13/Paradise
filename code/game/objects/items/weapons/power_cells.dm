@@ -1,4 +1,4 @@
-/obj/item/weapon/stock_parts/cell
+/obj/item/stock_parts/cell
 	name = "power cell"
 	desc = "A rechargable electrochemical power cell."
 	icon = 'icons/obj/power.dmi'
@@ -18,17 +18,17 @@
 	var/self_recharge = 0 //does it self recharge, over time, or not?
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
 
-/obj/item/weapon/stock_parts/cell/New()
+/obj/item/stock_parts/cell/New()
 	..()
 	processing_objects.Add(src)
 	charge = maxcharge
 	updateicon()
 
-/obj/item/weapon/stock_parts/cell/Destroy()
+/obj/item/stock_parts/cell/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/weapon/stock_parts/cell/vv_edit_var(var_name, var_value)
+/obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("self_recharge")
 			if(var_value)
@@ -37,17 +37,17 @@
 				processing_objects.Remove(src)
 	. = ..()
 
-/obj/item/weapon/stock_parts/cell/suicide_act(mob/user)
+/obj/item/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src.name]! It looks like \he's trying to commit suicide.</span>")
 	return (FIRELOSS)
 
-/obj/item/weapon/stock_parts/cell/process()
+/obj/item/stock_parts/cell/process()
 	if(self_recharge)
 		give(chargerate * 0.25)
 	else
 		return PROCESS_KILL
 
-/obj/item/weapon/stock_parts/cell/proc/updateicon()
+/obj/item/stock_parts/cell/proc/updateicon()
 	overlays.Cut()
 	if(grown_battery)
 		overlays += image('icons/obj/power.dmi', "grown_wires")
@@ -58,29 +58,29 @@
 	else
 		overlays += image('icons/obj/power.dmi', "cell-o1")
 
-/obj/item/weapon/stock_parts/cell/crap
+/obj/item/stock_parts/cell/crap
 	name = "\improper Nanotrasen brand rechargable AA battery"
 	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
 	maxcharge = 500
 	materials = list(MAT_GLASS=40)
 	rating = 2
 
-/obj/item/weapon/stock_parts/cell/crap/empty/New()
+/obj/item/stock_parts/cell/crap/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/stock_parts/cell/secborg
+/obj/item/stock_parts/cell/secborg
 	name = "\improper Security borg rechargable D battery"
 	origin_tech = null
 	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
 	materials = list(MAT_GLASS=40)
 	rating = 2.5
 
-/obj/item/weapon/stock_parts/cell/secborg/empty/New()
+/obj/item/stock_parts/cell/secborg/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/stock_parts/cell/high
+/obj/item/stock_parts/cell/high
 	name = "high-capacity power cell"
 	origin_tech = "powerstorage=2"
 	icon_state = "hcell"
@@ -89,18 +89,18 @@
 	rating = 3
 	chargerate = 1500
 
-/obj/item/weapon/stock_parts/cell/high/plus
+/obj/item/stock_parts/cell/high/plus
 	name = "high-capacity power cell+"
 	desc = "Where did these come from?"
 	icon_state = "h+cell"
 	maxcharge = 15000
 	chargerate = 2250
 
-/obj/item/weapon/stock_parts/cell/high/empty/New()
+/obj/item/stock_parts/cell/high/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/stock_parts/cell/super
+/obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
 	origin_tech = "powerstorage=3;materials=3"
 	icon_state = "scell"
@@ -109,11 +109,11 @@
 	rating = 4
 	chargerate = 2000
 
-/obj/item/weapon/stock_parts/cell/super/empty/New()
+/obj/item/stock_parts/cell/super/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/stock_parts/cell/hyper
+/obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
 	origin_tech = "powerstorage=4;engineering=4;materials=4"
 	icon_state = "hpcell"
@@ -122,11 +122,11 @@
 	rating = 5
 	chargerate = 3000
 
-/obj/item/weapon/stock_parts/cell/hyper/empty/New()
+/obj/item/stock_parts/cell/hyper/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/stock_parts/cell/bluespace
+/obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
 	origin_tech = "powerstorage=5;bluespace=4;materials=4;engineering=4"
 	icon_state = "bscell"
@@ -135,11 +135,11 @@
 	rating = 6
 	chargerate = 4000
 
-/obj/item/weapon/stock_parts/cell/bluespace/empty/New()
+/obj/item/stock_parts/cell/bluespace/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/stock_parts/cell/infinite
+/obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
 	icon_state = "icell"
 	origin_tech =  "powerstorage=7"
@@ -148,10 +148,10 @@
 	rating = 6
 	chargerate = 30000
 
-/obj/item/weapon/stock_parts/cell/infinite/use()
+/obj/item/stock_parts/cell/infinite/use()
 	return 1
 
-/obj/item/weapon/stock_parts/cell/potato
+/obj/item/stock_parts/cell/potato
 	name = "potato battery"
 	desc = "A rechargable starch based power cell."
 	icon = 'icons/obj/hydroponics/harvest.dmi'
@@ -163,7 +163,7 @@
 	rating = 1
 	grown_battery = TRUE //it has the overlays for wires
 
-/obj/item/weapon/stock_parts/cell/high/slime
+/obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"
 	desc = "A yellow slime core infused with plasma, it crackles with power."
 	origin_tech = "powerstorage=5;biotech=4"
@@ -173,39 +173,39 @@
 	self_recharge = 1 // Infused slime cores self-recharge, over time
 	chargerate = 500
 
-/obj/item/weapon/stock_parts/cell/pulse //200 pulse shots
+/obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
 	maxcharge = 40000
 	rating = 3
 	chargerate = 1500
 
-/obj/item/weapon/stock_parts/cell/pulse/carbine //25 pulse shots
+/obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
 	name = "pulse carbine power cell"
 	maxcharge = 5000
 
-/obj/item/weapon/stock_parts/cell/pulse/pistol //10 pulse shots
+/obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
 	name = "pulse pistol power cell"
 	maxcharge = 2000
 
-/obj/item/weapon/stock_parts/cell/ninja
+/obj/item/stock_parts/cell/ninja
 	name = "spider-clan power cell"
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	rating = 3
 	materials = list(MAT_GLASS=60)
 
-/obj/item/weapon/stock_parts/cell/emproof
+/obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
 	desc = "An EMP-proof cell."
 	maxcharge = 500
 	rating = 2
 
-/obj/item/weapon/stock_parts/cell/emproof/empty/New()
+/obj/item/stock_parts/cell/emproof/empty/New()
 	..()
 	charge = 0
 
-/obj/item/weapon/stock_parts/cell/emproof/emp_act(severity)
+/obj/item/stock_parts/cell/emproof/emp_act(severity)
 	return
 
-/obj/item/weapon/stock_parts/cell/emproof/corrupt()
+/obj/item/stock_parts/cell/emproof/corrupt()
 	return

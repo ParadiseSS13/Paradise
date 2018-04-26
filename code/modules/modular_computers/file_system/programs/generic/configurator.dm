@@ -15,7 +15,7 @@
 
 
 /datum/computer_file/program/computerconfig/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
@@ -25,8 +25,8 @@
 		ui.open()
 
 /datum/computer_file/program/computerconfig/ui_data(mob/user)
-	var/obj/item/weapon/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
-	var/obj/item/weapon/computer_hardware/battery/battery_module = computer.all_components[MC_CELL]
+	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
+	var/obj/item/computer_hardware/battery/battery_module = computer.all_components[MC_CELL]
 
 	var/list/data = get_header_data()
 
@@ -44,7 +44,7 @@
 
 	var/list/all_entries[0]
 	for(var/I in computer.all_components)
-		var/obj/item/weapon/computer_hardware/H = computer.all_components[I]
+		var/obj/item/computer_hardware/H = computer.all_components[I]
 		all_entries.Add(list(list(
 		"name" = H.name,
 		"desc" = H.desc,
@@ -62,7 +62,7 @@
 		return
 	switch(href_list["action"])
 		if("PC_toggle_component")
-			var/obj/item/weapon/computer_hardware/H = computer.find_hardware_by_name(href_list["name"])
+			var/obj/item/computer_hardware/H = computer.find_hardware_by_name(href_list["name"])
 			if(H && istype(H))
 				H.enabled = !H.enabled
 			. = TRUE
