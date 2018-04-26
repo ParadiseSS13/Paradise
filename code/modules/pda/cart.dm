@@ -296,6 +296,13 @@
 	if(istype(D))
 		D.remote_door_id = initial_remote_door_id
 
+/obj/item/cartridge/frame
+	name = "F.R.A.M.E. cartridge"
+	icon_state = "cart"
+	charges = 5
+	var/telecrystals = 0
+	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/frame)
+
 /obj/item/cartridge/mob_hunt_game
 	name = "Nano-Mob Hunter GO! Cartridge"
 	desc = "The hit new PDA game that lets you track down and capture your favorite Nano-Mobs living in your world!"

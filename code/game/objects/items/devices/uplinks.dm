@@ -11,6 +11,7 @@ var/list/world_uplinks = list()
 /obj/item/device/uplink
 	var/welcome 			// Welcoming menu message
 	var/uses 				// Numbers of crystals
+	var/hidden_crystals = 0
 	var/list/ItemsCategory	// List of categories with lists of items
 	var/list/ItemsReference	// List of references with an associated item
 	var/list/nanoui_items	// List of items for NanoUI use
@@ -231,6 +232,8 @@ var/list/world_uplinks = list()
 			return 1
 		else if(href_list["lock"])
 			toggle()
+			uses += hidden_crystals
+			hidden_crystals = 0
 			ui.close()
 			return 1
 		if(href_list["return"])

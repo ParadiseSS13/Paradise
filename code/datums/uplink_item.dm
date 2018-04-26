@@ -874,6 +874,16 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	excludefrom = list()
 
+/datum/uplink_item/stealthy_tools/frame
+	name = "F.R.A.M.E. PDA Cartridge"
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five PDA viruses which \
+			when used cause the targeted PDA to become a new uplink with zero TCs, and immediately become unlocked.  \
+			You will receive the unlock code upon activating the virus, and the new uplink may be charged with \
+			telecrystals normally."
+	reference = "FRAME"
+	item = /obj/item/cartridge/frame
+	cost = 4
+
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
 	desc = "Agent cards prevent artificial intelligences from tracking the wearer, and can copy access from other identification cards. The access is cumulative, so scanning one card does not erase the access gained from another."
@@ -1152,6 +1162,20 @@ var/list/uplink_items = list()
 	item = /obj/item/stack/telecrystal
 	cost = 1
 	surplus = 0
+
+/datum/uplink_item/device_tools/telecrystal/five
+	name = "5 Raw Telecrystals"
+	desc = "Five telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	reference = "RTCF"
+	item = /obj/item/stack/telecrystal/five
+	cost = 5
+
+/datum/uplink_item/device_tools/telecrystal/twenty
+	name = "20 Raw Telecrystals"
+	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	reference = "RTCT"
+	item = /obj/item/stack/telecrystal/twenty
+	cost = 20
 
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"
