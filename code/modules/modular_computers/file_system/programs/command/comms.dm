@@ -187,7 +187,7 @@
 		if(access_captain in access)
 			authenticated = COMM_AUTHENTICATION_MAX
 			var/mob/living/carbon/human/H = usr
-			var/obj/item/weapon/card/id = H.get_idcard(TRUE)
+			var/obj/item/card/id = H.get_idcard(TRUE)
 			if(istype(id))
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 
@@ -222,9 +222,9 @@
 
 				var/mob/living/carbon/human/L = usr
 				var/obj/item/card = L.get_active_hand()
-				var/obj/item/weapon/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
-				if(istype(I, /obj/item/device/pda))
-					var/obj/item/device/pda/pda = I
+				var/obj/item/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
+				if(istype(I, /obj/item/pda))
+					var/obj/item/pda/pda = I
 					I = pda.id
 				if(I && istype(I))
 					if(access_captain in I.access)
@@ -331,7 +331,7 @@
 						return 1
 					Nuke_request(input, usr)
 					to_chat(usr, "<span class='notice'>Request sent.</span>")
-					log_say("[key_name(usr)] has requested the nuclear codes from Centcomm")
+					log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
 					priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 					centcomm_message_cooldown = 1
 					spawn(6000)//10 minute cooldown
@@ -350,7 +350,7 @@
 						return 1
 					Centcomm_announce(input, usr)
 					to_chat(usr, "Message transmitted.")
-					log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
+					log_game("[key_name(usr)] has made a Centcomm announcement: [input]")
 					centcomm_message_cooldown = 1
 					spawn(6000)//10 minute cooldown
 						centcomm_message_cooldown = 0
@@ -369,7 +369,7 @@
 						return 1
 					Syndicate_announce(input, usr)
 					to_chat(usr, "Message transmitted.")
-					log_say("[key_name(usr)] has made a Syndicate announcement: [input]")
+					log_game("[key_name(usr)] has made a Syndicate announcement: [input]")
 					centcomm_message_cooldown = 1
 					spawn(6000)//10 minute cooldown
 						centcomm_message_cooldown = 0

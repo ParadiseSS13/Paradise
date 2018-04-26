@@ -26,8 +26,8 @@
 
 
 /obj/structure/bigDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/destTagger))
-		var/obj/item/device/destTagger/O = W
+	if(istype(W, /obj/item/destTagger))
+		var/obj/item/destTagger/O = W
 
 		if(sortTag != O.currTag)
 			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
@@ -45,7 +45,7 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(W, /obj/item/weapon/pen))
+	else if(istype(W, /obj/item/pen))
 		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
 		if(!str || !length(str))
 			to_chat(user, "<span class='notice'>Invalid text.</span>")
@@ -63,7 +63,7 @@
 			else
 				icon_state = "giftcloset"
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
-				new /obj/item/weapon/c_tube( get_turf(user) )
+				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 
@@ -90,8 +90,8 @@
 
 
 /obj/item/smallDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/destTagger))
-		var/obj/item/device/destTagger/O = W
+	if(istype(W, /obj/item/destTagger))
+		var/obj/item/destTagger/O = W
 
 		if(sortTag != O.currTag)
 			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
@@ -109,7 +109,7 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(W, /obj/item/weapon/pen))
+	else if(istype(W, /obj/item/pen))
 		var/str = copytext(sanitize(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
 		if(!str || !length(str))
 			to_chat(user, "<span class='notice'>Invalid text.</span>")
@@ -124,7 +124,7 @@
 			giftwrapped = 1
 			user.visible_message("<span class='notice'>[user] wraps the package in festive paper!</span>")
 			if(WP.amount <= 0 && !WP.loc) //if we used our last wrapping paper, drop a cardboard tube
-				new /obj/item/weapon/c_tube( get_turf(user) )
+				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 
@@ -145,7 +145,7 @@
 	if(!istype(target))	//this really shouldn't be necessary (but it is).	-Pete
 		return
 	if(istype(target, /obj/item/smallDelivery) || istype(target,/obj/structure/bigDelivery) \
-	|| istype(target, /obj/item/weapon/evidencebag) || istype(target, /obj/structure/closet/body_bag))
+	|| istype(target, /obj/item/evidencebag) || istype(target, /obj/structure/closet/body_bag))
 		return
 	if(target.anchored)
 		return
@@ -154,7 +154,7 @@
 
 
 
-	if(istype(target, /obj/item) && !(istype(target, /obj/item/weapon/storage) && !istype(target,/obj/item/weapon/storage/box) && !istype(target, /obj/item/shippingPackage)))
+	if(istype(target, /obj/item) && !(istype(target, /obj/item/storage) && !istype(target,/obj/item/storage/box) && !istype(target, /obj/item/shippingPackage)))
 		var/obj/item/O = target
 		if(use(1))
 			var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(get_turf(O.loc))	//Aaannd wrap it up!
@@ -205,12 +205,13 @@
 	user.create_attack_log("<font color='blue'>Has used [name] on [target]</font>")
 
 	if(amount <= 0 && !src.loc) //if we used our last wrapping paper, drop a cardboard tube
-		new /obj/item/weapon/c_tube( get_turf(user) )
+		new /obj/item/c_tube( get_turf(user) )
 	return
 
-/obj/item/device/destTagger
+/obj/item/destTagger
 	name = "destination tagger"
 	desc = "Used to set the destination of properly wrapped packages."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "dest_tagger"
 	var/currTag = 0
 	//The whole system for the sorttype var is determined based on the order of this list,
@@ -328,7 +329,7 @@
 	if(!I || !user)
 		return
 
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(istype(I, /obj/item/screwdriver))
 		if(c_mode==0)
 			c_mode=1
 			playsound(src.loc, I.usesound, 50, 1)
@@ -339,8 +340,8 @@
 			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "You attach the screws around the power connection.")
 			return
-	else if(istype(I,/obj/item/weapon/weldingtool) && c_mode==1)
-		var/obj/item/weapon/weldingtool/W = I
+	else if(istype(I,/obj/item/weldingtool) && c_mode==1)
+		var/obj/item/weldingtool/W = I
 		if(W.remove_fuel(0,user))
 			playsound(src.loc, W.usesound, 100, 1)
 			to_chat(user, "You start slicing the floorweld off the delivery chute.")
@@ -370,7 +371,7 @@
 
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
-		if(istype(O, /obj/item/weapon/pen))
+		if(istype(O, /obj/item/pen))
 			var/str = copytext(sanitize(input(user,"Intended recipient?","Address","")),1,MAX_NAME_LEN)
 			if(!str || !length(str))
 				to_chat(user, "<span class='notice'>Invalid text.</span>")
@@ -381,7 +382,7 @@
 	if(wrapped)
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
 		return
-	if(istype(O, /obj/item) && !istype(O, /obj/item/weapon/storage) && !istype(O, /obj/item/shippingPackage))
+	if(istype(O, /obj/item) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
 		if(!user.canUnEquip(O))
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return

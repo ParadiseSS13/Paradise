@@ -175,7 +175,7 @@
 			text += "<br>Flash: <a href='?src=[UID()];revolution=flash'>give</a>"
 
 			var/list/L = current.get_contents()
-			var/obj/item/device/flash/flash = locate() in L
+			var/obj/item/flash/flash = locate() in L
 			if(flash)
 				if(!flash.broken)
 					text += "|<a href='?src=[UID()];revolution=takeflash'>take</a>."
@@ -419,7 +419,7 @@
 		ishuman(current)      )
 
 		text = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
-		var/obj/item/device/uplink/hidden/suplink = find_syndicate_uplink()
+		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
 		var/crystals
 		if(suplink)
 			crystals = suplink.uses
@@ -658,14 +658,14 @@
 
 		switch(href_list["implant"])
 			if("remove")
-				for(var/obj/item/weapon/implant/mindshield/I in H.contents)
+				for(var/obj/item/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
 				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield implant has been deactivated.</B></FONT></span>")
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
 			if("add")
-				var/obj/item/weapon/implant/mindshield/L = new/obj/item/weapon/implant/mindshield(H)
+				var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
 				L.implant(H)
 
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield implant")
@@ -762,7 +762,7 @@
 
 			if("takeflash")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Deleting flash failed!</span>")
 				qdel(flash)
@@ -771,7 +771,7 @@
 
 			if("repairflash")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
 				else
@@ -781,7 +781,7 @@
 
 			if("reequip")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				qdel(flash)
 				take_uplink()
 				var/fail = 0
@@ -805,14 +805,14 @@
 				if(!(src in ticker.mode.cult))
 					ticker.mode.add_cultist(src)
 					special_role = SPECIAL_ROLE_CULTIST
-					to_chat(current, "<span class='cultitalic'>You catch a glimpse of the Realm of [ticker.mode.cultdat.entity_name], [ticker.mode.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.mode.cultdat.entity_name].</span>")
-					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [ticker.mode.cultdat.entity_title2] above all else. Bring It back.</span>")
+					to_chat(current, "<span class='cultitalic'>You catch a glimpse of the Realm of [ticker.cultdat.entity_name], [ticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.cultdat.entity_name].</span>")
+					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [ticker.cultdat.entity_title2] above all else. Bring It back.</span>")
 					log_admin("[key_name(usr)] has culted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
 			if("tome")
 				var/mob/living/carbon/human/H = current
 				if(istype(H))
-					var/obj/item/weapon/tome/T = new(H)
+					var/obj/item/tome/T = new(H)
 
 					var/list/slots = list (
 						"backpack" = slot_in_backpack,
@@ -1183,7 +1183,7 @@
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
 			if("crystals")
 				if(usr.client.holder.rights & (R_SERVER|R_EVENT))
-					var/obj/item/device/uplink/hidden/suplink = find_syndicate_uplink()
+					var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
 					var/crystals
 					if(suplink)
 						crystals = suplink.uses
@@ -1218,16 +1218,16 @@
 	// remove traitor uplinks
 	var/list/L = current.get_contents()
 	for(var/t in L)
-		if(istype(t, /obj/item/device/pda))
+		if(istype(t, /obj/item/pda))
 			if(t:uplink) qdel(t:uplink)
 			t:uplink = null
-		else if(istype(t, /obj/item/device/radio))
+		else if(istype(t, /obj/item/radio))
 			if(t:traitorradio) qdel(t:traitorradio)
 			t:traitorradio = null
 			t:traitor_frequency = 0.0
-		else if(istype(t, /obj/item/weapon/SWF_uplink) || istype(t, /obj/item/weapon/syndicate_uplink))
+		else if(istype(t, /obj/item/SWF_uplink) || istype(t, /obj/item/syndicate_uplink))
 			if(t:origradio)
-				var/obj/item/device/radio/R = t:origradio
+				var/obj/item/radio/R = t:origradio
 				R.loc = current.loc
 				R.traitorradio = null
 				R.traitor_frequency = 0.0
@@ -1251,7 +1251,7 @@
 	return null
 
 /datum/mind/proc/take_uplink()
-	var/obj/item/device/uplink/hidden/H = find_syndicate_uplink()
+	var/obj/item/uplink/hidden/H = find_syndicate_uplink()
 	if(H)
 		qdel(H)
 
@@ -1317,7 +1317,7 @@
 			current.loc = pick(wizardstart)
 
 		ticker.mode.equip_wizard(current)
-		for(var/obj/item/weapon/spellbook/S in current.contents)
+		for(var/obj/item/spellbook/S in current.contents)
 			S.op = 0
 		ticker.mode.name_wizard(current)
 		ticker.mode.forge_wizard_objectives(src)
@@ -1330,20 +1330,20 @@
 		ticker.mode.cult += src
 		ticker.mode.update_cult_icons_added(src)
 		special_role = SPECIAL_ROLE_CULTIST
-		to_chat(current, "<font color=\"cultitalic\"><b><i>You catch a glimpse of the Realm of [ticker.mode.cultdat.entity_name], [ticker.mode.cultdat.entity_title2]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.mode.cultdat.entity_name].</b></i></font>")
+		to_chat(current, "<font color=\"cultitalic\"><b><i>You catch a glimpse of the Realm of [ticker.cultdat.entity_name], [ticker.cultdat.entity_title2]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.cultdat.entity_name].</b></i></font>")
 		to_chat(current, "<font color=\"cultitalic\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
 		var/datum/game_mode/cult/cult = ticker.mode
 		if(GAMEMODE_IS_CULT)
 			cult.memorize_cult_objectives(src)
 		else
-			var/explanation = "Summon [ticker.mode.cultdat.entity_name] via the use of the appropriate rune. It will only work if nine cultists stand on and around it."
+			var/explanation = "Summon [ticker.cultdat.entity_name] via the use of the appropriate rune. It will only work if nine cultists stand on and around it."
 			to_chat(current, "<B>Objective #1</B>: [explanation]")
 			current.memory += "<B>Objective #1</B>: [explanation]<BR>"
 
 
 	var/mob/living/carbon/human/H = current
 	if(istype(H))
-		var/obj/item/weapon/tome/T = new(H)
+		var/obj/item/tome/T = new(H)
 
 		var/list/slots = list (
 			"backpack" = slot_in_backpack,
@@ -1380,7 +1380,7 @@
 	ticker.mode.greet_revolutionary(src,0)
 
 	var/list/L = current.get_contents()
-	var/obj/item/device/flash/flash = locate() in L
+	var/obj/item/flash/flash = locate() in L
 	qdel(flash)
 	take_uplink()
 	var/fail = 0
@@ -1537,7 +1537,7 @@
 			jumpsuit.color = team_color
 			H.update_inv_w_uniform(0,0)
 
-	add_logs(missionary, current, "converted", addition = "for [convert_duration/600] minutes")
+	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
 	addtimer(src, "remove_zealot", convert_duration, FALSE, jumpsuit)	//deconverts after the timer expires
 
 	return 1
@@ -1546,7 +1546,7 @@
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
 	ticker.mode.remove_traitor_mind(src)
-	add_logs(zealot_master, current, "lost control of", addition = "as their zealot master")
+	add_attack_logs(zealot_master, current, "Lost control of zealot")
 	zealot_master = null
 
 	if(jumpsuit)

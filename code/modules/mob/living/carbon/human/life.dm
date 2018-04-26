@@ -287,8 +287,8 @@
 				if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
 					null_internals = 1 //not wearing a mask or suitable helmet
 
-		if(istype(back, /obj/item/weapon/rig)) //wearing a rigsuit
-			var/obj/item/weapon/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
+		if(istype(back, /obj/item/rig)) //wearing a rigsuit
+			var/obj/item/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
 			if(rig.offline && (rig.air_supply && internal == rig.air_supply)) //if rig IS offline AND (rig HAS air_supply AND internal IS air_supply)
 				null_internals = 1 //offline suits do not breath
 

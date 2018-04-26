@@ -78,7 +78,7 @@
 	requires_power = 0
 	tele_proof = 1
 
-/obj/item/weapon/paper/terrorspiders1
+/obj/item/paper/terrorspiders1
 	name = "paper - 'Sealed Facility'"
 	info = {"<b>SEALED FACILITY</b><br>
 	<br>
@@ -87,7 +87,7 @@
 	Any surviving personnel are to evacuate immediately via the gateway.<br>
 	"}
 
-/obj/item/weapon/paper/terrorspiders2
+/obj/item/paper/terrorspiders2
 	name = "paper - 'The Trio of Terror'"
 	info = {"<b>Status Report on the 'Terrors'</b><br>
 	<br>
@@ -109,7 +109,7 @@
 	"}
 
 
-/obj/item/weapon/paper/terrorspiders3
+/obj/item/paper/terrorspiders3
 	name = "paper - 'Final Report'"
 	info = {"FROM: Field Agent 0738<br>
 	TO: Syndicate #873589<br>
@@ -125,7 +125,7 @@
 	I don't imagine the staff have very long to live once the Queen declares war on this place.<br>
 	"}
 
-/obj/item/weapon/paper/terrorspiders4
+/obj/item/paper/terrorspiders4
 	name = "paper - 'Prescription for Jones, David'"
 	info = {"PRESCRIPTION FOR: David Jones<br>
 	RANK: Miner<br>
@@ -135,7 +135,7 @@
 	TREATMENT PLAN: Take as needed. See Dr. Phloxi in one week if symptoms persist. <br>
 	"}
 
-/obj/item/weapon/paper/terrorspiders5
+/obj/item/paper/terrorspiders5
 	name = "paper - 'A Study in Terror'"
 	info = {"<b>Findings Overview</b><br>
 	<br>
@@ -150,7 +150,7 @@
 	<p>Queen<br>Unable to contain. Present south of Cargo before contact was lost. Presumed ruler of the local hive.</p>
 	"}
 
-/obj/item/weapon/paper/terrorspiders6
+/obj/item/paper/terrorspiders6
 	name = "paper - 'A Study in Venom'"
 	info = {"<b>Initial Report - Black Widow Venom</b><br>
 	<br>
@@ -159,7 +159,7 @@
 	One test monkey went from perfect health to death in under 60 seconds - from 3 bites.<br>
 	I am so very glad I'm not responsible for keeping these things contained."}
 
-/obj/item/weapon/paper/terrorspiders7
+/obj/item/paper/terrorspiders7
 	name = "paper - 'Security Orders'"
 	info = {"<b>Directives for Officer James</b><br>
 	<br>
@@ -169,7 +169,7 @@
 	Good luck, Officer.<br>
 	"}
 
-/obj/item/weapon/paper/terrorspiders8
+/obj/item/paper/terrorspiders8
 	name = "paper - 'Last Words'"
 	info = {"<b>The Last Words of Nurse Barnes</b><br>
 	<br>
@@ -179,12 +179,12 @@
 	(the writing trails off, as if the writer was interrupted)<br>
 	"}
 
-/obj/item/weapon/paper/terrorspiders9
+/obj/item/paper/terrorspiders9
 	name = "paper - 'Research Notes'"
 	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyser in R&D could make sense of them.</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
-/obj/item/weapon/gun/energy/laser/awaymission_aeg
+/obj/item/gun/energy/laser/awaymission_aeg
 	name = "Wireless Energy Gun"
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
 	force = 10
@@ -193,7 +193,7 @@
 	can_charge = 0
 	var/inawaymission = 1
 
-/obj/item/weapon/gun/energy/laser/awaymission_aeg/process()
+/obj/item/gun/energy/laser/awaymission_aeg/process()
 	var/turf/my_loc = get_turf(src)
 	if(is_away_level(my_loc.z))
 		if(inawaymission)
@@ -211,10 +211,10 @@
 
 
 
-/obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin
+/obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
 
-/obj/item/weapon/reagent_containers/glass/beaker/terror_black_toxin/New()
+/obj/item/reagent_containers/glass/beaker/terror_black_toxin/New()
 	..()
 	reagents.add_reagent("terror_black_toxin", 50)
 	update_icon()
@@ -229,8 +229,8 @@
 	var/door_to_open = "UO71_Start"
 
 /obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/D = I
+	if(istype(I, /obj/item/card/id))
+		var/obj/item/card/id/D = I
 		if(!access_to_give.len)
 			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
 			return

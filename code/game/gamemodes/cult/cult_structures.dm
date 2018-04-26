@@ -38,7 +38,7 @@
 	var/selection_prompt = "Choose your weapon, nerdwad"
 	var/creation_delay = 2400
 	var/list/choosable_items = list(
-	    "A coder forgot to set this" = /obj/item/weapon/grown/bananapeel
+	    "A coder forgot to set this" = /obj/item/grown/bananapeel
 	)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 
@@ -58,7 +58,7 @@
 		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
 		return
 
-	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
+	if(istype(I, /obj/item/tome) && iscultist(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
 		playsound(loc, 'sound/hallucinations/wail.ogg', 75, 1)
@@ -98,7 +98,7 @@
 		return
 	var/choice = input(user, selection_prompt, selection_title) as null|anything in choosable_items
 	var/pickedtype = choosable_items[choice]
-	if(pickedtype && Adjacent(user) && src && !qdeleted(src) && !user.incapacitated() && cooldowntime <= world.time)
+	if(pickedtype && Adjacent(user) && src && !QDELETED(src) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + creation_delay
 		var/obj/item/N = new pickedtype(get_turf(src))
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[N]"))
@@ -122,8 +122,8 @@
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
 	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with an %ITEM%!</span>"
-	choosable_items = list("Eldritch Whetstone"= /obj/item/weapon/whetstone/cult, "Zealot's Blindfold" = /obj/item/clothing/glasses/night/cultblind, \
-							"Flask of Unholy Water" = /obj/item/weapon/reagent_containers/food/drinks/bottle/unholywater, "Cultist Dagger" = /obj/item/weapon/melee/cultblade/dagger)
+	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, "Zealot's Blindfold" = /obj/item/clothing/glasses/night/cultblind, \
+							"Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater, "Cultist Dagger" = /obj/item/melee/cultblade/dagger)
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
@@ -137,12 +137,12 @@
 	selection_title = "Forge"
 	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating %ITEM%!</span>"
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker, \
-							"Cultist Hardsuit" = /obj/item/weapon/storage/box/cult)
+							"Cultist Hardsuit" = /obj/item/storage/box/cult)
 
 
 /obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = I
+	if(istype(I, /obj/item/grab))
+		var/obj/item/grab/G = I
 		if(!iscarbon(G.affecting))
 			to_chat(user, "<span class='warning'>You may only dunk carbon-based creatures!</span>")
 			return 0
@@ -256,8 +256,8 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	selection_prompt = "You flip through the black pages of the archives..."
 	selection_title = "Archives"
 	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating %ITEM%!</span>"
-	choosable_items = list("Supply Talisman" = /obj/item/weapon/paper/talisman/supply/weak, "Shuttle Curse" = /obj/item/device/shuttle_curse, \
-							"Veil Shifter" = /obj/item/device/cult_shift)
+	choosable_items = list("Supply Talisman" = /obj/item/paper/talisman/supply/weak, "Shuttle Curse" = /obj/item/shuttle_curse, \
+							"Veil Shifter" = /obj/item/cult_shift)
 
 /obj/effect/gateway
 	name = "gateway"
@@ -281,12 +281,12 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 
 //Armor kit
 
-/obj/item/weapon/storage/box/cult
+/obj/item/storage/box/cult
 	name = "Dark Forge Cache"
 	can_hold = list("/obj/item/clothing/suit/space/cult", "/obj/item/clothing/head/helmet/space/cult")
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/weapon/storage/box/cult/New()
+/obj/item/storage/box/cult/New()
 	..()
 	new /obj/item/clothing/suit/space/cult(src)
 	new /obj/item/clothing/head/helmet/space/cult(src)

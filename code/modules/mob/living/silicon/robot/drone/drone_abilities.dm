@@ -79,7 +79,7 @@
 	verbs -= /mob/living/silicon/robot/drone/verb/customize
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
-	var/obj/item/weapon/holder/H = ..()
+	var/obj/item/holder/H = ..()
 	if(!istype(H))
 		return
 	if(resting)

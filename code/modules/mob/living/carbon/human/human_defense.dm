@@ -180,8 +180,8 @@ emp_act
 	if(!I || !user)
 		return 0
 
-	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(loc))
+	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
+		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name
 		newmeat.subjectjob = job
@@ -191,9 +191,7 @@ emp_act
 		--meatleft
 		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
 		if(!meatleft)
-			create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
-			user.create_attack_log("Chopped up <b>[key_name(src)]</b> into meat</b>")
-			msg_admin_attack("[key_name_admin(user)] chopped up [key_name_admin(src)] into meat")
+			add_attack_logs(user, src, "Chopped up into meat")
 			if(!iscarbon(user))
 				LAssailant = null
 			else
@@ -212,7 +210,7 @@ emp_act
 		if(check_shields(I.force, "the [I.name]", I, MELEE_ATTACK, I.armour_penetration))
 			return 0
 
-	if(istype(I,/obj/item/weapon/card/emag))
+	if(istype(I,/obj/item/card/emag))
 		emag_act(user, affecting)
 
 	send_item_attack_message(I, user, hit_area)
@@ -371,10 +369,7 @@ emp_act
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 								"<span class='userdanger'>[src] has been hit by [M.name].</span>")
 
-		create_attack_log("<font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		M.occupant.create_attack_log("<font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
-
+		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		..()
 

@@ -8,7 +8,7 @@
 	req_tech = list("materials" = 4, "engineering" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2500, MAT_GLASS = 200)
-	build_path = /obj/item/weapon/mop/advanced
+	build_path = /obj/item/mop/advanced
 	category = list("Janitorial")
 
 /datum/design/blutrash
@@ -18,7 +18,7 @@
 	req_tech = list("materials" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 1500, MAT_URANIUM = 250, MAT_PLASMA = 1500)
-	build_path = /obj/item/weapon/storage/bag/trash/bluespace
+	build_path = /obj/item/storage/bag/trash/bluespace
 	category = list("Janitorial")
 
 /datum/design/buffer
@@ -38,7 +38,7 @@
 	req_tech = list("programming" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000)
-	build_path = /obj/item/weapon/holosign_creator
+	build_path = /obj/item/holosign_creator
 	category = list("Janitorial")
 
 /datum/design/light_replacer
@@ -48,5 +48,5 @@
 	req_tech = list("magnets" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 3000)
-	build_path = /obj/item/device/lightreplacer
+	build_path = /obj/item/lightreplacer
 	category = list("Janitorial")

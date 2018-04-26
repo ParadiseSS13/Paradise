@@ -279,9 +279,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		to_chat(owner, "<span class='warning'>[owner.wear_mask] prevents you from biting [H]!</span>")
 		draining = null
 		return
-	owner.create_attack_log("<font color='red'>Bit [H] ([H.ckey]) in the neck and draining their blood</font>")
-	H.create_attack_log("<font color='orange'>Has been bit in the neck by [owner] ([owner.ckey])</font>")
-	log_attack("[owner] ([owner.ckey]) bit [H] ([H.ckey]) in the neck")
+	add_attack_logs(owner, H, "vampirebit & is draining their blood.", FALSE)
 	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in their fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain their blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
 		H.LAssailant = null

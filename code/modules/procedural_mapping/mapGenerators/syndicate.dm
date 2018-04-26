@@ -15,7 +15,7 @@
 	clusterCheckFlags = CLUSTER_CHECK_SAME_ATOMS
 	spawnableTurfs = list()
 	spawnableAtoms = list(/obj/structure/table = 20,/obj/structure/stool/bed/chair = 15,/obj/structure/stool = 10, \
-		/obj/structure/computerframe = 15, /obj/item/weapon/storage/toolbox/syndicate = 15 ,\
+		/obj/structure/computerframe = 15, /obj/item/storage/toolbox/syndicate = 15 ,\
 		/obj/structure/closet/syndicate = 25)
 
 /datum/mapGeneratorModule/splatterLayer/syndieMobs

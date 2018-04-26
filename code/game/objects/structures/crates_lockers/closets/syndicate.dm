@@ -14,8 +14,8 @@
 	new /obj/item/clothing/under/syndicate(src)
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/weapon/storage/belt/military(src)
-	new /obj/item/weapon/crowbar/red(src)
+	new /obj/item/storage/belt/military(src)
+	new /obj/item/crowbar/red(src)
 	new /obj/item/clothing/glasses/night(src)
 
 /obj/structure/closet/syndicate/suits
@@ -26,7 +26,7 @@
 	new /obj/item/clothing/head/helmet/space/hardsuit/syndi(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
-	new /obj/item/weapon/tank/jetpack/oxygen/harness(src)
+	new /obj/item/tank/jetpack/oxygen/harness(src)
 	new /obj/item/clothing/shoes/magboots/syndie(src)
 
 /obj/structure/closet/syndicate/nuclear
@@ -39,20 +39,20 @@
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/weapon/storage/box/teargas(src)
-	new /obj/item/weapon/storage/box/flashbangs(src)
-	new /obj/item/weapon/storage/backpack/duffel/syndie/med(src)
-	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/weapon/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/weapon/pinpointer/nukeop(src)
-	new /obj/item/weapon/pinpointer/nukeop(src)
-	new /obj/item/weapon/pinpointer/nukeop(src)
-	new /obj/item/weapon/pinpointer/nukeop(src)
-	new /obj/item/weapon/pinpointer/nukeop(src)
-	new /obj/item/device/pda/syndicate(src)
+	new /obj/item/storage/box/teargas(src)
+	new /obj/item/storage/box/flashbangs(src)
+	new /obj/item/storage/backpack/duffel/syndie/med(src)
+	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
+	new /obj/item/pinpointer/nukeop(src)
+	new /obj/item/pinpointer/nukeop(src)
+	new /obj/item/pinpointer/nukeop(src)
+	new /obj/item/pinpointer/nukeop(src)
+	new /obj/item/pinpointer/nukeop(src)
+	new /obj/item/pda/syndicate(src)
 
 /obj/structure/closet/syndicate/resources/
 	desc = "An old, dusty locker."
@@ -68,7 +68,7 @@
 
 		//Sad trombone
 		if(pickednum == 1)
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
+			var/obj/item/paper/P = new /obj/item/paper(src)
 			P.name = "IOU"
 			P.info = "Sorry man, we needed the money so we sold your stash. It's ok, we'll double our money for sure this time!"
 
@@ -114,7 +114,7 @@
 
 		//Jetpack (You hit the jackpot!)
 		if(pickednum == 50)
-			new /obj/item/weapon/tank/jetpack/carbondioxide(src)
+			new /obj/item/tank/jetpack/carbondioxide(src)
 
 /obj/structure/closet/syndicate/resources/everything
 	desc = "It's an emergency storage closet for repairs."

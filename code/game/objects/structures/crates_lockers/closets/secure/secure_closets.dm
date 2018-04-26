@@ -67,12 +67,12 @@
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")
 
-/obj/structure/closet/secure_closet/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/rcs))
+/obj/structure/closet/secure_closet/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/rcs))
 		return ..()
 
 	if(opened)
-		if(istype(W, /obj/item/weapon/grab))
+		if(istype(W, /obj/item/grab))
 			if(large)
 				MouseDrop_T(W:affecting, user)	//act like they were dragged onto the closet
 			else
@@ -84,9 +84,9 @@
 			return
 		if(W)
 			W.forceMove(loc)
-	else if((istype(W, /obj/item/weapon/card/emag)||istype(W, /obj/item/weapon/melee/energy/blade)) && !broken)
+	else if((istype(W, /obj/item/card/emag)||istype(W, /obj/item/melee/energy/blade)) && !broken)
 		emag_act(user)
-	else if(istype(W,/obj/item/stack/packageWrap) || istype(W,/obj/item/weapon/weldingtool))
+	else if(istype(W,/obj/item/stack/packageWrap) || istype(W,/obj/item/weldingtool))
 		return ..(W,user)
 	else
 		togglelock(user)

@@ -55,7 +55,7 @@
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 
-	add_logs(A, D, "punched")
+	add_attack_logs(A, D, "Melee attacked with martial-art [src]", admin_notify = (damage > 0) ? TRUE : FALSE)
 
 	if((D.stat != DEAD) && damage >= A.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
@@ -106,11 +106,11 @@
 		style.remove(H)
 	return
 
-/obj/item/weapon/storage/belt/champion/wrestling
+/obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
 	var/datum/martial_art/wrestling/style = new
 
-/obj/item/weapon/storage/belt/champion/wrestling/equipped(mob/user, slot)
+/obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
 	if(slot == slot_belt)
@@ -119,7 +119,7 @@
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
 	return
 
-/obj/item/weapon/storage/belt/champion/wrestling/dropped(mob/user)
+/obj/item/storage/belt/champion/wrestling/dropped(mob/user)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
@@ -128,14 +128,14 @@
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
 	return
 
-/obj/item/weapon/plasma_fist_scroll
+/obj/item/plasma_fist_scroll
 	name = "frayed scroll"
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	var/used = 0
 
-/obj/item/weapon/plasma_fist_scroll/attack_self(mob/user as mob)
+/obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
 		return
 	if(!used)
@@ -148,13 +148,13 @@
 		name = "empty scroll"
 		icon_state = "blankscroll"
 
-/obj/item/weapon/sleeping_carp_scroll
+/obj/item/sleeping_carp_scroll
 	name = "mysterious scroll"
 	desc = "A scroll filled with strange markings. It seems to be drawings of some sort of martial art."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll2"
 
-/obj/item/weapon/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
+/obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
 	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
@@ -170,7 +170,7 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
-/obj/item/weapon/twohanded/bostaff
+/obj/item/twohanded/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
 	force = 10
@@ -181,15 +181,14 @@
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "bostaff0"
 	block_chance = 50
 
-/obj/item/weapon/twohanded/bostaff/update_icon()
+/obj/item/twohanded/bostaff/update_icon()
 	icon_state = "bostaff[wielded]"
 	return
 
-/obj/item/weapon/twohanded/bostaff/attack(mob/target, mob/living/user)
+/obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)
 	if((CLUMSY in user.disabilities) && prob(50))
 		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
@@ -241,7 +240,7 @@
 			return ..()
 	return ..()
 
-/obj/item/weapon/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(wielded)
 		return ..()
 	return 0

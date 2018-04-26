@@ -1,4 +1,4 @@
-/obj/item/weapon/grenade/flashbang
+/obj/item/grenade/flashbang
 	name = "flashbang"
 	icon_state = "flashbang"
 	item_state = "flashbang"
@@ -7,7 +7,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	var/light_time = 2
 
-/obj/item/weapon/grenade/flashbang/prime()
+/obj/item/grenade/flashbang/prime()
 	update_mob()
 	var/flashbang_turf = get_turf(src)
 	if(!flashbang_turf)
@@ -26,7 +26,7 @@
 	spawn(light_time)
 		qdel(src)
 
-/obj/item/weapon/grenade/flashbang/proc/bang(var/turf/T , var/mob/living/M)
+/obj/item/grenade/flashbang/proc/bang(var/turf/T , var/mob/living/M)
 	M.show_message("<span class='warning'>BANG</span>", 2)
 	playsound(loc, 'sound/effects/bang.ogg', 25, 1)
 

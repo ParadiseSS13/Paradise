@@ -54,18 +54,18 @@
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
 
 
-/obj/structure/closet/cardboard/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/closet/cardboard/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(src.opened)
-		if(istype(W, /obj/item/weapon/weldingtool))
+		if(istype(W, /obj/item/weldingtool))
 			return
-		if(istype(W, /obj/item/weapon/wirecutters))
-			var/obj/item/weapon/wirecutters/WC = W
+		if(istype(W, /obj/item/wirecutters))
+			var/obj/item/wirecutters/WC = W
 			new /obj/item/stack/sheet/cardboard(src.loc)
 			for(var/mob/M in viewers(src))
 				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)
 			qdel(src)
 			return
-		if(istype(W, /obj/item/weapon/pen))
+		if(istype(W, /obj/item/pen))
 			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield",	"Brig Physician", "Captain",
 			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Civilian", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
 			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Mechanic", "Medical", "Mime", "Mining", "NT Representative", "Paramedic", "Pod Pilot",

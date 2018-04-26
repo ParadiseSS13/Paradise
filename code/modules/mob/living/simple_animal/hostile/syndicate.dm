@@ -38,7 +38,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 28
 	status_flags = 0
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/weapon/melee/energy/sword/saber/red, /obj/item/weapon/shield/energy)
+	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(O.force)
@@ -115,7 +115,7 @@
 	icon_living = "syndicatemeleespace"
 	name = "Syndicate Commando"
 	speed = 1
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatecommando, /obj/item/weapon/melee/energy/sword/saber/red, /obj/item/weapon/shield/energy)
+	loot = list(/obj/effect/landmark/mobcorpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return
@@ -131,7 +131,7 @@
 	icon_state = "syndicateranged"
 	icon_living = "syndicateranged"
 	casingtype = /obj/item/ammo_casing/c45
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/weapon/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicaterangedpsace"
@@ -140,7 +140,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatecommando, /obj/item/weapon/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/landmark/mobcorpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
 	return

@@ -1,4 +1,4 @@
-/*/obj/item/weapon/syndicate_uplink
+/*/obj/item/syndicate_uplink
 	name = "station bounced radio"
 	desc = "Remain silent about this..."
 	icon = 'icons/obj/radio.dmi'
@@ -8,7 +8,7 @@
 	var/selfdestruct = 0.0
 	var/traitor_frequency = 0.0
 	var/mob/currentUser = null
-	var/obj/item/device/radio/origradio = null
+	var/obj/item/radio/origradio = null
 	flags = CONDUCT | ONBELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "radio"
@@ -17,7 +17,7 @@
 	materials = list(MAT_METAL=100)
 	origin_tech = "magnets=2;syndicate=3"*/
 
-/obj/item/weapon/SWF_uplink
+/obj/item/SWF_uplink
 	name = "station-bounced radio"
 	desc = "used to comunicate it appears."
 	icon = 'icons/obj/radio.dmi'
@@ -26,7 +26,7 @@
 	var/uses = 4.0
 	var/selfdestruct = 0.0
 	var/traitor_frequency = 0.0
-	var/obj/item/device/radio/origradio = null
+	var/obj/item/radio/origradio = null
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "radio"

@@ -118,7 +118,7 @@ var/global/list/frozen_mob_list = list()
 							M.addVerb(/obj/mecha/verb/eject)
 							to_chat(M.occupant, "<b><font color= red>You have been unfrozen by <a href='?priv_msg=\ref[usr.client]'>[key]</a></b></font>")
 							message_admins("<span class='notice'>[key_name_admin(usr)] unfroze [key_name(M.occupant)] in a [M.name]</span>")
-							log_admin("[key_name(usr)] unfroze [M.occupant.name]/[M.occupant.ckey] in a [M.name]")
+							log_admin("[key_name(usr)] unfroze [key_name(M.occupant)] in a [M.name]")
 						else
 							message_admins("<span class='notice'>[key_name_admin(usr)] unfroze an empty [M.name]</span>")
 							log_admin("[key_name(usr)] unfroze an empty [M.name]")

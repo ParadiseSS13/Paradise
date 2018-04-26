@@ -104,8 +104,8 @@
 	if(flying == 1)
 		return TRUE
 
-	var/obj/item/weapon/tank/jetpack/J
-	if(istype(back,/obj/item/weapon/tank/jetpack))
+	var/obj/item/tank/jetpack/J
+	if(istype(back,/obj/item/tank/jetpack))
 		J = back
 		if(J.on == 1)
 			return TRUE

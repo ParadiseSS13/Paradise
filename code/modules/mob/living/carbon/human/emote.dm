@@ -14,7 +14,7 @@
 		muzzled = 1
 	//var/m_type = 1
 
-	for(var/obj/item/weapon/implant/I in src)
+	for(var/obj/item/implant/I in src)
 		if(I.implanted)
 			I.trigger(act, src)
 
@@ -336,8 +336,8 @@
 					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
-						var/obj/item/weapon/grab/G
-						if(istype(get_active_hand(), /obj/item/weapon/grab))
+						var/obj/item/grab/G
+						if(istype(get_active_hand(), /obj/item/grab))
 							G = get_active_hand()
 						if(G && G.affecting)
 							if(buckled || G.affecting.buckled)
@@ -804,7 +804,7 @@
 			if(reagents.has_reagent("simethicone"))
 				return
 //			playsound(loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
-			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
+			if(locate(/obj/item/storage/bible) in get_turf(src))
 				to_chat(viewers(src), "<span class='warning'><b>[src] farts on the Bible!</b></span>")
 				var/image/cross = image('icons/obj/storage.dmi',"bible")
 				var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
@@ -898,7 +898,7 @@
 			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
-		log_emote("[name]/[key] : [message]")
+		log_emote(message, src)
 
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.

@@ -8,10 +8,10 @@ var/time_last_changed_position = 0
 	icon_keyboard = "id_key"
 	icon_screen = "id"
 	req_access = list(access_change_ids)
-	circuit = /obj/item/weapon/circuitboard/card
+	circuit = /obj/item/circuitboard/card
 	light_color = LIGHT_COLOR_LIGHTBLUE
-	var/obj/item/weapon/card/id/scan = null
-	var/obj/item/weapon/card/id/modify = null
+	var/obj/item/card/id/scan = null
+	var/obj/item/card/id/modify = null
 	var/mode = 0.0
 	var/printing = null
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
@@ -125,7 +125,7 @@ var/time_last_changed_position = 0
 	else
 		to_chat(usr, "There is nothing to remove from the console.")
 
-/obj/machinery/computer/card/attackby(obj/item/weapon/card/id/id_card, mob/user, params)
+/obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
 	if(!istype(id_card))
 		return ..()
 
@@ -319,7 +319,7 @@ var/time_last_changed_position = 0
 					modify = null
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/weapon/card/id))
+				if(istype(I, /obj/item/card/id))
 					usr.drop_item()
 					I.forceMove(src)
 					modify = I
@@ -336,7 +336,7 @@ var/time_last_changed_position = 0
 					scan = null
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/weapon/card/id))
+				if(istype(I, /obj/item/card/id))
 					usr.drop_item()
 					I.forceMove(src)
 					scan = I
@@ -373,6 +373,7 @@ var/time_last_changed_position = 0
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
 						modify.assignment = temp_t
+						log_game("[key_name(usr)] has given \"[modify.registered_name]\" the custom job title \"[temp_t]\".")
 				else
 					var/list/access = list()
 					if(is_centcom())
@@ -389,6 +390,11 @@ var/time_last_changed_position = 0
 							return
 
 						access = jobdatum.get_access()
+
+					var/jobnamedata = modify.getRankAndAssignment()
+					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
+					if(t1 == "Civilian")
+						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					modify.access = access
 					modify.rank = t1
@@ -427,9 +433,9 @@ var/time_last_changed_position = 0
 					printing = null
 					SSnanoui.update_uis(src)
 
-					var/obj/item/weapon/paper/P = new(loc)
+					var/obj/item/paper/P = new(loc)
 					if(mode == 2)
-						P.name = text("crew manifest ([])", worldtime2text())
+						P.name = "crew manifest ([station_time_timestamp()])"
 						P.info = {"<h4>Crew Manifest</h4>
 							<br>
 							[data_core ? data_core.get_manifest(0) : ""]
@@ -454,6 +460,9 @@ var/time_last_changed_position = 0
 
 		if("terminate")
 			if(is_authenticated(usr) && !target_dept)
+				var/jobnamedata = modify.getRankAndAssignment()
+				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
 				callHook("terminate_employee", list(modify))
@@ -470,6 +479,10 @@ var/time_last_changed_position = 0
 				var/list/access = list()
 				var/datum/job/jobdatum = new /datum/job/civilian
 				access = jobdatum.get_access()
+
+				var/jobnamedata = modify.getRankAndAssignment()
+				log_game("[key_name(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Unassigned)\".")
+				message_admins("[key_name_admin(usr)] has demoted \"[modify.registered_name]\" the \"[jobnamedata]\" to \"Civilian (Unassigned)\".")
 
 				modify.access = access
 				modify.rank = "Civilian"
@@ -541,7 +554,7 @@ var/time_last_changed_position = 0
 
 /obj/machinery/computer/card/centcom
 	name = "\improper CentComm identification computer"
-	circuit = /obj/item/weapon/circuitboard/card/centcom
+	circuit = /obj/item/circuitboard/card/centcom
 	req_access = list(access_cent_commander)
 	change_position_cooldown = -1
 	blacklisted_full = list()
@@ -552,7 +565,7 @@ var/time_last_changed_position = 0
 	target_dept = TARGET_DEPT_GENERIC
 	desc = "You can use this to change ID's for specific departments."
 	icon_screen = "idminor"
-	circuit = /obj/item/weapon/circuitboard/card/minor
+	circuit = /obj/item/circuitboard/card/minor
 
 /obj/machinery/computer/card/minor/hos
 	name = "security management console"
@@ -560,14 +573,14 @@ var/time_last_changed_position = 0
 	icon_screen = "idhos"
 	light_color = LIGHT_COLOR_RED
 	req_access = list(access_hos)
-	circuit = /obj/item/weapon/circuitboard/card/minor/hos
+	circuit = /obj/item/circuitboard/card/minor/hos
 
 /obj/machinery/computer/card/minor/cmo
 	name = "medical management console"
 	target_dept = TARGET_DEPT_MED
 	icon_screen = "idcmo"
 	req_access = list(access_cmo)
-	circuit = /obj/item/weapon/circuitboard/card/minor/cmo
+	circuit = /obj/item/circuitboard/card/minor/cmo
 
 /obj/machinery/computer/card/minor/rd
 	name = "science management console"
@@ -575,7 +588,7 @@ var/time_last_changed_position = 0
 	icon_screen = "idrd"
 	light_color = LIGHT_COLOR_PINK
 	req_access = list(access_rd)
-	circuit = /obj/item/weapon/circuitboard/card/minor/rd
+	circuit = /obj/item/circuitboard/card/minor/rd
 
 /obj/machinery/computer/card/minor/ce
 	name = "engineering management console"
@@ -583,4 +596,4 @@ var/time_last_changed_position = 0
 	icon_screen = "idce"
 	light_color = COLOR_YELLOW
 	req_access = list(access_ce)
-	circuit = /obj/item/weapon/circuitboard/card/minor/ce
+	circuit = /obj/item/circuitboard/card/minor/ce

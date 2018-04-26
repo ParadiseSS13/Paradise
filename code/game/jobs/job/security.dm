@@ -32,21 +32,21 @@
 	gloves = /obj/item/clothing/gloves/color/black/hos
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/HoS
-	l_ear = /obj/item/device/radio/headset/heads/hos/alt
+	l_ear = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/hos
-	suit_store = /obj/item/weapon/gun/energy/gun
-	pda = /obj/item/device/pda/heads/hos
+	id = /obj/item/card/id/hos
+	suit_store = /obj/item/gun/energy/gun
+	pda = /obj/item/pda/heads/hos
 	backpack_contents = list(
-		/obj/item/weapon/restraints/handcuffs = 1,
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield)
 
-	backpack = /obj/item/weapon/storage/backpack/security
-	satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
 
@@ -76,21 +76,21 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/warden
-	l_ear = /obj/item/device/radio/headset/headset_sec/alt
+	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/security
-	l_pocket = /obj/item/device/flash
-	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
-	pda = /obj/item/device/pda/warden
+	id = /obj/item/card/id/security
+	l_pocket = /obj/item/flash
+	suit_store = /obj/item/gun/energy/gun/advtaser
+	pda = /obj/item/pda/warden
 	backpack_contents = list(
-		/obj/item/weapon/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield)
 
-	backpack = /obj/item/weapon/storage/backpack/security
-	satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
 
@@ -122,19 +122,19 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/det_hat
-	l_ear = /obj/item/device/radio/headset/headset_sec/alt
+	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/sunglasses/noir
-	id = /obj/item/weapon/card/id/security
+	id = /obj/item/card/id/security
 	l_pocket = /obj/item/toy/crayon/white
-	r_pocket = /obj/item/weapon/lighter/zippo
-	pda = /obj/item/device/pda/detective
+	r_pocket = /obj/item/lighter/zippo
+	pda = /obj/item/pda/detective
 	backpack_contents = list(
-		/obj/item/weapon/storage/box/evidence = 1,
-		/obj/item/device/detective_scanner = 1,
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/storage/box/evidence = 1,
+		/obj/item/detective_scanner = 1,
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	implants = list(/obj/item/weapon/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield)
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -178,18 +178,18 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/helmet
-	l_ear = /obj/item/device/radio/headset/headset_sec/alt
-	id = /obj/item/weapon/card/id/security
-	l_pocket = /obj/item/device/flash
-	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
-	pda = /obj/item/device/pda/security
+	l_ear = /obj/item/radio/headset/headset_sec/alt
+	id = /obj/item/card/id/security
+	l_pocket = /obj/item/flash
+	suit_store = /obj/item/gun/energy/gun/advtaser
+	pda = /obj/item/pda/security
 	backpack_contents = list(
-		/obj/item/weapon/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1
 	)
-	implants = list(/obj/item/weapon/implant/mindshield)
-	backpack = /obj/item/weapon/storage/backpack/security
-	satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
+	implants = list(/obj/item/implant/mindshield)
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
 
@@ -213,16 +213,16 @@
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/device/radio/headset/headset_sec/alt
+	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
-	id = /obj/item/weapon/card/id/security
-	suit_store = /obj/item/device/flashlight/pen
-	l_hand = /obj/item/weapon/storage/firstaid/adv
-	pda = /obj/item/device/pda/medical
-	implants = list(/obj/item/weapon/implant/mindshield)
-	backpack = /obj/item/weapon/storage/backpack/medic
-	satchel = /obj/item/weapon/storage/backpack/satchel_med
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
+	id = /obj/item/card/id/security
+	suit_store = /obj/item/flashlight/pen
+	l_hand = /obj/item/storage/firstaid/adv
+	pda = /obj/item/pda/medical
+	implants = list(/obj/item/implant/mindshield)
+	backpack = /obj/item/storage/backpack/medic
+	satchel = /obj/item/storage/backpack/satchel_med
+	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 
 /datum/job/pilot
@@ -247,16 +247,16 @@
 	suit = /obj/item/clothing/suit/jacket/pilot
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
-	l_ear = /obj/item/device/radio/headset/headset_sec/alt
-	id = /obj/item/weapon/card/id/security
-	l_pocket = /obj/item/device/flash
-	suit_store = /obj/item/weapon/gun/energy/gun/advtaser
-	pda = /obj/item/device/pda/security
+	l_ear = /obj/item/radio/headset/headset_sec/alt
+	id = /obj/item/card/id/security
+	l_pocket = /obj/item/flash
+	suit_store = /obj/item/gun/energy/gun/advtaser
+	pda = /obj/item/pda/security
 	backpack_contents = list(
-		/obj/item/weapon/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1
 	)
-	implants = list(/obj/item/weapon/implant/mindshield)
-	backpack = /obj/item/weapon/storage/backpack/security
-	satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
-	box = /obj/item/weapon/storage/box/engineer
+	implants = list(/obj/item/implant/mindshield)
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
+	box = /obj/item/storage/box/engineer

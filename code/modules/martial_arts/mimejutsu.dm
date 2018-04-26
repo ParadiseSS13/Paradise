@@ -38,7 +38,7 @@
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		D.apply_damage(damage, STAMINA, affecting, armor_block)
-		add_logs(A, D, "mimechucked")
+		add_attack_logs(A, D, "Melee attacked with [src] (mimechuck)")
 
 		return 1
 	return basic_hit(A,D)
@@ -86,14 +86,14 @@
 
 	return 1
 
-/obj/item/weapon/mimejutsu_scroll
+/obj/item/mimejutsu_scroll
 	name = "Mimejutsu 'scroll'"
 	desc =	"Its a beret with a note stapled to it..."
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret"
 	var/used = 0
 
-/obj/item/weapon/mimejutsu_scroll/attack_self(mob/user as mob)
+/obj/item/mimejutsu_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
 		return
 	if(!used)

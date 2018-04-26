@@ -204,7 +204,7 @@
 	icon_state = "spark"
 	hitsound = "sparks"
 	damage = 0
-	var/obj/item/weapon/gun/energy/wormhole_projector/gun
+	var/obj/item/gun/energy/wormhole_projector/gun
 	color = "#33CCFF"
 	nodamage = TRUE
 
@@ -332,7 +332,7 @@
 	nodamage = 1
 	damage_type = BURN
 	flag = "melee"
-	var/obj/item/weapon/gun/stored_gun
+	var/obj/item/gun/stored_gun
 
 /obj/item/projectile/mimic/New(loc, mimic_type)
 	..(loc)
@@ -346,7 +346,7 @@
 /obj/item/projectile/mimic/on_hit(atom/target)
 	..()
 	var/turf/T = get_turf(src)
-	var/obj/item/weapon/gun/G = stored_gun
+	var/obj/item/gun/G = stored_gun
 	stored_gun = null
 	G.forceMove(T)
 	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
