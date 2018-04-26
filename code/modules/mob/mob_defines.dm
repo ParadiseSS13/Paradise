@@ -46,7 +46,6 @@
 	var/gen_record = ""
 	var/blinded = null
 	var/bhunger = 0			//Carbon
-	var/ajourn = 0
 	var/lying = 0
 	var/lying_prev = 0
 	var/canmove = 1
