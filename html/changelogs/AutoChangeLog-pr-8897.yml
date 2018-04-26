@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Destroys uplink metagaming: Adds in F.R.A.M.E. cartridge"
+  - tweak: "using raw telecrystal on an active uplink or yourself will use the entire stack at once"
+  - rscadd: "can purchase 5 and 20 unit TC bundles from the uplink"
