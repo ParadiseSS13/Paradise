@@ -158,16 +158,13 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/explode()
 	walk_to(src,0)
-	if(!qdeleted(src))
-		visible_message("<span class='userdanger'>[src] blows apart!</span>")
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
-		new /obj/effect/decal/cleanable/blood/oil(loc)
-		new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
-		raise_alert("[src] destroyed.")
-	qdel(src)
-
+	visible_message("<span class='userdanger'>[src] blows apart!</span>")
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
+	s.set_up(3, 1, src)
+	s.start()
+	new /obj/effect/decal/cleanable/blood/oil(loc)
+	new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
+	raise_alert("[src] destroyed.")
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
 	projectile = /obj/item/projectile/bullet/a40mm

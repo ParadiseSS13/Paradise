@@ -89,7 +89,7 @@
 
 /obj/item/storage/toolbox/syndicate/trapped/New()
 	..()
-	new /obj/item/weapon/grenade/chem_grenade/explosion/mine_armed(src)
+	new /obj/item/grenade/chem_grenade/explosion/mine_armed(src)
 
 
 /obj/item/storage/toolbox/drone

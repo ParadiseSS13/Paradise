@@ -159,9 +159,9 @@
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/mousetrap)
 
-/obj/item/weapon/grenade/chem_grenade/explosion/mine_armed/New()
+/obj/item/grenade/chem_grenade/explosion/mine_armed/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/mousetrap/armed)
+	CreateDefaultTrigger(/obj/item/assembly/mousetrap/armed)
 
 
 // Water + Potassium = Boom

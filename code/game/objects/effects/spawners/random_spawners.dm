@@ -164,7 +164,7 @@
 	spawn_nothing_percentage = 0
 	result = list(
 	/obj/item/pizzabox/meat = 1,
-	/obj/item/device/pizza_bomb/autoarm = 1
+	/obj/item/pizza_bomb/autoarm = 1
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/medbot
@@ -177,8 +177,6 @@
 
 /obj/effect/spawner/random_spawners/syndicate/trap/mine
 	name = "50pc trap landmine"
-	icon = 'icons/obj/weapons.dmi'
-	icon_state = "uglyminearmed"
 	result = list(
 	/obj/effect/mine/explosive = 1
 	)
@@ -188,8 +186,8 @@
 	icon_state = "folder_syellow"
 	spawn_nothing_percentage = 0
 	result = list(
-	/obj/item/weapon/folder/syndicate/yellow = 1,
-	/obj/item/weapon/folder/syndicate/yellow_trapped = 1
+	/obj/item/folder/syndicate/yellow = 1,
+	/obj/item/folder/syndicate/yellow_trapped = 1
 	)
 
 
@@ -202,17 +200,17 @@
 	icon_state = "1"
 	// Loot schema: costumes, toys, useless gimmick items, trapped items
 	result = list(
-	/obj/item/weapon/storage/toolbox/syndicate = 1,
-	/obj/item/weapon/storage/toolbox/syndicate/trapped = 1,
-	/obj/item/weapon/storage/fancy/cigarettes/cigpack_syndicate = 1,
+	/obj/item/storage/toolbox/syndicate = 1,
+	/obj/item/storage/toolbox/syndicate/trapped = 1,
+	/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 	/obj/item/toy/cards/deck/syndicate = 1,
-	/obj/item/weapon/storage/secure/briefcase/syndie = 1,
+	/obj/item/storage/secure/briefcase/syndie = 1,
 	/obj/item/toy/syndicateballoon = 1,
-	/obj/item/weapon/soap/syndie = 1,
+	/obj/item/soap/syndie = 1,
 	/obj/item/clothing/under/syndicate = 1,
 	/obj/item/clothing/under/syndicate/tacticool = 1,
 	/obj/item/clothing/mask/gas/syndicate = 1,
-	/obj/item/weapon/storage/box/syndie_kit/cutouts = 1,
+	/obj/item/storage/box/syndie_kit/cutouts = 1,
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/spawn_item(var/turf/T)
@@ -231,17 +229,17 @@
 	icon_state = "2"
 	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
 	result = list(
-	/obj/item/weapon/storage/box/syndie_kit/space = 1,
-	/obj/item/weapon/storage/box/syndie_kit/hardsuit = 1,
+	/obj/item/storage/box/syndie_kit/space = 1,
+	/obj/item/storage/box/syndie_kit/hardsuit = 1,
 	/obj/item/clothing/shoes/magboots/syndie = 1,
 	/obj/item/clothing/suit/armor/vest/combat = 1,
 	/obj/item/ammo_box/magazine/m10mm = 1,
-	/obj/item/weapon/storage/pill_bottle/happy = 1,
-	/obj/item/weapon/storage/pill_bottle/zoom = 1,
-	/obj/item/weapon/storage/pill_bottle/random_drug_bottle = 2,
+	/obj/item/storage/pill_bottle/happy = 1,
+	/obj/item/storage/pill_bottle/zoom = 1,
+	/obj/item/storage/pill_bottle/random_drug_bottle = 2,
 	/obj/item/clothing/shoes/syndigaloshes = 1,
-	/obj/item/weapon/rcd_ammo = 1,
-	/obj/item/weapon/stamp/chameleon = 1,
+	/obj/item/rcd_ammo = 1,
+	/obj/item/stamp/chameleon = 1,
 	/obj/item/flag/chameleon = 1,
 	/obj/item/stack/sheet/mineral/plasma = 1,
 	/obj/item/stack/sheet/mineral/silver = 1,
@@ -252,25 +250,25 @@
 	icon_state = "3"
 	// Loot schema: medkits, very useful devices (jammer, illegal upgrade, RCD), better quality ammo (AP, fire), basic weapons (pistol, empgrenade), high value ores (diamond, uranium)
 	result = list(
-	/obj/item/device/jammer = 1,
-	/obj/item/weapon/storage/firstaid = 1,
-	/obj/item/weapon/storage/firstaid/tactical = 1,
-	/obj/item/weapon/gun/projectile/automatic/pistol = 1,
-	/obj/item/weapon/stock_parts/cell/bluespace = 1,
+	/obj/item/jammer = 1,
+	/obj/item/storage/firstaid = 1,
+	/obj/item/storage/firstaid/tactical = 1,
+	/obj/item/gun/projectile/automatic/pistol = 1,
+	/obj/item/stock_parts/cell/bluespace = 1,
 	/obj/item/borg/upgrade/vtec = 1,
 	/obj/item/borg/upgrade/syndicate = 1,
 	/obj/item/borg/upgrade/selfrepair = 1,
 	/obj/item/stack/sheet/mineral/diamond = 1,
 	/obj/item/stack/sheet/mineral/uranium = 1,
-	/obj/item/weapon/rcd = 1,
+	/obj/item/rcd = 1,
 	/obj/item/clothing/shoes/magboots/syndie/advance = 1,
-	/obj/item/weapon/grenade/empgrenade = 1,
-	/obj/item/weapon/grenade/spawnergrenade/feral_cats = 1,
+	/obj/item/grenade/empgrenade = 1,
+	/obj/item/grenade/spawnergrenade/feral_cats = 1,
 	/obj/item/ammo_box/magazine/m10mm/ap = 1,
 	/obj/item/ammo_box/magazine/m10mm/fire = 1,
-	/obj/item/weapon/storage/box/syndie_kit/throwing_weapons = 1,
-	/obj/item/weapon/gun/syringe/syndicate = 1,
-	/obj/item/weapon/suppressor = 1,
+	/obj/item/storage/box/syndie_kit/throwing_weapons = 1,
+	/obj/item/gun/syringe/syndicate = 1,
+	/obj/item/suppressor = 1,
 	/obj/item/clothing/glasses/hud/security/chameleon = 1
 	)
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
@@ -279,21 +277,21 @@
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(
 	/obj/item/clothing/glasses/thermal = 1,
-	/obj/item/weapon/gun/projectile/automatic/m90 = 1,
+	/obj/item/gun/projectile/automatic/m90 = 1,
 	/obj/item/ammo_box/magazine/m556 = 1,
-	/obj/item/device/chameleon = 1,
-	/obj/item/device/radio/headset/syndicate = 1,
-	/obj/item/weapon/grenade/spawnergrenade/manhacks = 1,
-	/obj/item/weapon/melee/energy/sword/saber = 1,
-	/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow = 1,
-	/obj/item/weapon/gun/projectile/revolver = 1,
-	/obj/item/weapon/grenade/plastic/x4 = 1,
+	/obj/item/chameleon = 1,
+	/obj/item/radio/headset/syndicate = 1,
+	/obj/item/grenade/spawnergrenade/manhacks = 1,
+	/obj/item/melee/energy/sword/saber = 1,
+	/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
+	/obj/item/gun/projectile/revolver = 1,
+	/obj/item/grenade/plastic/x4 = 1,
 	/obj/item/clothing/gloves/color/yellow/power = 1,
-	/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants = 1,
-	/obj/item/weapon/gun/projectile/automatic/c20r = 1,
-	/obj/item/weapon/twohanded/chainsaw = 1,
-	/obj/item/weapon/storage/box/syndie_kit/atmosgasgrenades = 1,
-	/obj/item/weapon/grenade/syndieminibomb = 1,
+	/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
+	/obj/item/gun/projectile/automatic/c20r = 1,
+	/obj/item/twohanded/chainsaw = 1,
+	/obj/item/storage/box/syndie_kit/atmosgasgrenades = 1,
+	/obj/item/grenade/syndieminibomb = 1,
 
 	)
 

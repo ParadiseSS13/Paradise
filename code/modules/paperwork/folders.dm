@@ -122,20 +122,20 @@
 	new /obj/item/documents/syndicate/blue(src)
 	update_icon()
 
-/obj/item/weapon/folder/syndicate/yellow
+/obj/item/folder/syndicate/yellow
 	icon_state = "folder_syellow"
 
-/obj/item/weapon/folder/syndicate/yellow/New()
+/obj/item/folder/syndicate/yellow/New()
 	..()
 	new /obj/item/documents/syndicate/yellow(src)
 	update_icon()
 
-/obj/item/weapon/folder/syndicate/yellow_trapped
+/obj/item/folder/syndicate/yellow_trapped
 	icon_state = "folder_syellow"
 
-/obj/item/weapon/folder/syndicate/yellow_trapped/New()
+/obj/item/folder/syndicate/yellow_trapped/New()
 	..()
-	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
+	var/obj/item/paper/P = new /obj/item/paper(src)
 	P.name = "'Yellow' secret documents"
 	P.info = "Death to NanoTrasen!"
 	P.contact_poison = "amanitin"

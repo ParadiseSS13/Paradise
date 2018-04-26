@@ -100,6 +100,6 @@
 	..()
 	correct_wire = pick(wires)
 
-/obj/item/device/pizza_bomb/autoarm
+/obj/item/pizza_bomb/autoarm
 	timer_set = 1
 	timer = 10
