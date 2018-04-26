@@ -266,8 +266,7 @@
 				layer = FLY_LAYER
 
 /obj/machinery/shower/Destroy()
-	if(mymist)
-		QDEL_NULL(mymist)
+	QDEL_NULL(mymist)
 	QDEL_NULL(soundloop)
 	return ..()
 
