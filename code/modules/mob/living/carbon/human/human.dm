@@ -306,112 +306,6 @@
 			return 0
 	..()
 
-/mob/living/carbon/human/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
-	else
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
-						"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
-		add_attack_logs(M, src, "Animal attacked")
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK, M.armour_penetration))
-			return 0
-		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
-		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
-
-		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
-		if(affected)
-			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
-		apply_damage(damage, M.melee_damage_type, affecting, armor)
-		updatehealth()
-
-/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L as mob)
-
-	switch(L.a_intent)
-		if(INTENT_HELP)
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
-
-
-		else
-			L.do_attack_animation(src)
-			var/damage = rand(1, 3)
-			visible_message("<span class='danger'>[L] bites [src]!</span>", \
-					"<span class='userdanger'>[L] bites [src]!</span>")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-
-			if(stat != DEAD)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
-			var/armor_block = run_armor_check(affecting, "melee")
-			apply_damage(damage, BRUTE, affecting, armor_block)
-
-/mob/living/carbon/human/attack_slime(mob/living/carbon/slime/M as mob)
-	if(M.Victim) return // can't attack while eating!
-
-	if(stat != DEAD)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
-
-		var/damage = rand(1, 3)
-
-		if(M.is_adult)
-			damage = rand(10, 35)
-		else
-			damage = rand(5, 25)
-
-		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK))
-			return 0
-
-		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
-
-		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-		var/armor_block = run_armor_check(affecting, "melee")
-		apply_damage(damage, BRUTE, affecting, armor_block)
-
-
-		if(M.powerlevel > 0)
-			var/stunprob = 10
-			var/power = M.powerlevel + rand(0,3)
-
-			switch(M.powerlevel)
-				if(1 to 2) stunprob = 20
-				if(3 to 4) stunprob = 30
-				if(5 to 6) stunprob = 40
-				if(7 to 8) stunprob = 60
-				if(9) 		 stunprob = 70
-				if(10) 		 stunprob = 95
-
-			if(prob(stunprob))
-				M.powerlevel -= 3
-				if(M.powerlevel < 0)
-					M.powerlevel = 0
-
-				for(var/mob/O in viewers(src, null))
-					if((O.client && !( O.blinded )))
-						O.show_message(text("<span class='danger'>The [M.name] has shocked []!</span>", src), 1)
-
-				Weaken(power)
-				Stuttering(power)
-				Stun(power)
-
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(5, 1, src)
-				s.start()
-
-				if(prob(stunprob) && M.powerlevel >= 8)
-					adjustFireLoss(M.powerlevel * rand(6,10))
-
-
-		updatehealth()
-
-	return
-
-
 /mob/living/carbon/human/restrained()
 	if(handcuffed)
 		return 1
@@ -1833,6 +1727,39 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(mob_negates_gravity())
 		return
 	..()
+
+/mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
+	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
+		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
+		return
+	if(!check_has_mouth())
+		to_chat(src, "<span class='danger'>You don't have a mouth, you cannot perform CPR!</span>")
+		return
+	if(!H.check_has_mouth())
+		to_chat(src, "<span class='danger'>They don't have a mouth, you cannot perform CPR!</span>")
+		return
+	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.mask_adjusted))
+		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
+		return 0
+	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
+		to_chat(src, "<span class='warning'>Remove their mask first!</span>")
+		return 0
+	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", \
+					  "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+	if(do_mob(src, H, 40))
+		if(H.health > config.health_threshold_dead && H.health <= config.health_threshold_crit)
+			var/suff = min(H.getOxyLoss(), 7)
+			H.adjustOxyLoss(-suff)
+			H.updatehealth()
+			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", \
+							  "<span class='notice'>You perform CPR on [H.name].</span>")
+
+			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
+			to_chat(src, "<span class='alert'>Repeat at least every 7 seconds.")
+			add_attack_logs(src, H, "CPRed", FALSE)
+			return 1
+	else
+		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
 /mob/living/carbon/human/canBeHandcuffed()
 	if(get_num_arms() >= 2)

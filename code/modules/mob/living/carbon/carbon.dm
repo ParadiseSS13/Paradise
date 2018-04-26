@@ -201,11 +201,12 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if(src.health >= config.health_threshold_crit)
-		if(src == M && istype(src, /mob/living/carbon/human))
+	add_attack_logs(M, src, "Shaked", admin_notify = FALSE)
+	if(health >= config.health_threshold_crit)
+		if(src == M && ishuman(src))
 			var/mob/living/carbon/human/H = src
-			src.visible_message( \
-				text("<span class='notice'>[src] examines [].</span>",src.gender==MALE?"himself":"herself"), \
+			visible_message( \
+				text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
 				"<span class='notice'>You check yourself for injuries.</span>" \
 				)
 
@@ -259,20 +260,21 @@
 				"<span class='notice'>You shake [src], but they are unresponsive. Probably suffering from SSD.</span>")
 			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				var/t_him = "it"
-				if(src.gender == MALE)
+				if(gender == MALE)
 					t_him = "him"
-				else if(src.gender == FEMALE)
+				else if(gender == FEMALE)
 					t_him = "her"
-				if(istype(src,/mob/living/carbon/human) && src:w_uniform)
+				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
-					H.w_uniform.add_fingerprint(M)
+					if(H.w_uniform)
+						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-5)
-				if(src.sleeping == 0)
-					src.resting = 0
+				if(sleeping == 0)
+					resting = 0
 				AdjustParalysis(-3)
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
-				playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
 						"<span class='notice'>[M] shakes [src] trying to wake [t_him] up!</span>",\
@@ -292,7 +294,7 @@
 					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
 					"<span class='notice'>You hug [src].</span>",\
 					)
-					if(istype(src,/mob/living/carbon/human))
+					if(ishuman(src))
 						var/mob/living/carbon/human/H = src
 						if(H.wear_suit)
 							H.wear_suit.add_fingerprint(M)

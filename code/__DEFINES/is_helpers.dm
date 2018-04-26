@@ -41,6 +41,29 @@ var/list/static/global/pointed_types = typecacheof(list(
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
 
+//Mobs
+#define isliving(A) (istype(A, /mob/living))
+
+#define isbrain(A) (istype(A, /mob/living/carbon/brain))
+
+//Carbon mobs
+#define iscarbon(A) (istype(A, /mob/living/carbon))
+
+#define ishuman(A) (istype(A, /mob/living/carbon/human))
+
+//more carbon mobs
+#define isalien(A) (istype(A, /mob/living/carbon/alien))
+
+#define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
+
+#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
+
+#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
+
+#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
+
+#define isslime(A)		(istype((A), /mob/living/carbon/slime))
+
 // Misc
 #define isclient(A) istype(A, /client)
 #define isradio(A) istype(A, /obj/item/radio)

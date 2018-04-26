@@ -5,7 +5,7 @@
 As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
 In all, this is a lot like the monkey code. /N
 */
-/mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M as mob)
+/mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
 	if(!ticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
@@ -40,14 +40,12 @@ In all, this is a lot like the monkey code. /N
 			else
 				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
 
-/mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L as mob)
+/mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
 	return attack_alien(L)
 
-/mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M as mob)
+/mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
 		return 0
-	if(istype(src,/mob/living/carbon/alien/humanoid))
-		return 0 //this is horrible but 100% necessary
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
@@ -55,12 +53,11 @@ In all, this is a lot like the monkey code. /N
 		if(INTENT_GRAB)
 			grabbedby(M)
 		if(INTENT_HARM, INTENT_DISARM)
+			M.do_attack_animation(src)
 			return 1
 	return 0
 
-
-
-/mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M as mob)
+/mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
 	if(..())
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		switch(M.melee_damage_type)

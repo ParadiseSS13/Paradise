@@ -258,21 +258,21 @@
 			return
 	return 1 //Successful completion. Used to prevent child process() continuing if this one is ended early.
 
-/mob/living/simple_animal/bot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/attack_alien(mob/living/carbon/alien/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	apply_damage(rand(15,30), BRUTE)
-	visible_message("<span class='userdanger'>[user] has slashed [src]!</span>")
+	visible_message("<span class='danger'>[user] has slashed [src]!</span>")
 	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
-/mob/living/simple_animal/bot/attack_animal(var/mob/living/simple_animal/M as mob)
+/mob/living/simple_animal/bot/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)
 	if(M.melee_damage_upper == 0)
 		return
 	apply_damage(M.melee_damage_upper, BRUTE)
-	visible_message("<span class='userdanger'>[M] has [M.attacktext] [src]!</span>")
+	visible_message("<span class='danger'>[M] has [M.attacktext] [src]!</span>")
 	add_attack_logs(M, src, "Animal attacked", FALSE)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)

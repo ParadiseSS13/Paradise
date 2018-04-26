@@ -229,18 +229,18 @@
 
 // End BS12 momentum-transfer code.
 
-/mob/living/proc/grabbedby(mob/living/carbon/user,var/supress_message = 0)
+/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = 0)
 	if(user == src || anchored)
 		return 0
 	if(!(status_flags & CANPUSH))
 		return 0
 
-	for(var/obj/item/grab/G in src.grabbed_by)
+	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)
 			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
 			return
 
-	add_attack_logs(user, src, "Grabbed passively")
+	add_attack_logs(user, src, "Grabbed passively", admin_notify = FALSE)
 
 	var/obj/item/grab/G = new /obj/item/grab(user, src)
 	if(buckled)
@@ -262,3 +262,77 @@
 		visible_message("<span class='warning'>[user] has grabbed [src] passively!</span>")
 
 	return G
+
+/mob/living/attack_slime(mob/living/carbon/slime/M)
+	if(!ticker)
+		to_chat(M, "You cannot attack people before the game has started.")
+		return
+
+	if(M.Victim)
+		return // can't attack while eating!
+
+	if(stat != DEAD)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
+				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
+
+		if(M.powerlevel > 0)
+			var/stunprob = M.powerlevel * 7 + 10  // 17 at level 1, 80 at level 10
+			if(prob(stunprob))
+				M.powerlevel -= 3
+				if(M.powerlevel < 0)
+					M.powerlevel = 0
+
+				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
+				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
+
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
+				s.set_up(5, 1, src)
+				s.start()
+				return 1
+	add_attack_logs(src, M, "Slime'd")
+	return
+
+/mob/living/attack_animal(mob/living/simple_animal/M)
+	if(M.melee_damage_upper == 0)
+		M.custom_emote(1, "[M.friendly] [src]")
+		return 0
+	else
+		if(M.attack_sound)
+			playsound(loc, M.attack_sound, 50, 1, 1)
+		M.do_attack_animation(src)
+		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
+						"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
+		add_attack_logs(M, src, "Animal attacked")
+		return 1
+
+/mob/living/attack_larva(mob/living/carbon/alien/larva/L)
+	switch(L.a_intent)
+		if(INTENT_HELP)
+			visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
+			return 0
+
+		else
+			L.do_attack_animation(src)
+			if(prob(90))
+				add_attack_logs(L, src, "Larva attacked")
+				visible_message("<span class='danger'>[L.name] bites [src]!</span>", \
+						"<span class='userdanger'>[L.name] bites [src]!</span>")
+				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				return 1
+			else
+				visible_message("<span class='danger'>[L.name] has attempted to bite [src]!</span>", \
+					"<span class='userdanger'>[L.name] has attempted to bite [src]!</span>")
+	return 0
+
+/mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
+	switch(M.a_intent)
+		if(INTENT_HELP)
+			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
+			return FALSE
+		if(INTENT_GRAB)
+			grabbedby(M)
+			return FALSE
+		else
+			M.do_attack_animation(src)
+			return TRUE
