@@ -126,7 +126,7 @@
 		update_icon()
 		to_chat(user, "<span class='notice'>You [open_panel ? "open" : "close"] the wire panel.</span>")
 
-	else if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/device/multitool) || istype(I, /obj/item/device/assembly/signaler ))
+	else if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler ))
 		if(open_panel)
 			wires.Interact(user)
 
@@ -530,7 +530,7 @@
 
 ///Syndicate Detonator (aka the big red button)///
 
-/obj/item/device/syndicatedetonator
+/obj/item/syndicatedetonator
 	name = "big red button"
 	desc = "Your standard issue bomb synchronizing button. Five second safety delay to prevent 'accidents'."
 	icon = 'icons/obj/assemblies.dmi'
@@ -542,7 +542,7 @@
 	var/detonated =	0
 	var/existant =	0
 
-/obj/item/device/syndicatedetonator/attack_self(mob/user)
+/obj/item/syndicatedetonator/attack_self(mob/user)
 	if(timer < world.time)
 		for(var/obj/machinery/syndicatebomb/B in machines)
 			if(B.active)

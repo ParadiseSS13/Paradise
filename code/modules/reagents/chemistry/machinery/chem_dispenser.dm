@@ -68,9 +68,9 @@
 		options[/obj/item/stock_parts/manipulator/pico] = "Upgrade to a pico manipulator to fix it."
 		options[/obj/item/stock_parts/matter_bin/super] = "Give it a super matter bin to fix it."
 		options[/obj/item/stock_parts/cell/super] = "Replace the reagent synthesizer with a super capacity cell to fix it."
-		options[/obj/item/device/mass_spectrometer/adv] = "Replace the reagent scanner with an advanced mass spectrometer to fix it"
+		options[/obj/item/mass_spectrometer/adv] = "Replace the reagent scanner with an advanced mass spectrometer to fix it"
 		options[/obj/item/stock_parts/micro_laser/high] = "Repair the reagent synthesizer with an high-power micro-laser to fix it"
-		options[/obj/item/device/reagent_scanner/adv] = "Replace the reagent scanner with an advanced reagent scanner to fix it"
+		options[/obj/item/reagent_scanner/adv] = "Replace the reagent scanner with an advanced reagent scanner to fix it"
 		options[/obj/item/stack/nanopaste] = "Apply some nanopaste to the broken nozzles to fix it."
 		options[/obj/item/stack/sheet/plasteel] = "Surround the outside with a plasteel cover to fix it."
 		options[/obj/item/stack/sheet/rglass] = "Insert a pane of reinforced glass to fix it."
@@ -233,7 +233,7 @@
 
 /obj/machinery/chem_dispenser/attackby(obj/item/B, mob/user, params)
 	..()
-	if(istype(B, /obj/item/device/multitool))
+	if(istype(B, /obj/item/multitool))
 		if(hackedcheck == 0)
 			to_chat(user, hack_message)
 			dispensable_reagents += hacked_reagents

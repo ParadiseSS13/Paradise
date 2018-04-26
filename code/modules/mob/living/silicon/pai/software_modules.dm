@@ -104,7 +104,7 @@
 		var/ch_stat = user.radio.channels[ch_name]
 		var/ch_dat[0]
 		ch_dat["name"] = ch_name
-		// FREQ_LISTENING is const in /obj/item/device/radio
+		// FREQ_LISTENING is const in /obj/item/radio
 		ch_dat["listening"] = !!(ch_stat & user.radio.FREQ_LISTENING)
 		channels[++channels.len] = ch_dat
 
@@ -165,7 +165,7 @@
 
 	var/pdas[0]
 	if(!M.toff)
-		for(var/obj/item/device/pda/P in PDAs)
+		for(var/obj/item/pda/P in PDAs)
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 			if(P == user.pda || !PM || !PM.can_receive())

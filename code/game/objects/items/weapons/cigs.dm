@@ -90,7 +90,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(S.active)
 			light("<span class='warning'>[user] swings their [W], barely missing their nose. They light their [name] in the process.</span>")
 
-	else if(istype(W, /obj/item/device/assembly/igniter))
+	else if(istype(W, /obj/item/assembly/igniter))
 		light("<span class='notice'>[user] fiddles with [W], and manages to light their [name].</span>")
 
 	else if(istype(W, /obj/item/gun/magic/wand/fireball))

@@ -19,7 +19,7 @@
 	result = /obj/item/grenade/iedcasing
 	reqs = list(/datum/reagent/fuel = 50,
 				/obj/item/stack/cable_coil = 1,
-				/obj/item/device/assembly/igniter = 1,
+				/obj/item/assembly/igniter = 1,
 				/obj/item/reagent_containers/food/drinks/cans = 1)
 	parts = list(/obj/item/reagent_containers/food/drinks/cans = 1)
 	time = 15
@@ -48,7 +48,7 @@
 	result = /obj/item/melee/baton/cattleprod
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/stack/rods = 1,
-				/obj/item/device/assembly/igniter = 1)
+				/obj/item/assembly/igniter = 1)
 	time = 40
 	category = CAT_WEAPON
 
@@ -72,7 +72,7 @@
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/gun/energy/gun/advtaser = 1,
 				/obj/item/stock_parts/cell = 1,
-				/obj/item/device/assembly/prox_sensor = 1)
+				/obj/item/assembly/prox_sensor = 1)
 	tools = list(/obj/item/weldingtool, /obj/item/screwdriver)
 	time = 60
 	category = CAT_ROBOT
@@ -80,10 +80,10 @@
 /datum/crafting_recipe/secbot
 	name = "Secbot"
 	result = /mob/living/simple_animal/bot/secbot
-	reqs = list(/obj/item/device/assembly/signaler = 1,
+	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
 				/obj/item/melee/baton = 1,
-				/obj/item/device/assembly/prox_sensor = 1,
+				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	tools = list(/obj/item/weldingtool)
 	time = 60
@@ -93,7 +93,7 @@
 	name = "Cleanbot"
 	result = /mob/living/simple_animal/bot/cleanbot
 	reqs = list(/obj/item/reagent_containers/glass/bucket = 1,
-				/obj/item/device/assembly/prox_sensor = 1,
+				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	time = 40
 	category = CAT_ROBOT
@@ -103,7 +103,7 @@
 	result = /mob/living/simple_animal/bot/floorbot
 	reqs = list(/obj/item/storage/toolbox/mechanical = 1,
 				/obj/item/stack/tile/plasteel = 1,
-				/obj/item/device/assembly/prox_sensor = 1,
+				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	time = 40
 	category = CAT_ROBOT
@@ -111,9 +111,9 @@
 /datum/crafting_recipe/medbot
 	name = "Medbot"
 	result = /mob/living/simple_animal/bot/medbot
-	reqs = list(/obj/item/device/healthanalyzer = 1,
+	reqs = list(/obj/item/healthanalyzer = 1,
 				/obj/item/storage/firstaid = 1,
-				/obj/item/device/assembly/prox_sensor = 1,
+				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	time = 40
 	category = CAT_ROBOT
@@ -122,9 +122,9 @@
 	name = "Flamethrower"
 	result = /obj/item/flamethrower
 	reqs = list(/obj/item/weldingtool = 1,
-				/obj/item/device/assembly/igniter = 1,
+				/obj/item/assembly/igniter = 1,
 				/obj/item/stack/rods = 1)
-	parts = list(/obj/item/device/assembly/igniter = 1,
+	parts = list(/obj/item/assembly/igniter = 1,
 				/obj/item/weldingtool = 1)
 	tools = list(/obj/item/screwdriver)
 	time = 10
@@ -243,11 +243,11 @@
 
 /datum/crafting_recipe/spooky_camera
 	name = "Camera Obscura"
-	result = /obj/item/device/camera/spooky
+	result = /obj/item/camera/spooky
 	time = 15
-	reqs = list(/obj/item/device/camera = 1,
+	reqs = list(/obj/item/camera = 1,
 				/datum/reagent/holywater = 10)
-	parts = list(/obj/item/device/camera = 1)
+	parts = list(/obj/item/camera = 1)
 
 /datum/crafting_recipe/papersack
 	name = "Paper Sack"

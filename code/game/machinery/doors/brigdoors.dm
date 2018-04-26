@@ -25,7 +25,7 @@
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/list/obj/machinery/targets = list()
 	var/timetoset = 0		// Used to set releasetime upon starting the timer
-	var/obj/item/device/radio/Radio
+	var/obj/item/radio/Radio
 	var/printed = 0
 	var/datum/data/record/prisoner
 	maptext_height = 26
@@ -76,7 +76,7 @@
 /obj/machinery/door_timer/initialize()
 	..()
 
-	Radio = new /obj/item/device/radio(src)
+	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
 	Radio.config(list("Security" = 0))
 	Radio.follow_target = src

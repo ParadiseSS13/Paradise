@@ -5,7 +5,7 @@
 	var/notify_silent = 0
 	var/hidden = 0				// program not displayed in main menu
 	var/category = "General"	// the category to list it in on the main menu
-	var/obj/item/device/pda/pda	// if this is null, and the app is running code, something's gone wrong
+	var/obj/item/pda/pda	// if this is null, and the app is running code, something's gone wrong
 
 /datum/data/pda/Destroy()
 	pda = null

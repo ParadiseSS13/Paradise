@@ -505,7 +505,7 @@
 			to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"].")
 			update_icon()
 
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
+	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
 		if(emagged)
 			to_chat(user, "The interface is broken.")
 		else if(opened)
@@ -641,8 +641,8 @@
 			if(istype(user, /mob/living/silicon))
 				return src.attack_hand(user)
 			if(!opened && wiresexposed && \
-				(istype(W, /obj/item/device/multitool) || \
-				istype(W, /obj/item/wirecutters) || istype(W, /obj/item/device/assembly/signaler)))
+				(istype(W, /obj/item/multitool) || \
+				istype(W, /obj/item/wirecutters) || istype(W, /obj/item/assembly/signaler)))
 				return src.attack_hand(user)
 			if(W.flags & NOBLUDGEON)
 				return

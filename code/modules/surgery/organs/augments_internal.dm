@@ -284,7 +284,7 @@
 
 /obj/item/storage/box/cyber_implants/New(loc, implant)
 	..()
-	new /obj/item/device/autoimplanter(src)
+	new /obj/item/autoimplanter(src)
 	if(ispath(implant))
 		new implant(src)
 

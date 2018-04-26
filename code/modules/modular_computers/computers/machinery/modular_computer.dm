@@ -31,7 +31,7 @@ var/list/global_modular_computers = list()
 	integrity_failure = 150
 	max_integrity = 300
 
-	var/obj/item/device/modular_computer/processor/cpu = null				// CPU that handles most logic while this type only handles power and other specific things.
+	var/obj/item/modular_computer/processor/cpu = null				// CPU that handles most logic while this type only handles power and other specific things.
 
 /obj/machinery/modular_computer/New()
 	..()

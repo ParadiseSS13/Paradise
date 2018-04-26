@@ -32,7 +32,7 @@
 		emagged = 1 //Set the emag var to true.
 
 /obj/machinery/poolcontroller/attackby(obj/item/P as obj, mob/user as mob, params) //Proc is called when a user hits the pool controller with something.
-	if(istype(P,/obj/item/device/multitool)) //If the mob hits the pool controller with a multitool, reset the emagged status
+	if(istype(P,/obj/item/multitool)) //If the mob hits the pool controller with a multitool, reset the emagged status
 		if(emagged) //Check the emag status
 			to_chat(user, "<span class='warning'>You re-enable \the [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
 

@@ -256,12 +256,12 @@
 
 	New()
 		..()
-		new /obj/item/device/flash(src)
-		new /obj/item/device/flash(src)
-		new /obj/item/device/flash(src)
-		new /obj/item/device/flash(src)
-		new /obj/item/device/flash(src)
-		new /obj/item/device/flash(src)
+		new /obj/item/flash(src)
+		new /obj/item/flash(src)
+		new /obj/item/flash(src)
+		new /obj/item/flash(src)
+		new /obj/item/flash(src)
+		new /obj/item/flash(src)
 
 /obj/item/storage/box/teargas
 	name = "box of tear gas grenades (WARNING)"
@@ -358,12 +358,12 @@
 
 	New()
 		..()
-		new /obj/item/device/tape(src)
-		new /obj/item/device/tape(src)
-		new /obj/item/device/tape(src)
-		new /obj/item/device/tape(src)
-		new /obj/item/device/tape(src)
-		new /obj/item/device/tape(src)
+		new /obj/item/tape(src)
+		new /obj/item/tape(src)
+		new /obj/item/tape(src)
+		new /obj/item/tape(src)
+		new /obj/item/tape(src)
+		new /obj/item/tape(src)
 
 /obj/item/storage/box/rxglasses
 	name = "prescription glasses"
@@ -619,12 +619,12 @@
 
 	New()
 		..()
-		new /obj/item/device/assembly/mousetrap( src )
-		new /obj/item/device/assembly/mousetrap( src )
-		new /obj/item/device/assembly/mousetrap( src )
-		new /obj/item/device/assembly/mousetrap( src )
-		new /obj/item/device/assembly/mousetrap( src )
-		new /obj/item/device/assembly/mousetrap( src )
+		new /obj/item/assembly/mousetrap( src )
+		new /obj/item/assembly/mousetrap( src )
+		new /obj/item/assembly/mousetrap( src )
+		new /obj/item/assembly/mousetrap( src )
+		new /obj/item/assembly/mousetrap( src )
+		new /obj/item/assembly/mousetrap( src )
 
 /obj/item/storage/box/pillbottles
 	name = "box of pill bottles"
@@ -838,10 +838,10 @@
 	contents = list()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/emergency_oxygen/double/full(src)
-	new /obj/item/device/flashlight/seclite(src)
+	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
 
-	new /obj/item/device/radio/centcom(src)
+	new /obj/item/radio/centcom(src)
 	new /obj/item/door_remote/omni(src)
 	new /obj/item/implanter/death_alarm(src)
 

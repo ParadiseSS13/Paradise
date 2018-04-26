@@ -291,7 +291,7 @@
 			G.water_act(100, convertHeat(), src)
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(I.type == /obj/item/device/analyzer)
+	if(I.type == /obj/item/analyzer)
 		to_chat(user, "<span class='notice'>The water temperature seems to be [watertemp].</span>")
 	if(iswrench(I))
 		to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with the [I].</span>")

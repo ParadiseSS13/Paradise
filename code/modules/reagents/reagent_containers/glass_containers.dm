@@ -140,7 +140,7 @@
 			reagents.chem_temp += 15
 			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
 			reagents.handle_reactions()
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/device/flashlight/pen))
+	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
 		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)
 			to_chat(user, "<span class='warning'>The label can be at most [MAX_NAME_LEN] characters long.</span>")
@@ -164,7 +164,7 @@
 	icon_state = "beaker"
 	item_state = "beaker"
 	materials = list(MAT_GLASS=500)
-	var/obj/item/device/assembly_holder/assembly = null
+	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
@@ -222,7 +222,7 @@
 		reagents.handle_reactions()
 
 /obj/item/reagent_containers/glass/beaker/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/assembly_holder) && can_assembly)
+	if(istype(W, /obj/item/assembly_holder) && can_assembly)
 		if(assembly)
 			to_chat(usr, "<span class='warning'>[src] already has an assembly.</span>")
 			return ..()

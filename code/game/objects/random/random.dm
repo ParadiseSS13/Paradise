@@ -36,7 +36,7 @@
 					/obj/item/weldingtool,\
 					/obj/item/crowbar,\
 					/obj/item/wrench,\
-					/obj/item/device/flashlight)
+					/obj/item/flashlight)
 
 
 /obj/random/technology_scanner
@@ -45,9 +45,9 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
 	item_to_spawn()
-		return pick(prob(5);/obj/item/device/t_scanner,\
-					prob(2);/obj/item/device/radio/intercom,\
-					prob(5);/obj/item/device/analyzer)
+		return pick(prob(5);/obj/item/t_scanner,\
+					prob(2);/obj/item/radio/intercom,\
+					prob(5);/obj/item/analyzer)
 
 
 /obj/random/powercell
@@ -69,9 +69,9 @@
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "signaller"
 	item_to_spawn()
-		return pick(/obj/item/device/assembly/igniter,\
-					/obj/item/device/assembly/prox_sensor,\
-					/obj/item/device/assembly/signaler)
+		return pick(/obj/item/assembly/igniter,\
+					/obj/item/assembly/prox_sensor,\
+					/obj/item/assembly/signaler)
 
 
 /obj/random/toolbox

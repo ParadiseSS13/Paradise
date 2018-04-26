@@ -43,6 +43,6 @@ var/list/static/global/pointed_types = typecacheof(list(
 
 // Misc
 #define isclient(A) istype(A, /client)
-#define isradio(A) istype(A, /obj/item/device/radio)
+#define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 

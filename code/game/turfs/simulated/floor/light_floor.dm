@@ -71,7 +71,7 @@
 				to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
 			else
 				to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-	if(istype(C,/obj/item/device/multitool))
+	if(istype(C,/obj/item/multitool))
 		if(state != 0)
 			if(state < LIGHTFLOOR_PURPLE)
 				state++

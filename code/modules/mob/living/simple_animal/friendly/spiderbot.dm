@@ -34,7 +34,7 @@
 	del_on_death = 1
 
 	var/emagged = 0               //is it getting ready to explode?
-	var/obj/item/device/mmi/mmi = null
+	var/obj/item/mmi/mmi = null
 	var/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
 
 /mob/living/simple_animal/spiderbot/Destroy()
@@ -46,8 +46,8 @@
 	return ..()
 
 /mob/living/simple_animal/spiderbot/attackby(obj/item/O, mob/living/user, params)
-	if(istype(O, /obj/item/device/mmi))
-		var/obj/item/device/mmi/B = O
+	if(istype(O, /obj/item/mmi))
+		var/obj/item/mmi/B = O
 		if(mmi) //There's already a brain in it.
 			to_chat(user, "<span class='warning'>There's already a brain in [src]!</span>")
 			return
@@ -100,7 +100,7 @@
 				to_chat(user, "<span class='notice'>[src] is undamaged!</span>")
 		else
 			to_chat(user, "Need more welding fuel!")
-	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/device/pda))
+	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
 		if(!mmi)
 			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
 			return 0
@@ -114,7 +114,7 @@
 		if(istype(O, /obj/item/card/id))
 			id_card = O
 		else
-			var/obj/item/device/pda/pda = O
+			var/obj/item/pda/pda = O
 			id_card = pda.id
 
 		if(access_robotics in id_card.access)
@@ -144,7 +144,7 @@
 		melee_damage_upper = 15
 		attack_sound = 'sound/machines/defib_zap.ogg'
 
-/mob/living/simple_animal/spiderbot/proc/transfer_personality(obj/item/device/mmi/M)
+/mob/living/simple_animal/spiderbot/proc/transfer_personality(obj/item/mmi/M)
 	mind = M.brainmob.mind
 	mind.key = M.brainmob.key
 	ckey = M.brainmob.ckey
@@ -154,10 +154,10 @@
 
 /mob/living/simple_animal/spiderbot/proc/update_icon()
 	if(mmi)
-		if(istype(mmi, /obj/item/device/mmi))
+		if(istype(mmi, /obj/item/mmi))
 			icon_state = "spiderbot-chassis-mmi"
 			icon_living = "spiderbot-chassis-mmi"
-		if(istype(mmi, /obj/item/device/mmi/posibrain))
+		if(istype(mmi, /obj/item/mmi/posibrain))
 			icon_state = "spiderbot-chassis-posi"
 			icon_living = "spiderbot-chassis-posi"
 

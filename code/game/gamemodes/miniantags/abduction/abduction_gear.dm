@@ -109,18 +109,18 @@
 	if(combat_cooldown==initial(combat_cooldown))
 		processing_objects.Remove(src)
 
-/obj/item/device/abductor/proc/AbductorCheck(user)
+/obj/item/abductor/proc/AbductorCheck(user)
 	if(isabductor(user))
 		return TRUE
 	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
 	return FALSE
 
-/obj/item/device/abductor/proc/ScientistCheck(user)
+/obj/item/abductor/proc/ScientistCheck(user)
 	var/mob/living/carbon/human/H = user
 	if(H.mind && H.mind.abductor)
 		return H.mind.abductor.scientist
 
-/obj/item/device/abductor/gizmo
+/obj/item/abductor/gizmo
 	name = "science tool"
 	desc = "A dual-mode tool for retrieving specimens and scanning appearances. Scanning can be done through cameras."
 	icon = 'icons/obj/abductor.dmi'
@@ -131,7 +131,7 @@
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
 
-/obj/item/device/abductor/gizmo/attack_self(mob/user)
+/obj/item/abductor/gizmo/attack_self(mob/user)
 	if(!AbductorCheck(user))
 		return
 	if(!ScientistCheck(user))
@@ -145,7 +145,7 @@
 		icon_state = "gizmo_scan"
 	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
 
-/obj/item/device/abductor/gizmo/attack(mob/living/M, mob/user)
+/obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
 	if(!AbductorCheck(user))
 		return
 	if(!ScientistCheck(user))
@@ -158,7 +158,7 @@
 			mark(M, user)
 
 
-/obj/item/device/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		return
 	if(!AbductorCheck(user))
@@ -172,13 +172,13 @@
 		if(GIZMO_MARK)
 			mark(target, user)
 
-/obj/item/device/abductor/gizmo/proc/scan(atom/target, mob/living/user)
+/obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
 	if(ishuman(target))
 		if(console!=null)
 			console.AddSnapshot(target)
 			to_chat(user, "<span class='notice'>You scan [target] and add them to the database.</span>")
 
-/obj/item/device/abductor/gizmo/proc/mark(atom/target, mob/living/user)
+/obj/item/abductor/gizmo/proc/mark(atom/target, mob/living/user)
 	if(marked == target)
 		to_chat(user, "<span class='warning'>This specimen is already marked!</span>")
 		return
@@ -191,7 +191,7 @@
 	else
 		prepare(target,user)
 
-/obj/item/device/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
+/obj/item/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
 	if(get_dist(target,user)>1)
 		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
 		return
@@ -201,7 +201,7 @@
 		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
 
 
-/obj/item/device/abductor/silencer
+/obj/item/abductor/silencer
 	name = "abductor silencer"
 	desc = "A compact device used to shut down communications equipment."
 	icon = 'icons/obj/abductor.dmi'
@@ -209,19 +209,19 @@
 	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
-/obj/item/device/abductor/silencer/attack(mob/living/M, mob/user)
+/obj/item/abductor/silencer/attack(mob/living/M, mob/user)
 	if(!AbductorCheck(user))
 		return
 	radio_off(M, user)
 
-/obj/item/device/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		return
 	if(!AbductorCheck(user))
 		return
 	radio_off(target, user)
 
-/obj/item/device/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
+/obj/item/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
 	if(!(user in (viewers(7,target))))
 		return
 
@@ -234,14 +234,14 @@
 		to_chat(user, "<span class='notice'>You silence [M]'s radio devices.</span>")
 		radio_off_mob(M)
 
-/obj/item/device/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
+/obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
 	var/list/all_items = M.GetAllContents()
 
 	for(var/obj/I in all_items)
-		if(istype(I,/obj/item/device/radio/))
-			var/obj/item/device/radio/r = I
+		if(istype(I,/obj/item/radio/))
+			var/obj/item/radio/r = I
 			r.listening = 0
-			if(!istype(I,/obj/item/device/radio/headset))
+			if(!istype(I,/obj/item/radio/headset))
 				r.broadcasting = 0 //goddamned headset hacks
 
 /obj/item/gun/energy/alien

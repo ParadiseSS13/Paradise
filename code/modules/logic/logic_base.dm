@@ -141,7 +141,7 @@
 					input2_state = LOGIC_OFF
 			return
 
-/obj/machinery/logic_gate/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/logic_gate/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	var/input1_state_string
 	var/input2_state_string
 	var/output_state_string
@@ -202,7 +202,7 @@
 	if(tamperproof)
 		to_chat(user, "<span class='warning'>The [src] appears to be tamperproofed! You can't interact with it!</span>")
 		return 0
-	if(istype(O, /obj/item/device/multitool))
+	if(istype(O, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 	if(istype(O, /obj/item/screwdriver))

@@ -156,7 +156,7 @@
 	show_stat_emergency_shuttle_eta()
 
 	if(client.statpanel == "Status")
-		if(locate(/obj/item/device/assembly/health) in src)
+		if(locate(/obj/item/assembly/health) in src)
 			stat(null, "Health: [health]")
 		if(internal)
 			if(!internal.air_contents)
@@ -551,7 +551,7 @@
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
-	var/obj/item/device/pda/pda = wear_id
+	var/obj/item/pda/pda = wear_id
 	if(istype(pda))
 		if(pda.id)
 			return pda.id.rank
@@ -567,7 +567,7 @@
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
-	var/obj/item/device/pda/pda = wear_id
+	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
 		if(pda.id && istype(pda.id, /obj/item/card/id))
@@ -585,7 +585,7 @@
 //gets name from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
-	var/obj/item/device/pda/pda = wear_id
+	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))
 		if(pda.id)
@@ -622,7 +622,7 @@
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
-	var/obj/item/device/pda/pda = wear_id
+	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	if(istype(pda))		. = pda.owner
 	else if(istype(id))	. = id.registered_name
@@ -632,7 +632,7 @@
 //gets ID card object from special clothes slot or, if applicable, hands as well
 /mob/living/carbon/human/proc/get_idcard(var/check_hands = FALSE)
 	var/obj/item/card/id/id = wear_id
-	var/obj/item/device/pda/pda = wear_id
+	var/obj/item/pda/pda = wear_id
 	if(istype(pda) && pda.id)
 		id = pda.id
 
@@ -859,8 +859,8 @@
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
-				else if(istype(wear_id,/obj/item/device/pda))
-					var/obj/item/device/pda/tempPda = wear_id
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
 					perpname = tempPda.owner
 			else
 				perpname = src.name
@@ -889,8 +889,8 @@
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
-				else if(istype(wear_id,/obj/item/device/pda))
-					var/obj/item/device/pda/tempPda = wear_id
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
 					perpname = tempPda.owner
 			else
 				perpname = src.name
@@ -916,8 +916,8 @@
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
-				else if(istype(wear_id,/obj/item/device/pda))
-					var/obj/item/device/pda/tempPda = wear_id
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
 					perpname = tempPda.owner
 			else
 				perpname = src.name
@@ -947,8 +947,8 @@
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
-				else if(istype(wear_id,/obj/item/device/pda))
-					var/obj/item/device/pda/tempPda = wear_id
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
 					perpname = tempPda.owner
 			else
 				perpname = src.name
@@ -980,8 +980,8 @@
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
-				else if(istype(wear_id,/obj/item/device/pda))
-					var/obj/item/device/pda/tempPda = wear_id
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
 					perpname = tempPda.owner
 			else
 				perpname = src.name
@@ -1011,8 +1011,8 @@
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
-				else if(istype(wear_id,/obj/item/device/pda))
-					var/obj/item/device/pda/tempPda = wear_id
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
 					perpname = tempPda.owner
 			else
 				perpname = src.name
@@ -1038,8 +1038,8 @@
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
 					perpname = wear_id:registered_name
-				else if(istype(wear_id,/obj/item/device/pda))
-					var/obj/item/device/pda/tempPda = wear_id
+				else if(istype(wear_id,/obj/item/pda))
+					var/obj/item/pda/tempPda = wear_id
 					perpname = tempPda.owner
 			else
 				perpname = src.name
@@ -1912,7 +1912,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(istype(id) && id.is_untrackable())
 			return 0
 	if(wear_pda)
-		var/obj/item/device/pda/pda = wear_pda
+		var/obj/item/pda/pda = wear_pda
 		if(istype(pda))
 			var/obj/item/card/id/id = pda.id
 			if(istype(id) && id.is_untrackable())

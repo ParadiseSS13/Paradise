@@ -31,10 +31,10 @@
 		return stored_card2
 	return ..()
 
-/obj/item/computer_hardware/card_slot/on_install(obj/item/device/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/card_slot/on_install(obj/item/modular_computer/M, mob/living/user = null)
 	M.add_verb(device_type)
 
-/obj/item/computer_hardware/card_slot/on_remove(obj/item/device/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/card_slot/on_remove(obj/item/modular_computer/M, mob/living/user = null)
 	M.remove_verb(device_type)
 	try_eject(0, forced = 1)
 

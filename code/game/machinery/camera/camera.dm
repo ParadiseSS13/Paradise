@@ -16,7 +16,7 @@
 	anchored = 1
 	var/start_active = 0 //If it ignores the random chance to start broken on round start
 	var/invuln = null
-	var/obj/item/device/camera_bug/bug = null
+	var/obj/item/camera_bug/bug = null
 	var/obj/item/camera_assembly/assembly = null
 
 	//OTHER
@@ -149,7 +149,7 @@
 		"<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
 		playsound(src.loc, W.usesound, 50, 1)
 
-	else if((istype(W, /obj/item/wirecutters) || istype(W, /obj/item/device/multitool)) && panel_open)
+	else if((istype(W, /obj/item/wirecutters) || istype(W, /obj/item/multitool)) && panel_open)
 		wires.Interact(user)
 
 	else if(istype(W, /obj/item/weldingtool) && wires.CanDeconstruct())
@@ -164,7 +164,7 @@
 			assembly = null
 			qdel(src)
 			return
-	else if(istype(W, /obj/item/device/analyzer) && panel_open) //XRay
+	else if(istype(W, /obj/item/analyzer) && panel_open) //XRay
 		if(!user.unEquip(W))
 			to_chat(user, "<span class='warning'>[W] is stuck!</span>")
 			return
@@ -185,7 +185,7 @@
 			qdel(W)
 		else
 			to_chat(user, "[msg2]")
-	else if(istype(W, /obj/item/device/assembly/prox_sensor) && panel_open)
+	else if(istype(W, /obj/item/assembly/prox_sensor) && panel_open)
 		if(!user.unEquip(W))
 			return
 		if(!isMotion())
@@ -196,10 +196,10 @@
 			to_chat(user, "[msg2]")
 
 	// OTHER
-	else if((istype(W, /obj/item/paper) || istype(W, /obj/item/device/pda)) && isliving(user))
+	else if((istype(W, /obj/item/paper) || istype(W, /obj/item/pda)) && isliving(user))
 		var/mob/living/U = user
 		var/obj/item/paper/X = null
-		var/obj/item/device/pda/P = null
+		var/obj/item/pda/P = null
 
 		var/itemname = ""
 		var/info = ""
@@ -229,7 +229,7 @@
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 
-	else if(istype(W, /obj/item/device/camera_bug))
+	else if(istype(W, /obj/item/camera_bug))
 		if(!src.can_use())
 			to_chat(user, "<span class='notice'>Camera non-functional.</span>")
 			return
@@ -252,8 +252,8 @@
 		visible_message("<span class='notice'>[user] has sliced the camera apart with an energy blade!</span>")
 		qdel(src)
 
-	else if(istype(W, /obj/item/device/laser_pointer))
-		var/obj/item/device/laser_pointer/L = W
+	else if(istype(W, /obj/item/laser_pointer))
+		var/obj/item/laser_pointer/L = W
 		L.laser_act(src, user)
 	else
 		..()

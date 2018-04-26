@@ -7,7 +7,7 @@
 	origin_tech = "programming=2"
 	device_type = MC_AI
 
-	var/obj/item/device/aicard/stored_card = null
+	var/obj/item/aicard/stored_card = null
 	var/locked = FALSE
 
 /obj/item/computer_hardware/ai_slot/Destroy()
@@ -20,10 +20,10 @@
 	if(stored_card)
 		to_chat(user, "There appears to be an intelliCard loaded. There appears to be a pinhole protecting a manual eject button. A screwdriver could probably press it")
 
-/obj/item/computer_hardware/ai_slot/on_install(obj/item/device/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/ai_slot/on_install(obj/item/modular_computer/M, mob/living/user = null)
 	M.add_verb(device_type)
 
-/obj/item/computer_hardware/ai_slot/on_remove(obj/item/device/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/ai_slot/on_remove(obj/item/modular_computer/M, mob/living/user = null)
 	M.remove_verb(device_type)
 	try_eject(0, forced = 1)
 
@@ -31,7 +31,7 @@
 	if(!holder)
 		return FALSE
 
-	if(!istype(I, /obj/item/device/aicard))
+	if(!istype(I, /obj/item/aicard))
 		return FALSE
 
 	if(stored_card)

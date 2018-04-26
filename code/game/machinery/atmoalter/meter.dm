@@ -120,7 +120,7 @@
 	return ..()
 
 /obj/machinery/meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
@@ -152,7 +152,7 @@
 /obj/machinery/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	return
 
-/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<b>Main</b>
 	<ul>

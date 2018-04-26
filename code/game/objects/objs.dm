@@ -176,7 +176,7 @@
 
 /obj/proc/hear_message(mob/M as mob, text)
 
-/obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/proc/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
 
 /obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
@@ -208,7 +208,7 @@
 
 
 /obj/proc/update_multitool_menu(mob/user as mob)
-	var/obj/item/device/multitool/P = get_multitool(user)
+	var/obj/item/multitool/P = get_multitool(user)
 
 	if(!istype(P))
 		return 0
