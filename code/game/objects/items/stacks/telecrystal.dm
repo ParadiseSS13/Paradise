@@ -21,7 +21,7 @@
 /obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity)
 	if(!proximity)
 		return
-	if(istype(I, /obj/item) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
+	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
 		I.hidden_uplink.uses += amount
 		use(amount)
 		to_chat(user, "<span class='notice'>You slot [src] into [I] and charge its internal uplink.</span>")
