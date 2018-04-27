@@ -28,7 +28,7 @@
 	var/max_loops
 	var/direct
 
-/datum/looping_sound/New(list/_output_atoms=list(), start_immediately = FALSE, _direct = FALSE)
+/datum/looping_sound/New(list/_output_atoms = list(), start_immediately = FALSE, _direct = FALSE)
 	if(!mid_sounds)
 		WARNING("A looping sound datum was created without sounds to play.")
 		return
