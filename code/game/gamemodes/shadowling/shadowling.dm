@@ -107,7 +107,7 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
-		log_game("[shadow.key] (ckey) has been selected as a Shadowling.")
+		log_game("[key_name(shadow)] has been selected as a Shadowling.")
 		sleep(10)
 		to_chat(shadow.current, "<br>")
 		to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
@@ -201,11 +201,23 @@ Made by Xhuis
 /datum/game_mode/shadowling/check_finished()
 	var/shadows_alive = 0 //and then shadowling was kill
 	for(var/datum/mind/shadow in shadows) //but what if shadowling was not kill?
-		if(!istype(shadow.current,/mob/living/carbon/human) && !istype(shadow.current,/mob/living/simple_animal/ascendant_shadowling))
+		if(!ishuman(shadow.current) && !istype(shadow.current,/mob/living/simple_animal/ascendant_shadowling))
 			continue
 		if(shadow.current.stat == DEAD)
 			continue
 		shadows_alive++
+		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && config.shadowling_max_age)
+			if(ishuman(shadow.current))
+				var/mob/living/carbon/human/H = shadow.current
+				if(H.get_species() != "Shadow")
+					for(var/obj/effect/proc_holder/spell/targeted/shadowling_hatch/hatch_ability in shadow.spell_list)
+						hatch_ability.cycles_unused++
+						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > config.shadowling_max_age)
+							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
+							H.take_overall_damage(0, 3)
+							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
+							H << 'sound/weapons/sear.ogg'
+
 	if(shadows_alive)
 		return ..()
 	else
@@ -228,7 +240,7 @@ Made by Xhuis
 		M.visible_message("<span class='big'>[M] screams and contorts!</span>", \
 						  "<span class='userdanger'>THE LIGHT-- YOUR MIND-- <i>BURNS--</i></span>")
 		spawn(30)
-			if(!M || qdeleted(M))
+			if(!M || QDELETED(M))
 				return
 			M.visible_message("<span class='warning'>[M] suddenly bloats and explodes!</span>", \
 							  "<span class='warning'><b>AAAAAAAAA<font size=3>AAAAAAAAAAAAA</font><font size=4>AAAAAAAAAAAA----</font></span>")

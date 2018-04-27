@@ -8,9 +8,10 @@
  *
  */
 
-/obj/item/device/multitool
+/obj/item/multitool
 	name = "multitool"
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
 	flags = CONDUCT
 	force = 5.0
@@ -25,18 +26,18 @@
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage
 
-/obj/item/device/multitool/proc/IsBufferA(var/typepath)
+/obj/item/multitool/proc/IsBufferA(var/typepath)
 	if(!buffer)
 		return 0
 	return istype(buffer,typepath)
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 
-/obj/item/device/multitool/Destroy()
+/obj/item/multitool/Destroy()
 	buffer = null
 	return ..()
 
-/obj/item/device/multitool/ai_detect
+/obj/item/multitool/ai_detect
 	var/track_cooldown = 0
 	var/track_delay = 10 //How often it checks for proximity
 	var/detect_state = PROXIMITY_NONE
@@ -44,15 +45,15 @@
 	var/rangewarning = 20 //Glows yellow when inside
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
 
-/obj/item/device/multitool/ai_detect/New()
+/obj/item/multitool/ai_detect/New()
 	..()
 	processing_objects += src
 
-/obj/item/device/multitool/ai_detect/Destroy()
+/obj/item/multitool/ai_detect/Destroy()
 	processing_objects -= src
 	return ..()
 
-/obj/item/device/multitool/ai_detect/process()
+/obj/item/multitool/ai_detect/process()
 	if(track_cooldown > world.time)
 		return
 	detect_state = PROXIMITY_NONE
@@ -60,7 +61,7 @@
 	icon_state = "[initial(icon_state)][detect_state]"
 	track_cooldown = world.time + track_delay
 
-/obj/item/device/multitool/ai_detect/proc/multitool_detect()
+/obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/living/silicon/ai/AI in ai_list)
 		if(AI.cameraFollow == src)
@@ -80,12 +81,12 @@
 						detect_state = PROXIMITY_NEAR
 						break
 
-/obj/item/device/multitool/ai_detect/admin
+/obj/item/multitool/ai_detect/admin
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors. Has a strange tag that says 'Grief in Safety'" //What else should I say for a meme item?
 	track_delay = 5
 	shows_wire_information = TRUE
 
-/obj/item/device/multitool/ai_detect/admin/multitool_detect()
+/obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/J in urange(rangewarning,our_turf))
 		if(check_rights(R_ADMIN, 0, J))
@@ -95,12 +96,12 @@
 				detect_state = PROXIMITY_ON_SCREEN
 				break
 
-/obj/item/device/multitool/cyborg
+/obj/item/multitool/cyborg
 	name = "multitool"
 	desc = "Optimised and stripped-down version of a regular multitool."
 	toolspeed = 0.5
 
-/obj/item/device/multitool/abductor
+/obj/item/multitool/abductor
 	name = "alien multitool"
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'

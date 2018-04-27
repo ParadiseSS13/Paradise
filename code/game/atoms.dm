@@ -1,7 +1,8 @@
 /atom
 	layer = 2
 	var/level = 2
-	var/flags = 0
+	var/flags = NONE
+	var/flags_2 = NONE
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
@@ -153,9 +154,8 @@
 /atom/proc/emp_act(var/severity)
 	return
 
-/atom/proc/bullet_act(var/obj/item/projectile/Proj, def_zone)
-	Proj.on_hit(src, 0, def_zone)
-	return 0
+/atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
@@ -220,6 +220,8 @@
 					to_chat(user, "[reagents.total_volume] units of various reagents.")
 		else
 			to_chat(user, "Nothing.")
+
+	SendSignal(COMSIG_PARENT_EXAMINE, user)
 
 	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
@@ -611,6 +613,10 @@ var/list/blood_splatter_icons = list()
 	return
 
 /atom/proc/ratvar_act()
+	return
+
+//This proc is called on the location of an atom when the atom is Destroy()'d
+/atom/proc/handle_atom_del(atom/A)
 	return
 
 /atom/proc/atom_say(message)

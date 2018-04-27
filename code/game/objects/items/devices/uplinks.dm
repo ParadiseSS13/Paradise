@@ -8,9 +8,10 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 
 var/list/world_uplinks = list()
 
-/obj/item/device/uplink
+/obj/item/uplink
 	var/welcome 			// Welcoming menu message
 	var/uses 				// Numbers of crystals
+	var/hidden_crystals = 0
 	var/list/ItemsCategory	// List of categories with lists of items
 	var/list/ItemsReference	// List of references with an associated item
 	var/list/nanoui_items	// List of items for NanoUI use
@@ -24,10 +25,10 @@ var/list/world_uplinks = list()
 	var/job = null
 	var/show_descriptions = 0
 
-/obj/item/device/uplink/nano_host()
+/obj/item/uplink/nano_host()
 	return loc
 
-/obj/item/device/uplink/New()
+/obj/item/uplink/New()
 	..()
 	welcome = ticker.mode.uplink_welcome
 	uses = ticker.mode.uplink_uses
@@ -35,17 +36,17 @@ var/list/world_uplinks = list()
 
 	world_uplinks += src
 
-/obj/item/device/uplink/Destroy()
+/obj/item/uplink/Destroy()
 	world_uplinks -= src
 	return ..()
 
-/obj/item/device/uplink/proc/generate_items(mob/user as mob)
+/obj/item/uplink/proc/generate_items(mob/user as mob)
 	var/datum/nano_item_lists/IL = generate_item_lists(user)
 	nanoui_items = IL.items_nano
 	ItemsReference = IL.items_reference
 
 // BS12 no longer use this menu but there are forks that do, hency why we keep it
-/obj/item/device/uplink/proc/generate_menu(mob/user as mob)
+/obj/item/uplink/proc/generate_menu(mob/user as mob)
 	if(!job)
 		job = user.mind.assigned_role
 
@@ -79,7 +80,7 @@ var/list/world_uplinks = list()
 /*
 	Built the item lists for use with NanoUI
 */
-/obj/item/device/uplink/proc/generate_item_lists(mob/user as mob)
+/obj/item/uplink/proc/generate_item_lists(mob/user as mob)
 	if(!job)
 		job = user.mind.assigned_role
 
@@ -101,7 +102,7 @@ var/list/world_uplinks = list()
 	return result
 
 //If 'random' was selected
-/obj/item/device/uplink/proc/chooseRandomItem()
+/obj/item/uplink/proc/chooseRandomItem()
 	if(uses <= 0)
 		return
 
@@ -112,7 +113,7 @@ var/list/world_uplinks = list()
 			random_items += UI
 	return pick(random_items)
 
-/obj/item/device/uplink/Topic(href, href_list)
+/obj/item/uplink/Topic(href, href_list)
 	if(..())
 		return 1
 
@@ -125,11 +126,11 @@ var/list/world_uplinks = list()
 		return buy(UI, UI ? UI.reference : "")
 	return 0
 
-/obj/item/device/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
+/obj/item/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
 	if(!UI)
 		return
 	UI.buy(src,usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 	/* var/list/L = UI.spawn_item(get_turf(usr),src)
 	if(ishuman(usr))
@@ -153,24 +154,24 @@ var/list/world_uplinks = list()
  Then check if it's true, if true return. This will stop the normal menu appearing and will instead show the uplink menu.
 */
 
-/obj/item/device/uplink/hidden
+/obj/item/uplink/hidden
 	name = "hidden uplink"
 	desc = "There is something wrong if you're examining this."
 	var/active = 0
 
 // The hidden uplink MUST be inside an obj/item's contents.
-/obj/item/device/uplink/hidden/New()
+/obj/item/uplink/hidden/New()
 	spawn(2)
 		if(!istype(src.loc, /obj/item))
 			qdel(src)
 	..()
 
 // Toggles the uplink on and off. Normally this will bypass the item's normal functions and go to the uplink menu, if activated.
-/obj/item/device/uplink/hidden/proc/toggle()
+/obj/item/uplink/hidden/proc/toggle()
 	active = !active
 
 // Directly trigger the uplink. Turn on if it isn't already.
-/obj/item/device/uplink/hidden/proc/trigger(mob/user as mob)
+/obj/item/uplink/hidden/proc/trigger(mob/user as mob)
 	if(!active)
 		toggle()
 	interact(user)
@@ -178,7 +179,7 @@ var/list/world_uplinks = list()
 // Checks to see if the value meets the target. Like a frequency being a traitor_frequency, in order to unlock a headset.
 // If true, it accesses trigger() and returns 1. If it fails, it returns false. Use this to see if you need to close the
 // current item's menu.
-/obj/item/device/uplink/hidden/proc/check_trigger(mob/user as mob, var/value, var/target)
+/obj/item/uplink/hidden/proc/check_trigger(mob/user as mob, var/value, var/target)
 	if(value == target)
 		trigger(user)
 		return 1
@@ -187,10 +188,10 @@ var/list/world_uplinks = list()
 /*
 	NANO UI FOR UPLINK WOOP WOOP
 */
-/obj/item/device/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	var/title = "Remote Uplink"
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -198,7 +199,7 @@ var/list/world_uplinks = list()
 		// open the new ui window
 		ui.open()
 
-/obj/item/device/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 
 	data["welcome"] = welcome
@@ -213,24 +214,26 @@ var/list/world_uplinks = list()
 	return data
 
 // Interaction code. Gathers a list of items purchasable from the paren't uplink and displays it. It also adds a lock button.
-/obj/item/device/uplink/hidden/interact(mob/user)
+/obj/item/uplink/hidden/interact(mob/user)
 	ui_interact(user)
 
 // The purchasing code.
-/obj/item/device/uplink/hidden/Topic(href, href_list)
+/obj/item/uplink/hidden/Topic(href, href_list)
 	if(usr.stat || usr.restrained())
 		return 1
 
 	if(!( istype(usr, /mob/living/carbon/human)))
 		return 1
 	var/mob/user = usr
-	var/datum/nanoui/ui = nanomanager.get_open_ui(user, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
 	if((usr.contents.Find(src.loc) || (in_range(src.loc, usr) && istype(src.loc.loc, /turf))))
 		usr.set_machine(src)
 		if(..(href, href_list))
 			return 1
 		else if(href_list["lock"])
 			toggle()
+			uses += hidden_crystals
+			hidden_crystals = 0
 			ui.close()
 			return 1
 		if(href_list["return"])
@@ -246,10 +249,10 @@ var/list/world_uplinks = list()
 			show_descriptions = !show_descriptions
 			update_nano_data()
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
-/obj/item/device/uplink/hidden/proc/update_nano_data(var/id)
+/obj/item/uplink/hidden/proc/update_nano_data(var/id)
 	if(nanoui_menu == 1)
 		var/permanentData[0]
 		for(var/datum/data/record/L in sortRecord(data_core.general))
@@ -285,9 +288,9 @@ var/list/world_uplinks = list()
 	return 0
 
 //Refund proc for the borg teleporter (later I'll make a general refund proc if there is demand for it)
-/obj/item/device/radio/uplink/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/antag_spawner/borg_tele))
-		var/obj/item/weapon/antag_spawner/borg_tele/S = W
+/obj/item/radio/uplink/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/antag_spawner/borg_tele))
+		var/obj/item/antag_spawner/borg_tele/S = W
 		if(!S.used && !S.checking)
 			hidden_uplink.uses += S.TC_cost
 			qdel(S)
@@ -301,25 +304,25 @@ var/list/world_uplinks = list()
 // Includes normal radio uplink, multitool uplink,
 // implant uplink (not the implant tool) and a preset headset uplink.
 
-/obj/item/device/radio/uplink/New()
+/obj/item/radio/uplink/New()
 	hidden_uplink = new(src)
 	icon_state = "radio"
 
-/obj/item/device/radio/uplink/attack_self(mob/user as mob)
+/obj/item/radio/uplink/attack_self(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 
-/obj/item/device/multitool/uplink/New()
+/obj/item/multitool/uplink/New()
 	hidden_uplink = new(src)
 
-/obj/item/device/multitool/uplink/attack_self(mob/user as mob)
+/obj/item/multitool/uplink/attack_self(mob/user as mob)
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 
-/obj/item/device/radio/headset/uplink
+/obj/item/radio/headset/uplink
 	traitor_frequency = 1445
 
-/obj/item/device/radio/headset/uplink/New()
+/obj/item/radio/headset/uplink/New()
 	..()
 	hidden_uplink = new(src)
 	hidden_uplink.uses = 20

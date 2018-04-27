@@ -25,7 +25,7 @@
 #define DEVICES					4
 #define HEAT_PIPING				5
 
-/obj/item/weapon/rpd
+/obj/item/rpd
 	name = "rapid pipe dispenser"
 	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to."
 	icon = 'icons/obj/tools.dmi'
@@ -51,7 +51,7 @@
 	var/spawndelay = 4 //How long should we have to wait between dispensing pipes?
 	var/walldelay = 40 //How long should drilling into a wall take?
 
-/obj/item/weapon/rpd/New()
+/obj/item/rpd/New()
 	..()
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(1, 0, src)
@@ -59,14 +59,14 @@
 
 //Procs
 
-/obj/item/weapon/rpd/proc/Activaterpd(delay)
+/obj/item/rpd/proc/Activaterpd(delay)
 	playsound(loc, "sound/machines/click.ogg", 50, 1)
 	if(prob(15))
 		spark_system.start()
 	if(delay)
 		lastused = world.time
 
-/obj/item/weapon/rpd/proc/Manipulatepipes(subject, atmosverb, disposalsverb)
+/obj/item/rpd/proc/Manipulatepipes(subject, atmosverb, disposalsverb)
 	if(istype(subject, /obj/item/pipe))
 		call(subject, atmosverb)()
 	else if(istype(subject, /obj/structure/disposalconstruct/))
@@ -136,17 +136,17 @@ var/list/pipemenu = list(
 
 //NanoUI stuff
 
-/obj/item/weapon/rpd/attack_self(mob/user)
+/obj/item/rpd/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/weapon/rpd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rpd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rpd.tmpl", "[name]", 400, 650, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/weapon/rpd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/rpd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 	data["dpipelist"] = dpipelist
 	data["iconrotation"] = iconrotation
@@ -159,7 +159,7 @@ var/list/pipemenu = list(
 	data["whatpipe"] = whatpipe
 	return data
 
-/obj/item/weapon/rpd/Topic(href, href_list, nowindow, state)
+/obj/item/rpd/Topic(href, href_list, nowindow, state)
 	..()
 	if(href_list["iconrotation"])
 		iconrotation = text2num(sanitize(href_list["iconrotation"]))
@@ -173,16 +173,19 @@ var/list/pipemenu = list(
 		mode = text2num(sanitize(href_list["mode"]))
 	else
 		return
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 //What the RPD actually does
 
-/obj/item/weapon/rpd/afterattack(atom/target, mob/user, proximity)
+/obj/item/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
 	var/turf/T = get_turf(target)
-	if(src.loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
+	if(loc != user || ismob(target) || istype(target, /obj/structure/window) || !proximity || world.time < lastused + spawndelay)
 		return
-	if(mode == ATMOS_MODE && !istype(T, /turf/simulated/shuttle)) //No pipes on shuttles nerds
+	if(!(T.flags & RPD_ALLOWED_HERE))
+		to_chat(user, "<span class='notice'>[src] beeps, \"Unable to interface with [T]. Please try again later.\"</span>")
+		return
+	if(mode == ATMOS_MODE)
 		if(istype(T, /turf/simulated/wall)) //Drilling into walls takes time
 			playsound(loc, "sound/weapons/circsawhit.ogg", 50, 1)
 			user.visible_message("<span class = 'notice'>[user] starts drilling a hole in [T]...</span>", "<span class = 'notice'>You start drilling a hole in [T]...</span>", "<span class = 'warning'>You hear a drill.</span>")

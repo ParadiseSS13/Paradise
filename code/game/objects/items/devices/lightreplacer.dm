@@ -38,7 +38,7 @@
 #define LIGHT_BURNED 3
 
 
-/obj/item/device/lightreplacer
+/obj/item/lightreplacer
 
 	name = "light replacer"
 	desc = "A device to automatically replace lights. Refill with working lightbulbs."
@@ -63,16 +63,16 @@
 	var/decrement = 1
 	var/charge = 1
 
-/obj/item/device/lightreplacer/New()
+/obj/item/lightreplacer/New()
 	uses = max_uses / 2
 	failmsg = "The [name]'s refill light blinks red."
 	..()
 
-/obj/item/device/lightreplacer/examine(mob/user)
+/obj/item/lightreplacer/examine(mob/user)
 	if(..(user, 2))
 		to_chat(user, "It has [uses] lights and [shards] shards remaining.")
 
-/obj/item/device/lightreplacer/attackby(obj/item/W, mob/user, params)
+/obj/item/lightreplacer/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/sheet/glass))
 		var/obj/item/stack/sheet/glass/G = W
 		if(G.amount - decrement >= 0 && uses < max_uses)
@@ -88,8 +88,8 @@
 			to_chat(user, "You insert a piece of glass into the [src.name]. You have [uses] lights remaining.")
 			return
 
-	if(istype(W, /obj/item/weapon/light))
-		var/obj/item/weapon/light/L = W
+	if(istype(W, /obj/item/light))
+		var/obj/item/light/L = W
 		if(L.status == 0) // LIGHT OKAY
 			if(!user.drop_item())
 				to_chat(user, "[L] is stuck to your hand!")
@@ -111,13 +111,13 @@
 				qdel(L)
 				return
 
-	if(istype(W, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = W
+	if(istype(W, /obj/item/storage))
+		var/obj/item/storage/S = W
 		var/found_lightbulbs = 0
 
 		for(var/obj/item/I in S.contents)
-			if(istype(I,/obj/item/weapon/light))
-				var/obj/item/weapon/light/L = I
+			if(istype(I,/obj/item/light))
+				var/obj/item/light/L = I
 				found_lightbulbs = 1
 				if(uses >= max_uses)
 					to_chat(user, "<span class='warning'>[src] is full!</span>")
@@ -133,11 +133,11 @@
 			to_chat(user, "<span class='warning'>[S] contains no bulbs.</span>")
 			return
 
-/obj/item/device/lightreplacer/emag_act(user as mob)
+/obj/item/lightreplacer/emag_act(user as mob)
 	if(!emagged)
 		Emag()
 
-/obj/item/device/lightreplacer/attack_self(mob/user)
+/obj/item/lightreplacer/attack_self(mob/user)
 	/* // This would probably be a bit OP. If you want it though, uncomment the code.
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
@@ -148,21 +148,21 @@
 	*/
 	to_chat(usr, "It has [uses] lights remaining.")
 
-/obj/item/device/lightreplacer/update_icon()
+/obj/item/lightreplacer/update_icon()
 	icon_state = "lightreplacer[emagged]"
 
 
-/obj/item/device/lightreplacer/proc/Use(var/mob/user)
+/obj/item/lightreplacer/proc/Use(var/mob/user)
 
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	AddUses(-1)
 	return 1
 
 // Negative numbers will subtract
-/obj/item/device/lightreplacer/proc/AddUses(var/amount = 1)
+/obj/item/lightreplacer/proc/AddUses(var/amount = 1)
 	uses = min(max(uses + amount, 0), max_uses)
 
-/obj/item/device/lightreplacer/proc/AddShards(amount = 1)
+/obj/item/lightreplacer/proc/AddShards(amount = 1)
 	shards += amount
 	var/recycled_lights = round(shards / recycle)
 	if(recycled_lights > 0)
@@ -170,13 +170,13 @@
 	shards = shards % recycle
 	return recycled_lights
 
-/obj/item/device/lightreplacer/proc/Charge(var/mob/user)
+/obj/item/lightreplacer/proc/Charge(var/mob/user)
 	charge += 1
 	if(charge > 7)
 		AddUses(1)
 		charge = 1
 
-/obj/item/device/lightreplacer/proc/ReplaceLight(var/obj/machinery/light/target, var/mob/living/U)
+/obj/item/lightreplacer/proc/ReplaceLight(var/obj/machinery/light/target, var/mob/living/U)
 
 	if(target.status != LIGHT_OK)
 		if(CanUse(U))
@@ -185,7 +185,7 @@
 
 			if(target.status != LIGHT_EMPTY)
 
-				var/obj/item/weapon/light/L1 = new target.light_type(target.loc)
+				var/obj/item/light/L1 = new target.light_type(target.loc)
 				L1.status = target.status
 				L1.rigged = target.rigged
 				L1.brightness_range = target.brightness_range
@@ -198,7 +198,7 @@
 				target.status = LIGHT_EMPTY
 				target.update()
 
-			var/obj/item/weapon/light/L2 = new target.light_type()
+			var/obj/item/light/L2 = new target.light_type()
 
 			target.status = L2.status
 			target.switchcount = L2.switchcount
@@ -221,7 +221,7 @@
 		to_chat(U, "There is a working [target.fitting] already inserted.")
 		return
 
-/obj/item/device/lightreplacer/proc/Emag()
+/obj/item/lightreplacer/proc/Emag()
 	emagged = !emagged
 	playsound(src.loc, "sparks", 100, 1)
 	if(emagged)
@@ -232,12 +232,12 @@
 
 //Can you use it?
 
-/obj/item/device/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+/obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.myreplacer = src
 	J.update_icon()
 
-/obj/item/device/lightreplacer/proc/CanUse(var/mob/living/user)
+/obj/item/lightreplacer/proc/CanUse(var/mob/living/user)
 	src.add_fingerprint(user)
 	//Not sure what else to check for. Maybe if clumsy?
 	if(uses > 0)

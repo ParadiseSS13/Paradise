@@ -1,4 +1,4 @@
-/obj/item/weapon/grenade
+/obj/item/grenade
 	name = "grenade"
 	desc = "A hand held grenade, with an adjustable timer."
 	w_class = WEIGHT_CLASS_SMALL
@@ -15,7 +15,7 @@
 	var/det_time = 50
 	var/display_timer = 1
 
-/obj/item/weapon/grenade/proc/clown_check(var/mob/living/user)
+/obj/item/grenade/proc/clown_check(var/mob/living/user)
 	if((CLUMSY in user.mutations) && prob(50))
 		to_chat(user, "<span class='warning'>Huh? How does this thing work?</span>")
 		active = 1
@@ -29,9 +29,9 @@
 	return 1
 
 
-/*/obj/item/weapon/grenade/afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
-	if(istype(target, /obj/item/weapon/storage)) return ..() // Trying to put it in a full container
-	if(istype(target, /obj/item/weapon/gun/grenadelauncher)) return ..()
+/*/obj/item/grenade/afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
+	if(istype(target, /obj/item/storage)) return ..() // Trying to put it in a full container
+	if(istype(target, /obj/item/gun/grenadelauncher)) return ..()
 	if((user.is_in_active_hand(src)) && (!active) && (clown_check(user)) && target.loc != src.loc)
 		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
 		active = 1
@@ -47,7 +47,7 @@
 	return*/
 
 
-/obj/item/weapon/grenade/examine(mob/user)
+/obj/item/grenade/examine(mob/user)
 	..(user)
 	if(display_timer)
 		if(det_time > 1)
@@ -55,7 +55,7 @@
 		else
 			to_chat(user, "\The [src] is set for instant detonation.")
 
-/obj/item/weapon/grenade/attack_self(mob/user as mob)
+/obj/item/grenade/attack_self(mob/user as mob)
 	if(!active)
 		if(clown_check(user))
 			to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
@@ -74,16 +74,16 @@
 				prime()
 
 
-/obj/item/weapon/grenade/proc/prime()
+/obj/item/grenade/proc/prime()
 
-/obj/item/weapon/grenade/proc/update_mob()
+/obj/item/grenade/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.unEquip(src)
 
 
-/obj/item/weapon/grenade/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/screwdriver))
+/obj/item/grenade/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/screwdriver))
 		switch(det_time)
 			if("1")
 				det_time = 10
@@ -100,6 +100,6 @@
 		add_fingerprint(user)
 	..()
 
-/obj/item/weapon/grenade/attack_hand()
+/obj/item/grenade/attack_hand()
 	walk(src, null, null)
 	..()

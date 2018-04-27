@@ -14,6 +14,7 @@
 	health = 100
 
 	harm_intent_damage = 5
+	obj_damage = 60
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	attacktext = "slashes"
@@ -23,7 +24,7 @@
 	unsuitable_atmos_damage = 15
 	speak_emote = list("yarrs")
 	loot = list(/obj/effect/landmark/mobcorpse/pirate,
-			/obj/item/weapon/melee/energy/sword/pirate)
+			/obj/item/melee/energy/sword/pirate)
 	del_on_death = 1
 	faction = list("pirate")
 	sentience_type = SENTIENCE_OTHER
@@ -40,4 +41,4 @@
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/beam
 	loot = list(/obj/effect/landmark/mobcorpse/pirate/ranged,
-				/obj/item/weapon/gun/energy/laser)
+				/obj/item/gun/energy/laser)

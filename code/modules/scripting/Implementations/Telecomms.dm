@@ -228,7 +228,7 @@
 
 	// Time
 	interpreter.SetProc("time",			/proc/time)
-	interpreter.SetProc("timestamp",	/proc/timestamp)
+	interpreter.SetProc("timestamp",	/proc/gameTimestamp)
 
 	// Run the compiled code
 	interpreter.Run()
@@ -297,7 +297,7 @@
 /datum/signal/proc/tcombroadcast(var/message, var/freq, var/source, var/job)
 	var/datum/signal/newsign = new
 	var/obj/machinery/telecomms/server/S = data["server"]
-	var/obj/item/device/radio/hradio = S.server_radio
+	var/obj/item/radio/hradio = S.server_radio
 
 	if(!hradio)
 		error("[src] has no radio.")

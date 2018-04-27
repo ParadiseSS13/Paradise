@@ -27,6 +27,10 @@
 
 	//Will not be announced if you try to set to the same level as it already is
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != security_level)
+		if(level >= SEC_LEVEL_RED && security_level < SEC_LEVEL_RED)
+			// Mark down this time to prevent shuttle cheese
+			shuttle_master.emergency_sec_level_time = world.time
+
 		switch(level)
 			if(SEC_LEVEL_GREEN)
 				security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.")
@@ -123,6 +127,7 @@
 			atc.reroute_traffic(yes = TRUE) // Tell them fuck off we're busy.
 		else
 			atc.reroute_traffic(yes = FALSE)
+		SSnightshift.check_nightshift(TRUE)
 
 	else
 		return

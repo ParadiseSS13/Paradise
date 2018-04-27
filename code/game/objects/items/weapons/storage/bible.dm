@@ -1,4 +1,4 @@
-/obj/item/weapon/storage/bible
+/obj/item/storage/bible
 	name = "bible"
 	desc = "Apply to head repeatedly."
 	icon_state ="bible"
@@ -14,21 +14,21 @@
 		return (user.dust())
 
 
-/obj/item/weapon/storage/bible/booze
+/obj/item/storage/bible/booze
 	name = "bible"
 	desc = "To be applied to the head repeatedly."
 	icon_state ="bible"
 
-/obj/item/weapon/storage/bible/booze/New()
+/obj/item/storage/bible/booze/New()
 	..()
-	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
-	new /obj/item/weapon/reagent_containers/food/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 //BS12 EDIT
  // All cult functionality moved to Null Rod
-/obj/item/weapon/storage/bible/proc/bless(mob/living/carbon/M as mob)
+/obj/item/storage/bible/proc/bless(mob/living/carbon/M as mob)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_amt = 10
@@ -37,17 +37,12 @@
 				H.UpdateDamageIcon()
 	return
 
-/obj/item/weapon/storage/bible/attack(mob/living/M as mob, mob/living/user as mob)
-
+/obj/item/storage/bible/attack(mob/living/M as mob, mob/living/user as mob)
 	var/chaplain = 0
 	if(user.mind && (user.mind.assigned_role == "Chaplain"))
 		chaplain = 1
 
-
-	M.create_attack_log("<font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
-	user.create_attack_log("<font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
-	log_attack("<font color='red'>[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
-
+	add_attack_logs(user, M, "Hit with [src]")
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else
@@ -94,7 +89,7 @@
 		playsound(src.loc, "punch", 25, 1, -1)
 	return
 
-/obj/item/weapon/storage/bible/afterattack(atom/A, mob/user as mob, proximity)
+/obj/item/storage/bible/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity)
 		return
 	if(istype(A, /turf/simulated/floor))
@@ -115,6 +110,6 @@
 			A.reagents.del_reagent("unholywater")
 			A.reagents.add_reagent("holywater",unholy2clean)
 
-/obj/item/weapon/storage/bible/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/storage/bible/attackby(obj/item/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
 	..()

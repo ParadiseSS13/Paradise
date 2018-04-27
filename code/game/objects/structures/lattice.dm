@@ -5,6 +5,7 @@
 	icon_state = "latticefull"
 	density = 0
 	anchored = 1.0
+	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	layer = 2.3 //under pipes
 	//	flags = CONDUCT
 
@@ -54,8 +55,8 @@
 		var/turf/T = get_turf(src)
 		T.attackby(C, user) //BubbleWrap - hand this off to the underlying turf instead
 		return
-	if(istype(C, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = C
+	if(istype(C, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = C
 		if(WT.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>Slicing lattice joints...</span>")
 			new /obj/item/stack/rods(src.loc)

@@ -36,13 +36,13 @@
 
 /datum/surgery_step/extract_implant
 	name = "extract implant"
-	allowed_tools = list(/obj/item/weapon/hemostat = 100, /obj/item/weapon/crowbar = 65)
+	allowed_tools = list(/obj/item/hemostat = 100, /obj/item/crowbar = 65)
 	time = 64
-	var/obj/item/weapon/implant/I = null
+	var/obj/item/implant/I = null
 
 /datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	I = locate(/obj/item/weapon/implant) in target
+	I = locate(/obj/item/implant) in target
 	user.visible_message("[user] starts poking around inside [target]'s [affected.name] with \the [tool].", \
 	"You start poking around inside [target]'s [affected.name] with \the [tool]." )
 	target.custom_pain("The pain in your [affected.name] is living hell!",1)
@@ -50,21 +50,21 @@
 
 /datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	I = locate(/obj/item/weapon/implant) in target
+	I = locate(/obj/item/implant) in target
 	if(I && (target_zone == "chest")) //implant removal only works on the chest.
 		user.visible_message("<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>", \
 		"<span class='notice'>You take [I] out of [target]'s [affected.name]s with \the [tool].</span>" )
 
 		I.removed(target)
 
-		var/obj/item/weapon/implantcase/case
+		var/obj/item/implantcase/case
 
-		if(istype(user.get_item_by_slot(slot_l_hand), /obj/item/weapon/implantcase))
+		if(istype(user.get_item_by_slot(slot_l_hand), /obj/item/implantcase))
 			case = user.get_item_by_slot(slot_l_hand)
-		else if(istype(user.get_item_by_slot(slot_r_hand), /obj/item/weapon/implantcase))
+		else if(istype(user.get_item_by_slot(slot_r_hand), /obj/item/implantcase))
 			case = user.get_item_by_slot(slot_r_hand)
 		else
-			case = locate(/obj/item/weapon/implantcase) in get_turf(target)
+			case = locate(/obj/item/implantcase) in get_turf(target)
 
 		if(case && !case.imp)
 			case.imp = I

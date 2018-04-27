@@ -115,7 +115,7 @@
 		handle_germ_effects()
 
 /obj/item/organ/proc/is_preserved()
-	if(istype(loc,/obj/item/device/mmi))
+	if(istype(loc,/obj/item/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
 		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
@@ -306,10 +306,7 @@
 	processing_objects |= src
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
-		if(user)
-			user.create_attack_log("<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>")
-			owner.create_attack_log("<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>")
-			msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(owner)]")
+		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user)
 		owner.death()
 	owner = null
 	return src
@@ -336,6 +333,14 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 	if(!istype(owner)) // You're not the primary organ of ANYTHING, bucko
 		return 0
 	return src == O.get_int_organ(organ_tag)
+
+/obj/item/organ/proc/is_robotic(var/purist = FALSE)
+	if(purist && (robotic > 1 || status & (ORGAN_ROBOT))) //Only the robotiest.
+		return TRUE
+	if(robotic || status & (ORGAN_ROBOT|ORGAN_ASSISTED)) //Any tech will do.
+		return TRUE
+
+	return FALSE
 
 /obj/item/organ/serialize()
 	var/data = ..()

@@ -59,7 +59,7 @@
 	popup.open()
 	return
 
-/obj/machinery/abductor/gland_dispenser/attackby(obj/item/weapon/W, mob/user, params)
+/obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/organ/internal/heart/gland))
 		if(!user.drop_item())
 			return

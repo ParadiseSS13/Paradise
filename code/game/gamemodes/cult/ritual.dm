@@ -17,7 +17,7 @@
 	else
 		icon = get_rune_cult(invocation)
 
-/obj/item/weapon/tome
+/obj/item/tome
 	name = "arcane tome"
 	desc = "An old, dusty tome with frayed edges and a sinister-looking cover."
 	icon_state ="tome"
@@ -27,32 +27,32 @@
 	var/scribereduct = 0
 	var/canbypass = 0 //ADMINBUS
 
-/obj/item/weapon/tome/accursed
+/obj/item/tome/accursed
 	name = "accursed tome"
 	desc = "An arcane tome still empowered with a shadow of its former consecration."
 	scribereduct = 30 //faster because it's made by corrupting a bible
 
-/obj/item/weapon/tome/imbued //Admin-only tome, allows instant drawing of runes
+/obj/item/tome/imbued //Admin-only tome, allows instant drawing of runes
 	name = "imbued arcane tome"
 	desc = "An arcane tome granted by the Geometer itself."
 	scribereduct = 50
 	canbypass = 1
 
-/obj/item/weapon/tome/New()
+/obj/item/tome/New()
 	if(!ticker.mode)
 		icon_state = "tome"
 	else
-		icon_state = ticker.mode.cultdat.tome_icon
+		icon_state = ticker.cultdat.tome_icon
 	..()
 
-/obj/item/weapon/tome/examine(mob/user)
+/obj/item/tome/examine(mob/user)
 	..()
 	if(iscultist(user) || user.stat == DEAD)
-		to_chat(user, "<span class='cult'>The scriptures of [ticker.mode.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [ticker.mode.cultdat.entity_name].</span>")
+		to_chat(user, "<span class='cult'>The scriptures of [ticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [ticker.cultdat.entity_name].</span>")
 		to_chat(user, "<span class='cult'>Striking another cultist with it will purge holy water from them.</span>")
 		to_chat(user, "<span class='cult'>Striking a noncultist, however, will sear their flesh.</span>")
 
-/obj/item/weapon/tome/attack(mob/living/M, mob/living/user)
+/obj/item/tome/attack(mob/living/M, mob/living/user)
 	if(!istype(M))
 		return
 	if(!iscultist(user))
@@ -63,7 +63,7 @@
 			var/holy2unholy = M.reagents.get_reagent_amount("holywater")
 			M.reagents.del_reagent("holywater")
 			M.reagents.add_reagent("unholywater",holy2unholy)
-			add_logs(user, M, "smacked", src, " removing the holy water from them")
+			add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
 		return
 	M.take_organ_damage(0, 15) //Used to be a random between 5 and 20
 	playsound(M, 'sound/weapons/sear.ogg', 50, 1)
@@ -71,15 +71,15 @@
 					  "<span class='userdanger'>[user] strikes you with the tome, searing your flesh!</span>")
 	flick("tome_attack", src)
 	user.do_attack_animation(M)
-	add_logs(user, M, "smacked", src)
+	add_attack_logs(user, M, "Hit with [src]")
 
-/obj/item/weapon/tome/attack_self(mob/user)
+/obj/item/tome/attack_self(mob/user)
 	if(!iscultist(user))
 		to_chat(user, "<span class='warning'>[src] seems full of unintelligible shapes, scribbles, and notes. Is this some sort of joke?</span>")
 		return
 	open_tome(user)
 
-/obj/item/weapon/tome/proc/open_tome(mob/user)
+/obj/item/tome/proc/open_tome(mob/user)
 	var/choice = alert(user,"You open the tome...",,"Scribe Rune","More Information","Cancel")
 	switch(choice)
 		if("More Information")
@@ -89,9 +89,9 @@
 		if("Cancel")
 			return
 
-/obj/item/weapon/tome/proc/read_tome(mob/user)
+/obj/item/tome/proc/read_tome(mob/user)
 	var/text = list()
-	text += "<center><font color='red' size=3><b><i>Archives of [ticker.mode.cultdat.entity_title1]</i></b></font></center><br><br><br>"
+	text += "<center><font color='red' size=3><b><i>Archives of [ticker.cultdat.entity_title1]</i></b></font></center><br><br><br>"
 	text += "A rune's name and effects can be revealed by examining the rune.<<br><br>"
 
 	text += "<font color='red'><b>Rite of Binding</b></font><br>This rune is one of the most important runes the cult has, being the only way to create new talismans. A blank sheet of paper must be on top of the rune. After \
@@ -102,12 +102,13 @@
 
 	text += "<font color='red'><b>Rite of Enlightenment</b></font><br>This rune is critical to the success of the cult. It will allow you to convert normal crew members into cultists. \
 	To do this, simply place the crew member upon the rune and invoke it. This rune requires two invokers to use. If the target to be converted is mindshielded or a certain assignment, they will \
-	be unable to be converted. People [ticker.mode.cultdat.entity_title3] wishes sacrificed will also be ineligible for conversion, and anyone with a shielding presence like the null rod will not be converted.<br> \
+	be unable to be converted. People [ticker.cultdat.entity_title3] wishes sacrificed will also be ineligible for conversion, and anyone with a shielding presence like the null rod will not be converted.<br> \
 	Successful conversions will produce a tome for the new cultist.<br><br>"
 
 	text += "<font color='red'><b>Rite of Tribute</b></font><br><b>This rune is necessary to achieve your goals.</b> Simply place any dead creature upon the rune and invoke it (this will not \
 	target cultists!). If this creature has a mind, a soulstone will be created and the creature's soul transported to it. Sacrificing the dead can be done alone, but sacrificing living crew <b>or your cult's target</b> will require 3 cultists. \
 	Soulstones used on construct shells will move that soul into a powerful construct of your choice.<br><br>"
+
 
 	text += "<font color='red'><b>Rite of Resurrection</b></font><br>This rune requires two corpses. To perform the ritual, place the corpse you wish to revive onto \
 	the rune and the offering body adjacent to it. When the rune is invoked, the body to be sacrificed will turn to dust, the life force flowing into the revival target. Assuming the target is not moved \
@@ -134,12 +135,12 @@
 
 	text += "<font color='red'><b>Leeching</b></font><br>When invoked, this rune will transfer lifeforce from the victim to the invoker.<br><br>"
 
-	text += "<font color='red'><b>Rite of Spectral Manifestation</b></font><br>This rune allows you to summon spirits as humanoid fighters. When invoked, a spirit above the rune will be brought to life as a human, wearing nothing, that seeks only to serve you and [ticker.mode.cultdat.entity_title3]. \
+	text += "<font color='red'><b>Rite of Spectral Manifestation</b></font><br>This rune allows you to summon spirits as humanoid fighters. When invoked, a spirit above the rune will be brought to life as a human, wearing nothing, that seeks only to serve you and [ticker.cultdat.entity_title3]. \
 	However, the spirit's link to reality is fragile - you must remain on top of the rune, and you will slowly take damage. Upon stepping off the rune, all summoned spirits will dissipate, dropping their items to the ground. You may manifest \
 	multiple spirits with one rune, but you will rapidly take damage in doing so.<br><br>"
 
 	text += "<font color='red'><b><i>Ritual of Dimensional Rending</i></b></font><br><b>This rune is necessary to achieve your goals.</b> On attempting to scribe it, it will produce shields around you and alert everyone you are attempting to scribe it; it takes a very long time to scribe, \
-	and does massive damage to the one attempting to scribe it.<br>Invoking it requires 9 invokers and the sacrifice of a specific crewmember, and once invoked, will summon [ticker.mode.cultdat.entity_title3], [ticker.mode.cultdat.entity_name]. \
+	and does massive damage to the one attempting to scribe it.<br>Invoking it requires 9 invokers and the sacrifice of a specific crewmember, and once invoked, will summon [ticker.cultdat.entity_title3], [ticker.cultdat.entity_name]. \
 	This will complete your objectives.<br><br><br>"
 
 	text += "<font color='red'><b>Talisman of Teleportation</b></font><br>The talisman form of the Teleport rune will transport the invoker to a selected Teleport rune once.<br><br>"
@@ -199,13 +200,13 @@
 	popup.open()
 	return 1
 
-/obj/item/weapon/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
+/obj/item/tome/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
 	var/datum/game_mode/cult/cult_mode = ticker.mode
 	var/area/A = get_area(src)
 	if(GAMEMODE_IS_CULT)
 		if(!canbypass)//not an admin-tome, check things
 			if(!cult_mode.narsie_condition_cleared)
-				to_chat(user, "<span class='warning'>There is still more to do before unleashing [cult_mode.cultdat.entity_name] power!</span>")
+				to_chat(user, "<span class='warning'>There is still more to do before unleashing [ticker.cultdat.entity_name] power!</span>")
 				return 0
 			if(!cult_mode.eldergod)
 				to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
@@ -214,26 +215,26 @@
 				to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
 				return 0
 			if(!((CULT_ELDERGOD in cult_mode.objectives) || (CULT_SLAUGHTER in cult_mode.objectives)))
-				to_chat(user, "<span class='warning'>[cult_mode.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
+				to_chat(user, "<span class='warning'>[ticker.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
 				return 0
 			if(!(A in summon_spots))
-				to_chat(user, "<span class='cultlarge'>[cult_mode.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_spots)]!</span>")
+				to_chat(user, "<span class='cultlarge'>[ticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_spots)]!</span>")
 				return 0
-		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
+		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [ticker.cultdat.entity_name]!", "No")
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 			return 0
 		else
 			return 1
 	else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
-		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [cult_mode.cultdat.entity_name]!", "No")
+		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [ticker.cultdat.entity_name]!", "No")
 		if(confirm_final == "No" || confirm_final == null)
 			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 			return 0
 		else
 			return 1
 
-/obj/item/weapon/tome/proc/scribe_rune(mob/living/user)
+/obj/item/tome/proc/scribe_rune(mob/living/user)
 	var/turf/runeturf = get_turf(user)
 	var/chosen_keyword
 	var/obj/effect/rune/rune_to_scribe
@@ -251,7 +252,7 @@
 	if(!possible_runes.len)
 		return
 	entered_rune_name = input(user, "Choose a rite to scribe.", "Sigils of Power") as null|anything in possible_runes
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
 	for(var/T in typesof(/obj/effect/rune))
 		var/obj/effect/rune/R = T
@@ -270,7 +271,7 @@
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
-	if(!Adjacent(user) || !src || qdeleted(src) || user.incapacitated())
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
 	if(ispath(rune_to_scribe, /obj/effect/rune/narsie) || ispath(rune_to_scribe, /obj/effect/rune/slaughter))//may need to change this - Fethas
 		if(finale_runes_ok(user,rune_to_scribe))
@@ -293,22 +294,22 @@
 	var/mob/living/carbon/human/H = user
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = H.get_organ(ran_zone(dam_zone))
-	user.visible_message("<span class='warning'>[user] cuts open their \The [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.mode.cultdat.entity_title3].</span>")
+	user.visible_message("<span class='warning'>[user] cuts open their [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.cultdat.entity_title3].</span>")
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE , affecting)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/machinery/shield/S = V
-			if(S && !qdeleted(S))
+			if(S && !QDELETED(S))
 				qdel(S)
 		return
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
 	user.visible_message("<span class='warning'>[user] creates a strange circle in their own blood.</span>", \
-						 "<span class='cult'>You finish drawing the arcane markings of [ticker.mode.cultdat.entity_title3].</span>")
+						 "<span class='cult'>You finish drawing the arcane markings of [ticker.cultdat.entity_title3].</span>")
 	for(var/V in shields)
 		var/obj/machinery/shield/S = V
-		if(S && !qdeleted(S))
+		if(S && !QDELETED(S))
 			qdel(S)
 	var/obj/effect/rune/R = new rune_to_scribe(runeturf, chosen_keyword)
 	R.blood_DNA = list()

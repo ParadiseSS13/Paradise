@@ -19,9 +19,9 @@
 /obj/structure/closet/wardrobe/miner/New()
 	..()
 	contents = list()
-	new /obj/item/weapon/storage/backpack/duffel(src)
-	new /obj/item/weapon/storage/backpack/industrial(src)
-	new /obj/item/weapon/storage/backpack/satchel_eng(src)
+	new /obj/item/storage/backpack/duffel(src)
+	new /obj/item/storage/backpack/industrial(src)
+	new /obj/item/storage/backpack/satchel_eng(src)
 	new /obj/item/clothing/under/rank/miner(src)
 	new /obj/item/clothing/under/rank/miner(src)
 	new /obj/item/clothing/under/rank/miner(src)
@@ -44,11 +44,11 @@
 
 /obj/structure/closet/secure_closet/miner/New()
 	..()
-	new /obj/item/weapon/shovel(src)
-	new /obj/item/weapon/pickaxe(src)
-	new /obj/item/device/radio/headset/headset_cargo/mining(src)
-	new /obj/item/device/t_scanner/adv_mining_scanner/lesser(src)
-	new /obj/item/weapon/storage/bag/ore(src)
+	new /obj/item/shovel(src)
+	new /obj/item/pickaxe(src)
+	new /obj/item/radio/headset/headset_cargo/mining(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/glasses/meson(src)
 
 /**********************Shuttle Computer**************************/
@@ -56,13 +56,13 @@
 /obj/machinery/computer/shuttle/mining
 	name = "Mining Shuttle Console"
 	desc = "Used to call and send the mining shuttle."
-	circuit = /obj/item/weapon/circuitboard/mining_shuttle
+	circuit = /obj/item/circuitboard/mining_shuttle
 	shuttleId = "mining"
 	possible_destinations = "mining_home;mining_away"
 
 /******************************Lantern*******************************/
 
-/obj/item/device/flashlight/lantern
+/obj/item/flashlight/lantern
 	name = "lantern"
 	icon_state = "lantern"
 	desc = "A mining lantern."
@@ -70,7 +70,7 @@
 
 /*****************************Pickaxe********************************/
 
-/obj/item/weapon/pickaxe
+/obj/item/pickaxe
 	name = "pickaxe"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pickaxe"
@@ -91,10 +91,10 @@
 	usesound = 'sound/effects/picaxe1.ogg'
 	toolspeed = 1
 
-/obj/item/weapon/pickaxe/proc/playDigSound()
+/obj/item/pickaxe/proc/playDigSound()
 	playsound(src, pick(digsound),20,1)
 
-/obj/item/weapon/pickaxe/silver
+/obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"
 	icon_state = "spickaxe"
 	item_state = "spickaxe"
@@ -103,7 +103,7 @@
 	desc = "A silver-plated pickaxe that mines slightly faster than standard-issue."
 	toolspeed = 0.75
 
-/obj/item/weapon/pickaxe/gold
+/obj/item/pickaxe/gold
 	name = "golden pickaxe"
 	icon_state = "gpickaxe"
 	item_state = "gpickaxe"
@@ -112,7 +112,7 @@
 	desc = "A gold-plated pickaxe that mines faster than standard-issue."
 	toolspeed = 0.6
 
-/obj/item/weapon/pickaxe/diamond
+/obj/item/pickaxe/diamond
 	name = "diamond-tipped pickaxe"
 	icon_state = "dpickaxe"
 	item_state = "dpickaxe"
@@ -121,7 +121,7 @@
 	desc = "A pickaxe with a diamond pick head. Extremely robust at cracking rock walls and digging up dirt."
 	toolspeed = 0.5
 
-/obj/item/weapon/pickaxe/drill
+/obj/item/pickaxe/drill
 	name = "mining drill"
 	icon_state = "handdrill"
 	item_state = "jackhammer"
@@ -133,12 +133,12 @@
 	desc = "An electric mining drill for the especially scrawny."
 	toolspeed = 0.5
 
-/obj/item/weapon/pickaxe/drill/cyborg
+/obj/item/pickaxe/drill/cyborg
 	name = "cyborg mining drill"
 	desc = "An integrated electric mining drill."
 	flags = NODROP
 
-/obj/item/weapon/pickaxe/drill/diamonddrill
+/obj/item/pickaxe/drill/diamonddrill
 	name = "diamond-tipped mining drill"
 	icon_state = "diamonddrill"
 	digspeed = 10
@@ -146,20 +146,20 @@
 	desc = "Yours is the drill that will pierce the heavens!"
 	toolspeed = 0.25
 
-/obj/item/weapon/pickaxe/diamonddrill/traitor //Pocket-sized traitor diamond drill.
+/obj/item/pickaxe/diamonddrill/traitor //Pocket-sized traitor diamond drill.
 	name = "supermatter drill"
 	icon_state = "smdrill"
 	origin_tech = "materials=6;powerstorage=4;engineering=4;syndicate=3"
 	desc = "Microscopic supermatter crystals cover the head of this tiny drill."
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/weapon/pickaxe/drill/cyborg/diamond //This is the BORG version!
+/obj/item/pickaxe/drill/cyborg/diamond //This is the BORG version!
 	name = "diamond-tipped cyborg mining drill" //To inherit the NODROP flag, and easier to change borg specific drill mechanics.
 	icon_state = "diamonddrill"
 	digspeed = 10
 	toolspeed = 0.25
 
-/obj/item/weapon/pickaxe/drill/jackhammer
+/obj/item/pickaxe/drill/jackhammer
 	name = "sonic jackhammer"
 	icon_state = "jackhammer"
 	item_state = "jackhammer"
@@ -173,7 +173,7 @@
 
 /*****************************Shovel********************************/
 
-/obj/item/weapon/shovel
+/obj/item/shovel
 	name = "shovel"
 	desc = "A large tool for digging and moving dirt."
 	icon = 'icons/obj/items.dmi'
@@ -190,7 +190,7 @@
 	usesound = 'sound/effects/shovel_dig.ogg'
 	toolspeed = 1
 
-/obj/item/weapon/shovel/spade
+/obj/item/shovel/spade
 	name = "spade"
 	desc = "A small tool for digging and moving dirt."
 	icon_state = "spade"
@@ -213,7 +213,7 @@
 
 /*********************Mob Capsule*************************/
 
-/obj/item/device/mobcapsule
+/obj/item/mobcapsule
 	name = "lazarus capsule"
 	desc = "It allows you to store and deploy lazarus-injected creatures easier."
 	icon = 'icons/obj/mobcap.dmi'
@@ -223,19 +223,19 @@
 	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0
 
-/obj/item/device/mobcapsule/Destroy()
+/obj/item/mobcapsule/Destroy()
 	if(captured)
 		captured.ghostize()
 		QDEL_NULL(captured)
 	return ..()
 
-/obj/item/device/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
+/obj/item/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
 	if(!istype(A, /mob/living/simple_animal) || isbot(A))
 		return ..()
 	capture(A, user)
 	return 1
 
-/obj/item/device/mobcapsule/proc/capture(var/mob/target, var/mob/U as mob)
+/obj/item/mobcapsule/proc/capture(var/mob/target, var/mob/U as mob)
 	var/mob/living/simple_animal/T = target
 	if(captured)
 		to_chat(U, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
@@ -250,17 +250,17 @@
 		else
 			to_chat(U, "You can't capture that mob!")
 
-/obj/item/device/mobcapsule/throw_impact(atom/A, mob/user)
+/obj/item/mobcapsule/throw_impact(atom/A, mob/user)
 	..()
 	if(captured)
 		dump_contents(user)
 
-/obj/item/device/mobcapsule/proc/dump_contents(mob/user)
+/obj/item/mobcapsule/proc/dump_contents(mob/user)
 	if(captured)
 		captured.forceMove(get_turf(src))
 		captured = null
 
-/obj/item/device/mobcapsule/attack_self(mob/user)
+/obj/item/mobcapsule/attack_self(mob/user)
 	colorindex += 1
 	if(colorindex >= 6)
 		colorindex = 0
@@ -276,7 +276,7 @@
 	requires_power = 0
 	has_gravity = 1
 
-/obj/item/weapon/survivalcapsule
+/obj/item/survivalcapsule
 	name = "bluespace shelter capsule"
 	desc = "An emergency shelter stored within a pocket of bluespace."
 	icon_state = "capsule"
@@ -287,7 +287,7 @@
 	var/datum/map_template/shelter/template
 	var/used = FALSE
 
-/obj/item/weapon/survivalcapsule/proc/get_template()
+/obj/item/survivalcapsule/proc/get_template()
 	if(template)
 		return
 	template = shelter_templates[template_id]
@@ -295,13 +295,13 @@
 		log_runtime("Shelter template ([template_id]) not found!", src)
 		qdel(src)
 
-/obj/item/weapon/survivalcapsule/examine(mob/user)
+/obj/item/survivalcapsule/examine(mob/user)
 	. = ..()
 	get_template()
 	to_chat(user, "This capsule has the [template.name] stored.")
 	to_chat(user, template.description)
 
-/obj/item/weapon/survivalcapsule/attack_self()
+/obj/item/survivalcapsule/attack_self()
 	// Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
 	if(used == FALSE)
@@ -332,7 +332,7 @@
 		new /obj/effect/particle_effect/smoke(get_turf(src))
 		qdel(src)
 
-/obj/item/weapon/survivalcapsule/luxury
+/obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
 	desc = "An exorbitantly expensive luxury suite stored within a pocket of bluespace."
 	origin_tech = "engineering=3;bluespace=4"
@@ -362,25 +362,23 @@
 	icon_regular_floor = "podfloor"
 	floor_tile = /obj/item/stack/tile/pod
 
-//Walls
-/turf/simulated/wall/survival
-	name = "pod wall"
-	desc = "An easily-compressable wall used for temporary shelter."
-	icon = 'icons/turf/walls/survival_pod_walls.dmi'
-	icon_state = "smooth"
-	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(/turf/simulated/wall/survival, /obj/machinery/door/airlock/survival_pod)
-
 //Door
 /obj/machinery/door/airlock/survival_pod
-	icon = 'icons/obj/doors/survival.dmi'
+	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_pod
-	opacity = 0
-	glass = 1
+
+/obj/machinery/door/airlock/survival_pod/glass
+	opacity = FALSE
+	glass = TRUE
 
 /obj/structure/door_assembly/door_assembly_pod
-	base_icon_state = "survival_pod"
-	glass_type = "/survival_pod"
+	name = "pod airlock assembly"
+	icon = 'icons/obj/doors/airlocks/survival/survival.dmi'
+	base_name = "pod airlock"
+	overlays_file = 'icons/obj/doors/airlocks/survival/survival_overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/survival_pod
+	glass_type = /obj/machinery/door/airlock/survival_pod/glass
 
 //Windoor
 /obj/machinery/door/window/survival_pod
@@ -403,18 +401,18 @@
 /obj/machinery/sleeper/survival_pod/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/sleeper/survival(null)
-	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	component_parts += new /obj/item/circuitboard/sleeper/survival(null)
+	var/obj/item/stock_parts/matter_bin/B = new(null)
 	B.rating = initial_bin_rating
 	component_parts += B
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 //Computer
-/obj/item/device/gps/computer
+/obj/item/gps/computer
 	name = "pod computer"
 	icon_state = "pod_computer"
 	icon = 'icons/obj/lavaland/pod_computer.dmi'
@@ -422,17 +420,17 @@
 	density = 1
 	pixel_y = -32
 
-/obj/item/device/gps/computer/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
 						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
 		if(do_after(user, 20 * W.toolspeed, target = src))
-			new /obj/item/device/gps(loc)
+			new /obj/item/gps(loc)
 			qdel(src)
 			return ..()
 
-/obj/item/device/gps/computer/attack_hand(mob/user)
+/obj/item/gps/computer/attack_hand(mob/user)
 	attack_self(user)
 
 //Bed
@@ -452,11 +450,11 @@
 	max_n_of_items = 10
 	pixel_y = -4
 
-/obj/item/weapon/circuitboard/smartfridge/survival
+/obj/item/circuitboard/smartfridge/survival
 	name = "circuit board (Smartfridge Survival)"
 	build_path = /obj/machinery/smartfridge/survival_pod
 
-/obj/item/weapon/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
 	return
 
 /obj/machinery/smartfridge/survival_pod/accept_check(obj/item/O)
@@ -467,20 +465,20 @@
 /obj/machinery/smartfridge/survival_pod/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/smartfridge/survival(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/circuitboard/smartfridge/survival(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
 /obj/machinery/smartfridge/survival_pod/loaded/New()
 	..()
 	for(var/i in 1 to 5)
-		var/obj/item/weapon/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
+		var/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)
 		load(W)
 	if(prob(50))
-		var/obj/item/weapon/storage/pill_bottle/dice/D = new(src)
+		var/obj/item/storage/pill_bottle/dice/D = new(src)
 		load(D)
 	else
-		var/obj/item/device/instrument/guitar/G = new(src)
+		var/obj/item/instrument/guitar/G = new(src)
 		load(G)
 
 //Fans
@@ -500,8 +498,8 @@
 		new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
-/obj/structure/fans/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/structure/fans/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
 							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
@@ -551,8 +549,8 @@
 	layer = MOB_LAYER - 0.2
 	density = 0
 
-/obj/structure/tubes/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/structure/tubes/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/wrench))
 		playsound(loc, W.usesound, 50, 1)
 		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
 							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
@@ -566,19 +564,19 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	var/possible = list(/obj/item/ship_in_a_bottle,
-						/obj/item/weapon/gun/energy/pulse,
-						/obj/item/weapon/sleeping_carp_scroll,
-						/obj/item/weapon/shield/changeling,
-						/obj/item/weapon/lava_staff,
-						/obj/item/weapon/katana/energy,
-						/obj/item/weapon/storage/toolbox/green/memetic,
-						/obj/item/weapon/gun/projectile/automatic/l6_saw,
-						/obj/item/weapon/gun/magic/staff/chaos,
-						/obj/item/weapon/gun/magic/staff/spellblade,
-						/obj/item/weapon/gun/magic/wand/death,
-						/obj/item/weapon/gun/magic/wand/fireball,
+						/obj/item/gun/energy/pulse,
+						/obj/item/sleeping_carp_scroll,
+						/obj/item/shield/changeling,
+						/obj/item/lava_staff,
+						/obj/item/katana/energy,
+						/obj/item/storage/toolbox/green/memetic,
+						/obj/item/gun/projectile/automatic/l6_saw,
+						/obj/item/gun/magic/staff/chaos,
+						/obj/item/gun/magic/staff/spellblade,
+						/obj/item/gun/magic/wand/death,
+						/obj/item/gun/magic/wand/fireball,
 						/obj/item/stack/telecrystal,
-						/obj/item/weapon/banhammer)
+						/obj/item/banhammer)
 
 /obj/item/fakeartefact/New()
 	. = ..()

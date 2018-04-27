@@ -1,4 +1,4 @@
-/obj/item/device/soulstone
+/obj/item/soulstone
 	name = "Soul Stone Shard"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "soulstone"
@@ -16,13 +16,13 @@
 
 	var/opt_in = FALSE // for tracking during the 'optional' bit
 
-/obj/item/device/soulstone/proc/can_use(mob/living/user)
+/obj/item/soulstone/proc/can_use(mob/living/user)
 	if(iscultist(user) || iswizard(user) || usability)
 		return TRUE
 
 	return FALSE
 
-/obj/item/device/soulstone/proc/was_used()
+/obj/item/soulstone/proc/was_used()
 	if(!reusable)
 		spent = TRUE
 		name = "dull [name]"
@@ -30,22 +30,22 @@
 			the 'Soul Stone'. The shard lies still, dull and lifeless; \
 			whatever spark it once held long extinguished."
 
-/obj/item/device/soulstone/anybody
+/obj/item/soulstone/anybody
 	usability = TRUE
 
-/obj/item/device/soulstone/anybody/chaplain
+/obj/item/soulstone/anybody/chaplain
 	name = "mysterious old shard"
 	reusable = FALSE
 	optional = TRUE
 
-/obj/item/device/soulstone/pickup(mob/living/user)
+/obj/item/soulstone/pickup(mob/living/user)
 	..()
 	if(!can_use(user))
 		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up the soulstone. It would be wise to be rid of this quickly.</span>")
 		user.Dizzy(120)
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
-/obj/item/device/soulstone/attack(mob/living/carbon/human/M as mob, mob/user as mob)
+/obj/item/soulstone/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	if(!can_use(user))
 		user.Paralyse(5)
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
@@ -117,15 +117,12 @@
 		if(spent)//checking one more time against shenanigans
 			return
 
-	M.create_attack_log("<font color='orange'>Has had their soul captured with [src.name] by [key_name(user)]</font>")
-	user.create_attack_log("<font color='red'>Used the [src.name] to capture the soul of [key_name(M)]</font>")
-	log_attack("<font color='red'>[key_name(user)] used the [src.name] to capture the soul of [key_name(M)]</font>")
-
+	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
 	return
 
 ///////////////////Options for using captured souls///////////////////////////////////////
-/obj/item/device/soulstone/attack_self(mob/user)
+/obj/item/soulstone/attack_self(mob/user)
 	if(!in_range(src, user))
 		return
 
@@ -145,7 +142,7 @@
 	onclose(user, "aicard")
 	return
 
-/obj/item/device/soulstone/Topic(href, href_list)
+/obj/item/soulstone/Topic(href, href_list)
 	var/mob/U = usr
 	if(!in_range(src, U) || U.machine != src || !can_use(usr))
 		U << browse(null, "window=aicard")
@@ -193,8 +190,8 @@
 			to_chat(user, "<span class='cult'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>")
 
 /obj/structure/constructshell/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/device/soulstone))
-		var/obj/item/device/soulstone/SS = O
+	if(istype(O, /obj/item/soulstone))
+		var/obj/item/soulstone/SS = O
 		if(!SS.can_use(user))
 			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soulstone into the shell. It would be wise to be rid of this quickly.</span>")
 			user.Dizzy(120)
@@ -209,7 +206,7 @@
 /obj/item/proc/transfer_soul(var/choice as text, var/target, var/mob/U as mob)
 	switch(choice)
 		if("FORCE")
-			var/obj/item/device/soulstone/C = src
+			var/obj/item/soulstone/C = src
 			if(!iscarbon(target))		//TODO: Add sacrifice stoning for non-organics, just because you have no body doesnt mean you dont have a soul
 				return 0
 			if(contents.len)
@@ -226,7 +223,7 @@
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
-			var/obj/item/device/soulstone/C = src
+			var/obj/item/soulstone/C = src
 			if(C.imprinted != "empty")
 				to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone has already been imprinted with [C.imprinted]'s mind!")
 			else
@@ -246,7 +243,7 @@
 							qdel(T)
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
-			var/obj/item/device/soulstone/C = src
+			var/obj/item/soulstone/C = src
 			if(T.stat == DEAD)
 				to_chat(U, "<span class='danger'>Capture failed!</span>: The shade has already been banished!")
 			else
@@ -266,7 +263,7 @@
 						to_chat(U, "<span class='notice'>Capture successful!</span>: [T.name]'s has been recaptured and stored within the soul stone.")
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/T = target
-			var/obj/item/device/soulstone/C = src
+			var/obj/item/soulstone/C = src
 			var/mob/living/simple_animal/shade/A = locate() in C
 			if(A)
 				var/construct_class = alert(U, "Please choose which type of construct you wish to create.",,"Juggernaut","Wraith","Artificer")
@@ -342,7 +339,7 @@
 		to_chat(newstruct, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
 	newstruct.cancel_camera()
 
-/obj/item/device/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/U, vic = 0)
+/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/U, vic = 0)
 	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
 	T.invisibility = 101
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( T.loc )
@@ -371,7 +368,7 @@
 	if(vic && U)
 		to_chat(U, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from their body and stored within the soul stone.")
 
-/obj/item/device/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
+/obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
 	var/mob/dead/observer/chosen_ghost
 
 	for(var/mob/dead/observer/ghost in player_list) //We put them back in their body

@@ -27,7 +27,11 @@
 /obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
 	. = ..()
 	if(isliving(G))
-		G.adjustFireLoss(3000)
+		if(G.get_species() == "Machine") //speshul snowfleks deserv speshul treetment
+			G.adjustFireLoss(6969)  //remember - slimes love fire
+		else
+			G.death()
+
 		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts them!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
@@ -183,7 +187,7 @@ proc/wabbajack(mob/living/M)
 					new_mob.invisibility = 0
 					new_mob.job = "Cyborg"
 					var/mob/living/silicon/robot/Robot = new_mob
-					Robot.mmi = new /obj/item/device/mmi(new_mob)
+					Robot.mmi = new /obj/item/mmi(new_mob)
 					if(ishuman(M))
 						Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 				if("slime")
@@ -240,7 +244,7 @@ proc/wabbajack(mob/living/M)
 				else
 					return
 
-			M.create_attack_log("<font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
+			M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
 			new_mob.attack_log = M.attack_log
 
 			new_mob.a_intent = INTENT_HARM
@@ -277,7 +281,7 @@ proc/wabbajack(mob/living/M)
 				qdel(src)
 		else
 			var/obj/O = change
-			if(istype(O, /obj/item/weapon/gun))
+			if(istype(O, /obj/item/gun))
 				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
 			else
 				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)

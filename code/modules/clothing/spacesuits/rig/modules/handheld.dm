@@ -10,7 +10,7 @@
 	deactivate_string = "Retract"
 
 	var/device_type
-	var/obj/item/device
+	var/obj/item
 
 /obj/item/rig_module/handheld/activate()
 	if(!..())
@@ -47,4 +47,4 @@
 	desc = "For tactical honking"
 	interface_name = "mounted bikehorn"
 	interface_desc = "Honks"
-	device_type = /obj/item/weapon/bikehorn
+	device_type = /obj/item/bikehorn

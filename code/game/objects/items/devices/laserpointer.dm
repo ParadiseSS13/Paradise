@@ -1,4 +1,4 @@
-/obj/item/device/laser_pointer
+/obj/item/laser_pointer
 	name = "laser pointer"
 	desc = "Don't shine it in your eyes!"
 	icon = 'icons/obj/device.dmi'
@@ -15,39 +15,39 @@
 	var/effectchance = 33
 	var/recharging = 0
 	var/recharge_locked = 0
-	var/obj/item/weapon/stock_parts/micro_laser/diode //used for upgrading!
+	var/obj/item/stock_parts/micro_laser/diode //used for upgrading!
 
 
-/obj/item/device/laser_pointer/red
+/obj/item/laser_pointer/red
 	pointer_icon_state = "red_laser"
-/obj/item/device/laser_pointer/green
+/obj/item/laser_pointer/green
 	pointer_icon_state = "green_laser"
-/obj/item/device/laser_pointer/blue
+/obj/item/laser_pointer/blue
 	pointer_icon_state = "blue_laser"
-/obj/item/device/laser_pointer/purple
+/obj/item/laser_pointer/purple
 	pointer_icon_state = "purple_laser"
 
-/obj/item/device/laser_pointer/New()
+/obj/item/laser_pointer/New()
 	..()
 	diode = new(src)
 	if(!pointer_icon_state)
 		pointer_icon_state = pick("red_laser","green_laser","blue_laser","purple_laser")
 
-/obj/item/device/laser_pointer/Destroy()
+/obj/item/laser_pointer/Destroy()
 	QDEL_NULL(diode)
 	return ..()
 
-/obj/item/device/laser_pointer/upgraded/New()
+/obj/item/laser_pointer/upgraded/New()
 	..()
-	diode = new /obj/item/weapon/stock_parts/micro_laser/ultra
+	diode = new /obj/item/stock_parts/micro_laser/ultra
 
 
 
-/obj/item/device/laser_pointer/attack(mob/living/M, mob/user)
+/obj/item/laser_pointer/attack(mob/living/M, mob/user)
 	laser_act(M, user)
 
-/obj/item/device/laser_pointer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/stock_parts/micro_laser))
+/obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stock_parts/micro_laser))
 		if(!diode)
 			user.drop_item()
 			W.loc = src
@@ -56,7 +56,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
-	else if(istype(W, /obj/item/weapon/screwdriver))
+	else if(istype(W, /obj/item/screwdriver))
 		if(diode)
 			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
 			diode.loc = get_turf(src.loc)
@@ -65,12 +65,12 @@
 		..()
 	return
 
-/obj/item/device/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
+/obj/item/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
 		return
 	laser_act(target, user, params)
 
-/obj/item/device/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
+/obj/item/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
@@ -99,7 +99,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(user.zone_sel.selecting == "eyes")
-			add_logs(user, C, "shone in the eyes", object="laser pointer")
+			add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 
 			var/severity = 1
 			if(prob(33))
@@ -125,9 +125,7 @@
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at their sensors.</span>"
 
-			S.create_attack_log("<font color='orange'>Has had a laser pointer shone in their eyes by [user.name] ([user.ckey])</font>")
-			user.create_attack_log("<font color='orange'>Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
-			log_attack("<font color='orange'>[user.name] ([user.ckey]) Shone a laser pointer in the eyes of [S.name] ([S.ckey])</font>")
+			add_attack_logs(user, S, "shone [src] in their eyes")
 		else
 			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at their sensors.</span>"
 
@@ -138,8 +136,8 @@
 			C.emp_act(1)
 			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
 
-			log_admin("\[[time_stamp()]\] [user.name] ([user.ckey]) EMPd a camera with a laser pointer")
-			user.create_attack_log("[user.name] ([user.ckey]) EMPd a camera with a laser pointer")
+			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
+			user.create_attack_log("[key_name(user)] EMPd a camera with a laser pointer")
 		else
 			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
 
@@ -177,7 +175,7 @@
 	flick_overlay(I, showto, 10)
 	icon_state = "pointer"
 
-/obj/item/device/laser_pointer/process()
+/obj/item/laser_pointer/process()
 	if(prob(20 - recharge_locked*5))
 		energy += 1
 		if(energy >= max_energy)

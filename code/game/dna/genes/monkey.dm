@@ -15,7 +15,7 @@
 	for(var/obj/item/W in H)
 		if(istype(W,/obj/item/organ))
 			continue
-		if(istype(W,/obj/item/weapon/implant))
+		if(istype(W,/obj/item/implant))
 			continue
 		H.unEquip(W)
 
@@ -25,13 +25,8 @@
 	H.icon = null
 	H.invisibility = 101
 
-	var/atom/movable/overlay/animation = new /atom/movable/overlay(H.loc)
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = H
-	flick("h2monkey", animation)
+	new /obj/effect/temp_visual/monkeyify(H.loc)
 	sleep(22)
-	qdel(animation)
 
 	H.SetStunned(0)
 	H.invisibility = initial(H.invisibility)
@@ -59,7 +54,7 @@
 			continue
 		if(istype(W,/obj/item/organ))
 			continue
-		if(istype(W,/obj/item/weapon/implant))
+		if(istype(W,/obj/item/implant))
 			continue
 		H.unEquip(W)
 	H.regenerate_icons()
@@ -68,13 +63,8 @@
 	H.icon = null
 	H.invisibility = 101
 
-	var/atom/movable/overlay/animation = new /atom/movable/overlay(H.loc)
-	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.master = H
-	flick("monkey2h", animation)
+	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
 	sleep(22)
-	qdel(animation)
 
 	H.SetStunned(0)
 	H.invisibility = initial(H.invisibility)

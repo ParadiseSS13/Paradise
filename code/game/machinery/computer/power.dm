@@ -7,7 +7,7 @@
 	idle_power_usage = 20
 	active_power_usage = 80
 	light_color = LIGHT_COLOR_ORANGE
-	circuit = /obj/item/weapon/circuitboard/powermonitor
+	circuit = /obj/item/circuitboard/powermonitor
 	var/datum/powernet/powernet = null
 	var/datum/nano_module/power_monitor/power_monitor
 
