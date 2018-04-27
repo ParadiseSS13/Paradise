@@ -184,7 +184,7 @@
 			if(!isnum(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit, TRUE)
-		var/list/del_types = list(/obj/item/device/pda, /obj/item/device/radio/headset)
+		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
 			qdel(I)
@@ -284,7 +284,7 @@
 /obj/effect/mob_spawn/human/doctor/alive/equip(mob/living/carbon/human/H)
 	..()
 	// Remove radio and PDA so they wouldn't annoy station crew.
-	var/list/del_types = list(/obj/item/device/pda, /obj/item/device/radio/headset)
+	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 	for(var/del_type in del_types)
 		var/obj/item/I = locate(del_type) in H
 		qdel(I)
@@ -307,7 +307,7 @@
 	head = /obj/item/clothing/head/helmet/space/hardsuit
 	mask = /obj/item/clothing/mask/breath
 	id = /obj/item/card/id/engineering
-	l_pocket = /obj/item/device/t_scanner
+	l_pocket = /obj/item/t_scanner
 
 	backpack = /obj/item/storage/backpack/industrial
 
@@ -334,7 +334,7 @@
 		uniform = /obj/item/clothing/under/soldieruniform
 		suit = /obj/item/clothing/suit/soldiercoat
 		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/device/radio/headset
+		l_ear = /obj/item/radio/headset
 		mask = /obj/item/clothing/mask/gas/clown_hat
 		l_pocket = /obj/item/bikehorn
 		back = /obj/item/storage/backpack/clown
@@ -344,7 +344,7 @@
 		uniform = /obj/item/clothing/under/officeruniform
 		suit = /obj/item/clothing/suit/officercoat
 		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/device/radio/headset
+		l_ear = /obj/item/radio/headset
 		mask = /obj/item/clothing/mask/gas/clown_hat
 		l_pocket = /obj/item/bikehorn
 		back = /obj/item/storage/backpack/clown
@@ -377,10 +377,10 @@
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/device/radio/headset/headset_cargo/mining
+	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	id = /obj/item/card/id/supply
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
-	r_pocket = /obj/item/device/flashlight/seclite
+	r_pocket = /obj/item/flashlight/seclite
 
 
 /obj/effect/mob_spawn/human/bartender
@@ -454,7 +454,7 @@
 
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
-	l_ear = /obj/item/device/radio/headset/heads/hop
+	l_ear = /obj/item/radio/headset/heads/hop
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/black
