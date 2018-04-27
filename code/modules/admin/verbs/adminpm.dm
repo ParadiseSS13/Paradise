@@ -88,7 +88,7 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = input(src,"Message:", "Private message to [key_name(C, 0, 0)]") as text|null
+		msg = input(src,"Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]") as text|null
 
 		if(!msg)
 			return
@@ -152,9 +152,9 @@
 
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [emoji_msg]</span>"
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>: [emoji_msg]</span>"
 	to_chat(C, recieve_message)
-	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [emoji_msg]</font>")
+	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</font>")
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -175,13 +175,13 @@
 			switch(type)
 				if("Mentorhelp")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [emoji_msg]</span>")
+						to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
 				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [emoji_msg]</span>")
+						to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [emoji_msg]</span>")
+						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
 
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
@@ -226,4 +226,4 @@
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			to_chat(X, "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></font>")
+			to_chat(X, "<B><font color='blue'>PM: [key_name(src, TRUE, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></font>")

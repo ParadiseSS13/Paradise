@@ -174,8 +174,6 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 			melee_damage_lower = 2 + I.force
 			melee_damage_upper = 2 + I.force
 			move_to_delay = 2 * I.w_class + 1
-			if(istype(O, /obj/item/device))
-				is_electronic = 1
 		maxHealth = health
 		if(user)
 			creator = user

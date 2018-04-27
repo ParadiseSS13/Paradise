@@ -46,7 +46,7 @@
 
 	default_deconstruction_crowbar(O)
 
-	if(istype(O, /obj/item/device/multitool))
+	if(istype(O, /obj/item/multitool))
 		cycle_through++
 		switch(cycle_through)
 			if(1)

@@ -60,7 +60,7 @@
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/device/pda))
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] \the [src] behaviour controls.</span>")
@@ -161,6 +161,7 @@
 		target_types += /obj/effect/decal/cleanable/blood/gibs/
 		target_types += /obj/effect/decal/cleanable/blood/tracks
 		target_types += /obj/effect/decal/cleanable/dirt
+		target_types += /obj/effect/decal/cleanable/trail_holder
 
 /mob/living/simple_animal/bot/cleanbot/proc/clean(obj/effect/decal/cleanable/target)
 	anchored = 1
@@ -181,7 +182,7 @@
 
 	new /obj/item/reagent_containers/glass/bucket(Tsec)
 
-	new /obj/item/device/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
 
 	if(prob(50))
 		new /obj/item/robot_parts/l_arm(Tsec)

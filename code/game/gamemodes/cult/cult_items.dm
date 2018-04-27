@@ -229,7 +229,7 @@
 		user.Weaken(5)
 		user.EyeBlind(30)
 
-/obj/item/device/shuttle_curse
+/obj/item/shuttle_curse
 	name = "cursed orb"
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
 	icon = 'icons/obj/projectiles.dmi'
@@ -237,7 +237,7 @@
 	color = "#ff0000"
 	var/global/curselimit = 0
 
-/obj/item/device/shuttle_curse/attack_self(mob/user)
+/obj/item/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
 		user.unEquip(src, 1)
 		user.Weaken(5)
@@ -271,28 +271,28 @@
 		command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
 		curselimit++
 
-/obj/item/device/cult_shift
+/obj/item/cult_shift
 	name = "veil shifter"
 	desc = "This relic teleports you forward a medium distance."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
 
-/obj/item/device/cult_shift/examine(mob/user)
+/obj/item/cult_shift/examine(mob/user)
 	. = ..()
 	if(uses)
 		to_chat(user, "<span class='cult'>It has [uses] uses remaining.</span>")
 	else
 		to_chat(user, "<span class='cult'>It seems drained.</span>")
 
-/obj/item/device/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
+/obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
 		pulled.forceMove(T)
 		. = pulled
 
-/obj/item/device/cult_shift/attack_self(mob/user)
+/obj/item/cult_shift/attack_self(mob/user)
 	if(!uses || !iscarbon(user))
 		to_chat(user, "<span class='warning'>\The [src] is dull and unmoving in your hands.</span>")
 		return

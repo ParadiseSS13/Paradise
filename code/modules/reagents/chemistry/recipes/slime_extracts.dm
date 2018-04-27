@@ -364,7 +364,7 @@
 	feedback_add_details("slime_cores_used","[type]")
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='danger'>The slime begins to emit a soft light. Squeezing it will cause it to grow brightly.</span>")
-	var/obj/item/device/flashlight/slime/F = new /obj/item/device/flashlight/slime
+	var/obj/item/flashlight/slime/F = new /obj/item/flashlight/slime
 	F.forceMove(get_turf(holder.my_atom))
 
 //Purple
@@ -628,9 +628,9 @@
 
 /datum/chemical_reaction/slimecamera/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/device/camera/P = new /obj/item/device/camera
+	var/obj/item/camera/P = new /obj/item/camera
 	P.forceMove(get_turf(holder.my_atom))
-	var/obj/item/device/camera_film/Z = new /obj/item/device/camera_film
+	var/obj/item/camera_film/Z = new /obj/item/camera_film
 	Z.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimefloor

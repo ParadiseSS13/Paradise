@@ -61,7 +61,7 @@
 	/obj/item/scalpel/laser/manager = 100, \
 	/obj/item/hemostat = 100, 	\
 	/obj/item/stack/cable_coil = 90, 	\
-	/obj/item/device/assembly/mousetrap = 12	//I don't know. Don't ask me. But I'm leaving it because hilarity.
+	/obj/item/assembly/mousetrap = 12	//I don't know. Don't ask me. But I'm leaving it because hilarity.
 	)
 
 	time = 24

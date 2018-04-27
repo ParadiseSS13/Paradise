@@ -62,10 +62,10 @@
 
 /obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
 
-	if(istype(W, /obj/item/device/detective_scanner))
+	if(istype(W, /obj/item/detective_scanner))
 		return
 
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
@@ -79,7 +79,7 @@
 
 	return attack_hand(user)
 
-/obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<ul>
 	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag")]</li>

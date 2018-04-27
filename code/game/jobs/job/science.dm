@@ -34,10 +34,10 @@
 	uniform = /obj/item/clothing/under/rank/research_director
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/device/radio/headset/heads/rd
+	l_ear = /obj/item/radio/headset/heads/rd
 	id = /obj/item/card/id/rd
 	l_hand = /obj/item/clipboard
-	pda = /obj/item/device/pda/heads/rd
+	pda = /obj/item/pda/heads/rd
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
@@ -77,9 +77,9 @@
 	uniform = /obj/item/clothing/under/rank/scientist
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/device/radio/headset/headset_sci
+	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
-	pda = /obj/item/device/pda/toxins
+	pda = /obj/item/pda/toxins
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
@@ -118,6 +118,6 @@
 	suit = /obj/item/clothing/suit/storage/labcoat
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_sci
+	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
-	pda = /obj/item/device/pda/roboticist
+	pda = /obj/item/pda/roboticist

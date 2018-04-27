@@ -286,7 +286,7 @@ proc/get_radio_key_from_channel(var/channel)
 	//Log of what we've said, plain message, no spans or junk
 	say_log += message
 
-	log_say("[name]/[key] : [message]")
+	log_say(message, src)
 	return 1
 
 /mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/language/language)
@@ -313,7 +313,7 @@ proc/get_radio_key_from_channel(var/channel)
 		return 1
 
 	if(act && type && message) //parent call
-		log_emote("[name]/[key] : [message]")
+		log_emote(message, src)
 
 		for(var/mob/M in dead_mob_list)
 			if(!M.client || istype(M, /mob/new_player))
@@ -485,7 +485,7 @@ proc/get_radio_key_from_channel(var/channel)
 		for(var/mob/M in watching)
 			M.show_message(rendered, 2)
 
-	log_whisper("[name]/[key] : [message]")
+	log_whisper(message, src)
 	return 1
 
 /mob/living/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())

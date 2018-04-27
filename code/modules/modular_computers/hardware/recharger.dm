@@ -54,7 +54,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=2;powerstorage=1"
 
-/obj/item/computer_hardware/recharger/wired/can_install(obj/item/device/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/recharger/wired/can_install(obj/item/modular_computer/M, mob/living/user = null)
 	if(istype(M.physical, /obj/machinery) && M.physical.anchored)
 		return ..()
 	if(user)

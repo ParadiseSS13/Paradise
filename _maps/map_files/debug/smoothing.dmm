@@ -8,8 +8,8 @@
 "h" = (/turf/simulated/floor/carpet,/area/centcom)
 "i" = (/obj/effect/landmark/start,/turf/unsimulated/floor,/area/start)
 "j" = (/obj/effect/landmark{name = "Observer-Start"},/turf/simulated/floor/plating,/area/centcom)
-"k" = (/turf/simulated/wall/mineral/clown,/area/centcom)
-"l" = (/obj/structure/falsewall/clown,/turf/simulated/floor/plating,/area/centcom)
+"k" = (/turf/simulated/wall/mineral/bananium,/area/centcom)
+"l" = (/obj/structure/falsewall/bananium,/turf/simulated/floor/plating,/area/centcom)
 "m" = (/turf/simulated/wall/mineral/gold,/area/centcom)
 "n" = (/obj/structure/falsewall/gold,/turf/simulated/floor/plating,/area/centcom)
 "o" = (/obj/structure/alien/resin/wall,/turf/simulated/floor/snow,/area/centcom)
@@ -106,3 +106,4 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

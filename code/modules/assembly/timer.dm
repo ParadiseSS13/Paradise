@@ -1,4 +1,4 @@
-/obj/item/device/assembly/timer
+/obj/item/assembly/timer
 	name = "timer"
 	desc = "Used to time things. Works well with contraptions which has to count down. Tick tock."
 	icon_state = "timer"
@@ -112,7 +112,7 @@
 
 		if(href_list["time"])
 			timing = !timing
-			if(timing && istype(holder, /obj/item/device/transfer_valve))
+			if(timing && istype(holder, /obj/item/transfer_valve))
 				message_admins("[key_name_admin(usr)] activated [src] attachment on [holder].")
 				bombers += "[key_name(usr)] activated [src] attachment for [loc]"
 				log_game("[key_name(usr)] activated [src] attachment for [loc]")

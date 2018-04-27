@@ -61,7 +61,7 @@
 		C.apply_damage(5, BURN, "head") //5 fire damage, 15 brute damage, and weakening because your head was just in a hot oven with the door bashing into your neck!
 		C.apply_damage(15, BRUTE, "head")
 		C.Weaken(2)
-		add_logs(user, G.affecting, "smashed", addition="'s head on [src]")
+		add_attack_logs(user, G.affecting, "Smashed with [src]")
 		qdel(G) //Removes the grip to prevent rapid bashes. With the weaken, you PROBABLY can't run unless they are slow to grab you again...
 		return 0
 	return 0

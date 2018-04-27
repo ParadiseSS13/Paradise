@@ -176,7 +176,7 @@
 			qdel(W)
 			qdel(src)
 			user.put_in_hands(newSaber)
-	else if(istype(W, /obj/item/device/multitool))
+	else if(istype(W, /obj/item/multitool))
 		if(hacked == 0)
 			hacked = 1
 			item_color = "rainbow"

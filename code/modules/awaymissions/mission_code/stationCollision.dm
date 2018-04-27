@@ -148,7 +148,7 @@ var/sc_safecode5 = "[rand(0,9)]"
 	l_code = "[sc_safecode1][sc_safecode2][sc_safecode3][sc_safecode4][sc_safecode5]"
 	l_set = 1
 	new /obj/item/gun/energy/mindflayer(src)
-	new /obj/item/device/soulstone(src)
+	new /obj/item/soulstone(src)
 	new /obj/item/clothing/head/helmet/space/cult(src)
 	new /obj/item/clothing/suit/space/cult(src)
 	//new /obj/item/teleportation_scroll(src)

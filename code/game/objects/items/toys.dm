@@ -997,7 +997,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "redfox"
 
 /obj/random/plushie/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/plushie)) //exclude the base type.
+	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff)) //exclude the base type.
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"

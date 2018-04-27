@@ -29,7 +29,7 @@
 	var/datum/mind/clonemind
 	var/grab_ghost_when = CLONER_MATURE_CLONE
 
-	var/obj/item/device/radio/Radio
+	var/obj/item/radio/Radio
 	var/radio_announce = 0
 
 	var/obj/effect/countdown/clonepod/countdown
@@ -54,7 +54,7 @@
 	..()
 	countdown = new(src)
 
-	Radio = new /obj/item/device/radio(src)
+	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
 	Radio.config(list("Medical" = 0))
 
@@ -394,8 +394,8 @@
 				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
 			else
 				user.visible_message("[user] unsecures [src] from the floor.", "You unsecure [src] from the floor.")
-	else if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+	else if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You load connection data from [src] to [M].</span>")
 		return

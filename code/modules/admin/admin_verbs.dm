@@ -19,17 +19,13 @@ var/list/admin_verbs_admin = list(
 	/client/proc/resetcolorooc,			/*allows us to set a reset our ooc color*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
-	/datum/admins/proc/view_txt_log,	/*shows the server log (diary) for today*/
-	/datum/admins/proc/view_atk_log,	/*shows the server combat-log, doesn't do anything presently*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
-	/client/proc/giveruntimelog,		/*allows us to give access to runtime logs to somebody*/
-	/client/proc/getruntimelog,			/*allows us to access runtime logs to somebody*/
-	/client/proc/getserverlog,			/*allows us to fetch server logs (diary) for other days*/
+	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
 	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
@@ -830,8 +826,8 @@ var/list/admin_verbs_ticket = list(
 	if(!istype(H))
 		if(istype(H, /mob/living/carbon/brain))
 			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/device/mmi/posibrain/ipc))
-				var/obj/item/device/mmi/posibrain/ipc/C = B.container
+			if(istype(B.container, /obj/item/mmi/posibrain/ipc))
+				var/obj/item/mmi/posibrain/ipc/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
 				if(istype(P.owner, /mob/living/carbon/human))
 					H = P.owner
@@ -856,8 +852,8 @@ var/list/admin_verbs_ticket = list(
 	if(!istype(H))
 		if(istype(H, /mob/living/carbon/brain))
 			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/device/mmi/posibrain/ipc))
-				var/obj/item/device/mmi/posibrain/ipc/C = B.container
+			if(istype(B.container, /obj/item/mmi/posibrain/ipc))
+				var/obj/item/mmi/posibrain/ipc/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
 				if(istype(P.owner, /mob/living/carbon/human))
 					H = P.owner

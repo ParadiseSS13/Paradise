@@ -134,7 +134,7 @@ datum/game_mode/nations
 		AI.add_inherent_law("Remain available to mediate all conflicts between the various nations when asked to.")
 		AI.show_laws()
 		for(var/mob/living/silicon/robot/R in AI.connected_robots)
-			var/obj/item/device/mmi/oldmmi = R.mmi
+			var/obj/item/mmi/oldmmi = R.mmi
 			R.change_mob_type(/mob/living/silicon/robot/nations, null, null, 1, 1 )
 			R.lawsync()
 			R.show_laws()

@@ -38,6 +38,7 @@
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
 	burn_state = FIRE_PROOF
+	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack/holding)
 
 /obj/item/storage/backpack/holding/New()
@@ -315,7 +316,7 @@
 	new /obj/item/FixOVein(src)
 	new /obj/item/clothing/suit/straight_jacket(src)
 	new /obj/item/clothing/mask/muzzle(src)
-	new /obj/item/device/mmi/syndie(src)
+	new /obj/item/mmi/syndie(src)
 
 /obj/item/storage/backpack/duffel/syndie/surgery_fake //for maint spawns
 	name = "surgery duffelbag"

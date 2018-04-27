@@ -578,7 +578,7 @@
 				if(!disable_warning)
 					to_chat(src, "The [name] is too big to attach.")
 				return 0
-			if(istype(I, /obj/item/device/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, wear_suit.allowed))
+			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, wear_suit.allowed))
 				return 1
 			return 0
 		if(slot_handcuffed)

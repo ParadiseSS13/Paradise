@@ -209,7 +209,7 @@
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
-	var/obj/item/device/radio/intercom/announce
+	var/obj/item/radio/intercom/announce
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
@@ -218,9 +218,9 @@
 	var/list/preserve_items = list(
 		/obj/item/hand_tele,
 		/obj/item/card/id/captains_spare,
-		/obj/item/device/aicard,
-		/obj/item/device/mmi,
-		/obj/item/device/paicard,
+		/obj/item/aicard,
+		/obj/item/mmi,
+		/obj/item/paicard,
 		/obj/item/gun,
 		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,
@@ -233,12 +233,12 @@
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
 		/obj/item/storage/internal,
-		/obj/item/device/spacepod_key,
+		/obj/item/spacepod_key,
 		/obj/item/nullrod
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
-		/obj/item/device/mmi/posibrain
+		/obj/item/mmi/posibrain
 	)
 
 /obj/machinery/cryopod/right
@@ -246,7 +246,7 @@
 	icon_state = "body_scanner_0-r"
 
 /obj/machinery/cryopod/New()
-	announce = new /obj/item/device/radio/intercom(src)
+	announce = new /obj/item/radio/intercom(src)
 
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"
@@ -346,8 +346,8 @@
 	items -= announce // or the autosay radio.
 
 	for(var/obj/item/W in items)
-		if(istype(W,/obj/item/device/pda))
-			var/obj/item/device/pda/P = W
+		if(istype(W,/obj/item/pda))
+			var/obj/item/pda/P = W
 			QDEL_NULL(P.id)
 			qdel(P)
 			continue

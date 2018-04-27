@@ -16,7 +16,7 @@
 
 /obj/machinery/mass_driver/attackby(obj/item/W, mob/user as mob)
 
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
@@ -34,7 +34,7 @@
 
 	return ..()
 
-/obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<ul>
 	<li>[format_tag("ID Tag","id_tag")]</li>

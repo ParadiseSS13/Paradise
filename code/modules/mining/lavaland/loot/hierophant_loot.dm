@@ -28,7 +28,7 @@
 	if(proximity_flag)
 		spawn(0)
 			aoe_burst(T, user)
-		add_logs(user, target, "fired 3x3 blast at", src)
+		add_attack_logs(user, target, "Fired 3x3 blast at [src]")
 	else
 		if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
 			spawn(0)
@@ -39,11 +39,11 @@
 			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown
 				new /obj/effect/temp_visual/hierophant/chaser(get_turf(user), user, target, 1.5, friendly_fire_check)
-				add_logs(user, target, "fired a chaser at", src)
+				add_attack_logs(user, target, "Fired a chaser at [src]")
 			else
 				spawn(0)
 					cardinal_blasts(T, user) //otherwise, just do cardinal blast
-				add_logs(user, target, "fired cardinal blast at", src)
+				add_attack_logs(user, target, "Fired cardinal blast at [src]")
 		else
 			to_chat(user, "<span class='warning'>That target is out of range!</span>") //too far away
 
@@ -109,7 +109,7 @@
 			to_chat(user, "<span class='warning'>The rune is blocked by something, preventing teleportation!</span>")
 			user.update_action_buttons_icon()
 			return
-		add_logs(user, rune, "teleported self from ([source.x],[source.y],[source.z]) to")
+		add_attack_logs(user, rune, "Teleported self from ([source.x],[source.y],[source.z]) to ([T.x],[T.y],[T.z])")
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, user)
 		for(var/t in RANGE_TURFS(1, T))
@@ -150,7 +150,7 @@
 		return
 	M.visible_message("<span class='hierophant_warning'>[M] fades in!</span>")
 	if(user != M)
-		add_logs(user, M, "teleported", null, "from ([source.x],[source.y],[source.z])")
+		add_attack_logs(user, M, "Teleported from ([source.x],[source.y],[source.z])")
 
 /obj/item/hierophant_staff/proc/cardinal_blasts(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
 	if(!T)

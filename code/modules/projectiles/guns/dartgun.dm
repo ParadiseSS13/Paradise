@@ -173,19 +173,12 @@
 							R += A.id + " ("
 							R += num2text(A.volume) + "),"
 					if(istype(M, /mob))
-						M.create_attack_log("<b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])")
-						user.create_attack_log("<b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>dartgun</b> ([R])")
-						if(M.ckey)
-							msg_admin_attack("[key_name_admin(user)] shot [M] ([M.ckey]) with a dartgun ([R]).")
 						if(!iscarbon(user))
 							M.LAssailant = null
 						else
 							M.LAssailant = user
 
-					else
-						M.create_attack_log("<b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[key_name_admin(M)]</b> with a <b>dartgun</b> ([R])")
-						msg_admin_attack("UNKNOWN shot [key_name(M)] with a <b>dartgun</b> ([R]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
-
+					add_attack_logs(user, M, "Shot with dartgun containing [R]", !!M.ckey)
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
 					to_chat(M, "<span class='danger'>You feel a slight prick.</span>")

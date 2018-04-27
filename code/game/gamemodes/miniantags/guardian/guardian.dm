@@ -165,7 +165,7 @@
 	for(var/mob/M in mob_list)
 		if(M == summoner)
 			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
-			log_say("Guardian Communication: [key_name(src)] -> [key_name(M)] : [input]")
+			log_say("(GUARDIAN to [key_name(M)]) [input]", src)
 		else if(M in dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
@@ -186,7 +186,7 @@
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
 				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
-				log_say("Guardian Communication: [key_name(src)] -> [key_name(G)] : [input]")
+				log_say("(GUARDIAN to [key_name(G)]) [input]", src)
 
 		else if(M in dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")

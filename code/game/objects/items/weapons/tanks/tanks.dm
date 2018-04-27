@@ -127,10 +127,10 @@
 	if(istype(loc, /obj/item/assembly))
 		icon = loc
 
-	if((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
+	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 
-	if(istype(W, /obj/item/device/assembly_holder))
+	if(istype(W, /obj/item/assembly_holder))
 		bomb_assemble(W,user)
 
 /obj/item/tank/attack_self(mob/user as mob)
@@ -240,7 +240,7 @@
 
 	var/pressure = air_contents.return_pressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
-		if(!istype(loc,/obj/item/device/transfer_valve))
+		if(!istype(loc,/obj/item/transfer_valve))
 			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			log_game("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [x], [y], [z]")
 //		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
@@ -255,7 +255,7 @@
 //		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
 		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
-		if(istype(loc,/obj/item/device/transfer_valve))
+		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else
 			qdel(src)

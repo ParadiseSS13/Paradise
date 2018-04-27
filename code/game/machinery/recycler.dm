@@ -13,24 +13,19 @@ var/const/SAFETY_COOLDOWN = 100
 	var/blood = 0
 	var/eat_dir = WEST
 	var/amount_produced = 1
-	var/datum/material_container/materials
 	var/crush_damage = 1000
 	var/eat_victim_items = 1
 	var/item_recycle_sound = 'sound/machines/recycler.ogg'
 
 /obj/machinery/recycler/New()
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE))
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	materials = new /datum/material_container(src, list(MAT_METAL=1, MAT_GLASS=1, MAT_SILVER=1, MAT_GOLD=1, MAT_DIAMOND=1, MAT_PLASMA=1, MAT_URANIUM=1, MAT_BANANIUM=1, MAT_TRANQUILLITE=1, MAT_TITANIUM=1))
 	RefreshParts()
 	update_icon()
-
-/obj/machinery/recycler/Destroy()
-	QDEL_NULL(materials)
-	return ..()
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
@@ -40,6 +35,7 @@ var/const/SAFETY_COOLDOWN = 100
 	mat_mod *= 50000
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		amt_made = 25 * M.rating //% of materials salvaged
+	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.max_amount = mat_mod
 	amount_produced = min(100, amt_made)
 
@@ -130,8 +126,9 @@ var/const/SAFETY_COOLDOWN = 100
 		playsound(loc, item_recycle_sound, 100, 0)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
-	I.loc = loc
+	I.forceMove(loc)
 
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(I)
 	if(!material_amount)
 		qdel(I)

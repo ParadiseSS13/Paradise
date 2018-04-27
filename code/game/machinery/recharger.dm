@@ -8,7 +8,7 @@
 	idle_power_usage = 4
 	active_power_usage = 250
 	var/obj/item/charging = null
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/device/modular_computer, /obj/item/rcs)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs)
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
@@ -98,8 +98,8 @@
 					use_power(200)
 					using_power = 1
 
-		if(istype(charging, /obj/item/device/modular_computer))
-			var/obj/item/device/modular_computer/C = charging
+		if(istype(charging, /obj/item/modular_computer))
+			var/obj/item/modular_computer/C = charging
 			var/obj/item/computer_hardware/battery/battery_module = C.all_components[MC_CELL]
 			if(battery_module)
 				var/obj/item/computer_hardware/battery/B = battery_module

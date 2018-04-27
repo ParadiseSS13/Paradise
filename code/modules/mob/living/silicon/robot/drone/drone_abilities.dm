@@ -43,11 +43,11 @@
 	control_headlamp()
 
 //Actual picking-up event.
-/mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M as mob)
+/mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
-
-	..()
+	else
+		..()
 
 /mob/living/silicon/robot/drone/verb/customize()
 	set name = "Customize Chassis"

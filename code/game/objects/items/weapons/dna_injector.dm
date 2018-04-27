@@ -119,35 +119,19 @@
 	if(!user.IsAdvancedToolUser())
 		return 0
 
-	M.create_attack_log("<font color='orange'>Has been injected with [name] by [user.name] ([user.ckey])</font>")
-	user.create_attack_log("<font color='red'>Used the [name] to inject [M.name] ([M.ckey])</font>")
-	log_attack("[user.name] ([user.ckey]) used the [name] to inject [M.name] ([M.ckey])")
-
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
+	var/attack_log = "injected with the Isolated [name]"
 
 	if(buf.types & DNA2_BUF_SE)
-
 		if(block)
 			if(GetState() && block == MONKEYBLOCK && ishuman(M))
+				attack_log = "injected with the Isolated [name] (MONKEY)"
 				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
-				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
-			else
-				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 
 		else
 			if(GetState(MONKEYBLOCK) && ishuman(M))
+				attack_log = "injected with the Isolated [name] (MONKEY)"
 				message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
-				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name] (MONKEY)")
-				log_game("[key_name_admin(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
-			else
-				log_attack("[key_name(user)] injected [key_name(M)] with the Isolated [name]")
 
-	else
-		log_attack("[key_name(user)] injected [key_name(M)] with the [name]")
 
 	if(M != user)
 		M.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
@@ -155,9 +139,14 @@
 			return
 		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")
-
 	else
 		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
+
+	add_attack_logs(user, M, attack_log, FALSE)
+	if(!iscarbon(user))
+		M.LAssailant = null
+	else
+		M.LAssailant = user
 
 	inject(M, user)
 	used = 1

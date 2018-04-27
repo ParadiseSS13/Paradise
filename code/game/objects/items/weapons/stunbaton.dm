@@ -160,7 +160,7 @@
 		var/mob/living/carbon/human/H = L
 		H.forcesay(hit_appends)
 
-	add_logs(user, L, "stunned", object="stunbaton")
+	add_attack_logs(user, L, "Stunned with [src]")
 
 /obj/item/melee/baton/emp_act(severity)
 	if(bcell)
@@ -194,7 +194,7 @@
 	stunforce = 5
 	hitcost = 2000
 	slot_flags = SLOT_BACK
-	var/obj/item/device/assembly/igniter/sparkler = null
+	var/obj/item/assembly/igniter/sparkler = null
 
 /obj/item/melee/baton/cattleprod/New()
 	..()

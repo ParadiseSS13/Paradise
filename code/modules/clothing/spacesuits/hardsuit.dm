@@ -6,7 +6,7 @@
 	item_state = "eng_helm"
 	hardsuit_restrict_helmet = 1
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-	allowed = list(/obj/item/device/flashlight)
+	allowed = list(/obj/item/flashlight)
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	item_color = "engineering" //Determines used sprites: hardsuit[on]-[color] and hardsuit[on]-[color]2 (lying down sprite)
@@ -67,7 +67,7 @@
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/device/t_scanner, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
 	siemens_coefficient = 0
 
 	species_restricted = list("exclude","Diona","Wryn")
@@ -261,7 +261,7 @@
 	icon_state = "hardsuit-engineering"
 	item_state = "eng_hardsuit"
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/device/t_scanner, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
 
 //Chief Engineer's hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/elite
@@ -298,7 +298,7 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
 	item_state = "mining_hardsuit"
 	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/storage/bag/ore,/obj/item/pickaxe)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/bag/ore,/obj/item/pickaxe)
 
 
 //Syndicate hardsuit
@@ -496,7 +496,7 @@
 	name = "medical hardsuit"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
 	item_state = "medical_hardsuit"
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical,/obj/item/device/rad_laser)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 50)
 
 	//Security
@@ -514,7 +514,7 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 	item_state = "sec_hardsuit"
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
-	allowed = list(/obj/item/gun,/obj/item/device/flashlight,/obj/item/tank,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
 
 
 //Atmospherics hardsuit (BS12)
@@ -577,7 +577,7 @@
 	name = "shielded hardsuit"
 	desc = "A hardsuit with built in energy shielding. Will rapidly recharge when not under fire."
 	icon_state = "hardsuit-hos"
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank, /obj/item/gun,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/flashlight,/obj/item/tank, /obj/item/gun,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 10, bio = 100, rad = 50)
 	var/current_charges = 3
 	var/max_charges = 3 //How many charges total the shielding has

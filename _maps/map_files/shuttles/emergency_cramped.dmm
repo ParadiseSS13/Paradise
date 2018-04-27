@@ -8,7 +8,7 @@
 "h" = (/turf/simulated/shuttle/wall{tag = "icon-swall3"; icon_state = "swall3"; dir = 2},/area/shuttle/escape)
 "i" = (/obj/structure/table,/obj/item/book/manual,/turf/simulated/floor/plating,/area/shuttle/escape)
 "j" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/floor/plating,/area/shuttle/escape)
-"k" = (/obj/structure/table,/obj/item/device/gps,/turf/simulated/floor/plating,/area/shuttle/escape)
+"k" = (/obj/structure/table,/obj/item/gps,/turf/simulated/floor/plating,/area/shuttle/escape)
 "l" = (/obj/machinery/door/airlock/shuttle{aiControlDisabled = 1; hackProof = 1; id_tag = "s_docking_airlock"; name = "Shuttle Hatch"},/turf/simulated/floor/plating,/area/shuttle/escape)
 "m" = (/turf/simulated/floor/plating,/area/shuttle/escape)
 "n" = (/obj/structure/window/reinforced{dir = 1; layer = 2.9},/obj/structure/table,/obj/item/storage/firstaid,/turf/simulated/floor/plating,/area/shuttle/escape)
