@@ -314,21 +314,14 @@
 					target.Weaken(12)
 					sleep(20)
 					if(ismindshielded(target))
-						to_chat(user, "<span class='notice'>They have a mindshield implant. You begin to deactivate it - this will take some time.</span>")
-						user.visible_message("<span class='warning'>[user] pauses, then dips their head in concentration!</span>")
-						to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack!</span>")
-						sleep(100) //10 seconds - not spawn() so the enthralling takes longer
-						to_chat(user, "<span class='notice'>The nanobots composing the mindshield implant have been rendered inert. Now to continue.</span>")
-						user.visible_message("<span class='warning'>[user] relaxes again.</span>")
-						for(var/obj/item/weapon/implant/mindshield/L in target)
-							if(L && L.implanted)
-								qdel(L)
-						to_chat(target, "<span class='boldannounce'>Your mental protection implant unexpectedly falters, dims, dies.</span>")
+						to_chat(user, "<span class='notice'>They have a mindshield implant! You fail to deactivate it.</span>")
+						to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack, but protects you valiantly!</span>")
+						return
 				if(3)
 					to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 					user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
 					to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-			if(!do_mob(user, target, 70)) //around 21 seconds total for enthralling, 31 for someone with a mindshield implant
+			if(!do_mob(user, target, 70)) //around 21 seconds total for enthralling
 				to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 				to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
 				enthralling = 0
