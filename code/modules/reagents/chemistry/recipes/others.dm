@@ -101,10 +101,10 @@
 	min_temp = 374
 	result_amount = 1
 
-/datum/chemical_reaction/plastication/on_reaction(datum/reagents/holder)
-	var/obj/item/stack/sheet/plastic/P = new /obj/item/stack/sheet/plastic
-	P.amount = 10
-	P.forceMove(get_turf(holder.my_atom))
+/datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in 1 to 10)
+		new /obj/item/stack/sheet/plastic(location)
 
 /datum/chemical_reaction/lube
 	name = "Space Lube"
