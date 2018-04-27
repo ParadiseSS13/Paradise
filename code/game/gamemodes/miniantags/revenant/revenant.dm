@@ -96,7 +96,7 @@
 /mob/living/simple_animal/revenant/say(message)
 	if(!message)
 		return
-	log_say("[key_name(src)] : [message]")
+	log_say(message, src)
 	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
 	for(var/mob/M in mob_list)
 		if(istype(M, /mob/living/simple_animal/revenant))

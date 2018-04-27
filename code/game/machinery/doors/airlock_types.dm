@@ -339,7 +339,7 @@
 		if(isElectrified())
 			if(shock(user, 75))
 				return
-	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
+	if(istype(C, /obj/item/detective_scanner) || istype(C, /obj/item/taperoll))
 		return
 
 	if(istype(C, /obj/item/grenade/plastic/c4))
@@ -392,7 +392,7 @@
 		if(isElectrified())
 			if(shock(user, 75))
 				return
-	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
+	if(istype(C, /obj/item/detective_scanner) || istype(C, /obj/item/taperoll))
 		return
 
 	add_fingerprint(user)

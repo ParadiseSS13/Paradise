@@ -21,9 +21,9 @@
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_service
+	l_ear = /obj/item/radio/headset/headset_service
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
-	pda = /obj/item/device/pda/bar
+	pda = /obj/item/pda/bar
 	backpack_contents = list(
 		/obj/item/toy/russian_revolver = 1
 	)
@@ -62,8 +62,8 @@
 	suit = /obj/item/clothing/suit/chef
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
-	l_ear = /obj/item/device/radio/headset/headset_service
-	pda = /obj/item/device/pda/chef
+	l_ear = /obj/item/radio/headset/headset_service
+	pda = /obj/item/pda/chef
 
 
 
@@ -90,9 +90,9 @@
 	suit = /obj/item/clothing/suit/apron
 	gloves = /obj/item/clothing/gloves/botanic_leather
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_service
-	suit_store = /obj/item/device/plant_analyzer
-	pda = /obj/item/device/pda/botanist
+	l_ear = /obj/item/radio/headset/headset_service
+	suit_store = /obj/item/plant_analyzer
+	pda = /obj/item/pda/botanist
 
 	backpack = /obj/item/storage/backpack/botany
 	satchel = /obj/item/storage/backpack/satchel_hyd
@@ -121,11 +121,11 @@
 
 	uniform = /obj/item/clothing/under/rank/cargo
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/device/radio/headset/headset_cargo
+	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
 	l_hand = /obj/item/clipboard
-	pda = /obj/item/device/pda/quartermaster
+	pda = /obj/item/pda/quartermaster
 
 
 
@@ -149,9 +149,9 @@
 
 	uniform = /obj/item/clothing/under/rank/cargotech
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_cargo
+	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
-	pda = /obj/item/device/pda/cargo
+	pda = /obj/item/pda/cargo
 
 
 
@@ -177,11 +177,11 @@
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/device/radio/headset/headset_cargo/mining
+	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	id = /obj/item/card/id/supply
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
-	r_pocket = /obj/item/device/flashlight/seclite
-	pda = /obj/item/device/pda/shaftminer
+	r_pocket = /obj/item/flashlight/seclite
+	pda = /obj/item/pda/shaftminer
 	backpack_contents = list(
 		/obj/item/mining_voucher = 1,
 		/obj/item/storage/bag/ore = 1
@@ -216,9 +216,9 @@
 	shoes = /obj/item/clothing/shoes/clown_shoes
 	mask = /obj/item/clothing/mask/gas/clown_hat
 	l_pocket = /obj/item/bikehorn
-	l_ear = /obj/item/device/radio/headset/headset_service
+	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/clown
-	pda = /obj/item/device/pda/clown
+	pda = /obj/item/pda/clown
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/grown/banana = 1,
 		/obj/item/stamp/clown = 1,
@@ -226,7 +226,7 @@
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
-		/obj/item/device/instrument/bikehorn = 1
+		/obj/item/instrument/bikehorn = 1
 	)
 
 	backpack = /obj/item/storage/backpack/clown
@@ -278,9 +278,9 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
-	l_ear = /obj/item/device/radio/headset/headset_service
+	l_ear = /obj/item/radio/headset/headset_service
 	id = /obj/item/card/id/mime
-	pda = /obj/item/device/pda/mime
+	pda = /obj/item/pda/mime
 	backpack_contents = list(
 		/obj/item/toy/crayon/mime = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 1,
@@ -326,8 +326,8 @@
 
 	uniform = /obj/item/clothing/under/rank/janitor
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_service
-	pda = /obj/item/device/pda/janitor
+	l_ear = /obj/item/radio/headset/headset_service
+	pda = /obj/item/pda/janitor
 
 
 //More or less assistants
@@ -352,11 +352,11 @@
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_service
-	l_pocket = /obj/item/device/laser_pointer
+	l_ear = /obj/item/radio/headset/headset_service
+	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner
 	l_hand = /obj/item/storage/bag/books
-	pda = /obj/item/device/pda/librarian
+	pda = /obj/item/pda/librarian
 
 /datum/job/barber
 	title = "Barber"
@@ -379,7 +379,7 @@
 
 	uniform = /obj/item/clothing/under/barber
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_service
+	l_ear = /obj/item/radio/headset/headset_service
 	backpack_contents = list(
 		/obj/item/clothing/shoes/black = 1,
 		/obj/item/storage/box/lip_stick = 1,

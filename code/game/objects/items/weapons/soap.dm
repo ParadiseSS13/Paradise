@@ -18,8 +18,6 @@
 
 	var/cleanspeed = 50 //slower than mop
 
-
-
 /obj/item/soap/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
@@ -29,28 +27,40 @@
 	else if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
 		if(muncher && muncher.get_species() == "Drask")
-			to_chat(user, "You take a bite of the [src.name]. Delicious!")
+			to_chat(user, "You take a bite of the [name]. Delicious!")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.nutrition += 2
 	else if(istype(target,/obj/effect/decal/cleanable))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
-		if(do_after(user, src.cleanspeed, target = target) && target)
+		if(do_after(user, cleanspeed, target = target) && target)
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")
+			if(issimulatedturf(target.loc))
+				clean_turf(target.loc)
+				return
 			qdel(target)
+	else if(issimulatedturf(target))
+		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
+		if(do_after(user, cleanspeed, target = target))
+			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
+			clean_turf(target)
 	else
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
-		if(do_after(user, src.cleanspeed, target = target))
+		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
 			target.clean_blood()
-			if(istype(target, /turf/simulated))
-				var/turf/simulated/T = target
-				T.dirt = 0
+
+/obj/item/soap/proc/clean_turf(turf/simulated/T)
+	T.clean_blood()
+	T.dirt = 0
+	for(var/obj/effect/O in T)
+		if(is_cleanable(O))
+			qdel(O)
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
 	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_sel &&user.zone_sel.selecting == "mouth" )
-		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [src.name]!</span>")
+		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [name]!</span>")
 		return
 	..()
 
@@ -74,7 +84,7 @@
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before 'cleaning' it.</span>")
 	else
 		user.visible_message("<span class='warning'>[user] begins to smear [src] on \the [target.name].</span>")
-		if(do_after(user, src.cleanspeed, target = target))
+		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You 'clean' \the [target.name].</span>")
 			if(istype(target, /turf/simulated))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)

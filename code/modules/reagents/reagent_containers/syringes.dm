@@ -145,10 +145,7 @@
 					rinject += R.name
 				var/contained = english_list(rinject)
 
-				if(L != user)
-					add_logs(user, L, "injected", src, addition="which had [contained]")
-				else
-					log_attack("<font color='red'>[user.name] ([user.ckey]) injected [L.name] ([L.ckey]) with [src.name], which had [contained] (INTENT: [uppertext(user.a_intent)])</font>")
+				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units")
 
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INGEST, fraction)

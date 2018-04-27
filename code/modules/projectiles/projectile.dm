@@ -120,7 +120,7 @@
 			reagent_note += R.id + " ("
 			reagent_note += num2text(R.volume) + ") "
 	if(!log_override && firer && original)
-		add_logs(firer, L, "shot", src, reagent_note)
+		add_attack_logs(firer, L, "Shot with a [type] (potentially containing [reagent_note])")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).

@@ -28,7 +28,7 @@
 	req_tech = list("programming" = 3, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 1000, MAT_GOLD = 200)
-	build_path = /obj/item/device/aicard
+	build_path = /obj/item/aicard
 	category = list("Miscellaneous")
 
 /datum/design/paicard
@@ -38,7 +38,7 @@
 	req_tech = list("programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500, MAT_METAL = 500)
-	build_path = /obj/item/device/paicard
+	build_path = /obj/item/paicard
 	category = list("Miscellaneous")
 
 /datum/design/tech_disk
@@ -58,5 +58,5 @@
 	req_tech = list("programming" = 2, "materials" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 300)
-	build_path = /obj/item/device/camera/digital
+	build_path = /obj/item/camera/digital
 	category = list("Miscellaneous")

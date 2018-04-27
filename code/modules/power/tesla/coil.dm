@@ -49,7 +49,7 @@
 	if(default_deconstruction_crowbar(W))
 		return
 
-	else if(iswirecutter(W) || ismultitool(W) || istype(W, /obj/item/device/assembly/signaler))
+	else if(iswirecutter(W) || ismultitool(W) || istype(W, /obj/item/assembly/signaler))
 		if(panel_open)
 			wires.Interact(user)
 

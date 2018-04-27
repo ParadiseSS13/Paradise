@@ -24,6 +24,36 @@
 
 #define DROPDEL					16384	// When dropped, it calls qdel on itself
 
+
+/* Secondary atom flags, for the flags_2 var, denoted with a _2 */
+
+#define SLOWS_WHILE_IN_HAND_2	1
+#define NO_EMP_WIRES_2			2
+#define HOLOGRAM_2				4
+#define FROZEN_2				8
+#define STATIONLOVING_2			16
+#define INFORM_ADMINS_ON_RELOCATE_2	32
+#define BANG_PROTECT_2			64
+
+// An item worn in the ear slot with HEALS_EARS will heal your ears each
+// Life() tick, even if normally your ears would be too damaged to heal.
+#define HEALS_EARS_2			128
+
+// A mob with OMNITONGUE has no restriction in the ability to speak
+// languages that they know. So even if they wouldn't normally be able to
+// through mob or tongue restrictions, this flag allows them to ignore
+// those restrictions.
+#define OMNITONGUE_2			256
+
+// TESLA_IGNORE grants immunity from being targeted by tesla-style electricity
+#define TESLA_IGNORE_2			512
+
+// Stops you from putting things like an RCD or other items into an ORM or protolathe for materials.
+#define NO_MAT_REDEMPTION_2		1024
+
+// LAVA_PROTECT used on the flags_2 variable for both SUIT and HEAD items, and stops lava damage. Must be present in both to stop lava damage.
+#define LAVA_PROTECT_2			2048
+
 //Reagent flags
 #define REAGENT_NOREACT			1
 

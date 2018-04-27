@@ -1,4 +1,4 @@
-/obj/item/device/eftpos
+/obj/item/eftpos
 	name = "EFTPOS scanner"
 	desc = "Swipe your ID card to make purchases electronically."
 	icon = 'icons/obj/device.dmi'
@@ -13,7 +13,7 @@
 	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/linked_account
 
-/obj/item/device/eftpos/New()
+/obj/item/eftpos/New()
 	..()
 	machine_id = "[station_name()] EFTPOS #[num_financial_terminals++]"
 	access_code = rand(1111,111111)
@@ -25,7 +25,7 @@
 	//the user of the EFTPOS device can change the target account though, and no-one will be the wiser (except whoever's being charged)
 	linked_account = station_account
 
-/obj/item/device/eftpos/proc/print_reference()
+/obj/item/eftpos/proc/print_reference()
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/R = new(loc)
 	R.name = "Reference: [eftpos_name]"
@@ -49,7 +49,7 @@
 	D.wrapped = R
 	D.name = "small parcel - 'EFTPOS access code'"
 
-/obj/item/device/eftpos/proc/reconnect_database()
+/obj/item/eftpos/proc/reconnect_database()
 	var/turf/location = get_turf(src)
 	if(!location)
 		return
@@ -59,10 +59,10 @@
 			linked_db = DB
 			break
 
-/obj/item/device/eftpos/attack_self(mob/user)
+/obj/item/eftpos/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/device/eftpos/attackby(obj/O, mob/user, params)
+/obj/item/eftpos/attackby(obj/O, mob/user, params)
 	if(istype(O, /obj/item/card))
 		//attempt to connect to a new db, and if that doesn't work then fail
 		if(!linked_db)
@@ -78,13 +78,13 @@
 	else
 		..()
 
-/obj/item/device/eftpos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/item/eftpos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "eftpos.tmpl", name, 790, 310)
 		ui.open()
 
-/obj/item/device/eftpos/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/eftpos/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["eftpos_name"] = eftpos_name
 	data["machine_id"] = machine_id
@@ -95,7 +95,7 @@
 	data["linked_account"] = linked_account ? linked_account.owner_name : null
 	return data
 
-/obj/item/device/eftpos/Topic(href, list/href_list)
+/obj/item/eftpos/Topic(href, list/href_list)
 	if(..())
 		return 1
 
@@ -175,7 +175,7 @@
 	SSnanoui.update_uis(src)
 	return 1
 
-/obj/item/device/eftpos/proc/scan_card(obj/item/card/I, mob/user)
+/obj/item/eftpos/proc/scan_card(obj/item/card/I, mob/user)
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/C = I
 		visible_message("<span class='info'>[user] swipes a card through [src].</span>")

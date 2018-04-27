@@ -28,7 +28,7 @@
 		if(prob(5))
 			// /obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
 			var/list/viables = list()
-			for(var/obj/item/device/pda/check_pda in PDAs)
+			for(var/obj/item/pda/check_pda in PDAs)
 				var/datum/data/pda/app/messenger/check_m = check_pda.find_program(/datum/data/pda/app/messenger)
 
 				if(!check_m || !check_m.can_receive())
@@ -37,7 +37,7 @@
 
 			if(!viables.len)
 				return
-			var/obj/item/device/pda/P = pick(viables)
+			var/obj/item/pda/P = pick(viables)
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 			var/sender

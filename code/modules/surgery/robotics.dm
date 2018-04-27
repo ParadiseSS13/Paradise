@@ -283,8 +283,8 @@
 /datum/surgery_step/robotics/manipulate_robotic_organs
 
 	name = "internal part manipulation"
-	allowed_tools = list(/obj/item/device/mmi = 100)
-	var/implements_extract = list(/obj/item/device/multitool = 100)
+	allowed_tools = list(/obj/item/mmi = 100)
+	var/implements_extract = list(/obj/item/multitool = 100)
 	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/bonegel = 30, /obj/item/screwdriver = 70)
 	var/implements_insert = list(/obj/item/organ/internal = 100)
 	var/implements_finish =list(/obj/item/retractor = 100,/obj/item/crowbar = 100,/obj/item/kitchen/utensil = 50)
@@ -326,14 +326,14 @@
 		user.visible_message("[user] begins reattaching [target]'s [tool].", \
 		"You start reattaching [target]'s [tool].")
 		target.custom_pain("Someone's rooting around in your [affected.name]!",1)
-	else if(istype(tool,/obj/item/device/mmi))
+	else if(istype(tool,/obj/item/mmi))
 		current_type = "install"
 
 		if(target_zone != "chest")
 			to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
 
 			return -1
-		var/obj/item/device/mmi/M = tool
+		var/obj/item/mmi/M = tool
 
 
 		if(!affected)
@@ -445,7 +445,7 @@
 		user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
 		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")
 
-		var/obj/item/device/mmi/M = tool
+		var/obj/item/mmi/M = tool
 
 		user.unEquip(tool)
 		M.attempt_become_organ(affected,target)
@@ -455,7 +455,7 @@
 			user.visible_message("<span class='notice'> [user] has decoupled [target]'s [I] with \the [tool].</span>" , \
 		"<span class='notice'> You have decoupled [target]'s [I] with \the [tool].</span>")
 
-			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
@@ -513,7 +513,7 @@
 	name = "remove robotic limb"
 
 	allowed_tools = list(
-	/obj/item/device/multitool = 100)
+	/obj/item/multitool = 100)
 
 	time = 100
 
@@ -531,7 +531,7 @@
 	"<span class='notice'> You have decoupled [target]'s [affected.name] with \the [tool].</span>")
 
 
-	add_logs(user, target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
+	add_attack_logs(user, target, "Surgically removed [affected.name] from. INTENT: [uppertext(user.a_intent)]")//log it
 
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))

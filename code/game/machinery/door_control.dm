@@ -52,7 +52,7 @@
 		return
 	}
 	*/
-	if(istype(W, /obj/item/device/detective_scanner))
+	if(istype(W, /obj/item/detective_scanner))
 		return
 	return attack_hand(user)
 

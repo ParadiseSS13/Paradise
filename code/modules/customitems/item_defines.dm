@@ -10,10 +10,10 @@
 ////////// Usable Items //////////
 //////////////////////////////////
 
-/obj/item/device/fluff
+/obj/item/fluff
 	var/used = 0
 
-/obj/item/device/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
+/obj/item/fluff/tattoo_gun // Generic tattoo gun, make subtypes for different folks
 	name = "disposable tattoo pen"
 	desc = "A cheap plastic tattoo application pen."
 	icon = 'icons/obj/custom_items.dmi'
@@ -29,7 +29,7 @@
 	toolspeed = 1
 	usesound = 'sound/items/Welder2.ogg'
 
-/obj/item/device/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
 		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
 		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
@@ -75,7 +75,7 @@
 		used = 1
 		update_icon()
 
-/obj/item/device/fluff/tattoo_gun/update_icon()
+/obj/item/fluff/tattoo_gun/update_icon()
 	..()
 
 	overlays.Cut()
@@ -85,11 +85,11 @@
 		ink.icon += rgb(tattoo_r, tattoo_g, tattoo_b, 190)
 		overlays += ink
 
-/obj/item/device/fluff/tattoo_gun/New()
+/obj/item/fluff/tattoo_gun/New()
 	..()
 	update_icon()
 
-/obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat
+/obj/item/fluff/tattoo_gun/elliot_cybernetic_tat
 	desc = "A cheap plastic tattoo application pen.<br>This one seems heavily used."
 	tattoo_name = "circuitry tattoo"
 	tattoo_icon = "Elliot Circuit Tattoo"
@@ -97,7 +97,7 @@
 	tattoo_g = 138
 	tattoo_b = 176
 
-/obj/item/device/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
+/obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
 	if(!used)
 		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
 		if(ink_color && !(user.incapacitated() || used) )
@@ -112,13 +112,13 @@
 	else
 		to_chat(user, "<span class='notice'>The [src] is out of ink!</span>")
 
-/obj/item/device/fluff/bird_painter // BirdtTalon: Kahkiri
+/obj/item/fluff/bird_painter // BirdtTalon: Kahkiri
 	name = "Orb of Onyx"
 	desc = "It is imbued with such dark power as to corrupt the very appearance of those who gaze into its depths."
 	icon_state = "bird_orb"
 	icon = 'icons/obj/custom_items.dmi'
 
-/obj/item/device/fluff/bird_painter/attack_self(mob/user)
+/obj/item/fluff/bird_painter/attack_self(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.s_tone = -115
@@ -159,12 +159,12 @@
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
 
-/obj/item/device/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
+/obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "An assorted set of exchangable parts for a wheelchair."
 	icon_state = "modkit"
 
-/obj/item/device/fluff/rapid_wheelchair_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -245,7 +245,7 @@
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
 
 
-/obj/item/device/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
+/obj/item/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
 	name = "Dan Jello's Pink Guitar"
 	desc = "Dan Jello's special pink guitar."
 	icon = 'icons/obj/custom_items.dmi'
@@ -262,7 +262,6 @@
 	force = 0
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
-	var/used = 0
 
 /obj/item/fluff/wingler_comb/attack_self(mob/user)
 	if(used)
@@ -276,13 +275,13 @@
 		to_chat(target, "<span class='notice'>You comb your tail with the [src].</span>")
 		used = 1
 
-/obj/item/device/fluff/desolate_coat_kit //DesolateG: Micheal Smith
+/obj/item/fluff/desolate_coat_kit //DesolateG: Micheal Smith
 	name = "armored jacket conversion kit"
 	desc = "Flaps of dark fabric, probably used to somehow modify some sort of an armored garment. Won't help with protection, though."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/device/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -308,13 +307,13 @@
 	user.update_inv_wear_suit()
 	qdel(src)
 
-/obj/item/device/fluff/fei_gasmask_kit //Fei Hazelwood: Tariq Yon-Dale
+/obj/item/fluff/fei_gasmask_kit //Fei Hazelwood: Tariq Yon-Dale
 	name = "gas mask conversion kit"
 	desc = "A gas mask conversion kit."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/device/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -335,14 +334,14 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/device/fluff/desolate_baton_kit //DesolateG: Micheal Smith
+/obj/item/fluff/desolate_baton_kit //DesolateG: Micheal Smith
 	name = "stun baton conversion kit"
 	desc = "Some sci-fi looking parts for a stun baton."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "scifikit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/device/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -361,7 +360,7 @@
 
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/device/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
+/obj/item/fluff/cardgage_helmet_kit //captain cardgage: Richard Ulery
 	name = "welding helmet modkit"
 	desc = "Some spraypaint and a stencil, perfect for painting flames onto a welding helmet!"
 	icon_state = "modkit"
@@ -369,7 +368,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/device/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -386,7 +385,7 @@
 #define USED_MOD_HELM 1
 #define USED_MOD_SUIT 2
 
-/obj/item/device/fluff/shadey_plasman_modkit
+/obj/item/fluff/shadey_plasman_modkit
 	name = "plasmaman suit modkit"
 	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
 	icon_state = "modkit"
@@ -394,7 +393,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/device/fluff/shadey_plasman_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/shadey_plasman_modkit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -432,7 +431,7 @@
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/device/fluff/lighty_plasman_modkit // LightFire53: Ikelos
+/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
 	name = "plasmaman suit modkit"
 	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
 	icon_state = "modkit"
@@ -449,7 +448,7 @@
 		"Gold" = "plasmaman_ikelosgold",
 		"Red" = "plasmaman_ikelossecurity")
 
-/obj/item/device/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -497,7 +496,7 @@
 #undef USED_MOD_HELM
 #undef USED_MOD_SUIT
 
-/obj/item/device/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
+/obj/item/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
 	name = "sallet modkit"
 	desc = "A modkit that can make most helmets look like a steel sallet."
 	icon_state = "modkit"
@@ -505,7 +504,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/device/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -540,7 +539,7 @@
 	else
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 
-/obj/item/device/fluff/k3_webbing_modkit //IK3I: Yakikatachi
+/obj/item/fluff/k3_webbing_modkit //IK3I: Yakikatachi
 	name = "webbing modkit"
 	desc = "A modkit that can be used to turn certain vests and labcoats into lightweight webbing"
 	icon_state = "modkit"
@@ -548,7 +547,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/device/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -766,7 +765,7 @@
 	item_state = "supplymaster_jacket_open"
 	ignore_suitadjust = 0
 	suit_adjusted = 1
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	actions_types = list(/datum/action/item_action/button)
@@ -927,7 +926,7 @@
 	icon_state = "xantholne_wintercoat"
 	hoodtype = /obj/item/clothing/head/hood/fluff/xantholne
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/device/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 
 /obj/item/clothing/head/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
@@ -1312,12 +1311,12 @@
 	displays_id = FALSE
 
 
-/obj/item/device/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
+/obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
 	name = "Spacepod mod kit"
 	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
 	icon_state = "modkit"
 
-/obj/item/device/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 

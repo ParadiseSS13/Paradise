@@ -2,7 +2,7 @@
 "b" = (/obj/structure/sign/mining/survival{tag = "icon-survival (NORTH)"; icon_state = "survival"; dir = 1},/turf/simulated/wall/mineral/titanium/survival,/area/survivalpod)
 "c" = (/obj/structure/fans,/turf/simulated/floor/pod,/area/survivalpod)
 "d" = (/obj/machinery/smartfridge/survival_pod/loaded,/turf/simulated/floor/pod,/area/survivalpod)
-"e" = (/obj/item/device/gps/computer,/turf/simulated/floor/pod,/area/survivalpod)
+"e" = (/obj/item/gps/computer,/turf/simulated/floor/pod,/area/survivalpod)
 "f" = (/obj/structure/sign/mining/survival{dir = 8},/turf/simulated/wall/mineral/titanium/survival,/area/survivalpod)
 "g" = (/obj/machinery/sleeper/survival_pod,/turf/simulated/floor/pod,/area/survivalpod)
 "h" = (/turf/simulated/floor/pod,/area/survivalpod)

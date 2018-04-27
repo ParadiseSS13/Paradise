@@ -60,7 +60,7 @@
 	invocation_type = "none"
 	range = 0
 
-	summon_type = list(/obj/item/device/soulstone)
+	summon_type = list(/obj/item/soulstone)
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/pylon
 	name = "Cult Pylon"

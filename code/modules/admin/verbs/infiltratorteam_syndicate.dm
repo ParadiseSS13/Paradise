@@ -163,7 +163,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
 	if(!flag_mgmt)
-		equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), slot_belt)
 
 	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
@@ -183,10 +183,10 @@ var/global/sent_syndicate_infiltration_team = 0
 	D.implant(src)
 
 	// Radio & PDA
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/syndteam(src)
+	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
 	equip_to_slot_or_del(R, slot_l_ear)
-	equip_or_collect(new /obj/item/device/pda(src), slot_in_backpack)
+	equip_or_collect(new /obj/item/pda(src), slot_in_backpack)
 
 	// Other gear
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/syndigaloshes(src), slot_shoes)

@@ -44,7 +44,7 @@
 
 /datum/game_mode/wizard/post_setup()
 	for(var/datum/mind/wizard in wizards)
-		log_game("[wizard.key] (ckey) has been selected as a Wizard")
+		log_game("[key_name(wizard)] has been selected as a Wizard")
 		forge_wizard_objectives(wizard)
 		//learn_basic_spells(wizard.current)
 		equip_wizard(wizard.current)
@@ -138,7 +138,7 @@
 	qdel(wizard_mob.r_store)
 	qdel(wizard_mob.l_store)
 
-	wizard_mob.equip_to_slot_or_del(new /obj/item/device/radio/headset(wizard_mob), slot_l_ear)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)

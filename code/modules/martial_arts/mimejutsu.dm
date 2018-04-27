@@ -38,7 +38,7 @@
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		D.apply_damage(damage, STAMINA, affecting, armor_block)
-		add_logs(A, D, "mimechucked")
+		add_attack_logs(A, D, "Melee attacked with [src] (mimechuck)")
 
 		return 1
 	return basic_hit(A,D)

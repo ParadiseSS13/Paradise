@@ -60,7 +60,7 @@
 			target.visible_message("<span class='danger'>[chassis] squeezes [target].</span>", \
 								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
 								"<span class='italics'>You hear something crack.</span>")
-			add_logs(chassis.occupant, M, "attacked", "[name]", "(INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+			add_attack_logs(chassis.occupant, M, "Squeezed with [src] (INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 			start_cooldown()
 		else
 			step_away(M,chassis)
@@ -192,6 +192,7 @@
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MELEE|RANGED
+	flags_2 = NO_MAT_REDEMPTION_2
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 	var/canRwall = 0
 	toolspeed = 1

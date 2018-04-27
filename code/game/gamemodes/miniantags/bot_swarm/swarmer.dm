@@ -1,5 +1,5 @@
 ////Deactivated swarmer shell////
-/obj/item/device/unactivated_swarmer
+/obj/item/unactivated_swarmer
 	name = "unactivated swarmer"
 	desc = "A currently unactivated swarmer. Swarmers can self activate at any time, it would be wise to immediately dispose of this."
 	icon = 'icons/mob/swarmer.dmi'
@@ -7,12 +7,12 @@
 	origin_tech = "bluespace=4;materials=4;programming=7"
 	materials = list(MAT_METAL=100, MAT_GLASS=400)
 
-/obj/item/device/unactivated_swarmer/New()
+/obj/item/unactivated_swarmer/New()
 	if(!crit_fail)
 		notify_ghosts("An unactivated swarmer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
 	..()
 
-/obj/item/device/unactivated_swarmer/Topic(href, href_list)
+/obj/item/unactivated_swarmer/Topic(href, href_list)
 	if(..())
 		return 1
 	if(href_list["ghostjoin"])
@@ -20,7 +20,7 @@
 		if(istype(ghost))
 			attack_ghost(ghost)
 
-/obj/item/device/unactivated_swarmer/attackby(obj/item/W, mob/user, params)
+/obj/item/unactivated_swarmer/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/screwdriver) && !crit_fail)
 		user.visible_message("<span class='warning'>[usr.name] deactivates [src].</span>",
@@ -30,7 +30,7 @@
 		desc = "A shell of swarmer that was completely powered down. It can no longer activate itself."
 		crit_fail = 1
 
-/obj/item/device/unactivated_swarmer/attack_ghost(mob/user as mob)
+/obj/item/unactivated_swarmer/attack_ghost(mob/user as mob)
 
 	if(crit_fail)
 		to_chat(user, "<span class='warning'>This swarmer shell is completely depowered. You cannot activate it.</span>")
@@ -54,14 +54,14 @@
 	S.key = user.key
 	qdel(src)
 
-/obj/item/device/unactivated_swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/item/unactivated_swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(S.resources + 50 > S.max_resources)
 		to_chat(S, "<span class='warning'>We have too many resources to reconsume this shell. Aborting.</span>")
 	else
 		..()
 		S.resources += 49 //refund the whole thing
 
-/obj/item/device/unactivated_swarmer/deactivated
+/obj/item/unactivated_swarmer/deactivated
 	name = "deactivated swarmer"
 	desc = "A shell of swarmer that was completely powered down. It no longer can activate itself."
 	crit_fail = 1
@@ -556,7 +556,7 @@
 		to_chat(src, "<span class='warning'>This is not a suitable location for replicating ourselves. We need more room.</span>")
 		return
 	if(do_mob(src, src, 100))
-		if(Fabricate(/obj/item/device/unactivated_swarmer, 50))
+		if(Fabricate(/obj/item/unactivated_swarmer, 50))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, 1, -1)
 
 /mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()

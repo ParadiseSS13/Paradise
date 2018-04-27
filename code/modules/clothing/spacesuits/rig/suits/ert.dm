@@ -11,9 +11,9 @@
 	req_access = list(access_cent_specops)
 
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
-	allowed = list(/obj/item/device/flashlight, /obj/item/tank, /obj/item/device/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
-	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/device/multitool, \
-	/obj/item/device/radio, /obj/item/device/analyzer,/obj/item/storage/briefcase/inflatable, /obj/item/melee/baton, /obj/item/gun, \
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
+	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
+	/obj/item/radio, /obj/item/analyzer,/obj/item/storage/briefcase/inflatable, /obj/item/melee/baton, /obj/item/gun, \
 	/obj/item/storage/firstaid, /obj/item/reagent_containers/hypospray, /obj/item/roller)
 
 	initial_modules = list(

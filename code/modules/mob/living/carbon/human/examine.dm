@@ -406,8 +406,8 @@
 		if(wear_id)
 			if(istype(wear_id,/obj/item/card/id))
 				perpname = wear_id:registered_name
-			else if(istype(wear_id,/obj/item/device/pda))
-				var/obj/item/device/pda/tempPda = wear_id
+			else if(istype(wear_id,/obj/item/pda))
+				var/obj/item/pda/tempPda = wear_id
 				perpname = tempPda.owner
 		else
 			perpname = src.name

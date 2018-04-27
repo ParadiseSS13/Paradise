@@ -455,7 +455,7 @@ var/list/teleport_runes = list()
 				else
 					to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
 		if(T.mind)
-			var/obj/item/device/soulstone/stone = new /obj/item/device/soulstone(get_turf(src))
+			var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 			stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
 			if(!stone.transfer_soul("VICTIM", T, usr)) //If it cannot be added
 				qdel(stone)
@@ -536,15 +536,15 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/tome) && iscultist(user)))
-		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
+		user.visible_message("<span class='warning'>[user] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon Narsie rune erased by [user.mind.key] (ckey) with a tome")
+			log_game("Summon Narsie rune erased by [key_name(user)] with a tome")
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a tome")
 			..()
 			return
 	else
 		if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-			log_game("Summon Narsie rune erased by [user.mind.key] (ckey) using a null rod")
+			log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
 			..()
 	return
@@ -576,13 +576,13 @@ var/list/teleport_runes = list()
 	if((istype(I, /obj/item/tome) && iscultist(user)))
 		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon demon rune erased by [user.mind.key] (ckey) with a tome")
+			log_game("Summon demon rune erased by [key_name(user)] with a tome")
 			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
 			..()
 			return
 	else
 		if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-			log_game("Summon demon rune erased by [user.mind.key] (ckey) using a null rod")
+			log_game("Summon demon rune erased by [key_name(user)] using a null rod")
 			message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
 			..()
 	return
@@ -594,12 +594,12 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(!(CULT_SLAUGHTER in cult_mode.objectives))
-		message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
+		message_admins("[key_name_admin(user)] tried to summon demons when the objective was wrong")
 		burn_invokers(invokers)
 		log_game("Summon Demons rune failed - improper objective")
 		return
 	if(!is_station_level(user.z))
-		message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
+		message_admins("[key_name_admin(user)] tried to summon demons off station")
 		burn_invokers(invokers)
 		log_game("Summon demons rune failed - off station Z level")
 		return

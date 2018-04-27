@@ -560,9 +560,9 @@
 		else
 			new /obj/item/storage/firstaid(Tsec)
 
-	new /obj/item/device/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
 
-	new /obj/item/device/healthanalyzer(Tsec)
+	new /obj/item/healthanalyzer(Tsec)
 
 	if(reagent_glass)
 		reagent_glass.forceMove(Tsec)

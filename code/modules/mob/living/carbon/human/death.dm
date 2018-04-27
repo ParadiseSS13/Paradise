@@ -111,7 +111,7 @@
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)
-			H.mind.kills += "[name] ([ckey])"
+			H.mind.kills += "[key_name(src)]"
 
 	if(!gibbed)
 		update_canmove()
@@ -121,7 +121,7 @@
 	med_hud_set_status()
 	if(mind)	mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 	if(ticker && ticker.mode)
-//		log_to_dd("k")
+//		log_world("k")
 		sql_report_death(src)
 		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
 

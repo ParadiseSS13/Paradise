@@ -263,7 +263,7 @@
 			if(!response)
 				to_chat(usr, query.ErrorMsg())
 				return
-			log_admin("LIBRARY: [usr.name]/[usr.key] has deleted \"[target.title]\", by [target.author] ([target.ckey])!")
+			log_admin("LIBRARY: [key_name(usr)] has deleted \"[target.title]\", by [target.author] ([target.ckey])!")
 			message_admins("[key_name_admin(usr)] has deleted \"[target.title]\", by [target.author] ([target.ckey])!")
 			src.updateUsrDialog()
 			return
@@ -283,7 +283,7 @@
 			if(affected==0)
 				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
 				return
-			log_admin("LIBRARY: [usr.name]/[usr.key] has deleted [affected] books written by [tckey]!")
+			log_admin("LIBRARY: [key_name(usr)] has deleted [affected] books written by [tckey]!")
 			message_admins("[key_name_admin(usr)] has deleted [affected] books written by [tckey]!")
 			src.updateUsrDialog()
 			return

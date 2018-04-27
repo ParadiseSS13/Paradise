@@ -285,7 +285,7 @@
 
 /datum/surgery_step/internal/dethrall
 	name = "cleanse contamination"
-	allowed_tools = list(/obj/item/device/flash = 100, /obj/item/device/flashlight/pen = 80, /obj/item/device/flashlight = 40)
+	allowed_tools = list(/obj/item/flash = 100, /obj/item/flashlight/pen = 80, /obj/item/flashlight = 40)
 	blood_level = 0
 	time = 30
 

@@ -338,7 +338,7 @@
 /datum/spellbook_entry/item/necrostone
 	name = "A Necromantic Stone"
 	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
-	item_path = /obj/item/device/necromantic_stone
+	item_path = /obj/item/necromantic_stone
 	log_name = "NS"
 	category = "Assistance"
 
@@ -703,7 +703,7 @@
 	else
 		user.mind.AddSpell(S)
 		to_chat(user, "<span class='notice'>you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!</span>")
-		user.create_attack_log("<font color='orange'>[user.real_name] ([user.ckey]) learned the spell [spellname] ([S]).</font>")
+		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
 		onlearned(user)
 
 

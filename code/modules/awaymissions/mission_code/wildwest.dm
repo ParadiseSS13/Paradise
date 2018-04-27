@@ -217,14 +217,15 @@
 		C.update_canmove()
 	return 1
 
-/obj/item/device/wildwest_communicator
+/obj/item/wildwest_communicator
 	name = "Syndicate Comms Device"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	item_state = "walkietalkie"
 	desc = "Use to communicate with the syndicate base commander."
 	var/used = FALSE
 
-/obj/item/device/wildwest_communicator/attack_self(mob/living/user)
+/obj/item/wildwest_communicator/attack_self(mob/living/user)
 
 	if(!is_away_level(user.z))
 		to_chat(user, "<span class='warning'>The communicator emits a faint beep. Perhaps it is out of range?</span>")
@@ -270,7 +271,7 @@
 			stand_down()
 	used = TRUE
 
-/obj/item/device/wildwest_communicator/proc/stand_down()
+/obj/item/wildwest_communicator/proc/stand_down()
 	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
 		W.on_alert = FALSE
 

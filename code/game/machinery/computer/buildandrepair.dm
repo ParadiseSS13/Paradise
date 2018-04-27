@@ -338,7 +338,7 @@
 
 
 /obj/item/circuitboard/supplycomp/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/device/multitool))
+	if(istype(I,/obj/item/multitool))
 		var/catastasis = contraband_enabled
 		var/opposite_catastasis
 		if(catastasis)
@@ -360,7 +360,7 @@
 	return
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/device/pda))
+	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))
 		if(allowed(user))
 			user.visible_message("<span class='notice'>\the [user] waves their ID past the [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past the [src]'s access protocol scanner.</span>")
 			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types

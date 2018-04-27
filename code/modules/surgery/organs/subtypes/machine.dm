@@ -147,7 +147,7 @@
 	slot = "brain"
 	status = ORGAN_ROBOT
 	species = SPECIES_MACHINE
-	var/obj/item/device/mmi/stored_mmi
+	var/obj/item/mmi/stored_mmi
 
 /obj/item/organ/internal/brain/mmi_holder/Destroy()
 	QDEL_NULL(stored_mmi)
@@ -179,7 +179,7 @@
 	set_dna(stored_mmi.brainmob.dna)
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
-	stored_mmi = new /obj/item/device/mmi/posibrain/ipc(src)
+	stored_mmi = new /obj/item/mmi/posibrain/ipc(src)
 	..()
 	robotize("Morpheus Cyberkinetics")
 	spawn(1)

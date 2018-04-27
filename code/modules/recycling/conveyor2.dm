@@ -301,7 +301,7 @@
 		to_chat(user,"<span class='notice'>You deattach the conveyor switch.</span>")
 		qdel(src)
 
-	else if(istype(I, /obj/item/device/multitool))
+	else if(istype(I, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
@@ -317,7 +317,7 @@
 			convdir = position
 
 
-/obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
  	<ul>
  	<li><b>One direction only:</b> <a href='?src=[UID()];toggle_logic=1'>[convdir ? "On" : "Off"]</a></li>

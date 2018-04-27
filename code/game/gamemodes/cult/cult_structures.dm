@@ -256,8 +256,8 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	selection_prompt = "You flip through the black pages of the archives..."
 	selection_title = "Archives"
 	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating %ITEM%!</span>"
-	choosable_items = list("Supply Talisman" = /obj/item/paper/talisman/supply/weak, "Shuttle Curse" = /obj/item/device/shuttle_curse, \
-							"Veil Shifter" = /obj/item/device/cult_shift)
+	choosable_items = list("Supply Talisman" = /obj/item/paper/talisman/supply/weak, "Shuttle Curse" = /obj/item/shuttle_curse, \
+							"Veil Shifter" = /obj/item/cult_shift)
 
 /obj/effect/gateway
 	name = "gateway"

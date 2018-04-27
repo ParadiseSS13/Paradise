@@ -757,7 +757,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 			target_amount = 10
 			itemname = "ten solar panel assemblies"
 		if(8)
-			target = /obj/item/device/flash
+			target = /obj/item/flash
 			target_amount = 6
 			itemname = "six flashes"
 	explanation_text = "We are running low on spare parts. Trade for [itemname]."

@@ -90,8 +90,8 @@
 			to_chat(user, "You insert [W].")
 			SSnanoui.update_uis(src)
 			return
-	else if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+	else if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
 			var/obj/machinery/clonepod/P = M.buffer
 			if(P && !(P in pods))
@@ -243,7 +243,7 @@
 
 		else if(src.menu == 4)
 			var/obj/item/card/id/C = usr.get_active_hand()
-			if(istype(C)||istype(C, /obj/item/device/pda))
+			if(istype(C)||istype(C, /obj/item/pda))
 				if(src.check_access(C))
 					src.records.Remove(src.active_record)
 					qdel(src.active_record)

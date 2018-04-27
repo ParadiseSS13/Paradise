@@ -8,7 +8,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 //External
-/obj/item/device/shared_storage
+/obj/item/shared_storage
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
 	icon = 'icons/obj/storage.dmi'
@@ -16,25 +16,25 @@
 	slot_flags = SLOT_BACK
 	var/obj/item/storage/backpack/shared/bag
 
-/obj/item/device/shared_storage/red
+/obj/item/shared_storage/red
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
 
-/obj/item/device/shared_storage/red/New()
+/obj/item/shared_storage/red/New()
 	..()
 	if(!bag)
 		var/obj/item/storage/backpack/shared/S = new(src)
-		var/obj/item/device/shared_storage/blue = new(loc)
+		var/obj/item/shared_storage/blue = new(loc)
 
 		bag = S
 		blue.bag = S
 
-/obj/item/device/shared_storage/attackby(obj/item/W, mob/user, params)
+/obj/item/shared_storage/attackby(obj/item/W, mob/user, params)
 	if(bag)
 		bag.loc = user
 		bag.attackby(W, user, params)
 
-/obj/item/device/shared_storage/attack_self(mob/living/carbon/user)
+/obj/item/shared_storage/attack_self(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
 	if(src == user.l_hand || src == user.r_hand)
@@ -44,7 +44,7 @@
 	else
 		..()
 
-/obj/item/device/shared_storage/attack_hand(mob/living/carbon/user)
+/obj/item/shared_storage/attack_hand(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
 	if(loc == user && user.back && user.back == src)
@@ -54,7 +54,7 @@
 	else
 		..()
 
-/obj/item/device/shared_storage/MouseDrop(atom/over_object)
+/obj/item/shared_storage/MouseDrop(atom/over_object)
 	if(iscarbon(usr))
 		var/mob/M = usr
 
@@ -185,14 +185,14 @@
 	vehicle_move_delay = 1
 
 // Wisp Lantern
-/obj/item/device/wisp_lantern
+/obj/item/wisp_lantern
 	name = "spooky lantern"
 	desc = "This lantern gives off no light, but is home to a friendly wisp."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
 	var/obj/effect/wisp/wisp
 
-/obj/item/device/wisp_lantern/attack_self(mob/user)
+/obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
 		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
 		return
@@ -218,11 +218,11 @@
 		icon_state = "lantern-blue"
 		feedback_add_details("wisp_lantern","R") // returned
 
-/obj/item/device/wisp_lantern/New()
+/obj/item/wisp_lantern/New()
 	..()
 	wisp = new(src)
 
-/obj/item/device/wisp_lantern/Destroy()
+/obj/item/wisp_lantern/Destroy()
 	if(wisp)
 		if(wisp.loc == src)
 			qdel(wisp)
@@ -241,20 +241,20 @@
 
 //Red/Blue Cubes
 
-/obj/item/device/warp_cube
+/obj/item/warp_cube
 	name = "blue cube"
 	desc = "A mysterious blue cube."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blue_cube"
-	var/obj/item/device/warp_cube/linked
+	var/obj/item/warp_cube/linked
 
-/obj/item/device/warp_cube/Destroy()
+/obj/item/warp_cube/Destroy()
 	if(linked)
 		linked.linked = null
 		linked = null
 	return ..()
 
-/obj/item/device/warp_cube/attack_self(mob/user)
+/obj/item/warp_cube/attack_self(mob/user)
 	if(!linked)
 		to_chat(user, "[src] fizzles uselessly.")
 		return
@@ -270,15 +270,15 @@
 	smoke2.set_up(1, 0, user.loc)
 	smoke2.start()
 
-/obj/item/device/warp_cube/red
+/obj/item/warp_cube/red
 	name = "red cube"
 	desc = "A mysterious red cube."
 	icon_state = "red_cube"
 
-/obj/item/device/warp_cube/red/New()
+/obj/item/warp_cube/red/New()
 	..()
 	if(!linked)
-		var/obj/item/device/warp_cube/blue = new(src.loc)
+		var/obj/item/warp_cube/blue = new(src.loc)
 		linked = blue
 		blue.linked = src
 
@@ -334,7 +334,7 @@
 
 //Immortality Talisman
 
-/obj/item/device/immortality_talisman
+/obj/item/immortality_talisman
 	name = "Immortality Talisman"
 	desc = "A dread talisman that can render you completely invulnerable."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
@@ -345,13 +345,13 @@
 /datum/action/item_action/immortality
 	name = "Immortality"
 
-/obj/item/device/immortality_talisman/Destroy(force)
+/obj/item/immortality_talisman/Destroy(force)
 	if(force)
 		. = ..()
 	else
 		return QDEL_HINT_LETMELIVE
 
-/obj/item/device/immortality_talisman/attack_self(mob/user)
+/obj/item/immortality_talisman/attack_self(mob/user)
 	if(cooldown < world.time)
 		feedback_add_details("immortality_talisman","U") // usage
 		cooldown = world.time + 600
