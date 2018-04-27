@@ -316,6 +316,7 @@
 					if(ismindshielded(target))
 						to_chat(user, "<span class='notice'>They have a mindshield implant! You fail to deactivate it.</span>")
 						to_chat(target, "<span class='boldannounce'>Your mindshield implant becomes hot as it comes under attack, but protects you valiantly!</span>")
+						enthralling = 0
 						return
 				if(3)
 					to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
