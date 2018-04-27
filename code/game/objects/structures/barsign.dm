@@ -61,7 +61,7 @@
 	if(!allowed(user))
 		to_chat(user, "<span class = 'info'>Access denied.</span>")
 		return
-	if( istype(I, /obj/item/weapon/screwdriver))
+	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 			set_sign(new /datum/barsign/hiddensigns/signoff)

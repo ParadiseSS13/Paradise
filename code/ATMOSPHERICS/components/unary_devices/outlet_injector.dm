@@ -164,7 +164,7 @@
 			on = 0
 		return*/
 
-/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
@@ -172,11 +172,11 @@
 	</ul>
 "}
 
-/obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/weapon/W, mob/user)
-	if(istype(W, /obj/item/device/multitool))
+/obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
+	if(istype(W, /obj/item/multitool))
 		interact(user)
 		return 1
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
 			return 1

@@ -45,7 +45,7 @@
 	if(radio_controller)
 		set_frequency(frequency)
 	component_parts = list()
-	var/obj/item/weapon/circuitboard/logic_gate/LG = new(null)
+	var/obj/item/circuitboard/logic_gate/LG = new(null)
 	LG.set_type(type)
 	component_parts += LG
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
@@ -141,7 +141,7 @@
 					input2_state = LOGIC_OFF
 			return
 
-/obj/machinery/logic_gate/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/logic_gate/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	var/input1_state_string
 	var/input2_state_string
 	var/output_state_string
@@ -202,14 +202,14 @@
 	if(tamperproof)
 		to_chat(user, "<span class='warning'>The [src] appears to be tamperproofed! You can't interact with it!</span>")
 		return 0
-	if(istype(O, /obj/item/device/multitool))
+	if(istype(O, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
-	if(istype(O, /obj/item/weapon/screwdriver))
+	if(istype(O, /obj/item/screwdriver))
 		panel_open = !panel_open
 		to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the access panel.</span>")
 		return 1
-	if(panel_open && istype(O, /obj/item/weapon/crowbar))
+	if(panel_open && istype(O, /obj/item/crowbar))
 		default_deconstruction_crowbar(O)
 		return 1
 

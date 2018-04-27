@@ -144,15 +144,15 @@
 	if(logic_connect && powered(LIGHT))		//We won't send signals while unpowered, but the last signal will remain valid for anything that received it before we went dark
 		handle_output()
 
-/obj/machinery/light_switch/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/detective_scanner))
+/obj/machinery/light_switch/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/detective_scanner))
 		return
 
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
@@ -162,7 +162,7 @@
 
 	return src.attack_hand(user)
 
-/obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<ul>
 	<li><b>Light Circuit Connection:</b> <a href='?src=[UID()];toggle_light_connect=1'>[light_connect ? "On" : "Off"]</a></li>

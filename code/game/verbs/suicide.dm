@@ -162,7 +162,7 @@
 	if(answer == "Yes")
 		if(canmove || resting)
 			close_up()
-		var/obj/item/device/paicard/card = loc
+		var/obj/item/paicard/card = loc
 		card.removePersonality()
 		var/turf/T = get_turf_or_move(card.loc)
 		for(var/mob/M in viewers(T))

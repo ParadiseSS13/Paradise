@@ -14,13 +14,13 @@
 	settagwhitelist = list("id_tag")
 	var/drive_range = 50 //this is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
 
-/obj/machinery/mass_driver/attackby(obj/item/weapon/W, mob/user as mob)
+/obj/machinery/mass_driver/attackby(obj/item/W, mob/user as mob)
 
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		to_chat(user, "You begin to unscrew the bolts off the [src]...")
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 30 * W.toolspeed, target = src))
@@ -34,7 +34,7 @@
 
 	return ..()
 
-/obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/mass_driver/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<ul>
 	<li>[format_tag("ID Tag","id_tag")]</li>
@@ -101,8 +101,8 @@
 /obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
 	switch(build)
 		if(0) // Loose frame
-			if(istype(W, /obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/WT = W
+			if(istype(W, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = W
 				if(!WT.remove_fuel(0, user))
 					to_chat(user, "The welding tool must be on to complete this task.")
 					return 1
@@ -113,7 +113,7 @@
 					new /obj/item/stack/sheet/plasteel(get_turf(src),3)
 					qdel(src)
 				return 1
-			if(istype(W, /obj/item/weapon/wrench))
+			if(istype(W, /obj/item/wrench))
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 0))
@@ -123,7 +123,7 @@
 					update_icon()
 				return 1
 		if(1) // Fixed to the floor
-			if(istype(W, /obj/item/weapon/wrench))
+			if(istype(W, /obj/item/wrench))
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 1))
@@ -132,8 +132,8 @@
 					anchored = 0
 					to_chat(user, "<span class='notice'>You de-anchored \the [src]!</span>")
 				return 1
-			if(istype(W, /obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/WT = W
+			if(istype(W, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = W
 				if(!WT.remove_fuel(0, user))
 					to_chat(user, "The welding tool must be on to complete this task.")
 					return 1
@@ -145,8 +145,8 @@
 					update_icon()
 				return 1
 		if(2) // Welded to the floor
-			if(istype(W, /obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/WT = W
+			if(istype(W, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = W
 				if(!WT.remove_fuel(0, user))
 					to_chat(user, "The welding tool must be on to complete this task.")
 					return 1
@@ -166,7 +166,7 @@
 					build++
 					update_icon()
 		if(3) // Wired
-			if(istype(W, /obj/item/weapon/wirecutters))
+			if(istype(W, /obj/item/wirecutters))
 				to_chat(user, "You begin to remove the wiring from \the [src].")
 				if(do_after(user, 10 * W.toolspeed, target = src) && (build == 3))
 					new /obj/item/stack/cable_coil(loc,3)
@@ -186,7 +186,7 @@
 					update_icon()
 				return 1
 		if(4) // Grille in place
-			if(istype(W, /obj/item/weapon/crowbar))
+			if(istype(W, /obj/item/crowbar))
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 30 * W.toolspeed, target = src) && (build == 4))
@@ -194,7 +194,7 @@
 					build--
 					update_icon()
 				return 1
-			if(istype(W, /obj/item/weapon/screwdriver))
+			if(istype(W, /obj/item/screwdriver))
 				to_chat(user, "You finalize the Mass Driver...")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				var/obj/machinery/mass_driver/M = new(get_turf(src))

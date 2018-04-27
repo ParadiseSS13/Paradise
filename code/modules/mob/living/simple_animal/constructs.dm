@@ -23,7 +23,7 @@
 	var/const_type = "shade"
 	var/list/construct_spells = list()
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
-	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
+	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 	deathmessage = "collapses in a shattered heap."
 

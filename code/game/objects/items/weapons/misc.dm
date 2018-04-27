@@ -1,6 +1,6 @@
 //MISC WEAPONS
 
-//This file contains /obj/item/weapon's that do not fit in any other category and are not big enough to warrant individual files.
+//This file contains /obj/item's that do not fit in any other category and are not big enough to warrant individual files.
 /*CURRENT CONTENTS
 	Ball Toy
 	Cane
@@ -15,16 +15,15 @@
 	Red Phone
 */
 
-/obj/item/weapon/balltoy
+/obj/item/balltoy
 	name = "ball toy"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "rollball"
 	desc = "A device bored paper pushers use to remind themselves that the time did not stop yet."
 
-/obj/item/weapon/cane
+/obj/item/cane
 	name = "cane"
 	desc = "A cane used by a true gentlemen. Or a clown."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "cane"
 	item_state = "stick"
 	flags = CONDUCT
@@ -34,10 +33,10 @@
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
-/obj/item/weapon/cane/is_crutch()
+/obj/item/cane/is_crutch()
 	return 1
 
-/obj/item/weapon/c_tube
+/obj/item/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
 	icon = 'icons/obj/items.dmi'
@@ -49,14 +48,14 @@
 
 
 
-/obj/item/weapon/fan
+/obj/item/fan
 	name = "desk fan"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "fan"
 	desc = "A small desktop fan. The button seems to be stuck in the 'on' position."
 
 /*
-/obj/item/weapon/game_kit
+/obj/item/game_kit
 	name = "Gaming Kit"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "game_kit"
@@ -68,7 +67,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 */
 
-/obj/item/weapon/gift
+/obj/item/gift
 	name = "gift"
 	desc = "A wrapped item."
 	icon = 'icons/obj/items.dmi'
@@ -78,13 +77,13 @@
 	item_state = "gift"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/weapon/kidanglobe
+/obj/item/kidanglobe
 	name = "Kidan homeworld globe"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "kidanglobe"
 	desc = "A globe of the Kidan homeworld."
 
-/obj/item/weapon/lightning
+/obj/item/lightning
 	name = "lightning"
 	icon = 'icons/obj/lightning.dmi'
 	icon_state = "lightning"
@@ -110,13 +109,13 @@
 //		to_chat(world, "[angle] [(get_dist(user, A) - 1)]")
 		user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)
 
-/obj/item/weapon/newton
+/obj/item/newton
 	name = "newton cradle"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "newton"
 	desc = "A device bored paper pushers use to remind themselves that time did not stop yet. Contains gravity."
 
-/obj/item/weapon/pai_cable
+/obj/item/pai_cable
 	desc = "A flexible coated cable with a universal jack on one end."
 	name = "data cable"
 	icon = 'icons/obj/power.dmi'
@@ -124,7 +123,7 @@
 
 	var/obj/machinery/machine
 
-/obj/item/weapon/phone
+/obj/item/phone
 	name = "red phone"
 	desc = "Should anything ever go wrong..."
 	icon = 'icons/obj/items.dmi'
@@ -139,7 +138,7 @@
 	hitsound = 'sound/weapons/ring.ogg'
 	var/cooldown = 0
 
-/obj/item/weapon/phone/attack_self(mob/user)
+/obj/item/phone/attack_self(mob/user)
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time

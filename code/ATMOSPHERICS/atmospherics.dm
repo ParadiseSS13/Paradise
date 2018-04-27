@@ -57,6 +57,7 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/Destroy()
 	QDEL_NULL(stored)
 	SSair.atmos_machinery -= src
+	SSair.deferred_pipenet_rebuilds -= src
 	for(var/mob/living/L in src) //ventcrawling is serious business
 		L.remove_ventcrawl()
 		L.forceMove(get_turf(src))
@@ -143,12 +144,13 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/replacePipenet()
 	return
 
-/obj/machinery/atmospherics/proc/build_network()
+/obj/machinery/atmospherics/proc/build_network(remove_deferral = FALSE)
 	// Called to build a network from this node
-	return
+	if(remove_deferral)
+		SSair.deferred_pipenet_rebuilds -= src
 
 /obj/machinery/atmospherics/proc/defer_build_network()
-	deferred_pipenet_rebuilds += src
+	SSair.deferred_pipenet_rebuilds += src
 
 /obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 	return
@@ -158,8 +160,8 @@ Pipelines + Other Objects -> Pipe network
 		P.other_atmosmch -= src
 
 //(De)construction
-/obj/machinery/atmospherics/attackby(obj/item/weapon/W, mob/user)
-	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
+/obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
+	if(can_unwrench && istype(W, /obj/item/wrench))
 		var/turf/T = get_turf(src)
 		if(level == 1 && isturf(T) && T.intact)
 			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")

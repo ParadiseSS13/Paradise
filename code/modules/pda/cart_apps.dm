@@ -61,14 +61,14 @@
 	category = "Utilities"
 
 /datum/data/pda/app/signaller/update_ui(mob/user as mob, list/data)
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/signal))
-		var/obj/item/radio/integrated/signal/R = pda.cartridge.radio
+	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
+		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
 		data["signal_freq"] = format_frequency(R.frequency)
 		data["signal_code"] = R.code
 
 /datum/data/pda/app/signaller/Topic(href, list/href_list)
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/signal))
-		var/obj/item/radio/integrated/signal/R = pda.cartridge.radio
+	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
+		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
 
 		switch(href_list["choice"])
 			if("Send Signal")
@@ -214,8 +214,8 @@
 /datum/data/pda/app/secbot_control/update_ui(mob/user as mob, list/data)
 	var/botsData[0]
 	var/beepskyData[0]
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/beepsky))
-		var/obj/item/radio/integrated/beepsky/SC = pda.cartridge.radio
+	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
+		var/obj/item/integrated_radio/beepsky/SC = pda.cartridge.radio
 		beepskyData["active"] = SC.active ? sanitize(SC.active.name) : null
 		has_back = SC.active ? 1 : 0
 		if(SC.active && !isnull(SC.botstatus))
@@ -250,7 +250,7 @@
 /datum/data/pda/app/secbot_control/Topic(href, list/href_list)
 	switch(href_list["choice"])
 		if("Back")
-			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/beepsky))
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/beepsky))
 				pda.cartridge.radio.Topic(null, list(radiomenu = "1", op = "botlist"))
 
 /datum/data/pda/app/mule_control
@@ -262,8 +262,8 @@
 /datum/data/pda/app/mule_control/update_ui(mob/user as mob, list/data)
 	var/muleData[0]
 	var/mulebotsData[0]
-	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/mule))
-		var/obj/item/radio/integrated/mule/QC = pda.cartridge.radio
+	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
+		var/obj/item/integrated_radio/mule/QC = pda.cartridge.radio
 		muleData["active"] = QC.active ? sanitize(QC.active.name) : null
 		has_back = QC.active ? 1 : 0
 		if(QC.active && !isnull(QC.botstatus))
@@ -300,7 +300,7 @@
 /datum/data/pda/app/mule_control/Topic(href, list/href_list)
 	switch(href_list["choice"])
 		if("Back")
-			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/radio/integrated/mule))
+			if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/mule))
 				pda.cartridge.radio.Topic(null, list(radiomenu = "1", op = "botlist"))
 
 /datum/data/pda/app/supply
@@ -367,7 +367,7 @@
 	else
 		JaniData["user_loc"] = list("x" = 0, "y" = 0)
 	var/MopData[0]
-	for(var/obj/item/weapon/mop/M in janitorial_equipment)
+	for(var/obj/item/mop/M in janitorial_equipment)
 		var/turf/ml = get_turf(M)
 		if(ml)
 			if(ml.z != cl.z)

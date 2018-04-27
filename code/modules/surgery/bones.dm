@@ -33,8 +33,8 @@
 	name = "mend bone"
 
 	allowed_tools = list(
-	/obj/item/weapon/bonegel = 100,	\
-	/obj/item/weapon/screwdriver = 90
+	/obj/item/bonegel = 100,	\
+	/obj/item/screwdriver = 90
 	)
 	can_infect = 1
 	blood_level = 1
@@ -69,8 +69,8 @@
 	name = "set bone"
 
 	allowed_tools = list(
-	/obj/item/weapon/bonesetter = 100,	\
-	/obj/item/weapon/wrench = 90	\
+	/obj/item/bonesetter = 100,	\
+	/obj/item/wrench = 90	\
 	)
 
 	time = 32
@@ -108,8 +108,8 @@
 	name = "mend skull"
 
 	allowed_tools = list(
-	/obj/item/weapon/bonesetter = 100,	\
-	/obj/item/weapon/wrench = 90		\
+	/obj/item/bonesetter = 100,	\
+	/obj/item/wrench = 90		\
 	)
 
 	time = 32
@@ -143,8 +143,8 @@
 	name = "medicate bones"
 
 	allowed_tools = list(
-	/obj/item/weapon/bonegel = 100,	\
-	/obj/item/weapon/screwdriver = 90
+	/obj/item/bonegel = 100,	\
+	/obj/item/screwdriver = 90
 	)
 	can_infect = 1
 	blood_level = 1

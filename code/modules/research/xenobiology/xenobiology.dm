@@ -124,7 +124,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=4"
 
-/obj/item/slimepotion/afterattack(obj/item/weapon/reagent_containers/target, mob/user, proximity_flag)
+/obj/item/slimepotion/afterattack(obj/item/reagent_containers/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	if(istype(target))
@@ -140,39 +140,27 @@
 
 /obj/item/slimepotion/docility/attack(mob/living/carbon/slime/M, mob/user)
 	if(!isslime(M))
-		to_chat(user, "<span class='warning'> The potion only works on slimes!</span>")
+		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
 		return
 	if(M.stat)
-		to_chat(user, "<span class='warning'> The slime is dead!</span>")
-		return
-	if(M.mind)
-		to_chat(user, "<span class='warning'> The slime resists!</span>")
+		to_chat(user, "<span class='warning'>The slime is dead!</span>")
 		return
 	if(being_used)
-		to_chat(user, "<span class='warning'> You're already using this on another slime!</span>")
+		to_chat(user, "<span class='warning'>You're already using this on another slime!</span>")
 		return
 
-	var/mob/living/simple_animal/slime/pet
-	if(M.is_adult)
-		pet = new /mob/living/simple_animal/slime/adult(M.loc)
-		pet.icon_state = "[M.colour] adult slime"
-		pet.icon_living = "[M.colour] adult slime"
-	else
-		pet = new /mob/living/simple_animal/slime(M.loc)
-		pet.icon_state = "[M.colour] baby slime"
-		pet.icon_living = "[M.colour] baby slime"
-	pet.icon_dead = "[M.colour] baby slime dead"
-	pet.colour = "[M.colour]"
-	qdel(M)
+	M.docile = 1
+	M.nutrition = 700
+	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
+	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = 1
 	var/newname = sanitize(copytext(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
 
 	if(!newname)
 		newname = "pet slime"
-	pet.name = newname
-	pet.real_name = newname
+	M.name = newname
+	M.real_name = newname
 	qdel(src)
-	to_chat(user, "You feed the slime the potion, removing it's powers and calming it.")
 
 /obj/item/slimepotion/sentience
 	name = "sentience potion"
@@ -218,6 +206,8 @@
 		SM.sentience_act()
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist them in completing their goals at any cost.</span>")
+		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
+			to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
 		qdel(src)
 	else
@@ -435,7 +425,7 @@
 	G.change_gender(pick(MALE,FEMALE))
 	G.loc = src.loc
 	G.key = ghost.key
-	add_logs(user, G, "summoned", null, "as a golem")
+	add_attack_logs(user, G, "Summoned as a golem")
 	to_chat(G, "You are an adamantine golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. Serve [user], and assist them in completing their goals at any cost.")
 	qdel(src)
 

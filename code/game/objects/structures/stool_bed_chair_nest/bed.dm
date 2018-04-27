@@ -72,7 +72,7 @@
 	anchored = 0
 	comfort = 1
 
-/obj/structure/stool/bed/roller/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/stool/bed/roller/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/roller_holder))
 		if(buckled_mob)
 			user_unbuckle_mob(user)
@@ -105,7 +105,7 @@
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/item/roller/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/roller/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/roller_holder))
 		var/obj/item/roller_holder/RH = W
 		if(!RH.held)

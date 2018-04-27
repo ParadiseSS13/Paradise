@@ -5,7 +5,7 @@
 	icon_screen = "rdcomp"
 	light_color = LIGHT_COLOR_PURPLE
 	req_access = list(access_robotics)
-	circuit = /obj/item/weapon/circuitboard/pod_locater
+	circuit = /obj/item/circuitboard/pod_locater
 
 /obj/machinery/computer/podtracker/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
@@ -23,7 +23,7 @@
 /obj/machinery/computer/podtracker/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/list/pods[0]
-	for(var/obj/item/device/spacepod_equipment/misc/tracker/TR in world)
+	for(var/obj/item/spacepod_equipment/misc/tracker/TR in world)
 		var/obj/spacepod/my_pod = TR.my_atom
 		var/enabled = TR.enabled
 		if(my_pod && enabled)

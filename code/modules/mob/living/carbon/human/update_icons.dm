@@ -1058,9 +1058,9 @@ var/global/list/damage_icon_parts = list()
 		var/icon/standing
 		if(back.icon_override)
 			standing = image("icon" = back.icon_override, "icon_state" = "[back.icon_state]")
-		else if(istype(back, /obj/item/weapon/rig))
+		else if(istype(back, /obj/item/rig))
 			//If this is a rig and a mob_icon is set, it will take species into account in the rig update_icon() proc.
-			var/obj/item/weapon/rig/rig = back
+			var/obj/item/rig/rig = back
 			standing = rig.mob_icon
 		else if(back.sprite_sheets && back.sprite_sheets[species.name])
 			standing = image("icon" = back.sprite_sheets[species.name], "icon_state" = "[back.icon_state]")
@@ -1077,7 +1077,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/update_inv_handcuffed(var/update_icons=1)
 	overlays_standing[HANDCUFF_LAYER] = null
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/pinkcuffs))
+		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
 			overlays_standing[HANDCUFF_LAYER] = image("icon" = 'icons/mob/mob.dmi', "icon_state" = "pinkcuff1")
 		else
 			overlays_standing[HANDCUFF_LAYER] = image("icon" = 'icons/mob/mob.dmi', "icon_state" = "handcuff1")

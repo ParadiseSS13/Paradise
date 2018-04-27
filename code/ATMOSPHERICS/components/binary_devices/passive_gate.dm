@@ -182,8 +182,8 @@
 	update_icon()
 	SSnanoui.update_uis(src)
 
-/obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/weapon/W, mob/user, params)
-	if(!istype(W, /obj/item/weapon/wrench))
+/obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")

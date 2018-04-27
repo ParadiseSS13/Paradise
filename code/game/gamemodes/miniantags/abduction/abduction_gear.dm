@@ -109,18 +109,18 @@
 	if(combat_cooldown==initial(combat_cooldown))
 		processing_objects.Remove(src)
 
-/obj/item/device/abductor/proc/AbductorCheck(user)
+/obj/item/abductor/proc/AbductorCheck(user)
 	if(isabductor(user))
 		return TRUE
 	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
 	return FALSE
 
-/obj/item/device/abductor/proc/ScientistCheck(user)
+/obj/item/abductor/proc/ScientistCheck(user)
 	var/mob/living/carbon/human/H = user
 	if(H.mind && H.mind.abductor)
 		return H.mind.abductor.scientist
 
-/obj/item/device/abductor/gizmo
+/obj/item/abductor/gizmo
 	name = "science tool"
 	desc = "A dual-mode tool for retrieving specimens and scanning appearances. Scanning can be done through cameras."
 	icon = 'icons/obj/abductor.dmi'
@@ -131,7 +131,7 @@
 	var/mob/living/marked = null
 	var/obj/machinery/abductor/console/console
 
-/obj/item/device/abductor/gizmo/attack_self(mob/user)
+/obj/item/abductor/gizmo/attack_self(mob/user)
 	if(!AbductorCheck(user))
 		return
 	if(!ScientistCheck(user))
@@ -145,7 +145,7 @@
 		icon_state = "gizmo_scan"
 	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
 
-/obj/item/device/abductor/gizmo/attack(mob/living/M, mob/user)
+/obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
 	if(!AbductorCheck(user))
 		return
 	if(!ScientistCheck(user))
@@ -158,7 +158,7 @@
 			mark(M, user)
 
 
-/obj/item/device/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		return
 	if(!AbductorCheck(user))
@@ -172,13 +172,13 @@
 		if(GIZMO_MARK)
 			mark(target, user)
 
-/obj/item/device/abductor/gizmo/proc/scan(atom/target, mob/living/user)
+/obj/item/abductor/gizmo/proc/scan(atom/target, mob/living/user)
 	if(ishuman(target))
 		if(console!=null)
 			console.AddSnapshot(target)
 			to_chat(user, "<span class='notice'>You scan [target] and add them to the database.</span>")
 
-/obj/item/device/abductor/gizmo/proc/mark(atom/target, mob/living/user)
+/obj/item/abductor/gizmo/proc/mark(atom/target, mob/living/user)
 	if(marked == target)
 		to_chat(user, "<span class='warning'>This specimen is already marked!</span>")
 		return
@@ -191,7 +191,7 @@
 	else
 		prepare(target,user)
 
-/obj/item/device/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
+/obj/item/abductor/gizmo/proc/prepare(atom/target, mob/living/user)
 	if(get_dist(target,user)>1)
 		to_chat(user, "<span class='warning'>You need to be next to the specimen to prepare it for transport!</span>")
 		return
@@ -201,7 +201,7 @@
 		to_chat(user, "<span class='notice'>You finish preparing [target] for transport.</span>")
 
 
-/obj/item/device/abductor/silencer
+/obj/item/abductor/silencer
 	name = "abductor silencer"
 	desc = "A compact device used to shut down communications equipment."
 	icon = 'icons/obj/abductor.dmi'
@@ -209,19 +209,19 @@
 	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
-/obj/item/device/abductor/silencer/attack(mob/living/M, mob/user)
+/obj/item/abductor/silencer/attack(mob/living/M, mob/user)
 	if(!AbductorCheck(user))
 		return
 	radio_off(M, user)
 
-/obj/item/device/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		return
 	if(!AbductorCheck(user))
 		return
 	radio_off(target, user)
 
-/obj/item/device/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
+/obj/item/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
 	if(!(user in (viewers(7,target))))
 		return
 
@@ -234,17 +234,17 @@
 		to_chat(user, "<span class='notice'>You silence [M]'s radio devices.</span>")
 		radio_off_mob(M)
 
-/obj/item/device/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
+/obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
 	var/list/all_items = M.GetAllContents()
 
 	for(var/obj/I in all_items)
-		if(istype(I,/obj/item/device/radio/))
-			var/obj/item/device/radio/r = I
+		if(istype(I,/obj/item/radio/))
+			var/obj/item/radio/r = I
 			r.listening = 0
-			if(!istype(I,/obj/item/device/radio/headset))
+			if(!istype(I,/obj/item/radio/headset))
 				r.broadcasting = 0 //goddamned headset hacks
 
-/obj/item/weapon/gun/energy/alien
+/obj/item/gun/energy/alien
 	name = "alien pistol"
 	desc = "A complicated gun that fires bursts of high-intensity radiation."
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
@@ -254,7 +254,7 @@
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 
-/obj/item/weapon/paper/abductor
+/obj/item/paper/abductor
 	name = "Dissection Guide"
 	icon_state = "alienpaper_words"
 	info = {"<b>Dissection for Dummies</b><br>
@@ -278,10 +278,10 @@
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
-/obj/item/weapon/paper/abductor/update_icon()
+/obj/item/paper/abductor/update_icon()
 	return
 
-/obj/item/weapon/paper/abductor/AltClick()
+/obj/item/paper/abductor/AltClick()
 	return
 
 #define BATON_STUN 0
@@ -290,7 +290,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 #define BATON_PROBE 3
 #define BATON_MODES 4
 
-/obj/item/weapon/abductor_baton
+/obj/item/abductor_baton
 	name = "advanced baton"
 	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
 	var/mode = BATON_STUN
@@ -303,7 +303,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_mode)
 
-/obj/item/weapon/abductor_baton/proc/toggle(mob/living/user=usr)
+/obj/item/abductor_baton/proc/toggle(mob/living/user=usr)
 	mode = (mode+1)%BATON_MODES
 	var/txt
 	switch(mode)
@@ -322,7 +322,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/weapon/abductor_baton/update_icon()
+/obj/item/abductor_baton/update_icon()
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
@@ -337,7 +337,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			icon_state = "wonderprodProbe"
 			item_state = "wonderprodProbe"
 
-/obj/item/weapon/abductor_baton/attack(mob/target, mob/living/user)
+/obj/item/abductor_baton/attack(mob/target, mob/living/user)
 	if(!isabductor(user))
 		return
 
@@ -368,14 +368,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			ProbeAttack(L,user)
 
-/obj/item/weapon/abductor_baton/attack_self(mob/living/user)
+/obj/item/abductor_baton/attack_self(mob/living/user)
 	toggle(user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
 
-/obj/item/weapon/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
+/obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
 	user.lastattacked = L
 	L.lastattacker = user
 
@@ -391,22 +391,22 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		var/mob/living/carbon/human/H = L
 		H.forcesay(hit_appends)
 
-	add_logs(user, L, "stunned")
+	add_attack_logs(user, L, "Stunned with [src]")
 
-/obj/item/weapon/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
+/obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
 	if(L.stunned || L.sleeping)
 		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 		L.Sleeping(60)
-		add_logs(user, L, "put to sleep")
+		add_attack_logs(user, L, "Put to sleep with [src]")
 	else
 		L.AdjustDrowsy(1)
 		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens! </span>")
 		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
 							"<span class='userdanger'>You suddenly feel drowsy!</span>")
 
-/obj/item/weapon/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
+/obj/item/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
 	if(!iscarbon(L))
 		return
 	var/mob/living/carbon/C = L
@@ -416,14 +416,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
 		if(do_mob(user, C, 30))
 			if(!C.handcuffed)
-				C.handcuffed = new /obj/item/weapon/restraints/handcuffs/energy/used(C)
+				C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)
 				C.update_handcuffed()
 				to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-				add_logs(user, C, "handcuffed")
+				add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 
-/obj/item/weapon/abductor_baton/proc/ProbeAttack(mob/living/L,mob/living/user)
+/obj/item/abductor_baton/proc/ProbeAttack(mob/living/L,mob/living/user)
 	L.visible_message("<span class='danger'>[user] probes [L] with [src]!</span>", \
 						"<span class='userdanger'>[user] probes you!</span>")
 
@@ -444,19 +444,19 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	to_chat(user,"<span class='notice'>Probing result: </span>[species]")
 	to_chat(user, "[helptext]")
 
-/obj/item/weapon/restraints/handcuffs/energy
+/obj/item/restraints/handcuffs/energy
 	name = "hard-light energy field"
 	desc = "A hard-light field restraining the hands."
 	icon_state = "cuff_white" // Needs sprite
 	breakouttime = 450
-	trashtype = /obj/item/weapon/restraints/handcuffs/energy/used
+	trashtype = /obj/item/restraints/handcuffs/energy/used
 	origin_tech = "materials=4;magnets=5;abductor=2"
 
-/obj/item/weapon/restraints/handcuffs/energy/used
+/obj/item/restraints/handcuffs/energy/used
 	desc = "energy discharge"
 	flags = DROPDEL
 
-/obj/item/weapon/restraints/handcuffs/energy/used/dropped(mob/user)
+/obj/item/restraints/handcuffs/energy/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s [src] break in a discharge of energy!</span>", \
 							"<span class='userdanger'>[user]'s [src] break in a discharge of energy!</span>")
 	var/datum/effect_system/spark_spread/S = new
@@ -464,7 +464,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	S.start()
 	. = ..()
 
-/obj/item/weapon/abductor_baton/examine(mob/user)
+/obj/item/abductor_baton/examine(mob/user)
 	..()
 	switch(mode)
 		if(BATON_STUN)
@@ -477,42 +477,42 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			to_chat(user, "<span class='warning'>The baton is in probing mode.</span>")
 
 
-/obj/item/weapon/scalpel/alien
+/obj/item/scalpel/alien
 	name = "alien scalpel"
 	desc = "It's a gleaming sharp knife made out of silvery-green metal."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/weapon/hemostat/alien
+/obj/item/hemostat/alien
 	name = "alien hemostat"
 	desc = "You've never seen this before."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/weapon/retractor/alien
+/obj/item/retractor/alien
 	name = "alien retractor"
 	desc = "You're not sure if you want the veil pulled back."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/weapon/circular_saw/alien
+/obj/item/circular_saw/alien
 	name = "alien saw"
 	desc = "Do the aliens also lose this, and need to find an alien hatchet?"
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/weapon/surgicaldrill/alien
+/obj/item/surgicaldrill/alien
 	name = "alien drill"
 	desc = "Maybe alien surgeons have finally found a use for the drill."
 	icon = 'icons/obj/abductor.dmi'
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
-/obj/item/weapon/cautery/alien
+/obj/item/cautery/alien
 	name = "alien cautery"
 	desc = "Why would bloodless aliens have a tool to stop bleeding? Unless..."
 	icon = 'icons/obj/abductor.dmi'

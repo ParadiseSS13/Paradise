@@ -156,7 +156,7 @@ var/global/list/all_cults = list()
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 
-	var/obj/item/weapon/paper/talisman/supply/T = new(mob)
+	var/obj/item/paper/talisman/supply/T = new(mob)
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,
 		"left pocket" = slot_l_store,

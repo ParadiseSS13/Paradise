@@ -1,4 +1,4 @@
-/obj/item/device/mmi
+/obj/item/mmi
 	name = "Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."
 	icon = 'icons/obj/assemblies.dmi'
@@ -16,7 +16,7 @@
 	var/obj/mecha/mecha = null//This does not appear to be used outside of reference in mecha.dm.
 // I'm using this for mechs giving MMIs HUDs now
 
-/obj/item/device/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+/obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal ))
 		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
 		return
@@ -65,7 +65,7 @@
 
 
 
-/obj/item/device/mmi/attack_self(mob/user as mob)
+/obj/item/mmi/attack_self(mob/user as mob)
 	if(!brainmob)
 		to_chat(user, "<span class='warning'>You upend the MMI, but there's nothing in it.</span>")
 	else
@@ -75,7 +75,7 @@
 		icon_state = "mmi_empty"
 		name = "Man-Machine Interface"
 
-/obj/item/device/mmi/proc/transfer_identity(var/mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
+/obj/item/mmi/proc/transfer_identity(var/mob/living/carbon/human/H)//Same deal as the regular brain proc. Used for human-->robot people.
 	brainmob = new(src)
 	brainmob.name = H.real_name
 	brainmob.real_name = H.real_name
@@ -98,7 +98,7 @@
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
-/obj/item/device/mmi/proc/dropbrain(var/turf/dropspot)
+/obj/item/mmi/proc/dropbrain(var/turf/dropspot)
 	if(isnull(held_brain))
 		log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain in [get_area(src)]."), src)
 		to_chat(brainmob, "<span class='userdanger'>Your MMI did not contain a brain! We'll make a new one for you, but you'd best report this to the bugtracker!</span>")
@@ -117,19 +117,19 @@
 	held_brain = null
 
 
-/obj/item/device/mmi/radio_enabled
+/obj/item/mmi/radio_enabled
 	name = "Radio-enabled Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity. This one comes with a built-in radio."
 	origin_tech = "biotech=2;programming=3;engineering=2;magnets=2"
 
-	var/obj/item/device/radio/radio = null//Let's give it a radio.
+	var/obj/item/radio/radio = null//Let's give it a radio.
 
-/obj/item/device/mmi/radio_enabled/New()
+/obj/item/mmi/radio_enabled/New()
 	..()
 	radio = new(src)//Spawns a radio inside the MMI.
 	radio.broadcasting = 1//So it's broadcasting from the start.
 
-/obj/item/device/mmi/radio_enabled/verb/Toggle_Listening()
+/obj/item/mmi/radio_enabled/verb/Toggle_Listening()
 	set name = "Toggle Listening"
 	set desc = "Toggle listening channel on or off."
 	set category = "MMI"
@@ -142,7 +142,7 @@
 	radio.listening = radio.listening==1 ? 0 : 1
 	to_chat(brainmob, "<span class='notice'>Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.</span>")
 
-/obj/item/device/mmi/emp_act(severity)
+/obj/item/mmi/emp_act(severity)
 	if(!brainmob)
 		return
 	else
@@ -155,14 +155,14 @@
 				brainmob.emp_damage += rand(0,10)
 	..()
 
-/obj/item/device/mmi/relaymove(var/mob/user, var/direction)
+/obj/item/mmi/relaymove(var/mob/user, var/direction)
 	if(user.stat || user.stunned)
 		return
-	var/obj/item/weapon/rig/rig = src.get_rig()
+	var/obj/item/rig/rig = src.get_rig()
 	if(rig)
 		rig.forced_move(direction, user)
 
-/obj/item/device/mmi/Destroy()
+/obj/item/mmi/Destroy()
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/borg = loc
 		borg.mmi = null
@@ -170,13 +170,13 @@
 	QDEL_NULL(held_brain)
 	return ..()
 
-/obj/item/device/mmi/syndie
+/obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = 1
 
-/obj/item/device/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
+/obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(!brainmob)
 		return 0
 	if(!parent)
@@ -190,7 +190,7 @@
 	forceMove(holder)
 	holder.stored_mmi = src
 	holder.update_from_mmi()
-	if(istype(src, /obj/item/device/mmi/posibrain))
+	if(istype(src, /obj/item/mmi/posibrain))
 		holder.robotize()
 	if(brainmob && brainmob.mind)
 		brainmob.mind.transfer_to(H)

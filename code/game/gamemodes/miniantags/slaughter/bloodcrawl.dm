@@ -9,8 +9,8 @@
 		if(C.l_hand || C.r_hand)
 			to_chat(C, "<span class='warning'>You may not hold items while blood crawling!</span>")
 			return 0
-		var/obj/item/weapon/bloodcrawl/B1 = new(C)
-		var/obj/item/weapon/bloodcrawl/B2 = new(C)
+		var/obj/item/bloodcrawl/B1 = new(C)
+		var/obj/item/bloodcrawl/B2 = new(C)
 		B1.icon_state = "bloodhand_left"
 		B2.icon_state = "bloodhand_right"
 		C.put_in_hands(B1)
@@ -96,7 +96,7 @@
 		notransform = 0
 	return 1
 
-/obj/item/weapon/bloodcrawl
+/obj/item/bloodcrawl
 	name = "blood crawl"
 	desc = "You are unable to hold anything while in this form."
 	icon = 'icons/effects/blood.dmi'
@@ -136,7 +136,7 @@
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
-		for(var/obj/item/weapon/bloodcrawl/BC in C)
+		for(var/obj/item/bloodcrawl/BC in C)
 			C.flags = null
 			C.unEquip(BC)
 			qdel(BC)
