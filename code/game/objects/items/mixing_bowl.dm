@@ -34,7 +34,7 @@
 			if(S.amount > 1)
 				new S.type (src)
 				S.use(1)
-				user.visible_message("<span class='notice'>[user] has added one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
+				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
 			else
 				return add_item(S, user)
 		else
@@ -56,7 +56,7 @@
 		//return 0
 	else
 		I.forceMove(src)
-		user.visible_message("<span class='notice'>[user] has added [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
 
 /obj/item/mixing_bowl/attack_self(mob/user)
 	var/dat = ""
