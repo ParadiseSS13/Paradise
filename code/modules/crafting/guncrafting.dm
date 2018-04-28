@@ -15,6 +15,12 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "riflestock"
 
+/obj/item/weaponcrafting/flaregunparts
+	name = "flare gun parts"
+	desc = "A set of metal parts to make a flare rifle."
+	icon = 'icons/obj/improvised.dmi'
+	icon_state = "flare_parts"
+
 
 // CRAFTING //
 
@@ -80,4 +86,3 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least five feet of wrapping paper to secure the stock.</span>")
 			return
-
