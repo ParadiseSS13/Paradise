@@ -203,6 +203,9 @@
 	var/randomize_shift_time = FALSE
 	var/enable_night_shifts = FALSE
 
+	// Developer
+	var/developer_express_start = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -617,6 +620,8 @@
 					config.high_pop_mc_mode_amount = text2num(value)
 				if("disable_high_pop_mc_mode_amount")
 					config.disable_high_pop_mc_mode_amount = text2num(value)
+				if("developer_express_start")
+					config.developer_express_start = 1
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
