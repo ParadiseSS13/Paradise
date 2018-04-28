@@ -73,7 +73,7 @@
 
 /datum/design/shock_muzzle
 	name = "Shock Muzzle"
-	desc = "Produce a modified saftey muzzle that includes an electric shock pack and a slot for a trigger assembly."
+	desc = "Produce a modified safety muzzle that includes an electric shock pack and a slot for a trigger assembly."
 	id = "shockmuzzle"
 	req_tech = list("materials" = 1, "engineering" = 1)
 	build_type = PROTOLATHE
