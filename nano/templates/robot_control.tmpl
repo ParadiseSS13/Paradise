@@ -1,21 +1,4 @@
 {{if data.robots}}
-	{{if !data.is_ai}}
-		<div class='notice'>
-			<div class="itemContentSmall" style="width: 180px">
-				Emergency Self-Destruct:
-			</div>
-			<div class="itemContentFull">
-				{{if data.safety}}
-					{{:helper.link('ARM', 'unlock', {'arm' : 1}, !data.allowed ? 'disabled' : null)}}
-					{{:helper.link('DETONATE', 'exclamation-circle', {'nuke' : 1}, 'disabled')}}
-				{{else}}
-					{{:helper.link('DISARM', 'lock', {'arm' : 1}, !data.allowed ? 'disabled' : null)}}
-					{{:helper.link('DETONATE', 'exclamation-circle', {'nuke' : 1}, !data.allowed ? 'disabled' : null, 'redButton')}}
-				{{/if}}
-			</div>
-			<div class="clearBoth"></div>
-		</div>
-	{{/if}}
 	{{for data.robots}}
 		<hr>
 		<div class='item'>
