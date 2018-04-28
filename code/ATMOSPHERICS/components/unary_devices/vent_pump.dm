@@ -98,7 +98,7 @@
 	else
 		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
 
-	overlays += icon_manager.get_atmos_icon("device", , , vent_icon)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , vent_icon)
 
 	update_pipe_image()
 
@@ -223,7 +223,7 @@
 	return 1
 
 
-/obj/machinery/atmospherics/unary/vent_pump/initialize()
+/obj/machinery/atmospherics/unary/vent_pump/atmos_init()
 	..()
 
 	//some vents work his own special way

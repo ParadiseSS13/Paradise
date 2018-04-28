@@ -172,7 +172,7 @@
 	desc = "A lightweight foamed metal wall."
 	var/metal = MFOAM_ALUMINUM
 
-/obj/structure/foamedmetal/initialize()
+/obj/structure/foamedmetal/Initialize()
 	..()
 	air_update_turf(1)
 

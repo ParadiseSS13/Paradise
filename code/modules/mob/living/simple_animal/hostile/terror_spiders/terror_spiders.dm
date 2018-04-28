@@ -292,7 +292,7 @@ var/global/list/ts_spiderling_list = list()
 	handle_dying()
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Life()
+/mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
 	if(!.) // if mob is dead
 		if(prob(2))

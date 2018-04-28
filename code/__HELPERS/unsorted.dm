@@ -1929,3 +1929,6 @@ var/mob/dview/dview_mob = new
 
 /datum/proc/stack_trace(msg)
 	CRASH(msg)
+
+/proc/pass()
+	return

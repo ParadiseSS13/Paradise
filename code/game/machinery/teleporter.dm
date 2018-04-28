@@ -18,7 +18,7 @@
 	..()
 	return
 
-/obj/machinery/computer/teleporter/initialize()
+/obj/machinery/computer/teleporter/Initialize()
 	..()
 	link_power_station()
 	update_icon()
@@ -293,7 +293,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
 
-/obj/machinery/teleport/hub/initialize()
+/obj/machinery/teleport/hub/Initialize()
 	..()
 	link_power_station()
 
@@ -472,7 +472,7 @@
 	RefreshParts()
 	link_console_and_hub()
 
-/obj/machinery/teleport/station/initialize()
+/obj/machinery/teleport/station/Initialize()
 	..()
 	link_console_and_hub()
 

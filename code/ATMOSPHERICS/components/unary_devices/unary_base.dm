@@ -22,7 +22,7 @@
 		nullifyPipenet(parent)
 	return ..()
 
-/obj/machinery/atmospherics/unary/initialize()
+/obj/machinery/atmospherics/unary/atmos_init()
 	..()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
 		if(target.initialize_directions & get_dir(target,src))
@@ -43,9 +43,9 @@
 			node.disconnect(src)
 		node = null
 		nullifyPipenet(parent)
-		initialize()
+		atmos_init()
 		if(node)
-			node.initialize()
+			node.atmos_init()
 			node.addMember(src)
 		build_network()
 		. = 1
@@ -54,6 +54,7 @@
 	if(!parent)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
+		log_debug("[type] \[\ref[src]] added to parent (unary_base, 57)")
 	..()
 
 /obj/machinery/atmospherics/unary/disconnect(obj/machinery/atmospherics/reference)
@@ -79,6 +80,7 @@
 
 /obj/machinery/atmospherics/unary/setPipenet(datum/pipeline/P)
 	parent = P
+	log_debug("[type] \[\ref[src]] added to parent (unary_base, 83)")
 
 /obj/machinery/atmospherics/unary/returnPipenet()
 	return parent
@@ -86,6 +88,7 @@
 /obj/machinery/atmospherics/unary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent)
 		parent = New
+		log_debug("[type] \[\ref[src]] added to parent (unary_base, 91)")
 
 /obj/machinery/atmospherics/unary/unsafe_pressure_release(var/mob/user,var/pressures)
 	..()

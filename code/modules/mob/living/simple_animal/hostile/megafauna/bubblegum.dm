@@ -75,7 +75,7 @@ Difficulty: Hard
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Life()
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Life(seconds, times_fired)
 	..()
 	move_to_delay = Clamp((health/maxHealth) * 10, 5, 10)
 

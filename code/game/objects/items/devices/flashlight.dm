@@ -12,7 +12,7 @@
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
 
-/obj/item/flashlight/initialize()
+/obj/item/flashlight/Initialize()
 	..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"

@@ -57,11 +57,7 @@ var/pipenetwarnings = 10
 						if(!members.Find(item))
 
 							if(item.parent)
-								if(pipenetwarnings > 0)
-									error("[item.type] added to a pipenet while still having one (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z].")
-									pipenetwarnings -= 1
-									if(pipenetwarnings == 0)
-										error("Further messages about pipenets will be suppressed.")
+								log_runtime(EXCEPTION("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z]."))
 							members += item
 							possible_expansions += item
 
@@ -90,6 +86,7 @@ var/pipenetwarnings = 10
 	if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = A
 		P.parent = src
+		log_debug("[P.type] \[\ref[P]] added to parent (datum_pipeline, 89)")
 		var/list/adjacent = P.pipeline_expansion()
 		for(var/obj/machinery/atmospherics/pipe/I in adjacent)
 			if(I.parent == src)
@@ -108,6 +105,7 @@ var/pipenetwarnings = 10
 	members.Add(E.members)
 	for(var/obj/machinery/atmospherics/pipe/S in E.members)
 		S.parent = src
+		log_debug("[S.type] \[\ref[S]] added to parent (datum_pipeline, 108)")
 	air.merge(E.air)
 	for(var/obj/machinery/atmospherics/A in E.other_atmosmch)
 		A.replacePipenet(E, src)
@@ -118,14 +116,11 @@ var/pipenetwarnings = 10
 	qdel(E)
 
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
-	return
+	var/datum/pipeline/P = returnPipenet(A)
+	P.addMember(A, src)
 
 /obj/machinery/atmospherics/pipe/addMember(obj/machinery/atmospherics/A)
 	parent.addMember(A, src)
-
-/obj/machinery/atmospherics/addMember(obj/machinery/atmospherics/A)
-	var/datum/pipeline/P = returnPipenet(A)
-	P.addMember(A, src)
 
 /datum/pipeline/proc/temporarily_store_air()
 	//Update individual gas_mixtures by volume ratio
