@@ -225,7 +225,7 @@
 /datum/game_mode/abduction/proc/equip_common(mob/living/carbon/human/agent,team_number)
 	var/radio_freq = SYND_FREQ
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/alt(agent)
+	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(agent)
 	R.set_frequency(radio_freq)
 	R.name = "alien headset"
 	agent.equip_to_slot_or_del(R, slot_l_ear)
@@ -253,7 +253,7 @@
 	agent.equip_to_slot_or_del(V, slot_wear_suit)
 	agent.equip_to_slot_or_del(new /obj/item/abductor_baton(agent), slot_in_backpack)
 	agent.equip_to_slot_or_del(new /obj/item/gun/energy/alien(agent), slot_in_backpack)
-	agent.equip_to_slot_or_del(new /obj/item/device/abductor/silencer(agent), slot_in_backpack)
+	agent.equip_to_slot_or_del(new /obj/item/abductor/silencer(agent), slot_in_backpack)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/abductor(agent), slot_head)
 	agent.equip_to_slot_or_del(new /obj/item/storage/belt/military/abductor/full(agent), slot_belt)
 	agent.update_icons()
@@ -264,7 +264,7 @@
 		team_number = scientist.mind.abductor.team
 
 	var/obj/machinery/abductor/console/console = get_team_console(team_number)
-	var/obj/item/device/abductor/gizmo/G = new /obj/item/device/abductor/gizmo(scientist)
+	var/obj/item/abductor/gizmo/G = new /obj/item/abductor/gizmo(scientist)
 	if(console!=null)
 		console.gizmo = G
 		G.console = console

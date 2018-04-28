@@ -115,7 +115,7 @@ obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/device/assembly/igniter) && !(I.flags & NODROP))
+	else if(istype(I, /obj/item/assembly/igniter) && !(I.flags & NODROP))
 		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod
 
 		if(!remove_item_from_storage(user))

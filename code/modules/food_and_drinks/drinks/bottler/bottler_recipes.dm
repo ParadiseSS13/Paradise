@@ -64,7 +64,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 	description = "Exploding with grape flavor and a favorite among ERT members system-wide."
 	ingredients = list(/obj/item/reagent_containers/food/drinks/cans/grape_juice,
 					/obj/item/reagent_containers/food/snacks/grown/grapes,
-					/obj/item/device/flash)
+					/obj/item/flash)
 	result = "grape_granade"
 
 /datum/bottler_recipe/Meteor_Malt

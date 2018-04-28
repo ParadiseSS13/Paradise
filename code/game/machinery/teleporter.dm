@@ -4,7 +4,7 @@
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
 	circuit = /obj/item/circuitboard/teleporter
-	var/obj/item/device/gps/locked = null
+	var/obj/item/gps/locked = null
 	var/regime_set = "Teleporter"
 	var/id = null
 	var/obj/machinery/teleport/station/power_station
@@ -39,8 +39,8 @@
 	return power_station
 
 /obj/machinery/computer/teleporter/attackby(I as obj, mob/living/user as mob, params)
-	if(istype(I, /obj/item/device/gps))
-		var/obj/item/device/gps/L = I
+	if(istype(I, /obj/item/gps))
+		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			if(!user.unEquip(L))
 				to_chat(user, "<span class='warning'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
@@ -177,7 +177,7 @@
 		var/list/L = list()
 		var/list/areaindex = list()
 
-		for(var/obj/item/device/radio/beacon/R in beacons)
+		for(var/obj/item/radio/beacon/R in beacons)
 			var/turf/T = get_turf(R)
 			if(!T)
 				continue
@@ -507,8 +507,8 @@
 	return ..()
 
 /obj/machinery/teleport/station/attackby(var/obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool) && !panel_open)
-		var/obj/item/device/multitool/M = W
+	if(istype(W, /obj/item/multitool) && !panel_open)
+		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(M.buffer)
@@ -526,8 +526,8 @@
 	default_deconstruction_crowbar(W)
 
 	if(panel_open)
-		if(istype(W, /obj/item/device/multitool))
-			var/obj/item/device/multitool/M = W
+		if(istype(W, /obj/item/multitool))
+			var/obj/item/multitool/M = W
 			M.buffer = src
 			to_chat(user, "<span class='caution'>You download the data to the [W.name]'s buffer.</span>")
 			return

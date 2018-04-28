@@ -30,7 +30,7 @@
 	var/optioncount = 8
 	// Custom Message Properties
 	var/customsender = "System Administrator"
-	var/obj/item/device/pda/customrecepient = null
+	var/obj/item/pda/customrecepient = null
 	var/customjob		= "Admin"
 	var/custommessage 	= "This is a test, please ignore."
 	var/datum/chatroom/current_chatroom = null
@@ -441,8 +441,8 @@
 					//Select Receiver
 					if("Recepient")
 						//Get out list of viable PDAs
-						var/list/obj/item/device/pda/sendPDAs = list()
-						for(var/obj/item/device/pda/P in PDAs)
+						var/list/obj/item/pda/sendPDAs = list()
+						for(var/obj/item/pda/P in PDAs)
 							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 							if(!PM || !PM.can_receive())
@@ -481,8 +481,8 @@
 							message = "<span class='warning'>ERROR: Message could not be transmitted!</span>"
 							return src.attack_hand(usr)
 
-						var/obj/item/device/pda/PDARec = null
-						for(var/obj/item/device/pda/P in PDAs)
+						var/obj/item/pda/PDARec = null
+						for(var/obj/item/pda/P in PDAs)
 							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 							if(!PM || !PM.can_receive())

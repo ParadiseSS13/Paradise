@@ -462,7 +462,7 @@ var/list/slot_equipment_priority = list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if( istype(src, /obj/item/device/pda) || istype(src, /obj/item/pen) || is_type_in_list(src, H.wear_suit.allowed) )
+				if( istype(src, /obj/item/pda) || istype(src, /obj/item/pen) || is_type_in_list(src, H.wear_suit.allowed) )
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -908,7 +908,7 @@ var/list/slot_equipment_priority = list( \
 	// If they still have their ID they're not brigged.
 	for(var/obj/item/card/id/card in src)
 		return 0
-	for(var/obj/item/device/pda/P in src)
+	for(var/obj/item/pda/P in src)
 		if(P.id)
 			return 0
 

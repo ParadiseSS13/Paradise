@@ -21,7 +21,7 @@
 	var/armed = 0
 	var/trap_damage = 20
 	var/obj/item/grenade/iedcasing/IED = null
-	var/obj/item/device/assembly/signaler/sig = null
+	var/obj/item/assembly/signaler/sig = null
 
 /obj/item/restraints/legcuffs/beartrap/New()
 	..()
@@ -58,7 +58,7 @@
 		log_game("[key_name(user)] has rigged a beartrap with an IED.")
 		to_chat(user, "<span class='notice'>You sneak [IED] underneath the pressure plate and connect the trigger wire.</span>")
 		desc = "A trap used to catch bears and other legged creatures. <span class='warning'>There is an IED hooked up to it.</span>"
-	if(istype(I, /obj/item/device/assembly/signaler))
+	if(istype(I, /obj/item/assembly/signaler))
 		if(IED)
 			to_chat(user, "<span class='warning'>This beartrap already has an IED hooked up to it!</span>")
 			return

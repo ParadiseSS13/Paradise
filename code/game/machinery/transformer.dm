@@ -254,7 +254,7 @@
 /obj/machinery/transformer/xray/proc/scan_rec(var/obj/item/I)
 	if(istype(I, /obj/item/gun))
 		return TRUE
-	if(istype(I, /obj/item/device/transfer_valve))
+	if(istype(I, /obj/item/transfer_valve))
 		return TRUE
 	if(istype(I, /obj/item/kitchen/knife))
 		return TRUE

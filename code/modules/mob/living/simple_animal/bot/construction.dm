@@ -353,7 +353,7 @@
 	else
 		switch(build_step)
 			if(0)
-				if(istype(W, /obj/item/device/healthanalyzer))
+				if(istype(W, /obj/item/healthanalyzer))
 					if(!user.unEquip(W))
 						return
 					qdel(W)
@@ -392,7 +392,7 @@
 	var/build_step = 0
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 
-/obj/item/clothing/head/helmet/attackby(obj/item/device/assembly/signaler/S, mob/user, params)
+/obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
 	..()
 	if(!issignaler(S))
 		..()
@@ -463,14 +463,14 @@
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(!build_step)
-			new /obj/item/device/assembly/signaler(get_turf(src))
+			new /obj/item/assembly/signaler(get_turf(src))
 			new /obj/item/clothing/head/helmet(get_turf(src))
 			to_chat(user, "<span class='notice'>You disconnect the signaler from the helmet.</span>")
 			qdel(src)
 
 		else if(build_step == 2)
 			overlays -= "hs_eye"
-			new /obj/item/device/assembly/prox_sensor(get_turf(src))
+			new /obj/item/assembly/prox_sensor(get_turf(src))
 			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
 			build_step--
 

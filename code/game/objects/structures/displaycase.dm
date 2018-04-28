@@ -20,7 +20,7 @@ var/global/list/captain_display_cases = list()
 	icon_state = "box_glass"
 	armor = list(melee = 30, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
 	var/obj/item/airlock_electronics/circuit = null
-	var/obj/item/device/assembly/prox_sensor/sensor = null
+	var/obj/item/assembly/prox_sensor/sensor = null
 	var/state = DISPLAYCASE_FRAME_CIRCUIT
 
 /obj/structure/displaycase_frame/Destroy()
@@ -251,7 +251,7 @@ var/global/list/captain_display_cases = list()
 			F.circuit = C
 			F.circuit.forceMove(F)
 			if(burglar_alarm)
-				new /obj/item/device/assembly/prox_sensor(T)
+				new /obj/item/assembly/prox_sensor(T)
 			F.update_icon()
 		else
 			C.forceMove(T)

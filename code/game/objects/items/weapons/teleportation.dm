@@ -59,7 +59,7 @@ Frequency:
 		if(sr)
 			temp += "<B>Located Beacons:</B><BR>"
 
-			for(var/obj/item/device/radio/beacon/W in beacons)
+			for(var/obj/item/radio/beacon/W in beacons)
 				if(W.frequency == frequency && !W.syndicate)
 					if(W && W.z == z)
 						var/turf/TB = get_turf(W)

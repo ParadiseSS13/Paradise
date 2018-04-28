@@ -31,10 +31,10 @@
 	gloves = /obj/item/clothing/gloves/color/black/ce
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hardhat/white
-	l_ear = /obj/item/device/radio/headset/heads/ce
+	l_ear = /obj/item/radio/headset/heads/ce
 	id = /obj/item/card/id/ce
-	l_pocket = /obj/item/device/t_scanner
-	pda = /obj/item/device/pda/heads/ce
+	l_pocket = /obj/item/t_scanner
+	pda = /obj/item/pda/heads/ce
 	backpack_contents = list(
 		/obj/item/melee/classic_baton/telescopic = 1
 	)
@@ -71,10 +71,10 @@
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat
-	l_ear = /obj/item/device/radio/headset/headset_eng
+	l_ear = /obj/item/radio/headset/headset_eng
 	id = /obj/item/card/id/engineering
-	l_pocket = /obj/item/device/t_scanner
-	pda = /obj/item/device/pda/engineering
+	l_pocket = /obj/item/t_scanner
+	pda = /obj/item/pda/engineering
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
@@ -108,9 +108,9 @@
 	uniform = /obj/item/clothing/under/rank/atmospheric_technician
 	belt = /obj/item/storage/belt/utility/atmostech
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/device/radio/headset/headset_eng
+	l_ear = /obj/item/radio/headset/headset_eng
 	id = /obj/item/card/id/engineering
-	pda = /obj/item/device/pda/atmos
+	pda = /obj/item/pda/atmos
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
@@ -139,10 +139,10 @@
 	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat
-	l_ear = /obj/item/device/radio/headset/headset_eng
+	l_ear = /obj/item/radio/headset/headset_eng
 	id = /obj/item/card/id/engineering
-	r_pocket = /obj/item/device/t_scanner
-	pda = /obj/item/device/pda/engineering
+	r_pocket = /obj/item/t_scanner
+	pda = /obj/item/pda/engineering
 	backpack_contents = list(
 		/obj/item/pod_paint_bucket = 1
 	)

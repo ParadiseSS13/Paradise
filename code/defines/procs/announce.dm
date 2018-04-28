@@ -85,7 +85,7 @@
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
 	else
-		for(var/obj/item/device/radio/R in global_radios)
+		for(var/obj/item/radio/R in global_radios)
 			receivers |= R.send_announcement()
 		for(var/mob/M in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())

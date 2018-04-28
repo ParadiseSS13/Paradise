@@ -96,7 +96,7 @@
 					var/obj/item/paper/talisman/stun/T = new(usr)
 					usr.put_in_hands(T)
 				if("soulstone")
-					var/obj/item/device/soulstone/T = new(usr)
+					var/obj/item/soulstone/T = new(usr)
 					usr.put_in_hands(T)
 				if("construct")
 					new /obj/structure/constructshell(get_turf(usr))

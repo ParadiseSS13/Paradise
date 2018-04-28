@@ -148,8 +148,8 @@ RCD
 			locked = 0
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/device/pda))
-				var/obj/item/device/pda/pda = I
+			if(istype(I, /obj/item/pda))
+				var/obj/item/pda/pda = I
 				I = pda.id
 			var/obj/item/card/id/ID = I
 			if(istype(ID) && ID && check_access(ID))

@@ -194,7 +194,7 @@
 	var/list/vacant_rooms[0]		// list of vacant room doors
 	var/list/guests[0]				// assoc list of [guest mob]=room id
 
-	var/obj/item/device/radio/radio	// for shouting at deadbeats
+	var/obj/item/radio/radio	// for shouting at deadbeats
 
 /obj/effect/hotel_controller/New()
 	..()

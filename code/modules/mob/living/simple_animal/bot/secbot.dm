@@ -433,7 +433,7 @@ Auto Patrol: []"},
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
-	new /obj/item/device/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)
 
 	if(prob(50))

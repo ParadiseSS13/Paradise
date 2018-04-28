@@ -37,8 +37,8 @@
 	icon_state = "power_box"
 
 /obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+	if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
 	else if(istype(W, /obj/item/wrench))
@@ -53,8 +53,8 @@
 	icon_state = "emitter_center"
 
 /obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+	if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
 	else if(istype(W, /obj/item/wrench))
@@ -71,8 +71,8 @@
 	var/obj/machinery/bsa/front/front
 
 /obj/machinery/bsa/middle/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+	if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		if(M.buffer)
 			if(istype(M.buffer,/obj/machinery/bsa/back))
 				back = M.buffer
@@ -351,7 +351,7 @@
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	var/list/gps_locators = list()
-	for(var/obj/item/device/gps/G in GPS_list) //nulls on the list somehow
+	for(var/obj/item/gps/G in GPS_list) //nulls on the list somehow
 		gps_locators[G.gpstag] = G
 
 	var/list/options = gps_locators
@@ -364,14 +364,14 @@
 	if(istype(target,/area))
 		var/area/A = target
 		return A.name
-	else if(istype(target,/obj/item/device/gps))
-		var/obj/item/device/gps/G = target
+	else if(istype(target,/obj/item/gps))
+		var/obj/item/gps/G = target
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	if(istype(target,/area))
 		return pick(get_area_turfs(target))
-	else if(istype(target,/obj/item/device/gps))
+	else if(istype(target,/obj/item/gps))
 		return get_turf(target)
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)

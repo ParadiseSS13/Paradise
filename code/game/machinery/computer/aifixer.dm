@@ -111,7 +111,7 @@
 		else
 			overlays += image(icon,"ai-fixer-empty",overlay_layer)
 
-/obj/machinery/computer/aifixer/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
+/obj/machinery/computer/aifixer/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
 	if(!..())
 		return
 	//Downloading AI from card to terminal.

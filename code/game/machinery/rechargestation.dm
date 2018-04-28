@@ -192,8 +192,8 @@
 						if(S.amount < S.max_amount)
 							S.amount += round(min(1 * coeff, S.max_amount - S.amount))
 					// Security
-					if(istype(O,/obj/item/device/flash))
-						var/obj/item/device/flash/F = O
+					if(istype(O,/obj/item/flash))
+						var/obj/item/flash/F = O
 						if(F.broken)
 							F.broken = 0
 							F.times_used = 0
@@ -215,8 +215,8 @@
 						if(O.reagents.get_reagent_amount("enzyme") < 50)
 							O.reagents.add_reagent("enzyme", 2 * coeff)
 					//Janitor
-					if(istype(O, /obj/item/device/lightreplacer))
-						var/obj/item/device/lightreplacer/LR = O
+					if(istype(O, /obj/item/lightreplacer))
+						var/obj/item/lightreplacer/LR = O
 						var/i = 1
 						for(1, i <= coeff, i++)
 							LR.Charge(occupant)

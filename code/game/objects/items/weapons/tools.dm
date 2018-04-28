@@ -1,5 +1,5 @@
 /* Tools!
- * Note: Multitools are /obj/item/device
+ * Note: Multitools are in devices
  *
  * Contains:
  * 		Wrench

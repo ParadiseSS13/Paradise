@@ -118,7 +118,7 @@ var/global/sent_syndicate_strike_team = 0
 
 /mob/living/carbon/human/proc/equip_syndicate_commando(syndicate_leader_selected = 0)
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/alt/syndteam(src)
+	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
 	equip_to_slot_or_del(R, slot_l_ear)
 	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
@@ -141,7 +141,7 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/ammo_box/magazine/m45(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
 	if(!syndicate_leader_selected)
 		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/card/emag(src), slot_in_backpack)
