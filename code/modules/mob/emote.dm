@@ -31,8 +31,13 @@
 			to_chat(usr, "You are unable to emote.")
 		return
 
-	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)
-	if(m_type == 2 && muzzled) return
+	var/muzzled = is_muzzled()
+	if(muzzled)
+		var/obj/item/clothing/mask/muzzle/M = wear_mask
+		if(M.mute)
+			return //Not all muzzles block sound
+	if(m_type == 2 && !can_speak())
+		return
 
 	var/input
 	if(!message)

@@ -121,6 +121,69 @@
 	security_lock = TRUE
 	locked = FALSE
 
+/obj/item/clothing/mask/muzzle/safety/shock
+	name = "shock muzzle"
+	desc = "A muzzle designed to prevent biting.  This one is fitted with a behavior correction system."
+	var/obj/item/assembly/trigger = null
+	origin_tech = "materials=1;engineering=1"
+
+/obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
+	if(isscrewdriver(W))
+		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		trigger.forceMove(get_turf(user))
+		trigger.master = null
+		trigger.holder = null
+		trigger = null
+	else if(trigger)
+		to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
+	else if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
+		user.drop_item()
+		trigger = W
+		trigger.forceMove(src)
+		trigger.master = src
+		trigger.holder = src
+		to_chat(user, "<span class='notice'>You attach the [W] to [src].</span>")
+	else
+		return ..()
+
+
+/obj/item/clothing/mask/muzzle/safety/shock/equipped(obj/item/clothing/C)
+	if(istype(C))
+		if(isliving(C.loc))
+			return C.loc
+	else if(isliving(loc))
+		return loc
+	return FALSE
+
+/obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
+	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
+	if(equipped(loc))
+		var/mob/M = equipped(loc)
+		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
+		s.set_up(3, 1, M)
+		s.start()
+
+		M.Weaken(5)
+		if(ishuman(M))
+			M.Stuttering(1)
+			M.Jitter(20)
+	return
+
+/obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM as mob|obj)
+	if(trigger)
+		trigger.HasProximity(AM)
+
+
+/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, msg)
+	if(trigger)
+		trigger.hear_talk(M, msg)
+
+/obj/item/clothing/mask/muzzle/safety/shock/hear_message(mob/living/M as mob, msg)
+	if(trigger)
+		trigger.hear_message(M, msg)
+
+
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"

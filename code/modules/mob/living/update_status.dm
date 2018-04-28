@@ -49,7 +49,7 @@
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
-	return !(silent || (disabilities & MUTE) || is_muzzled())
+	return !(silent || (disabilities & MUTE))
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()

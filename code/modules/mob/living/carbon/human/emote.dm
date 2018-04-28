@@ -10,6 +10,10 @@
 		act = copytext(act, 1, t1)
 
 	var/muzzled = is_muzzled()
+	if(muzzled)
+		var/obj/item/clothing/mask/muzzle/M = wear_mask
+		if(!M.mute)
+			muzzled = 0 //Not all muzzles block sound
 	if(!can_speak())
 		muzzled = 1
 	//var/m_type = 1
