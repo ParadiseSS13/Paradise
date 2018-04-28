@@ -323,3 +323,21 @@
 /turf/simulated/floor/plating/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
+
+/turf/open/floor/plating/lava
+	name = "lava"
+	icon_state = "lava"
+	baseturf = /turf/open/floor/plating/lava //lava all the way down
+	slowdown = 2
+	var/processing = 0
+	luminosity = 1
+	flags = 0
+//	unacidable = 1
+	var/static/list/safeties_typecache = list(/turf/unsimulated/floor/plating/airless/catwalk)
+
+/turf/open/floor/plating/lava/smooth
+	name = "lava"
+	baseturf = /turf/open/floor/plating/lava/smooth
+	icon = 'icons/turf/floors/lava.dmi'
+	icon_state = "unsmooth"
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
