@@ -120,12 +120,14 @@
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
 	locked = FALSE
+	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 /obj/item/clothing/mask/muzzle/safety/shock
 	name = "shock muzzle"
 	desc = "A muzzle designed to prevent biting.  This one is fitted with a behavior correction system."
 	var/obj/item/assembly/trigger = null
 	origin_tech = "materials=1;engineering=1"
+	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 /obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
 	if(isscrewdriver(W))
