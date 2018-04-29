@@ -241,7 +241,6 @@
 	for(var/datum/omni_port/P in ports)
 		if(!P.parent)
 			P.parent = new /datum/pipeline()
-			log_debug("[P.type] \[\ref[P]] added to parent (omni_base, 244)")
 			P.parent.build_pipeline(src)
 	..()
 
@@ -283,7 +282,6 @@
 	for(var/datum/omni_port/PO in ports)
 		if(A == PO.node)
 			PO.parent = P
-			log_debug("[PO.type] \[\ref[PO]] added to parent (omni_base, 286)")
 
 /obj/machinery/atmospherics/omni/returnPipenet(obj/machinery/atmospherics/A)
 	for(var/datum/omni_port/P in ports)
@@ -294,7 +292,6 @@
 	for(var/datum/omni_port/P in ports)
 		if(Old == P.parent)
 			P.parent = New
-			log_debug("[P.type] \[\ref[P]] added to parent (omni_base, 297)")
 
 
 /obj/machinery/atmospherics/omni/process_atmos()

@@ -86,7 +86,6 @@ var/pipenetwarnings = 10
 	if(istype(A, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/P = A
 		P.parent = src
-		log_debug("[P.type] \[\ref[P]] added to parent (datum_pipeline, 89)")
 		var/list/adjacent = P.pipeline_expansion()
 		for(var/obj/machinery/atmospherics/pipe/I in adjacent)
 			if(I.parent == src)
@@ -105,7 +104,6 @@ var/pipenetwarnings = 10
 	members.Add(E.members)
 	for(var/obj/machinery/atmospherics/pipe/S in E.members)
 		S.parent = src
-		log_debug("[S.type] \[\ref[S]] added to parent (datum_pipeline, 108)")
 	air.merge(E.air)
 	for(var/obj/machinery/atmospherics/A in E.other_atmosmch)
 		A.replacePipenet(E, src)
