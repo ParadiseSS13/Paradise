@@ -657,8 +657,8 @@
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/ammo_box/magazine/m556 = 3,
 		/obj/item/clothing/shoes/magboots = 1,
-		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
-		/obj/item/ammo_box/magazine/m50 = 2
+		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
+		/obj/item/ammo_box/magazine/m45 = 2
 	)
 	var/is_tsf_lieutenant = FALSE
 
@@ -688,7 +688,9 @@
 	backpack_contents = list(
 		/obj/item/storage/box/responseteam = 1,
 		/obj/item/melee/classic_baton/telescopic = 1,
-		/obj/item/clothing/shoes/magboots/advance = 1
+		/obj/item/clothing/shoes/magboots/advance = 1,
+		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
+		/obj/item/ammo_box/magazine/m50 = 2
 	)
 	is_tsf_lieutenant = TRUE
 
