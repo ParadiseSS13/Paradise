@@ -99,11 +99,15 @@
 		var/mob/living/carbon/human/H = buckled_mob
 
 		if(!H)
+			blade_status = GUILLOTINE_BLADE_DROPPED
+			icon_state = "guillotine"
 			return
 
 		var/obj/item/organ/external/head/head = H.get_organ("head")
 
 		if(QDELETED(head))
+			blade_status = GUILLOTINE_BLADE_DROPPED
+			icon_state = "guillotine"
 			return
 
 		playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
