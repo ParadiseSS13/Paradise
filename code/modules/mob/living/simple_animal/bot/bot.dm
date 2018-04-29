@@ -193,6 +193,9 @@
  	bots_list -= src
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
+	if(reset_access_timer_id)
+		deltimer(reset_access_timer_id)
+		reset_access_timer_id = null
 	if(radio_controller && bot_filter)
 		radio_controller.remove_object(bot_core, control_freq)
 	QDEL_NULL(bot_core)
