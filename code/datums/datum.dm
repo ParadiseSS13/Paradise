@@ -21,7 +21,7 @@
 	active_timers = null
 	for(var/thing in timers)
 		var/datum/timedevent/timer = thing
-		if (timer.spent)
+		if(timer.spent)
 			continue
 		qdel(timer)
 

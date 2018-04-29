@@ -23,7 +23,7 @@
 	INVOKE_ASYNC(src, .proc/close, 0, 1)
 	// Close any nearby airlocks as well
 	for(var/obj/machinery/door/airlock/D in orange(1, src))
-		INVOKE_ASYNC(src, .proc/close, 0, 1)
+		INVOKE_ASYNC(D, .proc/close, 0, 1)
 
 /obj/machinery/door/airlock/onShuttleMove()
 	. = ..()
