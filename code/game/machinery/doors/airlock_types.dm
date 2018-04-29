@@ -150,13 +150,15 @@
 
 /obj/machinery/door/airlock/uranium/New()
 	..()
-	addtimer(src, "radiate", event_step)
+	addtimer(CALLBACK(src, .proc/radiate), event_step)
+
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
 	if(prob(50))
 		for(var/mob/living/L in range (3,src))
 			L.apply_effect(15,IRRADIATE,0)
-	addtimer(src, "radiate", event_step)
+	addtimer(CALLBACK(src, .proc/radiate), event_step)
+
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = 0

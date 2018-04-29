@@ -53,7 +53,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
-			addtimer(src, "prime", det_time)
+			addtimer(CALLBACK(src, .proc/prime), det_time)
 
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()

@@ -242,7 +242,7 @@
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(src, "hitby_react", 2, TRUE, AM)
+		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
 
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))
