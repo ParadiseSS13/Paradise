@@ -180,6 +180,16 @@
 
 //update the name and icon of the pipe item depending on the type
 
+/obj/item/pipe/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(our_rpd.mode == RPD_ROTATE_MODE)
+		rotate()
+	else if(our_rpd.mode == RPD_FLIP_MODE)
+		flip()
+	else if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_single_pipe(user, src)
+	else
+		..()
+
 /obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
 	var/list/nlist = list( \
 		"pipe", \
@@ -650,6 +660,12 @@
 	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
 	qdel(src)
 
+/obj/item/pipe_meter/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_single_pipe(user, src)
+	else
+		..()
+
 /obj/item/pipe_gsensor
 	name = "gas sensor"
 	desc = "A sensor that can be hooked to a computer"
@@ -666,6 +682,12 @@
 	playsound(get_turf(src), W.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
 	qdel(src)
+
+/obj/item/pipe_gsensor/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_single_pipe(user, src)
+	else
+		..()
 
 #undef PIPE_SIMPLE_STRAIGHT
 #undef PIPE_SIMPLE_BENT

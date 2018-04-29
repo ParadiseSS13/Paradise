@@ -101,7 +101,6 @@
 
 //turf-only flags
 #define NOJAUNT		1
-#define RPD_ALLOWED_HERE 2//By default, RPD is disabled on turfs.
 
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_OCLOTHING 1

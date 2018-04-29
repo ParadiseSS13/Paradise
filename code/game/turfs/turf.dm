@@ -71,6 +71,17 @@
 /turf/ex_act(severity)
 	return 0
 
+/turf/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(our_rpd.mode == RPD_ATMOS_MODE)
+		our_rpd.create_atmos_pipe(user, src)
+	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
+		our_rpd.create_disposals_pipe(user, src)
+	else if(our_rpd.mode == RPD_ROTATE_MODE)
+		our_rpd.rotate_all_pipes(user, src)
+	else if(our_rpd.mode == RPD_FLIP_MODE)
+		our_rpd.flip_all_pipes(user, src)
+	else if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj ,/obj/item/projectile/beam/pulse))

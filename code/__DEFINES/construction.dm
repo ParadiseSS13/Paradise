@@ -52,3 +52,11 @@
 #define MAX_STACK_SIZE 50
 //maximum amount of cable in a coil
 #define MAXCOIL 30
+
+//rpd stuff
+
+#define RPD_ATMOS_MODE		1
+#define RPD_DISPOSALS_MODE	2
+#define RPD_ROTATE_MODE		3
+#define RPD_FLIP_MODE		4
+#define RPD_DELETE_MODE		5
