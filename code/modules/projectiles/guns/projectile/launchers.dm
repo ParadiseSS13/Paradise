@@ -14,6 +14,15 @@
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
+		update_icon()
+
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/syndi
+	name = "CP-40"
+	desc = "A light weight break-operated grenade launcher."
+	icon_state = "grenade"
+
+/obj/item/weapon/gun/projectile/revolver/grenadelauncher/syndi/update_icon()
+	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi
 	desc = "A revolving 6-shot grenade launcher."
