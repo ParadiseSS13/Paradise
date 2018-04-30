@@ -40,7 +40,7 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/New()
 	. = ..()
-	var/obj/item/weapon/card/id/access_card = new (src)
+	var/obj/item/card/id/access_card = new (src)
 	access_card.access = get_all_accesses()//THERE IS NO ESCAPE
 	access_card.flags |= NODROP
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
@@ -151,7 +151,7 @@
 	var/obj/effect/temp_visual/fcluwne_manifest/manifest = /obj/effect/temp_visual/fcluwne_manifest
 	if(manifested)
 		new manifest(src.loc)
-		addtimer(src, "Appear", MANIFEST_DELAY)
+		addtimer(CALLBACK(src, .proc/Appear), MANIFEST_DELAY)
 
 	else
 		layer = GAME_PLANE
@@ -224,7 +224,7 @@
 				to_chat(H, "<i>yalp ot tnaw I</i>")
 				Appear()
 				manifested = FALSE
-				addtimer(src, "Manifest", 1)
+				addtimer(CALLBACK(src, .proc/Manifest), 1)
 
 		if(STAGE_TORMENT)
 
@@ -245,7 +245,7 @@
 				playsound(src,'sound/spookoween/ghost_whisper.ogg', 30, 1)
 
 			if(prob(4))
-				for(var/obj/item/I in orange(H, 8))
+				for(var/obj/item/I in orange(H, 5))
 					if(I && !I.anchored)
 						I.throw_at(H, 4, 3)
 				to_chat(H, "<span class='warning'>What the hell?!</span>")
@@ -278,7 +278,7 @@
 				H.reagents.add_reagent("lsd", 3)
 				Appear()
 				manifested = FALSE
-				addtimer(src, "Manifest", 2)
+				addtimer(CALLBACK(src, .proc/Manifest), 2)
 				for(var/obj/machinery/light/L in range(H, 8))
 					L.flicker()
 
@@ -300,7 +300,7 @@
 				H.emote("scream")
 				H.adjustBruteLoss(10)
 				if(!eating)
-					addtimer(src, "Grab", 50, FALSE, H)
+					addtimer(CALLBACK(src, .proc/Grab, H), 50)
 					for(var/turf/simulated/floor/O in range(src, 6))
 						O.MakeSlippery(TURF_WET_LUBE, 20)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
@@ -329,7 +329,7 @@
 			H.mouse_opacity = 0
 			H.density = FALSE
 			H.anchored = TRUE
-			addtimer(src, "Kill", 100, FALSE, H)
+			addtimer(CALLBACK(src, .proc/Kill, H), 100)
 			visible_message("<span class='danger'>[src] pulls [H] under!</span>")
 			to_chat(H, "<span class='userdanger'>[src] drags you underneath the floor!</span>")
 	else
