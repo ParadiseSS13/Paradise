@@ -1211,37 +1211,6 @@
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
 	edit_memory()
-/*
-/datum/mind/proc/clear_memory(var/silent = 1)
-	var/datum/game_mode/current_mode = ticker.mode
-
-	// remove traitor uplinks
-	var/list/L = current.get_contents()
-	for(var/t in L)
-		if(istype(t, /obj/item/pda))
-			if(t:uplink) qdel(t:uplink)
-			t:uplink = null
-		else if(istype(t, /obj/item/radio))
-			if(t:traitorradio) qdel(t:traitorradio)
-			t:traitorradio = null
-			t:traitor_frequency = 0.0
-		else if(istype(t, /obj/item/SWF_uplink) || istype(t, /obj/item/syndicate_uplink))
-			if(t:origradio)
-				var/obj/item/radio/R = t:origradio
-				R.loc = current.loc
-				R.traitorradio = null
-				R.traitor_frequency = 0.0
-			qdel(t)
-
-	// remove wizards spells
-	//If there are more special powers that need removal, they can be procced into here./N
-	current.spellremove(current)
-
-	// clear memory
-	memory = ""
-	special_role = null
-
-*/
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
