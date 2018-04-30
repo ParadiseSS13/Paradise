@@ -151,39 +151,6 @@
 		target.emagged = 1
 		to_chat(target, "<span class='notice'>Failsafe protocols overriden. New tools available.</span>")
 
-	// Arms the emergency self-destruct system
-	else if(href_list["arm"])
-		if(istype(user, /mob/living/silicon))
-			to_chat(user, "<span class='warning'>Access Denied.</span>")
-			return
-
-		safety = !safety
-		to_chat(user, "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency self destruct.</span>")
-
-	// Destroys all accessible cyborgs if safety is disabled
-	else if(href_list["nuke"])
-		if(istype(user, /mob/living/silicon))
-			to_chat(user, "Access Denied")
-			return
-		if(safety)
-			to_chat(user, "Self-destruct aborted - safety active")
-			return
-
-		message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
-		log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
-
-		for(var/mob/living/silicon/robot/R in mob_list)
-			if(istype(R, /mob/living/silicon/robot/drone))
-				continue
-			// Ignore antagonistic cyborgs
-			if(R.scrambledcodes)
-				continue
-			to_chat(R, "<span class='danger'>Self-destruct command received.</span>")
-			if(R.connected_ai)
-				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
-			spawn(10)
-				R.self_destruct()
-
 // Proc: get_cyborgs()
 // Parameters: 1 (operator - mob which is operating the console.)
 // Description: Returns NanoUI-friendly list of accessible cyborgs.
