@@ -122,7 +122,7 @@ var/global/sent_strike_team = 0
 
 /mob/living/carbon/human/proc/equip_death_commando(leader_selected = 0)
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/alt(src)
+	var/obj/item/radio/R = new /obj/item/radio/headset/alt(src)
 	R.set_frequency(DTH_FREQ)
 	equip_to_slot_or_del(R, slot_l_ear)
 	if(leader_selected == 0)
@@ -142,7 +142,7 @@ var/global/sent_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/storage/box/flashbangs(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
 	if(!leader_selected)
 		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
 	else

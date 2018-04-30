@@ -364,24 +364,26 @@ var/global/list/datum/stack_recipe/brass_recipes = list ( \
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
-var/global/list/datum/stack_recipe/plastic_recipes = list ( \
-	new/datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
-	new/datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/pspork, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic knife", /obj/item/kitchen/knife/plastic, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = 1), \
-	new/datum/stack_recipe("bear mould", /obj/item/kitchen/mould/bear, 1, on_floor = 1), \
-	new/datum/stack_recipe("worm mould", /obj/item/kitchen/mould/worm, 1, on_floor = 1), \
-	new/datum/stack_recipe("bean mould", /obj/item/kitchen/mould/bean, 1, on_floor = 1), \
-	new/datum/stack_recipe("ball mould", /obj/item/kitchen/mould/ball, 1, on_floor = 1), \
-	new/datum/stack_recipe("cane mould", /obj/item/kitchen/mould/cane, 1, on_floor = 1), \
-	new/datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = 1), \
-	new/datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = 1), \
-	new/datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1), \
-	)
+GLOBAL_LIST_INIT(plastic_recipes, list(
+	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
+	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
+	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/empty), \
+	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/large/empty,3), \
+	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/pspork, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic knife", /obj/item/kitchen/knife/plastic, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = 1), \
+	new /datum/stack_recipe("bear mould", /obj/item/kitchen/mould/bear, 1, on_floor = 1), \
+	new /datum/stack_recipe("worm mould", /obj/item/kitchen/mould/worm, 1, on_floor = 1), \
+	new /datum/stack_recipe("bean mould", /obj/item/kitchen/mould/bean, 1, on_floor = 1), \
+	new /datum/stack_recipe("ball mould", /obj/item/kitchen/mould/ball, 1, on_floor = 1), \
+	new /datum/stack_recipe("cane mould", /obj/item/kitchen/mould/cane, 1, on_floor = 1), \
+	new /datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = 1), \
+	new /datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = 1), \
+	new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1)))
 
 /obj/item/stack/sheet/plastic
 	name = "plastic"
@@ -390,10 +392,11 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 	icon_state = "sheet-plastic"
 	throwforce = 7
 	origin_tech = "materials=1;biotech=1"
+	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/plastic
 
 /obj/item/stack/sheet/plastic/New()
-	recipes = plastic_recipes
+	recipes = GLOB.plastic_recipes
 	. = ..()
 
 /obj/item/stack/sheet/plastic/fifty

@@ -26,7 +26,7 @@
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/shoes/laceup(src)
-	new /obj/item/device/radio/headset/heads/captain/alt(src)
+	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
@@ -49,12 +49,12 @@
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/head/hopcap(src)
 	new /obj/item/cartridge/hop(src)
-	new /obj/item/device/radio/headset/heads/hop(src)
+	new /obj/item/radio/headset/heads/hop(src)
 	new /obj/item/storage/box/ids(src)
 	new /obj/item/storage/box/PDAs(src)
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/gun/energy/gun/mini(src)
-	new /obj/item/device/flash(src)
+	new /obj/item/flash(src)
 	new /obj/item/clothing/accessory/petcollar(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
@@ -103,7 +103,7 @@
 	else
 		new /obj/item/storage/backpack/satchel_sec(src)
 	new /obj/item/cartridge/hos(src)
-	new /obj/item/device/radio/headset/heads/hos/alt(src)
+	new /obj/item/radio/headset/heads/hos/alt(src)
 	new /obj/item/clothing/under/rank/head_of_security(src)
 	new /obj/item/clothing/under/rank/head_of_security/formal(src)
 	new /obj/item/clothing/under/rank/head_of_security/corp(src)
@@ -141,7 +141,7 @@
 		new /obj/item/storage/backpack/security(src)
 	else
 		new /obj/item/storage/backpack/satchel_sec(src)
-	new /obj/item/device/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/suit/armor/vest/warden(src)
 	new /obj/item/clothing/head/warden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
@@ -180,10 +180,10 @@
 	else
 		new /obj/item/storage/backpack/satchel_sec(src)
 	new /obj/item/clothing/suit/armor/vest/security(src)
-	new /obj/item/device/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/device/flash(src)
+	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
@@ -210,7 +210,7 @@
 	else
 		new /obj/item/storage/backpack/satchel_med(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/device/flash(src)
+	new /obj/item/flash(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/firstaid/fire(src)
 	new /obj/item/storage/firstaid/adv(src)
@@ -219,7 +219,7 @@
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/device/radio/headset/headset_sec/alt(src)
+	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 
 
@@ -240,7 +240,7 @@
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/grenade/flashbang(src)
-	new /obj/item/device/flash(src)
+	new /obj/item/flash(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
@@ -269,8 +269,8 @@
 	..()
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/storage/briefcase(src)
-	new /obj/item/device/paicard(src)
-	new /obj/item/device/flash(src)
+	new /obj/item/paicard(src)
+	new /obj/item/flash(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
@@ -280,7 +280,7 @@
 	new /obj/item/clothing/head/ntrep(src)
 	new /obj/item/clothing/shoes/sandal/fancy(src)
 	new /obj/item/storage/box/tapes(src)
-	new /obj/item/device/taperecorder(src)
+	new /obj/item/taperecorder(src)
 
 
 /obj/structure/closet/secure_closet/security/cargo
@@ -288,7 +288,7 @@
 /obj/structure/closet/secure_closet/security/cargo/New()
 	..()
 	new /obj/item/clothing/accessory/armband/cargo(src)
-	new /obj/item/device/encryptionkey/headset_cargo(src)
+	new /obj/item/encryptionkey/headset_cargo(src)
 
 
 /obj/structure/closet/secure_closet/security/engine
@@ -296,7 +296,7 @@
 /obj/structure/closet/secure_closet/security/engine/New()
 	..()
 	new /obj/item/clothing/accessory/armband/engine(src)
-	new /obj/item/device/encryptionkey/headset_eng(src)
+	new /obj/item/encryptionkey/headset_eng(src)
 
 
 /obj/structure/closet/secure_closet/security/science
@@ -304,7 +304,7 @@
 /obj/structure/closet/secure_closet/security/science/New()
 	..()
 	new /obj/item/clothing/accessory/armband/science(src)
-	new /obj/item/device/encryptionkey/headset_sci(src)
+	new /obj/item/encryptionkey/headset_sci(src)
 
 
 /obj/structure/closet/secure_closet/security/med
@@ -312,7 +312,7 @@
 /obj/structure/closet/secure_closet/security/med/New()
 	..()
 	new /obj/item/clothing/accessory/armband/medgreen(src)
-	new /obj/item/device/encryptionkey/headset_med(src)
+	new /obj/item/encryptionkey/headset_med(src)
 
 
 /obj/structure/closet/secure_closet/detective
@@ -338,8 +338,8 @@
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/storage/box/evidence(src)
 	new /obj/item/clipboard(src)
-	new /obj/item/device/radio/headset/headset_sec/alt(src)
-	new /obj/item/device/detective_scanner(src)
+	new /obj/item/radio/headset/headset_sec/alt(src)
+	new /obj/item/detective_scanner(src)
 	new /obj/item/clothing/suit/armor/vest/det_suit(src)
 	new /obj/item/ammo_box/c38(src)
 	new /obj/item/ammo_box/c38(src)
@@ -347,9 +347,9 @@
 	new /obj/item/taperoll/police(src)
 	new /obj/item/clothing/accessory/holster/armpit(src)
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
-	new /obj/item/device/flashlight/seclite(src)
+	new /obj/item/flashlight/seclite(src)
 	new /obj/item/clothing/accessory/black(src)
-	new /obj/item/device/taperecorder(src)
+	new /obj/item/taperecorder(src)
 	new /obj/item/storage/box/tapes(src)
 
 /obj/structure/closet/secure_closet/detective/update_icon()
@@ -386,7 +386,7 @@
 	new /obj/item/clothing/under/color/orange/prison(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/card/id/prisoner/random(src)
-	new /obj/item/device/radio/headset(src)
+	new /obj/item/radio/headset(src)
 
 
 /obj/structure/closet/secure_closet/courtroom

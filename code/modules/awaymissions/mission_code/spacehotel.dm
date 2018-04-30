@@ -194,7 +194,7 @@
 	var/list/vacant_rooms[0]		// list of vacant room doors
 	var/list/guests[0]				// assoc list of [guest mob]=room id
 
-	var/obj/item/device/radio/radio	// for shouting at deadbeats
+	var/obj/item/radio/radio	// for shouting at deadbeats
 
 /obj/effect/hotel_controller/New()
 	..()
@@ -238,7 +238,7 @@
 		return null
 
 	D.occupant = occupant
-	D.roomtimer = addtimer(src, "process_room", PAY_INTERVAL, 0, roomid)
+	D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	vacant_rooms -= D
 	guests[occupant] = roomid
 
@@ -252,7 +252,7 @@
 		return
 
 	if(D.account.charge(100, transaction_purpose = "10 minutes", dest_name = name))
-		D.roomtimer = addtimer(src, "process_room", PAY_INTERVAL, 0, roomid)
+		D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	else
 		force_checkout(roomid)
 

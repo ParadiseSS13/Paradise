@@ -9,12 +9,12 @@
 				new /obj/item/clothing/under/chameleon(src)
 				new /obj/item/card/id/syndicate(src)
 				new /obj/item/storage/box/syndie_kit/emp(src)
-				new /obj/item/device/camera_bug(src)
+				new /obj/item/camera_bug(src)
 				return
 
 			if("thief")
 				new /obj/item/gun/energy/kinetic_accelerator/crossbow(src)
-				new /obj/item/device/chameleon(src)
+				new /obj/item/chameleon(src)
 				new /obj/item/clothing/gloves/color/black/thief(src)
 				new /obj/item/card/id/syndicate(src)
 				return
@@ -23,14 +23,14 @@
 				new /obj/item/gun/projectile/automatic/pistol(src)
 				new /obj/item/suppressor(src)
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
-				new /obj/item/device/encryptionkey/syndicate(src)
+				new /obj/item/encryptionkey/syndicate(src)
 				new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
 				new /obj/item/implanter/krav_maga(src)
 				new /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail(src)
 				return
 
 			if("sabotage")
-				new /obj/item/device/powersink(src)
+				new /obj/item/powersink(src)
 				new /obj/item/grenade/syndieminibomb(src)
 				new /obj/item/card/emag(src)
 				new /obj/item/grenade/clusterbuster/n2o(src)
@@ -58,7 +58,7 @@
 
 			if("hacker")
 				new /obj/item/aiModule/syndicate(src)
-				new /obj/item/device/encryptionkey/binary(src)
+				new /obj/item/encryptionkey/binary(src)
 				new /obj/item/aiModule/toyAI(src)
 				return
 
@@ -74,10 +74,10 @@
 				new /obj/item/clothing/gloves/color/yellow/power(src)
 				new /obj/item/pen/sleepy(src)
 				new /obj/item/clothing/glasses/thermal/syndi(src)
-				new /obj/item/device/flashlight/emp(src)
+				new /obj/item/flashlight/emp(src)
 				new /obj/item/clothing/shoes/syndigaloshes(src)
 				new /obj/item/stamp/chameleon(src)
-				new /obj/item/device/multitool/ai_detect(src)
+				new /obj/item/multitool/ai_detect(src)
 				return
 
 /obj/item/storage/box/syndie_kit

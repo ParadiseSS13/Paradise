@@ -238,7 +238,7 @@ Class Procs:
 /obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
 	if(!allowed(user))//no, not even HREF exploits
 		return 0
-	var/obj/item/device/multitool/P = get_multitool(usr)
+	var/obj/item/multitool/P = get_multitool(usr)
 	if(P && istype(P))
 		var/update_mt_menu=0
 		var/re_init=0

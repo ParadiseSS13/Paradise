@@ -6,7 +6,7 @@
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 
-	var/obj/item/radio/integrated/radio = null
+	var/obj/item/integrated_radio/radio = null
 
 	var/charges = 0
 
@@ -29,7 +29,7 @@
 	QDEL_LIST(messenger_plugins)
 	return ..()
 
-/obj/item/cartridge/proc/update_programs(obj/item/device/pda/pda)
+/obj/item/cartridge/proc/update_programs(obj/item/pda/pda)
 	for(var/A in programs)
 		var/datum/data/pda/P = A
 		P.pda = pda
@@ -69,7 +69,7 @@
 		new/datum/data/pda/app/secbot_control)
 
 /obj/item/cartridge/security/initialize()
-	radio = new /obj/item/radio/integrated/beepsky(src)
+	radio = new /obj/item/integrated_radio/beepsky(src)
 	..()
 
 /obj/item/cartridge/detective
@@ -119,7 +119,7 @@
 	programs = list(new/datum/data/pda/app/signaller)
 
 /obj/item/cartridge/signal/initialize()
-	radio = new /obj/item/radio/integrated/signal(src)
+	radio = new /obj/item/integrated_radio/signal(src)
 	..()
 
 /obj/item/cartridge/signal/toxins
@@ -142,7 +142,7 @@
 		new/datum/data/pda/app/mule_control)
 
 /obj/item/cartridge/quartermaster/initialize()
-	radio = new /obj/item/radio/integrated/mule(src)
+	radio = new /obj/item/integrated_radio/mule(src)
 	..()
 
 /obj/item/cartridge/head
@@ -164,7 +164,7 @@
 		new/datum/data/pda/app/status_display)
 
 /obj/item/cartridge/hop/initialize()
-	radio = new /obj/item/radio/integrated/mule(src)
+	radio = new /obj/item/integrated_radio/mule(src)
 	..()
 
 /obj/item/cartridge/hos
@@ -177,7 +177,7 @@
 		new/datum/data/pda/app/status_display)
 
 /obj/item/cartridge/hos/initialize()
-	radio = new /obj/item/radio/integrated/beepsky(src)
+	radio = new /obj/item/integrated_radio/beepsky(src)
 	..()
 
 /obj/item/cartridge/ce
@@ -215,7 +215,7 @@
 		new/datum/data/pda/app/status_display)
 
 /obj/item/cartridge/rd/initialize()
-	radio = new /obj/item/radio/integrated/signal(src)
+	radio = new /obj/item/integrated_radio/signal(src)
 	..()
 
 /obj/item/cartridge/captain
@@ -243,7 +243,7 @@
 		new/datum/data/pda/app/status_display)
 
 /obj/item/cartridge/captain/initialize()
-	radio = new /obj/item/radio/integrated/beepsky(src)
+	radio = new /obj/item/integrated_radio/beepsky(src)
 	..()
 
 /obj/item/cartridge/supervisor
@@ -280,7 +280,7 @@
 		new/datum/data/pda/app/status_display)
 
 /obj/item/cartridge/centcom/initialize()
-	radio = new /obj/item/radio/integrated/beepsky(src)
+	radio = new /obj/item/integrated_radio/beepsky(src)
 	..()
 
 /obj/item/cartridge/syndicate
@@ -295,6 +295,13 @@
 	var/datum/data/pda/utility/toggle_door/D = programs[1]
 	if(istype(D))
 		D.remote_door_id = initial_remote_door_id
+
+/obj/item/cartridge/frame
+	name = "F.R.A.M.E. cartridge"
+	icon_state = "cart"
+	charges = 5
+	var/telecrystals = 0
+	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/frame)
 
 /obj/item/cartridge/mob_hunt_game
 	name = "Nano-Mob Hunter GO! Cartridge"

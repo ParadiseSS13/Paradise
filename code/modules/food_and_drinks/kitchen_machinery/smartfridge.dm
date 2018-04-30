@@ -215,7 +215,7 @@
 	if(default_deconstruction_crowbar(O))
 		return
 
-	if(istype(O, /obj/item/device/multitool)||istype(O, /obj/item/wirecutters))
+	if(istype(O, /obj/item/multitool)||istype(O, /obj/item/wirecutters))
 		if(panel_open)
 			attack_hand(user)
 		return

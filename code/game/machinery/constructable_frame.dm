@@ -652,7 +652,7 @@ obj/item/circuitboard/rdserver
 
 /obj/item/circuitboard/podfab
 	name = "Circuit board (Spacepod Fabricator)"
-	build_path = /obj/machinery/spod_part_fabricator //ah fuck my life
+	build_path = /obj/machinery/mecha_part_fabricator/spacepod
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
 	frame_desc = "Requires 3 Matter Bins, 2 Manipulators, 2 Micro-Lasers, and 1 Console Screen."
@@ -912,7 +912,7 @@ obj/item/circuitboard/rdserver
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/device/assembly/igniter = 1)
+							/obj/item/assembly/igniter = 1)
 
 /obj/item/circuitboard/mining_equipment_vendor
 	name = "circuit board (Mining Equipment Vendor)"

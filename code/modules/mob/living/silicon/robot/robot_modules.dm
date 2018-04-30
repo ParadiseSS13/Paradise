@@ -27,7 +27,7 @@
 
 
 /obj/item/robot_module/New()
-	modules += new /obj/item/device/flash/cyborg(src)
+	modules += new /obj/item/flash/cyborg(src)
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
 
@@ -113,7 +113,7 @@
 	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/wrench/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/device/healthanalyzer(src)
+	modules += new /obj/item/healthanalyzer(src)
 	emag = new /obj/item/melee/energy/sword/cyborg(src)
 
 	fix_modules()
@@ -131,9 +131,9 @@
 
 /obj/item/robot_module/medical/New()
 	..()
-	modules += new /obj/item/device/healthanalyzer/advanced(src)
-	modules += new /obj/item/device/robotanalyzer(src)
-	modules += new /obj/item/device/reagent_scanner/adv(src)
+	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/robotanalyzer(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/borg_defib(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo(src)
@@ -195,13 +195,13 @@
 	modules += new /obj/item/wrench/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/wirecutters/cyborg(src)
-	modules += new /obj/item/device/multitool/cyborg(src)
-	modules += new /obj/item/device/t_scanner(src)
-	modules += new /obj/item/device/analyzer(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/t_scanner(src)
+	modules += new /obj/item/analyzer(src)
 	modules += new /obj/item/taperoll/engineering(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
-	modules += new /obj/item/device/floor_painter(src)
+	modules += new /obj/item/floor_painter(src)
 	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
@@ -237,7 +237,7 @@
 	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/storage/bag/trash/cyborg(src)
 	modules += new /obj/item/mop/advanced/cyborg(src)
-	modules += new /obj/item/device/lightreplacer(src)
+	modules += new /obj/item/lightreplacer(src)
 	modules += new /obj/item/holosign_creator(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
@@ -272,8 +272,8 @@
 
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
-	modules += new /obj/item/device/instrument/piano_synth(src)
-	modules += new /obj/item/device/healthanalyzer/advanced(src)
+	modules += new /obj/item/instrument/piano_synth(src)
+	modules += new /obj/item/healthanalyzer/advanced(src)
 
 	var/obj/item/rsf/M = new /obj/item/rsf(src)
 	M.matter = 30
@@ -334,9 +334,9 @@
 	modules += new /obj/item/weldingtool/mini(src)
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/storage/bag/sheetsnatcher/borg(src)
-	modules += new /obj/item/device/t_scanner/adv_mining_scanner/cyborg(src)
+	modules += new /obj/item/t_scanner/adv_mining_scanner/cyborg(src)
 	modules += new /obj/item/gun/energy/kinetic_accelerator/cyborg(src)
-	modules += new /obj/item/device/gps/cyborg(src)
+	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
@@ -385,8 +385,8 @@
 
 /obj/item/robot_module/syndicate_medical/New()
 	..()
-	modules += new /obj/item/device/healthanalyzer/advanced(src)
-	modules += new /obj/item/device/reagent_scanner/adv(src)
+	modules += new /obj/item/healthanalyzer/advanced(src)
+	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/borg_defib(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/reagent_containers/borghypo/syndicate(src)
@@ -455,7 +455,7 @@
 
 /obj/item/robot_module/alien/hunter/New()
 	modules += new /obj/item/melee/energy/alien/claws(src)
-	modules += new /obj/item/device/flash/cyborg/alien(src)
+	modules += new /obj/item/flash/cyborg/alien(src)
 	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
 	S.reagents.add_reagent("ether",250) //nerfed to sleeptoxin to make it less instant drop.
 	modules += S
@@ -492,13 +492,13 @@
 	modules += new /obj/item/wrench/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/wirecutters/cyborg(src)
-	modules += new /obj/item/device/multitool/cyborg(src)
-	modules += new /obj/item/device/lightreplacer(src)
+	modules += new /obj/item/multitool/cyborg(src)
+	modules += new /obj/item/lightreplacer(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src)
 	modules += new /obj/item/soap(src)
-	modules += new /obj/item/device/t_scanner(src)
+	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/rpd(src)
 
 	for(var/T in stacktypes)
@@ -512,7 +512,7 @@
 	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
 	C.reagents.add_reagent("cleaner", 3)
 
-	var/obj/item/device/lightreplacer/LR = locate() in modules
+	var/obj/item/lightreplacer/LR = locate() in modules
 	LR.Charge(R)
 
 	..()

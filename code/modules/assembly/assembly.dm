@@ -1,4 +1,4 @@
-/obj/item/device/assembly
+/obj/item/assembly
 	name = "assembly"
 	desc = "A small electronic device that should never exist."
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
@@ -17,7 +17,7 @@
 
 	var/secured = 1
 	var/list/attached_overlays = null
-	var/obj/item/device/assembly_holder/holder = null
+	var/obj/item/assembly_holder/holder = null
 	var/cooldown = 0//To prevent spam
 	var/wires = WIRE_RECEIVE | WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
@@ -64,8 +64,8 @@
 		return 1
 
 	Destroy()
-		if(istype(src.loc, /obj/item/device/assembly_holder) || istype(holder))
-			var/obj/item/device/assembly_holder/A = src.loc
+		if(istype(src.loc, /obj/item/assembly_holder) || istype(holder))
+			var/obj/item/assembly_holder/A = src.loc
 			if(A.a_left == src)
 				A.a_left = null
 			else if(A.a_right == src)
@@ -113,8 +113,8 @@
 		return secured
 
 
-	attach_assembly(var/obj/item/device/assembly/A, var/mob/user)
-		holder = new/obj/item/device/assembly_holder(get_turf(src))
+	attach_assembly(var/obj/item/assembly/A, var/mob/user)
+		holder = new/obj/item/assembly_holder(get_turf(src))
 		if(holder.attach(A,src,user))
 			to_chat(user, "<span class='notice'>You attach \the [A] to \the [src]!</span>")
 			return 1
@@ -123,7 +123,7 @@
 
 	attackby(obj/item/W as obj, mob/user as mob, params)
 		if(isassembly(W))
-			var/obj/item/device/assembly/A = W
+			var/obj/item/assembly/A = W
 			if((!A.secured) && (!secured))
 				attach_assembly(A,user)
 				return

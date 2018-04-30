@@ -56,7 +56,7 @@ var/list/uplink_items = list()
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
 
-/datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
+/datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
 			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
@@ -74,7 +74,7 @@ var/list/uplink_items = list()
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
 
-/datum/uplink_item/proc/buy(var/obj/item/device/uplink/hidden/U, var/mob/user)
+/datum/uplink_item/proc/buy(var/obj/item/uplink/hidden/U, var/mob/user)
 	..()
 
 	if(!istype(U))
@@ -207,7 +207,7 @@ var/list/uplink_items = list()
 	name = "Radiation Laser"
 	desc = "A radiation laser concealed inside of a Health Analyser. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyser, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
-	item = /obj/item/device/rad_laser
+	item = /obj/item/rad_laser
 	cost = 5
 	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
 
@@ -449,7 +449,7 @@ var/list/uplink_items = list()
 	name = "Mind Batterer"
 	desc = "A device that has a chance of knocking down people around you for a long amount of time. 50% chance per person. The user is unaffected. Has 5 charges."
 	reference = "BTR"
-	item = /obj/item/device/batterer
+	item = /obj/item/batterer
 	cost = 5
 
 /datum/uplink_item/dangerous/manhacks
@@ -812,7 +812,7 @@ var/list/uplink_items = list()
 	name = "Pizza Bomb"
 	desc = "A pizza box with a bomb taped inside of it. The timer needs to be set by opening the box; afterwards, opening the box again will trigger the detonation."
 	reference = "PB"
-	item = /obj/item/device/pizza_bomb
+	item = /obj/item/pizza_bomb
 	cost = 5
 	surplus = 8
 
@@ -874,6 +874,16 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	excludefrom = list()
 
+/datum/uplink_item/stealthy_tools/frame
+	name = "F.R.A.M.E. PDA Cartridge"
+	desc = "When inserted into a personal digital assistant, this cartridge gives you five PDA viruses which \
+			when used cause the targeted PDA to become a new uplink with zero TCs, and immediately become unlocked.  \
+			You will receive the unlock code upon activating the virus, and the new uplink may be charged with \
+			telecrystals normally."
+	reference = "FRAME"
+	item = /obj/item/cartridge/frame
+	cost = 4
+
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
 	desc = "Agent cards prevent artificial intelligences from tracking the wearer, and can copy access from other identification cards. The access is cumulative, so scanning one card does not erase the access gained from another."
@@ -892,14 +902,14 @@ var/list/uplink_items = list()
 	name = "Chameleon-Projector"
 	desc = "Projects an image across a user, disguising them as an object scanned with it, as long as they don't move the projector from their hand. The disguised user cannot run and projectiles pass over them."
 	reference = "CP"
-	item = /obj/item/device/chameleon
+	item = /obj/item/chameleon
 	cost = 7
 
 /datum/uplink_item/stealthy_tools/camera_bug
 	name = "Camera Bug"
 	desc = "Enables you to view all cameras on the network and track a target. Bugging cameras allows you to disable them remotely."
 	reference = "CB"
-	item = /obj/item/device/camera_bug
+	item = /obj/item/camera_bug
 	cost = 1
 	surplus = 90
 
@@ -923,7 +933,7 @@ var/list/uplink_items = list()
 	desc = "A small, self-charging, short-ranged EMP device disguised as a flashlight. \
 		Useful for disrupting headsets, cameras, and borgs during stealth operations."
 	reference = "EMPL"
-	item = /obj/item/device/flashlight/emp
+	item = /obj/item/flashlight/emp
 	cost = 2
 	surplus = 30
 
@@ -1044,7 +1054,7 @@ var/list/uplink_items = list()
 	name = "Binary Translator Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to and talk with artificial intelligences and cybernetic organisms in binary."
 	reference = "BITK"
-	item = /obj/item/device/encryptionkey/binary
+	item = /obj/item/encryptionkey/binary
 	cost = 5
 	surplus = 75
 
@@ -1052,7 +1062,7 @@ var/list/uplink_items = list()
 	name = "Syndicate Encryption Key"
 	desc = "A key, that when inserted into a radio headset, allows you to listen to all station department channels as well as talk on an encrypted Syndicate channel."
 	reference = "SEK"
-	item = /obj/item/device/encryptionkey/syndicate
+	item = /obj/item/encryptionkey/syndicate
 	cost = 2 //Nowhere near as useful as the Binary Key!
 	surplus = 75
 
@@ -1100,7 +1110,7 @@ var/list/uplink_items = list()
 	name = "Power Sink"
 	desc = "When screwed to wiring attached to an electric grid, then activated, this large device places excessive load on the grid, causing a stationwide blackout. The sink cannot be carried because of its excessive size. Ordering this sends you a small beacon that will teleport the power sink to your location on activation."
 	reference = "PS"
-	item = /obj/item/device/powersink
+	item = /obj/item/powersink
 	cost = 10
 
 /datum/uplink_item/device_tools/singularity_beacon
@@ -1110,7 +1120,7 @@ var/list/uplink_items = list()
 			in containment. Because of its size, it cannot be carried. Ordering this \
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
-	item = /obj/item/device/radio/beacon/syndicate
+	item = /obj/item/radio/beacon/syndicate
 	cost = 12
 	surplus = 0
 
@@ -1119,7 +1129,7 @@ var/list/uplink_items = list()
 	desc = "The Syndicate Bomb has an adjustable timer with a minimum setting of 60 seconds. Ordering the bomb sends you a small beacon, which will teleport the explosive to your location when you activate it. \
 	You can wrench the bomb down to prevent removal. The crew may attempt to defuse the bomb."
 	reference = "SB"
-	item = /obj/item/device/radio/beacon/syndicate/bomb
+	item = /obj/item/radio/beacon/syndicate/bomb
 	cost = 11
 
 /datum/uplink_item/device_tools/syndicate_detonator
@@ -1127,7 +1137,7 @@ var/list/uplink_items = list()
 	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live syndicate bombs to detonate. \
 	Useful for when speed matters or you wish to synchronize multiple bomb blasts. Be sure to stand clear of the blast radius before using the detonator."
 	reference = "SD"
-	item = /obj/item/device/syndicatedetonator
+	item = /obj/item/syndicatedetonator
 	cost = 3
 	gamemodes = list(/datum/game_mode/nuclear)
 
@@ -1142,7 +1152,7 @@ var/list/uplink_items = list()
 	name = "Artificial Intelligence Detector" // changed name in case newfriends thought it detected disguised ai's
 	desc = "A functional multitool that turns red when it detects an artificial intelligence watching it or its holder. Knowing when an artificial intelligence is watching you is useful for knowing when to maintain cover."
 	reference = "AID"
-	item = /obj/item/device/multitool/ai_detect
+	item = /obj/item/multitool/ai_detect
 	cost = 1
 
 /datum/uplink_item/device_tools/telecrystal
@@ -1153,11 +1163,25 @@ var/list/uplink_items = list()
 	cost = 1
 	surplus = 0
 
+/datum/uplink_item/device_tools/telecrystal/five
+	name = "5 Raw Telecrystals"
+	desc = "Five telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	reference = "RTCF"
+	item = /obj/item/stack/telecrystal/five
+	cost = 5
+
+/datum/uplink_item/device_tools/telecrystal/twenty
+	name = "20 Raw Telecrystals"
+	desc = "Twenty telecrystals in their rawest and purest form; can be utilized on active uplinks to increase their telecrystal count."
+	reference = "RTCT"
+	item = /obj/item/stack/telecrystal/twenty
+	cost = 20
+
 /datum/uplink_item/device_tools/jammer
 	name = "Radio Jammer"
 	desc = "This device will disrupt any nearby outgoing radio communication when activated."
 	reference = "RJ"
-	item = /obj/item/device/jammer
+	item = /obj/item/jammer
 	cost = 5
 
 /datum/uplink_item/device_tools/teleporter
@@ -1172,7 +1196,7 @@ var/list/uplink_items = list()
 /datum/uplink_item/device_tools/assault_pod
 	name = "Assault Pod Targetting Device"
 	desc = "Use to select the landing zone of your assault pod."
-	item = /obj/item/device/assault_pod
+	item = /obj/item/assault_pod
 	reference = "APT"
 	cost = 25
 	gamemodes = list(/datum/game_mode/nuclear)
@@ -1252,7 +1276,7 @@ var/list/uplink_items = list()
 	surplus = 0
 	gamemodes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/device/uplink/U)
+/datum/uplink_item/cyber_implants/spawn_item(turf/loc, obj/item/uplink/U)
 	if(item)
 		if(findtext(item, /obj/item/organ/internal/cyberimp))
 			U.uses -= max(cost, 0)
@@ -1360,7 +1384,7 @@ var/list/uplink_items = list()
 	item = /obj/item/storage/box/syndicate
 	cost = 0
 
-/datum/uplink_item/badass/random/spawn_item(var/turf/loc, var/obj/item/device/uplink/U)
+/datum/uplink_item/badass/random/spawn_item(var/turf/loc, var/obj/item/uplink/U)
 
 	var/list/buyable_items = get_uplink_items()
 	var/list/possible_items = list()
@@ -1387,7 +1411,7 @@ var/list/uplink_items = list()
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/device/uplink/U)
+/datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
 	var/list/temp_uplink_list = get_uplink_items()
 	var/list/buyable_items = list()

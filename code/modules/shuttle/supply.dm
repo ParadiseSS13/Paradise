@@ -239,7 +239,7 @@
 		/obj/structure/spider/spiderling,
 		/obj/item/disk/nuclear,
 		/obj/machinery/nuclearbomb,
-		/obj/item/device/radio/beacon,
+		/obj/item/radio/beacon,
 		/obj/machinery/the_singularitygen,
 		/obj/singularity,
 		/obj/machinery/teleport/station,
@@ -248,7 +248,7 @@
 		/obj/machinery/telepad_cargo,
 		/obj/machinery/clonepod,
 		/obj/effect/hierophant,
-		/obj/item/device/warp_cube,
+		/obj/item/warp_cube,
 		/obj/machinery/quantumpad
 	)
 	if(A)

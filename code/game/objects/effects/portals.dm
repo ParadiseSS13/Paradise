@@ -52,5 +52,5 @@
 			do_teleport(M, target, precision) ///You will appear adjacent to the beacon
 
 /obj/effect/portal/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/device/multitool) && can_multitool_to_remove)
+	if(istype(A, /obj/item/multitool) && can_multitool_to_remove)
 		qdel(src)

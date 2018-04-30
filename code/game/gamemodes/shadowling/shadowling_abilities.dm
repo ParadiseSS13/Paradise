@@ -55,20 +55,20 @@
 	charge_max = 150 //Short cooldown because people can just turn the lights back on
 	clothes_req = 0
 	range = 5
-	var/blacklisted_lights = list(/obj/item/device/flashlight/flare, /obj/item/device/flashlight/slime)
+	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
 	action_icon_state = "veil"
 
 /obj/effect/proc_holder/spell/aoe_turf/veil/proc/extinguishItem(var/obj/item/I) //WARNING NOT SUFFICIENT TO EXTINGUISH AN ITEM HELD BY A MOB
-	if(istype(I, /obj/item/device/flashlight))
-		var/obj/item/device/flashlight/F = I
+	if(istype(I, /obj/item/flashlight))
+		var/obj/item/flashlight/F = I
 		if(F.on)
 			if(is_type_in_list(I, blacklisted_lights))
 				I.visible_message("<span class='danger'>[I] dims slightly before scattering the shadows around it.</span>")
 				return
 			F.on = 0
 			F.update_brightness()
-	else if(istype(I, /obj/item/device/pda))
-		var/obj/item/device/pda/P = I
+	else if(istype(I, /obj/item/pda))
+		var/obj/item/pda/P = I
 		var/datum/data/pda/utility/flashlight/FL = P.find_program(/datum/data/pda/utility/flashlight)
 		if(FL && FL.fon)
 			FL.start()
@@ -85,7 +85,7 @@
 	else if(istype(I, /obj/item/gun))
 		var/obj/item/gun/G = I
 		if(G.gun_light)
-			var/obj/item/device/flashlight/F = G.gun_light
+			var/obj/item/flashlight/F = G.gun_light
 			if(F.on)
 				G.toggle_gunlight()
 				G.visible_message("<span class='danger'>[G]'s light fades and turns off.</span>")

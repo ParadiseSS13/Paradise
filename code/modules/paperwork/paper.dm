@@ -669,5 +669,5 @@
 		if(!istype(G) || G.transfer_prints)
 			H.reagents.add_reagent(contact_poison, contact_poison_volume)
 			contact_poison = null
-			add_logs(user, src, "picked up [src], the paper poisoned by [contact_poison_poisoner]")
+			add_attack_logs(src, user, "Picked up [src], the paper poisoned by [contact_poison_poisoner]")
 	..()

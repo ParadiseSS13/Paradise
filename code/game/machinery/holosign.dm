@@ -49,7 +49,7 @@
 	return src.attack_hand(user)
 
 /obj/machinery/holosign_switch/attackby(obj/item/W, mob/user as mob, params)
-	if(istype(W, /obj/item/device/detective_scanner))
+	if(istype(W, /obj/item/detective_scanner))
 		return
 	return src.attack_hand(user)
 

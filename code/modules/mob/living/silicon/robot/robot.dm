@@ -33,7 +33,7 @@ var/list/robot_verbs_default = list(
 	var/module_state_2 = null
 	var/module_state_3 = null
 
-	var/obj/item/device/radio/borg/radio = null
+	var/obj/item/radio/borg/radio = null
 	var/mob/living/silicon/ai/connected_ai = null
 	var/obj/item/stock_parts/cell/cell = null
 	var/obj/machinery/camera/camera = null
@@ -42,9 +42,9 @@ var/list/robot_verbs_default = list(
 	var/list/components = list()
 
 	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
-	var/obj/item/device/mmi/mmi = null
+	var/obj/item/mmi/mmi = null
 
-	var/obj/item/device/pda/silicon/robot/rbPDA = null
+	var/obj/item/pda/silicon/robot/rbPDA = null
 
 	var/datum/wires/robot/wires = null
 
@@ -115,7 +115,7 @@ var/list/robot_verbs_default = list(
 	update_icons()
 	update_headlamp()
 
-	radio = new /obj/item/device/radio/borg(src)
+	radio = new /obj/item/radio/borg(src)
 	common_radio = radio
 
 	init()
@@ -128,7 +128,7 @@ var/list/robot_verbs_default = list(
 			camera.status = 0
 
 	if(mmi == null)
-		mmi = new /obj/item/device/mmi/posibrain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a posibrain, but it works)
+		mmi = new /obj/item/mmi/posibrain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a posibrain, but it works)
 		mmi.icon_state="posibrain-occupied"
 
 	initialize_components()
@@ -158,7 +158,7 @@ var/list/robot_verbs_default = list(
 	scanner.Grant(src)
 
 /mob/living/silicon/robot/proc/init(var/alien=0)
-	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	make_laws()
 	additional_law_channels["Binary"] = ":b "
 	var/new_ai = select_active_ai_with_fewest_borgs()
@@ -207,7 +207,7 @@ var/list/robot_verbs_default = list(
 	if(prefix)
 		modtype = prefix
 	if(mmi)
-		if(istype(mmi, /obj/item/device/mmi/posibrain))
+		if(istype(mmi, /obj/item/mmi/posibrain))
 			braintype = "Android"
 		else
 			braintype = "Cyborg"
@@ -695,7 +695,7 @@ var/list/robot_verbs_default = list(
 			C.electronics_damage = 0
 			diag_hud_set_borgcell()
 
-	else if(istype(W, /obj/item/wirecutters) || istype(W, /obj/item/device/multitool))
+	else if(istype(W, /obj/item/wirecutters) || istype(W, /obj/item/multitool))
 		if(wiresexposed)
 			wires.Interact(user)
 		else
@@ -713,13 +713,13 @@ var/list/robot_verbs_default = list(
 			to_chat(user, "Unable to locate a radio.")
 		update_icons()
 
-	else if(istype(W, /obj/item/device/encryptionkey/) && opened)
+	else if(istype(W, /obj/item/encryptionkey/) && opened)
 		if(radio)//sanityyyyyy
 			radio.attackby(W,user)//GTFO, you have your own procs
 		else
 			to_chat(user, "Unable to locate a radio.")
 
-	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
+	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
 			to_chat(user, "The interface seems slightly damaged.")
 		if(opened)
@@ -832,125 +832,9 @@ var/list/robot_verbs_default = list(
 				update_icons()
 				to_chat(usr, "You unlock your cover.")
 
-/mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
-	switch(M.a_intent)
-
-		if(INTENT_HELP)
-			for(var/mob/O in viewers(src, null))
-				if((O.client && !( O.blinded )))
-					O.show_message(text("<span class='notice'>[M] caresses [src]'s plating with its scythe like arm.</span>"), 1)
-
-		if(INTENT_GRAB)
-			grabbedby(M)
-
-		if(INTENT_HARM)
-			M.do_attack_animation(src)
-			var/damage = rand(10, 20)
-			if(prob(90))
-				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] has slashed at [src]!</span>",\
-								"<span class='userdanger'>[M] has slashed at [src]!</span>")
-				if(prob(8))
-					flash_eyes(affect_silicon = 1)
-				adjustBruteLoss(damage)
-				updatehealth()
-			else
-				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-				visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
-								"<span class='userdanger'>[M] took a swipe at [src]!</span>")
-
-		if(INTENT_DISARM)
-			if(!(lying))
-				M.do_attack_animation(src)
-				if(prob(85))
-					Stun(7)
-					step(src,get_dir(M,src))
-					spawn(5)
-						step(src,get_dir(M,src))
-					playsound(loc, 'sound/weapons/pierce.ogg', 50, 1, -1)
-					visible_message("<span class='danger'>[M] has forced back [src]!</span>",\
-									"<span class='userdanger'>[M] has forced back [src]!</span>")
-				else
-					playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-					visible_message("<span class='danger'>[M] attempted to force back [src]!</span>",\
-									"<span class='userdanger'>[M] attempted to force back [src]!</span>")
-	return
-
-
-
-/mob/living/silicon/robot/attack_slime(mob/living/carbon/slime/M as mob)
-	if(..()) //successful slime shock
-		flash_eyes(affect_silicon = 1)
-		var/stunprob = M.powerlevel * 7 + 10
-		if(prob(stunprob) && M.powerlevel >= 8)
-			adjustBruteLoss(M.powerlevel * rand(6,10))
-
-	var/damage = rand(1, 3)
-
-	if(M.is_adult)
-		damage = rand(20, 40)
-	else
-		damage = rand(5, 35)
-	damage = round(damage / 2) // borgs recieve half damage
-	adjustBruteLoss(damage)
-	updatehealth()
-
-	return
-
-/mob/living/silicon/robot/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
-	else
-		M.do_attack_animation(src)
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'><B>[M]</B> [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		switch(M.melee_damage_type)
-			if(BRUTE)
-				adjustBruteLoss(damage)
-			if(BURN)
-				adjustFireLoss(damage)
-			if(TOX)
-				adjustToxLoss(damage)
-			if(OXY)
-				adjustOxyLoss(damage)
-			if(CLONE)
-				adjustCloneLoss(damage)
-			if(STAMINA)
-				adjustStaminaLoss(damage)
-		updatehealth()
-
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
 		wires.Interact(user)
-
-/mob/living/silicon/robot/attack_hand(mob/user)
-	add_fingerprint(user)
-
-	if(opened && !wiresexposed && (!istype(user, /mob/living/silicon)))
-		if(cell)
-			cell.updateicon()
-			cell.add_fingerprint(user)
-			user.put_in_active_hand(cell)
-			to_chat(user, "You remove \the [cell].")
-			cell = null
-			update_icons()
-			diag_hud_set_borgcell()
-
-	if(!opened && (!istype(user, /mob/living/silicon)))
-		if(user.a_intent == INTENT_HELP)
-			user.visible_message("<span class='notice'>[user] pets [src]!</span>", \
-								"<span class='notice'>You pet [src]!</span>")
 
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
@@ -1162,7 +1046,7 @@ var/list/robot_verbs_default = list(
 		new /obj/item/robot_parts/head(T)
 		var/b
 		for(b=0, b!=2, b++)
-			var/obj/item/device/flash/F = new /obj/item/device/flash(T)
+			var/obj/item/flash/F = new /obj/item/flash(T)
 			F.burn_out()
 	if(cell) //Sanity check.
 		cell.forceMove(T)
@@ -1377,8 +1261,8 @@ var/list/robot_verbs_default = list(
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
 
-	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
-	radio = new /obj/item/device/radio/borg/deathsquad(src)
+	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
+	radio = new /obj/item/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
@@ -1431,8 +1315,8 @@ var/list/robot_verbs_default = list(
 	laws = new /datum/ai_laws/syndicate_override
 	module = new /obj/item/robot_module/syndicate(src)
 
-	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
-	radio = new /obj/item/device/radio/borg/syndicate(src)
+	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
+	radio = new /obj/item/radio/borg/syndicate(src)
 	radio.recalculateChannels()
 
 	spawn(5)
@@ -1492,9 +1376,9 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/ert/init()
 	laws = new /datum/ai_laws/ert_override
-	radio = new /obj/item/device/radio/borg/ert(src)
+	radio = new /obj/item/radio/borg/ert(src)
 	radio.recalculateChannels()
-	aiCamera = new/obj/item/device/camera/siliconcam/robot_camera(src)
+	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
 /mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
 	..(loc)

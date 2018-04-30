@@ -73,8 +73,8 @@
 	desc = "A standard reinforced braincase, with spine-plugged neural socket and sensor gimbals."
 	icon_state = "head"
 	part = list("head")
-	var/obj/item/device/flash/flash1 = null
-	var/obj/item/device/flash/flash2 = null
+	var/obj/item/flash/flash1 = null
+	var/obj/item/flash/flash2 = null
 
 /obj/item/robot_parts/head/Destroy()
 	QDEL_NULL(flash1)
@@ -210,14 +210,14 @@
 		else
 			to_chat(user, "<span class='notice'>You need to attach a flash to it first!</span>")
 
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		if(check_completion())
 			Interact(user)
 		else
 			to_chat(user, "<span class='warning'>The endoskeleton must be assembled before debugging can begin!</span>")
 
-	if(istype(W, /obj/item/device/mmi))
-		var/obj/item/device/mmi/M = W
+	if(istype(W, /obj/item/mmi))
+		var/obj/item/mmi/M = W
 		if(check_completion())
 			if(!isturf(loc))
 				to_chat(user, "<span class='warning'>You can't put [M] in, the frame has to be standing on the ground to be perfectly precise.</span>")
@@ -341,7 +341,7 @@
 
 	var/mob/living/living_user = usr
 	var/obj/item/item_in_hand = living_user.get_active_hand()
-	if(!istype(item_in_hand, /obj/item/device/multitool))
+	if(!istype(item_in_hand, /obj/item/multitool))
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
 		return
 
@@ -396,7 +396,7 @@
 
 /obj/item/robot_parts/head/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	if(istype(W, /obj/item/device/flash))
+	if(istype(W, /obj/item/flash))
 		if(istype(user,/mob/living/silicon/robot))
 			to_chat(user, "<span class='warning'>How do you propose to do that?</span>")
 			return

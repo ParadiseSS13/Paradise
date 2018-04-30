@@ -101,7 +101,7 @@
 	name = "Move Small Containers"
 	id = "boxes"
 	blacklist = null
-	whitelist = list(/obj/item/storage, /obj/item/moneybag, /obj/item/evidencebag,
+	whitelist = list(/obj/item/storage, /obj/item/storage/bag/money, /obj/item/evidencebag,
 					/obj/item/storage/bag/tray, /obj/item/pizzabox, /obj/item/clipboard,
 					/obj/item/smallDelivery, /obj/structure/bigDelivery)
 
@@ -235,7 +235,7 @@
 	blacklist = list(/obj/item/tank/plasma,/obj/item/tank/anesthetic, // the rest are air tanks
 					/obj/item/clothing/mask/facehugger) // NOT CLOTHING AT ALLLLL
 	whitelist = list(/obj/item/clothing,/obj/item/storage/belt,/obj/item/storage/backpack,
-					/obj/item/device/radio/headset,/obj/item/device/pda,/obj/item/card/id,/obj/item/tank,
+					/obj/item/radio/headset,/obj/item/pda,/obj/item/card/id,/obj/item/tank,
 					/obj/item/restraints/handcuffs, /obj/item/restraints/legcuffs)
 
 /datum/cargoprofile/trash
@@ -262,7 +262,7 @@
 	name = "Devices & Tools"
 	id = "tools"
 	blacklist = null
-	whitelist = list(/obj/item/device,/obj/item/card,/obj/item/cartridge,/obj/item/cautery,/obj/item/stock_parts/cell,/obj/item/circuitboard,
+	whitelist = list(/obj/item,/obj/item/card,/obj/item/cartridge,/obj/item/cautery,/obj/item/stock_parts/cell,/obj/item/circuitboard,
 					/obj/item/aiModule,/obj/item/airalarm_electronics,/obj/item/airlock_electronics,/obj/item/circular_saw,
 					/obj/item/crowbar,/obj/item/disk,/obj/item/firealarm_electronics,/obj/item/hand_tele,
 					/obj/item/hand_labeler,/obj/item/hemostat,/obj/item/mop,/obj/item/locator,/obj/item/cultivator,

@@ -37,7 +37,7 @@ var/global/datum/controller/process/weather/weather_master
 		var/datum/weather/W = pickweight(possible_weather_for_this_z)
 		run_weather(W.name)
 		eligible_zlevels -= Z
-		addtimer(src, "make_z_eligible", rand(3000, 6000) + W.weather_duration_upper, TRUE, Z) //Around 5-10 minutes between weathers
+		addtimer(CALLBACK(src, .proc/make_z_eligible, Z), rand(3000, 6000) + W.weather_duration_upper, TIMER_UNIQUE) //Around 5-10 minutes between weathers
 
 DECLARE_GLOBAL_CONTROLLER(weather, weather_master)
 

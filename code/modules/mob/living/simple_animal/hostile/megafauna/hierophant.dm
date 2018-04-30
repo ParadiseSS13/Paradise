@@ -73,7 +73,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/New()
 	..()
-	internal_gps = new/obj/item/device/gps/internal/hierophant(src)
+	internal_gps = new/obj/item/gps/internal/hierophant(src)
 	spawned_rune = new(loc)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Life()
@@ -547,7 +547,7 @@ Difficulty: Hard
 		L.apply_damage(damage, BURN, limb_to_hit, armor)
 		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
 			L.adjustBruteLoss(damage)
-		add_logs(caster, L, "struck with a [name]")
+		add_attack_logs(caster, L, "Struck with a [name]")
 	for(var/obj/mecha/M in T.contents - hit_things) //and mechs.
 		hit_things += M
 		if(M.occupant)
@@ -587,7 +587,7 @@ Difficulty: Hard
 	else
 		..()
 
-/obj/item/device/gps/internal/hierophant
+/obj/item/gps/internal/hierophant
 	icon_state = null
 	gpstag = "Zealous Signal"
 	desc = "Heed its words."

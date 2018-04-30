@@ -113,7 +113,7 @@
 				to_chat(user, "<span class='notice'>Nothing happens.</span>")
 				return
 
-	else if((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
+	else if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 
 	return

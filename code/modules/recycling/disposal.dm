@@ -133,10 +133,7 @@
 				for(var/mob/C in viewers(src))
 					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
 				qdel(G)
-				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
-				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
-				if(GM.ckey)
-					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey)
 		return
 
 	if(!I)
@@ -182,10 +179,7 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		user.create_attack_log("<font color='red'>Has placed [key_name(target)] in disposals.</font>")
-		target.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
-		if(target.ckey)
-			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
+		add_attack_logs(user, target, "Disposal'ed", !!target.ckey)
 	else
 		return
 	target.forceMove(src)
@@ -1019,8 +1013,8 @@
 		if(..())
 			return
 
-		if(istype(I, /obj/item/device/destTagger))
-			var/obj/item/device/destTagger/O = I
+		if(istype(I, /obj/item/destTagger))
+			var/obj/item/destTagger/O = I
 
 			if(O.currTag > 0)// Tag set
 				sortType = O.currTag

@@ -8,7 +8,7 @@
 	var/obj/item/stack/sheet/glass/myglass = null
 	var/obj/item/stack/sheet/metal/mymetal = null
 	var/obj/item/stack/sheet/plasteel/myplasteel = null
-	var/obj/item/device/flashlight/myflashlight = null
+	var/obj/item/flashlight/myflashlight = null
 	var/obj/item/storage/toolbox/mechanical/mybluetoolbox = null
 	var/obj/item/storage/toolbox/electrical/myyellowtoolbox = null
 	var/obj/item/storage/toolbox/emergency/myredtoolbox = null
@@ -55,7 +55,7 @@
 				update_icon()
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/device/flashlight))
+		else if(istype(I, /obj/item/flashlight))
 			if(!myflashlight)
 				put_in_cart(I, user)
 				myflashlight=I

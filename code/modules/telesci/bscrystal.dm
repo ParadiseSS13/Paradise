@@ -5,6 +5,7 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "bluespace=6;materials=3"
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
@@ -35,23 +36,26 @@
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)
 	qdel(src)
+
 // Blueapce crystal fragments (stops point farming)
-/obj/item/ore/bluespace_crystal/fragment
-    points = 0
-    refined_type = null
+/obj/item/ore/bluespace_crystal/refined
+	name = "refined bluespace crystal"
+	points = 0
+	refined_type = null
 
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	origin_tech = "bluespace=3;plasmatech=4"
+	materials = list(MAT_BLUESPACE=MINERAL_MATERIAL_AMOUNT * 0.5)
 	blink_range = 4 // Not as good as the organic stuff!
 	points = 0 // nice try
 	refined_type = null
 
 // Polycrystals, aka stacks
 
-var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/ore/bluespace_crystal/fragment, 1, one_per_turf = 0, on_floor = 1))
+var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/ore/bluespace_crystal/refined, 1, one_per_turf = 0, on_floor = 1))
 
 /obj/item/stack/sheet/bluespace_crystal
 	name = "bluespace polycrystal"
@@ -59,6 +63,7 @@ var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/st
 	icon_state = "polycrystal"
 	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
 	origin_tech = "bluespace=6;materials=3"
+	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'

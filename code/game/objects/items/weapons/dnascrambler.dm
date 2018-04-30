@@ -51,9 +51,7 @@
 			H.dna.ResetUIFrom(H)
 		target.update_icons()
 
-		log_attack("[key_name(user)] injected [key_name(target)] with the [name]")
-		log_game("[key_name_admin(user)] injected [key_name_admin(target)] with the [name]")
-
+		add_attack_logs(user, target, "injected with [src]")
 		used = 1
 		update_icon()
 		name = "used " + name

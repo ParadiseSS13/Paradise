@@ -17,7 +17,7 @@
 	QDEL_NULL(battery)
 	return ..()
 
-/obj/item/computer_hardware/battery/on_remove(obj/item/device/modular_computer/M, mob/living/user = null)
+/obj/item/computer_hardware/battery/on_remove(obj/item/modular_computer/M, mob/living/user = null)
 	try_eject(0, forced = 1)
 
 /obj/item/computer_hardware/battery/try_insert(obj/item/I, mob/living/user = null)

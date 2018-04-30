@@ -1092,7 +1092,7 @@ var/global/list/common_tools = list(
 /obj/item/weldingtool,
 /obj/item/screwdriver,
 /obj/item/wirecutters,
-/obj/item/device/multitool,
+/obj/item/multitool,
 /obj/item/crowbar)
 
 /proc/istool(O)
@@ -1126,7 +1126,7 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/ismultitool(O)
-	if(istype(O, /obj/item/device/multitool))
+	if(istype(O, /obj/item/multitool))
 		return 1
 	return 0
 
@@ -1171,8 +1171,8 @@ var/global/list/common_tools = list(
 			return 1000
 		else
 			return 0
-	if(istype(W, /obj/item/device/flashlight/flare))
-		var/obj/item/device/flashlight/flare/O = W
+	if(istype(W, /obj/item/flashlight/flare))
+		var/obj/item/flashlight/flare/O = W
 		if(O.on)
 			return 1000
 		else
@@ -1185,7 +1185,7 @@ var/global/list/common_tools = list(
 			return 3500
 		else
 			return 0
-	if(istype(W, /obj/item/device/assembly/igniter))
+	if(istype(W, /obj/item/assembly/igniter))
 		return 1000
 	else
 		return 0
@@ -1239,7 +1239,7 @@ var/global/list/common_tools = list(
 Checks if that loc and dir has a item on the wall
 */
 var/list/static/global/wall_items = typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
-	/obj/item/device/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
+	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
 	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/airlock,
@@ -1751,7 +1751,7 @@ var/mob/dview/dview_mob = new
 		var/typename = "[type]"
 		var/static/list/TYPES_SHORTCUTS = list(
 			/obj/effect/decal/cleanable = "CLEANABLE",
-			/obj/item/device/radio/headset = "HEADSET",
+			/obj/item/radio/headset = "HEADSET",
 			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
 			/obj/item/book/manual = "MANUAL",
 			/obj/item/reagent_containers/food/drinks = "DRINK", //longest paths comes first

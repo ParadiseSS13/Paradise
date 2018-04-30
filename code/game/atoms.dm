@@ -1,7 +1,8 @@
 /atom
 	layer = 2
 	var/level = 2
-	var/flags = 0
+	var/flags = NONE
+	var/flags_2 = NONE
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
@@ -220,6 +221,8 @@
 		else
 			to_chat(user, "Nothing.")
 
+	SendSignal(COMSIG_PARENT_EXAMINE, user)
+
 	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
 /atom/proc/relaymove()
@@ -239,7 +242,7 @@
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(src, "hitby_react", 2, TRUE, AM)
+		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
 
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))

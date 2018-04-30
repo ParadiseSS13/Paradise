@@ -115,8 +115,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/suit/fire/firefighter,
 					/obj/item/clothing/mask/gas,
 					/obj/item/clothing/mask/gas,
-					/obj/item/device/flashlight,
-					/obj/item/device/flashlight,
+					/obj/item/flashlight,
+					/obj/item/flashlight,
 					/obj/item/tank/oxygen/red,
 					/obj/item/tank/oxygen/red,
 					/obj/item/extinguisher,
@@ -252,10 +252,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/forensics
 	name = "Forensics Crate"
-	contains = list(/obj/item/device/detective_scanner,
+	contains = list(/obj/item/detective_scanner,
 					/obj/item/storage/box/evidence,
-					/obj/item/device/camera,
-					/obj/item/device/taperecorder,
+					/obj/item/camera,
+					/obj/item/taperecorder,
 					/obj/item/toy/crayon/white,
 					/obj/item/clothing/head/det_hat)
 	cost = 20
@@ -845,9 +845,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/science/robotics
 	name = "Robotics Assembly Crate"
-	contains = list(/obj/item/device/assembly/prox_sensor,
-					/obj/item/device/assembly/prox_sensor,
-					/obj/item/device/assembly/prox_sensor,
+	contains = list(/obj/item/assembly/prox_sensor,
+					/obj/item/assembly/prox_sensor,
+					/obj/item/assembly/prox_sensor,
 					/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/box/flashes,
 					/obj/item/stock_parts/cell/high,
@@ -879,15 +879,15 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/tank/plasma,
 					/obj/item/tank/plasma,
 					/obj/item/tank/plasma,
-					/obj/item/device/assembly/igniter,
-					/obj/item/device/assembly/igniter,
-					/obj/item/device/assembly/igniter,
-					/obj/item/device/assembly/prox_sensor,
-					/obj/item/device/assembly/prox_sensor,
-					/obj/item/device/assembly/prox_sensor,
-					/obj/item/device/assembly/timer,
-					/obj/item/device/assembly/timer,
-					/obj/item/device/assembly/timer)
+					/obj/item/assembly/igniter,
+					/obj/item/assembly/igniter,
+					/obj/item/assembly/igniter,
+					/obj/item/assembly/prox_sensor,
+					/obj/item/assembly/prox_sensor,
+					/obj/item/assembly/prox_sensor,
+					/obj/item/assembly/timer,
+					/obj/item/assembly/timer,
+					/obj/item/assembly/timer)
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "plasma assembly crate"
@@ -908,8 +908,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/science/transfer_valves
 	name = "Tank Transfer Valves Crate"
-	contains = list(/obj/item/device/transfer_valve,
-					/obj/item/device/transfer_valve)
+	contains = list(/obj/item/transfer_valve,
+					/obj/item/transfer_valve)
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "tank transfer valves crate"
@@ -917,7 +917,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/science/prototype
 	name = "Machine Prototype Crate"
-	contains = list(/obj/item/device/machineprototype)
+	contains = list(/obj/item/machineprototype)
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "machine prototype crate"
@@ -1089,7 +1089,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/reagent_containers/glass/bottle/ammonia,
 					/obj/item/hatchet,
 					/obj/item/cultivator,
-					/obj/item/device/plant_analyzer,
+					/obj/item/plant_analyzer,
 					/obj/item/clothing/gloves/botanic_leather,
 					/obj/item/clothing/suit/apron) // Updated with new things
 	cost = 15
@@ -1236,8 +1236,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/materials/plastic30
 	name = "30 Plastic Sheets Crate"
 	contains = list(/obj/item/stack/sheet/plastic)
-	amount = 30
-	cost = 25
+	amount = 50
+	cost = 10
 	containername = "plastic sheets crate"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1305,7 +1305,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc/paper
 	name = "Bureaucracy Crate"
 	contains = list(/obj/structure/filingcabinet/chestdrawer,
-					/obj/item/device/camera_film,
+					/obj/item/camera_film,
 					/obj/item/hand_labeler,
 					/obj/item/stack/tape_roll,
 					/obj/item/paper_bin,
@@ -1324,21 +1324,21 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/toner
 	name = "Toner Cartridges Crate"
-	contains = list(/obj/item/device/toner,
-					/obj/item/device/toner,
-					/obj/item/device/toner,
-					/obj/item/device/toner,
-					/obj/item/device/toner,
-					/obj/item/device/toner)
+	contains = list(/obj/item/toner,
+					/obj/item/toner,
+					/obj/item/toner,
+					/obj/item/toner,
+					/obj/item/toner,
+					/obj/item/toner)
 	cost = 10
 	containername = "toner cartridges crate"
 
 /datum/supply_packs/misc/artscrafts
 	name = "Arts and Crafts Supplies Crate"
 	contains = list(/obj/item/storage/fancy/crayons,
-	/obj/item/device/camera,
-	/obj/item/device/camera_film,
-	/obj/item/device/camera_film,
+	/obj/item/camera,
+	/obj/item/camera_film,
+	/obj/item/camera_film,
 	/obj/item/storage/photo_album,
 	/obj/item/stack/packageWrap,
 	/obj/item/reagent_containers/glass/paint/red,
@@ -1525,16 +1525,16 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/bigband
 	name = "Big band instrument collection"
-	contains = list(/obj/item/device/instrument/violin,
-					/obj/item/device/instrument/guitar,
-					/obj/item/device/instrument/eguitar,
-					/obj/item/device/instrument/glockenspiel,
-					/obj/item/device/instrument/accordion,
-					/obj/item/device/instrument/saxophone,
-					/obj/item/device/instrument/trombone,
-					/obj/item/device/instrument/recorder,
-					/obj/item/device/instrument/harmonica,
-					/obj/item/device/instrument/xylophone,
+	contains = list(/obj/item/instrument/violin,
+					/obj/item/instrument/guitar,
+					/obj/item/instrument/eguitar,
+					/obj/item/instrument/glockenspiel,
+					/obj/item/instrument/accordion,
+					/obj/item/instrument/saxophone,
+					/obj/item/instrument/trombone,
+					/obj/item/instrument/recorder,
+					/obj/item/instrument/harmonica,
+					/obj/item/instrument/xylophone,
 					/obj/structure/piano)
 	cost = 50
 	containername = "Big band musical instruments collection"
@@ -1642,11 +1642,11 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "DNA Vault Samplers"
 	cost = 30
 	special = TRUE
-	contains = list(/obj/item/device/dna_probe,
-					/obj/item/device/dna_probe,
-					/obj/item/device/dna_probe,
-					/obj/item/device/dna_probe,
-					/obj/item/device/dna_probe
+	contains = list(/obj/item/dna_probe,
+					/obj/item/dna_probe,
+					/obj/item/dna_probe,
+					/obj/item/dna_probe,
+					/obj/item/dna_probe
 					)
 	containername = "dna samplers crate"
 

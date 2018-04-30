@@ -176,7 +176,7 @@ proc/issyndicate(mob/living/M as mob)
 	to_chat(synd_mind.current, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
 	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 
-	var/obj/item/device/nuclear_challenge/challenge = new /obj/item/device/nuclear_challenge
+	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
 	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
 
 	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
@@ -235,7 +235,7 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob)
 	var/radio_freq = SYND_FREQ
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/alt(synd_mob)
+	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
 	R.set_frequency(radio_freq)
 	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
 
@@ -248,7 +248,7 @@ proc/issyndicate(mob/living/M as mob)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/engineer(synd_mob.back), slot_in_backpack)
 
-	var/obj/item/device/radio/uplink/U = new /obj/item/device/radio/uplink(synd_mob)
+	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = 20
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
@@ -377,7 +377,7 @@ proc/issyndicate(mob/living/M as mob)
 			else
 				text += "body destroyed"
 			text += ")"
-			for(var/obj/item/device/uplink/H in world_uplinks)
+			for(var/obj/item/uplink/H in world_uplinks)
 				if(H && H.uplink_owner && H.uplink_owner==syndicate.key)
 					TC_uses += H.used_TC
 					purchases += H.purchase_log

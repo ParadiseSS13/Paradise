@@ -26,7 +26,7 @@
 		if(!target.can_safely_leave_loc()) // No more brainmobs hopping out of their brains
 			to_chat(target, "<span class='warning'>You are somehow too bound to your current location to abandon it.</span>")
 			continue
-		addtimer(src, "do_jaunt", 0, FALSE, target)
+		INVOKE_ASYNC(src, .proc/do_jaunt, target)
 
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/proc/do_jaunt(mob/living/target)
 	target.notransform = 1

@@ -29,7 +29,7 @@ obj/machinery/air_sensor
 	update_icon()
 		icon_state = "gsensor[on]"
 
-	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	multitool_menu(var/mob/user, var/obj/item/multitool/P)
 		return {"
 		<b>Main</b>
 		<ul>
@@ -68,7 +68,7 @@ obj/machinery/air_sensor
 
 
 	attackby(var/obj/item/W as obj, var/mob/user as mob)
-		if(istype(W, /obj/item/device/multitool))
+		if(istype(W, /obj/item/multitool))
 			update_multitool_menu(user)
 			return 1
 		if(istype(W, /obj/item/wrench))
@@ -181,7 +181,7 @@ obj/machinery/air_sensor
 		src.updateUsrDialog()
 
 	attackby(I as obj, user as mob, params)
-		if(istype(I, /obj/item/device/multitool))
+		if(istype(I, /obj/item/multitool))
 			update_multitool_menu(user)
 		if(..())
 			return 1
@@ -279,7 +279,7 @@ legend {
 		..()
 		set_frequency(frequency)
 
-	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	multitool_menu(var/mob/user, var/obj/item/multitool/P)
 		var/dat= {"
 		<b>Main</b>
 		<ul>
@@ -386,13 +386,13 @@ legend {
 		var/pressure_setting = ONE_ATMOSPHERE * 45
 
 		attackby(I as obj, user as mob)
-			if(istype(I, /obj/item/device/multitool))
+			if(istype(I, /obj/item/multitool))
 				update_multitool_menu(user)
 			if(..())
 				return 1
 
 
-		multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+		multitool_menu(var/mob/user, var/obj/item/multitool/P)
 			var/dat= {"
 			<ul>
 				<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
@@ -601,7 +601,7 @@ legend {
 		var/on_temperature = 1200
 
 		attackby(I as obj, user as mob, params)
-			if(istype(I, /obj/item/device/multitool))
+			if(istype(I, /obj/item/multitool))
 				update_multitool_menu(user)
 			if(..())
 				return 1

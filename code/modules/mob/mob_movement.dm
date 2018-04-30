@@ -186,7 +186,7 @@
 		return mob.remote_control.relaymove(mob, direct)
 
 	if(isAI(mob))
-		if(istype(mob.loc, /obj/item/device/aicard))
+		if(istype(mob.loc, /obj/item/aicard))
 			var/obj/O = mob.loc
 			return O.relaymove(mob, direct) // aicards have special relaymove stuff
 		return AIMove(n, direct, mob)

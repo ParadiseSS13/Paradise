@@ -582,13 +582,13 @@
 		resetlists()
 
 	attackby(obj/item/I as obj, mob/user as mob, params)
-		if(istype(I,/obj/item/device/multitool))
+		if(istype(I,/obj/item/multitool))
 			hacking = (hacking?0:1)
 			if(hacking)
 				to_chat(user, "You unlock the data port on the board.  You can now use a PDA to alter its data.")
 			else
 				to_chat(user, "You relock the data port.")
-		if(istype(I,/obj/item/device/pda))
+		if(istype(I,/obj/item/pda))
 			if(!hacking)
 				to_chat(user, "It looks like you can't access the board's data port.  You'll have to open it with a multitool.")
 			else

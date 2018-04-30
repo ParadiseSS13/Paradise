@@ -20,6 +20,7 @@ RCD
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
+	flags_2 = NO_MAT_REDEMPTION_2
 	var/datum/effect_system/spark_spread/spark_system
 	var/max_matter = 100
 	var/matter = 0
@@ -147,8 +148,8 @@ RCD
 			locked = 0
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/device/pda))
-				var/obj/item/device/pda/pda = I
+			if(istype(I, /obj/item/pda))
+				var/obj/item/pda/pda = I
 				I = pda.id
 			var/obj/item/card/id/ID = I
 			if(istype(ID) && ID && check_access(ID))
@@ -384,7 +385,7 @@ RCD
 		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
 		vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
-	addtimer(src, "detonate_pulse_explode", 50)
+	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
 
 /obj/item/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)

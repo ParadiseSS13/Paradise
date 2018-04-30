@@ -795,7 +795,7 @@
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
 	if(check_eye_prot() < intensity && (override_blindness_check || !(disabilities & BLIND)))
 		overlay_fullscreen("flash", type)
-		addtimer(src, "clear_fullscreen", 25, FALSE, "flash", 25)
+		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
 
 /mob/living/proc/check_eye_prot()
@@ -818,7 +818,7 @@
 			who.unEquip(what)
 			if(silent)
 				put_in_hands(what)
-			add_logs(src, who, "stripped", addition="of [what]", print_attack_log = isLivingSSD(who))
+			add_attack_logs(src, who, "Stripped of [what]", isLivingSSD(who))
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
@@ -837,7 +837,7 @@
 			if(what && Adjacent(who))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
-				add_logs(src, who, "equipped", what, print_attack_log = isLivingSSD(who))
+				add_attack_logs(src, who, "Equipped [what]", isLivingSSD(who))
 
 
 /mob/living/singularity_act()
