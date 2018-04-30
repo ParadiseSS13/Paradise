@@ -5,17 +5,18 @@
 	var/key = "" //What calls the emote
 	var/key_third_person = "" //This will also call the emote
 	var/message = "" //Message displayed when emote is used
-	var/message_mime = "" //Message displayed if the user is a mime
 	var/message_param = "" //Message to display if a param was given
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
 	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
 	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
+	var/punct = "."
 	var/list/mob_type_ignore_stat_typecache
 	var/stat_allowed = CONSCIOUS
 	var/static/list/emote_list = list()
 	var/cooldown = 0
 	var/sound
+	var/sound_vary = FALSE
 	var/sound_volume = 50
 
 /datum/emote/New()
@@ -29,7 +30,7 @@
 	if(!can_run_emote(user))
 		return FALSE
 	var/msg = select_message_type(user)
-	if(params && message_param)
+	if(params)
 		msg = select_param(user, params)
 
 	msg = replace_pronoun(user, msg)
@@ -37,9 +38,9 @@
 	if(!msg)
 		return
 
-	msg = "<b>[user]</b> " + msg
+	msg = "<b>[user]</b> " + msg + punct
 
-	if(!findtext(message, " snores."))
+	if(!findtext(msg, " snores."))
 		for(var/mob/M in player_list)
 			if(!M.client || isnewplayer(M))
 				continue
@@ -49,7 +50,8 @@
 
 	if(emote_type == EMOTE_AUDIBLE)
 		user.audible_message(msg)
-		play_sound(user)
+		if(can_play_sound(user))
+			play_sound(user)
 	else
 		user.visible_message(msg)
 	log_emote(msg, user)
@@ -77,12 +79,14 @@
 
 /datum/emote/proc/select_message_type(mob/user)
 	. = message
-	if(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
-		return "makes a [pick("strong ", "weak ", "")]noise."
-	if(user.mind && user.mind.miming && message_mime)
-		. = message_mime
+	if(!can_play_sound(user))
+		return "makes a [pick("strong ", "weak ", "")]noise"
 
 /datum/emote/proc/select_param(mob/user, params)
+	if(!can_play_sound(user))
+		return "makes a [pick("strong ", "weak ", "")]noise at [params]"
+	if(!message_param)
+		return "[message] at [params]"
 	return replacetext(message_param, "%t", params)
 
 /datum/emote/proc/can_run_emote(mob/user, status_check = TRUE)
@@ -100,9 +104,18 @@
 			return FALSE
 
 /datum/emote/proc/play_sound(mob/user)
-	playsound(user.loc, sound, sound_volume, TRUE)
+	if(!sound)
+		return
+	playsound(user.loc, sound, sound_volume, sound_vary)
 
+/datum/emote/proc/can_play_sound(mob/user)
+	return (!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
+
+// Override this to change the param handling. By default they have to be visible to you, but not next to you.
 /datum/emote/proc/handle_emote_param(mob/user, var/target, var/not_self, var/vicinity, var/return_mob)
+	return handle_emote_param_helper(user, target, not_self, vicinity, return_mob)
+
+/datum/emote/proc/handle_emote_param_helper(mob/user, var/target, var/not_self, var/vicinity, var/return_mob)
 	//Only returns not null if the target param is valid.
 	//not_self means we'll only return if target is valid and not us
 	//vicinity is the distance passed to the view proc.
