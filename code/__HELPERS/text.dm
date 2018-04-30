@@ -452,7 +452,7 @@ proc/checkhtml(var/t)
 
 
 // Pencode
-/proc/pencode_to_html(text, mob/user, obj/item/weapon/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
+/proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
 	text = replacetext(text, "\[b\]",		"<B>")
 	text = replacetext(text, "\[/b\]",		"</B>")
 	text = replacetext(text, "\[i\]",		"<I>")

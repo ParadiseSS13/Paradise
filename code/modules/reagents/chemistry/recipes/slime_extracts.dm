@@ -39,7 +39,7 @@
 /datum/chemical_reaction/slimemonkey/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
 	for(var/i = 1, i <= 3, i++)
-		var /obj/item/weapon/reagent_containers/food/snacks/monkeycube/M = new /obj/item/weapon/reagent_containers/food/snacks/monkeycube
+		var /obj/item/reagent_containers/food/snacks/monkeycube/M = new /obj/item/reagent_containers/food/snacks/monkeycube
 		M.forceMove(get_turf(holder.my_atom))
 
 //Green
@@ -148,22 +148,22 @@
 /datum/chemical_reaction/slimebork/on_reaction(datum/reagents/holder)
 
 	feedback_add_details("slime_cores_used","[type]")
-	var/list/blocked = list(/obj/item/weapon/reagent_containers/food/snacks,
-		/obj/item/weapon/reagent_containers/food/snacks/breadslice,
-		/obj/item/weapon/reagent_containers/food/snacks/sliceable,
-		/obj/item/weapon/reagent_containers/food/snacks/margheritaslice,
-		/obj/item/weapon/reagent_containers/food/snacks/meatpizzaslice,
-		/obj/item/weapon/reagent_containers/food/snacks/mushroompizzaslice,
-		/obj/item/weapon/reagent_containers/food/snacks/vegetablepizzaslice,
-		/obj/item/weapon/reagent_containers/food/snacks/meat,
-		/obj/item/weapon/reagent_containers/food/snacks/meat/slab,
-		/obj/item/weapon/reagent_containers/food/snacks/grown,
-		/obj/item/weapon/reagent_containers/food/snacks/grown/mushroom,
-		/obj/item/weapon/reagent_containers/food/snacks/deepfryholder
+	var/list/blocked = list(/obj/item/reagent_containers/food/snacks,
+		/obj/item/reagent_containers/food/snacks/breadslice,
+		/obj/item/reagent_containers/food/snacks/sliceable,
+		/obj/item/reagent_containers/food/snacks/margheritaslice,
+		/obj/item/reagent_containers/food/snacks/meatpizzaslice,
+		/obj/item/reagent_containers/food/snacks/mushroompizzaslice,
+		/obj/item/reagent_containers/food/snacks/vegetablepizzaslice,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/meat/slab,
+		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/reagent_containers/food/snacks/grown/mushroom,
+		/obj/item/reagent_containers/food/snacks/deepfryholder
 		)
-	blocked |= typesof(/obj/item/weapon/reagent_containers/food/snacks/customizable)
+	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 
-	var/list/borks = typesof(/obj/item/weapon/reagent_containers/food/snacks) - blocked
+	var/list/borks = typesof(/obj/item/reagent_containers/food/snacks) - blocked
 	// BORK BORK BORK
 
 	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
@@ -193,21 +193,21 @@
 /datum/chemical_reaction/slimebork2/on_reaction(datum/reagents/holder)
 
 	feedback_add_details("slime_cores_used","[type]")
-	var/list/borks = subtypesof(/obj/item/weapon/reagent_containers/food/drinks)
-	var/list/blocked = list(/obj/item/weapon/reagent_containers/food/drinks/cans/adminbooze,
-							/obj/item/weapon/reagent_containers/food/drinks/cans/madminmalt,
-							/obj/item/weapon/reagent_containers/food/drinks/shaker,
-							/obj/item/weapon/reagent_containers/food/drinks/britcup,
-							/obj/item/weapon/reagent_containers/food/drinks/sillycup,
-							/obj/item/weapon/reagent_containers/food/drinks/cans,
-							/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/shotglass,
-							/obj/item/weapon/reagent_containers/food/drinks/drinkingglass,
-							/obj/item/weapon/reagent_containers/food/drinks/bottle,
-							/obj/item/weapon/reagent_containers/food/drinks/mushroom_bowl
+	var/list/borks = subtypesof(/obj/item/reagent_containers/food/drinks)
+	var/list/blocked = list(/obj/item/reagent_containers/food/drinks/cans/adminbooze,
+							/obj/item/reagent_containers/food/drinks/cans/madminmalt,
+							/obj/item/reagent_containers/food/drinks/shaker,
+							/obj/item/reagent_containers/food/drinks/britcup,
+							/obj/item/reagent_containers/food/drinks/sillycup,
+							/obj/item/reagent_containers/food/drinks/cans,
+							/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+							/obj/item/reagent_containers/food/drinks/drinkingglass,
+							/obj/item/reagent_containers/food/drinks/bottle,
+							/obj/item/reagent_containers/food/drinks/mushroom_bowl
 							)
-	blocked += typesof(/obj/item/weapon/reagent_containers/food/drinks/flask)
-	blocked += typesof(/obj/item/weapon/reagent_containers/food/drinks/trophy)
-	blocked += typesof(/obj/item/weapon/reagent_containers/food/drinks/cans/bottler)
+	blocked += typesof(/obj/item/reagent_containers/food/drinks/flask)
+	blocked += typesof(/obj/item/reagent_containers/food/drinks/trophy)
+	blocked += typesof(/obj/item/reagent_containers/food/drinks/cans/bottler)
 	borks -= blocked
 	// BORK BORK BORK
 
@@ -348,7 +348,7 @@
 
 /datum/chemical_reaction/slimecell/on_reaction(datum/reagents/holder, created_volume)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/weapon/stock_parts/cell/high/slime/P = new /obj/item/weapon/stock_parts/cell/high/slime
+	var/obj/item/stock_parts/cell/high/slime/P = new /obj/item/stock_parts/cell/high/slime
 	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimeglow
@@ -364,7 +364,7 @@
 	feedback_add_details("slime_cores_used","[type]")
 	var/turf/T = get_turf(holder.my_atom)
 	T.visible_message("<span class='danger'>The slime begins to emit a soft light. Squeezing it will cause it to grow brightly.</span>")
-	var/obj/item/device/flashlight/slime/F = new /obj/item/device/flashlight/slime
+	var/obj/item/flashlight/slime/F = new /obj/item/flashlight/slime
 	F.forceMove(get_turf(holder.my_atom))
 
 //Purple
@@ -564,7 +564,7 @@
 /datum/chemical_reaction/slimecrystal/on_reaction(datum/reagents/holder, created_volume)
 	feedback_add_details("slime_cores_used","[type]")
 	if(holder.my_atom)
-		var/obj/item/weapon/ore/bluespace_crystal/BC = new(get_turf(holder.my_atom))
+		var/obj/item/ore/bluespace_crystal/BC = new(get_turf(holder.my_atom))
 		BC.visible_message("<span class='notice'>The [BC.name] appears out of thin air!</span>")
 
 //Cerulean
@@ -628,9 +628,9 @@
 
 /datum/chemical_reaction/slimecamera/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/device/camera/P = new /obj/item/device/camera
+	var/obj/item/camera/P = new /obj/item/camera
 	P.forceMove(get_turf(holder.my_atom))
-	var/obj/item/device/camera_film/Z = new /obj/item/device/camera_film
+	var/obj/item/camera_film/Z = new /obj/item/camera_film
 	Z.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimefloor
@@ -663,7 +663,7 @@
 
 /datum/chemical_reaction/slimepaint/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/list/paints = subtypesof(/obj/item/weapon/reagent_containers/glass/paint)
+	var/list/paints = subtypesof(/obj/item/reagent_containers/glass/paint)
 	var/chosen = pick(paints)
 	var/obj/P = new chosen
 	if(P)

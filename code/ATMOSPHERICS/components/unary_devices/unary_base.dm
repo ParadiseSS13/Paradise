@@ -36,7 +36,7 @@
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/unary/default_change_direction_wrench(mob/user, obj/item/weapon/wrench/W)
+/obj/machinery/atmospherics/unary/default_change_direction_wrench(mob/user, obj/item/wrench/W)
 	if(..())
 		initialize_directions = dir
 		if(node)
@@ -50,10 +50,11 @@
 		build_network()
 		. = 1
 
-/obj/machinery/atmospherics/unary/build_network()
+/obj/machinery/atmospherics/unary/build_network(remove_deferral = FALSE)
 	if(!parent)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
+	..()
 
 /obj/machinery/atmospherics/unary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)

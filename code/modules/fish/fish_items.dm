@@ -3,7 +3,7 @@
 //			Aquarium Supplies				//
 //////////////////////////////////////////////
 
-/obj/item/weapon/egg_scoop
+/obj/item/egg_scoop
 	name = "fish egg scoop"
 	desc = "A small scoop to collect fish eggs with."
 	icon = 'icons/obj/fish_items.dmi'
@@ -14,7 +14,7 @@
 	throw_speed = 3
 	throw_range = 7
 
-/obj/item/weapon/fish_net
+/obj/item/fish_net
 	name = "fish net"
 	desc = "A tiny net to capture fish with. It's a death sentence!"
 	icon = 'icons/obj/fish_items.dmi'
@@ -29,7 +29,7 @@
 		to_chat(viewers(user), "<span class='warning'>[user] places the [src.name] on top of \his head, \his fingers tangled in the netting! It looks like \he's trying to commit suicide.</span>")
 		return(OXYLOSS)
 
-/obj/item/weapon/fishfood
+/obj/item/fishfood
 	name = "fish food can"
 	desc = "A small can of Carp's Choice brand fish flakes. The label shows a smiling Space Carp."
 	icon = 'icons/obj/fish_items.dmi'
@@ -39,7 +39,7 @@
 	throw_speed = 3
 	throw_range = 7
 
-/obj/item/weapon/tank_brush
+/obj/item/tank_brush
 	name = "aquarium brush"
 	desc = "A brush for cleaning the inside of aquariums. Contains a built-in odor neutralizer."
 	icon = 'icons/obj/fish_items.dmi'
@@ -59,7 +59,7 @@
 //				Fish Items					//
 //////////////////////////////////////////////
 
-/obj/item/weapon/reagent_containers/food/snacks/shrimp
+/obj/item/reagent_containers/food/snacks/shrimp
 	name = "shrimp"
 	desc = "A single raw shrimp."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -72,7 +72,7 @@
 		reagents.add_reagent("protein", 1)
 		src.bitesize = 1
 
-/obj/item/weapon/reagent_containers/food/snacks/feederfish
+/obj/item/reagent_containers/food/snacks/feederfish
 	name = "feeder fish"
 	desc = "A tiny feeder fish. Sure doesn't look very filling..."
 	icon = 'icons/obj/food/seafood.dmi'
@@ -84,7 +84,7 @@
 		reagents.add_reagent("protein", 1)
 		src.bitesize = 1
 
-/obj/item/weapon/fish
+/obj/item/fish
 	name = "fish"
 	desc = "A generic fish"
 	icon = 'icons/obj/fish_items.dmi'
@@ -97,43 +97,43 @@
 	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
 	hitsound = 'sound/effects/snap.ogg'
 
-/obj/item/weapon/fish/glofish
+/obj/item/fish/glofish
 	name = "glofish"
 	desc = "A small bio-luminescent fish. Not very bright, but at least it's pretty!"
 	icon_state = "glofish"
 
-/obj/item/weapon/fish/glofish/New()
+/obj/item/fish/glofish/New()
 		..()
 		set_light(2,1,"#99FF66")
 
-/obj/item/weapon/fish/electric_eel
+/obj/item/fish/electric_eel
 	name = "electric eel"
 	desc = "An eel capable of producing a mild electric shock. Luckily it's rather weak out of water."
 	icon_state = "electric_eel"
 
-/obj/item/weapon/fish/shark
+/obj/item/fish/shark
 	name = "shark"
 	desc = "Warning: Keep away from tornadoes."
 	icon_state = "shark"
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/weapon/fish/shark/attackby(var/obj/item/O, var/mob/user as mob)
-	if(istype(O, /obj/item/weapon/wirecutters))
+/obj/item/fish/shark/attackby(var/obj/item/O, var/mob/user as mob)
+	if(istype(O, /obj/item/wirecutters))
 		to_chat(user, "You rip out the teeth of \the [src.name]!")
-		new /obj/item/weapon/fish/toothless_shark(get_turf(src))
-		new /obj/item/weapon/shard/shark_teeth(get_turf(src))
+		new /obj/item/fish/toothless_shark(get_turf(src))
+		new /obj/item/shard/shark_teeth(get_turf(src))
 		qdel(src)
 		return
 	..()
 
-/obj/item/weapon/fish/toothless_shark
+/obj/item/fish/toothless_shark
 	name = "toothless shark"
 	desc = "Looks like someone ripped it's teeth out!"
 	icon_state = "shark"
 	hitsound = 'sound/effects/snap.ogg'
 
-/obj/item/weapon/shard/shark_teeth
+/obj/item/shard/shark_teeth
 	name = "shark teeth"
 	desc = "A number of teeth, supposedly from a shark."
 	icon = 'icons/obj/fish_items.dmi'
@@ -142,60 +142,60 @@
 	throwforce = 5.0
 	materials = list()
 
-/obj/item/weapon/shard/shark_teeth/New()
+/obj/item/shard/shark_teeth/New()
 	src.pixel_x = rand(-5,5)
 	src.pixel_y = rand(-5,5)
 
-/obj/item/weapon/fish/catfish
+/obj/item/fish/catfish
 	name = "catfish"
 	desc = "Apparently, catfish don't purr like you might have expected them to. Such a confusing name!"
 	icon_state = "catfish"
 
-/obj/item/weapon/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/catfish/attackby(var/obj/item/O, var/mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/weapon/reagent_containers/food/snacks/catfishmeat(get_turf(src))
-		new /obj/item/weapon/reagent_containers/food/snacks/catfishmeat(get_turf(src))
+		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
+		new /obj/item/reagent_containers/food/snacks/catfishmeat(get_turf(src))
 		qdel(src)
 		return
 	..()
 
-/obj/item/weapon/fish/goldfish
+/obj/item/fish/goldfish
 	name = "goldfish"
 	desc = "A goldfish, just like the one you never won at the county fair."
 	icon_state = "goldfish"
 
-/obj/item/weapon/fish/salmon
+/obj/item/fish/salmon
 	name = "salmon"
 	desc = "The second-favorite food of Space Bears, right behind crew members."
 	icon_state = "salmon"
 
-/obj/item/weapon/fish/salmon/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/salmon/attackby(var/obj/item/O, var/mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/weapon/reagent_containers/food/snacks/salmonmeat(get_turf(src))
-		new /obj/item/weapon/reagent_containers/food/snacks/salmonmeat(get_turf(src))
+		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
+		new /obj/item/reagent_containers/food/snacks/salmonmeat(get_turf(src))
 		qdel(src)
 		return
 	..()
 
-/obj/item/weapon/fish/babycarp
+/obj/item/fish/babycarp
 	name = "baby space carp"
 	desc = "Substantially smaller than the space carp lurking outside the hull, but still unsettling."
 	icon_state = "babycarp"
 	hitsound = 'sound/weapons/bite.ogg'
 	force = 3
 
-/obj/item/weapon/fish/babycarp/attackby(var/obj/item/O, var/mob/user as mob)
+/obj/item/fish/babycarp/attackby(var/obj/item/O, var/mob/user as mob)
 	if(is_sharp(O))
 		to_chat(user, "You carefully clean and gut \the [src.name].")
-		new /obj/item/weapon/reagent_containers/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
+		new /obj/item/reagent_containers/food/snacks/carpmeat(get_turf(src)) //just one fillet; this is a baby, afterall.
 		qdel(src)
 		return
 	..()
 
 
-/obj/item/weapon/grown/bananapeel/clownfish
+/obj/item/grown/bananapeel/clownfish
 	name = "clown fish"
 	desc = "Even underwater, you cannot escape HONKing."
 	icon = 'icons/obj/fish_items.dmi'

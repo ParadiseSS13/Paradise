@@ -1,4 +1,4 @@
-/obj/item/device/radio/beacon
+/obj/item/radio/beacon
 	name = "Tracking Beacon"
 	desc = "A beacon used by a teleporter."
 	icon_state = "beacon"
@@ -8,29 +8,29 @@
 	var/emagged = 0
 	var/syndicate = 0
 
-/obj/item/device/radio/beacon/New()
+/obj/item/radio/beacon/New()
 	..()
 	code = "[code] ([beacons.len + 1])"
 	beacons += src
 
-/obj/item/device/radio/beacon/Destroy()
+/obj/item/radio/beacon/Destroy()
 	beacons -= src
 	return ..()
 
-/obj/item/device/radio/beacon/emag_act(user as mob)
+/obj/item/radio/beacon/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
 		syndicate = 1
 		to_chat(user, "<span class='notice'>The This beacon now only be locked on to by emagged teleporters!</span>")
 
-/obj/item/device/radio/beacon/hear_talk()
+/obj/item/radio/beacon/hear_talk()
 	return
 
 
-/obj/item/device/radio/beacon/send_hear()
+/obj/item/radio/beacon/send_hear()
 	return null
 
-/obj/item/device/radio/beacon/verb/alter_signal(t as text)
+/obj/item/radio/beacon/verb/alter_signal(t as text)
 	set name = "Alter Beacon's Signal"
 	set category = "Object"
 	set src in usr
@@ -44,19 +44,19 @@
 	src.add_fingerprint(usr)
 	return
 
-/obj/item/device/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
+/obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
 	proc/digest_delay()
 		spawn(600)
 			qdel(src)
 
 // SINGULO BEACON SPAWNER
-/obj/item/device/radio/beacon/syndicate
+/obj/item/radio/beacon/syndicate
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
 	origin_tech = "bluespace=6;syndicate=5"
 	syndicate = 1
 
-/obj/item/device/radio/beacon/syndicate/attack_self(mob/user as mob)
+/obj/item/radio/beacon/syndicate/attack_self(mob/user as mob)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
@@ -64,12 +64,12 @@
 		qdel(src)
 	return
 
-/obj/item/device/radio/beacon/syndicate/bomb
+/obj/item/radio/beacon/syndicate/bomb
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
 	origin_tech = "bluespace=5;syndicate=5"
 
-/obj/item/device/radio/beacon/syndicate/bomb/attack_self(mob/user as mob)
+/obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user as mob)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/syndicatebomb( user.loc )

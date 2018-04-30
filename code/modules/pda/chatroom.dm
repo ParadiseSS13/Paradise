@@ -98,7 +98,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 			data["inviting"] = 1
 			var/list/pdas = list()
 			for(var/A in PDAs)
-				var/obj/item/device/pda/P = A
+				var/obj/item/pda/P = A
 				var/datum/data/pda/app/chatroom/C = P.find_program(/datum/data/pda/app/chatroom)
 				var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 

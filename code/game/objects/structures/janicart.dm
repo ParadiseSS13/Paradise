@@ -10,10 +10,10 @@
 	flags = OPENCONTAINER
 	//copypaste sorry
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
-	var/obj/item/weapon/storage/bag/trash/mybag	= null
-	var/obj/item/weapon/mop/mymop = null
-	var/obj/item/weapon/reagent_containers/spray/cleaner/myspray = null
-	var/obj/item/device/lightreplacer/myreplacer = null
+	var/obj/item/storage/bag/trash/mybag	= null
+	var/obj/item/mop/mymop = null
+	var/obj/item/reagent_containers/spray/cleaner/myspray = null
+	var/obj/item/lightreplacer/myreplacer = null
 	var/signs = 0
 	var/const/max_signs = 4
 
@@ -31,7 +31,7 @@
 	QDEL_NULL(myreplacer)
 	return ..()
 
-/obj/structure/janitorialcart/proc/wet_mop(obj/item/weapon/mop, mob/user)
+/obj/structure/janitorialcart/proc/wet_mop(obj/item/mop, mob/user)
 	if(reagents.total_volume < 1)
 		to_chat(user, "[src] is out of water!</span>")
 	else
@@ -51,8 +51,8 @@
 	var/fail_msg = "<span class='notice'>There is already one of those in [src].</span>"
 
 	if(!I.is_robot_module())
-		if(istype(I, /obj/item/weapon/mop))
-			var/obj/item/weapon/mop/m=I
+		if(istype(I, /obj/item/mop))
+			var/obj/item/mop/m=I
 			if(m.reagents.total_volume < m.reagents.maximum_volume)
 				wet_mop(m, user)
 				return
@@ -61,39 +61,39 @@
 			else
 				to_chat(user, fail_msg)
 
-		else if(istype(I, /obj/item/weapon/storage/bag/trash))
+		else if(istype(I, /obj/item/storage/bag/trash))
 			if(!mybag)
-				var/obj/item/weapon/storage/bag/trash/t=I
+				var/obj/item/storage/bag/trash/t=I
 				t.janicart_insert(user, src)
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/weapon/reagent_containers/spray/cleaner))
+		else if(istype(I, /obj/item/reagent_containers/spray/cleaner))
 			if(!myspray)
 				put_in_cart(I, user)
 				myspray=I
 				update_icon()
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/device/lightreplacer))
+		else if(istype(I, /obj/item/lightreplacer))
 			if(!myreplacer)
-				var/obj/item/device/lightreplacer/l=I
+				var/obj/item/lightreplacer/l=I
 				l.janicart_insert(user,src)
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/weapon/caution))
+		else if(istype(I, /obj/item/caution))
 			if(signs < max_signs)
 				put_in_cart(I, user)
 				signs++
 				update_icon()
 			else
 				to_chat(user, "<span class='notice'>[src] can't hold any more signs.</span>")
-		else if(istype(I, /obj/item/weapon/crowbar))
+		else if(istype(I, /obj/item/crowbar))
 			user.visible_message("<span class='warning'>[user] begins to empty the contents of [src].</span>")
 			if(do_after(user, 30 * I.toolspeed, target = src))
 				to_chat(usr, "<span class='notice'>You empty the contents of [src]'s bucket onto the floor.</span>")
 				reagents.reaction(src.loc)
 				src.reagents.clear_reagents()
-		else if(istype(I, /obj/item/weapon/wrench))
+		else if(istype(I, /obj/item/wrench))
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)
 				user.visible_message( \
@@ -159,7 +159,7 @@
 			myreplacer = null
 	if(href_list["sign"])
 		if(signs)
-			var/obj/item/weapon/caution/Sign = locate() in src
+			var/obj/item/caution/Sign = locate() in src
 			if(Sign)
 				user.put_in_hands(Sign)
 				to_chat(user, "<span class='notice'>You take \a [Sign] from [src].</span>")

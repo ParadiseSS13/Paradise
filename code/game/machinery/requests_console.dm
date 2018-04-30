@@ -67,7 +67,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
-	var/obj/item/device/radio/Radio
+	var/obj/item/radio/Radio
 	var/radiochannel = ""
 
 /obj/machinery/requests_console/power_change()
@@ -82,7 +82,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		icon_state = "req_comp[newmessagepriority]"
 
 /obj/machinery/requests_console/New()
-	Radio = new /obj/item/device/radio(src)
+	Radio = new /obj/item/radio(src)
 	Radio.listening = 1
 	Radio.config(list("Engineering","Medical","Supply","Command","Science","Service","Security", "AI Private" = 0))
 	Radio.follow_target = src
@@ -269,9 +269,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	return
 
 					//err... hacking code, which has no reason for existing... but anyway... it was once supposed to unlock priority 3 messanging on that console (EXTREME priority...), but the code for that was removed.
-/obj/machinery/requests_console/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob)
+/obj/machinery/requests_console/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	/*
-	if(istype(O, /obj/item/weapon/crowbar))
+	if(istype(O, /obj/item/crowbar))
 		if(open)
 			open = 0
 			icon_state="req_comp0"
@@ -281,7 +281,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				icon_state="req_comp_open"
 			else if(hackState == 1)
 				icon_state="req_comp_rewired"
-	if(istype(O, /obj/item/weapon/screwdriver))
+	if(istype(O, /obj/item/screwdriver))
 		if(open)
 			if(hackState == 0)
 				hackState = 1
@@ -292,14 +292,14 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		else
 			to_chat(user, "You can't do much with that.")*/
 
-	if(istype(O, /obj/item/weapon/card/id))
+	if(istype(O, /obj/item/card/id))
 		if(inoperable(MAINT)) return
 		if(screen == RCS_MESSAUTH)
-			var/obj/item/weapon/card/id/T = O
+			var/obj/item/card/id/T = O
 			msgVerified = text("<font color='green'><b>Verified by [T.registered_name] ([T.assignment])</b></font>")
 			updateUsrDialog()
 		if(screen == RCS_ANNOUNCE)
-			var/obj/item/weapon/card/id/ID = O
+			var/obj/item/card/id/ID = O
 			if(access_RC_announce in ID.GetAccess())
 				announceAuth = 1
 				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
@@ -308,13 +308,13 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
 			updateUsrDialog()
 		if(screen == RCS_SHIPPING)
-			var/obj/item/weapon/card/id/T = O
+			var/obj/item/card/id/T = O
 			msgVerified = text("<font color='green'><b>Sender verified as [T.registered_name] ([T.assignment])</b></font>")
 			updateUsrDialog()
-	if(istype(O, /obj/item/weapon/stamp))
+	if(istype(O, /obj/item/stamp))
 		if(inoperable(MAINT)) return
 		if(screen == RCS_MESSAUTH)
-			var/obj/item/weapon/stamp/T = O
+			var/obj/item/stamp/T = O
 			msgStamped = text("<font color='blue'><b>Stamped with the [T.name]</b></font>")
 			updateUsrDialog()
 	return

@@ -67,7 +67,7 @@
 	return
 
 /obj/item/toy/balloon/attackby(obj/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/reagent_containers/glass) || istype(O, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
+	if(istype(O, /obj/item/reagent_containers/glass) || istype(O, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(O.reagents)
 			if(O.reagents.total_volume < 1)
 				to_chat(user, "The [O] is empty.")
@@ -110,7 +110,6 @@
 	throw_speed = 4
 	throw_range = 20
 	force = 0
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "syndballoon"
 	item_state = "syndballoon"
 	w_class = WEIGHT_CLASS_BULKY
@@ -148,7 +147,6 @@
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "sword0"
 	item_state = "sword0"
 	var/active = FALSE
@@ -177,8 +175,8 @@
 	add_fingerprint(user)
 	return
 
-// Copied from /obj/item/weapon/melee/energy/sword/attackby
-/obj/item/toy/sword/attackby(obj/item/weapon/W, mob/living/user, params)
+// Copied from /obj/item/melee/energy/sword/attackby
+/obj/item/toy/sword/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/toy/sword))
 		if(W == src)
@@ -189,7 +187,7 @@
 			to_chat(user, "<span class='notice'>\the [flags & NODROP ? src : W] is stuck to your hand, you can't attach it to \the [flags & NODROP ? W : src]!</span>")
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two plastic swords, making a single double-bladed toy! You're fake-cool.</span>")
-			new /obj/item/weapon/twohanded/dualsaber/toy(user.loc)
+			new /obj/item/twohanded/dualsaber/toy(user.loc)
 			user.unEquip(W)
 			user.unEquip(src)
 			qdel(W)
@@ -198,7 +196,7 @@
 /*
  * Subtype of Double-Bladed Energy Swords
  */
-/obj/item/weapon/twohanded/dualsaber/toy
+/obj/item/twohanded/dualsaber/toy
 	name = "double-bladed toy sword"
 	desc = "A cheap, plastic replica of TWO energy swords.  Double the fun!"
 	force = 0
@@ -211,16 +209,15 @@
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
 
-/obj/item/weapon/twohanded/dualsaber/toy/hit_reaction()
+/obj/item/twohanded/dualsaber/toy/hit_reaction()
 	return 0
 
-/obj/item/weapon/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
+/obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
 	return 0
 
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
@@ -306,7 +303,7 @@
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/New()
 	. = ..()
-	addtimer(src, "respawn", respawn_time)
+	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
 
 /obj/effect/decal/cleanable/ash/snappop_phoenix/proc/respawn()
 	new /obj/item/toy/snappop/phoenix(get_turf(src))
@@ -405,7 +402,6 @@
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
@@ -867,7 +863,7 @@ obj/item/toy/cards/deck/syndicate/black
 	item_state = "egg3" // It's the green egg in items_left/righthand
 	item_color = "green"
 
-/obj/item/weapon/toddler
+/obj/item/toddler
 	icon_state = "toddler"
 	name = "toddler"
 	desc = "This baby looks almost real. Wait, did it just burp?"
@@ -878,7 +874,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 //This should really be somewhere else but I don't know where. w/e
 
-/obj/item/weapon/inflatable_duck
+/obj/item/inflatable_duck
 	name = "inflatable duck"
 	desc = "No bother to sink or swim when you can just float!"
 	icon_state = "inflatable"
@@ -1001,7 +997,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "redfox"
 
 /obj/random/plushie/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/plushie)) //exclude the base type.
+	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff)) //exclude the base type.
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
@@ -1243,11 +1239,11 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "Lich Miniature"
 	desc = "Murderboner extraordinaire."
 	icon_state = "lichcharacter"
-/obj/item/weapon/storage/box/characters
+/obj/item/storage/box/characters
 	name = "Box of Miniatures"
 	desc = "The nerd's best friends."
 	icon_state = "box"
-/obj/item/weapon/storage/box/characters/New()
+/obj/item/storage/box/characters/New()
 	..()
 	new /obj/item/toy/character/alien(src)
 	new /obj/item/toy/character/cleric(src)
@@ -1419,7 +1415,7 @@ obj/item/toy/cards/deck/syndicate/black
 /*
  * Rubber Chainsaw
  */
-/obj/item/weapon/twohanded/toy/chainsaw
+/obj/item/twohanded/toy/chainsaw
 	name = "Toy Chainsaw"
 	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
 	icon_state = "chainsaw0"
@@ -1430,7 +1426,7 @@ obj/item/toy/cards/deck/syndicate/black
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 
-/obj/item/weapon/twohanded/toy/chainsaw/update_icon()
+/obj/item/twohanded/toy/chainsaw/update_icon()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else

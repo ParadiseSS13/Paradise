@@ -44,7 +44,7 @@ var/global/list/image/splatter_cache=list()
 					if(B.blood_DNA)
 						blood_DNA |= B.blood_DNA.Copy()
 					qdel(B)
-	dry_timer = addtimer(src, "dry", DRYING_TIME * (amount+1))
+	dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(GAMEMODE_IS_CULT)

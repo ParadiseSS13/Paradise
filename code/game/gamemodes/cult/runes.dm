@@ -59,11 +59,11 @@ To draw a rune, use an arcane tome.
 			to_chat(user, "<b>Keyword:</b> [keyword]")
 
 /obj/effect/rune/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/tome) && iscultist(user))
+	if(istype(I, /obj/item/tome) && iscultist(user))
 		to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
 		qdel(src)
 		return
-	else if(istype(I, /obj/item/weapon/nullrod))
+	else if(istype(I, /obj/item/nullrod))
 		if(iscultist(user))//cultist..what are doing..cultist..staph...
 			user.drop_item()
 			user.visible_message("<span class='warning'>[I] suddenly glows with white light, forcing [user] to drop it in pain!</span>", \
@@ -198,7 +198,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(src)
 
 /mob/proc/null_rod_check() //The null rod, if equipped, will protect the holder from the effects of most runes
-	var/obj/item/weapon/nullrod/N = locate() in src
+	var/obj/item/nullrod/N = locate() in src
 	if(N)
 		return N
 	return 0
@@ -215,9 +215,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/turf/T = get_turf(src)
 	var/list/papers_on_rune = list()
 	var/entered_talisman_name
-	var/obj/item/weapon/paper/talisman/talisman_type
+	var/obj/item/paper/talisman/talisman_type
 	var/list/possible_talismans = list()
-	for(var/obj/item/weapon/paper/P in T)
+	for(var/obj/item/paper/P in T)
 		if(!P.info)
 			papers_on_rune.Add(P)
 	if(!papers_on_rune.len)
@@ -230,9 +230,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Talisman Creation rune failed - already in use")
 		return
-	var/obj/item/weapon/paper/paper_to_imbue = pick(papers_on_rune)
-	for(var/I in subtypesof(/obj/item/weapon/paper/talisman) - /obj/item/weapon/paper/talisman/malformed - /obj/item/weapon/paper/talisman/supply - /obj/item/weapon/paper/talisman/supply/weak)
-		var/obj/item/weapon/paper/talisman/J = I
+	var/obj/item/paper/paper_to_imbue = pick(papers_on_rune)
+	for(var/I in subtypesof(/obj/item/paper/talisman) - /obj/item/paper/talisman/malformed - /obj/item/paper/talisman/supply - /obj/item/paper/talisman/supply/weak)
+		var/obj/item/paper/talisman/J = I
 		var/talisman_cult_name = initial(J.cultist_name)
 		if(talisman_cult_name)
 			possible_talismans[talisman_cult_name] = J //This is to allow the menu to let cultists select talismans by name
@@ -370,7 +370,7 @@ var/list/teleport_runes = list()
 	new_cultist.visible_message("<span class='warning'>[new_cultist] writhes in pain as the markings below them glow a bloody red!</span>", \
 					  			"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 	ticker.mode.add_cultist(new_cultist.mind, 1)
-	new /obj/item/weapon/tome(get_turf(src))
+	new /obj/item/tome(get_turf(src))
 	new_cultist.mind.special_role = "Cultist"
 	to_chat(new_cultist, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 	and something evil takes root.</b></span>")
@@ -455,7 +455,7 @@ var/list/teleport_runes = list()
 				else
 					to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
 		if(T.mind)
-			var/obj/item/device/soulstone/stone = new /obj/item/device/soulstone(get_turf(src))
+			var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 			stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
 			if(!stone.transfer_soul("VICTIM", T, usr)) //If it cannot be added
 				qdel(stone)
@@ -535,16 +535,16 @@ var/list/teleport_runes = list()
 	cult_mode.eldergod = 0
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/weapon/tome) && iscultist(user)))
-		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
+	if((istype(I, /obj/item/tome) && iscultist(user)))
+		user.visible_message("<span class='warning'>[user] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon Narsie rune erased by [user.mind.key] (ckey) with a tome")
+			log_game("Summon Narsie rune erased by [key_name(user)] with a tome")
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a tome")
 			..()
 			return
 	else
-		if(istype(I, /obj/item/weapon/nullrod))	//Begone foul magiks. You cannot hinder me.
-			log_game("Summon Narsie rune erased by [user.mind.key] (ckey) using a null rod")
+		if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
+			log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
 			..()
 	return
@@ -573,16 +573,16 @@ var/list/teleport_runes = list()
 	return
 
 /obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/weapon/tome) && iscultist(user)))
+	if((istype(I, /obj/item/tome) && iscultist(user)))
 		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon demon rune erased by [user.mind.key] (ckey) with a tome")
+			log_game("Summon demon rune erased by [key_name(user)] with a tome")
 			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
 			..()
 			return
 	else
-		if(istype(I, /obj/item/weapon/nullrod))	//Begone foul magiks. You cannot hinder me.
-			log_game("Summon demon rune erased by [user.mind.key] (ckey) using a null rod")
+		if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
+			log_game("Summon demon rune erased by [key_name(user)] using a null rod")
 			message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
 			..()
 	return
@@ -594,12 +594,12 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	var/datum/game_mode/cult/cult_mode = ticker.mode
 	if(!(CULT_SLAUGHTER in cult_mode.objectives))
-		message_admins("[usr.real_name]([user.ckey]) tried to summon demons when the objective was wrong")
+		message_admins("[key_name_admin(user)] tried to summon demons when the objective was wrong")
 		burn_invokers(invokers)
 		log_game("Summon Demons rune failed - improper objective")
 		return
 	if(!is_station_level(user.z))
-		message_admins("[user.real_name]([user.ckey]) tried to summon demons off station")
+		message_admins("[key_name_admin(user)] tried to summon demons off station")
 		burn_invokers(invokers)
 		log_game("Summon demons rune failed - off station Z level")
 		return
@@ -913,7 +913,7 @@ var/list/teleport_runes = list()
 	visible_message("<span class='warning'>[src] briefly bubbles before exploding!</span>")
 	for(var/mob/living/carbon/C in viewers(T))
 		if(!iscultist(C))
-			var/obj/item/weapon/nullrod/N = C.null_rod_check()
+			var/obj/item/nullrod/N = C.null_rod_check()
 			if(N)
 				to_chat(C, "<span class='userdanger'>\The [N] suddenly burns hotly before returning to normal!</span>")
 				continue

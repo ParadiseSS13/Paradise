@@ -19,8 +19,8 @@ var/global/list/captain_display_cases = list()
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_glass"
 	armor = list(melee = 30, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
-	var/obj/item/weapon/airlock_electronics/circuit = null
-	var/obj/item/device/assembly/prox_sensor/sensor = null
+	var/obj/item/airlock_electronics/circuit = null
+	var/obj/item/assembly/prox_sensor/sensor = null
 	var/state = DISPLAYCASE_FRAME_CIRCUIT
 
 /obj/structure/displaycase_frame/Destroy()
@@ -28,19 +28,19 @@ var/global/list/captain_display_cases = list()
 	QDEL_NULL(sensor)
 	return ..()
 
-/obj/structure/displaycase_frame/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/displaycase_frame/attackby(obj/item/W as obj, mob/user as mob, params)
 	var/pstate = state
 	var/turf/T = get_turf(src)
 	switch(state)
 		if(DISPLAYCASE_FRAME_CIRCUIT)
-			if(istype(W, /obj/item/weapon/airlock_electronics) && W.icon_state != "door_electronics_smoked")
+			if(istype(W, /obj/item/airlock_electronics) && W.icon_state != "door_electronics_smoked")
 				user.drop_item()
 				circuit = W
 				circuit.forceMove(src)
 				state++
 				to_chat(user, "<span class='notice'>You add the airlock electronics to the frame.</span>")
 				playsound(get_turf(src),W.usesound, 50, 1)
-			if(istype(W, /obj/item/weapon/crowbar))
+			if(istype(W, /obj/item/crowbar))
 				new /obj/machinery/constructable_frame/machine_frame(T)
 				var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(T)
 				G.amount = 5
@@ -63,7 +63,7 @@ var/global/list/captain_display_cases = list()
 				playsound(get_turf(src), W.usesound, 50, 1)
 				qdel(src)
 				return
-			if(istype(W, /obj/item/weapon/crowbar))
+			if(istype(W, /obj/item/crowbar))
 				circuit.forceMove(T)
 				circuit = null
 				if(isprox(sensor))
@@ -105,7 +105,7 @@ var/global/list/captain_display_cases = list()
 	var/burglar_alarm = 0
 	var/ue = null
 	var/image/occupant_overlay = null
-	var/obj/item/weapon/airlock_electronics/circuit
+	var/obj/item/airlock_electronics/circuit
 	var/start_showpiece_type = null //add type for items on display
 
 /obj/structure/displaycase/New()
@@ -120,7 +120,7 @@ var/global/list/captain_display_cases = list()
 	burglar_alarm = 1
 	locked = 1
 	req_access = list(access_captain)
-	start_showpiece_type = /obj/item/weapon/gun/energy/laser/captain
+	start_showpiece_type = /obj/item/gun/energy/laser/captain
 
 /obj/structure/displaycase/Destroy()
 	dump()
@@ -148,7 +148,7 @@ var/global/list/captain_display_cases = list()
 /obj/structure/displaycase/ex_act(severity)
 	switch(severity)
 		if(1)
-			new /obj/item/weapon/shard(loc)
+			new /obj/item/shard(loc)
 			if(occupant)
 				dump()
 			qdel(src)
@@ -170,7 +170,7 @@ var/global/list/captain_display_cases = list()
 
 /obj/structure/displaycase/blob_act()
 	if(prob(75))
-		new /obj/item/weapon/shard(loc)
+		new /obj/item/shard(loc)
 		if(occupant) dump()
 		qdel(src)
 
@@ -180,7 +180,7 @@ var/global/list/captain_display_cases = list()
 		if(!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
-			new /obj/item/weapon/shard(loc)
+			new /obj/item/shard(loc)
 			playsound(get_turf(src), "shatter", 70, 1)
 			update_icon()
 			spawn(0)
@@ -216,9 +216,9 @@ var/global/list/captain_display_cases = list()
 		overlays += occupant_overlay
 	return
 
-/obj/structure/displaycase/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/card))
-		var/obj/item/weapon/card/id/I = W
+/obj/structure/displaycase/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/card))
+		var/obj/item/card/id/I = W
 		if(!check_access(I))
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
@@ -229,14 +229,14 @@ var/global/list/captain_display_cases = list()
 			to_chat(user, "[bicon(src)]  <span class='notice'>You close \the [src] and swipe your card, locking it.</span>")
 		update_icon()
 		return
-	if(istype(W,/obj/item/weapon/crowbar) && (!locked || destroyed))
+	if(istype(W,/obj/item/crowbar) && (!locked || destroyed))
 		user.visible_message("[user.name] pries \the [src] apart.", \
 			"You pry \the [src] apart.", \
 			"You hear something pop.")
 		var/turf/T = get_turf(src)
 		playsound(T, W.usesound, 50, 1)
 		dump()
-		var/obj/item/weapon/airlock_electronics/C = circuit
+		var/obj/item/airlock_electronics/C = circuit
 		if(!C)
 			C = new (src)
 		C.one_access = !(req_access && req_access.len>0)
@@ -251,7 +251,7 @@ var/global/list/captain_display_cases = list()
 			F.circuit = C
 			F.circuit.forceMove(F)
 			if(burglar_alarm)
-				new /obj/item/device/assembly/prox_sensor(T)
+				new /obj/item/assembly/prox_sensor(T)
 			F.update_icon()
 		else
 			C.forceMove(T)

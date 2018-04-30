@@ -37,32 +37,32 @@
 /obj/machinery/bodyscanner/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/bodyscanner(null)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/bodyscanner(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
 /obj/machinery/bodyscanner/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/bodyscanner(null)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/bodyscanner(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/bodyscanner/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
-	if(istype(G, /obj/item/weapon/screwdriver))
+/obj/machinery/bodyscanner/attackby(var/obj/item/G as obj, var/mob/user as mob)
+	if(istype(G, /obj/item/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", G)
 		return
 
-	if(istype(G, /obj/item/weapon/wrench))
+	if(istype(G, /obj/item/wrench))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
@@ -79,12 +79,12 @@
 	if(exchange_parts(user, G))
 		return
 
-	if(istype(G, /obj/item/weapon/crowbar))
+	if(istype(G, /obj/item/crowbar))
 		default_deconstruction_crowbar(G)
 		return
 
-	if(istype(G, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/TYPECAST_YOUR_SHIT = G
+	if(istype(G, /obj/item/grab))
+		var/obj/item/grab/TYPECAST_YOUR_SHIT = G
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
@@ -228,7 +228,7 @@
 	var/temphtml
 	var/printing = null
 	var/printing_text = null
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/mindshield, /obj/item/weapon/implant/tracking, /obj/item/weapon/implant/health)
+	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -244,9 +244,9 @@
 /obj/machinery/body_scanconsole/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/bodyscanner_console(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/bodyscanner_console(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 	findscanner()
@@ -292,12 +292,12 @@
 			break
 
 
-/obj/machinery/body_scanconsole/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
-	if(istype(G, /obj/item/weapon/screwdriver))
+/obj/machinery/body_scanconsole/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
+	if(istype(G, /obj/item/screwdriver))
 		default_deconstruction_screwdriver(user, "bodyscannerconsole-p", "bodyscannerconsole", G)
 		return
 
-	if(istype(G, /obj/item/weapon/wrench))
+	if(istype(G, /obj/item/wrench))
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
@@ -393,7 +393,7 @@
 		occupantData["blood"] = bloodData
 
 		var/implantData[0]
-		for(var/obj/item/weapon/implant/I in H)
+		for(var/obj/item/implant/I in H)
 			if(I.implanted && is_type_in_list(I, known_implants))
 				var/implantSubData[0]
 				implantSubData["name"] = sanitize(I.name)
@@ -483,7 +483,7 @@
 		if(!(printing) && printing_text)
 			printing = 1
 			visible_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>")
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+			var/obj/item/paper/P = new /obj/item/paper(loc)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
 			P.info += "<b>Time of scan:</b> [station_time_timestamp()]<br><br>"

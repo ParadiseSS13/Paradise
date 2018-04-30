@@ -43,7 +43,7 @@ Doesn't work on other aliens/AI.*/
 		adjustPlasma(-10)
 		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
 		if(msg)
-			log_say("Alien Whisper: [key_name(src)]->[key_name(M)]: [msg]")
+			log_say("(AWHISPER to [key_name(M)]) [msg]", src)
 			to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")
 			to_chat(src, "<span class='noticealien'>You said: [msg] to [M]</span>")
 			for(var/mob/dead/observer/G in player_list)

@@ -1,4 +1,4 @@
-/obj/item/weapon/hierophant_staff
+/obj/item/hierophant_staff
 	name = "Hierophant's staff"
 	desc = "A large club with intense magic power infused into it."
 	icon_state = "hierophant_staff"
@@ -19,7 +19,7 @@
 	var/teleporting = FALSE //if we ARE teleporting
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
-/obj/item/weapon/hierophant_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/hierophant_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	var/turf/T = get_turf(target)
 	if(!T || timer > world.time)
@@ -28,7 +28,7 @@
 	if(proximity_flag)
 		spawn(0)
 			aoe_burst(T, user)
-		add_logs(user, target, "fired 3x3 blast at", src)
+		add_attack_logs(user, target, "Fired 3x3 blast at [src]")
 	else
 		if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
 			spawn(0)
@@ -39,15 +39,15 @@
 			if(isliving(target) && chaser_timer <= world.time) //living and chasers off cooldown? fire one!
 				chaser_timer = world.time + chaser_cooldown
 				new /obj/effect/temp_visual/hierophant/chaser(get_turf(user), user, target, 1.5, friendly_fire_check)
-				add_logs(user, target, "fired a chaser at", src)
+				add_attack_logs(user, target, "Fired a chaser at [src]")
 			else
 				spawn(0)
 					cardinal_blasts(T, user) //otherwise, just do cardinal blast
-				add_logs(user, target, "fired cardinal blast at", src)
+				add_attack_logs(user, target, "Fired cardinal blast at [src]")
 		else
 			to_chat(user, "<span class='warning'>That target is out of range!</span>") //too far away
 
-/obj/item/weapon/hierophant_staff/ui_action_click(mob/user, actiontype)
+/obj/item/hierophant_staff/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/toggle_unfriendly_fire) //toggle friendly fire...
 		friendly_fire_check = !friendly_fire_check
 		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
@@ -109,7 +109,7 @@
 			to_chat(user, "<span class='warning'>The rune is blocked by something, preventing teleportation!</span>")
 			user.update_action_buttons_icon()
 			return
-		add_logs(user, rune, "teleported self from ([source.x],[source.y],[source.z]) to")
+		add_attack_logs(user, rune, "Teleported self from ([source.x],[source.y],[source.z]) to ([T.x],[T.y],[T.z])")
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, user)
 		for(var/t in RANGE_TURFS(1, T))
@@ -128,7 +128,7 @@
 	if(user)
 		user.update_action_buttons_icon()
 
-/obj/item/weapon/hierophant_staff/proc/teleport_mob(turf/source, mob/M, turf/target, mob/user)
+/obj/item/hierophant_staff/proc/teleport_mob(turf/source, mob/M, turf/target, mob/user)
 	var/turf/turf_to_teleport_to = get_step(target, get_dir(source, M)) //get position relative to caster
 	if(!turf_to_teleport_to || is_blocked_turf(turf_to_teleport_to))
 		return
@@ -150,9 +150,9 @@
 		return
 	M.visible_message("<span class='hierophant_warning'>[M] fades in!</span>")
 	if(user != M)
-		add_logs(user, M, "teleported", null, "from ([source.x],[source.y],[source.z])")
+		add_attack_logs(user, M, "Teleported from ([source.x],[source.y],[source.z])")
 
-/obj/item/weapon/hierophant_staff/proc/cardinal_blasts(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
+/obj/item/hierophant_staff/proc/cardinal_blasts(turf/T, mob/living/user) //fire cardinal cross blasts with a delay
 	if(!T)
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph/cardinal(T, user)
@@ -164,7 +164,7 @@
 		spawn(0)
 			blast_wall(T, d, user)
 
-/obj/item/weapon/hierophant_staff/proc/blast_wall(turf/T, dir, mob/living/user) //make a wall of blasts blast_range tiles long
+/obj/item/hierophant_staff/proc/blast_wall(turf/T, dir, mob/living/user) //make a wall of blasts blast_range tiles long
 	if(!T)
 		return
 	var/range = blast_range
@@ -177,7 +177,7 @@
 		previousturf = J
 		J = get_step(previousturf, dir)
 
-/obj/item/weapon/hierophant_staff/proc/aoe_burst(turf/T, mob/living/user) //make a 3x3 blast around a target
+/obj/item/hierophant_staff/proc/aoe_burst(turf/T, mob/living/user) //make a 3x3 blast around a target
 	if(!T)
 		return
 	new /obj/effect/temp_visual/hierophant/telegraph(T, user)

@@ -1,4 +1,4 @@
-/obj/item/weapon/gun/medbeam
+/obj/item/gun/medbeam
 	name = "Medical Beamgun"
 	desc = "Delivers medical nanites in a focused beam."
 	icon = 'icons/obj/chronos.dmi'
@@ -15,26 +15,26 @@
 
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/weapon/gun/medbeam/New()
+/obj/item/gun/medbeam/New()
 	..()
 	processing_objects.Add(src)
 
-/obj/item/weapon/gun/medbeam/Destroy()
+/obj/item/gun/medbeam/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/weapon/gun/medbeam/dropped(mob/user)
+/obj/item/gun/medbeam/dropped(mob/user)
 	..()
 	LoseTarget()
 
-/obj/item/weapon/gun/medbeam/proc/LoseTarget()
+/obj/item/gun/medbeam/proc/LoseTarget()
 	if(active)
 		qdel(current_beam)
 		active = 0
 		on_beam_release(current_target)
 	current_target = null
 
-/obj/item/weapon/gun/medbeam/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/medbeam/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	add_fingerprint(user)
 
 	if(current_target)
@@ -50,7 +50,7 @@
 
 	feedback_add_details("gun_fired","[type]")
 
-/obj/item/weapon/gun/medbeam/process()
+/obj/item/gun/medbeam/process()
 	var/mob/living/carbon/human/H = loc
 	if(!istype(H))
 		LoseTarget()
@@ -73,7 +73,7 @@
 	if(current_target)
 		on_beam_tick(current_target)
 
-/obj/item/weapon/gun/medbeam/proc/los_check(mob/user,mob/target)
+/obj/item/gun/medbeam/proc/los_check(mob/user,mob/target)
 	var/turf/user_turf = user.loc
 	if(!istype(user_turf))
 		return 0
@@ -95,10 +95,10 @@
 	qdel(dummy)
 	return 1
 
-/obj/item/weapon/gun/medbeam/proc/on_beam_hit(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_hit(var/mob/living/target)
 	return
 
-/obj/item/weapon/gun/medbeam/proc/on_beam_tick(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_tick(var/mob/living/target)
 	target.adjustBruteLoss(-4)
 	target.adjustFireLoss(-4)
 	if(ishuman(target))
@@ -109,7 +109,7 @@
 					E.perma_injury = 0
 	return
 
-/obj/item/weapon/gun/medbeam/proc/on_beam_release(var/mob/living/target)
+/obj/item/gun/medbeam/proc/on_beam_release(var/mob/living/target)
 	return
 
 /obj/effect/ebeam/medical

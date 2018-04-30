@@ -13,7 +13,7 @@
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/health = 100
 	var/lastbang
-	var/cutting_tool = /obj/item/weapon/weldingtool
+	var/cutting_tool = /obj/item/weldingtool
 	var/sound = 'sound/machines/click.ogg'
 	var/cutting_sound
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
@@ -168,11 +168,11 @@
 			A.forceMove(loc)
 		qdel(src)
 
-/obj/structure/closet/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/rcs) && !opened)
+/obj/structure/closet/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/rcs) && !opened)
 		if(user in contents) //to prevent self-teleporting.
 			return
-		var/obj/item/weapon/rcs/E = W
+		var/obj/item/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
 			if(!is_level_reachable(z))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
@@ -247,13 +247,13 @@
 			return
 
 	if(opened)
-		if(istype(W, /obj/item/weapon/grab))
+		if(istype(W, /obj/item/grab))
 			MouseDrop_T(W:affecting, user)      //act like they were dragged onto the closet
 		if(istype(W,/obj/item/tk_grab))
 			return 0
 		if(istype(W, cutting_tool))
-			if(istype(W, /obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/WT = W
+			if(istype(W, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = W
 				if(!WT.remove_fuel(0, user))
 					return
 				to_chat(user, "<span class='notice'>You begin cutting \the [src] apart...</span>")
@@ -278,8 +278,8 @@
 			W.forceMove(loc)
 	else if(istype(W, /obj/item/stack/packageWrap))
 		return
-	else if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+	else if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = W
 		if(src == user.loc)
 			to_chat(user, "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>")
 			return
