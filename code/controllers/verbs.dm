@@ -91,7 +91,7 @@
 			debug_variables(shuttle_master)
 			feedback_add_details("admin_verb","DShuttle")
 		if("Timer")
-			debug_variables(timer_master)
+			debug_variables(SStimer)
 			feedback_add_details("admin_verb","DTimer")
 		if("Weather")
 			debug_variables(weather_master)

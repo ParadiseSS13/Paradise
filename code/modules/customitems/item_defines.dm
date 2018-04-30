@@ -696,6 +696,12 @@
 			user.update_inv_head()
 			return 1
 
+/obj/item/clothing/head/beret/fluff/elo	//V-Force_Bomber: E.L.O.
+	name = "E.L.O.'s medical beret"
+	desc = "E.L.O.s personal medical beret, issued by Nanotrassen and awarded along with her medal."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elo-beret"
+
 //////////// Suits ////////////
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'

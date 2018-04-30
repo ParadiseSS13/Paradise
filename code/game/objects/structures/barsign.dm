@@ -105,7 +105,7 @@
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(src, "post_emag", 100)
+	addtimer(CALLBACK(src, .proc/post_emag), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)
