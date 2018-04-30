@@ -1,0 +1,5 @@
+author: "FreeStylaLT"
+delete-after: True
+changes: 
+  - tweak: "Medbay treatment center now has a wider entrance"
+  - tweak: "Virology hallway is now publically accessible from Surgery waiting room, entrance is now double-doors."
