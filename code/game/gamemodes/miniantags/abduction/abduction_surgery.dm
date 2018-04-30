@@ -49,6 +49,9 @@
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
 		return 1
 
+/datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	return end_step(user, target, target_zone, tool, surgery)
+
 /datum/surgery_step/internal/gland_insert
 	name = "insert gland"
 	allowed_tools = list(/obj/item/organ/internal/heart/gland = 100)
@@ -64,6 +67,9 @@
 	var/obj/item/organ/internal/heart/gland/gland = tool
 	gland.insert(target, 2)
 	return 1
+
+/datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	return end_step(user, target, target_zone, tool, surgery)
 
 //IPC Gland Surgery//
 
