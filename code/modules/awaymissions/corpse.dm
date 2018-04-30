@@ -52,11 +52,11 @@
 		create()
 	else
 		poi_list |= src
-		LAZYADD(mob_spawners[name], src)
+		LAZYADD(GLOB.mob_spawners[name], src)
 
 /obj/effect/mob_spawn/Destroy()
 	poi_list -= src
-	var/list/spawners = mob_spawners[name]
+	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	return ..()
 
@@ -110,6 +110,7 @@
 	var/mob_species = null		//Set species
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
+	var/disable_sensors = TRUE
 	//All of these only affect the ID that the outfit has placed in the ID slot
 	var/id_job = null			//Such as "Clown" or "Chef." This just determines what the ID reads as, not their access
 	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use "Captain" if you want it to be all access.
@@ -135,6 +136,7 @@
 	var/back = -1
 	var/id = -1
 	var/neck = -1
+	var/pda = -1
 	var/backpack_contents = -1
 	var/suit_store = -1
 
@@ -188,6 +190,18 @@
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
 			qdel(I)
+
+		if(disable_pda)
+			// We don't want corpse PDAs to show up in the messenger list.
+			var/obj/item/pda/PDA = locate(/obj/item/pda) in H
+			if(PDA)
+				var/datum/data/pda/app/messenger/M = PDA.find_program(/datum/data/pda/app/messenger)
+				M.toff = 1
+		if(disable_sensors)
+			// Using crew monitors to find corpses while creative makes finding certain ruins too easy.
+			var/obj/item/clothing/under/C = H.w_uniform
+			if(istype(C))
+				C.sensor_mode = SUIT_SENSOR_OFF
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)

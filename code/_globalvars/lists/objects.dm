@@ -46,4 +46,4 @@ var/global/list/active_jammers = list()             // List of active radio jamm
 
 var/global/list/active_diseases = list() 			//List of Active disease in all mobs; purely for quick referencing.
 
-var/global/list/mob_spawners = list()
+GLOBAL_LIST_EMPTY(mob_spawners) 		    // All mob_spawn objects
