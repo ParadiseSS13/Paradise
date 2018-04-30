@@ -219,39 +219,6 @@
 	desc = "Gives you night vision."
 	panel = "Thrall Abilities"
 
-/obj/effect/proc_holder/spell/aoe_turf/flashfreeze
-	name = "Icy Veins"
-	desc = "Instantly freezes the blood of nearby people, stunning them and causing burn damage."
-	panel = "Shadowling Abilities"
-	range = 5
-	charge_max = 250
-	clothes_req = 0
-	action_icon_state = "icy_veins"
-
-/obj/effect/proc_holder/spell/aoe_turf/flashfreeze/cast(list/targets, mob/user = usr)
-	if(!shadowling_check(user))
-		charge_counter = charge_max
-		return
-	to_chat(user, "<span class='shadowling'>You freeze the nearby air.</span>")
-	playsound(user.loc, 'sound/effects/ghost2.ogg', 50, 1)
-
-	for(var/turf/T in targets)
-		for(var/mob/living/carbon/M in T.contents)
-			if(is_shadow_or_thrall(M))
-				if(M == user) //No message for the user, of course
-					continue
-				else
-					to_chat(M, "<span class='danger'>You feel a blast of paralyzingly cold air wrap around you and flow past, but you are unaffected!</span>")
-					continue
-			to_chat(M, "<span class='userdanger'>A wave of shockingly cold air engulfs you!</span>")
-			M.Stun(2)
-			M.apply_damage(10, BURN)
-			if(M.bodytemperature)
-				M.bodytemperature -= 200 //Extreme amount of initial cold
-			if(M.reagents)
-				M.reagents.add_reagent("frostoil", 15) //Half of a cryosting
-
-
 /obj/effect/proc_holder/spell/targeted/enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
 	name = "Enthrall"
 	desc = "Allows you to enslave a conscious, non-braindead, non-catatonic human to your will. This takes some time to cast."
