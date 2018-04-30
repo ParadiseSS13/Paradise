@@ -25,6 +25,7 @@
 	var/blade_status = GUILLOTINE_BLADE_RAISED
 	var/blade_sharpness = GUILLOTINE_BLADE_MAX_SHARP // How sharp the blade is
 	var/kill_count = 0
+	var/force_clap = FALSE //You WILL clap if I want you to
 	var/current_action = 0 // What's currently happening to the guillotine
 
 /obj/structure/guillotine/examine(mob/user)
@@ -65,7 +66,7 @@
 		if(GUILLOTINE_BLADE_DROPPED)
 			blade_status = GUILLOTINE_BLADE_MOVING
 			icon_state = "guillotine_raise"
-			addtimer(src, "raise_blade", GUILLOTINE_ANIMATION_LENGTH)
+			addtimer(CALLBACK(src, .proc/raise_blade), GUILLOTINE_ANIMATION_LENGTH)
 			return
 		if(GUILLOTINE_BLADE_RAISED)
 			if(has_buckled_mobs())
@@ -79,7 +80,7 @@
 						blade_status = GUILLOTINE_BLADE_MOVING
 						icon_state = "guillotine_drop"
 						playsound(src, 'sound/items/unsheath.ogg', 100, 1)
-						addtimer(src, "drop_blade", GUILLOTINE_ANIMATION_LENGTH - 2, FALSE, user) // Minus two so we play the sound and decap faster
+						addtimer(CALLBACK(src, .proc/drop_blade, user), GUILLOTINE_ANIMATION_LENGTH - 2) // Minus two so we play the sound and decap faster
 					else
 						current_action = 0
 				else
@@ -88,7 +89,7 @@
 				blade_status = GUILLOTINE_BLADE_MOVING
 				icon_state = "guillotine_drop"
 				playsound(src, 'sound/items/unsheath.ogg', 100, 1)
-				addtimer(src, "drop_blade", GUILLOTINE_ANIMATION_LENGTH)
+				addtimer(CALLBACK(src, .proc/drop_blade), GUILLOTINE_ANIMATION_LENGTH)
 
 /obj/structure/guillotine/proc/raise_blade()
 	blade_status = GUILLOTINE_BLADE_RAISED
@@ -129,12 +130,13 @@
 			overlays.Cut()
 			overlays += mutable_appearance(icon, blood_overlay)
 
-			// The crowd is pleased
-			// The delay is to make large crowds have a longer lasting applause
-			var/delay_offset = 0
-			for(var/mob/living/carbon/human/HM in viewers(src, 7))
-				addtimer(HM, "emote", delay_offset * 0.3, FALSE, "clap")
-				delay_offset++
+			if(force_clap)
+				// The crowd is pleased
+				// The delay is to make large crowds have a longer lasting applause
+				var/delay_offset = 0
+				for(var/mob/living/carbon/human/HM in viewers(src, 7))
+					addtimer(CALLBACK(HM, /mob/.proc/emote, "clap"), delay_offset * 0.3)
+					delay_offset++
 		else
 			H.apply_damage(15 * blade_sharpness, BRUTE, head)
 			add_attack_logs(user, H, "non-fatally dropped the blade on with [src]")
