@@ -270,7 +270,7 @@ var/global/list/default_medbay_channels = list(
 	universal_speak = 1
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(src, "autocleanup", SecondsToTicks(10))
+	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), SecondsToTicks(10), TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -619,7 +619,7 @@ var/global/list/default_medbay_channels = list(
 /obj/item/radio/emp_act(severity)
 	on = 0
 	disable_timer++
-	addtimer(src, "enable_radio", rand(100, 200))
+	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")

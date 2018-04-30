@@ -21,7 +21,7 @@
 	update_self()
 	forceMove(mob_info.spawn_point)
 	if(!mob_info.is_trap)
-		addtimer(src, "despawn", mob_info.lifetime)
+		addtimer(CALLBACK(src, .proc/despawn), mob_info.lifetime)
 
 /obj/effect/nanomob/proc/update_self()
 	if(!mob_info)

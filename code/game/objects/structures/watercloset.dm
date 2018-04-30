@@ -343,9 +343,9 @@
 			mist_time = 70		//7 seconds on freezing temperature to disperse existing mist
 		if(watertemp == "boiling")
 			mist_time = 20		//2 seconds on boiling temperature to build up mist
-		addtimer(src, "update_mist", mist_time)
+		addtimer(CALLBACK(src, .proc/update_mist), mist_time)
 	else
-		addtimer(src, "update_mist", 250)	//25 seconds for mist to disperse after being turned off
+		addtimer(CALLBACK(src, .proc/update_mist), 250) //25 seconds for mist to disperse after being turned off
 
 /obj/machinery/shower/proc/update_mist()
 	if(on)

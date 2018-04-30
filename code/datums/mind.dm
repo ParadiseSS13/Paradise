@@ -1538,8 +1538,7 @@
 			H.update_inv_w_uniform(0,0)
 
 	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
-	addtimer(src, "remove_zealot", convert_duration, FALSE, jumpsuit)	//deconverts after the timer expires
-
+	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
 	return 1
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
