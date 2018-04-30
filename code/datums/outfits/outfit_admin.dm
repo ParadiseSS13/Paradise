@@ -145,6 +145,7 @@
 	belt = /obj/item/gun/projectile/automatic/pistol/deagle/camo
 	l_ear = /obj/item/radio/headset/syndicate/alt
 	l_pocket = /obj/item/pinpointer/advpinpointer
+	r_pocket = null // stop them getting a radio uplink, they get an implant instead
 
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
@@ -158,7 +159,6 @@
 
 	id_icon = "commander"
 	id_access = "Syndicate Operative Leader"
-	uplink_uses = 500
 
 /datum/outfit/admin/syndicate/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

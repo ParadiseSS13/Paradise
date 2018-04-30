@@ -54,7 +54,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/static/restart_clear = 0
 	var/static/restart_timeout = 0
 	var/static/restart_count = 0
-	
+
 	var/static/random_seed
 
 	//current tick limit, assigned before running a subsystem.
@@ -71,7 +71,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(!random_seed)
 		random_seed = rand(1, 1e9)
 		rand_seed(random_seed)
-	
+
 	var/list/_subsystems = list()
 	subsystems = _subsystems
 	if(Master != src)
@@ -194,6 +194,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
 	log_world(msg)
+
+	if(config.developer_express_start & ticker.current_state == GAME_STATE_PREGAME)
+		ticker.current_state = GAME_STATE_SETTING_UP
 
 	if(!current_runlevel)
 		SetRunLevel(1)
