@@ -290,7 +290,7 @@
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 			else
-				addtimer(src, "powerdraw_loop", 0, TRUE, A, H)
+				INVOKE_ASYNC(src, .proc/powerdraw_loop, A, H)
 		else
 			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
 	else

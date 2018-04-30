@@ -238,7 +238,7 @@
 		return null
 
 	D.occupant = occupant
-	D.roomtimer = addtimer(src, "process_room", PAY_INTERVAL, 0, roomid)
+	D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	vacant_rooms -= D
 	guests[occupant] = roomid
 
@@ -252,7 +252,7 @@
 		return
 
 	if(D.account.charge(100, transaction_purpose = "10 minutes", dest_name = name))
-		D.roomtimer = addtimer(src, "process_room", PAY_INTERVAL, 0, roomid)
+		D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	else
 		force_checkout(roomid)
 
