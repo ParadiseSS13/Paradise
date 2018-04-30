@@ -1,132 +1,89 @@
-#define EMOTE_COOLDOWN 20		//Time in deciseconds that the cooldown lasts
+/mob/proc/emote(var/act, var/m_type, var/message)
+	act = lowertext(act)
+	var/param = message
+	var/custom_param = findchar(act, " ")
+	if(custom_param)
+		param = copytext(act, custom_param + 1, length(act) + 1)
+		act = copytext(act, 1, custom_param)
 
-//Emote Cooldown System (it's so simple!)
-/mob/proc/handle_emote_CD(cooldown = EMOTE_COOLDOWN)
-	if(emote_cd == 2) return 1			// Cooldown emotes were disabled by an admin, prevent use
-	if(src.emote_cd == 1) return 1		// Already on CD, prevent use
+	var/datum/emote/E = emote_list[act]
+	if(!E || !(E.run_emote(src, param, m_type)))
+		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
-	src.emote_cd = 1		// Starting cooldown
-	spawn(cooldown)
-		if(emote_cd == 2) return 1		// Don't reset if cooldown emotes were disabled by an admin during the cooldown
-		src.emote_cd = 0				// Cooldown complete, ready for more!
+/mob/proc/custom_emote(var/m_type=EMOTE_VISIBLE, var/message=null)
+	emote("me", m_type, message)
 
-	return 0		// Proceed with emote
-//--FalseIncarnate
+/datum/emote/mob/help
+	key = "help"
 
-/mob/proc/handle_emote_param(var/target, var/not_self, var/vicinity, var/return_mob) //Only returns not null if the target param is valid.
-	var/view_vicinity = vicinity ? vicinity : null									 //not_self means we'll only return if target is valid and not us
-	if(target)																		 //vicinity is the distance passed to the view proc.
-		for(var/mob/A in view(view_vicinity, null))									 //if set, return_mob will cause this proc to return the mob instead of just its name if the target is valid.
-			if(target == A.name && (!not_self || (not_self && target != name)))
-				if(return_mob)
-					return A
+/datum/emote/mob/help/run_emote(mob/user, params)
+	var/list/keys = list()
+	var/list/message = list("Available emotes, you can use them with say \"*emote\": ")
+
+	for(var/e in emote_list)
+		if(e in keys)
+			continue
+		var/datum/emote/E = emote_list[e]
+		if(E.can_run_emote(user, status_check = FALSE))
+			keys += E.key
+
+	keys = sortList(keys)
+
+	for(var/emote in keys)
+		if(LAZYLEN(message) > 1)
+			message += ", [emote]"
+		else
+			message += "[emote]"
+
+	message += "."
+
+	message = jointext(message, "")
+
+	to_chat(user, message)
+
+/datum/emote/mob/custom
+	key = "me"
+	key_third_person = "custom"
+	message = null
+
+/datum/emote/mob/custom/proc/check_invalid(mob/user, input)
+	. = TRUE
+	if(copytext(input,1,5) == "says")
+		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+	else if(copytext(input,1,9) == "exclaims")
+		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+	else if(copytext(input,1,6) == "yells")
+		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+	else if(copytext(input,1,5) == "asks")
+		to_chat(user, "<span class='danger'>Invalid emote.</span>")
+	else
+		. = FALSE
+
+/datum/emote/mob/custom/run_emote(mob/user, params, type_override = null)
+	if(user.client && user.client.prefs.muted & MUTE_IC)
+		to_chat(user, "You cannot send IC messages (muted).")
+		return FALSE
+
+	if(!params)
+		var/custom_emote = copytext(sanitize(input("Choose an emote to display.") as text|null), 1, MAX_MESSAGE_LEN)
+		if(custom_emote && !check_invalid(user, custom_emote))
+			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
+			switch(type)
+				if("Visible")
+					emote_type = EMOTE_VISIBLE
+				if("Hearable")
+					emote_type = EMOTE_AUDIBLE
 				else
-					return target
-
-// All mobs should have custom emote, really..
-/mob/proc/custom_emote(var/m_type=1,var/message = null)
-
-	if(stat || !use_me && usr == src)
-		if(usr)
-			to_chat(usr, "You are unable to emote.")
-		return
-
-	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)
-	if(m_type == 2 && muzzled) return
-
-	var/input
-	if(!message)
-		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null,1,MAX_MESSAGE_LEN))
+					alert("Unable to use this emote, must be either hearable or visible.")
+					return
+			message = custom_emote
 	else
-		input = message
-	if(input)
-		message = "<B>[src]</B> [input]"
-	else
-		return
+		message = params
+		if(type_override)
+			emote_type = type_override
+	. = ..()
+	message = null
+	emote_type = EMOTE_VISIBLE
 
-
-	if(message)
-		log_emote(message, src)
-
- //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
- // Maybe some people are okay with that.
-
-		for(var/mob/M in player_list)
-			if(!M.client)
-				continue //skip monkeys and leavers
-			if(istype(M, /mob/new_player))
-				continue
-			if(findtext(message," snores.")) //Because we have so many sleeping people.
-				break
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
-				M.show_message(message)
-
-
-		// Type 1 (Visual) emotes are sent to anyone in view of the item
-		if(m_type & 1)
-			var/list/can_see = get_mobs_in_view(1,src)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
-			can_see |= viewers(src,null)
-			for(var/mob/O in can_see)
-
-				if(O.status_flags & PASSEMOTES)
-
-					for(var/obj/item/holder/H in O.contents)
-						H.show_message(message, m_type)
-
-					for(var/mob/living/M in O.contents)
-						M.show_message(message, m_type)
-
-				O.show_message(message, m_type)
-
-		// Type 2 (Audible) emotes are sent to anyone in hear range
-		// of the *LOCATION* -- this is important for pAIs to be heard
-		else if(m_type & 2)
-			for(var/mob/O in get_mobs_in_view(7,src))
-
-				if(O.status_flags & PASSEMOTES)
-
-					for(var/obj/item/holder/H in O.contents)
-						H.show_message(message, m_type)
-
-					for(var/mob/living/M in O.contents)
-						M.show_message(message, m_type)
-
-				O.show_message(message, m_type)
-
-/mob/proc/emote_dead(var/message)
-	if(client.prefs.muted & MUTE_DEADCHAT)
-		to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
-		return
-
-	if(!(client.prefs.toggles & CHAT_DEAD))
-		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
-		return
-
-	if(!src.client.holder)
-		if(!config.dsay_allowed)
-			to_chat(src, "<span class='warning'>Deadchat is globally muted</span>")
-			return
-
-
-	var/input
-	if(!message)
-		input = sanitize(copytext(input(src, "Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
-	else
-		input = message
-
-	if(input)
-		message = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <b>[src]</b> [message]</span>"
-	else
-		return
-
-
-	if(message)
-		for(var/mob/M in player_list)
-			if(istype(M, /mob/new_player))
-				continue
-
-			if(check_rights(R_ADMIN|R_MOD, 0, M) && M.get_preference(CHAT_DEAD)) // Show the emote to admins/mods
-				to_chat(M, message)
-
-			else if(M.stat == DEAD && M.get_preference(CHAT_DEAD)) // Show the emote to regular ghosts with deadchat toggled on
-				M.show_message(message, 2)
+/datum/emote/mob/custom/replace_pronoun(mob/user, message)
+	return message

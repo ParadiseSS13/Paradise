@@ -253,17 +253,6 @@
 	adjustBruteLoss(20)
 	return
 
-/mob/living/simple_animal/emote(var/act, var/m_type=1, var/message = null)
-	if(stat)
-		return
-	act = lowertext(act)
-	switch(act) //IMPORTANT: Emotes MUST NOT CONFLICT anywhere along the chain.
-		if("scream")
-			message = "<B>\The [src]</B> whimpers."
-			m_type = 2
-
-	..(act, m_type, message)
-
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
 		return

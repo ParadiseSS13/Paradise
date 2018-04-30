@@ -6,26 +6,21 @@
 	var/key_third_person = "" //This will also call the emote
 	var/message = "" //Message displayed when emote is used
 	var/message_mime = "" //Message displayed if the user is a mime
-	var/message_alien = "" //Message displayed if the user is a grown alien
-	var/message_larva = "" //Message displayed if the user is an alien larva
-	var/message_robot = "" //Message displayed if the user is a robot
-	var/message_AI = "" //Message displayed if the user is an AI
-	var/message_monkey = "" //Message displayed if the user is a monkey
-	var/message_simple = "" //Message to display if the user is a simple_animal
 	var/message_param = "" //Message to display if a param was given
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
 	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
-	var/list/mob_type_allowed_typecache = list(/mob) //Types that are allowed to use that emote
 	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
 	var/list/mob_type_ignore_stat_typecache
 	var/stat_allowed = CONSCIOUS
 	var/static/list/emote_list = list()
+	var/cooldown = 0
+	var/sound
+	var/sound_volume = 50
 
 /datum/emote/New()
 	if(key_third_person)
 		emote_list[key_third_person] = src
-	mob_type_allowed_typecache = typecacheof(mob_type_allowed_typecache)
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 
@@ -44,11 +39,32 @@
 
 	msg = "<b>[user]</b> " + msg
 
+	if(!findtext(message, " snores."))
+		for(var/mob/M in player_list)
+			if(!M.client || isnewplayer(M))
+				continue
+			var/T = get_turf(user)
+			if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
+				M.show_message(msg)
+
 	if(emote_type == EMOTE_AUDIBLE)
 		user.audible_message(msg)
+		play_sound(user)
 	else
 		user.visible_message(msg)
 	log_emote(msg, user)
+	emote_cooldown()
+
+/datum/emote/proc/emote_cooldown(mob/user)
+	if(!cooldown || user.emote_on_cd)
+		return
+	user.emote_on_cd = TRUE
+	addtimer(CALLBACK(src, .proc/emote_warmup, user), cooldown)
+
+/datum/emote/proc/emote_warmup(mob/user)
+	if(user.emote_on_cd > TRUE)
+		return
+	user.emote_on_cd = FALSE
 
 /datum/emote/proc/replace_pronoun(mob/user, message)
 	if(findtext(message, "their"))
@@ -65,25 +81,13 @@
 		return "makes a [pick("strong ", "weak ", "")]noise."
 	if(user.mind && user.mind.miming && message_mime)
 		. = message_mime
-	if(isalienadult(user) && message_alien)
-		. = message_alien
-	else if(islarva(user) && message_larva)
-		. = message_larva
-	else if(isrobot(user) && message_robot)
-		. = message_robot
-	else if(isAI(user) && message_AI)
-		. = message_AI
-	else if(ismonkey(user) && message_monkey)
-		. = message_monkey
-	else if(isanimal(user) && message_simple)
-		. = message_simple
 
 /datum/emote/proc/select_param(mob/user, params)
 	return replacetext(message_param, "%t", params)
 
 /datum/emote/proc/can_run_emote(mob/user, status_check = TRUE)
 	. = TRUE
-	if(!is_type_in_typecache(user, mob_type_allowed_typecache))
+	if(cooldown && user.emote_on_cd)
 		return FALSE
 	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
 		return FALSE
@@ -95,12 +99,19 @@
 			to_chat(user, "<span class='notice'>You cannot [key] while restrained.</span>")
 			return FALSE
 
-/datum/emote/sound
-	var/sound //Sound to play when emote is called
-	var/vary = FALSE	//used for the honk borg emote
-	mob_type_allowed_typecache = list(/mob/living/carbon/brain, /mob/living/silicon)
+/datum/emote/proc/play_sound(mob/user)
+	playsound(user.loc, sound, sound_volume, TRUE)
 
-/datum/emote/sound/run_emote(mob/user, params)
-	. = ..()
-	if(.)
-		playsound(user.loc, sound, 50, vary)
+/datum/emote/proc/handle_emote_param(mob/user, var/target, var/not_self, var/vicinity, var/return_mob)
+	//Only returns not null if the target param is valid.
+	//not_self means we'll only return if target is valid and not us
+	//vicinity is the distance passed to the view proc.
+	var/view_vicinity = vicinity ? vicinity : null 
+	if(!target)
+		return
+		//if set, return_mob will cause this proc to return the mob instead of just its name if the target is valid.
+	for(var/mob/A in view(view_vicinity, null))
+		if(target == A.name && (!not_self || (not_self && target != user.name)))
+			if(return_mob)
+				return A
+			return target

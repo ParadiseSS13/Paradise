@@ -99,7 +99,7 @@
 
 	var/in_throw_mode = 0
 
-	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
+	var/emote_on_cd = 0		// Used to supress emote spamming. 1 if on CD, >= 2 if disabled by admin (manually set), else 0
 
 	var/job = null//Living
 
@@ -199,4 +199,8 @@
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 
+
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
+
+	var/list/emote_list = list() // Initial emotes
+	var/list/emote_types = list(/datum/emote/mob) // Emotes types to add. Higher priority emote types first, ie the emote will not be added if there is already an emote defined for that key
