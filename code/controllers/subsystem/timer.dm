@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(timer)
 
 	flags = SS_TICKER|SS_NO_INIT
 
-	var/list/datum/timedevent/second_queue = list() //awe, yes, you've had first queue, but what about second queue?
+	var/list/second_queue = list() //awe, yes, you've had first queue, but what about second queue? Contains: /datum/timedevent
 	var/list/hashes = list()
 
 	var/head_offset = 0 //world.time of the first entry in the the bucket.
