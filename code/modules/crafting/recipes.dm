@@ -354,3 +354,13 @@
 	reqs = list(/obj/item/grown/log = 5)
 	result = /obj/structure/bonfire
 	category = CAT_PRIMAL
+
+/datum/crafting_recipe/guillotine
+	name = "Guillotine"
+	result = /obj/structure/guillotine
+	time = 150 // Building a functioning guillotine takes time
+	reqs = list(/obj/item/stack/sheet/plasteel = 3,
+		        /obj/item/stack/sheet/wood = 20,
+		        /obj/item/stack/cable_coil = 10)
+	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
+	category = CAT_MISC
