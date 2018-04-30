@@ -1,4 +1,3 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes not being able to make plastic with reagents"
+author: Fox McCloud
+changes: []
+delete-after: true
