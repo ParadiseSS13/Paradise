@@ -10,6 +10,11 @@
 	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
+/mob/living/carbon/human/New(loc)
+	if(length(args) > 1)
+		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
+	. = ..()
+
 /mob/living/carbon/human/Initialize(mapload, new_species = null)
 	if(!dna)
 		dna = new /datum/dna(null)
