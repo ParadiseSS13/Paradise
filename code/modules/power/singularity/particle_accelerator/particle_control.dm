@@ -227,9 +227,9 @@
 	active = !active
 	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? usr.key : "outside forces"]","singulo")
 	if(active)
-		msg_admin_attack("PA Control Computer turned ON by [key_name(usr, usr.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-		log_game("PA Control Computer turned ON by [usr.ckey]([usr]) in ([x],[y],[z])")
-		use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([usr.ckey]) has turned on the PA Control Computer.</font>")
+		msg_admin_attack("PA Control Computer turned ON by [key_name_admin(usr)]",0,1)
+		log_game("PA Control Computer turned ON by [key_name(usr)] in ([x],[y],[z])")
+		use_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] has turned on the PA Control Computer.</font>")
 	if(active)
 		use_power = 2
 		for(var/obj/structure/particle_accelerator/part in connected_parts)

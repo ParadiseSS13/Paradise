@@ -59,7 +59,7 @@
 		if(do_after(user, 30 * I.toolspeed, target = src))
 			if(shattered)
 				user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
-				new /obj/item/weapon/shard(get_turf(user))
+				new /obj/item/shard(get_turf(user))
 			else
 				user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
 				new /obj/item/mounted/mirror(get_turf(user))

@@ -45,13 +45,13 @@ var/list/holopads = list()
 	..()
 	holopads += src
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/holopad(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/circuitboard/holopad(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
 /obj/machinery/hologram/holopad/RefreshParts()
 	var/holograph_range = 4
-	for(var/obj/item/weapon/stock_parts/capacitor/B in component_parts)
+	for(var/obj/item/stock_parts/capacitor/B in component_parts)
 		holograph_range += 1 * B.rating
 	holo_range = holograph_range
 

@@ -62,7 +62,7 @@
 
 /obj/item/organ/internal/hivelord_core/New()
 	..()
-	addtimer(src, "inert_check", 2400)
+	addtimer(CALLBACK(src, .proc/inert_check), 2400)
 
 /obj/item/organ/internal/hivelord_core/proc/inert_check()
 	if(!owner && !preserved)
@@ -151,7 +151,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/New()
 	..()
-	addtimer(src, "death", 100)
+	addtimer(CALLBACK(src, .proc/death), 100)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
@@ -314,7 +314,7 @@
 	..()
 	desc = "[src] has been stabilized. It no longer crackles with power, but it's healing properties are preserved indefinitely."
 
-/obj/item/weapon/legion_skull
+/obj/item/legion_skull
 	name = "legion's head"
 	desc = "The once living, now empty eyes of the former human's skull cut deep into your soul."
 	icon = 'icons/obj/mining.dmi'

@@ -93,7 +93,7 @@
 							inactivity_period = 0
 							custom_emote(1, "[src]'s chest closes, hiding their insides.")
 				if(SNPC_PSYCHO)
-					var/choice = pick(typesof(/obj/item/weapon/grenade/chem_grenade) - /obj/item/weapon/grenade/chem_grenade)
+					var/choice = pick(typesof(/obj/item/grenade/chem_grenade) - /obj/item/grenade/chem_grenade)
 
 					new choice(src)
 
@@ -109,13 +109,13 @@
 
 	var/list/allContents = getAllContents()
 
-	var/obj/item/weapon/reagent_containers/glass/beaker/bluespace/internalBeaker = locate(/obj/item/weapon/reagent_containers/glass/beaker/bluespace) in allContents
-	var/obj/item/weapon/storage/bag/plants/internalBag = locate(/obj/item/weapon/storage/bag/plants) in allContents
+	var/obj/item/reagent_containers/glass/beaker/bluespace/internalBeaker = locate(/obj/item/reagent_containers/glass/beaker/bluespace) in allContents
+	var/obj/item/storage/bag/plants/internalBag = locate(/obj/item/storage/bag/plants) in allContents
 
 	if(!internalBag)
-		internalBag = new/obj/item/weapon/storage/bag/plants(src)
+		internalBag = new/obj/item/storage/bag/plants(src)
 	if(!internalBeaker)
-		internalBeaker = new/obj/item/weapon/reagent_containers/glass/beaker/bluespace(src)
+		internalBeaker = new/obj/item/reagent_containers/glass/beaker/bluespace(src)
 		internalBeaker.name = "Grow-U-All Super Spray"
 
 	if(internalBeaker && internalBag)
@@ -181,7 +181,7 @@
 					if(change)
 						HP.attackby(internalBeaker,src)
 
-	var/obj/item/weapon/reagent_containers/food/snacks/grown/GF = locate(/obj/item/weapon/reagent_containers/food/snacks/grown) in view(12,src)
+	var/obj/item/reagent_containers/food/snacks/grown/GF = locate(/obj/item/reagent_containers/food/snacks/grown) in view(12,src)
 	if(GF)
 		if(!Adjacent(GF))
 			tryWalk(get_turf(GF))
@@ -216,7 +216,7 @@
 	var/mob/living/carbon/human/serveTarget
 
 	for(var/mob/living/carbon/human/H in rangeCheck)
-		if(!locate(/obj/item/weapon/reagent_containers/food/drinks) in orange(1, H))
+		if(!locate(/obj/item/reagent_containers/food/drinks) in orange(1, H))
 			serveTarget = H
 
 
@@ -227,9 +227,9 @@
 		if(!Adjacent(RT))
 			tryWalk(get_turf(RT))
 		else
-			var/drinkChoice = pick(typesof(/obj/item/weapon/reagent_containers/food/drinks) - /obj/item/weapon/reagent_containers/food/drinks)
+			var/drinkChoice = pick(typesof(/obj/item/reagent_containers/food/drinks) - /obj/item/reagent_containers/food/drinks)
 			if(drinkChoice)
-				var/obj/item/weapon/reagent_containers/food/drinks/D = new drinkChoice(get_turf(src))
+				var/obj/item/reagent_containers/food/drinks/D = new drinkChoice(get_turf(src))
 				RT.attackby(D,src)
 				say("[pick("Something to wet your whistle!","Down the hatch, a tasty beverage!","One drink, coming right up!","Tasty liquid for your oral intake!","Enjoy!")]")
 				custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")], serving up a [D]!")
@@ -237,10 +237,15 @@
 /mob/living/carbon/human/interactive/proc/shitcurity(obj)
 	var/list/allContents = getAllContents()
 
-	if(retal && TARGET && Adjacent(TARGET))
-		var/obj/item/weapon/restraints/R = locate() in allContents
-		if(R)
-			R.attack(TARGET, src) // go go bluespace restraint launcher!
+	if(retal && TARGET)
+		if(Adjacent(TARGET))
+			var/obj/item/restraints/R = locate() in allContents
+			if(R)
+				R.attack(TARGET, src) // go go bluespace restraint launcher!
+		else if(TARGET in oview(7, src))
+			var/obj/item/gun/G = locate() in allContents
+			if(G)
+				G.afterattack(TARGET, src)
 
 /mob/living/carbon/human/interactive/proc/clowning(obj)
 	if(shouldModulePass())
@@ -251,17 +256,17 @@
 	var/mob/living/carbon/human/clownTarget
 	var/list/clownPriority = list()
 
-	var/obj/item/weapon/reagent_containers/spray/S
-	if(!locate(/obj/item/weapon/reagent_containers/spray) in allContents)
-		new/obj/item/weapon/reagent_containers/spray(src)
+	var/obj/item/reagent_containers/spray/S
+	if(!locate(/obj/item/reagent_containers/spray) in allContents)
+		new/obj/item/reagent_containers/spray(src)
 	else
-		S = locate(/obj/item/weapon/reagent_containers/spray) in allContents
+		S = locate(/obj/item/reagent_containers/spray) in allContents
 
 	for(var/mob/living/carbon/human/C in rangeCheck)
 		var/pranksNearby = 100
 		for(var/turf/simulated/T in orange(1, C))
 			for(var/obj/item/A in T)
-				if(istype(A,/obj/item/weapon/soap) || istype(A,/obj/item/weapon/reagent_containers/food/snacks/grown/banana) || istype(A,/obj/item/weapon/grown/bananapeel))
+				if(istype(A,/obj/item/soap) || istype(A,/obj/item/reagent_containers/food/snacks/grown/banana) || istype(A,/obj/item/grown/bananapeel))
 					pranksNearby--
 			if(T.wet)
 				pranksNearby -= 10
@@ -281,13 +286,13 @@
 			var/hasPranked = 0
 			for(var/A in allContents)
 				if(prob(smartness/2) && !hasPranked)
-					if(istype(A,/obj/item/weapon/soap))
+					if(istype(A,/obj/item/soap))
 						npcDrop(A)
 						hasPranked = 1
-					if(istype(A,/obj/item/weapon/reagent_containers/food/snacks/grown/banana))
-						var/obj/item/weapon/reagent_containers/food/snacks/B = A
+					if(istype(A,/obj/item/reagent_containers/food/snacks/grown/banana))
+						var/obj/item/reagent_containers/food/snacks/B = A
 						B.attack(src, src)
-					if(istype(A,/obj/item/weapon/grown/bananapeel))
+					if(istype(A,/obj/item/grown/bananapeel))
 						npcDrop(A)
 						hasPranked = 1
 			if(!hasPranked)
@@ -307,12 +312,12 @@
 			shouldTryHeal = 1
 			M = A
 
-	var/obj/item/weapon/reagent_containers/hypospray/HPS
+	var/obj/item/reagent_containers/hypospray/HPS
 
-	if(!locate(/obj/item/weapon/reagent_containers/hypospray) in allContents)
-		new/obj/item/weapon/reagent_containers/hypospray(src)
+	if(!locate(/obj/item/reagent_containers/hypospray) in allContents)
+		new/obj/item/reagent_containers/hypospray(src)
 	else
-		HPS = locate(/obj/item/weapon/reagent_containers/hypospray) in allContents
+		HPS = locate(/obj/item/reagent_containers/hypospray) in allContents
 		if(!shouldTryHeal)
 			shouldTryHeal = 2 // we have no stackables to use, lets use our internal hypospray instead
 
@@ -346,12 +351,12 @@
 		return
 	var/list/allContents = getAllContents()
 	//now with bluespace magic!
-	var/obj/item/weapon/reagent_containers/spray/SP = locate() in allContents
+	var/obj/item/reagent_containers/spray/SP = locate() in allContents
 	if(!SP)
-		SP = new /obj/item/weapon/reagent_containers/spray(src)
-	var/obj/item/weapon/soap/SO = locate() in allContents
+		SP = new /obj/item/reagent_containers/spray(src)
+	var/obj/item/soap/SO = locate() in allContents
 	if(!SO)
-		SO = new /obj/item/weapon/soap(src)
+		SO = new /obj/item/soap(src)
 
 	if(SP.reagents.total_volume <= 5)
 		SP.reagents.add_reagent("cleaner", 25) // bluespess water delivery for AI
@@ -420,22 +425,22 @@
 		return
 	doing |= SNPC_SPECIAL
 
-	var/static/list/customableTypes = list(/obj/item/weapon/reagent_containers/food/snacks/customizable,/obj/item/weapon/reagent_containers/food/snacks/breadslice,/obj/item/weapon/reagent_containers/food/snacks/bun,/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough,/obj/item/weapon/reagent_containers/food/snacks/boiledspaghetti,/obj/item/trash/plate,/obj/item/trash/bowl)
+	var/static/list/customableTypes = list(/obj/item/reagent_containers/food/snacks/customizable,/obj/item/reagent_containers/food/snacks/breadslice,/obj/item/reagent_containers/food/snacks/bun,/obj/item/reagent_containers/food/snacks/sliceable/flatdough,/obj/item/reagent_containers/food/snacks/boiledspaghetti,/obj/item/trash/plate,/obj/item/trash/bowl)
 
-	var/static/list/rawtypes = list(/obj/item/weapon/reagent_containers/food/snacks/grown, /obj/item/weapon/reagent_containers/food/snacks/rawcutlet, /obj/item/weapon/reagent_containers/food/snacks/rawsticks, /obj/item/weapon/reagent_containers/food/snacks/salmonmeat, /obj/item/weapon/reagent_containers/food/snacks/carpmeat, /obj/item/weapon/reagent_containers/food/snacks/catfishmeat, /obj/item/weapon/reagent_containers/food/snacks/spaghetti, /obj/item/weapon/reagent_containers/food/snacks/dough, /obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough, /obj/item/weapon/reagent_containers/food/snacks/doughslice, /obj/item/weapon/reagent_containers/food/snacks/meat, /obj/item/weapon/reagent_containers/food/snacks/boiledrice, /obj/item/weapon/reagent_containers/food/snacks/cheesewedge, /obj/item/weapon/reagent_containers/food/snacks/raw_bacon)
+	var/static/list/rawtypes = list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/reagent_containers/food/snacks/rawcutlet, /obj/item/reagent_containers/food/snacks/rawsticks, /obj/item/reagent_containers/food/snacks/salmonmeat, /obj/item/reagent_containers/food/snacks/carpmeat, /obj/item/reagent_containers/food/snacks/catfishmeat, /obj/item/reagent_containers/food/snacks/spaghetti, /obj/item/reagent_containers/food/snacks/dough, /obj/item/reagent_containers/food/snacks/sliceable/flatdough, /obj/item/reagent_containers/food/snacks/doughslice, /obj/item/reagent_containers/food/snacks/meat, /obj/item/reagent_containers/food/snacks/boiledrice, /obj/item/reagent_containers/food/snacks/cheesewedge, /obj/item/reagent_containers/food/snacks/raw_bacon)
 
 	try
 		var/list/allContents = getAllContents()
 		var/list/rangeCheck = view(6, src)
 
 		//Bluespace in some inbuilt tools
-		var/obj/item/weapon/kitchen/rollingpin/RP = locate() in allContents
+		var/obj/item/kitchen/rollingpin/RP = locate() in allContents
 		if(!RP)
-			RP = new /obj/item/weapon/kitchen/rollingpin(src)
+			RP = new /obj/item/kitchen/rollingpin(src)
 
-		var/obj/item/weapon/kitchen/knife/KK = locate() in allContents
+		var/obj/item/kitchen/knife/KK = locate() in allContents
 		if(!KK)
-			KK = new /obj/item/weapon/kitchen/knife(src)
+			KK = new /obj/item/kitchen/knife(src)
 
 		var/global/list/available_recipes
 		if(!available_recipes)
@@ -453,7 +458,7 @@
 		var/foundCustom
 		for(var/customType in customableTypes)
 			var/A = locate(customType) in rangeCheck
-			var/obj/item/weapon/reagent_containers/food/snacks/customizable/I = A
+			var/obj/item/reagent_containers/food/snacks/customizable/I = A
 			if(A && (!istype(I) || I.ingredients.len <= 3))
 				foundCustom = A // this will eventually wittle down to 0
 				break
@@ -473,8 +478,8 @@
 							A.forceMove(src)
 
 		if(foundCustom)
-			var/obj/item/weapon/reagent_containers/food/snacks/FC = foundCustom
-			for(var/obj/item/weapon/reagent_containers/food/snacks/toMake in allContents)
+			var/obj/item/reagent_containers/food/snacks/FC = foundCustom
+			for(var/obj/item/reagent_containers/food/snacks/toMake in allContents)
 				if(prob(smartness))
 					if(FC.reagents)
 						if(toMake.reagents)
@@ -492,13 +497,13 @@
 						qdel(FC) // this food is usless, toss it
 
 		// Process tool-based ingredients
-		var/obj/item/weapon/reagent_containers/food/snacks/dough/D = locate() in rangeCheck
-		var/obj/item/weapon/reagent_containers/food/snacks/sliceable/flatdough/FD = locate() in rangeCheck
-		var/obj/item/weapon/reagent_containers/food/snacks/rawcutlet/RC = locate() in rangeCheck
-		var/obj/item/weapon/reagent_containers/food/snacks/sliceable/cheesewheel/CW = locate() in rangeCheck
-		var/obj/item/weapon/reagent_containers/food/snacks/grown/potato/PO = locate() in rangeCheck
-		var/obj/item/weapon/reagent_containers/food/snacks/meat/ME = locate() in rangeCheck
-		var/obj/item/weapon/reagent_containers/food/snacks/raw_bacon/RB = locate() in rangeCheck
+		var/obj/item/reagent_containers/food/snacks/dough/D = locate() in rangeCheck
+		var/obj/item/reagent_containers/food/snacks/sliceable/flatdough/FD = locate() in rangeCheck
+		var/obj/item/reagent_containers/food/snacks/rawcutlet/RC = locate() in rangeCheck
+		var/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel/CW = locate() in rangeCheck
+		var/obj/item/reagent_containers/food/snacks/grown/potato/PO = locate() in rangeCheck
+		var/obj/item/reagent_containers/food/snacks/meat/ME = locate() in rangeCheck
+		var/obj/item/reagent_containers/food/snacks/raw_bacon/RB = locate() in rangeCheck
 
 		if(D)
 			TARGET = D
@@ -576,7 +581,7 @@
 
 		// dont display our ingredients
 		var/list/finishedList = list()
-		for(var/obj/item/weapon/reagent_containers/food/snacks/toDisplay in allContents)
+		for(var/obj/item/reagent_containers/food/snacks/toDisplay in allContents)
 			var/raw = 0
 			for(var/type in rawtypes)
 				if(istype(toDisplay, type))
@@ -585,7 +590,7 @@
 			if(!raw)
 				finishedList += toDisplay
 
-		for(var/obj/item/weapon/reagent_containers/food/snacks/toGrab in rangeCheck)
+		for(var/obj/item/reagent_containers/food/snacks/toGrab in rangeCheck)
 			if(!(locate(/obj/structure/table/reinforced) in get_turf(toGrab))) //it's not being displayed
 				var/raw = 0
 				for(var/type in rawtypes)
@@ -605,7 +610,7 @@
 
 			for(var/obj/structure/table/reinforced/toCheck in rangeCheck)
 				var/counted = 0
-				for(var/obj/item/weapon/reagent_containers/food/snacks/S in get_turf(toCheck))
+				for(var/obj/item/reagent_containers/food/snacks/S in get_turf(toCheck))
 					++counted
 				if(counted < 12) // make sure theres not too much food here
 					RT = toCheck
@@ -616,13 +621,13 @@
 				if(!Adjacent(RT))
 					tryWalk(get_turf(RT))
 				else
-					for(var/obj/item/weapon/reagent_containers/food/snacks/toPlop in finishedList)
+					for(var/obj/item/reagent_containers/food/snacks/toPlop in finishedList)
 						RT.attackby(toPlop,src)
 
 		if(!foundCookable)
 			var/chosenType = pick(rawtypes)
 
-			var/obj/item/weapon/reagent_containers/food/snacks/newSnack = new chosenType(get_turf(src))
+			var/obj/item/reagent_containers/food/snacks/newSnack = new chosenType(get_turf(src))
 			TARGET = newSnack
 			newSnack.reagents.remove_any((newSnack.reagents.total_volume/2)-1)
 			newSnack.name = "Synthetic [newSnack.name]"
@@ -661,7 +666,7 @@
 
 	//ensure we're using the best object possible
 
-	var/obj/item/weapon/best
+	var/obj/item/best
 	var/foundFav = 0
 	var/list/allContents = getAllContents()
 	for(var/test in allContents)
@@ -671,16 +676,16 @@
 				foundFav = 1
 				return
 		if(!foundFav)
-			if(istype(test,/obj/item/weapon))
-				var/obj/item/weapon/R = test
+			if(istype(test,/obj/item))
+				var/obj/item/R = test
 				if(R.force > 2) // make sure we don't equip any non-weaponlike items, ie bags and stuff
 					if(!best)
 						best = R
 					else
 						if(best.force < R.force)
 							best = R
-					if(istype(R, /obj/item/weapon/gun))
-						var/obj/item/weapon/gun/G = R
+					if(istype(R, /obj/item/gun))
+						var/obj/item/gun/G = R
 						if(G.can_shoot())
 							best = R
 							break // gun with ammo? screw the rest
@@ -693,16 +698,16 @@
 			if(M.health > 1 && (M in oview(src, 6)))
 				//THROWING OBJECTS
 				for(var/A in allContents)
-					if(istype(A,/obj/item/weapon/gun))	// guns are for shooting, not throwing.
+					if(istype(A,/obj/item/gun))	// guns are for shooting, not throwing.
 						continue
 					if(prob(robustness))
-						if(istype(A,/obj/item/weapon))
-							var/obj/item/weapon/W = A
+						if(istype(A,/obj/item))
+							var/obj/item/W = A
 							if(W.throwforce > 19) // Only throw worthwile stuff, no more lobbing wrenches at wenches
 								npcDrop(W, 1)
 								throw_item(TARGET)
-						if(istype(A,/obj/item/weapon/grenade)) // Allahu ackbar! ALLAHU ACKBARR!!
-							var/obj/item/weapon/grenade/G = A
+						if(istype(A,/obj/item/grenade)) // Allahu ackbar! ALLAHU ACKBARR!!
+							var/obj/item/grenade/G = A
 							G.attack_self(src)
 							if(prob(smartness))
 								npcDrop(G, 1)
@@ -713,12 +718,12 @@
 					swap_hands()
 				if(main_hand)
 					if(main_hand.force != 0)
-						if(istype(main_hand,/obj/item/weapon/gun))
-							var/obj/item/weapon/gun/G = main_hand
+						if(istype(main_hand,/obj/item/gun))
+							var/obj/item/gun/G = main_hand
 							if(G.can_trigger_gun(src))
 								var/shouldFire = 1
-								if(istype(main_hand, /obj/item/weapon/gun/energy))
-									var/obj/item/weapon/gun/energy/P = main_hand
+								if(istype(main_hand, /obj/item/gun/energy))
+									var/obj/item/gun/energy/P = main_hand
 									var/stunning = 0
 									for(var/A in P.ammo_type)
 										if(ispath(A,/obj/item/ammo_casing/energy/electrode))
@@ -737,7 +742,7 @@
 										if(!walk2derpless(TARGET))
 											timeout++
 									else
-										var/obj/item/weapon/W = main_hand
+										var/obj/item/W = main_hand
 										W.attack(TARGET, src)
 							else
 								npcDrop(G, 1)
@@ -797,7 +802,7 @@
 
 /mob/living/carbon/human/interactive/proc/pickStamp(allContents)
 	var/list/stamps[0]
-	for(var/obj/item/weapon/stamp/S in allContents)
+	for(var/obj/item/stamp/S in allContents)
 		stamps += S
 	if(stamps.len)
 		return pick(stamps)
@@ -805,7 +810,7 @@
 	// just make one, maybe
 	if(prob(SNPC_FUZZY_CHANCE_LOW / 2))
 		for(var/p in favoured_types)
-			if(ispath(p, /obj/item/weapon/stamp))
+			if(ispath(p, /obj/item/stamp))
 				return new p(src)
 	return null
 
@@ -817,12 +822,12 @@
 
 	var/list/allContents = getAllContents()
 
-	var/obj/item/weapon/paper/P = locate() in allContents
-	var/obj/item/weapon/stamp/S = pickStamp(allContents)
+	var/obj/item/paper/P = locate() in allContents
+	var/obj/item/stamp/S = pickStamp(allContents)
 	var/mob/living/carbon/human/H = locate() in nearby
 
 	if(!P)
-		P = new /obj/item/weapon/paper(src)
+		P = new /obj/item/paper(src)
 
 	if(P && S && H)
 		if(!P.stamped || !P.stamped.len)
@@ -845,12 +850,12 @@
 	var/list/allContents = getAllContents()
 	var/list/rangeCheck = view(7, src)
 
-	var/obj/item/weapon/stamp/S = pickStamp(allContents)
+	var/obj/item/stamp/S = pickStamp(allContents)
 	if(!S)
 		return
 
 	// stamp a paper we're holding, and drop it
-	var/obj/item/weapon/paper/P = locate() in allContents
+	var/obj/item/paper/P = locate() in allContents
 	if(P)
 		if(!P.stamped || !P.stamped.len)
 			P.stamp(S)
@@ -859,7 +864,7 @@
 		return
 
 	// stamp a paper in the world
-	for(var/obj/item/weapon/paper/A in rangeCheck)
+	for(var/obj/item/paper/A in rangeCheck)
 		if(!A.stamped || !A.stamped.len)
 			if(!Adjacent(A))
 				tryWalk(A)

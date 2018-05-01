@@ -136,7 +136,7 @@ var/list/karma_spenders = list()
 
 	var/special_role = "None"
 	var/assigned_role = "None"
-	var/karma_diary = file("data/logs/karma_[time2text(world.realtime, "YYYY/MM-Month/DD-Day")].log")
+	var/karma_diary = file("[GLOB.log_directory]/karma.log")
 	if(M.mind)
 		if(M.mind.special_role)
 			special_role = M.mind.special_role

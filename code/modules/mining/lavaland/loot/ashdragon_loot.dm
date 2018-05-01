@@ -6,18 +6,18 @@
 	var/loot = rand(1,4)
 	switch(loot)
 		if(1)
-			new /obj/item/weapon/melee/ghost_sword(src)
+			new /obj/item/melee/ghost_sword(src)
 		if(2)
-			new /obj/item/weapon/lava_staff(src)
+			new /obj/item/lava_staff(src)
 		if(3)
-			new /obj/item/weapon/spellbook/oneuse/sacredflame(src)
-			new /obj/item/weapon/gun/magic/wand/fireball(src)
+			new /obj/item/spellbook/oneuse/sacredflame(src)
+			new /obj/item/gun/magic/wand/fireball(src)
 		if(4)
-			new /obj/item/weapon/dragons_blood(src)
+			new /obj/item/dragons_blood(src)
 
 // Spectral Blade
 
-/obj/item/weapon/melee/ghost_sword
+/obj/item/melee/ghost_sword
 	name = "spectral blade"
 	desc = "A rusted and dulled blade. It doesn't look like it'd do much damage. It glows weakly."
 	icon_state = "spectral"
@@ -32,13 +32,13 @@
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 
-/obj/item/weapon/melee/ghost_sword/New()
+/obj/item/melee/ghost_sword/New()
 	..()
 	spirits = list()
 	processing_objects.Add(src)
 	poi_list |= src
 
-/obj/item/weapon/melee/ghost_sword/Destroy()
+/obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in spirits)
 		G.invisibility = initial(G.invisibility)
 	spirits.Cut()
@@ -46,7 +46,7 @@
 	poi_list -= src
 	. = ..()
 
-/obj/item/weapon/melee/ghost_sword/attack_self(mob/user)
+/obj/item/melee/ghost_sword/attack_self(mob/user)
 	if(summon_cooldown > world.time)
 		to_chat(user, "You just recently called out for aid. You don't want to annoy the spirits.")
 		return
@@ -56,16 +56,16 @@
 
 	summon_cooldown = world.time + 600
 
-/obj/item/weapon/melee/ghost_sword/Topic(href, href_list)
+/obj/item/melee/ghost_sword/Topic(href, href_list)
 	if(href_list["follow"])
 		var/mob/dead/observer/ghost = usr
 		if(istype(ghost))
 			ghost.ManualFollow(src)
 
-/obj/item/weapon/melee/ghost_sword/process()
+/obj/item/melee/ghost_sword/process()
 	ghost_check()
 
-/obj/item/weapon/melee/ghost_sword/proc/ghost_check()
+/obj/item/melee/ghost_sword/proc/ghost_check()
 	var/ghost_counter = 0
 	var/turf/T = get_turf(src)
 	var/list/contents = T.GetAllContents()
@@ -84,7 +84,7 @@
 
 	return ghost_counter
 
-/obj/item/weapon/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/ghost_sword/attack(mob/living/target, mob/living/carbon/human/user)
 	force = 0
 	var/ghost_counter = ghost_check()
 
@@ -92,7 +92,7 @@
 	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
 	..()
 
-/obj/item/weapon/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
 	var/ghost_counter = ghost_check()
 	final_block_chance += Clamp((ghost_counter * 5), 0, 75)
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
@@ -100,13 +100,13 @@
 
 // Blood
 
-/obj/item/weapon/dragons_blood
+/obj/item/dragons_blood
 	name = "bottle of dragons blood"
 	desc = "You're not actually going to drink this, are you?"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
 
-/obj/item/weapon/dragons_blood/attack_self(mob/living/carbon/human/user)
+/obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
 
@@ -147,7 +147,7 @@
 
 //Lava Staff
 
-/obj/item/weapon/lava_staff
+/obj/item/lava_staff
 	name = "staff of lava"
 	desc = "The ability to fill the emergency shuttle with lava. What more could you want out of life?"
 	icon_state = "staffofstorms"
@@ -171,11 +171,11 @@
 	var/timer = 0
 	var/banned_turfs
 
-/obj/item/weapon/lava_staff/New()
+/obj/item/lava_staff/New()
 	. = ..()
 	banned_turfs = typecacheof(list(/turf/space/transit, /turf/unsimulated))
 
-/obj/item/weapon/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
 	if(timer > world.time)
 		return

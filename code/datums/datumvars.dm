@@ -1,8 +1,5 @@
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
-/datum
-	var/var_edited = FALSE //Warranty void if seal is broken
-
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
@@ -1263,7 +1260,7 @@
 		if(prompt != "Yes")
 			return
 		L.Cut(index, index+1)
-		log_to_dd("### ListVarEdit by [src]: /list's contents: REMOVED=[html_encode("[variable]")]")
+		log_world("### ListVarEdit by [src]: /list's contents: REMOVED=[html_encode("[variable]")]")
 		log_admin("[key_name(src)] modified list's contents: REMOVED=[variable]")
 		message_admins("[key_name_admin(src)] modified list's contents: REMOVED=[variable]")
 		return TRUE
@@ -1284,7 +1281,7 @@
 			return TRUE
 
 		uniqueList_inplace(L)
-		log_to_dd("### ListVarEdit by [src]: /list contents: CLEAR DUPES")
+		log_world("### ListVarEdit by [src]: /list contents: CLEAR DUPES")
 		log_admin("[key_name(src)] modified list's contents: CLEAR DUPES")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR DUPES")
 		return TRUE
@@ -1296,7 +1293,7 @@
 			return TRUE
 
 		listclearnulls(L)
-		log_to_dd("### ListVarEdit by [src]: /list contents: CLEAR NULLS")
+		log_world("### ListVarEdit by [src]: /list contents: CLEAR NULLS")
 		log_admin("[key_name(src)] modified list's contents: CLEAR NULLS")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR NULLS")
 		return TRUE
@@ -1311,7 +1308,7 @@
 			return TRUE
 
 		L.len = value["value"]
-		log_to_dd("### ListVarEdit by [src]: /list len: [L.len]")
+		log_world("### ListVarEdit by [src]: /list len: [L.len]")
 		log_admin("[key_name(src)] modified list's len: [L.len]")
 		message_admins("[key_name_admin(src)] modified list's len: [L.len]")
 		return TRUE
@@ -1323,7 +1320,7 @@
 			return TRUE
 
 		shuffle_inplace(L)
-		log_to_dd("### ListVarEdit by [src]: /list contents: SHUFFLE")
+		log_world("### ListVarEdit by [src]: /list contents: SHUFFLE")
 		log_admin("[key_name(src)] modified list's contents: SHUFFLE")
 		message_admins("[key_name_admin(src)] modified list's contents: SHUFFLE")
 		return TRUE

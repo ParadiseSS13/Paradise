@@ -88,7 +88,7 @@
 	blob_talk(message)
 
 /mob/camera/blob/proc/blob_talk(message)
-	log_say("[key_name(src)] : [message]")
+	log_say("(BLOB) [message]", src)
 
 	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 

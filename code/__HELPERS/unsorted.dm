@@ -526,6 +526,14 @@ proc/GaussRandRound(var/sigma,var/roundto)
 
 	return toReturn
 
+//Searches contents of the atom and returns the sum of all w_class of obj/item within
+/atom/proc/GetTotalContentsWeight(searchDepth = 5)
+	var/weight = 0
+	var/list/content = GetAllContents(searchDepth)
+	for(var/obj/item/I in content)
+		weight += I.w_class
+	return weight
+
 //Step-towards method of determining whether one atom can see another. Similar to viewers()
 /proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
 	var/turf/current = get_turf(source)
@@ -1080,12 +1088,12 @@ var/list/can_embed_types = typecacheof(list(
 //Quick type checks for some tools
 var/global/list/common_tools = list(
 /obj/item/stack/cable_coil,
-/obj/item/weapon/wrench,
-/obj/item/weapon/weldingtool,
-/obj/item/weapon/screwdriver,
-/obj/item/weapon/wirecutters,
-/obj/item/device/multitool,
-/obj/item/weapon/crowbar)
+/obj/item/wrench,
+/obj/item/weldingtool,
+/obj/item/screwdriver,
+/obj/item/wirecutters,
+/obj/item/multitool,
+/obj/item/crowbar)
 
 /proc/istool(O)
 	if(O && is_type_in_list(O, common_tools))
@@ -1093,12 +1101,12 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/iswrench(O)
-	if(istype(O, /obj/item/weapon/wrench))
+	if(istype(O, /obj/item/wrench))
 		return 1
 	return 0
 
 /proc/iswelder(O)
-	if(istype(O, /obj/item/weapon/weldingtool))
+	if(istype(O, /obj/item/weldingtool))
 		return 1
 	return 0
 
@@ -1108,22 +1116,22 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/iswirecutter(O)
-	if(istype(O, /obj/item/weapon/wirecutters))
+	if(istype(O, /obj/item/wirecutters))
 		return 1
 	return 0
 
 /proc/isscrewdriver(O)
-	if(istype(O, /obj/item/weapon/screwdriver))
+	if(istype(O, /obj/item/screwdriver))
 		return 1
 	return 0
 
 /proc/ismultitool(O)
-	if(istype(O, /obj/item/device/multitool))
+	if(istype(O, /obj/item/multitool))
 		return 1
 	return 0
 
 /proc/iscrowbar(O)
-	if(istype(O, /obj/item/weapon/crowbar))
+	if(istype(O, /obj/item/crowbar))
 		return 1
 	return 0
 
@@ -1133,20 +1141,20 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/is_hot(obj/item/W as obj)
-	if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/O = W
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/O = W
 		if(O.isOn())
 			return 3800
 		else
 			return 0
-	if(istype(W, /obj/item/weapon/lighter))
-		var/obj/item/weapon/lighter/O = W
+	if(istype(W, /obj/item/lighter))
+		var/obj/item/lighter/O = W
 		if(O.lit)
 			return 1500
 		else
 			return 0
-	if(istype(W, /obj/item/weapon/match))
-		var/obj/item/weapon/match/O = W
+	if(istype(W, /obj/item/match))
+		var/obj/item/match/O = W
 		if(O.lit == 1)
 			return 1000
 		else
@@ -1163,21 +1171,21 @@ var/global/list/common_tools = list(
 			return 1000
 		else
 			return 0
-	if(istype(W, /obj/item/device/flashlight/flare))
-		var/obj/item/device/flashlight/flare/O = W
+	if(istype(W, /obj/item/flashlight/flare))
+		var/obj/item/flashlight/flare/O = W
 		if(O.on)
 			return 1000
 		else
 			return 0
-	if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		return 3800
-	if(istype(W, /obj/item/weapon/melee/energy))
-		var/obj/item/weapon/melee/energy/O = W
+	if(istype(W, /obj/item/melee/energy))
+		var/obj/item/melee/energy/O = W
 		if(O.active)
 			return 3500
 		else
 			return 0
-	if(istype(W, /obj/item/device/assembly/igniter))
+	if(istype(W, /obj/item/assembly/igniter))
 		return 1000
 	else
 		return 0
@@ -1192,12 +1200,12 @@ var/global/list/common_tools = list(
 
 /proc/is_surgery_tool(obj/item/W as obj)
 	return (	\
-	istype(W, /obj/item/weapon/scalpel)			||	\
-	istype(W, /obj/item/weapon/hemostat)		||	\
-	istype(W, /obj/item/weapon/retractor)		||	\
-	istype(W, /obj/item/weapon/cautery)			||	\
-	istype(W, /obj/item/weapon/bonegel)			||	\
-	istype(W, /obj/item/weapon/bonesetter)
+	istype(W, /obj/item/scalpel)			||	\
+	istype(W, /obj/item/hemostat)		||	\
+	istype(W, /obj/item/retractor)		||	\
+	istype(W, /obj/item/cautery)			||	\
+	istype(W, /obj/item/bonegel)			||	\
+	istype(W, /obj/item/bonesetter)
 	)
 
 //check if mob is lying down on something we can operate him on.
@@ -1231,11 +1239,11 @@ var/global/list/common_tools = list(
 Checks if that loc and dir has a item on the wall
 */
 var/list/static/global/wall_items = typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
-	/obj/item/device/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
+	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
 	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/airlock,
-	/obj/item/weapon/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
+	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
 	/obj/structure/sign))
 
@@ -1474,13 +1482,13 @@ var/mob/dview/dview_mob = new
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 
-/proc/IsValidSrc(var/A)
+/proc/IsValidSrc(A)
 	if(istype(A, /datum))
-		var/datum/B = A
-		return isnull(B.gcDestroyed)
+		var/datum/D = A
+		return !QDELETED(D)
 	if(istype(A, /client))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 //Get the dir to the RIGHT of dir if they were on a clock
@@ -1743,13 +1751,13 @@ var/mob/dview/dview_mob = new
 		var/typename = "[type]"
 		var/static/list/TYPES_SHORTCUTS = list(
 			/obj/effect/decal/cleanable = "CLEANABLE",
-			/obj/item/device/radio/headset = "HEADSET",
+			/obj/item/radio/headset = "HEADSET",
 			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
-			/obj/item/weapon/book/manual = "MANUAL",
-			/obj/item/weapon/reagent_containers/food/drinks = "DRINK", //longest paths comes first
-			/obj/item/weapon/reagent_containers/food = "FOOD",
-			/obj/item/weapon/reagent_containers = "REAGENT_CONTAINERS",
-			/obj/item/weapon = "WEAPON",
+			/obj/item/book/manual = "MANUAL",
+			/obj/item/reagent_containers/food/drinks = "DRINK", //longest paths comes first
+			/obj/item/reagent_containers/food = "FOOD",
+			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
+			/obj/item = "WEAPON",
 			/obj/machinery/atmospherics = "ATMOS_MECH",
 			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
 			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",

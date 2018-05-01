@@ -14,7 +14,7 @@
 	..()
 	if(ticker.mode)//game hasn't started offically don't do shit..
 		new /obj/effect/temp_visual/cult/turf(src)
-		icon_state = ticker.mode.cultdat.cult_wall_icon_state
+		icon_state = ticker.cultdat.cult_wall_icon_state
 
 /turf/simulated/wall/cult/artificer
 	name = "runed stone wall"

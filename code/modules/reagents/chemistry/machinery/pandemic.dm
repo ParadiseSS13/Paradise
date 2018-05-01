@@ -5,12 +5,12 @@
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "mixer0"
-	circuit = /obj/item/weapon/circuitboard/pandemic
+	circuit = /obj/item/circuitboard/pandemic
 	use_power = 1
 	idle_power_usage = 20
 	var/temp_html = ""
 	var/wait = null
-	var/obj/item/weapon/reagent_containers/beaker = null
+	var/obj/item/reagent_containers/beaker = null
 
 /obj/machinery/computer/pandemic/New()
 	..()
@@ -76,7 +76,7 @@
 
 	if(href_list["create_vaccine"])
 		if(!wait)
-			var/obj/item/weapon/reagent_containers/glass/bottle/B = new/obj/item/weapon/reagent_containers/glass/bottle(loc)
+			var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
 			if(B)
 				B.pixel_x = rand(-3, 3)
 				B.pixel_y = rand(-3, 3)
@@ -121,7 +121,7 @@
 			var/name = stripped_input(usr,"Name:","Name the culture",D.name,MAX_NAME_LEN)
 			if(name == null || wait)
 				return
-			var/obj/item/weapon/reagent_containers/glass/bottle/B = new/obj/item/weapon/reagent_containers/glass/bottle(loc)
+			var/obj/item/reagent_containers/glass/bottle/B = new/obj/item/reagent_containers/glass/bottle(loc)
 			B.icon_state = "round_bottle"
 			B.pixel_x = rand(-3, 3)
 			B.pixel_y = rand(-3, 3)
@@ -274,7 +274,7 @@
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/reagent_containers) && (I.flags & OPENCONTAINER))
+	if(istype(I, /obj/item/reagent_containers) && (I.flags & OPENCONTAINER))
 		if(stat & (NOPOWER|BROKEN)) return
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine!</span>")
@@ -288,7 +288,7 @@
 		updateUsrDialog()
 		icon_state = "mixer1"
 
-	else if(istype(I, /obj/item/weapon/screwdriver))
+	else if(istype(I, /obj/item/screwdriver))
 		if(beaker)
 			beaker.loc = get_turf(src)
 		..()

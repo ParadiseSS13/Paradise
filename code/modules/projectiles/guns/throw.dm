@@ -1,4 +1,4 @@
-/obj/item/weapon/gun/throw
+/obj/item/gun/throw
 	name = "abstract item thrower"
 	desc = "This shouldn't be here, yell at a coder."
 	fire_sound = 'sound/weapons/punchmiss.ogg'
@@ -12,39 +12,39 @@
 	var/projectile_speed = 1
 	var/projectile_range = 1
 
-/obj/item/weapon/gun/throw/proc/notify_ammo_count(mob/user)
+/obj/item/gun/throw/proc/notify_ammo_count(mob/user)
 	return
 
-/obj/item/weapon/gun/throw/proc/get_throwrange()
+/obj/item/gun/throw/proc/get_throwrange()
 	return projectile_range
 
-/obj/item/weapon/gun/throw/proc/get_throwspeed()
+/obj/item/gun/throw/proc/get_throwspeed()
 	return projectile_speed
 
-/obj/item/weapon/gun/throw/proc/modify_projectile(obj/item/I, on_chamber = 0)
+/obj/item/gun/throw/proc/modify_projectile(obj/item/I, on_chamber = 0)
 	return
 
-/obj/item/weapon/gun/throw/proc/get_ammocount(include_loaded = 1)
+/obj/item/gun/throw/proc/get_ammocount(include_loaded = 1)
 	var/count = loaded_projectiles.len
 	if(include_loaded && to_launch)
 		count++
 	return count
 
-/obj/item/weapon/gun/throw/examine(mob/user)
+/obj/item/gun/throw/examine(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>It is [to_launch ? "loaded with \a [to_launch]" : "not loaded"].</span>")
 	notify_ammo_count(user)
 
-/obj/item/weapon/gun/throw/Destroy()
+/obj/item/gun/throw/Destroy()
 	QDEL_NULL(to_launch)
 	QDEL_LIST(loaded_projectiles)
 	loaded_projectiles = null
 	return ..()
 
-/obj/item/weapon/gun/throw/update_icon()
+/obj/item/gun/throw/update_icon()
 	return
 
-/obj/item/weapon/gun/throw/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
 	if(istype(I, valid_projectile_type) && !(I.flags & NODROP))
 		if(get_ammocount() < max_capacity)
 			user.drop_item()
@@ -59,18 +59,18 @@
 	else
 		to_chat(user, "<span class='warning'>You cannot load [I] into [src]!</span>")
 
-/obj/item/weapon/gun/throw/process_chamber()
+/obj/item/gun/throw/process_chamber()
 	if(!to_launch && loaded_projectiles.len)
 		to_launch = loaded_projectiles[1]
 		loaded_projectiles -= to_launch
 	return
 
-/obj/item/weapon/gun/throw/can_shoot()
+/obj/item/gun/throw/can_shoot()
 	if(to_launch)
 		return 1
 	return 0
 
-/obj/item/weapon/gun/throw/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/throw/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	add_fingerprint(user)
 	if(semicd)
 		return

@@ -42,6 +42,12 @@
 		id_tag = num2text(uid)
 	icon = null
 
+/obj/machinery/atmospherics/binary/dp_vent_pump/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
+
 /obj/machinery/atmospherics/binary/dp_vent_pump/initialize()
 	..()
 	if(frequency)
@@ -234,13 +240,13 @@
 	update_icon()
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
 	return ..()
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>

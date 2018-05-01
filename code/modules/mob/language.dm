@@ -99,7 +99,7 @@
 	if(!check_can_speak(speaker))
 		return FALSE
 
-	log_say("[key_name(speaker)]: ([name]) [message]")
+	log_say("([name]-HIVE) [message]", speaker)
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
@@ -553,16 +553,15 @@
 	var/drone_only
 
 /datum/language/binary/broadcast(mob/living/speaker, message, speaker_mask)
-
 	if(!speaker.binarycheck())
 		return
 
 	if(!message)
 		return
-
-	log_robot("[key_name(speaker)] : [message]")
+	
+	log_say("(ROBOT) [message]", speaker)
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i> <span class='ibm'>\"[message]\"</span></span></span>"
+	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
 
 	for(var/mob/M in dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
@@ -620,24 +619,6 @@
 	key = "z"//Zwarmer...Or Zerg!
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
-
-/datum/language/murghal
-	name = "Yakar"
-	desc = "Common language of the Murghal. Composed of hard tongue clickings mixed with vocal sounds."
-	speech_verb = "clicks"
-	ask_verb = "clicks"
-	exclaim_verb = "screeches"
-	colour = "vox"
-	key = "l"
-	flags = RESTRICTED
-	syllables = list("ar", "ark", "tik", "skrra","click","clack","cluk","kar","kal","tara","nek", "sshk", "nak", "strik","xer", "xar", "preek", "grrr", \
-	"kana", "kora", "xan", "chi", "ketar", "kir", "kru", "nyx", "kal", "purk", "kukuku", "kriii", "skala", "arak"
-	)
-
-/datum/language/murghal/get_random_name()
-	var/new_name = "[pick(list("Kana", "Keri", "Kili", "Tau", "Chi", "Kai", "Ling", "Niki", "Rem", "vasi", "Kira", "Ikchi", "Kiro", "Rem", "Kata"))]"
-	new_name += "[pick(list("taka","kara","kaar","kin","ra","rana","kai","link","ita","ki","ixis","ko", "linka","lenka","neko","koru","ker","liska"))]"
-	return new_name
 
 // Language handling.
 /mob/proc/add_language(language)

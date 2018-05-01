@@ -509,16 +509,16 @@ var/const/access_trade_sol = 160
 //gets the actual job rank (ignoring alt titles)
 //this is used solely for sechuds
 /obj/proc/GetJobRealName()
-	if(!istype(src, /obj/item/device/pda) && !istype(src,/obj/item/weapon/card/id))
+	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
 		return
 
 	var/rank
 	var/assignment
-	if(istype(src, /obj/item/device/pda))
+	if(istype(src, /obj/item/pda))
 		if(src:id)
 			rank = src:id:rank
 			assignment = src:id:assignment
-	else if(istype(src, /obj/item/weapon/card/id))
+	else if(istype(src, /obj/item/card/id))
 		rank = src:rank
 		assignment = src:assignment
 
@@ -533,14 +533,14 @@ var/const/access_trade_sol = 160
 //gets the alt title, failing that the actual job rank
 //this is unused
 /obj/proc/sdsdsd()	//GetJobDisplayName
-	if(!istype(src, /obj/item/device/pda) && !istype(src,/obj/item/weapon/card/id))
+	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
 		return
 
 	var/assignment
-	if(istype(src, /obj/item/device/pda))
+	if(istype(src, /obj/item/pda))
 		if(src:id)
 			assignment = src:id:assignment
-	else if(istype(src, /obj/item/weapon/card/id))
+	else if(istype(src, /obj/item/card/id))
 		assignment = src:assignment
 
 	if(assignment)
@@ -559,12 +559,12 @@ proc/GetIdCard(var/mob/living/carbon/human/H)
 
 proc/FindNameFromID(var/mob/living/carbon/human/H)
 	ASSERT(istype(H))
-	var/obj/item/weapon/card/id/C = H.get_active_hand()
-	if( istype(C) || istype(C, /obj/item/device/pda) )
-		var/obj/item/weapon/card/id/ID = C
+	var/obj/item/card/id/C = H.get_active_hand()
+	if( istype(C) || istype(C, /obj/item/pda) )
+		var/obj/item/card/id/ID = C
 
-		if( istype(C, /obj/item/device/pda) )
-			var/obj/item/device/pda/pda = C
+		if( istype(C, /obj/item/pda) )
+			var/obj/item/pda/pda = C
 			ID = pda.id
 		if(!istype(ID))
 			ID = null
@@ -574,11 +574,11 @@ proc/FindNameFromID(var/mob/living/carbon/human/H)
 
 	C = H.wear_id
 
-	if( istype(C) || istype(C, /obj/item/device/pda) )
-		var/obj/item/weapon/card/id/ID = C
+	if( istype(C) || istype(C, /obj/item/pda) )
+		var/obj/item/card/id/ID = C
 
-		if( istype(C, /obj/item/device/pda) )
-			var/obj/item/device/pda/pda = C
+		if( istype(C, /obj/item/pda) )
+			var/obj/item/pda/pda = C
 			ID = pda.id
 		if(!istype(ID))
 			ID = null
@@ -590,11 +590,11 @@ proc/get_all_job_icons() //For all existing HUD icons
 	return joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation
-	var/obj/item/weapon/card/id/I
-	if(istype(src, /obj/item/device/pda))
-		var/obj/item/device/pda/P = src
+	var/obj/item/card/id/I
+	if(istype(src, /obj/item/pda))
+		var/obj/item/pda/P = src
 		I = P.id
-	else if(istype(src, /obj/item/weapon/card/id))
+	else if(istype(src, /obj/item/card/id))
 		I = src
 
 	if(I)

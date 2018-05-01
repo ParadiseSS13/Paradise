@@ -140,13 +140,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/obj/effect/proc_holder/spell/noclothes/clothes_spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
 	if((ishuman(user) && clothes_req) && !istype(clothes_spell))//clothes check
 		var/mob/living/carbon/human/H = user
-		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/wizard))
+		if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe) && !istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit/wizard) && !istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my robe.</span>")
 			return 0
 		if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my sandals.</span>")
 			return 0
-		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
+		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard) && !istype(H.wear_suit, /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my hat.</span>")
 			return 0
 	else if(!ishuman(user))
@@ -218,7 +218,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	before_cast(targets)
 	invocation()
 	if(user && user.ckey)
-		user.create_attack_log("<font color='red'>[user.real_name] ([user.ckey]) cast the spell [name].</font>")
+		user.create_attack_log("<font color='red'>[key_name(user)] cast the spell [name].</font>")
 	spawn(0)
 		if(charge_type == "recharge" && recharge)
 			start_recharge()

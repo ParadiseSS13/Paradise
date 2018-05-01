@@ -21,7 +21,7 @@
 	update_self()
 	forceMove(mob_info.spawn_point)
 	if(!mob_info.is_trap)
-		addtimer(src, "despawn", mob_info.lifetime)
+		addtimer(CALLBACK(src, .proc/despawn), mob_info.lifetime)
 
 /obj/effect/nanomob/proc/update_self()
 	if(!mob_info)
@@ -37,18 +37,18 @@
 	add_alt_appearance("nanomob_avatar", avatar)
 
 /obj/effect/nanomob/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/device/pda))
-		var/obj/item/device/pda/P = O
+	if(istype(O, /obj/item/pda))
+		var/obj/item/pda/P = O
 		attempt_capture(P, -20)		//attempting a melee capture reduces the mob's effective run_chance by 20% to balance the risk of triggering a trap mob
 		return 1
 
 /obj/effect/nanomob/hitby(atom/movable/AM)
-	if(istype(AM, /obj/item/device/pda))
-		var/obj/item/device/pda/P = AM
+	if(istype(AM, /obj/item/pda))
+		var/obj/item/pda/P = AM
 		attempt_capture(P)			//attempting a ranged capture does not affect the mob's effective run_chance but does prevent you from being shocked by a trap mob
 		return 1
 
-/obj/effect/nanomob/proc/attempt_capture(obj/item/device/pda/P, catch_mod = 0)		//negative catch_mods lower effective run chance,
+/obj/effect/nanomob/proc/attempt_capture(obj/item/pda/P, catch_mod = 0)		//negative catch_mods lower effective run chance,
 	if(!P || !P.current_app || !istype(P.current_app, /datum/data/pda/app/mob_hunter_game) || !P.cartridge)
 		return
 
@@ -150,7 +150,7 @@
 		else
 			icon_state = mob_info.icon_state_normal
 
-/obj/effect/nanomob/battle/attempt_capture(obj/item/device/pda/P, catch_mod = 0)
+/obj/effect/nanomob/battle/attempt_capture(obj/item/pda/P, catch_mod = 0)
 	//you can't capture battle avatars, since they belong to someone already
 	return
 

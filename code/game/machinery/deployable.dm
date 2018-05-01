@@ -74,12 +74,12 @@ for reference:
 		else
 			return
 		return
-	else if(istype(W, /obj/item/weapon/crowbar))
+	else if(istype(W, /obj/item/crowbar))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.visible_message("<span class='notice'>[user] is prying apart \the [src].</span>", "<span class='notice'>You begin to pry apart \the [src].</span>")
 		playsound(src, W.usesound, 200, 1)
 
-		if(do_after(user, 300 * W.toolspeed, target = src) && src && !src.gcDestroyed)
+		if(do_after(user, 300 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message("<span class='notice'>[user] pries apart \the [src].</span>", "<span class='notice'>You pry apart \the [src].</span>")
 			dismantle()
 		return
@@ -174,8 +174,8 @@ for reference:
 
 		src.icon_state = "barrier[src.locked]"
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		if(istype(W, /obj/item/weapon/card/id))
+	attackby(obj/item/W as obj, mob/user as mob, params)
+		if(istype(W, /obj/item/card/id))
 			if(src.allowed(user))
 				if(src.emagged < 2.0)
 					src.locked = !src.locked
@@ -194,7 +194,7 @@ for reference:
 					visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 					return
 			return
-		else if(istype(W, /obj/item/weapon/wrench))
+		else if(istype(W, /obj/item/wrench))
 			if(src.health < src.maxhealth)
 				src.health = src.maxhealth
 				src.emagged = 0

@@ -3,7 +3,7 @@
 /obj/item/clothing/suit/space/eva/plasmaman
 	name = "plasmaman suit"
 	desc = "A special containment suit designed to protect a plasmaman's volatile body from outside exposure and quickly extinguish it in emergencies."
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank)
+	allowed = list(/obj/item/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
 	slowdown = 0
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -40,7 +40,7 @@
 
 /obj/item/clothing/suit/space/eva/plasmaman/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	..()
-	if(istype(A, /obj/item/weapon/plasmensuit_cartridge)) //This suit can only be reloaded by the appropriate cartridges, and only if it's got no more extinguishes left.
+	if(istype(A, /obj/item/plasmensuit_cartridge)) //This suit can only be reloaded by the appropriate cartridges, and only if it's got no more extinguishes left.
 		if(!extinguishes_left)
 			extinguishes_left = max_extinguishes //Full replenishment from the cartridge.
 			to_chat(user, "<span class='notice'>You replenish \the [src] with the cartridge.</span>")
@@ -52,7 +52,7 @@
 	..(user)
 	to_chat(user, "<span class='info'>There are [extinguishes_left] extinguisher canisters left in this suit.</span>")
 
-/obj/item/weapon/plasmensuit_cartridge //Can be used to refill Plasmaman suits when they run out of autoextinguishes.
+/obj/item/plasmensuit_cartridge //Can be used to refill Plasmaman suits when they run out of autoextinguishes.
 	name = "auto-extinguisher cartridge"
 	desc = "A tiny and light fibreglass-framed auto-extinguisher cartridge."
 	icon = 'icons/obj/items.dmi'
@@ -391,10 +391,20 @@
 	name = "blood red plasmaman suit"
 	icon_state = "plasmaman_Nukeops"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword/saber,/obj/item/weapon/restraints/handcuffs)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear
 	name = "blood red plasmaman helmet"
 	icon_state = "plasmaman_Nukeops_helmet0"
 	base_state = "plasmaman_Nukeops_helmet"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
+
+//WIZARD
+/obj/item/clothing/suit/space/eva/plasmaman/wizard
+	name = "robed plasmaman suit"
+	icon_state = "plasmamanWizardBlue_suit"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/wizard
+	name = "wizard hat"
+	icon_state = "plasmamanWizardBlue_helmet0"
+	base_state = "plasmamanWizardBlue_helmet"

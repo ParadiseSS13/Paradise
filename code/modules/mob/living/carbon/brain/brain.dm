@@ -20,22 +20,22 @@
 
 /mob/living/carbon/brain/say_understands(other)//Goddamn is this hackish, but this say code is so odd
 	if(istype(other, /mob/living/silicon/ai))
-		if(!(container && istype(container, /obj/item/device/mmi)))
+		if(!(container && istype(container, /obj/item/mmi)))
 			return 0
 		else
 			return 1
 	if(istype(other, /mob/living/silicon/decoy))
-		if(!(container && istype(container, /obj/item/device/mmi)))
+		if(!(container && istype(container, /obj/item/mmi)))
 			return 0
 		else
 			return 1
 	if(istype(other, /mob/living/silicon/pai))
-		if(!(container && istype(container, /obj/item/device/mmi)))
+		if(!(container && istype(container, /obj/item/mmi)))
 			return 0
 		else
 			return 1
 	if(istype(other, /mob/living/silicon/robot))
-		if(!(container && istype(container, /obj/item/device/mmi)))
+		if(!(container && istype(container, /obj/item/mmi)))
 			return 0
 		else
 			return 1
@@ -50,7 +50,7 @@
 	if(in_contents_of(/obj/mecha))
 		canmove = 1
 		use_me = 1 //If it can move, let it emote
-	else if(istype(loc, /obj/item/device/mmi))
+	else if(istype(loc, /obj/item/mmi))
 		canmove = 1 //mmi won't move anyways so whatever
 	else
 		canmove = 0
@@ -78,11 +78,11 @@ This will return true if the brain has a container that leaves it less helpless 
 I'm using this for Stat to give it a more nifty interface to work with
 */
 /mob/living/carbon/brain/proc/has_synthetic_assistance()
-	return (container && istype(container, /obj/item/device/mmi)) || in_contents_of(/obj/mecha)
+	return (container && istype(container, /obj/item/mmi)) || in_contents_of(/obj/mecha)
 
 /mob/living/carbon/brain/proc/get_race()
 	if(container)
-		var/obj/item/device/mmi/M = container
+		var/obj/item/mmi/M = container
 		if(istype(M) && M.held_brain)
 			return M.held_brain.dna.get_species_name()
 		else

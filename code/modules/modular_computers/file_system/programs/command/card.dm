@@ -48,9 +48,9 @@
 	if(user.can_admin_interact())
 		return 1
 	if(computer)
-		var/obj/item/weapon/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		if(card_slot)
-			var/obj/item/weapon/card/id/auth_card = card_slot.stored_card2
+			var/obj/item/card/id/auth_card = card_slot.stored_card2
 			if(auth_card)
 				return check_access(auth_card)
 	return 0
@@ -62,9 +62,9 @@
 
 /datum/computer_file/program/card_mod/proc/get_target_rank()
 	if(computer)
-		var/obj/item/weapon/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		if(card_slot)
-			var/obj/item/weapon/card/id/id_card = card_slot.stored_card
+			var/obj/item/card/id/id_card = card_slot.stored_card
 			if(id_card && id_card.assignment)
 				return id_card.assignment
 	return "Unassigned"
@@ -79,7 +79,9 @@
 			"current_positions" = job.current_positions,
 			"total_positions" = job.total_positions,
 			"can_open" = can_open_job(job),
-			"can_close" = can_close_job(job))))
+			"can_close" = can_close_job(job),
+			"can_prioritize" = can_prioritize_job(job)
+		)))
 
 	return formatted
 
@@ -121,11 +123,24 @@
 			return -1
 	return 0
 
+/datum/computer_file/program/card_mod/proc/can_prioritize_job(datum/job/job)
+	if(job)
+		if(!job_blacklisted(job))
+			if(job in job_master.prioritized_jobs)
+				return 2
+			else
+				if(job_master.prioritized_jobs.len >= 3)
+					return 0
+				if(job.total_positions <= job.current_positions)
+					return 0
+				return 1
+	return -1
+
 /datum/computer_file/program/card_mod/proc/format_jobs(list/jobs)
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	if(!card_slot || !card_slot.stored_card)
 		return null
-	var/obj/item/weapon/card/id/id_card = card_slot.stored_card
+	var/obj/item/card/id/id_card = card_slot.stored_card
 	var/list/formatted = list()
 	for(var/job in jobs)
 		formatted.Add(list(list(
@@ -137,7 +152,7 @@
 
 
 /datum/computer_file/program/card_mod/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
@@ -149,8 +164,8 @@
 	if(..())
 		return 1
 
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot
-	var/obj/item/weapon/computer_hardware/printer/printer
+	var/obj/item/computer_hardware/card_slot/card_slot
+	var/obj/item/computer_hardware/printer/printer
 	if(computer)
 		card_slot = computer.all_components[MC_CARD]
 		printer = computer.all_components[MC_PRINT]
@@ -159,8 +174,8 @@
 
 	var/mob/user = usr
 
-	var/obj/item/weapon/card/id/modify = card_slot.stored_card
-	var/obj/item/weapon/card/id/scan = card_slot.stored_card2
+	var/obj/item/card/id/modify = card_slot.stored_card
+	var/obj/item/card/id/scan = card_slot.stored_card2
 
 	switch(href_list["action"])
 		if("PRG_modify")
@@ -170,7 +185,7 @@
 				card_slot.try_eject(1, user)
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/weapon/card/id))
+				if(istype(I, /obj/item/card/id))
 					if(!usr.drop_item())
 						return
 					I.forceMove(computer)
@@ -181,7 +196,7 @@
 				card_slot.try_eject(2, user)
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/weapon/card/id))
+				if(istype(I, /obj/item/card/id))
 					if(!usr.drop_item())
 						return
 					I.forceMove(computer)
@@ -210,6 +225,7 @@
 					//let custom jobs function as an impromptu alt title, mainly for sechuds
 					if(temp_t && modify)
 						modify.assignment = temp_t
+						log_game("[key_name(usr)] has given \"[modify.registered_name]\" the custom job title \"[temp_t]\".")
 				else
 					var/list/access = list()
 					if(is_centcom)
@@ -226,6 +242,11 @@
 							return
 
 						access = jobdatum.get_access()
+
+					var/jobnamedata = modify.getRankAndAssignment()
+					log_game("[key_name(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
+					if(t1 == "Civilian")
+						message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[t1]\".")
 
 					modify.access = access
 					modify.assignment = t1
@@ -255,11 +276,11 @@
 				playsound(computer.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				spawn(50)
 					printing = 0
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					var/title
 					var/content
 					if(mode == 2)
-						title = "crew manifest ([worldtime2text()])"
+						title = "crew manifest ([station_time_timestamp()])"
 						content = "<h4>Crew Manifest</h4><br>[data_core ? data_core.get_manifest(0) : ""]"
 					else if(modify && !mode)
 						title = "access report"
@@ -287,9 +308,11 @@
 
 		if("PRG_terminate")
 			if(is_authenticated(usr))
+				var/jobnamedata = modify.getRankAndAssignment()
+				log_game("[key_name(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
+				message_admins("[key_name_admin(usr)] has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\".")
 				modify.assignment = "Terminated"
 				modify.access = list()
-
 				callHook("terminate_employee", list(modify))
 
 		if("PRG_make_job_available")
@@ -323,20 +346,40 @@
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")
 
+
+		if("PRG_prioritize_job")
+			// TOGGLE WHETHER JOB APPEARS AS PRIORITIZED IN THE LOBBY
+			if(is_authenticated(usr))
+				var/priority_target = href_list["job"]
+				var/datum/job/j = job_master.GetJob(priority_target)
+				if(!j)
+					return 0
+				// Unlike the proper ID computer, this does not check job_in_department
+				var/priority = TRUE
+				if(j in job_master.prioritized_jobs)
+					job_master.prioritized_jobs -= j
+					priority = FALSE
+				else if(job_master.prioritized_jobs.len < 3)
+					job_master.prioritized_jobs += j
+				else
+					return 0
+				log_game("[key_name(usr)] [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".")
+				playsound(computer.loc, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+
 	if(modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /datum/computer_file/program/card_mod/ui_data(mob/user)
 	var/list/data = get_header_data()
 
-	var/obj/item/weapon/card/id/modify = null
-	var/obj/item/weapon/card/id/scan = null
+	var/obj/item/card/id/modify = null
+	var/obj/item/card/id/scan = null
 
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot
-	var/obj/item/weapon/computer_hardware/printer/printer
+	var/obj/item/computer_hardware/card_slot/card_slot
+	var/obj/item/computer_hardware/printer/printer
 	if(computer)
 		card_slot = computer.all_components[MC_CARD]
 		printer = computer.all_components[MC_PRINT]

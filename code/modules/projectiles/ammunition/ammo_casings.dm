@@ -334,11 +334,11 @@
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if(istype(A, /obj/item/weapon/screwdriver) && !modified)
+	if(istype(A, /obj/item/screwdriver) && !modified)
 		modified = 1
 		FD.damage_type = BRUTE
 		update_icon()
-	else if((istype(A, /obj/item/weapon/pen)) && modified && !FD.pen)
+	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		A.loc = FD

@@ -130,7 +130,7 @@
 
 /obj/singularity_act()
 	ex_act(1)
-	if(src && !qdeleted(src))
+	if(src && !QDELETED(src))
 		qdel(src)
 	return 2
 
@@ -139,7 +139,7 @@
 /obj/fire_act(global_overlay=1)
 	if(!burn_state)
 		burn_state = ON_FIRE
-		fire_master.burning += src
+		SSfires.processing[src] = src
 		burn_world_time = world.time + burntime*rand(10,20)
 		if(global_overlay)
 			overlays += fire_overlay
@@ -149,20 +149,20 @@
 	empty_object_contents(1, loc)
 	var/obj/effect/decal/cleanable/ash/A = new(loc)
 	A.desc = "Looks like this used to be a [name] some time ago."
-	fire_master.burning -= src
+	SSfires.processing -= src
 	qdel(src)
 
 /obj/proc/extinguish()
 	if(burn_state == ON_FIRE)
 		burn_state = FLAMMABLE
 		overlays -= fire_overlay
-		fire_master.burning -= src
+		SSfires.processing -= src
 
 /obj/proc/tesla_act(power)
 	being_shocked = TRUE
 	var/power_bounced = power * 0.5
 	tesla_zap(src, 3, power_bounced)
-	addtimer(src, "reset_shocked", 10)
+	addtimer(CALLBACK(src, .proc/reset_shocked), 10)
 
 /obj/proc/reset_shocked()
 	being_shocked = FALSE

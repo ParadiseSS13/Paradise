@@ -23,9 +23,9 @@
 /obj/effect/spawner/newbomb/New()
 	..()
 
-	var/obj/item/device/transfer_valve/V = new(src.loc)
-	var/obj/item/weapon/tank/plasma/PT = new(V)
-	var/obj/item/weapon/tank/oxygen/OT = new(V)
+	var/obj/item/transfer_valve/V = new(src.loc)
+	var/obj/item/tank/plasma/PT = new(V)
+	var/obj/item/tank/oxygen/OT = new(V)
 
 	V.tank_one = PT
 	V.tank_two = OT
@@ -36,23 +36,23 @@
 	PT.air_contents.temperature = btemp1 + T0C
 	OT.air_contents.temperature = btemp2 + T0C
 
-	var/obj/item/device/assembly/S
+	var/obj/item/assembly/S
 
 	switch(src.btype)
 		// radio
 		if(0)
 
-			S = new/obj/item/device/assembly/signaler(V)
+			S = new/obj/item/assembly/signaler(V)
 
 		// proximity
 		if(1)
 
-			S = new/obj/item/device/assembly/prox_sensor(V)
+			S = new/obj/item/assembly/prox_sensor(V)
 
 		// timer
 		if(2)
 
-			S = new/obj/item/device/assembly/timer(V)
+			S = new/obj/item/assembly/timer(V)
 
 
 	V.attached_device = S

@@ -5,8 +5,9 @@
 #define CHALLENGE_MIN_PLAYERS 50
 #define CHALLENGE_SHUTTLE_DELAY 15000 //25 minutes, so the ops have at least 5 minutes before the shuttle is callable.
 
-/obj/item/device/nuclear_challenge
+/obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	item_state = "walkietalkie"
 	desc = "Use to send a declaration of hostilities to the target, delaying your shuttle departure for 20 minutes while they prepare for your assault.  \
@@ -14,7 +15,7 @@
 	Must be used within five minutes, or your benefactors will lose interest."
 	var/declaring_war = FALSE
 
-/obj/item/device/nuclear_challenge/attack_self(mob/living/user)
+/obj/item/nuclear_challenge/attack_self(mob/living/user)
 	if(!check_allowed(user))
 		return
 
@@ -54,13 +55,13 @@
 	for(var/obj/machinery/computer/shuttle/syndicate/S in machines)
 		S.challenge = TRUE
 
-	var/obj/item/device/radio/uplink/U = new /obj/item/device/radio/uplink(get_turf(user))
+	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(get_turf(user))
 	U.hidden_uplink.uplink_owner= "[user.key]"
 	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + round((((player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS)) // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
 	config.shuttle_refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
 
-/obj/item/device/nuclear_challenge/proc/check_allowed(mob/living/user)
+/obj/item/nuclear_challenge/proc/check_allowed(mob/living/user)
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
 		return FALSE

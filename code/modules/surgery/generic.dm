@@ -21,14 +21,14 @@
 	name = "make incision"
 
 	allowed_tools = list(
-	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchen/knife = 90,	\
-	/obj/item/weapon/shard = 60, 		\
-	/obj/item/weapon/scissors = 12,		\
-	/obj/item/weapon/twohanded/chainsaw = 1, \
-	/obj/item/weapon/claymore = 6, \
-	/obj/item/weapon/melee/energy/ = 6, \
-	/obj/item/weapon/pen/edagger = 6,  \
+	/obj/item/scalpel = 100,		\
+	/obj/item/kitchen/knife = 90,	\
+	/obj/item/shard = 60, 		\
+	/obj/item/scissors = 12,		\
+	/obj/item/twohanded/chainsaw = 1, \
+	/obj/item/claymore = 6, \
+	/obj/item/melee/energy/ = 6, \
+	/obj/item/pen/edagger = 6,  \
 	)
 
 	time = 16
@@ -58,10 +58,10 @@
 	name = "clamp bleeders"
 
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser = 100, \
-	/obj/item/weapon/hemostat = 100,	\
+	/obj/item/scalpel/laser = 100, \
+	/obj/item/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 90, 	\
-	/obj/item/device/assembly/mousetrap = 25
+	/obj/item/assembly/mousetrap = 25
 	)
 
 	time = 24
@@ -92,10 +92,10 @@
 	name = "retract skin"
 
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser/manager = 100, \
-	/obj/item/weapon/retractor = 100, 	\
-	/obj/item/weapon/crowbar = 90,	\
-	/obj/item/weapon/kitchen/utensil/fork = 60
+	/obj/item/scalpel/laser/manager = 100, \
+	/obj/item/retractor = 100, 	\
+	/obj/item/crowbar = 90,	\
+	/obj/item/kitchen/utensil/fork = 60
 	)
 
 	time = 24
@@ -147,11 +147,11 @@
 	name = "cauterize incision"
 
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser = 100, \
-	/obj/item/weapon/cautery = 100,			\
+	/obj/item/scalpel/laser = 100, \
+	/obj/item/cautery = 100,			\
 	/obj/item/clothing/mask/cigarette = 90,	\
-	/obj/item/weapon/lighter = 60,			\
-	/obj/item/weapon/weldingtool = 30
+	/obj/item/lighter = 60,			\
+	/obj/item/weldingtool = 30
 	)
 
 	time = 24
@@ -181,7 +181,7 @@
 //drill bone
 /datum/surgery_step/generic/drill
 	name = "drill bone"
-	allowed_tools = list(/obj/item/weapon/surgicaldrill = 100, /obj/item/weapon/pickaxe/drill = 60, /obj/item/mecha_parts/mecha_equipment/drill = 60, /obj/item/weapon/screwdriver = 20)
+	allowed_tools = list(/obj/item/surgicaldrill = 100, /obj/item/pickaxe/drill = 60, /obj/item/mecha_parts/mecha_equipment/drill = 60, /obj/item/screwdriver = 20)
 	time = 30
 
 /datum/surgery_step/generic/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -197,10 +197,10 @@
 	name = "amputate limb"
 
 	allowed_tools = list(
-	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/weapon/hatchet = 90, \
-	/obj/item/weapon/melee/arm_blade = 75
+	/obj/item/circular_saw = 100, \
+	/obj/item/melee/energy/sword/cyborg/saw = 100, \
+	/obj/item/hatchet = 90, \
+	/obj/item/melee/arm_blade = 75
 	)
 
 	time = 100
@@ -227,7 +227,7 @@
 	user.visible_message("<span class='notice'> [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].</span>", \
 	"<span class='notice'> You amputate [target]'s [affected.name] with \the [tool].</span>")
 
-	add_logs(user, target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
+	add_attack_logs(user, target, "Surgically removed [affected.name]. INTENT: [uppertext(user.a_intent)]")//log it
 
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))

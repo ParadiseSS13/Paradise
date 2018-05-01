@@ -501,14 +501,14 @@
 /obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(!src.ispowered)
 		return
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(istype(I, /obj/item/screwdriver))
 		src.panelopen = !src.panelopen
 		playsound(src.loc, I.usesound, 100, 1)
 		to_chat(user, text("<font color='blue'>You [] the unit's maintenance panel.</font>",(src.panelopen ? "open up" : "close") ))
 		src.updateUsrDialog()
 		return
-	if( istype(I, /obj/item/weapon/grab) )
-		var/obj/item/weapon/grab/G = I
+	if( istype(I, /obj/item/grab) )
+		var/obj/item/grab/G = I
 		if( !(ismob(G.affecting)) )
 			return
 		if(!src.isopen)
@@ -655,13 +655,13 @@
 			return
 
 	//Hacking init.
-	if(istype(I, /obj/item/device/multitool) || istype(I, /obj/item/weapon/wirecutters))
+	if(istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters))
 		if(panel_open)
 			attack_hand(user)
 		return
 	//Other interface stuff.
-	if(istype(I, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = I
+	if(istype(I, /obj/item/grab))
+		var/obj/item/grab/G = I
 
 		if(!(ismob(G.affecting)))
 			return
@@ -688,7 +688,7 @@
 			src.updateUsrDialog()
 
 			return
-	else if(istype(I,/obj/item/weapon/screwdriver))
+	else if(istype(I,/obj/item/screwdriver))
 
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ?  "open" : "close"] the maintenance panel.")
@@ -899,7 +899,7 @@
 
 /*	else if((href_list["cutwire"]) && (src.panel_open))
 		var/twire = text2num(href_list["cutwire"])
-		if(!( istype(usr.get_active_hand(), /obj/item/weapon/wirecutters) ))
+		if(!( istype(usr.get_active_hand(), /obj/item/wirecutters) ))
 			to_chat(usr, "You need wirecutters!")
 			return
 		if(src.isWireColorCut(twire))
@@ -909,7 +909,7 @@
 
 	else if((href_list["pulsewire"]) && (src.panel_open))
 		var/twire = text2num(href_list["pulsewire"])
-		if(!istype(usr.get_active_hand(), /obj/item/device/multitool))
+		if(!istype(usr.get_active_hand(), /obj/item/multitool))
 			to_chat(usr, "You need a multitool!")
 			return
 		if(src.isWireColorCut(twire))
