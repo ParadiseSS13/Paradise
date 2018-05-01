@@ -1349,3 +1349,10 @@
 	icon_state = "teri_horn"
 	item_state = "teri_horn"
 	honk_sound = 'sound/items/teri_horn.ogg'
+
+/obj/item/clothing/accessory/medal/fluff/elo
+	name = "distinguished medal of loyalty and excellence"
+	desc = "This medal is cut into the shape of a Victoria Cross, and is awarded to those who have proven themselves to Nanotrasen with a long and successful career."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elo-medal"
+	item_color = "elo-medal"
