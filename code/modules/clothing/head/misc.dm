@@ -222,7 +222,7 @@
 		return 1
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("[user] tips their fedora.", "You tip your fedora")
+	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora")
 
 
 /obj/item/clothing/head/fez

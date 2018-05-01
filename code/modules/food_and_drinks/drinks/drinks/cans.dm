@@ -40,7 +40,7 @@
 
 /obj/item/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash/cyborg))
-		user.visible_message("<span class='notice'>[user] crushes \the [src] in their trash compactor.</span>", "<span class='notice'>You crush \the [src] in your trash compactor.</span>")
+		user.visible_message("<span class='notice'>[user] crushes [src] in [user.p_their()] trash compactor.</span>", "<span class='notice'>You crush [src] in your trash compactor.</span>")
 		var/obj/can = crush(user)
 		can.attackby(I, user, params)
 		return 1

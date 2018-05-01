@@ -531,7 +531,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user,
 				to_chat(user, "<span class='notice'>The hand of cards is stuck to your hand, you can't add it to the deck!</span>")
 				return
 			cards += C.currenthand
-			user.visible_message("<span class='notice'>[user] puts their hand of cards in the deck.</span>", "<span class='notice'>You put the hand of cards in the deck.</span>")
+			user.visible_message("<span class='notice'>[user] puts [user.p_their()] hand of cards in the deck.</span>", "<span class='notice'>You put the hand of cards in the deck.</span>")
 			qdel(C)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
@@ -637,7 +637,7 @@ obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living
 		if(C.parentdeck == parentdeck)
 			currenthand += C.cardname
 			user.unEquip(C)
-			user.visible_message("<span class='notice'>[user] adds a card to their hand.</span>", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
+			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
 			interact(user)
 			if(currenthand.len > 4)
 				icon_state = "[deckstyle]_hand5"
@@ -1393,7 +1393,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!(user.has_organ("head"))) //For sanity
 		to_chat(user, "<span class='notice'>Playing this game without a head would be classed as cheating.</span>")
 		return
-	user.visible_message("<span class='danger'>[user] points [src] at their head, ready to pull the trigger!</span>")
+	user.visible_message("<span class='danger'>[user] points [src] at [user.p_their()] head, ready to pull the trigger!</span>")
 	if(do_after(user, 30, target = user))
 		if(bullet_position > 1)
 			user.visible_message("<span class='danger'>*click*</span>")
@@ -1407,7 +1407,7 @@ obj/item/toy/cards/deck/syndicate/black
 			user.apply_damage(200, BRUTE, "head", sharp = 1, used_weapon = "Self-inflicted gunshot wound to the head.")
 			user.death()
 	else
-		user.visible_message("<span class='danger'>[user] lowers [src] from their head.</span>")
+		user.visible_message("<span class='danger'>[user] lowers [src] from [user.p_their()] head.</span>")
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
 	bullet_position = rand(1,6)
@@ -1662,7 +1662,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/eight_ball/attack_self(mob/user as mob)
 	if(!cooldown)
 		var/answer = pick(possible_answers)
-		user.visible_message("<span class='notice'>[user] focuses on their question and [use_action]...</span>")
+		user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")
 		user.visible_message("<span class='notice'>[bicon(src)] The [src] says \"[answer]\"</span>")
 		spawn(30)
 			cooldown = 0

@@ -22,8 +22,8 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks their [src.name].</span>", \
-								"<span class='userdanger'>[user] unlocks their [src.name].</span>")
+			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
+								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
 	..()
 	return 1
 

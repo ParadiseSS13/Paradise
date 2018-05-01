@@ -90,7 +90,7 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		clumsilyDrink(user)
 	else
-		user.visible_message("<span class = 'notice'>[user] places their hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
+		user.visible_message("<span class = 'notice'>[user] places [user.p_their()] hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
 		extinguish()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user)
