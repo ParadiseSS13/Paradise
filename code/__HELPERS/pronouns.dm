@@ -33,8 +33,14 @@
 /datum/proc/p_theyre(capitalized, temp_gender)
 	. = p_they(capitalized, temp_gender) + "'" + copytext(p_are(temp_gender), 2)
 
-/datum/proc/p_s(temp_gender) //is this a descriptive proc name, or what?
+// For help conjugating verbs, eg they look, but she looks
+/datum/proc/p_s(temp_gender)
 	. = "s"
+
+/datum/proc/p_es(temp_gender)
+	. = p_s(temp_gender)
+	if(.)
+		. = "e[.]"
 
 //like clients, which do have gender.
 /client/proc/p_they(capitalized, temp_gender)
