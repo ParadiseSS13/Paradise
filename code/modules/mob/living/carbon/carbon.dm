@@ -256,8 +256,8 @@
 				H.play_xylophone()
 		else
 			if(player_logged)
-				M.visible_message("<span class='notice'>[M] shakes [src], but they do not respond. Probably suffering from SSD.", \
-				"<span class='notice'>You shake [src], but they are unresponsive. Probably suffering from SSD.</span>")
+				M.visible_message("<span class='notice'>[M] shakes [src], but [src.p_they()] [src.p_do()] not respond. Probably suffering from SSD.", \
+				"<span class='notice'>You shake [src], but [src.p_theyre()] unresponsive. Probably suffering from SSD.</span>")
 			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
 				var/t_him = "it"
 				if(gender == MALE)

@@ -631,7 +631,7 @@
 			TARGET = newSnack
 			newSnack.reagents.remove_any((newSnack.reagents.total_volume/2)-1)
 			newSnack.name = "Synthetic [newSnack.name]"
-			custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")] as they vomit [newSnack] from their mouth!")
+			custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")] as [p_they()] vomit[p_s()] [newSnack] from [p_their] mouth!")
 	catch(var/exception/e)
 		log_runtime(e, src, "Caught in SNPC cooking module")
 	doing &= ~SNPC_SPECIAL

@@ -34,7 +34,7 @@
 	sleep(25)
 	if(!user)
 		return (OXYLOSS)
-	user.visible_message("<B>[user]</B> laughs so hard they begin to suffocate!")
+	user.visible_message("<B>[user]</B> laughs so hard [user.p_they()] begin[user.p_s()] to suffocate!")
 	return (OXYLOSS)
 
 /obj/item/grown/bananapeel

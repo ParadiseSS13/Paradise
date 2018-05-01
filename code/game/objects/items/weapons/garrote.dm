@@ -75,7 +75,7 @@
 		return
 
 	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
-		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something they're wearing!</span>")
+		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something [M.p_theyre()] wearing!</span>")
 
 	if(strangling)
 		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")

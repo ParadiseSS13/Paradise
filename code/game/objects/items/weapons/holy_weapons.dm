@@ -575,7 +575,7 @@
 		if(missionary in viewers(target))	//missionary must maintain line of sight to target, but the target doesn't necessary need to be able to see the missionary
 			do_convert(target, missionary)
 		else
-			to_chat(missionary, "<span class='warning'>You lost sight of the target before they could be converted!</span>")
+			to_chat(missionary, "<span class='warning'>You lost sight of the target before [target.p_they()] could be converted!</span>")
 			faith -= 25		//they escaped, so you only lost a little faith (to prevent spamming)
 	else	//the do_after failed, probably because you moved or dropped the staff
 		to_chat(missionary, "<span class='warning'>Your concentration was broken!</span>")
