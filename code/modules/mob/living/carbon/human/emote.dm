@@ -27,6 +27,12 @@
 	 	unusable_message(user, status_check)
 	return TRUE
 
+/datum/emote/human/run_emote(mob/user, params, type_override)
+	. = ..()
+	for(var/obj/item/implant/I in user)
+		if(I.implanted)
+			I.trigger(act, user)
+
 /datum/emote/human/proc/working_hands(mob/living/carbon/human/user)
 	var/obj/item/organ/external/L = user.get_organ("l_hand")
 	var/obj/item/organ/external/R = user.get_organ("r_hand")
