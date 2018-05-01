@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Bomb testing range can now be utilized multiple times without worry of the bomb bouncing off and returning back to you"
