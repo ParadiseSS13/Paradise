@@ -14,6 +14,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Tonic Water"
 	drink_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
+	taste_message = "tart and fresh"
 
 /datum/reagent/consumable/drink/cold/sodawater
 	name = "Soda Water"
@@ -25,6 +26,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Soda Water"
 	drink_desc = "Soda water. Why not make a scotch and soda?"
+	taste_message = "carbonated water"
 
 /datum/reagent/consumable/drink/cold/ice
 	name = "Ice"
@@ -36,6 +38,7 @@
 	drink_icon = "iceglass"
 	drink_name = "Glass of ice"
 	drink_desc = "Generally, you're supposed to put something else in there too..."
+	taste_message = "ice"
 
 /datum/reagent/consumable/drink/cold/ice/on_mob_life(mob/living/M)
 	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
@@ -62,7 +65,7 @@
 	drink_icon = "nuka_colaglass"
 	drink_name = "Nuka Cola"
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
-	taste_message = "cola"
+	taste_message = "the future"
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
 	M.Jitter(20)
@@ -86,7 +89,7 @@
 	drink_icon = "Space_mountain_wind_glass"
 	drink_name = "Glass of Space Mountain Wind"
 	drink_desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
-	taste_message = "lime soda"
+	taste_message = "sweet citrus soda"
 
 /datum/reagent/consumable/drink/cold/dr_gibb
 	name = "Dr. Gibb"
@@ -136,7 +139,7 @@
 	drink_icon = "kiraspecial"
 	drink_name = "Kira Special"
 	drink_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
-	taste_message = "citrus soda"
+	taste_message = "citrus traps"
 
 /datum/reagent/consumable/drink/cold/brownstar
 	name = "Brown Star"
@@ -168,7 +171,7 @@
 	drink_icon = "rewriter"
 	drink_name = "Rewriter"
 	drink_desc = "The secert of the sanctuary of the Libarian..."
-	taste_message = "coffee...soda?"
+	taste_message = "...huh, you forgot"
 
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(5)
