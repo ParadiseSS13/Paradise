@@ -35,10 +35,10 @@
 	..()
 
 /mob/proc/initialize_emotes()
-	for(var/emote_type in emote_types)
-		for(var/path in subtypesof(emote_type))
+	for(var/ET in emote_types)
+		for(var/path in subtypesof(ET))
 			var/datum/emote/E = new path()
-			if(!emote_list[E.key])
+			if(E.key && !emote_list[E.key])
 				emote_list[E.key] = E
 				emote_list[E.key_third_person] = E
 

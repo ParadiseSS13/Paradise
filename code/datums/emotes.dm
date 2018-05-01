@@ -13,15 +13,12 @@
 	var/punct = "."
 	var/list/mob_type_ignore_stat_typecache
 	var/stat_allowed = CONSCIOUS
-	var/static/list/emote_list = list()
 	var/cooldown = 0
 	var/sound
 	var/sound_vary = FALSE
 	var/sound_volume = 50
 
 /datum/emote/New()
-	if(key_third_person)
-		emote_list[key_third_person] = src
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 
@@ -29,9 +26,29 @@
 	. = TRUE
 	if(!can_run_emote(user))
 		return FALSE
+
+	var/msg = create_emote_message(user, params)
+	if(!msg)
+		return
+	show_to_ghosts(user, msg)
+
+	var/ET = type_override ? type_override : emote_type
+
+	if(ET == EMOTE_AUDIBLE)
+		user.audible_message(msg)
+		if(can_play_sound(user))
+			play_sound(user)
+	else
+		user.visible_message(msg)
+		play_sound(user)
+	log_emote(msg, user)
+	emote_cooldown(user)
+
+// Override this to use custom message behavior, or do something before the emote is printed to the screen
+/datum/emote/proc/create_emote_message(mob/user, params)
 	var/msg = select_message_type(user)
 	if(params)
-		msg = select_param(user, params)
+		msg = select_param(user, params, msg)
 
 	msg = replace_pronoun(user, msg)
 
@@ -39,23 +56,18 @@
 		return
 
 	msg = "<b>[user]</b> " + msg + punct
+	return msg
 
-	if(!findtext(msg, " snores."))
-		for(var/mob/M in player_list)
-			if(!M.client || isnewplayer(M))
-				continue
-			var/T = get_turf(user)
-			if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
-				M.show_message(msg)
+/datum/emote/proc/show_to_ghosts(mob/user, msg)
+	if(findtext(msg, " snores."))
+		return
 
-	if(emote_type == EMOTE_AUDIBLE)
-		user.audible_message(msg)
-		if(can_play_sound(user))
-			play_sound(user)
-	else
-		user.visible_message(msg)
-	log_emote(msg, user)
-	emote_cooldown()
+	for(var/mob/M in player_list)
+		if(!M.client || isnewplayer(M))
+			continue
+		var/T = get_turf(user)
+		if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
+			M.show_message(msg)
 
 /datum/emote/proc/emote_cooldown(mob/user)
 	if(!cooldown || user.emote_on_cd)
@@ -68,25 +80,26 @@
 		return
 	user.emote_on_cd = FALSE
 
-/datum/emote/proc/replace_pronoun(mob/user, message)
-	if(findtext(message, "their"))
-		message = replacetext(message, "their", user.p_their())
-	if(findtext(message, "them"))
-		message = replacetext(message, "them", user.p_them())
-	if(findtext(message, "%s"))
-		message = replacetext(message, "%s", user.p_s())
-	return message
+/datum/emote/proc/replace_pronoun(mob/user, msg)
+	if(findtext(msg, "their"))
+		msg = replacetext(msg, "their", user.p_their())
+	if(findtext(msg, "them"))
+		msg = replacetext(msg, "them", user.p_them())
+	if(findtext(msg, "%s"))
+		msg = replacetext(msg, "%s", user.p_s())
+	return msg
 
 /datum/emote/proc/select_message_type(mob/user)
 	. = message
 	if(!can_play_sound(user))
 		return "makes a [pick("strong ", "weak ", "")]noise"
 
-/datum/emote/proc/select_param(mob/user, params)
-	if(!can_play_sound(user))
-		return "makes a [pick("strong ", "weak ", "")]noise at [params]"
+/datum/emote/proc/select_param(mob/user, params, msg)
+	var/M = handle_emote_param(user, params)
+	if(!M)
+		return msg
 	if(!message_param)
-		return "[message] at [params]"
+		return "[msg] at [params]"
 	return replacetext(message_param, "%t", params)
 
 /datum/emote/proc/can_run_emote(mob/user, status_check = TRUE)
@@ -94,6 +107,7 @@
 	if(cooldown && user.emote_on_cd)
 		return FALSE
 	if(is_type_in_typecache(user, mob_type_blacklist_typecache))
+		unusable_message(user, status_check)
 		return FALSE
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
 		if(user.stat > stat_allowed)
@@ -109,13 +123,10 @@
 	playsound(user.loc, sound, sound_volume, sound_vary)
 
 /datum/emote/proc/can_play_sound(mob/user)
-	return (!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
+	return !(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
 
 // Override this to change the param handling. By default they have to be visible to you, but not next to you.
 /datum/emote/proc/handle_emote_param(mob/user, var/target, var/not_self, var/vicinity, var/return_mob)
-	return handle_emote_param_helper(user, target, not_self, vicinity, return_mob)
-
-/datum/emote/proc/handle_emote_param_helper(mob/user, var/target, var/not_self, var/vicinity, var/return_mob)
 	//Only returns not null if the target param is valid.
 	//not_self means we'll only return if target is valid and not us
 	//vicinity is the distance passed to the view proc.
@@ -128,3 +139,7 @@
 			if(return_mob)
 				return A
 			return target
+
+/datum/emote/proc/unusable_message(mob/user, status_check)
+	if(status_check)
+		to_chat(user, "<span class='notice'>Unusable emote '[key]'. Say *help for a list.</span>")

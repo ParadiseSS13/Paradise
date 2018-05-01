@@ -7,8 +7,10 @@
 		act = copytext(act, 1, custom_param)
 
 	var/datum/emote/E = emote_list[act]
-	if(!E || !(E.run_emote(src, param, m_type)))
+	if(!E)
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
+	E.run_emote(src, param, m_type)
+	
 
 /mob/proc/custom_emote(var/m_type=EMOTE_VISIBLE, var/message=null)
 	emote("me", m_type, message)
@@ -18,32 +20,26 @@
 
 /datum/emote/mob/help/run_emote(mob/user, params)
 	var/list/keys = list()
-	var/list/message = list("Available emotes, you can use them with say \"*emote\": ")
+	var/prefix = "Available emotes (you can use them with say \"*emote\"): "
 
-	for(var/e in emote_list)
-		if(e in keys)
+	for(var/k in user.emote_list)
+		if(k in keys)
 			continue
-		var/datum/emote/E = emote_list[e]
+		var/datum/emote/E = user.emote_list[k]
 		if(E.can_run_emote(user, status_check = FALSE))
 			keys += E.key
 
 	keys = sortList(keys)
 
-	for(var/emote in keys)
-		if(LAZYLEN(message) > 1)
-			message += ", [emote]"
-		else
-			message += "[emote]"
-
-	message += "."
-
-	message = jointext(message, "")
+	message = "[prefix] [jointext(keys, ", ")]."
 
 	to_chat(user, message)
+	return TRUE
 
 /datum/emote/mob/custom
 	key = "me"
 	key_third_person = "custom"
+	punct = ""
 	message = null
 
 /datum/emote/mob/custom/proc/check_invalid(mob/user, input)
@@ -81,7 +77,7 @@
 		message = params
 		if(type_override)
 			emote_type = type_override
-	. = ..()
+	. = ..(user)
 	message = null
 	emote_type = EMOTE_VISIBLE
 
