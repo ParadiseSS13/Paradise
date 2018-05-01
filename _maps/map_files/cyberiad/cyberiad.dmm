@@ -6505,7 +6505,7 @@
 "cve" = (/obj/item/assembly/timer,/obj/item/assembly/timer{pixel_x = 6},/obj/item/assembly/timer{pixel_x = -5; pixel_y = 6},/obj/structure/table,/obj/item/assembly/timer{pixel_x = -3; pixel_y = -4},/obj/item/assembly/timer{pixel_x = 8; pixel_y = 8},/obj/item/assembly/timer,/obj/machinery/light_switch{pixel_y = -23},/obj/machinery/light,/obj/machinery/requests_console{department = "Science"; departmentType = 2; name = "Science Requests Console"; pixel_x = 0; pixel_y = -30},/turf/simulated/floor/plasteel{icon_state = "white"},/area/toxins/mixing)
 "cvf" = (/obj/machinery/atmospherics/trinary/mixer{density = 0; dir = 8; req_access = null},/turf/simulated/floor/plasteel{icon_state = "white"},/area/toxins/mixing)
 "cvg" = (/obj/machinery/atmospherics/unary/portables_connector{dir = 4},/obj/item/radio/intercom{name = "station intercom (General)"; pixel_y = -28},/turf/simulated/floor/plasteel{icon_state = "white"},/area/toxins/mixing)
-"cvh" = (/obj/item/radio/beacon,/obj/effect/decal/warning_stripes/red/hollow,/turf/simulated/floor/plasteel/airless,/area/toxins/test_area)
+"cvh" = (/obj/item/radio/beacon,/obj/effect/decal/warning_stripes/red/hollow,/turf/simulated/floor/plasteel/airless/indestructible,/area/toxins/test_area)
 "cvi" = (/obj/machinery/atmospherics/binary/valve{dir = 4},/obj/machinery/firealarm{dir = 1; pixel_y = -24},/turf/simulated/floor/plasteel{icon_state = "white"},/area/toxins/mixing)
 "cvj" = (/obj/machinery/mass_driver{dir = 4; id_tag = "toxinsdriver"},/turf/simulated/floor/plating,/area/toxins/launch{name = "Toxins Launch Room"})
 "cvk" = (/obj/structure/closet/crate,/obj/effect/spawner/lootdrop/maintenance,/turf/simulated/floor/plating,/area/maintenance/apmaint)
