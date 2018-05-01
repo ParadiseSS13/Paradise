@@ -68,4 +68,4 @@
 
 	var/list/status_effects //a list of all status effects the mob has
 
-	emote_types = list(/datum/emote/synth, /datum/emote/mob)
+	emote_types = list(/datum/emote/living, /datum/emote/mob)

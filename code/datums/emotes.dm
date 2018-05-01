@@ -131,12 +131,12 @@
 	//Only returns not null if the target param is valid.
 	//not_self means we'll only return if target is valid and not us
 	//vicinity is the distance passed to the view proc.
-	var/view_vicinity = vicinity ? vicinity : null 
+	var/view_vicinity = vicinity ? vicinity : null
 	if(!target)
 		return
 		//if set, return_mob will cause this proc to return the mob instead of just its name if the target is valid.
 	for(var/mob/A in view(view_vicinity, null))
-		if(target == A.name && (!not_self || (not_self && target != user.name)))
+		if(cmptext(target, A.name) && (!not_self || (not_self && cmptext(target, user.name))))
 			if(return_mob)
 				return A
 			return target

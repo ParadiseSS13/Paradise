@@ -99,7 +99,7 @@
 		user.SpinAnimation(5,1)
 		sleep(3)
 		user.Weaken(2)
-		return "<b>[src]</b> attempts a flip and crashes to the floor!"
+		return "<b>[user]</b> attempts a flip and crashes to the floor!"
 
 	user.SpinAnimation(5,1)
 	return ..()
