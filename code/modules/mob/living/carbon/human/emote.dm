@@ -25,13 +25,14 @@
 		return FALSE
 	 if(species_whitelist.len && !(user.get_species() in species_whitelist))
 	 	unusable_message(user, status_check)
+		return FALSE
 	return TRUE
 
 /datum/emote/human/run_emote(mob/user, params, type_override)
 	. = ..()
 	for(var/obj/item/implant/I in user)
 		if(I.implanted)
-			I.trigger(act, user)
+			I.trigger(key, user)
 
 /datum/emote/human/proc/working_hands(mob/living/carbon/human/user)
 	var/obj/item/organ/external/L = user.get_organ("l_hand")
@@ -50,6 +51,21 @@
 	key = "smile"
 	key_third_person = "smiles"
 	message = "smiles"
+
+/datum/emote/human/snap
+	key = "snap"
+	key_third_person = "snaps"
+	message = "snaps their fingers"
+	hands_needed = 1
+	cooldown = 20
+
+/datum/emote/human/snap/create_emote_message(mob/user, params)
+	if(prob(95))
+		playsound(user.loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
+		return ..()
+
+	playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
+	return "<span class='danger'><b>[user]</b> snaps their fingers right off!</span>"
 
 /datum/emote/human/flip
 	key = "flip"
@@ -95,6 +111,9 @@
 	message_param = "slaps %t across the face. Ouch"
 	punct = "!"
 	cooldown = 20 // Good times
+	sound = 'sound/effects/snap.ogg'
+	sound_volume = 50
+	sound_vary = 1
 
 /datum/emote/human/slap/handle_emote_param(mob/user, var/target, var/not_self, var/vicinity, var/return_mob)
 	// Must be next to target
@@ -106,9 +125,9 @@
 		user.adjustFireLoss(4)
 	return ..()
 
+// Human audible sounds handle alternative mime versions automatically
 /datum/emote/human/audible
 	var/message_mime = ""
-	var/message_mime_param = ""
 	emote_type = EMOTE_AUDIBLE
 	cooldown = 20
 
@@ -116,12 +135,12 @@
 	return ..() && (user.mind && !user.mind.miming)
 
 /datum/emote/human/audible/select_message_type(mob/user)
-	if(user.mind && user.mind.miming)
+	if(user.mind && user.mind.miming && message_mime)
 		return message_mime
 	return ..()
 
 /datum/emote/human/audible/run_emote(mob/user, params, type_override)
-	if(user.mind && user.mind.miming)
+	if(user.mind && user.mind.miming && message_mime)
 		return ..(user, params, EMOTE_VISIBLE)
 	return ..()
 

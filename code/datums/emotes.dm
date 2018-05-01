@@ -9,14 +9,15 @@
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
 	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
+	var/muzzled_noise = "" // For snowflaking the muzzled noise
 	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
 	var/punct = "."
 	var/list/mob_type_ignore_stat_typecache
 	var/stat_allowed = CONSCIOUS
 	var/cooldown = 0
 	var/sound
-	var/sound_vary = FALSE
 	var/sound_volume = 50
+	var/sound_vary = 0
 
 /datum/emote/New()
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)
@@ -92,7 +93,7 @@
 /datum/emote/proc/select_message_type(mob/user)
 	. = message
 	if(!can_play_sound(user))
-		return "makes a [pick("strong ", "weak ", "")]noise"
+		return "makes a [muzzled_noise ? muzzled_noise : pick("strong ", "weak ", "")]noise"
 
 /datum/emote/proc/select_param(mob/user, params, msg)
 	var/M = handle_emote_param(user, params)
