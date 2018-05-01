@@ -1,4 +1,0 @@
-author: "Alffd"
-delete-after: True
-changes: 
-  - bugfix: "Tell clients to rejoin after shutdown, before killing the server."
