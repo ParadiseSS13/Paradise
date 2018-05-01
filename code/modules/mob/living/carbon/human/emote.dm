@@ -479,7 +479,7 @@
 					m_type = 2
 
 		if("deathgasp", "deathgasps")
-			message = "<B>[src]</B> [species.death_message]"
+			message = "<B>[src]</B> [replacetext(species.death_message, "their", p_their())]"
 			m_type = 1
 
 		if("giggle", "giggles")
