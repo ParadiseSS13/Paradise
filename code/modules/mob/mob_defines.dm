@@ -203,4 +203,4 @@
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 
 	var/list/emote_list = list() // Initial emotes
-	var/list/emote_types = list(/datum/emote/mob) // Emotes types to add. Higher priority emote types first, ie the emote will not be added if there is already an emote defined for that key
+	var/list/emote_types = list("mob") // Emotes types to add. Higher priority emote types first, ie the emote will not be added if there is already an emote defined for that key

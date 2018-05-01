@@ -18,6 +18,12 @@
 	var/sound
 	var/sound_volume = 50
 	var/sound_vary = 0
+	var/static/list/emote_lists = list(
+		mob=init_subtypes(/datum/emote/mob),
+		living=init_subtypes(/datum/emote/living),
+		human=init_subtypes(/datum/emote/human),
+		synth=init_subtypes(/datum/emote/synth),
+	)
 
 /datum/emote/New()
 	mob_type_blacklist_typecache = typecacheof(mob_type_blacklist_typecache)

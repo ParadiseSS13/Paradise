@@ -75,4 +75,4 @@ var/global/default_martial_art = new/datum/martial_art
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	emote_list = list()
-	emote_types = list(/datum/emote/human, /datum/emote/living, /datum/emote/synth, /datum/emote/mob)
+	emote_types = list("human", "living", "synth", "mob")

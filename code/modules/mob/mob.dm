@@ -35,12 +35,14 @@
 	..()
 
 /mob/proc/initialize_emotes()
+	var/datum/emote/E = new /datum/emote()
 	for(var/ET in emote_types)
-		for(var/path in subtypesof(ET))
-			var/datum/emote/E = new path()
-			if(E.key && !emote_list[E.key])
-				emote_list[E.key] = E
-				emote_list[E.key_third_person] = E
+		for(var/datum/emote/EE in E.emote_lists[ET])
+			if(EE.key && !emote_list[EE.key])
+				emote_list[EE.key] = EE
+				emote_list[EE.key_third_person] = EE
+	// silence compiler warning
+	QDEL_NULL(E)
 
 /atom/proc/prepare_huds()
 	hud_list = list()
