@@ -54,7 +54,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
-		light("<span class='notice'>[user] coldly lights the [name] with the burning body of [M]. Clearly, [user.p_they()] offer the warmest of regards...</span>")
+		light("<span class='notice'>[user] coldly lights the [name] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
 		return 1
 	else
 		return ..()
@@ -88,7 +88,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(W, /obj/item/melee/energy/sword/saber))
 		var/obj/item/melee/energy/sword/saber/S = W
 		if(S.active)
-			light("<span class='warning'>[user] swings their [W], barely missing their nose. [user.p_they(TRUE)] light [user.p_their()] [name] in the process.</span>")
+			light("<span class='warning'>[user] swings their [W], barely missing their nose. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] in the process.</span>")
 
 	else if(istype(W, /obj/item/assembly/igniter))
 		light("<span class='notice'>[user] fiddles with [W], and manages to light [user.p_their()] [name].</span>")

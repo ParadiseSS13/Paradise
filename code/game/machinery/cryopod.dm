@@ -551,7 +551,7 @@
 
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the cryo pod because [L.p_they()] have a slime latched onto [L.p_their()] head.")
+			to_chat(usr, "[L.name] will not fit into the cryo pod because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
 			return
 
 

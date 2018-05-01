@@ -108,7 +108,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the cryo cell because [L.p_they()] have a slime latched onto [L.p_their()] head.")
+			to_chat(usr, "[L.name] will not fit into the cryo cell because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
 			return
 	if(put_mob(L))
 		if(L == user)
@@ -301,7 +301,7 @@
 			return
 		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
 			if(M.Victim == GG.affecting)
-				to_chat(usr, "[GG.affecting.name] will not fit into the cryo because [GG.affecting.p_they()] have a slime latched onto [GG.affecting.p_their()] head.")
+				to_chat(usr, "[GG.affecting.name] will not fit into the cryo because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
 				return
 		var/mob/M = GG.affecting
 		if(put_mob(M))

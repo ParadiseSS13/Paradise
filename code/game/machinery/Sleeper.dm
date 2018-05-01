@@ -338,7 +338,7 @@
 			return
 		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
 			if(M.Victim == GG.affecting)
-				to_chat(usr, "[GG.affecting.name] will not fit into the sleeper because [GG.affecting.p_they()] have a slime latched onto [GG.affecting.p_their()] head.")
+				to_chat(usr, "[GG.affecting.name] will not fit into the sleeper because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
 				return
 
 		visible_message("[user] starts putting [GG.affecting.name] into the sleeper.")
