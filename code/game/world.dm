@@ -324,6 +324,10 @@ var/world_topic_spam_protect_time = world.timeofday
 	processScheduler.stop()
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
+	for(var/client/C in clients)
+		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[config.server]")
+
 	if(config && config.shutdown_on_reboot)
 		sleep(0)
 		if(shutdown_shell_command)
@@ -331,9 +335,6 @@ var/world_topic_spam_protect_time = world.timeofday
 		del(world)
 		return
 	else
-		for(var/client/C in clients)
-			if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-				C << link("byond://[config.server]")
 		..(0)
 
 
