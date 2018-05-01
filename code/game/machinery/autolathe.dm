@@ -35,20 +35,18 @@
 	var/selected_category
 	var/screen = 1
 
-	var/datum/material_container/materials
-
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
 /obj/machinery/autolathe/New()
+	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), 0, FALSE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/autolathe(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	materials = new /datum/material_container(src, list(MAT_METAL = 1, MAT_GLASS = 1))
+	component_parts += new /obj/item/circuitboard/autolathe(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 	wires = new(src)
@@ -58,17 +56,18 @@
 /obj/machinery/autolathe/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/autolathe(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/autolathe(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/autolathe/Destroy()
 	QDEL_NULL(wires)
-	QDEL_NULL(materials)
+	GET_COMPONENT(materials, /datum/component/material_container)
+	materials.retrieve_all()
 	return ..()
 
 /obj/machinery/autolathe/interact(mob/user)
@@ -82,12 +81,13 @@
 		ui_interact(user)
 
 /obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "autolathe.tmpl", name, 800, 550)
 		ui.open()
 
 /obj/machinery/autolathe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/data[0]
 	data["screen"] = screen
 	data["total_amount"] = materials.total_amount
@@ -138,7 +138,7 @@
 /obj/machinery/autolathe/proc/design_cost_data(datum/design/D)
 	var/list/data = list()
 	var/coeff = get_coeff(D)
-
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/has_metal = 1
 	if(D.materials[MAT_METAL] && (materials.amount(MAT_METAL) < (D.materials[MAT_METAL] / coeff)))
 		has_metal = 0
@@ -152,6 +152,7 @@
 	return data
 
 /obj/machinery/autolathe/proc/queue_data(list/data)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/temp_metal = materials.amount(MAT_METAL)
 	var/temp_glass = materials.amount(MAT_GLASS)
 	data["processing"] = being_built.len ? get_processing_line() : null
@@ -175,15 +176,14 @@
 		return 1
 
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	if(exchange_parts(user, O))
 		return
 
 	if(panel_open)
-		if(istype(O, /obj/item/weapon/crowbar))
-			materials.retrieve_all()
+		if(istype(O, /obj/item/crowbar))
 			default_deconstruction_crowbar(O)
 			return 1
 		else
@@ -193,9 +193,9 @@
 		return 1
 
 	// Disks in general
-	if(istype(O, /obj/item/weapon/disk))
-		if(istype(O, /obj/item/weapon/disk/design_disk))
-			var/obj/item/weapon/disk/design_disk/D = O
+	if(istype(O, /obj/item/disk))
+		if(istype(O, /obj/item/disk/design_disk))
+			var/obj/item/disk/design_disk/D = O
 			if(D.blueprint)
 				user.visible_message("[user] begins to load \the [O] in \the [src]...",
 					"You begin to load a design from \the [O]...",
@@ -213,33 +213,19 @@
 			to_chat(user, "<span class='warning'>This is not the correct type of disk for the autolathe!</span>")
 			return 1
 
-	var/material_amount = materials.get_item_material_amount(O)
-	if(!material_amount)
-		to_chat(user, "<span class='warning'>This object does not contain sufficient amounts of metal or glass to be accepted by the autolathe.</span>")
-		return 1
-	if(!materials.has_space(material_amount))
-		to_chat(user, "<span class='warning'>The autolathe is full. Please remove metal or glass from the autolathe in order to insert more.</span>")
-		return 1
-	if(!user.unEquip(O))
-		to_chat(user, "<span class='warning'>\The [O] is stuck to you and cannot be placed into the autolathe.</span>")
-		return 1
+	return ..()
 
-	busy = 1
-	var/inserted = materials.insert_item(O)
-	if(inserted)
-		if(istype(O,/obj/item/stack))
-			if(O.materials[MAT_METAL])
+/obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
+	if(ispath(type_inserted, /obj/item/ore/bluespace_crystal))
+		use_power(MINERAL_MATERIAL_AMOUNT / 10)
+	else
+		switch(id_inserted)
+			if(MAT_METAL)
 				flick("autolathe_o",src)//plays metal insertion animation
-			if(O.materials[MAT_GLASS])
-				flick("autolathe_r", src)//plays glass insertion animation
-			to_chat(user, "<span class='notice'>You insert [inserted] sheet[inserted>1 ? "s" : ""] to the autolathe.</span>")
-			use_power(inserted * 100)
-		else
-			to_chat(user, "<span class='notice'>You insert a material total of [inserted] to the autolathe.</span>")
-			use_power(max(500, inserted / 10))
-			qdel(O)
-	busy = 0
-	nanomanager.update_uis(src)
+			if(MAT_GLASS)
+				flick("autolathe_r",src)//plays glass insertion animation
+		use_power(min(1000, amount_inserted / 100))
+	SSnanoui.update_uis(src)
 
 /obj/machinery/autolathe/attack_ghost(mob/user)
 	interact(user)
@@ -274,6 +260,7 @@
 
 		//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 		var/multiplier = text2num(href_list["multiplier"])
+		GET_COMPONENT(materials, /datum/component/material_container)
 		var/max_multiplier = min(design_last_ordered.maxstack, design_last_ordered.materials[MAT_METAL] ?round(materials.amount(MAT_METAL)/design_last_ordered.materials[MAT_METAL]):INFINITY,design_last_ordered.materials[MAT_GLASS]?round(materials.amount(MAT_GLASS)/design_last_ordered.materials[MAT_GLASS]):INFINITY)
 		var/is_stack = ispath(design_last_ordered.build_path, /obj/item/stack)
 
@@ -318,17 +305,18 @@
 
 		screen = AUTOLATHE_SEARCH_MENU
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/autolathe/RefreshParts()
 	var/tot_rating = 0
 	prod_coeff = 0
-	for(var/obj/item/weapon/stock_parts/matter_bin/MB in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/MB in component_parts)
 		tot_rating += MB.rating
 	tot_rating *= 25000
+	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.max_amount = tot_rating * 3
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		prod_coeff += M.rating - 1
 
 /obj/machinery/autolathe/proc/get_coeff(datum/design/D)
@@ -339,6 +327,7 @@
 	desc = initial(desc)+"\nIt's building \a [initial(D.name)]."
 	var/is_stack = ispath(D.build_path, /obj/item/stack)
 	var/coeff = get_coeff(D)
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/metal_cost = D.materials[MAT_METAL]
 	var/glass_cost = D.materials[MAT_GLASS]
 	var/power = max(2000, (metal_cost+glass_cost)*multiplier/5)
@@ -353,7 +342,7 @@
 		else
 			var/list/materials_used = list(MAT_METAL=metal_cost/coeff, MAT_GLASS=glass_cost/coeff)
 			materials.use_amount(materials_used)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		sleep(32/coeff)
 		if(is_stack)
 			var/obj/item/stack/S = new D.build_path(BuildTurf)
@@ -362,7 +351,7 @@
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.materials[MAT_METAL] /= coeff
 			new_item.materials[MAT_GLASS] /= coeff
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	desc = initial(desc)
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, multiplier = 1, custom_metal, custom_glass)
@@ -370,7 +359,7 @@
 		return 0
 
 	var/coeff = get_coeff(D)
-
+	GET_COMPONENT(materials, /datum/component/material_container)
 	var/metal_amount = materials.amount(MAT_METAL)
 	if(custom_metal)
 		metal_amount = custom_metal

@@ -91,7 +91,7 @@
 			if(player.current) // Remove mindshield-implanted mobs from the list
 				if(ishuman(player.current))
 					var/mob/living/carbon/human/H = player.current
-					for(var/obj/item/weapon/implant/mindshield/I in H.contents)
+					for(var/obj/item/implant/mindshield/I in H.contents)
 						if(I && I.implanted)
 							possible_traitors -= player
 

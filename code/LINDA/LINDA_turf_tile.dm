@@ -312,15 +312,39 @@
 	if(last_forced_movement >= SSair.times_fired)
 		return 0
 	else if(!anchored && !pulledby)
+		var/turf/target = get_turf(src)
+		var/datum/gas_mixture/target_air = target.return_air()
+		if(isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())
+			return 0
 		if(pressure_difference >= throw_pressure_limit)
 			var/general_direction = get_edge_target_turf(src, direction)
 			if(last_forced_movement + 10 < SSair.times_fired && is_valid_tochat_target(src)) //the first check prevents spamming throw to_chat
 				to_chat(src, "<span class='userdanger'>The pressure sends you flying!</span>")
-			if(ishuman(src))
-				var/mob/living/carbon/human/H = src
-				H.Weaken(min(pressure_difference / 50, 2))
 			spawn()
-				throw_at(general_direction, pressure_difference / 10, pressure_difference / 200, null, 0, 0, null)
+				var/max_distance = 14 // reduce by one each calculation to prevent infinate loops.
+				var/min_observed_pressure = INFINITY
+				var/turf/possible_target = get_turf(src)
+				while(!isunsimulatedturf(target) && max_distance > 0)
+					max_distance--
+					target_air = target.return_air()
+					min_observed_pressure = target_air.return_pressure()
+					possible_target = get_step_towards(target,general_direction)
+					if(istype(possible_target, /turf/space))
+						target = possible_target
+						break
+					if(!CanAtmosPass(possible_target))
+						target = possible_target
+						max_distance = 0
+						break
+					var/datum/gas_mixture/possible_target_air = possible_target.return_air()
+					if(possible_target_air.return_pressure() > min_observed_pressure)
+						target = possible_target
+						break
+					target = possible_target
+				if(max_distance)
+					throw_at(target, get_dist(src, target), pressure_difference / 200, null, 0, 0, null)
+				else
+					throw_at(target, pressure_difference / 10, pressure_difference / 200, null, 0, 0, null)
 			last_forced_movement = SSair.times_fired
 			return 1
 		else if(pressure_difference > pressure_resistance)

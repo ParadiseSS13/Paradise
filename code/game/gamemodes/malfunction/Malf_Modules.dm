@@ -37,7 +37,7 @@
 	doomsday_device = DOOM
 	doomsday_device.start()
 	verbs -= /mob/living/silicon/ai/proc/nuke_station
-	for(var/obj/item/weapon/pinpointer/point in pinpointer_list)
+	for(var/obj/item/pinpointer/point in pinpointer_list)
 		for(var/mob/living/silicon/ai/A in ai_list)
 			if((A.stat != DEAD) && A.nuking)
 				point.the_disk = A //The pinpointer now tracks the AI core
@@ -159,9 +159,8 @@
 	for(var/obj/machinery/door/D in airlocks)
 		if(!is_station_level(D.z))
 			continue
-		spawn(0)
-			D.hostile_lockdown(src)
-		addtimer(D, "disable_lockdown", 900)
+		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown, src)
+		addtimer(CALLBACK(D, /obj/machinery/door.proc/disable_lockdown), 900)
 
 	post_status("alert", "lockdown")
 
@@ -189,8 +188,8 @@
 	if(stat || malf_cooldown)
 		return
 
-	for(var/obj/item/weapon/rcd/RCD in rcd_list)
-		if(!istype(RCD, /obj/item/weapon/rcd/borg)) //Ensures that cyborg RCDs are spared.
+	for(var/obj/item/rcd/RCD in rcd_list)
+		if(!istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			RCD.detonate_pulse()
 
 	to_chat(src, "<span class='danger'>RCD detonation pulse emitted.</span>")
@@ -331,7 +330,7 @@
 				audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
 				to_chat(src, "<span class='warning'>Reprogramming machine behaviour...</span>")
 				spawn(50)
-					if(M && !qdeleted(M))
+					if(M && !QDELETED(M))
 						new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
 			else
 				to_chat(src, "<span class='notice'>Out of uses.</span>")

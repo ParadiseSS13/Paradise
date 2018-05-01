@@ -76,7 +76,7 @@
 			if(O.anchored)
 				continue
 			if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
-				if(!istype(O, /obj/item/weapon/paper))
+				if(!istype(O, /obj/item/paper))
 					cocoon_target = O
 					stop_automated_movement = 1
 					spider_steps_taken = 0

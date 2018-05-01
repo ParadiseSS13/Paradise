@@ -34,17 +34,17 @@
 	uniform = /obj/item/clothing/under/rank/research_director
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/device/radio/headset/heads/rd
-	id = /obj/item/weapon/card/id/rd
-	l_hand = /obj/item/weapon/clipboard
-	pda = /obj/item/device/pda/heads/rd
+	l_ear = /obj/item/radio/headset/heads/rd
+	id = /obj/item/card/id/rd
+	l_hand = /obj/item/clipboard
+	pda = /obj/item/pda/heads/rd
 	backpack_contents = list(
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	backpack = /obj/item/weapon/storage/backpack/science
-	satchel = /obj/item/weapon/storage/backpack/satchel_tox
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/science
+	backpack = /obj/item/storage/backpack/science
+	satchel = /obj/item/storage/backpack/satchel_tox
+	dufflebag = /obj/item/storage/backpack/duffel/science
 
 
 /datum/job/scientist
@@ -57,9 +57,9 @@
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
-	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom, access_tech_storage, access_morgue)
+	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom)
 	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_maint_tunnels, access_mineral_storeroom)
-	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher", "Roboticist")
+	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
 	minimal_player_age = 3
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
@@ -77,25 +77,15 @@
 	uniform = /obj/item/clothing/under/rank/scientist
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/device/radio/headset/headset_sci
-	id = /obj/item/weapon/card/id/research
-	pda = /obj/item/device/pda/toxins
+	l_ear = /obj/item/radio/headset/headset_sci
+	id = /obj/item/card/id/research
+	pda = /obj/item/pda/toxins
 
-	backpack = /obj/item/weapon/storage/backpack/science
-	satchel = /obj/item/weapon/storage/backpack/satchel_tox
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/science
+	backpack = /obj/item/storage/backpack/science
+	satchel = /obj/item/storage/backpack/satchel_tox
+	dufflebag = /obj/item/storage/backpack/duffel/science
 
-/datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Roboticist")
-				uniform = /obj/item/clothing/under/rank/roboticist
-				suit = /obj/item/clothing/suit/storage/labcoat
-			else
-				uniform = /obj/item/clothing/under/rank/scientist
-				suit = /obj/item/clothing/suit/storage/labcoat/science
-/*
+
 /datum/job/roboticist
 	title = "Roboticist"
 	flag = ROBOTICIST
@@ -126,9 +116,8 @@
 
 	uniform = /obj/item/clothing/under/rank/roboticist
 	suit = /obj/item/clothing/suit/storage/labcoat
-	belt = /obj/item/weapon/storage/belt/utility/full
+	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_sci
-	id = /obj/item/weapon/card/id/research
-	pda = /obj/item/device/pda/roboticist
-*/
+	l_ear = /obj/item/radio/headset/headset_sci
+	id = /obj/item/card/id/research
+	pda = /obj/item/pda/roboticist

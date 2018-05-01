@@ -28,13 +28,13 @@
 	var/window_name = "Protobot 1.0" //Popup title
 	var/window_width = 0 //0 for default size
 	var/window_height = 0
-	var/obj/item/device/paicard/paicard // Inserted pai card.
+	var/obj/item/paicard/paicard // Inserted pai card.
 	var/allow_pai = 1 // Are we even allowed to insert a pai card.
 	var/bot_name
 
 	var/list/player_access = list()
 	var/emagged = 0
-	var/obj/item/weapon/card/id/access_card			// the ID card that the bot "holds"
+	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
 	var/list/prev_access = list()
 	var/on = 1
 	var/open = 0//Maint panel
@@ -54,7 +54,7 @@
 	var/tries = 0 //Number of times the bot tried and failed to move.
 	var/remote_disabled = 0 //If enabled, the AI cannot *Remotely* control a bot. It can still control it through cameras.
 	var/mob/living/silicon/ai/calling_ai //Links a bot to the AI calling it.
-	var/obj/item/device/radio/Radio //The bot's radio, for speaking to people.
+	var/obj/item/radio/Radio //The bot's radio, for speaking to people.
 	var/list/radio_config = null //which channels can the bot listen to
 	var/radio_channel = "Common" //The bot's default radio channel
 	var/auto_patrol = 0// set to make bot automatically patrol
@@ -91,11 +91,11 @@
 
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_PATH_HUD = HUD_LIST_LIST)//Diagnostic HUD views
 
-/obj/item/device/radio/headset/bot
+/obj/item/radio/headset/bot
 	subspace_transmission = 1
 	canhear_range = 0
 
-/obj/item/device/radio/headset/bot/recalculateChannels()
+/obj/item/radio/headset/bot/recalculateChannels()
 	var/mob/living/simple_animal/bot/B = loc
 	if(istype(B))
 		if(!B.radio_config)
@@ -140,11 +140,11 @@
 	bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
-	access_card = new /obj/item/weapon/card/id(src)
+	access_card = new /obj/item/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
 	access_card.access += access_robotics
 	set_custom_texts()
-	Radio = new/obj/item/device/radio/headset/bot(src)
+	Radio = new/obj/item/radio/headset/bot(src)
 
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
@@ -193,6 +193,9 @@
  	bots_list -= src
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
+	if(reset_access_timer_id)
+		deltimer(reset_access_timer_id)
+		reset_access_timer_id = null
 	if(radio_controller && bot_filter)
 		radio_controller.remove_object(bot_core, control_freq)
 	QDEL_NULL(bot_core)
@@ -219,7 +222,7 @@
 		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
 		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
 		show_laws()
-		add_logs(user, src, "emagged")
+		add_attack_logs(user, src, "Emagged")
 		return
 	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
@@ -258,22 +261,22 @@
 			return
 	return 1 //Successful completion. Used to prevent child process() continuing if this one is ended early.
 
-/mob/living/simple_animal/bot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/attack_alien(mob/living/carbon/alien/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	apply_damage(rand(15,30), BRUTE)
-	visible_message("<span class='userdanger'>[user] has slashed [src]!</span>")
+	visible_message("<span class='danger'>[user] has slashed [src]!</span>")
 	playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
-/mob/living/simple_animal/bot/attack_animal(var/mob/living/simple_animal/M as mob)
+/mob/living/simple_animal/bot/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)
 	if(M.melee_damage_upper == 0)
 		return
 	apply_damage(M.melee_damage_upper, BRUTE)
-	visible_message("<span class='userdanger'>[M] has [M.attacktext] [src]!</span>")
-	add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
+	visible_message("<span class='danger'>[M] has [M.attacktext] [src]!</span>")
+	add_attack_logs(M, src, "Animal attacked", FALSE)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 
@@ -295,14 +298,14 @@
 /mob/living/simple_animal/bot/proc/interact(mob/user)
 	show_controls(user)
 
-/mob/living/simple_animal/bot/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/screwdriver))
+/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/screwdriver))
 		if(!locked)
 			open = !open
 			to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
 		else
 			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
@@ -313,12 +316,12 @@
 				to_chat(user, "<span class='warning'>Please close the access panel before locking it.</span>")
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
-	else if(istype(W, /obj/item/device/paicard))
+	else if(istype(W, /obj/item/paicard))
 		if(paicard)
 			to_chat(user, "<span class='warning'>A [paicard] is already inserted!</span>")
 		else if(allow_pai && !key)
 			if(!locked && !open)
-				var/obj/item/device/paicard/card = W
+				var/obj/item/paicard/card = W
 				if(card.pai && card.pai.mind)
 					if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
 						to_chat(user, "<span class='warning'>[W] is unable to establish a connection to [src].</span>")
@@ -333,14 +336,14 @@
 					bot_name = name
 					name = paicard.pai.name
 					faction = user.faction
-					add_logs(user, paicard.pai, "uploaded to [src.bot_name],")
+					add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
 				else
 					to_chat(user, "<span class='warning'>[W] is inactive.</span>")
 			else
 				to_chat(user, "<span class='warning'>The personality slot is locked.</span>")
 		else
 			to_chat(user, "<span class='warning'>[src] is not compatible with [W].</span>")
-	else if(istype(W, /obj/item/weapon/hemostat) && paicard)
+	else if(istype(W, /obj/item/hemostat) && paicard)
 		if(open)
 			to_chat(user, "<span class='warning'>Close the access panel before manipulating the personality slot!</span>")
 		else
@@ -351,14 +354,14 @@
 					ejectpai(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(istype(W, /obj/item/weapon/weldingtool) && user.a_intent != INTENT_HARM)
+		if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM)
 			if(health >= maxHealth)
 				to_chat(user, "<span class='warning'>[src] does not need a repair!</span>")
 				return
 			if(!open)
 				to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
 				return
-			var/obj/item/weapon/weldingtool/WT = W
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
 				adjustHealth(-10)
 				add_fingerprint(user)
@@ -514,7 +517,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	var/area/end_area = get_area(waypoint)
 
 	//For giving the bot temporary all-access.
-	var/obj/item/weapon/card/id/all_access = new /obj/item/weapon/card/id
+	var/obj/item/card/id/all_access = new /obj/item/card/id
 	var/datum/job/captain/All = new/datum/job/captain
 	all_access.access = All.get_access()
 
@@ -527,7 +530,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
 		access_card = all_access //Give the bot all-access while under the AI's command.
 		if(client)
-			reset_access_timer_id = addtimer(src, "bot_reset", 600) //if the bot is player controlled, they get the extra access for a limited time
+			reset_access_timer_id = addtimer(CALLBACK (src, .proc/bot_reset), 600, TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, "<span class='notice'><span class='big'>Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.</span><br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds.</span>")
 		if(message)
 			to_chat(calling_ai, "<span class='notice'>[bicon(src)] [name] called to [end_area.name]. [path.len-1] meters to destination.</span>")
@@ -865,7 +868,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				to_chat(usr, "<span class='warning'>[text_hack]</span>")
 				show_laws()
 				bot_reset()
-				add_logs(usr, src, "hacked")
+				add_attack_logs(usr, src, "Hacked")
 			else if(!hacked)
 				to_chat(usr, "<span class='userdanger'>[text_dehack_fail]</span>")
 			else
@@ -874,7 +877,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				to_chat(usr, "<span class='notice'>[text_dehack]</span>")
 				show_laws()
 				bot_reset()
-				add_logs(usr, src, "dehacked")
+				add_attack_logs(usr, src, "Dehacked")
 		if("ejectpai")
 			if(paicard && (!locked || issilicon(usr) || usr.can_admin_interact()))
 				to_chat(usr, "<span class='notice'>You eject [paicard] from [bot_name]</span>")
@@ -946,9 +949,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 		key = null
 		paicard.forceMove(loc)
 		if(user)
-			add_logs(user, paicard.pai, "ejected from [src.bot_name],")
+			add_attack_logs(user, paicard.pai, "Ejected from [src.bot_name],")
 		else
-			add_logs(src, paicard.pai, "ejected")
+			add_attack_logs(src, paicard.pai, "Ejected")
 		if(announce)
 			to_chat(paicard.pai, "<span class='notice'>You feel your control fade as [paicard] ejects from [bot_name].</span>")
 		paicard = null
@@ -1015,7 +1018,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios)
 	switch(message_mode)
 		if("intercom")
-			for(var/obj/item/device/radio/intercom/I in view(1, src))
+			for(var/obj/item/radio/intercom/I in view(1, src))
 				spawn(0)
 					I.talk_into(src, message, null, verb, speaking)
 				used_radios += I

@@ -13,11 +13,11 @@
 /obj/machinery/prize_counter/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/prize_counter(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/prize_counter(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/prize_counter/update_icon()
@@ -40,16 +40,16 @@
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
 		return
-	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
+	if(istype(O, /obj/item/screwdriver) && anchored)
 		playsound(src.loc, O.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		update_icon()
 		return
 	if(panel_open)
-		if(istype(O, /obj/item/weapon/wrench))
+		if(istype(O, /obj/item/wrench))
 			default_unfasten_wrench(user, O)
-		if(component_parts && istype(O, /obj/item/weapon/crowbar))
+		if(component_parts && istype(O, /obj/item/crowbar))
 			if(tickets)		//save the tickets!
 				print_tickets()
 			default_deconstruction_crowbar(O)

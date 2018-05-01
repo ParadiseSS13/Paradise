@@ -14,7 +14,7 @@
 		muzzled = 1
 	//var/m_type = 1
 
-	for(var/obj/item/weapon/implant/I in src)
+	for(var/obj/item/implant/I in src)
 		if(I.implanted)
 			I.trigger(act, src)
 
@@ -101,6 +101,8 @@
 		if("cough", "coughs", "slap", "slaps", "highfive")
 			on_CD = handle_emote_CD()
 		if("sneeze", "sneezes")
+			on_CD = handle_emote_CD()
+		if("clap", "claps")
 			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
@@ -302,11 +304,30 @@
 					message = "<B>[src]</B> makes a peculiar noise."
 					m_type = 2
 		if("clap", "claps")
-			if(!restrained())
-				message = "<B>[src]</B> claps."
+			if(miming)
+				message = "<B>[src]</B> claps silently."
+				m_type = 1
+			else
 				m_type = 2
-				if(miming)
-					m_type = 1
+				var/obj/item/organ/external/L = get_organ("l_hand")
+				var/obj/item/organ/external/R = get_organ("r_hand")
+
+				var/left_hand_good = FALSE
+				var/right_hand_good = FALSE
+
+				if(L && (!(L.status & ORGAN_SPLINTED)) && (!(L.status & ORGAN_BROKEN)))
+					left_hand_good = TRUE
+				if(R && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
+					right_hand_good = TRUE
+
+				if(left_hand_good && right_hand_good)
+					message = "<b>[src]</b> claps."
+					var/clap = pick('sound/misc/clap1.ogg', 'sound/misc/clap2.ogg', 'sound/misc/clap3.ogg', 'sound/misc/clap4.ogg')
+					playsound(loc, clap, 50, 1, -1)
+
+				else
+					to_chat(usr, "You need your hands working in order to clap.")
+
 		if("flap", "flaps")
 			if(!restrained())
 				message = "<B>[src]</B> flaps \his wings."
@@ -336,8 +357,8 @@
 					if(lying || weakened)
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
-						var/obj/item/weapon/grab/G
-						if(istype(get_active_hand(), /obj/item/weapon/grab))
+						var/obj/item/grab/G
+						if(istype(get_active_hand(), /obj/item/grab))
 							G = get_active_hand()
 						if(G && G.affecting)
 							if(buckled || G.affecting.buckled)
@@ -804,7 +825,7 @@
 			if(reagents.has_reagent("simethicone"))
 				return
 //			playsound(loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
-			if(locate(/obj/item/weapon/storage/bible) in get_turf(src))
+			if(locate(/obj/item/storage/bible) in get_turf(src))
 				to_chat(viewers(src), "<span class='warning'><b>[src] farts on the Bible!</b></span>")
 				var/image/cross = image('icons/obj/storage.dmi',"bible")
 				var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
@@ -898,7 +919,7 @@
 			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 	if(message) //Humans are special fucking snowflakes and have 800 lines of emotes, they get to handle their own emotes, not call the parent.
-		log_emote("[name]/[key] : [message]")
+		log_emote(message, src)
 
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.

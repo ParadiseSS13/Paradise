@@ -1,4 +1,4 @@
-/obj/item/weapon/implantcase
+/obj/item/implantcase
 	name = "implant case"
 	desc = "A glass case containing an implant."
 	icon = 'icons/obj/items.dmi'
@@ -9,10 +9,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=2"
 	materials = list(MAT_GLASS=500)
-	var/obj/item/weapon/implant/imp = null
+	var/obj/item/implant/imp = null
 
 
-/obj/item/weapon/implantcase/update_icon()
+/obj/item/implantcase/update_icon()
 	if(imp)
 		icon_state = "implantcase-[imp.item_color]"
 		origin_tech = imp.origin_tech
@@ -25,9 +25,9 @@
 		reagents = null
 
 
-/obj/item/weapon/implantcase/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/implantcase/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weapon/pen))
+	if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "What would you like the label to be?", name, null)
 		if(user.get_active_hand() != W)
 			return
@@ -37,8 +37,8 @@
 			name = "implant case - '[t]'"
 		else
 			name = "implant case"
-	else if(istype(W, /obj/item/weapon/implanter))
-		var/obj/item/weapon/implanter/I = W
+	else if(istype(W, /obj/item/implanter))
+		var/obj/item/implanter/I = W
 		if(I.imp)
 			if(imp || I.imp.implanted)
 				return
@@ -62,40 +62,40 @@
 		if(I.implanter)
 			src.attackby(I.implanter, user, params) */ // COMING SOON -- c0
 
-/obj/item/weapon/implantcase/New()
+/obj/item/implantcase/New()
 	..()
 	update_icon()
 
 
-/obj/item/weapon/implantcase/tracking
+/obj/item/implantcase/tracking
 	name = "implant case - 'Tracking'"
 	desc = "A glass case containing a tracking implant."
 
-/obj/item/weapon/implantcase/tracking/New()
-	imp = new /obj/item/weapon/implant/tracking(src)
+/obj/item/implantcase/tracking/New()
+	imp = new /obj/item/implant/tracking(src)
 	..()
 
 
-/obj/item/weapon/implantcase/weapons_auth
+/obj/item/implantcase/weapons_auth
 	name = "implant case - 'Firearms Authentication'"
 	desc = "A glass case containing a firearms authentication implant."
 
-/obj/item/weapon/implantcase/weapons_auth/New()
-	imp = new /obj/item/weapon/implant/weapons_auth(src)
+/obj/item/implantcase/weapons_auth/New()
+	imp = new /obj/item/implant/weapons_auth(src)
 	..()
 
-/obj/item/weapon/implantcase/adrenaline
+/obj/item/implantcase/adrenaline
 	name = "implant case - 'Adrenaline'"
 	desc = "A glass case containing an adrenaline implant."
 
-/obj/item/weapon/implantcase/adrenaline/New()
-	imp = new /obj/item/weapon/implant/adrenalin(src)
+/obj/item/implantcase/adrenaline/New()
+	imp = new /obj/item/implant/adrenalin(src)
 	..()
 
-/obj/item/weapon/implantcase/death_alarm
+/obj/item/implantcase/death_alarm
 	name = "Glass Case- 'Death Alarm'"
 	desc = "A case containing a death alarm implant."
 
-/obj/item/weapon/implantcase/death_alarm/New()
-	imp = new /obj/item/weapon/implant/death_alarm(src)
+/obj/item/implantcase/death_alarm/New()
+	imp = new /obj/item/implant/death_alarm(src)
 	..()

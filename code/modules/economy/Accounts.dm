@@ -54,8 +54,8 @@ var/global/list/all_money_accounts = list()
 
 	department_accounts[department] = department_account
 
-//the current ingame time (hh:mm) can be obtained by calling:
-//worldtime2text()
+//the current ingame time (hh:mm:ss) can be obtained by calling:
+//station_time_timestamp("hh:mm:ss")
 
 /proc/create_account(var/new_owner_name = "Default user", var/starting_funds = 0, var/obj/machinery/computer/account_database/source_db)
 
@@ -79,7 +79,7 @@ var/global/list/all_money_accounts = list()
 		M.account_number = rand(111111, 999999)
 	else
 		T.date = current_date_string
-		T.time = worldtime2text()
+		T.time = station_time_timestamp()
 		T.source_terminal = source_db.machine_id
 
 		M.account_number = next_account_number
@@ -88,7 +88,7 @@ var/global/list/all_money_accounts = list()
 		//create a sealed package containing the account details
 		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(source_db.loc)
 
-		var/obj/item/weapon/paper/R = new /obj/item/weapon/paper(P)
+		var/obj/item/paper/R = new /obj/item/paper(P)
 		playsound(source_db.loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		P.wrapped = R
 		R.name = "Account information: [M.owner_name]"
@@ -101,7 +101,7 @@ var/global/list/all_money_accounts = list()
 			<i>Account number:</i> [M.account_number]<br>
 			<i>Account pin:</i> [M.remote_access_pin]<br>
 			<i>Starting balance:</i> $[M.money]<br>
-			<i>Date and time:</i> [worldtime2text()], [current_date_string]<br><br>
+			<i>Date and time:</i> [station_time_timestamp()], [current_date_string]<br><br>
 			<i>Creation terminal ID:</i> [source_db.machine_id]<br>
 			<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
 		// END AUTOFIX
@@ -110,7 +110,7 @@ var/global/list/all_money_accounts = list()
 		stampoverlay.icon_state = "paper_stamp-cent"
 		if(!R.stamped)
 			R.stamped = new
-		R.stamped += /obj/item/weapon/stamp
+		R.stamped += /obj/item/stamp
 		R.overlays += stampoverlay
 		R.stamps += "<HR><i>This paper has been stamped by the Accounts Database.</i>"
 
@@ -152,7 +152,7 @@ var/global/list/all_money_accounts = list()
 	req_one_access = list(access_hop, access_captain)
 	var/receipt_num
 	var/machine_id = ""
-	var/obj/item/weapon/card/id/held_card
+	var/obj/item/card/id/held_card
 	var/access_level = 0
 	var/datum/money_account/detailed_account_view
 	var/creating_new_account = 0
@@ -265,8 +265,8 @@ var/global/list/all_money_accounts = list()
 		user << browse(null,"window=account_db")
 
 /obj/machinery/account_database/attackby(O as obj, user as mob)//TODO:SANITY
-	if(istype(O, /obj/item/weapon/card))
-		var/obj/item/weapon/card/id/idcard = O
+	if(istype(O, /obj/item/card))
+		var/obj/item/card/id/idcard = O
 		if(!held_card)
 			usr.drop_item()
 			idcard.loc = src
@@ -302,7 +302,7 @@ var/global/list/all_money_accounts = list()
 					T.purpose = "New account funds initialisation"
 					T.amount = "([starting_funds])"
 					T.date = current_date_string
-					T.time = worldtime2text()
+					T.time = station_time_timestamp()
 					T.source_terminal = machine_id
 					station_account.transaction_log.Add(T)
 
@@ -318,8 +318,8 @@ var/global/list/all_money_accounts = list()
 
 				else
 					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/weapon/card/id))
-						var/obj/item/weapon/card/id/C = I
+					if(istype(I, /obj/item/card/id))
+						var/obj/item/card/id/C = I
 						usr.drop_item()
 						C.loc = src
 						held_card = C
@@ -354,7 +354,7 @@ var/global/list/all_money_accounts = list()
 			else
 				T.amount = "[amount]"
 			T.date = current_date_string
-			T.time = worldtime2text()
+			T.time = station_time_timestamp()
 			T.source_terminal = terminal_id
 			D.transaction_log.Add(T)
 

@@ -166,13 +166,11 @@
 				if(H.internal)
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [H]!</span>",
 										"<span class='notice'>[user] sprays a cloud of fine ice crystals over your [H.head]'s visor.</span>")
-					log_admin("[key_name(user)] has used cryokinesis on [key_name(C)] while wearing internals and a suit")
-					msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)]")
+					add_attack_logs(user, C, "Cryokinesis")
 				else
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
 										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
-					log_admin("[key_name(user)] has used cryokinesis on [key_name(C)]")
-					msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)]")
+					add_attack_logs(user, C, "Cryokinesis")
 					H.bodytemperature = max(0, H.bodytemperature - 50)
 					H.adjustFireLoss(5)
 	if(!handle_suit)
@@ -181,8 +179,8 @@
 		C.ExtinguishMob()
 
 		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")
-		log_admin("[key_name(user)] has used cryokinesis on [key_name(C)] without internals or a suit")
-		msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)]")
+		log_attack(user, C, "Used cryokinesis on a victim without internals or a suit")
+		msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)] (NO SUIT)")
 
 	//playsound(user.loc, 'bamf.ogg', 50, 0)
 
@@ -257,7 +255,7 @@
 	)
 	var/list/own_blacklist = list(
 		/obj/item/organ,
-		/obj/item/weapon/implant
+		/obj/item/implant
 	)
 
 /obj/effect/proc_holder/spell/targeted/eat/proc/doHeal(var/mob/user)

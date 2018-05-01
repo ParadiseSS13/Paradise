@@ -68,7 +68,7 @@
 		update_rev_icons_removed(trotsky)
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
-		log_game("[rev_mind.key] (ckey) has been selected as a head rev")
+		log_game("[key_name(rev_mind)] has been selected as a head rev")
 		for(var/datum/mind/head_mind in heads)
 			mark_for_death(rev_mind, head_mind)
 
@@ -127,7 +127,7 @@
 			mob.mutations.Remove(CLUMSY)
 
 
-	var/obj/item/device/flash/T = new(mob)
+	var/obj/item/flash/T = new(mob)
 	var/obj/item/toy/crayon/spraycan/R = new(mob)
 	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
 
@@ -195,7 +195,7 @@
 			var/datum/mind/stalin = pick(promotable_revs)
 			revolutionaries -= stalin
 			head_revolutionaries += stalin
-			log_game("[stalin.key] (ckey) has been promoted to a head rev")
+			log_game("[key_name(stalin)] has been promoted to a head rev")
 			equip_revolutionary(stalin.current)
 			forge_revolutionary_objectives(stalin)
 			greet_revolutionary(stalin)

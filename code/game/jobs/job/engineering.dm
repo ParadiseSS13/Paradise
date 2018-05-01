@@ -27,22 +27,22 @@
 	jobtype = /datum/job/chief_engineer
 
 	uniform = /obj/item/clothing/under/rank/chief_engineer
-	belt = /obj/item/weapon/storage/belt/utility/chief/full
+	belt = /obj/item/storage/belt/utility/chief/full
 	gloves = /obj/item/clothing/gloves/color/black/ce
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hardhat/white
-	l_ear = /obj/item/device/radio/headset/heads/ce
-	id = /obj/item/weapon/card/id/ce
-	l_pocket = /obj/item/device/t_scanner
-	pda = /obj/item/device/pda/heads/ce
+	l_ear = /obj/item/radio/headset/heads/ce
+	id = /obj/item/card/id/ce
+	l_pocket = /obj/item/t_scanner
+	pda = /obj/item/pda/heads/ce
 	backpack_contents = list(
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	backpack = /obj/item/weapon/storage/backpack/industrial
-	satchel = /obj/item/weapon/storage/backpack/satchel_eng
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
-	box = /obj/item/weapon/storage/box/engineer
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/engineering
+	box = /obj/item/storage/box/engineer
 
 
 /datum/job/engineer
@@ -55,9 +55,9 @@
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
-	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom, access_mechanic)
+	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom)
 	minimal_access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_mineral_storeroom)
-	alt_titles = list("Maintenance Technician","Engine Technician","Electrician", "Life Support Specialist", "Mechanic")
+	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
 	minimal_player_age = 7
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
@@ -68,39 +68,21 @@
 	jobtype = /datum/job/engineer
 
 	uniform = /obj/item/clothing/under/rank/engineer
-	belt = /obj/item/weapon/storage/belt/utility/full
+	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat
-	l_ear = /obj/item/device/radio/headset/headset_eng
-	id = /obj/item/weapon/card/id/engineering
-	l_pocket = /obj/item/device/t_scanner
-	pda = /obj/item/device/pda/engineering
+	l_ear = /obj/item/radio/headset/headset_eng
+	id = /obj/item/card/id/engineering
+	l_pocket = /obj/item/t_scanner
+	pda = /obj/item/pda/engineering
 
-	backpack = /obj/item/weapon/storage/backpack/industrial
-	satchel = /obj/item/weapon/storage/backpack/satchel_eng
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
-	box = /obj/item/weapon/storage/box/engineer
-/datum/outfit/job/engineer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Life Support Specialist")
-				uniform = /obj/item/clothing/under/rank/atmospheric_technician
-				belt = /obj/item/weapon/storage/belt/utility/atmostech
-				pda = /obj/item/device/pda/atmos
-				dufflebag = /obj/item/weapon/storage/backpack/duffel/atmos
-			if("Mechanic")
-				uniform = /obj/item/clothing/under/rank/mechanic
-				belt = /obj/item/weapon/storage/belt/utility/full
-				backpack_contents = list(
-					/obj/item/weapon/pod_paint_bucket = 1
-				)
-
-			else
-				uniform = /obj/item/clothing/under/rank/engineer
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/engineering
+	box = /obj/item/storage/box/engineer
 
 
-/*
+
 /datum/job/atmos
 	title = "Life Support Specialist"
 	flag = ATMOSTECH
@@ -112,7 +94,7 @@
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom)
-	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_construction, access_mineral_storeroom)
+	minimal_access = list(access_eva, access_atmospherics, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_construction, access_mineral_storeroom, access_tech_storage)
 	alt_titles = list("Atmospheric Technician")
 	minimal_player_age = 7
 	exp_requirements = 300
@@ -124,19 +106,17 @@
 	jobtype = /datum/job/atmos
 
 	uniform = /obj/item/clothing/under/rank/atmospheric_technician
-	belt = /obj/item/weapon/storage/belt/utility/atmostech
+	belt = /obj/item/storage/belt/utility/atmostech
 	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/device/radio/headset/headset_eng
-	id = /obj/item/weapon/card/id/engineering
-	pda = /obj/item/device/pda/atmos
+	l_ear = /obj/item/radio/headset/headset_eng
+	id = /obj/item/card/id/engineering
+	pda = /obj/item/pda/atmos
 
-	backpack = /obj/item/weapon/storage/backpack/industrial
-	satchel = /obj/item/weapon/storage/backpack/satchel_eng
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/atmos
-	box = /obj/item/weapon/storage/box/engineer
-*/
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/atmos
+	box = /obj/item/storage/box/engineer
 
-/*
 /datum/job/mechanic
 	title = "Mechanic"
 	flag = MECHANIC
@@ -156,19 +136,18 @@
 	jobtype = /datum/job/mechanic
 
 	uniform = /obj/item/clothing/under/rank/mechanic
-	belt = /obj/item/weapon/storage/belt/utility/full
+	belt = /obj/item/storage/belt/utility/full
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat
-	l_ear = /obj/item/device/radio/headset/headset_eng
-	id = /obj/item/weapon/card/id/engineering
-	r_pocket = /obj/item/device/t_scanner
-	pda = /obj/item/device/pda/engineering
+	l_ear = /obj/item/radio/headset/headset_eng
+	id = /obj/item/card/id/engineering
+	r_pocket = /obj/item/t_scanner
+	pda = /obj/item/pda/engineering
 	backpack_contents = list(
-		/obj/item/weapon/pod_paint_bucket = 1
+		/obj/item/pod_paint_bucket = 1
 	)
 
-	backpack = /obj/item/weapon/storage/backpack/industrial
-	satchel = /obj/item/weapon/storage/backpack/satchel_eng
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/engineering
-	box = /obj/item/weapon/storage/box/engineer
-*/
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/engineering
+	box = /obj/item/storage/box/engineer

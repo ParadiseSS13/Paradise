@@ -1,4 +1,4 @@
-/obj/item/weapon/grenade/plastic
+/obj/item/grenade/plastic
 	name = "plastic explosive"
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "plastic-explosive0"
@@ -10,21 +10,21 @@
 	toolspeed = 1
 	var/atom/target = null
 	var/image_overlay = null
-	var/obj/item/device/assembly_holder/nadeassembly = null
+	var/obj/item/assembly_holder/nadeassembly = null
 	var/assemblyattacher
 
-/obj/item/weapon/grenade/plastic/New()
+/obj/item/grenade/plastic/New()
 	image_overlay = image('icons/obj/grenade.dmi', "[item_state]2")
 	..()
 
-/obj/item/weapon/grenade/plastic/Destroy()
+/obj/item/grenade/plastic/Destroy()
 	QDEL_NULL(nadeassembly)
 	target = null
 	return ..()
 
-/obj/item/weapon/grenade/plastic/attackby(obj/item/I, mob/user, params)
-	if(!nadeassembly && istype(I, /obj/item/device/assembly_holder))
-		var/obj/item/device/assembly_holder/A = I
+/obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
+	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
+		var/obj/item/assembly_holder/A = I
 		if(!user.unEquip(I))
 			return ..()
 		nadeassembly = A
@@ -35,7 +35,7 @@
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon()
 		return
-	if(nadeassembly && istype(I, /obj/item/weapon/wirecutters))
+	if(nadeassembly && istype(I, /obj/item/wirecutters))
 		playsound(src, I.usesound, 20, 1)
 		nadeassembly.loc = get_turf(src)
 		nadeassembly.master = null
@@ -45,18 +45,18 @@
 	..()
 
 //assembly stuff
-/obj/item/weapon/grenade/plastic/receive_signal()
+/obj/item/grenade/plastic/receive_signal()
 	prime()
 
-/obj/item/weapon/grenade/plastic/Crossed(atom/movable/AM)
+/obj/item/grenade/plastic/Crossed(atom/movable/AM)
 	if(nadeassembly)
 		nadeassembly.Crossed(AM)
 
-/obj/item/weapon/grenade/plastic/on_found(mob/finder)
+/obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
 		nadeassembly.on_found(finder)
 
-/obj/item/weapon/grenade/plastic/attack_self(mob/user)
+/obj/item/grenade/plastic/attack_self(mob/user)
 	if(nadeassembly)
 		nadeassembly.attack_self(user)
 		return
@@ -66,7 +66,7 @@
 		det_time = newtime
 		to_chat(user, "Timer set for [det_time] seconds.")
 
-/obj/item/weapon/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
 	if (!flag)
 		return
 	if (istype(AM, /mob/living/carbon))
@@ -85,11 +85,11 @@
 		target.overlays += image_overlay
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
-			addtimer(src, "prime", det_time*10)
+			addtimer(CALLBACK(src, .proc/prime), det_time*10)
 
-/obj/item/weapon/grenade/plastic/suicide_act(mob/user)
+/obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) suicided with [src.name] at ([user.x],[user.y],[user.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)",0,1)
-	message_admins("[key_name(user)] suicided with [name] at ([user.x],[user.y],[user.z])")
+	log_game("[key_name(user)] suicided with [name] at ([user.x],[user.y],[user.z])")
 	user.visible_message("<span class='suicide'>[user] activates the [name] and holds it above \his head! It looks like \he's going out with a bang!</span>")
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
@@ -115,7 +115,7 @@
 	prime()
 	user.gib()
 
-/obj/item/weapon/grenade/plastic/update_icon()
+/obj/item/grenade/plastic/update_icon()
 	if(nadeassembly)
 		icon_state = "[item_state]1"
 	else
@@ -125,14 +125,14 @@
 ///// The Explosives /////
 //////////////////////////
 
-/obj/item/weapon/grenade/plastic/c4
+/obj/item/grenade/plastic/c4
 	name = "C4"
 	desc = "Used to put holes in specific areas without too much extra hole. A saboteurs favourite."
 
-/obj/item/weapon/grenade/plastic/c4/prime()
+/obj/item/grenade/plastic/c4/prime()
 	var/turf/location
 	if(target)
-		if(!qdeleted(target))
+		if(!QDELETED(target))
 			location = get_turf(target)
 			target.overlays -= image_overlay
 	else
@@ -149,17 +149,17 @@
 // C4 is intended to be used for infiltration, and destroying tech. X4 is intended to be used for heavy breaching and tight spaces.
 // Intended to replace C4 for nukeops, and to be a randomdrop in surplus/random traitor purchases.
 
-/obj/item/weapon/grenade/plastic/x4
+/obj/item/grenade/plastic/x4
 	name = "X4"
 	desc = "A specialized shaped high explosive breaching charge. Designed to be safer for the user, and less so, for the wall."
 	var/aim_dir = NORTH
 	icon_state = "plasticx40"
 	item_state = "plasticx4"
 
-/obj/item/weapon/grenade/plastic/x4/prime()
+/obj/item/grenade/plastic/x4/prime()
 	var/turf/location
 	if(target)
-		if(!qdeleted(target))
+		if(!QDELETED(target))
 			location = get_turf(target)
 			target.overlays -= image_overlay
 	else
@@ -178,22 +178,22 @@
 		M.gib()
 	qdel(src)
 
-/obj/item/weapon/grenade/plastic/x4/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/x4/afterattack(atom/movable/AM, mob/user, flag)
 	aim_dir = get_dir(user,AM)
 	..()
 
 // Shaped charge
 // Same blasting power as C4, but with the same idea as the X4 -- Everyone on one side of the wall is safe.
 
-/obj/item/weapon/grenade/plastic/c4_shaped
+/obj/item/grenade/plastic/c4_shaped
 	name = "C4 (shaped)"
 	desc = "A brick of C4 shaped to allow more precise breaching."
 	var/aim_dir = NORTH
 
-/obj/item/weapon/grenade/plastic/c4_shaped/prime()
+/obj/item/grenade/plastic/c4_shaped/prime()
 	var/turf/location
 	if(target)
-		if(!qdeleted(target))
+		if(!QDELETED(target))
 			location = get_turf(target)
 			target.overlays -= image_overlay
 	else
@@ -211,15 +211,15 @@
 		M.gib()
 	qdel(src)
 
-/obj/item/weapon/grenade/plastic/c4_shaped/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/c4_shaped/afterattack(atom/movable/AM, mob/user, flag)
 	aim_dir = get_dir(user,AM)
 	..()
 
-/obj/item/weapon/grenade/plastic/c4_shaped/flash
+/obj/item/grenade/plastic/c4_shaped/flash
 	name = "C4 (flash)"
 	desc = "A C4 charge with an altered chemical composition, designed to blind and deafen the occupants of a room before breaching."
 
-/obj/item/weapon/grenade/plastic/c4_shaped/flash/prime()
+/obj/item/grenade/plastic/c4_shaped/flash/prime()
 	if(target && target.density)
 		T = get_step(get_turf(target), aim_dir)
 	else if(target)
@@ -227,7 +227,7 @@
 	else
 		T = get_turf(src)
 
-	var/obj/item/weapon/grenade/flashbang/CB = new/obj/item/weapon/grenade/flashbang(T)
+	var/obj/item/grenade/flashbang/CB = new/obj/item/grenade/flashbang(T)
 	CB.prime()
 
 	..()

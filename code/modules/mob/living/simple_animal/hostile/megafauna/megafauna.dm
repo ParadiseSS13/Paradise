@@ -37,7 +37,7 @@
 	var/score_type = BOSS_SCORE
 	var/elimination = 0
 	var/anger_modifier = 0
-	var/obj/item/device/gps/internal_gps
+	var/obj/item/gps/internal_gps
 	anchored = TRUE
 	mob_size = MOB_SIZE_LARGE
 	layer = MOB_LAYER + 0.5 //Looks weird with them slipping under mineral walls and cameras and shit otherwise

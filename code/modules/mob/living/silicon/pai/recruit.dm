@@ -35,10 +35,10 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 		if(href_list["download"])
 			var/datum/paiCandidate/candidate = locate(href_list["candidate"])
-			var/obj/item/device/paicard/card = locate(href_list["device"])
+			var/obj/item/paicard/card = locate(href_list["device"])
 			if(card.pai)
 				return
-			if(istype(card,/obj/item/device/paicard) && istype(candidate,/datum/paiCandidate))
+			if(istype(card,/obj/item/paicard) && istype(candidate,/datum/paiCandidate))
 				var/mob/living/silicon/pai/pai = new(card)
 				if(!candidate.name)
 					pai.name = pick(ninja_names)
@@ -95,7 +95,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 				if("submit")
 					if(candidate)
 						candidate.ready = 1
-						for(var/obj/item/device/paicard/p in world)
+						for(var/obj/item/paicard/p in world)
 							if(p.looking_for_personality == 1)
 								p.alertUpdate()
 					usr << browse(null, "window=paiRecruit")
@@ -231,7 +231,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 		M << browse(dat, "window=paiRecruit;size=580x580;")
 
-	proc/findPAI(var/obj/item/device/paicard/p, var/mob/user)
+	proc/findPAI(var/obj/item/paicard/p, var/mob/user)
 		requestRecruits(p, user)
 		var/list/available = list()
 		for(var/datum/paiCandidate/c in paiController.pai_candidates)
@@ -347,7 +347,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 
 		user << browse(dat, "window=findPai")
 
-	proc/requestRecruits(var/obj/item/device/paicard/P, mob/user)
+	proc/requestRecruits(var/obj/item/paicard/P, mob/user)
 		for(var/mob/dead/observer/O in player_list)
 			if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 				if(player_old_enough_antag(O.client,ROLE_PAI))

@@ -1,29 +1,29 @@
-/obj/item/device/transfer_valve
+/obj/item/transfer_valve
 	icon = 'icons/obj/assemblies.dmi'
 	name = "tank transfer valve"
 	icon_state = "valve_1"
 	item_state = "ttv"
 	desc = "Regulates the transfer of air between two tanks"
-	var/obj/item/weapon/tank/tank_one = null
-	var/obj/item/weapon/tank/tank_two = null
-	var/obj/item/device/assembly/attached_device = null
+	var/obj/item/tank/tank_one = null
+	var/obj/item/tank/tank_two = null
+	var/obj/item/assembly/attached_device = null
 	var/mob/living/attacher = null
 	var/valve_open = 0
 	var/toggle = 1
 	origin_tech = "materials=1;engineering=1"
 
-/obj/item/device/transfer_valve/Destroy()
+/obj/item/transfer_valve/Destroy()
 	QDEL_NULL(tank_one)
 	QDEL_NULL(tank_two)
 	QDEL_NULL(attached_device)
 	attacher = null
 	return ..()
 
-/obj/item/device/transfer_valve/IsAssemblyHolder()
+/obj/item/transfer_valve/IsAssemblyHolder()
 	return 1
 
-/obj/item/device/transfer_valve/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/tank))
+/obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/tank))
 		if(tank_one && tank_two)
 			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first.</span>")
 			return
@@ -46,10 +46,10 @@
 				w_class = I.w_class
 
 		update_icon()
-		nanomanager.update_uis(src) // update all UIs attached to src
+		SSnanoui.update_uis(src) // update all UIs attached to src
 //TODO: Have this take an assemblyholder
 	else if(isassembly(I))
-		var/obj/item/device/assembly/A = I
+		var/obj/item/assembly/A = I
 		if(A.secured)
 			to_chat(user, "<span class='notice'>The device is secured.</span>")
 			return
@@ -67,30 +67,30 @@
 		msg_admin_attack("[key_name_admin(user)]attached [A] to a transfer valve.")
 		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
 		attacher = user
-		nanomanager.update_uis(src) // update all UIs attached to src
+		SSnanoui.update_uis(src) // update all UIs attached to src
 
 
-/obj/item/device/transfer_valve/HasProximity(atom/movable/AM)
+/obj/item/transfer_valve/HasProximity(atom/movable/AM)
 	if(!attached_device)
 		return
 	attached_device.HasProximity(AM)
 
-/obj/item/device/transfer_valve/hear_talk(mob/living/M, msg)
+/obj/item/transfer_valve/hear_talk(mob/living/M, msg)
 	..()
 	for(var/obj/O in contents)
 		O.hear_talk(M, msg)
 
-/obj/item/device/transfer_valve/hear_message(mob/living/M, msg)
+/obj/item/transfer_valve/hear_message(mob/living/M, msg)
 	..()
 	for(var/obj/O in contents)
 		O.hear_message(M, msg)
 
-/obj/item/device/transfer_valve/attack_self(mob/user)
+/obj/item/transfer_valve/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/device/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
+/obj/item/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -100,7 +100,7 @@
 		// auto update every Master Controller tick
 		//ui.set_auto_update(1)
 
-/obj/item/device/transfer_valve/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/transfer_valve/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["attachmentOne"] = tank_one ? tank_one.name : null
@@ -110,7 +110,7 @@
 
 	return data
 
-/obj/item/device/transfer_valve/Topic(href, href_list)
+/obj/item/transfer_valve/Topic(href, href_list)
 	..()
 	if(usr.incapacitated())
 		return 0
@@ -145,14 +145,14 @@
 	add_fingerprint(usr)
 	return 1 // Returning 1 sends an update to attached UIs
 
-/obj/item/device/transfer_valve/proc/process_activation(obj/item/device/D)
+/obj/item/transfer_valve/proc/process_activation(obj/item/D)
 	if(toggle)
 		toggle = 0
 		toggle_valve()
 		spawn(50) // To stop a signal being spammed from a proxy sensor constantly going off or whatever
 			toggle = 1
 
-/obj/item/device/transfer_valve/update_icon()
+/obj/item/transfer_valve/update_icon()
 	overlays.Cut()
 	underlays = null
 
@@ -170,13 +170,13 @@
 	if(attached_device)
 		overlays += "device"
 
-/obj/item/device/transfer_valve/proc/merge_gases()
+/obj/item/transfer_valve/proc/merge_gases()
 	tank_two.air_contents.volume += tank_one.air_contents.volume
 	var/datum/gas_mixture/temp
 	temp = tank_one.air_contents.remove_ratio(1)
 	tank_two.air_contents.merge(temp)
 
-/obj/item/device/transfer_valve/proc/split_gases()
+/obj/item/transfer_valve/proc/split_gases()
 	if(!valve_open || !tank_one || !tank_two)
 		return
 	var/ratio1 = tank_one.air_contents.volume/tank_two.air_contents.volume
@@ -190,7 +190,7 @@
 	it explodes properly when it gets a signal (and it does).
 	*/
 
-/obj/item/device/transfer_valve/proc/toggle_valve()
+/obj/item/transfer_valve/proc/toggle_valve()
 	if(!valve_open && tank_one && tank_two)
 		valve_open = 1
 		var/turf/bombturf = get_turf(src)

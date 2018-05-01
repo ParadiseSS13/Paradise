@@ -9,7 +9,7 @@
 /obj/effect/proc_holder/changeling/swap_form/can_sting(var/mob/living/carbon/user)
 	if(!..())
 		return
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 	if(!istype(G) || (G.state < GRAB_AGGRESSIVE))
 		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
 		return
@@ -24,7 +24,7 @@
 
 
 /obj/effect/proc_holder/changeling/swap_form/sting_action(var/mob/living/carbon/user)
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling
 

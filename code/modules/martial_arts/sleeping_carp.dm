@@ -109,7 +109,7 @@
 	if(check_streak(A,D))
 		return 1
 	D.grabbedby(A,1)
-	var/obj/item/weapon/grab/G = A.get_active_hand()
+	var/obj/item/grab/G = A.get_active_hand()
 	if(G)
 		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
 

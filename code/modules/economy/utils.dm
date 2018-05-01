@@ -13,11 +13,11 @@
 		return acct
 
 
-/obj/proc/get_card_account(var/obj/item/weapon/card/I, var/mob/user=null, var/terminal_name="", var/transaction_purpose="", var/require_pin=0)
+/obj/proc/get_card_account(var/obj/item/card/I, var/mob/user=null, var/terminal_name="", var/transaction_purpose="", var/require_pin=0)
 	if(terminal_name=="")
 		terminal_name=src.name
-	if(istype(I, /obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/C = I
+	if(istype(I, /obj/item/card/id))
+		var/obj/item/card/id/C = I
 		var/attempt_pin=0
 		var/datum/money_account/D = get_money_account(C.associated_account_number)
 		if(require_pin && user)
@@ -30,7 +30,7 @@
 /mob/proc/get_worn_id_account(var/require_pin=0, var/mob/user=null)
 	if(ishuman(src))
 		var/mob/living/carbon/human/H=src
-		var/obj/item/weapon/card/id/I=H.get_idcard()
+		var/obj/item/card/id/I=H.get_idcard()
 		if(!I || !istype(I))
 			return null
 		var/attempt_pin=0
@@ -72,7 +72,7 @@
 			if(terminal_id)
 				T.source_terminal = terminal_id
 			T.date = current_date_string
-			T.time = worldtime2text()
+			T.time = station_time_timestamp()
 			dest.transaction_log.Add(T)
 		//
 		T = new()
@@ -84,7 +84,7 @@
 		if(terminal_id)
 			T.source_terminal = terminal_id
 		T.date = current_date_string
-		T.time = worldtime2text()
+		T.time = station_time_timestamp()
 		transaction_log.Add(T)
 		return 1
 	else

@@ -107,7 +107,7 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
-		log_game("[shadow.key] (ckey) has been selected as a Shadowling.")
+		log_game("[key_name(shadow)] has been selected as a Shadowling.")
 		sleep(10)
 		to_chat(shadow.current, "<br>")
 		to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
@@ -240,7 +240,7 @@ Made by Xhuis
 		M.visible_message("<span class='big'>[M] screams and contorts!</span>", \
 						  "<span class='userdanger'>THE LIGHT-- YOUR MIND-- <i>BURNS--</i></span>")
 		spawn(30)
-			if(!M || qdeleted(M))
+			if(!M || QDELETED(M))
 				return
 			M.visible_message("<span class='warning'>[M] suddenly bloats and explodes!</span>", \
 							  "<span class='warning'><b>AAAAAAAAA<font size=3>AAAAAAAAAAAAA</font><font size=4>AAAAAAAAAAAA----</font></span>")

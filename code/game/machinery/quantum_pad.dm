@@ -17,10 +17,10 @@
 /obj/machinery/quantumpad/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/quantumpad(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/quantumpad(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -30,11 +30,11 @@
 
 /obj/machinery/quantumpad/RefreshParts()
 	var/E = 0
-	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		E += C.rating
 	power_efficiency = E
 	E = 0
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		E += M.rating
 	teleport_speed = initial(teleport_speed)
 	teleport_speed -= (E*10)
@@ -47,12 +47,12 @@
 
 	if(panel_open)
 		if(ismultitool(I))
-			var/obj/item/device/multitool/M = I
+			var/obj/item/multitool/M = I
 			M.buffer = src
 			to_chat(user, "<span class='notice'>You save the data in the [I.name]'s buffer.</span>")
 			return 1
 	else if(ismultitool(I))
-		var/obj/item/device/multitool/M = I
+		var/obj/item/multitool/M = I
 		if(istype(M.buffer, /obj/machinery/quantumpad))
 			linked_pad = M.buffer
 			to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
@@ -71,7 +71,7 @@
 		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
 		return
 
-	if(!linked_pad || qdeleted(linked_pad))
+	if(!linked_pad || QDELETED(linked_pad))
 		to_chat(user, "<span class='warning'>There is no linked pad!</span>")
 		return
 
@@ -108,14 +108,14 @@
 		teleporting = 1
 
 		spawn(teleport_speed)
-			if(!src || qdeleted(src))
+			if(!src || QDELETED(src))
 				teleporting = 0
 				return
 			if(stat & NOPOWER)
 				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
 				teleporting = 0
 				return
-			if(!linked_pad || qdeleted(linked_pad) || linked_pad.stat & NOPOWER)
+			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
 				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
 				teleporting = 0
 				return

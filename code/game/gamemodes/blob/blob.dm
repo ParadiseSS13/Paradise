@@ -44,7 +44,7 @@ var/list/blob_nodes = list()
 		infected_crew += blob
 		blob.special_role = SPECIAL_ROLE_BLOB
 		blob.restricted_roles = restricted_jobs
-		log_game("[blob.key] (ckey) has been selected as a Blob")
+		log_game("[key_name(blob)] has been selected as a Blob")
 		possible_blobs -= blob
 
 	if(!infected_crew.len)
@@ -66,7 +66,7 @@ var/list/blob_nodes = list()
 		return 0
 	infected_crew += blobmind
 	blobmind.special_role = SPECIAL_ROLE_BLOB
-	log_game("[blob.key] (ckey) has been selected as a Blob")
+	log_game("[key_name(blob)] has been selected as a Blob")
 	greet_blob(blobmind)
 	to_chat(blob, "<span class='userdanger'>You feel very tired and bloated!  You don't have long before you burst!</span>")
 	spawn(600)

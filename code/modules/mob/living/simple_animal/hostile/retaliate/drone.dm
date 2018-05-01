@@ -160,16 +160,16 @@
 		var/obj/O
 
 		//shards
-		O = new /obj/item/weapon/shard(loc)
+		O = new /obj/item/shard(loc)
 		step_to(O, get_turf(pick(view(7, src))))
 		if(prob(75))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 		if(prob(50))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 		if(prob(25))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 
 		//rods
@@ -199,7 +199,7 @@
 			step_to(O, get_turf(pick(view(7, src))))
 
 		//also drop dummy circuit boards deconstructable for research (loot)
-		var/obj/item/weapon/circuitboard/C
+		var/obj/item/circuitboard/C
 
 		//spawn 1-4 boards of a random type
 		var/spawnees = 0

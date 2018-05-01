@@ -175,13 +175,18 @@ emp_act
 		affecting.sabotaged = 1
 	return 1
 
+/mob/living/carbon/human/grabbedby(mob/living/user)
+	if(w_uniform)
+		w_uniform.add_fingerprint(user)
+	..()
+
 //Returns 1 if the attack hit, 0 if it missed.
 /mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(!I || !user)
 		return 0
 
-	if((istype(I, /obj/item/weapon/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/weapon/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
-		var/obj/item/weapon/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/weapon/reagent_containers/food/snacks/meat/human(get_turf(loc))
+	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
+		var/obj/item/reagent_containers/food/snacks/meat/human/newmeat = new /obj/item/reagent_containers/food/snacks/meat/human(get_turf(loc))
 		newmeat.name = real_name + newmeat.name
 		newmeat.subjectname = real_name
 		newmeat.subjectjob = job
@@ -191,9 +196,7 @@ emp_act
 		--meatleft
 		to_chat(user, "<span class='warning'>You hack off a chunk of meat from [name]</span>")
 		if(!meatleft)
-			create_attack_log("Was chopped up into meat by <b>[key_name(user)]</b>")
-			user.create_attack_log("Chopped up <b>[key_name(src)]</b> into meat</b>")
-			msg_admin_attack("[key_name_admin(user)] chopped up [key_name_admin(src)] into meat")
+			add_attack_logs(user, src, "Chopped up into meat")
 			if(!iscarbon(user))
 				LAssailant = null
 			else
@@ -212,7 +215,7 @@ emp_act
 		if(check_shields(I.force, "the [I.name]", I, MELEE_ATTACK, I.armour_penetration))
 			return 0
 
-	if(istype(I,/obj/item/weapon/card/emag))
+	if(istype(I,/obj/item/card/emag))
 		emag_act(user, affecting)
 
 	send_item_attack_message(I, user, hit_area)
@@ -345,6 +348,99 @@ emp_act
 
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
 
+/mob/living/carbon/human/attack_hand(mob/user)
+	if(..())	//to allow surgery to return properly.
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		species.spec_attack_hand(H, src)
+
+/mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
+	if(..()) //successful larva bite.
+		var/damage = rand(1, 3)
+		if(stat != DEAD)
+			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
+			var/armor_block = run_armor_check(affecting, "melee")
+			apply_damage(damage, BRUTE, affecting, armor_block)
+			updatehealth()
+
+/mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if(check_shields(0, M.name))
+		visible_message("<span class='danger'>[M] attempted to touch [src]!</span>")
+		return 0
+
+	if(..())
+		if(M.a_intent == INTENT_HARM)
+			if(w_uniform)
+				w_uniform.add_fingerprint(M)
+			var/damage = rand(15, 30)
+			if(!damage)
+				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1, -1)
+				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
+				return 0
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			var/armor_block = run_armor_check(affecting, "melee")
+
+			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
+ 				"<span class='userdanger'>[M] has slashed at [src]!</span>")
+
+			apply_damage(damage, BRUTE, affecting, armor_block)
+			if(damage >= 25)
+				visible_message("<span class='danger'>[M] has wounded [src]!</span>", \
+ 					"<span class='userdanger'>[M] has wounded [src]!</span>")
+				apply_effect(4, WEAKEN, armor_block)
+				add_attack_logs(M, src, "Alien attacked")
+			updatehealth()
+
+		if(M.a_intent == INTENT_DISARM)
+			if(prob(80))
+				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
+				add_attack_logs(M, src, "Alien tackled")
+				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
+			else
+				if(prob(99)) //this looks fucking stupid but it was previously 'var/randn = rand(1, 100); if(randn <= 99)'
+					playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+					drop_item()
+					visible_message("<span class='danger'>[M] disarmed [src]!</span>")
+				else
+					playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1, -1)
+					visible_message("<span class='danger'>[M] has tried to disarm [src]!</span>")
+
+/mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
+	if(..())
+		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK, M.armour_penetration))
+			return 0
+		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
+		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
+		if(affected)
+			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
+		apply_damage(damage, M.melee_damage_type, affecting, armor)
+		updatehealth()
+
+/mob/living/carbon/human/attack_slime(mob/living/carbon/slime/M)
+	..()
+	var/damage = rand(1, 3)
+
+	if(M.is_adult)
+		damage = rand(10, 35)
+	else
+		damage = rand(5, 25)
+
+	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+
+	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+	var/armor_block = run_armor_check(affecting, "melee")
+	apply_damage(damage, BRUTE, affecting, armor_block)
+
+	return
+
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
 		if(M.damtype == "brute")
@@ -371,10 +467,7 @@ emp_act
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 								"<span class='userdanger'>[src] has been hit by [M.name].</span>")
 
-		create_attack_log("<font color='orange'>Has been attacked by \the [M] controlled by [key_name(M.occupant)] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		M.occupant.create_attack_log("<font color='red'>Attacked [src] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])</font>")
-		msg_admin_attack("[key_name_admin(M.occupant)] attacked [key_name_admin(src)] with \the [M] (INTENT: [uppertext(M.occupant.a_intent)])")
-
+		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		..()
 

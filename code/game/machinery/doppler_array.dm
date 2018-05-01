@@ -21,7 +21,7 @@ var/list/doppler_arrays = list()
 	return PROCESS_KILL
 
 /obj/machinery/doppler_array/attackby(var/obj/item/O, var/mob/user, params)
-	if(istype(O, /obj/item/weapon/wrench))
+	if(istype(O, /obj/item/wrench))
 		if(!anchored && !isinspace())
 			anchored = 1
 			power_change()

@@ -36,4 +36,4 @@
 		else if(M in dead_mob_list)
 			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=\ref[user]'>(F)</a> [my_message] </span>")
 
-	log_say("[user.real_name]/[user.key] : [message]")
+	log_say("(CULT) [message]")

@@ -20,18 +20,6 @@
 	M.adjustToxLoss(1.5)
 	..()
 
-/datum/reagent/plasticide
-	name = "Plasticide"
-	id = "plasticide"
-	description = "Liquid plastic, do not eat."
-	reagent_state = LIQUID
-	color = "#CF3600" // rgb: 207, 54, 0
-
-/datum/reagent/plasticide/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1.5)
-	..()
-
-
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
 	id = "minttoxin"
