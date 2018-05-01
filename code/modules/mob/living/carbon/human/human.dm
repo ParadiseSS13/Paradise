@@ -1746,7 +1746,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
 		return 0
 	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
-		to_chat(src, "<span class='warning'>Remove their mask first!</span>")
+		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
 		return 0
 	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", \
 					  "<span class='danger'>You try to perform CPR on [H.name]!</span>")

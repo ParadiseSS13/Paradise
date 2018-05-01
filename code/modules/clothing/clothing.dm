@@ -411,7 +411,7 @@ BLIND     // can't see anything
 				desc = "[desc] They have had their toes opened up."
 				update_icon()
 			else
-				to_chat(user, "<span class='notice'>[src] have already had their toes cut open!</span>")
+				to_chat(user, "<span class='notice'>[src] have already had [src.p_their()] toes cut open!</span>")
 			return
 	else
 		..()

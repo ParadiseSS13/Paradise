@@ -327,34 +327,35 @@
 		return
 
 	if(istype(G, /obj/item/grab))
+		var/obj/item/grab/GG = G
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
-		if(!ismob(G:affecting))
+		if(!ismob(GG.affecting))
 			return
 		if(src.occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
-		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
-			if(M.Victim == G:affecting)
-				to_chat(usr, "[G:affecting.name] will not fit into the sleeper because they have a slime latched onto their head.")
+		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
+			if(M.Victim == GG.affecting)
+				to_chat(usr, "[GG.affecting.name] will not fit into the sleeper because [GG.affecting.p_they()] have a slime latched onto [GG.affecting.p_their()] head.")
 				return
 
-		visible_message("[user] starts putting [G:affecting:name] into the sleeper.")
+		visible_message("[user] starts putting [GG.affecting.name] into the sleeper.")
 
-		if(do_after(user, 20, target = G:affecting))
+		if(do_after(user, 20, target = GG.affecting))
 			if(src.occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 				return
-			if(!G || !G:affecting) return
-			var/mob/M = G:affecting
+			if(!GG || !GG.affecting) return
+			var/mob/M = GG.affecting
 			M.forceMove(src)
 			src.occupant = M
 			src.icon_state = "[base_icon]"
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 
 			src.add_fingerprint(user)
-			qdel(G)
+			qdel(GG)
 		return
 	return
 

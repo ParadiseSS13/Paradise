@@ -14,11 +14,11 @@
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/M as mob, mob/living/user as mob)
 	if(M.wear_mask)
-		to_chat(user, "Remove their mask first!")
+		to_chat(user, "Remove [M.p_their()] mask first!")
 	else if(amount < 2)
 		to_chat(user, "You'll need more tape for this!")
 	else if(!M.check_has_mouth())
-		to_chat(user, "They have no mouth to tape over!")
+		to_chat(user, "[M.p_they()] have no mouth to tape over!")
 	else
 		if(M == user)
 			to_chat(user, "You try to tape your own mouth shut.")
