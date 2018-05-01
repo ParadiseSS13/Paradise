@@ -34,7 +34,6 @@
 
 	var/obj/item/radio/common_radio
 
-	emote_list = list()
 	emote_types = list("synth", "living", "mob")
 
 /mob/living/silicon/New()

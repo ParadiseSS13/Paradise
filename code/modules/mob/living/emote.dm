@@ -49,6 +49,7 @@
 	key = "flip"
 	message = "does a flip"
 	punct = "!"
+	cooldown = 20
 
 /datum/emote/living/flip/run_emote(mob/user, params, type_override)
 	. = ..()
