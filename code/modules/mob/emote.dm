@@ -9,6 +9,7 @@
 	var/datum/emote/E = emote_list[act]
 	if(!E)
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
+		return
 	E.run_emote(src, param, m_type)
 	
 
@@ -23,9 +24,9 @@
 	var/prefix = "Available emotes (you can use them with say \"*emote\"): "
 
 	for(var/k in user.emote_list)
-		if(k in keys)
-			continue
 		var/datum/emote/E = user.emote_list[k]
+		if(E.key in keys)
+			continue
 		if(E.can_run_emote(user, status_check = FALSE))
 			keys += E.key
 
