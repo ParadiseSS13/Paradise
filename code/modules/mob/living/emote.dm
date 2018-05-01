@@ -42,7 +42,7 @@
 
 /datum/emote/synth/buzz_two
 	key = "buzz2"
-	message = "emits an affirmative blip"
+	message = "emits an irritated buzzing sound"
 	sound = 'sound/machines/buzz-two.ogg'
 
 /datum/emote/living/flip
