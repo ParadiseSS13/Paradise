@@ -7,11 +7,11 @@
 /datum/emote/synth/can_run_emote(mob/user, status_check = TRUE)
 	if(!..())
 		return FALSE
-	if (!(issilicon(user) || user.get_species() == "Machine"))
+	if (ishuman(user) && user.get_species() != "Machine")
 		unusable_message(user, status_check)
 		return FALSE
 	return TRUE
-	
+
 /datum/emote/synth/ping
 	key = "ping"
 	key_third_person = "pings"
@@ -44,6 +44,12 @@
 	key = "buzz2"
 	message = "emits an irritated buzzing sound"
 	sound = 'sound/machines/buzz-two.ogg'
+
+/datum/emote/synth/scream
+	key = "scream"
+	key_third_person = "screams"
+	message = "screams"
+	sound = 'sound/goonstation/voice/robot_scream.ogg'
 
 /datum/emote/living/flip
 	key = "flip"
