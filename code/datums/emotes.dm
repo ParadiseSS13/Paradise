@@ -106,8 +106,8 @@
 	if(!M)
 		return msg
 	if(!message_param)
-		return "[msg] at [params]"
-	return replacetext(message_param, "%t", params)
+		return "[msg] at [M]"
+	return replacetext(message_param, "%t", "[M]")
 
 /datum/emote/proc/can_run_emote(mob/user, status_check = TRUE)
 	. = TRUE
@@ -133,7 +133,7 @@
 	return !(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)
 
 // Override this to change the param handling. By default they have to be visible to you, but not next to you.
-/datum/emote/proc/handle_emote_param(mob/user, var/target, var/not_self, var/vicinity, var/return_mob)
+/datum/emote/proc/handle_emote_param(mob/user, var/target, var/not_self, var/vicinity, var/return_mob=TRUE)
 	//Only returns not null if the target param is valid.
 	//not_self means we'll only return if target is valid and not us
 	//vicinity is the distance passed to the view proc.
