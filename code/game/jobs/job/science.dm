@@ -57,9 +57,9 @@
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
-	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom)
+	access = list(access_robotics, access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_mineral_storeroom, access_tech_storage)
 	minimal_access = list(access_tox, access_tox_storage, access_research, access_xenobiology, access_xenoarch, access_maint_tunnels, access_mineral_storeroom)
-	alt_titles = list("Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	alt_titles = list("Roboticist")
 	minimal_player_age = 3
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
@@ -85,7 +85,7 @@
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
-
+/*
 /datum/job/roboticist
 	title = "Roboticist"
 	flag = ROBOTICIST
@@ -121,3 +121,16 @@
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
 	pda = /obj/item/pda/roboticist
+*/
+/datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Roboticist")
+				uniform = /obj/item/clothing/under/rank/roboticist
+				suit = /obj/item/clothing/suit/storage/labcoat
+				belt = /obj/item/storage/belt/utility/full
+				shoes = /obj/item/clothing/shoes/black
+				l_ear = /obj/item/radio/headset/headset_sci
+				id = /obj/item/card/id/research
+				pda = /obj/item/pda/roboticist
