@@ -105,7 +105,7 @@
 				if(!unEquip(r_hand))
 					continue
 
-			custom_emote(1, "drops what [p_they()] [p_were()] holding, their [E.name] malfunctioning!")
+			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
 
 			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src)

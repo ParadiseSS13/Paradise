@@ -87,11 +87,11 @@
 					if(inactivity_period <= 0)
 						inactivity_period = 9999 // technically infinite
 						if(do_after(src, 60, target = traitorTarget))
-							custom_emote(1, "A fire bursts from [src]'s eyes, igniting white hot and consuming their body in a flaming explosion!")
+							custom_emote(1, "A fire bursts from [src]'s eyes, igniting white hot and consuming [p_their()] body in a flaming explosion!")
 							explosion(src, 6, 6, 6)
 						else
 							inactivity_period = 0
-							custom_emote(1, "[src]'s chest closes, hiding their insides.")
+							custom_emote(1, "[src]'s chest closes, hiding [p_their()] insides.")
 				if(SNPC_PSYCHO)
 					var/choice = pick(typesof(/obj/item/grenade/chem_grenade) - /obj/item/grenade/chem_grenade)
 

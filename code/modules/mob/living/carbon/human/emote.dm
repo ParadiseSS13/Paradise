@@ -173,14 +173,14 @@
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> clacks their mandibles[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> clacks [p_their()] mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("click", "clicks")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> clicks their mandibles[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> clicks [p_their()] mandibles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
@@ -201,7 +201,7 @@
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> rustles their quills[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> rustles [p_their()] quills[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
 			m_type = 2
 
@@ -294,7 +294,7 @@
 
 		if("burp", "burps")
 			if(miming)
-				message = "<B>[src]</B> opens their mouth rather obnoxiously."
+				message = "<B>[src]</B> opens [p_their()] mouth rather obnoxiously."
 				m_type = 1
 			else
 				if(!muzzled)
@@ -605,7 +605,7 @@
 					message = "<B>[src]</B> takes a drag from a cigarette and blows \"[M]\" out in smoke."
 					m_type = 1
 				else
-					message = "<B>[src]</B> says, \"[M], please. They had a family.\" [name] takes a drag from a cigarette and blows their name out in smoke."
+					message = "<B>[src]</B> says, \"[M], please. They had a family.\" [name] takes a drag from a cigarette and blows [p_their()] name out in smoke."
 					m_type = 2
 
 		if("point", "points")

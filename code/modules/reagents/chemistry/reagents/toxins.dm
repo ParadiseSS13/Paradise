@@ -1016,7 +1016,7 @@
 			M.Drowsy(10)
 		if(11)
 			M.Paralyse(10)
-			M.visible_message("<B>[M]</B> seizes up and falls limp, their eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
+			M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
 		if(12 to 60)
 			M.Paralyse(10)
 		if(61 to INFINITY)
