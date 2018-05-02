@@ -176,7 +176,7 @@
 	if(stat == DEAD || (status_flags & FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
-			msg += "<span class='warning'>[p_they(TRUE)] appears to have committed suicide... there is no hope of recovery.</span>\n"
+			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
 		msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)
@@ -305,7 +305,7 @@
 			msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
-		msg += "[p_they(TRUE)] is emitting a gentle blue glow!\n"
+		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
 
 	msg += "</span>"
 
@@ -398,7 +398,7 @@
 	if(pose)
 		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\n[p_they(TRUE)] is [pose]"
+		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
 	to_chat(user, msg)
 
