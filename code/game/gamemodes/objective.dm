@@ -528,7 +528,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		target = pick(possible_targets)
 
 	if(target && target.current)
-		explanation_text = "The Shoal has a need for [target.current.real_name], the [target.assigned_role]. Take them alive."
+		explanation_text = "The Shoal has a need for [target.current.real_name], the [target.assigned_role]. Take [target.p_them()] alive."
 	else
 		explanation_text = "Free Objective"
 	return target

@@ -104,7 +104,7 @@
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(status && (CLUMSY in user.mutations) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally hits themself with [src]!</span>", \
+		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		user.Weaken(stunforce*3)
 		deductcharge(hitcost)
@@ -175,7 +175,7 @@
 			user.Weaken(stunforce)
 			user.stuttering = stunforce
 			deductcharge(hitcost)
-			user.visible_message("<span class='warning'>[user] shocks themself while attempting to wash the active [src]!</span>", \
+			user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \
 								"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 			playsound(src, "sparks", 50, 1)
 			return 1

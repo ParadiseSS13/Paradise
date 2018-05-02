@@ -469,7 +469,7 @@
 				if(!Adjacent(SF))
 					tryWalk(get_turf(SF))
 				else
-					custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")], grabbing various foodstuffs from [SF] and sticking them in it's mouth!")
+					custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")], grabbing various foodstuffs from [SF] and sticking them in its mouth!")
 					for(var/obj/item/A in SF.contents)
 						if(prob(smartness/2))
 							var/count = SF.item_quants[A.name]

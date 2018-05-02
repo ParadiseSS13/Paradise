@@ -745,7 +745,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(restrained())
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
-		visible_message("<span class='warning'>[src] attempts to unbuckle themself!</span>", \
+		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
 					"<span class='notice'>You attempt to unbuckle yourself... (This will take around one minute and you need to stay still.)</span>")
 		if(do_after(src, 600, 0, target = src))
 			if(!buckled)
@@ -762,11 +762,11 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	Weaken(3, 1, 1) //We dont check for CANWEAKEN, I don't care how immune to weakening you are, if you're rolling on the ground, you're busy.
 	update_canmove()
 	spin(32,2)
-	visible_message("<span class='danger'>[src] rolls on the floor, trying to put themselves out!</span>", \
+	visible_message("<span class='danger'>[src] rolls on the floor, trying to put [p_them()]self out!</span>", \
 		"<span class='notice'>You stop, drop, and roll!</span>")
 	sleep(30)
 	if(fire_stacks <= 0)
-		visible_message("<span class='danger'>[src] has successfully extinguished themselves!</span>", \
+		visible_message("<span class='danger'>[src] has successfully extinguished [p_them()]self!</span>", \
 			"<span class='notice'>You extinguish yourself.</span>")
 		ExtinguishMob()
 

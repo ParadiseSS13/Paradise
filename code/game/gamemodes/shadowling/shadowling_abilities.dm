@@ -798,7 +798,7 @@
 			charge_counter = charge_max
 			return
 
-		to_chat(user, "<span class='shadowling'>You instantly rearrange <b>[target]</b>'s memories, hyptonitizing them into a thrall.</span>")
+		to_chat(user, "<span class='shadowling'>You instantly rearrange <b>[target]</b>'s memories, hyptonitizing [target.p_them()] into a thrall.</span>")
 		to_chat(target, "<span class='userdanger'><font size=3>An agonizing spike of pain drives into your mind, and--</font></span>")
 		ticker.mode.add_thrall(target.mind)
 		target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL

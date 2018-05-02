@@ -29,7 +29,7 @@
 			if(M == user)
 				to_chat(user, "You cover your own mouth with a piece of duct tape.")
 			else
-				to_chat(user, "You cover [M]'s mouth with a piece of duct tape. That will shut them up!")
+				to_chat(user, "You cover [M]'s mouth with a piece of duct tape. That will shut [M.p_them()] up!")
 				M.visible_message("<span class='warning'>[user] tapes [M]'s mouth shut!</span>")
 			var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag
 			M.equip_to_slot(G, slot_wear_mask)

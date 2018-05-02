@@ -318,7 +318,7 @@ var/global/list/multiverse = list()
 		C.prefs.copy_to(M)
 	M.key = C.key
 	M.mind.name = user.real_name
-	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help them accomplish [user.p_their()] goals at all costs.</B>")
+	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</B>")
 	M.faction = list("[user.real_name]")
 	if(duplicate_self)
 		M.set_species(user.get_species()) //duplicate the sword user's species.
@@ -350,7 +350,7 @@ var/global/list/multiverse = list()
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
 		new_objective.owner = M.mind
 		new_objective.target = usr.mind
-		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help them defend the innocent from the mobs of multiverse clones."
+		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help [usr.p_them()] defend the innocent from the mobs of multiverse clones."
 		M.mind.objectives += new_objective
 		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
@@ -652,7 +652,7 @@ var/global/list/multiverse = list()
 		equip_skeleton(M)
 	spooky_scaries |= M
 	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
-	to_chat(M, "<span class='userdanger'>They are your master now, assist them even if it costs you your new life!</span>")
+	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>")
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 
 /obj/item/necromantic_stone/proc/check_spooky()

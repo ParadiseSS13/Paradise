@@ -167,7 +167,7 @@
 				icon_state = "soulstone"
 				name = initial(name)
 				if(iswizard(usr) || usability)
-					to_chat(A, "<b>You have been released from your prison, but you are still bound to [usr.real_name]'s will. Help them succeed in [usr.p_their()] goals at all costs.</b>")
+					to_chat(A, "<b>You have been released from your prison, but you are still bound to [usr.real_name]'s will. Help [usr.p_them()] succeed in [usr.p_their()] goals at all costs.</b>")
 				else if(iscultist(usr))
 					to_chat(A, "<b>You have been released from your prison, but you are still bound to the cult's will. Help [usr.p_them()] succeed in [usr.p_their()] goals at all costs.</b>")
 				was_used()

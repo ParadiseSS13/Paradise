@@ -25,7 +25,7 @@
 	bitesize = 5
 
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is aiming the [src.name] at themself! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is aiming the [name] at [user.p_them()]self! It looks like \he's trying to commit suicide.</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
 	if(!user)

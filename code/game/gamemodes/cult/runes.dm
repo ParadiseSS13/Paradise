@@ -787,11 +787,11 @@ var/list/teleport_runes = list()
 			return
 		affecting.apply_damage(1, BRUTE)
 		if(!(user in T.contents))
-			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls them back to the rune!</span>")
+			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls [user.p_them()] back to the rune!</span>")
 			Beam(user,icon_state="drainbeam",time=2)
 			user.forceMove(get_turf(src)) //NO ESCAPE :^)
 		if(user.key)
-			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around them dimming.</span>", \
+			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around [user.p_them()] dimming.</span>", \
 								 "<span class='danger'>You are re-united with your physical form. [src] releases its hold over you.</span>")
 			user.color = initial(user.color)
 			user.Weaken(3)

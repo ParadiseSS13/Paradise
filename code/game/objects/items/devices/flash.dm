@@ -168,9 +168,9 @@
 						resisted = 1
 
 					if(resisted)
-						to_chat(user, "<span class='warning'>This mind seems resistant to the [src.name]!</span>")
+						to_chat(user, "<span class='warning'>This mind seems resistant to the [name]!</span>")
 				else
-					to_chat(user, "<span class='warning'>They must be conscious before you can convert them!</span>")
+					to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
 			else
 				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
 

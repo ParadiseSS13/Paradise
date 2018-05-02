@@ -257,7 +257,7 @@
 		if(href_list["chemical"])
 			if(occupant)
 				if(occupant.stat == DEAD)
-					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take them to a department capable of reanimating them.</span>")
+					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
 				else if(occupant.health > min_health || (href_list["chemical"] in emergency_chems))
 					inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 				else

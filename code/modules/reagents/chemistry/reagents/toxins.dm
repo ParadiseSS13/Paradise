@@ -557,7 +557,7 @@
 		M.adjustBruteLoss(5)
 		M.Weaken(5)
 		M.AdjustJitter(6)
-		M.visible_message("<span class='danger'>[M] falls to the floor, scratching themselves violently!</span>")
+		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
 		M.emote("scream")
 	..()
 
