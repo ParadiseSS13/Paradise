@@ -146,7 +146,7 @@
 	drink_icon = "ginvodkaglass"
 	drink_name = "Glass of vodka"
 	drink_desc = "The glass contain wodka. Xynta."
-	taste_message * "comradery"
+	taste_message = "comradery"
 
 /datum/reagent/consumable/ethanol/sake
 	name = "Sake"

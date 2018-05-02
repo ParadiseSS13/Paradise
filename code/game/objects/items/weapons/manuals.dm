@@ -804,7 +804,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://Nanotrasen.se/wiki/index.php?title=Space_law&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://spacestation13.es/Space_Law.html"</iframe>		</body>
 
 		</html>
 

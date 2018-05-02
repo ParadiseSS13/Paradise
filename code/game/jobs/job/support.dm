@@ -385,3 +385,11 @@
 		/obj/item/storage/box/lip_stick = 1,
 		/obj/item/storage/box/barber = 1
 	)
+
+/datum/outfit/job/engineer/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Surgeon")
+				uniform = /obj/item/clothing/under/rank/medical/blue
+				head = /obj/item/clothing/head/surgery/blue

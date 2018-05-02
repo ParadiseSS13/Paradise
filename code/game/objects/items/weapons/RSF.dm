@@ -84,7 +84,7 @@ RSF
 	playsound(loc, 'sound/machines/click.ogg', 10, 1)
 	var/type_path = configured_items[mode][3]
 	new type_path(spawn_location)
-
+/*
 /obj/item/weapon/cookiesynth
 	name = "\improper Cookie Synthesizer"
 	desc = "A self-recharging device used to rapidly deploy cookies."
@@ -157,3 +157,4 @@ RSF
 	else
 		matter--
 	cooldown = world.time + cooldowndelay
+	*/
