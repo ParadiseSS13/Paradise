@@ -754,7 +754,7 @@
 			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.<span>")
 			charge_counter = charge_max
 			return
-		user.visible_message("<span class='danger'>[user]'s markings flare as they gesture at [boom]!</span>", \
+		user.visible_message("<span class='danger'>[user]'s markings flare as [user.p_they()] gesture[user.p_s()] at [boom]!</span>", \
 							"<span class='shadowling'>You direct a lance of telekinetic energy at [boom].</span>")
 		sleep(4)
 		if(iscarbon(boom))
