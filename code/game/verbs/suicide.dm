@@ -129,7 +129,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()
@@ -149,7 +149,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()
@@ -186,7 +186,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()

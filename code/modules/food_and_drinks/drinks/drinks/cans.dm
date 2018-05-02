@@ -33,7 +33,7 @@
 		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
 		return
 	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_sel.selecting == "head")
-		user.visible_message("<span class='warning'>[user] crushes ["\the [src]"] on \his forehead!</span>", "<span class='notice'>You crush \the [src] on your forehead.</span>")
+		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush [src] on your forehead.</span>")
 		crush(user)
 		return
 	return ..()

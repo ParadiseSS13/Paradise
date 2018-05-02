@@ -222,12 +222,12 @@
 		if("wag", "wags")
 			if(body_accessory)
 				if(body_accessory.try_restrictions(src))
-					message = "<B>[src]</B> starts wagging \his tail."
+					message = "<B>[src]</B> starts wagging [p_their()] tail."
 					start_tail_wagging(1)
 
 			else if(species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
-					message = "<B>[src]</B> starts wagging \his tail."
+					message = "<B>[src]</B> starts wagging [p_their()] tail."
 					start_tail_wagging(1)
 				else
 					return
@@ -237,7 +237,7 @@
 
 		if("swag", "swags")
 			if(species.bodyflags & TAIL_WAGGING || body_accessory)
-				message = "<B>[src]</B> stops wagging \his tail."
+				message = "<B>[src]</B> stops wagging [p_their()] tail."
 				stop_tail_wagging(1)
 			else
 				return
@@ -282,7 +282,7 @@
 
 		if("choke", "chokes")
 			if(miming)
-				message = "<B>[src]</B> clutches \his throat desperately!"
+				message = "<B>[src]</B> clutches [p_their()] throat desperately!"
 				m_type = 1
 			else
 				if(!muzzled)
@@ -330,7 +330,7 @@
 
 		if("flap", "flaps")
 			if(!restrained())
-				message = "<B>[src]</B> flaps \his wings."
+				message = "<B>[src]</B> flaps [p_their()] wings."
 				m_type = 2
 				if(miming)
 					m_type = 1
@@ -382,7 +382,7 @@
 
 		if("aflap", "aflaps")
 			if(!restrained())
-				message = "<B>[src]</B> flaps \his wings ANGRILY!"
+				message = "<B>[src]</B> flaps [p_their()] wings ANGRILY!"
 				m_type = 2
 				if(miming)
 					m_type = 1
@@ -527,7 +527,7 @@
 					message = "<B>[src]</B> cries."
 					m_type = 2
 				else
-					message = "<B>[src]</B> makes a weak noise. \He frowns."
+					message = "<B>[src]</B> makes a weak noise. [p_they(TRUE)] frown[p_s()]."
 					m_type = 2
 
 		if("sigh", "sighs")
@@ -631,7 +631,7 @@
 		if("shake", "shakes")
 			var/M = handle_emote_param(param, 1) //Check to see if the param is valid (mob with the param name is in view) but exclude ourselves.
 
-			message = "<B>[src]</B> shakes \his head[M ? " at [M]" : ""]."
+			message = "<B>[src]</B> shakes [p_their()] head[M ? " at [M]" : ""]."
 			m_type = 1
 
 		if("shrug", "shrugs")
@@ -742,7 +742,7 @@
 				if(M)
 					message = "<B>[src]</B> hugs [M]."
 				else
-					message = "<B>[src]</B> hugs \himself."
+					message = "<B>[src]</B> hugs [p_them()]self."
 
 		if("handshake")
 			m_type = 1
@@ -753,7 +753,7 @@
 					if(M.canmove && !M.r_hand && !M.restrained())
 						message = "<B>[src]</B> shakes hands with [M]."
 					else
-						message = "<B>[src]</B> holds out \his hand to [M]."
+						message = "<B>[src]</B> holds out [p_their()] hand to [M]."
 
 		if("dap", "daps")
 			m_type = 1
@@ -763,7 +763,7 @@
 				if(M)
 					message = "<B>[src]</B> gives daps to [M]."
 				else
-					message = "<B>[src]</B> sadly can't find anybody to give daps to, and daps \himself. Shameful."
+					message = "<B>[src]</B> sadly can't find anybody to give daps to, and daps [p_them()]self. Shameful."
 
 		if("slap", "slaps")
 			m_type = 1
@@ -773,7 +773,7 @@
 				if(M)
 					message = "<span class='danger'>[src] slaps [M] across the face. Ouch!</span>"
 				else
-					message = "<span class='danger'>[src] slaps \himself!</span>"
+					message = "<span class='danger'>[src] slaps [p_them()]self!</span>"
 					adjustFireLoss(4)
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
@@ -814,10 +814,10 @@
 
 				var/M = handle_emote_param(param)
 
-				message = "<b>[src]</b> snaps \his fingers[M ? " at [M]" : ""]."
+				message = "<b>[src]</b> snaps [p_their()] fingers[M ? " at [M]" : ""]."
 				playsound(loc, 'sound/effects/fingersnap.ogg', 50, 1, -3)
 			else
-				message = "<span class='danger'><b>[src]</b> snaps \his fingers right off!</span>"
+				message = "<span class='danger'><b>[src]</b> snaps [p_their()] fingers right off!</span>"
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		// Needed for M_TOXIC_FART
@@ -941,7 +941,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose = sanitize(copytext(input(usr, "This is [src]. \He is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"

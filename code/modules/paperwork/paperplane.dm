@@ -33,7 +33,7 @@
 
 /obj/item/paperplane/suicide_act(mob/living/user)
 	user.Stun(10)
-	user.visible_message("<span class='suicide'>[user] jams [name] in \his nose. It looks like \he's trying to commit suicide!</span>")
+	user.visible_message("<span class='suicide'>[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	user.EyeBlurry(6)
 	var/obj/item/organ/internal/eyes/E = user.get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
