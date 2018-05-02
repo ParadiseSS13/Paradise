@@ -68,7 +68,7 @@
 	if(M.stat !=2)
 		/*if((M.mind in ticker.mode.cult) && (prob(20)))
 			to_chat(M, "<span class='warning'>The power of [src.deity_name] clears your mind of heresy!</span>")
-			to_chat(user, "<span class='warning'>You see how [M]'s eyes become clear, the cult no longer holds control over him!</span>")
+			to_chat(user, "<span class='warning'>You see how [M]'s eyes become clear, the cult no longer holds control over [M.p_them()]!</span>")
 			ticker.mode.remove_cultist(M.mind)*/
 		if((istype(M, /mob/living/carbon/human) && prob(60)))
 			bless(M)
