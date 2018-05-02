@@ -50,7 +50,8 @@
 		return 1
 
 /datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return end_step(user, target, target_zone, tool, surgery)
+	user.visible_message("<span class='warning'>[user]'s hand slips, failing to extract anything!</span>", "<span class='warning'>Your hand slips, failing to extract anything!</span>")
+	return 0
 
 /datum/surgery_step/internal/gland_insert
 	name = "insert gland"
@@ -69,7 +70,8 @@
 	return 1
 
 /datum/surgery_step/internal/gland_insert/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return end_step(user, target, target_zone, tool, surgery)
+	user.visible_message("<span class='warning'>[user]'s hand slips, failing to insert the gland!</span>", "<span class='warning'>Your hand slips, failing to insert the gland!</span>")
+	return 0
 
 //IPC Gland Surgery//
 
