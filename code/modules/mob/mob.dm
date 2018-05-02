@@ -35,7 +35,7 @@
 	..()
 
 /mob/proc/initialize_emotes()
-	var/datum/emote/E = new /datum/emote()
+	var/datum/emote/E
 	for(var/ET in emote_types)
 		for(var/datum/emote/EE in E.emote_lists[ET])
 			if(EE.key && !emote_list[EE.key])
