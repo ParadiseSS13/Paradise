@@ -450,9 +450,7 @@ proc/checkhtml(var/t)
 			return 1
 	return 0
 
-//finds the first occurrence of one of the characters from needles argument inside haystack
-//it may appear this can be optimised, but it really can't. findtext() is so much faster than anything you can do in byondcode.
-//stupid byond :(
+// Finds the first occurrence of one of the characters from needles argument inside haystack.
 /proc/findchar(haystack, needles, start=1, end=0)
 	var/temp
 	var/len = length(needles)

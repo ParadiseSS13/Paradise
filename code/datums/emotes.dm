@@ -23,6 +23,7 @@
 		"living"=init_subtypes(/datum/emote/living),
 		"human"=init_subtypes(/datum/emote/human),
 		"synth"=init_subtypes(/datum/emote/synth),
+		"robot"=init_subtypes(/datum/emote/robot),
 	)
 
 /datum/emote/New()
@@ -147,6 +148,10 @@
 				return A
 			return target
 
-/datum/emote/proc/unusable_message(mob/user, status_check)
-	if(status_check)
-		to_chat(user, "<span class='notice'>Unusable emote '[key]'. Say *help for a list.</span>")
+/datum/emote/proc/unusable_message(mob/user, status_check, msg)
+	if(!status_check)
+		return
+	if(msg)
+		to_chat(user, msg)
+		return
+	to_chat(user, "<span class='notice'>Unusable emote '[key]'. Say *help for a list.</span>")

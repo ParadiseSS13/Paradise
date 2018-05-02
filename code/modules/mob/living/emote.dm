@@ -3,6 +3,7 @@
 // These are used by both silicons and carbons so that's why they're kinda snowflaked
 /datum/emote/synth
 	emote_type = EMOTE_AUDIBLE
+	cooldown = 20
 
 /datum/emote/synth/can_run_emote(mob/user, status_check = TRUE)
 	if(!..())

@@ -18,6 +18,7 @@
 
 /datum/emote/mob/help
 	key = "help"
+	stat_allowed = DEAD
 
 /datum/emote/mob/help/run_emote(mob/user, params)
 	var/list/keys = list()
