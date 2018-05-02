@@ -1,7 +1,6 @@
 /obj
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	var/reliability = 100	//Used by SOME devices to determine how reliable they are.
 	var/crit_fail = 0
 	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
 	animate_movement = 2
