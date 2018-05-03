@@ -1,3 +1,38 @@
+/datum/emote/robot/salute
+	key = "salute"
+	key_third_person = "salutes"
+	message = "salutes"
+	message_param = "salutes to %t"
+
+/datum/emote/robot/clap
+	key = "clap"
+	key_third_person = "claps"
+	message = "claps"
+
+/datum/emote/robot/law
+	key = "law"
+	key_third_person = "laws"
+	cooldown = 20
+	sound = 'sound/voice/biamthelaw.ogg'
+	message = "shows their legal authorization barcode"
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/robot/halt
+	key = "halt"
+	key_third_person = "halts"
+	cooldown = 20
+	sound = 'sound/voice/halt.ogg'
+	message = "'s speakers screech, \"Halt! Security!\""
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/robot/halt/can_run_emote(mob/living/silicon/robot/user, status_check = TRUE)
+	if(!..())
+		return FALSE
+	if(!istype(user.module, /obj/item/robot_module/security))
+		unusable_message(user, status_check, "<span class='notice'>You are not security.</span>")
+		return FALSE
+	return TRUE
+
 /datum/emote/robot/powerwarn
 	key = "powerwarn"
 	key_third_person = "powerwarns"

@@ -23,6 +23,7 @@
 	var/leaping = 0
 	ventcrawler = 2
 	var/list/alien_organs = list()
+	emote_types = list("alien", "carbon", "living", "mob")
 
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/verb/mob_sleep

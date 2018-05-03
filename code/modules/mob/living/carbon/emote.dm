@@ -8,8 +8,8 @@
 	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/carbon/burp
-	key = "whimper"
-	key_third_person = "whimpers"
+	key = "burp"
+	key_third_person = "burps"
 	message = "burps"
 	emote_type = EMOTE_AUDIBLE
 

@@ -24,9 +24,7 @@
 	emote_type = EMOTE_AUDIBLE
 	mob_type_blacklist_typecache = list(/mob/living/carbon/alien/larva)
 	cooldown = 20
-
-/datum/emote/alien/sound/play_sound(mob/user)
-	playsound(user.loc, sound, sound_volume, sound_vary, 1)
+	sound_frequency = 1
 
 /datum/emote/alien/sound/deathgasp
 	key = "deathgasp"

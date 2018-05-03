@@ -18,11 +18,16 @@
 	var/sound
 	var/sound_volume = 50
 	var/sound_vary = 0
+	var/sound_frequency = 0
 	var/static/list/emote_lists = list(
 		"mob"=init_subtypes(/datum/emote/mob),
 		"living"=init_subtypes(/datum/emote/living),
+		"carbon"=init_subtypes(/datum/emote/carbon),
+		"alien"=init_subtypes(/datum/emote/alien),
+		"simple_animal"=init_subtypes(/datum/emote/simple_animal),
 		"human"=init_subtypes(/datum/emote/human),
 		"synth"=init_subtypes(/datum/emote/synth),
+		"silicon"=init_subtypes(/datum/emote/silicon),
 		"robot"=init_subtypes(/datum/emote/robot),
 	)
 
@@ -128,7 +133,7 @@
 /datum/emote/proc/play_sound(mob/user)
 	if(!sound)
 		return
-	playsound(user.loc, sound, sound_volume, sound_vary)
+	playsound(user.loc, sound, sound_volume, sound_vary, sound_frequency)
 
 /datum/emote/proc/can_play_sound(mob/user)
 	return !(!muzzle_ignore && user.is_muzzled() && emote_type == EMOTE_AUDIBLE)

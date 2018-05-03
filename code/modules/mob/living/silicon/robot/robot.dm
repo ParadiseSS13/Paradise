@@ -100,6 +100,7 @@ var/list/robot_verbs_default = list(
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
+	emote_types = list("robot", "silicon", "synth", "living", "mob")
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect_system/spark_spread()

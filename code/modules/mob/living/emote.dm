@@ -84,6 +84,10 @@
 
 /datum/emote/living/twitch
 	key = "twitch"
+	message = "twitches violently"
+
+/datum/emote/living/twitch_s
+	key = "twitch_s"
 	key_third_person = "twitches"
 	message = "twitches"
 
@@ -91,13 +95,29 @@
 	key = "bows"
 	key_third_person = "bows"
 	message = "bows"
+	message_param = "bows to %t"
+	restraint_check = TRUE
 
 /datum/emote/living/dance
 	key = "dance"
 	key_third_person = "dances"
 	message = "dances around happily"
+	restraint_check = TRUE
+
+/datum/emote/living/flap
+	key = "flap"
+	key_third_person = "flaps"
+	message = "flaps their wings"
+	restraint_check = TRUE
+
+/datum/emote/living/aflap
+	key = "aflap"
+	key_third_person = "aflaps"
+	message = "flaps their wings ANGRILY"
+	restraint_check = TRUE
 
 /datum/emote/living/roll
 	key = "roll"
 	key_third_person = "rolls"
 	message = "rolls"
+	restraint_check = TRUE
