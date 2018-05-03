@@ -73,6 +73,7 @@
 	message = "does a flip"
 	message_param = "flips in %t's general direction"
 	punct = "!"
+	restraint_check = TRUE
 	cooldown = 20
 
 /datum/emote/human/flip/create_emote_message(mob/living/carbon/human/user, params)
@@ -110,6 +111,7 @@
 	message = "slaps themself"
 	message_param = "slaps %t across the face. Ouch"
 	punct = "!"
+	restraint_check = TRUE
 	cooldown = 20 // Good times
 	sound = 'sound/effects/snap.ogg'
 	sound_volume = 50

@@ -52,13 +52,52 @@
 	message = "screams"
 	sound = 'sound/goonstation/voice/robot_scream.ogg'
 
+/datum/emote/living
+	mob_type_blacklist_typecache = list(/mob/living/captive_brain, /mob/living/carbon/brain)
+
 /datum/emote/living/flip
 	key = "flip"
 	message = "does a flip"
 	punct = "!"
+	restraint_check = TRUE
 	cooldown = 20
 
 /datum/emote/living/flip/run_emote(mob/user, params, type_override)
 	. = ..()
 	if(.)
 		user.SpinAnimation(5,1)
+
+/datum/emote/living/glare
+	key = "glare"
+	key_third_person = "glares"
+	message = "glares"
+
+/datum/emote/living/stare
+	key = "stare"
+	key_third_person = "stares"
+	message = "stares"
+
+/datum/emote/living/look
+	key = "look"
+	key_third_person = "looks"
+	message = "looks"
+
+/datum/emote/living/twitch
+	key = "twitch"
+	key_third_person = "twitches"
+	message = "twitches"
+
+/datum/emote/living/bow
+	key = "bows"
+	key_third_person = "bows"
+	message = "bows"
+
+/datum/emote/living/dance
+	key = "dance"
+	key_third_person = "dances"
+	message = "dances around happily"
+
+/datum/emote/living/roll
+	key = "roll"
+	key_third_person = "rolls"
+	message = "rolls"
