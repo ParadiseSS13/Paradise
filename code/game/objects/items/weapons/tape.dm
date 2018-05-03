@@ -18,7 +18,7 @@
 	else if(amount < 2)
 		to_chat(user, "You'll need more tape for this!")
 	else if(!M.check_has_mouth())
-		to_chat(user, "[M.p_they()] [M.p_have()] no mouth to tape over!")
+		to_chat(user, "[M.p_they(TRUE)] [M.p_have()] no mouth to tape over!")
 	else
 		if(M == user)
 			to_chat(user, "You try to tape your own mouth shut.")

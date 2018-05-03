@@ -1064,7 +1064,7 @@
 	var/fail_msg
 	if(!affecting)
 		. = 0
-		fail_msg = "[p_they()] [p_are()] missing that limb."
+		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
 	else if(affecting.status & ORGAN_ROBOT)
 		. = 0
 		fail_msg = "That limb is robotic."
