@@ -71,7 +71,7 @@
 /turf/ex_act(severity)
 	return 0
 
-/turf/rpd_act(mob/user, obj/item/rpd/our_rpd)
+/turf/rpd_act(mob/user, obj/item/rpd/our_rpd) //This is the default turf behaviour for the RPD; override it as required
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		our_rpd.create_atmos_pipe(user, src)
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE)

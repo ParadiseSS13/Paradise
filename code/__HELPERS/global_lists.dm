@@ -50,6 +50,13 @@
 
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 
+//RPD stuff
+	var/list/pipe_list = list()
+	init_subtypes(/datum/pipes/atmospheric, pipe_list)
+	init_subtypes(/datum/pipes/disposal, pipe_list)
+	for(var/I in pipe_list)
+		var/datum/pipes/P = I
+		construction_pipe_list += list(list("pipename" = P.pipename, "pipeid" = P.pipeid, "atmosordisposals" = P.pipetype, "category" = P.category, "orientations" = P.orientations, "icon" = P.previewicon, "bendy" = P.bendy))
 	return 1
 
 /* // Uncomment to debug chemical reaction list.

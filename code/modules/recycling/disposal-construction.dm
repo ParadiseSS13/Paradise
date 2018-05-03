@@ -17,6 +17,14 @@
 	var/dpdir = 0	// directions as disposalpipe
 	var/base_state = "pipe-s"
 
+/obj/structure/disposalconstruct/New(loc, pipe_type, direction)
+	..()
+	if(pipe_type)
+		ptype = pipe_type
+	if(dir)
+		dir = direction
+	update()
+
 	// update iconstate and dpdir due to dir and type
 /obj/structure/disposalconstruct/proc/update()
 	var/flip = turn(dir, 180)
@@ -267,10 +275,7 @@
 			return
 
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
-	if(anchored)
-		to_chat(user, "<span class='notice'>[src] is bolted down!</span>")
-		return
-	else if(our_rpd.mode == RPD_ROTATE_MODE)
+	if(our_rpd.mode == RPD_ROTATE_MODE)
 		rotate()
 	else if(our_rpd.mode == RPD_FLIP_MODE)
 		flip()
