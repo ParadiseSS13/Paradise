@@ -53,3 +53,26 @@
 	key = "sulk"
 	key_third_person = "sulks"
 	message = "sulks sadly"
+
+/datum/emote/carbon/choke
+	key = "choke"
+	key_third_person = "chokes"
+	message = "chokes"
+
+/datum/emote/carbon/collapse
+	key = "collapse"
+	key_third_person = "collapses"
+	message = "collapses"
+	punct = "!"
+
+/datum/emote/carbon/jump
+	key = "jump"
+	key_third_person = "jumps"
+	message = "jumps"
+	punct = "!"
+
+/datum/emote/carbon/moan
+	key = "moan"
+	key_third_person = "moans"
+	message = "moans"
+	punct = "!"
