@@ -77,7 +77,7 @@
 	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
-
+	emote_types = list("simple_animal", "living", "mob")
 
 /mob/living/simple_animal/New()
 	..()

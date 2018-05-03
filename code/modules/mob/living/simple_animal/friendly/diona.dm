@@ -41,6 +41,7 @@
 	var/ready_evolve = 0
 	holder_type = /obj/item/holder/diona
 	can_collar = 1
+	emote_types = list("nymph", "living", "mob")
 
 /mob/living/simple_animal/diona/New()
 	..()
