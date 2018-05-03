@@ -1250,7 +1250,13 @@
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
-		new/mob/living/carbon/human(get_turf(src), monkey_type)
+		if(fingerprintslast)
+			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
+		else
+			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
+		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src), monkey_type)
+		if(fingerprintshidden.len)
+			creature.fingerprintshidden = fingerprintshidden.Copy()
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
