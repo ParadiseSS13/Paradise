@@ -1,0 +1,5 @@
+author: "RyanSmake"
+delete-after: True
+changes: 
+  - bugfix: "You will now log in to the proper account you input to the ATM instead of the one associated with you."
+  - bugfix: "Now ATMs will reconnect after a power outage."
