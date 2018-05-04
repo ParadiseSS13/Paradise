@@ -24,6 +24,16 @@
 	key_third_person = "shivers"
 	message = "shivers"
 
+/datum/emote/carbon/quiver
+	key = "quiver"
+	key_third_person = "quivers"
+	message = "quivers"
+
+/datum/emote/carbon/tremble
+	key = "tremble"
+	key_third_person = "trembles"
+	message = "trembles"
+
 /datum/emote/carbon/drool
 	key = "drool"
 	key_third_person = "drools"
@@ -64,6 +74,11 @@
 	key_third_person = "collapses"
 	message = "collapses"
 	punct = "!"
+
+/datum/emote/carbon/collapse/run_emote(mob/user, params, type_override)
+	. = ..()
+	if(.)
+		user.Paralyse(2)
 
 /datum/emote/carbon/jump
 	key = "jump"
