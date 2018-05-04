@@ -14,6 +14,7 @@
 
 /datum/emote/human
 	var/list/species_whitelist = list()
+	var/list/species_blacklist = list()
 	var/hands_needed = 0
 
 /datum/emote/human/can_run_emote(mob/user, status_check = TRUE)
@@ -25,6 +26,9 @@
 		return FALSE
 
 	if(species_whitelist.len && !(user.get_species() in species_whitelist))
+		unusable_message(user, status_check)
+		return FALSE
+	if(species_blacklist.len && (user.get_species() in species_blacklist))
 		unusable_message(user, status_check)
 		return FALSE
 	return TRUE
@@ -53,7 +57,7 @@
 	key_third_person = "deathgasps"
 
 /datum/emote/human/deathgasp/create_emote_message(mob/living/carbon/human/user, params)
-	return "<b>[user]</b> [user.species.death_message]"
+	return replace_pronoun(user, "<b>[user]</b> [user.species.death_message]")
 
 /datum/emote/human/blink
 	key = "blink"
@@ -155,7 +159,7 @@
 		return msg
 	if(finger_count <= 5 && (user.r_hand && user.l_hand))
 		return msg
-	return "<b>[user]</b> raises [finger_count] fingers\s"
+	return "raises [finger_count] finger\s"
 
 /datum/emote/human/point
 	key = "point"
@@ -168,7 +172,7 @@
 	if(!M)
 		return msg
 	user.pointed(M)
-	return "[msg] at [M]"
+	return
 
 /datum/emote/human/snap
 	key = "snap"
@@ -184,7 +188,7 @@
 		return ..()
 
 	playsound(user.loc, 'sound/effects/snap.ogg', 50, 1)
-	return "<span class='danger'><b>[user]</b> snaps their fingers right off!</span>"
+	return "<span class='danger'><b>[user]</b> snaps [user.p_their()] fingers right off!</span>"
 
 /datum/emote/human/flip
 	key = "flip"
@@ -258,7 +262,6 @@
 /datum/emote/human/handshake
 	key = "handshake"
 	key_third_person = "handshakes"
-	message = "handshakes themself"
 	message_param = "shakes hands with %t"
 	hands_needed = 1
 	restraint_check = TRUE
@@ -267,6 +270,14 @@
 	var/mob/M = ..(user, target, TRUE, TRUE)
 	if(M && (!M.r_hand || !M.l_hand) && !M.restrained())
 		return M
+
+/datum/emote/human/handshake/create_emote_message(mob/user, params)
+	if(!params)
+		return
+	var/msg = select_param(user, params)
+	if(!msg)
+		return
+	return "<b>[user]</b> " + msg + punct
 
 /datum/emote/human/dap
 	key = "dap"
@@ -308,6 +319,7 @@
 /datum/emote/human/squish
 	key = "squish"
 	key_third_person = "squishes"
+	message = "squishes"
 	sound = 'sound/effects/slime_squish.ogg' // Credit to DrMinky (freesound.org) for the sound
 	emote_type = EMOTE_AUDIBLE
 	cooldown = 20
@@ -320,6 +332,7 @@
 	for(var/obj/item/organ/external/L in user.bodyparts)
 		if(L.dna.species in list("Slime People"))
 			return TRUE
+	unusable_message(user, status_check)
 	return FALSE
 
 /datum/emote/human/wag
@@ -332,6 +345,7 @@
 		return TRUE
 	if(user.species.bodyflags & TAIL_WAGGING)
 		return !user.wear_suit || !(user.wear_suit.flags_inv & HIDETAIL) && !istype(user.wear_suit, /obj/item/clothing/suit/space)
+	unusable_message(user, status_check)
 	return FALSE
 
 /datum/emote/human/wag/run_emote(mob/living/carbon/human/user, params, type_override)
@@ -345,7 +359,10 @@
 	message = "stops wagging their tail"
 
 /datum/emote/human/swag/can_run_emote(mob/living/carbon/human/user, status_check = TRUE)
-	return user.species.bodyflags & TAIL_WAGGING || user.body_accessory
+	if(user.species.bodyflags & TAIL_WAGGING || user.body_accessory)
+		return TRUE
+	unusable_message(user, status_check)
+	return FALSE
 
 /datum/emote/human/wag/run_emote(mob/living/carbon/human/user, params, type_override)
 	. = ..()
@@ -356,6 +373,7 @@
 /datum/emote/human/fart
 	key = "fart"
 	key_third_person = "farts"
+	species_blacklist = list("Machine")
 
 /datum/emote/human/fart/create_emote_message(mob/living/carbon/human/user, params)
 	if(user.reagents.has_reagent("simethicone"))
@@ -374,12 +392,12 @@
 				continue
 			M.reagents.add_reagent("jenkem", 1)
 	else if(SUPER_FART in user.mutations)
-		. = "<b>[src]</b> unleashes a [pick("loud","deafening")] fart"
+		. = "<b>[user]</b> unleashes a [pick("loud","deafening")] fart"
 		user.newtonian_move(user.dir)
 
 	if(locate(/obj/item/storage/bible) in get_turf(user))
 		var/image/cross = image('icons/obj/storage.dmi',"bible")
-		var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
+		var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(user, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[user]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[user]'>SM</A>) ([admin_jump_link(user)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
 		for(var/client/X in admins)
 			if(check_rights(R_EVENT,0,X.mob))
 				to_chat(X, adminbfmessage)
@@ -394,7 +412,7 @@
 	cooldown = 20
 
 /datum/emote/human/audible/can_play_sound(mob/user)
-	return ..() && (user.mind && !user.mind.miming && message_mime)
+	return ..() && (user.mind && !(user.mind.miming && message_mime))
 
 /datum/emote/human/audible/select_message_type(mob/user)
 	if(user.mind && user.mind.miming && message_mime)
@@ -489,6 +507,7 @@
 	message = "snores"
 	message_mime = "sleeps soundly"
 	muzzled_noise = ""
+	stat_allowed = UNCONSCIOUS
 
 /datum/emote/human/audible/whimper
 	key = "whimper"
@@ -556,6 +575,8 @@
 	hands_needed = 2
 
 /datum/emote/human/audible/clap/play_sound(mob/user)
+	if(!can_play_sound(user))
+		return
 	var/clap_sound = pick('sound/misc/clap1.ogg', 'sound/misc/clap2.ogg', 'sound/misc/clap3.ogg', 'sound/misc/clap4.ogg')
 	playsound(user.loc, clap_sound, 50, 1, -1)
 

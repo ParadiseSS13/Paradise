@@ -17,6 +17,14 @@
 	message = "shows their legal authorization barcode"
 	emote_type = EMOTE_AUDIBLE
 
+/datum/emote/robot/law/can_run_emote(mob/living/silicon/robot/user, status_check = TRUE)
+	if(!..())
+		return FALSE
+	if(!istype(user.module, /obj/item/robot_module/security))
+		unusable_message(user, status_check, "<span class='notice'>You are not THE LAW, pal.</span>")
+		return FALSE
+	return TRUE
+
 /datum/emote/robot/halt
 	key = "halt"
 	key_third_person = "halts"

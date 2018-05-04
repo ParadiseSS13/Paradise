@@ -11,8 +11,8 @@
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
 	var/muzzled_noise = "" // For snowflaking the muzzled noise
 	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
-	var/punct = "."
 	var/list/mob_type_ignore_stat_typecache
+	var/punct = "."
 	var/stat_allowed = CONSCIOUS
 	var/cooldown = 0
 	var/sound
@@ -20,16 +20,18 @@
 	var/sound_vary = 0
 	var/sound_frequency = 0
 	var/static/list/emote_lists = list(
-		"mob"=init_subtypes(/datum/emote/mob),
-		"living"=init_subtypes(/datum/emote/living),
-		"carbon"=init_subtypes(/datum/emote/carbon),
-		"slime"=init_subtypes(/datum/emote/slime),
 		"alien"=init_subtypes(/datum/emote/alien),
-		"simple_animal"=init_subtypes(/datum/emote/simple_animal),
+		"brain"=init_subtypes(/datum/emote/brain),
+		"carbon"=init_subtypes(/datum/emote/carbon),
 		"human"=init_subtypes(/datum/emote/human),
-		"synth"=init_subtypes(/datum/emote/synth),
-		"silicon"=init_subtypes(/datum/emote/silicon),
+		"living"=init_subtypes(/datum/emote/living),
+		"mob"=init_subtypes(/datum/emote/mob),
+		"nymph"=init_subtypes(/datum/emote/nymph),
 		"robot"=init_subtypes(/datum/emote/robot),
+		"silicon"=init_subtypes(/datum/emote/silicon),
+		"simple_animal"=init_subtypes(/datum/emote/simple_animal),
+		"slime"=init_subtypes(/datum/emote/slime),
+		"synth"=init_subtypes(/datum/emote/synth),
 	)
 
 /datum/emote/New()
@@ -37,13 +39,12 @@
 	mob_type_ignore_stat_typecache = typecacheof(mob_type_ignore_stat_typecache)
 
 /datum/emote/proc/run_emote(mob/user, params, type_override)
-	. = TRUE
 	if(!can_run_emote(user))
 		return FALSE
 
 	var/msg = create_emote_message(user, params)
 	if(!msg)
-		return
+		return TRUE
 	show_to_ghosts(user, msg)
 
 	var/ET = type_override ? type_override : emote_type
@@ -57,6 +58,7 @@
 		play_sound(user)
 	log_emote(msg, user)
 	emote_cooldown(user)
+	return TRUE
 
 // Override this to use custom message behavior, or do something before the emote is printed to the screen
 /datum/emote/proc/create_emote_message(mob/user, params)
@@ -149,7 +151,7 @@
 		return
 		//if set, return_mob will cause this proc to return the mob instead of just its name if the target is valid.
 	for(var/mob/A in view(view_vicinity, null))
-		if(cmptext(target, A.name) && (!not_self || (not_self && cmptext(target, user.name))))
+		if(cmptext(target, A.name) && (!not_self || (not_self && !cmptext(target, user.name))))
 			if(return_mob)
 				return A
 			return target

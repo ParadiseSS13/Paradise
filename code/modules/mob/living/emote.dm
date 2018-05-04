@@ -53,7 +53,7 @@
 	sound = 'sound/goonstation/voice/robot_scream.ogg'
 
 /datum/emote/living
-	mob_type_blacklist_typecache = list(/mob/living/captive_brain, /mob/living/carbon/brain)
+	mob_type_blacklist_typecache = list(/mob/living/captive_brain, /mob/living/carbon/brain, /mob/living/silicon/ai)
 
 /datum/emote/living/flip
 	key = "flip"
@@ -92,7 +92,7 @@
 	message = "twitches"
 
 /datum/emote/living/bow
-	key = "bows"
+	key = "bow"
 	key_third_person = "bows"
 	message = "bows"
 	message_param = "bows to %t"

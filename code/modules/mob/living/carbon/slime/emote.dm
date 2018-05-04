@@ -41,7 +41,7 @@
 /datum/emote/slime/mood/smile
 	key = "smile"
 	key_third_person = "smiles"
-	mood = "mischievous"
+	mood = "mischevous"
 
 /datum/emote/slime/mood/colon_three
 	key = ":3"
