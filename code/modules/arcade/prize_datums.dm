@@ -46,13 +46,13 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/crayons
 	name = "Box of Crayons"
 	desc = "A six-pack of crayons, just like back in kindergarten."
-	typepath = /obj/item/weapon/storage/fancy/crayons
+	typepath = /obj/item/storage/fancy/crayons
 	cost = 35
 
 /datum/prize_item/snappops
 	name = "Snap-Pops"
 	desc = "A box of exploding snap-pop fireworks."
-	typepath = /obj/item/weapon/storage/box/snappops
+	typepath = /obj/item/storage/box/snappops
 	cost = 20
 
 /datum/prize_item/spinningtoy
@@ -70,7 +70,7 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/dice
 	name = "Dice set"
 	desc = "A set of assorted dice."
-	typepath = /obj/item/weapon/storage/box/dice
+	typepath = /obj/item/storage/box/dice
 	cost = 20
 
 /datum/prize_item/cards
@@ -82,7 +82,7 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/wallet
 	name = "Colored Wallet"
 	desc = "Brightly colored and big enough for standard issue ID cards."
-	typepath = /obj/item/weapon/storage/wallet/color
+	typepath = /obj/item/storage/wallet/color
 	cost = 50
 
 /datum/prize_item/pet_rock
@@ -106,28 +106,28 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/id_sticker
 	name = "Prisoner ID Sticker"
 	desc = "A sticker that can make any ID look like a prisoner ID."
-	typepath = /obj/item/weapon/id_decal/prisoner
+	typepath = /obj/item/id_decal/prisoner
 	cost = 50
 
 /datum/prize_item/id_sticker/silver
 	name = "Silver ID Sticker"
 	desc = "A sticker that can make any ID look like a silver ID."
-	typepath = /obj/item/weapon/id_decal/silver
+	typepath = /obj/item/id_decal/silver
 
 /datum/prize_item/id_sticker/gold
 	name = "Gold ID Sticker"
 	desc = "A sticker that can make any ID look like a golden ID."
-	typepath = /obj/item/weapon/id_decal/gold
+	typepath = /obj/item/id_decal/gold
 
 /datum/prize_item/id_sticker/centcom
 	name = "Centcomm ID Sticker"
 	desc = "A sticker that can make any ID look like a Central Command ID."
-	typepath = /obj/item/weapon/id_decal/centcom
+	typepath = /obj/item/id_decal/centcom
 
 /datum/prize_item/id_sticker/emag
 	name = "Suspicious ID Sticker"
 	desc = "A sticker that can make any ID look like something suspicious..."
-	typepath = /obj/item/weapon/id_decal/emag
+	typepath = /obj/item/id_decal/emag
 
 /datum/prize_item/carp_plushie
 	name = "Random Carp Plushie"
@@ -174,7 +174,7 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/crossbow
 	name = "Foam Dart Crossbow"
 	desc = "A toy crossbow that fires foam darts."
-	typepath = /obj/item/weapon/gun/projectile/shotgun/toy/crossbow
+	typepath = /obj/item/gun/projectile/shotgun/toy/crossbow
 	cost = 100
 
 
@@ -187,25 +187,25 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/fakespell
 	name = "Fake Spellbook"
 	desc = "Perform magic! Astound your friends! Get mistaken for an enemy of the corporation!"
-	typepath = /obj/item/weapon/spellbook/oneuse/fake_gib
+	typepath = /obj/item/spellbook/oneuse/fake_gib
 	cost = 100
 
 /datum/prize_item/nanomob_booster
 	name = "Nano-Mob Hunter Trading Card Booster Pack"
 	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
-	typepath = /obj/item/weapon/storage/box/nanomob_booster_pack
+	typepath = /obj/item/storage/box/nanomob_booster_pack
 	cost = 100
 
 /datum/prize_item/capgun
 	name = "Capgun Revolver"
 	desc = "Do you feel lucky... punk?"
-	typepath = /obj/item/weapon/gun/projectile/revolver/capgun
+	typepath = /obj/item/gun/projectile/revolver/capgun
 	cost = 75
 
 /datum/prize_item/confetti
 	name = "Confetti Grenade"
 	desc = "Party time!"
-	typepath = /obj/item/weapon/grenade/confetti
+	typepath = /obj/item/grenade/confetti
 	cost = 65
 
 /datum/prize_item/magic_conch
@@ -259,7 +259,7 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/tommygun
 	name = "Tommygun"
 	desc = "A replica tommygun that fires foam darts."
-	typepath = /obj/item/weapon/gun/projectile/shotgun/toy/tommygun
+	typepath = /obj/item/gun/projectile/shotgun/toy/tommygun
 	cost = 175
 
 /datum/prize_item/esword
@@ -283,13 +283,13 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/chainsaw
 	name = "Toy Chainsaw"
 	desc = "A full-scale model chainsaw, based on that massacre in Space Texas."
-	typepath = /obj/item/weapon/twohanded/toy/chainsaw
+	typepath = /obj/item/twohanded/toy/chainsaw
 	cost = 200
 
 /datum/prize_item/spacesuit
 	name = "Fake Spacesuit"
 	desc = "A replica spacesuit. Not actually spaceworthy."
-	typepath = /obj/item/weapon/storage/box/fakesyndiesuit
+	typepath = /obj/item/storage/box/fakesyndiesuit
 	cost = 180
 
 /datum/prize_item/fakespace

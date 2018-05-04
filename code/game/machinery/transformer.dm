@@ -252,15 +252,15 @@
 		sleep(30)
 
 /obj/machinery/transformer/xray/proc/scan_rec(var/obj/item/I)
-	if(istype(I, /obj/item/weapon/gun))
+	if(istype(I, /obj/item/gun))
 		return TRUE
-	if(istype(I, /obj/item/device/transfer_valve))
+	if(istype(I, /obj/item/transfer_valve))
 		return TRUE
-	if(istype(I, /obj/item/weapon/kitchen/knife))
+	if(istype(I, /obj/item/kitchen/knife))
 		return TRUE
-	if(istype(I, /obj/item/weapon/grenade/plastic/c4))
+	if(istype(I, /obj/item/grenade/plastic/c4))
 		return TRUE
-	if(istype(I, /obj/item/weapon/melee))
+	if(istype(I, /obj/item/melee))
 		return TRUE
 	for(var/obj/item/C in I.contents)
 		if(scan_rec(C))
@@ -282,7 +282,7 @@
 
 	if(prestrip)
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/weapon/implant))
+			if(istype(I, /obj/item/implant))
 				continue
 			if(istype(I, /obj/item/organ))
 				continue
@@ -345,11 +345,11 @@
 	H.update_mutations()
 
 /obj/machinery/transformer/gene_applier/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/weapon/disk/data))
+	if(istype(W, /obj/item/disk/data))
 		if(locked)
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
 			return FALSE
-		var/obj/item/weapon/disk/data/D = W
+		var/obj/item/disk/data/D = W
 		if(!D.buf)
 			to_chat(user, "<span class='warning'>Error: No data found.</span>")
 			return FALSE

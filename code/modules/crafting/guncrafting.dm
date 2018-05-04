@@ -38,7 +38,7 @@
 
 /obj/item/weaponcrafting/ishotgunconstruction/attackby(var/obj/item/I, mob/user as mob, params)
 	..()
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(istype(I, /obj/item/screwdriver))
 		var/obj/item/weaponcrafting/ishotgunconstruction2/C = new /obj/item/weaponcrafting/ishotgunconstruction2
 		user.unEquip(src)
 		user.put_in_hands(C)
@@ -72,7 +72,7 @@
 	if(istype(I, /obj/item/stack/packageWrap))
 		var/obj/item/stack/packageWrap/C = I
 		if(C.use(5))
-			var/obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/weapon/gun/projectile/revolver/doublebarrel/improvised
+			var/obj/item/gun/projectile/revolver/doublebarrel/improvised/W = new /obj/item/gun/projectile/revolver/doublebarrel/improvised
 			user.unEquip(src)
 			user.put_in_hands(W)
 			to_chat(user, "<span class='notice'>You tie the wrapping paper around the stock and the barrel to secure it.</span>")

@@ -158,7 +158,7 @@ var/list/tape_roll_applications = list()
 	else
 		return 0
 
-/obj/item/tape/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/tape/attackby(obj/item/W as obj, mob/user as mob, params)
 	breaktape(W, user)
 
 /obj/item/tape/attack_hand(mob/user as mob)
@@ -168,12 +168,12 @@ var/list/tape_roll_applications = list()
 		spawn(200)
 			src.density = 1
 	else
-		breaktape(/obj/item/weapon/soap, user)//cant be null, and can't be sharp.
+		breaktape(/obj/item/soap, user)//cant be null, and can't be sharp.
 
 /obj/item/tape/attack_alien(mob/user as mob)
-	breaktape(/obj/item/weapon/wirecutters,user)
+	breaktape(/obj/item/wirecutters,user)
 
-/obj/item/tape/proc/breaktape(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/tape/proc/breaktape(obj/item/W as obj, mob/user as mob)
 	if(user.a_intent == INTENT_HELP && ((!is_pointed(W) && src.allowed(user))))
 		to_chat(user, "You can't break the [src] with that!")
 		return

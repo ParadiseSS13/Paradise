@@ -16,7 +16,7 @@
  */
 
 //  Generic non-item
-/obj/item/weapon/storage/bag
+/obj/item/storage/bag
 	allow_quick_gather = 1
 	allow_quick_empty = 1
 	display_contents_with_number = 1 // should work fine now
@@ -26,7 +26,7 @@
 // -----------------------------
 //          Trash bag
 // -----------------------------
-/obj/item/weapon/storage/bag/trash
+/obj/item/storage/bag/trash
 	name = "trash bag"
 	desc = "It's the heavy-duty black polymer kind. Time to take out the trash!"
 	icon = 'icons/obj/janitor.dmi'
@@ -37,14 +37,14 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	storage_slots = 30
 	can_hold = list() // any
-	cant_hold = list(/obj/item/weapon/disk/nuclear)
+	cant_hold = list(/obj/item/disk/nuclear)
 
-/obj/item/weapon/storage/bag/trash/suicide_act(mob/user)
+/obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts the [src.name] over their head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return (TOXLOSS)
 
-/obj/item/weapon/storage/bag/trash/update_icon()
+/obj/item/storage/bag/trash/update_icon()
 	if(contents.len == 0)
 		w_class = WEIGHT_CLASS_TINY
 		icon_state = "[initial(icon_state)]"
@@ -58,30 +58,30 @@
 		w_class = WEIGHT_CLASS_BULKY
 		icon_state = "[initial(icon_state)]3"
 
-/obj/item/weapon/storage/bag/trash/cyborg
+/obj/item/storage/bag/trash/cyborg
 
-/obj/item/weapon/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+/obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.mybag=src
 	J.update_icon()
 
-/obj/item/weapon/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+/obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return
 
-/obj/item/weapon/storage/bag/trash/bluespace
+/obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
 	desc = "The latest and greatest in custodial convenience, a trashbag that is capable of holding vast quantities of garbage."
 	icon_state = "bluetrashbag"
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
 	max_combined_w_class = 60
 	storage_slots = 60
-
+	flags_2 = NO_MAT_REDEMPTION_2
 
 // -----------------------------
 //        Plastic Bag
 // -----------------------------
 
-/obj/item/weapon/storage/bag/plasticbag
+/obj/item/storage/bag/plasticbag
 	name = "plastic bag"
 	desc = "It's a very flimsy, very noisy alternative to a bag."
 	icon = 'icons/obj/trash.dmi'
@@ -94,9 +94,9 @@
 	storage_slots = 7
 	display_contents_with_number = 0 //or else this will lead to stupid behavior.
 	can_hold = list() // any
-	cant_hold = list(/obj/item/weapon/disk/nuclear)
+	cant_hold = list(/obj/item/disk/nuclear)
 
-/obj/item/weapon/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
+/obj/item/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
 	if(slot==slot_head && contents.len)
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
@@ -104,13 +104,13 @@
 	return ..()
 
 
-/obj/item/weapon/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
+/obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
 	if(slot==slot_head)
 		storage_slots = 0
 		processing_objects.Add(src)
 	return
 
-/obj/item/weapon/storage/bag/plasticbag/process()
+/obj/item/storage/bag/plasticbag/process()
 	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
@@ -127,7 +127,7 @@
 //        Mining Satchel
 // -----------------------------
 
-/obj/item/weapon/storage/bag/ore
+/obj/item/storage/bag/ore
 	name = "mining satchel"
 	desc = "This little bugger can be used to store and transport ores."
 	icon = 'icons/obj/mining.dmi'
@@ -138,13 +138,13 @@
 	storage_slots = 50
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
-	can_hold = list(/obj/item/weapon/ore)
+	can_hold = list(/obj/item/ore)
 
-/obj/item/weapon/storage/bag/ore/cyborg
+/obj/item/storage/bag/ore/cyborg
 	name = "cyborg mining satchel"
 	flags = NODROP
 
-/obj/item/weapon/storage/bag/ore/holding //miners, your messiah has arrived
+/obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
 	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
 	storage_slots = INFINITY
@@ -152,7 +152,7 @@
 	origin_tech = "bluespace=4;materials=3;engineering=3"
 	icon_state = "satchel_bspace"
 
-/obj/item/weapon/storage/bag/ore/holding/cyborg
+/obj/item/storage/bag/ore/holding/cyborg
 	name = "cyborg mining satchel of holding"
 	flags = NODROP
 
@@ -160,7 +160,7 @@
 //          Plant bag
 // -----------------------------
 
-/obj/item/weapon/storage/bag/plants
+/obj/item/storage/bag/plants
 	name = "plant bag"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
@@ -168,16 +168,16 @@
 	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/weapon/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/weapon/grown,/obj/item/weapon/reagent_containers/food/snacks/ash_flora)
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/ash_flora)
 	burn_state = FLAMMABLE
 
-/obj/item/weapon/storage/bag/plants/portaseeder
+/obj/item/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
-/obj/item/weapon/storage/bag/plants/portaseeder/verb/dissolve_contents()
+/obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
 	set name = "Activate Seed Extraction"
 	set category = "Object"
 	set desc = "Activate to convert your plants into plantable seeds."
@@ -197,7 +197,7 @@
 // Because it stacks stacks, this doesn't operate normally.
 // However, making it a storage/bag allows us to reuse existing code in some places. -Sayu
 
-/obj/item/weapon/storage/bag/sheetsnatcher
+/obj/item/storage/bag/sheetsnatcher
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "sheetsnatcher"
 	name = "Sheet Snatcher"
@@ -209,8 +209,8 @@
 	allow_quick_empty = 1 // this function is superceded
 	New()
 		..()
-		//verbs -= /obj/item/weapon/storage/verb/quick_empty
-		//verbs += /obj/item/weapon/storage/bag/sheetsnatcher/quick_empty
+		//verbs -= /obj/item/storage/verb/quick_empty
+		//verbs += /obj/item/storage/bag/sheetsnatcher/quick_empty
 
 	can_be_inserted(obj/item/W as obj, stop_messages = 0)
 		if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
@@ -328,7 +328,7 @@
 //    Sheet Snatcher (Cyborg)
 // -----------------------------
 
-/obj/item/weapon/storage/bag/sheetsnatcher/borg
+/obj/item/storage/bag/sheetsnatcher/borg
 	name = "Sheet Snatcher 9000"
 	desc = ""
 	capacity = 500//Borgs get more because >specialization
@@ -338,7 +338,7 @@
 //           Cash Bag
 // -----------------------------
 
-/obj/item/weapon/storage/bag/cash
+/obj/item/storage/bag/cash
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cashbag"
 	name = "Cash bag"
@@ -347,13 +347,13 @@
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * cash.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/weapon/coin,/obj/item/stack/spacecash)
+	can_hold = list(/obj/item/coin,/obj/item/stack/spacecash)
 
 // -----------------------------
 //           Book bag
 // -----------------------------
 
-/obj/item/weapon/storage/bag/books
+/obj/item/storage/bag/books
 	name = "book bag"
 	desc = "A bag for books."
 	icon = 'icons/obj/library.dmi'
@@ -363,13 +363,13 @@
 	max_combined_w_class = 21
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
-	can_hold = list(/obj/item/weapon/book, /obj/item/weapon/storage/bible, /obj/item/weapon/tome, /obj/item/weapon/spellbook)
+	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
 	burn_state = FLAMMABLE
 
 /*
  * Trays - Agouri
  */
-/obj/item/weapon/storage/bag/tray
+/obj/item/storage/bag/tray
 	name = "tray"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "tray"
@@ -382,7 +382,7 @@
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
-/obj/item/weapon/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/storage/bag/tray/attack(mob/living/M as mob, mob/living/user as mob)
 	..()
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
@@ -405,22 +405,22 @@
 		if(prob(10))
 			M.Weaken(2)
 
-/obj/item/weapon/storage/bag/tray/proc/rebuild_overlays()
+/obj/item/storage/bag/tray/proc/rebuild_overlays()
 	overlays.Cut()
 	for(var/obj/item/I in contents)
 		overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 
-/obj/item/weapon/storage/bag/tray/remove_from_storage(obj/item/W as obj, atom/new_location)
+/obj/item/storage/bag/tray/remove_from_storage(obj/item/W as obj, atom/new_location)
 	..()
 	rebuild_overlays()
 
-/obj/item/weapon/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
+/obj/item/storage/bag/tray/handle_item_insertion(obj/item/I, prevent_warning = 0)
 	overlays += image("icon" = I.icon, "icon_state" = I.icon_state, "layer" = -1)
 	..()
 
-/obj/item/weapon/storage/bag/tray/cyborg
+/obj/item/storage/bag/tray/cyborg
 
-/obj/item/weapon/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
+/obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
 	if( isturf(target) || istype(target,/obj/structure/table) )
 		var foundtable = istype(target,/obj/structure/table/)
 		if( !foundtable ) //it must be a turf!
@@ -464,7 +464,7 @@
  *	Chemistry bag
  */
 
-/obj/item/weapon/storage/bag/chemistry
+/obj/item/storage/bag/chemistry
 	name = "chemistry bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bag"
@@ -472,13 +472,13 @@
 	storage_slots = 50
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/weapon/reagent_containers/food/pill,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/glass/bottle)
+	can_hold = list(/obj/item/reagent_containers/food/pill,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle)
 	burn_state = FLAMMABLE
 /*
  *  Biowaste bag (mostly for xenobiologists)
  */
 
-/obj/item/weapon/storage/bag/bio
+/obj/item/storage/bag/bio
 	name = "bio bag"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "biobag"
@@ -486,5 +486,5 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/slime_extract,/obj/item/weapon/reagent_containers/food/snacks/monkeycube,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/glass/bottle,/obj/item/weapon/reagent_containers/blood,/obj/item/weapon/reagent_containers/hypospray/autoinjector)
+	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/blood,/obj/item/reagent_containers/hypospray/autoinjector)
 	burn_state = FLAMMABLE

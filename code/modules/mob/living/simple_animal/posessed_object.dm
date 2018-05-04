@@ -118,8 +118,8 @@
 
 
 /mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
-	if(istype(possessed_item, /obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/possessed_id = possessed_item
+	if(istype(possessed_item, /obj/item/card/id))
+		var/obj/item/card/id/possessed_id = possessed_item
 		. = possessed_id.access
 
 

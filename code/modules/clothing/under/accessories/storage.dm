@@ -5,13 +5,13 @@
 	item_color = "webbing"
 	slot = "utility"
 	var/slots = 3
-	var/obj/item/weapon/storage/internal/hold
+	var/obj/item/storage/internal/hold
 	actions_types = list(/datum/action/item_action/accessory/storage)
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
 /obj/item/clothing/accessory/storage/New()
 	..()
-	hold = new/obj/item/weapon/storage/internal(src)
+	hold = new/obj/item/storage/internal(src)
 	hold.storage_slots = slots
 
 /obj/item/clothing/accessory/storage/Destroy()
@@ -54,11 +54,11 @@
 
 	L += src.contents
 
-	for(var/obj/item/weapon/storage/S in src)
+	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
-	for(var/obj/item/weapon/gift/G in src)
+	for(var/obj/item/gift/G in src)
 		L += G.gift
-		if(istype(G.gift, /obj/item/weapon/storage))
+		if(istype(G.gift, /obj/item/storage))
 			L += G.gift:return_inv()
 	return L
 
@@ -107,7 +107,7 @@
 /obj/item/clothing/accessory/storage/knifeharness/New()
 	..()
 	hold.max_combined_w_class = 4
-	hold.can_hold = list(/obj/item/weapon/hatchet/unathiknife, /obj/item/weapon/kitchen/knife)
+	hold.can_hold = list(/obj/item/hatchet/unathiknife, /obj/item/kitchen/knife)
 
-	new /obj/item/weapon/hatchet/unathiknife(hold)
-	new /obj/item/weapon/hatchet/unathiknife(hold)
+	new /obj/item/hatchet/unathiknife(hold)
+	new /obj/item/hatchet/unathiknife(hold)

@@ -251,7 +251,7 @@
 			var/TC_uses = 0
 			var/uplink_true = 0
 			var/purchases = ""
-			for(var/obj/item/device/uplink/H in world_uplinks)
+			for(var/obj/item/uplink/H in world_uplinks)
 				if(H && H.uplink_owner && H.uplink_owner==traitor.key)
 					TC_uses += H.used_TC
 					uplink_true=1
@@ -301,17 +301,17 @@
 			traitor_mob.mutations.Remove(CLUMSY)
 
 	// find a radio! toolbox(es), backpack, belt, headset
-	var/obj/item/R = locate(/obj/item/device/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
+	var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
 	if(!R)
-		R = locate(/obj/item/device/radio) in traitor_mob.contents
+		R = locate(/obj/item/radio) in traitor_mob.contents
 
 	if(!R)
 		to_chat(traitor_mob, "Unfortunately, the Syndicate wasn't able to get you a radio.")
 		. = 0
 	else
-		if(istype(R, /obj/item/device/radio))
+		if(istype(R, /obj/item/radio))
 			// generate list of radio freqs
-			var/obj/item/device/radio/target_radio = R
+			var/obj/item/radio/target_radio = R
 			var/freq = PUBLIC_LOW_FREQ
 			var/list/freqlist = list()
 			while(freq <= PUBLIC_HIGH_FREQ)
@@ -322,20 +322,20 @@
 					freq += 1
 			freq = freqlist[rand(1, freqlist.len)]
 
-			var/obj/item/device/uplink/hidden/T = new(R)
+			var/obj/item/uplink/hidden/T = new(R)
 			target_radio.hidden_uplink = T
 			T.uplink_owner = "[traitor_mob.key]"
 			target_radio.traitor_frequency = freq
 			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
 			traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [T.loc]).")
-		else if(istype(R, /obj/item/device/pda))
+		else if(istype(R, /obj/item/pda))
 			// generate a passcode if the uplink is hidden in a PDA
 			var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
 
-			var/obj/item/device/uplink/hidden/T = new(R)
+			var/obj/item/uplink/hidden/T = new(R)
 			R.hidden_uplink = T
 			T.uplink_owner = "[traitor_mob.key]"
-			var/obj/item/device/pda/P = R
+			var/obj/item/pda/P = R
 			P.lock_code = pda_pass
 
 			to_chat(traitor_mob, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
@@ -423,11 +423,11 @@
 	//Spawn and equip documents
 	var/mob/living/carbon/human/mob = owner.current
 
-	var/obj/item/weapon/folder/syndicate/folder
+	var/obj/item/folder/syndicate/folder
 	if(owner == exchange_red)
-		folder = new/obj/item/weapon/folder/syndicate/red(mob.locs)
+		folder = new/obj/item/folder/syndicate/red(mob.locs)
 	else
-		folder = new/obj/item/weapon/folder/syndicate/blue(mob.locs)
+		folder = new/obj/item/folder/syndicate/blue(mob.locs)
 
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,

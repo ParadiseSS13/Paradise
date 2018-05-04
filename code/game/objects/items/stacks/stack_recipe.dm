@@ -29,7 +29,7 @@
 
 /datum/stack_recipe/cable_restraints
 /datum/stack_recipe/cable_restraints/post_build(var/obj/item/stack/S, var/obj/result)
-	if(istype(result, /obj/item/weapon/restraints/handcuffs/cable))
+	if(istype(result, /obj/item/restraints/handcuffs/cable))
 		result.color = S.color
 	..()
 

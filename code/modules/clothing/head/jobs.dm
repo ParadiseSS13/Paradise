@@ -73,7 +73,7 @@
 	name = "hat"
 	desc = "Someone who wears this will look very smart."
 	icon_state = "detective"
-	allowed = list(/obj/item/weapon/reagent_containers/food/snacks/candy/candy_corn, /obj/item/weapon/pen)
+	allowed = list(/obj/item/reagent_containers/food/snacks/candy/candy_corn, /obj/item/pen)
 	armor = list(melee = 25, bullet = 5, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
 
 //Mime

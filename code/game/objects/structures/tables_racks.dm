@@ -165,7 +165,7 @@
 
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
 	..()
-	if((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
+	if((!( istype(O, /obj/item) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
@@ -177,7 +177,7 @@
 
 /obj/structure/table/proc/tablepush(obj/item/I, mob/user)
 	if(get_dist(src, user) < 2)
-		var/obj/item/weapon/grab/G = I
+		var/obj/item/grab/G = I
 		if(G.affecting.buckled)
 			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
 			return 0
@@ -190,13 +190,13 @@
 		G.affecting.Weaken(2)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
-		add_logs(G.assailant, G.affecting, "pushed onto a table")
+		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
 		qdel(I)
 		return 1
 	qdel(I)
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/grab))
+	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
 		return
 	if(can_deconstruct)
@@ -361,7 +361,7 @@
 /obj/structure/table/glass/New()
 	. = ..()
 	debris += new frame
-	debris += new /obj/item/weapon/shard
+	debris += new /obj/item/shard
 
 /obj/structure/table/glass/Destroy()
 	for(var/i in debris)
@@ -376,7 +376,7 @@
 		return
 	// Don't break if they're just flying past
 	if(AM.throwing)
-		addtimer(src, "throw_check", 5, FALSE, AM)
+		addtimer(CALLBACK(src, .proc/throw_check, AM), 5)
 	else
 		check_break(AM)
 
@@ -400,7 +400,7 @@
 		var/atom/movable/AM = I
 		AM.forceMove(T)
 		debris -= AM
-		if(istype(AM, /obj/item/weapon/shard))
+		if(istype(AM, /obj/item/shard))
 			AM.throw_impact(L)
 	L.Weaken(5)
 	qdel(src)
@@ -421,7 +421,7 @@
 
 /obj/structure/table/glass/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
-	for(var/obj/item/weapon/shard/S in debris)
+	for(var/obj/item/shard/S in debris)
 		S.color = NARSIE_WINDOW_COLOUR
 
 /*
@@ -507,9 +507,9 @@
 	else
 		return ..()
 
-/obj/structure/table/reinforced/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/table/reinforced/attackby(obj/item/W, mob/user, params)
 	if(iswelder(W))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			playsound(loc, W.usesound, 50, 1)
 			if(deconstruction_ready)
@@ -589,7 +589,7 @@
 		. = . || mover.checkpass(PASSTABLE)
 
 /obj/structure/rack/MouseDrop_T(obj/O, mob/user)
-	if((!( istype(O, /obj/item/weapon) ) || user.get_active_hand() != O))
+	if((!( istype(O, /obj/item) ) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
@@ -598,7 +598,7 @@
 	if(O.loc != src.loc)
 		step(O, get_dir(O, src))
 
-/obj/structure/rack/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/rack/attackby(obj/item/W, mob/user, params)
 	if(iswrench(W) && can_deconstruct)
 		playsound(loc, W.usesound, 50, 1)
 		deconstruct(TRUE)
@@ -650,7 +650,7 @@
 /obj/structure/rack/deconstruct(disassembled = TRUE)
 	if(can_deconstruct)
 		density = FALSE
-		var/obj/item/weapon/rack_parts/newparts = new(loc)
+		var/obj/item/rack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
 	qdel(src)
 
@@ -658,7 +658,7 @@
  * Rack Parts
  */
 
-/obj/item/weapon/rack_parts
+/obj/item/rack_parts
 	name = "rack parts"
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items.dmi'
@@ -667,14 +667,14 @@
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE
 
-/obj/item/weapon/rack_parts/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/rack_parts/attackby(obj/item/W, mob/user, params)
 	if(iswrench(W))
 		new /obj/item/stack/sheet/metal(user.loc)
 		qdel(src)
 	else
 		. = ..()
 
-/obj/item/weapon/rack_parts/attack_self(mob/user)
+/obj/item/rack_parts/attack_self(mob/user)
 	if(building)
 		return
 	building = TRUE

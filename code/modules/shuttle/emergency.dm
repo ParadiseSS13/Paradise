@@ -6,10 +6,10 @@
 	var/auth_need = 3
 	var/list/authorized = list()
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/weapon/card/W, mob/user, params)
+/obj/machinery/computer/emergency_shuttle/attackby(obj/item/card/W, mob/user, params)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	if(!istype(W, /obj/item/weapon/card))
+	if(!istype(W, /obj/item/card))
 		return
 	if(shuttle_master.emergency.mode != SHUTTLE_DOCKED)
 		return
@@ -17,9 +17,9 @@
 		return
 	if(shuttle_master.emergency.timeLeft() < 11)
 		return
-	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
-		if(istype(W, /obj/item/device/pda))
-			var/obj/item/device/pda/pda = W
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
+		if(istype(W, /obj/item/pda))
+			var/obj/item/pda/pda = W
 			W = pda.id
 		if(!W:access) //no access
 			to_chat(user, "The access level of [W:registered_name]\'s card is not high enough. ")

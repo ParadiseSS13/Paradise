@@ -1,4 +1,4 @@
-/obj/item/weapon/staff/storm
+/obj/item/staff/storm
 	name = "staff of storms"
 	desc = "An ancient staff retrieved from the remains of Legion. The wind stirs as you move it."
 	icon_state = "staffofstorms"
@@ -13,7 +13,7 @@
 	var/storm_type = /datum/weather/ash_storm
 	var/storm_cooldown = 0
 
-/obj/item/weapon/staff/storm/attack_self(mob/user)
+/obj/item/staff/storm/attack_self(mob/user)
 	if(storm_cooldown > world.time)
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return

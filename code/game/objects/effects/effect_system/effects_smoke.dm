@@ -39,7 +39,7 @@
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
 	processing_objects.Remove(src)
-	addtimer(src, "fade_out", 0)
+	INVOKE_ASYNC(src, .proc/fade_out)
 	QDEL_IN(src, 10)
 
 /obj/effect/particle_effect/smoke/process()
@@ -67,7 +67,7 @@
 	if(C.smoke_delay)
 		return FALSE
 	C.smoke_delay++
-	addtimer(src, "remove_smoke_delay", 10, FALSE, C)
+	addtimer(CALLBACK(src, .proc/remove_smoke_delay, C), 10)
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)

@@ -56,32 +56,27 @@
 			to_chat(C, "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>")
 			to_chat(C, "<span class='danger'>It feels like part of you has died.</span>")
 
-/datum/species/wryn/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(M.a_intent == INTENT_HARM)
-		if(H.handcuffed)
-			if(!H.get_int_organ(/obj/item/organ/internal/wryn/hivenode))	return
-			var/turf/p_loc = M.loc
-			var/turf/p_loc_m = H.loc
+/datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(target.handcuffed && target.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 
-			M.visible_message("<span class='notice'>[M] begins to violently pull off [H]'s antennae.</span>")
-			to_chat(H, "<span class='danger'><B>[M] grips your antennae and starts violently pulling!<B></span>")
-			if(do_after(H, 250, target = src))
-				if(p_loc == M.loc && p_loc_m == H.loc)
-					var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
-					H.remove_language("Wryn Hivemind")
-					node.remove(H)
-					node.loc = M.loc
-					to_chat(M, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [H]'s antennae.</span>")
-					to_chat(H, "<span class='danger'>You hear a loud crunch as your antennae is ripped off your head by [M].</span>")
-					to_chat(H, "<span class='danger'><span class='danger'><B>It's so quiet...</B></span>")
-					head_organ.h_style = "Bald"
-					H.update_hair()
+		user.visible_message("<span class='notice'>[user] begins to violently pull off [target]'s antennae.</span>")
+		to_chat(target, "<span class='danger'><B>[user] grips your antennae and starts violently pulling!<B></span>")
+		if(do_mob(user, target, 250))
+			var/obj/item/organ/internal/wryn/hivenode/node = new /obj/item/organ/internal/wryn/hivenode
+			target.remove_language("Wryn Hivemind")
+			node.remove(target)
+			node.forceMove(user.loc)
+			to_chat(user, "<span class='notice'>You hear a loud crunch as you mercilessly pull off [target]'s antennae.</span>")
+			to_chat(target, "<span class='danger'>You hear a loud crunch as your antennae is ripped off your head by [user].</span>")
+			to_chat(target, "<span class='danger'><B>It's so quiet...</B></span>")
+			var/obj/item/organ/external/head/head_organ = target.get_organ("head")
+			head_organ.h_style = "Bald"
+			target.update_hair()
 
-					M.create_attack_log("<font color='red'>removed antennae [H.name] ([H.ckey])</font>")
-					H.create_attack_log("<font color='orange'>Has had their antennae removed by [M.name] ([M.ckey])</font>")
-					msg_admin_attack("[key_name(M)] removed [key_name(H)]'s antennae")
-			return 0
+			add_attack_logs(user, target, "Antennae removed")
+		return 0
+	else
+		..()
 
 /datum/species/nucleation
 	name = "Nucleation"
@@ -123,5 +118,5 @@
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
-//	new /obj/item/weapon/shard/supermatter( T )
+//	new /obj/item/shard/supermatter( T )
 	qdel(H)

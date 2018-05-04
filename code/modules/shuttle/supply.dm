@@ -3,7 +3,7 @@
 #define SUPPLY_SCREEN_WIDTH 625 //width of supply computer interaction window
 #define SUPPLY_SCREEN_HEIGHT 620 //height of supply computer interaction window
 
-/obj/item/weapon/paper/manifest
+/obj/item/paper/manifest
 	name = "supply manifest"
 	var/erroneous = 0
 	var/points = 0
@@ -118,14 +118,14 @@
 			for(var/thing in MA)
 				// Sell manifests
 				shuttle_master.sold_atoms += " [thing:name]"
-				if(find_slip && istype(thing,/obj/item/weapon/paper/manifest))
-					var/obj/item/weapon/paper/manifest/slip = thing
+				if(find_slip && istype(thing,/obj/item/paper/manifest))
+					var/obj/item/paper/manifest/slip = thing
 					// TODO: Check for a signature, too.
 					if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 						// Did they mark it as erroneous?
 						var/denied = 0
 						for(var/i=1,i<=slip.stamped.len,i++)
-							if(slip.stamped[i] == /obj/item/weapon/stamp/denied)
+							if(slip.stamped[i] == /obj/item/stamp/denied)
 								denied = 1
 						if(slip.erroneous && denied) // Caught a mistake by Centcom (IDEA: maybe Centcom rarely gets offended by this)
 							pointsEarned = slip.points - shuttle_master.points_per_crate
@@ -168,8 +168,8 @@
 					++intel_count
 
 				// Sell tech levels
-				if(istype(thing, /obj/item/weapon/disk/tech_disk))
-					var/obj/item/weapon/disk/tech_disk/disk = thing
+				if(istype(thing, /obj/item/disk/tech_disk))
+					var/obj/item/disk/tech_disk/disk = thing
 					if(!disk.stored) continue
 					var/datum/tech/tech = disk.stored
 
@@ -184,8 +184,8 @@
 						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
 
 				// Sell designs
-				if(istype(thing, /obj/item/weapon/disk/design_disk))
-					var/obj/item/weapon/disk/design_disk/disk = thing
+				if(istype(thing, /obj/item/disk/design_disk))
+					var/obj/item/disk/design_disk/disk = thing
 					if(!disk.blueprint)
 						continue
 					var/datum/design/design = disk.blueprint
@@ -237,9 +237,9 @@
 		/mob/living,
 		/obj/structure/blob,
 		/obj/structure/spider/spiderling,
-		/obj/item/weapon/disk/nuclear,
+		/obj/item/disk/nuclear,
 		/obj/machinery/nuclearbomb,
-		/obj/item/device/radio/beacon,
+		/obj/item/radio/beacon,
 		/obj/machinery/the_singularitygen,
 		/obj/singularity,
 		/obj/machinery/teleport/station,
@@ -248,7 +248,7 @@
 		/obj/machinery/telepad_cargo,
 		/obj/machinery/clonepod,
 		/obj/effect/hierophant,
-		/obj/item/device/warp_cube,
+		/obj/item/warp_cube,
 		/obj/machinery/quantumpad
 	)
 	if(A)
@@ -294,7 +294,7 @@
 	if(!object)
 		return
 
-	var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(_loc)
+	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
 	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
@@ -325,7 +325,7 @@
 		Crate:req_access = list(text2num(object.access))
 
 	//create the manifest slip
-	var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest()
+	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
 	slip.erroneous = errors
 	slip.points = object.cost
 	slip.ordernumber = ordernum
@@ -403,7 +403,7 @@
 	desc = "Used to order supplies."
 	icon_screen = "supply"
 	req_access = list(access_cargo)
-	circuit = /obj/item/weapon/circuitboard/supplycomp
+	circuit = /obj/item/circuitboard/supplycomp
 	var/temp = null
 	var/reqtime = 0
 	var/hacked = 0
@@ -416,7 +416,7 @@
 	desc = "Used to order supplies from cargo staff."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "request"
-	circuit = /obj/item/weapon/circuitboard/ordercomp
+	circuit = /obj/item/circuitboard/ordercomp
 	var/reqtime = 0
 	var/last_viewed_group = "categories"
 	var/datum/supply_packs/content_pack
@@ -428,7 +428,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/ordercomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
 		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
 		ui.open()
@@ -462,7 +462,7 @@
 		var/datum/supply_order/SO = set_name
 		if(SO)
 			// Check if the user owns the request, so they can cancel requests
-			var/obj/item/weapon/card/id/I = user.get_id_card()
+			var/obj/item/card/id/I = user.get_id_card()
 			var/owned = 0
 			if(I && SO.orderedby == I.registered_name)
 				owned = 1
@@ -492,7 +492,7 @@
 	if(href_list["doorder"])
 		if(world.time < reqtime)
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return 1
 
 		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
@@ -535,7 +535,7 @@
 
 	else if(href_list["rreq"])
 		var/ordernum = text2num(href_list["rreq"])
-		var/obj/item/weapon/card/id/I = usr.get_id_card()
+		var/obj/item/card/id/I = usr.get_id_card()
 		for(var/i=1, i<=shuttle_master.requestlist.len, i++)
 			var/datum/supply_order/SO = shuttle_master.requestlist[i]
 			if(SO.ordernum == ordernum && (I && SO.orderedby == I.registered_name))
@@ -555,7 +555,7 @@
 			content_pack = P
 
 	add_fingerprint(usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
@@ -577,7 +577,7 @@
 		return
 
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
 		ui.open()
@@ -673,7 +673,7 @@
 	else if(href_list["doorder"])
 		if(world.time < reqtime)
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return 1
 
 		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
@@ -754,7 +754,7 @@
 			content_pack = P
 
 	add_fingerprint(usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/computer/supplycomp/proc/post_signal(var/command)

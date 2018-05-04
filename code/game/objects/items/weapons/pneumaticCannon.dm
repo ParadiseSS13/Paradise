@@ -1,4 +1,4 @@
-/obj/item/weapon/pneumatic_cannon
+/obj/item/pneumatic_cannon
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
 	w_class = WEIGHT_CLASS_BULKY
@@ -11,17 +11,17 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
-	var/obj/item/weapon/tank/tank = null //The gas tank that is drawn from to fire things
+	var/obj/item/tank/tank = null //The gas tank that is drawn from to fire things
 	var/gasPerThrow = 3 //How much gas is drawn from a tank's pressure to fire
 	var/list/loadedItems = list() //The items loaded into the cannon that will be fired out
 	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
 
-/obj/item/weapon/pneumatic_cannon/Destroy()
+/obj/item/pneumatic_cannon/Destroy()
 	QDEL_NULL(tank)
 	QDEL_LIST(loadedItems)
 	return ..()
 
-/obj/item/weapon/pneumatic_cannon/examine(mob/user)
+/obj/item/pneumatic_cannon/examine(mob/user)
 	..()
 	if(!in_range(user, src))
 		to_chat(user, "<span class='notice'>You'll need to get closer to see any more.</span>")
@@ -33,10 +33,10 @@
 		to_chat(user, "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>")
 
 
-/obj/item/weapon/pneumatic_cannon/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weapon/tank/) && !tank)
-		if(istype(W, /obj/item/weapon/tank/emergency_oxygen))
+	if(istype(W, /obj/item/tank/) && !tank)
+		if(istype(W, /obj/item/tank/emergency_oxygen))
 			to_chat(user, "<span class='warning'>\The [W] is too small for \the [src].</span>")
 			return
 		updateTank(W, 0, user)
@@ -44,7 +44,7 @@
 	if(W.type == type)
 		to_chat(user, "<span class='warning'>You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption.</span>")
 		return
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		switch(pressureSetting)
 			if(1)
 				pressureSetting = 2
@@ -54,7 +54,7 @@
 				pressureSetting = 1
 		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
 		return
-	if(istype(W, /obj/item/weapon/screwdriver) && tank)
+	if(istype(W, /obj/item/screwdriver) && tank)
 		updateTank(tank, 1, user)
 		return
 	if(loadedWeightClass >= maxWeightClass)
@@ -77,8 +77,8 @@
 		return
 
 
-/obj/item/weapon/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
-	if(istype(target, /obj/item/weapon/storage)) //So you can store it in backpacks
+/obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
+	if(istype(target, /obj/item/storage)) //So you can store it in backpacks
 		return ..()
 	if(istype(target, /obj/structure/closet)) //So you can store it in closets
 		return ..()
@@ -89,7 +89,7 @@
 	Fire(user, target)
 
 
-/obj/item/weapon/pneumatic_cannon/proc/Fire(var/mob/living/carbon/human/user, var/atom/target)
+/obj/item/pneumatic_cannon/proc/Fire(var/mob/living/carbon/human/user, var/atom/target)
 	if(!istype(user) && !target)
 		return
 	var/discharge = 0
@@ -114,7 +114,7 @@
 	if(!discharge)
 		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
 				    		 "<span class='danger'>You fire \the [src]!</span>")
-	add_logs(user, target, "fired at", src)
+	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge
 		spawn(0)
@@ -128,7 +128,7 @@
 		user.Weaken(3)
 
 
-/obj/item/weapon/pneumatic_cannon/ghetto //Obtainable by improvised methods; more gas per use, less capacity, but smaller
+/obj/item/pneumatic_cannon/ghetto //Obtainable by improvised methods; more gas per use, less capacity, but smaller
 	name = "improvised pneumatic cannon"
 	desc = "A gas-powered, object-firing cannon made out of common parts."
 	force = 5
@@ -138,16 +138,16 @@
 
 /datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
 	name = "Pneumatic Cannon"
-	result = /obj/item/weapon/pneumatic_cannon/ghetto
-	tools = list(/obj/item/weapon/weldingtool,
-				 /obj/item/weapon/wrench)
+	result = /obj/item/pneumatic_cannon/ghetto
+	tools = list(/obj/item/weldingtool,
+				 /obj/item/wrench)
 	reqs = list(/obj/item/stack/sheet/metal = 4,
 				/obj/item/stack/packageWrap = 8,
 				/obj/item/pipe = 2)
 	time = 300
 	category = CAT_WEAPON
 
-/obj/item/weapon/pneumatic_cannon/proc/updateTank(obj/item/weapon/tank/thetank, removing = 0, mob/living/carbon/human/user)
+/obj/item/pneumatic_cannon/proc/updateTank(obj/item/tank/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)
 		if(!src.tank)
 			return
@@ -166,7 +166,7 @@
 		thetank.loc = src
 	src.update_icons()
 
-/obj/item/weapon/pneumatic_cannon/proc/update_icons()
+/obj/item/pneumatic_cannon/proc/update_icons()
 	src.overlays.Cut()
 	if(!tank)
 		return

@@ -24,8 +24,8 @@
 
 /obj/singularity/narsie/large/New()
 	..()
-	icon_state = ticker.mode.cultdat.entity_icon_state
-	name = ticker.mode.cultdat.entity_name
+	icon_state = ticker.cultdat.entity_icon_state
+	name = ticker.cultdat.entity_name
 	to_chat(world, "<font size='15' color='red'><b> [name] HAS RISEN</b></font>")
 	world << pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg'))
 
@@ -126,12 +126,12 @@
 /obj/singularity/narsie/proc/acquire(var/mob/food)
 	if(food == target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(ticker.mode.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, "<span class='cultlarge'>[uppertext(ticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
 	target = food
 	if(ishuman(target))
-		to_chat(target, "<span class ='cultlarge'>[uppertext(ticker.mode.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(ticker.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")
 	else
-		to_chat(target, "<span class ='cultlarge'>[uppertext(ticker.mode.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(ticker.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
 
 //Wizard narsie
 /obj/singularity/narsie/wizard
