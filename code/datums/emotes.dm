@@ -23,6 +23,7 @@
 		"mob"=init_subtypes(/datum/emote/mob),
 		"living"=init_subtypes(/datum/emote/living),
 		"carbon"=init_subtypes(/datum/emote/carbon),
+		"slime"=init_subtypes(/datum/emote/slime),
 		"alien"=init_subtypes(/datum/emote/alien),
 		"simple_animal"=init_subtypes(/datum/emote/simple_animal),
 		"human"=init_subtypes(/datum/emote/human),

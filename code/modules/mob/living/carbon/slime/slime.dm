@@ -49,6 +49,7 @@
 	var/colour = "grey"
 	var/coretype = /obj/item/slime_extract/grey
 	var/list/slime_mutation[4]
+	emote_types = list("slime", "living", "mob")
 
 /mob/living/carbon/slime/New()
 	create_reagents(100)

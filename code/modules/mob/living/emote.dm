@@ -109,15 +109,37 @@
 	key_third_person = "flaps"
 	message = "flaps their wings"
 	restraint_check = TRUE
+	mob_type_blacklist_typecache = list(/mob/living/captive_brain, /mob/living/carbon/brain, /mob/living/carbon/alien/larva, /mob/living/carbon/slime)
 
 /datum/emote/living/aflap
 	key = "aflap"
 	key_third_person = "aflaps"
 	message = "flaps their wings ANGRILY"
 	restraint_check = TRUE
+	mob_type_blacklist_typecache = list(/mob/living/captive_brain, /mob/living/carbon/brain, /mob/living/carbon/alien/larva, /mob/living/carbon/slime)
 
 /datum/emote/living/roll
 	key = "roll"
 	key_third_person = "rolls"
 	message = "rolls"
 	restraint_check = TRUE
+
+/datum/emote/living/sway
+	key = "sway"
+	key_third_person = "sways"
+	message = "sways around dizzily"
+
+/datum/emote/living/shiver
+	key = "shiver"
+	key_third_person = "shivers"
+	message = "shivers"
+
+/datum/emote/living/quiver
+	key = "quiver"
+	key_third_person = "quivers"
+	message = "quivers"
+
+/datum/emote/living/tremble
+	key = "tremble"
+	key_third_person = "trembles"
+	message = "trembles"

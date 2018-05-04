@@ -61,6 +61,8 @@
 	if(user.client && user.client.prefs.muted & MUTE_IC)
 		to_chat(user, "You cannot send IC messages (muted).")
 		return FALSE
+	if(user.client && user.client.handle_spam_prevention(params, MUTE_IC))
+		return FALSE
 
 	if(!params)
 		var/custom_emote = copytext(sanitize(input("Choose an emote to display.") as text|null), 1, MAX_MESSAGE_LEN)

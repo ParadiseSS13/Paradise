@@ -19,21 +19,6 @@
 	message = "scratches"
 	restraint_check = TRUE
 
-/datum/emote/carbon/shiver
-	key = "shiver"
-	key_third_person = "shivers"
-	message = "shivers"
-
-/datum/emote/carbon/quiver
-	key = "quiver"
-	key_third_person = "quivers"
-	message = "quivers"
-
-/datum/emote/carbon/tremble
-	key = "tremble"
-	key_third_person = "trembles"
-	message = "trembles"
-
 /datum/emote/carbon/drool
 	key = "drool"
 	key_third_person = "drools"
@@ -53,11 +38,7 @@
 	key = "sit"
 	key_third_person = "sits"
 	message = "sits down"
-
-/datum/emote/carbon/sway
-	key = "sway"
-	key_third_person = "sways"
-	message = "sways around dizzily"
+	mob_type_blacklist_typecache = list(/mob/living/carbon/alien/larva)
 
 /datum/emote/carbon/sulk
 	key = "sulk"
