@@ -1250,7 +1250,8 @@
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
-		new/mob/living/carbon/human(get_turf(src), monkey_type)
+		var/mob/living/carbon/human/H = new /mob/living/carbon/human(get_turf(src))
+		H.set_species(monkey_type)
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
