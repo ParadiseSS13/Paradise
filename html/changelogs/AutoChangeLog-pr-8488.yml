@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "DeathSquad is now better equipped, and prompts eligible ghosts with a \"Do you want to play as DeathSquad?\" when called."
+  - rscadd: "DeathSquad members (except team leaders) can now choose to spawn as either an organic DS member, or a DS borg."
