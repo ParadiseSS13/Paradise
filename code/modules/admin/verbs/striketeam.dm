@@ -179,9 +179,6 @@ var/global/sent_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver/mateba(src), slot_belt)
 	equip_to_slot_or_del(new /obj/item/gun/energy/pulse(src), slot_r_hand)
 
-	var/obj/item/organ/internal/cyberimp/brain/anti_drop/O = new /obj/item/organ/internal/cyberimp/brain/anti_drop()
-	O.insert(src)
-
 	var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(src)
 	L.implant(src)
 
