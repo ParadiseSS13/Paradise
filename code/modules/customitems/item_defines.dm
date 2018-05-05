@@ -1360,6 +1360,8 @@
 	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "borisshotgun"  //EL ICONO DE BACK.DMI Y EL DE HISPANIA_CUSTOM_ITEMS.DMI DEBE TENER EL MISMO NOMBRE
 	item_state = "borisshotgun"
+	lefthand_file = 'icons/mob/inhands/hcustom_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/hcustom_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags = CONDUCT
@@ -1435,7 +1437,7 @@
 					var/mob/living/carbon/human/H = target
 					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
 						return 0
-				playsound(get_turf(src), 'sound/effects/expropiesestun.ogg', 75, 1)
+				playsound(get_turf(src), 'sound/effects/expropiesestun.ogg', 75)
 				target.Weaken(3)
 				add_attack_logs(user, target, "Stunned with [src]")
 				add_fingerprint(user)
