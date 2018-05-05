@@ -1,4 +1,0 @@
-author: "Tayyyyyyy"
-delete-after: True
-changes: 
-  - bugfix: "ERT members will have their proper name and appearance when cloned"
