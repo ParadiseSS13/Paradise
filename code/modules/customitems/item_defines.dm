@@ -1349,3 +1349,183 @@
 	icon_state = "teri_horn"
 	item_state = "teri_horn"
 	honk_sound = 'sound/items/teri_horn.ogg'
+
+
+//HISPANIA FLUFF ITEMS GO HERE//
+
+//BORIS SHOTGUN GOES STARTS HERE//
+/obj/item/gun/projectile/revolver/doublebarrel/boris
+	name = "Boris Shotgun"
+	desc = "A double barreled shotgun with an engraved boar on it. It reads 'Boris - The Gulag Maker'"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "borisshotgun"  //EL ICONO DE BACK.DMI Y EL DE HISPANIA_CUSTOM_ITEMS.DMI DEBE TENER EL MISMO NOMBRE
+	item_state = "borisshotgun"
+	w_class = WEIGHT_CLASS_BULKY
+	force = 10
+	flags = CONDUCT
+	slot_flags = SLOT_BACK
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
+	unique_rename = 0
+	unique_reskin = 0
+
+// BORIS SHOTGUN ENDS HERE//
+
+//DIOSDADO STUNBATON STARTS HERE//
+/obj/item/melee/classic_baton/telescopic/diosdado
+	name = "El Expropiador"
+	desc = "When simply stunnning your target isn't enough"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "expropiador0"
+	lefthand_file = 'icons/mob/inhands/hcustom_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/hcustom_righthand.dmi'
+	item_state = null
+	slot_flags = SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
+	needs_permit = 0
+	force = 0
+	on = 0
+
+/obj/item/melee/classic_baton/telescopic/diosdado/attack_self(mob/user as mob)
+	on = !on
+	if(on)
+		to_chat(user, "<span class ='warning'>Listo para expropiar.</span>")
+		icon_state = "expropiador1"
+		item_state = "expropiador"
+		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
+		force = 10 //stunbaton damage
+		attack_verb = list("expropió a")
+	else
+		to_chat(user, "<span class ='notice'>No más expropiaciones por ahora.</span>")
+		icon_state = "expropiador0"
+		item_state = null //no sprite for concealment even when in hand
+		slot_flags = SLOT_BELT
+		w_class = WEIGHT_CLASS_SMALL
+		force = 0 //not so robust now
+		attack_verb = list("hit", "poked")
+	if(istype(user,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_l_hand()
+		H.update_inv_r_hand()
+	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
+	add_fingerprint(user)
+
+/obj/item/melee/classic_baton/telescopic/diosdado/attack(mob/target as mob, mob/living/user as mob)
+	if(on)
+		add_fingerprint(user)
+		if((CLUMSY in user.mutations) && prob(50))
+			to_chat(user, "<span class ='danger'>Se expropió a si mismo.</span>")
+			user.Weaken(3 * force)
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				H.apply_damage(2*force, BRUTE, "head")
+			else
+				user.take_organ_damage(2*force)
+			return
+		if(isrobot(target))
+			..()
+			return
+		if(!isliving(target))
+			return
+		if(user.a_intent == INTENT_HARM)
+			if(!..()) return
+			if(!isrobot(target)) return
+		else
+			if(cooldown <= 0)
+				if(ishuman(target))
+					var/mob/living/carbon/human/H = target
+					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
+						return 0
+				playsound(get_turf(src), 'sound/effects/expropiesestun.ogg', 75, 1)
+				target.Weaken(3)
+				add_attack_logs(user, target, "Stunned with [src]")
+				add_fingerprint(user)
+				target.visible_message("<span class ='danger'>[user] ha expropiado a [target] !</span>", \
+					"<span class ='userdanger'>[user] ha expropiado a [target] !</span>")
+				if(!iscarbon(user))
+					target.LAssailant = null
+				else
+					target.LAssailant = user
+				cooldown = 1
+				spawn(40)
+					cooldown = 0
+		return
+	else
+		return ..()
+//DIOSDADO STUNBATON ENDS HERE//
+
+//KOTIRO DEFIB STARTS HERE//
+/obj/item/defibrillator/compact/kotiro
+	name = "De-Clown-Fibrillator"
+	desc = "A modified belt-equipped defibrillator that can be rapidly deployed. Seems it doesn't like clowns too much"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "kdefibcompact"
+	item_state = "kdefibcompact"
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = SLOT_BELT
+	origin_tech = "biotech=5"
+
+/obj/item/defibrillator/compact/kotiro/loaded/New()
+	..()
+	paddles = make_paddles_custom()
+	bcell = new(src)
+	update_icon()
+	return
+
+/obj/item/defibrillator/proc/make_paddles_custom()
+		return new /obj/item/twohanded/shockpaddles/kotiro(src)
+
+/obj/item/twohanded/shockpaddles/kotiro
+	name = "defibrillator paddles"
+	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "kdefibpaddles"
+	item_state = "kdefibpaddles"
+	force = 0
+	throwforce = 6
+	w_class = WEIGHT_CLASS_BULKY
+	var/obj/item/defibrillator/kdefib
+	custom = 1
+
+/obj/item/twohanded/shockpaddles/kotiro/update_icon()
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "kdefibpaddles[wielded]"
+	item_state = "kdefibpaddles[wielded]"
+	if(cooldown)
+		icon_state = "kdefibpaddles[wielded]_cooldown"
+
+//KOTIRO DEFIB ENDS HERE//
+
+//GOD.TITAN'S HALO SSTARTS HERE//
+
+/obj/item/clothing/head/halo
+
+	name = "Angelical Halo"
+	desc = "A holographic halo that glows in the dark."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "halo0"
+	item_state = "halo0"
+	var/brightness_on = 2 //luminosity when on
+	var/on = 0
+	flags_inv = 0
+	actions_types = list(/datum/action/item_action/toggle_halo)
+
+/datum/action/item_action/toggle_halo
+	name = "Toggle Halo"
+
+/obj/item/clothing/head/halo/attack_self(mob/user)
+	on = !on
+	icon_state = "halo[on]"
+	item_state = "halo[on]"
+
+	if(on)
+		set_light(brightness_on)
+		playsound(src.loc, 'sound/effects/halo1.ogg', 80)
+
+	else
+		set_light(0)
+		playsound(src.loc, 'sound/effects/halo0.ogg', 80)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+		update_icon()
+		user.update_inv_head()
