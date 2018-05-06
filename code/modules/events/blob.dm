@@ -4,7 +4,7 @@
 	var/obj/structure/blob/core/Blob
 
 /datum/event/blob/announce()
-	event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
+	event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard the [using_map.station_name]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 
 /datum/event/blob/start()
 	var/turf/T = pick(blobstart)

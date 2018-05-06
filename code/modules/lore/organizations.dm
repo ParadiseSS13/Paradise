@@ -103,9 +103,10 @@
 	headquarters = "Mars"
 	motto = ""
 
-	ship_prefixes = list("NSV" = "exploration", "NTV" = "hauling", "NDV" = "patrol", "NRV" = "emergency response")
+	ship_prefixes = list("NCV" = "transport", "NSV" = "exploration", "NTV" = "hauling", "NDV" = "patrol", "NRV" = "emergency response", "NAV" = "inspection", "NBV" = "trading", "NXV" = "flight testing", "NMV" = "mining")
 	// Note that the current station being used will be pruned from this list upon being instantiated
 	destination_names = list(
+		"NSS Cyberiad in Epsilon Eridani",
 		"NAS Trurl in Epsilon Eridani",
 		"NAS Crescent in Tau Ceti",
 		"NSS Exodus in Tau Ceti",
@@ -157,7 +158,7 @@
 
 	ship_prefixes = list("HTV" = "freight", "HTV" = "munitions resupply")
 	destination_names = list(
-		"a SolGov dockyard on Luna"
+		"a SolFed dockyard on Luna"
 		)
 
 /datum/lore/organization/tsc/waffle
@@ -361,16 +362,33 @@
 	ship_prefixes = list("BTS-T" = "transportation")
 	destination_names = list()
 
-// Governments
+/datum/lore/organization/tsc/chang
+	name = "Mr. Chang's"
+	short_name = "Chang's"
+	acronym = "C'S"
+	desc = "More of a family dynasty than a business, Mr. Chang's enjoys a tight grip on the galactic food, liquor and gambling markets and is\
+	best known for their Chang brand Chinese food vendors. While adamantly denied at the corporate level, Mr. Chang's is rumoured\
+	to both fund and readily employ the mysterious Spider Clan to expand their corporate agenda - expansion which often makes use\
+	of subversive or violent tactics. Mr. Chang's is currently under active investigation by several planetary governments for their\
+	suspected involvement in interplanetary drug trafficking rings."
+	history = ""
+	work = "chinese food transportation and manufacturing"
+	headquarters = ""
+	motto = ""
+
+	ship_prefixes = list("CTV" = "transportation")
+	destination_names = list()
+
+// Human Governments
 
 
-/datum/lore/organization/gov/solgov
+/datum/lore/organization/gov/tsf
 	name = "Trans-Solar Federation"
-	short_name = "SolGov"
+	short_name = "SolFed"
 	acronym = "TSF"
-	desc = "Colloquially known as SolGov, the TSF is an authoritarian republic that manages the areas in and around the Sol system.\
+	desc = "Colloquially known as SolFed, the TSF is an authoritarian republic that manages the areas in and around the Sol system.\
 	Despite being a highly militant organization headed by the government of Earth,\
-	SolGov is usually conservative with its power and mostly serves as a mediator and peacekeeper in galactic affairs."
+	SolFed is usually conservative with its power and mostly serves as a mediator and peacekeeper in galactic affairs."
 	history = "" // Todo
 	work = "governing polity of humanity's Confederation"
 	headquarters = "Earth"
@@ -398,6 +416,37 @@
 		"Norfolk",
 		"Boron",
 		"Iluk")
+
+/datum/lore/organization/gov/soviet
+	name = "United Soviet Socialist Planets"
+	short_name = "Soviet Union"
+	acronym = "USSP"
+	desc = "A loose collective of stations and holdings at the fringes of known space, the USSP first took shape during the\
+	Cygni Rebellion. The USSP is a sworn enemy of the TSF and blames them, and the corporations who work with them,\
+	for many of the hardships and tragedies faced by their citizenry."
+	history = ""
+	work = "upholding communist authority"
+	headquarters = ""
+	motto = "Workers of the world, unite!"
+
+	ship_prefixes = list("SUT" = "transporation", "SUD" = "diplomatic", "SUF" = "freight", "SUA" = "defense")
+
+/datum/lore/organization/gov/elysium
+	name = "Elysium Republic"
+	short_name = "Elysium"
+	acronym = "ER"
+	desc = "Often dubbed \"space fascists\", the Elysium Republic is a fascist government upholding ideals of human supremacy.\
+	Widely reviled by the galactic community for considering species other than humans to be lesser, they typically conduct\
+	raids on non-human colonies in the outer regions of space. While their planetary holdings are minimal, the few systems\
+	under their governance are ruled with an iron fist."
+	history = ""
+	work = "ensuring humanity's rightful place in the world"
+	headquarters = ""
+	motto = ""
+
+	ship_prefixes = list("ERV" = "transporation", "ERD" = "diplomatic", "ERR" = "raiding", "ERM" = "military")
+
+// Alien Governments
 
 /datum/lore/organization/gov/tajara
 	name = "The Alchemist's Council"
@@ -450,7 +499,7 @@
 	motto = ""
 	autogenerate_destination_names = TRUE
 
-	ship_prefixes = list("01" = "transportation", "10" = "diplomatic", "112" = "freight")//copyed from solgov until new ones can be thought of
+	ship_prefixes = list("01" = "transportation", "10" = "diplomatic", "112" = "freight")
 	destination_names = list(
 		"Luna",
 		"Dalstadt",

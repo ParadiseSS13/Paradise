@@ -32,7 +32,7 @@
 	var/dat = {"
 <html>
 	<head>
-		<title>[command_name()] Merchandise</title>
+		<title>[using_map.dock_name] Merchandise</title>
 		<style type="text/css">
 * {
 	font-family:sans-serif;
@@ -80,7 +80,7 @@ td.cost.toomuch {
 	</head>
 	<body>
 	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance:</b> $[balance]</p>
-	<h1>[command_name()] Merchandise</h1>
+	<h1>[using_map.dock_name] Merchandise</h1>
 	<p>
 		<b>Doing your job and not getting any recognition at work?</b>  Well, welcome to the
 		merch shop!  Here, you can buy cool things in exchange for money you earn when you've

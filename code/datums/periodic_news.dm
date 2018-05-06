@@ -2,13 +2,13 @@
 // Uses BYOND's type system to put everything into a nice format
 
 /datum/news_announcement
-	var
-		round_time // time of the round at which this should be announced, in seconds
-		message // body of the message
-		author = "Nanotrasen Editor"
-		channel_name = "Nyx Daily"
-		can_be_redacted = 0
-		message_type = "Story"
+	var/round_time // time of the round at which this should be announced, in seconds
+	var/message // body of the message
+	var/title = ""
+	var/author = "Nanotrasen Editor"
+	var/channel_name = "Nyx Daily"
+	var/can_be_redacted = 0
+	var/message_type = "Story"
 
 	revolution_inciting_event
 
@@ -128,7 +128,7 @@ proc/check_for_newscaster_updates(type)
 			announced_news_types += subtype
 			announce_newscaster_news(news)
 
-proc/announce_newscaster_news(datum/news_announcement/news)
+proc/announce_newscaster_news(datum/news_announcement/news, var/announce = TRUE)
 
 	var/datum/feed_channel/sendto
 	for(var/datum/feed_channel/FC in news_network.network_channels)
@@ -149,8 +149,10 @@ proc/announce_newscaster_news(datum/news_announcement/news)
 	newMsg.is_admin_message = !news.can_be_redacted
 	newMsg.body = news.message
 	newMsg.message_type = news.message_type
+	newMsg.title = news.title
 
 	sendto.messages += newMsg
 
-	for(var/obj/machinery/newscaster/NEWSCASTER in allCasters)
-		NEWSCASTER.newsAlert(news.channel_name)
+	if(announce)
+		for(var/obj/machinery/newscaster/NEWSCASTER in allCasters)
+			NEWSCASTER.newsAlert(news.channel_name)

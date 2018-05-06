@@ -12,7 +12,7 @@ var/global/list/all_money_accounts = list()
 		next_account_number = rand(111111, 999999)
 
 		station_account = new()
-		station_account.owner_name = "[station_name()] Station Account"
+		station_account.owner_name = "[using_map.station_name] Station Account"
 		station_account.account_number = rand(111111, 999999)
 		station_account.remote_access_pin = rand(1111, 111111)
 		station_account.money = 75000
@@ -173,7 +173,7 @@ var/global/list/all_money_accounts = list()
 	if(!current_date_string)
 		current_date_string = "[num2text(rand(1,31))] [pick("January","February","March","April","May","June","July","August","September","October","November","December")], 2557"
 
-	machine_id = "[station_name()] Acc. DB #[num_financial_terminals++]"
+	machine_id = "[using_map.station_name] Acc. DB #[num_financial_terminals++]"
 
 /obj/machinery/account_database/attack_hand(mob/user as mob)
 	if(ishuman(user) && !user.stat && get_dist(src,user) <= 1)

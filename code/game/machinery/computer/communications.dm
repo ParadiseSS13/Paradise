@@ -32,14 +32,13 @@
 	var/stat_msg2
 	var/display_type="blank"
 
-	var/datum/announcement/priority/crew_announcement = new
+	var/datum/announcement/priority/crew_announcement = new(do_log = 0, do_newscast = 1)
 
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
 	shuttle_caller_list += src
 	..()
-	crew_announcement.newscast = 0
 
 /obj/machinery/computer/communications/proc/is_authenticated(var/mob/user, var/message = 1)
 	if(authenticated == COMM_AUTHENTICATION_MAX)
@@ -456,7 +455,7 @@
 		return
 
 	if(ticker.mode.name == "blob")
-		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
+		to_chat(user, "<span class='warning'>Under directive 7-10, [using_map.station_name] is quarantined until further notice.</span>")
 		return
 
 	shuttle_master.requestEvac(user, reason)
@@ -481,7 +480,7 @@
 			return
 
 		if(ticker.mode.name == "epidemic")
-			to_chat(user, "Under directive 7-10, [station_name()] is quarantined until further notice.")
+			to_chat(user, "Under directive 7-10, [using_map.station_name] is quarantined until further notice.")
 			return
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.

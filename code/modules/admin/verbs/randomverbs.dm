@@ -575,11 +575,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/beepsound = input(usr, "What sound should the announcement make?", "Announcement Sound", "") as anything in MsgSound
 
 			command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
-			print_command_report(input, "[command_name()] Update")
+			print_command_report(input, "[using_map.dock_name] Update")
 		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
 			command_announcer.autosay("A classified message has been printed out at all communication consoles.");
-			print_command_report(input, "Classified [command_name()] Update")
+			print_command_report(input, "Classified [using_map.dock_name] Update")
 		else
 			return
 

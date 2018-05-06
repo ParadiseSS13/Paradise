@@ -15,7 +15,7 @@
 
 /obj/item/eftpos/New()
 	..()
-	machine_id = "[station_name()] EFTPOS #[num_financial_terminals++]"
+	machine_id = "[using_map.station_name] EFTPOS #[num_financial_terminals++]"
 	access_code = rand(1111,111111)
 	reconnect_database()
 	spawn(0)

@@ -233,7 +233,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["src"] = UID()
-	data["station_name"] = station_name()
+	data["station_name"] = using_map.station_name
 	data["mode"] = mode
 	data["printing"] = printing
 	data["manifest"] = data_core ? data_core.get_manifest(0) : null

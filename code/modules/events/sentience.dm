@@ -19,7 +19,7 @@
 	if(!SA || !SG) //if you can't find either a simple animal or a player, end
 		return FALSE
 
-	var/sentience_report = "<font size=3><b>[command_name()] Medium-Priority Update</b></font>"
+	var/sentience_report = "<font size=3><b>[using_map.dock_name] Medium-Priority Update</b></font>"
 
 	var/data = pick("scans from our long-range sensors", "our sophisticated probabilistic models", "our omnipotence", "the communications traffic on your station", "energy emissions we detected", "\[REDACTED\]", "Steve")
 	var/pets = pick("animals", "pets", "simple animals", "lesser lifeforms", "\[REDACTED\]")
@@ -37,7 +37,8 @@
 	SA.health = SA.maxHealth
 	SA.del_on_death = FALSE
 	greet_sentient(SA)
-	print_command_report(sentience_report, "[command_name()] Update")
+	print_command_report(sentience_report, "[using_map.dock_name] Update")
+	command_announcer.autosay("A classified message has been printed out at all communication consoles.")
 
 /datum/event/sentience/proc/greet_sentient(var/mob/living/carbon/human/M)
 	to_chat(M, "<span class='userdanger'>Hello world!</span>")

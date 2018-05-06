@@ -1,5 +1,5 @@
 /datum/event/meteor_wave/goreop/announce()
-	var/meteor_declaration = "MeteorOps have declared their intent to utterly destroy [station_name()] with their own bodies, and dares the crew to try and stop them."
+	var/meteor_declaration = "MeteorOps have declared their intent to utterly destroy the [using_map.station_name] with their own bodies, and dares the crew to try and stop them."
 	event_announcement.Announce(meteor_declaration, "Declaration of 'War'", 'sound/effects/siren.ogg')
 
 /datum/event/meteor_wave/goreop/setup()

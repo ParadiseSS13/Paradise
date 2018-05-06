@@ -107,7 +107,7 @@
 			tries_left = 5		//reset our tries since we found a new chump
 	//make sure we have chumps before we try misinforming them. if we don't make a note of it.
 	if(!chumps.len)
-		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.") 
+		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.")
 		return 0
 	//we've got chumps! misinform them!
 	for(var/mob/living/carbon/human/chump in chumps)
@@ -158,7 +158,7 @@
 					if(M.mind.initial_account)
 						M.mind.initial_account.money += pay
 						var/datum/transaction/T = new()
-						T.target_name = "[command_name()] Payroll"
+						T.target_name = "[using_map.dock_name] Payroll"
 						T.purpose = "Payment"
 						T.amount = pay
 						T.date = current_date_string
@@ -169,10 +169,10 @@
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
 					if(useMS && P)
-						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
+						useMS.send_pda_message("[P.owner]", "[using_map.dock_name] Payroll", msg)
 
 						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
+						PM.notify("<b>Message from [using_map.dock_name] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
@@ -537,15 +537,15 @@ proc/display_roundstart_logout_report()
 
 /datum/game_mode/proc/send_station_goals_message()
 	var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
-	message_text += "<h3>[command_name()] Orders</h3></div><hr>"
-	message_text += "<b>Special Orders for [station_name()]:</b><br><br>"
+	message_text += "<h3>[using_map.dock_name] Orders</h3></div><hr>"
+	message_text += "<b>Special Orders for [using_map.station_name]:</b><br><br>"
 
 	for(var/datum/station_goal/G in station_goals)
 		G.on_report()
 		message_text += G.get_report()
 		message_text += "<hr>"
 
-	print_command_report(message_text, "[command_name()] Orders")
+	print_command_report(message_text, "[using_map.dock_name] Orders")
 
 /datum/game_mode/proc/declare_station_goal_completion()
 	for(var/V in station_goals)

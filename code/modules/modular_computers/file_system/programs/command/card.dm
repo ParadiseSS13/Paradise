@@ -388,7 +388,7 @@
 			scan = card_slot.stored_card2
 
 	data["src"] = UID()
-	data["station_name"] = station_name()
+	data["station_name"] = using_map.station_name
 	data["mode"] = mode
 	data["printing"] = printing
 	data["printer"] = printer ? TRUE : FALSE

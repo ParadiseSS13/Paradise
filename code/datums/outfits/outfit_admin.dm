@@ -608,10 +608,10 @@
 		/obj/item/ammo_box/a357 = 3
 	)
 
-/datum/outfit/admin/solgov_rep
-	name = "Solar Federation Representative"
+/datum/outfit/admin/tsf_rep
+	name = "SolFed Representative"
 
-	uniform = /obj/item/clothing/under/solgov/rep
+	uniform = /obj/item/clothing/under/tsf/rep
 	back = /obj/item/storage/backpack/satchel
 	glasses = /obj/item/clothing/glasses/hud/security/night
 	gloves = /obj/item/clothing/gloves/color/white
@@ -627,7 +627,7 @@
 		/obj/item/implanter/death_alarm = 1,
 	)
 
-/datum/outfit/admin/solgov_rep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/tsf_rep/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -637,14 +637,14 @@
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
 
 
-/datum/outfit/admin/solgov
+/datum/outfit/admin/tsf
 	name = "Solar Federation Marine"
 
-	uniform = /obj/item/clothing/under/solgov
+	uniform = /obj/item/clothing/under/tsf
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/security
 	belt = /obj/item/storage/belt/military/assault
-	head = /obj/item/clothing/head/soft/solgov
+	head = /obj/item/clothing/head/soft/tsf
 	glasses = /obj/item/clothing/glasses/hud/security/night
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
@@ -663,25 +663,25 @@
 	var/is_tsf_lieutenant = FALSE
 
 
-/datum/outfit/admin/solgov/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/tsf/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 
 	if(is_tsf_lieutenant)
-		H.real_name = "Lieutenant [pick(last_names)]"
+		H.rename_character(null, "Lieutenant [pick(last_names)]")
 	else
-		H.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
-	H.name = H.real_name
+		H.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]")
+	H.update_dna()
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
 
-/datum/outfit/admin/solgov/lieutenant
+/datum/outfit/admin/tsf/lieutenant
 	name = "Solar Federation Lieutenant"
 
-	uniform = /obj/item/clothing/under/solgov/command
-	head = /obj/item/clothing/head/soft/solgov/command
+	uniform = /obj/item/clothing/under/tsf/command
+	head = /obj/item/clothing/head/soft/tsf/command
 	back = /obj/item/storage/backpack/satchel
 	l_hand = null
 	l_pocket = /obj/item/pinpointer/advpinpointer

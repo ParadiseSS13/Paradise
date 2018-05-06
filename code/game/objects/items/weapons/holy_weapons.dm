@@ -288,7 +288,7 @@
 
 /obj/item/nullrod/whip/New()
 	..()
-	desc = "What a terrible night to be on the [station_name()]."
+	desc = "What a terrible night to be on the [using_map.station_name]."
 
 /obj/item/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)

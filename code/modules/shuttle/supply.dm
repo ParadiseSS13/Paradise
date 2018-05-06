@@ -297,7 +297,7 @@
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
-	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
+	reqform.info += "<h3>[using_map.station_name] Supply Requisition Form</h3><hr>"
 	reqform.info += "INDEX: #[shuttle_master.ordernum]<br>"
 	reqform.info += "REQUESTED BY: [orderedby]<br>"
 	reqform.info += "RANK: [orderedbyRank]<br>"
@@ -330,11 +330,12 @@
 	slip.points = object.cost
 	slip.ordernumber = ordernum
 
-	var/stationName = (errors & MANIFEST_ERROR_NAME) ? new_station_name() : station_name()
+	var/error_name = "[pick("NCS","NSS","NDS","NAS","NBS","NXS")] [pick(greek_letters, phonetic_alphabet, numbers_as_words)]"
+	var/stationName = (errors & MANIFEST_ERROR_NAME) ? error_name : using_map.station_name
 	var/packagesAmt = shuttle_master.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
-	slip.info = "<h3>[command_name()] Shipping Manifest</h3><hr><br>"
+	slip.info = "<h3>[using_map.dock_name] Shipping Manifest</h3><hr><br>"
 	slip.info +="Order: #[ordernum]<br>"
 	slip.info +="Destination: [stationName]<br>"
 	slip.info +="Requested By: [orderedby]<br>"

@@ -44,9 +44,9 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 
 	if(config && config.server_name)
-		name = "[config.server_name]: [station_name()]"
+		name = "[config.server_name]: [using_map.station_name]"
 	else
-		name = station_name()
+		name = using_map.station_name
 
 
 #undef RECOMMENDED_VERSION
@@ -376,7 +376,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 
-	s += "<b>[station_name()]</b>";
+	s += "<b>[using_map.station_name]</b>";
 	s += " ("
 	s += "<a href=\"http://nanotrasen.se\">" //Change this to wherever you want the hub to link to.
 	s += "[game_version]"

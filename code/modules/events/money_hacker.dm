@@ -18,7 +18,7 @@
 	var/message = "A brute force hack has been detected (in progress since [station_time_timestamp()]). The target of the attack is: Financial account #[affected_account.account_number], \
 	without intervention this attack will succeed in approximately 10 minutes. Required intervention: temporary suspension of affected accounts until the attack has ceased. \
 	Notifications will be sent as updates occur.<br>"
-	var/my_department = "[station_name()] firewall subroutines"
+	var/my_department = "[using_map.station_name] firewall subroutines"
 
 	for(var/obj/machinery/message_server/MS in world)
 		if(!MS.active) continue
@@ -59,7 +59,7 @@
 		//crew wins
 		message = "The attack has ceased, the affected accounts can now be brought online."
 
-	var/my_department = "[station_name()] firewall subroutines"
+	var/my_department = "[using_map.station_name] firewall subroutines"
 
 	for(var/obj/machinery/message_server/MS in world)
 		if(!MS.active) continue

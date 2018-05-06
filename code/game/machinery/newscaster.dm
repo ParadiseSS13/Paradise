@@ -822,10 +822,6 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	paper_remaining--
 	return
 
-//Removed for now so these aren't even checked every tick. Left this here in-case Agouri needs it later.
-///obj/machinery/newscaster/process()       //Was thinking of doing the icon update through process, but multiple iterations per second does not
-//	return                                  //bode well with a newscaster network of 10+ machines. Let's just return it, as it's added in the machines list.
-
 /obj/machinery/newscaster/proc/newsAlert(var/news_call)   //This isn't Agouri's work, for it is ugly and vile.
 	if(news_call)
 
@@ -841,3 +837,17 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		atom_say("Attention! Wanted issue distributed!")
 		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1)
 	return
+
+var/setup_news = FALSE
+/proc/setup_news()
+	if(setup_news)
+		return
+
+	var/datum/feed_channel/newChannel = new /datum/feed_channel
+	newChannel.channel_name = "Station Announcements"
+	newChannel.author = "Automated Announcement Listing"
+	newChannel.locked = TRUE
+	newChannel.is_admin_channel = TRUE
+	news_network.network_channels += newChannel
+
+	setup_news = TRUE
