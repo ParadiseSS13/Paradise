@@ -337,7 +337,7 @@
 
 					if(istype(L, /mob/living/carbon/human)) //Ignore slime(wo)men
 						var/mob/living/carbon/human/H = L
-						if(H.species.name == "Slime People")
+						if(H.dna.species.name == "Slime People")
 							continue
 
 					if(!L.canmove) // Only one slime can latch on at a time.

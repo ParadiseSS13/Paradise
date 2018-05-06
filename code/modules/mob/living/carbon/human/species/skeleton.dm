@@ -1,4 +1,5 @@
-/datum/species/skeleton
+/datum/species/skeleton //SPECIES_SKELETON
+	id = "skeleton"
 	name = "Skeleton"
 	name_plural = "Skeletons"
 

@@ -715,7 +715,7 @@
 	var/list/blood_dna = H.get_blood_dna_list()
 	if(blood_dna)
 		transfer_blood_dna(blood_dna)
-		currentBloodColor = H.species.blood_color
+		currentBloodColor = H.dna.species.blood_color
 		return
 
 /mob/living/simple_animal/bot/mulebot/bot_control_message(command, mob/user, user_turf)

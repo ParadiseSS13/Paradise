@@ -1,4 +1,5 @@
 /datum/species/plasmaman // /vg/
+	id = "plasmaman"
 	name = "Plasmaman"
 	name_plural = "Plasmamen"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'

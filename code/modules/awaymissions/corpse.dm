@@ -43,7 +43,7 @@
 	M.adjustBruteLoss(brute_damage)
 	M.timeofdeath = timeofdeath
 	if(mob_species)
-		M.set_species(mob_species)
+		M.change_species(mob_species)
 	if(corpseuniform)
 		M.equip_to_slot_or_del(new corpseuniform(M), slot_w_uniform)
 	if(corpsesuit)

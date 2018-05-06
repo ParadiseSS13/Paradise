@@ -102,7 +102,7 @@
 			dye_list += "facial hair"
 			dye_list += "alt. facial hair theme"
 
-		if(H && (H.species.bodyflags & HAS_SKIN_COLOR))
+		if(H && (H.dna.species.bodyflags & HAS_SKIN_COLOR))
 			dye_list += "body"
 
 		var/what_to_dye = input(user, "Choose an area to apply the dye", "Dye Application") in dye_list

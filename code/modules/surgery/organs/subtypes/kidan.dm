@@ -1,6 +1,6 @@
 /obj/item/organ/internal/liver/kidan
 	alcohol_intensity = 0.5
-	species = "Kidan"
+	species = SPECIES_KIDAN
 
 #define KIDAN_LANTERN_HUNGERCOST 0.5
 #define KIDAN_LANTERN_MINHUNGER 150

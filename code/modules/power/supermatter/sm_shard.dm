@@ -49,7 +49,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
-			if(H.species.flags & IS_SYNTHETIC) //Thick skin.
+			if(H.dna.species.flags & IS_SYNTHETIC) //Thick skin.
 				return
 
 			if( !H.shoes && ( !H.wear_suit || !(H.wear_suit.body_parts_covered & FEET) ) )
@@ -59,7 +59,7 @@
 				if(affecting.receive_damage(5, 20))
 					H.UpdateDamageIcon()
 				H.updatehealth()
-				if(!(H.species && (H.species.flags & NO_PAIN)))
+				if(!(H.species && (H.dna.species.flags & NO_PAIN)))
 					H.Weaken(3)
 	..()
 

@@ -1,11 +1,11 @@
 /obj/item/organ/internal/liver/grey
 	alcohol_intensity = 1.6
-	species = "Grey"
+	species = SPECIES_GREY
 
 /obj/item/organ/internal/brain/grey
 	icon_state = "brain-x"
 	mmi_icon_state = "mmi_alien"
-	species = "Grey"
+	species = SPECIES_GREY
 
 /obj/item/organ/internal/brain/grey/insert(var/mob/living/carbon/M, var/special = 0)
 	..()
@@ -18,4 +18,4 @@
 /obj/item/organ/internal/eyes/grey
 	name = "grey eyeballs"
 	dark_view = 5
-	species = "Grey"
+	species = SPECIES_GREY

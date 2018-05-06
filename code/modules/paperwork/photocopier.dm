@@ -260,7 +260,7 @@
 			emag_cooldown = world.time + EMAG_DELAY
 	if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/H = ass
-		temp_img = icon('icons/obj/butts.dmi', H.species.butt_sprite)
+		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
 	else if(istype(ass,/mob/living/silicon/robot/drone))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
 	else if(istype(ass,/mob/living/simple_animal/diona))

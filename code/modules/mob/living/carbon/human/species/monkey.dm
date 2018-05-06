@@ -1,4 +1,5 @@
 /datum/species/monkey
+	id = "monkey"
 	name = "Monkey"
 	name_plural = "Monkeys"
 	blurb = "Ook."
@@ -46,7 +47,7 @@
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
-/datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/monkey/on_species_gain(var/mob/living/carbon/human/H)
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
 	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/monkey = 5)
@@ -94,6 +95,7 @@
 	return 2
 
 /datum/species/monkey/tajaran
+	id = "farwa"
 	name = "Farwa"
 	name_plural = "Farwa"
 
@@ -105,6 +107,10 @@
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
 	tail = "farwatail"
+
+	scream_verb = "mews"
+
+
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
@@ -118,6 +124,7 @@
 
 
 /datum/species/monkey/vulpkanin
+	id = "wolpin"
 	name = "Wolpin"
 	name_plural = "Wolpin"
 
@@ -129,6 +136,9 @@
 	flesh_color = "#966464"
 	base_color = "#000000"
 	tail = "wolpintail"
+
+	scream_verb = "yips"
+
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
@@ -142,6 +152,7 @@
 
 
 /datum/species/monkey/skrell
+	id = "neara"
 	name = "Neara"
 	name_plural = "Neara"
 
@@ -156,6 +167,7 @@
 	tail = null
 
 /datum/species/monkey/unathi
+	id = "stok"
 	name = "Stok"
 	name_plural = "Stok"
 
@@ -168,5 +180,8 @@
 	flesh_color = "#34AF10"
 	base_color = "#000000"
 	reagent_tag = PROCESS_ORG
+
+	scream_verb = "hisses"
+
 
 	bodyflags = HAS_TAIL

@@ -94,7 +94,7 @@
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(NO_DNA in H.species.species_traits)
+		if(NO_DNA in H.dna.species.species_traits)
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return FALSE
 	return TRUE
@@ -116,7 +116,7 @@
 		target.real_name = NewDNA.real_name
 		var/mob/living/carbon/human/H = target
 		if(istype(H))
-			H.set_species()
+			H.set_species(NewDNA.species)
 		target.UpdateAppearance()
 		domutcheck(target, null)
 	feedback_add_details("changeling_powers","TS")

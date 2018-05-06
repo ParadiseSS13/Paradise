@@ -134,7 +134,7 @@
 
 
 /mob/living/carbon/human/CanContractDisease(datum/disease/D)
-	if((VIRUSIMMUNE in species.species_traits) && !D.bypasses_immunity)
+	if((VIRUSIMMUNE in dna.species.species_traits) && !D.bypasses_immunity)
 		return 0
 	for(var/thing in D.required_organs)
 		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))

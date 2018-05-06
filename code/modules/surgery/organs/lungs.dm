@@ -265,11 +265,11 @@
 	var/breath_temperature = breath.temperature
 
 	var/species_traits = list()
-	if(H && H.species && H.species.species_traits)
-		species_traits = H.species.species_traits
+	if(H && H.dna.species && H.dna.species.species_traits)
+		species_traits = H.dna.species.species_traits
 
 	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
-		var/CM = abs(H.species.coldmod)
+		var/CM = abs(H.dna.species.coldmod)
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
 			TC = cold_level_3_damage
@@ -285,7 +285,7 @@
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
 	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
-		var/HM = abs(H.species.heatmod)
+		var/HM = abs(H.dna.species.heatmod)
 		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
 			TH = heat_level_1_damage
@@ -309,7 +309,7 @@
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
-	species = "Plasmaman"
+	species = SPECIES_PLASMAMAN
 
 	safe_oxygen_min = 0 //We don't breath this
 	safe_toxins_min = 16 //We breathe THIS!
@@ -318,7 +318,7 @@
 /obj/item/organ/internal/lungs/vox
 	name = "Vox lungs"
 	desc = "They're filled with dust....wow."
-	species = "Vox"
+	species = SPECIES_VOX
 
 	safe_oxygen_min = 0 //We don't breathe this
 	safe_oxygen_max = 1 //This is toxic to us
@@ -327,7 +327,7 @@
 
 /obj/item/organ/internal/lungs/drask
 	icon = 'icons/obj/surgery_drask.dmi'
-	species = "Drask"
+	species = SPECIES_DRASK
 
 	cold_message = "an invigorating coldness"
 	cold_level_3_threshold = 60

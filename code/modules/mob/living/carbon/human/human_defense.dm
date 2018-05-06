@@ -353,7 +353,7 @@ emp_act
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		species.spec_attack_hand(H, src)
+		dna.species.spec_attack_hand(H, src)
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	if(..()) //successful larva bite.
@@ -482,7 +482,7 @@ emp_act
 
 /mob/living/carbon/human/water_act(volume, temperature, source)
 	..()
-	species.water_act(src,volume,temperature,source)
+	dna.species.water_act(src,volume,temperature,source)
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))

@@ -332,7 +332,7 @@
 					var/arrivalmessage = announcer.arrivalmsg
 					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
 					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
-					arrivalmessage = replacetext(arrivalmessage,"$species",character.species.name)
+					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
 					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
 					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
 					announcer.say(";[arrivalmessage]")
@@ -453,15 +453,14 @@
 /mob/new_player/proc/create_character()
 	spawning = 1
 	close_spawn_windows()
-
 	check_prefs_are_sane()
-	var/mob/living/carbon/human/new_character = new(loc)
+	var/mob/living/carbon/human/new_character = new(loc, client.prefs.species)
 	new_character.lastarea = get_area(loc)
 
 	if(ticker.random_players || appearance_isbanned(new_character))
 		client.prefs.random_character()
 		client.prefs.real_name = random_name(client.prefs.gender)
-	client.prefs.copy_to(new_character)
+	client.prefs.copy_to(new_character, 1)
 
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
@@ -474,7 +473,7 @@
 		else if(mind.assigned_role == "Mime")
 			new_character.real_name = pick(mime_names)
 			new_character.rename_self("mime")
-		else if(new_character.species == "Diona")
+		else if(new_character.dna.species == "Diona")
 			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("diona")
 		mind.original = new_character

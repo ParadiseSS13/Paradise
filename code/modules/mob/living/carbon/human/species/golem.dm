@@ -1,4 +1,5 @@
 /datum/species/golem
+	id = "golem"
 	name = "Golem"
 	name_plural = "Golems"
 
@@ -44,7 +45,7 @@
 		"is crumbling into dust!",
 		"is smashing their body apart!")
 
-/datum/species/golem/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/golem/on_species_gain(var/mob/living/carbon/human/H)
 	if(H.mind)
 		H.mind.assigned_role = "Golem"
 		H.mind.special_role = SPECIAL_ROLE_GOLEM

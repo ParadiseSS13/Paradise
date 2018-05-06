@@ -196,7 +196,7 @@ var/global/list/ts_spiderling_list = list()
 			var/can_poison = 1
 			if(ishuman(G))
 				var/mob/living/carbon/human/H = G
-				if(!(H.species.reagent_tag & PROCESS_ORG) || (!H.species.tox_mod))
+				if(!(H.dna.species.reagent_tag & PROCESS_ORG) || (!H.dna.species.tox_mod))
 					can_poison = 0
 			spider_specialattack(G,can_poison)
 		else

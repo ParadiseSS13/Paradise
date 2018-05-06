@@ -100,7 +100,7 @@ var/global/list/bad_blocks[0]
 	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 
 	// New stuff
-	var/species = "Human"
+	var/datum/species/species = new SPECIES_HUMAN
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -141,7 +141,7 @@ var/global/list/bad_blocks[0]
 	// FIXME:  Species-specific defaults pls
 	var/obj/item/organ/external/head/H = character.get_organ("head")
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
-	var/datum/species/S = character.species
+	var/datum/species/S = character.dna.species
 
 	/*// Body Accessory
 	if(!character.body_accessory)
@@ -421,7 +421,7 @@ var/global/list/bad_blocks[0]
 	data["UE"] = unique_enzymes
 	data["SE"] = SE.Copy() // This is probably too lazy for my own good
 	data["UI"] = UI.Copy()
-	data["species"] = species // This works because `species` is a string, not a datum
+	data["species"] = species.name
 	// Because old DNA coders were insane or something
 	data["b_type"] = b_type
 	data["real_name"] = real_name
@@ -434,10 +434,11 @@ var/global/list/bad_blocks[0]
 	UI = data["UI"]
 	UpdateUI()
 	UpdateSE()
-	species = data["species"]
+	var/new_species = data["species"]
+	species = new all_species[new_species]
 	b_type = data["b_type"]
 	real_name = data["real_name"]
 
 // a nice hook for if/when we refactor species on dna
 /datum/dna/proc/get_species_name()
-	return species
+	return species.name

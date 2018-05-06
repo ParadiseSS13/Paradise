@@ -3,11 +3,13 @@
 */
 
 /datum/species
+	var/id						// if the game needs to manually check your race to do something not included in a proc here, it will use this
 	var/name                     // Species name.
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
 	var/path 					// Species path
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
-	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
+	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set
+	var/list/no_equip = list()	// slots the race can't equip stuff to.
 
 	// Damage overlay and masks.
 	var/damage_overlays = 'icons/mob/human_races/masks/dam_human.dmi'
@@ -37,6 +39,7 @@
 	var/heatmod = 1 // Damage multiplier for being in a hot environment
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
+
 	var/reagent_tag                 //Used for metabolizing reagents.
 	var/hunger_drain = HUNGER_FACTOR
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
@@ -67,6 +70,10 @@
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/list/default_genes = list()
 
+	var/attack_verb = "punch"	// punch-specific attack verb
+	var/sound/attack_sound = 'sound/weapons/punch1.ogg'
+	var/sound/miss_sound = 'sound/weapons/punchmiss.ogg'
+
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
 
@@ -79,6 +86,7 @@
 	var/breathid = "o2"
 
 	var/clothing_flags = 0 // Underwear and socks.
+	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
 	var/exotic_blood
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
@@ -89,6 +97,8 @@
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
+	var/meat = /obj/item/reagent_containers/food/snacks/meat/human //What the species drops on gibbing
+	var/skinned_type
 	var/base_color      //Used when setting species.
 
 	//Used in icon caching.
@@ -157,6 +167,7 @@
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
 		)
 	var/list/proc/species_abilities = list()
+	var/myhuman		//Mob reference
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
@@ -165,12 +176,18 @@
 
 	unarmed = new unarmed_type()
 
+	..()
+
+/datum/species/Destroy()
+	if(myhuman)
+		myhuman = null
+	..()
+
 /datum/species/proc/get_random_name(var/gender)
 	var/datum/language/species_language = all_languages[language]
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
-
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
 
@@ -262,8 +279,9 @@
 			. -= 2
 	return .
 
-/datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
-	grant_abilities(C)
+
+//Called when cloning, copies some vars that should be kept
+/datum/species/proc/copy_properties_from(datum/species/old_species)
 	return
 
 /datum/species/proc/updatespeciescolor(var/mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
@@ -274,16 +292,39 @@
 		H.verbs += ability
 	return
 
-/datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
-	if(H.butcher_results)//clear it out so we don't butcher a actual human.
-		H.butcher_results = null
-	remove_abilities(H)
-	return
-
 /datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
 	for(var/proc/ability in species_abilities)
 		H.verbs -= ability
 	return
+
+
+/datum/species/proc/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+	// Drop the items the new species can't wear
+	grant_abilities(C)
+
+	for(var/slot_id in no_equip)
+		var/obj/item/clothing/thing = C.get_item_by_slot(slot_id)
+		if(thing && (!thing.species_restricted || !is_type_in_list(src,thing.species_restricted)))
+			C.drop_item(thing)
+
+	create_organs(C, old_species)
+
+	if(exotic_blood && C.dna.b_type != exotic_blood)
+		C.dna.b_type = exotic_blood
+
+
+	if(VIRUSIMMUNE in species_traits)
+		for(var/datum/disease/A in C.viruses)
+			A.cure(FALSE)
+
+
+/datum/species/proc/on_species_loss(mob/living/carbon/C)
+	if(C.butcher_results)//clear it out so we don't butcher a actual human.
+		C.butcher_results = null
+	remove_abilities(C)
+	if(C.dna.species.exotic_blood)
+		C.dna.b_type = pick("A+", "A-", "B+", "B-", "O+", "O-")
+
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
@@ -334,7 +375,7 @@
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	//Vampire code
 	if(user.mind && user.mind.vampire && (user.mind in ticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
-		if((NO_BLOOD in target.species.species_traits) || target.species.exotic_blood || !target.blood_volume)
+		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
 		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
@@ -354,7 +395,7 @@
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return 1
 	else
-		var/datum/unarmed_attack/attack = user.species.unarmed
+		var/datum/unarmed_attack/attack = user.dna.species.unarmed
 
 		user.do_attack_animation(target)
 		add_attack_logs(user, target, "Melee attacked with fists", admin_notify = target.ckey ? TRUE : FALSE)
@@ -364,7 +405,7 @@
 		else
 			target.LAssailant = user
 
-		var/damage = rand(user.species.punchdamagelow, user.species.punchdamagehigh)
+		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
@@ -383,7 +424,7 @@
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
 
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
-		if((target.stat != DEAD) && damage >= user.species.punchstunthreshold)
+		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
 			target.apply_effect(4, WEAKEN, armor_block)
@@ -631,7 +672,6 @@
 Returns the path corresponding to the corresponding organ
 It'll return null if the organ doesn't correspond, so include null checks when using this!
 */
-//Fethas Todo:Do i need to redo this?
 /datum/species/proc/return_organ(var/organ_slot)
 	if(!(organ_slot in has_organ))
 		return null

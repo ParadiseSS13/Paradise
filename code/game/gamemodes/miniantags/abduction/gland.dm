@@ -110,7 +110,7 @@
 /obj/item/organ/internal/heart/gland/pop/activate()
 	to_chat(owner, "<span class='notice'>You feel unlike yourself.</span>")
 	var/species = pick("Unathi","Skrell","Diona","Tajaran","Vulpkanin","Kidan","Grey","Diona")
-	owner.set_species(species)
+	owner.change_species(species)
 
 /obj/item/organ/internal/heart/gland/ventcrawling
 	origin_tech = "materials=4;biotech=5;bluespace=4;abductor=3"
@@ -219,7 +219,7 @@
 	var/datum/dna/owner_dna = H.dna
 	clone.rename_character(clone.name, owner_dna.real_name)
 	clone.dna = owner_dna.Clone()
-	clone.set_species(H.species.name)
+	clone.set_species(H.dna.species)
 	clone.body_accessory = H.body_accessory
 	domutcheck(clone)
 
