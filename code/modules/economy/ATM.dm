@@ -36,7 +36,7 @@ log transactions
 
 /obj/machinery/atm/New()
 	..()
-	machine_id = "[station_name()] RT #[num_financial_terminals++]"
+	machine_id = "[using_map.station_name] RT #[num_financial_terminals++]"
 
 /obj/machinery/atm/initialize()
 	..()

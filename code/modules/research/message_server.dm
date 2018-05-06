@@ -94,7 +94,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 	for(var/obj/machinery/requests_console/Console in allConsoles)
 		if(ckey(Console.department) == ckey(recipient))
 			if(Console.inoperable())
-				Console.message_log += "<B>Message lost due to console failure.</B><BR>Please contact [station_name()] system adminsitrator or AI for technical assistance.<BR>"
+				Console.message_log += "<B>Message lost due to console failure.</B><BR>Please contact [using_map.station_name] system adminsitrator or AI for technical assistance.<BR>"
 				continue
 			if(Console.newmessagepriority < priority)
 				Console.newmessagepriority = priority

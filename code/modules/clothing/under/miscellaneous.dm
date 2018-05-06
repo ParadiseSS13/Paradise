@@ -67,24 +67,24 @@
 	item_state = "gy_suit"
 	item_color = "vice"
 
-/obj/item/clothing/under/solgov
-	name = "Sol Federation marine uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces."
+/obj/item/clothing/under/tsf
+	name = "Solar Federation marine uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Marine Forces."
 	icon_state = "solgov"
 	item_state = "ro_suit"
 	item_color = "solgov"
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	displays_id = 0
 
-/obj/item/clothing/under/solgov/command
-	name = "Sol Federation Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
+/obj/item/clothing/under/tsf/command
+	name = "Solar Federation Lieutenant's uniform"
+	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Marine Forces. This one has additional insignia on its shoulders."
 	icon_state = "solgovc"
 	item_color = "solgovc"
 
-/obj/item/clothing/under/solgov/rep
-	name = "Sol Federation representative's uniform"
-	desc = "A formal uniform worn by the diplomatic representatives of the Sol Federation."
+/obj/item/clothing/under/tsf/rep
+	name = "Solar Federation representative's uniform"
+	desc = "A formal uniform worn by the diplomatic representatives of the Trans-Solar Federation."
 	icon_state = "solgovr"
 	item_color = "solgovr"
 
@@ -120,7 +120,7 @@
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/blueshield
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.S.S. Cyberiad\" on the left shounder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\"."
 	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
@@ -129,7 +129,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shounder."
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\"."
 	name = "\improper Nanotrasen Navy Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"

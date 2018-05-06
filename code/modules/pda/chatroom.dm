@@ -7,7 +7,7 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 	var/list/logs = list() // chat logs
 	var/topic = "Discussion" // topic message for the chatroom
 	var/is_public = 1
-	var/announcer = "CyberiadAI"
+	var/announcer = "Announcer"
 
 /datum/chatroom/New(n)
 	name = n

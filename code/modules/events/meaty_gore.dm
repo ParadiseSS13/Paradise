@@ -1,5 +1,5 @@
 /datum/event/meteor_wave/gore/announce()
-		event_announcement.Announce("Unknown biological debris have been detected near [station_name()], please stand-by.", "Debris Alert")
+		event_announcement.Announce("Unknown biological debris have been detected near the [using_map.station_name], please stand-by.", "Debris Alert")
 
 /datum/event/meteor_wave/gore/setup()
 	waves = 3

@@ -42,7 +42,7 @@
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
 		P.name = "[id] log - [logname] [station_time_timestamp()]"
 		P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
-		P.info += {"<center>[station_name()] - Security Department</center><br>
+		P.info += {"<center>[using_map.station_name] - Security Department</center><br>
 						<center><small><b>Admission data:</b></small></center><br>
 						<small><b>Log generated at:</b>		[station_time_timestamp()]<br>
 						<b>Detainee:</b>		[logname]<br>

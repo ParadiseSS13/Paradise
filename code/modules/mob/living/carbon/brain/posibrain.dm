@@ -93,7 +93,7 @@
 	src.brainmob.key = candidate.key
 	src.name = "positronic brain ([src.brainmob.name])"
 
-	to_chat(src.brainmob, "<b>You are a positronic brain, brought into existence on [station_name()].</b>")
+	to_chat(src.brainmob, "<b>You are a positronic brain, brought into existence on [using_map.station_name].</b>")
 	to_chat(src.brainmob, "<b>As a synthetic intelligence, you answer to all crewmembers, as well as the AI.</b>")
 	to_chat(src.brainmob, "<b>Remember, the purpose of your existence is to serve the crew and the station. Above all else, do no harm.</b>")
 	src.brainmob.mind.assigned_role = "Positronic Brain"

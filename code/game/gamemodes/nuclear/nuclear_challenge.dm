@@ -20,7 +20,7 @@
 		return
 
 	declaring_war = TRUE
-	var/are_you_sure = alert(user, "Consult your team carefully before you declare war on [station_name()]]. Are you sure you want to alert the enemy crew? You have [-round((world.time-round_start_time - CHALLENGE_TIME_LIMIT)/10)] seconds to decide.", "Declare war?", "Yes", "No")
+	var/are_you_sure = alert(user, "Consult your team carefully before you declare war on [using_map.station_name]]. Are you sure you want to alert the enemy crew? You have [-round((world.time-round_start_time - CHALLENGE_TIME_LIMIT)/10)] seconds to decide.", "Declare war?", "Yes", "No")
 	declaring_war = FALSE
 
 	if(!check_allowed(user))
@@ -30,7 +30,7 @@
 		to_chat(user, "On second thought, the element of surprise isn't so bad after all.")
 		return
 
-	var/war_declaration = "[user.real_name] has declared his intent to utterly destroy [station_name()] with a nuclear device, and dares the crew to try and stop them."
+	var/war_declaration = "[user.real_name] has declared his intent to utterly destroy [using_map.station_name] with a nuclear device, and dares the crew to try and stop them."
 
 	declaring_war = TRUE
 	var/custom_threat = alert(user, "Do you want to customize your declaration?", "Customize?", "Yes", "No")

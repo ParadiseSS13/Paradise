@@ -15,7 +15,7 @@
 /datum/holiday/proc/greet()
 	return "Have a happy [name]!"
 
-// Returns special prefixes for the station name on certain days. You wind up with names like "Christmas Object Epsilon". See new_station_name()
+// Returns special prefixes for the station name on certain days. You wind up with names like "Christmas Object Epsilon".
 /datum/holiday/proc/getStationPrefix()
 	//get the first word of the Holiday and use that
 	var/i = findtext(name," ",1,0)

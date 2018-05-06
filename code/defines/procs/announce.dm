@@ -1,7 +1,7 @@
 /var/datum/announcement/minor/minor_announcement = new()
 /var/datum/announcement/priority/priority_announcement = new(do_log = 0)
-/var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 0)
-/var/datum/announcement/priority/command/event/event_announcement = new(do_log = 0, do_newscast = 0)
+/var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 1)
+/var/datum/announcement/priority/command/event/event_announcement = new(do_log = 0, do_newscast = 1)
 
 /datum/announcement
 	var/title = "Attention"
@@ -32,8 +32,8 @@
 /datum/announcement/priority/command/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 1
-	title = "[command_name()] Update"
-	announcement_type = "[command_name()] Update"
+	title = "[using_map.dock_name] Update"
+	announcement_type = "[using_map.dock_name] Update"
 
 /datum/announcement/priority/command/event/New(var/do_log = 1, var/new_sound = sound('sound/misc/notice2.ogg'), var/do_newscast = 0)
 	..(do_log, new_sound, do_newscast)
@@ -156,10 +156,11 @@
 	var/datum/news_announcement/news = new
 	news.channel_name = channel_name
 	news.author = announcer
+	news.title = message_title
 	news.message = message
 	news.message_type = announcement_type
 	news.can_be_redacted = 0
-	announce_newscaster_news(news)
+	announce_newscaster_news(news, FALSE)
 
 /datum/announcement/proc/Sound(var/message_sound, var/receivers)
 	if(!message_sound)

@@ -137,9 +137,6 @@ var/round_start_time = 0
 
 	callHook("roundstart")
 
-	//here to initialize the random events nicely at round start
-	setup_economy()
-
 	//shuttle_controller.setup_shuttle_docks()
 
 	spawn(0)//Forking here so we dont have to wait for this to finish

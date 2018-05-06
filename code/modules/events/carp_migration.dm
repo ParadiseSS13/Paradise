@@ -11,9 +11,9 @@
 /datum/event/carp_migration/announce()
 	var/announcement = ""
 	if(severity == EVENT_LEVEL_MAJOR)
-		announcement = "Massive migration of unknown biological entities has been detected near [station_name()], please stand-by."
+		announcement = "Massive migration of unknown biological entities has been detected near the [using_map.station_name], please stand-by."
 	else
-		announcement = "Unknown biological [spawned_carp.len == 1 ? "entity has" : "entities have"] been detected near [station_name()], please stand-by."
+		announcement = "Unknown biological [spawned_carp.len == 1 ? "entity has" : "entities have"] been detected near the [using_map.station_name], please stand-by."
 	event_announcement.Announce(announcement, "Lifesign Alert")
 
 /datum/event/carp_migration/start()
@@ -32,7 +32,7 @@
 			spawn_locations.Add(C.loc)
 	spawn_locations = shuffle(spawn_locations)
 	num_groups = min(num_groups, spawn_locations.len)
-	
+
 	var/i = 1
 	while(i <= num_groups)
 		var/group_size = rand(group_size_min, group_size_max)

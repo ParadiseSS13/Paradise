@@ -287,10 +287,10 @@ var/ert_request_answered = 0
 			M.job = "ERT Commander"
 
 /datum/response_team/proc/cannot_send_team()
-	event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
+	event_announcement.Announce("[using_map.station_name], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
 
 /datum/response_team/proc/announce_team()
-	event_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
+	event_announcement.Announce("Attention, [using_map.station_name]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
 
 // -- AMBER TEAM --
 
@@ -303,7 +303,7 @@ var/ert_request_answered = 0
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
-	event_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
+	event_announcement.Announce("Attention, [using_map.station_name]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
 
 // -- RED TEAM --
 
@@ -316,7 +316,7 @@ var/ert_request_answered = 0
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/red
 
 /datum/response_team/red/announce_team()
-	event_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
+	event_announcement.Announce("Attention, [using_map.station_name]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
 
 // -- GAMMA TEAM --
 
@@ -330,7 +330,7 @@ var/ert_request_answered = 0
 	cyborg_unlock = 1
 
 /datum/response_team/gamma/announce_team()
-	event_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
+	event_announcement.Announce("Attention, [using_map.station_name]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"

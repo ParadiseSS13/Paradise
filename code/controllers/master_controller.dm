@@ -59,7 +59,7 @@ var/global/pipe_processing_killed = 0
 	setup_objects()
 	setupgenetics()
 	setupfactions()
-	setup_economy()
+	setup_news()
 
 	for(var/i=0, i<max_secret_rooms, i++)
 		make_mining_asteroid_secret()
