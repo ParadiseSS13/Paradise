@@ -303,7 +303,7 @@
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 						"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		if(ckey || M.ckey)
+		if(ckey)
 			add_attack_logs(M, src, "Animal attacked")
 		else
 			add_attack_logs(M, src, "Animal attacked", FALSE)
