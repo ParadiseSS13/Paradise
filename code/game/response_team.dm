@@ -104,8 +104,12 @@ var/ert_request_answered = 0
 		if(index > emergencyresponseteamspawn.len)
 			index = 1
 
+		if(!M || !M.client)
+			continue
 		var/client/C = M.client
 		var/mob/living/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
+		if(!M || !new_commando)
+			continue
 		new_commando.mind.key = M.key
 		new_commando.key = M.key
 		new_commando.update_icons()
