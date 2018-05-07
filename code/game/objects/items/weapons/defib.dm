@@ -399,11 +399,7 @@
 					var/health = H.health
 					M.visible_message("<span class='warning'>[M]'s body convulses a bit.")
 					playsound(get_turf(src), "bodyfall", 50, 1)
-						if(custom)
-							playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-							playsound(get_turf(src), 'sound/machines/kdefibfail.ogg', 50, 0)
-						if(!custom)
-							playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
+					playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 					for(var/obj/item/organ/external/O in H.bodyparts)
 						total_brute	+= O.brute_dam
 						total_burn	+= O.burn_dam
