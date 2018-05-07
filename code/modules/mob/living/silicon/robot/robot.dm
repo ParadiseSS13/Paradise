@@ -883,9 +883,10 @@ var/list/robot_verbs_default = list(
 			icon_state = "[base_icon]-roll"
 		else
 			icon_state = base_icon
-		for(var/obj/item/borg/combat/shield/S in module.modules)
-			if(activated(S))
-				overlays += "[base_icon]-shield"
+		if(module)
+			for(var/obj/item/borg/combat/shield/S in module.modules)
+				if(activated(S))
+					overlays += "[base_icon]-shield"
 	update_fire()
 
 /mob/living/silicon/robot/proc/installed_modules()
