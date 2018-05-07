@@ -123,7 +123,7 @@
 			has_reagents = TRUE
 	if(!log_override && firer && original)
 		if(has_reagents)
-			add_attack_logs(firer, L, "Shot with a [type] (potentially containing [reagent_note])")
+			add_attack_logs(firer, L, "Shot with a [type] (containing [reagent_note])")
 		else
 			add_attack_logs(firer, L, "Shot with a [type]")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
