@@ -39,7 +39,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		icon_regular_floor = icon_state
 	if(floor_tile)
 		builtin_tile = new floor_tile
-
+	new /mob/living/simple_animal/pet/corgi/Ian(src)
 /turf/simulated/floor/Destroy()
 	QDEL_NULL(builtin_tile)
 	return ..()
