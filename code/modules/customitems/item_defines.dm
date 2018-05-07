@@ -1531,3 +1531,65 @@
 		A.UpdateButtonIcon()
 		update_icon()
 		user.update_inv_head()
+
+/obj/item/clothing/head/collectable/succubus
+	name = "Horns and tails of the succubi"
+	desc = "Worst behavior is the best behavior"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "horns"
+	item_state = "horns"
+
+/obj/item/melee/classic_baton/succubuswhip
+	name = "Succubus Whip"
+	desc = "A whip used to stun, among other things..."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "succubuswhip"
+	item_state = "chain"
+	slot_flags = SLOT_BELT
+	force = 12 //9 hit crit
+	w_class = WEIGHT_CLASS_NORMAL
+	cooldown = 0
+	on = 1
+
+/obj/item/melee/classic_baton/succubuswhip/attack(mob/target as mob, mob/living/user as mob)
+	if(on)
+		add_fingerprint(user)
+		if((CLUMSY in user.mutations) && prob(50))
+			to_chat(user, "<span class ='danger'>You whipped yourself.</span>")
+			user.Weaken(3 * force)
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				H.apply_damage(2*force, BRUTE, "head")
+			else
+				user.take_organ_damage(2*force)
+			return
+		if(isrobot(target))
+			..()
+			return
+		if(!isliving(target))
+			return
+		if(user.a_intent == INTENT_HARM)
+			if(!..()) return
+			if(!isrobot(target)) return
+		else
+			if(cooldown <= 0)
+				if(ishuman(target))
+					var/mob/living/carbon/human/H = target
+					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
+						return 0
+				playsound(get_turf(src), 'sound/effects/succubuswhip.ogg', 75, 1)
+				target.Weaken(3)
+				add_attack_logs(user, target, "Stunned with [src]")
+				add_fingerprint(user)
+				target.visible_message("<span class ='danger'>[user] whipped [target] with \the [src]!</span>", \
+					"<span class ='userdanger'>[user] has whipped [target] with \the [src]!</span>")
+				if(!iscarbon(user))
+					target.LAssailant = null
+				else
+					target.LAssailant = user
+				cooldown = 1
+				spawn(20)
+					cooldown = 0
+		return
+	else
+		return ..()
