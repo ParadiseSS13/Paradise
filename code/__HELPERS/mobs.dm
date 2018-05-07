@@ -248,7 +248,7 @@ Proc for attack log creation, because really why not
 This is always put in the attack log.
 */
 
-/proc/add_attack_logs(mob/user, mob/target, what_done, admin_notify = TRUE)
+/proc/add_attack_logs(mob/user, mob/target, what_done, admin_notify)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
 		for(var/mob/M in targets)
@@ -263,6 +263,8 @@ This is always put in the attack log.
 	if(istype(target))
 		target.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	log_attack(user_str, target_str, what_done)
+	if(isnull(admin_notify))
+		admin_notify = target.ckey ? TRUE : FALSE
 	if(admin_notify)
 		msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]")
 
