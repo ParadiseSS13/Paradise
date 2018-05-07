@@ -43,7 +43,7 @@
 	cameranet.cameras += src
 	cameranet.addCamera(src)
 
-/obj/machinery/camera/initialize()
+/obj/machinery/camera/Initialize()
 	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()

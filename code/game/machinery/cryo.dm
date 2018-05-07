@@ -62,7 +62,7 @@
 	current_heat_capacity = 50 * C
 	efficiency = C
 
-/obj/machinery/atmospherics/unary/cryo_cell/initialize()
+/obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
 	if(node) return
 	for(var/cdir in cardinal)

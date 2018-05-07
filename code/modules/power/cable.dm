@@ -72,19 +72,13 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/turf/T = src.loc			// hide if turf is not intact
 
 	if(level==1) hide(T.intact)
-	cable_list += src //add it to the global cable list
-
-	// Catches the interim-zone of worldstart and roundstart
-	// I want both the ticker to exist (so mapped-in cables don't trip this)
-	// but also not have started yet (since the zlevel system would handle this on its own otherwise)
-	if((ticker && ticker.current_state < GAME_STATE_PLAYING))
-		attempt_init()
+	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
 
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
 		cut_cable_from_powernet()				// update the powernets
-	cable_list -= src							//remove it from global cable list
+	LAZYREMOVE(GLOB.cable_list, src)			//remove it from global cable list
 	return ..()									// then go ahead and delete the cable
 
 ///////////////////////////////////
@@ -462,7 +456,7 @@ obj/structure/cable/proc/cable_color(var/colorC)
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
 	// queue it to rebuild
-	deferred_powernet_rebuilds += O
+	SSmachines.deferred_powernet_rebuilds += O
 
 	// Disconnect machines connected to nodes
 	if(d1 == 0) // if we cut a node (O-X) cable

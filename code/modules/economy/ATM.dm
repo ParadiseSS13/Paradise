@@ -38,7 +38,7 @@ log transactions
 	..()
 	machine_id = "[station_name()] RT #[num_financial_terminals++]"
 
-/obj/machinery/atm/initialize()
+/obj/machinery/atm/Initialize()
 	..()
 	reconnect_database()
 

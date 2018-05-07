@@ -1254,9 +1254,10 @@
 			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
 		else
 			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
-		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src), monkey_type)
+		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
 		if(fingerprintshidden.len)
 			creature.fingerprintshidden = fingerprintshidden.Copy()
+		creature.set_species(monkey_type)
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/farwacube

@@ -169,7 +169,7 @@
 /mob/proc/movement_delay()
 	return 0
 
-/mob/proc/Life()
+/mob/proc/Life(seconds, times_fired)
 //	handle_typing_indicator()
 	return
 

@@ -19,7 +19,7 @@
 	overlay_layer = layer
 	..()
 
-/obj/machinery/computer/initialize()
+/obj/machinery/computer/Initialize()
 	..()
 	power_change()
 	update_icon()

@@ -16,9 +16,11 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
+	makeDatumRefLists()
 	callHook("startup")
 
 	src.update_status()
+
 
 	. = ..()
 

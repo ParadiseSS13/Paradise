@@ -64,7 +64,7 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-/obj/machinery/door/initialize()
+/obj/machinery/door/Initialize()
 	air_update_turf(1)
 	..()
 
