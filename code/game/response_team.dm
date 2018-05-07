@@ -10,7 +10,6 @@
 var/list/response_team_members = list()
 var/responseteam_age = 21 // Minimum account age to play as an ERT member
 var/datum/response_team/active_team = null
-var/send_emergency_team = 0
 var/ert_request_answered = 0
 
 /client/proc/response_team()
@@ -29,18 +28,11 @@ var/ert_request_answered = 0
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
-	if(send_emergency_team)
-		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
-		return
-
 	var/datum/nano_module/ert_manager/E = new()
 	E.ui_interact(usr)
 
 
 /mob/dead/observer/proc/JoinResponseTeam()
-	if(!send_emergency_team)
-		to_chat(src, "No emergency response team is currently being sent.")
-		return 0
 
 	if(jobban_isbanned(src, ROLE_ERT))
 		to_chat(src, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
@@ -66,11 +58,9 @@ var/ert_request_answered = 0
 	active_team = response_team_type
 	active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
-	send_emergency_team = 1
 	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT])
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
-		send_emergency_team = 0
 		return 0
 
 	// Respawnable players get first dibs
@@ -86,7 +76,6 @@ var/ert_request_answered = 0
 
 	if(!response_team_members.len)
 		active_team.cannot_send_team()
-		send_emergency_team = 0
 		return 0
 
 	var/index = 1
@@ -111,7 +100,6 @@ var/ert_request_answered = 0
 		new_commando.update_icons()
 		index++
 
-	send_emergency_team = 0
 	active_team.announce_team()
 	return 1
 
