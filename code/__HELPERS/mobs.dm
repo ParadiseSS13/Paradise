@@ -264,7 +264,7 @@ This is always put in the attack log.
 		target.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	log_attack(user_str, target_str, what_done)
 	if(isnull(admin_notify))
-		if(ismob(target))
+		if(istype(target))
 			admin_notify = target.ckey ? TRUE : FALSE
 		else
 			admin_notify = TRUE
