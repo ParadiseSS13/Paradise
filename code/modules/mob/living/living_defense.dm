@@ -303,7 +303,10 @@
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
 						"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_attack_logs(M, src, "Animal attacked")
+		if(ckey || M.ckey)
+			add_attack_logs(M, src, "Animal attacked")
+		else
+			add_attack_logs(M, src, "Animal attacked", FALSE)
 		return 1
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
