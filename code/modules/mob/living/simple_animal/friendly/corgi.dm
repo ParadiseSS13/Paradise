@@ -43,6 +43,7 @@
 
 /mob/living/simple_animal/pet/corgi/death(gibbed)
 	..()
+	revive() //corgis cannot die
 	regenerate_icons()
 
 /mob/living/simple_animal/pet/corgi/revive()
