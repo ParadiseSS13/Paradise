@@ -633,18 +633,6 @@
 		src.give_disease(M)
 		href_list["datumrefresh"] = href_list["give_spell"]
 
-	else if(href_list["ninja"])
-		if(!check_rights(R_SERVER|R_EVENT))
-			return
-
-		var/mob/M = locate(href_list["ninja"])
-		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
-			return
-
-		src.cmd_admin_ninjafy(M)
-		href_list["datumrefresh"] = href_list["ninja"]
-
 	else if(href_list["godmode"])
 		if(!check_rights(R_REJUVINATE))	return
 

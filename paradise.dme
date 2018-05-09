@@ -1894,7 +1894,6 @@
 #include "code\modules\nano\modules\nano_module.dm"
 #include "code\modules\nano\modules\power_monitor.dm"
 #include "code\modules\ninja\__ninjaDefines.dm"
-#include "code\modules\ninja\admin_ninja_verbs.dm"
 #include "code\modules\ninja\energy_katana.dm"
 #include "code\modules\ninja\ninja_event.dm"
 #include "code\modules\ninja\outfit.dm"

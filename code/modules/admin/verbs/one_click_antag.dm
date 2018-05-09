@@ -301,12 +301,6 @@ client/proc/one_click_antag()
 	E.processing = TRUE
 	return TRUE
 
-/*
-/datum/admins/proc/makeSpaceNinja()
-	space_ninja_arrival()
-	return 1
-*/
-
 /datum/admins/proc/makeDeathsquad()
 	var/list/mob/candidates = list()
 	var/mob/theghost = null

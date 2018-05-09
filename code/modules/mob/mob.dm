@@ -1271,7 +1271,6 @@ var/list/slot_equipment_priority = list( \
 
 	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
 	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
-	.["Make Ninja"] = "?_src_=vars;ninja=[UID()]"
 	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
 	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
 

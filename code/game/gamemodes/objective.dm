@@ -408,27 +408,74 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	steal_target = targetinfo
 
 /datum/objective/download
+
 /datum/objective/download/proc/gen_amount_goal()
-	target_amount = rand(10,20)
-	explanation_text = "Download [target_amount] research levels."
+	target_amount = rand(10, 20)
+	explanation_text = "Download [target_amount] research level\s."
 	return target_amount
 
+/datum/objective/download/check_completion() //NINJACODE
+	if(!ishuman(owner.current))
+		return FALSE
 
-/datum/objective/download/check_completion()
-	return 0
+	var/mob/living/carbon/human/H = owner.current
+	if(!H || H.stat == DEAD)
+		return FALSE
 
+	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
+		return FALSE
+
+	var/obj/item/clothing/suit/space/space_ninja/SN = H.wear_suit
+	if(!SN.s_initialized)
+		return FALSE
+
+	var/current_amount
+	if(!SN.stored_research.len)
+		return FALSE
+	else
+		for(var/datum/tech/current_data in SN.stored_research)
+			if(current_data.level)
+				current_amount += (current_data.level - 1)
+	if(current_amount<target_amount)
+		return FALSE
+	return TRUE
 
 
 /datum/objective/capture
+
 /datum/objective/capture/proc/gen_amount_goal()
-	target_amount = rand(5,10)
-	explanation_text = "Accumulate [target_amount] capture points."
+	target_amount = rand(5, 10)
+	explanation_text = "Capture [target_amount] lifeform\s with an energy net. Live, rare specimens are worth more."
 	return target_amount
 
-
-/datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
-	return 0
-
+/datum/objective/capture/check_completion() //Basically runs through all the mobs in the area to determine how much they are worth.
+	var/captured_amount = 0
+	var/area/ninja/holding/A = locate()
+	for(var/mob/living/carbon/human/M in A) //Humans.
+		if(issmall(M))
+			captured_amount += 0.1 //Monkeys are almost worthless, you failure.
+			continue
+		if(M.stat == DEAD) //Dead folks are worth less.
+			captured_amount += 0.5
+			continue
+		captured_amount += 1
+	for(var/mob/living/carbon/alien/larva/M in A) //Larva are important for research.
+		if(M.stat == DEAD)
+			captured_amount += 0.5
+			continue
+		captured_amount += 1
+	for(var/mob/living/carbon/alien/humanoid/M in A) //Aliens are worth twice as much as humans.
+		if(istype(M, /mob/living/carbon/alien/humanoid/queen)) //Queens are worth three times as much as humans.
+			if(M.stat == DEAD)
+				captured_amount += 1.5
+			else
+				captured_amount += 3
+			continue
+		if(M.stat == DEAD)
+			captured_amount += 1
+			continue
+		captured_amount += 2
+	return captured_amount >= target_amount
 
 
 
