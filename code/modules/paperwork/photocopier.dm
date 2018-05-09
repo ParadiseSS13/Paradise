@@ -316,11 +316,11 @@
 		return
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
-		visible_message("<span class='warning'>[usr] jumps onto the photocopier!</span>")
+		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
 	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
 		if(target.anchored) return
 		if(!ishuman(user)) return
-		visible_message("<span class='warning'>[usr] drags [target.name] onto the photocopier!</span>")
+		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
 	target.forceMove(get_turf(src))
 	ass = target
 	if(copyitem)
@@ -344,9 +344,9 @@
 /obj/machinery/photocopier/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You overload the photocopier's laser printing mechanism.</span>")
+		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
 	else
-		to_chat(user, "<span class='notice'>The photocopier's laser printing mechanism is already overloaded!</span>")
+		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
 /obj/item/toner
 	name = "toner cartridge"

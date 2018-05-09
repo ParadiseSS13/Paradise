@@ -682,7 +682,7 @@
 			else
 				user.put_in_hands(cell)
 			cell.add_fingerprint(user)
-			cell.updateicon()
+			cell.update_icon()
 
 			src.cell = null
 			user.visible_message("<span class='warning'>[user.name] removes the power cell from [src.name]!", "You remove the power cell.</span>")
