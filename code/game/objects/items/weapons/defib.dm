@@ -96,7 +96,7 @@
 
 	if(istype(W, /obj/item/screwdriver))
 		if(bcell)
-			bcell.updateicon()
+			bcell.update_icon()
 			bcell.loc = get_turf(src.loc)
 			bcell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
