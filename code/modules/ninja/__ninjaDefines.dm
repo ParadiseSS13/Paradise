@@ -12,9 +12,7 @@ Contents:
 #define N_SMOKE_BOMB		2
 #define N_ADRENALINE		3
 
-//ninjaDrainAct() defines for non numerical returns
-//While not strictly needed, it's nicer than them just returning "twat"
-//Which was my original intention.
+//ninjaDrainAct() defines
 
 #define INVALID_DRAIN			"INVALID" //This one is if the drain proc needs to cancel, eg missing variables, etc, it's important.
 

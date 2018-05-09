@@ -2,7 +2,7 @@
 //Movement impairing would indicate drugs and the like.
 /obj/item/clothing/suit/space/space_ninja/proc/ninjaboost()
 
-	if(!ninjacost(0,N_ADRENALINE))
+	if(!ninjacost(0, N_ADRENALINE))
 		var/mob/living/carbon/human/H = affecting
 		H.SetParalysis(0)
 		H.SetStunned(0)

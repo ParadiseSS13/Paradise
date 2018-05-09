@@ -34,7 +34,7 @@
 		return
 	lockIcons(U)//Check for icons.
 	U.regenerate_icons()
-	to_chat(U, "<span class='notice'>Linking neural-net interface...\nPattern</span>\green <B>GREEN</B><span class='notice'>, continuing operation.</span>")
+	to_chat(U, "<span class='notice'>Linking neural-net interface...\nPattern</span><span class='greenannounce'> GREEN</span><span class='notice'>, continuing operation.</span>")
 	addtimer(CALLBACK(src, .proc/ninitialize_five, delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninitialize_five(delay, mob/living/carbon/human/U)
@@ -79,11 +79,11 @@
 	addtimer(CALLBACK(src, .proc/deinitialize_six, delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize_six(delay, mob/living/carbon/human/U)
-	to_chat(U, "<span class='notice'>Disconnecting neural-net interface...</span>\green<B>Success</B><span class='notice'>.</span>")
+	to_chat(U, "<span class='notice'>Disconnecting neural-net interface...</span><span class='greenannounce'>Success</span><span class='notice'>.</span>")
 	addtimer(CALLBACK(src, .proc/deinitialize_seven, delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize_seven(delay, mob/living/carbon/human/U)
-	to_chat(U, "<span class='notice'>Disengaging neural-net interface...</span>\green<B>Success</B><span class='notice'>.</span>")
+	to_chat(U, "<span class='notice'>Disengaging neural-net interface...</span><span class='greenannounce'>Success</span><span class='notice'>.</span>")
 	addtimer(CALLBACK(src, .proc/deinitialize_eight, delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize_eight(delay, mob/living/carbon/human/U)

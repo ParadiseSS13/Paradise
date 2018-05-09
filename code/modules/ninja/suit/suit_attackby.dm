@@ -1,18 +1,18 @@
 
 
 /obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/U, params)
-	if(U!=affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
+	if(U != affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
 		return ..()
 
 	if(istype(I, /obj/item/reagent_containers/glass))//If it's a glass beaker.
 		if(I.reagents.has_reagent("radium", a_transfer) && a_boost < a_maxamount)
 			I.reagents.remove_reagent("radium", a_transfer)
-			a_boost++;
+			a_boost++
 			to_chat(U, "<span class='notice'>There are now [a_boost] adrenaline boosts remaining.</span>")
 			return
 		if(I.reagents.has_reagent("smoke_powder", a_transfer) && s_bombs < s_maxamount)
 			I.reagents.remove_reagent("smoke_powder", a_transfer)
-			s_bombs++;
+			s_bombs++
 			to_chat(U, "<span class='notice'>There are now [s_bombs] smoke bombs remaining.</span>")
 			return
 
@@ -21,7 +21,7 @@
 		var/obj/item/stock_parts/cell/CELL = I
 		if(CELL.maxcharge > cell.maxcharge && n_gloves && n_gloves.candrain)
 			to_chat(U, "<span class='notice'>Higher maximum capacity detected.\nUpgrading...</span>")
-			if(n_gloves && n_gloves.candrain && do_after(U,s_delay, target = U))
+			if(n_gloves && n_gloves.candrain && do_after(U, s_delay, target = U))
 				if(U.drop_item())
 					CELL.forceMove(src)
 					CELL.charge = min(CELL.charge + cell.charge, CELL.maxcharge)
@@ -41,7 +41,7 @@
 		var/obj/item/disk/tech_disk/TD = I
 		if(TD.stored)//If it has something on it.
 			to_chat(U, "Research information detected, processing...")
-			if(do_after(U,s_delay, target = src))
+			if(do_after(U, s_delay, target = U))
 				for(var/datum/tech/current_data in stored_research)
 					if(current_data.id == TD.stored.id)
 						if(current_data.level < TD.stored.level)

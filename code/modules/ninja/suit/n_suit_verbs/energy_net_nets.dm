@@ -9,17 +9,17 @@ It is possible to destroy the net by the occupant or someone else.
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "energynet"
 
-	density = TRUE//Can't pass through.
-	opacity = 0//Can see through.
+	density = TRUE //Can't pass through.
+	opacity = 0 //Can see through.
 	mouse_opacity = MOUSE_OPACITY_ICON //So you can hit it with stuff.
-	anchored = TRUE//Can't drag/grab the net.
+	anchored = TRUE //Can't drag/grab the net.
 	layer = ABOVE_ALL_MOB_LAYER
 	max_integrity = 25 //How much health it has.
 	can_buckle = 1
 	buckle_lying = 0
-	var/mob/living/carbon/affecting//Who it is currently affecting, if anyone.
-	var/mob/living/carbon/master//Who shot web. Will let this person know if the net was successful or failed.
-	var/check = 15//30 seconds before teleportation. Could be extended I guess.
+	var/mob/living/carbon/affecting //Who it is currently affecting, if anyone.
+	var/mob/living/carbon/master //Who shot web. Will let this person know if the net was successful or failed.
+	var/check = 15 //30 seconds before teleportation. Could be extended I guess.
 	var/success = FALSE
 
 
@@ -39,11 +39,11 @@ It is possible to destroy the net by the occupant or someone else.
 	return ..()
 
 /obj/structure/energy_net/process()
-	if(QDELETED(affecting)||affecting.loc!=loc)
+	if(QDELETED(affecting)||affecting.loc != loc)
 		qdel(src)//Get rid of the net.
 		return
 
-	if(check>0)
+	if(check > 0)
 		check--
 		return
 
