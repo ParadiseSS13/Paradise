@@ -155,7 +155,7 @@
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
 	var/obj/effect/temp_visual/fcluwne_manifest/manifest = /obj/effect/temp_visual/fcluwne_manifest
 	if(manifested)
-		new manifest(src.loc)
+		new manifest(loc)
 		addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Appear), MANIFEST_DELAY)
 
 	else
@@ -264,7 +264,7 @@
 				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
 				to_chat(H, "<span class='warning'>Something grabs your foot!</span>")
 				H.playsound_local(src,'sound/hallucinations/i_see_you1.ogg', 25)
-				H.Stun(20)
+				H.Stun(10)
 
 			if(prob(3))
 				to_chat(H, "<font face='Comic Sans MS'><i>!KNOH ?od nottub siht seod tahW</i></font>")
@@ -389,7 +389,7 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "fcluwne_manifest"
 	layer = TURF_LAYER
-	duration = INFINITY
+	duration = 150
 	randomdir = FALSE
 
 
