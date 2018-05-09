@@ -123,7 +123,7 @@ Contents:
 	return TRUE
 
 /obj/item/clothing/suit/space/space_ninja/proc/lockIcons(mob/living/carbon/human/H)
-	icon_state = H.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
+	icon_state = H.gender == FEMALE ? "s-ninjanf" : "s-ninjan"
 	H.gloves.icon_state = "s-ninjan"
 	H.gloves.item_state = "s-ninjan"
 
