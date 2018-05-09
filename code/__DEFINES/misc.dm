@@ -344,5 +344,10 @@
 //for obj explosion block calculation
 #define EXPLOSION_BLOCK_PROC -1
 
+//http://www.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
+#define MOUSE_OPACITY_TRANSPARENT 0
+#define MOUSE_OPACITY_ICON 1
+#define MOUSE_OPACITY_OPAQUE 2
+
 // The SQL version required by this version of the code
 #define SQL_VERSION 2

@@ -102,6 +102,7 @@
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	var/use_itemicon = TRUE
+
 /datum/action/item_action/New(Target)
 	..()
 	var/obj/item/I = target
@@ -117,7 +118,7 @@
 		return 0
 	if(target)
 		var/obj/item/I = target
-		I.ui_action_click(owner, type)
+		I.ui_action_click(owner, src)
 	return 1
 
 /datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)

@@ -1418,7 +1418,7 @@
 "Hs" = (/obj/structure/table/reinforced,/obj/item/clothing/glasses/sunglasses/blindfold,/obj/item/clothing/mask/muzzle,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/admin)
 "Ht" = (/turf/unsimulated/floor{icon_state = "engine"},/turf/unsimulated/wall{dir = 4; icon = 'icons/turf/shuttle.dmi'; icon_state = "window5"; name = "window"; opacity = 0; tag = "icon-window5 (EAST)"},/area/admin)
 "Hu" = (/obj/structure/rack,/obj/item/clothing/gloves/space_ninja,/turf/unsimulated/floor{icon_state = "engine"},/area/admin)
-"Hv" = (/obj/structure/rack,/obj/item/katana/energy,/obj/item/clothing/mask/gas/voice/space_ninja,/turf/unsimulated/floor{icon_state = "engine"},/area/admin)
+"Hv" = (/obj/structure/rack,/obj/item/energy_katana,/obj/item/clothing/mask/gas/space_ninja,/turf/unsimulated/floor{icon_state = "engine"},/area/admin)
 "Hw" = (/obj/structure/rack,/obj/item/clothing/shoes/space_ninja,/turf/unsimulated/floor{icon_state = "engine"},/area/admin)
 "Hx" = (/obj/structure/closet/secure_closet/bar{req_access = null; req_access_txt = "112"},/turf/unsimulated/floor{icon_state = "white"},/area/tdome)
 "Hy" = (/turf/unsimulated/floor{icon_state = "white"},/area/tdome)

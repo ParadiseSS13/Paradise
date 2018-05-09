@@ -20,10 +20,10 @@
 	QDEL_NULL(ion_trail)
 	return ..()
 
-/obj/item/tank/jetpack/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/toggle_jetpack)
+/obj/item/tank/jetpack/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/toggle_jetpack))
 		cycle(user)
-	else if(actiontype == /datum/action/item_action/jetpack_stabilization)
+	else if(istype(action, /datum/action/item_action/jetpack_stabilization))
 		toggle_stabilization(user)
 	else
 		toggle_internals(user)

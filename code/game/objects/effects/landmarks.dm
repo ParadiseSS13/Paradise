@@ -268,3 +268,11 @@
 	ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
+
+/obj/effect/landmark/holding_facility
+	name = "Holding Facility"
+
+/obj/effect/landmark/holding_facility/New()
+	..()
+	GLOB.holdingfacility += loc
+	qdel(src)

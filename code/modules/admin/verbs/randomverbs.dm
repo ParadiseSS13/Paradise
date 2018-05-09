@@ -406,6 +406,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(synd_spawn)
 				new_character.loc = get_turf(synd_spawn)
 			call(/datum/game_mode/proc/equip_syndicate)(new_character)
+ 		if("Space Ninja")
+ 			var/list/ninja_spawn = list()
+ 			for(var/obj/effect/landmark/L in landmarks_list)
+ 				if(L.name == "carpspawn")
+ 					ninja_spawn += L
+			new_character.equipOutfit(/datum/outfit/ninja)
+			new_character.internal = new_character.s_store
+			new_character.update_action_buttons_icon()
 
 		if("Death Commando")//Leaves them at late-join spawn.
 			new_character.equip_death_commando()
