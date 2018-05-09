@@ -49,6 +49,10 @@
 		Acquire_Victim()
 
 
+/mob/living/simple_animal/hostile/floor_cluwne/Destroy()
+	return ..()
+
+
 /mob/living/simple_animal/hostile/floor_cluwne/attack_hand(mob/living/carbon/human/M)
 	..()
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
@@ -58,7 +62,7 @@
 	return TRUE
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/Life()
+/mob/living/simple_animal/hostile/floor_cluwne/Life(seconds, times_fired)
 	do_jitter_animation(1000)
 	pixel_y = 8
 
@@ -144,6 +148,7 @@
 			interest = 0
 			return target = current_victim
 
+
 	message_admins("Floor Cluwne was deleted due to a lack of valid targets, if this was a manually targeted instance please re-evaluate your choice.")
 	qdel(src)
 
@@ -151,7 +156,7 @@
 	var/obj/effect/temp_visual/fcluwne_manifest/manifest = /obj/effect/temp_visual/fcluwne_manifest
 	if(manifested)
 		new manifest(src.loc)
-		addtimer(CALLBACK(src, .proc/Appear), MANIFEST_DELAY)
+		addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Appear), MANIFEST_DELAY)
 
 	else
 		layer = GAME_PLANE
@@ -212,7 +217,7 @@
 
 			if(prob(5))
 				H.playsound_local(src,'sound/hallucinations/growl1.ogg', 10)
-				to_chat(H, "<i>knoh</i>")
+				to_chat(H, "<font face='Comic Sans MS'><i>knoh</i></font>")
 
 			if(prob(5))
 				var/obj/item/I = locate() in orange(H, 8)
@@ -221,10 +226,10 @@
 					to_chat(H, "<span class='warning'>What threw that?</span>")
 
 			if(prob(2))
-				to_chat(H, "<i>yalp ot tnaw I</i>")
+				to_chat(H, "<font face='Comic Sans MS'><i>yalp ot tnaw I</i></font>")
 				Appear()
 				manifested = FALSE
-				addtimer(CALLBACK(src, .proc/Manifest), 1)
+				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 1)
 
 		if(STAGE_TORMENT)
 
@@ -256,13 +261,13 @@
 				H.flash_eyes()
 
 			if(prob(2))
-				to_chat(H, "<i>!?REHTOMKNOH eht esiarp uoy oD</i>")
+				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
 				to_chat(H, "<span class='warning'>Something grabs your foot!</span>")
 				H.playsound_local(src,'sound/hallucinations/i_see_you1.ogg', 25)
 				H.Stun(20)
 
 			if(prob(3))
-				to_chat(H, "<i>KNOH ?od nottub siht seod tahW</i>")
+				to_chat(H, "<font face='Comic Sans MS'><i>!KNOH ?od nottub siht seod tahW</i></font>")
 				for(var/obj/machinery/M in range(H, 6))
 					M.attack_hand(src)
 
@@ -273,12 +278,12 @@
 
 			if(prob(1))
 				to_chat(H, "<span class='userdanger'>WHAT THE FUCK IS THAT?!</span>")
-				to_chat(H, "<i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i>")
+				to_chat(H, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
 				H.playsound_local(src,'sound/hallucinations/im_here1.ogg', 25)
 				H.reagents.add_reagent("lsd", 3)
 				Appear()
 				manifested = FALSE
-				addtimer(CALLBACK(src, .proc/Manifest), 2)
+				addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Manifest), 2)
 				for(var/obj/machinery/light/L in range(H, 8))
 					L.flicker()
 
@@ -300,7 +305,7 @@
 				H.emote("scream")
 				H.adjustBruteLoss(10)
 				if(!eating)
-					addtimer(CALLBACK(src, .proc/Grab, H), 50)
+					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Grab, H), 70)
 					for(var/turf/simulated/floor/O in range(src, 6))
 						O.MakeSlippery(TURF_WET_LUBE, 20)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
@@ -329,7 +334,7 @@
 			H.mouse_opacity = 0
 			H.density = FALSE
 			H.anchored = TRUE
-			addtimer(CALLBACK(src, .proc/Kill, H), 100)
+			addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Kill, H), 100)
 			visible_message("<span class='danger'>[src] pulls [H] under!</span>")
 			to_chat(H, "<span class='userdanger'>[src] drags you underneath the floor!</span>")
 	else
