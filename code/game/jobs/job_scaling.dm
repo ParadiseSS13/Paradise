@@ -8,3 +8,4 @@
 		job_master.LoadJobs("config/jobs_highpop.txt")
 	else
 		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config");
+	return 1
