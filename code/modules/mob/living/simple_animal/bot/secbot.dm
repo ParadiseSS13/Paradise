@@ -267,7 +267,7 @@ Auto Patrol: []"},
 	C.visible_message("<span class='danger'>[src] has [harmbaton ? "beaten" : "stunned"] [C]!</span>",\
 							"<span class='userdanger'>[src] has [harmbaton ? "beaten" : "stunned"] you!</span>")
 
-/mob/living/simple_animal/bot/secbot/Life()
+/mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
 	if(flashing_lights)
 		switch(light_color)

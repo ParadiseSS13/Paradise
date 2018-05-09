@@ -52,6 +52,9 @@ var/list/robot_verbs_default = list(
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
 	var/emagged = 0
+	var/is_emaggable = TRUE
+	var/eye_protection = 0
+	var/ear_protection = 0
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
@@ -762,7 +765,9 @@ var/list/robot_verbs_default = list(
 		return
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
-		if(locked)
+		if(!is_emaggable)
+			to_chat(user, "The emag sparks, and flashes red. This mechanism does not appear to be emaggable.")
+		else if(locked)
 			to_chat(user, "You emag the cover lock.")
 			locked = 0
 		else
@@ -1241,16 +1246,19 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
+	designation = "SpecOps"
 	lawupdate = 0
 	scrambledcodes = 1
-	pdahide = 1
-	modtype = "Commando"
-	faction = list("nanotrasen")
-	designation = "Nanotrasen Combat"
 	req_access = list(access_cent_specops)
 	ionpulse = 1
 	magpulse = 1
-	var/searching_for_ckey = 0
+	pdahide = 1
+	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	ear_protection = 1 // Immunity to the audio part of flashbangs
+	allow_rename = FALSE
+	modtype = "Commando"
+	faction = list("nanotrasen")
+	is_emaggable = FALSE
 
 /mob/living/silicon/robot/deathsquad/New(loc)
 	..()
@@ -1267,26 +1275,7 @@ var/list/robot_verbs_default = list(
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
-/mob/living/silicon/robot/deathsquad/attack_hand(mob/user)
-	if(isnull(ckey) && !searching_for_ckey)
-		searching_for_ckey = 1
-		to_chat(user, "<span class='notice'>Now checking for possible borgs.</span>")
-		var/list/borg_candidates = pollCandidates("Do you want to play as a Nanotrasen Combat borg?")
-		if(borg_candidates.len > 0 && isnull(ckey))
-			searching_for_ckey = 0
-			var/mob/M = pick(borg_candidates)
-			M.mind.transfer_to(src)
-			M.mind.assigned_role = "MODE"
-			M.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
-			ticker.mode.traitors |= M.mind // Adds them to current traitor list. Which is really the extra antagonist list.
-			key = M.key
-		else
-			searching_for_ckey = 0
-			to_chat(user, "<span class='notice'>Unable to connect to Central Command. Please wait and try again later.</span>")
-			return
-	else
-		to_chat(user, "<span class='warning'>[src] is already checking for possible borgs.</span>")
-		return
+
 
 /mob/living/silicon/robot/syndicate
 	base_icon = "syndie_bloodhound"
@@ -1447,3 +1436,9 @@ var/list/robot_verbs_default = list(
 	var/static/all_borg_icon_states = icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi')
 	if(spritename in all_borg_icon_states)
 		. = TRUE
+
+/mob/living/silicon/robot/check_eye_prot()
+	return eye_protection
+
+/mob/living/silicon/robot/check_ear_prot()
+	return ear_protection

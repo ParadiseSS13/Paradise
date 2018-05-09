@@ -38,7 +38,7 @@ log transactions
 	..()
 	machine_id = "[station_name()] RT #[num_financial_terminals++]"
 
-/obj/machinery/atm/initialize()
+/obj/machinery/atm/Initialize()
 	..()
 	reconnect_database()
 
@@ -122,6 +122,8 @@ log transactions
 	if(issilicon(user))
 		to_chat(user, "<span class='warning'>Artificial unit recognized. Artificial units do not currently receive monetary compensation, as per Nanotrasen regulation #1005.</span>")
 		return
+	if(!linked_db)
+		reconnect_database()
 	ui_interact(user)
 
 /obj/machinery/atm/attack_ghost(mob/user)
@@ -199,12 +201,9 @@ log transactions
 					authenticated_account.security_level = new_sec_level
 			if("attempt_auth")
 				if(linked_db)
-					// check if they have low security enabled
-					scan_user(usr)
-
-					if(!ticks_left_locked_down && held_card)
+					if(!ticks_left_locked_down)
 						var/tried_account_num = text2num(href_list["account_num"])
-						if(!tried_account_num)
+						if(!tried_account_num && held_card)
 							tried_account_num = held_card.associated_account_number
 						var/tried_pin = text2num(href_list["account_pin"])
 
@@ -323,30 +322,3 @@ log transactions
 //create the most effective combination of notes to make up the requested amount
 /obj/machinery/atm/proc/withdraw_arbitrary_sum(arbitrary_sum)
 	new /obj/item/stack/spacecash(get_step(get_turf(src), turn(dir, 180)), arbitrary_sum)
-
-//stolen wholesale and then edited a bit from newscasters, which are awesome and by Agouri
-/obj/machinery/atm/proc/scan_user(mob/living/carbon/human/H)
-	if(!authenticated_account && linked_db)
-		if(H.wear_id)
-			var/obj/item/card/id/I
-			if(istype(H.wear_id, /obj/item/card/id) )
-				I = H.wear_id
-			else if(istype(H.wear_id, /obj/item/pda) )
-				var/obj/item/pda/P = H.wear_id
-				I = P.id
-			if(I)
-				authenticated_account = attempt_account_access(I.associated_account_number)
-				if(authenticated_account)
-					to_chat(H, "[bicon(src)]<span class='notice'>Access granted. Welcome user '[authenticated_account.owner_name].'</span>")
-
-					//create a transaction log entry
-					var/datum/transaction/T = new()
-					T.target_name = authenticated_account.owner_name
-					T.purpose = "Remote terminal access"
-					T.source_terminal = machine_id
-					T.date = current_date_string
-					T.time = station_time_timestamp()
-					authenticated_account.transaction_log.Add(T)
-
-					view_screen = NO_SCREEN
-					SSnanoui.update_uis(src)

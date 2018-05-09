@@ -505,7 +505,7 @@
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
 
-/obj/item/spellbook/proc/Initialize()
+/obj/item/spellbook/proc/initialize()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
@@ -518,7 +518,7 @@
 
 /obj/item/spellbook/New()
 	..()
-	Initialize()
+	initialize()
 
 /obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/contract))
@@ -685,7 +685,7 @@
 	..()
 	name += spellname
 
-/obj/item/spellbook/oneuse/Initialize() //No need to init
+/obj/item/spellbook/oneuse/initialize() //No need to init
 	return
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)

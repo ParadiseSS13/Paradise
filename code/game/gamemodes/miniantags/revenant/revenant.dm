@@ -54,7 +54,7 @@
 	var/image/ghostimage = null //Visible to ghost with darkness off
 
 
-/mob/living/simple_animal/revenant/Life()
+/mob/living/simple_animal/revenant/Life(seconds, times_fired)
 	..()
 	if(revealed && essence <= 0)
 		death()

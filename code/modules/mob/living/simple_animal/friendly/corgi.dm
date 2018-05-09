@@ -37,7 +37,7 @@
 	if(gender == NEUTER)
 		gender = pick(MALE, FEMALE)
 
-/mob/living/simple_animal/pet/corgi/Life()
+/mob/living/simple_animal/pet/corgi/Life(seconds, times_fired)
 	. = ..()
 	regenerate_icons()
 
@@ -612,7 +612,7 @@
 	A.fire()
 	return
 
-/mob/living/simple_animal/pet/corgi/Ian/borgi/Life()
+/mob/living/simple_animal/pet/corgi/Ian/borgi/Life(seconds, times_fired)
 	..()
 	if(emagged && prob(25))
 		var/mob/living/carbon/target = locate() in view(10,src)

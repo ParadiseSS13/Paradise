@@ -115,7 +115,7 @@ About the new airlock wires panel:
 	..()
 	wires = new(src)
 
-/obj/machinery/door/airlock/initialize()
+/obj/machinery/door/airlock/Initialize()
 	. = ..()
 	if(closeOtherId != null)
 		addtimer(CALLBACK(src, .proc/update_other_id), 5)

@@ -10,8 +10,12 @@
 	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
-/mob/living/carbon/human/New(var/new_loc, var/new_species = null, var/delay_ready_dna = 0)
+/mob/living/carbon/human/New(loc)
+	if(length(args) > 1)
+		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
+	. = ..()
 
+/mob/living/carbon/human/Initialize(mapload, new_species = null)
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
@@ -40,7 +44,7 @@
 	faction |= "\ref[M]" //what
 
 	// Set up DNA.
-	if(!delay_ready_dna && dna)
+	if(dna)
 		dna.ready_dna(src)
 		dna.real_name = real_name
 		sync_organ_dna(1)
@@ -69,80 +73,80 @@
 	real_name = "Test Dummy"
 	status_flags = GODMODE|CANPUSH
 
-/mob/living/carbon/human/skrell/New(var/new_loc)
-	..(new_loc, "Skrell")
+/mob/living/carbon/human/skrell/Initialize(mapload)
+	..(mapload, "Skrell")
 
-/mob/living/carbon/human/tajaran/New(var/new_loc)
-	..(new_loc, "Tajaran")
+/mob/living/carbon/human/tajaran/Initialize(mapload)
+	..(mapload, "Tajaran")
 
-/mob/living/carbon/human/vulpkanin/New(var/new_loc)
-	..(new_loc, "Vulpkanin")
+/mob/living/carbon/human/vulpkanin/Initialize(mapload)
+	..(mapload, "Vulpkanin")
 
-/mob/living/carbon/human/unathi/New(var/new_loc)
-	..(new_loc, "Unathi")
+/mob/living/carbon/human/unathi/Initialize(mapload)
+	..(mapload, "Unathi")
 
-/mob/living/carbon/human/vox/New(var/new_loc)
-	..(new_loc, "Vox")
+/mob/living/carbon/human/vox/Initialize(mapload)
+	..(mapload, "Vox")
 
-/mob/living/carbon/human/voxarmalis/New(var/new_loc)
-	..(new_loc, "Vox Armalis")
+/mob/living/carbon/human/voxarmalis/Initialize(mapload)
+	..(mapload, "Vox Armalis")
 
-/mob/living/carbon/human/skeleton/New(var/new_loc)
-	..(new_loc, "Skeleton")
+/mob/living/carbon/human/skeleton/Initialize(mapload)
+	..(mapload, "Skeleton")
 
-/mob/living/carbon/human/kidan/New(var/new_loc)
-	..(new_loc, "Kidan")
+/mob/living/carbon/human/kidan/Initialize(mapload)
+	..(mapload, "Kidan")
 
-/mob/living/carbon/human/plasma/New(var/new_loc)
-	..(new_loc, "Plasmaman")
+/mob/living/carbon/human/plasma/Initialize(mapload)
+	..(mapload, "Plasmaman")
 
-/mob/living/carbon/human/slime/New(var/new_loc)
-	..(new_loc, "Slime People")
+/mob/living/carbon/human/slime/Initialize(mapload)
+	..(mapload, "Slime People")
 
-/mob/living/carbon/human/grey/New(var/new_loc)
-	..(new_loc, "Grey")
+/mob/living/carbon/human/grey/Initialize(mapload)
+	..(mapload, "Grey")
 
-/mob/living/carbon/human/abductor/New(var/new_loc)
-	..(new_loc, "Abductor")
+/mob/living/carbon/human/abductor/Initialize(mapload)
+	..(mapload, "Abductor")
 
-/mob/living/carbon/human/human/New(var/new_loc)
-	..(new_loc, "Human")
+/mob/living/carbon/human/human/Initialize(mapload)
+	..(mapload, "Human")
 
-/mob/living/carbon/human/diona/New(var/new_loc)
-	..(new_loc, "Diona")
+/mob/living/carbon/human/diona/Initialize(mapload)
+	..(mapload, "Diona")
 
-/mob/living/carbon/human/machine/New(var/new_loc)
-	..(new_loc, "Machine")
+/mob/living/carbon/human/machine/Initialize(mapload)
+	..(mapload, "Machine")
 
-/mob/living/carbon/human/shadow/New(var/new_loc)
-	..(new_loc, "Shadow")
+/mob/living/carbon/human/shadow/Initialize(mapload)
+	..(mapload, "Shadow")
 
-/mob/living/carbon/human/golem/New(var/new_loc)
-	..(new_loc, "Golem")
+/mob/living/carbon/human/golem/Initialize(mapload)
+	..(mapload, "Golem")
 
-/mob/living/carbon/human/wryn/New(var/new_loc)
-	..(new_loc, "Wryn")
+/mob/living/carbon/human/wryn/Initialize(mapload)
+	..(mapload, "Wryn")
 
-/mob/living/carbon/human/nucleation/New(var/new_loc)
-	..(new_loc, "Nucleation")
+/mob/living/carbon/human/nucleation/Initialize(mapload)
+	..(mapload, "Nucleation")
 
-/mob/living/carbon/human/drask/New(var/new_loc)
-	..(new_loc, "Drask")
+/mob/living/carbon/human/drask/Initialize(mapload)
+	..(mapload, "Drask")
 
-/mob/living/carbon/human/monkey/New(var/new_loc)
-	..(new_loc, "Monkey")
+/mob/living/carbon/human/monkey/Initialize(mapload)
+	..(mapload, "Monkey")
 
-/mob/living/carbon/human/farwa/New(var/new_loc)
-	..(new_loc, "Farwa")
+/mob/living/carbon/human/farwa/Initialize(mapload)
+	..(mapload, "Farwa")
 
-/mob/living/carbon/human/wolpin/New(var/new_loc)
-	..(new_loc, "Wolpin")
+/mob/living/carbon/human/wolpin/Initialize(mapload)
+	..(mapload, "Wolpin")
 
-/mob/living/carbon/human/neara/New(var/new_loc)
-	..(new_loc, "Neara")
+/mob/living/carbon/human/neara/Initialize(mapload)
+	..(mapload, "Neara")
 
-/mob/living/carbon/human/stok/New(var/new_loc)
-	..(new_loc, "Stok")
+/mob/living/carbon/human/stok/Initialize(mapload)
+	..(mapload, "Stok")
 
 /mob/living/carbon/human/Stat()
 	..()

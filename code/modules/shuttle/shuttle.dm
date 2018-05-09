@@ -229,7 +229,7 @@
 
 
 
-/obj/docking_port/mobile/initialize()
+/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	..()

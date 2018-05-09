@@ -60,7 +60,7 @@
 /obj/structure/blob/core/RegenHealth()
 	return // Don't regen, we handle it in Life()
 
-/obj/structure/blob/core/Life()
+/obj/structure/blob/core/Life(seconds, times_fired)
 	if(!overmind)
 		create_overmind()
 	else
