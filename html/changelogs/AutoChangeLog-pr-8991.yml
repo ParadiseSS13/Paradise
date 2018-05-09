@@ -1,0 +1,4 @@
+author: "RyanSmake"
+delete-after: True
+changes: 
+  - bugfix: "You can now jump on fax machines without the UI lying to you."
