@@ -1,10 +1,10 @@
 
 
 /obj/item/clothing/suit/space/space_ninja/attackby(obj/item/I, mob/U, params)
-	if(U != affecting)//Safety, in case you try doing this without wearing the suit/being the person with the suit.
+	if(U != affecting) //Safety, in case you try doing this without wearing the suit/being the person with the suit.
 		return ..()
 
-	if(istype(I, /obj/item/reagent_containers/glass))//If it's a glass beaker.
+	if(istype(I, /obj/item/reagent_containers/glass)) //If it's a glass beaker.
 		if(I.reagents.has_reagent("radium", a_transfer) && a_boost < a_maxamount)
 			I.reagents.remove_reagent("radium", a_transfer)
 			a_boost++
@@ -39,7 +39,7 @@
 
 	else if(istype(I, /obj/item/disk/tech_disk)) //If it's a data disk, we want to copy the research on to the suit.
 		var/obj/item/disk/tech_disk/TD = I
-		if(TD.stored)//If it has something on it.
+		if(TD.stored) //If it has something on it.
 			to_chat(U, "Research information detected, processing...")
 			if(do_after(U, s_delay, target = U))
 				for(var/datum/tech/current_data in stored_research)

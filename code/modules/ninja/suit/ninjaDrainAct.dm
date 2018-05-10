@@ -39,7 +39,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 			if(S.cell.charge + drain > S.cell.maxcharge)
 				drain = S.cell.maxcharge - S.cell.charge
-				maxcapacity = 1//Reached maximum battery capacity.
+				maxcapacity = 1 //Reached maximum battery capacity.
 
 			if(do_after(H, 10, target = src))
 				spark_system.start()
@@ -141,9 +141,9 @@ They *could* go in their appropriate files, but this is supposed to be modular
 							to_chat(H, "<span class='notice'>Database:</span> <b>UPDATED</b>.")
 							current_data.level = analyzing_data.level
 							. = DRAIN_RD_HACKED
-						break//Move on to next.
+						break //Move on to next.
 			else
-				break//Otherwise, quit processing.
+				break //Otherwise, quit processing.
 
 	to_chat(H, "<span class='notice'>Data analyzed. Process finished.</span>")
 
@@ -169,9 +169,9 @@ They *could* go in their appropriate files, but this is supposed to be modular
 							to_chat(H, "<span class='notice'>Database:</span> <b>UPDATED</b>.")
 							current_data.level = analyzing_data.level
 							. = DRAIN_RD_HACKED
-						break//Move on to next.
+						break //Move on to next.
 			else
-				break//Otherwise, quit processing.
+				break //Otherwise, quit processing.
 
 	to_chat(H, "<span class='notice'>Data analyzed. Process finished.</span>")
 
@@ -193,7 +193,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 		if(PN && do_after(H, 10, target = src))
 			drained = min(drain, PN.avail)
 			PN.load += drained
-			if(drained < drain)//if no power on net, drain apcs
+			if(drained < drain) //if no power on net, drain apcs
 				for(var/obj/machinery/power/terminal/T in PN.nodes)
 					if(istype(T.master, /obj/machinery/power/apc))
 						var/obj/machinery/power/apc/AP = T.master

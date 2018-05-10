@@ -13,7 +13,7 @@
 
 	switch(specificCheck)
 		if(N_STEALTH_CANCEL)
-			cancel_stealth()//Get rid of it.
+			cancel_stealth() //Get rid of it.
 		if(N_SMOKE_BOMB)
 			if(!s_bombs)
 				to_chat(H, "<span class='danger'>There are no more smoke bombs remaining.</span>")
@@ -22,4 +22,4 @@
 			if(!a_boost)
 				to_chat(H, "<span class='danger'>You do not have any more adrenaline boosters.</span>")
 				return TRUE
-	return (s_coold)//Returns the value of the variable which counts down to zero.
+	return (s_coold) //Returns the value of the variable which counts down to zero.

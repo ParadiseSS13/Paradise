@@ -14,7 +14,7 @@
 		to_chat(H, "<span class='warning'>They are already trapped inside an energy net!</span>")
 		return
 	for(var/turf/T in getline(get_turf(H), get_turf(C)))
-		if(T.density)//Don't want them shooting nets through walls. It's kind of cheesy.
+		if(T.density) //Don't want them shooting nets through walls. It's kind of cheesy.
 			to_chat(H, "<span class='warning'>You may not use an energy net through solid obstacles!</span>")
 			return
 	if(!ninjacost(200, N_STEALTH_CANCEL))

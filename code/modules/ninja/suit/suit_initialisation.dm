@@ -16,7 +16,7 @@
 	addtimer(CALLBACK(src, .proc/ninitialize_two, delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/ninitialize_two(delay, mob/living/carbon/human/U)
-	if(!lock_suit(U))//To lock the suit onto wearer.
+	if(!lock_suit(U)) //To lock the suit onto wearer.
 		s_busy = FALSE
 		return
 	to_chat(U, "<span class='notice'>Securing external locking mechanism...\nNeural-net established.</span>")
@@ -32,7 +32,7 @@
 		unlock_suit()
 		s_busy = FALSE
 		return
-	lockIcons(U)//Check for icons.
+	lockIcons(U) //Check for icons.
 	U.regenerate_icons()
 	to_chat(U, "<span class='notice'>Linking neural-net interface...\nPattern</span><span class='greenannounce'> GREEN</span><span class='notice'>, continuing operation.</span>")
 	addtimer(CALLBACK(src, .proc/ninitialize_five, delay, U), delay)
@@ -75,7 +75,7 @@
 
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize_five(delay, mob/living/carbon/human/U)
 	to_chat(U, "<span class='notice'>VOID-shift device status: <B>OFFLINE</B>.\nCLOAK-tech device status: <B>OFFLINE</B>.</span>")
-	cancel_stealth()//Shutdowns stealth.
+	cancel_stealth() //Shutdowns stealth.
 	addtimer(CALLBACK(src, .proc/deinitialize_six, delay, U), delay)
 
 /obj/item/clothing/suit/space/space_ninja/proc/deinitialize_six(delay, mob/living/carbon/human/U)

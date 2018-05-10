@@ -180,3 +180,13 @@ Contents:
 	to_chat(H, "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by using the action button, to use abilities like stealth)!")
 	to_chat(H, "Officially, [allegiance ? "Nanotrasen" : "The Syndicate"] is my employer.")
 	H.mind.announce_objectives()
+
+/datum/game_mode/proc/auto_declare_completion_ninja()
+	var/text = ""
+	if(ninjas.len)
+		text += "<br><span class='big'><b>The space ninjas were:</b></span>"
+		for(var/datum/mind/ninja_mind in ninjas)
+			text += printplayer(ninja_mind)
+			text += printobjectives(ninja_mind)
+	text += "<br>"
+	to_chat(world, text)

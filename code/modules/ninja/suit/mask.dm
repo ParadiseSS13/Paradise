@@ -18,3 +18,9 @@ Contents:
 	strip_delay = 120
 	burn_state = LAVA_PROOF
 	unacidable = TRUE
+	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi')

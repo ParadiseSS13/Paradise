@@ -49,8 +49,8 @@ Contents:
 	var/s_maxamount = 20 //Maximum number of smoke bombs.
 
 		//Support function variables.
-	var/stealth = FALSE//Stealth off.
-	var/s_busy = FALSE//Is the suit busy with a process? Like AI hacking. Used for safety functions.
+	var/stealth = FALSE //Stealth off.
+	var/s_busy = FALSE //Is the suit busy with a process? Like AI hacking. Used for safety functions.
 
 		//Ability function variables.
 	var/s_bombs = 10 //Number of smoke bombs.
@@ -67,7 +67,7 @@ Contents:
 
 	//Research Init
 	stored_research = new()
-	for(var/T in subtypesof(/datum/tech))//Store up on research.
+	for(var/T in subtypesof(/datum/tech)) //Store up on research.
 		stored_research += new T(src)
 
 	//Cell Init
@@ -134,7 +134,7 @@ Contents:
 	flags &= ~NODROP
 	slowdown = 1
 	icon_state = "s-ninja"
-	if(n_hood)//Should be attached, might not be attached.
+	if(n_hood) //Should be attached, might not be attached.
 		n_hood.flags &= ~NODROP
 	if(n_shoes)
 		n_shoes.flags &= ~NODROP

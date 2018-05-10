@@ -34,13 +34,13 @@ It is possible to destroy the net by the occupant or someone else.
 	if(!success)
 		if(!QDELETED(affecting))
 			affecting.visible_message("[affecting.name] was recovered from the energy net!", "You were recovered from the energy net!", "<span class='italics'>You hear a grunt.</span>")
-		if(!QDELETED(master))//As long as they still exist.
+		if(!QDELETED(master)) //As long as they still exist.
 			to_chat(master, "<span class='userdanger'>ERROR</span>: unable to initiate transport protocol. Procedure terminated.")
 	return ..()
 
 /obj/structure/energy_net/process()
 	if(QDELETED(affecting) || affecting.loc != loc)
-		qdel(src)//Get rid of the net.
+		qdel(src) //Get rid of the net.
 		return
 
 	if(check > 0)
@@ -53,7 +53,7 @@ It is possible to destroy the net by the occupant or someone else.
 		var/mob/living/carbon/human/H = affecting
 		for(var/obj/item/W in H)
 			if(W == H.w_uniform)
-				continue//So all they're left with are shoes and uniform.
+				continue //So all they're left with are shoes and uniform.
 			if(W == H.shoes)
 				continue
 			H.unEquip(W)
@@ -65,7 +65,7 @@ It is possible to destroy the net by the occupant or someone else.
 	affecting.forceMove(pick(GLOB.holdingfacility)) //Throw mob in to the holding facility.
 	to_chat(affecting, "<span class='danger'>You appear in a strange place!</span>")
 
-	if(!QDELETED(master))//As long as they still exist.
+	if(!QDELETED(master)) //As long as they still exist.
 		to_chat(master, "<span class='notice'><b>SUCCESS</b>: transport procedure of [affecting] complete.</span>")
 	do_sparks(5, FALSE, affecting)
 	playsound(affecting, 'sound/effects/phasein.ogg', 25, 1)
@@ -73,7 +73,7 @@ It is possible to destroy the net by the occupant or someone else.
 	new /obj/effect/temp_visual/dir_setting/ninja/phase(affecting.loc, affecting.dir)
 
 /obj/structure/energy_net/user_buckle_mob(mob/living/M, mob/living/user)
-	return//We only want our target to be buckled
+	return //We only want our target to be buckled
 
 /obj/structure/energy_net/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
-	return//The net must be destroyed to free the target
+	return //The net must be destroyed to free the target
