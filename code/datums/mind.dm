@@ -153,6 +153,7 @@
 		"vampire", // "traitorvamp",
 		"nuclear",
 		"traitor", // "traitorchan",
+		"ninja"
 	)
 	var/text = ""
 	var/mob/living/carbon/human/H = current
@@ -354,6 +355,24 @@
 
 
 		sections["Abductor"] = text
+
+		/** NINJA ***/
+
+		text = "ninja"
+		if(ticker.mode.config_tag == "ninja")
+			text = uppertext(text)
+		text = "<i><b>[text]</b></i>: "
+		if(src in ticker.mode.ninjas)
+			text += "<a href='?src=[UID()];ninja=clear'>no</a> | <b><a href='?src=[UID()];ninja=equip'>EQUIP</a></b>"
+		else
+			text += "<b>NO</b> | <a href='?src=[UID()];ninja=syndicate'>syndicate</a> | <a href='?src=[UID()];ninja=nanotrasen'>nanotrasen</a> | <a href='?src=[UID()];ninja=random'>random allegiance</a>"
+
+		if(current && current.client && (ROLE_NINJA in current.client.prefs.be_special))
+			text += " | Enabled in Prefs"
+		else
+			text += " | Disabled in Prefs"
+
+		sections["ninja"] = text
 
 	/** TRAITOR ***/
 	text = "traitor"
@@ -1063,6 +1082,57 @@
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
+	else if(href_list["ninja"])
+		var/mob/living/carbon/human/H = current
+		switch(href_list["ninja"])
+			if("clear")
+				if(src in ticker.mode.ninjas)
+					ticker.mode.ninjas -= src
+					special_role = null
+					ticker.mode.update_ninja_icons_removed(src)
+					message_admins("[key_name_admin(usr)] has de-ninja'ed [current].")
+					log_admin("[key_name(usr)] has de-ninja'ed [current].")
+			if("equip")
+				qdel(H.w_uniform)
+				qdel(H.wear_suit)
+				qdel(H.glasses)
+				qdel(H.wear_mask)
+				qdel(H.head)
+				qdel(H.l_ear)
+				qdel(H.shoes)
+				qdel(H.gloves)
+				qdel(H.back)
+				qdel(H.belt)
+				H.equipOutfit(/datum/outfit/ninja)
+			if("nanotrasen")
+				if(!(src in ticker.mode.ninjas))
+					ticker.mode.ninjas += src
+					special_role = SPECIAL_ROLE_SPACE_NINJA
+					ticker.mode.update_ninja_icons_added(src)
+					generate_ninja_objectives(src, TRUE, TRUE)
+					greet_ninja(H, TRUE)
+					message_admins("[key_name_admin(usr)] has friendly ninja'ed [current].")
+					log_admin("[key_name(usr)] has friendly ninja'ed [current].")
+			if("syndicate")
+				if(!(src in ticker.mode.ninjas))
+					ticker.mode.ninjas += src
+					special_role = SPECIAL_ROLE_SPACE_NINJA
+					ticker.mode.update_ninja_icons_added(src)
+					generate_ninja_objectives(src, TRUE, FALSE)
+					greet_ninja(H, FALSE)
+					message_admins("[key_name_admin(usr)] has syndie ninja'ed [current].")
+					log_admin("[key_name(usr)] has syndie ninja'ed [current].")
+			if("random")
+				if(!(src in ticker.mode.ninjas))
+					ticker.mode.ninjas += src
+					special_role = SPECIAL_ROLE_SPACE_NINJA
+					ticker.mode.update_ninja_icons_added(src)
+					var/to_ninja_or_to_ninja = rand(FALSE, TRUE)
+					generate_ninja_objectives(src, TRUE, to_ninja_or_to_ninja)
+					greet_ninja(H, to_ninja_or_to_ninja)
+					message_admins("[key_name_admin(usr)] has random ninja'ed [current].")
+					log_admin("[key_name(usr)] has random ninja'ed [current].")
+
 	else if(href_list["shadowling"])
 		switch(href_list["shadowling"])
 			if("clear")
@@ -1211,6 +1281,14 @@
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
 	edit_memory()
+
+/datum/mind/proc/announce_objectives()
+	var/obj_count = 1
+	to_chat(current, "<span class='notice'>Your current objectives:</span>")
+	for(var/objective in objectives)
+		var/datum/objective/O = objective
+		to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
+		obj_count++
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
