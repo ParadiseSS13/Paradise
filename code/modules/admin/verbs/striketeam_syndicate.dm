@@ -66,7 +66,7 @@ var/global/sent_syndicate_strike_team = 0
 			var/mob/ghost_mob = pick(commando_ghosts)
 			commando_ghosts -= ghost_mob
 
-			if(!ghost_mob.key || !ghost_mob.client)
+			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
 				continue
 
 			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, is_leader)
