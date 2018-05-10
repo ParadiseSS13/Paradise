@@ -41,7 +41,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 				drain = S.cell.maxcharge - S.cell.charge
 				maxcapacity = 1//Reached maximum battery capacity.
 
-			if(do_after(H,10, target = src))
+			if(do_after(H, 10, target = src))
 				spark_system.start()
 				playsound(loc, "sparks", 50, 1)
 				cell.charge -= drain
@@ -85,7 +85,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 				drain = S.cell.maxcharge - S.cell.charge
 				maxcapacity = 1
 
-			if(do_after(H,10, target = src))
+			if(do_after(H, 10, target = src))
 				spark_system.start()
 				playsound(loc, "sparks", 50, 1)
 				charge -= drain
@@ -188,9 +188,9 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	var/datum/powernet/PN = powernet
 	while(G.candrain && !maxcapacity && src)
-		drain = (round((rand(G.mindrain, G.maxdrain))/2))
+		drain = (round((rand(G.mindrain, G.maxdrain)) * 0.5))
 		var/drained = 0
-		if(PN && do_after(H,10, target = src))
+		if(PN && do_after(H, 10, target = src))
 			drained = min(drain, PN.avail)
 			PN.load += drained
 			if(drained < drain)//if no power on net, drain apcs
@@ -224,13 +224,13 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	occupant_message("<span class='danger'>Warning: Unauthorized access through sub-route 4, block H, detected.</span>")
 	if(get_charge())
 		while(G.candrain && cell.charge > 0 && !maxcapacity)
-			drain = rand(G.mindrain,G.maxdrain)
+			drain = rand(G.mindrain, G.maxdrain)
 			if(cell.charge < drain)
 				drain = cell.charge
 			if(S.cell.charge + drain > S.cell.maxcharge)
 				drain = S.cell.maxcharge - S.cell.charge
 				maxcapacity = 1
-			if(do_after(H,10, target = src))
+			if(do_after(H, 10, target = src))
 				spark_system.start()
 				playsound(loc, "sparks", 50, 1)
 				cell.use(drain)
@@ -252,13 +252,13 @@ They *could* go in their appropriate files, but this is supposed to be modular
 
 	if(cell && cell.charge)
 		while(G.candrain && cell.charge > 0 && !maxcapacity)
-			drain = rand(G.mindrain,G.maxdrain)
+			drain = rand(G.mindrain, G.maxdrain)
 			if(cell.charge < drain)
 				drain = cell.charge
 			if(S.cell.charge+drain > S.cell.maxcharge)
 				drain = S.cell.maxcharge - S.cell.charge
 				maxcapacity = 1
-			if(do_after(H,10))
+			if(do_after(H, 10))
 				spark_system.start()
 				playsound(loc, "sparks", 50, 1)
 				cell.charge -= drain

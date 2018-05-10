@@ -1090,8 +1090,8 @@
 					ticker.mode.ninjas -= src
 					special_role = null
 					ticker.mode.update_ninja_icons_removed(src)
-					message_admins("[key_name_admin(usr)] has de-ninja'ed [current].")
-					log_admin("[key_name(usr)] has de-ninja'ed [current].")
+					message_admins("[key_name_admin(usr)] has de-ninja'ed [key_name(current)].")
+					log_admin("[key_name(usr)] has de-ninja'ed [key_name(current)].")
 			if("equip")
 				qdel(H.w_uniform)
 				qdel(H.wear_suit)
@@ -1111,8 +1111,8 @@
 					ticker.mode.update_ninja_icons_added(src)
 					generate_ninja_objectives(src, TRUE, TRUE)
 					greet_ninja(H, TRUE)
-					message_admins("[key_name_admin(usr)] has friendly ninja'ed [current].")
-					log_admin("[key_name(usr)] has friendly ninja'ed [current].")
+					message_admins("[key_name_admin(usr)] has friendly ninja'ed [key_name(current)].")
+					log_admin("[key_name(usr)] has friendly ninja'ed [key_name(current)].")
 			if("syndicate")
 				if(!(src in ticker.mode.ninjas))
 					ticker.mode.ninjas += src
@@ -1120,8 +1120,8 @@
 					ticker.mode.update_ninja_icons_added(src)
 					generate_ninja_objectives(src, TRUE, FALSE)
 					greet_ninja(H, FALSE)
-					message_admins("[key_name_admin(usr)] has syndie ninja'ed [current].")
-					log_admin("[key_name(usr)] has syndie ninja'ed [current].")
+					message_admins("[key_name_admin(usr)] has syndie ninja'ed [key_name(current)].")
+					log_admin("[key_name(usr)] has syndie ninja'ed [key_name(current)].")
 			if("random")
 				if(!(src in ticker.mode.ninjas))
 					ticker.mode.ninjas += src
@@ -1130,8 +1130,8 @@
 					var/to_ninja_or_to_ninja = rand(FALSE, TRUE)
 					generate_ninja_objectives(src, TRUE, to_ninja_or_to_ninja)
 					greet_ninja(H, to_ninja_or_to_ninja)
-					message_admins("[key_name_admin(usr)] has random ninja'ed [current].")
-					log_admin("[key_name(usr)] has random ninja'ed [current].")
+					message_admins("[key_name_admin(usr)] has random ninja'ed [key_name(current)].")
+					log_admin("[key_name(usr)] has random ninja'ed [key_name(current)].")
 
 	else if(href_list["shadowling"])
 		switch(href_list["shadowling"])

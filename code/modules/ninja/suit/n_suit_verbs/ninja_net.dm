@@ -2,10 +2,10 @@
 //Allows the ninja to kidnap people
 /obj/item/clothing/suit/space/space_ninja/proc/ninjanet()
 	var/mob/living/carbon/human/H = affecting
-	var/mob/living/carbon/C = input("Select who to capture:","Capture who?",null) as null|mob in oview(H)
+	var/mob/living/carbon/C = input("Select who to capture:", "Capture who?", null) as null|mob in oview(H)
 
-	if(QDELETED(C)||!(C in oview(H)))
-		return 0
+	if(QDELETED(C) || !(C in oview(H)))
+		return FALSE
 
 	if(!C.client) //Monkeys without a client can still step_to() and bypass the net. Also, netting inactive people is lame.
 		to_chat(H, "<span class='warning'>They will bring no honor to your Clan!</span>")

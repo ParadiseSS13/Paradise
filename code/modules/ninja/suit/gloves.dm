@@ -41,7 +41,7 @@
 	var/maxdrain = 400
 
 
-/obj/item/clothing/gloves/space_ninja/Touch(atom/A,proximity)
+/obj/item/clothing/gloves/space_ninja/Touch(atom/A, proximity)
 	if(!candrain || draining)
 		return FALSE
 	if(!ishuman(loc))
@@ -76,7 +76,7 @@
 /obj/item/clothing/gloves/space_ninja/proc/toggledrain()
 	var/mob/living/carbon/human/U = loc
 	to_chat(U, "You <b>[candrain?"disable":"enable"]</b> special interaction.")
-	candrain=!candrain
+	candrain = !candrain
 
 /obj/item/clothing/gloves/space_ninja/examine(mob/user)
 	..()

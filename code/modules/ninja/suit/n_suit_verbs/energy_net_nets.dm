@@ -39,7 +39,7 @@ It is possible to destroy the net by the occupant or someone else.
 	return ..()
 
 /obj/structure/energy_net/process()
-	if(QDELETED(affecting)||affecting.loc != loc)
+	if(QDELETED(affecting) || affecting.loc != loc)
 		qdel(src)//Get rid of the net.
 		return
 

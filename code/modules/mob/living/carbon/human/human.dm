@@ -216,8 +216,8 @@
 				stat("Toxin Levels:", "[getToxLoss()]")
 				stat("Burn Severity:", "[getFireLoss()]")
 				stat("Brute Trauma:", "[getBruteLoss()]")
-				stat("Radiation Levels:","[radiation] rad")
-				stat("Body Temperature:","[bodytemperature-T0C] degrees C ([bodytemperature*1.8-459.67] degrees F)")
+				stat("Radiation Levels:", "[radiation] rad")
+				stat("Body Temperature:", "[bodytemperature - T0C] degrees C ([bodytemperature * 1.8 - 459.67] degrees F)")
 
 				//Diseases
 				if(viruses.len)

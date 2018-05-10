@@ -98,6 +98,8 @@ Contents:
 	//generate objectives - You'll generally get 6 objectives (Ninja is meant to be hardmode!)
 	var/list/possible_targets = list()
 	for(var/datum/mind/M in ticker.minds)
+		if(Mind == M)
+			continue
 		if(M.current && M.current.stat != DEAD)
 			if(ishuman(M.current))
 				if(M.special_role)
@@ -169,12 +171,12 @@ Contents:
 
 	//add some RP-fluff
 	Mind.store_memory("I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!")
-	Mind.store_memory("Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by right clicking on it, to use abilities like stealth)!")
+	Mind.store_memory("Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by using the action button, to use abilities like stealth)!")
 	Mind.store_memory("Officially, [allegiance ? "Nanotrasen" : "The Syndicate"] is my employer.")
 
 /proc/greet_ninja(mob/living/carbon/human/H, allegiance = FALSE)
 	SEND_SOUND(H, sound('sound/effects/ninja_greeting.ogg'))
 	to_chat(H, "I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!")
-	to_chat(H, "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by right clicking on it, to use abilities like stealth)!")
+	to_chat(H, "Surprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by using the action button, to use abilities like stealth)!")
 	to_chat(H, "Officially, [allegiance ? "Nanotrasen" : "The Syndicate"] is my employer.")
 	H.mind.announce_objectives()

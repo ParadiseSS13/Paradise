@@ -436,7 +436,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		for(var/datum/tech/current_data in SN.stored_research)
 			if(current_data.level)
 				current_amount += (current_data.level - 1)
-	if(current_amount<target_amount)
+	if(current_amount < target_amount)
 		return FALSE
 	return TRUE
 
