@@ -162,7 +162,7 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	access = list(access_morgue, access_security, access_sec_doors, access_forensics_lockers, access_maint_tunnels, access_court, access_weapons, access_forensics_lockers)
+	access = list(access_medical, access_morgue, access_security, access_sec_doors, access_forensics_lockers, access_maint_tunnels, access_court, access_weapons, access_forensics_lockers)
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	minimal_player_age = 14
 	exp_requirements = 300
