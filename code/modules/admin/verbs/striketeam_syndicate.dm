@@ -45,8 +45,8 @@ var/global/sent_syndicate_strike_team = 0
 			break
 
 	// Find ghosts willing to be SST
-	var/list/commando_ckeys = pollCandidatesByKeyWithVeto(src, usr, syndicate_commandos_possible, "Join the Syndicate Strike Team?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
-	if(!commando_ckeys.len)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, syndicate_commandos_possible, "Join the Syndicate Strike Team?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
 		return
 
@@ -58,9 +58,10 @@ var/global/sent_syndicate_strike_team = 0
 		if(L.name == "Syndicate-Commando")
 			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, is_leader)
 
-			if(commando_ckeys.len)
-				new_syndicate_commando.key = pick(commando_ckeys)
-				commando_ckeys -= new_syndicate_commando.key
+			if(commando_ghosts.len)
+				var/mob/thisghost = pick(commando_ghosts)
+				new_syndicate_commando.key = thisghost.key
+				commando_ghosts -= thisghost
 				new_syndicate_commando.internal = new_syndicate_commando.s_store
 				new_syndicate_commando.update_action_buttons_icon()
 
