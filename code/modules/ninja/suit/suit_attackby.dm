@@ -51,9 +51,5 @@
 				to_chat(U, "<span class='notice'>Data analyzed and updated. Disk erased.</span>")
 			else
 				to_chat(U, "<span class='userdanger'>ERROR</span>: Procedure interrupted. Process terminated.")
-		else
-			I.forceMove(src)
-			t_disk = I
-			to_chat(U, "<span class='notice'>You slot [I] into [src].</span>")
 		return
 	return ..()

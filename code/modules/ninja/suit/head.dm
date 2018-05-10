@@ -9,6 +9,5 @@
 	strip_delay = 12
 	burn_state = LAVA_PROOF
 	unacidable = TRUE
-	blockTracking = 1//Roughly the only unique thing about this helmet.
-	flags = BLOCKHAIR
+	blockTracking = TRUE //Roughly the only unique thing about this helmet.
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE

@@ -104,7 +104,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 	. = 0
 
 	if(charge)
-		if(G.candrain && do_after(H,30, target = src))
+		if(G.candrain && do_after(H, 30, target = src))
 			. = charge
 			if(S.cell.charge + charge > S.cell.maxcharge)
 				S.cell.charge = S.cell.maxcharge

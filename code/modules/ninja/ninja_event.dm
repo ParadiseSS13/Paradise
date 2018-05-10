@@ -128,9 +128,6 @@ Contents:
 	var/mob/living/carbon/human/Ninja = create_space_ninja(spawn_loc)
 	Mind.transfer_to(Ninja)
 
-	Ninja.internal = Ninja.s_store
-	Ninja.update_action_buttons_icon()
-
 	if(Ninja.mind != Mind)			//something has gone wrong!
 		log_runtime(EXCEPTION("Ninja created with incorrect mind"))
 		return
