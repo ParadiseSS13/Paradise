@@ -37,7 +37,7 @@ var/global/sent_strike_team = 0
 			break
 
 	// Find ghosts willing to be DS
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, commandos_possible, "Join the DeathSquad?",, 21, 200, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, commandos_possible, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
 	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
@@ -56,7 +56,7 @@ var/global/sent_strike_team = 0
 			if(commando_ghosts.len)
 				ghost_mob = pick(commando_ghosts)
 				commando_ghosts -= ghost_mob
-				if(!is_leader || TRUE)
+				if(!is_leader)
 					var/new_gender = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
 					if(new_gender == "Cyborg")
 						use_ds_borg = TRUE
