@@ -38,7 +38,6 @@ var/list/aroomwarp = list()
 var/list/prisonsecuritywarp = list()	//prison security goes to these
 var/list/prisonwarped = list()	//list of players already warped
 var/list/blobstart = list()
-var/list/ninjastart = list()
 var/list/carplist = list() //list of all carp-spawn landmarks
 var/list/avatarspawn = list()
 

@@ -70,10 +70,6 @@
 			xeno_spawn += loc
 			qdel(src)
 
-		if("ninjastart")
-			ninjastart += loc
-			qdel(src)
-
 		if("carpspawn")
 			carplist += loc
 

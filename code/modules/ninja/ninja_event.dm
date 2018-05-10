@@ -145,14 +145,15 @@ Contents:
 	var/datum/preferences/A = new() //Randomize appearance for the ninja.
 	A.real_name = "[pick(ninja_titles)] [pick(ninja_names)]"
 	A.copy_to(new_ninja)
+	new_ninja.update_dna()
 	new_ninja.equipOutfit(/datum/outfit/ninja)
 	return new_ninja
 
 
 /proc/create_ninja_mind(key)
 	var/datum/mind/Mind = new /datum/mind(key)
-	Mind.assigned_role = "Space Ninja"
-	Mind.special_role = "Space Ninja"
+	Mind.assigned_role = "MODE"
+	Mind.special_role = SPECIAL_ROLE_SPACE_NINJA
 	ticker.mode.traitors |= Mind			//Adds them to current traitor list. Which is really the extra antagonist list.
 	return Mind
 

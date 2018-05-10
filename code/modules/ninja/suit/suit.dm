@@ -96,7 +96,7 @@ Contents:
 /obj/item/clothing/suit/space/space_ninja/proc/lock_suit(mob/living/carbon/human/H)
 	if(!istype(H))
 		return FALSE
-	if(H.mind.special_role != "Space Ninja")
+	if(H.mind.special_role != SPECIAL_ROLE_SPACE_NINJA)
 		to_chat(H, "<span class='danger'><B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR...</span>")
 		H.gib()
 		return FALSE
