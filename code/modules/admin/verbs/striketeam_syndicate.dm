@@ -74,7 +74,7 @@ var/global/sent_syndicate_strike_team = 0
 			if(!new_syndicate_commando)
 				continue
 
-			new_syndicate_commando.key = thisghost.key
+			new_syndicate_commando.key = ghost_mob.key
 			new_syndicate_commando.internal = new_syndicate_commando.s_store
 			new_syndicate_commando.update_action_buttons_icon()
 
