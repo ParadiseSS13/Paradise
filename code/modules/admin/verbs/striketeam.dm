@@ -47,21 +47,31 @@ var/global/sent_strike_team = 0
 	// Spawns commandos and equips them.
 	var/commando_number = commandos_possible //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
+
 	for(var/obj/effect/landmark/L in landmarks_list)
-		if(commando_number<=0)	break
+
+		if(commando_number <= 0)
+			break
+
 		if(L.name == "Commando")
 
+			if(!commando_ghosts.len)
+				break
+
 			var/use_ds_borg = FALSE
-			var/mob/ghost_mob
-			if(commando_ghosts.len)
-				ghost_mob = pick(commando_ghosts)
-				commando_ghosts -= ghost_mob
-				if(!is_leader)
-					var/new_gender = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
-					if(new_gender == "Cyborg")
-						use_ds_borg = TRUE
-			else
+			var/mob/ghost_mob = pick(commando_ghosts)
+			commando_ghosts -= ghost_mob
+			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
 				continue
+
+			if(!is_leader)
+				var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
+				if(new_dstype == "Cyborg")
+					use_ds_borg = TRUE
+
+			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client) // Have to re-check this due to the above alert() call
+				continue
+
 			if(use_ds_borg)
 				var/mob/living/silicon/robot/deathsquad/R = new()
 				R.forceMove(get_turf(L))
@@ -78,19 +88,17 @@ var/global/sent_strike_team = 0
 				if(!(R.mind in ticker.minds))
 					ticker.minds += R.mind
 				ticker.mode.traitors += R.mind
-				if(ghost_mob && ghost_mob.key)
-					R.key = ghost_mob.key
+				R.key = ghost_mob.key
 				if(nuke_code)
 					R.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
 				R.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
 				to_chat(R, "<span class='userdanger'>You are a Special Operations cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[input]</span></span>")
 			else
 				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
-				if(ghost_mob && ghost_mob.key)
-					new_commando.mind.key = ghost_mob.key
-					new_commando.key = ghost_mob.key
-					new_commando.internal = new_commando.s_store
-					new_commando.update_action_buttons_icon()
+				new_commando.mind.key = ghost_mob.key
+				new_commando.key = ghost_mob.key
+				new_commando.internal = new_commando.s_store
+				new_commando.update_action_buttons_icon()
 				if(nuke_code)
 					new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
 				new_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")

@@ -54,16 +54,29 @@ var/global/sent_syndicate_strike_team = 0
 
 	//Spawns commandos and equips them.
 	for(var/obj/effect/landmark/L in landmarks_list)
-		if(syndicate_commando_number<=0)	break
+
+		if(syndicate_commando_number <= 0)
+			break
+
 		if(L.name == "Syndicate-Commando")
+
+			if(!commando_ghosts.len)
+				break
+
+			var/mob/thisghost = pick(commando_ghosts)
+			commando_ghosts -= thisghost
+
+			if(!thisghost.key || !ghost_mob.client)
+				continue
+
 			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, is_leader)
 
-			if(commando_ghosts.len)
-				var/mob/thisghost = pick(commando_ghosts)
-				new_syndicate_commando.key = thisghost.key
-				commando_ghosts -= thisghost
-				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.update_action_buttons_icon()
+			if(!new_syndicate_commando)
+				continue
+
+			new_syndicate_commando.key = thisghost.key
+			new_syndicate_commando.internal = new_syndicate_commando.s_store
+			new_syndicate_commando.update_action_buttons_icon()
 
 			//So they don't forget their code or mission.
 			if(nuke_code)
