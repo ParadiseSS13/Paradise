@@ -14,7 +14,7 @@
 	flags = OPENCONTAINER
 
 	var/label_text = ""
-	// the fucking asshole who designed this can go die in a fire - Iamgoofball
+	// the fucking asshole who designed this can go die in a fire - Iamgoofball // Better idea. They can burn in hell, forever - Fox
 	var/list/can_be_placed_into = list(
 		/obj/machinery/chem_master/,
 		/obj/machinery/chem_heater/,
@@ -42,7 +42,8 @@
 		/obj/machinery/constructable_frame,
 		/obj/machinery/icemachine,
 		/obj/item/bombcore/chemical,
-		/obj/machinery/vending)
+		/obj/machinery/vending,
+		/obj/item/clothing/suit/space/space_ninja)
 
 /obj/item/reagent_containers/glass/New()
 	..()
