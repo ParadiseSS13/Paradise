@@ -13,9 +13,3 @@
 		a_boost--
 		to_chat(H, "<span class='notice'>There are <B>[a_boost]</B> adrenaline boosts remaining.</span>")
 		s_coold = 3
-		addtimer(CALLBACK(src, .proc/ninjaboost_after), 70)
-
-/obj/item/clothing/suit/space/space_ninja/proc/ninjaboost_after()
-	var/mob/living/carbon/human/H = affecting
-	H.reagents.add_reagent("radium", a_transfer)
-	to_chat(H, "<span class='danger'>You are beginning to feel the after-effect of the injection.</span>")
