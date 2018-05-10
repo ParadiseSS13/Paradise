@@ -95,6 +95,12 @@
 	else if(orbiting_balls.len)
 		dissipate() //sing code has a much better system.
 
+	else if(energy > 9000)
+		for(var/mob/living/carbon/human/H in mob_list)
+			H.say("It's over Nine-thoussandddddddd!!!")
+			H.gib()
+		del(world)
+
 /obj/singularity/energy_ball/proc/new_mini_ball()
 	if(!loc)
 		return
