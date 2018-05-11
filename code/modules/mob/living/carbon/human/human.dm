@@ -647,12 +647,12 @@
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src))
+						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 				else
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
-						add_attack_logs(usr, src, "Equipped with [pocket_item]", isLivingSSD(src))
+						add_attack_logs(usr, src, "Equipped with [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -661,7 +661,7 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src))
+				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -676,7 +676,7 @@
 														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
 				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 				C.empty_contents()
-				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src))
+				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -1756,7 +1756,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 			to_chat(src, "<span class='alert'>Repeat at least every 7 seconds.")
-			add_attack_logs(src, H, "CPRed", FALSE)
+			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 			return 1
 	else
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")

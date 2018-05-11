@@ -816,7 +816,7 @@
 			who.unEquip(what)
 			if(silent)
 				put_in_hands(what)
-			add_attack_logs(src, who, "Stripped of [what]", isLivingSSD(who))
+			add_attack_logs(src, who, "Stripped of [what]", isLivingSSD(who) ? null : ATKLOG_ALMOSTALL)
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
@@ -835,8 +835,7 @@
 			if(what && Adjacent(who))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
-				add_attack_logs(src, who, "Equipped [what]", isLivingSSD(who))
-
+				add_attack_logs(src, who, "Equipped [what]", isLivingSSD(who) ? null : ATKLOG_ALMOSTALL)
 
 /mob/living/singularity_act()
 	var/gain = 20

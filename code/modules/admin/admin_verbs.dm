@@ -896,18 +896,33 @@ var/list/admin_verbs_ticket = list(
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
 /client/proc/toggleattacklogs()
-	set name = "Toggle Attack Log Messages"
+	set name = "Attack Log Messages"
 	set category = "Preferences"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_ATTACKLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_ATTACKLOGS)
-		to_chat(usr, "You now will get attack log messages")
+	if(prefs.atklog == ATKLOG_ALL)
+		prefs.atklog = ATKLOG_ALMOSTALL
+		to_chat(usr, "Your attack logs preference is now: show ALMOST ALL attack logs")
+	else if(prefs.atklog == ATKLOG_ALMOSTALL)
+		prefs.atklog = ATKLOG_MOST
+		to_chat(usr, "Your attack logs preference is now: show MOST attack logs")
+	else if(prefs.atklog == ATKLOG_MOST)
+		prefs.atklog = ATKLOG_FEW
+		to_chat(usr, "Your attack logs preference is now: show FEW attack logs")
+	else if(prefs.atklog == ATKLOG_FEW)
+		prefs.atklog = ATKLOG_NONE
+		to_chat(usr, "Your attack logs preference is now: show NO attack logs")
+	else if(prefs.atklog == ATKLOG_NONE)
+		prefs.atklog = ATKLOG_ALL
+		to_chat(usr, "Your attack logs preference is now: show ALL attack logs")
 	else
-		to_chat(usr, "You now won't get attack log messages")
+		prefs.atklog = ATKLOG_ALL
+		to_chat(usr, "Your attack logs preference is now: show ALL attack logs (your preference was set to an invalid value, it has been reset)")
+
+	prefs.save_preferences(src)
+
 
 /client/proc/toggleadminlogs()
 	set name = "Toggle Admin Log Messages"

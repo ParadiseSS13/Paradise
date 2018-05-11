@@ -133,7 +133,7 @@
 				for(var/mob/C in viewers(src))
 					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
 				qdel(G)
-				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey)
+				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
 
 	if(!I)
@@ -179,7 +179,7 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		add_attack_logs(user, target, "Disposal'ed", !!target.ckey)
+		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
 	target.forceMove(src)

@@ -248,11 +248,11 @@ Proc for attack log creation, because really why not
 This is always put in the attack log.
 */
 
-/proc/add_attack_logs(mob/user, mob/target, what_done, admin_notify)
+/proc/add_attack_logs(mob/user, mob/target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
 		for(var/mob/M in targets)
-			add_attack_logs(user, M, what_done, admin_notify)
+			add_attack_logs(user, M, what_done, custom_level)
 		return
 
 	var/user_str = key_name(user)
@@ -263,10 +263,20 @@ This is always put in the attack log.
 	if(istype(target))
 		target.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	log_attack(user_str, target_str, what_done)
-	if(isnull(admin_notify))
-		admin_notify = !istype(target) || target.ckey
-	if(admin_notify)
-		msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]")
+
+	var/loglevel = ATKLOG_MOST
+
+	if(custom_level)
+		loglevel = custom_level
+	else if(istype(target))
+		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
+			loglevel = ATKLOG_FEW
+		else if(!user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+			loglevel = ATKLOG_ALL
+		else if(!target.ckey) // Attacks by players on NPCs are only shown to admins with ATKLOG_ALL or ATKLOG_ALMOSTALL
+			loglevel = ATKLOG_ALMOSTALL
+
+	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
 /proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
 	if(!user || !target)

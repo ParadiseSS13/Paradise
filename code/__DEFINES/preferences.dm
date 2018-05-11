@@ -29,6 +29,13 @@
 
 #define TOGGLES_DEFAULT (CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC|MEMBER_PUBLIC|DONATOR_PUBLIC)
 
+// Admin attack logs filter system, see /proc/add_attack_logs and /proc/msg_admin_attack
+#define ATKLOG_ALL	0
+#define ATKLOG_ALMOSTALL	1
+#define ATKLOG_MOST	2
+#define ATKLOG_FEW	3
+#define ATKLOG_NONE	4
+
 // Playtime tracking system, see jobs_exp.dm
 #define EXP_TYPE_LIVING			"Living"
 #define EXP_TYPE_CREW			"Crew"
