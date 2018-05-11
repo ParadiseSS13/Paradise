@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "It is no longer possible to create an infinite number of monkeys from the same monkey cube."
