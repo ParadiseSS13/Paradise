@@ -153,9 +153,8 @@
 	qdel(src)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Manifest()//handles disappearing and appearance anim
-	var/obj/effect/temp_visual/fcluwne_manifest/manifest = /obj/effect/temp_visual/fcluwne_manifest
 	if(manifested)
-		new manifest(loc)
+		new /obj/effect/temp_visual/fcluwne_manifest(loc)
 		addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Appear), MANIFEST_DELAY)
 
 	else
@@ -163,9 +162,6 @@
 		invisibility = INVISIBILITY_MAXIMUM
 		mouse_opacity = 0
 		density = FALSE
-		if(manifest)
-			qdel(manifest)
-
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
 	layer = LYING_MOB_LAYER
