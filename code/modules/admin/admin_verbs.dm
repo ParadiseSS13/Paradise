@@ -896,7 +896,7 @@ var/list/admin_verbs_ticket = list(
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
 /client/proc/toggleattacklogs()
-	set name = "Attack Log Messages"
+	set name = "Toggle Attack Log Messages"
 	set category = "Preferences"
 
 	if(!check_rights(R_ADMIN))
