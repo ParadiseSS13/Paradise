@@ -30,7 +30,7 @@
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 		created_name = t
 		log_game("[key_name(user)] has renamed a robot to [t]")
@@ -54,7 +54,7 @@
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 		created_name = t
 		log_game("[key_name(user)] has renamed a robot to [t]")
@@ -255,7 +255,7 @@
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 
 		created_name = t
@@ -275,11 +275,11 @@
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 
 		created_name = t
-		("[key_name(usr)] has renamed a robot to [t]")
+		log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Medbot Assembly
 /obj/item/firstaid_arm_assembly
@@ -351,7 +351,7 @@
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 		created_name = t
 		log_game("[key_name(user)] has renamed a robot to [t]")
@@ -462,7 +462,7 @@
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 		created_name = t
 		log_game("[key_name(user)] has renamed a robot to [t]")
