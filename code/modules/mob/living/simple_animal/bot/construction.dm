@@ -33,7 +33,7 @@
 		if(!in_range(src, usr) && loc != usr)
 			return
 		created_name = t
-		log_game("[key_name(usr)] has renamed a robot to [t]")
+		log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Edbot Assembly
 
@@ -57,7 +57,7 @@
 		if(!in_range(src, usr) && loc != usr)
 			return
 		created_name = t
-		log_game("[key_name(usr)] has renamed a robot to [t]")
+		log_game("[key_name(user)] has renamed a robot to [t]")
 		return
 
 	switch(build_step)
@@ -259,7 +259,7 @@
 			return
 
 		created_name = t
-		log_game("[key_name(usr)] has renamed a robot to [t]")
+		log_game("[key_name(user)] has renamed a robot to [t]")
 
 /obj/item/toolbox_tiles_sensor/attackby(obj/item/W, mob/user, params)
 	..()
@@ -279,7 +279,7 @@
 			return
 
 		created_name = t
-		log_game("[key_name(usr)] has renamed a robot to [t]")
+		("[key_name(usr)] has renamed a robot to [t]")
 
 //Medbot Assembly
 /obj/item/firstaid_arm_assembly
@@ -354,7 +354,7 @@
 		if(!in_range(src, usr) && loc != usr)
 			return
 		created_name = t
-		log_game("[key_name(usr)] has renamed a robot to [t]")
+		log_game("[key_name(user)] has renamed a robot to [t]")
 	else
 		switch(build_step)
 			if(0)
@@ -465,7 +465,7 @@
 		if(!in_range(src, usr) && loc != usr)
 			return
 		created_name = t
-		log_game("[key_name(usr)] has renamed a robot to [t]")
+		log_game("[key_name(user)] has renamed a robot to [t]")
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(!build_step)
