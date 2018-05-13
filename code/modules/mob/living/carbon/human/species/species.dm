@@ -691,8 +691,11 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			var/obj/item/clothing/head/hat = H.head
 			H.sight |= hat.vision_flags
 
-			if(hat.darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
-				lesser_darkview_bonus = min(hat.darkness_view,lesser_darkview_bonus)
+			if(hat.darkness_view) // Pick the best of the two darkness_views between the glasses and helmet.
+				if(lesser_darkview_bonus == INFINITY)
+					lesser_darkview_bonus = hat.darkness_view
+				else
+					lesser_darkview_bonus = max(hat.darkness_view, lesser_darkview_bonus)
 
 			if(hat.helmet_goggles_invis_view)
 				H.see_invisible = min(hat.helmet_goggles_invis_view, H.see_invisible)
