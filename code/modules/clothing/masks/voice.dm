@@ -6,26 +6,30 @@
 
 /obj/item/clothing/mask/gas/voice
 	name = "gas mask"
-//	desc = "A face-covering mask that can be connected to an air supply. It seems to house some odd electronics."
 	var/obj/item/voice_changer/changer
 	burn_state = FIRE_PROOF
-
-/obj/item/clothing/mask/gas/voice/verb/Toggle_Voice_Changer()
-	set category = "Object"
-	set src in usr
-
-	changer.active = !changer.active
-	to_chat(usr, "<span class='notice'>You [changer.active ? "enable" : "disable"] the voice-changing module in \the [src].</span>")
-
-/obj/item/clothing/mask/gas/voice/verb/Set_Voice(name as text)
-	set category = "Object"
-	set src in usr
-
-	var/voice = sanitize(copytext(name,1,MAX_MESSAGE_LEN))
-	if(!voice || !length(voice)) return
-	changer.voice = voice
-	to_chat(usr, "<span class='notice'>You are now mimicking <B>[changer.voice]</B>.</span>")
+	actions_types = list(/datum/action/item_action/toggle_voice_changer, /datum/action/item_action/change_voice)
 
 /obj/item/clothing/mask/gas/voice/New()
 	..()
 	changer = new(src)
+
+/obj/item/clothing/mask/gas/voice/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/toggle_voice_changer))
+		toggle_voice_changer(user)
+		return TRUE
+	if(istype(action, /datum/action/item_action/change_voice))
+		set_voice(user)
+		return TRUE
+	return FALSE
+
+/obj/item/clothing/mask/gas/voice/proc/toggle_voice_changer(mob/user)
+	changer.active = !changer.active
+	to_chat(user, "<span class='notice'>You [changer.active ? "enable" : "disable"] the voice-changing module on [src].</span>")
+
+/obj/item/clothing/mask/gas/voice/proc/set_voice(mob/user)
+	var/voice = sanitize(copytext(input(user, "Choose a voice to mimic.") as text, 1, MAX_MESSAGE_LEN))
+	if(!voice || !length(voice))
+		return
+	changer.voice = voice
+	to_chat(user, "<span class='notice'>You are now mimicking <B>[changer.voice]</B>.</span>")

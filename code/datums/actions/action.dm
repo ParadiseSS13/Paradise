@@ -353,6 +353,14 @@
 		var/image/img = image(button_icon, current_button, "scan_mode")
 		current_button.overlays += img
 
+/datum/action/item_action/toggle_voice_changer
+	name = "Toggle Voice Changer"
+	desc = "Toggles Voice Changer on/off."
+
+/datum/action/item_action/change_voice
+	name = "Change Voice"
+	desc = "Change the voice of the Voice Changer"
+
 /datum/action/item_action/instrument
 	name = "Use Instrument"
 	desc = "Use the instrument specified"
