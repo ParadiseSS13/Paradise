@@ -558,7 +558,7 @@
 
 	if(!message)
 		return
-	
+
 	log_say("(ROBOT) [message]", speaker)
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
@@ -619,6 +619,22 @@
 	key = "z"//Zwarmer...Or Zerg!
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
+
+/datum/language/murghal
+	name = "Yakar"
+	desc = "The most widespread Murghal language, made up of screeches, tongue tickings and growls."
+	speech_verb = "ticks"
+	ask_verb = "ticks"
+	exclaim_verb = "screeches"
+	colour = "skrell"
+	key = "t"
+	flags = RESTRICTED
+	syllables = list("ask","are","tik","qur","cut","chik","wak","grr","ras","ak","ek","ik","zix","tak","tek","tik","kala","kili","rink","ruk","skrra", "ska","ske","nix","nokt")
+
+/datum/language/murghal/get_random_name()
+	var/new_name = "[pick(list("Vasi","Lisk","Lich","Sika","Naika","Eva","Kirana","Taura","Tairana","Laski","Nikera", "Oki", "Mika"))]"
+	new_name += " [pick(list("Mink","lira","Kartis","TikTik","Kirakakai","Kali","Xixek","Ukik","Kondra","Beki"))]"
+	return new_name
 
 // Language handling.
 /mob/proc/add_language(language)

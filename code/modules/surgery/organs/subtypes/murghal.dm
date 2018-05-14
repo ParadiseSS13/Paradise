@@ -21,6 +21,9 @@
 			owner.visible_message("<span class='notice'>[owner] crouches a little!</span>", "<span class='notice'>You get ready to sprint.</span>")
 		else
 			owner.visible_message("<span class='notice'>[owner] assumes a normal standing position.</span>", "<span class='notice'>You relax your muscles.</span>")
+			cooldown = 1
+			spawn(1200)
+				cooldown = 0
 
 /obj/item/organ/internal/adrenal/on_life()
 	..()
@@ -33,9 +36,6 @@
 		if(owner.stat)
 			toggle_boost(1)
 			owner.visible_message("<span class='notice'>[owner] assumes a normal standing position.</span>")
-			cooldown = 1
-			spawn(100)
-			cooldown = 0
 			return
 
 		owner.nutrition = max(owner.nutrition - MURGHAL_BOOST_HUNGERCOST, MURGHAL_BOOST_HUNGERCOST)
@@ -54,16 +54,16 @@
 	if(!statoverride && owner.nutrition < MURGHAL_BOOST_MINHUNGER)
 		to_chat(owner, "<span class='warning'>You are too tired to sprint, eat something!</span>")
 		return 0
+
 	if(cooldown)
 		to_chat(owner, "<span class='warning'>You are still exhausted from the last sprint, you will need to wait a bit longer!</span>")
 		return 0
 
-	if(!cooldown)
 
-		if(!speeding)
-			owner.status_flags |= GOTTAGOFAST
-			speeding =1
-			return 1
+	if(!speeding)
+		owner.status_flags |= GOTTAGOFAST
+		speeding =1
+		return 1
 
 	else
 		owner.status_flags &= ~GOTTAGOFAST

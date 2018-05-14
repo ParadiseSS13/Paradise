@@ -196,6 +196,12 @@
 	desc = "A flag proudly boasting the logo of the cultists, sworn enemies of NT."
 	icon_state = "cultflag"
 
+/obj/item/flag/species/vox
+	name = "Murghal Flag"
+	desc = "A banner of the Murghal Diplomatic Corps"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "murghalflag"
+
 //Chameleon
 
 /obj/item/flag/chameleon
