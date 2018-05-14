@@ -186,6 +186,7 @@
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/storage/belt/security/sec(src)
+	new /obj/item/holosign_creator/security(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet(src)

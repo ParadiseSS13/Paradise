@@ -192,6 +192,7 @@
 		/obj/item/melee/baton,
 		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
+		/obj/item/holosign_creator/security,
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/restraints/legcuffs/bola)
 
