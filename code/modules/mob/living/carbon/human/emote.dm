@@ -25,10 +25,10 @@
 		to_chat(user, "<span class='notice'>You do not have enough hands to [key].</span>")
 		return FALSE
 
-	if(species_whitelist.len && !(user.get_species() in species_whitelist))
+	if(LAZYLEN(species_whitelist) && !(user.get_species() in species_whitelist))
 		unusable_message(user, status_check)
 		return FALSE
-	if(species_blacklist.len && (user.get_species() in species_blacklist))
+	if(LAZYLEN(species_blacklist) && (user.get_species() in species_blacklist))
 		unusable_message(user, status_check)
 		return FALSE
 	return TRUE
