@@ -2987,9 +2987,27 @@
 	name = "Sailor Slime"
 	icon_state = "hair_slime_twins"
 	species_allowed = list("Slime People")
-	
+
 /datum/sprite_accessory/hair/murghal4
 	icon = 'icons/mob/murghalhairs.dmi'
 	name = "Broad Quills"
 	icon_state = "four_quills"
+	species_allowed = list("Murghal")
+
+/datum/sprite_accessory/hair/murghalroyal
+	icon = 'icons/mob/murghalhairs.dmi'
+	name = "Royal Fan"
+	icon_state = "royalfan"
+	species_allowed = list("Murghal")
+
+/datum/sprite_accessory/hair/murghaltrident
+	icon = 'icons/mob/murghalhairs.dmi'
+	name = "Trident Quills"
+	icon_state = "trident"
+	species_allowed = list("Murghal")
+
+/datum/sprite_accessory/hair/murghalsplit
+	icon = 'icons/mob/murghalhairs.dmi'
+	name = "Split Fan"
+	icon_state = "splitfan"
 	species_allowed = list("Murghal")
