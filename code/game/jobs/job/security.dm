@@ -207,7 +207,7 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
-	alt_titles = list("Tactical Medic","Spacepod Specialist")
+	alt_titles = list("Spacepod Specialist")
 
 
 /datum/outfit/job/officer
@@ -305,7 +305,7 @@
 	. = ..()
 	if(H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Tactical Medic")
+			/*if("Tactical Medic")
 				uniform = /obj/item/clothing/under/rank/security/brigphys
 				suit = /obj/item/clothing/suit/storage/fr_jacket
 				shoes = /obj/item/clothing/shoes/white
@@ -318,7 +318,7 @@
 				implants = list(/obj/item/implant/mindshield)
 				backpack = /obj/item/storage/backpack/medic
 				satchel = /obj/item/storage/backpack/satchel_med
-				dufflebag = /obj/item/storage/backpack/duffel/medical
+				dufflebag = /obj/item/storage/backpack/duffel/medical*/
 			if("Spacepod Specialist")
 				uniform = /obj/item/clothing/under/rank/security/pod_pilot
 				suit = /obj/item/clothing/suit/jacket/pilot
