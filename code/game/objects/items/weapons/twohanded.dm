@@ -692,7 +692,7 @@
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(wielded && Z.health < 1)
-				Z.visible_message("<span class='danger'>[Z.name] was blown to peices by the power of [name]!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [name]!</span>", \
 					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
 					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
 				Z.gib()
