@@ -1,10 +1,10 @@
-/obj/item/weapon/implant/traitor
+/obj/item/implant/traitor
 	name = "Mindslave Implant"
 	desc = "Divide and Conquer"
 	origin_tech = "programming=5;biotech=5;syndicate=8"
 	activated = 0
 
-/obj/item/weapon/implant/traitor/get_data()
+/obj/item/implant/traitor/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Mind-Slave Implant<BR>
 				<b>Life:</b> ??? <BR>
@@ -16,7 +16,7 @@
 				<b>Integrity:</b> Implant will last so long as the nanobots are inside the bloodstream."}
 	return dat
 
-/obj/item/weapon/implant/traitor/implant(mob/M, mob/user)
+/obj/item/implant/traitor/implant(mob/M, mob/user)
 	if(!activated) //So you can't just keep taking it out and putting it back into other people.
 		var/mob/living/carbon/human/H = M
 		if(ismindslave(H))
@@ -59,7 +59,7 @@
 			var/datum/objective/protect/mindslave/MS = new
 			MS.owner = H.mind
 			MS.target = user.mind
-			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role=="MODE" ? (user.mind.special_role) : (user.mind.assigned_role)]."
+			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role == user.mind.special_role ? (user.mind.special_role) : (user.mind.assigned_role)]."
 			H.mind.objectives += MS
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
@@ -74,14 +74,14 @@
 				slaved.add_serv_hud(user.mind, "master") //handles master servent icons
 				slaved.add_serv_hud(H.mind, "mindslave")
 
-			log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
+			log_admin("[key_name(user)] has mind-slaved [key_name(H)].")
 			activated = 1
 			if(jobban_isbanned(M, ROLE_SYNDICATE))
 				ticker.mode.replace_jobbanned_player(M, ROLE_SYNDICATE)
 			return 1
 		return 0
 
-/obj/item/weapon/implant/traitor/removed(mob/target)
+/obj/item/implant/traitor/removed(mob/target)
 	if(..())
 		ticker.mode.remove_traitor_mind(target.mind)
 		return 1

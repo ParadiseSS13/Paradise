@@ -61,7 +61,7 @@
 	initialize_directions_he = initialize_directions	// The auto-detection from /pipe is good enough for a simple HE pipe
 	color = "#404040"
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/initialize(initPipe = 1)
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/atmos_init(initPipe = 1)
 	..(0)
 	if(initPipe)
 		normalize_dir()
@@ -110,7 +110,7 @@
 			initialize_directions = EAST
 			initialize_directions_he = WEST
 
-/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/initialize()
+/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/atmos_init()
 	..(0)
 	for(var/obj/machinery/atmospherics/target in get_step(src,initialize_directions))
 		if(target.initialize_directions & get_dir(target,src))

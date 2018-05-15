@@ -19,7 +19,7 @@ var/global/list/default_medbay_channels = list(
 	num2text(MED_I_FREQ) = list(access_medical)
 )
 
-/obj/item/device/radio
+/obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
 	suffix = "\[3\]"
@@ -58,31 +58,33 @@ var/global/list/default_medbay_channels = list(
 	var/list/datum/radio_frequency/secure_radio_connections = new
 
 
-/obj/item/device/radio/proc/set_frequency(new_frequency)
+/obj/item/radio/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
 
 
-/obj/item/device/radio/New()
+/obj/item/radio/New()
 	..()
 	wires = new(src)
 
 	internal_channels = default_internal_channels.Copy()
 	global_radios |= src
 
-/obj/item/device/radio/Destroy()
+/obj/item/radio/Destroy()
 	QDEL_NULL(wires)
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
+	radio_connection = null
 	global_radios -= src
 	follow_target = null
 	return ..()
 
 
-/obj/item/device/radio/initialize()
+/obj/item/radio/Initialize()
+	..()
 	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
 		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
 	set_frequency(frequency)
@@ -90,14 +92,14 @@ var/global/list/default_medbay_channels = list(
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
 
-/obj/item/device/radio/attack_ghost(mob/user)
+/obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
 
-/obj/item/device/radio/attack_self(mob/user as mob)
+/obj/item/radio/attack_self(mob/user as mob)
 	user.set_machine(src)
 	interact(user)
 
-/obj/item/device/radio/interact(mob/user)
+/obj/item/radio/interact(mob/user)
 	if(!user)
 		return 0
 
@@ -106,14 +108,14 @@ var/global/list/default_medbay_channels = list(
 
 	return ui_interact(user)
 
-/obj/item/device/radio/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 400, 550)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/device/radio/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/radio/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["mic_status"] = broadcasting
@@ -135,10 +137,10 @@ var/global/list/default_medbay_channels = list(
 	return data
 
 
-/obj/item/device/radio/proc/list_channels(var/mob/user)
+/obj/item/radio/proc/list_channels(var/mob/user)
 	return list_internal_channels(user)
 
-/obj/item/device/radio/proc/list_secure_channels(var/mob/user)
+/obj/item/radio/proc/list_secure_channels(var/mob/user)
 	var/dat[0]
 
 	for(var/ch_name in channels)
@@ -149,7 +151,7 @@ var/global/list/default_medbay_channels = list(
 
 	return dat
 
-/obj/item/device/radio/proc/list_internal_channels(var/mob/user)
+/obj/item/radio/proc/list_internal_channels(var/mob/user)
 	var/dat[0]
 	for(var/internal_chan in internal_channels)
 		if(has_channel_access(user, internal_chan))
@@ -157,7 +159,7 @@ var/global/list/default_medbay_channels = list(
 
 	return dat
 
-/obj/item/device/radio/proc/has_channel_access(var/mob/user, var/freq)
+/obj/item/radio/proc/has_channel_access(var/mob/user, var/freq)
 	if(!user)
 		return 0
 
@@ -167,7 +169,7 @@ var/global/list/default_medbay_channels = list(
 	return user.has_internal_radio_channel_access(user, internal_channels[freq])
 
 /mob/proc/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
-	var/obj/item/weapon/card/id/I = user.get_id_card()
+	var/obj/item/card/id/I = user.get_id_card()
 	return has_access(list(), req_one_accesses, I ? I.GetAccess() : list())
 
 /mob/living/silicon/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
@@ -177,13 +179,13 @@ var/global/list/default_medbay_channels = list(
 /mob/dead/observer/has_internal_radio_channel_access(var/mob/user, var/list/req_one_accesses)
 	return can_admin_interact()
 
-/obj/item/device/radio/proc/ToggleBroadcast()
+/obj/item/radio/proc/ToggleBroadcast()
 	broadcasting = !broadcasting && !(wires.IsIndexCut(WIRE_TRANSMIT) || wires.IsIndexCut(WIRE_SIGNAL))
 
-/obj/item/device/radio/proc/ToggleReception()
+/obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.IsIndexCut(WIRE_RECEIVE) || wires.IsIndexCut(WIRE_SIGNAL))
 
-/obj/item/device/radio/Topic(href, href_list)
+/obj/item/radio/Topic(href, href_list)
 	if(..())
 		return 1
 
@@ -230,7 +232,7 @@ var/global/list/default_medbay_channels = list(
 
 	add_fingerprint(usr)
 
-/obj/item/device/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels, var/role = "Unknown") //BS12 EDIT
+/obj/item/radio/proc/autosay(var/message, var/from, var/channel, var/zlevel = config.contact_levels, var/role = "Unknown") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len > 0)
 		if(channel == "department")
@@ -248,7 +250,7 @@ var/global/list/default_medbay_channels = list(
 	A.role = role
 	A.message = message
 	var/jammed = FALSE
-	for(var/obj/item/device/jammer/jammer in active_jammers)
+	for(var/obj/item/jammer/jammer in active_jammers)
 		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
 			jammed = TRUE
 			break
@@ -269,7 +271,7 @@ var/global/list/default_medbay_channels = list(
 	universal_speak = 1
 
 /mob/living/automatedannouncer/New()
-	lifetime_timer = addtimer(src, "autocleanup", SecondsToTicks(10))
+	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), SecondsToTicks(10), TIMER_STOPPABLE)
 	..()
 
 /mob/living/automatedannouncer/Destroy()
@@ -283,7 +285,7 @@ var/global/list/default_medbay_channels = list(
 	qdel(src)
 
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
-/obj/item/device/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
+/obj/item/radio/proc/handle_message_mode(mob/living/M as mob, message, message_mode)
 	// If a channel isn't specified, send to common.
 	if(!message_mode || message_mode == "headset")
 		return radio_connection
@@ -299,7 +301,7 @@ var/global/list/default_medbay_channels = list(
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
 
-/obj/item/device/radio/talk_into(mob/living/M as mob, message, channel, var/verb = "says", var/datum/language/speaking = null)
+/obj/item/radio/talk_into(mob/living/M as mob, message, channel, var/verb = "says", var/datum/language/speaking = null)
 	if(!on)
 		return 0 // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
@@ -340,7 +342,7 @@ var/global/list/default_medbay_channels = list(
 	var/turf/position = get_turf(src)
 
 	var/jammed = FALSE
-	for(var/obj/item/device/jammer/jammer in active_jammers)
+	for(var/obj/item/jammer/jammer in active_jammers)
 		if(get_dist(position, get_turf(jammer)) < jammer.range)
 			jammed = TRUE
 			break
@@ -458,7 +460,7 @@ var/global/list/default_medbay_channels = list(
 	var/filter_type = 2
 
 	/* --- Intercoms can only broadcast to other intercoms, but bounced radios can broadcast to bounced radios and intercoms --- */
-	if(istype(src, /obj/item/device/radio/intercom))
+	if(istype(src, /obj/item/radio/intercom))
 		filter_type = 1
 
 
@@ -518,7 +520,7 @@ var/global/list/default_medbay_channels = list(
 					  filter_type, signal.data["compression"], list(position.z), connection.frequency,verb,speaking)
 
 
-/obj/item/device/radio/hear_talk(mob/M as mob, msg, var/verb = "says", var/datum/language/speaking = null)
+/obj/item/radio/hear_talk(mob/M as mob, msg, var/verb = "says", var/datum/language/speaking = null)
 
 	if(broadcasting)
 		if(get_dist(src, M) <= canhear_range)
@@ -526,7 +528,7 @@ var/global/list/default_medbay_channels = list(
 
 
 /*
-/obj/item/device/radio/proc/accept_rad(obj/item/device/radio/R as obj, message)
+/obj/item/radio/proc/accept_rad(obj/item/radio/R as obj, message)
 
 	if((R.frequency == frequency && message))
 		return 1
@@ -538,7 +540,7 @@ var/global/list/default_medbay_channels = list(
 */
 
 
-/obj/item/device/radio/proc/receive_range(freq, level)
+/obj/item/radio/proc/receive_range(freq, level)
 	// check if this radio can receive on the given frequency, and if so,
 	// what the range is in which mobs will hear the radio
 	// returns: -1 if can't receive, range otherwise
@@ -567,12 +569,12 @@ var/global/list/default_medbay_channels = list(
 			return -1
 	return canhear_range
 
-/obj/item/device/radio/proc/send_hear(freq, level)
+/obj/item/radio/proc/send_hear(freq, level)
 	var/range = receive_range(freq, level)
 	if(range > -1)
 		return get_mobs_in_view(canhear_range, src)
 
-/obj/item/device/radio/proc/is_listening()
+/obj/item/radio/proc/is_listening()
 	var/is_listening = TRUE
 	if(!on)
 		is_listening = FALSE
@@ -583,13 +585,13 @@ var/global/list/default_medbay_channels = list(
 
 	return is_listening
 
-/obj/item/device/radio/proc/send_announcement()
+/obj/item/radio/proc/send_announcement()
 	if(is_listening())
 		return get_mobs_in_view(canhear_range, src)
 
 	return null
 
-/obj/item/device/radio/examine(mob/user, var/distance = -1)
+/obj/item/radio/examine(mob/user, var/distance = -1)
 	. = ..(user, distance)
 	if((in_range(src, user) || loc == user))
 		if(b_stat)
@@ -598,13 +600,13 @@ var/global/list/default_medbay_channels = list(
 			user.show_message("<span class='notice'>\the [src] can not be modified or attached!</span>")
 	return .
 
-/obj/item/device/radio/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/radio/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	user.set_machine(src)
-	if(!( istype(W, /obj/item/weapon/screwdriver) ))
+	if(!( istype(W, /obj/item/screwdriver) ))
 		return
 	b_stat = !( b_stat )
-	if(!istype(src, /obj/item/device/radio/beacon))
+	if(!istype(src, /obj/item/radio/beacon))
 		if(b_stat)
 			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
 		else
@@ -615,10 +617,10 @@ var/global/list/default_medbay_channels = list(
 		return
 	else return
 
-/obj/item/device/radio/emp_act(severity)
+/obj/item/radio/emp_act(severity)
 	on = 0
 	disable_timer++
-	addtimer(src, "enable_radio", rand(100, 200))
+	addtimer(CALLBACK(src, .proc/enable_radio), rand(100, 200))
 
 	if(listening)
 		visible_message("<span class='warning'>[src] buzzes violently!</span>")
@@ -629,7 +631,7 @@ var/global/list/default_medbay_channels = list(
 		channels[ch_name] = 0
 	..()
 
-/obj/item/device/radio/proc/enable_radio()
+/obj/item/radio/proc/enable_radio()
 	if(disable_timer > 0)
 		disable_timer--
 	if(!disable_timer)
@@ -640,55 +642,55 @@ var/global/list/default_medbay_channels = list(
 ///////////////////////////////
 //Giving borgs their own radio to have some more room to work with -Sieve
 
-/obj/item/device/radio/borg
+/obj/item/radio/borg
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
-	var/obj/item/device/encryptionkey/keyslot = null//Borg radios can handle a single encryption key
+	var/obj/item/encryptionkey/keyslot = null//Borg radios can handle a single encryption key
 	var/shut_up = 1
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	canhear_range = 0
 	subspace_transmission = 1
 
-/obj/item/device/radio/borg/syndicate
+/obj/item/radio/borg/syndicate
 	syndie = 1
-	keyslot = new /obj/item/device/encryptionkey/syndicate
+	keyslot = new /obj/item/encryptionkey/syndicate
 
-/obj/item/device/radio/borg/syndicate/CanUseTopic(mob/user, datum/topic_state/state)
+/obj/item/radio/borg/syndicate/CanUseTopic(mob/user, datum/topic_state/state)
 	. = ..()
 	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
 		. = STATUS_INTERACTIVE
 
-/obj/item/device/radio/borg/Destroy()
+/obj/item/radio/borg/Destroy()
 	myborg = null
 	return ..()
 
-/obj/item/device/radio/borg/list_channels(var/mob/user)
+/obj/item/radio/borg/list_channels(var/mob/user)
 	return list_secure_channels(user)
 
-/obj/item/device/radio/borg/syndicate/New()
+/obj/item/radio/borg/syndicate/New()
 	..()
 	set_frequency(SYND_FREQ)
 
-/obj/item/device/radio/borg/deathsquad
+/obj/item/radio/borg/deathsquad
 
-/obj/item/device/radio/borg/deathsquad/New()
+/obj/item/radio/borg/deathsquad/New()
 	..()
 	set_frequency(DTH_FREQ)
 
-/obj/item/device/radio/borg/ert
-	keyslot = new /obj/item/device/encryptionkey/ert
+/obj/item/radio/borg/ert
+	keyslot = new /obj/item/encryptionkey/ert
 
-/obj/item/device/radio/borg/ert/New()
+/obj/item/radio/borg/ert/New()
 	..()
 	set_frequency(ERT_FREQ)
 
-/obj/item/device/radio/borg/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
 //	..()
 	user.set_machine(src)
-	if(!( istype(W, /obj/item/weapon/screwdriver) || (istype(W, /obj/item/device/encryptionkey/ ))))
+	if(!( istype(W, /obj/item/screwdriver) || (istype(W, /obj/item/encryptionkey/ ))))
 		return
 
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		if(keyslot)
 
 
@@ -709,7 +711,7 @@ var/global/list/default_medbay_channels = list(
 		else
 			to_chat(user, "This radio doesn't have any encryption keys!")
 
-	if(istype(W, /obj/item/device/encryptionkey/))
+	if(istype(W, /obj/item/encryptionkey/))
 		if(keyslot)
 			to_chat(user, "The radio can't hold another key!")
 			return
@@ -723,7 +725,7 @@ var/global/list/default_medbay_channels = list(
 
 	return
 
-/obj/item/device/radio/borg/proc/recalculateChannels()
+/obj/item/radio/borg/proc/recalculateChannels()
 	src.channels = list()
 	src.syndie = 0
 
@@ -756,7 +758,7 @@ var/global/list/default_medbay_channels = list(
 
 	return
 
-/obj/item/device/radio/borg/Topic(href, href_list)
+/obj/item/radio/borg/Topic(href, href_list)
 	if(..())
 		return 1
 	if(href_list["mode"])
@@ -786,20 +788,20 @@ var/global/list/default_medbay_channels = list(
 		. = 1
 
 
-/obj/item/device/radio/borg/interact(mob/user as mob)
+/obj/item/radio/borg/interact(mob/user as mob)
 	if(!on)
 		return
 
 	. = ..()
 
-/obj/item/device/radio/borg/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/borg/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 430, 500)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/device/radio/borg/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/radio/borg/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["mic_status"] = broadcasting
@@ -822,7 +824,7 @@ var/global/list/default_medbay_channels = list(
 
 	return data
 
-/obj/item/device/radio/proc/config(op)
+/obj/item/radio/proc/config(op)
 	if(radio_controller)
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
@@ -833,19 +835,19 @@ var/global/list/default_medbay_channels = list(
 			secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
 	return
 
-/obj/item/device/radio/off
+/obj/item/radio/off
 	listening = 0
 
-/obj/item/device/radio/phone
+/obj/item/radio/phone
 	broadcasting = 0
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
 	listening = 1
 	name = "phone"
 
-/obj/item/device/radio/phone/medbay
+/obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ
 
-/obj/item/device/radio/phone/medbay/New()
+/obj/item/radio/phone/medbay/New()
 	..()
 	internal_channels = default_medbay_channels.Copy()

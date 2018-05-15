@@ -1,4 +1,4 @@
-/obj/item/weapon/implant/tracking
+/obj/item/implant/tracking
 	name = "tracking implant"
 	desc = "Track with this."
 	activated = 0
@@ -6,15 +6,15 @@
 	var/id = 1
 
 
-/obj/item/weapon/implant/tracking/New()
+/obj/item/implant/tracking/New()
 	..()
 	tracked_implants += src
 
-/obj/item/weapon/implant/tracking/Destroy()
+/obj/item/implant/tracking/Destroy()
 	tracked_implants -= src
 	return ..()
 
-/obj/item/weapon/implant/tracking/get_data()
+/obj/item/implant/tracking/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Tracking Beacon<BR>
 				<b>Life:</b> 10 minutes after death of host<BR>
@@ -31,10 +31,10 @@
 				Implant Specifics:<BR>"}
 	return dat
 
-/obj/item/weapon/implantcase/track
+/obj/item/implantcase/track
 	name = "implant case - 'Tracking'"
 	desc = "A glass case containing a tracking implant."
 
-/obj/item/weapon/implantcase/track/New()
-	imp = new /obj/item/weapon/implant/tracking(src)
+/obj/item/implantcase/track/New()
+	imp = new /obj/item/implant/tracking(src)
 	..()

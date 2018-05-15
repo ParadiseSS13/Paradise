@@ -27,8 +27,8 @@
 		available_recipes = list()
 		acceptable_items = list()
 		//These are going to be acceptable even if they aren't in a recipe
-		acceptable_items |= /obj/item/weapon/reagent_containers/food/snacks
-		acceptable_items |= /obj/item/weapon/reagent_containers/food/drinks/cans
+		acceptable_items |= /obj/item/reagent_containers/food/snacks
+		acceptable_items |= /obj/item/reagent_containers/food/drinks/cans
 		//the rest is based on what is used in recipes so we don't have people destroying the nuke disc
 		for(var/type in subtypesof(/datum/bottler_recipe))
 			var/datum/bottler_recipe/recipe = new type
@@ -53,8 +53,8 @@
 		to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
 		return 0
 	if(is_type_in_list(O,acceptable_items))
-		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks))
-			var/obj/item/weapon/reagent_containers/food/snacks/S = O
+		if(istype(O, /obj/item/reagent_containers/food/snacks))
+			var/obj/item/reagent_containers/food/snacks/S = O
 			user.unEquip(S)
 			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
 				to_chat(user, "<span class='warning'>[S] is gone, oh no!</span>")
@@ -62,8 +62,8 @@
 			else
 				insert_item(S, user)
 			return 1
-		else if(istype(O, /obj/item/weapon/reagent_containers/food/drinks/cans))
-			var/obj/item/weapon/reagent_containers/food/drinks/cans/C = O
+		else if(istype(O, /obj/item/reagent_containers/food/drinks/cans))
+			var/obj/item/reagent_containers/food/drinks/cans/C = O
 			if(C.reagents)
 				if(C.canopened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
 					to_chat(user, "<span class='warning'>Only unopened cans and bottles can be processed to ensure product integrity.</span>")
@@ -146,8 +146,8 @@
 		else
 			con_type = "metal can"
 			max_define = MAX_METAL
-	else if(istype(O, /obj/item/weapon/reagent_containers/food/drinks/cans))
-		var/obj/item/weapon/reagent_containers/food/drinks/cans/C = O
+	else if(istype(O, /obj/item/reagent_containers/food/drinks/cans))
+		var/obj/item/reagent_containers/food/drinks/cans/C = O
 		if(C.is_glass)
 			con_type = "glass bottle"
 			max_define = MAX_GLASS
@@ -220,17 +220,17 @@
 
 /obj/machinery/bottler/proc/dispense_empty_container(container)
 	var/con_type
-	var/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/drink_container
+	var/obj/item/reagent_containers/food/drinks/cans/bottler/drink_container
 	switch(container)
 		if(1)	//glass bottle
 			con_type = "glass bottle"
-			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle
+			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
 		if(2)	//plastic bottle
 			con_type = "plastic bottle"
-			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle
+			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/plastic_bottle
 		if(3)	//metal can
 			con_type = "metal can"
-			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can
+			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/metal_can
 	if(containers[con_type])
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
@@ -245,18 +245,18 @@
 		visible_message("<span class='warning'>There are no ingredients to process! Please insert some first.</span>")
 		return
 	//prep a container
-	var/obj/item/weapon/reagent_containers/food/drinks/cans/bottler/drink_container
+	var/obj/item/reagent_containers/food/drinks/cans/bottler/drink_container
 	var/con_type
 	switch(container)
 		if(1)	//glass bottle
 			con_type = "glass bottle"
-			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/glass_bottle
+			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/glass_bottle
 		if(2)	//plastic bottle
 			con_type = "plastic bottle"
-			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/plastic_bottle
+			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/plastic_bottle
 		if(3)	//metal can
 			con_type = "metal can"
-			drink_container = /obj/item/weapon/reagent_containers/food/drinks/cans/bottler/metal_can
+			drink_container = /obj/item/reagent_containers/food/drinks/cans/bottler/metal_can
 
 	if(!con_type)
 		visible_message("<span class='warning'>Error 404: Drink Container Not Found.</span>")

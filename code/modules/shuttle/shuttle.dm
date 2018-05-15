@@ -33,6 +33,9 @@
 
 		return QDEL_HINT_LETMELIVE
 
+/obj/docking_port/take_damage()
+	return
+
 /obj/docking_port/singularity_pull()
 	return
 
@@ -226,7 +229,7 @@
 
 
 
-/obj/docking_port/mobile/initialize()
+/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	..()
@@ -383,7 +386,7 @@
 /obj/docking_port/mobile/proc/create_ripples(obj/docking_port/stationary/S1)
 	var/list/turfs = ripple_area(S1)
 	for(var/i in turfs)
-		ripples += new /obj/effect/overlay/temp/ripple(i)
+		ripples += new /obj/effect/temp_visual/ripple(i)
 
 /obj/docking_port/mobile/proc/remove_ripples()
 	if(ripples.len)
@@ -490,15 +493,15 @@
 			T1.shuttleRotate(rotation)
 
 		//lighting stuff
-		air_master.remove_from_active(T1)
+		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
-		air_master.add_to_active(T1,1)
+		SSair.add_to_active(T1,1)
 
 		T0.ChangeTurf(turf_type)
 
-		air_master.remove_from_active(T0)
+		SSair.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
-		air_master.add_to_active(T0,1)
+		SSair.add_to_active(T0,1)
 
 	for(var/A1 in L1)
 		var/turf/T1 = A1
@@ -684,14 +687,14 @@
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
 	req_access = list( )
-	circuit = /obj/item/weapon/circuitboard/shuttle
+	circuit = /obj/item/circuitboard/shuttle
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
 	var/max_connect_range = 7
 	var/docking_request = 0
 
-/obj/machinery/computer/shuttle/New(location, obj/item/weapon/circuitboard/shuttle/C)
+/obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
 	if(istype(C))
 		possible_destinations = C.possible_destinations
@@ -731,7 +734,7 @@
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "shuttle_console.tmpl", M ? M.name : "shuttle", 300, 200)
 		ui.open()
@@ -788,14 +791,14 @@
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"
-	circuit = /obj/item/weapon/circuitboard/ferry
+	circuit = /obj/item/circuitboard/ferry
 	shuttleId = "ferry"
 	possible_destinations = "ferry_home;ferry_away"
 
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
-	circuit = /obj/item/weapon/circuitboard/ferry/request
+	circuit = /obj/item/circuitboard/ferry/request
 	var/cooldown //prevents spamming admins
 	possible_destinations = "ferry_home"
 	admin_controlled = 1
@@ -811,13 +814,13 @@
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		. = 1
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		spawn(600) //One minute cooldown
 			cooldown = 0
 
 /obj/machinery/computer/shuttle/ert
 	name = "specops shuttle console"
-	//circuit = /obj/item/weapon/circuitboard/ert
+	//circuit = /obj/item/circuitboard/ert
 	req_access = list(access_cent_general)
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
@@ -826,7 +829,7 @@
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."
-	circuit = /obj/item/weapon/circuitboard/white_ship
+	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
@@ -866,7 +869,7 @@
 	desc = "Used to call and send the SIT shuttle."
 	req_access = list(access_syndicate)
 	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away"
 
 
 var/global/trade_dock_timelimit = 0

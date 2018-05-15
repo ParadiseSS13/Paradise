@@ -43,7 +43,7 @@
 		if(SOUTHWEST)
 			initialize_directions = SOUTH|WEST
 
-/obj/machinery/atmospherics/pipe/simple/initialize(initPipe = 1)
+/obj/machinery/atmospherics/pipe/simple/atmos_init(initPipe = 1)
 	..()
 	if(initPipe)
 		normalize_dir()
@@ -89,7 +89,7 @@
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
 	src.visible_message("<span class='danger'>\The [src] bursts!</span>");
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-	var/datum/effect/system/harmless_smoke_spread/smoke = new
+	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1,0, src.loc, 0)
 	smoke.start()
 	qdel(src)
@@ -145,14 +145,14 @@
 	overlays.Cut()
 
 	if(node1 && node2)
-		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "intact" + icon_connect_type)
+		overlays += GLOB.pipe_icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "intact" + icon_connect_type)
 	else
-		overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
+		overlays += GLOB.pipe_icon_manager.get_atmos_icon("pipe", , pipe_color, pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
 
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/simple/check_nodes_exist()
 	if(!node1 && !node2)
-		Deconstruct()
+		deconstruct()
 		return 0 // 0: No nodes exist
 	// 1: 1-2 nodes exist, we continue existing
 	return 1

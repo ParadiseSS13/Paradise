@@ -9,7 +9,7 @@
 /*
  * Pens
  */
-/obj/item/weapon/pen
+/obj/item/pen
 	desc = "It's a normal black ink pen."
 	name = "pen"
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -24,33 +24,33 @@
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
 
-/obj/item/weapon/pen/suicide_act(mob/user)
+/obj/item/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over \himself with the [src.name]! It looks like \he's trying to commit sudoku.</span>")
 	return (BRUTELOSS)
 
-/obj/item/weapon/pen/blue
+/obj/item/pen/blue
 	name = "blue-ink pen"
 	desc = "It's a normal blue ink pen."
 	icon_state = "pen_blue"
 	colour = "blue"
 
-/obj/item/weapon/pen/red
+/obj/item/pen/red
 	name = "red-ink pen"
 	desc = "It's a normal red ink pen."
 	icon_state = "pen_red"
 	colour = "red"
 
-/obj/item/weapon/pen/gray
+/obj/item/pen/gray
 	name = "gray-ink pen"
 	desc = "It's a normal gray ink pen."
 	colour = "gray"
 
-/obj/item/weapon/pen/invisible
+/obj/item/pen/invisible
 	desc = "It's an invisble pen marker."
 	icon_state = "pen"
 	colour = "white"
 
-/obj/item/weapon/pen/multi
+/obj/item/pen/multi
 	name = "multicolor pen"
 	desc = "It's a cool looking pen. Lots of colors!"
 
@@ -64,21 +64,21 @@
 	var/pen_color_iconstate = "pencolor"
 	var/pen_color_shift = 3
 
-/obj/item/weapon/pen/multi/New()
+/obj/item/pen/multi/New()
 	..()
 	update_icon()
 
-/obj/item/weapon/pen/multi/proc/select_colour(mob/user as mob)
+/obj/item/pen/multi/proc/select_colour(mob/user as mob)
 	var/newcolour = input(user, "Which colour would you like to use?", name, colour) as null|anything in colour_choices
 	if(newcolour)
 		colour = newcolour
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
 		update_icon()
 
-/obj/item/weapon/pen/multi/attack_self(mob/living/user as mob)
+/obj/item/pen/multi/attack_self(mob/living/user as mob)
 	select_colour(user)
 
-/obj/item/weapon/pen/multi/update_icon()
+/obj/item/pen/multi/update_icon()
 	overlays.Cut()
 	var/icon/o = new(icon, pen_color_iconstate)
 	var/list/c = colour_choices[colour]
@@ -87,24 +87,24 @@
 		o.Shift(SOUTH, pen_color_shift)
 	overlays += o
 
-/obj/item/weapon/pen/fancy
+/obj/item/pen/fancy
 	name = "fancy pen"
 	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
 	icon_state = "fancypen"
 
-/obj/item/weapon/pen/multi/gold
+/obj/item/pen/multi/gold
 	name = "Gilded Pen"
 	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'Nanotrasen' is etched on the clip of the pen."
 	icon_state = "goldpen"
 	pen_color_shift = 0
 
-/obj/item/weapon/pen/multi/fountain
+/obj/item/pen/multi/fountain
 	name = "Engraved Fountain Pen"
 	desc = "An expensive looking pen."
 	icon_state = "fountainpen"
 	pen_color_shift = 0
 
-/obj/item/weapon/pen/attack(mob/living/M, mob/user)
+/obj/item/pen/attack(mob/living/M, mob/user)
 	if(!istype(M))
 		return
 
@@ -114,7 +114,7 @@
 //			to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
 			. = 1
 
-		add_logs(user, M, "stabbed", object="[name]")
+		add_attack_logs(user, M, "Stabbed with [src]")
 
 	else
 		. = ..()
@@ -122,12 +122,12 @@
 /*
  * Sleepypens
  */
-/obj/item/weapon/pen/sleepy
+/obj/item/pen/sleepy
 	flags = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
 
 
-/obj/item/weapon/pen/sleepy/attack(mob/living/M, mob/user)
+/obj/item/pen/sleepy/attack(mob/living/M, mob/user)
 	if(!istype(M))	return
 
 	if(..())
@@ -136,7 +136,7 @@
 				reagents.trans_to(M, 50)
 
 
-/obj/item/weapon/pen/sleepy/New()
+/obj/item/pen/sleepy/New()
 	create_reagents(100)
 	reagents.add_reagent("ketamine", 100)
 	..()
@@ -145,12 +145,14 @@
 /*
  * (Alan) Edaggers
  */
-/obj/item/weapon/pen/edagger
+/obj/item/pen/edagger
 	origin_tech = "combat=3;syndicate=1"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut") //these wont show up if the pen is off
 	var/on = 0
+	var/brightness_on = 2
+	light_color = LIGHT_COLOR_RED
 
-/obj/item/weapon/pen/edagger/attack_self(mob/living/user)
+/obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
 		on = 0
 		force = initial(force)
@@ -162,6 +164,7 @@
 		throwforce = initial(throwforce)
 		playsound(user, 'sound/weapons/saberoff.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] can now be concealed.</span>")
+		set_light(0)
 	else
 		on = 1
 		force = 18
@@ -173,9 +176,10 @@
 		throwforce = 35
 		playsound(user, 'sound/weapons/saberon.ogg', 5, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
+		set_light(brightness_on, 1)
 	update_icon()
 
-/obj/item/weapon/pen/edagger/update_icon()
+/obj/item/pen/edagger/update_icon()
 	if(on)
 		icon_state = "edagger"
 		item_state = "edagger"
@@ -183,13 +187,13 @@
 		icon_state = initial(icon_state) //looks like a normal pen when off.
 		item_state = initial(item_state)
 
-/obj/item/proc/on_write(obj/item/weapon/paper/P, mob/user)
+/obj/item/proc/on_write(obj/item/paper/P, mob/user)
 	return
 
-/obj/item/weapon/pen/poison
+/obj/item/pen/poison
 	var/uses_left = 3
 
-/obj/item/weapon/pen/poison/on_write(obj/item/weapon/paper/P, mob/user)
+/obj/item/pen/poison/on_write(obj/item/paper/P, mob/user)
 	if(P.contact_poison_volume)
 		to_chat(user, "<span class='warning'>[P] is already coated.</span>")
 	else if(uses_left)
@@ -197,7 +201,7 @@
 		P.contact_poison = "amanitin"
 		P.contact_poison_volume = 15
 		P.contact_poison_poisoner = user.name
-		add_logs(user, P, "used poison pen on")
+		add_attack_logs(user, P, "Poison pen'ed")
 		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
 	else
 		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")

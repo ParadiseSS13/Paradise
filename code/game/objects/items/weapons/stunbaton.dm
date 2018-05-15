@@ -1,4 +1,4 @@
-/obj/item/weapon/melee/baton
+/obj/item/melee/baton
 	name = "stunbaton"
 	desc = "A stun baton for incapacitating people with."
 	icon_state = "stunbaton"
@@ -12,29 +12,29 @@
 	attack_verb = list("beaten")
 	var/stunforce = 7
 	var/status = 0
-	var/obj/item/weapon/stock_parts/cell/high/bcell = null
+	var/obj/item/stock_parts/cell/high/bcell = null
 	var/hitcost = 1000
 
-/obj/item/weapon/melee/baton/suicide_act(mob/user)
+/obj/item/melee/baton/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting the live [name] in \his mouth! It looks like \he's trying to commit suicide.</span>")
 	return (FIRELOSS)
 
-/obj/item/weapon/melee/baton/New()
+/obj/item/melee/baton/New()
 	..()
 	update_icon()
 	return
 
-/obj/item/weapon/melee/baton/Destroy()
+/obj/item/melee/baton/Destroy()
 	QDEL_NULL(bcell)
 	return ..()
 
-/obj/item/weapon/melee/baton/loaded/New() //this one starts with a cell pre-installed.
+/obj/item/melee/baton/loaded/New() //this one starts with a cell pre-installed.
 	..()
 	bcell = new(src)
 	update_icon()
 	return
 
-/obj/item/weapon/melee/baton/proc/deductcharge(var/chrgdeductamt)
+/obj/item/melee/baton/proc/deductcharge(var/chrgdeductamt)
 	if(bcell)
 		if(bcell.charge < (hitcost+chrgdeductamt)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 			status = 0
@@ -45,7 +45,7 @@
 		else
 			return 0
 
-/obj/item/weapon/melee/baton/update_icon()
+/obj/item/melee/baton/update_icon()
 	if(status)
 		icon_state = "[base_icon]_active"
 	else if(!bcell)
@@ -53,16 +53,16 @@
 	else
 		icon_state = "[base_icon]"
 
-/obj/item/weapon/melee/baton/examine(mob/user)
+/obj/item/melee/baton/examine(mob/user)
 	..(user)
 	if(bcell)
 		to_chat(user, "<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>")
 	if(!bcell)
 		to_chat(user, "<span class='warning'>The baton does not have a power source installed.</span>")
 
-/obj/item/weapon/melee/baton/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/stock_parts/cell))
-		var/obj/item/weapon/stock_parts/cell/C = W
+/obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = W
 		if(bcell)
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 		else
@@ -76,9 +76,9 @@
 			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 			update_icon()
 
-	else if(istype(W, /obj/item/weapon/screwdriver))
+	else if(istype(W, /obj/item/screwdriver))
 		if(bcell)
-			bcell.updateicon()
+			bcell.update_icon()
 			bcell.loc = get_turf(src.loc)
 			bcell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
@@ -88,8 +88,8 @@
 		..()
 	return
 
-/obj/item/weapon/melee/baton/attack_self(mob/user)
-	if(bcell && bcell.charge > hitcost)
+/obj/item/melee/baton/attack_self(mob/user)
+	if(bcell && bcell.charge >= hitcost)
 		status = !status
 		to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
 		playsound(loc, "sparks", 75, 1, -1)
@@ -102,7 +102,7 @@
 	update_icon()
 	add_fingerprint(user)
 
-/obj/item/weapon/melee/baton/attack(mob/M, mob/living/user)
+/obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(status && (CLUMSY in user.mutations) && prob(50))
 		user.visible_message("<span class='danger'>[user] accidentally hits themself with [src]!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
@@ -132,7 +132,7 @@
 		..()
 
 
-/obj/item/weapon/melee/baton/proc/baton_stun(mob/living/L, mob/user)
+/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
@@ -160,14 +160,14 @@
 		var/mob/living/carbon/human/H = L
 		H.forcesay(hit_appends)
 
-	add_logs(user, L, "stunned", object="stunbaton")
+	add_attack_logs(user, L, "Stunned with [src]")
 
-/obj/item/weapon/melee/baton/emp_act(severity)
+/obj/item/melee/baton/emp_act(severity)
 	if(bcell)
 		deductcharge(1000 / severity)
 	..()
 
-/obj/item/weapon/melee/baton/wash(mob/user, atom/source)
+/obj/item/melee/baton/wash(mob/user, atom/source)
 	if(bcell)
 		if(bcell.charge > 0 && status == 1)
 			flick("baton_active", source)
@@ -182,7 +182,7 @@
 	..()
 
 //Makeshift stun baton. Replacement for stun gloves.
-/obj/item/weapon/melee/baton/cattleprod
+/obj/item/melee/baton/cattleprod
 	name = "stunprod"
 	desc = "An improvised stun baton."
 	icon_state = "stunprod_nocell"
@@ -194,16 +194,16 @@
 	stunforce = 5
 	hitcost = 2000
 	slot_flags = SLOT_BACK
-	var/obj/item/device/assembly/igniter/sparkler = null
+	var/obj/item/assembly/igniter/sparkler = null
 
-/obj/item/weapon/melee/baton/cattleprod/New()
+/obj/item/melee/baton/cattleprod/New()
 	..()
 	sparkler = new(src)
 
-/obj/item/weapon/melee/baton/cattleprod/Destroy()
+/obj/item/melee/baton/cattleprod/Destroy()
 	QDEL_NULL(sparkler)
 	return ..()
 
-/obj/item/weapon/melee/baton/cattleprod/baton_stun()
+/obj/item/melee/baton/cattleprod/baton_stun()
 	if(sparkler.activate())
 		..()

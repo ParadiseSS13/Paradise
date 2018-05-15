@@ -35,7 +35,7 @@
 	if(powernet)
 		disconnect_from_network()
 
-/obj/machinery/power/generator/initialize()
+/obj/machinery/power/generator/Initialize()
 	..()
 	connect()
 
@@ -158,8 +158,8 @@
 		return
 	interact(user)
 
-/obj/machinery/power/generator/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/machinery/power/generator/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/wrench))
 		anchored = !anchored
 		if(!anchored)
 			disconnect()

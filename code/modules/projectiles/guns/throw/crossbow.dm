@@ -4,7 +4,7 @@
 #define XBOW_TENSION_80 "80%"
 #define XBOW_TENSION_FULL "100%"
 
-/obj/item/weapon/gun/throw/crossbow
+/obj/item/gun/throw/crossbow
 	name = "powered crossbow"
 	desc = "A modern twist on an old classic. Pick up that can."
 	icon_state = "crossbow"
@@ -12,21 +12,21 @@
 	fire_sound_text = "a solid thunk"
 	fire_delay = 25
 
-	valid_projectile_type = /obj/item/weapon/arrow
+	valid_projectile_type = /obj/item/arrow
 
 	var/tension = 0
 	var/drawtension = 5
 	var/maxtension = 5
 	var/speed_multiplier = 5
 	var/range_multiplier = 3
-	var/obj/item/weapon/stock_parts/cell/cell = null    // Used for firing superheated rods.
+	var/obj/item/stock_parts/cell/cell = null    // Used for firing superheated rods.
 	var/list/possible_tensions = list(XBOW_TENSION_20, XBOW_TENSION_40, XBOW_TENSION_60, XBOW_TENSION_80, XBOW_TENSION_FULL)
 
-/obj/item/weapon/gun/throw/crossbow/emp_act(severity)
+/obj/item/gun/throw/crossbow/emp_act(severity)
 	if(cell && severity)
 		emp_act(severity)
 
-/obj/item/weapon/gun/throw/crossbow/update_icon()
+/obj/item/gun/throw/crossbow/update_icon()
 	if(!tension)
 		if(!to_launch)
 			icon_state = "[initial(icon_state)]"
@@ -35,39 +35,39 @@
 	else
 		icon_state = "[initial(icon_state)]-drawn"
 
-/obj/item/weapon/gun/throw/crossbow/examine(mob/user)
+/obj/item/gun/throw/crossbow/examine(mob/user)
 	..()
 	if(cell)
 		to_chat(user, "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]")
 	else
 		to_chat(user, "<span class='notice'>It has an empty mount for a battery cell.</span>")
 
-/obj/item/weapon/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
-	if(cell && on_chamber && istype(I, /obj/item/weapon/arrow/rod))
-		var/obj/item/weapon/arrow/rod/R = I
+/obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
+	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
+		var/obj/item/arrow/rod/R = I
 		visible_message("<span class='danger'>[R] plinks and crackles as it begins to glow red-hot.</span>")
 		R.throwforce = 15
 		R.superheated = 1
 		cell.use(500)
 
-/obj/item/weapon/gun/throw/crossbow/get_throwspeed()
+/obj/item/gun/throw/crossbow/get_throwspeed()
 	return tension * speed_multiplier
 
-/obj/item/weapon/gun/throw/crossbow/get_throwrange()
+/obj/item/gun/throw/crossbow/get_throwrange()
 	return tension * range_multiplier
 
-/obj/item/weapon/gun/throw/crossbow/process_chamber()
+/obj/item/gun/throw/crossbow/process_chamber()
 	..()
 	if(to_launch)
 		modify_projectile(to_launch, 1)
 	update_icon()
 
-/obj/item/weapon/gun/throw/crossbow/attack_self(mob/living/user)
+/obj/item/gun/throw/crossbow/attack_self(mob/living/user)
 	if(tension)
 		if(to_launch)
 			user.visible_message("<span class='notice'>[user] relaxes the tension on [src]'s string and removes [to_launch].</span>","<span class='notice'>You relax the tension on [src]'s string and remove [to_launch].</span>")
 			to_launch.forceMove(get_turf(src))
-			var/obj/item/weapon/arrow/A = to_launch
+			var/obj/item/arrow/A = to_launch
 			to_launch = null
 			A.removed()
 			process_chamber()
@@ -78,7 +78,7 @@
 	else
 		draw(user)
 
-/obj/item/weapon/gun/throw/crossbow/proc/draw(mob/living/user)
+/obj/item/gun/throw/crossbow/proc/draw(mob/living/user)
 	if(user.incapacitated())
 		return
 	if(!to_launch)
@@ -91,8 +91,8 @@
 		user.visible_message("[usr] draws back the string of [src]!","[src] clunks as you draw the string to its maximum tension!!")
 		update_icon()
 
-/obj/item/weapon/gun/throw/crossbow/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/stock_parts/cell))
+/obj/item/gun/throw/crossbow/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
 			user.drop_item()
 			W.loc = src
@@ -101,7 +101,7 @@
 			process_chamber()
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell installed.</span>")
-	else if(istype(W, /obj/item/weapon/screwdriver))
+	else if(istype(W, /obj/item/screwdriver))
 		if(cell)
 			cell.loc = get_turf(src)
 			to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [W].</span>")
@@ -111,7 +111,7 @@
 	else
 		..()
 
-/obj/item/weapon/gun/throw/crossbow/verb/set_tension()
+/obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Adjust Tension"
 	set category = "Object"
 	set src in range(0)
@@ -135,19 +135,19 @@
 		if(XBOW_TENSION_FULL)
 			drawtension = maxtension
 
-/obj/item/weapon/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	..()
 	tension = 0
 	update_icon()
-/obj/item/weapon/gun/throw/crossbow/french
+/obj/item/gun/throw/crossbow/french
 	name = "french powered crossbow"
 	icon_state = "fcrossbow"
-	valid_projectile_type = /obj/item/weapon/reagent_containers/food/snacks/baguette
+	valid_projectile_type = /obj/item/reagent_containers/food/snacks/baguette
 
-/obj/item/weapon/gun/throw/crossbow/french/modify_projectile(obj/item/I, on_chamber = 0)
+/obj/item/gun/throw/crossbow/french/modify_projectile(obj/item/I, on_chamber = 0)
 	return
 
-/obj/item/weapon/arrow
+/obj/item/arrow
 	name = "bolt"
 	desc = "It's got a tip for you - get the point?"
 	icon_state = "bolt"
@@ -156,17 +156,17 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	sharp = 1
 
-/obj/item/weapon/arrow/proc/removed() //Helper for metal rods falling apart.
+/obj/item/arrow/proc/removed() //Helper for metal rods falling apart.
 	return
 
-/obj/item/weapon/arrow/rod
+/obj/item/arrow/rod
 	name = "makeshift bolt"
 	desc = "A sharpened metal rod that can be fired out of a crossbow."
 	icon_state = "metal-rod"
 	throwforce = 8
 	var/superheated = 0
 
-/obj/item/weapon/arrow/rod/removed()
+/obj/item/arrow/rod/removed()
 	if(superheated) // The rod has been superheated - we don't want it to be useable when removed from the bow.
 		visible_message("[src] shatters into a scattering of overstressed metal shards as it leaves the crossbow.")
 		qdel(src)

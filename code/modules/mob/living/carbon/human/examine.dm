@@ -143,9 +143,9 @@
 
 	//handcuffed?
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/cable/zipties))
+		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
 			msg += "<span class='warning'>[t_He] [t_is] [bicon(handcuffed)] restrained with zipties!</span>\n"
-		else if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/cable))
+		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
 			msg += "<span class='warning'>[t_He] [t_is] [bicon(handcuffed)] restrained with cable!</span>\n"
 		else
 			msg += "<span class='warning'>[t_He] [t_is] [bicon(handcuffed)] handcuffed!</span>\n"
@@ -245,7 +245,7 @@
 					wound_flavor_text["[E.limb_name]"] = "[t_He] [t_has] a robotic [E.name]!\n"
 
 				else if(E.status & ORGAN_SPLINTED)
-					wound_flavor_text["[E.limb_name]"] = "[t_He] [t_has] a splint on his [E.name]!\n"
+					wound_flavor_text["[E.limb_name]"] = "[t_He] [t_has] a splint on [t_his] [E.name]!\n"
 
 			for(var/obj/item/I in E.embedded_objects)
 				msg += "<B>[t_He] [t_has] \a [bicon(I)] [I] embedded in [t_his] [E.name]!</B>\n"
@@ -381,7 +381,7 @@
 		var/criminal = "None"
 
 		if(wear_id)
-			var/obj/item/weapon/card/id/I = wear_id.GetID()
+			var/obj/item/card/id/I = wear_id.GetID()
 			if(I)
 				perpname = I.registered_name
 			else
@@ -404,10 +404,10 @@
 		var/medical = "None"
 
 		if(wear_id)
-			if(istype(wear_id,/obj/item/weapon/card/id))
+			if(istype(wear_id,/obj/item/card/id))
 				perpname = wear_id:registered_name
-			else if(istype(wear_id,/obj/item/device/pda))
-				var/obj/item/device/pda/tempPda = wear_id
+			else if(istype(wear_id,/obj/item/pda))
+				var/obj/item/pda/tempPda = wear_id
 				perpname = tempPda.owner
 		else
 			perpname = src.name

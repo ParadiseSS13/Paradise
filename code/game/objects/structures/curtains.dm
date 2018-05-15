@@ -55,7 +55,7 @@
 					return
 				anchored = TRUE
 				to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
-	else if(istype(W, /obj/item/weapon/wirecutters))
+	else if(istype(W, /obj/item/wirecutters))
 		if(!anchored)
 			playsound(loc, W.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] cuts apart [src].</span>", "<span class='notice'>You start to cut apart [src].</span>", "You hear cutting.")
@@ -67,7 +67,7 @@
 	else
 		. = ..()
 
-/obj/structure/curtain/proc/deconstruct(disassembled = TRUE)
+/obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cloth(loc, 2)
 	new /obj/item/stack/sheet/plastic(loc, 2)
 	new /obj/item/stack/rods(loc, 1)

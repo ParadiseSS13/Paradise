@@ -1,5 +1,5 @@
 //Hydroponics tank and base code
-/obj/item/weapon/watertank
+/obj/item/watertank
 	name = "backpack water tank"
 	desc = "A S.U.N.S.H.I.N.E. brand watertank backpack with nozzle to water plants."
 	icon = 'icons/obj/watertank.dmi'
@@ -10,23 +10,23 @@
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 
-	var/obj/item/weapon/noz
+	var/obj/item/noz
 	var/on = 0
 	var/volume = 500
 
-/obj/item/weapon/watertank/New()
+/obj/item/watertank/New()
 	..()
 	create_reagents(volume)
 	noz = make_noz()
 
-/obj/item/weapon/watertank/ui_action_click()
+/obj/item/watertank/ui_action_click()
 	toggle_mister()
 
-/obj/item/weapon/watertank/item_action_slot_check(slot, mob/user)
+/obj/item/watertank/item_action_slot_check(slot, mob/user)
 	if(slot == slot_back)
 		return 1
 
-/obj/item/weapon/watertank/verb/toggle_mister()
+/obj/item/watertank/verb/toggle_mister()
 	set name = "Toggle Mister"
 	set category = "Object"
 	if(usr.get_item_by_slot(slot_back) != src)
@@ -52,33 +52,33 @@
 		remove_noz()
 	return
 
-/obj/item/weapon/watertank/proc/make_noz()
-	return new /obj/item/weapon/reagent_containers/spray/mister(src)
+/obj/item/watertank/proc/make_noz()
+	return new /obj/item/reagent_containers/spray/mister(src)
 
-/obj/item/weapon/watertank/equipped(mob/user, slot)
+/obj/item/watertank/equipped(mob/user, slot)
 	..()
 	if(slot != slot_back)
 		remove_noz()
 
-/obj/item/weapon/watertank/proc/remove_noz()
+/obj/item/watertank/proc/remove_noz()
 	if(ismob(noz.loc))
 		var/mob/M = noz.loc
 		M.unEquip(noz, 1)
 	return
 
-/obj/item/weapon/watertank/Destroy()
+/obj/item/watertank/Destroy()
 	if(on)
 		remove_noz()
 		QDEL_NULL(noz)
 	return ..()
 
-/obj/item/weapon/watertank/attack_hand(mob/user as mob)
+/obj/item/watertank/attack_hand(mob/user as mob)
 	if(src.loc == user)
 		ui_action_click()
 		return
 	..()
 
-/obj/item/weapon/watertank/MouseDrop(obj/over_object)
+/obj/item/watertank/MouseDrop(obj/over_object)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		switch(over_object.name)
@@ -96,7 +96,7 @@
 				H.put_in_l_hand(src)
 	return
 
-/obj/item/weapon/watertank/attackby(obj/item/W, mob/user, params)
+/obj/item/watertank/attackby(obj/item/W, mob/user, params)
 	if(W == noz)
 		remove_noz()
 		return
@@ -106,7 +106,7 @@
 // Therefore, it's designed to be "locked" to the player's hands or extended back onto
 // the watertank backpack. Allowing it to be placed elsewhere or created without a parent
 // watertank object will likely lead to weird behaviour or runtimes.
-/obj/item/weapon/reagent_containers/spray/mister
+/obj/item/reagent_containers/spray/mister
 	name = "water mister"
 	desc = "A mister nozzle attached to a water tank."
 	icon = 'icons/obj/watertank.dmi'
@@ -118,9 +118,9 @@
 	volume = 500
 	flags = NODROP | OPENCONTAINER | NOBLUDGEON
 
-	var/obj/item/weapon/watertank/tank
+	var/obj/item/watertank/tank
 
-/obj/item/weapon/reagent_containers/spray/mister/New(parent_tank)
+/obj/item/reagent_containers/spray/mister/New(parent_tank)
 	..()
 	if(check_tank_exists(parent_tank, src))
 		tank = parent_tank
@@ -128,45 +128,45 @@
 		loc = tank
 	return
 
-/obj/item/weapon/reagent_containers/spray/mister/dropped(mob/user as mob)
+/obj/item/reagent_containers/spray/mister/dropped(mob/user as mob)
 	..()
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
 	tank.on = 0
 	loc = tank
 
-/obj/item/weapon/reagent_containers/spray/mister/attack_self()
+/obj/item/reagent_containers/spray/mister/attack_self()
 	return
 
 /proc/check_tank_exists(parent_tank, var/mob/living/carbon/human/M, var/obj/O)
-	if(!parent_tank || !istype(parent_tank, /obj/item/weapon/watertank))	//To avoid weird issues from admin spawns
+	if(!parent_tank || !istype(parent_tank, /obj/item/watertank))	//To avoid weird issues from admin spawns
 		M.unEquip(O)
 		qdel(0)
 		return 0
 	else
 		return 1
 
-/obj/item/weapon/reagent_containers/spray/mister/Move()
+/obj/item/reagent_containers/spray/mister/Move()
 	..()
 	if(loc != tank.loc)
 		loc = tank.loc
 
-/obj/item/weapon/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
 		return
 	..()
 
 //Janitor tank
-/obj/item/weapon/watertank/janitor
+/obj/item/watertank/janitor
 	name = "backpack water tank"
 	desc = "A janitorial watertank backpack with nozzle to clean dirt and graffiti."
 	icon_state = "waterbackpackjani"
 	item_state = "waterbackpackjani"
 
-/obj/item/weapon/watertank/janitor/New()
+/obj/item/watertank/janitor/New()
 	..()
 	reagents.add_reagent("cleaner", 500)
 
-/obj/item/weapon/reagent_containers/spray/mister/janitor
+/obj/item/reagent_containers/spray/mister/janitor
 	name = "janitor spray nozzle"
 	desc = "A janitorial spray nozzle attached to a watertank, designed to clean up large messes."
 	icon = 'icons/obj/watertank.dmi'
@@ -175,10 +175,10 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 
-/obj/item/weapon/watertank/janitor/make_noz()
-	return new /obj/item/weapon/reagent_containers/spray/mister/janitor(src)
+/obj/item/watertank/janitor/make_noz()
+	return new /obj/item/reagent_containers/spray/mister/janitor(src)
 
-/obj/item/weapon/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
+/obj/item/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
 	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
@@ -188,28 +188,28 @@
 #define NANOFROST 1
 #define METAL_FOAM 2
 
-/obj/item/weapon/watertank/atmos
+/obj/item/watertank/atmos
 	name = "backpack firefighter tank"
 	desc = "A refridgerated and pressurized backpack tank with extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
 	icon_state = "waterbackpackatmos"
 	item_state = "waterbackpackatmos"
 	volume = 200
 
-/obj/item/weapon/watertank/atmos/New()
+/obj/item/watertank/atmos/New()
 	..()
 	reagents.add_reagent("water", 200)
 
-/obj/item/weapon/watertank/atmos/make_noz()
-	return new /obj/item/weapon/extinguisher/mini/nozzle(src)
+/obj/item/watertank/atmos/make_noz()
+	return new /obj/item/extinguisher/mini/nozzle(src)
 
-/obj/item/weapon/watertank/atmos/dropped(mob/user as mob)
+/obj/item/watertank/atmos/dropped(mob/user as mob)
 	..()
 	icon_state = "waterbackpackatmos"
-	if(istype(noz, /obj/item/weapon/extinguisher/mini/nozzle))
-		var/obj/item/weapon/extinguisher/mini/nozzle/N = noz
+	if(istype(noz, /obj/item/extinguisher/mini/nozzle))
+		var/obj/item/extinguisher/mini/nozzle/N = noz
 		N.nozzle_mode = 0
 
-/obj/item/weapon/extinguisher/mini/nozzle
+/obj/item/extinguisher/mini/nozzle
 	name = "extinguisher nozzle"
 	desc = "A heavy duty nozzle attached to a firefighter's backpack tank."
 	icon = 'icons/obj/watertank.dmi'
@@ -222,12 +222,12 @@
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
-	var/obj/item/weapon/watertank/tank
+	var/obj/item/watertank/tank
 	var/nozzle_mode = 0
 	var/metal_synthesis_cooldown = 0
 	var/nanofrost_cooldown = 0
 
-/obj/item/weapon/extinguisher/mini/nozzle/New(parent_tank)
+/obj/item/extinguisher/mini/nozzle/New(parent_tank)
 	if(check_tank_exists(parent_tank, src))
 		tank = parent_tank
 		reagents = tank.reagents
@@ -235,13 +235,13 @@
 		loc = tank
 	return
 
-/obj/item/weapon/extinguisher/mini/nozzle/Move()
+/obj/item/extinguisher/mini/nozzle/Move()
 	..()
 	if(tank && loc != tank.loc)
 		loc = tank
 	return
 
-/obj/item/weapon/extinguisher/mini/nozzle/attack_self(mob/user as mob)
+/obj/item/extinguisher/mini/nozzle/attack_self(mob/user as mob)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
@@ -260,13 +260,13 @@
 			return
 	return
 
-/obj/item/weapon/extinguisher/mini/nozzle/dropped(mob/user as mob)
+/obj/item/extinguisher/mini/nozzle/dropped(mob/user as mob)
 	..()
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = 0
 	loc = tank
 
-/obj/item/weapon/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
+/obj/item/extinguisher/mini/nozzle/afterattack(atom/target, mob/user)
 	if(nozzle_mode == EXTINGUISHER)
 		..()
 		return
@@ -286,7 +286,7 @@
 		nanofrost_cooldown = 1
 		R.remove_any(50)
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
-		log_game("[user.ckey] ([user.name]) used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
+		log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		for(var/a=0, a<5, a++)
 			step_towards(A, target)
@@ -300,7 +300,7 @@
 		if(!Adj|| !istype(target, /turf))
 			return
 		if(metal_synthesis_cooldown < 5)
-			var/obj/structure/foam/F = new /obj/structure/foam(get_turf(target), 1)
+			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), 1)
 			F.amount = 0
 			metal_synthesis_cooldown++
 			spawn(100)
@@ -319,85 +319,15 @@
 	pass_flags = PASSTABLE
 
 /obj/effect/nanofrost_container/proc/Smoke()
-	new /obj/effect/effect/freezing_smoke(src.loc, 6, 1)
+	var/datum/effect_system/smoke_spread/freezing/S = new
+	S.set_up(6, 0, loc, null, 1)
+	S.start()
 	var/obj/effect/decal/cleanable/flour/F = new /obj/effect/decal/cleanable/flour(src.loc)
 	F.color = "#B2FFFF"
 	F.name = "nanofrost residue"
 	F.desc = "Residue left behind from a nanofrost detonation. Perhaps there was a fire here?"
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
-
-/obj/effect/effect/freezing_smoke
-	name = "nanofrost smoke"
-	icon_state = "smoke"
-	opacity = 0
-	anchored = 0.0
-	mouse_opacity = 0
-	icon = 'icons/effects/96x96.dmi'
-	pixel_x = -32
-	pixel_y = -32
-	color = "#B2FFFF"
-	var/amount = 0
-
-/obj/effect/effect/freezing_smoke/New(loc, var/amt, var/blast)
-	..()
-	spawn(100+rand(10,30))
-		delete()
-	amount = amt
-	if(amount)
-		var/datum/effect/system/freezing_smoke_spread/F = new /datum/effect/system/freezing_smoke_spread
-		F.set_up(amount, 0, src.loc)
-		F.start()
-	if(blast)
-		for(var/turf/T in spiral_range_turfs(2, src.loc))
-			Chilled(T)
-	return
-
-/obj/effect/effect/freezing_smoke/proc/Chilled(atom/A)
-	if(istype(A, /turf/simulated))
-		var/turf/simulated/T = A
-		if(T.air)
-			var/datum/gas_mixture/G = T.air
-			if(get_dist(T, src) < 2) // Otherwise we'll get silliness like people using Nanofrost to kill people through walls with cold air
-				G.temperature = 2
-			T.air_update_turf()
-			for(var/obj/effect/hotspot/H in T)
-				qdel(H)
-				if(G.toxins)
-					G.nitrogen += (G.toxins)
-					G.toxins = 0
-		for(var/obj/machinery/atmospherics/unary/vent_pump/V in T)
-			V.welded = 1
-			V.update_icon()
-			V.visible_message("<span class='danger'>[V] was frozen shut!</span>")
-		for(var/mob/living/L in T)
-			L.ExtinguishMob()
-		for(var/obj/item/Item in T)
-			Item.extinguish()
-
-/datum/effect/system/freezing_smoke_spread
-
-/datum/effect/system/freezing_smoke_spread/set_up(n = 6, c = 0, loca)
-	number = n
-	if(istype(loca, /turf/))
-		location = loca
-	else
-		location = get_turf(loca)
-
-/datum/effect/system/freezing_smoke_spread/start()
-	var/i = 0
-	for(i=0, i<number, i++)
-		spawn(0)
-			var/obj/effect/effect/freezing_smoke/smoke = new /obj/effect/effect/freezing_smoke(location, 0, 0)
-			smoke.amount = 0
-			var/direction = pick(alldirs)
-			for(i=0, i<rand(1,3), i++)
-				sleep(5)
-				step(smoke,direction)
-			spawn(150+rand(10,30))
-				if(smoke)
-					fadeOut(smoke)
-					smoke.delete()
 
 #undef EXTINGUISHER
 #undef NANOFROST

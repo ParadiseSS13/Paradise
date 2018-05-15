@@ -26,20 +26,15 @@
 	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
 
-	var/breath_type = "oxygen"   // Non-oxygen gas breathed, if any.
-	var/poison_type = "plasma"   // Poisonous air.
-	var/exhale_type = "carbon_dioxide"      // Exhaled gas type.
-
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.
 	var/cold_level_3 = 120  // Cold damage level 3 below this point.
-	var/cold_env_multiplier = 1 // Damage multiplier for being in a cold environment
+	var/coldmod = 1 // Damage multiplier for being in a cold environment
 
 	var/heat_level_1 = 360  // Heat damage level 1 above this point.
 	var/heat_level_2 = 400  // Heat damage level 2 above this point.
 	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
-	var/hot_env_multiplier = 1 // Damage multiplier for being in a hot environment
-	var/heat_level_3_breathe = 1000 // Heat damage level 3 above this point; used for breathed air temperature
+	var/heatmod = 1 // Damage multiplier for being in a hot environment
 
 	var/body_temperature = 310.15	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
@@ -55,19 +50,6 @@
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
 	var/hazard_low_pressure = HAZARD_LOW_PRESSURE     // Dangerously low pressure.
-
-	var/list/atmos_requirements = list(
-		"min_oxy" = 16,
-		"max_oxy" = 0,
-		"min_nitro" = 0,
-		"max_nitro" = 0,
-		"min_tox" = 0,
-		"max_tox" = 0.005,
-		"min_co2" = 0,
-		"max_co2" = 10,
-		"sa_para" = 1,
-		"sa_sleep" = 5
-		)
 
 	var/brute_mod = 1    // Physical damage reduction/amplification
 	var/burn_mod = 1     // Burn damage reduction/amplification
@@ -93,6 +75,8 @@
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
 	var/list/species_traits = list()
+
+	var/breathid = "o2"
 
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
@@ -211,171 +195,9 @@
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
 
-/datum/species/proc/handle_breath(var/datum/gas_mixture/breath, var/mob/living/carbon/human/H)
-	var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
-
-	var/O2_used = 0
-	var/N2_used = 0
-	var/Tox_used = 0
-	var/CO2_used = 0
-
-	//Partial pressure of the O2 in our breath
-	var/O2_pp = (breath.oxygen/breath.total_moles()) * breath_pressure
-	// Partial pressure of Nitrogen
-	var/N2_pp = (breath.nitrogen/breath.total_moles()) * breath_pressure
-	// Partial pressure of plasma
-	var/Tox_pp = (breath.toxins/breath.total_moles()) * breath_pressure
-	// Partial pressure of CO2
-	var/CO2_pp = (breath.carbon_dioxide/breath.total_moles()) * breath_pressure
-
-	if(O2_pp < atmos_requirements["min_oxy"])
-		if(prob(20))
-			H.emote("gasp")
-
-		H.failed_last_breath = 1
-		if(O2_pp > 0)
-			var/ratio = atmos_requirements["min_oxy"] / O2_pp
-			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
-		else
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.throw_alert("oxy", /obj/screen/alert/oxy)
-	else if(atmos_requirements["max_oxy"] && O2_pp > atmos_requirements["max_oxy"])
-		var/ratio = (breath.oxygen / atmos_requirements["max_oxy"]) * 1000
-		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		H.throw_alert("oxy", /obj/screen/alert/too_much_oxy)
-	else
-		H.clear_alert("oxy")
-		if(atmos_requirements["min_oxy"]) //species breathes this gas, so, they got their air
-			H.failed_last_breath = 0
-			H.adjustOxyLoss(-5)
-			O2_used = breath.oxygen / 6
-
-	if(N2_pp < atmos_requirements["min_nitro"])
-		if(prob(20))
-			H.emote("gasp")
-
-		H.failed_last_breath = 1
-		if(N2_pp > 0)
-			var/ratio = atmos_requirements["min_nitro"] / N2_pp
-			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
-		else
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.throw_alert("nitro", /obj/screen/alert/nitro)
-	else if(atmos_requirements["max_nitro"] && N2_pp > atmos_requirements["max_nitro"])
-		var/ratio = (breath.nitrogen / atmos_requirements["max_nitro"]) * 1000
-		H.adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		H.throw_alert("nitro", /obj/screen/alert/too_much_nitro)
-	else
-		H.clear_alert("nitro")
-		if(atmos_requirements["min_nitro"]) //species breathes this gas, so they got their air
-			H.failed_last_breath = 0
-			H.adjustOxyLoss(-5)
-			N2_used = breath.nitrogen / 6
-
-	if(Tox_pp < atmos_requirements["min_tox"])
-		if(prob(20))
-			H.emote("gasp")
-
-		H.failed_last_breath = 1
-		if(Tox_pp > 0)
-			var/ratio = atmos_requirements["min_tox"] / Tox_pp
-			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
-		else
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.throw_alert("tox_in_air", /obj/screen/alert/not_enough_tox)
-	else if(atmos_requirements["max_tox"] && Tox_pp > atmos_requirements["max_tox"])
-		var/ratio = (breath.toxins / atmos_requirements["max_tox"]) * 10
-		if(H.reagents)
-			H.reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
-		H.throw_alert("tox_in_air", /obj/screen/alert/tox_in_air)
-	else
-		H.clear_alert("tox_in_air")
-		if(atmos_requirements["min_tox"]) //species breathes this gas, so, they got their air
-			H.failed_last_breath = 0
-			H.adjustOxyLoss(-5)
-			Tox_used = breath.toxins / 6
-
-	if(CO2_pp < atmos_requirements["min_co2"])
-		if(prob(20))
-			H.emote("gasp")
-
-		H.failed_last_breath = 1
-		if(CO2_pp)
-			var/ratio = atmos_requirements["min_co2"] / CO2_pp
-			H.adjustOxyLoss(min(5 * ratio, HUMAN_MAX_OXYLOSS))
-		else
-			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		H.throw_alert("co2", /obj/screen/alert/not_enough_co2)
-	else if(atmos_requirements["max_co2"] && CO2_pp > atmos_requirements["max_co2"])
-		if(!H.co2overloadtime) // If it's the first breath with too much CO2 in it, lets start a counter, then have them pass out after 12s or so.
-			H.co2overloadtime = world.time
-		else if(world.time - H.co2overloadtime > 120)
-			H.Paralyse(5)
-			H.adjustOxyLoss(3) // Lets hurt em a little, let them know we mean business
-			if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
-				H.adjustOxyLoss(8)
-		if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
-			H.emote("cough")
-	else
-		H.clear_alert("co2")
-		H.co2overloadtime = 0
-		if(atmos_requirements["min_co2"]) //species breathes this gas, so they got their air
-			H.failed_last_breath = 0
-			H.adjustOxyLoss(-5)
-			CO2_used = breath.carbon_dioxide / 6
-
-	breath.oxygen   		-= O2_used
-	breath.nitrogen 		-= N2_used
-	breath.toxins   		-= Tox_used
-	breath.carbon_dioxide 	-= CO2_used
-	breath.carbon_dioxide 	+= O2_used
-
-
-	if(breath.trace_gases.len)	// If there's some other shit in the air lets deal with it here.
-		for(var/datum/gas/sleeping_agent/SA in breath.trace_gases)
-			var/SA_pp = (SA.moles / breath.total_moles()) * breath_pressure
-			if(SA_pp > atmos_requirements["sa_para"]) // Enough to make us paralysed for a bit
-				H.Paralyse(3) // 3 gives them one second to wake up and run away a bit!
-				if(SA_pp > atmos_requirements["sa_sleep"]) // Enough to make us sleep as well
-					// This value is large because breaths are taken only once every 4 life ticks.
-					H.AdjustSleeping(8, bound_lower = 0, bound_upper = 10)
-			else if(SA_pp > 0.01)	// There is sleeping gas in their lungs, but only a little, so give them a bit of a warning
-				if(prob(20))
-					H.emote(pick("giggle", "laugh"))
-
-	handle_temperature(breath, H)
-	return 1
-
-/datum/species/proc/handle_temperature(datum/gas_mixture/breath, var/mob/living/carbon/human/H) // called by human/life, handles temperatures
-	if(abs(310.15 - breath.temperature) > 50) // Hot air hurts :(
-		if(H.status_flags & GODMODE)	return 1	//godmode
-		if(breath.temperature < cold_level_1)
-			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel your face freezing and an icicle forming in your lungs!</span>")
-		else if(breath.temperature > heat_level_1)
-			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel your face burning and a searing heat in your lungs!</span>")
-
-
-
-		switch(breath.temperature)
-			if(-INFINITY to cold_level_3)
-				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
-
-			if(cold_level_3 to cold_level_2)
-				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
-
-			if(cold_level_2 to cold_level_1)
-				H.apply_damage(cold_env_multiplier*COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
-
-			if(heat_level_1 to heat_level_2)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Heat")
-
-			if(heat_level_2 to heat_level_3_breathe)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Heat")
-
-			if(heat_level_3_breathe to INFINITY)
-				H.apply_damage(hot_env_multiplier*HEAT_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Heat")
+/datum/species/proc/breathe(mob/living/carbon/human/H)
+	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+		return TRUE
 
 ////////////////
 // MOVE SPEED //
@@ -465,6 +287,7 @@
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
+// Return the parent value if processing does not explicitly stop
 // Return 0 if it shouldn't deplete and do its normal effect
 // Other return values will cause weird badness
 /datum/species/proc/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
@@ -477,7 +300,9 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(var/mob/living/carbon/human/H)
-	return 1
+	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+		H.setOxyLoss(0)
+		H.SetLoseBreath(0)
 
 /datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
@@ -490,8 +315,171 @@
 /datum/species/proc/handle_death(var/mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
-/datum/species/proc/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M) //Handles any species-specific attackhand events.
-	return
+/datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
+		return 1
+	if(target.health >= config.health_threshold_crit)
+		target.help_shake_act(user)
+		return 1
+	else
+		user.do_cpr(target)
+
+/datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(attacker_style && attacker_style.grab_act(user, target))
+		return 1
+	else
+		target.grabbedby(user)
+		return 1
+
+/datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	//Vampire code
+	if(user.mind && user.mind.vampire && (user.mind in ticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+		if((NO_BLOOD in target.species.species_traits) || target.species.exotic_blood || !target.blood_volume)
+			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			return
+		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
+			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			return
+		if(SKELETON in target.mutations)
+			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			return
+		if(issmall(target) && !target.ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
+			to_chat(user, "<span class='warning'>Blood from a monkey is useless!</span>")
+			return
+		//we're good to suck the blood, blaah
+		user.mind.vampire.handle_bloodsucking(target)
+		add_attack_logs(user, target, "vampirebit")
+		return
+		//end vampire codes
+	if(attacker_style && attacker_style.harm_act(user, target))
+		return 1
+	else
+		var/datum/unarmed_attack/attack = user.species.unarmed
+
+		user.do_attack_animation(target)
+		add_attack_logs(user, target, "Melee attacked with fists", admin_notify = target.ckey ? TRUE : FALSE)
+
+		if(!iscarbon(user))
+			target.LAssailant = null
+		else
+			target.LAssailant = user
+
+		var/damage = rand(user.species.punchdamagelow, user.species.punchdamagehigh)
+		damage += attack.damage
+		if(!damage)
+			playsound(target.loc, attack.miss_sound, 25, 1, -1)
+			target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
+			return 0
+
+
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/armor_block = target.run_armor_check(affecting, "melee")
+
+		if(HULK in user.mutations)
+			target.adjustBruteLoss(15)
+
+		playsound(target.loc, attack.attack_sound, 25, 1, -1)
+
+		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+
+		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		if((target.stat != DEAD) && damage >= user.species.punchstunthreshold)
+			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
+							"<span class='userdanger'>[user] has weakened [target]!</span>")
+			target.apply_effect(4, WEAKEN, armor_block)
+			target.forcesay(hit_appends)
+		else if(target.lying)
+			target.forcesay(hit_appends)
+
+/datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(attacker_style && attacker_style.disarm_act(user, target))
+		return 1
+	else
+		add_attack_logs(user, target, "Disarmed", admin_notify = FALSE)
+		user.do_attack_animation(target)
+		if(target.w_uniform)
+			target.w_uniform.add_fingerprint(user)
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/randn = rand(1, 100)
+		if(randn <= 25)
+			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
+			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
+			add_attack_logs(user, target, "Pushed over", admin_notify = FALSE)
+			if(!iscarbon(user))
+				target.LAssailant = null
+			else
+				target.LAssailant = user
+			return
+
+		var/talked = 0	// BubbleWrap
+
+		if(randn <= 60)
+			//BubbleWrap: Disarming breaks a pull
+			if(target.pulling)
+				target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [target.pulling]!</span>")
+				talked = 1
+				target.stop_pulling()
+
+			//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
+			if(istype(target.l_hand, /obj/item/grab))
+				var/obj/item/grab/lgrab = target.l_hand
+				if(lgrab.affecting)
+					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [lgrab.affecting]!</span>")
+					talked = 1
+				spawn(1)
+					qdel(lgrab)
+			if(istype(target.r_hand, /obj/item/grab))
+				var/obj/item/grab/rgrab = target.r_hand
+				if(rgrab.affecting)
+					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [rgrab.affecting]!</span>")
+					talked = 1
+				spawn(1)
+					qdel(rgrab)
+			//End BubbleWrap
+
+			if(!talked)	//BubbleWrap
+				if(target.drop_item())
+					target.visible_message("<span class='danger'>[user] has disarmed [target]!</span>")
+			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			return
+
+
+	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
+
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
+	if(!istype(M))
+		return
+	if(H.frozen)
+		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
+		return
+
+	if(istype(M))
+		var/obj/item/organ/external/temp = M.bodyparts_by_name["r_hand"]
+		if(M.hand)
+			temp = M.bodyparts_by_name["l_hand"]
+		if(!temp || !temp.is_usable())
+			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
+			return
+
+	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(0, M.name, attack_type = UNARMED_ATTACK))
+		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
+		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
+		return 0
+
+	switch(M.a_intent)
+		if(INTENT_HELP)
+			help(M, H, attacker_style)
+
+		if(INTENT_GRAB)
+			grab(M, H, attacker_style)
+
+		if(INTENT_HARM)
+			harm(M, H, attacker_style)
+
+		if(INTENT_DISARM)
+			disarm(M, H, attacker_style)
 
 /datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
 	return message
@@ -709,8 +697,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(hat.helmet_goggles_invis_view)
 				H.see_invisible = min(hat.helmet_goggles_invis_view, H.see_invisible)
 
-	if(istype(H.back, /obj/item/weapon/rig)) ///aghhh so snowflakey
-		var/obj/item/weapon/rig/rig = H.back
+	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
+		var/obj/item/rig/rig = H.back
 		if(rig.visor)
 			if(!rig.helmet || (H.head && rig.helmet == H.head))
 				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
@@ -741,7 +729,5 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		H.see_invisible = H.see_override
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
-	if(temperature >= 330)
-		M.bodytemperature = M.bodytemperature + (temperature - M.bodytemperature)
-	if(temperature <= 280)
-		M.bodytemperature = M.bodytemperature - (M.bodytemperature - temperature)
+	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
+		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling

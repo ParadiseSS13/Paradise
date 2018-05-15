@@ -2,7 +2,7 @@
 /// HYPOSPRAY
 ////////////////////////////////////////////////////////////////////////////////
 
-/obj/item/weapon/reagent_containers/hypospray
+/obj/item/reagent_containers/hypospray
 	name = "hypospray"
 	desc = "The DeForest Medical Corporation hypospray is a sterile, air-needle autoinjector for rapid administration of drugs to patients."
 	icon = 'icons/obj/hypo.dmi'
@@ -15,7 +15,7 @@
 	slot_flags = SLOT_BELT
 	var/ignore_flags = 0
 
-/obj/item/weapon/reagent_containers/hypospray/attack(mob/living/M, mob/user)
+/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
@@ -37,12 +37,14 @@
 
 			var/contained = english_list(injected)
 
-			add_logs(user, M, "injected", src, "([contained])")
+			add_attack_logs(user, M, "Injected with [src] containing ([contained])")
 
-/obj/item/weapon/reagent_containers/hypospray/CMO
+		return TRUE
+
+/obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)
 
-/obj/item/weapon/reagent_containers/hypospray/combat
+/obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
 	amount_per_transfer_from_this = 10
@@ -52,12 +54,12 @@
 	ignore_flags = 1 // So they can heal their comrades.
 	list_reagents = list("epinephrine" = 30, "omnizine" = 30, "teporone" = 15)
 
-/obj/item/weapon/reagent_containers/hypospray/combat/nanites
+/obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
 	volume = 100
 	list_reagents = list("nanites" = 100)
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector
+/obj/item/reagent_containers/hypospray/autoinjector
 	name = "emergency autoinjector"
 	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
 	icon_state = "autoinjector"
@@ -69,33 +71,34 @@
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
+/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
 	..()
 	update_icon()
+	return TRUE
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/update_icon()
+/obj/item/reagent_containers/hypospray/autoinjector/update_icon()
 	if(reagents.total_volume > 0)
 		icon_state = initial(icon_state)
 	else
 		icon_state = "[initial(icon_state)]0"
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/examine()
+/obj/item/reagent_containers/hypospray/autoinjector/examine()
 	..()
 	if(reagents && reagents.reagent_list.len)
 		to_chat(usr, "<span class='notice'>It is currently loaded.</span>")
 	else
 		to_chat(usr, "<span class='notice'>It is spent.</span>")
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/teporone //basilisks
+/obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
 	desc = "A rapid way to regulate your body's temperature in the event of a hardsuit malfunction."
 	icon_state = "lepopen"
 	list_reagents = list("teporone" = 10)
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
+/obj/item/reagent_containers/hypospray/autoinjector/stimpack //goliath kiting
 	name = "stimpack autoinjector"
 	desc = "A rapid way to stimulate your body's adrenaline, allowing for freer movement in restrictive armor."
 	icon_state = "stimpen"
@@ -103,7 +106,7 @@
 	amount_per_transfer_from_this = 20
 	list_reagents = list("methamphetamine" = 10, "coffee" = 10)
 
-/obj/item/weapon/reagent_containers/hypospray/autoinjector/stimulants
+/obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
 	desc = "Rapidly stimulates and regernates the body's organ system."
 	icon_state = "stimpen"
@@ -111,3 +114,16 @@
 	possible_transfer_amounts = list(50)
 	volume = 50
 	list_reagents = list("stimulants" = 50)
+
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
+	name = "nanocalcium autoinjector"
+	desc = "After a short period of time the nanites will slow the body's systems and assist with bone repair. Nanomachines son."
+	icon_state = "bonepen"
+	amount_per_transfer_from_this = 30
+	possible_transfer_amounts = list(30)
+	volume = 30
+	list_reagents = list("nanocalcium" = 30)
+
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
+	if(..())
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)

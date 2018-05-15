@@ -1,17 +1,17 @@
 /obj/item/clothing/head/helmet/space/new_rig/merc
 
-/obj/item/weapon/rig/merc
+/obj/item/rig/merc
 	name = "crimson hardsuit control module"
 	desc = "A blood-red hardsuit featuring some fairly illegal technology."
 	icon_state = "merc_rig"
 	suit_type = "crimson hardsuit"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
-	slowdown = 1
+	active_slowdown = 1
 	offline_slowdown = 3
 	offline_vision_restriction = 1
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/merc
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/restraints/handcuffs)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/gun,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword,/obj/item/restraints/handcuffs)
 
 	initial_modules = list(
 		/obj/item/rig_module/mounted,
@@ -25,7 +25,7 @@
 		)
 
 //Has most of the modules removed
-/obj/item/weapon/rig/merc/empty
+/obj/item/rig/merc/empty
 	initial_modules = list(
 		/obj/item/rig_module/ai_container,
 		/obj/item/rig_module/electrowarfare_suite, //might as well

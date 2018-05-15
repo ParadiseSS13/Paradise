@@ -34,8 +34,6 @@
 	/**
 	 * Config vars
 	 */
-	// Process name
-	var/name
 
 	// Process schedule interval
 	// This controls how often the process would run under ideal conditions.
@@ -364,7 +362,7 @@
 	var/highestRunTime = round(highest_run_time, 0.001)
 	var/deferTime = round(cpu_defer_count / 10 * world.tick_lag, 0.01)
 	if(!statclick)
-		statclick = new (src)
+		statclick = new /obj/effect/statclick/debug(src)
 	stat("[name]", statclick.update("T#[getTicks()] | AR [averageRunTime] | LR [lastRunTime] | HR [highestRunTime] | D [deferTime]"))
 
 /datum/controller/process/proc/catchException(var/exception/e, var/thrower)
@@ -388,14 +386,14 @@
 		if(istype(thrower, /atom))
 			var/atom/A = thrower
 			ptext += " ([A]) ([A.x],[A.y],[A.z])"
-	log_to_dd("\[[time_stamp()]\] Process [name] caught exception[ptext]: [etext]")
+	log_world("\[[time_stamp()]\] Process [name] caught exception[ptext]: [etext]")
 	if(exceptions[eid] >= 10)
-		log_to_dd("This exception will now be ignored for ten minutes.")
+		log_world("This exception will now be ignored for ten minutes.")
 		spawn(6000)
 			exceptions[eid] = 0
 
 /datum/controller/process/proc/catchBadType(var/datum/caught)
-	if(isnull(caught) || !istype(caught) || !isnull(caught.gcDestroyed))
+	if(isnull(caught) || !istype(caught) || QDELETED(caught))
 		return // Only bother with types we can identify and that don't belong
 	catchException("Type [caught.type] does not belong in process' queue")
 

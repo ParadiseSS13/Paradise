@@ -46,7 +46,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(5, 10)
+							affecting.receive_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -75,7 +75,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(0, 20)
+							affecting.receive_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -101,8 +101,8 @@
 /datum/reagent/water/reaction_obj(obj/O, volume)
 	O.extinguish()
 
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
-		var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
+	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
 		cube.Expand()
 	// Dehydrated carp
 	if(istype(O, /obj/item/toy/carpplushie/dehy_carp))
@@ -132,18 +132,27 @@
 	taste_message = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(istype(O, /obj/effect/decal/cleanable))
-		qdel(O)
+	if(is_cleanable(O))
+		var/obj/effect/decal/cleanable/blood/B = O
+		if(!(istype(B) && B.off_floor))
+			qdel(O)
 	else
-		O.color = initial(O.color)
+		if(!istype(O, /atom/movable/lighting_overlay))
+			O.color = initial(O.color)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
 	if(volume >= 1)
-		T.color = initial(T.color)
-		T.clean_blood()
+		var/floor_only = TRUE
 		for(var/obj/effect/decal/cleanable/C in src)
-			qdel(C)
+			var/obj/effect/decal/cleanable/blood/B = C
+			if(istype(B) && B.off_floor)
+				floor_only = FALSE
+			else
+				qdel(C)
+		T.color = initial(T.color)
+		if(floor_only)
+			T.clean_blood()
 
 		for(var/mob/living/carbon/slime/M in T)
 			M.adjustToxLoss(rand(5,10))
@@ -357,22 +366,46 @@
 			M.SetConfused(0)
 			return
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
-		switch(current_cycle)
-			if(1 to 4)
-				to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			if(5 to 12)
-				to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
-				M.adjustFireLoss(1)
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			if(13 to INFINITY)
-				to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
-				for(var/mob/O in viewers(M, null))
-					O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
-				M.fire_stacks = min(5,M.fire_stacks + 3)
-				M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-				M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+		var/mob/living/carbon/V = M
+		if(M.mind.vampire.bloodusable)
+			M.Stuttering(1)
+			M.Jitter(30)
+			M.adjustStaminaLoss(5)
+			if(prob(20))
+				M.emote("scream")
+			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
+			if(M.mind.vampire.bloodusable)
+				V.vomit(0,1)
+			else
+				holder.remove_reagent(id, volume)
+				V.vomit(0,0)
+				return
+		else
+			switch(current_cycle)
+				if(1 to 4)
+					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				if(5 to 12)
+					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+					M.adjustFireLoss(1)
+					M.Stuttering(1)
+					M.Jitter(20)
+					if(prob(20))
+						M.emote("scream")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				if(13 to INFINITY)
+					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
+					for(var/mob/O in viewers(M, null))
+						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
+					M.fire_stacks = min(5,M.fire_stacks + 3)
+					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+					M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
+					M.Stuttering(1)
+					M.Jitter(30)
+					if(prob(40))
+						M.emote("scream")
+					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 	..()
 
 

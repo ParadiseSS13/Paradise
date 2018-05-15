@@ -50,7 +50,7 @@
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101
 		for(var/obj/item/W in affected_mob)
-			if(istype(W, /obj/item/weapon/implant))
+			if(istype(W, /obj/item/implant))
 				qdel(W)
 				continue
 			W.layer = initial(W.layer)
@@ -186,7 +186,7 @@
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You are turning into a slime.</span>")
 	stage5	= list("<span class='danger'>You have become a slime.</span>")
-	new_form = /mob/living/simple_animal/slime
+	new_form = /mob/living/carbon/slime/random
 
 /datum/disease/transformation/slime/stage_act()
 	..()

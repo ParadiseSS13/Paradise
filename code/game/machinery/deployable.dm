@@ -74,12 +74,12 @@ for reference:
 		else
 			return
 		return
-	else if(istype(W, /obj/item/weapon/crowbar))
+	else if(istype(W, /obj/item/crowbar))
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.visible_message("<span class='notice'>[user] is prying apart \the [src].</span>", "<span class='notice'>You begin to pry apart \the [src].</span>")
 		playsound(src, W.usesound, 200, 1)
 
-		if(do_after(user, 300 * W.toolspeed, target = src) && src && !src.gcDestroyed)
+		if(do_after(user, 300 * W.toolspeed, target = src) && !QDELETED(src))
 			user.visible_message("<span class='notice'>[user] pries apart \the [src].</span>", "<span class='notice'>You pry apart \the [src].</span>")
 			dismantle()
 		return
@@ -174,8 +174,8 @@ for reference:
 
 		src.icon_state = "barrier[src.locked]"
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-		if(istype(W, /obj/item/weapon/card/id))
+	attackby(obj/item/W as obj, mob/user as mob, params)
+		if(istype(W, /obj/item/card/id))
 			if(src.allowed(user))
 				if(src.emagged < 2.0)
 					src.locked = !src.locked
@@ -188,13 +188,13 @@ for reference:
 						to_chat(user, "Barrier lock toggled off.")
 						return
 				else
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(2, 1, src)
 					s.start()
 					visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 					return
 			return
-		else if(istype(W, /obj/item/weapon/wrench))
+		else if(istype(W, /obj/item/wrench))
 			if(src.health < src.maxhealth)
 				src.health = src.maxhealth
 				src.emagged = 0
@@ -223,14 +223,14 @@ for reference:
 			emagged = 1
 			req_access = null
 			to_chat(user, "You break the ID authentication lock on the [src].")
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 		else if(src.emagged == 1)
 			src.emagged = 2
 			to_chat(user, "You short out the anchoring mechanism on the [src].")
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(2, 1, src)
 			s.start()
 			visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
@@ -275,7 +275,7 @@ for reference:
 	/*	var/obj/item/stack/rods/ =*/
 		new /obj/item/stack/rods(Tsec)
 
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 

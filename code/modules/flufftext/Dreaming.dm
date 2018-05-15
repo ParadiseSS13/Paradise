@@ -1,35 +1,57 @@
-mob/living/carbon/proc/dream()
-	dreaming = 1
-	var/list/dreams = list(
-		"an ID card","a bottle","a familiar face","a crewmember","a toolbox","a security officer","the captain",
-		"voices from all around","deep space","a doctor","the engine","a traitor","an ally","darkness",
-		"light","a scientist","a monkey","a catastrophe","a loved one","a gun","warmth","freezing","the sun",
-		"a hat","the Cyberiad","a ruined station","a planet","plasma","air","the medical bay","the bridge","blinking lights",
-		"a blue light","an abandoned laboratory","Nanotrasen","The Syndicate","blood","healing","power","respect",
-		"riches","space","a crash","happiness","pride","a fall","water","flames","ice","melons","flying","the eggs","money",
-		"the head of personnel","the head of security","a chief engineer","a research director","a chief medical officer",
-		"the detective","the warden","a member of the internal affairs","a station engineer","the janitor","atmospheric technician",
-		"the quartermaster","a cargo technician","the botanist","a shaft miner","the psychologist","the chemist","the geneticist",
-		"the virologist","the roboticist","the chef","the bartender","the chaplain","the librarian", "the brig physician", "the pod pilot",
-		"the barber", "the mechanic", "the magistrate", "the nanotrasen representative", "the blueshield", "a mouse","an ert member",
-		"a beach","the holodeck","a smokey room","a voice","the cold","a mouse","an operating table","the bar","the rain","a skrell",
-		"a unathi","a tajaran", "a vulpkanin", "a slime", "an ipc", "a vox", "a plasmaman", "a grey", "a kidan", "a diona", "the ai core",
-		"the mining station","the research station", "a beaker of strange liquid"
-		)
-	spawn(0)
-		for(var/i = rand(1,4),i > 0, i--)
-			var/dream_image = pick(dreams)
-			dreams -= dream_image
-			to_chat(src, "<span class='notice'><i>... [dream_image] ...</i></span>")
-			sleep(rand(40,70))
-			if(paralysis <= 0)
-				dreaming = 0
-				return 0
-		dreaming = 0
-		return 1
+///DREAMS
+
+
+/mob/living/carbon/proc/dream()
+	var/list/dreams = custom_dreams(dream_strings, src)
+
+	for(var/obj/item/bedsheet/sheet in loc)
+		dreams += sheet.dream_messages
+	var/list/dream_images = list()
+	for(var/i in 1 to rand(3, rand(5, 10)))
+		dream_images += pick_n_take(dreams)
+		dreaming++
+	for(var/i in 1 to dream_images.len)
+		addtimer(CALLBACK(src, .proc/experience_dream, dream_images[i], FALSE), ((i - 1) * rand(30,60)))
+	return TRUE
+
+
+/mob/living/carbon/proc/custom_dreams(list/dreamlist, mob/user)
+	var/list/newlist = dreamlist.Copy()
+	for(var/i in 1 to newlist.len)
+		newlist[i] = replacetext(newlist[i], "\[DREAMER\]", "[user.name]")
+	return dreamlist
+
+
+//NIGHTMARES
+/mob/living/carbon/proc/nightmare()
+	var/list/nightmares = nightmare_strings.Copy()
+
+	for(var/obj/item/bedsheet/sheet in loc)
+		nightmares += sheet.nightmare_messages
+	var/list/dream_images = list()
+	for(var/i in 1 to rand(3, rand(5, 10)))
+		dream_images += pick_n_take(nightmares)
+		nightmare++
+	for(var/i in 1 to dream_images.len)
+		addtimer(CALLBACK(src, .proc/experience_dream, nightmares[i], TRUE), ((i - 1) * rand(30,60)))
+	return TRUE
 
 /mob/living/carbon/proc/handle_dreams()
 	if(client && !dreaming && prob(5))
 		dream()
+	else if(client && !nightmare && prob(2))
+		nightmare()
+		if(ishuman(src))
+			if(prob(10))
+				emote("writhes in their sleep.")
+				dir = pick(cardinal)
 
-/mob/living/carbon/var/dreaming = 0
+/mob/living/carbon/proc/experience_dream(dream_image, isNightmare)
+	dreaming--
+	nightmare--
+	if(stat != UNCONSCIOUS || InCritical())
+		return
+	if(isNightmare)
+		dream_image = "<span class='cultitalic'>[dream_image]</span>"
+	to_chat(src, "<span class='notice'><i>... [dream_image] ...</i></span>")
+

@@ -1,6 +1,7 @@
 /mob/new_player
 	var/ready = 0
-	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
+	var/skip_antag = 0	//For declining an antag roll this round.
+	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
 	universal_speak = 1
@@ -31,6 +32,11 @@
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 
+		var/list/antags = client.prefs.be_special
+		if(antags && antags.len)
+			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidancy</A>"
+			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidancy</A>"
+			output += "<br /><small>You are <b>[skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
@@ -97,8 +103,7 @@
 
 	statpanel("Status")
 	if(client.statpanel == "Status" && ticker)
-		if(ticker.current_state != GAME_STATE_PREGAME)
-			stat(null, "Station Time: [worldtime2text()]")
+		show_stat_station_time()
 
 
 /mob/new_player/Topic(href, href_list[])
@@ -110,6 +115,10 @@
 
 	if(href_list["ready"])
 		ready = !ready
+		new_player_panel_proc()
+
+	if(href_list["skip_antag"])
+		skip_antag = !skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -236,6 +245,10 @@
 	if(!IsJobAvailable(rank))
 		to_chat(src, alert("[rank] is not available. Please try another."))
 		return 0
+	var/datum/job/thisjob = job_master.GetJob(rank)
+	if(thisjob.barred_by_disability(client))
+		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
+		return 0
 
 	job_master.AssignRole(src, rank, 1)
 
@@ -300,7 +313,6 @@
 		AnnounceArrival(character, rank, join_message)
 		callHook("latespawn", list(character))
 
-	var/datum/job/thisjob = job_master.GetJob(rank)
 	if(!thisjob.is_position_available() && thisjob in job_master.prioritized_jobs)
 		job_master.prioritized_jobs -= thisjob
 	qdel(src)
@@ -314,7 +326,7 @@
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
+				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
 					var/arrivalmessage = announcer.arrivalmsg
@@ -326,7 +338,7 @@
 					announcer.say(";[arrivalmessage]")
 		else
 			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
+				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
 					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
@@ -339,12 +351,12 @@
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
-				if((character.mind.special_role != "MODE"))
+				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
 					announcer.say(";[arrivalmessage]")
 		else
 			if(character.mind)
-				if((character.mind.special_role != "MODE"))
+				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
 					global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
@@ -389,7 +401,7 @@
 		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in job_master.occupations)
-		if(job && IsJobAvailable(job.title))
+		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
 			activePlayers[job] = 0
 			var/categorized = 0
 			// Only players with the job assigned and AFK for less than 10 minutes count as active

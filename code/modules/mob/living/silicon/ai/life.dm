@@ -3,7 +3,7 @@
 #define POWER_RESTORATION_SEARCH_APC 2
 #define POWER_RESTORATION_APC_FOUND 3
 
-/mob/living/silicon/ai/Life()
+/mob/living/silicon/ai/Life(seconds, times_fired)
 	//doesn't call parent because it's a horrible mess
 	if(stat == DEAD)
 		return
@@ -21,7 +21,7 @@
 		death()
 		return 0
 
-	if(!eyeobj || qdeleted(eyeobj) || !eyeobj.loc)
+	if(!eyeobj || QDELETED(eyeobj) || !eyeobj.loc)
 		view_core()
 
 	if(machine)
@@ -29,8 +29,10 @@
 
 	if(malfhack && malfhack.aidisabled)
 		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
-		malfhacking = 0
-		malfhack = null
+		deltimer(malfhacking)
+		// This proc handles cleanup of screen notifications and
+		// messenging the client
+		malfhacked(malfhack)
 
 	if(aiRestorePowerRoutine)
 		adjustOxyLoss(1)

@@ -12,7 +12,7 @@
 	var/tag_shuttle_mech_sensor
 	var/tag_secure = 0
 
-/obj/machinery/embedded_controller/radio/airlock/initialize()
+/obj/machinery/embedded_controller/radio/airlock/Initialize()
 	..()
 	program = new/datum/computer/file/embedded_program/airlock(src)
 
@@ -21,7 +21,7 @@
 	name = "Advanced Airlock Controller"
 
 /obj/machinery/embedded_controller/radio/airlock/advanced_airlock_controller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "advanced_airlock_console.tmpl", name, 470, 290)
 		ui.open()
@@ -77,7 +77,7 @@
 	tag_secure = 1
 
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "simple_airlock_console.tmpl", name, 470, 290)
 		ui.open()
@@ -140,7 +140,7 @@
 		icon_state = "access_control_off"
 
 /obj/machinery/embedded_controller/radio/airlock/access_controller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "door_access_console.tmpl", name, 330, 220)
 		ui.open()

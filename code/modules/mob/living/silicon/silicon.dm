@@ -13,7 +13,7 @@
 	var/list/speech_synthesizer_langs = list()	//which languages can be vocalized by the speech synthesizer
 	var/list/alarm_handlers = list() // List of alarm handlers this silicon is registered to
 	var/designation = ""
-	var/obj/item/device/camera/siliconcam/aiCamera = null //photography
+	var/obj/item/camera/siliconcam/aiCamera = null //photography
 //Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
 	var/speak_statement = "states"
 	var/speak_exclamation = "declares"
@@ -30,9 +30,9 @@
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
-	var/d_hud = DATA_HUD_DIAGNOSTIC //There is only one kind of diag hud
+	var/d_hud = DATA_HUD_DIAGNOSTIC_ADVANCED //There is only one kind of diag hud
 
-	var/obj/item/device/radio/common_radio
+	var/obj/item/radio/common_radio
 
 /mob/living/silicon/New()
 	silicon_mob_list |= src
@@ -43,6 +43,12 @@
 	diag_hud_set_health()
 	add_language("Galactic Common")
 	init_subsystems()
+
+/mob/living/silicon/med_hud_set_health()
+	return //we use a different hud
+
+/mob/living/silicon/med_hud_set_status()
+	return //we use a different hud
 
 /mob/living/silicon/Destroy()
 	silicon_mob_list -= src
@@ -218,10 +224,11 @@
 /mob/living/silicon/proc/remove_med_sec_hud()
 	var/datum/atom_hud/secsensor = huds[sec_hud]
 	var/datum/atom_hud/medsensor = huds[med_hud]
-	var/datum/atom_hud/diagsensor = huds[d_hud]
+	for(var/datum/atom_hud/data/diagnostic/diagsensor in huds)
+		diagsensor.remove_hud_from(src)
 	secsensor.remove_hud_from(src)
 	medsensor.remove_hud_from(src)
-	diagsensor.remove_hud_from(src)
+
 
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = huds[sec_hud]
@@ -232,8 +239,8 @@
 	medsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/add_diag_hud()
-	var/datum/atom_hud/diagsensor = huds[d_hud]
-	diagsensor.add_hud_to(src)
+	for(var/datum/atom_hud/data/diagnostic/diagsensor in huds)
+		diagsensor.add_hud_to(src)
 
 
 /mob/living/silicon/proc/toggle_sensor_mode()

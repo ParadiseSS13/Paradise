@@ -101,7 +101,7 @@
 //Presets for item actions
 /datum/action/item_action
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
-
+	var/use_itemicon = TRUE
 /datum/action/item_action/New(Target)
 	..()
 	var/obj/item/I = target
@@ -121,17 +121,19 @@
 	return 1
 
 /datum/action/item_action/ApplyIcon(obj/screen/movable/action_button/current_button)
-	current_button.overlays.Cut()
-	if(target)
-		var/obj/item/I = target
-		var/old_layer = I.layer
-		var/old_plane = I.plane
-		I.layer = 21
-		I.plane = HUD_PLANE
-		current_button.overlays += I
-		I.layer = old_layer
-		I.plane = old_plane
-
+	if(use_itemicon)
+		current_button.overlays.Cut()
+		if(target)
+			var/obj/item/I = target
+			var/old_layer = I.layer
+			var/old_plane = I.plane
+			I.layer = 21
+			I.plane = HUD_PLANE
+			current_button.overlays += I
+			I.layer = old_layer
+			I.plane = old_plane
+	else
+		..()
 /datum/action/item_action/toggle_light
 	name = "Toggle Light"
 
@@ -197,8 +199,8 @@
 		UpdateButtonIcon()
 
 /datum/action/item_action/toggle_unfriendly_fire/UpdateButtonIcon()
-	if(istype(target, /obj/item/weapon/hierophant_staff))
-		var/obj/item/weapon/hierophant_staff/H = target
+	if(istype(target, /obj/item/hierophant_staff))
+		var/obj/item/hierophant_staff/H = target
 		if(H.friendly_fire_check)
 			button_icon_state = "vortex_ff_off"
 			name = "Toggle Friendly Fire \[OFF\]"
@@ -214,8 +216,8 @@
 	desc = "Change the type of instrument your synthesizer is playing as."
 
 /datum/action/item_action/synthswitch/Trigger()
-	if(istype(target, /obj/item/device/instrument/piano_synth))
-		var/obj/item/device/instrument/piano_synth/synth = target
+	if(istype(target, /obj/item/instrument/piano_synth))
+		var/obj/item/instrument/piano_synth/synth = target
 		var/chosen = input("Choose the type of instrument you want to use", "Instrument Selection", "piano") as null|anything in synth.insTypes
 		if(!synth.insTypes[chosen])
 			return
@@ -228,8 +230,8 @@
 	button_icon_state = "vortex_recall"
 
 /datum/action/item_action/vortex_recall/IsAvailable()
-	if(istype(target, /obj/item/weapon/hierophant_staff))
-		var/obj/item/weapon/hierophant_staff/H = target
+	if(istype(target, /obj/item/hierophant_staff))
+		var/obj/item/hierophant_staff/H = target
 		if(H.teleporting)
 			return 0
 	return ..()
@@ -318,7 +320,7 @@
 	name = "Toggle Jetpack Stabilization"
 
 /datum/action/item_action/jetpack_stabilization/IsAvailable()
-	var/obj/item/weapon/tank/jetpack/J = target
+	var/obj/item/tank/jetpack/J = target
 	if(!istype(J) || !J.on)
 		return 0
 	return ..()
@@ -355,8 +357,8 @@
 	desc = "Use the instrument specified"
 
 /datum/action/item_action/instrument/Trigger()
-	if(istype(target, /obj/item/device/instrument))
-		var/obj/item/device/instrument/I = target
+	if(istype(target, /obj/item/instrument))
+		var/obj/item/instrument/I = target
 		I.interact(usr)
 		return
 	return ..()

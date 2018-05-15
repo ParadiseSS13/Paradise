@@ -1,6 +1,4 @@
 /obj/machinery/bodyscanner
-	var/mob/living/carbon/occupant
-	var/locked
 	name = "body scanner"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
@@ -11,6 +9,16 @@
 	active_power_usage = 2500
 
 	light_color = "#00FF00"
+	var/obj/machinery/body_scanconsole/console = null
+	var/mob/living/carbon/occupant = null
+	var/locked
+
+/obj/machinery/bodyscanner/Destroy()
+	go_out()
+	if(console)
+		console.connected = null
+		console = null
+	return ..()
 
 /obj/machinery/bodyscanner/power_change()
 	..()
@@ -29,32 +37,32 @@
 /obj/machinery/bodyscanner/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/bodyscanner(null)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/bodyscanner(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
 /obj/machinery/bodyscanner/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/bodyscanner(null)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module/phasic(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/bodyscanner(null)
+	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/bodyscanner/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob)
-	if(istype(G, /obj/item/weapon/screwdriver))
+/obj/machinery/bodyscanner/attackby(var/obj/item/G as obj, var/mob/user as mob)
+	if(istype(G, /obj/item/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", G)
 		return
 
-	if(istype(G, /obj/item/weapon/wrench))
+	if(istype(G, /obj/item/wrench))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
@@ -71,12 +79,12 @@
 	if(exchange_parts(user, G))
 		return
 
-	if(istype(G, /obj/item/weapon/crowbar))
+	if(istype(G, /obj/item/crowbar))
 		default_deconstruction_crowbar(G)
 		return
 
-	if(istype(G, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/TYPECAST_YOUR_SHIT = G
+	if(istype(G, /obj/item/grab))
+		var/obj/item/grab/TYPECAST_YOUR_SHIT = G
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
@@ -207,9 +215,6 @@
 	return
 
 /obj/machinery/body_scanconsole
-	var/obj/machinery/bodyscanner/connected
-	var/delete
-	var/temphtml
 	name = "Body Scanner Console"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "bodyscannerconsole"
@@ -218,9 +223,12 @@
 	dir = 8
 	idle_power_usage = 250
 	active_power_usage = 500
+	var/obj/machinery/bodyscanner/connected = null
+	var/delete
+	var/temphtml
 	var/printing = null
 	var/printing_text = null
-	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/mindshield, /obj/item/weapon/implant/tracking, /obj/item/weapon/implant/health)
+	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 
 /obj/machinery/body_scanconsole/power_change()
 	if(stat & BROKEN)
@@ -236,12 +244,18 @@
 /obj/machinery/body_scanconsole/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/bodyscanner_console(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/bodyscanner_console(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 	findscanner()
+
+/obj/machinery/body_scanconsole/Destroy()
+	if(connected)
+		connected.console = null
+		connected = null
+	return ..()
 
 /obj/machinery/body_scanconsole/ex_act(severity)
 	switch(severity)
@@ -269,23 +283,21 @@
 	return
 
 /obj/machinery/body_scanconsole/proc/findscanner()
-	var/obj/machinery/bodyscanner/bodyscannernew = null
-	// Loop through every direction
 	for(dir in list(NORTH,EAST,SOUTH,WEST))
 		// Try to find a scanner in that direction
 		var/temp = locate(/obj/machinery/bodyscanner, get_step(src, dir))
-		if(!isnull(temp))
-			bodyscannernew = temp
-	src.connected = bodyscannernew
-	return
+		if(temp)
+			connected = temp
+			connected.console = src
+			break
 
 
-/obj/machinery/body_scanconsole/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
-	if(istype(G, /obj/item/weapon/screwdriver))
+/obj/machinery/body_scanconsole/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
+	if(istype(G, /obj/item/screwdriver))
 		default_deconstruction_screwdriver(user, "bodyscannerconsole-p", "bodyscannerconsole", G)
 		return
 
-	if(istype(G, /obj/item/weapon/wrench))
+	if(istype(G, /obj/item/wrench))
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
@@ -321,7 +333,7 @@
 
 
 /obj/machinery/body_scanconsole/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "adv_med.tmpl", "Body Scanner", 690, 600)
 		ui.open()
@@ -381,7 +393,7 @@
 		occupantData["blood"] = bloodData
 
 		var/implantData[0]
-		for(var/obj/item/weapon/implant/I in H)
+		for(var/obj/item/implant/I in H)
 			if(I.implanted && is_type_in_list(I, known_implants))
 				var/implantSubData[0]
 				implantSubData["name"] = sanitize(I.name)
@@ -471,10 +483,10 @@
 		if(!(printing) && printing_text)
 			printing = 1
 			visible_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>")
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+			var/obj/item/paper/P = new /obj/item/paper(loc)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
-			P.info += "<b>Time of scan:</b> [worldtime2text(world.time)]<br><br>"
+			P.info += "<b>Time of scan:</b> [station_time_timestamp()]<br><br>"
 			P.info += "[printing_text]"
 			P.info += "<br><br><b>Notes:</b><br>"
 			P.name = "Body Scan - [href_list["name"]]"

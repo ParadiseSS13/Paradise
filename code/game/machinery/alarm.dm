@@ -80,6 +80,7 @@
 	active_power_usage = 8
 	power_channel = ENVIRON
 	req_one_access = list(access_atmospherics, access_engine_equip)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	var/alarm_id = null
 	var/frequency = 1439
 	//var/skipprocess = 0 //Experimenting
@@ -211,6 +212,7 @@
 	air_alarms -= src
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
+	radio_connection = null
 	air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
 	if(alarm_area && alarm_area.master_air_alarm == src)
@@ -227,7 +229,7 @@
 	apply_preset(1) // Don't cycle.
 	air_alarm_repository.update_cache(src)
 
-/obj/machinery/alarm/initialize()
+/obj/machinery/alarm/Initialize()
 	..()
 	set_frequency(frequency)
 	if(!master_is_operating())
@@ -795,7 +797,7 @@
 	return thresholds
 
 /obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)
 		ui.open()
@@ -921,7 +923,7 @@
 		return 1
 
 	if(href_list["atmos_reset"])
-		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src))
+		if(alarm_area.atmosalert(ATMOS_ALARM_NONE, src, TRUE))
 			apply_danger_level(ATMOS_ALARM_NONE)
 		alarmActivated = 0
 		update_icon()
@@ -972,14 +974,14 @@
 
 	switch(buildstage)
 		if(2)
-			if(istype(W, /obj/item/weapon/screwdriver))  // Opening that Air Alarm up.
+			if(istype(W, /obj/item/screwdriver))  // Opening that Air Alarm up.
 //				to_chat(user, "You pop the Air Alarm's maintence panel open.")
 				wiresexposed = !wiresexposed
 				to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
 				update_icon()
 				return
 
-			if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
+			if(istype(W, /obj/item/wirecutters))  // cutting the wires out
 				if(wires.wires_status == 31) // all wires cut
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
 					new_coil.amount = 5
@@ -988,10 +990,10 @@
 					update_icon()
 					return
 
-			if(wiresexposed && ((istype(W, /obj/item/device/multitool) || istype(W, /obj/item/weapon/wirecutters))))
+			if(wiresexposed && ((istype(W, /obj/item/multitool) || istype(W, /obj/item/wirecutters))))
 				return attack_hand(user)
 
-			if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))// trying to unlock the interface with an ID card
+			if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return
@@ -1024,20 +1026,20 @@
 				first_run()
 				return
 
-			else if(istype(W, /obj/item/weapon/crowbar))
+			else if(istype(W, /obj/item/crowbar))
 				to_chat(user, "You start prying out the circuit.")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				if(do_after(user, 20 * W.toolspeed, target = src))
 					if(buildstage != 1)
 						return
 					to_chat(user, "You pry out the circuit!")
-					var/obj/item/weapon/airalarm_electronics/circuit = new /obj/item/weapon/airalarm_electronics()
+					var/obj/item/airalarm_electronics/circuit = new /obj/item/airalarm_electronics()
 					circuit.loc = user.loc
 					buildstage = 0
 					update_icon()
 				return
 		if(0)
-			if(istype(W, /obj/item/weapon/airalarm_electronics))
+			if(istype(W, /obj/item/airalarm_electronics))
 				to_chat(user, "You insert the circuit!")
 				playsound(get_turf(src), W.usesound, 50, 1)
 				qdel(W)
@@ -1045,7 +1047,7 @@
 				update_icon()
 				return
 
-			else if(istype(W, /obj/item/weapon/wrench))
+			else if(istype(W, /obj/item/wrench))
 				to_chat(user, "You remove the fire alarm assembly from the wall!")
 				new /obj/item/mounted/frame/alarm_frame(get_turf(user))
 				playsound(get_turf(src), W.usesound, 50, 1)
@@ -1072,7 +1074,7 @@
 AIR ALARM CIRCUIT
 Just an object used in constructing air alarms
 */
-/obj/item/weapon/airalarm_electronics
+/obj/item/airalarm_electronics
 	name = "air alarm electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"

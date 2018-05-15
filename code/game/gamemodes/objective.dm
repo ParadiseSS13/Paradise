@@ -264,7 +264,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	if(!location)
 		return 0
 
-	if(istype(location, /turf/simulated/shuttle/floor4)) // Fails traitors if they are in the shuttle brig -- Polymorph
+	if(istype(location, /turf/simulated/shuttle/floor4) || istype(location, /turf/simulated/floor/mineral/plastitanium/brig)) // Fails traitors if they are in the shuttle brig -- Polymorph
 		return 0
 
 	if(location.onCentcom() || location.onSyndieBase())
@@ -515,7 +515,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/list/priority_targets = list()
 
 	for(var/datum/mind/possible_target in ticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != "MODE"))
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != possible_target.special_role))
 			possible_targets += possible_target
 			for(var/role in roles)
 				if(possible_target.assigned_role == role)
@@ -571,19 +571,19 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 			target_amount = 1
 			loot = "a nuclear bomb"
 		if(5)
-			target = /obj/item/weapon/gun
+			target = /obj/item/gun
 			target_amount = 6
 			loot = "six guns. Tasers and other non-lethal guns are acceptable"
 		if(6)
-			target = /obj/item/weapon/gun/energy
+			target = /obj/item/gun/energy
 			target_amount = 4
 			loot = "four energy guns"
 		if(7)
-			target = /obj/item/weapon/gun/energy/laser
+			target = /obj/item/gun/energy/laser
 			target_amount = 2
 			loot = "two laser guns"
 		if(8)
-			target = /obj/item/weapon/gun/energy/ionrifle
+			target = /obj/item/gun/energy/ionrifle
 			target_amount = 1
 			loot = "an ion gun"
 
@@ -728,28 +728,28 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/itemname
 	switch(rand(1,8))
 		if(1)
-			target = /obj/item/weapon/stock_parts/cell
+			target = /obj/item/stock_parts/cell
 			target_amount = 10
 			target_rating = 3
 			itemname = "ten high-capacity power cells"
 		if(2)
-			target = /obj/item/weapon/stock_parts/manipulator
+			target = /obj/item/stock_parts/manipulator
 			target_amount = 20
 			itemname = "twenty micro manipulators"
 		if(3)
-			target = /obj/item/weapon/stock_parts/matter_bin
+			target = /obj/item/stock_parts/matter_bin
 			target_amount = 20
 			itemname = "twenty matter bins"
 		if(4)
-			target = /obj/item/weapon/stock_parts/micro_laser
+			target = /obj/item/stock_parts/micro_laser
 			target_amount = 15
 			itemname = "fifteen micro-lasers"
 		if(5)
-			target = /obj/item/weapon/stock_parts/capacitor
+			target = /obj/item/stock_parts/capacitor
 			target_amount = 15
 			itemname = "fifteen capacitors"
 		if(6)
-			target = /obj/item/weapon/stock_parts/subspace/filter
+			target = /obj/item/stock_parts/subspace/filter
 			target_amount = 4
 			itemname = "four hyperwave filters"
 		if(7)
@@ -757,7 +757,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 			target_amount = 10
 			itemname = "ten solar panel assemblies"
 		if(8)
-			target = /obj/item/device/flash
+			target = /obj/item/flash
 			target_amount = 6
 			itemname = "six flashes"
 	explanation_text = "We are running low on spare parts. Trade for [itemname]."

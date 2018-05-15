@@ -1,4 +1,4 @@
-/obj/item/weapon/grenade/smokebomb
+/obj/item/grenade/smokebomb
 	desc = "It is set to detonate in 2 seconds."
 	name = "smoke bomb"
 	icon = 'icons/obj/grenade.dmi'
@@ -6,11 +6,11 @@
 	det_time = 20
 	item_state = "flashbang"
 	slot_flags = SLOT_BELT
-	var/datum/effect/system/bad_smoke_spread/smoke
+	var/datum/effect_system/smoke_spread/bad/smoke
 
 	New()
 		..()
-		src.smoke = new /datum/effect/system/bad_smoke_spread
+		src.smoke = new /datum/effect_system/smoke_spread/bad
 		src.smoke.attach(src)
 
 	Destroy()

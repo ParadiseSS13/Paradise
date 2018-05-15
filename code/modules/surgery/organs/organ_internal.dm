@@ -92,7 +92,7 @@
 /obj/item/organ/internal/proc/prepare_eat()
 	if(status == ORGAN_ROBOT)
 		return //no eating cybernetic implants!
-	var/obj/item/weapon/reagent_containers/food/snacks/organ/S = new
+	var/obj/item/reagent_containers/food/snacks/organ/S = new
 	S.name = name
 	S.desc = desc
 	S.icon = icon
@@ -108,12 +108,12 @@
 	insert(H)
 	return 1
 
-/obj/item/weapon/reagent_containers/food/snacks/organ
+/obj/item/reagent_containers/food/snacks/organ
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
 
-/obj/item/weapon/reagent_containers/food/snacks/organ/New()
+/obj/item/reagent_containers/food/snacks/organ/New()
 	..()
 
 	reagents.add_reagent("nutriment", 5)
@@ -121,7 +121,7 @@
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/weapon/reagent_containers/food/snacks/S = prepare_eat()
+		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)
@@ -267,35 +267,6 @@
 				H.adjustFireLoss(-cursed_heart.heal_burn)
 				H.adjustOxyLoss(-cursed_heart.heal_oxy)
 
-/obj/item/organ/internal/lungs
-	name = "lungs"
-	icon_state = "lungs"
-	gender = PLURAL
-	organ_tag = "lungs"
-	parent_organ = "chest"
-	slot = "lungs"
-	vital = 1
-
-//Insert something neat here.
-///obj/item/organ/internal/lungs/remove(mob/living/carbon/M, special = 0)
-//	owner.losebreath += 10
-	//insert oxy damage extream here.
-//	. = ..()
-
-
-/obj/item/organ/internal/lungs/on_life()
-	if(germ_level > INFECTION_LEVEL_ONE)
-		if(prob(5))
-			owner.emote("cough")		//respitory tract infection
-
-	if(is_bruised())
-		if(prob(2))
-			owner.custom_emote(1, "coughs up blood!")
-			owner.bleed(1)
-		if(prob(4))
-			owner.custom_emote(1, "gasps for air!")
-			owner.AdjustLoseBreath(5)
-
 /obj/item/organ/internal/kidneys
 	name = "kidneys"
 	icon_state = "kidneys"
@@ -326,13 +297,22 @@
 	var/eye_colour = "#000000"
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
-	var/colourblind_darkview = null
+	var/list/replace_colours = LIST_GREYSCALE_REPLACE
 	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/dark_view = 2 //Default dark_view for Humans.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
+
+/obj/item/organ/internal/eyes/proc/generate_icon(var/mob/living/carbon/human/HA)
+	var/mob/living/carbon/human/H = HA
+	if(!istype(H))
+		H = owner
+	var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', H.species.eyes)
+	eyes_icon.Blend(eye_colour, ICON_ADD)
+
+	return eyes_icon
 
 /obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
 	if(!robotic && owner.disabilities & COLOURBLIND)
@@ -341,10 +321,11 @@
 		return colourmatrix
 
 /obj/item/organ/internal/eyes/proc/get_dark_view() //Returns dark_view (if the eyes are organic) for see_invisible handling in species.dm to be autoprocessed by life().
-	if(!robotic && colourblind_darkview && owner.disabilities & COLOURBLIND) //Returns special darkview value if colourblind and it exists, otherwise reuse current.
-		return colourblind_darkview
-	else
-		return dark_view
+	return dark_view
+
+/obj/item/organ/internal/eyes/proc/shine()
+	if(is_robotic() || (dark_view > EYE_SHINE_THRESHOLD))
+		return TRUE
 
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
 	..()
@@ -430,16 +411,16 @@
 		if(owner.getToxLoss() >= 60 && !owner.reagents.has_reagent("charcoal"))
 			//Healthy liver suffers on its own
 			if(damage < min_broken_damage)
-				take_damage(0.2 * PROCESS_ACCURACY)
+				receive_damage(0.2 * PROCESS_ACCURACY)
 			//Damaged one shares the fun
 			else
 				var/obj/item/organ/internal/O = pick(owner.internal_organs)
 				if(O)
-					O.take_damage(0.2  * PROCESS_ACCURACY)
+					O.receive_damage(0.2  * PROCESS_ACCURACY)
 
 		//Detox can heal small amounts of damage
 		if(damage && damage < min_bruised_damage && owner.reagents.has_reagent("charcoal"))
-			take_damage(-0.2 * PROCESS_ACCURACY)
+			receive_damage(-0.2 * PROCESS_ACCURACY)
 
 		// Get the effectiveness of the liver.
 		var/filter_effect = 3

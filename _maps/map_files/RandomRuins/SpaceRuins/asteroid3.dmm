@@ -3,7 +3,7 @@
 "c" = (/turf/simulated/mineral,/area/ruin/unpowered)
 "d" = (/turf/simulated/mineral/random/high_chance,/area/ruin/unpowered)
 "e" = (/obj/effect/decal/remains/human,/turf/simulated/floor/plating/airless/asteroid,/area/ruin/unpowered)
-"f" = (/obj/item/weapon/pickaxe/diamond,/turf/simulated/floor/plating/airless/asteroid,/area/ruin/unpowered)
+"f" = (/obj/item/pickaxe/diamond,/turf/simulated/floor/plating/airless/asteroid,/area/ruin/unpowered)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaa

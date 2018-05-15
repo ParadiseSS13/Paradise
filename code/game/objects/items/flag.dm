@@ -1,4 +1,6 @@
 /obj/item/flag
+	name = "flag"
+	desc = "It's a flag."
 	icon = 'icons/obj/flag.dmi'
 	icon_state = "ntflag"
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
@@ -6,12 +8,18 @@
 	w_class = WEIGHT_CLASS_BULKY
 	burntime = 20
 	burn_state = FLAMMABLE
+	var/rolled = FALSE
 
-/obj/item/flag/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/flag/attackby(obj/item/W, mob/user, params)
 	..()
 	if(is_hot(W) && burn_state != ON_FIRE)
-		user.visible_message("<span class='notice'>[user] lights the [name] with [W].</span>")
+		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
 		fire_act()
+
+/obj/item/flag/attack_self(mob/user)
+	rolled = !rolled
+	user.visible_message("<span class='notice'>[user] [rolled ? "rolls up" : "unfurls"] [src].</span>", "<span class='notice'>You [rolled ? "roll up" : "unfurl"] [src].</span>", "<span class='warning'>You hear fabric rustling.</span>")
+	update_icon()
 
 /obj/item/flag/fire_act(global_overlay = FALSE)
 	..()
@@ -23,15 +31,23 @@
 
 /obj/item/flag/update_icon()
 	overlays.Cut()
+	updateFlagIcon()
+	item_state = icon_state
+	if(rolled)
+		icon_state = "[icon_state]_rolled"
 	if(burn_state == ON_FIRE)
+		item_state = "[item_state]_fire"
+	if(burn_state == ON_FIRE && rolled)
+		overlays += image('icons/obj/flag.dmi', src , "fire_rolled")
+	else if(burn_state == ON_FIRE && !rolled)
 		overlays += image('icons/obj/flag.dmi', src , "fire")
-		item_state = "[icon_state]_fire"
-	else
-		item_state = initial(icon_state)
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
+
+/obj/item/flag/proc/updateFlagIcon()
+	icon_state = initial(icon_state)
 
 /obj/item/flag/nt
 	name = "Nanotrasen flag"
@@ -187,11 +203,16 @@
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
 	icon_state = "ntflag"
 	origin_tech = "syndicate=4;magnets=4"
-	var/used = 0
+	var/updated_icon_state = null
+	var/used = FALSE
+
+/obj/item/flag/chameleon/New()
+	updated_icon_state = icon_state
+	..()
 
 /obj/item/flag/chameleon/attack_self(mob/user)
 	if(used)
-		return
+		return ..()
 
 	var/list/flag_types = typesof(/obj/item/flag) - list(src.type, /obj/item/flag)
 	var/list/flag = list()
@@ -208,12 +229,16 @@
 
 		var/obj/item/flag/chosen_flag = flag[input_flag]
 
-		if(chosen_flag)
+		if(chosen_flag && !used)
 			name = chosen_flag.name
 			icon_state = chosen_flag.icon_state
+			updated_icon_state = icon_state
 			desc = chosen_flag.desc
-			used = 1
+			used = TRUE
 
 /obj/item/flag/chameleon/burn()
 	explosion(loc,1,2,4,4, flame_range = 4)
 	qdel(src)
+
+/obj/item/flag/chameleon/updateFlagIcon()
+	icon_state = updated_icon_state

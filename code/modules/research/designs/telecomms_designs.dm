@@ -7,8 +7,8 @@
 	id = "s-bus"
 	req_tech = list("programming" = 2, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/telecomms/bus
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/telecomms/bus
 	category = list("Subspace Telecomms")
 
 /datum/design/telecomms_hub
@@ -17,8 +17,8 @@
 	id = "s-hub"
 	req_tech = list("programming" = 2, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/telecomms/hub
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/telecomms/hub
 	category = list("Subspace Telecomms")
 
 
@@ -28,8 +28,8 @@
 	id = "s-processor"
 	req_tech = list("programming" = 2, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/telecomms/processor
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/telecomms/processor
 	category = list("Subspace Telecomms")
 
 /datum/design/telecomms_relay
@@ -38,8 +38,8 @@
 	id = "s-relay"
 	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/telecomms/relay
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/telecomms/relay
 	category = list("Subspace Telecomms")
 
 /datum/design/telecomms_server
@@ -48,8 +48,8 @@
 	id = "s-server"
 	req_tech = list("programming" = 2, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/telecomms/server
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/telecomms/server
 	category = list("Subspace Telecomms")
 
 /datum/design/subspace_broadcaster
@@ -58,8 +58,8 @@
 	id = "s-broadcaster"
 	req_tech = list("programming" = 2, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/telecomms/broadcaster
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/telecomms/broadcaster
 	category = list("Subspace Telecomms")
 
 /datum/design/subspace_receiver
@@ -68,8 +68,8 @@
 	id = "s-receiver"
 	req_tech = list("programming" = 2, "engineering" = 2, "bluespace" = 1)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/telecomms/receiver
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/telecomms/receiver
 	category = list("Subspace Telecomms")
 
 /datum/design/subspace_crystal
@@ -79,7 +79,7 @@
 	req_tech = list("magnets" = 2, "materials" = 2, "bluespace" = 3, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 800, MAT_SILVER = 100, MAT_GOLD = 100)
-	build_path = /obj/item/weapon/stock_parts/subspace/crystal
+	build_path = /obj/item/stock_parts/subspace/crystal
 	category = list("Stock Parts")
 
 /datum/design/hyperwave_filter
@@ -89,7 +89,7 @@
 	req_tech = list("programming" = 3, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 100, MAT_SILVER = 100)
-	build_path = /obj/item/weapon/stock_parts/subspace/filter
+	build_path = /obj/item/stock_parts/subspace/filter
 	category = list("Stock Parts")
 
 /datum/design/subspace_amplifier
@@ -99,7 +99,7 @@
 	req_tech = list("programming" = 3, "magnets" = 4, "materials" = 3, "bluespace" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GOLD = 100, MAT_URANIUM = 100)
-	build_path = /obj/item/weapon/stock_parts/subspace/amplifier
+	build_path = /obj/item/stock_parts/subspace/amplifier
 	category = list("Stock Parts")
 
 /datum/design/subspace_analyzer
@@ -109,7 +109,7 @@
 	req_tech = list("programming" = 3, "magnets" = 4, "materials" = 2, "bluespace" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 100, MAT_GOLD = 100)
-	build_path = /obj/item/weapon/stock_parts/subspace/analyzer
+	build_path = /obj/item/stock_parts/subspace/analyzer
 	category = list("Stock Parts")
 
 /datum/design/subspace_ansible
@@ -119,7 +119,7 @@
 	req_tech = list("programming" = 2, "magnets" = 2, "materials" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 100, MAT_SILVER = 100)
-	build_path = /obj/item/weapon/stock_parts/subspace/ansible
+	build_path = /obj/item/stock_parts/subspace/ansible
 	category = list("Stock Parts")
 
 /datum/design/subspace_transmitter
@@ -129,7 +129,7 @@
 	req_tech = list("magnets" = 3, "materials" = 4, "bluespace" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 100, MAT_SILVER = 100, MAT_URANIUM = 100)
-	build_path = /obj/item/weapon/stock_parts/subspace/transmitter
+	build_path = /obj/item/stock_parts/subspace/transmitter
 	category = list("Stock Parts")
 
 /datum/design/subspace_treatment
@@ -139,5 +139,5 @@
 	req_tech = list("programming" = 2, "magnets" = 3, "materials" = 2, "bluespace" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 100, MAT_SILVER = 200)
-	build_path = /obj/item/weapon/stock_parts/subspace/treatment
+	build_path = /obj/item/stock_parts/subspace/treatment
 	category = list("Stock Parts")

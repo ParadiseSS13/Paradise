@@ -52,7 +52,7 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 /obj/item/projectile/temp/New(loc, shot_temp)
-	..(loc)
+	..()
 	if(!isnull(shot_temp))
 		temperature = shot_temp
 	switch(temperature)
@@ -86,7 +86,6 @@
 		else
 			name = "temperature beam"//failsafe
 			icon_state = "temp_4"
-	..()
 
 
 /obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
@@ -191,7 +190,7 @@
 	icon_state = "snappop"
 
 /obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	new /obj/effect/decal/cleanable/ash(loc)
@@ -204,7 +203,7 @@
 	icon_state = "spark"
 	hitsound = "sparks"
 	damage = 0
-	var/obj/item/weapon/gun/energy/wormhole_projector/gun
+	var/obj/item/gun/energy/wormhole_projector/gun
 	color = "#33CCFF"
 	nodamage = TRUE
 
@@ -332,7 +331,7 @@
 	nodamage = 1
 	damage_type = BURN
 	flag = "melee"
-	var/obj/item/weapon/gun/stored_gun
+	var/obj/item/gun/stored_gun
 
 /obj/item/projectile/mimic/New(loc, mimic_type)
 	..(loc)
@@ -346,7 +345,7 @@
 /obj/item/projectile/mimic/on_hit(atom/target)
 	..()
 	var/turf/T = get_turf(src)
-	var/obj/item/weapon/gun/G = stored_gun
+	var/obj/item/gun/G = stored_gun
 	stored_gun = null
 	G.forceMove(T)
 	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)

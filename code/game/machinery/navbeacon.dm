@@ -10,7 +10,7 @@
 	level = 1		// underfloor
 	layer = 2.5
 	anchored = 1
-
+	armor = list(melee = 70, bullet = 70, laser = 70, energy = 70, bomb = 0, bio = 0, rad = 0)
 	var/open = 0		// true if cover is open
 	var/locked = 1		// true if controls are locked
 	var/location = ""	// location response text
@@ -90,14 +90,14 @@
 	if(T.intact)
 		return		// prevent intraction when T-scanner revealed
 
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(istype(I, /obj/item/screwdriver))
 		open = !open
 
 		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
 
 		updateicon()
 
-	else if(istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/pda))
+	else if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
 		if(open)
 			if(src.allowed(user))
 				src.locked = !src.locked

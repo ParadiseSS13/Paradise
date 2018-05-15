@@ -12,7 +12,7 @@
 	var/water_timer = 0
 
 /obj/effect/waterfall/New()
-	water_timer = addtimer(src, "drip", water_frequency)
+	water_timer = addtimer(CALLBACK(src, .proc/drip), water_frequency, TIMER_STOPPABLE)
 
 /obj/effect/waterfall/Destroy()
 	if(water_timer)
@@ -21,8 +21,8 @@
 	return ..()
 
 /obj/effect/waterfall/proc/drip()
-	var/obj/effect/effect/water/W = new(loc)
+	var/obj/effect/particle_effect/water/W = new(loc)
 	W.dir = dir
 	spawn(1)
 		W.loc = get_step(W, dir)
-	water_timer = addtimer(src, "drip", water_frequency)
+	water_timer = addtimer(CALLBACK(src, .proc/drip), water_frequency, TIMER_STOPPABLE)

@@ -29,7 +29,6 @@
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
-	var/datum/cult_info/cultdat //here instead of cult for adminbus purposes
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
@@ -108,8 +107,7 @@
 			tries_left = 5		//reset our tries since we found a new chump
 	//make sure we have chumps before we try misinforming them. if we don't make a note of it.
 	if(!chumps.len)
-		message_admins("<span class='notice'>Game mode failed to find ANY chumps. Possible causes: no one is opposed/skeptical, or FalseIncarnate can't code.</span>")
-		log_admin("Game mode failed to find ANY chumps. Possible causes: no one is opposed/skeptical, or FalseIncarnate can't code.")
+		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.") 
 		return 0
 	//we've got chumps! misinform them!
 	for(var/mob/living/carbon/human/chump in chumps)
@@ -136,8 +134,8 @@
 				break
 	for(var/mob/M in player_list)
 		if(M.mind)
-			var/obj/item/device/pda/P=null
-			for(var/obj/item/device/pda/check_pda in PDAs)
+			var/obj/item/pda/P=null
+			for(var/obj/item/pda/check_pda in PDAs)
 				if(check_pda.owner==M.name)
 					P=check_pda
 					break
@@ -164,7 +162,7 @@
 						T.purpose = "Payment"
 						T.amount = pay
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
 						M.mind.initial_account.transaction_log.Add(T)
 						msg += "You have been sent the $[pay], as agreed."
@@ -281,10 +279,11 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-			candidates += player.mind
-			players -= player
+		if(!player.skip_antag)
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
+				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+				candidates += player.mind
+				players -= player
 
 	// If we don't have enough antags, draft people who voted for the round.
 	if(candidates.len < recommended_enemies)
@@ -336,7 +335,8 @@
 /datum/game_mode/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in command_positions))
+		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
 
@@ -346,7 +346,8 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in mob_list)
-		if(player.mind && (player.mind.assigned_role in command_positions))
+		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -372,7 +373,6 @@
 
 /datum/game_mode/New()
 	newscaster_announcements = pick(newscaster_standard_feeds)
-	cultdat = setupcult()
 
 //////////////////////////
 //Reports player logouts//

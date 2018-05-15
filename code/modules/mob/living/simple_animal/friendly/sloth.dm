@@ -12,13 +12,13 @@
 	emote_see = list("dozes off.", "looks around sleepily.")
 	speak_chance = 1
 	turns_per_move = 5
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
-	melee_damage_lower = 18
-	melee_damage_upper = 18
+	melee_damage_lower = 0
+	melee_damage_upper = 0
 	health = 50
 	maxHealth = 50
 	speed = 2

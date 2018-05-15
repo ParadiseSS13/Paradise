@@ -15,7 +15,7 @@
 		message = trim(sanitize(copytext(message, 1, MAX_MESSAGE_LEN)))
 		if(!message)
 			return
-		log_say("[key_name(src)] : [message]")
+		log_say(message, src)
 		if(stat == DEAD)
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = loc
@@ -43,7 +43,8 @@
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
 
 	var/delay = (rand(350,450) + B.host.brainloss)
-	addtimer(src, "return_control", delay, FALSE, B)
+	addtimer(CALLBACK(src, .proc/return_control, B), delay)
+
 
 /mob/living/captive_brain/proc/return_control(mob/living/simple_animal/borer/B)
 	if(!B || !B.controlling)
@@ -115,6 +116,7 @@
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	..(newloc)
+	remove_from_all_data_huds()
 	generation = gen
 	add_language("Cortical Link")
 	notify_ghosts("A cortical borer has been created in [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
@@ -123,6 +125,9 @@
 	GrantBorerActions()
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
+	if(cannotPossess(user))
+		to_chat(user, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
 	if(jobban_isbanned(user, "Syndicate"))
 		return
 	if(key)
@@ -130,7 +135,7 @@
 	if(stat != CONSCIOUS)
 		return
 	var/be_borer = alert("Become a cortical borer? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_borer == "No" || !src || qdeleted(src))
+	if(be_borer == "No" || !src || QDELETED(src))
 		return
 	if(key)
 		return
@@ -171,11 +176,11 @@
 	if(!input)
 		return
 
-	if(src && !qdeleted(src) && !qdeleted(host))
+	if(src && !QDELETED(src) && !QDELETED(host))
 		var/say_string = (docile) ? "slurs" :"states"
 		if(host)
 			to_chat(host, "<span class='changeling'><i>[truename] [say_string]:</i> [input]</span>")
-			log_say("Borer Communication: [key_name(src)] -> [key_name(host)] : [input]")
+			log_say("(BORER to [key_name(host)]) [input]", src)
 			for(var/M in dead_mob_list)
 				if(isobserver(M))
 					to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
@@ -210,7 +215,7 @@
 		return
 
 	to_chat(B, "<span class='changeling'><i>[src] says:</i> [input]</span>")
-	log_say("Borer Communication: [key_name(src)] -> [key_name(B)] : [input]")
+	log_say("(BORER to [key_name(B)]) [input]", src)
 
 	for(var/M in dead_mob_list)
 		if(isobserver(M))
@@ -232,14 +237,14 @@
 		return
 
 	to_chat(CB, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
-	log_say("Borer Communication: [key_name(B)] -> [key_name(CB)] : [input]")
+	log_say("(BORER to [key_name(CB)]) [input]", B)
 
 	for(var/M in dead_mob_list)
 		if(isobserver(M))
 			to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
 
-/mob/living/simple_animal/borer/Life()
+/mob/living/simple_animal/borer/Life(seconds, times_fired)
 
 	..()
 
@@ -432,7 +437,7 @@
 		to_chat(src, "<span class='userdanger'>You squirt a measure of [R.name] from your reservoirs into [host]'s bloodstream.</span>")
 		host.reagents.add_reagent(C.chemname, C.quantity)
 		chemicals -= C.chemuse
-		log_game("[src]/([src.ckey]) has injected [R.name] into their host [host]/([host.ckey])")
+		log_game("[key_name(src)] has injected [R.name] into their host [host]/([host.ckey])")
 
 		// This is used because we use a static set of datums to determine what chems are available,
 		// instead of a table or something. Thus, when we instance it, we can safely delete it
@@ -530,11 +535,11 @@
 
 	leaving = TRUE
 
-	addtimer(src, "let_go", 200)
+	addtimer(CALLBACK(src, .proc/let_go), 200)
 
 /mob/living/simple_animal/borer/proc/let_go()
 
-	if(!host || !src || qdeleted(host) || qdeleted(src))
+	if(!host || !src || QDELETED(host) || QDELETED(src))
 		return
 	if(!leaving)
 		return
@@ -601,13 +606,13 @@
 
 	to_chat(src, "You begin delicately adjusting your connection to the host brain...")
 
-	if(qdeleted(src) || qdeleted(host))
+	if(QDELETED(src) || QDELETED(host))
 		return
 
 	bonding = TRUE
 
 	var/delay = 300+(host.getBrainLoss()*5)
-	addtimer(src, "assume_control", delay)
+	addtimer(CALLBACK(src, .proc/assume_control), delay)
 
 /mob/living/simple_animal/borer/proc/assume_control()
 	if(!host || !src || controlling)
@@ -621,8 +626,7 @@
 		to_chat(src, "<span class='danger'>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</span>")
 		to_chat(host, "<span class='danger'>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</span>")
 		var/borer_key = src.key
-		host.create_attack_log("<font color='blue'>[key_name(src)] has assumed control of [key_name(host)]</font>")
-		msg_admin_attack("[key_name_admin(src)] has assumed control of [key_name_admin(host)]")
+		add_attack_logs(src, host, "Assumed control of (borer)")
 		// host -> brain
 		var/h2b_id = host.computer_id
 		var/h2b_ip= host.lastKnownIP
@@ -759,8 +763,7 @@
 	host.med_hud_set_status()
 
 	if(host_brain)
-		host.create_attack_log("<font color='blue'>[host_brain.name] ([host_brain.ckey]) has taken control back from [name] ([host.ckey])</font>")
-		msg_admin_attack("[host_brain.name] ([host_brain.ckey]) has taken control back from [name] ([host.ckey]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[host.x];Y=[host.y];Z=[host.z]'>JMP</a>)")
+		add_attack_logs(host, src, "Took control back (borer)")
 		// host -> self
 		var/h2s_id = host.computer_id
 		var/h2s_ip= host.lastKnownIP
@@ -801,7 +804,7 @@
 	if(!candidate || !candidate.mob)
 		return
 
-	if(!qdeleted(candidate) || !qdeleted(candidate.mob))
+	if(!QDELETED(candidate) || !QDELETED(candidate.mob))
 		var/datum/mind/M = create_borer_mind(candidate.ckey)
 		M.transfer_to(src)
 		candidate.mob = src

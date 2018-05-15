@@ -49,6 +49,7 @@ var/global/list/ts_spiderling_list = list()
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
 	var/freq_ventcrawl_idle =  9000 // 15 minutes
 	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
+	var/ai_ventbreaker = 0
 
 	// AI movement tracking
 	var/spider_steps_taken = 0 // leave at 0, its a counter for ai steps taken.
@@ -269,8 +270,10 @@ var/global/list/ts_spiderling_list = list()
 	else
 		ts_count_alive_station++
 	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
-	addtimer(src, "CheckFaction", 150)
-	addtimer(src, "announcetoghosts", 300)
+	addtimer(CALLBACK(src, .proc/CheckFaction), 150)
+	addtimer(CALLBACK(src, .proc/announcetoghosts), 300)
+	var/datum/atom_hud/U = huds[DATA_HUD_MEDICAL_ADVANCED]
+	U.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
 	if(spider_awaymission)
@@ -289,7 +292,7 @@ var/global/list/ts_spiderling_list = list()
 	handle_dying()
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Life()
+/mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
 	if(!.) // if mob is dead
 		if(prob(2))

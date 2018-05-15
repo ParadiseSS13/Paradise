@@ -1,4 +1,4 @@
-/mob/living/silicon/pai/Life()
+/mob/living/silicon/pai/Life(seconds, times_fired)
 	. = ..()
 	if(.)
 		//if(secHUD == 1)

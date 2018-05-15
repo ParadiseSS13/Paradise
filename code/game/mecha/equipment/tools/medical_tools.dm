@@ -112,15 +112,15 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Topic(href,href_list)
 	..()
-	var/datum/topic_input/filter = new /datum/topic_input(href,href_list)
-	if(filter.get("eject"))
+	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
+	if(afilter.get("eject"))
 		go_out()
-	if(filter.get("view_stats"))
+	if(afilter.get("view_stats"))
 		chassis.occupant << browse(get_patient_stats(),"window=msleeper")
 		onclose(chassis.occupant, "msleeper")
 		return
-	if(filter.get("inject"))
-		inject_reagent(filter.getType("inject",/datum/reagent),filter.getObj("source"))
+	if(afilter.get("inject"))
+		inject_reagent(afilter.getType("inject",/datum/reagent),afilter.getObj("source"))
 	return
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_stats()
@@ -197,7 +197,7 @@
 	if(to_inject && patient.reagents.get_reagent_amount(R.id) + to_inject <= inject_amount*2)
 		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].")
-		add_logs(chassis.occupant, patient, "injected", "[name] ([R] - [to_inject] units)")
+		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units")
 		SG.reagents.trans_id_to(patient,R.id,to_inject)
 		update_equip_info()
 	return
@@ -291,10 +291,10 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
 	if(!action_checks(target))
 		return
-	if(istype(target,/obj/item/weapon/reagent_containers/syringe))
+	if(istype(target,/obj/item/reagent_containers/syringe))
 		return load_syringe(target)
-	if(istype(target,/obj/item/weapon/storage))//Loads syringes from boxes
-		for(var/obj/item/weapon/reagent_containers/syringe/S in target.contents)
+	if(istype(target,/obj/item/storage))//Loads syringes from boxes
+		for(var/obj/item/reagent_containers/syringe/S in target.contents)
 			load_syringe(S)
 		return
 	if(mode)
@@ -306,7 +306,7 @@
 		occupant_message("<span class=\"alert\">No available reagents to load syringe with.</span>")
 		return
 	var/turf/trg = get_turf(target)
-	var/obj/item/weapon/reagent_containers/syringe/mechsyringe = syringes[1]
+	var/obj/item/reagent_containers/syringe/mechsyringe = syringes[1]
 	mechsyringe.forceMove(get_turf(chassis))
 	reagents.trans_to(mechsyringe, min(mechsyringe.volume, reagents.total_volume))
 	syringes -= mechsyringe
@@ -333,12 +333,12 @@
 							for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
 								R += A.id + " ("
 								R += num2text(A.volume) + "),"
+						add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
 						mechsyringe.icon_state = initial(mechsyringe.icon_state)
 						mechsyringe.icon = initial(mechsyringe.icon)
 						mechsyringe.reagents.reaction(M, INGEST)
 						mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
 						M.take_organ_damage(2)
-						add_logs(originaloccupant, M, "shot", "syringegun")
 					break
 				else if(mechsyringe.loc == trg)
 					mechsyringe.icon_state = initial(mechsyringe.icon_state)
@@ -356,19 +356,19 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/Topic(href,href_list)
 	..()
-	var/datum/topic_input/filter = new (href,href_list)
-	if(filter.get("toggle_mode"))
+	var/datum/topic_input/afilter = new (href,href_list)
+	if(afilter.get("toggle_mode"))
 		mode = !mode
 		update_equip_info()
 		return
-	if(filter.get("select_reagents"))
+	if(afilter.get("select_reagents"))
 		processed_reagents.len = 0
 		var/m = 0
 		var/message
 		for(var/i=1 to known_reagents.len)
 			if(m>=synth_speed)
 				break
-			var/reagent = filter.get("reagent_[i]")
+			var/reagent = afilter.get("reagent_[i]")
 			if(reagent && (reagent in known_reagents))
 				message = "[m ? ", " : null][known_reagents[reagent]]"
 				processed_reagents += reagent
@@ -380,14 +380,14 @@
 			occupant_message("Reagent processing started.")
 			log_message("Reagent processing started.")
 		return
-	if(filter.get("show_reagents"))
+	if(afilter.get("show_reagents"))
 		chassis.occupant << browse(get_reagents_page(),"window=msyringegun")
-	if(filter.get("purge_reagent"))
-		var/reagent = filter.get("purge_reagent")
+	if(afilter.get("purge_reagent"))
+		var/reagent = afilter.get("purge_reagent")
 		if(reagent)
 			reagents.del_reagent(reagent)
 		return
-	if(filter.get("purge_all"))
+	if(afilter.get("purge_all"))
 		reagents.clear_reagents()
 		return
 	return
@@ -451,7 +451,7 @@
 		output += "Total: [round(reagents.total_volume,0.001)]/[reagents.maximum_volume] - <a href=\"?src=[UID()];purge_all=1\">Purge All</a>"
 	return output || "None"
 
-/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/weapon/reagent_containers/syringe/S)
+/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/load_syringe(obj/item/reagent_containers/syringe/S)
 	if(syringes.len<max_syringes)
 		if(get_dist(src,S) >= 2)
 			occupant_message("The syringe is too far away.")
