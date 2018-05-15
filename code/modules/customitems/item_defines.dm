@@ -1351,17 +1351,17 @@
 	honk_sound = 'sound/items/teri_horn.ogg'
 
 /obj/item/clothing/suit/fluff/vetcoat //Furasian: Fillmoore Grayson
-    name = "Veteran Coat"
-    desc = "A old, yet well-kept Nanotrasen uniform. Very few of its kind are still produced."
-    icon = 'icons/obj/custom_items.dmi'
-    icon_state = "alchemistcoatblack"
-    item_state = "alchemistcoatblack"
-    body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	name = "Veteran Coat"
+	desc = "An old, yet well-kept Nanotrasen uniform. Very few of its kind are still produced."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "alchemistcoatblack"
+	item_state = "alchemistcoatblack"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 /obj/item/clothing/suit/fluff/vetcoat/red //Furasian: Fillmoore Grayson
-    icon_state = "alchemistcoatred"
-    item_state = "alchemistcoatred"
+	icon_state = "alchemistcoatred"
+	item_state = "alchemistcoatred"
 
 /obj/item/clothing/suit/fluff/vetcoat/navy //Furasian: Fillmoore Grayson
-    icon_state = "alchemistcoatnavy"
-    item_state = "alchemistcoatnavy"
+	icon_state = "alchemistcoatnavy"
+	item_state = "alchemistcoatnavy"
