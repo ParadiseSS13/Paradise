@@ -22,13 +22,3 @@
 
 /datum/team/proc/remove_member(datum/mind/member)
 	members -= member
-
-//Display members/victory/failure/objectives for the team
-/datum/team/proc/roundend_report()
-	var/list/report = list()
-
-	report += "<b>[name]:</b>"
-	report += "The [member_name]s were:"
-	report += printplayerlist(members)
-
-	return report.Join("<br>")

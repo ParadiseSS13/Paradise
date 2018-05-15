@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 /datum/antagonist/proc/replace_banned_player()
 	set waitfor = FALSE
 
-	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as a [name]?", "[name]", null, job_rank, 50, owner.current)
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a [name]?", "[name] the [job_rank]", 0, 100)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(owner, "Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!")
@@ -91,7 +91,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist/proc/on_removal()
 	remove_innate_effects()
-	clear_antag_moodies()
 	if(owner)
 		LAZYREMOVE(owner.antag_datums, src)
 		if(!silent && owner.current)
@@ -112,129 +111,3 @@ GLOBAL_LIST_EMPTY(antagonists)
 //Returns the team antagonist belongs to if any.
 /datum/antagonist/proc/get_team()
 	return
-
-//Individual roundend report
-/datum/antagonist/proc/roundend_report()
-	var/list/report = list()
-
-	if(!owner)
-		CRASH("antagonist datum without owner")
-
-	report += printplayer(owner)
-
-	var/objectives_complete = TRUE
-	if(owner.objectives.len)
-		report += printobjectives(owner)
-		for(var/datum/objective/objective in owner.objectives)
-			if(!objective.check_completion())
-				objectives_complete = FALSE
-				break
-
-	if(owner.objectives.len == 0 || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
-	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
-
-	return report.Join("<br>")
-
-//Displayed at the start of roundend_category section, default to roundend_category header
-/datum/antagonist/proc/roundend_report_header()
-	return 	"<span class='header'>The [roundend_category] were:</span><br>"
-
-//Displayed at the end of roundend_category section
-/datum/antagonist/proc/roundend_report_footer()
-	return
-
-
-//ADMIN TOOLS
-
-//Called when using admin tools to give antag status
-/datum/antagonist/proc/admin_add(datum/mind/new_owner,mob/admin)
-	message_admins("[key_name_admin(admin)] made [new_owner.current] into [name].")
-	log_admin("[key_name(admin)] made [new_owner.current] into [name].")
-	new_owner.add_antag_datum(src)
-
-//Called when removing antagonist using admin tools
-/datum/antagonist/proc/admin_remove(mob/user)
-	if(!user)
-		return
-	message_admins("[key_name_admin(user)] has removed [name] antagonist status from [owner.current].")
-	log_admin("[key_name(user)] has removed [name] antagonist status from [owner.current].")
-	on_removal()
-
-//gamemode/proc/is_mode_antag(antagonist/A) => TRUE/FALSE
-
-//Additional data to display in antagonist panel section
-//nuke disk code, genome count, etc
-/datum/antagonist/proc/antag_panel_data()
-	return ""
-
-/datum/antagonist/proc/enabled_in_preferences(datum/mind/M)
-	if(job_rank)
-		if(M.current && M.current.client && (job_rank in M.current.client.prefs.be_special))
-			return TRUE
-		else
-			return FALSE
-	return TRUE
-
-// List if["Command"] = CALLBACK(), user will be appeneded to callback arguments on execution
-/datum/antagonist/proc/get_admin_commands()
-	. = list()
-
-/datum/antagonist/Topic(href,href_list)
-	if(!check_rights(R_ADMIN))
-		return
-	//Antag memory edit
-	if(href_list["memory_edit"])
-		edit_memory(usr)
-		owner.traitor_panel()
-		return
-
-	//Some commands might delete/modify this datum clearing or changing owner
-	var/datum/mind/persistent_owner = owner
-
-	var/commands = get_admin_commands()
-	for(var/admin_command in commands)
-		if(href_list["command"] == admin_command)
-			var/datum/callback/C = commands[admin_command]
-			C.Invoke(usr)
-			persistent_owner.traitor_panel()
-			return
-
-/datum/antagonist/proc/edit_memory(mob/user)
-	var/new_memo = copytext(trim(input(user,"Write new memory", "Memory", antag_memory) as null|message),1,MAX_MESSAGE_LEN)
-	if(isnull(new_memo))
-		return
-	antag_memory = new_memo
-
-//This datum will autofill the name with special_role
-//Used as placeholder for minor antagonists, please create proper datums for these
-/datum/antagonist/auto_custom
-	show_in_antagpanel = FALSE
-	antagpanel_category = "Other"
-	show_name_in_check_antagonists = TRUE
-
-/datum/antagonist/auto_custom/on_gain()
-	..()
-	name = owner.special_role
-	//Add all objectives not already owned by other datums to this one.
-	var/list/already_registered_objectives = list()
-	for(var/datum/antagonist/A in owner.antag_datums)
-		if(A == src)
-			continue
-		else
-			already_registered_objectives |= A.objectives
-	objectives = owner.objectives - already_registered_objectives
-
-//This one is created by admin tools for custom objectives
-/datum/antagonist/custom
-	antagpanel_category = "Custom"
-	show_name_in_check_antagonists = TRUE //They're all different
-
-/datum/antagonist/custom/admin_add(datum/mind/new_owner,mob/admin)
-	var/custom_name = stripped_input(admin, "Custom antagonist name:", "Custom antag", "Antagonist")
-	if(custom_name)
-		name = custom_name
-	else
-		return
-	..()
