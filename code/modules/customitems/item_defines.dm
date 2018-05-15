@@ -1330,7 +1330,7 @@
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 
-	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kite blueprints.</span>")
+	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kit blueprints.</span>")
 	var/obj/spacepod/pod = target
 	pod.icon = 'icons/48x48/custom_pod.dmi'
 	pod.icon_state = "pod_dece"
@@ -1349,3 +1349,19 @@
 	icon_state = "teri_horn"
 	item_state = "teri_horn"
 	honk_sound = 'sound/items/teri_horn.ogg'
+
+/obj/item/clothing/suit/fluff/vetcoat //Furasian: Fillmoore Grayson
+    name = "Veteran Coat"
+    desc = "A old, yet well-kept Nanotrasen uniform. Very few of its kind are still produced."
+    icon = 'icons/obj/custom_items.dmi'
+    icon_state = "alchemistcoatblack"
+    item_state = "alchemistcoatblack"
+    body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+
+/obj/item/clothing/suit/fluff/vetcoat/red //Furasian: Fillmoore Grayson
+    icon_state = "alchemistcoatred"
+    item_state = "alchemistcoatred"
+
+/obj/item/clothing/suit/fluff/vetcoat/navy //Furasian: Fillmoore Grayson
+    icon_state = "alchemistcoatnavy"
+    item_state = "alchemistcoatnavy"
