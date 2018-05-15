@@ -78,7 +78,7 @@ Contents:
 
 /proc/create_ninja_mind(key)
 	var/datum/mind/Mind = new /datum/mind(key)
-	Mind.assigned_role = "MODE"
+	Mind.assigned_role = SPECIAL_ROLE_SPACE_NINJA
 	Mind.special_role = SPECIAL_ROLE_SPACE_NINJA
 	ticker.mode.ninjas |= Mind			//Adds them to current ninja list. Which is really the extra antagonist list.
 	return Mind
