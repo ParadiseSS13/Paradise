@@ -232,7 +232,10 @@
 	var/temporaryname = " the Horse"
 	var/originalname = ""
 
-
+/obj/item/clothing/mask/horsehead/speechModification(message)
+	if(voicechange)
+		message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
+	return message
 
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
 	if(flags & NODROP)	//cursed masks only

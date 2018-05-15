@@ -359,7 +359,11 @@
 
 /datum/action/item_action/change_voice
 	name = "Change Voice"
-	desc = "Change the voice of the Voice Changer"
+	desc = "Change the voice of the Voice Changer."
+
+/datum/action/item_action/toggle_voice_scramble
+	name = "Scramble Voice"
+	desc = "Conceal the words you're speaking."
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"

@@ -118,12 +118,12 @@
 		message = ""
 		speech_problem_flag = 1
 
-	if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
-		var/obj/item/clothing/mask/horsehead/hoers = wear_mask
-		if(hoers.voicechange)
-			message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
-			verb = pick("whinnies","neighs", "says")
-			speech_problem_flag = 1
+	if(wear_mask)
+		message = wear_mask.speechModification(message)
+		speech_problem_flag = 1
+	if(head)
+		message = head.speechModification(message)
+		speech_problem_flag = 1
 
 	if(dna)
 		for(var/datum/dna/gene/gene in dna_genes)
