@@ -228,6 +228,8 @@
 #include "code\datums\vision_override.dm"
 #include "code\datums\vr.dm"
 #include "code\datums\antagonists\antag_datum.dm"
+#include "code\datums\antagonists\antag_helpers.dm"
+#include "code\datums\antagonists\antag_team.dm"
 #include "code\datums\cache\air_alarm.dm"
 #include "code\datums\cache\apc.dm"
 #include "code\datums\cache\cache.dm"
