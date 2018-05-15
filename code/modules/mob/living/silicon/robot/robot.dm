@@ -1382,7 +1382,7 @@ var/list/robot_verbs_default = list(
 	mind = new
 	mind.current = src
 	mind.original = src
-	mind.assigned_role = "MODE"
+	mind.assigned_role = SPECIAL_ROLE_ERT
 	mind.special_role = SPECIAL_ROLE_ERT
 	if(cyborg_unlock)
 		crisis = 1
