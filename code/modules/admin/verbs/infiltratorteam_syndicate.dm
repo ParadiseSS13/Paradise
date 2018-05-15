@@ -149,7 +149,7 @@ var/global/sent_syndicate_infiltration_team = 0
 
 	//Creates mind stuff.
 	new_syndicate_infiltrator.mind_initialize()
-	new_syndicate_infiltrator.mind.assigned_role = "MODE"
+	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
 	ticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
