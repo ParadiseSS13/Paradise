@@ -38,8 +38,8 @@
 
 	var/memory
 
-	var/assigned_role
-	var/special_role
+	var/assigned_role //assigned role is what job you're assigned to when you join the station.
+	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
