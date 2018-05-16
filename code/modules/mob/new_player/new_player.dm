@@ -197,17 +197,27 @@
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = job_master.GetJob(rank)
-	if(!job)	return 0
-	if(!job.is_position_available()) return 0
-	if(jobban_isbanned(src,rank))	return 0
-	if(!is_job_whitelisted(src, rank))	 return 0
-	if(!job.player_old_enough(client))	return 0
-	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
+	if(!job)
+		return 0
+	if(!job.is_position_available())
+		return 0
+	if(jobban_isbanned(src,rank))
+		return 0
+	if(!is_job_whitelisted(src, rank))
+		return 0
+	if(!job.player_old_enough(client))
+		return 0
+	if(job.admin_only && !(check_rights(R_EVENT, 0)))
+		return 0
 	if(job.available_in_playtime(client))
 		return 0
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
+			if(config.use_exp_restrictions && client)
+				var/living_exp = client.get_exp_living_num()
+				if(living_exp < 600) // <10 hours
+					return 1
 			var/count = 0
 			var/datum/job/officer = job_master.GetJob("Security Officer")
 			var/datum/job/warden = job_master.GetJob("Warden")
