@@ -84,11 +84,9 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			if(isfile(file))
 				log_startup_progress("Loading away mission: [map]")
 				var/zlev = space_manager.add_new_zlevel()
-				Master.StartLoadingMap()
 				space_manager.add_dirt(zlev)
 				maploader.load_map(file, z_offset = zlev)
 				late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-				Master.StopLoadingMap()
 				space_manager.remove_dirt(zlev)
 				log_world("  Away mission loaded: [map]")
 
