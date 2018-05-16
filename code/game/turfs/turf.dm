@@ -155,7 +155,7 @@
 /turf/proc/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE)
 	if(!path)
 		return
-	if(!use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
+	if(!GLOB.use_preloader && path == type) // Don't no-op if the map loader requires it to be reconstructed
 		return src
 	set_light(0)
 	var/old_opacity = opacity

@@ -48,7 +48,7 @@
 	// This system will metaphorically snap in half (not postpone init everywhere)
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
-	space_manager.add_dirt(placement.z)
+	Master.StartLoadingMap()
 	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
 	if(!bounds)
 		return 0
@@ -61,7 +61,7 @@
 	late_setup_level(
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
-	space_manager.remove_dirt(placement.z)
+	Master.StopLoadingMap()
 
 	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1

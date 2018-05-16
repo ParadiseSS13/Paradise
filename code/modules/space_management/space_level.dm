@@ -186,11 +186,11 @@
 /datum/space_level/proc/do_late_maps(list/late_maps)
 	var/watch = start_watch()
 	log_debug("Loading map templates on z-level '[zpos]'!")
-	space_manager.add_dirt(zpos) // Let's not repeatedly resume init for each template
+	Master.StartLoadingMap()// Let's not repeatedly resume init for each template
 	for(var/schmoo in late_maps)
 		var/obj/effect/landmark/map_loader/ML = schmoo
 		if(ML)
 			ML.Initialize()
 	late_maps.Cut()
-	space_manager.remove_dirt(zpos)
+	Master.StopLoadingMap()
 	log_debug("Took [stop_watch(watch)]s")

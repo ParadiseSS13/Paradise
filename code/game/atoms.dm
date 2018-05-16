@@ -45,8 +45,8 @@
 	var/initialized = FALSE
 
 /atom/New(loc, ...)
-	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
-		_preloader.load(src)
+	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+		GLOB._preloader.load(src)
 	. = ..()
 	attempt_init(...)
 
