@@ -36,7 +36,7 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 /dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num)
 	var/tfile = dmm_file//the map file we're creating
 	var/fname = "Lambda"
-
+	Master.StartLoadingMap()
 	if(isfile(tfile))
 		fname = "[tfile]"
 		tfile = file2text(tfile)
@@ -162,6 +162,7 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
+	Master.StopLoadingMap()
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
 		log_runtime(EXCEPTION("Bad Map bounds in [fname]"), src, list(
 		"Min x: [bounds[MAP_MINX]]",
@@ -170,6 +171,7 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 		"Max x: [bounds[MAP_MAXX]]",
 		"Max y: [bounds[MAP_MAXY]]",
 		"Max z: [bounds[MAP_MAXZ]]"))
+
 		return null
 	else
 		if(!measureOnly)
