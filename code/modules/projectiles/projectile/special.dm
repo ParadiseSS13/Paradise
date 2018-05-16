@@ -52,7 +52,7 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 /obj/item/projectile/temp/New(loc, shot_temp)
-	..(loc)
+	..()
 	if(!isnull(shot_temp))
 		temperature = shot_temp
 	switch(temperature)
@@ -86,7 +86,6 @@
 		else
 			name = "temperature beam"//failsafe
 			icon_state = "temp_4"
-	..()
 
 
 /obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob

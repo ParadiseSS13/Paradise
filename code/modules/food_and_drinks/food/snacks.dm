@@ -1255,7 +1255,7 @@
 		else
 			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
 		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
-		if(fingerprintshidden.len)
+		if(LAZYLEN(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden.Copy()
 		creature.set_species(monkey_type)
 		qdel(src)

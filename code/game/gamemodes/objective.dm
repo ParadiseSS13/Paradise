@@ -515,7 +515,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/list/priority_targets = list()
 
 	for(var/datum/mind/possible_target in ticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != "MODE"))
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != possible_target.special_role))
 			possible_targets += possible_target
 			for(var/role in roles)
 				if(possible_target.assigned_role == role)

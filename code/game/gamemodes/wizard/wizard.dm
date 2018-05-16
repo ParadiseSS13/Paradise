@@ -27,7 +27,7 @@
 
 	wizards += wizard
 	modePlayer += wizard
-	wizard.assigned_role = "MODE" //So they aren't chosen for other jobs.
+	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.original = wizard.current
 	if(wizardstart.len == 0)

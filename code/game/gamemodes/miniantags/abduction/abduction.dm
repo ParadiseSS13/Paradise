@@ -74,11 +74,11 @@
 		agent = preset_agent
 
 
-	scientist.assigned_role = "MODE"
+	scientist.assigned_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	scientist.special_role = SPECIAL_ROLE_ABDUCTOR_SCIENTIST
 	log_game("[key_name(scientist)] has been selected as an abductor team [team_number] scientist.")
 
-	agent.assigned_role = "MODE"
+	agent.assigned_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	agent.special_role = SPECIAL_ROLE_ABDUCTOR_AGENT
 	log_game("[key_name(agent)] has been selected as an abductor team [team_number] agent.")
 
