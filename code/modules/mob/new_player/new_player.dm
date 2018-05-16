@@ -214,7 +214,7 @@
 
 	if(config.assistantlimit)
 		if(job.title == "Civilian")
-			if(config.use_exp_restrictions && client)
+			if(config.use_exp_tracking && config.use_exp_restrictions && client)
 				var/living_exp = client.get_exp_living_num()
 				if(living_exp < 600) // <10 hours
 					return 1
