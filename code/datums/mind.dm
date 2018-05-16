@@ -1230,15 +1230,32 @@
 
 
 // Datum antag mind procs
-/datum/mind/proc/add_antag_datum(datum_type, on_gain = TRUE)
-	if(!datum_type)
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+	if(!datum_type_or_instance)
 		return
-	if(!can_hold_antag_datum(datum_type))
+	var/datum/antagonist/A
+	if(!ispath(datum_type_or_instance))
+		A = datum_type_or_instance
+		if(!istype(A))
+			return
+	else
+		A = new datum_type_or_instance()
+	//Choose snowflake variation if antagonist handles it
+	var/datum/antagonist/S = A.specialization(src)
+	if(S && S != A)
+		qdel(A)
+		A = S
+	if(!A.can_be_owned(src))
+		qdel(A)
 		return
-	var/datum/antagonist/A = new datum_type(src)
-	antag_datums += A
-	if(on_gain)
-		A.on_gain()
+	A.owner = src
+	LAZYADD(antag_datums, A)
+	A.create_team(team)
+	var/datum/team/antag_team = A.get_team()
+	if(antag_team)
+		antag_team.add_member(src)
+	A.on_gain()
+	return A
 
 /datum/mind/proc/remove_antag_datum(datum_type)
 	if(!datum_type)
@@ -1247,6 +1264,7 @@
 	if(A)
 		A.on_removal()
 		return TRUE
+
 
 /datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
 	for(var/a in antag_datums)
@@ -1263,18 +1281,6 @@
 			return A
 		else if(A.type == datum_type)
 			return A
-
-/datum/mind/proc/can_hold_antag_datum(datum_type)
-	if(!datum_type)
-		return
-	. = TRUE
-	if(has_antag_datum(datum_type))
-		return FALSE
-	for(var/i in antag_datums)
-		var/datum/antagonist/A = i
-		if(is_type_in_typecache(A, A.typecache_datum_blacklist))
-			return FALSE
-
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
