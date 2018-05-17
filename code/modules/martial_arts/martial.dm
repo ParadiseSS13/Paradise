@@ -33,13 +33,18 @@
 
 /datum/martial_art/proc/basic_hit(var/mob/living/carbon/human/A,var/mob/living/carbon/human/D)
 
-	A.do_attack_animation(D)
 	var/damage = rand(A.species.punchdamagelow, A.species.punchdamagehigh)
 	var/datum/unarmed_attack/attack = A.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
 	if(D.lying)
 		atk_verb = "kick"
+
+	switch(atk_verb)
+		if("kick")
+			A.do_attack_animation(D, ATTACK_EFFECT_KICK)
+		else
+			A.do_attack_animation(D, attack.animation_type)
 
 	if(!damage)
 		playsound(D.loc, attack.miss_sound, 25, 1, -1)

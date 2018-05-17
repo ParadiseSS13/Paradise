@@ -641,6 +641,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			updateimage()
 		else
 			if(prob(15))
+				do_attack_animation(my_target, ATTACK_EFFECT_PUNCH)
 				if(weapon_name)
 					my_target.playsound_local(my_target, weap.hitsound, 1)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)

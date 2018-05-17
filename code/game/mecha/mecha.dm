@@ -469,15 +469,17 @@
 
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
 	log_message("Attack by hand/paw. Attacker - [user].",1)
 
 	if((HULK in user.mutations) && !prob(deflect_chance))
+		do_attack_animation(src, ATTACK_EFFECT_SMASH)
 		take_damage(15)
 		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 		user.visible_message("<span class='danger'>[user] hits [name], doing some damage.</span>",
 		"<span class='danger'>You hit [name] with all your might. The metal creaks and bends.</span>")
 	else
+		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+		playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
 		user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>","<span class='danger'>You hit [name] with no visible effect.</span>")
 		log_append_to_last("Armor saved.")
 	return
@@ -1478,3 +1480,15 @@
 	if(occupant_sight_flags)
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
+
+/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+	if(!no_effect)
+		if(selected)
+			used_item = selected
+		else if(!visual_effect_icon)
+			visual_effect_icon = ATTACK_EFFECT_SMASH
+			if(damtype == BURN)
+				visual_effect_icon = ATTACK_EFFECT_MECHFIRE
+			else if(damtype == TOX)
+				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
+	..()

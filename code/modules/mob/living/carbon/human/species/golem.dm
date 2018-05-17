@@ -13,7 +13,6 @@
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
 
-	unarmed_type = /datum/unarmed_attack/punch
 	punchdamagelow = 5
 	punchdamagehigh = 14
 	punchstunthreshold = 11 //about 40% chance to stun

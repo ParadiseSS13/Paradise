@@ -28,8 +28,7 @@
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
 
-	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
-	//inherent_verbs = list(/mob/living/proc/ventcrawl)
+	unarmed_type = /datum/unarmed_attack/bite
 
 	total_health = 75
 	brute_mod = 1.5
