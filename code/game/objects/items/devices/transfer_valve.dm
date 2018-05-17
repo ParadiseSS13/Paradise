@@ -63,7 +63,7 @@
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 
-		investigate_log("[key_name(user)] attached a [A] to a transfer valve.","bombs")
+		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", "bombs")
 		msg_admin_attack("[key_name_admin(user)]attached [A] to a transfer valve.")
 		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
 		attacher = user
@@ -204,7 +204,7 @@
 
 		var/mob/mob = get_mob_by_key(src.fingerprintslast)
 
-		investigate_log("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]","bombs")
+		investigate_log("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]", "bombs")
 		message_admins("Bomb valve opened at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name_admin(mob)]")
 		log_game("Bomb valve opened at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]) with [attached_device ? attached_device : "no device"], attached by [attacher_name]. Last touched by: [key_name(mob)]")
 		merge_gases()
