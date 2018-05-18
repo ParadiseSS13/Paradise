@@ -13,14 +13,6 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/replace_banned = TRUE //Should replace jobbaned player with ghosts if granted.
 	var/list/objectives = list()
 	var/antag_memory = ""//These will be removed with antag datum
-	var/antag_moodlet //typepath of moodlet that the mob will gain with their status
-
-	//Antag panel properties
-	var/show_in_antagpanel = TRUE	//This will hide adding this antag type in antag panel, use only for internal subtypes that shouldn't be added directly but still show if possessed by mind
-	var/antagpanel_category = "Uncategorized"	//Antagpanel will display these together, REQUIRED
-	var/show_name_in_check_antagonists = FALSE //Will append antagonist name in admin listings - use for categories that share more than one antag type
-
-
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -110,4 +102,36 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 //Returns the team antagonist belongs to if any.
 /datum/antagonist/proc/get_team()
+	return
+
+//Individual roundend report
+/datum/antagonist/proc/roundend_report()
+	var/list/report = list()
+
+	if(!owner)
+		CRASH("antagonist datum without owner")
+
+	report += printplayer(owner)
+
+	var/objectives_complete = TRUE
+	if(owner.objectives.len)
+		report += printobjectives(owner)
+		for(var/datum/objective/objective in owner.objectives)
+			if(!objective.check_completion())
+				objectives_complete = FALSE
+				break
+
+	if(owner.objectives.len == 0 || objectives_complete)
+		report += "<span class='greentext big'>The [name] was successful!</span>"
+	else
+		report += "<span class='redtext big'>The [name] has failed!</span>"
+
+	return report.Join("<br>")
+
+//Displayed at the start of roundend_category section, default to roundend_category header
+/datum/antagonist/proc/roundend_report_header()
+	return 	"<span class='header'>The [roundend_category] were:</span><br>"
+
+//Displayed at the end of roundend_category section
+/datum/antagonist/proc/roundend_report_footer()
 	return
