@@ -3011,3 +3011,9 @@
 	name = "Split Fan"
 	icon_state = "splitfan"
 	species_allowed = list("Murghal")
+
+/datum/sprite_accessory/hair/64test
+	icon = 'icons/mob/human_facetest.dmi'
+	name = "32x64test"
+	icon_state = "64test"
+	species_allowed = list("Slime People")
