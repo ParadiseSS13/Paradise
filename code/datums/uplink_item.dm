@@ -1338,7 +1338,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/badass/rapid
 	name = "Gloves of the North Star"
-	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed or the meaty fists of a hulk."
+	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
 	reference = "RPGD"
 	item = /obj/item/clothing/gloves/fingerless/rapid
 	cost = 8
