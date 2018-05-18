@@ -1,11 +1,12 @@
 /datum/atom_hud/antag
 	hud_icons = list(SPECIALROLE_HUD,NATIONS_HUD)
-	var/self_visible = 1
+	var/self_visible = TRUE
 
 /datum/atom_hud/antag/hidden
-	self_visible = 0
+	self_visible = FALSE
 
-/datum/atom_hud/antag/proc/join_hud(mob/M,var/slave)
+/datum/atom_hud/antag/proc/join_hud(mob/M, slave)
+	//sees_hud should be set to 0 if the mob does not get to see it's own hud type.
 	if(!istype(M))
 		CRASH("join_hud(): [M] ([M.type]) is not a mob!")
 	if(M.mind.antag_hud && !slave) //note: please let this runtime if a mob has no mind, as mindless mobs shouldn't be getting antagged
@@ -16,6 +17,8 @@
 	M.mind.antag_hud = src
 
 /datum/atom_hud/antag/proc/leave_hud(mob/M)
+	if(!M)
+		return
 	if(!istype(M))
 		CRASH("leave_hud(): [M] ([M.type]) is not a mob!")
 	remove_from_hud(M)
@@ -26,7 +29,7 @@
 
 //GAME_MODE PROCS
 //called to set a mob's antag icon state
-/datum/game_mode/proc/set_antag_hud(mob/M, new_icon_state)
+/proc/set_antag_hud(mob/M, new_icon_state)
 	if(!istype(M))
 		CRASH("set_antag_hud(): [M] ([M.type]) is not a mob!")
 	var/image/holder = M.hud_list[SPECIALROLE_HUD]
@@ -36,7 +39,7 @@
 		M.mind.antag_hud_icon_state = new_icon_state
 
 //Nations Icons
-/datum/game_mode/proc/set_nations_hud(mob/M, new_icon_state)
+/proc/set_nations_hud(mob/M, new_icon_state)
 	if(!istype(M))
 		CRASH("set_antag_hud(): [M] ([M.type]) is not a mob!")
 	var/image/holder = M.hud_list[NATIONS_HUD]
@@ -47,9 +50,9 @@
 
 //MIND PROCS
 //these are called by mind.transfer_to()
-/datum/mind/proc/transfer_antag_huds(var/datum/atom_hud/antag/newhud)
+/datum/mind/proc/transfer_antag_huds(datum/atom_hud/antag/newhud)
 	leave_all_huds()
-	ticker.mode.set_antag_hud(current, antag_hud_icon_state)
+	set_antag_hud(current, antag_hud_icon_state)
 	if(newhud)
 		newhud.join_hud(current)
 
@@ -77,11 +80,11 @@
 	name = mastername
 	thrallhud = new()
 
-/datum/mindslaves/proc/add_serv_hud(datum/mind/serv_mind,var/icon)
-	thrallhud.join_hud(serv_mind.current,1)
+/datum/mindslaves/proc/add_serv_hud(datum/mind/serv_mind, icon)
+	thrallhud.join_hud(serv_mind.current, 1)
 	icontype = "hud[icon]"
-	ticker.mode.set_antag_hud(serv_mind.current,icontype)
+	set_antag_hud(serv_mind.current, icontype)
 
 /datum/mindslaves/proc/leave_serv_hud(datum/mind/free_mind)
 	thrallhud.leave_hud(free_mind.current)
-	ticker.mode.set_antag_hud(free_mind.current,null)
+	set_antag_hud(free_mind.current, null)

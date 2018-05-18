@@ -54,6 +54,7 @@
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
 	var/miming = 0 // Mime's vow of silence
+	var/list/antag_datums
 	var/speech_span // What span any body this mind has talks in.
 	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
@@ -72,17 +73,29 @@
 	var/brigged_since = -1
 	var/suicided = FALSE
 
-	New(var/key)
-		src.key = key
-
 	//put this here for easier tracking ingame
 	var/datum/money_account/initial_account
 
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
 
+/datum/mind/New(var/key)
+	src.key = key
+
+
+/datum/mind/Destroy()
+	ticker.minds -= src
+	if(islist(antag_datums))
+		for(var/i in antag_datums)
+			var/datum/antagonist/antag_datum = i
+			if(antag_datum.delete_on_mind_deletion)
+				qdel(i)
+		antag_datums = null
+	return ..()
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
+	var/mob/living/old_current = current
 	if(!istype(new_character))
 		log_runtime(EXCEPTION("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob."), src)
 	if(current)					//remove ourself from our old body's mind variable
@@ -95,6 +108,9 @@
 		new_character.mind.current = null
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
+	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+		var/datum/antagonist/A = a
+		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 
@@ -1211,6 +1227,60 @@
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
 	edit_memory()
+
+
+// Datum antag mind procs
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+	if(!datum_type_or_instance)
+		return
+	var/datum/antagonist/A
+	if(!ispath(datum_type_or_instance))
+		A = datum_type_or_instance
+		if(!istype(A))
+			return
+	else
+		A = new datum_type_or_instance()
+	//Choose snowflake variation if antagonist handles it
+	var/datum/antagonist/S = A.specialization(src)
+	if(S && S != A)
+		qdel(A)
+		A = S
+	if(!A.can_be_owned(src))
+		qdel(A)
+		return
+	A.owner = src
+	LAZYADD(antag_datums, A)
+	A.create_team(team)
+	var/datum/team/antag_team = A.get_team()
+	if(antag_team)
+		antag_team.add_member(src)
+	A.on_gain()
+	return A
+
+/datum/mind/proc/remove_antag_datum(datum_type)
+	if(!datum_type)
+		return
+	var/datum/antagonist/A = has_antag_datum(datum_type)
+	if(A)
+		A.on_removal()
+		return TRUE
+
+
+/datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
+	for(var/a in antag_datums)
+		var/datum/antagonist/A = a
+		A.on_removal()
+
+/datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
+	if(!datum_type)
+		return
+	. = FALSE
+	for(var/a in antag_datums)
+		var/datum/antagonist/A = a
+		if(check_subtypes && istype(A, datum_type))
+			return A
+		else if(A.type == datum_type)
+			return A
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()

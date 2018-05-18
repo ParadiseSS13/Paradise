@@ -12,7 +12,6 @@
 	var/obj/item/storage/toolbox/mechanical/mybluetoolbox = null
 	var/obj/item/storage/toolbox/electrical/myyellowtoolbox = null
 	var/obj/item/storage/toolbox/emergency/myredtoolbox = null
-	var/obj/item/taperoll/engineering/myengitape = null
 
 /obj/structure/engineeringcart/Destroy()
 	QDEL_NULL(myglass)
@@ -22,7 +21,6 @@
 	QDEL_NULL(mybluetoolbox)
 	QDEL_NULL(myyellowtoolbox)
 	QDEL_NULL(myredtoolbox)
-	QDEL_NULL(myengitape)
 	return ..()
 
 /obj/structure/engineeringcart/proc/put_in_cart(obj/item/I, mob/user)
@@ -83,13 +81,6 @@
 				update_icon()
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/taperoll/engineering/))
-			if(!myengitape)
-				put_in_cart(I, user)
-				myengitape=I
-				update_icon()
-			else
-				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/wrench))
 			if(!anchored && !isinspace())
 				playsound(src.loc, I.usesound, 50, 1)
@@ -125,8 +116,6 @@
 		dat += "<a href='?src=[UID()];redtoolbox=1'>[myredtoolbox.name]</a><br>"
 	if(myyellowtoolbox)
 		dat += "<a href='?src=[UID()];yellowtoolbox=1'>[myyellowtoolbox.name]</a><br>"
-	if(myengitape)
-		dat += "<a href='?src=[UID()];engitape=1'>[myengitape.name]</a><br>"
 	var/datum/browser/popup = new(user, "engicart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()
@@ -171,16 +160,12 @@
 			user.put_in_hands(myyellowtoolbox)
 			to_chat(user, "<span class='notice'>You take [myyellowtoolbox] from [src].</span>")
 			myyellowtoolbox = null
-	if(href_list["engitape"])
-		if(myengitape)
-			user.put_in_hands(myengitape)
-			to_chat(user, "<span class='notice'>You take [myengitape] from [src].</span>")
-			myengitape = null
 
 	update_icon()
 	updateUsrDialog()
+
 /obj/structure/engineeringcart/update_icon()
-	overlays = null
+	overlays.Cut()
 	if(myglass)
 		overlays += "cart_glass"
 	if(mymetal)
@@ -195,5 +180,3 @@
 		overlays += "cart_redtoolbox"
 	if(myyellowtoolbox)
 		overlays += "cart_yellowtoolbox"
-	if(myengitape)
-		overlays += "cart_engitape"

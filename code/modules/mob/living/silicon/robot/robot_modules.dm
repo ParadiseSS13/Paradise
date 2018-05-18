@@ -198,7 +198,7 @@
 	modules += new /obj/item/multitool/cyborg(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
-	modules += new /obj/item/taperoll/engineering(src)
+	modules += new /obj/item/holosign_creator/engineering(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/floor_painter(src)
@@ -222,7 +222,7 @@
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
 	modules += new /obj/item/melee/baton/loaded(src)
 	modules += new /obj/item/gun/energy/disabler/cyborg(src)
-	modules += new /obj/item/taperoll/police(src)
+	modules += new /obj/item/holosign_creator/security(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
