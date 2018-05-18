@@ -1,0 +1,4 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - rscadd: "You can now lock a facing direction with shift+middle mouse button, or lock your direction towards an object by clicking on it with shift + ctrl + middle mouse button."
