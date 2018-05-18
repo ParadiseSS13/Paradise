@@ -13,7 +13,7 @@ env:
   matrix:
     - DM_MAPFILE="cyberiad"
     - DM_MAPFILE="metastation"
-    - DM_MAPFILE="test_away_missions"
+    - DM_MAPFILE="test_all_maps"
 
 cache:
   directories:
@@ -34,6 +34,11 @@ script:
   - source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
   - bash dm.sh -M${DM_MAPFILE} paradise.dme
 
+
+# File checks - Rules:
+# - No step_x/step_y in .dmm files
+# - html/changelog/example.yml untouched
+# - Generate changelogs
 matrix:
   include:
     - env: FILE_CHECKS=1
