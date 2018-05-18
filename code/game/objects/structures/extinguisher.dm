@@ -7,6 +7,13 @@
 	density = 0
 	var/obj/item/extinguisher/has_extinguisher = new/obj/item/extinguisher
 	var/opened = 0
+	var/material_drop = /obj/item/stack/sheet/metal
+
+/obj/structure/extinguisher_cabinet/New(turf/loc, ndir = null)
+	..()
+	if(ndir)
+		pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
+		pixel_y = (ndir & NORTH|SOUTH)? (ndir == WEST ? 28 : -28) : 0
 
 /obj/structure/extinguisher_cabinet/Destroy()
 	QDEL_NULL(has_extinguisher)
@@ -23,13 +30,35 @@
 			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
 		else
 			opened = !opened
+	else if(istype(O, /obj/item/weldingtool))
+		if(has_extinguisher)
+			to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing the cabinet!</span>")
+			return
+		if(!opened)
+			to_chat(user, "<span class='warning'>Open the cabinet before cutting it apart!</span>")
+			return
+		var/obj/item/weldingtool/WT = O
+		if(!WT.remove_fuel(0, user))
+			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
+			return
+		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
+		playsound(loc, WT.usesound, 40, 1)
+		if(do_after(user, 40 * WT.toolspeed, 1, target = src))
+			if(!src ||!opened || !WT.isOn()) // !src to prevent it being duped
+				return
+			visible_message("<span class='notice'>[user] slices apart [src].</span>",
+							"<span class='notice'>You cut [src] apart with [WT].</span>",
+							"<span class='italics'>You hear welding.</span>")
+			var/turf/T = get_turf(src)
+			new material_drop(T)
+			qdel(src)
 	else
 		opened = !opened
 	update_icon()
 
-
 /obj/structure/extinguisher_cabinet/attack_hand(mob/user)
 	if(isrobot(user) || isalien(user))
+		to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
