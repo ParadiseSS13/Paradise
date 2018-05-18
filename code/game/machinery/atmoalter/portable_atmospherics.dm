@@ -21,7 +21,7 @@
 
 	return 1
 
-/obj/machinery/portable_atmospherics/initialize()
+/obj/machinery/portable_atmospherics/Initialize()
 	. = ..()
 	spawn()
 		var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc

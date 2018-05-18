@@ -244,7 +244,7 @@
 			to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
 
-/mob/living/simple_animal/borer/Life()
+/mob/living/simple_animal/borer/Life(seconds, times_fired)
 
 	..()
 

@@ -102,6 +102,8 @@
 			on_CD = handle_emote_CD()
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
+		if("clap", "claps")
+			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
@@ -302,11 +304,30 @@
 					message = "<B>[src]</B> makes a peculiar noise."
 					m_type = 2
 		if("clap", "claps")
-			if(!restrained())
-				message = "<B>[src]</B> claps."
+			if(miming)
+				message = "<B>[src]</B> claps silently."
+				m_type = 1
+			else
 				m_type = 2
-				if(miming)
-					m_type = 1
+				var/obj/item/organ/external/L = get_organ("l_hand")
+				var/obj/item/organ/external/R = get_organ("r_hand")
+
+				var/left_hand_good = FALSE
+				var/right_hand_good = FALSE
+
+				if(L && (!(L.status & ORGAN_SPLINTED)) && (!(L.status & ORGAN_BROKEN)))
+					left_hand_good = TRUE
+				if(R && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
+					right_hand_good = TRUE
+
+				if(left_hand_good && right_hand_good)
+					message = "<b>[src]</b> claps."
+					var/clap = pick('sound/misc/clap1.ogg', 'sound/misc/clap2.ogg', 'sound/misc/clap3.ogg', 'sound/misc/clap4.ogg')
+					playsound(loc, clap, 50, 1, -1)
+
+				else
+					to_chat(usr, "You need your hands working in order to clap.")
+
 		if("flap", "flaps")
 			if(!restrained())
 				message = "<B>[src]</B> flaps \his wings."

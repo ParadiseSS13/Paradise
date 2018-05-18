@@ -42,9 +42,15 @@
 		power_equip = 0			//rastaf0
 		power_environ = 0		//rastaf0
 
-	power_change()		// all machines set to current power level, also updates lighting icon
-
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
+
+/area/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/area/LateInitialize()
+	. = ..()
+	power_change()		// all machines set to current power level, also updates lighting icon
 
 /area/proc/get_cameras()
 	var/list/cameras = list()

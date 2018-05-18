@@ -82,7 +82,7 @@
 			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
 
 
-/mob/living/simple_animal/slaughter/Life()
+/mob/living/simple_animal/slaughter/Life(seconds, times_fired)
 	..()
 	if(boost<world.time)
 		speed = 1

@@ -82,7 +82,7 @@
 			debug_variables(SSfires)
 			feedback_add_details("admin_verb","DFires")
 		if("Mob")
-			debug_variables(mob_master)
+			debug_variables(SSmobs)
 			feedback_add_details("admin_verb","DMob")
 		if("NPC AI")
 			debug_variables(npcai_master)

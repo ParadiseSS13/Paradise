@@ -53,7 +53,7 @@
 	var/turf/T = get_turf(target)
 	var/turf/L = get_turf(src)
 
-	if(T.z != L.z)
+	if(!(T && L) || (T.z != L.z))
 		icon_state = icon_null
 	else
 		dir = get_dir(L, T)
@@ -354,7 +354,8 @@
 		var/name = "Unknown"
 		if(H.wear_id)
 			var/obj/item/card/id/I = H.wear_id.GetID()
-			name = I.registered_name
+			if(I)
+				name = I.registered_name
 
 		while(name in name_counts)
 			name_counts[name]++

@@ -190,7 +190,7 @@
 			SW.death()
 
 
-/mob/living/simple_animal/hostile/spaceWorm/Life()
+/mob/living/simple_animal/hostile/spaceWorm/Life(seconds, times_fired)
 	if(nextWorm && !(Adjacent(nextWorm)))
 		Detach(0)
 

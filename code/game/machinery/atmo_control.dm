@@ -127,7 +127,7 @@ obj/machinery/air_sensor
 			frequency = new_frequency
 			radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
-	initialize()
+	Initialize()
 		..()
 		SSair.atmos_machinery += src
 		set_frequency(frequency)
@@ -275,7 +275,7 @@ legend {
 			frequency = new_frequency
 			radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
-	initialize()
+	Initialize()
 		..()
 		set_frequency(frequency)
 
