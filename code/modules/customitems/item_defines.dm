@@ -1593,3 +1593,14 @@
 		return
 	else
 		return ..()
+
+/obj/item/clothing/head/helmet/paramedic
+	name = "Paramedic Helmet"
+	desc = "Worn by paramedics"
+	icon_state = "paramedic"
+	toggle_message = "You turn off the lights on"
+	alt_toggle_message = "You turn on the lights on"
+	actions_types = list(/datum/action/item_action/toggle_helmet_light)
+	can_toggle = 1
+	toggle_cooldown = 20
+	active_sound = 'sound/items/WEEOO1.ogg'
