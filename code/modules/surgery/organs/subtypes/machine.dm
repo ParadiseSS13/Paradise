@@ -147,7 +147,7 @@
 	slot = "brain"
 	status = ORGAN_ROBOT
 	species = "Machine"
-	var/obj/item/device/mmi/stored_mmi
+	var/obj/item/mmi/stored_mmi
 
 /obj/item/organ/internal/brain/mmi_holder/Destroy()
 	QDEL_NULL(stored_mmi)
@@ -180,7 +180,7 @@
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
 	robotize()
-	stored_mmi = new /obj/item/device/mmi/posibrain/ipc(src)
+	stored_mmi = new /obj/item/mmi/posibrain/ipc(src)
 	..()
 	spawn(1)
 		if(owner)

@@ -42,7 +42,7 @@
 "P" = (/obj/machinery/light,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Shuttle"})
 "Q" = (/obj/structure/table,/obj/item/storage/belt/utility/full/multitool,/turf/simulated/floor/plasteel{tag = "icon-dark"; icon_state = "dark"},/area/ruin/powered{name = "Shuttle"})
 "R" = (/obj/machinery/vending/coffee,/turf/simulated/floor/plasteel{tag = "icon-dark"; icon_state = "dark"},/area/ruin/powered{name = "Shuttle"})
-"S" = (/obj/item/device/radio/beacon,/turf/simulated/floor/plasteel{tag = "icon-dark"; icon_state = "dark"},/area/ruin/powered{name = "Shuttle"})
+"S" = (/obj/item/radio/beacon,/turf/simulated/floor/plasteel{tag = "icon-dark"; icon_state = "dark"},/area/ruin/powered{name = "Shuttle"})
 "T" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-diagonalWall (SOUTHEAST)"; icon_state = "diagonalWall"; dir = 6},/area/space)
 "U" = (/obj/structure/table/reinforced,/obj/machinery/recharger,/obj/item/gun/energy/laser/retro,/turf/simulated/floor/plasteel{tag = "icon-whiteyellowfull"; icon_state = "whiteyellowfull"},/area/ruin/powered{name = "Shuttle"})
 

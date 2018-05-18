@@ -17,7 +17,7 @@
 	id = "bag_holding"
 	req_tech = list("bluespace" = 7, "materials" = 5, "engineering" = 5, "plasmatech" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250)
+	materials = list(MAT_GOLD = 3000, MAT_DIAMOND = 1500, MAT_URANIUM = 250, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/storage/backpack/holding
 	category = list("Bluespace")
 
@@ -38,7 +38,7 @@
 	req_tech = list("materials" = 2, "bluespace" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 1000)
-	build_path = /obj/item/device/gps
+	build_path = /obj/item/gps
 	category = list("Bluespace")
 
 /datum/design/miningsatchel_holding
@@ -58,7 +58,7 @@
 	req_tech = list("programming" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 4)
 	build_type = PROTOLATHE
 	materials = list (MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
-	build_path = /obj/item/device/telepad_beacon
+	build_path = /obj/item/telepad_beacon
 	category = list("Bluespace")
 
 /datum/design/beacon
@@ -68,5 +68,5 @@
 	req_tech = list("bluespace" = 1)
 	build_type = PROTOLATHE
 	materials = list (MAT_METAL = 150, MAT_GLASS = 100)
-	build_path = /obj/item/device/radio/beacon
+	build_path = /obj/item/radio/beacon
 	category = list("Bluespace")

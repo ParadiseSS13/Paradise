@@ -137,10 +137,10 @@
 
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id
-	l_ear = /obj/item/device/radio/headset
+	l_ear = /obj/item/radio/headset
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/black
-	pda = /obj/item/device/pda
+	pda = /obj/item/pda
 
 	var/backpack = /obj/item/storage/backpack
 	var/satchel = /obj/item/storage/backpack/satchel_norm
@@ -254,7 +254,7 @@
 			C.associated_account_number = H.mind.initial_account.account_number
 
 /datum/outfit/job/proc/imprint_pda(mob/living/carbon/human/H)
-	var/obj/item/device/pda/PDA = H.wear_pda
+	var/obj/item/pda/PDA = H.wear_pda
 	var/obj/item/card/id/C = H.wear_id
 	if(istype(PDA) && istype(C))
 		PDA.owner = H.real_name

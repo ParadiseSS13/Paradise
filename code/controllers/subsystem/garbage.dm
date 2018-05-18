@@ -43,20 +43,20 @@ SUBSYSTEM_DEF(garbage)
 	var/list/counts = list()
 	for(var/list/L in queues)
 		counts += length(L)
-	msg += "Q:[counts.Join(",")]|D:[delslasttick]|G:[gcedlasttick]|"
+	msg += "Queue:[counts.Join(",")] | Del's:[delslasttick] | Soft:[gcedlasttick] |"
 	msg += "GR:"
 	if(!(delslasttick + gcedlasttick))
 		msg += "n/a|"
 	else
-		msg += "[round((gcedlasttick / (delslasttick + gcedlasttick)) * 100, 0.01)]%|"
+		msg += "[round((gcedlasttick / (delslasttick + gcedlasttick)) * 100, 0.01)]% |"
 
-	msg += "TD:[totaldels]|TG:[totalgcs]|"
+	msg += "Total Dels:[totaldels] | Soft:[totalgcs] |"
 	if(!(totaldels + totalgcs))
 		msg += "n/a|"
 	else
-		msg += "TGR:[round((totalgcs / (totaldels + totalgcs)) * 100, 0.01)]%"
-	msg += " P:[pass_counts.Join(",")]"
-	msg += "|F:[fail_counts.Join(",")]"
+		msg += "TGR:[round((totalgcs / (totaldels + totalgcs)) * 100, 0.01)]% |"
+	msg += " Pass:[pass_counts.Join(",")]"
+	msg += " | Fail:[fail_counts.Join(",")]"
 	..(msg)
 
 /* TO-DO
@@ -295,6 +295,7 @@ SUBSYSTEM_DEF(garbage)
 
 
 	if(isnull(D.gc_destroyed))
+		D.SendSignal(COMSIG_PARENT_QDELETED)
 		D.gc_destroyed = GC_CURRENTLY_BEING_QDELETED
 		var/start_time = world.time
 		var/start_tick = world.tick_usage

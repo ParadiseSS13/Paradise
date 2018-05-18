@@ -59,7 +59,7 @@
 			var/datum/objective/protect/mindslave/MS = new
 			MS.owner = H.mind
 			MS.target = user.mind
-			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role=="MODE" ? (user.mind.special_role) : (user.mind.assigned_role)]."
+			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role == user.mind.special_role ? (user.mind.special_role) : (user.mind.assigned_role)]."
 			H.mind.objectives += MS
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
@@ -74,7 +74,7 @@
 				slaved.add_serv_hud(user.mind, "master") //handles master servent icons
 				slaved.add_serv_hud(H.mind, "mindslave")
 
-			log_admin("[ckey(user.key)] has mind-slaved [ckey(H.key)].")
+			log_admin("[key_name(user)] has mind-slaved [key_name(H)].")
 			activated = 1
 			if(jobban_isbanned(M, ROLE_SYNDICATE))
 				ticker.mode.replace_jobbanned_player(M, ROLE_SYNDICATE)

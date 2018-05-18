@@ -14,10 +14,10 @@
 
 // No comment
 /atom/proc/attackby(obj/item/W, mob/user, params)
-	return
+	return SendSignal(COMSIG_PARENT_ATTACKBY, W, user, params)
 
 /obj/attackby(obj/item/I, mob/living/user, params)
-	return I.attack_obj(src, user)
+	return ..() || I.attack_obj(src, user)
 
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -66,7 +66,7 @@
 		user.do_attack_animation(M)
 	M.attacked_by(src, user, def_zone)
 
-	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", print_attack_log = (force > 0))//print it if stuff deals damage
+	add_attack_logs(user, M, "Attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", admin_notify = (force > 0 && damtype != STAMINA))
 	add_fingerprint(user)
 
 

@@ -338,7 +338,7 @@
 /datum/spellbook_entry/item/necrostone
 	name = "A Necromantic Stone"
 	desc = "A Necromantic stone is able to resurrect three dead individuals as skeletal thralls for you to command."
-	item_path = /obj/item/device/necromantic_stone
+	item_path = /obj/item/necromantic_stone
 	log_name = "NS"
 	category = "Assistance"
 
@@ -505,7 +505,7 @@
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
 
-/obj/item/spellbook/proc/Initialize()
+/obj/item/spellbook/proc/initialize()
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
@@ -518,7 +518,7 @@
 
 /obj/item/spellbook/New()
 	..()
-	Initialize()
+	initialize()
 
 /obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/contract))
@@ -685,7 +685,7 @@
 	..()
 	name += spellname
 
-/obj/item/spellbook/oneuse/Initialize() //No need to init
+/obj/item/spellbook/oneuse/initialize() //No need to init
 	return
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)
@@ -703,7 +703,7 @@
 	else
 		user.mind.AddSpell(S)
 		to_chat(user, "<span class='notice'>you rapidly read through the arcane book. Suddenly you realize you understand [spellname]!</span>")
-		user.create_attack_log("<font color='orange'>[user.real_name] ([user.ckey]) learned the spell [spellname] ([S]).</font>")
+		user.create_attack_log("<font color='orange'>[key_name(user)] learned the spell [spellname] ([S]).</font>")
 		onlearned(user)
 
 

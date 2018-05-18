@@ -49,7 +49,7 @@
 	if(default_deconstruction_crowbar(W))
 		return
 
-	else if(iswirecutter(W) || ismultitool(W) || istype(W, /obj/item/device/assembly/signaler))
+	else if(iswirecutter(W) || ismultitool(W) || istype(W, /obj/item/assembly/signaler))
 		if(panel_open)
 			wires.Interact(user)
 
@@ -66,7 +66,7 @@
 		flick("coilhit", src)
 		playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
 		tesla_zap(src, 5, power_produced)
-		addtimer(src, "reset_shocked", 10)
+		addtimer(CALLBACK(src, .proc/reset_shocked), 10)
 	else
 		..()
 

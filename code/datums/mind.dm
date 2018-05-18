@@ -38,8 +38,8 @@
 
 	var/memory
 
-	var/assigned_role
-	var/special_role
+	var/assigned_role //assigned role is what job you're assigned to when you join the station.
+	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -54,6 +54,7 @@
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
 	var/miming = 0 // Mime's vow of silence
+	var/list/antag_datums
 	var/speech_span // What span any body this mind has talks in.
 	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
@@ -72,17 +73,29 @@
 	var/brigged_since = -1
 	var/suicided = FALSE
 
-	New(var/key)
-		src.key = key
-
 	//put this here for easier tracking ingame
 	var/datum/money_account/initial_account
 
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
 
+/datum/mind/New(var/key)
+	src.key = key
+
+
+/datum/mind/Destroy()
+	ticker.minds -= src
+	if(islist(antag_datums))
+		for(var/i in antag_datums)
+			var/datum/antagonist/antag_datum = i
+			if(antag_datum.delete_on_mind_deletion)
+				qdel(i)
+		antag_datums = null
+	return ..()
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
+	var/mob/living/old_current = current
 	if(!istype(new_character))
 		log_runtime(EXCEPTION("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob."), src)
 	if(current)					//remove ourself from our old body's mind variable
@@ -95,6 +108,9 @@
 		new_character.mind.current = null
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
+	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+		var/datum/antagonist/A = a
+		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 
@@ -175,7 +191,7 @@
 			text += "<br>Flash: <a href='?src=[UID()];revolution=flash'>give</a>"
 
 			var/list/L = current.get_contents()
-			var/obj/item/device/flash/flash = locate() in L
+			var/obj/item/flash/flash = locate() in L
 			if(flash)
 				if(!flash.broken)
 					text += "|<a href='?src=[UID()];revolution=takeflash'>take</a>."
@@ -419,7 +435,7 @@
 		ishuman(current)      )
 
 		text = "Uplink: <a href='?src=[UID()];common=uplink'>give</a>"
-		var/obj/item/device/uplink/hidden/suplink = find_syndicate_uplink()
+		var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
 		var/crystals
 		if(suplink)
 			crystals = suplink.uses
@@ -525,8 +541,8 @@
 					new_objective = new objective_path
 					new_objective.owner = src
 					new_objective:target = new_target:mind
-					//Will display as special role if the target is set as MODE. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role=="MODE" ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
+					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
@@ -762,7 +778,7 @@
 
 			if("takeflash")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Deleting flash failed!</span>")
 				qdel(flash)
@@ -771,7 +787,7 @@
 
 			if("repairflash")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				if(!flash)
 					to_chat(usr, "<span class='warning'>Repairing flash failed!</span>")
 				else
@@ -781,7 +797,7 @@
 
 			if("reequip")
 				var/list/L = current.get_contents()
-				var/obj/item/device/flash/flash = locate() in L
+				var/obj/item/flash/flash = locate() in L
 				qdel(flash)
 				take_uplink()
 				var/fail = 0
@@ -1183,7 +1199,7 @@
 				message_admins("[key_name_admin(usr)] has taken [key_name_admin(current)]'s uplink")
 			if("crystals")
 				if(usr.client.holder.rights & (R_SERVER|R_EVENT))
-					var/obj/item/device/uplink/hidden/suplink = find_syndicate_uplink()
+					var/obj/item/uplink/hidden/suplink = find_syndicate_uplink()
 					var/crystals
 					if(suplink)
 						crystals = suplink.uses
@@ -1211,37 +1227,54 @@
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
 	edit_memory()
-/*
-/datum/mind/proc/clear_memory(var/silent = 1)
-	var/datum/game_mode/current_mode = ticker.mode
 
-	// remove traitor uplinks
-	var/list/L = current.get_contents()
-	for(var/t in L)
-		if(istype(t, /obj/item/device/pda))
-			if(t:uplink) qdel(t:uplink)
-			t:uplink = null
-		else if(istype(t, /obj/item/device/radio))
-			if(t:traitorradio) qdel(t:traitorradio)
-			t:traitorradio = null
-			t:traitor_frequency = 0.0
-		else if(istype(t, /obj/item/SWF_uplink) || istype(t, /obj/item/syndicate_uplink))
-			if(t:origradio)
-				var/obj/item/device/radio/R = t:origradio
-				R.loc = current.loc
-				R.traitorradio = null
-				R.traitor_frequency = 0.0
-			qdel(t)
 
-	// remove wizards spells
-	//If there are more special powers that need removal, they can be procced into here./N
-	current.spellremove(current)
+// Datum antag mind procs
+/datum/mind/proc/add_antag_datum(datum_type, on_gain = TRUE)
+	if(!datum_type)
+		return
+	if(!can_hold_antag_datum(datum_type))
+		return
+	var/datum/antagonist/A = new datum_type(src)
+	antag_datums += A
+	if(on_gain)
+		A.on_gain()
 
-	// clear memory
-	memory = ""
-	special_role = null
+/datum/mind/proc/remove_antag_datum(datum_type)
+	if(!datum_type)
+		return
+	var/datum/antagonist/A = has_antag_datum(datum_type)
+	if(A)
+		A.on_removal()
+		return TRUE
 
-*/
+/datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
+	for(var/a in antag_datums)
+		var/datum/antagonist/A = a
+		A.on_removal()
+
+/datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
+	if(!datum_type)
+		return
+	. = FALSE
+	for(var/a in antag_datums)
+		var/datum/antagonist/A = a
+		if(check_subtypes && istype(A, datum_type))
+			return A
+		else if(A.type == datum_type)
+			return A
+
+/datum/mind/proc/can_hold_antag_datum(datum_type)
+	if(!datum_type)
+		return
+	. = TRUE
+	if(has_antag_datum(datum_type))
+		return FALSE
+	for(var/i in antag_datums)
+		var/datum/antagonist/A = i
+		if(is_type_in_typecache(A, A.typecache_datum_blacklist))
+			return FALSE
+
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
@@ -1251,7 +1284,7 @@
 	return null
 
 /datum/mind/proc/take_uplink()
-	var/obj/item/device/uplink/hidden/H = find_syndicate_uplink()
+	var/obj/item/uplink/hidden/H = find_syndicate_uplink()
 	if(H)
 		qdel(H)
 
@@ -1273,7 +1306,7 @@
 		else
 			current.real_name = "[syndicate_name()] Operative #[ticker.mode.syndicates.len-1]"
 		special_role = SPECIAL_ROLE_NUKEOPS
-		assigned_role = "MODE"
+		assigned_role = SPECIAL_ROLE_NUKEOPS
 		to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 		ticker.mode.forge_syndicate_objectives(src)
 		ticker.mode.greet_syndicate(src)
@@ -1308,7 +1341,7 @@
 	if(!(src in ticker.mode.wizards))
 		ticker.mode.wizards += src
 		special_role = SPECIAL_ROLE_WIZARD
-		assigned_role = "MODE"
+		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
 		if(!wizardstart.len)
 			current.loc = pick(latejoin)
@@ -1380,7 +1413,7 @@
 	ticker.mode.greet_revolutionary(src,0)
 
 	var/list/L = current.get_contents()
-	var/obj/item/device/flash/flash = locate() in L
+	var/obj/item/flash/flash = locate() in L
 	qdel(flash)
 	take_uplink()
 	var/fail = 0
@@ -1514,7 +1547,7 @@
 	var/datum/objective/protect/mindslave/MS = new
 	MS.owner = src
 	MS.target = missionary.mind
-	MS.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role=="MODE" ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
+	MS.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
 	objectives += MS
 	for(var/datum/objective/objective in objectives)
 		to_chat(current, "<B>Objective #1</B>: [objective.explanation_text]")
@@ -1537,16 +1570,15 @@
 			jumpsuit.color = team_color
 			H.update_inv_w_uniform(0,0)
 
-	add_logs(missionary, current, "converted", addition = "for [convert_duration/600] minutes")
-	addtimer(src, "remove_zealot", convert_duration, FALSE, jumpsuit)	//deconverts after the timer expires
-
+	add_attack_logs(missionary, current, "Converted to a zealot for [convert_duration/600] minutes")
+	addtimer(CALLBACK(src, .proc/remove_zealot, jumpsuit), convert_duration) //deconverts after the timer expires
 	return 1
 
 /datum/mind/proc/remove_zealot(obj/item/clothing/under/jumpsuit = null)
 	if(!zealot_master)	//if they aren't a zealot, we can't remove their zealot status, obviously. don't bother with the rest so we don't confuse them with the messages
 		return
 	ticker.mode.remove_traitor_mind(src)
-	add_logs(zealot_master, current, "lost control of", addition = "as their zealot master")
+	add_attack_logs(zealot_master, current, "Lost control of zealot")
 	zealot_master = null
 
 	if(jumpsuit)

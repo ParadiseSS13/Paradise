@@ -53,7 +53,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion/New()
 	..()
-	internal_gps = new/obj/item/device/gps/internal/legion(src)
+	internal_gps = new/obj/item/gps/internal/legion(src)
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	..()
@@ -133,7 +133,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
 	return 1
 
-/obj/item/device/gps/internal/legion
+/obj/item/gps/internal/legion
 	icon_state = null
 	gpstag = "Echoing Signal"
 	desc = "The message repeats."

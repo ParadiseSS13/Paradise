@@ -1216,12 +1216,12 @@
 	name = "Tele Bacon"
 	desc = "It tastes a little odd but it is still delicious."
 	icon_state = "bacon"
-	var/obj/item/device/radio/beacon/bacon/baconbeacon
+	var/obj/item/radio/beacon/bacon/baconbeacon
 	list_reagents = list("nutriment" = 4, "porktonium" = 10)
 
 /obj/item/reagent_containers/food/snacks/telebacon/New()
 	..()
-	baconbeacon = new /obj/item/device/radio/beacon/bacon(src)
+	baconbeacon = new /obj/item/radio/beacon/bacon(src)
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -1250,7 +1250,14 @@
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
-		new/mob/living/carbon/human(get_turf(src), monkey_type)
+		if(fingerprintslast)
+			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
+		else
+			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
+		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
+		if(LAZYLEN(fingerprintshidden))
+			creature.fingerprintshidden = fingerprintshidden.Copy()
+		creature.set_species(monkey_type)
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/farwacube

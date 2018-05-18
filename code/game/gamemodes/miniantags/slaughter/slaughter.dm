@@ -82,7 +82,7 @@
 			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
 
 
-/mob/living/simple_animal/slaughter/Life()
+/mob/living/simple_animal/slaughter/Life(seconds, times_fired)
 	..()
 	if(boost<world.time)
 		speed = 1
@@ -217,7 +217,7 @@
 	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
-	log_say("Slaughter Demon Transmit: [key_name(usr)]->[key_name(choice)]: [msg]")
+	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
 	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
 	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
 	for(var/mob/dead/observer/G in player_list)

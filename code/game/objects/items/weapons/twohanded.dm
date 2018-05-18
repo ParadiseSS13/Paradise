@@ -276,7 +276,7 @@
 
 /obj/item/twohanded/dualsaber/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		if(hacked == 0)
 			hacked = 1
 			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")

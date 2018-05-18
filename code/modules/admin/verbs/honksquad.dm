@@ -91,7 +91,7 @@ var/global/sent_honksquad = 0
 
 	//Creates mind stuff.
 	new_honksquad.mind_initialize()
-	new_honksquad.mind.assigned_role = "MODE"
+	new_honksquad.mind.assigned_role = SPECIAL_ROLE_HONKSQUAD
 	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
 	new_honksquad.add_language("Clownish")
 	ticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.
@@ -100,7 +100,7 @@ var/global/sent_honksquad = 0
 
 /mob/living/carbon/human/proc/equip_honksquad(honk_leader_selected = 0)
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset(src)
+	var/obj/item/radio/R = new /obj/item/radio/headset(src)
 	R.set_frequency(1442)
 	equip_to_slot_or_del(R, slot_l_ear)
 	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), slot_back)
@@ -112,7 +112,7 @@ var/global/sent_honksquad = 0
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(src), slot_w_uniform)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/device/pda/clown(src), slot_wear_pda)
+	equip_to_slot_or_del(new /obj/item/pda/clown(src), slot_wear_pda)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/food/snacks/grown/banana(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/bikehorn(src), slot_in_backpack)

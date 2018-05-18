@@ -37,7 +37,7 @@
 	if(gender == NEUTER)
 		gender = pick(MALE, FEMALE)
 
-/mob/living/simple_animal/pet/corgi/Life()
+/mob/living/simple_animal/pet/corgi/Life(seconds, times_fired)
 	. = ..()
 	regenerate_icons()
 
@@ -171,8 +171,8 @@
 						/obj/item/clothing/suit/armor/vest,
 						/obj/item/clothing/suit/space/deathsquad,
 						/obj/item/clothing/suit/space/hardsuit/engineering,
-						/obj/item/device/radio,
-						/obj/item/device/radio/off,
+						/obj/item/radio,
+						/obj/item/radio/off,
 						/obj/item/clothing/suit/cardborg,
 						/obj/item/tank/oxygen,
 						/obj/item/tank/air,
@@ -612,7 +612,7 @@
 	A.fire()
 	return
 
-/mob/living/simple_animal/pet/corgi/Ian/borgi/Life()
+/mob/living/simple_animal/pet/corgi/Ian/borgi/Life(seconds, times_fired)
 	..()
 	if(emagged && prob(25))
 		var/mob/living/carbon/target = locate() in view(10,src)

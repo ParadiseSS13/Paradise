@@ -54,7 +54,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/static/restart_clear = 0
 	var/static/restart_timeout = 0
 	var/static/restart_count = 0
-	
+
 	var/static/random_seed
 
 	//current tick limit, assigned before running a subsystem.
@@ -62,14 +62,15 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
 /datum/controller/master/New()
-	makeDatumRefLists()
+	//temporary file used to record errors with loading config, moved to log directory once logging is set up
+	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = "data/logs/config_error.log"
 	load_configuration()
 	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 
 	if(!random_seed)
 		random_seed = rand(1, 1e9)
 		rand_seed(random_seed)
-	
+
 	var/list/_subsystems = list()
 	subsystems = _subsystems
 	if(Master != src)
@@ -96,9 +97,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	sortTim(subsystems, /proc/cmp_subsystem_init)
 	reverseRange(subsystems)
 	for(var/datum/controller/subsystem/ss in subsystems)
-		log_to_dd("Shutting down [ss.name] subsystem...")
+		log_world("Shutting down [ss.name] subsystem...")
 		ss.Shutdown()
-	log_to_dd("Shutdown complete")
+	log_world("Shutdown complete")
 
 // Returns 1 if we created a new mc, 0 if we couldn't due to a recent restart,
 //	-1 if we encountered a runtime trying to recreate it
@@ -133,7 +134,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 					msg += "\t [varname] = [D]([D.type])\n"
 				else
 					msg += "\t [varname] = [varval]\n"
-	log_to_dd(msg)
+	log_world(msg)
 
 	var/datum/controller/subsystem/BadBoy = Master.last_type_processed
 	var/FireHim = FALSE
@@ -149,7 +150,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				BadBoy.flags |= SS_NO_FIRE
 		if(msg)
 			to_chat(admins, "<span class='boldannounce'>[msg]</span>")
-			log_to_dd(msg)
+			log_world(msg)
 
 	if(istype(Master.subsystems))
 		if(FireHim)
@@ -191,7 +192,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
-	log_to_dd(msg)
+	log_world(msg)
+
+	if(config.developer_express_start & ticker.current_state == GAME_STATE_PREGAME)
+		ticker.current_state = GAME_STATE_SETTING_UP
 
 	if(!current_runlevel)
 		SetRunLevel(1)
@@ -347,7 +351,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 		if(CheckQueue(subsystems_to_check) <= 0)
 			if(!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
-				log_to_dd("MC: SoftReset() failed, crashing")
+				log_world("MC: SoftReset() failed, crashing")
 				return
 			if(!error_level)
 				iteration++
@@ -359,7 +363,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		if(queue_head)
 			if(RunQueue() <= 0)
 				if(!SoftReset(tickersubsystems, runlevel_sorted_subsystems))
-					log_to_dd("MC: SoftReset() failed, crashing")
+					log_world("MC: SoftReset() failed, crashing")
 					return
 				if(!error_level)
 					iteration++
@@ -538,9 +542,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 //	called if any mc's queue procs runtime or exit improperly.
 /datum/controller/master/proc/SoftReset(list/ticker_SS, list/runlevel_SS)
 	. = 0
-	log_to_dd("MC: SoftReset called, resetting MC queue state.")
+	log_world("MC: SoftReset called, resetting MC queue state.")
 	if(!istype(subsystems) || !istype(ticker_SS) || !istype(runlevel_SS))
-		log_to_dd("MC: SoftReset: Bad list contents: '[subsystems]' '[ticker_SS]' '[runlevel_SS]'")
+		log_world("MC: SoftReset: Bad list contents: '[subsystems]' '[ticker_SS]' '[runlevel_SS]'")
 		return
 	var/subsystemstocheck = subsystems + ticker_SS
 	for(var/I in runlevel_SS)
@@ -554,26 +558,26 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			ticker_SS -= list(SS)
 			for(var/I in runlevel_SS)
 				I -= list(SS)
-			log_to_dd("MC: SoftReset: Found bad entry in subsystem list, '[SS]'")
+			log_world("MC: SoftReset: Found bad entry in subsystem list, '[SS]'")
 			continue
 		if(SS.queue_next && !istype(SS.queue_next))
-			log_to_dd("MC: SoftReset: Found bad data in subsystem queue, queue_next = '[SS.queue_next]'")
+			log_world("MC: SoftReset: Found bad data in subsystem queue, queue_next = '[SS.queue_next]'")
 		SS.queue_next = null
 		if(SS.queue_prev && !istype(SS.queue_prev))
-			log_to_dd("MC: SoftReset: Found bad data in subsystem queue, queue_prev = '[SS.queue_prev]'")
+			log_world("MC: SoftReset: Found bad data in subsystem queue, queue_prev = '[SS.queue_prev]'")
 		SS.queue_prev = null
 		SS.queued_priority = 0
 		SS.queued_time = 0
 		SS.state = SS_IDLE
 	if(queue_head && !istype(queue_head))
-		log_to_dd("MC: SoftReset: Found bad data in subsystem queue, queue_head = '[queue_head]'")
+		log_world("MC: SoftReset: Found bad data in subsystem queue, queue_head = '[queue_head]'")
 	queue_head = null
 	if(queue_tail && !istype(queue_tail))
-		log_to_dd("MC: SoftReset: Found bad data in subsystem queue, queue_tail = '[queue_tail]'")
+		log_world("MC: SoftReset: Found bad data in subsystem queue, queue_tail = '[queue_tail]'")
 	queue_tail = null
 	queue_priority_count = 0
 	queue_priority_count_bg = 0
-	log_to_dd("MC: SoftReset: Finished.")
+	log_world("MC: SoftReset: Finished.")
 	. = 1
 
 

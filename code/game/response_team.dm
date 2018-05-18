@@ -104,8 +104,12 @@ var/ert_request_answered = 0
 		if(index > emergencyresponseteamspawn.len)
 			index = 1
 
+		if(!M || !M.client)
+			continue
 		var/client/C = M.client
 		var/mob/living/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
+		if(!M || !new_commando)
+			continue
 		new_commando.mind.key = M.key
 		new_commando.key = M.key
 		new_commando.update_icons()
@@ -157,17 +161,17 @@ var/ert_request_answered = 0
 	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
 
-	M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
-	M.name = M.real_name
+	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]")
 	M.age = rand(23,35)
 	M.regenerate_icons()
 	M.update_body()
+	M.update_dna()
 
 	//Creates mind stuff.
 	M.mind = new
 	M.mind.current = M
 	M.mind.original = M
-	M.mind.assigned_role = "MODE"
+	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
@@ -280,8 +284,7 @@ var/ert_request_answered = 0
 			command_slots = 0
 
 			// Override name and age for the commander
-			M.real_name = "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]"
-			M.name = M.real_name
+			M.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]")
 			M.age = rand(35,45)
 
 			M.equipOutfit(command_outfit)
@@ -339,9 +342,9 @@ var/ert_request_answered = 0
 	var/rt_job = "This is a bug"
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
-	pda = /obj/item/device/pda/heads/ert
+	pda = /obj/item/pda/heads/ert
 	id = /obj/item/card/id/ert
-	l_ear = /obj/item/device/radio/headset/ert/alt
+	l_ear = /obj/item/radio/headset/ert/alt
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -366,7 +369,7 @@ var/ert_request_answered = 0
 		W.associated_account_number = H.mind.initial_account.account_number
 
 /datum/outfit/job/centcom/response_team/imprint_pda(mob/living/carbon/human/H)
-	var/obj/item/device/pda/PDA = H.wear_pda
+	var/obj/item/pda/PDA = H.wear_pda
 	if(istype(PDA))
 		PDA.owner = H.real_name
 		PDA.ownjob = rt_assignment
@@ -442,7 +445,7 @@ var/ert_request_answered = 0
 	uniform = /obj/item/clothing/under/rank/security
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/response_team
-	pda = /obj/item/device/pda/heads/ert/security
+	pda = /obj/item/pda/heads/ert/security
 	id = /obj/item/card/id/ert/security
 	var/has_grenades = FALSE
 
@@ -516,7 +519,7 @@ var/ert_request_answered = 0
 	uniform = /obj/item/clothing/under/rank/engineer
 
 	belt = /obj/item/storage/belt/utility/full/multitool
-	pda = /obj/item/device/pda/heads/ert/engineering
+	pda = /obj/item/pda/heads/ert/engineering
 	id = /obj/item/card/id/ert/engineering
 
 /datum/outfit/job/centcom/response_team/engineer/amber
@@ -527,7 +530,7 @@ var/ert_request_answered = 0
 	suit_store = /obj/item/tank/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson
 
-	l_pocket = /obj/item/device/t_scanner
+	l_pocket = /obj/item/t_scanner
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
@@ -545,7 +548,7 @@ var/ert_request_answered = 0
 	suit_store = /obj/item/tank/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson
 
-	l_pocket = /obj/item/device/t_scanner/extended_range
+	l_pocket = /obj/item/t_scanner/extended_range
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
@@ -564,7 +567,7 @@ var/ert_request_answered = 0
 	suit_store = /obj/item/tank/emergency_oxygen/double/full
 	glasses = /obj/item/clothing/glasses/meson/night
 
-	l_pocket = /obj/item/device/t_scanner/extended_range
+	l_pocket = /obj/item/t_scanner/extended_range
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
@@ -580,7 +583,7 @@ var/ert_request_answered = 0
 	rt_job = "Emergency Response Team Medic"
 	uniform = /obj/item/clothing/under/rank/medical
 	back = /obj/item/storage/backpack/ert/medical
-	pda = /obj/item/device/pda/heads/ert/medical
+	pda = /obj/item/pda/heads/ert/medical
 	id = /obj/item/card/id/ert/medic
 
 	l_pocket = /obj/item/reagent_containers/hypospray/CMO
@@ -654,15 +657,15 @@ var/ert_request_answered = 0
 	back = /obj/item/storage/backpack/ert/security
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/combat
-	l_ear = /obj/item/device/radio/headset/ert/alt
+	l_ear = /obj/item/radio/headset/ert/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	belt = /obj/item/storage/belt/security/response_team
 	id = /obj/item/card/id/centcom
-	pda = /obj/item/device/pda/centcom
+	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/device/flashlight = 1)
+		/obj/item/flashlight = 1)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
@@ -694,9 +697,9 @@ var/ert_request_answered = 0
 	belt = /obj/item/storage/belt/janitor/full
 	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/galoshes
-	l_ear = /obj/item/device/radio/headset/ert/alt
+	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/centcom
-	pda = /obj/item/device/pda/centcom
+	pda = /obj/item/pda/centcom
 	l_pocket = /obj/item/melee/classic_baton/telescopic
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
@@ -704,7 +707,7 @@ var/ert_request_answered = 0
 		/obj/item/storage/bag/trash = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/holosign_creator = 1,
-		/obj/item/device/flashlight = 1)
+		/obj/item/flashlight = 1)
 
 /datum/outfit/job/centcom/response_team/janitorial/amber
 	name = "RT Janitor (Amber)"
@@ -729,7 +732,7 @@ var/ert_request_answered = 0
 	r_pocket = /obj/item/grenade/clusterbuster/antiweed
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
-/obj/item/device/radio/centcom
+/obj/item/radio/centcom
 	name = "centcomm bounced radio"
 	frequency = ERT_FREQ
 	icon_state = "radio"
@@ -743,9 +746,9 @@ var/ert_request_answered = 0
 	sleep(1)
 	new /obj/item/clothing/mask/breath( src )
 	new /obj/item/tank/emergency_oxygen/engi( src )
-	new /obj/item/device/flashlight/flare( src )
+	new /obj/item/flashlight/flare( src )
 	new /obj/item/kitchen/knife/combat( src )
-	new /obj/item/device/radio/centcom( src )
+	new /obj/item/radio/centcom( src )
 	new /obj/item/reagent_containers/food/pill/salicylic( src )
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh( src )
 	return

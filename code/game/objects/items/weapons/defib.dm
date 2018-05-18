@@ -96,7 +96,7 @@
 
 	if(istype(W, /obj/item/screwdriver))
 		if(bcell)
-			bcell.updateicon()
+			bcell.update_icon()
 			bcell.loc = get_turf(src.loc)
 			bcell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
@@ -333,7 +333,7 @@
 			H.emote("gasp")
 			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib.combat)) // Your heart explodes.
 				H.set_heartattack(TRUE)
-			add_logs(user, M, "stunned", object="defibrillator")
+			add_attack_logs(user, M, "Stunned with [src]")
 			defib.deductcharge(revivecost)
 			cooldown = 1
 			busy = 0
@@ -411,7 +411,7 @@
 						if(tplus > tloss)
 							H.setBrainLoss( max(0, min(99, ((tlimit - tplus) / tlimit * 100))))
 						defib.deductcharge(revivecost)
-						add_logs(user, M, "revived", object="defibrillator")
+						add_attack_logs(user, M, "Revived with [src]")
 					else
 						if(tplus > tlimit|| !H.get_int_organ(/obj/item/organ/internal/heart))
 							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")
@@ -473,7 +473,7 @@
 				H.set_heartattack(TRUE)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
-			add_logs(user, M, "stunned", object="defibrillator")
+			add_attack_logs(user, M, "Stunned with [src]")
 			if(isrobot(user))
 				var/mob/living/silicon/robot/R = user
 				R.cell.use(revivecost)
@@ -529,7 +529,7 @@
 						if(isrobot(user))
 							var/mob/living/silicon/robot/R = user
 							R.cell.use(revivecost)
-						add_logs(user, M, "revived", object="defibrillator")
+						add_attack_logs(user, M, "Revived with [src]")
 					else
 						if(tplus > tlimit)
 							user.visible_message("<span class='warning'>[user] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation.</span>")

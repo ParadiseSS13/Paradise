@@ -24,16 +24,19 @@
 
 	var/area/areaMaster
 
-	var/auto_init = 1
-
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
 
-	// If you're wondering what goofery this is, this is for things that need the environment
-	// around them set up - like `air_update_turf` and the like
-	if((ticker && ticker.current_state >= GAME_STATE_SETTING_UP))
-		attempt_init()
+/atom/movable/attempt_init()
+	if(ticker && ticker.current_state >= GAME_STATE_SETTING_UP)
+		var/turf/T = get_turf(src)
+		if(T && space_manager.is_zlevel_dirty(T.z))
+			space_manager.postpone_init(T.z, src)
+			return
+	. = ..()
+
+
 
 /atom/movable/Destroy()
 	if(loc)
@@ -52,19 +55,6 @@
 			pulledby.pulling = null
 		pulledby = null
 	return ..()
-
-// used to provide a good interface for the init delay system to step in
-// and we don't need to call `get_turf` until the game's started
-// at which point object creations are a fair toss more seldom
-/atom/movable/proc/attempt_init()
-	var/turf/T = get_turf(src)
-	if(T && space_manager.is_zlevel_dirty(T.z))
-		space_manager.postpone_init(T.z, src)
-	else if(auto_init)
-		initialize()
-
-/atom/movable/proc/initialize()
-	return
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
@@ -176,11 +166,11 @@
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
-		addtimer(src, "check_buckled", 1, TRUE)
+		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
 	if(buckled_mob)
-		addtimer(buckled_mob, "check_buckled", 1, TRUE)
+		addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
 	if(pulling)
-		addtimer(src, "check_pull", 1, TRUE)
+		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)

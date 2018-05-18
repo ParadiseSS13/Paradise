@@ -64,13 +64,6 @@
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
-/obj/item/reagent_containers/food/drinks/cans/waterbottle
-	name = "Bottled Water"
-	desc = "Introduced to the vending machines by Skrellian request, this water comes straight from the Martian poles."
-	icon_state = "waterbottle"
-	is_plastic = 1
-	list_reagents = list("water" = 30)
-
 /obj/item/reagent_containers/food/drinks/cans/beer
 	name = "Space Beer"
 	desc = "Contains only water, malt and hops."

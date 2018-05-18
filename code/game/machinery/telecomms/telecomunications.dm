@@ -116,7 +116,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		// TODO: Make the radio system cooperate with the space manager
 		listening_level = position.z
 
-/obj/machinery/telecomms/initialize()
+/obj/machinery/telecomms/Initialize()
 	..()
 	if(autolinkers.len)
 		// Links nearby machines
@@ -444,7 +444,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/salt = "null"		// encryption salt: ie "123comsat"
 							// would add up to md5("password123comsat")
 	var/language = "human"
-	var/obj/item/device/radio/headset/server_radio = null
+	var/obj/item/radio/headset/server_radio = null
 
 /obj/machinery/telecomms/server/New()
 	..()
@@ -547,8 +547,8 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 /obj/machinery/telecomms/server/proc/admin_log(var/mob/mob)
 	var/msg="[key_name(mob)] has compiled a script to server [src]:"
-	diary << msg
-	diary << rawcode
+	log_game("NTSL: [msg]")
+	log_game("NTSL: [rawcode]")
 	src.investigate_log("[msg]<br>[rawcode]", "ntsl")
 	if(length(rawcode)) // Let's not bother the admins for empty code.
 		message_admins("[key_name_admin(mob)] has compiled and uploaded a NTSL script to [src.id] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")

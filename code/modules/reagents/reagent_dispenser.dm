@@ -66,7 +66,7 @@
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel"
 	reagent_id = "fuel"
-	var/obj/item/device/assembly_holder/rig = null
+	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 
 /obj/structure/reagent_dispensers/fueltank/Destroy()
@@ -114,7 +114,7 @@
 			overlays.Cut()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/assembly_holder) && accepts_rig)
+	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
 		if(rig)
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
 			return ..()
@@ -122,8 +122,8 @@
 		if(do_after(user, 20, target = src))
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
 
-			var/obj/item/device/assembly_holder/H = I
-			if(istype(H.a_left, /obj/item/device/assembly/igniter) || istype(H.a_right, /obj/item/device/assembly/igniter))
+			var/obj/item/assembly_holder/H = I
+			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
 				msg_admin_attack("[key_name_admin(user)] rigged a fueltank for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				log_game("[key_name(user)] rigged fueltank a fueltank for explosion at [loc.x], [loc.y], [loc.z]")
 

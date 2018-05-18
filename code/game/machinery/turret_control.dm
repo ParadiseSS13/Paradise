@@ -64,7 +64,7 @@
 			A.turret_controls -= src
 	return ..()
 
-/obj/machinery/turretid/initialize()
+/obj/machinery/turretid/Initialize()
 	..()
 	if(!control_area)
 		control_area = get_area(src)
@@ -105,7 +105,7 @@
 	if(stat & BROKEN)
 		return
 
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/device/pda))
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(src.allowed(usr))
 			if(emagged)
 				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")

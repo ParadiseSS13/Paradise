@@ -1,7 +1,7 @@
 /obj/machinery/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
 	anchored = 1
 	density = 1

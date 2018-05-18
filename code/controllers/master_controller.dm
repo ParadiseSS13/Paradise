@@ -56,8 +56,7 @@ var/global/pipe_processing_killed = 0
 
 	space_manager.do_transition_setup()
 
-	setup_objects()
-	setupgenetics()
+	setup_asset_cache()
 	setupfactions()
 	setup_economy()
 
@@ -66,20 +65,8 @@ var/global/pipe_processing_killed = 0
 
 	populate_spawn_points()
 
-/datum/controller/game_controller/proc/setup_objects()
+/datum/controller/game_controller/proc/setup_asset_cache()
 	var/watch = start_watch()
-	var/count = 0
-	var/overwatch = start_watch() // Overall.
-
 	log_startup_progress("Populating asset cache...")
 	populate_asset_cache()
 	log_startup_progress("	Populated [asset_cache.len] assets in [stop_watch(watch)]s.")
-
-	watch = start_watch()
-	log_startup_progress("Initializing objects...")
-	for(var/atom/movable/object in world)
-		object.initialize()
-		count++
-	log_startup_progress("	Initialized [count] objects in [stop_watch(watch)]s.")
-
-	log_startup_progress("Finished object initializations in [stop_watch(overwatch)]s.")

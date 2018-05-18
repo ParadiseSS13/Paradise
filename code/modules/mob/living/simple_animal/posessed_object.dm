@@ -60,7 +60,7 @@
 	qdel(src)
 
 
-/mob/living/simple_animal/possessed_object/Life()
+/mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
 	..()
 
 	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.

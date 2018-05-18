@@ -32,7 +32,7 @@
 		emagged = 1 //Set the emag var to true.
 
 /obj/machinery/poolcontroller/attackby(obj/item/P as obj, mob/user as mob, params) //Proc is called when a user hits the pool controller with something.
-	if(istype(P,/obj/item/device/multitool)) //If the mob hits the pool controller with a multitool, reset the emagged status
+	if(istype(P,/obj/item/multitool)) //If the mob hits the pool controller with a multitool, reset the emagged status
 		if(emagged) //Check the emag status
 			to_chat(user, "<span class='warning'>You re-enable \the [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
 
@@ -100,10 +100,7 @@
 		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
-		if(isLivingSSD(drownee))
-			add_logs(src, drownee, "drowned", null, null, 0, 1)	// Notify admins, since the person is SSD
-		else
-			add_logs(src, drownee, "drowned", null, null, 0, 0)	// Do not notify admins.
+		add_attack_logs(src, drownee, "Drowned", isLivingSSD(drownee))
 		if(drownee.stat) //Mob is in critical.
 			drownee.AdjustLoseBreath(3, bound_lower = 0, bound_upper = 20)
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.

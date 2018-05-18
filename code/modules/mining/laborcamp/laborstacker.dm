@@ -13,12 +13,12 @@
 	var/obj/machinery/door/airlock/release_door
 	var/door_tag = "prisonshuttle"
 	var/use_release_door = 0
-	var/obj/item/device/radio/intercom/announcer
+	var/obj/item/radio/intercom/announcer
 
 
 /obj/machinery/mineral/labor_claim_console/New()
 	..()
-	announcer = new /obj/item/device/radio/intercom(null)
+	announcer = new /obj/item/radio/intercom(null)
 	announcer.config(list("Security" = 0))
 
 	spawn(7)

@@ -1,4 +1,4 @@
-/obj/item/device/pizza_bomb
+/obj/item/pizza_bomb
 	name = "pizza box"
 	desc = "A box suited for pizzas."
 	icon = 'icons/obj/food/food.dmi'
@@ -11,7 +11,7 @@
 	var/correct_wire
 	var/armer //Used for admin purposes
 
-/obj/item/device/pizza_bomb/attack_self(mob/user)
+/obj/item/pizza_bomb/attack_self(mob/user)
 	if(disarmed)
 		to_chat(user, "<span class='notice'>\The [src] is disarmed.</span>")
 		return
@@ -48,7 +48,7 @@
 		sleep(timer)
 		return go_boom()
 
-/obj/item/device/pizza_bomb/proc/go_boom()
+/obj/item/pizza_bomb/proc/go_boom()
 	if(disarmed)
 		visible_message("<span class='danger'>[bicon(src)] Sparks briefly jump out of the [correct_wire] wire on \the [src], but it's disarmed!")
 		return
@@ -57,7 +57,7 @@
 	explosion(src.loc,1,2,4,flame_range = 2) //Identical to a minibomb
 	qdel(src)
 
-/obj/item/device/pizza_bomb/attackby(var/obj/item/I, var/mob/user, params)
+/obj/item/pizza_bomb/attackby(var/obj/item/I, var/mob/user, params)
 	if(istype(I, /obj/item/wirecutters) && primed)
 		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
 		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
@@ -96,6 +96,6 @@
 		return
 	..()
 
-/obj/item/device/pizza_bomb/New()
+/obj/item/pizza_bomb/New()
 	..()
 	correct_wire = pick(wires)

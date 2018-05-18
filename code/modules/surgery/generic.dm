@@ -61,7 +61,7 @@
 	/obj/item/scalpel/laser = 100, \
 	/obj/item/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 90, 	\
-	/obj/item/device/assembly/mousetrap = 25
+	/obj/item/assembly/mousetrap = 25
 	)
 
 	time = 24
@@ -227,7 +227,7 @@
 	user.visible_message("<span class='notice'> [user] amputates [target]'s [affected.name] at the [affected.amputation_point] with \the [tool].</span>", \
 	"<span class='notice'> You amputate [target]'s [affected.name] with \the [tool].</span>")
 
-	add_logs(user, target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
+	add_attack_logs(user, target, "Surgically removed [affected.name]. INTENT: [uppertext(user.a_intent)]")//log it
 
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))

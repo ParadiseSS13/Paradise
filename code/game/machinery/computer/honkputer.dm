@@ -34,8 +34,8 @@
 		if("login")
 			var/mob/M = usr
 			var/obj/item/card/id/I = M.get_active_hand()
-			if(istype(I, /obj/item/device/pda))
-				var/obj/item/device/pda/pda = I
+			if(istype(I, /obj/item/pda))
+				var/obj/item/pda/pda = I
 				I = pda.id
 			if(I && istype(I))
 				if(src.check_access(I) || src.emagged==1)
@@ -53,7 +53,7 @@
 					return
 				HONK_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-				log_say("[key_name(usr)] has made a HONKplanet announcement: [input]")
+				log_game("[key_name(usr)] has made a HONKplanet announcement: [input]")
 				message_cooldown = 1
 				spawn(6000)//10 minute cooldown
 					message_cooldown = 0
