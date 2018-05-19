@@ -115,6 +115,7 @@
 			visible_message("[user] climbs into the cryo cell.")
 		else
 			visible_message("[user] puts [L.name] into the cryo cell.")
+			log_game("[key_name(user)] puts [key_name(L.name)] into a cryo cell at [COORD(src)].")
 			if(user.pulling == L)
 				user.stop_pulling()
 
@@ -262,6 +263,7 @@
 	if(href_list["ejectOccupant"])
 		if(!occupant || isslime(usr) || ispAI(usr))
 			return 0 // don't update UIs attached to this object
+		log_game("[key_name(occupant)] ejected by [key_name(usr)] at cryo cell at [COORD(src)]")
 		go_out()
 
 	add_fingerprint(usr)
@@ -269,16 +271,18 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/B = G
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "The [G] is stuck to you!")
+			to_chat(user, "The [B] is stuck to you!")
 			return
-		G.forceMove(src)
-		beaker =  G
+		B.forceMove(src)
+		beaker =  B
+		log_game("[user] added [B] containing [B.reagentlist(B)] to a cryo cell at [COORD(src)]")
+		user.visible_message("[user] adds \a [B] to \the [src]!", "You add \a [B] to \the [src]!")
 
-		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 
 	if(istype(G, /obj/item/screwdriver))
 		if(occupant || on)
@@ -452,6 +456,7 @@
 	else
 		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
+		log_game("[key_name(occupant)] ejected by [key_name(usr)] at cryo cell at [COORD(src)]")
 		go_out()
 	add_fingerprint(usr)
 	return
