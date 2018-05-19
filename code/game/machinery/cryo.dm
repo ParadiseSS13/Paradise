@@ -276,12 +276,12 @@
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "The [B] is stuck to you!")
+			to_chat(user, "[B] is stuck to you!")
 			return
 		B.forceMove(src)
 		beaker =  B
-		log_game("[user] added [B] containing [B.reagentlist(B)] to a cryo cell at [COORD(src)]")
-		user.visible_message("[user] adds \a [B] to \the [src]!", "You add \a [B] to \the [src]!")
+		log_game("[user] added [B] containing [B.reagentlist()] to a cryo cell at [COORD(src)]")
+		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
 
 
 	if(istype(G, /obj/item/screwdriver))
