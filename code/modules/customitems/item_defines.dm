@@ -1265,6 +1265,8 @@
 	name = "engraved hand mirror"
 	desc = "A very classy hand mirror, with fancy detailing."
 	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	icon_state = "hand_mirror"
 	attack_verb = list("smacked")
 	hitsound = 'sound/weapons/tap.ogg'
@@ -1311,6 +1313,8 @@
 	name = "Classy victorian suit"
 	desc = "A blue and black victorian suit with silver buttons, very fancy!"
 	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	icon_state = "victorianlightfire"
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
@@ -1330,7 +1334,7 @@
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 
-	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kite blueprints.</span>")
+	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kit blueprints.</span>")
 	var/obj/spacepod/pod = target
 	pod.icon = 'icons/48x48/custom_pod.dmi'
 	pod.icon_state = "pod_dece"
@@ -1349,3 +1353,21 @@
 	icon_state = "teri_horn"
 	item_state = "teri_horn"
 	honk_sound = 'sound/items/teri_horn.ogg'
+
+/obj/item/clothing/suit/fluff/vetcoat //Furasian: Fillmoore Grayson
+	name = "Veteran Coat"
+	desc = "An old, yet well-kept Nanotrasen uniform. Very few of its kind are still produced."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "alchemistcoatblack"
+	item_state = "alchemistcoatblack"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+
+/obj/item/clothing/suit/fluff/vetcoat/red //Furasian: Fillmoore Grayson
+	icon_state = "alchemistcoatred"
+	item_state = "alchemistcoatred"
+
+/obj/item/clothing/suit/fluff/vetcoat/navy //Furasian: Fillmoore Grayson
+	icon_state = "alchemistcoatnavy"
+	item_state = "alchemistcoatnavy"
