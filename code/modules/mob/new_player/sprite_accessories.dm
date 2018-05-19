@@ -3000,20 +3000,32 @@
 	icon_state = "royalfan"
 	species_allowed = list("Murghal")
 
-/datum/sprite_accessory/hair/murghaltrident
+/datum/sprite_accessory/hair/long1
 	icon = 'icons/mob/murghalhairs.dmi'
-	name = "Trident Quills"
-	icon_state = "trident"
+	name = "Long Quills"
+	icon_state = "long1"
 	species_allowed = list("Murghal")
 
-/datum/sprite_accessory/hair/murghalsplit
+/datum/sprite_accessory/hair/long2
 	icon = 'icons/mob/murghalhairs.dmi'
-	name = "Split Fan"
-	icon_state = "splitfan"
+	name = "Alt Long Quills"
+	icon_state = "long2"
 	species_allowed = list("Murghal")
 
-	/datum/sprite_accessory/hair/murghalsplit
+/datum/sprite_accessory/hair/mohawk
 	icon = 'icons/mob/murghalhairs.dmi'
-	name = "Split Fan"
-	icon_state = "splitfan"
+	name = "Feather Mohawk"
+	icon_state = "mohawk"
+	species_allowed = list("Murghal")
+
+/datum/sprite_accessory/hair/short1
+	icon = 'icons/mob/murghalhairs.dmi'
+	name = "Short Quills"
+	icon_state = "short1"
+	species_allowed = list("Murghal")
+
+/datum/sprite_accessory/hair/short2
+	icon = 'icons/mob/murghalhairs.dmi'
+	name = "Alt Short Quills"
+	icon_state = "short2"
 	species_allowed = list("Murghal")
