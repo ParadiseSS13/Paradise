@@ -1,0 +1,5 @@
+author: "Aurorablade"
+delete-after: True
+changes: 
+  - rscadd: "Vet Coat Fluff item."
+  - tweak: "Spacepod mod kit now uses kit blueprints and not KITE blueprints (spelling error)."
