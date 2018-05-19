@@ -280,7 +280,7 @@
 			return
 		B.forceMove(src)
 		beaker =  B
-		log_game("[user] added [B] containing [B.reagentlist()] to a cryo cell at [COORD(src)]")
+		log_game("[key_name(user)] added [B] containing [B.reagentlist()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
 
 
