@@ -1336,6 +1336,13 @@ var/list/uplink_items = list()
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
 
+/datum/uplink_item/badass/rapid
+	name = "Gloves of the North Star"
+	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
+	reference = "RPGD"
+	item = /obj/item/clothing/gloves/fingerless/rapid
+	cost = 8
+
 /datum/uplink_item/badass/bundle
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 20 telecrystals, but you do not know which specialisation you will receive."
