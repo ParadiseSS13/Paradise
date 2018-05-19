@@ -313,7 +313,7 @@
 	egg_list.Cut()									//Destroy any excess eggs, clearing the egg_list
 
 /obj/machinery/fishtank/proc/harvest_fish(var/mob/user)
-	if(fish_count <= 0)									//Can't catch non-existant fish!	
+	if(fish_count <= 0)									//Can't catch non-existant fish!
 		to_chat(usr, "There are no fish in \the [src] to catch!")
 		return
 	var/list/fish_names_list = list()
@@ -574,11 +574,7 @@
 	attack_generic(user, rand(10, 15))
 
 /obj/machinery/fishtank/attack_hand(mob/user as mob)
-	if(HULK in user.mutations)
-		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
-		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
-		destroy()
-	else if(usr.a_intent == INTENT_HARM)
+	if(usr.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		usr.visible_message("<span class='danger'>[usr.name] bangs against the [src.name]!</span>", \
@@ -590,7 +586,6 @@
 		usr.visible_message("[usr.name] taps on the [src.name].", \
 							"You tap on the [src.name].", \
 							"You hear a knocking sound.")
-	return
 
 /obj/machinery/fishtank/proc/hit(var/damage, var/sound_effect = 1)
 	cur_health = max(0, cur_health - damage)

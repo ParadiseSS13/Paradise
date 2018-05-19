@@ -127,13 +127,8 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	if(health <= 0)
 		destroy()
 
-
-/obj/structure/window/attack_hand(mob/user as mob)
-	if(HULK in user.mutations)
-		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
-		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
-		destroy()
-	else if(user.a_intent == INTENT_HARM)
+/obj/structure/window/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(get_turf(src), 'sound/effects/glassknock.ogg', 80, 1)
 		user.visible_message("<span class='warning'>[user.name] bangs against the [src.name]!</span>", \
@@ -145,8 +140,6 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		user.visible_message("[user.name] knocks on the [src.name].", \
 							"You knock on the [src.name].", \
 							"You hear a knocking sound.")
-	return
-
 
 /obj/structure/window/attack_generic(mob/living/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	user.changeNext_move(CLICK_CD_MELEE)

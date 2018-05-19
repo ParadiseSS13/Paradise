@@ -348,6 +348,18 @@ emp_act
 
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
 
+/mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		var/hulk_verb = pick("smash", "pummel")
+		if(check_shields(user, 15, "the [hulk_verb]ing"))
+			return
+		..(user, TRUE)
+		playsound(loc, user.species.unarmed.attack_sound, 25, 1, -1)
+		var/message = "[user] has [hulk_verb]ed [src]!"
+		visible_message("<span class='danger'>[message]</span>", "<span class='userdanger'>[message]</span>")
+		adjustBruteLoss(15)
+		return TRUE
+
 /mob/living/carbon/human/attack_hand(mob/user)
 	if(..())	//to allow surgery to return properly.
 		return
