@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Unarmed attacks now have their own icons, as does disarming."
+  - rscadd: "Various mobs have their own custom icon attacks"
+  - tweak: "Monkies now bite!"
