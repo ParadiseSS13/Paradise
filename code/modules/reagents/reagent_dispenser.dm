@@ -85,9 +85,9 @@
 
 /obj/structure/reagent_dispensers/fueltank/boom(var/rigtrigger = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger == TRUE) // If the explosion is triggered by an assembly holder
-		message_admins("A fueltank, last rigged by [lastrigger], had exploded at [COORD(loc)]") // Then admin is informed of the last person who rigged the fuel tank
-		log_game("A fueltank, last rigged by [lastrigger], had exploded at [COORD(loc)]")
-		investigate_log("A fueltank, last rigged by [lastrigger], had exploded at [COORD(loc)]", INVESTIGATE_BOMB)
+		message_admins("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]") // Then admin is informed of the last person who rigged the fuel tank
+		log_game("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]")
+		investigate_log("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]", INVESTIGATE_BOMB)
 	explosion(loc, 0, 1, 5, 7, 10, flame_range = 5)
 	qdel(src)
 
