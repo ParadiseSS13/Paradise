@@ -53,7 +53,7 @@
 
 /datum/design/bluespace_belt_holder
 	name = "Bluespace Conveyor Belt Placer"
-	desc = "This device facilitates the rapid deployment of conveyor belts. This one is powered by bluespace"
+	desc = "This device facilitates the rapid deployment of conveyor belts. This one is powered by bluespace."
 	id = "bluespace_belt_holder"
 	req_tech = list("materials" = 1, "engineering" = 3, "bluespace" = 3)
 	build_type = PROTOLATHE

@@ -33,6 +33,8 @@
 		..()
 
 /obj/item/storage/conveyor/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
 	var/obj/item/conveyor_construct/C = locate() in src
 	if(!C)
 		to_chat(user, "<span class='notice'>There are no belts in [src].</span>")
