@@ -57,9 +57,10 @@
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
 
-	if(istype(I, /obj/item/wrench))
+	if(iswrench(I))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
@@ -75,6 +76,8 @@
 				break
 		build_network()
 		update_icon()
+	else
+		return ..()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -216,9 +219,10 @@
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
 
-	if(istype(I, /obj/item/wrench))
+	if(iswrench(I))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
@@ -234,6 +238,8 @@
 				break
 		build_network()
 		update_icon()
+	else
+		return ..()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)

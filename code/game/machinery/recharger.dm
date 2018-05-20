@@ -54,7 +54,7 @@
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
 	else
-		..()
+		return ..()
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))

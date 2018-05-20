@@ -93,8 +93,11 @@
 	if(href_list["close"])
 		close_game()
 
-/obj/machinery/gameboard/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
-	if(istype(G, /obj/item/wrench))
-		default_unfasten_wrench(user, G)
-	else if(istype(G, /obj/item/crowbar))
-		default_deconstruction_crowbar(G, ignore_panel = 1)
+/obj/machinery/gameboard/attackby(obj/item/I, mob/user, params)
+	if(default_unfasten_wrench(user, I))
+		return
+
+	if(default_deconstruction_crowbar(I, ignore_panel = TRUE))
+		return
+	else
+		return ..()

@@ -20,17 +20,19 @@ var/list/doppler_arrays = list()
 /obj/machinery/doppler_array/process()
 	return PROCESS_KILL
 
-/obj/machinery/doppler_array/attackby(var/obj/item/O, var/mob/user, params)
-	if(istype(O, /obj/item/wrench))
+/obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
 		if(!anchored && !isinspace())
-			anchored = 1
+			anchored = TRUE
 			power_change()
 			to_chat(user, "<span class='notice'>You fasten [src].</span>")
 		else if(anchored)
-			anchored = 0
+			anchored = FALSE
 			power_change()
 			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
-		playsound(loc, O.usesound, 50, 1)
+		playsound(loc, I.usesound, 50, 1)
+	else
+		return ..()
 
 /obj/machinery/doppler_array/verb/rotate()
 	set name = "Rotate Tachyon-doppler Dish"

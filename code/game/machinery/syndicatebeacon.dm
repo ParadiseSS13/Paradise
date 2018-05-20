@@ -158,14 +158,14 @@
 		return
 
 
-/obj/machinery/power/singularity_beacon/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/screwdriver))
+/obj/machinery/power/singularity_beacon/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
 		if(active)
 			to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
 			return
 
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class='notice'>You unscrew the beacon from the floor.</span>")
 			disconnect_from_network()
 			return
@@ -173,11 +173,10 @@
 			if(!connect_to_network())
 				to_chat(user, "This device must be placed over an exposed cable.")
 				return
-			anchored = 1
+			anchored = TRUE
 			to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
-			return
-	..()
-	return
+	else
+		return ..()
 
 
 /obj/machinery/power/singularity_beacon/Destroy()

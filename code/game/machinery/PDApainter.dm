@@ -43,19 +43,21 @@
 	QDEL_NULL(storedpda)
 	return ..()
 
-/obj/machinery/pdapainter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/pda))
+/obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pda))
 		if(storedpda)
 			to_chat(user, "There is already a PDA inside.")
 			return
 		else
-			var/obj/item/pda/P = usr.get_active_hand()
+			var/obj/item/pda/P = user.get_active_hand()
 			if(istype(P))
-				user.drop_item()
-				storedpda = P
-				P.loc = src
-				P.add_fingerprint(usr)
-				update_icon()
+				if(user.drop_item())
+					storedpda = P
+					P.forceMove(src)
+					P.add_fingerprint(user)
+					update_icon()
+	else
+		return ..()
 
 
 /obj/machinery/pdapainter/attack_hand(mob/user as mob)

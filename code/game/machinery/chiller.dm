@@ -68,8 +68,8 @@
 			user << browse(null, "window=aircond")
 			user.unset_machine()
 	else
-		..()
-	return
+		return ..()
+
 /obj/machinery/space_heater/air_conditioner/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
 	interact(user)

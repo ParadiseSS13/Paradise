@@ -136,18 +136,21 @@
 	else
 		icon_state = "borgcharger0"
 
-/obj/machinery/recharge_station/attackby(obj/item/P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/screwdriver))
-		if(src.occupant)
+/obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
+		if(occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
-		default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", P)
+		default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", I)
 		return
 
-	if(exchange_parts(user, P))
+	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(P)
+	if(default_deconstruction_crowbar(I))
+		return
+	else
+		return ..()
 
 /obj/machinery/recharge_station/proc/process_occupant()
 	if(src.occupant)
