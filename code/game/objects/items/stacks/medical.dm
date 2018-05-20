@@ -163,6 +163,9 @@
 		if(affecting.open == 0)
 			affecting.germ_level = 0
 
+			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].</span>", \
+								 "<span class='green'>You salves the wounds on [H]'s [affecting.name].</span>" )
+
 			var/rembrute = max(0, heal_brute - affecting.brute_dam)
 			var/remburn = max(0, heal_burn - affecting.burn_dam)
 			var/nrembrute = rembrute
