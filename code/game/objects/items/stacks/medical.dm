@@ -110,7 +110,7 @@
 			var/nrembrute = rembrute
 			var/nremburn	= remburn
 			affecting.heal_damage(heal_brute, heal_burn)
-			if(affecting.body_part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, UPPER_TORSO))
+			if(affecting.body_part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, UPPER_TORSO, LOWER_TORSO))
 				for(var/obj/item/organ/external/E in affecting.children)
 					if(rembrute <= 0 && remburn <= 0) // Make sure there's actually overheal left and the organ is damaged before bothering
 						break
@@ -171,7 +171,7 @@
 			var/nrembrute = rembrute
 			var/nremburn	= remburn
 			affecting.heal_damage(heal_brute, heal_burn)
-			if(affecting.body_part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, UPPER_TORSO))
+			if(affecting.body_part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, UPPER_TORSO, LOWER_TORSO))
 				for(var/obj/item/organ/external/E in affecting.children)
 					if(rembrute <= 0 && remburn <= 0) // Make sure there's actually overheal left and the organ is damaged before bothering
 						break
