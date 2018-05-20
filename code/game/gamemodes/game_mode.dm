@@ -88,7 +88,7 @@
 //setup_chumps()
 //Prepares fake potential collaborators to cut down on metagaming the round type as being a traitor subtype. Overriden in traitor game modes since they have real collaborators
 /datum/game_mode/proc/setup_chumps()
-	var/max_chumps = 1
+	var/max_chumps = 0
 	if(config.traitor_scaling)
 		max_chumps = max(1, round((num_players())/(5)))
 	else
@@ -107,7 +107,7 @@
 			tries_left = 5		//reset our tries since we found a new chump
 	//make sure we have chumps before we try misinforming them. if we don't make a note of it.
 	if(!chumps.len)
-		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.") 
+		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.")
 		return 0
 	//we've got chumps! misinform them!
 	for(var/mob/living/carbon/human/chump in chumps)
