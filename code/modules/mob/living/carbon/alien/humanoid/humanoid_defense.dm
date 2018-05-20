@@ -4,9 +4,10 @@
 		adjustBruteLoss(15)
 		var/hitverb = "punched"
 		if(mob_size < MOB_SIZE_LARGE)
-			step_away(src, user, 15)
-			sleep(1)
-			step_away(src, user, 15)
+			spawn(0)
+				step_away(src, user, 15)
+				sleep(1)
+				step_away(src, user, 15)
 			hitverb = "slammed"
 		playsound(loc, "punch", 25, 1, -1)
 		visible_message("<span class='danger'>[user] has [hitverb] [src]!</span>", "<span class='userdanger'>[user] has [hitverb] [src]!</span>")
