@@ -12,6 +12,7 @@
 	var/self_delay = 20
 	var/unique_handling = 0 //some things give a special prompt, do we want to bypass some checks in parent?
 	var/stop_bleeding = 0
+	var/healverb = "bandage"
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	if(!iscarbon(M) && !isanimal(M))
@@ -77,6 +78,33 @@
 							 "<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 
+/obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
+	var/mob/living/carbon/human/H = M
+	var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
+						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
+
+	var/rembrute = max(0, heal_brute - affecting.brute_dam)
+	var/remburn = max(0, heal_burn - affecting.burn_dam)
+	var/nrembrute = rembrute
+	var/nremburn	= remburn
+	affecting.heal_damage(heal_brute, heal_burn)
+	if(affecting.body_part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, UPPER_TORSO, LOWER_TORSO))
+		for(var/obj/item/organ/external/E in affecting.children)
+			if(rembrute <= 0 && remburn <= 0) // Make sure there's actually overheal left and the organ is damaged before bothering
+				break
+			else if(E.status && ORGAN_ROBOT || E.open) // Ignore robotic or open limb
+				continue
+			else if(E.brute_dam == 0 && E.burn_dam == 0) // Ignore undamaged limb
+				continue
+			nrembrute = rembrute - E.brute_dam // Deduct the healed damage from the remain
+			nremburn = remburn - E.burn_dam
+			E.heal_damage(rembrute, remburn)
+			rembrute = nrembrute
+			remburn = nremburn
+			user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
+								 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+
 //Bruise Packs//
 
 /obj/item/stack/medical/bruise_pack
@@ -98,33 +126,12 @@
 		if(affecting.open == 0)
 			affecting.germ_level = 0
 
-			user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].</span>", \
-							 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
-
 			if(stop_bleeding)
 				if(!H.bleedsuppress) //so you can't stack bleed suppression
 					H.suppress_bloodloss(stop_bleeding)
 
-			var/rembrute = max(0, heal_brute - affecting.brute_dam)
-			var/remburn = max(0, heal_burn - affecting.burn_dam)
-			var/nrembrute = rembrute
-			var/nremburn	= remburn
-			affecting.heal_damage(heal_brute, heal_burn)
-			if(affecting.body_part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, UPPER_TORSO, LOWER_TORSO))
-				for(var/obj/item/organ/external/E in affecting.children)
-					if(rembrute <= 0 && remburn <= 0) // Make sure there's actually overheal left and the organ is damaged before bothering
-						break
-					else if(E.status && ORGAN_ROBOT || E.open == 1) // Ignore robotic or open limb
-						continue
-					else if(E.brute_dam == 0 && E.burn_dam == 0) // Ignore undamaged limb
-						continue
-					nrembrute = rembrute - E.brute_dam // Deduct the healed damage from the remain
-					nremburn = remburn - E.burn_dam
-					E.heal_damage(rembrute, remburn)
-					rembrute = nrembrute
-					remburn = nremburn
-					user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [E.name] with the remaining bandages.</span>", \
-										 "<span class='green'>You bandages the wounds on [H]'s [E.name] with the remaining bandages.</span>" )
+			heal(H, user)
+
 			H.UpdateDamageIcon()
 			use(1)
 		else
@@ -151,6 +158,7 @@
 	singular_name = "ointment"
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
+	healverb = "salve"
 
 /obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
 	if(..())
@@ -163,29 +171,8 @@
 		if(affecting.open == 0)
 			affecting.germ_level = 0
 
-			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].</span>", \
-								 "<span class='green'>You salves the wounds on [H]'s [affecting.name].</span>" )
+			heal(H, user)
 
-			var/rembrute = max(0, heal_brute - affecting.brute_dam)
-			var/remburn = max(0, heal_burn - affecting.burn_dam)
-			var/nrembrute = rembrute
-			var/nremburn	= remburn
-			affecting.heal_damage(heal_brute, heal_burn)
-			if(affecting.body_part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, UPPER_TORSO, LOWER_TORSO))
-				for(var/obj/item/organ/external/E in affecting.children)
-					if(rembrute <= 0 && remburn <= 0) // Make sure there's actually overheal left and the organ is damaged before bothering
-						break
-					else if(E.status && ORGAN_ROBOT || E.open == 1) // Ignore robotic or open limb
-						continue
-					else if(E.brute_dam == 0 && E.burn_dam == 0) // Ignore undamaged limb
-						continue
-					nrembrute = rembrute - E.brute_dam // Deduct the healed damage from the remain
-					nremburn = remburn - E.burn_dam
-					E.heal_damage(rembrute, remburn)
-					rembrute = nrembrute
-					remburn = nremburn
-					user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [E.name] with the remaining ointment.</span>", \
-										 "<span class='green'>You salve the wounds on [H]'s [E.name] with the remaining ointment.</span>" )
 			H.UpdateDamageIcon()
 			use(1)
 		else
