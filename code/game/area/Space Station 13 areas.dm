@@ -20,13 +20,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = 1
 	var/party = null
-	var/radalert = 0
 	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
-	layer = 10
+	layer = AREA_LAYER
+	plane = BLACKNESS_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	luminosity = 0
 	mouse_opacity = 0
 	invisibility = INVISIBILITY_LIGHTING
@@ -139,9 +139,6 @@ var/list/ghostteleportlocs = list()
 	return
 
 /area/space/readyalert()
-	return
-
-/area/space/radiation_alert()
 	return
 
 /area/space/partyalert()

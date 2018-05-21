@@ -94,7 +94,7 @@
 			debug_variables(SStimer)
 			feedback_add_details("admin_verb","DTimer")
 		if("Weather")
-			debug_variables(weather_master)
+			debug_variables(SSweather)
 			feedback_add_details("admin_verb","DWeather")
 		if("Space")
 			debug_variables(space_manager)
