@@ -2,6 +2,7 @@
 	name = "conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts."
 	icon_state = "belt_placer"
+	item_state = "cbp"
 	w_class = WEIGHT_CLASS_BULKY //Because belts are large things, you know?
 	can_hold = list(/obj/item/conveyor_construct)
 	max_w_class = WEIGHT_CLASS_BULKY
@@ -16,9 +17,10 @@
 	name = "bluespace conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts. This one has an unlimited capacity for belts, thanks to bluespace technology."
 	icon_state = "bluespace_belt_placer"
+	item_state = "bluespace_cbp"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = INFINITY
-	max_combined_w_class = INFINITY
+	max_combined_w_class = 200 //50 belts
 	origin_tech = "engineering=2;bluespace=1"
 
 /obj/item/storage/conveyor/attackby(obj/item/conveyor_switch_construct/S, mob/user, params) //So we can link belts en masse
