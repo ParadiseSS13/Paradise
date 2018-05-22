@@ -5,6 +5,7 @@
 	item_state = "belt_placer"
 	w_class = WEIGHT_CLASS_BULKY //Because belts are large things, you know?
 	can_hold = list(/obj/item/conveyor_construct)
+	flags = CONDUCT
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 28 //7 belts
 	allow_quick_gather = TRUE
@@ -15,7 +16,7 @@
 
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
-	desc = "This device facilitates the rapid deployment of conveyor belts. This one utilises bluespace in order to hold many more belts than its regular counterpart."
+	desc = "This device facilitates the rapid deployment of conveyor belts. It utilises bluespace in order to hold many more belts than its regular counterpart."
 	icon_state = "bluespace_belt_placer"
 	item_state = "bluespace_belt_placer"
 	w_class = WEIGHT_CLASS_NORMAL
