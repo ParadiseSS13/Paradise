@@ -270,6 +270,18 @@
 		spawn_guardian(user, theghost.key)
 	else
 		to_chat(user, "[failure_message]")
+		if(istype(src, /obj/item/guardiancreator/tech)) // Refund for tech only
+			used = FALSE // Failsafe in case of the proc failing
+			var/datum/uplink_item/dangerous/guardian/G = new
+			var/confirm = alert("Do you want to refund the holoparasite injector?","Refund?","Yes","No")
+			if(confirm == "Yes")
+				var/obj/item/stack/telecrystal/I = new /obj/item/stack/telecrystal
+				I.amount = G.cost
+				qdel(G)
+				user.unEquip(src)
+				user.put_in_hands(I)
+				to_chat(user, "<span class='notice'>Injector successfully refunded</span>")
+				qdel(src)
 		used = FALSE
 
 
