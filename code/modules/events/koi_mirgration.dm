@@ -9,8 +9,7 @@
 	endWhen = rand(600,1200)
 
 /datum/event/koi_migration/announce()
-	var/announcement = "Unknown biological entities have been detected near [station_name()], please stand-by."
-	event_announcement.Announce(announcement, "Lifesign Alert")
+	event_announcement.Announce("Unknown biological entities have been detected near [station_name()], please stand-by.", "Lifesign Alert")
 
 /datum/event/koi_migration/start()
 	spawn_fish(landmarks_list.len)
