@@ -9,8 +9,7 @@
 	endWhen = rand(600,1200)
 
 /datum/event/koi_migration/announce()
-	var/announcement = ""
-	announcement = "Unknown biological [spawned_koi.len == 1 ? "entity has" : "entities have"] been detected near [station_name()], please stand-by."
+	var/announcement = "Unknown biological entities have been detected near [station_name()], please stand-by."
 	event_announcement.Announce(announcement, "Lifesign Alert")
 
 /datum/event/koi_migration/start()
@@ -29,8 +28,8 @@
 	while(i <= num_groups)
 		var/group_size = rand(group_size_min, group_size_max)
 		for(var/j = 1, j <= group_size, j++)
-			var/carptype = /mob/living/simple_animal/hostile/retaliate/carp/koi
-			spawned_koi.Add(new carptype(spawn_locations[i]))
+			var/mob/living/simple_animal/hostile/retaliate/carp/koi/K = new(spawn_locations[i])
+			spawned_koi.Add(K)
 		i++
 
 /datum/event/koi_migration/end()
