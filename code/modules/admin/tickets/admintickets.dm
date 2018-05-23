@@ -172,13 +172,13 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 			return "<font color='orange'>STALE</font>"
 
 //Assign the client passed to var/adminAsssigned
-/datum/admin_ticket/proc/assignAdmin(var/client/C, var/N)
+/datum/admin_ticket/proc/assignAdmin(var/client/C)
 	if(!C)
 		return
 	adminAssigned = C
 	return TRUE
 
-/datum/admin_ticket/proc/addResponse(var/client/C, var/M as text)
+/datum/admin_ticket/proc/addResponse(var/client/C, var/M)
 	if(C.holder)
 		setLastAdminResponse(C)
 	M = "[C]: [M]"

@@ -6,7 +6,7 @@ var/global/nologevent = 0
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	for(var/client/C in admins)
 		if(R_ADMIN & C.holder.rights)
-			if(C.prefs && !(C.prefs.toggles & CHAT_NO_ADMINLOGS))
+			if(C.prefs && !(C.prefs.admintoggles & CHAT_NO_ADMINLOGS))
 				to_chat(C, msg)
 
 /proc/msg_admin_attack(var/text) //Toggleable Attack Messages
@@ -14,7 +14,7 @@ var/global/nologevent = 0
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in admins)
 			if(R_ADMIN & C.holder.rights)
-				if(C.prefs.toggles & CHAT_ATTACKLOGS)
+				if(C.prefs.admintoggles & CHAT_ATTACKLOGS)
 					if(!istype(C, /mob/living))
 						var/msg = rendered
 						to_chat(C, msg)
@@ -23,7 +23,7 @@ var/global/nologevent = 0
 	msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
 	for(var/client/C in admins)
 		if(R_ADMIN & C.holder.rights)
-			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
+			if(C.prefs && !(C.prefs.admintoggles & CHAT_NO_TICKETLOGS))
 				to_chat(C, msg)
 
 
