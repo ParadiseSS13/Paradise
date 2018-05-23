@@ -483,9 +483,11 @@
 		var/new_memo = copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN)
 		if(isnull(new_memo))
 			return
-		memory = new_memo
-		log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
-		message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s memory")
+		var/confirmed = alert(usr, "Are you sure?", "Edit Memory", "Yes", "No")
+		if(confirmed == "Yes") // Because it is too easy to accidentally wipe someone's memory
+			memory = new_memo
+			log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
+			message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s memory")
 
 	else if(href_list["obj_edit"] || href_list["obj_add"])
 		var/datum/objective/objective
@@ -1294,7 +1296,7 @@
 	if(H)
 		qdel(H)
 
-/datum/mind/proc/make_Tratior()
+/datum/mind/proc/make_Traitor()
 	if(!(src in ticker.mode.traitors))
 		ticker.mode.traitors += src
 		special_role = SPECIAL_ROLE_TRAITOR
@@ -1334,7 +1336,16 @@
 
 		ticker.mode.equip_syndicate(current)
 
-/datum/mind/proc/make_Changling()
+/datum/mind/proc/make_Vampire()
+	if(!(src in ticker.mode.vampires))
+		ticker.mode.vampires += src
+		ticker.mode.grant_vampire_powers(current)
+		special_role = SPECIAL_ROLE_VAMPIRE
+		ticker.mode.forge_vampire_objectives(src)
+		ticker.mode.greet_vampire(src)
+		ticker.mode.update_change_icons_added(src)
+
+/datum/mind/proc/make_Changeling()
 	if(!(src in ticker.mode.changelings))
 		ticker.mode.changelings += src
 		ticker.mode.grant_changeling_powers(current)
