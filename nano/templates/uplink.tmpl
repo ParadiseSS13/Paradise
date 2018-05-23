@@ -1,5 +1,5 @@
 
-<!-- 
+<!--
 Title: Syndicate Uplink, uses some javascript to change nanoUI up a bit.
 Used In File(s): \code\game\objects\items\devices\uplinks.dm
  -->
@@ -40,7 +40,7 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
             <div class="item">
                 {{:helper.link( itemValue.Name, 'gear', {'buy_item' : itemValue.obj_path, 'cost' : itemValue.Cost}, itemValue.Cost > data.crystals ? 'disabled' : null, null)}} - <span class="white">{{:itemValue.Cost}}</span>
             </div>
-            
+
             {{if itemValue.Cost <= data.crystals && data.descriptions}}
                 <div class="item">
                     {{:itemValue.Description}}
@@ -53,7 +53,11 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
     <div class="item">
         {{:helper.link('Buy Random (??)' , 'gear', {'buy_item' : 'random'}, data.crystals <= 0 ? 'disabled' : null, null)}}
     </div>
-	
+
+		<div class="item">
+        {{:helper.link('Refund item in active hand' , 'gear', {refund : 1}, null, null)}}
+    </div>
+
 {{else data.menu == 1}}
     <h2><span class="white">Information Record List:</span></h2>
     <br>
@@ -66,7 +70,7 @@ Used In File(s): \code\game\objects\items\devices\uplinks.dm
              {{:helper.link(value.Name, 'gear', {'menu' : 11, 'id' : value.id}, null, null)}}
         </div>
     {{/for}}
-	
+
 {{else data.menu == 11}}
     <h2><span class="white">Information Record:</span></h2>
     <br>

@@ -55,6 +55,9 @@ var/list/uplink_items = list()
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
+	var/refundable = FALSE
+	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
+	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
 	if(hijack_only)
@@ -97,6 +100,7 @@ var/list/uplink_items = list()
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
+				log_game("[key_name(user)] purchased [I.name]")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -527,6 +531,7 @@ var/list/uplink_items = list()
 	cost = 50
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+	refundable = TRUE
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Toy Submachine Gun"
@@ -555,19 +560,14 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
-
-//for refunding the syndieborg teleporter
-/datum/uplink_item/dangerous/syndieborg/spawn_item()
-	var/obj/item/antag_spawner/borg_tele/T = ..()
-	if(istype(T))
-		T.TC_cost = cost
-
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel."
 	item = /obj/item/storage/box/syndie_kit/guardian
 	excludefrom = list(/datum/game_mode/nuclear)
 	cost = 12
+	refund_path = /obj/item/guardiancreator/tech/choose
+	refundable = TRUE
 
 // Ammunition
 

@@ -117,6 +117,9 @@ var/list/world_uplinks = list()
 	if(..())
 		return 1
 
+	if(href_list["refund"])
+		refund(usr)
+
 	if(href_list["buy_item"] == "random")
 		var/datum/uplink_item/UI = chooseRandomItem()
 		href_list["buy_item"] = UI.reference
@@ -141,6 +144,30 @@ var/list/world_uplinks = list()
 	purchase_log[UI] = purchase_log[UI] + 1 */
 
 	return 1
+
+/obj/item/uplink/proc/refund(mob/user as mob)
+	var/obj/item/I = user.get_active_hand()
+	if(I) // Make sure there's actually something in the hand before even bothering to check
+		for(var/item in subtypesof(/datum/uplink_item))
+			var/datum/uplink_item/UI = item
+			var/path = null
+			if(initial(UI.refund_path))
+				path = initial(UI.refund_path)
+			else
+				path = initial(UI.item)
+			var/cost = 0
+			if(initial(UI.refund_amount))
+				cost = initial(UI.refund_amount)
+			else
+				cost = initial(UI.cost)
+			var/refundable = initial(UI.refundable)
+			if(I.type == path && refundable && I.check_uplink_validity())
+				uses += cost
+				used_TC -= cost
+				to_chat(user, "<span class='notice'>[I] refunded.</span>")
+				qdel(I)
+				return
+	..()
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!
@@ -286,17 +313,6 @@ var/list/world_uplinks = list()
 			src.hidden_uplink.trigger(user)
 			return 1
 	return 0
-
-//Refund proc for the borg teleporter (later I'll make a general refund proc if there is demand for it)
-/obj/item/radio/uplink/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/antag_spawner/borg_tele))
-		var/obj/item/antag_spawner/borg_tele/S = W
-		if(!S.used && !S.checking)
-			hidden_uplink.uses += S.TC_cost
-			qdel(S)
-			to_chat(user, "<span class='notice'>Teleporter refunded.</span>")
-		else
-			to_chat(user, "<span class='notice'>This teleporter is already used, or is currently being used.</span>")
 
 // PRESET UPLINKS
 // A collection of preset uplinks.

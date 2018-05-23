@@ -415,6 +415,9 @@
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
 	ling_failure = "The holoparasites recoil in horror. They want nothing to do with a creature like you."
 
+/obj/item/guardiancreator/tech/check_uplink_validity()
+	return !used
+
 /obj/item/guardiancreator/tech/choose
 	random = FALSE
 
