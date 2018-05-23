@@ -213,6 +213,7 @@
 
 /area/space/updateicon()
 	icon_state = null
+	invisibility = INVISIBILITY_MAXIMUM
 
 
 /*
