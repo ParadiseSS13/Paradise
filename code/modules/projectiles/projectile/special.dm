@@ -8,14 +8,14 @@
 
 /obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
 	..()
-	empulse(target, 1, 1)
+	empulse(target, 1, 1, 1)
 	return 1
 
 /obj/item/projectile/ion/weak
 
 /obj/item/projectile/ion/weak/on_hit(atom/target, blocked = 0)
 	..()
-	empulse(target, 0, 0)
+	empulse(target, 0, 0, 1)
 	return 1
 
 /obj/item/projectile/bullet/gyro
