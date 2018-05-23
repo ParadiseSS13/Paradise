@@ -409,7 +409,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !(status & ORGAN_ROBOT))
 		internal_bleeding = TRUE
-		owner.custom_pain("You feel something rip in your [name]!", 1)
+		owner.custom_pain("You feel something rip in your [name]!")
 
 // new damage icon system
 // returns just the brute/burn damage code

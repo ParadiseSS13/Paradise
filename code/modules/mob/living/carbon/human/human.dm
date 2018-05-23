@@ -1201,7 +1201,7 @@
 		return 0
 
 	if(!L.is_bruised())
-		src.custom_pain("You feel a stabbing pain in your chest!", 1)
+		custom_pain("You feel a stabbing pain in your chest!")
 		L.damage = L.min_bruised_damage
 
 //returns 1 if made bloody, returns 0 otherwise
