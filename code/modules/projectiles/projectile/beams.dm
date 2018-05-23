@@ -77,7 +77,7 @@
 /obj/item/projectile/beam/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"
-	hitsound = null
+	hitsound = 'sound/weapons/tap.ogg'
 	damage = 0
 	damage_type = STAMINA
 	flag = "laser"
