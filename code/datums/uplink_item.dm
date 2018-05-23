@@ -100,7 +100,6 @@ var/list/uplink_items = list()
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
-				log_game("[key_name(user)] purchased [I.name]")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
