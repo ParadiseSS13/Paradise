@@ -41,7 +41,7 @@ mob/living/carbon/human/proc/custom_pain(message)
 	if(reagents.has_reagent("hydrocodone"))
 		return
 
-	var/msg = "<span class='danger'>[message]</span>"
+	var/msg = "<span class='userdanger'>[message]</span>"
 
 	// Anti message spam checks
 	if(msg && ((msg != last_pain_message) || (world.time >= next_pain_time)))
