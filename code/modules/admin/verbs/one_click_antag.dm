@@ -66,8 +66,6 @@ client/proc/one_click_antag()
 				candidates.Remove(H)
 
 			return 1
-
-
 	return 0
 
 
@@ -112,7 +110,6 @@ client/proc/one_click_antag()
 				candidates.Remove(H)
 
 			return 1
-
 	return 0
 
 /datum/admins/proc/makeRevs()
@@ -206,7 +203,6 @@ client/proc/one_click_antag()
 			candidates.Remove(H)
 
 		return 1
-
 	return 0
 
 
