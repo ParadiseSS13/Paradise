@@ -1426,6 +1426,7 @@ var/list/uplink_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
 	var/list/bought_items = list()
+	var/list/itemlog = list()
 	U.uses -= cost
 	U.used_TC = 20
 	var/remaining_TC = 50
@@ -1441,8 +1442,11 @@ var/list/uplink_items = list()
 			continue
 		bought_items += I.item
 		remaining_TC -= I.cost
+		itemlog += I.name // To make the name more readable for the log compared to just i.item
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
 		new item(C)
 		U.purchase_log += "<BIG>[bicon(item)]</BIG>"
+	var/mob/user = usr
+	log_game("[key_name(user)] purchased a surplus crate with [jointext(itemlog, ", ")]")
