@@ -331,7 +331,8 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 		else if(ispath(path, /area))
 
 		else
-			instance = new path (T)//first preloader pass
+			instance = create_atom(path, T)//first preloader pass
+
 
 	if(GLOB.use_preloader && instance)//second preloader pass, for those atoms that don't ..() in New()
 		GLOB._preloader.load(instance)
@@ -343,6 +344,11 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 		SSatoms.map_loader_begin()
 
 	return instance
+
+
+/dmm_suite/proc/create_atom(path, crds)
+	set waitfor = FALSE
+	. = new path (crds)
 
 //text trimming (both directions) helper proc
 //optionally removes quotes before and after the text (for variable name)
