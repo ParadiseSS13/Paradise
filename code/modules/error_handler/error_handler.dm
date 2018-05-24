@@ -96,7 +96,7 @@ var/total_runtimes_skipped = 0
 
 	// Now to actually output the error info...
 	log_world("\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]")
-	log_runtime_txt("\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]")
+	log_runtime_txt("Runtime in [e.file],[e.line]: [e]")
 	for(var/line in desclines)
 		log_world(line)
 		log_runtime_txt(line)

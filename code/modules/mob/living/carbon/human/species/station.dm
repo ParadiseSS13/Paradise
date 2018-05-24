@@ -10,7 +10,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
-	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "Humanity originated in the Sol system, and over the last five centuries has spread \
 	colonies across a wide swathe of space. They hold a wide range of forms and creeds.<br/><br/> \
 	While the central Sol government maintains control of its far-flung people, powerful corporate \
@@ -237,7 +236,6 @@
 	default_language = "Galactic Common"
 	language = "Skrellian"
 	primitive_form = "Neara"
-	unarmed_type = /datum/unarmed_attack/punch
 
 	blurb = "An amphibious species, Skrell come from the star system known as Qerr'Vallis, which translates to 'Star of \
 	the royals' or 'Light of the Crown'.<br/><br/>Skrell are a highly advanced and logical race who live under the rule \
@@ -546,7 +544,6 @@
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	path = /mob/living/carbon/human/slime
-	unarmed_type = /datum/unarmed_attack/punch
 	remains_type = /obj/effect/decal/remains/slime
 
 	// More sensitive to the cold
@@ -749,7 +746,6 @@
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
 	language = "Psionic Communication"
-	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
 
@@ -931,7 +927,6 @@
 	path = /mob/living/carbon/human/machine
 	default_language = "Galactic Common"
 	language = "Trinary"
-	unarmed_type = /datum/unarmed_attack/punch
 	remains_type = /obj/effect/decal/remains/robot
 
 	eyes = "blank_eyes"
@@ -1015,7 +1010,6 @@
 	path = /mob/living/carbon/human/drask
 	default_language = "Galactic Common"
 	language = "Orluum"
-	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "drask_eyes_s"
 
 	speech_sounds = list('sound/voice/DraskTalk.ogg')

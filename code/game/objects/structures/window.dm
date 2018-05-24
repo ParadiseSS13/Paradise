@@ -386,7 +386,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	update_nearby_icons()
 	return
 
-/obj/structure/window/initialize()
+/obj/structure/window/Initialize()
 	air_update_turf(1)
 	return ..()
 
@@ -454,7 +454,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	update_nearby_icons()
 	return
 
-/obj/structure/window/plasmabasic/initialize()
+/obj/structure/window/plasmabasic/Initialize()
 	..()
 	air_update_turf(1)
 
@@ -483,7 +483,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	update_nearby_icons()
 	return
 
-/obj/structure/window/plasmareinforced/initialize()
+/obj/structure/window/plasmareinforced/Initialize()
 	..()
 	air_update_turf(1)
 

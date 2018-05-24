@@ -295,7 +295,7 @@ var/global/list/captain_display_cases = list()
 	else
 		if(user.a_intent == INTENT_HARM)
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.do_attack_animation(src)
+			user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 			user.visible_message("<span class='danger'>[user.name] kicks \the [src]!</span>", \
 				"<span class='danger'>You kick \the [src]!</span>", \
 				"You hear glass crack.")

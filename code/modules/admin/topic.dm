@@ -1941,7 +1941,7 @@
 					newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
 					var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 					tatorhud.join_hud(newtraitor)
-					ticker.mode.set_antag_hud(newtraitor, "hudsyndicate")
+					set_antag_hud(newtraitor, "hudsyndicate")
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return
@@ -3436,7 +3436,7 @@
 	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	tatorhud.join_hud(hunter_mob)
-	ticker.mode.set_antag_hud(hunter_mob, "hudsyndicate")
+	set_antag_hud(hunter_mob, "hudsyndicate")
 
 /proc/admin_jump_link(var/atom/target)
 	if(!target) return

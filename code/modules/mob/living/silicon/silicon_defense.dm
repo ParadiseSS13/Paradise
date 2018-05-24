@@ -49,7 +49,7 @@
 		if("grab")
 			grabbedby(M)
 		else
-			M.do_attack_animation(src)
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			playsound(loc, 'sound/effects/bang.ogg', 10, 1)
 			if(HULK in M.mutations)
 				var/damage = rand(10,15)

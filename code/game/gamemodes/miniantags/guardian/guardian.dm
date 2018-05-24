@@ -57,7 +57,7 @@
 		else
 			holder.icon_state = "hudhealthy"
 
-/mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
+/mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
 		if(summoner.stat == DEAD)

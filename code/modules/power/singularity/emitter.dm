@@ -76,12 +76,13 @@
 		return
 	rotate()
 
-/obj/machinery/power/emitter/initialize()
+/obj/machinery/power/emitter/Initialize()
 	..()
 	if(state == 2 && anchored)
 		connect_to_network()
 	if(frequency)
 		set_frequency(frequency)
+
 /obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 	<ul>

@@ -38,8 +38,8 @@
 
 	var/memory
 
-	var/assigned_role
-	var/special_role
+	var/assigned_role //assigned role is what job you're assigned to when you join the station.
+	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
@@ -54,6 +54,7 @@
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
 	var/miming = 0 // Mime's vow of silence
+	var/list/antag_datums
 	var/speech_span // What span any body this mind has talks in.
 	var/datum/faction/faction 			//associated faction
 	var/datum/changeling/changeling		//changeling holder
@@ -72,17 +73,29 @@
 	var/brigged_since = -1
 	var/suicided = FALSE
 
-	New(var/key)
-		src.key = key
-
 	//put this here for easier tracking ingame
 	var/datum/money_account/initial_account
 
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
 
+/datum/mind/New(var/key)
+	src.key = key
+
+
+/datum/mind/Destroy()
+	ticker.minds -= src
+	if(islist(antag_datums))
+		for(var/i in antag_datums)
+			var/datum/antagonist/antag_datum = i
+			if(antag_datum.delete_on_mind_deletion)
+				qdel(i)
+		antag_datums = null
+	return ..()
+
 /datum/mind/proc/transfer_to(mob/living/new_character)
 	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
+	var/mob/living/old_current = current
 	if(!istype(new_character))
 		log_runtime(EXCEPTION("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob."), src)
 	if(current)					//remove ourself from our old body's mind variable
@@ -95,6 +108,9 @@
 		new_character.mind.current = null
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
+	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+		var/datum/antagonist/A = a
+		A.on_body_transfer(old_current, current)
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 
@@ -525,8 +541,8 @@
 					new_objective = new objective_path
 					new_objective.owner = src
 					new_objective:target = new_target:mind
-					//Will display as special role if the target is set as MODE. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role=="MODE" ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
+					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
@@ -1212,6 +1228,60 @@
 
 	edit_memory()
 
+
+// Datum antag mind procs
+/datum/mind/proc/add_antag_datum(datum_type_or_instance, team)
+	if(!datum_type_or_instance)
+		return
+	var/datum/antagonist/A
+	if(!ispath(datum_type_or_instance))
+		A = datum_type_or_instance
+		if(!istype(A))
+			return
+	else
+		A = new datum_type_or_instance()
+	//Choose snowflake variation if antagonist handles it
+	var/datum/antagonist/S = A.specialization(src)
+	if(S && S != A)
+		qdel(A)
+		A = S
+	if(!A.can_be_owned(src))
+		qdel(A)
+		return
+	A.owner = src
+	LAZYADD(antag_datums, A)
+	A.create_team(team)
+	var/datum/team/antag_team = A.get_team()
+	if(antag_team)
+		antag_team.add_member(src)
+	A.on_gain()
+	return A
+
+/datum/mind/proc/remove_antag_datum(datum_type)
+	if(!datum_type)
+		return
+	var/datum/antagonist/A = has_antag_datum(datum_type)
+	if(A)
+		A.on_removal()
+		return TRUE
+
+
+/datum/mind/proc/remove_all_antag_datums() //For the Lazy amongst us.
+	for(var/a in antag_datums)
+		var/datum/antagonist/A = a
+		A.on_removal()
+
+/datum/mind/proc/has_antag_datum(datum_type, check_subtypes = TRUE)
+	if(!datum_type)
+		return
+	. = FALSE
+	for(var/a in antag_datums)
+		var/datum/antagonist/A = a
+		if(check_subtypes && istype(A, datum_type))
+			return A
+		else if(A.type == datum_type)
+			return A
+
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
 	for(var/obj/item/I in L)
@@ -1242,7 +1312,7 @@
 		else
 			current.real_name = "[syndicate_name()] Operative #[ticker.mode.syndicates.len-1]"
 		special_role = SPECIAL_ROLE_NUKEOPS
-		assigned_role = "MODE"
+		assigned_role = SPECIAL_ROLE_NUKEOPS
 		to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 		ticker.mode.forge_syndicate_objectives(src)
 		ticker.mode.greet_syndicate(src)
@@ -1277,7 +1347,7 @@
 	if(!(src in ticker.mode.wizards))
 		ticker.mode.wizards += src
 		special_role = SPECIAL_ROLE_WIZARD
-		assigned_role = "MODE"
+		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
 		if(!wizardstart.len)
 			current.loc = pick(latejoin)
@@ -1483,7 +1553,7 @@
 	var/datum/objective/protect/mindslave/MS = new
 	MS.owner = src
 	MS.target = missionary.mind
-	MS.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role=="MODE" ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
+	MS.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
 	objectives += MS
 	for(var/datum/objective/objective in objectives)
 		to_chat(current, "<B>Objective #1</B>: [objective.explanation_text]")
