@@ -38,8 +38,8 @@ client/proc/one_click_antag()
 	var/antnum = input(owner, "How many traitors you want to create? (0 - 10)","Amount:", 0) as num
 	if(!antnum || antnum > 10 || antnum <= 0)
 		return
-	log_admin("[key_name(owner)] tried making [antnum] Traitors with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making [antnum] Traitors with One-Click-Antag")
+	log_admin("[key_name(owner)] tried making [antnum] traitors with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] traitors with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(ROLE_TRAITOR in applicant.client.prefs.be_special)
@@ -76,8 +76,8 @@ client/proc/one_click_antag()
 	var/antnum = input(owner, "How many changelings you want to create? (0 - 10). Enter 0 to cancel.","Amount:", 0) as num
 	if(!antnum || antnum > 10 || antnum <= 0)
 		return
-	log_admin("[key_name(owner)] tried making Changelings with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making Changelings with One-Click-Antag")
+	log_admin("[key_name(owner)] tried making [antnum] changelings with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] changelings with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(ROLE_CHANGELING in applicant.client.prefs.be_special)
@@ -113,8 +113,8 @@ client/proc/one_click_antag()
 	var/antnum = input(owner, "How many revolutionaries you want to create? (0 - 10)","Amount:", 0) as num
 	if(!antnum || antnum > 10 || antnum <= 0)
 		return
-	log_admin("[key_name(owner)] tried making [antnum] Revolutionaries with One-Click-Antag")
-	message_admins("[key_name_admin(owner)] tried making [antnum] Revolutionaries with One-Click-Antag")
+	log_admin("[key_name(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(ROLE_REV in applicant.client.prefs.be_special)
@@ -139,6 +139,9 @@ client/proc/one_click_antag()
 
 /datum/admins/proc/makeWizard()
 
+	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
+	if(confirm != "Yes")
+		return 0
 	var/list/candidates = pollCandidates("Do you wish to be considered for the position of a Wizard Foundation 'diplomat'?", "wizard")
 
 	log_admin("[key_name(owner)] tried making a Wizard with One-Click-Antag")
@@ -288,6 +291,10 @@ client/proc/one_click_antag()
 
 //Abductors
 /datum/admins/proc/makeAbductorTeam()
+
+	var/confirm = alert("Are you sure?", "Confirm creation", "Yes", "No")
+	if(confirm != "Yes")
+		return 0
 	new /datum/event/abductor
 
 	log_admin("[key_name(owner)] tried making Abductors with One-Click-Antag")
