@@ -611,11 +611,15 @@
 						return
 
 				if(!H.unacidable)
-					var/obj/item/organ/external/affecting = H.get_organ("head")
-					affecting.receive_damage(0, 75)
+					var/obj/item/organ/external/head/affecting = H.get_organ("head")
+					if(affecting)
+						affecting.receive_damage(0, 75)
+						if(!affecting.disfigured)
+							affecting.disfigured = TRUE
+							affecting.update_icon()
+							H.regenerate_icons()
 					H.UpdateDamageIcon()
 					H.emote("scream")
-					H.status_flags |= DISFIGURED
 
 /datum/reagent/facid/reaction_obj(obj/O, volume)
 	if((istype(O, /obj/item) || istype(O, /obj/structure/glowshroom)))
