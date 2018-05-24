@@ -1374,42 +1374,6 @@
 		ticker.mode.greet_wizard(src)
 		ticker.mode.update_wiz_icons_added(src)
 
-
-/datum/mind/proc/make_Cultist()
-	if(!(src in ticker.mode.cult))
-		ticker.mode.cult += src
-		ticker.mode.update_cult_icons_added(src)
-		special_role = SPECIAL_ROLE_CULTIST
-		to_chat(current, "<font color=\"cultitalic\"><b><i>You catch a glimpse of the Realm of [ticker.cultdat.entity_name], [ticker.cultdat.entity_title2]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.cultdat.entity_name].</b></i></font>")
-		to_chat(current, "<font color=\"cultitalic\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
-		var/datum/game_mode/cult/cult = ticker.mode
-		if(GAMEMODE_IS_CULT)
-			cult.memorize_cult_objectives(src)
-		else
-			var/explanation = "Summon [ticker.cultdat.entity_name] via the use of the appropriate rune. It will only work if nine cultists stand on and around it."
-			to_chat(current, "<B>Objective #1</B>: [explanation]")
-			current.memory += "<B>Objective #1</B>: [explanation]<BR>"
-
-
-	var/mob/living/carbon/human/H = current
-	if(istype(H))
-		var/obj/item/tome/T = new(H)
-
-		var/list/slots = list (
-			"backpack" = slot_in_backpack,
-			"left pocket" = slot_l_store,
-			"right pocket" = slot_r_store,
-			"left hand" = slot_l_hand,
-			"right hand" = slot_r_hand,
-		)
-		var/where = H.equip_in_one_of_slots(T, slots)
-		if(!where)
-		else
-			to_chat(H, "A tome, a message from your new master, appears in your [where].")
-
-	if(!ticker.mode.equip_cultist(current))
-		to_chat(H, "Summoning an amulet from your Master failed.")
-
 /datum/mind/proc/make_Rev()
 	if(ticker.mode.head_revolutionaries.len>0)
 		// copy targets
