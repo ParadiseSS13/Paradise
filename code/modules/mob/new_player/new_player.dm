@@ -4,7 +4,7 @@
 	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
-	var/consent = FALSE
+	var/tos_consent = FALSE
 	universal_speak = 1
 
 	invisibility = 101
@@ -20,30 +20,30 @@
 
 /mob/new_player/verb/new_player_panel()
 	set src = usr
-	if(consent)
+	if(tos_consent)
 		new_player_panel_proc()
 	else
 		handle_tos_consent()
 
 /mob/new_player/proc/handle_tos_consent()
-	if(!join_tos)
+	if(!GLOB.join_tos)
 		return
 	establish_db_connection()
 	if(!dbcon.IsConnected())
-		consent = 1
+		tos_consent = 1
 		return
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
 	query.Execute()
 	while(query.NextRow())
-		consent = 1
+		tos_consent = 1
 
-	if(!consent)
+	if(!tos_consent)
 		privacy_consent()
 
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
-	var/output = join_tos
+	var/output = GLOB.join_tos
 	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
 	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
 	src << browse(output,"window=privacy_consent;size=500x300")
@@ -75,7 +75,7 @@
 
 	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
-	if(join_tos)
+	if(GLOB.join_tos)
 		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
 	if(!IsGuestKey(src.key))
@@ -149,10 +149,10 @@
 		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
 		query.Execute()
 		src << browse(null, "window=privacy_consent")
-		consent = 1
+		tos_consent = 1
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
-		consent = 0
+		tos_consent = 0
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
@@ -163,7 +163,7 @@
 		return 1
 
 	if(href_list["ready"])
-		if(!consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
 		ready = !ready
@@ -178,7 +178,7 @@
 		new_player_panel_proc()
 
 	if(href_list["observe"])
-		if(!consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
 
@@ -215,7 +215,7 @@
 		return 0
 
 	if(href_list["late_join"])
-		if(!consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 			return 0
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
