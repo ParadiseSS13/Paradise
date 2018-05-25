@@ -20,26 +20,27 @@
 
 /mob/new_player/verb/new_player_panel()
 	set src = usr
-	if(tos_consent)
+
+	if(handle_tos_consent())
 		new_player_panel_proc()
-	else
-		handle_tos_consent()
 
 /mob/new_player/proc/handle_tos_consent()
 	if(!GLOB.join_tos)
-		return
+		return TRUE
+
 	establish_db_connection()
 	if(!dbcon.IsConnected())
-		tos_consent = 1
-		return
+		tos_consent = TRUE
+		return TRUE
+
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
 	query.Execute()
 	while(query.NextRow())
-		tos_consent = 1
+		tos_consent = TRUE
+		return TRUE
 
-	if(!tos_consent)
-		privacy_consent()
-
+	privacy_consent()
+	return FALSE
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
