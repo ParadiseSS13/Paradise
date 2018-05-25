@@ -32,7 +32,7 @@
 	if(!dbcon.IsConnected())
 		consent = 1
 		return
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent='SIGNED'")
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
 	query.Execute()
 	while(query.NextRow())
 		consent = 1
@@ -146,7 +146,7 @@
 
 	if(href_list["consent_signed"])
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 'SIGNED')")
+		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
 		query.Execute()
 		src << browse(null, "window=privacy_consent")
 		consent = 1
@@ -155,7 +155,7 @@
 		consent = 0
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 'NOTSIGNED')")
+		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
 		query.Execute()
 
 	if(href_list["show_preferences"])
