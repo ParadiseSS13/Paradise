@@ -1448,5 +1448,4 @@ var/list/uplink_items = list()
 	for(var/item in bought_items)
 		new item(C)
 		U.purchase_log += "<BIG>[bicon(item)]</BIG>"
-	var/mob/user = usr
-	log_game("[key_name(user)] purchased a surplus crate with [jointext(itemlog, ", ")]")
+	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
