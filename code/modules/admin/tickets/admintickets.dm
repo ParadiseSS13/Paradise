@@ -106,7 +106,9 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 	for(var/datum/admin_ticket/T in allTickets)
 		if(T.clientName == C && (T.ticketState == ADMIN_TICKET_OPEN || T.ticketState == ADMIN_TICKET_STALE))
 			tickets += T
-	return tickets
+	if(tickets.len)
+		return tickets
+	return FALSE
 
 //return the client of a ticket number
 /datum/adminTicketHolder/proc/returnClient(var/N)
