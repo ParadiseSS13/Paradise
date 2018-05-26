@@ -294,7 +294,7 @@
 	var/mob/living/carbon/human/H = user
 	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 	var/obj/item/organ/external/affecting = H.get_organ(ran_zone(dam_zone))
-	user.visible_message("<span class='warning'>[user] cuts open their [affecting] and begins writing in their own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.cultdat.entity_title3].</span>")
+	user.visible_message("<span class='warning'>[user] cuts open [user.p_their()] [affecting] and begins writing in [user.p_their()] own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [ticker.cultdat.entity_title3].</span>")
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE , affecting)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay)-scribereduct, target = get_turf(user)))
 		for(var/V in shields)
@@ -305,7 +305,7 @@
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
-	user.visible_message("<span class='warning'>[user] creates a strange circle in their own blood.</span>", \
+	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>", \
 						 "<span class='cult'>You finish drawing the arcane markings of [ticker.cultdat.entity_title3].</span>")
 	for(var/V in shields)
 		var/obj/machinery/shield/S = V
