@@ -104,7 +104,6 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	alt_titles = list("Forensic Technician")
 	access = list(access_security, access_sec_doors, access_forensics_lockers, access_maint_tunnels, access_court, access_weapons, access_forensics_lockers)
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	minimal_player_age = 14
@@ -207,7 +206,7 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
-	alt_titles = list("Spacepod Specialist")
+	alt_titles = list("Spacepod Pilot")
 
 
 /datum/outfit/job/officer
@@ -319,7 +318,7 @@
 				backpack = /obj/item/storage/backpack/medic
 				satchel = /obj/item/storage/backpack/satchel_med
 				dufflebag = /obj/item/storage/backpack/duffel/medical*/
-			if("Spacepod Specialist")
+			if("Spacepod Pilot")
 				uniform = /obj/item/clothing/under/rank/security/pod_pilot
 				suit = /obj/item/clothing/suit/jacket/pilot
 				gloves = /obj/item/clothing/gloves/color/black
