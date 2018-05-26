@@ -208,6 +208,8 @@
 			observer.name = observer.real_name
 			if(!client.holder && !config.antag_hud_allowed)           // For new ghosts we remove the verb from even showing up if it's not allowed.
 				observer.verbs -= /mob/dead/observer/verb/toggle_antagHUD        // Poor guys, don't know what they are missing!
+			if(ROLE_PAI in client.prefs.be_special)
+				observer.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/pai_ad(null))
 			observer.key = key
 			respawnable_list += observer
 			qdel(src)

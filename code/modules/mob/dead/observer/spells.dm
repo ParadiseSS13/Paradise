@@ -50,3 +50,20 @@ var/global/list/boo_phrases=list(
 
 			if(istype(A, /obj/machinery/ai_status_display))
 				A:spookymode=1
+
+/obj/effect/proc_holder/spell/aoe_turf/pai_ad
+	name = "Advertise pAI"
+	desc = "Advertise your pAI personality"
+	ghost = TRUE
+	stat_allowed = TRUE
+	invocation = ""
+	invocation_type = "none"
+	school = "transmutation"
+	charge_max = 6000
+	charge_counter = 6000
+	clothes_req = 0
+	action_icon_state = "pai"
+
+/obj/effect/proc_holder/spell/aoe_turf/pai_ad/cast(list/targets, mob/user = usr)
+	for(var/obj/machinery/newscaster/NC in allCasters)
+		NC.newsAlert("Advertisement: New pAI personality available! Download yours today!")
