@@ -183,6 +183,8 @@
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
 
+	if(type == "Mentorhelp")
+		return
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
 	tickets = globAdminTicketHolder.checkForTicket(C)
