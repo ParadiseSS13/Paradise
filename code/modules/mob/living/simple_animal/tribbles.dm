@@ -68,7 +68,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 				gestation = 0
 
 
-/mob/living/simple_animal/tribble/Life()
+/mob/living/simple_animal/tribble/Life(seconds, times_fired)
 	..()
 	if(src.health > 0) //no mostly dead procreation
 		if(gestation != null) //neuter check

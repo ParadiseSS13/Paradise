@@ -59,7 +59,7 @@
 			var/datum/objective/protect/mindslave/MS = new
 			MS.owner = H.mind
 			MS.target = user.mind
-			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role=="MODE" ? (user.mind.special_role) : (user.mind.assigned_role)]."
+			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role == user.mind.special_role ? (user.mind.special_role) : (user.mind.assigned_role)]."
 			H.mind.objectives += MS
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")

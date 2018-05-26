@@ -49,7 +49,7 @@
 		if(!employee.job_objectives.len)//If the employee had no objectives, don't need to process this.
 			continue
 
-		if(!employee.assigned_role=="MODE")//If the employee is a gamemode thing, skip.
+		if(employee.assigned_role == employee.special_role) //If the character is an offstation character, skip them.
 			continue
 
 		var/tasks_completed=0

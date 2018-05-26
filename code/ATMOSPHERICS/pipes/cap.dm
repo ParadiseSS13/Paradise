@@ -61,9 +61,9 @@
 	alpha = 255
 
 	overlays.Cut()
-	overlays += icon_manager.get_atmos_icon("pipe", , pipe_color, "cap" + icon_connect_type)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("pipe", , pipe_color, "cap" + icon_connect_type)
 
-/obj/machinery/atmospherics/pipe/cap/initialize()
+/obj/machinery/atmospherics/pipe/cap/atmos_init()
 	..()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
 		if(target.initialize_directions & get_dir(target,src))

@@ -6,26 +6,26 @@
 	icon_state = "orebox0"
 	name = "ore box"
 	desc = "A heavy wooden box, which can be filled with a lot of ores."
-	density = 1
-	pressure_resistance = 5*ONE_ATMOSPHERE
+	density = TRUE
+	pressure_resistance = 5 * ONE_ATMOSPHERE
 
-/obj/structure/ore_box/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/t_scanner/adv_mining_scanner))
 		attack_hand(user)
 		return
 	if(istype(W, /obj/item/ore))
 		if(!user.drop_item())
 			return
-		W.loc = src
+		W.forceMove(src)
 	if(istype(W, /obj/item/storage))
 		var/obj/item/storage/S = W
 		S.hide_from(usr)
 		for(var/obj/item/ore/O in S.contents)
 			S.remove_from_storage(O, src) //This will move the item to this item's contents
+			CHECK_TICK
 		to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
-	return
 
-/obj/structure/ore_box/attack_hand(mob/user as mob)
+/obj/structure/ore_box/attack_hand(mob/user)
 	var/amt_gold = 0
 	var/amt_silver = 0
 	var/amt_diamond = 0
@@ -90,20 +90,19 @@
 	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
-	return
 
 /obj/structure/ore_box/Topic(href, href_list)
 	if(..())
 		return
 	usr.set_machine(src)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	if(href_list["removeall"])
 		for(var/obj/item/ore/O in contents)
 			contents -= O
-			O.loc = src.loc
+			O.forceMove(loc)
+			CHECK_TICK
 		to_chat(usr, "<span class='notice'>You empty the box.</span>")
-	src.updateUsrDialog()
-	return
+	updateUsrDialog()
 
 obj/structure/ore_box/ex_act(severity, target)
 	if(prob(100 / severity) && severity < 3)
@@ -115,11 +114,11 @@ obj/structure/ore_box/ex_act(severity, target)
 	set category = "Object"
 	set src in view(1)
 
-	if(!istype(usr, /mob/living/carbon/human)) //Only living, intelligent creatures with hands can empty ore boxes.
+	if(!ishuman(usr)) //Only living, intelligent creatures with hands can empty ore boxes.
 		to_chat(usr, "<span class='warning'>You are physically incapable of emptying the ore box.</span>")
 		return
 
-	if( usr.stat || usr.restrained() )
+	if(usr.incapacitated())
 		return
 
 	if(!Adjacent(usr)) //You can only empty the box if you can physically reach it
@@ -134,7 +133,6 @@ obj/structure/ore_box/ex_act(severity, target)
 
 	for(var/obj/item/ore/O in contents)
 		contents -= O
-		O.loc = src.loc
+		O.forceMove(loc)
+		CHECK_TICK
 	to_chat(usr, "<span class='notice'>You empty the ore box.</span>")
-
-	return

@@ -152,7 +152,7 @@
 			if(istype(AM, /obj/effect/landmark/map_loader))
 				late_maps.Add(AM)
 				continue
-			AM.initialize()
+			AM.Initialize(TRUE)
 			if(istype(AM, /obj/machinery/atmospherics))
 				pipes.Add(AM)
 			else if(istype(AM, /obj/structure/cable))
@@ -179,10 +179,7 @@
 /datum/space_level/proc/do_cables(list/cables)
 	var/watch = start_watch()
 	log_debug("Building powernets on z-level '[zpos]'!")
-	for(var/schmoo in cables)
-		var/obj/structure/cable/C = schmoo
-		if(C)
-			makepowernet_for(C)
+	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
 	log_debug("Took [stop_watch(watch)]s")
 
@@ -193,7 +190,7 @@
 	for(var/schmoo in late_maps)
 		var/obj/effect/landmark/map_loader/ML = schmoo
 		if(ML)
-			ML.initialize()
+			ML.Initialize()
 	late_maps.Cut()
 	space_manager.remove_dirt(zpos)
 	log_debug("Took [stop_watch(watch)]s")

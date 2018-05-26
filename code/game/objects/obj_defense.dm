@@ -162,7 +162,7 @@
 	being_shocked = TRUE
 	var/power_bounced = power * 0.5
 	tesla_zap(src, 3, power_bounced)
-	addtimer(src, "reset_shocked", 10)
+	addtimer(CALLBACK(src, .proc/reset_shocked), 10)
 
 /obj/proc/reset_shocked()
 	being_shocked = FALSE

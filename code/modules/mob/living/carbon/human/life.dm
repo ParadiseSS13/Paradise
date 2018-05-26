@@ -1,4 +1,4 @@
-/mob/living/carbon/human/Life()
+/mob/living/carbon/human/Life(seconds, times_fired)
 	life_tick++
 
 	voice = GetVoice()
@@ -32,7 +32,7 @@
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
-	pulse = handle_pulse()
+	pulse = handle_pulse(times_fired)
 
 	if(mind && mind.vampire)
 		mind.vampire.handle_vampire()
@@ -902,9 +902,8 @@
 				hud_used.lingchemdisplay.invisibility = 101
 
 
-/mob/living/carbon/human/proc/handle_pulse()
-
-	if(mob_master.current_cycle % 5)
+/mob/living/carbon/human/proc/handle_pulse(times_fired)
+	if(times_fired % 5 == 1)
 		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
 	if(NO_BLOOD in species.species_traits)

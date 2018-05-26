@@ -102,6 +102,8 @@
 			on_CD = handle_emote_CD()
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
+		if("clap", "claps")
+			on_CD = handle_emote_CD()
 		//Everything else, including typos of the above emotes
 		else
 			on_CD = 0	//If it doesn't induce the cooldown, we won't check for the cooldown
@@ -302,11 +304,30 @@
 					message = "<B>[src]</B> makes a peculiar noise."
 					m_type = 2
 		if("clap", "claps")
-			if(!restrained())
-				message = "<B>[src]</B> claps."
+			if(miming)
+				message = "<B>[src]</B> claps silently."
+				m_type = 1
+			else
 				m_type = 2
-				if(miming)
-					m_type = 1
+				var/obj/item/organ/external/L = get_organ("l_hand")
+				var/obj/item/organ/external/R = get_organ("r_hand")
+
+				var/left_hand_good = FALSE
+				var/right_hand_good = FALSE
+
+				if(L && (!(L.status & ORGAN_SPLINTED)) && (!(L.status & ORGAN_BROKEN)))
+					left_hand_good = TRUE
+				if(R && (!(R.status & ORGAN_SPLINTED)) && (!(R.status & ORGAN_BROKEN)))
+					right_hand_good = TRUE
+
+				if(left_hand_good && right_hand_good)
+					message = "<b>[src]</b> claps."
+					var/clap = pick('sound/misc/clap1.ogg', 'sound/misc/clap2.ogg', 'sound/misc/clap3.ogg', 'sound/misc/clap4.ogg')
+					playsound(loc, clap, 50, 1, -1)
+
+				else
+					to_chat(usr, "You need your hands working in order to clap.")
+
 		if("flap", "flaps")
 			if(!restrained())
 				message = "<B>[src]</B> flaps \his wings."
@@ -805,34 +826,34 @@
 				return
 //			playsound(loc, 'sound/effects/fart.ogg', 50, 1, -3) //Admins still vote no to fun
 			if(locate(/obj/item/storage/bible) in get_turf(src))
-				to_chat(viewers(src), "<span class='warning'><b>[src] farts on the Bible!</b></span>")
-				var/image/cross = image('icons/obj/storage.dmi',"bible")
-				var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[src]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[src]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[src]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
+				to_chat(viewers(src), "<span class='danger'>[src] farts on the Bible!</span>")
+				var/image/cross = image('icons/obj/storage.dmi', "bible")
+				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=[UID()]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[UID()]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=[UID()]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
 				for(var/client/X in admins)
-					if(check_rights(R_EVENT,0,X.mob))
+					if(check_rights(R_EVENT, 0, X.mob))
 						to_chat(X, adminbfmessage)
 			else if(TOXIC_FARTS in mutations)
-				message = "<b>[src]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart."
+				message = "<b>[src]</b> unleashes a [pick("horrible", "terrible", "foul", "disgusting", "awful")] fart."
 			else if(SUPER_FART in mutations)
-				message = "<b>[src]</b> unleashes a [pick("loud","deafening")] fart."
-				newtonian_move(dir)
+				message = "<b>[src]</b> unleashes a [pick("loud", "deafening")] fart."
 			else
-				message = "<b>[src]</b> [pick("passes wind","farts")]."
+				message = "<b>[src]</b> [pick("passes wind", "farts")]."
 			m_type = 2
 
 			var/turf/location = get_turf(src)
-			var/aoe_range=2 // Default
 
 			// Process toxic farts first.
 			if(TOXIC_FARTS in mutations)
-				for(var/mob/M in range(location,aoe_range))
-					if(M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
+				for(var/mob/living/carbon/C in range(location, 2))
+					if(C.internal != null && C.wear_mask && (C.wear_mask.flags & AIRTIGHT))
 						continue
-					// Now, we don't have this:
-					//new /obj/effects/fart_cloud(T,L)
-					if(M == src)
+					if(C == src)
 						continue
-					M.reagents.add_reagent("jenkem", 1)
+					C.reagents.add_reagent("jenkem", 1)
+
+			// Farting as a form of locomotion in space
+			if(SUPER_FART in mutations)
+				newtonian_move(dir)
 
 		if("hem")
 			message = "<b>[src]</b> hems."

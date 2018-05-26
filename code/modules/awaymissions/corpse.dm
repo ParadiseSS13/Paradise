@@ -29,7 +29,8 @@
 	var/brute_damage = 0
 	var/oxy_damage = 0
 
-/obj/effect/landmark/corpse/initialize()
+/obj/effect/landmark/corpse/Initialize()
+	..()
 	if(istype(src,/obj/effect/landmark/corpse/clown))
 		var/obj/effect/landmark/corpse/clown/C = src
 		C.chooseRank()

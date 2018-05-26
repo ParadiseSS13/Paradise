@@ -1941,7 +1941,7 @@
 					newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
 					var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 					tatorhud.join_hud(newtraitor)
-					ticker.mode.set_antag_hud(newtraitor, "hudsyndicate")
+					set_antag_hud(newtraitor, "hudsyndicate")
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return
@@ -2957,13 +2957,6 @@
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])
-			if("clear_bombs")
-				//I do nothing
-			if("list_bombers")
-				var/dat = "<B>Bombing List<HR>"
-				for(var/l in bombers)
-					dat += text("[l]<BR>")
-				usr << browse(dat, "window=bombers")
 			if("list_signalers")
 				var/dat = "<B>Showing last [length(lastsignalers)] signalers.</B><HR>"
 				for(var/sig in lastsignalers)
@@ -3436,7 +3429,7 @@
 	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	tatorhud.join_hud(hunter_mob)
-	ticker.mode.set_antag_hud(hunter_mob, "hudsyndicate")
+	set_antag_hud(hunter_mob, "hudsyndicate")
 
 /proc/admin_jump_link(var/atom/target)
 	if(!target) return

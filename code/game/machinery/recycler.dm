@@ -143,7 +143,7 @@ var/const/SAFETY_COOLDOWN = 100
 	safety_mode = 1
 	update_icon()
 	L.loc = loc
-	addtimer(src, "reboot", SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)

@@ -333,6 +333,9 @@
 		if(INTENT_GRAB)
 			grabbedby(M)
 			return FALSE
-		else
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
+			return TRUE
+		if(INTENT_DISARM)
+			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			return TRUE

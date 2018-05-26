@@ -1,7 +1,7 @@
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(M.a_intent == INTENT_DISARM)
 		if(!lying)
-			M.do_attack_animation(src)
+			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			if(prob(85))
 				Stun(7)
 				step(src, get_dir(M,src))
@@ -42,7 +42,7 @@
 
 	if(opened && !wiresexposed && !issilicon(user))
 		if(cell)
-			cell.updateicon()
+			cell.update_icon()
 			cell.add_fingerprint(user)
 			user.put_in_active_hand(cell)
 			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
