@@ -95,7 +95,7 @@
 			to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 			if(M.weakeyes)
 				M.Stun(2)
-				M.visible_message("<span class='disarm'>[M] gasps and shields their eyes!</span>", "<span class='userdanger'>You gasp and shields your eyes!</span>")
+				M.visible_message("<span class='disarm'>[M] gasps and shields [M.p_their()] eyes!</span>", "<span class='userdanger'>You gasp and shields your eyes!</span>")
 		else
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
 			to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
@@ -123,7 +123,7 @@
 				for(var/obj/item/borg/combat/shield/S in R.module.modules)
 					if(R.activated(S))
 						add_attack_logs(user, M, "Flashed with [src]")
-						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but is blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by their shield!</span>")
+						user.visible_message("<span class='disarm'>[user] tries to overloads [M]'s sensors with the [src.name], but is blocked by [M]'s shield!</span>", "<span class='danger'>You try to overload [M]'s sensors with the [src.name], but are blocked by [M.p_their()] shield!</span>")
 						return 1
 		add_attack_logs(user, M, "Flashed with [src]")
 		if(M.flash_eyes(affect_silicon = 1))
@@ -168,9 +168,9 @@
 						resisted = 1
 
 					if(resisted)
-						to_chat(user, "<span class='warning'>This mind seems resistant to the [src.name]!</span>")
+						to_chat(user, "<span class='warning'>This mind seems resistant to the [name]!</span>")
 				else
-					to_chat(user, "<span class='warning'>They must be conscious before you can convert them!</span>")
+					to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
 			else
 				to_chat(user, "<span class='warning'>This mind is so vacant that it is not susceptible to influence!</span>")
 

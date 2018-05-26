@@ -490,7 +490,7 @@ proc/display_roundstart_logout_report()
 		M.ghostize()
 		M.key = theghost.key
 	else
-		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take their place.")
+		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
 		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
 
 /proc/printplayer(datum/mind/ply, fleecheck)
@@ -510,7 +510,7 @@ proc/display_roundstart_logout_report()
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]</b>"
 	else
-		text += " <span class='redtext'>had their body destroyed</span>"
+		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
 	return text
 
 /proc/printobjectives(datum/mind/ply)
