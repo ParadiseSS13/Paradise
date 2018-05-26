@@ -22,3 +22,8 @@
 			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] has attempted to kick [src]!</span>", \
 					"<span class='userdanger'>[M] has attempted to kick [src]!</span>")
+
+/mob/living/carbon/alien/larva/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+	if(!no_effect && !visual_effect_icon)
+		visual_effect_icon = ATTACK_EFFECT_BITE
+	..()

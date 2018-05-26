@@ -47,7 +47,7 @@
 				to_chat(user, "<span class='notice'>We stealthily stab [target] with a minor proboscis...</span>")
 				to_chat(target, "<span class='userdanger'>You experience a stabbing sensation and your ears begin to ring...</span>")
 			if(3)
-				to_chat(user, "<span class='notice'>You mold the [target]'s mind like clay, they can now speak in the hivemind!</span>")
+				to_chat(user, "<span class='notice'>You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!</span>")
 				to_chat(target, "<span class='userdanger'>A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!</span>")
 				for(var/mob/M in mob_list)
 					if(all_languages["Changeling"] in M.languages)

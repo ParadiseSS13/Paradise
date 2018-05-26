@@ -109,7 +109,7 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
@@ -169,7 +169,7 @@
 
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/initialize()
+/obj/machinery/atmospherics/unary/vent_scrubber/atmos_init()
 	..()
 	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
 	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null

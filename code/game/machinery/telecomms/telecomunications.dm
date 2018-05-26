@@ -116,7 +116,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		// TODO: Make the radio system cooperate with the space manager
 		listening_level = position.z
 
-/obj/machinery/telecomms/initialize()
+/obj/machinery/telecomms/Initialize()
 	..()
 	if(autolinkers.len)
 		// Links nearby machines

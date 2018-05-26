@@ -169,7 +169,17 @@
 /mob/proc/movement_delay()
 	return 0
 
-/mob/proc/Life()
+/mob/proc/Life(seconds, times_fired)
+	if(forced_look)
+		if(!isnum(forced_look))
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				var/view = client ? client.view : world.view
+				if(get_dist(src, A) > view || !(src in viewers(view, A)))
+					forced_look = null
+					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+					return
+		setDir()
 //	handle_typing_indicator()
 	return
 
@@ -532,6 +542,17 @@ var/list/slot_equipment_priority = list( \
 		if(hud_used)
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
+
+/mob/setDir(new_dir)	
+	if(forced_look)
+		if(isnum(forced_look))
+			dir = forced_look
+		else 
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				dir = get_cardinal_dir(src, A)
+		return
+	. = ..()
 
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
@@ -1158,7 +1179,7 @@ var/list/slot_equipment_priority = list( \
 			new /obj/effect/decal/cleanable/vomit/green(location)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
+				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
 

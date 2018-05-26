@@ -137,17 +137,17 @@
 
 /obj/item/gun/projectile/suicide_act(mob/user)
 	if(chambered && chambered.BB && !chambered.BB.nodamage)
-		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in \his mouth.  It looks like \he's trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is putting the barrel of the [name] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide.</span>")
 		sleep(25)
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")
-			user.visible_message("<span class='suicide'>[user] blows \his brains out with the [name]!</span>")
+			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with the [name]!</span>")
 			return(BRUTELOSS)
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
 			return(OXYLOSS)
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow \his brains out with the [name]! It looks like \he's trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
 		return (OXYLOSS)
 

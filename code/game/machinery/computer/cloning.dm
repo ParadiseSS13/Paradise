@@ -22,7 +22,7 @@
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/machinery/computer/cloning/initialize()
+/obj/machinery/computer/cloning/Initialize()
 	..()
 	updatemodules()
 

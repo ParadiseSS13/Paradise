@@ -25,13 +25,13 @@
 	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
 		qdel(user.l_hand)
 		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_l_hand()
 		return
 	if(istype(user.r_hand, weapon_type))
 		qdel(user.r_hand)
 		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_r_hand()
 		return
 	..(user, target)
@@ -67,7 +67,7 @@
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
-		H.visible_message("<span class='warning'>[H] casts off their [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
+		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
 		qdel(H.wear_suit)
 		qdel(H.head)
 		H.update_inv_wear_suit()
@@ -138,7 +138,7 @@
 		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 /obj/item/melee/arm_blade/dropped(mob/user)
-	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms his blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
 	. = ..()
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
@@ -170,7 +170,7 @@
 				return
 
 		//user.say("Heeeeeeeeeerrre's Johnny!")
-		user.visible_message("<span class='warning'>[user] forces the airlock to open with \his [src]!</span>", "<span class='warning'>We force the airlock to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+		user.visible_message("<span class='warning'>[user] forces the airlock to open with [user.p_their()] [name]!</span>", "<span class='warning'>We force the airlock to open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
 		A.open(2)
 
 /***************************************\
@@ -219,7 +219,7 @@
 	to_chat(user, "<span class='warning'>The [name] is not ready yet.<span>")
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] coils [src] tightly around \his neck! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return (OXYLOSS)
 
 /obj/item/ammo_casing/magic/tentacle
@@ -278,7 +278,7 @@
 
 		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
 		C.apply_damage(I.force, BRUTE, "chest")
-		do_attack_animation(C)
+		do_item_attack_animation(C, used_item = I)
 		add_blood(C)
 		playsound(get_turf(src), I.hitsound, 75, 1)
 
@@ -386,7 +386,7 @@
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms his shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
+			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
 			H.unEquip(src, 1)
 		qdel(src)
 		return 0
@@ -426,7 +426,7 @@
 /obj/item/clothing/suit/space/changeling/New()
 	..()
 	if(ismob(loc))
-		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around their body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 	processing_objects += src
 
 /obj/item/clothing/suit/space/changeling/process()
