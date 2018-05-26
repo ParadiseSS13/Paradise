@@ -379,29 +379,29 @@
 	if(user.reagents.has_reagent("simethicone"))
 		return
 
-	. = "<b>[user]</b> [pick("passes wind","farts")]"
+	. = "<b>[user]</b> [pick("passes wind", "farts")]"
 
 	if(TOXIC_FARTS in user.mutations)
-		. = "<b>[user]</b> unleashes a [pick("horrible","terrible","foul","disgusting","awful")] fart"
+		. = "<b>[user]</b> unleashes a [pick("horrible", "terrible", "foul", "disgusting", "awful")] fart"
 		var/turf/location = get_turf(user)
-		var/aoe_range = 2 // Default
-		for(var/mob/M in range(location, aoe_range))
-			if(M.internal != null && M.wear_mask && (M.wear_mask.flags & AIRTIGHT))
+
+		for(var/mob/living/carbon/C in range(location, 2))
+			if(C.internal != null && C.wear_mask && (C.wear_mask.flags & AIRTIGHT))
 				continue
-			if(M == user)
+			if(C == user)
 				continue
-			M.reagents.add_reagent("jenkem", 1)
-	else if(SUPER_FART in user.mutations)
+			C.reagents.add_reagent("jenkem", 1)
+	if(SUPER_FART in user.mutations)
 		. = "<b>[user]</b> unleashes a [pick("loud","deafening")] fart"
 		user.newtonian_move(user.dir)
 
 	if(locate(/obj/item/storage/bible) in get_turf(user))
-		var/image/cross = image('icons/obj/storage.dmi',"bible")
-		var/adminbfmessage = "\blue [bicon(cross)] <b><font color=red>Bible Fart: </font>[key_name(user, 1)] (<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=\ref[user]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[user]'>SM</A>) ([admin_jump_link(user)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
+		var/image/cross = image('icons/obj/storage.dmi', "bible")
+		var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(user, 1)] (<A HREF='?_src_=holder;adminmoreinfo=[UID()]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[UID()]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=[UID()]'>SM</A>) ([admin_jump_link(user)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
 		for(var/client/X in admins)
-			if(check_rights(R_EVENT,0,X.mob))
+			if(check_rights(R_EVENT, 0, X.mob))
 				to_chat(X, adminbfmessage)
-		return "<span class='warning'>[.] on the Bible!</span>"
+		return "<span class='danger'>[.] on the Bible!</span>"
 	. += punct
 
 // Human "audible" sounds handle alternative mime versions automatically
