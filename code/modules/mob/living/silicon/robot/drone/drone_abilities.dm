@@ -75,7 +75,7 @@
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		if(emagged)			//prevents someone from changing their sprite to their default custom sprite when emagged
-			icon_state = "repairbot-emagged"
+			icon_state = "[ckey]-drone-emagged"
 		else
 			icon_state = "[ckey]-drone"
 		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")
