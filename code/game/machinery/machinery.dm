@@ -119,7 +119,7 @@ Class Procs:
 	atom_say_verb = "beeps"
 	var/speed_process = 0 // Process as fast as possible?
 
-/obj/machinery/initialize()
+/obj/machinery/Initialize()
 	addAtProcessing()
 	. = ..()
 	power_change()
@@ -128,24 +128,26 @@ Class Procs:
 	if(use_power)
 		myArea = get_area_master(src)
 	if(!speed_process)
-		machine_processing += src
+		START_PROCESSING(SSmachines, src)
 	else
 		fast_processing += src
+		isprocessing = TRUE // all of these  isprocessing = TRUE  can be removed when the PS is dead
 
 // gotta go fast
 /obj/machinery/proc/makeSpeedProcess()
 	if(speed_process)
 		return
 	speed_process = 1
-	machine_processing -= src
+	STOP_PROCESSING(SSmachines, src)
 	fast_processing += src
+	isprocessing = TRUE
 
 // gotta go slow
 /obj/machinery/proc/makeNormalProcess()
 	if(!speed_process)
 		return
 	speed_process = 0
-	machine_processing += src
+	START_PROCESSING(SSmachines, src)
 	fast_processing -= src
 
 /obj/machinery/New() //new
@@ -158,7 +160,7 @@ Class Procs:
 	if(myArea)
 		myArea = null
 	fast_processing -= src
-	machine_processing -= src
+	STOP_PROCESSING(SSmachines, src)
 	machines -= src
 	return ..()
 
@@ -309,7 +311,7 @@ Class Procs:
 			re_init=1
 
 		if(re_init)
-			initialize()
+			Initialize()
 		if(update_mt_menu)
 			//usr.set_machine(src)
 			update_multitool_menu(usr)

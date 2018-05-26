@@ -119,7 +119,7 @@ var/list/blob_nodes = list()
 			if(!is_station_level(location.z) || istype(location, /turf/space))
 				if(!warned)
 					to_chat(C, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
-					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if he doesn't return to the station.")
+					message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if [C.p_they()] [C.p_do()] not return to the station.")
 					spawn(300)
 						burst_blob(blob, 1)
 				else

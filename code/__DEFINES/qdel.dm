@@ -23,10 +23,3 @@
 #define QDELING(X) (X.gc_destroyed)
 #define QDELETED(X) (!X || QDELING(X))
 #define QDESTROYING(X) (!X || X.gc_destroyed == GC_CURRENTLY_BEING_QDELETED)
-
-/proc/check_datum_qdeleted(datum/D) //for checking if something is a datum, first, then checking gc_destroyed; get rid of this eventually. TO-DO
-	if(!istype(D))
-		return FALSE
-	if(D.gc_destroyed)
-		return TRUE
-	return FALSE

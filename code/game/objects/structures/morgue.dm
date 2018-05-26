@@ -29,7 +29,7 @@
 	anchored = 1.0
 	var/open_sound = 'sound/items/Deconstruct.ogg'
 
-/obj/structure/morgue/initialize()
+/obj/structure/morgue/Initialize()
 	. = ..()
 	update()
 

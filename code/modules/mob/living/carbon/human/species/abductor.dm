@@ -6,7 +6,6 @@
 	path = /mob/living/carbon/human/abductor
 	language = "Abductor Mindlink"
 	default_language = "Abductor Mindlink"
-	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "blank_eyes"
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,

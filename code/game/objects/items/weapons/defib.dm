@@ -96,7 +96,7 @@
 
 	if(istype(W, /obj/item/screwdriver))
 		if(bcell)
-			bcell.updateicon()
+			bcell.update_icon()
 			bcell.loc = get_turf(src.loc)
 			bcell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
@@ -278,7 +278,7 @@
 		icon_state = "defibpaddles[wielded]_cooldown"
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] is putting the live paddles on \his chest! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return (OXYLOSS)

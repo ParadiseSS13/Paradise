@@ -236,6 +236,7 @@
 
 /mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M)
 	if(Victim)
+		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		if(Victim == M)
 			if(prob(60))
 				visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>")
@@ -259,7 +260,6 @@
 			return
 
 		else
-			M.do_attack_animation(src)
 			if(prob(30))
 				visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [Victim]!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
@@ -297,7 +297,7 @@
 			grabbedby(M)
 
 		else
-			M.do_attack_animation(src)
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			var/damage = rand(1, 9)
 			attacked += 10
 			if(prob(90))

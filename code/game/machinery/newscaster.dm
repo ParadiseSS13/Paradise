@@ -306,21 +306,21 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			if(FC.channel_name == channel_name)
 				check = 1
 				break
-		if(channel_name == "" || channel_name == REDACTED || scanned_user == "Unknown" || check || (scanned_user in existing_authors))
-			temp = "<b class='bad'>ERROR: Could not submit feed channel to Network.</b><ul class='bad'>"
-			if(scanned_user in existing_authors)
-				temp += "<li>There already exists a feed channel under your name.</li>"
-			if(channel_name == "" || channel_name == REDACTED)
-				temp += "<li>Invalid channel name.</li>"
-			if(check)
-				temp += "<li>Channel name already in use.</li>"
-			if(scanned_user == "Unknown")
-				temp += "<li>Channel author unverified.</li>"
-			temp += "</ul>"
-			temp_back_screen = NEWSCASTER_CREATE_FC
-		else
-			var/choice = alert("Please confirm feed channel creation", "Network Channel Handler", "Confirm", "Cancel")
-			if(choice == "Confirm")
+		var/choice = alert("Please confirm feed channel creation", "Network Channel Handler", "Confirm", "Cancel")
+		if(choice == "Confirm")
+			if(channel_name == "" || channel_name == REDACTED || scanned_user == "Unknown" || check || (scanned_user in existing_authors))
+				temp = "<b class='bad'>ERROR: Could not submit feed channel to Network.</b><ul class='bad'>"
+				if(scanned_user in existing_authors)
+					temp += "<li>There already exists a feed channel under your name.</li>"
+				if(channel_name == "" || channel_name == REDACTED)
+					temp += "<li>Invalid channel name.</li>"
+				if(check)
+					temp += "<li>Channel name already in use.</li>"
+				if(scanned_user == "Unknown")
+					temp += "<li>Channel author unverified.</li>"
+				temp += "</ul>"
+				temp_back_screen = NEWSCASTER_CREATE_FC
+			else
 				var/datum/feed_channel/newChannel = new /datum/feed_channel
 				newChannel.channel_name = channel_name
 				newChannel.author = scanned_user
@@ -422,19 +422,19 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 	else if(href_list["submit_wanted"])
 		var/input_param = text2num(href_list["submit_wanted"])
-		if(msg == "" || channel_name == "" || scanned_user == "Unknown")
-			temp = "<b class='bad'>ERROR: Wanted issue rejected by Network.</b><ul class='bad'>"
-			if(channel_name == "" || channel_name == REDACTED)
-				temp += "<li>Invalid name for person wanted.</li>"
-			if(scanned_user == "Unknown")
-				temp += "<li>Channel author unverified.</li>"
-			if(msg == "" || msg == REDACTED)
-				temp += "<li>Invalid description.</li>"
-			temp += "</ul>"
-			temp_back_screen = NEWSCASTER_MAIN
-		else
-			var/choice = alert("Please confirm wanted issue [input_param == 1 ? "creation." : "edit."]", "Network Security Handler", "Confirm", "Cancel")
-			if(choice == "Confirm")
+		var/choice = alert("Please confirm wanted issue [input_param == 1 ? "creation." : "edit."]", "Network Security Handler", "Confirm", "Cancel")
+		if(choice == "Confirm")
+			if(msg == "" || channel_name == "" || scanned_user == "Unknown")
+				temp = "<b class='bad'>ERROR: Wanted issue rejected by Network.</b><ul class='bad'>"
+				if(channel_name == "" || channel_name == REDACTED)
+					temp += "<li>Invalid name for person wanted.</li>"
+				if(scanned_user == "Unknown")
+					temp += "<li>Channel author unverified.</li>"
+				if(msg == "" || msg == REDACTED)
+					temp += "<li>Invalid description.</li>"
+				temp += "</ul>"
+				temp_back_screen = NEWSCASTER_MAIN
+			else
 				if(input_param == 1) //input_param == 1: new wanted issue, input_param == 2: editing an existing one
 					var/datum/feed_message/W = new /datum/feed_message
 					W.author = channel_name

@@ -276,7 +276,7 @@
 /*
  * AI - Not really intelligent, but I'm calling it AI anyway.
  */
-/mob/living/simple_animal/parrot/Life()
+/mob/living/simple_animal/parrot/Life(seconds, times_fired)
 	..()
 
 	//Sprite and AI update for when a parrot gets pulled

@@ -62,8 +62,7 @@
 	user.lastattacked = M
 	M.lastattacker = user
 
-	if(user != M)
-		user.do_attack_animation(M)
+	user.do_attack_animation(M)
 	M.attacked_by(src, user, def_zone)
 
 	add_attack_logs(user, M, "Attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", admin_notify = (force > 0 && damtype != STAMINA))

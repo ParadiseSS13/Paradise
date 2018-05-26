@@ -616,7 +616,7 @@
 	if(user.weakened || user.resting || user.lying)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
+	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
 							 "<span class='danger'>You kick [src].</span>")
 	take_damage(rand(4,8), BRUTE, "melee", 1)

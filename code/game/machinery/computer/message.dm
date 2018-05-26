@@ -80,7 +80,7 @@
 
 	..()
 
-/obj/machinery/computer/message_monitor/initialize()
+/obj/machinery/computer/message_monitor/Initialize()
 	..()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)

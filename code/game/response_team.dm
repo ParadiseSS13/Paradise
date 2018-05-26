@@ -104,8 +104,12 @@ var/ert_request_answered = 0
 		if(index > emergencyresponseteamspawn.len)
 			index = 1
 
+		if(!M || !M.client)
+			continue
 		var/client/C = M.client
 		var/mob/living/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
+		if(!M || !new_commando)
+			continue
 		new_commando.mind.key = M.key
 		new_commando.key = M.key
 		new_commando.update_icons()
@@ -157,17 +161,17 @@ var/ert_request_answered = 0
 	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
 	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
 
-	M.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
-	M.name = M.real_name
+	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]")
 	M.age = rand(23,35)
 	M.regenerate_icons()
 	M.update_body()
+	M.update_dna()
 
 	//Creates mind stuff.
 	M.mind = new
 	M.mind.current = M
 	M.mind.original = M
-	M.mind.assigned_role = "MODE"
+	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
@@ -199,13 +203,13 @@ var/ert_request_answered = 0
 	var/cyborg_unlock = 0
 
 /datum/response_team/proc/setSlots(com, sec, med, eng, jan, par, cyb)
-	command_slots = com
-	security_slots = sec
-	medical_slots = med
-	engineer_slots = eng
-	janitor_slots = jan
-	paranormal_slots = par
-	cyborg_slots = cyb
+	command_slots = com || command_slots
+	security_slots = sec || security_slots
+	medical_slots = med || medical_slots
+	engineer_slots = eng || engineer_slots
+	janitor_slots = jan || janitor_slots
+	paranormal_slots = par || paranormal_slots
+	cyborg_slots = cyb || cyborg_slots
 
 /datum/response_team/proc/reduceCyborgSlots()
 	cyborg_slots--
@@ -280,8 +284,7 @@ var/ert_request_answered = 0
 			command_slots = 0
 
 			// Override name and age for the commander
-			M.real_name = "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]"
-			M.name = M.real_name
+			M.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(last_names)]")
 			M.age = rand(35,45)
 
 			M.equipOutfit(command_outfit)

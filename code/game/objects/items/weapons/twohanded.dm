@@ -742,7 +742,7 @@
 			if(charged)
 				charged--
 				Z.take_organ_damage(0,30)
-				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
+				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all [user.p_their()] might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 				var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 				sparks.set_up(1, 1, src)
