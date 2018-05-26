@@ -90,9 +90,11 @@
 /datum/game_mode/proc/setup_chumps()
 	var/max_chumps = 0
 	if(config.traitor_scaling)
-		max_chumps = max(1, round((num_players())/(5)))
+		max_chumps = 0
+//		max_chumps = max(1, round((num_players())/(5)))
 	else
-		max_chumps = max(1, min(num_players(), 5))
+		max_chumps = 0
+//		max_chumps = max(1, min(num_players(), 5))
 	var/tries_left = 5	//limits the number of tries so we don't get stuck looping indefinitely. resets on successfully finding a new chump
 	while(chumps.len < max_chumps)
 		if(!tries_left)			//ran out of unique chumps (or just bad luck with the pick() in get_nt_opposed()) so there may end up being fewer chumps in some rounds.
@@ -443,9 +445,9 @@ proc/display_roundstart_logout_report()
 			if(man.mind && man.mind.assigned_role)
 				if((man.mind.assigned_role in ticker.mode.protected_jobs) || (man.mind.assigned_role in ticker.mode.restricted_jobs))
 					continue
-			if(man.client.prefs.nanotrasen_relation == "Opposed")
+			if(man.client.prefs.nanotrasen_relation == "REMOpposed")
 				dudes += man
-			else if(man.client.prefs.nanotrasen_relation == "Skeptical" && prob(50))
+			else if(man.client.prefs.nanotrasen_relation == "REMSkeptical" && prob(50))
 				dudes += man
 	if(dudes.len == 0)
 		return null
