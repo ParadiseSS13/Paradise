@@ -25,6 +25,22 @@ client/proc/one_click_antag()
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
 
+/datum/admins/proc/CandCheck(var/role = null, var/mob/living/carbon/human/M, var/datum/game_mode/temp = null)
+  // You pass in ROLE define (optional), the applicant, and the gamemode, and it will return true / false depending on whether the applicant qualify for the candidacy in question
+	if(jobban_isbanned(M, "Syndicate"))
+		return FALSE
+	if(M.stat || !M.mind || M.mind.special_role)
+		return FALSE
+	if(temp)
+		if(M.mind.assigned_role in temp.restricted_jobs || M.client.prefs.species in temp.protected_species)
+			return FALSE
+	if(role) // Don't even bother evaluating if there's no role
+		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && (!jobban_isbanned(M, role)))
+			return TRUE
+		else
+			return FALSE
+	else
+		return TRUE
 
 /datum/admins/proc/makeTraitors()
 	var/datum/game_mode/traitor/temp = new
@@ -42,15 +58,8 @@ client/proc/one_click_antag()
 	message_admins("[key_name_admin(owner)] tried making [antnum] traitors with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(ROLE_TRAITOR in applicant.client.prefs.be_special)
-			if(player_old_enough_antag(applicant.client,ROLE_TRAITOR))
-				if(!applicant.stat)
-					if(applicant.mind)
-						if(!applicant.mind.special_role)
-							if(!jobban_isbanned(applicant, "traitor") && !jobban_isbanned(applicant, "Syndicate"))
-								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
-									if(!(applicant.client.prefs.species in temp.protected_species))
-										candidates += applicant
+		if(CandCheck(ROLE_TRAITOR, applicant, temp))
+			candidates += applicant
 
 	if(candidates.len)
 		var/numTraitors = min(candidates.len, antnum)
@@ -80,15 +89,8 @@ client/proc/one_click_antag()
 	message_admins("[key_name_admin(owner)] tried making [antnum] changelings with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(ROLE_CHANGELING in applicant.client.prefs.be_special)
-			if(player_old_enough_antag(applicant.client,ROLE_CHANGELING))
-				if(!applicant.stat)
-					if(applicant.mind)
-						if(!applicant.mind.special_role)
-							if(!jobban_isbanned(applicant, "changeling") && !jobban_isbanned(applicant, "Syndicate"))
-								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
-									if(!(applicant.client.prefs.species in temp.protected_species))
-										candidates += applicant
+		if(CandCheck(ROLE_CHANGELING, applicant, temp))
+			candidates += applicant
 
 	if(candidates.len)
 		var/numChangelings = min(candidates.len, antnum)
@@ -117,15 +119,8 @@ client/proc/one_click_antag()
 	message_admins("[key_name_admin(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(ROLE_REV in applicant.client.prefs.be_special)
-			if(player_old_enough_antag(applicant.client,ROLE_REV))
-				if(applicant.stat == CONSCIOUS)
-					if(applicant.mind)
-						if(!applicant.mind.special_role)
-							if(!jobban_isbanned(applicant, "revolutionary") && !jobban_isbanned(applicant, "Syndicate"))
-								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
-									if(!(applicant.client.prefs.species in temp.protected_species))
-										candidates += applicant
+		if(CandCheck(ROLE_REV, applicant, temp))
+			candidates += applicant
 
 	if(candidates.len)
 		var/numRevs = min(candidates.len, antnum)
@@ -172,15 +167,8 @@ client/proc/one_click_antag()
 	message_admins("[key_name_admin(owner)] tried making a Cult with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(ROLE_CULTIST in applicant.client.prefs.be_special)
-			if(player_old_enough_antag(applicant.client,ROLE_CULTIST))
-				if(applicant.stat == CONSCIOUS)
-					if(applicant.mind)
-						if(!applicant.mind.special_role)
-							if(!jobban_isbanned(applicant, "cultist") && !jobban_isbanned(applicant, "Syndicate"))
-								if(!(applicant.mind.assigned_role in temp.restricted_jobs))
-									if(!(applicant.client.prefs.species in temp.protected_species))
-										candidates += applicant
+		if(CandCheck(ROLE_CULTIST, applicant, temp))
+			candidates += applicant
 
 	if(candidates.len)
 		var/numCultists = min(candidates.len, antnum)
@@ -555,15 +543,8 @@ client/proc/one_click_antag()
 	message_admins("[key_name_admin(owner)] tried making Vampires with One-Click-Antag")
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(ROLE_VAMPIRE in applicant.client.prefs.be_special)
-			if(player_old_enough_antag(applicant.client,ROLE_VAMPIRE))
-				if(!applicant.stat)
-					if(applicant.mind)
-						if(!applicant.mind.special_role)
-							if(!jobban_isbanned(applicant, "vampire") && !jobban_isbanned(applicant, "Syndicate"))
-								if(!(applicant.job in temp.restricted_jobs))
-									if(!(applicant.client.prefs.species in temp.protected_species))
-										candidates += applicant
+		if(CandCheck(ROLE_VAMPIRE, applicant, temp))
+			candidates += applicant
 
 	if(candidates.len)
 		var/numVampires = min(candidates.len, antnum)
