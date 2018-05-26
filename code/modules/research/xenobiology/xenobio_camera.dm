@@ -21,7 +21,7 @@
 	name = "Slime management console"
 	desc = "A computer used for remotely handling slimes."
 	networks = list("SS13")
-	circuit = /obj/item/weapon/circuitboard/xenobiology
+	circuit = /obj/item/circuitboard/xenobiology
 	off_action = new /datum/action/innate/camera_off/xenobio
 	var/datum/action/innate/slime_place/slime_place_action = new
 	var/datum/action/innate/slime_pick_up/slime_up_action = new
@@ -68,16 +68,16 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
+	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
 		monkeys++
 		to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 		user.drop_item()
 		qdel(O)
 		return
-	else if(istype(O, /obj/item/weapon/storage/bag))
-		var/obj/item/weapon/storage/P = O
+	else if(istype(O, /obj/item/storage/bag))
+		var/obj/item/storage/P = O
 		var/loaded = 0
-		for(var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/MC in P.contents)
+		for(var/obj/item/reagent_containers/food/snacks/monkeycube/MC in P.contents)
 			loaded = 1
 			monkeys++
 			P.remove_from_storage(MC)
@@ -190,7 +190,7 @@
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
 			if(issmall(M) && M.stat)
-				M.visible_message("[M] vanishes as they are reclaimed for recycling!")
+				M.visible_message("[M] vanishes as [M.p_theyre()] reclaimed for recycling!")
 				X.monkeys = round(X.monkeys + 0.2,0.1)
 				qdel(M)
 	else

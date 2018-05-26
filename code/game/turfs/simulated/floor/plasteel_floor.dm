@@ -18,8 +18,13 @@
 
 /turf/simulated/floor/plasteel/airless/New()
 	..()
-	name = "floor"		
-		
+	name = "floor"
+
+/turf/simulated/floor/plasteel/airless/indestructible // For bomb testing range
+
+/turf/simulated/floor/plasteel/airless/indestructible/ex_act(severity)
+	return
+
 /turf/simulated/floor/plasteel/goonplaque
 	icon_state = "plaque"
 	name = "Commemorative Plaque"

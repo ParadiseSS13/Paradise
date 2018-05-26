@@ -62,7 +62,7 @@
 		return ..()
 
 //self repair systems have a chance to bring the drone back to life
-/mob/living/simple_animal/hostile/retaliate/malf_drone/Life()
+/mob/living/simple_animal/hostile/retaliate/malf_drone/Life(seconds, times_fired)
 
 	//emps and lots of damage can temporarily shut us down
 	if(disabled > 0)
@@ -160,16 +160,16 @@
 		var/obj/O
 
 		//shards
-		O = new /obj/item/weapon/shard(loc)
+		O = new /obj/item/shard(loc)
 		step_to(O, get_turf(pick(view(7, src))))
 		if(prob(75))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 		if(prob(50))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 		if(prob(25))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 
 		//rods
@@ -199,7 +199,7 @@
 			step_to(O, get_turf(pick(view(7, src))))
 
 		//also drop dummy circuit boards deconstructable for research (loot)
-		var/obj/item/weapon/circuitboard/C
+		var/obj/item/circuitboard/C
 
 		//spawn 1-4 boards of a random type
 		var/spawnees = 0

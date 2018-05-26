@@ -79,8 +79,8 @@
 		startgibbing(user)
 
 /obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = P
+	if(istype(P, /obj/item/grab))
+		var/obj/item/grab/G = P
 		if(G.state < 2)
 			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
 			return
@@ -221,7 +221,8 @@
 		return
 
 	if(UserOverride)
-		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		msg_admin_attack("[key_name_admin(occupant)] was gibbed by an autogibber (\the [src]) [ADMIN_JMP(src)]")
+		log_game("[key_name(occupant)] was gibbed by an autogibber ([src]) (X:[x] Y:[y] Z:[z])")
 
 	if(operating)
 		return
@@ -240,13 +241,13 @@
 
 	var/slab_name = occupant.name
 	var/slab_count = 3
-	var/slab_type = /obj/item/weapon/reagent_containers/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
+	var/slab_type = /obj/item/reagent_containers/food/snacks/meat/human //gibber can only gib humans on paracode, no need to check meat type
 	var/slab_nutrition = occupant.nutrition / 15
 
 	slab_nutrition /= slab_count
 
 	for(var/i=1 to slab_count)
-		var/obj/item/weapon/reagent_containers/food/snacks/meat/new_meat = new slab_type(src)
+		var/obj/item/reagent_containers/food/snacks/meat/new_meat = new slab_type(src)
 		new_meat.name = "[slab_name] [new_meat.name]"
 		new_meat.reagents.add_reagent("nutriment",slab_nutrition)
 
@@ -259,11 +260,7 @@
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
-		occupant.create_attack_log("Was gibbed by [key_name(user)]") //One shall not simply gib a mob unnoticed!)
-		user.create_attack_log("Gibbed [key_name(occupant)]")
-
-		if(occupant.ckey)
-			msg_admin_attack("[key_name_admin(user)] gibbed [key_name_admin(occupant)]")
+		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey)
 
 		if(!iscarbon(user))
 			occupant.LAssailant = null
@@ -275,7 +272,7 @@
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)
-	victims += "\[[time_stamp()]\] [occupant.name] ([occupant.ckey]) killed by [UserOverride ? "Autogibbing" : "[user] ([user.ckey])"]" //have to do this before ghostizing
+	victims += "\[[time_stamp()]\] [key_name(occupant)] killed by [UserOverride ? "Autogibbing" : "[key_name(user)]"]" //have to do this before ghostizing
 	occupant.death(1)
 	occupant.ghostize()
 
@@ -325,9 +322,9 @@
 		if(istype(T))
 			lturf = T
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/gibber(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/gibber(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
 /obj/machinery/gibber/autogibber/process()
@@ -375,8 +372,8 @@
 	for(var/obj/O in H)
 		if(istype(O,/obj/item/clothing)) //clothing gets skipped to avoid cleaning out shit
 			continue
-		if(istype(O,/obj/item/weapon/implant))
-			var/obj/item/weapon/implant/I = O
+		if(istype(O,/obj/item/implant))
+			var/obj/item/implant/I = O
 			if(I.implanted)
 				continue
 		if(istype(O,/obj/item/organ))

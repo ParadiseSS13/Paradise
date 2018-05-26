@@ -172,7 +172,7 @@
 	desc = "A lightweight foamed metal wall."
 	var/metal = MFOAM_ALUMINUM
 
-/obj/structure/foamedmetal/initialize()
+/obj/structure/foamedmetal/Initialize()
 	..()
 	air_update_turf(1)
 
@@ -204,7 +204,7 @@
 
 /obj/structure/foamedmetal/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
+	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	if((HULK in user.mutations) || (prob(75 - metal*25)))
 		user.visible_message("<span class='warning'>[user] smashes through \the [src].</span>", "<span class='notice'>You smash through \the [src].</span>")
 		qdel(src)
@@ -214,8 +214,8 @@
 /obj/structure/foamedmetal/attackby(obj/item/I, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
-	if(istype(I, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = I
+	if(istype(I, /obj/item/grab))
+		var/obj/item/grab/G = I
 		G.affecting.loc = src.loc
 		user.visible_message("<span class='warning'>[G.assailant] smashes [G.affecting] through the foamed metal wall.</span>")
 		qdel(I)

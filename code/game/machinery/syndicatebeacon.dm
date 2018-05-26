@@ -131,7 +131,7 @@
 			singulo.target = src
 	icon_state = "[icontype]1"
 	active = 1
-	machine_processing |= src
+	START_PROCESSING(SSmachines, src)
 	if(user)
 		to_chat(user, "<span class='notice'>You activate the beacon.</span>")
 
@@ -158,8 +158,8 @@
 		return
 
 
-/obj/machinery/power/singularity_beacon/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/screwdriver))
+/obj/machinery/power/singularity_beacon/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W,/obj/item/screwdriver))
 		if(active)
 			to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
 			return

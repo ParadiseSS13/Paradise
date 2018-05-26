@@ -26,7 +26,7 @@
 		to_chat(usr, "<span class='warning'>[src] appears to be having trouble staying afloat!</span>")
 
 
-/mob/living/simple_animal/possessed_object/do_attack_animation(atom/A)
+/mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
 	..()
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 
@@ -60,7 +60,7 @@
 	qdel(src)
 
 
-/mob/living/simple_animal/possessed_object/Life()
+/mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
 	..()
 
 	if(!possessed_item) // If we're a donut and someone's eaten us, for instance.
@@ -118,8 +118,8 @@
 
 
 /mob/living/simple_animal/possessed_object/get_access() // If we've possessed an ID card we've got access to lots of fun things!
-	if(istype(possessed_item, /obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/possessed_id = possessed_item
+	if(istype(possessed_item, /obj/item/card/id))
+		var/obj/item/card/id/possessed_id = possessed_item
 		. = possessed_id.access
 
 

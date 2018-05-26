@@ -11,7 +11,7 @@
 	anchored = 1
 	density = 1
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	attackby(obj/item/W as obj, mob/user as mob, params)
 		return attack_hand(user)
 
 	attack_hand(mob/user as mob)
@@ -26,7 +26,7 @@
 	anchored = 1
 	density = 0
 
-	attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+	attackby(obj/item/W as obj, mob/user as mob, params)
 
 		return attack_hand(user)
 
@@ -87,7 +87,7 @@
 	var/atom/attack_atom
 
 
-/obj/structure/ghost_beacon/initialize()
+/obj/structure/ghost_beacon/Initialize()
 	. = ..()
 	last_ghost_alert = world.time
 	attack_atom = src

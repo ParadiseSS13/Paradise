@@ -22,7 +22,7 @@
 	path_image_color = "#DDDDFF"
 	data_hud_type = DATA_HUD_MEDICAL_ADVANCED
 
-	var/obj/item/weapon/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
+	var/obj/item/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 	var/mob/living/carbon/patient = null
 	var/mob/living/carbon/oldpatient = null
@@ -221,8 +221,8 @@
 	update_controls()
 	return
 
-/mob/living/simple_animal/bot/medbot/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/reagent_containers/glass))
+/mob/living/simple_animal/bot/medbot/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/reagent_containers/glass))
 		. = 1 //no afterattack
 		if(locked)
 			to_chat(user, "<span class='warning'>You cannot insert a beaker because the panel is locked!</span>")
@@ -544,25 +544,25 @@
 
 	switch(skin)
 		if("ointment")
-			new /obj/item/weapon/storage/firstaid/fire/empty(Tsec)
+			new /obj/item/storage/firstaid/fire/empty(Tsec)
 		if("tox")
-			new /obj/item/weapon/storage/firstaid/toxin/empty(Tsec)
+			new /obj/item/storage/firstaid/toxin/empty(Tsec)
 		if("o2")
-			new /obj/item/weapon/storage/firstaid/o2/empty(Tsec)
+			new /obj/item/storage/firstaid/o2/empty(Tsec)
 		if("brute")
-			new /obj/item/weapon/storage/firstaid/brute/empty(Tsec)
+			new /obj/item/storage/firstaid/brute/empty(Tsec)
 		if("adv")
-			new /obj/item/weapon/storage/firstaid/adv/empty(Tsec)
+			new /obj/item/storage/firstaid/adv/empty(Tsec)
 		if("bezerk")
-			new /obj/item/weapon/storage/firstaid/tactical/empty(Tsec)
+			new /obj/item/storage/firstaid/tactical/empty(Tsec)
 		if("fish")
-			new /obj/item/weapon/storage/firstaid/aquatic_kit(Tsec)
+			new /obj/item/storage/firstaid/aquatic_kit(Tsec)
 		else
-			new /obj/item/weapon/storage/firstaid(Tsec)
+			new /obj/item/storage/firstaid(Tsec)
 
-	new /obj/item/device/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
 
-	new /obj/item/device/healthanalyzer(Tsec)
+	new /obj/item/healthanalyzer(Tsec)
 
 	if(reagent_glass)
 		reagent_glass.forceMove(Tsec)

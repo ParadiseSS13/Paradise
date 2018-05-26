@@ -240,7 +240,7 @@ client/proc/one_click_antag()
 		var/nuke_code = "[rand(10000, 99999)]"
 
 		if(nuke_spawn)
-			var/obj/item/weapon/paper/P = new
+			var/obj/item/paper/P = new
 			P.info = "Sadly, the Syndicate could not get you a nuclear bomb.  We have, however, acquired the arming code for the station's onboard nuke.  The nuclear authorization code is: <b>[nuke_code]</b>"
 			P.name = "nuclear bomb code and instructions"
 			P.loc = nuke_spawn.loc
@@ -411,7 +411,7 @@ client/proc/one_click_antag()
 
 	//Creates mind stuff.
 	new_syndicate_commando.mind_initialize()
-	new_syndicate_commando.mind.assigned_role = "MODE"
+	new_syndicate_commando.mind.assigned_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 
 	//Adds them to current traitor list. Which is really the extra antagonist list.
@@ -516,7 +516,7 @@ client/proc/one_click_antag()
 		limb.status &= ~ORGAN_ROBOT
 
 	//Now apply cortical stack.
-	var/obj/item/weapon/implant/cortical/I = new(new_vox)
+	var/obj/item/implant/cortical/I = new(new_vox)
 	I.implant(new_vox)
 	cortical_stacks += I
 

@@ -26,11 +26,11 @@
 
 /obj/effect/portal/Destroy()
 	portals -= src
-	if(istype(creator, /obj/item/weapon/hand_tele))
-		var/obj/item/weapon/hand_tele/O = creator
+	if(istype(creator, /obj/item/hand_tele))
+		var/obj/item/hand_tele/O = creator
 		O.active_portals--
-	else if(istype(creator, /obj/item/weapon/gun/energy/wormhole_projector))
-		var/obj/item/weapon/gun/energy/wormhole_projector/P = creator
+	else if(istype(creator, /obj/item/gun/energy/wormhole_projector))
+		var/obj/item/gun/energy/wormhole_projector/P = creator
 		P.portal_destroyed(src)
 	creator = null
 	target = null
@@ -52,5 +52,5 @@
 			do_teleport(M, target, precision) ///You will appear adjacent to the beacon
 
 /obj/effect/portal/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/device/multitool) && can_multitool_to_remove)
+	if(istype(A, /obj/item/multitool) && can_multitool_to_remove)
 		qdel(src)

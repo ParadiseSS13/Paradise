@@ -175,7 +175,7 @@
 		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
 		return
 
-	if(istype(I, /obj/item/weapon/wrench))
+	if(istype(I, /obj/item/wrench))
 		if(anchored)
 			anchored = 0
 			if(ispipe)
@@ -215,9 +215,9 @@
 				to_chat(user, "There is already a [nicetype] at that location.")
 				return
 
-	if(istype(I, /obj/item/weapon/weldingtool))
+	if(istype(I, /obj/item/weldingtool))
 		if(anchored)
-			var/obj/item/weapon/weldingtool/W = I
+			var/obj/item/weldingtool/W = I
 			if(W.remove_fuel(0,user))
 				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "Welding the [nicetype] in place.")
@@ -250,8 +250,6 @@
 						var/obj/structure/disposaloutlet/P = new /obj/structure/disposaloutlet(src.loc)
 						src.transfer_fingerprints_to(P)
 						P.dir = dir
-						var/obj/structure/disposalpipe/trunk/Trunk = CP
-						Trunk.linked = P
 
 					else if(ptype==8) // Disposal outlet
 

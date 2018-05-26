@@ -1,4 +1,4 @@
-/obj/item/weapon/dnascrambler
+/obj/item/dnascrambler
 	name = "dna scrambler"
 	desc = "An illegal genetic serum designed to randomize the user's identity."
 	icon = 'icons/obj/hypo.dmi'
@@ -25,11 +25,11 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(NO_DNA in H.species.species_traits)
-				to_chat(user, "<span class='warning'>You failed to inject [M], as they have no DNA to scramble, nor flesh to inject.</span>")
+				to_chat(user, "<span class='warning'>You failed to inject [M], as [M.p_they()] [M.p_have()] no DNA to scramble, nor flesh to inject.</span>")
 				return
 
 		if(M == user)
-			user.visible_message("<span class='danger'>[user] injects \himself with [src]!</span>")
+			user.visible_message("<span class='danger'>[user] injects [user.p_them()]self with [src]!</span>")
 			injected(user, user)
 		else
 			user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
@@ -51,9 +51,7 @@
 			H.dna.ResetUIFrom(H)
 		target.update_icons()
 
-		log_attack("[key_name(user)] injected [key_name(target)] with the [name]")
-		log_game("[key_name_admin(user)] injected [key_name_admin(target)] with the [name]")
-
+		add_attack_logs(user, target, "injected with [src]")
 		used = 1
 		update_icon()
 		name = "used " + name

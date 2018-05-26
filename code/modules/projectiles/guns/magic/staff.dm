@@ -1,8 +1,9 @@
-/obj/item/weapon/gun/magic/staff
+/obj/item/gun/magic/staff
 	slot_flags = SLOT_BACK
 	ammo_type = /obj/item/ammo_casing/magic
+	flags_2 = NO_MAT_REDEMPTION_2
 
-/obj/item/weapon/gun/magic/staff/change
+/obj/item/gun/magic/staff/change
 	name = "staff of change"
 	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself"
 	ammo_type = /obj/item/ammo_casing/magic/change
@@ -10,7 +11,7 @@
 	item_state = "staffofchange"
 	fire_sound = 'sound/magic/Staff_Change.ogg'
 
-/obj/item/weapon/gun/magic/staff/animate
+/obj/item/gun/magic/staff/animate
 	name = "staff of animation"
 	desc = "An artefact that spits bolts of life-force which causes objects which are hit by it to animate and come to life! This magic doesn't affect machines."
 	ammo_type = /obj/item/ammo_casing/magic/animate
@@ -18,7 +19,7 @@
 	item_state = "staffofanimation"
 	fire_sound = 'sound/magic/Staff_animation.ogg'
 
-/obj/item/weapon/gun/magic/staff/healing
+/obj/item/gun/magic/staff/healing
 	name = "staff of healing"
 	desc = "An artefact that spits bolts of restoring magic which can remove ailments of all kinds and even raise the dead."
 	ammo_type = /obj/item/ammo_casing/magic/heal
@@ -26,10 +27,10 @@
 	item_state = "staffofhealing"
 	fire_sound = 'sound/magic/Staff_Healing.ogg'
 
-/obj/item/weapon/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
+/obj/item/gun/magic/staff/healing/handle_suicide() //Stops people trying to commit suicide to heal themselves
 	return
 
-/obj/item/weapon/gun/magic/staff/chaos
+/obj/item/gun/magic/staff/chaos
 	name = "staff of chaos"
 	desc = "An artefact that spits bolts of chaotic magic that can potentially do anything."
 	ammo_type = /obj/item/ammo_casing/magic/chaos
@@ -40,7 +41,7 @@
 	no_den_usage = 1
 	fire_sound = 'sound/magic/Staff_Chaos.ogg'
 
-/obj/item/weapon/gun/magic/staff/door
+/obj/item/gun/magic/staff/door
 	name = "staff of door creation"
 	desc = "An artefact that spits bolts of transformative magic that can create doors in walls."
 	ammo_type = /obj/item/ammo_casing/magic/door
@@ -51,7 +52,7 @@
 	no_den_usage = 1
 	fire_sound = 'sound/magic/Staff_Door.ogg'
 
-/obj/item/weapon/gun/magic/staff/honk
+/obj/item/gun/magic/staff/honk
 	name = "staff of the honkmother"
 	desc = "Honk"
 	ammo_type = /obj/item/ammo_casing/magic/honk
@@ -61,7 +62,7 @@
 	recharge_rate = 8
 	fire_sound = 'sound/items/airhorn.ogg'
 
-/obj/item/weapon/gun/magic/staff/focus
+/obj/item/gun/magic/staff/focus
 	name = "mental focus"
 	desc = "An artefact that channels the will of the user into destructive bolts of force. If you aren't careful with it, you might poke someone's brain out."
 	icon = 'icons/obj/wizard.dmi'
@@ -69,7 +70,7 @@
 	item_state = "focus"
 	ammo_type = list(/obj/item/ammo_casing/forcebolt)
 
-/obj/item/weapon/gun/magic/staff/spellblade
+/obj/item/gun/magic/staff/spellblade
 	name = "spellblade"
 	desc = "A deadly combination of laziness and boodlust, this blade allows the user to dismember their enemies without all the hard work of actually swinging the sword."
 	fire_sound = 'sound/magic/Fireball.ogg'
@@ -83,7 +84,7 @@
 	sharp = 1
 	max_charges = 4
 
-/obj/item/weapon/gun/magic/staff/spellblade/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/gun/magic/staff/spellblade/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0
 	return ..()

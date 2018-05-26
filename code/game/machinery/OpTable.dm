@@ -143,13 +143,13 @@
 
 	take_victim(usr,usr)
 
-/obj/machinery/optable/attackby(obj/item/weapon/W as obj, mob/living/carbon/user as mob, params)
-	if(istype(W, /obj/item/weapon/grab))
+/obj/machinery/optable/attackby(obj/item/W as obj, mob/living/carbon/user as mob, params)
+	if(istype(W, /obj/item/grab))
 		if(iscarbon(W:affecting))
 			take_victim(W:affecting,usr)
 			qdel(W)
 			return
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		playsound(src.loc, W.usesound, 50, 1)
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")

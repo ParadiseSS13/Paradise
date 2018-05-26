@@ -9,7 +9,7 @@
 	icon_state = "icecream_vat"
 	use_power = 1
 	idle_power_usage = 20
-	var/obj/item/weapon/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/glass/beaker = null
 	var/useramount = 15	//Last used amount
 
 
@@ -27,7 +27,7 @@
 	create_reagents(500)
 
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/reagent_containers/glass))
+	if(istype(I, /obj/item/reagent_containers/glass))
 		if(beaker)
 			to_chat(user, "<span class='notice'>A container is already inside [src].</span>")
 			return
@@ -39,7 +39,7 @@
 		to_chat(user, "<span class='notice'>You add [I] to [src]</span>")
 		updateUsrDialog()
 		return
-	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/icecream))
+	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
 		if(!I.reagents.has_reagent("sprinkles"))
 			if(I.reagents.total_volume > 29) I.reagents.remove_any(1)
 			I.reagents.add_reagent("sprinkles",1)
@@ -72,7 +72,7 @@
 		usr.unset_machine()
 		return
 
-	var/obj/item/weapon/reagent_containers/glass/A = null
+	var/obj/item/reagent_containers/glass/A = null
 	var/datum/reagents/R = null
 
 	if(beaker)
@@ -151,8 +151,8 @@
 	else if(href_list["createcup"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Chocolate Cone"
-		var/obj/item/weapon/reagent_containers/food/snacks/icecream/icecreamcup/C
-		C = new/obj/item/weapon/reagent_containers/food/snacks/icecream/icecreamcup(loc)
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcup/C
+		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcup(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -164,8 +164,8 @@
 	else if(href_list["createcone"])
 		var/name = generate_name(reagents.get_master_reagent_name())
 		name += " Cone"
-		var/obj/item/weapon/reagent_containers/food/snacks/icecream/icecreamcone/C
-		C = new/obj/item/weapon/reagent_containers/food/snacks/icecream/icecreamcone(loc)
+		var/obj/item/reagent_containers/food/snacks/icecream/icecreamcone/C
+		C = new/obj/item/reagent_containers/food/snacks/icecream/icecreamcone(loc)
 		C.name = "[name]"
 		C.pixel_x = rand(-8, 8)
 		C.pixel_y = -16
@@ -201,7 +201,7 @@
 	//1 = beaker / 2 = internal
 	var/dat = ""
 	if(container == 1)
-		var/obj/item/weapon/reagent_containers/glass/A = beaker
+		var/obj/item/reagent_containers/glass/A = beaker
 		var/datum/reagents/R = A.reagents
 		dat += "The container has:<BR>"
 		for(var/datum/reagent/G in R.reagent_list)
@@ -236,7 +236,7 @@
 		dat += show_toppings()
 		dat += "<A href='?src=[UID()];close=1'>Close</A>"
 	else
-		var/obj/item/weapon/reagent_containers/glass/A = beaker
+		var/obj/item/reagent_containers/glass/A = beaker
 		var/datum/reagents/R = A.reagents
 		dat += "<A href='?src=[UID()];eject=1'>Eject container and end transfer.</A><BR>"
 		if(!R.total_volume)

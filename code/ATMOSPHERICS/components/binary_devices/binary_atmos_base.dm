@@ -41,7 +41,7 @@
 		nullifyPipenet(parent2)
 	return ..()
 
-/obj/machinery/atmospherics/binary/initialize()
+/obj/machinery/atmospherics/binary/atmos_init()
 	..()
 	var/node2_connect = dir
 	var/node1_connect = turn(dir, 180)
@@ -67,7 +67,7 @@
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/binary/build_network()
+/obj/machinery/atmospherics/binary/build_network(remove_deferral = FALSE)
 	if(!parent1)
 		parent1 = new /datum/pipeline()
 		parent1.build_pipeline(src)
@@ -75,6 +75,7 @@
 	if(!parent2)
 		parent2 = new /datum/pipeline()
 		parent2.build_pipeline(src)
+	..()
 
 /obj/machinery/atmospherics/binary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)

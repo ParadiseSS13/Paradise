@@ -104,7 +104,7 @@
 				transfer_fingerprints_to(G)
 				qdel(src)
 
-	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
 		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src)
@@ -114,12 +114,12 @@
 			refundMetal(metalUsed)
 			qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
+	else if(istype(W, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, "<span class='notice'>You drill through the girder!</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
+	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You disintegrate the girder!</span>")
 		refundMetal(metalUsed)
@@ -440,13 +440,13 @@
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/weapon/tome) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
+	if(istype(W, /obj/item/tome) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
 	else if(iswelder(W))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
@@ -459,7 +459,7 @@
 				transfer_fingerprints_to(R)
 				qdel(src)
 
-	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
 		if(do_after(user, 40* W.toolspeed, target = src))
 			playsound(loc, W.usesound, 100, 1)
@@ -469,8 +469,8 @@
 			transfer_fingerprints_to(R)
 			qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
-		var/obj/item/weapon/pickaxe/drill/jackhammer/D = W
+	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
+		var/obj/item/pickaxe/drill/jackhammer/D = W
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
 		var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
 		R.amount = 1

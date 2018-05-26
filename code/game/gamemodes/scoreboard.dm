@@ -73,7 +73,7 @@
 	// Check station's power levels
 	for(var/obj/machinery/power/apc/A in apcs)
 		if(!is_station_level(A.z)) continue
-		for(var/obj/item/weapon/stock_parts/cell/C in A.contents)
+		for(var/obj/item/stock_parts/cell/C in A.contents)
 			if(C.charge < 2300)
 				score_powerloss++ //200 charge leeway
 
@@ -153,14 +153,14 @@
 		return 0
 	else
 		. = 0
-		for(var/obj/item/weapon/card/id/id in C.contents)
+		for(var/obj/item/card/id/id in C.contents)
 			var/datum/money_account/A = get_money_account(id.associated_account_number)
 			// has an account?
 			if(A)
 				. += A.money
 		for(var/obj/item/stack/spacecash/cash in C.contents)
 			. += cash.amount
-		for(var/obj/item/weapon/storage/S in C.contents)
+		for(var/obj/item/storage/S in C.contents)
 			. += .(S, level + 1)
 
 /datum/game_mode/proc/get_scoreboard_stats()
