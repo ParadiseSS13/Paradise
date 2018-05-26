@@ -1179,7 +1179,7 @@ var/list/slot_equipment_priority = list( \
 			new /obj/effect/decal/cleanable/vomit/green(location)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
+				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
 

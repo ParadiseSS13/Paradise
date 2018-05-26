@@ -94,7 +94,7 @@
 			return
 		for(var/mob/living/carbon/slime/M in range(1, TYPECAST_YOUR_SHIT.affecting))
 			if(M.Victim == TYPECAST_YOUR_SHIT.affecting)
-				to_chat(user, "<span class='danger'>[TYPECAST_YOUR_SHIT.affecting.name] has a fucking slime attached to them, deal with that first.</span>")
+				to_chat(user, "<span class='danger'>[TYPECAST_YOUR_SHIT.affecting.name] has a fucking slime attached to [TYPECAST_YOUR_SHIT.affecting.p_them()], deal with that first.</span>")
 				return
 		var/mob/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
@@ -134,7 +134,7 @@
 		return 0
 	for(var/mob/living/carbon/slime/M in range(1, O))
 		if(M.Victim == O)
-			to_chat(user, "<span class='danger'>[O] has a fucking slime attached to them, deal with that first.</span>")
+			to_chat(user, "<span class='danger'>[O] has a fucking slime attached to [O.p_them()], deal with that first.</span>")
 			return 0
 
 	if(O == user)

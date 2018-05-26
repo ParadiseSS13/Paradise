@@ -257,7 +257,7 @@
 		if(href_list["chemical"])
 			if(occupant)
 				if(occupant.stat == DEAD)
-					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take them to a department capable of reanimating them.</span>")
+					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
 				else if(occupant.health > min_health || (href_list["chemical"] in emergency_chems))
 					inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 				else
@@ -337,10 +337,10 @@
 			return
 		for(var/mob/living/carbon/slime/M in range(1, G.affecting))
 			if(M.Victim == G.affecting)
-				to_chat(usr, "[G.affecting.name] will not fit into the sleeper because they have a slime latched onto their head.")
+				to_chat(user, "[G.affecting.name] will not fit into the sleeper because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.")
 				return
 
-		visible_message("[user] starts putting [G.affecting:name] into the sleeper.")
+		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
 
 		if(do_after(user, 20, target = G.affecting))
 			if(occupant)
@@ -353,7 +353,6 @@
 			occupant = M
 			icon_state = "[base_icon]"
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-
 			add_fingerprint(user)
 			qdel(G)
 	else
@@ -497,7 +496,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the sleeper because they have a slime latched onto their head.")
+			to_chat(usr, "[L.name] will not fit into the sleeper because [L.p_they()] [L.p_have()] a slime latched onto their head.")
 			return
 	if(L == user)
 		visible_message("[user] starts climbing into the sleeper.")
