@@ -614,7 +614,6 @@
 					var/obj/item/organ/external/head/affecting = H.get_organ("head")
 					if(affecting)
 						affecting.receive_damage(0, 75)
-						affecting.disfigure()
 					H.UpdateDamageIcon()
 					H.emote("scream")
 
