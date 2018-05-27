@@ -51,7 +51,7 @@ Difficulty: Hard
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
 
-/obj/item/device/gps/internal/bubblegum
+/obj/item/gps/internal/bubblegum
 	icon_state = null
 	gpstag = "Bloody Signal"
 	desc = "You're not quite sure how a signal can be bloody."
@@ -75,7 +75,7 @@ Difficulty: Hard
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Life()
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Life(seconds, times_fired)
 	..()
 	move_to_delay = Clamp((health/maxHealth) * 10, 5, 10)
 
@@ -115,9 +115,9 @@ Difficulty: Hard
 	AddSpell(bloodspell)
 	if(istype(loc, /obj/effect/dummy/slaughter))
 		bloodspell.phased = 1
-	internal_gps = new/obj/item/device/gps/internal/bubblegum(src)
+	internal_gps = new/obj/item/gps/internal/bubblegum(src)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
 	if(!charging)
 		..()
 

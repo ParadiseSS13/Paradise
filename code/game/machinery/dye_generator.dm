@@ -8,7 +8,7 @@
 	idle_power_usage = 40
 	var/dye_color = "#FFFFFF"
 
-/obj/machinery/dye_generator/initialize()
+/obj/machinery/dye_generator/Initialize()
 	..()
 	power_change()
 

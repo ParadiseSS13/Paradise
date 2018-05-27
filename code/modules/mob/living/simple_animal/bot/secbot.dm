@@ -260,14 +260,14 @@ Auto Patrol: []"},
 		C.Weaken(5)
 		C.stuttering = 5
 		C.Stun(5)
-	add_logs(src, C, "stunned")
+	add_attack_logs(src, C, "Stunned by [src]")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
 	C.visible_message("<span class='danger'>[src] has [harmbaton ? "beaten" : "stunned"] [C]!</span>",\
 							"<span class='userdanger'>[src] has [harmbaton ? "beaten" : "stunned"] you!</span>")
 
-/mob/living/simple_animal/bot/secbot/Life()
+/mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
 	if(flashing_lights)
 		switch(light_color)
@@ -433,7 +433,7 @@ Auto Patrol: []"},
 	Sa.build_step = 1
 	Sa.overlays += "hs_hole"
 	Sa.created_name = name
-	new /obj/item/device/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)
 
 	if(prob(50))

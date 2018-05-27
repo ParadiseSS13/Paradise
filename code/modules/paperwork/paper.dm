@@ -379,7 +379,7 @@
 
 	if(is_hot(P))
 		if((CLUMSY in user.mutations) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites themselves!</span>", \
+			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.unEquip(P)
 			user.adjust_fire_stacks(1)
@@ -669,5 +669,5 @@
 		if(!istype(G) || G.transfer_prints)
 			H.reagents.add_reagent(contact_poison, contact_poison_volume)
 			contact_poison = null
-			add_logs(user, src, "picked up [src], the paper poisoned by [contact_poison_poisoner]")
+			add_attack_logs(src, user, "Picked up [src], the paper poisoned by [contact_poison_poisoner]")
 	..()

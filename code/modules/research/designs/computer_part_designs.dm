@@ -63,7 +63,7 @@
 	id = "netcard_basic"
 	req_tech = list("programming" = 2, "engineering" = 1)
 	build_type = IMPRINTER
-	materials = list(MAT_METAL = 250, MAT_GLASS = 100, "sacid" = 20)
+	materials = list(MAT_METAL = 250, MAT_GLASS = 100)
 	build_path = /obj/item/computer_hardware/network_card
 	category = list("Computer Parts")
 
@@ -72,7 +72,7 @@
 	id = "netcard_advanced"
 	req_tech = list("programming" = 4, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_METAL = 500, MAT_GLASS = 200, "sacid" = 20)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
 	build_path = /obj/item/computer_hardware/network_card/advanced
 	category = list("Computer Parts")
 
@@ -81,7 +81,7 @@
 	id = "netcard_wired"
 	req_tech = list("programming" = 5, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_METAL = 2500, MAT_GLASS = 400, "sacid" = 20)
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 400)
 	build_path = /obj/item/computer_hardware/network_card/wired
 	category = list("Computer Parts")
 
@@ -92,7 +92,7 @@
 	id = "portadrive_basic"
 	req_tech = list("programming" = 1)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 800, "sacid" = 20)
+	materials = list(MAT_GLASS = 800)
 	build_path = /obj/item/computer_hardware/hard_drive/portable
 	category = list("Computer Parts")
 
@@ -101,7 +101,7 @@
 	id = "portadrive_advanced"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1600, "sacid" = 20)
+	materials = list(MAT_GLASS = 1600)
 	build_path = /obj/item/computer_hardware/hard_drive/portable/advanced
 	category = list("Computer Parts")
 
@@ -110,7 +110,7 @@
 	id = "portadrive_super"
 	req_tech = list("programming" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 3200, "sacid" = 20)
+	materials = list(MAT_GLASS = 3200)
 	build_path = /obj/item/computer_hardware/hard_drive/portable/super
 	category = list("Computer Parts")
 
@@ -219,7 +219,7 @@
 	id = "cpu_normal"
 	req_tech = list("programming" = 3, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1600, "sacid" = 20)
+	materials = list(MAT_GLASS = 1600)
 	build_path = /obj/item/computer_hardware/processor_unit
 	category = list("Computer Parts")
 
@@ -228,7 +228,7 @@
 	id = "cpu_small"
 	req_tech = list("programming" = 2, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 800, "sacid" = 20)
+	materials = list(MAT_GLASS = 800)
 	build_path = /obj/item/computer_hardware/processor_unit/small
 	category = list("Computer Parts")
 
@@ -237,7 +237,7 @@
 	id = "pcpu_normal"
 	req_tech = list("programming" = 5, "engineering" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS= 6400, MAT_GOLD = 2000, "sacid" = 40)
+	materials = list(MAT_GLASS= 6400, MAT_GOLD = 2000)
 	build_path = /obj/item/computer_hardware/processor_unit/photonic
 	category = list("Computer Parts")
 
@@ -246,6 +246,6 @@
 	id = "pcpu_small"
 	req_tech = list("programming" = 4, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 3200, MAT_GOLD = 1000, "sacid" = 20)
+	materials = list(MAT_GLASS = 3200, MAT_GOLD = 1000)
 	build_path = /obj/item/computer_hardware/processor_unit/photonic/small
 	category = list("Computer Parts")

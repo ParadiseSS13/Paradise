@@ -61,7 +61,7 @@
 		spider_growinstantly = 1
 		spider_spawnfrequency = 150
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Life(seconds, times_fired)
 	. = ..()
 	if(.) // if mob is NOT dead
 		if(ckey && canlay < 12 && hasnested) // max 12 eggs worth stored at any one time, realistically that's tons.

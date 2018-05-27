@@ -38,7 +38,7 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
 	if(burn_state != ON_FIRE)
 		return
-	user.visible_message("<span class = 'warning'>[user] pours [src] all over themself!</span>", "<span class = 'danger'>You pour [src] all over yourself!</span>", "<span class = 'warning'>You hear a 'whoompf' and a sizzle.</span>")
+	user.visible_message("<span class = 'warning'>[user] pours [src] all over [user.p_them()]self!</span>", "<span class = 'danger'>You pour [src] all over yourself!</span>", "<span class = 'warning'>You hear a 'whoompf' and a sizzle.</span>")
 	extinguish(TRUE)
 	reagents.reaction(user, TOUCH)
 	reagents.clear_reagents()
@@ -90,7 +90,7 @@
 	if((CLUMSY in user.mutations) && prob(50))
 		clumsilyDrink(user)
 	else
-		user.visible_message("<span class = 'notice'>[user] places their hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
+		user.visible_message("<span class = 'notice'>[user] places [user.p_their()] hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
 		extinguish()
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user)

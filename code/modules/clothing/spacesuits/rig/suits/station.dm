@@ -21,7 +21,7 @@
 	offline_slowdown = 0
 	offline_vision_restriction = 0
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/storage/briefcase,/obj/item/storage/secure/briefcase)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/briefcase,/obj/item/storage/secure/briefcase)
 
 	req_access = list()
 	req_one_access = list()
@@ -59,7 +59,7 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/industrial
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/pickaxe, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/bag/ore,/obj/item/t_scanner,/obj/item/pickaxe, /obj/item/rcd)
 
 	req_access = list()
 	req_one_access = list()
@@ -86,7 +86,7 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/eva
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/storage/toolbox,/obj/item/storage/briefcase/inflatable,/obj/item/device/t_scanner,/obj/item/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/toolbox,/obj/item/storage/briefcase/inflatable,/obj/item/t_scanner,/obj/item/rcd)
 
 	req_access = list()
 	req_one_access = list()
@@ -114,7 +114,7 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/ce
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/pickaxe, /obj/item/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/bag/ore,/obj/item/t_scanner,/obj/item/pickaxe, /obj/item/rcd)
 
 
 	req_access = list()
@@ -156,7 +156,7 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/ert
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/pickaxe,/obj/item/device/healthanalyzer,/obj/item/device/gps,/obj/item/device/radio/beacon)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/pickaxe,/obj/item/healthanalyzer,/obj/item/gps,/obj/item/radio/beacon)
 
 	req_access = list()
 	req_one_access = list()
@@ -181,7 +181,7 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/medical
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/tank,/obj/item/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical,/obj/item/roller )
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/roller )
 
 	req_access = list()
 	req_one_access = list()
@@ -207,7 +207,7 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/hazard
 
-	allowed = list(/obj/item/gun,/obj/item/device/flashlight,/obj/item/tank,/obj/item/melee/baton)
+	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank,/obj/item/melee/baton)
 
 	req_access = list()
 	req_one_access = list()

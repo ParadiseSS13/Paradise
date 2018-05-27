@@ -109,7 +109,7 @@ var/global/sent_syndicate_infiltration_team = 0
 		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
 		var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
-		ticker.mode.set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
+		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
 		new_syndicate_infiltrator.regenerate_icons()
 		num_spawned++
 		if(!teamsize)
@@ -127,7 +127,7 @@ var/global/sent_syndicate_infiltration_team = 0
 			syndimgmtmob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate, slot_wear_mask)
 			var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
 			opshud.join_hud(syndimgmtmob.mind.current)
-			ticker.mode.set_antag_hud(syndimgmtmob.mind.current, "hudoperative")
+			set_antag_hud(syndimgmtmob.mind.current, "hudoperative")
 			syndimgmtmob.mind.special_role = "Syndicate Management Consultant"
 			syndimgmtmob.regenerate_icons()
 			to_chat(syndimgmtmob, "<span class='userdanger'>You have spawned as Syndicate Management. You should brief them on their mission before they go.</span>")
@@ -149,7 +149,7 @@ var/global/sent_syndicate_infiltration_team = 0
 
 	//Creates mind stuff.
 	new_syndicate_infiltrator.mind_initialize()
-	new_syndicate_infiltrator.mind.assigned_role = "MODE"
+	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
 	ticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
@@ -163,7 +163,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
 	if(!flag_mgmt)
-		equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), slot_belt)
 
 	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
@@ -183,10 +183,10 @@ var/global/sent_syndicate_infiltration_team = 0
 	D.implant(src)
 
 	// Radio & PDA
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/syndteam(src)
+	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
 	equip_to_slot_or_del(R, slot_l_ear)
-	equip_or_collect(new /obj/item/device/pda(src), slot_in_backpack)
+	equip_or_collect(new /obj/item/pda(src), slot_in_backpack)
 
 	// Other gear
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/syndigaloshes(src), slot_shoes)

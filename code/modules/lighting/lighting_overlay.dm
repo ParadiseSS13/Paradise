@@ -9,7 +9,6 @@
 	invisibility = INVISIBILITY_LIGHTING
 	color = LIGHTING_BASE_MATRIX
 	icon_state = "light1"
-	auto_init = 0 // doesn't need special init
 	blend_mode = BLEND_MULTIPLY
 
 	var/lum_r = 0

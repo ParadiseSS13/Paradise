@@ -44,7 +44,7 @@
 	attack_verb = list("stung")
 
 /obj/item/grown/nettle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return (BRUTELOSS|TOXLOSS)
 
 /obj/item/grown/nettle/pickup(mob/living/user)
@@ -104,7 +104,7 @@
 	..()
 	if(isliving(M))
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")
-		add_logs(user, M, "attacked", src)
+		add_attack_logs(user, M, "Hit with [src]")
 
 		M.AdjustEyeBlurry(force/7)
 		if(prob(20))

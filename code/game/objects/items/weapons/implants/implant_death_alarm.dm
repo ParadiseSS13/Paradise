@@ -35,7 +35,7 @@
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
 
-	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(src)
+	var/obj/item/radio/headset/a = new /obj/item/radio/headset(src)
 	a.follow_target = M
 
 	switch(cause)

@@ -12,7 +12,7 @@
 		new /obj/item/storage/backpack(src)
 	else
 		new /obj/item/storage/backpack/satchel_norm(src)
-	new /obj/item/device/radio/headset( src )
+	new /obj/item/radio/headset( src )
 
 
 /obj/structure/closet/secure_closet/personal/patient
@@ -52,7 +52,7 @@
 	..()
 	contents.Cut()
 	new /obj/item/storage/backpack/satchel/withwallet( src )
-	new /obj/item/device/radio/headset( src )
+	new /obj/item/radio/headset( src )
 
 /obj/structure/closet/secure_closet/personal/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(src.opened)

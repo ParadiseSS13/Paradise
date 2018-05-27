@@ -30,7 +30,7 @@
 
 
 	attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
-		if(istype(O, /obj/item/device/soulstone))
+		if(istype(O, /obj/item/soulstone))
 			O.transfer_soul("SHADE", src, user)
 		else
 			if(O.force)

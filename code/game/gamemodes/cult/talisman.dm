@@ -96,7 +96,7 @@
 					var/obj/item/paper/talisman/stun/T = new(usr)
 					usr.put_in_hands(T)
 				if("soulstone")
-					var/obj/item/device/soulstone/T = new(usr)
+					var/obj/item/soulstone/T = new(usr)
 					usr.put_in_hands(T)
 				if("construct")
 					new /obj/structure/constructshell(get_turf(usr))
@@ -151,7 +151,7 @@
 	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return ..(user, 0)
 
-	user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and they disappear in a flash of red light!</span>", \
+	user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman and find yourself somewhere else!</span>")
 	user.forceMove(get_turf(actual_selected_rune))
 	return ..()
@@ -220,7 +220,7 @@
 	. = ..()
 	user.visible_message("<span class='warning'>[user]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, emitting an EMP blast.</span>")
-	empulse(src, 4, 8)
+	empulse(src, 4, 8, 1)
 
 
 //Rite of Disorientation: Stuns and inhibit speech on a single target for quite some time
@@ -249,7 +249,7 @@
 			target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the talisman's light!</span>", \
 								   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
 		else
-			add_logs(user, target, "stunned", addition="with a talisman")
+			add_attack_logs(user, target, "Stunned with a talisman")
 			target.Weaken(10)
 			target.Stun(10)
 			target.flash_eyes(1,1)
@@ -393,7 +393,7 @@
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
 				C.update_handcuffed()
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
-				add_logs(user, C, "handcuffed")
+				add_attack_logs(user, C, "Handcuffed (shackle talisman)")
 				uses--
 			else
 				to_chat(user, "<span class='warning'>[C] is already bound.</span>")

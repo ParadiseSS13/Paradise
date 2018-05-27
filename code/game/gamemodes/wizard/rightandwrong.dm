@@ -155,7 +155,7 @@
 						if("staffchaos")
 							new /obj/item/gun/magic/staff/chaos(get_turf(H))
 						if("necromantic")
-							new /obj/item/device/necromantic_stone(get_turf(H))
+							new /obj/item/necromantic_stone(get_turf(H))
 					to_chat(H, "<span class='notice'>You suddenly feel lucky.</span>")
 					
 			playsound(get_turf(H), 'sound/magic/Summon_Magic.ogg', 50, 1)

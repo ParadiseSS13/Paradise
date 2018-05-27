@@ -61,7 +61,7 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			injected += R.name
 		var/contained = english_list(injected)
-		add_logs(user, C, "dripped", src, "([contained])")
+		add_attack_logs(user, C, "Dripped with [src] containing ([contained]), transfering [to_transfer]")
 
 		to_transfer = reagents.trans_to(C, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")

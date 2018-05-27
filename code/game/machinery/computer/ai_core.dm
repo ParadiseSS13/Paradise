@@ -7,7 +7,7 @@
 	var/state = 0
 	var/datum/ai_laws/laws = null
 	var/obj/item/circuitboard/circuit = null
-	var/obj/item/device/mmi/brain = null
+	var/obj/item/mmi/brain = null
 
 /obj/structure/AIcore/Destroy()
 	QDEL_NULL(laws)
@@ -117,7 +117,7 @@
 					return
 				laws = M.laws
 
-			if(istype(P, /obj/item/device/mmi) || istype(P, /obj/item/device/mmi/posibrain))
+			if(istype(P, /obj/item/mmi) || istype(P, /obj/item/mmi/posibrain))
 				if(!P:brainmob)
 					to_chat(user, "<span class='warning'>Sticking an empty [P] into the frame would sort of defeat the purpose.</span>")
 					return
@@ -129,7 +129,7 @@
 					to_chat(user, "<span class='warning'>This [P] does not seem to fit.</span>")
 					return
 
-				if(istype(P, /obj/item/device/mmi/syndie))
+				if(istype(P, /obj/item/mmi/syndie))
 					to_chat(user, "<span class='warning'>This MMI does not seem to fit!</span>")
 					return
 
@@ -190,8 +190,8 @@
 	return ..()
 
 /obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user, params)
-	if(istype(W, /obj/item/device/aicard))//Is it?
-		var/obj/item/device/aicard/card = W
+	if(istype(W, /obj/item/aicard))//Is it?
+		var/obj/item/aicard/card = W
 		card.transfer_ai("INACTIVE","AICARD",src,user)
 	else if(istype(W, /obj/item/wrench))
 		if(anchored)
@@ -246,7 +246,7 @@ That prevents a few funky behaviors.
 //The type of interaction, the player performing the operation, the AI itself, and the card object, if any.
 
 
-atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
+atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: AI flush is in progress, cannot execute transfer protocol.")
@@ -254,7 +254,7 @@ atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/A
 	return 1
 
 
-/obj/structure/AIcore/deactivated/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
+/obj/structure/AIcore/deactivated/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
 	if(!..())
 		return
  //Transferring a carded AI to a core.

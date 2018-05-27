@@ -25,7 +25,7 @@
 	pressure_resistance = 2
 
 /obj/item/pen/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over \himself with the [src.name]! It looks like \he's trying to commit sudoku.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
 	return (BRUTELOSS)
 
 /obj/item/pen/blue
@@ -114,7 +114,7 @@
 //			to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
 			. = 1
 
-		add_logs(user, M, "stabbed", object="[name]")
+		add_attack_logs(user, M, "Stabbed with [src]")
 
 	else
 		. = ..()
@@ -201,7 +201,7 @@
 		P.contact_poison = "amanitin"
 		P.contact_poison_volume = 15
 		P.contact_poison_poisoner = user.name
-		add_logs(user, P, "used poison pen on")
+		add_attack_logs(user, P, "Poison pen'ed")
 		to_chat(user, "<span class='warning'>You apply the poison to [P].</span>")
 	else
 		to_chat(user, "<span class='warning'>[src] clicks. It seems to be depleted.</span>")

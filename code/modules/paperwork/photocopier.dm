@@ -21,7 +21,7 @@
 
 /obj/machinery/photocopier/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/photocopier/attack_ghost(mob/user)
 	return attack_hand(user)
 
@@ -109,7 +109,7 @@
 
 		if(toner >= 5)
 			var/mob/living/silicon/tempAI = usr
-			var/obj/item/device/camera/siliconcam/camera = tempAI.aiCamera
+			var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
 
 			if(!camera)
 				return
@@ -139,11 +139,11 @@
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
-	else if(istype(O, /obj/item/device/toner))
+	else if(istype(O, /obj/item/toner))
 		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
 			user.drop_item()
 			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
-			var/obj/item/device/toner/T = O
+			var/obj/item/toner/T = O
 			toner += T.toner_amount
 			qdel(O)
 			updateUsrDialog()
@@ -316,11 +316,11 @@
 		return
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
-		visible_message("<span class='warning'>[usr] jumps onto the photocopier!</span>")
+		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
 	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
 		if(target.anchored) return
 		if(!ishuman(user)) return
-		visible_message("<span class='warning'>[usr] drags [target.name] onto the photocopier!</span>")
+		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
 	target.forceMove(get_turf(src))
 	ass = target
 	if(copyitem)
@@ -344,12 +344,13 @@
 /obj/machinery/photocopier/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You overload the photocopier's laser printing mechanism.</span>")
+		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
 	else
-		to_chat(user, "<span class='notice'>The photocopier's laser printing mechanism is already overloaded!</span>")
+		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
-/obj/item/device/toner
+/obj/item/toner
 	name = "toner cartridge"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	var/toner_amount = 30
 

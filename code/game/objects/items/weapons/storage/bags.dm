@@ -40,7 +40,7 @@
 	cant_hold = list(/obj/item/disk/nuclear)
 
 /obj/item/storage/bag/trash/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] puts the [src.name] over their head and starts chomping at the insides! Disgusting!</span>")
+	user.visible_message("<span class='suicide'>[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
 	return (TOXLOSS)
 
@@ -75,7 +75,7 @@
 	origin_tech = "materials=4;bluespace=4;engineering=4;plasmatech=3"
 	max_combined_w_class = 60
 	storage_slots = 60
-
+	flags_2 = NO_MAT_REDEMPTION_2
 
 // -----------------------------
 //        Plastic Bag
@@ -453,9 +453,9 @@
 							sleep(rand(2,4))
 		if( droppedSomething )
 			if( foundtable )
-				user.visible_message("<span class='notice'>[user] unloads their service tray.</span>")
+				user.visible_message("<span class='notice'>[user] unloads [user.p_their()] service tray.</span>")
 			else
-				user.visible_message("<span class='notice'>[user] drops all the items on their tray.</span>")
+				user.visible_message("<span class='notice'>[user] drops all the items on [user.p_their()] tray.</span>")
 
 	return ..()
 

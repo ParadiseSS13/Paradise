@@ -137,9 +137,9 @@
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= M
-			//log_to_dd("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
+			//log_world("[recursion_limit] = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
 
-		else if(include_radio && istype(A, /obj/item/device/radio))
+		else if(include_radio && istype(A, /obj/item/radio))
 			if(sight_check && !isInSight(A, O))
 				continue
 			L |= A
@@ -167,8 +167,8 @@
 			var/mob/M = A
 			if(M.client || include_clientless)
 				hear += M
-			//log_to_dd("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
-		else if(istype(A, /obj/item/device/radio))
+			//log_world("Start = [M] - [get_turf(M)] - ([M.x], [M.y], [M.z])")
+		else if(istype(A, /obj/item/radio))
 			hear += A
 
 		if(isobj(A) || ismob(A))
@@ -177,17 +177,17 @@
 	return hear
 
 
-/proc/get_mobs_in_radio_ranges(var/list/obj/item/device/radio/radios)
+/proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
 
 	set background = 1
 
 	. = list()
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	var/list/speaker_coverage = list()
-	for(var/obj/item/device/radio/R in radios)
+	for(var/obj/item/radio/R in radios)
 		if(R)
 			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
-			var/obj/item/device/radio/borg/BR = R
+			var/obj/item/radio/borg/BR = R
 			if(istype(BR) && BR.myborg)
 				var/mob/living/silicon/robot/borg = BR.myborg
 				var/datum/robot_component/CO = borg.get_component("radio")
@@ -435,7 +435,7 @@
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE)
+proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
@@ -457,7 +457,7 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 		if(config.use_exp_restrictions && min_hours)
 			if(G.client.get_exp_living_num() < min_hours * 60)
 				continue
-		if(cannotPossess(G))
+		if(check_antaghud && cannotPossess(G))
 			continue
 		spawn(0)
 			G << 'sound/misc/notice2.ogg'//Alerting them to their consideration
@@ -489,6 +489,20 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 			candidates.Remove(G)
 
 	return candidates
+
+/proc/pollCandidatesByKeyWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
+	var/list/willing_ghosts = pollCandidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud)
+	var/list/candidate_ckeys = list()
+	var/list/selected_ckeys = list()
+	if(!willing_ghosts.len)
+		return selected_ckeys
+	for(var/mob/dead/observer/G in willing_ghosts)
+		candidate_ckeys += G.key
+	for(var/i = max_slots, (i > 0 && candidate_ckeys.len), i--)
+		var/this_ckey = input("Pick players. This will go on until there either no more ghosts to pick from or the slots are full.", "Candidates") as null|anything in candidate_ckeys
+		candidate_ckeys -= this_ckey
+		selected_ckeys += this_ckey
+	return selected_ckeys
 
 /proc/window_flash(client/C)
 	if(ismob(C))

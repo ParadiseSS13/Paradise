@@ -22,6 +22,7 @@
 #define MECHFAB			16 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
 #define PODFAB			32 	//Used by the spacepod part fabricator. Same idea as the mechfab
 #define BIOGENERATOR	64 	//Uses biomass
+#define SMELTER			128 //uses various minerals
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 #define HYDRO_SPEED_MULTIPLIER 1

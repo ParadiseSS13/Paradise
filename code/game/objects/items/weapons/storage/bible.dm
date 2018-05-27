@@ -38,16 +38,11 @@
 	return
 
 /obj/item/storage/bible/attack(mob/living/M as mob, mob/living/user as mob)
-
 	var/chaplain = 0
 	if(user.mind && (user.mind.assigned_role == "Chaplain"))
 		chaplain = 1
 
-
-	M.create_attack_log("<font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
-	user.create_attack_log("<font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
-	log_attack("<font color='red'>[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
-
+	add_attack_logs(user, M, "Hit with [src]")
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else
@@ -73,7 +68,7 @@
 	if(M.stat !=2)
 		/*if((M.mind in ticker.mode.cult) && (prob(20)))
 			to_chat(M, "<span class='warning'>The power of [src.deity_name] clears your mind of heresy!</span>")
-			to_chat(user, "<span class='warning'>You see how [M]'s eyes become clear, the cult no longer holds control over him!</span>")
+			to_chat(user, "<span class='warning'>You see how [M]'s eyes become clear, the cult no longer holds control over [M.p_them()]!</span>")
 			ticker.mode.remove_cultist(M.mind)*/
 		if((istype(M, /mob/living/carbon/human) && prob(60)))
 			bless(M)

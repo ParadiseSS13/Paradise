@@ -270,8 +270,8 @@ var/global/list/ts_spiderling_list = list()
 	else
 		ts_count_alive_station++
 	// after 30 seconds, assuming nobody took control of it yet, offer it to ghosts.
-	addtimer(src, "CheckFaction", 150)
-	addtimer(src, "announcetoghosts", 300)
+	addtimer(CALLBACK(src, .proc/CheckFaction), 150)
+	addtimer(CALLBACK(src, .proc/announcetoghosts), 300)
 	var/datum/atom_hud/U = huds[DATA_HUD_MEDICAL_ADVANCED]
 	U.add_hud_to(src)
 
@@ -292,7 +292,7 @@ var/global/list/ts_spiderling_list = list()
 	handle_dying()
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Life()
+/mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
 	if(!.) // if mob is dead
 		if(prob(2))

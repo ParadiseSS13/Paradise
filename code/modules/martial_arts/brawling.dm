@@ -11,7 +11,7 @@
 
 /datum/martial_art/boxing/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 
-	A.do_attack_animation(D)
+	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
 
@@ -19,7 +19,7 @@
 	if(!damage)
 		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to hit [D] with a [atk_verb]!</span>")
-		add_logs(A, D, "attempted to hit", atk_verb)
+		add_attack_logs(A, D, "Melee attacked with [src] (miss/block)")
 		return 0
 
 
@@ -32,7 +32,7 @@
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
 
 	D.apply_damage(damage, STAMINA, affecting, armor_block)
-	add_logs(A, D, "punched")
+	add_attack_logs(A, D, "Melee attacked with [src]")
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
@@ -61,8 +61,8 @@
 	return 1
 
 /datum/martial_art/drunk_brawling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_logs(A, D, "punched")
-	A.do_attack_animation(D)
+	add_attack_logs(A, D, "Melee attacked with [src]")
+	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("jab","uppercut","overhand punch","drunken right hook","drunken left hook")
 

@@ -12,4 +12,4 @@
 	new /obj/effect/nasavoidsuitspawner(src)
 	new /obj/item/crowbar(src)
 	new /obj/item/stock_parts/cell(src)
-	new /obj/item/device/multitool(src)
+	new /obj/item/multitool(src)

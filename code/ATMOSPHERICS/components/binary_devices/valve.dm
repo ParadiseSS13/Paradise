@@ -109,7 +109,7 @@
 	if(frequency)
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/binary/valve/digital/initialize()
+/obj/machinery/atmospherics/binary/valve/digital/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)
@@ -141,12 +141,12 @@
 					close()
 
 /obj/machinery/atmospherics/binary/valve/digital/attackby(var/obj/item/W as obj, var/mob/user)
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 	..()
 
-/obj/machinery/atmospherics/binary/valve/digital/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/machinery/atmospherics/binary/valve/digital/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 		<ul>
 			<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>

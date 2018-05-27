@@ -285,7 +285,7 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/behemoth/Life()
+/mob/living/simple_animal/hostile/construct/behemoth/Life(seconds, times_fired)
 	weakened = 0
 	return ..()
 

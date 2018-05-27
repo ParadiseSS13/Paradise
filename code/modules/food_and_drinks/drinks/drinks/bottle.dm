@@ -102,11 +102,11 @@
 		target.visible_message("<span class='danger'>[user] has hit [target][head_attack_message] with a bottle of [name]!</span>", \
 				"<span class='userdanger'>[user] has hit [target][head_attack_message] with a bottle of [name]!</span>")
 	else
-		user.visible_message("<span class='danger'>[target] hits \himself with a bottle of [name][head_attack_message]!</span>", \
-				"<span class='userdanger'>[target] hits \himself with a bottle of [name][head_attack_message]!</span>")
+		user.visible_message("<span class='danger'>[target] hits [target.p_them()]self with a bottle of [name][head_attack_message]!</span>", \
+				"<span class='userdanger'>[target] hits [target.p_them()]self with a bottle of [name][head_attack_message]!</span>")
 
 	//Attack logs
-	add_logs(user, target, "attacked", src)
+	add_attack_logs(user, target, "Hit with [src]")
 
 	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
 	SplashReagents(target)

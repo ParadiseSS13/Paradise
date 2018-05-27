@@ -229,7 +229,7 @@
 	apply_preset(1) // Don't cycle.
 	air_alarm_repository.update_cache(src)
 
-/obj/machinery/alarm/initialize()
+/obj/machinery/alarm/Initialize()
 	..()
 	set_frequency(frequency)
 	if(!master_is_operating())
@@ -992,10 +992,10 @@
 					update_icon()
 					return
 
-			if(wiresexposed && ((istype(W, /obj/item/device/multitool) || istype(W, /obj/item/wirecutters))))
+			if(wiresexposed && ((istype(W, /obj/item/multitool) || istype(W, /obj/item/wirecutters))))
 				return attack_hand(user)
 
-			if(istype(W, /obj/item/card/id) || istype(W, /obj/item/device/pda))// trying to unlock the interface with an ID card
+			if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return

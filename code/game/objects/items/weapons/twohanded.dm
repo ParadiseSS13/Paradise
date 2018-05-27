@@ -276,7 +276,7 @@
 
 /obj/item/twohanded/dualsaber/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		if(hacked == 0)
 			hacked = 1
 			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
@@ -742,7 +742,7 @@
 			if(charged)
 				charged--
 				Z.take_organ_damage(0,30)
-				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
+				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all [user.p_their()] might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
 				var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 				sparks.set_up(1, 1, src)
