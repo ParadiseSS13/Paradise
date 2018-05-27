@@ -118,10 +118,8 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head = H.get_organ("head")
-			if(head && head.disfigured)
+			if(head)
 				head.disfigured = FALSE
-				head.update_icon()
-				H.regenerate_icons()
 	..()
 
 /datum/reagent/medicine/rezadone
@@ -140,10 +138,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head = H.get_organ("head")
-		if(head && head.disfigured)
+		if(head)
 			head.disfigured = FALSE
-			head.update_icon()
-			H.regenerate_icons()
 	..()
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/M, severity)

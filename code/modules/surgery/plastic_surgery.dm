@@ -27,8 +27,6 @@
 	var/species_names = target.get_species()
 	if(head.disfigured)
 		head.disfigured = FALSE
-		head.update_icon()
-		target.regenerate_icons()
 		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")
 	else
 		var/list/names = list()
