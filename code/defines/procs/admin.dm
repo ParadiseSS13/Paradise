@@ -77,8 +77,8 @@
 	return message
 
 /proc/key_name_log(whom)
-	// Key_name_admin, but does not include (?) or jump link - For logging purpose to reduce clutter while figuring out who is SSD and/or antag when being attacked
-	var/message = "[key_name(whom, 1)][isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""]"
+	// Key_name_admin, but does not include (?) or jump link - For logging purpose to reduce clutter while figuring out who is SSD and/or antag when being attacked. Also remove formatting since it is not displayed
+	var/message = "[key_name(whom, 1)][isAntag(whom) ? "(ANTAG)" : ""][isLivingSSD(whom) ? "(SSD!)": ""]"
 	return message
 
 /proc/log_and_message_admins(var/message as text)
