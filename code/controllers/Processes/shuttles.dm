@@ -227,12 +227,15 @@ DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 	var/obj/docking_port/stationary/D = getDock(dockId)
 	if(!M)
 		return 1
+	if(M.cd + M.cdint > world.time)
+		return 2
 	if(timed)
 		if(M.request(D))
-			return 2
+			return 3
 	else
 		if(M.dock(D))
-			return 2
+			return 3
+	M.cd = world.time
 	return 0	//dock successful
 
 /datum/controller/process/shuttle/proc/initial_move()

@@ -75,7 +75,6 @@
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
 		)
 
-
 //returns turfs within our projected rectangle in a specific order.
 //this ensures that turfs are copied over in the same order, regardless of any rotation
 /obj/docking_port/proc/return_ordered_turfs(_x, _y, _z, _dir, area/A)
@@ -206,6 +205,8 @@
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
+	var/cd = 0 // cooldown, tied to the shuttle
+	var/cdint = 300 // cooldowninterval, tied to the shuttle, in deciseconds
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -779,6 +780,8 @@
 				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
+			if(2)
+				to_chat(usr, "<span class='warning'>Shuttle's on cooldown!</span>")
 			else
 				to_chat(usr, "<span class='notice'>Unable to comply.</span>")
 		return 1
