@@ -778,6 +778,7 @@
 		switch(shuttle_master.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
 				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+				log_game("[key_name(usr)] called a shuttle on [src.name]")
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			if(2)
