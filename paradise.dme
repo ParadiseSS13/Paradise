@@ -77,6 +77,7 @@
 #include "code\__HELPERS\matrices.dm"
 #include "code\__HELPERS\mobs.dm"
 #include "code\__HELPERS\names.dm"
+#include "code\__HELPERS\pronouns.dm"
 #include "code\__HELPERS\qdel.dm"
 #include "code\__HELPERS\sanitize_values.dm"
 #include "code\__HELPERS\text.dm"
