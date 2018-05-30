@@ -44,5 +44,3 @@ var/global/list/poi_list = list()					//list of points of interest for observe/f
 var/global/list/active_jammers = list()             // List of active radio jammers
 
 var/global/list/active_diseases = list() 			//List of Active disease in all mobs; purely for quick referencing.
-
-var/global/list/construction_pipe_list = list()		//List of all pipe datums

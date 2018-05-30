@@ -3,6 +3,8 @@
 #define RPD_ATMOS		1
 #define RPD_DISPOSAL	2
 
+GLOBAL_LIST_EMPTY(construction_pipe_list)	//List of all pipe datums
+
 /datum/pipes
 	var/pipename //What the pipe is called in the interface
 	var/pipeid //Use the pipe define for this
