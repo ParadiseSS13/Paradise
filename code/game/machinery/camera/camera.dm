@@ -30,6 +30,7 @@
 	var/emped = 0  //Number of consecutive EMP's on this camera
 
 	var/toggle_message = 'sound/items/Wirecutter.ogg'
+	var/in_use_lights = 0 // TO BE IMPLEMENTED
 
 /obj/machinery/camera/New()
 	..()
