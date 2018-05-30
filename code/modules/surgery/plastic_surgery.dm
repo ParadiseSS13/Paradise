@@ -43,7 +43,7 @@
 		var/oldname = target.real_name
 		target.real_name = chosen_name
 		var/newname = target.real_name	//something about how the code handles names required that I use this instead of target.real_name
-		user.visible_message("[user] alters [oldname]'s appearance completely, they are now [newname]!", "<span class='notice'>You alter [oldname]'s appearance completely, they are now [newname].</span>")
+		user.visible_message("[user] alters [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname]!", "<span class='notice'>You alter [oldname]'s appearance completely, [target.p_they()] [target.p_are()] now [newname].</span>")
 	target.sec_hud_set_ID()
 	return TRUE
 
