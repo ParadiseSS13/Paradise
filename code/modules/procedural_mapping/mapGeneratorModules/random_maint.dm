@@ -5,15 +5,11 @@
 //Oh my, chances are the whole thing is open to space! Time to build a wall to keep those space mexicans out.
 /datum/mapGeneratorModule/space_adjacent/maintWall
 	spawnableTurfs = list(/turf/simulated/wall/r_wall = 75,
-						  /turf/simulated/wall/r_wall/rust = 5,
-						  /obj/effect/spawner/window/reinforced = 20)
+						  /turf/simulated/wall/r_wall/rust = 5)
 
 /datum/mapGeneratorModule/space_adjacent/maintWall/place(var/turf/T)
 	var/newtype = pickweight(spawnableTurfs)
-	if(newtype in typesof(/turf))
-		T.ChangeTurf(newtype)
-	else
-		new newtype(T)
+	T.ChangeTurf(newtype)
 
 //Divide it to rooms
 /datum/mapGeneratorModule/maintWall
@@ -26,7 +22,6 @@
 
 	var/list/map = mother.map
 	var/runs = round(map.len ** 0.625) //Let's adjust the number of walls to the size of the area
-	to_chat(usr, "Running forecast: [runs]")
 	for(var/i=1,i<=runs,i++)
 		var/dir = pick(NORTH,SOUTH,EAST,WEST)
 		var/turf/T = pick(map)
@@ -39,7 +34,7 @@
 			j++
 
 /datum/mapGeneratorModule/maintWall/place(var/turf/T)
-	if(is_space_adjacent(T) || wall_too_thick(T) || T.contents.len > 1)
+	if(is_space_adjacent(T) || wall_too_thick(T) || objs_in_turf(T))
 		return
 
 	T.ChangeTurf(pickweight(spawnableTurfs))
@@ -158,7 +153,7 @@
 		new type(T)
 
 /datum/mapGeneratorModule/maintFurniture/checkPlaceAtom(var/turf/T)
-	return T.contents.len < 2 && ..()
+	return !objs_in_turf(T) && ..()
 
 /datum/mapGeneratorModule/conditional/maintConditionalFurniture
 	spawnableAtoms = list(/datum/conditionalGenerator/lootdrop = 25,
@@ -168,4 +163,22 @@
 						  /datum/conditionalGenerator/chair = 8,
 						  /datum/conditionalGenerator/cobweb = 3,
 						  /datum/conditionalGenerator/fungus = 3)
-	chance = 30
+
+/datum/mapGeneratorModule/maintWindow
+	spawnableAtoms = list(/obj/effect/spawner/window/reinforced = 1)
+	spawnableTurfs = list(/turf/simulated/floor/plating = 1)
+
+/datum/mapGeneratorModule/maintWindow/place(var/turf/T)
+	if(prob(30) && checkPlaceAtom(T))
+		var/type = pickweight(spawnableAtoms)
+		new type(T)
+		type = pickweight(spawnableTurfs)
+		T.ChangeTurf(type)
+
+/datum/mapGeneratorModule/maintWindow/checkPlaceAtom(var/turf/T)
+	if(istype(get_step(T, NORTH), /turf/simulated/floor) && istype(get_step(T, SOUTH), /turf/space) || \
+	   istype(get_step(T, SOUTH), /turf/simulated/floor) && istype(get_step(T, NORTH), /turf/space) || \
+	   istype(get_step(T, WEST), /turf/simulated/floor) && istype(get_step(T, EAST), /turf/space) || \
+	   istype(get_step(T, EAST), /turf/simulated/floor) && istype(get_step(T, WEST), /turf/space))
+		return TRUE
+	return FALSE

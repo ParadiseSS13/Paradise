@@ -11,4 +11,5 @@
 					   /datum/mapGeneratorModule/maintDoor,
 					   /datum/mapGeneratorModule/conditional/maintConditionalFurniture,
 					   /datum/mapGeneratorModule/maintFurniture,
+					   /datum/mapGeneratorModule/maintWindow,
 					   /datum/mapGeneratorModule/bottomLayer/repressurize)

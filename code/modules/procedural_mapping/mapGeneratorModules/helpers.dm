@@ -57,3 +57,9 @@
 		if(istype(get_step(T, D), /turf/space))
 			return TRUE
 	return FALSE
+
+/datum/mapGeneratorModule/proc/objs_in_turf(var/turf/T)
+	var/i = 0
+	for(var/obj/O in T.contents)
+		i++
+	return i

@@ -2,7 +2,7 @@
 	spawntype = /obj/effect/spawner/lootdrop/maintenance
 
 /datum/conditionalGenerator/lootdrop/condition(var/turf/T)
-	if(T.contents.len < 2 && istype(T, /turf/simulated/floor))
+	if(!objs_in_turf(T) && istype(T, /turf/simulated/floor))
 		return TRUE
 	return FALSE
 
@@ -10,7 +10,7 @@
 	spawntype = /obj/item/lipstick/random
 
 /datum/conditionalGenerator/lipstick/condition(var/turf/T)
-	if(T.contents.len < 2 && istype(T, /turf/simulated/floor))
+	if(!objs_in_turf(T) && istype(T, /turf/simulated/floor))
 		return TRUE
 	return FALSE
 
@@ -18,7 +18,7 @@
 	spawntype = /obj/item/storage/pill_bottle/random_drug_bottle
 
 /datum/conditionalGenerator/pill_bottle/condition(var/turf/T)
-	if(T.contents.len < 2 && istype(T, /turf/simulated/floor))
+	if(!objs_in_turf(T) && istype(T, /turf/simulated/floor))
 		return TRUE
 	return FALSE
 
@@ -29,7 +29,7 @@
 					  	   /obj/structure/stool/bed/chair/wood/wings = 1))
 	dir = pick(NORTH, SOUTH, EAST, WEST)
 
-	if(T.contents.len < 2 && istype(T, /turf/simulated/floor))
+	if(!objs_in_turf(T) && istype(T, /turf/simulated/floor))
 		return TRUE
 	return FALSE
 
@@ -44,7 +44,7 @@
 		if(istype(get_step(T, D), /turf/simulated/wall))
 			walls += D
 
-	if(T.contents.len < 2 && walls.len > 0 && istype(T, /turf/simulated/floor))
+	if(!objs_in_turf(T) && walls.len > 0 && istype(T, /turf/simulated/floor))
 		dir = pick(walls)
 		return TRUE
 	return FALSE
@@ -73,3 +73,14 @@
 	if(istype(T, /turf/simulated/wall))
 		return TRUE
 	return FALSE
+
+
+
+
+//I know that this is an ugly duplicate, but I have no idea where else to place this. I guess this is better than making a
+//global proc. If not, God help us all.
+/datum/conditionalGenerator/proc/objs_in_turf(var/turf/T)
+	var/i = 0
+	for(var/obj/O in T.contents)
+		i++
+	return i
