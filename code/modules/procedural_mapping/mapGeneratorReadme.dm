@@ -72,6 +72,26 @@ mapGeneratorModule
 		Existing Calls: place()
 
 
+mapGeneratorConditional
+	Desc: Create a "mapGeneratorModule/conditional" to use. In the list "spawnableAtoms" put "/datum/conditionalGenerator"s.
+
+	spawntype
+		Example: /obj/item/paper
+		Desc: the thing to spawn
+
+	dir
+		Example: NORTH
+		Desc: SOUTH by default; it's often needed to change direction of an object in the condition.
+
+	chance
+		Example: 30
+		Desc: What's the chance that we will pull from something from "spawnableAtoms" in the first place.
+
+	condition(var/turf/T)
+		Example: condition(locate(1,1,1))
+		Desc: If the chance passed then it checks if the condition of the atom we are trying to spawn is correct.
+		Existing Calls: mapGeneratorModule/conditional/place()
+
 
 ////////////////////////////
 // MAPPER FRIENDLY README //

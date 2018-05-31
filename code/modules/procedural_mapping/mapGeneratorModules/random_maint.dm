@@ -160,7 +160,7 @@
 /datum/mapGeneratorModule/maintFurniture/checkPlaceAtom(var/turf/T)
 	return T.contents.len < 2 && ..()
 
-/datum/mapGeneratorModule/maintConditionalFurniture
+/datum/mapGeneratorModule/conditional/maintConditionalFurniture
 	spawnableAtoms = list(/datum/conditionalGenerator/lootdrop = 25,
 						  /datum/conditionalGenerator/lipstick = 1,
 						  /datum/conditionalGenerator/pill_bottle = 1,
@@ -168,11 +168,4 @@
 						  /datum/conditionalGenerator/chair = 8,
 						  /datum/conditionalGenerator/cobweb = 3,
 						  /datum/conditionalGenerator/fungus = 3)
-
-/datum/mapGeneratorModule/maintConditionalFurniture/place(var/turf/T)
-	var/newtype = pickweight(spawnableAtoms)
-	var/datum/conditionalGenerator/conGen = new newtype
-	if(prob(30) && conGen.condition(T))
-		var/V = conGen.spawntype
-		var/atom/A = new V(T)
-		A.dir = conGen.dir
+	chance = 30
