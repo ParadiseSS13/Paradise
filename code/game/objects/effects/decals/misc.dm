@@ -7,6 +7,9 @@
 	anchored = 1
 	mouse_opacity = 0
 
+/obj/effect/decal/point/singularity_act()
+	return
+
 // Used for spray that you spray at walls, tables, hydrovats etc
 /obj/effect/decal/spraystill
 	density = 0
