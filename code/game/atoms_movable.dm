@@ -25,7 +25,7 @@
 	var/area/areaMaster
 
 /atom/movable/New(loc, ...)
-	if(GLOB.use_preloader && (src.type == GlOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		GLOB._preloader.load(src)
 
 	areaMaster = get_area_master(src)
