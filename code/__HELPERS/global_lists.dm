@@ -49,11 +49,12 @@
 			whitelisted_species += S.name
 
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
+
+	//RPD pipe list building
 	var/list/temp_pipe_list = list()
 	init_subtypes(/datum/pipes/atmospheric, temp_pipe_list)
 	init_subtypes(/datum/pipes/disposal, temp_pipe_list)
-	for(var/I in temp_pipe_list)
-		var/datum/pipes/P = I
+	for(var/datum/pipes/P in temp_pipe_list) //Yes I know the list(list(...)) thing looks weird, but it allows us to group pipe metadata into ordered lists instead of being one big list
 		GLOB.construction_pipe_list += list(list("pipename" = P.pipename, "pipeid" = P.pipeid, "atmosordisposals" = P.pipetype, "category" = P.category, "orientations" = P.orientations, "icon" = P.previewicon, "bendy" = P.bendy))
 
 	return 1

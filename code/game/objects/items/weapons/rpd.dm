@@ -37,6 +37,10 @@
 	spark_system.set_up(1, 0, src)
 	spark_system.attach(src)
 
+/obj/item/rcd/Destroy()
+	QDEL_NULL(spark_system)
+	return ..()
+
 //Procs
 
 /obj/item/rpd/proc/activate_rpd(delay) //Maybe makes sparks and activates cooldown if there is a delay
@@ -53,17 +57,17 @@
 	else if(whatpipe == PIPE_METER)
 		P = new /obj/item/pipe_meter(T)
 	else
-		P = new(T, pipe_type = whatpipe, dir = user.dir) //Make the pipe, BUT WAIT! There's more!
+		P = new(T, whatpipe, iconrotation) //Make the pipe, BUT WAIT! There's more!
 		if(!iconrotation && P.is_bent_pipe()) //Automatically rotates dispensed pipes if the user selected auto-rotation
 			P.dir = turn(user.dir, 135)
 		else if(!iconrotation && P.pipe_type in list(PIPE_CONNECTOR, PIPE_UVENT, PIPE_SCRUBBER, PIPE_HEAT_EXCHANGE, PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_INJECTOR, PIPE_PASV_VENT)) //Some pipes dispense oppositely to what you'd expect, but we don't want to do anything if they selected a direction
 			P.flip()
 		else if(iconrotation && P.is_bent_pipe()) //If user selected a rotation and the pipe is bent
 			P.dir = turn(iconrotation, -45)
-		else if(iconrotation) //If user selected a rotation
-			P.dir = iconrotation
-	to_chat(user, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
-	activate_rpd(1)
+		else if(!iconrotation) //If user selected a rotation
+			P.dir = user.dir
+	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
 	var/obj/structure/disposalconstruct/P = new(T, whatdpipe, iconrotation)
@@ -71,8 +75,8 @@
 		P.dir = user.dir
 	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
-	to_chat(user, "<span class = 'notice'>[src] rapidly dispenses [P]!</span>")
-	activate_rpd(1)
+	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)
@@ -169,7 +173,11 @@ var/list/pipemenu = list(
 
 /obj/item/rpd/afterattack(atom/target, mob/user, proximity)
 	..()
-	if(loc != user || !proximity || world.time < lastused + spawndelay)
+	if(loc != user)
+		return
+	if(!proximity)
+		return
+	if(world.time < lastused + spawndelay)
 		return
 	target.rpd_act(user, src) //Handle RPD effects in separate procs
 

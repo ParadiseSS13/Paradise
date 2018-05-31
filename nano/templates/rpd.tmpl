@@ -4,21 +4,21 @@ Used In File(s): /code/game/objects/items/weapons/rpd.dm
 <h3>Mode:</h3> <!-- We loop through the mode list and display all entries -->
 <div class = "item">
 	{{for data.mainmenu}} <!--We loop through the pipe menu list (normal, scrubbers, etc.) and display all entries-->
-		{{:helper.link(String(value.category), String(value.icon), {"mode": Number(value.mode)}, data.mode == Number(value.mode) ? "linkOn" : null)}}
+		{{:helper.link(value.category, value.icon, {mode: value.mode}, data.mode == value.mode ? "linkOn" : null)}}
 	{{/for}}
 </div>
 {{if data.mode == 1}}
 	<h3>Pipe type:</strong></h3>
 	<div>
 		{{for data.pipemenu}} <!--We loop through the pipe menu (normal, scrubbers, etc.) and display all entries-->
-			{{:helper.link(String(value.pipecategory), null, {pipetype: Number(value.pipemode)}, data.pipetype == Number(value.pipemode) ? "linkOn" : null)}}
+			{{:helper.link(value.pipecategory, null, {pipetype: value.pipemode}, data.pipetype == value.pipemode ? "linkOn" : null)}}
 		{{/for}}
 	</div>
 	<h4>Available pipes:</h4>
 	<div style = "float:left;margin-right:30pt;">
 		{{for data.pipelist}} <!--Display all pipes that match the selected menu-->
 			{{if value.atmosordisposals == 1 && value.category == data.pipetype}}
-				<div class = "item">{{:helper.link(String(value.pipename), "arrow-right", {"whatpipe": Number(value.pipeid)}, data.whatpipe == Number(value.pipeid) ? "linkOn" : null)}}</div>
+				<div class = "item">{{:helper.link(value.pipename, "arrow-right", {whatpipe: value.pipeid}, data.whatpipe == value.pipeid ? "linkOn" : null)}}</div>
 			{{/if}}
 		{{/for}}
 	</div>
@@ -74,12 +74,12 @@ Used In File(s): /code/game/objects/items/weapons/rpd.dm
 	<div style = "float:left;margin-right:30pt;">
 	{{for data.pipelist}}
 			{{if value.atmosordisposals == 2}}
-				<div class = "item">{{:helper.link(String(value.pipename), "arrow-right", {"whatdpipe": Number(value.pipeid)}, data.whatdpipe == Number(value.pipeid) ? "linkOn" : null)}}</div>
+				<div class = "item">{{:helper.link(value.pipename, "arrow-right", {whatdpipe: value.pipeid}, data.whatdpipe == value.pipeid ? "linkOn" : null)}}</div>
 			{{/if}}
 	{{/for}}
 	</div>
 	{{for data.pipelist}}
-		{{if value.atmosordisposals != 2 || value.pipeid != data.whatdpipe || value.orientations == 1}}	<!--Skip all this icon nonsense if the pipe is: not an atmos pipe; not the pipe we selected; or pipe has one orientation-->
+		{{if value.atmosordisposals != 2 || value.pipeid != data.whatdpipe || value.orientations == 1}}	<!--Skip all this icon nonsense if the pipe is: not a disposals pipe; not the pipe we selected; or pipe has one orientation-->
 			{{continue;}}
 		{{/if}}
 		<div style = "float:left;">

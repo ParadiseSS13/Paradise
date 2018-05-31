@@ -29,11 +29,12 @@ GLOBAL_LIST_EMPTY(construction_pipe_list)	//List of all pipe datums
 	orientations = 2
 	previewicon = "simple"
 
-/datum/pipes/atmospheric/simple/bent
+/datum/pipes/atmospheric/bent //Why is this not atmospheric/simple/bent you ask? Because otherwise the ordering of the pipes in the UI menu gets weird
 	pipename = "Bent pipe"
 	pipeid = PIPE_SIMPLE_BENT
 	orientations = 4
 	bendy = TRUE
+	previewicon = "simple"
 
 /datum/pipes/atmospheric/manifold
 	pipename = "T-manifold"
@@ -77,13 +78,12 @@ GLOBAL_LIST_EMPTY(construction_pipe_list)	//List of all pipe datums
 
 //Supply pipes
 
-
 /datum/pipes/atmospheric/simple/supply
 	pipename = "Straight supply pipe"
 	pipeid = PIPE_SUPPLY_STRAIGHT
 	category = RPD_SUPPLY_PIPING
 
-/datum/pipes/atmospheric/simple/bent/supply
+/datum/pipes/atmospheric/bent/supply
 	pipename = "Bent supply pipe"
 	pipeid = PIPE_SUPPLY_BENT
 	category = RPD_SUPPLY_PIPING
@@ -110,7 +110,7 @@ GLOBAL_LIST_EMPTY(construction_pipe_list)	//List of all pipe datums
 	pipeid = PIPE_SCRUBBERS_STRAIGHT
 	category = RPD_SCRUBBERS_PIPING
 
-/datum/pipes/atmospheric/simple/bent/scrubbers
+/datum/pipes/atmospheric/bent/scrubbers
 	pipename = "Bent scrubbers pipe"
 	pipeid = PIPE_SCRUBBERS_BENT
 	category = RPD_SCRUBBERS_PIPING
