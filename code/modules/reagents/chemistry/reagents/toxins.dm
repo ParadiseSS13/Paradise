@@ -557,7 +557,7 @@
 		M.adjustBruteLoss(5)
 		M.Weaken(5)
 		M.AdjustJitter(6)
-		M.visible_message("<span class='danger'>[M] falls to the floor, scratching themselves violently!</span>")
+		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
 		M.emote("scream")
 	..()
 
@@ -1016,7 +1016,7 @@
 			M.Drowsy(10)
 		if(11)
 			M.Paralyse(10)
-			M.visible_message("<B>[M]</B> seizes up and falls limp, their eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
+			M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
 		if(12 to 60)
 			M.Paralyse(10)
 		if(61 to INFINITY)

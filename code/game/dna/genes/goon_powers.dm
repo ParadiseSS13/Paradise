@@ -318,14 +318,6 @@
 
 	var/atom/movable/the_item = targets[1]
 	if(ishuman(the_item))
-		//My gender
-		var/m_his = "his"
-		if(user.gender == FEMALE)
-			m_his = "her"
-		// Their gender
-		var/t_his = "his"
-		if(the_item.gender == FEMALE)
-			t_his = "her"
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_sel.selecting)
 		if(!istype(limb))
@@ -334,15 +326,15 @@
 			return 0
 		if(istype(limb,/obj/item/organ/external/head))
 			// Bullshit, but prevents being unable to clone someone.
-			to_chat(user, "<span class='warning'>You try to put \the [limb] in your mouth, but [t_his] ears tickle your throat!</span>")
+			to_chat(user, "<span class='warning'>You try to put \the [limb] in your mouth, but [the_item.p_their()] ears tickle your throat!</span>")
 			revert_cast()
 			return 0
 		if(istype(limb,/obj/item/organ/external/chest))
 			// Bullshit, but prevents being able to instagib someone.
-			to_chat(user, "<span class='warning'>You try to put their [limb] in your mouth, but it's too big to fit!</span>")
+			to_chat(user, "<span class='warning'>You try to put [the_item.p_their()] [limb] in your mouth, but it's too big to fit!</span>")
 			revert_cast()
 			return 0
-		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [m_his] gaping maw!</span>")
+		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
 		var/oldloc = H.loc
 		if(!do_mob(user,H,EAT_MOB_DELAY))
 			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
@@ -434,7 +426,7 @@
 		user.flying = prevFlying
 
 		if(FAT in user.mutations && prob(66))
-			user.visible_message("<span class='danger'>[user.name]</b> crashes due to their heavy weight!</span>")
+			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(10)
 			user.AdjustStunned(5)
@@ -559,10 +551,10 @@
 			return
 
 		if(M.stat == 2)
-			to_chat(user, "<span class='warning'>[M.name] is dead and cannot have their mind read.</span>")
+			to_chat(user, "<span class='warning'>[M.name] is dead and cannot have [M.p_their()] mind read.</span>")
 			return
 		if(M.health < 0)
-			to_chat(user, "<span class='warning'>[M.name] is dying, and their thoughts are too scrambled to read.</span>")
+			to_chat(user, "<span class='warning'>[M.name] is dying, and [M.p_their()] thoughts are too scrambled to read.</span>")
 			return
 
 		to_chat(user, "<span class='notice'>Mind Reading of <b>[M.name]:</b></span>")
@@ -570,8 +562,8 @@
 		var/pain_condition = M.health / M.maxHealth
 		// lower health means more pain
 		var/list/randomthoughts = list("what to have for lunch","the future","the past","money",
-		"their hair","what to do next","their job","space","amusing things","sad things",
-		"annoying things","happy things","something incoherent","something they did wrong")
+		"[M.p_their()] hair","what to do next","[M.p_their()] job","space","amusing things","sad things",
+		"annoying things","happy things","something incoherent","something [M.p_they()] did wrong")
 		var/thoughts = "thinking about [pick(randomthoughts)]"
 
 		if(M.fire_stacks)
@@ -592,7 +584,7 @@
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering severe pain.</span>")
 			else
 				to_chat(user, "<span class='notice'><b>Condition</b>: [M.name] is suffering excruciating pain.</span>")
-				thoughts = "haunted by their own mortality"
+				thoughts = "haunted by [M.p_their()] own mortality"
 
 		switch(M.a_intent)
 			if(INTENT_HELP)
@@ -655,7 +647,7 @@
 	action_icon_state = "superfart"
 
 /obj/effect/proc_holder/spell/aoe_turf/superfart/invocation(mob/user = usr)
-	invocation = "<span class='warning'>[user] hunches down and grits their teeth!</span>"
+	invocation = "<span class='warning'>[user] hunches down and grits [user.p_their()] teeth!</span>"
 	invocation_emote_self = "<span class='warning'>You hunch down and grit your teeth!</span>"
 	..(user)
 

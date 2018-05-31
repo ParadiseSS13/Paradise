@@ -90,7 +90,7 @@
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[(NO_PAIN in species.species_traits) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
+			custom_emote(1, "[(NO_PAIN in species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -105,7 +105,7 @@
 				if(!unEquip(r_hand))
 					continue
 
-			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
+			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
 
 			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src)

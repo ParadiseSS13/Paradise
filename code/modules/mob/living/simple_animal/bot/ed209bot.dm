@@ -94,7 +94,7 @@
 /mob/living/simple_animal/bot/ed209/set_custom_texts()
 	text_hack = "You disable [name]'s combat inhibitor."
 	text_dehack = "You restore [name]'s combat inhibitor."
-	text_dehack_fail = "[name] ignores your attempts to restrict him!"
+	text_dehack_fail = "[name] ignores your attempts to restrict [p_them()]!"
 
 /mob/living/simple_animal/bot/ed209/get_controls(mob/user)
 	var/dat

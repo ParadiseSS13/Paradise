@@ -11,7 +11,7 @@
 			grabbedby(M)
 
 		if(INTENT_HARM, INTENT_DISARM)
-			M.do_attack_animation(src)
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
 			attack_threshold_check(harm_intent_damage)
@@ -58,3 +58,11 @@
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 	else
 		apply_damage(damage, damagetype)
+
+/mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
+	if(!no_effect && !visual_effect_icon && melee_damage_upper)
+		if(melee_damage_upper < 10)
+			visual_effect_icon = ATTACK_EFFECT_PUNCH
+		else
+			visual_effect_icon = ATTACK_EFFECT_SMASH
+	..()

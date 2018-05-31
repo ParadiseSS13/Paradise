@@ -359,12 +359,12 @@ DROP TABLE IF EXISTS `privacy`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `privacy` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `datetime` datetime NOT NULL,
   `ckey` varchar(32) NOT NULL,
-  `option` varchar(128) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=latin1;
+  `datetime` datetime NOT NULL,
+  `consent` bit(1) NOT NULL,
+  PRIMARY KEY (`ckey`),
+  UNIQUE KEY `ckey_UNIQUE` (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

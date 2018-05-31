@@ -108,7 +108,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the cryo cell because they have a slime latched onto their head.")
+			to_chat(usr, "[L.name] will not fit into the cryo cell because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
 			return
 	if(put_mob(L))
 		if(L == user)
@@ -293,18 +293,19 @@
 	default_deconstruction_crowbar(G)
 
 	if(istype(G, /obj/item/grab))
+		var/obj/item/grab/GG = G
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
-		if(!ismob(G:affecting))
+		if(!ismob(GG.affecting))
 			return
-		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
-			if(M.Victim == G:affecting)
-				to_chat(usr, "[G:affecting:name] will not fit into the cryo because they have a slime latched onto their head.")
+		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
+			if(M.Victim == GG.affecting)
+				to_chat(usr, "[GG.affecting.name] will not fit into the cryo because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
 				return
-		var/mob/M = G:affecting
+		var/mob/M = GG.affecting
 		if(put_mob(M))
-			qdel(G)
+			qdel(GG)
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
