@@ -93,6 +93,10 @@
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 
+	var/crash = FALSE //huehuehue - Bxil sends his regards
+	var/crash_announced = FALSE //Have we announced it yet?
+	var/crash_target = /area/hallway/secondary/exit
+
 
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
@@ -154,6 +158,11 @@
 		atc.shift_ending()
 	else // Emergency shuttle call (probably)
 		atc.reroute_traffic(yes = TRUE)
+
+	crash = prob(0.5)
+	if(crash)
+		message_admins("The emergency shuttle will knock down every non-buckled person in the Escape Shuttle Hallway.")
+		//Use VV on the docking port and set crash to 0 to abort it if you want to for whatever reason.
 
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
@@ -226,24 +235,30 @@
 				mode = SHUTTLE_IDLE
 				timer = 0
 		if(SHUTTLE_CALL)
+			if(time_left <= 135 && crash && !crash_announced)
+				//Notify people that a coder is an absolute ass
+				event_announcement.Announce("An error has been detected in shuttle docking systems - brace for impact!", "Don't drink and drive", new_sound = 'sound/misc/notice1.ogg')
+				crash_announced = TRUE
 			if(time_left <= 0)
 				//move emergency shuttle to station
 				if(dock(shuttle_master.getDock("emergency_home")))
 					setTimer(20)
 					return
+				//Be a dick to everyone and ruin their day (okay, not everyone, only those who are not buckled)
+				if(crash)
+					var/area/target = locate(crash_target)
+					for(var/mob/M in target)
+						M << 'sound/effects/meteorimpact.ogg'
+						if(M.buckled || M.lying || M.flying || !M.mob_has_gravity())
+							shake_camera(M, 2, 1)
+						else
+							M.Weaken(6)
+							shake_camera(M, 7, 1)
 				mode = SHUTTLE_DOCKED
 				timer = world.time
 				send2irc("Server", "The Emergency Shuttle has docked with the station.")
 				emergency_shuttle_docked.Announce("The Emergency Shuttle has docked with the station. You have [timeLeft(600)] minutes to board the Emergency Shuttle.")
 
-/*
-				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
-				for(var/datum/gang/G in ticker.mode.gangs)
-					if(isnum(G.dom_timer))
-						G.dom_attempts = 0
-					else
-						G.dom_attempts = min(1,G.dom_attempts)
-*/
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && shuttle_master.emergencyNoEscape)
