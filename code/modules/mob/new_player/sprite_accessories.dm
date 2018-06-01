@@ -3029,3 +3029,9 @@
 	name = "Alt Short Quills"
 	icon_state = "short2"
 	species_allowed = list("Murghal")
+
+/datum/sprite_accessory/hair/lightdark
+	icon = 'icons/mob/murghalhairs.dmi'
+	name = "Long Light and Dark Quills"
+	icon_state = "lightdark"
+	species_allowed = list("Murghal")
