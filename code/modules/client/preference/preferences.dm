@@ -54,14 +54,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return max(0, days - C.player_age)
 	return 0
 
-//used for alternate_option
-#define GET_RANDOM_JOB 0
-#define BE_CIVILIAN 1
-#define RETURN_TO_LOBBY 2
-
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
-
 
 #define TAB_CHAR 0
 #define TAB_GAME 1
@@ -699,7 +693,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	switch(alternate_option)
 		if(GET_RANDOM_JOB)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
-		if(BE_CIVILIAN)
+		if(BE_ASSISTANT)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
 		if(RETURN_TO_LOBBY)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
@@ -1051,7 +1045,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				ResetJobs()
 				SetChoices(user)
 			if("random")
-				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_CIVILIAN)
+				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
 					alternate_option += 1
 				else if(alternate_option == RETURN_TO_LOBBY)
 					alternate_option = 0
