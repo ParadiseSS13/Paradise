@@ -55,7 +55,7 @@
 	init_subtypes(/datum/pipes/atmospheric, temp_pipe_list)
 	init_subtypes(/datum/pipes/disposal, temp_pipe_list)
 	for(var/datum/pipes/P in temp_pipe_list) //Yes I know the list(list(...)) thing looks weird, but it allows us to group pipe metadata into ordered lists instead of being one big list
-		GLOB.construction_pipe_list += list(list("pipename" = P.pipename, "pipeid" = P.pipeid, "atmosordisposals" = P.pipetype, "category" = P.category, "orientations" = P.orientations, "icon" = P.previewicon, "bendy" = P.bendy))
+		GLOB.construction_pipe_list += list(list("pipe_name" = P.pipe_name, "pipe_id" = P.pipe_id, "pipe_type" = P.pipe_type, "pipe_category" = P.pipe_category, "orientations" = P.orientations, "pipe_icon" = P.pipe_icon, "bendy" = P.bendy))
 
 	return 1
 

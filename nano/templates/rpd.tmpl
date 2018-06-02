@@ -11,19 +11,19 @@ Used In File(s): /code/game/objects/items/weapons/rpd.dm
 	<h3>Pipe type:</strong></h3>
 	<div>
 		{{for data.pipemenu}} <!--We loop through the pipe menu (normal, scrubbers, etc.) and display all entries-->
-			{{:helper.link(value.pipecategory, null, {pipetype: value.pipemode}, data.pipetype == value.pipemode ? "linkOn" : null)}}
+			{{:helper.link(value.category, null, {pipe_category: value.pipemode}, data.pipe_category == value.pipemode ? "linkOn" : null)}}
 		{{/for}}
 	</div>
 	<h4>Available pipes:</h4>
 	<div style = "float:left;margin-right:30pt;">
 		{{for data.pipelist}} <!--Display all pipes that match the selected menu-->
-			{{if value.atmosordisposals == 1 && value.category == data.pipetype}}
-				<div class = "item">{{:helper.link(value.pipename, "arrow-right", {whatpipe: value.pipeid}, data.whatpipe == value.pipeid ? "linkOn" : null)}}</div>
+			{{if value.pipe_type == 1 && value.pipe_category == data.pipe_category}}
+				<div class = "item">{{:helper.link(value.pipe_name, "arrow-right", {whatpipe: value.pipe_id}, data.whatpipe == value.pipe_id ? "linkOn" : null)}}</div>
 			{{/if}}
 		{{/for}}
 	</div>
 	{{for data.pipelist}} <!-- For the selected pipe, we want to show a preview to allow the user to select a rotation-->
-		{{if value.atmosordisposals != 1 || value.pipeid != data.whatpipe || value.orientations == 1}}	<!--Skip all this icon nonsense if the pipe is: not an atmos pipe; not the pipe we selected; or pipe has one orientation-->
+		{{if value.pipe_type != 1 || value.pipe_id != data.whatpipe || value.orientations == 1}}	<!--Skip all this icon nonsense if the pipe is: not an atmos pipe; not the pipe we selected; or pipe has one orientation-->
 			{{continue;}}
 		{{/if}}
 		<div style = "float:left;">
@@ -33,37 +33,37 @@ Used In File(s): /code/game/objects/items/weapons/rpd.dm
 			{{if value.bendy}} <!--If the pipe is bendy-->
 				<div>
 					{{:helper.link("", "arrow-right", {iconrotation: 1}, data.iconrotation == 1 ? "linkOn" : null)}}
-					<img src = "{{:value.icon}}-northeast.png">
+					<img src = "{{:value.pipe_icon}}-northeast.png">
 				</div>
 				<div>
 					{{:helper.link("", "arrow-right", {iconrotation: 4}, data.iconrotation == 4 ? "linkOn" : null)}}
-					<img src = "{{:value.icon}}-southeast.png">
+					<img src = "{{:value.pipe_icon}}-southeast.png">
 				</div>
 				<div>
 					{{:helper.link("", "arrow-right", {iconrotation: 2}, data.iconrotation == 2 ? "linkOn" : null)}}
-					<img src = "{{:value.icon}}-southwest.png">
+					<img src = "{{:value.pipe_icon}}-southwest.png">
 				</div>
 				<div>
 					{{:helper.link("", "arrow-right", {iconrotation: 8}, data.iconrotation == 8 ? "linkOn" : null)}}
-					<img src = "{{:value.icon}}-northwest.png">
+					<img src = "{{:value.pipe_icon}}-northwest.png">
 				</div>
 			{{else}}
 				<div>
 					{{:helper.link("", "arrow-right", {iconrotation: 1}, data.iconrotation == 1 ? "linkOn" : null)}}
-					<img src = "{{:value.icon}}-north.png">
+					<img src = "{{:value.pipe_icon}}-north.png">
 				</div>
 				<div>
 					{{:helper.link("", "arrow-right", {iconrotation: 4}, data.iconrotation == 4 ? "linkOn" : null)}}
-					<img src = "{{:value.icon}}-east.png">
+					<img src = "{{:value.pipe_icon}}-east.png">
 				</div>
 				{{if value.orientations == 4}}
 					<div>
 						{{:helper.link("", "arrow-right", {iconrotation: 2}, data.iconrotation == 2 ? "linkOn" : null)}}
-						<img src = "{{:value.icon}}-south.png">
+						<img src = "{{:value.pipe_icon}}-south.png">
 					</div>
 					<div>
 						{{:helper.link("", "arrow-right", {iconrotation: 8}, data.iconrotation == 8 ? "linkOn" : null)}}
-						<img src = "{{:value.icon}}-west.png">
+						<img src = "{{:value.pipe_icon}}-west.png">
 					</div>
 				{{/if}}
 			{{/if}}
@@ -73,13 +73,13 @@ Used In File(s): /code/game/objects/items/weapons/rpd.dm
 	<h4>Available pipes:</h4>
 	<div style = "float:left;margin-right:30pt;">
 	{{for data.pipelist}}
-			{{if value.atmosordisposals == 2}}
-				<div class = "item">{{:helper.link(value.pipename, "arrow-right", {whatdpipe: value.pipeid}, data.whatdpipe == value.pipeid ? "linkOn" : null)}}</div>
+			{{if value.pipe_type == 2}}
+				<div class = "item">{{:helper.link(value.pipe_name, "arrow-right", {whatdpipe: value.pipe_id}, data.whatdpipe == value.pipe_id ? "linkOn" : null)}}</div>
 			{{/if}}
 	{{/for}}
 	</div>
 	{{for data.pipelist}}
-		{{if value.atmosordisposals != 2 || value.pipeid != data.whatdpipe || value.orientations == 1}}	<!--Skip all this icon nonsense if the pipe is: not a disposals pipe; not the pipe we selected; or pipe has one orientation-->
+		{{if value.pipe_type != 2 || value.pipe_id != data.whatdpipe || value.orientations == 1}}	<!--Skip all this icon nonsense if the pipe is: not a disposals pipe; not the pipe we selected; or pipe has one orientation-->
 			{{continue;}}
 		{{/if}}
 		<div style = "float:left;">
@@ -88,20 +88,20 @@ Used In File(s): /code/game/objects/items/weapons/rpd.dm
 			</div>
 			<div>
 				{{:helper.link("", "arrow-right", {iconrotation: 1}, data.iconrotation == 1 ? "linkOn" : null)}}
-				<img src = "{{:value.icon}}-north.png">
+				<img src = "{{:value.pipe_icon}}-north.png">
 			</div>
 			<div>
 				{{:helper.link("", "arrow-right", {iconrotation: 4}, data.iconrotation == 4 ? "linkOn" : null)}}
-				<img src = "{{:value.icon}}-east.png">
+				<img src = "{{:value.pipe_icon}}-east.png">
 			</div>
 			{{if value.orientations == 4}}
 				<div>
 					{{:helper.link("", "arrow-right", {iconrotation: 2}, data.iconrotation == 2 ? "linkOn" : null)}}
-					<img src = "{{:value.icon}}-south.png">
+					<img src = "{{:value.pipe_icon}}-south.png">
 				</div>
 				<div>
 					{{:helper.link("", "arrow-right", {iconrotation: 8}, data.iconrotation == 8 ? "linkOn" : null)}}
-					<img src = "{{:value.icon}}-west.png">
+					<img src = "{{:value.pipe_icon}}-west.png">
 				</div>
 			{{/if}}
 		</div>

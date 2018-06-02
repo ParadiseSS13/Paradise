@@ -25,7 +25,7 @@
 	var/lastused
 	var/iconrotation = 0 //Used to orient icons and pipes
 	var/mode = RPD_ATMOS_MODE //Disposals, atmospherics, etc.
-	var/pipetype = RPD_ATMOS_PIPING//For nanoUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices
+	var/pipe_category = RPD_ATMOS_PIPING//For nanoUI menus, this is a subtype of pipes e.g. scrubbers pipes, devices
 	var/whatpipe = PIPE_SIMPLE_STRAIGHT //What kind of atmos pipe is it?
 	var/whatdpipe = PIPE_DISPOSALS_STRAIGHT //What kind of disposals pipe is it?
 	var/spawndelay = RPD_COOLDOWN_TIME
@@ -50,7 +50,17 @@
 	if(delay)
 		lastused = world.time
 
+/obj/item/rpd/proc/can_dispense_pipe(var/pipe_id, var/pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
+	for(var/list/L in GLOB.construction_pipe_list)
+		if(pipe_type != L["pipe_type"]) //Sometimes pipes in different categories have the same pipe_id, so we need to skip anything not in the category we want
+			continue
+		if(pipe_id == L["pipe_id"]) //Found the pipe, we can dispense it
+			return TRUE
+
 /obj/item/rpd/proc/create_atmos_pipe(mob/user, turf/T) //Make an atmos pipe, meter, or gas sensor
+	if(!can_dispense_pipe(whatpipe, RPD_ATMOS_MODE))
+		to_chat(user, "<span class='warning'>[src] beeps, \"ERROR\" </span>") //Damn dirty apes -- I mean hackers
+		return
 	var/obj/item/pipe/P
 	if(whatpipe == PIPE_GAS_SENSOR)
 		P = new /obj/item/pipe_gsensor(T)
@@ -70,6 +80,9 @@
 	activate_rpd(TRUE)
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
+	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
+		to_chat(user, "<span class='warning'>[src] beeps, \"ERROR\" </span>")
+		return
 	var/obj/structure/disposalconstruct/P = new(T, whatdpipe, iconrotation)
 	if(!iconrotation) //Automatic rotation
 		P.dir = user.dir
@@ -125,11 +138,11 @@ var/list/mainmenu = list(
 	list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "exchange"),
 	list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
 var/list/pipemenu = list(
-	list("pipecategory" = "Normal", "pipemode" = RPD_ATMOS_PIPING),
-	list("pipecategory" = "Supply", "pipemode" = RPD_SUPPLY_PIPING),
-	list("pipecategory" = "Scrubber", "pipemode" = RPD_SCRUBBERS_PIPING),
-	list("pipecategory" = "Devices", "pipemode" = RPD_DEVICES),
-	list("pipecategory" = "Heat exchange", "pipemode" = RPD_HEAT_PIPING))
+	list("category" = "Normal", "pipemode" = RPD_ATMOS_PIPING),
+	list("category" = "Supply", "pipemode" = RPD_SUPPLY_PIPING),
+	list("category" = "Scrubber", "pipemode" = RPD_SCRUBBERS_PIPING),
+	list("category" = "Devices", "pipemode" = RPD_DEVICES),
+	list("category" = "Heat exchange", "pipemode" = RPD_HEAT_PIPING))
 
 //NanoUI stuff
 
@@ -150,7 +163,7 @@ var/list/pipemenu = list(
 	data["mode"] = mode
 	data["pipelist"] = GLOB.construction_pipe_list
 	data["pipemenu"] = pipemenu
-	data["pipetype"] = pipetype
+	data["pipe_category"] = pipe_category
 	data["whatdpipe"] = whatdpipe
 	data["whatpipe"] = whatpipe
 	return data
@@ -163,8 +176,8 @@ var/list/pipemenu = list(
 		whatpipe = text2num(sanitize(href_list["whatpipe"]))
 	else if(href_list["whatdpipe"])
 		whatdpipe = text2num(sanitize(href_list["whatdpipe"]))
-	else if(href_list["pipetype"])
-		pipetype = text2num(sanitize(href_list["pipetype"]))
+	else if(href_list["pipe_category"])
+		pipe_category = text2num(sanitize(href_list["pipe_category"]))
 	else if(href_list["mode"])
 		mode = text2num(sanitize(href_list["mode"]))
 	else

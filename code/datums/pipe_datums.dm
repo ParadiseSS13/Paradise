@@ -6,308 +6,308 @@
 GLOBAL_LIST_EMPTY(construction_pipe_list)	//List of all pipe datums
 
 /datum/pipes
-	var/pipename //What the pipe is called in the interface
-	var/pipeid //Use the pipe define for this
-	var/pipetype //Atmos, disposals etc.
-	var/category //What category of pipe
+	var/pipe_name //What the pipe is called in the interface
+	var/pipe_id //Use the pipe define for this
+	var/pipe_type //Atmos, disposals etc.
+	var/pipe_category //What category of pipe
 	var/bendy = FALSE//Is this pipe bendy?
 	var/orientations //Number of orientations (for interface purposes)
-	var/previewicon //icon_state of the dispensed pipe (for interface purposes)
+	var/pipe_icon //icon_state of the dispensed pipe (for interface purposes)
 
 /datum/pipes/atmospheric
-	pipetype = RPD_ATMOS
-	category = RPD_ATMOS_PIPING
+	pipe_type = RPD_ATMOS
+	pipe_category = RPD_ATMOS_PIPING
 
 /datum/pipes/disposal
-	pipetype = RPD_DISPOSAL
+	pipe_type = RPD_DISPOSAL
 
 //Normal pipes
 
 /datum/pipes/atmospheric/simple
-	pipename = "Straight pipe"
-	pipeid = PIPE_SIMPLE_STRAIGHT
+	pipe_name = "Straight pipe"
+	pipe_id = PIPE_SIMPLE_STRAIGHT
 	orientations = 2
-	previewicon = "simple"
+	pipe_icon = "simple"
 
 /datum/pipes/atmospheric/bent //Why is this not atmospheric/simple/bent you ask? Because otherwise the ordering of the pipes in the UI menu gets weird
-	pipename = "Bent pipe"
-	pipeid = PIPE_SIMPLE_BENT
+	pipe_name = "Bent pipe"
+	pipe_id = PIPE_SIMPLE_BENT
 	orientations = 4
 	bendy = TRUE
-	previewicon = "simple"
+	pipe_icon = "simple"
 
 /datum/pipes/atmospheric/manifold
-	pipename = "T-manifold"
-	pipeid = PIPE_MANIFOLD
+	pipe_name = "T-manifold"
+	pipe_id = PIPE_MANIFOLD
 	orientations = 4
-	previewicon = "manifold"
+	pipe_icon = "manifold"
 
 /datum/pipes/atmospheric/manifold4w
-	pipename = "4-way manifold"
-	pipeid = PIPE_MANIFOLD4W
+	pipe_name = "4-way manifold"
+	pipe_id = PIPE_MANIFOLD4W
 	orientations = 1
-	previewicon = "manifold4w"
+	pipe_icon = "manifold4w"
 
 /datum/pipes/atmospheric/cap
-	pipename = "Pipe cap"
-	pipeid = PIPE_CAP
+	pipe_name = "Pipe cap"
+	pipe_id = PIPE_CAP
 	orientations = 4
-	previewicon = "cap"
+	pipe_icon = "cap"
 
 /datum/pipes/atmospheric/valve
-	pipename = "Manual valve"
-	pipeid = PIPE_MVALVE
+	pipe_name = "Manual valve"
+	pipe_id = PIPE_MVALVE
 	orientations = 2
-	previewicon = "mvalve"
+	pipe_icon = "mvalve"
 
 /datum/pipes/atmospheric/valve/digital
-	pipename = "Digital valve"
-	pipeid = PIPE_DVALVE
-	previewicon = "dvalve"
+	pipe_name = "Digital valve"
+	pipe_id = PIPE_DVALVE
+	pipe_icon = "dvalve"
 
 /datum/pipes/atmospheric/tvalve
-	pipename = "Manual T-valve"
-	pipeid = PIPE_TVALVE
+	pipe_name = "Manual T-valve"
+	pipe_id = PIPE_TVALVE
 	orientations = 4
-	previewicon = "tvalve"
+	pipe_icon = "tvalve"
 
 /datum/pipes/atmospheric/tvalve/digital
-	pipename = "Digital T-valve"
-	pipeid = PIPE_DTVALVE
-	previewicon = "dtvalve"
+	pipe_name = "Digital T-valve"
+	pipe_id = PIPE_DTVALVE
+	pipe_icon = "dtvalve"
 
 //Supply pipes
 
 /datum/pipes/atmospheric/simple/supply
-	pipename = "Straight supply pipe"
-	pipeid = PIPE_SUPPLY_STRAIGHT
-	category = RPD_SUPPLY_PIPING
+	pipe_name = "Straight supply pipe"
+	pipe_id = PIPE_SUPPLY_STRAIGHT
+	pipe_category = RPD_SUPPLY_PIPING
 
 /datum/pipes/atmospheric/bent/supply
-	pipename = "Bent supply pipe"
-	pipeid = PIPE_SUPPLY_BENT
-	category = RPD_SUPPLY_PIPING
+	pipe_name = "Bent supply pipe"
+	pipe_id = PIPE_SUPPLY_BENT
+	pipe_category = RPD_SUPPLY_PIPING
 
 /datum/pipes/atmospheric/manifold/supply
-	pipename = "Supply T-manifold"
-	pipeid = PIPE_SUPPLY_MANIFOLD
-	category = RPD_SUPPLY_PIPING
+	pipe_name = "Supply T-manifold"
+	pipe_id = PIPE_SUPPLY_MANIFOLD
+	pipe_category = RPD_SUPPLY_PIPING
 
 /datum/pipes/atmospheric/manifold4w/supply
-	pipename = "4-way supply manifold"
-	pipeid = PIPE_SUPPLY_MANIFOLD4W
-	category = RPD_SUPPLY_PIPING
+	pipe_name = "4-way supply manifold"
+	pipe_id = PIPE_SUPPLY_MANIFOLD4W
+	pipe_category = RPD_SUPPLY_PIPING
 
 /datum/pipes/atmospheric/cap/supply
-	pipename = "Supply pipe cap"
-	pipeid = PIPE_SUPPLY_CAP
-	category = RPD_SUPPLY_PIPING
+	pipe_name = "Supply pipe cap"
+	pipe_id = PIPE_SUPPLY_CAP
+	pipe_category = RPD_SUPPLY_PIPING
 
 //Scrubbers pipes
 
 /datum/pipes/atmospheric/simple/scrubbers
-	pipename = "Straight scrubbers pipe"
-	pipeid = PIPE_SCRUBBERS_STRAIGHT
-	category = RPD_SCRUBBERS_PIPING
+	pipe_name = "Straight scrubbers pipe"
+	pipe_id = PIPE_SCRUBBERS_STRAIGHT
+	pipe_category = RPD_SCRUBBERS_PIPING
 
 /datum/pipes/atmospheric/bent/scrubbers
-	pipename = "Bent scrubbers pipe"
-	pipeid = PIPE_SCRUBBERS_BENT
-	category = RPD_SCRUBBERS_PIPING
+	pipe_name = "Bent scrubbers pipe"
+	pipe_id = PIPE_SCRUBBERS_BENT
+	pipe_category = RPD_SCRUBBERS_PIPING
 
 /datum/pipes/atmospheric/manifold/scrubbers
-	pipename = "Scrubbers T-manifold"
-	pipeid = PIPE_SCRUBBERS_MANIFOLD
-	category = RPD_SCRUBBERS_PIPING
+	pipe_name = "Scrubbers T-manifold"
+	pipe_id = PIPE_SCRUBBERS_MANIFOLD
+	pipe_category = RPD_SCRUBBERS_PIPING
 
 /datum/pipes/atmospheric/manifold4w/scrubbers
-	pipename = "4-way scrubbers manifold"
-	pipeid = PIPE_SCRUBBERS_MANIFOLD4W
-	category = RPD_SCRUBBERS_PIPING
+	pipe_name = "4-way scrubbers manifold"
+	pipe_id = PIPE_SCRUBBERS_MANIFOLD4W
+	pipe_category = RPD_SCRUBBERS_PIPING
 
 /datum/pipes/atmospheric/cap/scrubbers
-	pipename = "Scrubbers pipe cap"
-	pipeid = PIPE_SCRUBBERS_CAP
-	category = RPD_SCRUBBERS_PIPING
+	pipe_name = "Scrubbers pipe cap"
+	pipe_id = PIPE_SCRUBBERS_CAP
+	pipe_category = RPD_SCRUBBERS_PIPING
 
 //Devices
 
 /datum/pipes/atmospheric/upa
-	pipename = "Universal pipe adapter"
-	pipeid = PIPE_UNIVERSAL
+	pipe_name = "Universal pipe adapter"
+	pipe_id = PIPE_UNIVERSAL
 	orientations = 2
-	previewicon = "universal"
-	category = RPD_DEVICES
+	pipe_icon = "universal"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/connector
-	pipename = "Connector"
-	pipeid = PIPE_CONNECTOR
+	pipe_name = "Connector"
+	pipe_id = PIPE_CONNECTOR
 	orientations = 4
-	previewicon = "connector"
-	category = RPD_DEVICES
+	pipe_icon = "connector"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/unaryvent
-	pipename = "Unary vent"
-	pipeid = PIPE_UVENT
+	pipe_name = "Unary vent"
+	pipe_id = PIPE_UVENT
 	orientations = 4
-	previewicon = "uvent"
-	category = RPD_DEVICES
+	pipe_icon = "uvent"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/scrubber
-	pipename = "Scrubber"
-	pipeid = PIPE_SCRUBBER
+	pipe_name = "Scrubber"
+	pipe_id = PIPE_SCRUBBER
 	orientations = 4
-	previewicon = "scrubber"
-	category = RPD_DEVICES
+	pipe_icon = "scrubber"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/pump
-	pipename = "Gas pump"
-	pipeid = PIPE_PUMP
+	pipe_name = "Gas pump"
+	pipe_id = PIPE_PUMP
 	orientations = 4
-	previewicon = "pump"
-	category = RPD_DEVICES
+	pipe_icon = "pump"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/volume_pump
-	pipename = "Volume pump"
-	pipeid = PIPE_VOLUME_PUMP
+	pipe_name = "Volume pump"
+	pipe_id = PIPE_VOLUME_PUMP
 	orientations = 4
-	previewicon = "volumepump"
-	category = RPD_DEVICES
+	pipe_icon = "volumepump"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/gate
-	pipename = "Passive gate"
-	pipeid = PIPE_PASSIVE_GATE
+	pipe_name = "Passive gate"
+	pipe_id = PIPE_PASSIVE_GATE
 	orientations = 4
-	previewicon = "passivegate"
-	category = RPD_DEVICES
+	pipe_icon = "passivegate"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/filter
-	pipename = "Gas filter"
-	pipeid = PIPE_GAS_FILTER
+	pipe_name = "Gas filter"
+	pipe_id = PIPE_GAS_FILTER
 	orientations = 4
-	previewicon = "filter"
-	category = RPD_DEVICES
+	pipe_icon = "filter"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/mixer
-	pipename = "Gas mixer"
-	pipeid = PIPE_GAS_MIXER
+	pipe_name = "Gas mixer"
+	pipe_id = PIPE_GAS_MIXER
 	orientations = 4
-	previewicon = "mixer"
-	category = RPD_DEVICES
+	pipe_icon = "mixer"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/sensor
-	pipename = "Gas sensor"
-	pipeid = PIPE_GAS_SENSOR
+	pipe_name = "Gas sensor"
+	pipe_id = PIPE_GAS_SENSOR
 	orientations = 1
-	previewicon = "sensor"
-	category = RPD_DEVICES
+	pipe_icon = "sensor"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/meter
-	pipename = "Gas meter"
-	pipeid = PIPE_METER
+	pipe_name = "Gas meter"
+	pipe_id = PIPE_METER
 	orientations = 1
-	previewicon = "meter"
-	category = RPD_DEVICES
+	pipe_icon = "meter"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/passive_vent
-	pipename = "Passive vent"
-	pipeid = PIPE_PASV_VENT
+	pipe_name = "Passive vent"
+	pipe_id = PIPE_PASV_VENT
 	orientations = 4
-	previewicon = "passive vent"
-	category = RPD_DEVICES
+	pipe_icon = "passive vent"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/dual_vent_pump
-	pipename = "Dual-port vent pump"
-	pipeid = PIPE_DP_VENT
+	pipe_name = "Dual-port vent pump"
+	pipe_id = PIPE_DP_VENT
 	orientations = 2
-	previewicon = "dual-port vent"
-	category = RPD_DEVICES
+	pipe_icon = "dual-port vent"
+	pipe_category = RPD_DEVICES
 
 /datum/pipes/atmospheric/injector
-	pipename = "Air injector"
-	pipeid = PIPE_INJECTOR
+	pipe_name = "Air injector"
+	pipe_id = PIPE_INJECTOR
 	orientations = 4
-	previewicon = "injector"
-	category = RPD_DEVICES
+	pipe_icon = "injector"
+	pipe_category = RPD_DEVICES
 
 //Heat exchange pipes
 
 /datum/pipes/atmospheric/he
-	pipename = "Straight pipe"
-	pipeid = PIPE_HE_STRAIGHT
+	pipe_name = "Straight pipe"
+	pipe_id = PIPE_HE_STRAIGHT
 	orientations = 2
-	previewicon = "he"
-	category = RPD_HEAT_PIPING
+	pipe_icon = "he"
+	pipe_category = RPD_HEAT_PIPING
 
 /datum/pipes/atmospheric/he/bent
-	pipename = "Bent pipe"
-	pipeid = PIPE_HE_BENT
+	pipe_name = "Bent pipe"
+	pipe_id = PIPE_HE_BENT
 	orientations = 4
 	bendy = TRUE
 
 /datum/pipes/atmospheric/he_junction
-	pipename = "Junction"
-	pipeid = PIPE_JUNCTION
+	pipe_name = "Junction"
+	pipe_id = PIPE_JUNCTION
 	orientations = 4
-	previewicon = "junction"
-	category = RPD_HEAT_PIPING
+	pipe_icon = "junction"
+	pipe_category = RPD_HEAT_PIPING
 
 /datum/pipes/atmospheric/heat_exchanger
-	pipename = "Heat exchanger"
-	pipeid = PIPE_HEAT_EXCHANGE
+	pipe_name = "Heat exchanger"
+	pipe_id = PIPE_HEAT_EXCHANGE
 	orientations = 4
-	previewicon = "heunary"
-	category = RPD_HEAT_PIPING
+	pipe_icon = "heunary"
+	pipe_category = RPD_HEAT_PIPING
 
 //DISPOSALS PIPES
 
 /datum/pipes/disposal/straight
-	pipename = "Straight pipe"
-	pipeid = PIPE_DISPOSALS_STRAIGHT
+	pipe_name = "Straight pipe"
+	pipe_id = PIPE_DISPOSALS_STRAIGHT
 	orientations = 2
-	previewicon = "conpipe-s"
+	pipe_icon = "conpipe-s"
 
 /datum/pipes/disposal/bent
-	pipename = "Bent pipe"
-	pipeid = PIPE_DISPOSALS_BENT
+	pipe_name = "Bent pipe"
+	pipe_id = PIPE_DISPOSALS_BENT
 	orientations = 4
-	previewicon = "conpipe-c"
+	pipe_icon = "conpipe-c"
 
 /datum/pipes/disposal/junction
-	pipename = "Junction"
-	pipeid = PIPE_DISPOSALS_JUNCTION
+	pipe_name = "Junction"
+	pipe_id = PIPE_DISPOSALS_JUNCTION
 	orientations = 4
-	previewicon = "conpipe-j1"
+	pipe_icon = "conpipe-j1"
 
 /datum/pipes/disposal/y_junction
-	pipename = "Y-junction"
-	pipeid = PIPE_DISPOSALS_Y_JUNCTION
+	pipe_name = "Y-junction"
+	pipe_id = PIPE_DISPOSALS_Y_JUNCTION
 	orientations = 4
-	previewicon = "conpipe-y"
+	pipe_icon = "conpipe-y"
 
 /datum/pipes/disposal/trunk
-	pipename = "Trunk"
-	pipeid = PIPE_DISPOSALS_TRUNK
+	pipe_name = "Trunk"
+	pipe_id = PIPE_DISPOSALS_TRUNK
 	orientations = 4
-	previewicon = "conpipe-t"
+	pipe_icon = "conpipe-t"
 
 /datum/pipes/disposal/bin
-	pipename = "Bin"
-	pipeid = PIPE_DISPOSALS_BIN
+	pipe_name = "Bin"
+	pipe_id = PIPE_DISPOSALS_BIN
 	orientations = 1
-	previewicon = "condisposal"
+	pipe_icon = "condisposal"
 
 /datum/pipes/disposal/outlet
-	pipename = "Outlet"
-	pipeid = PIPE_DISPOSALS_OUTLET
+	pipe_name = "Outlet"
+	pipe_id = PIPE_DISPOSALS_OUTLET
 	orientations = 4
-	previewicon = "outlet"
+	pipe_icon = "outlet"
 
 /datum/pipes/disposal/chute
-	pipename = "Chute"
-	pipeid = PIPE_DISPOSALS_CHUTE
+	pipe_name = "Chute"
+	pipe_id = PIPE_DISPOSALS_CHUTE
 	orientations = 4
-	previewicon = "intake"
+	pipe_icon = "intake"
 
 #undef RPD_ATMOS
 #undef RPD_DISPOSAL
