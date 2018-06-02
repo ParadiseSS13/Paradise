@@ -1263,7 +1263,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", /*"Tajaran"*/ "Skrell", "Unathi", "Diona", /*"Vulpkanin"*/, /*"Murghal"*/)
+					var/list/new_species = list("Human", /*"Tajaran"*/ "Skrell", "Unathi", "Diona", /*"Vulpkanin"*/, "Murghal")
 					var/prev_species = species
 //						var/whitelisted = 0
 
@@ -1394,7 +1394,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_type = new_b_type
 
 				if("hair")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have hair. (No HAS_HAIR flag)
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox", "Murghal")) //Species that have hair. (No HAS_HAIR flag)
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", h_colour) as color|null
 						if(new_hair)

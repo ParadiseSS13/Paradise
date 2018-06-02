@@ -1,5 +1,5 @@
 
-#define MURGHAL_BOOST_HUNGERCOST 8.5
+#define MURGHAL_BOOST_HUNGERCOST 40.5
 #define MURGHAL_BOOST_MINHUNGER 150
 
 /obj/item/organ/internal/adrenal
