@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Hulk mutation no longer works at range (ie: punching/breaking windows/walls at range)"
+  - tweak: "You must be on harm intent to damage things if you have hulk"
+  - rscadd: "Having hulk allows you to punch and damage just about anything"
