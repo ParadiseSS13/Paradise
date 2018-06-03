@@ -149,7 +149,7 @@
 	if(!A)
 		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
 		return 0
-	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show them the error of their ways.</b></span>")
+	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
 
 /mob/living/simple_animal/slaughter/cult/New()
 	..()
@@ -241,7 +241,7 @@
 	return // Just so people don't accidentally waste it
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] raises [src] to their mouth and tears into it with their teeth!</span>", \
+	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/Demon_consume.ogg', 50, 1)
 	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)

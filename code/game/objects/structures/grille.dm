@@ -142,7 +142,7 @@
 			return
 
 //window placing begin
-	else if(istype(W,/obj/item/stack/sheet/rglass) || istype(W,/obj/item/stack/sheet/glass) || istype(W,/obj/item/stack/sheet/plasmaglass) || istype(W,/obj/item/stack/sheet/plasmarglass))
+	else if(is_glass_sheet(W))
 		build_window(W, user)
 		return
 //window placing end
@@ -195,10 +195,10 @@
 		S.use(1)
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
-		W.anchored = 0
-		W.state = 0
+		W.anchored = FALSE
+		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
-		W.update_icon()
+		W.update_nearby_icons()
 	return
 
 /obj/structure/grille/attacked_by(obj/item/I, mob/living/user)

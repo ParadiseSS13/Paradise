@@ -13,7 +13,7 @@
 	var/list/fluff_transformations = list() //does it have any special transformations only accessible to it? Should only be subtypes of /obj/item/nullrod
 
 /obj/item/nullrod/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is killing \himself with \the [src.name]! It looks like \he's trying to get closer to god!</span>")
+	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
@@ -575,7 +575,7 @@
 		if(missionary in viewers(target))	//missionary must maintain line of sight to target, but the target doesn't necessary need to be able to see the missionary
 			do_convert(target, missionary)
 		else
-			to_chat(missionary, "<span class='warning'>You lost sight of the target before they could be converted!</span>")
+			to_chat(missionary, "<span class='warning'>You lost sight of the target before [target.p_they()] could be converted!</span>")
 			faith -= 25		//they escaped, so you only lost a little faith (to prevent spamming)
 	else	//the do_after failed, probably because you moved or dropped the staff
 		to_chat(missionary, "<span class='warning'>Your concentration was broken!</span>")
@@ -585,12 +585,12 @@
 	if(!target || !ishuman(target) || !missionary || !ishuman(missionary))
 		return
 	if(ismindslave(target) || target.mind.zealot_master)	//mindslaves and zealots override the staff because the staff is just a temporary mindslave
-		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
+		to_chat(missionary, "<span class='warning'>Your faith is strong, but [target.p_their()] mind is already slaved to someone else's ideals. Perhaps an inquisition would reveal more...</span>")
 		faith -= 25		//same faith cost as losing sight of them mid-conversion, but did you just find someone who can lead you to a fellow traitor?
 		return
 	if(ismindshielded(target))
 		faith -= 75
-		to_chat(missionary, "<span class='warning'>Your faith is strong, but their mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
+		to_chat(missionary, "<span class='warning'>Your faith is strong, but [target.p_their()] mind remains closed to your ideals. Your resolve helps you retain a bit of faith though.</span>")
 		return
 	else if(target.mind.assigned_role == "Psychiatrist" || target.mind.assigned_role == "Librarian")		//fancy book lernin helps counter religion (day 0 job love, what madness!)
 		if(prob(35))	//35% chance to fail
@@ -602,7 +602,7 @@
 			faith -= 100
 	else if(target.mind.assigned_role == "Civilian")
 		if(prob(55))	//55% chance to take LESS faith than normal, because civies are stupid and easily manipulated
-			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting them was much easier than expected.</span>")
+			to_chat(missionary, "<span class='notice'>Your message seems to resound well with [target]; converting [target.p_them()] was much easier than expected.</span>")
 			faith -= 50
 		else		//45% chance to take the normal 100 faith cost
 			to_chat(missionary, "<span class='notice'>You successfully convert [target] to your cause. The following grows because of your faith!</span>")

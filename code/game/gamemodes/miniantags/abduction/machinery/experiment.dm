@@ -29,7 +29,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1, target))
 		if(M.Victim == target)
-			to_chat(user, "<span class='danger'>[target] has a slime attached to them, deal with that first.</span>")
+			to_chat(user, "<span class='danger'>[target] has a slime attached to [target.p_them()], deal with that first.</span>")
 			return
 	visible_message("[user] puts [target] into the [src].")
 
