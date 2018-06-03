@@ -285,7 +285,7 @@
 	return attack_hand(user)
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weldingtool))
+	if(iswelder(I))
 		var/obj/item/weldingtool/WT = I
 		if(WT.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>You burn away the fungi with [WT].</span>")
@@ -301,7 +301,7 @@
 		return FALSE
 
 /turf/simulated/wall/proc/try_thermite(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weldingtool))
+	if(iswelder(I))
 		var/obj/item/weldingtool/WT = I
 		if(WT.remove_fuel(0, user))
 			thermitemelt(user)
@@ -311,21 +311,11 @@
 		thermitemelt(user)
 		return TRUE
 
-	else if(istype(I, /obj/item/melee/energy/blade))
-		var/obj/item/melee/energy/blade/EB = I
-
-		EB.spark_system.start()
-		to_chat(user, "<span class='notice'>You slash [src] with [EB]; the thermite ignites!</span>")
-		playsound(src, "sparks", 50, 1)
-		playsound(src, EB.usesound, 50, 1)
-
-		thermitemelt(user)
-		return TRUE
 
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weldingtool))
+	if(iswelder(I))
 		var/obj/item/weldingtool/WT = I
 		if(!WT.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
@@ -384,21 +374,6 @@
 			to_chat(user, "<span class='notice'>Your [I.name] disintegrates the reinforced plating.</span>")
 			dismantle_wall()
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
-			return TRUE
-
-	else if(istype(I, /obj/item/melee/energy/blade))
-		var/obj/item/melee/energy/blade/EB = I
-
-		EB.spark_system.start()
-		to_chat(user, "<span class='notice'>You stab [EB] into the wall and begin to slice it apart.</span>")
-		playsound(src, "sparks", 50, 1)
-
-		if(do_after(user, isdiamond ? 140 * EB.toolspeed : 70 * EB.toolspeed, target = src))
-			EB.spark_system.start()
-			playsound(src, "sparks", 50, 1)
-			playsound(src, EB.usesound, 50, 1)
-			dismantle_wall(1)
-			visible_message("<span class='warning'>[user] slices apart [src]!</span>","<span class='warning'>You hear metal being sliced apart and sparks flying.</span>")
 			return TRUE
 
 	return FALSE

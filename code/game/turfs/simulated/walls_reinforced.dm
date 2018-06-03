@@ -39,7 +39,7 @@
 	return ..()
 
 /turf/simulated/wall/r_wall/proc/try_repair(obj/item/I, mob/user, params)
-	if(damage && istype(I, /obj/item/weldingtool))
+	if(damage && iswelder(I))
 		var/obj/item/weldingtool/WT = I
 		if(!WT.remove_fuel(0, user))
 			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
@@ -153,7 +153,7 @@
 					to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
 				return TRUE
 
-			// RWALL_SUPPORT_LINES < RWALL_COVER 
+			// RWALL_SUPPORT_LINES < RWALL_COVER
 			if(isscrewdriver(I))
 				to_chat(user, "<span class='notice'>You begin securing the support lines...</span>")
 				playsound(src, I.usesound, 100, 1)
@@ -282,10 +282,6 @@
 			to_chat(user, "<span class='notice'>Your sonic jackhammer disintegrates the reinforced plating.</span>")
 			dismantle_wall()
 		return TRUE
-	
-	if(istype(I, /obj/item/melee/energy/blade))
-		to_chat(user, "<span class='notice'>This wall is too thick to slice through. You will need to find a different path.</span>")
-		return TRUE // don't smack the wall.
 
 
 /turf/simulated/wall/r_wall/singularity_pull(S, current_size)
