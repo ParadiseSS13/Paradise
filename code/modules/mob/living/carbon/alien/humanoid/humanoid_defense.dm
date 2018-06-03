@@ -4,6 +4,7 @@
 		adjustBruteLoss(15)
 		var/hitverb = "punched"
 		if(mob_size < MOB_SIZE_LARGE)
+			Paralyse(1)
 			spawn(0)
 				step_away(src, user, 15)
 				sleep(1)
