@@ -173,14 +173,15 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	add_fingerprint(user)
 	playsound(src, 'sound/effects/Glassknock.ogg', 50, 1)
 
+/obj/structure/window/attack_hulk(mob/living/carbon/human/user, does_attack_animation = 0)
+	if(!can_be_reached(user))
+		return 1
+	. = ..()
+
 /obj/structure/window/attack_hand(mob/user)
 	if(!can_be_reached(user))
 		return
-	if(HULK in user.mutations)
-		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
-		user.visible_message("<span class='danger'>[user] smashes through [src]!</span>")
-		deconstruct(FALSE)
-	else if(user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
 		user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
