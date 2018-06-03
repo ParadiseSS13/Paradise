@@ -187,7 +187,7 @@
 	move_update_air(T)
 
 /obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
-	playsound(src.loc, 'sound/weapons/tap.ogg', 100, 1)
+	playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
 /obj/structure/foamedmetal/proc/updateicon()
 	if(metal == MFOAM_ALUMINUM)
@@ -203,11 +203,11 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	if(prob(75 - metal * 25))
-		user.visible_message("<span class='warning'>[user] smashes through  [src].</span>", "<span class='notice'>You smash through [src].</span>")
+		user.visible_message("<span class='warning'>[user] smashes through [src].</span>", "<span class='notice'>You smash through [src].</span>")
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
-		playsound(src.loc, 'sound/weapons/tap.ogg', 100, 1)
+		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
 /obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
 	return !density

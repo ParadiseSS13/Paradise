@@ -472,7 +472,7 @@
 	log_message("Attack by hand/paw. Attacker - [user].",1)
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
-	user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>","<span class='danger'>You hit [name] with no visible effect.</span>")
+	user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>", "<span class='danger'>You hit [name] with no visible effect.</span>")
 	log_append_to_last("Armor saved.")
 
 
@@ -525,7 +525,7 @@
 	if(.)
 		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL, MECHA_INT_TANK_BREACH, MECHA_INT_CONTROL_LOST))
 		log_message("Attack by hulk. Attacker - [user].", 1)
-		add_attack_logs(user, src, "punched with hulk powers")
+		add_attack_logs(user, src, "Punched with hulk powers")
 
 /obj/mecha/hitby(atom/movable/A) //wrapper
 	..()
