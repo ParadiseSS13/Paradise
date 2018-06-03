@@ -176,16 +176,16 @@
 	icon_state = "fireaxe[wielded]"
 	return
 
-/obj/item/twohanded/fireaxe/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
-	if(!proximity) return
-	..()
-	if(A && wielded && (istype(A,/obj/structure/window) || istype(A,/obj/structure/grille))) //destroys windows and grilles in one hit
-
-		if(istype(A,/obj/structure/window))
+/obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
+	if(wielded)
+		if(istype(A, /obj/structure/window))
 			var/obj/structure/window/W = A
-			W.destroy()
-		else
-			qdel(A)
+			W.take_damage(200, BRUTE, "melee", 0)
+		else if(istype(A, /obj/structure/grille))
+			var/obj/structure/grille/G = A
+			G.take_damage(40, BRUTE, "melee", 0)
 
 /*
  * Double-Bladed Energy Swords - Cheridan
@@ -751,7 +751,7 @@
 		if(A && wielded && (istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)))
 			if(istype(A, /obj/structure/window))
 				var/obj/structure/window/W = A
-				W.destroy()
+				W.deconstruct(FALSE)
 				if(prob(4))
 					charged++
 					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
