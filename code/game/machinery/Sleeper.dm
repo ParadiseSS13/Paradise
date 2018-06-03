@@ -348,7 +348,7 @@
 				return
 			if(!G || !G.affecting)
 				return
-			var/mob/M = G:affecting
+			var/mob/M = G.affecting
 			M.forceMove(src)
 			occupant = M
 			icon_state = "[base_icon]"
