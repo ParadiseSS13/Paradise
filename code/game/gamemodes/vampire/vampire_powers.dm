@@ -270,7 +270,7 @@
 		C.Stun(4)
 		C.Jitter(150)
 	for(var/obj/structure/window/W in view(4))
-		W.destroy()
+		W.deconstruct(FALSE)
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 
 

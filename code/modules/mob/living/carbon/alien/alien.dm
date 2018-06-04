@@ -1,7 +1,3 @@
-#define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 3 //Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 1000K point
-
 /mob/living/carbon/alien
 	name = "alien"
 	voice_name = "alien"
@@ -228,10 +224,6 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/can_use_vents()
 	return
-
-#undef HEAT_DAMAGE_LEVEL_1
-#undef HEAT_DAMAGE_LEVEL_2
-#undef HEAT_DAMAGE_LEVEL_3
 
 /mob/living/carbon/alien/handle_footstep(turf/T)
 	if(..())
