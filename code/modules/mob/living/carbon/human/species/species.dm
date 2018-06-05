@@ -21,7 +21,7 @@
 	var/primitive_form            // Lesser form, if any (ie. monkey for humans)
 	var/greater_form              // Greater form, if any, ie. human for monkeys.
 	var/tail                     // Name of tail image in species effects icon file.
-	var/unarmed                  //For empty hand harm-intent attack
+	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
@@ -374,9 +374,6 @@
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
 		var/armor_block = target.run_armor_check(affecting, "melee")
-
-		if(HULK in user.mutations)
-			target.adjustBruteLoss(15)
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 

@@ -1,4 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - bugfix: "laser tag gun projectiles now play appropriate sound when striking."

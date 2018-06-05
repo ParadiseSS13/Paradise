@@ -229,20 +229,19 @@
 	to_chat(M, "<span class='notice'>You push the wall but nothing happens!</span>")
 	return
 
-/turf/simulated/wall/attack_hand(mob/user as mob)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(HULK in user.mutations)
-		if(prob(hardness) || rotting)
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-			to_chat(user, text("<span class='notice'>You smash through the wall.</span>"))
-			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-			dismantle_wall(1)
-			return
-		else
-			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-			to_chat(user, text("<span class='notice'>You punch the wall.</span>"))
-			return
+/turf/simulated/wall/attack_hulk(mob/user, does_attack_animation = FALSE)
+	..(user, TRUE)
+	if(prob(hardness) || rotting)
+		playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+		dismantle_wall(TRUE)
+	else
+		playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		to_chat(user, text("<span class='notice'>You punch the wall.</span>"))
+	return TRUE
 
+/turf/simulated/wall/attack_hand(mob/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(rotting)
 		if(hardness <= 10)
 			to_chat(user, "<span class='notice'>This wall feels rather unstable.</span>")
@@ -254,9 +253,8 @@
 
 	to_chat(user, "<span class='notice'>You push the wall but nothing happens!</span>")
 	playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	..()
-	return
 
 /turf/simulated/wall/attackby(obj/item/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
