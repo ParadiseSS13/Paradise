@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "The Terror Spider away mission now has spiders colonizing the west side of the map. Only the gateway room is safe."
