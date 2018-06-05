@@ -281,7 +281,7 @@
 	if(istype(I, /obj/item/gripper))
 		return
 
-	return attack_hand(user)
+	return ..()
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
 	if(iswelder(I))
@@ -293,11 +293,11 @@
 				qdel(WR)
 			rotting = 0
 			return TRUE
-		else if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
-			to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
-			dismantle_wall(1)
-			return TRUE
-		return FALSE
+	else if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
+		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
+		dismantle_wall(1)
+		return TRUE
+	return FALSE
 
 /turf/simulated/wall/proc/try_thermite(obj/item/I, mob/user, params)
 	if(iswelder(I))
