@@ -1055,6 +1055,8 @@ proc/get_mob_with_client_list()
 
 	//Find coordinates
 	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	if(!T)
+		return null
 	var/final_x = T.x + rough_x
 	var/final_y = T.y + rough_y
 
