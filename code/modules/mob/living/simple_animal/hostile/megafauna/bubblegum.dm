@@ -117,7 +117,7 @@ Difficulty: Hard
 		bloodspell.phased = 1
 	internal_gps = new/obj/item/gps/internal/bubblegum(src)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
 	if(!charging)
 		..()
 

@@ -255,8 +255,8 @@ This is always put in the attack log.
 			add_attack_logs(user, M, what_done, admin_notify)
 		return
 
-	var/user_str = key_name(user)
-	var/target_str = key_name(target)
+	var/user_str = key_name_log(user)
+	var/target_str = key_name_log(target)
 
 	if(istype(user))
 		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")

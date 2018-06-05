@@ -21,7 +21,7 @@
 	var/primitive_form            // Lesser form, if any (ie. monkey for humans)
 	var/greater_form              // Greater form, if any, ie. human for monkeys.
 	var/tail                     // Name of tail image in species effects icon file.
-	var/unarmed                  //For empty hand harm-intent attack
+	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
@@ -356,7 +356,7 @@
 	else
 		var/datum/unarmed_attack/attack = user.species.unarmed
 
-		user.do_attack_animation(target)
+		user.do_attack_animation(target, attack.animation_type)
 		add_attack_logs(user, target, "Melee attacked with fists", admin_notify = target.ckey ? TRUE : FALSE)
 
 		if(!iscarbon(user))
@@ -374,9 +374,6 @@
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
 		var/armor_block = target.run_armor_check(affecting, "melee")
-
-		if(HULK in user.mutations)
-			target.adjustBruteLoss(15)
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
@@ -396,7 +393,7 @@
 		return 1
 	else
 		add_attack_logs(user, target, "Disarmed", admin_notify = FALSE)
-		user.do_attack_animation(target)
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
@@ -500,17 +497,12 @@
 //Species unarmed attacks
 
 /datum/unarmed_attack
-	var/attack_verb = list("attack")	// Empty hand hurt intent verb.
+	var/attack_verb = list("punch")	// Empty hand hurt intent verb.
 	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
-	var/sharp = 0
-
-/datum/unarmed_attack/punch
-	attack_verb = list("punch")
-
-/datum/unarmed_attack/punch/weak
-	attack_verb = list("flail")
+	var/sharp = FALSE
+	var/animation_type = ATTACK_EFFECT_PUNCH
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
@@ -519,7 +511,14 @@
 	attack_verb = list("scratch", "claw")
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
-	sharp = 1
+	sharp = TRUE
+	animation_type = ATTACK_EFFECT_CLAW
+
+/datum/unarmed_attack/bite
+	attack_verb = list("chomp")
+	attack_sound = 'sound/weapons/bite.ogg'
+	sharp = TRUE
+	animation_type = ATTACK_EFFECT_BITE
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")

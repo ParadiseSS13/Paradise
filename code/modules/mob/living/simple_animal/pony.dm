@@ -27,7 +27,7 @@
 	..()
 	if(stat == 2)
 		new /obj/item/reagent_containers/food/snacks/ectoplasm(src.loc)
-		src.visible_message("<span class='warning'>\The [src] lets out a contented sigh as their form unwinds.</span>")
+		src.visible_message("<span class='warning'>[src] lets out a contented sigh as [p_their()] form unwinds.</span>")
 		src.ghostize()
 		qdel(src)
 		return

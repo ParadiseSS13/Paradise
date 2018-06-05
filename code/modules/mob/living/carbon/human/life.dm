@@ -150,7 +150,7 @@
 		AdjustSilence(2)
 
 	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
-		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+		visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 		death()
 
 /mob/living/carbon/human/handle_mutations_and_radiation()

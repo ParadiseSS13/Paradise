@@ -599,7 +599,7 @@
 	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
 	if(!istype(H) || !Adjacent(H))  return ..()
 	if(usr == src)
-		switch(alert(H, "[src] wants you to pick them up. Do it?",,"Yes","No"))
+		switch(alert(H, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
 			if("Yes")
 				if(Adjacent(H))
 					get_scooped(H)

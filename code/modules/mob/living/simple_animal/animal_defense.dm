@@ -11,13 +11,21 @@
 			grabbedby(M)
 
 		if(INTENT_HARM, INTENT_DISARM)
-			M.do_attack_animation(src)
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
 			playsound(loc, "punch", 25, 1, -1)
 			attack_threshold_check(harm_intent_damage)
 			add_attack_logs(M, src, "Melee attacked with fists")
 			updatehealth()
 			return 1
+
+/mob/living/simple_animal/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		..(user, TRUE)
+		playsound(loc, "punch", 25, 1, -1)
+		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
+		adjustBruteLoss(15)
+		return TRUE
 
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(..()) //if harm or disarm intent.
@@ -58,3 +66,11 @@
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 	else
 		apply_damage(damage, damagetype)
+
+/mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
+	if(!no_effect && !visual_effect_icon && melee_damage_upper)
+		if(melee_damage_upper < 10)
+			visual_effect_icon = ATTACK_EFFECT_PUNCH
+		else
+			visual_effect_icon = ATTACK_EFFECT_SMASH
+	..()

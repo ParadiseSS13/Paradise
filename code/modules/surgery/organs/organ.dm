@@ -289,7 +289,7 @@
 		return
 	if(owner && robotic == 2)
 		Stop() // In the name of looooove~!
-		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
+		owner.visible_message("<span class='danger'>[owner] clutches [owner.p_their()] chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
 	else if(owner && robotic == 1)
 		receive_damage(11,1)
 

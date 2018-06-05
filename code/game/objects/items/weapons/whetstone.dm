@@ -54,7 +54,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/unarmed_attack/attack = H.species.unarmed
 		if(istype(attack, /datum/unarmed_attack/claws))
-			H.visible_message("<span class='notice'>[H] sharpens \his claws on the [src]!</span>", "<span class='notice'>You sharpen your claws on the [src].</span>")
+			H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on the [src]!</span>", "<span class='notice'>You sharpen your claws on the [src].</span>")
 			playsound(get_turf(H), usesound, 50, 1)
 
 /obj/item/whetstone/super

@@ -38,7 +38,7 @@
 #define MINERALS 8
 
 #define EMERGENCY 9
-#define GAS 10
+#define EGAS 10
 #define MAINTENANCE 11
 #define ELECTRICAL 12
 #define ROBOTICS 13
