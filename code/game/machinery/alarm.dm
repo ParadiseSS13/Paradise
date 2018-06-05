@@ -236,9 +236,11 @@
 		elect_master()
 
 /obj/machinery/alarm/proc/master_is_operating()
-	if(! alarm_area)
+	if(!alarm_area)
 		alarm_area = areaMaster
-
+	if(!alarm_area)
+		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
+		return FALSE
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 
