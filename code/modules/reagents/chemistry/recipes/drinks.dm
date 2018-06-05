@@ -866,7 +866,7 @@
 	name = "Uncle Git's Special Milk"
 	id = "unclegits_specialmilk"
 	result = "unclegits_specialmilk"
-	required_reagents = list("milk" = 5, "cream", 5, "salt" = 1, "egg" = 5)
+	required_reagents = list("milk" = 5, "cream" = 5, "sodiumchloride" = 1, "egg" = 5)
 	result_amount = 15
 	mix_message = "The mixtures becomes quite sticky."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+	mix_sound = 'sound/effects/blobattack.ogg'
