@@ -852,3 +852,21 @@
 	result_amount = 15
 	mix_message = "The eggs nog together. Pretend that \"nog\" is a verb."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/rainbowjuice
+	name = "Rainbow Juice"
+	id = "rainbowjuice"
+	result = "rainbowjuice"
+	required_reagents = list("banana" = 1, "berryjuice" = 1, "grapejuice" = 1, "lemonjuice" = 1, "orangejuice" = 1, "watermelonjuice" = 1)
+	result_amount = 6
+	mix_message = "The diverse juices blend together. You feel proud of the outcome."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/unclegits_specialmilk
+	name = "Uncle Git's Special Milk"
+	id = "unclegits_specialmilk"
+	result = "unclegits_specialmilk"
+	required_reagents = list("milk" = 5, "cream", 5, "salt" = 1, "egg" = 5)
+	result_amount = 15
+	mix_message = "The mixtures becomes quite sticky."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
