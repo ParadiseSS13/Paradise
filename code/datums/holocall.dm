@@ -49,18 +49,21 @@
 		user.reset_perspective()
 		user.remote_control = null
 
-	if(QDELETED(eye))
-		if(user_good && user.client)
-			for(var/datum/camerachunk/chunk in eye.visibleCameraChunks)
-				chunk.remove(eye)
-		qdel(eye)
-	eye = null
+	if(!QDELETED(eye))
+		eye.RemoveImages()
+		QDEL_NULL(eye)
+
+	if(connected_holopad && !QDELETED(hologram))
+		hologram = null
+		connected_holopad.clear_holo(user)
 
 	user = null
 
-	if(hologram)
+	//Hologram survived holopad destro
+	if(!QDELETED(hologram))
 		hologram.HC = null
-		hologram = null
+		QDEL_NULL(hologram)
+
 
 	for(var/I in dialed_holopads)
 		var/obj/machinery/hologram/holopad/H = I
@@ -82,9 +85,10 @@
 //Gracefully disconnects a holopad `H` from a call. Pads not in the call are ignored. Notifies participants of the disconnection
 /datum/holocall/proc/Disconnect(obj/machinery/hologram/holopad/H)
 	if(H == connected_holopad)
-		calling_holopad.atom_say("[usr] disconnected.")
+		var/area/A = get_area(connected_holopad)
+		calling_holopad.atom_say("[A] holopad disconnected.")
 	else if(H == calling_holopad && connected_holopad)
-		connected_holopad.atom_say("[usr] disconnected.")
+		connected_holopad.atom_say("[user] disconnected.")
 
 	user.unset_machine(H)
 	hangup.Remove(user)
