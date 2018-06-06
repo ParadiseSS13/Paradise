@@ -46,7 +46,6 @@
 	var/gen_record = ""
 	var/blinded = null
 	var/bhunger = 0			//Carbon
-	var/ajourn = 0
 	var/lying = 0
 	var/lying_prev = 0
 	var/canmove = 1
@@ -199,3 +198,5 @@
 	var/list/progressbars = null	//for stacking do_after bars
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
+
+	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.

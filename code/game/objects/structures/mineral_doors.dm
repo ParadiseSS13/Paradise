@@ -24,7 +24,7 @@
 	..()
 	initial_state = icon_state
 
-/obj/structure/mineral_door/initialize()
+/obj/structure/mineral_door/Initialize()
 	..()
 	air_update_turf(1)
 

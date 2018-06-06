@@ -70,7 +70,7 @@
 		H.dna.ready_dna(H)
 
 		H.mind_initialize()
-		H.mind.assigned_role = "MODE"
+		H.mind.assigned_role = "Event Character"
 		H.mind.special_role = "Event Character"
 
 		H.key = thisplayer.key

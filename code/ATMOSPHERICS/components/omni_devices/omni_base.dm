@@ -56,7 +56,7 @@
 			nullifyPipenet(P.parent)
 	return ..()
 
-/obj/machinery/atmospherics/omni/initialize()
+/obj/machinery/atmospherics/omni/atmos_init()
 	..()
 	for(var/datum/omni_port/P in ports)
 		if(P.node || P.mode == 0)
@@ -143,11 +143,11 @@
 
 	//directional icons are layers 1-4, with the core icon on layer 5
 	if(core_icon)
-		overlays_off[5] = icon_manager.get_atmos_icon("omni", , , core_icon)
-		overlays_on[5] = icon_manager.get_atmos_icon("omni", , , core_icon + "_glow")
+		overlays_off[5] = GLOB.pipe_icon_manager.get_atmos_icon("omni", , , core_icon)
+		overlays_on[5] = GLOB.pipe_icon_manager.get_atmos_icon("omni", , , core_icon + "_glow")
 
-		overlays_error[1] = icon_manager.get_atmos_icon("omni", , , core_icon)
-		overlays_error[2] = icon_manager.get_atmos_icon("omni", , , "error")
+		overlays_error[1] = GLOB.pipe_icon_manager.get_atmos_icon("omni", , , core_icon)
+		overlays_error[2] = GLOB.pipe_icon_manager.get_atmos_icon("omni", , , "error")
 
 /obj/machinery/atmospherics/omni/proc/update_port_icons()
 	if(!check_icon_cache())
@@ -203,19 +203,19 @@
 				ic_on += "_filter"
 				ic_off += "_out"
 
-		ic_on = icon_manager.get_atmos_icon("omni", , , ic_on)
-		ic_off = icon_manager.get_atmos_icon("omni", , , ic_off)
+		ic_on = GLOB.pipe_icon_manager.get_atmos_icon("omni", , , ic_on)
+		ic_off = GLOB.pipe_icon_manager.get_atmos_icon("omni", , , ic_off)
 
 		var/pipe_state
 		var/turf/T = get_turf(src)
 		if(!istype(T))
 			return
 		if(T.intact && istype(P.node, /obj/machinery/atmospherics/pipe) && P.node.level == 1 )
-			//pipe_state = icon_manager.get_atmos_icon("underlay_down", P.dir, color_cache_name(P.node))
-			pipe_state = icon_manager.get_atmos_icon("underlay", P.dir, color_cache_name(P.node), "down")
+			//pipe_state = GLOB.pipe_icon_manager.get_atmos_icon("underlay_down", P.dir, color_cache_name(P.node))
+			pipe_state = GLOB.pipe_icon_manager.get_atmos_icon("underlay", P.dir, color_cache_name(P.node), "down")
 		else
-			//pipe_state = icon_manager.get_atmos_icon("underlay_intact", P.dir, color_cache_name(P.node))
-			pipe_state = icon_manager.get_atmos_icon("underlay", P.dir, color_cache_name(P.node), "intact")
+			//pipe_state = GLOB.pipe_icon_manager.get_atmos_icon("underlay_intact", P.dir, color_cache_name(P.node))
+			pipe_state = GLOB.pipe_icon_manager.get_atmos_icon("underlay", P.dir, color_cache_name(P.node), "intact")
 
 		return list("on_icon" = ic_on, "off_icon" = ic_off, "pipe_icon" = pipe_state)
 

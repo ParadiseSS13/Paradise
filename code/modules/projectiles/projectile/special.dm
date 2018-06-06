@@ -8,14 +8,14 @@
 
 /obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
 	..()
-	empulse(target, 1, 1)
+	empulse(target, 1, 1, 1)
 	return 1
 
 /obj/item/projectile/ion/weak
 
 /obj/item/projectile/ion/weak/on_hit(atom/target, blocked = 0)
 	..()
-	empulse(target, 0, 0)
+	empulse(target, 0, 0, 1)
 	return 1
 
 /obj/item/projectile/bullet/gyro
@@ -52,7 +52,7 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 /obj/item/projectile/temp/New(loc, shot_temp)
-	..(loc)
+	..()
 	if(!isnull(shot_temp))
 		temperature = shot_temp
 	switch(temperature)
@@ -86,7 +86,6 @@
 		else
 			name = "temperature beam"//failsafe
 			icon_state = "temp_4"
-	..()
 
 
 /obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
@@ -138,7 +137,7 @@
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
-				M.visible_message("<span class='warning'>[M] writhes in pain as \his vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
+				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 			if(prob(35))
 				if(prob(80))
 					randmutb(M)

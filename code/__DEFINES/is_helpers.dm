@@ -26,6 +26,16 @@ var/list/static/global/pointed_types = typecacheof(list(
 
 #define is_pointed(W) (is_type_in_typecache(W, pointed_types))
 
+GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
+	/obj/item/stack/sheet/glass,
+	/obj/item/stack/sheet/rglass,
+	/obj/item/stack/sheet/plasmaglass,
+	/obj/item/stack/sheet/plasmarglass,
+	/obj/item/stack/sheet/titaniumglass,
+	/obj/item/stack/sheet/plastitaniumglass)))
+
+#define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
+
 //Turfs
 #define issimulatedturf(A) istype(A, /turf/simulated)
 
@@ -40,6 +50,29 @@ var/list/static/global/pointed_types = typecacheof(list(
 #define isreinforcedwallturf(A) istype(A, /turf/simulated/wall/r_wall)
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
+
+//Mobs
+#define isliving(A) (istype(A, /mob/living))
+
+#define isbrain(A) (istype(A, /mob/living/carbon/brain))
+
+//Carbon mobs
+#define iscarbon(A) (istype(A, /mob/living/carbon))
+
+#define ishuman(A) (istype(A, /mob/living/carbon/human))
+
+//more carbon mobs
+#define isalien(A) (istype(A, /mob/living/carbon/alien))
+
+#define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
+
+#define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
+
+#define isalienhunter(A) (istype(A, /mob/living/carbon/alien/humanoid/hunter))
+
+#define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
+
+#define isslime(A)		(istype((A), /mob/living/carbon/slime))
 
 // Misc
 #define isclient(A) istype(A, /client)

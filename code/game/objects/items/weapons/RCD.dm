@@ -9,10 +9,10 @@ RCD
 	icon_state = "rcd"
 	opacity = 0
 	density = 0
-	anchored = 0.0
-	flags = CONDUCT
-	force = 10.0
-	throwforce = 10.0
+	anchored = 0
+	flags = CONDUCT | NOBLUDGEON
+	force = 0
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -296,8 +296,6 @@ RCD
 				var/turf/T1 = get_turf(A)
 				QDEL_NULL(A)
 				for(var/obj/structure/window/W in T1.contents)
-					W.disassembled = 1
-					W.density = 0
 					qdel(W)
 				for(var/cdir in cardinal)
 					var/turf/T2 = get_step(T1, cdir)
@@ -307,8 +305,6 @@ RCD
 						continue
 					for(var/obj/structure/window/W in T2.contents)
 						if(W.dir == turn(cdir, 180))
-							W.disassembled = 1
-							W.density = 0
 							qdel(W)
 					var/obj/structure/window/reinforced/W = new(T2)
 					W.dir = turn(cdir, 180)
@@ -331,16 +327,12 @@ RCD
 				activate()
 				new /obj/structure/grille(A)
 				for(var/obj/structure/window/W in contents)
-					W.disassembled = 1 // Prevent that annoying glass breaking sound
-					W.density = 0
 					qdel(W)
 				for(var/cdir in cardinal)
 					var/turf/T = get_step(A, cdir)
 					if(locate(/obj/structure/grille) in T.contents)
 						for(var/obj/structure/window/W in T.contents)
 							if(W.dir == turn(cdir, 180))
-								W.disassembled = 1
-								W.density = 0
 								qdel(W)
 					else // Build a window!
 						var/obj/structure/window/reinforced/W = new(A)
@@ -385,7 +377,7 @@ RCD
 		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
 		vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
-	addtimer(src, "detonate_pulse_explode", 50)
+	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
 
 /obj/item/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)

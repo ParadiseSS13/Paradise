@@ -95,8 +95,8 @@
 
 	alpha = 255
 	overlays.Cut()
-	overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
-	overlays += icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , pipe_color, "4way" + icon_connect_type)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , , "clamps_4way" + icon_connect_type)
 	underlays.Cut()
 
 	var/turf/T = get_turf(src)
@@ -134,7 +134,7 @@
 	if(level == 1 && istype(loc, /turf/simulated))
 		invisibility = i ? 101 : 0
 
-/obj/machinery/atmospherics/pipe/manifold4w/initialize()
+/obj/machinery/atmospherics/pipe/manifold4w/atmos_init()
 	..()
 	for(var/D in cardinal)
 		for(var/obj/machinery/atmospherics/target in get_step(src, D))

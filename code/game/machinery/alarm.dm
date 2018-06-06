@@ -229,16 +229,18 @@
 	apply_preset(1) // Don't cycle.
 	air_alarm_repository.update_cache(src)
 
-/obj/machinery/alarm/initialize()
+/obj/machinery/alarm/Initialize()
 	..()
 	set_frequency(frequency)
 	if(!master_is_operating())
 		elect_master()
 
 /obj/machinery/alarm/proc/master_is_operating()
-	if(! alarm_area)
+	if(!alarm_area)
 		alarm_area = areaMaster
-
+	if(!alarm_area)
+		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
+		return FALSE
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 

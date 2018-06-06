@@ -64,6 +64,17 @@
 #define THROWN_PROJECTILE_ATTACK 4
 #define LEAP_ATTACK 5
 
+//attack visual effects
+#define ATTACK_EFFECT_PUNCH		"punch"
+#define ATTACK_EFFECT_KICK		"kick"
+#define ATTACK_EFFECT_SMASH		"smash"
+#define ATTACK_EFFECT_CLAW		"claw"
+#define ATTACK_EFFECT_DISARM	"disarm"
+#define ATTACK_EFFECT_BITE		"bite"
+#define ATTACK_EFFECT_MECHFIRE	"mech_fire"
+#define ATTACK_EFFECT_MECHTOXIN	"mech_toxin"
+#define ATTACK_EFFECT_BOOP		"boop" //Honk
+
 //Embedded objects
 #define EMBEDDED_PAIN_CHANCE 					15	//Chance for embedded objects to cause pain (damage user)
 #define EMBEDDED_ITEM_FALLOUT 					5	//Chance for embedded object to fall out (causing pain but removing the object)

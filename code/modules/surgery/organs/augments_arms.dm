@@ -66,7 +66,7 @@
 	if(!holder || (holder in src))
 		return
 
-	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into \his [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
+	owner.visible_message("<span class='notice'>[owner] retracts [holder] back into [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='notice'>[holder] snaps back into your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 
@@ -114,7 +114,7 @@
 	if(parent_organ == "r_arm" ? owner.hand : !owner.hand)
 		owner.swap_hand()
 
-	owner.visible_message("<span class='notice'>[owner] extends [holder] from \his [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
+	owner.visible_message("<span class='notice'>[owner] extends [holder] from [owner.p_their()] [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='notice'>You extend [holder] from your [parent_organ == "r_arm" ? "right" : "left"] arm.</span>",
 		"<span class='italics'>You hear a short mechanical noise.</span>")
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
@@ -290,7 +290,7 @@
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
 			else
-				addtimer(src, "powerdraw_loop", 0, TRUE, A, H)
+				INVOKE_ASYNC(src, .proc/powerdraw_loop, A, H)
 		else
 			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
 	else

@@ -39,7 +39,7 @@
 	var/lastnestsetup = 0
 	var/neststep = 0
 	var/hasnested = 0
-	var/spider_max_per_nest = 25 // above this, AI queens become stable
+	var/spider_max_per_nest = 35 // above this, AI queens become stable
 	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
 	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere
@@ -61,7 +61,7 @@
 		spider_growinstantly = 1
 		spider_spawnfrequency = 150
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/Life()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Life(seconds, times_fired)
 	. = ..()
 	if(.) // if mob is NOT dead
 		if(ckey && canlay < 12 && hasnested) // max 12 eggs worth stored at any one time, realistically that's tons.

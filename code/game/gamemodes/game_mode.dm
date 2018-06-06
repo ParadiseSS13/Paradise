@@ -107,7 +107,7 @@
 			tries_left = 5		//reset our tries since we found a new chump
 	//make sure we have chumps before we try misinforming them. if we don't make a note of it.
 	if(!chumps.len)
-		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.") 
+		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.")
 		return 0
 	//we've got chumps! misinform them!
 	for(var/mob/living/carbon/human/chump in chumps)
@@ -490,34 +490,39 @@ proc/display_roundstart_logout_report()
 		M.ghostize()
 		M.key = theghost.key
 	else
-		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take their place.")
+		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
 		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
 
-/datum/game_mode/proc/printplayer(datum/mind/ply, fleecheck)
-	var/text = "<br><b>[ply.key]</b> was <b>[ply.name]</b> the <b>[ply.assigned_role]</b> and"
+/proc/printplayer(datum/mind/ply, fleecheck)
+	var/jobtext = ""
+	if(ply.assigned_role)
+		jobtext = " the <b>[ply.assigned_role]</b>"
+	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += " <span class='boldannounce'>died</span>"
+			text += " <span class='redtext'>died</span>"
 		else
-			text += " <span class='greenannounce'>survived</span>"
-		if(fleecheck && !is_station_level(ply.current.z))
-			text += " while <span class='boldannounce'>fleeing the station</span>"
+			text += " <span class='greentext'>survived</span>"
+		if(fleecheck)
+			var/turf/T = get_turf(ply.current)
+			if(!T || !is_station_level(T.z))
+				text += " while <span class='redtext'>fleeing the station</span>"
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]</b>"
 	else
-		text += " <span class='boldannounce'>had their body destroyed</span>"
+		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
 	return text
 
-/datum/game_mode/proc/printobjectives(datum/mind/ply)
-	var/text = ""
+/proc/printobjectives(datum/mind/ply)
+	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective in ply.objectives)
 		if(objective.check_completion())
-			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='greenannounce'>Success!</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else
-			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='boldannounce'>Fail.</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
 		count++
-	return text
+	return objective_parts.Join("<br>")
 
 /datum/game_mode/proc/generate_station_goals()
 	var/list/possible = list()

@@ -18,6 +18,11 @@
 #define RWALL_SUPPORT_RODS 5
 #define RWALL_SHEATH 6
 
+//window construction states
+#define WINDOW_OUT_OF_FRAME 0
+#define WINDOW_IN_FRAME 1
+#define WINDOW_SCREWED_TO_FRAME 2
+
 //airlock assembly construction states
 #define AIRLOCK_ASSEMBLY_NEEDS_WIRES 0
 #define AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS 1
@@ -31,6 +36,9 @@
 
 //windows affected by nar-sie turn this color.
 #define NARSIE_WINDOW_COLOUR "#7D1919"
+
+//let's just pretend fulltile windows being children of border windows is fine
+#define FULLTILE_WINDOW_DIR NORTHEAST
 
 //Material defines, for determining how much of a given material an item contains
 #define MAT_METAL			"$metal"

@@ -31,7 +31,7 @@
 	var/list/impacted_areas = list() //Areas to be affected by the weather, calculated when the weather begins
 	var/target_z = MAIN_STATION //The z-level to affect
 	var/list/protected_areas = list()//Areas that are protected and excluded from the affected areas.
-	
+
 	var/overlay_layer = 10 //Since it's above everything else, this is the layer used by default. 2 is below mobs and walls if you need to use that.
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
 	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
@@ -70,7 +70,7 @@
 				to_chat(M, telegraph_message)
 			if(telegraph_sound)
 				M << sound(telegraph_sound)
-	addtimer(src, "start", telegraph_duration)
+	addtimer(CALLBACK(src, .proc/start), telegraph_duration)
 
 /datum/weather/proc/start()
 	if(stage >= MAIN_STAGE)
@@ -85,7 +85,7 @@
 			if(weather_sound)
 				M << sound(weather_sound)
 	weather_master.processing_weather |= src
-	addtimer(src, "wind_down", weather_duration)
+	addtimer(CALLBACK(src, .proc/wind_down), weather_duration)
 
 /datum/weather/proc/wind_down()
 	if(stage >= WIND_DOWN_STAGE)
@@ -100,7 +100,7 @@
 			if(end_sound)
 				M << sound(end_sound)
 	weather_master.processing_weather -= src
-	addtimer(src, "end", end_duration)
+	addtimer(CALLBACK(src, .proc/end), end_duration)
 
 /datum/weather/proc/end()
 	if(stage == END_STAGE)
