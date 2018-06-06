@@ -174,7 +174,7 @@
 				calling_holopad.atom_say("No answer recieved.")
 				calling_holopad.temp = ""
 
-	if(!.)
+	else if(!.)
 		qdel(src)
 
 /datum/action/innate/end_holocall

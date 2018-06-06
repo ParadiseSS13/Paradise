@@ -53,7 +53,6 @@ var/list/holopads = list()
 	var/list/holo_calls	//array of /datum/holocalls
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
 	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
-	var/static/list/holopads = list()
 	var/obj/effect/overlay/holoray/ray
 	var/ringing = FALSE
 
@@ -278,6 +277,8 @@ var/list/holopads = list()
 
 //Try to transfer hologram to another pad that can project on T
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
+	if(!isAI(holo_owner))
+		return
 	for(var/pad in holopads)
 		var/obj/machinery/hologram/holopad/another = pad
 		if(another == src)
@@ -304,8 +305,7 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/proc/validate_location(turf/T,check_los = FALSE)
 	if(T.z == z && get_dist(T, src) <= holo_range && T.loc == get_area(src))
 		return TRUE
-	else
-		return FALSE
+	return FALSE
 
 
 /obj/machinery/hologram/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
@@ -359,9 +359,9 @@ var/list/holopads = list()
 
 		return hologram
 
-	else
-		to_chat(user, "<span class='danger'>ERROR:</span> Hologram Projection Malfunction.")
-		clear_holo(user)//safety check
+
+	to_chat(user, "<span class='danger'>ERROR:</span> Hologram Projection Malfunction.")
+	clear_holo(user)//safety check
 
 /*This is the proc for special two-way communication between AI and holopad/people talking near holopad.
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
@@ -446,9 +446,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 			newangle += 360
 	var/matrix/M = matrix()
 	if(get_dist(get_turf(holo), new_turf) <= 1)
-		animate(ray, transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle),time = 1)
+		animate(ray, transform = turn(M.Scale(1, sqrt(distx*distx+disty*disty)), newangle), time = 1)
 	else
-		ray.transform = turn(M.Scale(1,sqrt(distx*distx+disty*disty)),newangle)
+		ray.transform = turn(M.Scale(1, sqrt(distx*distx+disty*disty)), newangle)
 
 
 /obj/effect/overlay/holo_pad_hologram
