@@ -129,8 +129,10 @@
 								to_chat(src, "Receiving control information from APC.")
 								sleep(2)
 								//bring up APC dialog
-								aiRestorePowerRoutine = 3
+								apc_override = 1
 								theAPC.attack_ai(src)
+								apc_override = 0
+								aiRestorePowerRoutine = 3
 								to_chat(src, "Here are your current laws:")
 								src.show_laws() //WHY THE FUCK IS THIS HERE
 						sleep(50)
