@@ -248,14 +248,8 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/process()
 	for(var/I in masters)
 		var/mob/living/master = I
-		var/mob/living/silicon/ai/AI = master
-		if(!istype(AI))
-			AI = null
-
-
-		if((stat & NOPOWER) || !AI.current || !validate_user(AI))
-			clear_holo(AI)
-
+		if((stat & NOPOWER) || !validate_user(master))
+			clear_holo(master)
 
 	if(outgoing_call)
 		outgoing_call.Check()
@@ -283,7 +277,7 @@ var/list/holopads = list()
 
 
 //Try to transfer hologram to another pad that can project on T
-/obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T,mob/holo_owner)
+/obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
 	for(var/pad in holopads)
 		var/obj/machinery/hologram/holopad/another = pad
 		if(another == src)
@@ -298,6 +292,11 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/proc/validate_user(mob/living/user)
 	if(QDELETED(user) || user.incapacitated() || !user.client)
 		return FALSE
+
+	if(istype(user, /mob/living/silicon/ai))
+		var/mob/living/silicon/ai/AI = user
+		if(!AI.current)
+			return FALSE
 	return TRUE
 
 //Can we display holos there
