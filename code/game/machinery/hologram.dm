@@ -228,7 +228,7 @@ var/list/holopads = list()
 
 	updateDialog()
 
-//do not allow AIs to answer calls or people will use it to meta the AI sattelite
+//do not allow AIs to answer calls or people will use it to meta the AI satellite
 /obj/machinery/hologram/holopad/attack_ai(mob/living/silicon/ai/user)
 	if(!istype(user))
 		return
