@@ -374,7 +374,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		if(HC.connected_holopad == src && speaker != HC.hologram)
-			HC.hologram.hear_message(speaker, message, verb, message_language)
+			HC.user.hear_say(message, verb, message_language, speaker = speaker)
 
 	if(outgoing_call && speaker == outgoing_call.user)
 		outgoing_call.hologram.atom_say(message)

@@ -91,7 +91,8 @@
 		connected_holopad.atom_say("[user] disconnected.")
 
 	user.unset_machine(H)
-	hangup.Remove(user)
+	if(istype(hangup))
+		hangup.Remove(user)
 
 	ConnectionFailure(H, TRUE)
 
