@@ -1,0 +1,4 @@
+author: "Alffd"
+delete-after: True
+changes: 
+  - rscadd: "Adds an automated emergency var on air alarms for mappers"
