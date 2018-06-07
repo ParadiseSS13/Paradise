@@ -1,0 +1,4 @@
+author: "Anasari"
+delete-after: True
+changes: 
+  - bugfix: "Fixes admin log for spray displaying (0,0,0) all the time."
