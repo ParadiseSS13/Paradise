@@ -816,7 +816,7 @@
 	icon_state = "amanita_mugcake"
 	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#F40909"
-	list_reagents = list("nutriment" = 7)
+	list_reagents = list("nutriment" = 7, "psilocybin" = 1, "amanitin" = 1)
 
 /obj/item/reagent_containers/food/snacks/pie
 	name = "Banana Cream Pie"
