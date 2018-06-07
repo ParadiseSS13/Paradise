@@ -758,6 +758,7 @@
 	name = "Mugcake"
 	desc = "A delicious and spongy little cake inside a coffee mug."
 	icon_state = "mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#EFD8A7"
 	list_reagents = list("nutriment" = 6)
 
@@ -765,6 +766,7 @@
 	name = "Vanilla Mugcake"
 	desc = "A delicious and spongy little vanilla cake inside a coffee mug."
 	icon_state = "vanilla_mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#5E5042"
 	list_reagents = list("nutriment" = 7)
 
@@ -772,6 +774,7 @@
 	name = "Chocolate Mugcake"
 	desc = "A delicious and spongy little chocolate cake inside a coffee mug."
 	icon_state = "chocolate_mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#5E5042"
 	list_reagents = list("nutriment" = 7)
 
@@ -779,6 +782,7 @@
 	name = "Banana Mugcake"
 	desc = "A delicious and spongy little banana cake inside a coffee mug."
 	icon_state = "banana_mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#FFD351"
 	list_reagents = list("nutriment" = 7)
 
@@ -786,6 +790,7 @@
 	name = "Cherry Mugcake"
 	desc = "A delicious and spongy little cherry cake inside a coffee mug."
 	icon_state = "cherry_mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#51AEFF"
 	list_reagents = list("nutriment" = 7)
 
@@ -793,6 +798,7 @@
 	name = "Blue Cherry Mugcake"
 	desc = "A delicious and spongy little blue cherry cake inside a coffee mug."
 	icon_state = "bluecherry_mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#FF5459"
 	list_reagents = list("nutriment" = 7)
 
@@ -800,6 +806,7 @@
 	name = "Lime Mugcake"
 	desc = "A delicious and spongy little lime cake inside a coffee mug."
 	icon_state = "lime_mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#51FF53"
 	list_reagents = list("nutriment" = 7)
 
@@ -807,6 +814,7 @@
 	name = "Amanita Mugcake"
 	desc = "A delicious and spongy little amanita cake inside a coffee mug."
 	icon_state = "amanita_mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#F40909"
 	list_reagents = list("nutriment" = 7)
 
