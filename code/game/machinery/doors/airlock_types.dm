@@ -150,13 +150,15 @@
 
 /obj/machinery/door/airlock/uranium/New()
 	..()
-	addtimer(src, "radiate", event_step)
+	addtimer(CALLBACK(src, .proc/radiate), event_step)
+
 
 /obj/machinery/door/airlock/uranium/proc/radiate()
 	if(prob(50))
 		for(var/mob/living/L in range (3,src))
 			L.apply_effect(15,IRRADIATE,0)
-	addtimer(src, "radiate", event_step)
+	addtimer(CALLBACK(src, .proc/radiate), event_step)
+
 
 /obj/machinery/door/airlock/uranium/glass
 	opacity = 0
@@ -339,20 +341,20 @@
 		if(isElectrified())
 			if(shock(user, 75))
 				return
-	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
+	if(istype(C, /obj/item/detective_scanner))
 		return
 
-	if(istype(C, /obj/item/weapon/grenade/plastic/c4))
+	if(istype(C, /obj/item/grenade/plastic/c4))
 		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
 		return
 
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/weapon/rcd))
+	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/rcd))
 		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
 		return
 
 	add_fingerprint(user)
 	if((iswelder(C) && !operating && density))
-		var/obj/item/weapon/weldingtool/W = C
+		var/obj/item/weldingtool/W = C
 		if(W.remove_fuel(0,user))
 			welded = !welded
 			update_icon()
@@ -392,12 +394,12 @@
 		if(isElectrified())
 			if(shock(user, 75))
 				return
-	if(istype(C, /obj/item/device/detective_scanner) || istype(C, /obj/item/taperoll))
+	if(istype(C, /obj/item/detective_scanner))
 		return
 
 	add_fingerprint(user)
 	if((iswelder(C) && !operating && density))
-		var/obj/item/weapon/weldingtool/W = C
+		var/obj/item/weldingtool/W = C
 		if(W.remove_fuel(0,user))
 			welded = !welded
 			update_icon()

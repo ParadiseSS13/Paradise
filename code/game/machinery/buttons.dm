@@ -36,7 +36,7 @@
 	if(radio_controller)
 		set_frequency(frequency)
 
-/obj/machinery/driver_button/initialize()
+/obj/machinery/driver_button/Initialize()
 	..()
 	set_frequency(frequency)
 
@@ -48,27 +48,28 @@
 
 /obj/machinery/driver_button/Destroy()
 	if(radio_controller)
-		radio_controller.remove_object(src,frequency)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
 	return ..()
 
 
 /obj/machinery/driver_button/attack_ai(mob/user as mob)
 	return attack_hand(user)
-	
+
 /obj/machinery/driver_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/driver_button/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
 
-	if(istype(W, /obj/item/device/detective_scanner))
+	if(istype(W, /obj/item/detective_scanner))
 		return
 
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		playsound(get_turf(src), W.usesound, 50, 1)
 		if(do_after(user, 30 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
@@ -78,7 +79,7 @@
 
 	return attack_hand(user)
 
-/obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<ul>
 	<li><b>ID Tag:</b> [format_tag("ID Tag","id_tag")]</li>
@@ -167,12 +168,12 @@
 
 /obj/machinery/ignition_switch/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/ignition_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/ignition_switch/attackby(obj/item/weapon/W, mob/user, params)
+/obj/machinery/ignition_switch/attackby(obj/item/W, mob/user, params)
 	return attack_hand(user)
 
 /obj/machinery/ignition_switch/attack_hand(mob/user)

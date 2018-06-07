@@ -12,7 +12,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 4)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -52,7 +52,7 @@
 	if(SV)
 		SV.eat(src)
 
-/mob/living/simple_animal/hostile/retaliate/goat/Life()
+/mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
 	if(stat == CONSCIOUS && prob(5))
 		milk_content = min(50, milk_content+rand(5, 10))
@@ -70,9 +70,9 @@
 			SV.eat(src)
 
 /mob/living/simple_animal/hostile/retaliate/goat/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/weapon/reagent_containers/glass))
+	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		user.changeNext_move(CLICK_CD_MELEE)
-		var/obj/item/weapon/reagent_containers/glass/G = O
+		var/obj/item/reagent_containers/glass/G = O
 		var/transfered = min(milk_content, rand(5,10), (G.volume - G.reagents.total_volume))
 		if(transfered > 0)
 			user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>")
@@ -100,7 +100,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/slab = 6)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -117,9 +117,9 @@
 	..()
 
 /mob/living/simple_animal/cow/attackby(var/obj/item/O as obj, var/mob/user as mob, params, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/weapon/reagent_containers/glass))
+	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		user.changeNext_move(CLICK_CD_MELEE)
-		var/obj/item/weapon/reagent_containers/glass/G = O
+		var/obj/item/reagent_containers/glass/G = O
 		var/transfered = min(milk_content, rand(5,10), (G.volume - G.reagents.total_volume))
 		if(transfered > 0)
 			user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>")
@@ -132,7 +132,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/cow/Life()
+/mob/living/simple_animal/cow/Life(seconds, times_fired)
 	. = ..()
 	if(stat == CONSCIOUS && prob(5))
 		milk_content = min(50, milk_content+rand(5, 10))
@@ -168,7 +168,7 @@
 	density = 0
 	speak_chance = 2
 	turns_per_move = 2
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -188,7 +188,7 @@
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 
-/mob/living/simple_animal/chick/Life()
+/mob/living/simple_animal/chick/Life(seconds, times_fired)
 	. =..()
 	if(.)
 		amount_grown += rand(1,2)
@@ -215,9 +215,9 @@ var/global/chicken_count = 0
 	density = 0
 	speak_chance = 2
 	turns_per_move = 3
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 2)
-	var/egg_type = /obj/item/weapon/reagent_containers/food/snacks/egg
-	var/food_type = /obj/item/weapon/reagent_containers/food/snacks/grown/wheat
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
+	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
+	var/food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -267,7 +267,7 @@ var/global/chicken_count = 0
 	else
 		..()
 
-/mob/living/simple_animal/chicken/Life()
+/mob/living/simple_animal/chicken/Life(seconds, times_fired)
 	. = ..()
 	if((. && prob(3) && eggsleft > 0) && egg_type)
 		visible_message("[src] [pick(layMessage)]")
@@ -279,8 +279,8 @@ var/global/chicken_count = 0
 			if(chicken_count < MAX_CHICKENS && prob(25))
 				processing_objects.Add(E)
 
-/obj/item/weapon/reagent_containers/food/snacks/egg/var/amount_grown = 0
-/obj/item/weapon/reagent_containers/food/snacks/egg/process()
+/obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0
+/obj/item/reagent_containers/food/snacks/egg/process()
 	if(isturf(loc))
 		amount_grown += rand(1,2)
 		if(amount_grown >= 100)
@@ -305,7 +305,7 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/ham = 6)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -329,7 +329,7 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 4)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -352,7 +352,7 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -375,7 +375,7 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
@@ -399,7 +399,7 @@ var/global/chicken_count = 0
 	speak_chance = 1
 	turns_per_move = 5
 	see_in_dark = 6
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 6)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"

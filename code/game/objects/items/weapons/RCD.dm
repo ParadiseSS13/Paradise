@@ -2,17 +2,17 @@
 CONTAINS:
 RCD
 */
-/obj/item/weapon/rcd
+/obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
 	opacity = 0
 	density = 0
-	anchored = 0.0
-	flags = CONDUCT
-	force = 10.0
-	throwforce = 10.0
+	anchored = 0
+	flags = CONDUCT | NOBLUDGEON
+	force = 0
+	throwforce = 10
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -20,6 +20,7 @@ RCD
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
+	flags_2 = NO_MAT_REDEMPTION_2
 	var/datum/effect_system/spark_spread/spark_system
 	var/max_matter = 100
 	var/matter = 0
@@ -51,7 +52,7 @@ RCD
 		/obj/machinery/door/airlock/hatch = "Airtight Hatch",
 		/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
 
-/obj/item/weapon/rcd/New()
+/obj/item/rcd/New()
 	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
@@ -62,15 +63,15 @@ RCD
 		door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
 	return
 
-/obj/item/weapon/rcd/Destroy()
+/obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)
 	rcd_list -= src
 	return ..()
 
-/obj/item/weapon/rcd/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/rcd/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weapon/rcd_ammo))
-		var/obj/item/weapon/rcd_ammo/R = W
+	if(istype(W, /obj/item/rcd_ammo))
+		var/obj/item/rcd_ammo/R = W
 		if((matter + R.ammoamt) > max_matter)
 			to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 			return
@@ -84,21 +85,21 @@ RCD
 		return
 
 
-/obj/item/weapon/rcd/attack_self(mob/user)
+/obj/item/rcd/attack_self(mob/user)
 	//Change the mode
 	ui_interact(user)
 
-/obj/item/weapon/rcd/attack_self_tk(mob/user)
+/obj/item/rcd/attack_self_tk(mob/user)
 	ui_interact(user)
 
-/obj/item/weapon/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/weapon/rcd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/rcd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
 	var/data[0]
 	data["mode"] = mode
 	data["door_type"] = door_type
@@ -119,7 +120,7 @@ RCD
 
 	return data
 
-/obj/item/weapon/rcd/Topic(href, href_list, nowindow, state)
+/obj/item/rcd/Topic(href, href_list, nowindow, state)
 	if(..())
 		return 1
 
@@ -147,10 +148,10 @@ RCD
 			locked = 0
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/device/pda))
-				var/obj/item/device/pda/pda = I
+			if(istype(I, /obj/item/pda))
+				var/obj/item/pda/pda = I
 				I = pda.id
-			var/obj/item/weapon/card/id/ID = I
+			var/obj/item/card/id/ID = I
 			if(istype(ID) && ID && check_access(ID))
 				locked = 0
 		. = 1
@@ -179,11 +180,11 @@ RCD
 		if(temp_t)
 			door_name = temp_t
 
-/obj/item/weapon/rcd/proc/activate()
+/obj/item/rcd/proc/activate()
 	playsound(loc, usesound, 50, 1)
 
 
-/obj/item/weapon/rcd/afterattack(atom/A, mob/user, proximity)
+/obj/item/rcd/afterattack(atom/A, mob/user, proximity)
 	if(!proximity) return
 	if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
 		return 0
@@ -295,8 +296,6 @@ RCD
 				var/turf/T1 = get_turf(A)
 				QDEL_NULL(A)
 				for(var/obj/structure/window/W in T1.contents)
-					W.disassembled = 1
-					W.density = 0
 					qdel(W)
 				for(var/cdir in cardinal)
 					var/turf/T2 = get_step(T1, cdir)
@@ -306,8 +305,6 @@ RCD
 						continue
 					for(var/obj/structure/window/W in T2.contents)
 						if(W.dir == turn(cdir, 180))
-							W.disassembled = 1
-							W.density = 0
 							qdel(W)
 					var/obj/structure/window/reinforced/W = new(T2)
 					W.dir = turn(cdir, 180)
@@ -330,16 +327,12 @@ RCD
 				activate()
 				new /obj/structure/grille(A)
 				for(var/obj/structure/window/W in contents)
-					W.disassembled = 1 // Prevent that annoying glass breaking sound
-					W.density = 0
 					qdel(W)
 				for(var/cdir in cardinal)
 					var/turf/T = get_step(A, cdir)
 					if(locate(/obj/structure/grille) in T.contents)
 						for(var/obj/structure/window/W in T.contents)
 							if(W.dir == turn(cdir, 180))
-								W.disassembled = 1
-								W.density = 0
 								qdel(W)
 					else // Build a window!
 						var/obj/structure/window/reinforced/W = new(A)
@@ -353,7 +346,7 @@ RCD
 
 	SSnanoui.update_uis(src)
 
-/obj/item/weapon/rcd/proc/useResource(var/amount, var/mob/user)
+/obj/item/rcd/proc/useResource(var/amount, var/mob/user)
 	if(matter < amount)
 		return 0
 	matter -= amount
@@ -361,45 +354,45 @@ RCD
 	SSnanoui.update_uis(src)
 	return 1
 
-/obj/item/weapon/rcd/proc/checkResource(var/amount, var/mob/user)
+/obj/item/rcd/proc/checkResource(var/amount, var/mob/user)
 	return matter >= amount
-/obj/item/weapon/rcd/borg/useResource(var/amount, var/mob/user)
+/obj/item/rcd/borg/useResource(var/amount, var/mob/user)
 	if(!isrobot(user))
 		return 0
 	return user:cell:use(amount * 160)
 
-/obj/item/weapon/rcd/borg/checkResource(var/amount, var/mob/user)
+/obj/item/rcd/borg/checkResource(var/amount, var/mob/user)
 	if(!isrobot(user))
 		return 0
 	return user:cell:charge >= (amount * 160)
 
-/obj/item/weapon/rcd/borg/New()
+/obj/item/rcd/borg/New()
 	..()
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	canRwall = 1
 
 
-/obj/item/weapon/rcd/proc/detonate_pulse()
+/obj/item/rcd/proc/detonate_pulse()
 	audible_message("<span class='danger'><b>[src] begins to vibrate and \
 		buzz loudly!</b></span>","<span class='danger'><b>[src] begins \
 		vibrating violently!</b></span>")
 	// 5 seconds to get rid of it
-	addtimer(src, "detonate_pulse_explode", 50)
+	addtimer(CALLBACK(src, .proc/detonate_pulse_explode), 50)
 
-/obj/item/weapon/rcd/proc/detonate_pulse_explode()
+/obj/item/rcd/proc/detonate_pulse_explode()
 	explosion(src, 0, 0, 3, 1, flame_range = 1)
 	qdel(src)
 
-/obj/item/weapon/rcd/preloaded
+/obj/item/rcd/preloaded
 	matter = 100
 
-/obj/item/weapon/rcd/combat
+/obj/item/rcd/combat
 	name = "combat RCD"
 	max_matter = 500
 	matter = 500
 	canRwall = 1
 
-/obj/item/weapon/rcd_ammo
+/obj/item/rcd_ammo
 	name = "compressed matter cartridge"
 	desc = "Highly compressed matter for the RCD."
 	icon = 'icons/obj/ammo.dmi'
@@ -412,5 +405,5 @@ RCD
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20
 
-/obj/item/weapon/rcd_ammo/large
+/obj/item/rcd_ammo/large
 	ammoamt = 100

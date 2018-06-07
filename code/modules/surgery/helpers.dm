@@ -66,7 +66,7 @@
 					M.surgeries -= current_surgery
 					to_chat(user, "You stop the surgery.")
 					qdel(current_surgery)
-				else if(istype(user.get_inactive_hand(), /obj/item/weapon/cautery) && current_surgery.can_cancel)
+				else if(istype(user.get_inactive_hand(), /obj/item/cautery) && current_surgery.can_cancel)
 					M.surgeries -= current_surgery
 					user.visible_message("[user] mends the incision on [M]'s [parse_zone(selected_zone)] with the [I] .", \
 						"<span class='notice'>You mend the incision on [M]'s [parse_zone(selected_zone)].</span>")

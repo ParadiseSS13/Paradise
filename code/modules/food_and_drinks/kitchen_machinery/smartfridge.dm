@@ -29,14 +29,14 @@
 	create_reagents()
 	reagents.set_reacting(FALSE)
 	component_parts = list()
-	var/obj/item/weapon/circuitboard/smartfridge/board = new(null)
+	var/obj/item/circuitboard/smartfridge/board = new(null)
 	board.set_type(type)
 	component_parts += board
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
 /obj/machinery/smartfridge/RefreshParts()
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		max_n_of_items = 1500 * B.rating
 
 /obj/machinery/smartfridge/secure
@@ -56,7 +56,7 @@
 	return ..()
 
 /obj/machinery/smartfridge/proc/accept_check(obj/item/O)
-	if(istype(O,/obj/item/weapon/reagent_containers/food/snacks/grown/) || istype(O,/obj/item/seeds/) || istype(O,/obj/item/weapon/grown/))
+	if(istype(O,/obj/item/reagent_containers/food/snacks/grown/) || istype(O,/obj/item/seeds/) || istype(O,/obj/item/grown/))
 		return 1
 	return 0
 
@@ -80,9 +80,9 @@
 	icon_on = "smartfridge_chem"
 
 /obj/machinery/smartfridge/medbay/accept_check(obj/item/O)
-	if(istype(O,/obj/item/weapon/reagent_containers/glass/))
+	if(istype(O,/obj/item/reagent_containers/glass/))
 		return 1
-	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
+	if(istype(O,/obj/item/storage/pill_bottle/))
 		return 1
 	if(ispill(O))
 		return 1
@@ -106,9 +106,9 @@
 	req_one_access_txt = "5;33"
 
 /obj/machinery/smartfridge/secure/medbay/accept_check(obj/item/O)
-	if(istype(O,/obj/item/weapon/reagent_containers/glass/))
+	if(istype(O,/obj/item/reagent_containers/glass/))
 		return 1
-	if(istype(O,/obj/item/weapon/storage/pill_bottle/))
+	if(istype(O,/obj/item/storage/pill_bottle/))
 		return 1
 	if(ispill(O))
 		return 1
@@ -137,7 +137,7 @@
 			amount--
 
 /obj/machinery/smartfridge/chemistry/accept_check(obj/item/O)
-	if(istype(O,/obj/item/weapon/storage/pill_bottle) || istype(O,/obj/item/weapon/reagent_containers))
+	if(istype(O,/obj/item/storage/pill_bottle) || istype(O,/obj/item/reagent_containers))
 		return 1
 	return 0
 
@@ -149,15 +149,15 @@
 	name = "smart virus storage"
 	desc = "A refrigerated storage unit for volatile sample storage."
 	req_access_txt = "39"
-	spawn_meds = list(/obj/item/weapon/reagent_containers/syringe/antiviral = 4,
-					  /obj/item/weapon/reagent_containers/glass/bottle/cold = 1,
-					  /obj/item/weapon/reagent_containers/glass/bottle/flu_virion = 1,
-					  /obj/item/weapon/reagent_containers/glass/bottle/mutagen = 1,
-					  /obj/item/weapon/reagent_containers/glass/bottle/plasma = 1,
-					  /obj/item/weapon/reagent_containers/glass/bottle/diphenhydramine = 1)
+	spawn_meds = list(/obj/item/reagent_containers/syringe/antiviral = 4,
+					  /obj/item/reagent_containers/glass/bottle/cold = 1,
+					  /obj/item/reagent_containers/glass/bottle/flu_virion = 1,
+					  /obj/item/reagent_containers/glass/bottle/mutagen = 1,
+					  /obj/item/reagent_containers/glass/bottle/plasma = 1,
+					  /obj/item/reagent_containers/glass/bottle/diphenhydramine = 1)
 
 /obj/machinery/smartfridge/secure/chemistry/virology/accept_check(obj/item/O)
-	if(istype(O, /obj/item/weapon/reagent_containers/syringe) || istype(O, /obj/item/weapon/reagent_containers/glass/bottle) || istype(O, /obj/item/weapon/reagent_containers/glass/beaker))
+	if(istype(O, /obj/item/reagent_containers/syringe) || istype(O, /obj/item/reagent_containers/glass/bottle) || istype(O, /obj/item/reagent_containers/glass/beaker))
 		return 1
 	return 0
 
@@ -166,7 +166,7 @@
 	desc = "A refrigerated storage unit for tasty tasty alcohol."
 
 /obj/machinery/smartfridge/drinks/accept_check(obj/item/O)
-	if(istype(O,/obj/item/weapon/reagent_containers/glass) || istype(O,/obj/item/weapon/reagent_containers/food/drinks) || istype(O,/obj/item/weapon/reagent_containers/food/condiment))
+	if(istype(O,/obj/item/reagent_containers/glass) || istype(O,/obj/item/reagent_containers/food/drinks) || istype(O,/obj/item/reagent_containers/food/condiment))
 		return 1
 
 /obj/machinery/smartfridge/process()
@@ -194,7 +194,7 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/default_deconstruction_screwdriver(mob/user, obj/item/weapon/screwdriver/S)
+/obj/machinery/smartfridge/default_deconstruction_screwdriver(mob/user, obj/item/screwdriver/S)
 	. = ..(user, icon_state, icon_state, S)
 
 	overlays.Cut()
@@ -215,7 +215,7 @@
 	if(default_deconstruction_crowbar(O))
 		return
 
-	if(istype(O, /obj/item/device/multitool)||istype(O, /obj/item/weapon/wirecutters))
+	if(istype(O, /obj/item/multitool)||istype(O, /obj/item/wirecutters))
 		if(panel_open)
 			attack_hand(user)
 		return
@@ -229,8 +229,8 @@
 
 		SSnanoui.update_uis(src)
 
-	else if(istype(O, /obj/item/weapon/storage/bag))
-		var/obj/item/weapon/storage/bag/P = O
+	else if(istype(O, /obj/item/storage/bag))
+		var/obj/item/storage/bag/P = O
 		var/plants_loaded = 0
 		for(var/obj/G in P.contents)
 			if(load(G, user))
@@ -252,8 +252,8 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return 0
 		else
-			if(istype(I.loc, /obj/item/weapon/storage))
-				var/obj/item/weapon/storage/S = I.loc
+			if(istype(I.loc, /obj/item/storage))
+				var/obj/item/storage/S = I.loc
 				S.remove_from_storage(I, src)
 			else if(istype(I.loc, /mob))
 				var/mob/M = I.loc
@@ -288,14 +288,14 @@
 
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user)
-	if(!istype(over_object, /obj/item/weapon/storage/pill_bottle)) //Only pill bottles, please
+	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
 		return
 
 	if(stat & NOPOWER)
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return
 
-	var/obj/item/weapon/storage/box/pillbottles/P = over_object
+	var/obj/item/storage/box/pillbottles/P = over_object
 	var/items_loaded = 0
 	for(var/obj/G in P.contents)
 		if(load(G, user))
@@ -445,7 +445,7 @@
 /obj/machinery/smartfridge/drying_rack/spawn_frame()
 	return
 
-/obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(obj/item/weapon/crowbar/C, ignore_panel = 1)
+/obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(obj/item/crowbar/C, ignore_panel = 1)
 	..()
 
 /obj/machinery/smartfridge/drying_rack/Topic(href, href_list)
@@ -492,8 +492,8 @@
 			update_icon()
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks))
-		var/obj/item/weapon/reagent_containers/food/snacks/S = O
+	if(istype(O, /obj/item/reagent_containers/food/snacks))
+		var/obj/item/reagent_containers/food/snacks/S = O
 		if(S.dried_type)
 			return TRUE
 	if(istype(O, /obj/item/stack/sheet/wetleather))
@@ -510,7 +510,7 @@
 	update_icon()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry()
-	for(var/obj/item/weapon/reagent_containers/food/snacks/S in contents)
+	for(var/obj/item/reagent_containers/food/snacks/S in contents)
 		if(S.dried_type == S.type)//if the dried type is the same as the object's type, don't bother creating a whole new item...
 			S.color = "#ad7257"
 			S.dry = TRUE

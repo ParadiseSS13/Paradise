@@ -1,4 +1,5 @@
 //use this define to highlight docking port bounding boxes (ONLY FOR DEBUG USE)
+// also uncomment the #undef at the bottom of the file
 //#define DOCKING_PORT_HIGHLIGHT
 
 //NORTH default dir
@@ -229,7 +230,7 @@
 
 
 
-/obj/docking_port/mobile/initialize()
+/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	..()
@@ -687,14 +688,14 @@
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
 	req_access = list( )
-	circuit = /obj/item/weapon/circuitboard/shuttle
+	circuit = /obj/item/circuitboard/shuttle
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
 	var/max_connect_range = 7
 	var/docking_request = 0
 
-/obj/machinery/computer/shuttle/New(location, obj/item/weapon/circuitboard/shuttle/C)
+/obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
 	if(istype(C))
 		possible_destinations = C.possible_destinations
@@ -791,14 +792,14 @@
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"
-	circuit = /obj/item/weapon/circuitboard/ferry
+	circuit = /obj/item/circuitboard/ferry
 	shuttleId = "ferry"
 	possible_destinations = "ferry_home;ferry_away"
 
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
-	circuit = /obj/item/weapon/circuitboard/ferry/request
+	circuit = /obj/item/circuitboard/ferry/request
 	var/cooldown //prevents spamming admins
 	possible_destinations = "ferry_home"
 	admin_controlled = 1
@@ -820,7 +821,7 @@
 
 /obj/machinery/computer/shuttle/ert
 	name = "specops shuttle console"
-	//circuit = /obj/item/weapon/circuitboard/ert
+	//circuit = /obj/item/circuitboard/ert
 	req_access = list(access_cent_general)
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
@@ -829,7 +830,7 @@
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."
-	circuit = /obj/item/weapon/circuitboard/white_ship
+	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
@@ -869,7 +870,7 @@
 	desc = "Used to call and send the SIT shuttle."
 	req_access = list(access_syndicate)
 	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away"
 
 
 var/global/trade_dock_timelimit = 0
@@ -909,7 +910,7 @@ var/global/trade_dockrequest_timelimit = 0
 	shuttleId = "trade_sol"
 	docking_request_message = "A trading ship of Sol origin has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
 
-#undef DOCKING_PORT_HIGHLIGHT
+//#undef DOCKING_PORT_HIGHLIGHT
 
 
 /turf/proc/copyTurf(turf/T)

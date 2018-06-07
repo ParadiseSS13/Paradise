@@ -71,6 +71,22 @@
 	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
 	take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
+/obj/proc/hulk_damage()
+	return 150 //the damage hulks do on punches to this object, is affected by melee armor
+
+/obj/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		..(user, TRUE)
+		visible_message("<span class='danger'>[user] smashes [src]!</span>")
+		if(density)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
+		else
+			playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		take_damage(hulk_damage(), BRUTE, "melee", 0, get_dir(src, user))
+		return TRUE
+	return FALSE
+
 /obj/blob_act(obj/structure/blob/B)
 	if(isturf(loc))
 		var/turf/T = loc
@@ -130,7 +146,7 @@
 
 /obj/singularity_act()
 	ex_act(1)
-	if(src && !qdeleted(src))
+	if(src && !QDELETED(src))
 		qdel(src)
 	return 2
 
@@ -162,7 +178,7 @@
 	being_shocked = TRUE
 	var/power_bounced = power * 0.5
 	tesla_zap(src, 3, power_bounced)
-	addtimer(src, "reset_shocked", 10)
+	addtimer(CALLBACK(src, .proc/reset_shocked), 10)
 
 /obj/proc/reset_shocked()
 	being_shocked = FALSE

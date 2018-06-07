@@ -19,13 +19,17 @@
 	dir = NORTH
 	max_integrity = 300
 	var/ini_dir
-	var/obj/item/weapon/airlock_electronics/electronics
+	var/obj/item/airlock_electronics/electronics
 	var/created_name
 
 	//Vars to help with the icon's name
 	var/facing = "l"	//Does the windoor open to the left or right?
 	var/secure = FALSE		//Whether or not this creates a secure windoor
 	var/state = "01"	//How far the door assembly has progressed
+
+/obj/structure/windoor_assembly/examine(mob/user)
+	..()
+	to_chat(user, "<span class='notice'>Alt-click to rotate it clockwise.</span>")
 
 obj/structure/windoor_assembly/New(loc, set_dir)
 	..()
@@ -42,7 +46,7 @@ obj/structure/windoor_assembly/Destroy()
 
 /obj/structure/windoor_assembly/Move()
 	var/turf/T = loc
-	. = ..()
+	..()
 	setDir(ini_dir)
 	move_update_air(T)
 
@@ -54,8 +58,17 @@ obj/structure/windoor_assembly/Destroy()
 		return 1
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
 		return !density
-	else
-		return 1
+	if(istype(mover, /obj/structure/window))
+		var/obj/structure/window/W = mover
+		if(!valid_window_location(loc, W.ini_dir))
+			return FALSE
+	else if(istype(mover, /obj/structure/windoor_assembly))
+		var/obj/structure/windoor_assembly/W = mover
+		if(!valid_window_location(loc, W.ini_dir))
+			return FALSE
+	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+		return FALSE
+	return 1
 
 /obj/structure/windoor_assembly/CanAtmosPass(turf/T)
 	if(get_dir(loc, T) == dir)
@@ -78,7 +91,7 @@ obj/structure/windoor_assembly/Destroy()
 	switch(state)
 		if("01")
 			if(iswelder(W) && !anchored)
-				var/obj/item/weapon/weldingtool/WT = W
+				var/obj/item/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					user.visible_message("<span class='warning'>[user] disassembles the windoor assembly.</span>", "<span class='notice'>You start to disassemble the windoor assembly...</span>")
 					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
@@ -193,7 +206,7 @@ obj/structure/windoor_assembly/Destroy()
 						name = "anchored windoor assembly"
 
 			//Adding airlock electronics for access. Step 6 complete.
-			else if(istype(W, /obj/item/weapon/airlock_electronics))
+			else if(istype(W, /obj/item/airlock_electronics))
 				playsound(loc, W.usesound, 100, 1)
 				user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 				user.drop_item()
@@ -222,12 +235,12 @@ obj/structure/windoor_assembly/Destroy()
 						return
 					to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 					name = "wired windoor assembly"
-					var/obj/item/weapon/airlock_electronics/ae
+					var/obj/item/airlock_electronics/ae
 					ae = electronics
 					electronics = null
 					ae.forceMove(loc)
 
-			else if(istype(W, /obj/item/weapon/pen))
+			else if(istype(W, /obj/item/pen))
 				var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
 				if(!t)
 					return
@@ -317,9 +330,16 @@ obj/structure/windoor_assembly/Destroy()
 	if(usr.stat || !usr.canmove || usr.restrained())
 		return
 	if(anchored)
-		to_chat(usr, "It is fastened to the floor; therefore, you can't rotate it!")
-		return 0
-	setDir(turn(dir, 270))
+		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		return FALSE
+	var/target_dir = turn(dir, 270)
+
+	if(!valid_window_location(loc, target_dir))
+		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
+		return FALSE
+
+	setDir(target_dir)
+
 	ini_dir = dir
 	update_icon()
 	return TRUE

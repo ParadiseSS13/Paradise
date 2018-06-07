@@ -7,7 +7,7 @@
 	icon_keyboard = null
 	density = 0
 	anchored = 1
-	var/obj/item/weapon/nanomob_card/card
+	var/obj/item/nanomob_card/card
 	var/datum/mob_hunt/mob_info
 	var/obj/effect/nanomob/battle/avatar
 	var/ready = 0
@@ -27,11 +27,11 @@
 	team = "Blue"
 	avatar_y_offset = 1
 
-/obj/machinery/computer/mob_battle_terminal/red/initialize()
+/obj/machinery/computer/mob_battle_terminal/red/Initialize()
 	..()
 	check_connection()
 
-/obj/machinery/computer/mob_battle_terminal/blue/initialize()
+/obj/machinery/computer/mob_battle_terminal/blue/Initialize()
 	..()
 	check_connection()
 
@@ -55,10 +55,10 @@
 	return ..()
 
 /obj/machinery/computer/mob_battle_terminal/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/weapon/nanomob_card))
+	if(istype(O, /obj/item/nanomob_card))
 		insert_card(O, user)
 
-/obj/machinery/computer/mob_battle_terminal/proc/insert_card(obj/item/weapon/nanomob_card/new_card, mob/user)
+/obj/machinery/computer/mob_battle_terminal/proc/insert_card(obj/item/nanomob_card/new_card, mob/user)
 	if(!new_card)
 		return
 	if(card)
@@ -261,10 +261,10 @@
 	dir = EAST
 
 /obj/machinery/computer/mob_healer_terminal/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/weapon/nanomob_card))
+	if(istype(O, /obj/item/nanomob_card))
 		heal_card(O, user)
 
-/obj/machinery/computer/mob_healer_terminal/proc/heal_card(obj/item/weapon/nanomob_card/patient, mob/user)
+/obj/machinery/computer/mob_healer_terminal/proc/heal_card(obj/item/nanomob_card/patient, mob/user)
 	if(!patient)
 		return
 	if(!patient.mob_data)

@@ -24,7 +24,7 @@
 	..()
 	initial_state = icon_state
 
-/obj/structure/mineral_door/initialize()
+/obj/structure/mineral_door/Initialize()
 	..()
 	air_update_turf(1)
 
@@ -129,9 +129,9 @@
 	else
 		icon_state = initial_state
 
-/obj/structure/mineral_door/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/pickaxe))
-		var/obj/item/weapon/pickaxe/digTool = W
+/obj/structure/mineral_door/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/pickaxe))
+		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
 		if(do_after(user, digTool.digspeed * hardness, target = src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
@@ -219,7 +219,7 @@
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/weapon/W, mob/user)
+/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
 	if(is_hot(W))
 		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
 		log_game("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])")

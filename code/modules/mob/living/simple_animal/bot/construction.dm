@@ -1,7 +1,7 @@
 //Bot Construction
 
 //Cleanbot assembly
-/obj/item/weapon/bucket_sensor
+/obj/item/bucket_sensor
 	desc = "It's a bucket. With a sensor attached."
 	name = "proxy bucket"
 	icon = 'icons/obj/aibots.dmi'
@@ -13,7 +13,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Cleanbot"
 
-/obj/item/weapon/bucket_sensor/attackby(obj/item/W, mob/user as mob, params)
+/obj/item/bucket_sensor/attackby(obj/item/W, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		if(!user.unEquip(W))
@@ -26,17 +26,18 @@
 		user.unEquip(src, 1)
 		qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pen))
+	else if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 		created_name = t
+		log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Edbot Assembly
 
-/obj/item/weapon/ed209_assembly
+/obj/item/ed209_assembly
 	name = "\improper ED-209 assembly"
 	desc = "Some sort of bizarre assembly."
 	icon = 'icons/obj/aibots.dmi'
@@ -46,16 +47,17 @@
 	var/created_name = "ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
 
-/obj/item/weapon/ed209_assembly/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)
 	..()
 
-	if(istype(W, /obj/item/weapon/pen))
+	if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 		created_name = t
+		log_game("[key_name(user)] has renamed a robot to [t]")
 		return
 
 	switch(build_step)
@@ -92,8 +94,8 @@
 				icon_state = "[lasercolor]ed209_shell"
 
 		if(3)
-			if(istype(W, /obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/WT = W
+			if(istype(W, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = W
 				if(WT.remove_fuel(0,user))
 					build_step++
 					name = "shielded frame assembly"
@@ -151,15 +153,15 @@
 			var/newname = ""
 			switch(lasercolor)
 				if("b")
-					if(!istype(W, /obj/item/weapon/gun/energy/laser/bluetag))
+					if(!istype(W, /obj/item/gun/energy/laser/bluetag))
 						return
 					newname = "bluetag ED-209 assembly"
 				if("r")
-					if(!istype(W, /obj/item/weapon/gun/energy/laser/redtag))
+					if(!istype(W, /obj/item/gun/energy/laser/redtag))
 						return
 					newname = "redtag ED-209 assembly"
 				if("")
-					if(!istype(W, /obj/item/weapon/gun/energy/gun/advtaser))
+					if(!istype(W, /obj/item/gun/energy/gun/advtaser))
 						return
 					newname = "taser ED-209 assembly"
 				else
@@ -174,7 +176,7 @@
 			qdel(W)
 
 		if(8)
-			if(istype(W, /obj/item/weapon/screwdriver))
+			if(istype(W, /obj/item/screwdriver))
 				playsound(loc, W.usesound, 100, 1)
 				to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
 				if(do_after(user, 40 * W.toolspeed, target = src))
@@ -183,7 +185,7 @@
 					to_chat(user, "<span class='notice'>Taser gun attached.</span>")
 
 		if(9)
-			if(istype(W, /obj/item/weapon/stock_parts/cell))
+			if(istype(W, /obj/item/stock_parts/cell))
 				if(!user.unEquip(W))
 					return
 				build_step++
@@ -195,7 +197,7 @@
 				qdel(src)
 
 //Floorbot assemblies
-/obj/item/weapon/toolbox_tiles
+/obj/item/toolbox_tiles
 	desc = "It's a toolbox with tiles sticking out the top"
 	name = "tiles and toolbox"
 	icon = 'icons/obj/aibots.dmi'
@@ -207,7 +209,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Floorbot"
 
-/obj/item/weapon/toolbox_tiles_sensor
+/obj/item/toolbox_tiles_sensor
 	desc = "It's a toolbox with tiles sticking out the top and a sensor attached"
 	name = "tiles, toolbox and sensor arrangement"
 	icon = 'icons/obj/aibots.dmi'
@@ -219,7 +221,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/created_name = "Floorbot"
 
-/obj/item/weapon/storage/toolbox/mechanical/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
+/obj/item/storage/toolbox/mechanical/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		..()
 		return
@@ -229,7 +231,7 @@
 	if(T.use(10))
 		if(user.s_active)
 			user.s_active.close(user)
-		var/obj/item/weapon/toolbox_tiles/B = new /obj/item/weapon/toolbox_tiles
+		var/obj/item/toolbox_tiles/B = new /obj/item/toolbox_tiles
 		user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>")
 		user.unEquip(src, 1)
@@ -238,27 +240,28 @@
 		to_chat(user, "<span class='warning'>You need 10 floor tiles to start building a floorbot.</span>")
 		return
 
-/obj/item/weapon/toolbox_tiles/attackby(obj/item/W, mob/user, params)
+/obj/item/toolbox_tiles/attackby(obj/item/W, mob/user, params)
 	..()
 	if(isprox(W))
 		qdel(W)
-		var/obj/item/weapon/toolbox_tiles_sensor/B = new /obj/item/weapon/toolbox_tiles_sensor()
+		var/obj/item/toolbox_tiles_sensor/B = new /obj/item/toolbox_tiles_sensor()
 		B.created_name = created_name
 		user.put_in_hands(B)
 		to_chat(user, "<span class='notice'>You add the sensor to the toolbox and tiles.</span>")
 		user.unEquip(src, 1)
 		qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pen))
+	else if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 
 		created_name = t
+		log_game("[key_name(user)] has renamed a robot to [t]")
 
-/obj/item/weapon/toolbox_tiles_sensor/attackby(obj/item/W, mob/user, params)
+/obj/item/toolbox_tiles_sensor/attackby(obj/item/W, mob/user, params)
 	..()
 	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
 		qdel(W)
@@ -268,17 +271,18 @@
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
-	else if(istype(W, /obj/item/weapon/pen))
+	else if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 
 		created_name = t
+		log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Medbot Assembly
-/obj/item/weapon/firstaid_arm_assembly
+/obj/item/firstaid_arm_assembly
 	name = "incomplete medibot assembly."
 	desc = "A first aid kit with a robot arm permanently grafted to it."
 	icon = 'icons/obj/aibots.dmi'
@@ -294,13 +298,13 @@
 	var/treatment_virus = "spaceacillin"
 	req_one_access = list(access_medical, access_robotics)
 
-	/obj/item/weapon/firstaid_arm_assembly/New()
+	/obj/item/firstaid_arm_assembly/New()
 		..()
 		spawn(5)
 			if(skin)
 				overlays += image('icons/obj/aibots.dmi', "kit_skin_[skin]")
 
-/obj/item/weapon/storage/firstaid/attackby(obj/item/robot_parts/S, mob/user, params)
+/obj/item/storage/firstaid/attackby(obj/item/robot_parts/S, mob/user, params)
 
 	if((!istype(S, /obj/item/robot_parts/l_arm)) && (!istype(S, /obj/item/robot_parts/r_arm)))
 		..()
@@ -311,20 +315,20 @@
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
-	var/obj/item/weapon/firstaid_arm_assembly/A = new /obj/item/weapon/firstaid_arm_assembly
-	if(istype(src,/obj/item/weapon/storage/firstaid/fire))
+	var/obj/item/firstaid_arm_assembly/A = new /obj/item/firstaid_arm_assembly
+	if(istype(src,/obj/item/storage/firstaid/fire))
 		A.skin = "ointment"
-	else if(istype(src,/obj/item/weapon/storage/firstaid/toxin))
+	else if(istype(src,/obj/item/storage/firstaid/toxin))
 		A.skin = "tox"
-	else if(istype(src,/obj/item/weapon/storage/firstaid/o2))
+	else if(istype(src,/obj/item/storage/firstaid/o2))
 		A.skin = "o2"
-	else if(istype(src,/obj/item/weapon/storage/firstaid/brute))
+	else if(istype(src,/obj/item/storage/firstaid/brute))
 		A.skin = "brute"
-	else if(istype(src,/obj/item/weapon/storage/firstaid/adv))
+	else if(istype(src,/obj/item/storage/firstaid/adv))
 		A.skin = "adv"
-	else if(istype(src,/obj/item/weapon/storage/firstaid/tactical))
+	else if(istype(src,/obj/item/storage/firstaid/tactical))
 		A.skin = "bezerk"
-	else if(istype(src,/obj/item/weapon/storage/firstaid/aquatic_kit))
+	else if(istype(src,/obj/item/storage/firstaid/aquatic_kit))
 		A.skin = "fish"
 
 	A.req_one_access = req_one_access
@@ -341,19 +345,20 @@
 	qdel(src)
 
 
-/obj/item/weapon/firstaid_arm_assembly/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/firstaid_arm_assembly/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weapon/pen))
+	if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 		created_name = t
+		log_game("[key_name(user)] has renamed a robot to [t]")
 	else
 		switch(build_step)
 			if(0)
-				if(istype(W, /obj/item/device/healthanalyzer))
+				if(istype(W, /obj/item/healthanalyzer))
 					if(!user.unEquip(W))
 						return
 					qdel(W)
@@ -383,7 +388,7 @@
 					qdel(src)
 
 //Secbot Assembly
-/obj/item/weapon/secbot_assembly
+/obj/item/secbot_assembly
 	name = "incomplete securitron assembly"
 	desc = "Some sort of bizarre assembly made from a proximity sensor, helmet, and signaler."
 	icon = 'icons/obj/aibots.dmi'
@@ -392,7 +397,7 @@
 	var/build_step = 0
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 
-/obj/item/clothing/head/helmet/attackby(obj/item/device/assembly/signaler/S, mob/user, params)
+/obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
 	..()
 	if(!issignaler(S))
 		..()
@@ -400,7 +405,7 @@
 
 	if(!S.secured)
 		qdel(S)
-		var/obj/item/weapon/secbot_assembly/A = new /obj/item/weapon/secbot_assembly
+		var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly
 		user.put_in_hands(A)
 		to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
 		user.unEquip(src, 1)
@@ -408,17 +413,17 @@
 	else
 		return
 
-/obj/item/weapon/secbot_assembly/attackby(obj/item/I, mob/user, params)
+/obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if(istype(I, /obj/item/weapon/weldingtool))
+	if(istype(I, /obj/item/weldingtool))
 		if(!build_step)
-			var/obj/item/weapon/weldingtool/WT = I
+			var/obj/item/weldingtool/WT = I
 			if(WT.remove_fuel(0, user))
 				build_step++
 				overlays += "hs_hole"
 				to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
 		else if(build_step == 1)
-			var/obj/item/weapon/weldingtool/WT = I
+			var/obj/item/weldingtool/WT = I
 			if(WT.remove_fuel(0, user))
 				build_step--
 				overlays -= "hs_hole"
@@ -442,7 +447,7 @@
 		overlays += "hs_arm"
 		qdel(I)
 
-	else if((istype(I, /obj/item/weapon/melee/baton)) && (build_step >= 3))
+	else if((istype(I, /obj/item/melee/baton)) && (build_step >= 3))
 		if(!user.unEquip(I))
 			return
 		build_step++
@@ -453,24 +458,25 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/weapon/pen))
+	else if(istype(I, /obj/item/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
 			return
-		if(!in_range(src, usr) && loc != usr)
+		if(!in_range(src, user) && loc != user)
 			return
 		created_name = t
+		log_game("[key_name(user)] has renamed a robot to [t]")
 
-	else if(istype(I, /obj/item/weapon/screwdriver))
+	else if(istype(I, /obj/item/screwdriver))
 		if(!build_step)
-			new /obj/item/device/assembly/signaler(get_turf(src))
+			new /obj/item/assembly/signaler(get_turf(src))
 			new /obj/item/clothing/head/helmet(get_turf(src))
 			to_chat(user, "<span class='notice'>You disconnect the signaler from the helmet.</span>")
 			qdel(src)
 
 		else if(build_step == 2)
 			overlays -= "hs_eye"
-			new /obj/item/device/assembly/prox_sensor(get_turf(src))
+			new /obj/item/assembly/prox_sensor(get_turf(src))
 			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
 			build_step--
 

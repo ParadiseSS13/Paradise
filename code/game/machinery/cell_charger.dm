@@ -8,7 +8,7 @@
 	idle_power_usage = 5
 	active_power_usage = 60
 	power_channel = EQUIP
-	var/obj/item/weapon/stock_parts/cell/charging = null
+	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
 
 /obj/machinery/cell_charger/Destroy()
@@ -36,8 +36,8 @@
 	if(charging)
 		to_chat(user, "Current charge: [round(charging.percent(), 1)]%")
 
-/obj/machinery/cell_charger/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/stock_parts/cell))
+/obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stock_parts/cell))
 		if(stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
 			return
@@ -75,7 +75,7 @@
 
 
 /obj/machinery/cell_charger/proc/removecell()
-	charging.updateicon()
+	charging.update_icon()
 	charging = null
 	chargelevel = -1
 	updateicon()

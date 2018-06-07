@@ -53,6 +53,9 @@
 	if(initial_loc && frequency == 1439)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
@@ -106,7 +109,7 @@
 	if(welded)
 		scrubber_icon = "scrubberweld"
 
-	overlays += icon_manager.get_atmos_icon("device", , , scrubber_icon)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , scrubber_icon)
 	update_pipe_image()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_underlays()
@@ -166,7 +169,7 @@
 
 	return 1
 
-/obj/machinery/atmospherics/unary/vent_scrubber/initialize()
+/obj/machinery/atmospherics/unary/vent_scrubber/atmos_init()
 	..()
 	radio_filter_in = frequency==initial(frequency)?(RADIO_FROM_AIRALARM):null
 	radio_filter_out = frequency==initial(frequency)?(RADIO_TO_AIRALARM):null
@@ -336,7 +339,7 @@
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/machinery/atmospherics/unary/vent_scrubber/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
@@ -369,9 +372,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
 	return !welded
 
-/obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+/obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			to_chat(user, "<span class='notice'>Now welding the scrubber.</span>")
 			if(do_after(user, 20 * WT.toolspeed, target = src))
@@ -391,10 +394,10 @@
 		else
 			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
 			return 1
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		if(!(stat & NOPOWER) && on)
 			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
 			return 1

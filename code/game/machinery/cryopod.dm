@@ -14,7 +14,7 @@
 	desc = "An interface between crew and the cryogenic storage oversight systems."
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "cellconsole"
-	circuit = /obj/item/weapon/circuitboard/cryopodcontrol
+	circuit = /obj/item/circuitboard/cryopodcontrol
 	density = 0
 	interact_offline = 1
 	req_one_access = list(access_heads, access_armory) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
@@ -154,12 +154,12 @@
 	for(var/obj/item/I in objective_items)
 		dispense_item(I)
 
-/obj/item/weapon/circuitboard/cryopodcontrol
+/obj/item/circuitboard/cryopodcontrol
 	name = "Circuit board (Cryogenic Oversight Console)"
 	build_path = "/obj/machinery/computer/cryopod"
 	origin_tech = "programming=1"
 
-/obj/item/weapon/circuitboard/robotstoragecontrol
+/obj/item/circuitboard/robotstoragecontrol
 	name = "Circuit board (Robotic Storage Console)"
 	build_path = "/obj/machinery/computer/cryopod/robot"
 	origin_tech = "programming=1"
@@ -209,36 +209,36 @@
 	var/time_till_despawn = 9000 // This is reduced by 90% if a player manually enters cryo
 	var/willing_time_divisor = 10
 	var/time_entered = 0          // Used to keep track of the safe period.
-	var/obj/item/device/radio/intercom/announce
+	var/obj/item/radio/intercom/announce
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
 
 	// These items are preserved when the process() despawn proc occurs.
 	var/list/preserve_items = list(
-		/obj/item/weapon/hand_tele,
-		/obj/item/weapon/card/id/captains_spare,
-		/obj/item/device/aicard,
-		/obj/item/device/mmi,
-		/obj/item/device/paicard,
-		/obj/item/weapon/gun,
-		/obj/item/weapon/pinpointer,
+		/obj/item/hand_tele,
+		/obj/item/card/id/captains_spare,
+		/obj/item/aicard,
+		/obj/item/mmi,
+		/obj/item/paicard,
+		/obj/item/gun,
+		/obj/item/pinpointer,
 		/obj/item/clothing/shoes/magboots,
 		/obj/item/areaeditor/blueprints,
 		/obj/item/clothing/head/helmet/space,
 		/obj/item/clothing/suit/space,
 		/obj/item/clothing/suit/armor,
-		/obj/item/weapon/defibrillator/compact,
-		/obj/item/weapon/reagent_containers/hypospray/CMO,
+		/obj/item/defibrillator/compact,
+		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
-		/obj/item/weapon/storage/internal,
-		/obj/item/device/spacepod_key,
-		/obj/item/weapon/nullrod
+		/obj/item/storage/internal,
+		/obj/item/spacepod_key,
+		/obj/item/nullrod
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
-		/obj/item/device/mmi/posibrain
+		/obj/item/mmi/posibrain
 	)
 
 /obj/machinery/cryopod/right
@@ -246,7 +246,7 @@
 	icon_state = "body_scanner_0-r"
 
 /obj/machinery/cryopod/New()
-	announce = new /obj/item/device/radio/intercom(src)
+	announce = new /obj/item/radio/intercom(src)
 
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"
@@ -255,7 +255,7 @@
 
 	..()
 
-/obj/machinery/cryopod/initialize()
+/obj/machinery/cryopod/Initialize()
 	..()
 
 	find_control_computer()
@@ -331,7 +331,7 @@
 			if(should_preserve_item(W) != CRYO_DESTROY) // Don't remove the contents of things that need preservation
 				continue
 			for(var/obj/item/O in W.contents)
-				if(istype(O,/obj/item/weapon/tank)) //Stop eating pockets, you fuck!
+				if(istype(O,/obj/item/tank)) //Stop eating pockets, you fuck!
 					continue
 				O.forceMove(src)
 
@@ -346,8 +346,8 @@
 	items -= announce // or the autosay radio.
 
 	for(var/obj/item/W in items)
-		if(istype(W,/obj/item/device/pda))
-			var/obj/item/device/pda/P = W
+		if(istype(W,/obj/item/pda))
+			var/obj/item/pda/P = W
 			QDEL_NULL(P.id)
 			qdel(P)
 			continue
@@ -371,7 +371,7 @@
 			cult_mode.sacrifice_target = pick(p_s_t)
 			for(var/datum/mind/H in ticker.mode.cult)
 				if(H.current)
-					to_chat(H.current, "<span class='danger'>[ticker.mode.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
+					to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
 		else
 			cult_mode.bypass_phase()
 
@@ -461,9 +461,9 @@
 #undef CRYO_PRESERVE
 #undef CRYO_OBJECTIVE
 
-/obj/machinery/cryopod/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
+/obj/machinery/cryopod/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
 
-	if(istype(G, /obj/item/weapon/grab))
+	if(istype(G, /obj/item/grab))
 
 		if(occupant)
 			to_chat(user, "<span class='notice'>\The [src] is in use.</span>")
@@ -551,7 +551,7 @@
 
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the cryo pod because they have a slime latched onto their head.")
+			to_chat(usr, "[L.name] will not fit into the cryo pod because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
 			return
 
 
@@ -714,7 +714,7 @@
 	desc = "An interface between crew and the robotic storage systems"
 	icon = 'icons/obj/robot_storage.dmi'
 	icon_state = "console"
-	circuit = /obj/item/weapon/circuitboard/robotstoragecontrol
+	circuit = /obj/item/circuitboard/robotstoragecontrol
 
 	storage_type = "cyborgs"
 	storage_name = "Robotic Storage Control"

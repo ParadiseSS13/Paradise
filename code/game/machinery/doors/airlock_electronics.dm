@@ -1,4 +1,4 @@
-/obj/item/weapon/airlock_electronics
+/obj/item/airlock_electronics
 	name = "airlock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
@@ -14,7 +14,7 @@
 	var/locked = TRUE
 	var/const/max_brain_damage = 60 // Maximum brain damage a mob can have until it can't use the electronics
 
-/obj/item/weapon/airlock_electronics/attack_self(mob/user)
+/obj/item/airlock_electronics/attack_self(mob/user)
 	if(!ishuman(user) && !isrobot(user))
 		return ..()
 
@@ -59,7 +59,7 @@
 	popup.open(0)
 	onclose(user, "airlock")
 
-/obj/item/weapon/airlock_electronics/Topic(href, href_list)
+/obj/item/airlock_electronics/Topic(href, href_list)
 	..()
 
 	if(usr.incapacitated() || (!ishuman(usr) && !isrobot(usr)))
@@ -88,7 +88,7 @@
 
 	attack_self(usr)
 
-/obj/item/weapon/airlock_electronics/proc/toggle_access(access)
+/obj/item/airlock_electronics/proc/toggle_access(access)
 	if(access == "all")
 		conf_access = null
 	else

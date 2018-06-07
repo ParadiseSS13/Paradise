@@ -16,8 +16,6 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 	gvars_datum_in_built_vars = exclude_these.vars + list("gvars_datum_protected_varlist", "gvars_datum_in_built_vars", "gvars_datum_init_order")
 	qdel(exclude_these)
 
-	log_to_dd("[vars.len - gvars_datum_in_built_vars.len] global variables")
-
 	Initialize()
 
 /datum/controller/global_vars/Destroy(force)
@@ -60,7 +58,7 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 			var/list/expected_global_procs = vars - gvars_datum_in_built_vars
 			for(var/I in global_procs)
 				expected_global_procs -= replacetext("[I]", "InitGlobal", "")
-			log_to_dd("Missing procs: [expected_global_procs.Join(", ")]")
+			log_world("Missing procs: [expected_global_procs.Join(", ")]")
 	for(var/I in global_procs)
 		var/start_tick = world.time
 		call(src, I)()

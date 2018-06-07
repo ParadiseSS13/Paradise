@@ -9,7 +9,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	unacidable = 1
 	var/active = 0
 
-/obj/machinery/gateway/initialize()
+/obj/machinery/gateway/Initialize()
 	..()
 	update_icon()
 	update_density_from_dir()
@@ -44,7 +44,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	if(!the_gateway)
 		the_gateway = src
 
-/obj/machinery/gateway/centerstation/initialize()
+/obj/machinery/gateway/centerstation/Initialize()
 	..()
 	update_icon()
 	wait = world.time + config.gateway_delay	//+ thirty minutes default
@@ -152,8 +152,8 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 		return
 
 
-/obj/machinery/gateway/centerstation/attackby(obj/item/device/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/device/multitool))
+/obj/machinery/gateway/centerstation/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W,/obj/item/multitool))
 		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
 		return
 
@@ -170,7 +170,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/initialize()
+/obj/machinery/gateway/centeraway/Initialize()
 	..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation) in world
@@ -252,14 +252,14 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	M.dir = SOUTH
 
 /obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
-	for(var/obj/item/weapon/implant/exile/E in M)//Checking that there is an exile implant in the contents
+	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
 		if(E.imp_in == M)//Checking that it's actually implanted vs just in their pocket
 			to_chat(M, "<span class='notice'>The station gate has detected your exile implant and is blocking your entry.</span>")
 			return 1
 	return 0
 
-/obj/machinery/gateway/centeraway/attackby(obj/item/device/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/device/multitool))
+/obj/machinery/gateway/centeraway/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W,/obj/item/multitool))
 		if(calibrated)
 			to_chat(user, "<span class='notice'>The gate is already calibrated, there is no work for you to do here.</span>")
 			return

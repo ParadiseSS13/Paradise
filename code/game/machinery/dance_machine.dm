@@ -118,7 +118,7 @@
 	add_fingerprint(usr)
 	switch(href_list["action"])
 		if("toggle")
-			if(qdeleted(src))
+			if(QDELETED(src))
 				return
 			if(!active)
 				if(stop > world.time)
@@ -143,7 +143,7 @@
 			for(var/datum/track/S in songs)
 				available[S.song_name] = S
 			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
-			if(qdeleted(src) || !selected || !istype(available[selected], /datum/track))
+			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
 				return
 			selection = available[selected]
 			updateUsrDialog()
@@ -165,7 +165,7 @@
 			deejay('sound/ai/harmalarm.ogg')
 
 /obj/machinery/disco/proc/deejay(S)
-	if(qdeleted(src) || !active || charge < 5)
+	if(QDELETED(src) || !active || charge < 5)
 		to_chat(usr, "<span class='warning'>The device is not able to play more DJ sounds at this time.</span>")
 		return
 	charge -= 5
@@ -176,56 +176,56 @@
 	var/turf/cen = get_turf(src)
 	FOR_DVIEW(var/turf/t, 3, get_turf(src),INVISIBILITY_LIGHTING)
 		if(t.x == cen.x && t.y > cen.y)
-			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
+			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = "red"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x == cen.x && t.y < cen.y)
-			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
+			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = "purple"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x > cen.x && t.y == cen.y)
-			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
+			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = "#ffff00"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if(t.x < cen.x && t.y == cen.y)
-			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
+			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = "green"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x+1 == cen.x && t.y+1 == cen.y) || (t.x+2==cen.x && t.y+2 == cen.y))
-			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
+			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = "sw"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x-1 == cen.x && t.y-1 == cen.y) || (t.x-2==cen.x && t.y-2 == cen.y))
-			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
+			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = "ne"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x-1 == cen.x && t.y+1 == cen.y) || (t.x-2==cen.x && t.y+2 == cen.y))
-			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
+			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = "se"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
 			spotlights+=L
 			continue
 		if((t.x+1 == cen.x && t.y-1 == cen.y) || (t.x+2==cen.x && t.y-2 == cen.y))
-			var/obj/item/device/flashlight/spotlight/L = new /obj/item/device/flashlight/spotlight(t)
+			var/obj/item/flashlight/spotlight/L = new /obj/item/flashlight/spotlight(t)
 			L.light_color = "nw"
 			L.light_power = 30 - (get_dist(src, L) * 8)
 			L.range = 1.4+get_dist(src, L)
@@ -241,7 +241,7 @@
 
 /obj/machinery/disco/proc/lights_spin()
 	for(var/i in 1 to 25)
-		if(qdeleted(src) || !active)
+		if(QDELETED(src) || !active)
 			return
 		var/obj/effect/overlay/sparkles/S = new /obj/effect/overlay/sparkles(src)
 		S.alpha = 0
@@ -265,8 +265,8 @@
 	for(var/obj/reveal in sparkles)
 		reveal.alpha = 255
 	while(active)
-		for(var/obj/item/device/flashlight/spotlight/glow in spotlights) // The multiples reflects custom adjustments to each colors after dozens of tests
-			if(qdeleted(src) || !active || qdeleted(glow))
+		for(var/obj/item/flashlight/spotlight/glow in spotlights) // The multiples reflects custom adjustments to each colors after dozens of tests
+			if(QDELETED(src) || !active || QDELETED(glow))
 				return
 			if(glow.light_color == "red")
 				glow.light_color = "nw"

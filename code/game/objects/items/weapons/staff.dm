@@ -1,4 +1,4 @@
-/obj/item/weapon/twohanded/staff
+/obj/item/twohanded/staff
 	name = "wizards staff"
 	desc = "Apparently a staff used by the wizard."
 	icon = 'icons/obj/wizard.dmi'
@@ -12,14 +12,14 @@
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 	burn_state = FLAMMABLE
 
-/obj/item/weapon/twohanded/staff/broom
+/obj/item/twohanded/staff/broom
 	name = "broom"
 	desc = "Used for sweeping, and flying into the night while cackling. Black cat not included."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "broom"
 	item_state = "broom0"
 
-/obj/item/weapon/twohanded/staff/broom/attack_self(mob/user as mob)
+/obj/item/twohanded/staff/broom/attack_self(mob/user as mob)
 	..()
 	item_state = "broom[wielded ? 1 : 0]"
 	force = wielded ? 5 : 3
@@ -43,30 +43,29 @@
 			if(wielded)
 				to_chat(user, "<span class='notice'>You hold \the [src] between your legs.</span>")
 
-/obj/item/weapon/twohanded/staff/broom/attackby(var/obj/O, mob/user)
+/obj/item/twohanded/staff/broom/attackby(var/obj/O, mob/user)
 	if(istype(O, /obj/item/clothing/mask/horsehead))
-		new/obj/item/weapon/twohanded/staff/broom/horsebroom(get_turf(src))
+		new/obj/item/twohanded/staff/broom/horsebroom(get_turf(src))
 		user.unEquip(O)
 		qdel(O)
 		qdel(src)
 		return
 	..()
 
-/obj/item/weapon/twohanded/staff/broom/horsebroom
+/obj/item/twohanded/staff/broom/horsebroom
 	name = "broomstick horse"
 	desc = "Saddle up!"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "horsebroom"
 	item_state = "horsebroom0"
 
-/obj/item/weapon/twohanded/staff/broom/horsebroom/attack_self(mob/user as mob)
+/obj/item/twohanded/staff/broom/horsebroom/attack_self(mob/user as mob)
 	..()
 	item_state = "horsebroom[wielded ? 1 : 0]"
 
-/obj/item/weapon/twohanded/staff/stick
+/obj/item/twohanded/staff/stick
 	name = "stick"
 	desc = "A great tool to drag someone else's drinks across the bar."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "stick"
 	item_state = "stick"
 	force = 3.0

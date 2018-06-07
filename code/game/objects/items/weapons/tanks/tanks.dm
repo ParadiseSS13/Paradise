@@ -1,7 +1,7 @@
 #define TANK_MAX_RELEASE_PRESSURE (3*ONE_ATMOSPHERE)
 #define TANK_DEFAULT_RELEASE_PRESSURE 24
 
-/obj/item/weapon/tank
+/obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
 	flags = CONDUCT
@@ -20,7 +20,7 @@
 	var/integrity = 3
 	var/volume = 70
 
-/obj/item/weapon/tank/New()
+/obj/item/tank/New()
 	..()
 
 	air_contents = new /datum/gas_mixture()
@@ -30,7 +30,7 @@
 	processing_objects.Add(src)
 	return
 
-/obj/item/weapon/tank/Destroy()
+/obj/item/tank/Destroy()
 	QDEL_NULL(air_contents)
 
 	processing_objects.Remove(src)
@@ -38,10 +38,10 @@
 	return ..()
 
 
-/obj/item/weapon/tank/ui_action_click(mob/user)
+/obj/item/tank/ui_action_click(mob/user)
 	toggle_internals(user)
 
-/obj/item/weapon/tank/proc/toggle_internals(mob/user, silent = FALSE)
+/obj/item/tank/proc/toggle_internals(mob/user, silent = FALSE)
 	var/mob/living/carbon/C = user
 	if(!istype(C))
 		return 0
@@ -76,7 +76,7 @@
 	C.update_action_buttons_icon()
 
 
-/obj/item/weapon/tank/examine(mob/user)
+/obj/item/tank/examine(mob/user)
 	if(!..(user, 0))
 		return
 
@@ -109,7 +109,7 @@
 
 	return
 
-/obj/item/weapon/tank/blob_act()
+/obj/item/tank/blob_act()
 	if(prob(50))
 		var/turf/location = loc
 		if(!( istype(location, /turf) ))
@@ -120,26 +120,26 @@
 
 		qdel(src)
 
-/obj/item/weapon/tank/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
 	add_fingerprint(user)
 	if(istype(loc, /obj/item/assembly))
 		icon = loc
 
-	if((istype(W, /obj/item/device/analyzer)) && get_dist(user, src) <= 1)
+	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 
-	if(istype(W, /obj/item/device/assembly_holder))
+	if(istype(W, /obj/item/assembly_holder))
 		bomb_assemble(W,user)
 
-/obj/item/weapon/tank/attack_self(mob/user as mob)
+/obj/item/tank/attack_self(mob/user as mob)
 	if(!(air_contents))
 		return
 
 	ui_interact(user)
 
-/obj/item/weapon/tank/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/item/tank/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
@@ -151,7 +151,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/item/weapon/tank/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/tank/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/using_internal
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc
@@ -181,7 +181,7 @@
 
 	return data
 
-/obj/item/weapon/tank/Topic(href, href_list)
+/obj/item/tank/Topic(href, href_list)
 	if(..())
 		return 1
 
@@ -202,19 +202,19 @@
 	return 1
 
 
-/obj/item/weapon/tank/remove_air(amount)
+/obj/item/tank/remove_air(amount)
 	return air_contents.remove(amount)
 
-/obj/item/weapon/tank/return_air()
+/obj/item/tank/return_air()
 	return air_contents
 
-/obj/item/weapon/tank/assume_air(datum/gas_mixture/giver)
+/obj/item/tank/assume_air(datum/gas_mixture/giver)
 	air_contents.merge(giver)
 
 	check_status()
 	return 1
 
-/obj/item/weapon/tank/proc/remove_air_volume(volume_to_return)
+/obj/item/tank/proc/remove_air_volume(volume_to_return)
 	if(!air_contents)
 		return null
 
@@ -226,13 +226,13 @@
 
 	return remove_air(moles_needed)
 
-/obj/item/weapon/tank/process()
+/obj/item/tank/process()
 	//Allow for reactions
 	air_contents.react()
 	check_status()
 
 
-/obj/item/weapon/tank/proc/check_status()
+/obj/item/tank/proc/check_status()
 	//Handle exploding, leaking, and rupturing of the tank
 
 	if(!air_contents)
@@ -240,7 +240,7 @@
 
 	var/pressure = air_contents.return_pressure()
 	if(pressure > TANK_FRAGMENT_PRESSURE)
-		if(!istype(loc,/obj/item/device/transfer_valve))
+		if(!istype(loc,/obj/item/transfer_valve))
 			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			log_game("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [x], [y], [z]")
 //		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
@@ -255,7 +255,7 @@
 //		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
 
 		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
-		if(istype(loc,/obj/item/device/transfer_valve))
+		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else
 			qdel(src)

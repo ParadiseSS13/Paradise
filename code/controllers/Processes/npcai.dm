@@ -25,7 +25,7 @@ var/global/datum/controller/process/npcai/npcai_master
 /datum/controller/process/npcai/doWork()
 	for(last_object in simple_animal_list)
 		var/mob/living/simple_animal/M = last_object
-		if(istype(M) && isnull(M.gcDestroyed))
+		if(istype(M) && !QDELETED(M))
 			if(!M.client && M.stat == CONSCIOUS)
 				try
 					M.process_ai()
@@ -44,7 +44,7 @@ var/global/datum/controller/process/npcai/npcai_master
 
 	for(last_object in snpc_list)
 		var/mob/living/carbon/human/interactive/M = last_object
-		if(istype(M) && isnull(M.gcDestroyed))
+		if(istype(M) && !QDELETED(M))
 			try
 				if(!M.alternateProcessing || M.forceProcess)
 					M.doProcess()

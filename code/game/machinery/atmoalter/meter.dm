@@ -30,7 +30,7 @@
 	target = null
 	return ..()
 
-/obj/machinery/meter/initialize()
+/obj/machinery/meter/Initialize()
 	..()
 	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
@@ -119,12 +119,12 @@
 
 	return ..()
 
-/obj/machinery/meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/device/multitool))
+/obj/machinery/meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
-	if(!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 	playsound(loc, W.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
@@ -144,15 +144,15 @@
 	return 1
 
 
-/obj/machinery/meter/turf/initialize()
+/obj/machinery/meter/turf/Initialize()
 	if(!target)
 		target = loc
 	..()
 
-/obj/machinery/meter/turf/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+/obj/machinery/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	return
 
-/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<b>Main</b>
 	<ul>

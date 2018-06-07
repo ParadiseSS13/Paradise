@@ -19,7 +19,7 @@
 			prescription = 1
 			name = "prescription [name]"
 			return
-		if(prescription && istype(O, /obj/item/weapon/screwdriver))
+		if(prescription && istype(O, /obj/item/screwdriver))
 			var/obj/item/clothing/glasses/regular/G = locate() in src
 			if(!G)
 				G = new(get_turf(H))
@@ -497,7 +497,7 @@
 	flags_cover = null
 	invis_view = SEE_INVISIBLE_MINIMUM
 
-/obj/item/clothing/glasses/godeye/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
 		if(W.icon_state == "godeye")
 			W.icon_state = "doublegodeye"

@@ -20,10 +20,10 @@
 
 	uniform = /obj/item/clothing/under/rank/chaplain
 	shoes = /obj/item/clothing/shoes/black
-	l_ear = /obj/item/device/radio/headset/headset_service
-	pda = /obj/item/device/pda/chaplain
+	l_ear = /obj/item/radio/headset/headset_service
+	pda = /obj/item/pda/chaplain
 	backpack_contents = list(
-		/obj/item/device/camera/spooky = 1
+		/obj/item/camera/spooky = 1
 	)
 
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -32,7 +32,7 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible(H)
+	var/obj/item/storage/bible/B = new /obj/item/storage/bible(H)
 
 	spawn()
 		H.equip_to_slot_or_del(B, slot_l_hand)

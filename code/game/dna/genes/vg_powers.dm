@@ -173,7 +173,7 @@
 
 	M.update_dna()
 
-	M.visible_message("<span class='notice'>[src] morphs and changes [M.get_visible_gender() == MALE ? "his" : M.get_visible_gender() == FEMALE ? "her" : "their"] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
+	M.visible_message("<span class='notice'>[src] morphs and changes [p_their()] appearance!</span>", "<span class='notice'>You change your appearance!</span>", "<span class='warning'>Oh, god!  What the hell was that?  It sounded like flesh getting squished and bone ground into a different shape!</span>")
 
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name="Telepathy"
@@ -233,7 +233,7 @@
 	say = pencode_to_html(say, usr, format = 0, fields = 0)
 
 	for(var/mob/living/target in targets)
-		log_say("Project Mind: [key_name(user)]->[key_name(target)]: [say]")
+		log_say("(TPATH to [key_name(target)]) [say]", user)
 		if(REMOTE_TALK in target.mutations)
 			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else

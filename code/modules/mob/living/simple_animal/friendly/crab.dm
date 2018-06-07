@@ -10,7 +10,7 @@
 	emote_see = list("clacks")
 	speak_chance = 1
 	turns_per_move = 5
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm   = "stomps the"
@@ -34,7 +34,7 @@
 					Move(get_step(src, east_vs_west), east_vs_west)
 					turns_since_move = 0
 
-/mob/living/simple_animal/crab/Life()
+/mob/living/simple_animal/crab/Life(seconds, times_fired)
 	. = ..()
 	regenerate_icons()
 
@@ -50,7 +50,7 @@
 
 //LOOK AT THIS - ..()??
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/wirecutters))
+	if(istype(O, /obj/item/wirecutters))
 		if(prob(50))
 			to_chat(user, "<span class='boldwarning'>This kills the crab.</span>")
 			health -= 20
@@ -165,7 +165,7 @@
 						/obj/item/clothing/head/hardhat,
 						/obj/item/clothing/head/collectable/hardhat,
 						/obj/item/clothing/head/hardhat/white,
-						/obj/item/weapon/bedsheet,
+						/obj/item/bedsheet,
 						/obj/item/clothing/head/soft
 					)
 
@@ -220,7 +220,7 @@
 						if(/obj/item/clothing/head/wizard/fake,	/obj/item/clothing/head/wizard,	/obj/item/clothing/head/collectable/wizard)
 							name = "Grandwizard [real_name]"
 							speak = list("YAP", "Woof!", "Bark!", "AUUUUUU", "EI  NATH!")
-						if(/obj/item/weapon/bedsheet)
+						if(/obj/item/bedsheet)
 							name = "\improper Ghost"
 							speak = list("WoooOOOooo~","AUUUUUUUUUUUUUUUUUU")
 							emote_see = list("stumbles around", "shivers")
@@ -245,7 +245,7 @@
 
 					var/list/allowed_types = list(
 						/obj/item/clothing/suit/armor/vest,
-						/obj/item/device/radio
+						/obj/item/radio
 					)
 
 					if( ! ( item_to_add.type in allowed_types ) )

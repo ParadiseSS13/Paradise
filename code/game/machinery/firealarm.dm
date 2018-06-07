@@ -74,7 +74,7 @@ FIRE ALARM
 /obj/machinery/firealarm/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 
-	if(istype(W, /obj/item/weapon/screwdriver) && buildstage == 2)
+	if(istype(W, /obj/item/screwdriver) && buildstage == 2)
 		wiresexposed = !wiresexposed
 		update_icon()
 		return
@@ -82,14 +82,14 @@ FIRE ALARM
 	if(wiresexposed)
 		switch(buildstage)
 			if(2)
-				if(istype(W, /obj/item/device/multitool))
+				if(istype(W, /obj/item/multitool))
 					detecting = !detecting
 					if(detecting)
 						user.visible_message("<span class='warning'>[user] has reconnected [src]'s detecting unit!</span>", "You have reconnected [src]'s detecting unit.")
 					else
 						user.visible_message("<span class='warning'>[user] has disconnected [src]'s detecting unit!</span>", "You have disconnected [src]'s detecting unit.")
 
-				else if(istype(W, /obj/item/weapon/wirecutters))  // cutting the wires out
+				else if(istype(W, /obj/item/wirecutters))  // cutting the wires out
 					to_chat(user, "<span class='warning'>You cut the wires!</span>")
 					playsound(loc, W.usesound, 50, 1)
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
@@ -109,24 +109,24 @@ FIRE ALARM
 					to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
 					update_icon()
 
-				else if(istype(W, /obj/item/weapon/crowbar))
+				else if(istype(W, /obj/item/crowbar))
 					to_chat(user, "<span class='warning'>You pry out the circuit!</span>")
 					playsound(get_turf(src), W.usesound, 50, 1)
 					if(do_after(user, 20 * W.toolspeed, target = src))
 						if(buildstage != 1)
 							return
-						var/obj/item/weapon/firealarm_electronics/circuit = new /obj/item/weapon/firealarm_electronics()
+						var/obj/item/firealarm_electronics/circuit = new /obj/item/firealarm_electronics()
 						circuit.forceMove(get_turf(src))
 						buildstage = 0
 						update_icon()
 			if(0)
-				if(istype(W, /obj/item/weapon/firealarm_electronics))
+				if(istype(W, /obj/item/firealarm_electronics))
 					to_chat(user, "<span class='notice'>You insert the circuit!</span>")
 					qdel(W)
 					buildstage = 1
 					update_icon()
 
-				else if(istype(W, /obj/item/weapon/wrench))
+				else if(istype(W, /obj/item/wrench))
 					to_chat(user, "<span class='warning'>You remove the fire alarm assembly from the wall!</span>")
 					new /obj/item/mounted/frame/firealarm(get_turf(user))
 					playsound(get_turf(src), W.usesound, 50, 1)
@@ -263,7 +263,7 @@ FIRE ALARM
 FIRE ALARM CIRCUIT
 Just a object used in constructing fire alarms
 */
-/obj/item/weapon/firealarm_electronics
+/obj/item/firealarm_electronics
 	name = "fire alarm electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"

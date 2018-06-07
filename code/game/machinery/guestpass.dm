@@ -1,7 +1,7 @@
 /////////////////////////////////////////////
 //Guest pass ////////////////////////////////
 /////////////////////////////////////////////
-/obj/item/weapon/card/id/guest
+/obj/item/card/id/guest
 	name = "guest pass"
 	desc = "Allows temporary access to station areas."
 	icon_state = "guest"
@@ -10,18 +10,18 @@
 	var/expiration_time = 0
 	var/reason = "NOT SPECIFIED"
 
-/obj/item/weapon/card/id/guest/GetAccess()
+/obj/item/card/id/guest/GetAccess()
 	if(world.time > expiration_time)
 		return access
 	else
 		return temp_access
 
-/obj/item/weapon/card/id/guest/examine(mob/user)
+/obj/item/card/id/guest/examine(mob/user)
 	..(user)
 	if(world.time < expiration_time)
-		to_chat(user, "<span class='notice'>This pass expires at [worldtime2text(expiration_time)].</span>")
+		to_chat(user, "<span class='notice'>This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>")
 	else
-		to_chat(user, "<span class='warning'>It expired at [worldtime2text(expiration_time)].</span>")
+		to_chat(user, "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>")
 	to_chat(user, "<span class='notice'>It grants access to following areas:</span>")
 	for(var/A in temp_access)
 		to_chat(user, "<span class='notice'>[get_access_desc(A)].</span>")
@@ -39,7 +39,7 @@
 	density = 0
 
 
-	var/obj/item/weapon/card/id/giver
+	var/obj/item/card/id/giver
 	var/list/accesses = list()
 	var/giv_name = "NOT SPECIFIED"
 	var/reason = "NOT SPECIFIED"
@@ -49,7 +49,7 @@
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
 
 /obj/machinery/computer/guestpass/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/weapon/card/id))
+	if(istype(O, /obj/item/card/id))
 		if(!giver)
 			user.drop_item()
 			O.loc = src
@@ -146,7 +146,7 @@
 					accesses.Cut()
 				else
 					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/weapon/card/id))
+					if(istype(I, /obj/item/card/id))
 						usr.drop_item()
 						I.loc = src
 						giver = I
@@ -158,7 +158,7 @@
 					dat += "[entry]<br><hr>"
 //				to_chat(usr, "Printing the log, standby...")
 				//sleep(50)
-				var/obj/item/weapon/paper/P = new/obj/item/weapon/paper( loc )
+				var/obj/item/paper/P = new/obj/item/paper( loc )
 				playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 				P.name = "activity log"
 				P.info = dat
@@ -166,16 +166,16 @@
 			if("issue")
 				if(giver)
 					var/number = add_zero("[rand(0,9999)]", 4)
-					var/entry = "\[[worldtime2text()]\] Pass #[number] issued by [giver.registered_name] ([giver.assignment]) to [giv_name]. Reason: [reason]. Grants access to following areas: "
+					var/entry = "\[[station_time()]\] Pass #[number] issued by [giver.registered_name] ([giver.assignment]) to [giv_name]. Reason: [reason]. Grants access to following areas: "
 					for(var/i=1 to accesses.len)
 						var/A = accesses[i]
 						if(A)
 							var/area = get_access_desc(A)
 							entry += "[i > 1 ? ", [area]" : "[area]"]"
-					entry += ". Expires at [worldtime2text(world.time + duration*10*60)]."
+					entry += ". Expires at [station_time(world.time + duration*10*60)]."
 					internal_log.Add(entry)
 
-					var/obj/item/weapon/card/id/guest/pass = new(src.loc)
+					var/obj/item/card/id/guest/pass = new(src.loc)
 					pass.temp_access = accesses.Copy()
 					pass.registered_name = giv_name
 					pass.expiration_time = world.time + duration*10*60

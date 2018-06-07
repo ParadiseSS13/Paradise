@@ -264,19 +264,6 @@
 
 	..(act, m_type, message)
 
-/mob/living/simple_animal/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
-	else
-		M.do_attack_animation(src)
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		attack_threshold_check(damage,M.melee_damage_type)
-
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
 		return
@@ -284,104 +271,6 @@
 		adjustBruteLoss(Proj.damage)
 		Proj.on_hit(src, 0)
 	return 0
-
-/mob/living/simple_animal/attack_hand(mob/living/carbon/human/M as mob)
-	..()
-
-	switch(M.a_intent)
-
-		if(INTENT_HELP)
-			if(health > 0)
-				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-		if(INTENT_GRAB)
-			if(M == src || anchored)
-				return
-			if(!(status_flags & CANPUSH))
-				return
-
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
-
-			M.put_in_active_hand(G)
-
-			G.synch()
-
-			LAssailant = M
-
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-		if(INTENT_HARM, INTENT_DISARM)
-			M.do_attack_animation(src)
-			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
-			playsound(loc, "punch", 25, 1, -1)
-			attack_threshold_check(harm_intent_damage)
-
-	return
-
-/mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-
-	switch(M.a_intent)
-
-		if(INTENT_HELP)
-
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
-		if(INTENT_GRAB)
-			grabbedby(M)
-
-		if(INTENT_HARM, INTENT_DISARM)
-			M.do_attack_animation(src)
-			var/damage = rand(15, 30)
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
-					"<span class='userdanger'>[M] has slashed at [src]!</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-			attack_threshold_check(damage)
-
-	return
-
-/mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L as mob)
-
-	switch(L.a_intent)
-		if(INTENT_HELP)
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
-
-
-		else
-			L.do_attack_animation(src)
-			var/damage = rand(5, 10)
-			visible_message("<span class='danger'>[L] bites [src]!</span>", \
-					"<span class='userdanger'>[L] bites [src]!</span>")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-
-			if(stat != DEAD)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				attack_threshold_check(damage)
-
-
-/mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(M.Victim) return // can't attack while eating!
-
-	if(health > 0)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>[M.name] glomps [src]!</span>")
-
-		var/damage = rand(1, 3)
-
-		if(M.is_adult)
-			damage = rand(20, 40)
-		else
-			damage = rand(5, 35)
-
-		attack_threshold_check(damage)
-
-
-	return
 
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
 	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
@@ -509,12 +398,6 @@
 
 /mob/living/simple_animal/ExtinguishMob()
 	return
-
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
-	if(damage <= force_threshold || !damage_coeff[damagetype])
-		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
-	else
-		apply_damage(damage, damagetype)
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()

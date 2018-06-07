@@ -31,7 +31,7 @@ var/list/global_modular_computers = list()
 	integrity_failure = 150
 	max_integrity = 300
 
-	var/obj/item/device/modular_computer/processor/cpu = null				// CPU that handles most logic while this type only handles power and other specific things.
+	var/obj/item/modular_computer/processor/cpu = null				// CPU that handles most logic while this type only handles power and other specific things.
 
 /obj/machinery/modular_computer/New()
 	..()
@@ -113,7 +113,7 @@ var/list/global_modular_computers = list()
 
 // Used in following function to reduce copypaste
 /obj/machinery/modular_computer/proc/power_failure(malfunction = 0)
-	var/obj/item/weapon/computer_hardware/battery/battery_module = cpu.all_components[MC_CELL]
+	var/obj/item/computer_hardware/battery/battery_module = cpu.all_components[MC_CELL]
 	if(cpu && cpu.enabled) // Shut down the computer
 		visible_message("<span class='danger'>\The [src]'s screen flickers [battery_module ? "\"BATTERY [malfunction ? "MALFUNCTION" : "CRITICAL"]\"" : "\"EXTERNAL POWER LOSS\""] warning as it shuts down unexpectedly.</span>")
 		if(cpu)
@@ -131,7 +131,7 @@ var/list/global_modular_computers = list()
 	..()
 	update_icon()
 
-/obj/machinery/modular_computer/attackby(obj/item/weapon/W, mob/user)
+/obj/machinery/modular_computer/attackby(obj/item/W, mob/user)
 	if(cpu)
 		return cpu.attackby(W, user)
 	return ..()
