@@ -1,4 +1,4 @@
-/var/list/sacrificed = list()
+var/list/sacrificed = list()
 var/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
 
 /*
@@ -153,7 +153,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/M in invokers)
 		var/mob/living/L = M
 		if(invocation)
-			L.say(invocation)
+			if(!L.IsVocal())
+				L.emote("gestures ominously.")
+			else
+				L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
 		if(invoke_damage)
 			L.apply_damage(invoke_damage, BRUTE)
@@ -471,7 +474,6 @@ var/list/teleport_runes = list()
 			playsound(T, 'sound/magic/Disintegrate.ogg', 100, 1)
 			T.gib()
 	rune_in_use = 0
-
 
 
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
