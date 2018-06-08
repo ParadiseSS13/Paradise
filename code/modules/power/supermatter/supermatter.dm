@@ -100,6 +100,8 @@
 /obj/machinery/power/supermatter_shard/New()
 	. = ..()
 	poi_list |= src
+	//Added to the atmos_machine process as the SM is highly coupled with the atmospherics system.
+	//Having the SM run at a different rate then atmospherics causes odd behavior.
 	atmos_machinery += src
 	radio = new(src)
 	radio.listening = 0
@@ -111,12 +113,12 @@
 		return
 
 	// Generic checks, similar to checks done by supermatter monitor program.
-	aw_normal = status_adminwarn_check(SUPERMATTER_NORMAL, aw_normal, "INFO: Supermatter crystal has been energised.", FALSE)
-	aw_notify = status_adminwarn_check(SUPERMATTER_NOTIFY, aw_notify, "INFO: Supermatter crystal is approaching unsafe operating temperature.", FALSE)
-	aw_warning = status_adminwarn_check(SUPERMATTER_WARNING, aw_warning, "WARN: Supermatter crystal is taking integrity damage!", FALSE)
-	aw_danger = status_adminwarn_check(SUPERMATTER_DANGER, aw_danger, "WARN: Supermatter integrity is below 50%!", TRUE)
-	aw_emerg = status_adminwarn_check(SUPERMATTER_EMERGENCY, aw_emerg, "CRIT: Supermatter integrity is below 25%!", FALSE)
-	aw_delam = status_adminwarn_check(SUPERMATTER_DELAMINATING, aw_delam, "CRIT: Supermatter is delaminating!", TRUE)
+	aw_normal = status_adminwarn_check(SUPERMATTER_NORMAL, aw_normal, "INFO: Supermatter crystal has been energised.<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", FALSE)
+	aw_notify = status_adminwarn_check(SUPERMATTER_NOTIFY, aw_notify, "INFO: Supermatter crystal is approaching unsafe operating temperature.<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", FALSE)
+	aw_warning = status_adminwarn_check(SUPERMATTER_WARNING, aw_warning, "WARN: Supermatter crystal is taking integrity damage!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", FALSE)
+	aw_danger = status_adminwarn_check(SUPERMATTER_DANGER, aw_danger, "WARN: Supermatter integrity is below 50%!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", TRUE)
+	aw_emerg = status_adminwarn_check(SUPERMATTER_EMERGENCY, aw_emerg, "CRIT: Supermatter integrity is below 25%!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", FALSE)
+	aw_delam = status_adminwarn_check(SUPERMATTER_DELAMINATING, aw_delam, "CRIT: Supermatter is delaminating!<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.", TRUE)
 
 /obj/machinery/power/supermatter_shard/proc/status_adminwarn_check(var/min_status, var/current_state, var/message, var/send_to_irc = FALSE)
 	var/status = get_status()
@@ -132,6 +134,8 @@
 
 /obj/machinery/power/supermatter_shard/Destroy()
 	investigate_log("has been destroyed.", "supermatter")
+	if(damage > emergency_point)
+		emergency_lighting(0)
 	QDEL_NULL(radio)
 	poi_list.Remove(src)
 	atmos_machinery -= src
@@ -218,11 +222,11 @@
 	var/temp_factor
 	var/equilibrium_power
 	if(oxygen > 0.8)
-		//If chain reacting at oxygen == 1, we want the power at 800 K to stabilize at a power level of 400
+		//If chain reacting at oxygen > 0.8, we want the power at 800 K to stabilize at a power level of 400
 		equilibrium_power = 400
 		icon_state = "[base_icon_state]_glow"
 	else
-		//If chain reacting at oxygen == 1, we want the power at 800 K to stabilize at a power level of 250
+		//Otherwise, we want the power at 800 K to stabilize at a power level of 250
 		equilibrium_power = 250
 		icon_state = base_icon_state
 
@@ -295,7 +299,7 @@
 /obj/machinery/power/supermatter_shard/singularity_act()
 	var/gain = 100
 	investigate_log("Supermatter shard consumed by singularity.","singulo")
-	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
+	message_admins("Singularity has consumed a supermatter shard and can now become stage six.<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>(JMP)</a>.")
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in mob_list)
 		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
