@@ -6,7 +6,7 @@
 	An object responsible for breaking up source code into tokens for use by the parser.
 */
 /datum/n_Scanner
-	var/code
+	var/list/code
 /*
 	Var: errors
 	A list of fatal errors found by the scanner. If there are any items in this list, then it is not safe to parse the returned tokens.
@@ -25,7 +25,7 @@
 	Proc: LoadCode
 	Loads source code.
 */
-/datum/n_Scanner/proc/LoadCode(var/c)
+/datum/n_Scanner/proc/LoadCode(var/list/c)
 	code=c
 
 /*
@@ -100,24 +100,23 @@
 	code	 	- The source code to tokenize.
 	options - An <nS_Options> object used to configure the scanner.
 */
-/datum/n_Scanner/nS_Scanner/New(var/code, var/datum/n_scriptOptions/nS_Options/options)
+/datum/n_Scanner/nS_Scanner/New(var/list/c, var/datum/n_scriptOptions/nS_Options/options)
 	. = ..()
 	ignore += ascii2text(13) //Carriage return
 	delim += ignore + options.symbols + end_stmt + string_delim
 	src.options = options
-	LoadCode(code)
+	LoadCode(c)
 
 /datum/n_Scanner/nS_Scanner/Scan() //Creates a list of tokens from source code
 	var/list/tokens = new
-	for(, src.codepos <= length(code), src.codepos++)
-
-		var/char = copytext(code, codepos, codepos + 1)
-		var/nextchar = copytext(code, codepos + 1, codepos + 2)
+	for(, src.codepos <= code.len, src.codepos++)
+		var/char = code[codepos]
+		var/nextchar = TCOMMS_SAFE_INDEX(code, codepos + 1)
 		if(char == "\n")
 			line++
 			linepos = codepos
 
-		if(ignore.Find(char))
+		if(char in ignore)
 			continue
 
 		else if(char == "/" && (nextchar == "*" || nextchar == "/"))
@@ -139,6 +138,7 @@
 		else if(options.symbols.Find(char))
 			tokens += ReadSymbol()
 
+		CHECK_TICK
 
 	codepos	= initial(codepos)
 	line	= initial(line)
@@ -155,12 +155,12 @@
 */
 /datum/n_Scanner/nS_Scanner/proc/ReadString(start)
 	var/buf
-	for(, codepos <= length(code), codepos++)//codepos to length(code))
-		var/char = copytext(code, codepos, codepos + 1)
+	for(, codepos <= code.len, codepos++)//codepos to length(code))
+		var/char = code[codepos]
 		switch(char)
 			if("\\")					//Backslash (\) encountered in string
 				codepos++       //Skip next character in string, since it was escaped by a backslash
-				char = copytext(code, codepos, codepos+1)
+				char = TCOMMS_SAFE_INDEX(code, codepos)
 				switch(char)
 					if("\\")      //Double backslash
 						buf += "\\"
@@ -190,12 +190,14 @@
 	Reads characters separated by an item in <delim> into a token.
 */
 /datum/n_Scanner/nS_Scanner/proc/ReadWord()
-	var/char = copytext(code, codepos, codepos + 1)
+	var/char = code[codepos]
 	var/buf
 
-	while(!delim.Find(char) && codepos <= length(code))
+	while(!delim.Find(char))
 		buf += char
-		char = copytext(code, ++codepos, codepos + 1)
+		if(++codepos > code.len) break
+		char = code[codepos]
+
 	codepos-- //allow main Scan() proc to read the delimiter
 	if(options.keywords.Find(buf))
 		return new/datum/token/keyword(buf, line, COL)
@@ -207,13 +209,13 @@
 	Reads a symbol into a token.
 */
 /datum/n_Scanner/nS_Scanner/proc/ReadSymbol()
-	var/char=copytext(code, codepos, codepos + 1)
+	var/char = code[codepos]
 	var/buf
 
 	while(options.symbols.Find(buf + char))
 		buf += char
-		if(++codepos > length(code)) break
-		char = copytext(code, codepos, codepos + 1)
+		if(++codepos > code.len) break
+		char = code[codepos]
 
 	codepos-- //allow main Scan() proc to read the next character
 	return new /datum/token/symbol(buf, line, COL)
@@ -223,7 +225,7 @@
 	Reads a number into a token.
 */
 /datum/n_Scanner/nS_Scanner/proc/ReadNumber()
-	var/char = copytext(code, codepos, codepos + 1)
+	var/char = code[codepos]
 	var/buf
 	var/dec = 0
 
@@ -233,7 +235,7 @@
 
 		buf += char
 		codepos++
-		char = copytext(code, codepos, codepos + 1)
+		char = TCOMMS_SAFE_INDEX(code, codepos)
 
 	var/datum/token/number/T = new(buf, line, COL)
 	if(isnull(text2num(buf)))
@@ -249,8 +251,8 @@
 */
 
 /datum/n_Scanner/nS_Scanner/proc/ReadComment()
-	var/char = copytext(code, codepos, codepos + 1)
-	var/nextchar = copytext(code, codepos + 1, codepos + 2)
+	var/char = code[codepos]
+	var/nextchar = TCOMMS_SAFE_INDEX(code, codepos + 1)
 	var/charstring = char + nextchar
 	var/comm = 1
 			// 1: single-line comment
@@ -262,23 +264,23 @@
 			comm = 2 // starts a multi-line comment
 
 		while(comm)
-			if(++codepos > length(code))
+			if(++codepos > code.len)
 				break
 
 			if(expectedend) // ending statement expected...
-				char = copytext(code, codepos, codepos + 1)
+				char = code[codepos]
 				if(char == "/") // ending statement found - beak the comment
 					comm = 0
 					break
 
 			if(comm == 2)
 				// multi-line comments are broken by ending statements
-				char = copytext(code, codepos, codepos + 1)
+				char = code[codepos]
 				if(char == "*")
 					expectedend = 1
 					continue
 			else
-				char = copytext(code, codepos, codepos + 1)
+				char = code[codepos]
 				if(char == "\n")
 					comm = 0
 					break
