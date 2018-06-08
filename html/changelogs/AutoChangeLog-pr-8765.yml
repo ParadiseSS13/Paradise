@@ -1,4 +1,0 @@
-author: "Desolate"
-delete-after: True
-changes: 
-  - bugfix: "ED-209 code corrected to work properly. Floorbot code corrected to work properly."
