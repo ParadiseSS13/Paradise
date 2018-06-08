@@ -314,7 +314,7 @@
 	else if(!anchored && !pulledby)
 		var/turf/target = get_turf(src)
 		var/datum/gas_mixture/target_air = target.return_air()
-		if(isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())
+		if(isspaceturf(target) || isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())
 			return 0
 		if(pressure_difference >= throw_pressure_limit)
 			var/general_direction = get_edge_target_turf(src, direction)
@@ -324,7 +324,7 @@
 				var/max_distance = 14 // reduce by one each calculation to prevent infinate loops.
 				var/min_observed_pressure = INFINITY
 				var/turf/possible_target = get_turf(src)
-				while(!isunsimulatedturf(target) && max_distance > 0)
+				while(!isspaceturf(target) && !isunsimulatedturf(target) && max_distance > 0)
 					max_distance--
 					target_air = target.return_air()
 					min_observed_pressure = target_air.return_pressure()
