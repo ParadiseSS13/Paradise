@@ -186,6 +186,8 @@
 	if(P.info) //If there's anything written on the paper, just move it into the fortune cookie
 		P.forceMove(being_cooked) //Prevents the oven deleting our paper
 		being_cooked.trash = P //so the paper is left behind as trash without special-snowflake(TM Nodrak) code ~carn
+	else
+		qdel(P)
 	return being_cooked
 
 /datum/recipe/oven/pizzamargherita

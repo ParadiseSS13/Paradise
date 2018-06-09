@@ -482,7 +482,6 @@
 	name = "fortune"
 	icon_state = "slip"
 	paper_height = 150
-	var/fortunemessage
 
 /obj/item/paper/fortune/New()
 	..()
