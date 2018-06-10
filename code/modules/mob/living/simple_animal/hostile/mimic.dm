@@ -51,7 +51,7 @@
 	var/attempt_open = 0
 
 // Pickup loot
-/mob/living/simple_animal/hostile/mimic/crate/initialize()
+/mob/living/simple_animal/hostile/mimic/crate/Initialize()
 	..()
 	for(var/obj/item/I in loc)
 		I.loc = src
@@ -174,8 +174,6 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 			melee_damage_lower = 2 + I.force
 			melee_damage_upper = 2 + I.force
 			move_to_delay = 2 * I.w_class + 1
-			if(istype(O, /obj/item/device))
-				is_electronic = 1
 		maxHealth = health
 		if(user)
 			creator = user
@@ -217,33 +215,34 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 	return ..()
 
 /mob/living/simple_animal/hostile/mimic/copy/ranged
-	var/obj/item/weapon/gun/TrueGun = null
-	var/obj/item/weapon/gun/magic/Zapstick
-	var/obj/item/weapon/gun/projectile/Pewgun
-	var/obj/item/weapon/gun/energy/Zapgun
+	var/obj/item/gun/TrueGun = null
+	var/obj/item/gun/magic/Zapstick
+	var/obj/item/gun/projectile/Pewgun
+	var/obj/item/gun/energy/Zapgun
 
 /mob/living/simple_animal/hostile/mimic/copy/ranged/CopyObject(obj/O, mob/living/creator, destroy_original = 0)
 	if(..())
 		emote_see = list("aims menacingly")
+		obj_damage = 0
 		environment_smash = 0 //needed? seems weird for them to do so
 		ranged = 1
 		retreat_distance = 1 //just enough to shoot
 		minimum_distance = 6
-		var/obj/item/weapon/gun/G = O
+		var/obj/item/gun/G = O
 		melee_damage_upper = G.force
 		melee_damage_lower = G.force - max(0, (G.force / 2))
 		move_to_delay = 2 * G.w_class + 1
 		projectilesound = G.fire_sound
 		TrueGun = G
-		if(istype(G, /obj/item/weapon/gun/magic))
+		if(istype(G, /obj/item/gun/magic))
 			Zapstick = G
 			var/obj/item/ammo_casing/magic/M = Zapstick.ammo_type
 			projectiletype = initial(M.projectile_type)
-		if(istype(G, /obj/item/weapon/gun/projectile))
+		if(istype(G, /obj/item/gun/projectile))
 			Pewgun = G
 			var/obj/item/ammo_box/magazine/M = Pewgun.mag_type
 			casingtype = initial(M.ammo_type)
-		if(istype(G, /obj/item/weapon/gun/energy))
+		if(istype(G, /obj/item/gun/energy))
 			Zapgun = G
 			var/selectfiresetting = Zapgun.select
 			var/obj/item/ammo_casing/energy/E = Zapgun.ammo_type[selectfiresetting]

@@ -9,6 +9,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 	range = -1
 	include_user = 1
 	action_icon_state = "hatch"
+	var/cycles_unused = 0
 
 /obj/effect/proc_holder/spell/targeted/shadowling_hatch/cast(list/targets, mob/user = usr)
 	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
@@ -42,7 +43,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				var/temp_flags = H.status_flags
 				H.status_flags |= GODMODE //Can't die while hatching
 
-				H.visible_message("<span class='warning'>A chrysalis forms around [H], sealing them inside.</span>", \
+				H.visible_message("<span class='warning'>A chrysalis forms around [H], sealing [H.p_them()] inside.</span>", \
 									"<span class='shadowling'>You create your chrysalis and begin to contort within.</span>")
 
 				sleep(100)
@@ -50,7 +51,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 									"<span class='shadowling'>Spines pierce your back. Your claws break apart your fingers. You feel excruciating pain as your true form begins its exit.</span>")
 
 				sleep(90)
-				H.visible_message("<span class='warning'><b>[H], skin shifting, begins tearing at the walls around them.</b></span>", \
+				H.visible_message("<span class='warning'><b>[H], skin shifting, begins tearing at the walls around [H.p_them()].</b></span>", \
 								"<span class='shadowling'>Your false skin slips away. You begin tearing at the fragile membrane protecting you.</span>")
 
 				sleep(80)
@@ -178,6 +179,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				sleep(50)
 				if(!ticker.mode.shadowling_ascended)
 					shuttle_master.emergency.request(null, 0.3)
+					shuttle_master.emergency.canRecall = FALSE
 				ticker.mode.shadowling_ascended = 1
 				A.mind.RemoveSpell(src)
 				qdel(H)

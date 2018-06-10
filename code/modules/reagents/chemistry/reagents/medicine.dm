@@ -73,7 +73,7 @@
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(8)
 			M.Weaken(4)
 		if(effect <= 15)
@@ -92,7 +92,7 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.take_damage(-0.4)
+			I.receive_damage(-0.4)
 	..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
@@ -277,7 +277,7 @@
 	if(severity == 1) //lesser
 		M.stuttering += 1
 		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
 			M.emote("scream")
 			M.Stun(4)
 			M.Weaken(4)
@@ -293,7 +293,7 @@
 			M.Jitter(30)
 	else if(severity == 2) // greater
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
 			M.emote("scream")
 			M.Stun(7)
 			M.Weaken(7)
@@ -446,7 +446,7 @@
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M.name] staggers and drools, their eyes bloodshot!</span>")
+			M.visible_message("<span class='warning'>[M.name] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(2)
 			M.Weaken(3)
 		if(effect <= 15)
@@ -512,7 +512,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.take_damage(-1)
+				E.receive_damage(-1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))
@@ -597,7 +597,7 @@
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(2)
 			M.Weaken(3)
 		if(effect <= 15)
@@ -666,7 +666,7 @@
 
 					M.update_revive()
 					M.stat = UNCONSCIOUS
-					add_logs(M, M, "revived", object="strange reagent") //Yes, the logs say you revived yourself.
+					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
 /datum/reagent/medicine/mannitol
@@ -853,16 +853,17 @@
 	description = "A strong anesthetic and sedative."
 	reagent_state = LIQUID
 	color = "#96DEDE"
+	metabolization_rate = 0.1
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
 	M.AdjustJitter(-25)
 	switch(current_cycle)
-		if(1 to 15)
+		if(1 to 30)
 			if(prob(7))
 				M.emote("yawn")
-		if(16 to 35)
+		if(31 to 40)
 			M.Drowsy(20)
-		if(36 to INFINITY)
+		if(41 to INFINITY)
 			M.Paralyse(15)
 			M.Drowsy(20)
 	..()
@@ -1035,3 +1036,41 @@
 	color = "#F5F5F5"
 
 // This reagent's effects are handled in heart attack handling code
+
+/datum/reagent/medicine/nanocalcium
+	name = "Nano-Calcium"
+	id = "nanocalcium"
+	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
+	color = "#9b3401"
+	metabolization_rate = 0.5
+	can_synth = FALSE
+
+/datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
+	switch(current_cycle)
+		if(1 to 19)
+			M.AdjustJitter(4)
+			if(prob(10))
+				to_chat(M, "<span class='warning'>Your skin feels hot and your veins are on fire!</span>")
+		if(20 to 43)
+			//If they have stimulants or stimulant drugs then just apply toxin damage instead.
+			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
+				M.adjustToxLoss(10)
+			else //apply debilitating effects
+				if(prob(75))
+					M.AdjustConfused(5)
+				else
+					M.AdjustWeakened(5)
+		if(44)
+			to_chat(M, "<span class='warning'>Your body goes rigid, you cannot move at all!</span>")
+			M.AdjustWeakened(15)
+		if(45 to INFINITY) // Start fixing bones | If they have stimulants or stimulant drugs in their system then the nanites won't work.
+			if(M.reagents.has_reagent("methamphetamine") || M.reagents.has_reagent("crank") || M.reagents.has_reagent("bath_salts") || M.reagents.has_reagent("stimulative_agent") || M.reagents.has_reagent("stimulants"))
+				return ..()
+			else
+				for(var/obj/item/organ/external/E in M.bodyparts)
+					if(E.is_broken())
+						if(prob(50)) // Each tick has a 50% chance of repearing a bone.
+							to_chat(M, "<span class='notice'>You feel a burning sensation in your [E.name] as it straightens involuntarily!</span>")
+							E.rejuvenate() //Repair it completely.
+							break
+	..()

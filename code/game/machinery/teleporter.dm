@@ -3,8 +3,8 @@
 	desc = "Used to control a linked teleportation Hub and Station."
 	icon_screen = "teleport"
 	icon_keyboard = "teleport_key"
-	circuit = /obj/item/weapon/circuitboard/teleporter
-	var/obj/item/device/gps/locked = null
+	circuit = /obj/item/circuitboard/teleporter
+	var/obj/item/gps/locked = null
 	var/regime_set = "Teleporter"
 	var/id = null
 	var/obj/machinery/teleport/station/power_station
@@ -18,7 +18,7 @@
 	..()
 	return
 
-/obj/machinery/computer/teleporter/initialize()
+/obj/machinery/computer/teleporter/Initialize()
 	..()
 	link_power_station()
 	update_icon()
@@ -39,8 +39,8 @@
 	return power_station
 
 /obj/machinery/computer/teleporter/attackby(I as obj, mob/living/user as mob, params)
-	if(istype(I, /obj/item/device/gps))
-		var/obj/item/device/gps/L = I
+	if(istype(I, /obj/item/gps))
+		var/obj/item/gps/L = I
 		if(L.locked_location && !(stat & (NOPOWER|BROKEN)))
 			if(!user.unEquip(L))
 				to_chat(user, "<span class='warning'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
@@ -70,7 +70,7 @@
 		return
 
 	// Set up the Nano UI
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "teleporter_console.tmpl", "Teleporter Console UI", 400, 400)
 		ui.open()
@@ -99,16 +99,16 @@
 
 	if(href_list["eject"])
 		eject()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	if(!check_hub_connection())
 		to_chat(usr, "<span class='warning'>Error: Unable to detect hub.</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 	if(calibrating)
 		to_chat(usr, "<span class='warning'>Error: Calibration in progress. Stand by.</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	if(href_list["regimeset"])
@@ -116,32 +116,32 @@
 		power_station.teleporter_hub.update_icon()
 		power_station.teleporter_hub.calibrated = 0
 		reset_regime()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(href_list["settarget"])
 		power_station.engaged = 0
 		power_station.teleporter_hub.update_icon()
 		power_station.teleporter_hub.calibrated = 0
 		set_target(usr)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(href_list["lock"])
 		power_station.engaged = 0
 		power_station.teleporter_hub.update_icon()
 		power_station.teleporter_hub.calibrated = 0
 		target = get_turf(locked.locked_location)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	if(href_list["calibrate"])
 		if(!target)
 			to_chat(usr, "<span class='warning'>Error: No target set to calibrate to.</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return
 		if(power_station.teleporter_hub.calibrated || power_station.teleporter_hub.accurate >= 3)
 			to_chat(usr, "<span class='notice'>Hub is already calibrated.</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return
 		src.visible_message("<span class='notice'>Processing hub calibration to target...</span>")
 
 		calibrating = 1
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		spawn(50 * (3 - power_station.teleporter_hub.accurate)) //Better parts mean faster calibration
 			calibrating = 0
 			if(check_hub_connection())
@@ -149,9 +149,9 @@
 				src.visible_message("<span class='notice'>Calibration complete.</span>")
 			else
 				src.visible_message("<span class='warning'>Error: Unable to detect hub.</span>")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/computer/teleporter/proc/check_hub_connection()
 	if(!power_station)
@@ -177,7 +177,7 @@
 		var/list/L = list()
 		var/list/areaindex = list()
 
-		for(var/obj/item/device/radio/beacon/R in beacons)
+		for(var/obj/item/radio/beacon/R in beacons)
 			var/turf/T = get_turf(R)
 			if(!T)
 				continue
@@ -192,7 +192,7 @@
 				areaindex[tmpname] = 1
 			L[tmpname] = R
 
-		for(var/obj/item/weapon/implant/tracking/I in tracked_implants)
+		for(var/obj/item/implant/tracking/I in tracked_implants)
 			if(!I.implanted || !ismob(I.loc))
 				continue
 			else
@@ -276,24 +276,24 @@
 	..()
 	link_power_station()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
 /obj/machinery/teleport/hub/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
 
-/obj/machinery/teleport/hub/initialize()
+/obj/machinery/teleport/hub/Initialize()
 	..()
 	link_power_station()
 
@@ -305,7 +305,7 @@
 
 /obj/machinery/teleport/hub/RefreshParts()
 	var/A = 0
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A += M.rating
 	accurate = A
 
@@ -386,10 +386,10 @@
 	var/tele_delay = 50
 
 /obj/machinery/teleport/perma/RefreshParts()
-	for(var/obj/item/weapon/circuitboard/teleporter_perma/C in component_parts)
+	for(var/obj/item/circuitboard/teleporter_perma/C in component_parts)
 		target = C.target
 	var/A = 40
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		A -= M.rating * 10
 	tele_delay = max(A, 0)
 	update_icon()
@@ -463,22 +463,22 @@
 /obj/machinery/teleport/station/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/teleporter_station(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/teleporter_station(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 	link_console_and_hub()
 
-/obj/machinery/teleport/station/initialize()
+/obj/machinery/teleport/station/Initialize()
 	..()
 	link_console_and_hub()
 
 /obj/machinery/teleport/station/RefreshParts()
 	var/E
-	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		E += C.rating
 	efficiency = E - 1
 
@@ -506,9 +506,9 @@
 		teleporter_console = null
 	return ..()
 
-/obj/machinery/teleport/station/attackby(var/obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool) && !panel_open)
-		var/obj/item/device/multitool/M = W
+/obj/machinery/teleport/station/attackby(var/obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/multitool) && !panel_open)
+		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(M.buffer)
@@ -526,17 +526,17 @@
 	default_deconstruction_crowbar(W)
 
 	if(panel_open)
-		if(istype(W, /obj/item/device/multitool))
-			var/obj/item/device/multitool/M = W
+		if(istype(W, /obj/item/multitool))
+			var/obj/item/multitool/M = W
 			M.buffer = src
 			to_chat(user, "<span class='caution'>You download the data to the [W.name]'s buffer.</span>")
 			return
-		if(istype(W, /obj/item/weapon/wirecutters))
+		if(istype(W, /obj/item/wirecutters))
 			link_console_and_hub()
 			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
 			return
-		if(istype(W, /obj/item/weapon/circuitboard/teleporter_perma))
-			var/obj/item/weapon/circuitboard/teleporter_perma/C = W
+		if(istype(W, /obj/item/circuitboard/teleporter_perma))
+			var/obj/item/circuitboard/teleporter_perma/C = W
 			C.target = teleporter_console.target
 			to_chat(user, "<span class='caution'>You copy the targeting information from \the [src] to \the [W]</span>")
 			return

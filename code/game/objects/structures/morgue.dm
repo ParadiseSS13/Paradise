@@ -29,7 +29,7 @@
 	anchored = 1.0
 	var/open_sound = 'sound/items/Deconstruct.ogg'
 
-/obj/structure/morgue/initialize()
+/obj/structure/morgue/Initialize()
 	. = ..()
 	update()
 
@@ -92,10 +92,6 @@
 				return
 	return
 
-/obj/structure/morgue/alter_health()
-	return loc
-
-
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if(connected)
 		for(var/atom/movable/A as mob|obj in connected.loc)
@@ -123,7 +119,7 @@
 	return
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/weapon/pen))
+	if(istype(P, /obj/item/pen))
 		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
 		if(user.get_active_hand() != P)
 			return
@@ -290,10 +286,6 @@
 				return
 	return
 
-/obj/structure/crematorium/alter_health()
-	return loc
-
-
 /obj/structure/crematorium/attack_hand(mob/user as mob)
 	if(cremating)
 		to_chat(usr, "<span class='warning'>It's locked.</span>")
@@ -322,7 +314,7 @@
 	update()
 
 /obj/structure/crematorium/attackby(P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/weapon/pen))
+	if(istype(P, /obj/item/pen))
 		var/t = input(user, "What would you like the label to be?", text("[]", name), null)  as text
 		if(user.get_active_hand() != P)
 			return
@@ -371,16 +363,14 @@
 		icon_state = "crema_active"
 
 		for(var/mob/living/M in search_contents_for(/mob/living))
-			if(!M || !isnull(M.gcDestroyed))
+			if(QDELETED(M))
 				continue
 			if(M.stat!=2)
 				M.emote("scream")
 			if(istype(user))
-				M.create_attack_log("<font color='orange'>Has been cremated by [user.name] ([user.ckey])</font>")
-				user.create_attack_log("<font color='red'>Cremated [M.name] ([M.ckey])</font>")
-				log_attack("[user.name] ([user.ckey]) cremated [M.name] ([M.ckey])")
+				add_attack_logs(user, M, "Cremated")
 			M.death(1)
-			if(!M || !isnull(M.gcDestroyed))
+			if(QDELETED(M))
 				continue // Re-check for mobs that delete themselves on death
 			M.ghostize()
 			qdel(M)

@@ -36,12 +36,12 @@
 	desc = "Generates cannon pulse. Needs to be linked with a fusor. "
 	icon_state = "power_box"
 
-/obj/machinery/bsa/back/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+/obj/machinery/bsa/back/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/wrench))
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -52,12 +52,12 @@
 	desc = "Do not stand in front of cannon during operation. Needs to be linked with a fusor."
 	icon_state = "emitter_center"
 
-/obj/machinery/bsa/front/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+/obj/machinery/bsa/front/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You store linkage information in [W]'s buffer.</span>")
-	else if(istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/wrench))
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -70,9 +70,9 @@
 	var/obj/machinery/bsa/back/back
 	var/obj/machinery/bsa/front/front
 
-/obj/machinery/bsa/middle/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+/obj/machinery/bsa/middle/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		if(M.buffer)
 			if(istype(M.buffer,/obj/machinery/bsa/back))
 				back = M.buffer
@@ -82,7 +82,7 @@
 				front = M.buffer
 				M.buffer = null
 				to_chat(user, "<span class='notice'>You link [src] with [front].</span>")
-	else if(istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/wrench))
 		default_unfasten_wrench(user, W, 10)
 		return TRUE
 	else
@@ -222,31 +222,31 @@
 	use_power(power_used_per_shot)
 	last_fire_time = world.time / 10
 
-/obj/item/weapon/circuitboard/machine/bsa/back
+/obj/item/circuitboard/machine/bsa/back
 	name = "Bluespace Artillery Generator (Machine Board)"
 	build_path = /obj/machinery/bsa/back
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
-							/obj/item/weapon/stock_parts/capacitor/quadratic = 5,
+							/obj/item/stock_parts/capacitor/quadratic = 5,
 							/obj/item/stack/cable_coil = 2)
 
-/obj/item/weapon/circuitboard/machine/bsa/middle
+/obj/item/circuitboard/machine/bsa/middle
 	name = "Bluespace Artillery Fusor (Machine Board)"
 	build_path = /obj/machinery/bsa/middle
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
-							/obj/item/weapon/ore/bluespace_crystal = 20,
+							/obj/item/ore/bluespace_crystal = 20,
 							/obj/item/stack/cable_coil = 2)
 
-/obj/item/weapon/circuitboard/machine/bsa/front
+/obj/item/circuitboard/machine/bsa/front
 	name = "Bluespace Artillery Bore (Machine Board)"
 	build_path = /obj/machinery/bsa/front
 	origin_tech = "engineering=2;combat=2;bluespace=2"
 	req_components = list(
-							/obj/item/weapon/stock_parts/manipulator/femto = 5,
+							/obj/item/stock_parts/manipulator/femto = 5,
 							/obj/item/stack/cable_coil = 2)
 
-/obj/item/weapon/circuitboard/computer/bsa_control
+/obj/item/circuitboard/computer/bsa_control
 	name = "Bluespace Artillery Controls (Computer Board)"
 	build_path = /obj/machinery/computer/bsa_control
 	origin_tech = "engineering=2;combat=2;bluespace=2"
@@ -257,7 +257,7 @@
 	var/notice
 	var/target
 	use_power = 0
-	circuit = /obj/item/weapon/circuitboard/computer/bsa_control
+	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator3.dmi'
 	icon_state = "control_boxp"
 	var/icon_state_broken = "control_box"
@@ -273,7 +273,7 @@
 	area_aim = TRUE
 	target_all_areas = TRUE
 
-/obj/machinery/computer/bsa_control/admin/initialize()
+/obj/machinery/computer/bsa_control/admin/Initialize()
 	..()
 	if(!cannon)
 		cannon = deploy()
@@ -306,7 +306,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "bsa.tmpl", name, 400, 305)
 		ui.open()
@@ -351,7 +351,7 @@
 
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	var/list/gps_locators = list()
-	for(var/obj/item/device/gps/G in GPS_list) //nulls on the list somehow
+	for(var/obj/item/gps/G in GPS_list) //nulls on the list somehow
 		gps_locators[G.gpstag] = G
 
 	var/list/options = gps_locators
@@ -364,14 +364,14 @@
 	if(istype(target,/area))
 		var/area/A = target
 		return A.name
-	else if(istype(target,/obj/item/device/gps))
-		var/obj/item/device/gps/G = target
+	else if(istype(target,/obj/item/gps))
+		var/obj/item/gps/G = target
 		return G.gpstag
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	if(istype(target,/area))
 		return pick(get_area_turfs(target))
-	else if(istype(target,/obj/item/device/gps))
+	else if(istype(target,/obj/item/gps))
 		return get_turf(target)
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)

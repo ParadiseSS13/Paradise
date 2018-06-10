@@ -105,6 +105,7 @@ Please contact me on #coderbus IRC. ~Carn x
 
 /mob/living/carbon/human
 	var/list/overlays_standing[TOTAL_LAYERS]
+	var/list/misc_effect_overlays = list() //Overlays that are applied at a custom layer (defined in each image's .layer property) outside of standard overlay application. Updated in update_misc_effects()
 	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed
 	var/icon/skeleton
 	var/list/cached_standing_overlays = list() // List of everything currently in a human's actual overlays
@@ -154,6 +155,10 @@ Please contact me on #coderbus IRC. ~Carn x
 					I.layer = (-2 - (TOTAL_LAYERS - i)) // Highest layer gets -2, each prior layer is 1 lower
 				new_overlays += I
 
+		update_misc_effects()
+		if(misc_effect_overlays)
+			new_overlays += misc_effect_overlays
+
 		if(frozen) // Admin freeze overlay
 			new_overlays += frozen
 
@@ -200,7 +205,7 @@ var/global/list/damage_icon_parts = list()
 			DI = damage_icon_parts[cache_index]
 		standing_image.overlays += DI
 
-	overlays_standing[DAMAGE_LAYER]	= standing_image
+	overlays_standing[H_DAMAGE_LAYER]	= standing_image
 
 	if(update_icons)   update_icons()
 
@@ -1053,9 +1058,9 @@ var/global/list/damage_icon_parts = list()
 		var/icon/standing
 		if(back.icon_override)
 			standing = image("icon" = back.icon_override, "icon_state" = "[back.icon_state]")
-		else if(istype(back, /obj/item/weapon/rig))
+		else if(istype(back, /obj/item/rig))
 			//If this is a rig and a mob_icon is set, it will take species into account in the rig update_icon() proc.
-			var/obj/item/weapon/rig/rig = back
+			var/obj/item/rig/rig = back
 			standing = rig.mob_icon
 		else if(back.sprite_sheets && back.sprite_sheets[species.name])
 			standing = image("icon" = back.sprite_sheets[species.name], "icon_state" = "[back.icon_state]")
@@ -1072,7 +1077,7 @@ var/global/list/damage_icon_parts = list()
 /mob/living/carbon/human/update_inv_handcuffed(var/update_icons=1)
 	overlays_standing[HANDCUFF_LAYER] = null
 	if(handcuffed)
-		if(istype(handcuffed, /obj/item/weapon/restraints/handcuffs/pinkcuffs))
+		if(istype(handcuffed, /obj/item/restraints/handcuffs/pinkcuffs))
 			overlays_standing[HANDCUFF_LAYER] = image("icon" = 'icons/mob/mob.dmi', "icon_state" = "pinkcuff1")
 		else
 			overlays_standing[HANDCUFF_LAYER] = image("icon" = 'icons/mob/mob.dmi', "icon_state" = "handcuff1")
@@ -1323,6 +1328,13 @@ var/global/list/damage_icon_parts = list()
 	overlays_standing[COLLAR_LAYER]	= standing
 
 	if(update_icons)   update_icons()
+
+/mob/living/carbon/human/proc/update_misc_effects()
+	misc_effect_overlays.Cut()
+
+	//Begin appending miscellaneous effects.
+	if(eyes_shine())
+		misc_effect_overlays += get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)

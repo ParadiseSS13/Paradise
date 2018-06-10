@@ -29,6 +29,7 @@
 
 	var/sterile = FALSE //can the organ be infected by germs?
 	var/tough = FALSE //can organ be easily damaged?
+	var/emp_proof = FALSE //is the organ immune to EMPs?
 
 
 /obj/item/organ/Destroy()
@@ -114,7 +115,7 @@
 		handle_germ_effects()
 
 /obj/item/organ/proc/is_preserved()
-	if(istype(loc,/obj/item/device/mmi))
+	if(istype(loc,/obj/item/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
 		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
@@ -168,7 +169,7 @@
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3))	//about once every 30 seconds
-			take_damage(1,silent=prob(30))
+			receive_damage(1,silent=prob(30))
 
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
@@ -219,7 +220,7 @@
 	W.time_inflicted = world.time
 
 //Note: external organs have their own version of this proc
-/obj/item/organ/proc/take_damage(amount, silent = 0)
+/obj/item/organ/proc/receive_damage(amount, silent = 0)
 	if(tough)
 		return
 	if(status & ORGAN_ROBOT)
@@ -252,43 +253,45 @@
 	min_broken_damage = 35
 
 /obj/item/organ/external/emp_act(severity)
-	if(!(status & ORGAN_ROBOT))
+	if(!(status & ORGAN_ROBOT) || emp_proof)
 		return
 	if(tough)
 		switch(severity)
 			if(1)
-				take_damage(0, 5.5)
+				receive_damage(0, 5.5)
 				if(owner)
 					owner.Stun(10)
 			if(2)
-				take_damage(0, 2.8)
+				receive_damage(0, 2.8)
 				if(owner)
 					owner.Stun(5)
 	else
 		switch(severity)
 			if(1)
-				take_damage(0, 20)
+				receive_damage(0, 20)
 			if(2)
-				take_damage(0, 7)
+				receive_damage(0, 7)
 
 /obj/item/organ/internal/emp_act(severity)
-	if(!robotic)
+	if(!robotic || emp_proof)
 		return
 	if(robotic == 2)
 		switch(severity)
 			if(1.0)
-				take_damage(20, 1)
+				receive_damage(20, 1)
 			if(2.0)
-				take_damage(7, 1)
+				receive_damage(7, 1)
 	else if(robotic == 1)
-		take_damage(11, 1)
+		receive_damage(11, 1)
 
 /obj/item/organ/internal/heart/emp_act(intensity)
+	if(emp_proof)
+		return
 	if(owner && robotic == 2)
 		Stop() // In the name of looooove~!
-		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
+		owner.visible_message("<span class='danger'>[owner] clutches [owner.p_their()] chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
 	else if(owner && robotic == 1)
-		take_damage(11,1)
+		receive_damage(11,1)
 
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
@@ -303,10 +306,7 @@
 	processing_objects |= src
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
-		if(user)
-			user.create_attack_log("<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>")
-			owner.create_attack_log("<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>")
-			msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(owner)]")
+		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user)
 		owner.death()
 	owner = null
 	return src
@@ -333,6 +333,14 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 	if(!istype(owner)) // You're not the primary organ of ANYTHING, bucko
 		return 0
 	return src == O.get_int_organ(organ_tag)
+
+/obj/item/organ/proc/is_robotic(var/purist = FALSE)
+	if(purist && (robotic > 1 || status & (ORGAN_ROBOT))) //Only the robotiest.
+		return TRUE
+	if(robotic || status & (ORGAN_ROBOT|ORGAN_ASSISTED)) //Any tech will do.
+		return TRUE
+
+	return FALSE
 
 /obj/item/organ/serialize()
 	var/data = ..()

@@ -7,6 +7,7 @@
 	icon_state = "nest"
 	var/health = 100
 	var/image/nest_overlay
+	comfort = 0
 
 /obj/structure/stool/bed/nest/New()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
@@ -76,7 +77,7 @@
 		M.layer = initial(M.layer)
 		overlays -= nest_overlay
 
-/obj/structure/stool/bed/nest/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/stool/bed/nest/attackby(obj/item/W as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	var/aforce = W.force
 	health = max(0, health - aforce)

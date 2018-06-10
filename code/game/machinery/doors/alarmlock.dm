@@ -1,6 +1,7 @@
 /obj/machinery/door/airlock/alarmlock
 	name = "glass alarm airlock"
-	icon = 'icons/obj/doors/Doorglass.dmi'
+	icon = 'icons/obj/doors/airlocks/station2/glass.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
 	opacity = 0
 	glass = 1
 	autoclose = 0
@@ -17,7 +18,7 @@
 	air_connection = null
 	return ..()
 
-/obj/machinery/door/airlock/alarmlock/initialize()
+/obj/machinery/door/airlock/alarmlock/Initialize()
 	..()
 	radio_controller.remove_object(src, air_frequency)
 	air_connection = radio_controller.add_object(src, air_frequency, RADIO_TO_AIRALARM)

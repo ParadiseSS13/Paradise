@@ -27,18 +27,18 @@
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
 	suit = /obj/item/clothing/suit/storage/labcoat/cmo
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/device/radio/headset/heads/cmo
-	id = /obj/item/weapon/card/id/cmo
-	suit_store = /obj/item/device/flashlight/pen
-	l_hand = /obj/item/weapon/storage/firstaid/adv
-	pda = /obj/item/device/pda/heads/cmo
+	l_ear = /obj/item/radio/headset/heads/cmo
+	id = /obj/item/card/id/cmo
+	suit_store = /obj/item/flashlight/pen
+	l_hand = /obj/item/storage/firstaid/adv
+	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
-	backpack = /obj/item/weapon/storage/backpack/medic
-	satchel = /obj/item/weapon/storage/backpack/satchel_med
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
+	backpack = /obj/item/storage/backpack/medic
+	satchel = /obj/item/storage/backpack/satchel_med
+	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 /datum/job/doctor
 	title = "Medical Doctor"
@@ -65,15 +65,15 @@
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/device/radio/headset/headset_med
-	id = /obj/item/weapon/card/id/medical
-	suit_store = /obj/item/device/flashlight/pen
-	l_hand = /obj/item/weapon/storage/firstaid/adv
-	pda = /obj/item/device/pda/medical
+	l_ear = /obj/item/radio/headset/headset_med
+	id = /obj/item/card/id/medical
+	suit_store = /obj/item/flashlight/pen
+	l_hand = /obj/item/storage/firstaid/adv
+	pda = /obj/item/pda/medical
 
-	backpack = /obj/item/weapon/storage/backpack/medic
-	satchel = /obj/item/weapon/storage/backpack/satchel_med
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
+	backpack = /obj/item/storage/backpack/medic
+	satchel = /obj/item/storage/backpack/satchel_med
+	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 /datum/job/coroner
 	title = "Coroner"
@@ -99,21 +99,21 @@
 	uniform = /obj/item/clothing/under/rank/medical/mortician
 	suit = /obj/item/clothing/suit/storage/labcoat/mortician
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/device/radio/headset/headset_med
-	id = /obj/item/weapon/card/id/medical
-	suit_store = /obj/item/device/flashlight/pen
-	l_hand = /obj/item/weapon/clipboard
-	pda = /obj/item/device/pda/medical
+	l_ear = /obj/item/radio/headset/headset_med
+	id = /obj/item/card/id/medical
+	suit_store = /obj/item/flashlight/pen
+	l_hand = /obj/item/clipboard
+	pda = /obj/item/pda/medical
 
-	backpack = /obj/item/weapon/storage/backpack/medic
-	satchel = /obj/item/weapon/storage/backpack/satchel_med
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
+	backpack = /obj/item/storage/backpack/medic
+	satchel = /obj/item/storage/backpack/satchel_med
+	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 	backpack_contents = list(
 					/obj/item/clothing/head/surgery/black = 1,
-					/obj/item/weapon/autopsy_scanner = 1,
-					/obj/item/device/mass_spectrometer = 1,
-					/obj/item/weapon/storage/box/bodybags = 1)
+					/obj/item/autopsy_scanner = 1,
+					/obj/item/mass_spectrometer = 1,
+					/obj/item/storage/box/bodybags = 1)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -162,14 +162,14 @@
 	uniform = /obj/item/clothing/under/rank/chemist
 	suit = /obj/item/clothing/suit/storage/labcoat/chemist
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/device/radio/headset/headset_med
+	l_ear = /obj/item/radio/headset/headset_med
 	glasses = /obj/item/clothing/glasses/science
-	id = /obj/item/weapon/card/id/medical
-	pda = /obj/item/device/pda/chemist
+	id = /obj/item/card/id/medical
+	pda = /obj/item/pda/chemist
 
-	backpack = /obj/item/weapon/storage/backpack/chemistry
-	satchel = /obj/item/weapon/storage/backpack/satchel_chem
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/chemistry
+	backpack = /obj/item/storage/backpack/chemistry
+	satchel = /obj/item/storage/backpack/satchel_chem
+	dufflebag = /obj/item/storage/backpack/duffel/chemistry
 
 /datum/job/geneticist
 	title = "Geneticist"
@@ -195,14 +195,14 @@
 	uniform = /obj/item/clothing/under/rank/geneticist
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/device/radio/headset/headset_medsci
-	id = /obj/item/weapon/card/id/medical
-	suit_store = /obj/item/device/flashlight/pen
-	pda = /obj/item/device/pda/geneticist
+	l_ear = /obj/item/radio/headset/headset_medsci
+	id = /obj/item/card/id/medical
+	suit_store = /obj/item/flashlight/pen
+	pda = /obj/item/pda/geneticist
 
-	backpack = /obj/item/weapon/storage/backpack/genetics
-	satchel = /obj/item/weapon/storage/backpack/satchel_gen
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/genetics
+	backpack = /obj/item/storage/backpack/genetics
+	satchel = /obj/item/storage/backpack/satchel_gen
+	dufflebag = /obj/item/storage/backpack/duffel/genetics
 
 
 /datum/job/virologist
@@ -231,14 +231,14 @@
 	suit = /obj/item/clothing/suit/storage/labcoat/virologist
 	shoes = /obj/item/clothing/shoes/white
 	mask = /obj/item/clothing/mask/surgical
-	l_ear = /obj/item/device/radio/headset/headset_med
-	id = /obj/item/weapon/card/id/medical
-	suit_store = /obj/item/device/flashlight/pen
-	pda = /obj/item/device/pda/viro
+	l_ear = /obj/item/radio/headset/headset_med
+	id = /obj/item/card/id/medical
+	suit_store = /obj/item/flashlight/pen
+	pda = /obj/item/pda/viro
 
-	backpack = /obj/item/weapon/storage/backpack/virology
-	satchel = /obj/item/weapon/storage/backpack/satchel_vir
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/virology
+	backpack = /obj/item/storage/backpack/virology
+	satchel = /obj/item/storage/backpack/satchel_vir
+	dufflebag = /obj/item/storage/backpack/duffel/virology
 
 /datum/job/psychiatrist
 	title = "Psychiatrist"
@@ -262,10 +262,10 @@
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/laceup
-	l_ear = /obj/item/device/radio/headset/headset_med
-	id = /obj/item/weapon/card/id/medical
-	suit_store = /obj/item/device/flashlight/pen
-	pda = /obj/item/device/pda/medical
+	l_ear = /obj/item/radio/headset/headset_med
+	id = /obj/item/card/id/medical
+	suit_store = /obj/item/flashlight/pen
+	pda = /obj/item/pda/medical
 
 /datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -303,16 +303,16 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/soft/blue
 	mask = /obj/item/clothing/mask/cigarette
-	l_ear = /obj/item/device/radio/headset/headset_med
-	id = /obj/item/weapon/card/id/medical
-	l_pocket = /obj/item/device/flashlight/pen
-	pda = /obj/item/device/pda/medical
+	l_ear = /obj/item/radio/headset/headset_med
+	id = /obj/item/card/id/medical
+	l_pocket = /obj/item/flashlight/pen
+	pda = /obj/item/pda/medical
 	backpack_contents = list(
-		/obj/item/device/healthanalyzer = 1
+		/obj/item/healthanalyzer = 1
 	)
 
-	backpack = /obj/item/weapon/storage/backpack/medic
-	satchel = /obj/item/weapon/storage/backpack/satchel_med
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/medical
-	box = /obj/item/weapon/storage/box/engineer
+	backpack = /obj/item/storage/backpack/medic
+	satchel = /obj/item/storage/backpack/satchel_med
+	dufflebag = /obj/item/storage/backpack/duffel/medical
+	box = /obj/item/storage/box/engineer
 

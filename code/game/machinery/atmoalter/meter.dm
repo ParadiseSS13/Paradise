@@ -5,6 +5,7 @@
 	icon_state = "meterX"
 	var/obj/machinery/atmospherics/pipe/target = null
 	anchored = 1
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 	power_channel = ENVIRON
 	var/frequency = 0
 	var/id
@@ -18,18 +19,18 @@
 
 /obj/machinery/meter/New()
 	..()
-	atmos_machinery += src
+	SSair.atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
 		id_tag = id
 	return 1
 
 /obj/machinery/meter/Destroy()
-	atmos_machinery -= src
+	SSair.atmos_machinery -= src
 	target = null
 	return ..()
 
-/obj/machinery/meter/initialize()
+/obj/machinery/meter/Initialize()
 	..()
 	if(!target)
 		target = locate(/obj/machinery/atmospherics/pipe) in loc
@@ -118,12 +119,12 @@
 
 	return ..()
 
-/obj/machinery/meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/device/multitool))
+/obj/machinery/meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
-	if(!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 	playsound(loc, W.usesound, 50, 1)
 	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
@@ -143,15 +144,15 @@
 	return 1
 
 
-/obj/machinery/meter/turf/initialize()
+/obj/machinery/meter/turf/Initialize()
 	if(!target)
 		target = loc
 	..()
 
-/obj/machinery/meter/turf/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+/obj/machinery/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	return
 
-/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/meter/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
 	<b>Main</b>
 	<ul>

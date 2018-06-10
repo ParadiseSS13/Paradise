@@ -64,6 +64,17 @@
 #define THROWN_PROJECTILE_ATTACK 4
 #define LEAP_ATTACK 5
 
+//attack visual effects
+#define ATTACK_EFFECT_PUNCH		"punch"
+#define ATTACK_EFFECT_KICK		"kick"
+#define ATTACK_EFFECT_SMASH		"smash"
+#define ATTACK_EFFECT_CLAW		"claw"
+#define ATTACK_EFFECT_DISARM	"disarm"
+#define ATTACK_EFFECT_BITE		"bite"
+#define ATTACK_EFFECT_MECHFIRE	"mech_fire"
+#define ATTACK_EFFECT_MECHTOXIN	"mech_toxin"
+#define ATTACK_EFFECT_BOOP		"boop" //Honk
+
 //Embedded objects
 #define EMBEDDED_PAIN_CHANCE 					15	//Chance for embedded objects to cause pain (damage user)
 #define EMBEDDED_ITEM_FALLOUT 					5	//Chance for embedded object to fall out (causing pain but removing the object)
@@ -76,9 +87,17 @@
 #define EMBEDDED_UNSAFE_REMOVAL_TIME			30	//A Time in ticks, total removal time = (this*item.w_class)
 
 //Gun Stuff
- #define SAWN_INTACT  0
- #define SAWN_OFF     1
+#define SAWN_INTACT  0
+#define SAWN_OFF     1
 
- #define WEAPON_LIGHT 0
- #define WEAPON_MEDIUM 1
- #define WEAPON_HEAVY 2
+#define WEAPON_LIGHT 0
+#define WEAPON_MEDIUM 1
+#define WEAPON_HEAVY 2
+
+#define EXPLODE_NONE 0				//Don't even ask me why we need this.
+#define EXPLODE_DEVASTATE 1
+#define EXPLODE_HEAVY 2
+#define EXPLODE_LIGHT 3
+
+#define EMP_HEAVY 1
+#define EMP_LIGHT 2

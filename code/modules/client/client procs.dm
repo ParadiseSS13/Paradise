@@ -65,7 +65,7 @@
 
 	//search the href for script injection
 	if( findtext(href,"<script",1,0) )
-		log_to_dd("Attempted use of scripts within a topic call, by [src]")
+		log_world("Attempted use of scripts within a topic call, by [src]")
 		log_runtime(EXCEPTION("Attempted use of scripts within a topic call, by [src]"), src)
 		message_admins("Attempted use of scripts within a topic call, by [src]")
 		return
@@ -94,8 +94,8 @@
 
 
 	//Logs all hrefs
-	if(config && config.log_hrefs && href_logfile)
-		to_chat(href_logfile, "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>")
+	if(config && config.log_hrefs)
+		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	if(href_list["karmashop"])
 		if(config.disable_karma)
@@ -418,6 +418,8 @@
 		preferences_datums[ckey] = prefs
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
+	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
+		fps = prefs.clientfps
 
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
@@ -476,6 +478,8 @@
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
+	Master.UpdateTickRate()
+
 //////////////
 //DISCONNECT//
 //////////////
@@ -485,6 +489,7 @@
 		admins -= src
 	directory -= ckey
 	clients -= src
+	Master.UpdateTickRate()
 	return ..()
 
 
@@ -554,7 +559,7 @@
 
 	//Log all the alts
 	if(related_accounts_cid.len)
-		log_access("Alts: [key_name(src)]:[jointext(related_accounts_cid, " - ")]")
+		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
 
 
 	var/watchreason = check_watchlist(ckey)
@@ -663,7 +668,7 @@
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
-			log_access("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
+			log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
 
 			del(src)
 			return TRUE
@@ -705,7 +710,7 @@
 /client/proc/cid_check_reconnect()
 	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	. = token
-	log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
+	log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer check")
 	var/url = winget(src, null, "url")
 	//special javascript to make them reconnect under a new window.
 	src << browse("<a id='link' href='byond://[url]?token=[token]'>\

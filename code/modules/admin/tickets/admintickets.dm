@@ -104,7 +104,7 @@ var/global/datum/adminTicketHolder/globAdminTicketHolder = new /datum/adminTicke
 /datum/adminTicketHolder/proc/checkForTicket(var/client/C)
 	var/list/tickets = list()
 	for(var/datum/admin_ticket/T in allTickets)
-		if(T.clientName == C && T.ticketState == ADMIN_TICKET_OPEN || T.ticketState == ADMIN_TICKET_STALE)
+		if(T.clientName == C && (T.ticketState == ADMIN_TICKET_OPEN || T.ticketState == ADMIN_TICKET_STALE))
 			tickets += T
 	if(tickets.len)
 		return tickets

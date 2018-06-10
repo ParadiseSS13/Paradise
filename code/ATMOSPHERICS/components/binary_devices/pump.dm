@@ -28,6 +28,12 @@ Thus, the two variables affect pump operation are set in New():
 	var/id = null
 	var/datum/radio_frequency/radio_connection
 
+/obj/machinery/atmospherics/binary/pump/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
+
 /obj/machinery/atmospherics/binary/pump/highcap
 	name = "High capacity gas pump"
 	desc = "A high capacity pump"
@@ -104,7 +110,7 @@ Thus, the two variables affect pump operation are set in New():
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 	return 1
 
-/obj/machinery/atmospherics/binary/pump/initialize()
+/obj/machinery/atmospherics/binary/pump/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)
@@ -157,7 +163,7 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	user.set_machine(src)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "atmos_pump.tmpl", name, 385, 115, state = state)
 		ui.open()
@@ -194,7 +200,7 @@ Thus, the two variables affect pump operation are set in New():
 			investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", "atmos")
 
 	update_icon()
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/atmospherics/binary/pump/power_change()
 	var/old_stat = stat
@@ -202,8 +208,8 @@ Thus, the two variables affect pump operation are set in New():
 	if(old_stat != stat)
 		update_icon()
 
-/obj/machinery/atmospherics/binary/pump/attackby(obj/item/weapon/W, mob/user, params)
-	if(!istype(W, /obj/item/weapon/wrench))
+/obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!(stat & NOPOWER) && on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")

@@ -1,4 +1,4 @@
-/mob/living/carbon/Life()
+/mob/living/carbon/Life(seconds, times_fired)
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
@@ -14,7 +14,7 @@
 			O.on_life()
 
 	handle_changeling()
-	handle_wetness()
+	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
 	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
@@ -26,8 +26,8 @@
 ///////////////
 
 //Start of a breath chain, calls breathe()
-/mob/living/carbon/handle_breathing()
-	if(mob_master.current_cycle % 4 == 2 || failed_last_breath)
+/mob/living/carbon/handle_breathing(times_fired)
+	if(times_fired % 4 == 2 || failed_last_breath)
 		breathe() //Breathe per 4 ticks, unless suffocating
 	else
 		if(istype(loc, /obj/))
@@ -241,11 +241,11 @@
 		reagents.metabolize(src)
 
 
-/mob/living/carbon/proc/handle_wetness()
-	if(mob_master.current_cycle%20==2) //dry off a bit once every 20 ticks or so
+/mob/living/carbon/proc/handle_wetness(times_fired)
+	if(times_fired % 20==2) //dry off a bit once every 20 ticks or so
 		wetlevel = max(wetlevel - 1,0)
 
-/mob/living/carbon/handle_stomach()
+/mob/living/carbon/handle_stomach(times_fired)
 	for(var/mob/living/M in stomach_contents)
 		if(M.loc != src)
 			stomach_contents.Remove(M)
@@ -255,7 +255,7 @@
 				stomach_contents.Remove(M)
 				qdel(M)
 				continue
-			if(mob_master.current_cycle%3==1)
+			if(times_fired % 3 == 1)
 				M.adjustBruteLoss(5)
 				nutrition += 10
 
@@ -353,6 +353,21 @@
 	if(..())
 		handle_dreams()
 		adjustStaminaLoss(-10)
+		var/comfort = 1
+		if(istype(buckled, /obj/structure/stool/bed))
+			var/obj/structure/stool/bed/bed = buckled
+			comfort+= bed.comfort
+		for(var/obj/item/bedsheet/bedsheet in range(loc,0))
+			if(bedsheet.loc != loc) //bedsheets in your backpack/neck don't give you comfort
+				continue
+			comfort+= bedsheet.comfort
+			break //Only count the first bedsheet
+		if(drunk)
+			comfort += 1 //Aren't naps SO much better when drunk?
+			AdjustDrunk(1-0.0015*comfort) //reduce drunkenness ~6% per two seconds, when on floor.
+		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
+			adjustBruteLoss(-1*comfort)
+			adjustFireLoss(-1*comfort)
 		if(prob(10) && health && hal_screwyhud != SCREWYHUD_CRIT)
 			emote("snore")
 	// Keep SSD people asleep

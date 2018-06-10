@@ -1,8 +1,8 @@
 /mob/Logout()
-	nanomanager.user_logout(src) // this is used to clean up (remove) this user's Nano UIs
+	SSnanoui.user_logout(src) // this is used to clean up (remove) this user's Nano UIs
 	unset_machine()
 	player_list -= src
-	log_access("Logout: [key_name(src)]")
+	log_access_out(src)
 	// `holder` is nil'd out by now, so we check the `admin_datums` array directly
 	//Only report this stuff if we are currently playing.
 	if(admin_datums[ckey] && ticker && ticker.current_state == GAME_STATE_PLAYING)

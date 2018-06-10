@@ -1,4 +1,4 @@
-/obj/item/weapon/grenade/smokebomb
+/obj/item/grenade/smokebomb
 	desc = "It is set to detonate in 2 seconds."
 	name = "smoke bomb"
 	icon = 'icons/obj/grenade.dmi'

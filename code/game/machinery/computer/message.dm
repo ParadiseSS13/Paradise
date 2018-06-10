@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_GREEN
 	var/hack_icon = "tcboss"
 	var/normal_icon = "comm_logs"
-	circuit = /obj/item/weapon/circuitboard/message_monitor
+	circuit = /obj/item/circuitboard/message_monitor
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
 	//Sparks effect - For emag
@@ -30,7 +30,7 @@
 	var/optioncount = 8
 	// Custom Message Properties
 	var/customsender = "System Administrator"
-	var/obj/item/device/pda/customrecepient = null
+	var/obj/item/pda/customrecepient = null
 	var/customjob		= "Admin"
 	var/custommessage 	= "This is a test, please ignore."
 	var/datum/chatroom/current_chatroom = null
@@ -38,9 +38,7 @@
 	light_color = LIGHT_COLOR_DARKGREEN
 
 
-/obj/machinery/computer/message_monitor/attackby(obj/item/weapon/O as obj, mob/living/user as mob, params)
-	if(stat & (NOPOWER|BROKEN))
-		return
+/obj/machinery/computer/message_monitor/attackby(obj/item/O as obj, mob/living/user as mob, params)
 	if(!istype(user))
 		return
 	if(isscrewdriver(O) && emag)
@@ -61,7 +59,7 @@
 			screen = 2
 			spark_system.set_up(5, 0, src)
 			src.spark_system.start()
-			var/obj/item/weapon/paper/monitorkey/MK = new/obj/item/weapon/paper/monitorkey
+			var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
 			MK.loc = src.loc
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			// Will help make emagging the console not so easy to get away with.
@@ -82,7 +80,7 @@
 
 	..()
 
-/obj/machinery/computer/message_monitor/initialize()
+/obj/machinery/computer/message_monitor/Initialize()
 	..()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)
@@ -443,8 +441,8 @@
 					//Select Receiver
 					if("Recepient")
 						//Get out list of viable PDAs
-						var/list/obj/item/device/pda/sendPDAs = list()
-						for(var/obj/item/device/pda/P in PDAs)
+						var/list/obj/item/pda/sendPDAs = list()
+						for(var/obj/item/pda/P in PDAs)
 							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 							if(!PM || !PM.can_receive())
@@ -483,8 +481,8 @@
 							message = "<span class='warning'>ERROR: Message could not be transmitted!</span>"
 							return src.attack_hand(usr)
 
-						var/obj/item/device/pda/PDARec = null
-						for(var/obj/item/device/pda/P in PDAs)
+						var/obj/item/pda/PDARec = null
+						for(var/obj/item/pda/P in PDAs)
 							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 							if(!PM || !PM.can_receive())
@@ -496,7 +494,7 @@
 						if(isnull(PDARec))
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[customsender]","[custommessage]")
 							recipient_messenger.notify("<b>Message from [customsender] ([customjob]), </b>\"[custommessage]\" (<a href='?src=[UID()];choice=Message;target=\ref[src]'>Reply</a>)")
-							log_pda("[usr] (PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]")
+							log_pda("(PDA: [customsender]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
 						//Sender is faking as someone who exists
 						else
 							src.linkedServer.send_pda_message("[customrecepient.owner]", "[PDARec.owner]","[custommessage]")
@@ -506,7 +504,7 @@
 								recipient_messenger.conversations.Add("\ref[PDARec]")
 
 							recipient_messenger.notify("<b>Message from [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='?src=[recipient_messenger.UID()];choice=Message;target=\ref[PDARec]'>Reply</a>)")
-							log_pda("[usr] (PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]")
+							log_pda("(PDA: [PDARec.owner]) sent \"[custommessage]\" to [customrecepient.owner]", usr)
 						//Finally..
 						ResetMessage()
 
@@ -539,12 +537,12 @@
 	return src.attack_hand(usr)
 
 
-/obj/item/weapon/paper/monitorkey
+/obj/item/paper/monitorkey
 	//..()
 	name = "Monitor Decryption Key"
 	var/obj/machinery/message_server/server = null
 
-/obj/item/weapon/paper/monitorkey/New()
+/obj/item/paper/monitorkey/New()
 	..()
 	spawn(10)
 		if(message_servers)

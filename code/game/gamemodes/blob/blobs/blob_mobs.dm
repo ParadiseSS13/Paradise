@@ -34,6 +34,8 @@
 	maxHealth = 40
 	melee_damage_lower = 2
 	melee_damage_upper = 4
+	obj_damage = 20
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	attacktext = "hits"
 	attack_sound = 'sound/weapons/genhit1.ogg'
 	speak_emote = list("pulses")
@@ -60,7 +62,7 @@
 		factory.spores += src
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/Life()
+/mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
 	if(!is_zombie && isturf(src.loc))
 		for(var/mob/living/carbon/human/H in oview(src,1)) //Only for corpse right next to/on same tile
@@ -158,6 +160,7 @@
 	maxHealth = 240
 	melee_damage_lower = 20
 	melee_damage_upper = 20
+	obj_damage = 60
 	attacktext = "hits"
 	attack_sound = 'sound/effects/blobattack.ogg'
 	speak_emote = list("gurgles")
@@ -165,7 +168,7 @@
 	maxbodytemp = 360
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	pressure_resistance = 100    //100 kPa difference required to push
 	throw_pressure_limit = 120  //120 kPa difference required to throw

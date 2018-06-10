@@ -21,7 +21,7 @@
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
 				custom_pain("You feel broken bones moving in your [E.name]!", 1)
-				I.take_damage(rand(3,5))
+				I.receive_damage(rand(3,5))
 
 	//handle_stance()
 	handle_grasp()
@@ -90,7 +90,7 @@
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[(NO_PAIN in species.species_traits) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
+			custom_emote(1, "[(NO_PAIN in species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -105,7 +105,7 @@
 				if(!unEquip(r_hand))
 					continue
 
-			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
+			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
 
 			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src)
@@ -170,9 +170,9 @@ I use this to standardize shadowling dethrall code
 -- Crazylemon
 */
 /mob/living/carbon/human/proc/named_organ_parent(var/organ_name)
-	if(!get_int_organ(organ_name))
+	if(!get_int_organ_tag(organ_name))
 		return null
-	var/obj/item/organ/internal/O = get_int_organ(organ_name)
+	var/obj/item/organ/internal/O = get_int_organ_tag(organ_name)
 	return O.parent_organ
 
 /mob/living/carbon/human/has_organic_damage()

@@ -49,7 +49,7 @@ proc/issyndicate(mob/living/M as mob)
 		agent_number--
 
 	for(var/datum/mind/synd_mind in syndicates)
-		synd_mind.assigned_role = "MODE" //So they aren't chosen for other jobs.
+		synd_mind.assigned_role = SPECIAL_ROLE_NUKEOPS //So they aren't chosen for other jobs.
 		synd_mind.special_role = SPECIAL_ROLE_NUKEOPS
 	return 1
 
@@ -121,9 +121,9 @@ proc/issyndicate(mob/living/M as mob)
 		else
 			synd_mind.current.real_name = "[syndicate_name()] Operative #[agent_number]"
 
-			var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/weapon/card/id)
+			var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
 			if(foundIDs.len)
-				for(var/obj/item/weapon/card/id/ID in foundIDs)
+				for(var/obj/item/card/id/ID in foundIDs)
 					ID.name = "[syndicate_name()] Operative ID card"
 					ID.registered_name = synd_mind.current.real_name
 
@@ -176,13 +176,13 @@ proc/issyndicate(mob/living/M as mob)
 	to_chat(synd_mind.current, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
 	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 
-	var/obj/item/device/nuclear_challenge/challenge = new /obj/item/device/nuclear_challenge
+	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
 	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
 
-	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/weapon/card/id)
+	var/list/foundIDs = synd_mind.current.search_contents_for(/obj/item/card/id)
 
 	if(foundIDs.len)
-		for(var/obj/item/weapon/card/id/ID in foundIDs)
+		for(var/obj/item/card/id/ID in foundIDs)
 			ID.name = "[syndicate_name()] [leader_title] ID card"
 			ID.registered_name = synd_mind.current.real_name
 			ID.access += access_syndicate_leader
@@ -192,10 +192,10 @@ proc/issyndicate(mob/living/M as mob)
 	if(nuke_code)
 		synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
 		to_chat(synd_mind.current, "The nuclear authorization code is: <B>[nuke_code]</B>")
-		var/obj/item/weapon/paper/P = new
+		var/obj/item/paper/P = new
 		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
 		P.name = "nuclear bomb code"
-		var/obj/item/weapon/stamp/syndicate/stamp = new
+		var/obj/item/stamp/syndicate/stamp = new
 		P.stamp(stamp)
 		qdel(stamp)
 
@@ -235,20 +235,20 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob)
 	var/radio_freq = SYND_FREQ
 
-	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/alt(synd_mob)
+	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
 	R.set_frequency(radio_freq)
 	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
 
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
-	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/card/id/syndicate(synd_mob), slot_wear_id)
-	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(synd_mob), slot_back)
-	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/reagent_containers/food/pill/initropidril(synd_mob), slot_in_backpack)
-	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/gun/projectile/automatic/pistol(synd_mob), slot_belt)
-	synd_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(synd_mob.back), slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
+	synd_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/initropidril(synd_mob), slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/engineer(synd_mob.back), slot_in_backpack)
 
-	var/obj/item/device/radio/uplink/U = new /obj/item/device/radio/uplink(synd_mob)
+	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = 20
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
@@ -267,11 +267,11 @@ proc/issyndicate(mob/living/M as mob)
 		switch(race)
 			if("Vox" || "Vox Armalis")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/weapon/tank/nitrogen(synd_mob), slot_l_hand)
+				synd_mob.equip_to_slot_or_del(new /obj/item/tank/nitrogen(synd_mob), slot_l_hand)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
-	var/obj/item/weapon/implant/explosive/E = new/obj/item/weapon/implant/explosive(synd_mob)
+	var/obj/item/implant/explosive/E = new/obj/item/implant/explosive(synd_mob)
 	E.implant(synd_mob)
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
@@ -295,7 +295,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/nuclear/declare_completion()
 	var/disk_rescued = 1
-	for(var/obj/item/weapon/disk/nuclear/D in poi_list)
+	for(var/obj/item/disk/nuclear/D in poi_list)
 		if(!D.onCentcom())
 			disk_rescued = 0
 			break
@@ -377,7 +377,7 @@ proc/issyndicate(mob/living/M as mob)
 			else
 				text += "body destroyed"
 			text += ")"
-			for(var/obj/item/device/uplink/H in world_uplinks)
+			for(var/obj/item/uplink/H in world_uplinks)
 				if(H && H.uplink_owner && H.uplink_owner==syndicate.key)
 					TC_uses += H.used_TC
 					purchases += H.purchase_log
@@ -480,7 +480,7 @@ proc/issyndicate(mob/living/M as mob)
 			if(!C.client) continue
 			crewcount++
 
-	var/obj/item/weapon/disk/nuclear/N = locate() in world
+	var/obj/item/disk/nuclear/N = locate() in world
 	if(istype(N))
 		var/atom/disk_loc = N.loc
 		while(!isturf(disk_loc))

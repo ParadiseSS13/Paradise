@@ -1,4 +1,4 @@
-/mob/living/carbon/human/Life()
+/mob/living/carbon/human/Life(seconds, times_fired)
 	life_tick++
 
 	voice = GetVoice()
@@ -32,7 +32,7 @@
 
 	//Update our name based on whether our face is obscured/disfigured
 	name = get_visible_name()
-	pulse = handle_pulse()
+	pulse = handle_pulse(times_fired)
 
 	if(mind && mind.vampire)
 		mind.vampire.handle_vampire()
@@ -150,7 +150,7 @@
 		AdjustSilence(2)
 
 	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
-		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+		visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 		death()
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
@@ -287,8 +287,8 @@
 				if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
 					null_internals = 1 //not wearing a mask or suitable helmet
 
-		if(istype(back, /obj/item/weapon/rig)) //wearing a rigsuit
-			var/obj/item/weapon/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
+		if(istype(back, /obj/item/rig)) //wearing a rigsuit
+			var/obj/item/rig/rig = back //needs to be typecasted because this doesn't use get_rig() for some reason
 			if(rig.offline && (rig.air_supply && internal == rig.air_supply)) //if rig IS offline AND (rig HAS air_supply AND internal IS air_supply)
 				null_internals = 1 //offline suits do not breath
 
@@ -707,7 +707,7 @@
 				Paralyse(5/sober_str)
 				Drowsy(30/sober_str)
 				if(L)
-					L.take_damage(0.1, 1)
+					L.receive_damage(0.1, 1)
 				adjustToxLoss(0.1)
 		else //stuff only for synthetics
 			if(alcohol_strength >= spark_start && prob(25))
@@ -832,7 +832,8 @@
 
 /mob/living/carbon/human/handle_vision()
 	if(machine)
-		if(!machine.check_eye(src))		reset_perspective(null)
+		if(!machine.check_eye(src))
+			reset_perspective(null)
 	else
 		var/isRemoteObserve = 0
 		if((REMOTE_VIEW in mutations) && remoteview_target)
@@ -879,11 +880,11 @@
 		var/obj/item/organ/external/BP = X
 		for(var/obj/item/I in BP.embedded_objects)
 			if(prob(I.embedded_pain_chance))
-				BP.take_damage(I.w_class*I.embedded_pain_multiplier)
+				BP.receive_damage(I.w_class*I.embedded_pain_multiplier)
 				to_chat(src, "<span class='userdanger'>[I] embedded in your [BP.name] hurts!</span>")
 
 			if(prob(I.embedded_fall_chance))
-				BP.take_damage(I.w_class*I.embedded_fall_pain_multiplier)
+				BP.receive_damage(I.w_class*I.embedded_fall_pain_multiplier)
 				BP.embedded_objects -= I
 				I.forceMove(get_turf(src))
 				visible_message("<span class='danger'>[I] falls out of [name]'s [BP.name]!</span>","<span class='userdanger'>[I] falls out of your [BP.name]!</span>")
@@ -902,9 +903,8 @@
 				hud_used.lingchemdisplay.invisibility = 101
 
 
-/mob/living/carbon/human/proc/handle_pulse()
-
-	if(mob_master.current_cycle % 5)
+/mob/living/carbon/human/proc/handle_pulse(times_fired)
+	if(times_fired % 5 == 1)
 		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
 	if(NO_BLOOD in species.species_traits)

@@ -429,7 +429,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	//Announces the character on all the systems, based on the record.
 	if(!issilicon(new_character))//If they are not a cyborg/AI.
-		if(!record_found&&new_character.mind.assigned_role!="MODE")//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
+		if(!record_found && new_character.mind.assigned_role != new_character.mind.special_role)//If there are no records for them. If they have a record, this info is already in there. Offstation special characters announced anyway.
 			//Power to the user!
 			if(alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes")=="Yes")
 				data_core.manifest_inject(new_character)
@@ -576,7 +576,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 			command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
 			print_command_report(input, "[command_name()] Update")
-		else if("No")
+		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
 			command_announcer.autosay("A classified message has been printed out at all communication consoles.");
 			print_command_report(input, "Classified [command_name()] Update")
@@ -763,6 +763,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
 
+	if(alert("Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", "Yes", "No") == "Yes")
+		shuttle_master.emergency.canRecall = TRUE
+	else
+		shuttle_master.emergency.canRecall = FALSE
+
 	shuttle_master.emergency.request()
 
 	feedback_add_details("admin_verb","CSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -781,7 +786,18 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
-	shuttle_master.emergency.cancel()
+	if(shuttle_master.emergency.canRecall == FALSE)
+		if(alert("Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
+			return
+		else
+			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
+			shuttle_master.emergency.canRecall = TRUE // must be true for cancel proc to work
+			shuttle_master.emergency.cancel()
+			if(keepStatus)
+				shuttle_master.emergency.canRecall = FALSE // restores original status
+	else
+		shuttle_master.emergency.cancel()
+
 	feedback_add_details("admin_verb","CCSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")

@@ -11,8 +11,9 @@
 	var/time = 0
 	var/one_per_turf = 0
 	var/on_floor = 0
+	var/window_checks = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0)
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, window_checks = FALSE)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -21,6 +22,7 @@
 	src.time = time
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
+	src.window_checks = window_checks
 
 /datum/stack_recipe/proc/post_build(var/obj/item/stack/S, var/obj/result)
 	return
@@ -29,7 +31,7 @@
 
 /datum/stack_recipe/cable_restraints
 /datum/stack_recipe/cable_restraints/post_build(var/obj/item/stack/S, var/obj/result)
-	if(istype(result, /obj/item/weapon/restraints/handcuffs/cable))
+	if(istype(result, /obj/item/restraints/handcuffs/cable))
 		result.color = S.color
 	..()
 
@@ -39,6 +41,17 @@
 		var/obj/item/stack/rods/R = result
 		R.update_icon()
 	..()
+
+/datum/stack_recipe/window
+/datum/stack_recipe/window/post_build(obj/item/stack/S, obj/result)
+	if(istype(result, /obj/structure/windoor_assembly))
+		var/obj/structure/windoor_assembly/W = result
+		W.ini_dir = W.dir
+	else if(istype(result, /obj/structure/window))
+		var/obj/structure/window/W = result
+		W.ini_dir = W.dir
+		W.anchored = FALSE
+		W.state = WINDOW_OUT_OF_FRAME
 
 /*
  * Recipe list datum

@@ -42,9 +42,15 @@
 		power_equip = 0			//rastaf0
 		power_environ = 0		//rastaf0
 
-	power_change()		// all machines set to current power level, also updates lighting icon
-
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
+
+/area/Initialize()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/area/LateInitialize()
+	. = ..()
+	power_change()		// all machines set to current power level, also updates lighting icon
 
 /area/proc/get_cameras()
 	var/list/cameras = list()
@@ -53,15 +59,15 @@
 	return cameras
 
 
-/area/proc/atmosalert(danger_level, var/alarm_source)
+/area/proc/atmosalert(danger_level, var/alarm_source, var/force = FALSE)
 	if(danger_level == ATMOS_ALARM_NONE)
 		atmosphere_alarm.clearAlarm(src, alarm_source)
 	else
 		atmosphere_alarm.triggerAlarm(src, alarm_source, severity = danger_level)
 
-	//Check all the alarms before lowering atmosalm. Raising is perfectly fine.
+	//Check all the alarms before lowering atmosalm. Raising is perfectly fine. If force = 1 we don't care.
 	for(var/obj/machinery/alarm/AA in src)
-		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
+		if(!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level && !force)
 			danger_level = max(danger_level, AA.danger_level)
 
 	if(danger_level != atmosalm)
@@ -87,7 +93,7 @@
 			if(!D.welded)
 				D.activate_alarm()
 				if(D.operating)
-					D.nextstate = CLOSED
+					D.nextstate = FD_CLOSED
 				else if(!D.density)
 					spawn(0)
 						D.close()

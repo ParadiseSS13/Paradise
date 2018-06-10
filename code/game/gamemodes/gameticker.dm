@@ -20,6 +20,8 @@ var/round_start_time = 0
 	var/Bible_name			// name of the bible
 	var/Bible_deity_name
 
+	var/datum/cult_info/cultdat = null //here instead of cult for adminbus purposes
+
 	var/random_players = 0 	// if set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
 
 	var/list/syndicate_coalition = list() // list of traitor-compatible factions
@@ -35,7 +37,8 @@ var/round_start_time = 0
 
 	var/obj/screen/cinematic = null			//used for station explosion cinematic
 
-	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
+	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.\
+
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
@@ -55,6 +58,7 @@ var/round_start_time = 0
 
 			if(pregame_timeleft <= 0)
 				current_state = GAME_STATE_SETTING_UP
+				Master.SetRunLevel(RUNLEVEL_SETUP)
 	while(!setup())
 
 /datum/controller/gameticker/proc/votetimer()
@@ -69,6 +73,7 @@ var/round_start_time = 0
 		votetimer()
 
 /datum/controller/gameticker/proc/setup()
+	cultdat = setupcult()
 	//Create and announce mode
 	if(master_mode=="secret")
 		src.hide_mode = 1
@@ -77,6 +82,7 @@ var/round_start_time = 0
 		runnable_modes = config.get_runnable_modes()
 		if(runnable_modes.len==0)
 			current_state = GAME_STATE_PREGAME
+			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
 			return 0
 		if(secret_force_mode != "secret")
@@ -96,6 +102,7 @@ var/round_start_time = 0
 		mode = null
 		current_state = GAME_STATE_PREGAME
 		job_master.ResetOccupations()
+		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return 0
 
 	//Configure mode and assign player to special mode stuff
@@ -108,6 +115,7 @@ var/round_start_time = 0
 		current_state = GAME_STATE_PREGAME
 		to_chat(world, "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby.")
 		job_master.ResetOccupations()
+		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return 0
 
 	if(hide_mode)
@@ -125,6 +133,7 @@ var/round_start_time = 0
 	equip_characters()
 	data_core.manifest()
 	current_state = GAME_STATE_PLAYING
+	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	callHook("roundstart")
 
@@ -359,7 +368,7 @@ var/round_start_time = 0
 		if(player && player.mind && player.mind.assigned_role)
 			if(player.mind.assigned_role == "Captain")
 				captainless=0
-			if(player.mind.assigned_role != "MODE")
+			if(player.mind.assigned_role != player.mind.special_role)
 				job_master.EquipRank(player, player.mind.assigned_role, 0)
 				EquipCustomItems(player)
 	if(captainless)
@@ -385,6 +394,7 @@ var/round_start_time = 0
 
 	if((!mode.explosion_in_progress && game_finished) || force_ending)
 		current_state = GAME_STATE_FINISHED
+		Master.SetRunLevel(RUNLEVEL_POSTGAME)
 		auto_toggle_ooc(1) // Turn it on
 		spawn
 			declare_completion()
