@@ -1,0 +1,5 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - bugfix: "Food on utensils now properly inherits the name of the source dish."
+  - bugfix: "Joined Souls rune can now properly can summon restrained targets with 3+ invokers."
