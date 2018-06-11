@@ -156,23 +156,24 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 							  signal.data["realname"], signal.data["vname"], 3, signal.data["compression"], list(0), connection.frequency,
 							  signal.data["verb"], signal.data["language"])
 
-
-
+#define CREW_RADIO_TYPE 0
+#define CENTCOMM_RADIO_TYPE 1
+#define SYNDICATE_RADIO_TYPE 2
 /proc/Is_Bad_Connection(var/old_freq, var/new_freq) //Makes sure players cant read radios of a higher level than they are
 
-	var/old_type = 0 //0 = crew, 1 = centcomm, 2 = syndie
-	var/new_type = 0
+	var/old_type = CREW_RADIO_TYPE
+	var/new_type = CREW_RADIO_TYPE
 	for(var/antag_freq in ANTAG_FREQS)
 		if(old_freq == antag_freq)
-			old_type = 2
+			old_type = SYNDICATE_RADIO_TYPE
 		if(new_freq == antag_freq)
-			new_type = 2
+			new_type = SYNDICATE_RADIO_TYPE
 			
 	for(var/cent_freq in CENT_FREQS)
 		if(old_freq == cent_freq)
-			old_type = 1
+			old_type = CENTCOMM_RADIO_TYPE
 		if(new_freq == cent_freq)
-			new_type = 1
+			new_type = CENTCOMM_RADIO_TYPE
 			
 	return new_type > old_type
 	
