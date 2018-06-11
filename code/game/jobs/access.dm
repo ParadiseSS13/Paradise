@@ -73,6 +73,7 @@
 /var/const/access_minisat = 75
 /var/const/access_mineral_storeroom = 76
 /var/const/access_network = 77
+/var/const/access_electronics = 78
 
 /var/const/access_weapons = 99 //Weapon authorization for secbots
 
@@ -234,7 +235,7 @@ var/const/access_trade_sol = 160
 /proc/get_all_accesses()
 	return list(access_security, access_sec_doors, access_brig, access_armory, access_forensics_lockers, access_court,
 	            access_medical, access_genetics, access_morgue, access_rd,
-	            access_tox, access_tox_storage, access_chemistry, access_engine, access_engine_equip, access_maint_tunnels,
+	            access_tox, access_tox_storage, access_chemistry, access_engine, access_electronics, access_engine_equip, access_maint_tunnels,
 	            access_external_airlocks, access_change_ids, access_ai_upload,
 	            access_teleporter, access_eva, access_heads, access_captain, access_all_personal_lockers,
 	            access_tech_storage, access_chapel_office, access_atmospherics, access_kitchen,
@@ -270,7 +271,7 @@ var/const/access_trade_sol = 160
 		if(REGION_RESEARCH) //research
 			return list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_xenoarch, access_minisat, access_rd, access_network)
 		if(REGION_ENGINEERING) //engineering and maintenance
-			return list(access_construction, access_maint_tunnels, access_engine, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_minisat, access_ce, access_mechanic)
+			return list(access_construction, access_maint_tunnels, access_engine, access_electronics, access_engine_equip, access_external_airlocks, access_tech_storage, access_atmospherics, access_minisat, access_ce, access_mechanic)
 		if(REGION_SUPPLY) //supply
 			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
 		if(REGION_COMMAND) //command
@@ -332,6 +333,8 @@ var/const/access_trade_sol = 160
 			return "Bar"
 		if(access_janitor)
 			return "Custodial Closet"
+		if(access_electronics)
+			return "Electronics"
 		if(access_engine)
 			return "Engineering"
 		if(access_engine_equip)
