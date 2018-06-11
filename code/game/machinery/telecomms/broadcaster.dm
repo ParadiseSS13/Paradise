@@ -159,7 +159,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 #define CREW_RADIO_TYPE 0
 #define CENTCOMM_RADIO_TYPE 1
 #define SYNDICATE_RADIO_TYPE 2
-/proc/Is_Bad_Connection(var/old_freq, var/new_freq) //Makes sure players cant read radios of a higher level than they are
+/proc/Is_Bad_Connection(old_freq, new_freq) //Makes sure players cant read radios of a higher level than they are
 
 	var/old_type = CREW_RADIO_TYPE
 	var/new_type = CREW_RADIO_TYPE
@@ -245,7 +245,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	var/display_freq = freq
 
-	var/bad_connection = 0
+	var/bad_connection = FALSE
 	var/datum/radio_frequency/new_connection = connection
 	
 	if(connection.frequency != display_freq)
