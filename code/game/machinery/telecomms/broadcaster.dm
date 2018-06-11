@@ -160,7 +160,6 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 #define CENTCOMM_RADIO_TYPE 1
 #define SYNDICATE_RADIO_TYPE 2
 /proc/Is_Bad_Connection(old_freq, new_freq) //Makes sure players cant read radios of a higher level than they are
-
 	var/old_type = CREW_RADIO_TYPE
 	var/new_type = CREW_RADIO_TYPE
 	for(var/antag_freq in ANTAG_FREQS)
