@@ -148,8 +148,8 @@
 /mob/living/carbon/human/stok/Initialize(mapload)
 	..(mapload, "Stok")
 
-/mob/living/carbon/human/murghal/New(var/new_loc)
-	..(new_loc, "Murghal")
+/mob/living/carbon/human/murghal/Initialize(mapload)
+	..(mapload, "Murghal")
 
 /mob/living/carbon/human/Stat()
 	..()
