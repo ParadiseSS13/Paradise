@@ -18,6 +18,8 @@
 	var/new_status = get_status()
 	if(last_status != new_status)
 		last_status = new_status
+		if(last_status == SUPERMATTER_ERROR)
+			last_status = SUPERMATTER_INACTIVE
 		ui_header = "smmon_[last_status].gif"
 		program_icon_state = "smmon_[last_status]"
 		if(istype(computer))
@@ -38,7 +40,7 @@
 	var/turf/T = get_turf(nano_host())
 	if(!T)
 		return
-	for(var/obj/machinery/power/supermatter_shard/S in atmos_machinery)
+	for(var/obj/machinery/power/supermatter_shard/S in SSair.atmos_machinery)
 		// Delaminating, not within coverage, not on a tile.
 		if(!(is_station_level(S.z) || is_mining_level(S.z)  || atoms_share_level(S, T) || !istype(S.loc, /turf/simulated/)))
 			continue
@@ -53,7 +55,7 @@
 		. = max(., S.get_status())
 
 /datum/computer_file/program/supermatter_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)

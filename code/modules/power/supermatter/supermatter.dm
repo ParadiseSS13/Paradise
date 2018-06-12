@@ -102,7 +102,7 @@
 	poi_list |= src
 	//Added to the atmos_machine process as the SM is highly coupled with the atmospherics system.
 	//Having the SM run at a different rate then atmospherics causes odd behavior.
-	atmos_machinery += src
+	SSair.atmos_machinery += src
 	radio = new(src)
 	radio.listening = 0
 	investigate_log("has been created.", "supermatter")
@@ -138,7 +138,7 @@
 		emergency_lighting(0)
 	QDEL_NULL(radio)
 	poi_list.Remove(src)
-	atmos_machinery -= src
+	SSair.atmos_machinery -= src
 	return ..()
 
 /obj/machinery/power/supermatter_shard/proc/explode()
@@ -436,9 +436,12 @@
 		return SUPERMATTER_ERROR
 
 	if(get_integrity() < 25)
-		return SUPERMATTER_EMERGENCY
+		return SUPERMATTER_DELAMINATING
 
 	if(get_integrity() < 50)
+		return SUPERMATTER_EMERGENCY
+
+	if(get_integrity() < 75)
 		return SUPERMATTER_DANGER
 
 	if((get_integrity() < 100) || (air.temperature > CRITICAL_TEMPERATURE))
