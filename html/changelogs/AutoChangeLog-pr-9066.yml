@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Toxin damage is stealthier and will no longer cause stinging spam message"
