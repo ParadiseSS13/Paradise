@@ -248,10 +248,7 @@
 			user.visible_message("<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
 			affected.heal_damage(rand(30,50),0,1,1)
-			if(affected.disfigured)
-				affected.disfigured = 0
-				affected.update_icon()
-				target.regenerate_icons()
+			affected.disfigured = FALSE
 		if("burn")
 			user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
 			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
