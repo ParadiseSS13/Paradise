@@ -177,7 +177,7 @@
 		if(ismindshielded(H))
 			text = "Mindshield Implant:<a href='?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
 		else
-			text = "Mindshield Implant:<b>No Implant</b>|<a href='?src=[UID()];implant=add'>Implant him!</a></br>"
+			text = "Mindshield Implant:<b>No Implant</b>|<a href='?src=[UID()];implant=add'>Implant [H.p_them()]!</a></br>"
 		sections["implant"] = text
 		/** REVOLUTION ***/
 		text = "revolution"
@@ -630,7 +630,7 @@
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.owner = src
 				new_objective.target = new_target
-				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing their identification card."
+				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
 			if("custom")
 				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl)
@@ -742,7 +742,7 @@
 				if(src in ticker.mode.revolutionaries)
 					ticker.mode.revolutionaries -= src
 					ticker.mode.update_rev_icons_removed(src)
-					to_chat(current, "<span class='warning'>\red <FONT size = 3><B>You have proven your devotion to revolution! You are a head revolutionary now!</B></FONT></span>")
+					to_chat(current, "<span class='userdanger'>You have proven your devotion to revolution! You are a head revolutionary now!</span>")
 				else if(!(src in ticker.mode.head_revolutionaries))
 					to_chat(current, "<span class='notice'>You are a member of the revolutionaries' leadership now!</span>")
 				else
@@ -1549,7 +1549,7 @@
 	ticker.mode.implanter[ref] = implanters
 	ticker.mode.traitors += src
 	special_role = "traitor"
-	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
+	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
 	var/datum/objective/protect/mindslave/MS = new
 	MS.owner = src
 	MS.target = missionary.mind

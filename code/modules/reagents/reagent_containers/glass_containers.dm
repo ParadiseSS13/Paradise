@@ -42,7 +42,8 @@
 		/obj/machinery/constructable_frame,
 		/obj/machinery/icemachine,
 		/obj/item/bombcore/chemical,
-		/obj/machinery/vending)
+		/obj/machinery/vending,
+		/obj/machinery/fishtank)
 
 /obj/item/reagent_containers/glass/New()
 	..()

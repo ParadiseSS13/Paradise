@@ -48,8 +48,8 @@
 					var/damage = rand(1, 5)
 					if(prob(80))
 						playsound(affected_mob.loc, "punch", 25, 1, -1)
-						affected_mob.visible_message("<span class='danger'>[affected_mob] hits [M] with their thrashing!</span>")
+						affected_mob.visible_message("<span class='danger'>[affected_mob] hits [M] with [affected_mob.p_their()] thrashing!</span>")
 						M.adjustBruteLoss(damage)
 					else
 						playsound(affected_mob.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-						affected_mob.visible_message("<span class='danger'>[affected_mob] fails to hit [M] with their thrashing!</span>")
+						affected_mob.visible_message("<span class='danger'>[affected_mob] fails to hit [M] with [affected_mob.p_their()] thrashing!</span>")

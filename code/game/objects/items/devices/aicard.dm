@@ -84,7 +84,7 @@
 		var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
 		if(confirm == "Yes" && (CanUseTopic(user, state) == STATUS_INTERACTIVE))
 			msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].")
-			log_attack(user, AI, "Wiped with [src].")
+			add_attack_logs(user, AI, "Wiped with [src].")
 			flush = 1
 			AI.suiciding = 1
 			to_chat(AI, "Your core files are being wiped!")

@@ -74,8 +74,8 @@
 	if(!message)
 		return
 
-	var/obj/machinery/hologram/holopad/T = src.holo
-	if(T && T.hologram && T.master == src)//If there is a hologram and its master is the user.
+	var/obj/machinery/hologram/holopad/T = current
+	if(istype(T) && T.masters[src])
 
 		//Human-like, sorta, heard by those who understand humans.
 		var/rendered_a
@@ -112,8 +112,8 @@
 	if(!message)
 		return
 
-	var/obj/machinery/hologram/holopad/T = src.holo
-	if(T && T.hologram && T.master == src)
+	var/obj/machinery/hologram/holopad/T = current
+	if(istype(T) && T.masters[src])
 		var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[message]</span></span>"
 		to_chat(src, "<i><span class='game say'>Holopad action relayed, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
 
@@ -127,8 +127,8 @@
 	return 1
 
 /mob/living/silicon/ai/emote(var/act, var/type, var/message)
-	var/obj/machinery/hologram/holopad/T = src.holo
-	if(T && T.hologram && T.master == src) //Is the AI using a holopad?
+	var/obj/machinery/hologram/holopad/T = current
+	if(istype(T) && T.masters[src])//Is the AI using a holopad?
 		src.holopad_emote(message)
 	else //Emote normally, then.
 		..()

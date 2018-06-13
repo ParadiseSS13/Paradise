@@ -118,6 +118,8 @@
 
 	var/report_danger_level = 1
 
+	var/automatic_emergency = 1 //Does the alarm automaticly respond to an emergency condition
+
 /obj/machinery/alarm/monitor
 	report_danger_level = 0
 
@@ -236,9 +238,11 @@
 		elect_master()
 
 /obj/machinery/alarm/proc/master_is_operating()
-	if(! alarm_area)
+	if(!alarm_area)
 		alarm_area = areaMaster
-
+	if(!alarm_area)
+		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
+		return FALSE
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 
@@ -304,7 +308,7 @@
 
 	if(old_danger_level!=danger_level)
 		apply_danger_level()
-		if(mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
+		if(automatic_emergency && mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
 			if(pressure_dangerlevel == ATMOS_ALARM_DANGER)
 				mode = AALARM_MODE_OFF
 				if(temperature_dangerlevel == ATMOS_ALARM_DANGER && cur_tlv.max2 <= environment.temperature)

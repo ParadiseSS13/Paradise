@@ -136,7 +136,7 @@
 		"<span class='warning'>Your hand slips, damaging [target]'s face with \the [tool]!</span>")
 	var/obj/item/organ/external/head/h = affected
 	h.receive_damage(10)
-	h.disfigured = 1
+	h.disfigure()
 	return 0
 
 /datum/surgery_step/finish_bone

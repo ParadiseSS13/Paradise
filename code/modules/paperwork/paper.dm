@@ -379,7 +379,7 @@
 
 	if(is_hot(P))
 		if((CLUMSY in user.mutations) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites themselves!</span>", \
+			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
 			user.unEquip(P)
 			user.adjust_fire_stacks(1)
