@@ -26,6 +26,7 @@
 /datum/weather/rad_storm/telegraph()
 	..()
 	status_alarm(TRUE)
+	make_maint_all_access()
 
 
 /datum/weather/rad_storm/weather_act(mob/living/L)
@@ -50,6 +51,7 @@
 		return
 	priority_announcement.Announce("The radiation threat has passed. Please return to your workplaces.", "Anomaly Alert")
 	status_alarm(FALSE)
+	revoke_maint_all_access()
 
 /datum/weather/rad_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
 	if(active)
