@@ -357,7 +357,7 @@
 		var/datum/unarmed_attack/attack = user.species.unarmed
 
 		user.do_attack_animation(target, attack.animation_type)
-		add_attack_logs(user, target, "Melee attacked with fists", admin_notify = target.ckey ? TRUE : FALSE)
+		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
 		if(!iscarbon(user))
 			target.LAssailant = null
@@ -392,7 +392,7 @@
 	if(attacker_style && attacker_style.disarm_act(user, target))
 		return 1
 	else
-		add_attack_logs(user, target, "Disarmed", admin_notify = FALSE)
+		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
@@ -402,7 +402,7 @@
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
-			add_attack_logs(user, target, "Pushed over", admin_notify = FALSE)
+			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
 				target.LAssailant = null
 			else

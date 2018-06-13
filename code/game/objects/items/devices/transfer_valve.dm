@@ -64,7 +64,7 @@
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
 
 		investigate_log("[key_name(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
-		msg_admin_attack("[key_name_admin(user)]attached [A] to a transfer valve.")
+		msg_admin_attack("[key_name_admin(user)]attached [A] to a transfer valve.", ATKLOG_FEW)
 		log_game("[key_name_admin(user)] attached [A] to a transfer valve.")
 		attacher = user
 		SSnanoui.update_uis(src) // update all UIs attached to src
