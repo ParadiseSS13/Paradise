@@ -255,8 +255,8 @@ This is always put in the attack log.
 			add_attack_logs(user, M, what_done, admin_notify)
 		return
 
-	var/user_str = key_name(user)
-	var/target_str = key_name(target)
+	var/user_str = key_name_log(user)
+	var/target_str = key_name_log(target)
 
 	if(istype(user))
 		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
@@ -479,3 +479,16 @@ This is always put in the attack log.
 /proc/update_all_mob_security_hud()
 	for(var/mob/living/carbon/human/H in mob_list)
 		H.sec_hud_set_security_status()
+
+/proc/getviewsize(view)
+	var/viewX
+	var/viewY
+	if(isnum(view))
+		var/totalviewrange = 1 + 2 * view
+		viewX = totalviewrange
+		viewY = totalviewrange
+	else
+		var/list/viewrangelist = splittext(view, "x")
+		viewX = text2num(viewrangelist[1])
+		viewY = text2num(viewrangelist[2])
+	return list(viewX, viewY)

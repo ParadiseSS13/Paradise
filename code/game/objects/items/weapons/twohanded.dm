@@ -178,14 +178,13 @@
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
-	..()
-	if(A && wielded && (istype(A,/obj/structure/window) || istype(A,/obj/structure/grille))) //destroys windows and grilles in one hit
-
-		if(istype(A,/obj/structure/window))
+	if(wielded) //destroys windows and grilles in one hit
+		if(istype(A, /obj/structure/window))
 			var/obj/structure/window/W = A
-			W.destroy()
-		else
-			qdel(A)
+			W.take_damage(200, BRUTE, "melee", 0)
+		else if(istype(A, /obj/structure/grille))
+			var/obj/structure/grille/G = A
+			G.take_damage(40, BRUTE, "melee", 0)
 
 /*
  * Double-Bladed Energy Swords - Cheridan
@@ -250,6 +249,11 @@
 	if(wielded)
 		return ..()
 	return FALSE
+
+/obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
+	if(wielded)
+		to_chat(user, "<span class='warning'>You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!</span>")
+		return TRUE
 
 /obj/item/twohanded/dualsaber/green
 	blade_color = "green"
@@ -750,7 +754,7 @@
 		if(A && wielded && (istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)))
 			if(istype(A, /obj/structure/window))
 				var/obj/structure/window/W = A
-				W.destroy()
+				W.deconstruct(FALSE)
 				if(prob(4))
 					charged++
 					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")
