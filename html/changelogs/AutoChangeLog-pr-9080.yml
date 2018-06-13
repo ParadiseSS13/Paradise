@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes syndicate medibot not being constructable from tactical medkits"
+  - tweak: "Syndicate medibot and the mysterious medibot are better at treating brute and burn damage"
