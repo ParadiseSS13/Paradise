@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds Plastic surgery; fix someone's face or give them a new identity!"
+  - tweak: "Having more than 50 cloneloss will render you \"Unknown\""
+  - tweak: "head disfigurement requires you to have more than 50 combined brute and burn damage, rather than tracking it separately"
+  - bugfix: "Fixes Cryoxadone and Rezadone not fixing disfigurement, Fixes fluorosulfuric acid not causing disfigurement at proper thresholds"
