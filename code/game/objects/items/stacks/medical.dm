@@ -89,21 +89,29 @@
 	var/nrembrute = rembrute
 	var/nremburn	= remburn
 	affecting.heal_damage(heal_brute, heal_burn)
-	if(affecting.body_part in list(ARM_LEFT, ARM_RIGHT, LEG_LEFT, LEG_RIGHT, UPPER_TORSO, LOWER_TORSO))
-		for(var/obj/item/organ/external/E in affecting.children)
-			if(rembrute <= 0 && remburn <= 0) // Make sure there's actually overheal left and the organ is damaged before bothering
-				break
-			else if(E.status && ORGAN_ROBOT || E.open) // Ignore robotic or open limb
-				continue
-			else if(!E.brute_dam && !E.burn_dam) // Ignore undamaged limb
-				continue
-			nrembrute = rembrute - E.brute_dam // Deduct the healed damage from the remain
-			nremburn = remburn - E.burn_dam
-			E.heal_damage(rembrute, remburn)
-			rembrute = nrembrute
-			remburn = nremburn
-			user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
-								 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+	var/list/achildlist = affecting.children.Copy()
+	var/parenthealed = 0
+	while(rembrute + remburn > 0): // Don't bother if there's not enough leftover heal
+		var/obj/item/organ/external/E
+		if(achildlist.len):
+			E = pick(achildlist) // Pick a random children
+			achildlist -= E
+		else if(affecting.parent && !parenthealed): // If there's a parent and no healing attempt was made on it
+			E = affecting.parent
+			parenthealed = 1
+		else:
+			break // If the organ have no child left and no parent / parent healed, break
+		if(E.status & ORGAN_ROBOT || E.open) // Ignore robotic or open limb
+			continue
+		else if(!E.brute_dam && !E.burn_dam) // Ignore undamaged limb
+			continue
+		nrembrute = rembrute - E.brute_dam // Deduct the healed damage from the remain
+		nremburn = remburn - E.burn_dam
+		E.heal_damage(rembrute, remburn)
+		rembrute = nrembrute
+		remburn = nremburn
+		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
+							 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
 
 //Bruise Packs//
 
