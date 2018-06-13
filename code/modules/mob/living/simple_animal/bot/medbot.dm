@@ -44,6 +44,7 @@
 	var/treatment_virus = "spaceacillin"
 	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
+	var/syndicate_aligned = FALSE // Will it only treat operatives?
 
 /mob/living/simple_animal/bot/medbot/tox
 	skin = "tox"
@@ -68,8 +69,8 @@
 	desc = "International Medibot of mystery."
 	skin = "bezerk"
 	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "styptic_powder"
-	treatment_fire = "silver_sulfadiazine"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
 	treatment_tox = "charcoal"
 
 /mob/living/simple_animal/bot/medbot/syndicate
@@ -77,9 +78,10 @@
 	desc = "You'd better have insurance!"
 	skin = "bezerk"
 	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "styptic_powder"
-	treatment_fire = "silver_sulfadiazine"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
 	treatment_tox = "charcoal"
+	syndicate_aligned = TRUE
 	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
 	radio_channel = "Syndicate"
@@ -90,6 +92,9 @@
 	Radio.syndie = 1
 
 /mob/living/simple_animal/bot/medbot/update_icon()
+	overlays.Cut()
+	if(skin)
+		overlays += "medskin_[skin]"
 	if(!on)
 		icon_state = "medibot0"
 		return
@@ -101,21 +106,20 @@
 	else
 		icon_state = "medibot1"
 
-/mob/living/simple_animal/bot/medbot/New()
+/mob/living/simple_animal/bot/medbot/New(loc, new_skin)
 	..()
-	update_icon()
-
-	spawn(4)
-		if(skin)
-			overlays += image('icons/obj/aibots.dmi', "medskin_[skin]")
-
-		var/datum/job/doctor/J = new/datum/job/doctor
-		access_card.access += J.get_access()
-		prev_access = access_card.access
+	var/datum/job/doctor/J = new /datum/job/doctor
+	access_card.access += J.get_access()
+	prev_access = access_card.access
+	qdel(J)
 
 	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 	permanent_huds |= medsensor
+
+	if(new_skin)
+		skin = new_skin
+	update_icon()
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -375,7 +379,7 @@
 	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
 		return 1
 
-	if((skin == "bezerk") && (!("syndicate" in C.faction)))
+	if(syndicate_aligned && (!("syndicate" in C.faction)))
 		return 0
 
 	if(declare_crit && C.health <= 0) //Critical condition! Call for help!
@@ -562,7 +566,8 @@
 		if("adv")
 			new /obj/item/storage/firstaid/adv/empty(Tsec)
 		if("bezerk")
-			new /obj/item/storage/firstaid/tactical/empty(Tsec)
+			var/obj/item/storage/firstaid/tactical/empty/T = new(Tsec)
+			T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
 		if("fish")
 			new /obj/item/storage/firstaid/aquatic_kit(Tsec)
 		else
@@ -590,7 +595,7 @@
 /mob/living/simple_animal/bot/medbot/proc/declare(crit_patient)
 	if(declare_cooldown)
 		return
-	if((skin == "bezerk"))
+	if(syndicate_aligned)
 		return
 	var/area/location = get_area(src)
 	speak("Medical emergency! [crit_patient ? "<b>[crit_patient]</b>" : "A patient"] is in critical condition at [location]!", radio_channel)
