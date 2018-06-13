@@ -530,6 +530,7 @@
 #include "code\game\jobs\job_controller.dm"
 #include "code\game\jobs\job_exp.dm"
 #include "code\game\jobs\job_objective.dm"
+#include "code\game\jobs\job_scaling.dm"
 #include "code\game\jobs\jobs.dm"
 #include "code\game\jobs\whitelist.dm"
 #include "code\game\jobs\job\central.dm"
