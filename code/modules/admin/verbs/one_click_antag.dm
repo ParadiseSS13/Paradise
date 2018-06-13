@@ -51,8 +51,8 @@ client/proc/one_click_antag()
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many traitors you want to create? (0 - 10)","Amount:", 0) as num
-	if(!antnum || antnum > 10 || antnum <= 0)
+	var/antnum = input(owner, "How many traitors you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] traitors with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] traitors with One-Click-Antag")
@@ -82,8 +82,8 @@ client/proc/one_click_antag()
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many changelings you want to create? (0 - 10). Enter 0 to cancel.","Amount:", 0) as num
-	if(!antnum || antnum > 10 || antnum <= 0)
+	var/antnum = input(owner, "How many changelings you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] changelings with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] changelings with One-Click-Antag")
@@ -112,8 +112,8 @@ client/proc/one_click_antag()
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many revolutionaries you want to create? (0 - 10)","Amount:", 0) as num
-	if(!antnum || antnum > 10 || antnum <= 0)
+	var/antnum = input(owner, "How many revolutionaries you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
@@ -160,8 +160,8 @@ client/proc/one_click_antag()
 
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
-	var/antnum = input(owner, "How many cultists you want to create? (0 - 5). Enter 0 to cancel.","Amount:", 0) as num
-	if(!antnum || antnum > 5 || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
+	var/antnum = input(owner, "How many cultists you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	if(!antnum || antnum <= 0) // 5 because cultist can really screw balance over if spawned in high amount.
 		return
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Cult with One-Click-Antag")
@@ -189,8 +189,8 @@ client/proc/one_click_antag()
 	var/mob/theghost = null
 	var/time_passed = world.time
 
-	var/antnum = input(owner, "How many nuclear operative you want to create? (0 - 10). Enter 0 to cancel.","Amount:", 0) as num
-	if(!antnum || antnum > 10 || antnum <= 0)
+	var/antnum = input(owner, "How many nuclear operative you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making a [antnum] person Nuke Op Team with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a [antnum] person Nuke Op Team with One-Click-Antag")
@@ -293,8 +293,8 @@ client/proc/one_click_antag()
 /datum/admins/proc/makeAliens()
 	var/datum/event/alien_infestation/E = new /datum/event/alien_infestation
 
-	var/antnum = input(owner, "How many aliens you want to create? (0 - 10). Enter 0 to cancel.","Amount:", 0) as num
-	if(!antnum || antnum > 10 || antnum <= 0)
+	var/antnum = input(owner, "How many aliens you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making Aliens with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Aliens with One-Click-Antag")
@@ -319,8 +319,8 @@ client/proc/one_click_antag()
 	if(prob(10))
 		input = "Save Runtime and any other cute things on the station."
 
-		var/antnum = input(owner, "How many deathsquad members you want to create? (0 - 10). Enter 0 to cancel.","Amount:", 0) as num
-		if(!antnum || antnum > 10 || antnum <= 0)
+		var/antnum = input(owner, "How many deathsquad members you want to create? Enter 0 to cancel.","Amount:", 0) as num
+		if(!antnum || antnum <= 0)
 			return
 		log_admin("[key_name(owner)] tried making a [antnum] person Death Squad with One-Click-Antag")
 		message_admins("[key_name_admin(owner)] tried making a [antnum] person Death Squad with One-Click-Antag")
@@ -431,8 +431,8 @@ client/proc/one_click_antag()
 
 	var/leader_chosen = 0 //when the leader is chosen. The last person spawned.
 
-	var/antnum = input(owner, "How many raiders you want to create? (0 - 10)","Amount:", 0) as num
-	if(!antnum || antnum > 10 || antnum <= 0)
+	var/antnum = input(owner, "How many raiders you want to create? Enter 0 to cancel.","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
 		return
 	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")
@@ -535,8 +535,8 @@ client/proc/one_click_antag()
 	var/list/mob/living/carbon/human/candidates = list()
 	var/mob/living/carbon/human/H = null
 
-	var/antnum = input(owner, "How many vampires you want to create? (0 - 10). Enter 0 to cancel.","Amount:", 0) as num
-	if(!antnum || antnum > 10 || antnum <= 0)
+	var/antnum = input(owner, "How many vampires you want to create? Enter 0 to cancel","Amount:", 0) as num
+	if(!antnum || antnum <= 0)
 		return
 
 	log_admin("[key_name(owner)] tried making Vampires with One-Click-Antag")
