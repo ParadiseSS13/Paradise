@@ -14,8 +14,6 @@ var/global/nologevent = 0
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in admins)
 			if(R_ADMIN & C.holder.rights)
-				if(istype(C, /mob/living))
-					continue
 				if(C.prefs.atklog == ATKLOG_NONE)
 					continue
 				var/msg = rendered

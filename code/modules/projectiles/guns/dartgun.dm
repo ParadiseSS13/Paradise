@@ -178,7 +178,7 @@
 						else
 							M.LAssailant = user
 
-					add_attack_logs(user, M, "Shot with dartgun containing [R]", !!M.ckey ? null : ATKLOG_ALL)
+					add_attack_logs(user, M, "Shot with dartgun containing [R]")
 
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
