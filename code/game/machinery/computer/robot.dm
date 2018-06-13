@@ -90,6 +90,11 @@
 			if(target.connected_ai)
 				to_chat(target.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [target.name]</span><br>")
 			spawn(10)
+				var/area/t = get_area(target)
+				var/obj/item/radio/headset/a = new /obj/item/radio/headset(target)
+				a.follow_target = target
+				a.autosay("[target.name] has been detonated in [t.name]!", "[target.name]'s Self-destruct Alarm")
+				qdel(a)
 				target.self_destruct()
 
 	// Locks or unlocks the cyborg
@@ -182,6 +187,11 @@
 			if(R.connected_ai)
 				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
 			spawn(10)
+				var/area/t = get_area(R)
+				var/obj/item/radio/headset/a = new /obj/item/radio/headset(R)
+				a.follow_target = R
+				a.autosay("[R.name] has been detonated in [t.name]!", "[R.name]'s Self-destruct Alarm")
+				qdel(a)
 				R.self_destruct()
 
 // Proc: get_cyborgs()
