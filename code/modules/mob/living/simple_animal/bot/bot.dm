@@ -90,6 +90,7 @@
 	var/reset_access_timer_id
 
 	hud_possible = list(DIAG_STAT_HUD, DIAG_BOT_HUD, DIAG_HUD, DIAG_PATH_HUD = HUD_LIST_LIST)//Diagnostic HUD views
+	emote_types = list("synth", "mob")
 
 /obj/item/radio/headset/bot
 	subspace_transmission = 1

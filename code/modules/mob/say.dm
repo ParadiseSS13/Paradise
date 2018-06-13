@@ -27,7 +27,6 @@
 	set_typing_indicator(0)
 	usr.say(message)
 
-
 /mob/verb/me_verb(message as text)
 	set name = "Me"
 	set category = "IC"
@@ -36,10 +35,9 @@
 
 	set_typing_indicator(0)
 	if(use_me)
-		custom_emote(usr.emote_type, message)
+		custom_emote(emote_type, message)
 	else
 		usr.emote(message)
-
 
 /mob/proc/say_dead(var/message)
 	if(!(client && client.holder))
@@ -96,12 +94,6 @@
 		else if(ending == "?")
 			verb = "asks"
 	return verb
-
-
-/mob/proc/emote(var/act, var/type, var/message)
-	if(act == "me")
-		return custom_emote(type, message)
-
 
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this

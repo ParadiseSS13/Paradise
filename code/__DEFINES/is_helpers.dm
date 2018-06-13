@@ -61,6 +61,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ishuman(A) (istype(A, /mob/living/carbon/human))
 
+#define ismonkey(A) (istype(A, /mob/living/carbon/human/monkey))
 //more carbon mobs
 #define isalien(A) (istype(A, /mob/living/carbon/alien))
 

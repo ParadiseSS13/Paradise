@@ -28,3 +28,4 @@
 	var/nightmare = 0
 
 	blood_volume = BLOOD_VOLUME_NORMAL
+	emote_types = list("carbon", "living", "mob")

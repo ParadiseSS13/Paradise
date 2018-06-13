@@ -34,6 +34,8 @@
 
 	var/obj/item/radio/common_radio
 
+	emote_types = list("silicon", "synth", "living", "mob")
+
 /mob/living/silicon/New()
 	silicon_mob_list |= src
 	..()

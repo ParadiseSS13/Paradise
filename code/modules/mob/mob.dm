@@ -31,7 +31,18 @@
 	else
 		living_mob_list += src
 	prepare_huds()
+	initialize_emotes()
 	..()
+
+/mob/proc/initialize_emotes()
+	var/datum/emote/E
+	for(var/ET in emote_types)
+		for(var/datum/emote/EE in E.emote_lists[ET])
+			if(EE.key && !emote_list[EE.key])
+				emote_list[EE.key] = EE
+				emote_list[EE.key_third_person] = EE
+	// silence compiler warning
+	QDEL_NULL(E)
 
 /atom/proc/prepare_huds()
 	hud_list = list()

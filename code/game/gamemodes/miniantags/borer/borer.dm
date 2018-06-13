@@ -33,9 +33,6 @@
 		return FALSE
 	return B.host.say_understands(other, speaking)
 
-/mob/living/captive_brain/emote(var/message)
-	return
-
 /mob/living/captive_brain/resist()
 	var/mob/living/simple_animal/borer/B = loc
 

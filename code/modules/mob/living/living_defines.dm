@@ -68,3 +68,4 @@
 
 	var/list/status_effects //a list of all status effects the mob has
 
+	emote_types = list("living", "mob")
