@@ -49,7 +49,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts applying medication to the damaged bones in [target]'s [affected.name] with \the [tool]." , \
 	"You start applying medication to the damaged bones in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!",1)
+	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
 	..()
 
 /datum/surgery_step/glue_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -83,7 +83,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] is beginning to set the bone in [target]'s [affected.name] in place with \the [tool]." , \
 		"You are beginning to set the bone in [target]'s [affected.name] in place with \the [tool].")
-	target.custom_pain("The pain in your [affected.name] is going to make you pass out!",1)
+	target.custom_pain("The pain in your [affected.name] is going to make you pass out!")
 	..()
 
 /datum/surgery_step/set_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -136,7 +136,7 @@
 		"<span class='warning'>Your hand slips, damaging [target]'s face with \the [tool]!</span>")
 	var/obj/item/organ/external/head/h = affected
 	h.receive_damage(10)
-	h.disfigured = 1
+	h.disfigure()
 	return 0
 
 /datum/surgery_step/finish_bone
