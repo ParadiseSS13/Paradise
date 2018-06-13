@@ -1,5 +1,0 @@
-author: "MINIMAN10000"
-delete-after: True
-changes: 
-  - rscdel: "Airlock electronics lock"
-  - bugfix: "Airlock electronics close button"
