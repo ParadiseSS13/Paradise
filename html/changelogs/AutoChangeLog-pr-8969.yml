@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds surgical augment to R&D"
+  - tweak: "Tools on surgical augment are slightly faster at surgery"
