@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Buffed DIY chainsaws damage slightly"
+  - tweak: "You now flip about when you spin with a double e-sword"
