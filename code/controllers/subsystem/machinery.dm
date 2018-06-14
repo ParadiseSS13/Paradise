@@ -11,6 +11,7 @@ SUBSYSTEM_DEF(machines)
 	var/list/currentrun = list()
 	var/list/powernets = list()
 	var/list/deferred_powernet_rebuilds = list()
+	var/list/deferred_process = list()
 
 	var/currentpart = SSMACHINES_DEFERREDPOWERNETS
 
@@ -90,6 +91,22 @@ SUBSYSTEM_DEF(machines)
 	while(currentrun.len)
 		var/obj/machinery/thing = currentrun[currentrun.len]
 		currentrun.len--
+		if( thing.deferred_processing )
+			deferred_process += thing
+		else{
+			if(!QDELETED(thing) && thing.process(seconds) != PROCESS_KILL)
+				if(thing.use_power)
+					thing.auto_use_power() //add back the power state
+			else
+				processing -= thing
+				if(!QDELETED(thing))
+					thing.isprocessing = FALSE
+		}
+		if(MC_TICK_CHECK)
+			return
+	while(deferred_process.len)
+		var/obj/machinery/thing = deferred_process[deferred_process.len]
+		deferred_process.len--
 		if(!QDELETED(thing) && thing.process(seconds) != PROCESS_KILL)
 			if(thing.use_power)
 				thing.auto_use_power() //add back the power state
