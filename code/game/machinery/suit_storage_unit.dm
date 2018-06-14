@@ -413,13 +413,13 @@
 	var/i
 	for(i=0,i<4,i++) //Gradually give the guy inside some damaged based on the intensity
 		spawn(50)
-			if(src.OCCUPANT)
-				if(src.issuperUV)
+			if(OCCUPANT)
+				if(issuperUV)
 					OCCUPANT.take_organ_damage(0,40)
-					to_chat(user, "Test. You gave him 40 damage")
+					to_chat(user, "Test. You gave [OCCUPANT.p_them()] 40 damage")
 				else
 					OCCUPANT.take_organ_damage(0,8)
-					to_chat(user, "Test. You gave him 8 damage")
+					to_chat(user, "Test. You gave [OCCUPANT.p_them()] 8 damage")
 	return*/
 
 
@@ -655,7 +655,7 @@
 			return
 
 	//Hacking init.
-	if(istype(I, /obj/item/device/multitool) || istype(I, /obj/item/wirecutters))
+	if(istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters))
 		if(panel_open)
 			attack_hand(user)
 		return
@@ -909,7 +909,7 @@
 
 	else if((href_list["pulsewire"]) && (src.panel_open))
 		var/twire = text2num(href_list["pulsewire"])
-		if(!istype(usr.get_active_hand(), /obj/item/device/multitool))
+		if(!istype(usr.get_active_hand(), /obj/item/multitool))
 			to_chat(usr, "You need a multitool!")
 			return
 		if(src.isWireColorCut(twire))

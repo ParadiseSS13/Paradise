@@ -48,5 +48,5 @@
 	req_tech = list("magnets" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 3000)
-	build_path = /obj/item/device/lightreplacer
+	build_path = /obj/item/lightreplacer
 	category = list("Janitorial")

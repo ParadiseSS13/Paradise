@@ -95,7 +95,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/New()
 	..()
-	internal_gps = new/obj/item/device/gps/internal/colossus(src)
+	internal_gps = new/obj/item/gps/internal/colossus(src)
 
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
@@ -257,7 +257,7 @@ Difficulty: Very Hard
 	if(isturf(target) || isobj(target))
 		target.ex_act(2)
 
-/obj/item/device/gps/internal/colossus
+/obj/item/gps/internal/colossus
 	icon_state = null
 	gpstag = "Angelic Signal"
 	desc = "Get in the fucking robot."

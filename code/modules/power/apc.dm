@@ -505,7 +505,7 @@
 			to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"].")
 			update_icon()
 
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
+	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
 		if(emagged)
 			to_chat(user, "The interface is broken.")
 		else if(opened)
@@ -641,8 +641,8 @@
 			if(istype(user, /mob/living/silicon))
 				return src.attack_hand(user)
 			if(!opened && wiresexposed && \
-				(istype(W, /obj/item/device/multitool) || \
-				istype(W, /obj/item/wirecutters) || istype(W, /obj/item/device/assembly/signaler)))
+				(istype(W, /obj/item/multitool) || \
+				istype(W, /obj/item/wirecutters) || istype(W, /obj/item/assembly/signaler)))
 				return src.attack_hand(user)
 			if(W.flags & NOBLUDGEON)
 				return
@@ -682,7 +682,7 @@
 			else
 				user.put_in_hands(cell)
 			cell.add_fingerprint(user)
-			cell.updateicon()
+			cell.update_icon()
 
 			src.cell = null
 			user.visible_message("<span class='warning'>[user.name] removes the power cell from [src.name]!", "You remove the power cell.</span>")
@@ -1004,8 +1004,7 @@
 		return
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
-	malf.malfhacking = addtimer(malf, "malfhacked", 600, FALSE, src)
-
+	malf.malfhacking = addtimer(CALLBACK(malf, /mob/living/silicon/ai/.proc/malfhacked, src), 600, TIMER_STOPPABLE)
 	var/obj/screen/alert/hackingapc/A
 	A = malf.throw_alert("hackingapc", /obj/screen/alert/hackingapc)
 	A.target = src

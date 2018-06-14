@@ -22,8 +22,8 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks their [src.name].</span>", \
-								"<span class='userdanger'>[user] unlocks their [src.name].</span>")
+			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
+								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
 	..()
 	return 1
 
@@ -169,7 +169,7 @@
 		return 1
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message("<span class='danger'>\ [user] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
+	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
 
 //scarves (fit in in mask slot)
 

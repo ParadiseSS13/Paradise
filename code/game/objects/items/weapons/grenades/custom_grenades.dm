@@ -119,15 +119,15 @@
 
 /obj/item/grenade/chem_grenade/lube/remote/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+	CreateDefaultTrigger(/obj/item/assembly/signaler)
 
 /obj/item/grenade/chem_grenade/lube/prox/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+	CreateDefaultTrigger(/obj/item/assembly/prox_sensor)
 
 /obj/item/grenade/chem_grenade/lube/tripwire/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/infra)
+	CreateDefaultTrigger(/obj/item/assembly/infra)
 
 
 // Basic explosion grenade
@@ -149,15 +149,15 @@
 // Assembly Variants
 /obj/item/grenade/chem_grenade/explosion/remote/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+	CreateDefaultTrigger(/obj/item/assembly/signaler)
 
 /obj/item/grenade/chem_grenade/explosion/prox/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+	CreateDefaultTrigger(/obj/item/assembly/prox_sensor)
 
 /obj/item/grenade/chem_grenade/explosion/mine/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/mousetrap)
+	CreateDefaultTrigger(/obj/item/assembly/mousetrap)
 
 
 // Water + Potassium = Boom
@@ -177,24 +177,24 @@
 
 /obj/item/grenade/chem_grenade/waterpotassium/remote/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+	CreateDefaultTrigger(/obj/item/assembly/signaler)
 
 /obj/item/grenade/chem_grenade/waterpotassium/prox/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+	CreateDefaultTrigger(/obj/item/assembly/prox_sensor)
 
 
 /obj/item/grenade/chem_grenade/waterpotassium/tripwire/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/infra)
+	CreateDefaultTrigger(/obj/item/assembly/infra)
 
 /obj/item/grenade/chem_grenade/waterpotassium/tripwire_armed/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/infra/armed)
+	CreateDefaultTrigger(/obj/item/assembly/infra/armed)
 
 /obj/item/grenade/chem_grenade/waterpotassium/tripwire_armed_stealth/New()
 	..()
-	CreateDefaultTrigger(/obj/item/device/assembly/infra/armed/stealth)
+	CreateDefaultTrigger(/obj/item/assembly/infra/armed/stealth)
 
 
 
@@ -216,17 +216,17 @@
 /obj/item/grenade/chem_grenade/emp/remote
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+		CreateDefaultTrigger(/obj/item/assembly/signaler)
 
 /obj/item/grenade/chem_grenade/emp/prox
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+		CreateDefaultTrigger(/obj/item/assembly/prox_sensor)
 
 /obj/item/grenade/chem_grenade/emp/mine
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/mousetrap)
+		CreateDefaultTrigger(/obj/item/assembly/mousetrap)
 
 // --------------------------------------
 //  Dangerous slime core grenades
@@ -249,17 +249,17 @@
 /obj/item/grenade/chem_grenade/large/bluespace/prox
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+		CreateDefaultTrigger(/obj/item/assembly/prox_sensor)
 
 /obj/item/grenade/chem_grenade/large/bluespace/mine
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/mousetrap)
+		CreateDefaultTrigger(/obj/item/assembly/mousetrap)
 
 /obj/item/grenade/chem_grenade/large/bluespace/remote
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+		CreateDefaultTrigger(/obj/item/assembly/signaler)
 */
 
 /obj/item/grenade/chem_grenade/large/monster
@@ -279,17 +279,17 @@
 /obj/item/grenade/chem_grenade/large/monster/prox
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/prox_sensor)
+		CreateDefaultTrigger(/obj/item/assembly/prox_sensor)
 
 /obj/item/grenade/chem_grenade/large/monster/mine
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/mousetrap)
+		CreateDefaultTrigger(/obj/item/assembly/mousetrap)
 
 /obj/item/grenade/chem_grenade/large/monster/remote
 	New()
 		..()
-		CreateDefaultTrigger(/obj/item/device/assembly/signaler)
+		CreateDefaultTrigger(/obj/item/assembly/signaler)
 
 /obj/item/grenade/chem_grenade/large/feast
 	payload_name = "silver slime"
@@ -314,22 +314,22 @@
 	New()
 		..()
 		new /obj/item/grenade/chem_grenade/explosion/remote(src)
-		new /obj/item/device/multitool(src) // used to adjust the chemgrenade's signaller
-		new /obj/item/device/assembly/signaler(src)
+		new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
+		new /obj/item/assembly/signaler(src)
 		return
 /obj/item/storage/box/syndie_kit/remoteemp
 	name = "Remote EMP Kit"
 	New()
 		..()
 		new /obj/item/grenade/chem_grenade/emp/remote(src)
-		new /obj/item/device/multitool(src) // used to adjust the chemgrenade's signaller
-		new /obj/item/device/assembly/signaler(src)
+		new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
+		new /obj/item/assembly/signaler(src)
 		return
 /obj/item/storage/box/syndie_kit/remotelube
 	name = "Remote Lube Kit"
 	New()
 		..()
 		new /obj/item/grenade/chem_grenade/lube(src)
-		new /obj/item/device/multitool(src) // used to adjust the chemgrenade's signaller
-		new /obj/item/device/assembly/signaler(src)
+		new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
+		new /obj/item/assembly/signaler(src)
 		return

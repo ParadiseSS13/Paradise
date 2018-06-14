@@ -19,7 +19,7 @@
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
 
 	// Bomb in here? (using same search as space transits searching for nuke disk)
-	var/list/bombs = search_contents_for(/obj/item/device/transfer_valve)
+	var/list/bombs = search_contents_for(/obj/item/transfer_valve)
 	if(!isemptylist(bombs)) // You're fucked.
 		..(severity)
 

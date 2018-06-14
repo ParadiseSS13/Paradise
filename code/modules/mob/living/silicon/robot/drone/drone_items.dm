@@ -146,7 +146,7 @@
 				wrapped = A.cell
 
 				A.cell.add_fingerprint(user)
-				A.cell.updateicon()
+				A.cell.update_icon()
 				A.cell.forceMove(src)
 				A.cell = null
 
@@ -323,7 +323,7 @@
 		else
 			module_string += text("[O]: <A HREF=?src=[UID()];act=\ref[O]>Activate</A><BR>")
 
-		if((istype(O,/obj/item) || istype(O,/obj/item/device)) && !(istype(O,/obj/item/stack/cable_coil)))
+		if((istype(O,/obj/item) || istype(O,/obj/item)) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
 		else
 			resources += module_string

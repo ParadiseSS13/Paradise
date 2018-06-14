@@ -96,25 +96,25 @@
 /datum/storeitem/piano_synth
 	name = "piano synthesizer"
 	desc = "An advanced electronic synthesizer that can be used as various instruments."
-	typepath = /obj/item/device/instrument/piano_synth
+	typepath = /obj/item/instrument/piano_synth
 	cost = 1000
 
 /datum/storeitem/violin
 	name = "space violin"
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
-	typepath = /obj/item/device/instrument/violin
+	typepath = /obj/item/instrument/violin
 	cost = 500
 
 /datum/storeitem/guitar
 	name = "guitar"
 	desc = "It's made of wood and has bronze strings."
-	typepath = /obj/item/device/instrument/guitar
+	typepath = /obj/item/instrument/guitar
 	cost = 500
 
 /datum/storeitem/eguitar
 	name = "electric guitar"
 	desc = "Makes all your shredding needs possible."
-	typepath = /obj/item/device/instrument/eguitar
+	typepath = /obj/item/instrument/eguitar
 	cost = 500
 
 /datum/storeitem/baby

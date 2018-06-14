@@ -339,7 +339,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		s.loc = get_step(get_turf(s), get_dir(s, target))
 		s.Show()
 		s.Eat()
-		addtimer(src, "wake_and_restore", rand(50, 100))
+		addtimer(CALLBACK(src, .proc/wake_and_restore), rand(50, 100))
 	qdel(s)
 
 /obj/effect/hallucination/simple/singularity
@@ -365,9 +365,9 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			for(var/i=0,i<hits,i++)
 				target.playsound_local(null, 'sound/weapons/Laser.ogg', 25, 1)
 				if(prob(75))
-					addtimer(target, "playsound_local", rand(10,20), null, 'sound/weapons/sear.ogg', 25, 1)
+					addtimer(CALLBACK(target, /mob/.proc/playsound_local, null, 'sound/weapons/sear.ogg', 25, 1), rand(10,20))
 				else
-					addtimer(target, "playsound_local", rand(10,20), null, 'sound/weapons/effects/searwall.ogg', 25, 1)
+					addtimer(CALLBACK(target, /mob/.proc/playsound_local, null, 'sound/weapons/effects/searwall.ogg', 25, 1), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25)
 		if(2) //Esword fight
@@ -381,9 +381,9 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			for(var/i=0,i<hits,i++)
 				target.playsound_local(null, get_sfx("gunshot"), 25)
 				if(prob(75))
-					addtimer(target, "playsound_local", rand(10,20), null, 'sound/weapons/pierce.ogg', 25, 1)
+					addtimer(CALLBACK(target, /mob/.proc/playsound_local, null, 'sound/weapons/pierce.ogg', 25, 1), rand(10,20))
 				else
-					addtimer(target, "playsound_local", rand(10,20), null, "ricochet", 25, 1)
+					addtimer(CALLBACK(target, /mob/.proc/playsound_local, null, "ricochet", 25, 1), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
 		if(4) //Stunprod + cablecuff
@@ -641,6 +641,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			updateimage()
 		else
 			if(prob(15))
+				do_attack_animation(my_target, ATTACK_EFFECT_PUNCH)
 				if(weapon_name)
 					my_target.playsound_local(my_target, weap.hitsound, 1)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
@@ -681,13 +682,13 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 	/obj/item/cartridge/syndicate, /obj/item/clothing/under/chameleon,\
 	/obj/item/clothing/shoes/syndigaloshes, /obj/item/card/id/syndicate,\
 	/obj/item/clothing/mask/gas/voice, /obj/item/clothing/glasses/thermal,\
-	/obj/item/device/chameleon, /obj/item/card/emag,\
+	/obj/item/chameleon, /obj/item/card/emag,\
 	/obj/item/storage/toolbox/syndicate, /obj/item/aiModule,\
-	/obj/item/device/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\
-	/obj/item/device/powersink, /obj/item/storage/box/syndie_kit,\
+	/obj/item/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\
+	/obj/item/powersink, /obj/item/storage/box/syndie_kit,\
 	/obj/item/toy/syndicateballoon, /obj/item/gun/energy/laser/captain,\
 	/obj/item/hand_tele, /obj/item/rcd, /obj/item/tank/jetpack,\
-	/obj/item/clothing/under/rank/captain, /obj/item/device/aicard,\
+	/obj/item/clothing/under/rank/captain, /obj/item/aicard,\
 	/obj/item/clothing/shoes/magboots, /obj/item/areaeditor/blueprints, /obj/item/disk/nuclear,\
 	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank)
 

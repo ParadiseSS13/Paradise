@@ -62,7 +62,7 @@
 		factory.spores += src
 	..()
 
-/mob/living/simple_animal/hostile/blob/blobspore/Life()
+/mob/living/simple_animal/hostile/blob/blobspore/Life(seconds, times_fired)
 
 	if(!is_zombie && isturf(src.loc))
 		for(var/mob/living/carbon/human/H in oview(src,1)) //Only for corpse right next to/on same tile

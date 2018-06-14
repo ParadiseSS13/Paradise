@@ -94,7 +94,7 @@
 /mob/living/simple_animal/bot/ed209/set_custom_texts()
 	text_hack = "You disable [name]'s combat inhibitor."
 	text_dehack = "You restore [name]'s combat inhibitor."
-	text_dehack_fail = "[name] ignores your attempts to restrict him!"
+	text_dehack_fail = "[name] ignores your attempts to restrict [p_them()]!"
 
 /mob/living/simple_animal/bot/ed209/get_controls(mob/user)
 	var/dat
@@ -365,7 +365,7 @@ Auto Patrol[]"},
 	Sa.build_step = 1
 	Sa.overlays += image('icons/obj/aibots.dmi', "hs_hole")
 	Sa.created_name = name
-	new /obj/item/device/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
 
 	if(!lasercolor)
 		var/obj/item/gun/energy/gun/advtaser/G = new /obj/item/gun/energy/gun/advtaser(Tsec)

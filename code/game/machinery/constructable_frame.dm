@@ -912,7 +912,7 @@ obj/item/circuitboard/rdserver
 							/obj/item/stock_parts/matter_bin = 1,
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/device/assembly/igniter = 1)
+							/obj/item/assembly/igniter = 1)
 
 /obj/item/circuitboard/mining_equipment_vendor
 	name = "circuit board (Mining Equipment Vendor)"

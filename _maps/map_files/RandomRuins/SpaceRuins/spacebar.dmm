@@ -49,7 +49,7 @@
 "aW" = (/obj/structure/stool/bed/chair{tag = "icon-chair (WEST)"; icon_state = "chair"; dir = 8},/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "aX" = (/obj/machinery/light{icon_state = "tube1"; dir = 8},/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "aY" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
-"aZ" = (/obj/item/device/radio/beacon,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
+"aZ" = (/obj/item/radio/beacon,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "ba" = (/obj/machinery/vending/cola,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "bb" = (/obj/machinery/vending/cigarette,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "bc" = (/obj/machinery/vending/coffee,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})

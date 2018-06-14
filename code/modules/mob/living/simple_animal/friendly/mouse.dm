@@ -39,7 +39,7 @@
 		for(var/mob/M in view())
 			M << 'sound/effects/mousesqueek.ogg'
 
-/mob/living/simple_animal/mouse/Life()
+/mob/living/simple_animal/mouse/Life(seconds, times_fired)
 	. = ..()
 	if(stat == UNCONSCIOUS)
 		if(ckey || prob(1))

@@ -69,7 +69,7 @@
 //		src.sd_set_light(0)
 
 /obj/machinery/sparker/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/detective_scanner))
+	if(istype(W, /obj/item/detective_scanner))
 		return
 	if(istype(W, /obj/item/screwdriver))
 		add_fingerprint(user)

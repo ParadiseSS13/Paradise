@@ -27,13 +27,13 @@
 	..()
 	if(stat == 2)
 		new /obj/item/reagent_containers/food/snacks/ectoplasm(src.loc)
-		src.visible_message("<span class='warning'>\The [src] lets out a contented sigh as their form unwinds.</span>")
+		src.visible_message("<span class='warning'>[src] lets out a contented sigh as [p_their()] form unwinds.</span>")
 		src.ghostize()
 		qdel(src)
 		return
 
 /mob/living/simple_animal/pony/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
-	if(istype(O, /obj/item/device/soulstone))
+	if(istype(O, /obj/item/soulstone))
 		O.transfer_soul("SHADE", src, user)
 	else
 		..()

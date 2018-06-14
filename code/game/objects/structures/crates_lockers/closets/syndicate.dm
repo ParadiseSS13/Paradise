@@ -52,7 +52,7 @@
 	new /obj/item/pinpointer/nukeop(src)
 	new /obj/item/pinpointer/nukeop(src)
 	new /obj/item/pinpointer/nukeop(src)
-	new /obj/item/device/pda/syndicate(src)
+	new /obj/item/pda/syndicate(src)
 
 /obj/structure/closet/syndicate/resources/
 	desc = "An old, dusty locker."

@@ -63,13 +63,13 @@ var/global/max_secret_rooms = 6
 			treasureitems = list(/mob/living/simple_animal/bot/medbot/mysterious=1, /obj/item/circular_saw=1, /obj/structure/closet/critter/cat=2)
 			fluffitems = list(/obj/effect/decal/cleanable/blood=5,/obj/item/organ/internal/appendix=2,/obj/structure/closet/crate/freezer=2,
 							  /obj/machinery/optable=1,/obj/item/scalpel=1,/obj/item/storage/firstaid/regular=3,
-							  /obj/item/tank/anesthetic=1, /obj/item/surgical_drapes=2, /obj/item/device/mass_spectrometer/adv=1,/obj/item/clothing/glasses/hud/health=1)
+							  /obj/item/tank/anesthetic=1, /obj/item/surgical_drapes=2, /obj/item/mass_spectrometer/adv=1,/obj/item/clothing/glasses/hud/health=1)
 
 		if("cult")
 			theme = "cult"
 			walltypes = list(/turf/simulated/wall/cult=3,/turf/simulated/mineral/random/high_chance=1)
 			floortypes = list(/turf/simulated/floor/engine/cult)
-			treasureitems = list(/obj/item/device/soulstone=1, /obj/item/clothing/suit/space/cult=1, /obj/item/bedsheet/cult=2,
+			treasureitems = list(/obj/item/soulstone=1, /obj/item/clothing/suit/space/cult=1, /obj/item/bedsheet/cult=2,
 								 /obj/item/clothing/suit/hooded/cultrobes=2, /mob/living/simple_animal/hostile/creature=3)
 			fluffitems = list(/obj/effect/gateway=1,/obj/effect/gibspawner=1,/obj/structure/cult/talisman=1,/obj/item/toy/crayon/red=2,
 							  /obj/item/organ/internal/heart=2, /obj/effect/decal/cleanable/blood=4,/obj/structure/table/wood=2,/obj/item/reagent_containers/food/snacks/ectoplasm=3,
@@ -108,7 +108,7 @@ var/global/max_secret_rooms = 6
 								/obj/machinery/biogenerator=1)
 			fluffitems = list(/obj/structure/table/reinforced=2,/obj/item/stock_parts/scanning_module/phasic=3,
 							  /obj/item/stock_parts/matter_bin/super=3,/obj/item/stock_parts/manipulator/pico=3,
-							  /obj/item/stock_parts/capacitor/super=3,/obj/item/device/pda/clear=1, /obj/effect/decal/mecha_wreckage/phazon=1)
+							  /obj/item/stock_parts/capacitor/super=3,/obj/item/pda/clear=1, /obj/effect/decal/mecha_wreckage/phazon=1)
 
 		if("speakeasy")
 			theme = "speakeasy"

@@ -115,7 +115,7 @@
 		handle_germ_effects()
 
 /obj/item/organ/proc/is_preserved()
-	if(istype(loc,/obj/item/device/mmi))
+	if(istype(loc,/obj/item/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
 		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
@@ -289,7 +289,7 @@
 		return
 	if(owner && robotic == 2)
 		Stop() // In the name of looooove~!
-		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
+		owner.visible_message("<span class='danger'>[owner] clutches [owner.p_their()] chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
 	else if(owner && robotic == 1)
 		receive_damage(11,1)
 

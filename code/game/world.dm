@@ -16,9 +16,11 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
+	makeDatumRefLists()
 	callHook("startup")
 
 	src.update_status()
+
 
 	. = ..()
 
@@ -68,7 +70,7 @@ var/world_topic_spam_protect_ip = "0.0.0.0"
 var/world_topic_spam_protect_time = world.timeofday
 
 /world/Topic(T, addr, master, key)
-	log_debug("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
+	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
 	var/list/input = params2list(T)
 	var/key_valid = (config.comms_password && input["key"] == config.comms_password) //no password means no comms, not any password
@@ -324,6 +326,10 @@ var/world_topic_spam_protect_time = world.timeofday
 	processScheduler.stop()
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
+	for(var/client/C in clients)
+		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[config.server]")
+
 	if(config && config.shutdown_on_reboot)
 		sleep(0)
 		if(shutdown_shell_command)
@@ -331,9 +337,6 @@ var/world_topic_spam_protect_time = world.timeofday
 		del(world)
 		return
 	else
-		for(var/client/C in clients)
-			if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-				C << link("byond://[config.server]")
 		..(0)
 
 
@@ -359,7 +362,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
-
+	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration()
 	config = new /datum/configuration()

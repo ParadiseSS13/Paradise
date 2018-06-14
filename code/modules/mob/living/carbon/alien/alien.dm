@@ -9,15 +9,10 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-
-
 	alien_talk_understand = 1
-
 	nightvision = 1
-
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = 0
-
 	var/move_delay_add = 0 // movement delay to add
 
 	status_flags = CANPARALYSE|CANPUSH
@@ -27,7 +22,6 @@
 	var/heat_protection = 0.5
 	var/leaping = 0
 	ventcrawler = 2
-
 	var/list/alien_organs = list()
 
 /mob/living/carbon/alien/New()
@@ -117,31 +111,6 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 	else
 		clear_alert("alien_fire")
-
-/mob/living/carbon/alien/handle_mutations_and_radiation()
-	// Aliens love radiation nom nom nom
-	if(radiation)
-		if(radiation > 100)
-			radiation = 100
-
-		if(radiation < 0)
-			radiation = 0
-
-		switch(radiation)
-			if(1 to 49)
-				radiation--
-				if(prob(25))
-					adjustToxLoss(1)
-
-			if(50 to 74)
-				radiation -= 2
-				adjustToxLoss(1)
-				if(prob(5))
-					radiation -= 5
-
-			if(75 to 100)
-				radiation -= 3
-				adjustToxLoss(3)
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code
 	if(..())

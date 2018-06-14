@@ -127,7 +127,7 @@
 			mob.mutations.Remove(CLUMSY)
 
 
-	var/obj/item/device/flash/T = new(mob)
+	var/obj/item/flash/T = new(mob)
 	var/obj/item/toy/crayon/spraycan/R = new(mob)
 	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
 
@@ -279,7 +279,7 @@
 				to_chat(M, "The frame beeps contentedly, purging the hostile memory engram from the MMI before initalizing it.")
 
 			else
-				to_chat(M, "[rev_mind.current] looks like they just remembered their real allegiance!")
+				to_chat(M, "[rev_mind.current] looks like [rev_mind.current.p_they()] just remembered [rev_mind.current.p_their()] real allegiance!")
 
 /////////////////////////////////////
 //Adds the rev hud to a new convert//

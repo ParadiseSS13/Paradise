@@ -129,8 +129,8 @@
 			var/mob/living/carbon/human/L = usr
 			var/obj/item/card = L.get_active_hand()
 			var/obj/item/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
-			if(istype(I, /obj/item/device/pda))
-				var/obj/item/device/pda/pda = I
+			if(istype(I, /obj/item/pda))
+				var/obj/item/pda/pda = I
 				I = pda.id
 			if(I && istype(I))
 				if(access_captain in I.access)

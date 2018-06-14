@@ -110,7 +110,7 @@ Thus, the two variables affect pump operation are set in New():
 	radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 	return 1
 
-/obj/machinery/atmospherics/binary/pump/initialize()
+/obj/machinery/atmospherics/binary/pump/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)

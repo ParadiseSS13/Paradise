@@ -287,7 +287,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		target = pick(possible_targets)
 	if(target && target.current)
 		target_real_name = target.current.real_name
-		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing their identification card."
+		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
 	else
 		explanation_text = "Free Objective"
 
@@ -515,7 +515,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/list/priority_targets = list()
 
 	for(var/datum/mind/possible_target in ticker.minds)
-		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != "MODE"))
+		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && (possible_target.assigned_role != possible_target.special_role))
 			possible_targets += possible_target
 			for(var/role in roles)
 				if(possible_target.assigned_role == role)
@@ -528,7 +528,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		target = pick(possible_targets)
 
 	if(target && target.current)
-		explanation_text = "The Shoal has a need for [target.current.real_name], the [target.assigned_role]. Take them alive."
+		explanation_text = "The Shoal has a need for [target.current.real_name], the [target.assigned_role]. Take [target.current.p_them()] alive."
 	else
 		explanation_text = "Free Objective"
 	return target
@@ -757,7 +757,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 			target_amount = 10
 			itemname = "ten solar panel assemblies"
 		if(8)
-			target = /obj/item/device/flash
+			target = /obj/item/flash
 			target_amount = 6
 			itemname = "six flashes"
 	explanation_text = "We are running low on spare parts. Trade for [itemname]."

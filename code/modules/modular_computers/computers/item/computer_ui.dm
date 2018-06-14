@@ -1,5 +1,5 @@
 // Operates NanoUI
-/obj/item/device/modular_computer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/item/modular_computer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(!enabled)
 		if(ui)
 			ui.close()
@@ -39,7 +39,7 @@
 		ui.open()
 
 
-/obj/item/device/modular_computer/ui_data(mob/user)
+/obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()
 	data["programs"] = list()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
@@ -53,7 +53,7 @@
 	return data
 
 // Function used by NanoUI's to obtain data for header. All relevant entries begin with "PC_"
-/obj/item/device/modular_computer/proc/get_header_data()
+/obj/item/modular_computer/proc/get_header_data()
 	var/list/data = list()
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
@@ -111,7 +111,7 @@
 
 
 // Handles user's GUI input
-/obj/item/device/modular_computer/Topic(href, list/href_list)
+/obj/item/modular_computer/Topic(href, list/href_list)
 	if(..())
 		return
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
@@ -188,7 +188,7 @@
 		else
 			return
 
-/obj/item/device/modular_computer/nano_host()
+/obj/item/modular_computer/nano_host()
 	if(physical)
 		return physical
 	return src

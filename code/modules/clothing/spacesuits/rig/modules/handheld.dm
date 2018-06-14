@@ -10,7 +10,7 @@
 	deactivate_string = "Retract"
 
 	var/device_type
-	var/obj/item/device
+	var/obj/item
 
 /obj/item/rig_module/handheld/activate()
 	if(!..())

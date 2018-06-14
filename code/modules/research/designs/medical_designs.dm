@@ -8,7 +8,7 @@
 	req_tech = list("biotech" = 3, "magnets" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 200)
-	build_path = "/obj/item/device/mass_spectrometer/adv"
+	build_path = "/obj/item/mass_spectrometer/adv"
 	category = list("Medical")
 
 /datum/design/adv_reagent_scanner
@@ -18,7 +18,7 @@
 	req_tech = list("biotech" = 3, "magnets" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
-	build_path = /obj/item/device/reagent_scanner/adv
+	build_path = /obj/item/reagent_scanner/adv
 	category = list("Medical")
 
 /datum/design/bluespacebeaker
@@ -48,7 +48,7 @@
 	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
-	build_path = /obj/item/device/robotanalyzer
+	build_path = /obj/item/robotanalyzer
 	category = list("Medical")
 
 /datum/design/healthanalyzer_upgrade
@@ -58,7 +58,7 @@
 	req_tech = list("biotech" = 2, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 20, MAT_GLASS = 20)
-	build_path = /obj/item/device/healthupgrade
+	build_path = /obj/item/healthupgrade
 	category = list("Medical")
 
 /datum/design/defib
@@ -79,7 +79,7 @@
 	req_tech = list("programming" = 3, "magnets" = 2, "biotech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
-	build_path = /obj/item/device/sensor_device
+	build_path = /obj/item/sensor_device
 	category = list("Medical")
 
 /datum/design/mmi
@@ -90,7 +90,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
 	construction_time = 75
-	build_path = /obj/item/device/mmi
+	build_path = /obj/item/mmi
 	category = list("Misc","Medical")
 
 /datum/design/mass_spectrometer
@@ -100,7 +100,7 @@
 	req_tech = list("magnets" = 2, "plasmatech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
-	build_path = /obj/item/device/mass_spectrometer
+	build_path = /obj/item/mass_spectrometer
 	category = list("Medical")
 
 /datum/design/posibrain
@@ -111,7 +111,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500) //Gold, because SWAG.
 	construction_time = 75
-	build_path = /obj/item/device/mmi/posibrain
+	build_path = /obj/item/mmi/posibrain
 	category = list("Misc","Medical")
 
 /datum/design/mmi_radio
@@ -122,7 +122,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 1200, MAT_GLASS = 500)
 	construction_time = 75
-	build_path = /obj/item/device/mmi/radio_enabled
+	build_path = /obj/item/mmi/radio_enabled
 	category = list("Misc","Medical")
 
 /datum/design/nanopaste
@@ -142,7 +142,7 @@
 	req_tech = list("magnets" = 2, "plasmatech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
-	build_path = /obj/item/device/reagent_scanner
+	build_path = /obj/item/reagent_scanner
 	category = list("Medical")
 
 /datum/design/item/scalpel_laser1

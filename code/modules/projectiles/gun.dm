@@ -45,7 +45,7 @@
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
-	var/obj/item/device/flashlight/gun_light = null
+	var/obj/item/flashlight/gun_light = null
 	var/can_flashlight = 0
 
 	var/list/upgrades = list()
@@ -238,8 +238,8 @@ obj/item/gun/proc/newshot()
 		return
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/flashlight/seclite))
-		var/obj/item/device/flashlight/seclite/S = I
+	if(istype(I, /obj/item/flashlight/seclite))
+		var/obj/item/flashlight/seclite/S = I
 		if(can_flashlight)
 			if(!gun_light)
 				if(!user.unEquip(I))
@@ -257,7 +257,7 @@ obj/item/gun/proc/newshot()
 
 	if(istype(I, /obj/item/screwdriver))
 		if(gun_light && can_flashlight)
-			for(var/obj/item/device/flashlight/seclite/S in src)
+			for(var/obj/item/flashlight/seclite/S in src)
 				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
 				gun_light = null
 				S.loc = get_turf(user)
@@ -347,7 +347,7 @@ obj/item/gun/proc/newshot()
 		return
 
 	if(user == target)
-		target.visible_message("<span class='warning'>[user] sticks [src] in their mouth, ready to pull the trigger...</span>", \
+		target.visible_message("<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>", \
 			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
 	else
 		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \

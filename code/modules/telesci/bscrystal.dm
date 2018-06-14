@@ -36,10 +36,12 @@
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)
 	qdel(src)
+
 // Blueapce crystal fragments (stops point farming)
-/obj/item/ore/bluespace_crystal/fragment
-    points = 0
-    refined_type = null
+/obj/item/ore/bluespace_crystal/refined
+	name = "refined bluespace crystal"
+	points = 0
+	refined_type = null
 
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/ore/bluespace_crystal/artificial
@@ -53,7 +55,7 @@
 
 // Polycrystals, aka stacks
 
-var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/ore/bluespace_crystal/fragment, 1, one_per_turf = 0, on_floor = 1))
+var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/ore/bluespace_crystal/refined, 1, one_per_turf = 0, on_floor = 1))
 
 /obj/item/stack/sheet/bluespace_crystal
 	name = "bluespace polycrystal"

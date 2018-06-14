@@ -128,15 +128,6 @@
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
-#define isliving(A)		(istype((A), /mob/living))
-#define iscarbon(A)		(istype((A), /mob/living/carbon))
-#define ishuman(A)		(istype((A), /mob/living/carbon/human))
-#define isbrain(A)		(istype((A), /mob/living/carbon/brain))
-#define isalien(A)		(istype((A), /mob/living/carbon/alien))
-#define isalienadult(A)	(istype((A), /mob/living/carbon/alien/humanoid))
-#define islarva(A)		(istype((A), /mob/living/carbon/alien/larva))
-#define isslime(A)		(istype((A), /mob/living/carbon/slime))
-
 //Human sub-species
 #define isabductor(A) (is_species(A, "Abductor"))
 

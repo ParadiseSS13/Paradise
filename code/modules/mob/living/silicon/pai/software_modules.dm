@@ -71,7 +71,7 @@
 		if(answer == "Yes")
 			var/turf/T = get_turf_or_move(P.loc)
 			for(var/mob/v in viewers(T))
-				v.show_message("<span class='notice'>[M] presses \his thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
+				v.show_message("<span class='notice'>[M] presses [M.p_their()] thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
 			var/datum/dna/dna = M.dna
 			to_chat(P, "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>")
 			if(dna.unique_enzymes == P.master_dna)
@@ -79,7 +79,7 @@
 			else
 				to_chat(P, "<b>DNA does not match stored Master DNA.</b>")
 		else
-			to_chat(P, "[M] does not seem like \he is going to provide a DNA sample willingly.")
+			to_chat(P, "[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly.")
 		return 1
 
 /datum/pai_software/radio_config
@@ -104,7 +104,7 @@
 		var/ch_stat = user.radio.channels[ch_name]
 		var/ch_dat[0]
 		ch_dat["name"] = ch_name
-		// FREQ_LISTENING is const in /obj/item/device/radio
+		// FREQ_LISTENING is const in /obj/item/radio
 		ch_dat["listening"] = !!(ch_stat & user.radio.FREQ_LISTENING)
 		channels[++channels.len] = ch_dat
 
@@ -165,7 +165,7 @@
 
 	var/pdas[0]
 	if(!M.toff)
-		for(var/obj/item/device/pda/P in PDAs)
+		for(var/obj/item/pda/P in PDAs)
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 			if(P == user.pda || !PM || !PM.can_receive())

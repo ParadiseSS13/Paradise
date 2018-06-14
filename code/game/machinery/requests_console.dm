@@ -67,7 +67,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
-	var/obj/item/device/radio/Radio
+	var/obj/item/radio/Radio
 	var/radiochannel = ""
 
 /obj/machinery/requests_console/power_change()
@@ -82,7 +82,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		icon_state = "req_comp[newmessagepriority]"
 
 /obj/machinery/requests_console/New()
-	Radio = new /obj/item/device/radio(src)
+	Radio = new /obj/item/radio(src)
 	Radio.listening = 1
 	Radio.config(list("Engineering","Medical","Supply","Command","Science","Service","Security", "AI Private" = 0))
 	Radio.follow_target = src

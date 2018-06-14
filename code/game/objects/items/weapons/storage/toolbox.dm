@@ -26,10 +26,10 @@
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/extinguisher/mini(src)
 	if(prob(50))
-		new /obj/item/device/flashlight(src)
+		new /obj/item/flashlight(src)
 	else
-		new /obj/item/device/flashlight/flare(src)
-	new /obj/item/device/radio(src)
+		new /obj/item/flashlight/flare(src)
+	new /obj/item/radio(src)
 
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
@@ -42,7 +42,7 @@
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/device/analyzer(src)
+	new /obj/item/analyzer(src)
 	new /obj/item/wirecutters(src)
 
 /obj/item/storage/toolbox/mechanical/greytide
@@ -58,7 +58,7 @@
 	var/pickedcolor = pick(COLOR_RED, COLOR_YELLOW, COLOR_GREEN, COLOR_BLUE, COLOR_PINK, COLOR_ORANGE, COLOR_CYAN, COLOR_WHITE)
 	new /obj/item/screwdriver(src)
 	new /obj/item/wirecutters(src)
-	new /obj/item/device/t_scanner(src)
+	new /obj/item/t_scanner(src)
 	new /obj/item/crowbar(src)
 	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
 	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
@@ -83,7 +83,7 @@
 	new /obj/item/weldingtool/largetank(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/wirecutters(src, "red")
-	new /obj/item/device/multitool(src)
+	new /obj/item/multitool(src)
 	new /obj/item/clothing/gloves/combat(src)
 
 /obj/item/storage/toolbox/drone
@@ -100,7 +100,7 @@
 	new /obj/item/crowbar(src)
 	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
 	new /obj/item/wirecutters(src)
-	new /obj/item/device/multitool(src)
+	new /obj/item/multitool(src)
 
 /obj/item/storage/toolbox/brass
 	name = "brass box"

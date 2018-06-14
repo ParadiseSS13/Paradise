@@ -48,10 +48,10 @@ var/global/list/rad_collectors = list()
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
 		return 1
-	else if(istype(W, /obj/item/device/analyzer) && P)
+	else if(istype(W, /obj/item/analyzer) && P)
 		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/tank/plasma))
 		if(!src.anchored)
@@ -81,7 +81,7 @@ var/global/list/rad_collectors = list()
 			connect_to_network()
 		else
 			disconnect_from_network()
-	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/device/pda))
+	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(src.allowed(user))
 			if(active)
 				src.locked = !src.locked
