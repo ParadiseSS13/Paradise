@@ -97,7 +97,8 @@
 
 /obj/structure/guillotine/proc/drop_blade(mob/user)
 	if(has_buckled_mobs() && blade_sharpness)
-		var/mob/living/carbon/human/H = buckled_mob
+		var/mob/living/carbon/human/H = buckled_mobs[1]
+
 
 		if(!H)
 			blade_status = GUILLOTINE_BLADE_DROPPED
@@ -197,7 +198,7 @@
 	else
 		return ..()
 
-/obj/structure/guillotine/buckle_mob(mob/living/M, force = 0)
+/obj/structure/guillotine/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!anchored)
 		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
 		return FALSE
@@ -210,14 +211,26 @@
 		to_chat(usr, "<span class='warning'>You need to raise the blade before buckling someone in!</span>")
 		return FALSE
 
-	if(..())
+	return ..(M, force, FALSE)
+
+
+/obj/structure/guillotine/post_buckle_mob(mob/living/M)
+	if(!istype(M, /mob/living/carbon/human))
+		return
+
+	if(istype(M))
 		M.pixel_y -= GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
 		M.layer += GUILLOTINE_LAYER_DIFF
+	else
+		unbuckle_all_mobs()
 
-/obj/structure/guillotine/unbuckle_mob(force = 0)
-	if(buckled_mob)
-		buckled_mob.pixel_y += GUILLOTINE_HEAD_OFFSET  // Move their body back
-		buckled_mob.layer -= GUILLOTINE_LAYER_DIFF
+	..()
+
+/obj/structure/guillotine/unbuckle_mob(force = TRUE)
+	if(has_buckled_mobs())
+		var/mob/living/carbon/human/M = buckled_mobs[1]
+		M.pixel_y += GUILLOTINE_HEAD_OFFSET  // Move their body back
+		M.layer -= GUILLOTINE_LAYER_DIFF
 	. = ..()
 
 #undef GUILLOTINE_BLADE_MAX_SHARP
