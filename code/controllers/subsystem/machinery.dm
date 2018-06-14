@@ -91,9 +91,9 @@ SUBSYSTEM_DEF(machines)
 	while(currentrun.len)
 		var/obj/machinery/thing = currentrun[currentrun.len]
 		currentrun.len--
-		if( thing.deferred_processing )
+		if(thing.deferred_processing)
 			deferred_process += thing
-		else{
+		else
 			if(!QDELETED(thing) && thing.process(seconds) != PROCESS_KILL)
 				if(thing.use_power)
 					thing.auto_use_power() //add back the power state
@@ -101,7 +101,6 @@ SUBSYSTEM_DEF(machines)
 				processing -= thing
 				if(!QDELETED(thing))
 					thing.isprocessing = FALSE
-		}
 		if(MC_TICK_CHECK)
 			return
 	while(deferred_process.len)
