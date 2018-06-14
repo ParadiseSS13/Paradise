@@ -118,6 +118,8 @@
 
 	var/report_danger_level = 1
 
+	var/automatic_emergency = 1 //Does the alarm automaticly respond to an emergency condition
+
 /obj/machinery/alarm/monitor
 	report_danger_level = 0
 
@@ -306,7 +308,7 @@
 
 	if(old_danger_level!=danger_level)
 		apply_danger_level()
-		if(mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
+		if(automatic_emergency && mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
 			if(pressure_dangerlevel == ATMOS_ALARM_DANGER)
 				mode = AALARM_MODE_OFF
 				if(temperature_dangerlevel == ATMOS_ALARM_DANGER && cur_tlv.max2 <= environment.temperature)

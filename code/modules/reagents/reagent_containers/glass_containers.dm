@@ -83,7 +83,7 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			injected += R.name
 		var/contained = english_list(injected)
-		add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey)
+		add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
 		if(!iscarbon(user))
 			M.LAssailant = null
 		else

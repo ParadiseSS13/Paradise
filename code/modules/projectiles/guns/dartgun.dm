@@ -178,7 +178,8 @@
 						else
 							M.LAssailant = user
 
-					add_attack_logs(user, M, "Shot with dartgun containing [R]", !!M.ckey)
+					add_attack_logs(user, M, "Shot with dartgun containing [R]")
+
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
 					to_chat(M, "<span class='danger'>You feel a slight prick.</span>")

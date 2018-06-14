@@ -90,6 +90,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/UI_style_alpha = 255
 	var/windowflashing = TRUE
 	var/clientfps = 0
+	var/atklog = ATKLOG_ALL
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -203,6 +204,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
 	max_gear_slots = config.max_loadout_points
+	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
@@ -211,16 +213,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(C.donator_level >= DONATOR_LEVEL_ONE)
 				max_gear_slots += 5
 
-	var/loaded_preferences_successfully = load_preferences(C)
-	if(loaded_preferences_successfully)
-		if(load_character(C))
-			return
+		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
+		if(loaded_preferences_successfully)
+			if(load_character(C))
+				return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	real_name = random_name(gender)
-	if(!loaded_preferences_successfully)
-		save_preferences(C)
-	save_character(C)		//let's save this new random character so it doesn't keep generating new ones.
+	if(istype(C))
+		if(!loaded_preferences_successfully)
+			save_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
+		save_character(C)		// Do not call this with no client/C, it generates a runtime / SQL error
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"

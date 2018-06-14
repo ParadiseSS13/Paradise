@@ -115,7 +115,11 @@
 		M.adjustToxLoss(-3)
 		M.adjustBruteLoss(-12)
 		M.adjustFireLoss(-12)
-		M.status_flags &= ~DISFIGURED
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/external/head/head = H.get_organ("head")
+			if(head)
+				head.disfigured = FALSE
 	..()
 
 /datum/reagent/medicine/rezadone
@@ -131,7 +135,11 @@
 	M.adjustCloneLoss(-1) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate.
 	M.adjustBruteLoss(-1)
 	M.adjustFireLoss(-1)
-	M.status_flags &= ~DISFIGURED
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		if(head)
+			head.disfigured = FALSE
 	..()
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/M, severity)
