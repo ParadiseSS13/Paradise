@@ -626,6 +626,8 @@ var/list/ghostteleportlocs = list()
 	if(newvalue)
 		for(var/mob/living/simple_animal/bot/medbot/syndicate/B in src)
 			qdel(B)
+		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
+			N.a_intent = INTENT_HELP
 		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
 			if(L.opened)
 				L.close()
@@ -644,6 +646,8 @@ var/list/ghostteleportlocs = list()
 				V.locked = !V.locked
 			V.update_icon()
 	else
+		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
+			N.a_intent = INTENT_HARM
 		for(var/obj/machinery/door/airlock/A in src)
 			A.req_access_txt = "[access_syndicate_leader]"
 		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)

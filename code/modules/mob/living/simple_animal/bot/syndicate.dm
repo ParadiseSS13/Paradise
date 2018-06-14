@@ -50,6 +50,9 @@
 	to_chat(user, "<span class='warning'>[src] has no accessible control panel!</span>")
 	return
 
+/mob/living/simple_animal/bot/ed209/syndicate/show_controls(mob/M)
+	return
+
 /mob/living/simple_animal/bot/ed209/syndicate/Topic(href, href_list)
 	return
 
@@ -164,7 +167,9 @@
 		s.set_up(3, 1, src)
 		s.start()
 		new /obj/effect/decal/cleanable/blood/oil(loc)
-		new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
+		var/obj/effect/decal/mecha_wreckage/gygax/dark/wreck = new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
+		wreck.name = "sentry bot wreckage"
+
 		raise_alert("[src] destroyed.")
 		qdel(src)
 

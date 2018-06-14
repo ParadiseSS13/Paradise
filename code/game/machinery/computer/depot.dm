@@ -199,6 +199,9 @@
 /obj/machinery/computer/syndicate_depot/syndiecomms/primary(var/mob/user)
 	if(..())
 		return
+	if(!isliving(user))
+		to_chat(user, "ERROR: No lifesigns detected at terminal, aborting.") // Safety to prevent aghosts accidentally pressing it and getting everyone killed.
+		return
 	if(message_sent)
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		to_chat(user, "<span class='userdanger'>[src] has already been used to transmit a message to the Syndicate.</span>")
