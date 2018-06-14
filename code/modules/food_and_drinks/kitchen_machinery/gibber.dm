@@ -260,7 +260,7 @@
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)
-		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey)
+		add_attack_logs(user, occupant, "Gibbed in [src]", !!occupant.ckey ? ATKLOG_FEW : ATKLOG_ALL)
 
 		if(!iscarbon(user))
 			occupant.LAssailant = null

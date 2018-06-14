@@ -116,7 +116,7 @@
 		if(affected)
 			user.visible_message("[user] starts transplanting [tool] into [target]'s [affected.name].", \
 			"You start transplanting [tool] into [target]'s [affected.name].")
-			H.custom_pain("Someone's rooting around in your [affected.name]!",1)
+			H.custom_pain("Someone's rooting around in your [affected.name]!")
 		else
 			user.visible_message("[user] starts transplanting [tool] into [target]'s [parse_zone(target_zone)].", \
 			"You start transplanting [tool] into [target]'s [parse_zone(target_zone)].")
@@ -143,7 +143,7 @@
 					self_msg = "You begin injecting [tool] into [target]'s [I.name]."
 				user.visible_message(msg, self_msg)
 				if(H && affected)
-					H.custom_pain("Something burns horribly in your [affected.name]!",1)
+					H.custom_pain("Something burns horribly in your [affected.name]!")
 
 	else if(implement_type in implements_finsh)
 	//same as surgery step /datum/surgery_step/open_encased/close/
@@ -159,7 +159,7 @@
 			user.visible_message(msg, self_msg)
 
 		if(H && affected)
-			H.custom_pain("Something hurts horribly in your [affected.name]!",1)
+			H.custom_pain("Something hurts horribly in your [affected.name]!")
 
 	else if(implement_type in implements_extract)
 		current_type = "extract"
@@ -188,7 +188,7 @@
 			user.visible_message("[user] starts to separate [target]'s [I] with [tool].", \
 			"You start to separate [target]'s [I] with [tool] for removal." )
 			if(H && affected)
-				H.custom_pain("The pain in your [affected.name] is living hell!",1)
+				H.custom_pain("The pain in your [affected.name] is living hell!")
 		else
 			return -1
 
@@ -221,7 +221,7 @@
 				to_chat(user, "[I] does not appear to be damaged.")
 
 		if(affected)
-			H.custom_pain("The pain in your [affected.name] is living hell!", 1)
+			H.custom_pain("The pain in your [affected.name] is living hell!")
 
 	else if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
 		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")

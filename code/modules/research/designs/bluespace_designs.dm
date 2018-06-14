@@ -57,7 +57,7 @@
 	id = "telepad_beacon"
 	req_tech = list("programming" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 4)
 	build_type = PROTOLATHE
-	materials = list (MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
 	build_path = /obj/item/telepad_beacon
 	category = list("Bluespace")
 
@@ -67,6 +67,6 @@
 	id = "beacon"
 	req_tech = list("bluespace" = 1)
 	build_type = PROTOLATHE
-	materials = list (MAT_METAL = 150, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 	build_path = /obj/item/radio/beacon
 	category = list("Bluespace")

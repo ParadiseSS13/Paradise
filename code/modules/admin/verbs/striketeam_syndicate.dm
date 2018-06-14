@@ -45,8 +45,8 @@ var/global/sent_syndicate_strike_team = 0
 			break
 
 	// Find ghosts willing to be SST
-	var/list/commando_ckeys = pollCandidatesByKeyWithVeto(src, usr, syndicate_commandos_possible, "Join the Syndicate Strike Team?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
-	if(!commando_ckeys.len)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, syndicate_commandos_possible, "Join the Syndicate Strike Team?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
 		return
 
@@ -54,15 +54,29 @@ var/global/sent_syndicate_strike_team = 0
 
 	//Spawns commandos and equips them.
 	for(var/obj/effect/landmark/L in landmarks_list)
-		if(syndicate_commando_number<=0)	break
+
+		if(syndicate_commando_number <= 0)
+			break
+
 		if(L.name == "Syndicate-Commando")
+
+			if(!commando_ghosts.len)
+				break
+
+			var/mob/ghost_mob = pick(commando_ghosts)
+			commando_ghosts -= ghost_mob
+
+			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
+				continue
+
 			var/mob/living/carbon/human/new_syndicate_commando = create_syndicate_death_commando(L, is_leader)
 
-			if(commando_ckeys.len)
-				new_syndicate_commando.key = pick(commando_ckeys)
-				commando_ckeys -= new_syndicate_commando.key
-				new_syndicate_commando.internal = new_syndicate_commando.s_store
-				new_syndicate_commando.update_action_buttons_icon()
+			if(!new_syndicate_commando)
+				continue
+
+			new_syndicate_commando.key = ghost_mob.key
+			new_syndicate_commando.internal = new_syndicate_commando.s_store
+			new_syndicate_commando.update_action_buttons_icon()
 
 			//So they don't forget their code or mission.
 			if(nuke_code)

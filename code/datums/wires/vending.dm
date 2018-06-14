@@ -1,5 +1,3 @@
-#define CAT_HIDDEN 2 // Also in code/game/machinery/vending.dm
-
 /datum/wires/vending
 	holder_type = /obj/machinery/vending
 	wire_count = 4

@@ -46,6 +46,8 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 
 	else if(isfile(var_value))
 		. = VV_FILE
+	else if(istype(var_value, /regex))
+		. = VV_REGEX
 	else
 		. = VV_NULL
 
@@ -66,6 +68,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 				VV_DATUM_TYPE,
 				VV_TYPE,
 				VV_MATRIX,
+				VV_REGEX,
 				VV_FILE,
 				VV_NEW_ATOM,
 				VV_NEW_DATUM,
@@ -140,6 +143,14 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 			if(.["value"] == null)
 				.["class"] = null
 				return
+
+		if(VV_REGEX)
+			var/reg = input("Enter regex", "Regex", "") as null|text
+			if(!reg)
+				return
+			.["value"] = regex(reg)
+			if(.["value"] == null)
+				.["class"] = null
 
 
 		if(VV_ATOM_REFERENCE)
