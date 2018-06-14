@@ -3,7 +3,7 @@
 #define POWER_RESTORATION_SEARCH_APC 2
 #define POWER_RESTORATION_APC_FOUND 3
 
-/mob/living/silicon/ai/Life()
+/mob/living/silicon/ai/Life(seconds, times_fired)
 	//doesn't call parent because it's a horrible mess
 	if(stat == DEAD)
 		return
@@ -129,8 +129,10 @@
 								to_chat(src, "Receiving control information from APC.")
 								sleep(2)
 								//bring up APC dialog
-								aiRestorePowerRoutine = 3
+								apc_override = 1
 								theAPC.attack_ai(src)
+								apc_override = 0
+								aiRestorePowerRoutine = 3
 								to_chat(src, "Here are your current laws:")
 								src.show_laws() //WHY THE FUCK IS THIS HERE
 						sleep(50)

@@ -8,7 +8,7 @@
 	gas_transfer_coefficient = 0.90
 	put_on_delay = 20
 	var/resist_time = 0 //deciseconds of how long you need to gnaw to get rid of the gag, 0 to make it impossible to remove
-	var/mute = MUTE_ALL
+	var/mute = MUZZLE_MUTE_ALL
 	var/security_lock = FALSE // Requires brig access to remove 0 - Remove as normal
 	var/locked = FALSE //Indicates if a mask is locked, should always start as 0.
 	species_fit = list("Vox")
@@ -22,8 +22,8 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks their [src.name].</span>", \
-								"<span class='userdanger'>[user] unlocks their [src.name].</span>")
+			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
+								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
 	..()
 	return 1
 
@@ -93,7 +93,7 @@
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
 	resist_time = 150
-	mute = MUTE_MUFFLE
+	mute = MUZZLE_MUTE_MUFFLE
 	flags = DROPDEL
 	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
@@ -117,7 +117,7 @@
 	name = "safety muzzle"
 	desc = "A muzzle designed to prevent biting."
 	resist_time = 600
-	mute = MUTE_NONE
+	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
 	locked = FALSE
 
@@ -169,7 +169,7 @@
 		return 1
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message("<span class='danger'>\ [user] twirls \his moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
+	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
 
 //scarves (fit in in mask slot)
 

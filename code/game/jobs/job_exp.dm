@@ -1,11 +1,12 @@
 // Playtime requirements for special roles (hours)
 
 var/global/list/role_playtime_requirements = list(
-	// CREW-FRIENDLY ROLES
+	// NT ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
 	ROLE_SENTIENT = 5,
 	ROLE_ERT = 10, // High, because they're team-based, and we want ERT to be robust
+	ROLE_DEATHSQUAD = 10,
 	ROLE_TRADER = 5,
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 

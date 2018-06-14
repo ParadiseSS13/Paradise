@@ -23,7 +23,8 @@
 	if(radio_controller)
 		set_frequency(frequency)
 
-/obj/item/assembly/signaler/initialize()
+/obj/item/assembly/signaler/Initialize()
+	..()
 	if(radio_controller)
 		set_frequency(frequency)
 

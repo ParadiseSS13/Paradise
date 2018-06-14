@@ -124,7 +124,7 @@
 	name = "airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."
 
-/obj/structure/plasticflaps/mining/initialize()
+/obj/structure/plasticflaps/mining/Initialize()
 	air_update_turf(1)
 	..()
 

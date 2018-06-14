@@ -244,7 +244,7 @@
 	ui_interact(user)
 
 /obj/machinery/power/supermatter_shard/attack_hand(mob/user as mob)
-	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... \his body starts to glow and bursts into flames before flashing into ash.</span>",\
+	user.visible_message("<span class=\"warning\">\The [user] reaches out and touches \the [src], inducing a resonance... [user.p_their(TRUE)] body starts to glow and bursts into flames before flashing into ash.</span>",\
 		"<span class=\"danger\">You reach out and touch \the [src]. Everything starts burning and all you can hear is ringing. Your last thought is \"That was not a wise decision.\"</span>",\
 		"<span class=\"warning\">You hear an uneartly ringing, then what sounds like a shrilling kettle as you are washed with a wave of heat.</span>")
 
@@ -309,7 +309,7 @@
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/AM as mob|obj)
 	if(istype(AM, /mob/living))
-		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... \his body starts to glow and catch flame before flashing into ash.</span>",\
+		AM.visible_message("<span class='danger'>\The [AM] slams into \the [src] inducing a resonance... [AM.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
 	else if(isobj(AM) && !istype(AM, /obj/effect))

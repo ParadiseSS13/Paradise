@@ -76,12 +76,13 @@
 		return
 	rotate()
 
-/obj/machinery/power/emitter/initialize()
+/obj/machinery/power/emitter/Initialize()
 	..()
 	if(state == 2 && anchored)
 		connect_to_network()
 	if(frequency)
 		set_frequency(frequency)
+
 /obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 	<ul>
@@ -120,7 +121,7 @@
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 	radio_connection = null
-	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)])", 0, 1)
+	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)])", ATKLOG_FEW)
 	log_game("Emitter deleted at ([x],[y],[z])")
 	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z])","singulo")
 	return ..()

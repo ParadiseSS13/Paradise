@@ -41,7 +41,7 @@
 		nullifyPipenet(parent2)
 	return ..()
 
-/obj/machinery/atmospherics/binary/initialize()
+/obj/machinery/atmospherics/binary/atmos_init()
 	..()
 	var/node2_connect = dir
 	var/node1_connect = turn(dir, 180)

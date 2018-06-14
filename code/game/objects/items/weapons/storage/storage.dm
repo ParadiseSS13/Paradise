@@ -421,6 +421,7 @@
 	hide_from(usr)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
+		CHECK_TICK
 
 /obj/item/storage/New()
 	can_hold = typecacheof(can_hold)

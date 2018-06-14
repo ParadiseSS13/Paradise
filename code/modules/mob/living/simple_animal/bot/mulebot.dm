@@ -188,7 +188,7 @@
 			visible_message("[usr] switches [on ? "on" : "off"] [src].")
 		if("cellremove")
 			if(open && cell && !usr.get_active_hand())
-				cell.updateicon()
+				cell.update_icon()
 				usr.put_in_active_hand(cell)
 				cell.add_fingerprint(usr)
 				cell = null

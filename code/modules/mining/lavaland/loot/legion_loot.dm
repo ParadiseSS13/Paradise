@@ -5,7 +5,6 @@
 	item_state = "staffofstorms"
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = SLOT_BACK
-	item_state = "staffofstorms"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
@@ -19,34 +18,36 @@
 		return
 
 	var/area/user_area = get_area(user)
+	var/turf/user_turf = get_turf(user)
+	if(!user_area || !user_turf)
+		to_chat(user, "<span class='warning'>Something is preventing you from using the staff here.</span>")
+		return
 	var/datum/weather/A
-	var/z_level_name = space_manager.levels_by_name[user.z]
-	for(var/V in weather_master.existing_weather)
+	for(var/V in SSweather.processing)
 		var/datum/weather/W = V
-		if(W.target_z == z_level_name && W.area_type == user_area.type)
+		if((user_turf.z in W.impacted_z_levels) && W.area_type == user_area.type)
 			A = W
 			break
-	if(A)
 
+	if(A)
 		if(A.stage != END_STAGE)
 			if(A.stage == WIND_DOWN_STAGE)
 				to_chat(user, "<span class='warning'>The storm is already ending! It would be a waste to use the staff now.</span>")
 				return
 			user.visible_message("<span class='warning'>[user] holds [src] skywards as an orange beam travels into the sky!</span>", \
 			"<span class='notice'>You hold [src] skyward, dispelling the storm!</span>")
-			playsound(user, 'sound/magic/Staff_Change.ogg', 200, 0)
+			playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
 			A.wind_down()
 			return
 	else
-		A = new storm_type
+		A = new storm_type(list(user_turf.z))
 		A.name = "staff storm"
 		A.area_type = user_area.type
-		A.target_z = z_level_name
 		A.telegraph_duration = 100
 		A.end_duration = 100
 
 	user.visible_message("<span class='warning'>[user] holds [src] skywards as red lightning crackles into the sky!</span>", \
 	"<span class='notice'>You hold [src] skyward, calling down a terrible storm!</span>")
-	playsound(user, 'sound/magic/Staff_Change.ogg', 200, 0)
+	playsound(user, 'sound/magic/staff_change.ogg', 200, 0)
 	A.telegraph()
 	storm_cooldown = world.time + 200

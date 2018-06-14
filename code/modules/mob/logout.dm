@@ -3,6 +3,7 @@
 	unset_machine()
 	player_list -= src
 	log_access_out(src)
+	create_attack_log("<font color='red'>Logged out at [atom_loc_line(get_turf(src))]</font>")
 	// `holder` is nil'd out by now, so we check the `admin_datums` array directly
 	//Only report this stuff if we are currently playing.
 	if(admin_datums[ckey] && ticker && ticker.current_state == GAME_STATE_PLAYING)

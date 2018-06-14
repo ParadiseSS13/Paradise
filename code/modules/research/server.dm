@@ -23,7 +23,7 @@
 	component_parts += new /obj/item/stack/cable_coil(null,1)
 	component_parts += new /obj/item/stack/cable_coil(null,1)
 	RefreshParts()
-	initialize(); //Agouri
+	initialize_serv(); //Agouri // fuck you agouri
 
 /obj/machinery/r_n_d/server/upgraded/New()
 	..()
@@ -44,8 +44,7 @@
 		tot_rating += SP.rating
 	heat_gen /= max(1, tot_rating)
 
-/obj/machinery/r_n_d/server/initialize()
-	..()
+/obj/machinery/r_n_d/server/proc/initialize_serv()
 	if(!files) files = new /datum/research(src)
 	var/list/temp_list
 	if(!id_with_upload.len)
@@ -162,7 +161,7 @@
 	name = "CentComm. Central R&D Database"
 	server_id = -1
 
-/obj/machinery/r_n_d/server/centcom/initialize()
+/obj/machinery/r_n_d/server/centcom/Initialize()
 	..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()

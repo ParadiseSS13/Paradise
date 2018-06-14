@@ -38,7 +38,7 @@ Thus, the two variables affect pump operation are set in New():
 	on = 1
 	icon_state = "map_on"
 
-/obj/machinery/atmospherics/binary/volume_pump/initialize()
+/obj/machinery/atmospherics/binary/volume_pump/atmos_init()
 	..()
 	set_frequency(frequency)
 
