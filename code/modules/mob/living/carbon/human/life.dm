@@ -832,7 +832,8 @@
 
 /mob/living/carbon/human/handle_vision()
 	if(machine)
-		if(!machine.check_eye(src))		reset_perspective(null)
+		if(!machine.check_eye(src))
+			reset_perspective(null)
 	else
 		var/isRemoteObserve = 0
 		if((REMOTE_VIEW in mutations) && remoteview_target)

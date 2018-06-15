@@ -156,8 +156,26 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 							  signal.data["realname"], signal.data["vname"], 3, signal.data["compression"], list(0), connection.frequency,
 							  signal.data["verb"], signal.data["language"])
 
-
-
+#define CREW_RADIO_TYPE 0
+#define CENTCOMM_RADIO_TYPE 1
+#define SYNDICATE_RADIO_TYPE 2
+/proc/Is_Bad_Connection(old_freq, new_freq) //Makes sure players cant read radios of a higher level than they are
+	var/old_type = CREW_RADIO_TYPE
+	var/new_type = CREW_RADIO_TYPE
+	for(var/antag_freq in ANTAG_FREQS)
+		if(old_freq == antag_freq)
+			old_type = SYNDICATE_RADIO_TYPE
+		if(new_freq == antag_freq)
+			new_type = SYNDICATE_RADIO_TYPE
+			
+	for(var/cent_freq in CENT_FREQS)
+		if(old_freq == cent_freq)
+			old_type = CENTCOMM_RADIO_TYPE
+		if(new_freq == cent_freq)
+			new_type = CENTCOMM_RADIO_TYPE
+			
+	return new_type > old_type
+	
 /**
 
 	Here is the big, bad function that broadcasts a message given the appropriate
@@ -226,21 +244,28 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	var/display_freq = freq
 
+	var/bad_connection = FALSE
+	var/datum/radio_frequency/new_connection = connection
+	
+	if(connection.frequency != display_freq)
+		bad_connection = Is_Bad_Connection(connection.frequency, display_freq)
+		new_connection = radio_controller.return_frequency(display_freq)
+	
 	var/list/obj/item/radio/radios = list()
 
 	// --- Broadcast only to intercom devices ---
 
-	if(data == 1)
+	if(data == 1 && !bad_connection)
 
-		for(var/obj/item/radio/intercom/R in connection.devices["[RADIO_CHAT]"])
+		for(var/obj/item/radio/intercom/R in new_connection.devices["[RADIO_CHAT]"])
 			if(R.receive_range(display_freq, level) > -1)
 				radios += R
 
 	// --- Broadcast only to intercoms and station-bounced radios ---
 
-	else if(data == 2)
+	else if(data == 2 && !bad_connection)
 
-		for(var/obj/item/radio/R in connection.devices["[RADIO_CHAT]"])
+		for(var/obj/item/radio/R in new_connection.devices["[RADIO_CHAT]"])
 
 			if(istype(R, /obj/item/radio/headset))
 				continue
@@ -259,9 +284,9 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	// --- Broadcast to ALL radio devices ---
 
-	else
+	else if(!bad_connection)
 
-		for(var/obj/item/radio/R in connection.devices["[RADIO_CHAT]"])
+		for(var/obj/item/radio/R in new_connection.devices["[RADIO_CHAT]"])
 			if(R.receive_range(display_freq, level) > -1)
 				radios += R
 

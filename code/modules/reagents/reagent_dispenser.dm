@@ -131,7 +131,7 @@
 
 			var/obj/item/assembly_holder/H = I
 			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
-				msg_admin_attack("[key_name_admin(user)] rigged [src.name] with [I.name] for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				msg_admin_attack("[key_name_admin(user)] rigged [src.name] with [I.name] for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", ATKLOG_FEW)
 				log_game("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]")
 				investigate_log("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 

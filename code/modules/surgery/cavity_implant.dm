@@ -78,7 +78,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].", \
 	"You start making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]." )
-	target.custom_pain("The pain in your chest is living hell!",1)
+	target.custom_pain("The pain in your chest is living hell!")
 	..()
 
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -104,7 +104,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts mending [target]'s [get_cavity(affected)] cavity wall with \the [tool].", \
 	"You start mending [target]'s [get_cavity(affected)] cavity wall with \the [tool]." )
-	target.custom_pain("The pain in your chest is living hell!",1)
+	target.custom_pain("The pain in your chest is living hell!")
 	..()
 
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -155,7 +155,7 @@
 	else //no internal items..but we still need a message!
 		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
 
-	target.custom_pain("The pain in your [target_zone] is living hell!",1)
+	target.custom_pain("The pain in your [target_zone] is living hell!")
 	..()
 
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -190,7 +190,7 @@
 			if((tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT)))
 				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
 				affected.internal_bleeding = TRUE
-				affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
+				affected.owner.custom_pain("You feel something rip in your [affected.name]!")
 			user.drop_item()
 			affected.hidden = tool
 			tool.forceMove(affected)

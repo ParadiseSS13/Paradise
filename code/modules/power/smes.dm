@@ -224,8 +224,6 @@
 /obj/machinery/power/smes/proc/chargedisplay()
 	return round(5.5*charge/(capacity ? capacity : 5e6))
 
-#define SMESRATE 0.05
-
 /obj/machinery/power/smes/process()
 
 	if(stat & BROKEN)	return

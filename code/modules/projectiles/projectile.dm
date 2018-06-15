@@ -114,13 +114,18 @@
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 	var/reagent_note
+	var/has_reagents = FALSE
 	if(reagents && reagents.reagent_list)
 		reagent_note = " REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += R.id + " ("
 			reagent_note += num2text(R.volume) + ") "
+			has_reagents = TRUE
 	if(!log_override && firer && original)
-		add_attack_logs(firer, L, "Shot with a [type] (potentially containing [reagent_note])")
+		if(has_reagents)
+			add_attack_logs(firer, L, "Shot with a [type] (containing [reagent_note])")
+		else
+			add_attack_logs(firer, L, "Shot with a [type]")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
