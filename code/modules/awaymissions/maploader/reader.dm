@@ -3,6 +3,7 @@
 //////////////////////////////////////////////////////////////
 
 //As of 3.6.2016
+GLOBAL_VAR_INIT(map_definitely_loading, FALSE)
 //global datum that will preload variables on atoms instanciation
 GLOBAL_VAR_INIT(use_preloader, FALSE)
 GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
@@ -34,6 +35,7 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
  *
  */
 /dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num)
+	Master.StartLoadingMap()
 	var/tfile = dmm_file//the map file we're creating
 	var/fname = "Lambda"
 	if(isfile(tfile))
@@ -169,7 +171,7 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 		"Max x: [bounds[MAP_MAXX]]",
 		"Max y: [bounds[MAP_MAXY]]",
 		"Max z: [bounds[MAP_MAXZ]]"))
-
+		Master.StopLoadingMap()
 		return null
 	else
 		if(!measureOnly)
@@ -177,6 +179,7 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 				var/turf/T = t
 				//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
 				T.AfterChange(1,keep_cabling = TRUE)
+		Master.StopLoadingMap()
 		return bounds
 
 

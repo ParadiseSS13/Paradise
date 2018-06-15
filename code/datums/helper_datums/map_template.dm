@@ -24,6 +24,7 @@
 	return bounds
 
 /datum/map_template/proc/load(turf/T, centered = 0)
+	GLOB.map_definitely_loading = TRUE
 	var/turf/placement = T
 	var/min_x = placement.x
 	var/min_y = placement.y
@@ -58,6 +59,7 @@
 	if(ST_bot_left == null || ST_top_right == null)
 		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
 
+	GLOB.map_definitely_loading = FALSE
 	late_setup_level(
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))

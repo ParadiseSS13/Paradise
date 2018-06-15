@@ -11,7 +11,7 @@
 
 // This needs to come before the initialization wave because
 // the thing it creates might need to be initialized too
-/obj/effect/spawner/random_barrier/New()
+/obj/effect/spawner/random_barrier/Initialize()
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)

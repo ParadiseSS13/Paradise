@@ -248,6 +248,8 @@
 		air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
 		if(SSair)
 			SSair.add_to_active(src)
+			
+
 
 /turf/proc/ReplaceWithLattice()
 	src.ChangeTurf(/turf/space)
