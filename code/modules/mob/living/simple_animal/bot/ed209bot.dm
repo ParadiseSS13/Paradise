@@ -44,7 +44,7 @@
 	allow_pai = 0
 
 
-/mob/living/simple_animal/bot/ed209/New(loc,created_name,created_lasercolor)
+/mob/living/simple_animal/bot/ed209/Initialize(loc, created_name, created_lasercolor)
 	..()
 	if(created_name)
 		name = created_name

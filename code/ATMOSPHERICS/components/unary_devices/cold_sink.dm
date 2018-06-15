@@ -24,7 +24,7 @@
 
 /obj/machinery/atmospherics/unary/cold_sink/process_atmos()
 	..()
-	if(!on)
+	if(!on || !(parent))
 		return 0
 
 	var/air_heat_capacity = air_contents.heat_capacity()

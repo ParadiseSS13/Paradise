@@ -24,7 +24,7 @@
 	..()
 	return QDEL_HINT_HARDDEL
 
-/mob/New()
+/mob/Initialize()
 	mob_list += src
 	if(stat == DEAD)
 		dead_mob_list += src

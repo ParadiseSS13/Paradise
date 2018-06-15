@@ -135,7 +135,7 @@
 	update_icon()
 	update_controls()
 
-/mob/living/simple_animal/bot/New()
+/mob/living/simple_animal/bot/Initialize()
 	..()
 	bots_list += src
 	icon_living = icon_state
