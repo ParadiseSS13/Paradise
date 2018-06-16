@@ -121,6 +121,15 @@ var/list/uplink_items = list()
 	category = "Job Specific Tools"
 
 //Clown
+/datum/uplink_item/jobspecific/honker
+	name = "H.O.N.K"
+	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. Used to spread the fun and joy of life. HONK!"
+	reference = "HM"
+	item = /obj/mecha/combat/honker/loaded
+	cost = 1
+	job = list("Clown")
+	surplus = 1
+	
 /datum/uplink_item/jobspecific/clowngrenade
 	name = "Banana Grenade"
 	desc = "A grenade that explodes into HONK! brand banana peels that are genetically modified to be extra slippery and extrude caustic acid when stepped on"
