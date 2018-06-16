@@ -266,12 +266,12 @@ This is always put in the attack log.
 
 	var/loglevel = ATKLOG_MOST
 
-	if(custom_level)
+	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))
 		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
 			loglevel = ATKLOG_FEW
-		else if(!user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+		else if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
 			loglevel = ATKLOG_ALL
 		else if(!target.ckey) // Attacks by players on NPCs are only shown to admins with ATKLOG_ALL or ATKLOG_ALMOSTALL
 			loglevel = ATKLOG_ALMOSTALL
