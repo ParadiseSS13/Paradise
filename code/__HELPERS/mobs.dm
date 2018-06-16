@@ -266,7 +266,7 @@ This is always put in the attack log.
 
 	var/loglevel = ATKLOG_MOST
 
-	if(custom_level)
+	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))
 		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
