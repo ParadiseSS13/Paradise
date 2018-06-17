@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "Nuclear challenge time limit now depends on round start time."
