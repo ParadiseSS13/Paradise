@@ -657,9 +657,9 @@ var/list/ghostteleportlocs = list()
 			L.update_icon()
 	on_peaceful = newvalue
 	if(newvalue)
-		announce_here("Depot Code WHITE","Depot access granted to visitors. Defenses deactivated. Any attempt to steal depot supplies will result in revocation of access and summary execution!")
+		announce_here("Depot Visitor","A Syndicate agent is visiting the depot.")
 	else
-		announce_here("Depot Alert","Depot access revoked. Defenses active! Shoot all visitors on sight.")
+		announce_here("Depot Alert","A visiting agent has betrayed the Syndicate. Shoot all visitors on sight!")
 		if(bycomputer)
 			message_admins("Syndicate Depot visitor mode deactivated. Visitors:")
 		else

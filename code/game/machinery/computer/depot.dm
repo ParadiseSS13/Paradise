@@ -50,7 +50,7 @@
 /obj/machinery/computer/syndicate_depot/proc/has_security_lockout(var/mob/user)
 	if(security_lockout)
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(user, "<span class='userdanger'>[src] is under security lockout.</span>")
+		to_chat(user, "<span class='warning'>[src] is under security lockout.</span>")
 		return TRUE
 	return FALSE
 
@@ -167,7 +167,7 @@
 		return
 	playsound(user, sound_click, 20, 1)
 	if(depotarea)
-		depotarea.activate_self_destruct("Fusion reactor containment failure. All hands, evacuate. All hands, evacuate. Core breach imminent!", TRUE, user)
+		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
 
 
 
@@ -181,19 +181,18 @@
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/get_menu(var/mob/user)
 	var/menu = "<B>Syndicate Communications Relay</B><HR>"
-	if(message_sent)
-		menu += "<BR><BR>Communications quota used. Unable to transmit messages at this time."
-	else
-		menu += "<BR><BR><a href='?src=[UID()];primary=1'>Contact Syndicate Command (one-time use)</a>"
+	menu += "<BR><BR>One-Time Uplink to Syndicate HQ: [message_sent ? "ALREADY USED" : "AVAILABLE (<a href='?src=[UID()];primary=1'>Open Channel</a>)"]"
 	if(depotarea.on_peaceful)
+		menu += "<BR><BR>Visiting Agents: VISIT IN PROGRESS. "
 		if(user in depotarea.peaceful_visitors)
-			menu += "<BR><BR>[user] is recognized as a friendly visitor to the depot."
+			menu += "[user] IS RECOGNIZED AS VISITING AGENT"
 		else
-			menu += "<BR><BR><span class='warning'>(SYNDIE AGENT)</span>  <a href='?src=[UID()];secondary=[DEPOT_VISITOR_ADD]'>Request visitor access (in addition to existing visitors)</a>"
+			menu += "[user] NOT RECOGNIZED. (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_ADD]'>Sign-in as Agent</a>)"
 		if(check_rights(R_ADMIN, 0, user))
-			menu += "<BR><BR><span class='warning'>(ADMIN/DEBUG)</span> <a href='?src=[UID()];secondary=[DEPOT_VISITOR_END]'>End visit. Re-power defense grid.</a></a>"
+			menu += "<BR>ADMIN: (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_END]'>End Visitor Mode</a>)"
+
 	else
-		menu += "<BR><BR><span class='warning'>(SYNDIE AGENT)</span> <a href='?src=[UID()];secondary=[DEPOT_VISITOR_START]'>Request visitor access</a>"
+		menu += "<BR><BR>Visiting Agents: NONE (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_START]'>Sign-in as Agent</a>)"
 	return menu
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/primary(var/mob/user)
@@ -204,7 +203,7 @@
 		return
 	if(message_sent)
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
-		to_chat(user, "<span class='userdanger'>[src] has already been used to transmit a message to the Syndicate.</span>")
+		to_chat(user, "<span class='warning'>[src] has already been used to transmit a message to the Syndicate.</span>")
 		return
 	message_sent = TRUE
 	if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
@@ -214,10 +213,11 @@
 			return
 		Syndicate_announce(input, user)
 		to_chat(user, "Message transmitted.")
-		log_say("[key_name(user)] has made a Syndicate announcement from the depot: [input]")
+		log_say("[key_name(user)] has sent a Syndicate comms message from the depot: [input]", user)
 	else
-		to_chat(user, "<span class='userdanger'>[src] requires authentication with syndicate codewords, which you do not know.</span>")
+		to_chat(user, "<span class='warning'>[src] requires authentication with syndicate codewords, which you do not know.</span>")
 		raise_alert("Detected unauthorized access to [src]!")
+	updateUsrDialog()
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(var/mob/user, var/subcommand)
 	if(..())
@@ -226,7 +226,7 @@
 		return
 	if(depotarea)
 		if(depotarea.local_alarm || depotarea.called_backup || depotarea.used_self_destruct)
-			to_chat(user, "<span class='userdanger'>[src]: Request denied. Depot under security alert. No visitors permitted.</span>")
+			to_chat(user, "<span class='warning'>Visitor sign-in is not possible while the depot is on security alert.</span>")
 		else if(depotarea.on_peaceful)
 			if(subcommand == DEPOT_VISITOR_END)
 				if(check_rights(R_ADMIN, 0, user))
@@ -234,29 +234,38 @@
 			else if (subcommand == DEPOT_VISITOR_ADD)
 				if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
 					if(user in depotarea.peaceful_visitors)
-						to_chat(user, "<span class='userdanger'>[src]: [user], you are already recognized as a depot visitor.</span>")
+						to_chat(user, "<span class='warning'>[user] is already signed in as a visiting agent.</span>")
 					else
 						grant_syndie_faction(user)
 				else
-					to_chat(user, "<span class='userdanger'>[src]: Request denied. You are not recognized as an Agent of the Syndicate.</span>")
+					to_chat(user, "<span class='warning'>Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight.</span>")
 		else if(subcommand == DEPOT_VISITOR_START)
 			if(depotarea.something_looted)
-				to_chat(user, "<span class='userdanger'>[src]: Request denied. You have already stolen from us, and NOW you want to claim you are a friend? Die, scum!</span>")
+				to_chat(user, "<span class='warning'>Visitor sign-in is not possible after supplies have been taken from the depot.</span>")
 				raise_alert("Thieving con-men detected!")
 			else if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
 				grant_syndie_faction(user)
 				depotarea.peaceful_mode(TRUE, TRUE)
 			else
-				to_chat(user, "<span class='userdanger'>[src]: Request denied. You are not recognized as an Agent of the Syndicate.</span>")
+				to_chat(user, "<span class='warning'>Only verified agents of the Syndicate may sign in as visitors. Everyone else will be shot on sight.</span>")
 		else
-			to_chat(user, "<span class='userdanger'>[src]: Unrecognized subcommand: [subcommand]</span>")
+			to_chat(user, "<span class='warning'>Unrecognized subcommand: [subcommand]</span>")
 	else
-		to_chat(user, "<span class='userdanger'>[src]: Request denied. Unable to uplink to depot network.</span>")
+		to_chat(user, "<span class='warning'>ERROR: [src] is unable to uplink to depot network.</span>")
+	updateUsrDialog()
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/proc/grant_syndie_faction(var/mob/user)
 	user.faction += "syndicate"
 	depotarea.peaceful_visitors += user
-	to_chat(user, "<span class='userdanger'>[src]: Depot access granted for: [user]</span>")
+	to_chat(user, {"<BR><span class='userdanger'>Welcome, Agent.</span>
+		<span class='warning'>You are now signed-in as a depot visitor.
+		Any other agents with you MUST sign in themselves.
+		You may explore all rooms here, except for bolted ones.
+		Your agent ID will give you access to most doors and computers.
+		Standard Syndicate regulations apply to your visit.
+		This means if ANY of you attack facility staff, break into anything, sabotage the facility, or bring non-agents here, then ALL of you will be summarily executed.
+		Enjoy your stay.</span>
+	"})
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/power_change()
 	. = ..()
@@ -331,11 +340,12 @@
 	var/menutext = "<B>Syndicate Teleporter Control</B><HR>"
 	findbeacon()
 	if(mybeacon)
-		menutext += {"<BR><BR>(SYNDIE AGENT) <a href='?src=[UID()];primary=1'>Syndicate Teleporter Beacon: [mybeacon.enabled ? "ON" : "OFF"]</a><BR>"}
+		menutext += {"<BR><BR>Incoming Teleport Beacon: [mybeacon.enabled ? "ON" : "OFF"] (<a href='?src=[UID()];primary=1'>[mybeacon.enabled ? "Disable" : "Enable"]</a>)<BR>"}
 	else
-		menutext += {"<BR><BR>Status: Reconnecting to beacon..."}
-	if(check_rights(R_ADMIN, 0, user))
-		menutext += {"<BR><BR>(ADMIN/DEBUG) <a href='?src=[UID()];secondary=1'>Syndicate Agent Insertion Portal: [portal_enabled ? "ON" : "OFF"]</a><BR>"}
+		menutext += {"<BR><BR>Incoming Teleport Beacon: Reconnecting to beacon..."}
+	menutext += {"<BR><BR>Outgoing Teleport Portal: [portal_enabled ? "ON" : "OFF"]"}
+	if(depotarea.on_peaceful || check_rights(R_ADMIN, 0, user))
+		menutext += {" (<a href='?src=[UID()];secondary=1'>[portal_enabled ? "Disable" : "Enable"]</a>)<BR>"}
 	return menutext
 
 /obj/machinery/computer/syndicate_depot/teleporter/primary(var/mob/user)
@@ -345,18 +355,20 @@
 		to_chat(user, "<span class='notice'>Unable to connect to teleport beacon.</span>")
 		return
 	var/bresult = mybeacon.toggle()
-	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? "ONLINE" : "OFFLINE"]</span>")
+	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
+	updateUsrDialog()
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(var/mob/user)
 	if(..())
 		return
-	if(!check_rights(R_ADMIN, 0, user))
+	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, 0, user))
 		return
 	if(!portal_enabled && myportal)
-		to_chat(user, "<span class='notice'>Syndicate Agent Insertion Portal: deactivating... please wait...</span>")
+		to_chat(user, "<span class='notice'>Outgoing Teleport Portal: deactivating... please wait...</span>")
 		return
 	toggle_portal()
-	to_chat(user, "<span class='notice'>Syndicate Agent Insertion Portal: [portal_enabled ? "ONLINE" : "OFFLINE"]</span>")
+	to_chat(user, "<span class='notice'>Outgoing Teleport Portal: [portal_enabled ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
+	updateUsrDialog()
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/toggle_portal()
 	portal_enabled = !portal_enabled
