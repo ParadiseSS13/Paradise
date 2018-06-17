@@ -557,7 +557,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 
 /obj/spacepod/syndi
 	name = "syndicate spacepod"
-	desc = "An spacepod painted in syndicate colors."
+	desc = "A spacepod painted in syndicate colors."
 	icon_state = "pod_synd"
 	health = 400
 	unlocked = FALSE
