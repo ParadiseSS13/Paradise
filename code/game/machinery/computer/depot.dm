@@ -155,7 +155,7 @@
 	req_access = list()
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/get_menu(var/mob/user)
-	return {"<B>Syndicate Depot Fission Reactor Control</B><HR>
+	return {"<B>Syndicate Depot Fusion Reactor Control</B><HR>
 	<BR><BR><a href='?src=[UID()];primary=1'>Disable Containment Field</a>
 	<BR>"}
 
