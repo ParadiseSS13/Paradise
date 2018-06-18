@@ -395,6 +395,13 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
+/datum/uplink_item/dangerous/rapid
+	name = "Gloves of the North Star"
+	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
+	reference = "RPGD"
+	item = /obj/item/clothing/gloves/fingerless/rapid
+	cost = 8
+
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
 	desc = "Ranged fury, Syndicate style. guaranteed to cause shock and awe or your TC back!"
@@ -1336,13 +1343,6 @@ var/list/uplink_items = list()
 	reference = "SYSM"
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
-
-/datum/uplink_item/badass/rapid
-	name = "Gloves of the North Star"
-	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed or the meaty fists of a hulk."
-	reference = "RPGD"
-	item = /obj/item/clothing/gloves/fingerless/rapid
-	cost = 8
 
 /datum/uplink_item/badass/bundle
 	name = "Syndicate Bundle"
