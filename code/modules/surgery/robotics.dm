@@ -248,10 +248,7 @@
 			user.visible_message("<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
 			affected.heal_damage(rand(30,50),0,1,1)
-			if(affected.disfigured)
-				affected.disfigured = 0
-				affected.update_icon()
-				target.regenerate_icons()
+			affected.disfigured = FALSE
 		if("burn")
 			user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
 			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
@@ -325,7 +322,7 @@
 
 		user.visible_message("[user] begins reattaching [target]'s [tool].", \
 		"You start reattaching [target]'s [tool].")
-		target.custom_pain("Someone's rooting around in your [affected.name]!",1)
+		target.custom_pain("Someone's rooting around in your [affected.name]!")
 	else if(istype(tool,/obj/item/mmi))
 		current_type = "install"
 
@@ -386,7 +383,7 @@
 				user.visible_message("[user] starts to decouple [target]'s [I] with \the [tool].", \
 				"You start to decouple [target]'s [I] with \the [tool]." )
 
-				target.custom_pain("The pain in your [affected.name] is living hell!",1)
+				target.custom_pain("The pain in your [affected.name] is living hell!")
 			else
 				return -1
 
@@ -407,7 +404,7 @@
 			to_chat(user, "There are no damaged components in [affected].")
 			return -1
 
-		target.custom_pain("The pain in your [affected.name] is living hell!",1)
+		target.custom_pain("The pain in your [affected.name] is living hell!")
 
 	else if(implement_type in implements_finish)
 		current_type = "finish"
@@ -522,7 +519,7 @@
 	user.visible_message("[user] starts to decouple [target]'s [affected.name] with \the [tool].", \
 	"You start to decouple [target]'s [affected.name] with \the [tool]." )
 
-	target.custom_pain("Your [affected.amputation_point] is being ripped apart!",1)
+	target.custom_pain("Your [affected.amputation_point] is being ripped apart!")
 	..()
 
 /datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

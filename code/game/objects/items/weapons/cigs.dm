@@ -54,7 +54,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
-		light("<span class='notice'>[user] coldly lights the [name] with the burning body of [M]. Clearly, they offer the warmest of regards...</span>")
+		light("<span class='notice'>[user] coldly lights the [name] with the burning body of [M]. Clearly, [user.p_they()] offer[user.p_s()] the warmest of regards...</span>")
 		return 1
 	else
 		return ..()
@@ -73,31 +73,31 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(W, /obj/item/lighter/zippo))
 		var/obj/item/lighter/zippo/Z = W
 		if(Z.lit)
-			light("<span class='rose'>With a single flick of their wrist, [user] smoothly lights their [name] with their [W]. Damn they're cool.</span>")
+			light("<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [name] with [user.p_their()] [W]. Damn [user.p_theyre()] cool.</span>")
 
 	else if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/L = W
 		if(L.lit)
-			light("<span class='notice'>After some fiddling, [user] manages to light their [name] with [W].</span>")
+			light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [W].</span>")
 
 	else if(istype(W, /obj/item/match))
 		var/obj/item/match/M = W
 		if(M.lit == 1)
-			light("<span class='notice'>[user] lights their [name] with their [W].</span>")
+			light("<span class='notice'>[user] lights [user.p_their()] [name] with [user.p_their()] [W].</span>")
 
 	else if(istype(W, /obj/item/melee/energy/sword/saber))
 		var/obj/item/melee/energy/sword/saber/S = W
 		if(S.active)
-			light("<span class='warning'>[user] swings their [W], barely missing their nose. They light their [name] in the process.</span>")
+			light("<span class='warning'>[user] swings their [W], barely missing their nose. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] in the process.</span>")
 
 	else if(istype(W, /obj/item/assembly/igniter))
-		light("<span class='notice'>[user] fiddles with [W], and manages to light their [name].</span>")
+		light("<span class='notice'>[user] fiddles with [W], and manages to light [user.p_their()] [name].</span>")
 
 	else if(istype(W, /obj/item/gun/magic/wand/fireball))
 		var/obj/item/gun/magic/wand/fireball/F = W
 		if(F.charges)
 			if(prob(50) || user.mind.assigned_role == "Wizard")
-				light("<span class='notice'>Holy shit, did [user] just manage to light their [name] with [W], with only moderate eyebrow singing?</span>")
+				light("<span class='notice'>Holy shit, did [user] just manage to light [user.p_their()] [name] with [W], with only moderate eyebrow singing?</span>")
 			else
 				to_chat(user, "<span class='warning'>Unsure which end of the wand is which, [user] fails to light [name] with [W].</span>")
 				explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)

@@ -46,7 +46,7 @@
 	var/mob/living/carbon/human/target = M
 
 	if(istype(target.species, /datum/species/machine))
-		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>")
+		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
 		return
 
 	if(target.m_styles["body"] != "None")
@@ -1371,3 +1371,12 @@
 /obj/item/clothing/suit/fluff/vetcoat/navy //Furasian: Fillmoore Grayson
 	icon_state = "alchemistcoatnavy"
 	item_state = "alchemistcoatnavy"
+
+/obj/item/clothing/accessory/medal/fluff/panzermedal //PanzerSkull: GRN-DER
+	name = "Cross of Valor"
+	desc = "A medal from the bygone Asteroid Wars. Its Ruby shines with a strange intensity."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "panzermedal"
+	item_state = "panzermedal"
+	item_color = "panzermedal"
+	slot_flags = SLOT_TIE

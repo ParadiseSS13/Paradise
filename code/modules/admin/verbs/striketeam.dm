@@ -37,8 +37,8 @@ var/global/sent_strike_team = 0
 			break
 
 	// Find ghosts willing to be DS
-	var/list/commando_ckeys = pollCandidatesByKeyWithVeto(src, usr, commandos_possible, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
-	if(!commando_ckeys.len)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, commandos_possible, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
 
@@ -47,53 +47,62 @@ var/global/sent_strike_team = 0
 	// Spawns commandos and equips them.
 	var/commando_number = commandos_possible //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
+
 	for(var/obj/effect/landmark/L in landmarks_list)
-		if(commando_number<=0)	break
+
+		if(commando_number <= 0)
+			break
+
 		if(L.name == "Commando")
 
-			spawn(0)
-				var/use_ds_borg = FALSE
-				var/ghost_key // Ghost ckey that we intend to put into the commando. Can remain undefined if we don't have one.
-				if(commando_ckeys.len)
-					ghost_key = pick(commando_ckeys)
-					commando_ckeys -= ghost_key
-					if(!is_leader)
-						var/new_gender = alert(src, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
-						if(new_gender == "Cyborg")
-							use_ds_borg = TRUE
+			if(!commando_ghosts.len)
+				break
 
-				if(use_ds_borg)
-					var/mob/living/silicon/robot/deathsquad/R = new()
-					R.forceMove(get_turf(L))
-					var/rnum = rand(1,1000)
-					var/borgname = "Epsilon [rnum]"
-					R.name = borgname
-					R.custom_name = borgname
-					R.real_name = R.name
-					R.mind = new
-					R.mind.current = R
-					R.mind.original = R
-					R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
-					R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
-					if(!(R.mind in ticker.minds))
-						ticker.minds += R.mind
-					ticker.mode.traitors += R.mind
-					if(ghost_key)
-						R.key = ghost_key
-					if(nuke_code)
-						R.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
-					R.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
-					to_chat(R, "<span class='userdanger'>You are a Special Operations cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[input]</span></span>")
-				else
-					var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
-					if(ghost_key)
-						new_commando.key = ghost_key
-						new_commando.internal = new_commando.s_store
-						new_commando.update_action_buttons_icon()
-					if(nuke_code)
-						new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
-					new_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
-					to_chat(new_commando, "<span class='userdanger'>You are a Special Ops [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span></span>")
+			var/use_ds_borg = FALSE
+			var/mob/ghost_mob = pick(commando_ghosts)
+			commando_ghosts -= ghost_mob
+			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client)
+				continue
+
+			if(!is_leader)
+				var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
+				if(new_dstype == "Cyborg")
+					use_ds_borg = TRUE
+
+			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client) // Have to re-check this due to the above alert() call
+				continue
+
+			if(use_ds_borg)
+				var/mob/living/silicon/robot/deathsquad/R = new()
+				R.forceMove(get_turf(L))
+				var/rnum = rand(1,1000)
+				var/borgname = "Epsilon [rnum]"
+				R.name = borgname
+				R.custom_name = borgname
+				R.real_name = R.name
+				R.mind = new
+				R.mind.current = R
+				R.mind.original = R
+				R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
+				R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
+				if(!(R.mind in ticker.minds))
+					ticker.minds += R.mind
+				ticker.mode.traitors += R.mind
+				R.key = ghost_mob.key
+				if(nuke_code)
+					R.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
+				R.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
+				to_chat(R, "<span class='userdanger'>You are a Special Operations cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[input]</span></span>")
+			else
+				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
+				new_commando.mind.key = ghost_mob.key
+				new_commando.key = ghost_mob.key
+				new_commando.internal = new_commando.s_store
+				new_commando.update_action_buttons_icon()
+				if(nuke_code)
+					new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
+				new_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
+				to_chat(new_commando, "<span class='userdanger'>You are a Special Ops [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span></span>")
 
 			is_leader = FALSE
 			commando_number--
@@ -132,6 +141,7 @@ var/global/sent_strike_team = 0
 	else
 		A.real_name = "[commando_rank] [commando_name]"
 	A.copy_to(new_commando)
+
 
 	new_commando.dna.ready_dna(new_commando)//Creates DNA.
 

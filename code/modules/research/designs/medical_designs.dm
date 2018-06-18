@@ -181,7 +181,7 @@
 	id = "scalpel_manager"
 	req_tech = list("biotech" = 4, "materials" = 7, "magnets" = 5, "programming" = 4)
 	build_type = PROTOLATHE
-	materials = list (MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000, MAT_DIAMOND = 1000)
 	build_path = /obj/item/scalpel/laser/manager
 	category = list("Medical")
 
@@ -271,13 +271,24 @@
 	build_path = /obj/item/organ/internal/cyberimp/mouth/breathing_tube
 	category = list("Misc", "Medical")
 
+/datum/design/cyberimp_surgical
+	name = "Surgical Arm Implant"
+	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm."
+	id = "ci-surgey"
+	req_tech = list("materials" = 3, "engineering" = 3, "biotech" = 3, "programming" = 2, "magnets" = 3)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	construction_time = 200
+	build_path = /obj/item/organ/internal/cyberimp/arm/surgery
+	category = list("Misc", "Medical")
+
 /datum/design/cyberimp_toolset
 	name = "Toolset Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm."
 	id = "ci-toolset"
 	req_tech = list("materials" = 3, "engineering" = 4, "biotech" = 4, "powerstorage" = 4)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list (MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
+	materials = list(MAT_METAL = 2500, MAT_GLASS = 1500, MAT_SILVER = 1500)
 	construction_time = 200
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset
 	category = list("Misc", "Medical")

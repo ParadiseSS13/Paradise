@@ -49,14 +49,14 @@
 	user.newtonian_move(get_dir(A, user))
 
 	if(reagents.has_reagent("sacid"))
-		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src].")
-		log_game("[key_name(user)] fired sulphuric acid from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
+		log_game("[key_name(user)] fired sulphuric acid from \a [src] at [COORD(user)].")
 	if(reagents.has_reagent("facid"))
-		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src].")
-		log_game("[key_name(user)] fired fluorosulfuric Acid from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
+		log_game("[key_name(user)] fired fluorosulfuric Acid from \a [src] at [COORD(user)].")
 	if(reagents.has_reagent("lube"))
-		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src].")
-		log_game("[key_name(user)] fired space lube from \a [src].")
+		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src] at [COORD(user)].")
+		log_game("[key_name(user)] fired space lube from \a [src] at [COORD(user)].")
 	return
 
 

@@ -14,8 +14,8 @@
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
 /obj/item/melee/energy/suicide_act(mob/user)
-	user.visible_message(pick("<span class='suicide'>[user] is slitting \his stomach open with the [src.name]! It looks like \he's trying to commit seppuku.</span>", \
-						"<span class='suicide'>[user] is falling on the [src.name]! It looks like \he's trying to commit suicide.</span>"))
+	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \
+						"<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
@@ -80,7 +80,7 @@
 	light_color = LIGHT_COLOR_WHITE
 
 /obj/item/melee/energy/axe/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swings the [src.name] towards /his head! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] swings the [name] towards [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/melee/energy/sword

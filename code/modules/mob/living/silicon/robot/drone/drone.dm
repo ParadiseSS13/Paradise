@@ -142,7 +142,7 @@
 				to_chat(usr, "<span class='warning'>The reboot system is currently offline. Please wait another [cooldown_time] seconds.</span>")
 				return
 
-			user.visible_message("<span class='warning'>\the [user] swipes \his ID card through \the [src], attempting to reboot it.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to reboot it.</span>")
+			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>", "<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
 			last_reboot = world.time / 10
 			var/drones = 0
 			for(var/mob/living/silicon/robot/drone/D in world)
@@ -153,7 +153,7 @@
 			return
 
 		else
-			user.visible_message("<span class='warning'>\the [user] swipes \his ID card through \the [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
+			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
 
 			if(emagged)
 				return
