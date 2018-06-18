@@ -32,3 +32,16 @@
 	name = "'Yellow' secret documents"
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\"."
 	icon_state = "docs_yellow"
+	var/poison_type = "amanitin"
+	var/poison_dose = 20
+	var/poison_total = 60
+
+/obj/item/documents/syndicate/yellow/trapped/pickup(user)
+	if(ishuman(user) && poison_total > 0)
+		var/mob/living/carbon/human/H = user
+		var/obj/item/clothing/gloves/G = H.gloves
+		if(!istype(G) || G.transfer_prints)
+			H.reagents.add_reagent(poison_type, poison_dose)
+			poison_total -= poison_dose
+			add_attack_logs(src, user, "Picked up [src], the trapped syndicate documents")
+	..()

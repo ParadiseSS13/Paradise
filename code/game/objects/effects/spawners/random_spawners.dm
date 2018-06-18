@@ -182,12 +182,13 @@
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
+	name = "50pc traped documents"
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "folder_syellow"
+	icon_state = "docs_yellow"
 	spawn_nothing_percentage = 0
 	result = list(
-	/obj/item/folder/syndicate/yellow = 1,
-	/obj/item/folder/syndicate/yellow_trapped = 1
+	/obj/item/documents/syndicate/yellow = 1,
+	/obj/item/documents/syndicate/yellow/trapped = 1
 	)
 
 

@@ -46,7 +46,7 @@
 	if(containment_failure)
 		playsound(loc, 'sound/machines/Alarm.ogg', 100, 0, 0)
 		O.deliberate = TRUE
-		O.max_cycles = 7
+		O.max_cycles = 6
 	qdel(src)
 
 /obj/effect/overload
@@ -58,7 +58,7 @@
 	var/cycles = 0
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE
-	var/max_cycles = 15
+	var/max_cycles = 10
 	var/max_fire_range = 6
 	var/area/syndicate_depot/depotarea
 

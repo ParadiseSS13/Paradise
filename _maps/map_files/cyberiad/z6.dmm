@@ -742,7 +742,7 @@
 "on" = (/turf/simulated/floor/mineral/silver,/area/syndicate_depot)
 "oo" = (/turf/simulated/floor/mineral/plasma,/area/syndicate_depot)
 "op" = (/obj/structure/table,/obj/item/wrench,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
-"oq" = (/obj/structure/table,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
+"oq" = (/obj/structure/table,/obj/item/folder/syndicate/yellow,/obj/item/pen,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
 "or" = (/obj/structure/cable,/obj/machinery/power/terminal,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
 "os" = (/obj/effect/spawner/random_spawners/syndicate/layout/door/vault,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot)
 "ot" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/wall/r_wall,/area/syndicate_depot)
