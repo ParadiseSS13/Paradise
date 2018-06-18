@@ -132,7 +132,7 @@ Class Procs:
 		if(!src.defer_process)
 			START_PROCESSING(SSmachines, src)
 		else
-			START_DEFFERED_PROCESSING(SSmachines, src)
+			START_DEFERRED_PROCESSING(SSmachines, src)
 	else
 		fast_processing += src
 		isprocessing = TRUE // all of these  isprocessing = TRUE  can be removed when the PS is dead
