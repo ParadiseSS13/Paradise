@@ -311,20 +311,22 @@
 	return FALSE
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/choosetarget()
-	var/list/possible_lms = list()
-	for(var/obj/effect/landmark/L in landmarks_list)
-		if(!is_station_level(L.z))
+	var/list/eligible_turfs = list()
+	for(var/obj/item/radio/beacon/R in beacons)
+		var/turf/T = get_turf(R)
+		if(!is_station_level(T.z))
 			continue
-		possible_lms |= L
-	if(!possible_lms.len)
-		message_admins("Error: [src] could not find any station LMs")
-		return
-	var/obj/effect/landmark/selected_lm = pick(possible_lms)
-	tele_area = get_area(selected_lm)
-	tele_target = get_turf(selected_lm)
+		eligible_turfs += T
+	if(eligible_turfs.len)
+		tele_target = pick(eligible_turfs)
+		tele_area = get_area(tele_target)
+		return TRUE
+	else
+		return FALSE
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
 	if(portal_enabled && !myportal)
+		choosetarget()
 		if(!tele_target)
 			return
 		var/turf/portal_turf = get_step(src, portaldir)
@@ -335,6 +337,7 @@
 		P.name = "[tele_area] portal"
 	else if(!portal_enabled && myportal)
 		qdel(myportal)
+		myportal = null
 
 /obj/machinery/computer/syndicate_depot/teleporter/get_menu(var/mob/user)
 	var/menutext = "<B>Syndicate Teleporter Control</B><HR>"
@@ -344,7 +347,7 @@
 	else
 		menutext += {"<BR><BR>Incoming Teleport Beacon: Reconnecting to beacon..."}
 	menutext += {"<BR><BR>Outgoing Teleport Portal: [portal_enabled ? "ON" : "OFF"]"}
-	if(depotarea.on_peaceful || check_rights(R_ADMIN, 0, user))
+	if(check_rights(R_ADMIN, 0, user) || (depotarea.on_peaceful && !portal_enabled))
 		menutext += {" (<a href='?src=[UID()];secondary=1'>[portal_enabled ? "Disable" : "Enable"]</a>)<BR>"}
 	return menutext
 
@@ -361,7 +364,7 @@
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(var/mob/user)
 	if(..())
 		return
-	if(!depotarea.on_peaceful && !check_rights(R_ADMIN, 0, user))
+	if(!check_rights(R_ADMIN, 0, user) && !(depotarea.on_peaceful && !portal_enabled))
 		return
 	if(!portal_enabled && myportal)
 		to_chat(user, "<span class='notice'>Outgoing Teleport Portal: deactivating... please wait...</span>")

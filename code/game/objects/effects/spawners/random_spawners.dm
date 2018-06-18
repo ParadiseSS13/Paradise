@@ -182,13 +182,13 @@
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
-	name = "50pc traped documents"
+	name = "66pc trapped documents"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_yellow"
 	spawn_nothing_percentage = 0
 	result = list(
 	/obj/item/documents/syndicate/yellow = 1,
-	/obj/item/documents/syndicate/yellow/trapped = 1
+	/obj/item/documents/syndicate/yellow/trapped = 2
 	)
 
 
@@ -246,6 +246,7 @@
 	/obj/item/stack/sheet/mineral/silver = 1,
 	/obj/item/stack/sheet/mineral/gold = 1,
 	)
+
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
 	icon_state = "3"
