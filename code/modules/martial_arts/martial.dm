@@ -60,7 +60,7 @@
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 
-	add_attack_logs(A, D, "Melee attacked with martial-art [src]", admin_notify = (damage > 0) ? TRUE : FALSE)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
 	if((D.stat != DEAD) && damage >= A.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
@@ -210,7 +210,7 @@
 		return ..()
 	var/mob/living/carbon/C = target
 	if(C.stat)
-		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while they cannot retaliate.</span>")
+		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate.</span>")
 		return
 	switch(user.a_intent)
 		if(INTENT_DISARM)
@@ -236,7 +236,7 @@
 			if(H.staminaloss && !H.sleeping)
 				var/total_health = (H.health - H.staminaloss)
 				if(total_health <= config.health_threshold_crit && !H.stat)
-					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking them out cold!</span>", \
+					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
 										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
 					H.SetSleeping(30)
 					H.adjustBrainLoss(25)

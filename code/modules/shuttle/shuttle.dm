@@ -1,4 +1,5 @@
 //use this define to highlight docking port bounding boxes (ONLY FOR DEBUG USE)
+// also uncomment the #undef at the bottom of the file
 //#define DOCKING_PORT_HIGHLIGHT
 
 //NORTH default dir
@@ -909,7 +910,7 @@ var/global/trade_dockrequest_timelimit = 0
 	shuttleId = "trade_sol"
 	docking_request_message = "A trading ship of Sol origin has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
 
-#undef DOCKING_PORT_HIGHLIGHT
+//#undef DOCKING_PORT_HIGHLIGHT
 
 
 /turf/proc/copyTurf(turf/T)

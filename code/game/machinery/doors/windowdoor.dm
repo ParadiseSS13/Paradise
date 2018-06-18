@@ -16,17 +16,20 @@
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
+	var/cancolor = TRUE
 	var/shards = 2
 	var/rods = 2
 	var/cable = 1
 	var/list/debris = list()
 
-/obj/machinery/door/window/New()
+/obj/machinery/door/window/New(loc, set_dir)
 	..()
+	if(set_dir)
+		setDir(set_dir)
 	if(req_access && req_access.len)
 		icon_state = "[icon_state]"
 		base_state = icon_state
-	if(!color)
+	if(!color && cancolor)
 		color = color_windows(src)
 	for(var/i in 1 to shards)
 		debris += new /obj/item/shard(src)
@@ -97,6 +100,16 @@
 		return 1
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
 		return !density
+	if(istype(mover, /obj/structure/window))
+		var/obj/structure/window/W = mover
+		if(!valid_window_location(loc, W.ini_dir))
+			return FALSE
+	else if(istype(mover, /obj/structure/windoor_assembly))
+		var/obj/structure/windoor_assembly/W = mover
+		if(!valid_window_location(loc, W.ini_dir))
+			return FALSE
+	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+		return FALSE
 	else
 		return 1
 
@@ -128,7 +141,7 @@
 		if(emagged)
 			return 0
 	if(!operating) //in case of emag
-		operating = 1
+		operating = TRUE
 	do_animate("opening")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state ="[base_state]open"
@@ -152,7 +165,7 @@
 	if(forced < 2)
 		if(emagged)
 			return 0
-	operating = 1
+	operating = TRUE
 	do_animate("closing")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	icon_state = base_state
@@ -186,6 +199,11 @@
 /obj/machinery/door/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
 
+/obj/machinery/door/window/ratvar_act()
+	var/obj/machinery/door/window/clockwork/C = new(loc, dir)
+	C.name = name
+	qdel(src)
+
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
@@ -204,7 +222,7 @@
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
 		emagged = TRUE
-		operating = 1
+		operating = TRUE
 		flick("[base_state]spark", src)
 		playsound(src, "sparks", 75, 1)
 		sleep(6)
@@ -313,6 +331,45 @@
 	name = "cell door"
 	desc = "For keeping in criminal scum."
 	req_access = list(access_brig)
+
+/obj/machinery/door/window/clockwork
+	name = "brass windoor"
+	desc = "A thin door with translucent brass paneling."
+	icon_state = "clockwork"
+	base_state = "clockwork"
+	shards = 0
+	rods = 0
+	burn_state = FIRE_PROOF
+	cancolor = FALSE
+	var/made_glow = FALSE
+
+/obj/machinery/door/window/clockwork/New(loc, set_dir)
+	..()
+	debris += new/obj/item/stack/tile/brass(src, 2)
+
+/obj/machinery/door/window/clockwork/setDir(direct)
+	if(!made_glow)
+		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
+		E.setDir(direct)
+		made_glow = TRUE
+	..()
+
+/obj/machinery/door/window/clockwork/emp_act(severity)
+	if(prob(80/severity))
+		open()
+
+/obj/machinery/door/window/clockwork/ratvar_act()
+	obj_integrity = max_integrity
+
+/obj/machinery/door/window/clockwork/hasPower()
+	return TRUE //yup that's power all right
+
+/obj/machinery/door/window/clockwork/narsie_act()
+	take_damage(rand(30, 60), BRUTE)
+	if(src)
+		var/previouscolor = color
+		color = "#960000"
+		animate(src, color = previouscolor, time = 8)
 
 /obj/machinery/door/window/northleft
 	dir = NORTH

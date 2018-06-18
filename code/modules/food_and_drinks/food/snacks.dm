@@ -99,6 +99,7 @@
 		U.overlays += I
 
 		var/obj/item/reagent_containers/food/snacks/collected = new type
+		collected.name = name
 		collected.loc = U
 		collected.reagents.remove_any(collected.reagents.total_volume)
 		collected.trash = null

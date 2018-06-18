@@ -73,7 +73,7 @@
 				icon_state = "revenant_draining"
 				reveal(27)
 				stun(27)
-				target.visible_message("<span class='warning'>[target] suddenly rises slightly into the air, their skin turning an ashy gray.</span>")
+				target.visible_message("<span class='warning'>[target] suddenly rises slightly into the air, [target.p_their()] skin turning an ashy gray.</span>")
 				target.Beam(src,icon_state="drain_life",icon='icons/effects/effects.dmi',time=26)
 				if(do_after(src, 30, 0, target)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
 					change_essence_amount(essence_drained, 0, target)
@@ -263,8 +263,8 @@
 					new/obj/effect/temp_visual/revenant(T)
 					T.ChangeTurf(/turf/simulated/wall/r_wall/rust)
 				for(var/obj/structure/window/window in T.contents)
-					window.hit(rand(30,80))
-					if(window && window.is_fulltile())
+					window.take_damage(rand(30,80))
+					if(window && window.fulltile)
 						new/obj/effect/temp_visual/revenant/cracks(window.loc)
 				for(var/obj/structure/closet/closet in T.contents)
 					closet.open()

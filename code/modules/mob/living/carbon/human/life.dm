@@ -150,7 +150,7 @@
 		AdjustSilence(2)
 
 	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
-		visible_message("<span class='alert'><B>[src]</B> goes limp, their facial expression utterly blank.</span>")
+		visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 		death()
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
@@ -832,7 +832,8 @@
 
 /mob/living/carbon/human/handle_vision()
 	if(machine)
-		if(!machine.check_eye(src))		reset_perspective(null)
+		if(!machine.check_eye(src))
+			reset_perspective(null)
 	else
 		var/isRemoteObserve = 0
 		if((REMOTE_VIEW in mutations) && remoteview_target)

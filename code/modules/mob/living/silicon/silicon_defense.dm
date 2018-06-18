@@ -41,6 +41,15 @@
 	if(L.a_intent == INTENT_HELP)
 		visible_message("<span class='notice'>[L.name] rubs its head against [src].</span>")
 
+/mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		..(user, TRUE)
+		adjustBruteLoss(rand(10, 15))
+		playsound(loc, "punch", 25, 1, -1)
+		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
+		return TRUE
+	return FALSE
+
 /mob/living/silicon/attack_hand(mob/living/carbon/human/M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
@@ -51,15 +60,6 @@
 		else
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			playsound(loc, 'sound/effects/bang.ogg', 10, 1)
-			if(HULK in M.mutations)
-				var/damage = rand(10,15)
-				adjustBruteLoss(damage)
-				add_attack_logs(M, src, "Melee attacked with fists")
-				playsound(loc, "punch", 25, 1, -1)
-				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
-						"<span class='userdanger'>[M] has punched [src]!</span>")
-				return 1
-			else
-				visible_message("<span class='danger'>[M] punches [src], but doesn't leave a dent.</span>", \
+			visible_message("<span class='danger'>[M] punches [src], but doesn't leave a dent.</span>", \
 						"<span class='userdanger'>[M] punches [src], but doesn't leave a dent.!</span>")
-	return 0
+	return FALSE
