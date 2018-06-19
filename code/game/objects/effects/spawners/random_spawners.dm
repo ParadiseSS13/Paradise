@@ -276,7 +276,7 @@
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
 	icon_state = "4"
-	spawn_nothing_percentage = 30
+	spawn_nothing_percentage = 0
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(
 	/obj/item/clothing/glasses/thermal = 1,

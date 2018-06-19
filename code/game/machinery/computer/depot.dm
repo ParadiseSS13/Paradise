@@ -155,9 +155,12 @@
 	req_access = list()
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/get_menu(var/mob/user)
-	return {"<B>Syndicate Depot Fusion Reactor Control</B><HR>
+	var menutext = {"<B>Syndicate Depot Fusion Reactor Control</B><HR>
 	<BR><BR><a href='?src=[UID()];primary=1'>Disable Containment Field</a>
 	<BR>"}
+	if(check_rights(R_ADMIN, 0, user))
+		menutext += {"(ADMIN) Defense Shield: [depotarea.deployed_shields.len ? "ON" : "OFF"] (<a href='?src=[UID()];secondary=1'>[depotarea.deployed_shields.len ? "Disable" : "Enable"]</a>)<BR>"}
+	return menutext
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/primary(var/mob/user)
 	if(..())
@@ -169,6 +172,18 @@
 	if(depotarea)
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
 
+
+/obj/machinery/computer/syndicate_depot/selfdestruct/secondary(var/mob/user)
+	if(..())
+		return
+	if(!check_rights(R_ADMIN, 0, user))
+		return
+	if(!istype(depotarea))
+		return
+	if(depotarea.deployed_shields.len)
+		depotarea.shields_down()
+	else
+		depotarea.shields_up()
 
 
 // Syndicate comms computer, used to activate visitor mode, and message syndicate. Traitor-only use.

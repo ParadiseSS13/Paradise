@@ -337,6 +337,7 @@
 	name = "syndicate vault hatch"
 	req_access_txt = "151"
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
+	security_level = 6
 	hackProof = 1
 	aiControlDisabled = 1
 

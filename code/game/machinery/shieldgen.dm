@@ -607,3 +607,17 @@
 			return prob(10)
 		else
 			return !src.density
+
+/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+	if(isliving(mover))
+		var/mob/living/M = mover
+		if("syndicate" in M.faction)
+			return 1
+	return ..(mover, target, height)
+
+/obj/machinery/shieldwall/syndicate/CanAStarPass(ID, to_dir, caller)
+	if(isliving(caller))
+		var/mob/living/M = caller
+		if("syndicate" in M.faction)
+			return 1
+	return ..(ID, to_dir, caller)

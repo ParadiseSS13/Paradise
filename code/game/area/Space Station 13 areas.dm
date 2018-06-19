@@ -561,7 +561,8 @@ var/list/ghostteleportlocs = list()
 	var/peace_betrayed = FALSE
 	var/detected_mech = FALSE
 	var/obj/structure/fusionreactor/reactor
-
+	var/hostiles_seen_dead = list()
+	var/list/deployed_shields = list()
 
 /area/syndicate_depot/updateicon()
 	if(destroyed)
@@ -604,7 +605,6 @@ var/list/ghostteleportlocs = list()
 	if(!used_self_destruct)
 		activate_self_destruct(reason, FALSE, null)
 	updateicon()
-
 
 /area/syndicate_depot/proc/locker_looted()
 	something_looted = TRUE
@@ -781,9 +781,24 @@ var/list/ghostteleportlocs = list()
 		to_chat(R, msg_text)
 		R << sound('sound/misc/notice1.ogg')
 
+/area/syndicate_depot/proc/shields_up()
+	if(deployed_shields.len)
+		return
+	for(var/obj/effect/landmark/L in landmarks_list)
+		if(L.name == "syndi_depot_shield")
+			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
+			S.dir = L.dir
+			deployed_shields += S
+
+/area/syndicate_depot/proc/shields_down()
+	for(var/obj/machinery/shieldwall/syndicate/S in deployed_shields)
+		qdel(S)
+	deployed_shields = list()
+
 /area/syndicate_depot/outer
 	name = "Suspicious Asteroid"
 	icon_state = "green"
+
 
 
 //EXTRA

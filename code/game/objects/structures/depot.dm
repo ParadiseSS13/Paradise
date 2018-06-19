@@ -70,6 +70,7 @@
 		if(!depotarea.used_self_destruct)
 			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
 			depotarea.updateicon()
+		depotarea.shields_down()
 
 /obj/effect/overload/process()
 	if(cycles < max_cycles)
@@ -91,3 +92,4 @@
 	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, 0)
 	processing_objects.Remove(src)
 	qdel(src)
+
