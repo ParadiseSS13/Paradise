@@ -81,7 +81,7 @@
 			src.playsound_local(source, speech_sound, sound_vol, 1)
 
 
-/mob/proc/hear_radio(var/message, var/verb = "says", var/datum/language/language = null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname = "", var/atom/follow_target)
+/mob/proc/hear_radio(var/message, var/verb = "says", var/datum/language/language = null, var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/vname = "", var/atom/follow_target, var/job = "")
 	if(!client)
 		return
 
@@ -128,10 +128,15 @@
 	if(!can_hear())
 		if(prob(20))
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
-	else if(track)
+		return
+	if(track)
 		to_chat(src, "[part_a][track][part_b][formatted]</span></span>")
-	else
-		to_chat(src, "[part_a][speaker_name][part_b][formatted]</span></span>")
+		return
+	if(job)
+		to_chat(src, "[part_a][speaker_name] ([job]) [part_b][formatted]</span></span>")
+		return
+
+	to_chat(src, "[part_a][speaker_name][part_b][formatted]</span></span>")
 
 /mob/proc/handle_speaker_name(var/mob/speaker = null, var/vname, var/hard_to_hear)
 	var/speaker_name = "unknown"

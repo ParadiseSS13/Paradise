@@ -19,6 +19,29 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	idle_power_usage = 25
 	machinetype = 5
 	circuitboard = /obj/item/circuitboard/telecomms/broadcaster
+	var/broadcast_job = FALSE
+
+/obj/machinery/telecomms/broadcaster/Topic(href, list/href_list)
+	if(..())
+		return
+	switch(href_list["action"])
+		if("toggle")
+			broadcast_job = !broadcast_job
+	return 1
+
+/obj/machinery/telecomms/broadcaster/attack_hand(mob/living/user)
+	ui_interact(user)
+
+/obj/machinery/telecomms/broadcaster/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "broadcaster.tmpl", "Broadcaster", 500, 300)
+		ui.open()
+
+/obj/machinery/telecomms/broadcaster/ui_data(mob/user)	
+	var/list/data = list()
+	data["broadcast_job"] = broadcast_job
+	return data
 
 /obj/machinery/telecomms/broadcaster/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
 	// Don't broadcast rejected signals
@@ -57,7 +80,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 							  signal.data["name"], signal.data["job"],
 							  signal.data["realname"], signal.data["vname"],,
 							  signal.data["compression"], signal.data["level"], signal.frequency,
-							  signal.data["verb"], signal.data["language"]	)
+							  signal.data["verb"], signal.data["language"],
+							  broadcast_job=broadcast_job)
 
 
 	   /** #### - Simple Broadcast - #### **/
@@ -83,7 +107,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 							  signal.data["radio"], signal.data["message"],
 							  signal.data["name"], signal.data["job"],
 							  signal.data["realname"], signal.data["vname"], 4, signal.data["compression"], signal.data["level"], signal.frequency,
-							  signal.data["verb"], signal.data["language"])
+							  signal.data["verb"], signal.data["language"],
+							  broadcast_job=broadcast_job)
 
 		if(!message_delay)
 			message_delay = 1
@@ -116,6 +141,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	use_power = 0
 	idle_power_usage = 0
 	machinetype = 6
+	var/broadcast_job = TRUE
 	var/intercept = 0 // if nonzero, broadcasts all messages to syndicate channel
 
 /obj/machinery/telecomms/allinone/receive_signal(datum/signal/signal)
@@ -146,7 +172,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 							  signal.data["radio"], signal.data["message"],
 							  signal.data["name"], signal.data["job"],
 							  signal.data["realname"], signal.data["vname"],, signal.data["compression"], list(0), connection.frequency,
-							  signal.data["verb"], signal.data["language"])
+							  signal.data["verb"], signal.data["language"],
+							  broadcast_job=broadcast_job)
 		else
 			if(intercept)
 				Broadcast_Message(signal.data["connection"], signal.data["mob"],
@@ -154,7 +181,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 							  signal.data["radio"], signal.data["message"],
 							  signal.data["name"], signal.data["job"],
 							  signal.data["realname"], signal.data["vname"], 3, signal.data["compression"], list(0), connection.frequency,
-							  signal.data["verb"], signal.data["language"])
+							  signal.data["verb"], signal.data["language"],
+							  broadcast_job=broadcast_job)
 
 #define CREW_RADIO_TYPE 0
 #define CENTCOMM_RADIO_TYPE 1
@@ -237,7 +265,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 						var/vmask, var/vmessage, var/obj/item/radio/radio,
 						var/message, var/name, var/job, var/realname, var/vname,
 						var/data, var/compression, var/list/level, var/freq, var/verbage = "says", var/datum/language/speaking = null,
-						var/atom/follow_target = null)
+						var/atom/follow_target = null,
+						var/broadcast_job = FALSE)
 
 
   /* ###### Prepare the radio connection ###### */
@@ -412,35 +441,38 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	  	/* --- Process all the mobs that heard a masked voice (understood) --- */
 
+		if(!broadcast_job)
+			job = ""
+
 		if(length(heard_masked))
 			for(var/mob/R in heard_masked)
-				R.hear_radio(message,verbage, speaking, part_a, part_b, M, 0, name, follow_target=follow_target)
+				R.hear_radio(message,verbage, speaking, part_a, part_b, M, 0, name, follow_target=follow_target, job=job)
 
 		/* --- Process all the mobs that heard the voice normally (understood) --- */
 
 		if(length(heard_normal))
 			for(var/mob/R in heard_normal)
-				R.hear_radio(message, verbage, speaking, part_a, part_b, M, 0, realname, follow_target=follow_target)
+				R.hear_radio(message, verbage, speaking, part_a, part_b, M, 0, realname, follow_target=follow_target, job=job)
 
 		/* --- Process all the mobs that heard the voice normally (did not understand) --- */
 
 		if(length(heard_voice))
 			for(var/mob/R in heard_voice)
-				R.hear_radio(message,verbage, speaking, part_a, part_b, M,0, vname, follow_target=follow_target)
+				R.hear_radio(message,verbage, speaking, part_a, part_b, M,0, vname, follow_target=follow_target, job=job)
 
 		/* --- Process all the mobs that heard a garbled voice (did not understand) --- */
 			// Displays garbled message (ie "f*c* **u, **i*er!")
 
 		if(length(heard_garbled))
 			for(var/mob/R in heard_garbled)
-				R.hear_radio(message, verbage, speaking, part_a, part_b, M, 1, vname, follow_target=follow_target)
+				R.hear_radio(message, verbage, speaking, part_a, part_b, M, 1, vname, follow_target=follow_target, job=job)
 
 
 		/* --- Complete gibberish. Usually happens when there's a compressed message --- */
 
 		if(length(heard_gibberish))
 			for(var/mob/R in heard_gibberish)
-				R.hear_radio(message, verbage, speaking, part_a, part_b, M, 1, follow_target=follow_target)
+				R.hear_radio(message, verbage, speaking, part_a, part_b, M, 1, follow_target=follow_target, job=job)
 
 	return 1
 

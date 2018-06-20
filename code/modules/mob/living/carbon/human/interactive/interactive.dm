@@ -578,7 +578,7 @@
 		knownStrings |= html_decode(message)
 	..()
 
-/mob/living/carbon/human/interactive/hear_radio(message, verb = "says", datum/language/language=null, part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
+/mob/living/carbon/human/interactive/hear_radio(message, verb = "says", datum/language/language=null, part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, var/job="")
 	if(!istype(speaker, /mob/living/carbon/human/interactive))
 		knownStrings |= html_decode(message)
 	..()

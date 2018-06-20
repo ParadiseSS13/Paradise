@@ -436,9 +436,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/totaltraffic = 0 // gigabytes (if > 1024, divide by 1024 -> terrabytes)
 
 	var/list/memory = list()	// stored memory
-	var/list/rawcode = list() // the code to compile (list of characters)
-	var/datum/TCS_Compiler/Compiler	// the compiler that compiles and runs the code
-	var/autoruncode = 0		// 1 if the code is set to run every time a signal is picked up
 
 	var/encryption = "null" // encryption key: ie "password"
 	var/salt = "null"		// encryption salt: ie "123comsat"
@@ -448,8 +445,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 /obj/machinery/telecomms/server/New()
 	..()
-	Compiler = new()
-	Compiler.Holder = src
 	server_radio = new()
 
 /obj/machinery/telecomms/server/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
@@ -508,22 +503,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 				var/identifier = num2text( rand(-1000,1000) + world.time )
 				log.name = "data packet ([md5(identifier)])"
 
-				if(Compiler && autoruncode)
-					Compiler.Run(signal)	// execute the code
-
 			var/can_send = relay_information(signal, "/obj/machinery/telecomms/hub")
 			if(!can_send)
 				relay_information(signal, "/obj/machinery/telecomms/broadcaster")
-
-
-/obj/machinery/telecomms/server/proc/setcode(var/list/code)
-	if(istype(code))
-		rawcode = code
-
-/obj/machinery/telecomms/server/proc/compile(mob/user as mob)
-	if(Compiler)
-		admin_log(user)
-		return Compiler.Compile(rawcode)
 
 /obj/machinery/telecomms/server/proc/update_logs()
 	// start deleting the very first log entry
@@ -543,14 +525,6 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	log.parameters["message"] = content
 	log_entries.Add(log)
 	update_logs()
-
-/obj/machinery/telecomms/server/proc/admin_log(var/mob/mob)
-	var/msg="[key_name(mob)] has compiled a script to server [src]:"
-	log_game("NTSL: [msg]")
-	log_game("NTSL: [rawcode.Join("")]")
-	src.investigate_log("[msg]<br>[rawcode.Join("")]", "ntsl")
-	if(length(rawcode)) // Let's not bother the admins for empty code.
-		message_admins("[key_name_admin(mob)] has compiled and uploaded a NTSL script to [src.id] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
 // Simple log entry datum
 
