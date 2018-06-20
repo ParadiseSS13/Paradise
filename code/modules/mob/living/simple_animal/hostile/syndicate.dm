@@ -82,11 +82,13 @@
 	var/seen_revived_enemy = FALSE
 	var/scan_cycles = 0
 	var/shield_key = FALSE
+	var/turf/spawn_turf
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/New()
 	..()
 	name = "[name] [pick(last_names)]"
 	depotarea = areaMaster
+	spawn_turf = get_turf(src)
 	if(prob(30))
 		shield_key = TRUE
 
@@ -108,8 +110,12 @@
 		aggro_cycles++
 		if(!raised_alert && aggro_cycles >= 60)
 			raise_alert("[name] has reported contact with hostile forces.")
-	if(scan_cycles >= 30 && depotarea)
+	if(scan_cycles >= 15 && istype(depotarea))
 		scan_cycles = 0
+		var/turf/current_turf = get_turf(src)
+		if(spawn_turf && current_turf.z != spawn_turf.z)
+			raise_alert("[src] lost in space.")
+			death()
 		for(var/mob/living/body in hearers(vision_range, targets_from))
 			if(body.stat != DEAD)
 				continue
@@ -131,7 +137,7 @@
 		depotarea.increase_alert(reason)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/mech_alert()
-	if(depotarea)
+	if(istype(depotarea))
 		depotarea.saw_mech()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/death()
@@ -159,7 +165,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/armory/New()
 	. = ..()
 	spawn(100)
-		if(depotarea)
+		if(istype(depotarea))
 			depotarea.shields_up()
 
 /mob/living/simple_animal/hostile/syndicate/melee/space
