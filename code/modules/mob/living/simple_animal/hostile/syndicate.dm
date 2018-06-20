@@ -77,6 +77,7 @@
 	stat_attack = 1
 	var/area/syndicate_depot/depotarea
 	var/raised_alert = FALSE
+	var/can_raise_alert = TRUE
 	var/seen_enemy = FALSE
 	var/aggro_cycles = 0
 	var/seen_revived_enemy = FALSE
@@ -89,8 +90,6 @@
 	name = "[name] [pick(last_names)]"
 	depotarea = areaMaster
 	spawn_turf = get_turf(src)
-	if(prob(30))
-		shield_key = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/Aggro()
 	if(!seen_enemy)
@@ -131,6 +130,8 @@
 	..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/raise_alert(var/reason)
+	if(!can_raise_alert)
+		return
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
 		raised_alert = TRUE
 		say("Intruder!")
@@ -161,12 +162,21 @@
 	icon_living = "syndicatemeleespace"
 	maxHealth = 250
 	health = 250
+	can_raise_alert = FALSE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/armory/New()
 	. = ..()
-	spawn(100)
-		if(istype(depotarea))
-			depotarea.shields_up()
+	if(istype(depotarea))
+		spawn(100)
+			var/list/key_candidates = list()
+			for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/O in living_mob_list)
+				if(O == src)
+					continue
+				key_candidates += O
+			if(key_candidates.len)
+				var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/O = pick(key_candidates)
+				O.shield_key = TRUE
+				depotarea.shields_up()
 
 /mob/living/simple_animal/hostile/syndicate/melee/space
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
