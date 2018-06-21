@@ -80,9 +80,9 @@
 
 /mob/living/carbon/alien/humanoid/attack_slime(mob/living/carbon/slime/M)
 	..()
-	var/damage = rand(5, 35)
+	var/damage = rand(5, 20)
 	if(M.is_adult)
-		damage = rand(10, 40)
+		damage = rand(10, 30)
 	adjustBruteLoss(damage)
 	add_attack_logs(src, M, "Slime'd for [damage] damage")
 	updatehealth()
