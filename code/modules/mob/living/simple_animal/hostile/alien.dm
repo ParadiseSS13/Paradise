@@ -15,8 +15,8 @@
 	health = 100
 	harm_intent_damage = 5
 	obj_damage = 60
-	melee_damage_lower = 25
-	melee_damage_upper = 25
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	attacktext = "slashes"
 	speak_emote = list("hisses")
 	a_intent = INTENT_HARM
@@ -162,3 +162,40 @@
 		var/atom/movable/M = target
 		M.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
+
+/mob/living/simple_animal/hostile/alien/deacon
+	name = "alien deacon"
+	desc = "Hiss!"
+	icon = 'icons/mob/deacon.dmi'
+	icon_state = "aliendeacon_running"
+	icon_living = "aliendeacon_running"
+	icon_dead = "aliendeacon_dead"
+	icon_gib = "syndicate_gib"
+	response_help = "pokes the"
+	response_disarm = "shoves the"
+	response_harm = "hits the"
+	speed = 0
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 1)
+	maxHealth = 50
+	health = 50
+	harm_intent_damage = 10
+	obj_damage = 60
+	melee_damage_lower = 25
+	melee_damage_upper = 35
+	attacktext = "slashes"
+	speak_emote = list("hisses")
+	a_intent = INTENT_HARM
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 15
+	heat_damage_per_tick = 20
+	pressure_resistance = 100    //100 kPa difference required to push
+	throw_pressure_limit = 120   //120 kPa difference required to throw
+	faction = list("alien")
+	status_flags = CANPUSH
+	minbodytemp = 0
+	see_in_dark = 10
+	see_invisible = SEE_INVISIBLE_MINIMUM
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	death_sound = 'sound/voice/hiss6.ogg'
+	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
