@@ -1,10 +1,5 @@
 /mob/living/silicon/decoy/Life(seconds, times_fired)
-	if(src.stat == 2)
-		return
-	else
-		if(src.health <= config.health_threshold_dead && src.stat != 2)
-			death()
-			return
+	return
 
 
 /mob/living/silicon/decoy/updatehealth()
@@ -13,3 +8,7 @@
 		stat = CONSCIOUS
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+	if(stat == DEAD)
+		return
+	if(health <= 0)
+		death()

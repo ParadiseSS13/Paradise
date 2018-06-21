@@ -12,6 +12,11 @@
 	src.anchored = 1
 	src.canmove = 0
 
+/mob/living/silicon/decoy/attackby(var/obj/item/W, var/mob/user, params)
+	if(istype(W, /obj/item/aicard))
+		user.visible_message("<span class='notice'>[user] cannot find an intellicard slot on [src].</span>")
+	else
+		return ..(W, user, params)
 
 /mob/living/silicon/decoy/syndicate
 	faction = list("syndicate")
@@ -23,21 +28,11 @@
 	. = ..()
 	icon_state = "ai-magma"
 
-
 /mob/living/silicon/decoy/syndicate/depot
-	var/exploded = FALSE
-
-/mob/living/silicon/decoy/syndicate/depot/proc/explode()
-	if(!exploded)
-		exploded = TRUE
-		raise_alert()
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
-		new /obj/effect/decal/cleanable/blood/oil(loc)
-		qdel(src)
+	var/raised_alert = FALSE
 
 /mob/living/silicon/decoy/syndicate/depot/proc/raise_alert()
+	raised_alert = TRUE
 	var/area/syndicate_depot/depotarea = get_area(src) // Cannot use myArea or areaMaster as neither will be defined for this mob type
 	if(depotarea)
 		depotarea.increase_alert("AI Unit Offline")
@@ -45,18 +40,17 @@
 		say("Connection failure!")
 
 /mob/living/silicon/decoy/syndicate/depot/death(var/pass)
+	if(!raised_alert)
+		raise_alert()
 	. = ..(pass)
-	explode()
 
 /mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(var/dmg)
-	health = health - dmg
-	if(health <= 0)
-		explode()
+	. = ..(dmg)
+	updatehealth()
 
 /mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(var/dmg)
-	health = health - dmg
-	if(health <= 0)
-		explode()
+	. = ..(dmg)
+	updatehealth()
 
 /mob/living/silicon/decoy/syndicate/depot/ex_act(var/severity)
 	adjustBruteLoss(250)

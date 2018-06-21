@@ -18,7 +18,7 @@
 	var/sound_no = 'sound/machines/buzz-sigh.ogg'
 	var/sound_click = 'sound/machines/click.ogg'
 	var/area/syndicate_depot/depotarea
-	var/alerts_when_broken = TRUE
+	var/alerts_when_broken = FALSE
 	var/has_alerted = FALSE
 
 
@@ -155,6 +155,7 @@
 	name = "reactor control computer"
 	icon_screen = "explosive"
 	req_access = list()
+	alerts_when_broken = TRUE
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/get_menu(var/mob/user)
 	var menutext = {"<B>Syndicate Depot Fusion Reactor Control</B><HR>
@@ -194,6 +195,7 @@
 	name = "syndicate communications computer"
 	icon_screen = "syndishuttle"
 	req_access = list()
+	alerts_when_broken = TRUE
 	var/message_sent = FALSE
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/get_menu(var/mob/user)
