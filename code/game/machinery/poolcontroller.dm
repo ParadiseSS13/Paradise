@@ -9,18 +9,16 @@
 	desc = "A controller for the nearby pool."
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
-	anchored = 1 //this is what I get for assuming /obj/machinery has anchored set to 1 by default
+	anchored = TRUE //this is what I get for assuming /obj/machinery has anchored set to 1 by default
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
-	var/linked_area = null
 	var/temperature = NORMAL //The temperature of the pool, starts off on normal, which has no effects.
 	var/temperaturecolor = "" //used for nanoUI fancyness
 	var/srange = 5 //The range of the search for pool turfs, change this for bigger or smaller pools.
 	var/list/linkedmist = list() //Used to keep track of created mist
-	var/deep_water = 0		//set to 1 to drown even standing people
-
+	var/deep_water = FALSE		//set to 1 to drown even standing people
 
 /obj/machinery/poolcontroller/New() //This proc automatically happens on world start
-	if(!linked_area)
+	if(srange)
 		for(var/turf/simulated/floor/beach/water/W in range(srange,src)) //Search for /turf/simulated/floor/beach/water in the range of var/srange
 			linkedturfs += W //Add found pool turfs to the central list.
 	..() //Changed to call parent as per MarkvA's recommendation
@@ -48,24 +46,30 @@
 	ui_interact(user)
 
 /obj/machinery/poolcontroller/process()
-	updatePool() //Call the mob affecting/decal cleaning proc
+	if(!linkedturfs)
+		return ..()
+	for(var/turf/T in linkedturfs)
+		for(var/mob/living/M in T)
+			pool_act_on_mob(M)
+		for(var/obj/effect/decal/cleanable/C in T)
+			pool_act_on_decal(C)
+	..()
 
-/obj/machinery/poolcontroller/proc/updatePool()
-	for(var/turf/T in linkedturfs) //Check for pool-turfs linked to the controller.
-		for(var/mob/M in T) //Check for mobs in the linked pool-turfs.
-			handleTemp(M)	//handles pool temp effects on the swimmers
+/obj/machinery/poolcontroller/proc/pool_act_on_mob(mob/living/M)
+	handleTemp(M)	//handles pool temp effects on the swimmers
+	if(ishuman(M)) //Make sure they are human before typecasting.
+		var/mob/living/carbon/human/drownee = M //Typecast them as human.
+		handleDrowning(drownee)		//Only human types will drown, to keep things simple for non-human mobs that live in the water
 
-			if(ishuman(M)) //Make sure they are human before typecasting.
-				var/mob/living/carbon/human/drownee = M //Typecast them as human.
-				handleDrowning(drownee)		//Only human types will drown, to keep things simple for non-human mobs that live in the water
+/obj/machinery/poolcontroller/proc/pool_act_on_decal(obj/effect/decal/cleanable/C)
+	if(!istype(C))
+		return
+	animate(C, alpha = 10, time = 20)
+	spawn(25)
+		qdel(C)
 
-		for(var/obj/effect/decal/cleanable/decal in T)		//Cleans up cleanable decals like blood and such
-			animate(decal, alpha = 10, time = 20)
-			spawn(25)
-				qdel(decal)
-
-/obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
-	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
+/obj/machinery/poolcontroller/proc/handleTemp(var/mob/living/M)
+	if(!istype(M) || issilicon(M) || M.stat == DEAD)
 		return
 	M.water_act(100, temperature, src)//leave temp at 0, we handle it in the switch. oh wait
 	switch(temperature) //Apply different effects based on what the temperature is set to.
@@ -84,10 +88,10 @@
 			to_chat(M, "<span class='danger'>The water is freezing!</span>")
 
 /obj/machinery/poolcontroller/proc/handleDrowning(var/mob/living/carbon/human/drownee)
-	if(!drownee)
+	if(!istype(drownee))
 		return
 
-	if(drownee && (drownee.lying || deep_water)) //Mob lying down or water is deep (determined by controller)
+	if(drownee.lying || deep_water) //Mob lying down or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
 		if((NO_BREATHE in drownee.species.species_traits) || (BREATHLESS in drownee.mutations))
@@ -191,24 +195,19 @@
 	name = "Sea Controller"
 	desc = "A controller for the underwater portion of the sea. Players shouldn't see this."
 	deep_water = 1		//deep sea is deep water
+	srange = null //Could lead to some weird behaviour
+	var/area/linked_area = null
 
 /obj/machinery/poolcontroller/seacontroller/New()
 	linked_area = get_area(src)
 	..()
 
-/obj/machinery/poolcontroller/seacontroller/updatePool()
-	for(var/turf/T in linked_area)
-		for(var/mob/M in T)
-			handleTemp(M)	//handles pool temp effects on the swimmers
-
-			if(ishuman(M)) //Make sure they are human before typecasting.
-				var/mob/living/carbon/human/drownee = M //Typecast them as human.
-				handleDrowning(drownee)		//Only human types will drown, to keep things simple for non-human mobs that live in the water
-
-		for(var/obj/effect/decal/cleanable/decal in T)
-			animate(decal, alpha = 10, time = 20)
-			spawn(25)
-				qdel(decal)
+/obj/machinery/poolcontroller/seacontroller/process()
+	..()
+	for(var/mob/living/M in linked_area)
+		pool_act_on_mob(M)
+	for(var/obj/effect/decal/cleanable/C in linked_area)
+		pool_act_on_decal(C)
 
 #undef FRIGID
 #undef COOL
