@@ -198,7 +198,7 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_patrol()
 	if(tries >= BOT_STEP_MAX_RETRIES)
-		raise_alert("[src] captured by hostile forces.")
+		raise_alert("[src] unable to reach target destination.")
 	return ..()
 
 /mob/living/simple_animal/bot/ed209/syndicate/proc/raise_alert(var/reason)

@@ -148,7 +148,7 @@
 	icon_state = "syndicatemelee"
 	color = "#FF0000"
 	result = list(
-	/mob/living/simple_animal/hostile/syndicate/melee/autogib = 1
+	/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1
 	)
 
 

@@ -70,85 +70,89 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
 	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss
-	name = "Syndicate Officer"
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot
+	name = "Syndicate Operative"
 	force_threshold = 6 // Prevents people using punches to bypass eshield
 	robust_searching = 1 // Together with stat_attack, ensures dionae/etc that regen are killed properly
 	stat_attack = 1
+	universal_speak = 1
 	var/area/syndicate_depot/depotarea
 	var/raised_alert = FALSE
-	var/can_raise_alert = TRUE
+	var/alert_on_death = FALSE
+	var/alert_on_timeout = FALSE
+	var/alert_on_spacing = TRUE
 	var/seen_enemy = FALSE
-	var/aggro_cycles = 0
+	var/seen_enemy_name = ""
 	var/seen_revived_enemy = FALSE
+	var/aggro_cycles = 0
 	var/scan_cycles = 0
 	var/shield_key = FALSE
 	var/turf/spawn_turf
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/New()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/New()
 	..()
 	name = "[name] [pick(last_names)]"
 	depotarea = areaMaster
 	spawn_turf = get_turf(src)
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/Aggro()
-	if(!seen_enemy)
-		seen_enemy = TRUE
-		playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
-	..()
-	if(target)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Aggro()
+	. = ..()
+	if(target && istype(depotarea))
+		if(!seen_enemy)
+			seen_enemy = TRUE
+			playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
+		seen_enemy_name = target.name
 		if(istype(target, /obj/mecha))
-			mech_alert()
-		if(istype(depotarea) && target in depotarea.hostiles_seen_dead)
+			depotarea.saw_mech(target)
+		if(target in depotarea.hostiles_dead)
 			seen_revived_enemy = TRUE
-			depotarea.hostiles_seen_dead -= target
 			raise_alert("[name] reports intruder [target] has returned from death!")
+			depotarea.hostiles_dead -= target
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/handle_automated_action()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
 	if(seen_enemy)
 		aggro_cycles++
-		if(!raised_alert && aggro_cycles >= 60)
-			raise_alert("[name] has reported contact with hostile forces.")
+		if(alert_on_timeout && !raised_alert && aggro_cycles >= 60)
+			raise_alert("[name] has reported contact with hostile entity: [seen_enemy_name]")
 	if(scan_cycles >= 15 && istype(depotarea))
 		scan_cycles = 0
 		var/turf/current_turf = get_turf(src)
 		if(spawn_turf && current_turf.z != spawn_turf.z)
-			raise_alert("[src] lost in space.")
+			if(alert_on_spacing)
+				raise_alert("[src] lost in space.")
 			death()
+			return
 		for(var/mob/living/body in hearers(vision_range, targets_from))
 			if(body.stat != DEAD)
 				continue
-			if(body in depotarea.hostiles_seen_dead)
+			if(body in depotarea.hostiles_dead)
 				continue
 			if(faction_check(body))
 				continue
 			say("Target [body]... terminated.")
-			depotarea.hostiles_seen_dead += body
+			depotarea.hostiles_dead += body
 			pointed(body)
 	else
 		scan_cycles++
 	..()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/raise_alert(var/reason)
-	if(!can_raise_alert)
-		return
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
 		raised_alert = TRUE
 		say("Intruder!")
 		depotarea.increase_alert(reason)
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/proc/mech_alert()
-	if(istype(depotarea))
-		depotarea.saw_mech()
-
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/death()
-	raise_alert("[name] has died.")
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death()
+	if(alert_on_death)
+		raise_alert("[name] has died in combat with [seen_enemy_name].")
 	if(shield_key && depotarea)
 		depotarea.shields_down()
+	if(depotarea && src in depotarea.guards_spawned)
+		depotarea.guards_spawned -= src
 	return ..()
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/CanPass(atom/movable/mover, turf/target, height=0)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isliving(mover))
 		var/mob/living/blocker = mover
 		if(faction_check(blocker))
@@ -156,42 +160,61 @@
 	return ..(mover, target, height)
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/armory
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
+	name = "Syndicate Officer"
+	alert_on_death = TRUE
+	alert_on_timeout = TRUE
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
 	name = "Syndicate Armory Officer"
 	icon_state = "syndicatemeleespace"
 	icon_living = "syndicatemeleespace"
 	maxHealth = 250
 	health = 250
-	can_raise_alert = FALSE
+	alert_on_timeout = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/armory/New()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/New()
 	. = ..()
 	if(istype(depotarea))
 		spawn(100)
 			var/list/key_candidates = list()
-			for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/O in living_mob_list)
+			for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in living_mob_list)
 				if(O == src)
 					continue
 				key_candidates += O
 			if(key_candidates.len)
-				var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depotboss/O = pick(key_candidates)
+				var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)
 				O.shield_key = TRUE
 				depotarea.shields_up()
 
-/mob/living/simple_animal/hostile/syndicate/melee/space
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space
+	name = "Syndicate Backup"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	icon_state = "syndicatemeleespace"
 	icon_living = "syndicatemeleespace"
+	speed = 1
+	wander = 0
+	alert_on_spacing = FALSE
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(var/movement_dir = 0)
+	return
+
+
+
+/mob/living/simple_animal/hostile/syndicate/melee/space
 	name = "Syndicate Commando"
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	icon_state = "syndicatemeleespace"
+	icon_living = "syndicatemeleespace"
 	speed = 1
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/autogib
-	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
 
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = 1

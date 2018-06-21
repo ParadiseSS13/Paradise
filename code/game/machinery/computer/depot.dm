@@ -19,6 +19,7 @@
 	var/sound_click = 'sound/machines/click.ogg'
 	var/area/syndicate_depot/depotarea
 	var/alerts_when_broken = TRUE
+	var/has_alerted = FALSE
 
 
 /obj/machinery/computer/syndicate_depot/New()
@@ -75,7 +76,8 @@
 
 /obj/machinery/computer/syndicate_depot/set_broken()
 	. = ..()
-	if(alerts_when_broken)
+	if(alerts_when_broken && !has_alerted)
+		has_alerted = TRUE
 		raise_alert("[src] damaged.")
 	disable_special_functions()
 
@@ -97,7 +99,7 @@
 
 /obj/machinery/computer/syndicate_depot/Destroy()
 	disable_special_functions()
-	if(alerts_when_broken)
+	if(alerts_when_broken && !has_alerted)
 		raise_alert("[src] destroyed.")
 	return ..()
 
@@ -204,7 +206,7 @@
 		else
 			menu += "[user] NOT RECOGNIZED. (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_ADD]'>Sign-in as Agent</a>)"
 		if(check_rights(R_ADMIN, 0, user))
-			menu += "<BR>ADMIN: (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_END]'>End Visitor Mode</a>)"
+			menu += "<BR><BR>ADMIN: (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_END]'>End Visitor Mode</a>)"
 
 	else
 		menu += "<BR><BR>Visiting Agents: NONE (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_START]'>Sign-in as Agent</a>)"
@@ -231,7 +233,7 @@
 		log_say("[key_name(user)] has sent a Syndicate comms message from the depot: [input]", user)
 	else
 		to_chat(user, "<span class='warning'>[src] requires authentication with syndicate codewords, which you do not know.</span>")
-		raise_alert("Detected unauthorized access to [src]!")
+		raise_alert("Detected unauthorized access by [user] to [src]!")
 	updateUsrDialog()
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(var/mob/user, var/subcommand)
@@ -257,7 +259,6 @@
 		else if(subcommand == DEPOT_VISITOR_START)
 			if(depotarea.something_looted)
 				to_chat(user, "<span class='warning'>Visitor sign-in is not possible after supplies have been taken from the depot.</span>")
-				raise_alert("Thieving con-men detected!")
 			else if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
 				grant_syndie_faction(user)
 				depotarea.peaceful_mode(TRUE, TRUE)
@@ -286,7 +287,7 @@
 	. = ..()
 	if(!security_lockout && (stat & NOPOWER))
 		security_lockout = TRUE
-		raise_alert("Powergrid failure.")
+		raise_alert("[src] lost power.")
 
 
 // Syndicate teleporter control, used to manage incoming/outgoing teleports
@@ -391,3 +392,56 @@
 /obj/machinery/computer/syndicate_depot/teleporter/proc/toggle_portal()
 	portal_enabled = !portal_enabled
 	update_portal()
+
+
+/obj/machinery/computer/syndicate_depot/aiterminal
+	name = "syndicate ai terminal"
+	icon_screen = "command"
+	req_access = list()
+
+/obj/machinery/computer/syndicate_depot/aiterminal/allowed(var/mob/user)
+	return 1
+
+/obj/machinery/computer/syndicate_depot/aiterminal/get_menu(var/mob/user)
+	var/menutext = "<B>Syndicate AI Terminal</B><HR><BR>"
+	if(!istype(depotarea))
+		menutext += "<BR>ERROR: Unable to connect to AI network."
+		return menutext
+
+	if(depotarea.alert_log.len)
+		menutext += "Event Log:<UL>"
+		for(var/thisline in depotarea.alert_log)
+			menutext += "<LI>[thisline]</LI>"
+		menutext += "</UL>"
+	else
+		menutext += "Event Log: EMPTY"
+	menutext += "<BR>"
+
+	if(depotarea.hostiles_dead.len)
+		menutext += "Terminated Intruders:<UL>"
+		for(var/mob/thismob in depotarea.hostiles_dead)
+			menutext += "<LI>[thismob]</LI>"
+		menutext += "</UL>"
+	else
+		menutext += "Terminated Intruders: NONE"
+	menutext += "<BR>"
+
+	if(depotarea.guards_spawned.len)
+		menutext += "Extra Security Forces:<UL>"
+		for(var/mob/thismob in depotarea.guards_spawned)
+			menutext += "<LI>[thismob]</LI>"
+		menutext += "</UL>"
+	else
+		menutext += "Extra Security Forces: NONE"
+
+	menutext += "<BR>"
+	if(depotarea.peaceful_visitors.len)
+		menutext += "Visiting Agents:<UL>"
+		for(var/mob/thismob in depotarea.peaceful_visitors)
+			menutext += "<LI>[thismob]</LI>"
+		menutext += "</UL>"
+	else
+		menutext += "Visiting Agents: NONE"
+	menutext += "<BR><BR>"
+
+	return menutext

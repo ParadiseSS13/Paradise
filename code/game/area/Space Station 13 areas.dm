@@ -561,8 +561,9 @@ var/list/ghostteleportlocs = list()
 	var/peace_betrayed = FALSE
 	var/detected_mech = FALSE
 	var/obj/structure/fusionreactor/reactor
-	var/hostiles_seen_dead = list()
+	var/list/hostiles_dead = list()
 	var/list/deployed_shields = list()
+	var/list/alert_log = list()
 
 /area/syndicate_depot/updateicon()
 	if(destroyed)
@@ -588,7 +589,13 @@ var/list/ghostteleportlocs = list()
 	local_alarm = FALSE
 	called_backup = FALSE
 	used_self_destruct = FALSE
+	something_looted = FALSE
+	detected_mech = FALSE
 	updateicon()
+	for(var/mob/living/M in guards_spawned)
+		qdel(M)
+	guards_spawned = list()
+	alert_log += "Alert level reset."
 
 /area/syndicate_depot/proc/increase_alert(var/reason)
 	if(on_peaceful)
@@ -616,14 +623,16 @@ var/list/ghostteleportlocs = list()
 	if(on_peaceful)
 		increase_alert("Vandals!")
 
-/area/syndicate_depot/proc/saw_mech()
+/area/syndicate_depot/proc/saw_mech(var/obj/mecha/E)
 	if(detected_mech)
 		return
 	detected_mech = TRUE
-	increase_alert("Hostile mecha detected.")
+	increase_alert("Hostile mecha detected: [E]")
 
 /area/syndicate_depot/proc/peaceful_mode(var/newvalue, var/bycomputer)
 	if(newvalue)
+		alert_log += "Code GREEN: visitor mode started."
+		ghostlog("The syndicate depot has visitors")
 		for(var/mob/living/simple_animal/bot/medbot/syndicate/B in src)
 			qdel(B)
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
@@ -646,6 +655,7 @@ var/list/ghostteleportlocs = list()
 				V.locked = !V.locked
 			V.update_icon()
 	else
+		alert_log += "Visitor mode ended."
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HARM
 		for(var/obj/machinery/door/airlock/A in src)
@@ -674,6 +684,8 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_depot/proc/local_alarm(var/reason, var/silent)
 	if(local_alarm)
 		return
+	ghostlog("The syndicate depot has declared code blue.")
+	alert_log += "Code BLUE: [reason]"
 	local_alarm = TRUE
 	if(!silent)
 		announce_here("Depot Code BLUE", reason)
@@ -693,6 +705,8 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_depot/proc/call_backup(var/reason, var/silent)
 	if(called_backup || used_self_destruct)
 		return
+	ghostlog("The syndicate depot has declared code red.")
+	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
 	lockout_computers()
 	if(!silent)
@@ -704,13 +718,17 @@ var/list/ghostteleportlocs = list()
 	spawn(0)
 		for(var/obj/effect/landmark/L in landmarks_list)
 			if(L.name == "syndi_depot_backup")
-				var/mob/living/simple_animal/hostile/syndicate/melee/space/autogib/S = new /mob/living/simple_animal/hostile/syndicate/melee/space/autogib(get_turf(L))
+				var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
 				S.name = "Syndicate Backup"
+				S.depotarea = src
+				guards_spawned |= S
 	updateicon()
 
 /area/syndicate_depot/proc/activate_self_destruct(var/reason, var/containment_failure, var/mob/user)
 	if(used_self_destruct)
 		return
+	ghostlog("The syndicate depot is about to self-destruct.")
+	alert_log += "Code DELTA: [reason]"
 	used_self_destruct = TRUE
 	local_alarm("", TRUE)
 	activate_lockdown(TRUE)
@@ -740,7 +758,6 @@ var/list/ghostteleportlocs = list()
 	if(used_lockdown)
 		return
 	used_lockdown = TRUE
-
 	for(var/obj/machinery/door/airlock/A in src)
 		spawn(0)
 			A.close()
@@ -794,6 +811,13 @@ var/list/ghostteleportlocs = list()
 	for(var/obj/machinery/shieldwall/syndicate/S in deployed_shields)
 		qdel(S)
 	deployed_shields = list()
+
+
+/area/syndicate_depot/proc/ghostlog(var/gmsg)
+	if(istype(reactor))
+		var/image/alert_overlay = image('icons/obj/flag.dmi', "syndiflag")
+		notify_ghosts(gmsg, title = "Depot News", source = reactor, alert_overlay = alert_overlay, action = NOTIFY_JUMP)
+
 
 /area/syndicate_depot/outer
 	name = "Suspicious Asteroid"
