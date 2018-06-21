@@ -44,7 +44,6 @@ var/global/list/obj/item/pda/PDAs = list()
 		new/datum/data/pda/app/notekeeper,
 		new/datum/data/pda/app/messenger,
 		new/datum/data/pda/app/manifest,
-		new/datum/data/pda/app/chatroom,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/utility/scanmode/notes,
 		new/datum/data/pda/utility/flashlight)

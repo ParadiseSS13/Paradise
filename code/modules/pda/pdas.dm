@@ -54,9 +54,6 @@
 	var/datum/data/pda/app/M = find_program(/datum/data/pda/app/messenger)
 	if(M)
 		M.notify_silent = 1
-	M = find_program(/datum/data/pda/app/chatroom)
-	if(M)
-		M.notify_silent = 1
 
 /obj/item/pda/heads
 	default_cartridge = /obj/item/cartridge/head
@@ -159,9 +156,6 @@
 /obj/item/pda/librarian/New()
 	..()
 	var/datum/data/pda/app/M = find_program(/datum/data/pda/app/messenger)
-	if(M)
-		M.notify_silent = 1 //Quiet in the library!
-	M = find_program(/datum/data/pda/app/chatroom)
 	if(M)
 		M.notify_silent = 1 //Quiet in the library!
 
