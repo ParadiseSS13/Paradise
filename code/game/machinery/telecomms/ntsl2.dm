@@ -1,3 +1,4 @@
+GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 // Custom Implementations for NTSL2
 /* NTSL2 Configuration Datum
  * This is an abstract handler for the configuration loadout. It's set up like this both for ease of transfering in and out of the UI 
@@ -58,6 +59,25 @@
 	// Used to determine what languages are allowable for conversion. Generated during runtime.
 	var/list/valid_languages = list("--DISABLE--")
 
+/datum/ntsl2_configuration/proc/reset()
+	/* Simple Toggles */
+	toggle_activated = initial(toggle_activated)
+	toggle_jobs = initial(toggle_jobs)
+	toggle_timecode = initial(toggle_timecode)
+	// Hack section
+	toggle_gibberish = initial(toggle_gibberish)
+	toggle_honk = initial(toggle_honk)
+
+	/* Strings */
+	setting_language = initial(setting_language)
+
+	/* Tables */
+	regex = list()
+
+	/* Arrays */
+	firewall = list()
+
+
 /datum/ntsl2_configuration/proc/update_languages()
 	for(var/language in all_languages)
 		var/datum/language/L = all_languages[language]
@@ -108,6 +128,12 @@
 		signal.data["reject"] = TRUE
 		return
 
+	// Firewall 
+	// This must happen before anything else modifies the signal ["name"].
+	if(islist(firewall) && firewall.len > 0)
+		if(firewall.Find(signal.data["name"]))
+			signal.data["reject"] = 1
+
 	// These two stack properly.
 	// Simple job indicator switch.
 	if(toggle_jobs)
@@ -152,11 +178,6 @@
 			new_message = start.Replace(original, replacePattern)
 		signal.data["message"] = new_message
 
-	// Firewall
-	if(islist(firewall) && firewall.len > 0)
-		if(firewall.Find(signal.data["name"]))
-			signal.data["reject"] = 1
-
 	// Check the message for forbidden HTML (REMOVE THIS IF YOU START STRIPPING HTML IN REGEX)
 	var/regex/bannedTags = new("(<script|<iframe|<video|<audio)")
 	if(bannedTags.Find(signal.data["message"]))
@@ -169,8 +190,6 @@
 		signal.data["reject"] = 1
 
 /datum/ntsl2_configuration/Topic(mob/user, href_list, window_id, obj/machinery/computer/telecomms/traffic/source)
-	to_chat(world, "NTSL2 TOPIC | [json_encode(href_list)]")
-
 	// Toggles
 	if(href_list["toggle"])
 		var/var_to_toggle = href_list["toggle"]
@@ -187,14 +206,13 @@
 			return
 		if(new_language == "--DISABLE--")
 			setting_language = null
-			to_chat(user, "Language conversion disabled.")
+			to_chat(user, "<span class='notice'>Language conversion disabled.</span>")
 		else
 			setting_language = new_language
-			to_chat(user, "Messages will now be converted to [new_language].")
+			to_chat(user, "<span class='notice'>Messages will now be converted to [new_language].</span>")
 
 	// Tables
 	if(href_list["create_row"])
-		to_chat(world, "NTSL2 create_row || [href_list["table"]]")
 		if(href_list["table"] && href_list["table"] in tables)
 			if(requires_unlock[href_list["table"]] && !source.unlocked)
 				return
@@ -205,19 +223,17 @@
 			if(new_value == null)
 				return
 			vars[href_list["table"]][new_key] = new_value
-			to_chat(user, "Added row [new_key] -> [new_value].")
+			to_chat(user, "<span class='notice'>Added row [new_key] -> [new_value].</span>")
 
 	if(href_list["delete_row"])
-		to_chat(world, "NTSL2 delete_row || [href_list["table"]]")
 		if(href_list["table"] && href_list["table"] in tables)
 			if(requires_unlock[href_list["table"]] && !source.unlocked)
 				return
 			vars[href_list["table"]].Remove(href_list["delete_row"])
-			to_chat(user, "Removed row [href_list["delete_row"]] from [href_list["table"]]")
+			to_chat(user, "<span class='warning'>Removed row [href_list["delete_row"]] from [href_list["table"]]</span>")
 
 	// Arrays
 	if(href_list["create_item"])
-		to_chat(world, "NTSL2 create_item || [href_list["array"]]")
 		if(href_list["array"] && href_list["array"] in arrays)
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
@@ -225,14 +241,14 @@
 			if(new_value == null) 
 				return
 			vars[href_list["array"]].Add(new_value)
+			to_chat(user, "<span class='notice'>Added row [new_value].</span>")
 
 	if(href_list["delete_item"])
-		to_chat(world, "NTSL2 delete_item || [href_list["array"]]")
 		if(href_list["array"] && href_list["array"] in arrays)
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
 			vars[href_list["array"]].Remove(href_list["delete_item"])
-			to_chat(user, "Removed [href_list["delete_item"]] from [href_list["array"]]")
+			to_chat(user, "<span class='warning'>Removed [href_list["delete_item"]] from [href_list["array"]]</span>")
 
 	// Spit out the serialized config to the user
 	if(href_list["save_config"])
