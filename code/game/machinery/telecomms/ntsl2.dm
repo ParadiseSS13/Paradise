@@ -76,7 +76,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 	/* Tables */
 	regex = list()
 
-	/* Arrays */
+	/* Arrays */ 
 	firewall = list()
 
 
@@ -91,23 +91,23 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 /datum/ntsl2_configuration/proc/ntsl_serialize()
 	. = list()
 	for(var/variable in to_serialize)
-		.[variable] = json_encode(vars[variable])
+		.[variable] = vars[variable]
 	. = json_encode(.)
 	
 
 // This loads a configuration from a JSON string.
 // Fucking broken as shit, someone help me fix this.
-// /datum/ntsl2_configuration/proc/ntsl_deserialize(text, obj/machinery/computer/telecomms/traffic/source)
-// 	var/list/var_list = json_decode(text)
-// 	for(var/variable in var_list)
-// 		if(variable in to_serialize) // Don't just accept any random vars jesus christ!
-// 			if(requires_unlock[variable] && (source && !source.unlocked))
-// 				continue
-// 			var/sanitize_method = serialize_sanitize[variable]
-// 			var/variable_value = var_list[variable]
-// 			variable_value = sanitize(variable_value, sanitize_method)
-// 			if(variable_value)
-// 				vars[variable] = var_list[variable_value]
+/datum/ntsl2_configuration/proc/ntsl_deserialize(text, obj/machinery/computer/telecomms/traffic/source)
+	var/list/var_list = json_decode(text)
+	for(var/variable in var_list)
+		if(variable in to_serialize) // Don't just accept any random vars jesus christ!
+			if(requires_unlock[variable] && (source && !source.unlocked))
+				continue
+			var/sanitize_method = serialize_sanitize[variable]
+			var/variable_value = var_list[variable]
+			variable_value = sanitize(variable_value, sanitize_method)
+			if(variable_value)
+				vars[variable] = variable_value
 
 // Sanitizing user input. Don't blindly trust the JSON.
 /datum/ntsl2_configuration/proc/sanitize(variable, sanitize_method)
@@ -160,7 +160,8 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 
 	// Replace everything with HONK!
 	if(toggle_honk)
-		var/honklength = splittext(signal.data["message"], " ").len
+		var/list/split = splittext(signal.data["message"], " ")
+		var/honklength = split.len
 		var/new_message = ""
 		for(var/i in 1 to honklength)
 			new_message += pick("HoNK!", "HONK", "HOOOoONK", "HONKHONK!", "HoNnnkKK!!!", "HOOOOOOOOOOONK!!!!11!", "henk!")
@@ -228,14 +229,16 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			var/new_value = input(user, "Provide a new value for the key [new_key]", "New Row") as text|null
 			if(new_value == null)
 				return
-			vars[href_list["table"]][new_key] = new_value
+			var/list/table = vars[href_list["table"]]
+			table[new_key] = new_value
 			to_chat(user, "<span class='notice'>Added row [new_key] -> [new_value].</span>")
 
 	if(href_list["delete_row"])
 		if(href_list["table"] && href_list["table"] in tables)
 			if(requires_unlock[href_list["table"]] && !source.unlocked)
 				return
-			vars[href_list["table"]].Remove(href_list["delete_row"])
+			var/list/table = vars[href_list["table"]]
+			table.Remove(href_list["delete_row"])
 			to_chat(user, "<span class='warning'>Removed row [href_list["delete_row"]] from [href_list["table"]]</span>")
 
 	// Arrays
@@ -246,14 +249,16 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			var/new_value = input(user, "Provide a value for the new index.", "New Index") as text|null
 			if(new_value == null) 
 				return
-			vars[href_list["array"]].Add(new_value)
+			var/list/array = vars[href_list["array"]]
+			array.Add(new_value)
 			to_chat(user, "<span class='notice'>Added row [new_value].</span>")
 
 	if(href_list["delete_item"])
 		if(href_list["array"] && href_list["array"] in arrays)
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
-			vars[href_list["array"]].Remove(href_list["delete_item"])
+			var/list/array = vars[href_list["array"]]
+			array.Remove(href_list["delete_item"])
 			to_chat(user, "<span class='warning'>Removed [href_list["delete_item"]] from [href_list["array"]]</span>")
 
 	// Spit out the serialized config to the user
