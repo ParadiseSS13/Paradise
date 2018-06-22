@@ -1,0 +1,113 @@
+/* Global */
+html, body {
+	background-color: #272727;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+}
+
+/* Navbar */
+#navbar {
+	background: #383838;
+	border-bottom: 2px solid #161616;
+	list-style-type: none;
+	height: 28px;
+	margin: 0;
+	padding: 0;
+}
+#navbar > div {
+	background: #40628a;
+	color: #ffffff; 
+	display: block;
+	height: 21px;
+	float: left;
+	text-decoration: none;
+	padding: 0 7px 0 5px;
+	margin: 3px 0 0 5px;
+}
+#navbar > div:hover {
+	background: #ffffff;
+	color: #40628a;
+	cursor: pointer;
+}
+#navbar > img {
+	float: left;
+	margin: 2px 5px 2px 0;
+	height: 24px;
+}
+
+.btnActive {
+	background: #2f943c !important;
+	color: #fff !important;
+}
+
+/* Content */
+#content {
+	min-height: 75%;
+	margin: 10px;
+}
+
+/* Links */
+.link, .linkOn, .linkOff {
+    background: #40628a;
+    border: 1px solid #161616;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline;
+    margin: 0 2px 0px 0;
+    min-width: 15px;
+    padding: 0px 4px 0px 4px;
+    text-align: center;
+    text-decoration: none;
+    user-select: none; 
+    white-space: nowrap;
+}
+
+.linkOn, .linkOn:link, .linkOn:visited, .linkOn:active, .linkOn:hover
+{ 
+	color: #ffffff; 
+	background: #2f943c; 
+	border-color: #24722e; 
+}
+
+.linkOff, .linkOff:link, .linkOff:visited, .linkOff:active, .linkOff:hover
+{ 
+	color: #ffffff; 
+	background: #999999; 
+	border-color: #666666; 
+}
+
+.linkActive:hover {
+	background: #507aac;
+}
+
+.linkActive:active {
+    background: #2f943c;
+}
+
+/* Config Tables */
+.tblConfig td {
+	padding-right: 40px;	
+}
+
+.tables {
+	border: 1px solid black;
+	text-align: center;
+}
+
+.tables th {
+	border-bottom: 2px solid black;
+}
+
+.tables th, .tables td {
+	border-right: 2px dotted black;
+	min-width: 70px;
+}
+
+/* Footer */
+.footer {
+	height: 15px;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}

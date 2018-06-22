@@ -435,6 +435,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/logs = 0 // number of logs
 	var/totaltraffic = 0 // gigabytes (if > 1024, divide by 1024 -> terrabytes)
 
+	// Old NTSL
 	var/list/memory = list()	// stored memory
 	var/list/rawcode = list() // the code to compile (list of characters)
 	var/datum/TCS_Compiler/Compiler	// the compiler that compiles and runs the code
@@ -446,26 +447,21 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/language = "human"
 	var/obj/item/radio/headset/server_radio = null
 
-/obj/machinery/telecomms/server/New()
+/obj/machinery/telecomms/server/Initialize()
 	..()
 	Compiler = new()
 	Compiler.Holder = src
 	server_radio = new()
 
 /obj/machinery/telecomms/server/receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
-
 	if(signal.data["message"])
-
 		if(is_freq_listening(signal))
-
 			if(traffic > 0)
 				totaltraffic += traffic // add current traffic to total traffic
 
 			//Is this a test signal? Bypass logging
 			if(signal.data["type"] != 4)
-
 				// If signal has a message and appropriate frequency
-
 				update_logs()
 
 				var/datum/comm_log_entry/log = new
@@ -508,8 +504,12 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 				var/identifier = num2text( rand(-1000,1000) + world.time )
 				log.name = "data packet ([md5(identifier)])"
 
-				if(Compiler && autoruncode)
-					Compiler.Run(signal)	// execute the code
+				// Run NTSL2 against the signal
+				if(GLOB.ntsl2_config)
+					GLOB.ntsl2_config.modify_signal(signal)
+
+				//if(Compiler && autoruncode)
+				//	Compiler.Run(signal)	// execute the code
 
 			var/can_send = relay_information(signal, "/obj/machinery/telecomms/hub")
 			if(!can_send)
