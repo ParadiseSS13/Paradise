@@ -1,0 +1,4 @@
+author: "matt81093"
+delete-after: True
+changes: 
+  - bugfix: "death squid hitbox position"
