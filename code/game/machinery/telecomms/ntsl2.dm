@@ -25,7 +25,9 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 	/* Meta stuff */
 	// These variables requires the source computer to be hacked in order to change
 	var/list/requires_unlock = list(
-		"firewall" = TRUE
+		"firewall" = TRUE,
+		"toggle_gibberish" = TRUE,
+		"toggle_honk" = TRUE,
 	)
 
 	// This is used to sanitize topic data
@@ -87,33 +89,37 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 
 // I'd use serialize() but it's used by another system. This converts the configuration into a JSON string.
 /datum/ntsl2_configuration/proc/ntsl_serialize()
-	var/list/all_vars = list()
+	. = list()
 	for(var/variable in to_serialize)
-		all_vars[variable] = vars[variable]
-	. = json_encode(all_vars)
+		.[variable] = json_encode(vars[variable])
+	. = json_encode(.)
+	
 
 // This loads a configuration from a JSON string.
-/datum/ntsl2_configuration/proc/ntsl_deserialize(text)
-	var/list/var_list = json_decode(text)
-	for(var/variable in var_list)
-		if(variable in to_serialize) // Don't just accept any random vars jesus christ!
-			var/sanitize_method = serialize_sanitize[variable]
-			var/variable_value = var_list[variable]
-			variable_value = sanitize(variable_value, sanitize_method)
-			if(variable_value)
-				vars[variable] = var_list[variable_value]
+// Fucking broken as shit, someone help me fix this.
+// /datum/ntsl2_configuration/proc/ntsl_deserialize(text, obj/machinery/computer/telecomms/traffic/source)
+// 	var/list/var_list = json_decode(text)
+// 	for(var/variable in var_list)
+// 		if(variable in to_serialize) // Don't just accept any random vars jesus christ!
+// 			if(requires_unlock[variable] && (source && !source.unlocked))
+// 				continue
+// 			var/sanitize_method = serialize_sanitize[variable]
+// 			var/variable_value = var_list[variable]
+// 			variable_value = sanitize(variable_value, sanitize_method)
+// 			if(variable_value)
+// 				vars[variable] = var_list[variable_value]
 
 // Sanitizing user input. Don't blindly trust the JSON.
 /datum/ntsl2_configuration/proc/sanitize(variable, sanitize_method)
-	if(!variable || !sanitize_method)
+	if(!sanitize_method)
 		return null
 
 	switch(sanitize_method)
 		if("bool")
-			return !!variable
+			return variable ? TRUE : FALSE
 		if("table", "array")
 			if(!islist(variable))
-				return null
+				return list()
 			// Insert html filtering for the regexes here if you're boring
 			return variable
 		if("string")
