@@ -465,14 +465,11 @@
 		if(SUPERMATTER_WARNING)
 			playsound(src, 'sound/machines/terminal_alert.ogg', 75)
 
-/obj/machinery/power/supermatter_shard/proc/emergency_lighting(var/active)
-	for(var/area/A in world)
-		if(!is_station_level(A.z))
-			continue
-		if(active)
-			A.radiation_alert()
-		else
-			A.reset_radiation_alert()
+/obj/machinery/power/supermatter_shard/proc/emergency_lighting(active)
+    if(active)
+        post_status("alert", "radiation")
+    else
+        post_status("shuttle")
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
 	playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
