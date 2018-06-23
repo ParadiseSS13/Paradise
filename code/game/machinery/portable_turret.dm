@@ -1022,7 +1022,7 @@ var/list/turret_icons
 
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
 	var/area/syndicate_depot/depotarea = areaMaster
-	if(depotarea)
+	if(istype(depotarea))
 		depotarea.add_hostile(target)
 		depotarea.declare_started()
 	return ..(target)
