@@ -84,6 +84,7 @@
 #define TARGET_DEPT_ENG 5
 
 // These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
+// These are warning defines, they should trigger before the state, not after.
 #define SUPERMATTER_ERROR -1		// Unknown status, shouldn't happen but just in case.
 #define SUPERMATTER_INACTIVE 0		// No or minimal energy
 #define SUPERMATTER_NORMAL 1		// Normal operation
