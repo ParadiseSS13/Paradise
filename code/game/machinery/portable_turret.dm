@@ -1020,6 +1020,13 @@ var/list/turret_icons
 	if(depotarea)
 		depotarea.turret_died()
 
+/obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
+	var/area/syndicate_depot/depotarea = areaMaster
+	if(depotarea)
+		depotarea.add_hostile(target)
+		depotarea.declare_started()
+	return ..(target)
+
 /obj/machinery/porta_turret/syndicate/New()
 	..()
 	if(req_one_access && req_one_access.len)

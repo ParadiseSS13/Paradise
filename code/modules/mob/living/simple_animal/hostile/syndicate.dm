@@ -101,6 +101,8 @@
 		if(!seen_enemy)
 			seen_enemy = TRUE
 			playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
+			depotarea.add_hostile(target)
+			depotarea.declare_started()
 		seen_enemy_name = target.name
 		if(istype(target, /obj/mecha))
 			depotarea.saw_mech(target)
@@ -151,7 +153,6 @@
 		depotarea.guards_spawned -= src
 	return ..()
 
-
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isliving(mover))
 		var/mob/living/blocker = mover
@@ -165,6 +166,7 @@
 	alert_on_death = TRUE
 	alert_on_timeout = TRUE
 
+
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
 	name = "Syndicate Armory Officer"
 	icon_state = "syndicatemeleespace"
@@ -172,6 +174,12 @@
 	maxHealth = 250
 	health = 250
 	alert_on_timeout = TRUE
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/death()
+	if(depotarea)
+		depotarea.declare_finished()
+	return ..()
+
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/New()
 	. = ..()

@@ -73,6 +73,7 @@
 		depotarea.shields_down()
 
 /obj/effect/overload/process()
+	var/turf/T = get_turf(src)
 	if(cycles < max_cycles)
 		if(!deliberate)
 			playsound(loc, beepsound, 50, 0)
@@ -80,7 +81,7 @@
 		var/fire_range = cycles
 		if(max_fire_range > 6)
 			max_fire_range = 6
-		var/turf/T = get_turf(src)
+
 		for(var/turf/simulated/turf in range(fire_range, T))
 			new /obj/effect/hotspot(turf)
 		return
@@ -89,6 +90,10 @@
 		depotarea.destroyed = TRUE
 		depotarea.updateicon()
 
+	for(var/obj/structure/closet/L in range(30, T))
+		L.open()
+	for(var/mob/living/M in range(30, T))
+		M.gib()
 	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, 0)
 	processing_objects.Remove(src)
 	qdel(src)

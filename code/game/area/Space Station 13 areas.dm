@@ -552,6 +552,10 @@ var/list/ghostteleportlocs = list()
 	var/called_backup = FALSE // Level 2: Remote alarm tripped. Bot may path through depot. Backup spawned.
 	var/used_self_destruct = FALSE // Level 3: Self destruct activated. Depot will be destroyed shortly.
 
+	var/run_started = FALSE
+	var/run_finished = FALSE
+	var/list/hostiles = list()
+
 	var/list/guards_spawned = list()
 	var/used_lockdown = FALSE
 	var/destroyed = FALSE
@@ -631,6 +635,7 @@ var/list/ghostteleportlocs = list()
 
 /area/syndicate_depot/proc/peaceful_mode(var/newvalue, var/bycomputer)
 	if(newvalue)
+		log_game("Depot visit: started")
 		alert_log += "Code GREEN: visitor mode started."
 		ghostlog("The syndicate depot has visitors")
 		for(var/mob/living/simple_animal/bot/medbot/syndicate/B in src)
@@ -655,6 +660,7 @@ var/list/ghostteleportlocs = list()
 				V.locked = !V.locked
 			V.update_icon()
 	else
+		log_game("Depot visit: ended")
 		alert_log += "Visitor mode ended."
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HARM
@@ -684,6 +690,7 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_depot/proc/local_alarm(var/reason, var/silent)
 	if(local_alarm)
 		return
+	log_game("Depot code: blue: " + list_hostiles())
 	ghostlog("The syndicate depot has declared code blue.")
 	alert_log += "Code BLUE: [reason]"
 	local_alarm = TRUE
@@ -698,13 +705,13 @@ var/list/ghostteleportlocs = list()
 			new /obj/effect/portal(get_turf(S))
 			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
 			guards_spawned |= B
-
 			B.depotarea = src
 	updateicon()
 
 /area/syndicate_depot/proc/call_backup(var/reason, var/silent)
 	if(called_backup || used_self_destruct)
 		return
+	log_game("Depot code: red: " + list_hostiles())
 	ghostlog("The syndicate depot has declared code red.")
 	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
@@ -727,10 +734,12 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_depot/proc/activate_self_destruct(var/reason, var/containment_failure, var/mob/user)
 	if(used_self_destruct)
 		return
+	log_game("Depot code: delta: " + list_hostiles())
 	ghostlog("The syndicate depot is about to self-destruct.")
 	alert_log += "Code DELTA: [reason]"
 	used_self_destruct = TRUE
-	local_alarm("", TRUE)
+	local_alarm = TRUE
+	called_backup = TRUE
 	activate_lockdown(TRUE)
 	lockout_computers()
 	updateicon()
@@ -817,6 +826,27 @@ var/list/ghostteleportlocs = list()
 	if(istype(reactor))
 		var/image/alert_overlay = image('icons/obj/flag.dmi', "syndiflag")
 		notify_ghosts(gmsg, title = "Depot News", source = reactor, alert_overlay = alert_overlay, action = NOTIFY_JUMP)
+
+/area/syndicate_depot/proc/declare_started()
+	if(!run_started)
+		run_started = TRUE
+		log_game("Depot run: started: " + list_hostiles())
+
+/area/syndicate_depot/proc/declare_finished()
+	if(!run_finished)
+		run_finished = TRUE
+		log_game("Depot run: finished successfully: " + list_hostiles())
+
+/area/syndicate_depot/proc/add_hostile(var/mob/M)
+	if(istype(M) && !(M in hostiles))
+		hostiles += M
+
+/area/syndicate_depot/proc/list_hostiles()
+	var/list/formatted = list()
+	for(var/mob/M in hostiles)
+		if(M.ckey)
+			formatted += "[M.ckey]([M])"
+	return formatted.Join(", ")
 
 
 /area/syndicate_depot/outer

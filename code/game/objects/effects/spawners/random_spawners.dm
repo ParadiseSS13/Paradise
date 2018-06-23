@@ -239,6 +239,7 @@
 	/obj/item/storage/pill_bottle/zoom = 1,
 	/obj/item/storage/pill_bottle/random_drug_bottle = 2,
 	/obj/item/clothing/shoes/syndigaloshes = 1,
+	/obj/item/rcd = 1,
 	/obj/item/rcd_ammo = 1,
 	/obj/item/stamp/chameleon = 1,
 	/obj/item/flag/chameleon = 1,
@@ -262,7 +263,6 @@
 	/obj/item/borg/upgrade/selfrepair = 1,
 	/obj/item/stack/sheet/mineral/diamond = 1,
 	/obj/item/stack/sheet/mineral/uranium = 1,
-	/obj/item/rcd = 1,
 	/obj/item/clothing/shoes/magboots/syndie/advance = 1,
 	/obj/item/grenade/empgrenade = 1,
 	/obj/item/grenade/spawnergrenade/feral_cats = 1,
@@ -279,22 +279,30 @@
 	spawn_nothing_percentage = 0
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(
-	/obj/item/clothing/glasses/thermal = 1,
+	// Syndicate Longarms and other high-power weapons
+	/obj/item/gun/projectile/automatic/c20r = 1,
 	/obj/item/gun/projectile/automatic/m90 = 1,
-	/obj/item/ammo_box/magazine/m556 = 1,
-	/obj/item/chameleon = 1,
-	/obj/item/radio/headset/syndicate = 1,
-	/obj/item/grenade/spawnergrenade/manhacks = 1,
+	/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
+	// Standard syndicate weapons
 	/obj/item/melee/energy/sword/saber = 1,
 	/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
 	/obj/item/gun/projectile/revolver = 1,
-	/obj/item/grenade/plastic/x4 = 1,
+	// Job-Restricted Weapons
 	/obj/item/clothing/gloves/color/yellow/power = 1,
-	/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-	/obj/item/gun/projectile/automatic/c20r = 1,
 	/obj/item/twohanded/chainsaw = 1,
+	/obj/item/bee_briefcase = 1,
+	/obj/item/twohanded/energizedfireaxe = 1,
+	// Devices that negate depot challenges
+	/obj/item/clothing/glasses/thermal = 1,
+	/obj/item/chameleon = 1,
+	/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
+	// Military defense items
+	/obj/item/shield/energy = 1,
+
+	// Grenades	& Explosives
 	/obj/item/storage/box/syndie_kit/atmosgasgrenades = 1,
 	/obj/item/grenade/syndieminibomb = 1,
+	/obj/item/grenade/plastic/x4 = 1,
 
 	)
 
