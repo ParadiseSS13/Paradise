@@ -15,10 +15,6 @@
 	var/silenced = 0 //if set to 1, they can't talk.
 	var/next_ping_at = 0
 
-/obj/item/mmi/posibrain/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, "Its speaker is turned [silenced ? "off" : "on"].")
-
 /obj/item/mmi/posibrain/attack_self(mob/user)
 	if(brainmob && !brainmob.key && searching == 0)
 		//Start the process of searching for a new user.
@@ -144,23 +140,24 @@
 
 
 /obj/item/mmi/posibrain/examine(mob/user)
+	to_chat(user, "Its speaker is turned [silenced ? "off" : "on"].")
 	to_chat(user, "<span class='info'>*---------*</span>")
 	if(!..(user))
 		to_chat(user, "<span class='info'>*---------*</span>")
 		return
 
-	var/msg = "<span class='info'>"
+	var/list/msg = "<span class='info'>"
 
-	if(src.brainmob && src.brainmob.key)
-		switch(src.brainmob.stat)
+	if(brainmob && brainmob.key)
+		switch(brainmob.stat)
 			if(CONSCIOUS)
-				if(!src.brainmob.client)	msg += "It appears to be in stand-by mode.\n" //afk
-			if(UNCONSCIOUS)		msg += "<span class='warning'>It doesn't seem to be responsive.</span>\n"
-			if(DEAD)			msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
+				if(!brainmob.client)	msg += "It appears to be in stand-by mode." //afk
+			if(UNCONSCIOUS)		msg += "<span class='warning'>It doesn't seem to be responsive.</span>"
+			if(DEAD)			msg += "<span class='deadsay'>It appears to be completely inactive.</span>"
 	else
-		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
+		msg += "<span class='deadsay'>It appears to be completely inactive.</span>"
 	msg += "*---------*</span>"
-	to_chat(user, msg)
+	to_chat(user, msg.Join("\n"))
 
 /obj/item/mmi/posibrain/emp_act(severity)
 	if(!src.brainmob)
@@ -201,5 +198,5 @@
 			M.show_message("<span class='notice'>The positronic brain pings softly.</span>")
 
 /obj/item/mmi/posibrain/ipc
-	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves. The speaker switch is set to 'off'."
+	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
 	silenced = 1
