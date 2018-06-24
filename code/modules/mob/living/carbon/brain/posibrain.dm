@@ -81,7 +81,9 @@
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a metal cube.</span>")
-	icon_state = "posibrain-occupied"
+	become_occupied("posibrain-occupied")
+	if(radio)
+		radio_action.ApplyIcon()
 	return
 
 /obj/item/mmi/posibrain/proc/transfer_personality(var/mob/candidate)
@@ -97,7 +99,8 @@
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/M in viewers(T))
 		M.show_message("<span class='notice'>The positronic brain chimes quietly.</span>")
-	icon_state = "posibrain-occupied"
+	become_occupied("posibrain-occupied")
+
 
 /obj/item/mmi/posibrain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
 	if(src.brainmob && src.brainmob.key) return
@@ -142,22 +145,23 @@
 /obj/item/mmi/posibrain/examine(mob/user)
 	to_chat(user, "Its speaker is turned [silenced ? "off" : "on"].")
 	to_chat(user, "<span class='info'>*---------*</span>")
-	if(!..(user))
+	. = ..()
+	if(!.)
 		to_chat(user, "<span class='info'>*---------*</span>")
 		return
 
-	var/list/msg = "<span class='info'>"
+	var/list/msg = list("<span class='info'>")
 
 	if(brainmob && brainmob.key)
 		switch(brainmob.stat)
 			if(CONSCIOUS)
-				if(!brainmob.client)	msg += "It appears to be in stand-by mode." //afk
-			if(UNCONSCIOUS)		msg += "<span class='warning'>It doesn't seem to be responsive.</span>"
-			if(DEAD)			msg += "<span class='deadsay'>It appears to be completely inactive.</span>"
+				if(!brainmob.client)	msg += "It appears to be in stand-by mode.\n" //afk
+			if(UNCONSCIOUS)		msg += "<span class='warning'>It doesn't seem to be responsive.</span>\n"
+			if(DEAD)			msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	else
-		msg += "<span class='deadsay'>It appears to be completely inactive.</span>"
+		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	msg += "*---------*</span>"
-	to_chat(user, msg.Join("\n"))
+	to_chat(user, msg.Join(""))
 
 /obj/item/mmi/posibrain/emp_act(severity)
 	if(!src.brainmob)

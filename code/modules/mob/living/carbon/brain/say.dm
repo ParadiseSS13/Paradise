@@ -2,7 +2,7 @@
 /mob/living/carbon/brain/say(var/message, var/datum/language/speaking = null)
 	if(!can_speak(warning = TRUE))
 		return
-		
+
 	if(prob(emp_damage * 4))
 		if(prob(10)) //10% chance to drop the message entirely
 			return
@@ -10,13 +10,13 @@
 			message = Gibberish(message, (emp_damage*6))//scrambles the message, gets worse when emp_damage is higher
 
 	..(message)
-		
+
 /mob/living/carbon/brain/whisper(message as text)
 	if(!can_speak(warning = TRUE))
 		return
 
 	..()
-	
+
 /mob/living/carbon/brain/can_speak(var/warning = FALSE)
 	. = ..()
 
@@ -41,10 +41,8 @@
 					if(metalgear.radio)
 						radio_worked = metalgear.radio.talk_into(src, message, message_mode, verb, speaking)
 
-				else if(!radio_worked && istype(c, /obj/item/mmi/radio_enabled))
-					var/obj/item/mmi/radio_enabled/R = c
-					if(R.radio)
-						radio_worked = R.radio.talk_into(src, message, message_mode, verb, speaking)
+				else if(!radio_worked && c.radio)
+					radio_worked = c.radio.talk_into(src, message, message_mode, verb, speaking)
 			return radio_worked
 		if("whisper")
 			whisper_say(message, speaking, alt_name)
