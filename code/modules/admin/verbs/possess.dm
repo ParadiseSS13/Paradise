@@ -9,6 +9,10 @@
 
 	var/turf/T = get_turf(O)
 
+	var/confirm = alert("Are you sure you want to possess [O]?", "Confirm posession", "Yes", "No")
+
+	if(confirm != "Yes")
+		return
 	if(T)
 		log_admin("[key_name(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])")
 		message_admins("[key_name_admin(usr)] has possessed [O] ([O.type]) at ([T.x], [T.y], [T.z])", 1)

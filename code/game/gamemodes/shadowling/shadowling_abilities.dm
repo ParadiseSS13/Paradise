@@ -540,9 +540,7 @@
 				sp.start()
 				S.Weaken(6)
 		for(var/obj/structure/window/W in T.contents)
-			W.hit(rand(80, 100))
-
-
+			W.take_damage(rand(80, 100))
 
 /obj/effect/proc_holder/spell/aoe_turf/drainLife
 	name = "Drain Life"
