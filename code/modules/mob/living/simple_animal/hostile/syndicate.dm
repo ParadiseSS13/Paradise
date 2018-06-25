@@ -39,19 +39,20 @@
 	armour_penetration = 28
 	status_flags = 0
 	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	var/melee_block_chance = 20
 
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	if(O.force)
-		if(prob(80))
+		if(prob(melee_block_chance))
+			visible_message("<span class='boldwarning'>[src] blocks the [O] with its shield! </span>")
+		else
 			var/damage = O.force
 			if(O.damtype == STAMINA)
 				damage = 0
 			health -= damage
 			visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
-		else
-			visible_message("<span class='boldwarning'>[src] blocks the [O] with its shield! </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
 		to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
@@ -76,6 +77,7 @@
 	robust_searching = 1 // Together with stat_attack, ensures dionae/etc that regen are killed properly
 	stat_attack = 1
 	universal_speak = 1
+	melee_block_chance = 40
 	var/area/syndicate_depot/depotarea
 	var/raised_alert = FALSE
 	var/alert_on_death = FALSE
@@ -165,7 +167,7 @@
 	name = "Syndicate Officer"
 	alert_on_death = TRUE
 	alert_on_timeout = TRUE
-
+	melee_block_chance = 60
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
 	name = "Syndicate Armory Officer"
@@ -173,6 +175,7 @@
 	icon_living = "syndicatemeleespace"
 	maxHealth = 250
 	health = 250
+	melee_block_chance = 80
 	alert_on_timeout = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/death()

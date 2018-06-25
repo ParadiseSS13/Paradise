@@ -599,6 +599,8 @@ var/list/ghostteleportlocs = list()
 	for(var/mob/living/M in guards_spawned)
 		qdel(M)
 	guards_spawned = list()
+	hostiles = list()
+	hostiles_dead = list()
 	alert_log += "Alert level reset."
 
 /area/syndicate_depot/proc/increase_alert(var/reason)
