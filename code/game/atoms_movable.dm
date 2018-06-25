@@ -166,7 +166,7 @@
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
-		buckled.unbuckle_mob(src,force=TRUE)
+		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force=TRUE)
 	if(pulling)

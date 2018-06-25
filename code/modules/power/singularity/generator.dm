@@ -11,9 +11,9 @@
 	var/creation_type = /obj/singularity
 
 	// You can buckle someone to the singularity generator, then start the engine. Fun!
- 	can_buckle = 1
- 	buckle_lying = 0
- 	buckle_requires_restraints = 1
+	can_buckle=TRUE
+	buckle_lying = 0
+	buckle_requires_restraints = 1
 
 /obj/machinery/the_singularitygen/process()
 	var/turf/T = get_turf(src)
@@ -43,9 +43,20 @@
 		if(istype(W, /obj/item/grab))
 			var/obj/item/grab/G = W
 			if(isliving(G.affecting))
+				var/mob/living/H = G.affecting
+				if(!H.restrained())
+					to_chat(user, "[H] needs to be restrained before you can put them on [src]!")
+					return
 				if(do_mob(user, src, 120))
-					var/mob/living/H = G.affecting
-					H.forceMove(loc)
-					buckle_mob(H)
+					user_buckle_mob(H, user, check_loc = FALSE)//the check_loc logic works in reverse if anyone is wondering...
 					qdel(G)
 	return ..()
+
+/obj/machinery/the_singularitygen/MouseDrop_T(mob/living/carbon/human/target, mob/user)
+	if(!Adjacent(user) || !user.Adjacent(target) || !isliving(target))
+		return
+	if(!target.restrained())
+		to_chat(user, "[target] needs to be restrained before you can put them on [src]!")
+		return
+	if(do_mob(user, src, 120))
+		user_buckle_mob(target, user, check_loc = FALSE)

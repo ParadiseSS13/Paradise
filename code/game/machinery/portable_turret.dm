@@ -544,6 +544,9 @@ var/list/turret_icons
 		if(AA.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
 			continue
 
+		if(istype(A, /obj/mecha))
+			var/obj/mecha/ME = A
+			assess_and_assign(ME.occupant, targets, secondarytargets)
 
 		if(istype(A, /obj/spacepod))
 			var/obj/spacepod/SP = A

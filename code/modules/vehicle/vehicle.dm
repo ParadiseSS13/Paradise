@@ -151,10 +151,8 @@
 	if(has_gravity(src))
 		return 1
 
-	if(pulledby)
-		for(var/m in buckled_mobs)
-			if(pulledby != m)
-				return 1
+	if(pulledby && !(pulledby in buckled_mobs))
+		return TRUE
 
 	if(needs_gravity)
 		return 1

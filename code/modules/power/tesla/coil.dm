@@ -61,15 +61,21 @@
 		if(istype(W, /obj/item/grab))
 			var/obj/item/grab/G = W
 			if(isliving(G.affecting))
+				var/mob/living/H = G.affecting
 				if(do_mob(user, src, 120))
-					var/mob/living/H = G.affecting
-					H.forceMove(loc)
-					buckle_mob(H)
+					user_buckle_mob(H, user, check_loc = FALSE)//the check_loc logic works in reverse if anyone is wondering...
 					qdel(G)
-
 	else
 		..()
 
+
+
+/obj/machinery/power/tesla_coil/MouseDrop_T(mob/living/carbon/human/target, mob/user)
+	if(!Adjacent(user) || !user.Adjacent(target) || !isliving(target))
+		return
+
+	if(do_mob(user, src, 120))
+		user_buckle_mob(target, user, check_loc = FALSE)
 
 /obj/machinery/power/tesla_coil/tesla_act(var/power)
 	if(anchored && !panel_open)
