@@ -490,6 +490,11 @@
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 
+/obj/structure/closet/crate/suspicious
+	icon_state = "suspiciouscrate"
+	icon_opened = "suspiciouscrateopen"
+	icon_closed = "suspiciouscrate"
+
 /obj/structure/closet/crate/secure/weapon
 	desc = "A secure weapons crate."
 	name = "weapons crate"
