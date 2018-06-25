@@ -3,7 +3,7 @@
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
-	dir = 8
+	dir = WEST
 	anchored = TRUE
 	idle_power_usage = 1250
 	active_power_usage = 2500
@@ -69,10 +69,10 @@
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		if(dir == 4)
-			setDir(8)
+		if(dir == EAST)
+			setDir(WEST)
 		else
-			setDir(4)
+			setDir(EAST)
 		playsound(loc, I.usesound, 50, 1)
 		return
 
@@ -105,8 +105,9 @@
 		icon_state = "body_scanner_1"
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
-	else
-		return ..()
+		return
+
+	return ..()
 
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/O, mob/user as mob)
@@ -221,7 +222,7 @@
 	icon_state = "bodyscannerconsole"
 	density = 1
 	anchored = 1
-	dir = 8
+	dir = WEST
 	idle_power_usage = 250
 	active_power_usage = 500
 	var/obj/machinery/bodyscanner/connected = null
@@ -301,10 +302,10 @@
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		if(dir == 4)
-			setDir(8)
+		if(dir == EAST)
+			setDir(WEST)
 		else
-			setDir(4)
+			setDir(EAST)
 		playsound(loc, I.usesound, 50, 1)
 
 	if(exchange_parts(user, I))

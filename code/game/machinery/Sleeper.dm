@@ -11,7 +11,7 @@
 	var/base_icon = "sleeper"
 	density = 1
 	anchored = 1
-	dir = 8
+	dir = WEST
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list(list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine"),
@@ -310,12 +310,12 @@
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		if(dir == 4)
+		if(dir == EAST)
 			orient = "LEFT"
-			setDir(8)
+			setDir(WEST)
 		else
 			orient = "RIGHT"
-			setDir(4)
+			setDir(EAST)
 		playsound(loc, I.usesound, 50, 1)
 		return
 
@@ -355,8 +355,9 @@
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 			add_fingerprint(user)
 			qdel(G)
-	else
-		return ..()
+			return
+
+	return ..()
 
 
 /obj/machinery/sleeper/ex_act(severity)

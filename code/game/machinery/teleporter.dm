@@ -350,8 +350,7 @@
 	if(default_deconstruction_crowbar(I))
 		return
 
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
@@ -451,8 +450,7 @@
 	if(default_deconstruction_crowbar(I))
 		return
 
-	else
-		return ..()
+	return ..()
 
 /obj/machinery/teleport/station
 	name = "station"
@@ -523,6 +521,8 @@
 				to_chat(user, "<span class='caution'>You upload the data from [M]'s buffer.</span>")
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
+		return
+
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
 		update_icon()
 		return
@@ -538,15 +538,18 @@
 			var/obj/item/multitool/M = I
 			M.buffer = src
 			to_chat(user, "<span class='caution'>You download the data to the [M]'s buffer.</span>")
+			return
 		if(iswirecutter(I))
 			link_console_and_hub()
 			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
+			return
 		if(istype(I, /obj/item/circuitboard/teleporter_perma))
 			var/obj/item/circuitboard/teleporter_perma/C = I
 			C.target = teleporter_console.target
 			to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
-	else
-		return ..()
+			return
+
+	return ..()
 
 /obj/machinery/teleport/station/attack_ai()
 	src.attack_hand()
