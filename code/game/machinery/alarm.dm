@@ -979,7 +979,6 @@
 	switch(buildstage)
 		if(2)
 			if(isscrewdriver(I))  // Opening that Air Alarm up.
-//				to_chat(user, "You pop the Air Alarm's maintence panel open.")
 				wiresexposed = !wiresexposed
 				to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
 				update_icon()
@@ -992,7 +991,7 @@
 					new_coil.forceMove(user.loc)
 					buildstage = 1
 					update_icon()
-					return
+				return
 
 			if(wiresexposed && ((ismultitool(I) || iswirecutter(I))))
 				return attack_hand(user)
@@ -1008,7 +1007,7 @@
 						updateUsrDialog()
 					else
 						to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
+				return
 
 		if(1)
 			if(istype(I, /obj/item/stack/cable_coil))
@@ -1039,7 +1038,7 @@
 					circuit.forceMove(user.loc)
 					buildstage = 0
 					update_icon()
-			return
+				return
 		if(0)
 			if(istype(I, /obj/item/airalarm_electronics))
 				to_chat(user, "You insert the circuit!")
@@ -1054,7 +1053,7 @@
 				new /obj/item/mounted/frame/alarm_frame(get_turf(user))
 				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(src)
-			return
+				return
 
 	return ..()
 
