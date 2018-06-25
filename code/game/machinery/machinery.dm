@@ -129,7 +129,7 @@ Class Procs:
 	if(use_power)
 		myArea = get_area_master(src)
 	if(!speed_process)
-		if(!src.defer_process)
+		if(!defer_process)
 			START_PROCESSING(SSmachines, src)
 		else
 			START_DEFERRED_PROCESSING(SSmachines, src)
