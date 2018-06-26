@@ -164,10 +164,10 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
-		if(G.mute == MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
+		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 			return
-		else if(G.mute == MUTE_MUFFLE)
+		else if(G.mute == MUZZLE_MUTE_MUFFLE)
 			message = muffledspeech(message)
 			verb = "mumbles"
 

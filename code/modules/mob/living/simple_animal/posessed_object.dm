@@ -26,7 +26,7 @@
 		to_chat(usr, "<span class='warning'>[src] appears to be having trouble staying afloat!</span>")
 
 
-/mob/living/simple_animal/possessed_object/do_attack_animation(atom/A)
+/mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
 	..()
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 

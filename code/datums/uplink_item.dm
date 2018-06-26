@@ -97,6 +97,7 @@ var/list/uplink_items = list()
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
+				log_game("[key_name(user)] purchased [I.name]")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -393,6 +394,13 @@ var/list/uplink_items = list()
 	cost = 40
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/dangerous/rapid
+	name = "Gloves of the North Star"
+	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
+	reference = "RPGD"
+	item = /obj/item/clothing/gloves/fingerless/rapid
+	cost = 8
 
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
@@ -1418,6 +1426,7 @@ var/list/uplink_items = list()
 	for(var/category in temp_uplink_list)
 		buyable_items += temp_uplink_list[category]
 	var/list/bought_items = list()
+	var/list/itemlog = list()
 	U.uses -= cost
 	U.used_TC = 20
 	var/remaining_TC = 50
@@ -1433,8 +1442,10 @@ var/list/uplink_items = list()
 			continue
 		bought_items += I.item
 		remaining_TC -= I.cost
+		itemlog += I.name // To make the name more readable for the log compared to just i.item
 
 	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
 	for(var/item in bought_items)
 		new item(C)
 		U.purchase_log += "<BIG>[bicon(item)]</BIG>"
+	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")

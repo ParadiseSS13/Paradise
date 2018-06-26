@@ -83,14 +83,7 @@
 	qdel(src)
 
 /obj/structure/table/attack_hand(mob/living/user)
-	if(HULK in user.mutations)
-		user.do_attack_animation(src)
-		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		playsound(loc, 'sound/effects/bang.ogg', 50, 1)
-		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		deconstruct(FALSE)
-	else
-		..()
+	..()
 	if(climber)
 		climber.Weaken(2)
 		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You see [climber.name] get knocked off the table</span>")
@@ -616,7 +609,7 @@
 	if(user.weakened || user.resting || user.lying)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
+	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
 							 "<span class='danger'>You kick [src].</span>")
 	take_damage(rand(4,8), BRUTE, "melee", 1)

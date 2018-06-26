@@ -149,6 +149,10 @@
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
 			return 0
 
+		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
+			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
+			return FALSE
+
 		if(R.one_per_turf && (locate(R.result_type) in creation_loc))
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return 0
@@ -166,7 +170,7 @@
 			return
 
 		var/atom/O = new R.result_type(creation_loc)
-		O.dir = usr.dir
+		O.setDir(usr.dir)
 		if(R.max_res_amount > 1)
 			var/obj/item/stack/new_item = O
 			new_item.amount = R.res_amount * multiplier

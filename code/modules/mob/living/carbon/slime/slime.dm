@@ -234,8 +234,27 @@
 			adjustBruteLoss(damage)
 			updatehealth()
 
+/mob/living/carbon/slime/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		if(Victim || Target)
+			Victim = null
+			Target = null
+			anchored = 0
+			if(prob(80) && !client)
+				Discipline++
+		spawn(0)
+			step_away(src, user, 15)
+			sleep(3)
+			step_away(src, user, 15)
+		..(user, TRUE)
+		playsound(loc, "punch", 25, 1, -1)
+		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
+		adjustBruteLoss(15)
+		return TRUE
+
 /mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M)
 	if(Victim)
+		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		if(Victim == M)
 			if(prob(60))
 				visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>")
@@ -259,7 +278,6 @@
 			return
 
 		else
-			M.do_attack_animation(src)
 			if(prob(30))
 				visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off of [Victim]!</span>")
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
@@ -297,24 +315,10 @@
 			grabbedby(M)
 
 		else
-			M.do_attack_animation(src)
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			var/damage = rand(1, 9)
 			attacked += 10
 			if(prob(90))
-				if(HULK in M.mutations)
-					damage += 15
-					if(Victim || Target)
-						Victim = null
-						Target = null
-						anchored = 0
-						if(prob(80) && !client)
-							Discipline++
-					spawn(0)
-						step_away(src,M,15)
-						sleep(3)
-						step_away(src,M,15)
-
-
 				playsound(loc, "punch", 25, 1, -1)
 				add_attack_logs(M, src, "Melee attacked with fists")
 				visible_message("<span class='danger'>[M] has punched [src]!</span>", \

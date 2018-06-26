@@ -17,7 +17,7 @@
 	bot_filter = RADIO_SECBOT
 	model = "ED-209"
 	bot_purpose = "seek out criminals, handcuff them, and report their location to security"
-	bot_core = /obj/machinery/bot_core/secbot
+	bot_core_type = /obj/machinery/bot_core/secbot
 	window_id = "autoed209"
 	window_name = "Automatic Security Unit v2.6"
 	path_image_color = "#FF0000"
@@ -61,12 +61,14 @@
 			shot_delay = 6//Longer shot delay because JESUS CHRIST
 			check_records = 0//Don't actively target people set to arrest
 			arrest_type = 1//Don't even try to cuff
-			bot_core.req_access = list(access_maint_tunnels, access_theatre)
-			arrest_type = 1
-			if((lasercolor == "b") && (name == "\improper ED-209 Security Robot"))//Picks a name if there isn't already a custome one
-				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
-			if((lasercolor == "r") && (name == "\improper ED-209 Security Robot"))
-				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
+			declare_arrests = 0 // Don't spam sec
+			bot_core.req_access = list(access_maint_tunnels, access_theatre, access_robotics)
+
+			if(created_name == initial(name) || !created_name)
+				if(lasercolor == "b")
+					name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
+				else if (lasercolor == "r")
+					name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 	//SECHUD
 	var/datum/atom_hud/secsensor = huds[DATA_HUD_SECURITY_ADVANCED]
@@ -94,37 +96,37 @@
 /mob/living/simple_animal/bot/ed209/set_custom_texts()
 	text_hack = "You disable [name]'s combat inhibitor."
 	text_dehack = "You restore [name]'s combat inhibitor."
-	text_dehack_fail = "[name] ignores your attempts to restrict him!"
+	text_dehack_fail = "[name] ignores your attempts to restrict [p_them()]!"
 
 /mob/living/simple_animal/bot/ed209/get_controls(mob/user)
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
 	dat += text({"
-<TT><B>Security Unit v2.6 controls</B></TT><BR><BR>
-Status: []<BR>
-Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
+	<TT><B>Security Unit v2.6 controls</B></TT><BR><BR>
+	Status: []<BR>
+	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
+	Maintenance panel panel is [open ? "opened" : "closed"]<BR>"},
 
-"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
+	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>" )
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
+		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
+
 		if(!lasercolor)
 			dat += text({"<BR>
-Arrest Unidentifiable Persons: []<BR>
-Arrest for Unauthorized Weapons: []<BR>
-Arrest for Warrant: []<BR>
-<BR>
-Operating Mode: []<BR>
-Report Arrests[]<BR>
-Auto Patrol[]"},
+			Arrest Unidentifiable Persons: []<BR>
+			Arrest for Unauthorized Weapons: []<BR>
+			Arrest for Warrant: []<BR>
+			<BR>
+			Operating Mode: []<BR>
+			Report Arrests[]<BR>"},
 
-"<A href='?src=[UID()];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
-"<A href='?src=[UID()];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>",
-"<A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A>" )
+			"<A href='?src=[UID()];operation=idcheck'>[idcheck ? "Yes" : "No"]</A>",
+			"<A href='?src=[UID()];operation=weaponscheck'>[weaponscheck ? "Yes" : "No"]</A>",
+			"<A href='?src=[UID()];operation=ignorerec'>[check_records ? "Yes" : "No"]</A>",
+			"<A href='?src=[UID()];operation=switchmode'>[arrest_type ? "Detain" : "Arrest"]</A>",
+			"<A href='?src=[UID()];operation=declarearrests'>[declare_arrests ? "Yes" : "No"]</A>")
 
 	return dat
 
@@ -239,13 +241,18 @@ Auto Patrol[]"},
 			if(target)		// make sure target exists
 				if(Adjacent(target) && isturf(target.loc)) // if right next to perp
 					stun_attack(target)
+					if(!lasercolor)
+						mode = BOT_PREP_ARREST
+						anchored = 1
+						target_lastloc = target.loc
+						return
+					else
+						mode = BOT_HUNT
+						target = null
+						target_lastloc = null
+						return
 
-					mode = BOT_PREP_ARREST
-					anchored = 1
-					target_lastloc = target.loc
-					return
-
-				else								// not next to perp
+				else if(!disabled) // not next to perp
 					var/turf/olddist = get_dist(src, target)
 					walk_to(src, target,1,4)
 					if((get_dist(src, target)) >= (olddist))
@@ -406,7 +413,7 @@ Auto Patrol[]"},
 	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
-			projectile = /obj/item/projectile/beam/lasertag
+			projectile = /obj/item/projectile/beam/disabler
 		else
 			projectile = /obj/item/projectile/beam
 	else
@@ -501,6 +508,7 @@ Auto Patrol[]"},
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
 			disabled = 1
+			walk_to(src, 0)
 			target = null
 			spawn(100)
 				disabled = 0
