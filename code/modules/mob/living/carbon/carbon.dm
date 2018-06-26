@@ -1015,11 +1015,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-<<<<<<< HEAD
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagentlist()]")
-=======
 	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagentlist(toEat)]", ATKLOG_FEW)
->>>>>>> master
 	if(!iscarbon(user))
 		LAssailant = null
 	else

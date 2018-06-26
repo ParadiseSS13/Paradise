@@ -115,7 +115,7 @@
 			visible_message("[user] climbs into the cryo cell.")
 		else
 			visible_message("[user] puts [L.name] into the cryo cell.")
-			log_game("[key_name(user)] puts [key_name(L.name)] into a cryo cell at [COORD(src)].")
+			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
 
@@ -263,7 +263,7 @@
 	if(href_list["ejectOccupant"])
 		if(!occupant || isslime(usr) || ispAI(usr))
 			return 0 // don't update UIs attached to this object
-		log_game("[key_name(occupant)] ejected by [key_name(usr)] at cryo cell at [COORD(src)]")
+		add_attack_logs(usr, occupant, "ejected from cryo cell at [COORD(src)]", ATKLOG_ALL)
 		go_out()
 
 	add_fingerprint(usr)
@@ -280,7 +280,7 @@
 			return
 		B.forceMove(src)
 		beaker =  B
-		log_game("[key_name(user)] added [B] containing [B.reagentlist()] to a cryo cell at [COORD(src)]")
+		add_attack_logs(usr, usr, "Added [B] containing [B.reagentlist()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
 
 
