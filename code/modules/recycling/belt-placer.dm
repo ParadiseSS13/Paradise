@@ -24,8 +24,9 @@
 	max_combined_w_class = 200 //50 belts
 	origin_tech = "engineering=2;bluespace=1"
 
-/obj/item/storage/conveyor/attackby(obj/item/conveyor_switch_construct/S, mob/user, params) //So we can link belts en masse
-	if(istype(S))
+/obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
+	if(istype(I, /obj/item/conveyor_switch_construct))
+		var/obj/item/conveyor_switch_construct/S = I
 		var/linked = FALSE //For nice message
 		for(var/obj/item/conveyor_construct/C in src)
 			C.id = S.id
@@ -33,7 +34,7 @@
 		if(linked)
 			to_chat(user, "<span class='notice'>All belts in [src] linked with [S].</span>")
 	else
-		..()
+		return ..()
 
 /obj/item/storage/conveyor/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
