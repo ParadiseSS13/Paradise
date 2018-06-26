@@ -35,10 +35,13 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(null))
-
+	var/client/C = (body && body.client) || client
+	
 	can_reenter_corpse = flags & GHOST_CAN_REENTER
 	started_as_observer = flags & GHOST_IS_OBSERVER
 
+	if(C && (ROLE_PAI in C.prefs.be_special) && !can_reenter_corpse)
+		AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/pai_ad(null))
 
 	stat = DEAD
 
