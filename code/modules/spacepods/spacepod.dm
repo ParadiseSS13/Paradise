@@ -512,13 +512,23 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 	to_chat(user, "<span class='warning'>You need an open hand to do that.</span>")
 
 
-/obj/spacepod/hear_talk/hear_talk(mob/M, var/msg)
+/obj/spacepod/hear_talk(mob/M, var/msg)
 	cargo_hold.hear_talk(M, msg)
 	..()
 
 /obj/spacepod/hear_message(mob/M, var/msg)
 	cargo_hold.hear_message(M, msg)
 	..()
+
+/obj/spacepod/Bump(var/atom/obstacle, yes)
+	if(..())
+		return TRUE
+	if(yes)
+		return
+	if(istype(obstacle, /atom/movable))
+		var/atom/movable/O = obstacle
+		if(!O.anchored)
+			step(obstacle, dir)
 
 /obj/spacepod/proc/return_inv()
 
