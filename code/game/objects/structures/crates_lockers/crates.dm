@@ -28,16 +28,16 @@
 /obj/structure/closet/crate/can_close()
 	return 1
 
-/obj/structure/closet/crate/open()
-	if(src.opened)
-		return 0
-	if(!src.can_open())
-		return 0
+/obj/structure/closet/crate/open(mob/user)
+	if(opened)
+		return
+	if(!can_open())
+		return
 
 	if(rigged && locate(/obj/item/radio/electropack) in src)
-		if(isliving(usr))
-			var/mob/living/L = usr
-			if(L.electrocute_act(17, src))
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			if(C.electrocute_act(17, src))
 				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
@@ -49,12 +49,12 @@
 	for(var/mob/M in src) //Mobs
 		M.forceMove(loc)
 	icon_state = icon_opened
-	src.opened = 1
+	opened = TRUE
 
 	if(climbable)
 		structure_shaken()
 
-	return 1
+	return TRUE
 
 /obj/structure/closet/crate/close()
 	if(!src.opened)
