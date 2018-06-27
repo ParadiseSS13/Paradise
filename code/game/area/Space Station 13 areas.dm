@@ -564,6 +564,7 @@ var/list/ghostteleportlocs = list()
 	var/list/peaceful_visitors = list()
 	var/peace_betrayed = FALSE
 	var/detected_mech = FALSE
+	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 	var/list/hostiles_dead = list()
 	var/list/deployed_shields = list()
@@ -596,8 +597,7 @@ var/list/ghostteleportlocs = list()
 	something_looted = FALSE
 	detected_mech = FALSE
 	updateicon()
-	for(var/mob/living/M in guards_spawned)
-		qdel(M)
+	despawn_guards()
 	guards_spawned = list()
 	hostiles = list()
 	hostiles_dead = list()
@@ -686,6 +686,7 @@ var/list/ghostteleportlocs = list()
 			if("syndicate" in M.faction)
 				M.faction -= "syndicate"
 				message_admins("- SYNDI DEPOT VISITOR: [ADMIN_FULLMONTY(M)]")
+				add_hostile(M)
 		peaceful_visitors = list()
 	updateicon()
 
@@ -718,19 +719,27 @@ var/list/ghostteleportlocs = list()
 	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
 	lockout_computers()
-	if(!silent)
-		announce_here("Depot Code RED", reason)
 	for(var/obj/machinery/door/poddoor/P in airlocks)
 		if(P.density && P.id_tag == "syndi_depot_lvl2" && !P.operating)
 			spawn(0)
 				P.open()
-	spawn(0)
-		for(var/obj/effect/landmark/L in landmarks_list)
-			if(L.name == "syndi_depot_backup")
-				var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
-				S.name = "Syndicate Backup"
-				S.depotarea = src
-				guards_spawned |= S
+	if(!silent)
+		announce_here("Depot Code RED", reason)
+
+	var/comms_online = FALSE
+	if(istype(comms_computer))
+		if(!(comms_computer.stat & (NOPOWER|BROKEN)))
+			comms_online = TRUE
+	if(comms_online)
+		spawn(0)
+			for(var/obj/effect/landmark/L in landmarks_list)
+				if(L.name == "syndi_depot_backup")
+					var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
+					S.name = "Syndicate Backup"
+					S.depotarea = src
+					guards_spawned |= S
+	else if(!silent)
+		announce_here("Depot Communications Offline", "Comms computer is damaged, destroyed or depowered. Unable to call in backup from Syndicate HQ.")
 	updateicon()
 
 /area/syndicate_depot/proc/activate_self_destruct(var/reason, var/containment_failure, var/mob/user)
@@ -745,6 +754,7 @@ var/list/ghostteleportlocs = list()
 	activate_lockdown(TRUE)
 	lockout_computers()
 	updateicon()
+	despawn_guards()
 	if(containment_failure)
 		announce_here("Depot Code DELTA", reason)
 	else
@@ -823,6 +833,11 @@ var/list/ghostteleportlocs = list()
 		qdel(S)
 	deployed_shields = list()
 
+/area/syndicate_depot/proc/despawn_guards()
+	for(var/mob/thismob in guards_spawned)
+		new /obj/effect/portal(get_turf(thismob))
+		qdel(thismob)
+	guards_spawned = list()
 
 /area/syndicate_depot/proc/ghostlog(var/gmsg)
 	if(istype(reactor))
@@ -835,7 +850,7 @@ var/list/ghostteleportlocs = list()
 		log_game("Depot run: started: " + list_hostiles())
 
 /area/syndicate_depot/proc/declare_finished()
-	if(!run_finished)
+	if(!run_finished && !used_self_destruct)
 		run_finished = TRUE
 		log_game("Depot run: finished successfully: " + list_hostiles())
 

@@ -63,8 +63,9 @@
 
 /obj/machinery/bluespace_beacon/syndicate
 	syndicate = 1
+	enabled = FALSE
 
 /obj/machinery/bluespace_beacon/syndicate/New()
 	..()
-	if(prob(50))
-		enabled = FALSE
+	if(!GAMEMODE_IS_NUCLEAR && prob(50))
+		enabled = TRUE

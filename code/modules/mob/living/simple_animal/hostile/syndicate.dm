@@ -84,7 +84,7 @@
 	var/alert_on_timeout = FALSE
 	var/alert_on_spacing = TRUE
 	var/seen_enemy = FALSE
-	var/seen_enemy_name = ""
+	var/seen_enemy_name = null
 	var/seen_revived_enemy = FALSE
 	var/aggro_cycles = 0
 	var/scan_cycles = 0
@@ -148,7 +148,10 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death()
 	if(alert_on_death)
-		raise_alert("[name] has died in combat with [seen_enemy_name].")
+		if(seen_enemy_name)
+			raise_alert("[name] has died in combat with [seen_enemy_name].")
+		else
+			raise_alert("[name] has died.")
 	if(shield_key && depotarea)
 		depotarea.shields_down()
 	if(depotarea && src in depotarea.guards_spawned)
@@ -170,9 +173,11 @@
 	melee_block_chance = 60
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
-	name = "Syndicate Armory Officer"
+	name = "Syndicate Quartermaster"
 	icon_state = "syndicatemeleespace"
 	icon_living = "syndicatemeleespace"
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
 	maxHealth = 250
 	health = 250
 	melee_block_chance = 80

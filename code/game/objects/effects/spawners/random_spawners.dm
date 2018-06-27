@@ -2,7 +2,6 @@
 	name = "random spawners"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
-	color = "#00FF00"
 	var/list/result = list(
 	/turf/simulated/floor/plasteel = 1,
 	/turf/simulated/floor/plating = 1,
@@ -126,9 +125,7 @@
 
 /obj/effect/spawner/random_spawners/syndicate/turret
 	name = "50pc int turret"
-	icon = 'icons/obj/turrets.dmi'
-	icon_state = "syndieturret0"
-	color = "#FF0000"
+	icon_state = "x"
 	result = list(
 	/obj/machinery/porta_turret/syndicate/interior  = 1
 	)
@@ -144,9 +141,8 @@
 
 /obj/effect/spawner/random_spawners/syndicate/mob
 	name = "50pc melee syndimob"
-	icon = 'icons/mob/animal.dmi'
-	icon_state = "syndicatemelee"
-	color = "#FF0000"
+	icon_state = "x"
+	color = "#333333"
 	result = list(
 	/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1
 	)
@@ -155,12 +151,11 @@
 // Traps
 
 /obj/effect/spawner/random_spawners/syndicate/trap
-	color = "#FF0000"
+	icon_state = "x"
+	color = "#000000"
 
 /obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb
 	name = "50pc trap pizza"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "pizzabox1"
 	spawn_nothing_percentage = 0
 	result = list(
 	/obj/item/pizzabox/meat = 1,
@@ -169,8 +164,6 @@
 
 /obj/effect/spawner/random_spawners/syndicate/trap/medbot
 	name = "50pc trap medibot"
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "medibot0"
 	result = list(
 	/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1
 	)
@@ -183,8 +176,6 @@
 
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
 	name = "66pc trapped documents"
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "docs_yellow"
 	spawn_nothing_percentage = 0
 	result = list(
 	/obj/item/documents/syndicate/yellow = 1,
@@ -197,8 +188,7 @@
 
 /obj/effect/spawner/random_spawners/syndicate/loot
 	name = "common loot"
-	icon = 'icons/misc/debug_rebuild.dmi'
-	icon_state = "1"
+	icon_state = "x3"
 	// Loot schema: costumes, toys, useless gimmick items, trapped items
 	result = list(
 	/obj/item/storage/toolbox/syndicate = 1,
@@ -227,7 +217,6 @@
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level2
 	name = "rare loot"
-	icon_state = "2"
 	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
 	result = list(
 	/obj/item/storage/box/syndie_kit/space = 1,
@@ -238,33 +227,42 @@
 	/obj/item/storage/pill_bottle/happy = 1,
 	/obj/item/storage/pill_bottle/zoom = 1,
 	/obj/item/storage/pill_bottle/random_drug_bottle = 2,
+	/obj/item/storage/backpack/duffel/syndie/surgery = 1,
 	/obj/item/clothing/shoes/syndigaloshes = 1,
+	/obj/item/storage/belt/military = 1,
+	/obj/item/clothing/under/chameleon = 1,
+	/obj/item/storage/backpack/satchel_flat = 1,
 	/obj/item/rcd = 1,
 	/obj/item/rcd_ammo = 1,
 	/obj/item/stamp/chameleon = 1,
 	/obj/item/flag/chameleon = 1,
-	/obj/item/stack/sheet/mineral/plasma = 1,
-	/obj/item/stack/sheet/mineral/silver = 1,
-	/obj/item/stack/sheet/mineral/gold = 1,
+	/obj/item/lighter/zippo/gonzofist = 1,
+	/obj/item/stack/sheet/mineral/plasma{amount = 20} = 1,
+	/obj/item/stack/sheet/mineral/silver{amount = 20} = 1,
+	/obj/item/stack/sheet/mineral/gold{amount = 20} = 1
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
-	icon_state = "3"
 	// Loot schema: medkits, very useful devices (jammer, illegal upgrade, RCD), better quality ammo (AP, fire), basic weapons (pistol, empgrenade), high value ores (diamond, uranium)
 	result = list(
 	/obj/item/jammer = 1,
 	/obj/item/storage/firstaid = 1,
 	/obj/item/storage/firstaid/tactical = 1,
+	/obj/item/storage/box/syndie_kit/bonerepair = 1,
 	/obj/item/gun/projectile/automatic/pistol = 1,
 	/obj/item/stock_parts/cell/bluespace = 1,
+	/obj/item/card/emag = 1,
+	/obj/item/encryptionkey/binary = 1,
+	/obj/item/pinpointer/advpinpointer = 1,
 	/obj/item/borg/upgrade/vtec = 1,
 	/obj/item/borg/upgrade/syndicate = 1,
 	/obj/item/borg/upgrade/selfrepair = 1,
-	/obj/item/stack/sheet/mineral/diamond = 1,
-	/obj/item/stack/sheet/mineral/uranium = 1,
+	/obj/item/stack/sheet/mineral/diamond{amount = 10} = 1,
+	/obj/item/stack/sheet/mineral/uranium{amount = 10} = 1,
 	/obj/item/clothing/shoes/magboots/syndie/advance = 1,
 	/obj/item/grenade/empgrenade = 1,
+	/obj/item/grenade/clown_grenade = 1,
 	/obj/item/grenade/spawnergrenade/feral_cats = 1,
 	/obj/item/ammo_box/magazine/m10mm/ap = 1,
 	/obj/item/ammo_box/magazine/m10mm/fire = 1,
@@ -275,7 +273,6 @@
 	)
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
-	icon_state = "4"
 	spawn_nothing_percentage = 0
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(
@@ -293,28 +290,26 @@
 	/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
 	/obj/item/storage/box/syndie_kit/atmosgasgrenades = 1,
 	/obj/item/grenade/syndieminibomb = 1,
-	/obj/item/grenade/plastic/x4 = 1,
-
+	/obj/item/grenade/plastic/x4 = 1
 	)
 
 
 // Layout-affecting spawns
 
 /obj/effect/spawner/random_spawners/syndicate/layout
-	color = "#0000FF"
+	icon_state = "x2"
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door
 	name = "50pc door 25pc falsewall 25pc wall"
 	spawn_nothing_percentage = 0
 	result = list(
-	/obj/machinery/door/airlock/hatch/syndicate = 2,
-	/turf/simulated/wall/r_wall = 1,
-	/obj/structure/falsewall/reinforced = 1
+	/obj/machinery/door/airlock/hatch/syndicate = 6,
+	/turf/simulated/wall/r_wall = 2,
+	/obj/structure/falsewall/reinforced = 2
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/secret
 	name = "50pc falsewall 50pc wall"
-	color = "#00FFFF"
 	spawn_nothing_percentage = 0
 	result = list(
 	/turf/simulated/wall/r_wall = 1,
@@ -322,20 +317,17 @@
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault
-	name = "50pc vaultdoor 25pc falsewall 25pc wall"
-	color = "#00FFFF"
+	name = "60pc vaultdoor 20pc falsewall 20pc wall"
 	spawn_nothing_percentage = 0
 	result = list(
-	/obj/machinery/door/airlock/hatch/syndicate/vault = 2,
-	/turf/simulated/wall/r_wall = 1,
-	/obj/structure/falsewall/reinforced = 1
+	/obj/machinery/door/airlock/hatch/syndicate/vault = 6,
+	/turf/simulated/wall/r_wall = 2,
+	/obj/structure/falsewall/reinforced = 2
 	)
 
 
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod
 	name = "50pc loot spacepod"
-	icon = 'icons/goonstation/48x48/pods.dmi'
-	icon_state = "pod_synd"
 	result = list(
 	/obj/spacepod/syndi = 1,
 	/obj/spacepod/syndi/unlocked = 1

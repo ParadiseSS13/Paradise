@@ -130,7 +130,7 @@
 
 /obj/machinery/computer/syndicate_depot/doors/get_menu(var/mob/user)
 	return {"<B>Syndicate Depot Door Control Computer</B><HR>
-	<BR><BR><a href='?src=[UID()];primary=1'>Toggle Airlocks</a>
+	<BR><BR><a href='?src=[UID()];primary=1'>Toggle Airlock Emergency Access</a>
 	<BR><BR><a href='?src=[UID()];secondary=1'>Toggle Hidden Doors</a>
 	<BR>"}
 
@@ -197,6 +197,11 @@
 	req_access = list()
 	alerts_when_broken = TRUE
 	var/message_sent = FALSE
+
+/obj/machinery/computer/syndicate_depot/syndiecomms/New()
+	. = ..()
+	if(depotarea)
+		depotarea.comms_computer = src
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/get_menu(var/mob/user)
 	var/menu = "<B>Syndicate Communications Relay</B><HR>"
@@ -401,9 +406,6 @@
 	icon_screen = "command"
 	req_access = list()
 
-/obj/machinery/computer/syndicate_depot/aiterminal/allowed(var/mob/user)
-	return 1
-
 /obj/machinery/computer/syndicate_depot/aiterminal/get_menu(var/mob/user)
 	var/menutext = "<B>Syndicate AI Terminal</B><HR><BR>"
 	if(!istype(depotarea))
@@ -445,5 +447,35 @@
 	else
 		menutext += "Visiting Agents: NONE"
 	menutext += "<BR><BR>"
-
+	if(check_rights(R_ADMIN, 0, user))
+		if(depotarea.on_peaceful)
+			menutext += "<BR><BR>ADMIN: (to end visitor mode, use comms console)"
+		else
+			menutext += "<BR><BR>ADMIN: (<a href='?src=[UID()];primary=1'>Reset Depot Alert Level</a>)"
+	var/has_bot = FALSE
+	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.guards_spawned)
+		has_bot = TRUE
+	if(has_bot)
+		menutext += "<BR><BR>Sentry Bot: (<a href='?src=[UID()];secondary=1'>issue recall order</a>)"
+	else
+		menutext += "<BR><BR>Sentry Bot: (none present)"
 	return menutext
+
+/obj/machinery/computer/syndicate_depot/aiterminal/primary(var/mob/user)
+	if(..())
+		return
+	if(!check_rights(R_ADMIN, 0, user))
+		return
+	if(depotarea)
+		depotarea.reset_alert()
+		to_chat(user, "Alert level reset.")
+
+/obj/machinery/computer/syndicate_depot/aiterminal/secondary(var/mob/user)
+	if(..())
+		return
+	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.guards_spawned)
+		depotarea.guards_spawned -= B
+		new /obj/effect/portal(get_turf(B))
+		to_chat(user, "[B] has been recalled.")
+		qdel(B)
+		raise_alert("Sentry bot removed via emergency recall.")

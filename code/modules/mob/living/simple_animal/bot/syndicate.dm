@@ -24,6 +24,7 @@
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/area/syndicate_depot/depotarea
 	var/raised_alert = FALSE
+	var/pathing_failed = FALSE
 	var/turf/spawn_turf
 
 /mob/living/simple_animal/bot/ed209/syndicate/New()
@@ -198,7 +199,12 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_patrol()
 	if(tries >= BOT_STEP_MAX_RETRIES)
-		raise_alert("[src] unable to reach target destination.")
+		if(!pathing_failed)
+			pathing_failed = TRUE
+			var/failmsg = "Depot: [src] at [loc.x],[loc.y],[loc.z] lacks patrol target."
+			if(istype(patrol_target))
+				failmsg = "Depot: [src] at [loc.x],[loc.y],[loc.z] cannot reach [patrol_target.x],[patrol_target.y]"
+			log_debug(failmsg)
 	return ..()
 
 /mob/living/simple_animal/bot/ed209/syndicate/proc/raise_alert(var/reason)
