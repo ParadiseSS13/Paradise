@@ -54,3 +54,24 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
 	name = "advanced blood-red magboots"
 	slowdown_active = SHOES_SLOWDOWN
+
+/obj/item/clothing/shoes/magboots/clown
+	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
+	name = "clown shoes"
+	icon_state = "clown"
+	item_state = "clown_shoes"
+	slowdown = SHOES_SLOWDOWN+1
+	item_color = "clown"
+	var/footstep = 1	//used for squeeks whilst walking
+	silence_steps = 1
+	shoe_sound = "clownstep"
+	origin_tech = "magnets=4;syndicate=2"
+
+/obj/item/clothing/shoes/magboots/clown/attack_self(mob/user) //redefine toggle to remove slowdown and icon updating
+	if(magpulse)
+		flags &= ~NOSLIP
+	else
+		flags |= NOSLIP
+	magpulse = !magpulse
+	to_chat(user, "You [magpulse ? "enable" : "disable"] the mag-pulse traction system.")
+	user.update_gravity(user.mob_has_gravity())

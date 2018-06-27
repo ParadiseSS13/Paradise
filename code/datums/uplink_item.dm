@@ -129,6 +129,11 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/clownmagboots
+	name = "Clown Magboots"
+	desc = "A pair of modified clown shoes fitted with an advanced magnetic pull system. Look and sound exactly like regular clown shoes unless closely inspected."
+	reference = "CM"
+	item = /obj/item/clothing/shoes/magboots/clown
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
