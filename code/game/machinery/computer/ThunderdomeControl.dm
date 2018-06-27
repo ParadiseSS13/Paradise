@@ -8,6 +8,7 @@
 	var/activetdome = 0
 	var/damagedtdome = 0
 	var/last_changetdome = 0
+	var/thunderdomearea = /area/tdome/arena
 
 	light_color = LIGHT_COLOR_CYAN
 
@@ -26,11 +27,9 @@
 	dat += "<HR>Loaded Programs:<BR>"
 
 	dat += "<A href='?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];technolabyrinth=1'>((Techno Labyrinth)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
-//		dat += "<A href='?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];technohell=1'>((Techno Hell)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];placeholder=1'>((Placeholder)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];placeholder2=1'>((Placeholder 2)</font>)</A><BR>"
 
 	dat += "Weapons are live and can kill. Well not the weapons but the morons using them.<BR>"
 
@@ -45,29 +44,33 @@
 		return 1
 
 	if(href_list["snowfield"])
-		tdometarget = locate(/area/holodeck/source_emptycourt)
+		tdometarget = locate(/area/tdome/arena_source)
 		if(tdometarget)
-			loadProgram(tdometarget)
+			for(var/obj/obj in thunderdomearea)
+				qdel(obj) //Clear objects
+			tdometarget.copy_contents_to(thunderdomearea)
 
-	else if(href_list["technolabyrinth"])
-		tdometarget = locate(/area/holodeck/source_boxingcourt)
+	else if(href_list["technohell"])
+		tdometarget = locate(/area/tdome/arena_source2)
 		if(tdometarget)
-			loadProgram(tdometarget)
+			for(var/obj/obj in thunderdomearea)
+				qdel(obj)
+			tdometarget.copy_contents_to(thunderdomearea)
 
-	else if(href_list["basketball"])
-		tdometarget = locate(/area/holodeck/source_basketball)
+	else if(href_list["placeholder"])
+		tdometarget = locate(/area/tdome/arena_source3)
 		if(tdometarget)
-			loadProgram(tdometarget)
+			for(var/obj/obj in thunderdomearea)
+				qdel(obj)
+			tdometarget.copy_contents_to(thunderdomearea)
 
-	else if(href_list["thunderdomecourt"])
-		tdometarget = locate(/area/holodeck/source_thunderdomecourt)
+	else if(href_list["placeholder2"])
+		tdometarget = locate(/area/tdome/arena_source4)
 		if(tdometarget)
-			loadProgram(tdometarget)
+			for(var/obj/obj in thunderdomearea)
+				qdel(obj)
+			tdometarget.copy_contents_to(thunderdomearea)
 
-	else if(href_list["beach"])
-		tdometarget = locate(/area/holodeck/source_beach)
-		if(tdometarget)
-			loadProgram(tdometarget)
 
 	add_fingerprint(usr)
 	updateUsrDialog()
