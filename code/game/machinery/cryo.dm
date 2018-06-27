@@ -457,7 +457,7 @@
 	else
 		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
-		add_attack_logs(user, occupant, "Ejected from cryo cell at [COORD(src)]")
+		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
 		go_out()
 	add_fingerprint(usr)
 	return
