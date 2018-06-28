@@ -207,6 +207,31 @@
 			clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 	return clothes_s
 
+
+
+// Determine what job is marked as 'High' priority, and dress them up as such.
+/datum/preferences/proc/get_highest_job()
+
+	var/highRankFlag = job_support_high | job_medsci_high | job_engsec_high | job_karma_high
+
+	if(job_support_low & CIVILIAN)
+		return job_master.GetJob("Civilian")
+	else if(highRankFlag)
+		var/highDeptFlag
+		if(job_support_high)
+			highDeptFlag = SUPPORT
+		else if(job_medsci_high)
+			highDeptFlag = MEDSCI
+		else if(job_engsec_high)
+			highDeptFlag = ENGSEC
+		else if(job_karma_high)
+			highDeptFlag = KARMA
+
+		for(var/datum/job/job in job_master.occupations)
+			if(job.flag & highRankFlag && job.department_flag == highDeptFlag)
+				return job
+
+
 /datum/preferences/proc/update_preview_icon()
 	// Silicons only need a very basic preview since there is no customization for them.
 	if(job_engsec_high)
@@ -225,27 +250,9 @@
 	mannequin.status_flags |= GODMODE // Why not?
 	copy_to(mannequin)
 
-	// Determine what job is marked as 'High' priority, and dress them up as such.
 	var/datum/job/previewJob
-	var/highRankFlag = job_support_high | job_medsci_high | job_engsec_high | job_karma_high
 
-	if(job_support_low & SUPPORT)
-		previewJob = job_master.GetJob("Civilian")
-	else if(highRankFlag)
-		var/highDeptFlag
-		if(job_support_high)
-			highDeptFlag = SUPPORT
-		else if(job_medsci_high)
-			highDeptFlag = MEDSCI
-		else if(job_engsec_high)
-			highDeptFlag = ENGSEC
-		else if(job_karma_high)
-			highDeptFlag = KARMA
-
-		for(var/datum/job/job in job_master.occupations)
-			if(job.flag == highRankFlag && job.department_flag == highDeptFlag)
-				previewJob = job
-				break
+	previewJob = get_highest_job()
 
 	if(previewJob)
 		mannequin.job = previewJob.title
