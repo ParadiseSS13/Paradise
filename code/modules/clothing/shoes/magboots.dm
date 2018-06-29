@@ -6,6 +6,7 @@
 	var/magboot_state = "magboots"
 	var/magpulse = 0
 	var/slowdown_active = 2
+	var/slowdown_passive = SHOES_SLOWDOWN
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
@@ -14,7 +15,7 @@
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
 		flags &= ~NOSLIP
-		slowdown = SHOES_SLOWDOWN
+		slowdown = slowdown_passive
 	else
 		flags |= NOSLIP
 		slowdown = slowdown_active
@@ -58,20 +59,13 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 /obj/item/clothing/shoes/magboots/clown
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
 	name = "clown shoes"
-	icon_state = "clown"
+	icon_state = "clownmag0"
+	magboot_state = "clownmag"
 	item_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
+	slowdown_active = SHOES_SLOWDOWN+1
+	slowdown_passive = SHOES_SLOWDOWN+1
 	item_color = "clown"
-	var/footstep = 1	//used for squeeks whilst walking
 	silence_steps = 1
 	shoe_sound = "clownstep"
 	origin_tech = "magnets=4;syndicate=2"
-
-/obj/item/clothing/shoes/magboots/clown/attack_self(mob/user) //redefine toggle to remove slowdown and icon updating
-	if(magpulse)
-		flags &= ~NOSLIP
-	else
-		flags |= NOSLIP
-	magpulse = !magpulse
-	to_chat(user, "You [magpulse ? "enable" : "disable"] the mag-pulse traction system.")
-	user.update_gravity(user.mob_has_gravity())
