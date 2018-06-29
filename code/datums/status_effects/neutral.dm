@@ -2,7 +2,7 @@
 
 /datum/status_effect/high_five
 	id = "high_five"
-	duration = 25
+	duration = 40
 	alert_type = null
 
 /datum/status_effect/high_five/on_timeout()
