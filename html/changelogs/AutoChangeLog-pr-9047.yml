@@ -1,0 +1,5 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - rscadd: "Adds the conveyor belt placer and bluespace conveyor belt placer, allowing you to much more easily create conveyor belts. The former can be gotten at any autolathe, the latter must be researched first."
+  - rscadd: "Use a conveyor belt lever on aforementioned item to link all belts inside the placer with that lever."
