@@ -84,22 +84,21 @@
 	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
 						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
 
-	var/rembrute = max(0, heal_brute - affecting.brute_dam)
-	var/remburn = max(0, heal_burn - affecting.burn_dam)
+	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
+	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
 	var/nrembrute = rembrute
-	var/nremburn	= remburn
+	var/nremburn = remburn
 	affecting.heal_damage(heal_brute, heal_burn)
 	var/list/achildlist = affecting.children.Copy()
-	var/parenthealed = 0
-	while(rembrute + remburn > 0): // Don't bother if there's not enough leftover heal
+	var/parenthealed = FALSE
+	while(rembrute + remburn > 0) // Don't bother if there's not enough leftover heal
 		var/obj/item/organ/external/E
-		if(achildlist.len):
-			E = pick(achildlist) // Pick a random children
-			achildlist -= E
-		else if(affecting.parent && !parenthealed): // If there's a parent and no healing attempt was made on it
+		if(achildlist.len)
+			E = pick_n_take(achildlist) // Pick a random children and then remove it from the list
+		else if(affecting.parent && !parenthealed) // If there's a parent and no healing attempt was made on it
 			E = affecting.parent
-			parenthealed = 1
-		else:
+			parenthealed = TRUE
+		else
 			break // If the organ have no child left and no parent / parent healed, break
 		if(E.status & ORGAN_ROBOT || E.open) // Ignore robotic or open limb
 			continue
