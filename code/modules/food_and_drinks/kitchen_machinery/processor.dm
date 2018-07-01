@@ -87,6 +87,10 @@
 	input = /obj/item/reagent_containers/food/snacks/doughslice
 	output = /obj/item/reagent_containers/food/snacks/spaghetti
 
+/datum/food_processor_process/macaroni
+	input = /obj/item/reagent_containers/food/snacks/spaghetti
+	output = /obj/item/reagent_containers/food/snacks/macaroni
+
 /datum/food_processor_process/parsnip
 	input = /obj/item/reagent_containers/food/snacks/grown/parsnip
 	output = /obj/item/reagent_containers/food/snacks/roastparsnip

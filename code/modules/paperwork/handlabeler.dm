@@ -35,6 +35,7 @@
 
 	user.visible_message("<span class='notice'>[user] labels [A] as [label].</span>", \
 						 "<span class='notice'>You label [A] as [label].</span>")
+	investigate_log("[key_name(user)] labelled [A] as [label].", INVESTIGATE_LABEL) // Investigate goes BEFORE rename so the original name is preserved in the log
 	A.name = "[A.name] ([label])"
 
 /obj/item/hand_labeler/attack_self(mob/user as mob)

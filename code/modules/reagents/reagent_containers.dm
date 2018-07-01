@@ -61,10 +61,10 @@
 /obj/item/reagent_containers/afterattack(obj/target, mob/user , flag)
 	return
 
-/obj/item/reagent_containers/proc/reagentlist(obj/item/reagent_containers/snack) //Attack logs for regents in pills
+/obj/item/reagent_containers/proc/reagentlist() //Return reagents in a reagent_container, default to source
 	var/data
-	if(snack && snack.reagents && snack.reagents.reagent_list && snack.reagents.reagent_list.len) //find a reagent list if there is and check if it has entries
-		for(var/datum/reagent/R in snack.reagents.reagent_list) //no reagents will be left behind
+	if(reagents && reagents.reagent_list && reagents.reagent_list.len) //find a reagent list if there is and check if it has entries
+		for(var/datum/reagent/R in reagents.reagent_list) //no reagents will be left behind
 			data += "[R.id]([R.volume] units); " //Using IDs because SOME chemicals(I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 		return data
 	else return "No reagents"
