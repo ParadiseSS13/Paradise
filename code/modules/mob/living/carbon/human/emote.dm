@@ -882,6 +882,13 @@
 					remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 					L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 					return
+		if("dab")
+			message = "<b>[src]</b> dabs."
+			electrocute_act(5,"Lightning Bolt",safety=1)
+			playsound(get_turf(src), 'sound/magic/LightningShock.ogg', 50, 1, -1)
+			adjustFireLoss(75)
+			Weaken(5)
+			to_chat(src, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 
 		if("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
