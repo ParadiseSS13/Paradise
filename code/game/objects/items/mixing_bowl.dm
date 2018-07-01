@@ -151,17 +151,20 @@
 /obj/item/mixing_bowl/proc/fail(obj/source)
 	if(!source)
 		source = src
-	var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
 	var/amount = 0
-	for(var/obj/O in contents-ffuu)
+	for(var/obj/O in contents)
 		amount++
 		if(O.reagents)
 			var/id = O.reagents.get_master_reagent_id()
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
+	if(reagents && reagents.total_volume)
+		var/id = reagents.get_master_reagent_id()
+		if(id)
+			amount += reagents.get_reagent_amount(id)
 	reagents.clear_reagents()
+	var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(get_turf(source))
 	ffuu.reagents.add_reagent("carbon", amount)
 	ffuu.reagents.add_reagent("????", amount/10)
-	ffuu.forceMove(get_turf(source))
 	make_dirty(75)
