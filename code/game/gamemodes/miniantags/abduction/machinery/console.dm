@@ -27,7 +27,7 @@
 	var/obj/machinery/computer/camera_advanced/abductor/camera
 	var/list/datum/icon_snapshot/disguises = list()
 
-/obj/machinery/abductor/console/initialize()
+/obj/machinery/abductor/console/Initialize()
 	..()
 	Link_Abduction_Equipment()
 

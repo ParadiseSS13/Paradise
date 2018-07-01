@@ -248,23 +248,35 @@ Proc for attack log creation, because really why not
 This is always put in the attack log.
 */
 
-/proc/add_attack_logs(mob/user, mob/target, what_done, admin_notify = TRUE)
+/proc/add_attack_logs(mob/user, mob/target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
 		for(var/mob/M in targets)
-			add_attack_logs(user, M, what_done, admin_notify)
+			add_attack_logs(user, M, what_done, custom_level)
 		return
 
-	var/user_str = key_name(user)
-	var/target_str = key_name(target)
+	var/user_str = key_name_log(user)
+	var/target_str = key_name_log(target)
 
 	if(istype(user))
 		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
 	if(istype(target))
 		target.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	log_attack(user_str, target_str, what_done)
-	if(admin_notify)
-		msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]")
+
+	var/loglevel = ATKLOG_MOST
+
+	if(!isnull(custom_level))
+		loglevel = custom_level
+	else if(istype(target))
+		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
+			loglevel = ATKLOG_FEW
+		else if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+			loglevel = ATKLOG_ALL
+		else if(!target.ckey) // Attacks by players on NPCs are only shown to admins with ATKLOG_ALL or ATKLOG_ALMOSTALL
+			loglevel = ATKLOG_ALMOSTALL
+
+	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
 /proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
 	if(!user || !target)
@@ -479,3 +491,16 @@ This is always put in the attack log.
 /proc/update_all_mob_security_hud()
 	for(var/mob/living/carbon/human/H in mob_list)
 		H.sec_hud_set_security_status()
+
+/proc/getviewsize(view)
+	var/viewX
+	var/viewY
+	if(isnum(view))
+		var/totalviewrange = 1 + 2 * view
+		viewX = totalviewrange
+		viewY = totalviewrange
+	else
+		var/list/viewrangelist = splittext(view, "x")
+		viewX = text2num(viewrangelist[1])
+		viewY = text2num(viewrangelist[2])
+	return list(viewX, viewY)

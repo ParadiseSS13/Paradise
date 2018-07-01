@@ -4,6 +4,7 @@
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access_in(client)
+	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
 	if(config.log_access)
 		for(var/mob/M in player_list)
 			if(M == src)	continue

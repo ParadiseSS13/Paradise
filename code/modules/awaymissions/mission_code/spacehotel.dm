@@ -54,7 +54,7 @@
 	name = "space hotel pamphlet"
 	info = "<h3>Welcome to Deep Space Hotel 419!</h3>Thank you for choosing our hotel. Simply hand your credit or debit card to the concierge and get your room key! To check out, hand your credit card back.<small><h4>Conditions:</h4><ul><li>The hotel is not responsible for any losses due to time or space anomalies.<li>The hotel is not responsible for events that occur outside of the hotel station, including, but not limited to, events that occur inside of dimensional pockets.<li>The hotel is not responsible for overcharging your account.<li>The hotel is not responsible for missing persons.<li>The hotel is not responsible for mind-altering effects due to drugs, magic, demons, or space worms.</ul></small>"
 
-/obj/effect/landmark/map_loader/hotel_room/initialize()
+/obj/effect/landmark/map_loader/hotel_room/Initialize()
 	..()
 	// load and randomly assign rooms
 	var/global/list/south_room_templates = list()
@@ -300,5 +300,3 @@
 
 	S.retal_target = target
 	S.retal = 1
-
-#undef CHECKOUT_TIME

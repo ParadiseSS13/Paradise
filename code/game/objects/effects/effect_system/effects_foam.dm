@@ -163,21 +163,21 @@
 // dense and opaque, but easy to break
 
 /obj/structure/foamedmetal
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "metalfoam"
-	density = 1
-	opacity = 1 	// changed in New()
-	anchored = 1
 	name = "foamed metal"
 	desc = "A lightweight foamed metal wall."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "metalfoam"
+	density = TRUE
+	opacity = TRUE	// changed in New()
+	anchored = TRUE
+	max_integrity = 20
 	var/metal = MFOAM_ALUMINUM
 
-/obj/structure/foamedmetal/initialize()
+/obj/structure/foamedmetal/Initialize()
 	..()
 	air_update_turf(1)
 
 /obj/structure/foamedmetal/Destroy()
-	density = 0
 	air_update_turf(1)
 	return ..()
 
@@ -186,63 +186,30 @@
 	..()
 	move_update_air(T)
 
+/obj/structure/foamedmetal/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
+
 /obj/structure/foamedmetal/proc/updateicon()
 	if(metal == MFOAM_ALUMINUM)
 		icon_state = "metalfoam"
+		max_integrity = 20
+		obj_integrity = max_integrity
 	else
 		icon_state = "ironfoam"
-
-/obj/structure/foamedmetal/ex_act(severity)
-	qdel(src)
-
-/obj/structure/foamedmetal/blob_act()
-	qdel(src)
-
-/obj/structure/foamedmetal/bullet_act()
-	if(metal==MFOAM_ALUMINUM || prob(50))
-		qdel(src)
+		max_integrity = 50
+		obj_integrity = max_integrity
 
 /obj/structure/foamedmetal/attack_hand(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if((HULK in user.mutations) || (prob(75 - metal*25)))
-		user.visible_message("<span class='warning'>[user] smashes through \the [src].</span>", "<span class='notice'>You smash through \the [src].</span>")
+	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+	if(prob(75 - metal * 25))
+		user.visible_message("<span class='warning'>[user] smashes through [src].</span>", "<span class='notice'>You smash through [src].</span>")
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>You hit the metal foam but bounce off it.</span>")
+		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
-/obj/structure/foamedmetal/attackby(obj/item/I, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		G.affecting.loc = src.loc
-		user.visible_message("<span class='warning'>[G.assailant] smashes [G.affecting] through the foamed metal wall.</span>")
-		qdel(I)
-		qdel(src)
-		return
-
-	if(prob(I.force*20 - metal*25))
-		user.visible_message("<span class='warning'>[user] smashes through the foamed metal with \the [I].</span>", "<span class='notice'>You smash through the foamed metal with \the [I].</span>")
-		qdel(src)
-	else
-		to_chat(user, "<span class='warning'>You hit the metal foam to no effect.</span>")
-
-/obj/structure/foamedmetal/attack_animal(mob/living/simple_animal/M)
-	M.do_attack_animation(src)
-	if(M.melee_damage_upper == 0)
-		M.visible_message("<span class='notice'>[M] nudges \the [src].</span>")
-	else
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		M.visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
-		qdel(src)
-
-/obj/structure/foamedmetal/attack_alien(mob/living/carbon/alien/humanoid/M)
-	M.visible_message("<span class='danger'>[M] tears apart \the [src]!</span>");
-	qdel(src)
-
-/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target, height=1.5)
+/obj/structure/foamedmetal/CanPass(atom/movable/mover, turf/target)
 	return !density
 
 /obj/structure/foamedmetal/CanAtmosPass()

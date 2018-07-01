@@ -36,7 +36,7 @@
 	if(radio_controller)
 		set_frequency(frequency)
 
-/obj/machinery/driver_button/initialize()
+/obj/machinery/driver_button/Initialize()
 	..()
 	set_frequency(frequency)
 

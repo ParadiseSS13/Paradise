@@ -99,6 +99,7 @@
 		U.overlays += I
 
 		var/obj/item/reagent_containers/food/snacks/collected = new type
+		collected.name = name
 		collected.loc = U
 		collected.reagents.remove_any(collected.reagents.total_volume)
 		collected.trash = null
@@ -1040,6 +1041,21 @@
 	filling_color = "#EDDD00"
 	list_reagents = list("nutriment" = 1, "vitamin" = 1)
 
+/obj/item/reagent_containers/food/snacks/macaroni
+	name = "Macaroni twists"
+	desc = "These are little twists of raw macaroni."
+	icon_state = "macaroni"
+	filling_color = "#EDDD00"
+	list_reagents = list("nutriment" = 1, "vitamin" = 1)
+
+/obj/item/reagent_containers/food/snacks/macncheese
+	name = "Macaroni cheese"
+	desc = "One of the most comforting foods in the world. Apparently."
+	trash = /obj/item/trash/snack_bowl
+	icon_state = "macncheese"
+	filling_color = "#ffe45d"
+	list_reagents = list("nutriment" = 5, "vitamin" = 2, "cheese" = 4)
+
 /obj/item/reagent_containers/food/snacks/cheesyfries
 	name = "Cheesy Fries"
 	desc = "Fries. Covered in cheese. Duh."
@@ -1250,7 +1266,14 @@
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
-		new/mob/living/carbon/human(get_turf(src), monkey_type)
+		if(fingerprintslast)
+			log_game("Cube ([monkey_type]) inflated, last touched by: " + fingerprintslast)
+		else
+			log_game("Cube ([monkey_type]) inflated, last touched by: NO_DATA")
+		var/mob/living/carbon/human/creature = new /mob/living/carbon/human(get_turf(src))
+		if(LAZYLEN(fingerprintshidden))
+			creature.fingerprintshidden = fingerprintshidden.Copy()
+		creature.set_species(monkey_type)
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
@@ -2064,6 +2087,20 @@
 	desc = "A slice of polarising pizza."
 	icon_state = "hawaiianpizzaslice"
 	filling_color = "#e5b437"
+
+/obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza
+	name = "Macaroni cheese pizza"
+	desc = "Gastronomists have yet to classify this dish as 'pizza'."
+	icon_state = "macpizza"
+	slice_path = /obj/item/reagent_containers/food/snacks/macpizzaslice
+	list_reagents = list("nutriment" = 40, "vitamin" = 5) //More nutriment because carbs, but it's not any more vitaminicious
+	filling_color = "#ffe45d"
+
+/obj/item/reagent_containers/food/snacks/macpizzaslice
+	name = "Macaroni cheese pizza slice"
+	desc = "A delicious slice of pizza topped with macaroni cheese... wait, what the hell? Who would do this?!"
+	icon_state = "macpizzaslice"
+	filling_color = "#ffe45d"
 
 /obj/item/pizzabox
 	name = "pizza box"

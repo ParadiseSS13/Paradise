@@ -98,6 +98,6 @@
 	return 1
 
 /datum/surgery_step/slime/saw_core/fail_step(mob/living/user, mob/living/carbon/slime/target, target_zone, obj/item/tool)
-		user.visible_message("<span class='warning'> [user]'s hand slips, causing \him to miss the core!</span>", \
+		user.visible_message("<span class='warning'> [user]'s hand slips, causing [user.p_them()] to miss the core!</span>", \
 		"<span class='warning'> Your hand slips, causing you to miss the core!</span>")
 		return 0

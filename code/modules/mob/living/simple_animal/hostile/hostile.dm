@@ -57,7 +57,7 @@
 	target = null
 	return ..()
 
-/mob/living/simple_animal/hostile/Life()
+/mob/living/simple_animal/hostile/Life(seconds, times_fired)
 	. = ..()
 	if(!.)
 		walk(src, 0)

@@ -32,7 +32,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 		return
 
 	if(!target.key || !target.mind)
-		to_chat(user, "They appear to be catatonic. Not even magic can affect their vacant mind.")
+		to_chat(user, "[target.p_they(TRUE)] appear[target.p_s()] to be catatonic. Not even magic can affect [target.p_their()] vacant mind.")
 		return
 
 	if(user.suiciding)

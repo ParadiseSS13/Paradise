@@ -257,7 +257,7 @@
 		if(href_list["chemical"])
 			if(occupant)
 				if(occupant.stat == DEAD)
-					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take them to a department capable of reanimating them.</span>")
+					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
 				else if(occupant.health > min_health || (href_list["chemical"] in emergency_chems))
 					inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 				else
@@ -327,34 +327,35 @@
 		return
 
 	if(istype(G, /obj/item/grab))
+		var/obj/item/grab/GG = G
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
-		if(!ismob(G:affecting))
+		if(!ismob(GG.affecting))
 			return
 		if(src.occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
-		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
-			if(M.Victim == G:affecting)
-				to_chat(usr, "[G:affecting.name] will not fit into the sleeper because they have a slime latched onto their head.")
+		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
+			if(M.Victim == GG.affecting)
+				to_chat(usr, "[GG.affecting.name] will not fit into the sleeper because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
 				return
 
-		visible_message("[user] starts putting [G:affecting:name] into the sleeper.")
+		visible_message("[user] starts putting [GG.affecting.name] into the sleeper.")
 
-		if(do_after(user, 20, target = G:affecting))
+		if(do_after(user, 20, target = GG.affecting))
 			if(src.occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 				return
-			if(!G || !G:affecting) return
-			var/mob/M = G:affecting
+			if(!GG || !GG.affecting) return
+			var/mob/M = GG.affecting
 			M.forceMove(src)
 			src.occupant = M
 			src.icon_state = "[base_icon]"
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 
 			src.add_fingerprint(user)
-			qdel(G)
+			qdel(GG)
 		return
 	return
 
@@ -496,7 +497,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the sleeper because they have a slime latched onto their head.")
+			to_chat(usr, "[L.name] will not fit into the sleeper because [L.p_they()] [L.p_have()] a slime latched onto their head.")
 			return
 	if(L == user)
 		visible_message("[user] starts climbing into the sleeper.")

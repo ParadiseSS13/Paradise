@@ -129,7 +129,7 @@
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		step_away(src,M)
-		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", FALSE)
+		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
 		return
@@ -240,11 +240,11 @@
 			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
 			return
 
-	add_attack_logs(user, src, "Grabbed passively", admin_notify = FALSE)
+	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
 
 	var/obj/item/grab/G = new /obj/item/grab(user, src)
 	if(buckled)
-		to_chat(user, "<span class='notice'>You cannot grab [src], \he is buckled in!</span>")
+		to_chat(user, "<span class='notice'>You cannot grab [src]; [p_they()] [p_are()] buckled in!</span>")
 	if(!G)	//the grab will delete itself in New if src is anchored
 		return 0
 	user.put_in_active_hand(G)
@@ -333,6 +333,9 @@
 		if(INTENT_GRAB)
 			grabbedby(M)
 			return FALSE
-		else
+		if(INTENT_HARM)
 			M.do_attack_animation(src)
+			return TRUE
+		if(INTENT_DISARM)
+			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			return TRUE
