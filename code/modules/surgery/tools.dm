@@ -8,6 +8,10 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
 
+/obj/item/retractor/augment
+	desc = "Micro-mechanical manipulator for retracting stuff."
+	w_class = WEIGHT_CLASS_TINY
+	toolspeed = 0.5
 
 /obj/item/hemostat
 	name = "hemostat"
@@ -20,6 +24,9 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
 
+/obj/item/hemostat/augment
+	desc = "Tiny servos power a pair of pincers to stop bleeding."
+	toolspeed = 0.5
 
 /obj/item/cautery
 	name = "cautery"
@@ -32,6 +39,9 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 
+/obj/item/cautery/augment
+	desc = "A heated element that cauterizes wounds."
+	toolspeed = 0.5
 
 /obj/item/surgicaldrill
 	name = "surgical drill"
@@ -48,10 +58,16 @@
 	attack_verb = list("drilled")
 
 	suicide_act(mob/user)
-		to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to \his temple and activating it! It looks like \he's trying to commit suicide.</span>",
-							"<span class='suicide'>[user] is pressing [src] to \his chest and activating it! It looks like \he's trying to commit suicide.</span>"))
+		to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is pressing [src] to [user.p_their()] chest and activating it! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
 		return (BRUTELOSS)
 
+/obj/item/surgicaldrill/augment
+	desc = "Effectively a small power drill contained within your arm, edges dulled to prevent tissue damage. May or may not pierce the heavens."
+	hitsound = 'sound/weapons/circsawhit.ogg'
+	force = 10
+	w_class = WEIGHT_CLASS_SMALL
+	toolspeed = 0.5
 
 /obj/item/scalpel
 	name = "scalpel"
@@ -72,11 +88,15 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 	suicide_act(mob/user)
-		to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting \his wrists with [src]! It looks like \he's trying to commit suicide.</span>",
-							"<span class='suicide'>[user] is slitting \his throat with [src]! It looks like \he's trying to commit suicide.</span>",
-							"<span class='suicide'>[user] is slitting \his stomach open with [src]! It looks like \he's trying to commit seppuku.</span>"))
+		to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
+							"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
 		return (BRUTELOSS)
 
+
+/obj/item/scalpel/augment
+	desc = "Ultra-sharp blade attached directly to your bone for extra-accuracy."
+	toolspeed = 0.5
 
 /*
  * Researchable Scalpels
@@ -129,6 +149,12 @@
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
 
+/obj/item/circular_saw/augment
+	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
+	force = 10
+	w_class = WEIGHT_CLASS_SMALL
+	toolspeed = 0.5
+
 //misc, formerly from code/defines/weapons.dm
 /obj/item/bonegel
 	name = "bone gel"
@@ -139,6 +165,9 @@
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 
+/obj/item/bonegel/augment
+	toolspeed = 0.5
+
 /obj/item/FixOVein
 	name = "FixOVein"
 	icon = 'icons/obj/surgery.dmi'
@@ -147,6 +176,9 @@
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/FixOVein/augment
+	toolspeed = 0.5
 
 /obj/item/bonesetter
 	name = "bone setter"
@@ -159,6 +191,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
+
+/obj/item/bonesetter/augment
+	toolspeed = 0.5
 
 /obj/item/surgical_drapes
 	name = "surgical drapes"

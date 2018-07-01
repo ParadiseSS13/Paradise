@@ -69,9 +69,10 @@
 	item_state = "clown"
 	item_color = "clown"
 	flags_size = ONESIZEFITSALL
+	var/honk_sound = 'sound/items/bikehorn.ogg'
 
 /obj/item/clothing/under/rank/clown/hit_reaction()
-	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
+	playsound(loc, honk_sound, 50, 1, -1)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == "Clown")

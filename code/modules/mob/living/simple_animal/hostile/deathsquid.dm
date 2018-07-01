@@ -11,6 +11,8 @@
 	icon_state = "deathsquid"
 	icon_living = "deathsquid"
 	icon_dead = "deathsquiddead"
+	pixel_x = -24
+	pixel_y = -24
 
 	attacktext = "slices"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
