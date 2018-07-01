@@ -104,8 +104,8 @@
 			continue
 		else if(!E.brute_dam && !E.burn_dam) // Ignore undamaged limb
 			continue
-		nrembrute = rembrute - E.brute_dam // Deduct the healed damage from the remain
-		nremburn = remburn - E.burn_dam
+		nrembrute = max(0, rembrute - E.brute_dam) // Deduct the healed damage from the remain
+		nremburn = max(0, remburn - E.burn_dam)
 		E.heal_damage(rembrute, remburn)
 		rembrute = nrembrute
 		remburn = nremburn
