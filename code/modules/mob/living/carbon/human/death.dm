@@ -177,3 +177,12 @@
 	ChangeToHusk()
 	mutations |= NOCLONE
 	return
+
+/mob/living/carbon/human/proc/cure_husk()
+	mutations.Remove(HUSK)
+	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
+	if(istype(H))
+		H.disfigured = FALSE
+	update_body(0)
+	update_mutantrace(0)
+	UpdateAppearance() // reset hair from DNA

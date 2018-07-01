@@ -173,31 +173,37 @@
 		return ..()
 
 /obj/item/paper/contract/infernal/proc/attempt_signature(mob/living/carbon/human/user, blood = 0)
-	if(user.IsAdvancedToolUser() && user.is_literate())
-		if(user.mind == target)
-			if(user.mind.soulOwner != owner)
-				if (contractType == CONTRACT_REVIVE)
-					to_chat(user,"<span class='notice'>You are already alive, this contract would do nothing.</span>")
-				else
-					if(signed)
-						to_chat(user,"<span class='notice'>This contract has already been signed.  It may not be signed again.</span>")
-					else
-						to_chat(user,"<span class='notice'>You quickly scrawl your name on the contract</span>")
-						if(FulfillContract(target.current, blood) <= 0)
-							to_chat(user,"<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
-						return 1
-			else
-				to_chat(user, "<span class='notice'>This devil already owns your soul, you may not sell it to them again.</span>")
-		else
-			to_chat(user,"<span class='notice'>Your signature simply slides off the sheet, it seems this contract is not meant for you to sign.</span>")
-	else
+	if(!(user.IsAdvancedToolUser() && user.is_literate()))
 		to_chat(user, "<span class='notice'>You don't know how to read or write.</span>")
-	return 0
+		return FALSE
 
+	if(user.mind != target)
+		to_chat(user,"<span class='notice'>Your signature simply slides off the sheet, it seems this contract is not meant for you to sign.</span>")
+		return FALSE
 
+	if(!user.mind.hasSoul)
+		to_chat(user, "<span class='notice'>You lack a soul to sign away!</span>")
+
+	if(user.mind.soulOwner != owner)
+		to_chat(user, "<span class='notice'>This devil already owns your soul, you may not sell it to them again.</span>")
+		return FALSE
+
+	if(contractType == CONTRACT_REVIVE) // :eyes:
+		to_chat(user,"<span class='notice'>You are already alive, this contract would do nothing.</span>")
+		return FALSE
+
+	if(signed)
+		to_chat(user,"<span class='notice'>This contract has already been signed. It may not be signed again.</span>")
+		return FALSE
+
+	to_chat(user,"<span class='notice'>You quickly scrawl your name on the contract</span>")
+
+	if(FulfillContract(target.current, blood) <= 0)
+		to_chat(user,"<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
+	return TRUE
 
 /obj/item/paper/contract/infernal/revive/attack(mob/M, mob/living/user)
-	if (target == M.mind && M.stat == DEAD && M.mind.soulOwner == M.mind)
+	if(target == M.mind && M.stat == DEAD && M.mind.hasSoul && M.mind.soulOwner == M.mind)
 		if(!ishuman(M))
 			return
 		var/mob/living/carbon/human/H = M

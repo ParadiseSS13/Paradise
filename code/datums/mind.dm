@@ -60,6 +60,7 @@
 	var/datum/devilinfo/devilinfo //Information about the devil, if any.
  	var/damnation_type = 0
  	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
+	var/hasSoul = TRUE
 
 	var/rev_cooldown = 0
 
