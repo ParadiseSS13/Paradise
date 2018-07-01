@@ -246,7 +246,9 @@
 
 	var/list/recipes_to_make = choose_recipes()
 
-	if(recipes_to_make.len == 1 && recipes_to_make[1][2] == RECIPE_FAIL)	//this only runs if there is a single recipe source to be made and it is a failure (the machine was loaded with only 1 mixing bowl that results in failure OR was directly loaded with ingredients that results in failure). If there are multiple sources, this bit gets skipped.
+	if(recipes_to_make.len == 1 && recipes_to_make[1][2] == RECIPE_FAIL)
+		//This only runs if there is a single recipe source to be made and it is a failure (the machine was loaded with only 1 mixing bowl that results in failure OR was directly loaded with ingredients that results in failure).
+		//If there are multiple sources, this bit gets skipped.
 		dirty += 1
 		if(prob(max(10,dirty*5)))	//chance to get so dirty we require cleaning before next use
 			if(!wzhzhzh(4))
@@ -281,7 +283,9 @@
 			return
 		make_recipes(recipes_to_make)
 
-/obj/machinery/kitchen_machine/proc/choose_recipes()	//picks out recipes for the machine and any mixing bowls it may contain, and builds a list of the selected recipes to be made in a later proc by associating the "source" of the ingredients (mixing bowl, machine) with the recipe for that source
+//choose_recipes(): picks out recipes for the machine and any mixing bowls it may contain.
+	//builds a list of the selected recipes to be made in a later proc by associating the "source" of the ingredients (mixing bowl, machine) with the recipe for that source
+/obj/machinery/kitchen_machine/proc/choose_recipes()
 	var/list/recipes_to_make = list()
 	for(var/obj/item/mixing_bowl/mb in contents)	//if we have mixing bowls present, check each one for possible recipes from its respective contents. Mixing bowls act like a wrapper for recipes and ingredients, isolating them from other ingredients and mixing bowls within a machine.
 		var/datum/recipe/recipe = select_recipe(GLOB.cooking_recipes[recipe_type], mb)
@@ -297,15 +301,16 @@
 		recipes_to_make.Add(list(list(src, RECIPE_FAIL)))
 	return recipes_to_make
 
-/obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)	//cycles through the supplied list of recipes and creates each recipe associated with the "source"
-	if(!recipes_to_make)	//if we aren't supplied a list of recipes, we're done here.
+//make_recipes(recipes_to_make): cycles through the supplied list of recipes and creates each recipe associated with the "source" for that entry
+/obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)
+	if(!recipes_to_make)
 		return
 	var/datum/reagents/temp_reagents = new(500)
 	for(var/i=1 to recipes_to_make.len)		//cycle through each entry on the recipes_to_make list for processing
 		var/list/L = recipes_to_make[i]
 		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
 		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
-		if(!recipe)		//if no recipe (null), we have a failure and create a burned mess
+		if(recipe == RECIPE_FAIL)		//we have a failure and create a burned mess
 			//failed recipe
 			fail()
 		else	//we have a valid recipe to begin making
