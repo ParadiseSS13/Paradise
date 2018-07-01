@@ -32,8 +32,8 @@
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
 			if(S.amount > 1)
-				new S.type (src)
-				S.use(1)
+				var/obj/item/stack/to_add = S.split(user, 1)
+				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
 			else
 				return add_item(S, user)
@@ -47,7 +47,7 @@
 				to_chat(user, "<span class='alert'>Your [I] contains components unsuitable for cookery.</span>")
 				return 1
 	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with  [I].</span>")
+		to_chat(user, "<span class='alert'>You have no idea what you can cook with [I].</span>")
 		return 1
 
 /obj/item/mixing_bowl/proc/add_item(obj/item/I, mob/user)

@@ -116,8 +116,8 @@
 		if(istype(O,/obj/item/stack))
 			var/obj/item/stack/S = O
 			if(S.amount > 1)
-				new S.type (src)
-				S.use(1)
+				var/obj/item/stack/to_add = S.split(user, 1)
+				to_add.forceMove(src)
 				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
 			else
 				add_item(S, user)
@@ -246,10 +246,9 @@
 
 	var/list/recipes_to_make = choose_recipes()
 
-
-	if(recipes_to_make.len == 1 && recipes_to_make[1][2] == null)
+	if(recipes_to_make.len == 1 && recipes_to_make[1][2] == RECIPE_FAIL)	//this only runs if there is a single recipe source to be made and it is a failure (the machine was loaded with only 1 mixing bowl that results in failure OR was directly loaded with ingredients that results in failure). If there are multiple sources, this bit gets skipped.
 		dirty += 1
-		if(prob(max(10,dirty*5)))
+		if(prob(max(10,dirty*5)))	//chance to get so dirty we require cleaning before next use
 			if(!wzhzhzh(4))
 				abort()
 				return
@@ -258,14 +257,14 @@
 			muck_finish()
 			fail()
 			return
-		else if(has_extra_item())
+		else if(has_extra_item())	//if extra items present, break down and require repair before next use
 			if(!wzhzhzh(4))
 				abort()
 				return
 			broke()
 			fail()
 			return
-		else
+		else	//otherwise just stop without requiring cleaning/repair
 			if(!wzhzhzh(10))
 				abort()
 				return
@@ -282,39 +281,36 @@
 			return
 		make_recipes(recipes_to_make)
 
-/obj/machinery/kitchen_machine/proc/choose_recipes()
+/obj/machinery/kitchen_machine/proc/choose_recipes()	//picks out recipes for the machine and any mixing bowls it may contain, and builds a list of the selected recipes to be made in a later proc by associating the "source" of the ingredients (mixing bowl, machine) with the recipe for that source
 	var/list/recipes_to_make = list()
-	for(var/obj/O in contents)
-		if(istype(O, /obj/item/mixing_bowl))
-			var/obj/item/mixing_bowl/mb = O
-			var/datum/recipe/recipe = select_recipe(GLOB.cooking_recipes[recipe_type], mb)
-			if(recipe)
-				recipes_to_make.Add(list(list(mb, recipe)))
-			else
-				recipes_to_make.Add(list(list(mb, null)))
+	for(var/obj/item/mixing_bowl/mb in contents)	//if we have mixing bowls present, check each one for possible recipes from its respective contents. Mixing bowls act like a wrapper for recipes and ingredients, isolating them from other ingredients and mixing bowls within a machine.
+		var/datum/recipe/recipe = select_recipe(GLOB.cooking_recipes[recipe_type], mb)
+		if(recipe)
+			recipes_to_make.Add(list(list(mb, recipe)))
+		else	//if the ingredients of the mixing bowl don't make a valid recipe, we return a fail recipe to generate the burned mess
+			recipes_to_make.Add(list(list(mb, RECIPE_FAIL)))
 
-	var/datum/recipe/recipe_src = select_recipe(GLOB.cooking_recipes[recipe_type], src, ignored_items = list(/obj/item/mixing_bowl))
-	if(recipe_src)
+	var/datum/recipe/recipe_src = select_recipe(GLOB.cooking_recipes[recipe_type], src, ignored_items = list(/obj/item/mixing_bowl))	//check the machine's directly-inserted ingredients for possible recipes as well, ignoring the mixing bowls when selecting recipe
+	if(recipe_src)	//if we found a valid recipe for directly-inserted ingredients, add that to our list
 		recipes_to_make.Add(list(list(src, recipe_src)))
-	else
-		if(!recipes_to_make.len)
-			recipes_to_make.Add(list(list(src, null)))
+	else if(!recipes_to_make.len)	//if the machine has no mixing bowls to make recipes from AND also doesn't have a valid recipe of directly-inserted ingredients, return a failure so we can make a burned mess
+		recipes_to_make.Add(list(list(src, RECIPE_FAIL)))
 	return recipes_to_make
 
-/obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)
-	if(!recipes_to_make)
+/obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)	//cycles through the supplied list of recipes and creates each recipe associated with the "source"
+	if(!recipes_to_make)	//if we aren't supplied a list of recipes, we're done here.
 		return
 	var/datum/reagents/temp_reagents = new(500)
-	for(var/i=1 to recipes_to_make.len)
+	for(var/i=1 to recipes_to_make.len)		//cycle through each entry on the recipes_to_make list for processing
 		var/list/L = recipes_to_make[i]
-		var/obj/source = L[1]
-		var/datum/recipe/recipe = L[2]
-		if(!recipe)
+		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
+		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
+		if(!recipe)		//if no recipe (null), we have a failure and create a burned mess
 			//failed recipe
 			fail()
-		else
-			for(var/obj/O in source.contents)
-				if(istype(O, /obj/item/mixing_bowl))
+		else	//we have a valid recipe to begin making
+			for(var/obj/O in source.contents)	//begin processing the ingredients supplied
+				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
 					continue
 				if(O.reagents)
 					O.reagents.del_reagent("nutriment")
@@ -322,15 +318,15 @@
 					O.reagents.trans_to(temp_reagents, O.reagents.total_volume)
 				qdel(O)
 			source.reagents.clear_reagents()
-			for(var/e=1 to efficiency)
+			for(var/e=1 to efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
 				var/obj/cooked = new recipe.result()
 				temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency)
 				cooked.forceMove(loc)
 			temp_reagents.clear_reagents()
-			var/obj/byproduct = recipe.get_byproduct()
+			var/obj/byproduct = recipe.get_byproduct()	//if the recipe has a byproduct, handle returning that (such as re-usable candy moulds)
 			if(byproduct)
 				new byproduct(loc)
-			if(istype(source, /obj/item/mixing_bowl))
+			if(istype(source, /obj/item/mixing_bowl))	//if the recipe's source was a mixing bowl, make it a little dirtier and return that for re-use.
 				var/obj/item/mixing_bowl/mb = source
 				mb.make_dirty(5 * efficiency)
 				mb.forceMove(loc)
@@ -403,19 +399,17 @@
 
 /obj/machinery/kitchen_machine/proc/fail()
 	var/amount = 0
+	for(var/obj/item/mixing_bowl/mb in contents)	//fail and remove any mixing bowls present before making the burned mess from the machine itself (to avoid them being destroyed as part of the failure)
+		mb.fail(src)
+		mb.forceMove(get_turf(src))
 	for(var/obj/O in contents)
-		if(istype(O, /obj/item/mixing_bowl))
-			var/obj/item/mixing_bowl/mb = O
-			mb.fail(src)
-			mb.forceMove(get_turf(src))
-			continue
 		amount++
-		if(O.reagents)
+		if(O.reagents)	//this is reagents in inserted objects (like chems in produce)
 			var/id = O.reagents.get_master_reagent_id()
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
-	if(reagents && reagents.total_volume)
+	if(reagents && reagents.total_volume)	//this is directly-added reagents (like water added directly into the machine)
 		var/id = reagents.get_master_reagent_id()
 		if(id)
 			amount += reagents.get_reagent_amount(id)
