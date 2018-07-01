@@ -54,31 +54,17 @@
 	return .
 
 /datum/recipe/proc/check_items(obj/container, list/ignored_items = null) //1=precisely, 0=insufficiently, -1=superfluous
-	if(!items)
-		if(locate(/obj/) in container)
-			if(ignored_items)	//are we supposed to be ignoring anything?
-				var/unignored = FALSE
-				for(var/obj/O in container)
-					if(!is_type_in_list(O, ignored_items))
-						unignored = TRUE	//found something we aren't ignoring, quit looking
-						break
-				if(unignored)
-					return -1
-				else	//anything we found is something we are ignoring
-					return 1
-			else	//not ignoring anything, and we found something
-				return -1
-		else	//didn't find anything
-			return 1
 	. = 1
-	var/list/checklist = items.Copy()
+	var/list/checklist = items ? items.Copy() : list()
 	for(var/obj/O in container)
 		if(ignored_items && is_type_in_list(O, ignored_items))	//skip if this is something we are ignoring
 			continue
+		if(!items)
+			return -1
 		var/found = 0
 		for(var/type in checklist)
 			if(istype(O,type))
-				checklist-=type
+				checklist -= type
 				found = 1
 				break
 		if(!found)
