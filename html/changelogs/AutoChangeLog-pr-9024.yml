@@ -1,0 +1,4 @@
+author: "Anasari"
+delete-after: True
+changes: 
+  - tweak: "Shuttle can be called at 30:00 instead of 25:00 during War Ops."
