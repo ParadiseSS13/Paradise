@@ -165,7 +165,6 @@
 			if(owner.mind)
 				owner.mind.transfer_to(stored_mmi.brainmob)
 			stored_mmi.forceMove(get_turf(owner))
-			stored_mmi.silenced = TRUE //Posibrains are always silenced when removed, no exceptions
 			stored_mmi = null
 	..()
 	qdel(src)
@@ -193,3 +192,9 @@
 		else
 			stored_mmi.loc = get_turf(src)
 			qdel(src)
+
+/obj/item/organ/internal/brain/mmi_holder/posibrain/remove()
+	if(stored_mmi)
+		var/obj/item/mmi/posibrain/P = stored_mmi
+		P.silenced = TRUE //Posibrains are always silenced when removed, no exceptions
+	..()
