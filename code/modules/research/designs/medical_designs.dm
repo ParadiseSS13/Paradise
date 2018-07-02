@@ -114,15 +114,15 @@
 	build_path = /obj/item/mmi/posibrain
 	category = list("Misc","Medical")
 
-/datum/design/mmi_radio
-	name = "Radio-Enabled Man-Machine Interface"
-	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity. This one comes with a built-in radio."
-	id = "mmi_radio"
+/datum/design/mmi_radio_upgrade
+	name = "Man-Machine Interface Radio Upgrade"
+	desc = "Enables radio capability on MMIs when either installed directly on the MMI, or through a cyborg's chassis."
+	id = "mmi_radio_upgrade"
 	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 2)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 1200, MAT_GLASS = 500)
-	construction_time = 75
-	build_path = /obj/item/mmi/radio_enabled
+	materials = list(MAT_METAL = 200)
+	construction_time = 50
+	build_path = /obj/item/mmi_radio_upgrade
 	category = list("Misc","Medical")
 
 /datum/design/nanopaste

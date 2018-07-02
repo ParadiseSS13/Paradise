@@ -738,7 +738,7 @@ var/list/robot_verbs_default = list(
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
-			to_chat(user, "<span class='warning'>You must access the borgs internals!</span>")
+			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
 		else if(!src.module && U.require_module)
 			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
 		else if(U.locked)
@@ -752,6 +752,21 @@ var/list/robot_verbs_default = list(
 			else
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
 
+	else if(istype(W, /obj/item/mmi_radio_upgrade))
+		if(!opened)
+			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
+			return
+		else if(!mmi)
+			to_chat(user, "<span class='warning'>This cyborg does not have an MMI to augment!</span>")
+			return
+		else if(mmi.radio)
+			to_chat(user, "<span class='warning'>A radio upgrade is already installed in the MMI!</span>")
+			return
+		else if(user.drop_item())
+			to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
+			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
+			mmi.install_radio()
+			qdel(W)
 	else
 		return ..()
 
