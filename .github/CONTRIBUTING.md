@@ -148,6 +148,52 @@ var/path_type = /obj/item/baseball_bat
 var/path_type = "/obj/item/baseball_bat"
 ```
 
+### Do not use `\The`.
+The `\The` macro doesn't actually do anything when used in the format `\The [atom reference]`. Directly referencing an atom in an embedded string
+will automatically prefix `The` or `the` to it as appropriate. As an extension, when referencing an atom, don't use `[atom.name]`, use `[atom]`.
+The only exception to this rule is when dealing with items "belonging" to a mob, in which case you should use `[mob]'s [atom.name]` to avoid `The`
+ever forming.
+
+```DM
+//Good
+var/atom/A 
+"[A]"
+
+//Bad
+"\The [A]"
+```
+
+### Use the pronoun library instead of `\his` macros.
+We have a system in code/\_\_HELPERS/pronouns.dm for addressing all forms of pronouns. This is useful in a number of ways;
+ * BYOND's \his macro can be unpredictable on what object it references.
+   Take this example: `"[user] waves \his [user.weapon] around, hitting \his opponents!"`. 
+   This will end up referencing the user's gender in the first occurence, but what about the second?
+   It'll actually print the gender set on the weapon he's carrying, which is unintended - and there's no way around this.
+ * It always prints the real `gender` variable of the atom it's referencing. This can lead to exposing a mob's gender even when their face is covered,
+   which would normally prevent it's gender from being printed.
+
+The way to avoid these problems is to use the pronoun system. Instead of `"[user] waves \his arms."`, you can do `"[user] waves [user.p_their()] arms."`
+
+```
+//Good
+"[H] waves [H.p_their()] hands!"
+"[user] waves [H.p_their()] [user.weapon] around, hitting [H.p_their()] opponents!"`
+
+//Bad
+"[H] waves \his hands!"
+"[user] waves \his [user.weapon] around, hitting \his opponents!"
+```
+
+### Use `[A.UID()]` over `\ref[A]`
+BYOND has a system to pass "soft references" to datums, using the format `"\ref[datum]"` inside a string. This allows you to find the object just based
+off of a text string, which is especially useful when dealing with the bridge between BYOND code and HTML/JS in UIs. It's resolved back into an object
+reference by using `locate("\ref[datum]")` when the code comes back to BYOND. The issue with this is that locate() can return a unexpected datum
+if the original datum has been deleted - BYOND recycles the references.
+
+UID's are actually unique; they work off of a global counter and are not recycled. Each datum has one assigned to it when it's created, which can be
+accessed by `[datum.UID()]`. You can use this as a snap-in replacement for `\ref` by changing any `locate(ref)` calls in your code to `locateUID(ref)`.
+Usage of this system is mandatory for any /Topic( calls, and will produce errors in Dream Daemon if it's not used. `<a href='?src=[UID()];'>`, not `<a href='?src=\ref[src];'`.
+
 ### Use var/name format when declaring variables
 While DM allows other ways of declaring variables, this one should be used for consistency.
 
@@ -190,7 +236,7 @@ more clearly states what it's for. For instance:
     if(2)
       (...)
 ````
-There's no indication of what "1" and "2" mean! Instead, you'd do something like this:
+There's no indication of what "1" and "2" mean! Instead, you should do something like this:
 ````DM
 #define DO_THE_THING_REALLY_HARD 1
 #define DO_THE_THING_EFFICIENTLY 2
@@ -206,9 +252,9 @@ This is clearer and enhances readability of your code! Get used to doing it!
 ### Control statements
 (if, while, for, etc)
 
-* All control statements must not contain code on the same line as the statement (`if (blah) return`)
+* All control statements must not contain code on the same line as the statement (`if(condition) return`)
 * All control statements comparing a variable to a number should use the formula of `thing` `operator` `number`, not the reverse 
-  (eg: `if (count <= 10)` not `if (10 >= count)`)
+  (eg: `if(count <= 10)` not `if(10 >= count)`)
 * All control statements must be spaced as `if()`, with the brackets touching the keyword. 
 * Do not use one-line control statements. 
   Instead of doing
@@ -226,7 +272,8 @@ Due to the use of "Goonchat", Paradise requires a special syntax for outputting 
 you must use `to_chat(mob/client/world, "message")`. Failure to do so will lead to your code not working.
 
 ### Use early return
-Do not enclose a proc in an if-block when returning on a condition is more feasible
+Do not enclose a proc in an if-block when returning on a condition is more feasible.
+ 
 This is bad:
 ````DM
 /datum/datum1/proc/proc1()
@@ -287,21 +334,21 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
   `<span class='notice'>blue text</span>`.
     * Bad:
     ```
-    usr << "\red Red Text \black black text"
+    to_chat("\red Red Text \black black text")
     ```
     * Good:
     ```
-    usr << "<span class='warning'>Red Text</span>black text"
+    to_chat("<span class='warning'>Red Text</span>black text")
     ```
   * To use variables in strings, you should **never** use the `text()` operator, use
    embedded expressions directly in the string.
      * Bad:
      ```
-     usr << text("\The [] is leaking []!", src.name, src.liquid_type)
+     to_chat(text("[] is leaking []!", src.name, src.liquid_type))
      ```
      * Good:
      ```
-     usr << "\The [src] is leaking [liquid_type]"
+     to_chat("[src] is leaking [liquid_type]")
      ```
  * To reference a variable/proc on the src object, you should **not** use
    `src.var`/`src.proc()`. The `src.` in these cases is implied, so you should just use
@@ -443,10 +490,8 @@ With `.` being everpresent in every proc, can we use it as a temporary variable?
 DM has a var keyword, called global. This var keyword is for vars inside of types. For instance:
 
 ```DM
-mob
-  var
-    global
-      thing = TRUE
+/mob
+  var/global/thing = TRUE
 ```
 This does NOT mean that you can access it everywhere like a global var. Instead, it means that that var will only exist once for all instances of its type, in this case that var will only exist once for all mobs - it's shared across everything in its type. (Much more like the keyword `static` in other languages like PHP/C++/C#/Java)
 
@@ -456,7 +501,7 @@ There is also an undocumented keyword called `static` that has the same behaviou
 
 ### Global Vars
 
-All new global vars must use the defines in code/\_\_defines/\_globals.dm. Basic usage is as follows:
+All new global vars must use the defines in code/\_\_DEFINES/\_globals.dm. Basic usage is as follows:
 
 To declare a global var:
 ```DM
