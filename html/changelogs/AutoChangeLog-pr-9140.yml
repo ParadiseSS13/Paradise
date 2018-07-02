@@ -1,7 +1,0 @@
-author: "Crazylemon64"
-delete-after: True
-changes: 
-  - rscadd: "All MMI variants can now install an \"MMI radio upgrade\" in order to acquire radio capability when outside of any other chassis. It can be installed either directly on the MMI, or through an opened cyborg chassis. This radio can later be removed if desired by using a screwdriver on the MMI."
-  - rscadd: "MMIs can now pull up the direct interface of the radio instead of a single-toggle verb"
-  - rscadd: "MMI radio control is now done via action button instead of via verb"
-  - rscdel: "The radio MMI no longer exists as a distinct item"
