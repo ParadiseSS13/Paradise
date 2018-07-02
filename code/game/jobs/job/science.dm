@@ -36,10 +36,10 @@
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/heads/rd
 	id = /obj/item/card/id/rd
-	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/heads/rd
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/clipboard = 1
 	)
 
 	backpack = /obj/item/storage/backpack/science
