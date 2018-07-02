@@ -9,6 +9,7 @@ var/list/doppler_arrays = list()
 	anchored = 1
 	atom_say_verb = "states coldly"
 	var/list/logged_explosions = list()
+	var/printer_timer
 
 /datum/explosion_log
 	var/logged_time
@@ -30,6 +31,8 @@ var/list/doppler_arrays = list()
 
 /obj/machinery/doppler_array/Destroy()
 	doppler_arrays -= src
+	for(var/datum/D in logged_explosions)
+		qdel(D)
 	return ..()
 
 /obj/machinery/doppler_array/process()
@@ -74,6 +77,53 @@ var/list/doppler_arrays = list()
 		return
 	dir = turn(dir, 90)
 	to_chat(user, "<span class='notice'>You rotate [src].</span>")
+
+/obj/item/paper/explosive_log
+	name = "explosive log"
+	info = "<h3>Explosive Log Report</h3>\
+	<table style='width:400px;text-align:left;'>\
+	<tr>\
+	<th>Time logged</th>\
+	<th>Epicenter</th>\
+	<th>Actual</th>\
+	<th>Theoretical</th>\
+	</tr>" //NB: the <table> tag is left open, it is closed later on, when the doppler array adds its data
+
+/obj/machinery/doppler_array/verb/print_logs(mob/user)
+	set name = "Print Explosive Logs"
+	set category = "Object"
+	set src in oview(1)
+
+	if(user.incapacitated())
+		return
+	if(!Adjacent(user))
+		return
+	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do that!</span>")
+		return
+	if(!logged_explosions.len)
+		atom_say("<span class='notice'>No logs currently stored in internal database.</span>")
+		return
+	if(printer_timer)
+		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
+		return
+	atom_say("<span class='notice'>Printing explosive log. Standby...</span>")
+	printer_timer = addtimer(CALLBACK(src, .proc/print), 50)
+
+/obj/machinery/doppler_array/proc/print()
+	printer_timer = FALSE
+	visible_message("<span class='notice'>[src] rattles off a sheet of paper!</span>")
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	var/obj/item/paper/explosive_log/P = new(get_turf(src))
+	for(var/datum/explosion_log/E in logged_explosions)
+		P.info += "<tr>\
+		<td>[E.logged_time]</td>\
+		<td>[E.epicenter]</td>\
+		<td>[E.actual_size_message]</td>\
+		<td>[E.theoretical_size_message]</td>\
+		</tr>"
+	P.info += "</table><hr/>\
+	<em>Printed at [station_time_timestamp()].</em>"
 
 /obj/machinery/doppler_array/proc/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,
 												  var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
