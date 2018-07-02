@@ -113,21 +113,21 @@ actual development.
   `<span class='notice'>blue text</span>`.
     - Bad:
     ```
-    usr << "\red Red Text \black black text"
+    to_chat(src, "\red Red Text \black black text")
     ```
     - Good:
     ```
-    usr << "<span class='warning'>Red Text</span>black text"
+    to_chat(src, "<span class='warning'>Red Text</span>black text")
     ```
   - To use variables in strings, you should **never** use the `text()` operator, use
    embedded expressions directly in the string.
      - Bad:
      ```
-     usr << text("\The [] is leaking []!", src.name, src.liquid_type)
+     to_chat(src, text("\The [] is leaking []!", src.name, src.liquid_type))
      ```
      - Good:
      ```
-     usr << "\The [src] is leaking [liquid_type]"
+     to_chat(src, "\The [src] is leaking [liquid_type]")
      ```
   - To reference a variable/proc on the src object, you should **not** use
    `src.var`/`src.proc()`. The `src.` in these cases is implied, so you should just use
