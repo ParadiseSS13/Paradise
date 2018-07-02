@@ -41,7 +41,6 @@
 			playsound(src, fire_sound, 50, 1)
 			projone.dumbfire(my_atom.dir)
 			projtwo.dumbfire(my_atom.dir)
-		sleep(2)
 
 /datum/spacepod/equipment
 	var/obj/spacepod/my_atom
