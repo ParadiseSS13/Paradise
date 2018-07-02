@@ -1,4 +1,4 @@
-<h2>Logged explosions:</h3>
+<h2>Logged explosions:</h2>
 {{if data.explosion_data == 0}}
 	<p>No explosions logged this shift.</p>
 {{else}}
@@ -20,4 +20,6 @@
 			</span>
 		</div>
 	{{/for}}
+	<br/>
+	{{:helper.link("Print all logs", "print", {"print_logs": 'yes'}, data.printer_timer ? 'disabled' : null)}}
 {{/if}}

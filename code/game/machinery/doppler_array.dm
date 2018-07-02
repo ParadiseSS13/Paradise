@@ -55,6 +55,7 @@ var/list/doppler_arrays = list()
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
 		return
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/doppler_array/attack_ghost(mob/user)
@@ -78,29 +79,7 @@ var/list/doppler_arrays = list()
 	dir = turn(dir, 90)
 	to_chat(user, "<span class='notice'>You rotate [src].</span>")
 
-/obj/item/paper/explosive_log
-	name = "explosive log"
-	info = "<h3>Explosive Log Report</h3>\
-	<table style='width:400px;text-align:left;'>\
-	<tr>\
-	<th>Time logged</th>\
-	<th>Epicenter</th>\
-	<th>Actual</th>\
-	<th>Theoretical</th>\
-	</tr>" //NB: the <table> tag is left open, it is closed later on, when the doppler array adds its data
-
-/obj/machinery/doppler_array/verb/print_logs(mob/user)
-	set name = "Print Explosive Logs"
-	set category = "Object"
-	set src in oview(1)
-
-	if(user.incapacitated())
-		return
-	if(!Adjacent(user))
-		return
-	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do that!</span>")
-		return
+/obj/machinery/doppler_array/proc/print_explosive_logs(mob/user)
 	if(!logged_explosions.len)
 		atom_say("<span class='notice'>No logs currently stored in internal database.</span>")
 		return
@@ -198,6 +177,7 @@ var/list/doppler_arrays = list()
 			"theoretical_size_message" = E.theoretical_size_message,
 			"unique_datum_id" = E.unique_datum_id))
 	data["explosion_data"] = explosion_data
+	data["printer_timer"] = printer_timer
 	return data
 
 /obj/machinery/doppler_array/Topic(href, href_list)
@@ -211,4 +191,19 @@ var/list/doppler_arrays = list()
 				qdel(D)
 				to_chat(usr, "<span class='notice'>Log deletion successful.</span>")
 				break
-		SSnanoui.update_uis(src)
+	else if(href_list["print_logs"])
+		print_explosive_logs(usr)
+	else
+		return
+	SSnanoui.update_uis(src)
+
+/obj/item/paper/explosive_log
+	name = "explosive log"
+	info = "<h3>Explosive Log Report</h3>\
+	<table style='width:380px;text-align:left;'>\
+	<tr>\
+	<th>Time logged</th>\
+	<th>Epicenter</th>\
+	<th>Actual</th>\
+	<th>Theoretical</th>\
+	</tr>" //NB: the <table> tag is left open, it is closed later on, when the doppler array adds its data
