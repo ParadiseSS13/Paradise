@@ -338,6 +338,7 @@ update_flag
 	..()
 
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswelder(W) && src.destroyed)
 		if(weld(W, user))
 			to_chat(user, "<span class='notice'>You salvage whats left of \the [src]</span>")
