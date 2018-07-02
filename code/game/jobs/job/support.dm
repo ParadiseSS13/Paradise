@@ -352,14 +352,12 @@
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
+	belt = /obj/item/storage/bag/books
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner
 	pda = /obj/item/pda/librarian
-	backpack_contents = list(
-		/obj/item/storage/bag/books = 1
-	)
 
 /datum/job/barber
 	title = "Barber"
