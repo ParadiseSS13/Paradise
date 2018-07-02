@@ -53,8 +53,6 @@
 /mob/living/simple_animal/hostile/retaliate/carp/koi/New()
 	..()
 	var/koinum = rand(1, 4)
-	if(prob(1))
-		koinum = 5
 	icon_state = "koi[koinum]"
 	icon_living = "koi[koinum]"
 	icon_dead = "koi[koinum]-dead"
@@ -62,3 +60,8 @@
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(var/movement_dir)
 	return TRUE
+
+/mob/living/simple_animal/hostile/retaliate/carp/koi/honk
+	icon_state = "koi5"
+	icon_living = "koi5"
+	icon_dead = "koi5-dead"
