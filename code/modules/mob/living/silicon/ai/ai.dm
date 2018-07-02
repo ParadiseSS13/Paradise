@@ -1248,7 +1248,7 @@ var/list/ai_verbs_default = list(
 	return
 
 /mob/living/silicon/ai/IgniteMob()
-	return 0
+	return FALSE
 
 /mob/living/silicon/ai/ExtinguishMob()
 	return
