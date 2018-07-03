@@ -9,7 +9,6 @@ var/list/doppler_arrays = list()
 	anchored = 1
 	atom_say_verb = "states coldly"
 	var/list/logged_explosions = list()
-	var/printer_timer
 
 /datum/explosion_log
 	var/logged_time
@@ -83,15 +82,14 @@ var/list/doppler_arrays = list()
 	if(!logged_explosions.len)
 		atom_say("<span class='notice'>No logs currently stored in internal database.</span>")
 		return
-	if(printer_timer)
+	if(active_timers)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
 	atom_say("<span class='notice'>Printing explosive log. Standby...</span>")
-	printer_timer = addtimer(CALLBACK(src, .proc/print), 50)
+	addtimer(CALLBACK(src, .print), 50)
 
 /obj/machinery/doppler_array/proc/print()
-	printer_timer = FALSE
-	visible_message("<span class='notice'>[src] rattles off a sheet of paper!</span>")
+	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 	var/obj/item/paper/explosive_log/P = new(get_turf(src))
 	for(var/datum/explosion_log/E in logged_explosions)
@@ -177,7 +175,7 @@ var/list/doppler_arrays = list()
 			"theoretical_size_message" = E.theoretical_size_message,
 			"unique_datum_id" = E.unique_datum_id))
 	data["explosion_data"] = explosion_data
-	data["printer_timer"] = printer_timer
+	data["printing"] = active_timers
 	return data
 
 /obj/machinery/doppler_array/Topic(href, href_list)
