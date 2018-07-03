@@ -804,7 +804,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://spacestation13.es/Space_Law.html"</iframe>		</body>
+		<iframe width='100%' height='97%' src="http://spacestation13.es/Menu.html"</iframe>		</body>
 
 		</html>
 
