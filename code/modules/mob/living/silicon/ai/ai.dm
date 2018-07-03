@@ -1250,3 +1250,15 @@ var/list/ai_verbs_default = list(
 
 	else
 		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
+		
+/mob/living/silicon/ai/handle_fire()
+	return
+
+/mob/living/silicon/ai/update_fire()
+	return
+
+/mob/living/silicon/ai/IgniteMob()
+	return FALSE
+
+/mob/living/silicon/ai/ExtinguishMob()
+	return
