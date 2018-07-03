@@ -25,15 +25,6 @@
 	time = 15
 	category = CAT_WEAPON
 
-/datum/crafting_recipe/lance
-	name = "explosive lance (grenade)"
-	result = /obj/item/twohanded/spear
-	reqs = list(/obj/item/twohanded/spear = 1,
-				/obj/item/grenade = 1)
-	parts = list(/obj/item/grenade = 1)
-	time = 15
-	category = CAT_WEAPON
-
 /datum/crafting_recipe/molotov
 	name = "Molotov"
 	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
