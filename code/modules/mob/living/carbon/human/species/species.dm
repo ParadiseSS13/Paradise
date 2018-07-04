@@ -21,7 +21,7 @@
 	var/primitive_form            // Lesser form, if any (ie. monkey for humans)
 	var/greater_form              // Greater form, if any, ie. human for monkeys.
 	var/tail                     // Name of tail image in species effects icon file.
-	var/unarmed                  //For empty hand harm-intent attack
+	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
@@ -357,7 +357,7 @@
 		var/datum/unarmed_attack/attack = user.species.unarmed
 
 		user.do_attack_animation(target, attack.animation_type)
-		add_attack_logs(user, target, "Melee attacked with fists", admin_notify = target.ckey ? TRUE : FALSE)
+		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
 		if(!iscarbon(user))
 			target.LAssailant = null
@@ -374,9 +374,6 @@
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
 		var/armor_block = target.run_armor_check(affecting, "melee")
-
-		if(HULK in user.mutations)
-			target.adjustBruteLoss(15)
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
@@ -395,7 +392,7 @@
 	if(attacker_style && attacker_style.disarm_act(user, target))
 		return 1
 	else
-		add_attack_logs(user, target, "Disarmed", admin_notify = FALSE)
+		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
@@ -405,7 +402,7 @@
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
 			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
-			add_attack_logs(user, target, "Pushed over", admin_notify = FALSE)
+			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
 			if(!iscarbon(user))
 				target.LAssailant = null
 			else

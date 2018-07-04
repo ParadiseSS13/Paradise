@@ -230,7 +230,7 @@
 			var/turf/bombturf = get_turf(src)
 			var/area/A = get_area(bombturf)
 			if(payload && !istype(payload, /obj/item/bombcore/training))
-				msg_admin_attack("[key_name_admin(user)] has primed a [name] ([payload]) for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
+				msg_admin_attack("[key_name_admin(user)] has primed a [name] ([payload]) for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.", ATKLOG_FEW)
 				log_game("[key_name(user)] has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]")
 				investigate_log("[key_name(user)] has has primed a [name] ([payload]) for detonation at [A.name] [COORD(bombturf)]", INVESTIGATE_BOMB)
 				payload.adminlog = "\The [src] that [key_name(user)] had primed detonated!"

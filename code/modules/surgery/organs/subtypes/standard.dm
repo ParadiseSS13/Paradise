@@ -211,11 +211,8 @@
 /obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
 	..(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists)
 	if(!disfigured)
-		if(brute_dam > 40)
-			if(prob(50))
-				disfigure("brute")
-		if(burn_dam > 40)
-			disfigure("burn")
+		if(brute_dam + burn_dam > 50)
+			disfigure()
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
 	if(alt_head && alt_heads_list[alt_head])

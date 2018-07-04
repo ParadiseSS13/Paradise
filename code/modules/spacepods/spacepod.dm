@@ -1,6 +1,6 @@
 #define DAMAGE			1
 #define FIRE			2
-#define LIGHT			1
+#define POD_LIGHT		1
 #define WINDOW			2
 #define RIM	    		3
 #define PAINT			4
@@ -78,7 +78,7 @@
 	var/part = input(user, "Choose part", null) as null|anything in list("Lights","Rim","Paint","Windows")
 	switch(part)
 		if("Lights")
-			part_type = LIGHT
+			part_type = POD_LIGHT
 		if("Rim")
 			part_type = RIM
 		if("Paint")
@@ -101,7 +101,7 @@
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
-		pod_paint_effect[LIGHT] = image(icon,icon_state = "LIGHTS")
+		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
 		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
 		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
 		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
@@ -162,7 +162,7 @@
 
 	if(!pod_paint_effect)
 		pod_paint_effect = new/list(4)
-		pod_paint_effect[LIGHT] = image(icon,icon_state = "LIGHTS")
+		pod_paint_effect[POD_LIGHT] = image(icon,icon_state = "LIGHTS")
 		pod_paint_effect[WINDOW] = image(icon,icon_state = "Windows")
 		pod_paint_effect[RIM] = image(icon,icon_state = "RIM")
 		pod_paint_effect[PAINT] = image(icon,icon_state = "PAINT")
@@ -170,9 +170,9 @@
 
 	if(has_paint)
 		var/image/to_add
-		if(!isnull(pod_paint_effect[LIGHT]))
-			to_add = pod_paint_effect[LIGHT]
-			to_add.color = colors[LIGHT]
+		if(!isnull(pod_paint_effect[POD_LIGHT]))
+			to_add = pod_paint_effect[POD_LIGHT]
+			to_add.color = colors[POD_LIGHT]
 			overlays += to_add
 		if(!isnull(pod_paint_effect[WINDOW]))
 			to_add = pod_paint_effect[WINDOW]
@@ -812,10 +812,17 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 	if(!istype(user))
 		return
 
-	if(usr.incapacitated()) // unconscious and restrained people can't let themselves out
+	if(usr.stat != CONSCIOUS) // unconscious people can't let themselves out
 		return
 
 	occupant_sanity_check()
+
+	if(usr.restrained())
+		to_chat(usr, "<span class='notice'>You attempt to stumble out of the [src]. This will take two minutes.</span>")
+		if(pilot)
+			to_chat(pilot, "<span class='warning'>[usr] is trying to escape the [src].</span>")
+		if(!do_after(usr, 1200, target = src))
+			return
 
 	if(user == pilot)
 		user.forceMove(get_turf(src))
@@ -1077,6 +1084,6 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 #undef DAMAGE
 #undef FIRE
 #undef WINDOW
-#undef LIGHT
+#undef POD_LIGHT
 #undef RIM
 #undef PAINT

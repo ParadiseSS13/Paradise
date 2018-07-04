@@ -142,7 +142,7 @@
 	else
 		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
 
-	add_attack_logs(user, M, attack_log, FALSE)
+	add_attack_logs(user, M, attack_log, ATKLOG_ALL)
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else

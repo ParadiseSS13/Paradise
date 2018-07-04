@@ -463,7 +463,7 @@
 						var/new_job = "Civilian"
 
 						if(department == "Custom")
-							new_job = sanitize(stripped_input(user,"Choose a custom jon title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
+							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
 						else if(department != "Civilian")
 							switch(department)
 								if("Engineering")

@@ -239,7 +239,6 @@
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
 #undef LIMB_DMG_PROB
-#undef LIMB_NO_BONE_DMG_PROB
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = 0, robo_repair = 0)
 	if(status & ORGAN_ROBOT && !robo_repair)
@@ -273,8 +272,7 @@ This function completely restores a damaged organ to perfect condition.
 	burn_dam = 0
 	open = 0 //Closing all wounds.
 	internal_bleeding = FALSE
-	if(istype(src, /obj/item/organ/external/head) && disfigured) //If their head's disfigured, refigure it.
-		disfigured = 0
+	disfigured = FALSE
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/current_organ in internal_organs)
@@ -409,7 +407,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !(status & ORGAN_ROBOT))
 		internal_bleeding = TRUE
-		owner.custom_pain("You feel something rip in your [name]!", 1)
+		owner.custom_pain("You feel something rip in your [name]!")
 
 // new damage icon system
 // returns just the brute/burn damage code
@@ -737,19 +735,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 			qdel(spark_system)
 		qdel(src)
 
-/obj/item/organ/external/proc/disfigure(var/type = "brute")
+/obj/item/organ/external/proc/disfigure()
 	if(disfigured)
 		return
 	if(owner)
-		if(type == "brute")
-			owner.visible_message("<span class='warning'>You hear a sickening cracking sound coming from \the [owner]'s [name].</span>",	\
-			"<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
-			"<span class='warning'>You hear a sickening crack.</span>")
-		else
-			owner.visible_message("<span class='warning'>\The [owner]'s [name] melts away, turning into mangled mess!</span>",	\
-			"<span class='danger'>Your [name] melts away!</span>",	\
-			"<span class='warning'>You hear a sickening sizzle.</span>")
-	disfigured = 1
+		owner.visible_message("<span class='warning'>You hear a sickening sound coming from \the [owner]'s [name] as it turns into a mangled mess!</span>",	\
+							  "<span class='danger'>Your [name] becomes a mangled mess!</span>",	\
+							  "<span class='warning'>You hear a sickening sound.</span>")
+	disfigured = TRUE
 
 /obj/item/organ/external/is_primary_organ(var/mob/living/carbon/human/O = null)
 	if(isnull(O))

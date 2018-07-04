@@ -54,13 +54,12 @@
 	if(prob(75))
 		qdel(src)
 
-/obj/machinery/optable/attack_hand(mob/user as mob)
-	if(HULK in usr.mutations)
-		to_chat(usr, text("<span class='notice'>You destroy the table.</span>"))
-		visible_message("<span class='warning'>[usr] destroys the operating table!</span>")
-		src.density = 0
+/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		..(user, TRUE)
+		visible_message("<span class='warning'>[user] destroys the operating table!</span>")
 		qdel(src)
-	return
+		return TRUE
 
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0) return 1

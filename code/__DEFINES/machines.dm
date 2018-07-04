@@ -7,6 +7,11 @@
 #define STATIC_LIGHT    6
 #define STATIC_ENVIRON  7
 
+//Power use
+#define NO_POWER_USE 0
+#define IDLE_POWER_USE 1
+#define ACTIVE_POWER_USE 2
+
 //computer3 error codes, move lower in the file when it passes dev -Sayu
  #define PROG_CRASH      1  // Generic crash
  #define MISSING_PERIPHERAL  2  // Missing hardware

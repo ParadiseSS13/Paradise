@@ -902,12 +902,27 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_ATTACKLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_ATTACKLOGS)
-		to_chat(usr, "You now will get attack log messages")
+	if(prefs.atklog == ATKLOG_ALL)
+		prefs.atklog = ATKLOG_ALMOSTALL
+		to_chat(usr, "Your attack logs preference is now: show ALMOST ALL attack logs (notable exceptions: NPCs attacking other NPCs, vampire bites, equipping/stripping, people pushing each other over)")
+	else if(prefs.atklog == ATKLOG_ALMOSTALL)
+		prefs.atklog = ATKLOG_MOST
+		to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides attacks by players on NPCs)")
+	else if(prefs.atklog == ATKLOG_MOST)
+		prefs.atklog = ATKLOG_FEW
+		to_chat(usr, "Your attack logs preference is now: show FEW attack logs (only the most important stuff: attacks on SSDs, use of explosives, messing with the engine, gibbing, AI wiping, forcefeeding, acid sprays, and organ extraction)")
+	else if(prefs.atklog == ATKLOG_FEW)
+		prefs.atklog = ATKLOG_NONE
+		to_chat(usr, "Your attack logs preference is now: show NO attack logs")
+	else if(prefs.atklog == ATKLOG_NONE)
+		prefs.atklog = ATKLOG_ALL
+		to_chat(usr, "Your attack logs preference is now: show ALL attack logs")
 	else
-		to_chat(usr, "You now won't get attack log messages")
+		prefs.atklog = ATKLOG_ALL
+		to_chat(usr, "Your attack logs preference is now: show ALL attack logs (your preference was set to an invalid value, it has been reset)")
+
+	prefs.save_preferences(src)
+
 
 /client/proc/toggleadminlogs()
 	set name = "Toggle Admin Log Messages"

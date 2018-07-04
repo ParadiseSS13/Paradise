@@ -300,5 +300,3 @@
 
 	S.retal_target = target
 	S.retal = 1
-
-#undef CHECKOUT_TIME

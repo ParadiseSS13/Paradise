@@ -26,6 +26,7 @@
 
 /mob/new_player/proc/handle_tos_consent()
 	if(!GLOB.join_tos)
+		tos_consent = TRUE
 		return TRUE
 
 	establish_db_connection()

@@ -46,7 +46,7 @@
 	var/mob/living/carbon/human/target = M
 
 	if(istype(target.species, /datum/species/machine))
-		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>")
+		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
 		return
 
 	if(target.m_styles["body"] != "None")
@@ -321,7 +321,7 @@
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
-		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words â€œProperty of Yon-Daleâ€ can be seen on the inner band."
+		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words “Property of Yon-Dale” can be seen on the inner band."
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.species_fit = list("Vulpkanin")
@@ -497,8 +497,8 @@
 #undef USED_MOD_SUIT
 
 /obj/item/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
-	name = "sallet modkit"
-	desc = "A modkit that can make most helmets look like a steel sallet."
+	name = "SG Helmet modkit"
+	desc = "A modkit that can make most helmets look like a Shellguard Helmet."
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 	force = 0
@@ -649,49 +649,49 @@
 	icon_state = "kakicharakiti"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet //Travelling Merchant: Trav Noble. This >>IS NOT<< what they spawn in with
-	name = "Steel Sallet"
-	desc = "A heavy steel sallet with the word Noble scratched into the side. Comes with a Bevor attached."
+	name = "Shellguard Helmet"
+	desc = "A Shellguard Helmet with the name Noble written on the inside."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "merchant_sallet_visor_bevor"
 	item_state = "merchant_sallet_visor_bevor"
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	toggle_cooldown = 20
-	toggle_sound = 'sound/items/ZippoClose.ogg'
+	toggle_sound = 'sound/items/change_jaws.ogg'
 	flags = BLOCKHAIR
 	flags_inv = HIDEEYES|HIDEMASK|HIDEFACE|HIDEEARS
-	var/state = "Visor & Bevor"
+	var/state = "Soldier Up"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
 	if(!user.incapacitated() && (world.time > cooldown + toggle_cooldown) && Adjacent(user))
 		var/list/options = list()
-		options["Visor & Bevor"] = list(
+		options["Soldier Up"] = list(
 			"icon_state"	= "merchant_sallet_visor_bevor",
-			"visor_flags"	= HIDEEYES,
-			"mask_flags"	= HIDEMASK|HIDEFACE
-			)
-		options["Visor Only"] = list(
-			"icon_state"	= "merchant_sallet_visor",
-			"visor_flags"	= HIDEEYES,
-			"mask_flags"	= HIDEFACE
-			)
-		options["Bevor Only"] = list(
-			"icon_state"	= "merchant_sallet_bevor",
-			"visor_flags"	= null,
-			"mask_flags"	= HIDEMASK|HIDEFACE
-			)
-		options["Neither Visor nor Bevor"] = list(
-			"icon_state"	= "merchant_sallet",
 			"visor_flags"	= null,
 			"mask_flags"	= null
 			)
+		options["Soldier Down"] = list(
+			"icon_state"	= "merchant_sallet_visor",
+			"visor_flags"	= HIDEEYES,
+			"mask_flags"	= HIDEMASK|HIDEFACE
+			)
+		options["Technician Up"] = list(
+			"icon_state"	= "merchant_sallet_bevor",
+			"visor_flags"	= null,
+			"mask_flags"	= null
+			)
+		options["Technician Down"] = list(
+			"icon_state"	= "merchant_sallet",
+			"visor_flags"	= HIDEEYES,
+			"mask_flags"	= HIDEMASK|HIDEFACE
+			)
 
-		var/choice = input(user, "How would you like to adjust the sallet?", "Adjust Sallet") as null|anything in options
+		var/choice = input(user, "How would you like to adjust the helmet?", "Adjust Helmet") as null|anything in options
 
 		if(choice && choice != state && !user.incapacitated() && Adjacent(user))
 			var/list/new_state = options[choice]
 			icon_state = new_state["icon_state"]
 			state = choice
-			to_chat(user, "You adjust the sallet.")
+			to_chat(user, "You adjust the helmet.")
 			playsound(src.loc, "[toggle_sound]", 100, 0, 4)
 			user.update_inv_head()
 			return 1
@@ -1265,6 +1265,8 @@
 	name = "engraved hand mirror"
 	desc = "A very classy hand mirror, with fancy detailing."
 	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	icon_state = "hand_mirror"
 	attack_verb = list("smacked")
 	hitsound = 'sound/weapons/tap.ogg'
@@ -1311,6 +1313,8 @@
 	name = "Classy victorian suit"
 	desc = "A blue and black victorian suit with silver buttons, very fancy!"
 	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	icon_state = "victorianlightfire"
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
@@ -1330,7 +1334,7 @@
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 
-	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kite blueprints.</span>")
+	to_chat(user, "<span class='notice'>You modify the appearance of [target] based on the kit blueprints.</span>")
 	var/obj/spacepod/pod = target
 	pod.icon = 'icons/48x48/custom_pod.dmi'
 	pod.icon_state = "pod_dece"
@@ -1349,6 +1353,40 @@
 	icon_state = "teri_horn"
 	item_state = "teri_horn"
 	honk_sound = 'sound/items/teri_horn.ogg'
+
+/obj/item/clothing/accessory/medal/fluff/elo	//V-Force_Bomber: E.L.O.
+	name = "distinguished medal of loyalty and excellence"
+	desc = "This medal is cut into the shape of a Victoria Cross, and is awarded to those who have proven themselves to Nanotrasen with a long and successful career."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elo-medal"
+	item_color = "elo-medal"
+
+/obj/item/clothing/suit/fluff/vetcoat //Furasian: Fillmoore Grayson
+	name = "Veteran Coat"
+	desc = "An old, yet well-kept Nanotrasen uniform. Very few of its kind are still produced."
+	icon = 'icons/obj/custom_items.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "alchemistcoatblack"
+	item_state = "alchemistcoatblack"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+
+/obj/item/clothing/suit/fluff/vetcoat/red //Furasian: Fillmoore Grayson
+	icon_state = "alchemistcoatred"
+	item_state = "alchemistcoatred"
+
+/obj/item/clothing/suit/fluff/vetcoat/navy //Furasian: Fillmoore Grayson
+	icon_state = "alchemistcoatnavy"
+	item_state = "alchemistcoatnavy"
+
+/obj/item/clothing/accessory/medal/fluff/panzermedal //PanzerSkull: GRN-DER
+	name = "Cross of Valor"
+	desc = "A medal from the bygone Asteroid Wars. Its Ruby shines with a strange intensity."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "panzermedal"
+	item_state = "panzermedal"
+	item_color = "panzermedal"
+	slot_flags = SLOT_TIE
 
 
 //HISPANIA FLUFF ITEMS GO HERE//
@@ -1476,131 +1514,3 @@
 /obj/item/defibrillator/proc/make_paddles_custom()
 		return new /obj/item/twohanded/shockpaddles/kotiro(src)
 
-/obj/item/twohanded/shockpaddles/kotiro
-	name = "defibrillator paddles"
-	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
-	icon = 'icons/obj/hispania_custom_items.dmi'
-	icon_state = "kdefibpaddles"
-	item_state = "kdefibpaddles"
-	force = 0
-	throwforce = 6
-	w_class = WEIGHT_CLASS_BULKY
-	var/obj/item/defibrillator/kdefib
-	custom = 1
-
-/obj/item/twohanded/shockpaddles/kotiro/update_icon()
-	icon = 'icons/obj/hispania_custom_items.dmi'
-	icon_state = "kdefibpaddles[wielded]"
-	item_state = "kdefibpaddles[wielded]"
-	if(cooldown)
-		icon_state = "kdefibpaddles[wielded]_cooldown"
-
-//KOTIRO DEFIB ENDS HERE//
-
-//GOD.TITAN'S HALO SSTARTS HERE//
-
-/obj/item/clothing/head/halo
-
-	name = "Angelical Halo"
-	desc = "A holographic halo that glows in the dark."
-	icon = 'icons/obj/hispania_custom_items.dmi'
-	icon_state = "halo0"
-	item_state = "halo0"
-	var/brightness_on = 2 //luminosity when on
-	var/on = 0
-	flags_inv = 0
-	actions_types = list(/datum/action/item_action/toggle_halo)
-
-/datum/action/item_action/toggle_halo
-	name = "Toggle Halo"
-
-/obj/item/clothing/head/halo/attack_self(mob/user)
-	on = !on
-	icon_state = "halo[on]"
-	item_state = "halo[on]"
-
-	if(on)
-		set_light(brightness_on)
-		playsound(src.loc, 'sound/effects/halo1.ogg', 80)
-
-	else
-		set_light(0)
-		playsound(src.loc, 'sound/effects/halo0.ogg', 80)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-		update_icon()
-		user.update_inv_head()
-
-/obj/item/clothing/head/collectable/succubus
-	name = "Horns and tails of the succubi"
-	desc = "Worst behavior is the best behavior"
-	icon = 'icons/obj/hispania_custom_items.dmi'
-	icon_state = "horns"
-	item_state = "horns"
-
-/obj/item/melee/classic_baton/succubuswhip
-	name = "Succubus Whip"
-	desc = "A whip used to stun, among other things..."
-	icon = 'icons/obj/hispania_custom_items.dmi'
-	icon_state = "succubuswhip"
-	item_state = "chain"
-	slot_flags = SLOT_BELT
-	force = 12 //9 hit crit
-	w_class = WEIGHT_CLASS_NORMAL
-	cooldown = 0
-	on = 1
-
-/obj/item/melee/classic_baton/succubuswhip/attack(mob/target as mob, mob/living/user as mob)
-	if(on)
-		add_fingerprint(user)
-		if((CLUMSY in user.mutations) && prob(50))
-			to_chat(user, "<span class ='danger'>You whipped yourself.</span>")
-			user.Weaken(3 * force)
-			if(ishuman(user))
-				var/mob/living/carbon/human/H = user
-				H.apply_damage(2*force, BRUTE, "head")
-			else
-				user.take_organ_damage(2*force)
-			return
-		if(isrobot(target))
-			..()
-			return
-		if(!isliving(target))
-			return
-		if(user.a_intent == INTENT_HARM)
-			if(!..()) return
-			if(!isrobot(target)) return
-		else
-			if(cooldown <= 0)
-				if(ishuman(target))
-					var/mob/living/carbon/human/H = target
-					if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
-						return 0
-				playsound(get_turf(src), 'sound/effects/succubuswhip.ogg', 75, 1)
-				target.Weaken(3)
-				add_attack_logs(user, target, "Stunned with [src]")
-				add_fingerprint(user)
-				target.visible_message("<span class ='danger'>[user] whipped [target] with \the [src]!</span>", \
-					"<span class ='userdanger'>[user] has whipped [target] with \the [src]!</span>")
-				if(!iscarbon(user))
-					target.LAssailant = null
-				else
-					target.LAssailant = user
-				cooldown = 1
-				spawn(20)
-					cooldown = 0
-		return
-	else
-		return ..()
-
-/obj/item/clothing/head/helmet/paramedic
-	name = "Paramedic Helmet"
-	desc = "Worn by paramedics"
-	icon_state = "paramedic"
-	toggle_message = "You turn off the lights on"
-	alt_toggle_message = "You turn on the lights on"
-	actions_types = list(/datum/action/item_action/toggle_helmet_light)
-	can_toggle = 1
-	toggle_cooldown = 20
-	active_sound = 'sound/items/WEEOO1.ogg'

@@ -161,7 +161,7 @@
 		var/obj/item/organ/external/head/head = C.get_organ("head")
 		if(head)
 			C.apply_damage(30, BURN, "head") //30 fire damage because it's FUCKING LAVA
-			head.disfigure("burn") //Your face is unrecognizable because it's FUCKING LAVA
+			head.disfigure() //Your face is unrecognizable because it's FUCKING LAVA
 		return 1
 	else
 		..()

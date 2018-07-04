@@ -1,7 +1,3 @@
-#define CAT_NORMAL 1
-#define CAT_HIDDEN 2  // also used in corresponding wires/vending.dm
-#define CAT_COIN   4
-
 /**
  *  Datum used to hold information about a product in a vending machine
  */
@@ -840,6 +836,9 @@
 				  /obj/item/reagent_containers/food/drinks/chicken_soup = 30,/obj/item/reagent_containers/food/drinks/weightloss = 50, /obj/item/reagent_containers/food/drinks/mug = 50)
 	refill_canister = /obj/item/vending_refill/coffee
 
+/obj/machinery/vending/coffee/free
+	prices = list()
+
 /obj/machinery/vending/coffee/New()
 	..()
 	component_parts = list()
@@ -892,6 +891,9 @@
 					/obj/item/reagent_containers/food/snacks/pistachios = 35, /obj/item/reagent_containers/food/snacks/spacetwinkie = 30,/obj/item/reagent_containers/food/snacks/cheesiehonkers = 25,/obj/item/reagent_containers/food/snacks/tastybread = 30)
 	refill_canister = /obj/item/vending_refill/snack
 
+/obj/machinery/vending/snack/free
+	prices = list()
+
 /obj/machinery/vending/snack/New()
 	..()
 	component_parts = list()
@@ -912,6 +914,9 @@
 	prices = list(/obj/item/reagent_containers/food/snacks/chinese/chowmein = 50, /obj/item/reagent_containers/food/snacks/chinese/tao = 50, /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball = 50, /obj/item/reagent_containers/food/snacks/chinese/newdles = 50,
 					/obj/item/reagent_containers/food/snacks/chinese/rice = 50)
 	refill_canister = /obj/item/vending_refill/chinese
+
+/obj/machinery/vending/chinese/free
+	prices = list()
 
 /obj/machinery/vending/chinese/New()
 	..()
@@ -937,6 +942,9 @@
 					/obj/item/reagent_containers/food/drinks/cans/dr_gibb = 20,/obj/item/reagent_containers/food/drinks/cans/starkist = 20,
 					/obj/item/reagent_containers/food/drinks/cans/space_up = 20,/obj/item/reagent_containers/food/drinks/cans/grape_juice = 20)
 	refill_canister = /obj/item/vending_refill/cola
+
+/obj/machinery/vending/cola/free
+	prices = list()
 
 /obj/machinery/vending/cola/New()
 	..()
@@ -964,6 +972,9 @@
 					/obj/item/cartridge/atmos = 75,/obj/item/cartridge/janitor = 100,/obj/item/cartridge/signal/toxins = 150,
 					/obj/item/cartridge/signal = 75)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+
+/obj/machinery/vending/cart/free
+	prices = list()
 
 /obj/machinery/vending/liberationstation
 	name = "\improper Liberation Station"
@@ -993,6 +1004,9 @@
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1)
 	prices = list(/obj/item/storage/fancy/cigarettes = 60,/obj/item/storage/fancy/cigarettes/cigpack_uplift = 60,/obj/item/storage/fancy/cigarettes/cigpack_robust = 60,/obj/item/storage/fancy/cigarettes/cigpack_carp = 60,/obj/item/storage/fancy/cigarettes/cigpack_midori = 60,/obj/item/storage/fancy/cigarettes/cigpack_random = 150, /obj/item/reagent_containers/food/pill/patch/nicotine = 15, /obj/item/storage/box/matches = 10,/obj/item/lighter/random = 60, /obj/item/storage/fancy/rollingpapers = 20)
 	refill_canister = /obj/item/vending_refill/cigarette
+
+/obj/machinery/vending/cigarette/free
+	prices = list()
 
 /obj/machinery/vending/cigarette/New()
 	..()
@@ -1433,6 +1447,9 @@
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
 	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
 	refill_canister = /obj/item/vending_refill/crittercare
+
+/obj/machinery/vending/crittercare/free
+	prices = list()
 
 /obj/machinery/vending/crittercare/New()
 	..()

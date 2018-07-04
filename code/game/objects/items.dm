@@ -550,3 +550,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/proc/on_trip(mob/living/carbon/human/H)
 	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
 		return TRUE
+
+/obj/item/attack_hulk(mob/living/carbon/human/user)
+	return FALSE
