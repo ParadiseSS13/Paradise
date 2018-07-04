@@ -22,7 +22,6 @@ var/list/doppler_arrays = list()
 	epicenter = log_epicenter
 	actual_size_message = log_actual_size_message
 	theoretical_size_message = log_theoretical_size_message
-	UID()
 
 /obj/machinery/doppler_array/New()
 	..()
@@ -168,6 +167,7 @@ var/list/doppler_arrays = list()
 	var/data[0]
 	var/list/explosion_data = list()
 	for(var/datum/explosion_log/E in logged_explosions)
+		E.UID()
 		explosion_data += list(list(
 			"logged_time" = E.logged_time,
 			"epicenter" = E.epicenter,
