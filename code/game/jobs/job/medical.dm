@@ -126,7 +126,7 @@
 				uniform = /obj/item/clothing/under/rank/medical
 			if("Nurse")
 				backpack_contents = list(
-					/obj/item/clothing/head/helmet/paramedic
+			/*		/obj/item/clothing/head/helmet/paramedic */
 				)
 				if(H.gender == FEMALE)
 					if(prob(50))
@@ -220,7 +220,7 @@
 				pda = /obj/item/pda/medical
 				backpack_contents = list(
 					/obj/item/healthanalyzer = 1,
-					/obj/item/clothing/head/helmet/paramedic
+			/*		/obj/item/clothing/head/helmet/paramedic  */
 				)
 
 				backpack = /obj/item/storage/backpack/medic

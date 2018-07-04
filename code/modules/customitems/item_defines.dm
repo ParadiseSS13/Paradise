@@ -1494,7 +1494,7 @@
 //DIOSDADO STUNBATON ENDS HERE//
 
 //KOTIRO DEFIB STARTS HERE//
-/obj/item/defibrillator/compact/kotiro
+/* /obj/item/defibrillator/compact/kotiro
 	name = "De-Clown-Fibrillator"
 	desc = "A modified belt-equipped defibrillator that can be rapidly deployed. Seems it doesn't like clowns too much"
 	icon = 'icons/obj/hispania_custom_items.dmi'
@@ -1514,3 +1514,4 @@
 /obj/item/defibrillator/proc/make_paddles_custom()
 		return new /obj/item/twohanded/shockpaddles/kotiro(src)
 
+*/

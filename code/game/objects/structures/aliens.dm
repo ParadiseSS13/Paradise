@@ -319,7 +319,7 @@
 	icon_state = "deaconegg_growing"
 	density = 0
 	anchored = 1
-	health = 100
+	var/health = 100
 	status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
 	eggtype = "deacon"

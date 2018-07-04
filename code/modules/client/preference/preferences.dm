@@ -54,14 +54,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return max(0, days - C.player_age)
 	return 0
 
-//used for alternate_option
-#define GET_RANDOM_JOB 0
-#define BE_CIVILIAN 1
-#define RETURN_TO_LOBBY 2
-
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
-
 
 #define TAB_CHAR 0
 #define TAB_GAME 1
@@ -96,6 +90,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/UI_style_alpha = 255
 	var/windowflashing = TRUE
 	var/clientfps = 0
+	var/atklog = ATKLOG_ALL
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -209,6 +204,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
 	max_gear_slots = config.max_loadout_points
+	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
@@ -217,16 +213,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(C.donator_level >= DONATOR_LEVEL_ONE)
 				max_gear_slots += 5
 
-	var/loaded_preferences_successfully = load_preferences(C)
-	if(loaded_preferences_successfully)
-		if(load_character(C))
-			return
+		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
+		if(loaded_preferences_successfully)
+			if(load_character(C))
+				return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	real_name = random_name(gender)
-	if(!loaded_preferences_successfully)
-		save_preferences(C)
-	save_character(C)		//let's save this new random character so it doesn't keep generating new ones.
+	if(istype(C))
+		if(!loaded_preferences_successfully)
+			save_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
+		save_character(C)		// Do not call this with no client/C, it generates a runtime / SQL error
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"
@@ -244,7 +241,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Skills</a>"
 	dat += "</center>"
 	dat += "<HR>"
 
@@ -700,7 +696,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	switch(alternate_option)
 		if(GET_RANDOM_JOB)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
-		if(BE_CIVILIAN)
+		if(BE_ASSISTANT)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
 		if(RETURN_TO_LOBBY)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
@@ -838,6 +834,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SWEDISH,"Swedish accent")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_LISP,"Lisp")
 	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DIZZY,"Dizziness")
+	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SCRAMBLED,"Can't speak properly")
 
 
 	HTML += {"</ul>
@@ -1051,7 +1048,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				ResetJobs()
 				SetChoices(user)
 			if("random")
-				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_CIVILIAN)
+				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
 					alternate_option += 1
 				else if(alternate_option == RETURN_TO_LOBBY)
 					alternate_option = 0
@@ -1264,7 +1261,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", /*"Tajaran"*/ "Skrell", "Unathi", "Diona", /*"Vulpkanin"*/, "Murghal")
+					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
 					var/prev_species = species
 //						var/whitelisted = 0
 
@@ -1395,7 +1392,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						b_type = new_b_type
 
 				if("hair")
-					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox", "Murghal")) //Species that have hair. (No HAS_HAIR flag)
+					if(species in list("Human", "Unathi", "Tajaran", "Skrell", "Machine", "Vulpkanin", "Vox")) //Species that have hair. (No HAS_HAIR flag)
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = input(user, input, "Character Preference", h_colour) as color|null
 						if(new_hair)
@@ -2217,12 +2214,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
 		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
-
-	if(disabilities & DISABILITY_FLAG_SMALLSIZE)
-		character.dna.SetSEState(SMALLSIZEBLOCK,1,1)
-
-	if(disabilities & DISABILITY_FLAG_COMIC)
-		character.dna.SetSEState(COMICBLOCK,1,1)
 
 	S.handle_dna(character)
 
