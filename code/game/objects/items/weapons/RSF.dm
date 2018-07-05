@@ -64,7 +64,7 @@ RSF
 	else if (istype(A, /obj/structure/table))
 		spawn_location = A
 	else
-		to_chat(user, "The RSF can only create service items on tables, or floors.")
+		to_chat(user, "The RSF can only create service items on tables.")
 		return
 
 	if(isrobot(user))
