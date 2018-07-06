@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Replaced duplicate labor shuttle console on the bridge by a mining shuttle console."
