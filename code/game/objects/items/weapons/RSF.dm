@@ -61,10 +61,10 @@ RSF
 	var spawn_location
 	if(istype(A, /obj/structure/table))
 		spawn_location = A.loc
-	else if (istype(A, /obj/structure/table))
+	else if (istype(A, /obj/structure/floor))
 		spawn_location = A
 	else
-		to_chat(user, "The RSF can only create service items on tables.")
+		to_chat(user, "The RSF can only create service items on tables, or floors.")
 		return
 
 	if(isrobot(user))
