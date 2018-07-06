@@ -3585,7 +3585,7 @@
 "bqW" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plasteel,/area/bridge)
 "bqX" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/bridge)
 "bqY" = (/obj/structure/table/reinforced,/obj/item/storage/firstaid/regular,/turf/simulated/floor/plasteel,/area/bridge)
-"bqZ" = (/obj/machinery/computer/shuttle/labor,/turf/simulated/floor/plasteel{dir = 10; icon_state = "brown"},/area/bridge)
+"bqZ" = (/obj/machinery/computer/shuttle/mining,/turf/simulated/floor/plasteel{dir = 10; icon_state = "brown"},/area/bridge)
 "bra" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/obj/machinery/computer/shuttle/engineering,/turf/simulated/floor/plasteel{dir = 6; icon_state = "brown"},/area/bridge)
 "brb" = (/obj/machinery/camera{c_tag = "Bridge East"; dir = 2; network = list("SS13")},/obj/machinery/computer/supplycomp,/obj/machinery/computer/security/telescreen/entertainment{pixel_x = 0; pixel_y = 32},/turf/simulated/floor/plasteel{dir = 2; icon_state = "brown"},/area/bridge)
 "brc" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1; scrub_N2O = 1; scrub_Toxins = 1},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/hallway/secondary/exit)
