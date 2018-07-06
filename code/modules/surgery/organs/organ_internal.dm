@@ -7,7 +7,6 @@
 	throwforce = 0
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
-	vital = 0
 	var/non_primary = 0
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 
