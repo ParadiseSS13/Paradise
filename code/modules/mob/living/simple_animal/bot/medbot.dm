@@ -78,6 +78,7 @@
 	name = "Suspicious Medibot"
 	desc = "You'd better have insurance!"
 	skin = "bezerk"
+	faction = list("syndicate")
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
@@ -91,7 +92,6 @@
 /mob/living/simple_animal/bot/medbot/syndicate/New()
 	..()
 	Radio.syndie = 1
-	faction |= "syndicate"
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
 	emagged = 2

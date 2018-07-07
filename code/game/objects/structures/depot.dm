@@ -14,11 +14,16 @@
 	if(depotarea)
 		depotarea.reactor = src
 
+/obj/structure/fusionreactor/Destroy()
+	if(depotarea)
+		depotarea.reactor = null
+	..()
+
 /obj/structure/fusionreactor/ex_act(severity)
 	obj_integrity -= 10 * severity
 	healthcheck()
 
-/obj/structure/fusionreactor/bullet_act(var/obj/item/projectile/Proj)
+/obj/structure/fusionreactor/bullet_act(obj/item/projectile/Proj)
 	obj_integrity -= Proj.damage
 	..()
 	healthcheck()
@@ -39,9 +44,9 @@
 			for(var/mob/living/M in range(10, loc))
 				M.apply_effect(rand(5, 25), IRRADIATE)
 	else
-		return ..(I, user, params)
+		return ..()
 
-/obj/structure/fusionreactor/proc/overload(var/containment_failure)
+/obj/structure/fusionreactor/proc/overload(containment_failure)
 	var/obj/effect/overload/O = new /obj/effect/overload(get_turf(src))
 	if(containment_failure)
 		playsound(loc, 'sound/machines/Alarm.ogg', 100, 0, 0)

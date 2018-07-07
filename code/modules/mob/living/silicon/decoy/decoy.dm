@@ -12,11 +12,11 @@
 	src.anchored = 1
 	src.canmove = 0
 
-/mob/living/silicon/decoy/attackby(var/obj/item/W, var/mob/user, params)
+/mob/living/silicon/decoy/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/aicard))
 		user.visible_message("<span class='notice'>[user] cannot find an intellicard slot on [src].</span>")
 	else
-		return ..(W, user, params)
+		return ..()
 
 /mob/living/silicon/decoy/syndicate
 	faction = list("syndicate")
@@ -39,18 +39,18 @@
 	else
 		say("Connection failure!")
 
-/mob/living/silicon/decoy/syndicate/depot/death(var/pass)
+/mob/living/silicon/decoy/syndicate/depot/death(pass)
 	if(!raised_alert)
 		raise_alert()
 	. = ..(pass)
 
-/mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(var/dmg)
+/mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(dmg)
 	. = ..(dmg)
 	updatehealth()
 
-/mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(var/dmg)
+/mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(dmg)
 	. = ..(dmg)
 	updatehealth()
 
-/mob/living/silicon/decoy/syndicate/depot/ex_act(var/severity)
+/mob/living/silicon/decoy/syndicate/depot/ex_act(severity)
 	adjustBruteLoss(250)

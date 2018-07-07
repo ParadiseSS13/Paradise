@@ -65,7 +65,6 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/emag_act(mob/user)
 	to_chat(user, "<span class='warning'>[src] has no card reader slot!</span>")
-	return
 
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()
 	var/turf/current_turf = get_turf(src)
@@ -194,7 +193,7 @@
 /mob/living/simple_animal/bot/ed209/syndicate/speak()
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/bot/ed209/syndicate/Process_Spacemove(movement_dir = 0)
 	return 1
 
 /mob/living/simple_animal/bot/ed209/syndicate/start_patrol()
@@ -207,7 +206,7 @@
 			log_debug(failmsg)
 	return ..()
 
-/mob/living/simple_animal/bot/ed209/syndicate/proc/raise_alert(var/reason)
+/mob/living/simple_animal/bot/ed209/syndicate/proc/raise_alert(reason)
 	if(raised_alert)
 		return
 	raised_alert = TRUE

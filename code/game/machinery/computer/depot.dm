@@ -26,7 +26,7 @@
 	. = ..()
 	depotarea = areaMaster
 
-/obj/machinery/computer/syndicate_depot/attack_ai(var/mob/user)
+/obj/machinery/computer/syndicate_depot/attack_ai(mob/user)
 	if(req_access.len && !("syndicate" in user.faction))
 		to_chat(user, "<span class='warning'>A firewall blocks your access.</span>")
 		return 1
@@ -35,11 +35,11 @@
 /obj/machinery/computer/syndicate_depot/emp_act(severity)
 	return
 
-/obj/machinery/computer/syndicate_depot/emag_act(var/mob/user)
+/obj/machinery/computer/syndicate_depot/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
 	return
 
-/obj/machinery/computer/syndicate_depot/allowed(var/mob/user)
+/obj/machinery/computer/syndicate_depot/allowed(mob/user)
 	if(user.can_advanced_admin_interact())
 		return 1
 	if(!isliving(user))
@@ -48,7 +48,7 @@
 		return 0
 	return ..()
 
-/obj/machinery/computer/syndicate_depot/proc/has_security_lockout(var/mob/user)
+/obj/machinery/computer/syndicate_depot/proc/has_security_lockout(mob/user)
 	if(security_lockout)
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, 0)
 		to_chat(user, "<span class='warning'>[src] is under security lockout.</span>")
@@ -59,7 +59,7 @@
 	security_lockout = TRUE
 	disable_special_functions()
 
-/obj/machinery/computer/syndicate_depot/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/syndicate_depot/attack_hand(mob/user)
 	if(..())
 		return
 	if(stat & (NOPOWER|BROKEN))
@@ -71,7 +71,6 @@
 	var/dat = get_menu(user)
 	user << browse(dat, "window=computer;size=575x450")
 	onclose(user, "computer")
-	return
 
 
 /obj/machinery/computer/syndicate_depot/set_broken()
@@ -95,7 +94,6 @@
 		secondary(usr, text2num(href_list["secondary"]))
 	add_fingerprint(usr)
 	updateUsrDialog()
-	return
 
 /obj/machinery/computer/syndicate_depot/Destroy()
 	disable_special_functions()
@@ -104,20 +102,20 @@
 	return ..()
 
 
-/obj/machinery/computer/syndicate_depot/proc/get_menu(var/mob/user)
+/obj/machinery/computer/syndicate_depot/proc/get_menu(mob/user)
 	return ""
 
-/obj/machinery/computer/syndicate_depot/proc/primary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/proc/primary(mob/user)
 	if(!allowed(user))
 		return 1
 	return 0
 
-/obj/machinery/computer/syndicate_depot/proc/secondary(var/mob/user, var/subcommand)
+/obj/machinery/computer/syndicate_depot/proc/secondary(mob/user, subcommand)
 	if(!allowed(user))
 		return 1
 	return 0
 
-/obj/machinery/computer/syndicate_depot/proc/raise_alert(var/reason)
+/obj/machinery/computer/syndicate_depot/proc/raise_alert(reason)
 	if(depotarea)
 		depotarea.increase_alert(reason)
 
@@ -128,20 +126,20 @@
 /obj/machinery/computer/syndicate_depot/doors
 	name = "depot door control computer"
 
-/obj/machinery/computer/syndicate_depot/doors/get_menu(var/mob/user)
+/obj/machinery/computer/syndicate_depot/doors/get_menu(mob/user)
 	return {"<B>Syndicate Depot Door Control Computer</B><HR>
 	<BR><BR><a href='?src=[UID()];primary=1'>Toggle Airlock Emergency Access</a>
 	<BR><BR><a href='?src=[UID()];secondary=1'>Toggle Hidden Doors</a>
 	<BR>"}
 
-/obj/machinery/computer/syndicate_depot/doors/primary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/doors/primary(mob/user)
 	if(..())
 		return
 	if(depotarea)
 		depotarea.toggle_door_locks(src)
 		to_chat(user, "<span class='notice'>Door locks toggled.</span>")
 
-/obj/machinery/computer/syndicate_depot/doors/secondary(var/mob/user, var/subcommand)
+/obj/machinery/computer/syndicate_depot/doors/secondary(mob/user, subcommand)
 	if(..())
 		return
 	if(depotarea)
@@ -157,7 +155,7 @@
 	req_access = list()
 	alerts_when_broken = TRUE
 
-/obj/machinery/computer/syndicate_depot/selfdestruct/get_menu(var/mob/user)
+/obj/machinery/computer/syndicate_depot/selfdestruct/get_menu(mob/user)
 	var menutext = {"<B>Syndicate Depot Fusion Reactor Control</B><HR>
 	<BR><BR><a href='?src=[UID()];primary=1'>Disable Containment Field</a>
 	<BR>"}
@@ -165,7 +163,7 @@
 		menutext += {"(ADMIN) Defense Shield: [depotarea.deployed_shields.len ? "ON" : "OFF"] (<a href='?src=[UID()];secondary=1'>[depotarea.deployed_shields.len ? "Disable" : "Enable"]</a>)<BR>"}
 	return menutext
 
-/obj/machinery/computer/syndicate_depot/selfdestruct/primary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/selfdestruct/primary(mob/user)
 	if(..())
 		return
 	if(depotarea.used_self_destruct)
@@ -176,7 +174,7 @@
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
 
 
-/obj/machinery/computer/syndicate_depot/selfdestruct/secondary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/selfdestruct/secondary(mob/user)
 	if(..())
 		return
 	if(!check_rights(R_ADMIN, 0, user))
@@ -203,7 +201,7 @@
 	if(depotarea)
 		depotarea.comms_computer = src
 
-/obj/machinery/computer/syndicate_depot/syndiecomms/get_menu(var/mob/user)
+/obj/machinery/computer/syndicate_depot/syndiecomms/get_menu(mob/user)
 	var/menu = "<B>Syndicate Communications Relay</B><HR>"
 	menu += "<BR><BR>One-Time Uplink to Syndicate HQ: [message_sent ? "ALREADY USED" : "AVAILABLE (<a href='?src=[UID()];primary=1'>Open Channel</a>)"]"
 	if(depotarea.on_peaceful)
@@ -219,7 +217,7 @@
 		menu += "<BR><BR>Visiting Agents: NONE (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_START]'>Sign-in as Agent</a>)"
 	return menu
 
-/obj/machinery/computer/syndicate_depot/syndiecomms/primary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/syndiecomms/primary(mob/user)
 	if(..())
 		return
 	if(!isliving(user))
@@ -243,7 +241,7 @@
 		raise_alert("Detected unauthorized access by [user] to [src]!")
 	updateUsrDialog()
 
-/obj/machinery/computer/syndicate_depot/syndiecomms/secondary(var/mob/user, var/subcommand)
+/obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user, subcommand)
 	if(..())
 		return
 	if(has_security_lockout(user))
@@ -277,7 +275,7 @@
 		to_chat(user, "<span class='warning'>ERROR: [src] is unable to uplink to depot network.</span>")
 	updateUsrDialog()
 
-/obj/machinery/computer/syndicate_depot/syndiecomms/proc/grant_syndie_faction(var/mob/user)
+/obj/machinery/computer/syndicate_depot/syndiecomms/proc/grant_syndie_faction(mob/user)
 	user.faction += "syndicate"
 	depotarea.peaceful_visitors += user
 	to_chat(user, {"<BR><span class='userdanger'>Welcome, Agent.</span>
@@ -330,6 +328,7 @@
 		return TRUE
 	for(var/obj/machinery/bluespace_beacon/syndicate/B in myArea)
 		mybeacon = B
+		B.mycomputer = src
 		return TRUE
 	return FALSE
 
@@ -362,7 +361,7 @@
 		qdel(myportal)
 		myportal = null
 
-/obj/machinery/computer/syndicate_depot/teleporter/get_menu(var/mob/user)
+/obj/machinery/computer/syndicate_depot/teleporter/get_menu(mob/user)
 	var/menutext = "<B>Syndicate Teleporter Control</B><HR>"
 	findbeacon()
 	if(mybeacon)
@@ -374,7 +373,7 @@
 		menutext += {" (<a href='?src=[UID()];secondary=1'>[portal_enabled ? "Disable" : "Enable"]</a>)<BR>"}
 	return menutext
 
-/obj/machinery/computer/syndicate_depot/teleporter/primary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/teleporter/primary(mob/user)
 	if(..())
 		return
 	if(!mybeacon && user)
@@ -384,7 +383,7 @@
 	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
 	updateUsrDialog()
 
-/obj/machinery/computer/syndicate_depot/teleporter/secondary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
 	if(..())
 		return
 	if(!check_rights(R_ADMIN, 0, user) && !(depotarea.on_peaceful && !portal_enabled))
@@ -406,7 +405,7 @@
 	icon_screen = "command"
 	req_access = list()
 
-/obj/machinery/computer/syndicate_depot/aiterminal/get_menu(var/mob/user)
+/obj/machinery/computer/syndicate_depot/aiterminal/get_menu(mob/user)
 	var/menutext = "<B>Syndicate AI Terminal</B><HR><BR>"
 	if(!istype(depotarea))
 		menutext += "<BR>ERROR: Unable to connect to AI network."
@@ -461,7 +460,7 @@
 		menutext += "<BR><BR>Sentry Bot: (none present)"
 	return menutext
 
-/obj/machinery/computer/syndicate_depot/aiterminal/primary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/aiterminal/primary(mob/user)
 	if(..())
 		return
 	if(!check_rights(R_ADMIN, 0, user))
@@ -470,7 +469,7 @@
 		depotarea.reset_alert()
 		to_chat(user, "Alert level reset.")
 
-/obj/machinery/computer/syndicate_depot/aiterminal/secondary(var/mob/user)
+/obj/machinery/computer/syndicate_depot/aiterminal/secondary(mob/user)
 	if(..())
 		return
 	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.guards_spawned)

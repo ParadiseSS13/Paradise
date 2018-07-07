@@ -629,13 +629,13 @@ var/list/ghostteleportlocs = list()
 	if(on_peaceful)
 		increase_alert("Vandals!")
 
-/area/syndicate_depot/proc/saw_mech(var/obj/mecha/E)
+/area/syndicate_depot/proc/saw_mech(obj/mecha/E)
 	if(detected_mech)
 		return
 	detected_mech = TRUE
 	increase_alert("Hostile mecha detected: [E]")
 
-/area/syndicate_depot/proc/peaceful_mode(var/newvalue, var/bycomputer)
+/area/syndicate_depot/proc/peaceful_mode(newvalue, bycomputer)
 	if(newvalue)
 		log_game("Depot visit: started")
 		alert_log += "Code GREEN: visitor mode started."
@@ -690,7 +690,7 @@ var/list/ghostteleportlocs = list()
 		peaceful_visitors = list()
 	updateicon()
 
-/area/syndicate_depot/proc/local_alarm(var/reason, var/silent)
+/area/syndicate_depot/proc/local_alarm(reason, silent)
 	if(local_alarm)
 		return
 	log_game("Depot code: blue: " + list_hostiles())
