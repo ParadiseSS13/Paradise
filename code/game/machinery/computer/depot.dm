@@ -313,6 +313,11 @@
 		choosetarget()
 		update_portal()
 
+/obj/machinery/computer/syndicate_depot/teleporter/Destroy()
+	if(mybeacon)
+		mybeacon.mycomputer = null
+	return ..()
+
 /obj/machinery/computer/syndicate_depot/teleporter/disable_special_functions()
 	if(mybeacon)
 		if(mybeacon.enabled)

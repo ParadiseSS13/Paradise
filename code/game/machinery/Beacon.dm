@@ -64,8 +64,14 @@
 /obj/machinery/bluespace_beacon/syndicate
 	syndicate = TRUE
 	enabled = FALSE
+	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
 /obj/machinery/bluespace_beacon/syndicate/New()
 	..()
 	if(!GAMEMODE_IS_NUCLEAR && prob(50))
 		enabled = TRUE
+
+/obj/machinery/bluespace_beacon/syndicate/Destroy()
+	if(mycomputer)
+		mycomputer.mybeacon = null
+	return ..()
