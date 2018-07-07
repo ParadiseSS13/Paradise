@@ -165,7 +165,7 @@
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
 	name = "66pc trapped documents"
 	spawn_nothing_percentage = 0
-	result = list(/obj/item/documents/syndicate/yellow = 1,
+	result = list(/obj/item/documents/syndicate/yellow = 1)
 
 
 

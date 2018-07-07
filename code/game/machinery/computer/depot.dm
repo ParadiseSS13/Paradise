@@ -302,8 +302,6 @@
 	icon_screen = "telesci"
 	icon_keyboard = "teleport_key"
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
-	var/turf/tele_target
-	var/tele_area
 	var/obj/effect/portal/myportal
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
@@ -340,15 +338,13 @@
 			continue
 		eligible_turfs += T
 	if(eligible_turfs.len)
-		tele_target = pick(eligible_turfs)
-		tele_area = get_area(tele_target)
-		return TRUE
+		return pick(eligible_turfs)
 	else
 		return FALSE
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
 	if(portal_enabled && !myportal)
-		choosetarget()
+		var/turf/tele_target = chosetarget()
 		if(!tele_target)
 			return
 		var/turf/portal_turf = get_step(src, portaldir)
@@ -356,7 +352,7 @@
 		myportal = P
 		P.failchance = 0
 		P.icon_state = "portal1"
-		P.name = "[tele_area] portal"
+		P.name = get_area(tele_target) + " portal"
 	else if(!portal_enabled && myportal)
 		qdel(myportal)
 		myportal = null
