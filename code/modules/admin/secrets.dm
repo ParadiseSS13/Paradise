@@ -91,7 +91,10 @@
 					<h2><B>OOC Events</B></h2>
 					<b>Thunderdome</b><br>
 					<A href='?src=[UID()];secretsfun=tdomestart'>Start a Thunderdome match</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=tdomereset'>Reset Thunderdome to default state</A><BR><br>
+					<A href='?src=[UID()];secretsfun=tdomereset'>Set Snow Field</A><BR><br>
+					<A href='?src=[UID()];secretsfun=tdomereset2'>Set Techno Hell</A><BR><br>
+					<A href='?src=[UID()];secretsfun=tdomereset3'>Set </A><BR><br>
+					<A href='?src=[UID()];secretsfun=tdomereset4'>Set </A><BR><br>
 					<b>Clothing</b><br>
 					<A href='?src=[UID()];secretsfun=sec_clothes'>Remove 'internal' clothing</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=sec_all_clothes'>Remove ALL clothing</A><BR>
