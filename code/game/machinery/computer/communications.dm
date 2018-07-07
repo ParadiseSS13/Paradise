@@ -528,7 +528,8 @@
 		if("alert")
 			status_signal.data["picture_state"] = data1
 
-	frequency.post_signal(src, status_signal)
+	spawn(0)
+		frequency.post_signal(src, status_signal)
 
 
 /obj/machinery/computer/communications/Destroy()

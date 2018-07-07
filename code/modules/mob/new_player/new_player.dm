@@ -4,7 +4,7 @@
 	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
-	var/tos_consent = TRUE
+	var/tos_consent = FALSE
 	universal_speak = 1
 
 	invisibility = 101
@@ -26,6 +26,7 @@
 
 /mob/new_player/proc/handle_tos_consent()
 	if(!GLOB.join_tos)
+		tos_consent = TRUE
 		return TRUE
 
 	establish_db_connection()
@@ -76,8 +77,8 @@
 
 	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
-//	if(GLOB.join_tos)
-//		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
+	if(GLOB.join_tos)
+		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
@@ -144,7 +145,7 @@
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)	return 0
-/*
+
 	if(href_list["consent_signed"])
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
@@ -158,15 +159,15 @@
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
 		query.Execute()
-*/
+
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
 		return 1
 
 	if(href_list["ready"])
-	/*	if(!tos_consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0*/
+			return 0
 		ready = !ready
 		new_player_panel_proc()
 
@@ -179,9 +180,9 @@
 		new_player_panel_proc()
 
 	if(href_list["observe"])
-		/*if(!tos_consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0*/
+			return 0
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 			if(!client)	return 1
@@ -216,9 +217,9 @@
 		return 0
 
 	if(href_list["late_join"])
-	/*	if(!tos_consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0*/
+			return 0
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return

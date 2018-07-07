@@ -30,6 +30,7 @@
 	var/sterile = FALSE //can the organ be infected by germs?
 	var/tough = FALSE //can organ be easily damaged?
 	var/emp_proof = FALSE //is the organ immune to EMPs?
+	var/hidden_pain = FALSE //will it skip pain messages?
 
 
 /obj/item/organ/Destroy()
@@ -232,7 +233,7 @@
 		if(owner && parent_organ && amount > 0)
 			var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
 			if(parent && !silent)
-				owner.custom_pain("Something inside your [parent.name] hurts a lot.", 1)
+				owner.custom_pain("Something inside your [parent.name] hurts a lot.")
 
 		//check if we've hit max_damage
 	if(damage >= max_damage)
@@ -306,7 +307,7 @@
 	processing_objects |= src
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
-		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user)
+		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user ? ATKLOG_FEW : ATKLOG_ALL)
 		owner.death()
 	owner = null
 	return src

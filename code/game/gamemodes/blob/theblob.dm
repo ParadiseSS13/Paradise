@@ -147,6 +147,9 @@
 	..()
 	take_damage(power/400, BURN)
 
+/obj/structure/blob/hulk_damage()
+	return 15
+
 /obj/structure/blob/attackby(var/obj/item/W, var/mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)

@@ -205,7 +205,7 @@ var/global/list/damage_icon_parts = list()
 			DI = damage_icon_parts[cache_index]
 		standing_image.overlays += DI
 
-	overlays_standing[DAMAGE_LAYER]	= standing_image
+	overlays_standing[H_DAMAGE_LAYER]	= standing_image
 
 	if(update_icons)   update_icons()
 

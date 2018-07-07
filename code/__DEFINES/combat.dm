@@ -39,8 +39,7 @@
 #define IGNORESLOWDOWN	256
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
-#define DISFIGURED	16384	//I'll probably move this elsewhere if I ever get wround to writing a bitflag mob-damage system
-#define XENO_HOST	32768	//Tracks whether we're gonna be a baby alien's mummy.
+#define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
 
 
 //Grab levels

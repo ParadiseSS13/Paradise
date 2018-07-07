@@ -14,7 +14,7 @@
 	bot_filter = RADIO_FLOORBOT
 	model = "Floorbot"
 	bot_purpose = "seek out damaged or missing floor tiles, and repair or replace them as necessary"
-	bot_core = /obj/machinery/bot_core/floorbot
+	bot_core_type = /obj/machinery/bot_core/floorbot
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
 	path_image_color = "#FFA500"

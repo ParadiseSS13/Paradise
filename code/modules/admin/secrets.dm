@@ -80,7 +80,6 @@
 					<A href='?src=[UID()];secretsfun=securitylevel5'>Security Level - Delta</A><BR>
 					<b>Create Weather</b><BR>
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=weatherdarkness'>Weather - Advanced Darkness</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
 

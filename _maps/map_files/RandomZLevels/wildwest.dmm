@@ -156,7 +156,7 @@
 "cZ" = (/obj/structure/window/reinforced{tag = "icon-fwindow (EAST)"; icon_state = "fwindow"; dir = 4},/obj/structure/window/reinforced{tag = "icon-fwindow (WEST)"; icon_state = "fwindow"; dir = 8},/obj/structure/grille,/obj/structure/window/reinforced{tag = "icon-fwindow (NORTH)"; icon_state = "fwindow"; dir = 1},/turf/simulated/floor/plating/ironsand{tag = "icon-ironsand1"; icon_state = "ironsand1"},/area/awaymission/wwgov)
 "da" = (/obj/effect/landmark/corpse/syndicatecommando{mobname = "Syndicate Commando"},/turf/simulated/floor/carpet,/area/awaymission/wwgov)
 "db" = (/obj/machinery/mineral/mint,/turf/simulated/floor/plating,/area/awaymission/wwrefine)
-"dc" = (/obj/structure/window/reinforced{dir = 5; health = 1e+007},/turf/simulated/floor/wood,/area/awaymission/wwmines)
+"dc" = (/obj/structure/window/reinforced{dir = 5; max_integrity = 1e+007},/turf/simulated/floor/wood,/area/awaymission/wwmines)
 "dd" = (/obj/structure/mineral_door/wood,/turf/simulated/floor/plating/ironsand{tag = "icon-ironsand1"; icon_state = "ironsand1"},/area/awaymission/wwmines)
 "de" = (/obj/structure/mineral_door/wood,/obj/effect/decal/cleanable/blood/tracks,/turf/simulated/floor/plating/ironsand{tag = "icon-ironsand1"; icon_state = "ironsand1"},/area/awaymission/wwmines)
 "df" = (/obj/structure/window/reinforced{dir = 4},/turf/space,/area/space)
