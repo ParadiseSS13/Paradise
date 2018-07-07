@@ -603,7 +603,7 @@ var/list/ghostteleportlocs = list()
 	hostiles_dead = list()
 	alert_log += "Alert level reset."
 
-/area/syndicate_depot/proc/increase_alert(var/reason)
+/area/syndicate_depot/proc/increase_alert(reason)
 	if(on_peaceful)
 		peaceful_mode(FALSE, FALSE)
 		peace_betrayed = TRUE
@@ -711,7 +711,7 @@ var/list/ghostteleportlocs = list()
 			B.depotarea = src
 	updateicon()
 
-/area/syndicate_depot/proc/call_backup(var/reason, var/silent)
+/area/syndicate_depot/proc/call_backup(reason, silent)
 	if(called_backup || used_self_destruct)
 		return
 	log_game("Depot code: red: " + list_hostiles())
@@ -742,7 +742,7 @@ var/list/ghostteleportlocs = list()
 		announce_here("Depot Communications Offline", "Comms computer is damaged, destroyed or depowered. Unable to call in backup from Syndicate HQ.")
 	updateicon()
 
-/area/syndicate_depot/proc/activate_self_destruct(var/reason, var/containment_failure, var/mob/user)
+/area/syndicate_depot/proc/activate_self_destruct(reason, containment_failure, mob/user)
 	if(used_self_destruct)
 		return
 	log_game("Depot code: delta: " + list_hostiles())
@@ -854,7 +854,7 @@ var/list/ghostteleportlocs = list()
 		run_finished = TRUE
 		log_game("Depot run: finished successfully: " + list_hostiles())
 
-/area/syndicate_depot/proc/add_hostile(var/mob/M)
+/area/syndicate_depot/proc/add_hostile(mob/M)
 	if(istype(M) && !(M in hostiles))
 		hostiles += M
 
