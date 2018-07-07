@@ -18,8 +18,6 @@
 	interact(user)
 
 /obj/machinery/computer/vr_pvp/interact(mob/user)
-	if(user.incapacitated())
-		return 0
 	ui_interact(user)
 
 /obj/machinery/computer/vr_pvp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)

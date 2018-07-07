@@ -15,8 +15,6 @@
 	interact(user)
 
 /obj/machinery/computer/vr_control/interact(mob/user)
-	if(user.incapacitated())
-		return 0
 	ui_interact(user)
 
 /obj/machinery/computer/vr_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
@@ -51,7 +49,7 @@
 		.=1
 	if(href_list["delete"])
 		var/datum/vr_room/room = vr_rooms[href_list["delete"]]
-		if(room.creator == usr.ckey)
+		if(room.creator == usr.ckey) //  || usr.check_rights(R_ADMIN)
 			room.cleanup()
 		.=1
 

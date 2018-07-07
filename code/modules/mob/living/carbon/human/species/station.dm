@@ -790,6 +790,8 @@
 	C.emote("scream")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	if(!H.client)
+		return
 	var/speech_pref = H.client.prefs.speciesprefs
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"

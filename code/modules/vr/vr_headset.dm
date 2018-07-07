@@ -11,7 +11,7 @@
 	var/mob/living/carbon/human/virtual_reality/vr_human = null
 	var/user_health = 0
 	var/exile = 0
-
+	var/area/room = null
 
 /obj/item/clothing/ears/vr_headset/Destroy()
 	if(vr_human)
@@ -54,6 +54,7 @@
 					control_remote(H, vr_human)
 				user_health = H.health
 				processing_objects.Add(src)
+				room = A
 
 /obj/item/clothing/ears/vr_headset/equipped()
 	..()
@@ -74,6 +75,9 @@
 	H.Weaken(2)
 	if((user_health - H.health > 50 && !contained()) || (exile && !(istype(A, /area/security/vr))))
 		vr_human.revert_to_reality(0)
+	if(room != A)
+		to_chat(vr_human, "You see your vision flicker as your headset changes from one network to another.")
+		room = A
 
 /obj/item/clothing/ears/vr_headset/exile
 	desc = "The mind is just another prison with the right bars."

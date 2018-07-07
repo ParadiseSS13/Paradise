@@ -62,11 +62,12 @@ var/list/vr_all_players = list()
 		return
 
 	if(waitlist.len > 1)
+		to_chat(waitlist, "Previous round in cleanup mode, the next round will start in aproximatly 30 seconds. Please be in the lobby and on the list.")
 		spawn_points = list()
 		spawn(0)
 			space_manager.free_space(src.chunk)
-		round_end = world.time + 50 SECONDS
-		sleep(50 SECONDS)
+		round_end = world.time + 30 SECONDS
+		sleep(30 SECONDS)
 		chunk = space_manager.allocate_space(template.width, template.height)
 		template.load(locate(chunk.x,chunk.y,chunk.zpos), centered = FALSE)
 
@@ -83,7 +84,7 @@ var/list/vr_all_players = list()
 		round_timer = addtimer(src, "vr_round", 10 MINUTES)
 		round_end = world.time + 10 MINUTES
 	else
-		to_chat(waitlist, "There are not enough players to start the round, checking again in one minute")
+		to_chat(waitlist, "There are not enough players to start the round, checking again in one minute.")
 		round_timer = addtimer(src, "vr_round", 1 MINUTES)
 		round_end = world.time + 1 MINUTES
 
@@ -124,8 +125,10 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	if(istype(H, /mob/living/carbon/human/virtual_reality))
 		var/mob/living/carbon/human/virtual_reality/V = H
 		vr_avatar.real_me = V.real_me
+		V.real_me.vr_avatar = vr_avatar
 	else
 		vr_avatar.real_me = H
+		H.vr_avatar = vr_avatar
 
 	vr_avatar.dna = H.dna.Clone()
 	vr_avatar.sync_organ_dna(assimilate=1)
@@ -167,6 +170,7 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 proc/control_remote(mob/living/carbon/human/H, mob/living/carbon/human/virtual_reality/vr_avatar)
 	if(H.ckey)
 		vr_avatar.ckey = H.ckey
+		//SSnanoui.close_user_uis(H)
 		if(istype(H, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/V = H
 			vr_avatar.real_me = V.real_me

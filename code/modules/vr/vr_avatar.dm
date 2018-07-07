@@ -52,14 +52,8 @@
 	return ..()
 
 /mob/living/carbon/human/virtual_reality/ghost()
-	set category = "OOC"
-	set name = "Ghost"
-	set desc = "Relinquish your life and enter the land of the dead."
-	var/mob/living/carbon/human/H = real_me
-	revert_to_reality(FALSE)
-	if(H)
-		H.ghost()
-	death()
+	alert(src, "You can not ghost while in VR. Please exit first.","Are you sure you want to ghost?")
+	return
 
 /mob/living/carbon/human/virtual_reality/say(var/message)
 	real_me.say(message)
