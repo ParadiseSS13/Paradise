@@ -70,6 +70,8 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 	var/latest_post = 0
 	var/auto_scroll = 1
 	var/disconnected = 0
+	var/invite_delay = 0
+	var/can_invite = TRUE
 
 /datum/data/pda/app/chatroom/Destroy()
 	for(var/C in chatrooms)
@@ -213,16 +215,23 @@ var/list/chatrooms = list(new /datum/chatroom("General Discussion"))
 
 			inviting = 1
 		if("Invite PDA")
-			spawn()
-				if(!check_messaging_available() || !current_room || !href_list["user"])
+			if(!can_invite)//can invite is false
+				if(!(world.time >= invite_delay))//are we inviteing before delay is up?
+					alert("Invite sent too soon, please wait!")
 					return
+				else//Dealy up, reset.
+					can_invite = TRUE
 
-				var/datum/data/pda/app/chatroom/C = locate(href_list["user"])
-				if(C)
-					current_room.invites |= C
-					spawn()
-						if(C.messaging_available() && !C.toff)
-							C.notify("<b>Invite to #[current_room]</b> (<a href='?src=[C.UID()];choice=Join;room=\ref[current_room]'>Join</a>)")
+			if(!check_messaging_available() || !current_room || !href_list["user"])
+				return
+
+			var/datum/data/pda/app/chatroom/C = locate(href_list["user"])
+			if(C)
+				current_room.invites |= C
+				if(C.messaging_available() && !C.toff)
+					invite_delay = world.time + 100
+					can_invite = FALSE
+					C.notify("<b>Invite to #[current_room]</b> (<a href='?src=[C.UID()];choice=Join;room=\ref[current_room]'>Join</a>)")
 		if("New Room")
 			if(channels_created >= max_channels_created)
 				alert("This PDA has already reached its maximum channels created.", name)
