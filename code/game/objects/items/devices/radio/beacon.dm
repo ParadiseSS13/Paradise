@@ -55,7 +55,7 @@
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
 	origin_tech = "bluespace=6;syndicate=5"
 	syndicate = TRUE
-	var/obj/machinery/computer/mycomputer
+	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
 /obj/item/radio/beacon/syndicate/Destroy()
 	if(mycomputer)

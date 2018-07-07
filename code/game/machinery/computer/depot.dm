@@ -344,7 +344,7 @@
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/update_portal()
 	if(portal_enabled && !myportal)
-		var/turf/tele_target = chosetarget()
+		var/turf/tele_target = choosetarget()
 		if(!tele_target)
 			return
 		var/turf/portal_turf = get_step(src, portaldir)
