@@ -82,7 +82,7 @@
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
-
+//tdome control//
 		if(2)
 			if(check_rights((R_SERVER|R_EVENT),0))
 				dat += {"
