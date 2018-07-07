@@ -20,7 +20,7 @@
 		return
 	spawn_item(T)
 
-/obj/effect/spawner/random_spawners/proc/spawn_item(var/turf/T)
+/obj/effect/spawner/random_spawners/proc/spawn_item(turf/T)
 	if(!prob(spawn_nothing_percentage))
 		var/thing_to_place = pickweight(result)
 		if(ispath(thing_to_place, /turf))
@@ -188,7 +188,7 @@
 		/obj/item/clothing/mask/gas/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/cutouts = 1)
 
-/obj/effect/spawner/random_spawners/syndicate/loot/spawn_item(var/turf/T)
+/obj/effect/spawner/random_spawners/syndicate/loot/spawn_item(turf/T)
 	if(!prob(spawn_nothing_percentage))
 		var/thing_to_place = pickweight(result)
 		if(ispath(thing_to_place, /turf))
