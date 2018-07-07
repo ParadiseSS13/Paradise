@@ -340,8 +340,8 @@
 	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_vault
 	security_level = 6
-	hackProof = 1
-	aiControlDisabled = 1
+	hackProof = TRUE
+	aiControlDisabled = TRUE
 
 /obj/machinery/door/airlock/hatch/gamma
 	name = "gamma level hatch"

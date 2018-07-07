@@ -54,7 +54,7 @@
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
 	origin_tech = "bluespace=6;syndicate=5"
-	syndicate = 1
+	syndicate = TRUE
 	var/obj/machinery/computer/mycomputer
 
 /obj/item/radio/beacon/syndicate/Destroy()

@@ -805,7 +805,7 @@ var/list/ghostteleportlocs = list()
 	for(var/obj/machinery/bluespace_beacon/syndicate/B in src)
 		return B.toggle()
 
-/area/syndicate_depot/proc/announce_here(var/a_header = "Depot Defense Alert", var/a_text = "")
+/area/syndicate_depot/proc/announce_here(a_header = "Depot Defense Alert", a_text = "")
 	var/msg_text = "<font size=4 color='red'>[a_header]</font><br><font color='red'>[a_text]</font>"
 	var/list/receivers = list()
 	for(var/mob/M in mob_list)
@@ -839,7 +839,7 @@ var/list/ghostteleportlocs = list()
 		qdel(thismob)
 	guards_spawned = list()
 
-/area/syndicate_depot/proc/ghostlog(var/gmsg)
+/area/syndicate_depot/proc/ghostlog(gmsg)
 	if(istype(reactor))
 		var/image/alert_overlay = image('icons/obj/flag.dmi', "syndiflag")
 		notify_ghosts(gmsg, title = "Depot News", source = reactor, alert_overlay = alert_overlay, action = NOTIFY_JUMP)
