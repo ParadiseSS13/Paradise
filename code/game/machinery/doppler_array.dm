@@ -167,13 +167,12 @@ var/list/doppler_arrays = list()
 	var/data[0]
 	var/list/explosion_data = list()
 	for(var/datum/explosion_log/E in logged_explosions)
-		E.UID()
 		explosion_data += list(list(
 			"logged_time" = E.logged_time,
 			"epicenter" = E.epicenter,
 			"actual_size_message" = E.actual_size_message,
 			"theoretical_size_message" = E.theoretical_size_message,
-			"unique_datum_id" = E.unique_datum_id))
+			"unique_datum_id" = E.UID()))
 	data["explosion_data"] = explosion_data
 	data["printing"] = active_timers
 	return data
