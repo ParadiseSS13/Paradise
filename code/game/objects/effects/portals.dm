@@ -32,6 +32,9 @@
 	else if(istype(creator, /obj/item/gun/energy/wormhole_projector))
 		var/obj/item/gun/energy/wormhole_projector/P = creator
 		P.portal_destroyed(src)
+	else if(istype(creator, /obj/machinery/computer/syndicate_depot/teleporter))
+		var/obj/machinery/computer/syndicate_depot/teleporter/C = creator
+		C.myportal = null
 	creator = null
 	target = null
 	return ..()
