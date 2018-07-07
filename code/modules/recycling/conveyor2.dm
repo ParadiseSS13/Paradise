@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/turf/left = get_step(src, turn(dir, 90))	//We need to get conveyors to the right, left, and behind this one to be able to determine if we need to make a corner piece
 	var/turf/right = get_step(src, turn(dir, -90))
 	var/turf/back = get_step(src, turn(dir, 180))
-	to_chat(user, "<span>You rotate [src].</span>")
+	to_chat(user, "<span class='notice'>You rotate [src].</span>")
 	var/obj/machinery/conveyor/CL = locate() in left
 	var/obj/machinery/conveyor/CR = locate() in right
 	var/obj/machinery/conveyor/CB = locate() in back
@@ -123,15 +123,14 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 			link_to_back = TRUE
 	if(link_to_back) //Don't need to do anything because we can assume the conveyor carries on in a line
 		return
-	else if(link_to_left && link_to_right) //Two conveyors are pointed to this one, they will both drop items on here so we don't need to do anything (this will be the middle piece in a "junction"
+	else if(!(link_to_left ^ link_to_right)) //Either no valid conveyors point here, or two point here (making a "junction" with this belt as the middle piece). Either way we don't need a corner
 		return
-	else if(link_to_left || link_to_right) //There is one conveyor pointed to us, so we need to make a corner piece
-		if(CR)
-			dir = turn(dir, 45)
-			clockwise = TRUE
-		else if(CL)
-			dir = turn(dir, -45)
-			clockwise = FALSE
+	if(link_to_right)
+		dir = turn(dir, 45)
+		clockwise = TRUE
+	else if(link_to_left)
+		dir = turn(dir, -45)
+		clockwise = FALSE
 
 /obj/machinery/conveyor/power_change()
 	..()
