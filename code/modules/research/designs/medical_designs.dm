@@ -446,3 +446,55 @@
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/implantcase/track
 	category = list("Medical")
+
+//Cybernetic organs
+
+/datum/design/cybernetic_liver
+	name = "Cybernetic Liver"
+	desc = "A cybernetic liver"
+	id = "cybernetic_liver"
+	req_tech = list("biotech" = 4, "materials" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/organ/internal/liver/cybernetic
+	category = list("Medical")
+
+/datum/design/cybernetic_kidneys
+	name = "Cybernetic Kidneys"
+	desc = "A cybernetic pair of kidneys"
+	id = "cybernetic_kidneys"
+	req_tech = list("biotech" = 4, "materials" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/organ/internal/kidneys/cybernetic
+	category = list("Medical")
+
+/datum/design/cybernetic_heart
+	name = "Cybernetic Heart"
+	desc = "A cybernetic heart"
+	id = "cybernetic_heart"
+	req_tech = list("biotech" = 4, "materials" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/organ/internal/heart/cybernetic
+	category = list("Medical")
+
+/datum/design/cybernetic_lungs
+	name = "Cybernetic Lungs"
+	desc = "A pair of cybernetic lungs."
+	id = "cybernetic_lungs"
+	req_tech = list("biotech" = 4, "materials" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/organ/internal/lungs/cybernetic
+	category = list("Medical")
+
+/datum/design/cybernetic_lungs_u
+	name = "Upgraded Cybernetic Lungs"
+	desc = "A pair of upgraded cybernetic lungs."
+	id = "cybernetic_lungs_u"
+	req_tech = list("biotech" = 5, "materials" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500)
+	build_path = /obj/item/organ/internal/lungs/cybernetic/upgraded
+	category = list("Medical")

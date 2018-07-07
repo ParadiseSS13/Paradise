@@ -8,6 +8,8 @@
 #define ORGAN_MUTATED    16
 #define ORGAN_ASSISTED   32
 
+#define PROCESS_ACCURACY 10
+
 #define DROPLIMB_SHARP 0
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
