@@ -62,7 +62,7 @@
 
 
 /obj/machinery/bluespace_beacon/syndicate
-	syndicate = 1
+	syndicate = TRUE
 	enabled = FALSE
 
 /obj/machinery/bluespace_beacon/syndicate/New()
