@@ -41,7 +41,7 @@ var/global/list/default_pai_software = list()
 	if(ui_key != "main")
 		var/datum/pai_software/S = software[ui_key]
 		if(S && !S.toggle)
-			ui = nanomanager.try_update_ui(user, src, S.id, ui, force_open)
+			ui = SSnanoui.try_update_ui(user, src, S.id, ui, force_open)
 			if(!ui)
 				ui = new(user, src, S.id, S.template_file, S.ui_title, S.ui_width, S.ui_height, state = state)
 				ui.open()
@@ -52,7 +52,7 @@ var/global/list/default_pai_software = list()
 				ui.set_status(STATUS_CLOSE, 0)
 		return
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "pai_interface.tmpl", "pAI Software Interface", 450, 600, state = state)
 		ui.open()

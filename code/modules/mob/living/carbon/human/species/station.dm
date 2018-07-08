@@ -10,7 +10,6 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
-	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "Humanity originated in the Sol system, and over the last five centuries has spread \
 	colonies across a wide swathe of space. They hold a wide range of forms and creeds.<br/><br/> \
 	While the central Sol government maintains control of its far-flung people, powerful corporate \
@@ -237,7 +236,6 @@
 	default_language = "Galactic Common"
 	language = "Skrellian"
 	primitive_form = "Neara"
-	unarmed_type = /datum/unarmed_attack/punch
 
 	blurb = "An amphibious species, Skrell come from the star system known as Qerr'Vallis, which translates to 'Star of \
 	the royals' or 'Light of the Crown'.<br/><br/>Skrell are a highly advanced and logical race who live under the rule \
@@ -381,9 +379,9 @@
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	if(tank_pref)//Diseasel, here you go
-		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_l_hand)
+		H.equip_or_collect(new /obj/item/tank/nitrogen(H), slot_l_hand)
 	else
-		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
+		H.equip_or_collect(new /obj/item/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
 	H.update_action_buttons_icon()
@@ -546,7 +544,6 @@
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
 	path = /mob/living/carbon/human/slime
-	unarmed_type = /datum/unarmed_attack/punch
 	remains_type = /obj/effect/decal/remains/slime
 
 	// More sensitive to the cold
@@ -690,7 +687,7 @@
 	var/limb_select = input(src, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
 	var/chosen_limb = missing_limbs[limb_select]
 
-	visible_message("<span class='notice'>[src] begins to hold still and concentrate on their missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
+	visible_message("<span class='notice'>[src] begins to hold still and concentrate on [p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
 	if(do_after(src, SLIMEPERSON_REGROWTHDELAY, needhand=0, target = src))
 		if(stat || paralysis || stunned)
 			to_chat(src, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
@@ -728,7 +725,7 @@
 		updatehealth()
 		UpdateDamageIcon()
 		nutrition -= SLIMEPERSON_HUNGERCOST
-		visible_message("<span class='notice'>[src] finishes regrowing their missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
+		visible_message("<span class='notice'>[src] finishes regrowing [p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
 	else
 		to_chat(src, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
 	return
@@ -749,7 +746,6 @@
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
 	default_language = "Galactic Common"
 	language = "Psionic Communication"
-	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
 
@@ -933,7 +929,6 @@
 	path = /mob/living/carbon/human/machine
 	default_language = "Galactic Common"
 	language = "Trinary"
-	unarmed_type = /datum/unarmed_attack/punch
 	remains_type = /obj/effect/decal/remains/robot
 
 	eyes = "blank_eyes"
@@ -1017,7 +1012,6 @@
 	path = /mob/living/carbon/human/drask
 	default_language = "Galactic Common"
 	language = "Orluum"
-	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "drask_eyes_s"
 
 	speech_sounds = list('sound/voice/DraskTalk.ogg')

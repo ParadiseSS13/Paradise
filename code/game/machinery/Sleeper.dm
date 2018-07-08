@@ -20,7 +20,7 @@
 							  list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine", "oculine", "charcoal", "mutadone", "mannitol", "pen_acid", "omnizine"))
 	var/emergency_chems = list("epinephrine") // Desnowflaking
 	var/amounts = list(5, 10)
-	var/obj/item/weapon/reagent_containers/glass/beaker = null
+	var/obj/item/reagent_containers/glass/beaker = null
 	var/filtering = 0
 	var/max_chem
 	var/initial_bin_rating = 1
@@ -42,36 +42,36 @@
 /obj/machinery/sleeper/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/sleeper(null)
+	component_parts += new /obj/item/circuitboard/sleeper(null)
 
 	// Customizable bin rating, used by the labor camp to stop people filling themselves with chemicals and escaping.
-	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	var/obj/item/stock_parts/matter_bin/B = new(null)
 	B.rating = initial_bin_rating
 	component_parts += B
 
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/sleeper/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/sleeper(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/sleeper(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
 	var/I
-	for(var/obj/item/weapon/stock_parts/matter_bin/B in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		E += B.rating
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		I += M.rating
 
 	injection_chems = possible_chems[I]
@@ -140,7 +140,7 @@
 	ui_interact(user)
 
 /obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "sleeper.tmpl", "Sleeper", 550, 770)
 		ui.open()
@@ -257,7 +257,7 @@
 		if(href_list["chemical"])
 			if(occupant)
 				if(occupant.stat == DEAD)
-					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take them to a department capable of reanimating them.</span>")
+					to_chat(usr, "<span class='danger'>This person has no life for to preserve anymore. Take [occupant.p_them()] to a department capable of reanimating them.</span>")
 				else if(occupant.health > min_health || (href_list["chemical"] in emergency_chems))
 					inject_chemical(usr,href_list["chemical"],text2num(href_list["amount"]))
 				else
@@ -280,8 +280,8 @@
 	return
 
 
-/obj/machinery/sleeper/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
-	if(istype(G, /obj/item/weapon/reagent_containers/glass))
+/obj/machinery/sleeper/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
+	if(istype(G, /obj/item/reagent_containers/glass))
 		if(!beaker)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>\The [G] is stuck to you!</span>")
@@ -296,14 +296,14 @@
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
 			return
 
-	if(istype(G, /obj/item/weapon/screwdriver))
+	if(istype(G, /obj/item/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", G)
 		return
 
-	if(istype(G, /obj/item/weapon/wrench))
+	if(istype(G, /obj/item/wrench))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
@@ -322,39 +322,40 @@
 	if(exchange_parts(user, G))
 		return
 
-	if(istype(G, /obj/item/weapon/crowbar))
+	if(istype(G, /obj/item/crowbar))
 		default_deconstruction_crowbar(G)
 		return
 
-	if(istype(G, /obj/item/weapon/grab))
+	if(istype(G, /obj/item/grab))
+		var/obj/item/grab/GG = G
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
-		if(!ismob(G:affecting))
+		if(!ismob(GG.affecting))
 			return
 		if(src.occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
-		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
-			if(M.Victim == G:affecting)
-				to_chat(usr, "[G:affecting.name] will not fit into the sleeper because they have a slime latched onto their head.")
+		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
+			if(M.Victim == GG.affecting)
+				to_chat(usr, "[GG.affecting.name] will not fit into the sleeper because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
 				return
 
-		visible_message("[user] starts putting [G:affecting:name] into the sleeper.")
+		visible_message("[user] starts putting [GG.affecting.name] into the sleeper.")
 
-		if(do_after(user, 20, target = G:affecting))
+		if(do_after(user, 20, target = GG.affecting))
 			if(src.occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 				return
-			if(!G || !G:affecting) return
-			var/mob/M = G:affecting
+			if(!GG || !GG.affecting) return
+			var/mob/M = GG.affecting
 			M.forceMove(src)
 			src.occupant = M
 			src.icon_state = "[base_icon]"
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 
 			src.add_fingerprint(user)
-			qdel(G)
+			qdel(GG)
 		return
 	return
 
@@ -496,7 +497,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the sleeper because they have a slime latched onto their head.")
+			to_chat(usr, "[L.name] will not fit into the sleeper because [L.p_they()] [L.p_have()] a slime latched onto their head.")
 			return
 	if(L == user)
 		visible_message("[user] starts climbing into the sleeper.")
@@ -565,13 +566,13 @@
 /obj/machinery/sleeper/syndie/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/sleeper/syndicate(null)
-	var/obj/item/weapon/stock_parts/matter_bin/B = new(null)
+	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
+	var/obj/item/stock_parts/matter_bin/B = new(null)
 	B.rating = initial_bin_rating
 	component_parts += B
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 

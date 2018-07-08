@@ -49,17 +49,8 @@
 	description_holders["icon"] = "[bicon(A)]"
 	description_holders["desc"] = A.desc
 
-// Byond seemingly calls stat, each tick.
-// Calling things each tick can get expensive real quick.
-// So we slow this down a little.
-// See: http://www.byond.com/docs/ref/info.html#/client/proc/Stat
 /client/Stat()
 	. = ..()
-	if(holder)
-		sleep(1)
-	else
-		sleep(5)
-		stoplag()
 	if(usr && statpanel("Examine"))
 		stat(null,"[description_holders["icon"]]    <font size='5'>[description_holders["name"]]</font>") //The name, written in big letters.
 		stat(null,"[description_holders["desc"]]") //the default examine text.

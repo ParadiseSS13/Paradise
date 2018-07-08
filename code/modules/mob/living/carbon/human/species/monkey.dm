@@ -28,8 +28,7 @@
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
 
-	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
-	//inherent_verbs = list(/mob/living/proc/ventcrawl)
+	unarmed_type = /datum/unarmed_attack/bite
 
 	total_health = 75
 	brute_mod = 1.5
@@ -49,7 +48,7 @@
 /datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
-	H.butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat/monkey = 5)
+	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/monkey = 5)
 
 	..()
 
@@ -82,12 +81,12 @@
 		if(slot_handcuffed)
 			if(user.handcuffed)
 				return 2
-			if(!istype(I, /obj/item/weapon/restraints/handcuffs))
+			if(!istype(I, /obj/item/restraints/handcuffs))
 				return 2
 			return 1
 		if(slot_in_backpack)
-			if(user.back && istype(user.back, /obj/item/weapon/storage/backpack))
-				var/obj/item/weapon/storage/backpack/B = user.back
+			if(user.back && istype(user.back, /obj/item/storage/backpack))
+				var/obj/item/storage/backpack/B = user.back
 				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
 					return 1
 			return 2

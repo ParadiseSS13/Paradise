@@ -435,10 +435,10 @@
 /obj/item/pipe/attack_self(mob/user as mob)
 	return rotate()
 
-/obj/item/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+/obj/item/pipe/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	..()
 
-	if(!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 
 	if(!isturf(src.loc))
@@ -637,10 +637,10 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_meter/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob, params)
+/obj/item/pipe_meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	..()
 
-	if(!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
 		to_chat(user, "<span class='warning'>You need to fasten it to a pipe</span>")
@@ -658,9 +658,9 @@
 	item_state = "buildpipe"
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/pipe_gsensor/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+/obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
 	..()
-	if(!istype(W, /obj/item/weapon/wrench))
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )
 	playsound(get_turf(src), W.usesound, 50, 1)

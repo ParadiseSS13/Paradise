@@ -85,7 +85,7 @@
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
 	else
-		for(var/obj/item/device/radio/R in global_radios)
+		for(var/obj/item/radio/R in global_radios)
 			receivers |= R.send_announcement()
 		for(var/mob/M in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
@@ -169,9 +169,9 @@
 
 /datum/announcement/proc/Log(message as text, message_title as text)
 	if(log)
-		log_say("[key_name(usr)] has made \a [announcement_type]: [message_title] - [message] - [announcer]")
+		log_game("[key_name(usr)] has made \a [announcement_type]: [message_title] - [message] - [announcer]")
 		message_admins("[key_name_admin(usr)] has made \a [announcement_type].", 1)
 
-/proc/GetNameAndAssignmentFromId(var/obj/item/weapon/card/id/I)
+/proc/GetNameAndAssignmentFromId(var/obj/item/card/id/I)
 	// Format currently matches that of newscaster feeds: Registered Name (Assigned Rank)
 	return I.assignment ? "[I.registered_name] ([I.assignment])" : I.registered_name

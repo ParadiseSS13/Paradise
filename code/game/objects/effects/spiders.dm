@@ -24,7 +24,7 @@
 			if(prob(5))
 				qdel(src)
 
-/obj/structure/spider/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/spider/attackby(obj/item/W, mob/user, params)
 	if(W.attack_verb.len)
 		visible_message("<span class='danger'>[user] has [pick(W.attack_verb)] [src] with [W]!</span>")
 	else
@@ -33,7 +33,7 @@
 	var/damage = W.force / 4
 
 	if(iswelder(W))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 
 		if(WT.remove_fuel(0, user))
 			damage = 15
@@ -219,7 +219,7 @@
 						if(C)
 							S.key = C.key
 							if(S.master_commander)
-								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist them in completing their goals at any cost.</span>")
+								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
 			qdel(src)
 
 /obj/effect/decal/cleanable/spiderling_remains

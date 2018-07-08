@@ -54,13 +54,12 @@
 	if(prob(75))
 		qdel(src)
 
-/obj/machinery/optable/attack_hand(mob/user as mob)
-	if(HULK in usr.mutations)
-		to_chat(usr, text("<span class='notice'>You destroy the table.</span>"))
-		visible_message("<span class='warning'>[usr] destroys the operating table!</span>")
-		src.density = 0
+/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		..(user, TRUE)
+		visible_message("<span class='warning'>[user] destroys the operating table!</span>")
 		qdel(src)
-	return
+		return TRUE
 
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0) return 1
@@ -143,13 +142,13 @@
 
 	take_victim(usr,usr)
 
-/obj/machinery/optable/attackby(obj/item/weapon/W as obj, mob/living/carbon/user as mob, params)
-	if(istype(W, /obj/item/weapon/grab))
+/obj/machinery/optable/attackby(obj/item/W as obj, mob/living/carbon/user as mob, params)
+	if(istype(W, /obj/item/grab))
 		if(iscarbon(W:affecting))
 			take_victim(W:affecting,usr)
 			qdel(W)
 			return
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		playsound(src.loc, W.usesound, 50, 1)
 		if(do_after(user, 20 * W.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")

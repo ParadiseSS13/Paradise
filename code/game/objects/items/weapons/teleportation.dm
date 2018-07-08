@@ -7,7 +7,7 @@
 /*
  * Locator
  */
-/obj/item/weapon/locator
+/obj/item/locator
 	name = "locator"
 	desc = "Used to track those with locater implants."
 	icon = 'icons/obj/device.dmi'
@@ -24,7 +24,7 @@
 	materials = list(MAT_METAL=400)
 	origin_tech = "magnets=3;bluespace=2"
 
-/obj/item/weapon/locator/attack_self(mob/user as mob)
+/obj/item/locator/attack_self(mob/user as mob)
 	add_fingerprint(usr)
 	var/dat
 	if(temp)
@@ -43,7 +43,7 @@ Frequency:
 	onclose(user, "radio")
 	return
 
-/obj/item/weapon/locator/Topic(href, href_list)
+/obj/item/locator/Topic(href, href_list)
 	if(..())
 		return 1
 
@@ -59,14 +59,14 @@ Frequency:
 		if(sr)
 			temp += "<B>Located Beacons:</B><BR>"
 
-			for(var/obj/item/device/radio/beacon/W in beacons)
+			for(var/obj/item/radio/beacon/W in beacons)
 				if(W.frequency == frequency && !W.syndicate)
 					if(W && W.z == z)
 						var/turf/TB = get_turf(W)
 						temp += "[W.code]: [TB.x], [TB.y], [TB.z]<BR>"
 
 			temp += "<B>Located Implants:</B><BR>"
-			for(var/obj/item/weapon/implant/tracking/T in tracked_implants)
+			for(var/obj/item/implant/tracking/T in tracked_implants)
 				if(!T.implanted || !T.imp_in)
 					continue
 
@@ -91,7 +91,7 @@ Frequency:
 /*
  * Hand-tele
  */
-/obj/item/weapon/hand_tele
+/obj/item/hand_tele
 	name = "hand tele"
 	desc = "A portable item using blue-space technology."
 	icon = 'icons/obj/device.dmi'
@@ -103,9 +103,10 @@ Frequency:
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
 	origin_tech = "magnets=3;bluespace=4"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
 	var/active_portals = 0
 
-/obj/item/weapon/hand_tele/attack_self(mob/user as mob)
+/obj/item/hand_tele/attack_self(mob/user as mob)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
 	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")

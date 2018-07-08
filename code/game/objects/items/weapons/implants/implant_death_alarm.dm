@@ -1,11 +1,11 @@
-/obj/item/weapon/implant/death_alarm
+/obj/item/implant/death_alarm
 	name = "death alarm implant"
 	desc = "An alarm which monitors host vital signs and transmits a radio message upon death."
 	var/mobname = "Will Robinson"
 	activated = 0
 	var/static/list/stealth_areas = typecacheof(list(/area/syndicate_station, /area/syndicate_mothership, /area/shuttle/syndicate_elite))
 
-/obj/item/weapon/implant/death_alarm/get_data()
+/obj/item/implant/death_alarm/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Nanotrasen \"Profit Margin\" Class Employee Lifesign Sensor<BR>
 				<b>Life:</b> Activates upon death.<BR>
@@ -17,11 +17,11 @@
 				<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
 	return dat
 
-/obj/item/weapon/implant/death_alarm/Destroy()
+/obj/item/implant/death_alarm/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/weapon/implant/death_alarm/process()
+/obj/item/implant/death_alarm/process()
 	if(!implanted)
 		return
 	var/mob/M = imp_in
@@ -31,11 +31,11 @@
 	else if(M.stat == DEAD)
 		activate("death")
 
-/obj/item/weapon/implant/death_alarm/activate(var/cause)
+/obj/item/implant/death_alarm/activate(var/cause)
 	var/mob/M = imp_in
 	var/area/t = get_area(M)
 
-	var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(src)
+	var/obj/item/radio/headset/a = new /obj/item/radio/headset(src)
 	a.follow_target = M
 
 	switch(cause)
@@ -55,17 +55,17 @@
 
 	qdel(a)
 
-/obj/item/weapon/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
+/obj/item/implant/death_alarm/emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
 	activate("emp")	//let's shout that this dude is dead
 
-/obj/item/weapon/implant/death_alarm/implant(mob/target)
+/obj/item/implant/death_alarm/implant(mob/target)
 	if(..())
 		mobname = target.real_name
 		processing_objects.Add(src)
 		return 1
 	return 0
 
-/obj/item/weapon/implant/death_alarm/removed(mob/target)
+/obj/item/implant/death_alarm/removed(mob/target)
 	if(..())
 		processing_objects.Remove(src)
 		return 1

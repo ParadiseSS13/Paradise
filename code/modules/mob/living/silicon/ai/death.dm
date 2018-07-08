@@ -21,7 +21,7 @@
 	if(nuking)
 		set_security_level("red")
 		nuking = 0
-		for(var/obj/item/weapon/pinpointer/point in pinpointer_list)
+		for(var/obj/item/pinpointer/point in pinpointer_list)
 			point.the_disk = null //Point back to the disk.
 
 	if(doomsday_device)
@@ -40,10 +40,10 @@
 	for(var/obj/machinery/ai_status_display/O in world) //change status
 		spawn( 0 )
 		O.mode = 2
-		if(istype(loc, /obj/item/device/aicard))
+		if(istype(loc, /obj/item/aicard))
 			loc.icon_state = "aicard-404"
 
 	timeofdeath = world.time
-	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
+	if(mind)	mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 
 	return ..(gibbed)

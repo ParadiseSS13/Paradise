@@ -36,7 +36,7 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
-/turf/simulated/floor/mineral/plasma/attackby(obj/item/weapon/W, mob/user, params)
+/turf/simulated/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma flooring was ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma flooring was <b>ignited by [key_name(user)] in ([x],[y],[z])")
@@ -146,7 +146,7 @@
 		if(istype(M))
 			squeek()
 
-/turf/simulated/floor/mineral/bananium/attackby(obj/item/weapon/W, mob/user, params)
+/turf/simulated/floor/mineral/bananium/attackby(obj/item/W, mob/user, params)
 	.=..()
 	if(!.)
 		honk()
@@ -205,7 +205,7 @@
 		if(istype(AM))
 			radiate()
 
-/turf/simulated/floor/mineral/uranium/attackby(obj/item/weapon/W, mob/user, params)
+/turf/simulated/floor/mineral/uranium/attackby(obj/item/W, mob/user, params)
 	.=..()
 	if(!.)
 		radiate()

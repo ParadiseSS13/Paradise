@@ -4,16 +4,13 @@
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
 	req_access = list(access_bar)
+	armor = list(melee = 20, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 0, rad = 0)
 	var/list/barsigns=list()
 	var/list/hiddensigns
-	var/broken = 0
 	var/emagged = 0
 	var/state = 0
 	var/prev_sign = ""
 	var/panel_open = 0
-
-
-
 
 /obj/structure/sign/barsign/New()
 	..()
@@ -64,7 +61,7 @@
 	if(!allowed(user))
 		to_chat(user, "<span class = 'info'>Access denied.</span>")
 		return
-	if( istype(I, /obj/item/weapon/screwdriver))
+	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 			set_sign(new /datum/barsign/hiddensigns/signoff)
@@ -108,7 +105,7 @@
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(src, "post_emag", 100)
+	addtimer(CALLBACK(src, .proc/post_emag), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)

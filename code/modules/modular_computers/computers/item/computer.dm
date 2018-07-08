@@ -1,7 +1,7 @@
 // This is the base type that does all the hardware stuff.
 // Other types expand it - tablets use a direct subtypes, and
 // consoles and laptops use "procssor" item that is held inside machinery piece
-/obj/item/device/modular_computer
+/obj/item/modular_computer
 	name = "modular microcomputer"
 	desc = "A small portable microcomputer."
 
@@ -32,7 +32,7 @@
 
 	integrity_failure = 50
 	max_integrity = 100
-	armor = list(melee = 0, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 100, rad = 100, fire = 0, acid = 0)
+	armor = list(melee = 0, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 100, rad = 100)
 
 	// Important hardware (must be installed for computer to work)
 
@@ -45,7 +45,7 @@
 
 
 
-/obj/item/device/modular_computer/New()
+/obj/item/modular_computer/New()
 	update_icon()
 	if(!physical)
 		physical = src
@@ -54,10 +54,10 @@
 	all_components = list()
 	idle_threads = list()
 
-/obj/item/device/modular_computer/Destroy()
+/obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
 	for(var/H in all_components)
-		var/obj/item/weapon/computer_hardware/CH = all_components[H]
+		var/obj/item/computer_hardware/CH = all_components[H]
 		if(CH.holder == src)
 			CH.on_remove(src)
 			CH.holder = null
@@ -68,51 +68,51 @@
 	return ..()
 
 
-/obj/item/device/modular_computer/proc/add_verb(var/path)
+/obj/item/modular_computer/proc/add_verb(var/path)
 	switch(path)
 		if(MC_CARD)
-			verbs += /obj/item/device/modular_computer/proc/eject_id
+			verbs += /obj/item/modular_computer/proc/eject_id
 		if(MC_SDD)
-			verbs += /obj/item/device/modular_computer/proc/eject_disk
+			verbs += /obj/item/modular_computer/proc/eject_disk
 		if(MC_AI)
-			verbs += /obj/item/device/modular_computer/proc/eject_card
+			verbs += /obj/item/modular_computer/proc/eject_card
 
-/obj/item/device/modular_computer/proc/remove_verb(path)
+/obj/item/modular_computer/proc/remove_verb(path)
 	switch(path)
 		if(MC_CARD)
-			verbs -= /obj/item/device/modular_computer/proc/eject_id
+			verbs -= /obj/item/modular_computer/proc/eject_id
 		if(MC_SDD)
-			verbs -= /obj/item/device/modular_computer/proc/eject_disk
+			verbs -= /obj/item/modular_computer/proc/eject_disk
 		if(MC_AI)
-			verbs -= /obj/item/device/modular_computer/proc/eject_card
+			verbs -= /obj/item/modular_computer/proc/eject_card
 
 // Eject ID card from computer, if it has ID slot with card inside.
-/obj/item/device/modular_computer/proc/eject_id()
+/obj/item/modular_computer/proc/eject_id()
 	set name = "Eject ID"
 	set category = "Object"
 	set src in view(1)
 
 	if(issilicon(usr))
 		return
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	if(!usr.incapacitated())
 		card_slot.try_eject(null, usr)
 
 // Eject ID card from computer, if it has ID slot with card inside.
-/obj/item/device/modular_computer/proc/eject_card()
+/obj/item/modular_computer/proc/eject_card()
 	set name = "Eject Intellicard"
 	set category = "Object"
 	set src in view(1)
 
 	if(issilicon(usr))
 		return
-	var/obj/item/weapon/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
+	var/obj/item/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
 	if(!usr.incapacitated())
 		ai_slot.try_eject(null, usr, 1)
 
 
 // Eject ID card from computer, if it has ID slot with card inside.
-/obj/item/device/modular_computer/proc/eject_disk()
+/obj/item/modular_computer/proc/eject_disk()
 	set name = "Eject Data Disk"
 	set category = "Object"
 	set src in view(1)
@@ -121,19 +121,19 @@
 		return
 
 	if(!usr.incapacitated())
-		var/obj/item/weapon/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
+		var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
 		if(uninstall_component(portable_drive, usr))
 			portable_drive.verb_pickup()
 
-/obj/item/device/modular_computer/AltClick(mob/user)
+/obj/item/modular_computer/AltClick(mob/user)
 	..()
 	if(issilicon(user))
 		return
 
 	if(!user.incapacitated() && Adjacent(user))
-		var/obj/item/weapon/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-		var/obj/item/weapon/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
-		var/obj/item/weapon/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
+		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+		var/obj/item/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
+		var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
 		if(portable_drive)
 			if(uninstall_component(portable_drive, user))
 				portable_drive.verb_pickup()
@@ -145,22 +145,22 @@
 
 
 // Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs.
-/obj/item/device/modular_computer/GetAccess()
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+/obj/item/modular_computer/GetAccess()
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	if(card_slot)
 		return card_slot.GetAccess()
 	return ..()
 
-/obj/item/device/modular_computer/GetID()
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+/obj/item/modular_computer/GetID()
+	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	if(card_slot)
 		return card_slot.GetID()
 	return ..()
 
-/obj/item/device/modular_computer/attack_ai(mob/user)
+/obj/item/modular_computer/attack_ai(mob/user)
 	return attack_self(user)
 
-/obj/item/device/modular_computer/attack_ghost(mob/dead/observer/user)
+/obj/item/modular_computer/attack_ghost(mob/dead/observer/user)
 	if(enabled)
 		ui_interact(user)
 	else if(user.can_admin_interact())
@@ -168,7 +168,7 @@
 		if(response == "Yes")
 			turn_on(user)
 
-/obj/item/device/modular_computer/emag_act(mob/user)
+/obj/item/modular_computer/emag_act(mob/user)
 	if(emagged)
 		to_chat(user, "<span class='warning'>\The [src] was already emagged.</span>")
 		return 0
@@ -177,14 +177,14 @@
 		to_chat(user, "<span class='notice'>You emag \the [src]. It's screen briefly shows a \"OVERRIDE ACCEPTED: New software downloads available.\" message.</span>")
 		return 1
 
-/obj/item/device/modular_computer/examine(mob/user)
+/obj/item/modular_computer/examine(mob/user)
 	..()
 	if(obj_integrity <= integrity_failure)
 		to_chat(user, "<span class='danger'>It is heavily damaged!</span>")
 	else if(obj_integrity < max_integrity)
 		to_chat(user, "<span class='warning'>It is damaged.</span>")
 
-/obj/item/device/modular_computer/update_icon()
+/obj/item/modular_computer/update_icon()
 	overlays.Cut()
 	if(!enabled)
 		icon_state = icon_state_unpowered
@@ -201,13 +201,13 @@
 
 
 // On-click handling. Turns on the computer if it's off and opens the GUI.
-/obj/item/device/modular_computer/attack_self(mob/user)
+/obj/item/modular_computer/attack_self(mob/user)
 	if(enabled)
 		ui_interact(user)
 	else
 		turn_on(user)
 
-/obj/item/device/modular_computer/proc/turn_on(mob/user)
+/obj/item/modular_computer/proc/turn_on(mob/user)
 	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
 	if(obj_integrity <= integrity_failure)
 		if(issynth)
@@ -217,7 +217,7 @@
 		return
 
 	// If we have a recharger, enable it automatically. Lets computer without a battery work.
-	var/obj/item/weapon/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
+	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]
 	if(recharger)
 		recharger.enabled = 1
 
@@ -236,7 +236,7 @@
 			to_chat(user, "<span class='warning'>You press the power button but \the [src] does not respond.</span>")
 
 // Process currently calls handle_power(), may be expanded in future if more things are added.
-/obj/item/device/modular_computer/process()
+/obj/item/modular_computer/process()
 	if(!enabled) // The computer is turned off
 		last_power_usage = 0
 		return 0
@@ -268,7 +268,7 @@
 	handle_power() // Handles all computer power interaction
 
 // Relays kill program request to currently active program. Use this to quit current program.
-/obj/item/device/modular_computer/proc/kill_program(forced = FALSE)
+/obj/item/modular_computer/proc/kill_program(forced = FALSE)
 	if(active_program && active_program.program_state != PROGRAM_STATE_KILLED)
 		active_program.kill_program(forced)
 		active_program = null
@@ -278,20 +278,20 @@
 	update_icon()
 
 // Returns 0 for No Signal, 1 for Low Signal and 2 for Good Signal. 3 is for wired connection (always-on)
-/obj/item/device/modular_computer/proc/get_ntnet_status(specific_action = 0)
-	var/obj/item/weapon/computer_hardware/network_card/network_card = all_components[MC_NET]
+/obj/item/modular_computer/proc/get_ntnet_status(specific_action = 0)
+	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	if(network_card)
 		return network_card.get_signal(specific_action)
 	else
 		return 0
 
-/obj/item/device/modular_computer/proc/add_log(text)
+/obj/item/modular_computer/proc/add_log(text)
 	if(!get_ntnet_status())
 		return FALSE
-	var/obj/item/weapon/computer_hardware/network_card/network_card = all_components[MC_NET]
+	var/obj/item/computer_hardware/network_card/network_card = all_components[MC_NET]
 	return ntnet_global.add_log(text, network_card)
 
-/obj/item/device/modular_computer/proc/shutdown_computer(loud = 1)
+/obj/item/modular_computer/proc/shutdown_computer(loud = 1)
 	if(enabled)
 		kill_program(forced = TRUE)
 		for(var/datum/computer_file/program/P in idle_threads)
@@ -303,19 +303,19 @@
 		update_icon()
 
 
-/obj/item/device/modular_computer/attackby(obj/item/weapon/W, mob/user)
+/obj/item/modular_computer/attackby(obj/item/W, mob/user)
 	// Insert items into the components
 	for(var/h in all_components)
-		var/obj/item/weapon/computer_hardware/H = all_components[h]
+		var/obj/item/computer_hardware/H = all_components[h]
 		if(H.try_insert(W, user))
 			return
 
 	// Insert new hardware
-	if(istype(W, /obj/item/weapon/computer_hardware))
+	if(istype(W, /obj/item/computer_hardware))
 		if(install_component(W, user))
 			return
 
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		if(all_components.len)
 			to_chat(user, "<span class='warning'>Remove all components from \the [src] before disassembling it.</span>")
 			return
@@ -325,8 +325,8 @@
 		qdel(src)
 		return
 
-	if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = W
 		if(!WT.isOn())
 			to_chat(user, "<span class='warning'>\The [W] is off.</span>")
 			return
@@ -342,13 +342,13 @@
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 		return
 
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		if(!all_components.len)
 			to_chat(user, "<span class='warning'>This device doesn't have any components installed.</span>")
 			return
 		var/list/component_names = list()
 		for(var/h in all_components)
-			var/obj/item/weapon/computer_hardware/H = all_components[h]
+			var/obj/item/computer_hardware/H = all_components[h]
 			component_names.Add(H.name)
 
 		var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in component_names
@@ -359,7 +359,7 @@
 		if(!Adjacent(user))
 			return
 
-		var/obj/item/weapon/computer_hardware/H = find_hardware_by_name(choice)
+		var/obj/item/computer_hardware/H = find_hardware_by_name(choice)
 
 		if(!H)
 			return
@@ -370,11 +370,11 @@
 	..()
 
 // Used by processor to relay qdel() to machinery type.
-/obj/item/device/modular_computer/proc/relay_qdel()
+/obj/item/modular_computer/proc/relay_qdel()
 	return
 
 // Perform adjacency checks on our physical counterpart, if any.
-/obj/item/device/modular_computer/Adjacent(atom/neighbor)
+/obj/item/modular_computer/Adjacent(atom/neighbor)
 	if(physical && physical != src)
 		return physical.Adjacent(neighbor)
 	return ..()

@@ -43,22 +43,22 @@
 		return 0
 
 	proc/custom_action(step, used_atom, user)
-		if(istype(used_atom, /obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/W = used_atom
+		if(istype(used_atom, /obj/item/weldingtool))
+			var/obj/item/weldingtool/W = used_atom
 			if(W.remove_fuel(0, user))
 				playsound(holder, W.usesound, 50, 1)
 			else
 				return 0
-		else if(istype(used_atom, /obj/item/weapon/wrench))
-			var/obj/item/weapon/wrench/W = used_atom
+		else if(istype(used_atom, /obj/item/wrench))
+			var/obj/item/wrench/W = used_atom
 			playsound(holder, W.usesound, 50, 1)
 
-		else if(istype(used_atom, /obj/item/weapon/screwdriver))
-			var/obj/item/weapon/screwdriver/S = used_atom
+		else if(istype(used_atom, /obj/item/screwdriver))
+			var/obj/item/screwdriver/S = used_atom
 			playsound(holder, S.usesound, 50, 1)
 
-		else if(istype(used_atom, /obj/item/weapon/wirecutters))
-			var/obj/item/weapon/wirecutters/W = used_atom
+		else if(istype(used_atom, /obj/item/wirecutters))
+			var/obj/item/wirecutters/W = used_atom
 			playsound(holder, W.usesound, 50, 1)
 
 		else if(istype(used_atom, /obj/item/stack/cable_coil))
@@ -117,8 +117,8 @@
 					to_chat(user, "<span class='warning'>You don't have enough cable! You need at least [amount] coils.</span>")
 					return 0
 			// WELDER
-			if(istype(used_atom,/obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/welder=used_atom
+			if(istype(used_atom,/obj/item/weldingtool))
+				var/obj/item/weldingtool/welder=used_atom
 				if(!welder.isOn())
 					to_chat(user, "<span class='notice'>You tap the [src] with your unlit welder. [pick("Ding","Dong")].</span>")
 					return 0

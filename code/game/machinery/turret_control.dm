@@ -25,7 +25,7 @@
 	var/check_anomalies = 1	//checks if it can shoot at unidentified lifeforms (ie xenos)
 	var/check_synth = 0 	//if active, will shoot at anything not an AI or cyborg
 	var/ailock = 0 	//Silicons cannot use this
-	
+
 	var/syndicate = 0
 	var/faction = "" // Turret controls can only access turrets that are in the same faction
 
@@ -39,21 +39,21 @@
 	enabled = 1
 	lethal = 1
 	icon_state = "control_kill"
-	
+
 /obj/machinery/turretid/syndicate
 	enabled = 1
 	lethal = 1
 	icon_state = "control_kill"
-	
+
 	lethal = 1
 	check_arrest = 0
 	check_records = 0
 	check_weapons = 0
 	check_access = 0
-	check_anomalies = 1	
+	check_anomalies = 1
 	check_synth	= 1
 	ailock = 1
-	
+
 	syndicate = 1
 	faction = "syndicate"
 
@@ -64,7 +64,7 @@
 			A.turret_controls -= src
 	return ..()
 
-/obj/machinery/turretid/initialize()
+/obj/machinery/turretid/Initialize()
 	..()
 	if(!control_area)
 		control_area = get_area(src)
@@ -101,11 +101,11 @@
 
 	return ..()
 
-/obj/machinery/turretid/attackby(obj/item/weapon/W, mob/user)
+/obj/machinery/turretid/attackby(obj/item/W, mob/user)
 	if(stat & BROKEN)
 		return
 
-	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(src.allowed(usr))
 			if(emagged)
 				to_chat(user, "<span class='notice'>The turret control is unresponsive.</span>")
@@ -139,7 +139,7 @@
 	ui_interact(user)
 
 /obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
 		ui.open()

@@ -39,7 +39,7 @@
 
 /obj/effect/particle_effect/smoke/proc/kill_smoke()
 	processing_objects.Remove(src)
-	addtimer(src, "fade_out", 0)
+	INVOKE_ASYNC(src, .proc/fade_out)
 	QDEL_IN(src, 10)
 
 /obj/effect/particle_effect/smoke/process()
@@ -67,7 +67,7 @@
 	if(C.smoke_delay)
 		return FALSE
 	C.smoke_delay++
-	addtimer(src, "remove_smoke_delay", 10, FALSE, C)
+	addtimer(CALLBACK(src, .proc/remove_smoke_delay, C), 10)
 	return TRUE
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/C)
@@ -263,13 +263,13 @@
 				var/more = ""
 				if(M)
 					more = " "
-				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", 0, 1)
+				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [carry.my_atom.fingerprintslast][more].", ATKLOG_FEW)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [carry.my_atom.fingerprintslast].")
 			else
-				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", 0, 1)
+				msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", ATKLOG_FEW)
 				log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
 		else
-			msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key. CODERS: carry.my_atom may be null.", 0, 1)
+			msg_admin_attack("A chemical smoke reaction has taken place in ([whereLink]). No associated key. CODERS: carry.my_atom may be null.", ATKLOG_FEW)
 			log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key. CODERS: carry.my_atom may be null.")
 
 /datum/effect_system/smoke_spread/chem/start(effect_range = 2)

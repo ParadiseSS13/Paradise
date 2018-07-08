@@ -22,7 +22,7 @@
 	switch(infestation_type)
 		if(1)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
-			spawncount = 4
+			spawncount = 5
 		if(2)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/white
 			spawncount = 2
@@ -38,8 +38,7 @@
 	while(spawncount >= 1 && vents.len)
 		var/obj/vent = pick(vents)
 		var/obj/structure/spider/spiderling/terror_spiderling/S = new(vent.loc)
-		S.name = "evil-looking spiderling"
 		S.grow_as = spider_type
-		S.amount_grown = 75
+		S.amount_grown = 90
 		vents -= vent
 		spawncount--

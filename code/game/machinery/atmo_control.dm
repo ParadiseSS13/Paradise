@@ -29,7 +29,7 @@ obj/machinery/air_sensor
 	update_icon()
 		icon_state = "gsensor[on]"
 
-	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	multitool_menu(var/mob/user, var/obj/item/multitool/P)
 		return {"
 		<b>Main</b>
 		<ul>
@@ -68,10 +68,10 @@ obj/machinery/air_sensor
 
 
 	attackby(var/obj/item/W as obj, var/mob/user as mob)
-		if(istype(W, /obj/item/device/multitool))
+		if(istype(W, /obj/item/multitool))
 			update_multitool_menu(user)
 			return 1
-		if(istype(W, /obj/item/weapon/wrench))
+		if(istype(W, /obj/item/wrench))
 			if(bolts)
 				to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
 				return 1
@@ -127,15 +127,16 @@ obj/machinery/air_sensor
 			frequency = new_frequency
 			radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
-	initialize()
+	Initialize()
 		..()
-		atmos_machinery += src
+		SSair.atmos_machinery += src
 		set_frequency(frequency)
 
 	Destroy()
-		atmos_machinery -= src
+		SSair.atmos_machinery -= src
 		if(radio_controller)
-			radio_controller.remove_object(src,frequency)
+			radio_controller.remove_object(src, frequency)
+		radio_connection = null
 		return ..()
 
 
@@ -143,7 +144,7 @@ obj/machinery/air_sensor
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
-	circuit = /obj/item/weapon/circuitboard/air_management
+	circuit = /obj/item/circuitboard/air_management
 	req_one_access_txt = "24;10"
 
 	name = "Computer"
@@ -155,6 +156,12 @@ obj/machinery/air_sensor
 
 	var/list/sensor_information = list()
 	var/datum/radio_frequency/radio_connection
+
+	Destroy()
+		if(radio_controller)
+			radio_controller.remove_object(src, frequency)
+		radio_connection = null
+		return ..()
 
 	attack_hand(mob/user)
 		if(..(user))
@@ -174,7 +181,7 @@ obj/machinery/air_sensor
 		src.updateUsrDialog()
 
 	attackby(I as obj, user as mob, params)
-		if(istype(I, /obj/item/device/multitool))
+		if(istype(I, /obj/item/multitool))
 			update_multitool_menu(user)
 		if(..())
 			return 1
@@ -268,11 +275,11 @@ legend {
 			frequency = new_frequency
 			radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
-	initialize()
+	Initialize()
 		..()
 		set_frequency(frequency)
 
-	multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+	multitool_menu(var/mob/user, var/obj/item/multitool/P)
 		var/dat= {"
 		<b>Main</b>
 		<ul>
@@ -357,7 +364,7 @@ legend {
 		return 1
 
 	large_tank_control
-		circuit = /obj/item/weapon/circuitboard/large_tank_control
+		circuit = /obj/item/circuitboard/large_tank_control
 		req_one_access_txt = "24;10"
 		settagwhitelist = list("input_tag", "output_tag")
 
@@ -379,13 +386,13 @@ legend {
 		var/pressure_setting = ONE_ATMOSPHERE * 45
 
 		attackby(I as obj, user as mob)
-			if(istype(I, /obj/item/device/multitool))
+			if(istype(I, /obj/item/multitool))
 				update_multitool_menu(user)
 			if(..())
 				return 1
 
 
-		multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+		multitool_menu(var/mob/user, var/obj/item/multitool/P)
 			var/dat= {"
 			<ul>
 				<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[initial(frequency)]">Reset</a>)</li>
@@ -583,7 +590,7 @@ legend {
 	fuel_injection
 		icon = 'icons/obj/computer.dmi'
 		icon_screen = "atmos"
-		circuit = /obj/item/weapon/circuitboard/injector_control
+		circuit = /obj/item/circuitboard/injector_control
 
 		var/device_tag
 		var/list/device_info
@@ -594,7 +601,7 @@ legend {
 		var/on_temperature = 1200
 
 		attackby(I as obj, user as mob, params)
-			if(istype(I, /obj/item/device/multitool))
+			if(istype(I, /obj/item/multitool))
 				update_multitool_menu(user)
 			if(..())
 				return 1

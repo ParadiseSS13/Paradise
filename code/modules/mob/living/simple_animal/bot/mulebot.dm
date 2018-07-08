@@ -44,7 +44,7 @@
 	var/auto_pickup = 1 	// true if auto-pickup at beacon
 	var/report_delivery = 1 // true if bot will announce an arrival to a location.
 
-	var/obj/item/weapon/stock_parts/cell/cell
+	var/obj/item/stock_parts/cell/cell
 	var/datum/wires/mulebot/wires = null
 	var/bloodiness = 0
 	var/currentBloodColor = "#A10808"
@@ -81,28 +81,28 @@
 	reached_target = 0
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(istype(I, /obj/item/screwdriver))
 		..()
 		if(open)
 			on = FALSE
 		update_controls()
-	else if(istype(I,/obj/item/weapon/stock_parts/cell) && open && !cell)
+	else if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
-		var/obj/item/weapon/stock_parts/cell/C = I
+		var/obj/item/stock_parts/cell/C = I
 		C.forceMove(src)
 		cell = C
 		visible_message("[user] inserts a cell into [src].",
 						"<span class='notice'>You insert the new cell into [src].</span>")
 		update_controls()
-	else if(istype(I, /obj/item/weapon/crowbar) && open && cell)
+	else if(istype(I, /obj/item/crowbar) && open && cell)
 		cell.add_fingerprint(usr)
 		cell.forceMove(loc)
 		cell = null
 		visible_message("[user] crowbars out the power cell from [src].",
 						"<span class='notice'>You pry the powercell out of [src].</span>")
 		update_controls()
-	else if(istype(I, /obj/item/weapon/wrench))
+	else if(istype(I, /obj/item/wrench))
 		if(health < maxHealth)
 			adjustBruteLoss(-25)
 			updatehealth()
@@ -112,7 +112,7 @@
 			)
 		else
 			to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
-	else if((istype(I, /obj/item/device/multitool) || istype(I, /obj/item/weapon/wirecutters)) && open)
+	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
 		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
@@ -188,7 +188,7 @@
 			visible_message("[usr] switches [on ? "on" : "off"] [src].")
 		if("cellremove")
 			if(open && cell && !usr.get_active_hand())
-				cell.updateicon()
+				cell.update_icon()
 				usr.put_in_active_hand(cell)
 				cell.add_fingerprint(usr)
 				cell = null
@@ -196,7 +196,7 @@
 				usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
 		if("cellinsert")
 			if(open && !cell)
-				var/obj/item/weapon/stock_parts/cell/C = usr.get_active_hand()
+				var/obj/item/stock_parts/cell/C = usr.get_active_hand()
 				if(istype(C))
 					usr.drop_item()
 					cell = C
@@ -684,7 +684,7 @@
 				visible_message("<span class='danger'>[src] bumps into [M]!</span>")
 			else
 				if(!paicard)
-					add_logs(src, M, "knocked down")
+					add_attack_logs(src, M, "Knocked down")
 					visible_message("<span class='danger'>[src] knocks over [M]!</span>")
 					M.stop_pulling()
 					M.Stun(8)
@@ -692,7 +692,7 @@
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
-	add_logs(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
+	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
 					"<span class='userdanger'>[src] drives over you!<span>")
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
@@ -827,7 +827,7 @@
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
-	new /obj/item/device/assembly/prox_sensor(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/stack/rods(Tsec)
 	new /obj/item/stack/rods(Tsec)
 	new /obj/item/stack/cable_coil/cut(Tsec)

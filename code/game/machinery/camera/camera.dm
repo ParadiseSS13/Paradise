@@ -7,7 +7,7 @@
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = 5
-
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
 	var/datum/wires/camera/wires = null // Wires datum
 	var/list/network = list("SS13")
 	var/c_tag = null
@@ -16,8 +16,8 @@
 	anchored = 1
 	var/start_active = 0 //If it ignores the random chance to start broken on round start
 	var/invuln = null
-	var/obj/item/device/camera_bug/bug = null
-	var/obj/item/weapon/camera_assembly/assembly = null
+	var/obj/item/camera_bug/bug = null
+	var/obj/item/camera_assembly/assembly = null
 
 	//OTHER
 
@@ -43,7 +43,7 @@
 	cameranet.cameras += src
 	cameranet.addCamera(src)
 
-/obj/machinery/camera/initialize()
+/obj/machinery/camera/Initialize()
 	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
@@ -91,7 +91,7 @@
 							cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
 						spawn(100)
-							if(!qdeleted(src))
+							if(!QDELETED(src))
 								cancelCameraAlarm()
 			for(var/mob/O in mob_list)
 				if(O.client && O.client.eye == src)
@@ -141,7 +141,7 @@
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
 	// DECONSTRUCTION
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 //		to_chat(user, "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>")
 		//if(toggle_panel(user)) // No delay because no one likes screwdrivers trying to be hip and have a duration cooldown
 		panel_open = !panel_open
@@ -149,10 +149,10 @@
 		"<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
 		playsound(src.loc, W.usesound, 50, 1)
 
-	else if((istype(W, /obj/item/weapon/wirecutters) || istype(W, /obj/item/device/multitool)) && panel_open)
+	else if((istype(W, /obj/item/wirecutters) || istype(W, /obj/item/multitool)) && panel_open)
 		wires.Interact(user)
 
-	else if(istype(W, /obj/item/weapon/weldingtool) && wires.CanDeconstruct())
+	else if(istype(W, /obj/item/weldingtool) && wires.CanDeconstruct())
 		if(weld(W, user))
 			to_chat(user, "You unweld the camera leaving it as just a frame screwed to the wall.")
 			if(!assembly)
@@ -164,7 +164,7 @@
 			assembly = null
 			qdel(src)
 			return
-	else if(istype(W, /obj/item/device/analyzer) && panel_open) //XRay
+	else if(istype(W, /obj/item/analyzer) && panel_open) //XRay
 		if(!user.unEquip(W))
 			to_chat(user, "<span class='warning'>[W] is stuck!</span>")
 			return
@@ -185,7 +185,7 @@
 			qdel(W)
 		else
 			to_chat(user, "[msg2]")
-	else if(istype(W, /obj/item/device/assembly/prox_sensor) && panel_open)
+	else if(istype(W, /obj/item/assembly/prox_sensor) && panel_open)
 		if(!user.unEquip(W))
 			return
 		if(!isMotion())
@@ -196,14 +196,14 @@
 			to_chat(user, "[msg2]")
 
 	// OTHER
-	else if((istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/device/pda)) && isliving(user))
+	else if((istype(W, /obj/item/paper) || istype(W, /obj/item/pda)) && isliving(user))
 		var/mob/living/U = user
-		var/obj/item/weapon/paper/X = null
-		var/obj/item/device/pda/P = null
+		var/obj/item/paper/X = null
+		var/obj/item/pda/P = null
 
 		var/itemname = ""
 		var/info = ""
-		if(istype(W, /obj/item/weapon/paper))
+		if(istype(W, /obj/item/paper))
 			X = W
 			itemname = X.name
 			info = X.info
@@ -229,7 +229,7 @@
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
 				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
 
-	else if(istype(W, /obj/item/device/camera_bug))
+	else if(istype(W, /obj/item/camera_bug))
 		if(!src.can_use())
 			to_chat(user, "<span class='notice'>Camera non-functional.</span>")
 			return
@@ -242,7 +242,7 @@
 			src.bug = W
 			src.bug.bugged_cameras[src.c_tag] = src
 
-	else if(istype(W, /obj/item/weapon/melee/energy/blade))//Putting it here last since it's a special case. I wonder if there is a better way to do these than type casting.
+	else if(istype(W, /obj/item/melee/energy/blade))//Putting it here last since it's a special case. I wonder if there is a better way to do these than type casting.
 		toggle_cam(user, 1)
 		var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 		spark_system.set_up(5, 0, loc)
@@ -252,8 +252,8 @@
 		visible_message("<span class='notice'>[user] has sliced the camera apart with an energy blade!</span>")
 		qdel(src)
 
-	else if(istype(W, /obj/item/device/laser_pointer))
-		var/obj/item/device/laser_pointer/L = W
+	else if(istype(W, /obj/item/laser_pointer))
+		var/obj/item/laser_pointer/L = W
 		L.laser_act(src, user)
 	else
 		..()
@@ -275,7 +275,7 @@
 		change_msg = "reactivates"
 		triggerCameraAlarm()
 		spawn(100)
-			if(!qdeleted(src))
+			if(!QDELETED(src))
 				cancelCameraAlarm()
 	if(displaymessage)
 		if(user)
@@ -357,7 +357,7 @@
 
 	return null
 
-/obj/machinery/camera/proc/weld(var/obj/item/weapon/weldingtool/WT, var/mob/user)
+/obj/machinery/camera/proc/weld(var/obj/item/weldingtool/WT, var/mob/user)
 	if(busy)
 		return 0
 	if(!WT.remove_fuel(0, user))

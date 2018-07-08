@@ -8,7 +8,7 @@
 	idle_power_usage = 40
 	var/dye_color = "#FFFFFF"
 
-/obj/machinery/dye_generator/initialize()
+/obj/machinery/dye_generator/Initialize()
 	..()
 	power_change()
 
@@ -50,7 +50,7 @@
 	dye_color = temp
 	set_light(2, l_color = temp)
 
-/obj/machinery/dye_generator/attackby(obj/item/weapon/W, mob/user, params)
+/obj/machinery/dye_generator/attackby(obj/item/W, mob/user, params)
 
 	if(default_unfasten_wrench(user, W, time = 60))
 		return

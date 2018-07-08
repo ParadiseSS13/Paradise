@@ -25,7 +25,7 @@
 	..()
 	handle_rotation()
 
-/obj/structure/stool/bed/chair/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/stool/bed/chair/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/SK = W
@@ -186,7 +186,7 @@
 	buildstackamount = 1
 
 /obj/structure/stool/bed/chair/sofa
-	name = "old ratty sofa"
+	name = "sofa"
 	icon_state = "sofamiddle"
 	anchored = 1
 	buildstackamount = 1

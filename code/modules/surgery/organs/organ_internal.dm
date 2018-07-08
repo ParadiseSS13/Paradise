@@ -92,7 +92,7 @@
 /obj/item/organ/internal/proc/prepare_eat()
 	if(status == ORGAN_ROBOT)
 		return //no eating cybernetic implants!
-	var/obj/item/weapon/reagent_containers/food/snacks/organ/S = new
+	var/obj/item/reagent_containers/food/snacks/organ/S = new
 	S.name = name
 	S.desc = desc
 	S.icon = icon
@@ -108,12 +108,12 @@
 	insert(H)
 	return 1
 
-/obj/item/weapon/reagent_containers/food/snacks/organ
+/obj/item/reagent_containers/food/snacks/organ
 	name = "appendix"
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
 
-/obj/item/weapon/reagent_containers/food/snacks/organ/New()
+/obj/item/reagent_containers/food/snacks/organ/New()
 	..()
 
 	reagents.add_reagent("nutriment", 5)
@@ -121,7 +121,7 @@
 /obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
 	if(M == user && ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/weapon/reagent_containers/food/snacks/S = prepare_eat()
+		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
 		if(S)
 			H.drop_item()
 			H.put_in_active_hand(S)

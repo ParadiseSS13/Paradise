@@ -1,7 +1,6 @@
 /obj
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	var/reliability = 100	//Used by SOME devices to determine how reliable they are.
 	var/crit_fail = 0
 	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
 	animate_movement = 2
@@ -12,10 +11,12 @@
 	var/can_deconstruct = TRUE
 	var/damtype = "brute"
 	var/force = 0
-
+	var/list/armor
 	var/obj_integrity	//defaults to max_integrity
-	var/max_integrity = 500
+	var/max_integrity = INFINITY
 	var/integrity_failure = 0 //0 if we have no special broken behavior
+
+	var/resistance_flags = NONE // INDESTRUCTIBLE
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
@@ -28,7 +29,9 @@
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 
 /obj/New()
-	. = ..()
+	..()
+	if(!armor)
+		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
@@ -62,7 +65,7 @@
 /obj/Destroy()
 	machines -= src
 	processing_objects -= src
-	nanomanager.close_uis(src)
+	SSnanoui.close_uis(src)
 	return ..()
 
 /obj/proc/process()
@@ -172,7 +175,7 @@
 
 /obj/proc/hear_message(mob/M as mob, text)
 
-/obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/proc/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
 
 /obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
@@ -204,7 +207,7 @@
 
 
 /obj/proc/update_multitool_menu(mob/user as mob)
-	var/obj/item/device/multitool/P = get_multitool(user)
+	var/obj/item/multitool/P = get_multitool(user)
 
 	if(!istype(P))
 		return 0

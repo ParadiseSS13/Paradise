@@ -1,4 +1,4 @@
-/obj/item/weapon/gun/energy/gun
+/obj/item/gun/energy/gun
 	name = "energy gun"
 	desc = "A basic energy-based gun with two settings: kill and disable."
 	icon_state = "energy"
@@ -11,43 +11,42 @@
 	flight_x_offset = 15
 	flight_y_offset = 10
 
-/obj/item/weapon/gun/energy/gun/cyborg
+/obj/item/gun/energy/gun/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
 
-/obj/item/weapon/gun/energy/gun/cyborg/newshot()
+/obj/item/gun/energy/gun/cyborg/newshot()
 	..()
 	robocharge()
 
-/obj/item/weapon/gun/energy/gun/cyborg/emp_act()
+/obj/item/gun/energy/gun/cyborg/emp_act()
 	return
 
-/obj/item/weapon/gun/energy/gun/mounted
+/obj/item/gun/energy/gun/mounted
 	name = "mounted energy gun"
 	selfcharge = 1
 	use_external_power = 1
 
-/obj/item/weapon/gun/energy/gun/mini
+/obj/item/gun/energy/gun/mini
 	name = "miniature energy gun"
 	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: stun and kill."
 	icon_state = "mini"
-	item_state = "gun"
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
 
-/obj/item/weapon/gun/energy/gun/mini/New()
-	gun_light = new /obj/item/device/flashlight/seclite(src)
+/obj/item/gun/energy/gun/mini/New()
+	gun_light = new /obj/item/flashlight/seclite(src)
 	..()
 	power_supply.maxcharge = 600
 	power_supply.charge = 600
 
-/obj/item/weapon/gun/energy/gun/mini/update_icon()
+/obj/item/gun/energy/gun/mini/update_icon()
 	..()
 	if(gun_light && gun_light.on)
 		overlays += "mini-light"
 
-/obj/item/weapon/gun/energy/gun/hos
+/obj/item/gun/energy/gun/hos
 	name = "\improper X-01 MultiPhase Energy Gun"
 	desc = "This is an expensive, modern recreation of an antique laser gun. This gun has several unique firemodes, but lacks the ability to recharge over time."
 	icon_state = "hoslaser"
@@ -56,7 +55,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 4
 
-/obj/item/weapon/gun/energy/gun/blueshield
+/obj/item/gun/energy/gun/blueshield
 	name = "advanced stun revolver"
 	desc = "An advanced stun revolver with the capacity to shoot both electrodes and lasers."
 	icon_state = "bsgun"
@@ -66,7 +65,7 @@
 	ammo_x_offset = 1
 	shaded_charge = 1
 
-/obj/item/weapon/gun/energy/gun/turret
+/obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
 	desc = "A heavy hybrid energy cannon with two settings: Stun and kill."
 	icon_state = "turretlaser"
@@ -79,7 +78,7 @@
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2
 
-/obj/item/weapon/gun/energy/gun/nuclear
+/obj/item/gun/energy/gun/nuclear
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"

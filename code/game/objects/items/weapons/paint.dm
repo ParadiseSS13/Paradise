@@ -1,6 +1,6 @@
 //NEVER USE THIS IT SUX	-PETETHEGOAT
 
-/obj/item/weapon/reagent_containers/glass/paint
+/obj/item/reagent_containers/glass/paint
 	desc = "It's a paint bucket."
 	name = "paint bucket"
 	icon = 'icons/obj/items.dmi'
@@ -15,7 +15,7 @@
 	volume = 70
 	flags = OPENCONTAINER
 
-/obj/item/weapon/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity)
+/obj/item/reagent_containers/glass/paint/afterattack(turf/simulated/target, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!is_open_container())
@@ -28,41 +28,41 @@
 	else
 		return ..()
 
-/obj/item/weapon/reagent_containers/glass/paint/red
+/obj/item/reagent_containers/glass/paint/red
 	name = "red paint bucket"
 	icon_state = "paint_red"
 	list_reagents = list("paint_red" = 70)
 
-/obj/item/weapon/reagent_containers/glass/paint/green
+/obj/item/reagent_containers/glass/paint/green
 	name = "green paint bucket"
 	icon_state = "paint_green"
 	list_reagents = list("paint_green" = 70)
 
-/obj/item/weapon/reagent_containers/glass/paint/blue
+/obj/item/reagent_containers/glass/paint/blue
 	name = "blue paint bucket"
 	icon_state = "paint_blue"
 	list_reagents = list("paint_blue" = 70)
 
-/obj/item/weapon/reagent_containers/glass/paint/yellow
+/obj/item/reagent_containers/glass/paint/yellow
 	name = "yellow paint bucket"
 	icon_state = "paint_yellow"
 	list_reagents = list("paint_yellow" = 70)
 
-/obj/item/weapon/reagent_containers/glass/paint/violet
+/obj/item/reagent_containers/glass/paint/violet
 	name = "violet paint bucket"
 	icon_state = "paint_violet"
 	list_reagents = list("paint_violet" = 70)
 
-/obj/item/weapon/reagent_containers/glass/paint/black
+/obj/item/reagent_containers/glass/paint/black
 	name = "black paint bucket"
 	icon_state = "paint_black"
 	list_reagents = list("paint_black" = 70)
 
-/obj/item/weapon/reagent_containers/glass/paint/white
+/obj/item/reagent_containers/glass/paint/white
 	name = "white paint bucket"
 	icon_state = "paint_white"
 	list_reagents = list("paint_white" = 70)
 
-/obj/item/weapon/reagent_containers/glass/paint/remover
+/obj/item/reagent_containers/glass/paint/remover
 	name = "paint remover bucket"
 	list_reagents = list("paint_remover" = 70)

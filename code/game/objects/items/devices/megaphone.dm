@@ -1,6 +1,7 @@
-/obj/item/device/megaphone
+/obj/item/megaphone
 	name = "megaphone"
 	desc = "A device used to project your voice. Loudly."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "megaphone"
 	item_state = "radio"
 	w_class = WEIGHT_CLASS_SMALL
@@ -11,7 +12,7 @@
 	var/insults = 0
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
 
-/obj/item/device/megaphone/attack_self(mob/living/user as mob)
+/obj/item/megaphone/attack_self(mob/living/user as mob)
 	if(user.client && (user.client.prefs.muted & MUTE_IC))
 		to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
 		return
@@ -56,12 +57,12 @@
 		spawn(20)
 			spamcheck = 0
 
-/obj/item/device/megaphone/proc/saymsg(mob/living/user as mob, message)
+/obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
 	audible_message("<span class='game say'><span class='name'>[user]</span> broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
 	for(var/obj/O in oview(14, get_turf(src)))
 		O.hear_talk(user, "<span class='reallybig'>[message]</span>")
 
-/obj/item/device/megaphone/emag_act(user as mob)
+/obj/item/megaphone/emag_act(user as mob)
 	if(!emagged)
 		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
 		emagged = 1

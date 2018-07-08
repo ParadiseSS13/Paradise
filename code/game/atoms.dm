@@ -1,7 +1,8 @@
 /atom
 	layer = 2
 	var/level = 2
-	var/flags = 0
+	var/flags = NONE
+	var/flags_2 = NONE
 	var/list/fingerprints
 	var/list/fingerprintshidden
 	var/fingerprintslast = null
@@ -40,6 +41,62 @@
 	var/allow_spin = 1 //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
 	var/admin_spawned = 0	//was this spawned by an admin? used for stat tracking stuff.
+
+	var/initialized = FALSE
+
+/atom/New(loc, ...)
+	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+		_preloader.load(src)
+	. = ..()
+	attempt_init(...)
+
+// This is distinct from /tg/ because of our space management system
+// This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
+/atom/proc/attempt_init(loc, ...)
+	var/do_initialize = SSatoms.initialized
+	if(do_initialize != INITIALIZATION_INSSATOMS)
+		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
+		if(SSatoms.InitAtom(src, args))
+			// we were deleted
+			return
+
+
+//Called after New if the map is being loaded. mapload = TRUE
+//Called from base of New if the map is not being loaded. mapload = FALSE
+//This base must be called or derivatives must set initialized to TRUE
+//must not sleep
+//Other parameters are passed from New (excluding loc), this does not happen if mapload is TRUE
+//Must return an Initialize hint. Defined in __DEFINES/subsystems.dm
+
+//Note: the following functions don't call the base for optimization and must copypasta:
+// /turf/Initialize
+// /turf/open/space/Initialize
+
+/atom/proc/Initialize(mapload, ...)
+	if(initialized)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	initialized = TRUE
+
+	if(light_power && light_range)
+		update_light()
+
+	if(opacity && isturf(loc))
+		var/turf/T = loc
+		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
+
+	ComponentInitialize()
+
+	return INITIALIZE_HINT_NORMAL
+
+
+//called if Initialize returns INITIALIZE_HINT_LATELOAD
+/atom/proc/LateInitialize()
+	return
+
+// Put your AddComponent() calls here
+/atom/proc/ComponentInitialize()
+	return
+
 
 /atom/proc/onCentcom()
 	var/turf/T = get_turf(src)
@@ -85,6 +142,12 @@
 //Hook for running code when a dir change occurs
 /atom/proc/setDir(newdir)
 	dir = newdir
+
+/atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(does_attack_animation)
+		user.changeNext_move(CLICK_CD_MELEE)
+		add_attack_logs(user, src, "Punched with hulk powers")
+		user.do_attack_animation(src, ATTACK_EFFECT_SMASH)
 
 /atom/proc/CheckParts(list/parts_list)
 	for(var/A in parts_list)
@@ -153,9 +216,8 @@
 /atom/proc/emp_act(var/severity)
 	return
 
-/atom/proc/bullet_act(var/obj/item/projectile/Proj, def_zone)
-	Proj.on_hit(src, 0, def_zone)
-	return 0
+/atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
 	if(ispath(container))
@@ -221,6 +283,8 @@
 		else
 			to_chat(user, "Nothing.")
 
+	SendSignal(COMSIG_PARENT_EXAMINE, user)
+
 	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
 /atom/proc/relaymove()
@@ -240,7 +304,7 @@
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
-		addtimer(src, "hitby_react", 2, TRUE, AM)
+		addtimer(CALLBACK(src, .proc/hitby_react, AM), 2)
 
 /atom/proc/hitby_react(atom/movable/AM)
 	if(AM && isturf(AM.loc))

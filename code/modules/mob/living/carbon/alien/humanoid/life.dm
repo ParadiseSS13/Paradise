@@ -1,4 +1,4 @@
-/mob/living/carbon/alien/humanoid/Life()
+/mob/living/carbon/alien/humanoid/Life(seconds, times_fired)
 	. = ..()
 	update_icons()
 

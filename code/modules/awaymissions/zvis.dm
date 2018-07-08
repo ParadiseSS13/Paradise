@@ -22,7 +22,7 @@
 	..()
 	levels += src
 
-/obj/effect/levelref/initialize()
+/obj/effect/levelref/Initialize()
 	..()
 	for(var/obj/effect/levelref/O in levels)
 		if(id == O.id && O != src)
@@ -161,7 +161,7 @@
 	..()
 	portals += src
 
-/obj/effect/view_portal/initialize()
+/obj/effect/view_portal/Initialize()
 	..()
 	if(id)
 		for(var/obj/effect/view_portal/O in portals)

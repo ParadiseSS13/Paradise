@@ -50,8 +50,6 @@
 
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 
-	all_cults = typesof(/datum/cult_info)
-
 	return 1
 
 /* // Uncomment to debug chemical reaction list.

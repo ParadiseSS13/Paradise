@@ -8,10 +8,10 @@
 	name = "roman"
 	uniform = /obj/item/clothing/under/roman
 	shoes = /obj/item/clothing/shoes/roman
-	l_hand = /obj/item/weapon/shield/riot/roman
-	r_hand = /obj/item/weapon/twohanded/spear
+	l_hand = /obj/item/shield/riot/roman
+	r_hand = /obj/item/twohanded/spear
 	head = /obj/item/clothing/head/helmet/roman
-	back = /obj/item/weapon/twohanded/spear
+	back = /obj/item/twohanded/spear
 
 /datum/outfit/vr/ship
 	name = "ship"
@@ -20,17 +20,17 @@
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	head = /obj/item/clothing/head/helmet
-	belt = /obj/item/weapon/storage/belt/military/assault
-	l_pocket = /obj/item/weapon/gun/projectile/automatic/pistol
-	r_pocket = /obj/item/weapon/kitchen/knife/combat
-	backpack_contents = list(/obj/item/weapon/storage/box/survival, /obj/item/ammo_box/magazine/m10mm, /obj/item/ammo_box/magazine/m10mm)
+	belt = /obj/item/storage/belt/military/assault
+	l_pocket = /obj/item/gun/projectile/automatic/pistol
+	r_pocket = /obj/item/kitchen/knife/combat
+	backpack_contents = list(/obj/item/storage/box/survival, /obj/item/ammo_box/magazine/m10mm, /obj/item/ammo_box/magazine/m10mm)
 
 /datum/outfit/vr/medical
 	name = "medical"
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/white
-	id = /obj/item/weapon/card/id/medical
+	id = /obj/item/card/id/medical
 	glasses = /obj/item/clothing/glasses/science
 	gloves = /obj/item/clothing/gloves/color/latex
 
@@ -39,7 +39,7 @@
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/white
-	id = /obj/item/weapon/card/id/research
+	id = /obj/item/card/id/research
 	glasses = /obj/item/clothing/glasses/science
 	gloves = /obj/item/clothing/gloves/color/latex
 
@@ -48,7 +48,9 @@
 	uniform = /obj/item/clothing/under/rank/engineer
 	suit = /obj/item/clothing/suit/storage/hazardvest
 	shoes = /obj/item/clothing/shoes/workboots
-	id = /obj/item/weapon/card/id/engineering
+	id = /obj/item/card/id/engineering
 	gloves = /obj/item/clothing/gloves/color/yellow
-	belt = /obj/item/weapon/storage/belt/utility/chief/full
-	back = /obj/item/weapon/storage/backpack/industrial
+	belt = /obj/item/storage/belt/utility/chief/full
+	back = /obj/item/storage/backpack/industrial
+
+

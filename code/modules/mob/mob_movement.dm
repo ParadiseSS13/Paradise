@@ -186,7 +186,7 @@
 		return mob.remote_control.relaymove(mob, direct)
 
 	if(isAI(mob))
-		if(istype(mob.loc, /obj/item/device/aicard))
+		if(istype(mob.loc, /obj/item/aicard))
 			var/obj/O = mob.loc
 			return O.relaymove(mob, direct) // aicards have special relaymove stuff
 		return AIMove(n, direct, mob)
@@ -231,7 +231,7 @@
 		move_delay = delay + world.time
 	mob.last_movement = world.time
 
-	if(locate(/obj/item/weapon/grab, mob))
+	if(locate(/obj/item/grab, mob))
 		move_delay = max(move_delay, world.time + 7)
 		var/list/L = mob.ret_grab()
 		if(istype(L, /list))
@@ -268,11 +268,13 @@
 	else
 		. = ..()
 
-	for(var/obj/item/weapon/grab/G in mob)
+	mob.setDir(direct)
+
+	for(var/obj/item/grab/G in mob)
 		if(G.state == GRAB_NECK)
 			mob.setDir(reverse_dir[direct])
 		G.adjust_position()
-	for(var/obj/item/weapon/grab/G in mob.grabbed_by)
+	for(var/obj/item/grab/G in mob.grabbed_by)
 		G.adjust_position()
 
 	moving = 0
@@ -294,16 +296,16 @@
 	if(mob.grabbed_by.len)
 		var/list/grabbing = list()
 
-		if(istype(mob.l_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = mob.l_hand
+		if(istype(mob.l_hand, /obj/item/grab))
+			var/obj/item/grab/G = mob.l_hand
 			grabbing += G.affecting
 
-		if(istype(mob.r_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = mob.r_hand
+		if(istype(mob.r_hand, /obj/item/grab))
+			var/obj/item/grab/G = mob.r_hand
 			grabbing += G.affecting
 
 		for(var/X in mob.grabbed_by)
-			var/obj/item/weapon/grab/G = X
+			var/obj/item/grab/G = X
 			switch(G.state)
 
 				if(GRAB_PASSIVE)

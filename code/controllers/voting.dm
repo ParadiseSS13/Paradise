@@ -20,9 +20,9 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 			qdel(vote)
 		vote = src
 	spawn(0)
-		while(!gcDestroyed)
+		while(!QDELETED(src))
 			try
-				while(!gcDestroyed)
+				while(!QDELETED(src))
 					sleep(10)
 					process()
 			catch(var/exception/e)

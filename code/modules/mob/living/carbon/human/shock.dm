@@ -43,7 +43,7 @@
 
 	if(shock_stage >= 30)
 		if(shock_stage == 30)
-			custom_emote(1,"is having trouble keeping their eyes open.")
+			custom_emote(1,"is having trouble keeping [p_their()] eyes open.")
 		EyeBlurry(2)
 		Stuttering(5)
 

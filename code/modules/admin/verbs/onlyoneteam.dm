@@ -16,7 +16,7 @@
 			A.copy_to(H)
 
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/weapon/implant))
+			if(istype(I, /obj/item/implant))
 				continue
 			if(istype (I, /obj/item/organ))
 				continue
@@ -24,15 +24,15 @@
 
 		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
 
-		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
-		H.equip_to_slot_or_del(new /obj/item/weapon/beach_ball/dodgeball(H), slot_r_hand)
+		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), slot_l_ear)
+		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(H), slot_r_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 
 		if(!team_toggle)
 			team_alpha += H
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), slot_w_uniform)
-			var/obj/item/weapon/card/id/W = new(H)
+			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
@@ -45,7 +45,7 @@
 			team_bravo += H
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), slot_w_uniform)
-			var/obj/item/weapon/card/id/W = new(H)
+			var/obj/item/card/id/W = new(H)
 			W.name = "[H.real_name]'s ID Card"
 			W.icon_state = "centcom"
 			W.access = get_all_accesses()
@@ -62,14 +62,14 @@
 	log_admin("[key_name(usr)] used dodgeball.")
 	nologevent = 1
 
-/obj/item/weapon/beach_ball/dodgeball
+/obj/item/beach_ball/dodgeball
 	name = "dodgeball"
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "dodgeball"
 	item_state = "basketball"
 	desc = "Used for playing the most violent and degrading of childhood games."
 
-/obj/item/weapon/beach_ball/dodgeball/throw_impact(atom/hit_atom)
+/obj/item/beach_ball/dodgeball/throw_impact(atom/hit_atom)
 	..()
 	if((ishuman(hit_atom)))
 		var/mob/living/carbon/human/H = hit_atom

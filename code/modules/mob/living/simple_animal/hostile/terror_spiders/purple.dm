@@ -20,17 +20,22 @@
 	health = 200
 	melee_damage_lower = 15
 	melee_damage_upper = 25
-	move_to_delay = 6
+	move_to_delay = 4
 	spider_tier = TS_TIER_2
 	spider_opens_doors = 2
 	ventcrawler = 0
 	ai_ventcrawls = 0
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	var/dcheck_counter = 0
 	var/queen_visible = 1
 	var/cycles_noqueen = 0
+	var/datum/action/innate/terrorspider/thickweb/thickweb_action
 
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/New()
+	..()
+	thickweb_action = new()
+	thickweb_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/death(gibbed)
 	if(spider_myqueen)
@@ -43,15 +48,7 @@
 					visible_message("<span class='notice'>[src] chitters in the direction of [Q]!</span>")
 	. = ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/purple/spider_specialattack(mob/living/carbon/human/L, poisonable)
-	if(cycles_noqueen < 6 && prob(10))
-		visible_message("<span class='danger'>[src] rams into [L], knocking them to the floor!</span>")
-		L.Weaken(5)
-		L.Stun(5)
-	else
-		..()
-
-/mob/living/simple_animal/hostile/poison/terror_spider/purple/Life()
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
 	. = ..()
 	if(.) // if mob is NOT dead
 		if(!degenerate && spider_myqueen)

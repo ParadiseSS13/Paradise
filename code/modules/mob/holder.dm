@@ -1,19 +1,19 @@
 //Helper object for picking dionaea (and other creatures) up.
-/obj/item/weapon/holder
+/obj/item/holder
 	name = "holder"
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
 	slot_flags = SLOT_HEAD
 
-/obj/item/weapon/holder/New()
+/obj/item/holder/New()
 	..()
 	processing_objects.Add(src)
 
-/obj/item/weapon/holder/Destroy()
+/obj/item/holder/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/weapon/holder/process()
+/obj/item/holder/process()
 
 	if(istype(loc,/turf) || !(contents.len))
 
@@ -26,23 +26,23 @@
 
 		qdel(src)
 
-/obj/item/weapon/holder/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/holder/attackby(obj/item/W as obj, mob/user as mob, params)
 	for(var/mob/M in src.contents)
 		M.attackby(W,user, params)
 
-/obj/item/weapon/holder/proc/show_message(var/message, var/m_type)
+/obj/item/holder/proc/show_message(var/message, var/m_type)
 	for(var/mob/living/M in contents)
 		M.show_message(message,m_type)
 
-/obj/item/weapon/holder/emp_act(var/intensity)
+/obj/item/holder/emp_act(var/intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
-/obj/item/weapon/holder/ex_act(var/intensity)
+/obj/item/holder/ex_act(var/intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-/obj/item/weapon/holder/container_resist(var/mob/living/L)
+/obj/item/holder/container_resist(var/mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
@@ -55,7 +55,7 @@
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
-			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/weapon/holder))
+			if(istype(A,/mob/living/simple_animal/borer) || istype(A,/obj/item/holder))
 				return
 		M.status_flags &= ~PASSEMOTES
 
@@ -67,10 +67,10 @@
 /mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
 	if(!holder_type)	return
 
-	var/obj/item/weapon/holder/H = new holder_type(loc)
+	var/obj/item/holder/H = new holder_type(loc)
 	src.forceMove(H)
 	H.name = name
-	if(istype(H, /obj/item/weapon/holder/mouse))	H.icon_state = icon_state
+	if(istype(H, /obj/item/holder/mouse))	H.icon_state = icon_state
 	if(desc)	H.desc = desc
 	H.attack_hand(grabber)
 
@@ -81,26 +81,26 @@
 
 //Mob specific holders.
 
-/obj/item/weapon/holder/diona
+/obj/item/holder/diona
 	name = "diona nymph"
 	desc = "It's a tiny plant critter."
 	icon_state = "nymph"
 
-/obj/item/weapon/holder/drone
+/obj/item/holder/drone
 	name = "maintenance drone"
 	desc = "It's a small maintenance robot."
 	icon_state = "drone"
 
-/obj/item/weapon/holder/drone/emagged
+/obj/item/holder/drone/emagged
 	name = "maintenance drone"
 	icon_state = "drone-emagged"
 
-/obj/item/weapon/holder/pai
+/obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
 	icon_state = "pai"
 
-/obj/item/weapon/holder/mouse
+/obj/item/holder/mouse
 	name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'icons/mob/animal.dmi'

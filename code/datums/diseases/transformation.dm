@@ -50,7 +50,7 @@
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101
 		for(var/obj/item/W in affected_mob)
-			if(istype(W, /obj/item/weapon/implant))
+			if(istype(W, /obj/item/implant))
 				qdel(W)
 				continue
 			W.layer = initial(W.layer)

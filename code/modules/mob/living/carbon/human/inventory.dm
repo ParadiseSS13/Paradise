@@ -578,24 +578,24 @@
 				if(!disable_warning)
 					to_chat(src, "The [name] is too big to attach.")
 				return 0
-			if(istype(I, /obj/item/device/pda) || istype(I, /obj/item/weapon/pen) || is_type_in_list(I, wear_suit.allowed))
+			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, wear_suit.allowed))
 				return 1
 			return 0
 		if(slot_handcuffed)
 			if(handcuffed)
 				return 0
-			if(!istype(I, /obj/item/weapon/restraints/handcuffs))
+			if(!istype(I, /obj/item/restraints/handcuffs))
 				return 0
 			return 1
 		if(slot_legcuffed)
 			if(legcuffed)
 				return 0
-			if(!istype(I, /obj/item/weapon/restraints/legcuffs))
+			if(!istype(I, /obj/item/restraints/legcuffs))
 				return 0
 			return 1
 		if(slot_in_backpack)
-			if(back && istype(back, /obj/item/weapon/storage/backpack))
-				var/obj/item/weapon/storage/backpack/B = back
+			if(back && istype(back, /obj/item/storage/backpack))
+				var/obj/item/storage/backpack/B = back
 				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
 					return 1
 			return 0

@@ -200,7 +200,7 @@
 #define MARKINGS_LAYER			4
 #define UNDERWEAR_LAYER			5
 #define MUTATIONS_LAYER			6
-#define DAMAGE_LAYER			7
+#define H_DAMAGE_LAYER			7
 #define UNIFORM_LAYER			8
 #define ID_LAYER				9
 #define SHOES_LAYER				10
@@ -294,12 +294,6 @@
 #define RADIO_CONNECTION_FAIL 0
 #define RADIO_CONNECTION_NON_SUBSPACE 1
 
-//Fire stuff, for burn_state
-#define LAVA_PROOF -2
-#define FIRE_PROOF -1
-#define FLAMMABLE 0
-#define ON_FIRE 1
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
@@ -334,7 +328,6 @@
 #define SECOND_DIAG_STEP 2
 
 #define ARBITRARY_VIEWRANGE_NOHUD 2
-#define SECOND_DIAG_STEP 2
 
 //Bloody shoes/footprints
 #define MAX_SHOE_BLOODINESS			100
@@ -347,5 +340,24 @@
 #define BLOOD_STATE_XENO			"xeno"
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
 
+//for obj explosion block calculation
+#define EXPLOSION_BLOCK_PROC -1
+
+// Defines for investigate to prevent typos and for styling
+#define INVESTIGATE_LABEL "labels"
+
+#define INVESTIGATE_BOMB "bombs"
+
 // The SQL version required by this version of the code
-#define SQL_VERSION 2
+#define SQL_VERSION 4
+
+// Vending machine stuff
+#define CAT_NORMAL 1
+#define CAT_HIDDEN 2
+#define CAT_COIN   4
+
+// Jobs
+// used for alternate_option
+#define GET_RANDOM_JOB 0
+#define BE_ASSISTANT 1
+#define RETURN_TO_LOBBY 2

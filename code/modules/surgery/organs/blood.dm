@@ -7,7 +7,7 @@
 		return
 	else
 		bleedsuppress = TRUE
-		addtimer(src, "resume_bleeding", amount)
+		addtimer(CALLBACK(src, .proc/resume_bleeding), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = FALSE

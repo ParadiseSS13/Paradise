@@ -46,6 +46,7 @@
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage_lower = 0
 	var/melee_damage_upper = 0
+	var/obj_damage = 0 //how much damage this simple animal does to objects, if any
 	var/armour_penetration = 0 //How much armour they ignore, as a flat reduction from the targets armour value
 	var/melee_damage_type = BRUTE //Damage type of a simple mob's melee attack, should it do damage.
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1) // 1 for full damage , 0 for none , -1 for 1:1 heal from that source
@@ -129,8 +130,8 @@
 	if(..()) //alive
 		if(health < 1)
 			death()
-			return 0
-		return 1
+			return FALSE
+		return TRUE
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	return
@@ -263,129 +264,15 @@
 
 	..(act, m_type, message)
 
-/mob/living/simple_animal/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
-	else
-		M.do_attack_animation(src)
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-				"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_logs(M, src, "attacked", admin=0, print_attack_log = 0)
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		attack_threshold_check(damage,M.melee_damage_type)
-
-/mob/living/simple_animal/proc/attacked_by(obj/item/I, mob/living/user) // Handled in _onclick/click.dm
-	return
-
 /mob/living/simple_animal/bullet_act(var/obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if((Proj.damage_type != STAMINA))
 		adjustBruteLoss(Proj.damage)
 		Proj.on_hit(src, 0)
-	return 0
+	return FALSE
 
-/mob/living/simple_animal/attack_hand(mob/living/carbon/human/M as mob)
-	..()
-
-	switch(M.a_intent)
-
-		if(INTENT_HELP)
-			if(health > 0)
-				visible_message("<span class='notice'> [M] [response_help] [src].</span>")
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-		if(INTENT_GRAB)
-			if(M == src || anchored)
-				return
-			if(!(status_flags & CANPUSH))
-				return
-
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab(M, src )
-
-			M.put_in_active_hand(G)
-
-			G.synch()
-
-			LAssailant = M
-
-			visible_message("<span class='warning'>[M] has grabbed [src] passively!</span>")
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-
-		if(INTENT_HARM, INTENT_DISARM)
-			M.do_attack_animation(src)
-			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>")
-			playsound(loc, "punch", 25, 1, -1)
-			attack_threshold_check(harm_intent_damage)
-
-	return
-
-/mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-
-	switch(M.a_intent)
-
-		if(INTENT_HELP)
-
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
-		if(INTENT_GRAB)
-			grabbedby(M)
-
-		if(INTENT_HARM, INTENT_DISARM)
-			M.do_attack_animation(src)
-			var/damage = rand(15, 30)
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
-					"<span class='userdanger'>[M] has slashed at [src]!</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-			attack_threshold_check(damage)
-
-	return
-
-/mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L as mob)
-
-	switch(L.a_intent)
-		if(INTENT_HELP)
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
-
-
-		else
-			L.do_attack_animation(src)
-			var/damage = rand(5, 10)
-			visible_message("<span class='danger'>[L] bites [src]!</span>", \
-					"<span class='userdanger'>[L] bites [src]!</span>")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-
-			if(stat != DEAD)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				attack_threshold_check(damage)
-
-
-/mob/living/simple_animal/attack_slime(mob/living/carbon/slime/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(M.Victim) return // can't attack while eating!
-
-	if(health > 0)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>[M.name] glomps [src]!</span>")
-
-		var/damage = rand(1, 3)
-
-		if(M.is_adult)
-			damage = rand(20, 40)
-		else
-			damage = rand(5, 35)
-
-		attack_threshold_check(damage)
-
-
-	return
-
-/mob/living/simple_animal/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
+/mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
 	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
 		var/obj/item/clothing/accessory/petcollar/C = O
 		user.drop_item()
@@ -399,33 +286,7 @@
 			real_name = C.tagname
 		return
 	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(attempt_harvest(O, user))
-			return
-		user.do_attack_animation(src)
-		if(istype(O) && istype(user) && !O.attack(src, user))
-			var/damage = 0
-			if(O.force)
-				if(O.force >= force_threshold)
-					damage = O.force
-					if(O.damtype == STAMINA)
-						damage = 0
-					if(O.damtype == BRUTE)
-						if(prob(33))
-							O.add_mob_blood(src)
-							var/turf/location = get_turf(src)
-							add_splatter_floor(location)
-							if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
-								user.add_mob_blood(src)
-					visible_message("<span class='danger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] [src] with [O]!</span>",\
-									"<span class='userdanger'>[user] has [O.attack_verb.len ? "[pick(O.attack_verb)]": "attacked"] you with [O]!</span>")
-				else
-					visible_message("<span class='danger'>[O] bounces harmlessly off of [src].</span>",\
-									"<span class='userdanger'>[O] bounces harmlessly off of [src].</span>")
-			else
-				user.visible_message("<span class='warning'>[user] gently taps [src] with [O].</span>",\
-									"<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-			adjustBruteLoss(damage)
+		..()
 
 /mob/living/simple_animal/movement_delay()
 	. = ..()
@@ -481,7 +342,7 @@
 
 /mob/living/simple_animal/proc/adjustHealth(amount)
 	if(status_flags & GODMODE)
-		return 0
+		return FALSE
 	bruteloss = Clamp(bruteloss + amount, 0, maxHealth)
 	handle_regular_status_updates()
 
@@ -511,20 +372,20 @@
 
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
-		return 0
+		return FALSE
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 		if(L.stat != CONSCIOUS)
-			return 0
+			return FALSE
 	if(istype(the_target, /obj/mecha))
 		var/obj/mecha/M = the_target
 		if(M.occupant)
-			return 0
+			return FALSE
 	if(istype(the_target,/obj/spacepod))
 		var/obj/spacepod/S = the_target
 		if(S.pilot)
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /mob/living/simple_animal/handle_fire()
 	return
@@ -533,16 +394,10 @@
 	return
 
 /mob/living/simple_animal/IgniteMob()
-	return 0
+	return FALSE
 
 /mob/living/simple_animal/ExtinguishMob()
 	return
-
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE)
-	if(damage <= force_threshold || !damage_coeff[damagetype])
-		visible_message("<span class='warning'>[src] looks unharmed from the damage.</span>")
-	else
-		apply_damage(damage, damagetype)
 
 /mob/living/simple_animal/update_transform()
 	var/matrix/ntransform = matrix(transform) //aka transform.Copy()
@@ -647,19 +502,19 @@
 	switch(slot)
 		if(slot_collar)
 			if(collar)
-				return 0
+				return FALSE
 			if(!can_collar)
-				return 0
+				return FALSE
 			if(!istype(I, /obj/item/clothing/accessory/petcollar))
-				return 0
-			return 1
+				return FALSE
+			return TRUE
 
 /mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
 	if(!istype(W))
-		return 0
+		return FALSE
 
 	if(!slot)
-		return 0
+		return FALSE
 
 	W.forceMove(src)
 	W.equipped(src, slot)

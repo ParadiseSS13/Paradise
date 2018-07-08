@@ -169,7 +169,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 /turf/simulated/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
 		return
-	var/obj/item/weapon/crowbar/CB
+	var/obj/item/crowbar/CB
 	if(iscrowbar(user.get_inactive_hand()))
 		CB = user.get_inactive_hand()
 	if(!CB)

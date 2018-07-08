@@ -10,7 +10,7 @@
 				message2 = "Docked"
 			else
 				message1 = "TIME"
-				message2 = worldtime2text()
+				message2 = station_time_timestamp("hh:mm")
 		else
 			message1 = "CARGO"
 			message2 = shuttle_master.supply.getTimerStr()

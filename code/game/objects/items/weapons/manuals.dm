@@ -1,13 +1,13 @@
 /*********************MANUALS (BOOKS)***********************/
 
 //Oh god what the fuck I am not good at computer
-/obj/item/weapon/book/manual
+/obj/item/book/manual
 	icon = 'icons/obj/library.dmi'
 	due_date = 0 // Game time in 1/10th seconds
 	unique = 1   // 0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
 
 
-/obj/item/weapon/book/manual/engineering_construction
+/obj/item/book/manual/engineering_construction
 	name = "Station Repairs and Construction"
 	icon_state ="bookEngineering"
 	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
@@ -25,7 +25,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/engineering_particle_accelerator
+/obj/item/book/manual/engineering_particle_accelerator
 	name = "Particle Accelerator User's Guide"
 	icon_state ="bookParticleAccelerator"
 	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
@@ -68,7 +68,7 @@
 				</html>"}
 
 
-/obj/item/weapon/book/manual/supermatter_engine
+/obj/item/book/manual/supermatter_engine
 	name = "Supermatter Engine User's Guide"
 	icon_state = "bookParticleAccelerator"   //TEMP FIXME
 	author = "Waleed Asad"
@@ -151,7 +151,7 @@
 
 			-Waleed Asad, Senior Engine Technician."}
 
-/obj/item/weapon/book/manual/engineering_hacking
+/obj/item/book/manual/engineering_hacking
 	name = "Hacking"
 	icon_state ="bookHacking"
 	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
@@ -171,7 +171,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/engineering_singularity_safety
+/obj/item/book/manual/engineering_singularity_safety
 	name = "Singularity Safety in Special Circumstances"
 	icon_state ="bookEngineeringSingularitySafety"
 	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
@@ -219,7 +219,7 @@
 				</html>
 				"}
 
-/obj/item/weapon/book/manual/hydroponics_pod_people
+/obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
 	icon_state ="bookHydroponicsPodPeople"
 	author = "Farmer John"
@@ -254,7 +254,7 @@
 				</html>
 				"}
 
-/obj/item/weapon/book/manual/medical_cloning
+/obj/item/book/manual/medical_cloning
 	name = "Cloning techniques of the 26th century"
 	icon_state ="bookCloning"
 	author = "Medical Journal, volume 3"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
@@ -332,7 +332,7 @@
 				"}
 
 
-/obj/item/weapon/book/manual/ripley_build_and_repair
+/obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	icon_state ="book"
 	author = "Weyland-Yutani Corp"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
@@ -407,7 +407,7 @@
 				Coming soon...
 			"}
 
-/obj/item/weapon/book/manual/experimentor
+/obj/item/book/manual/experimentor
 	name = "Mentoring your Experiments"
 	icon_state = "rdbook"
 	author = "Dr. H.P. Kritz"
@@ -539,7 +539,7 @@
 	</html>
 	"}
 
-/obj/item/weapon/book/manual/research_and_development
+/obj/item/book/manual/research_and_development
 	name = "Research and Development 101"
 	icon_state = "rdbook"
 	author = "Dr. L. Ight"
@@ -590,7 +590,7 @@
 			"}
 
 
-/obj/item/weapon/book/manual/robotics_cyborgs
+/obj/item/book/manual/robotics_cyborgs
 	name = "Cyborgs for Dummies"
 	icon_state = "borgbook"
 	author = "XISC"
@@ -792,7 +792,7 @@
 		</html>
 		"}
 
-/obj/item/weapon/book/manual/security_space_law
+/obj/item/book/manual/security_space_law
 	name = "Space Law"
 	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
 	icon_state = "bookSpaceLaw"
@@ -810,13 +810,13 @@
 
 		"}
 
-/obj/item/weapon/book/manual/security_space_law/black
+/obj/item/book/manual/security_space_law/black
 	name = "Space Law - Limited Edition"
 	desc = "A leather-bound, immaculately-written copy of JUSTICE."
 	icon_state = "bookSpaceLawblack"
 	title = "Space Law - Limited Edition"
 
-/obj/item/weapon/book/manual/engineering_guide
+/obj/item/book/manual/engineering_guide
 	name = "Engineering Textbook"
 	icon_state ="bookEngineering2"
 	author = "Engineering Encyclopedia"
@@ -834,7 +834,7 @@
 		"}
 
 
-/obj/item/weapon/book/manual/chef_recipes
+/obj/item/book/manual/chef_recipes
 	name = "Chef Recipes"
 	icon_state = "cooked_book"
 	author = "Victoria Ponsonby"
@@ -889,7 +889,7 @@
 				</html>
 			"}
 
-/obj/item/weapon/book/manual/barman_recipes
+/obj/item/book/manual/barman_recipes
 	name = "Barman Recipes"
 	icon_state = "barbook"
 	author = "Sir John Rose"
@@ -942,7 +942,7 @@
 			"}
 
 
-/obj/item/weapon/book/manual/detective
+/obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
 	icon_state ="bookDetective"
 	author = "Nanotrasen"
@@ -983,7 +983,7 @@
 			</body>
 			</html>"}
 
-/obj/item/weapon/book/manual/nuclear
+/obj/item/book/manual/nuclear
 	name = "Fission Mailed: Nuclear Sabotage 101"
 	icon_state ="bookNuclear"
 	author = "Syndicate"
@@ -1018,7 +1018,7 @@
 			Good luck!
 			</html>"}
 
-/obj/item/weapon/book/manual/atmospipes
+/obj/item/book/manual/atmospipes
 	name = "Pipes and You: Getting To Know Your Scary Tools"
 	icon_state = "pipingbook"
 	author = "Maria Crash, Senior Atmospherics Technician"
@@ -1115,7 +1115,7 @@
 				</html>
 			"}
 
-/obj/item/weapon/book/manual/evaguide
+/obj/item/book/manual/evaguide
 	name = "EVA Gear and You: Not Spending All Day Inside"
 	icon_state = "evabook"
 	author = "Maria Crash, Senior Atmospherics Technician"
@@ -1184,7 +1184,7 @@
 				</html>
 			"}
 
-/obj/item/weapon/book/manual/faxes
+/obj/item/book/manual/faxes
 	name = "A Guide to Faxes"
 	desc = "A Nanotrasen-approved guide to writing faxes"
 	icon_state = "book6"
@@ -1243,7 +1243,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_science
+/obj/item/book/manual/sop_science
 	name = "Science Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all scientific activities."
 	icon_state = "book6"
@@ -1399,7 +1399,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_medical
+/obj/item/book/manual/sop_medical
 	name = "Medical Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all medical activities."
 	icon_state = "book7"
@@ -1593,7 +1593,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_engineering
+/obj/item/book/manual/sop_engineering
 	name = "Engineering Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all engineering activities."
 	icon_state = "book3"
@@ -1682,7 +1682,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_service
+/obj/item/book/manual/sop_service
 	name = "Service Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all service activities."
 	icon_state = "book4"
@@ -1810,7 +1810,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_supply
+/obj/item/book/manual/sop_supply
 	name = "Supply Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all supply activities."
 	icon_state = "book1"
@@ -1889,7 +1889,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_security
+/obj/item/book/manual/sop_security
 	name = "Security Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all security activities."
 	icon_state = "book2"
@@ -2119,7 +2119,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_legal
+/obj/item/book/manual/sop_legal
 	name = "Legal Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all legal activities."
 	icon_state = "book1"
@@ -2224,7 +2224,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_general
+/obj/item/book/manual/sop_general
 	name = "Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all station activities."
 	icon_state = "book1"
@@ -2465,7 +2465,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_command
+/obj/item/book/manual/sop_command
 	name = "Command Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all Command activities."
 	icon_state = "book4"

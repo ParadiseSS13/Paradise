@@ -128,6 +128,7 @@
 	desc = "Four pieces of brass arranged in a square. It's slightly warm to the touch."
 	icon_state = "brass_frame"
 	burn_state = FIRE_PROOF
+	unacidable = 1
 	framestack = /obj/item/stack/tile/brass
 	framestackamount = 1
 

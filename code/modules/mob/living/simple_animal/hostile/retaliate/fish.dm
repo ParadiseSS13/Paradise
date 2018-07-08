@@ -8,7 +8,7 @@
 	icon_gib = "carp_gib"
 	speak_chance = 0
 	turns_per_move = 5
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/carpmeat = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 1)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"

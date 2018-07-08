@@ -3,6 +3,7 @@
 	desc = "It's useful for igniting plasma."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "igniter1"
+	armor = list(melee = 50, bullet = 30, laser = 70, energy = 50, bomb = 20, bio = 0, rad = 0)
 	var/id = null
 	var/on = 1.0
 	anchored = 1.0
@@ -67,10 +68,10 @@
 		icon_state = "[base_state]-p"
 //		src.sd_set_light(0)
 
-/obj/machinery/sparker/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/device/detective_scanner))
+/obj/machinery/sparker/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/detective_scanner))
 		return
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		add_fingerprint(user)
 		src.disable = !src.disable
 		if(src.disable)

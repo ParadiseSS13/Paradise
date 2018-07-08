@@ -1,4 +1,4 @@
-/obj/item/device/radio/electropack
+/obj/item/radio/electropack
 	name = "electropack"
 	desc = "Dance my monkeys! DANCE!!!"
 	icon_state = "electropack0"
@@ -12,13 +12,13 @@
 
 	is_special = 1
 
-/obj/item/device/radio/electropack/attack_hand(mob/user as mob)
+/obj/item/radio/electropack/attack_hand(mob/user as mob)
 	if(src == user.back)
 		to_chat(user, "<span class='notice'>You need help taking this off!</span>")
 		return 0
 	. = ..()
 
-/obj/item/device/radio/electropack/Destroy()
+/obj/item/radio/electropack/Destroy()
 	if(istype(src.loc, /obj/item/assembly/shock_kit))
 		var/obj/item/assembly/shock_kit/S = src.loc
 		if(S.part1 == src)
@@ -28,7 +28,7 @@
 		master = null
 	return ..()
 
-/obj/item/device/radio/electropack/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/radio/electropack/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/clothing/head/helmet))
 		if(!b_stat)
@@ -54,7 +54,7 @@
 		if(src.flags & NODROP)
 			A.flags |= NODROP
 
-/obj/item/device/radio/electropack/Topic(href, href_list)
+/obj/item/radio/electropack/Topic(href, href_list)
 	if(..())
 		return 1
 
@@ -72,7 +72,7 @@
 
 	add_fingerprint(usr)
 
-/obj/item/device/radio/electropack/receive_signal(datum/signal/signal)
+/obj/item/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)
 		return
 
@@ -98,14 +98,14 @@
 	return
 
 
-/obj/item/device/radio/electropack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/electropack/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "radio_electro.tmpl", "[name]", 400, 500)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/device/radio/electropack/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/radio/electropack/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	data["power"] = on

@@ -15,7 +15,7 @@
 	var/download_completion = 0 //GQ of downloaded data.
 	var/download_netspeed = 0
 	var/downloaderror = ""
-	var/obj/item/device/modular_computer/my_computer = null
+	var/obj/item/modular_computer/my_computer = null
 
 /datum/computer_file/program/ntnetdownload/proc/begin_file_download(filename)
 	if(downloaded_file)
@@ -30,7 +30,7 @@
 	if(PRG.available_on_syndinet && !computer.emagged)
 		return 0
 
-	var/obj/item/weapon/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 
 	if(!computer || !hard_drive || !hard_drive.can_store_file(PRG))
 		return 0
@@ -61,7 +61,7 @@
 	if(!downloaded_file)
 		return
 	generate_network_log("Completed download of file [hacked_download ? "**ENCRYPTED**" : "[downloaded_file.filename].[downloaded_file.filetype]"].")
-	var/obj/item/weapon/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
 	if(!computer || !hard_drive || !hard_drive.store_file(downloaded_file))
 		// The download failed
 		downloaderror = "I/O ERROR - Unable to save file. Check whether you have enough free space on your hard drive and whether your hard drive is properly connected. If the issue persists contact your system administrator for assistance."
@@ -104,7 +104,7 @@
 	return 0
 
 /datum/computer_file/program/ntnetdownload/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
@@ -131,7 +131,7 @@
 		data["downloadspeed"] = download_netspeed
 		data["downloadcompletion"] = round(min(download_completion, downloaded_file.size), 0.1)
 	else // No download running, pick file.
-		var/obj/item/weapon/computer_hardware/hard_drive/hard_drive = my_computer.all_components[MC_HDD]
+		var/obj/item/computer_hardware/hard_drive/hard_drive = my_computer.all_components[MC_HDD]
 		data["disk_size"] = hard_drive.max_capacity
 		data["disk_used"] = hard_drive.used_capacity
 		var/list/all_entries[0]

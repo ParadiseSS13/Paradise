@@ -7,7 +7,7 @@
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
-
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 100, bomb = 10, bio = 100, rad = 100)
 	var/initial_state
 	var/state = 0 //closed, 1 == open
 	var/isSwitchingStates = 0
@@ -24,7 +24,7 @@
 	..()
 	initial_state = icon_state
 
-/obj/structure/mineral_door/initialize()
+/obj/structure/mineral_door/Initialize()
 	..()
 	air_update_turf(1)
 
@@ -129,9 +129,9 @@
 	else
 		icon_state = initial_state
 
-/obj/structure/mineral_door/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/pickaxe))
-		var/obj/item/weapon/pickaxe/digTool = W
+/obj/structure/mineral_door/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/pickaxe))
+		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
 		if(do_after(user, digTool.digspeed * hardness, target = src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
@@ -141,7 +141,7 @@
 	else
 		attacked_by(W, user)
 
-/obj/structure/mineral_door/proc/attacked_by(obj/item/I, mob/user)
+/obj/structure/mineral_door/attacked_by(obj/item/I, mob/user)
 	if(I.damtype != STAMINA)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(src)
@@ -219,7 +219,7 @@
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/weapon/W, mob/user)
+/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
 	if(is_hot(W))
 		message_admins("Plasma mineral door ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", 0, 1)
 		log_game("Plasma mineral door ignited by [key_name(user)] in ([x], [y], [z])")

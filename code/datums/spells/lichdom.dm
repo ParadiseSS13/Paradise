@@ -28,7 +28,7 @@
 		config.continuous_rounds = 0
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)	
+/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)
 	if(!config.continuous_rounds)
 		existence_stops_round_end = 1
 		config.continuous_rounds = 1
@@ -49,7 +49,7 @@
 				charge_counter = charge_max
 				return
 
-			if(!marked_item || qdeleted(marked_item)) //Wait nevermind
+			if(!marked_item || QDELETED(marked_item)) //Wait nevermind
 				to_chat(M, "<span class='warning'>Your phylactery is gone!</span>")
 				return
 

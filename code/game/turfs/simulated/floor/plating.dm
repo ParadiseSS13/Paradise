@@ -54,8 +54,8 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return 1
 
-	else if(istype(C, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/welder = C
+	else if(istype(C, /obj/item/weldingtool))
+		var/obj/item/weldingtool/welder = C
 		if( welder.isOn() && (broken || burnt) )
 			if(welder.remove_fuel(0,user))
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
@@ -98,7 +98,7 @@
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
 		return
-	if(istype(C, /obj/item/weapon/wrench))
+	if(istype(C, /obj/item/wrench))
 		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
 		playsound(src, C.usesound, 80, 1)
 		if(do_after(user, 30 * C.toolspeed, target = src))
@@ -141,7 +141,7 @@
 /turf/simulated/floor/engine/cult/New()
 	..()
 	if(ticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
-		icon_state = ticker.mode.cultdat.cult_floor_icon_state
+		icon_state = ticker.cultdat.cult_floor_icon_state
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return

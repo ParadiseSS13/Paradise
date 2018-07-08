@@ -191,7 +191,7 @@
 		M.s_active.handle_item_insertion(src)
 		return 1
 
-	var/obj/item/weapon/storage/S = M.get_inactive_hand()
+	var/obj/item/storage/S = M.get_inactive_hand()
 	if(istype(S) && S.can_be_inserted(src, 1))	//see if we have box in other hand
 		S.handle_item_insertion(src)
 		return 1

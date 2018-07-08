@@ -5,7 +5,7 @@
 	var/required_access = null				// List of required accesses to *run* the program.
 	var/transfer_access = null				// List of required access to download or file host the program
 	var/program_state = PROGRAM_STATE_KILLED// PROGRAM_STATE_KILLED or PROGRAM_STATE_BACKGROUND or PROGRAM_STATE_ACTIVE - specifies whether this program is running.
-	var/obj/item/device/modular_computer/computer	// Device that runs this program.
+	var/obj/item/modular_computer/computer	// Device that runs this program.
 	var/filedesc = "Unknown Program"		// User-friendly name of this program.
 	var/extended_desc = "N/A"				// Short description of this program's function.
 	var/program_icon_state = null			// Program-specific screen icon state
@@ -18,7 +18,7 @@
 	var/available_on_syndinet = 0			// Whether the program can be downloaded from SyndiNet (accessible via emagging the computer). Set to 1 to enable.
 	var/ui_header = null					// Example: "something.gif" - a header image that will be rendered in computer's UI when this program is running at background. Images are taken from /icons/program_icons. Be careful not to use too large images!
 
-/datum/computer_file/program/New(obj/item/device/modular_computer/comp = null)
+/datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
 	if(comp && istype(comp))
 		computer = comp
@@ -87,14 +87,14 @@
 		return 1
 
 	if(ishuman(user))
-		var/obj/item/weapon/card/id/D
-		var/obj/item/weapon/computer_hardware/card_slot/card_slot
+		var/obj/item/card/id/D
+		var/obj/item/computer_hardware/card_slot/card_slot
 		if(computer && card_slot)
 			card_slot = computer.all_components[MC_CARD]
 			D = card_slot.GetID()
 		var/mob/living/carbon/human/h = user
-		var/obj/item/weapon/card/id/I = h.get_idcard()
-		var/obj/item/weapon/card/id/C = h.get_active_hand()
+		var/obj/item/card/id/I = h.get_idcard()
+		var/obj/item/card/id/C = h.get_active_hand()
 		if(C)
 			C = C.GetID()
 		if(!(C && istype(C)))
@@ -160,7 +160,7 @@
 	if(..())
 		return 1
 
-	var/datum/nanoui/ui = nanomanager.get_open_ui(usr, src, "main")
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(usr, src, "main")
 
 	if(computer)
 		switch(href_list["action"])

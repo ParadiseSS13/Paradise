@@ -29,7 +29,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/content
 	var/programmatic=0                // Is the book programmatically added to the catalog?
 	var/forbidden=0
-	var/path = /obj/item/weapon/book // Type path of the book to generate
+	var/path = /obj/item/book // Type path of the book to generate
 	var/flagged = 0
 
 /datum/cachedbook/proc/LoadFromRow(var/list/row)
@@ -67,8 +67,8 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 
 /datum/library_catalog/proc/initialize()
 	var/newid=1
-	for(var/typepath in subtypesof(/obj/item/weapon/book/manual))
-		var/obj/item/weapon/book/B = new typepath(null)
+	for(var/typepath in subtypesof(/obj/item/book/manual))
+		var/obj/item/book/B = new typepath(null)
 		var/datum/cachedbook/CB = new()
 		CB.forbidden = B.forbidden
 		CB.title = B.name
@@ -148,10 +148,10 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	icon_state = "bigscanner"
 	anchored = 1
 	density = 1
-	var/obj/item/weapon/book/cache		// Last scanned book
+	var/obj/item/book/cache		// Last scanned book
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/weapon/book))
+	if(istype(I, /obj/item/book))
 		user.drop_item()
 		I.forceMove(src)
 		return 1
@@ -183,13 +183,13 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 		return
 
 	if(href_list["scan"])
-		for(var/obj/item/weapon/book/B in contents)
+		for(var/obj/item/book/B in contents)
 			cache = B
 			break
 	if(href_list["clear"])
 		cache = null
 	if(href_list["eject"])
-		for(var/obj/item/weapon/book/B in contents)
+		for(var/obj/item/book/B in contents)
 			B.loc = src.loc
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
@@ -207,14 +207,14 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	density = 1
 
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
-	var/obj/item/weapon/paper/P = I
+	var/obj/item/paper/P = I
 	if(istype(P))
 		user.drop_item()
 		user.visible_message("[user] loads some paper into [src].", "You load some paper into [src].")
 		src.visible_message("[src] begins to hum as it warms up its printing drums.")
 		sleep(rand(200,400))
 		src.visible_message("[src] whirs as it prints and binds a new book.")
-		var/obj/item/weapon/book/b = new(loc)
+		var/obj/item/book/b = new(loc)
 		b.dat = P.info
 		b.name = "Print Job #[rand(100, 999)]"
 		b.icon_state = "book[rand(1,16)]"

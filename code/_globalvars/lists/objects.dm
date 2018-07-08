@@ -1,5 +1,5 @@
 var/global/list/portals = list()					//for use by portals
-var/global/list/cable_list = list()					//Index for all cables, so that powernets don't have to look through the entire world all the time
+GLOBAL_LIST(cable_list)								//Index for all cables, so that powernets don't have to look through the entire world all the time
 var/global/list/chemical_reactions_list				//list of all /datum/chemical_reaction datums. Used during chemical reactions
 var/global/list/chemical_reagents_list				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 var/global/list/landmarks_list = list()				//list of all landmarks created
@@ -17,9 +17,7 @@ var/global/list/cell_logs = list()
 
 var/global/list/all_areas = list()
 var/global/list/machines = list()
-var/global/list/machine_processing = list()
 var/global/list/fast_processing = list()
-var/global/list/atmos_machinery = list()
 var/global/list/processing_power_items = list() //items that ask to be called every cycle
 var/global/list/rcd_list = list() //list of Rapid Construction Devices.
 

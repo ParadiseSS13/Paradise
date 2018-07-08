@@ -17,9 +17,9 @@
 
 /datum/surgery_step/slime/cut_flesh
 	allowed_tools = list(
-	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchen/knife = 90,	\
-	/obj/item/weapon/shard = 60, 		\
+	/obj/item/scalpel = 100,		\
+	/obj/item/kitchen/knife = 90,	\
+	/obj/item/shard = 60, 		\
 	)
 
 	time = 16
@@ -45,9 +45,9 @@
 
 /datum/surgery_step/slime/cut_innards
 	allowed_tools = list(
-	/obj/item/weapon/scalpel = 100,		\
-	/obj/item/weapon/kitchen/knife = 90,	\
-	/obj/item/weapon/shard = 60, 		\
+	/obj/item/scalpel = 100,		\
+	/obj/item/kitchen/knife = 90,	\
+	/obj/item/shard = 60, 		\
 	)
 
 	time = 16
@@ -72,8 +72,8 @@
 
 /datum/surgery_step/slime/saw_core
 	allowed_tools = list(
-	/obj/item/weapon/circular_saw = 100, \
-	/obj/item/weapon/hatchet = 90
+	/obj/item/circular_saw = 100, \
+	/obj/item/hatchet = 90
 	)
 
 	time = 16
@@ -98,6 +98,6 @@
 	return 1
 
 /datum/surgery_step/slime/saw_core/fail_step(mob/living/user, mob/living/carbon/slime/target, target_zone, obj/item/tool)
-		user.visible_message("<span class='warning'> [user]'s hand slips, causing \him to miss the core!</span>", \
+		user.visible_message("<span class='warning'> [user]'s hand slips, causing [user.p_them()] to miss the core!</span>", \
 		"<span class='warning'> Your hand slips, causing you to miss the core!</span>")
 		return 0

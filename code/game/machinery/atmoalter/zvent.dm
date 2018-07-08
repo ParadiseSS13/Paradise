@@ -11,10 +11,10 @@
 
 /obj/machinery/zvent/New()
 	..()
-	atmos_machinery += src
+	SSair.atmos_machinery += src
 
 /obj/machinery/zvent/Destroy()
-	atmos_machinery -= src
+	SSair.atmos_machinery -= src
 	return ..()
 
 /obj/machinery/zvent/process_atmos()

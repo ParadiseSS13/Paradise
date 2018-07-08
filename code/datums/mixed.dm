@@ -22,8 +22,15 @@
 	var/list/fields = list(  )
 
 /datum/data/record/Destroy()
-	..()
-	return QDEL_HINT_HARDDEL_NOW
+	if(src in data_core.medical)
+		data_core.medical -= src
+	if(src in data_core.security)
+		data_core.security -= src
+	if(src in data_core.general)
+		data_core.general -= src
+	if(src in data_core.locked)
+		data_core.locked -= src
+	return ..()
 
 /datum/data/text
 	name = "text"

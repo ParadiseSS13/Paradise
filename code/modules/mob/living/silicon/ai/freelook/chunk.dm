@@ -28,7 +28,7 @@
 	eye.visibleCameraChunks += src
 	visible++
 	seenby += eye
-	if(changed && !updating)
+	if(changed)
 		update()
 
 // Remove an AI eye from the chunk, then update if changed.

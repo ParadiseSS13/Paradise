@@ -8,7 +8,7 @@
 	idle_power_usage = 5
 	active_power_usage = 1000
 	var/mob/occupant = null
-	var/circuitboard = /obj/item/weapon/circuitboard/cyborgrecharger
+	var/circuitboard = /obj/item/circuitboard/cyborgrecharger
 	var/recharge_speed
 	var/recharge_speed_nutrition
 	var/repairs
@@ -16,34 +16,34 @@
 /obj/machinery/recharge_station/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/cyborgrecharger(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
+	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
 	RefreshParts()
 	build_icon()
 
 /obj/machinery/recharge_station/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/cyborgrecharger(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(null)
+	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/cell/hyper(null)
 	RefreshParts()
 
 /obj/machinery/recharge_station/RefreshParts()
 	recharge_speed = 0
 	recharge_speed_nutrition = 0
 	repairs = 0
-	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_speed += C.rating * 100
 		recharge_speed_nutrition += C.rating * 10
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
-	for(var/obj/item/weapon/stock_parts/cell/C in component_parts)
+	for(var/obj/item/stock_parts/cell/C in component_parts)
 		var/multiplier = C.maxcharge / 10000
 		recharge_speed *= multiplier
 		recharge_speed_nutrition *= multiplier
@@ -137,7 +137,7 @@
 		icon_state = "borgcharger0"
 
 /obj/machinery/recharge_station/attackby(obj/item/P as obj, mob/user as mob, params)
-	if(istype(P, /obj/item/weapon/screwdriver))
+	if(istype(P, /obj/item/screwdriver))
 		if(src.occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
@@ -192,31 +192,31 @@
 						if(S.amount < S.max_amount)
 							S.amount += round(min(1 * coeff, S.max_amount - S.amount))
 					// Security
-					if(istype(O,/obj/item/device/flash))
-						var/obj/item/device/flash/F = O
+					if(istype(O,/obj/item/flash))
+						var/obj/item/flash/F = O
 						if(F.broken)
 							F.broken = 0
 							F.times_used = 0
 							F.icon_state = "flash"
-					if(istype(O,/obj/item/weapon/gun/energy/disabler/cyborg))
-						var/obj/item/weapon/gun/energy/disabler/cyborg/D = O
+					if(istype(O,/obj/item/gun/energy/disabler/cyborg))
+						var/obj/item/gun/energy/disabler/cyborg/D = O
 						if(D.power_supply.charge < D.power_supply.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
 							D.power_supply.give(E.e_cost)
 							D.update_icon()
 						else
 							D.charge_tick = 0
-					if(istype(O,/obj/item/weapon/melee/baton))
-						var/obj/item/weapon/melee/baton/B = O
+					if(istype(O,/obj/item/melee/baton))
+						var/obj/item/melee/baton/B = O
 						if(B.bcell)
 							B.bcell.charge = B.bcell.maxcharge
 					//Service
-					if(istype(O,/obj/item/weapon/reagent_containers/food/condiment/enzyme))
+					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)
 							O.reagents.add_reagent("enzyme", 2 * coeff)
 					//Janitor
-					if(istype(O, /obj/item/device/lightreplacer))
-						var/obj/item/device/lightreplacer/LR = O
+					if(istype(O, /obj/item/lightreplacer))
+						var/obj/item/lightreplacer/LR = O
 						var/i = 1
 						for(1, i <= coeff, i++)
 							LR.Charge(occupant)
@@ -226,8 +226,8 @@
 
 				//Emagged items for janitor and medical borg
 				if(R.module.emag)
-					if(istype(R.module.emag, /obj/item/weapon/reagent_containers/spray))
-						var/obj/item/weapon/reagent_containers/spray/S = R.module.emag
+					if(istype(R.module.emag, /obj/item/reagent_containers/spray))
+						var/obj/item/reagent_containers/spray/S = R.module.emag
 						if(S.name == "polyacid spray")
 							S.reagents.add_reagent("facid", 2 * coeff)
 						if(S.name == "lube spray")

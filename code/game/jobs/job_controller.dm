@@ -1,10 +1,6 @@
 
 var/global/datum/controller/occupations/job_master
 
-#define GET_RANDOM_JOB 0
-#define BE_ASSISTANT 1
-#define RETURN_TO_LOBBY 2
-
 /datum/controller/occupations
 	//List of all jobs
 	var/list/occupations = list()
