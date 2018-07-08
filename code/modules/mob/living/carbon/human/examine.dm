@@ -210,7 +210,7 @@
 			wound_flavor_text["[organ_tag]"] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
 		else
 			if(!isSynthetic())
-				if(E.status & ORGAN_ROBOT)
+				if(E.is_robotic())
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
 
 				else if(E.status & ORGAN_SPLINTED)

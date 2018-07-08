@@ -993,7 +993,7 @@
 		if(!H) //H.status will runtime if there is no H (obviously)
 			return
 
-		if(H.status & ORGAN_ROBOT) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+		if(H.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
 			if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.
@@ -1020,10 +1020,7 @@
 
 			if(heartbeat >= rate)
 				heartbeat = 0
-				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
-				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
+				src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
 			else
 				heartbeat++
 

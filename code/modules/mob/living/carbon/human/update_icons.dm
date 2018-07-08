@@ -241,7 +241,7 @@ var/global/list/damage_icon_parts = list()
 		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
 		if(isnull(part))
 			icon_key += "0"
-		else if(part.status & ORGAN_ROBOT)
+		else if(part.is_robotic())
 			icon_key += "2[part.model ? "-[part.model]": ""]"
 		else if(part.status & ORGAN_DEAD)
 			icon_key += "3"

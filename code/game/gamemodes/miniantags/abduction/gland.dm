@@ -13,7 +13,6 @@
 	var/human_only = 0
 	var/active = 0
 	tough = TRUE //not easily broken by combat damage
-	sterile = TRUE //not very germy
 
 /obj/item/organ/internal/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))

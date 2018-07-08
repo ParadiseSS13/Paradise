@@ -37,7 +37,7 @@
 				return 1
 		if(istype(src,/obj/item/organ/external))
 			var/obj/item/organ/external/E = src
-			if(E.robotic == 2) // Robot limbs are less messy to attach
+			if(E.is_robotic()) // Robot limbs are less messy to attach
 				if(!attempt_initiate_surgery(src, M, user,1))
 					return 0
 				else

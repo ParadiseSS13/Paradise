@@ -13,7 +13,6 @@
 	var/organ_tag = "organ"
 
 	var/parent_organ = "chest"
-	var/robotic = 0 //For being a robot
 
 	var/list/datum/autopsy_data/autopsy_data = list()
 	var/list/trace_chemicals = list() // traces of chemicals in the organ,
@@ -75,7 +74,7 @@
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
 /obj/item/organ/proc/necrotize(update_sprite=TRUE)
-	if(status & ORGAN_ROBOT)
+	if(is_robotic())
 		return
 	damage = max_damage
 	status |= ORGAN_DEAD
@@ -95,7 +94,7 @@
 		return
 
 	//Process infections
-	if((status & ORGAN_ROBOT) || sterile || (owner && (IS_PLANT in owner.species.species_traits)))
+	if(is_robotic() || sterile || (owner && (IS_PLANT in owner.species.species_traits)))
 		germ_level = 0
 		return
 
@@ -175,10 +174,8 @@
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
-	if(status & ORGAN_ROBOT)	//Robotic organs stay robotic.
+	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
-	else if(status & ORGAN_ASSISTED) //Assisted organs stay assisted.
-		status = ORGAN_ASSISTED
 	else
 		status = 0
 	if(!owner)
@@ -224,7 +221,7 @@
 /obj/item/organ/proc/receive_damage(amount, silent = 0)
 	if(tough)
 		return
-	if(status & ORGAN_ROBOT)
+	if(is_robotic())
 		damage = between(0, damage + (amount * 0.8), max_damage)
 	else
 		damage = between(0, damage + amount, max_damage)
@@ -240,21 +237,12 @@
 		necrotize()
 
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
-	robotic = 2
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
 
-/obj/item/organ/proc/mechassist() //Used to add things like pacemakers, etc
-	robotize(1) //Skip the icon/name setting that occurs in robotize to avoid having to reset the icon file.
-	status &= ~ORGAN_ROBOT
-	status |= ORGAN_ASSISTED
-	robotic = 1
-	min_bruised_damage = 15
-	min_broken_damage = 35
-
 /obj/item/organ/external/emp_act(severity)
-	if(!(status & ORGAN_ROBOT) || emp_proof)
+	if(!is_robotic() || emp_proof)
 		return
 	if(tough)
 		switch(severity)
@@ -274,25 +262,21 @@
 				receive_damage(0, 7)
 
 /obj/item/organ/internal/emp_act(severity)
-	if(!robotic || emp_proof)
+	if(!is_robotic() || emp_proof)
 		return
-	if(robotic == 2)
+	if(is_robotic())
 		switch(severity)
-			if(1.0)
+			if(1)
 				receive_damage(20, 1)
-			if(2.0)
+			if(2)
 				receive_damage(7, 1)
-	else if(robotic == 1)
-		receive_damage(11, 1)
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(emp_proof)
 		return
-	if(owner && robotic == 2)
+	if(owner && is_robotic())
 		Stop() // In the name of looooove~!
 		owner.visible_message("<span class='danger'>[owner] clutches [owner.p_their()] chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
-	else if(owner && robotic == 1)
-		receive_damage(11,1)
 
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
@@ -335,20 +319,15 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		return 0
 	return src == O.get_int_organ(organ_tag)
 
-/obj/item/organ/proc/is_robotic(var/purist = FALSE)
-	if(purist && (robotic > 1 || status & (ORGAN_ROBOT))) //Only the robotiest.
+/obj/item/organ/proc/is_robotic()
+	if(status & ORGAN_ROBOT)
 		return TRUE
-	if(robotic || status & (ORGAN_ROBOT|ORGAN_ASSISTED)) //Any tech will do.
-		return TRUE
-
 	return FALSE
 
 /obj/item/organ/serialize()
 	var/data = ..()
 	if(status != 0)
 		data["status"] = status
-	if(robotic > 0)
-		data["robotic"] = robotic
 
 	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match
 	// the owner
@@ -356,14 +335,7 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		data["dna"] = dna.serialize()
 	return data
 
-/obj/item/organ/deserialize(var/data)
-	switch(data["robotic"])
-		if(1)
-			mechassist()
-		if(2)
-			robotize()
-		else
-			// Nothing
+/obj/item/organ/deserialize(data)
 	if(isnum(data["status"]))
 		status = data["status"]
 	if(islist(data["dna"]))

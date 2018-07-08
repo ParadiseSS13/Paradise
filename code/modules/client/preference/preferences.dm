@@ -2130,9 +2130,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else
 			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
 			if(I)
-				if(status == "assisted")
-					I.mechassist()
-				else if(status == "mechanical")
+				if(status == "mechanical")
 					I.robotize()
 
 	character.dna.b_type = b_type

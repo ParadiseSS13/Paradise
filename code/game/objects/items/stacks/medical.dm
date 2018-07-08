@@ -34,7 +34,7 @@
 			to_chat(user, "<span class='danger'>That limb is missing!</span>")
 			return 1
 
-		if(affecting.status & ORGAN_ROBOT)
+		if(affecting.is_robotic())
 			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
 			return 1
 

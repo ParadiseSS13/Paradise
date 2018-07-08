@@ -90,7 +90,7 @@
  	return
 
 /obj/item/organ/internal/proc/prepare_eat()
-	if(status == ORGAN_ROBOT)
+	if(is_robotic())
 		return //no eating cybernetic implants!
 	var/obj/item/reagent_containers/food/snacks/organ/S = new
 	S.name = name
@@ -315,7 +315,7 @@
 	return eyes_icon
 
 /obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
-	if(!robotic && owner.disabilities & COLOURBLIND)
+	if(!is_robotic() && owner.disabilities & COLOURBLIND)
 		return colourblind_matrix
 	else
 		return colourmatrix
@@ -355,8 +355,8 @@
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 
-/obj/item/organ/internal/robotize(var/icon_bypass) //If icon bypass isn't null, skip the processing here and go straight to the parent call.
-	if(!icon_bypass && !(status & ORGAN_ROBOT)) //Don't override the icons for the already-mechanical IPC organs.
+/obj/item/organ/internal/robotize() //If icon bypass isn't null, skip the processing here and go straight to the parent call.
+	if(!is_robotic()) //Don't override the icons for the already-mechanical IPC organs.
 		var/list/states = icon_states('icons/obj/surgery.dmi') //Insensitive to specially-defined icon files for species like the Drask or whomever else. Everyone gets the same robotic heart.
 		if(slot == "heart" && ("[slot]-prosthetic-on" in states) && ("[slot]-prosthetic-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
 			var/obj/item/organ/internal/heart/H = src
@@ -375,19 +375,7 @@
 	dark_view = 2
 	..() //Make sure the organ's got the robotic status indicators before updating the client colour.
 	if(owner)
-		owner.update_client_colour(0) //Since both mechassisted and mechanical eyes give dark_view of 2 and full colour vision atm, just having this here is fine as mechassist() will call it anyway.
-
-/obj/item/organ/internal/mechassist()
-	..() //Go back, call robotize(), adjust the robotic status indicators and the organ damage parameters.
-	var/list/states = icon_states(icon) //Sensitive to specially-defined icon files since the organs are not fully synthetic.
-	if(slot == "heart" && ("[organ_tag]-assisted-on" in states) && ("[organ_tag]-assisted-off" in states)) //Give the mechassisted heart its mechassisted heart icons if they exist.
-		var/obj/item/organ/internal/heart/H = src
-		H.icon_base = "[organ_tag]-assisted"
-		H.dead_icon = "[organ_tag]-assisted-off"
-		H.update_icon()
-	else if("[organ_tag]-assisted" in states) //Give the mechassisted organ its mechassisted organ icons if they exist.
-		icon_state = "[organ_tag]-assisted"
-	name = "mechanically assisted [initial(name)]" //Avoid setting the organ's name to something like "mechanically assisted mechanical eyes".
+		owner.update_client_colour(0) //Since mechanical eyes give dark_view of 2 and full colour vision atm, just having this here is fine.
 
 /obj/item/organ/internal/liver
 	name = "liver"

@@ -427,7 +427,7 @@
 			var/organStatus[0]
 			if(E.status & ORGAN_BROKEN)
 				organStatus["broken"] = E.broken_description
-			if(E.status & ORGAN_ROBOT)
+			if(E.is_robotic())
 				organStatus["robotic"] = 1
 			if(E.status & ORGAN_SPLINTED)
 				organStatus["splinted"] = 1
@@ -456,7 +456,7 @@
 			organData["maxHealth"] = I.max_damage
 			organData["bruised"] = I.min_broken_damage
 			organData["broken"] = I.min_bruised_damage
-			organData["robotic"] = I.robotic
+			organData["robotic"] = I.is_robotic()
 			organData["dead"] = (I.status & ORGAN_DEAD)
 
 			intOrganData.Add(list(organData))
@@ -596,8 +596,8 @@
 					splint = "Splinted:"
 				if(e.status & ORGAN_BROKEN)
 					AN = "[e.broken_description]:"
-				if(e.status & ORGAN_ROBOT)
-					robot = "Prosthetic:"
+				if(e.is_robotic())
+					robot = "Robotic:"
 				if(e.open)
 					open = "Open:"
 				switch(e.germ_level)

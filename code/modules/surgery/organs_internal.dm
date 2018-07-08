@@ -32,7 +32,7 @@
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
 			return 0
-		if(affected.status & ORGAN_ROBOT)
+		if(affected.is_robotic())
 			return 0
 		if(!affected.encased) //no bone, problem.
 			return 0
@@ -43,7 +43,7 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 
-		if(affected && (affected.status & ORGAN_ROBOT))
+		if(affected && affected.is_robotic())
 			return 0//no operating on robotic limbs in an organic surgery
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
@@ -208,12 +208,7 @@
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage)
-				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
-					if(!(I.sterile))
-						spread_germs_to_organ(I, user, tool)
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-					"You start treating damage to [target]'s [I.name] with [tool_name]." )
-				else if(I.robotic >= 2 && istype(tool, /obj/item/stack/nanopaste))
+				if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
@@ -246,11 +241,7 @@
 			if(I)
 				I.surgeryize()
 			if(I && I.damage)
-				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
-					I.damage = 0
-				else if(I.robotic >= 2 && istype (tool, /obj/item/stack/nanopaste))
+				if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
 					I.damage = 0

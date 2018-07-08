@@ -178,7 +178,7 @@ I use this to standardize shadowling dethrall code
 /mob/living/carbon/human/has_organic_damage()
 	var/odmg = 0
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.status & ORGAN_ROBOT)
+		if(O.is_robotic())
 			odmg += O.brute_dam
 			odmg += O.burn_dam
 	return (health < (100 - odmg))

@@ -21,7 +21,7 @@
 				for(var/datum/surgery/S in all_surgeries)
 					if(!S.possible_locs.Find(selected_zone))
 						continue
-					if(affecting && S.requires_organic_bodypart && affecting.status == ORGAN_ROBOT)
+					if(affecting && S.requires_organic_bodypart && affecting.is_robotic())
 						continue
 					if(!S.can_start(user, M))
 						continue
@@ -39,7 +39,7 @@
 						S = available_surgeries["Apply Robotic Prosthetic"]
 					if(istype(I,/obj/item/organ/external))
 						var/obj/item/organ/external/E = I
-						if(E.robotic == 2)
+						if(E.is_robotic())
 							S = available_surgeries["Synthetic Limb Reattachment"]
 					if(S)
 						var/datum/surgery/procedure = new S.type

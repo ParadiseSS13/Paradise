@@ -25,7 +25,7 @@ var/global/list/limb_icon_cache = list()
 	deform	= new_deform ? new_deform : deform
 
 /obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/H)
-	if(status & ORGAN_ROBOT && !(species && species.name == "Machine")) //machine people get skin color
+	if(is_robotic() && !(species && species.name == "Machine")) //machine people get skin color
 		return
 	if(species && H.species && species.name != H.species.name)
 		return
@@ -44,7 +44,7 @@ var/global/list/limb_icon_cache = list()
 		change_organ_icobase(C.icobase, C.deform)
 
 /obj/item/organ/external/proc/sync_colour_to_dna()
-	if(status & ORGAN_ROBOT)
+	if(is_robotic())
 		return
 	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && ((species.bodyflags & HAS_SKIN_TONE) || (species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
@@ -76,7 +76,7 @@ var/global/list/limb_icon_cache = list()
 		var/icon_file = new_icons[1]
 		var/new_icon_state = new_icons[2]
 		mob_icon = new /icon(icon_file, new_icon_state)
-		if(!skeletal && !(status & ORGAN_ROBOT))
+		if(!skeletal && !is_robotic())
 			if(status & ORGAN_DEAD)
 				mob_icon.ColorTone(rgb(10,50,0))
 				mob_icon.SetIntensity(0.7)
@@ -172,7 +172,7 @@ var/global/list/limb_icon_cache = list()
 
 		if(skeletal)
 			icon_file = 'icons/mob/human_races/r_skeleton.dmi'
-		else if(status & ORGAN_ROBOT)
+		else if(is_robotic())
 			icon_file = 'icons/mob/human_races/robotic.dmi'
 		else
 			if(status & ORGAN_MUTATED)
@@ -184,7 +184,7 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/chest/get_icon_state(skeletal)
 	var/result = ..()
-	if(fat && !skeletal && !(status & ORGAN_ROBOT) && (CAN_BE_FAT in species.species_traits))
+	if(fat && !skeletal && !is_robotic() && (CAN_BE_FAT in species.species_traits))
 		result[2] += "_fat"
 	return result
 
