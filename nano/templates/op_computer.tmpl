@@ -112,12 +112,20 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 				</div>
 				{{/if}}
 				{{if data.occupant.inSurgery}}
-				<div class="line">
-					<div class="statusLabel">Initiated Surgery Procedure:</div> <div class="statusValue">{{:data.occupant.surgeryName}}</div>
-					<br>
-					<div class="statusLabel">Next Step:</div> <div class="statusValue">{{:data.occupant.stepName}}</div>
-
-				</div>
+					{{props data}}
+						<div class="line">
+							<div class="floatLeft">{{:key}}</div>
+							<div class="floatRight">{{:value}}</div>
+						</div>
+					{{/props}}
+					{{props data.occupant.surgeries :value :surgeryLoc}}
+						<div class="line">
+							<div class="statusLabel floatLeft">Location: {{:helper.capitalizeFirstLetter(surgeryLoc)}}</div>
+						</div>
+						{{for value.nextSteps :step}}
+							<div class="line floatRight">{{:step}}</div>
+						{{/for}}
+					{{/props}}
 				{{/if}}
 				<br>
 				<br>
