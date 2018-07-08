@@ -538,6 +538,6 @@
 	id = "vr_server"
 	req_tech = list("programming" = 1)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS=1000, "sacid"=20)
-	build_path = /obj/item/weapon/circuitboard/vr_server
+	materials = list(MAT_GLASS=1000)
+	build_path = /obj/item/circuitboard/vr_server
 	category = list ("Misc. Machinery")

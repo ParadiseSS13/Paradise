@@ -21,20 +21,20 @@ var/list/vr_reset_buttons = list()
 		medical_dummy.set_species(S)
 		medical_dummy.species.after_equip_job(null, medical_dummy)
 		if(medical_dummy.species.name == "Plasmaman") // This is a hack around how the after_equip_job proc works.
-			for(var/obj/item/weapon/plasmensuit_cartridge/C in medical_dummy.loc)
+			for(var/obj/item/plasmensuit_cartridge/C in medical_dummy.loc)
 				qdel(C)
 		icon_state = "doorctrl1"
 		cooldown = world.time + 1 MINUTES
 		spawn(1 MINUTES)
 			icon_state = "doorctrl0"
 
-/obj/item/device/radio/headset/vr
+/obj/item/radio/headset/vr
 	name = "vr radio headset"
 	desc = "Your link to the world that you once knew."
-	ks2type = /obj/item/device/encryptionkey/headset_vr
+	ks2type = /obj/item/encryptionkey/headset_vr
 	flags = NODROP
 
-/obj/item/device/encryptionkey/headset_vr
+/obj/item/encryptionkey/headset_vr
 	name = "Virtual Reality Radio Encryption Key"
 	channels = list("VR" = 1)
 	flags = NODROP

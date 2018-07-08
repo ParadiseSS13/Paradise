@@ -637,7 +637,7 @@ var/global/list/default_medbay_channels = list(
 	if(!disable_timer)
 		on = 1
 
-/obj/item/device/radio/proc/get_listening_turfs(freq)
+/obj/item/radio/proc/get_listening_turfs(freq)
 	var/turf/speaker = get_turf(src)
 	var/list/listening_turfs = list()
 	if(speaker)
@@ -802,8 +802,8 @@ var/global/list/default_medbay_channels = list(
 
 	. = ..()
 
-/obj/item/device/radio/borg/get_listening_turfs(freq)
-	var/obj/item/device/radio/borg/BR = src
+/obj/item/radio/borg/get_listening_turfs(freq)
+	var/obj/item/radio/borg/BR = src
 	if(istype(BR) && BR.myborg)
 		var/mob/living/silicon/robot/borg = BR.myborg
 		var/datum/robot_component/CO = borg.get_component("radio")

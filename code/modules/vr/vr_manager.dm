@@ -145,11 +145,11 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 		vr_avatar.body_accessory = H.body_accessory
 	vr_avatar.update_tail_layer()
 
-	var/obj/item/device/radio/headset/R = new /obj/item/device/radio/headset/vr(vr_avatar)
+	var/obj/item/radio/headset/R = new /obj/item/radio/headset/vr(vr_avatar)
 	vr_avatar.equip_to_slot_or_del(R, slot_l_ear)
 
 	if(vr_avatar.species.name == "Plasmaman")
-		for(var/obj/item/weapon/plasmensuit_cartridge/C in vr_avatar.loc)
+		for(var/obj/item/plasmensuit_cartridge/C in vr_avatar.loc)
 			qdel(C)
 
 	vr_avatar.species.after_equip_job(null, vr_avatar)
