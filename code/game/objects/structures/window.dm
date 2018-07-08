@@ -460,6 +460,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
+	var/health
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
