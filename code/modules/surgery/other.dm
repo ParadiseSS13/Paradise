@@ -243,7 +243,7 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
 	name = "Remove Shadow Tumor (hard shell)"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/dethrall)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/dethrall)
 	possible_locs = list("head", "chest", "groin") // Reasonable places to find a central nervous system
 
 /datum/surgery/remove_thrall/soft
@@ -312,13 +312,13 @@
 	return 0
 
 
-/datum/surgery_step/dethrall
+/datum/surgery_step/internal/dethrall
 	name = "Remove shadow contamination"
 	allowed_tools = list(/obj/item/flash = 100, /obj/item/flashlight/pen = 80, /obj/item/flashlight = 40)
 
 	blood_level = 0
 	steps_to_pop = 1
-	steps_this_can_pop = list(/datum/surgery_step/dethrall)
+	steps_this_can_pop = list(/datum/surgery_step/internal/dethrall)
 	time = 30
 
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
@@ -331,7 +331,7 @@
 /datum/surgery_step/internal/dethrall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	var/braincase = target.named_organ_parent("brain")
 	user.visible_message("[user] reaches into [target]'s [braincase] with [tool].", "<span class='notice'>You begin aligning [tool]'s light to the tumor on [target]'s brain...</span>")
-	to_chat(user, "<span class='boldannounce'>A small part of your [braincase] pulses with agony as the light impacts it.</span>")
+	target.custom_pain("<span class='boldannounce'>A small part of your [braincase] pulses with agony as the light impacts it.</span>")
 	..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/active_surgery/surgery)

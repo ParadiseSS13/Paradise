@@ -1,17 +1,20 @@
-/datum/surgery/organ_extraction
+/datum/surgery/abductor/organ_extraction
 	name = "experimental dissection"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize/abductor)
 	possible_locs = list("chest")
 
-/datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/active_surgery/surgery)
+/datum/surgery/abductor/cauterize
+	name = "abductor cautery"
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/generic/cauterize/abductor)
+	possible_locs = list("chest")
+
+/datum/surgery/abductor/can_start(mob/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/active_surgery/surgery)
 	if(!ishuman(user))
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(target_zone)
 		if(!affected)
-			return FALSE
-		if(affected.status & ORGAN_ROBOT)
 			return FALSE
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant
@@ -42,8 +45,10 @@
 		return TRUE
 	if(IC)
 		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
-		user.put_in_hands(IC)
-		IC.remove(target, special = 1)
+		var/obj/item/grabbed_thing = IC.remove(target, special = 1)
+		grabbed_thing.forceMove(get_turf(target))
+		if(!(user.l_hand && user.r_hand)) // has empty hand
+			user.put_in_hands(grabbed_thing)
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
@@ -57,6 +62,8 @@
 	name = "insert gland"
 	allowed_tools = list(/obj/item/organ/internal/heart/gland = 100)
 	time = 32
+	steps_to_pop = 2
+	steps_this_can_pop = list(/datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert)
 
 /datum/surgery_step/internal/gland_insert/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/active_surgery/surgery)
 	user.visible_message("[user] starts to insert [tool] into [target].", "<span class ='notice'>You start to insert [tool] into [target]...</span>")
@@ -75,7 +82,7 @@
 
 //IPC Gland Surgery//
 
-/datum/surgery/organ_extraction/synth
+/datum/surgery/abductor/organ_extraction/synth
 	name = "experimental robotic dissection"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/extract_organ/synth,/datum/surgery_step/internal/gland_insert,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")
@@ -100,3 +107,10 @@
 /datum/surgery_step/internal/extract_organ/synth
 	name = "remove cell"
 	organ_types = list(/obj/item/organ/internal/cell)
+
+/datum/surgery_step/generic/cauterize/abductor
+	steps_to_pop = 6
+	steps_this_can_pop = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/generic/cauterize/abductor)
+	allowed_tools = list(
+		/obj/item/cautery/alien = 100
+	)

@@ -303,7 +303,7 @@ Careful, these procs can also be done on xenos!
 		user.visible_message("<span class='notice'>[user] has separated and extracts [target]'s [I] with \the [tool].</span>" , \
 		"<span class='notice'>You have separated and extracted [target]'s [I] with \the [tool].</span>")
 
-		add_attack_logs(target, user, "surgically removed [I.name] from", ATKLOG_MOST, addition="INTENT: [uppertext(user.a_intent)]")
+		add_attack_logs(target, user, "surgically removed [I.name] from", ATKLOG_MOST)
 		spread_germs_to_organ(I, user)
 		var/obj/item/thing = I.remove(target)
 		thing.loc = get_turf(target)
@@ -366,7 +366,7 @@ Careful, these procs can also be done on xenos!
 		user.visible_message("<span class='notice'>[user] has decoupled [target]'s [surgery.current_organ] with \the [tool].</span>" , \
 		"<span class='notice'>You have decoupled [target]'s [surgery.current_organ] with \the [tool].</span>")
 
-		add_attack_logs(target, user, "surgically removed [I.name] from", ATKLOG_MOST, addition="INTENT: [uppertext(user.a_intent)]")
+		add_attack_logs(target, user, "surgically removed [I.name] from", ATKLOG_MOST)
 		spread_germs_to_organ(I, user)
 		var/obj/item/thing = I.remove(target)
 		thing.loc = get_turf(target)
