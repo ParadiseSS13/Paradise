@@ -49,8 +49,10 @@
 		.=1
 	if(href_list["delete"])
 		var/datum/vr_room/room = vr_rooms[href_list["delete"]]
-		if(room.creator == usr.ckey) //  || usr.check_rights(R_ADMIN)
+		if(room.creator == usr.ckey || check_rights(R_ADMIN))
 			room.cleanup()
+		else
+			to_chat(usr, "You do not have permission to delete this room.")
 		.=1
 
 /obj/machinery/computer/vr_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)

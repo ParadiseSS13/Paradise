@@ -81,11 +81,11 @@ var/list/vr_all_players = list()
 				avatar.equip_to_slot_if_possible(new /obj/item/device/observer, slot_r_ear, 1, 1, 1)
 				player.death()
 
-		round_timer = addtimer(src, "vr_round", 10 MINUTES)
+		round_timer = addtimer(CALLBACK(src, .proc/vr_round), 10 MINUTES, TIMER_STOPPABLE)
 		round_end = world.time + 10 MINUTES
 	else
 		to_chat(waitlist, "There are not enough players to start the round, checking again in one minute.")
-		round_timer = addtimer(src, "vr_round", 1 MINUTES)
+		round_timer = addtimer(CALLBACK(src, .proc/vr_round), 1 MINUTES, TIMER_STOPPABLE)
 		round_end = world.time + 1 MINUTES
 
 proc/make_vr_room(name, template, expires, creator)
@@ -100,12 +100,12 @@ proc/make_vr_room(name, template, expires, creator)
 
 	if(expires == 1)
 		vr_rooms[R.name] = R
-		R.delete_timer = addtimer(R, "cleanup", 3 MINUTES)
+		R.delete_timer = addtimer(CALLBACK(R, /datum/vr_room/proc/cleanup), 3 MINUTES, TIMER_STOPPABLE)
 	else if(expires == 0)
 		vr_rooms_official[R.name] = R
 	else if (expires == 2)
 		vr_rooms_official[R.name] = R
-		R.round_timer = addtimer(R, "vr_round", 3 MINUTES)
+		R.round_timer = addtimer(CALLBACK(R, /datum/vr_room/proc/vr_round), 3 MINUTES, TIMER_STOPPABLE)
 		R.round_end = world.time + 3 MINUTES
 
 	R.sort_landmarks()
@@ -169,8 +169,8 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 
 proc/control_remote(mob/living/carbon/human/H, mob/living/carbon/human/virtual_reality/vr_avatar)
 	if(H.ckey)
+		SSnanoui.close_user_uis(H)
 		vr_avatar.ckey = H.ckey
-		//SSnanoui.close_user_uis(H)
 		if(istype(H, /mob/living/carbon/human/virtual_reality))
 			var/mob/living/carbon/human/virtual_reality/V = H
 			vr_avatar.real_me = V.real_me
@@ -182,7 +182,8 @@ proc/spawn_vr_avatar(mob/living/carbon/human/H, datum/vr_room/room)
 	var/mob/living/carbon/human/virtual_reality/vr_human
 	vr_human = build_virtual_avatar(H, pick(room.spawn_points), room)
 	room.players.Add(vr_human)
-	deltimer(room.delete_timer)
+	if(room.delete_timer)
+		deltimer(room.delete_timer)
 	control_remote(H, vr_human)
 	return vr_human
 
