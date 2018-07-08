@@ -160,7 +160,7 @@
 	<BR><BR><a href='?src=[UID()];primary=1'>Disable Containment Field</a>
 	<BR>"}
 	if(check_rights(R_ADMIN, 0, user))
-		menutext += {"(ADMIN) Defense Shield: [depotarea.deployed_shields.len ? "ON" : "OFF"] (<a href='?src=[UID()];secondary=1'>[depotarea.deployed_shields.len ? "Disable" : "Enable"]</a>)<BR>"}
+		menutext += {"(ADMIN) Defense Shield: [depotarea.shield_list.len ? "ON" : "OFF"] (<a href='?src=[UID()];secondary=1'>[depotarea.shield_list.len ? "Disable" : "Enable"]</a>)<BR>"}
 	return menutext
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/primary(mob/user)
@@ -181,7 +181,7 @@
 		return
 	if(!istype(depotarea))
 		return
-	if(depotarea.deployed_shields.len)
+	if(depotarea.shield_list.len)
 		depotarea.shields_down()
 	else
 		depotarea.shields_up()
@@ -206,7 +206,7 @@
 	menu += "<BR><BR>One-Time Uplink to Syndicate HQ: [message_sent ? "ALREADY USED" : "AVAILABLE (<a href='?src=[UID()];primary=1'>Open Channel</a>)"]"
 	if(depotarea.on_peaceful)
 		menu += "<BR><BR>Visiting Agents: VISIT IN PROGRESS. "
-		if(user in depotarea.peaceful_visitors)
+		if(depotarea.list_includes(user, depotarea.peaceful_list))
 			menu += "[user] IS RECOGNIZED AS VISITING AGENT"
 		else
 			menu += "[user] NOT RECOGNIZED. (<a href='?src=[UID()];secondary=[DEPOT_VISITOR_ADD]'>Sign-in as Agent</a>)"
@@ -255,7 +255,7 @@
 					depotarea.peaceful_mode(FALSE, TRUE)
 			else if (subcommand == DEPOT_VISITOR_ADD)
 				if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
-					if(user in depotarea.peaceful_visitors)
+					if(depotarea.list_includes(user, depotarea.peaceful_list))
 						to_chat(user, "<span class='warning'>[user] is already signed in as a visiting agent.</span>")
 					else
 						grant_syndie_faction(user)
@@ -277,7 +277,7 @@
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/proc/grant_syndie_faction(mob/user)
 	user.faction += "syndicate"
-	depotarea.peaceful_visitors += user
+	depotarea.list_add(user, depotarea.peaceful_list)
 	to_chat(user, {"<BR><span class='userdanger'>Welcome, Agent.</span>
 		<span class='warning'>You are now signed-in as a depot visitor.
 		Any other agents with you MUST sign in themselves.
@@ -357,7 +357,8 @@
 		myportal = P
 		P.failchance = 0
 		P.icon_state = "portal1"
-		P.name = get_area(tele_target) + " portal"
+		var/area/A = get_area(tele_target)
+		P.name = "[A] portal"
 	else if(!portal_enabled && myportal)
 		qdel(myportal)
 		myportal = null
@@ -419,46 +420,35 @@
 		menutext += "</UL>"
 	else
 		menutext += "Event Log: EMPTY"
-	menutext += "<BR>"
-
-	if(depotarea.hostiles_dead.len)
-		menutext += "Terminated Intruders:<UL>"
-		for(var/mob/thismob in depotarea.hostiles_dead)
-			menutext += "<LI>[thismob]</LI>"
-		menutext += "</UL>"
-	else
-		menutext += "Terminated Intruders: NONE"
-	menutext += "<BR>"
-
-	if(depotarea.guards_spawned.len)
-		menutext += "Extra Security Forces:<UL>"
-		for(var/mob/thismob in depotarea.guards_spawned)
-			menutext += "<LI>[thismob]</LI>"
-		menutext += "</UL>"
-	else
-		menutext += "Extra Security Forces: NONE"
-
-	menutext += "<BR>"
-	if(depotarea.peaceful_visitors.len)
-		menutext += "Visiting Agents:<UL>"
-		for(var/mob/thismob in depotarea.peaceful_visitors)
-			menutext += "<LI>[thismob]</LI>"
-		menutext += "</UL>"
-	else
-		menutext += "Visiting Agents: NONE"
 	menutext += "<BR><BR>"
-	if(check_rights(R_ADMIN, 0, user))
-		if(depotarea.on_peaceful)
-			menutext += "<BR><BR>ADMIN: (to end visitor mode, use comms console)"
-		else
-			menutext += "<BR><BR>ADMIN: (<a href='?src=[UID()];primary=1'>Reset Depot Alert Level</a>)"
+
+	menutext += "Terminated Intruders: "
+	menutext += depotarea.list_gethtmlmobs(depotarea.dead_list)
+	menutext += "<BR><BR>"
+
+	menutext += "Extra Security Forces: "
+	menutext += depotarea.list_gethtmlmobs(depotarea.guard_list)
+	menutext += "<BR><BR>"
+
+	menutext += "Visiting Agents: "
+	menutext += depotarea.list_gethtmlmobs(depotarea.peaceful_list)
+	menutext += "<BR><BR>"
+
 	var/has_bot = FALSE
-	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.guards_spawned)
+	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
 		has_bot = TRUE
 	if(has_bot)
 		menutext += "<BR><BR>Sentry Bot: (<a href='?src=[UID()];secondary=1'>issue recall order</a>)"
 	else
 		menutext += "<BR><BR>Sentry Bot: (none present)"
+	menutext += "<BR><BR>"
+
+	if(check_rights(R_ADMIN, 0, user))
+		if(depotarea.on_peaceful)
+			menutext += "<BR><BR>ADMIN: (To end visitor mode, use comms console.)"
+		else
+			menutext += "<BR><BR>ADMIN: (<a href='?src=[UID()];primary=1'>Reset Depot Alert Level</a>)"
+
 	return menutext
 
 /obj/machinery/computer/syndicate_depot/aiterminal/primary(mob/user)
@@ -473,8 +463,8 @@
 /obj/machinery/computer/syndicate_depot/aiterminal/secondary(mob/user)
 	if(..())
 		return
-	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.guards_spawned)
-		depotarea.guards_spawned -= B
+	for(var/mob/living/simple_animal/bot/ed209/syndicate/B in depotarea.list_getmobs(depotarea.guard_list))
+		depotarea.list_remove(B, depotarea.guard_list)
 		new /obj/effect/portal(get_turf(B))
 		to_chat(user, "[B] has been recalled.")
 		qdel(B)

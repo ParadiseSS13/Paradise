@@ -103,15 +103,15 @@
 		if(!seen_enemy)
 			seen_enemy = TRUE
 			playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
-			depotarea.add_hostile(target)
+			depotarea.list_add(target, depotarea.hostile_list)
 			depotarea.declare_started()
 		seen_enemy_name = target.name
 		if(istype(target, /obj/mecha))
 			depotarea.saw_mech(target)
-		if(target in depotarea.hostiles_dead)
+		if(depotarea.list_includes(target, depotarea.dead_list))
 			seen_revived_enemy = TRUE
 			raise_alert("[name] reports intruder [target] has returned from death!")
-			depotarea.hostiles_dead -= target
+			depotarea.list_remove(target, depotarea.dead_list)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
 	if(seen_enemy)
@@ -129,12 +129,12 @@
 		for(var/mob/living/body in hearers(vision_range, targets_from))
 			if(body.stat != DEAD)
 				continue
-			if(body in depotarea.hostiles_dead)
+			if(depotarea.list_includes(body, depotarea.dead_list))
 				continue
 			if(faction_check(body))
 				continue
 			say("Target [body]... terminated.")
-			depotarea.hostiles_dead += body
+			depotarea.list_add(body, depotarea.dead_list)
 			pointed(body)
 	else
 		scan_cycles++
@@ -154,8 +154,8 @@
 			raise_alert("[name] has died.")
 	if(shield_key && depotarea)
 		depotarea.shields_down()
-	if(depotarea && src in depotarea.guards_spawned)
-		depotarea.guards_spawned -= src
+	if(depotarea)
+		depotarea.list_remove(src, depotarea.guard_list)
 	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)

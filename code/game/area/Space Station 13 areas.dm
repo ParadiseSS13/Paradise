@@ -554,21 +554,24 @@ var/list/ghostteleportlocs = list()
 
 	var/run_started = FALSE
 	var/run_finished = FALSE
-	var/list/hostiles = list()
 
-	var/list/guards_spawned = list()
+	// Soft UID-based refs
+	var/list/guard_list = list()
+	var/list/hostile_list = list()
+	var/list/dead_list = list()
+	var/list/peaceful_list = list()
+	var/list/shield_list = list()
+
+	var/list/alert_log = list() // no refs, just a simple list of text strings
+
 	var/used_lockdown = FALSE
 	var/destroyed = FALSE
 	var/something_looted = FALSE
 	var/on_peaceful = FALSE
-	var/list/peaceful_visitors = list()
 	var/peace_betrayed = FALSE
 	var/detected_mech = FALSE
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
-	var/list/hostiles_dead = list()
-	var/list/deployed_shields = list()
-	var/list/alert_log = list()
 
 /area/syndicate_depot/updateicon()
 	if(destroyed)
@@ -591,6 +594,10 @@ var/list/ghostteleportlocs = list()
 		invisibility = INVISIBILITY_MAXIMUM
 
 /area/syndicate_depot/proc/reset_alert()
+
+	if(used_self_destruct)
+		return
+
 	local_alarm = FALSE
 	called_backup = FALSE
 	used_self_destruct = FALSE
@@ -598,9 +605,12 @@ var/list/ghostteleportlocs = list()
 	detected_mech = FALSE
 	updateicon()
 	despawn_guards()
-	guards_spawned = list()
-	hostiles = list()
-	hostiles_dead = list()
+
+	guard_list = list()
+	hostile_list = list()
+	dead_list = list()
+	peaceful_list = list()
+
 	alert_log += "Alert level reset."
 
 /area/syndicate_depot/proc/increase_alert(reason)
@@ -677,23 +687,24 @@ var/list/ghostteleportlocs = list()
 	if(newvalue)
 		announce_here("Depot Visitor","A Syndicate agent is visiting the depot.")
 	else
-		announce_here("Depot Alert","A visiting agent has betrayed the Syndicate. Shoot all visitors on sight!")
 		if(bycomputer)
 			message_admins("Syndicate Depot visitor mode deactivated. Visitors:")
+			announce_here("Depot Alert","Visit ended. All visting agents signed out.")
 		else
 			message_admins("Syndicate Depot visitor mode auto-deactivated because visitors robbed depot! Visitors:")
-		for(var/mob/M in peaceful_visitors)
+			announce_here("Depot Alert","A visiting agent has betrayed the Syndicate. Shoot all visitors on sight!")
+		for(var/mob/M in list_getmobs(peaceful_list))
 			if("syndicate" in M.faction)
 				M.faction -= "syndicate"
 				message_admins("- SYNDI DEPOT VISITOR: [ADMIN_FULLMONTY(M)]")
-				add_hostile(M)
-		peaceful_visitors = list()
+				list_add(M, hostile_list)
+		peaceful_list = list()
 	updateicon()
 
 /area/syndicate_depot/proc/local_alarm(reason, silent)
 	if(local_alarm)
 		return
-	log_game("Depot code: blue: " + list_hostiles())
+	log_game("Depot code: blue: " + list_show(hostile_list, TRUE))
 	ghostlog("The syndicate depot has declared code blue.")
 	alert_log += "Code BLUE: [reason]"
 	local_alarm = TRUE
@@ -707,14 +718,14 @@ var/list/ghostteleportlocs = list()
 			var/obj/effect/landmark/S = pick(possible_bot_spawns)
 			new /obj/effect/portal(get_turf(S))
 			var/mob/living/simple_animal/bot/ed209/syndicate/B = new /mob/living/simple_animal/bot/ed209/syndicate(get_turf(S))
-			guards_spawned |= B
+			list_add(B, guard_list)
 			B.depotarea = src
 	updateicon()
 
 /area/syndicate_depot/proc/call_backup(reason, silent)
 	if(called_backup || used_self_destruct)
 		return
-	log_game("Depot code: red: " + list_hostiles())
+	log_game("Depot code: red: " + list_show(hostile_list, TRUE))
 	ghostlog("The syndicate depot has declared code red.")
 	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
@@ -735,9 +746,9 @@ var/list/ghostteleportlocs = list()
 			for(var/obj/effect/landmark/L in landmarks_list)
 				if(L.name == "syndi_depot_backup")
 					var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
-					S.name = "Syndicate Backup"
+					S.name = "Syndicate Backup " + "([rand(1, 1000)])"
 					S.depotarea = src
-					guards_spawned |= S
+					list_add(S, guard_list)
 	else if(!silent)
 		announce_here("Depot Communications Offline", "Comms computer is damaged, destroyed or depowered. Unable to call in backup from Syndicate HQ.")
 	updateicon()
@@ -745,7 +756,7 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_depot/proc/activate_self_destruct(reason, containment_failure, mob/user)
 	if(used_self_destruct)
 		return
-	log_game("Depot code: delta: " + list_hostiles())
+	log_game("Depot code: delta: " + list_show(hostile_list, TRUE))
 	ghostlog("The syndicate depot is about to self-destruct.")
 	alert_log += "Code DELTA: [reason]"
 	used_self_destruct = TRUE
@@ -820,24 +831,26 @@ var/list/ghostteleportlocs = list()
 		R << sound('sound/misc/notice1.ogg')
 
 /area/syndicate_depot/proc/shields_up()
-	if(deployed_shields.len)
+	if(shield_list.len)
 		return
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(L.name == "syndi_depot_shield")
 			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
 			S.dir = L.dir
-			deployed_shields += S
+			shield_list += S.UID()
 
 /area/syndicate_depot/proc/shields_down()
-	for(var/obj/machinery/shieldwall/syndicate/S in deployed_shields)
-		qdel(S)
-	deployed_shields = list()
+	for(var/shuid in shield_list)
+		var/obj/machinery/shieldwall/syndicate/S = locateUID(shuid)
+		if(S)
+			qdel(S)
+	shield_list = list()
 
 /area/syndicate_depot/proc/despawn_guards()
-	for(var/mob/thismob in guards_spawned)
+	for(var/mob/thismob in list_getmobs(guard_list))
 		new /obj/effect/portal(get_turf(thismob))
 		qdel(thismob)
-	guards_spawned = list()
+	guard_list = list()
 
 /area/syndicate_depot/proc/ghostlog(gmsg)
 	if(istype(reactor))
@@ -847,24 +860,68 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_depot/proc/declare_started()
 	if(!run_started)
 		run_started = TRUE
-		log_game("Depot run: started: " + list_hostiles())
+		log_game("Depot run: started: " + list_show(hostile_list, TRUE))
 
 /area/syndicate_depot/proc/declare_finished()
 	if(!run_finished && !used_self_destruct)
 		run_finished = TRUE
-		log_game("Depot run: finished successfully: " + list_hostiles())
+		log_game("Depot run: finished successfully: " + list_show(hostile_list, TRUE))
 
-/area/syndicate_depot/proc/add_hostile(mob/M)
-	if(istype(M) && !(M in hostiles))
-		hostiles += M
+/area/syndicate_depot/proc/list_add(mob/M, list/L)
+	if(!istype(M))
+		return
+	var/mob_uid = M.UID()
+	if(mob_uid in L)
+		return
+	L += mob_uid
 
-/area/syndicate_depot/proc/list_hostiles()
+/area/syndicate_depot/proc/list_remove(mob/M, list/L)
+	if(!istype(M))
+		return
+	var/mob_uid = M.UID()
+	if(mob_uid in L)
+		L -= mob_uid
+
+/area/syndicate_depot/proc/list_includes(mob/M, list/L)
+	if(!istype(M))
+		return FALSE
+	var/mob_uid = M.UID()
+	if(mob_uid in L)
+		return TRUE
+	return FALSE
+
+/area/syndicate_depot/proc/list_show(list/L, show_ckeys = FALSE)
 	var/list/formatted = list()
-	for(var/mob/M in hostiles)
-		if(M.ckey)
+	for(var/uid in L)
+		var/mob/M = locateUID(uid)
+		if(!istype(M))
+			continue
+		if(show_ckeys)
 			formatted += "[M.ckey]([M])"
+		else
+			formatted += "[M]"
 	return formatted.Join(", ")
 
+/area/syndicate_depot/proc/list_getmobs(list/L, show_ckeys = FALSE)
+	var/list/moblist = list()
+	for(var/uid in L)
+		var/mob/M = locateUID(uid)
+		if(!istype(M))
+			continue
+		moblist += M
+	return moblist
+
+/area/syndicate_depot/proc/list_gethtmlmobs(list/L)
+	var/returntext = ""
+	var/list/moblist = list_getmobs(L)
+	if(moblist.len)
+		returntext += "<UL>"
+		for(var/mob/thismob in moblist)
+			returntext += "<LI>[thismob]</LI>"
+		returntext += "</UL>"
+	else
+		returntext += "<BR>NONE"
+	return returntext
 
 /area/syndicate_depot/outer
 	name = "Suspicious Asteroid"

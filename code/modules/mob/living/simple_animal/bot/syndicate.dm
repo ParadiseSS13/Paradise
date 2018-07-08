@@ -161,6 +161,8 @@
 
 /mob/living/simple_animal/bot/ed209/syndicate/explode()
 	if (!QDELETED(src))
+		if(depotarea)
+			depotarea.list_remove(src, depotarea.guard_list)
 		walk_to(src,0)
 		visible_message("<span class='userdanger'>[src] blows apart!</span>")
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
