@@ -2846,7 +2846,7 @@
 				template.copy_contents_to(thunderdome)
 
 				log_admin("[key_name(usr)] Set the thunderdome Snow Field with==[delete_mobs].", 1)
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] Set the thunderdome Snow Field with==[delete_mobs].</span>")
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] Set the thunderdome to Gladiator Arena with==[delete_mobs].</span>")
 			if("tdomereset2")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")
@@ -2864,7 +2864,7 @@
 				template.copy_contents_to(thunderdome)
 
 				log_admin("[key_name(usr)] Set the thunderdome Techno Hell with delete_mobs==[delete_mobs].", 1)
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] Set the thunderdome Techno Hell with delete_mobs==[delete_mobs].</span>")
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] Set the thunderdome to Techno Hell with delete_mobs==[delete_mobs].</span>")
 			if("tdomereset3")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")
