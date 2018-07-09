@@ -108,8 +108,8 @@
 	name = "positronic brain ([brainmob.name])"
 
 	to_chat(brainmob, "<b>You are a positronic brain, brought into existence on [station_name()].</b>")
-	to_chat(brainmob, "<b>As a synthetic intelligence, you answer to [imprinted_master], unless otherwise placed inside of a lawed synthetic structure.</b>")
-	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed in the future.</b>")
+	to_chat(brainmob, "<b>As a synthetic intelligence, you answer to [imprinted_master], unless otherwise placed inside of a lawed synthetic structure or mech.</b>")
+	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
 	brainmob.mind.assigned_role = "Positronic Brain"
 
 	var/turf/T = get_turf_or_move(loc)
