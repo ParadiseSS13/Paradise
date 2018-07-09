@@ -541,3 +541,59 @@
 	user.visible_message("<span class='warning'> [user]'s hand slips!</span>", \
 	"<span class='warning'> Your hand slips!</span>")
 	return 0
+
+/datum/surgery/cybernetic_customization
+	name = "Cybernetic Appearance Customization"
+	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch, /datum/surgery_step/robotics/external/customize_appearance)
+	possible_locs = list("head", "chest", "l_arm", "r_arm", "r_leg", "l_leg")
+	requires_organic_bodypart = FALSE
+
+/datum/surgery/cybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)
+	if(ishuman(target))
+		var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+		if(!affected)
+			return FALSE
+		if(!(affected.status & ORGAN_ROBOT))
+			return FALSE
+		return TRUE
+
+/datum/surgery_step/robotics/external/customize_appearance
+	name = "reprogram limb"
+	allowed_tools = list(/obj/item/multitool = 100)
+	time = 48
+
+/datum/surgery_step/robotics/external/customize_appearance/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	if(..())
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		if(!affected)
+			return FALSE
+		return TRUE
+
+/datum/surgery_step/robotics/external/customize_appearance/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("[user] begins to reprogram the appearance of [target]'s [affected.name] with [tool]." , \
+	"You begin to reprogram the appearance of [target]'s [affected.name] with [tool].")
+	..()
+
+/datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/chosen_appearance = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in selectable_robolimbs
+	if(!chosen_appearance)
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	affected.robotize(chosen_appearance, convert_all = FALSE)
+	if(istype(affected, /obj/item/organ/external/head))
+		var/obj/item/organ/external/head/head = affected
+		head.h_style = "Bald" // nearly all the appearance changes for heads are non-monitors; we want to get rid of a floating screen
+		target.update_hair()
+	target.update_body()
+	target.updatehealth()
+	target.UpdateDamageIcon()
+	user.visible_message("<span class='notice'> [user] reprograms the appearance of [target]'s [affected.name] with [tool].</span>", \
+	"<span class='notice'> You reprogram the appearance of [target]'s [affected.name] with [tool].</span>")
+	return TRUE
+
+/datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
+	"<span class='warning'> Your [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>")
+	return FALSE

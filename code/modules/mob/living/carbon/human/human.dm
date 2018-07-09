@@ -118,6 +118,19 @@
 /mob/living/carbon/human/machine/Initialize(mapload)
 	..(mapload, "Machine")
 
+/mob/living/carbon/human/machine/created
+	name = "automated machine-frame"
+
+/mob/living/carbon/human/machine/created/Initialize(mapload)
+	..()
+	real_name = "automated machine-frame ([rand(1, 1000)])"
+	for(var/obj/item/organ/external/E in bodyparts)
+		if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
+			continue
+		qdel(E)
+	for(var/obj/item/organ/O in internal_organs)
+		qdel(O)
+
 /mob/living/carbon/human/shadow/Initialize(mapload)
 	..(mapload, "Shadow")
 

@@ -167,7 +167,8 @@
 			stored_mmi.forceMove(get_turf(owner))
 			stored_mmi = null
 	..()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/organ/internal/brain/mmi_holder/proc/update_from_mmi()
 	if(!stored_mmi)
@@ -183,12 +184,13 @@
 	stored_mmi = new /obj/item/mmi/posibrain/ipc(src)
 	..()
 	spawn(1)
-		if(owner)
-			stored_mmi.name = "positronic brain ([owner.real_name])"
-			stored_mmi.brainmob.real_name = owner.real_name
-			stored_mmi.brainmob.name = stored_mmi.brainmob.real_name
-			stored_mmi.icon_state = "posibrain-occupied"
-			update_from_mmi()
-		else
-			stored_mmi.loc = get_turf(src)
-			qdel(src)
+		if(!QDELETED(src))
+			if(owner)
+				stored_mmi.name = "positronic brain ([owner.real_name])"
+				stored_mmi.brainmob.real_name = owner.real_name
+				stored_mmi.brainmob.name = stored_mmi.brainmob.real_name
+				stored_mmi.icon_state = "posibrain-occupied"
+				update_from_mmi()
+			else
+				stored_mmi.loc = get_turf(src)
+				qdel(src)

@@ -1120,6 +1120,15 @@
 	construction_time = 350
 	category = list("Misc")
 
+/datum/design/automated_machine_frame
+	name = "Automated Machine Frame"
+	id = "automated_machine_frame"
+	build_type = MECHFAB
+	build_path = /mob/living/carbon/human/machine/created
+	materials = list(MAT_METAL = 40000)
+	construction_time = 400
+	category = list("Misc")
+
 /datum/design/ipc_cell
 	name = "IPC Microbattery"
 	id = "ipc_cell"
