@@ -68,7 +68,6 @@
 
 /obj/item/organ/internal/eyes/robotize()
 	colourmatrix = null
-	dark_view = 2
 	..() //Make sure the organ's got the robotic status indicators before updating the client colour.
 	if(owner)
 		owner.update_client_colour(0) //Since mechanical eyes give dark_view of 2 and full colour vision atm, just having this here is fine.

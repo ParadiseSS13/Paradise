@@ -347,7 +347,7 @@
 	if(emp_proof)
 		return
 	if(owner)
-		owner.losebreath = 20
+		owner.LoseBreath(20)
 
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded

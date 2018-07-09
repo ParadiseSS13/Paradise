@@ -402,7 +402,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if("kidneys")
 						organ_name = "kidneys"
 
-				if(status in list("cyborg", "amputated", "mechanical"))
+				if(status in list("cyborg", "amputated", "cybernetic"))
 					++ind
 					if(ind > 1) dat += ", "
 
@@ -416,8 +416,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						dat += "\t[R.company] [organ_name] prosthesis"
 					if("amputated")
 						dat += "\tAmputated [organ_name]"
-					if("mechanical")
-						dat += "\tMechanical [organ_name]"
+					if("cybernetic")
+						dat += "\tCybernetic [organ_name]"
 			if(!ind)	dat += "\[...\]<br>"
 			else		dat += "<br>"
 
@@ -1898,14 +1898,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if("Kidneys")
 							organ = "kidneys"
 
-					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal", "Mechanical")
+					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal", "Cybernetic")
 					if(!new_state) return
 
 					switch(new_state)
 						if("Normal")
 							organ_data[organ] = null
-						if("Mechanical")
-							organ_data[organ] = "mechanical"
+						if("Cybernetic")
+							organ_data[organ] = "cybernetic"
 
 				if("clientfps")
 					var/version_message
@@ -2150,7 +2150,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else
 			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
 			if(I)
-				if(status == "mechanical")
+				if(status == "cybernetic")
 					I.robotize()
 
 	character.dna.b_type = b_type
