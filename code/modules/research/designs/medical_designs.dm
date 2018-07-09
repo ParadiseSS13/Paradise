@@ -449,6 +449,16 @@
 
 //Cybernetic organs
 
+/datum/design/cybernetic_eyes
+	name = "Cybernetic Eyes"
+	desc = "A cybernetic pair of eyes"
+	id = "cybernetic_eyes"
+	req_tech = list("biotech" = 4, "materials" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/organ/internal/eyes/cybernetic
+	category = list("Medical")
+
 /datum/design/cybernetic_liver
 	name = "Cybernetic Liver"
 	desc = "A cybernetic liver"
