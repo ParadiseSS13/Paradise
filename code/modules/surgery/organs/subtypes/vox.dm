@@ -10,7 +10,7 @@
 	organ_tag = "stack"
 	slot = "vox_stack"
 	robotic = 2
-	vital = 1
+	vital = TRUE
 
 /obj/item/organ/internal/stack/vox
 	name = "vox cortical stack"
