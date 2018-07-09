@@ -208,7 +208,12 @@
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage)
-				if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
+				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
+					if(!(I.sterile))
+						spread_germs_to_organ(I, user, tool)
+					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
+					"You start treating damage to [target]'s [I.name] with [tool_name]." )
+				else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
@@ -241,7 +246,11 @@
 			if(I)
 				I.surgeryize()
 			if(I && I.damage)
-				if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
+				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
+					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
+					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
+					I.damage = 0
+				else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
 					I.damage = 0

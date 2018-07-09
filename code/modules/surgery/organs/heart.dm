@@ -32,8 +32,15 @@
 		return
 	Stop()
 
+/obj/item/organ/internal/heart/necrotize()
+	..()
+	Stop()
+
 /obj/item/organ/internal/heart/attack_self(mob/user)
 	..()
+	if(status & ORGAN_DEAD)
+		to_chat(user, "<span class='warning'>You can't restart a dead heart.</span>")
+		return
 	if(!beating)
 		Restart()
 		spawn(80)

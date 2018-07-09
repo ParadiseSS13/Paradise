@@ -73,13 +73,11 @@
 			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
-/obj/item/organ/proc/necrotize(update_sprite=TRUE)
-	if(is_robotic())
-		return
+/obj/item/organ/proc/necrotize(update_sprite = TRUE)
 	damage = max_damage
 	status |= ORGAN_DEAD
 	processing_objects -= src
-	if(dead_icon)
+	if(dead_icon && !is_robotic())
 		icon_state = dead_icon
 	if(owner && vital)
 		owner.death()
@@ -221,20 +219,22 @@
 /obj/item/organ/proc/receive_damage(amount, silent = 0)
 	if(tough)
 		return
-	if(is_robotic())
-		damage = between(0, damage + (amount * 0.8), max_damage)
-	else
-		damage = between(0, damage + amount, max_damage)
+	damage = between(0, damage + amount, max_damage)
 
-		//only show this if the organ is not robotic
-		if(owner && parent_organ && amount > 0)
-			var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
-			if(parent && !silent)
-				owner.custom_pain("Something inside your [parent.name] hurts a lot.")
+	//only show this if the organ is not robotic
+	if(owner && parent_organ && amount > 0)
+		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
+		if(parent && !silent)
+			owner.custom_pain("Something inside your [parent.name] hurts a lot.")
 
 		//check if we've hit max_damage
 	if(damage >= max_damage)
 		necrotize()
+
+/obj/item/organ/proc/heal_internal_damage(amount, robo_repair = FALSE)
+	if(is_robotic() && !robo_repair)
+		return
+	damage = max(damage - amount, 0)
 
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
 	status &= ~ORGAN_BROKEN
