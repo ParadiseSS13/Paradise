@@ -329,6 +329,8 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 
 /obj/item/organ/deserialize(data)
 	if(isnum(data["status"]))
+		if(data["status"] & ORGAN_ROBOT)
+			robotize()
 		status = data["status"]
 	if(islist(data["dna"]))
 		// The only thing the official proc does is
