@@ -369,21 +369,40 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
-					if("chest")		organ_name = "torso"
-					if("groin")		organ_name = "lower body"
-					if("head")		organ_name = "head"
-					if("l_arm")		organ_name = "left arm"
-					if("r_arm")		organ_name = "right arm"
-					if("l_leg")		organ_name = "left leg"
-					if("r_leg")		organ_name = "right leg"
-					if("l_foot")	organ_name = "left foot"
-					if("r_foot")	organ_name = "right foot"
-					if("l_hand")	organ_name = "left hand"
-					if("r_hand")	organ_name = "right hand"
-					if("heart")		organ_name = "heart"
-					if("eyes")		organ_name = "eyes"
+					if("chest")
+						organ_name = "torso"
+					if("groin")
+						organ_name = "lower body"
+					if("head")
+						organ_name = "head"
+					if("l_arm")
+						organ_name = "left arm"
+					if("r_arm")
+						organ_name = "right arm"
+					if("l_leg")
+						organ_name = "left leg"
+					if("r_leg")
+						organ_name = "right leg"
+					if("l_foot")
+						organ_name = "left foot"
+					if("r_foot")
+						organ_name = "right foot"
+					if("l_hand")
+						organ_name = "left hand"
+					if("r_hand")
+						organ_name = "right hand"
+					if("eyes")
+						organ_name = "eyes"
+					if("heart")
+						organ_name = "heart"
+					if("lungs")
+						organ_name = "lungs"
+					if("liver")
+						organ_name = "liver"
+					if("kidneys")
+						organ_name = "kidneys"
 
-				if(status in list("cyborg", "amputated", "mechanical", "assisted"))
+				if(status in list("cyborg", "amputated", "mechanical"))
 					++ind
 					if(ind > 1) dat += ", "
 
@@ -395,14 +414,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						else
 							R = basic_robolimb
 						dat += "\t[R.company] [organ_name] prosthesis"
-					if("amputated")		dat += "\tAmputated [organ_name]"
-					if("mechanical")	dat += "\tMechanical [organ_name]"
-					if("assisted")
-						switch(organ_name)
-							if("heart")		dat += "\tPacemaker-assisted [organ_name]"
-							if("voicebox")	dat += "\tSurgically altered [organ_name]"
-							if("eyes")		dat += "\tRetinal overlayed [organ_name]"
-							else			dat += "\tMechanically assisted [organ_name]"
+					if("amputated")
+						dat += "\tAmputated [organ_name]"
+					if("mechanical")
+						dat += "\tMechanical [organ_name]"
 			if(!ind)	dat += "\[...\]<br>"
 			else		dat += "<br>"
 
@@ -1866,24 +1881,29 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
 				if("organs")
-					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Heart", "Eyes")
-					if(!organ_name) return
+					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Heart", "Lungs", "Liver", "Kidneys")
+					if(!organ_name)
+						return
 
 					var/organ = null
 					switch(organ_name)
-						if("Heart")
-							organ = "heart"
 						if("Eyes")
 							organ = "eyes"
+						if("Heart")
+							organ = "heart"
+						if("Lungs")
+							organ = "lungs"
+						if("Liver")
+							organ = "liver"
+						if("Kidneys")
+							organ = "kidneys"
 
-					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal","Assisted","Mechanical")
+					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal", "Mechanical")
 					if(!new_state) return
 
 					switch(new_state)
 						if("Normal")
 							organ_data[organ] = null
-						if("Assisted")
-							organ_data[organ] = "assisted"
 						if("Mechanical")
 							organ_data[organ] = "mechanical"
 
