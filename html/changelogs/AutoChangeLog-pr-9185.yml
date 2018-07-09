@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Enabled augmentation of the head"
+  - rscadd: "Adds cybernetic heart, lungs, liver, and kidneys to R&D and Robotics; also adds cybernetic upgraded lungs"

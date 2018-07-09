@@ -271,13 +271,6 @@
 			if(2)
 				receive_damage(7, 1)
 
-/obj/item/organ/internal/heart/emp_act(intensity)
-	if(emp_proof)
-		return
-	if(owner && is_robotic())
-		Stop() // In the name of looooove~!
-		owner.visible_message("<span class='danger'>[owner] clutches [owner.p_their()] chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
-
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
 		return
