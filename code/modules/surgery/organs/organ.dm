@@ -264,12 +264,11 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
-	if(is_robotic())
-		switch(severity)
-			if(1)
-				receive_damage(20, 1)
-			if(2)
-				receive_damage(7, 1)
+	switch(severity)
+		if(1)
+			receive_damage(20, 1)
+		if(2)
+			receive_damage(7, 1)
 
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))

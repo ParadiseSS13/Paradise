@@ -28,11 +28,9 @@
 			Stop()
 
 /obj/item/organ/internal/heart/emp_act(intensity)
-	if(emp_proof)
+	if(!is_robotic() || emp_proof)
 		return
-	if(owner && is_robotic())
-		Stop() // In the name of looooove~!
-		owner.visible_message("<span class='danger'>[owner] clutches [owner.p_their()] chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
+	Stop()
 
 /obj/item/organ/internal/heart/attack_self(mob/user)
 	..()
@@ -49,7 +47,7 @@
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
 	update_icon()
-	return 1
+	return TRUE
 
 /obj/item/organ/internal/heart/proc/Restart()
 	beating = TRUE
@@ -143,8 +141,3 @@
 	dead_icon = "heart-c-off"
 	origin_tech = "biotech=5"
 	status = ORGAN_ROBOT
-
-/obj/item/organ/internal/heart/cybernetic/emp_act()
-	if(emp_proof)
-		return
-	Stop()
