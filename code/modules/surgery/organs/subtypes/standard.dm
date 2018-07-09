@@ -10,7 +10,7 @@
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_HUGE
 	body_part = UPPER_TORSO
-	vital = 1
+	vital = TRUE
 	amputation_point = "spine"
 	gendered_icon = 1
 	parent_organ = null
@@ -44,7 +44,7 @@
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
 	body_part = LOWER_TORSO
-	vital = 1
+	vital = TRUE
 	parent_organ = "chest"
 	amputation_point = "lumbar"
 	gendered_icon = 1
@@ -158,7 +158,6 @@
 	min_broken_damage = 35
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = HEAD
-	vital = 1
 	parent_organ = "chest"
 	amputation_point = "neck"
 	gendered_icon = 1
