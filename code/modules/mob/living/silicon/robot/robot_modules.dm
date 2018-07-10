@@ -199,6 +199,7 @@
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
 	modules += new /obj/item/holosign_creator/engineering(src)
+	modules += new /obj/item/holosign_creator/atmos(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/floor_painter(src)
