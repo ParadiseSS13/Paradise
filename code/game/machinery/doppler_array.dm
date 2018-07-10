@@ -166,7 +166,8 @@ var/list/doppler_arrays = list()
 /obj/machinery/doppler_array/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/list/explosion_data = list()
-	for(var/datum/explosion_log/E in logged_explosions)
+	for(var/D in logged_explosions)
+		var/datum/explosion_log/E = D
 		explosion_data += list(list(
 			"logged_time" = E.logged_time,
 			"epicenter" = E.epicenter,
@@ -182,10 +183,11 @@ var/list/doppler_arrays = list()
 		return
 	if(href_list["log_to_delete"])
 		var/log_to_delete = sanitize(href_list["log_to_delete"])
-		for(var/datum/D in logged_explosions)
-			if(D.unique_datum_id == log_to_delete)
-				logged_explosions -= D
-				qdel(D)
+		for(var/D in logged_explosions)
+			var/datum/explosion_log/E = D
+			if(E.UID() == log_to_delete)
+				logged_explosions -= E
+				qdel(E)
 				to_chat(usr, "<span class='notice'>Log deletion successful.</span>")
 				break
 	else if(href_list["print_logs"])
