@@ -119,11 +119,11 @@
 	..(mapload, "Machine")
 
 /mob/living/carbon/human/machine/created
-	name = "automated machine-frame"
+	name = "Integrated Robotic Chassis"
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
 	..()
-	real_name = "automated machine-frame ([rand(1, 1000)])"
+	real_name = "Integrated Robotic Chassis ([rand(1, 9999)])"
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
 			continue

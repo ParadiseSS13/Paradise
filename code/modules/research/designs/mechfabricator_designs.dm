@@ -1120,9 +1120,9 @@
 	construction_time = 350
 	category = list("Misc")
 
-/datum/design/automated_machine_frame
-	name = "Automated Machine Frame"
-	id = "automated_machine_frame"
+/datum/design/integrated_robotic_chassis
+	name = "Integrated Robotic Chassis"
+	id = "integrated_robotic_chassis"
 	build_type = MECHFAB
 	build_path = /mob/living/carbon/human/machine/created
 	materials = list(MAT_METAL = 40000)
