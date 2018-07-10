@@ -65,6 +65,11 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		playsound(loc, I.usesound, 50, 1)
 	else if(istype(I, /obj/item/conveyor_switch_construct))
 		var/obj/item/conveyor_switch_construct/S = I
+		if(S.id == id)
+			return ..()
+		for(var/obj/machinery/conveyor_switch/CS in GLOB.conveyor_switches)
+			if(CS.id == id)
+				CS.conveyors -= src
 		id = S.id
 		to_chat(user, "<span class='notice'>You link [I] with [src].</span>")
 	else if(user.a_intent != INTENT_HARM)
