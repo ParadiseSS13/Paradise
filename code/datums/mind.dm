@@ -704,7 +704,7 @@
 					special_role = null
 					var/datum/game_mode/cult/cult = ticker.mode
 					if(istype(cult))
-						cult.memorize_cult_objectives(src)
+						cult.remove_cultist(src, TRUE)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>The nanobots in the mindshield implant remove all thoughts about being in a cult.  Have a productive day!</B></FONT></span>")
 					memory = ""
 
@@ -848,9 +848,6 @@
 						log_admin("[key_name(usr)] has spawned a tome for [key_name(current)]")
 						message_admins("[key_name_admin(usr)] has spawned a tome for [key_name_admin(current)]")
 
-			if("equip")
-				if(!ticker.mode.equip_cultist(current))
-					to_chat(usr, "<span class='warning'>Spawning equipment failed!</span>")
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a cultist")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a cultist")
 

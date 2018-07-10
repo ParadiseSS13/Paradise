@@ -274,7 +274,7 @@
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
 							if(ticker.mode.name == "cult")
-								ticker.mode:add_cultist(Z.mind)
+								ticker.mode:add_cultist(Z.mind, 0)
 							else
 								ticker.mode.cult+=Z.mind
 							ticker.mode.update_cult_icons_added(Z.mind)

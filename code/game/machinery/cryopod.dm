@@ -364,16 +364,17 @@
 			W.forceMove(loc)
 
 	// Skip past any cult sacrifice objective using this person
-	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
+	if(GAMEMODE_IS_CULT)
 		var/datum/game_mode/cult/cult_mode = ticker.mode
-		var/list/p_s_t = cult_mode.get_possible_sac_targets()
-		if(p_s_t.len)
-			cult_mode.sacrifice_target = pick(p_s_t)
-			for(var/datum/mind/H in ticker.mode.cult)
-				if(H.current)
-					to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
-		else
-			cult_mode.bypass_phase()
+		var/mob/living/F = cult_mod.cult[1]
+		var/datum/antagonist/cult/C = F.mind.has_antag_datum(/datum/antagonist/cult, TRUE)
+		if(C.cult_team.is_sacrifice_target(occupant.mind))
+			var/list/p_s_t = cult_mode.get_possible_sac_targets()
+			if(p_s_t.len)
+				cult_mode.sacrifice_target = pick(p_s_t)
+				for(var/datum/mind/H in ticker.mode.cult)
+					if(H.current)
+						to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in all_objectives)

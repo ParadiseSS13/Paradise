@@ -493,10 +493,6 @@
 		if(ticker.mode.cult.len)
 			dat += check_role_table("Cultists", ticker.mode.cult, 0)
 			dat += "<br> use <a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
-			if(GAMEMODE_IS_CULT)
-				var/datum/game_mode/cult/cult_round = ticker.mode
-				if(!cult_round.narsie_condition_cleared)
-					dat += "<br><a href='?src=[UID()];cult_nextobj=[UID()]'>complete objective (debug)</a>"
 
 		if(ticker.mode.traitors.len)
 			dat += check_role_table("Traitors", ticker.mode.traitors)

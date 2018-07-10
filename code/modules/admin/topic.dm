@@ -1562,19 +1562,6 @@
 		else
 			to_chat(usr, "<span class='warning'>Unable to locate mob.</span>")
 
-	else if(href_list["cult_nextobj"])
-		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
-			return
-
-		if(!GAMEMODE_IS_CULT)
-			alert("Couldn't locate cult mode datum! This shouldn't ever happen, tell a coder!")
-			return
-
-		var/datum/game_mode/cult/cult_round = ticker.mode
-		cult_round.bypass_phase()
-		message_admins("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
-		log_admin("Admin [key_name_admin(usr)] has unlocked the Cult's next objective.")
-
 	else if(href_list["cult_mindspeak"])
 		var/input = stripped_input(usr, "Communicate to all the cultists with the voice of [ticker.cultdat.entity_name]", "Voice of [ticker.cultdat.entity_name]", "")
 		if(!input)
