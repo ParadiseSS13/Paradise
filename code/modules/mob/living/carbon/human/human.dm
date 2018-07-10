@@ -1065,7 +1065,7 @@
 	if(!affecting)
 		. = 0
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
-	else if(affecting.status & ORGAN_ROBOT)
+	else if(affecting.is_robotic())
 		. = 0
 		fail_msg = "That limb is robotic."
 	else

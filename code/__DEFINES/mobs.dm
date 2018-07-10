@@ -6,7 +6,6 @@
 #define ORGAN_SPLINTED   4
 #define ORGAN_DEAD       8
 #define ORGAN_MUTATED    16
-#define ORGAN_ASSISTED   32
 
 #define PROCESS_ACCURACY 10
 

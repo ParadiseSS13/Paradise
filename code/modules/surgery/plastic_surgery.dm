@@ -9,7 +9,7 @@
 		var/obj/item/organ/external/head/head = H.get_organ(user.zone_sel.selecting)
 		if(!head)
 			return FALSE
-		if(head.status & ORGAN_ROBOT)
+		if(head.is_robotic())
 			return FALSE
 		return TRUE
 

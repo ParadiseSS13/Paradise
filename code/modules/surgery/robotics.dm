@@ -28,7 +28,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
-		if(!(affected.status & ORGAN_ROBOT))
+		if(!affected.is_robotic())
 			return 0
 		return 1
 
@@ -38,7 +38,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
-		if(!(affected.status & ORGAN_ROBOT))
+		if(!affected.is_robotic())
 			return 0
 		if(affected.cannot_amputate)
 			return 0
@@ -64,7 +64,7 @@
 	if(!..())
 		return 0
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!(affected.status & ORGAN_ROBOT))
+	if(!affected.is_robotic())
 		return 0
 	return 1
 
@@ -305,7 +305,7 @@
 		current_type = "insert"
 		var/obj/item/organ/internal/I = tool
 
-		if(I.status != ORGAN_ROBOT || I.robotic != 2)
+		if(!I.is_robotic())
 			to_chat(user, "<span class='notice'>You can only implant cybernetic organs.</span>")
 
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
@@ -343,7 +343,7 @@
 			to_chat(user, "<span class='danger'>That brain is not usable.</span>")
 			return -1
 
-		if(!(affected.status & ORGAN_ROBOT))
+		if(!affected.is_robotic())
 			to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
 			return -1
 
@@ -365,7 +365,7 @@
 	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
-		if(!(affected && (affected.status & ORGAN_ROBOT)))
+		if(!(affected && affected.is_robotic()))
 			return -1
 		if(!organs.len)
 			to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
@@ -395,7 +395,7 @@
 
 		var/found_damaged_organ = FALSE
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage && I.robotic >= 2)
+			if(I && I.damage && I.is_robotic())
 				user.visible_message("[user] starts mending the damage to [target]'s [I.name]'s mechanisms.", \
 				"You start mending the damage to [target]'s [I.name]'s mechanisms.")
 				found_damaged_organ = TRUE
@@ -421,7 +421,7 @@
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage)
-				if(I.robotic >= 2)
+				if(I.is_robotic())
 					user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
 					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )
 					I.damage = 0

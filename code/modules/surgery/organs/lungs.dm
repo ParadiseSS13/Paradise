@@ -51,6 +51,12 @@
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
 	var/heat_damage_types = list(BURN = 1)
 
+/obj/item/organ/internal/lungs/emp_act()
+	if(!is_robotic() || emp_proof)
+		return
+	if(owner)
+		owner.LoseBreath(20)
+
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
@@ -341,15 +347,7 @@
 	desc = "A cybernetic version of the lungs found in traditional humanoid entities. It functions the same as an organic lung and is merely meant as a replacement."
 	icon_state = "lungs-c"
 	origin_tech = "biotech=4"
-	sterile = TRUE
-	robotic = 2
-
-/obj/item/organ/internal/lungs/cybernetic/emp_act()
-	if(emp_proof)
-		return
-	if(owner)
-		owner.losebreath = 20
-
+	status = ORGAN_ROBOT
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"

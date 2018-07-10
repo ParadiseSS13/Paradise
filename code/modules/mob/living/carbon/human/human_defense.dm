@@ -165,7 +165,7 @@ emp_act
 /mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)
 	if(!istype(affecting))
 		return
-	if(!(affecting.status & ORGAN_ROBOT))
+	if(!affecting.is_robotic())
 		to_chat(user, "<span class='warning'>That limb isn't robotic.</span>")
 		return
 	if(affecting.sabotaged)

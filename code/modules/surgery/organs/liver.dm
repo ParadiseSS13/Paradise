@@ -55,5 +55,4 @@
 	icon_state = "liver-c"
 	desc = "An electronic device designed to mimic the functions of a human liver. It has no benefits over an organic liver, but is easy to produce."
 	origin_tech = "biotech=4"
-	sterile = TRUE
-	robotic = 2
+	status = ORGAN_ROBOT

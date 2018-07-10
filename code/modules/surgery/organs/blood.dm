@@ -64,7 +64,7 @@
 			var/obj/item/organ/external/BP = X
 			var/brutedamage = BP.brute_dam
 
-			if(BP.status & ORGAN_ROBOT)
+			if(BP.is_robotic())
 				continue
 
 			//We want an accurate reading of .len

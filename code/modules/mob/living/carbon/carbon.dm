@@ -342,7 +342,7 @@
 			AdjustEyeBlurry(damage * rand(3, 6))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
-				if(!(E.status & ORGAN_ROBOT))
+				if(!E.is_robotic())
 					to_chat(src, "<span class='warning'>Your eyes start to burn badly!</span>")
 				else //snowflake conditions piss me off for the record
 					to_chat(src, "<span class='warning'>The flash blinds you!</span>")

@@ -11,7 +11,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(target_zone)
 		if(!affected)
 			return FALSE
-		if(affected.status & ORGAN_ROBOT)
+		if(affected.is_robotic())
 			return FALSE
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant
@@ -89,7 +89,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(target_zone)
 		if(!affected)
 			return FALSE
-		if(!(affected.status & ORGAN_ROBOT))
+		if(!affected.is_robotic())
 			return FALSE
 	var/mob/living/carbon/human/H = user
 	// You must either: Be of the abductor species, or contain an abductor implant

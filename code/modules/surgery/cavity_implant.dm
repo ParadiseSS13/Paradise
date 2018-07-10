@@ -23,7 +23,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
 	if(!affected)
 		return 0
-	if(affected.status & ORGAN_ROBOT)
+	if(affected.is_robotic())
 		return 0
 	return 1
 
@@ -33,7 +33,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
 	if(!affected)
 		return 0
-	return (affected.status & ORGAN_ROBOT)
+	return affected.is_robotic()
 
 /datum/surgery_step/cavity
 	priority = 1
@@ -187,7 +187,7 @@
 		else
 			user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
 			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
-			if((tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT)))
+			if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
 				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
 				affected.internal_bleeding = TRUE
 				affected.owner.custom_pain("You feel something rip in your [affected.name]!")

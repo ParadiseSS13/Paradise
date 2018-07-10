@@ -45,7 +45,7 @@
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves)
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-			if(affecting.status & ORGAN_ROBOT)
+			if(affecting.is_robotic())
 				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
 			if(affecting.receive_damage(force*0.5))
@@ -82,7 +82,7 @@
 				var/obj/item/organ/external/affecting = H.get_organ(pick("l_foot", "r_foot"))
 				if(!affecting)
 					return
-				if(affecting.status & ORGAN_ROBOT)
+				if(affecting.is_robotic())
 					return
 				H.Weaken(3)
 				if(affecting.receive_damage(5, 0))

@@ -92,13 +92,14 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.receive_damage(-0.4)
+			I.heal_internal_damage(0.4)
 	..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/organ))
 		var/obj/item/organ/Org = O
-		Org.rejuvenate()
+		if(!Org.is_robotic())
+			Org.rejuvenate()
 
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
@@ -520,7 +521,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.receive_damage(-1)
+				E.heal_internal_damage(1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))

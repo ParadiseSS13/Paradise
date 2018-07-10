@@ -24,7 +24,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
-		if(affected.status & ORGAN_ROBOT)
+		if(affected.is_robotic())
 			return 0
 		return 1
 	return 0
@@ -260,7 +260,7 @@
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
-	if(affected.status & ORGAN_ROBOT)
+	if(affected.is_robotic())
 		return 0
 	if(!(B in affected.internal_organs))
 		return 0
@@ -276,7 +276,7 @@
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
-	if(!(affected.status & ORGAN_ROBOT))
+	if(!affected.is_robotic())
 		return 0
 	if(!(B in affected.internal_organs))
 		return 0
