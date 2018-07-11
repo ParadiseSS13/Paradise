@@ -1,5 +1,5 @@
 /obj/item/mmi/posibrain
-	name = "positronic brain"
+	name = "robotic brain"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "posibrain"
@@ -28,7 +28,7 @@
 		return
 	if(brainmob && !brainmob.key && searching == 0)
 		//Start the process of searching for a new user.
-		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start the positronic brain's boot process.</span>")
+		to_chat(user, "<span class='notice'>You carefully locate the manual activation switch and start [src]'s boot process.</span>")
 		icon_state = "posibrain-searching"
 		ghost_volunteers.Cut()
 		searching = 1
@@ -66,7 +66,7 @@
 /obj/item/mmi/posibrain/proc/question(var/client/C)
 	spawn(0)
 		if(!C)	return
-		var/response = alert(C, "Someone is requesting a personality for a positronic brain. Would you like to play as one?", "Positronic brain request", "Yes", "No", "Never for this round")
+		var/response = alert(C, "Someone is requesting a personality for a [src]. Would you like to play as one?", "[src] request", "Yes", "No", "Never for this round")
 		if(!C || brainmob.key || 0 == searching)	return		//handle logouts that happen whilst the alert is waiting for a response, and responses issued after a brain has been located.
 		if(response == "Yes")
 			transfer_personality(C.mob)
@@ -79,7 +79,7 @@
 	return
 
 /obj/item/mmi/posibrain/transfer_identity(var/mob/living/carbon/H)
-	name = "positronic brain ([H])"
+	name = "[src] ([H])"
 	if(isnull(brainmob.dna))
 		brainmob.dna = H.dna.Clone()
 	brainmob.name = brainmob.dna.real_name
@@ -105,16 +105,16 @@
 /obj/item/mmi/posibrain/proc/transfer_personality(mob/candidate)
 	searching = 0
 	brainmob.key = candidate.key
-	name = "positronic brain ([brainmob.name])"
+	name = "[src] ([brainmob.name])"
 
-	to_chat(brainmob, "<b>You are a positronic brain, brought into existence on [station_name()].</b>")
+	to_chat(brainmob, "<b>You are a [src], brought into existence on [station_name()].</b>")
 	to_chat(brainmob, "<b>As a synthetic intelligence, you answer to [imprinted_master], unless otherwise placed inside of a lawed synthetic structure or mech.</b>")
 	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
 	brainmob.mind.assigned_role = "Positronic Brain"
 
 	var/turf/T = get_turf_or_move(loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>The positronic brain chimes quietly.</span>")
+		M.show_message("<span class='notice'>[src] chimes quietly.</span>")
 	become_occupied("posibrain-occupied")
 
 
@@ -126,7 +126,7 @@
 
 	var/turf/T = get_turf_or_move(src.loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("<span class='notice'>The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?</span>")
+		M.show_message("<span class='notice'>The [src] buzzes quietly, and the golden lights fade away. Perhaps you could try again?</span>")
 
 /obj/item/mmi/posibrain/Topic(href,href_list)
 	if("signup" in href_list)
@@ -215,9 +215,10 @@
 		playsound(get_turf(src), 'sound/items/posiping.ogg', 80, 0)
 		var/turf/T = get_turf_or_move(src.loc)
 		for(var/mob/M in viewers(T))
-			M.show_message("<span class='notice'>The positronic brain pings softly.</span>")
+			M.show_message("<span class='notice'>[src] pings softly.</span>")
 
 /obj/item/mmi/posibrain/ipc
+	name = "positronic brain"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
 	silenced = 1
 	requires_master = FALSE

@@ -104,7 +104,7 @@
 	category = list("Medical")
 
 /datum/design/posibrain
-	name = "Positronic Brain"
+	name = "Robotic Brain"
 	desc = "The latest in Artificial Intelligences."
 	id = "mmi_posi"
 	req_tech = list("programming" = 5, "biotech" = 4, "plasmatech" = 3)
