@@ -1,4 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "Replaced instances of \"Human\" in ion laws by \"Crew\"."

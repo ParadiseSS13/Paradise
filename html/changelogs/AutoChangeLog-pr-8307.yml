@@ -1,7 +1,0 @@
-author: "Alffd"
-delete-after: True
-changes: 
-  - bugfix: "Updates SM engine to modern standards"
-  - rscadd: "Ports SM monitoring system from Bay and TG"
-  - rscadd: "Adds station wide radiation alarm when crystal/shard goes critical"
-  - rscadd: "Tesla zapping"
