@@ -1010,7 +1010,7 @@ var/list/uplink_items = list()
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/storage/firstaid/tactical
-	cost = 7
+	cost = 4
 	gamemodes = list(/datum/game_mode/nuclear)
 
 //Space Suits and Hardsuits

@@ -179,7 +179,7 @@
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/defibrillator/compact/combat/loaded(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 	return
 
