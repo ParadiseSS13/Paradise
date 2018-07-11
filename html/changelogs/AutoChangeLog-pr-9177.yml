@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Fixed the ability of Service Borgs to spawn items on floors. Dosh!"
