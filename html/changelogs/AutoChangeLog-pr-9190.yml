@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Adds constructable Integrated Robotic Chassis"
-  - rscadd: "Adds surgery to customize existing robotic limb appearances"
-  - tweak: "Positronic brains renamed to robotic brains"
