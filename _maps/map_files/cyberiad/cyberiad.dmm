@@ -188,7 +188,7 @@
 "adF" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 4},/turf/simulated/floor/plasteel{icon_state = "floorgrime"},/area/security/permabrig)
 "adG" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/unary/vent_pump{on = 1},/turf/simulated/floor/plasteel{icon_state = "floorgrime"},/area/security/permabrig)
 "adH" = (/obj/structure/stool,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel{icon_state = "floorgrime"},/area/security/permabrig)
-"adI" = (/obj/structure/table,/obj/item/dice/d20,/turf/simulated/floor/plasteel{icon_state = "floorgrime"},/area/security/permabrig)
+"adI" = (/obj/structure/table,/obj/item/dice/d20,/obj/item/instrument/harmonica,/turf/simulated/floor/plasteel{icon_state = "floorgrime"},/area/security/permabrig)
 "adJ" = (/obj/machinery/atmospherics/unary/outlet_injector/on,/turf/simulated/floor/plasteel{icon_state = "floorgrime"},/area/security/permabrig)
 "adK" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/machinery/hologram/holopad,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4; level = 1},/turf/simulated/floor/plasteel{icon_state = "floorgrime"},/area/security/permabrig)
 "adL" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 8; initialize_directions = 11; level = 1},/turf/simulated/floor/plasteel{icon_state = "floorgrime"},/area/security/permabrig)
