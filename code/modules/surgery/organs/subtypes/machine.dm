@@ -191,3 +191,9 @@
 		else
 			stored_mmi.loc = get_turf(src)
 			qdel(src)
+
+/obj/item/organ/internal/brain/mmi_holder/posibrain/remove()
+	if(stored_mmi)
+		var/obj/item/mmi/posibrain/P = stored_mmi
+		P.silenced = TRUE //Posibrains are always silenced when removed, no exceptions
+	..()
