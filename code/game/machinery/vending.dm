@@ -288,7 +288,7 @@
 		insert_item(user, I)
 		return
 	else
-		..()
+		return ..()
 
 //Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)

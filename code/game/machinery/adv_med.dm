@@ -2,9 +2,9 @@
 	name = "body scanner"
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
-	density = 1
-	dir = 8
-	anchored = 1
+	density = TRUE
+	dir = WEST
+	anchored = TRUE
 	idle_power_usage = 1250
 	active_power_usage = 2500
 
@@ -32,7 +32,7 @@
 		if(M == occupant)
 			continue
 		else
-			M.forceMove(src.loc)
+			M.forceMove(loc)
 
 /obj/machinery/bodyscanner/New()
 	..()
@@ -54,37 +54,36 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/bodyscanner/attackby(var/obj/item/G as obj, var/mob/user as mob)
-	if(istype(G, /obj/item/screwdriver))
-		if(src.occupant)
+/obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
+	if(isscrewdriver(I))
+		if(occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
-		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", G)
+		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I)
 		return
 
-	if(istype(G, /obj/item/wrench))
-		if(src.occupant)
+	if(iswrench(I))
+		if(occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		if(dir == 4)
-			dir = 8
+		if(dir == EAST)
+			setDir(WEST)
 		else
-			dir = 4
-		playsound(src.loc, G.usesound, 50, 1)
+			setDir(EAST)
+		playsound(loc, I.usesound, 50, 1)
 		return
 
-	if(exchange_parts(user, G))
+	if(exchange_parts(user, I))
 		return
 
-	if(istype(G, /obj/item/crowbar))
-		default_deconstruction_crowbar(G)
+	if(default_deconstruction_crowbar(I))
 		return
 
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/TYPECAST_YOUR_SHIT = G
+	if(istype(I, /obj/item/grab))
+		var/obj/item/grab/TYPECAST_YOUR_SHIT = I
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
@@ -105,7 +104,10 @@
 		occupant = M
 		icon_state = "body_scanner_1"
 		add_fingerprint(user)
-		qdel(G)
+		qdel(TYPECAST_YOUR_SHIT)
+		return
+
+	return ..()
 
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/O, mob/user as mob)
@@ -123,7 +125,7 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return 0 //panel open
 	if(occupant)
-		to_chat(user, "<span class='notice'>\The [src] is already occupied.</span>")
+		to_chat(user, "<span class='notice'>[src] is already occupied.</span>")
 		return 0 //occupied
 
 	if(O.buckled)
@@ -137,7 +139,7 @@
 			return 0
 
 	if(O == user)
-		visible_message("[user] climbs into \the [src].")
+		visible_message("[user] climbs into [src].")
 	else
 		visible_message("[user] puts [O] into the body scanner.")
 
@@ -175,21 +177,21 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
+				A.forceMove(loc)
 				A.ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
+					A.forceMove(loc)
 					A.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(25))
 				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
+					A.forceMove(loc)
 					A.ex_act(severity)
 				qdel(src)
 				return
@@ -220,7 +222,7 @@
 	icon_state = "bodyscannerconsole"
 	density = 1
 	anchored = 1
-	dir = 8
+	dir = WEST
 	idle_power_usage = 250
 	active_power_usage = 500
 	var/obj/machinery/bodyscanner/connected = null
@@ -238,7 +240,7 @@
 		stat &= ~NOPOWER
 	else
 		spawn(rand(0, 15))
-			src.icon_state = "bodyscannerconsole-p"
+			icon_state = "bodyscannerconsole-p"
 			stat |= NOPOWER
 
 /obj/machinery/body_scanconsole/New()
@@ -292,33 +294,35 @@
 			break
 
 
-/obj/machinery/body_scanconsole/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
-	if(istype(G, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, "bodyscannerconsole-p", "bodyscannerconsole", G)
+/obj/machinery/body_scanconsole/attackby(obj/item/I, mob/user, params)
+	if(default_deconstruction_screwdriver(user, "bodyscannerconsole-p", "bodyscannerconsole", I))
 		return
 
-	if(istype(G, /obj/item/wrench))
+	if(iswrench(I))
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		if(dir == 4)
-			dir = 8
+		if(dir == EAST)
+			setDir(WEST)
 		else
-			dir = 4
-		playsound(loc, G.usesound, 50, 1)
+			setDir(EAST)
+		playsound(loc, I.usesound, 50, 1)
 
-	if(exchange_parts(user, G))
+	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(G)
+	if(default_deconstruction_crowbar(I))
+		return
+	else
+		return ..()
 
-/obj/machinery/body_scanconsole/attack_ai(user as mob)
+/obj/machinery/body_scanconsole/attack_ai(user)
 	return attack_hand(user)
 
-/obj/machinery/body_scanconsole/attack_ghost(user as mob)
+/obj/machinery/body_scanconsole/attack_ghost(user)
 	return attack_hand(user)
 
-/obj/machinery/body_scanconsole/attack_hand(user as mob)
+/obj/machinery/body_scanconsole/attack_hand(user)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -326,13 +330,13 @@
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
 
-	if(!src.connected)
+	if(!connected)
 		findscanner()
 
 	ui_interact(user)
 
 
-/obj/machinery/body_scanconsole/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/body_scanconsole/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "adv_med.tmpl", "Body Scanner", 690, 600)
@@ -475,14 +479,14 @@
 		return 1
 
 	if(href_list["ejectify"])
-		src.connected.eject()
+		connected.eject()
 
 	if(href_list["print_p"])
 		generate_printing_text()
 
 		if(!(printing) && printing_text)
 			printing = 1
-			visible_message("<span class='notice'>\The [src] rattles and prints out a sheet of paper.</span>")
+			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
 			var/obj/item/paper/P = new /obj/item/paper(loc)
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			P.info = "<CENTER><B>Body Scan - [href_list["name"]]</B></CENTER><BR>"
@@ -654,7 +658,7 @@
 			if(occupant.disabilities & NEARSIGHTED)
 				dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
 		else
-			dat += "\The [src] is empty."
+			dat += "[src] is empty."
 	else
 		dat = "<font color='red'> Error: No Body Scanner connected.</font>"
 

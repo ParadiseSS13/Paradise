@@ -11,7 +11,7 @@
 	var/base_icon = "sleeper"
 	density = 1
 	anchored = 1
-	dir = 8
+	dir = WEST
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list(list("epinephrine", "ether", "salbutamol", "styptic_powder", "silver_sulfadiazine"),
@@ -97,10 +97,10 @@
 				return
 
 			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
-				src.occupant.transfer_blood_to(beaker, 1)
-				for(var/datum/reagent/x in src.occupant.reagents.reagent_list)
-					src.occupant.reagents.trans_to(beaker, 3)
-					src.occupant.transfer_blood_to(beaker, 1)
+				occupant.transfer_blood_to(beaker, 1)
+				for(var/datum/reagent/x in occupant.reagents.reagent_list)
+					occupant.reagents.trans_to(beaker, 3)
+					occupant.transfer_blood_to(beaker, 1)
 
 	if(occupant)
 		for(var/A in occupant.reagents.addiction_list)
@@ -117,7 +117,7 @@
 		if(M == occupant)
 			continue
 		else
-			M.forceMove(src.loc)
+			M.forceMove(loc)
 
 	updateDialog()
 	return
@@ -253,7 +253,7 @@
 		to_chat(usr, "<span class='notice'>Close the maintenance panel first.</span>")
 		return 0
 
-	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
+	if((usr.contents.Find(src) || ((get_dist(src, usr) <= 1) && istype(loc, /turf))) || (istype(usr, /mob/living/silicon/ai)))
 		if(href_list["chemical"])
 			if(occupant)
 				if(occupant.stat == DEAD)
@@ -268,7 +268,7 @@
 			toggle_filter()
 		if(href_list["ejectify"])
 			eject()
-		src.add_fingerprint(usr)
+		add_fingerprint(usr)
 	return 1
 
 /obj/machinery/sleeper/blob_act()
@@ -280,84 +280,84 @@
 	return
 
 
-/obj/machinery/sleeper/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
-	if(istype(G, /obj/item/reagent_containers/glass))
+/obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/glass))
 		if(!beaker)
 			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>\The [G] is stuck to you!</span>")
+				to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 				return
 
-			beaker = G
-			G.forceMove(src)
-			user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
+			beaker = I
+			I.forceMove(src)
+			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")
 			return
 
 		else
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
 			return
 
-	if(istype(G, /obj/item/screwdriver))
-		if(src.occupant)
+	if(isscrewdriver(I))
+		if(occupant)
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
-		default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", G)
+		default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I)
 		return
 
-	if(istype(G, /obj/item/wrench))
-		if(src.occupant)
+	if(iswrench(I))
+		if(occupant)
 			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
 			return
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 			return
-		if(dir == 4)
+		if(dir == EAST)
 			orient = "LEFT"
-			dir = 8
+			setDir(WEST)
 		else
 			orient = "RIGHT"
-			dir = 4
-		playsound(src.loc, G.usesound, 50, 1)
+			setDir(EAST)
+		playsound(loc, I.usesound, 50, 1)
 		return
 
-	if(exchange_parts(user, G))
+	if(exchange_parts(user, I))
 		return
 
-	if(istype(G, /obj/item/crowbar))
-		default_deconstruction_crowbar(G)
+	if(default_deconstruction_crowbar(I))
 		return
 
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/GG = G
+	if(istype(I, /obj/item/grab))
+		var/obj/item/grab/G = I
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
-		if(!ismob(GG.affecting))
+		if(!ismob(G.affecting))
 			return
-		if(src.occupant)
+		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
-		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
-			if(M.Victim == GG.affecting)
-				to_chat(usr, "[GG.affecting.name] will not fit into the sleeper because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
+		for(var/mob/living/carbon/slime/M in range(1, G.affecting))
+			if(M.Victim == G.affecting)
+				to_chat(user, "[G.affecting.name] will not fit into the sleeper because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.")
 				return
 
-		visible_message("[user] starts putting [GG.affecting.name] into the sleeper.")
+		visible_message("[user] starts putting [G.affecting.name] into the sleeper.")
 
-		if(do_after(user, 20, target = GG.affecting))
-			if(src.occupant)
+		if(do_after(user, 20, target = G.affecting))
+			if(occupant)
 				to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 				return
-			if(!GG || !GG.affecting) return
-			var/mob/M = GG.affecting
+			if(!G || !G.affecting)
+				return
+			var/mob/M = G.affecting
 			M.forceMove(src)
-			src.occupant = M
-			src.icon_state = "[base_icon]"
+			occupant = M
+			icon_state = "[base_icon]"
 			to_chat(M, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+			add_fingerprint(user)
+			qdel(G)
+			return
 
-			src.add_fingerprint(user)
-			qdel(GG)
-		return
-	return
+	return ..()
 
 
 /obj/machinery/sleeper/ex_act(severity)
@@ -366,21 +366,21 @@
 	switch(severity)
 		if(1.0)
 			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
+				A.forceMove(loc)
 				A.ex_act(severity)
 			qdel(src)
 			return
 		if(2.0)
 			if(prob(50))
 				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
+					A.forceMove(loc)
 					A.ex_act(severity)
 				qdel(src)
 				return
 		if(3.0)
 			if(prob(25))
 				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
+					A.forceMove(loc)
 					A.ex_act(severity)
 				qdel(src)
 				return
@@ -423,10 +423,10 @@
 		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</notice>")
 		return
 
-	if(src.occupant)
-		if(src.occupant.reagents)
-			if(src.occupant.reagents.get_reagent_amount(chemical) + amount <= max_chem)
-				src.occupant.reagents.add_reagent(chemical, amount)
+	if(occupant)
+		if(occupant.reagents)
+			if(occupant.reagents.get_reagent_amount(chemical) + amount <= max_chem)
+				occupant.reagents.add_reagent(chemical, amount)
 				return
 			else
 				to_chat(user, "You can not inject any more of this chemical.")
@@ -446,8 +446,8 @@
 	if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 		return
 
-	src.icon_state = "[base_icon]-open"
-	src.go_out()
+	icon_state = "[base_icon]-open"
+	go_out()
 	add_fingerprint(usr)
 	return
 
@@ -505,15 +505,15 @@
 		visible_message("[user] starts putting [L.name] into the sleeper.")
 
 	if(do_after(user, 20, target = L))
-		if(src.occupant)
+		if(occupant)
 			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
 		if(!L) return
 		L.forceMove(src)
-		src.occupant = L
-		src.icon_state = "[base_icon]"
+		occupant = L
+		icon_state = "[base_icon]"
 		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-		src.add_fingerprint(user)
+		add_fingerprint(user)
 		if(user.pulling == L)
 			user.stop_pulling()
 		return
@@ -528,7 +528,7 @@
 	set src in oview(1)
 	if(usr.stat != 0 || !(ishuman(usr)))
 		return
-	if(src.occupant)
+	if(occupant)
 		to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 		return
 	if(panel_open)
@@ -542,17 +542,17 @@
 			return
 	visible_message("[usr] starts climbing into the sleeper.")
 	if(do_after(usr, 20, target = usr))
-		if(src.occupant)
+		if(occupant)
 			to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
 			return
 		usr.stop_pulling()
 		usr.forceMove(src)
-		src.occupant = usr
-		src.icon_state = "[base_icon]"
+		occupant = usr
+		icon_state = "[base_icon]"
 
 		for(var/obj/O in src)
 			qdel(O)
-		src.add_fingerprint(usr)
+		add_fingerprint(usr)
 		return
 	return
 
