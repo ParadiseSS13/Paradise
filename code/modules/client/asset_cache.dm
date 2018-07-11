@@ -246,6 +246,13 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"sig_low.gif" 				= 'icons/program_icons/sig_low.gif',
 		"sig_lan.gif" 				= 'icons/program_icons/sig_lan.gif',
 		"sig_none.gif" 				= 'icons/program_icons/sig_none.gif',
+		"smmon_0.gif"				= 'icons/program_icons/smmon_0.gif',
+		"smmon_1.gif"				= 'icons/program_icons/smmon_1.gif',
+		"smmon_2.gif"				= 'icons/program_icons/smmon_2.gif',
+		"smmon_3.gif"				= 'icons/program_icons/smmon_3.gif',
+		"smmon_4.gif"				= 'icons/program_icons/smmon_4.gif',
+		"smmon_5.gif"				= 'icons/program_icons/smmon_5.gif',
+		"smmon_6.gif"				= 'icons/program_icons/smmon_6.gif',
 	)
 
 /datum/asset/nanoui

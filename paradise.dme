@@ -1854,6 +1854,7 @@
 #include "code\modules\modular_computers\file_system\programs\command\comms.dm"
 #include "code\modules\modular_computers\file_system\programs\engineering\alarm.dm"
 #include "code\modules\modular_computers\file_system\programs\engineering\power_monitor.dm"
+#include "code\modules\modular_computers\file_system\programs\engineering\sm_monitor.dm"
 #include "code\modules\modular_computers\file_system\programs\generic\configurator.dm"
 #include "code\modules\modular_computers\file_system\programs\generic\file_browser.dm"
 #include "code\modules\modular_computers\file_system\programs\generic\ntdownloader.dm"
