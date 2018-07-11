@@ -166,7 +166,8 @@
 		L.origin_tech = I.origin_tech
 	else
 		I.loc = get_step(src,SOUTH)
-	I.materials = res_coef
+	if(istype(I))
+		I.materials = res_coef
 	atom_say("[I] is complete.")
 	being_built = null
 
