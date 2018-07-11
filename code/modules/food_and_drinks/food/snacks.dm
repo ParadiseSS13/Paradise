@@ -1070,6 +1070,7 @@
 	icon_state = "fortune_cookie"
 	filling_color = "#E8E79E"
 	list_reagents = list("nutriment" = 3)
+	trash = /obj/item/paper/fortune
 
 /obj/item/reagent_containers/food/snacks/badrecipe
 	name = "Burned mess"
