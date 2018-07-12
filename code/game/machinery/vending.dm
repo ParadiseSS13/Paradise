@@ -1316,6 +1316,15 @@
 	contraband = list(/obj/item/kitchen/knife = 6)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
+/obj/machinery/vending/abductor
+	name = "\improper Nutrient Dispenser"
+	desc = "Food synthesised from data gathered in this sector."
+	icon_state = "abductor"
+	products = list(/obj/item/reagent_containers/food/drinks/chicken_soup = 20,
+					/obj/item/reagent_containers/food/snacks/warmdonkpocket = 12)
+	contraband = list(/obj/item/reagent_containers/food/drinks/bottle/vodka = 2)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
 	desc = "It doesn't seem the slightest bit unusual. This frustrates you immensely."
