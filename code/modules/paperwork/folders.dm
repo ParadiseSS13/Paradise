@@ -93,7 +93,7 @@
 		update_icon()
 	return
 
-/hook/roundstart/proc/spawn_the_fucking_docs()
+/hook/roundstart/proc/spawn_the_fucking_docs()//list creation can be found at /game/objects/effects/landmarks.dm
 	var/turf/T = pick(GLOB.docspawns)
 	new /obj/item/folder/documents(T)
 
