@@ -107,8 +107,15 @@
 
 /datum/team/cult/proc/setup_objectives()
 
-	var/datum/objective/sacrifice/sac_objective = new
+	var/datum/objective/sacrifice/sac_objective = new()
+	sac_objective.team = src
 	objectives += sac_objective
+
+
+	if(prob(20))
+		var/datum/objective/convert/bookclub_objective = new()
+		bookclub_objective.team = src
+		objectives += bookclub_objective
 
 	if(prob(40))
 		var/datum/objective/eldergod/summon_objective = new()

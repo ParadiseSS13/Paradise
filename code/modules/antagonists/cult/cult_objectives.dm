@@ -28,9 +28,8 @@
 	return sacced || completed
 
 /datum/objective/sacrifice/update_explanation_text()
-	var/datum/game_mode/cult/cult_mode = ticker.mode
-	if(cult_mode.sacrifice_target)
-		explanation_text = "We need to sacrifice [cult_mode.sacrifice_target.name], the [cult_mode.sacrifice_target.assigned_role], for [cult_mode.sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
+	if(target)
+		explanation_text = "We need to sacrifice [target.name], the [target.assigned_role], for [target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 	else
 		explanation_text = "The veil has already been weakened here, proceed to the next objective."
 
