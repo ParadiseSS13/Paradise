@@ -29,8 +29,7 @@ var/list/doppler_arrays = list()
 
 /obj/machinery/doppler_array/Destroy()
 	doppler_arrays -= src
-	for(var/datum/D in logged_explosions)
-		qdel(D)
+	logged_explosions.Cut()
 	return ..()
 
 /obj/machinery/doppler_array/process()
@@ -91,7 +90,8 @@ var/list/doppler_arrays = list()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 	var/obj/item/paper/explosive_log/P = new(get_turf(src))
-	for(var/datum/explosion_log/E in logged_explosions)
+	for(var/D in logged_explosions)
+		var/datum/explosion_log/E = D
 		P.info += "<tr>\
 		<td>[E.logged_time]</td>\
 		<td>[E.epicenter]</td>\
