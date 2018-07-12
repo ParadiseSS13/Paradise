@@ -258,7 +258,7 @@
 	name = "Dissection Guide"
 	icon_state = "alienpaper_words"
 	info = {"<b>Dissection for Dummies</b><br>
-
+ Always keep your dissection area sterile, and wear gloves and mask while dissection is in-progress.<br>
 <br>
  1.Acquire fresh specimen.<br>
  2.Put the specimen on operating table.<br>
