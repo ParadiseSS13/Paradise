@@ -238,6 +238,7 @@
 						continue
 					organ_found = 1
 					to_chat(user, "[E.name]: <font color='red'>[round(E.brute_dam)]</font> <font color='#FFA500'>[round(E.burn_dam)]</font>")
+
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
 			to_chat(user, "<hr>")
@@ -251,5 +252,8 @@
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
+
+			if(H.isSynthetic() && H.bleed_rate)
+				to_chat(user, "<span class='warning'>Warning:Component leak detected!</span>")
 
 	src.add_fingerprint(user)

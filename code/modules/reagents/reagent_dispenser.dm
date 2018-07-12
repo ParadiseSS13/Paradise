@@ -62,6 +62,13 @@
 	tank_volume = 100000
 
 
+/obj/structure/reagent_dispensers/oil
+	name = "oil tank"
+	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."
+	icon_state = "oil"
+	reagent_id = "oil"
+	tank_volume = 2000
+
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
 	desc = "A tank full of industrial welding fuel. Do not consume."
