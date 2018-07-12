@@ -195,7 +195,7 @@
 	//germ spread from surgeon touching the patient
 	if(user.gloves)
 		germ_level = user.gloves.germ_level
-	E.germ_level += germ_level
+	E.germ_level = max(germ_level, E.germ_level)
 	spread_germs_by_incision(E, tool) //germ spread from environement to patient
 
 /proc/spread_germs_by_incision(obj/item/organ/external/E,obj/item/tool)
