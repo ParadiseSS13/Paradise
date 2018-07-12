@@ -111,7 +111,7 @@
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)
-			H.mind.kills += "[name] ([ckey])"
+			H.mind.kills += "[key_name(src)]"
 
 	if(!gibbed)
 		update_canmove()
@@ -121,7 +121,7 @@
 	med_hud_set_status()
 	if(mind)	mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 	if(ticker && ticker.mode)
-//		log_to_dd("k")
+//		log_world("k")
 		sql_report_death(src)
 		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
 
@@ -139,9 +139,11 @@
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(SKELETON in src.mutations)	return
+	if(SKELETON in src.mutations)
+		return
 
 	if(istype(H))
+		H.disfigured = TRUE
 		if(H.f_style)
 			H.f_style = initial(H.f_style)
 		if(H.h_style)
@@ -159,16 +161,17 @@
 
 	mutations.Add(SKELETON)
 	mutations.Add(NOCLONE)
-	status_flags |= DISFIGURED
 	update_body(0)
 	update_mutantrace()
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(HUSK in mutations)	return
+	if(HUSK in mutations)
+		return
 
 	if(istype(H))
+		H.disfigured = TRUE //makes them unknown without fucking up other stuff like admintools
 		if(H.f_style)
 			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
 		if(H.h_style)
@@ -177,7 +180,6 @@
 	update_hair(0)
 
 	mutations.Add(HUSK)
-	status_flags |= DISFIGURED	//makes them unknown without fucking up other stuff like admintools
 	update_body(0)
 	update_mutantrace()
 	return

@@ -42,9 +42,12 @@
 /proc/worldtime2text()
 	return gameTimestamp("hh:mm:ss", world.time)
 
-/proc/time_stamp(format = "hh:mm:ss", show_ds)
-	var/time_string = time2text(world.timeofday, format)
-	return show_ds ? "[time_string]:[world.timeofday % 10]" : time_string
+// This is ISO-8601
+// If anything that uses this proc shouldn't be ISO-8601, change that thing, not this proc. This is important for logging.
+/proc/time_stamp()
+	var/date_portion = time2text(world.timeofday, "YYYY-MM-DD")
+	var/time_portion = time2text(world.timeofday, "hh:mm:ss")
+	return "[date_portion]T[time_portion]"
 
 /proc/gameTimestamp(format = "hh:mm:ss", wtime=null)
 	if(!wtime)

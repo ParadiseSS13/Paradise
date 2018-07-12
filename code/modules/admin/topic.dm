@@ -39,35 +39,35 @@
 		switch(href_list["makeAntag"])
 			if("1")
 				log_admin("[key_name(usr)] has spawned a traitor.")
-				if(!src.makeTraitors())
+				if(!makeTraitors())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("2")
 				log_admin("[key_name(usr)] has spawned a changeling.")
-				if(!src.makeChanglings())
+				if(!makeChangelings())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("3")
 				log_admin("[key_name(usr)] has spawned revolutionaries.")
-				if(!src.makeRevs())
+				if(!makeRevs())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("4")
 				log_admin("[key_name(usr)] has spawned a cultists.")
-				if(!src.makeCult())
+				if(!makeCult())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("5")
 				log_admin("[key_name(usr)] has spawned a wizard.")
-				if(!src.makeWizard())
+				if(!makeWizard())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("6")
 				log_admin("[key_name(usr)] has spawned vampires.")
-				if(!src.makeVampires())
+				if(!makeVampires())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("7")
 				log_admin("[key_name(usr)] has spawned vox raiders.")
-				if(!src.makeVoxRaiders())
+				if(!makeVoxRaiders())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("8")
 				log_admin("[key_name(usr)] has spawned an abductor team.")
-				if(!src.makeAbductorTeam())
+				if(!makeAbductorTeam())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
@@ -1617,19 +1617,19 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/weapon/reagent_containers/food/snacks/cookie(H), slot_l_hand )
-		if(!(istype(H.l_hand,/obj/item/weapon/reagent_containers/food/snacks/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/weapon/reagent_containers/food/snacks/cookie(H), slot_r_hand )
-			if(!(istype(H.r_hand,/obj/item/weapon/reagent_containers/food/snacks/cookie)))
+		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+		if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
+			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
-				message_admins("[key_name_admin(H)] has their hands full, so they did not receive their cookie, spawned by [key_name_admin(src.owner)].")
+				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
 				return
 			else
 				H.update_inv_r_hand()//To ensure the icon appears in the HUD
 		else
 			H.update_inv_l_hand()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
-		message_admins("[key_name_admin(H)] got their cookie, spawned by [key_name_admin(src.owner)]")
+		message_admins("[key_name_admin(H)] got [H.p_their()] cookie, spawned by [key_name_admin(src.owner)]")
 		feedback_inc("admin_cookies_spawned",1)
 		to_chat(H, "<span class='notice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
 
@@ -1679,11 +1679,11 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
 
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from Centcomm", "")
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from Centcomm", "")
 		if(!input)	return
 
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
@@ -1705,7 +1705,7 @@
 		var/customname = input(src.owner, "Pick a title for the evil fax.", "Fax Title") as text|null
 		if(!customname)
 			customname = "paper"
-		var/obj/item/weapon/paper/evilfax/P = new /obj/item/weapon/paper/evilfax(null)
+		var/obj/item/paper/evilfax/P = new /obj/item/paper/evilfax(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 
 		P.name = "Central Command - [customname]"
@@ -1725,7 +1725,7 @@
 		stampoverlay.pixel_x = P.x
 		stampoverlay.pixel_y = P.y
 		P.stamped = list()
-		P.stamped += /obj/item/weapon/stamp/centcom
+		P.stamped += /obj/item/stamp/centcom
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
@@ -1734,7 +1734,7 @@
 		P.update_icon()
 		//fax.receivefax(P) // this does not work, it does not preserve the type, we have to physically teleport the fax paper instead
 		P.loc = fax.loc
-		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
@@ -1792,7 +1792,7 @@
 				H.gene_stability = 100
 				logmsg = "superpowers."
 			if("Scarab Guardian")
-				var/obj/item/weapon/guardiancreator/biological/scarab = new /obj/item/weapon/guardiancreator/biological(H)
+				var/obj/item/guardiancreator/biological/scarab = new /obj/item/guardiancreator/biological(H)
 				var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Random")
 				var/typechoice = input("Select Guardian Type", "Type") as null|anything in possible_guardians
 				if(isnull(typechoice))
@@ -1892,7 +1892,7 @@
 				H.makeCluwne()
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
-				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
+				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
 				evilcookie.reagents.add_reagent("mutagen", 10)
 				evilcookie.desc = "It has a faint green glow."
 				evilcookie.bitesize = 100
@@ -1901,7 +1901,7 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
-				var/obj/item/weapon/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/weapon/reagent_containers/food/snacks/cookie
+				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
 				evilcookie.reagents.add_reagent("hell_water", 25)
 				evilcookie.desc = "Sulphur-flavored."
 				evilcookie.bitesize = 100
@@ -1941,7 +1941,7 @@
 					newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
 					var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 					tatorhud.join_hud(newtraitor)
-					ticker.mode.set_antag_hud(newtraitor, "hudsyndicate")
+					set_antag_hud(newtraitor, "hudsyndicate")
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return
@@ -1983,7 +1983,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null)
+		var/obj/item/paper/P = new /obj/item/paper(null)
 		var/obj/machinery/photocopier/faxmachine/fax = locate(href_list["originfax"])
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
@@ -2018,7 +2018,7 @@
 		stampoverlay.pixel_x = P.x
 		stampoverlay.pixel_y = P.y
 		P.stamped = list()
-		P.stamped += /obj/item/weapon/stamp/centcom
+		P.stamped += /obj/item/stamp/centcom
 		if(!P.ico)
 			P.ico = new
 		P.ico += "paper_stamp-[stampvalue]"
@@ -2026,7 +2026,7 @@
 		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
 		fax.receivefax(P)
-		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
@@ -2042,10 +2042,10 @@
 		if(H.stat != 0)
 			to_chat(usr, "The person you are trying to contact is not conscious.")
 			return
-		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from The Syndicate", "")
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from The Syndicate", "")
 		if(!input)
 			return
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
@@ -2057,11 +2057,11 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
 
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from HONKplanet", "")
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from HONKplanet", "")
 		if(!input)	return
 
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
@@ -2080,7 +2080,7 @@
 			if(H.stat != 0)
 				to_chat(usr, "The person you are trying to contact is not conscious.")
 				return
-			if(!istype(H.l_ear, /obj/item/device/radio/headset) && !istype(H.r_ear, /obj/item/device/radio/headset))
+			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 				to_chat(usr, "The person you are trying to contact is not wearing a headset")
 				return
 
@@ -2099,17 +2099,17 @@
 			return
 
 		var/obj/item/fax = locate(href_list["AdminFaxView"])
-		if(istype(fax, /obj/item/weapon/paper))
-			var/obj/item/weapon/paper/P = fax
+		if(istype(fax, /obj/item/paper))
+			var/obj/item/paper/P = fax
 			P.show_content(usr,1)
-		else if(istype(fax, /obj/item/weapon/photo))
-			var/obj/item/weapon/photo/H = fax
+		else if(istype(fax, /obj/item/photo))
+			var/obj/item/photo/H = fax
 			H.show(usr)
-		else if(istype(fax, /obj/item/weapon/paper_bundle))
+		else if(istype(fax, /obj/item/paper_bundle))
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
 			var/data = ""
-			var/obj/item/weapon/paper_bundle/B = fax
+			var/obj/item/paper_bundle/B = fax
 
 			for(var/page = 1, page <= B.amount + 1, page++)
 				var/obj/pageobj = B.contents[page]
@@ -2124,15 +2124,15 @@
 			return
 
 		var/page = text2num(href_list["AdminFaxViewPage"])
-		var/obj/item/weapon/paper_bundle/bundle = locate(href_list["paper_bundle"])
+		var/obj/item/paper_bundle/bundle = locate(href_list["paper_bundle"])
 
 		if(!bundle) return
 
-		if(istype(bundle.contents[page], /obj/item/weapon/paper))
-			var/obj/item/weapon/paper/P = bundle.contents[page]
+		if(istype(bundle.contents[page], /obj/item/paper))
+			var/obj/item/paper/P = bundle.contents[page]
 			P.show_content(usr, 1)
-		else if(istype(bundle.contents[page], /obj/item/weapon/photo))
-			var/obj/item/weapon/photo/H = bundle.contents[page]
+		else if(istype(bundle.contents[page], /obj/item/photo))
+			var/obj/item/photo/H = bundle.contents[page]
 			H.show(usr)
 		return
 
@@ -2147,7 +2147,7 @@
 		var/destination
 		var/notify
 
-		var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(null) //hopefully the null loc won't cause trouble for us
+		var/obj/item/paper/P = new /obj/item/paper(null) //hopefully the null loc won't cause trouble for us
 
 		if(!fax)
 			var/list/departmentoptions = alldepartments + "All Departments"
@@ -2236,14 +2236,14 @@
 			if(stamptype == "icon")
 				if(!P.stamped)
 					P.stamped = new
-				P.stamped += /obj/item/weapon/stamp/centcom
+				P.stamped += /obj/item/stamp/centcom
 				P.overlays += stampoverlay
 				P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
 
 			else if(stamptype == "text")
 				if(!P.stamped)
 					P.stamped = new
-				P.stamped += /obj/item/weapon/stamp
+				P.stamped += /obj/item/stamp
 				P.overlays += stampoverlay
 				P.stamps += "<HR><i>[stampvalue]</i>"
 
@@ -2274,7 +2274,7 @@
 		to_chat(src.owner, "<span class='notice'>Message transmitted successfully.</span>")
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
-			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/device/radio/headset) || istype(H.r_ear, /obj/item/device/radio/headset)))
+			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 				to_chat(sender, "Your headset pings, notifying you that a reply to your fax has arrived.")
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
@@ -2616,13 +2616,13 @@
 						continue
 					H.Paralyse(5)
 					if(H.wear_id)
-						var/obj/item/weapon/card/id/id = H.get_idcard()
+						var/obj/item/card/id/id = H.get_idcard()
 						for(var/A in id.access)
 							if(A == access_security)
 								security++
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
-						for(var/obj/item/weapon/W in H)
+						for(var/obj/item/W in H)
 							if(istype(W, /obj/item/organ/external))
 								continue
 								//don't strip organs
@@ -2727,48 +2727,6 @@
 				for(var/mob/M in player_list)
 					if(M.stat != 2)
 						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
-/*				if("shockwave")
-				ok = 1
-				to_chat(world, "<span class='danger'><big>ALERT: STATION STRESS CRITICAL</big></span>")
-				sleep(60)
-				to_chat(world, "<span class='danger'><big>ALERT: STATION STRESS CRITICAL. TOLERABLE LEVELS EXCEEDED!</big></span>")
-				sleep(80)
-				to_chat(world, "<span class='danger'><big>ALERT: STATION STRUCTURAL STRESS CRITICAL. SAFETY MECHANISMS FAILED!</big></span>")
-				sleep(40)
-				for(var/mob/M in world)
-					shake_camera(M, 400, 1)
-				for(var/obj/structure/window/W in world)
-					spawn(0)
-						sleep(rand(10,400))
-						W.ex_act(rand(2,1))
-				for(var/obj/structure/grille/G in world)
-					spawn(0)
-						sleep(rand(20,400))
-						G.ex_act(rand(2,1))
-				for(var/obj/machinery/door/D in world)
-					spawn(0)
-						sleep(rand(20,400))
-						D.ex_act(rand(2,1))
-				for(var/turf/station/floor/Floor in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Floor.ex_act(rand(2,1))
-				for(var/obj/structure/cable/Cable in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Cable.ex_act(rand(2,1))
-				for(var/obj/structure/closet/Closet in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Closet.ex_act(rand(2,1))
-				for(var/obj/machinery/Machinery in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Machinery.ex_act(rand(1,3))
-				for(var/turf/station/wall/Wall in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Wall.ex_act(rand(2,1)) */
 			if("lightout")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","LO")
@@ -2793,7 +2751,7 @@
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
-				weather_master.run_weather("the floor is lava")
+				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
 				feedback_inc("admin_secrets_fun_used", 1)
@@ -2801,7 +2759,7 @@
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
-				weather_master.run_weather("fake lava")
+				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
 				feedback_inc("admin_secrets_fun_used", 1)
@@ -2809,16 +2767,8 @@
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
-				weather_master.run_weather("ash storm")
+				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining asteroid")
-			if("weatherdarkness")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "WD")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
-					return
-				weather_master.run_weather("advanced darkness")
-				message_admins("[key_name_admin(usr)] made the station go through advanced darkness")
 			if("retardify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")
@@ -2830,7 +2780,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","FG")
 				for(var/obj/item/W in world)
-					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/weapon/disk) || istype(W, /obj/item/weapon/tank))
+					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
 					W.icon = 'icons/obj/guns/projectile.dmi'
 					W.icon_state = "revolver"
@@ -2957,13 +2907,6 @@
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])
-			if("clear_bombs")
-				//I do nothing
-			if("list_bombers")
-				var/dat = "<B>Bombing List<HR>"
-				for(var/l in bombers)
-					dat += text("[l]<BR>")
-				usr << browse(dat, "window=bombers")
 			if("list_signalers")
 				var/dat = "<B>Showing last [length(lastsignalers)] signalers.</B><HR>"
 				for(var/sig in lastsignalers)
@@ -3407,14 +3350,14 @@
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(latejoin))
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)
-	var/obj/item/weapon/pinpointer/advpinpointer/N = new /obj/item/weapon/pinpointer/advpinpointer(hunter_mob)
+	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
 	N.active = 1
 	N.mode = 2
 	N.target = H
 	N.point_at(N.target)
-	if(!locate(/obj/item/weapon/implant/dust, hunter_mob))
-		var/obj/item/weapon/implant/dust/D = new /obj/item/weapon/implant/dust(hunter_mob)
+	if(!locate(/obj/item/implant/dust, hunter_mob))
+		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)
 		D.implant(hunter_mob)
 	if(killthem)
 		var/datum/objective/assassinate/kill_objective = new
@@ -3432,11 +3375,11 @@
 	to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
 	to_chat(hunter_mob, "<B>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)]. </B>");
 	if(killthem)
-		to_chat(hunter_mob, "<B>If you kill them, they cannot be revived.</B>");
+		to_chat(hunter_mob, "<B>If you kill [H.p_them()], [H.p_they()] cannot be revived.</B>");
 	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	tatorhud.join_hud(hunter_mob)
-	ticker.mode.set_antag_hud(hunter_mob, "hudsyndicate")
+	set_antag_hud(hunter_mob, "hudsyndicate")
 
 /proc/admin_jump_link(var/atom/target)
 	if(!target) return

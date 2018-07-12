@@ -21,7 +21,7 @@
 				for(var/datum/surgery/S in all_surgeries)
 					if(!S.possible_locs.Find(selected_zone))
 						continue
-					if(affecting && S.requires_organic_bodypart && affecting.status == ORGAN_ROBOT)
+					if(affecting && S.requires_organic_bodypart && affecting.is_robotic())
 						continue
 					if(!S.can_start(user, M))
 						continue
@@ -39,7 +39,7 @@
 						S = available_surgeries["Apply Robotic Prosthetic"]
 					if(istype(I,/obj/item/organ/external))
 						var/obj/item/organ/external/E = I
-						if(E.robotic == 2)
+						if(E.is_robotic())
 							S = available_surgeries["Synthetic Limb Reattachment"]
 					if(S)
 						var/datum/surgery/procedure = new S.type
@@ -66,7 +66,7 @@
 					M.surgeries -= current_surgery
 					to_chat(user, "You stop the surgery.")
 					qdel(current_surgery)
-				else if(istype(user.get_inactive_hand(), /obj/item/weapon/cautery) && current_surgery.can_cancel)
+				else if(istype(user.get_inactive_hand(), /obj/item/cautery) && current_surgery.can_cancel)
 					M.surgeries -= current_surgery
 					user.visible_message("[user] mends the incision on [M]'s [parse_zone(selected_zone)] with the [I] .", \
 						"<span class='notice'>You mend the incision on [M]'s [parse_zone(selected_zone)].</span>")

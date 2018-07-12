@@ -1,5 +1,5 @@
 
-/obj/item/weapon/shard/supermatter
+/obj/item/shard/supermatter
 	name = "supermatter shard"
 	desc = "A shard of supermatter. Incredibly dangerous, though not large enough to go critical."
 	force = 10.0
@@ -12,7 +12,7 @@
 	light_color = "#8A8A00"
 	var/brightness = 2
 
-/obj/item/weapon/shard/supermatter/New()
+/obj/item/shard/supermatter/New()
 	src.icon_state = "supermatter" + pick("large", "medium", "small")
 	switch(src.icon_state)
 		if("supermattersmall")
@@ -28,20 +28,20 @@
 
 	set_light(brightness)
 
-/obj/item/weapon/shard/supermatter/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if( istype( W, /obj/item/weapon/tongs ))
-		var/obj/item/weapon/tongs/T = W
+/obj/item/shard/supermatter/attackby(obj/item/W as obj, mob/user as mob)
+	if( istype( W, /obj/item/tongs ))
+		var/obj/item/tongs/T = W
 		T.pick_up( src )
 		T.icon_state = "tongs_supermatter"
 		return
 
 	..()
 
-/obj/item/weapon/shard/supermatter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/shard/supermatter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
 
-/obj/item/weapon/shard/supermatter/Crossed(AM as mob|obj)
+/obj/item/shard/supermatter/Crossed(AM as mob|obj)
 	if(ismob(AM))
 		var/mob/M = AM
 		to_chat(M, "<span class='danger'>You step on \the [src]!</span>")
@@ -64,7 +64,7 @@
 	..()
 
 
-/obj/item/weapon/shard/supermatter/attack_hand(var/mob/user)
+/obj/item/shard/supermatter/attack_hand(var/mob/user)
 	if(!istype(user,/mob/living/carbon/human/nucleation))
 		to_chat(user, pick( "<span class='warning'>You think twice before touching that without protection.</span>",)
 					  "<span class='warning'>You don't want to touch that without some protection.</span>",
@@ -77,7 +77,7 @@
 
 	..()
 
-/obj/item/weapon/tongs
+/obj/item/tongs
 	name = "tongs"
 	desc = "Tungsten-alloy tongs used for handling dangerous materials."
 	force = 7.0
@@ -89,12 +89,12 @@
 	flags = CONDUCT
 	var/obj/item/held = null // The item currently being held
 
-/obj/item/weapon/tongs/proc/pick_up( var/obj/item/I )
+/obj/item/tongs/proc/pick_up( var/obj/item/I )
 	held = I
 	I.loc = src
 	playsound(loc, 'sound/effects/tong_pickup.ogg', 50, 1, -1)
 
-/obj/item/weapon/tongs/attack_self(var/mob/user as mob)
+/obj/item/tongs/attack_self(var/mob/user as mob)
 	if( held )
 		var/turf/T = get_turf(user.loc)
 		held.loc = T

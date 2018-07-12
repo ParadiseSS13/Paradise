@@ -15,7 +15,7 @@
 	for(var/obj/item/W in H)
 		if(istype(W,/obj/item/organ))
 			continue
-		if(istype(W,/obj/item/weapon/implant))
+		if(istype(W,/obj/item/implant))
 			continue
 		H.unEquip(W)
 
@@ -54,7 +54,7 @@
 			continue
 		if(istype(W,/obj/item/organ))
 			continue
-		if(istype(W,/obj/item/weapon/implant))
+		if(istype(W,/obj/item/implant))
 			continue
 		H.unEquip(W)
 	H.regenerate_icons()

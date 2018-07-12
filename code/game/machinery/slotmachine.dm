@@ -1,7 +1,7 @@
 /obj/machinery/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
 	anchored = 1
 	density = 1
@@ -14,7 +14,7 @@
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
 	account = user.get_worn_id_account()
 	if(!account)
-		if(istype(user.get_active_hand(), /obj/item/weapon/card/id))
+		if(istype(user.get_active_hand(), /obj/item/card/id))
 			account = get_card_account(user.get_active_hand())
 		else
 			account = null

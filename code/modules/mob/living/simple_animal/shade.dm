@@ -24,13 +24,13 @@
 	status_flags = 0
 	faction = list("cult")
 	status_flags = CANPUSH
-	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
+	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 	deathmessage = "lets out a contented sigh as their form unwinds."
 
 
 	attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
-		if(istype(O, /obj/item/device/soulstone))
+		if(istype(O, /obj/item/soulstone))
 			O.transfer_soul("SHADE", src, user)
 		else
 			if(O.force)

@@ -16,10 +16,16 @@
 	var/id = null
 	var/datum/radio_frequency/radio_connection
 
-/obj/machinery/atmospherics/binary/passive_gate/initialize()
+/obj/machinery/atmospherics/binary/passive_gate/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)
+
+/obj/machinery/atmospherics/binary/passive_gate/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
 
 /obj/machinery/atmospherics/binary/passive_gate/update_icon()
 	icon_state = "[on ? "on" : "off"]"
@@ -176,8 +182,8 @@
 	update_icon()
 	SSnanoui.update_uis(src)
 
-/obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/weapon/W, mob/user, params)
-	if(!istype(W, /obj/item/weapon/wrench))
+/obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
+	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")

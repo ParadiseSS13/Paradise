@@ -7,7 +7,7 @@
 		return
 	else
 		bleedsuppress = TRUE
-		addtimer(src, "resume_bleeding", amount)
+		addtimer(CALLBACK(src, .proc/resume_bleeding), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = FALSE
@@ -64,7 +64,7 @@
 			var/obj/item/organ/external/BP = X
 			var/brutedamage = BP.brute_dam
 
-			if((BP.status & ORGAN_ROBOT) && !isSynthetic())
+			if(BP.is_robotic() && !isSynthetic())
 				continue
 
 			//We want an accurate reading of .len

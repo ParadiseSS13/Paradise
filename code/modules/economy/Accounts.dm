@@ -88,7 +88,7 @@ var/global/list/all_money_accounts = list()
 		//create a sealed package containing the account details
 		var/obj/item/smallDelivery/P = new /obj/item/smallDelivery(source_db.loc)
 
-		var/obj/item/weapon/paper/R = new /obj/item/weapon/paper(P)
+		var/obj/item/paper/R = new /obj/item/paper(P)
 		playsound(source_db.loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		P.wrapped = R
 		R.name = "Account information: [M.owner_name]"
@@ -110,7 +110,7 @@ var/global/list/all_money_accounts = list()
 		stampoverlay.icon_state = "paper_stamp-cent"
 		if(!R.stamped)
 			R.stamped = new
-		R.stamped += /obj/item/weapon/stamp
+		R.stamped += /obj/item/stamp
 		R.overlays += stampoverlay
 		R.stamps += "<HR><i>This paper has been stamped by the Accounts Database.</i>"
 
@@ -152,7 +152,7 @@ var/global/list/all_money_accounts = list()
 	req_one_access = list(access_hop, access_captain)
 	var/receipt_num
 	var/machine_id = ""
-	var/obj/item/weapon/card/id/held_card
+	var/obj/item/card/id/held_card
 	var/access_level = 0
 	var/datum/money_account/detailed_account_view
 	var/creating_new_account = 0
@@ -265,8 +265,8 @@ var/global/list/all_money_accounts = list()
 		user << browse(null,"window=account_db")
 
 /obj/machinery/account_database/attackby(O as obj, user as mob)//TODO:SANITY
-	if(istype(O, /obj/item/weapon/card))
-		var/obj/item/weapon/card/id/idcard = O
+	if(istype(O, /obj/item/card))
+		var/obj/item/card/id/idcard = O
 		if(!held_card)
 			usr.drop_item()
 			idcard.loc = src
@@ -318,8 +318,8 @@ var/global/list/all_money_accounts = list()
 
 				else
 					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/weapon/card/id))
-						var/obj/item/weapon/card/id/C = I
+					if(istype(I, /obj/item/card/id))
+						var/obj/item/card/id/C = I
 						usr.drop_item()
 						C.loc = src
 						held_card = C

@@ -127,7 +127,7 @@
 			atc.reroute_traffic(yes = TRUE) // Tell them fuck off we're busy.
 		else
 			atc.reroute_traffic(yes = FALSE)
-		SSnightshift.check_nightshift()
+		SSnightshift.check_nightshift(TRUE)
 
 	else
 		return

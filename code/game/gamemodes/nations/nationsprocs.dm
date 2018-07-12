@@ -106,7 +106,7 @@
 
 /datum/nations/proc/update_nation_id()
 	for(var/mob/living/carbon/human/M in membership)
-		for(var/obj/item/weapon/card/id/I in M.contents)
+		for(var/obj/item/card/id/I in M.contents)
 			if(I.registered_name == M.real_name)
 				if(M == current_leader)
 					I.name = "[I.registered_name]'s ID Card ([current_name] [leader_rank])"

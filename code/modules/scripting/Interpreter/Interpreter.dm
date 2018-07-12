@@ -184,6 +184,8 @@ Runs each statement in a block of code.
 			else
 				RaiseError(new/datum/runtimeError/UnknownInstruction())
 
+			CHECK_TICK
+
 			if(status)
 				break
 

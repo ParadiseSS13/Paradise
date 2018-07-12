@@ -12,3 +12,6 @@
 
 /obj/effect/fire_act()
 	return
+
+/obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	return FALSE

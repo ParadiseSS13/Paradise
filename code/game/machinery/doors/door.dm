@@ -64,7 +64,7 @@
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
 
-/obj/machinery/door/initialize()
+/obj/machinery/door/Initialize()
 	air_update_turf(1)
 	..()
 
@@ -182,14 +182,14 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/door/proc/try_to_weld(obj/item/weapon/weldingtool/W, mob/user)
+/obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
 	return
 
 /obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
 	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent != INTENT_HARM && (iscrowbar(I) || istype(I, /obj/item/weapon/twohanded/fireaxe)))
+	if(user.a_intent != INTENT_HARM && (iscrowbar(I) || istype(I, /obj/item/twohanded/fireaxe)))
 		try_to_crowbar(I, user)
 		return 1
 	else if(iswelder(I))
@@ -279,7 +279,7 @@
 
 	// The `addtimer` system has the advantage of being cancelable
 	if(autoclose)
-		autoclose_timer = addtimer(src, "autoclose", normalspeed ? auto_close_time : auto_close_time_dangerous, unique = 1)
+		autoclose_timer = addtimer(CALLBACK(src, .proc/autoclose), normalspeed ? auto_close_time : auto_close_time_dangerous, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 	return TRUE
 
@@ -292,7 +292,7 @@
 		for(var/atom/movable/M in get_turf(src))
 			if(M.density && M != src) //something is blocking the door
 				if(autoclose)
-					addtimer(src, "autoclose", 60)
+					addtimer(CALLBACK(src, .proc/autoclose), 60)
 				return
 
 	operating = TRUE
@@ -325,7 +325,7 @@
 
 /obj/machinery/door/proc/crush()
 	for(var/mob/living/L in get_turf(src))
-		L.visible_message("<span class='warning'>[src] closes on [L], crushing them!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
+		L.visible_message("<span class='warning'>[src] closes on [L], crushing [L.p_them()]!</span>", "<span class='userdanger'>[src] closes on you and crushes you!</span>")
 		if(isalien(L))  //For xenos
 			L.adjustBruteLoss(DOOR_CRUSH_DAMAGE * 1.5) //Xenos go into crit after aproximately the same amount of crushes as humans.
 			L.emote("roar")

@@ -25,12 +25,12 @@
 /obj/machinery/mech_bay_recharge_port/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/mech_recharger(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/circuitboard/mech_recharger(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 	update_recharge_turf()
@@ -41,19 +41,19 @@
 /obj/machinery/mech_bay_recharge_port/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/mech_recharger(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/circuitboard/mech_recharger(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 	update_recharge_turf()
 
 /obj/machinery/mech_bay_recharge_port/RefreshParts()
 	var/MC
-	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		MC += C.rating
 	max_charge = MC * 25
 
@@ -105,7 +105,7 @@
 	icon_keyboard = "tech_key"
 	icon_screen = "recharge_comp"
 	light_color = LIGHT_COLOR_FADEDPURPLE
-	circuit = /obj/item/weapon/circuitboard/mech_bay_power_console
+	circuit = /obj/item/circuitboard/mech_bay_power_console
 	var/obj/machinery/mech_bay_recharge_port/recharge_port
 
 
@@ -177,7 +177,7 @@
 
 	return data
 
-/obj/machinery/computer/mech_bay_power_console/initialize()
+/obj/machinery/computer/mech_bay_power_console/Initialize()
 	reconnect()
 	update_icon()
 	return ..()

@@ -1,4 +1,4 @@
-/obj/item/device/assembly/voice
+/obj/item/assembly/voice
 	name = "voice analyzer"
 	desc = "A small electronic device able to record a voice sample, and send a signal when that sample is repeated."
 	icon_state = "voice"

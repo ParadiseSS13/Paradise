@@ -9,8 +9,9 @@
 
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
+	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
 
-/obj/structure/reagent_dispensers/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
 	return
 
 /obj/structure/reagent_dispensers/New()
@@ -66,7 +67,7 @@
 	desc = "A tank full of industrial welding fuel. Do not consume."
 	icon_state = "fuel"
 	reagent_id = "fuel"
-	var/obj/item/device/assembly_holder/rig = null
+	var/obj/item/assembly_holder/rig = null
 	var/accepts_rig = 1
 
 /obj/structure/reagent_dispensers/fueltank/Destroy()
@@ -77,11 +78,16 @@
 	..()
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
-			message_admins("[key_name_admin(P.firer)] triggered a fueltank explosion.")
-			log_game("[key_name(P.firer)] triggered a fueltank explosion.")
+			message_admins("[key_name_admin(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)] ")
+			log_game("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]")
+			investigate_log("[key_name(P.firer)] triggered a fueltank explosion with [P.name] at [COORD(loc)]", INVESTIGATE_BOMB)
 			boom()
 
-/obj/structure/reagent_dispensers/fueltank/boom()
+/obj/structure/reagent_dispensers/fueltank/boom(var/rigtrigger = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
+	if(rigtrigger == TRUE) // If the explosion is triggered by an assembly holder
+		message_admins("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]") // Then admin is informed of the last person who rigged the fuel tank
+		log_game("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]")
+		investigate_log("A fueltank, last rigged by [lastrigger], exploded at [COORD(loc)]", INVESTIGATE_BOMB)
 	explosion(loc, 0, 1, 5, 7, 10, flame_range = 5)
 	qdel(src)
 
@@ -111,10 +117,11 @@
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
 			rig = null
+			lastrigger = null
 			overlays.Cut()
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/assembly_holder) && accepts_rig)
+	if(istype(I, /obj/item/assembly_holder) && accepts_rig)
 		if(rig)
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
 			return ..()
@@ -122,11 +129,13 @@
 		if(do_after(user, 20, target = src))
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
 
-			var/obj/item/device/assembly_holder/H = I
-			if(istype(H.a_left, /obj/item/device/assembly/igniter) || istype(H.a_right, /obj/item/device/assembly/igniter))
-				msg_admin_attack("[key_name_admin(user)] rigged a fueltank for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
-				log_game("[key_name(user)] rigged fueltank a fueltank for explosion at [loc.x], [loc.y], [loc.z]")
+			var/obj/item/assembly_holder/H = I
+			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
+				msg_admin_attack("[key_name_admin(user)] rigged [src.name] with [I.name] for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", ATKLOG_FEW)
+				log_game("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]")
+				investigate_log("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 
+				lastrigger = "[key_name(user)]"
 				rig = H
 				user.drop_item()
 				H.forceMove(src)
@@ -136,23 +145,24 @@
 				test.Shift(EAST, 6)
 				overlays += test
 
-	if(istype(I, /obj/item/weapon/weldingtool))
+	if(istype(I, /obj/item/weldingtool))
 		if(!reagents.has_reagent("fuel"))
 			to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
 			return
-		var/obj/item/weapon/weldingtool/W = I
+		var/obj/item/weldingtool/W = I
 		if(!W.welding)
 			if(W.reagents.has_reagent("fuel", W.max_fuel))
 				to_chat(user, "<span class='warning'>Your [W] is already full!</span>")
 				return
 			reagents.trans_to(W, W.max_fuel)
-			user.visible_message("<span class='notice'>[user] refills \his [W].</span>", "<span class='notice'>You refill [W].</span>")
+			user.visible_message("<span class='notice'>[user] refills [user.p_their()] [W].</span>", "<span class='notice'>You refill [W].</span>")
 			playsound(src, 'sound/effects/refill.ogg', 50, 1)
 			W.update_icon()
 		else
-			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling \his [W]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
-			message_admins("[key_name_admin(user)] triggered a fueltank explosion.")
-			log_game("[key_name(user)] triggered a fueltank explosion.")
+			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling [user.p_their()] [W]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
+			message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
+			log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
+			investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 			boom()
 	else
 		..()
@@ -211,11 +221,11 @@
 		to_chat(user, "<span class='warning'>There aren't any cups left!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] takes a cup from [src].</span>", "<span class='notice'>You take a paper cup from [src].</span>")
-	var/obj/item/weapon/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
+	var/obj/item/reagent_containers/food/drinks/sillycup/S = new(get_turf(src))
 	user.put_in_hands(S)
 	paper_cups--
 
-/obj/structure/reagent_dispensers/water_cooler/attackby(obj/item/weapon/W, mob/living/user, params)
+/obj/structure/reagent_dispensers/water_cooler/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))

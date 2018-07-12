@@ -38,14 +38,16 @@
 //		sd_set_light(0)
 
 //Don't want to render prison breaks impossible
-/obj/machinery/flasher/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wirecutters))
+/obj/machinery/flasher/attackby(obj/item/I, mob/user, params)
+	if(iswirecutter(I))
 		add_fingerprint(user)
 		disable = !disable
 		if(disable)
-			user.visible_message("<span class='warning'>[user] has disconnected the [src]'s flashbulb!</span>", "<span class='warning'>You disconnect the [src]'s flashbulb!</span>")
+			user.visible_message("<span class='warning'>[user] has disconnected [src]'s flashbulb!</span>", "<span class='warning'>You disconnect [src]'s flashbulb!</span>")
 		if(!disable)
-			user.visible_message("<span class='warning'>[user] has connected the [src]'s flashbulb!</span>", "<span class='warning'>You connect the [src]'s flashbulb!</span>")
+			user.visible_message("<span class='warning'>[user] has connected [src]'s flashbulb!</span>", "<span class='warning'>You connect [src]'s flashbulb!</span>")
+	else
+		return ..()
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
@@ -76,7 +78,7 @@
 			L.Weaken(strength)
 			if(L.weakeyes)
 				L.Weaken(strength * 1.5)
-				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields their eyes!</span>")
+				L.visible_message("<span class='disarm'><b>[L]</b> gasps and shields [L.p_their()] eyes!</span>")
 
 /obj/machinery/flasher/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -95,8 +97,8 @@
 		if((M.m_intent != MOVE_INTENT_WALK) && (anchored))
 			flash()
 
-/obj/machinery/flasher/portable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/machinery/flasher/portable/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
 		add_fingerprint(user)
 		anchored = !anchored
 
@@ -107,6 +109,8 @@
 		else if(anchored)
 			user.show_message(text("<span class='warning'>[src] is now secured.</span>"))
 			overlays += "[base_state]-s"
+	else
+		return ..()
 
 // Flasher button
 /obj/machinery/flasher_button
@@ -128,7 +132,7 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/flasher_button/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/machinery/flasher_button/attackby(obj/item/W, mob/user as mob, params)
 	return attack_hand(user)
 
 /obj/machinery/flasher_button/attack_hand(mob/user as mob)

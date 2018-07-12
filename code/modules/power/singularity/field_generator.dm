@@ -80,7 +80,7 @@ field_generator power level display
 	if(active)
 		to_chat(user, "<span class='warning'>[src] needs to be off!</span>")
 		return
-	else if(istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/wrench))
 		switch(state)
 			if(FG_UNSECURED)
 				if(isinspace()) return
@@ -100,8 +100,8 @@ field_generator power level display
 			if(FG_WELDED)
 				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
 
-	else if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+	else if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = W
 		switch(state)
 			if(FG_UNSECURED)
 				to_chat(user, "<span class='warning'>The [name] needs to be wrenched to the floor!</span>")

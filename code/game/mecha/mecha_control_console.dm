@@ -5,7 +5,7 @@
 	icon_screen = "mecha"
 	light_color = LIGHT_COLOR_FADEDPURPLE
 	req_access = list(access_robotics)
-	circuit = /obj/item/weapon/circuitboard/mecha_control
+	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
 	var/stored_data
@@ -152,10 +152,10 @@
 	origin_tech = "programming=3;magnets=2;engineering=2"
 	ai_beacon = TRUE
 
-/obj/item/weapon/storage/box/mechabeacons
+/obj/item/storage/box/mechabeacons
 	name = "Exosuit Tracking Beacons"
 
-/obj/item/weapon/storage/box/mechabeacons/New()
+/obj/item/storage/box/mechabeacons/New()
 	..()
 	new /obj/item/mecha_parts/mecha_tracking(src)
 	new /obj/item/mecha_parts/mecha_tracking(src)

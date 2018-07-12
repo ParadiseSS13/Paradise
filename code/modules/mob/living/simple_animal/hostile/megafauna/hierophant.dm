@@ -53,7 +53,7 @@ Difficulty: Hard
 	pixel_x = -16
 	ranged_cooldown_time = 40
 	aggro_vision_range = 23
-	loot = list(/obj/item/weapon/hierophant_staff)
+	loot = list(/obj/item/hierophant_staff)
 	wander = FALSE
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -73,10 +73,10 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/New()
 	..()
-	internal_gps = new/obj/item/device/gps/internal/hierophant(src)
+	internal_gps = new/obj/item/gps/internal/hierophant(src)
 	spawned_rune = new(loc)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/Life()
+/mob/living/simple_animal/hostile/megafauna/hierophant/Life(seconds, times_fired)
 	. = ..()
 	if(. && spawned_rune && !client)
 		if(target || loc == spawned_rune.loc)
@@ -547,7 +547,7 @@ Difficulty: Hard
 		L.apply_damage(damage, BURN, limb_to_hit, armor)
 		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
 			L.adjustBruteLoss(damage)
-		add_logs(caster, L, "struck with a [name]")
+		add_attack_logs(caster, L, "Struck with a [name]")
 	for(var/obj/mecha/M in T.contents - hit_things) //and mechs.
 		hit_things += M
 		if(M.occupant)
@@ -567,8 +567,8 @@ Difficulty: Hard
 	color = "#CC00FF"
 
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/hierophant_staff))
-		var/obj/item/weapon/hierophant_staff/H = I
+	if(istype(I, /obj/item/hierophant_staff))
+		var/obj/item/hierophant_staff/H = I
 		if(H.rune == src)
 			to_chat(user, "<span class='notice'>You start removing your hierophant rune...</span>")
 			H.timer = world.time + 51
@@ -587,7 +587,7 @@ Difficulty: Hard
 	else
 		..()
 
-/obj/item/device/gps/internal/hierophant
+/obj/item/gps/internal/hierophant
 	icon_state = null
 	gpstag = "Zealous Signal"
 	desc = "Heed its words."

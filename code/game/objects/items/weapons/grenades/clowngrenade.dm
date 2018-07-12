@@ -1,4 +1,4 @@
-/obj/item/weapon/grenade/clown_grenade
+/obj/item/grenade/clown_grenade
 	name = "Banana Grenade"
 	desc = "HONK! brand Bananas. In a special applicator for rapid slipping of wide areas."
 	icon_state = "banana"
@@ -23,7 +23,7 @@
 		for(var/direction in alldirs)
 			for(i = 0; i < 2; i++)
 				number++
-				var/obj/item/weapon/grown/bananapeel/traitorpeel/peel = new /obj/item/weapon/grown/bananapeel/traitorpeel(get_turf(src.loc))
+				var/obj/item/grown/bananapeel/traitorpeel/peel = new /obj/item/grown/bananapeel/traitorpeel(get_turf(src.loc))
 			/*	var/direction = pick(alldirs)
 				var/spaces = pick(1;150, 2)
 				var/a = 0
@@ -35,7 +35,7 @@
 						step(peel,direction)
 				else
 					step(peel,direction)
-		new /obj/item/weapon/grown/bananapeel/traitorpeel(get_turf(src.loc))
+		new /obj/item/grown/bananapeel/traitorpeel(get_turf(src.loc))
 		qdel(src)
 		return
 /*
@@ -46,10 +46,10 @@
 			return
 		if(locate(/obj/structure/window) in T)
 			return
-		new /obj/item/weapon/grown/bananapeel/traitorpeel(T)
+		new /obj/item/grown/bananapeel/traitorpeel(T)
 */
 
-/obj/item/weapon/grown/bananapeel/traitorpeel
+/obj/item/grown/bananapeel/traitorpeel
 	trip_stun = 0
 	trip_weaken = 7
 	trip_tiles = 4
@@ -58,14 +58,14 @@
 	trip_chance = 100
 
 
-/obj/item/weapon/grown/bananapeel/traitorpeel/on_trip(mob/living/carbon/human/H)
+/obj/item/grown/bananapeel/traitorpeel/on_trip(mob/living/carbon/human/H)
 	. = ..()
 	if(.)
 		to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")
 		H.take_overall_damage(0, rand(2,8))
 		H.take_organ_damage(2) // Was 5 -- TLE
 
-/obj/item/weapon/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
+/obj/item/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
 	var/burned = rand(1,3)
 	if(istype(hit_atom ,/mob/living))
 		var/mob/living/M = hit_atom

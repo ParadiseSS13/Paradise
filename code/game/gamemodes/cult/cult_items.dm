@@ -1,4 +1,4 @@
-/obj/item/weapon/melee/cultblade
+/obj/item/melee/cultblade
 	name = "Cult Blade"
 	desc = "An arcane weapon wielded by the followers of a cult."
 	icon_state = "cultblade"
@@ -11,7 +11,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 
-/obj/item/weapon/melee/cultblade/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
+/obj/item/melee/cultblade/attack(mob/living/target as mob, mob/living/carbon/human/user as mob)
 	if(!iscultist(user))
 		user.Weaken(5)
 		user.unEquip(src, 1)
@@ -25,7 +25,7 @@
 		return
 	..()
 
-/obj/item/weapon/melee/cultblade/pickup(mob/living/user)
+/obj/item/melee/cultblade/pickup(mob/living/user)
 	..()
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
@@ -36,7 +36,7 @@
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
 		user.unEquip(src, 1)
 
-/obj/item/weapon/melee/cultblade/dagger
+/obj/item/melee/cultblade/dagger
 	name = "sacrificial dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
 	icon = 'icons/obj/wizard.dmi'
@@ -46,14 +46,14 @@
 	throwforce = 25
 	embed_chance = 75
 
-/obj/item/weapon/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
+/obj/item/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
 	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
 			H.bleed(50)
 
-/obj/item/weapon/restraints/legcuffs/bola/cult
+/obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
 	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."
 	icon = 'icons/obj/items.dmi'
@@ -84,7 +84,7 @@
 	item_state = "cultrobes"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/culthood
-	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
+	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
 	flags_inv = HIDEJUMPSUIT
 
@@ -109,7 +109,7 @@
 	icon_state = "magusred"
 	item_state = "magusred"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
+	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
@@ -126,7 +126,7 @@
 	item_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade,/obj/item/weapon/tank)
+	allowed = list(/obj/item/tome,/obj/item/melee/cultblade,/obj/item/tank)
 	slowdown = 1
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
 
@@ -138,7 +138,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
+	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	var/current_charges = 3
 	hoodtype = /obj/item/clothing/head/cult_hoodie
 
@@ -178,7 +178,7 @@
 	icon_state = "hardsuit-berserker"
 	item_state = "hardsuit-berserker"
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/weapon/tome,/obj/item/weapon/melee/cultblade)
+	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(melee = -50, bullet = -50, laser = -100, energy = -50, bomb = -50, bio = -50, rad = -50)
 	slowdown = -1
@@ -193,7 +193,7 @@
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = -100, bullet = -100, laser = -100, energy = -100, bomb = -100, bio = -100, rad = -100)
 
-/obj/item/weapon/whetstone/cult
+/obj/item/whetstone/cult
 	name = "eldritch whetstone"
 	desc = "A block, empowered by dark magic. Sharp weapons will be enhanced when used on the stone."
 	icon_state = "cult_sharpener"
@@ -202,10 +202,10 @@
 	max = 40
 	prefix = "darkened"
 
-/obj/item/weapon/whetstone/cult/update_icon()
+/obj/item/whetstone/cult/update_icon()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
-/obj/item/weapon/reagent_containers/food/drinks/bottle/unholywater
+/obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
 	icon_state = "holyflask"
@@ -229,7 +229,7 @@
 		user.Weaken(5)
 		user.EyeBlind(30)
 
-/obj/item/device/shuttle_curse
+/obj/item/shuttle_curse
 	name = "cursed orb"
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
 	icon = 'icons/obj/projectiles.dmi'
@@ -237,7 +237,7 @@
 	color = "#ff0000"
 	var/global/curselimit = 0
 
-/obj/item/device/shuttle_curse/attack_self(mob/user)
+/obj/item/shuttle_curse/attack_self(mob/user)
 	if(!iscultist(user))
 		user.unEquip(src, 1)
 		user.Weaken(5)
@@ -271,28 +271,28 @@
 		command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
 		curselimit++
 
-/obj/item/device/cult_shift
+/obj/item/cult_shift
 	name = "veil shifter"
 	desc = "This relic teleports you forward a medium distance."
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
 
-/obj/item/device/cult_shift/examine(mob/user)
+/obj/item/cult_shift/examine(mob/user)
 	. = ..()
 	if(uses)
 		to_chat(user, "<span class='cult'>It has [uses] uses remaining.</span>")
 	else
 		to_chat(user, "<span class='cult'>It seems drained.</span>")
 
-/obj/item/device/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
+/obj/item/cult_shift/proc/handle_teleport_grab(turf/T, mob/user)
 	var/mob/living/carbon/C = user
 	if(C.pulling)
 		var/atom/movable/pulled = C.pulling
 		pulled.forceMove(T)
 		. = pulled
 
-/obj/item/device/cult_shift/attack_self(mob/user)
+/obj/item/cult_shift/attack_self(mob/user)
 	if(!uses || !iscarbon(user))
 		to_chat(user, "<span class='warning'>\The [src] is dull and unmoving in your hands.</span>")
 		return
@@ -358,7 +358,7 @@
 	desc = "A helmet designed by cultists. It glows menacingly with unearthly flames."
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
 
-/obj/item/weapon/melee/cultblade/ghost
+/obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
 	force = 15
 	flags = NODROP | DROPDEL
@@ -379,4 +379,4 @@
 	suit = /obj/item/clothing/suit/cultrobes/alt/ghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
 	head = /obj/item/clothing/head/culthood/alt/ghost
-	r_hand = /obj/item/weapon/melee/cultblade/ghost
+	r_hand = /obj/item/melee/cultblade/ghost

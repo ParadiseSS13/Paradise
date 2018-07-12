@@ -36,11 +36,12 @@ File: Options
 	if(!CanStartID(id)) //don't need to grab first char in id, since text2ascii does it automatically
 		return 0
 
-	if(length(id) == 1)
+	var/list/charmap = string2charlist(id)
+	if(charmap.len == 1)
 		return 1
 
-	for(var/i=2 to length(id))
-		if(!IsValidIDChar(copytext(id, i, i + 1)))
+	for(var/i = 2 to charmap.len)
+		if(!IsValidIDChar(charmap[i]))
 			return 0
 	return 1
 

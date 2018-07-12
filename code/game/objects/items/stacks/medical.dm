@@ -34,7 +34,7 @@
 			to_chat(user, "<span class='danger'>That limb is missing!</span>")
 			return 1
 
-		if(affecting.status & ORGAN_ROBOT)
+		if(affecting.is_robotic())
 			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
 			return 1
 
@@ -211,7 +211,7 @@
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
 			return
 		if(M == user)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to their [limb].</span>", \
+			user.visible_message("<span class='notice'>[user] starts to apply [src] to [user.p_their()] [limb].</span>", \
 								 "<span class='notice'>You start to apply [src] to your [limb].</span>", \
 								 "<span class='notice'>You hear something being wrapped.</span>")
 			if(!do_mob(user, H, self_delay))

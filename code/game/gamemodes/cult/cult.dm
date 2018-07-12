@@ -156,7 +156,7 @@ var/global/list/all_cults = list()
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 
-	var/obj/item/weapon/paper/talisman/supply/T = new(mob)
+	var/obj/item/paper/talisman/supply/T = new(mob)
 	var/list/slots = list (
 		"backpack" = slot_in_backpack,
 		"left pocket" = slot_l_store,
@@ -203,7 +203,7 @@ var/global/list/all_cults = list()
 		update_cult_icons_removed(cult_mind)
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
-				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like they just reverted to their old faith!</FONT>")
+				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</FONT>")
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)

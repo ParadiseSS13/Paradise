@@ -26,7 +26,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	AIStatus = AI_OFF
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/ectoplasm = 1)
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
@@ -57,7 +57,7 @@
 		else
 			holder.icon_state = "hudhealthy"
 
-/mob/living/simple_animal/hostile/guardian/Life() //Dies if the summoner dies
+/mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
 		if(summoner.stat == DEAD)
@@ -165,7 +165,7 @@
 	for(var/mob/M in mob_list)
 		if(M == summoner)
 			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
-			log_say("Guardian Communication: [key_name(src)] -> [key_name(M)] : [input]")
+			log_say("(GUARDIAN to [key_name(M)]) [input]", src)
 		else if(M in dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
@@ -186,7 +186,7 @@
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
 				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
-				log_say("Guardian Communication: [key_name(src)] -> [key_name(G)] : [input]")
+				log_say("(GUARDIAN to [key_name(G)]) [input]", src)
 
 		else if(M in dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
@@ -234,7 +234,7 @@
 
 ////////Creation
 
-/obj/item/weapon/guardiancreator
+/obj/item/guardiancreator
 	name = "deck of tarot cards"
 	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power. "
 	icon = 'icons/obj/toy.dmi'
@@ -249,7 +249,7 @@
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = TRUE
 
-/obj/item/weapon/guardiancreator/attack_self(mob/living/user)
+/obj/item/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
 		if(G.summoner == user)
 			to_chat(user, "You already have a [mob_name]!")
@@ -273,7 +273,7 @@
 		used = FALSE
 
 
-/obj/item/weapon/guardiancreator/proc/spawn_guardian(var/mob/living/user, var/key)
+/obj/item/guardiancreator/proc/spawn_guardian(var/mob/living/user, var/key)
 	var/gaurdiantype = "Standard"
 	if(random)
 		gaurdiantype = pick(possible_guardians)
@@ -400,10 +400,10 @@
 			G.attacktext = "swarms"
 			G.speak_emote = list("chitters")
 
-/obj/item/weapon/guardiancreator/choose
+/obj/item/guardiancreator/choose
 	random = FALSE
 
-/obj/item/weapon/guardiancreator/tech
+/obj/item/guardiancreator/tech
 	name = "holoparasite injector"
 	desc = "It contains alien nanoswarm of unknown origin. Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, it requires an organic host as a home base and source of fuel."
 	icon = 'icons/obj/hypo.dmi'
@@ -415,10 +415,10 @@
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
 	ling_failure = "The holoparasites recoil in horror. They want nothing to do with a creature like you."
 
-/obj/item/weapon/guardiancreator/tech/choose
+/obj/item/guardiancreator/tech/choose
 	random = FALSE
 
-/obj/item/weapon/guardiancreator/biological
+/obj/item/guardiancreator/biological
 	name = "scarab egg cluster"
 	desc = "A parasitic species that will nest in the closest living creature upon birth. While not great for your health, they'll defend their new 'hive' to the death."
 	icon = 'icons/obj/fish_items.dmi'
@@ -429,11 +429,11 @@
 	used_message = "The cluster already hatched."
 	failure_message = "<B>...but soon settles again. Guess they weren't ready to hatch after all.</B>"
 
-/obj/item/weapon/guardiancreator/biological/choose
+/obj/item/guardiancreator/biological/choose
 	random = FALSE
 
 
-/obj/item/weapon/paper/guardian
+/obj/item/paper/guardian
 	name = "Holoparasite Guide"
 	icon_state = "paper"
 	info = {"<b>A list of Holoparasite Types</b><br>
@@ -448,17 +448,25 @@
  <b>Support</b>:Has two modes. Combat: Medium power attacks and damage resist. Healer: Attacks heal damage, but low damage resist and slow movemen. Can deploy a bluespace beacon and warp targets to it (including you) in either mode.<br>
  <br>
  <b>Explosive</b>: High damage resist and medium power attack. Can turn any object into a bomb, dealing explosive damage to the next person to touch it. The object will return to normal after the trap is triggered.<br>
+ <br>
+ <b>Assassin</b>: Medium damage with no damage resistance, can enter stealth which massively increases the damage of the next attack causing it to ignore armour.
+ <br>
+ <b>Charger</b>: Medium damage and defense, very fast and has a special charge attack which damages a target and knocks items out of their hands.
+ <br>
+ <b>Lightning</b>: Applies lightning chains to any targets on attack with a link to your summoner, lightning chains will shock anyone nearby.
+ <br>
+ <b>Protector</b>: You will become leashed to your holoparasite instead of them to you. Has two modes, a medium attack/defense mode and a protection mode which greatly reduces incoming damage to the holoparasite.
 "}
 
-/obj/item/weapon/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon()
 	return
 
 
-/obj/item/weapon/storage/box/syndie_kit/guardian
+/obj/item/storage/box/syndie_kit/guardian
 	name = "holoparasite injector kit"
 
-/obj/item/weapon/storage/box/syndie_kit/guardian/New()
+/obj/item/storage/box/syndie_kit/guardian/New()
 	..()
-	new /obj/item/weapon/guardiancreator/tech/choose(src)
-	new /obj/item/weapon/paper/guardian(src)
+	new /obj/item/guardiancreator/tech/choose(src)
+	new /obj/item/paper/guardian(src)
 	return

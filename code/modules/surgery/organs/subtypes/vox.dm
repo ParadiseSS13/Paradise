@@ -10,8 +10,8 @@
 	parent_organ = "head"
 	organ_tag = "stack"
 	slot =  "vox_stack"
-	robotic = 2
-	vital = 1
+	status = ORGAN_ROBOT
+	vital = TRUE
 	var/stackdamaged = FALSE
 
 /obj/item/organ/internal/stack/vox

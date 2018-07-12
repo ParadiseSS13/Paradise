@@ -28,20 +28,20 @@
 			obj_count++
 
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/weapon/implant))
+			if(istype(I, /obj/item/implant))
 				continue
 			if(istype(I, /obj/item/organ))
 				continue
 			qdel(I)
 
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
+		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), slot_l_ear)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), slot_head)
-		H.equip_to_slot_or_del(new /obj/item/weapon/claymore/highlander(H), slot_r_hand)
+		H.equip_to_slot_or_del(new /obj/item/claymore/highlander(H), slot_r_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(H.loc), slot_l_store)
+		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), slot_l_store)
 
-		var/obj/item/weapon/card/id/W = new(H)
+		var/obj/item/card/id/W = new(H)
 		W.name = "[H.real_name]'s ID Card"
 		W.icon_state = "centcom"
 		W.access = get_all_accesses()
@@ -84,10 +84,10 @@
 		var/obj/item/slot_item_hand = H.get_item_by_slot(slot_r_hand)
 		H.unEquip(slot_item_hand)
 
-		var /obj/item/weapon/multisword/pure_evil/multi = new(H)
+		var /obj/item/multisword/pure_evil/multi = new(H)
 		H.equip_to_slot_or_del(multi, slot_r_hand)
 
-		var/obj/item/weapon/card/id/W = new(H)
+		var/obj/item/card/id/W = new(H)
 		W.icon_state = "centcom"
 		W.access = get_all_accesses()
 		W.access += get_all_centcom_access()

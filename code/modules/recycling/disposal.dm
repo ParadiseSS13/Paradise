@@ -36,22 +36,22 @@
 	update()
 
 /obj/machinery/disposal/proc/trunk_check()
-	trunk = locate() in src.loc
-	if(!trunk)
+	var/obj/structure/disposalpipe/trunk/T = locate() in loc
+	if(!T)
 		mode = 0
 		flush = 0
 	else
 		mode = initial(mode)
 		flush = initial(flush)
-		trunk.linked = src	// link the pipe trunk to self
+		T.nicely_link_to_other_stuff(src)
 
 /obj/machinery/disposal/Destroy()
 	eject()
 	if(trunk)
-		trunk.linked = null
+		trunk.remove_trunk_links()
 	return ..()
 
-/obj/machinery/disposal/initialize()
+/obj/machinery/disposal/Initialize()
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
 	..()
 	var/atom/L = loc
@@ -69,7 +69,7 @@
 
 	src.add_fingerprint(user)
 	if(mode<=0) // It's off
-		if(istype(I, /obj/item/weapon/screwdriver))
+		if(istype(I, /obj/item/screwdriver))
 			if(contents.len > 0)
 				to_chat(user, "Eject the items first!")
 				return
@@ -83,11 +83,11 @@
 				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
-		else if(istype(I,/obj/item/weapon/weldingtool) && mode==-1)
+		else if(istype(I,/obj/item/weldingtool) && mode==-1)
 			if(contents.len > 0)
 				to_chat(user, "Eject the items first!")
 				return
-			var/obj/item/weapon/weldingtool/W = I
+			var/obj/item/weldingtool/W = I
 			if(W.remove_fuel(0,user))
 				playsound(src.loc, W.usesound, 100, 1)
 				to_chat(user, "You start slicing the floorweld off the disposal unit.")
@@ -107,12 +107,12 @@
 				to_chat(user, "You need more welding fuel to complete this task.")
 				return
 
-	if(istype(I, /obj/item/weapon/melee/energy/blade))
+	if(istype(I, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
 
-	if(istype(I, /obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = I
+	if(istype(I, /obj/item/storage))
+		var/obj/item/storage/S = I
 		if((S.allow_quick_empty || S.allow_quick_gather) && S.contents.len)
 			S.hide_from(user)
 			user.visible_message("[user] empties \the [S] into \the [src].", "You empty \the [S] into \the [src].")
@@ -122,7 +122,7 @@
 			update()
 			return
 
-	var/obj/item/weapon/grab/G = I
+	var/obj/item/grab/G = I
 	if(istype(G))	// handle grabbed mob
 		if(ismob(G.affecting))
 			var/mob/GM = G.affecting
@@ -133,10 +133,7 @@
 				for(var/mob/C in viewers(src))
 					C.show_message("<span class='warning'>[GM.name] has been placed in the [src] by [user].</span>", 3)
 				qdel(G)
-				usr.create_attack_log("<font color='red'>Has placed [key_name(GM)] in disposals.</font>")
-				GM.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
-				if(GM.ckey)
-					msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(GM)] in a disposals unit. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				add_attack_logs(usr, GM, "Disposal'ed", !!GM.ckey ? null : ATKLOG_ALL)
 		return
 
 	if(!I)
@@ -182,10 +179,7 @@
 		msg = "[user.name] stuffs [target.name] into the [src]!"
 		to_chat(user, "You stuff [target.name] into the [src]!")
 
-		user.create_attack_log("<font color='red'>Has placed [key_name(target)] in disposals.</font>")
-		target.create_attack_log("<font color='orange'>Has been placed in disposals by [key_name(user)]</font>")
-		if(target.ckey)
-			msg_admin_attack("[key_name_admin(user)] placed [key_name_admin(target)] in a disposals unit")
+		add_attack_logs(user, target, "Disposal'ed", !!target.ckey ? null : ATKLOG_ALL)
 	else
 		return
 	target.forceMove(src)
@@ -878,8 +872,8 @@
 
 	add_fingerprint(user)
 
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = I
+	if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/W = I
 		if(W.remove_fuel(0, user))
 			to_chat(user, "<span class='notice'>You begin slicing \the [src].</span>")
 			playsound(loc, W.usesound, 100, 1)
@@ -1019,8 +1013,8 @@
 		if(..())
 			return
 
-		if(istype(I, /obj/item/device/destTagger))
-			var/obj/item/device/destTagger/O = I
+		if(istype(I, /obj/item/destTagger))
+			var/obj/item/destTagger/O = I
 
 			if(O.currTag > 0)// Tag set
 				sortType = O.currTag
@@ -1155,24 +1149,39 @@
 		if(D.trunk == src)
 			D.go_out()
 			D.trunk = null
-
-	linked = null
+	remove_trunk_links()
 	return ..()
 
 /obj/structure/disposalpipe/trunk/proc/getlinked()
-	linked = null
 	var/obj/machinery/disposal/D = locate() in src.loc
 	if(D)
-		linked = D
-		if(!D.trunk)
-			D.trunk = src
-
+		nicely_link_to_other_stuff(D)
+		return
 	var/obj/structure/disposaloutlet/O = locate() in src.loc
 	if(O)
-		linked = O
+		nicely_link_to_other_stuff(O)
 
-	update()
-	return
+/obj/structure/disposalpipe/trunk/proc/remove_trunk_links() //disposals is well-coded
+	if(!linked)
+		return
+	else if(istype(linked, /obj/machinery/disposal)) //jk lol
+		var/obj/machinery/disposal/D = linked
+		D.trunk = null
+	else if(istype(linked, /obj/structure/disposaloutlet)) //God fucking damn it
+		var/obj/structure/disposaloutlet/D = linked
+		D.linkedtrunk = null
+	linked = null
+
+/obj/structure/disposalpipe/trunk/proc/nicely_link_to_other_stuff(obj/O)
+	remove_trunk_links() //Breaks the connections between this trunk and the linked machinery so we don't get sent to nullspace or some shit like that
+	if(istype(O, /obj/machinery/disposal))
+		var/obj/machinery/disposal/D = O
+		linked = D
+		D.trunk = src
+	else if(istype(O, /obj/structure/disposaloutlet))
+		var/obj/structure/disposaloutlet/D = O
+		linked = D
+		D.linkedtrunk = src
 
 	// Override attackby so we disallow trunkremoval when somethings ontop
 /obj/structure/disposalpipe/trunk/attackby(var/obj/item/I, var/mob/user, params)
@@ -1199,8 +1208,8 @@
 	if(T.intact)
 		return		// prevent interaction with T-scanner revealed pipes
 	src.add_fingerprint(user)
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = I
+	if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/W = I
 
 		if(W.remove_fuel(0,user))
 			playsound(loc, W.usesound, 100, 1)
@@ -1277,77 +1286,72 @@
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = 0
 
-	New()
-		..()
-
-		spawn(1)
-			target = get_ranged_target_turf(src, dir, 10)
-
-
-			linkedtrunk = locate() in src.loc
-			if(linkedtrunk)
-				linkedtrunk.linked = src
+/obj/structure/disposaloutlet/New()
+	..()
+	spawn(1)
+		target = get_ranged_target_turf(src, dir, 10)
+		var/obj/structure/disposalpipe/trunk/T = locate() in loc
+		if(T)
+			T.nicely_link_to_other_stuff(src)
 
 	// expel the contents of the holder object, then delete it
 	// called when the holder exits the outlet
-	proc/expel(var/obj/structure/disposalholder/H, animation = 1)
-
-		if(animation)
-			flick("outlet-open", src)
-			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
-			sleep(20)	//wait until correct animation frame
-			playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
-
-		if(H)
-			for(var/atom/movable/AM in H)
-				AM.forceMove(loc)
-				AM.pipe_eject(dir)
-				if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
-					spawn(5)
-						if(AM)
-							AM.throw_at(target, 3, 1)
-			H.vent_gas(src.loc)
-			qdel(H)
+/obj/structure/disposaloutlet/proc/expel(var/obj/structure/disposalholder/H, animation = 1)
+	if(animation)
+		flick("outlet-open", src)
+		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+		sleep(20)	//wait until correct animation frame
+		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+	if(H)
+		for(var/atom/movable/AM in H)
+			AM.forceMove(loc)
+			AM.pipe_eject(dir)
+			if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+				spawn(5)
+					if(AM)
+						AM.throw_at(target, 3, 1)
+		H.vent_gas(src.loc)
+		qdel(H)
 
 
-	attackby(var/obj/item/I, var/mob/user, params)
-		if(!I || !user)
+/obj/structure/disposaloutlet/attackby(var/obj/item/I, var/mob/user, params)
+	if(!I || !user)
+		return
+	src.add_fingerprint(user)
+	if(istype(I, /obj/item/screwdriver))
+		if(mode==0)
+			mode=1
+			playsound(src.loc, I.usesound, 50, 1)
+			to_chat(user, "You remove the screws around the power connection.")
 			return
-		src.add_fingerprint(user)
-		if(istype(I, /obj/item/weapon/screwdriver))
-			if(mode==0)
-				mode=1
-				playsound(src.loc, I.usesound, 50, 1)
-				to_chat(user, "You remove the screws around the power connection.")
-				return
-			else if(mode==1)
-				mode=0
-				playsound(src.loc, I.usesound, 50, 1)
-				to_chat(user, "You attach the screws around the power connection.")
-				return
-		else if(istype(I,/obj/item/weapon/weldingtool) && mode==1)
-			var/obj/item/weapon/weldingtool/W = I
-			if(W.remove_fuel(0,user))
-				playsound(src.loc, W.usesound, 100, 1)
-				to_chat(user, "You start slicing the floorweld off the disposal outlet.")
-				if(do_after(user, 20 * W.toolspeed, target = src))
-					if(!src || !W.isOn()) return
-					to_chat(user, "You sliced the floorweld off the disposal outlet.")
-					var/obj/structure/disposalconstruct/C = new (src.loc)
-					src.transfer_fingerprints_to(C)
-					C.ptype = 7 // 7 =  outlet
-					C.update()
-					C.anchored = 1
-					C.density = 1
-					qdel(src)
-				return
-			else
-				to_chat(user, "You need more welding fuel to complete this task.")
-				return
+		else if(mode==1)
+			mode=0
+			playsound(src.loc, I.usesound, 50, 1)
+			to_chat(user, "You attach the screws around the power connection.")
+			return
+	else if(istype(I,/obj/item/weldingtool) && mode==1)
+		var/obj/item/weldingtool/W = I
+		if(W.remove_fuel(0,user))
+			playsound(src.loc, W.usesound, 100, 1)
+			to_chat(user, "You start slicing the floorweld off the disposal outlet.")
+			if(do_after(user, 20 * W.toolspeed, target = src))
+				if(!src || !W.isOn()) return
+				to_chat(user, "You sliced the floorweld off the disposal outlet.")
+				var/obj/structure/disposalconstruct/C = new (src.loc)
+				src.transfer_fingerprints_to(C)
+				C.ptype = 7 // 7 =  outlet
+				C.update()
+				C.anchored = 1
+				C.density = 1
+				qdel(src)
+			return
+		else
+			to_chat(user, "You need more welding fuel to complete this task.")
+			return
 
 /obj/structure/disposaloutlet/Destroy()
 	if(linkedtrunk)
-		linkedtrunk.linked = null
+		linkedtrunk.remove_trunk_links()
 	return ..()
 
 // called when movable is expelled from a disposal pipe or outlet

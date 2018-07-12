@@ -106,7 +106,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
 Works together with spawning an observer, noted above.
 */
-/mob/dead/observer/Life()
+/mob/dead/observer/Life(seconds, times_fired)
 	..()
 	if(!loc) return
 	if(!client) return 0
@@ -229,18 +229,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
 	set name = "Re-enter Corpse"
-	if(!client)	return
-	if(!can_reenter_corpse)
-		to_chat(src, "<span class='warning'>You've given up your right to respawn!</span>")
+	if(!client)
 		return
-	if(!(mind && mind.current && can_reenter_corpse))
+	if(!mind || QDELETED(mind.current))
 		to_chat(src, "<span class='warning'>You have no body.</span>")
+		return
+	if(!can_reenter_corpse)
+		to_chat(src, "<span class='warning'>You cannot re-enter your body.</span>")
 		return
 	if(mind.current.key && copytext(mind.current.key,1,2)!="@")	//makes sure we don't accidentally kick any clients
 		to_chat(usr, "<span class='warning'>Another consciousness is in your body...It is resisting you.</span>")
 		return
 
-	mind.current.ajourn=0
 	mind.current.key = key
 
 	var/obj/structure/morgue/Morgue = locate() in mind.current.loc
@@ -419,7 +419,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(.)
 		update_following()
 
-/mob/Life()
+/mob/Life(seconds, times_fired)
 	// to catch teleports etc which directly set loc
 	update_following()
 	return ..()

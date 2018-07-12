@@ -62,7 +62,7 @@
 /turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
-	if(istype(C,/obj/item/weapon/light/bulb)) //only for light tiles
+	if(istype(C,/obj/item/light/bulb)) //only for light tiles
 		if(istype(builtin_tile, /obj/item/stack/tile/light))
 			if(!state)
 				qdel(C)
@@ -71,7 +71,7 @@
 				to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
 			else
 				to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-	if(istype(C,/obj/item/device/multitool))
+	if(istype(C,/obj/item/multitool))
 		if(state != 0)
 			if(state < LIGHTFLOOR_PURPLE)
 				state++

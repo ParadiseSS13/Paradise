@@ -45,7 +45,7 @@ Difficulty: Medium
 	ranged = 1
 	pixel_x = -16
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
-	butcher_results = list(/obj/item/weapon/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
+	butcher_results = list(/obj/item/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = 0
 	var/swoop_cooldown = 0
 	medal_type = MEDAL_PREFIX
@@ -55,7 +55,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/New()
 	..()
-	internal_gps = new/obj/item/device/gps/internal/dragon(src)
+	internal_gps = new/obj/item/gps/internal/dragon(src)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/ex_act(severity, target)
 	if(severity == 3)
@@ -229,7 +229,7 @@ Difficulty: Medium
 	playsound(src.loc, 'sound/effects/meteorimpact.ogg', 200, 1)
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
-			visible_message("<span class='warning'>[src] slams down on [L], crushing them!</span>")
+			visible_message("<span class='warning'>[src] slams down on [L], crushing [L.p_them()]!</span>")
 			L.gib()
 		else
 			L.adjustBruteLoss(75)
@@ -256,7 +256,7 @@ Difficulty: Medium
 		return
 	swoop_attack(1, A)
 
-/obj/item/device/gps/internal/dragon
+/obj/item/gps/internal/dragon
 	icon_state = null
 	gpstag = "Fiery Signal"
 	desc = "Here there be dragons."

@@ -129,7 +129,7 @@
 
 /mob/living/carbon/human/proc/change_alt_head(var/alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(!H || H.alt_head == alternate_head || (H.status & ORGAN_ROBOT) || (!(species.bodyflags & HAS_ALT_HEADS) && alternate_head != "None") || !(alternate_head in alt_heads_list))
+	if(!H || H.alt_head == alternate_head || H.is_robotic() || (!(species.bodyflags & HAS_ALT_HEADS) && alternate_head != "None") || !(alternate_head in alt_heads_list))
 		return
 
 	H.alt_head = alternate_head

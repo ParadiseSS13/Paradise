@@ -21,7 +21,7 @@
 
 /obj/machinery/photocopier/attack_ai(mob/user)
 	return attack_hand(user)
-	
+
 /obj/machinery/photocopier/attack_ghost(mob/user)
 	return attack_hand(user)
 
@@ -65,14 +65,14 @@
 			if(emag_cooldown > world.time)
 				return
 
-			if(istype(copyitem, /obj/item/weapon/paper))
+			if(istype(copyitem, /obj/item/paper))
 				copy(copyitem)
 				sleep(15)
-			else if(istype(copyitem, /obj/item/weapon/photo))
+			else if(istype(copyitem, /obj/item/photo))
 				photocopy(copyitem)
 				sleep(15)
-			else if(istype(copyitem, /obj/item/weapon/paper_bundle))
-				var/obj/item/weapon/paper_bundle/B = bundlecopy(copyitem)
+			else if(istype(copyitem, /obj/item/paper_bundle))
+				var/obj/item/paper_bundle/B = bundlecopy(copyitem)
 				sleep(15*B.amount)
 			else if(ass && ass.loc == src.loc)
 				copyass()
@@ -109,7 +109,7 @@
 
 		if(toner >= 5)
 			var/mob/living/silicon/tempAI = usr
-			var/obj/item/device/camera/siliconcam/camera = tempAI.aiCamera
+			var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
 
 			if(!camera)
 				return
@@ -118,7 +118,7 @@
 				return
 
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (src.loc)
+			var/obj/item/photo/p = new /obj/item/photo (src.loc)
 			p.construct(selection)
 			if(p.desc == "")
 				p.desc += "Copied by [tempAI.name]"
@@ -129,7 +129,7 @@
 		updateUsrDialog()
 
 /obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo) || istype(O, /obj/item/weapon/paper_bundle))
+	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
 		if(!copyitem)
 			user.drop_item()
 			copyitem = O
@@ -139,22 +139,22 @@
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
-	else if(istype(O, /obj/item/device/toner))
+	else if(istype(O, /obj/item/toner))
 		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
 			user.drop_item()
 			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
-			var/obj/item/device/toner/T = O
+			var/obj/item/toner/T = O
 			toner += T.toner_amount
 			qdel(O)
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
-	else if(istype(O, /obj/item/weapon/wrench))
+	else if(istype(O, /obj/item/wrench))
 		playsound(loc, O.usesound, 50, 1)
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
-	else if(istype(O, /obj/item/weapon/grab)) //For ass-copying.
-		var/obj/item/weapon/grab/G = O
+	else if(istype(O, /obj/item/grab)) //For ass-copying.
+		var/obj/item/grab/G = O
 		if(ismob(G.affecting) && G.affecting != ass)
 			var/mob/GM = G.affecting
 			visible_message("<span class='warning'>[usr] drags [GM.name] onto the photocopier!</span>")
@@ -193,8 +193,8 @@
 			toner = 0
 	return
 
-/obj/machinery/photocopier/proc/copy(var/obj/item/weapon/paper/copy)
-	var/obj/item/weapon/paper/c = new /obj/item/weapon/paper (loc)
+/obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
+	var/obj/item/paper/c = new /obj/item/paper (loc)
 	c.info = copy.info
 	c.name = copy.name // -- Doohl
 	c.fields = copy.fields
@@ -223,8 +223,8 @@
 	return c
 
 
-/obj/machinery/photocopier/proc/photocopy(var/obj/item/weapon/photo/photocopy)
-	var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (loc)
+/obj/machinery/photocopier/proc/photocopy(var/obj/item/photo/photocopy)
+	var/obj/item/photo/p = new /obj/item/photo (loc)
 	p.name = photocopy.name
 	p.icon = photocopy.icon
 	p.tiny = photocopy.tiny
@@ -269,7 +269,7 @@
 		temp_img = icon('icons/obj/butts.dmi', "xeno")
 	else
 		return
-	var/obj/item/weapon/photo/p = new /obj/item/weapon/photo (loc)
+	var/obj/item/photo/p = new /obj/item/photo (loc)
 	p.desc = "You see [ass]'s ass on the photo."
 	p.pixel_x = rand(-10, 10)
 	p.pixel_y = rand(-10, 10)
@@ -286,17 +286,17 @@
 	return p
 
 //If need_toner is 0, the copies will still be lightened when low on toner, however it will not be prevented from printing. TODO: Implement print queues for fax machines and get rid of need_toner
-/obj/machinery/photocopier/proc/bundlecopy(var/obj/item/weapon/paper_bundle/bundle, var/need_toner=1)
-	var/obj/item/weapon/paper_bundle/p = new /obj/item/weapon/paper_bundle (src)
-	for(var/obj/item/weapon/W in bundle)
+/obj/machinery/photocopier/proc/bundlecopy(var/obj/item/paper_bundle/bundle, var/need_toner=1)
+	var/obj/item/paper_bundle/p = new /obj/item/paper_bundle (src)
+	for(var/obj/item/W in bundle)
 		if(toner <= 0 && need_toner)
 			toner = 0
 			visible_message("<span class='notice'>A red light on \the [src] flashes, indicating that it is out of toner.</span>")
 			break
 
-		if(istype(W, /obj/item/weapon/paper))
+		if(istype(W, /obj/item/paper))
 			W = copy(W)
-		else if(istype(W, /obj/item/weapon/photo))
+		else if(istype(W, /obj/item/photo))
 			W = photocopy(W)
 		W.forceMove(p)
 		p.amount++
@@ -316,11 +316,11 @@
 		return
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
-		visible_message("<span class='warning'>[usr] jumps onto the photocopier!</span>")
+		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
 	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
 		if(target.anchored) return
 		if(!ishuman(user)) return
-		visible_message("<span class='warning'>[usr] drags [target.name] onto the photocopier!</span>")
+		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
 	target.forceMove(get_turf(src))
 	ass = target
 	if(copyitem)
@@ -344,12 +344,13 @@
 /obj/machinery/photocopier/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You overload the photocopier's laser printing mechanism.</span>")
+		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
 	else
-		to_chat(user, "<span class='notice'>The photocopier's laser printing mechanism is already overloaded!</span>")
+		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
-/obj/item/device/toner
+/obj/item/toner
 	name = "toner cartridge"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "tonercartridge"
 	var/toner_amount = 30
 

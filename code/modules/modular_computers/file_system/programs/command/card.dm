@@ -48,9 +48,9 @@
 	if(user.can_admin_interact())
 		return 1
 	if(computer)
-		var/obj/item/weapon/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		if(card_slot)
-			var/obj/item/weapon/card/id/auth_card = card_slot.stored_card2
+			var/obj/item/card/id/auth_card = card_slot.stored_card2
 			if(auth_card)
 				return check_access(auth_card)
 	return 0
@@ -62,9 +62,9 @@
 
 /datum/computer_file/program/card_mod/proc/get_target_rank()
 	if(computer)
-		var/obj/item/weapon/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		if(card_slot)
-			var/obj/item/weapon/card/id/id_card = card_slot.stored_card
+			var/obj/item/card/id/id_card = card_slot.stored_card
 			if(id_card && id_card.assignment)
 				return id_card.assignment
 	return "Unassigned"
@@ -137,10 +137,10 @@
 	return -1
 
 /datum/computer_file/program/card_mod/proc/format_jobs(list/jobs)
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
+	var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 	if(!card_slot || !card_slot.stored_card)
 		return null
-	var/obj/item/weapon/card/id/id_card = card_slot.stored_card
+	var/obj/item/card/id/id_card = card_slot.stored_card
 	var/list/formatted = list()
 	for(var/job in jobs)
 		formatted.Add(list(list(
@@ -164,8 +164,8 @@
 	if(..())
 		return 1
 
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot
-	var/obj/item/weapon/computer_hardware/printer/printer
+	var/obj/item/computer_hardware/card_slot/card_slot
+	var/obj/item/computer_hardware/printer/printer
 	if(computer)
 		card_slot = computer.all_components[MC_CARD]
 		printer = computer.all_components[MC_PRINT]
@@ -174,8 +174,8 @@
 
 	var/mob/user = usr
 
-	var/obj/item/weapon/card/id/modify = card_slot.stored_card
-	var/obj/item/weapon/card/id/scan = card_slot.stored_card2
+	var/obj/item/card/id/modify = card_slot.stored_card
+	var/obj/item/card/id/scan = card_slot.stored_card2
 
 	switch(href_list["action"])
 		if("PRG_modify")
@@ -185,7 +185,7 @@
 				card_slot.try_eject(1, user)
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/weapon/card/id))
+				if(istype(I, /obj/item/card/id))
 					if(!usr.drop_item())
 						return
 					I.forceMove(computer)
@@ -196,7 +196,7 @@
 				card_slot.try_eject(2, user)
 			else
 				var/obj/item/I = usr.get_active_hand()
-				if(istype(I, /obj/item/weapon/card/id))
+				if(istype(I, /obj/item/card/id))
 					if(!usr.drop_item())
 						return
 					I.forceMove(computer)
@@ -238,7 +238,7 @@
 								jobdatum = J
 								break
 						if(!jobdatum)
-							to_chat(usr, "\red No log exists for this job: [t1]")
+							to_chat(usr, "<span class='warning'>No log exists for this job: [t1]</span>")
 							return
 
 						access = jobdatum.get_access()
@@ -375,11 +375,11 @@
 /datum/computer_file/program/card_mod/ui_data(mob/user)
 	var/list/data = get_header_data()
 
-	var/obj/item/weapon/card/id/modify = null
-	var/obj/item/weapon/card/id/scan = null
+	var/obj/item/card/id/modify = null
+	var/obj/item/card/id/scan = null
 
-	var/obj/item/weapon/computer_hardware/card_slot/card_slot
-	var/obj/item/weapon/computer_hardware/printer/printer
+	var/obj/item/computer_hardware/card_slot/card_slot
+	var/obj/item/computer_hardware/printer/printer
 	if(computer)
 		card_slot = computer.all_components[MC_CARD]
 		printer = computer.all_components[MC_PRINT]

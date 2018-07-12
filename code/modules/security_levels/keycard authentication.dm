@@ -28,11 +28,11 @@
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
 	return
 
-/obj/machinery/keycard_auth/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/keycard_auth/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, "This device is not powered.")
 		return
-	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(check_access(W))
 			if(active == 1)
 				//This is not the device that made the initial request. It is the device confirming the request.

@@ -7,7 +7,8 @@
 	var/windowtospawn = /obj/structure/window/basic
 	anchored = 1 // No sliding out while you prime
 
-/obj/effect/spawner/window/initialize()
+/obj/effect/spawner/window/Initialize()
+	..()
 	spawn(0)
 		var/turf/T = get_turf(src)
 		for(var/obj/structure/grille/G in get_turf(src))

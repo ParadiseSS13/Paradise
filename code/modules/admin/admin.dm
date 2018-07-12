@@ -4,22 +4,22 @@ var/global/nologevent = 0
 ////////////////////////////////
 /proc/message_admins(var/msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
-	log_adminwarn(msg)
 	for(var/client/C in admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_ADMINLOGS))
 				to_chat(C, msg)
 
-/proc/msg_admin_attack(var/text) //Toggleable Attack Messages
-	log_attack(text)
+/proc/msg_admin_attack(var/text, var/loglevel)
 	if(!nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in admins)
 			if(R_ADMIN & C.holder.rights)
-				if(C.prefs.toggles & CHAT_ATTACKLOGS)
-					if(!istype(C, /mob/living))
-						var/msg = rendered
-						to_chat(C, msg)
+				if(C.prefs.atklog == ATKLOG_NONE)
+					continue
+				var/msg = rendered
+				if(C.prefs.atklog <= loglevel)
+					to_chat(C, msg)
+
 
 /proc/message_adminTicket(var/msg)
 	msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
@@ -866,13 +866,13 @@ var/global/nologevent = 0
 	for(var/mob/living/silicon/S in mob_list)
 		ai_number++
 		if(isAI(S))
-			to_chat(usr, "<b>AI [key_name(S, usr)]'s laws:</b>")
+			to_chat(usr, "<b>AI [key_name(S, TRUE)]'s laws:</b>")
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
-			to_chat(usr, "<b>CYBORG [key_name(S, usr)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>")
+			to_chat(usr, "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>")
 		else if(ispAI(S))
 			var/mob/living/silicon/pai/P = S
-			to_chat(usr, "<b>pAI [key_name(S, usr)]'s laws:</b>")
+			to_chat(usr, "<b>pAI [key_name(S, TRUE)]'s laws:</b>")
 			to_chat(usr, "[P.pai_law0]")
 			if(P.pai_laws)
 				to_chat(usr, "[P.pai_laws]")

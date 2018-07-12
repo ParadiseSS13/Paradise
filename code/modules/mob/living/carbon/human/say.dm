@@ -62,8 +62,8 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
-	if(istype(back,/obj/item/weapon/rig))
-		var/obj/item/weapon/rig/rig = back
+	if(istype(back,/obj/item/rig))
+		var/obj/item/rig/rig = back
 		if(rig.speech && rig.speech.voice_holder && rig.speech.voice_holder.active && rig.speech.voice_holder.voice)
 			return rig.speech.voice_holder.voice
 
@@ -163,13 +163,13 @@
 /mob/living/carbon/human/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios, var/alt_name)
 	switch(message_mode)
 		if("intercom")
-			for(var/obj/item/device/radio/intercom/I in view(1, src))
+			for(var/obj/item/radio/intercom/I in view(1, src))
 				spawn(0)
 					I.talk_into(src, message, null, verb, speaking)
 				used_radios += I
 
 		if("headset")
-			var/obj/item/device/radio/R = null
+			var/obj/item/radio/R = null
 			if(isradio(l_ear))
 				R = l_ear
 				used_radios += R
@@ -183,7 +183,7 @@
 					return
 
 		if("right ear")
-			var/obj/item/device/radio/R
+			var/obj/item/radio/R
 			if(isradio(r_ear))
 				R = r_ear
 			else if(isradio(r_hand))
@@ -193,7 +193,7 @@
 				R.talk_into(src, message, null, verb, speaking)
 
 		if("left ear")
-			var/obj/item/device/radio/R
+			var/obj/item/radio/R
 			if(isradio(l_ear))
 				R = l_ear
 			else if(isradio(l_hand))
@@ -226,13 +226,13 @@
 
 /mob/living/carbon/human/binarycheck()
 	. = FALSE
-	var/obj/item/device/radio/headset/R
-	if(istype(l_ear, /obj/item/device/radio/headset))
+	var/obj/item/radio/headset/R
+	if(istype(l_ear, /obj/item/radio/headset))
 		R = l_ear
 		if(R.translate_binary)
 			. = TRUE
 
-	if(istype(r_ear, /obj/item/device/radio/headset))
+	if(istype(r_ear, /obj/item/radio/headset))
 		R = r_ear
 		if(R.translate_binary)
 			. = TRUE

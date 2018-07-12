@@ -6,7 +6,7 @@
 	req_tech = list("materials" = 1) //All parts required to build a basic pod have materials 1, so the mechanic can do his damn job.
 	build_type = PODFAB
 	materials = list(MAT_METAL=5000)
-	build_path = /obj/item/weapon/circuitboard/mecha/pod
+	build_path = /obj/item/circuitboard/mecha/pod
 	category = list("Pod_Parts")
 
 //////////////////////////////////////////////////
@@ -98,7 +98,7 @@
 	id = "podgun_taser"
 	build_type = PODFAB
 	req_tech = list("materials" = 2, "combat" = 2)
-	build_path = /obj/item/device/spacepod_equipment/weaponry/taser
+	build_path = /obj/item/spacepod_equipment/weaponry/taser
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL = 15000)
 	locked = 1
@@ -110,7 +110,7 @@
 	id = "podgun_btaser"
 	build_type = PODFAB
 	req_tech = list("materials" = 3, "combat" = 3)
-	build_path = /obj/item/device/spacepod_equipment/weaponry/burst_taser
+	build_path = /obj/item/spacepod_equipment/weaponry/burst_taser
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL = 15000,MAT_PLASMA=2000)
 	locked = 1
@@ -122,7 +122,7 @@
 	id = "podgun_laser"
 	build_type = PODFAB
 	req_tech = list("materials" = 3, "combat" = 3, "plasmatech" = 2)
-	build_path = /obj/item/device/spacepod_equipment/weaponry/laser
+	build_path = /obj/item/spacepod_equipment/weaponry/laser
 	category = list("Pod_Weaponry")
 	materials = list(MAT_METAL=10000,MAT_GLASS=5000,MAT_GOLD=1000,MAT_SILVER=2000)
 	locked = 1
@@ -135,7 +135,7 @@
 	req_tech = list("materials" = 3, "powerstorage" = 2, "engineering" = 2, "magnets" = 3, "combat" = 2)
 	build_type = PODFAB
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000, MAT_URANIUM = 2000)
-	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser_basic
+	build_path = /obj/item/spacepod_equipment/weaponry/mining_laser_basic
 	category = list("Pod_Weaponry")
 
 /datum/design/pod_mining_laser
@@ -146,7 +146,7 @@
 	req_tech = list("materials" = 6, "powerstorage" = 6, "engineering" = 5, "magnets" = 6, "combat" = 4)
 	build_type = PODFAB
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
-	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser
+	build_path = /obj/item/spacepod_equipment/weaponry/mining_laser
 	category = list("Pod_Weaponry")
 
 /datum/design/pod_mining_laser_hyper
@@ -157,7 +157,7 @@
 	req_tech = list("materials" = 7, "powerstorage" = 6, "engineering" = 5, "magnets" = 6, "combat" = 4)
 	build_type = PODFAB
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 5000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_DIAMOND = 4000)
-	build_path = /obj/item/device/spacepod_equipment/weaponry/mining_laser_hyper
+	build_path = /obj/item/spacepod_equipment/weaponry/mining_laser_hyper
 	category = list("Pod_Weaponry")
 
 //////////////////////////////////////////
@@ -172,7 +172,7 @@
 	req_tech = list("materials" = 2) //Materials 2: easy to get, no trackers with 0 science progress
 	build_type = PODFAB
 	materials = list(MAT_METAL=5000)
-	build_path = /obj/item/device/spacepod_equipment/misc/tracker
+	build_path = /obj/item/spacepod_equipment/misc/tracker
 	category = list("Pod_Parts")
 
 //////////////////////////////////////////
@@ -187,7 +187,7 @@
 	req_tech = list("materials" = 3, "engineering" = 2)
 	build_type = PODFAB
 	materials = list(MAT_METAL=20000, MAT_GLASS=2000)
-	build_path = /obj/item/device/spacepod_equipment/cargo/ore
+	build_path = /obj/item/spacepod_equipment/cargo/ore
 	category = list("Pod_Cargo")
 
 /datum/design/pod_cargo_crate
@@ -198,7 +198,7 @@
 	req_tech = list("materials" = 4, "engineering" = 2) //hollowing out this much of the pod without compromising structural integrity is hard
 	build_type = PODFAB
 	materials = list(MAT_METAL=25000)
-	build_path = /obj/item/device/spacepod_equipment/cargo/crate
+	build_path = /obj/item/spacepod_equipment/cargo/crate
 	category = list("Pod_Cargo")
 
 //////////////////////////////////////////
@@ -213,7 +213,7 @@
 	req_tech = list("materials" = 1) // Because rule number one of refactoring
 	build_type = PODFAB
 	materials = list(MAT_METAL=7500, MAT_GLASS=2500)
-	build_path = /obj/item/device/spacepod_equipment/sec_cargo/chair
+	build_path = /obj/item/spacepod_equipment/sec_cargo/chair
 	category = list("Pod_Cargo")
 
 /datum/design/loot_box
@@ -224,7 +224,7 @@
 	req_tech = list("materials" = 1) //it's just a set of shelves, It's not that hard to make
 	build_type = PODFAB
 	materials = list(MAT_METAL=7500, MAT_GLASS=2500)
-	build_path = /obj/item/device/spacepod_equipment/sec_cargo/loot_box
+	build_path = /obj/item/spacepod_equipment/sec_cargo/loot_box
 	category = list("Pod_Cargo")
 
 //////////////////////////////////////////
@@ -238,7 +238,7 @@
 	req_tech = list("materials" = 1) //The most basic kind of locking system
 	build_type = PODFAB
 	materials = list(MAT_METAL=4500)
-	build_path = /obj/item/device/spacepod_equipment/lock/keyed
+	build_path = /obj/item/spacepod_equipment/lock/keyed
 	category = list("Pod_Parts")
 
 /datum/design/pod_key
@@ -249,5 +249,5 @@
 	req_tech = list("materials" = 1) //The most basic kind of locking system
 	build_type = PODFAB
 	materials = list(MAT_METAL=500)
-	build_path = /obj/item/device/spacepod_key
+	build_path = /obj/item/spacepod_key
 	category = list("Pod_Parts")

@@ -1,7 +1,7 @@
 /////////
 //ZIPPO//
 /////////
-/obj/item/weapon/lighter
+/obj/item/lighter
 	name = "cheap lighter"
 	desc = "A cheap-as-free lighter."
 	icon = 'icons/obj/items.dmi'
@@ -16,7 +16,7 @@
 	attack_verb = null
 	var/lit = 0
 
-/obj/item/weapon/lighter/zippo
+/obj/item/lighter/zippo
 	name = "zippo lighter"
 	desc = "The zippo."
 	icon_state = "zippo"
@@ -24,14 +24,14 @@
 	icon_on = "zippoon"
 	icon_off = "zippo"
 
-/obj/item/weapon/lighter/random
+/obj/item/lighter/random
 	New()
 		var/color = pick("r","c","y","g")
 		icon_on = "lighter-[color]-on"
 		icon_off = "lighter-[color]"
 		icon_state = icon_off
 
-/obj/item/weapon/lighter/attack_self(mob/living/user)
+/obj/item/lighter/attack_self(mob/living/user)
 	if(user.r_hand == src || user.l_hand == src || isrobot(user))
 		if(!lit)
 			lit = 1
@@ -42,7 +42,7 @@
 			damtype = "fire"
 			hitsound = 'sound/items/welder.ogg'
 			attack_verb = list("burnt", "singed")
-			if(istype(src, /obj/item/weapon/lighter/zippo) )
+			if(istype(src, /obj/item/lighter/zippo) )
 				user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
 				playsound(src.loc, 'sound/items/ZippoLight.ogg', 25, 1)
 			else
@@ -57,7 +57,7 @@
 						if(affecting.receive_damage( 0, 5 ))		//INFERNO
 							H.UpdateDamageIcon()
 							H.updatehealth()
-					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
+					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], [user.p_they()] however burn[user.p_s()] [user.p_their()] finger in the process.</span>")
 
 			set_light(2)
 			processing_objects.Add(src)
@@ -69,8 +69,8 @@
 			hitsound = "swing_hit"
 			force = 0
 			attack_verb = null //human_defense.dm takes care of it
-			if(istype(src, /obj/item/weapon/lighter/zippo) )
-				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing. Wow.")
+			if(istype(src, /obj/item/lighter/zippo) )
+				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
 				playsound(src.loc, 'sound/items/ZippoClose.ogg', 25, 1)
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
@@ -82,7 +82,7 @@
 	return
 
 
-/obj/item/weapon/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!isliving(M))
 		return
 	M.IgniteMob()
@@ -94,50 +94,50 @@
 		if(M == user)
 			cig.attackby(src, user)
 		else
-			if(istype(src, /obj/item/weapon/lighter/zippo))
-				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. Their arm is as steady as the unflickering flame they light \the [cig] with.</span>")
+			if(istype(src, /obj/item/lighter/zippo))
+				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
 				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
 			M.update_inv_wear_mask()
 	else
 		..()
 
-/obj/item/weapon/lighter/process()
+/obj/item/lighter/process()
 	var/turf/location = get_turf(src)
 	if(location)
 		location.hotspot_expose(700, 5)
 	return
 
 //EXTRA LIGHTERS
-/obj/item/weapon/lighter/zippo/nt_rep
+/obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
 	desc = "An engraved golden Zippo lighter with the letters NT on it."
 	icon_state = "zippo_nt_off"
 	icon_on = "zippo_nt_on"
 	icon_off = "zippo_nt_off"
 
-/obj/item/weapon/lighter/zippo/blue
+/obj/item/lighter/zippo/blue
 	name = "blue zippo lighter"
 	desc = "A zippo lighter made of some blue metal."
 	icon_state = "bluezippo"
 	icon_on = "bluezippoon"
 	icon_off = "bluezippo"
 
-/obj/item/weapon/lighter/zippo/black
+/obj/item/lighter/zippo/black
 	name = "black zippo lighter"
 	desc = "A black zippo lighter."
 	icon_state = "blackzippo"
 	icon_on = "blackzippoon"
 	icon_off = "blackzippo"
 
-/obj/item/weapon/lighter/zippo/engraved
+/obj/item/lighter/zippo/engraved
 	name = "engraved zippo lighter"
 	desc = "A intricately engraved zippo lighter."
 	icon_state = "engravedzippo"
 	icon_on = "engravedzippoon"
 	icon_off = "engravedzippo"
 
-/obj/item/weapon/lighter/zippo/gonzofist
+/obj/item/lighter/zippo/gonzofist
 	name = "Gonzo Fist zippo"
 	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
 	icon_state = "gonzozippo"
@@ -147,7 +147,7 @@
 ///////////
 //MATCHES//
 ///////////
-/obj/item/weapon/match
+/obj/item/match
 	name = "match"
 	desc = "A simple match stick, used for lighting fine smokables."
 	icon = 'icons/obj/cigarettes.dmi'
@@ -159,7 +159,7 @@
 	origin_tech = "materials=1"
 	attack_verb = null
 
-/obj/item/weapon/match/process()
+/obj/item/match/process()
 	var/turf/location = get_turf(src)
 	smoketime--
 	if(smoketime < 1)
@@ -168,10 +168,10 @@
 		location.hotspot_expose(700, 5)
 		return
 
-/obj/item/weapon/match/fire_act()
+/obj/item/match/fire_act()
 	matchignite()
 
-/obj/item/weapon/match/proc/matchignite()
+/obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
 		lit = TRUE
 		icon_state = "match_lit"
@@ -185,7 +185,7 @@
 		processing_objects.Add(src)
 		update_icon()
 
-/obj/item/weapon/match/proc/matchburnout()
+/obj/item/match/proc/matchburnout()
 	if(lit)
 		lit = FALSE
 		burnt = TRUE
@@ -198,11 +198,11 @@
 		attack_verb = list("flicked")
 		processing_objects.Remove(src)
 
-/obj/item/weapon/match/dropped(mob/user)
+/obj/item/match/dropped(mob/user)
 	matchburnout()
 	. = ..()
 
-/obj/item/weapon/match/attack(mob/living/carbon/M, mob/living/carbon/user)
+/obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!isliving(M))
 		return ..()
 	if(lit && M.IgniteMob())

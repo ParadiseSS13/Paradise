@@ -164,10 +164,10 @@ proc/get_radio_key_from_channel(var/channel)
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
-		if(G.mute == MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
+		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 			return
-		else if(G.mute == MUTE_MUFFLE)
+		else if(G.mute == MUZZLE_MUTE_MUFFLE)
 			message = muffledspeech(message)
 			verb = "mumbles"
 
@@ -286,7 +286,7 @@ proc/get_radio_key_from_channel(var/channel)
 	//Log of what we've said, plain message, no spans or junk
 	say_log += message
 
-	log_say("[name]/[key] : [message]")
+	log_say(message, src)
 	return 1
 
 /mob/living/proc/say_signlang(var/message, var/verb="gestures", var/datum/language/language)
@@ -313,7 +313,7 @@ proc/get_radio_key_from_channel(var/channel)
 		return 1
 
 	if(act && type && message) //parent call
-		log_emote("[name]/[key] : [message]")
+		log_emote(message, src)
 
 		for(var/mob/M in dead_mob_list)
 			if(!M.client || istype(M, /mob/new_player))
@@ -485,7 +485,7 @@ proc/get_radio_key_from_channel(var/channel)
 		for(var/mob/M in watching)
 			M.show_message(rendered, 2)
 
-	log_whisper("[name]/[key] : [message]")
+	log_whisper(message, src)
 	return 1
 
 /mob/living/speech_bubble(var/bubble_state = "",var/bubble_loc = src, var/list/bubble_recipients = list())

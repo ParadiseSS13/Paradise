@@ -15,7 +15,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
-		if(affected.status & ORGAN_ROBOT)
+		if(affected.is_robotic())
 			return 0
 		if(affected.cannot_amputate)
 			return 0
@@ -131,7 +131,7 @@
 
 
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E)
-	if(E.status & ORGAN_ROBOT)
+	if(E.is_robotic())
 		return 0
 	return 1
 
@@ -149,13 +149,13 @@
 	name = "attach robotic limb"
 
 /datum/surgery_step/limb/attach/robo/is_correct_limb(obj/item/organ/external/E)
-	if(!(E.status & ORGAN_ROBOT))
+	if(!E.is_robotic())
 		return 0
 	return 1
 
 /datum/surgery_step/limb/attach/robo/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
 	// Fixes fabricator IPC heads
-	if(!(E.dna) && E.robotic == 2 && target.dna)
+	if(!(E.dna) && E.is_robotic() && target.dna)
 		E.set_dna(target.dna)
 	..()
 	if(E.limb_name == "head")
@@ -170,9 +170,9 @@
 /datum/surgery_step/limb/connect
 	name = "connect limb"
 	allowed_tools = list(
-	/obj/item/weapon/hemostat = 100,	\
+	/obj/item/hemostat = 100,	\
 	/obj/item/stack/cable_coil = 90, 	\
-	/obj/item/device/assembly/mousetrap = 25
+	/obj/item/assembly/mousetrap = 25
 	)
 	can_infect = 1
 

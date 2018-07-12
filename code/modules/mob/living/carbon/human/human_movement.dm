@@ -10,11 +10,11 @@
 		return 1
 
 	//Do we have a working jetpack?
-	var/obj/item/weapon/tank/jetpack/thrust
-	if(istype(back,/obj/item/weapon/tank/jetpack))
+	var/obj/item/tank/jetpack/thrust
+	if(istype(back,/obj/item/tank/jetpack))
 		thrust = back
-	else if(istype(back,/obj/item/weapon/rig))
-		var/obj/item/weapon/rig/rig = back
+	else if(istype(back,/obj/item/rig))
+		var/obj/item/rig/rig = back
 		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
 			thrust = module.jets
 			break

@@ -13,7 +13,7 @@
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to sow havoc at random."
 	var/toggle = FALSE
 
-/mob/living/simple_animal/hostile/guardian/fire/Life() //Dies if the summoner dies
+/mob/living/simple_animal/hostile/guardian/fire/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
 		summoner.ExtinguishMob()

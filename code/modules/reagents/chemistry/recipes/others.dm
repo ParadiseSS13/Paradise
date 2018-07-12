@@ -93,17 +93,18 @@
 	result_amount = 2
 	mix_message = "The mixture gives off a sharp acidic tang."
 
-/datum/chemical_reaction/plastication
-	name = "Plastic"
-	id = "solidplastic"
+/datum/chemical_reaction/plastic_polymers
+	name = "plastic polymers"
+	id = "plastic_polymers"
 	result = null
-	required_reagents = list("facid" = 10, "plasticide" = 20)
+	required_reagents = list("oil" = 5, "sacid" = 2, "ash" = 3)
+	min_temp = 374
 	result_amount = 1
 
-/datum/chemical_reaction/plastication/on_reaction(datum/reagents/holder)
-	var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/plastic
-	M.amount = 10
-	M.forceMove(get_turf(holder.my_atom))
+/datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, created_volume)
+	var/obj/item/stack/sheet/plastic/P = new /obj/item/stack/sheet/plastic
+	P.amount = 10
+	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/lube
 	name = "Space Lube"
@@ -257,7 +258,7 @@
 
 /datum/chemical_reaction/soapification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/weapon/soap/homemade(location)
+	new /obj/item/soap/homemade(location)
 
 /datum/chemical_reaction/candlefication
 	name = "Candlefication"
@@ -280,7 +281,7 @@
 
 /datum/chemical_reaction/meatification/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	new /obj/item/weapon/reagent_containers/food/snacks/meat/slab/meatproduct(location)
+	new /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct(location)
 
 /datum/chemical_reaction/lye
 	name = "lye"

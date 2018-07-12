@@ -162,7 +162,7 @@
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 	var/msg = "Initialized [name] subsystem within [time] second[time == 1 ? "" : "s"]!"
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
-	log_to_dd(msg)
+	log_world(msg)
 	return time
 
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
@@ -171,7 +171,7 @@
 		statclick = new/obj/effect/statclick/debug(src, "Initializing...")
 
 	if(can_fire && !(SS_NO_FIRE & flags))
-		msg = "[round(cost, 1)]ms|[round(tick_usage, 1)]%([round(tick_overrun, 1)]%)|[round(ticks, 0.1)]\t[msg]"
+		msg = "[round(cost, 1)]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[msg]"
 	else
 		msg = "OFFLINE\t[msg]"
 

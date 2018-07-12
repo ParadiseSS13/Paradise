@@ -190,7 +190,7 @@ DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
-		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/weapon/circuitboard/communications))
+		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/circuitboard/communications))
 			continue
 
 		var/turf/T = get_turf(thing)

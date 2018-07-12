@@ -1,4 +1,4 @@
-/obj/item/device/modular_computer/laptop
+/obj/item/modular_computer/laptop
 	name = "laptop"
 	desc = "A portable laptop computer."
 
@@ -20,32 +20,32 @@
 	var/w_class_open = WEIGHT_CLASS_BULKY
 	var/slowdown_open = 1
 
-/obj/item/device/modular_computer/laptop/New()
+/obj/item/modular_computer/laptop/New()
 	..()
 	if(start_open && !screen_on)
 		toggle_open()
 
-/obj/item/device/modular_computer/laptop/update_icon()
+/obj/item/modular_computer/laptop/update_icon()
 	if(screen_on)
 		..()
 	else
 		overlays.Cut()
 		icon_state = icon_state_closed
 
-/obj/item/device/modular_computer/laptop/attack_self(mob/user)
+/obj/item/modular_computer/laptop/attack_self(mob/user)
 	if(!screen_on)
 		try_toggle_open(user)
 	else
 		return ..()
 
-/obj/item/device/modular_computer/laptop/verb/open_computer()
+/obj/item/modular_computer/laptop/verb/open_computer()
 	set name = "Toggle Open"
 	set category = "Object"
 	set src in view(1)
 
 	try_toggle_open(usr)
 
-/obj/item/device/modular_computer/laptop/MouseDrop(obj/over_object, src_location, over_location)
+/obj/item/modular_computer/laptop/MouseDrop(obj/over_object, src_location, over_location)
 	if(over_object == usr || over_object == src)
 		try_toggle_open(usr)
 	if(ishuman(usr))
@@ -63,14 +63,14 @@
 					usr.unEquip(src)
 					usr.put_in_l_hand(src)
 
-/obj/item/device/modular_computer/laptop/attack_hand(mob/user)
+/obj/item/modular_computer/laptop/attack_hand(mob/user)
 	if(screen_on && isturf(loc))
 		return attack_self(user)
 
 	return ..()
 
 
-/obj/item/device/modular_computer/laptop/proc/try_toggle_open(mob/living/user)
+/obj/item/modular_computer/laptop/proc/try_toggle_open(mob/living/user)
 	if(issilicon(user))
 		return
 	if(!isturf(loc) && !ismob(loc)) // No opening it in backpack.
@@ -81,13 +81,13 @@
 	toggle_open(user)
 
 
-/obj/item/device/modular_computer/laptop/AltClick(mob/user)
+/obj/item/modular_computer/laptop/AltClick(mob/user)
 	if(screen_on) // Close it.
 		try_toggle_open(user)
 	else
 		return ..()
 
-/obj/item/device/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
+/obj/item/modular_computer/laptop/proc/toggle_open(mob/living/user=null)
 	if(screen_on)
 		to_chat(user, "<span class='notice'>You close \the [src].</span>")
 		slowdown = initial(slowdown)
@@ -103,5 +103,5 @@
 
 
 // Laptop frame, starts empty and closed.
-/obj/item/device/modular_computer/laptop/buildable
+/obj/item/modular_computer/laptop/buildable
 	start_open = 0

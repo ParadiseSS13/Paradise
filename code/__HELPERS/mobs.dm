@@ -243,30 +243,40 @@ proc/age2agedescription(age)
 Proc for attack log creation, because really why not
 1 argument is the actor
 2 argument is the target of action
-3 is the description of action(like punched, throwed, or any other verb)
-4 is the tool with which the action was made(usually item)
-5 is additional information, anything that needs to be added
-6 is whether the attack should be logged to the log file and shown to admins
+3 is the full description of the action
+4 is whether or not to message admins
+This is always put in the attack log.
 */
 
-proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=null, var/admin=1, var/print_attack_log = 1)//print_attack_log notifies admins with attack logs on
-	var/list/ignore=list("shaked", "CPRed", "grabbed", "disarmed")
-	if(!user)
+/proc/add_attack_logs(mob/user, mob/target, what_done, custom_level)
+	if(islist(target)) // Multi-victim adding
+		var/list/targets = target
+		for(var/mob/M in targets)
+			add_attack_logs(user, M, what_done, custom_level)
 		return
-	if(ismob(user))
-		user.create_attack_log("<font color='red'>Has [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
-	if(ismob(target))
-		target.create_attack_log("<font color='orange'>Has been [what_done] by [key_name(user)][object ? " with [object]" : " "][addition]</font>")
-	if(admin)
-		log_attack("<font color='red'>[key_name(user)] [what_done] [key_name(target)][object ? " with [object]" : " "][addition]</font>")
-	if(istype(target) && (target.key))
-		if(what_done in ignore)
-			return
-		if(target == user)
-			return
-		if(!print_attack_log)
-			return
-		msg_admin_attack("[key_name_admin(user)] [what_done] [key_name_admin(target)][object ? " with [object]" : " "][addition]")
+
+	var/user_str = key_name_log(user)
+	var/target_str = key_name_log(target)
+
+	if(istype(user))
+		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
+	if(istype(target))
+		target.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
+	log_attack(user_str, target_str, what_done)
+
+	var/loglevel = ATKLOG_MOST
+
+	if(!isnull(custom_level))
+		loglevel = custom_level
+	else if(istype(target))
+		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
+			loglevel = ATKLOG_FEW
+		else if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+			loglevel = ATKLOG_ALL
+		else if(!target.ckey) // Attacks by players on NPCs are only shown to admins with ATKLOG_ALL or ATKLOG_ALMOSTALL
+			loglevel = ATKLOG_ALMOSTALL
+
+	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
 /proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
 	if(!user || !target)
@@ -481,3 +491,16 @@ proc/add_logs(mob/user, mob/target, what_done, var/object=null, var/addition=nul
 /proc/update_all_mob_security_hud()
 	for(var/mob/living/carbon/human/H in mob_list)
 		H.sec_hud_set_security_status()
+
+/proc/getviewsize(view)
+	var/viewX
+	var/viewY
+	if(isnum(view))
+		var/totalviewrange = 1 + 2 * view
+		viewX = totalviewrange
+		viewY = totalviewrange
+	else
+		var/list/viewrangelist = splittext(view, "x")
+		viewX = text2num(viewrangelist[1])
+		viewY = text2num(viewrangelist[2])
+	return list(viewX, viewY)

@@ -61,7 +61,7 @@
 	if(!allowed(user))
 		to_chat(user, "<span class = 'info'>Access denied.</span>")
 		return
-	if( istype(I, /obj/item/weapon/screwdriver))
+	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
 			set_sign(new /datum/barsign/hiddensigns/signoff)
@@ -105,7 +105,7 @@
 		to_chat(user, "<span class='warning'>Nothing interesting happens!</span>")
 		return
 	to_chat(user, "<span class='notice'>You emag the barsign. Takeover in progress...</span>")
-	addtimer(src, "post_emag", 100)
+	addtimer(CALLBACK(src, .proc/post_emag), 100)
 
 /obj/structure/sign/barsign/proc/post_emag()
 	if(broken || emagged)

@@ -55,7 +55,6 @@
 	var/guest_jobban = 1
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
-	var/kick_inactive = 0				//force disconnect for inactive players
 	var/load_jobs_from_txt = 0
 	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
@@ -203,13 +202,15 @@
 	var/randomize_shift_time = FALSE
 	var/enable_night_shifts = FALSE
 
+	// Developer
+	var/developer_express_start = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
 
 		if(initial(M.config_tag))
 			if(!(initial(M.config_tag) in modes))		// ensure each mode is added only once
-				diary << "Adding game mode [initial(M.name)] ([initial(M.config_tag)]) to configuration."
 				src.modes += initial(M.config_tag)
 				src.mode_names[initial(M.config_tag)] = initial(M.name)
 				src.probabilities[initial(M.config_tag)] = initial(M.probability)
@@ -423,15 +424,12 @@
 						if(prob_name in config.modes)
 							config.probabilities[prob_name] = text2num(prob_value)
 						else
-							diary << "Unknown game mode probability configuration definition: [prob_name]."
+							log_config("Unknown game mode probability configuration definition: [prob_name].")
 					else
-						diary << "Incorrect probability configuration definition: [prob_name]  [prob_value]."
+						log_config("Incorrect probability configuration definition: [prob_name]  [prob_value].")
 
 				if("allow_random_events")
 					config.allow_random_events = 1
-
-				if("kick_inactive")
-					config.kick_inactive = 1
 
 				if("load_jobs_from_txt")
 					load_jobs_from_txt = 1
@@ -617,13 +615,13 @@
 					config.high_pop_mc_mode_amount = text2num(value)
 				if("disable_high_pop_mc_mode_amount")
 					config.disable_high_pop_mc_mode_amount = text2num(value)
+				if("developer_express_start")
+					config.developer_express_start = 1
 				else
-					diary << "Unknown setting in configuration: '[name]'"
+					log_config("Unknown setting in configuration: '[name]'")
 
 
 		else if(type == "game_options")
-			if(!value)
-				diary << "Unknown value for setting [name] in [filename]."
 			value = text2num(value)
 
 			switch(name)
@@ -684,7 +682,7 @@
 				if("enable_night_shifts")
 					config.enable_night_shifts = TRUE
 				else
-					diary << "Unknown setting in configuration: '[name]'"
+					log_config("Unknown setting in configuration: '[name]'")
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
 	var/list/Lines = file2list(filename)
@@ -729,10 +727,10 @@
 			if("db_version")
 				db_version = text2num(value)
 			else
-				diary << "Unknown setting in configuration: '[name]'"
+				log_config("Unknown setting in configuration: '[name]'")
 	if(config.sql_enabled && db_version != SQL_VERSION)
 		config.sql_enabled = 0
-		diary << "WARNING: DB_CONFIG DEFINITION MISMATCH!"
+		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
 			if(ticker.current_state == GAME_STATE_PREGAME)
 				going = 0

@@ -277,7 +277,7 @@
 
 // Returns the surrounding cardinal turfs with open links
 // Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(var/obj/item/weapon/card/id/ID)
+/turf/proc/CardinalTurfsWithAccess(var/obj/item/card/id/ID)
 	var/list/L = new()
 	var/turf/simulated/T
 
@@ -307,7 +307,7 @@
 
 // Returns the surrounding simulated turfs with open links
 // Including through doors openable with the ID
-/turf/proc/AdjacentTurfsWithAccess(var/obj/item/weapon/card/id/ID = null,var/list/closed)//check access if one is passed
+/turf/proc/AdjacentTurfsWithAccess(var/obj/item/card/id/ID = null,var/list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/simulated/T
 	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
@@ -333,7 +333,7 @@
 	return L
 
 // check for all turfs, including unsimulated ones
-/turf/proc/AdjacentTurfsSpace(var/obj/item/weapon/card/id/ID = null, var/list/closed)//check access if one is passed
+/turf/proc/AdjacentTurfsSpace(var/obj/item/card/id/ID = null, var/list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T
 	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
@@ -397,8 +397,8 @@
 					return
 			C.place_turf(src, user)
 			return 1
-		else if(istype(I, /obj/item/weapon/twohanded/rcl))
-			var/obj/item/weapon/twohanded/rcl/R = I
+		else if(istype(I, /obj/item/twohanded/rcl))
+			var/obj/item/twohanded/rcl/R = I
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2==0)

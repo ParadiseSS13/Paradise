@@ -47,7 +47,7 @@
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
 
-/obj/mecha/working/ripley/mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/working/ripley/mmi_moved_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	..()
 	if(damage_absorption.["brute"] < 0.6 && damage_absorption.["brute"] > 0.3)
 		overlays = null

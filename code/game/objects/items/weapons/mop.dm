@@ -1,4 +1,4 @@
-/obj/item/weapon/mop
+/obj/item/mop
 	desc = "The world of janitalia wouldn't be complete without a mop."
 	name = "mop"
 	icon = 'icons/obj/janitor.dmi'
@@ -15,16 +15,16 @@
 	var/mopcap = 5
 	var/mopspeed = 30
 
-/obj/item/weapon/mop/New()
+/obj/item/mop/New()
 	..()
 	create_reagents(mopcap)
 	janitorial_equipment += src
 
-/obj/item/weapon/mop/Destroy()
+/obj/item/mop/Destroy()
 	janitorial_equipment -= src
 	return ..()
 
-/obj/item/weapon/mop/proc/clean(turf/simulated/A)
+/obj/item/mop/proc/clean(turf/simulated/A)
 	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
 		A.clean_blood()
 		A.dirt = 0
@@ -34,7 +34,7 @@
 	reagents.reaction(A, TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
-/obj/item/weapon/mop/afterattack(atom/A, mob/user, proximity)
+/obj/item/mop/afterattack(atom/A, mob/user, proximity)
 	if(!proximity) return
 
 	if(reagents.total_volume < 1)
@@ -43,7 +43,7 @@
 
 	var/turf/simulated/T = get_turf(A)
 
-	if(istype(A, /obj/item/weapon/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart))
+	if(istype(A, /obj/item/reagent_containers/glass/bucket) || istype(A, /obj/structure/janitorialcart))
 		return
 
 	if(istype(T))
@@ -55,24 +55,24 @@
 
 
 /obj/effect/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/mop) || istype(I, /obj/item/weapon/soap))
+	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
 		return
 	else
 		return ..()
 
 
-/obj/item/weapon/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+/obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.mymop=src
 	J.update_icon()
 
-/obj/item/weapon/mop/wash(mob/user, atom/source)
+/obj/item/mop/wash(mob/user, atom/source)
 	reagents.add_reagent("water", 5)
 	to_chat(user, "<span class='notice'>You wet [src] in [source].</span>")
 	playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 	return 1
 
-/obj/item/weapon/mop/advanced
+/obj/item/mop/advanced
 	desc = "The most advanced tool in a custodian's arsenal. Just think of all the viscera you will clean up with this!"
 	name = "advanced mop"
 	mopcap = 10
@@ -87,11 +87,11 @@
 	var/refill_rate = 1 //Rate per process() tick mop refills itself
 	var/refill_reagent = "water" //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
 
-/obj/item/weapon/mop/advanced/New()
+/obj/item/mop/advanced/New()
 	..()
 	processing_objects.Add(src)
 
-/obj/item/weapon/mop/advanced/attack_self(mob/user)
+/obj/item/mop/advanced/attack_self(mob/user)
 	refill_enabled = !refill_enabled
 	if(refill_enabled)
 		processing_objects.Add(src)
@@ -100,22 +100,22 @@
 	to_chat(user, "<span class='notice'>You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position.</span>")
 	playsound(user, 'sound/machines/click.ogg', 30, 1)
 
-/obj/item/weapon/mop/advanced/process()
+/obj/item/mop/advanced/process()
 
 	if(reagents.total_volume < mopcap)
 		reagents.add_reagent(refill_reagent, refill_rate)
 
-/obj/item/weapon/mop/advanced/examine(mob/user)
+/obj/item/mop/advanced/examine(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>The condenser switch is set to <b>[refill_enabled ? "ON" : "OFF"]</b>.</span>")
 
-/obj/item/weapon/mop/advanced/Destroy()
+/obj/item/mop/advanced/Destroy()
 	if(refill_enabled)
 		processing_objects.Remove(src)
 	return ..()
 
 
-/obj/item/weapon/mop/advanced/cyborg
+/obj/item/mop/advanced/cyborg
 
-/obj/item/weapon/mop/advanced/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
+/obj/item/mop/advanced/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return

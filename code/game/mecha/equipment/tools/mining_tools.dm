@@ -73,7 +73,7 @@
 	if(locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in chassis.equipment)
 		var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
 		if(ore_box)
-			for(var/obj/item/weapon/ore/ore in range(1, chassis))
+			for(var/obj/item/ore/ore in range(1, chassis))
 				if(get_dir(chassis, ore) & chassis.dir)
 					ore.Move(ore_box)
 
@@ -86,7 +86,7 @@
 /obj/item/mecha_parts/mecha_equipment/drill/proc/drill_mob(mob/living/target, mob/user, var/drill_damage=80)
 	target.visible_message("<span class='danger'>[chassis] drills [target] with [src].</span>", \
 						"<span class='userdanger'>[chassis] drills [target] with [src].</span>")
-	add_logs(user, target, "attacked", "[name]", "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+	add_attack_logs(user, target, "DRILLED with [src] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 	if(target.stat == DEAD && target.butcher_results)
 		target.harvest(chassis) // Butcher the mob with our drill.
 	else

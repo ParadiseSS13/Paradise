@@ -19,7 +19,7 @@
 			return kill()
 		var/mob/living/simple_animal/hostile/morph/S = new /mob/living/simple_animal/hostile/morph(pick(xeno_spawn))
 		player_mind.transfer_to(S)
-		player_mind.assigned_role = "Morph"
+		player_mind.assigned_role = SPECIAL_ROLE_MORPH
 		player_mind.special_role = SPECIAL_ROLE_MORPH
 		ticker.mode.traitors |= player_mind
 		to_chat(S, S.playstyle_string)

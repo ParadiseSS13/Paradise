@@ -31,12 +31,12 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "welder"
 	item_to_spawn()
-		return pick(/obj/item/weapon/screwdriver,\
-					/obj/item/weapon/wirecutters,\
-					/obj/item/weapon/weldingtool,\
-					/obj/item/weapon/crowbar,\
-					/obj/item/weapon/wrench,\
-					/obj/item/device/flashlight)
+		return pick(/obj/item/screwdriver,\
+					/obj/item/wirecutters,\
+					/obj/item/weldingtool,\
+					/obj/item/crowbar,\
+					/obj/item/wrench,\
+					/obj/item/flashlight)
 
 
 /obj/random/technology_scanner
@@ -45,9 +45,9 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
 	item_to_spawn()
-		return pick(prob(5);/obj/item/device/t_scanner,\
-					prob(2);/obj/item/device/radio/intercom,\
-					prob(5);/obj/item/device/analyzer)
+		return pick(prob(5);/obj/item/t_scanner,\
+					prob(2);/obj/item/radio/intercom,\
+					prob(5);/obj/item/analyzer)
 
 
 /obj/random/powercell
@@ -56,11 +56,11 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cell"
 	item_to_spawn()
-		return pick(prob(10);/obj/item/weapon/stock_parts/cell/crap,\
-					prob(40);/obj/item/weapon/stock_parts/cell,\
-					prob(40);/obj/item/weapon/stock_parts/cell/high,\
-					prob(9);/obj/item/weapon/stock_parts/cell/super,\
-					prob(1);/obj/item/weapon/stock_parts/cell/hyper)
+		return pick(prob(10);/obj/item/stock_parts/cell/crap,\
+					prob(40);/obj/item/stock_parts/cell,\
+					prob(40);/obj/item/stock_parts/cell/high,\
+					prob(9);/obj/item/stock_parts/cell/super,\
+					prob(1);/obj/item/stock_parts/cell/hyper)
 
 
 /obj/random/bomb_supply
@@ -69,9 +69,9 @@
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "signaller"
 	item_to_spawn()
-		return pick(/obj/item/device/assembly/igniter,\
-					/obj/item/device/assembly/prox_sensor,\
-					/obj/item/device/assembly/signaler)
+		return pick(/obj/item/assembly/igniter,\
+					/obj/item/assembly/prox_sensor,\
+					/obj/item/assembly/signaler)
 
 
 /obj/random/toolbox
@@ -80,9 +80,9 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "red"
 	item_to_spawn()
-		return pick(prob(3);/obj/item/weapon/storage/toolbox/mechanical,\
-					prob(2);/obj/item/weapon/storage/toolbox/electrical,\
-					prob(1);/obj/item/weapon/storage/toolbox/emergency)
+		return pick(prob(3);/obj/item/storage/toolbox/mechanical,\
+					prob(2);/obj/item/storage/toolbox/electrical,\
+					prob(1);/obj/item/storage/toolbox/emergency)
 
 
 /obj/random/tech_supply
@@ -96,10 +96,10 @@
 					prob(2);/obj/random/technology_scanner,\
 					prob(1);/obj/item/stack/packageWrap,\
 					prob(2);/obj/random/bomb_supply,\
-					prob(1);/obj/item/weapon/extinguisher,\
+					prob(1);/obj/item/extinguisher,\
 					prob(1);/obj/item/clothing/gloves/color/fyellow,\
 					prob(3);/obj/item/stack/cable_coil,\
 					prob(2);/obj/random/toolbox,\
-					prob(2);/obj/item/weapon/storage/belt/utility,\
+					prob(2);/obj/item/storage/belt/utility,\
 					prob(5);/obj/random/tool,\
 					prob(3);/obj/item/stack/tape_roll)

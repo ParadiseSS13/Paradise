@@ -82,7 +82,7 @@
 							 "<span class='warning'>You bang on \the [src].</span>")
 		playsound(get_turf(src), 'sound/effects/Glassknock.ogg', 10, 1)
 
-/obj/machinery/door/firedoor/attackby(obj/item/weapon/C, mob/user, params)
+/obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
 	add_fingerprint(user)
 
 	if(operating)
@@ -115,7 +115,7 @@
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
 	return
 
-/obj/machinery/door/firedoor/try_to_weld(obj/item/weapon/weldingtool/W, mob/user)
+/obj/machinery/door/firedoor/try_to_weld(obj/item/weldingtool/W, mob/user)
 	if(W.remove_fuel(0, user))
 		playsound(get_turf(src), W.usesound, 50, 1)
 		user.visible_message("<span class='notice'>[user] starts [welded ? "unwelding" : "welding"] [src].</span>", "<span class='notice'>You start welding [src].</span>")
@@ -266,7 +266,7 @@
 	can_force = FALSE
 	max_integrity = 550
 
-/obj/item/weapon/firelock_electronics
+/obj/item/firelock_electronics
 	name = "firelock electronics"
 	icon = 'icons/obj/doors/door_assembly.dmi'
 	icon_state = "door_electronics"
@@ -306,7 +306,7 @@
 	..()
 	icon_state = "frame[constructionStep]"
 
-/obj/structure/firelock_frame/attackby(obj/item/weapon/C, mob/user)
+/obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
 			if(iscrowbar(C))
@@ -405,7 +405,7 @@
 					return
 				user.visible_message("<span class='notice'>[user] removes [src]'s circuit board.</span>", \
 									 "<span class='notice'>You remove the circuit board from [src].</span>")
-				new /obj/item/weapon/firelock_electronics(get_turf(src))
+				new /obj/item/firelock_electronics(get_turf(src))
 				playsound(get_turf(src), C.usesound, 50, 1)
 				constructionStep = CONSTRUCTION_NOCIRCUIT
 				update_icon()
@@ -430,7 +430,7 @@
 				return
 		if(CONSTRUCTION_NOCIRCUIT)
 			if(iswelder(C))
-				var/obj/item/weapon/weldingtool/W = C
+				var/obj/item/weldingtool/W = C
 				if(W.remove_fuel(1,user))
 					playsound(get_turf(src), W.usesound, 50, 1)
 					user.visible_message("<span class='notice'>[user] begins cutting apart [src]'s frame...</span>", \
@@ -448,7 +448,7 @@
 						new /obj/item/stack/sheet/plasteel(T, 2)
 					qdel(src)
 				return
-			if(istype(C, /obj/item/weapon/firelock_electronics))
+			if(istype(C, /obj/item/firelock_electronics))
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									 "<span class='notice'>You begin adding a circuit board to [src]...</span>")
 				playsound(get_turf(src), C.usesound, 50, 1)

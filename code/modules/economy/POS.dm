@@ -202,7 +202,7 @@ var/const/POS_HEADER = {"<html>
 	receipt += "</table></body></html>"
 
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	var/obj/item/weapon/paper/P = new(loc)
+	var/obj/item/paper/P = new(loc)
 	P.name="Receipt #[id]-[++sales]"
 	P.info=receipt
 
@@ -479,8 +479,8 @@ var/const/POS_HEADER = {"<html>
 	src.attack_hand(usr)
 
 /obj/machinery/pos/attackby(var/atom/movable/A, var/mob/user, params)
-	if(istype(A,/obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/I = A
+	if(istype(A,/obj/item/card/id))
+		var/obj/item/card/id/I = A
 		if(!logged_in)
 			user.visible_message("<span class='notice'>The machine beeps, and logs you in</span>","You hear a beep.")
 			logged_in = user

@@ -48,7 +48,7 @@
 					visible_message("<span class='notice'>[src] chitters in the direction of [Q]!</span>")
 	. = ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/purple/Life()
+/mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
 	. = ..()
 	if(.) // if mob is NOT dead
 		if(!degenerate && spider_myqueen)

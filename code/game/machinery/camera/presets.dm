@@ -57,11 +57,11 @@
 	return O
 
 /obj/machinery/camera/proc/isXRay()
-	var/O = locate(/obj/item/device/analyzer) in assembly.upgrades
+	var/O = locate(/obj/item/analyzer) in assembly.upgrades
 	return O
 
 /obj/machinery/camera/proc/isMotion()
-	var/O = locate(/obj/item/device/assembly/prox_sensor) in assembly.upgrades
+	var/O = locate(/obj/item/assembly/prox_sensor) in assembly.upgrades
 	return O
 
 // UPGRADE PROCS
@@ -71,17 +71,17 @@
 	setPowerUsage()
 
 /obj/machinery/camera/proc/upgradeXRay()
-	assembly.upgrades.Add(new /obj/item/device/analyzer(assembly))
+	assembly.upgrades.Add(new /obj/item/analyzer(assembly))
 	setPowerUsage()
 	//Update what it can see.
 	cameranet.updateVisibility(src, 0)
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()
-	assembly.upgrades.Add(new /obj/item/device/assembly/prox_sensor(assembly))
+	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
 	setPowerUsage()
 	// Add it to machines that process
-	machine_processing |= src
+	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1

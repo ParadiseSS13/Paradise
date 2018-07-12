@@ -71,7 +71,7 @@
 
 /obj/item/clothing/suit/space/new_rig
 	name = "chestpiece"
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank)
+	allowed = list(/obj/item/flashlight,/obj/item/tank)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	cold_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -81,7 +81,7 @@
 	breach_threshold = 20
 	resilience = 0.2
 	can_breach = 1
-	var/obj/item/weapon/rig/holder
+	var/obj/item/rig/holder
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi'
@@ -100,7 +100,7 @@
 	if(!istype(H) || !H.back)
 		return 0
 
-	var/obj/item/weapon/rig/suit = H.back
+	var/obj/item/rig/suit = H.back
 	if(!suit || !istype(suit) || !suit.installed_modules.len)
 		return 0
 
@@ -122,7 +122,7 @@
 
 /obj/item/clothing/suit/lightrig
 	name = "suit"
-	allowed = list(/obj/item/device/flashlight)
+	allowed = list(/obj/item/flashlight)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	heat_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	cold_protection =    UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
