@@ -268,3 +268,13 @@
 	ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
+
+GLOBAL_LIST_EMPTY(docspawns)
+
+/obj/effect/landmark/documentspawn
+	name = "secret document spawn"
+
+/obj/effect/landmark/documentspawn/New()
+	GLOB.docspawns += loc
+	qdel(src)
+	//does not delete the landmarks yet

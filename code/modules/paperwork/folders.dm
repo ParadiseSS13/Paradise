@@ -93,6 +93,10 @@
 		update_icon()
 	return
 
+/hook/roundstart/proc/spawn_the_fucking_docs()
+	var/turf/T = pick(GLOB.docspawns)
+	new /obj/item/folder/documents(T)
+
 /obj/item/folder/documents
 	name = "folder- 'TOP SECRET'"
 	desc = "A folder stamped \"Top Secret - Property of Nanotrasen Corporation. Unauthorized distribution is punishable by death.\""
