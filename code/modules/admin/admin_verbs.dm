@@ -823,19 +823,6 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(!istype(H))
-		if(istype(H, /mob/living/carbon/brain))
-			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/mmi/posibrain/ipc))
-				var/obj/item/mmi/posibrain/ipc/C = B.container
-				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
-					H = P.owner
-			else
-				return
-		else
-			return
-
 	if(holder)
 		admin_log_and_message_admins("is altering the appearance of [H].")
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
@@ -848,19 +835,6 @@ var/list/admin_verbs_ticket = list(
 
 	if(!check_rights(R_ADMIN))
 		return
-
-	if(!istype(H))
-		if(istype(H, /mob/living/carbon/brain))
-			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/mmi/posibrain/ipc))
-				var/obj/item/mmi/posibrain/ipc/C = B.container
-				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
-					H = P.owner
-			else
-				return
-		else
-			return
 
 	if(!H.client)
 		to_chat(usr, "Only mobs with clients can alter their own appearance.")

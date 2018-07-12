@@ -239,7 +239,7 @@
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
-		/obj/item/mmi/posibrain
+		/obj/item/mmi/robotic_brain
 	)
 
 /obj/machinery/cryopod/right

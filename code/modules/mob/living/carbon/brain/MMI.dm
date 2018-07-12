@@ -265,8 +265,6 @@
 	forceMove(holder)
 	holder.stored_mmi = src
 	holder.update_from_mmi()
-	if(istype(src, /obj/item/mmi/posibrain))
-		holder.robotize()
 	if(brainmob && brainmob.mind)
 		brainmob.mind.transfer_to(H)
 	holder.insert(H)

@@ -958,7 +958,7 @@
 	butt_sprite = "machine"
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
+		"brain" = /obj/item/organ/internal/brain/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
 		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
 		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord

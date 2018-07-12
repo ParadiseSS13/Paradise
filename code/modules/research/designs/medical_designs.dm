@@ -103,15 +103,15 @@
 	build_path = /obj/item/mass_spectrometer
 	category = list("Medical")
 
-/datum/design/posibrain
+/datum/design/robotic_brain
 	name = "Robotic Brain"
-	desc = "The latest in Artificial Intelligences."
-	id = "mmi_posi"
+	desc = "The latest in non-sentient Artificial Intelligences."
+	id = "mmi_robotic"
 	req_tech = list("programming" = 5, "biotech" = 4, "plasmatech" = 3)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 1700, MAT_GLASS = 1350, MAT_GOLD = 500) //Gold, because SWAG.
 	construction_time = 75
-	build_path = /obj/item/mmi/posibrain
+	build_path = /obj/item/mmi/robotic_brain
 	category = list("Misc","Medical")
 
 /datum/design/mmi_radio_upgrade
