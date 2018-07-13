@@ -30,10 +30,10 @@
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/adv
 	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/storage/firstaid/adv = 1
 	)
 
 	backpack = /obj/item/storage/backpack/medic
@@ -68,9 +68,11 @@
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/adv
 	pda = /obj/item/pda/medical
-
+	backpack_contents = list(
+		/obj/item/storage/firstaid/adv = 1
+	)
+	
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
@@ -102,7 +104,6 @@
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/medical
 
 	backpack = /obj/item/storage/backpack/medic
@@ -113,7 +114,8 @@
 					/obj/item/clothing/head/surgery/black = 1,
 					/obj/item/autopsy_scanner = 1,
 					/obj/item/mass_spectrometer = 1,
-					/obj/item/storage/box/bodybags = 1)
+					/obj/item/storage/box/bodybags = 1,
+					/obj/item/clipboard = 1)
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

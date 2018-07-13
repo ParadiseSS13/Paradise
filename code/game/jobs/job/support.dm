@@ -124,9 +124,10 @@
 	l_ear = /obj/item/radio/headset/headset_cargo
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
-	l_hand = /obj/item/clipboard
 	pda = /obj/item/pda/quartermaster
-
+	backpack_contents = list(
+		/obj/item/clipboard = 1
+	)
 
 
 /datum/job/cargo_tech
@@ -351,11 +352,11 @@
 	jobtype = /datum/job/librarian
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
+	belt = /obj/item/storage/bag/books
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/barcodescanner
-	l_hand = /obj/item/storage/bag/books
 	pda = /obj/item/pda/librarian
 
 /datum/job/barber

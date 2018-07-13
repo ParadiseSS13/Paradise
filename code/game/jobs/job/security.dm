@@ -217,9 +217,12 @@
 	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
 	id = /obj/item/card/id/security
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/adv
 	pda = /obj/item/pda/medical
 	implants = list(/obj/item/implant/mindshield)
+	backpack_contents = list(
+		/obj/item/storage/firstaid/adv = 1
+	)
+	
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical

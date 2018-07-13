@@ -261,8 +261,11 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/flash
-	l_hand = /obj/item/storage/briefcase
 	pda = /obj/item/pda/lawyer
 	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	
+/datum/outfit/job/lawyer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	var/obj/item/storage/briefcase/B = new /obj/item/storage/briefcase(H)
+	H.equip_or_collect(B, slot_r_hand)
