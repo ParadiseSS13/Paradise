@@ -233,7 +233,6 @@
 	agent.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(agent), slot_w_uniform) //they're greys gettit
 	agent.equip_to_slot_or_del(new /obj/item/storage/backpack(agent), slot_back)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat, slot_gloves)
-	agent.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical, slot_in_backpack)
 
 /datum/game_mode/abduction/proc/get_team_console(team)
 	var/obj/machinery/abductor/console/console
@@ -271,7 +270,6 @@
 		console.gizmo = G
 		G.console = console
 	scientist.equip_to_slot_or_del(G, slot_in_backpack)
-	scientist.equip_to_slot_or_del(new /obj/item/reagent_containers/spray/cleaner, slot_in_backpack)
 	var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(scientist)
 	beamplant.implant(scientist)
 	scientist.update_icons()
