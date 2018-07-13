@@ -145,3 +145,4 @@
 	parent_organ = "chest"
 	status = ORGAN_ROBOT
 	species = "Machine"
+	requires_robotic_bodypart = TRUE // Can't stick this in someone's chest, unless their chest is robotic

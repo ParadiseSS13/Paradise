@@ -30,6 +30,7 @@
 	var/tough = FALSE //can organ be easily damaged?
 	var/emp_proof = FALSE //is the organ immune to EMPs?
 	var/hidden_pain = FALSE //will it skip pain messages?
+	var/requires_robotic_bodypart = FALSE
 
 
 /obj/item/organ/Destroy()
