@@ -24,6 +24,7 @@
 	var/burntime = 10 //How long it takes to burn to ashes, in seconds
 	var/burn_world_time //What world time the object will burn up completely
 	var/being_shocked = 0
+	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
@@ -65,6 +66,7 @@
 /obj/Destroy()
 	machines -= src
 	processing_objects -= src
+	fast_processing -= src
 	SSnanoui.close_uis(src)
 	return ..()
 
@@ -279,6 +281,24 @@ a {
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 
+/obj/proc/makeSpeedProcess()
+	if(speed_process)
+		return
+	speed_process = TRUE
+	processing_objects.Remove(src)
+	fast_processing.Add(src)
+
+/obj/proc/makeNormalProcess()
+	if(!speed_process)
+		return
+	speed_process = FALSE
+	processing_objects.Add(src)
+	fast_processing.Remove(src)
+
 /obj/vv_get_dropdown()
 	. = ..()
 	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
+	if(!speed_process)
+		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
+	else
+		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
