@@ -136,13 +136,17 @@
 
 	. = ..()
 
-/obj/item/organ/internal/brain/posibrain
-	name = "positronic brain"
-	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
-	icon = 'icons/obj/assemblies.dmi'
-	icon_state = "posibrain-occupied"
-	dead_icon = "posibrain"
-	parent_organ = "chest"
-	status = ORGAN_ROBOT
-	species = "Machine"
-	requires_robotic_bodypart = TRUE // Can't stick this in someone's chest, unless their chest is robotic
+/obj/item/organ/internal/brain/mmi_holder/posibrain/New()
+	stored_mmi = new /obj/item/mmi/robotic_brain/positronic(src)
+	..()
+	spawn(1)
+		if(!QDELETED(src))
+			if(owner)
+				stored_mmi.name = "positronic brain ([owner.real_name])"
+				stored_mmi.brainmob.real_name = owner.real_name
+				stored_mmi.brainmob.name = stored_mmi.brainmob.real_name
+				stored_mmi.icon_state = "posibrain-occupied"
+				update_from_mmi()
+			else
+				stored_mmi.loc = get_turf(src)
+				qdel(src)
