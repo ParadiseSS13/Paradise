@@ -855,7 +855,7 @@ var/list/admin_verbs_ticket = list(
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
+				if(ishuman(P.owner))
 					H = P.owner
 			else
 				return
