@@ -2,15 +2,14 @@
 	name = "cyborg recharging station"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
-	density = 1
-	anchored = 1.0
-	use_power = 1
+	density = TRUE
+	anchored = TRUE
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
-	var/mob/occupant = null
+	var/mob/living/occupant = null
 	var/circuitboard = /obj/item/circuitboard/cyborgrecharger
 	var/recharge_speed
-	var/recharge_speed_nutrition
 	var/repairs
 
 /obj/machinery/recharge_station/New()
@@ -34,102 +33,95 @@
 	component_parts += new /obj/item/stock_parts/cell/hyper(null)
 	RefreshParts()
 
+/obj/machinery/recharge_station/Destroy()
+	go_out()
+	return ..()
+
 /obj/machinery/recharge_station/RefreshParts()
 	recharge_speed = 0
-	recharge_speed_nutrition = 0
 	repairs = 0
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		recharge_speed += C.rating * 100
-		recharge_speed_nutrition += C.rating * 10
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
 		var/multiplier = C.maxcharge / 10000
 		recharge_speed *= multiplier
-		recharge_speed_nutrition *= multiplier
 
 /obj/machinery/recharge_station/process()
 	if(!(NOPOWER|BROKEN))
 		return
 
-	if(src.occupant)
+	if(occupant)
 		process_occupant()
 
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
 		if(M == occupant)
 			continue
 		else
-			M.forceMove(src.loc)
-	return 1
+			M.forceMove(get_turf(src))
+	return TRUE
 
 /obj/machinery/recharge_station/ex_act(severity)
+	var/mob/living/L = occupant
 	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
-				A.ex_act(severity)
+		if(1)
 			qdel(src)
-			return
-		if(2.0)
+			if(L)
+				L.ex_act(severity)
+		if(2)
 			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
 				qdel(src)
-				return
-		if(3.0)
+				if(L)
+					L.ex_act(severity)
+		if(3)
 			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
 				qdel(src)
-				return
+				if(L)
+					L.ex_act(severity)
 
 /obj/machinery/recharge_station/blob_act()
-	if(prob(50))
-		var/atom/movable/A = occupant
-		go_out()
-		A.blob_act()
+	if(prob(50) && occupant)
+		var/mob/living/L = occupant
 		qdel(src)
+		L.blob_act()
 
 /obj/machinery/recharge_station/narsie_act()
-	go_out()
-	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
+	new /obj/effect/gibspawner/generic(get_turf(src)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
 
 
-/obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
+/obj/machinery/recharge_station/attack_animal(mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
 	if(M.environment_smash)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
-		go_out()
 		qdel(src)
-	return
 
-/obj/machinery/recharge_station/Bumped(var/mob/AM)
-	move_inside(AM)
+/obj/machinery/recharge_station/Bumped(atom/movable/AM)
+	if(isrobot(AM) || ishuman(AM))
+		move_inside(AM)
 
 /obj/machinery/recharge_station/allow_drop()
-	return 0
+	return FALSE
 
-/obj/machinery/recharge_station/relaymove(mob/user as mob)
+/obj/machinery/recharge_station/relaymove(mob/user)
 	if(user.stat)
 		return
-	src.go_out()
-	return
+	go_out()
 
 /obj/machinery/recharge_station/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
 	if(occupant)
-		occupant.emp_act(severity)
+		var/mob/living/L = occupant
 		go_out()
+		L.emp_act(severity)
 	..(severity)
 
 /obj/machinery/recharge_station/proc/build_icon()
 	if(NOPOWER|BROKEN)
-		if(src.occupant)
+		if(occupant)
 			icon_state = "borgcharger1"
 		else
 			icon_state = "borgcharger0"
@@ -149,12 +141,12 @@
 
 	if(default_deconstruction_crowbar(I))
 		return
-	else
-		return ..()
+
+	return ..()
 
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
+	if(occupant)
+		if(isrobot(occupant))
 			var/mob/living/silicon/robot/R = occupant
 			restock_modules()
 			if(repairs)
@@ -163,26 +155,26 @@
 				R.updatehealth()
 			if(R.cell)
 				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
-		else if(istype(occupant, /mob/living/carbon/human))
+		else if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
-			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
-				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
+			var/obj/item/organ/internal/cell_mount/cell_mount = H.get_int_organ(/obj/item/organ/internal/cell_mount)
+			if(cell_mount)
+				if(cell_mount.cell)
+					cell_mount.cell.charge = min(cell_mount.cell.charge + recharge_speed, cell_mount.cell.maxcharge)
 				if(repairs)
-					H.heal_overall_damage(repairs, repairs, 0, 1)
-					H.updatehealth()
+					H.heal_overall_damage(repairs, repairs, FALSE, TRUE)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
 		return
-	occupant.forceMove(loc)
+	occupant.forceMove(get_turf(src))
 	occupant = null
 	build_icon()
-	use_power = 1
-	return
+	use_power = IDLE_POWER_USE
 
 /obj/machinery/recharge_station/proc/restock_modules()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
+	if(occupant)
+		if(isrobot(occupant))
 			var/mob/living/silicon/robot/R = occupant
 			var/coeff = recharge_speed / 200
 			if(R.module && R.module.modules)
@@ -242,66 +234,34 @@
 /obj/machinery/recharge_station/verb/move_eject()
 	set category = "Object"
 	set src in oview(1)
-	if(usr.stat != 0)
-		return
-	src.go_out()
-	add_fingerprint(usr)
-	return
-
-/obj/machinery/recharge_station/verb/move_inside(var/mob/user = usr)
-	set category = "Object"
-	set src in oview(1)
-	if(!user || !usr)
-		return
 
 	if(usr.stat != CONSCIOUS)
 		return
+	go_out()
+	add_fingerprint(usr)
 
-	if(get_dist(src, user) > 2 || get_dist(usr, user) > 1)
-		to_chat(usr, "They are too far away to put inside")
+/obj/machinery/recharge_station/proc/move_inside(mob/living/L)
+	if(!L)
 		return
 
 	if(panel_open)
-		to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
+		to_chat(L, "<span class='warning'>Close the maintenance panel first.</span>")
 		return
 
-	var/can_accept_user
-	if(isrobot(user))
-		var/mob/living/silicon/robot/R = user
-
-		if(R.stat == DEAD)
-			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
-			return
-		if(occupant)
-			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
-			return
-		if(!R.cell)
-			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
-			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
-			return
-		can_accept_user = 1
-
-	else if(istype(user, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-
-		if(H.stat == DEAD)
-			return
-		if(occupant)
-			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
-			return
-		if(!H.get_int_organ(/obj/item/organ/internal/cell))
-			return
-		can_accept_user = 1
-
-	if(!can_accept_user)
-		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
+	if(occupant)
+		to_chat(L, "<span class='warning'>The cell is already occupied!</span>")
 		return
 
-	user.stop_pulling()
-	user.forceMove(src)
-	occupant = user
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		if(!H.get_int_organ(/obj/item/organ/internal/cell_mount))
+			to_chat(H, "<span class='warning'>Without a cell mount, you can't interface with [src].</span>")
+			return
 
-	add_fingerprint(user)
+	L.stop_pulling()
+	L.forceMove(src)
+	occupant = L
+
+	add_fingerprint(L)
 	build_icon()
 	update_use_power(1)
-	return
