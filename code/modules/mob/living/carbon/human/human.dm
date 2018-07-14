@@ -123,7 +123,8 @@
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
 	..()
-	real_name = "Integrated Robotic Chassis ([rand(1, 9999)])"
+	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
+	update_dna()
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
 			continue
