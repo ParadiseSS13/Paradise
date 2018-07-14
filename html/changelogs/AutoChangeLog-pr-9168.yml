@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - tweak: "The tachyon-doppler array now has a logging interface, and can print off stored explosive logs. Brag to your friends about your bomb-making skills!"
