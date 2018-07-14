@@ -229,6 +229,17 @@
 	combat = 1
 	safety = 0
 
+/obj/item/defibrillator/compact/combat/ERT
+	desc = "A belt-equipped defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
+
+
+/obj/item/defibrillator/compact/combat/ERT/loaded/New()
+	..()
+	paddles = make_paddles()
+	bcell = new /obj/item/stock_parts/cell/infinite(src)
+	update_icon()
+	return
+
 /obj/item/defibrillator/compact/combat/loaded/New()
 	..()
 	paddles = make_paddles()
