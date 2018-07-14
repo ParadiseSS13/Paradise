@@ -3874,7 +3874,7 @@
 "bwz" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plating,/area/maintenance/port)
 "bwA" = (/turf/simulated/wall,/area/quartermaster/storage)
 "bwB" = (/obj/machinery/door/airlock/maintenance{name = "Cargo Bay Warehouse Maintenance"; req_access_txt = "31"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plating,/area/maintenance/port)
-"bwC" = (/obj/machinery/conveyor{dir = 4; id = "packageSort2"},/obj/machinery/light{dir = 8},/turf/simulated/floor/plating,/area/quartermaster/office)
+"bwC" = (/obj/machinery/conveyor{dir = 5; id = "packageSort2"},/turf/simulated/floor/plating,/area/quartermaster/office)
 "bwD" = (/obj/machinery/conveyor{dir = 4; id = "packageSort2"},/turf/simulated/floor/plating,/area/quartermaster/office)
 "bwE" = (/obj/machinery/conveyor{dir = 4; id = "packageSort2"},/obj/structure/plasticflaps{opacity = 0},/turf/simulated/floor/plating,/area/quartermaster/office)
 "bwF" = (/obj/structure/disposalpipe/trunk{dir = 1},/obj/machinery/disposal/deliveryChute{dir = 8},/turf/simulated/floor/plating,/area/quartermaster/office)
