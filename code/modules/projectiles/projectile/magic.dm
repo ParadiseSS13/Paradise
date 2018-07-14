@@ -298,3 +298,24 @@ proc/wabbajack(mob/living/M)
 	flag = "magic"
 	dismemberment = 50
 	nodamage = 0
+/*
+/obj/item/projectile/magic/barricade
+	name = "bolt of barricade"
+	icon_state = "energy"
+	var/list/barricade_types = list(/obj/structure/barricade/wooden)
+
+/obj/item/projectile/magic/barricade/on_hit(var/atom/target)
+	. = ..()
+	var/atom/T = target.loc
+	if(isturf(target) && target.density)
+		CreateBarricade(target)
+	else if(isturf(T) && T.density)
+		CreateBarricade(T)
+
+/obj/item/projectile/magic/barricade/proc/CreateBarricade(turf/T)
+	T.ChangeTurf(/turf/simulated/floor/plasteel)
+
+/obj/item/projectile/magic/barricade/proc/CreateDoor(turf/T)
+	var/barricade_type = pick(barricade_types)
+	T.ChangeTurf(/turf/simulated/floor/plasteel)
+	*/

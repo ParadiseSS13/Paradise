@@ -50,3 +50,7 @@
 	select_name = "spraydown"
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	e_cost = 20
+/*
+/obj/item/ammo_casing/magic/barricade
+	projectile_type = /obj/item/projectile/magic/barricade
+	*/
