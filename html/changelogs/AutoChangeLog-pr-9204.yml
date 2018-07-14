@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Robotic brains have their own unique sprite and full flavortext's now"
-  - bugfix: "Fixed a bug where IRC's would have IPC names"

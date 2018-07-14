@@ -1,4 +1,0 @@
-author: "Anasari"
-delete-after: True
-changes: 
-  - tweak: "Assuming there is heal left, bandages and ointments used on limbs now heal both the limb and the hand / foot. Bandages and ointments used on the torso now heal head, arms, and lower body. The one on lower body heals the legs too."
