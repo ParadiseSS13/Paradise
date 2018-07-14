@@ -39,3 +39,27 @@
 			continue
 		return 1
 	return 0
+
+//Only places atoms/turfs on turfs next to space
+/datum/mapGeneratorModule/space_adjacent
+	clusterCheckFlags = CLUSTER_CHECK_NONE
+
+/datum/mapGeneratorModule/space_adjacent/generate()
+	if(!mother)
+		return
+	var/list/map = mother.map
+	for(var/turf/T in map)
+		if(is_space_adjacent(T))
+			place(T)
+
+/datum/mapGeneratorModule/proc/is_space_adjacent(var/turf/T)
+	for(var/D in list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+		if(istype(get_step(T, D), /turf/space))
+			return TRUE
+	return FALSE
+
+/datum/mapGeneratorModule/proc/objs_in_turf(var/turf/T)
+	var/i = 0
+	for(var/obj/O in T.contents)
+		i++
+	return i

@@ -111,7 +111,6 @@
 		spawn(0)
 			mod.generate()
 
-
 //Requests the mapGeneratorModule(s) to (re)generate this one turf
 /datum/mapGenerator/proc/generateOneTurf(var/turf/T)
 	if(!T)
