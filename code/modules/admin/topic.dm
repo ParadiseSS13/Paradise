@@ -2882,7 +2882,7 @@
 				template.copy_contents_to(thunderdome)
 
 				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to Fort Siege with delete_mobs==[delete_mobs].</span>")
 			if("tdomereset4")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")
@@ -2899,7 +2899,7 @@
 				var/area/template = locate(/area/tdome/arena_source4)
 				template.copy_contents_to(thunderdome)
 
-				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
+				log_admin("[key_name(usr)] reset the thunderdome to  with delete_mobs==[delete_mobs].", 1)
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
 
 			if("tdomestart")

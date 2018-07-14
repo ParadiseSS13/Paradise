@@ -1,0 +1,27 @@
+"a" = (/turf/unsimulated/wall,/area/space)
+"b" = (/turf/simulated/floor/plasteel,/area/space)
+"c" = (/turf/unsimulated/floor{icon_state = "dark"},/area/space)
+"d" = (/obj/machinery/door/poddoor{id_tag = "listos"},/turf/unsimulated/floor{icon_state = "dark"},/area/space)
+"e" = (/obj/structure/window/full/reinforced/tinted,/turf/simulated/floor/plating,/area/space)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+aaaabbbbbbbbbbbbbbbbbbbbbbbbbaaaa
+acccaabbbbbbbbbbbbbbbbbbbbbaaccca
+acccccabbbbbbbbbbbbbbbbbbbaccccca
+acccccdbbbbbbbbbbbbbbbbbbbdccccca
+acccccabbbbbbbbbbbbbbbbbbbaccccca
+acccaabbbbbbbbbbbbbbbbbbbbbaaccca
+aaaabbbbbbbbbbbbbbbbbbbbbbbbbaaaa
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbba
+aaaaaaaeaaaaaaaaeaaaaaaaaeaaaaaaa
+"}

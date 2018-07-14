@@ -141,3 +141,15 @@
 					prob(8);/obj/effect/mine/gas/n2o,\
 					prob(2);/obj/effect/mine/explosive,\
 					/obj)
+
+
+/obj/random/banana
+	name = "Random banana"
+	desc = "30% chance of spawning a banana"
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "banana_peel"
+	item_to_spawn()
+		return pick(prob(38);/obj/item/grown/bananapeel,\
+					prob(2);/obj/item/grown/bananapeel/bluespace,\
+					prob(70);/obj)
+
