@@ -597,17 +597,18 @@
 				becomeFat()
 
 	// nutrition decrease
-	if(nutrition > 0 && stat != DEAD)
-		// THEY HUNGER
-		var/hunger_rate = hunger_drain
-		if(satiety > 0)
-			satiety--
-		if(satiety < 0)
-			satiety++
-			if(prob(round(-satiety/40)))
-				Jitter(5)
-			hunger_rate = 3 * hunger_drain
-		nutrition = max(0, nutrition - hunger_rate)
+	if(!(NO_HUNGER in species.species_traits))
+		if(nutrition > 0 && stat != DEAD)
+			// THEY HUNGER
+			var/hunger_rate = hunger_drain
+			if(satiety > 0)
+				satiety--
+			if(satiety < 0)
+				satiety++
+				if(prob(round(-satiety/40)))
+					Jitter(5)
+				hunger_rate = 3 * hunger_drain
+			nutrition = max(0, nutrition - hunger_rate)
 
 	if(nutrition > NUTRITION_LEVEL_FULL)
 		if(overeatduration < 600) //capped so people don't take forever to unfat
@@ -624,7 +625,7 @@
 	if(nutrition > NUTRITION_LEVEL_FAT)
 		metabolism_efficiency = 1
 	else if(nutrition > NUTRITION_LEVEL_FED && satiety > 80)
-		if(metabolism_efficiency != 1.25)
+		if(metabolism_efficiency != 1.25 && !(NO_HUNGER in species.species_traits))
 			to_chat(src, "<span class='notice'>You feel vigorous.</span>")
 			metabolism_efficiency = 1.25
 	else if(nutrition < NUTRITION_LEVEL_STARVING + 50)
