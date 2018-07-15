@@ -108,13 +108,14 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the cryo cell because they have a slime latched onto their head.")
+			to_chat(usr, "[L.name] will not fit into the cryo cell because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
 			return
 	if(put_mob(L))
 		if(L == user)
 			visible_message("[user] climbs into the cryo cell.")
 		else
 			visible_message("[user] puts [L.name] into the cryo cell.")
+			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
 
@@ -262,6 +263,7 @@
 	if(href_list["ejectOccupant"])
 		if(!occupant || isslime(usr) || ispAI(usr))
 			return 0 // don't update UIs attached to this object
+		add_attack_logs(usr, occupant, "ejected from cryo cell at [COORD(src)]", ATKLOG_ALL)
 		go_out()
 
 	add_fingerprint(usr)
@@ -269,16 +271,18 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/G as obj, var/mob/user as mob, params)
 	if(istype(G, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/B = G
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
 			return
 		if(!user.drop_item())
-			to_chat(user, "The [G] is stuck to you!")
+			to_chat(user, "[B] is stuck to you!")
 			return
-		G.forceMove(src)
-		beaker =  G
+		B.forceMove(src)
+		beaker =  B
+		add_attack_logs(user, null, "Added [B] containing [B.reagentlist()] to a cryo cell at [COORD(src)]")
+		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
 
-		user.visible_message("[user] adds \a [G] to \the [src]!", "You add \a [G] to \the [src]!")
 
 	if(istype(G, /obj/item/screwdriver))
 		if(occupant || on)
@@ -293,18 +297,19 @@
 	default_deconstruction_crowbar(G)
 
 	if(istype(G, /obj/item/grab))
+		var/obj/item/grab/GG = G
 		if(panel_open)
 			to_chat(user, "<span class='boldnotice'>Close the maintenance panel first.</span>")
 			return
-		if(!ismob(G:affecting))
+		if(!ismob(GG.affecting))
 			return
-		for(var/mob/living/carbon/slime/M in range(1,G:affecting))
-			if(M.Victim == G:affecting)
-				to_chat(usr, "[G:affecting:name] will not fit into the cryo because they have a slime latched onto their head.")
+		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
+			if(M.Victim == GG.affecting)
+				to_chat(usr, "[GG.affecting.name] will not fit into the cryo because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
 				return
-		var/mob/M = G:affecting
+		var/mob/M = GG.affecting
 		if(put_mob(M))
-			qdel(G)
+			qdel(GG)
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
@@ -452,6 +457,7 @@
 	else
 		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
 			return
+		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
 		go_out()
 	add_fingerprint(usr)
 	return

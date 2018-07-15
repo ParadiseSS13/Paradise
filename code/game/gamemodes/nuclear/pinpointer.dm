@@ -341,7 +341,7 @@
 	if(active)
 		active = FALSE
 		icon_state = icon_off
-		user.visible_message("<span class='notice'>[user] deactivates their pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
+		user.visible_message("<span class='notice'>[user] deactivates [user.p_their()] pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
 		return
 
 	var/list/name_counts = list()
@@ -373,7 +373,7 @@
 
 	var/target = names[A]
 	active = TRUE
-	user.visible_message("<span class='notice'>[user] activates their pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
+	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
 	point_at(target)
 
 /obj/item/pinpointer/crew/point_at(atom/target, spawnself = 1)

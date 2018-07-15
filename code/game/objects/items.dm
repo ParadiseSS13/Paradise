@@ -452,7 +452,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 							"<span class='userdanger'>[user] stabs you in the eye with [src]!</span>")
 	else
 		user.visible_message( \
-			"<span class='danger'>[user] has stabbed themself in the eyes with [src]!</span>", \
+			"<span class='danger'>[user] has stabbed [user.p_them()]self in the eyes with [src]!</span>", \
 			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
 		)
 
@@ -467,7 +467,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
-				if(!(eyes.status & ORGAN_ROBOT) || !(eyes.status & ORGAN_ASSISTED))  //robot eyes bleeding might be a bit silly
+				if(!eyes.is_robotic())  //robot eyes bleeding might be a bit silly
 					to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
 			if(prob(50))
 				if(M.stat != DEAD)
@@ -552,3 +552,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/proc/on_trip(mob/living/carbon/human/H)
 	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
 		return TRUE
+
+/obj/item/attack_hulk(mob/living/carbon/human/user)
+	return FALSE

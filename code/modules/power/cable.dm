@@ -501,9 +501,9 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/stool) in user.loc)
-		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like \he's trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	else
-		user.visible_message("<span class='suicide'>[user] is strangling \himself with the [name]! It looks like \he's trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return(OXYLOSS)
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/paramcolor = null)
@@ -528,7 +528,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
+		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(S.burn_dam)

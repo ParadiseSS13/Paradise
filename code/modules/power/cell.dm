@@ -89,7 +89,7 @@
 		to_chat(user, "The charge meter reads [round(percent() )]%.")
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like \he's trying to commit suicide.</span>")
+	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return (FIRELOSS)
 
 /obj/item/stock_parts/cell/attackby(obj/item/W, mob/user, params)

@@ -187,7 +187,7 @@
 	return null
 
 /proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user, obj/item/tool)
-	if(!istype(user) || !istype(E) || !(E.status & ORGAN_ROBOT) || E.sterile)
+	if(!istype(user) || !istype(E) || E.is_robotic() || E.sterile)
 		return
 
 	var/germ_level = user.germ_level
@@ -195,7 +195,7 @@
 	//germ spread from surgeon touching the patient
 	if(user.gloves)
 		germ_level = user.gloves.germ_level
-	E.germ_level += germ_level
+	E.germ_level = max(germ_level, E.germ_level)
 	spread_germs_by_incision(E, tool) //germ spread from environement to patient
 
 /proc/spread_germs_by_incision(obj/item/organ/external/E,obj/item/tool)
@@ -220,7 +220,7 @@
 	if(E.internal_organs.len)
 		germs = germs / (E.internal_organs.len + 1) // +1 for the external limb this eventually applies to; let's not multiply germs now.
 		for(var/obj/item/organ/internal/O in E.internal_organs)
-			if(!(O.status & ORGAN_ROBOT))
+			if(!O.is_robotic())
 				O.germ_level += germs
 
 	E.germ_level += germs

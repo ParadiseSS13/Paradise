@@ -366,7 +366,7 @@
 				correct_piece.icon_state = "[initial(icon_state)]"
 				switch(msg_type)
 					if("boots")
-						to_chat(wearer, "<font color='blue'>\The [correct_piece] relax their grip on your legs.</font>")
+						to_chat(wearer, "<font color='blue'>\The [correct_piece] relax [correct_piece.p_their()] grip on your legs.</font>")
 						if(user != wearer)
 							to_chat(user, "<span class='notice'>\The [correct_piece] has been unsealed.</span>")
 						wearer.update_inv_shoes()

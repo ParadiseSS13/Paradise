@@ -115,7 +115,7 @@
 			O.receive_damage(amount, 0, sharp=is_sharp(damage_source), used_weapon=damage_source)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
-			O.heal_damage(-amount, 0, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
+			O.heal_damage(-amount, 0, internal = 0, robo_repair = O.is_robotic())
 
 
 /mob/living/carbon/human/proc/adjustFireLossByPart(amount, organ_name, obj/damage_source = null)
@@ -129,7 +129,7 @@
 			O.receive_damage(0, amount, sharp=is_sharp(damage_source), used_weapon=damage_source)
 		else
 			//if you don't want to heal robot organs, they you will have to check that yourself before using this proc.
-			O.heal_damage(0, -amount, internal=0, robo_repair=(O.status & ORGAN_ROBOT))
+			O.heal_damage(0, -amount, internal = 0, robo_repair = O.is_robotic())
 
 
 /mob/living/carbon/human/Paralyse(amount)
@@ -149,7 +149,7 @@
 		if(prob(mut_prob))
 			var/list/obj/item/organ/external/candidates = list() //TYPECASTED LISTS ARE NOT A FUCKING THING WHAT THE FUCK
 			for(var/obj/item/organ/external/O in bodyparts)
-				if(O.status & ORGAN_ROBOT)
+				if(O.is_robotic())
 					continue
 				if(!(O.status & ORGAN_MUTATED))
 					candidates |= O
@@ -205,9 +205,9 @@
 	var/list/obj/item/organ/external/parts = list()
 	for(var/obj/item/organ/external/O in bodyparts)
 		if((brute && O.brute_dam) || (burn && O.burn_dam))
-			if(!(flags & AFFECT_ROBOTIC_ORGAN) && O.status & ORGAN_ROBOT)
+			if(!(flags & AFFECT_ROBOTIC_ORGAN) && O.is_robotic())
 				continue
-			if(!(flags & AFFECT_ORGANIC_ORGAN) && !(O.status & ORGAN_ROBOT))
+			if(!(flags & AFFECT_ORGANIC_ORGAN) && !O.is_robotic())
 				continue
 			parts += O
 	return parts

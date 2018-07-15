@@ -39,35 +39,35 @@
 		switch(href_list["makeAntag"])
 			if("1")
 				log_admin("[key_name(usr)] has spawned a traitor.")
-				if(!src.makeTraitors())
+				if(!makeTraitors())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("2")
 				log_admin("[key_name(usr)] has spawned a changeling.")
-				if(!src.makeChanglings())
+				if(!makeChangelings())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("3")
 				log_admin("[key_name(usr)] has spawned revolutionaries.")
-				if(!src.makeRevs())
+				if(!makeRevs())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("4")
 				log_admin("[key_name(usr)] has spawned a cultists.")
-				if(!src.makeCult())
+				if(!makeCult())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("5")
 				log_admin("[key_name(usr)] has spawned a wizard.")
-				if(!src.makeWizard())
+				if(!makeWizard())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("6")
 				log_admin("[key_name(usr)] has spawned vampires.")
-				if(!src.makeVampires())
+				if(!makeVampires())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("7")
 				log_admin("[key_name(usr)] has spawned vox raiders.")
-				if(!src.makeVoxRaiders())
+				if(!makeVoxRaiders())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 			if("8")
 				log_admin("[key_name(usr)] has spawned an abductor team.")
-				if(!src.makeAbductorTeam())
+				if(!makeAbductorTeam())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
@@ -1622,14 +1622,14 @@
 			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
 			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
-				message_admins("[key_name_admin(H)] has their hands full, so they did not receive their cookie, spawned by [key_name_admin(src.owner)].")
+				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
 				return
 			else
 				H.update_inv_r_hand()//To ensure the icon appears in the HUD
 		else
 			H.update_inv_l_hand()
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)]")
-		message_admins("[key_name_admin(H)] got their cookie, spawned by [key_name_admin(src.owner)]")
+		message_admins("[key_name_admin(H)] got [H.p_their()] cookie, spawned by [key_name_admin(src.owner)]")
 		feedback_inc("admin_cookies_spawned",1)
 		to_chat(H, "<span class='notice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
 
@@ -1683,7 +1683,7 @@
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
 
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from Centcomm", "")
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from Centcomm", "")
 		if(!input)	return
 
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
@@ -2045,7 +2045,7 @@
 		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from The Syndicate", "")
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from The Syndicate", "")
 		if(!input)
 			return
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
@@ -2061,7 +2061,7 @@
 			to_chat(usr, "The person you are trying to contact is not wearing a headset")
 			return
 
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via their headset.","Outgoing message from HONKplanet", "")
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from HONKplanet", "")
 		if(!input)	return
 
 		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
@@ -2727,48 +2727,6 @@
 				for(var/mob/M in player_list)
 					if(M.stat != 2)
 						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
-/*				if("shockwave")
-				ok = 1
-				to_chat(world, "<span class='danger'><big>ALERT: STATION STRESS CRITICAL</big></span>")
-				sleep(60)
-				to_chat(world, "<span class='danger'><big>ALERT: STATION STRESS CRITICAL. TOLERABLE LEVELS EXCEEDED!</big></span>")
-				sleep(80)
-				to_chat(world, "<span class='danger'><big>ALERT: STATION STRUCTURAL STRESS CRITICAL. SAFETY MECHANISMS FAILED!</big></span>")
-				sleep(40)
-				for(var/mob/M in world)
-					shake_camera(M, 400, 1)
-				for(var/obj/structure/window/W in world)
-					spawn(0)
-						sleep(rand(10,400))
-						W.ex_act(rand(2,1))
-				for(var/obj/structure/grille/G in world)
-					spawn(0)
-						sleep(rand(20,400))
-						G.ex_act(rand(2,1))
-				for(var/obj/machinery/door/D in world)
-					spawn(0)
-						sleep(rand(20,400))
-						D.ex_act(rand(2,1))
-				for(var/turf/station/floor/Floor in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Floor.ex_act(rand(2,1))
-				for(var/obj/structure/cable/Cable in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Cable.ex_act(rand(2,1))
-				for(var/obj/structure/closet/Closet in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Closet.ex_act(rand(2,1))
-				for(var/obj/machinery/Machinery in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Machinery.ex_act(rand(1,3))
-				for(var/turf/station/wall/Wall in world)
-					spawn(0)
-						sleep(rand(30,400))
-						Wall.ex_act(rand(2,1)) */
 			if("lightout")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","LO")
@@ -2793,7 +2751,7 @@
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
-				weather_master.run_weather("the floor is lava")
+				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
 				feedback_inc("admin_secrets_fun_used", 1)
@@ -2801,7 +2759,7 @@
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
-				weather_master.run_weather("fake lava")
+				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
 				feedback_inc("admin_secrets_fun_used", 1)
@@ -2809,16 +2767,8 @@
 				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
 				if(sure == "No")
 					return
-				weather_master.run_weather("ash storm")
+				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining asteroid")
-			if("weatherdarkness")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "WD")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
-					return
-				weather_master.run_weather("advanced darkness")
-				message_admins("[key_name_admin(usr)] made the station go through advanced darkness")
 			if("retardify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")
@@ -2957,13 +2907,6 @@
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])
-			if("clear_bombs")
-				//I do nothing
-			if("list_bombers")
-				var/dat = "<B>Bombing List<HR>"
-				for(var/l in bombers)
-					dat += text("[l]<BR>")
-				usr << browse(dat, "window=bombers")
 			if("list_signalers")
 				var/dat = "<B>Showing last [length(lastsignalers)] signalers.</B><HR>"
 				for(var/sig in lastsignalers)
@@ -3432,7 +3375,7 @@
 	to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
 	to_chat(hunter_mob, "<B>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)]. </B>");
 	if(killthem)
-		to_chat(hunter_mob, "<B>If you kill them, they cannot be revived.</B>");
+		to_chat(hunter_mob, "<B>If you kill [H.p_them()], [H.p_they()] cannot be revived.</B>");
 	hunter_mob.mind.special_role = SPECIAL_ROLE_TRAITOR
 	var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
 	tatorhud.join_hud(hunter_mob)

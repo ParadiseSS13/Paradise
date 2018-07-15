@@ -68,7 +68,7 @@
 			count++
 
 		if(tasks_completed >= 1)
-			text += "<br>&nbsp;<font color='green'><B>[employee.name] did their fucking job!</B></font>"
+			text += "<br>&nbsp;<font color='green'><B>[employee.name] did [employee.p_their()] fucking job!</B></font>"
 			feedback_add_details("employee_success","SUCCESS")
 		else
 			feedback_add_details("employee_success","FAIL")

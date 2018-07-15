@@ -87,11 +87,11 @@
 					if(inactivity_period <= 0)
 						inactivity_period = 9999 // technically infinite
 						if(do_after(src, 60, target = traitorTarget))
-							custom_emote(1, "A fire bursts from [src]'s eyes, igniting white hot and consuming their body in a flaming explosion!")
+							custom_emote(1, "A fire bursts from [src]'s eyes, igniting white hot and consuming [p_their()] body in a flaming explosion!")
 							explosion(src, 6, 6, 6)
 						else
 							inactivity_period = 0
-							custom_emote(1, "[src]'s chest closes, hiding their insides.")
+							custom_emote(1, "[src]'s chest closes, hiding [p_their()] insides.")
 				if(SNPC_PSYCHO)
 					var/choice = pick(typesof(/obj/item/grenade/chem_grenade) - /obj/item/grenade/chem_grenade)
 
@@ -469,7 +469,7 @@
 				if(!Adjacent(SF))
 					tryWalk(get_turf(SF))
 				else
-					custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")], grabbing various foodstuffs from [SF] and sticking them in it's mouth!")
+					custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")], grabbing various foodstuffs from [SF] and sticking them in its mouth!")
 					for(var/obj/item/A in SF.contents)
 						if(prob(smartness/2))
 							var/count = SF.item_quants[A.name]
@@ -631,7 +631,7 @@
 			TARGET = newSnack
 			newSnack.reagents.remove_any((newSnack.reagents.total_volume/2)-1)
 			newSnack.name = "Synthetic [newSnack.name]"
-			custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")] as they vomit [newSnack] from their mouth!")
+			custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")] as [p_they()] vomit[p_s()] [newSnack] from [p_their()] mouth!")
 	catch(var/exception/e)
 		log_runtime(e, src, "Caught in SNPC cooking module")
 	doing &= ~SNPC_SPECIAL

@@ -176,7 +176,7 @@
 	if(ishuman(target))
 		if(console!=null)
 			console.AddSnapshot(target)
-			to_chat(user, "<span class='notice'>You scan [target] and add them to the database.</span>")
+			to_chat(user, "<span class='notice'>You scan [target] and add [target.p_them()] to the database.</span>")
 
 /obj/item/abductor/gizmo/proc/mark(atom/target, mob/living/user)
 	if(marked == target)

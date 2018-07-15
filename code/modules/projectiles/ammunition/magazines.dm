@@ -198,13 +198,6 @@
 	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
-/obj/item/ammo_box/magazine/m10mm/empty		//for maint drops
-	desc = "A gun magazine. Seems to be broken and can only hold one bullet. Pretty useless."
-	max_ammo = 1
-
-/obj/item/ammo_box/magazine/m10mm/empty/update_icon()
-	icon_state = "[initial(icon_state)]-[stored_ammo.len ? "8" : "0"]"
-
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
 	icon_state = "45"

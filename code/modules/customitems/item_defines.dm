@@ -46,7 +46,7 @@
 	var/mob/living/carbon/human/target = M
 
 	if(istype(target.species, /datum/species/machine))
-		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo them?</span>")
+		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
 		return
 
 	if(target.m_styles["body"] != "None")
@@ -1354,6 +1354,13 @@
 	item_state = "teri_horn"
 	honk_sound = 'sound/items/teri_horn.ogg'
 
+/obj/item/clothing/accessory/medal/fluff/elo	//V-Force_Bomber: E.L.O.
+	name = "distinguished medal of loyalty and excellence"
+	desc = "This medal is cut into the shape of a Victoria Cross, and is awarded to those who have proven themselves to Nanotrasen with a long and successful career."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "elo-medal"
+	item_color = "elo-medal"
+
 /obj/item/clothing/suit/fluff/vetcoat //Furasian: Fillmoore Grayson
 	name = "Veteran Coat"
 	desc = "An old, yet well-kept Nanotrasen uniform. Very few of its kind are still produced."
@@ -1371,3 +1378,12 @@
 /obj/item/clothing/suit/fluff/vetcoat/navy //Furasian: Fillmoore Grayson
 	icon_state = "alchemistcoatnavy"
 	item_state = "alchemistcoatnavy"
+
+/obj/item/clothing/accessory/medal/fluff/panzermedal //PanzerSkull: GRN-DER
+	name = "Cross of Valor"
+	desc = "A medal from the bygone Asteroid Wars. Its Ruby shines with a strange intensity."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "panzermedal"
+	item_state = "panzermedal"
+	item_color = "panzermedal"
+	slot_flags = SLOT_TIE

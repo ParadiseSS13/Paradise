@@ -192,7 +192,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1,L))
 		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the [src] because they have a slime latched onto their head.")
+			to_chat(usr, "[L.name] will not fit into the [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
 			return
 	if(L == user)
 		visible_message("[user] climbs into the [src].")

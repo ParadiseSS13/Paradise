@@ -79,7 +79,7 @@
 			return
 		var/mob/M = G.affecting
 		if(M.buckled_mob)
-			to_chat(usr, "[M] will not fit into [src] because they have a slime latched onto their head.")
+			to_chat(usr, "[M] will not fit into [src] because [M.p_they()] [M.p_have()] a slime latched onto [M.p_their()] head.")
 			return
 		if(put_mob(M))
 			qdel(G)

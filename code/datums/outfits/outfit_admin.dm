@@ -1063,6 +1063,7 @@
 
 
 /datum/outfit/admin/wizard
+	name = "Blue Wizard"
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
 	back = /obj/item/storage/backpack
@@ -1085,10 +1086,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Wizard")
-
-/datum/outfit/admin/wizard/blue
-	name = "Blue Wizard"
-	// the default wizard clothes are blue
 
 /datum/outfit/admin/wizard/red
 	name = "Red Wizard"

@@ -470,19 +470,10 @@
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	log_message("Attack by hand/paw. Attacker - [user].",1)
-
-	if((HULK in user.mutations) && !prob(deflect_chance))
-		do_attack_animation(src, ATTACK_EFFECT_SMASH)
-		take_damage(15)
-		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
-		user.visible_message("<span class='danger'>[user] hits [name], doing some damage.</span>",
-		"<span class='danger'>You hit [name] with all your might. The metal creaks and bends.</span>")
-	else
-		user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-		playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
-		user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>","<span class='danger'>You hit [name] with no visible effect.</span>")
-		log_append_to_last("Armor saved.")
-	return
+	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
+	user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>", "<span class='danger'>You hit [name] with no visible effect.</span>")
+	log_append_to_last("Armor saved.")
 
 
 /obj/mecha/attack_alien(mob/living/user)
@@ -525,6 +516,16 @@
 			visible_message("<span class='notice'>The [user] rebounds off [name]'s armor!</span>")
 			user.create_attack_log("<font color='red'>attacked [name]</font>")
 	return
+
+/obj/mecha/hulk_damage()
+	return 15
+
+/obj/mecha/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
+	if(.)
+		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL, MECHA_INT_TANK_BREACH, MECHA_INT_CONTROL_LOST))
+		log_message("Attack by hulk. Attacker - [user].", 1)
+		add_attack_logs(user, src, "Punched with hulk powers")
 
 /obj/mecha/hitby(atom/movable/A) //wrapper
 	..()
@@ -1205,6 +1206,10 @@
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
 		brainmob.canmove = 1
+		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
+			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
+			if(R.imprinted_master)
+				to_chat(brainmob, "<span class='notice'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
 		verbs -= /obj/mecha/verb/eject
@@ -1304,6 +1309,10 @@
 			mmi.mecha = null
 			mmi.update_icon()
 			L.canmove = 0
+			if(istype(mmi, /obj/item/mmi/robotic_brain))
+				var/obj/item/mmi/robotic_brain/R = mmi
+				if(R.imprinted_master)
+					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
 		icon_state = initial(icon_state)+"-open"
 		dir = dir_in
 

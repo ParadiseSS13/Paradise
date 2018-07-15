@@ -63,8 +63,8 @@
 			to_chat(user, "<span class='notice'>You need to wipe off the old lipstick first!</span>")
 			return
 		if(H == user)
-			user.visible_message("<span class='notice'>[user] does their lips with \the [src].</span>", \
-								 "<span class='notice'>You take a moment to apply \the [src]. Perfect!</span>")
+			user.visible_message("<span class='notice'>[user] does [user.p_their()] lips with [src].</span>", \
+								 "<span class='notice'>You take a moment to apply [src]. Perfect!</span>")
 			H.lip_style = "lipstick"
 			H.lip_color = colour
 			H.update_body()
@@ -106,11 +106,11 @@
 				to_chat(user, "<span class='notice'>Already clean-shaven.</span>")
 				return
 			if(H == user) //shaving yourself
-				user.visible_message("<span class='notice'>[user] starts to shave their facial hair with \the [src].</span>", \
+				user.visible_message("<span class='notice'>[user] starts to shave [user.p_their()] facial hair with [src].</span>", \
 				"<span class='notice'>You take a moment shave your facial hair with \the [src].</span>")
 				if(do_after(user, 50 * toolspeed, target = H))
-					user.visible_message("<span class='notice'>[user] shaves \his facial hair clean with the [src].</span>", \
-					"<span class='notice'>You finish shaving with the [src]. Fast and clean!</span>")
+					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] facial hair clean with [src].</span>", \
+					"<span class='notice'>You finish shaving with [src]. Fast and clean!</span>")
 					C.f_style = "Shaved"
 					H.update_fhair()
 					playsound(src.loc, usesound, 20, 1)
@@ -140,10 +140,10 @@
 				to_chat(user, "<span class='warning'>Your razor isn't going to cut through tentacles.</span>")
 				return
 			if(H == user) //shaving yourself
-				user.visible_message("<span class='warning'>[user] starts to shave their head with \the [src].</span>", \
+				user.visible_message("<span class='warning'>[user] starts to shave [user.p_their()] head with [src].</span>", \
 				"<span class='warning'>You start to shave your head with \the [src].</span>")
 				if(do_after(user, 50 * toolspeed, target = H))
-					user.visible_message("<span class='notice'>[user] shaves \his head with \the [src].</span>", \
+					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] head with [src].</span>", \
 					"<span class='notice'>You finish shaving with \the [src].</span>")
 					C.h_style = "Skinhead"
 					H.update_hair()

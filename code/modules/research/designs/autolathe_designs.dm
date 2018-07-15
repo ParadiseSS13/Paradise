@@ -800,6 +800,14 @@
 	build_path = /obj/item/conveyor_switch_construct
 	category = list("initial", "Construction")
 
+/datum/design/conveyor_belt_placer
+	name = "Conveyor Belt Placer"
+	id = "conveyor_belt_placer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000) //This thing doesn't need to be very resource-intensive as the belts are already expensive
+	build_path = /obj/item/storage/conveyor
+	category = list("initial", "Construction")
+
 /datum/design/laptop
 	name = "Laptop Frame"
 	id = "laptop"

@@ -186,7 +186,7 @@
 	buildstackamount = 1
 
 /obj/structure/stool/bed/chair/sofa
-	name = "old ratty sofa"
+	name = "sofa"
 	icon_state = "sofamiddle"
 	anchored = 1
 	buildstackamount = 1

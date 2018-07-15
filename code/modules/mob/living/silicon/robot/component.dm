@@ -234,7 +234,7 @@
 			var/organ_found
 			if(H.internal_organs.len)
 				for(var/obj/item/organ/external/E in H.bodyparts)
-					if(!(E.status & ORGAN_ROBOT))
+					if(!E.is_robotic())
 						continue
 					organ_found = 1
 					to_chat(user, "[E.name]: <font color='red'>[round(E.brute_dam)]</font> <font color='#FFA500'>[round(E.burn_dam)]</font>")
@@ -245,7 +245,7 @@
 			organ_found = null
 			if(H.internal_organs.len)
 				for(var/obj/item/organ/internal/O in H.internal_organs)
-					if(!(O.status & ORGAN_ROBOT))
+					if(!O.is_robotic())
 						continue
 					organ_found = 1
 					to_chat(user, "[capitalize(O.name)]: <font color='red'>[O.damage]</font>")

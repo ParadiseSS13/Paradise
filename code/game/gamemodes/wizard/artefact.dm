@@ -56,7 +56,7 @@
 				new /obj/effect/particle_effect/smoke(H.loc)
 				var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
 				M.key = C.key
-				to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow their orders and help them in accomplishing their goals.")
+				to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing their goals.")
 				switch(href_list["school"])
 					if("destruction")
 						M.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/projectile/magic_missile(null))
@@ -213,7 +213,7 @@
 
 /obj/item/scrying/attack_self(mob/user as mob)
 	to_chat(user, "<span class='notice'> You can see...everything!</span>")
-	visible_message("<span class='danger'>[user] stares into [src], their eyes glazing over.</span>")
+	visible_message("<span class='danger'>[user] stares into [src], [user.p_their()] eyes glazing over.</span>")
 	user.ghostize(1)
 
 /////////////////////Multiverse Blade////////////////////
@@ -277,7 +277,7 @@ var/global/list/multiverse = list()
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.owner = usr.mind
 					usr.mind.objectives += hijack_objective
-					hijack_objective.explanation_text = "Ensure only [usr.real_name] and their copies are on the shuttle!"
+					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					to_chat(usr, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
 					ticker.mode.traitors += usr.mind
 					usr.mind.special_role = "[usr.real_name] Prime"
@@ -318,7 +318,7 @@ var/global/list/multiverse = list()
 		C.prefs.copy_to(M)
 	M.key = C.key
 	M.mind.name = user.real_name
-	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help them accomplish their goals at all costs.</B>")
+	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</B>")
 	M.faction = list("[user.real_name]")
 	if(duplicate_self)
 		M.set_species(user.get_species()) //duplicate the sword user's species.
@@ -342,7 +342,7 @@ var/global/list/multiverse = list()
 		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 		hijack_objective.owner = M.mind
 		M.mind.objectives += hijack_objective
-		hijack_objective.explanation_text = "Ensure only [usr.real_name] and their copies are on the shuttle!"
+		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 		to_chat(M, "<B>Objective #[1]</B>: [hijack_objective.explanation_text]")
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
 		log_game("[M.key] was made a multiverse traveller with the objective to help [usr.real_name] hijack.")
@@ -350,7 +350,7 @@ var/global/list/multiverse = list()
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
 		new_objective.owner = M.mind
 		new_objective.target = usr.mind
-		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help them defend the innocent from the mobs of multiverse clones."
+		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help [usr.p_them()] defend the innocent from the mobs of multiverse clones."
 		M.mind.objectives += new_objective
 		to_chat(M, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
@@ -652,7 +652,7 @@ var/global/list/multiverse = list()
 		equip_skeleton(M)
 	spooky_scaries |= M
 	to_chat(M, "<span class='userdanger'>You have been revived by </span><B>[user.real_name]!</B>")
-	to_chat(M, "<span class='userdanger'>They are your master now, assist them even if it costs you your new life!</span>")
+	to_chat(M, "<span class='userdanger'>[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!</span>")
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 
 /obj/item/necromantic_stone/proc/check_spooky()

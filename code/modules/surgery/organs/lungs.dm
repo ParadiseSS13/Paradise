@@ -51,6 +51,12 @@
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
 	var/heat_damage_types = list(BURN = 1)
 
+/obj/item/organ/internal/lungs/emp_act()
+	if(!is_robotic() || emp_proof)
+		return
+	if(owner)
+		owner.LoseBreath(20)
+
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
@@ -335,3 +341,23 @@
 	cold_level_2_damage = -COLD_GAS_DAMAGE_LEVEL_2
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
 	cold_damage_types = list(BRUTE = 1, BURN = 0.5)
+
+/obj/item/organ/internal/lungs/cybernetic
+	name = "cybernetic lungs"
+	desc = "A cybernetic version of the lungs found in traditional humanoid entities. It functions the same as an organic lung and is merely meant as a replacement."
+	icon_state = "lungs-c"
+	origin_tech = "biotech=4"
+	status = ORGAN_ROBOT
+
+/obj/item/organ/internal/lungs/cybernetic/upgraded
+	name = "upgraded cybernetic lungs"
+	desc = "A more advanced version of the stock cybernetic lungs. They are capable of filtering out lower levels of toxins and carbon dioxide."
+	icon_state = "lungs-c-u"
+	origin_tech = "biotech=5"
+
+	safe_toxins_max = 20
+	safe_co2_max = 20
+
+	cold_level_1_threshold = 200
+	cold_level_2_threshold = 140
+	cold_level_3_threshold = 100

@@ -403,6 +403,7 @@
 	icon_state = "AquaticKit"
 	throw_speed = 2
 	throw_range = 8
+	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/full
 	desc = "It's a starter kit for an acquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, and 1 container of fish food."

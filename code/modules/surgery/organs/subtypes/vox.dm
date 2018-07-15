@@ -9,8 +9,8 @@
 	parent_organ = "head"
 	organ_tag = "stack"
 	slot = "vox_stack"
-	robotic = 2
-	vital = 1
+	status = ORGAN_ROBOT
+	vital = TRUE
 
 /obj/item/organ/internal/stack/vox
 	name = "vox cortical stack"

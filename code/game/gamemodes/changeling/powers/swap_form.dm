@@ -36,7 +36,7 @@
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
 		return
 
-	to_chat(target, "<span class='userdanger'>[user] tightens their grip as a painful sensation invades your body.</span>")
+	to_chat(target, "<span class='userdanger'>[user] tightens [user.p_their()] grip as a painful sensation invades your body.</span>")
 
 	changeling.absorbed_dna -= changeling.find_dna(user.dna)
 	changeling.protected_dna -= changeling.find_dna(user.dna)

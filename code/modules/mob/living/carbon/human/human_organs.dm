@@ -20,7 +20,7 @@
 		//Moving around with fractured ribs won't do you any good
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
-				custom_pain("You feel broken bones moving in your [E.name]!", 1)
+				custom_pain("You feel broken bones moving in your [E.name]!")
 				I.receive_damage(rand(3,5))
 
 	//handle_stance()
@@ -90,7 +90,7 @@
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[(NO_PAIN in species.species_traits) ? "" : emote_scream ]drops what they were holding in their [E.name]!")
+			custom_emote(1, "[(NO_PAIN in species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -105,7 +105,7 @@
 				if(!unEquip(r_hand))
 					continue
 
-			custom_emote(1, "drops what they were holding, their [E.name] malfunctioning!")
+			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
 
 			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src)
@@ -178,7 +178,7 @@ I use this to standardize shadowling dethrall code
 /mob/living/carbon/human/has_organic_damage()
 	var/odmg = 0
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.status & ORGAN_ROBOT)
+		if(O.is_robotic())
 			odmg += O.brute_dam
 			odmg += O.burn_dam
 	return (health < (100 - odmg))

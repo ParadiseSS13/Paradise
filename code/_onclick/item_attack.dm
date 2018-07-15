@@ -37,7 +37,7 @@
 				return 1
 		if(istype(src,/obj/item/organ/external))
 			var/obj/item/organ/external/E = src
-			if(E.robotic == 2) // Robot limbs are less messy to attach
+			if(E.is_robotic()) // Robot limbs are less messy to attach
 				if(!attempt_initiate_surgery(src, M, user,1))
 					return 0
 				else
@@ -65,7 +65,8 @@
 	user.do_attack_animation(M)
 	M.attacked_by(src, user, def_zone)
 
-	add_attack_logs(user, M, "Attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", admin_notify = (force > 0 && damtype != STAMINA))
+	add_attack_logs(user, M, "Attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+
 	add_fingerprint(user)
 
 

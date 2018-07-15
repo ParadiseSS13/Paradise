@@ -118,6 +118,20 @@
 /mob/living/carbon/human/machine/Initialize(mapload)
 	..(mapload, "Machine")
 
+/mob/living/carbon/human/machine/created
+	name = "Integrated Robotic Chassis"
+
+/mob/living/carbon/human/machine/created/Initialize(mapload)
+	..()
+	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
+	update_dna()
+	for(var/obj/item/organ/external/E in bodyparts)
+		if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
+			continue
+		qdel(E)
+	for(var/obj/item/organ/O in internal_organs)
+		qdel(O)
+
 /mob/living/carbon/human/shadow/Initialize(mapload)
 	..(mapload, "Shadow")
 
@@ -306,7 +320,7 @@
 		if(!prob(martial_art.deflection_chance))
 			return ..()
 		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
-			visible_message("<span class='danger'>[src] deflects the projectile; they can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			return 0
 	..()
 
@@ -513,7 +527,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if( !head || head.disfigured || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
+	if(!head || head.disfigured || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -608,7 +622,7 @@
 			if(!I || I.loc != src) //no item, no limb, or item is not in limb or in the person anymore
 				return
 			var/time_taken = I.embedded_unsafe_removal_time*I.w_class
-			usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from their [L.name].</span>","<span class='notice'>You attempt to remove [I] from your [L.name]... (It will take [time_taken/10] seconds.)</span>")
+			usr.visible_message("<span class='warning'>[usr] attempts to remove [I] from [usr.p_their()] [L.name].</span>","<span class='notice'>You attempt to remove [I] from your [L.name]... (It will take [time_taken/10] seconds.)</span>")
 			if(do_after(usr, time_taken, needhand = 1, target = src))
 				if(!I || !L || I.loc != src || !(I in L.embedded_objects))
 					return
@@ -617,7 +631,7 @@
 				I.forceMove(get_turf(src))
 				usr.put_in_hands(I)
 				usr.emote("scream")
-				usr.visible_message("[usr] successfully rips [I] out of their [L.name]!","<span class='notice'>You successfully remove [I] from your [L.name].</span>")
+				usr.visible_message("[usr] successfully rips [I] out of [usr.p_their()] [L.name]!","<span class='notice'>You successfully remove [I] from your [L.name].</span>")
 				if(!has_embedded_objects())
 					clear_alert("embeddedobject")
 			return
@@ -651,12 +665,12 @@
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src))
+						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 				else
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
-						add_attack_logs(usr, src, "Equipped with [pocket_item]", isLivingSSD(src))
+						add_attack_logs(usr, src, "Equipped with [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -665,7 +679,7 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src))
+				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -680,7 +694,7 @@
 														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
 				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 				C.empty_contents()
-				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src))
+				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -1043,7 +1057,7 @@
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
-		visible_message("<span class='warning'>[src] begins playing his ribcage like a xylophone. It's quite spooky.</span>","<span class='notice'>You begin to play a spooky refrain on your ribcage.</span>","<span class='warning'>You hear a spooky xylophone melody.</span>")
+		visible_message("<span class='warning'>[src] begins playing [p_their()] ribcage like a xylophone. It's quite spooky.</span>","<span class='notice'>You begin to play a spooky refrain on your ribcage.</span>","<span class='warning'>You hear a spooky xylophone melody.</span>")
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
 		playsound(loc, song, 50, 1, -1)
 		xylophone = 1
@@ -1064,8 +1078,8 @@
 	var/fail_msg
 	if(!affecting)
 		. = 0
-		fail_msg = "They are missing that limb."
-	else if(affecting.status & ORGAN_ROBOT)
+		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
+	else if(affecting.is_robotic())
 		. = 0
 		fail_msg = "That limb is robotic."
 	else
@@ -1078,7 +1092,7 @@
 					. = 0
 	if(!. && error_msg && user)
 		if(!fail_msg)
-			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on their head" : "on their body"] to inject into."
+			fail_msg = "There is no exposed flesh or thin material [target_zone == "head" ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
 		to_chat(user, "<span class='alert'>[fail_msg]</span>")
 
 /mob/living/carbon/human/proc/check_obscured_slots()
@@ -1114,8 +1128,10 @@
 	return 1
 
 /mob/living/carbon/human/proc/get_visible_gender()
-	if(wear_suit && wear_suit.flags_inv & HIDEJUMPSUIT && ((head && head.flags_inv & HIDEMASK) || wear_mask))
-		return NEUTER
+	var/list/obscured = check_obscured_slots()
+	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
+	if((slot_w_uniform in obscured) && skipface)
+		return PLURAL
 	return gender
 
 /mob/living/carbon/human/proc/increase_germ_level(n)
@@ -1201,7 +1217,7 @@
 		return 0
 
 	if(!L.is_bruised())
-		src.custom_pain("You feel a stabbing pain in your chest!", 1)
+		custom_pain("You feel a stabbing pain in your chest!")
 		L.damage = L.min_bruised_damage
 
 //returns 1 if made bloody, returns 0 otherwise
@@ -1252,10 +1268,10 @@
 	if(usr == src)
 		self = 1
 	if(!self)
-		usr.visible_message("<span class='notice'>[usr] kneels down, puts \his hand on [src]'s wrist and begins counting their pulse.</span>",\
+		usr.visible_message("<span class='notice'>[usr] kneels down, puts [usr.p_their()] hand on [src]'s wrist and begins counting [p_their()] pulse.</span>",\
 		"You begin counting [src]'s pulse")
 	else
-		usr.visible_message("<span class='notice'>[usr] begins counting their pulse.</span>",\
+		usr.visible_message("<span class='notice'>[usr] begins counting [p_their()] pulse.</span>",\
 		"You begin counting your pulse.")
 
 	if(src.pulse)
@@ -1746,7 +1762,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='warning'>Remove your mask first!</span>")
 		return 0
 	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.mask_adjusted))
-		to_chat(src, "<span class='warning'>Remove their mask first!</span>")
+		to_chat(src, "<span class='warning'>Remove [H.p_their()] mask first!</span>")
 		return 0
 	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", \
 					  "<span class='danger'>You try to perform CPR on [H.name]!</span>")
@@ -1760,7 +1776,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 			to_chat(src, "<span class='alert'>Repeat at least every 7 seconds.")
-			add_attack_logs(src, H, "CPRed", FALSE)
+			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 			return 1
 	else
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")

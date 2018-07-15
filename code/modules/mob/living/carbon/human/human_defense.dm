@@ -165,7 +165,7 @@ emp_act
 /mob/living/carbon/human/emag_act(user as mob, var/obj/item/organ/external/affecting)
 	if(!istype(affecting))
 		return
-	if(!(affecting.status & ORGAN_ROBOT))
+	if(!affecting.is_robotic())
 		to_chat(user, "<span class='warning'>That limb isn't robotic.</span>")
 		return
 	if(affecting.sabotaged)
@@ -347,6 +347,18 @@ emp_act
 	var/penetrated_dam = max(0,(damage - max(0,(SS.breach_threshold - SS.damage))))
 
 	if(penetrated_dam) SS.create_breaches(damtype, penetrated_dam)
+
+/mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		var/hulk_verb = pick("smash", "pummel")
+		if(check_shields(user, 15, "the [hulk_verb]ing"))
+			return
+		..(user, TRUE)
+		playsound(loc, user.species.unarmed.attack_sound, 25, 1, -1)
+		var/message = "[user] has [hulk_verb]ed [src]!"
+		visible_message("<span class='danger'>[message]</span>", "<span class='userdanger'>[message]</span>")
+		adjustBruteLoss(15)
+		return TRUE
 
 /mob/living/carbon/human/attack_hand(mob/user)
 	if(..())	//to allow surgery to return properly.

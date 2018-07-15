@@ -334,7 +334,7 @@
 
 /datum/chemical_reaction/slimeoverload/on_reaction(datum/reagents/holder, created_volume)
 	feedback_add_details("slime_cores_used","[type]")
-	empulse(get_turf(holder.my_atom), 3, 7)
+	empulse(get_turf(holder.my_atom), 3, 7, 1)
 
 
 /datum/chemical_reaction/slimecell

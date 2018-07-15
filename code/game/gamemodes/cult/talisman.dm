@@ -151,7 +151,7 @@
 	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return ..(user, 0)
 
-	user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and they disappear in a flash of red light!</span>", \
+	user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman and find yourself somewhere else!</span>")
 	user.forceMove(get_turf(actual_selected_rune))
 	return ..()
@@ -220,7 +220,7 @@
 	. = ..()
 	user.visible_message("<span class='warning'>[user]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, emitting an EMP blast.</span>")
-	empulse(src, 4, 8)
+	empulse(src, 4, 8, 1)
 
 
 //Rite of Disorientation: Stuns and inhibit speech on a single target for quite some time

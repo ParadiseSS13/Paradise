@@ -32,7 +32,7 @@
 		else
 			G.death()
 
-		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts them!</span>")
+		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts [G.p_them()]!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))

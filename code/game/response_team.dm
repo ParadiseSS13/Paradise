@@ -203,13 +203,13 @@ var/ert_request_answered = 0
 	var/cyborg_unlock = 0
 
 /datum/response_team/proc/setSlots(com, sec, med, eng, jan, par, cyb)
-	command_slots = com
-	security_slots = sec
-	medical_slots = med
-	engineer_slots = eng
-	janitor_slots = jan
-	paranormal_slots = par
-	cyborg_slots = cyb
+	command_slots = com == null ? command_slots : com
+	security_slots = sec == null ? security_slots : sec
+	medical_slots = med == null ? medical_slots : med
+	engineer_slots = eng == null ? engineer_slots : eng
+	janitor_slots = jan == null ? janitor_slots : jan
+	paranormal_slots = par == null ? paranormal_slots : par
+	cyborg_slots = cyb == null ? cyborg_slots : cyb
 
 /datum/response_team/proc/reduceCyborgSlots()
 	cyborg_slots--
