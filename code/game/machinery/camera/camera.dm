@@ -26,7 +26,7 @@
 
 	var/view_range = 7
 	var/short_range = 2
-	var/alarm_on = FALSE
+
 	var/busy = FALSE
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 
@@ -46,11 +46,11 @@
 /obj/machinery/camera/Initialize()
 	..()
 	if(is_station_level(z) && prob(3) && !start_active)
-		toggle_cam()
+		toggle_cam(null, FALSE)
 		wires.CutAll()
 
 /obj/machinery/camera/Destroy()
-	toggle_cam(null, 0) //kick anyone viewing out
+	toggle_cam(null, FALSE) //kick anyone viewing out
 	QDEL_NULL(assembly)
 	if(istype(bug))
 		bug.bugged_cameras -= c_tag
@@ -81,7 +81,7 @@
 			update_icon()
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
-				if(loc) //qdel limbo
+				if(!QDELETED(src))
 					triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
 					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 						network = previous_network
@@ -232,7 +232,7 @@
 /obj/machinery/camera/obj_break(damage_flag)
 	if(status)
 		triggerCameraAlarm()
-		toggle_cam(null, 0)
+		toggle_cam(null, FALSE)
 		wires.CutAll()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
@@ -292,15 +292,9 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	if(wires.IsIndexCut(CAMERA_WIRE_ALARM))
-		return
-	alarm_on = TRUE
 	motion_alarm.triggerAlarm(loc, src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	if(wires.IsIndexCut(CAMERA_WIRE_ALARM))
-		return
-	alarm_on = FALSE
 	motion_alarm.clearAlarm(loc, src)
 
 /obj/machinery/camera/proc/can_use()
