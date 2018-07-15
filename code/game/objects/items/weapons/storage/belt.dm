@@ -138,7 +138,7 @@
 	max_combined_w_class = 17
 	use_to_pickup = 1
 	name = "Surgical Belt"
-	desc = "Can hold various surgery tools."
+	desc = "Can hold various surgical tools."
 	storage_slots = 9
 	use_item_overlays = 1
 	can_hold = list(
@@ -153,9 +153,9 @@
 		/obj/item/cautery,
 	)
 
-/obj/item/storage/belt/medical/surgery/response_team
+/obj/item/storage/belt/medical/surgery/loaded
 
-/obj/item/storage/belt/medical/surgery/response_team/New()
+/obj/item/storage/belt/medical/surgery/loaded/New()
 	..()
 	new /obj/item/scalpel(src)
 	new /obj/item/hemostat(src)

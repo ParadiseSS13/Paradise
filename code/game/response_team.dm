@@ -602,7 +602,7 @@ var/ert_request_answered = 0
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health
 
-	belt = /obj/item/storage/belt/medical/surgery/response_team
+	belt = /obj/item/storage/belt/medical/surgery/loaded
 
 	l_pocket = /obj/item/gun/energy/gun/mini
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -628,7 +628,7 @@ var/ert_request_answered = 0
 	 /obj/item/organ/internal/cyberimp/arm/surgery = 1,
 	 /obj/item/organ/internal/cyberimp/chest/nutriment = 1
 	)
-	belt = /obj/item/defibrillator/compact/combat/ert/loaded
+	belt = /obj/item/defibrillator/compact/loaded
 
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
@@ -653,7 +653,7 @@ var/ert_request_answered = 0
 		/obj/item/organ/internal/cyberimp/arm/surgery = 1
 	)
 
-	belt = /obj/item/defibrillator/compact/combat/ert/loaded
+	belt = /obj/item/defibrillator/compact/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 
