@@ -50,13 +50,7 @@
 
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 
-	//RPD pipe list building
-/*	var/list/temp_pipe_list = list()
-	init_subtypes(/datum/pipes/atmospheric/dispensable, temp_pipe_list)
-	init_subtypes(/datum/pipes/disposal/dispensable, temp_pipe_list)
-	for(var/datum/pipes/P in temp_pipe_list) //Yes I know the list(list(...)) thing looks weird, but it allows us to group pipe metadata into ordered lists instead of being one big list
-		GLOB.construction_pipe_list += list(list("pipe_name" = P.pipe_name, "pipe_id" = P.pipe_id, "pipe_type" = P.pipe_type, "pipe_category" = P.pipe_category, "orientations" = P.orientations, "pipe_icon" = P.pipe_icon, "bendy" = P.bendy))
-*/
+	//Pipe list building
 	init_subtypes(/datum/pipes, GLOB.construction_pipe_list)
 	for(var/D in GLOB.construction_pipe_list)
 		var/datum/pipes/P = D
