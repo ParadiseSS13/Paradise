@@ -441,9 +441,6 @@
 	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 
-	if(XRAY in mutations)
-		grant_xray_vision()
-
 	if(client.eye != src)
 		var/atom/A = client.eye
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
