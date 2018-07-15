@@ -229,11 +229,12 @@
 	combat = 1
 	safety = 0
 
-/obj/item/defibrillator/compact/combat/ERT
-	desc = "A belt-equipped defibrillator that can be rapidly deployed. Does not have the restrictions or safeties of conventional defibrillators and can revive through space suits."
+/obj/item/defibrillator/compact/combat/ert
+	name = "Advanced Compact Defibrillator"
+	desc = "A belt-equipped defibrillator that can be rapidly deployed and can revive through space suits."
+	safety = 1
 
-
-/obj/item/defibrillator/compact/combat/ERT/loaded/New()
+/obj/item/defibrillator/compact/combat/ert/loaded/New()
 	..()
 	paddles = make_paddles()
 	bcell = new /obj/item/stock_parts/cell/infinite(src)

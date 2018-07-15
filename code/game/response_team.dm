@@ -410,8 +410,11 @@ var/ert_request_answered = 0
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-
+	glasses = /obj/item/clothing/glasses/sunglasses
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security = 1,
+		/obj/item/organ/internal/cyberimp/chest/nutriment = 1
+	)
 	belt = /obj/item/gun/energy/gun/nuclear
 
 	backpack_contents = list(
@@ -476,7 +479,10 @@ var/ert_request_answered = 0
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
 	suit_store = /obj/item/gun/energy/gun/blueshield
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/arm/flash = 1,
+		/obj/item/organ/internal/cyberimp/chest/nutriment = 1
+	)
 	r_hand = /obj/item/gun/projectile/automatic/lasercarbine
 
 	backpack_contents = list(
@@ -539,12 +545,17 @@ var/ert_request_answered = 0
 
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
-	shoes = /obj/item/clothing/shoes/magboots
+	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/color/yellow
+	belt = /obj/item/wirecutters/power
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/tank/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson
-
+	cybernetic_implants = list(
+	 /obj/item/organ/internal/cyberimp/arm/toolset = 1,
+	 /obj/item/organ/internal/cyberimp/eyes/shield = 1,
+	 /obj/item/organ/internal/cyberimp/chest/nutriment = 1
+	)
 	l_pocket = /obj/item/t_scanner/extended_range
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
@@ -553,8 +564,7 @@ var/ert_request_answered = 0
 		/obj/item/clothing/mask/gas = 1,
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
-		/obj/item/gun/energy/gun = 1,
-		/obj/item/clothing/shoes/workboots = 1
+		/obj/item/gun/energy/gun = 1
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/gamma
@@ -604,7 +614,7 @@ var/ert_request_answered = 0
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller = 1,
-		/obj/item/storage/pill_bottle/ERT = 1
+		/obj/item/storage/pill_bottle/ert = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/red
@@ -615,9 +625,10 @@ var/ert_request_answered = 0
 	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
 	suit_store = /obj/item/gun/energy/gun
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/cyberimp/arm/surgery = 1
+	 /obj/item/organ/internal/cyberimp/arm/surgery = 1,
+	 /obj/item/organ/internal/cyberimp/chest/nutriment = 1
 	)
-	belt = /obj/item/defibrillator/compact/combat/ERT/loaded
+	belt = /obj/item/defibrillator/compact/combat/ert/loaded
 
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
@@ -726,6 +737,9 @@ var/ert_request_answered = 0
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/nutriment = 1
+	)
 	r_pocket = /obj/item/scythe/tele
 	l_pocket = /obj/item/gun/energy/gun/mini
 

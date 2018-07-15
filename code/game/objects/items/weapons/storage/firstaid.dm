@@ -227,13 +227,13 @@
 	var/base_name = ""
 	var/label_text = ""
 
-/obj/item/storage/pill_bottle/ERT
+/obj/item/storage/pill_bottle/ert
 
 /obj/item/storage/pill_bottle/New()
 	..()
 	base_name = name
 
-/obj/item/storage/pill_bottle/ERT/New()
+/obj/item/storage/pill_bottle/ert/New()
 	..()
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
