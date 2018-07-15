@@ -171,14 +171,14 @@
 
 /obj/machinery/pipedispenser/disposal/interact(mob/user)
 	var/dat = {"<b>Disposal Pipes</b><br><br>
-<A href='?src=[UID()];dmake=0'>Pipe</A><BR>
-<A href='?src=[UID()];dmake=1'>Bent Pipe</A><BR>
-<A href='?src=[UID()];dmake=2'>Junction</A><BR>
-<A href='?src=[UID()];dmake=4'>Y-Junction</A><BR>
-<A href='?src=[UID()];dmake=5'>Trunk</A><BR>
-<A href='?src=[UID()];dmake=6'>Bin</A><BR>
-<A href='?src=[UID()];dmake=7'>Outlet</A><BR>
-<A href='?src=[UID()];dmake=8'>Chute</A><BR>
+<A href='?src=[UID()];dmake=100'>Pipe</A><BR>
+<A href='?src=[UID()];dmake=101'>Bent Pipe</A><BR>
+<A href='?src=[UID()];dmake=102'>Junction</A><BR>
+<A href='?src=[UID()];dmake=104'>Y-Junction</A><BR>
+<A href='?src=[UID()];dmake=105'>Trunk</A><BR>
+<A href='?src=[UID()];dmake=106'>Bin</A><BR>
+<A href='?src=[UID()];dmake=107'>Outlet</A><BR>
+<A href='?src=[UID()];dmake=108'>Chute</A><BR>
 "}
 
 	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
@@ -194,14 +194,9 @@
 
 	if(!wait)
 		var/p_type = text2num(href_list["dmake"])
-		var/obj/structure/disposalconstruct/C = new (loc, p_type)
-		switch(p_type)
-			if(6)
-				C.density = TRUE
-			if(7)
-				C.density = TRUE
-			if(8)
-				C.density = TRUE
+		var/obj/structure/disposalconstruct/C = new(loc, p_type)
+		if(p_type in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE))
+			C.density = TRUE
 		C.add_fingerprint(usr)
 		wait = 1
 		spawn(15)

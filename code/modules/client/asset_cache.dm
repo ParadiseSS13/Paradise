@@ -317,7 +317,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
 	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
-		if(!(state in list("conpipe-c", "conpipe-j1", "conpipe-s", "conpipe-t", "conpipe-y", "intake", "outlet"))) //Pipes we want sprites for
+		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet"))) //Pipes we want sprites for
 			continue
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)

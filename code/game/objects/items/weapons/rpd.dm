@@ -37,7 +37,7 @@
 	spark_system.set_up(1, 0, src)
 	spark_system.attach(src)
 
-/obj/item/rcd/Destroy()
+/obj/item/rpd/Destroy()
 	QDEL_NULL(spark_system)
 	return ..()
 
@@ -51,7 +51,7 @@
 		lastused = world.time
 
 /obj/item/rpd/proc/can_dispense_pipe(var/pipe_id, var/pipe_type) //Returns TRUE if this is a legit pipe we can dispense, otherwise returns FALSE
-	for(var/list/L in GLOB.construction_pipe_list)
+	for(var/list/L in GLOB.rpd_pipe_list)
 		if(pipe_type != L["pipe_type"]) //Sometimes pipes in different categories have the same pipe_id, so we need to skip anything not in the category we want
 			continue
 		if(pipe_id == L["pipe_id"]) //Found the pipe, we can dispense it
@@ -59,7 +59,7 @@
 
 /obj/item/rpd/proc/create_atmos_pipe(mob/user, turf/T) //Make an atmos pipe, meter, or gas sensor
 	if(!can_dispense_pipe(whatpipe, RPD_ATMOS_MODE))
-		to_chat(user, "<span class='warning'>[src] beeps, \"ERROR\" </span>") //Damn dirty apes -- I mean hackers
+		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatpipe, PIPETYPE_ATMOS)] - possible tampering detected")) //Damn dirty apes -- I mean hackers
 		return
 	var/obj/item/pipe/P
 	if(whatpipe == PIPE_GAS_SENSOR)
@@ -81,12 +81,12 @@
 
 /obj/item/rpd/proc/create_disposals_pipe(mob/user, turf/T) //Make a disposals pipe / construct
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
-		to_chat(user, "<span class='warning'>[src] beeps, \"ERROR\" </span>")
+		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected"))
 		return
 	var/obj/structure/disposalconstruct/P = new(T, whatdpipe, iconrotation)
 	if(!iconrotation) //Automatic rotation
 		P.dir = user.dir
-	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
+	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
 		P.flip()
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
 	activate_rpd(TRUE)
@@ -161,7 +161,7 @@ var/list/pipemenu = list(
 	data["iconrotation"] = iconrotation
 	data["mainmenu"] = mainmenu
 	data["mode"] = mode
-	data["pipelist"] = GLOB.construction_pipe_list
+	data["pipelist"] = GLOB.rpd_pipe_list
 	data["pipemenu"] = pipemenu
 	data["pipe_category"] = pipe_category
 	data["whatdpipe"] = whatdpipe
