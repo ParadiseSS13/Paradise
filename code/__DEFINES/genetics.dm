@@ -26,7 +26,6 @@
 // Generic mutations:
 #define	TK				1
 #define COLDRES			2
-#define XRAY			3
 #define HULK			4
 #define CLUMSY			5
 #define FAT				6
