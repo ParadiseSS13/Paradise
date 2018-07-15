@@ -653,7 +653,7 @@ var/ert_request_answered = 0
 		/obj/item/organ/internal/cyberimp/arm/surgery = 1
 	)
 
-	belt = /obj/item/defibrillator/compact/combat/ERT/loaded
+	belt = /obj/item/defibrillator/compact/combat/ert/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 
