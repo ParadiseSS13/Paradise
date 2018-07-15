@@ -9,6 +9,7 @@
 	layer = WALL_OBJ_LAYER
 
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
+	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50
 	var/list/network = list("SS13")
@@ -25,7 +26,6 @@
 
 	var/view_range = 7
 	var/short_range = 2
-
 	var/alarm_on = FALSE
 	var/busy = FALSE
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
@@ -34,6 +34,7 @@
 
 /obj/machinery/camera/New()
 	..()
+	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
 	assembly.anchored = 1
@@ -46,6 +47,7 @@
 	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
+		wires.CutAll()
 
 /obj/machinery/camera/Destroy()
 	toggle_cam(null, 0) //kick anyone viewing out
@@ -55,6 +57,7 @@
 		if(bug.current == src)
 			bug.current = null
 		bug = null
+	QDEL_NULL(wires)
 	cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
 	cameranet.cameras -= src
 	var/area/ai_monitored/A = get_area(src)
@@ -97,7 +100,7 @@
 					to_chat(M, "The screen bursts into static.")
 			..()
 
-/obj/machinery/camera/tesla_act(var/power)//EMP proof upgrade also makes it tesla immune
+/obj/machinery/camera/tesla_act(power)//EMP proof upgrade also makes it tesla immune
 	if(isEmpProof())
 		return
 	..()
@@ -112,7 +115,7 @@
 	view_range = num
 	cameranet.updateVisibility(src, 0)
 
-/obj/machinery/camera/attackby(obj/item/I, mob/living/user as mob, params)
+/obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
@@ -122,16 +125,10 @@
 		to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
 		playsound(loc, I.usesound, 50, 1)
 
-	else if(iswirecutter(I) && panel_open)
-		toggle_cam(user, 1)
-		obj_integrity = max_integrity //this is a pretty simplistic way to heal the camera, but there's no reason for this to be complex.
-		playsound(loc, I.usesound, 50, 1)
+	else if((iswirecutter(I) || ismultitool(I) && panel_open))
+		wires.Interact(user)
 
-	else if(ismultitool(I) && panel_open)
-		setViewRange((view_range == initial(view_range)) ? short_range : initial(view_range))
-		to_chat(user, "<span class='notice'>You [(view_range == initial(view_range)) ? "restore" : "mess up"] the camera's focus.</span>")
-
-	else if(iswelder(I) && panel_open)
+	else if(iswelder(I) && panel_open && wires.CanDeconstruct())
 		var/obj/item/weldingtool/WT = I
 		if(!WT.remove_fuel(0, user))
 			return
@@ -236,6 +233,7 @@
 	if(status)
 		triggerCameraAlarm()
 		toggle_cam(null, 0)
+		wires.CutAll()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
 	if(disassembled)
@@ -293,12 +291,16 @@
 			O.reset_perspective(null)
 			to_chat(O, "The screen bursts into static.")
 
-/obj/machinery/camera/proc/triggerCameraAlarm(var/duration = 0)
-	alarm_on = 1
+/obj/machinery/camera/proc/triggerCameraAlarm()
+	if(wires.IsIndexCut(CAMERA_WIRE_ALARM))
+		return
+	alarm_on = TRUE
 	motion_alarm.triggerAlarm(loc, src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	alarm_on = 0
+	if(wires.IsIndexCut(CAMERA_WIRE_ALARM))
+		return
+	alarm_on = FALSE
 	motion_alarm.clearAlarm(loc, src)
 
 /obj/machinery/camera/proc/can_use()
@@ -337,14 +339,14 @@
 
 //Return a working camera that can see a given mob
 //or null if none
-/proc/seen_by_camera(var/mob/M)
+/proc/seen_by_camera(mob/M)
 	for(var/obj/machinery/camera/C in oview(4, M))
 		if(C.can_use())	// check if camera disabled
 			return C
 			break
 	return null
 
-/proc/near_range_camera(var/mob/M)
+/proc/near_range_camera(mob/M)
 	for(var/obj/machinery/camera/C in range(4, M))
 		if(C.can_use())	// check if camera disabled
 			return C
@@ -352,7 +354,7 @@
 
 	return null
 
-/obj/machinery/camera/proc/Togglelight(on=0)
+/obj/machinery/camera/proc/Togglelight(on = FALSE)
 	for(var/mob/living/silicon/ai/A in ai_list)
 		for(var/obj/machinery/camera/cam in A.lit_cameras)
 			if(cam == src)
