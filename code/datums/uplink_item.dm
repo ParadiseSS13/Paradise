@@ -1309,13 +1309,6 @@ var/list/uplink_items = list()
 	item = /obj/item/organ/internal/cyberimp/eyes/thermals
 	cost = 8
 
-/datum/uplink_item/cyber_implants/xray
-	name = "X-Ray Vision Implant"
-	desc = "These cybernetic eyes will give you X-ray vision. Comes with an automated implanting tool."
-	reference = "CIX"
-	item = /obj/item/organ/internal/cyberimp/eyes/xray
-	cost = 10
-
 /datum/uplink_item/cyber_implants/antistun
 	name = "CNS Rebooter Implant"
 	desc = "This implant will help you get back up on your feet faster after being stunned. \

@@ -326,6 +326,7 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/xray
 	category = list("Misc", "Medical")
 
+
 /datum/design/cyberimp_thermals
 	name = "Thermals implant"
 	desc = "These cybernetic eyes will give you Thermal vision. Vertical slit pupil included."

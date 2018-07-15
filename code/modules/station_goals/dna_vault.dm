@@ -4,7 +4,6 @@
 // DNA vaults require high tier stock parts and cold
 // After completion each crewmember can receive single upgrade chosen out of 2 for the mob.
 #define VAULT_SPACEIMMUNE "Space Immunity"
-#define VAULT_XRAY "X-Ray Vision"
 #define VAULT_TELEKINESIS "Telekinesis"
 #define VAULT_PSYCHIC "Psychic Powers"
 #define VAULT_SPEED "Speediness"
@@ -280,9 +279,6 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			to_chat(H, "<span class='notice'>You suddenly don't feel the need to breathe anymore. You also don't feel any cold anymore.</span>")
 			grant_power(H, BREATHLESSBLOCK, BREATHLESS)
 			grant_power(H, FIREBLOCK, COLDRES)
-		if(VAULT_XRAY)
-			to_chat(H, "<span class='notice'>You can suddenly see through walls.</span>")
-			grant_power(H, XRAYBLOCK, XRAY)
 		if(VAULT_TELEKINESIS)
 			to_chat(H, "<span class='notice'>You gain the ability to control objects from a distance.</span>")
 			grant_power(H, TELEBLOCK, TK)
