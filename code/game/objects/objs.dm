@@ -69,6 +69,10 @@
 	SSnanoui.close_uis(src)
 	return ..()
 
+/obj/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	var/turf/T = get_turf(src) //This preserves RPD behaviour on specific turfs
+	T.rpd_act(user, our_rpd)
+
 /obj/proc/process()
 	set waitfor = 0
 	processing_objects.Remove(src)
