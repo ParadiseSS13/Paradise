@@ -2,9 +2,9 @@
 	alcohol_intensity = 0.5
 	species = "Kidan"
 
-#define KIDAN_LANTERN_HUNGERCOST 0.5
+#define KIDAN_LANTERN_HUNGERCOST 0.4
 #define KIDAN_LANTERN_MINHUNGER 150
-#define KIDAN_LANTERN_LIGHT 4
+#define KIDAN_LANTERN_LIGHT 3
 
 /obj/item/organ/internal/lantern
 	name = "Bioluminescent Lantern"
@@ -19,6 +19,9 @@
 	var/glowing = 0
 
 /obj/item/organ/internal/lantern/ui_action_click()
+	if(!colour) // That's here just to make sure colour is no broken
+		var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes) //Kida eye color info is stored in eye organ
+		colour = eyes.eye_colour // changes glowing color to eye color
 	if(toggle_biolum())
 		if(glowing)
 			owner.visible_message("<span class='notice'>[owner] starts to glow!</span>", "<span class='notice'>You enable your bioluminescence.</span>")
@@ -42,8 +45,9 @@
 
 		var/new_light = calculate_glow(KIDAN_LANTERN_LIGHT)
 
-		if(!colour)																		//this should never happen in theory
-			colour = BlendRGB(owner.m_colours["body"], owner.m_colours["head"], 0.65)	//then again im pretty bad at theoretics
+		if(!colour) //this should never happen in theory
+			var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
+			colour = eyes.eye_colour //then again im pretty bad at theoretics
 
 		if(new_light != glowing)
 			var/obj/item/organ/external/groin/lbody = owner.get_organ(check_zone(parent_organ))
@@ -66,7 +70,8 @@
 		return 0
 
 	if(!colour)
-		colour = BlendRGB(owner.m_colours["head"], owner.m_colours["body"], 0.65)
+		var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
+		colour = eyes.eye_colour
 
 	if(!glowing)
 		var/light = calculate_glow(KIDAN_LANTERN_LIGHT)
@@ -94,14 +99,18 @@
 	if(owner.wear_suit)
 		occlusion++
 
-	return light - occlusion
+	if(light-occlusion<2) //That locks glowing range to min 2
+		return 2
+	else
+		return light - occlusion
 
 /obj/item/organ/internal/lantern/remove(mob/living/carbon/M, special = 0)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
 		if(!colour)								//if its removed before used save the color
-			colour = BlendRGB(H.m_colours["body"], H.m_colours["head"], 0.65)
+			var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+			colour = eyes.eye_colour
 
 		if(glowing)
 			toggle_biolum(1)
