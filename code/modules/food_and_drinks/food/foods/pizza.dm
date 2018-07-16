@@ -4,6 +4,7 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/sliceable/pizza
+	icon = 'icons/obj/food/pizza.dmi'
 	slices_num = 6
 	filling_color = "#BAA14C"
 
@@ -12,12 +13,12 @@
 	desc = "The golden standard of pizzas."
 	icon_state = "pizzamargherita"
 	slice_path = /obj/item/reagent_containers/food/snacks/margheritaslice
-	slices_num = 6
 	list_reagents = list("nutriment" = 30, "tomatojuice" = 6, "vitamin" = 5)
 
 /obj/item/reagent_containers/food/snacks/margheritaslice
 	name = "Margherita slice"
 	desc = "A slice of the classic pizza."
+	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "pizzamargheritaslice"
 	filling_color = "#BAA14C"
 	list_reagents = list("nutriment" = 5)
@@ -27,12 +28,12 @@
 	desc = "A pizza with meat topping."
 	icon_state = "meatpizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/meatpizzaslice
-	slices_num = 6
 	list_reagents = list("protein" = 30, "tomatojuice" = 6, "vitamin" = 8)
 
 /obj/item/reagent_containers/food/snacks/meatpizzaslice
 	name = "Meatpizza slice"
 	desc = "A slice of a meaty pizza."
+	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "meatpizzaslice"
 	filling_color = "#BAA14C"
 
@@ -41,12 +42,12 @@
 	desc = "Very special pizza."
 	icon_state = "mushroompizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/mushroompizzaslice
-	slices_num = 6
 	list_reagents = list("plantmatter" = 30, "vitamin" = 5)
 
 /obj/item/reagent_containers/food/snacks/mushroompizzaslice
 	name = "Mushroompizza slice"
 	desc = "Maybe it is the last slice of pizza in your life."
+	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "mushroompizzaslice"
 	filling_color = "#BAA14C"
 
@@ -55,12 +56,12 @@
 	desc = "No one of Tomato Sapiens were harmed during making this pizza."
 	icon_state = "vegetablepizza"
 	slice_path = /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
-	slices_num = 6
 	list_reagents = list("plantmatter" = 25, "tomatojuice" = 6, "oculine" = 12, "vitamin" = 5)
 
 /obj/item/reagent_containers/food/snacks/vegetablepizzaslice
 	name = "Vegetable pizza slice"
 	desc = "A slice of the most green pizza of all pizzas not containing green ingredients."
+	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "vegetablepizzaslice"
 	filling_color = "#BAA14C"
 
@@ -69,12 +70,12 @@
 	desc = "Love it or hate it, this pizza divides opinions. Complete with juicy pineapple."
 	icon_state = "hawaiianpizza" //NEEDED
 	slice_path = /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
-	slices_num = 6
 	list_reagents = list("protein" = 15, "tomatojuice" = 6, "plantmatter" = 20, "pineapplejuice" = 6, "vitamin" = 5)
 
 /obj/item/reagent_containers/food/snacks/hawaiianpizzaslice
 	name = "Hawaiian pizza slice"
 	desc = "A slice of polarising pizza."
+	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "hawaiianpizzaslice"
 	filling_color = "#e5b437"
 
@@ -89,6 +90,7 @@
 /obj/item/reagent_containers/food/snacks/macpizzaslice
 	name = "Macaroni cheese pizza slice"
 	desc = "A delicious slice of pizza topped with macaroni cheese... wait, what the hell? Who would do this?!"
+	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "macpizzaslice"
 	filling_color = "#ffe45d"
 
@@ -100,7 +102,7 @@
 /obj/item/pizzabox
 	name = "pizza box"
 	desc = "A box suited for pizzas."
-	icon = 'icons/obj/food/food.dmi'
+	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "pizzabox1"
 
 	var/open = 0 // Is the box open?
@@ -133,7 +135,7 @@
 		else
 			icon_state = "pizzabox_open"
 		if(pizza)
-			var/image/pizzaimg = image("food/food.dmi", icon_state = pizza.icon_state)
+			var/image/pizzaimg = image("food/pizza.dmi", icon_state = pizza.icon_state)
 			pizzaimg.pixel_y = -3
 			overlays += pizzaimg
 
@@ -149,7 +151,7 @@
 			if(boxtag != "")
 				doimgtag = 1
 		if(doimgtag)
-			var/image/tagimg = image("food/food.dmi", icon_state = "pizzabox_tag")
+			var/image/tagimg = image("food/pizza.dmi", icon_state = "pizzabox_tag")
 			tagimg.pixel_y = boxes.len * 3
 			overlays += tagimg
 	icon_state = "pizzabox[boxes.len+1]"
