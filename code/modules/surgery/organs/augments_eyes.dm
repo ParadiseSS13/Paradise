@@ -49,8 +49,8 @@
 
 /obj/item/organ/internal/cyberimp/eyes/meson
 	name = "Meson scanner implant"
-	desc = "These cybernetic eye implants will give you meson."
-	eye_colour = "#AEFF00"
+	desc = "These cybernetic eye implants will give you meson vision."
+	eye_colour = "#199900"
 	implant_color = "#AEFF00"
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	vision_flags = SEE_TURFS
@@ -109,11 +109,11 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
 	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see."
-	eye_colour = "#ff9000"
+	eye_colour = "#B76700"
 	implant_color = "#ff9000"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you"
-	HUD_type = DATA_HUD_DIAGNOSTIC_ADVANCED
+	HUD_type = DATA_HUD_DIAGNOSTIC
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"

@@ -297,7 +297,7 @@
 	name = "Diagnostic HUD implant"
 	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see. Wiggle eyes to control."
 	id = "ci-diaghud"
-	req-tech = list("materials" = 5, "engineering" = 4, "programming" = 4, "biotech" = 4)
+	req_tech = list("materials" = 5, "engineering" = 4, "programming" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
@@ -327,9 +327,9 @@
 	category = list("Misc", "Medical")
 
 /datum/design/cyberimp_meson
-	name = "Meson implant"
+	name = "Meson vision implant"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station."
-	id = "ci-meson"
+	id = "ci-mesonhud"
 	req_tech = list("materials" = 4, "programming = 3", "biotech" = 4, "engineering" = 4, "magnets" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
