@@ -155,9 +155,10 @@
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
 		if(!isEmpProof())
+			var/obj/item/stack/sheet/mineral/plasma/P = I
 			upgradeEmpProof()
 			to_chat(user, "[msg]")
-			qdel(I)
+			P.use(1)
 		else
 			to_chat(user, "[msg2]")
 	else if(istype(I, /obj/item/assembly/prox_sensor) && panel_open)
@@ -175,7 +176,7 @@
 	else if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
 		var/mob/living/U = user
 		var/obj/item/paper/X = null
-		var/obj/item/pda/P = null
+		var/obj/item/pda/PDA = null
 
 		var/itemname = ""
 		var/info = ""
@@ -184,10 +185,10 @@
 			itemname = X.name
 			info = X.info
 		else
-			P = I
-			var/datum/data/pda/app/notekeeper/N = P.find_program(/datum/data/pda/app/notekeeper)
+			PDA = I
+			var/datum/data/pda/app/notekeeper/N = PDA.find_program(/datum/data/pda/app/notekeeper)
 			if(N)
-				itemname = P.name
+				itemname = PDA.name
 				info = N.notehtml
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
