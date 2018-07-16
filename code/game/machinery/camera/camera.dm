@@ -125,7 +125,7 @@
 		to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
 		playsound(loc, I.usesound, 50, 1)
 
-	else if((iswirecutter(I) || ismultitool(I) && panel_open))
+	else if((iswirecutter(I) || ismultitool(I)) && panel_open)
 		wires.Interact(user)
 
 	else if(iswelder(I) && panel_open && wires.CanDeconstruct())
@@ -292,10 +292,10 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	motion_alarm.triggerAlarm(loc, src)
+	camera_alarm.triggerAlarm(loc, src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	motion_alarm.clearAlarm(loc, src)
+	camera_alarm.clearAlarm(loc, src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
