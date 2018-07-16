@@ -17,6 +17,7 @@
 	var/integrity_failure = 0 //0 if we have no special broken behavior
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
