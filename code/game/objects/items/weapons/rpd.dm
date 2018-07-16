@@ -213,6 +213,10 @@ var/list/pipemenu = list(
 		if(istype(T, /turf/simulated/wall)) //No disposals pipes on walls
 			to_chat(user, "<span class = 'warning'>That type of pipe won't fit on [T]!</span>")
 			return
+		for(var/obj/machinery/door/airlock/A in T)
+			if(A.density)
+				to_chat(user, "<span class = 'warning'>That type of pipe won't fit under [A]!</span>")
+				return
 		var/obj/structure/disposalconstruct/P = new(T) //Now we make the pipe
 		P.dir = iconrotation
 		P.ptype = whatdpipe
