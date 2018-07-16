@@ -232,7 +232,6 @@
 	agent.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(agent), slot_shoes)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(agent), slot_w_uniform) //they're greys gettit
 	agent.equip_to_slot_or_del(new /obj/item/storage/backpack(agent), slot_back)
-	agent.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat, slot_gloves)
 
 /datum/game_mode/abduction/proc/get_team_console(team)
 	var/obj/machinery/abductor/console/console
