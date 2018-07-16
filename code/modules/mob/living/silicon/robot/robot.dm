@@ -477,12 +477,8 @@ var/list/robot_verbs_default = list(
 		return
 
 	var/datum/robot_component/C = components[toggle]
-	if(C.toggled)
-		C.toggled = 0
-		to_chat(src, "<span class='warning'>You disable [C.name].</span>")
-	else
-		C.toggled = 1
-		to_chat(src, "<span class='warning'>You enable [C.name].</span>")
+	C.toggle()
+	to_chat(src, "<span class='warning'>You [C.toggled ? "enable" : "disable"] [C.name].</span>")
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -528,9 +524,8 @@ var/list/robot_verbs_default = list(
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
 /mob/living/silicon/robot/blob_act()
-	if(stat != 2)
+	if(stat != DEAD)
 		adjustBruteLoss(60)
-		updatehealth()
 		return 1
 	else
 		gib()
@@ -573,7 +568,6 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
-	updatehealth()
 	if(prob(75) && Proj.damage > 0) spark_system.start()
 	return 2
 
@@ -609,7 +603,6 @@ var/list/robot_verbs_default = list(
 		if(WT.remove_fuel(0))
 			playsound(src.loc, W.usesound, 50, 1)
 			adjustBruteLoss(-30)
-			updatehealth()
 			add_fingerprint(user)
 			user.visible_message("<span class='alert'>\The [user] patches some dents on \the [src] with \the [WT].</span>")
 		else
@@ -1259,7 +1252,9 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/adjustOxyLoss(var/amount)
 	if(suiciding)
-		..()
+		return ..()
+	else
+		return STATUS_UPDATE_NONE
 
 /mob/living/silicon/robot/regenerate_icons()
 	..()
@@ -1439,6 +1434,7 @@ var/list/robot_verbs_default = list(
 			disable_component("comms", 160)
 		if(2)
 			disable_component("comms", 60)
+
 /mob/living/silicon/robot/rejuvenate()
 	..()
 	var/brute = 1000

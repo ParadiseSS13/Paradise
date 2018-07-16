@@ -46,8 +46,11 @@
 	OpenFire()
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	mouse_opacity = 1
-	..(gibbed)
 
 /obj/item/organ/internal/hivelord_core
 	name = "hivelord remains"
@@ -165,9 +168,10 @@
 	color = "#C80000"
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death()
-	if(loc) // Splash the turf we are on with blood
+	if(can_die() && loc)
+		// Splash the turf we are on with blood
 		reagents.reaction(get_turf(src))
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/New()
 	create_reagents(30)
@@ -235,15 +239,17 @@
 	var/mob/living/carbon/human/stored_mob
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
-	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
-	var/turf/T = get_turf(src)
-	if(T)
-		if(stored_mob)
-			stored_mob.forceMove(get_turf(src))
-			stored_mob = null
-		else
-			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
-	..(gibbed)
+	if(can_die())
+		visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
+		var/turf/T = get_turf(src)
+		if(T)
+			if(stored_mob)
+				stored_mob.forceMove(get_turf(src))
+				stored_mob = null
+			else
+				new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
+	// due to `del_on_death`
+	return ..(gibbed)
 
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion

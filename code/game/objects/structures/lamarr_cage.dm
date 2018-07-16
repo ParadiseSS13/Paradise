@@ -69,10 +69,7 @@
 	if(src.destroyed)
 		return
 	else
-		to_chat(usr, text("<span class='notice'>You kick the lab cage.</span>"))
-		for(var/mob/O in oviewers())
-			if((O.client && !( O.blinded )))
-				to_chat(O, text("<span class='warning'>[] kicks the lab cage.</span>", usr))
+		user.visible_message("<span class='warning'>[user] kicks the lab cage.</span>", "<span class='notice'>You kick the lab cage.</span>")
 		src.health -= 2
 		healthcheck()
 		return

@@ -578,8 +578,11 @@
 	return get_dist(get_turf(towhere), get_turf(src))
 
 /mob/living/carbon/human/interactive/death()
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	saveVoice()
-	..()
 
 /mob/living/carbon/human/interactive/hear_say(message, verb = "says", datum/language/language = null, italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
 	if(!istype(speaker, /mob/living/carbon/human/interactive))

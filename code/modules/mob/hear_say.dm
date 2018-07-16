@@ -28,7 +28,7 @@
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if(language && (language.flags & NONVERBAL))
-		if(!has_vision()) //blind people can't see dumbass
+		if(!has_vision(information_only = TRUE)) //blind people can't see dumbass
 			message = stars(message)
 
 		if(!speaker || !(speaker in view(src)))
@@ -95,7 +95,7 @@
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if(language && (language.flags & NONVERBAL))
-		if(!has_vision()) //blind people can't see dumbass
+		if(!has_vision(information_only=TRUE)) //blind people can't see dumbass
 			message = stars(message)
 
 		if(!speaker || !(speaker in view(src)))
