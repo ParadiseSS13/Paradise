@@ -75,6 +75,10 @@
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		our_rpd.create_atmos_pipe(user, src)
 	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
+		for(var/obj/machinery/door/airlock/A in src)
+			if(A.density)
+				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
+				return
 		our_rpd.create_disposals_pipe(user, src)
 	else if(our_rpd.mode == RPD_ROTATE_MODE)
 		our_rpd.rotate_all_pipes(user, src)
