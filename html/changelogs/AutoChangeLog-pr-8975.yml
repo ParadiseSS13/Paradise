@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - tweak: "RPD behaviour has been slightly tweaked - for example you can now rotate / flip / delete individual pipes by clicking on them without affecting other pipes on that tile."
