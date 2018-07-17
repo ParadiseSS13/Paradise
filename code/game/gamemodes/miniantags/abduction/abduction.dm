@@ -269,6 +269,7 @@
 		console.gizmo = G
 		G.console = console
 	scientist.equip_to_slot_or_del(G, slot_in_backpack)
+
 	var/obj/item/implant/abductor/beamplant = new /obj/item/implant/abductor(scientist)
 	beamplant.implant(scientist)
 	scientist.update_icons()
