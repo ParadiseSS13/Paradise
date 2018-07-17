@@ -109,7 +109,7 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
 	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see."
-	eye_colour = "#B76700"
+	eye_colour = "#723E02"
 	implant_color = "#ff9000"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you..."
