@@ -3,20 +3,20 @@
 	AC.flags = flags
 	AC.ui_interact(user, state = state)
 
-/mob/living/carbon/human/proc/change_species(var/new_species)
-	if(!new_species || species == new_species || !(new_species in all_species))
-		return
+/mob/living/carbon/human/proc/change_species(datum/species/new_species)
+	if(!new_species || dna.species.type == new_species || !(initial(new_species.name) in all_species))
+		return FALSE
 
-	set_species(new_species, null, 1)
+	set_species(new_species, null, TRUE)
 	reset_hair()
-	if(species.bodyflags & HAS_MARKINGS)
+	if(dna.species.bodyflags & HAS_MARKINGS)
 		reset_markings()
 
-	return 1
+	return TRUE
 
 /mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(gender == new_gender || (gender == PLURAL && species.has_gender))
+	if(gender == new_gender || (gender == PLURAL && dna.species.has_gender))
 		return
 
 	gender = new_gender
@@ -129,7 +129,7 @@
 
 /mob/living/carbon/human/proc/change_alt_head(var/alternate_head)
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(!H || H.alt_head == alternate_head || H.is_robotic() || (!(species.bodyflags & HAS_ALT_HEADS) && alternate_head != "None") || !(alternate_head in alt_heads_list))
+	if(!H || H.alt_head == alternate_head || H.is_robotic() || (!(dna.species.bodyflags & HAS_ALT_HEADS) && alternate_head != "None") || !(alternate_head in alt_heads_list))
 		return
 
 	H.alt_head = alternate_head
@@ -296,7 +296,7 @@
 
 
 /mob/living/carbon/human/proc/change_skin_color(var/colour = "#000000")
-	if(colour == skin_colour || !(species.bodyflags & HAS_SKIN_COLOR))
+	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
 
 	skin_colour = colour
@@ -306,7 +306,7 @@
 	return 1
 
 /mob/living/carbon/human/proc/change_skin_tone(var/tone)
-	if(s_tone == tone || !((species.bodyflags & HAS_SKIN_TONE) || (species.bodyflags & HAS_ICON_SKIN_TONE)))
+	if(s_tone == tone || !((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		return
 
 	s_tone = tone
@@ -350,16 +350,16 @@
 			continue
 		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
-		if(H.dna.species2.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
-			if((H.dna.species2.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
+			if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
 				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
 					valid_hairstyles += hairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(H.dna.species2.name in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
+			if(H.dna.species.name in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 				valid_hairstyles += hairstyle
 
 	return valid_hairstyles
@@ -378,17 +378,17 @@
 			continue
 		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
 			continue
-		if(H.dna.species2.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
+		if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species who can have a robotic head...
 			var/datum/robolimb/robohead = all_robolimbs[H.model]
-			if(H.dna.species2.name in S.species_allowed) //If this is a facial hair style native to the user's species...
-				if((H.dna.species2.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
+			if(H.dna.species.name in S.species_allowed) //If this is a facial hair style native to the user's species...
+				if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 			else
 				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
 					valid_facial_hairstyles += facialhairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(H.dna.species2.name in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
+			if(H.dna.species.name in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
 	return valid_facial_hairstyles
@@ -402,7 +402,7 @@
 	for(var/head_accessory in head_accessory_styles_list)
 		var/datum/sprite_accessory/S = head_accessory_styles_list[head_accessory]
 
-		if(!(H.dna.species2.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
+		if(!(H.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		valid_head_accessories += head_accessory
 
@@ -421,7 +421,7 @@
 			continue
 		if(S.marking_location != location) //If the marking isn't for the location we desire, skip.
 			continue
-		if(!(species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+		if(!(dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
 		if(location == "tail")
 			if(!body_accessory)
@@ -432,7 +432,7 @@
 					continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = marking_styles_list[S.name]
-			if(H.dna.species2.bodyflags & ALL_RPARTS) //If the user is a species that can have a robotic head...
+			if(H.dna.species.bodyflags & ALL_RPARTS) //If the user is a species that can have a robotic head...
 				var/datum/robolimb/robohead = all_robolimbs[H.model]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
@@ -456,7 +456,7 @@
 			if(!istype(A))
 				valid_body_accessories["None"] = "None" //The only null entry should be the "None" option.
 				continue
-			if(species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
+			if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
 				valid_body_accessories += B
 
 	return valid_body_accessories
@@ -469,7 +469,7 @@
 	valid_alt_heads["None"] = alt_heads_list["None"] //The only null entry should be the "None" option, and there should always be a "None" option.
 	for(var/alternate_head in alt_heads_list)
 		var/datum/sprite_accessory/alt_heads/head = alt_heads_list[alternate_head]
-		if(!(H.dna.species2.name in head.species_allowed))
+		if(!(H.dna.species.name in head.species_allowed))
 			continue
 
 		valid_alt_heads += alternate_head

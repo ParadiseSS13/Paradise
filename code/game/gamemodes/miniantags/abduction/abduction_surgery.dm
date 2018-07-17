@@ -37,7 +37,7 @@
 
 /datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/AB = target
-	if(NO_INTORGANS in AB.species.species_traits)
+	if(NO_INTORGANS in AB.dna.species.species_traits)
 		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
 		return TRUE
 	if(IC)

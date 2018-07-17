@@ -111,7 +111,7 @@
 			return ..()
 
 		to_chat(H, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
-		H.set_species("Angel")
+		H.set_species(/datum/species/angel)
 		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
 		H.adjustBruteLoss(20)
 		H.emote("scream")

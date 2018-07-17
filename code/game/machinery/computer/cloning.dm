@@ -356,14 +356,14 @@
 		return
 	if(scan_brain && !can_brainscan())
 		return
-	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.species.species_traits))
+	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.dna.species.species_traits))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		SSnanoui.update_uis(src)
 		return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
-			if(NO_SCAN in Brn.dna.species2.species_traits)
+			if(NO_SCAN in Brn.dna.species.species_traits)
 				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
 				SSnanoui.update_uis(src)
 				return
@@ -401,9 +401,9 @@
 		var/obj/item/organ/B = subject.get_int_organ(/obj/item/organ/internal/brain)
 		B.dna.check_integrity()
 		R.dna=B.dna.Clone()
-		if(NO_SCAN in R.dna.species2.species_traits)
+		if(NO_SCAN in R.dna.species.species_traits)
 			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
-			R.dna.species2 = new subject.dna.species2.type
+			R.dna.species = new subject.dna.species.type
 		R.id= copytext(md5(B.dna.real_name), 2, 6)
 		R.name=B.dna.real_name
 	else

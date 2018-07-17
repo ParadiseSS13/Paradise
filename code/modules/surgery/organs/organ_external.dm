@@ -105,8 +105,8 @@
 /obj/item/organ/external/New(var/mob/living/carbon/holder)
 	..()
 	var/mob/living/carbon/human/H = holder
-	icobase = dna.species2.icobase
-	deform = dna.species2.deform
+	icobase = dna.species.icobase
+	deform = dna.species.deform
 	if(istype(H))
 		replaced(H)
 		sync_colour_to_human(H)
@@ -328,7 +328,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 */
 /obj/item/organ/external/proc/update_germs()
 
-	if(is_robotic() || (IS_PLANT in owner.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
+	if(is_robotic() || (IS_PLANT in owner.dna.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
 		germ_level = 0
 		return
 
@@ -400,7 +400,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
-	if(NO_BLOOD in owner.species.species_traits)
+	if(NO_BLOOD in owner.dna.species.species_traits)
 		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
@@ -503,7 +503,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)
 			compile_icon()
-			add_blood(victim.blood_DNA, victim.species.blood_color)
+			add_blood(victim.blood_DNA, victim.dna.species.blood_color)
 			var/matrix/M = matrix()
 			M.Turn(rand(180))
 			src.transform = M
@@ -606,7 +606,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
-		if(owner.species && !(NO_PAIN in owner.species.species_traits))
+		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN

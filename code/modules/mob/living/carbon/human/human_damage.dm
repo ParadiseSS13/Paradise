@@ -17,7 +17,7 @@
 	//TODO: fix husking
 	if(((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD)
 		ChangeToHusk()
-	if(species.can_revive_by_healing)
+	if(dna.species.can_revive_by_healing)
 		var/obj/item/organ/internal/brain/B = get_int_organ(/obj/item/organ/internal/brain)
 		if(B)
 			if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && stat == DEAD && getBrainLoss()<120)
@@ -32,11 +32,11 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(species && species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ["brain"])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
-			if(species)
-				amount = amount * species.brain_mod
+			if(dna.species)
+				amount = amount * dna.species.brain_mod
 			sponge.receive_damage(amount, 1)
 			brainloss = sponge.damage
 		else
@@ -48,11 +48,11 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(species && species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ["brain"])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
-			if(species)
-				amount = amount * species.brain_mod
+			if(dna.species)
+				amount = amount * dna.species.brain_mod
 			sponge.damage = min(max(amount, 0), (maxHealth*2))
 			brainloss = sponge.damage
 		else
@@ -64,7 +64,7 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	if(species && species.has_organ["brain"])
+	if(dna.species && dna.species.has_organ["brain"])
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			brainloss = min(sponge.damage,maxHealth*2)
@@ -89,24 +89,24 @@
 
 
 /mob/living/carbon/human/adjustBruteLoss(amount, damage_source)
-	if(species)
-		amount = amount * species.brute_mod
+	if(dna.species)
+		amount = amount * dna.species.brute_mod
 	if(amount > 0)
 		take_overall_damage(amount, 0, used_weapon = damage_source)
 	else
 		heal_overall_damage(-amount, 0)
 
 /mob/living/carbon/human/adjustFireLoss(amount, damage_source)
-	if(species)
-		amount = amount * species.burn_mod
+	if(dna.species)
+		amount = amount * dna.species.burn_mod
 	if(amount > 0)
 		take_overall_damage(0, amount, used_weapon = damage_source)
 	else
 		heal_overall_damage(0, -amount)
 
 /mob/living/carbon/human/proc/adjustBruteLossByPart(amount, organ_name, obj/damage_source = null)
-	if(species)
-		amount = amount * species.brute_mod
+	if(dna.species)
+		amount = amount * dna.species.brute_mod
 
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
@@ -119,8 +119,8 @@
 
 
 /mob/living/carbon/human/proc/adjustFireLossByPart(amount, organ_name, obj/damage_source = null)
-	if(species)
-		amount = amount * species.burn_mod
+	if(dna.species)
+		amount = amount * dna.species.burn_mod
 
 	if(organ_name in bodyparts_by_name)
 		var/obj/item/organ/external/O = get_organ(organ_name)
@@ -139,8 +139,8 @@
 	..()
 
 /mob/living/carbon/human/adjustCloneLoss(amount)
-	if(species)
-		amount = amount * species.clone_mod
+	if(dna.species)
+		amount = amount * dna.species.clone_mod
 	..()
 
 	var/heal_prob = max(0, 80 - getCloneLoss())
@@ -179,23 +179,23 @@
 
 // Defined here solely to take species flags into account without having to recast at mob/living level.
 /mob/living/carbon/human/adjustOxyLoss(amount)
-	if(species)
-		amount = amount * species.oxy_mod
+	if(dna.species)
+		amount = amount * dna.species.oxy_mod
 	..()
 
 /mob/living/carbon/human/setOxyLoss(amount)
-	if(species)
-		amount = amount * species.oxy_mod
+	if(dna.species)
+		amount = amount * dna.species.oxy_mod
 	..()
 
 /mob/living/carbon/human/adjustToxLoss(amount)
-	if(species)
-		amount = amount * species.tox_mod
+	if(dna.species)
+		amount = amount * dna.species.tox_mod
 	..()
 
 /mob/living/carbon/human/setToxLoss(amount)
-	if(species)
-		amount = amount * species.tox_mod
+	if(dna.species)
+		amount = amount * dna.species.tox_mod
 	..()
 
 ////////////////////////////////////////////
@@ -352,8 +352,8 @@ This function restores all organs.
 	switch(damagetype)
 		if(BRUTE)
 			damageoverlaytemp = 20
-			if(species)
-				damage = damage * species.brute_mod
+			if(dna.species)
+				damage = damage * dna.species.brute_mod
 
 			if(organ.receive_damage(damage, 0, sharp, used_weapon))
 				UpdateDamageIcon()
@@ -376,8 +376,8 @@ This function restores all organs.
 		if(BURN)
 			damageoverlaytemp = 20
 
-			if(species)
-				damage = damage * species.burn_mod
+			if(dna.species)
+				damage = damage * dna.species.burn_mod
 
 			if(organ.receive_damage(0, damage, sharp, used_weapon))
 				UpdateDamageIcon()

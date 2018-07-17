@@ -61,12 +61,12 @@
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
-		if(human.species.name != "Shadow")
+		if(human.dna.species.name != "Shadow")
 			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
 			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
 			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
-			human.set_species("Shadow")
+			human.set_species(/datum/species/shadow)
 	..()
 
 /datum/reagent/aslimetoxin
@@ -961,7 +961,7 @@
 			C.adjustToxLoss(lethality)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.species.species_traits) //plantmen take a LOT of damage
+			if(IS_PLANT in H.dna.species.species_traits) //plantmen take a LOT of damage
 				H.adjustToxLoss(50)
 				..()
 	else if(istype(M, /mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage

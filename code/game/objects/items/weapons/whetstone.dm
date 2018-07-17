@@ -52,7 +52,7 @@
 /obj/item/whetstone/attack_self(mob/user as mob) //This is just fluff for now. Species datums are global and not newly created instances, so we can't adjust unarmed damage on a per mob basis.
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		var/datum/unarmed_attack/attack = H.species.unarmed
+		var/datum/unarmed_attack/attack = H.dna.species.unarmed
 		if(istype(attack, /datum/unarmed_attack/claws))
 			H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on the [src]!</span>", "<span class='notice'>You sharpen your claws on the [src].</span>")
 			playsound(get_turf(H), usesound, 50, 1)

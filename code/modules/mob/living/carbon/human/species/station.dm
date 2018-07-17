@@ -3,8 +3,8 @@
 	name_plural = "Humans"
 	icobase = 'icons/mob/human_races/r_human.dmi'
 	deform = 'icons/mob/human_races/r_def_human.dmi'
-	primitive_form = "Monkey"
-	path = /mob/living/carbon/human/human
+	primitive_form = /datum/species/monkey
+	path = /mob/living/carbon/human
 	language = "Sol Common"
 	species_traits = list(LIPS, CAN_BE_FAT)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -29,7 +29,7 @@
 	language = "Sinta'unathi"
 	tail = "sogtail"
 	unarmed_type = /datum/unarmed_attack/claws
-	primitive_form = "Stok"
+	primitive_form = /datum/species/monkey/unathi
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -138,7 +138,7 @@
 	heat_level_2 = 380
 	heat_level_3 = 440
 
-	primitive_form = "Farwa"
+	primitive_form = /datum/species/monkey/tajaran
 
 	species_traits = list(LIPS, CAN_BE_FAT)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -181,7 +181,7 @@
 	path = /mob/living/carbon/human/vulpkanin
 	default_language = "Galactic Common"
 	language = "Canilunzt"
-	primitive_form = "Wolpin"
+	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
 	unarmed_type = /datum/unarmed_attack/claws
 
@@ -235,7 +235,7 @@
 	path = /mob/living/carbon/human/skrell
 	default_language = "Galactic Common"
 	language = "Skrellian"
-	primitive_form = "Neara"
+	primitive_form = /datum/species/monkey/skrell
 
 	blurb = "An amphibious species, Skrell come from the star system known as Qerr'Vallis, which translates to 'Star of \
 	the royals' or 'Light of the Crown'.<br/><br/>Skrell are a highly advanced and logical race who live under the rule \
@@ -393,7 +393,7 @@
 	..()
 
 /datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H, var/owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
-	if(H.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
 		var/new_deform = 'icons/mob/human_races/vox/r_def_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
@@ -617,7 +617,7 @@
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.bodyparts_by_name)
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
-				if(istype(E) && E.dna && istype(E.dna.species2, /datum/species/slime))
+				if(istype(E) && E.dna && istype(E.dna.species, /datum/species/slime))
 					E.sync_colour_to_human(H)
 			H.update_hair(0)
 			H.update_body()
@@ -672,7 +672,7 @@
 	for(var/l in bodyparts_by_name)
 		var/obj/item/organ/external/E = bodyparts_by_name[l]
 		if(!istype(E))
-			var/list/limblist = species.has_limbs[l]
+			var/list/limblist = dna.species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
@@ -708,7 +708,7 @@
 			stored_burn = doomedStump.burn_dam
 			qdel(O)
 
-		var/limb_list = species.has_limbs[chosen_limb]
+		var/limb_list = dna.species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
 		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]

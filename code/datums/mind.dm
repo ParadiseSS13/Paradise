@@ -1424,7 +1424,7 @@
 
 	var/mob/living/carbon/human/H = current
 
-	H.set_species("Abductor")
+	H.set_species(/datum/species/abductor)
 
 	switch(role)
 		if("Agent")

@@ -231,7 +231,7 @@
 		R.dna = new /datum/dna()
 
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
-	H.set_species(R.dna.species2)
+	H.set_species(R.dna.species)
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names

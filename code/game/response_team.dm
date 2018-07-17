@@ -143,7 +143,7 @@ var/ert_request_answered = 0
 		else
 			M.change_gender(FEMALE)
 
-	M.set_species("Human",1)
+	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M)
 	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ERT.
 	M.overeatduration = 0
@@ -158,8 +158,8 @@ var/ert_request_answered = 0
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species2.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species2.name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 
 	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]")
 	M.age = rand(23,35)

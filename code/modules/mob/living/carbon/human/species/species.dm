@@ -334,7 +334,7 @@
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	//Vampire code
 	if(user.mind && user.mind.vampire && (user.mind in ticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
-		if((NO_BLOOD in target.species.species_traits) || target.species.exotic_blood || !target.blood_volume)
+		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
 		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
@@ -354,7 +354,7 @@
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return 1
 	else
-		var/datum/unarmed_attack/attack = user.species.unarmed
+		var/datum/unarmed_attack/attack = user.dna.species.unarmed
 
 		user.do_attack_animation(target, attack.animation_type)
 		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
@@ -364,7 +364,7 @@
 		else
 			target.LAssailant = user
 
-		var/damage = rand(user.species.punchdamagelow, user.species.punchdamagehigh)
+		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
@@ -380,7 +380,7 @@
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
 
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
-		if((target.stat != DEAD) && damage >= user.species.punchstunthreshold)
+		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
 			target.apply_effect(4, WEAKEN, armor_block)

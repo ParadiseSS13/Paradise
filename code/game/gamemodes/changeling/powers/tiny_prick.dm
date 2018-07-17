@@ -80,7 +80,7 @@
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return
-	if((NOTRANSSTING in selected_dna.species2.species_traits) || selected_dna.species2.is_small)
+	if((NOTRANSSTING in selected_dna.species.species_traits) || selected_dna.species.is_small)
 		to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
 		return
 	..()
@@ -93,7 +93,7 @@
 		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(NO_DNA in H.species.species_traits)
+		if(NO_DNA in H.dna.species.species_traits)
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return FALSE
 	return TRUE
@@ -115,7 +115,7 @@
 		target.real_name = NewDNA.real_name
 		var/mob/living/carbon/human/H = target
 		if(istype(H))
-			H.set_species()
+			H.set_species(NewDNA.species)
 		target.UpdateAppearance()
 		domutcheck(target, null)
 	feedback_add_details("changeling_powers","TS")

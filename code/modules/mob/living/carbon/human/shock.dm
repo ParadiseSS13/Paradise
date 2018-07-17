@@ -23,7 +23,7 @@
 /mob/living/carbon/human/proc/handle_shock()
 	if(status_flags & GODMODE) //godmode
 		return
-	if(NO_PAIN in species.species_traits)
+	if(NO_PAIN in dna.species.species_traits)
 		return
 
 	updateshock()

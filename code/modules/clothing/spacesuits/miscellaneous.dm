@@ -16,7 +16,7 @@
 
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == slot_head)
-		if(user.species.name == "Vox")
+		if(user.dna.species.name == "Vox")
 			if(flags & BLOCKHAIR)
 				flags &= ~BLOCKHAIR
 		else

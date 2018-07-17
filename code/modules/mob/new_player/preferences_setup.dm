@@ -223,13 +223,13 @@
 	if(current_species)
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			var/mob/living/carbon/human/H = new
-			H.species = current_species
+			H.dna.species = current_species
 			H.s_tone = s_tone
-			H.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
 			var/obj/item/organ/external/chest/C = H.get_organ("chest")
-			icobase = C.icobase ? C.icobase : C.dna.species2.icobase
-			if(H.species.bodyflags & HAS_TAIL)
-				coloured_tail = H.tail ? H.tail : H.species.tail
+			icobase = C.icobase ? C.icobase : C.dna.species.icobase
+			if(H.dna.species.bodyflags & HAS_TAIL)
+				coloured_tail = H.tail ? H.tail : H.dna.species.tail
 
 			qdel(H)
 		else

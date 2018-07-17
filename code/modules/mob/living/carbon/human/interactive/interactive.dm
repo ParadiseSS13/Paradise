@@ -128,7 +128,7 @@
 	//this is here because this has no client/prefs/brain whatever.
 	age = rand(AGE_MIN, AGE_MAX)
 	change_gender(pick("male", "female"))
-	rename_character(real_name, species.get_random_name(gender))
+	rename_character(real_name, dna.species.get_random_name(gender))
 	//job handling
 	myjob = new default_job()
 	job = myjob.title
@@ -208,9 +208,9 @@
 			var/datum/dna/toDoppel = chosen.dna
 
 			T.real_name = toDoppel.real_name
-			T.set_species(chosen.species.name)
-			T.body_accessory = chosen.body_accessory
 			T.dna = toDoppel.Clone()
+			T.set_species(chosen.dna.species)
+			T.body_accessory = chosen.body_accessory
 			T.UpdateAppearance()
 			domutcheck(T)
 

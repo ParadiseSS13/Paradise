@@ -373,7 +373,7 @@
 	// is secretly a silicon
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(H.species && H.species.reagent_tag == PROCESS_SYN)
+		if(H.dna.species && H.dna.species.reagent_tag == PROCESS_SYN)
 			return 0
 
 	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)

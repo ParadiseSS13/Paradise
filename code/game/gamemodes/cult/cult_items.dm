@@ -50,7 +50,7 @@
 	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
+		if((H.stat != DEAD) && !(NO_BLOOD in H.dna.species.species_traits))
 			H.bleed(50)
 
 /obj/item/restraints/legcuffs/bola/cult

@@ -271,11 +271,11 @@
 	var/breath_temperature = breath.temperature
 
 	var/species_traits = list()
-	if(H && H.species && H.species.species_traits)
-		species_traits = H.species.species_traits
+	if(H && H.dna.species && H.dna.species.species_traits)
+		species_traits = H.dna.species.species_traits
 
 	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
-		var/CM = abs(H.species.coldmod)
+		var/CM = abs(H.dna.species.coldmod)
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
 			TC = cold_level_3_damage
@@ -291,7 +291,7 @@
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
 	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
-		var/HM = abs(H.species.heatmod)
+		var/HM = abs(H.dna.species.heatmod)
 		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
 			TH = heat_level_1_damage

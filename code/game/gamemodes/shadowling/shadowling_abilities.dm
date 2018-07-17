@@ -371,7 +371,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(H), slot_wear_mask)
 		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(H), slot_glasses)
-		H.set_species("Shadowling")
+		H.set_species(/datum/species/shadow/ling)
 
 /obj/effect/proc_holder/spell/targeted/collective_mind //Lets a shadowling bring together their thralls' strength, granting new abilities and a headcount
 	name = "Collective Hivemind"
@@ -644,7 +644,7 @@
 				thrallToRevive.visible_message("<span class='warning'>[thrallToRevive] slowly rises, no longer recognizable as human.</span>", \
 											   "<span class='shadowling'><b>You feel new power flow into you. You have been gifted by your masters. You now closely resemble them. You are empowered in \
 											    darkness but wither slowly in light. In addition, you now have glare and true shadow walk.</b></span>")
-				thrallToRevive.set_species("Lesser Shadowling")
+				thrallToRevive.set_species(/datum/species/shadow/ling/lesser)
 				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))

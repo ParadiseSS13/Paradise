@@ -199,9 +199,9 @@
 
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()
-	for(var/organ_tag in species.has_limbs)
+	for(var/organ_tag in dna.species.has_limbs)
 
-		var/list/organ_data = species.has_limbs[organ_tag]
+		var/list/organ_data = dna.species.has_limbs[organ_tag]
 		var/organ_descriptor = organ_data["descriptor"]
 		is_destroyed["[organ_data["descriptor"]]"] = 1
 
@@ -324,7 +324,7 @@
 					var/dodebug = auto.doing2string(auto.doing)
 					var/interestdebug = auto.interest2string(auto.interest)
 					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] appears to be [interestdebug] and [dodebug].</span>\n"
-			else if(species.show_ssd)
+			else if(dna.species.show_ssd)
 				if(!key)
 					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
 				else if(!client)

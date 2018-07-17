@@ -347,12 +347,12 @@
 			to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
 			return -1
 
-		if(!target.species)
+		if(!target.dna.species)
 			to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
 			return -1
 
-		if(!target.species.has_organ["brain"])
-			to_chat(user, "<span class='danger'>You're pretty sure [target.species.name_plural] don't normally have a brain.</span>")
+		if(!target.dna.species.has_organ["brain"])
+			to_chat(user, "<span class='danger'>You're pretty sure [target.dna.species.name_plural] don't normally have a brain.</span>")
 			return -1
 
 		if(target.get_int_organ(/obj/item/organ/internal/brain/))

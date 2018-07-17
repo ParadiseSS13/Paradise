@@ -43,7 +43,7 @@
 					affected_mob.visible_message("<span class='danger'>[affected_mob]'s form contorts into something more feline!</span>", \
 													"<span class='userdanger'>YOU TURN INTO A TAJARAN!</span>")
 					var/mob/living/carbon/human/catface = affected_mob
-					catface.set_species("Tajaran")
+					catface.set_species(/datum/species/tajaran)
 
 
 /datum/disease/kingstons/advanced
@@ -57,7 +57,7 @@
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will mutate to a different species."
 	severity = BIOHAZARD
-	var/list/virspecies = list("Human", "Tajaran", "Unathi", "Skrell", "Vulpkanin")//no karma races sorrys.
+	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin) //no karma races sorrys.
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/chosentype
 	var/chosensuff

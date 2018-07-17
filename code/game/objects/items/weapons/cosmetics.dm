@@ -99,7 +99,7 @@
 			if(!get_location_accessible(H, "mouth"))
 				to_chat(user, "<span class='warning'>The mask is in the way.</span>")
 				return
-			if((C.dna.species2.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
+			if((C.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
 				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of facial hair.</span>")
 				return
 			if(C.f_style == "Shaved")
@@ -130,7 +130,7 @@
 			if(!get_location_accessible(H, "head"))
 				to_chat(user, "<span class='warning'>The headgear is in the way.</span>")
 				return
-			if((C.dna.species2.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
+			if((C.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
 				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of hair.</span>")
 				return
 			if(C.h_style == "Bald" || C.h_style == "Balding Hair" || C.h_style == "Skinhead")

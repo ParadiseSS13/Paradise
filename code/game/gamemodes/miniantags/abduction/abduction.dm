@@ -112,7 +112,7 @@
 		L = agent_landmarks[team_number]
 		H.forceMove(get_turf(L))
 		H.body_accessory = null
-		H.set_species("Abductor")
+		H.set_species(/datum/species/abductor)
 		H.mind.abductor.agent = 1
 		H.mind.abductor.team = team_number
 		H.real_name = team_name + " Agent"
@@ -128,7 +128,7 @@
 		L = scientist_landmarks[team_number]
 		H.forceMove(get_turf(L))
 		H.body_accessory = null
-		H.set_species("Abductor")
+		H.set_species(/datum/species/abductor)
 		H.mind.abductor.scientist = 1
 		H.mind.abductor.team = team_number
 		H.real_name = team_name + " Scientist"
@@ -165,7 +165,7 @@
 	L = agent_landmarks[team_number]
 	H.forceMove(get_turf(L))
 	H.body_accessory = null
-	H.set_species("Abductor")
+	H.set_species(/datum/species/abductor)
 	H.mind.abductor.agent = 1
 	H.mind.abductor.team = team_number
 	H.real_name = team_name + " Agent"
@@ -179,7 +179,7 @@
 	L = scientist_landmarks[team_number]
 	H.forceMove(get_turf(L))
 	H.body_accessory = null
-	H.set_species("Abductor")
+	H.set_species(/datum/species/abductor)
 	H.mind.abductor.scientist = 1
 	H.mind.abductor.team = team_number
 	H.real_name = team_name + " Scientist"

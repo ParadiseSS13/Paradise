@@ -395,7 +395,7 @@
 					var/arrivalmessage = announcer.arrivalmsg
 					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
 					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
-					arrivalmessage = replacetext(arrivalmessage,"$species",character.species.name)
+					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
 					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
 					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
 					announcer.say(";[arrivalmessage]")
@@ -537,7 +537,7 @@
 		else if(mind.assigned_role == "Mime")
 			new_character.real_name = pick(mime_names)
 			new_character.rename_self("mime")
-		else if(new_character.species == "Diona")
+		else if(new_character.dna.species == "Diona")
 			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self("diona")
 		mind.original = new_character
