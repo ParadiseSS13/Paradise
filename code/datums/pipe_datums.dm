@@ -182,6 +182,7 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	orientations = 4
 	pipe_icon = "volumepump"
 	pipe_category = RPD_DEVICES
+	rpd_dispensable = TRUE
 
 /datum/pipes/atmospheric/gate
 	pipe_name = "passive gate"
