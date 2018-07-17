@@ -10,6 +10,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	desc = "If left untreated subject will regurgitate... puppies."
 	severity = MEDIUM
+	var/barklimit = 0
 
 /datum/disease/lycan/stage_act()
 	..()
@@ -34,12 +35,20 @@
 												"<span class='userdanger'>You howl!</span>")
 				affected_mob.AdjustConfused(rand(6, 8))
 			if(prob(3))
-				var/list/puppytype = list(/mob/living/simple_animal/pet/corgi/puppy, /mob/living/simple_animal/pet/pug, /mob/living/simple_animal/pet/fox)
-				var/mob/living/puppypicked = pick(puppytype)
-				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up [initial(puppypicked.name)]!</span>", \
-													"<span class='userdanger'>You cough up [initial(puppypicked.name)]?!</span>")
+				if(barklimit <= 10)
+					var/list/puppytype = list(/mob/living/simple_animal/pet/corgi/puppy, /mob/living/simple_animal/pet/pug, /mob/living/simple_animal/pet/fox)
+					var/mob/living/puppypicked = pick(puppytype)
+					affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up [initial(puppypicked.name)]!</span>", \
+														"<span class='userdanger'>You cough up [initial(puppypicked.name)]?!</span>")
+					new puppypicked(affected_mob.loc)
+					new puppypicked(affected_mob.loc)
+					barklimit ++
+				else
+					var/obj/item/toy/plushie/coughfox = /obj/item/toy/plushie/orange_fox
+					new coughfox(affected_mob.loc)
+					affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up a fox plushie!</span>", \
+														"<span class='userdanger'>You cough up FOX PLUSHIE?!</span>")
+
 				affected_mob.emote("cough")
 				affected_mob.adjustBruteLoss(5)
-				new puppypicked(affected_mob.loc)
-				new puppypicked(affected_mob.loc)
 	return
