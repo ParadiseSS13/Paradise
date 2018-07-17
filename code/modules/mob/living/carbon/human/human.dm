@@ -1275,9 +1275,6 @@
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
 /mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE)
-	if(new_species == dna.species.type)
-		return
-
 	var/datum/species/oldspecies = dna.species
 
 	if(oldspecies)
@@ -1295,7 +1292,7 @@
 
 		oldspecies.handle_pre_change(src)
 
-	dna.species = new new_species.type
+	dna.species = new new_species()
 
 	tail = dna.species.tail
 

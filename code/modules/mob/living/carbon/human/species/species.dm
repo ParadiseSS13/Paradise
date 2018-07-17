@@ -18,8 +18,8 @@
 	var/blurb = "A completely nondescript species."      // A brief lore summary for use in the chargen screen.
 	var/butt_sprite = "human"
 
-	var/primitive_form            // Lesser form, if any (ie. monkey for humans)
-	var/greater_form              // Greater form, if any, ie. human for monkeys.
+	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
+	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
 	var/tail                     // Name of tail image in species effects icon file.
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
