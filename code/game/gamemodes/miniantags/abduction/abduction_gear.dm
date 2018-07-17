@@ -258,7 +258,6 @@
 	name = "Dissection Guide"
 	icon_state = "alienpaper_words"
 	info = {"<b>Dissection for Dummies</b><br>
-
 <br>
  1.Acquire fresh specimen.<br>
  2.Put the specimen on operating table.<br>
@@ -593,7 +592,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.
-	injected_reagents = list("corazone")
+	injected_reagents = list("corazone","spaceacillin")
 
 /obj/structure/closet/abductor
 	name = "alien locker"
