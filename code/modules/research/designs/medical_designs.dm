@@ -330,7 +330,7 @@
 	name = "Meson scanner implant"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station."
 	id = "ci-mesonhud"
-	req_tech = list("materials" = 4, "programming = 3", "biotech" = 4, "engineering" = 4, "magnets" = 4)
+	req_tech = list("materials" = 4, "biotech" = 4, "engineering" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_GOLD = 300)
