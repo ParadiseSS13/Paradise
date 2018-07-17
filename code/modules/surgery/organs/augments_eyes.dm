@@ -49,7 +49,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/meson
 	name = "Meson scanner implant"
-	desc = "These cybernetic eye implants will give you meson vision."
+	desc = "These cybernetic eyes will allow you to see the structural layout of the station."
 	eye_colour = "#199900"
 	implant_color = "#AEFF00"
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
@@ -112,7 +112,7 @@
 	eye_colour = "#B76700"
 	implant_color = "#ff9000"
 	origin_tech = "materials=4;engineering=4;biotech=4"
-	aug_message = "You see the diagnostic information of the synthetics around you"
+	aug_message = "You see the diagnostic information of the synthetics around you..."
 	HUD_type = DATA_HUD_DIAGNOSTIC
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security

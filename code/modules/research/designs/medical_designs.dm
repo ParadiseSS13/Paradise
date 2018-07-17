@@ -327,7 +327,7 @@
 	category = list("Misc", "Medical")
 
 /datum/design/cyberimp_meson
-	name = "Meson vision implant"
+	name = "Meson scanner implant"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station."
 	id = "ci-mesonhud"
 	req_tech = list("materials" = 4, "programming = 3", "biotech" = 4, "engineering" = 4, "magnets" = 4)
