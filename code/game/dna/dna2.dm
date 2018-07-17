@@ -420,7 +420,7 @@ var/global/list/bad_blocks[0]
 	data["UE"] = unique_enzymes
 	data["SE"] = SE.Copy() // This is probably too lazy for my own good
 	data["UI"] = UI.Copy()
-	data["species"] = species.type // This works because `species` is a string, not a datum
+	data["species"] = species.type
 	// Because old DNA coders were insane or something
 	data["b_type"] = b_type
 	data["real_name"] = real_name

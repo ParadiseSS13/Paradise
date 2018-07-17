@@ -217,8 +217,8 @@
 	var/mob/living/carbon/human/interactive/greytide/clone = new(src)
 	var/datum/dna/owner_dna = H.dna
 	clone.rename_character(clone.name, owner_dna.real_name)
+	clone.set_species(H.dna.species.type)
 	clone.dna = owner_dna.Clone()
-	clone.set_species(H.dna.species)
 	clone.body_accessory = H.body_accessory
 	domutcheck(clone)
 

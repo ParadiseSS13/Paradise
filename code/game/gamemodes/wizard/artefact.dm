@@ -321,7 +321,7 @@ var/global/list/multiverse = list()
 	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</B>")
 	M.faction = list("[user.real_name]")
 	if(duplicate_self)
-		M.set_species(user.dna.species) //duplicate the sword user's species.
+		M.set_species(user.dna.species.type) //duplicate the sword user's species.
 	else
 		if(prob(50))
 			var/list/list_all_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/golem, /datum/species/diona, /datum/species/machine, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)

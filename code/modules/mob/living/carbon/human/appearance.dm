@@ -4,7 +4,7 @@
 	AC.ui_interact(user, state = state)
 
 /mob/living/carbon/human/proc/change_species(datum/species/new_species)
-	if(!new_species || dna.species.type == new_species || !(initial(new_species.name) in all_species))
+	if(!new_species || dna.species.type == new_species || !ispath(new_species, /datum/species))
 		return FALSE
 
 	set_species(new_species, null, TRUE)

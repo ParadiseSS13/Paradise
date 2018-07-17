@@ -16,7 +16,7 @@
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	set_species(new_species, 1, delay_icon_update = 1)
+	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
 
 	..()
 
@@ -1274,7 +1274,10 @@
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE)
+	if(!skip_same_check)
+		if(dna.species.name == initial(new_species.name))
+			return
 	var/datum/species/oldspecies = dna.species
 
 	if(oldspecies)
@@ -1934,7 +1937,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		dna.deserialize(data["dna"])
 		real_name = dna.real_name
 		name = real_name
-		set_species(dna.species)
+		set_species(dna.species.type, skip_same_check = TRUE)
 	age = data["age"]
 	undershirt = data["ushirt"]
 	underwear = data["uwear"]

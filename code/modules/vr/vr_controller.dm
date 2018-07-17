@@ -36,8 +36,8 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/map_templat
 		vr_avatar.real_me = V.real_me
 	else
 		vr_avatar.real_me = H
+	vr_avatar.set_species(H.dna.species.type)
 	vr_avatar.dna = H.dna.Clone()
-	vr_avatar.set_species(H.dna.species)
 	vr_avatar.name = H.name
 	vr_avatar.real_name = H.real_name
 	vr_avatar.undershirt = H.undershirt

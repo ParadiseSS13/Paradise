@@ -111,11 +111,11 @@
 	target.visible_message("<span class='danger'>[target] begins to violenty convulse!</span>","<span class='userdanger'>You feel a tiny prick and a begin to uncontrollably convulse!</span>")
 
 	spawn(10)
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			H.set_species(NewDNA.species.type)
 		target.dna = NewDNA.Clone()
 		target.real_name = NewDNA.real_name
-		var/mob/living/carbon/human/H = target
-		if(istype(H))
-			H.set_species(NewDNA.species)
 		target.UpdateAppearance()
 		domutcheck(target, null)
 	feedback_add_details("changeling_powers","TS")

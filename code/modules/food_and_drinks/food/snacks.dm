@@ -1252,7 +1252,7 @@
 	icon_state = "monkeycube"
 	bitesize = 12
 	filling_color = "#ADAC7F"
-	var/monkey_type = "Monkey"
+	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)
