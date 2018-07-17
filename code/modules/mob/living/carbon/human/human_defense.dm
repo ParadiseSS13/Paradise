@@ -503,3 +503,42 @@ emp_act
 		return TRUE
 	if(check_mask && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
 		return TRUE
+
+/mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
+	if(isorgan(I))
+		var/obj/item/organ/external/O = I
+
+		// Can it attach limbs like this?
+		if(!(species && species.species_traits && EASYLIMBATTACHMENT in species.species_traits))
+			return ..()
+
+		// Robotic with Robotic, organic with organic.
+		if(!((species.reagent_tag == PROCESS_SYN && O.status == ORGAN_ROBOT) || (species.reagent_tag == PROCESS_ORG && O.status != ORGAN_ROBOT)))
+			return ..()
+
+		if(get_organ(O.limb_name))
+			return ..()
+
+		if(src == user)
+			visible_message("<span class='warning'>[src] is attempting to re-attach the [O]...</span>",\
+					"<span class='notice'>You are attempting to re-attach the [O]...</span>")
+		else
+			visible_message("<span class='warning'>[user] is attempting to re-attach the [O]...</span>",\
+					"<span class='notice'>[user] is attempting to re-attach the [O]...</span>")
+
+		if(!do_mob(user, src, 120))
+			return
+
+		if(src == user)
+			visible_message("<span class='warning'>[src] jams the [O] into the empty socket!</span>",\
+					"<span class='notice'>You force [O] into your empty socket, and it locks into place!</span>")
+		else
+			visible_message("<span class='warning'>[user] jams the [O] into [src]'s empty socket!</span>",\
+					"<span class='notice'>[user] forces [O] into your empty socket, and it locks into place!</span>")
+		user.unEquip(O) // This was all taken from attach_limb from surgery
+		O.replaced(src)
+		update_body()
+		updatehealth()
+		UpdateDamageIcon()
+		return
+	..()
