@@ -292,7 +292,7 @@
 	if(!head_organ)
 		log_runtime(EXCEPTION("Missing head!"), owner)
 		return 0
-	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
+	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.dna.species2.bodyflags & HAS_HEAD_ACCESSORY)
 
 /datum/nano_module/appearance_changer/proc/can_change_markings(var/location = "body")
 	var/marking_flag = HAS_BODY_MARKINGS
@@ -301,7 +301,7 @@
 		if(!head_organ)
 			log_debug("Missing head!")
 			return 0
-		body_flags = head_organ.species.bodyflags
+		body_flags = head_organ.dna.species2.bodyflags
 		marking_flag = HAS_HEAD_MARKINGS
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
@@ -317,7 +317,7 @@
 	if(!head_organ)
 		log_debug("Missing head!")
 		return 0
-	return owner && (flags & APPEARANCE_ALT_HEAD) && (head_organ.species.bodyflags & HAS_ALT_HEADS)
+	return owner && (flags & APPEARANCE_ALT_HEAD) && (head_organ.dna.species2.bodyflags & HAS_ALT_HEADS)
 
 /datum/nano_module/appearance_changer/proc/cut_and_generate_data()
 	// Making the assumption that the available species remain constant

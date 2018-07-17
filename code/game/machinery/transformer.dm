@@ -336,7 +336,7 @@
 		to_chat(H, "<span class='warning'>No genetic template configured!</span>")
 		return
 	var/prev_ue = H.dna.unique_enzymes
-	H.set_species(template.species)
+	H.set_species(template.species2)
 	H.dna = template.Clone()
 	H.real_name = template.real_name
 	H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)

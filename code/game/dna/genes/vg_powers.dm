@@ -50,7 +50,7 @@
 		M.change_eye_color(new_eyes)
 
 	//Alt heads.
-	if(head_organ.species.bodyflags & HAS_ALT_HEADS)
+	if(head_organ.dna.species2.bodyflags & HAS_ALT_HEADS)
 		var/list/valid_alt_heads = M.generate_valid_alt_heads()
 		var/new_alt_head = input("Please select alternate head", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
 		if(new_alt_head)
@@ -92,7 +92,7 @@
 			M.change_facial_hair_color(new_facial, 1)
 
 	//Head accessory.
-	if(head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
+	if(head_organ.dna.species2.bodyflags & HAS_HEAD_ACCESSORY)
 		var/list/valid_head_accessories = M.generate_valid_head_accessories()
 		var/new_head_accessory = input("Please select head accessory style", "Character Generation", head_organ.ha_style) as null|anything in valid_head_accessories
 		if(new_head_accessory)

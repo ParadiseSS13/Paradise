@@ -357,7 +357,7 @@ var/record_id_num = 1001
 	temp = new /icon(icobase, "groin_[g]")
 	preview_icon.Blend(temp, ICON_OVERLAY)
 	var/head = "head"
-	if(head_organ.alt_head && head_organ.species.bodyflags & HAS_ALT_HEADS)
+	if(head_organ.alt_head && head_organ.dna.species2.bodyflags & HAS_ALT_HEADS)
 		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[head_organ.alt_head]
 		if(alternate_head.icon_state)
 			head = alternate_head.icon_state
@@ -410,7 +410,7 @@ var/record_id_num = 1001
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		// I'll want to make a species-specific proc for this sooner or later
 		// But this'll do for now
-		if(head_organ.species.name == "Slime People")
+		if(istype(head_organ.dna.species2, /datum/species/slime))
 			hair_s.Blend("[H.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 		else
 			hair_s.Blend(head_organ.hair_colour, ICON_ADD)
@@ -424,7 +424,7 @@ var/record_id_num = 1001
 		face_s.Blend(hair_s, ICON_OVERLAY)
 
 	//Head Accessory
-	if(head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
+	if(head_organ.dna.species2.bodyflags & HAS_HEAD_ACCESSORY)
 		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
@@ -434,7 +434,7 @@ var/record_id_num = 1001
 	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style && facial_hair_style.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-		if(head_organ.species.name == "Slime People")
+		if(istype(head_organ.dna.species2, /datum/species/slime))
 			facial_s.Blend("[H.skin_colour]A0", ICON_ADD) //A0 = 160 alpha.
 		else
 			facial_s.Blend(head_organ.facial_colour, ICON_ADD)

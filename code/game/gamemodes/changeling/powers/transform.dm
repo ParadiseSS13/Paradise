@@ -17,7 +17,7 @@
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
 	if(ishuman(user))
-		user.set_species(chosen_dna.species)
+		user.set_species(chosen_dna.species2)
 	domutcheck(user, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
 	user.flavor_text = ""
 	user.dna.UpdateSE()

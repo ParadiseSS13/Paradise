@@ -99,8 +99,7 @@ var/global/list/bad_blocks[0]
 	var/b_type = "A+"  // Should probably change to an integer => string map but I'm lazy.
 	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 
-	// New stuff
-	var/species = "Human"
+	var/datum/species/species2 = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -110,7 +109,7 @@ var/global/list/bad_blocks[0]
 	new_dna.struc_enzymes_original=struc_enzymes_original // will make clone's SE the same as the original, do we want this?
 	new_dna.b_type=b_type
 	new_dna.real_name=real_name
-	new_dna.species=species
+	new_dna.species2 = new species2.type
 	for(var/b=1;b<=DNA_SE_LENGTH;b++)
 		new_dna.SE[b]=SE[b]
 		if(b<=DNA_UI_LENGTH)
@@ -421,7 +420,7 @@ var/global/list/bad_blocks[0]
 	data["UE"] = unique_enzymes
 	data["SE"] = SE.Copy() // This is probably too lazy for my own good
 	data["UI"] = UI.Copy()
-	data["species"] = species // This works because `species` is a string, not a datum
+	data["species"] = species2.type // This works because `species` is a string, not a datum
 	// Because old DNA coders were insane or something
 	data["b_type"] = b_type
 	data["real_name"] = real_name
@@ -434,10 +433,10 @@ var/global/list/bad_blocks[0]
 	UI = data["UI"]
 	UpdateUI()
 	UpdateSE()
-	species = data["species"]
+	species2 = new data["species"]
 	b_type = data["b_type"]
 	real_name = data["real_name"]
 
 // a nice hook for if/when we refactor species on dna
 /datum/dna/proc/get_species_name()
-	return species
+	return species2.name

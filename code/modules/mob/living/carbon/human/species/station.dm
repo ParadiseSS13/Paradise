@@ -617,7 +617,7 @@
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.bodyparts_by_name)
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
-				if(istype(E) && E.dna.species == "Slime People")
+				if(istype(E) && E.dna && istype(E.dna.species2, /datum/species/slime))
 					E.sync_colour_to_human(H)
 			H.update_hair(0)
 			H.update_body()

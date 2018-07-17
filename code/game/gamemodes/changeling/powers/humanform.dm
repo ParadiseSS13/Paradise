@@ -29,7 +29,7 @@
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
 	if(istype(user))
-		user.set_species(chosen_dna.species)
+		user.set_species(chosen_dna.species2)
 	domutcheck(user,null,MUTCHK_FORCED)
 	user.flavor_text = ""
 	user.dna.UpdateSE()

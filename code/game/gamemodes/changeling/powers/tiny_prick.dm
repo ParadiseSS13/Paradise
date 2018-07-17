@@ -80,8 +80,7 @@
 	selected_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 	if(!selected_dna)
 		return
-	var/datum/species/newspecies = all_species[selected_dna.species]
-	if((NOTRANSSTING in newspecies.species_traits) || newspecies.is_small)
+	if((NOTRANSSTING in selected_dna.species2.species_traits) || selected_dna.species2.is_small)
 		to_chat(user, "<span class='warning'>The selected DNA is incompatible with our sting.</span>")
 		return
 	..()

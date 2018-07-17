@@ -105,8 +105,8 @@
 /obj/item/organ/external/New(var/mob/living/carbon/holder)
 	..()
 	var/mob/living/carbon/human/H = holder
-	icobase = species.icobase
-	deform = species.deform
+	icobase = dna.species2.icobase
+	deform = dna.species2.deform
 	if(istype(H))
 		replaced(H)
 		sync_colour_to_human(H)

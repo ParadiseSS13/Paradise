@@ -1297,9 +1297,9 @@
 			new_species = "Human"
 	else
 		if(!new_species)
-			new_species = dna.species
+			new_species = dna.species2
 		else
-			dna.species = new_species
+			dna.species2 = new_species
 
 	if(species)
 		if(species.name && species.name == new_species)
@@ -1380,7 +1380,7 @@
 
 	if(!dna)
 		dna = new /datum/dna(null)
-		dna.species = species.name
+		dna.species2 = species.name
 		dna.real_name = real_name
 
 	species.handle_post_spawn(src)
@@ -1497,7 +1497,7 @@
 			var/list/hair = list()
 			for(var/i in hair_styles_public_list)
 				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_public_list[i]
-				if((head_organ.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
+				if((head_organ.dna.species2.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 					hair += i
 
 			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
@@ -1964,7 +1964,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		dna.deserialize(data["dna"])
 		real_name = dna.real_name
 		name = real_name
-		set_species(dna.species)
+		set_species(dna.species2)
 	age = data["age"]
 	undershirt = data["ushirt"]
 	underwear = data["uwear"]

@@ -273,7 +273,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/changeling/proc/find_dna(datum/dna/tDNA)
 	for(var/datum/dna/D in (absorbed_dna + protected_dna))
-		if(tDNA.unique_enzymes == D.unique_enzymes && tDNA.uni_identity == D.uni_identity && tDNA.species == D.species)
+		if(tDNA.unique_enzymes == D.unique_enzymes && tDNA.uni_identity == D.uni_identity && tDNA.species2.type == D.species2.type)
 			return D
 	return null
 
