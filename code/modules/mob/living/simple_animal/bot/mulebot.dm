@@ -50,7 +50,7 @@
 	var/currentBloodColor = "#A10808"
 	var/currentDNA = null
 
-/mob/living/simple_animal/bot/mulebot/New()
+/mob/living/simple_animal/bot/mulebot/Initialize()
 	..()
 	wires = new /datum/wires/mulebot(src)
 	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech

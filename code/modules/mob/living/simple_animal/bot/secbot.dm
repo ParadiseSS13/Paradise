@@ -81,7 +81,7 @@
 	arrest_type = 1
 	weaponscheck = 1
 
-/mob/living/simple_animal/bot/secbot/New()
+/mob/living/simple_animal/bot/secbot/Initialize()
 	..()
 	icon_state = "[base_icon][on]"
 	spawn(3)

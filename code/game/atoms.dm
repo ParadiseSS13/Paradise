@@ -45,21 +45,17 @@
 	var/initialized = FALSE
 
 /atom/New(loc, ...)
-	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
-		_preloader.load(src)
-	. = ..()
-	attempt_init(...)
+	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
+		GLOB._preloader.load(src)
 
-// This is distinct from /tg/ because of our space management system
-// This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
-/atom/proc/attempt_init(loc, ...)
+	. = ..()
+
 	var/do_initialize = SSatoms.initialized
 	if(do_initialize != INITIALIZATION_INSSATOMS)
 		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
 		if(SSatoms.InitAtom(src, args))
 			// we were deleted
 			return
-
 
 //Called after New if the map is being loaded. mapload = TRUE
 //Called from base of New if the map is not being loaded. mapload = FALSE

@@ -3,9 +3,11 @@
 //////////////////////////////////////////////////////////////
 
 //As of 3.6.2016
+GLOBAL_VAR_INIT(map_definitely_loading, FALSE)
 //global datum that will preload variables on atoms instanciation
-var/global/use_preloader = FALSE
-var/global/dmm_suite/preloader/_preloader = new
+GLOBAL_VAR_INIT(use_preloader, FALSE)
+GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
+
 
 /dmm_suite
 	// These regexes are global - meaning that starting the maploader again mid-load will
@@ -31,13 +33,9 @@ var/global/dmm_suite/preloader/_preloader = new
  * If `measureOnly` is set, then no atoms will be created, and all this will do
  * is return the bounds after parsing the file
  *
- * If you need to freeze init while you're working, you can use the spacial allocator's
- * "add_dirt" and "remove_dirt" which will put initializations on hold until you say
- * the word. This is important for loading large maps such as the cyberiad, where
- * atmos will attempt to start before it's ready, causing runtimes galore if init is
- * allowed to romp unchecked.
  */
 /dmm_suite/load_map(dmm_file as file, x_offset as num, y_offset as num, z_offset as num, cropMap as num, measureOnly as num)
+	Master.StartLoadingMap()
 	var/tfile = dmm_file//the map file we're creating
 	var/fname = "Lambda"
 	if(isfile(tfile))
@@ -159,10 +157,10 @@ var/global/dmm_suite/preloader/_preloader = new
 
 			CHECK_TICK
 	catch(var/exception/e)
-		_preloader.reset()
+		GLOB._preloader.reset()
 		throw e
 
-	_preloader.reset()
+	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
@@ -173,6 +171,7 @@ var/global/dmm_suite/preloader/_preloader = new
 		"Max x: [bounds[MAP_MAXX]]",
 		"Max y: [bounds[MAP_MAXY]]",
 		"Max z: [bounds[MAP_MAXZ]]"))
+		Master.StopLoadingMap()
 		return null
 	else
 		if(!measureOnly)
@@ -180,7 +179,9 @@ var/global/dmm_suite/preloader/_preloader = new
 				var/turf/T = t
 				//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
 				T.AfterChange(1,keep_cabling = TRUE)
+		Master.StopLoadingMap()
 		return bounds
+
 
 /**
  * Fill a given tile with its area/turf/objects/mobs
@@ -274,20 +275,22 @@ var/global/dmm_suite/preloader/_preloader = new
 			throw EXCEPTION("Oh no, I thought this was an area!")
 
 		var/atom/instance
-		_preloader.setup(members_attributes[index])//preloader for assigning  set variables on atom creation
+		GLOB._preloader.setup(members_attributes[index])//preloader for assigning  set variables on atom creation
 		instance = LM.area_path_to_real_area(members[index])
 
 		if(crds)
 			instance.contents.Add(crds)
 
-		if(use_preloader && instance)
-			_preloader.load(instance)
+		if(GLOB.use_preloader && instance)
+			GLOB._preloader.load(instance)
 
 	//then instance the /turf and, if multiple tiles are presents, simulates the DMM underlays piling effect
 
 	var/first_turf_index = 1
 	while(!ispath(members[first_turf_index],/turf)) //find first /turf object in members
 		first_turf_index++
+
+	SSatoms.map_loader_begin()
 
 	//instanciate the first /turf
 	var/turf/T
@@ -312,6 +315,8 @@ var/global/dmm_suite/preloader/_preloader = new
 		instance_atom(members[index],members_attributes[index],xcrd,ycrd,zcrd)
 		CHECK_TICK
 
+	SSatoms.map_loader_stop()
+
 ////////////////
 //Helpers procs
 ////////////////
@@ -319,7 +324,7 @@ var/global/dmm_suite/preloader/_preloader = new
 //Instance an atom at (x,y,z) and gives it the variables in attributes
 /dmm_suite/proc/instance_atom(path,list/attributes, x, y, z)
 	var/atom/instance
-	_preloader.setup(attributes, path)
+	GLOB._preloader.setup(attributes, path)
 
 	var/turf/T = locate(x,y,z)
 	if(T)
@@ -329,12 +334,24 @@ var/global/dmm_suite/preloader/_preloader = new
 		else if(ispath(path, /area))
 
 		else
-			instance = new path (T)//first preloader pass
+			instance = create_atom(path, T)//first preloader pass
 
-	if(use_preloader && instance)//second preloader pass, for those atoms that don't ..() in New()
-		_preloader.load(instance)
+
+	if(GLOB.use_preloader && instance)//second preloader pass, for those atoms that don't ..() in New()
+		GLOB._preloader.load(instance)
+
+	//custom CHECK_TICK here because we don't want things created while we're sleeping to not initialize
+	if(TICK_CHECK)
+		SSatoms.map_loader_stop()
+		stoplag()
+		SSatoms.map_loader_begin()
 
 	return instance
+
+
+/dmm_suite/proc/create_atom(path, crds)
+	set waitfor = FALSE
+	. = new path (crds)
 
 //text trimming (both directions) helper proc
 //optionally removes quotes before and after the text (for variable name)
@@ -442,7 +459,7 @@ var/global/dmm_suite/preloader/_preloader = new
 		json_ready = 0
 		if("map_json_data" in the_attributes)
 			json_ready = 1
-		use_preloader = TRUE
+		GLOB.use_preloader = TRUE
 		attributes = the_attributes
 		target_path = path
 
@@ -461,11 +478,11 @@ var/global/dmm_suite/preloader/_preloader = new
 		if(islist(value))
 			value = deepCopyList(value)
 		what.vars[attribute] = value
-	use_preloader = FALSE
+	GLOB.use_preloader = FALSE
 
 // If the map loader fails, make this safe
 /dmm_suite/preloader/proc/reset()
-	use_preloader = FALSE
+	GLOB.use_preloader = FALSE
 	attributes = list()
 	target_path	= null
 

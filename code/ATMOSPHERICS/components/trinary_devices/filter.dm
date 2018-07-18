@@ -77,7 +77,7 @@ Filter types:
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()
-	if(!on)
+	if(!on || !(parent1 && parent2 && parent3))
 		return 0
 
 	var/output_starting_pressure = air3.return_pressure()

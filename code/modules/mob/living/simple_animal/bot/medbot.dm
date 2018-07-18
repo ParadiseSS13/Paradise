@@ -87,7 +87,7 @@
 	radio_channel = "Syndicate"
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
 
-/mob/living/simple_animal/bot/medbot/syndicate/New()
+/mob/living/simple_animal/bot/medbot/syndicate/Initialize()
 	..()
 	Radio.syndie = 1
 

@@ -41,6 +41,9 @@ SUBSYSTEM_DEF(air)
 
 	var/list/currentrun = list()
 	var/currentpart = SSAIR_DEFERREDPIPENETS
+	
+	var/map_loading = TRUE
+	var/list/queued_for_activation
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -64,6 +67,7 @@ SUBSYSTEM_DEF(air)
 
 
 /datum/controller/subsystem/air/Initialize(timeofday)
+	map_loading = FALSE
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	setup_allturfs()
 	setup_atmos_machinery()
@@ -266,6 +270,11 @@ SUBSYSTEM_DEF(air)
 			T.excited_group.garbage_collect()
 
 /datum/controller/subsystem/air/proc/add_to_active(turf/simulated/T, blockchanges = 1)
+	if(map_loading)
+		if(queued_for_activation)
+			queued_for_activation[T] = T
+		return
+
 	if(istype(T) && T.air)
 		T.excited = 1
 		active_turfs |= T
@@ -280,6 +289,7 @@ SUBSYSTEM_DEF(air)
 			var/turf/simulated/S = get_step(T, direction)
 			if(istype(S))
 				add_to_active(S)
+		
 
 /datum/controller/subsystem/air/proc/setup_allturfs(var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	var/list/active_turfs = src.active_turfs
@@ -361,6 +371,16 @@ SUBSYSTEM_DEF(air)
 	icemaster.icon_state = "snowfloor"
 	icemaster.layer = TURF_LAYER + 0.1
 	icemaster.mouse_opacity = 0
+
+/datum/controller/subsystem/air/StartLoadingMap()
+	LAZYINITLIST(queued_for_activation)
+	map_loading = TRUE
+
+/datum/controller/subsystem/air/StopLoadingMap()
+	map_loading = FALSE
+	for(var/T in queued_for_activation)
+		add_to_active(T)
+	queued_for_activation.Cut()
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

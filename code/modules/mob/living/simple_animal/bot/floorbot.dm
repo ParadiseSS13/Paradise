@@ -40,7 +40,7 @@
 	#define REPLACE_TILE	5
 	#define TILE_EMAG		6
 
-/mob/living/simple_animal/bot/floorbot/New()
+/mob/living/simple_animal/bot/floorbot/Initialize()
 	..()
 	update_icon()
 	var/datum/job/engineer/J = new/datum/job/engineer
