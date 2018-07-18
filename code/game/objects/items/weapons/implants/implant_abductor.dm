@@ -29,7 +29,8 @@
 		if(ishuman(source))
 			var/mob/living/carbon/human/H = source
 			if(isabductor(H))
-				console = get_team_console(H.mind.abductor.team)
+				var/datum/species/abductor/S = H.dna.species
+				console = get_team_console(S.team)
 				home = console.pad
 
 		if(!home)

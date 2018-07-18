@@ -507,8 +507,10 @@
 	..(speaker,message,speaker.real_name)
 
 /datum/language/abductor/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
-	if(other.mind && other.mind.abductor)
-		if(other.mind.abductor.team == speaker.mind.abductor.team)
+	if(isabductor(other) && isabductor(speaker))
+		var/datum/species/abductor/A = speaker.dna.species
+		var/datum/species/abductor/A2 = other.dna.species
+		if(A.team == A2.team)
 			return TRUE
 	return FALSE
 
@@ -553,7 +555,7 @@
 
 	if(!message)
 		return
-	
+
 	log_say("(ROBOT) [message]", speaker)
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"

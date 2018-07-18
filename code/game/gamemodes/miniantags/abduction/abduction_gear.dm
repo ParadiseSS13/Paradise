@@ -117,8 +117,8 @@
 
 /obj/item/abductor/proc/ScientistCheck(user)
 	var/mob/living/carbon/human/H = user
-	if(H.mind && H.mind.abductor)
-		return H.mind.abductor.scientist
+	var/datum/species/abductor/S = H.dna.species
+	return S.scientist
 
 /obj/item/abductor/gizmo
 	name = "science tool"
@@ -476,6 +476,25 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			to_chat(user, "<span class='warning'>The baton is in probing mode.</span>")
 
+
+/obj/item/radio/headset/abductor
+	name = "alien headset"
+	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
+	flags = EARBANGPROTECT
+	origin_tech = "magnets=2;abductor=3"
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "abductor_headset"
+	item_state = "abductor_headset"
+	ks2type = /obj/item/encryptionkey/heads/captain
+
+/obj/item/radio/headset/abductor/New()
+	..()
+	make_syndie()
+
+/obj/item/radio/headset/abductor/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
+		return // Stops humans from disassembling abductor headsets.
+	return ..()
 
 /obj/item/scalpel/alien
 	name = "alien scalpel"

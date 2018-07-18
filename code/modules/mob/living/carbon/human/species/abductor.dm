@@ -27,14 +27,14 @@
 	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	female_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
 	female_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg' //Abductors always scream like guys
+	var/team = 1
+	var/scientist = FALSE // vars to not pollute spieces list with castes
 
 /datum/species/abductor/can_understand(mob/other) //Abductors can understand everyone, but they can only speak over their mindlink to another team-member
-	return 1
+	return TRUE
 
 /datum/species/abductor/handle_post_spawn(mob/living/carbon/human/H)
 	H.gender = NEUTER
-	if(H.mind)
-		H.mind.abductor = new /datum/abductor
 	H.languages.Cut() //Under no condition should you be able to speak any language
 	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
 	return ..()

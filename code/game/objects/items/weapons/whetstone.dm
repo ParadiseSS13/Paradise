@@ -10,6 +10,7 @@
 	var/max = 30
 	var/prefix = "sharpened"
 	var/requires_sharpness = 1
+	var/claw_damage_increase = 1
 
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
@@ -46,16 +47,24 @@
 	playsound(get_turf(src), usesound, 50, 1)
 	name = "worn out [name]"
 	desc = "[desc] At least, it used to."
-	used = 1
+	used = TRUE
 	update_icon()
 
-/obj/item/whetstone/attack_self(mob/user as mob) //This is just fluff for now. Species datums are global and not newly created instances, so we can't adjust unarmed damage on a per mob basis.
+/obj/item/whetstone/attack_self(mob/user)
+	if(used)
+		to_chat(user, "<span class='warning'>The whetstone is too worn to use again!</span>")
+		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/datum/unarmed_attack/attack = H.dna.species.unarmed
 		if(istype(attack, /datum/unarmed_attack/claws))
-			H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on the [src]!</span>", "<span class='notice'>You sharpen your claws on the [src].</span>")
+			attack.damage += claw_damage_increase
+			H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on [src]!</span>", "<span class='notice'>You sharpen your claws on [src].</span>")
 			playsound(get_turf(H), usesound, 50, 1)
+			name = "worn out [name]"
+			desc = "[desc] At least, it used to."
+			used = TRUE
+			update_icon()
 
 /obj/item/whetstone/super
 	name = "super whetstone block"
@@ -64,3 +73,4 @@
 	max = 200
 	prefix = "super-sharpened"
 	requires_sharpness = 0
+	claw_damage_increase = 200
