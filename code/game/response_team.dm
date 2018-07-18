@@ -547,12 +547,11 @@ var/ert_request_answered = 0
 	name = "RT Engineer (Red)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/color/yellow
-	belt = /obj/item/wirecutters/power
+	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	suit_store = /obj/item/tank/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/cyberimp/arm/toolset = 1,
 	 /obj/item/organ/internal/cyberimp/eyes/shield = 1,
 	 /obj/item/organ/internal/cyberimp/chest/nutriment = 1
 	)
