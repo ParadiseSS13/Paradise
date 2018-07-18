@@ -49,7 +49,7 @@
 
 /obj/item/organ/internal/cyberimp/eyes/meson
 	name = "Meson scanner implant"
-	desc = "These cybernetic eyes will allow you to see the structural layout of the station."
+	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
 	eye_colour = "#199900"
 	implant_color = "#AEFF00"
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
