@@ -328,7 +328,7 @@
 
 /datum/design/cyberimp_meson
 	name = "Meson scanner implant"
-	desc = "These cybernetic eyes will allow you to see the structural layout of the station."
+	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
 	id = "ci-mesonhud"
 	req_tech = list("materials" = 4, "biotech" = 4, "engineering" = 4)
 	build_type = PROTOLATHE | MECHFAB
