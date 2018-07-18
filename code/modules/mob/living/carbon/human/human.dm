@@ -1319,7 +1319,18 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
+	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
+	var/list/kept_items[0]
+
+	for(var/thing in thing_to_check)
+		var/obj/item/I = get_item_by_slot(thing)
+		if(I)
+			kept_items[I] = thing
+
 	dna.species.create_organs(src)
+
+	for(var/thing in kept_items)
+		equip_to_slot_or_del(thing, kept_items[thing])
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
