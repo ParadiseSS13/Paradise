@@ -255,7 +255,7 @@
 		if(occupant.reagents)
 			occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count,1))
 
-	if(occupant.get_species() == "Human")
+	if(ishumanbasic(occupant))
 		new /obj/item/stack/sheet/animalhide/human(src)
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 

@@ -280,7 +280,7 @@ var/record_id_num = 1001
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
 		G.fields["sex"]			= capitalize(H.gender)
-		G.fields["species"]		= H.get_species()
+		G.fields["species"]		= H.dna.species.name
 		G.fields["photo"]		= get_id_photo(H)
 		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
 		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"

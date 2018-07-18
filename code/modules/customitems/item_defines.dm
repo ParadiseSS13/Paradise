@@ -268,7 +268,7 @@
 		return
 
 	var/mob/living/carbon/human/target = user
-	if(!istype(target) || target.get_species() != "Tajaran") // Only catbeasts, kthnx.
+	if(!istype(target) || !istajaran(target)) // Only catbeasts, kthnx.
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
@@ -1276,7 +1276,7 @@
 
 /obj/item/fluff/zekemirror/attack_self(mob/user)
 	var/mob/living/carbon/human/target = user
-	if(!istype(target) || target.get_species() != "Skrell") // It'd be strange to see other races with head tendrils.
+	if(!istype(target) || !isskrell(target)) // It'd be strange to see other races with head tendrils.
 		return
 
 	if(target.change_hair("Zekes Tentacles", 1))

@@ -43,7 +43,7 @@
 				else
 					return 1
 
-		if(isscrewdriver(src) && M.get_species() == "Machine")
+		if(isscrewdriver(src) && ismachine(M))
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else

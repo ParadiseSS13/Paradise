@@ -24,15 +24,15 @@
 	var/exp_flash = 3
 	var/exp_fire = 2
 
-/obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
+/obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
 	. = ..()
-	if(isliving(G))
-		if(G.get_species() == "Machine") //speshul snowfleks deserv speshul treetment
-			G.adjustFireLoss(6969)  //remember - slimes love fire
+	if(isliving(C))
+		if(ismachine(C)) //speshul snowfleks deserv speshul treetment
+			C.adjustFireLoss(6969)  //remember - slimes love fire
 		else
-			G.death()
+			C.death()
 
-		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts [G.p_them()]!</span>")
+		visible_message("<span class='danger'>[C] topples backwards as the death bolt impacts [C.p_them()]!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))

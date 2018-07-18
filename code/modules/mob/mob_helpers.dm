@@ -16,9 +16,9 @@
 	return 0
 
 /mob/living/carbon/human/isSynthetic()
-	if(get_species() == "Machine")
-		return 1
-	return 0
+	if(ismachine(src))
+		return TRUE
+	return FALSE
 
 /mob/proc/get_screen_colour()
 

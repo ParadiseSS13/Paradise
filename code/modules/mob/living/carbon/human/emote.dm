@@ -29,29 +29,36 @@
 	switch(act)
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
-			if(dna.species.name == "Machine")		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
+			var/found_machine_head = FALSE
+			if(ismachine(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
-			else								//Everyone else fails, skip the emote attempt
-				return
+			else
+				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises
+				if(H && H.is_robotic())
+					on_CD = handle_emote_CD()
+					found_machine_head = TRUE
+
+			if(!found_machine_head)								//Everyone else fails, skip the emote attempt
+				return								//Everyone else fails, skip the emote attempt
 		if("drone","drones","hum","hums","rumble","rumbles")
-			if(get_species() == "Drask")		//Only Drask can make whale noises
+			if(isdrask(src))		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
 				return
 		if("howl", "howls")
-			if(get_species() == "Vulpkanin")		//Only Vulpkanin can howl
+			if(isvulpkanin(src))		//Only Vulpkanin can howl
 				on_CD = handle_emote_CD(100)
 			else
 				return
 		if("growl", "growls")
-			if(get_species() == "Vulpkanin")		//Only Vulpkanin can growl
+			if(isvulpkanin(src))		//Only Vulpkanin can growl
 				on_CD = handle_emote_CD()
 			else
 				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
-			if(get_species() == "Slime People")	//Only Slime People can squish
+			if(isslimeperson(src))	//Only Slime People can squish
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
@@ -65,31 +72,31 @@
 				return
 
 		if("clack", "clacks")
-			if(get_species() == "Kidan")	//Only Kidan can clack and rightfully so.
+			if(iskidan(src))	//Only Kidan can clack and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
-			if(get_species() == "Kidan")	//Only Kidan can click and rightfully so.
+			if(iskidan(src))	//Only Kidan can click and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("creaks", "creak")
-			if(get_species() == "Diona") //Only Dionas can Creaks.
+			if(isdiona(src)) //Only Dionas can Creaks.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("hiss", "hisses")
-			if(get_species() == "Unathi") //Only Unathi can hiss.
+			if(isunathi(src)) //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("quill", "quills")
-			if(get_species() == "Vox") //Only Vox can rustle their quills.
+			if(isvox(src)) //Only Vox can rustle their quills.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -891,8 +898,6 @@
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), quill(s)"
 
 			switch(dna.species.name)
-				if("Machine")
-					emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
 				if("Drask")
 					emotelist += "\nDrask specific emotes :- drone(s)-(none)/mob, hum(s)-(none)/mob, rumble(s)-(none)/mob"
 				if("Kidan")
@@ -906,7 +911,14 @@
 				if("Diona")
 					emotelist += "\nDiona specific emotes :- creak(s)"
 
-			if (dna.species.name == "Slime People")
+			if(dna.species.name == "Machine")
+				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+			else
+				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises
+				if(H && H.is_robotic())
+					emotelist += "\nRobotic head specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+
+			if(dna.species.name == "Slime People")
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
 			else
 				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!

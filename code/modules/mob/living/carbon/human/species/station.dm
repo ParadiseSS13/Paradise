@@ -627,13 +627,13 @@
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
 #undef SLIMEPERSON_BLOOD_SCALING_FACTOR
 
-/mob/living/carbon/human/proc/toggle_recolor(var/silent = 0)
-	var/datum/species/slime/S = all_species[get_species()]
-	if(!istype(S))
+/mob/living/carbon/human/proc/toggle_recolor(silent = FALSE)
+	if(!isslimeperson(src))
 		if(!silent)
 			to_chat(src, "You're not a slime person!")
 		return
 
+	var/datum/species/slime/S = dna.species
 	if(src in S.recolor_list)
 		S.recolor_list -= src
 		if(!silent)

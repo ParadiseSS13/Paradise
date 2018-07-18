@@ -1035,10 +1035,6 @@
 
 /mob/living/carbon/human/proc/check_dna()
 	dna.check_integrity(src)
-	return
-
-/mob/living/carbon/human/get_species()
-	return dna.species.name
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
@@ -1172,7 +1168,7 @@
 	surgeries.Cut() //End all surgeries.
 	update_revive()
 
-	if(dna.species.name != "Skeleton" && (SKELETON in mutations))
+	if(!isskeleton(src) && (SKELETON in mutations))
 		mutations.Remove(SKELETON)
 	if(NOCLONE in mutations)
 		mutations.Remove(NOCLONE)
@@ -1821,14 +1817,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (get_species() == "Machine"))))
+		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachine(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
 			return 0
 	return ..()
 
 /mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
-		if(!get_species() == "Machine")
+		if(!ismachine(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
 			return 0
 		else

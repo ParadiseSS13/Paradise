@@ -338,7 +338,7 @@
 		if(!owner.current || !ishuman(owner.current))
 			return 0
 		var/mob/living/carbon/human/H = owner.current
-		if(H.get_species() != "Abductor")
+		if(!isabductor(H))
 			return 0
 		ab_team = H.mind.abductor.team
 	for(var/obj/machinery/abductor/experiment/E in abductor_equipment)

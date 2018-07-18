@@ -92,7 +92,7 @@
 			return //Has internals, no drowning
 		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
 			return //doesn't breathe, no drowning
-		if(drownee.get_species() == "Skrell" || drownee.get_species() == "Neara")
+		if(isskrell(drownee) || isneara(drownee))
 			return //fish things don't drown
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more

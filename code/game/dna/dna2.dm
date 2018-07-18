@@ -436,7 +436,3 @@ var/global/list/bad_blocks[0]
 	species = new data["species"]
 	b_type = data["b_type"]
 	real_name = data["real_name"]
-
-// a nice hook for if/when we refactor species on dna
-/datum/dna/proc/get_species_name()
-	return species.name

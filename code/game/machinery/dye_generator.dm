@@ -98,7 +98,7 @@
 		var/mob/living/carbon/human/H = M
 		var/dye_list = list("hair", "alt. hair theme")
 
-		if(H.gender == MALE || H.get_species() == "Vulpkanin")
+		if(H.gender == MALE || isvulpkanin(H))
 			dye_list += "facial hair"
 			dye_list += "alt. facial hair theme"
 

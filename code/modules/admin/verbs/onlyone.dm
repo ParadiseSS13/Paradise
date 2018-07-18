@@ -3,13 +3,13 @@
 		alert("The game hasn't started yet!")
 		return
 
-	var/list/incompatible_species = list("Plasmaman", "Vox")
+	var/list/incompatible_species = list(/datum/species/plasmaman, /datum/species/vox)
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == DEAD || !(H.client))
 			continue
 		if(is_special_character(H))
 			continue
-		if(H.dna.species.name in incompatible_species)
+		if(is_type_in_list(H.dna.species, incompatible_species))
 			H.set_species(/datum/species/human)
 			var/datum/preferences/A = new()	// Randomize appearance
 			A.copy_to(H)

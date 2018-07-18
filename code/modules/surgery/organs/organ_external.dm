@@ -279,7 +279,8 @@ This function completely restores a damaged organ to perfect condition.
 	for(var/obj/item/organ/external/EO in contents)
 		EO.rejuvenate()
 
-	owner.updatehealth()
+	if(owner)
+		owner.updatehealth()
 	update_icon()
 	if(!owner)
 		processing_objects |= src

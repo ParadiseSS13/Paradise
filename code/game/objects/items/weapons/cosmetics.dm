@@ -136,7 +136,7 @@
 			if(C.h_style == "Bald" || C.h_style == "Balding Hair" || C.h_style == "Skinhead")
 				to_chat(user, "<span class='notice'>There is not enough hair left to shave...</span>")
 				return
-			if(M.get_species() == "Skrell")
+			if(isskrell(M))
 				to_chat(user, "<span class='warning'>Your razor isn't going to cut through tentacles.</span>")
 				return
 			if(H == user) //shaving yourself

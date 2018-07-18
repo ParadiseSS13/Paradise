@@ -28,7 +28,7 @@
 		var/obj/machinery/abductor/console/console
 		if(ishuman(source))
 			var/mob/living/carbon/human/H = source
-			if(H.get_species() == "Abductor")
+			if(isabductor(H))
 				console = get_team_console(H.mind.abductor.team)
 				home = console.pad
 

@@ -82,7 +82,7 @@
 				user.mutations.Add(XRAY)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.dna.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
@@ -95,7 +95,7 @@
 				new /obj/structure/closet/syndicate/resources/everything(loc)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.dna.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
@@ -108,7 +108,7 @@
 				user.verbs += /mob/living/carbon/proc/immortality
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.dna.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
@@ -130,7 +130,7 @@
 					obj_count++
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.dna.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")

@@ -67,10 +67,6 @@
 	//How much blood this step can get on surgeon. 1 - hands, 2 - full body.
 	var/blood_level = 0
 
-	var/list/allowed_mob = list()
-	var/list/disallowed_mob = list()
-
-
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/success = 0
 	if(accept_hand)
@@ -146,19 +142,8 @@
 // Checks if this step applies to the user mob at all
 /datum/surgery_step/proc/is_valid_target(mob/living/carbon/human/target)
 	if(!hasorgans(target))
-		return 0
-
-	if(allowed_mob)//can i just remove this and/or change it?
-		for(var/species in allowed_mob)
-			if(target.get_species() == species)
-				return 1
-
-	if(disallowed_mob)
-		for(var/species in disallowed_mob)
-			if(target.get_species() == species)
-				return 0
-
-	return 1
+		return FALSE
+	return TRUE
 
 // checks whether this step can be applied with the given user and target
 /datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

@@ -194,12 +194,12 @@
 		if(1)
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/H = affected_mob
-				if(H.dna.species.name == "Slime People")
+				if(isslimeperson(H))
 					stage = 5
 		if(3)
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
-				if(human.dna.species.name != "Slime People")
+				if(!isslimeperson(human))
 					human.set_species(/datum/species/slime)
 
 /datum/disease/transformation/corgi

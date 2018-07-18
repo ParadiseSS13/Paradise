@@ -33,7 +33,7 @@
 		var/list/species_facial_hair = list()
 		var/obj/item/organ/external/head/C = H.get_organ("head")
 		var/datum/robolimb/robohead = all_robolimbs[C.model]
-		if(H.gender == MALE || H.get_species() == "Vulpkanin")
+		if(H.gender == MALE || isvulpkanin(H))
 			if(C.dna.species)
 				for(var/i in facial_hair_styles_list)
 					var/datum/sprite_accessory/facial_hair/tmp_facial = facial_hair_styles_list[i]

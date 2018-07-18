@@ -105,7 +105,7 @@
 	to_chat(M, "<span class='warning'>This item is currently non-functional.</span>")
 	/*if(ishuman(M) && M.stat != DEAD)
 		var/mob/living/carbon/human/H = M
-		if(H.species.name != "Human" || reac_volume < 5) // implying xenohumans are holy
+		if(!ishumanbasic(H) || reac_volume < 5) // implying xenohumans are holy
 			if(method == INGEST && show_message)
 				to_chat(H, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
 			return ..()

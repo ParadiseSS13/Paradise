@@ -54,7 +54,7 @@
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
 	//Let people pick the little buggers up.
 	if(M.a_intent == INTENT_HELP)
-		if(M.dna.species && M.dna.species.name == "Diona")
+		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 			verbs += /mob/living/simple_animal/diona/proc/split
@@ -82,7 +82,7 @@
 
 		if(ishuman(C))
 			var/mob/living/carbon/human/D = C
-			if(D.dna.species && D.dna.species.name == "Diona")
+			if(isdiona(D))
 				choices += C
 
 	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices

@@ -11,6 +11,7 @@
 	path = /mob/living/carbon/human/monkey
 	language = null
 	default_language = "Chimpanzee"
+	species_traits = list(NO_EXAMINE)
 	greater_form = /datum/species/human
 	is_small = 1
 	has_fine_manipulation = 0
