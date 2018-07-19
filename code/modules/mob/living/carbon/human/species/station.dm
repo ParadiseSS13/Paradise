@@ -557,7 +557,7 @@
 		"is ripping out their own core!",
 		"is turning a dull, brown color and melting into a puddle!")
 
-	var/list/mob/living/carbon/human/recolor_list = list()
+	var/reagent_skin_coloring = FALSE
 
 	var/datum/action/innate/regrow/grow = new()
 
@@ -586,7 +586,7 @@
 #define SLIMEPERSON_ICON_UPDATE_PERIOD 200 // 20 seconds
 #define SLIMEPERSON_BLOOD_SCALING_FACTOR 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
 	// Slowly shifting to the color of the reagents
-	if((H in recolor_list) && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
+	if(reagent_skin_coloring && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
 		var/new_body_color = BlendRGB(r_color, H.skin_colour, (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
@@ -611,12 +611,12 @@
 		return
 
 	var/datum/species/slime/S = dna.species
-	if(src in S.recolor_list)
-		S.recolor_list -= src
+	if(S.reagent_skin_coloring)
+		S.reagent_skin_coloring = TRUE
 		if(!silent)
 			to_chat(src, "You adjust your internal chemistry to filter out pigments from things you consume.")
 	else
-		S.recolor_list += src
+		S.reagent_skin_coloring = TRUE
 		if(!silent)
 			to_chat(src, "You adjust your internal chemistry to permit pigments in chemicals you consume to tint you.")
 
@@ -711,9 +711,9 @@
 #undef SLIMEPERSON_MINHUNGER
 #undef SLIMEPERSON_REGROWTHDELAY
 
-/datum/species/slime/handle_pre_change(var/mob/living/carbon/human/H)
+/datum/species/slime/handle_pre_change(mob/living/carbon/human/H)
 	..()
-	if(H in recolor_list)
+	if(reagent_skin_coloring)
 		H.toggle_recolor(silent = 1)
 
 /datum/species/grey
