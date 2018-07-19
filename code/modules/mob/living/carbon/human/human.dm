@@ -1376,13 +1376,12 @@
 
 	update_client_colour(0)
 
-	spawn(0)
-		overlays.Cut()
-		update_mutantrace(1)
-		regenerate_icons()
-
 	if(!delay_icon_update)
 		UpdateAppearance()
+
+	overlays.Cut()
+	update_mutantrace(1)
+	regenerate_icons()
 
 	if(dna.species)
 		return TRUE
