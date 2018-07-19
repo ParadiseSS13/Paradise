@@ -110,8 +110,7 @@
 	if(istype(H))
 		replaced(H)
 		sync_colour_to_human(H)
-	spawn(1)
-		get_icon()
+	get_icon()
 
 /obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
 	owner = target

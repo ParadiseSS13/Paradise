@@ -114,14 +114,12 @@
 	..()
 	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
 	update_dna()
-	spawn(2) // organ icon code has a spawn in it, if we don't have this, this will runtime. Disgusting
-		for(var/obj/item/organ/external/E in bodyparts)
-			if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
-				continue
-			qdel(E)
-		for(var/obj/item/organ/O in internal_organs)
-			qdel(O)
-		regenerate_icons()
+	for(var/obj/item/organ/external/E in bodyparts)
+		if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
+			continue
+		qdel(E)
+	for(var/obj/item/organ/O in internal_organs)
+		qdel(O)
 	death()
 
 /mob/living/carbon/human/shadow/Initialize(mapload)
