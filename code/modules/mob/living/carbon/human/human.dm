@@ -1232,7 +1232,7 @@
 		..()
 
 /mob/living/carbon/human/generate_name()
-	name = dna.species.makeName(gender,src)
+	name = dna.species.get_random_name(gender)
 	real_name = name
 	if(dna)
 		dna.real_name = name

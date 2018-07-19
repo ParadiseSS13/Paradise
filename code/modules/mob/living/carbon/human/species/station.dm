@@ -365,16 +365,6 @@
 /datum/species/vox/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/vox/makeName(var/gender,var/mob/living/carbon/human/H=null)
-	var/sounds = rand(2,8)
-	var/i = 0
-	var/newname = ""
-
-	while(i<=sounds)
-		i++
-		newname += pick(vox_name_syllables)
-	return capitalize(newname)
-
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)

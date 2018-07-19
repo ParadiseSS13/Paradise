@@ -403,7 +403,7 @@
 	if(!hud_used)
 		hud_used = new /datum/hud/human(src)
 
-/mob/living/carbon/human/interactive/New(var/new_loc, var/new_species = null)
+/mob/living/carbon/human/interactive/Initialize(mapload)
 	..()
 	snpc_list += src
 

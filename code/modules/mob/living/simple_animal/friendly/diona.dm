@@ -156,8 +156,7 @@
 	adult.name = "diona ([rand(100,999)])"
 	adult.real_name = adult.name
 	adult.ckey = ckey
-	adult.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
-	adult.rename_self("diona")
+	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
 
 	for(var/obj/item/W in contents)
 		unEquip(W)

@@ -308,11 +308,6 @@
 /datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
-// Used for species-specific names (Vox, etc)
-/datum/species/proc/makeName(var/gender,var/mob/living/carbon/human/H=null)
-	if(gender==FEMALE)	return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
-	else				return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
-
 /datum/species/proc/handle_death(var/mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
