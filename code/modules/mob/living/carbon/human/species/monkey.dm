@@ -8,7 +8,6 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	path = /mob/living/carbon/human/monkey
 	language = null
 	default_language = "Chimpanzee"
 	species_traits = list(NO_EXAMINE)

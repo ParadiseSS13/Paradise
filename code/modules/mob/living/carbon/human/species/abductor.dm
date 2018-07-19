@@ -3,7 +3,6 @@
 	name_plural = "Abductors"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'
-	path = /mob/living/carbon/human/abductor
 	language = "Abductor Mindlink"
 	default_language = "Abductor Mindlink"
 	eyes = "blank_eyes"

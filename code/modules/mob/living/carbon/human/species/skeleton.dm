@@ -6,8 +6,6 @@
 
 	icobase = 'icons/mob/human_races/r_skeleton.dmi'
 	deform = 'icons/mob/human_races/r_skeleton.dmi'
-	path = /mob/living/carbon/human/skeleton
-	default_language = "Galactic Common"
 
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"

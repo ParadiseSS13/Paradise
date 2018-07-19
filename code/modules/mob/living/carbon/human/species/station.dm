@@ -4,7 +4,6 @@
 	icobase = 'icons/mob/human_races/r_human.dmi'
 	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive_form = /datum/species/monkey
-	path = /mob/living/carbon/human
 	language = "Sol Common"
 	species_traits = list(LIPS, CAN_BE_FAT)
 	skinned_type = /obj/item/stack/sheet/animalhide/human
@@ -25,8 +24,6 @@
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
-	path = /mob/living/carbon/human/unathi
-	default_language = "Galactic Common"
 	language = "Sinta'unathi"
 	tail = "sogtail"
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
@@ -120,8 +117,6 @@
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
-	path = /mob/living/carbon/human/tajaran
-	default_language = "Galactic Common"
 	language = "Siik'tajr"
 	tail = "tajtail"
 	skinned_type = /obj/item/stack/sheet/fur
@@ -181,8 +176,6 @@
 	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
-	path = /mob/living/carbon/human/vulpkanin
-	default_language = "Galactic Common"
 	language = "Canilunzt"
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
@@ -236,8 +229,6 @@
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
-	path = /mob/living/carbon/human/skrell
-	default_language = "Galactic Common"
 	language = "Skrellian"
 	primitive_form = /datum/species/monkey/skrell
 
@@ -285,9 +276,6 @@
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
-	path = /mob/living/carbon/human/vox
-
-	default_language = "Galactic Common"
 	language = "Vox-pidgin"
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
@@ -435,7 +423,6 @@
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
-	path = /mob/living/carbon/human/voxarmalis
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 
 	warning_low_pressure = 50
@@ -491,8 +478,6 @@
 	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
-	path = /mob/living/carbon/human/kidan
-	default_language = "Galactic Common"
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 
@@ -533,11 +518,9 @@
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
-	default_language = "Galactic Common"
 	language = "Bubblish"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
-	path = /mob/living/carbon/human/slime
 	remains_type = /obj/effect/decal/remains/slime
 
 	// More sensitive to the cold
@@ -738,7 +721,6 @@
 	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
-	default_language = "Galactic Common"
 	language = "Psionic Communication"
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
@@ -795,8 +777,6 @@
 	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
-	path = /mob/living/carbon/human/diona
-	default_language = "Galactic Common"
 	language = "Rootspeak"
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
@@ -919,8 +899,6 @@
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
-	path = /mob/living/carbon/human/machine
-	default_language = "Galactic Common"
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
@@ -1003,8 +981,6 @@
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
-	path = /mob/living/carbon/human/drask
-	default_language = "Galactic Common"
 	language = "Orluum"
 	eyes = "drask_eyes_s"
 

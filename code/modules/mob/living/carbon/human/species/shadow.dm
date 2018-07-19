@@ -5,7 +5,6 @@
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
 	deform = 'icons/mob/human_races/r_shadow.dmi'
 
-	default_language = "Galactic Common"
 	unarmed_type = /datum/unarmed_attack/claws
 
 	ignored_by = list(/mob/living/simple_animal/hostile/faithless)

@@ -1,11 +1,6 @@
-/*
-	Datum-based species. Should make for much cleaner and easier to maintain mutantrace code.
-*/
-
 /datum/species
 	var/name                     // Species name.
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
-	var/path 					// Species path
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
 
@@ -95,6 +90,7 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
+
 	var/is_small
 	var/show_ssd = 1
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
@@ -166,11 +162,11 @@
 
 	unarmed = new unarmed_type()
 
-/datum/species/proc/get_random_name(var/gender)
+/datum/species/proc/get_random_name(gender)
 	var/datum/language/species_language = all_languages[language]
 	return species_language.get_random_name(gender)
 
-/datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
+/datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
 
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
@@ -263,28 +259,24 @@
 			. -= 2
 	return .
 
-/datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
+/datum/species/proc/handle_post_spawn(mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	grant_abilities(C)
+
+/datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
 
-/datum/species/proc/updatespeciescolor(var/mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
-	return
-
-/datum/species/proc/grant_abilities(var/mob/living/carbon/human/H)
+/datum/species/proc/grant_abilities(mob/living/carbon/human/H)
 	for(var/proc/ability in species_abilities)
 		H.verbs += ability
-	return
 
-/datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
-	if(H.butcher_results)//clear it out so we don't butcher a actual human.
+/datum/species/proc/handle_pre_change(mob/living/carbon/human/H)
+	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
 	remove_abilities(H)
-	return
 
-/datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
+/datum/species/proc/remove_abilities(mob/living/carbon/human/H)
 	for(var/proc/ability in species_abilities)
 		H.verbs -= ability
-	return
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
@@ -295,37 +287,37 @@
 	if(R.id == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
 		H.reagents.del_reagent(R.id)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
-/datum/species/proc/handle_life(var/mob/living/carbon/human/H)
+/datum/species/proc/handle_life(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
 
-/datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
+/datum/species/proc/handle_dna(mob/living/carbon/C, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
-/datum/species/proc/handle_death(var/mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
+/datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
-		return 1
+		return TRUE
 	if(target.health >= config.health_threshold_crit)
 		target.help_shake_act(user)
-		return 1
+		return TRUE
 	else
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.grab_act(user, target))
-		return 1
+		return TRUE
 	else
 		target.grabbedby(user)
-		return 1
+		return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	//Vampire code
@@ -348,7 +340,7 @@
 		return
 		//end vampire codes
 	if(attacker_style && attacker_style.harm_act(user, target))
-		return 1
+		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
 
@@ -365,7 +357,7 @@
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
 			target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
-			return 0
+			return FALSE
 
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
@@ -386,7 +378,7 @@
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.disarm_act(user, target))
-		return 1
+		return TRUE
 	else
 		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
@@ -459,7 +451,7 @@
 	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
 		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
-		return 0
+		return FALSE
 
 	switch(M.a_intent)
 		if(INTENT_HELP)
@@ -483,11 +475,11 @@
 /datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
 
-/datum/species/proc/can_understand(var/mob/other)
+/datum/species/proc/can_understand(mob/other)
 	return
 
 // Called in life() when the mob has no client.
-/datum/species/proc/handle_npc(var/mob/living/carbon/human/H)
+/datum/species/proc/handle_npc(mob/living/carbon/human/H)
 	return
 
 //Species unarmed attacks
@@ -521,7 +513,7 @@
 	damage = 6
 
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
-	return 0
+	return FALSE
 
 /datum/species/proc/handle_vision(mob/living/carbon/human/H)
 	// Right now this just handles blind, blurry, and similar states
@@ -627,7 +619,7 @@ Returns the path corresponding to the corresponding organ
 It'll return null if the organ doesn't correspond, so include null checks when using this!
 */
 //Fethas Todo:Do i need to redo this?
-/datum/species/proc/return_organ(var/organ_slot)
+/datum/species/proc/return_organ(organ_slot)
 	if(!(organ_slot in has_organ))
 		return null
 	return has_organ[organ_slot]
