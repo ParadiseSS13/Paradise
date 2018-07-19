@@ -7,87 +7,88 @@
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/head/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/chest/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/chest/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/groin/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/groin/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/arm/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/arm/right/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
+
 /obj/item/organ/external/leg/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/leg/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/leg/right/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/foot/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/foot/right/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/hand/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/right/ipc
 	encased = null
 	status = ORGAN_ROBOT
 
 /obj/item/organ/external/hand/right/ipc/New()
-	robotize("Morpheus Cyberkinetics")
 	..()
+	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/internal/cell
 	name = "microbattery"
@@ -100,10 +101,6 @@
 	vital = TRUE
 	status = ORGAN_ROBOT
 
-/obj/item/organ/internal/cell/New()
-	robotize()
-	..()
-
 /obj/item/organ/internal/eyes/optical_sensor
 	name = "optical sensor"
 	icon = 'icons/obj/robot_component.dmi'
@@ -111,11 +108,6 @@
 	status = ORGAN_ROBOT
 //	dead_icon = "camera_broken"
 	weld_proof = 1
-
-/obj/item/organ/internal/eyes/optical_sensor/New()
-	robotize()
-	..()
-
 
 /obj/item/organ/internal/eyes/optical_sensor/remove(var/mob/living/user,special = 0)
 	if(!special)

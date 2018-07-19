@@ -74,15 +74,6 @@
 	amputation_point = "upper trunk"
 	gendered_icon = 0
 
-//DIONA ORGANS.
-/* /obj/item/organ/external/diona/removed()
-	var/mob/living/carbon/human/H = owner
-	..()
-	if(!istype(H) || !H.bodyparts || !H.bodyparts.len)
-		H.death()
-	if(prob(50) && spawn_diona_nymph_from_organ(src))
-		qdel(src) */
-
 /obj/item/organ/diona/process()
 	return
 

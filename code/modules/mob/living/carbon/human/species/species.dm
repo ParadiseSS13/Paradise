@@ -80,6 +80,7 @@
 
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
+	var/skinned_type
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 

@@ -7,6 +7,7 @@
 	path = /mob/living/carbon/human
 	language = "Sol Common"
 	species_traits = list(LIPS, CAN_BE_FAT)
+	skinned_type = /obj/item/stack/sheet/animalhide/human
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
@@ -28,6 +29,7 @@
 	default_language = "Galactic Common"
 	language = "Sinta'unathi"
 	tail = "sogtail"
+	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
 	primitive_form = /datum/species/monkey/unathi
 
@@ -122,6 +124,7 @@
 	default_language = "Galactic Common"
 	language = "Siik'tajr"
 	tail = "tajtail"
+	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
@@ -183,6 +186,7 @@
 	language = "Canilunzt"
 	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
+	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Vulpkanin are a species of sharp-witted canine-pideds residing on the planet Altam just barely within the \
@@ -836,6 +840,7 @@
 	default_hair_colour = "#000000"
 	dietflags = 0		//Diona regenerate nutrition in light and water, no diet necessary
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
+	skinned_type = /obj/item/stack/sheet/wood
 
 	oxy_mod = 0
 
@@ -928,6 +933,7 @@
 	default_language = "Galactic Common"
 	language = "Trinary"
 	remains_type = /obj/effect/decal/remains/robot
+	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%

@@ -122,7 +122,7 @@
 		to_chat(user, "<span class='danger'>The [src] is locked and running, wait for it to finish.</span>")
 		return
 
-	if(!ishuman(victim) || issmall(victim))
+	if(!ishuman(victim))
 		to_chat(user, "<span class='danger'>This is not suitable for the [src]!</span>")
 		return
 
@@ -255,8 +255,11 @@
 		if(occupant.reagents)
 			occupant.reagents.trans_to(new_meat, round(occupant.reagents.total_volume/slab_count,1))
 
-	if(ishumanbasic(occupant))
-		new /obj/item/stack/sheet/animalhide/human(src)
+	if(ishuman(occupant))
+		var/mob/living/carbon/human/H = occupant
+		var/skinned = H.dna.species.skinned_type
+		if(skinned)
+			new skinned(src)
 	new /obj/effect/decal/cleanable/blood/gibs(src)
 
 	if(!UserOverride)

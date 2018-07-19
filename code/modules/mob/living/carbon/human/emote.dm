@@ -911,14 +911,14 @@
 				if("Diona")
 					emotelist += "\nDiona specific emotes :- creak(s)"
 
-			if(dna.species.name == "Machine")
+			if(ismachine(src))
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
 			else
 				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises
 				if(H && H.is_robotic())
 					emotelist += "\nRobotic head specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
 
-			if(dna.species.name == "Slime People")
+			if(isslimeperson(src))
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
 			else
 				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
