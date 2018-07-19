@@ -230,7 +230,7 @@
 			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
 				coloured_tail = H.tail ? H.tail : H.dna.species.tail
-
+			sleep(0) // let the icon generation finish
 			qdel(H)
 		else
 			icobase = current_species.icobase
