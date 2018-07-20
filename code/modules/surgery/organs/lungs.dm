@@ -154,12 +154,12 @@
 	if(safe_nitro_min)
 		if(N2_pp < safe_nitro_min)
 			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
-			H.throw_alert("nitro", /obj/screen/alert/not_enough_nitro)
+			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
 		else
 			H.failed_last_breath = FALSE
 			H.adjustOxyLoss(-5)
 			gas_breathed = breath.nitrogen
-			H.clear_alert("nitro")
+			H.clear_alert("not_enough_nitro")
 
 	//Exhale
 	breath.nitrogen -= gas_breathed
