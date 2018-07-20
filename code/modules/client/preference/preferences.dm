@@ -2183,7 +2183,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
-	if(S.has_gender && (character.gender in list(PLURAL, NEUTER)))
+	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
