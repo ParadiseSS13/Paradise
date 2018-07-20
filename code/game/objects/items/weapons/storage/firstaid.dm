@@ -227,8 +227,6 @@
 	var/base_name = ""
 	var/label_text = ""
 
-/obj/item/storage/pill_bottle/ert
-
 /obj/item/storage/pill_bottle/New()
 	..()
 	base_name = name
