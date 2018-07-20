@@ -204,13 +204,13 @@
 								DB_species_unlock("Grey",30)
 								return
 						if("4")
-							if(karma <45)
+							if(karma <1)
 								to_chat(usr, "You do not have enough karma!")
 								return
 							else
 								if(alert("Are you sure you want to unlock Vox?", "Confirmation", "No", "Yes") != "Yes")
 									return
-								DB_species_unlock("Vox",45)
+								DB_species_unlock("Vox",1)
 								return
 						if("5")
 							if(karma <45)
