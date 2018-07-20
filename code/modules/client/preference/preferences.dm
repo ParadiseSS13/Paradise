@@ -2233,7 +2233,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
 		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
 
-	S.handle_dna(character)
+	character.dna.species.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()
