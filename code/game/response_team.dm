@@ -412,7 +412,7 @@ var/ert_request_answered = 0
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	glasses = /obj/item/clothing/glasses/sunglasses
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/eyes/hud/security
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 	belt = /obj/item/gun/energy/gun/nuclear
@@ -480,7 +480,7 @@ var/ert_request_answered = 0
 	suit_store = /obj/item/gun/energy/gun/blueshield
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/flash
+		/obj/item/organ/internal/cyberimp/arm/flash,
 		/obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 	r_hand = /obj/item/gun/projectile/automatic/lasercarbine
@@ -552,7 +552,7 @@ var/ert_request_answered = 0
 	suit_store = /obj/item/tank/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/cyberimp/eyes/shield
+	 /obj/item/organ/internal/cyberimp/eyes/shield,
 	 /obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 	l_pocket = /obj/item/t_scanner/extended_range
@@ -624,7 +624,7 @@ var/ert_request_answered = 0
 	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
 	suit_store = /obj/item/gun/energy/gun
 	cybernetic_implants = list(
-	 /obj/item/organ/internal/cyberimp/arm/surgery
+	 /obj/item/organ/internal/cyberimp/arm/surgery,
 	 /obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 	belt = /obj/item/defibrillator/compact/loaded
