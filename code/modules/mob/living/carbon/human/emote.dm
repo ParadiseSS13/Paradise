@@ -32,6 +32,7 @@
 			var/found_machine_head = FALSE
 			if(ismachine(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
+				found_machine_head = TRUE
 			else
 				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises
 				if(H && H.is_robotic())
