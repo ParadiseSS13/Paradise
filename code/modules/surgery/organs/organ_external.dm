@@ -449,7 +449,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 ****************************************************/
 
 //Handles dismemberment
-/obj/item/organ/external/proc/droplimb(var/clean, var/disintegrate, var/ignore_children, var/nodamage)
+/obj/item/organ/external/proc/droplimb(clean, disintegrate, ignore_children, nodamage)
 
 	if(cannot_amputate || !owner)
 		return
@@ -494,12 +494,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 			parent.receive_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
 
-	spawn(1)
-		if(victim)
-			victim.updatehealth()
-			victim.UpdateDamageIcon()
-			victim.regenerate_icons()
 		dir = 2
+
+	if(victim)
+		victim.updatehealth()
+		victim.UpdateDamageIcon()
+		victim.regenerate_icons()
+
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)
 			compile_icon()
@@ -513,7 +514,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					dropped_part.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 				dir = 2
 			brute_dam = 0
-			burn_dam = 0  //Reset the damage on the limb; the damage should have transferred to the parent; we don't want extra damage being re-applie when then limb is re-attached
+			burn_dam = 0  //Reset the damage on the limb; the damage should have transferred to the parent; we don't want extra damage being re-applied when then limb is re-attached
 			return dropped_part
 		else
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES

@@ -120,6 +120,7 @@
 		qdel(E)
 	for(var/obj/item/organ/O in internal_organs)
 		qdel(O)
+	regenerate_icons()
 	death()
 
 /mob/living/carbon/human/shadow/Initialize(mapload)
