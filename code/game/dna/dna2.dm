@@ -433,6 +433,7 @@ var/global/list/bad_blocks[0]
 	UI = data["UI"]
 	UpdateUI()
 	UpdateSE()
-	species = new data["species"]
+	var/datum/species/S = data["species"]
+	species = new S
 	b_type = data["b_type"]
 	real_name = data["real_name"]
