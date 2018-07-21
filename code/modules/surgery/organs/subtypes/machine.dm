@@ -100,22 +100,6 @@
 	robotize("Morpheus Cyberkinetics")
 	..()
 
-/obj/item/organ/internal/cell
-	name = "microbattery"
-	desc = "A small, powerful cell for use in fully prosthetic bodies."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "scell"
-	organ_tag = "heart"
-	parent_organ = "chest"
-	slot = "heart"
-	vital = TRUE
-	status = ORGAN_ROBOT
-	species = "Machine"
-
-/obj/item/organ/internal/cell/New()
-	robotize()
-	..()
-
 /obj/item/organ/internal/eyes/optical_sensor
 	name = "optical sensor"
 	icon = 'icons/obj/robot_component.dmi'

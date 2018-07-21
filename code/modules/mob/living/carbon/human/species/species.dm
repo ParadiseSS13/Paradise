@@ -299,7 +299,9 @@
 
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
-/datum/species/proc/handle_life(var/mob/living/carbon/human/H)
+/datum/species/proc/handle_life(mob/living/carbon/human/H)
+	if(NO_HUNGER in species_traits)
+		H.nutrition = NUTRITION_LEVEL_FED - 1	//just less than feeling vigorous
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)

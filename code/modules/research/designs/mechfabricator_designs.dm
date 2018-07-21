@@ -1130,10 +1130,10 @@
 	category = list("Misc")
 
 /datum/design/ipc_cell
-	name = "IPC Microbattery"
-	id = "ipc_cell"
+	name = "Cell Mount"
+	id = "cell_mount"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/internal/cell
+	build_path = /obj/item/organ/internal/cell_mount
 	materials = list(MAT_METAL=2000, MAT_GLASS=750)
 	construction_time = 200
 	category = list("Misc")

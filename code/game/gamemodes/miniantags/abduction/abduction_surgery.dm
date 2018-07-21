@@ -77,7 +77,7 @@
 
 /datum/surgery/organ_extraction/synth
 	name = "experimental robotic dissection"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/extract_organ/synth,/datum/surgery_step/internal/gland_insert,/datum/surgery_step/robotics/external/close_hatch)
+	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/extract_organ,/datum/surgery_step/internal/gland_insert,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")
 	requires_organic_bodypart = 0
 
@@ -96,7 +96,3 @@
 	if((H.get_species() == "Abductor" || (locate(/obj/item/implant/abductor) in H)))
 		return TRUE
 	return FALSE
-
-/datum/surgery_step/internal/extract_organ/synth
-	name = "remove cell"
-	organ_types = list(/obj/item/organ/internal/cell)
