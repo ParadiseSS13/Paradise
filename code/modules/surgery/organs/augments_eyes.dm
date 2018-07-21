@@ -55,7 +55,7 @@
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	vision_flags = SEE_TURFS
 	see_invisible = SEE_INVISIBLE_MINIMUM
-	aug_message = "Suddenly, the layout is much more apparent..."
+	aug_message = "Suddenly, you realize how much of a mess the station really is..."
 
 /obj/item/organ/internal/cyberimp/eyes/xray
 	name = "X-ray implant"
