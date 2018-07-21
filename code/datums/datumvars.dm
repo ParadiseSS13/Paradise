@@ -781,6 +781,30 @@
 				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 
+	else if(href_list["makespeedy"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+		var/obj/A = locateUID(href_list["makespeedy"])
+		if(!istype(A))
+			return
+		A.var_edited = TRUE
+		A.makeSpeedProcess()
+		log_admin("[key_name(usr)] has made [A] speed process")
+		message_admins("<span class='notice'>[key_name(usr)] has made [A] speed process</span>")
+		return TRUE
+
+	else if(href_list["makenormalspeed"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+		var/obj/A = locateUID(href_list["makenormalspeed"])
+		if(!istype(A))
+			return
+		A.var_edited = TRUE
+		A.makeNormalProcess()
+		log_admin("[key_name(usr)] has made [A] process normally")
+		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
+		return TRUE
+
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
