@@ -43,7 +43,7 @@
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/New(mob/living/carbon/holder)
+/obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
 	..(holder)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
@@ -60,6 +60,8 @@
 				blood_DNA[dna.unique_enzymes] = dna.b_type
 	else
 		dna = new /datum/dna(null)
+		if(species_override)
+			dna.species = new species_override
 
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)

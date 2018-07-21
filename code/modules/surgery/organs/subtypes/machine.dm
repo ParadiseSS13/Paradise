@@ -6,8 +6,8 @@
 	encased = null
 	status = ORGAN_ROBOT
 
-/obj/item/organ/external/head/ipc/New()
-	..()
+/obj/item/organ/external/head/ipc/New(mob/living/carbon/holder, datum/species/species_override = null)
+	..(holder, /datum/species/machine) // IPC heads need to be explicitly set to this since you can print them
 	robotize("Morpheus Cyberkinetics")
 
 /obj/item/organ/external/chest/ipc
