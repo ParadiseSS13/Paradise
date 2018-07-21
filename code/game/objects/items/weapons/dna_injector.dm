@@ -173,27 +173,6 @@
 		block = HULKBLOCK
 		..()
 
-/obj/item/dnainjector/xraymut
-	name = "DNA-Injector (Xray)"
-	desc = "Finally you can see what the Captain does."
-	datatype = DNA2_BUF_SE
-	value = 0xFFF
-	//block = 8
-	New()
-		block = XRAYBLOCK
-		..()
-
-/obj/item/dnainjector/antixray
-	name = "DNA-Injector (Anti-Xray)"
-	desc = "It will make you see harder."
-	datatype = DNA2_BUF_SE
-	value = 0x001
-	//block = 8
-	New()
-		block = XRAYBLOCK
-		..()
-
-
 /obj/item/dnainjector/firemut
 	name = "DNA-Injector (Fire)"
 	desc = "Gives you fire."
