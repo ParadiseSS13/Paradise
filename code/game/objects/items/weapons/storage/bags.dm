@@ -371,7 +371,7 @@
  */
 /obj/item/storage/bag/tray
 	name = "tray"
-	icon = 'icons/obj/food/food.dmi'
+	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "tray"
 	desc = "A metal tray to lay food on."
 	force = 5
