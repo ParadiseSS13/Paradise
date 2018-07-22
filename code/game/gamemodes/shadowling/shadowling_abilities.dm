@@ -137,6 +137,9 @@
 			extinguishMob(H)
 		for(var/mob/living/silicon/robot/borg in T.contents)
 			borg.update_headlamp(1, charge_max)
+		for(var/mob/living/silicon/pai/B in T.contents)
+			B.flashlight_on = 0
+			B.set_light(0)
 
 
 /obj/effect/proc_holder/spell/targeted/shadow_walk
