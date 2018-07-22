@@ -3,8 +3,8 @@
 	override_under = /obj/item/clothing/under/mafia
 	chattyness = SNPC_CHANCE_TALK / 4
 
-/mob/living/carbon/human/interactive/away/hotel/New(loc)
-	..(loc, "Skrell")
+/mob/living/carbon/human/interactive/away/hotel/Initialize(mapload)
+	..(loc, /datum/species/skrell)
 
 /mob/living/carbon/human/interactive/away/hotel/doSetup()
 	..()

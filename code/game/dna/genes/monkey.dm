@@ -7,8 +7,8 @@
 /datum/dna/gene/monkey/can_activate(var/mob/M,var/flags)
 	return ishuman(M)
 
-/datum/dna/gene/monkey/activate(var/mob/living/carbon/human/H, var/connected, var/flags)
-	if(!istype(H,/mob/living/carbon/human))
+/datum/dna/gene/monkey/activate(mob/living/carbon/human/H, connected, flags)
+	if(!istype(H))
 		return
 	if(issmall(H))
 		return
@@ -31,23 +31,24 @@
 	H.SetStunned(0)
 	H.invisibility = initial(H.invisibility)
 
-	if(!H.species.primitive_form) //If the creature in question has no primitive set, this is going to be messy.
+	if(!H.dna.species.primitive_form) //If the creature in question has no primitive set, this is going to be messy.
 		H.gib()
 		return
 
-	H.set_species(H.species.primitive_form)
+	H.set_species(H.dna.species.primitive_form)
 
 	QDEL_NULL(H.hud_used)
 
 	if(H.client)
 		H.hud_used = new /datum/hud/monkey(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
+		H.hud_used.show_hud(H.hud_used.hud_version)
 
-	to_chat(H, "<B>You are now a [H.species.name].</B>")
+	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
 
 	return H
 
-/datum/dna/gene/monkey/deactivate(var/mob/living/carbon/human/H, var/connected, var/flags)
-	if(!istype(H,/mob/living/carbon/human))
+/datum/dna/gene/monkey/deactivate(mob/living/carbon/human/H, connected, flags)
+	if(!istype(H))
 		return
 	for(var/obj/item/W in H)
 		if(W == H.w_uniform) // will be torn
@@ -69,11 +70,11 @@
 	H.SetStunned(0)
 	H.invisibility = initial(H.invisibility)
 
-	if(!H.species.greater_form) //If the creature in question has no primitive set, this is going to be messy.
+	if(!H.dna.species.greater_form) //If the creature in question has no primitive set, this is going to be messy.
 		H.gib()
 		return
 
-	H.set_species(H.species.greater_form)
+	H.set_species(H.dna.species.greater_form)
 	H.real_name = H.dna.real_name
 	H.name = H.real_name
 
@@ -81,7 +82,8 @@
 
 	if(H.client)
 		H.hud_used = new /datum/hud/human(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
+		H.hud_used.show_hud(H.hud_used.hud_version)
 
-	to_chat(H, "<B>You are now a [H.species.name].</B>")
+	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
 
 	return H

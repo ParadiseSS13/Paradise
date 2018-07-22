@@ -36,7 +36,7 @@ Bonus
 			else
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					H.SetSpecialVoice(H.species.get_random_name(H.gender))
+					H.SetSpecialVoice(H.dna.species.get_random_name(H.gender))
 
 	return
 

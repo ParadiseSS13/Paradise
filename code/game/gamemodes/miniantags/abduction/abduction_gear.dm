@@ -117,8 +117,8 @@
 
 /obj/item/abductor/proc/ScientistCheck(user)
 	var/mob/living/carbon/human/H = user
-	if(H.mind && H.mind.abductor)
-		return H.mind.abductor.scientist
+	var/datum/species/abductor/S = H.dna.species
+	return S.scientist
 
 /obj/item/abductor/gizmo
 	name = "science tool"
@@ -248,7 +248,7 @@
 	name = "alien pistol"
 	desc = "A complicated gun that fires bursts of high-intensity radiation."
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
-	restricted_species = list("Abductor")
+	restricted_species = list(/datum/species/abductor)
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	origin_tech = "combat=4;magnets=7;powerstorage=3;abductor=3"
@@ -258,7 +258,6 @@
 	name = "Dissection Guide"
 	icon_state = "alienpaper_words"
 	info = {"<b>Dissection for Dummies</b><br>
-
 <br>
  1.Acquire fresh specimen.<br>
  2.Put the specimen on operating table.<br>
@@ -432,7 +431,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		species = "<span clas=='notice'>[H.species.name]</span>"
+		species = "<span clas=='notice'>[H.dna.species.name]</span>"
 		if(L.mind && L.mind.changeling)
 			species = "<span class='warning'>Changeling lifeform</span>"
 		var/obj/item/organ/internal/heart/gland/temp = locate() in H.internal_organs
@@ -476,6 +475,25 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			to_chat(user, "<span class='warning'>The baton is in probing mode.</span>")
 
+
+/obj/item/radio/headset/abductor
+	name = "alien headset"
+	desc = "An advanced alien headset designed to monitor communications of human space stations. Why does it have a microphone? No one knows."
+	flags = EARBANGPROTECT
+	origin_tech = "magnets=2;abductor=3"
+	icon = 'icons/obj/abductor.dmi'
+	icon_state = "abductor_headset"
+	item_state = "abductor_headset"
+	ks2type = /obj/item/encryptionkey/heads/captain
+
+/obj/item/radio/headset/abductor/New()
+	..()
+	make_syndie()
+
+/obj/item/radio/headset/abductor/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
+		return // Stops humans from disassembling abductor headsets.
+	return ..()
 
 /obj/item/scalpel/alien
 	name = "alien scalpel"
@@ -593,7 +611,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.
-	injected_reagents = list("corazone")
+	injected_reagents = list("corazone","spaceacillin")
 
 /obj/structure/closet/abductor
 	name = "alien locker"

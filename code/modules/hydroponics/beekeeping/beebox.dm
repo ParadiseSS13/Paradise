@@ -23,7 +23,7 @@
 	return 1
 
 /mob/living/carbon/human/bee_friendly()
-	if(get_species() == "Diona") //bees pollinate plants, duh.
+	if(isdiona(src)) //bees pollinate plants, duh.
 		return 1
 	if((wear_suit && (wear_suit.flags & THICKMATERIAL)) && (head && (head.flags & THICKMATERIAL)))
 		return 1

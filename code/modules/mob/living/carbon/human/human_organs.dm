@@ -62,7 +62,7 @@
 	// standing is poor
 	if(stance_damage >= 8)
 		if(!(lying || resting))
-			if(!(NO_PAIN in species.species_traits))
+			if(!(NO_PAIN in dna.species.species_traits))
 				emote("scream")
 			custom_emote(1, "collapses!")
 		Weaken(5) //can't emote while weakened, apparently.
@@ -90,7 +90,7 @@
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[(NO_PAIN in species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
+			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
 
 		else if(E.is_malfunctioning())
 

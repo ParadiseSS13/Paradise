@@ -216,7 +216,7 @@
 	icon_state = "monkeycube"
 	bitesize = 12
 	filling_color = "#ADAC7F"
-	var/monkey_type = "Monkey"
+	var/datum/species/monkey_type = /datum/species/monkey
 	list_reagents = list("nutriment" = 2)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature)
@@ -243,19 +243,19 @@
 
 /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
 	name = "farwa cube"
-	monkey_type = "Farwa"
+	monkey_type = /datum/species/monkey/tajaran
 
 /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
 	name = "wolpin cube"
-	monkey_type = "Wolpin"
+	monkey_type = /datum/species/monkey/vulpkanin
 
 /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
 	name = "stok cube"
-	monkey_type = "Stok"
+	monkey_type = /datum/species/monkey/unathi
 
 /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
 	name = "neaera cube"
-	monkey_type = "Neara"
+	monkey_type = /datum/species/monkey/skrell
 
 
 //////////////////////

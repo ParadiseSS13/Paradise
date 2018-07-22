@@ -154,12 +154,12 @@
 	if(safe_nitro_min)
 		if(N2_pp < safe_nitro_min)
 			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
-			H.throw_alert("nitro", /obj/screen/alert/not_enough_nitro)
+			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
 		else
 			H.failed_last_breath = FALSE
 			H.adjustOxyLoss(-5)
 			gas_breathed = breath.nitrogen
-			H.clear_alert("nitro")
+			H.clear_alert("not_enough_nitro")
 
 	//Exhale
 	breath.nitrogen -= gas_breathed
@@ -271,11 +271,11 @@
 	var/breath_temperature = breath.temperature
 
 	var/species_traits = list()
-	if(H && H.species && H.species.species_traits)
-		species_traits = H.species.species_traits
+	if(H && H.dna.species && H.dna.species.species_traits)
+		species_traits = H.dna.species.species_traits
 
 	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
-		var/CM = abs(H.species.coldmod)
+		var/CM = abs(H.dna.species.coldmod)
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
 			TC = cold_level_3_damage
@@ -291,7 +291,7 @@
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
 	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
-		var/HM = abs(H.species.heatmod)
+		var/HM = abs(H.dna.species.heatmod)
 		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
 			TH = heat_level_1_damage
@@ -315,7 +315,6 @@
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
-	species = "Plasmaman"
 
 	safe_oxygen_min = 0 //We don't breath this
 	safe_toxins_min = 16 //We breathe THIS!
@@ -324,7 +323,6 @@
 /obj/item/organ/internal/lungs/vox
 	name = "Vox lungs"
 	desc = "They're filled with dust....wow."
-	species = "Vox"
 
 	safe_oxygen_min = 0 //We don't breathe this
 	safe_oxygen_max = 1 //This is toxic to us
@@ -333,7 +331,6 @@
 
 /obj/item/organ/internal/lungs/drask
 	icon = 'icons/obj/surgery_drask.dmi'
-	species = "Drask"
 
 	cold_message = "an invigorating coldness"
 	cold_level_3_threshold = 60

@@ -8,10 +8,11 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	path = /mob/living/carbon/human/monkey
 	language = null
 	default_language = "Chimpanzee"
-	greater_form = "Human"
+	species_traits = list(NO_EXAMINE)
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	greater_form = /datum/species/human
 	is_small = 1
 	has_fine_manipulation = 0
 	ventcrawler = 1
@@ -99,7 +100,7 @@
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 
-	greater_form = "Tajaran"
+	greater_form = /datum/species/tajaran
 	default_language = "Farwa"
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
@@ -123,7 +124,7 @@
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 
-	greater_form = "Vulpkanin"
+	greater_form = /datum/species/vulpkanin
 	default_language = "Wolpin"
 	flesh_color = "#966464"
 	base_color = "#000000"
@@ -147,7 +148,7 @@
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
 
-	greater_form = "Skrell"
+	greater_form = /datum/species/skrell
 	default_language = "Neara"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
@@ -162,7 +163,7 @@
 	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'
 
 	tail = "stoktail"
-	greater_form = "Unathi"
+	greater_form = /datum/species/unathi
 	default_language = "Stok"
 	flesh_color = "#34AF10"
 	base_color = "#000000"
