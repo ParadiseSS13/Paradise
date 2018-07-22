@@ -1016,8 +1016,9 @@
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.set_species(new_species))
-			to_chat(usr, "Set species of [H] to [H.species].")
+		var/datum/species/S = all_species[new_species]
+		if(H.set_species(S.type))
+			to_chat(usr, "Set species of [H] to [H.dna.species].")
 			H.regenerate_icons()
 			message_admins("[key_name_admin(usr)] has changed the species of [key_name_admin(H)] to [new_species]")
 			log_admin("[key_name(usr)] has changed the species of [key_name(H)] to [new_species]")

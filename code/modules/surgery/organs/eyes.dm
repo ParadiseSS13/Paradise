@@ -20,7 +20,7 @@
 	var/mob/living/carbon/human/H = HA
 	if(!istype(H))
 		H = owner
-	var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', H.species.eyes)
+	var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', H.dna.species.eyes)
 	eyes_icon.Blend(eye_colour, ICON_ADD)
 
 	return eyes_icon

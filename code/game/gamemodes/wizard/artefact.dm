@@ -321,11 +321,11 @@ var/global/list/multiverse = list()
 	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</B>")
 	M.faction = list("[user.real_name]")
 	if(duplicate_self)
-		M.set_species(user.get_species()) //duplicate the sword user's species.
+		M.set_species(user.dna.species.type) //duplicate the sword user's species.
 	else
 		if(prob(50))
-			var/list/all_species = list("Human","Unathi","Skrell","Tajaran","Kidan","Golem","Diona","Machine","Slime People","Grey","Vulpkanin")
-			M.set_species(pick(all_species))
+			var/list/list_all_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/golem, /datum/species/diona, /datum/species/machine, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)
+			M.set_species(pick(list_all_species))
 	M.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
 	M.name = user.real_name
 	if(duplicate_self)
@@ -429,7 +429,7 @@ var/global/list/multiverse = list()
 
 		M.equip_to_slot_or_del(sword, slot_r_hand) //Don't duplicate what's equipped to hands, or else duplicate swords could be generated...or weird cases of factionless swords.
 	else
-		if(M.get_species() == "Tajaran" || M.get_species() == "Unathi")
+		if(istajaran(M) || isunathi(M))
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(M), slot_shoes)	//If they can't wear shoes, give them a pair of sandals.
 
 		var/randomize = pick("mobster","roman","wizard","cyborg","syndicate","assistant", "animu", "cultist", "highlander", "clown", "killer", "pirate", "soviet", "officer", "gladiator")
@@ -461,7 +461,7 @@ var/global/list/multiverse = list()
 				M.equip_to_slot_or_del(sword, slot_r_hand)
 
 			if("cyborg")
-				if(M.get_species() != "Machine")
+				if(!ismachine(M))
 					for(var/obj/item/organ/O in M.bodyparts)
 						O.robotize(make_tough = 1)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/eyepatch(M), slot_glasses)
@@ -584,10 +584,10 @@ var/global/list/multiverse = list()
 	W.SetOwnerInfo(M)
 	M.equip_to_slot_or_del(W, slot_wear_id)
 
-	if(M.get_species() == "Vox")
-		M.species.after_equip_job(null, M) //Voxygen(tm)
-	if(M.get_species() == "Plasmaman")
-		M.species.after_equip_job(null, M) //No fireballs from other dimensions.
+	if(isvox(M))
+		M.dna.species.after_equip_job(null, M) //Nitrogen tanks
+	if(isplasmaman(M))
+		M.dna.species.after_equip_job(null, M) //No fireballs from other dimensions.
 
 	M.update_icons()
 
@@ -646,7 +646,7 @@ var/global/list/multiverse = list()
 	if(heresy)
 		spawnheresy(M)//oh god why
 	else
-		M.set_species("Skeleton")
+		M.set_species(/datum/species/skeleton)
 		M.visible_message("<span class = 'warning'> A massive amount of flesh sloughs off [M] and a skeleton rises up!</span>")
 		M.revive()
 		equip_skeleton(M)
@@ -713,7 +713,7 @@ var/global/list/multiverse = list()
 			H.equip_to_slot_or_del(new /obj/item/twohanded/spear(H), slot_back)
 
 /obj/item/necromantic_stone/proc/spawnheresy(mob/living/carbon/human/H as mob)
-	H.set_species("Human")
+	H.set_species(/datum/species/human)
 	if(H.gender == MALE)
 		H.change_gender(FEMALE)
 

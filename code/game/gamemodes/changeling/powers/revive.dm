@@ -31,7 +31,7 @@
 		H.traumatic_shock = 0
 		H.shock_stage = 0
 		H.next_pain_time = 0
-		H.species.create_organs(H)
+		H.dna.species.create_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
 		//  isn't, but I don't want to remove it, just in case.
 		for(var/organ_name in H.bodyparts_by_name)

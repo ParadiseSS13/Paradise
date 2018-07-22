@@ -98,11 +98,11 @@
 		var/mob/living/carbon/human/H = M
 		var/dye_list = list("hair", "alt. hair theme")
 
-		if(H.gender == MALE || H.get_species() == "Vulpkanin")
+		if(H.gender == MALE || isvulpkanin(H))
 			dye_list += "facial hair"
 			dye_list += "alt. facial hair theme"
 
-		if(H && (H.species.bodyflags & HAS_SKIN_COLOR))
+		if(H && (H.dna.species.bodyflags & HAS_SKIN_COLOR))
 			dye_list += "body"
 
 		var/what_to_dye = input(user, "Choose an area to apply the dye", "Dye Application") in dye_list

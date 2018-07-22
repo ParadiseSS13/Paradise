@@ -47,9 +47,9 @@
 /obj/machinery/abductor/experiment/proc/dissection_icon(mob/living/carbon/human/H)
 	var/icon/I = icon(H.stand_icon)
 
-	var/icon/splat = icon(H.species.damage_overlays, "30")
-	splat.Blend(icon(H.species.damage_mask, "torso"), ICON_MULTIPLY)
-	splat.Blend(H.species.blood_color, ICON_MULTIPLY)
+	var/icon/splat = icon(H.dna.species.damage_overlays, "30")
+	splat.Blend(icon(H.dna.species.damage_mask, "torso"), ICON_MULTIPLY)
+	splat.Blend(H.dna.species.blood_color, ICON_MULTIPLY)
 	I.Blend(splat, ICON_OVERLAY)
 
 	return I

@@ -34,7 +34,7 @@ mob/living/carbon/human/proc/custom_pain(message)
 	if(stat >= UNCONSCIOUS)
 		return
 
-	if(NO_PAIN in species.species_traits)
+	if(NO_PAIN in dna.species.species_traits)
 		return
 	if(reagents.has_reagent("morphine"))
 		return
@@ -54,7 +54,7 @@ mob/living/carbon/human/proc/handle_pain()
 
 	if(stat >= UNCONSCIOUS)
 		return
-	if(NO_PAIN in species.species_traits)
+	if(NO_PAIN in dna.species.species_traits)
 		return
 	if(reagents.has_reagent("morphine"))
 		return

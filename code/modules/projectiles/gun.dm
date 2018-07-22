@@ -153,10 +153,10 @@
 
 	process_fire(target,user,1,params)
 
-/obj/item/gun/proc/can_trigger_gun(var/mob/living/user)
+/obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
 		return 0
-	if(restricted_species && restricted_species.len && !(user.get_species() in restricted_species))
+	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
 		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
 		return 0
 	return 1

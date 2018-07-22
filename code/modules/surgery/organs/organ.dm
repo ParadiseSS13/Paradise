@@ -19,7 +19,6 @@
 									  // links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 	var/datum/dna/dna
-	var/datum/species/species = "Human"
 
 	// Stuff for tracking if this is on a tile with an open freezer or not
 	var/last_freezer_update_time = 0
@@ -44,15 +43,13 @@
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/New(var/mob/living/carbon/holder)
+/obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
 	..(holder)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(istype(holder))
-		species = all_species["Human"]
 		if(holder.dna)
 			dna = holder.dna.Clone()
-			species = all_species[dna.species]
 		else
 			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
 		var/mob/living/carbon/human/H = holder
@@ -62,8 +59,9 @@
 					blood_DNA = list()
 				blood_DNA[dna.unique_enzymes] = dna.b_type
 	else
-		if(istext(species))
-			species = all_species[species]
+		dna = new /datum/dna(null)
+		if(species_override)
+			dna.species = new species_override
 
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
@@ -93,7 +91,7 @@
 		return
 
 	//Process infections
-	if(is_robotic() || sterile || (owner && (IS_PLANT in owner.species.species_traits)))
+	if(is_robotic() || sterile || (owner && (IS_PLANT in owner.dna.species.species_traits)))
 		germ_level = 0
 		return
 
@@ -155,7 +153,7 @@
 			germ_level++
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
-		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 5)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.species.body_temperature
+		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
 		owner.bodytemperature += between(0, (fever_temperature - T20C)/BODYTEMP_COLD_DIVISOR + 1, fever_temperature - owner.bodytemperature)
 
 	if(germ_level >= INFECTION_LEVEL_TWO)

@@ -158,14 +158,14 @@
 	overlays -= "fab-active"
 	desc = initial(desc)
 
-	var/obj/item/I = new D.build_path
+	var/obj/item/I = new D.build_path(loc)
 	if(D.locked)
-		var/obj/item/storage/lockbox/large/L = new /obj/item/storage/lockbox/large(get_step(src,SOUTH)) //(Don't use capitals in paths, or single letters.
-		I.loc = L
+		var/obj/item/storage/lockbox/large/L = new /obj/item/storage/lockbox/large(get_step(src, SOUTH)) //(Don't use capitals in paths, or single letters.
+		I.forceMove(L)
 		L.name += " [initial(I.name)]"
 		L.origin_tech = I.origin_tech
 	else
-		I.loc = get_step(src,SOUTH)
+		I.forceMove(get_step(src, SOUTH))
 	if(istype(I))
 		I.materials = res_coef
 	atom_say("[I] is complete.")
