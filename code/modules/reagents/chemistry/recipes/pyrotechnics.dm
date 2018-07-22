@@ -44,6 +44,8 @@
 			var/datum/reagent/R = X
 			if(R.id in required_reagents)
 				continue
+			if(!R.can_synth)
+				continue
 			beeagents += R
 		var/bee_amount = round(created_volume * 0.2)
 		for(var/i in 1 to bee_amount)
