@@ -136,20 +136,28 @@
 		trigger.master = null
 		trigger.holder = null
 		trigger = null
-	else if(trigger)
-		to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
+		return TRUE
 	else if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
-		user.drop_item()
+		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
+			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
+			return TRUE
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
+			return FALSE
 		trigger = W
 		trigger.forceMove(src)
 		trigger.master = src
 		trigger.holder = src
 		to_chat(user, "<span class='notice'>You attach the [W] to [src].</span>")
-	else
-		return ..()
+		return TRUE
+	else if(istype(W, /obj/item/assembly))
+		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
+		return TRUE
+
+	return ..()
 
 
-/obj/item/clothing/mask/muzzle/safety/shock/equipped(obj/item/clothing/C)
+/obj/item/clothing/mask/muzzle/safety/shock/proc/can_shock(obj/item/clothing/C)
 	if(istype(C))
 		if(isliving(C.loc))
 			return C.loc
@@ -159,17 +167,16 @@
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	if(equipped(loc))
-		var/mob/M = equipped(loc)
+	if(can_shock(loc))
+		var/mob/M = can_shock(loc)
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, M)
 		s.start()
 
 		M.Weaken(5)
-		if(ishuman(M))
-			M.Stuttering(1)
-			M.Jitter(20)
+		M.Stuttering(1)
+		M.Jitter(20)
 	return
 
 /obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM as mob|obj)
