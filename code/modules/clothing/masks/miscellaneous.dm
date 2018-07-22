@@ -130,7 +130,7 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 /obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
-	if(isscrewdriver(W))
+	if(isscrewdriver(W) && trigger)
 		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 		trigger.forceMove(get_turf(user))
 		trigger.master = null
@@ -140,7 +140,7 @@
 	else if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
-			return TRUE
+			return FALSE
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
 			return FALSE
@@ -152,7 +152,7 @@
 		return TRUE
 	else if(istype(W, /obj/item/assembly))
 		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
-		return TRUE
+		return FALSE
 
 	return ..()
 
@@ -167,8 +167,8 @@
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
-	if(can_shock(loc))
-		var/mob/M = can_shock(loc)
+	var/mob/M = can_shock(loc)
+	if(M)
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
 		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, M)
