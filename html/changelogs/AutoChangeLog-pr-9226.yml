@@ -1,4 +1,0 @@
-author: "and taukausanake"
-delete-after: True
-changes: 
-  - tweak: "Swarmers can no longer destroy active clone pods."
