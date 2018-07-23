@@ -268,3 +268,12 @@
 	ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
+
+GLOBAL_LIST_EMPTY(docspawns)
+
+/obj/effect/landmark/documentspawn
+	name = "secret document spawn"
+
+/obj/effect/landmark/documentspawn/New()//spawner locations get added to the list, then called at /modules/paperwork/folders.dm
+	GLOB.docspawns += loc
+	qdel(src)
