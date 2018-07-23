@@ -26,6 +26,13 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/hardhat/extinguish_light()
+	if(on)
+		on = 0
+		set_light(0)
+		icon_state = "hardhat0_[item_color]"
+		item_state = "hardhat0_[item_color]"
+		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
 
 /obj/item/clothing/head/hardhat/orange
 	icon_state = "hardhat0_orange"

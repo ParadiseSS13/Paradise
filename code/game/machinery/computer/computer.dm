@@ -68,6 +68,10 @@
 		set_broken()
 		density = 0
 
+/obj/machinery/computer/extinguish_light()
+	set_light(0)
+	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
+
 /obj/machinery/computer/update_icon()
 	overlays.Cut()
 	if(stat & NOPOWER)

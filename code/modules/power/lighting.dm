@@ -159,7 +159,6 @@
 	var/nightshift_light_power = 0.45
 	var/nightshift_light_color = "#FFDDCC"
 
-
 // the smaller bulb light fixture
 
 /obj/machinery/light/small
@@ -733,3 +732,8 @@
 		if(limb)
 			limb.droplimb(0, DROPLIMB_BURN)
 	return FIRELOSS
+
+/obj/machinery/light/extinguish_light()
+	on = 0
+	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+	update(0)
