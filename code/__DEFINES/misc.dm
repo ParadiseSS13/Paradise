@@ -346,3 +346,7 @@
 
 // The SQL version required by this version of the code
 #define SQL_VERSION 2
+
+//Dummy mob reserve slots
+#define DUMMY_HUMAN_SLOT_PREFERENCES "dummy_preference_preview"
+#define DUMMY_HUMAN_SLOT_MANIFEST "dummy_manifest_generation"

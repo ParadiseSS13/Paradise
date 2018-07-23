@@ -65,10 +65,6 @@
 	splinted_limbs.Cut()
 	return ..()
 
-/mob/living/carbon/human/dummy
-	real_name = "Test Dummy"
-	status_flags = GODMODE|CANPUSH
-
 /mob/living/carbon/human/skrell/New(var/new_loc)
 	..(new_loc, "Skrell")
 

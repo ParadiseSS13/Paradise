@@ -246,8 +246,7 @@
 				return
 
 	// Set up the dummy for its photoshoot
-	var/mob/living/carbon/human/dummy/mannequin = new()
-	mannequin.status_flags |= GODMODE // Why not?
+	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
 	copy_to(mannequin)
 
 	var/datum/job/previewJob
@@ -281,4 +280,4 @@
 	CHECK_TICK
 	preview_icon.Scale(preview_icon.Width() * 2, preview_icon.Height() * 2) // Scaling here to prevent blurring in the browser.
 	CHECK_TICK
-	qdel(mannequin)
+	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)

@@ -906,3 +906,39 @@ proc/get_icon_difference(var/icon/main, var/icon/mask)
 		mask.BecomeAlphaMask() //Make all the black pixels vanish (fully transparent), leaving only the white pixels.
 		main.AddAlphaMask(mask) //Make the pixels in the main icon that are in the transparent zone of the mask icon also vanish (fully transparent).
 		return main
+
+//For creating consistent icons for human looking simple animals
+/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key)
+	var/static/list/humanoid_icon_cache = list()
+	if(!icon_id || !humanoid_icon_cache[icon_id])
+		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
+
+		if(prefs)
+			prefs.copy_to(body)
+		if(J)
+			J.equip(body, TRUE, FALSE)
+
+
+		var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
+
+		body.setDir(NORTH)
+		var/icon/partial = getFlatIcon(body)
+		out_icon.Insert(partial,dir=NORTH)
+
+		body.setDir(SOUTH)
+		partial = getFlatIcon(body)
+		out_icon.Insert(partial,dir=SOUTH)
+
+		body.setDir(WEST)
+		partial = getFlatIcon(body)
+		out_icon.Insert(partial,dir=WEST)
+
+		body.setDir(EAST)
+		partial = getFlatIcon(body)
+		out_icon.Insert(partial,dir=EAST)
+
+		humanoid_icon_cache[icon_id] = out_icon
+		dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
+		return out_icon
+	else
+		return humanoid_icon_cache[icon_id]
