@@ -341,5 +341,4 @@
 		qdel(src)
 
 /obj/item/paicard/extinguish_light()
-	for(var/atom/A in src)
-		A.extinguish_light()
+	pai.extinguish_light()
