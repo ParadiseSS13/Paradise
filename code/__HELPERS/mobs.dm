@@ -178,7 +178,7 @@ proc/random_name(gender, species = "Human")
 
 	var/datum/species/current_species
 	if(species)
-		current_species = all_species[species]
+		current_species = GLOB.all_species[species]
 
 	if(!current_species || current_species.name == "Human")
 		if(gender==FEMALE)
