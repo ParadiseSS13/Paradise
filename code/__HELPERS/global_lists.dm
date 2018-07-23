@@ -50,6 +50,12 @@
 
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 
+	//Pipe list building
+	init_subtypes(/datum/pipes, GLOB.construction_pipe_list)
+	for(var/D in GLOB.construction_pipe_list)
+		var/datum/pipes/P = D
+		if(P.rpd_dispensable)
+			GLOB.rpd_pipe_list += list(list("pipe_name" = P.pipe_name, "pipe_id" = P.pipe_id, "pipe_type" = P.pipe_type, "pipe_category" = P.pipe_category, "orientations" = P.orientations, "pipe_icon" = P.pipe_icon, "bendy" = P.bendy))
 	return 1
 
 /* // Uncomment to debug chemical reaction list.

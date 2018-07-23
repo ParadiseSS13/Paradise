@@ -24,7 +24,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/abductor/H = user
-		if(H && H.mind.abductor)
+		if(isabductor(H))
 			to_chat(user, "<span class='warning'>Megaphones can't project psionic communication!</span>")
 			return
 	if(ishuman(user))

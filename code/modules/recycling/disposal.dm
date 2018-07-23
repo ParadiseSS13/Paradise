@@ -97,7 +97,7 @@
 					to_chat(user, "You sliced the floorweld off the disposal unit.")
 					var/obj/structure/disposalconstruct/C = new (src.loc)
 					src.transfer_fingerprints_to(C)
-					C.ptype = 6 // 6 = disposal unit
+					C.ptype = PIPE_DISPOSALS_BIN
 					C.anchored = 1
 					C.density = 1
 					C.update()
@@ -889,21 +889,21 @@
 	var/obj/structure/disposalconstruct/C = new (src.loc)
 	switch(base_icon_state)
 		if("pipe-s")
-			C.ptype = 0
+			C.ptype = PIPE_DISPOSALS_STRAIGHT
 		if("pipe-c")
-			C.ptype = 1
+			C.ptype = PIPE_DISPOSALS_BENT
 		if("pipe-j1")
-			C.ptype = 2
+			C.ptype = PIPE_DISPOSALS_JUNCTION_RIGHT
 		if("pipe-j2")
-			C.ptype = 3
+			C.ptype = PIPE_DISPOSALS_JUNCTION_LEFT
 		if("pipe-y")
-			C.ptype = 4
+			C.ptype = PIPE_DISPOSALS_Y_JUNCTION
 		if("pipe-t")
-			C.ptype = 5
+			C.ptype = PIPE_DISPOSALS_TRUNK
 		if("pipe-j1s")
-			C.ptype = 9
+			C.ptype = PIPE_DISPOSALS_SORT_RIGHT
 		if("pipe-j2s")
-			C.ptype = 10
+			C.ptype = PIPE_DISPOSALS_SORT_LEFT
 	src.transfer_fingerprints_to(C)
 	C.dir = dir
 	C.density = 0
@@ -1339,7 +1339,7 @@
 				to_chat(user, "You sliced the floorweld off the disposal outlet.")
 				var/obj/structure/disposalconstruct/C = new (src.loc)
 				src.transfer_fingerprints_to(C)
-				C.ptype = 7 // 7 =  outlet
+				C.ptype = PIPE_DISPOSALS_OUTLET
 				C.update()
 				C.anchored = 1
 				C.density = 1

@@ -4,7 +4,7 @@
 	var/squad_member = 0				// was spawned by squad
 	var/home_z
 
-/mob/living/carbon/human/interactive/away/New()
+/mob/living/carbon/human/interactive/away/Initialize(mapload)
 	..()
 	TRAITS |= TRAIT_ROBUST
 	faction += "away"

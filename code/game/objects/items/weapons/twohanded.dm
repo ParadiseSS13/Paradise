@@ -58,7 +58,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.species.is_small)
+		if(H.dna.species.is_small)
 			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
 			return
 	if(user.get_inactive_hand())

@@ -1,7 +1,6 @@
 /turf/simulated/shuttle
 	name = "shuttle"
 	icon = 'icons/turf/shuttle.dmi'
-	flags = null
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 	layer = 2
@@ -13,6 +12,9 @@
 	density = 1
 	blocks_air = 1
 
+/turf/simulated/shuttle/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(our_rpd.mode == RPD_DELETE_MODE)//No pipes on shuttles
+		our_rpd.delete_all_pipes(user, src)
 
 /turf/simulated/shuttle/narsie_act()
 	if(prob(20))

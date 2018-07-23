@@ -121,10 +121,10 @@
 	brainmob.dna = H.dna.Clone()
 	brainmob.container = src
 
-	if(!istype(H.species) || isnull(H.species.return_organ("brain"))) // Diona/buggy people
+	if(!istype(H.dna.species) || isnull(H.dna.species.return_organ("brain"))) // Diona/buggy people
 		held_brain = new(src)
 	else // We have a species, and it has a brain
-		var/brain_path = H.species.return_organ("brain")
+		var/brain_path = H.dna.species.return_organ("brain")
 		if(!ispath(brain_path, /obj/item/organ/internal/brain))
 			brain_path = /obj/item/organ/internal/brain
 		held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
@@ -265,8 +265,6 @@
 	forceMove(holder)
 	holder.stored_mmi = src
 	holder.update_from_mmi()
-	if(istype(src, /obj/item/mmi/posibrain))
-		holder.robotize()
 	if(brainmob && brainmob.mind)
 		brainmob.mind.transfer_to(H)
 	holder.insert(H)

@@ -141,15 +141,15 @@ proc/issyndicate(mob/living/M as mob)
 
 	return ..()
 
-/datum/game_mode/proc/create_syndicate(var/datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
+/datum/game_mode/proc/create_syndicate(datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
 	var/mob/living/carbon/human/M = synd_mind.current
-	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 
-	M.set_species("Human",1)
+	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
 	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
 
+	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde
 	var/eye_c = pick("#000000","#8B4513","1E90FF") // Black, brown, blue
 	var/skin_tone = pick(-50, -30, -10, 0, 0, 0, 10) // Caucasian/black
@@ -159,8 +159,8 @@ proc/issyndicate(mob/living/M as mob)
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 	M.body_accessory = null
 	M.regenerate_icons()
 	M.update_body()
@@ -253,7 +253,7 @@ proc/issyndicate(mob/living/M as mob)
 	U.hidden_uplink.uses = 20
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
 
-	if(synd_mob.species)
+	if(synd_mob.dna.species)
 
 		/*
 		Incase anyone ever gets the burning desire to have nukeops with randomized apperances. -- Dave
@@ -262,7 +262,7 @@ proc/issyndicate(mob/living/M as mob)
 		A.randomize_appearance_for(synd_mob)
 		*/
 
-		var/race = synd_mob.species.name
+		var/race = synd_mob.dna.species.name
 
 		switch(race)
 			if("Vox" || "Vox Armalis")

@@ -1080,9 +1080,6 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/proc/get_species()
-	return ""
-
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
 	set category = "Ghost"

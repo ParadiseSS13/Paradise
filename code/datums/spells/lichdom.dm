@@ -68,7 +68,7 @@
 
 			lich.real_name = M.mind.name
 			M.mind.transfer_to(lich)
-			lich.set_species("Skeleton")
+			lich.set_species(/datum/species/skeleton)
 			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
 			charge_max += 600
 			var/mob/old_body = current_body
@@ -122,7 +122,7 @@
 				current_body = M.mind.current
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					H.set_species("Skeleton")
+					H.set_species(/datum/species/skeleton)
 					H.unEquip(H.wear_suit)
 					H.unEquip(H.head)
 					H.unEquip(H.shoes)

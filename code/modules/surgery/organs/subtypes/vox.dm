@@ -1,7 +1,5 @@
 /obj/item/organ/internal/liver/vox
-	name = "Vox liver"
 	alcohol_intensity = 1.6
-	species = "Vox"
 
 
 /obj/item/organ/internal/stack
@@ -14,10 +12,7 @@
 	vital = TRUE
 	var/stackdamaged = FALSE
 
-/obj/item/organ/internal/stack/vox
-	name = "vox cortical stack"
-
-/obj/item/organ/internal/stack/vox/on_life()
+/obj/item/organ/internal/stack/on_life()
 	if(damage < 1 && stackdamaged)
 		owner.mutations.Remove(SCRAMBLED)
 		owner.dna.SetSEState(SCRAMBLEBLOCK,0)
@@ -26,7 +21,7 @@
 	..()
 
 
-/obj/item/organ/internal/stack/vox/emp_act(severity)
+/obj/item/organ/internal/stack/emp_act(severity)
 	if(owner)
 		owner.mutations.Add(SCRAMBLED)
 		owner.dna.SetSEState(SCRAMBLEBLOCK,1,1)

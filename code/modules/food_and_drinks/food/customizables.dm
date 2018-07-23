@@ -57,7 +57,7 @@
 	name = "sandwich"
 	desc = "A sandwich! A timeless classic."
 	icon_state = "breadslice"
-	baseicon = "sandwich"
+	baseicon = "sandwichcustom"
 	basename = "sandwich"
 	toptype = new /obj/item/reagent_containers/food/snacks/breadslice()
 
@@ -66,9 +66,10 @@
 /obj/item/reagent_containers/food/snacks/customizable
 	name = "sandwich"
 	desc = "A sandwich! A timeless classic."
-	icon_state = "breadslice"
-	var/baseicon = "sandwich"
-	var/basename = "sandwich"
+	icon = 'icons/obj/food/custom.dmi'
+	icon_state = "sandwichcustom"
+	var/baseicon = "sandwichcustom"
+	var/basename = "sandwichcustom"
 	bitesize = 4
 	var/top = 1	//Do we have a top?
 	var/obj/item/toptype
@@ -94,7 +95,7 @@
 	desc = "Noodles. With stuff. Delicious."
 	icon_state = "pasta_bot"
 	baseicon = "pasta_bot"
-	basename = "spaghetti"
+	basename = "pasta"
 	add_overlays = 0
 	top = 0
 
@@ -312,7 +313,7 @@
 	name = "burger bun"
 	desc = "A bun for a burger. Delicious."
 	icon_state = "burger"
-	baseicon = "burger"
+	baseicon = "burgercustom"
 	basename = "burger"
 	toptype = new /obj/item/reagent_containers/food/snacks/bun()
 

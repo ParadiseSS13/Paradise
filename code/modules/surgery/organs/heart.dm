@@ -85,7 +85,7 @@
 
 /obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
 	if(H == user && istype(H))
-		if(NO_BLOOD in H.species.species_traits)
+		if(NO_BLOOD in H.dna.species.species_traits)
 			to_chat(H, "<span class = 'userdanger'>\The [src] is not compatible with your form!</span>")
 			return
 		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
@@ -98,7 +98,7 @@
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			if(!(NO_BLOOD in H.species.species_traits))
+			if(!(NO_BLOOD in H.dna.species.species_traits))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
 				to_chat(H, "<span class='userdanger'>You have to keep pumping your blood!</span>")
 				if(H.client)
@@ -131,7 +131,7 @@
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H))
-			if(!(NO_BLOOD in H.species.species_traits))
+			if(!(NO_BLOOD in H.dna.species.species_traits))
 				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss*0.5, BLOOD_VOLUME_NORMAL)
 				if(owner.client)
 					owner.client.color = ""

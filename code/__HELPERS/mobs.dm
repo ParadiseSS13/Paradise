@@ -373,11 +373,11 @@ This is always put in the attack log.
 	if(progress)
 		qdel(progbar)
 
-/proc/is_species(A, species_name)
+/proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
-		if(H.get_species() == species_name)
+		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)

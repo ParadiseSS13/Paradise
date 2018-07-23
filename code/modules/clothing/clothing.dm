@@ -49,12 +49,12 @@
 		if("exclude" in species_restricted)
 			exclusive = 1
 
-		if(H.species)
+		if(H.dna.species)
 			if(exclusive)
-				if(!(H.species.name in species_restricted))
+				if(!(H.dna.species.name in species_restricted))
 					wearable = 1
 			else
-				if(H.species.name in species_restricted)
+				if(H.dna.species.name in species_restricted)
 					wearable = 1
 
 			if(!wearable)
@@ -504,7 +504,7 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
-		if(user.species.name in hide_tail_by_species)
+		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
 		else

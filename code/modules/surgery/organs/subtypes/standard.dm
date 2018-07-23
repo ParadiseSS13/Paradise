@@ -194,12 +194,10 @@
 			owner.unEquip(owner.r_ear)
 		if(owner.wear_mask)
 			owner.unEquip(owner.wear_mask)
-		spawn(1)
-			if(owner)//runtimer no runtiming
-				owner.update_hair()
-				owner.update_fhair()
-				owner.update_head_accessory()
-				owner.update_markings()
+		owner.update_hair()
+		owner.update_fhair()
+		owner.update_head_accessory()
+		owner.update_markings()
 	. = ..()
 
 /obj/item/organ/external/head/replaced()

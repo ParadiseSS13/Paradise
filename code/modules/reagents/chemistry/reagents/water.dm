@@ -29,7 +29,7 @@
 
 			var/mob/living/carbon/human/H = M
 
-			if(H.get_species() != "Grey") //God this is so gross I hate it.
+			if(!isgrey(H)) //God this is so gross I hate it.
 				return
 
 			if(volume > 25)
@@ -58,7 +58,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
-			if(H.get_species() != "Grey")
+			if(!isgrey(H))
 				return
 
 			if(volume < 10)
