@@ -137,7 +137,7 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
-	var/on = 0					// 1 if on, 0 if off
+	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = 0
 	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
@@ -212,7 +212,7 @@
 /obj/machinery/light/Destroy()
 	var/area/A = get_area(src)
 	if(A)
-		on = 0
+		on = FALSE
 //		A.update_lights()
 	return ..()
 
@@ -223,13 +223,13 @@
 			icon_state = "[base_state][on]"
 		if(LIGHT_EMPTY)
 			icon_state = "[base_state]-empty"
-			on = 0
+			on = FALSE
 		if(LIGHT_BURNED)
 			icon_state = "[base_state]-burned"
-			on = 0
+			on = FALSE
 		if(LIGHT_BROKEN)
 			icon_state = "[base_state]-broken"
-			on = 0
+			on = FALSE
 	return
 
 // update the icon_state and luminosity of the light depending on its state
@@ -254,7 +254,7 @@
 				if(status == LIGHT_OK && trigger)
 					status = LIGHT_BURNED
 					icon_state = "[base_state]-burned"
-					on = 0
+					on = FALSE
 					set_light(0)
 			else
 				use_power = 2
@@ -734,6 +734,6 @@
 	return FIRELOSS
 
 /obj/machinery/light/extinguish_light()
-	on = 0
+	on = FALSE
 	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
 	update(0)

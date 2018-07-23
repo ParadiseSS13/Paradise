@@ -9,7 +9,7 @@
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
-	var/on = 0
+	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 
 /obj/item/flashlight/Initialize()
@@ -85,7 +85,7 @@
 
 /obj/item/flashlight/extinguish_light()
 	if(on)
-		on = 0
+		on = FALSE
 		update_brightness()
 
 /obj/item/flashlight/pen
@@ -126,7 +126,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list()
-	on = 1
+	on = TRUE
 
 
 // green-shaded desk lamp
@@ -239,7 +239,7 @@ obj/item/flashlight/lamp/bananalamp
 	brightness_on = 6
 	light_color = "#FFBF00"
 	materials = list()
-	on = 1 //Bio-luminesence has one setting, on.
+	on = TRUE //Bio-luminesence has one setting, on.
 
 /obj/item/flashlight/slime/New()
 	set_light(brightness_on)

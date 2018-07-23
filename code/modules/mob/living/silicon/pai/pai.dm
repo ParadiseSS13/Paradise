@@ -79,7 +79,7 @@
 	var/obj/item/integrated_radio/signal/sradio // AI's signaller
 
 	var/translator_on = 0 // keeps track of the translator module
-	var/flashlight_on = 0 //keeps track of the flashlight module
+	var/flashlight_on = FALSE //keeps track of the flashlight module
 
 	var/current_pda_messaging = null
 	var/custom_sprite = 0
@@ -620,5 +620,5 @@
 	loc = card
 
 /mob/living/silicon/pai/extinguish_light()
-	flashlight_on = 0
+	flashlight_on = FALSE
 	set_light(0)
