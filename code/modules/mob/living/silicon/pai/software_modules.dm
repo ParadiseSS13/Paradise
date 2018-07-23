@@ -619,8 +619,10 @@
 	user.flashlight_on = !user.flashlight_on
 	if(user.flashlight_on)
 		user.set_light(2)
+		user.card.set_light(2)
 		return
 	user.set_light(0)
+	user.card.set_light(0)
 
 /datum/pai_software/flashlight/is_active(mob/living/silicon/pai/user)
 	return user.flashlight_on

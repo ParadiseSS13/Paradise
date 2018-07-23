@@ -342,3 +342,4 @@
 
 /obj/item/paicard/extinguish_light()
 	pai.extinguish_light()
+	set_light(0)
