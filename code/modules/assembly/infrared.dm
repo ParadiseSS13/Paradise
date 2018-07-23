@@ -1,4 +1,4 @@
-/obj/item/device/assembly/infra
+/obj/item/assembly/infra
 	name = "infrared emitter"
 	desc = "Emits a visible or invisible beam and is triggered when the beam is interrupted."
 	icon_state = "infrared"
@@ -18,27 +18,27 @@
 	var/emission_cycles = 0
 	var/emission_cap = 20
 
-/obj/item/device/assembly/infra/Destroy()
+/obj/item/assembly/infra/Destroy()
 	if(first)
 		QDEL_NULL(first)
 		last = null
 		fire_location = null
 	return ..()
 
-/obj/item/device/assembly/infra/describe()
+/obj/item/assembly/infra/describe()
 	return "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
 
-/obj/item/device/assembly/infra/examine(mob/user)
+/obj/item/assembly/infra/examine(mob/user)
 	..()
 	to_chat(user, describe())
 
-/obj/item/device/assembly/infra/activate()
+/obj/item/assembly/infra/activate()
 	if(!..())	return 0//Cooldown check
 	on = !on
 	update_icon()
 	return 1
 
-/obj/item/device/assembly/infra/toggle_secure()
+/obj/item/assembly/infra/toggle_secure()
 	secured = !secured
 	if(secured)
 		processing_objects.Add(src)
@@ -50,17 +50,17 @@
 	update_icon()
 	return secured
 
-/obj/item/device/assembly/infra/New()
+/obj/item/assembly/infra/New()
 	..()
 	if(!secured)
 		toggle_secure()
 
-/obj/item/device/assembly/infra/proc/arm() // Forces the device to arm no matter its current state.
+/obj/item/assembly/infra/proc/arm() // Forces the device to arm no matter its current state.
 	if(!secured) // Checked because arm() might be called sometime after the object is spawned.
 		toggle_secure()
 	on = 1
 
-/obj/item/device/assembly/infra/update_icon()
+/obj/item/assembly/infra/update_icon()
 	overlays.Cut()
 	attached_overlays = list()
 	if(on)
@@ -70,7 +70,7 @@
 	if(holder)
 		holder.update_icon()
 
-/obj/item/device/assembly/infra/process()
+/obj/item/assembly/infra/process()
 	var/turf/T = get_turf(src)
 	if(first && (!on || !fire_location || fire_location != T || emission_cycles >= emission_cap))
 		qdel(first)
@@ -99,30 +99,30 @@
 			I.limit = 8
 			I.process()
 
-/obj/item/device/assembly/infra/attack_hand()
+/obj/item/assembly/infra/attack_hand()
 	qdel(first)
 	..()
 
-/obj/item/device/assembly/infra/Move()
+/obj/item/assembly/infra/Move()
 	var/t = dir
 	..()
 	dir = t
 	qdel(first)
 
-/obj/item/device/assembly/infra/holder_movement()
+/obj/item/assembly/infra/holder_movement()
 	if(!holder)	return 0
 	qdel(first)
 	return 1
 
-/obj/item/device/assembly/infra/equipped(var/mob/user, var/slot)
+/obj/item/assembly/infra/equipped(var/mob/user, var/slot)
 	qdel(first)
 	return ..()
 
-/obj/item/device/assembly/infra/pickup(mob/user)
+/obj/item/assembly/infra/pickup(mob/user)
 	qdel(first)
 	return ..()
 
-/obj/item/device/assembly/infra/proc/trigger_beam()
+/obj/item/assembly/infra/proc/trigger_beam()
 	if(!secured || !on || cooldown > 0)
 		return 0
 	pulse(0)
@@ -133,7 +133,7 @@
 	spawn(10)
 		process_cooldown()
 
-/obj/item/device/assembly/infra/interact(mob/user as mob)//TODO: change this this to the wire control panel
+/obj/item/assembly/infra/interact(mob/user as mob)//TODO: change this this to the wire control panel
 	if(!secured)	return
 	user.set_machine(src)
 	var/dat = {"<TT><B>Infrared Laser</B>
@@ -148,7 +148,7 @@
 	popup.open(0)
 	onclose(user, "infra")
 
-/obj/item/device/assembly/infra/Topic(href, href_list)
+/obj/item/assembly/infra/Topic(href, href_list)
 	..()
 	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
 		usr << browse(null, "window=infra")
@@ -169,7 +169,7 @@
 	if(usr)
 		attack_self(usr)
 
-/obj/item/device/assembly/infra/verb/rotate()//This could likely be better
+/obj/item/assembly/infra/verb/rotate()//This could likely be better
 	set name = "Rotate Infrared Laser"
 	set category = "Object"
 	set src in usr
@@ -187,7 +187,7 @@
 
 
 
-/obj/item/device/assembly/infra/armed/New()
+/obj/item/assembly/infra/armed/New()
 	..()
 	spawn(3)
 		if(holder)
@@ -195,7 +195,7 @@
 				dir = holder.master.dir
 		arm()
 
-/obj/item/device/assembly/infra/armed/stealth
+/obj/item/assembly/infra/armed/stealth
 	visible = 0
 
 
@@ -207,7 +207,7 @@
 	icon_state = "ibeam"
 	var/obj/effect/beam/i_beam/next = null
 	var/obj/effect/beam/i_beam/previous = null
-	var/obj/item/device/assembly/infra/master = null
+	var/obj/item/assembly/infra/master = null
 	var/limit = null
 	var/visible = 0.0
 	var/left = null

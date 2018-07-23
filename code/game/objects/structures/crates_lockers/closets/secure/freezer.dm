@@ -19,7 +19,7 @@
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
 
 	// Bomb in here? (using same search as space transits searching for nuke disk)
-	var/list/bombs = search_contents_for(/obj/item/device/transfer_valve)
+	var/list/bombs = search_contents_for(/obj/item/transfer_valve)
 	if(!isemptylist(bombs)) // You're fucked.
 		..(severity)
 
@@ -31,9 +31,9 @@
 	New()
 		..()
 		for(var/i in 1 to 3)
-			new /obj/item/weapon/reagent_containers/food/condiment/flour(src)
-		new /obj/item/weapon/reagent_containers/food/condiment/rice(src)
-		new /obj/item/weapon/reagent_containers/food/condiment/sugar(src)
+			new /obj/item/reagent_containers/food/condiment/flour(src)
+		new /obj/item/reagent_containers/food/condiment/rice(src)
+		new /obj/item/reagent_containers/food/condiment/sugar(src)
 
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
@@ -52,7 +52,7 @@
 /obj/structure/closet/secure_closet/freezer/meat/New()
 	..()
 	for(var/i in 1 to 4)
-		new /obj/item/weapon/reagent_containers/food/snacks/meat/monkey(src)
+		new /obj/item/reagent_containers/food/snacks/meat/monkey(src)
 
 
 /obj/structure/closet/secure_closet/freezer/fridge
@@ -67,10 +67,10 @@
 /obj/structure/closet/secure_closet/freezer/fridge/New()
 	..()
 	for(var/i in 1 to 5)
-		new /obj/item/weapon/reagent_containers/food/condiment/milk(src)
-		new /obj/item/weapon/reagent_containers/food/condiment/soymilk(src)
+		new /obj/item/reagent_containers/food/condiment/milk(src)
+		new /obj/item/reagent_containers/food/condiment/soymilk(src)
 	for(var/i in 1 to 2)
-		new /obj/item/weapon/storage/fancy/egg_box(src)
+		new /obj/item/storage/fancy/egg_box(src)
 
 
 /obj/structure/closet/secure_closet/freezer/money

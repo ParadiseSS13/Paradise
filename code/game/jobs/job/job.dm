@@ -74,12 +74,12 @@
 	if(!H)
 		return 0
 
-	H.species.before_equip_job(src, H, visualsOnly)
+	H.dna.species.before_equip_job(src, H, visualsOnly)
 
 	if(outfit)
 		H.equipOutfit(outfit, visualsOnly, alt_title)
 
-	H.species.after_equip_job(src, H, visualsOnly)
+	H.dna.species.after_equip_job(src, H, visualsOnly)
 
 	if(!visualsOnly && announce)
 		announce(H)
@@ -136,18 +136,16 @@
 	var/jobtype = null
 
 	uniform = /obj/item/clothing/under/color/grey
-	id = /obj/item/weapon/card/id
-	l_ear = /obj/item/device/radio/headset
-	back = /obj/item/weapon/storage/backpack
+	id = /obj/item/card/id
+	l_ear = /obj/item/radio/headset
+	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/black
-	pda = /obj/item/device/pda
+	pda = /obj/item/pda
 
-	var/list/implants = null
-
-	var/backpack = /obj/item/weapon/storage/backpack
-	var/satchel = /obj/item/weapon/storage/backpack/satchel_norm
-	var/dufflebag = /obj/item/weapon/storage/backpack/duffel
-	var/box = /obj/item/weapon/storage/box/survival
+	var/backpack = /obj/item/storage/backpack
+	var/satchel = /obj/item/storage/backpack/satchel_norm
+	var/dufflebag = /obj/item/storage/backpack/duffel
+	var/box = /obj/item/storage/box/survival
 
 	var/tmp/list/gear_leftovers = list()
 
@@ -155,13 +153,13 @@
 	if(allow_backbag_choice)
 		switch(H.backbag)
 			if(GBACKPACK)
-				back = /obj/item/weapon/storage/backpack //Grey backpack
+				back = /obj/item/storage/backpack //Grey backpack
 			if(GSATCHEL)
-				back = /obj/item/weapon/storage/backpack/satchel_norm //Grey satchel
+				back = /obj/item/storage/backpack/satchel_norm //Grey satchel
 			if(GDUFFLEBAG)
-				back = /obj/item/weapon/storage/backpack/duffel //Grey Dufflebag
+				back = /obj/item/storage/backpack/duffel //Grey Dufflebag
 			if(LSATCHEL)
-				back = /obj/item/weapon/storage/backpack/satchel //Leather Satchel
+				back = /obj/item/storage/backpack/satchel //Leather Satchel
 			if(DSATCHEL)
 				back = satchel //Department satchel
 			if(DDUFFLEBAG)
@@ -185,7 +183,7 @@
 				else
 					permitted = TRUE
 
-				if(G.whitelisted && (G.whitelisted != H.species.name || !is_alien_whitelisted(H, G.whitelisted)))
+				if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
 					permitted = FALSE
 
 				if(!permitted)
@@ -209,11 +207,6 @@
 	H.sec_hud_set_ID()
 
 	imprint_pda(H)
-
-	if(implants)
-		for(var/implant_type in implants)
-			var/obj/item/weapon/implant/I = new implant_type(H)
-			I.implant(H)
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
@@ -246,7 +239,7 @@
 	if(H.mind)
 		alt_title = H.mind.role_alt_title
 
-	var/obj/item/weapon/card/id/C = H.wear_id
+	var/obj/item/card/id/C = H.wear_id
 	if(istype(C))
 		C.access = J.get_access()
 		C.registered_name = H.real_name
@@ -261,8 +254,8 @@
 			C.associated_account_number = H.mind.initial_account.account_number
 
 /datum/outfit/job/proc/imprint_pda(mob/living/carbon/human/H)
-	var/obj/item/device/pda/PDA = H.wear_pda
-	var/obj/item/weapon/card/id/C = H.wear_id
+	var/obj/item/pda/PDA = H.wear_pda
+	var/obj/item/card/id/C = H.wear_id
 	if(istype(PDA) && istype(C))
 		PDA.owner = H.real_name
 		PDA.ownjob = C.assignment

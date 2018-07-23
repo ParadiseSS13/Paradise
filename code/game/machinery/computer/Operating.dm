@@ -6,7 +6,7 @@
 	anchored = 1.0
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
-	circuit = /obj/item/weapon/circuitboard/operating
+	circuit = /obj/item/circuitboard/operating
 	var/obj/machinery/optable/table = null
 	var/mob/living/carbon/human/victim = null
 	light_color = LIGHT_COLOR_PURE_BLUE
@@ -123,8 +123,8 @@
 		occupantData["maxTemp"] = 1000 // If you get a burning vox armalis into the sleeper, congratulations
 		// Because we can put simple_animals in here, we need to do something tricky to get things working nice
 		occupantData["temperatureSuitability"] = 0 // 0 is the baseline
-		if(ishuman(occupant) && occupant.species)
-			var/datum/species/sp = occupant.species
+		if(ishuman(occupant) && occupant.dna.species)
+			var/datum/species/sp = occupant.dna.species
 			if(occupant.bodytemperature < sp.cold_level_3)
 				occupantData["temperatureSuitability"] = -3
 			else if(occupant.bodytemperature < sp.cold_level_2)
@@ -147,7 +147,7 @@
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
-		if(ishuman(occupant) && !(NO_BLOOD in occupant.species.species_traits))
+		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)

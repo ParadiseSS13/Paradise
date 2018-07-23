@@ -54,7 +54,7 @@
 	max_equip = 8
 
 /obj/mecha/combat/marauder/seraph/add_cell()
-	cell = new /obj/item/weapon/stock_parts/cell/bluespace(src)
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
 	cell.charge = 40000
 	cell.maxcharge = 40000
 

@@ -28,7 +28,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
-		if(!(affected.status & ORGAN_ROBOT))
+		if(!affected.is_robotic())
 			return 0
 		return 1
 
@@ -38,7 +38,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
-		if(!(affected.status & ORGAN_ROBOT))
+		if(!affected.is_robotic())
 			return 0
 		if(affected.cannot_amputate)
 			return 0
@@ -64,16 +64,16 @@
 	if(!..())
 		return 0
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!(affected.status & ORGAN_ROBOT))
+	if(!affected.is_robotic())
 		return 0
 	return 1
 
 /datum/surgery_step/robotics/external/unscrew_hatch
 	name = "unscrew hatch"
 	allowed_tools = list(
-		/obj/item/weapon/screwdriver = 100,
-		/obj/item/weapon/coin = 50,
-		/obj/item/weapon/kitchen/knife = 50
+		/obj/item/screwdriver = 100,
+		/obj/item/coin = 50,
+		/obj/item/kitchen/knife = 50
 	)
 
 	time = 16
@@ -107,9 +107,9 @@
 /datum/surgery_step/robotics/external/open_hatch
 	name = "open hatch"
 	allowed_tools = list(
-		/obj/item/weapon/retractor = 100,
-		/obj/item/weapon/crowbar = 100,
-		/obj/item/weapon/kitchen/utensil/ = 50
+		/obj/item/retractor = 100,
+		/obj/item/crowbar = 100,
+		/obj/item/kitchen/utensil/ = 50
 	)
 
 	time = 24
@@ -143,9 +143,9 @@
 /datum/surgery_step/robotics/external/close_hatch
 	name = "close hatch"
 	allowed_tools = list(
-		/obj/item/weapon/retractor = 100,
-		/obj/item/weapon/crowbar = 100,
-		/obj/item/weapon/kitchen/utensil = 50
+		/obj/item/retractor = 100,
+		/obj/item/crowbar = 100,
+		/obj/item/kitchen/utensil = 50
 	)
 
 	time = 24
@@ -181,16 +181,16 @@
 	allowed_tools = list()
 
 	var/list/implements_finish = list(
-		/obj/item/weapon/retractor = 100,
-		/obj/item/weapon/crowbar = 100,
-		/obj/item/weapon/kitchen/utensil = 50
+		/obj/item/retractor = 100,
+		/obj/item/crowbar = 100,
+		/obj/item/kitchen/utensil = 50
 	)
 	var/list/implements_heal_burn = list(
 		/obj/item/stack/cable_coil = 100
 	)
 	var/list/implements_heal_brute = list(
-		/obj/item/weapon/weldingtool = 100,
-		/obj/item/weapon/gun/energy/plasmacutter = 50
+		/obj/item/weldingtool = 100,
+		/obj/item/gun/energy/plasmacutter = 50
 	)
 	var/current_type
 	time = 32
@@ -225,8 +225,8 @@
 		if(!(affected.brute_dam > 0 || affected.disfigured))
 			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 			return -1
-		if(istype(tool,/obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/welder = tool
+		if(istype(tool,/obj/item/weldingtool))
+			var/obj/item/weldingtool/welder = tool
 			if(!welder.isOn() || !welder.remove_fuel(1,user))
 				return -1
 		user.visible_message("[user] begins to patch damage to [target]'s [affected.name]'s support structure with \the [tool]." , \
@@ -248,10 +248,7 @@
 			user.visible_message("<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
 			affected.heal_damage(rand(30,50),0,1,1)
-			if(affected.disfigured)
-				affected.disfigured = 0
-				affected.update_icon()
-				target.regenerate_icons()
+			affected.disfigured = FALSE
 		if("burn")
 			user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
 			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
@@ -283,11 +280,11 @@
 /datum/surgery_step/robotics/manipulate_robotic_organs
 
 	name = "internal part manipulation"
-	allowed_tools = list(/obj/item/device/mmi = 100)
-	var/implements_extract = list(/obj/item/device/multitool = 100)
-	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/weapon/bonegel = 30, /obj/item/weapon/screwdriver = 70)
+	allowed_tools = list(/obj/item/mmi = 100)
+	var/implements_extract = list(/obj/item/multitool = 100)
+	var/implements_mend = list(	/obj/item/stack/nanopaste = 100,/obj/item/bonegel = 30, /obj/item/screwdriver = 70)
 	var/implements_insert = list(/obj/item/organ/internal = 100)
-	var/implements_finish =list(/obj/item/weapon/retractor = 100,/obj/item/weapon/crowbar = 100,/obj/item/weapon/kitchen/utensil = 50)
+	var/implements_finish =list(/obj/item/retractor = 100,/obj/item/crowbar = 100,/obj/item/kitchen/utensil = 50)
 	var/current_type
 	var/obj/item/organ/internal/I = null
 	var/obj/item/organ/external/affected = null
@@ -308,7 +305,7 @@
 		current_type = "insert"
 		var/obj/item/organ/internal/I = tool
 
-		if(I.status != ORGAN_ROBOT || I.robotic != 2)
+		if(!I.is_robotic())
 			to_chat(user, "<span class='notice'>You can only implant cybernetic organs.</span>")
 
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
@@ -325,15 +322,15 @@
 
 		user.visible_message("[user] begins reattaching [target]'s [tool].", \
 		"You start reattaching [target]'s [tool].")
-		target.custom_pain("Someone's rooting around in your [affected.name]!",1)
-	else if(istype(tool,/obj/item/device/mmi))
+		target.custom_pain("Someone's rooting around in your [affected.name]!")
+	else if(istype(tool,/obj/item/mmi))
 		current_type = "install"
 
 		if(target_zone != "chest")
 			to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
 
 			return -1
-		var/obj/item/device/mmi/M = tool
+		var/obj/item/mmi/M = tool
 
 
 		if(!affected)
@@ -346,16 +343,16 @@
 			to_chat(user, "<span class='danger'>That brain is not usable.</span>")
 			return -1
 
-		if(!(affected.status & ORGAN_ROBOT))
+		if(!affected.is_robotic())
 			to_chat(user, "<span class='danger'>You cannot install a computer brain into a meat enclosure.</span>")
 			return -1
 
-		if(!target.species)
+		if(!target.dna.species)
 			to_chat(user, "<span class='danger'>You have no idea what species this person is. Report this on the bug tracker.</span>")
 			return -1
 
-		if(!target.species.has_organ["brain"])
-			to_chat(user, "<span class='danger'>You're pretty sure [target.species.name_plural] don't normally have a brain.</span>")
+		if(!target.dna.species.has_organ["brain"])
+			to_chat(user, "<span class='danger'>You're pretty sure [target.dna.species.name_plural] don't normally have a brain.</span>")
 			return -1
 
 		if(target.get_int_organ(/obj/item/organ/internal/brain/))
@@ -368,7 +365,7 @@
 	else if(implement_type in implements_extract)
 		current_type = "extract"
 		var/list/organs = target.get_organs_zone(target_zone)
-		if(!(affected && (affected.status & ORGAN_ROBOT)))
+		if(!(affected && affected.is_robotic()))
 			return -1
 		if(!organs.len)
 			to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
@@ -386,7 +383,7 @@
 				user.visible_message("[user] starts to decouple [target]'s [I] with \the [tool].", \
 				"You start to decouple [target]'s [I] with \the [tool]." )
 
-				target.custom_pain("The pain in your [affected.name] is living hell!",1)
+				target.custom_pain("The pain in your [affected.name] is living hell!")
 			else
 				return -1
 
@@ -398,7 +395,7 @@
 
 		var/found_damaged_organ = FALSE
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage && I.robotic >= 2)
+			if(I && I.damage && I.is_robotic())
 				user.visible_message("[user] starts mending the damage to [target]'s [I.name]'s mechanisms.", \
 				"You start mending the damage to [target]'s [I.name]'s mechanisms.")
 				found_damaged_organ = TRUE
@@ -407,7 +404,7 @@
 			to_chat(user, "There are no damaged components in [affected].")
 			return -1
 
-		target.custom_pain("The pain in your [affected.name] is living hell!",1)
+		target.custom_pain("The pain in your [affected.name] is living hell!")
 
 	else if(implement_type in implements_finish)
 		current_type = "finish"
@@ -424,7 +421,7 @@
 			return
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage)
-				if(I.robotic >= 2)
+				if(I.is_robotic())
 					user.visible_message("<span class='notice'> [user] repairs [target]'s [I.name] with [tool].</span>", \
 					"<span class='notice'> You repair [target]'s [I.name] with [tool].</span>" )
 					I.damage = 0
@@ -445,7 +442,7 @@
 		user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
 		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")
 
-		var/obj/item/device/mmi/M = tool
+		var/obj/item/mmi/M = tool
 
 		user.unEquip(tool)
 		M.attempt_become_organ(affected,target)
@@ -455,7 +452,7 @@
 			user.visible_message("<span class='notice'> [user] has decoupled [target]'s [I] with \the [tool].</span>" , \
 		"<span class='notice'> You have decoupled [target]'s [I] with \the [tool].</span>")
 
-			add_logs(user, target, "surgically removed [I.name] from", addition="INTENT: [uppertext(user.a_intent)]")
+			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
 			spread_germs_to_organ(I, user)
 			var/obj/item/thing = I.remove(target)
 			if(!istype(thing))
@@ -513,7 +510,7 @@
 	name = "remove robotic limb"
 
 	allowed_tools = list(
-	/obj/item/device/multitool = 100)
+	/obj/item/multitool = 100)
 
 	time = 100
 
@@ -522,7 +519,7 @@
 	user.visible_message("[user] starts to decouple [target]'s [affected.name] with \the [tool].", \
 	"You start to decouple [target]'s [affected.name] with \the [tool]." )
 
-	target.custom_pain("Your [affected.amputation_point] is being ripped apart!",1)
+	target.custom_pain("Your [affected.amputation_point] is being ripped apart!")
 	..()
 
 /datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -531,7 +528,7 @@
 	"<span class='notice'> You have decoupled [target]'s [affected.name] with \the [tool].</span>")
 
 
-	add_logs(user, target, "surgically removed [affected.name] from", addition="INTENT: [uppertext(user.a_intent)]")//log it
+	add_attack_logs(user, target, "Surgically removed [affected.name] from. INTENT: [uppertext(user.a_intent)]")//log it
 
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
@@ -544,3 +541,59 @@
 	user.visible_message("<span class='warning'> [user]'s hand slips!</span>", \
 	"<span class='warning'> Your hand slips!</span>")
 	return 0
+
+/datum/surgery/cybernetic_customization
+	name = "Cybernetic Appearance Customization"
+	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch, /datum/surgery_step/robotics/external/customize_appearance)
+	possible_locs = list("head", "chest", "l_arm", "r_arm", "r_leg", "l_leg")
+	requires_organic_bodypart = FALSE
+
+/datum/surgery/cybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)
+	if(ishuman(target))
+		var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+		if(!affected)
+			return FALSE
+		if(!(affected.status & ORGAN_ROBOT))
+			return FALSE
+		return TRUE
+
+/datum/surgery_step/robotics/external/customize_appearance
+	name = "reprogram limb"
+	allowed_tools = list(/obj/item/multitool = 100)
+	time = 48
+
+/datum/surgery_step/robotics/external/customize_appearance/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	if(..())
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
+		if(!affected)
+			return FALSE
+		return TRUE
+
+/datum/surgery_step/robotics/external/customize_appearance/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("[user] begins to reprogram the appearance of [target]'s [affected.name] with [tool]." , \
+	"You begin to reprogram the appearance of [target]'s [affected.name] with [tool].")
+	..()
+
+/datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/chosen_appearance = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in selectable_robolimbs
+	if(!chosen_appearance)
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	affected.robotize(chosen_appearance, convert_all = FALSE)
+	if(istype(affected, /obj/item/organ/external/head))
+		var/obj/item/organ/external/head/head = affected
+		head.h_style = "Bald" // nearly all the appearance changes for heads are non-monitors; we want to get rid of a floating screen
+		target.update_hair()
+	target.update_body()
+	target.updatehealth()
+	target.UpdateDamageIcon()
+	user.visible_message("<span class='notice'> [user] reprograms the appearance of [target]'s [affected.name] with [tool].</span>", \
+	"<span class='notice'> You reprogram the appearance of [target]'s [affected.name] with [tool].</span>")
+	return TRUE
+
+/datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>",
+	"<span class='warning'> Your [tool.name] slips, failing to reprogram [target]'s [affected.name].</span>")
+	return FALSE

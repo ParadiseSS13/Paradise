@@ -2,7 +2,7 @@
 	if(pre_attackby(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
 		var/resolved = target.attackby(src, user, params)
-		if(!resolved && target && !qdeleted(src))
+		if(!resolved && target && !QDELETED(src))
 			afterattack(target, user, 1, params) // 1: clicking something Adjacent
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
@@ -14,10 +14,10 @@
 
 // No comment
 /atom/proc/attackby(obj/item/W, mob/user, params)
-	return
+	return SendSignal(COMSIG_PARENT_ATTACKBY, W, user, params)
 
 /obj/attackby(obj/item/I, mob/living/user, params)
-	return I.attack_obj(src, user)
+	return ..() || (can_be_hit && I.attack_obj(src, user))
 
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -37,13 +37,13 @@
 				return 1
 		if(istype(src,/obj/item/organ/external))
 			var/obj/item/organ/external/E = src
-			if(E.robotic == 2) // Robot limbs are less messy to attach
+			if(E.is_robotic()) // Robot limbs are less messy to attach
 				if(!attempt_initiate_surgery(src, M, user,1))
 					return 0
 				else
 					return 1
 
-		if(isscrewdriver(src) && M.get_species() == "Machine")
+		if(isscrewdriver(src) && ismachine(M))
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
@@ -62,11 +62,11 @@
 	user.lastattacked = M
 	M.lastattacker = user
 
-	if(user != M)
-		user.do_attack_animation(M)
+	user.do_attack_animation(M)
 	M.attacked_by(src, user, def_zone)
 
-	add_logs(user, M, "attacked", name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", print_attack_log = (force > 0))//print it if stuff deals damage
+	add_attack_logs(user, M, "Attacked with [name] (INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])", (M.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+
 	add_fingerprint(user)
 
 

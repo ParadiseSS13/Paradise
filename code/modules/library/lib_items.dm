@@ -22,9 +22,9 @@
 	burntime = 30
 	var/health = 50
 	var/tmp/busy = 0
-	var/list/allowed_books = list(/obj/item/weapon/book, /obj/item/weapon/spellbook, /obj/item/weapon/storage/bible, /obj/item/weapon/tome) //Things allowed in the bookcase
+	var/list/allowed_books = list(/obj/item/book, /obj/item/spellbook, /obj/item/storage/bible, /obj/item/tome) //Things allowed in the bookcase
 
-/obj/structure/bookcase/initialize()
+/obj/structure/bookcase/Initialize()
 	..()
 	for(var/obj/item/I in loc)
 		if(is_type_in_list(I, allowed_books))
@@ -40,15 +40,15 @@
 		O.forceMove(src)
 		update_icon()
 		return 1
-	else if(istype(O, /obj/item/weapon/storage/bag/books))
-		var/obj/item/weapon/storage/bag/books/B = O
+	else if(istype(O, /obj/item/storage/bag/books))
+		var/obj/item/storage/bag/books/B = O
 		for(var/obj/item/T in B.contents)
-			if(istype(T, /obj/item/weapon/book) || istype(T, /obj/item/weapon/spellbook) || istype(T, /obj/item/weapon/tome) || istype(T, /obj/item/weapon/storage/bible))
+			if(istype(T, /obj/item/book) || istype(T, /obj/item/spellbook) || istype(T, /obj/item/tome) || istype(T, /obj/item/storage/bible))
 				B.remove_from_storage(T, src)
 		to_chat(user, "<span class='notice'>You empty [O] into [src].</span>")
 		update_icon()
 		return 1
-	else if(istype(O, /obj/item/weapon/wrench))
+	else if(istype(O, /obj/item/wrench))
 		user.visible_message("<span class='warning'>[user] starts disassembling \the [src].</span>", \
 		"<span class='notice'>You start disassembling \the [src].</span>")
 		playsound(get_turf(src), O.usesound, 50, 1)
@@ -64,7 +64,7 @@
 		else
 			busy = 0
 		return 1
-	else if(istype(O, /obj/item/weapon/pen))
+	else if(istype(O, /obj/item/pen))
 		var/newname = stripped_input(user, "What would you like to title this [name]?")
 		if(newname)
 			name = ("bookcase ([sanitize(newname)])")
@@ -83,7 +83,7 @@
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
 	if(contents.len)
-		var/obj/item/weapon/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
+		var/obj/item/book/choice = input("Which book would you like to remove from [src]?") as null|anything in contents
 		if(choice)
 			if(user.incapacitated() || user.lying || !Adjacent(user))
 				return
@@ -132,7 +132,7 @@
 
 	New()
 		..()
-		new /obj/item/weapon/book/manual/medical_cloning(src)
+		new /obj/item/book/manual/medical_cloning(src)
 		update_icon()
 
 
@@ -141,12 +141,12 @@
 
 	New()
 		..()
-		new /obj/item/weapon/book/manual/engineering_construction(src)
-		new /obj/item/weapon/book/manual/engineering_particle_accelerator(src)
-		new /obj/item/weapon/book/manual/engineering_hacking(src)
-		new /obj/item/weapon/book/manual/engineering_guide(src)
-		new /obj/item/weapon/book/manual/engineering_singularity_safety(src)
-		new /obj/item/weapon/book/manual/robotics_cyborgs(src)
+		new /obj/item/book/manual/engineering_construction(src)
+		new /obj/item/book/manual/engineering_particle_accelerator(src)
+		new /obj/item/book/manual/engineering_hacking(src)
+		new /obj/item/book/manual/engineering_guide(src)
+		new /obj/item/book/manual/engineering_singularity_safety(src)
+		new /obj/item/book/manual/robotics_cyborgs(src)
 		update_icon()
 
 /obj/structure/bookcase/manuals/research_and_development
@@ -154,14 +154,14 @@
 
 	New()
 		..()
-		new /obj/item/weapon/book/manual/research_and_development(src)
+		new /obj/item/book/manual/research_and_development(src)
 		update_icon()
 
 
 /*
  * Book
  */
-/obj/item/weapon/book
+/obj/item/book
 	name = "book"
 	icon = 'icons/obj/library.dmi'
 	icon_state ="book"
@@ -180,7 +180,7 @@
 	var/forbidden = 0     // Prevent ordering of this book. (0=no, 1=yes, 2=emag only)
 	var/obj/item/store	// What's in the book?
 
-/obj/item/weapon/book/attack_self(var/mob/user as mob)
+/obj/item/book/attack_self(var/mob/user as mob)
 	if(carved)
 		if(store)
 			to_chat(user, "<span class='notice'>[store] falls out of [title]!</span>")
@@ -198,7 +198,7 @@
 	else
 		to_chat(user, "This book is completely blank!")
 
-/obj/item/weapon/book/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/book/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(carved)
 		if(!store)
 			if(W.w_class < WEIGHT_CLASS_NORMAL)
@@ -213,7 +213,7 @@
 		else
 			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
 			return 1
-	if(istype(W, /obj/item/weapon/pen))
+	if(istype(W, /obj/item/pen))
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
 			return 1
@@ -242,8 +242,8 @@
 				else
 					src.author = newauthor
 		return 1
-	else if(istype(W, /obj/item/weapon/barcodescanner))
-		var/obj/item/weapon/barcodescanner/scanner = W
+	else if(istype(W, /obj/item/barcodescanner))
+		var/obj/item/barcodescanner/scanner = W
 		if(!scanner.computer)
 			to_chat(user, "[W]'s screen flashes: 'No associated computer found!'")
 		else
@@ -265,14 +265,14 @@
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. No active check-out record found for current title.'")
 				if(3)
 					scanner.book = src
-					for(var/obj/item/weapon/book in scanner.computer.inventory)
+					for(var/obj/item/book in scanner.computer.inventory)
 						if(book == src)
 							to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title already present in inventory, aborting to avoid duplicate entry.'")
 							return 1
 					scanner.computer.inventory.Add(src)
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
 		return 1
-	else if(istype(W, /obj/item/weapon/kitchen/knife) || iswirecutter(W))
+	else if(istype(W, /obj/item/kitchen/knife) || iswirecutter(W))
 		if(carved)
 			return 1
 		to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
@@ -287,7 +287,7 @@
 /*
  * Barcode Scanner
  */
-/obj/item/weapon/barcodescanner
+/obj/item/barcodescanner
 	name = "barcode scanner"
 	icon = 'icons/obj/library.dmi'
 	icon_state ="scanner"
@@ -295,7 +295,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	var/obj/machinery/computer/library/checkout/computer // Associated computer - Modes 1 to 3 use this
-	var/obj/item/weapon/book/book	 //  Currently scanned book
+	var/obj/item/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
 
 	attack_self(mob/user as mob)

@@ -4,7 +4,7 @@
 	var/dead_icon
 	var/mob/living/carbon/human/owner = null
 	var/status = 0
-	var/vital //Lose a vital limb, die immediately.
+	var/vital = FALSE //Lose a vital limb, die immediately.
 	var/damage = 0 // amount of damage to the organ
 
 	var/min_bruised_damage = 10
@@ -13,14 +13,12 @@
 	var/organ_tag = "organ"
 
 	var/parent_organ = "chest"
-	var/robotic = 0 //For being a robot
 
 	var/list/datum/autopsy_data/autopsy_data = list()
 	var/list/trace_chemicals = list() // traces of chemicals in the organ,
 									  // links chemical IDs to number of ticks for which they'll stay in the blood
 	germ_level = 0
 	var/datum/dna/dna
-	var/datum/species/species = "Human"
 
 	// Stuff for tracking if this is on a tile with an open freezer or not
 	var/last_freezer_update_time = 0
@@ -30,6 +28,8 @@
 	var/sterile = FALSE //can the organ be infected by germs?
 	var/tough = FALSE //can organ be easily damaged?
 	var/emp_proof = FALSE //is the organ immune to EMPs?
+	var/hidden_pain = FALSE //will it skip pain messages?
+	var/requires_robotic_bodypart = FALSE
 
 
 /obj/item/organ/Destroy()
@@ -43,15 +43,13 @@
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/New(var/mob/living/carbon/holder)
+/obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
 	..(holder)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(istype(holder))
-		species = all_species["Human"]
 		if(holder.dna)
 			dna = holder.dna.Clone()
-			species = all_species[dna.species]
 		else
 			log_runtime(EXCEPTION("[holder] spawned without a proper DNA."), holder)
 		var/mob/living/carbon/human/H = holder
@@ -61,8 +59,9 @@
 					blood_DNA = list()
 				blood_DNA[dna.unique_enzymes] = dna.b_type
 	else
-		if(istext(species))
-			species = all_species[species]
+		dna = new /datum/dna(null)
+		if(species_override)
+			dna.species = new species_override
 
 /obj/item/organ/proc/set_dna(var/datum/dna/new_dna)
 	if(new_dna)
@@ -73,13 +72,11 @@
 			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
 
-/obj/item/organ/proc/necrotize(update_sprite=TRUE)
-	if(status & ORGAN_ROBOT)
-		return
+/obj/item/organ/proc/necrotize(update_sprite = TRUE)
 	damage = max_damage
 	status |= ORGAN_DEAD
 	processing_objects -= src
-	if(dead_icon)
+	if(dead_icon && !is_robotic())
 		icon_state = dead_icon
 	if(owner && vital)
 		owner.death()
@@ -94,7 +91,7 @@
 		return
 
 	//Process infections
-	if((status & ORGAN_ROBOT) || sterile || (owner && (IS_PLANT in owner.species.species_traits)))
+	if(is_robotic() || sterile || (owner && (IS_PLANT in owner.dna.species.species_traits)))
 		germ_level = 0
 		return
 
@@ -115,7 +112,7 @@
 		handle_germ_effects()
 
 /obj/item/organ/proc/is_preserved()
-	if(istype(loc,/obj/item/device/mmi))
+	if(istype(loc,/obj/item/mmi))
 		germ_level = max(0, germ_level - 1) // So a brain can slowly recover from being left out of an MMI
 		return 1
 	if(is_found_within(/obj/structure/closet/crate/freezer))
@@ -156,7 +153,7 @@
 			germ_level++
 
 	if(germ_level >= INFECTION_LEVEL_ONE)
-		var/fever_temperature = (owner.species.heat_level_1 - owner.species.body_temperature - 5)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.species.body_temperature
+		var/fever_temperature = (owner.dna.species.heat_level_1 - owner.dna.species.body_temperature - 5)* min(germ_level/INFECTION_LEVEL_TWO, 1) + owner.dna.species.body_temperature
 		owner.bodytemperature += between(0, (fever_temperature - T20C)/BODYTEMP_COLD_DIVISOR + 1, fever_temperature - owner.bodytemperature)
 
 	if(germ_level >= INFECTION_LEVEL_TWO)
@@ -174,10 +171,8 @@
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
-	if(status & ORGAN_ROBOT)	//Robotic organs stay robotic.
+	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
-	else if(status & ORGAN_ASSISTED) //Assisted organs stay assisted.
-		status = ORGAN_ASSISTED
 	else
 		status = 0
 	if(!owner)
@@ -223,37 +218,30 @@
 /obj/item/organ/proc/receive_damage(amount, silent = 0)
 	if(tough)
 		return
-	if(status & ORGAN_ROBOT)
-		damage = between(0, damage + (amount * 0.8), max_damage)
-	else
-		damage = between(0, damage + amount, max_damage)
+	damage = between(0, damage + amount, max_damage)
 
-		//only show this if the organ is not robotic
-		if(owner && parent_organ && amount > 0)
-			var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
-			if(parent && !silent)
-				owner.custom_pain("Something inside your [parent.name] hurts a lot.", 1)
+	//only show this if the organ is not robotic
+	if(owner && parent_organ && amount > 0)
+		var/obj/item/organ/external/parent = owner.get_organ(parent_organ)
+		if(parent && !silent)
+			owner.custom_pain("Something inside your [parent.name] hurts a lot.")
 
 		//check if we've hit max_damage
 	if(damage >= max_damage)
 		necrotize()
 
+/obj/item/organ/proc/heal_internal_damage(amount, robo_repair = FALSE)
+	if(is_robotic() && !robo_repair)
+		return
+	damage = max(damage - amount, 0)
+
 /obj/item/organ/proc/robotize() //Being used to make robutt hearts, etc
-	robotic = 2
 	status &= ~ORGAN_BROKEN
 	status &= ~ORGAN_SPLINTED
 	status |= ORGAN_ROBOT
 
-/obj/item/organ/proc/mechassist() //Used to add things like pacemakers, etc
-	robotize(1) //Skip the icon/name setting that occurs in robotize to avoid having to reset the icon file.
-	status &= ~ORGAN_ROBOT
-	status |= ORGAN_ASSISTED
-	robotic = 1
-	min_bruised_damage = 15
-	min_broken_damage = 35
-
 /obj/item/organ/external/emp_act(severity)
-	if(!(status & ORGAN_ROBOT) || emp_proof)
+	if(!is_robotic() || emp_proof)
 		return
 	if(tough)
 		switch(severity)
@@ -273,25 +261,13 @@
 				receive_damage(0, 7)
 
 /obj/item/organ/internal/emp_act(severity)
-	if(!robotic || emp_proof)
+	if(!is_robotic() || emp_proof)
 		return
-	if(robotic == 2)
-		switch(severity)
-			if(1.0)
-				receive_damage(20, 1)
-			if(2.0)
-				receive_damage(7, 1)
-	else if(robotic == 1)
-		receive_damage(11, 1)
-
-/obj/item/organ/internal/heart/emp_act(intensity)
-	if(emp_proof)
-		return
-	if(owner && robotic == 2)
-		Stop() // In the name of looooove~!
-		owner.visible_message("<span class='danger'>[owner] clutches their chest and gasps!</span>","<span class='userdanger'>You clutch your chest in pain!</span>")
-	else if(owner && robotic == 1)
-		receive_damage(11,1)
+	switch(severity)
+		if(1)
+			receive_damage(20, 1)
+		if(2)
+			receive_damage(7, 1)
 
 /obj/item/organ/proc/remove(var/mob/living/user,special = 0)
 	if(!istype(owner))
@@ -306,10 +282,7 @@
 	processing_objects |= src
 
 	if(owner && vital && is_primary_organ()) // I'd do another check for species or whatever so that you couldn't "kill" an IPC by removing a human head from them, but it doesn't matter since they'll come right back from the dead
-		if(user)
-			user.create_attack_log("<font color='red'> removed a vital organ ([src]) from [key_name(owner)] (INTENT: [uppertext(user.a_intent)])</font>")
-			owner.create_attack_log("<font color='orange'> had a vital organ ([src]) removed by [key_name(user)] (INTENT: [uppertext(user.a_intent)])</font>")
-			msg_admin_attack("[key_name_admin(user)] removed a vital organ ([src]) from [key_name_admin(owner)]")
+		add_attack_logs(user, owner, "Removed vital organ ([src])", !!user ? ATKLOG_FEW : ATKLOG_ALL)
 		owner.death()
 	owner = null
 	return src
@@ -337,20 +310,15 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		return 0
 	return src == O.get_int_organ(organ_tag)
 
-/obj/item/organ/proc/is_robotic(var/purist = FALSE)
-	if(purist && (robotic > 1 || status & (ORGAN_ROBOT))) //Only the robotiest.
+/obj/item/organ/proc/is_robotic()
+	if(status & ORGAN_ROBOT)
 		return TRUE
-	if(robotic || status & (ORGAN_ROBOT|ORGAN_ASSISTED)) //Any tech will do.
-		return TRUE
-
 	return FALSE
 
 /obj/item/organ/serialize()
 	var/data = ..()
 	if(status != 0)
 		data["status"] = status
-	if(robotic > 0)
-		data["robotic"] = robotic
 
 	// Save the DNA datum if: The owner doesn't exist, or the dna doesn't match
 	// the owner
@@ -358,15 +326,10 @@ I use this so that this can be made better once the organ overhaul rolls out -- 
 		data["dna"] = dna.serialize()
 	return data
 
-/obj/item/organ/deserialize(var/data)
-	switch(data["robotic"])
-		if(1)
-			mechassist()
-		if(2)
-			robotize()
-		else
-			// Nothing
+/obj/item/organ/deserialize(data)
 	if(isnum(data["status"]))
+		if(data["status"] & ORGAN_ROBOT)
+			robotize()
 		status = data["status"]
 	if(islist(data["dna"]))
 		// The only thing the official proc does is

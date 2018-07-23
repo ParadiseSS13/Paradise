@@ -25,7 +25,7 @@
 
 	var/health = 50.0
 
-/obj/structure/inflatable/initialize(location)
+/obj/structure/inflatable/Initialize(location)
 	..()
 	air_update_turf(1)
 
@@ -93,7 +93,7 @@
 		return
 	attack_generic(user, rand(10, 15))
 
-/obj/structure/inflatable/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/inflatable/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!istype(W))
 		return
 	if(is_pointed(W))
@@ -273,7 +273,7 @@
 	to_chat(user, "<span class='warning'>The inflatable door is too torn to be inflated!</span>")
 	add_fingerprint(user)
 
-/obj/item/weapon/storage/briefcase/inflatable
+/obj/item/storage/briefcase/inflatable
 	name = "inflatable barrier box"
 	desc = "Contains inflatable walls and doors."
 	icon_state = "inf_box"
@@ -281,7 +281,7 @@
 	max_combined_w_class = 21
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/weapon/storage/briefcase/inflatable/New()
+/obj/item/storage/briefcase/inflatable/New()
 	..()
 	new /obj/item/inflatable/door(src)
 	new /obj/item/inflatable/door(src)

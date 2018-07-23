@@ -50,7 +50,7 @@
 	var/DBQuery/_query = dbcon.NewQuery(sql)
 	_query.Execute()
 	if(_query.ErrorMsg())
-		log_to_dd(_query.ErrorMsg())
+		log_world(_query.ErrorMsg())
 
 	var/list/results = list()
 	while(_query.NextRow())

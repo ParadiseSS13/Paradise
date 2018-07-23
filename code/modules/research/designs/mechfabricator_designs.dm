@@ -896,7 +896,7 @@
 /datum/design/mech_disabler
 	name = "Exosuit Weapon (CH-PD Disabler)"
 	desc = "Allows for the construction of CH-PD Disabler."
-	id = "mech_laser"
+	id = "mech_disabler"
 	build_type = MECHFAB
 	req_tech = list("combat" = 3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
@@ -1120,6 +1120,15 @@
 	construction_time = 350
 	category = list("Misc")
 
+/datum/design/integrated_robotic_chassis
+	name = "Integrated Robotic Chassis"
+	id = "integrated_robotic_chassis"
+	build_type = MECHFAB
+	build_path = /mob/living/carbon/human/machine/created
+	materials = list(MAT_METAL = 40000)
+	construction_time = 400
+	category = list("Misc")
+
 /datum/design/ipc_cell
 	name = "IPC Microbattery"
 	id = "ipc_cell"
@@ -1155,5 +1164,5 @@
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 750, MAT_GLASS = 750)
 	construction_time = 100
-	build_path = /obj/item/device/flash/synthetic
+	build_path = /obj/item/flash/synthetic
 	category = list("Misc")

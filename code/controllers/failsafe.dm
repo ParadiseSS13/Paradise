@@ -28,7 +28,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 /datum/controller/failsafe/Initialize()
 	set waitfor = 0
 	Failsafe.Loop()
-	if(!qdeleted(src))
+	if(!QDELETED(src))
 		qdel(src) //when Loop() returns, we delete ourselves and let the mc recreate us
 
 /datum/controller/failsafe/Destroy()

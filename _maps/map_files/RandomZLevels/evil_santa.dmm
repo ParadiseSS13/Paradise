@@ -8,21 +8,21 @@
 "ah" = (/mob/living/simple_animal/hostile/tree,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "ai" = (/obj/structure/dresser,/turf/simulated/floor/carpet,/area/awaymission/challenge/main)
 "aj" = (/turf/simulated/floor/carpet,/area/awaymission/challenge/main)
-"ak" = (/obj/structure/stool/bed,/obj/item/weapon/bedsheet/syndie,/turf/simulated/floor/carpet,/area/awaymission/challenge/main)
+"ak" = (/obj/structure/stool/bed,/obj/item/bedsheet/syndie,/turf/simulated/floor/carpet,/area/awaymission/challenge/main)
 "al" = (/obj/structure/flora/grass/both,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "am" = (/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
-"an" = (/obj/item/weapon/paper/journal_scrap_2,/turf/simulated/floor/carpet,/area/awaymission/challenge/main)
+"an" = (/obj/item/paper/journal_scrap_2,/turf/simulated/floor/carpet,/area/awaymission/challenge/main)
 "ao" = (/obj/structure/flora/rock/pile,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "ap" = (/obj/structure/flora/tree/dead,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
-"aq" = (/obj/machinery/door/unpowered/shuttle,/obj/structure/fans/tiny,/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/challenge/main)
-"ar" = (/obj/item/weapon/restraints/legcuffs/beartrap,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"aq" = (/obj/structure/mineral_door/wood{tag = "icon-wood"; icon_state = "wood"},/obj/structure/fans/tiny,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"ar" = (/obj/item/restraints/legcuffs/beartrap,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "as" = (/obj/machinery/space_heater,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
-"at" = (/obj/structure/table/wood,/obj/item/weapon/newton,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"at" = (/obj/structure/table/wood,/obj/item/newton,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "au" = (/obj/structure/grille,/obj/structure/window/full/basic,/turf/simulated/floor/plating,/area/awaymission/challenge/main)
 "av" = (/mob/living/simple_animal/hostile/winter/reindeer,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "aw" = (/obj/machinery/porta_turret/syndicate/grenade{desc = "Winterized 40mm grenade launcher defense turret. If you've had this much time to look at it, you're probably already dead."; faction = "winter"; name = "winterized mounted grenade launcher (40mm)"},/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "ax" = (/obj/structure/stool,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
-"ay" = (/obj/structure/table/wood,/obj/structure/safe/floor,/obj/item/weapon/gun/projectile/shotgun/automatic/combat,/obj/item/weapon/gun/projectile/automatic/mini_uzi,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"ay" = (/obj/structure/table/wood,/obj/structure/safe/floor,/obj/item/gun/projectile/shotgun/automatic/combat,/obj/item/gun/projectile/automatic/mini_uzi,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "az" = (/obj/machinery/recharge_station,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "aA" = (/obj/machinery/mech_bay_recharge_port,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "aB" = (/turf/simulated/floor/mech_bay_recharge_floor,/area/awaymission/challenge/main)
@@ -33,7 +33,7 @@
 "aG" = (/obj/machinery/porta_turret/syndicate/exterior{desc = "Winterized exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."; faction = "winter"; name = "winterized machine gun turret (7.62)"},/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "aH" = (/mob/living/simple_animal/hostile/winter/snowman,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "aI" = (/obj/structure/flora/bush,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
-"aJ" = (/obj/item/weapon/pickaxe/gold,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
+"aJ" = (/obj/item/pickaxe/gold,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "aK" = (/obj/structure/flora/grass/green,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "aL" = (/obj/structure/boulder,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "aM" = (/turf/simulated/wall/rust,/area/awaymission/challenge/main)
@@ -42,7 +42,7 @@
 "aP" = (/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/awaymission/challenge/main)
 "aQ" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/awaymission/challenge/main)
 "aR" = (/turf/simulated/shuttle/wall{icon_state = "swall8"; dir = 2},/area/awaymission/challenge/main)
-"aS" = (/obj/structure/mineral_door/wood{tag = "icon-wood"; icon_state = "wood"},/obj/structure/fans/tiny,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"aS" = (/obj/machinery/door/unpowered/shuttle,/obj/structure/fans/tiny,/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/challenge/main)
 "aT" = (/turf/simulated/shuttle/wall{icon_state = "swall4"; dir = 2},/area/awaymission/challenge/main)
 "aU" = (/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/turf/simulated/shuttle/wall{icon_state = "swall_f10"; dir = 2},/area/awaymission/challenge/main)
 "aV" = (/turf/simulated/floor/plasteel{icon_plating = "asteroid"; icon_state = "asteroid"; name = "Asteroid"},/area/awaymission/challenge/main)
@@ -53,7 +53,7 @@
 "ba" = (/obj/effect/decal/cleanable/ash,/turf/simulated/floor/plasteel{icon_plating = "asteroid"; icon_state = "asteroid"; name = "Asteroid"},/area/awaymission/challenge/main)
 "bb" = (/turf/simulated/shuttle/wall{icon_state = "swall1"; dir = 2},/area/awaymission/challenge/main)
 "bc" = (/obj/effect/decal/straw/medium,/obj/effect/decal/remains/human,/turf/simulated/floor/plasteel{icon_plating = "asteroid"; icon_state = "asteroid"; name = "Asteroid"},/area/awaymission/challenge/main)
-"bd" = (/obj/item/weapon/paper/journal_scrap_3,/turf/simulated/floor/plasteel{icon_plating = "asteroid"; icon_state = "asteroid"; name = "Asteroid"},/area/awaymission/challenge/main)
+"bd" = (/obj/item/paper/journal_scrap_3,/turf/simulated/floor/plasteel{icon_plating = "asteroid"; icon_state = "asteroid"; name = "Asteroid"},/area/awaymission/challenge/main)
 "be" = (/obj/structure/sink/puddle,/turf/simulated/floor/plasteel{icon_plating = "asteroid"; icon_state = "asteroid"; name = "Asteroid"},/area/awaymission/challenge/main)
 "bf" = (/mob/living/simple_animal/hostile/winter/santa/stage_1,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/challenge/main)
 "bg" = (/turf/simulated/shuttle/wall{icon_state = "swall2"; dir = 2},/area/awaymission/challenge/main)
@@ -64,69 +64,68 @@
 "bl" = (/obj/machinery/chem_heater,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bm" = (/obj/machinery/chem_dispenser,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bn" = (/obj/machinery/chem_master,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
-"bo" = (/obj/structure/table,/obj/item/weapon/storage/box/beakers,/obj/item/weapon/storage/box/syringes,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
+"bo" = (/obj/structure/table,/obj/item/storage/box/beakers,/obj/item/storage/box/syringes,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bp" = (/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bq" = (/obj/structure/mineral_door/wood{tag = "icon-wood"; icon_state = "wood"},/obj/structure/fans/tiny,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "br" = (/mob/living/simple_animal/bot/medbot/mysterious,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bs" = (/obj/machinery/space_heater,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
-"bt" = (/obj/structure/table,/obj/item/clothing/accessory/stethoscope,/obj/item/bodybag,/obj/item/weapon/storage/box/beakers,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
+"bt" = (/obj/structure/table,/obj/item/clothing/accessory/stethoscope,/obj/item/bodybag,/obj/item/storage/box/beakers,/turf/simulated/floor/wood,/area/awaymission/challenge/main)
 "bu" = (/obj/machinery/vending/cola,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bv" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bw" = (/obj/machinery/autolathe,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bx" = (/obj/machinery/porta_turret/syndicate/interior{density = 0; desc = "Winterized interior defense turret chambered for .45 rounds and mounted on a wall. Designed to down intruders without damaging the hull."; faction = "winter"; name = "wall mounted machine gun turret (.45)"; pixel_y = 27},/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
-"by" = (/obj/structure/table,/obj/item/weapon/rcd_ammo,/obj/item/weapon/rcd_ammo,/obj/item/weapon/rcd_ammo,/obj/item/weapon/storage/toolbox/mechanical,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"by" = (/obj/structure/table,/obj/item/rcd_ammo,/obj/item/rcd_ammo,/obj/item/rcd_ammo,/obj/item/storage/toolbox/mechanical,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bz" = (/obj/item/clothing/head/cone,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "bA" = (/mob/living/simple_animal/walrus,/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/area/awaymission/challenge/main)
 "bB" = (/obj/structure/closet/toolcloset,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
-"bC" = (/obj/item/taperoll/engineering,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
-"bD" = (/obj/item/weapon/storage/toolbox/emergency,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"bC" = (/obj/item/storage/toolbox/emergency,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
+"bD" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
 "bE" = (/obj/machinery/door/poddoor{id_tag = "challenge"; name = "Gateway Shutters"},/obj/structure/fans/tiny,/turf/simulated/floor/plasteel{tag = "icon-delivery (SOUTHEAST)"; icon_state = "delivery"; dir = 6},/area/awaymission/challenge/start)
-"bF" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
-"bG" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/floor/plasteel{tag = "icon-delivery (SOUTHEAST)"; icon_state = "delivery"; dir = 6},/area/awaymission/challenge/start)
-"bH" = (/obj/machinery/door/poddoor{id_tag = "challenge"; name = "Gateway Shutters"},/turf/simulated/floor/plasteel{tag = "icon-delivery (SOUTHEAST)"; icon_state = "delivery"; dir = 6},/area/awaymission/challenge/start)
-"bI" = (/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"bF" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/floor/plasteel{tag = "icon-delivery (SOUTHEAST)"; icon_state = "delivery"; dir = 6},/area/awaymission/challenge/start)
+"bG" = (/obj/machinery/door/poddoor{id_tag = "challenge"; name = "Gateway Shutters"},/turf/simulated/floor/plasteel{tag = "icon-delivery (SOUTHEAST)"; icon_state = "delivery"; dir = 6},/area/awaymission/challenge/start)
+"bH" = (/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"bI" = (/obj/machinery/door_control{id = "challenge"; name = "Gateway Lockdown"; pixel_x = -4; pixel_y = 26; req_access_txt = "0"},/turf/simulated/floor/plasteel{dir = 1; icon_state = "warning"},/area/awaymission/challenge/start)
 "bJ" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1},/turf/simulated/floor/plasteel{dir = 1; icon_state = "warning"},/area/awaymission/challenge/start)
-"bK" = (/obj/machinery/door_control{id = "challenge"; name = "Gateway Lockdown"; pixel_x = -4; pixel_y = 26; req_access_txt = "0"},/turf/simulated/floor/plasteel{dir = 1; icon_state = "warning"},/area/awaymission/challenge/start)
-"bL" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/greengrid,/area/awaymission/challenge/start)
-"bM" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"bK" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/greengrid,/area/awaymission/challenge/start)
+"bL" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"bM" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,/obj/item/paper/journal_scrap_1,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "bN" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"bO" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,/obj/item/weapon/paper/journal_scrap_1,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"bP" = (/obj/machinery/gateway{dir = 9},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
+"bO" = (/obj/machinery/gateway{dir = 9},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
+"bP" = (/obj/machinery/gateway{dir = 1},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
 "bQ" = (/obj/machinery/gateway{dir = 5},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
 "bR" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/main)
-"bS" = (/obj/machinery/gateway{dir = 1},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
-"bT" = (/obj/machinery/atmospherics/unary/vent_pump{on = 1},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"bU" = (/obj/structure/dispenser/oxygen{oxygentanks = 9},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"bV" = (/obj/machinery/gateway{dir = 8},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
+"bS" = (/obj/machinery/atmospherics/unary/vent_pump{on = 1},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"bT" = (/obj/structure/dispenser/oxygen{oxygentanks = 9},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"bU" = (/obj/machinery/gateway{dir = 8},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
+"bV" = (/obj/machinery/gateway/centeraway,/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
 "bW" = (/obj/machinery/gateway{dir = 4},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
 "bX" = (/obj/machinery/power/smes/magical,/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/awaymission/challenge/main)
 "bY" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/machinery/power/apc/noalarm{dir = 4; name = "Worn-out APC"; pixel_x = 24; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/challenge/main)
-"bZ" = (/obj/machinery/gateway/centeraway,/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
+"bZ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "ca" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"cb" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"cc" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"cb" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"cc" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 10},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "cd" = (/obj/machinery/gateway{dir = 10},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
-"ce" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 10},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"ce" = (/obj/machinery/gateway,/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
 "cf" = (/obj/machinery/gateway{dir = 6},/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
 "cg" = (/turf/simulated/floor/plating,/area/awaymission/challenge/main)
 "ch" = (/obj/machinery/power/terminal{icon_state = "term"; dir = 1},/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating,/area/awaymission/challenge/main)
-"ci" = (/obj/machinery/gateway,/turf/simulated/floor/bluegrid,/area/awaymission/challenge/start)
-"cj" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/machinery/power/apc/noalarm{dir = 4; name = "Worn-out APC"; pixel_x = 24; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/challenge/start)
-"ck" = (/obj/machinery/space_heater,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"cl" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"ci" = (/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/machinery/power/apc/noalarm{dir = 4; name = "Worn-out APC"; pixel_x = 24; pixel_y = 0},/turf/simulated/floor/plating,/area/awaymission/challenge/start)
+"cj" = (/obj/machinery/space_heater,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"ck" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4; level = 1},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"cl" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 9},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "cm" = (/obj/structure/table,/obj/item/clothing/accessory/scarf/christmas,/obj/item/clothing/accessory/scarf/christmas,/obj/item/clothing/accessory/scarf/christmas,/obj/item/clothing/accessory/scarf/christmas,/obj/item/clothing/accessory/scarf/christmas,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"cn" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 9},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"cn" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/table,/obj/item/clothing/head/helmet/space/santahat,/obj/item/clothing/head/helmet/space/santahat,/obj/item/clothing/head/helmet/space/santahat,/obj/item/clothing/head/helmet/space/santahat,/obj/item/clothing/head/helmet/space/santahat,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "co" = (/obj/structure/table,/obj/item/clothing/suit/furcoat,/obj/item/clothing/suit/furcoat,/obj/item/clothing/suit/furcoat,/obj/item/clothing/suit/furcoat,/obj/item/clothing/suit/furcoat,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"cp" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/structure/table,/obj/item/clothing/head/helmet/space/santahat,/obj/item/clothing/head/helmet/space/santahat,/obj/item/clothing/head/helmet/space/santahat,/obj/item/clothing/head/helmet/space/santahat,/obj/item/clothing/head/helmet/space/santahat,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"cq" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"cr" = (/obj/machinery/atmospherics/pipe/simple/hidden/universal,/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
+"cp" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"cq" = (/obj/machinery/atmospherics/pipe/simple/hidden/universal,/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
+"cr" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 6},/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
 "cs" = (/obj/machinery/atmospherics/pipe/simple/hidden/universal{dir = 4},/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
-"ct" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 6},/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
-"cu" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
-"cv" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 10; initialize_directions = 10},/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
+"ct" = (/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
+"cu" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 10; initialize_directions = 10},/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
+"cv" = (/obj/machinery/atmospherics/unary/tank/air{dir = 1},/turf/simulated/floor/plating,/area/awaymission/challenge/start)
 "cw" = (/turf/space,/area/space)
-"cx" = (/obj/machinery/atmospherics/unary/tank/air{dir = 1},/turf/simulated/floor/plating,/area/awaymission/challenge/start)
-"cy" = (/obj/machinery/atmospherics/unary/outlet_injector/on{dir = 1},/turf/simulated/floor/plating/airless,/area/awaymission/challenge/start)
+"cx" = (/obj/machinery/atmospherics/unary/outlet_injector/on{dir = 1},/turf/simulated/floor/plating/airless,/area/awaymission/challenge/start)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -140,7 +139,7 @@ aaabababababacababafacacacacacacacacacacacacacacacacacacacacacacababacacacacacac
 aaababababacacacacacacacacacacahacacacacacacacacacacacacacacacacacacacacacacacacacacacacacagagagaiajakagacacacacacacabababababaa
 aaabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacalagamamajajajagacacacacacacacababababaa
 aaabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacalagamamanajajagacacacacacacacacabababaa
-aaabababacacacaoacacacacacacacacacacacacacacacacacacacacapacacacacacacacacacacacacacacacacaSaramamasagagacacacacacacacacabababaa
+aaabababacacacaoacacacacacacacacacacacacacacacacacacacacapacacacacacacacacacacacacacacacacaqaramamasagagacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacagagagamatauacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacagagagagagagagavacacacacacacacacacacacacacacacacacacacacacacawagaxayauacacacacacacacacacabababaa
 aaabababacadacacacacacacacacacacagazaAaBaCaDagacacacacacacacacafacacacacacacacacacacacacacacacagagagagacacacacacacacacacabababaa
@@ -148,7 +147,7 @@ aaabababacacacacacacacacacacacacagamamamamamagacacacacacacacacacacacacacaoacacab
 aaabababacacacacacacacacacacacacauamamamamamauacacacacacacacacacacacacacacababababacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacalacacacacacagamamamamaEagacacacacacacacacacacacacacacabababababababacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacagasamamamaFagacacacacacacacacacacacacacacacababababababacacacacacacacacacacacacacahacacabababaa
-aaabababacacacacacafacacacacacacagagagaSagagagacacacacacacacacacacacacacacacacabababacavacacacacacacacacacacacacacacacacabababaa
+aaabababacacacacacafacacacacacacagagagaqagagagacacacacacacacacacacacacacacacacabababacavacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacacaGacacacacalacacacacacacacacacaHacacacacacacacababababacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacacacacacacacacacacacacaIacacacacacacacacadacacacabacacacacacacacacacacacacacacacacacacacabababaa
@@ -157,15 +156,15 @@ aaabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacac
 aaabaJabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaKacacacacacacacacacacacacacacacacacacacacacacacababababaa
 aaabaHaLacaLacabaKacacacacacacacacacacacaKacacacacacacacacacacacacacacaKacacacacacacacacacacacacacacacaHacacacacacacabababababaa
 aaabababacabababababacacacacacaHacacacacaKacacacacacacacacaGacacacaGacacacacacacacacacacacacacacacacacacacacacacacacabacabababaa
-aaabaMaMaNaMaOababacacacacacacacacacacacacacacacacacacaPaQaRaqaqaqaTaQaUacacacacacacacacacacacacacacacacacacacacacacacacabababaa
+aaabaMaMaNaMaOababacacacacacacacacacacacacacacacacacacaPaQaRaSaSaSaTaQaUacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabaMaVaVaVaWababacacacacacacacacacacacacacacacacacacaXaYaZaYaZaYaZaYaXacacacacacacacacacapacacacacacacacacacacacababababababaa
 aaabaOaVbaaVaMababacacacacacacacacacacacacacacacacacaGbbaZaYaZaYaZaYaZbbaGacacacacacacacacacacacacacacacacacacacacacabababababaa
-aaabaWbcbdbeaOababababacacacacacacaIacacacacacacacacacaqaYaZaYaZaYaZaYaqacacacacacacacacacacacacacacacacacacacacacacabababababaa
-aaabaMaMaOaMaWabababacacacacacacacacacacacacacacacacacaqaZaYaZbfaZaYaZaqacacacacacacacacacacacacacacacacavacacacacacabababababaa
-aaababababababababacacacacacacacacacacacacacacacacacacaqaYaZaYaZaYaZaYaqacacacacacacacacacacacacacacacacacacacacacacabababababaa
+aaabaWbcbdbeaOababababacacacacacacaIacacacacacacacacacaSaYaZaYaZaYaZaYaSacacacacacacacacacacacacacacacacacacacacacacabababababaa
+aaabaMaMaOaMaWabababacacacacacacacacacacacacacacacacacaSaZaYaZbfaZaYaZaSacacacacacacacacacacacacacacacacavacacacacacabababababaa
+aaababababababababacacacacacacacacacacacacacacacacacacaSaYaZaYaZaYaZaYaSacacacacacacacacacacacacacacacacacacacacacacabababababaa
 aaabababababababababacacacacacacacacacacacacacacacacaGbgaZaYaZaYaZaYaZbgaGacacacacacacacacacacacaIacacacacacacacacacacababababaa
 aaabababacabababababacacacacacacacacacacacacacacacacacaXaYaZaYaZaYaZaYaXacacacacacacacacacacacacacacacacacacacacacacacacabababaa
-aaabababacacacacacacacacacacacacacacacacacacacacacacacbhaQaRaqaqaqaTaQbiacacacaKacacacacaoacacacacacacacacacacacacacacacabababaa
+aaabababacacacacacacacacacacacacacacacacacacacacacacacbhaQaRaSaSaSaTaQbiacacacaKacacacacaoacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacacacacacacacacacaHacacacacaGacacacaGacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacaeacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
@@ -180,18 +179,17 @@ aaabababacacacacacbkagagagagacacacacacacacacacacacacacacabacabababacacacacacacac
 aaabababacacacacacagagbubvagagacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacagbwamambxagacacacacacacacacacacacacacacacaIacacacacacacacacafacacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacaubyamamamagbzacacacacacbjacacacacacacacacacbAacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
-aaabababacacacacacauasamamamaSacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
-aaabababacacacacacagbBbCambDagbzacacacacacacacacacacacacacacacacacacacacacacacacacacacacacapacacacacacacacacacacacacacacabababaa
-aaabababacacacacacagagagagagagacacacacacacacacacacacacacacbFbEbEbEbFbkacacacacacacacacacacacacacacacacacacacacacacaeacacabababaa
-aaabababacacacacacalacacacacacacacacacacacacacacacacacaeacbFbGbGbGbFbjaIacacacacacacacacacacacacacacacacacacacacacacacacabababaa
-aaabababacacacacacacacacacacacacacacacacacacacacbFbFbFbFbFbFbHbHbHbFbFbFbFbFbFacacacacacacacacacacacacacacacacacacacacacabababaa
-aaabababacaeacacacacacacacacacacacacacacacabacabbFbIbIbIbIbKbJbJbJbKbIbIbIbIbFababacacacacacacacacacacacacacacacacacacacabababaa
-aaababababacacacacacacadacacacacacacacacababababbFbIbLbLbLbIbMbObNbIbPbSbQbIbFabbjacababacacacacacacacadacacacacacacacacabababaa
-aaabababababacacacacacacacacacacacacacababbRbRbRbFbIbLbLbLbIbTbUbTbIbVbZbWbIbFbRbRbRababacacacacacacacacacacacacacacacababababaa
-aaabababababacabacacacacacacacacacacacababbRbXbYbFbIbLbLbLcbcacccacecdcicfbIbFcgcgbRabababacacacacacacacacacacacacacabababababaa
-aaababababababababababababababababababababbRchcjbFckcbclclcncmcpcocqclclcebIbFcgcgbRabababababababababababababababababababababaa
-aaababababababababababababababababababababbRcgcgbFbFcrbFbFctcscucscvbFbFcrbFbFcgcgbRabababababababababababababababababababababaa
-aaababababababababababababababababababababbRcgcgcgbFcxbFcwcycwcwcwcycwbFcxbFcgcgcgbRabababababababababababababababababababababaa
+aaabababacacacacacauasamamamaqacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
+aaabababacacacacacagbBamambCagbzacacacacacacacacacacacacacacacacacacacacacacacacacacacacacapacacacacacacacacacacacacacacabababaa
+aaabababacacacacacagagagagagagacacacacacacacacacacacacacacbDbEbEbEbDbkacacacacacacacacacacacacacacacacacacacacacacaeacacabababaa
+aaabababacacacacacalacacacacacacacacacacacacacacacacacaeacbDbFbFbFbDbjaIacacacacacacacacacacacacacacacacacacacacacacacacabababaa
+aaabababacacacacacacacacacacacacacacacacacacacacbDbDbDbDbDbDbGbGbGbDbDbDbDbDbDacacacacacacacacacacacacacacacacacacacacacabababaa
+aaabababacaeacacacacacacacacacacacacacacacabacabbDbHbHbHbHbIbJbJbJbIbHbHbHbHbDababacacacacacacacacacacacacacacacacacacacabababaa
+aaababababacacacacacacadacacacacacacacacababababbDbHbKbKbKbHbLbMbNbHbObPbQbHbDabbjacababacacacacacacacadacacacacacacacacabababaa
+aaabababababacacacacacacacacacacacacacababbRbRbRbDbHbKbKbKbHbSbTbSbHbUbVbWbHbDbRbRbRababacacacacacacacacacacacacacacacababababaa
+aaabababababacabacacacacacacacacacacacababbRbXbYbDbHbKbKbKbZcacbcacccdcecfbHbDcgcgbRabababacacacacacacacacacacacacacabababababaa
+aaababababababababababababababababababababbRchcibDcjbZckckclcmcncocpckckccbHbDcgcgbRabababababababababababababababababababababaa
+aaababababababababababababababababababababbRcgcgbDbDcqbDbDcrcsctcscubDbDcqbDbDcgcgbRabababababababababababababababababababababaa
+aaababababababababababababababababababababbRcgcgcgbDcvbDcwcxcwcwcwcxcwbDcvbDcgcgcgbRabababababababababababababababababababababaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
-

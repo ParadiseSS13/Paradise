@@ -4,21 +4,21 @@
 	name = "stacking machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
-	density = 0
-	anchored = 1
+	desc = "Controls a stacking machine... in theory."
+	density = FALSE
+	anchored = TRUE
 	var/obj/machinery/mineral/stacking_machine/machine = null
 	var/machinedir = SOUTHEAST
 
 /obj/machinery/mineral/stacking_unit_console/New()
 	..()
-	spawn(7)
-		src.machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
-		if(machine)
-			machine.CONSOLE = src
-		else
-			qdel(src)
+	machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
+	if(machine)
+		machine.CONSOLE = src
+	else
+		qdel(src)
 
-/obj/machinery/mineral/stacking_unit_console/attack_hand(user as mob)
+/obj/machinery/mineral/stacking_unit_console/attack_hand(mob/user)
 
 	var/obj/item/stack/sheet/s
 	var/dat
@@ -34,24 +34,21 @@
 
 	user << browse("[dat]", "window=console_stacking_machine")
 
-	return
-
-
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())
 		return
 	usr.set_machine(src)
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	if(href_list["release"])
-		if(!(text2path(href_list["release"]) in machine.stack_list)) return //someone tried to spawn materials by spoofing hrefs
+		if(!(text2path(href_list["release"]) in machine.stack_list))
+			return //someone tried to spawn materials by spoofing hrefs
 		var/obj/item/stack/sheet/inp = machine.stack_list[text2path(href_list["release"])]
 		var/obj/item/stack/sheet/out = new inp.type()
 		out.amount = inp.amount
 		inp.amount = 0
 		machine.unload_mineral(out)
 
-	src.updateUsrDialog()
-	return
+	updateUsrDialog()
 
 /**********************Mineral stacking unit**************************/
 
@@ -60,8 +57,9 @@
 	name = "stacking machine"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "stacker"
-	density = 1
-	anchored = 1.0
+	desc = "A machine that automatically stacks acquired materials. Controlled by a nearby console."
+	density = TRUE
+	anchored = TRUE
 	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
 	var/stk_types = list()
 	var/stk_amt   = list()
@@ -69,7 +67,14 @@
 	var/stack_amt = 50; //ammount to stack before releassing
 	input_dir = EAST
 	output_dir = WEST
-	speed_process = 1
+	speed_process = TRUE
+
+/obj/machinery/mineral/stacking_machine/process()
+	var/turf/T = get_step(src, input_dir)
+	if(T)
+		for(var/obj/item/stack/sheet/S in T)
+			process_sheet(S)
+			CHECK_TICK
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(!(inp.type in stack_list)) //It's the first of this sheet added
@@ -84,10 +89,3 @@
 		out.amount = stack_amt
 		unload_mineral(out)
 		storage.amount -= stack_amt
-
-/obj/machinery/mineral/stacking_machine/process()
-	var/turf/T = get_step(src, input_dir)
-	if(T)
-		for(var/obj/item/stack/sheet/S in T)
-			process_sheet(S)
-			CHECK_TICK

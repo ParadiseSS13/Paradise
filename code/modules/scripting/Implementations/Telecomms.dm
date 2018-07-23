@@ -24,14 +24,22 @@
 		interpreter.GC()
 
 
+//temp
+/datum/TCS_Compiler
+	var/datum/n_scriptOptions/nS_Options/options		
+	var/datum/n_Scanner/nS_Scanner/scanner				
+	var/list/tokens										
+	var/datum/n_Parser/nS_Parser/parser					
+	var/datum/node/BlockDefinition/GlobalBlock/program	
+
 	/* -- Compile a raw block of text -- */
 
-/datum/TCS_Compiler/proc/Compile(code as message)
-	var/datum/n_scriptOptions/nS_Options/options		= new()
-	var/datum/n_Scanner/nS_Scanner/scanner				= new(code, options)
-	var/list/tokens										= scanner.Scan()
-	var/datum/n_Parser/nS_Parser/parser					= new(tokens, options)
-	var/datum/node/BlockDefinition/GlobalBlock/program	= parser.Parse()
+/datum/TCS_Compiler/proc/Compile(list/code)
+	options		= new()
+	scanner				= new(code, options)
+	tokens										= scanner.Scan()
+	parser					= new(tokens, options)
+	program	= parser.Parse()
 
 	var/list/returnerrors = list()
 
@@ -228,7 +236,7 @@
 
 	// Time
 	interpreter.SetProc("time",			/proc/time)
-	interpreter.SetProc("timestamp",	/proc/timestamp)
+	interpreter.SetProc("timestamp",	/proc/gameTimestamp)
 
 	// Run the compiled code
 	interpreter.Run()
@@ -297,7 +305,7 @@
 /datum/signal/proc/tcombroadcast(var/message, var/freq, var/source, var/job)
 	var/datum/signal/newsign = new
 	var/obj/machinery/telecomms/server/S = data["server"]
-	var/obj/item/device/radio/hradio = S.server_radio
+	var/obj/item/radio/hradio = S.server_radio
 
 	if(!hradio)
 		error("[src] has no radio.")

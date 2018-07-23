@@ -1,4 +1,4 @@
-/obj/item/weapon/katana/energy
+/obj/item/katana/energy
 	name = "energy katana"
 	desc = "A katana infused with a strong energy"
 	icon_state = "energy_katana"
@@ -10,11 +10,11 @@
 	var/datum/effect_system/spark_spread/spark_system
 
 
-/obj/item/weapon/katana/energy/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/katana/energy/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(user, 'sound/weapons/blade1.ogg', 50, 1, -1)
 	return ..()
 
-/obj/item/weapon/katana/energy/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/katana/energy/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!user || !target)
 		return
 
@@ -28,7 +28,7 @@
 		sleep(15)
 		cooldown = 0
 
-/*/obj/item/weapon/katana/energy/throw_impact(atom/hit_atom)
+/*/obj/item/katana/energy/throw_impact(atom/hit_atom)
 	if(ishuman(hit_atom))
 		var/mob/living/carbon/human/H = hit_atom
 		if(istype(H.wear_suit, /obj/item/clothing/suit/space/space_ninja))
@@ -39,7 +39,7 @@
 	..()*/
 
 
-/obj/item/weapon/katana/energy/proc/returnToOwner(var/mob/living/carbon/human/user, var/doSpark = 1, var/caught = 0)
+/obj/item/katana/energy/proc/returnToOwner(var/mob/living/carbon/human/user, var/doSpark = 1, var/caught = 0)
 	if(!istype(user))
 		return
 	loc = get_turf(src)
@@ -67,12 +67,12 @@
 	if(msg)
 		to_chat(user, "<span class='notice'>[msg]</span>")
 
-/obj/item/weapon/katana/energy/New()
+/obj/item/katana/energy/New()
 	..()
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-/obj/item/weapon/katana/energy/Destroy()
+/obj/item/katana/energy/Destroy()
 	QDEL_NULL(spark_system)
 	return ..()

@@ -1,11 +1,6 @@
-/*
-	Datum-based species. Should make for much cleaner and easier to maintain mutantrace code.
-*/
-
 /datum/species
 	var/name                     // Species name.
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
-	var/path 					// Species path
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 	var/deform = 'icons/mob/human_races/r_def_human.dmi' // Mutated icon set.
 
@@ -18,10 +13,10 @@
 	var/blurb = "A completely nondescript species."      // A brief lore summary for use in the chargen screen.
 	var/butt_sprite = "human"
 
-	var/primitive_form            // Lesser form, if any (ie. monkey for humans)
-	var/greater_form              // Greater form, if any, ie. human for monkeys.
+	var/datum/species/primitive_form = null          // Lesser form, if any (ie. monkey for humans)
+	var/datum/species/greater_form = null             // Greater form, if any, ie. human for monkeys.
 	var/tail                     // Name of tail image in species effects icon file.
-	var/unarmed                  //For empty hand harm-intent attack
+	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
 	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
@@ -80,6 +75,7 @@
 
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
+	var/skinned_type
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
@@ -94,6 +90,7 @@
 	//Used in icon caching.
 	var/race_key = 0
 	var/icon/icon_template
+
 	var/is_small
 	var/show_ssd = 1
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
@@ -165,11 +162,11 @@
 
 	unarmed = new unarmed_type()
 
-/datum/species/proc/get_random_name(var/gender)
+/datum/species/proc/get_random_name(gender)
 	var/datum/language/species_language = all_languages[language]
 	return species_language.get_random_name(gender)
 
-/datum/species/proc/create_organs(var/mob/living/carbon/human/H) //Handles creation of mob organs.
+/datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
 
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
@@ -262,28 +259,24 @@
 			. -= 2
 	return .
 
-/datum/species/proc/handle_post_spawn(var/mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
+/datum/species/proc/handle_post_spawn(mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
 	grant_abilities(C)
+
+/datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
 
-/datum/species/proc/updatespeciescolor(var/mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
-	return
-
-/datum/species/proc/grant_abilities(var/mob/living/carbon/human/H)
+/datum/species/proc/grant_abilities(mob/living/carbon/human/H)
 	for(var/proc/ability in species_abilities)
 		H.verbs += ability
-	return
 
-/datum/species/proc/handle_pre_change(var/mob/living/carbon/human/H)
-	if(H.butcher_results)//clear it out so we don't butcher a actual human.
+/datum/species/proc/handle_pre_change(mob/living/carbon/human/H)
+	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
 	remove_abilities(H)
-	return
 
-/datum/species/proc/remove_abilities(var/mob/living/carbon/human/H)
+/datum/species/proc/remove_abilities(mob/living/carbon/human/H)
 	for(var/proc/ability in species_abilities)
 		H.verbs -= ability
-	return
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
@@ -294,29 +287,184 @@
 	if(R.id == exotic_blood)
 		H.blood_volume = min(H.blood_volume + round(R.volume, 0.1), BLOOD_VOLUME_NORMAL)
 		H.reagents.del_reagent(R.id)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
-/datum/species/proc/handle_life(var/mob/living/carbon/human/H)
+/datum/species/proc/handle_life(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
 
-/datum/species/proc/handle_dna(var/mob/living/carbon/C, var/remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
+/datum/species/proc/handle_dna(mob/living/carbon/C, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
-// Used for species-specific names (Vox, etc)
-/datum/species/proc/makeName(var/gender,var/mob/living/carbon/human/H=null)
-	if(gender==FEMALE)	return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
-	else				return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
-
-/datum/species/proc/handle_death(var/mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
+/datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
-/datum/species/proc/handle_attack_hand(var/mob/living/carbon/human/H, var/mob/living/carbon/human/M) //Handles any species-specific attackhand events.
-	return
+/datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
+		return TRUE
+	if(target.health >= config.health_threshold_crit)
+		target.help_shake_act(user)
+		return TRUE
+	else
+		user.do_cpr(target)
+
+/datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(attacker_style && attacker_style.grab_act(user, target))
+		return TRUE
+	else
+		target.grabbedby(user)
+		return TRUE
+
+/datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	//Vampire code
+	if(user.mind && user.mind.vampire && (user.mind in ticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
+			to_chat(user, "<span class='warning'>They have no blood!</span>")
+			return
+		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
+			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
+			return
+		if(SKELETON in target.mutations)
+			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
+			return
+		if(issmall(target) && !target.ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
+			to_chat(user, "<span class='warning'>Blood from a monkey is useless!</span>")
+			return
+		//we're good to suck the blood, blaah
+		user.mind.vampire.handle_bloodsucking(target)
+		add_attack_logs(user, target, "vampirebit")
+		return
+		//end vampire codes
+	if(attacker_style && attacker_style.harm_act(user, target))
+		return TRUE
+	else
+		var/datum/unarmed_attack/attack = user.dna.species.unarmed
+
+		user.do_attack_animation(target, attack.animation_type)
+		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
+
+		if(!iscarbon(user))
+			target.LAssailant = null
+		else
+			target.LAssailant = user
+
+		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
+		damage += attack.damage
+		if(!damage)
+			playsound(target.loc, attack.miss_sound, 25, 1, -1)
+			target.visible_message("<span class='danger'>[user] tried to [pick(attack.attack_verb)] [target]!</span>")
+			return FALSE
+
+
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/armor_block = target.run_armor_check(affecting, "melee")
+
+		playsound(target.loc, attack.attack_sound, 25, 1, -1)
+
+		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+
+		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
+			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
+							"<span class='userdanger'>[user] has weakened [target]!</span>")
+			target.apply_effect(4, WEAKEN, armor_block)
+			target.forcesay(hit_appends)
+		else if(target.lying)
+			target.forcesay(hit_appends)
+
+/datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(attacker_style && attacker_style.disarm_act(user, target))
+		return TRUE
+	else
+		add_attack_logs(user, target, "Disarmed", ATKLOG_ALL)
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		if(target.w_uniform)
+			target.w_uniform.add_fingerprint(user)
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/randn = rand(1, 100)
+		if(randn <= 25)
+			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
+			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			target.visible_message("<span class='danger'>[user] has pushed [target]!</span>")
+			add_attack_logs(user, target, "Pushed over", ATKLOG_ALL)
+			if(!iscarbon(user))
+				target.LAssailant = null
+			else
+				target.LAssailant = user
+			return
+
+		var/talked = 0	// BubbleWrap
+
+		if(randn <= 60)
+			//BubbleWrap: Disarming breaks a pull
+			if(target.pulling)
+				target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [target.pulling]!</span>")
+				talked = 1
+				target.stop_pulling()
+
+			//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
+			if(istype(target.l_hand, /obj/item/grab))
+				var/obj/item/grab/lgrab = target.l_hand
+				if(lgrab.affecting)
+					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [lgrab.affecting]!</span>")
+					talked = 1
+				spawn(1)
+					qdel(lgrab)
+			if(istype(target.r_hand, /obj/item/grab))
+				var/obj/item/grab/rgrab = target.r_hand
+				if(rgrab.affecting)
+					target.visible_message("<span class='danger'>[user] has broken [target]'s grip on [rgrab.affecting]!</span>")
+					talked = 1
+				spawn(1)
+					qdel(rgrab)
+			//End BubbleWrap
+
+			if(!talked)	//BubbleWrap
+				if(target.drop_item())
+					target.visible_message("<span class='danger'>[user] has disarmed [target]!</span>")
+			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			return
+
+
+	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+	target.visible_message("<span class='danger'>[user] attempted to disarm [target]!</span>")
+
+/datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style = M.martial_art) //Handles any species-specific attackhand events.
+	if(!istype(M))
+		return
+	if(H.frozen)
+		to_chat(M, "<span class='warning'>Do not touch Admin-Frozen people.</span>")
+		return
+
+	if(istype(M))
+		var/obj/item/organ/external/temp = M.bodyparts_by_name["r_hand"]
+		if(M.hand)
+			temp = M.bodyparts_by_name["l_hand"]
+		if(!temp || !temp.is_usable())
+			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
+			return
+
+	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(0, M.name, attack_type = UNARMED_ATTACK))
+		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
+		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
+		return FALSE
+
+	switch(M.a_intent)
+		if(INTENT_HELP)
+			help(M, H, attacker_style)
+
+		if(INTENT_GRAB)
+			grab(M, H, attacker_style)
+
+		if(INTENT_HARM)
+			harm(M, H, attacker_style)
+
+		if(INTENT_DISARM)
+			disarm(M, H, attacker_style)
 
 /datum/species/proc/say_filter(mob/M, message, datum/language/speaking)
 	return message
@@ -327,27 +475,22 @@
 /datum/species/proc/after_equip_job(datum/job/J, mob/living/carbon/human/H, visualsOnly = FALSE)
 	return
 
-/datum/species/proc/can_understand(var/mob/other)
+/datum/species/proc/can_understand(mob/other)
 	return
 
 // Called in life() when the mob has no client.
-/datum/species/proc/handle_npc(var/mob/living/carbon/human/H)
+/datum/species/proc/handle_npc(mob/living/carbon/human/H)
 	return
 
 //Species unarmed attacks
 
 /datum/unarmed_attack
-	var/attack_verb = list("attack")	// Empty hand hurt intent verb.
+	var/attack_verb = list("punch")	// Empty hand hurt intent verb.
 	var/damage = 0						// How much flat bonus damage an attack will do. This is a *bonus* guaranteed damage amount on top of the random damage attacks do.
 	var/attack_sound = "punch"
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
-	var/sharp = 0
-
-/datum/unarmed_attack/punch
-	attack_verb = list("punch")
-
-/datum/unarmed_attack/punch/weak
-	attack_verb = list("flail")
+	var/sharp = FALSE
+	var/animation_type = ATTACK_EFFECT_PUNCH
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
@@ -356,14 +499,21 @@
 	attack_verb = list("scratch", "claw")
 	attack_sound = 'sound/weapons/slice.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
-	sharp = 1
+	sharp = TRUE
+	animation_type = ATTACK_EFFECT_CLAW
+
+/datum/unarmed_attack/bite
+	attack_verb = list("chomp")
+	attack_sound = 'sound/weapons/bite.ogg'
+	sharp = TRUE
+	animation_type = ATTACK_EFFECT_BITE
 
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("slash", "claw")
 	damage = 6
 
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
-	return 0
+	return FALSE
 
 /datum/species/proc/handle_vision(mob/living/carbon/human/H)
 	// Right now this just handles blind, blurry, and similar states
@@ -469,7 +619,7 @@ Returns the path corresponding to the corresponding organ
 It'll return null if the organ doesn't correspond, so include null checks when using this!
 */
 //Fethas Todo:Do i need to redo this?
-/datum/species/proc/return_organ(var/organ_slot)
+/datum/species/proc/return_organ(organ_slot)
 	if(!(organ_slot in has_organ))
 		return null
 	return has_organ[organ_slot]
@@ -534,8 +684,8 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			if(hat.helmet_goggles_invis_view)
 				H.see_invisible = min(hat.helmet_goggles_invis_view, H.see_invisible)
 
-	if(istype(H.back, /obj/item/weapon/rig)) ///aghhh so snowflakey
-		var/obj/item/weapon/rig/rig = H.back
+	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
+		var/obj/item/rig/rig = H.back
 		if(rig.visor)
 			if(!rig.helmet || (H.head && rig.helmet == H.head))
 				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)

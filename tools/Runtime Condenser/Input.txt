@@ -92,7 +92,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=21;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=21;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -101,7 +101,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=19;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -110,7 +110,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=12;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -119,7 +119,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=12;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -128,7 +128,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=20;icon-y=15;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=20;icon-y=15;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -137,7 +137,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=19;icon-y=19;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=19;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -146,7 +146,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=19;icon-y=18;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=19;icon-y=18;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -155,7 +155,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -164,7 +164,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=19;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -173,7 +173,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=13;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -182,7 +182,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Reese Marcotte (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Reese Marcotte (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=17;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (169,125,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=17;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -288,7 +288,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Ellen Quinn (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Ellen Quinn (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Ellen Quinn (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=21;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=21;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -297,7 +297,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Ellen Quinn (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Ellen Quinn (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Ellen Quinn (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=14;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=14;left=1;scr...")
 Fri Jul 13 20:36:29 2012
@@ -742,7 +742,7 @@ proc name: attackby (/turf/simulated/wall/attackby)
   usr: Monte Smail (/mob/living/carbon/human)
   src: the plating (176,172,5) (/turf/simulated/floor/plating)
   call stack:
-the plating (176,172,5) (/turf/simulated/floor/plating): attackby(Diamond Mining Drill (/obj/item/weapon/pickaxe/diamonddrill), Monte Smail (/mob/living/carbon/human))
+the plating (176,172,5) (/turf/simulated/floor/plating): attackby(Diamond Mining Drill (/obj/item/pickaxe/diamonddrill), Monte Smail (/mob/living/carbon/human))
 the plating (176,172,5) (/turf/simulated/floor/plating): DblClick(the plating (176,172,5) (/turf/simulated/floor/plating), "mapwindow.map", "icon-x=15;icon-y=6;left=1;scre...")
 the plating (176,172,5) (/turf/simulated/floor/plating): DblClick(the plating (176,172,5) (/turf/simulated/floor/plating), "mapwindow.map", "icon-x=15;icon-y=6;left=1;scre...")
 the plating (176,172,5) (/turf/simulated/floor/plating): Click(the plating (176,172,5) (/turf/simulated/floor/plating), "mapwindow.map", "icon-x=15;icon-y=6;left=1;scre...")
@@ -2458,8 +2458,8 @@ proc name: mergeConnectedNetworksOnTurf (/obj/structure/cable/proc/mergeConnecte
   src: the power cable (/obj/structure/cable)
   call stack:
 the power cable (/obj/structure/cable): mergeConnectedNetworksOnTurf()
-the cable coil (/obj/item/weapon/cable_coil/orange): turf place(the plating (87,80,1) (/turf/simulated/floor/plating), Josue Sandford (/mob/living/carbon/human))
-the plating (87,80,1) (/turf/simulated/floor/plating): attackby(the cable coil (/obj/item/weapon/cable_coil/orange), Josue Sandford (/mob/living/carbon/human))
+the cable coil (/obj/item/cable_coil/orange): turf place(the plating (87,80,1) (/turf/simulated/floor/plating), Josue Sandford (/mob/living/carbon/human))
+the plating (87,80,1) (/turf/simulated/floor/plating): attackby(the cable coil (/obj/item/cable_coil/orange), Josue Sandford (/mob/living/carbon/human))
 the plating (87,80,1) (/turf/simulated/floor/plating): DblClick(the plating (87,80,1) (/turf/simulated/floor/plating), "mapwindow.map", "icon-x=17;icon-y=28;left=1;scr...")
 the plating (87,80,1) (/turf/simulated/floor/plating): DblClick(the plating (87,80,1) (/turf/simulated/floor/plating), "mapwindow.map", "icon-x=17;icon-y=28;left=1;scr...")
 the plating (87,80,1) (/turf/simulated/floor/plating): Click(the plating (87,80,1) (/turf/simulated/floor/plating), "mapwindow.map", "icon-x=17;icon-y=28;left=1;scr...")
@@ -2471,8 +2471,8 @@ proc name: merge powernets (/datum/powernet/proc/merge_powernets)
   call stack:
 /datum/powernet (/datum/powernet): merge powernets(null)
 the power cable (/obj/structure/cable): mergeConnectedNetworksOnTurf()
-the cable piece (/obj/item/weapon/cable_coil): cable join(the power cable (/obj/structure/cable), Darin Keppel (/mob/living/carbon/human))
-the power cable (/obj/structure/cable): attackby(the cable piece (/obj/item/weapon/cable_coil), Darin Keppel (/mob/living/carbon/human))
+the cable piece (/obj/item/cable_coil): cable join(the power cable (/obj/structure/cable), Darin Keppel (/mob/living/carbon/human))
+the power cable (/obj/structure/cable): attackby(the cable piece (/obj/item/cable_coil), Darin Keppel (/mob/living/carbon/human))
 the power cable (/obj/structure/cable): DblClick(the floor (105,80,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=29;icon-y=17;left=1;scr...")
 the power cable (/obj/structure/cable): Click(the floor (105,80,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=29;icon-y=17;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -2481,7 +2481,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Jace Johnson (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Jace Johnson (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Jace Johnson (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=19;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -2490,7 +2490,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Jace Johnson (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Jace Johnson (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Jace Johnson (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=19;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=19;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -2499,7 +2499,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Jace Johnson (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Jace Johnson (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Jace Johnson (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=12;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=12;left=1;scr...")
 runtime error: Cannot read null.slot_flags
@@ -2518,7 +2518,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Jace Johnson (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Jace Johnson (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Jace Johnson (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=16;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.total_volume
@@ -2527,7 +2527,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Jace Johnson (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Jace Johnson (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Jace Johnson (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=18;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=18;left=1;scr...")
 Sat Jul 14 14:26:55 2012
@@ -2819,8 +2819,8 @@ proc name: mergeConnectedNetworksOnTurf (/obj/structure/cable/proc/mergeConnecte
   src: the power cable (/obj/structure/cable)
   call stack:
 the power cable (/obj/structure/cable): mergeConnectedNetworksOnTurf()
-the cable piece (/obj/item/weapon/cable_coil): cable join(the power cable (/obj/structure/cable), Tyrion Lannister (/mob/living/carbon/human))
-the power cable (/obj/structure/cable): attackby(the cable piece (/obj/item/weapon/cable_coil), Tyrion Lannister (/mob/living/carbon/human))
+the cable piece (/obj/item/cable_coil): cable join(the power cable (/obj/structure/cable), Tyrion Lannister (/mob/living/carbon/human))
+the power cable (/obj/structure/cable): attackby(the cable piece (/obj/item/cable_coil), Tyrion Lannister (/mob/living/carbon/human))
 the power cable (/obj/structure/cable): DblClick(the floor (174,138,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=17;left=1;scr...")
 the power cable (/obj/structure/cable): Click(the floor (174,138,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=16;icon-y=17;left=1;scr...")
 runtime error: Cannot read null.slot_flags
@@ -3243,7 +3243,7 @@ runtime error: Cannot read null.len
 proc name: mergeRecordLists (/proc/mergeRecordLists)
   source file: helpers.dm,260
 runtime error: Cannot read null.reagents
-proc name: fire syringe (/obj/item/weapon/gun/syringe/proc/fire_syringe)
+proc name: fire syringe (/obj/item/gun/syringe/proc/fire_syringe)
   source file: Chemistry-Tools.dm,462
 runtime error: Cannot read null.slot_flags
 proc name: db click (/mob/living/carbon/human/db_click)
@@ -3453,7 +3453,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Dutch Hargrave (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Dutch Hargrave (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Dutch Hargrave (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=11;left=1;scr...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=18;icon-y=11;left=1;scr...")
 runtime error: Cannot read null.reagents
@@ -3462,7 +3462,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Dutch Hargrave (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Dutch Hargrave (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Dutch Hargrave (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=6;left=1;scre...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=17;icon-y=6;left=1;scre...")
 runtime error: Cannot read null.total_volume
@@ -3471,7 +3471,7 @@ proc name: attackby (/obj/machinery/reagentgrinder/attackby)
   usr: Dutch Hargrave (/mob/living/carbon/human)
   src: All-In-One Grinder (/obj/machinery/reagentgrinder)
   call stack:
-All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/weapon/plantbag), Dutch Hargrave (/mob/living/carbon/human))
+All-In-One Grinder (/obj/machinery/reagentgrinder): attackby(Plant Bag (/obj/item/plantbag), Dutch Hargrave (/mob/living/carbon/human))
 All-In-One Grinder (/obj/machinery/reagentgrinder): DblClick(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=20;icon-y=6;left=1;scre...")
 All-In-One Grinder (/obj/machinery/reagentgrinder): Click(the floor (154,134,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=20;icon-y=6;left=1;scre...")
 Rebooted server.
@@ -3995,15 +3995,15 @@ the storage1 (/obj/screen): attack hand(Tyson Roby (/mob/living/carbon/human), 1
 the storage1 (/obj/screen): DblClick(null, null, null)
 the storage1 (/obj/screen): Click(null, "mapwindow.map", "icon-x=19;icon-y=16;left=1;scr...")
 runtime error: Cannot read null.w_class
-proc name: attackby (/obj/item/weapon/storage/attackby)
+proc name: attackby (/obj/item/storage/attackby)
   source file: storage.dm,187
   usr: Samuel York (/mob/living/carbon/human)
-  src: the backpack (/obj/item/weapon/storage/backpack)
+  src: the backpack (/obj/item/storage/backpack)
   call stack:
-the backpack (/obj/item/weapon/storage/backpack): attackby(null, Samuel York (/mob/living/carbon/human))
-the backpack (/obj/item/weapon/storage/backpack): attackby(null, Samuel York (/mob/living/carbon/human))
-the backpack (/obj/item/weapon/storage/backpack): DblClick(null, "mapwindow.map", "icon-x=17;icon-y=18;left=1;scr...")
-the backpack (/obj/item/weapon/storage/backpack): Click(null, "mapwindow.map", "icon-x=17;icon-y=18;left=1;scr...")
+the backpack (/obj/item/storage/backpack): attackby(null, Samuel York (/mob/living/carbon/human))
+the backpack (/obj/item/storage/backpack): attackby(null, Samuel York (/mob/living/carbon/human))
+the backpack (/obj/item/storage/backpack): DblClick(null, "mapwindow.map", "icon-x=17;icon-y=18;left=1;scr...")
+the backpack (/obj/item/storage/backpack): Click(null, "mapwindow.map", "icon-x=17;icon-y=18;left=1;scr...")
 Rebooted server.
 Sun Jul 15 04:43:18 2012
 Running TG Revision Number: 4060.
@@ -4096,8 +4096,8 @@ proc name: merge powernets (/datum/powernet/proc/merge_powernets)
   call stack:
 /datum/powernet (/datum/powernet): merge powernets(null)
 the power cable (/obj/structure/cable): mergeConnectedNetworksOnTurf()
-the cable coil (/obj/item/weapon/cable_coil): turf place(the floor (87,115,1) (/turf/simulated/floor), Stephen Cox (/mob/living/carbon/human))
-the floor (87,115,1) (/turf/simulated/floor): attackby(the cable coil (/obj/item/weapon/cable_coil), Stephen Cox (/mob/living/carbon/human))
+the cable coil (/obj/item/cable_coil): turf place(the floor (87,115,1) (/turf/simulated/floor), Stephen Cox (/mob/living/carbon/human))
+the floor (87,115,1) (/turf/simulated/floor): attackby(the cable coil (/obj/item/cable_coil), Stephen Cox (/mob/living/carbon/human))
 the floor (87,115,1) (/turf/simulated/floor): DblClick(the floor (87,115,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 the floor (87,115,1) (/turf/simulated/floor): DblClick(the floor (87,115,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 the floor (87,115,1) (/turf/simulated/floor): Click(the floor (87,115,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
@@ -4109,8 +4109,8 @@ proc name: merge powernets (/datum/powernet/proc/merge_powernets)
   call stack:
 /datum/powernet (/datum/powernet): merge powernets(null)
 the power cable (/obj/structure/cable): mergeConnectedNetworksOnTurf()
-the cable coil (/obj/item/weapon/cable_coil): turf place(the floor (87,115,1) (/turf/simulated/floor), Stephen Cox (/mob/living/carbon/human))
-the floor (87,115,1) (/turf/simulated/floor): attackby(the cable coil (/obj/item/weapon/cable_coil), Stephen Cox (/mob/living/carbon/human))
+the cable coil (/obj/item/cable_coil): turf place(the floor (87,115,1) (/turf/simulated/floor), Stephen Cox (/mob/living/carbon/human))
+the floor (87,115,1) (/turf/simulated/floor): attackby(the cable coil (/obj/item/cable_coil), Stephen Cox (/mob/living/carbon/human))
 the floor (87,115,1) (/turf/simulated/floor): DblClick(the floor (87,115,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 the floor (87,115,1) (/turf/simulated/floor): DblClick(the floor (87,115,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")
 the floor (87,115,1) (/turf/simulated/floor): Click(the floor (87,115,1) (/turf/simulated/floor), "mapwindow.map", "icon-x=26;icon-y=18;left=1;scr...")

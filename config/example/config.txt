@@ -37,6 +37,9 @@ LOG_SAY
 ## log admin actions
 LOG_ADMIN
 
+## log admin chat
+LOG_ADMINCHAT
+
 ## log client access (logon/logoff)
 LOG_ACCESS
 
@@ -62,16 +65,13 @@ LOG_PDA
 LOG_RUNTIME
 
 ## log world.log messages
-# LOG_WORLD_OUTPUT
+LOG_WORLD_OUTPUT
 
 ## log all Topic() calls (for use by coders in tracking down Topic issues)
 # LOG_HREFS
 
 ## log admin warning messages
-##LOG_ADMINWARN  ## Also duplicates a bunch of other messages.
-
-## disconnect players who did nothing during 15 minutes
-KICK_INACTIVE
+LOG_ADMINWARN
 
 ## probablities for game modes chosen in "secret" and "random" modes
 ##
@@ -371,3 +371,6 @@ HIGH_POP_MC_MODE_AMOUNT 65
 
 ##Disengage high pop mode if player count drops below this
 DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
+
+##Uncomment to enable developer start. Auto starts the server after initialization
+##DEVELOPER_EXPRESS_START

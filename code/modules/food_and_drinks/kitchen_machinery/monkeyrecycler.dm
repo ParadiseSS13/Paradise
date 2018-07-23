@@ -13,22 +13,22 @@
 	var/required_grind = 5
 	var/cube_production = 1
 	var/cycle_through = 0
-	var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube
+	var/obj/item/reagent_containers/food/snacks/monkeycube/cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 
 /obj/machinery/monkey_recycler/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/monkey_recycler(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/circuitboard/monkey_recycler(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
 /obj/machinery/monkey_recycler/RefreshParts()
 	var/req_grind = 5
 	var/cubes_made = 1
-	for(var/obj/item/weapon/stock_parts/manipulator/B in component_parts)
+	for(var/obj/item/stock_parts/manipulator/B in component_parts)
 		req_grind -= B.rating
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		cubes_made = M.rating
 	cube_production = cubes_made
 	required_grind = req_grind
@@ -46,26 +46,26 @@
 
 	default_deconstruction_crowbar(O)
 
-	if(istype(O, /obj/item/device/multitool))
+	if(istype(O, /obj/item/multitool))
 		cycle_through++
 		switch(cycle_through)
 			if(1)
-				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/farwacube
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
 			if(2)
-				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/wolpincube
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
 			if(3)
-				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/stokcube
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
 			if(4)
-				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube/neaeracube
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
 			if(5)
-				cube_type = /obj/item/weapon/reagent_containers/food/snacks/monkeycube
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 				cycle_through = 0
 		to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
 
 	if(stat != 0) //NOPOWER etc
 		return
-	if(istype(O, /obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = O
+	if(istype(O, /obj/item/grab))
+		var/obj/item/grab/G = O
 		var/grabbed = G.affecting
 		if(istype(grabbed, /mob/living/carbon/human))
 			var/mob/living/carbon/human/target = grabbed

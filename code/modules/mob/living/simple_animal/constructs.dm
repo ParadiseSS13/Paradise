@@ -23,7 +23,7 @@
 	var/const_type = "shade"
 	var/list/construct_spells = list()
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
-	loot = list(/obj/item/weapon/reagent_containers/food/snacks/ectoplasm)
+	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = 1
 	deathmessage = "collapses in a shattered heap."
 
@@ -35,15 +35,15 @@
 		icon_living = const_type
 		icon_state = const_type
 	else
-		name = "[ticker.mode.cultdat.get_name(const_type)] ([rand(1, 1000)])"
-		real_name = ticker.mode.cultdat.get_name(const_type)
-		icon_living = ticker.mode.cultdat.get_icon(const_type)
-		icon_state = ticker.mode.cultdat.get_icon(const_type)
+		name = "[ticker.cultdat.get_name(const_type)] ([rand(1, 1000)])"
+		real_name = ticker.cultdat.get_name(const_type)
+		icon_living = ticker.cultdat.get_icon(const_type)
+		icon_state = ticker.cultdat.get_icon(const_type)
 
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	if(ticker.mode.cultdat.theme == "blood")
+	if(ticker.cultdat.theme == "blood")
 		updateglow()
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
@@ -285,7 +285,7 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/behemoth/Life()
+/mob/living/simple_animal/hostile/construct/behemoth/Life(seconds, times_fired)
 	weakened = 0
 	return ..()
 

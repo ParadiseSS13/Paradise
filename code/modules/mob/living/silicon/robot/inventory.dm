@@ -105,8 +105,8 @@
 
 /mob/living/silicon/robot/drop_item()
 	var/obj/item/I = get_active_hand()
-	if(istype(I, /obj/item/weapon/gripper))
-		var/obj/item/weapon/gripper/G = I
+	if(istype(I, /obj/item/gripper))
+		var/obj/item/gripper/G = I
 		G.drop_item_p(silent = 1)
 	return
 
@@ -233,7 +233,7 @@
 
 /mob/living/silicon/robot/unEquip(obj/item/I)
 	if(I == module_active)
-		deselect_module(get_selected_module())
+		uneq_active(I)
 	return ..()
 
 /mob/living/silicon/robot/proc/update_module_icon()

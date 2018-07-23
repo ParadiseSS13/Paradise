@@ -264,7 +264,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Hello","Hi","You're my slave now!","Don't try to get rid of me...")]</span>")
 				break
 			sleep(4)
-		if(!qdeleted(borer))
+		if(!QDELETED(borer))
 			qdel(borer)
 	qdel(src)
 
@@ -339,7 +339,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		s.loc = get_step(get_turf(s), get_dir(s, target))
 		s.Show()
 		s.Eat()
-		addtimer(src, "wake_and_restore", rand(50, 100))
+		addtimer(CALLBACK(src, .proc/wake_and_restore), rand(50, 100))
 	qdel(s)
 
 /obj/effect/hallucination/simple/singularity
@@ -365,9 +365,9 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			for(var/i=0,i<hits,i++)
 				target.playsound_local(null, 'sound/weapons/Laser.ogg', 25, 1)
 				if(prob(75))
-					addtimer(target, "playsound_local", rand(10,20), null, 'sound/weapons/sear.ogg', 25, 1)
+					addtimer(CALLBACK(target, /mob/.proc/playsound_local, null, 'sound/weapons/sear.ogg', 25, 1), rand(10,20))
 				else
-					addtimer(target, "playsound_local", rand(10,20), null, 'sound/weapons/effects/searwall.ogg', 25, 1)
+					addtimer(CALLBACK(target, /mob/.proc/playsound_local, null, 'sound/weapons/effects/searwall.ogg', 25, 1), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25)
 		if(2) //Esword fight
@@ -381,9 +381,9 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			for(var/i=0,i<hits,i++)
 				target.playsound_local(null, get_sfx("gunshot"), 25)
 				if(prob(75))
-					addtimer(target, "playsound_local", rand(10,20), null, 'sound/weapons/pierce.ogg', 25, 1)
+					addtimer(CALLBACK(target, /mob/.proc/playsound_local, null, 'sound/weapons/pierce.ogg', 25, 1), rand(10,20))
 				else
-					addtimer(target, "playsound_local", rand(10,20), null, "ricochet", 25, 1)
+					addtimer(CALLBACK(target, /mob/.proc/playsound_local, null, "ricochet", 25, 1), rand(10,20))
 				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 8))
 			target.playsound_local(null, get_sfx("bodyfall"), 25, 1)
 		if(4) //Stunprod + cablecuff
@@ -584,7 +584,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 	var/health = 100
 
-/obj/effect/fake_attacker/attackby(obj/item/weapon/P, mob/living/user, params)
+/obj/effect/fake_attacker/attackby(obj/item/P, mob/living/user, params)
 	step_away(src,my_target,2)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -641,6 +641,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			updateimage()
 		else
 			if(prob(15))
+				do_attack_animation(my_target, ATTACK_EFFECT_PUNCH)
 				if(weapon_name)
 					my_target.playsound_local(my_target, weap.hitsound, 1)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
@@ -675,21 +676,21 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		qdel(O)
 	return
 
-var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/item/ammo_box/a357,\
-	/obj/item/weapon/gun/energy/kinetic_accelerator/crossbow,\
-	/obj/item/weapon/storage/box/syndicate, /obj/item/weapon/storage/box/emps,\
-	/obj/item/weapon/cartridge/syndicate, /obj/item/clothing/under/chameleon,\
-	/obj/item/clothing/shoes/syndigaloshes, /obj/item/weapon/card/id/syndicate,\
+var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_box/a357,\
+	/obj/item/gun/energy/kinetic_accelerator/crossbow,\
+	/obj/item/storage/box/syndicate, /obj/item/storage/box/emps,\
+	/obj/item/cartridge/syndicate, /obj/item/clothing/under/chameleon,\
+	/obj/item/clothing/shoes/syndigaloshes, /obj/item/card/id/syndicate,\
 	/obj/item/clothing/mask/gas/voice, /obj/item/clothing/glasses/thermal,\
-	/obj/item/device/chameleon, /obj/item/weapon/card/emag,\
-	/obj/item/weapon/storage/toolbox/syndicate, /obj/item/weapon/aiModule,\
-	/obj/item/device/radio/headset/syndicate,	/obj/item/weapon/grenade/plastic/c4,\
-	/obj/item/device/powersink, /obj/item/weapon/storage/box/syndie_kit,\
-	/obj/item/toy/syndicateballoon, /obj/item/weapon/gun/energy/laser/captain,\
-	/obj/item/weapon/hand_tele, /obj/item/weapon/rcd, /obj/item/weapon/tank/jetpack,\
-	/obj/item/clothing/under/rank/captain, /obj/item/device/aicard,\
-	/obj/item/clothing/shoes/magboots, /obj/item/areaeditor/blueprints, /obj/item/weapon/disk/nuclear,\
-	/obj/item/clothing/suit/space/nasavoid, /obj/item/weapon/tank)
+	/obj/item/chameleon, /obj/item/card/emag,\
+	/obj/item/storage/toolbox/syndicate, /obj/item/aiModule,\
+	/obj/item/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\
+	/obj/item/powersink, /obj/item/storage/box/syndie_kit,\
+	/obj/item/toy/syndicateballoon, /obj/item/gun/energy/laser/captain,\
+	/obj/item/hand_tele, /obj/item/rcd, /obj/item/tank/jetpack,\
+	/obj/item/clothing/under/rank/captain, /obj/item/aicard,\
+	/obj/item/clothing/shoes/magboots, /obj/item/areaeditor/blueprints, /obj/item/disk/nuclear,\
+	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank)
 
 /obj/effect/hallucination/bolts
 	var/list/doors = list()
@@ -970,11 +971,11 @@ var/list/non_fakeattack_weapons = list(/obj/item/weapon/gun/projectile, /obj/ite
 							if(prob(25))
 								halitem.icon_state = "c4small_1"
 						if(3) //sword
-							halitem.icon = 'icons/obj/weapons.dmi'
+							halitem.icon = 'icons/obj/items.dmi'
 							halitem.icon_state = "sword1"
 							halitem.name = "Sword"
 						if(4) //stun baton
-							halitem.icon = 'icons/obj/weapons.dmi'
+							halitem.icon = 'icons/obj/items.dmi'
 							halitem.icon_state = "stunbaton"
 							halitem.name = "Stun Baton"
 						if(5) //emag

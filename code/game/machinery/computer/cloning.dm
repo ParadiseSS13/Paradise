@@ -3,7 +3,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
-	circuit = /obj/item/weapon/circuitboard/cloning
+	circuit = /obj/item/circuitboard/cloning
 	req_access = list(access_heads) //Only used for record deletion right now.
 	var/obj/machinery/dna_scannernew/scanner = null //Linked scanner. For scanning.
 	var/list/pods = list() //Linked cloning pods.
@@ -12,7 +12,7 @@
 	var/menu = 1 //Which menu screen to display
 	var/list/records = list()
 	var/datum/dna2/record/active_record = null
-	var/obj/item/weapon/disk/data/diskette = null //Mostly so the geneticist can steal everything.
+	var/obj/item/disk/data/diskette = null //Mostly so the geneticist can steal everything.
 	var/loading = 0 // Nice loading text
 	var/autoprocess = 0
 	var/obj/machinery/clonepod/selected_pod
@@ -22,7 +22,7 @@
 
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/machinery/computer/cloning/initialize()
+/obj/machinery/computer/cloning/Initialize()
 	..()
 	updatemodules()
 
@@ -82,7 +82,7 @@
 			P.name = "[initial(P.name)] #[num++]"
 
 /obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/disk/data)) //INSERT SOME DISKETTES
+	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if(!src.diskette)
 			user.drop_item()
 			W.loc = src
@@ -90,8 +90,8 @@
 			to_chat(user, "You insert [W].")
 			SSnanoui.update_uis(src)
 			return
-	else if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+	else if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
 			var/obj/machinery/clonepod/P = M.buffer
 			if(P && !(P in pods))
@@ -169,7 +169,7 @@
 	if(src.menu == 3)
 		if(src.active_record)
 			data["activerecord"] = "\ref[src.active_record]"
-			var/obj/item/weapon/implant/health/H = null
+			var/obj/item/implant/health/H = null
 			if(src.active_record.implant)
 				H = locate(src.active_record.implant)
 
@@ -242,8 +242,8 @@
 			src.menu = 4
 
 		else if(src.menu == 4)
-			var/obj/item/weapon/card/id/C = usr.get_active_hand()
-			if(istype(C)||istype(C, /obj/item/device/pda))
+			var/obj/item/card/id/C = usr.get_active_hand()
+			if(istype(C)||istype(C, /obj/item/pda))
 				if(src.check_access(C))
 					src.records.Remove(src.active_record)
 					qdel(src.active_record)
@@ -356,15 +356,14 @@
 		return
 	if(scan_brain && !can_brainscan())
 		return
-	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.species.species_traits))
+	if((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna) || (NO_SCAN in subject.dna.species.species_traits))
 		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		SSnanoui.update_uis(src)
 		return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
-			var/datum/species/S = all_species[Brn.dna.species] // stepladder code wooooo
-			if(NO_SCAN in S.species_traits)
+			if(NO_SCAN in Brn.dna.species.species_traits)
 				scantemp = "<span class=\"bad\">Error: Subject's brain is incompatible.</span>"
 				SSnanoui.update_uis(src)
 				return
@@ -402,10 +401,9 @@
 		var/obj/item/organ/B = subject.get_int_organ(/obj/item/organ/internal/brain)
 		B.dna.check_integrity()
 		R.dna=B.dna.Clone()
-		var/datum/species/S = all_species[R.dna.species]
-		if(NO_SCAN in S.species_traits)
+		if(NO_SCAN in R.dna.species.species_traits)
 			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
-			R.dna.species = subject.species.name
+			R.dna.species = new subject.dna.species.type
 		R.id= copytext(md5(B.dna.real_name), 2, 6)
 		R.name=B.dna.real_name
 	else
@@ -416,9 +414,9 @@
 	R.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
 	R.languages=subject.languages
 	//Add an implant if needed
-	var/obj/item/weapon/implant/health/imp = locate(/obj/item/weapon/implant/health, subject)
+	var/obj/item/implant/health/imp = locate(/obj/item/implant/health, subject)
 	if(!imp)
-		imp = new /obj/item/weapon/implant/health(subject)
+		imp = new /obj/item/implant/health(subject)
 		imp.implant(subject)
 	R.implant = "\ref[imp]"
 

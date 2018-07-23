@@ -7,6 +7,11 @@
 #define STATIC_LIGHT    6
 #define STATIC_ENVIRON  7
 
+//Power use
+#define NO_POWER_USE 0
+#define IDLE_POWER_USE 1
+#define ACTIVE_POWER_USE 2
+
 //computer3 error codes, move lower in the file when it passes dev -Sayu
  #define PROG_CRASH      1  // Generic crash
  #define MISSING_PERIPHERAL  2  // Missing hardware
@@ -22,6 +27,7 @@
 #define MECHFAB			16 	//Remember, objects utilising this flag should have construction_time and construction_cost vars.
 #define PODFAB			32 	//Used by the spacepod part fabricator. Same idea as the mechfab
 #define BIOGENERATOR	64 	//Uses biomass
+#define SMELTER			128 //uses various minerals
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 #define HYDRO_SPEED_MULTIPLIER 1
@@ -76,3 +82,14 @@
 #define TARGET_DEPT_MED 3
 #define TARGET_DEPT_SCI 4
 #define TARGET_DEPT_ENG 5
+
+// These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
+// These are warning defines, they should trigger before the state, not after.
+#define SUPERMATTER_ERROR -1		// Unknown status, shouldn't happen but just in case.
+#define SUPERMATTER_INACTIVE 0		// No or minimal energy
+#define SUPERMATTER_NORMAL 1		// Normal operation
+#define SUPERMATTER_NOTIFY 2		// Ambient temp > 80% of CRITICAL_TEMPERATURE
+#define SUPERMATTER_WARNING 3		// Ambient temp > CRITICAL_TEMPERATURE OR integrity damaged
+#define SUPERMATTER_DANGER 4		// Integrity < 75%
+#define SUPERMATTER_EMERGENCY 5		// Integrity < 50%
+#define SUPERMATTER_DELAMINATING 6	// Pretty obvious, Integrity < 25%

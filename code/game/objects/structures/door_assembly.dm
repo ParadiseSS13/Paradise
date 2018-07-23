@@ -9,7 +9,7 @@
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral
 	var/base_name = "airlock"
-	var/obj/item/weapon/airlock_electronics/electronics
+	var/obj/item/airlock_electronics/electronics
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
 	var/glass_type = /obj/machinery/door/airlock/glass
 	var/glass = 0 // 0 = glass can be installed. 1 = glass is already installed.
@@ -54,7 +54,7 @@
 		to_chat(user, "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>")
 
 /obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/pen))
+	if(istype(W, /obj/item/pen))
 		var/t = copytext(stripped_input(user, "Enter the name for the door.", name, created_name),1,MAX_NAME_LEN)
 		if(!t)
 			return
@@ -64,7 +64,7 @@
 		return
 
 	else if(iswelder(W) && (mineral || glass || !anchored ))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			playsound(loc, WT.usesound, 50, 1)
 			if(mineral)
@@ -139,7 +139,7 @@
 			new/obj/item/stack/cable_coil(get_turf(user), 1)
 			state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 
-	else if(istype(W, /obj/item/weapon/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && W.icon_state != "door_electronics_smoked")
+	else if(istype(W, /obj/item/airlock_electronics) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS && W.icon_state != "door_electronics_smoked")
 		playsound(loc, W.usesound, 100, 1)
 		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly...")
 
@@ -163,9 +163,9 @@
 			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
 			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
 			name = "wired airlock assembly"
-			var/obj/item/weapon/airlock_electronics/ae
+			var/obj/item/airlock_electronics/ae
 			if(!electronics)
-				ae = new/obj/item/weapon/airlock_electronics(loc)
+				ae = new/obj/item/airlock_electronics(loc)
 			else
 				ae = electronics
 				electronics = null
@@ -292,7 +292,7 @@
 				else
 					new /obj/item/stack/sheet/glass(T)
 			else
-				new /obj/item/weapon/shard(T)
+				new /obj/item/shard(T)
 		if(mineral)
 			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			new mineral_path(T, 2)

@@ -1,4 +1,4 @@
-/obj/item/weapon/gun/projectile/automatic/sniper_rifle
+/obj/item/gun/projectile/automatic/sniper_rifle
 	name = "sniper rifle"
 	desc = "the kind of gun that will leave you crying for mummy before you even realise your leg's missing"
 	icon_state = "sniper"
@@ -17,13 +17,13 @@
 	slot_flags = SLOT_BACK
 	actions_types = list()
 
-/obj/item/weapon/gun/projectile/automatic/sniper_rifle/update_icon()
+/obj/item/gun/projectile/automatic/sniper_rifle/update_icon()
 	if(magazine)
 		icon_state = "sniper-mag"
 	else
 		icon_state = "sniper"
 
-/obj/item/weapon/gun/projectile/automatic/sniper_rifle/syndicate
+/obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face"
 	origin_tech = "combat=7;syndicate=6"

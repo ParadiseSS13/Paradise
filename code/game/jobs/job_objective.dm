@@ -49,7 +49,7 @@
 		if(!employee.job_objectives.len)//If the employee had no objectives, don't need to process this.
 			continue
 
-		if(!employee.assigned_role=="MODE")//If the employee is a gamemode thing, skip.
+		if(employee.assigned_role == employee.special_role) //If the character is an offstation character, skip them.
 			continue
 
 		var/tasks_completed=0
@@ -68,7 +68,7 @@
 			count++
 
 		if(tasks_completed >= 1)
-			text += "<br>&nbsp;<font color='green'><B>[employee.name] did their fucking job!</B></font>"
+			text += "<br>&nbsp;<font color='green'><B>[employee.name] did [employee.p_their()] fucking job!</B></font>"
 			feedback_add_details("employee_success","SUCCESS")
 		else
 			feedback_add_details("employee_success","FAIL")

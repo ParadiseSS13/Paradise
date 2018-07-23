@@ -56,7 +56,7 @@
 			return TRUE
 	return FALSE
 
-/obj/item/device/dna_probe
+/obj/item/dna_probe
 	name = "DNA Sampler"
 	desc = "Can be used to take chemical and genetic samples of pretty much anything."
 	icon = 'icons/obj/hypo.dmi'
@@ -67,14 +67,14 @@
 	var/list/plants = list()
 	var/list/dna = list()
 
-/obj/item/device/dna_probe/proc/clear_data()
+/obj/item/dna_probe/proc/clear_data()
 	animals = list()
 	plants = list()
 	dna = list()
 
 var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien))
 
-/obj/item/device/dna_probe/afterattack(atom/target, mob/user, proximity)
+/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
 	..()
 	if(!proximity || !target)
 		return
@@ -115,12 +115,12 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		to_chat(user, "<span class='notice'>Humanoid data added to local storage.<span>")
 
 
-/obj/item/weapon/circuitboard/machine/dna_vault
+/obj/item/circuitboard/machine/dna_vault
 	name = "DNA Vault (Machine Board)"
 	build_path = /obj/machinery/dna_vault
 	origin_tech = "engineering=2;combat=2;bluespace=2" //No freebies!
 	req_components = list(
-							/obj/item/weapon/stock_parts/capacitor/quadratic = 5,
+							/obj/item/stock_parts/capacitor/quadratic = 5,
 							/obj/item/stack/cable_coil = 2)
 
 /obj/structure/filler
@@ -247,8 +247,8 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		completed = TRUE
 
 /obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/dna_probe))
-		var/obj/item/device/dna_probe/P = I
+	if(istype(I, /obj/item/dna_probe))
+		var/obj/item/dna_probe/P = I
 		var/uploaded = 0
 		for(var/plant in P.plants)
 			if(!plants[plant])

@@ -33,18 +33,18 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/caphat
-	l_ear = /obj/item/device/radio/headset/heads/captain/alt
+	l_ear = /obj/item/radio/headset/heads/captain/alt
 	glasses = /obj/item/clothing/glasses/sunglasses
-	id = /obj/item/weapon/card/id/gold
-	pda = /obj/item/device/pda/captain
+	id = /obj/item/card/id/gold
+	pda = /obj/item/pda/captain
 	backpack_contents = list(
-		/obj/item/weapon/storage/box/ids = 1,
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/storage/box/ids = 1,
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
-	implants = list(/obj/item/weapon/implant/mindshield)
-	backpack = /obj/item/weapon/storage/backpack/captain
-	satchel = /obj/item/weapon/storage/backpack/satchel_cap
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/captain
+	implants = list(/obj/item/implant/mindshield)
+	backpack = /obj/item/storage/backpack/captain
+	satchel = /obj/item/storage/backpack/satchel_cap
+	dufflebag = /obj/item/storage/backpack/duffel/captain
 
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -90,12 +90,12 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	uniform = /obj/item/clothing/under/rank/head_of_personnel
 	shoes = /obj/item/clothing/shoes/brown
 	head = /obj/item/clothing/head/hopcap
-	l_ear = /obj/item/device/radio/headset/heads/hop
-	id = /obj/item/weapon/card/id/silver
-	pda = /obj/item/device/pda/heads/hop
+	l_ear = /obj/item/radio/headset/heads/hop
+	id = /obj/item/card/id/silver
+	pda = /obj/item/pda/heads/hop
 	backpack_contents = list(
-		/obj/item/weapon/storage/box/ids = 1,
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/storage/box/ids = 1,
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
 
 	implants = list()
@@ -134,14 +134,14 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	uniform = /obj/item/clothing/under/rank/ntrep
 	suit = /obj/item/clothing/suit/storage/ntrep
 	shoes = /obj/item/clothing/shoes/centcom
-	l_ear = /obj/item/device/radio/headset/heads/ntrep
-	id = /obj/item/weapon/card/id/nanotrasen
-	l_pocket = /obj/item/weapon/lighter/zippo/nt_rep
-	pda = /obj/item/device/pda/heads/ntrep
+	l_ear = /obj/item/radio/headset/heads/ntrep
+	id = /obj/item/card/id/nanotrasen
+	l_pocket = /obj/item/lighter/zippo/nt_rep
+	pda = /obj/item/pda/heads/ntrep
 	backpack_contents = list(
-		/obj/item/weapon/melee/classic_baton/ntcane = 1
+		/obj/item/melee/classic_baton/ntcane = 1
 	)
-	implants = list(/obj/item/weapon/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield)
 
 
 
@@ -174,18 +174,18 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/jackboots
-	l_ear = /obj/item/device/radio/headset/heads/blueshield/alt
+	l_ear = /obj/item/radio/headset/heads/blueshield/alt
 	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
-	id = /obj/item/weapon/card/id/nanotrasen
-	pda = /obj/item/device/pda/heads/blueshield
+	id = /obj/item/card/id/nanotrasen
+	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(
-		/obj/item/weapon/storage/box/deathimp = 1,
-		/obj/item/weapon/gun/energy/gun/blueshield = 1
+		/obj/item/storage/box/deathimp = 1,
+		/obj/item/gun/energy/gun/blueshield = 1
 	)
-	implants = list(/obj/item/weapon/implant/mindshield)
-	backpack = /obj/item/weapon/storage/backpack/security
-	satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
+	implants = list(/obj/item/implant/mindshield)
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
 /datum/job/judge
@@ -217,17 +217,17 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/powdered_wig
-	l_ear = /obj/item/device/radio/headset/heads/magistrate/alt
+	l_ear = /obj/item/radio/headset/heads/magistrate/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/nanotrasen
-	l_pocket = /obj/item/device/flash
-	pda = /obj/item/device/pda/heads/magistrate
+	id = /obj/item/card/id/nanotrasen
+	l_pocket = /obj/item/flash
+	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
-		/obj/item/weapon/melee/classic_baton/telescopic = 1
+		/obj/item/melee/classic_baton/telescopic = 1
 	)
-	implants = list(/obj/item/weapon/implant/mindshield)
-	satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
+	implants = list(/obj/item/implant/mindshield)
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security
 
 
 
@@ -256,13 +256,13 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	uniform = /obj/item/clothing/under/rank/internalaffairs
 	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/device/radio/headset/headset_sec/alt
+	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/security
-	l_pocket = /obj/item/device/laser_pointer
-	r_pocket = /obj/item/device/flash
-	l_hand = /obj/item/weapon/storage/briefcase
-	pda = /obj/item/device/pda/lawyer
-	implants = list(/obj/item/weapon/implant/mindshield)
-	satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	dufflebag = /obj/item/weapon/storage/backpack/duffel/security
+	id = /obj/item/card/id/security
+	l_pocket = /obj/item/laser_pointer
+	r_pocket = /obj/item/flash
+	l_hand = /obj/item/storage/briefcase
+	pda = /obj/item/pda/lawyer
+	implants = list(/obj/item/implant/mindshield)
+	satchel = /obj/item/storage/backpack/satchel_sec
+	dufflebag = /obj/item/storage/backpack/duffel/security

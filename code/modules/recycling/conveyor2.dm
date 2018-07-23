@@ -124,7 +124,7 @@
 
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/crowbar))
+	if(istype(I, /obj/item/crowbar))
 		if(!(stat & BROKEN))
 			var/obj/item/conveyor_construct/C = new/obj/item/conveyor_construct(src.loc)
 			C.id = id
@@ -133,7 +133,7 @@
 		to_chat(usr,"<span class='notice'>You remove the conveyor belt.</span>")
 		qdel(src)
 
-	else if(istype(I, /obj/item/weapon/wrench))
+	else if(istype(I, /obj/item/wrench))
 		if(!(stat & BROKEN))
 			playsound(loc, I.usesound, 50, 1)
 			dir = turn(dir,-45)
@@ -294,14 +294,14 @@
 		CHECK_TICK
 
 /obj/machinery/conveyor_switch/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/crowbar))
+	if(istype(I, /obj/item/crowbar))
 		var/obj/item/conveyor_switch_construct/C = new/obj/item/conveyor_switch_construct(src.loc)
 		C.id = id
 		transfer_fingerprints_to(C)
 		to_chat(user,"<span class='notice'>You deattach the conveyor switch.</span>")
 		qdel(src)
 
-	else if(istype(I, /obj/item/device/multitool))
+	else if(istype(I, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
@@ -317,7 +317,7 @@
 			convdir = position
 
 
-/obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/conveyor_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
  	<ul>
  	<li><b>One direction only:</b> <a href='?src=[UID()];toggle_logic=1'>[convdir ? "On" : "Off"]</a></li>
@@ -383,6 +383,6 @@
 	transfer_fingerprints_to(NC)
 	qdel(src)
 
-/obj/item/weapon/paper/conveyor
+/obj/item/paper/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"
 	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! </p><p> Set single directional switches by using your multitool on the switch after you've installed the switch assembly.</p><p> This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"

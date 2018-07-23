@@ -43,7 +43,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	)),
 
 	null,
-	new /datum/stack_recipe("rack parts", /obj/item/weapon/rack_parts),
+	new /datum/stack_recipe("rack parts", /obj/item/rack_parts),
 	new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 15, one_per_turf = 1, on_floor = 1),
 	null,
 	new /datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 15, one_per_turf = 1, on_floor = 1),
@@ -82,7 +82,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	new /datum/stack_recipe("mass driver button frame", /obj/item/mounted/frame/driver_button, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	new /datum/stack_recipe("light switch frame", /obj/item/mounted/frame/light_switch, 1, time = 50, one_per_turf = 0, on_floor = 1),
 	null,
-	new /datum/stack_recipe("grenade casing", /obj/item/weapon/grenade/chem_grenade),
+	new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
 	new /datum/stack_recipe("light fixture frame", /obj/item/mounted/frame/light_fixture, 2),
 	new /datum/stack_recipe("small light fixture frame", /obj/item/mounted/frame/light_fixture/small, 1),
 	null,
@@ -171,10 +171,10 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("easel", /obj/structure/easel, 3, one_per_turf = 1, on_floor = 1),
-	new /datum/stack_recipe("wooden buckler", /obj/item/weapon/shield/riot/buckler, 20, time = 40),
+	new /datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 40),
 	new /datum/stack_recipe("apiary", /obj/structure/beebox, 40, time = 50),
 	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 10),
-	new /datum/stack_recipe("baseball bat", /obj/item/weapon/melee/baseball_bat, 5, time = 15)
+	new /datum/stack_recipe("baseball bat", /obj/item/melee/baseball_bat, 5, time = 15)
 )
 
 /obj/item/stack/sheet/wood
@@ -198,17 +198,17 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 	new/datum/stack_recipe("grey jumpsuit", /obj/item/clothing/under/color/grey, 3), \
 	new/datum/stack_recipe("black shoes", /obj/item/clothing/shoes/black, 2), \
 	null, \
-	new/datum/stack_recipe("backpack", /obj/item/weapon/storage/backpack, 4), \
-	new/datum/stack_recipe("dufflebag", /obj/item/weapon/storage/backpack/duffel, 6), \
+	new/datum/stack_recipe("backpack", /obj/item/storage/backpack, 4), \
+	new/datum/stack_recipe("dufflebag", /obj/item/storage/backpack/duffel, 6), \
 	null, \
-	new/datum/stack_recipe("plant bag", /obj/item/weapon/storage/bag/plants, 4), \
-	new/datum/stack_recipe("book bag", /obj/item/weapon/storage/bag/books, 4), \
-	new/datum/stack_recipe("mining satchel", /obj/item/weapon/storage/bag/ore, 4), \
-	new/datum/stack_recipe("chemistry bag", /obj/item/weapon/storage/bag/chemistry, 4), \
-	new/datum/stack_recipe("bio bag", /obj/item/weapon/storage/bag/bio, 4), \
+	new/datum/stack_recipe("plant bag", /obj/item/storage/bag/plants, 4), \
+	new/datum/stack_recipe("book bag", /obj/item/storage/bag/books, 4), \
+	new/datum/stack_recipe("mining satchel", /obj/item/storage/bag/ore, 4), \
+	new/datum/stack_recipe("chemistry bag", /obj/item/storage/bag/chemistry, 4), \
+	new/datum/stack_recipe("bio bag", /obj/item/storage/bag/bio, 4), \
 	null, \
-	new/datum/stack_recipe("rag", /obj/item/weapon/reagent_containers/glass/rag, 1), \
-	new/datum/stack_recipe("bedsheet", /obj/item/weapon/bedsheet, 3), \
+	new/datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1), \
+	new/datum/stack_recipe("bedsheet", /obj/item/bedsheet, 3), \
 	null, \
 	new/datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1), \
 	new/datum/stack_recipe("black gloves", /obj/item/clothing/gloves/color/black, 3), \
@@ -236,16 +236,16 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
  * Cardboard
  */
 var/global/list/datum/stack_recipe/cardboard_recipes = list (
-	new /datum/stack_recipe("box", /obj/item/weapon/storage/box),
-	new /datum/stack_recipe("large box", /obj/item/weapon/storage/box/large, 4),
-	new /datum/stack_recipe("light tubes", /obj/item/weapon/storage/box/lights/tubes),
-	new /datum/stack_recipe("light bulbs", /obj/item/weapon/storage/box/lights/bulbs),
-	new /datum/stack_recipe("mouse traps", /obj/item/weapon/storage/box/mousetraps),
+	new /datum/stack_recipe("box", /obj/item/storage/box),
+	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
+	new /datum/stack_recipe("light tubes", /obj/item/storage/box/lights/tubes),
+	new /datum/stack_recipe("light bulbs", /obj/item/storage/box/lights/bulbs),
+	new /datum/stack_recipe("mouse traps", /obj/item/storage/box/mousetraps),
 	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
 	new /datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg),
 	new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
-	new /datum/stack_recipe("folder", /obj/item/weapon/folder),
-	new /datum/stack_recipe("cardboard tube", /obj/item/weapon/c_tube),
+	new /datum/stack_recipe("folder", /obj/item/folder),
+	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
 	new/datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
 )
@@ -318,7 +318,11 @@ var/global/list/datum/stack_recipe/cult = list ( \
 /*
  * Brass
  */
-var/global/list/datum/stack_recipe/brass_recipes = list ( \
+var/global/list/datum/stack_recipe/brass_recipes = list (\
+	new/datum/stack_recipe/window("brass windoor", /obj/machinery/door/window/clockwork, 2, time = 30, on_floor = TRUE, window_checks = TRUE), \
+	null,
+	new/datum/stack_recipe/window("directional brass window", /obj/structure/window/reinforced/clockwork, time = 0, on_floor = TRUE, window_checks = TRUE), \
+	new/datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
 	)
 
@@ -364,24 +368,26 @@ var/global/list/datum/stack_recipe/brass_recipes = list ( \
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
 
-var/global/list/datum/stack_recipe/plastic_recipes = list ( \
-	new/datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
-	new/datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic fork", /obj/item/weapon/kitchen/utensil/pfork, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic spoon", /obj/item/weapon/kitchen/utensil/pspoon, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic spork", /obj/item/weapon/kitchen/utensil/pspork, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic knife", /obj/item/weapon/kitchen/knife/plastic, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic bag", /obj/item/weapon/storage/bag/plasticbag, 3, on_floor = 1), \
-	new/datum/stack_recipe("bear mould", /obj/item/weapon/kitchen/mould/bear, 1, on_floor = 1), \
-	new/datum/stack_recipe("worm mould", /obj/item/weapon/kitchen/mould/worm, 1, on_floor = 1), \
-	new/datum/stack_recipe("bean mould", /obj/item/weapon/kitchen/mould/bean, 1, on_floor = 1), \
-	new/datum/stack_recipe("ball mould", /obj/item/weapon/kitchen/mould/ball, 1, on_floor = 1), \
-	new/datum/stack_recipe("cane mould", /obj/item/weapon/kitchen/mould/cane, 1, on_floor = 1), \
-	new/datum/stack_recipe("cash mould", /obj/item/weapon/kitchen/mould/cash, 1, on_floor = 1), \
-	new/datum/stack_recipe("coin mould", /obj/item/weapon/kitchen/mould/coin, 1, on_floor = 1), \
-	new/datum/stack_recipe("sucker mould", /obj/item/weapon/kitchen/mould/loli, 1, on_floor = 1), \
-	)
+GLOBAL_LIST_INIT(plastic_recipes, list(
+	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = 1, on_floor = 1, time = 40), \
+	new /datum/stack_recipe("wet floor sign", /obj/item/caution, 2), \
+	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/empty), \
+	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/food/drinks/waterbottle/large/empty,3), \
+	new /datum/stack_recipe("plastic crate", /obj/structure/closet/crate/plastic, 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic fork", /obj/item/kitchen/utensil/pfork, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic spoon", /obj/item/kitchen/utensil/pspoon, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic spork", /obj/item/kitchen/utensil/pspork, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic knife", /obj/item/kitchen/knife/plastic, 1, on_floor = 1), \
+	new /datum/stack_recipe("plastic bag", /obj/item/storage/bag/plasticbag, 3, on_floor = 1), \
+	new /datum/stack_recipe("bear mould", /obj/item/kitchen/mould/bear, 1, on_floor = 1), \
+	new /datum/stack_recipe("worm mould", /obj/item/kitchen/mould/worm, 1, on_floor = 1), \
+	new /datum/stack_recipe("bean mould", /obj/item/kitchen/mould/bean, 1, on_floor = 1), \
+	new /datum/stack_recipe("ball mould", /obj/item/kitchen/mould/ball, 1, on_floor = 1), \
+	new /datum/stack_recipe("cane mould", /obj/item/kitchen/mould/cane, 1, on_floor = 1), \
+	new /datum/stack_recipe("cash mould", /obj/item/kitchen/mould/cash, 1, on_floor = 1), \
+	new /datum/stack_recipe("coin mould", /obj/item/kitchen/mould/coin, 1, on_floor = 1), \
+	new /datum/stack_recipe("sucker mould", /obj/item/kitchen/mould/loli, 1, on_floor = 1)))
 
 /obj/item/stack/sheet/plastic
 	name = "plastic"
@@ -390,10 +396,11 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 	icon_state = "sheet-plastic"
 	throwforce = 7
 	origin_tech = "materials=1;biotech=1"
+	materials = list(MAT_PLASTIC = MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/plastic
 
 /obj/item/stack/sheet/plastic/New()
-	recipes = plastic_recipes
+	recipes = GLOB.plastic_recipes
 	. = ..()
 
 /obj/item/stack/sheet/plastic/fifty

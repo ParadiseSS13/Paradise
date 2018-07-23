@@ -452,7 +452,7 @@ proc/checkhtml(var/t)
 
 
 // Pencode
-/proc/pencode_to_html(text, mob/user, obj/item/weapon/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
+/proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT)
 	text = replacetext(text, "\[b\]",		"<B>")
 	text = replacetext(text, "\[/b\]",		"</B>")
 	text = replacetext(text, "\[i\]",		"<I>")
@@ -505,7 +505,7 @@ proc/checkhtml(var/t)
 		text = replacetext(text, "\[row\]",		"</td><tr>")
 		text = replacetext(text, "\[cell\]",	"<td>")
 		text = replacetext(text, "\[logo\]",	"<img src = ntlogo.png>")
-		text = replacetext(text, "\[time\]", "[gameTimestamp()]") // TO DO
+		text = replacetext(text, "\[time\]",	"[station_time_timestamp()]") // TO DO
 	if(P)
 		text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
 	else
@@ -547,3 +547,5 @@ proc/checkhtml(var/t)
 	text = replacetext(text, "<td>",					"\[cell\]")
 	text = replacetext(text, "<img src = ntlogo.png>",	"\[logo\]")
 	return text
+
+#define string2charlist(string) (splittext(string, regex("(\\x0A|.)")) - splittext(string, ""))

@@ -76,7 +76,7 @@
 								var/obj/item/brain/B = new /obj/item/brain(target.loc)
 								B.transfer_identity(C)
 								C.death()
-								add_logs(target, C, "magically debrained", addition="INTENT: [uppertext(target.a_intent)]")*/
+								add_attack_logs(target, C, "Magically debrained INTENT: [uppertext(target.a_intent)]")*/
 						if(C.stomach_contents && item_to_retrive in C.stomach_contents)
 							C.stomach_contents -= item_to_retrive
 						for(var/X in C.bodyparts)

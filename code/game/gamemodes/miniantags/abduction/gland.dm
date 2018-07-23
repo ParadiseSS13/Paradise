@@ -13,7 +13,6 @@
 	var/human_only = 0
 	var/active = 0
 	tough = TRUE //not easily broken by combat damage
-	sterile = TRUE //not very germy
 
 /obj/item/organ/internal/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
@@ -109,7 +108,7 @@
 
 /obj/item/organ/internal/heart/gland/pop/activate()
 	to_chat(owner, "<span class='notice'>You feel unlike yourself.</span>")
-	var/species = pick("Unathi","Skrell","Diona","Tajaran","Vulpkanin","Kidan","Grey","Diona")
+	var/species = pick(/datum/species/unathi, /datum/species/skrell, /datum/species/diona, /datum/species/tajaran, /datum/species/vulpkanin, /datum/species/kidan, /datum/species/grey)
 	owner.set_species(species)
 
 /obj/item/organ/internal/heart/gland/ventcrawling
@@ -170,7 +169,7 @@
 
 /obj/item/organ/internal/heart/gland/egg/activate()
 	to_chat(owner, "<span class='boldannounce'>You lay an egg!</span>")
-	var/obj/item/weapon/reagent_containers/food/snacks/egg/egg = new(owner.loc)
+	var/obj/item/reagent_containers/food/snacks/egg/egg = new(owner.loc)
 	egg.reagents.add_reagent("sacid",20)
 	egg.desc += " It smells bad."
 
@@ -218,13 +217,13 @@
 	var/mob/living/carbon/human/interactive/greytide/clone = new(src)
 	var/datum/dna/owner_dna = H.dna
 	clone.rename_character(clone.name, owner_dna.real_name)
+	clone.set_species(owner_dna.species.type)
 	clone.dna = owner_dna.Clone()
-	clone.set_species(H.species.name)
 	clone.body_accessory = H.body_accessory
 	domutcheck(clone)
 
 	for(var/obj/item/I in clone)
-		if(istype(I, /obj/item/weapon/implant))
+		if(istype(I, /obj/item/implant))
 			continue
 		if(istype(I, /obj/item/organ))
 			continue

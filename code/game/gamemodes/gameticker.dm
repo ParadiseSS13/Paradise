@@ -20,6 +20,8 @@ var/round_start_time = 0
 	var/Bible_name			// name of the bible
 	var/Bible_deity_name
 
+	var/datum/cult_info/cultdat = null //here instead of cult for adminbus purposes
+
 	var/random_players = 0 	// if set to nonzero, ALL players who latejoin or declare-ready join will have random appearances/genders
 
 	var/list/syndicate_coalition = list() // list of traitor-compatible factions
@@ -35,7 +37,8 @@ var/round_start_time = 0
 
 	var/obj/screen/cinematic = null			//used for station explosion cinematic
 
-	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.
+	var/round_end_announced = 0 // Spam Prevention. Announce round end only once.\
+
 
 /datum/controller/gameticker/proc/pregame()
 	login_music = pick(\
@@ -70,6 +73,7 @@ var/round_start_time = 0
 		votetimer()
 
 /datum/controller/gameticker/proc/setup()
+	cultdat = setupcult()
 	//Create and announce mode
 	if(master_mode=="secret")
 		src.hide_mode = 1
@@ -364,7 +368,7 @@ var/round_start_time = 0
 		if(player && player.mind && player.mind.assigned_role)
 			if(player.mind.assigned_role == "Captain")
 				captainless=0
-			if(player.mind.assigned_role != "MODE")
+			if(player.mind.assigned_role != player.mind.special_role)
 				job_master.EquipRank(player, player.mind.assigned_role, 0)
 				EquipCustomItems(player)
 	if(captainless)

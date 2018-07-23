@@ -55,7 +55,6 @@
 	var/guest_jobban = 1
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
-	var/kick_inactive = 0				//force disconnect for inactive players
 	var/load_jobs_from_txt = 0
 	var/ToRban = 0
 	var/automute_on = 0					//enables automuting/spam prevention
@@ -199,22 +198,24 @@
 	var/high_pop_mc_mode_amount = 65
 	var/disable_high_pop_mc_mode_amount = 60
 
-/datum/configuration/New()
-	var/list/L = subtypesof(/datum/game_mode)
-	for(var/T in L)
-		// I wish I didn't have to instance the game modes in order to look up
-		// their information, but it is the only way (at least that I know of).
-		var/datum/game_mode/M = new T()
+	// Nightshift
+	var/randomize_shift_time = FALSE
+	var/enable_night_shifts = FALSE
 
-		if(M.config_tag)
-			if(!(M.config_tag in modes))		// ensure each mode is added only once
-				diary << "Adding game mode [M.name] ([M.config_tag]) to configuration."
-				src.modes += M.config_tag
-				src.mode_names[M.config_tag] = M.name
-				src.probabilities[M.config_tag] = M.probability
-				if(M.votable)
-					src.votable_modes += M.config_tag
-		qdel(M)
+	// Developer
+	var/developer_express_start = 0
+
+/datum/configuration/New()
+	for(var/T in subtypesof(/datum/game_mode))
+		var/datum/game_mode/M = T
+
+		if(initial(M.config_tag))
+			if(!(initial(M.config_tag) in modes))		// ensure each mode is added only once
+				src.modes += initial(M.config_tag)
+				src.mode_names[initial(M.config_tag)] = initial(M.name)
+				src.probabilities[initial(M.config_tag)] = initial(M.probability)
+				if(initial(M.votable))
+					src.votable_modes += initial(M.config_tag)
 	src.votable_modes += "secret"
 
 /datum/configuration/proc/load(filename, type = "config") //the type can also be game_options, in which case it uses a different switch. not making it separate to not copypaste code - Urist
@@ -423,15 +424,12 @@
 						if(prob_name in config.modes)
 							config.probabilities[prob_name] = text2num(prob_value)
 						else
-							diary << "Unknown game mode probability configuration definition: [prob_name]."
+							log_config("Unknown game mode probability configuration definition: [prob_name].")
 					else
-						diary << "Incorrect probability configuration definition: [prob_name]  [prob_value]."
+						log_config("Incorrect probability configuration definition: [prob_name]  [prob_value].")
 
 				if("allow_random_events")
 					config.allow_random_events = 1
-
-				if("kick_inactive")
-					config.kick_inactive = 1
 
 				if("load_jobs_from_txt")
 					load_jobs_from_txt = 1
@@ -605,26 +603,25 @@
 					shutdown_shell_command = value
 
 				if("disable_karma")
-					disable_karma = 1
+					config.disable_karma = 1
 
 				if("tick_limit_mc_init")
-					tick_limit_mc_init = text2num(value)
+					config.tick_limit_mc_init = text2num(value)
 				if("base_mc_tick_rate")
-					base_mc_tick_rate = text2num(value)
+					config.base_mc_tick_rate = text2num(value)
 				if("high_pop_mc_tick_rate")
-					high_pop_mc_tick_rate = text2num(value)
+					config.high_pop_mc_tick_rate = text2num(value)
 				if("high_pop_mc_mode_amount")
-					high_pop_mc_mode_amount = text2num(value)
+					config.high_pop_mc_mode_amount = text2num(value)
 				if("disable_high_pop_mc_mode_amount")
-					disable_high_pop_mc_mode_amount = text2num(value)
-
+					config.disable_high_pop_mc_mode_amount = text2num(value)
+				if("developer_express_start")
+					config.developer_express_start = 1
 				else
-					diary << "Unknown setting in configuration: '[name]'"
+					log_config("Unknown setting in configuration: '[name]'")
 
 
 		else if(type == "game_options")
-			if(!value)
-				diary << "Unknown value for setting [name] in [filename]."
 			value = text2num(value)
 
 			switch(name)
@@ -680,8 +677,12 @@
 					MAX_EX_FLAME_RANGE = BombCap
 				if("default_laws")
 					config.default_laws = text2num(value)
+				if("randomize_shift_time")
+					config.randomize_shift_time = TRUE
+				if("enable_night_shifts")
+					config.enable_night_shifts = TRUE
 				else
-					diary << "Unknown setting in configuration: '[name]'"
+					log_config("Unknown setting in configuration: '[name]'")
 
 /datum/configuration/proc/loadsql(filename)  // -- TLE
 	var/list/Lines = file2list(filename)
@@ -726,10 +727,10 @@
 			if("db_version")
 				db_version = text2num(value)
 			else
-				diary << "Unknown setting in configuration: '[name]'"
+				log_config("Unknown setting in configuration: '[name]'")
 	if(config.sql_enabled && db_version != SQL_VERSION)
 		config.sql_enabled = 0
-		diary << "WARNING: DB_CONFIG DEFINITION MISMATCH!"
+		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
 			if(ticker.current_state == GAME_STATE_PREGAME)
 				going = 0
@@ -750,13 +751,10 @@
 		config.overflow_whitelist += t
 
 /datum/configuration/proc/pick_mode(mode_name)
-	// I wish I didn't have to instance the game modes in order to look up
-	// their information, but it is the only way (at least that I know of).
 	for(var/T in subtypesof(/datum/game_mode))
-		var/datum/game_mode/M = new T()
-		if(M.config_tag && M.config_tag == mode_name)
-			return M
-		qdel(M)
+		var/datum/game_mode/M = T
+		if(initial(M.config_tag) && initial(M.config_tag) == mode_name)
+			return new T()
 	return new /datum/game_mode/extended()
 
 /datum/configuration/proc/get_runnable_modes()

@@ -175,7 +175,7 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/hypnotise/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
-		user.visible_message("<span class='warning'>[user]'s eyes flash briefly as he stares into [target]'s eyes</span>")
+		user.visible_message("<span class='warning'>[user]'s eyes flash briefly as [user.p_they()] stare[user.p_s()] into [target]'s eyes</span>")
 		if(do_mob(user, target, 50))
 			if(!affects(target))
 				to_chat(user, "<span class='warning'>Your piercing gaze fails to knock out [target].</span>")
@@ -239,7 +239,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		scramble(1, H, 100)
-		H.real_name = random_name(H.gender, H.species.name) //Give them a name that makes sense for their species.
+		H.real_name = random_name(H.gender, H.dna.species.name) //Give them a name that makes sense for their species.
 		H.sync_organ_dna(assimilate = 1)
 		H.update_body(0)
 		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
@@ -270,7 +270,7 @@
 		C.Stun(4)
 		C.Jitter(150)
 	for(var/obj/structure/window/W in view(4))
-		W.destroy()
+		W.deconstruct(FALSE)
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 
 
@@ -300,11 +300,11 @@
 
 /obj/effect/proc_holder/spell/vampire/targetted/enthrall/proc/can_enthrall(mob/living/user, mob/living/carbon/C)
 	var/enthrall_safe = 0
-	for(var/obj/item/weapon/implant/mindshield/L in C)
+	for(var/obj/item/implant/mindshield/L in C)
 		if(L && L.implanted)
 			enthrall_safe = 1
 			break
-	for(var/obj/item/weapon/implant/traitor/T in C)
+	for(var/obj/item/implant/traitor/T in C)
 		if(T && T.implanted)
 			enthrall_safe = 1
 			break
@@ -345,9 +345,10 @@
 	ticker.mode.vampire_enthralled.Add(H.mind)
 	ticker.mode.vampire_enthralled[H.mind] = user.mind
 	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
-	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow their every command.</span>")
-	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If they refuse to do as you say just adminhelp.</i></span>")
-	add_logs(user, H, "vampire-thralled")
+	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow [user.p_their()] every command.</span>")
+	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
+	add_attack_logs(user, H, "Vampire-thralled")
+
 
 /obj/effect/proc_holder/spell/vampire/self/cloak
 	name = "Cloak of Darkness"

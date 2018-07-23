@@ -29,7 +29,7 @@
 
 			var/mob/living/carbon/human/H = M
 
-			if(H.get_species() != "Grey") //God this is so gross I hate it.
+			if(!isgrey(H)) //God this is so gross I hate it.
 				return
 
 			if(volume > 25)
@@ -58,7 +58,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
-			if(H.get_species() != "Grey")
+			if(!isgrey(H))
 				return
 
 			if(volume < 10)
@@ -101,8 +101,8 @@
 /datum/reagent/water/reaction_obj(obj/O, volume)
 	O.extinguish()
 
-	if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeycube))
-		var/obj/item/weapon/reagent_containers/food/snacks/monkeycube/cube = O
+	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
 		cube.Expand()
 	// Dehydrated carp
 	if(istype(O, /obj/item/toy/carpplushie/dehy_carp))

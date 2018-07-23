@@ -1,5 +1,5 @@
 // Interface for humans.
-/obj/item/weapon/rig/verb/hardsuit_interface()
+/obj/item/rig/verb/hardsuit_interface()
 	set name = "Open Hardsuit Interface"
 	set desc = "Open the hardsuit system interface."
 	set category = "Hardsuit"
@@ -8,7 +8,7 @@
 	if(wearer && wearer.back == src)
 		ui_interact(usr)
 
-/obj/item/weapon/rig/verb/toggle_vision()
+/obj/item/rig/verb/toggle_vision()
 	set name = "Toggle Visor"
 	set desc = "Turns your rig visor off or on."
 	set category = "Hardsuit"
@@ -41,7 +41,7 @@
 	else
 		visor.deactivate()
 
-/obj/item/weapon/rig/proc/toggle_helmet()
+/obj/item/rig/proc/toggle_helmet()
 	set name = "Toggle Helmet"
 	set desc = "Deploys or retracts your helmet."
 	set category = "Hardsuit"
@@ -60,7 +60,7 @@
 
 	toggle_piece("helmet", usr)
 
-/obj/item/weapon/rig/proc/toggle_chest()
+/obj/item/rig/proc/toggle_chest()
 	set name = "Toggle Chestpiece"
 	set desc = "Deploys or retracts your chestpiece."
 	set category = "Hardsuit"
@@ -75,7 +75,7 @@
 
 	toggle_piece("chest", usr)
 
-/obj/item/weapon/rig/proc/toggle_gauntlets()
+/obj/item/rig/proc/toggle_gauntlets()
 	set name = "Toggle Gauntlets"
 	set desc = "Deploys or retracts your gauntlets."
 	set category = "Hardsuit"
@@ -94,7 +94,7 @@
 
 	toggle_piece("gauntlets", usr)
 
-/obj/item/weapon/rig/proc/toggle_boots()
+/obj/item/rig/proc/toggle_boots()
 	set name = "Toggle Boots"
 	set desc = "Deploys or retracts your boots."
 	set category = "Hardsuit"
@@ -113,7 +113,7 @@
 
 	toggle_piece("boots", usr)
 
-/obj/item/weapon/rig/verb/deploy_suit()
+/obj/item/rig/verb/deploy_suit()
 	set name = "Deploy Hardsuit"
 	set desc = "Deploys helmet, gloves and boots all at once."
 	set category = "Hardsuit"
@@ -135,7 +135,7 @@
 
 	deploy(wearer, usr)
 
-/obj/item/weapon/rig/verb/toggle_seals_verb()
+/obj/item/rig/verb/toggle_seals_verb()
 	set name = "Toggle Hardsuit Seals"
 	set desc = "Seals or unseals your rig."
 	set category = "Hardsuit"
@@ -157,7 +157,7 @@
 	else
 		seal(usr)
 
-/obj/item/weapon/rig/verb/switch_vision_mode()
+/obj/item/rig/verb/switch_vision_mode()
 	set name = "Switch Vision Mode"
 	set desc = "Switches between available vision modes."
 	set category = "Hardsuit"
@@ -190,7 +190,7 @@
 
 	visor.engage()
 
-/obj/item/weapon/rig/verb/alter_voice()
+/obj/item/rig/verb/alter_voice()
 	set name = "Configure Voice Synthesiser"
 	set desc = "Toggles or configures your voice synthesizer."
 	set category = "Hardsuit"
@@ -217,7 +217,7 @@
 
 	speech.engage()
 
-/obj/item/weapon/rig/verb/select_module()
+/obj/item/rig/verb/select_module()
 	set name = "Select Module"
 	set desc = "Selects a module as your primary system."
 	set category = "Hardsuit"
@@ -256,7 +256,7 @@
 	selected_module = module
 	to_chat(usr, "<font color='blue'><b>Primary system is now: [selected_module.interface_name].</b></font>")
 
-/obj/item/weapon/rig/verb/toggle_module()
+/obj/item/rig/verb/toggle_module()
 	set name = "Toggle Module"
 	set desc = "Toggle a system module."
 	set category = "Hardsuit"
@@ -297,7 +297,7 @@
 		to_chat(usr, "<font color='blue'><b>You attempt to activate \the [module.interface_name].</b></font>")
 		module.activate()
 
-/obj/item/weapon/rig/verb/engage_module()
+/obj/item/rig/verb/engage_module()
 	set name = "Engage Module"
 	set desc = "Engages a system module."
 	set category = "Hardsuit"

@@ -3,7 +3,7 @@
 	desc = "Used to upload laws to the AI."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
-	circuit = /obj/item/weapon/circuitboard/aiupload
+	circuit = /obj/item/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
 	var/opened = 0
 
@@ -26,15 +26,15 @@
 		return
 
 
-	attackby(obj/item/weapon/O as obj, mob/user as mob, params)
-		if(istype(O, /obj/item/weapon/aiModule))
+	attackby(obj/item/O as obj, mob/user as mob, params)
+		if(istype(O, /obj/item/aiModule))
 			var/turf/T = get_turf(current)
 			if(!atoms_share_level(T, src))
 				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")
 				return
 			var/datum/game_mode/nations/mode = get_nations_mode()
 			if(!mode)
-				var/obj/item/weapon/aiModule/M = O
+				var/obj/item/aiModule/M = O
 				M.install(src)
 			else
 				if(mode.kickoff)
@@ -67,12 +67,12 @@
 	desc = "Used to upload laws to Cyborgs."
 	icon_screen = "command"
 	icon_keyboard = "med_key"
-	circuit = /obj/item/weapon/circuitboard/borgupload
+	circuit = /obj/item/circuitboard/borgupload
 	var/mob/living/silicon/robot/current = null
 
 
-	attackby(obj/item/weapon/aiModule/module as obj, mob/user as mob, params)
-		if(istype(module, /obj/item/weapon/aiModule))
+	attackby(obj/item/aiModule/module as obj, mob/user as mob, params)
+		if(istype(module, /obj/item/aiModule))
 			var/turf/T = get_turf(current)
 			if(!atoms_share_level(T, src))
 				to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the target silicon!")

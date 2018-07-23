@@ -4,7 +4,7 @@
 "d" = (/obj/structure/alien/weeds,/obj/structure/alien/resin/membrane,/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
 "e" = (/obj/structure/girder,/obj/structure/alien/weeds,/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
 "f" = (/obj/structure/alien/weeds,/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
-"g" = (/obj/structure/alien/weeds,/obj/structure/glasstable_frame,/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
+"g" = (/obj/structure/alien/weeds,/obj/structure/table_frame,/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
 "h" = (/obj/structure/alien/weeds/node,/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
 "i" = (/obj/structure/alien/weeds,/obj/structure/stool/bed/nest,/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
 "j" = (/obj/structure/alien/weeds,/obj/structure/stool/bed/nest,/obj/effect/decal/remains/human,/turf/simulated/floor/plating/airless,/area/ruin/unpowered)
@@ -59,3 +59,4 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

@@ -31,6 +31,18 @@
 /proc/cmp_subsystem_priority(datum/controller/subsystem/a, datum/controller/subsystem/b)
 	return a.priority - b.priority
 
+/proc/cmp_timer(datum/timedevent/a, datum/timedevent/b)
+	return a.timeToRun - b.timeToRun
+
+/proc/cmp_qdel_item_time(datum/qdel_item/A, datum/qdel_item/B)
+	. = B.hard_delete_time - A.hard_delete_time
+	if(!.)
+		. = B.destroy_time - A.destroy_time
+	if(!.)
+		. = B.failures - A.failures
+	if(!.)
+		. = B.qdels - A.qdels
+
 /proc/cmp_atom_layer_asc(atom/A,atom/B)
 	if(A.plane != B.plane)
 		return A.plane - B.plane

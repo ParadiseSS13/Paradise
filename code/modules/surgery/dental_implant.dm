@@ -12,19 +12,19 @@
 
 /datum/surgery_step/insert_pill
 	name = "insert pill"
-	allowed_tools = list(/obj/item/weapon/reagent_containers/food/pill = 100)
+	allowed_tools = list(/obj/item/reagent_containers/food/pill = 100)
 	time = 16
 
 /datum/surgery_step/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] begins to wedge \the [tool] in [target]'s [parse_zone(target_zone)].", "<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(target_zone)]...</span>")
 	..()
 
-/datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, var/obj/item/weapon/reagent_containers/food/pill/tool, datum/surgery/surgery)
+/datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, var/obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
 	if(!istype(tool))
 		return 0
 
 	var/dental_implants = 0
-	for(var/obj/item/weapon/reagent_containers/food/pill in target.contents) // Can't give them more than 4 dental implants.
+	for(var/obj/item/reagent_containers/food/pill in target.contents) // Can't give them more than 4 dental implants.
 		dental_implants++
 	if(dental_implants >= 4)
 		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>")
@@ -49,7 +49,7 @@
 	if(!..())
 		return
 	to_chat(owner, "<span class='caution'>You grit your teeth and burst the implanted [target]!</span>")
-	add_logs(owner, null, "swallowed an implanted pill", target)
+	add_attack_logs(owner, owner, "Swallowed implanted [target]")
 	if(target.reagents.total_volume)
 		target.reagents.reaction(owner, INGEST)
 		target.reagents.trans_to(owner, target.reagents.total_volume)

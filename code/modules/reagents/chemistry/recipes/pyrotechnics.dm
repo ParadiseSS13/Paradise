@@ -26,6 +26,33 @@
 	empulse(location, round(created_volume / 24), round(created_volume / 14), 1)
 	holder.clear_reagents()
 
+/datum/chemical_reaction/beesplosion
+	name = "Bee Explosion"
+	id = "beesplosion"
+	result = null
+	required_reagents = list("honey" = 1, "strange_reagent" = 1, "radium" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	if(created_volume < 5)
+		playsound(location,'sound/effects/sparks1.ogg', 100, 1)
+	else
+		playsound(location,'sound/creatures/bee.ogg', 100, 1)
+		var/list/beeagents = list()
+		for(var/X in holder.reagent_list)
+			var/datum/reagent/R = X
+			if(R.id in required_reagents)
+				continue
+			if(!R.can_synth)
+				continue
+			beeagents += R
+		var/bee_amount = round(created_volume * 0.2)
+		for(var/i in 1 to bee_amount)
+			var/mob/living/simple_animal/hostile/poison/bees/new_bee = new(location)
+			if(LAZYLEN(beeagents))
+				new_bee.assign_reagent(pick(beeagents))
+
 /datum/chemical_reaction/nitroglycerin
 	name = "Nitroglycerin"
 	id = "nitroglycerin"
@@ -214,19 +241,18 @@ datum/chemical_reaction/flash_powder
 	var/datum/effect_system/smoke_spread/chem/S = new
 	S.attach(location)
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
-	spawn(0)
-		if(S)
-			S.set_up(holder, 10, 0, location)
-			if(created_volume < 5)
-				S.start(1)
-			if(created_volume >=5 && created_volume < 10)
-				S.start(2)
-			if(created_volume >= 10 && created_volume < 15)
-				S.start(3)
-			if(created_volume >=15)
-				S.start(4)
-		if(holder && holder.my_atom)
-			holder.clear_reagents()
+	if(S)
+		S.set_up(holder, 10, 0, location)
+		if(created_volume < 5)
+			S.start(1)
+		if(created_volume >=5 && created_volume < 10)
+			S.start(2)
+		if(created_volume >= 10 && created_volume < 15)
+			S.start(3)
+		if(created_volume >=15)
+			S.start(4)
+	if(holder && holder.my_atom)
+		holder.clear_reagents()
 
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"

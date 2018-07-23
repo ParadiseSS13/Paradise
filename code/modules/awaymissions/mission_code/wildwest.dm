@@ -82,12 +82,12 @@
 				user.mutations.Add(XRAY)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Wealth")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -95,12 +95,12 @@
 				new /obj/structure/closet/syndicate/resources/everything(loc)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -108,12 +108,12 @@
 				user.verbs += /mob/living/carbon/proc/immortality
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("To Kill")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -130,12 +130,12 @@
 					obj_count++
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Peace")
 				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
@@ -217,14 +217,15 @@
 		C.update_canmove()
 	return 1
 
-/obj/item/device/wildwest_communicator
+/obj/item/wildwest_communicator
 	name = "Syndicate Comms Device"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	item_state = "walkietalkie"
 	desc = "Use to communicate with the syndicate base commander."
 	var/used = FALSE
 
-/obj/item/device/wildwest_communicator/attack_self(mob/living/user)
+/obj/item/wildwest_communicator/attack_self(mob/living/user)
 
 	if(!is_away_level(user.z))
 		to_chat(user, "<span class='warning'>The communicator emits a faint beep. Perhaps it is out of range?</span>")
@@ -270,7 +271,7 @@
 			stand_down()
 	used = TRUE
 
-/obj/item/device/wildwest_communicator/proc/stand_down()
+/obj/item/wildwest_communicator/proc/stand_down()
 	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
 		W.on_alert = FALSE
 

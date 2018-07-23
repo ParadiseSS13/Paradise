@@ -25,7 +25,6 @@
 	ventcrawler = 0
 	ai_ventcrawls = 0
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	loot = list(/obj/item/clothing/accessory/medal)
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
@@ -44,7 +43,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
 	if(prob(15))
-		visible_message("<span class='danger'>[src] rams into [L], knocking them to the floor!</span>")
+		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
 		L.Weaken(5)
 		L.Stun(5)
 	else

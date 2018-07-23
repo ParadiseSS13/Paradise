@@ -54,14 +54,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return max(0, days - C.player_age)
 	return 0
 
-//used for alternate_option
-#define GET_RANDOM_JOB 0
-#define BE_CIVILIAN 1
-#define RETURN_TO_LOBBY 2
-
 #define MAX_SAVE_SLOTS 20 // Save slots for regular players
 #define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
-
 
 #define TAB_CHAR 0
 #define TAB_GAME 1
@@ -96,6 +90,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/UI_style_alpha = 255
 	var/windowflashing = TRUE
 	var/clientfps = 0
+	var/atklog = ATKLOG_ALL
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -207,6 +202,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	b_type = pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
 	max_gear_slots = config.max_loadout_points
+	var/loaded_preferences_successfully = FALSE
 	if(istype(C))
 		if(!IsGuestKey(C.key))
 			unlock_content = C.IsByondMember()
@@ -215,16 +211,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(C.donator_level >= DONATOR_LEVEL_ONE)
 				max_gear_slots += 5
 
-	var/loaded_preferences_successfully = load_preferences(C)
-	if(loaded_preferences_successfully)
-		if(load_character(C))
-			return
+		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
+		if(loaded_preferences_successfully)
+			if(load_character(C))
+				return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	real_name = random_name(gender)
-	if(!loaded_preferences_successfully)
-		save_preferences(C)
-	save_character(C)		//let's save this new random character so it doesn't keep generating new ones.
+	if(istype(C))
+		if(!loaded_preferences_successfully)
+			save_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
+		save_character(C)		// Do not call this with no client/C, it generates a runtime / SQL error
 
 /datum/preferences/proc/color_square(colour)
 	return "<span style='font-face: fixedsys; background-color: [colour]; color: [colour]'>___</span>"
@@ -369,21 +366,40 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
-					if("chest")		organ_name = "torso"
-					if("groin")		organ_name = "lower body"
-					if("head")		organ_name = "head"
-					if("l_arm")		organ_name = "left arm"
-					if("r_arm")		organ_name = "right arm"
-					if("l_leg")		organ_name = "left leg"
-					if("r_leg")		organ_name = "right leg"
-					if("l_foot")	organ_name = "left foot"
-					if("r_foot")	organ_name = "right foot"
-					if("l_hand")	organ_name = "left hand"
-					if("r_hand")	organ_name = "right hand"
-					if("heart")		organ_name = "heart"
-					if("eyes")		organ_name = "eyes"
+					if("chest")
+						organ_name = "torso"
+					if("groin")
+						organ_name = "lower body"
+					if("head")
+						organ_name = "head"
+					if("l_arm")
+						organ_name = "left arm"
+					if("r_arm")
+						organ_name = "right arm"
+					if("l_leg")
+						organ_name = "left leg"
+					if("r_leg")
+						organ_name = "right leg"
+					if("l_foot")
+						organ_name = "left foot"
+					if("r_foot")
+						organ_name = "right foot"
+					if("l_hand")
+						organ_name = "left hand"
+					if("r_hand")
+						organ_name = "right hand"
+					if("eyes")
+						organ_name = "eyes"
+					if("heart")
+						organ_name = "heart"
+					if("lungs")
+						organ_name = "lungs"
+					if("liver")
+						organ_name = "liver"
+					if("kidneys")
+						organ_name = "kidneys"
 
-				if(status in list("cyborg", "amputated", "mechanical", "assisted"))
+				if(status in list("cyborg", "amputated", "cybernetic"))
 					++ind
 					if(ind > 1) dat += ", "
 
@@ -395,14 +411,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						else
 							R = basic_robolimb
 						dat += "\t[R.company] [organ_name] prosthesis"
-					if("amputated")		dat += "\tAmputated [organ_name]"
-					if("mechanical")	dat += "\tMechanical [organ_name]"
-					if("assisted")
-						switch(organ_name)
-							if("heart")		dat += "\tPacemaker-assisted [organ_name]"
-							if("voicebox")	dat += "\tSurgically altered [organ_name]"
-							if("eyes")		dat += "\tRetinal overlayed [organ_name]"
-							else			dat += "\tMechanically assisted [organ_name]"
+					if("amputated")
+						dat += "\tAmputated [organ_name]"
+					if("cybernetic")
+						dat += "\tCybernetic [organ_name]"
 			if(!ind)	dat += "\[...\]<br>"
 			else		dat += "<br>"
 
@@ -696,7 +708,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	switch(alternate_option)
 		if(GET_RANDOM_JOB)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Get random job if preferences unavailable</font></a></u></center><br>"
-		if(BE_CIVILIAN)
+		if(BE_ASSISTANT)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Be a civilian if preferences unavailable</font></a></u></center><br>"
 		if(RETURN_TO_LOBBY)
 			HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=white>Return to lobby if preferences unavailable</font></a></u></center><br>"
@@ -1048,7 +1060,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				ResetJobs()
 				SetChoices(user)
 			if("random")
-				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_CIVILIAN)
+				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
 					alternate_option += 1
 				else if(alternate_option == RETURN_TO_LOBBY)
 					alternate_option = 0
@@ -1866,26 +1878,31 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
 				if("organs")
-					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Heart", "Eyes")
-					if(!organ_name) return
+					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Heart", "Lungs", "Liver", "Kidneys")
+					if(!organ_name)
+						return
 
 					var/organ = null
 					switch(organ_name)
-						if("Heart")
-							organ = "heart"
 						if("Eyes")
 							organ = "eyes"
+						if("Heart")
+							organ = "heart"
+						if("Lungs")
+							organ = "lungs"
+						if("Liver")
+							organ = "liver"
+						if("Kidneys")
+							organ = "kidneys"
 
-					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal","Assisted","Mechanical")
+					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal", "Cybernetic")
 					if(!new_state) return
 
 					switch(new_state)
 						if("Normal")
 							organ_data[organ] = null
-						if("Assisted")
-							organ_data[organ] = "assisted"
-						if("Mechanical")
-							organ_data[organ] = "mechanical"
+						if("Cybernetic")
+							organ_data[organ] = "cybernetic"
 
 				if("clientfps")
 					var/version_message
@@ -2064,7 +2081,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
 	var/datum/species/S = all_species[species]
-	character.change_species(species) // Yell at me if this causes everything to melt
+	character.change_species(S.type) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
@@ -2130,9 +2147,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else
 			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
 			if(I)
-				if(status == "assisted")
-					I.mechassist()
-				else if(status == "mechanical")
+				if(status == "cybernetic")
 					I.robotize()
 
 	character.dna.b_type = b_type
@@ -2152,10 +2167,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.undershirt = undershirt
 	character.socks = socks
 
-	if(character.species.bodyflags & HAS_HEAD_ACCESSORY)
+	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 		H.headacc_colour = hacc_colour
 		H.ha_style = ha_style
-	if(character.species.bodyflags & HAS_MARKINGS)
+	if(character.dna.species.bodyflags & HAS_MARKINGS)
 		character.m_colours = m_colours
 		character.m_styles = m_styles
 
@@ -2165,14 +2180,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
-	if(S.has_gender && (character.gender in list(PLURAL, NEUTER)))
+	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
 
 	character.change_eye_color(e_colour)
 
-	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.species.species_traits))
+	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.dna.species.species_traits))
 		character.dna.SetSEState(FATBLOCK,1,1)
 		character.overeatduration = 600
 
@@ -2215,7 +2230,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
 		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
 
-	S.handle_dna(character)
+	character.dna.species.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()

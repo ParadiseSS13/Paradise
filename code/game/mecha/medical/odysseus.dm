@@ -22,7 +22,7 @@
 			A.add_hud_to(H)
 			builtin_hud_user = 1
 
-/obj/mecha/medical/odysseus/mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc, mob/user)
+/obj/mecha/medical/odysseus/mmi_moved_inside(var/obj/item/mmi/mmi_as_oc, mob/user)
 	. = ..()
 	if(.)
 		if(occupant.client)

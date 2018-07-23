@@ -252,15 +252,15 @@
 		sleep(30)
 
 /obj/machinery/transformer/xray/proc/scan_rec(var/obj/item/I)
-	if(istype(I, /obj/item/weapon/gun))
+	if(istype(I, /obj/item/gun))
 		return TRUE
-	if(istype(I, /obj/item/device/transfer_valve))
+	if(istype(I, /obj/item/transfer_valve))
 		return TRUE
-	if(istype(I, /obj/item/weapon/kitchen/knife))
+	if(istype(I, /obj/item/kitchen/knife))
 		return TRUE
-	if(istype(I, /obj/item/weapon/grenade/plastic/c4))
+	if(istype(I, /obj/item/grenade/plastic/c4))
 		return TRUE
-	if(istype(I, /obj/item/weapon/melee))
+	if(istype(I, /obj/item/melee))
 		return TRUE
 	for(var/obj/item/C in I.contents)
 		if(scan_rec(C))
@@ -282,25 +282,25 @@
 
 	if(prestrip)
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/weapon/implant))
+			if(istype(I, /obj/item/implant))
 				continue
 			if(istype(I, /obj/item/organ))
 				continue
 			qdel(I)
 
 	H.equipOutfit(selected_outfit)
-	H.species.after_equip_job(null, H)
+	H.dna.species.after_equip_job(null, H)
 
 /obj/machinery/transformer/transmogrifier
 	name = "species transmogrifier"
 	desc = "As promoted in Calvin & Hobbes!"
-	var/target_species = "Human"
+	var/datum/species/target_species = /datum/species/human
 
 
 /obj/machinery/transformer/transmogrifier/do_transform(mob/living/carbon/human/H)
 	if(!istype(H))
 		return
-	if(!(target_species in all_species))
+	if(!ispath(target_species))
 		to_chat(H, "<span class='warning'>'[target_species]' is not a valid species!</span>")
 		return
 	H.set_species(target_species)
@@ -336,7 +336,7 @@
 		to_chat(H, "<span class='warning'>No genetic template configured!</span>")
 		return
 	var/prev_ue = H.dna.unique_enzymes
-	H.set_species(template.species)
+	H.set_species(template.species.type)
 	H.dna = template.Clone()
 	H.real_name = template.real_name
 	H.sync_organ_dna(assimilate = 0, old_ue = prev_ue)
@@ -344,12 +344,12 @@
 	domutcheck(H, null, MUTCHK_FORCED)
 	H.update_mutations()
 
-/obj/machinery/transformer/gene_applier/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/weapon/disk/data))
+/obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/disk/data))
 		if(locked)
 			to_chat(user, "<span class='warning'>Access Denied.</span>")
 			return FALSE
-		var/obj/item/weapon/disk/data/D = W
+		var/obj/item/disk/data/D = I
 		if(!D.buf)
 			to_chat(user, "<span class='warning'>Error: No data found.</span>")
 			return FALSE

@@ -1,8 +1,10 @@
 /mob/new_player
 	var/ready = 0
-	var/spawning = 0//Referenced when you want to delete the new_player later on in the code.
+	var/skip_antag = 0	//For declining an antag roll this round.
+	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
+	var/tos_consent = FALSE
 	universal_speak = 1
 
 	invisibility = 101
@@ -18,7 +20,40 @@
 
 /mob/new_player/verb/new_player_panel()
 	set src = usr
-	new_player_panel_proc()
+
+	if(handle_tos_consent())
+		new_player_panel_proc()
+
+/mob/new_player/proc/handle_tos_consent()
+	if(!GLOB.join_tos)
+		tos_consent = TRUE
+		return TRUE
+
+	establish_db_connection()
+	if(!dbcon.IsConnected())
+		tos_consent = TRUE
+		return TRUE
+
+	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
+	query.Execute()
+	while(query.NextRow())
+		tos_consent = TRUE
+		return TRUE
+
+	privacy_consent()
+	return FALSE
+
+/mob/new_player/proc/privacy_consent()
+	src << browse(null, "window=playersetup")
+	var/output = GLOB.join_tos
+	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
+	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
+	src << browse(output,"window=privacy_consent;size=500x300")
+	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Privacy Consent</div>", 500, 400)
+	popup.set_window_options("can_close=0")
+	popup.set_content(output)
+	popup.open(0)
+	return
 
 
 /mob/new_player/proc/new_player_panel_proc()
@@ -31,11 +66,19 @@
 		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
 		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 
+		var/list/antags = client.prefs.be_special
+		if(antags && antags.len)
+			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidancy</A>"
+			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidancy</A>"
+			output += "<br /><small>You are <b>[skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
 	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
+
+	if(GLOB.join_tos)
+		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
@@ -97,19 +140,39 @@
 
 	statpanel("Status")
 	if(client.statpanel == "Status" && ticker)
-		if(ticker.current_state != GAME_STATE_PREGAME)
-			stat(null, "Station Time: [worldtime2text()]")
+		show_stat_station_time()
 
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)	return 0
+
+	if(href_list["consent_signed"])
+		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
+		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
+		query.Execute()
+		src << browse(null, "window=privacy_consent")
+		tos_consent = 1
+		new_player_panel_proc()
+	if(href_list["consent_rejected"])
+		tos_consent = 0
+		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
+		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
+		query.Execute()
 
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
 		return 1
 
 	if(href_list["ready"])
+		if(!tos_consent)
+			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			return 0
 		ready = !ready
+		new_player_panel_proc()
+
+	if(href_list["skip_antag"])
+		skip_antag = !skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -117,6 +180,9 @@
 		new_player_panel_proc()
 
 	if(href_list["observe"])
+		if(!tos_consent)
+			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			return 0
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 			if(!client)	return 1
@@ -146,8 +212,14 @@
 			respawnable_list += observer
 			qdel(src)
 			return 1
+	if(href_list["tos"])
+		privacy_consent()
+		return 0
 
 	if(href_list["late_join"])
+		if(!tos_consent)
+			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			return 0
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
@@ -317,19 +389,19 @@
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
+				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
 					var/arrivalmessage = announcer.arrivalmsg
 					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
 					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
-					arrivalmessage = replacetext(arrivalmessage,"$species",character.species.name)
+					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
 					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
 					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
 					announcer.say(";[arrivalmessage]")
 		else
 			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.special_role != "MODE"))
+				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
 					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
@@ -342,12 +414,12 @@
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
-				if((character.mind.special_role != "MODE"))
+				if(character.mind.assigned_role != character.mind.special_role)
 					var/arrivalmessage = "A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"]."
 					announcer.say(";[arrivalmessage]")
 		else
 			if(character.mind)
-				if((character.mind.special_role != "MODE"))
+				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
 					global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
@@ -465,9 +537,6 @@
 		else if(mind.assigned_role == "Mime")
 			new_character.real_name = pick(mime_names)
 			new_character.rename_self("mime")
-		else if(new_character.species == "Diona")
-			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
-			new_character.rename_self("diona")
 		mind.original = new_character
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
 
@@ -518,19 +587,6 @@
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
 	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
-
-/mob/new_player/get_species()
-	var/datum/species/chosen_species
-	if(client.prefs.species)
-		chosen_species = all_species[client.prefs.species]
-
-	if(!chosen_species)
-		return "Human"
-
-	if(is_species_whitelisted(chosen_species) || has_admin_rights())
-		return chosen_species.name
-
-	return "Human"
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

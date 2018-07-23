@@ -44,13 +44,13 @@
 	var/list/blacklistItems = list() // items we should be ignoring
 	var/maxStepsTick = 6 // step as many times as we can per frame
 	//Job and mind data
-	var/obj/item/weapon/card/id/MYID
-	var/obj/item/weapon/card/id/RPID // the "real" idea they use
-	var/obj/item/device/pda/MYPDA
+	var/obj/item/card/id/MYID
+	var/obj/item/card/id/RPID // the "real" idea they use
+	var/obj/item/pda/MYPDA
 	var/obj/item/main_hand
 	var/obj/item/other_hand
 	var/TRAITS = 0
-	var/obj/item/weapon/card/id/Path_ID
+	var/obj/item/card/id/Path_ID
 	var/default_job = /datum/job/civilian	// the type for the default job
 	var/datum/job/myjob
 	var/list/myPath = list()
@@ -128,7 +128,7 @@
 	//this is here because this has no client/prefs/brain whatever.
 	age = rand(AGE_MIN, AGE_MAX)
 	change_gender(pick("male", "female"))
-	rename_character(real_name, species.get_random_name(gender))
+	rename_character(real_name, dna.species.get_random_name(gender))
 	//job handling
 	myjob = new default_job()
 	job = myjob.title
@@ -208,9 +208,9 @@
 			var/datum/dna/toDoppel = chosen.dna
 
 			T.real_name = toDoppel.real_name
-			T.set_species(chosen.species.name)
-			T.body_accessory = chosen.body_accessory
+			T.set_species(chosen.dna.species.type)
 			T.dna = toDoppel.Clone()
+			T.body_accessory = chosen.body_accessory
 			T.UpdateAppearance()
 			domutcheck(T)
 
@@ -229,7 +229,7 @@
 	T.revive()
 
 /mob/living/carbon/human/interactive/proc/doSetup(alt_title = null)
-	Path_ID = new /obj/item/weapon/card/id(src)
+	Path_ID = new /obj/item/card/id(src)
 
 	var/datum/job/captain/C = new/datum/job/captain
 	Path_ID.access = C.get_access()
@@ -316,43 +316,43 @@
 /mob/living/carbon/human/interactive/proc/setup_job(thejob)
 	switch(thejob)
 		if("Civilian")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon)
+			favoured_types = list(/obj/item/clothing, /obj/item)
 		if("Captain", "Head of Personnel")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/captain,/obj/item/weapon/disk/nuclear)
+			favoured_types = list(/obj/item/clothing, /obj/item/stamp/captain,/obj/item/disk/nuclear)
 		if("Nanotrasen Representative")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/centcom, /obj/item/weapon/paper, /obj/item/weapon/melee/classic_baton/ntcane)
+			favoured_types = list(/obj/item/clothing, /obj/item/stamp/centcom, /obj/item/paper, /obj/item/melee/classic_baton/ntcane)
 			functions += "paperwork"
 		if("Magistrate", "Internal Affairs Agent")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/law, /obj/item/weapon/paper)
+			favoured_types = list(/obj/item/clothing, /obj/item/stamp/law, /obj/item/paper)
 			functions += "paperwork"
 		if("Quartermaster", "Cargo Technician")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/granted, /obj/item/weapon/stamp/denied, /obj/item/weapon/paper, /obj/item/weapon/clipboard)
+			favoured_types = list(/obj/item/clothing, /obj/item/stamp/granted, /obj/item/stamp/denied, /obj/item/paper, /obj/item/clipboard)
 			functions += "stamping"
 		if("Chef")
-			favoured_types = list(/obj/item/weapon/reagent_containers/food, /obj/item/weapon/kitchen)
+			favoured_types = list(/obj/item/reagent_containers/food, /obj/item/kitchen)
 			functions += "souschef"
 			restrictedJob = 1
 		if("Bartender")
-			favoured_types = list(/obj/item/weapon/reagent_containers/food, /obj/item/weapon/kitchen)
+			favoured_types = list(/obj/item/reagent_containers/food, /obj/item/kitchen)
 			functions += "bartend"
 			restrictedJob = 1
 		if("Station Engineer", "Chief Engineer", "Life Support Specialist", "Mechanic")
-			favoured_types = list(/obj/item/stack, /obj/item/weapon, /obj/item/clothing)
+			favoured_types = list(/obj/item/stack, /obj/item, /obj/item/clothing)
 		if("Chief Medical Officer", "Medical Doctor", "Chemist", "Virologist", "Geneticist", "Psychiatrist", "Paramedic", "Brig Physician")
-			favoured_types = list(/obj/item/weapon/reagent_containers/glass/beaker, /obj/item/weapon/storage/firstaid, /obj/item/stack/medical, /obj/item/weapon/reagent_containers/syringe)
+			favoured_types = list(/obj/item/reagent_containers/glass/beaker, /obj/item/storage/firstaid, /obj/item/stack/medical, /obj/item/reagent_containers/syringe)
 			functions += "healpeople"
 		if("Research Director", "Scientist", "Roboticist")
-			favoured_types = list(/obj/item/weapon/reagent_containers/glass/beaker, /obj/item/stack, /obj/item/weapon/reagent_containers)
+			favoured_types = list(/obj/item/reagent_containers/glass/beaker, /obj/item/stack, /obj/item/reagent_containers)
 		if("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot", "Blueshield")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon, /obj/item/weapon/restraints)
+			favoured_types = list(/obj/item/clothing, /obj/item, /obj/item/restraints)
 		if("Janitor")
-			favoured_types = list(/obj/item/weapon/mop, /obj/item/weapon/reagent_containers/glass/bucket, /obj/item/weapon/reagent_containers/spray/cleaner, /obj/effect/decal/cleanable)
+			favoured_types = list(/obj/item/mop, /obj/item/reagent_containers/glass/bucket, /obj/item/reagent_containers/spray/cleaner, /obj/effect/decal/cleanable)
 			functions += "dojanitor"
 		if("Clown")
-			favoured_types = list(/obj/item/weapon/soap, /obj/item/weapon/reagent_containers/food/snacks/grown/banana, /obj/item/weapon/grown/bananapeel)
+			favoured_types = list(/obj/item/soap, /obj/item/reagent_containers/food/snacks/grown/banana, /obj/item/grown/bananapeel)
 			functions += "clowning"
 		if("Botanist")
-			favoured_types = list(/obj/machinery/hydroponics,  /obj/item/weapon/reagent_containers, /obj/item/weapon)
+			favoured_types = list(/obj/machinery/hydroponics,  /obj/item/reagent_containers, /obj/item)
 			functions += "botany"
 			restrictedJob = 1
 		else
@@ -403,7 +403,7 @@
 	if(!hud_used)
 		hud_used = new /datum/hud/human(src)
 
-/mob/living/carbon/human/interactive/New(var/new_loc, var/new_species = null)
+/mob/living/carbon/human/interactive/Initialize(mapload)
 	..()
 	snpc_list += src
 
@@ -554,10 +554,14 @@
 /mob/living/carbon/human/interactive/proc/insert_into_backpack()
 	var/list/slots = list(slot_l_store, slot_r_store, slot_l_hand, slot_r_hand)
 	var/obj/item/I = get_item_by_slot(pick(slots))
-	var/obj/item/weapon/storage/BP = get_item_by_slot(slot_back)
+	var/obj/item/storage/BP = get_item_by_slot(slot_back)
 	if(back && BP && I)
+		// hack to allow SNPCs to "sticky grab" items without losing their inventorying
+		var/oldnodrop = I.flags | NODROP
+		I.flags &= ~NODROP
 		if(BP.can_be_inserted(I))
 			BP.handle_item_insertion(I)
+		I.flags |= oldnodrop
 	else
 		unEquip(I,TRUE)
 	update_hands = 1
@@ -658,7 +662,7 @@
 		update_hands = 0
 
 	if(grabbed_by.len > 0)
-		for(var/obj/item/weapon/grab/G in grabbed_by)
+		for(var/obj/item/grab/G in grabbed_by)
 			if(Adjacent(G))
 				a_intent = INTENT_DISARM
 				G.assailant.attack_hand(src)
@@ -696,8 +700,8 @@
 			var/obj/item/I = TARGET
 			if(I.anchored)
 				TARGET = null
-			else if(istype(TARGET, /obj/item/weapon))
-				var/obj/item/weapon/W = TARGET
+			else if(istype(TARGET, /obj/item))
+				var/obj/item/W = TARGET
 				if(W.force >= best_force || prob((SNPC_FUZZY_CHANCE_LOW + SNPC_FUZZY_CHANCE_HIGH) / 2) || favouredObjIn(list(W)))
 					if(!l_hand || !r_hand)
 						put_in_hands(W)
@@ -729,7 +733,7 @@
 		if(istype(TARGET, /obj/structure))
 			var/obj/structure/STR = TARGET
 			if(main_hand)
-				var/obj/item/weapon/W = main_hand
+				var/obj/item/W = main_hand
 				STR.attackby(W, src)
 			else
 				STR.attack_hand(src)
@@ -881,7 +885,7 @@
 			return pick(/area/hallway, /area/crew_quarters)
 
 /mob/living/carbon/human/interactive/proc/target_filter(target)
-	var/list/filtered_targets = list(/area, /turf, /obj/machinery/door, /atom/movable/lighting_overlay, /obj/structure/cable, /obj/machinery/atmospherics, /obj/item/device/radio/intercom)
+	var/list/filtered_targets = list(/area, /turf, /obj/machinery/door, /atom/movable/lighting_overlay, /obj/structure/cable, /obj/machinery/atmospherics, /obj/item/radio/intercom)
 	var/list/L = target
 	for(var/atom/A in target) // added a bunch of "junk" that clogs up the general find procs
 		if(is_type_in_list(A,filtered_targets))

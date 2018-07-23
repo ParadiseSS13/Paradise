@@ -34,7 +34,7 @@
 		coverage |= view(A.kill_range, A)
 	return coverage.len
 
-/obj/item/weapon/circuitboard/computer/sat_control
+/obj/item/circuitboard/computer/sat_control
 	name = "Satellite Network Control (Computer Board)"
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
@@ -42,7 +42,7 @@
 /obj/machinery/computer/sat_control
 	name = "Satellite control"
 	desc = "Used to control the satellite network."
-	circuit = /obj/item/weapon/circuitboard/computer/sat_control
+	circuit = /obj/item/circuitboard/computer/sat_control
 	icon_screen = "accelerator"
 	icon_keyboard = "accelerator_key"
 	var/notice
@@ -135,7 +135,7 @@
 	icon_state = active ? "sat_active" : "sat_inactive"
 
 /obj/machinery/satellite/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/multitool))
+	if(istype(I, /obj/item/multitool))
 		to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
 	else
 		return ..()

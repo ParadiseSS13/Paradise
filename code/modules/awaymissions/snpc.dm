@@ -4,7 +4,7 @@
 	var/squad_member = 0				// was spawned by squad
 	var/home_z
 
-/mob/living/carbon/human/interactive/away/New()
+/mob/living/carbon/human/interactive/away/Initialize(mapload)
 	..()
 	TRAITS |= TRAIT_ROBUST
 	faction += "away"
@@ -18,8 +18,6 @@
 	..()
 	var/datum/data/pda/app/messenger/M = MYPDA.find_program(/datum/data/pda/app/messenger)
 	M.toff = 1
-	var/datum/data/pda/app/chatroom/C = MYPDA.find_program(/datum/data/pda/app/chatroom)
-	C.toff = 1
 
 /mob/living/carbon/human/interactive/away/job2area()
 	return away_area

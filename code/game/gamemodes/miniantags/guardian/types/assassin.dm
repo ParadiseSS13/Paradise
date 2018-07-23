@@ -13,7 +13,7 @@
 	var/obj/screen/alert/canstealthalert
 	var/obj/screen/alert/instealthalert
 
-/mob/living/simple_animal/hostile/guardian/assassin/Life()
+/mob/living/simple_animal/hostile/guardian/assassin/Life(seconds, times_fired)
 	. = ..()
 	updatestealthalert()
 	if(loc == summoner && toggle)

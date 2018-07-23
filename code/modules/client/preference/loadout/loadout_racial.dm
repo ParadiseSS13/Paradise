@@ -26,19 +26,16 @@
 	display_name = "hi-tech veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
 	path = /obj/item/clothing/glasses/tajblind/sci
-	allowed_roles = list("Scientist", "Research Director", "Robotocist")
 
 /datum/gear/racial/tajeng
 	display_name = "industrial veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
 	path = /obj/item/clothing/glasses/tajblind/eng
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Mechanic", "Life Support Specialist")
 
 /datum/gear/racial/tajcargo
 	display_name = "khaki veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races. It is light and comfy!"
 	path = /obj/item/clothing/glasses/tajblind/cargo
-	allowed_roles = list("Quartermaster","Cargo Technician", "Miner")
 
 /datum/gear/racial/footwraps
 	display_name = "cloth footwraps"
