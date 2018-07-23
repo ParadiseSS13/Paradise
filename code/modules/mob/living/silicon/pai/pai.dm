@@ -618,3 +618,7 @@
 	else //something went very wrong.
 		CRASH("pAI without card")
 	loc = card
+
+/mob/living/silicon/pai/extinguish_light()
+	flashlight_on = 0
+	set_light(0)
