@@ -4,6 +4,8 @@
 	var/climbable
 	var/mob/climber
 	var/broken = FALSE
+	var/pixel_buckled_x = 0 //All dirs show this pixel_x for the driver
+	var/pixel_buckled_y = 0 //All dirs shwo this pixel_y for the driver
 
 /obj/structure/blob_act()
 	if(prob(50))
@@ -186,3 +188,26 @@
 		if(0 to 25)
 			if(!broken)
 				return  "<span class='warning'>It's falling apart!</span>"
+
+/obj/structure/proc/handle_buckled_offsets()
+	if(buckled_mob)
+		buckled_mob.dir = dir
+		buckled_mob.pixel_x = pixel_buckled_x
+		buckled_mob.pixel_y = pixel_buckled_y
+
+/obj/structure/unbuckle_mob(force = 0)
+	if(buckled_mob)
+		buckled_mob.pixel_x = 0
+		buckled_mob.pixel_y = 0
+	. = ..()
+
+/obj/structure/user_buckle_mob(mob/living/M, mob/user)
+	if(user.incapacitated())
+		return
+	for(var/atom/movable/A in get_turf(src))
+		if(A.density)
+			if(A != src && A != M)
+				return
+	M.loc = get_turf(src)
+	..()
+	handle_buckled_offsets()
