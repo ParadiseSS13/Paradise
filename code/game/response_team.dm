@@ -176,7 +176,9 @@ var/ert_request_answered = 0
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
 	ticker.mode.ert += M.mind
-	M.forceMove(spawn_location)
+	M.forceMove(spawn_locat
+
+	)
 
 	job_master.CreateMoneyAccount(M, class, null)
 
@@ -420,6 +422,7 @@ var/ert_request_answered = 0
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
+		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/lockbox/mindshield = 1
@@ -490,7 +493,6 @@ var/ert_request_answered = 0
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/storage/box/teargas = 1,
 		/obj/item/grenade/flashbang = 1,
 		/obj/item/ammo_box/magazine/laser = 2
