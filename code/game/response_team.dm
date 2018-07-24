@@ -176,9 +176,7 @@ var/ert_request_answered = 0
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
 	ticker.mode.ert += M.mind
-	M.forceMove(spawn_locat
-
-	)
+	M.forceMove(spawn_location)
 
 	job_master.CreateMoneyAccount(M, class, null)
 
