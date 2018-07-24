@@ -95,7 +95,7 @@
 	var/parenthealed = FALSE
 	while(rembrute + remburn > 0) // Don't bother if there's not enough leftover heal
 		var/obj/item/organ/external/E
-		if(!isnull(achildlist) && achildlist.len)
+		if(LAZYLEN(achildlist))
 			E = pick_n_take(achildlist) // Pick a random children and then remove it from the list
 		else if(affecting.parent && !parenthealed) // If there's a parent and no healing attempt was made on it
 			E = affecting.parent
