@@ -89,11 +89,13 @@
 	var/nrembrute = rembrute
 	var/nremburn = remburn
 	affecting.heal_damage(heal_brute, heal_burn)
-	var/list/achildlist = affecting.children.Copy()
+	var/list/achildlist
+	if(!isnull(affecting.children))
+		achildlist = affecting.children.Copy()
 	var/parenthealed = FALSE
 	while(rembrute + remburn > 0) // Don't bother if there's not enough leftover heal
 		var/obj/item/organ/external/E
-		if(achildlist.len)
+		if(!isnull(achildlist) && achildlist.len)
 			E = pick_n_take(achildlist) // Pick a random children and then remove it from the list
 		else if(affecting.parent && !parenthealed) // If there's a parent and no healing attempt was made on it
 			E = affecting.parent
