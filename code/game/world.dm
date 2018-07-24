@@ -16,9 +16,11 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
+	makeDatumRefLists()
 	callHook("startup")
 
 	src.update_status()
+
 
 	. = ..()
 
@@ -360,7 +362,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
-
+	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration()
 	config = new /datum/configuration()

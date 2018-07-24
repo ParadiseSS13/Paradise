@@ -177,7 +177,7 @@
 
 	return data
 
-/obj/machinery/computer/mech_bay_power_console/initialize()
+/obj/machinery/computer/mech_bay_power_console/Initialize()
 	reconnect()
 	update_icon()
 	return ..()

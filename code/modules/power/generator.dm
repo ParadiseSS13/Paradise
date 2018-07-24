@@ -35,7 +35,7 @@
 	if(powernet)
 		disconnect_from_network()
 
-/obj/machinery/power/generator/initialize()
+/obj/machinery/power/generator/Initialize()
 	..()
 	connect()
 

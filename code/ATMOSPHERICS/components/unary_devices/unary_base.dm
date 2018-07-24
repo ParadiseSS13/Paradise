@@ -22,7 +22,7 @@
 		nullifyPipenet(parent)
 	return ..()
 
-/obj/machinery/atmospherics/unary/initialize()
+/obj/machinery/atmospherics/unary/atmos_init()
 	..()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
 		if(target.initialize_directions & get_dir(target,src))
@@ -43,9 +43,9 @@
 			node.disconnect(src)
 		node = null
 		nullifyPipenet(parent)
-		initialize()
+		atmos_init()
 		if(node)
-			node.initialize()
+			node.atmos_init()
 			node.addMember(src)
 		build_network()
 		. = 1

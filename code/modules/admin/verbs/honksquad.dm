@@ -91,7 +91,7 @@ var/global/sent_honksquad = 0
 
 	//Creates mind stuff.
 	new_honksquad.mind_initialize()
-	new_honksquad.mind.assigned_role = "MODE"
+	new_honksquad.mind.assigned_role = SPECIAL_ROLE_HONKSQUAD
 	new_honksquad.mind.special_role = SPECIAL_ROLE_HONKSQUAD
 	new_honksquad.add_language("Clownish")
 	ticker.mode.traitors |= new_honksquad.mind//Adds them to current traitor list. Which is really the extra antagonist list.

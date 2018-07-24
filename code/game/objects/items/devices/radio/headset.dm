@@ -21,7 +21,7 @@
 	..()
 	internal_channels.Cut()
 
-/obj/item/radio/headset/initialize()
+/obj/item/radio/headset/Initialize()
 	..()
 
 	if(ks1type)

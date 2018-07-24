@@ -56,7 +56,7 @@
 	if(.)
 		custom_emote(1, "wails at [.]")
 
-/mob/living/simple_animal/hostile/retaliate/ghost/Life()
+/mob/living/simple_animal/hostile/retaliate/ghost/Life(seconds, times_fired)
 	if(target)
 		invisibility = pick(0,0,60,invisibility)
 	else

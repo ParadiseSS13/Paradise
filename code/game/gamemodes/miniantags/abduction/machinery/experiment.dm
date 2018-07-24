@@ -29,7 +29,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1, target))
 		if(M.Victim == target)
-			to_chat(user, "<span class='danger'>[target] has a slime attached to them, deal with that first.</span>")
+			to_chat(user, "<span class='danger'>[target] has a slime attached to [target.p_them()], deal with that first.</span>")
 			return
 	visible_message("[user] puts [target] into the [src].")
 
@@ -47,9 +47,9 @@
 /obj/machinery/abductor/experiment/proc/dissection_icon(mob/living/carbon/human/H)
 	var/icon/I = icon(H.stand_icon)
 
-	var/icon/splat = icon(H.species.damage_overlays, "30")
-	splat.Blend(icon(H.species.damage_mask, "torso"), ICON_MULTIPLY)
-	splat.Blend(H.species.blood_color, ICON_MULTIPLY)
+	var/icon/splat = icon(H.dna.species.damage_overlays, "30")
+	splat.Blend(icon(H.dna.species.damage_mask, "torso"), ICON_MULTIPLY)
+	splat.Blend(H.dna.species.blood_color, ICON_MULTIPLY)
 	I.Blend(splat, ICON_OVERLAY)
 
 	return I

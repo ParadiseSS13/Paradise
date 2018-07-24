@@ -66,7 +66,7 @@
 		nullifyPipenet(parent3)
 	return ..()
 
-/obj/machinery/atmospherics/trinary/initialize()
+/obj/machinery/atmospherics/trinary/atmos_init()
 	..()
 	//Mixer:
 	//1 and 2 is input

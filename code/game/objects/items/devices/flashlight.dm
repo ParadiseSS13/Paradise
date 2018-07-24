@@ -12,7 +12,7 @@
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
 
-/obj/item/flashlight/initialize()
+/obj/item/flashlight/Initialize()
 	..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
@@ -61,10 +61,10 @@
 
 		if(M == user)	//they're using it on themselves
 			if(M.flash_eyes(visual = 1))
-				M.visible_message("<span class='notice'>[M] directs [src] to \his eyes.</span>", \
+				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
 									 "<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
 			else
-				M.visible_message("<span class='notice'>[M] directs [src] to \his eyes.</span>", \
+				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
 									 "<span class='notice'>You wave the light in front of your eyes.</span>")
 		else
 

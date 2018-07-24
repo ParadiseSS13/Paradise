@@ -130,8 +130,8 @@
 	if(..()) //alive
 		if(health < 1)
 			death()
-			return 0
-		return 1
+			return FALSE
+		return TRUE
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	return
@@ -270,7 +270,7 @@
 	if((Proj.damage_type != STAMINA))
 		adjustBruteLoss(Proj.damage)
 		Proj.on_hit(src, 0)
-	return 0
+	return FALSE
 
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
 	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
@@ -342,7 +342,7 @@
 
 /mob/living/simple_animal/proc/adjustHealth(amount)
 	if(status_flags & GODMODE)
-		return 0
+		return FALSE
 	bruteloss = Clamp(bruteloss + amount, 0, maxHealth)
 	handle_regular_status_updates()
 
@@ -372,20 +372,20 @@
 
 /mob/living/simple_animal/proc/CanAttack(var/atom/the_target)
 	if(see_invisible < the_target.invisibility)
-		return 0
+		return FALSE
 	if(isliving(the_target))
 		var/mob/living/L = the_target
 		if(L.stat != CONSCIOUS)
-			return 0
+			return FALSE
 	if(istype(the_target, /obj/mecha))
 		var/obj/mecha/M = the_target
 		if(M.occupant)
-			return 0
+			return FALSE
 	if(istype(the_target,/obj/spacepod))
 		var/obj/spacepod/S = the_target
 		if(S.pilot)
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /mob/living/simple_animal/handle_fire()
 	return
@@ -394,7 +394,7 @@
 	return
 
 /mob/living/simple_animal/IgniteMob()
-	return 0
+	return FALSE
 
 /mob/living/simple_animal/ExtinguishMob()
 	return
@@ -502,19 +502,19 @@
 	switch(slot)
 		if(slot_collar)
 			if(collar)
-				return 0
+				return FALSE
 			if(!can_collar)
-				return 0
+				return FALSE
 			if(!istype(I, /obj/item/clothing/accessory/petcollar))
-				return 0
-			return 1
+				return FALSE
+			return TRUE
 
 /mob/living/simple_animal/equip_to_slot(obj/item/W, slot)
 	if(!istype(W))
-		return 0
+		return FALSE
 
 	if(!slot)
-		return 0
+		return FALSE
 
 	W.forceMove(src)
 	W.equipped(src, slot)

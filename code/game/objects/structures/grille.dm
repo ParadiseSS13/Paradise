@@ -69,18 +69,23 @@
 	if(ismob(user))
 		shock(user, 70)
 
-/obj/structure/grille/attack_hand(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
-						 "<span class='warning'>You kick [src].</span>", \
-						 "You hear twisting metal.")
+/obj/structure/grille/hulk_damage()
+	return 60
 
-	if(shock(user, 70))
+/obj/structure/grille/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		if(!shock(user, 70))
+			..(user, TRUE)
+		return TRUE
+
+/obj/structure/grille/attack_hand(mob/living/user)
+	. = ..()
+	if(.)
 		return
-	if(HULK in user.mutations)
-		take_damage(60, BRUTE, "melee", 1)
-	else
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
+	user.visible_message("<span class='warning'>[user] hits [src].</span>")
+	if(!shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
 /obj/structure/grille/attack_alien(mob/living/user)
@@ -137,7 +142,7 @@
 			return
 
 //window placing begin
-	else if(istype(W,/obj/item/stack/sheet/rglass) || istype(W,/obj/item/stack/sheet/glass) || istype(W,/obj/item/stack/sheet/plasmaglass) || istype(W,/obj/item/stack/sheet/plasmarglass))
+	else if(is_glass_sheet(W))
 		build_window(W, user)
 		return
 //window placing end
@@ -190,10 +195,10 @@
 		S.use(1)
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
-		W.anchored = 0
-		W.state = 0
+		W.anchored = FALSE
+		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
-		W.update_icon()
+		W.update_nearby_icons()
 	return
 
 /obj/structure/grille/attacked_by(obj/item/I, mob/living/user)

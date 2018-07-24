@@ -137,10 +137,12 @@
 	if(!AM.anchored)
 		now_pushing = 1
 		var/t = get_dir(src, AM)
-		if(istype(AM, /obj/structure/window/full))
-			for(var/obj/structure/window/win in get_step(AM, t))
-				now_pushing = 0
-				return
+		if(istype(AM, /obj/structure/window))
+			var/obj/structure/window/W = AM
+			if(W.fulltile)
+				for(var/obj/structure/window/win in get_step(W, t))
+					now_pushing = 0
+					return
 		if(pulling == AM)
 			stop_pulling()
 		var/current_dir
@@ -658,14 +660,14 @@
 						TH.transfer_mob_blood_dna(src)
 						if(ishuman(src))
 							var/mob/living/carbon/human/H = src
-							if(H.species.blood_color)
-								TH.color = H.species.blood_color
+							if(H.dna.species.blood_color)
+								TH.color = H.dna.species.blood_color
 						else
 							TH.color = "#A10808"
 
 /mob/living/carbon/human/makeTrail(turf/T)
 
-	if((NO_BLOOD in species.species_traits) || species.exotic_blood || !bleed_rate || bleedsuppress)
+	if((NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !bleed_rate || bleedsuppress)
 		return
 	..()
 
@@ -816,7 +818,7 @@
 			who.unEquip(what)
 			if(silent)
 				put_in_hands(what)
-			add_attack_logs(src, who, "Stripped of [what]", isLivingSSD(who))
+			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
@@ -835,8 +837,7 @@
 			if(what && Adjacent(who))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
-				add_attack_logs(src, who, "Equipped [what]", isLivingSSD(who))
-
+				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
 	var/gain = 20
@@ -852,81 +853,11 @@
 		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, null, 1)
 	spawn_dust()
 	gib()
-	return
 
-/atom/movable/proc/do_attack_animation(atom/A, end_pixel_y)
-	var/pixel_x_diff = 0
-	var/pixel_y_diff = 0
-	var/final_pixel_y = initial(pixel_y)
-	if(end_pixel_y)
-		final_pixel_y = end_pixel_y
-
-	var/direction = get_dir(src, A)
-	if(direction & NORTH)
-		pixel_y_diff = 8
-	else if(direction & SOUTH)
-		pixel_y_diff = -8
-
-	if(direction & EAST)
-		pixel_x_diff = 8
-	else if(direction & WEST)
-		pixel_x_diff = -8
-
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
-
-
-/mob/living/do_attack_animation(atom/A)
-	var/final_pixel_y = get_standard_pixel_y_offset(lying)
-	..(A, final_pixel_y)
-	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
-
-	// What icon do we use for the attack?
-	var/image/I
-	if(hand && l_hand) // Attacked with item in left hand.
-		I = image(l_hand.icon, A, l_hand.icon_state, A.layer + 1)
-	else if(!hand && r_hand) // Attacked with item in right hand.
-		I = image(r_hand.icon, A, r_hand.icon_state, A.layer + 1)
-	else // Attacked with a fist?
-		return
-
-	// Who can see the attack?
-	var/list/viewing = list()
-	for(var/mob/M in viewers(A))
-		if(M.client && M.client.prefs.show_ghostitem_attack)
-			viewing |= M.client
-	flick_overlay(I, viewing, 5) // 5 ticks/half a second
-
-	// Scale the icon.
-	I.transform *= 0.75
-	// The icon should not rotate.
-	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-
-	// Set the direction of the icon animation.
-	var/direction = get_dir(src, A)
-	if(direction & NORTH)
-		I.pixel_y = -16
-	else if(direction & SOUTH)
-		I.pixel_y = 16
-
-	if(direction & EAST)
-		I.pixel_x = -16
-	else if(direction & WEST)
-		I.pixel_x = 16
-
-	if(!direction) // Attacked self?!
-		I.pixel_z = 16
-
-	// And animate the attack!
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
-
-/atom/movable/proc/receiving_damage(atom/A)
-	var/pixel_x_diff = rand(-3,3)
-	var/pixel_y_diff = rand(-3,3)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
-
-/mob/living/receiving_damage(atom/A)
+/mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+	end_pixel_y = get_standard_pixel_y_offset(lying)
+	if(!used_item)
+		used_item = get_active_hand()
 	..()
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 

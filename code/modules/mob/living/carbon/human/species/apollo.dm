@@ -5,7 +5,6 @@
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	language = "Wryn Hivemind"
 	tail = "wryntail"
-	unarmed_type = /datum/unarmed_attack/punch/weak
 	punchdamagelow = 0
 	punchdamagehigh = 1
 	//primitive = /mob/living/carbon/monkey/wryn
@@ -82,7 +81,6 @@
 	name = "Nucleation"
 	name_plural = "Nucleations"
 	icobase = 'icons/mob/human_races/r_nucleation.dmi'
-	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "A sub-race of unfortunates who have been exposed to too much supermatter radiation. As a result, \
 	supermatter crystal clusters have begun to grow across their bodies. Research to find a cure for this ailment \
 	has been slow, and so this is a common fate for veteran engineers. The supermatter crystals produce oxygen, \

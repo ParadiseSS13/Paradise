@@ -16,7 +16,7 @@
 	var/hitcost = 1000
 
 /obj/item/melee/baton/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the live [name] in \his mouth! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return (FIRELOSS)
 
 /obj/item/melee/baton/New()
@@ -78,7 +78,7 @@
 
 	else if(istype(W, /obj/item/screwdriver))
 		if(bcell)
-			bcell.updateicon()
+			bcell.update_icon()
 			bcell.loc = get_turf(src.loc)
 			bcell = null
 			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
@@ -104,7 +104,7 @@
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
 	if(status && (CLUMSY in user.mutations) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally hits themself with [src]!</span>", \
+		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
 		user.Weaken(stunforce*3)
 		deductcharge(hitcost)
@@ -175,7 +175,7 @@
 			user.Weaken(stunforce)
 			user.stuttering = stunforce
 			deductcharge(hitcost)
-			user.visible_message("<span class='warning'>[user] shocks themself while attempting to wash the active [src]!</span>", \
+			user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \
 								"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
 			playsound(src, "sparks", 50, 1)
 			return 1

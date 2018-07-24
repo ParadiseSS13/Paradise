@@ -9,7 +9,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	unacidable = 1
 	var/active = 0
 
-/obj/machinery/gateway/initialize()
+/obj/machinery/gateway/Initialize()
 	..()
 	update_icon()
 	update_density_from_dir()
@@ -44,7 +44,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	if(!the_gateway)
 		the_gateway = src
 
-/obj/machinery/gateway/centerstation/initialize()
+/obj/machinery/gateway/centerstation/Initialize()
 	..()
 	update_icon()
 	wait = world.time + config.gateway_delay	//+ thirty minutes default
@@ -170,7 +170,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	var/obj/machinery/gateway/centeraway/stationgate = null
 
 
-/obj/machinery/gateway/centeraway/initialize()
+/obj/machinery/gateway/centeraway/Initialize()
 	..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation) in world

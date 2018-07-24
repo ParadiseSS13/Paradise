@@ -54,7 +54,7 @@
 	return ..()
 
 // register for radio system
-/obj/machinery/status_display/initialize()
+/obj/machinery/status_display/Initialize()
 	..()
 	if(radio_controller)
 		radio_controller.add_object(src, frequency)
@@ -276,7 +276,6 @@
 		overlays.Cut()
 	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
 
-#undef CHARS_PER_LINE
 #undef FONT_SIZE
 #undef FONT_COLOR
 #undef WARNING_FONT_COLOR

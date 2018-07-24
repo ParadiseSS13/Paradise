@@ -196,16 +196,11 @@ var/global/list/ts_spiderling_list = list()
 			var/can_poison = 1
 			if(ishuman(G))
 				var/mob/living/carbon/human/H = G
-				if(!(H.species.reagent_tag & PROCESS_ORG) || (!H.species.tox_mod))
+				if(!(H.dna.species.reagent_tag & PROCESS_ORG) || (!H.dna.species.tox_mod))
 					can_poison = 0
 			spider_specialattack(G,can_poison)
 		else
 			G.attack_animal(src)
-	else if(istype(target, /obj/structure/alien/resin))
-		var/obj/structure/alien/resin/E = target
-		do_attack_animation(E)
-		E.health -= rand(melee_damage_lower, melee_damage_upper)
-		E.healthcheck()
 	else
 		target.attack_animal(src)
 
@@ -292,7 +287,7 @@ var/global/list/ts_spiderling_list = list()
 	handle_dying()
 	return ..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Life()
+/mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
 	if(!.) // if mob is dead
 		if(prob(2))

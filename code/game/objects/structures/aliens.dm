@@ -13,6 +13,27 @@
 
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
+	max_integrity = 100
+
+/obj/structure/alien/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if(damage_flag == "melee")
+		switch(damage_type)
+			if(BRUTE)
+				damage_amount *= 0.25
+			if(BURN)
+				damage_amount *= 2
+	. = ..()
+
+/obj/structure/alien/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+			else
+				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+		if(BURN)
+			if(damage_amount)
+				playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
 /*
  * Resin
@@ -22,15 +43,15 @@
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
-	density = 1
-	opacity = 1
-	anchored = 1
+	density = TRUE
+	opacity = TRUE
+	anchored = TRUE
 	canSmoothWith = list(/obj/structure/alien/resin)
-	var/health = 200
-	var/resintype = null
+	max_integrity = 200
 	smooth = SMOOTH_TRUE
+	var/resintype = null
 
-/obj/structure/alien/resin/initialize()
+/obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
 	..()
 
@@ -60,7 +81,7 @@
 /obj/structure/alien/resin/wall/shadowling //For chrysalis
 	name = "chrysalis wall"
 	desc = "Some sort of purple substance in an egglike shape. It pulses and throbs from within and seems impenetrable."
-	health = INFINITY
+	max_integrity = INFINITY
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"
@@ -68,80 +89,11 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
 	icon_state = "membrane0"
 	opacity = 0
-	health = 120
+	max_integrity = 160
 	resintype = "membrane"
 	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
-/obj/structure/alien/resin/proc/healthcheck()
-	if(health <=0)
-		qdel(src)
-
-
-/obj/structure/alien/resin/bullet_act(obj/item/projectile/Proj)
-	if(Proj.damage_type == BRUTE || Proj.damage_type == BURN)
-		health -= Proj.damage
-	..()
-	healthcheck()
-
-
-/obj/structure/alien/resin/ex_act(severity)
-	switch(severity)
-		if(1)
-			health -= 150
-		if(2)
-			health -= 100
-		if(3)
-			health -= 50
-	healthcheck()
-
-
-/obj/structure/alien/resin/blob_act()
-	health -= 50
-	healthcheck()
-
-
-/obj/structure/alien/resin/hitby(atom/movable/AM)
-	..()
-	var/tforce = 0
-	if(ismob(AM))
-		tforce = 10
-	else if(isobj(AM))
-		var/obj/O = AM
-		tforce = O.throwforce
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-	health -= tforce
-	healthcheck()
-
-/obj/structure/alien/resin/attack_hand(mob/living/user)
-	if(HULK in user.mutations)
-		user.do_attack_animation(src)
-		user.visible_message("<span class='danger'>[user] destroys [src]!</span>")
-		health = 0
-		healthcheck()
-
-
-/obj/structure/alien/resin/attack_alien(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(islarva(user))
-		return
-	user.visible_message("<span class='danger'>[user] claws at the resin!</span>")
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-	health -= 50
-	if(health <= 0)
-		user.visible_message("<span class='danger'>[user] slices the [name] apart!</span>")
-	healthcheck()
-
-
-/obj/structure/alien/resin/attackby(obj/item/I, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	health -= I.force
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-	healthcheck()
-	..()
-
-
-/obj/structure/alien/resin/CanPass(atom/movable/mover, turf/target, height=0)
+/obj/structure/alien/resin/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return !opacity
 	return !density
@@ -157,11 +109,11 @@
 	gender = PLURAL
 	name = "resin floor"
 	desc = "A thick resin surface covers the floor."
+	anchored = TRUE
+	density = FALSE
+	layer = TURF_LAYER
 	icon_state = "weeds"
-	anchored = 1
-	density = 0
-	layer = 2
-	var/health = 15
+	max_integrity = 15
 	var/obj/structure/alien/weeds/node/linked_node = null
 	var/static/list/weedImageCache
 
@@ -204,39 +156,9 @@
 
 		new /obj/structure/alien/weeds(T, linked_node)
 
-
-/obj/structure/alien/weeds/ex_act(severity)
-	qdel(src)
-
-
-/obj/structure/alien/weeds/attackby(obj/item/I, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(I.attack_verb.len)
-		visible_message("<span class='danger'>[user] has [pick(I.attack_verb)] [src] with [I]!</span>")
-	else
-		visible_message("<span class='danger'>[user] has attacked [src] with [I]!</span>")
-
-	var/damage = I.force / 4
-	if(istype(I, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = I
-		if(WT.remove_fuel(0, user))
-			damage = 15
-			playsound(loc, WT.usesound, 100, 1)
-
-	health -= damage
-	healthcheck()
-
-
-/obj/structure/alien/weeds/proc/healthcheck()
-	if(health <= 0)
-		qdel(src)
-
-
 /obj/structure/alien/weeds/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 300)
-		health -= 5
-		healthcheck()
-
+		take_damage(5, BURN, 0, 0)
 
 /obj/structure/alien/weeds/proc/updateWeedOverlays()
 
@@ -303,9 +225,10 @@
 	name = "egg"
 	desc = "A large mottled egg."
 	icon_state = "egg_growing"
-	density = 0
-	anchored = 1
-	var/health = 100
+	density = FALSE
+	anchored = TRUE
+	max_integrity = 100
+	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
 
@@ -315,6 +238,8 @@
 	..()
 	spawn(rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 		Grow()
+	if(status == BURST)
+		obj_integrity = integrity_failure
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -346,7 +271,7 @@
 	icon_state = "egg"
 	status = GROWN
 
-/obj/structure/alien/egg/proc/Burst(kill = 1)	//drops and kills the hugger if any is remaining
+/obj/structure/alien/egg/proc/Burst(kill = TRUE)	//drops and kills the hugger if any is remaining
 	if(status == GROWN || status == GROWING)
 		icon_state = "egg_hatched"
 		flick("egg_opening", src)
@@ -364,45 +289,13 @@
 							child.Attach(M)
 							break
 
-/obj/structure/alien/egg/bullet_act(obj/item/projectile/Proj)
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		health -= Proj.damage
-	..()
-	healthcheck()
-
-
-/obj/structure/alien/egg/attackby(obj/item/I, mob/user, params)
-	if(I.attack_verb.len)
-		visible_message("<span class='danger'>[user] has [pick(I.attack_verb)] [src] with [I]!</span>")
-	else
-		visible_message("<span class='danger'>[user] has attacked [src] with [I]!</span>")
-
-	var/damage = I.force / 4
-	if(istype(I, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = I
-
-		if(WT.remove_fuel(0, user))
-			damage = 15
-			playsound(loc, WT.usesound, 100, 1)
-
-	health -= damage
-	user.changeNext_move(CLICK_CD_MELEE)
-	healthcheck()
-
-
-/obj/structure/alien/egg/proc/healthcheck()
-	if(health <= 0)
-		if(status != BURST && status != BURSTING)
-			Burst()
-		else if(status == BURST && prob(50))
-			qdel(src)	//Remove the egg after it has been hit after bursting.
-
+/obj/structure/alien/egg/obj_break(damage_flag)
+	if(status != BURST)
+		Burst(kill = TRUE)
 
 /obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 500)
-		health -= 5
-		healthcheck()
-
+		take_damage(5, BURN, 0, 0)
 
 /obj/structure/alien/egg/HasProximity(atom/movable/AM)
 	if(status == GROWN)

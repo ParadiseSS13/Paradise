@@ -188,7 +188,7 @@ Made by Xhuis
 		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
 							"<span class='userdanger'>You have been turned into a robot! You are no longer a thrall! Though you try, you cannot remember anything about your servitude...</span>")
 	else
-		M.visible_message("<span class='big'>[M] looks like their mind is their own again!</span>", \
+		M.visible_message("<span class='big'>[M] looks like [M.p_their()] mind is [M.p_their()] own again!</span>", \
 						"<span class='userdanger'>A piercing white light floods your eyes. Your mind is your own again! Though you try, you cannot remember anything about the shadowlings or your time \
 							under their command...</span>")
 	return 1
@@ -209,7 +209,7 @@ Made by Xhuis
 		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && config.shadowling_max_age)
 			if(ishuman(shadow.current))
 				var/mob/living/carbon/human/H = shadow.current
-				if(H.get_species() != "Shadow")
+				if(!isshadowling(H))
 					for(var/obj/effect/proc_holder/spell/targeted/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
 						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > config.shadowling_max_age)
@@ -317,7 +317,7 @@ Made by Xhuis
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS) //Can't use guns due to muzzle flash
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_EXAMINE) //Can't use guns due to muzzle flash
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
 	oxy_mod = 0
 	heatmod = 1.5

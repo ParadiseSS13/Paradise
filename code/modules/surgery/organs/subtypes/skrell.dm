@@ -1,6 +1,5 @@
 /obj/item/organ/internal/liver/skrell
 	alcohol_intensity = 4
-	species = "Skrell"
 
 /obj/item/organ/internal/headpocket
 	name = "headpocket"
@@ -10,7 +9,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "headpocket"
-	species = "Skrell"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/obj/item/storage/internal/pocket
 

@@ -81,7 +81,7 @@
 	assembly.upgrades.Add(new /obj/item/assembly/prox_sensor(assembly))
 	setPowerUsage()
 	// Add it to machines that process
-	machine_processing |= src
+	START_PROCESSING(SSmachines, src)
 
 /obj/machinery/camera/proc/setPowerUsage()
 	var/mult = 1

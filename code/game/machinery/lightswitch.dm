@@ -44,7 +44,7 @@
 		src.on = src.area.lightswitch
 		updateicon()
 
-/obj/machinery/light_switch/initialize()
+/obj/machinery/light_switch/Initialize()
 	..()
 	set_frequency(frequency)
 

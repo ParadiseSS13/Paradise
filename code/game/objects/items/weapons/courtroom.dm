@@ -14,7 +14,7 @@
 	burn_state = FLAMMABLE
 
 /obj/item/gavelhammer/suicide_act(mob/user)
-	user.visible_message("<span class='warning'>[user] has sentenced \himself to death with the [src.name]! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='warning'>[user] has sentenced [user.p_them()]self to death with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/items/gavel.ogg', 50, 1, -1)
 	return (BRUTELOSS)
 

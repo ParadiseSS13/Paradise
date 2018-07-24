@@ -170,9 +170,12 @@ Turf and target are seperate in case you want to teleport some distance from a t
 // Checks if doors are open
 /proc/DirBlocked(turf/loc,var/dir)
 	for(var/obj/structure/window/D in loc)
-		if(!D.density)			continue
-		if(D.is_fulltile())	return 1
-		if(D.dir == dir)		return 1
+		if(!D.density)
+			continue
+		if(D.fulltile)
+			return 1
+		if(D.dir == dir)
+			return 1
 
 	for(var/obj/machinery/door/D in loc)
 		if(!D.density)//if the door is open
@@ -393,6 +396,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	for(var/mob/living/simple_animal/M in sortmob)
 		moblist.Add(M)
 	return moblist
+
+// Format a power value in W, kW, MW, or GW.
+/proc/DisplayPower(powerused)
+	if(powerused < 1000) //Less than a kW
+		return "[powerused] W"
+	else if(powerused < 1000000) //Less than a MW
+		return "[round((powerused * 0.001), 0.01)] kW"
+	else if(powerused < 1000000000) //Less than a GW
+		return "[round((powerused * 0.000001), 0.001)] MW"
+	return "[round((powerused * 0.000000001), 0.0001)] GW"
 
 //E = MC^2
 /proc/convert2energy(var/M)
@@ -1042,6 +1055,8 @@ proc/get_mob_with_client_list()
 
 	//Find coordinates
 	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	if(!T)
+		return null
 	var/final_x = T.x + rough_x
 	var/final_y = T.y + rough_y
 
@@ -1490,6 +1505,22 @@ var/mob/dview/dview_mob = new
 		return TRUE
 	return FALSE
 
+//can a window be here, or is there a window blocking it?
+/proc/valid_window_location(turf/T, dir_to_check)
+	if(!T)
+		return FALSE
+	for(var/obj/O in T)
+		if(istype(O, /obj/machinery/door/window) && (O.dir == dir_to_check || dir_to_check == FULLTILE_WINDOW_DIR))
+			return FALSE
+		if(istype(O, /obj/structure/windoor_assembly))
+			var/obj/structure/windoor_assembly/W = O
+			if(W.ini_dir == dir_to_check || dir_to_check == FULLTILE_WINDOW_DIR)
+				return FALSE
+		if(istype(O, /obj/structure/window))
+			var/obj/structure/window/W = O
+			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
+				return FALSE
+	return TRUE
 
 //Get the dir to the RIGHT of dir if they were on a clock
 //NORTH --> NORTHEAST
@@ -1929,3 +1960,6 @@ var/mob/dview/dview_mob = new
 
 /datum/proc/stack_trace(msg)
 	CRASH(msg)
+
+/proc/pass()
+	return

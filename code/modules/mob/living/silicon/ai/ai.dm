@@ -87,11 +87,12 @@ var/list/ai_verbs_default = list(
 	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
+	var/apc_override = FALSE	//hack for letting the AI use its APC even when visionless
 	var/nuking = 0
 	var/obj/machinery/doomsday_device/doomsday_device
 
 	var/obj/machinery/hologram/holopad/holo = null
-	var/mob/camera/aiEye/eyeobj = new()
+	var/mob/camera/aiEye/eyeobj
 	var/sprint = 10
 	var/cooldown = 0
 	var/acceleration = 1
@@ -191,9 +192,7 @@ var/list/ai_verbs_default = list(
 	spawn(5)
 		new /obj/machinery/ai_powersupply(src)
 
-	eyeobj.ai = src
-	eyeobj.name = "[src.name] (AI Eye)" // Give it a name
-	eyeobj.loc = src.loc
+	create_eye()
 
 	builtInCamera = new /obj/machinery/camera/portable(src)
 	builtInCamera.c_tag = name
@@ -1163,6 +1162,17 @@ var/list/ai_verbs_default = list(
 	client.eye = eyeobj
 	return TRUE
 
+
+/mob/living/silicon/ai/proc/can_see(atom/A)
+	if(isturf(loc)) //AI in core, check if on cameras
+		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
+		//apc_override is needed here because AIs use their own APC when depowered
+		return (cameranet && cameranet.checkTurfVis(get_turf_pixel(A))) || apc_override
+	//AI is carded/shunted
+	//view(src) returns nothing for carded/shunted AIs and they have x-ray vision so just use get_dist
+	var/list/viewscale = getviewsize(client.view)
+	return get_dist(src, A) <= max(viewscale[1]*0.5,viewscale[2]*0.5)
+
 /mob/living/silicon/ai/proc/relay_speech(mob/living/M, text, verb, datum/language/speaking)
 	if(!say_understands(M, speaking))//The AI will be able to understand most mobs talking through the holopad.
 		if(speaking)
@@ -1240,3 +1250,15 @@ var/list/ai_verbs_default = list(
 
 	else
 		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
+		
+/mob/living/silicon/ai/handle_fire()
+	return
+
+/mob/living/silicon/ai/update_fire()
+	return
+
+/mob/living/silicon/ai/IgniteMob()
+	return FALSE
+
+/mob/living/silicon/ai/ExtinguishMob()
+	return

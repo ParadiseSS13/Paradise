@@ -11,11 +11,11 @@
 
 /datum/martial_art/boxing/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 
-	A.do_attack_animation(D)
+	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
 
-	var/damage = rand(5, 8) + A.species.punchdamagelow
+	var/damage = rand(5, 8) + A.dna.species.punchdamagelow
 	if(!damage)
 		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to hit [D] with a [atk_verb]!</span>")
@@ -62,7 +62,7 @@
 
 /datum/martial_art/drunk_brawling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	add_attack_logs(A, D, "Melee attacked with [src]")
-	A.do_attack_animation(D)
+	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("jab","uppercut","overhand punch","drunken right hook","drunken left hook")
 

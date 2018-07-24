@@ -52,7 +52,7 @@
 	if(SV)
 		SV.eat(src)
 
-/mob/living/simple_animal/hostile/retaliate/goat/Life()
+/mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
 	if(stat == CONSCIOUS && prob(5))
 		milk_content = min(50, milk_content+rand(5, 10))
@@ -132,7 +132,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/cow/Life()
+/mob/living/simple_animal/cow/Life(seconds, times_fired)
 	. = ..()
 	if(stat == CONSCIOUS && prob(5))
 		milk_content = min(50, milk_content+rand(5, 10))
@@ -188,7 +188,7 @@
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 
-/mob/living/simple_animal/chick/Life()
+/mob/living/simple_animal/chick/Life(seconds, times_fired)
 	. =..()
 	if(.)
 		amount_grown += rand(1,2)
@@ -267,7 +267,7 @@ var/global/chicken_count = 0
 	else
 		..()
 
-/mob/living/simple_animal/chicken/Life()
+/mob/living/simple_animal/chicken/Life(seconds, times_fired)
 	. = ..()
 	if((. && prob(3) && eggsleft > 0) && egg_type)
 		visible_message("[src] [pick(layMessage)]")

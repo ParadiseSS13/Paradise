@@ -1,16 +1,25 @@
+/mob/living/carbon/alien/humanoid/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		..(user, TRUE)
+		adjustBruteLoss(15)
+		var/hitverb = "punched"
+		if(mob_size < MOB_SIZE_LARGE)
+			Paralyse(1)
+			spawn(0)
+				step_away(src, user, 15)
+				sleep(1)
+				step_away(src, user, 15)
+			hitverb = "slammed"
+		playsound(loc, "punch", 25, 1, -1)
+		visible_message("<span class='danger'>[user] has [hitverb] [src]!</span>", "<span class='userdanger'>[user] has [hitverb] [src]!</span>")
+		return TRUE
+
 /mob/living/carbon/alien/humanoid/attack_hand(mob/living/carbon/human/M)
 	if(..())
 		switch(M.a_intent)
 			if(INTENT_HARM)
 				var/damage = rand(1, 9)
 				if(prob(90))
-					if(HULK in M.mutations)//HULK SMASH
-						damage = 15
-						spawn(0)
-							Paralyse(1)
-							step_away(src, M, 15)
-							sleep(3)
-							step_away(src, M, 15)
 					playsound(loc, "punch", 25, 1, -1)
 					visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 							"<span class='userdanger'>[M] has punched [src]!</span>")
@@ -43,3 +52,8 @@
 						else
 							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 							visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
+
+/mob/living/carbon/alien/humanoid/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+	if(!no_effect && !visual_effect_icon)
+		visual_effect_icon = ATTACK_EFFECT_CLAW
+	..()

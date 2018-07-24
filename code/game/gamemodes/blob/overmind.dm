@@ -36,7 +36,7 @@
 	updateallghostimages()
 	..()
 
-/mob/camera/blob/Life()
+/mob/camera/blob/Life(seconds, times_fired)
 	if(!blob_core)
 		qdel(src)
 	..()

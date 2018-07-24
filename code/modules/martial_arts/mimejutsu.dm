@@ -23,7 +23,7 @@
 
 /datum/martial_art/mimejutsu/proc/mimeChuck(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.stunned && !D.weakened)
-		var/damage = rand(5, 8) + A.species.punchdamagelow
+		var/damage = rand(5, 8) + A.dna.species.punchdamagelow
 		if(!damage)
 			playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 			D.visible_message("<span class='warning'>[A] swings invisible nunchcuks at [D]..and misses?</span>")
@@ -55,8 +55,8 @@
 
 /datum/martial_art/mimejutsu/proc/mimePalm(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.stunned && !D.weakened)
-		D.visible_message("<span class='danger'>[A] has barely touched [D] with their palm!</span>", \
-						"<span class='userdanger'>[A] hovers their palm over your face!</span>")
+		D.visible_message("<span class='danger'>[A] has barely touched [D] with [A.p_their()] palm!</span>", \
+						"<span class='userdanger'>[A] hovers [A.p_their()] palm over your face!</span>")
 
 		var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 		D.throw_at(throw_target, 200, 4,A)

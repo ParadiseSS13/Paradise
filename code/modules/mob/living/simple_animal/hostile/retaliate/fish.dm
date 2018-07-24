@@ -28,3 +28,40 @@
 
 	faction = list("carp")
 	flying = 1
+
+
+/mob/living/simple_animal/hostile/retaliate/carp/koi
+	name = "space koi"
+	desc = "A gentle space-faring koi."
+	icon = 'icons/obj/fish_items.dmi'
+	icon_state = "koi1"
+	icon_living = "koi1"
+	icon_dead = "koi1-dead"
+
+	harm_intent_damage = 1
+	melee_damage_lower = 2
+	melee_damage_upper = 2
+	speak_emote = list("blurps")
+	butcher_results = null
+
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = 1500
+
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+
+/mob/living/simple_animal/hostile/retaliate/carp/koi/New()
+	..()
+	var/koinum = rand(1, 4)
+	icon_state = "koi[koinum]"
+	icon_living = "koi[koinum]"
+	icon_dead = "koi[koinum]-dead"
+
+
+/mob/living/simple_animal/hostile/retaliate/carp/koi/Process_Spacemove(var/movement_dir)
+	return TRUE
+
+/mob/living/simple_animal/hostile/retaliate/carp/koi/honk
+	icon_state = "koi5"
+	icon_living = "koi5"
+	icon_dead = "koi5-dead"

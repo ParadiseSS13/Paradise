@@ -106,7 +106,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
 Works together with spawning an observer, noted above.
 */
-/mob/dead/observer/Life()
+/mob/dead/observer/Life(seconds, times_fired)
 	..()
 	if(!loc) return
 	if(!client) return 0
@@ -419,7 +419,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(.)
 		update_following()
 
-/mob/Life()
+/mob/Life(seconds, times_fired)
 	// to catch teleports etc which directly set loc
 	update_following()
 	return ..()

@@ -27,11 +27,11 @@
 	team = "Blue"
 	avatar_y_offset = 1
 
-/obj/machinery/computer/mob_battle_terminal/red/initialize()
+/obj/machinery/computer/mob_battle_terminal/red/Initialize()
 	..()
 	check_connection()
 
-/obj/machinery/computer/mob_battle_terminal/blue/initialize()
+/obj/machinery/computer/mob_battle_terminal/blue/Initialize()
 	..()
 	check_connection()
 

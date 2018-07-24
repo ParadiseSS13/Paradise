@@ -54,7 +54,7 @@ var/list/world_uplinks = list()
 	dat += "Telecrystals left: [src.uses]<BR>"
 	dat += "<HR>"
 	dat += "<B>Request item:</B><BR>"
-	dat += "<I>Each item costs a number of telecrystals as indicated by the number following their name.</I><br>"
+	dat += "<I>Each item costs a number of telecrystals as indicated by the number following its name.</I><br>"
 
 	var/category_items = 1
 	for(var/category in ItemsCategory)

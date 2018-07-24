@@ -320,15 +320,15 @@ SUBSYSTEM_DEF(air)
 	var/watch = start_watch()
 	var/count = 0
 	log_startup_progress("Initializing atmospherics machinery...")
-	for(var/obj/machinery/atmospherics/unary/U in machines)
-		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
-			var/obj/machinery/atmospherics/unary/vent_pump/T = U
+	for(var/obj/machinery/atmospherics/A in machines)
+		A.atmos_init()
+		count++
+		if(istype(A, /obj/machinery/atmospherics/unary/vent_pump))
+			var/obj/machinery/atmospherics/unary/vent_pump/T = A
 			T.broadcast_status()
-			count++
-		else if(istype(U, /obj/machinery/atmospherics/unary/vent_scrubber))
-			var/obj/machinery/atmospherics/unary/vent_scrubber/T = U
+		else if(istype(A, /obj/machinery/atmospherics/unary/vent_scrubber))
+			var/obj/machinery/atmospherics/unary/vent_scrubber/T = A
 			T.broadcast_status()
-			count++
 	log_startup_progress("	Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
 
 //this can't be done with setup_atmos_machinery() because
@@ -341,7 +341,7 @@ SUBSYSTEM_DEF(air)
 	for(var/obj/machinery/atmospherics/machine in machines)
 		machine.build_network()
 		count++
-	log_startup_progress("	Initialized [count] pipes in [stop_watch(watch)]s.")
+	log_startup_progress("	Initialized [count] pipenets in [stop_watch(watch)]s.")
 
 /datum/controller/subsystem/air/proc/setup_overlays()
 	plmaster = new /obj/effect/overlay()
@@ -367,5 +367,5 @@ SUBSYSTEM_DEF(air)
 #undef SSAIR_ACTIVETURFS
 #undef SSAIR_EXCITEDGROUPS
 #undef SSAIR_HIGHPRESSURE
-#undef SSAIR_HOTSPOT
+#undef SSAIR_HOTSPOTS
 #undef SSAIR_SUPERCONDUCTIVITY

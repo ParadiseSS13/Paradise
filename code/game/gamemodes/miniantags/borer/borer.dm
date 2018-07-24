@@ -244,7 +244,7 @@
 			to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
 
-/mob/living/simple_animal/borer/Life()
+/mob/living/simple_animal/borer/Life(seconds, times_fired)
 
 	..()
 
@@ -308,7 +308,7 @@
 	var/list/choices = list()
 	for(var/mob/living/carbon/human/H in view(1,src))
 		var/obj/item/organ/external/head/head = H.get_organ("head")
-		if(head.status & ORGAN_ROBOT)
+		if(head.is_robotic())
 			continue
 		if(H.stat != DEAD && Adjacent(H) && !H.has_brain_worms())
 			choices += H
@@ -325,7 +325,7 @@
 		to_chat(src, "You cannot infest someone who is already infested!")
 		return
 
-	to_chat(src, "You slither up [M] and begin probing at their ear canal...")
+	to_chat(src, "You slither up [M] and begin probing at [M.p_their()] ear canal...")
 
 	if(!do_after(src, 50, target = M))
 		to_chat(src, "As [M] moves away, you are dislodged and fall to the ground.")
@@ -500,7 +500,7 @@
 		to_chat(src, "You cannot dominate someone who is already infested!")
 		return
 
-	to_chat(src, "<span class='warning'>You focus your psychic lance on [M] and freeze their limbs with a wave of terrible dread.</span>")
+	to_chat(src, "<span class='warning'>You focus your psychic lance on [M] and freeze [M.p_their()] limbs with a wave of terrible dread.</span>")
 	to_chat(M, "<span class='warning'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
 	M.Weaken(3)
 
@@ -531,7 +531,7 @@
 		to_chat(src, "<span class='userdanger'>You decide against leaving your host.</span>")
 		return
 
-	to_chat(src, "You begin disconnecting from [host]'s synapses and prodding at their internal ear canal.")
+	to_chat(src, "You begin disconnecting from [host]'s synapses and prodding at [host.p_their()] internal ear canal.")
 
 	leaving = TRUE
 
@@ -623,7 +623,7 @@
 		to_chat(src,"<span class='warning'>You are feeling far too docile to do that.</span>")
 		return
 	else
-		to_chat(src, "<span class='danger'>You plunge your probosci deep into the cortex of the host brain, interfacing directly with their nervous system.</span>")
+		to_chat(src, "<span class='danger'>You plunge your probosci deep into the cortex of the host brain, interfacing directly with [host.p_their()] nervous system.</span>")
 		to_chat(host, "<span class='danger'>You feel a strange shifting sensation behind your eyes as an alien consciousness displaces yours.</span>")
 		var/borer_key = src.key
 		add_attack_logs(src, host, "Assumed control of (borer)")

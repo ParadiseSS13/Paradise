@@ -48,7 +48,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/initialize()
+/obj/machinery/atmospherics/binary/dp_vent_pump/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)
@@ -90,7 +90,7 @@
 	else
 		vent_icon += "[on ? "[pump_direction ? "out" : "in"]" : "off"]"
 
-	overlays += icon_manager.get_atmos_icon("device", , , vent_icon)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("device", , , vent_icon)
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/update_underlays()
 	if(..())

@@ -300,7 +300,7 @@
 	track = 2 // Auto tracking mode
 	autostart = 1 // Automatically start
 
-/obj/machinery/power/solar_control/initialize()
+/obj/machinery/power/solar_control/Initialize()
 	..()
 	if(!powernet)
 		return

@@ -16,7 +16,7 @@
 
 
 /datum/powernet/New()
-	powernets += src
+	SSmachines.powernets += src
 	..()
 
 /datum/powernet/Destroy()
@@ -28,7 +28,7 @@
 		nodes -= M
 		M.powernet = null
 
-	powernets -= src
+	SSmachines.powernets -= src
 	return ..()
 
 //Returns the amount of excess power (before refunding to SMESs) from last tick.
