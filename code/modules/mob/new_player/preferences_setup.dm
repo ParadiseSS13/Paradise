@@ -1,10 +1,10 @@
 /datum/preferences
 	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
-	var/datum/species/S = all_species[species]
+	var/datum/species/S = GLOB.all_species[species]
 	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 		species = initial(species)
-		S = all_species[species]
+		S = GLOB.all_species[species]
 	var/datum/robolimb/robohead
 
 	if(S.bodyflags & ALL_RPARTS)

@@ -243,10 +243,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
-			var/datum/species/S = all_species[species]
+			var/datum/species/S = GLOB.all_species[species]
 			if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 				species = initial(species)
-				S = all_species[species]
+				S = GLOB.all_species[species]
 				random_character()
 
 			dat += "<div class='statusDisplay'style='position: absolute; left: 170px; top: 110px;'><img src=previewicon.png width=[preview_icon.Width()] height=[preview_icon.Height()]></div>"
@@ -825,7 +825,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/ShowDisabilityState(mob/user,flag,label)
-	var/datum/species/S = all_species[species]
+	var/datum/species/S = GLOB.all_species[species]
 	if(flag==DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))
 		return "<li><i>[species] cannot be fat.</i></li>"
 	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
@@ -1050,7 +1050,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/proc/process_link(mob/user, list/href_list)
 	if(!user)	return
 
-	var/datum/species/S = all_species[species]
+	var/datum/species/S = GLOB.all_species[species]
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
 			if("close")
@@ -1288,7 +1288,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						new_species += whitelisted_species
 
 					species = input("Please select a species", "Character Generation", null) in new_species
-					var/datum/species/NS = all_species[species]
+					var/datum/species/NS = GLOB.all_species[species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						species = prev_species
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
@@ -2080,8 +2080,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
-	var/datum/species/S = all_species[species]
-	character.change_species(S.type) // Yell at me if this causes everything to melt
+	var/datum/species/S = GLOB.all_species[species]
+	character.set_species(S.type) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 

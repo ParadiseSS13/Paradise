@@ -31,8 +31,8 @@
 
 	if(href_list["race"])
 		if(can_change(APPEARANCE_RACE) && (href_list["race"] in valid_species))
-			var/datum/species/S = all_species[href_list["race"]]
-			if(owner.change_species(S.type))
+			var/datum/species/S = GLOB.all_species[href_list["race"]]
+			if(owner.set_species(S.type))
 				cut_and_generate_data()
 				// Species change creates new organs - runtimes ahoy if we forget this
 				head_organ = owner.get_organ("head")

@@ -3,17 +3,6 @@
 	AC.flags = flags
 	AC.ui_interact(user, state = state)
 
-/mob/living/carbon/human/proc/change_species(datum/species/new_species)
-	if(!new_species || dna.species.type == new_species || !ispath(new_species, /datum/species))
-		return FALSE
-
-	set_species(new_species, null, TRUE)
-	reset_hair()
-	if(dna.species.bodyflags & HAS_MARKINGS)
-		reset_markings()
-
-	return TRUE
-
 /mob/living/carbon/human/proc/change_gender(var/new_gender, var/update_dna = 1)
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 	if(gender == new_gender || (gender == PLURAL && dna.species.has_gender))
@@ -321,8 +310,8 @@
 
 /mob/living/carbon/human/proc/generate_valid_species(var/check_whitelist = 1, var/list/whitelist = list(), var/list/blacklist = list())
 	var/list/valid_species = new()
-	for(var/current_species_name in all_species)
-		var/datum/species/current_species = all_species[current_species_name]
+	for(var/current_species_name in GLOB.all_species)
+		var/datum/species/current_species = GLOB.all_species[current_species_name]
 
 		if(check_whitelist && config.usealienwhitelist && !check_rights(R_ADMIN, 0, src)) //If we're using the whitelist, make sure to check it!
 			if(whitelist.len && !(current_species_name in whitelist))
