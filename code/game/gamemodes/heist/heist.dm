@@ -13,7 +13,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	name = "heist"
 	config_tag = "heist"
 	required_players = 12
-	required_enemies = 4
+	required_enemies = 2
 	recommended_enemies = 5
 	votable = 0
 
