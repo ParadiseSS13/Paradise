@@ -59,6 +59,7 @@
 		return
 	to_chat(owner, "<span class='userdanger'>You feel the compulsion fade, and you completely forget about your previous orders.</span>")
 	active_mind_control = FALSE
+	update_gland_hud()
 
 /obj/item/organ/internal/heart/gland/remove(var/mob/living/carbon/M, special = 0)
 	active = 0
@@ -197,20 +198,39 @@
 
 /obj/item/organ/internal/heart/gland/viral/activate()
 	to_chat(owner, "<span class='warning'>You feel sick.</span>")
-	var/virus_type = pick(/datum/disease/beesease, /datum/disease/brainrot, /datum/disease/magnitis)
-	var/datum/disease/D = new virus_type()
-	D.carrier = TRUE
-	owner.viruses += D
-	D.affected_mob = owner
-	owner.med_hud_set_status()
+	var/datum/disease/advance/A = random_virus(pick(2, 6), 6)
+	A.carrier = TRUE
+	owner.ForceContractDisease(A)
+
+/obj/item/organ/internal/heart/gland/viral/proc/random_virus(max_symptoms, max_level)
+	if(max_symptoms > VIRUS_SYMPTOM_LIMIT)
+		max_symptoms = VIRUS_SYMPTOM_LIMIT
+	var/datum/disease/advance/A = new /datum/disease/advance()
+	var/list/datum/symptom/possible_symptoms = list()
+	for(var/symptom in subtypesof(/datum/symptom))
+		var/datum/symptom/S = symptom
+		if(initial(S.level) > max_level)
+			continue
+		if(initial(S.level) <= 0) //unobtainable symptoms
+			continue
+		possible_symptoms += S
+	for(var/i in 1 to max_symptoms)
+		var/datum/symptom/chosen_symptom = pick_n_take(possible_symptoms)
+		if(chosen_symptom)
+			var/datum/symptom/S = new chosen_symptom
+			A.symptoms += S
+	A.Refresh() //just in case someone already made and named the same disease
+	return A
 
 
 /obj/item/organ/internal/heart/gland/emp //TODO : Replace with something more interesting
 	origin_tech = "materials=4;biotech=4;magnets=6;abductor=3"
-	cooldown_low = 900
-	cooldown_high = 1600
+	cooldown_low = 800
+	cooldown_high = 1200
 	uses = 10
 	icon_state = "emp"
+	mind_control_uses = 3
+	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/emp/activate()
 	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")
@@ -239,10 +259,8 @@
 	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/egg/activate()
-	to_chat(owner, "<span class='boldannounce'>You lay an egg!</span>")
-	var/obj/item/reagent_containers/food/snacks/egg/egg = new(owner.loc)
-	egg.reagents.add_reagent("sacid",20)
-	egg.desc += " It smells bad."
+	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
+	new /obj/item/reagent_containers/food/snacks/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric
 	cooldown_low = 800
@@ -283,9 +301,8 @@
 	mind_control_duration = 1200
 
 /obj/item/organ/internal/heart/gland/chem/activate()
-	var/chem_to_add = get_random_reagent_id()
-	owner.reagents.add_reagent(chem_to_add, 2)
-	owner.adjustToxLoss(-2, TRUE, TRUE)
+	owner.reagents.add_reagent(get_random_reagent_id(), 2)
+	owner.adjustToxLoss(-2)
 	..()
 
 /obj/item/organ/internal/heart/gland/bloody
