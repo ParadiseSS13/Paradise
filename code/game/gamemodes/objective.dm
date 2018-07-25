@@ -352,7 +352,9 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		if(O.flags & 2)
 			continue
 		steal_target=O
-		explanation_text = "Steal [steal_target]. One can be found in [get_location()]."
+		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
+		if(islist(O.protected_jobs) && O.protected_jobs.len)
+			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
 		return
 	explanation_text = "Free Objective."
 
