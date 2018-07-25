@@ -14,6 +14,7 @@
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
 	var/datum/click_intercept/buildmode/bd
+	layer = HUD_LAYER_BUILDMODE
 
 /obj/screen/buildmode/New(bld)
 	..()
@@ -78,6 +79,7 @@
 /obj/effect/buildmode_reticule
 	var/image/I
 	var/client/cl
+	anchored = TRUE
 
 /obj/effect/buildmode_reticule/New(var/turf/t, var/client/c)
 	loc = t
@@ -454,10 +456,12 @@
 					var/turf/T = get_turf(object)
 					log_admin("Build Mode: [key_name(user)] modified [T] ([T.x],[T.y],[T.z]) to [objholder]")
 					T.ChangeTurf(objholder)
-				else
+				else if(!isnull(objholder))
 					var/obj/A = new objholder (get_turf(object))
 					A.setDir(build_dir)
 					log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [build_dir]")
+				else
+					to_chat(user, "<span class='warning'>Select object type first.</span>")
 			else if(right_click)
 				if(isobj(object))
 					log_admin("Build Mode: [key_name(user)] deleted [object] at ([object.x],[object.y],[object.z])")
