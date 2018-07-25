@@ -639,6 +639,27 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	origin_tech = "materials=2;biotech=2;abductor=2"
 	toolspeed = 0.25
 
+/obj/item/bonegel/alien
+	name = "alien bone gel"
+	desc = "It smells like duct tape."
+	icon = 'icons/obj/abductor.dmi'
+	origin_tech = "materials=2;biotech=2;abductor=2"
+	toolspeed = 0.25
+
+/obj/item/FixOVein/alien
+	name = "alien FixOVein"
+	desc = "Bloodless aliens would totally know how to stop internal bleeding...right?"
+	icon = 'icons/obj/abductor.dmi'
+	origin_tech = "materials=2;biotech=2;abductor=2"
+	toolspeed = 0.25
+
+/obj/item/bonesetter/alien
+	name = "alien bone setter"
+	desc = "You're not sure you want to know whether or not aliens have bones."
+	icon = 'icons/obj/abductor.dmi'
+	origin_tech = "materials=2;biotech=2;abductor=2"
+	toolspeed = 0.25
+
 /obj/item/clothing/head/helmet/abductor
 	name = "agent headgear"
 	desc = "Abduct with style - spiky style. Prevents digital tracking."
