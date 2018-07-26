@@ -89,7 +89,7 @@
 					result = "You win fifty credits!"
 					resultlvl = "good"
 					win_money(50)
-				else if(roll > 300 && roll <= 4000)
+				else if(roll > 300 && roll <= 1000)
 					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won ten credits!'")
 					result = "You win ten credits!"
 					resultlvl = "good"
