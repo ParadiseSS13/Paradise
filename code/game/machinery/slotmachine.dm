@@ -49,7 +49,7 @@
 				return
 			if(!account || account.money < 10)
 				return
-			if(!account.charge(10, transaction_purpose = "Bet", dest_name = name))
+			if(!account.charge(10, null, "Bet", "Slot Machine", "Slot Machine"))
 				return
 			plays += 1
 			working = 1
@@ -89,7 +89,7 @@
 					result = "You win fifty credits!"
 					resultlvl = "good"
 					win_money(50)
-				else if(roll > 300 && roll <= 600)
+				else if(roll > 300 && roll <= 4000)
 					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won ten credits!'")
 					result = "You win ten credits!"
 					resultlvl = "good"
@@ -106,12 +106,5 @@
 
 	if(!account)
 		return
-	account.money += amt
 
-	var/datum/transaction/T = new()
-	T.target_name = account.owner_name
-	T.purpose = "Slot Winnings"
-	T.amount = "[amt]"
-	T.date = current_date_string
-	T.time = station_time_timestamp()
-	account.transaction_log.Add(T)
+	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)
