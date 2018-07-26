@@ -951,35 +951,30 @@ About the new airlock wires panel:
 		return ..()
 
 /obj/machinery/door/airlock/try_to_weld(obj/item/weldingtool/W, mob/user)
-	if(!operating && density)
-		if(user.a_intent != INTENT_HELP)
-			if(W.remove_fuel(0, user))
-				user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
-								"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
-								"<span class='italics'>You hear welding.</span>")
-				playsound(loc, W.usesound, 40, 1)
-				if(do_after(user, 40 * W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
-					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
-					welded = !welded
-					user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
-										"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
-					update_icon()
+	if(!operating && density && W.isOn())
+		if(user.a_intent == INTENT_HELP && obj_integrity < max_integrity)
+			user.visible_message("[user] is welding the airlock.", \
+							"<span class='notice'>You begin repairing the airlock...</span>", \
+							"<span class='italics'>You hear welding.</span>")
+			playsound(loc, W.usesound, 40, 1)
+			if(do_after(user, 40 * W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
+				playsound(loc, 'sound/items/welder2.ogg', 50, 1)
+				obj_integrity = max_integrity
+				stat &= ~BROKEN
+				user.visible_message("[user.name] has repaired [src].", \
+									"<span class='notice'>You finish repairing the airlock.</span>")
+				update_icon()
 		else
-			if(obj_integrity < max_integrity)
-				if(W.remove_fuel(0, user))
-					user.visible_message("[user] is welding the airlock.", \
-									"<span class='notice'>You begin repairing the airlock...</span>", \
-									"<span class='italics'>You hear welding.</span>")
-					playsound(loc, W.usesound, 40, 1)
-					if(do_after(user, 40 * W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
-						playsound(loc, 'sound/items/welder2.ogg', 50, 1)
-						obj_integrity = max_integrity
-						stat &= ~BROKEN
-						user.visible_message("[user.name] has repaired [src].", \
-											"<span class='notice'>You finish repairing the airlock.</span>")
-						update_icon()
-			else
-				to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
+			user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
+							"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
+							"<span class='italics'>You hear welding.</span>")
+			playsound(loc, W.usesound, 40, 1)
+			if(do_after(user, 40 * W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
+				playsound(loc, 'sound/items/welder2.ogg', 50, 1)
+				welded = !welded
+				user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
+									"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
+				update_icon()
 
 /obj/machinery/door/airlock/proc/weld_checks(obj/item/weldingtool/W, mob/user)
 	return !operating && density && user && W && W.isOn() && user.loc
