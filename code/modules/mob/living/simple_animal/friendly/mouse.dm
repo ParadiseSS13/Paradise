@@ -146,3 +146,53 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+
+
+/mob/living/simple_animal/mouse/blobinfected
+	maxHealth = 100
+	health = 100
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	var/cycles_alive = 0
+	var/cycles_limit = 30
+	var/has_burst = FALSE
+
+/mob/living/simple_animal/mouse/blobinfected/Life()
+	cycles_alive++
+	if(prob(20))
+		var/timeleft = (cycles_limit - cycles_alive) * 2
+		if(timeleft < 1)
+			burst(FALSE)
+		else
+			to_chat(src, "<span class='warning'>[timeleft] seconds until you burst, and become a blob...</span>")
+	return ..()
+
+/mob/living/simple_animal/mouse/blobinfected/death(gibbed)
+	burst(gibbed)
+	return ..(gibbed)
+
+/mob/living/simple_animal/mouse/blobinfected/proc/burst(gibbed)
+	if(has_burst)
+		return FALSE
+	var/turf/T = get_turf(src)
+	if(!is_station_level(T.z) || istype(T, /turf/space))
+		to_chat(src, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
+		return FALSE
+	has_burst = TRUE
+	var/datum/mind/blobmind = mind
+	var/client/C = client
+	if(istype(blobmind) && istype(C))
+		blobmind.special_role = SPECIAL_ROLE_BLOB
+		var/obj/structure/blob/core/core = new(T, 200, C, 3)
+		if(core.overmind && core.overmind.mind)
+			//core.overmind.mind.name = blob.name
+			core.overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+	else
+		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
+	if(ismob(loc)) // in case some taj/etc ate the mouse.
+		var/mob/M = loc
+		M.gib()
+	if(!gibbed)
+		gib()
+
+
