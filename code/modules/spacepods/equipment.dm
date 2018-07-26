@@ -89,7 +89,7 @@
 	desc = "A weak taser system for space pods, fires disabler beams."
 	icon_state = "weapon_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
-	shot_cost = 400
+	shot_cost = 200
 	fire_sound = 'sound/weapons/Taser.ogg'
 
 /obj/item/spacepod_equipment/weaponry/burst_taser
@@ -97,7 +97,7 @@
 	desc = "A weak taser system for space pods, this one fires 3 at a time."
 	icon_state = "weapon_burst_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
-	shot_cost = 1200
+	shot_cost = 600
 	shots_per = 3
 	fire_sound = 'sound/weapons/Taser.ogg'
 	fire_delay = 30
@@ -107,7 +107,7 @@
 	desc = "A weak laser system for space pods, fires concentrated bursts of energy."
 	icon_state = "weapon_laser"
 	projectile_type = /obj/item/projectile/beam
-	shot_cost = 600
+	shot_cost = 300
 	fire_sound = 'sound/weapons/Laser.ogg'
 
 // MINING LASERS
