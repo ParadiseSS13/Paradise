@@ -256,7 +256,7 @@
 		if(H.status_flags & GOTTAGOFAST)
 			. -= 1
 		if(H.status_flags & GOTTAGOREALLYFAST)
-			. -= 2
+			. -= 1
 	return .
 
 /datum/species/proc/handle_post_spawn(mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
