@@ -772,7 +772,7 @@
 	can_synth = FALSE
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
-	M.status_flags |= GOTTAGOFAST1
+	M.status_flags |= GOTTAGOFAST
 	if(M.health < 50 && M.health > 0)
 		M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 		M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
@@ -785,7 +785,7 @@
 	..()
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST1
+	M.status_flags &= ~GOTTAGOFAST
 	..()
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)

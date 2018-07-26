@@ -69,11 +69,11 @@
 	M.Druggy(30)
 	M.AdjustDizzy(5)
 	M.SetDrowsy(0)
-	M.status_flags |= GOTTAGOFAST1
+	M.status_flags |= GOTTAGOFAST
 	..()
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST1
+	M.status_flags &= ~GOTTAGOFAST
 	..()
 
 /datum/reagent/consumable/drink/cold/spacemountainwind

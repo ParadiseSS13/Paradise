@@ -169,7 +169,7 @@
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.status_flags |= GOTTAGOFAST1
+	victim.status_flags |= GOTTAGOFAST
 	spawn(duration)
-		victim.status_flags &= ~GOTTAGOFAST1
+		victim.status_flags &= ~GOTTAGOFAST
 		to_chat(victim, "<span class='notice'>You slow down.</span>")

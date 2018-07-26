@@ -16,7 +16,7 @@
 	if(enabled)
 		to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")
 	else
-		user.status_flags &= ~GOTTAGOFAST1
+		user.status_flags &= ~GOTTAGOFAST
 		to_chat(user, "<span class='notice'>Our muscles relax.</span>")
 		if(stacks >= 10)
 			to_chat(user, "<span class='danger'>We collapse in exhaustion.</span>")
@@ -24,11 +24,11 @@
 			user.emote("gasp")
 
 	while(enabled)
-		user.status_flags |= GOTTAGOFAST1
+		user.status_flags |= GOTTAGOFAST
 		if(user.stat || user.staminaloss >= 90)
 			enabled = 0 //Let's use something exact instead of !enabled where we can.
 			to_chat(user, "<span class='notice'>Our muscles relax without the energy to strengthen them.</span>")
-			user.status_flags &= ~GOTTAGOFAST1
+			user.status_flags &= ~GOTTAGOFAST
 			user.Weaken(2)
 			user.emote("gasp")
 			break
