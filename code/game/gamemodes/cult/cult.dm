@@ -43,7 +43,7 @@ var/global/list/all_cults = list()
 	protected_jobs = list()
 	required_players = 13
 	required_enemies = 2
-	recommended_enemies = 4
+	recommended_enemies = 3
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
