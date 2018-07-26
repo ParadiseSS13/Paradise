@@ -253,9 +253,9 @@
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
-		if(H.status_flags & GOTTAGOFAST)
+		if(H.status_flags & GOTTAGOFAST1)
 			. -= 1
-		if(H.status_flags & GOTTAGOREALLYFAST)
+		if(H.status_flags & GOTTAGOFAST2)
 			. -= 1
 	return .
 
