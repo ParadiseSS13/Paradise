@@ -3,7 +3,7 @@
 	status_flags = GODMODE|CANPUSH
 	var/in_use = FALSE
 
-//INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
+INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 
 /mob/living/carbon/human/dummy/Destroy()
 	in_use = FALSE
@@ -23,6 +23,7 @@ GLOBAL_LIST_EMPTY(human_dummy_list)
 	if(!slotkey)
 		return new /mob/living/carbon/human/dummy
 	var/mob/living/carbon/human/dummy/D = GLOB.human_dummy_list[slotkey]
+	to_chat(world, "1[istype(D)]")
 	if(istype(D))
 		while(!D.in_use)
 			stoplag()
@@ -33,6 +34,7 @@ GLOBAL_LIST_EMPTY(human_dummy_list)
 		D = new
 		GLOB.human_dummy_list[slotkey] = D
 	D.in_use = TRUE
+	to_chat(world, "2[istype(D)]")
 	return D
 
 /proc/unset_busy_human_dummy(slotnumber)
