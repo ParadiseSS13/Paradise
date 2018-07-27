@@ -1,7 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Abductors can now purchase a mind device to speak into crewmembers minds or give directives to abductees"
-  - rscadd: "Abductors now have their own versions of the FixOVein, Bonesetter, and Bonegel. Credit to Triiodine for the sprites"
-  - rscadd: "Adds a new electric shock and chemical gland for abductors"
-  - tweak: "viral gland generates random viruses and egg laying gland eggs now have random reagents in them"
