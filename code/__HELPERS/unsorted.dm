@@ -1497,6 +1497,10 @@ var/mob/dview/dview_mob = new
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 
+/mob/dview/Destroy()
+	// should never be deleted
+	return QDEL_HINT_LETMELIVE
+
 /proc/IsValidSrc(A)
 	if(istype(A, /datum))
 		var/datum/D = A

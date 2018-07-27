@@ -58,10 +58,10 @@
 	if(ST_bot_left == null || ST_top_right == null)
 		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
 
+	space_manager.remove_dirt(placement.z)
 	late_setup_level(
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
-	space_manager.remove_dirt(placement.z)
 
 	log_game("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1

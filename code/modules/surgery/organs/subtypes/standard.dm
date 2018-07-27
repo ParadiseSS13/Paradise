@@ -136,9 +136,9 @@
 		if(owner.gloves)
 			owner.unEquip(owner.gloves)
 		if(owner.l_hand)
-			owner.unEquip(owner.l_hand,1)
+			owner.unEquip(owner.l_hand, TRUE)
 		if(owner.r_hand)
-			owner.unEquip(owner.r_hand,1)
+			owner.unEquip(owner.r_hand, TRUE)
 
 	. = ..()
 

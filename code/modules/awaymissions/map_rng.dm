@@ -20,7 +20,7 @@
 		template = map_templates[template_name]
 
 /obj/effect/landmark/map_loader/Initialize()
-	..()
+	. = ..()
 	if(template)
 		load(template)
 
