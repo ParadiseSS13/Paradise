@@ -153,18 +153,20 @@
 	health = 100
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 	var/cycles_alive = 0
 	var/cycles_limit = 30
 	var/has_burst = FALSE
 
 /mob/living/simple_animal/mouse/blobinfected/Life()
 	cycles_alive++
-	if(prob(20))
-		var/timeleft = (cycles_limit - cycles_alive) * 2
-		if(timeleft < 1)
-			burst(FALSE)
-		else
-			to_chat(src, "<span class='warning'>[timeleft] seconds until you burst, and become a blob...</span>")
+	var/timeleft = (cycles_limit - cycles_alive) * 2
+	if(ismob(loc)) // if some taj/etc ate the mouse, burst instantly.
+		burst(FALSE)
+	else if(timeleft < 1) // if timer expired, burst.
+		burst(FALSE)
+	else if(cycles_alive % 2 == 0) // give the mouse/player a countdown reminder every 2 cycles
+		to_chat(src, "<span class='warning'>[timeleft] seconds until you burst, and become a blob...</span>")
 	return ..()
 
 /mob/living/simple_animal/mouse/blobinfected/death(gibbed)
