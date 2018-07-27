@@ -4,7 +4,7 @@
 // --------------------------------------------------------------------------------
 // -------------: ROLE: guarding queen nests
 // -------------: AI: dies if too far from queen
-// -------------: SPECIAL: chance to stun on hit
+// -------------: SPECIAL: thick (vision-blocking) webs
 // -------------: TO FIGHT IT: shoot it from range, bring friends!
 // -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
 
