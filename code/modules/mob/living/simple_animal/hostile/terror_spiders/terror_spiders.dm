@@ -41,6 +41,7 @@ var/global/list/ts_spiderling_list = list()
 	pressure_resistance = 50    //50 kPa difference required to push
 	throw_pressure_limit = 100  //100 kPa difference required to throw
 	pass_flags = PASSTABLE
+	pullable = FALSE // cannot be pulled
 
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
