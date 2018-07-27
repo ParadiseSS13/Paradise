@@ -29,19 +29,15 @@
 	reagent_tag = PROCESS_ORG
 	blood_color = "#A200FF"
 
-/datum/species/grey/handle_dna(var/mob/living/carbon/C, var/remove)
-	if(!remove)
-		C.dna.SetSEState(REMOTETALKBLOCK,1,1)
-		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
-	else
-		C.dna.SetSEState(REMOTETALKBLOCK,0,1)
-		genemutcheck(C,REMOTETALKBLOCK,null,MUTCHK_FORCED)
+/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
+	H.dna.SetSEState(REMOTETALKBLOCK, !remove, 1)
+	genemutcheck(H, REMOTETALKBLOCK, null, MUTCHK_FORCED)
 
-/datum/species/grey/water_act(var/mob/living/carbon/C, volume, temperature, source)
+/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source)
 	..()
-	C.take_organ_damage(5,min(volume,20))
-	C.emote("scream")
+	H.take_organ_damage(5, min(volume, 20))
+	H.emote("scream")
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/speech_pref = H.client.prefs.speciesprefs

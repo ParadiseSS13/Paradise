@@ -20,7 +20,7 @@
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes)
 
-/datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
+/datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
@@ -65,7 +65,7 @@
 	oxy_mod = 0
 	heatmod = 1.1
 
-/datum/species/shadow/ling/lesser/handle_life(var/mob/living/carbon/human/H)
+/datum/species/shadow/ling/lesser/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0

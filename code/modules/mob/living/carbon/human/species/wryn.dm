@@ -7,7 +7,6 @@
 	tail = "wryntail"
 	punchdamagelow = 0
 	punchdamagehigh = 1
-	//primitive = /mob/living/carbon/monkey/wryn
 	slowdown = 1
 	warning_low_pressure = -300
 	hazard_low_pressure = 1
@@ -49,11 +48,11 @@
 	default_hair = "Antennae"
 
 
-/datum/species/wryn/handle_death(var/mob/living/carbon/human/H)
+/datum/species/wryn/handle_death(mob/living/carbon/human/H)
 	for(var/mob/living/carbon/C in living_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 			to_chat(C, "<span class='danger'><B>Your antennae tingle as you are overcome with pain...</B></span>")
-			to_chat(C, "<span class='danger'>It feels like part of you has died.</span>")
+			to_chat(C, "<span class='danger'>It feels like part of you has died.</span>") // This is bullshit
 
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.handcuffed && target.get_int_organ(/obj/item/organ/internal/wryn/hivenode))

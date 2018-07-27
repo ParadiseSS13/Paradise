@@ -79,8 +79,6 @@
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
-	var/list/abilities = list()	// For species-derived or admin-given powers
-
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
@@ -151,9 +149,7 @@
 		"l_hand" = list("path" = /obj/item/organ/external/hand),
 		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
 		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
-		)
-	var/list/proc/species_abilities = list()
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
@@ -259,24 +255,15 @@
 			. -= 2
 	return .
 
-/datum/species/proc/handle_post_spawn(mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
-	grant_abilities(C)
+/datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
+	return
+
+/datum/species/proc/on_species_loss(mob/living/carbon/human/H)
+	if(H.butcher_results) //clear it out so we don't butcher a actual human.
+		H.butcher_results = null
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
-
-/datum/species/proc/grant_abilities(mob/living/carbon/human/H)
-	for(var/proc/ability in species_abilities)
-		H.verbs += ability
-
-/datum/species/proc/handle_pre_change(mob/living/carbon/human/H)
-	if(H.butcher_results) //clear it out so we don't butcher a actual human.
-		H.butcher_results = null
-	remove_abilities(H)
-
-/datum/species/proc/remove_abilities(mob/living/carbon/human/H)
-	for(var/proc/ability in species_abilities)
-		H.verbs -= ability
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
@@ -297,7 +284,7 @@
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
 
-/datum/species/proc/handle_dna(mob/living/carbon/C, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
+/datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).

@@ -28,14 +28,13 @@
 		)
 	vision_organ = /obj/item/organ/internal/eyes/luminescent_crystal
 
-/datum/species/nucleation/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
+	..()
 	H.light_color = "#1C1C00"
 	H.set_light(2)
-	return ..()
 
-/datum/species/nucleation/handle_death(var/mob/living/carbon/human/H)
+/datum/species/nucleation/handle_death(mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death
-//	new /obj/item/shard/supermatter( T )
 	qdel(H)

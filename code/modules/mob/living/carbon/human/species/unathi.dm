@@ -56,12 +56,18 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	var/datum/action/innate/tail_lash/lash = new()
+	var/datum/action/innate/tail_lash/lash
 
 
-/datum/species/unathi/handle_post_spawn(var/mob/living/carbon/human/H)
-	lash.Grant(H)
+/datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
+	lash = new
+	lash.Grant(H)
+
+/datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
+	..()
+	if(lash)
+		lash.Remove(H)
 
 /datum/action/innate/tail_lash
 	name = "Tail lash"
@@ -88,5 +94,5 @@
 
 
 
-/datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
+/datum/species/unathi/handle_death(mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
