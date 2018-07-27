@@ -159,7 +159,7 @@
 	if(!ScientistCheck(user))
 		return
 	if(!console)
-		to_chat(user, "<span class='warning'>The device is not linked to console!</span>")
+		to_chat(user, "<span class='warning'>The device is not linked to a console!</span>")
 		return
 
 	if(mode == GIZMO_SCAN)

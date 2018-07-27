@@ -167,7 +167,7 @@
 	human_only = TRUE
 	icon_state = "species"
 	mind_control_uses = 5
-	mind_control_duration = 300
+	mind_control_duration = 3000
 
 /obj/item/organ/internal/heart/gland/pop/activate()
 	to_chat(owner, "<span class='notice'>You feel unlike yourself.</span>")
