@@ -61,7 +61,8 @@
 	var/obj/item/clothing/accessory/petcollar/collar = null
 	var/can_collar = 0 // can add collar to mob or not
 
-//Hot simple_animal baby making vars
+	//Hot simple_animal baby making vars
+
 	var/childtype = null
 	var/scan_ready = 1
 	var/simplespecies //Sorry, no spider+corgi buttbabies.
@@ -78,6 +79,11 @@
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 
+	// Action Datums
+
+	var/datum/action/innate/simpleanimal/toggleintent/toggleintent_action
+
+
 
 /mob/living/simple_animal/New()
 	..()
@@ -89,6 +95,8 @@
 		if(!istype(collar))
 			collar = new(src)
 		regenerate_icons()
+	toggleintent_action = new()
+	toggleintent_action.Grant(src)
 
 /mob/living/simple_animal/Destroy()
 	if(collar)
@@ -570,3 +578,28 @@
 
 /mob/living/simple_animal/SetEarDeaf()
 	return
+
+
+
+// Actions
+
+/datum/action/innate/simpleanimal/toggleintent
+	name = "Toggle Intent"
+	icon_icon = 'icons/mob/screen_bot.dmi'
+	button_icon_state = "help"
+
+/datum/action/innate/simpleanimal/toggleintent/Activate()
+	var/mob/living/simple_animal/user = owner
+	if(user.a_intent == INTENT_HELP)
+		user.a_intent = INTENT_HARM
+	else
+		user.a_intent = INTENT_HELP
+	UpdateButtonIcon()
+
+/datum/action/innate/simpleanimal/toggleintent/UpdateButtonIcon()
+	var/mob/living/simple_animal/user = owner
+	if(user.a_intent == INTENT_HARM)
+		button_icon_state = "harm"
+	else
+		button_icon_state = "help"
+	return ..()
