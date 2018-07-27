@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "Cyborg Analyzer no longer rounds off the damage number it displays."
