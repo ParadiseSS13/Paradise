@@ -161,7 +161,7 @@
 /mob/living/simple_animal/mouse/blobinfected/Life()
 	cycles_alive++
 	var/timeleft = (cycles_limit - cycles_alive) * 2
-	if(ismob(loc)) // if some taj/etc ate the mouse, burst instantly.
+	if(ismob(loc)) // if someone ate it, burst immediately
 		burst(FALSE)
 	else if(timeleft < 1) // if timer expired, burst.
 		burst(FALSE)
@@ -197,4 +197,6 @@
 	if(!gibbed)
 		gib()
 
-
+/mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
+	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
+	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
