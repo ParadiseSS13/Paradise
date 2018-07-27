@@ -351,13 +351,13 @@
 		if(BOOM_BUILDMODE)
 			devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null
 			if(devastation == null) devastation = -1
-			var/heavy = input("Range of heavy impact. -1 to none", text("Input"))  as num|null
+			heavy = input("Range of heavy impact. -1 to none", text("Input"))  as num|null
 			if(heavy == null) heavy = -1
-			var/light = input("Range of light impact. -1 to none", text("Input"))  as num|null
+			light = input("Range of light impact. -1 to none", text("Input"))  as num|null
 			if(light == null) light = -1
-			var/flash = input("Range of flash. -1 to none", text("Input"))  as num|null
+			flash = input("Range of flash. -1 to none", text("Input"))  as num|null
 			if(flash == null) flash = -1
-			var/flames = input("Range of flames. -1 to none", text("Input"))  as num|null
+			flames = input("Range of flames. -1 to none", text("Input"))  as num|null
 			if(flames == null) flames = -1
 
 		if(SAVE_BUILDMODE)
@@ -629,7 +629,7 @@
 						L2.color = L.color
 						link_lines += L2
 		if(BOOM_BUILDMODE)
-			explosion(object, devastation, heavy, light, flash, null, null,flames)
+			explosion(object, devastation, heavy, light, flash, null, TRUE, flames)
 		if(SAVE_BUILDMODE)
 			if(!cornerA)
 				cornerA = select_tile(get_turf(object))
