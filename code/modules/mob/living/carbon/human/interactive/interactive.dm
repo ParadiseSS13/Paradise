@@ -245,7 +245,7 @@
 	MYID.age = age
 	MYID.registered_name = real_name
 	MYID.photo = get_id_photo(src)
-	MYID.access = Path_ID.access // Automatons have strange powers... strange indeed
+	MYID.access = Path_ID.access.Copy() // Automatons have strange powers... strange indeed
 
 	RPID = new(src)
 	RPID.name = "[real_name]'s ID Card ([alt_title])"
@@ -257,7 +257,10 @@
 	RPID.photo = get_id_photo(src)
 	RPID.access = myjob.get_access()
 
-	equip_to_slot_or_del(MYID, slot_wear_id)
+	if(wear_id)
+		qdel(wear_id)
+	if(!equip_to_slot_or_del(MYID, slot_wear_id))
+		create_attack_log("<font color='blue'>Deleted ID due to slot contention</font>")
 	if(wear_pda)
 		MYPDA = wear_pda
 	else
@@ -403,8 +406,12 @@
 	if(!hud_used)
 		hud_used = new /datum/hud/human(src)
 
-/mob/living/carbon/human/interactive/Initialize(mapload)
+/mob/living/carbon/human/interactive/Initialize()
 	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/carbon/human/interactive/LateInitialize()
+	. = ..()
 	snpc_list += src
 
 	create_mob_hud()
@@ -427,6 +434,7 @@
 /mob/living/carbon/human/interactive/Destroy()
 	hear_radio_list -= src
 	snpc_list -= src
+	npc_master.removeBot(src)
 	return ..()
 
 /mob/living/carbon/human/interactive/proc/retalTarget(mob/living/target)

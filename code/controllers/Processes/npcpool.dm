@@ -31,6 +31,9 @@ DECLARE_GLOBAL_CONTROLLER(npcpool, npc_master)
 	if(istype(toInsert, /mob/living/carbon/human/interactive))
 		botPool_l |= toInsert
 
+/datum/controller/process/npcpool/proc/removeBot(toRemove)
+	botPool_l -= toRemove
+
 /datum/controller/process/npcpool/statProcess()
 	..()
 	stat(null, "T [botPool_l.len + botPool_l_non.len] | D [needsDelegate.len] | A [needsAssistant.len + needsHelp_non.len] | U [canBeUsed.len + canBeUsed_non.len]")

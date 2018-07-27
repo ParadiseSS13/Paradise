@@ -249,7 +249,8 @@ var/global/list/damage_icon_parts = list()
 			icon_key += "1"
 
 		if(part)
-			icon_key += "[part.dna.species.race_key]"
+			var/datum/species/S = GLOB.all_species[part.dna.species.name] //This has to reference the species datums from round start, since they're global and unchanging
+			icon_key += "[S.race_key]"
 			icon_key += "[part.dna.GetUIState(DNA_UI_GENDER)]"
 			icon_key += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
 			if(part.s_col)
