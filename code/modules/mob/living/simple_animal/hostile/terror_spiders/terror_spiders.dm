@@ -41,7 +41,7 @@ var/global/list/ts_spiderling_list = list()
 	pressure_resistance = 50    //50 kPa difference required to push
 	throw_pressure_limit = 100  //100 kPa difference required to throw
 	pass_flags = PASSTABLE
-	anchored = 1 // cannot be dragged
+	pullable = FALSE // cannot be pulled
 	a_intent = INTENT_HARM
 
 	// Ventcrawling

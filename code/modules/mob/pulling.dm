@@ -5,6 +5,8 @@
 		return
 	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
 		return
+	if(!AM.pullable)
+		return
 	if(!(AM.anchored))
 		AM.add_fingerprint(src)
 
