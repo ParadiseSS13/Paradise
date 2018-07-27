@@ -324,6 +324,16 @@
 	icon_state = "egg-yellow"
 	item_color = "yellow"
 
+/obj/item/reagent_containers/food/snacks/egg/gland
+	desc = "An egg! It looks weird..."
+
+/obj/item/reagent_containers/food/snacks/egg/gland/New()
+	..()
+	reagents.add_reagent(get_random_reagent_id(), 15)
+
+	var/reagent_color = mix_color_from_reagents(reagents.reagent_list)
+	color = reagent_color
+
 /obj/item/reagent_containers/food/snacks/friedegg
 	name = "Fried egg"
 	desc = "A fried egg, with a touch of salt and pepper."
