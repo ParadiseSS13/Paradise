@@ -588,6 +588,10 @@
 	icon_icon = 'icons/mob/screen_bot.dmi'
 	button_icon_state = "help"
 
+/datum/action/innate/simpleanimal/toggleintent/New(var/Target)
+	. = ..(Target)
+	UpdateButtonIcon()
+
 /datum/action/innate/simpleanimal/toggleintent/Activate()
 	var/mob/living/simple_animal/user = owner
 	if(user.a_intent == INTENT_HELP)
