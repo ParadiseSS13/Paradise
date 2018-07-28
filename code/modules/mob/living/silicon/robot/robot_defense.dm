@@ -37,6 +37,8 @@
 	updatehealth()
 	return
 
+
+
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
 
@@ -57,3 +59,15 @@
 				step_away(src, user, 15)
 				sleep(3)
 				step_away(src, user, 15)
+
+/mob/living/silicon/robot/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
+	var/obj/item/I
+	if(istype(AM, /obj/item))
+		I = AM
+	if(I)
+		if(I.throwforce)
+			if(!I.thrownby)
+				if(prob(80))
+					visible_message("<span class='danger'>[I] Hits [src] but does not leave a mark!</span>","<span class='userdanger'>[I] hits you just right, failing to cause any damage!</span>")
+					blocked = 1
+	return ..()
