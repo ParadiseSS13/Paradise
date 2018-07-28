@@ -1237,7 +1237,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "30 Plastic Sheets Crate"
 	contains = list(/obj/item/stack/sheet/plastic)
 	amount = 30
-	cost = 35
+	cost = 20
 	containername = "plastic sheets crate"
 
 //////////////////////////////////////////////////////////////////////////////
