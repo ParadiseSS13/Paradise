@@ -71,17 +71,14 @@
 	if(ishuman(usr))
 		var/_x = text2num(params2list(params)["icon-x"])
 		var/_y = text2num(params2list(params)["icon-y"])
-
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
 			usr.a_intent_change(INTENT_HELP)
 		else if(_x>=17 && _y<=16)
 			usr.a_intent_change(INTENT_GRAB)
-
 		else if(_x>=17 && _y>=17)
 			usr.a_intent_change(INTENT_DISARM)
-
 	else
 		usr.a_intent_change("right")
 
@@ -96,6 +93,11 @@
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
+
+
+/obj/screen/act_intent/simple
+	icon = 'icons/mob/screen_robot.dmi'
+	screen_loc = ui_acti
 
 /obj/screen/mov_intent/Click()
 	if(iscarbon(usr))

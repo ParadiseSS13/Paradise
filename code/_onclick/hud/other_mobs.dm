@@ -1,3 +1,15 @@
+/mob/living/simple_animal/create_mob_hud()
+	hud_used = new /datum/hud/simple(src)
+
+/datum/hud/simple/New(mob/user)
+	..()
+	var/obj/screen/using
+	using = new /obj/screen/act_intent/simple()
+	using.icon_state = mymob.a_intent
+	static_inventory += using
+	action_intent = using
+
+
 /mob/living/simple_animal/pet/create_mob_hud()
 	if(client && !hud_used)
 		hud_used = new /datum/hud/corgi(src)
