@@ -314,6 +314,7 @@ var/global/list/ts_spiderling_list = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
 	if(!hasdied)
 		hasdied = 1
+		pullable = TRUE
 		ts_count_dead++
 		ts_death_last = world.time
 		if(spider_awaymission)
