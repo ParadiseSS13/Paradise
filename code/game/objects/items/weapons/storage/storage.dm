@@ -357,19 +357,22 @@
 		remove_from_storage(Item, loc, burn)
 
 //This proc is called when you want to place an item into the storage item.
-/obj/item/storage/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/storage/attackby(obj/item/I, mob/user, params)
 	..()
-
+	if(istype(I, /obj/item/hand_labeler))
+		var/obj/item/hand_labeler/labeler = I
+		if(labeler.mode)
+			return FALSE
+	. = 1 //no afterattack
 	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You're a robot. No.</span>")
-		return 1//Robots can't interact with storage items.
+		return //Robots can't interact with storage items.
 
-	if(!can_be_inserted(W))
-		return 0
+	if(!can_be_inserted(I))
+		if(contents.len >= storage_slots) //don't use items on the backpack if they don't fit
+			return TRUE
+		return FALSE
 
-	handle_item_insertion(W)
-	return 1
-
+	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user as mob)
 	playsound(src.loc, "rustle", 50, 1, -5)
@@ -421,6 +424,7 @@
 	hide_from(usr)
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
+		CHECK_TICK
 
 /obj/item/storage/New()
 	can_hold = typecacheof(can_hold)

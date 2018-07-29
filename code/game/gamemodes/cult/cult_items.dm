@@ -50,7 +50,7 @@
 	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
+		if((H.stat != DEAD) && !(NO_BLOOD in H.dna.species.species_traits))
 			H.bleed(50)
 
 /obj/item/restraints/legcuffs/bola/cult
@@ -201,6 +201,7 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
+	claw_damage_increase = 2
 
 /obj/item/whetstone/cult/update_icon()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"

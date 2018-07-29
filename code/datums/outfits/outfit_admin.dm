@@ -145,6 +145,7 @@
 	belt = /obj/item/gun/projectile/automatic/pistol/deagle/camo
 	l_ear = /obj/item/radio/headset/syndicate/alt
 	l_pocket = /obj/item/pinpointer/advpinpointer
+	r_pocket = null // stop them getting a radio uplink, they get an implant instead
 
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
@@ -158,7 +159,6 @@
 
 	id_icon = "commander"
 	id_access = "Syndicate Operative Leader"
-	uplink_uses = 500
 
 /datum/outfit/admin/syndicate/officer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -371,7 +371,7 @@
 	)
 
 /datum/outfit/admin/vox/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(H.get_species() == "Vox Armalis")
+	if(isvoxarmalis(H))
 		. = ..()
 	else
 		H.equip_vox_raider()
@@ -613,15 +613,16 @@
 
 	uniform = /obj/item/clothing/under/solgov/rep
 	back = /obj/item/storage/backpack/satchel
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
-	l_ear = /obj/item/radio/headset
+	l_ear = /obj/item/radio/headset/ert
 	id = /obj/item/card/id/silver
 	r_pocket = /obj/item/lighter/zippo/blue
 	l_pocket = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
+		/obj/item/storage/box/responseteam = 1,
 		/obj/item/implanter/dust = 1,
 		/obj/item/implanter/death_alarm = 1,
 	)
@@ -633,25 +634,33 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("VIP Guest"), "Solar Federation Representative")
+		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
 
 
 /datum/outfit/admin/solgov
 	name = "Solar Federation Marine"
 
 	uniform = /obj/item/clothing/under/solgov
+	suit = /obj/item/clothing/suit/armor/bulletproof
 	back = /obj/item/storage/backpack/security
+	belt = /obj/item/storage/belt/military/assault
 	head = /obj/item/clothing/head/soft/solgov
+	glasses = /obj/item/clothing/glasses/hud/security/night
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
+	l_ear = /obj/item/radio/headset/ert
 	id = /obj/item/card/id
 	l_hand = /obj/item/gun/projectile/automatic/ar
+	r_pocket = /obj/item/flashlight/seclite
+	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
-		/obj/item/kitchen/knife/combat = 1,
+		/obj/item/storage/box/responseteam = 1,
 		/obj/item/ammo_box/magazine/m556 = 3,
-		/obj/item/clothing/shoes/magboots = 1
+		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/gun/projectile/automatic/pistol/m1911 = 1,
+		/obj/item/ammo_box/magazine/m45 = 2
 	)
+	var/is_tsf_lieutenant = FALSE
 
 
 /datum/outfit/admin/solgov/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -659,9 +668,14 @@
 	if(visualsOnly)
 		return
 
+	if(is_tsf_lieutenant)
+		H.real_name = "Lieutenant [pick(last_names)]"
+	else
+		H.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
+	H.name = H.real_name
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_centcom_access("VIP Guest"), name)
+		apply_to_card(I, H, get_all_accesses(), name, "lifetimeid")
 
 /datum/outfit/admin/solgov/lieutenant
 	name = "Solar Federation Lieutenant"
@@ -670,14 +684,16 @@
 	head = /obj/item/clothing/head/soft/solgov/command
 	back = /obj/item/storage/backpack/satchel
 	l_hand = null
-	belt = /obj/item/gun/projectile/automatic/pistol/deagle
+	l_pocket = /obj/item/pinpointer/advpinpointer
 	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
-		/obj/item/kitchen/knife/combat = 1,
+		/obj/item/storage/box/responseteam = 1,
 		/obj/item/melee/classic_baton/telescopic = 1,
-		/obj/item/ammo_box/magazine/m50 = 2,
-		/obj/item/clothing/shoes/magboots/advance = 1
+		/obj/item/clothing/shoes/magboots/advance = 1,
+		/obj/item/gun/projectile/automatic/pistol/deagle = 1,
+		/obj/item/ammo_box/magazine/m50 = 2
 	)
+	is_tsf_lieutenant = TRUE
+
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"
@@ -1047,6 +1063,7 @@
 
 
 /datum/outfit/admin/wizard
+	name = "Blue Wizard"
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
 	back = /obj/item/storage/backpack
@@ -1069,10 +1086,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Wizard")
-
-/datum/outfit/admin/wizard/blue
-	name = "Blue Wizard"
-	// the default wizard clothes are blue
 
 /datum/outfit/admin/wizard/red
 	name = "Red Wizard"

@@ -116,7 +116,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		// TODO: Make the radio system cooperate with the space manager
 		listening_level = position.z
 
-/obj/machinery/telecomms/initialize()
+/obj/machinery/telecomms/Initialize()
 	..()
 	if(autolinkers.len)
 		// Links nearby machines
@@ -436,7 +436,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/totaltraffic = 0 // gigabytes (if > 1024, divide by 1024 -> terrabytes)
 
 	var/list/memory = list()	// stored memory
-	var/rawcode = ""	// the code to compile (raw text)
+	var/list/rawcode = list() // the code to compile (list of characters)
 	var/datum/TCS_Compiler/Compiler	// the compiler that compiles and runs the code
 	var/autoruncode = 0		// 1 if the code is set to run every time a signal is picked up
 
@@ -516,10 +516,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 				relay_information(signal, "/obj/machinery/telecomms/broadcaster")
 
 
-/obj/machinery/telecomms/server/proc/setcode(var/t)
-	if(t)
-		if(istext(t))
-			rawcode = t
+/obj/machinery/telecomms/server/proc/setcode(var/list/code)
+	if(istype(code))
+		rawcode = code
 
 /obj/machinery/telecomms/server/proc/compile(mob/user as mob)
 	if(Compiler)
@@ -548,8 +547,8 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 /obj/machinery/telecomms/server/proc/admin_log(var/mob/mob)
 	var/msg="[key_name(mob)] has compiled a script to server [src]:"
 	log_game("NTSL: [msg]")
-	log_game("NTSL: [rawcode]")
-	src.investigate_log("[msg]<br>[rawcode]", "ntsl")
+	log_game("NTSL: [rawcode.Join("")]")
+	src.investigate_log("[msg]<br>[rawcode.Join("")]", "ntsl")
 	if(length(rawcode)) // Let's not bother the admins for empty code.
 		message_admins("[key_name_admin(mob)] has compiled and uploaded a NTSL script to [src.id] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 

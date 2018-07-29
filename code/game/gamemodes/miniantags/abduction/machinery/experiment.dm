@@ -3,8 +3,8 @@
 	desc = "A large man-sized tube sporting a complex array of surgical apparatus."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "experiment-open"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	var/points = 0
 	var/credits = 0
 	var/list/history = list()
@@ -29,7 +29,7 @@
 		return
 	for(var/mob/living/carbon/slime/M in range(1, target))
 		if(M.Victim == target)
-			to_chat(user, "<span class='danger'>[target] has a slime attached to them, deal with that first.</span>")
+			to_chat(user, "<span class='danger'>[target] has a slime attached to [target.p_them()], deal with that first.</span>")
 			return
 	visible_message("[user] puts [target] into the [src].")
 
@@ -47,9 +47,9 @@
 /obj/machinery/abductor/experiment/proc/dissection_icon(mob/living/carbon/human/H)
 	var/icon/I = icon(H.stand_icon)
 
-	var/icon/splat = icon(H.species.damage_overlays, "30")
-	splat.Blend(icon(H.species.damage_mask, "torso"), ICON_MULTIPLY)
-	splat.Blend(H.species.blood_color, ICON_MULTIPLY)
+	var/icon/splat = icon(H.dna.species.damage_overlays, "30")
+	splat.Blend(icon(H.dna.species.damage_mask, "torso"), ICON_MULTIPLY)
+	splat.Blend(H.dna.species.blood_color, ICON_MULTIPLY)
 	I.Blend(splat, ICON_OVERLAY)
 
 	return I
@@ -137,6 +137,7 @@
 				to_chat(H, "<span class='warning'>You feel intensely watched.</span>")
 		sleep(5)
 		to_chat(H, "<span class='warning'><b>Your mind snaps!</b></span>")
+		to_chat(H, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
 		var/objtype = pick(subtypesof(/datum/objective/abductee/))
 		var/datum/objective/abductee/O = new objtype()
 		ticker.mode.abductees += H.mind

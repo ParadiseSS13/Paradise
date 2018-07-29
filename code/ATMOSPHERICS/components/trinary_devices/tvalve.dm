@@ -156,7 +156,7 @@
 	if(frequency)
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_ATMOSIA)
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/initialize()
+/obj/machinery/atmospherics/trinary/tvalve/digital/atmos_init()
 	..()
 	if(frequency)
 		set_frequency(frequency)

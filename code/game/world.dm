@@ -16,16 +16,17 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
 
+	makeDatumRefLists()
 	callHook("startup")
 
 	src.update_status()
+
+	space_manager.initialize() //Before the MC starts up
 
 	. = ..()
 
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
-
-	space_manager.initialize() //Before the MC starts up
 
 	Master.Initialize(10, FALSE)
 
@@ -324,6 +325,10 @@ var/world_topic_spam_protect_time = world.timeofday
 	processScheduler.stop()
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
+	for(var/client/C in clients)
+		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[config.server]")
+
 	if(config && config.shutdown_on_reboot)
 		sleep(0)
 		if(shutdown_shell_command)
@@ -331,9 +336,6 @@ var/world_topic_spam_protect_time = world.timeofday
 		del(world)
 		return
 	else
-		for(var/client/C in clients)
-			if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-				C << link("byond://[config.server]")
 		..(0)
 
 
@@ -359,7 +361,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
-
+	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration()
 	config = new /datum/configuration()
@@ -491,4 +493,3 @@ proc/establish_db_connection()
 		return 1
 
 #undef FAILED_DB_CONNECTION_CUTOFF
-

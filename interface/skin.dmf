@@ -1499,7 +1499,7 @@ window "mainwindow"
 		size = 640x440
 		is-default = true
 		is-maximized = true
-		title = "Space Station 13"
+		title = "Paradise Station 13"
 		icon = 'icons\\ss13_64.png'
 		menu = "menu"
 		macro = "macro"

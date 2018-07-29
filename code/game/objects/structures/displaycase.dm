@@ -295,7 +295,7 @@ var/global/list/captain_display_cases = list()
 	else
 		if(user.a_intent == INTENT_HARM)
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.do_attack_animation(src)
+			user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 			user.visible_message("<span class='danger'>[user.name] kicks \the [src]!</span>", \
 				"<span class='danger'>You kick \the [src]!</span>", \
 				"You hear glass crack.")
@@ -321,7 +321,7 @@ var/global/list/captain_display_cases = list()
 					to_chat(src, "[bicon(src)] <span class='warning'>\The [src] is empty!</span>")
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message("[user.name] gently runs \his hands over [src] in appreciation of its contents.", \
+			user.visible_message("[user.name] gently runs [user.p_their()] hands over [src] in appreciation of its contents.", \
 				"You gently run your hands over [src] in appreciation of its contents.", \
 				"You hear someone streaking glass with their greasy hands.")
 

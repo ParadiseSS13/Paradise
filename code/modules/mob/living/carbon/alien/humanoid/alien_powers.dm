@@ -161,7 +161,7 @@ Doesn't work on other aliens/AI.*/
 					stomach_contents.Remove(M)
 					M.loc = loc
 					//Paralyse(10)
-			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of their stomach!</span>")
+			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
 	return
 
 /mob/living/carbon/proc/getPlasma()

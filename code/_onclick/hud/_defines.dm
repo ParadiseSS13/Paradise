@@ -161,3 +161,8 @@
 //1 = standard hud
 //2 = reduced hud (just hands and intent switcher)
 //3 = no hud (for screenshots)
+
+
+#define HUD_LAYER_SCREEN 20
+
+#define HUD_LAYER_BUILDMODE 30

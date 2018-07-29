@@ -105,13 +105,13 @@
 	to_chat(M, "<span class='warning'>This item is currently non-functional.</span>")
 	/*if(ishuman(M) && M.stat != DEAD)
 		var/mob/living/carbon/human/H = M
-		if(H.species.name != "Human" || reac_volume < 5) // implying xenohumans are holy
+		if(!ishumanbasic(H) || reac_volume < 5) // implying xenohumans are holy
 			if(method == INGEST && show_message)
 				to_chat(H, "<span class='notice'><i>You feel nothing but a terrible aftertaste.</i></span>")
 			return ..()
 
 		to_chat(H, "<span class='userdanger'>A terrible pain travels down your back as wings burst out!</span>")
-		H.set_species("Angel")
+		H.set_species(/datum/species/angel)
 		playsound(H.loc, 'sound/items/poster_ripped.ogg', 50, 1, -1)
 		H.adjustBruteLoss(20)
 		H.emote("scream")
@@ -355,7 +355,7 @@
 	if(cooldown < world.time)
 		feedback_add_details("immortality_talisman","U") // usage
 		cooldown = world.time + 600
-		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in their place!</span>")
+		user.visible_message("<span class='danger'>[user] vanishes from reality, leaving a a hole in [user.p_their()] place!</span>")
 		var/obj/effect/immortality_talisman/Z = new(get_turf(src.loc))
 		Z.name = "hole in reality"
 		Z.desc = "It's shaped an awful lot like [user.name]."

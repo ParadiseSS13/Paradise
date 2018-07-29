@@ -4,6 +4,7 @@
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
 	log_access_in(client)
+	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
 	if(config.log_access)
 		for(var/mob/M in player_list)
 			if(M == src)	continue
@@ -57,8 +58,8 @@
 
 	if(istype(src,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = src
-		if(H.species && H.species.abilities)
-			client.verbs |= H.species.abilities
+		if(H.dna.species && H.dna.species.abilities)
+			client.verbs |= H.dna.species.abilities
 
 		client.screen += client.void
 

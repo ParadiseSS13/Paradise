@@ -49,11 +49,12 @@
 			var/area/A = get_area(bombturf)
 
 			message_admins("[ADMIN_LOOKUPFLW(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].")
-			log_game("[key_name(usr)] has primed a [name] for detonation at [A.name] [COORD(bombturf)].")
+			log_game("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)].")
+			investigate_log("[key_name(user)] has primed a [name] for detonation at [A.name] [COORD(bombturf)])", INVESTIGATE_BOMB)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.throw_mode_on()
-			addtimer(src, "prime", det_time)
+			addtimer(CALLBACK(src, .proc/prime), det_time)
 
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
 	update_mob()

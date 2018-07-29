@@ -50,7 +50,7 @@
 	component_parts += LG
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
-/obj/machinery/logic_gate/initialize()
+/obj/machinery/logic_gate/Initialize()
 	..()
 	set_frequency(frequency)
 

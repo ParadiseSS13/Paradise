@@ -18,7 +18,7 @@
 	var/list/mobs_running[0]
 	var/id = null			// for linking to monitor
 
-/obj/machinery/power/treadmill/initialize()
+/obj/machinery/power/treadmill/Initialize()
 	..()
 	if(anchored)
 		connect_to_network()
@@ -137,7 +137,7 @@
 	var/frame = 0				// on 0, show labels, on 1 show numbers
 	var/redeem_immediately = 0	// redeem immediately for holding cell
 
-/obj/machinery/treadmill_monitor/initialize()
+/obj/machinery/treadmill_monitor/Initialize()
 	..()
 	if(id)
 		for(var/obj/machinery/power/treadmill/T in machines)

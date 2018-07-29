@@ -68,8 +68,8 @@
 			user << browse(null, "window=aircond")
 			user.unset_machine()
 	else
-		..()
-	return
+		return ..()
+
 /obj/machinery/space_heater/air_conditioner/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
 	interact(user)
@@ -120,7 +120,7 @@
 
 			if("cellremove")
 				if(open && cell && !usr.get_active_hand())
-					cell.updateicon()
+					cell.update_icon()
 					usr.put_in_hands(cell)
 					cell.add_fingerprint(usr)
 					cell = null

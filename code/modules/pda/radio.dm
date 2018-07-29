@@ -173,7 +173,7 @@
 	radio_connection = null
 	return ..()
 
-/obj/item/integrated_radio/signal/initialize()
+/obj/item/integrated_radio/signal/Initialize()
 	if(!radio_controller)
 		return
 	if(src.frequency < PUBLIC_LOW_FREQ || src.frequency > PUBLIC_HIGH_FREQ)

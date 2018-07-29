@@ -17,7 +17,7 @@
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(!istype(target) || issmall(target) || NO_DNA in target.species.species_traits)
+	if(!istype(target) || issmall(target) || NO_DNA in target.dna.species.species_traits)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
 	return 1
@@ -36,7 +36,7 @@
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
 		return
 
-	to_chat(target, "<span class='userdanger'>[user] tightens their grip as a painful sensation invades your body.</span>")
+	to_chat(target, "<span class='userdanger'>[user] tightens [user.p_their()] grip as a painful sensation invades your body.</span>")
 
 	changeling.absorbed_dna -= changeling.find_dna(user.dna)
 	changeling.protected_dna -= changeling.find_dna(user.dna)

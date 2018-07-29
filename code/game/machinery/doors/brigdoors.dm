@@ -73,7 +73,7 @@
 
 	return 1
 
-/obj/machinery/door_timer/initialize()
+/obj/machinery/door_timer/Initialize()
 	..()
 
 	Radio = new /obj/item/radio(src)
@@ -152,8 +152,7 @@
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
-	if(!(src in machine_processing))
-		machine_processing += src
+	START_PROCESSING(SSmachines, src)
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(door.density)

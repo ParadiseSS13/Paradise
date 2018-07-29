@@ -2,6 +2,10 @@
 	announceWhen	= 50
 	endWhen 		= 900
 
+	var/list/spawned_mobs = list(
+    /mob/living/simple_animal/hostile/carp = 95,
+    /mob/living/simple_animal/hostile/carp/megacarp = 5,
+	)
 	var/list/spawned_carp = list()
 
 /datum/event/carp_migration/setup()
@@ -17,6 +21,7 @@
 	event_announcement.Announce(announcement, "Lifesign Alert")
 
 /datum/event/carp_migration/start()
+
 	if(severity == EVENT_LEVEL_MAJOR)
 		spawn_fish(landmarks_list.len)
 	else if(severity == EVENT_LEVEL_MODERATE)
@@ -32,19 +37,17 @@
 			spawn_locations.Add(C.loc)
 	spawn_locations = shuffle(spawn_locations)
 	num_groups = min(num_groups, spawn_locations.len)
-	
+
 	var/i = 1
 	while(i <= num_groups)
 		var/group_size = rand(group_size_min, group_size_max)
 		for(var/j = 1, j <= group_size, j++)
-			var/carptype = /mob/living/simple_animal/hostile/carp
-			if(prob(5))
-				carptype = /mob/living/simple_animal/hostile/carp/megacarp
+			var/carptype = pickweight(spawned_mobs)
 			spawned_carp.Add(new carptype(spawn_locations[i]))
 		i++
 
 /datum/event/carp_migration/end()
-	for(var/mob/living/simple_animal/hostile/carp/C in spawned_carp)
+	for(var/mob/living/simple_animal/hostile/C in spawned_carp)
 		if(!C.stat)
 			var/turf/T = get_turf(C)
 			if(istype(T, /turf/space))

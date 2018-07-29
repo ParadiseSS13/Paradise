@@ -10,6 +10,7 @@
 	move_self = 1 //Do we move on our own?
 	grav_pull = 5 //How many tiles out do we pull?
 	consume_range = 6 //How many tiles out do we eat
+	gender = FEMALE
 
 /obj/singularity/narsie/large
 	name = "Nar-Sie"

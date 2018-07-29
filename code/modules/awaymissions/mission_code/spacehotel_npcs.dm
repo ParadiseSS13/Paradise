@@ -3,8 +3,8 @@
 	override_under = /obj/item/clothing/under/mafia
 	chattyness = SNPC_CHANCE_TALK / 4
 
-/mob/living/carbon/human/interactive/away/hotel/New(loc)
-	..(loc, "Skrell")
+/mob/living/carbon/human/interactive/away/hotel/Initialize(mapload)
+	. = ..(mapload, /datum/species/skrell)
 
 /mob/living/carbon/human/interactive/away/hotel/doSetup()
 	..()
@@ -23,12 +23,6 @@
 
 	for(var/obj/item/I in get_all_slots())
 		I.flags |= NODROP
-
-	// FIXME(crazylemon) a hack to prevent guards from running around with an
-	// extra security jumpsuit like a goof
-	for(var/obj/item/clothing/under/U in get_all_slots())
-		if(w_uniform != U)
-			qdel(U)
 
 /mob/living/carbon/human/interactive/away/hotel/guard/KnockOut()
 	// you'll never take me alive (this triggers the implant)

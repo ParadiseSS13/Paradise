@@ -34,7 +34,7 @@
 					Move(get_step(src, east_vs_west), east_vs_west)
 					turns_since_move = 0
 
-/mob/living/simple_animal/crab/Life()
+/mob/living/simple_animal/crab/Life(seconds, times_fired)
 	. = ..()
 	regenerate_icons()
 

@@ -76,7 +76,7 @@ Difficulty: Hard
 	internal_gps = new/obj/item/gps/internal/hierophant(src)
 	spawned_rune = new(loc)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/Life()
+/mob/living/simple_animal/hostile/megafauna/hierophant/Life(seconds, times_fired)
 	. = ..()
 	if(. && spawned_rune && !client)
 		if(target || loc == spawned_rune.loc)

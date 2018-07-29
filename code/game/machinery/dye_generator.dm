@@ -8,7 +8,7 @@
 	idle_power_usage = 40
 	var/dye_color = "#FFFFFF"
 
-/obj/machinery/dye_generator/initialize()
+/obj/machinery/dye_generator/Initialize()
 	..()
 	power_change()
 
@@ -41,7 +41,7 @@
 				stat |= BROKEN
 				icon_state = "[initial(icon_state)]-broken"
 
-/obj/machinery/dye_generator/attack_hand(mob/user as mob)
+/obj/machinery/dye_generator/attack_hand(mob/user)
 	..()
 	src.add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
@@ -50,18 +50,18 @@
 	dye_color = temp
 	set_light(2, l_color = temp)
 
-/obj/machinery/dye_generator/attackby(obj/item/W, mob/user, params)
+/obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
 
-	if(default_unfasten_wrench(user, W, time = 60))
+	if(default_unfasten_wrench(user, I, time = 60))
 		return
 
-	if(istype(W, /obj/item/hair_dye_bottle))
-		user.visible_message("<span class='notice'>[user] fills the [W] up with some dye.</span>","<span class='notice'>You fill the [W] up with some hair dye.</span>")
-		var/obj/item/hair_dye_bottle/HD = W
+	if(istype(I, /obj/item/hair_dye_bottle))
+		var/obj/item/hair_dye_bottle/HD = I
+		user.visible_message("<span class='notice'>[user] fills the [HD] up with some dye.</span>","<span class='notice'>You fill the [HD] up with some hair dye.</span>")
 		HD.dye_color = dye_color
 		HD.update_dye_overlay()
 	else
-		..()
+		return ..()
 
 //Hair Dye Bottle
 
@@ -87,7 +87,7 @@
 	I.color = dye_color
 	overlays += I
 
-/obj/item/hair_dye_bottle/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/hair_dye_bottle/attack(mob/living/carbon/M, mob/user)
 	if(user.a_intent != INTENT_HELP)
 		..()
 		return
@@ -98,11 +98,11 @@
 		var/mob/living/carbon/human/H = M
 		var/dye_list = list("hair", "alt. hair theme")
 
-		if(H.gender == MALE || H.get_species() == "Vulpkanin")
+		if(H.gender == MALE || isvulpkanin(H))
 			dye_list += "facial hair"
 			dye_list += "alt. facial hair theme"
 
-		if(H && (H.species.bodyflags & HAS_SKIN_COLOR))
+		if(H && (H.dna.species.bodyflags & HAS_SKIN_COLOR))
 			dye_list += "body"
 
 		var/what_to_dye = input(user, "Choose an area to apply the dye", "Dye Application") in dye_list

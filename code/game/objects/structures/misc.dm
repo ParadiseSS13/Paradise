@@ -87,7 +87,7 @@
 	var/atom/attack_atom
 
 
-/obj/structure/ghost_beacon/initialize()
+/obj/structure/ghost_beacon/Initialize()
 	. = ..()
 	last_ghost_alert = world.time
 	attack_atom = src

@@ -24,14 +24,22 @@
 		interpreter.GC()
 
 
+//temp
+/datum/TCS_Compiler
+	var/datum/n_scriptOptions/nS_Options/options
+	var/datum/n_Scanner/nS_Scanner/scanner
+	var/list/tokens
+	var/datum/n_Parser/nS_Parser/parser
+	var/datum/node/BlockDefinition/GlobalBlock/program
+
 	/* -- Compile a raw block of text -- */
 
-/datum/TCS_Compiler/proc/Compile(code as message)
-	var/datum/n_scriptOptions/nS_Options/options		= new()
-	var/datum/n_Scanner/nS_Scanner/scanner				= new(code, options)
-	var/list/tokens										= scanner.Scan()
-	var/datum/n_Parser/nS_Parser/parser					= new(tokens, options)
-	var/datum/node/BlockDefinition/GlobalBlock/program	= parser.Parse()
+/datum/TCS_Compiler/proc/Compile(list/code)
+	options		= new()
+	scanner				= new(code, options)
+	tokens										= scanner.Scan()
+	parser					= new(tokens, options)
+	program	= parser.Parse()
 
 	var/list/returnerrors = list()
 
@@ -240,7 +248,7 @@
 	   But I like HTML, so back to no sanitizing.*/
 
 	var/message = interpreter.GetVar("$content")
-	var/regex/bannedTags = new ("(<script|<iframe|<video|<audio)")
+	var/regex/bannedTags = new ("(<script|<iframe|<video|<audio|<embed)")
 	if(bannedTags.Find(message)) //uh oh
 		message_admins("Warning: Current Telecomms script contains banned html. Stripping message.")
 		log_admin("Warning: Current Telecomms script contains banned html. Stripping message.")

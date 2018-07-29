@@ -260,7 +260,7 @@
 			emag_cooldown = world.time + EMAG_DELAY
 	if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/H = ass
-		temp_img = icon('icons/obj/butts.dmi', H.species.butt_sprite)
+		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
 	else if(istype(ass,/mob/living/silicon/robot/drone))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
 	else if(istype(ass,/mob/living/simple_animal/diona))
@@ -316,11 +316,11 @@
 		return
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
-		visible_message("<span class='warning'>[usr] jumps onto the photocopier!</span>")
+		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
 	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
 		if(target.anchored) return
 		if(!ishuman(user)) return
-		visible_message("<span class='warning'>[usr] drags [target.name] onto the photocopier!</span>")
+		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")
 	target.forceMove(get_turf(src))
 	ass = target
 	if(copyitem)
@@ -344,9 +344,9 @@
 /obj/machinery/photocopier/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You overload the photocopier's laser printing mechanism.</span>")
+		to_chat(user, "<span class='notice'>You overload [src]'s laser printing mechanism.</span>")
 	else
-		to_chat(user, "<span class='notice'>The photocopier's laser printing mechanism is already overloaded!</span>")
+		to_chat(user, "<span class='notice'>[src]'s laser printing mechanism is already overloaded!</span>")
 
 /obj/item/toner
 	name = "toner cartridge"

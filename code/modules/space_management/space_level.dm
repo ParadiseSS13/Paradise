@@ -133,6 +133,10 @@
 		if(SELFLOOPING)
 			link_to_self() // `link_to_self` is defined in space_transitions.dm
 
+var/list/atmos_machine_typecache = typecacheof(/obj/machinery/atmospherics)
+var/list/cable_typecache = typecacheof(/obj/structure/cable)
+var/list/maploader_typecache = typecacheof(/obj/effect/landmark/map_loader)
+
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)
 		throw EXCEPTION("Init told to resume when z-level still dirty. Z level: '[zpos]'")
@@ -140,23 +144,15 @@
 	log_debug("Beginning initialization!")
 	var/list/our_atoms = init_list // OURS NOW!!! (Keeping this list to ourselves will prevent hijack)
 	init_list = list()
-	var/list/late_maps = list()
-	var/list/pipes = list()
-	var/list/cables = list()
 	var/watch = start_watch()
-	for(var/schmoo in our_atoms)
-		var/atom/movable/AM = schmoo
-		if(AM) // to catch stuff like the nuke disk that no longer exists
-
-			// This can mess with our state - we leave these for last
-			if(istype(AM, /obj/effect/landmark/map_loader))
-				late_maps.Add(AM)
-				continue
-			AM.initialize()
-			if(istype(AM, /obj/machinery/atmospherics))
-				pipes.Add(AM)
-			else if(istype(AM, /obj/structure/cable))
-				cables.Add(AM)
+	listclearnulls(our_atoms)
+	var/list/late_maps = typecache_filter_list(our_atoms, maploader_typecache)
+	var/list/pipes = typecache_filter_list(our_atoms, atmos_machine_typecache)
+	var/list/cables = typecache_filter_list(our_atoms, cable_typecache)
+	// If we don't carefully add dirt around the map templates, bad stuff happens
+	// so we separate them out here
+	our_atoms -= late_maps
+	SSatoms.InitializeAtoms(our_atoms, FALSE)
 	log_debug("Primary initialization finished in [stop_watch(watch)]s.")
 	our_atoms.Cut()
 	if(pipes.len)
@@ -168,21 +164,19 @@
 
 /datum/space_level/proc/do_pipes(list/pipes)
 	var/watch = start_watch()
-	log_debug("Building pipenets on z-level '[zpos]'!")
-	for(var/schmoo in pipes)
-		var/obj/machinery/atmospherics/machine = schmoo
-		if(machine)
-			machine.build_network()
+	log_debug("Initializing atmos machines on z-level '[zpos]'!")
+	var/init_count = SSair._setup_atmos_machinery(pipes)
+	log_debug("Initialized [init_count] machines, took [stop_watch(watch)]s")
+	watch = start_watch()
+	log_debug("Initializing pipe networks on z-level '[zpos]'!")
+	init_count = SSair._setup_pipenets(pipes)
+	log_debug("Initialized pipenets for [init_count] machines, took [stop_watch(watch)]s")
 	pipes.Cut()
-	log_debug("Took [stop_watch(watch)]s")
 
 /datum/space_level/proc/do_cables(list/cables)
 	var/watch = start_watch()
 	log_debug("Building powernets on z-level '[zpos]'!")
-	for(var/schmoo in cables)
-		var/obj/structure/cable/C = schmoo
-		if(C)
-			makepowernet_for(C)
+	SSmachines.setup_template_powernets(cables)
 	cables.Cut()
 	log_debug("Took [stop_watch(watch)]s")
 
@@ -190,10 +184,8 @@
 	var/watch = start_watch()
 	log_debug("Loading map templates on z-level '[zpos]'!")
 	space_manager.add_dirt(zpos) // Let's not repeatedly resume init for each template
-	for(var/schmoo in late_maps)
-		var/obj/effect/landmark/map_loader/ML = schmoo
-		if(ML)
-			ML.initialize()
+	for(var/atom/movable/AM in late_maps)
+		AM.Initialize()
 	late_maps.Cut()
 	space_manager.remove_dirt(zpos)
 	log_debug("Took [stop_watch(watch)]s")

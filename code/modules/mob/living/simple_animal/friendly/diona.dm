@@ -54,7 +54,7 @@
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
 	//Let people pick the little buggers up.
 	if(M.a_intent == INTENT_HELP)
-		if(M.species && M.species.name == "Diona")
+		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 			verbs += /mob/living/simple_animal/diona/proc/split
@@ -82,7 +82,7 @@
 
 		if(ishuman(C))
 			var/mob/living/carbon/human/D = C
-			if(D.species && D.species.name == "Diona")
+			if(isdiona(D))
 				choices += C
 
 	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices
@@ -142,7 +142,7 @@
 	visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
 
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
-	adult.set_species("Diona")
+	adult.set_species(/datum/species/diona)
 
 	if(istype(loc, /obj/item/holder/diona))
 		var/obj/item/holder/diona/L = loc
@@ -156,8 +156,7 @@
 	adult.name = "diona ([rand(100,999)])"
 	adult.real_name = adult.name
 	adult.ckey = ckey
-	adult.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
-	adult.rename_self("diona")
+	adult.real_name = adult.dna.species.get_random_name()	//I hate this being here of all places but unfortunately dna is based on real_name!
 
 	for(var/obj/item/W in contents)
 		unEquip(W)
@@ -178,7 +177,7 @@
 	if(!M || !src)
 		return
 
-	if(NO_BLOOD in M.species.species_traits)
+	if(NO_BLOOD in M.dna.species.species_traits)
 		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
 		return
 

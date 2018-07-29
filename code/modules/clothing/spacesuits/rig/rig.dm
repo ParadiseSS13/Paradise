@@ -366,7 +366,7 @@
 				correct_piece.icon_state = "[initial(icon_state)]"
 				switch(msg_type)
 					if("boots")
-						to_chat(wearer, "<font color='blue'>\The [correct_piece] relax their grip on your legs.</font>")
+						to_chat(wearer, "<font color='blue'>\The [correct_piece] relax [correct_piece.p_their()] grip on your legs.</font>")
 						if(user != wearer)
 							to_chat(user, "<span class='notice'>\The [correct_piece] has been unsealed.</span>")
 						wearer.update_inv_shoes()
@@ -609,8 +609,8 @@
 		var/species_icon = 'icons/mob/rig_back.dmi'
 		// Since setting mob_icon will override the species checks in
 		// update_inv_wear_suit(), handle species checks here.
-		if(wearer && sprite_sheets && sprite_sheets[wearer.get_species()])
-			species_icon =  sprite_sheets[wearer.get_species()]
+		if(wearer && sprite_sheets && sprite_sheets[wearer.dna.species.name])
+			species_icon =  sprite_sheets[wearer.dna.species.name]
 		mob_icon = image("icon" = species_icon, "icon_state" = "[icon_state]")
 
 	if(installed_modules.len)

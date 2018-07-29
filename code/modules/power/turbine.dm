@@ -82,7 +82,7 @@
 	inturf = get_step(src, dir)
 
 
-/obj/machinery/power/compressor/initialize()
+/obj/machinery/power/compressor/Initialize()
 	..()
 	locate_machinery()
 	if(!turbine)
@@ -202,7 +202,7 @@
 	outturf = get_step(src, dir)
 
 
-/obj/machinery/power/turbine/initialize()
+/obj/machinery/power/turbine/Initialize()
 	..()
 	locate_machinery()
 	if(!compressor)
@@ -341,7 +341,7 @@
 
 
 
-/obj/machinery/computer/turbine_computer/initialize()
+/obj/machinery/computer/turbine_computer/Initialize()
 	..()
 	spawn(10)
 		locate_machinery()

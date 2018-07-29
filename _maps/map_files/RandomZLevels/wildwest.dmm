@@ -191,7 +191,7 @@
 "dI" = (/obj/machinery/light/small{tag = "icon-bulb1 (WEST)";icon_state = "bulb1";dir = 8},/mob/living/simple_animal/hostile/creature,/turf/simulated/floor/plasteel{tag = "icon-stage_bleft";icon_state = "stage_bleft"},/area/awaymission/wwgov)
 "dJ" = (/obj/item/kitchen/rollingpin,/turf/simulated/floor/plasteel{tag = "icon-stage_bleft";icon_state = "stage_bleft"},/area/awaymission/wwgov)
 "dK" = (/obj/structure/window/reinforced{tag = "icon-fwindow (EAST)";icon_state = "fwindow";dir = 4},/obj/structure/window/reinforced{tag = "icon-fwindow (WEST)";icon_state = "fwindow";dir = 8},/obj/structure/grille,/obj/structure/window/reinforced{tag = "icon-fwindow (NORTH)";icon_state = "fwindow";dir = 1},/turf/simulated/floor/plating/ironsand{tag = "icon-ironsand1";icon_state = "ironsand1"},/area/awaymission/wwgov)
-"dL" = (/obj/structure/window/reinforced{dir = 5;health = 1e+007},/turf/simulated/floor/wood,/area/awaymission/wwmines)
+"dL" = (/obj/structure/window/reinforced{dir = 5;max_integrity = 1e+007},/turf/simulated/floor/wood,/area/awaymission/wwmines)
 "dM" = (/obj/structure/mineral_door/wood,/turf/simulated/floor/plating/ironsand{tag = "icon-ironsand1";icon_state = "ironsand1"},/area/awaymission/wwmines)
 "dN" = (/obj/structure/mineral_door/wood,/obj/effect/decal/cleanable/blood/tracks,/turf/simulated/floor/plating/ironsand{tag = "icon-ironsand1";icon_state = "ironsand1"},/area/awaymission/wwmines)
 "dO" = (/obj/structure/stool/bed/chair/comfy/beige{dir = 4},/turf/simulated/floor/carpet,/area/awaymission/wwmines)

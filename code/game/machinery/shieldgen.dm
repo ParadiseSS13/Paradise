@@ -14,7 +14,7 @@
 	src.dir = pick(1,2,3,4)
 	..()
 
-/obj/machinery/shield/initialize()
+/obj/machinery/shield/Initialize()
 	air_update_turf(1)
 	..()
 

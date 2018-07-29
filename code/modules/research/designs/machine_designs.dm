@@ -452,16 +452,6 @@
 	build_path = /obj/item/circuitboard/arcade/orion_trail
 	category = list("Misc. Machinery")
 
-/datum/design/programmable
-	name = "Machine Board (Programmable Unloader)"
-	desc = "The circuit board for a Programmable Unloader."
-	id = "selunload"
-	req_tech = list("engineering" = 1, "programming" = 2)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/programmable
-	category = list("Misc. Machinery")
-
 /datum/design/pod
 	name = "Machine Board (Mass Driver and Pod Doors Control)"
 	desc = "Allows for the construction of circuit boards used to build a Mass Driver and Pod Doors Control."

@@ -4,9 +4,9 @@
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
 	//language = "Clatter"
-	unarmed_type = /datum/unarmed_attack/punch
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
+	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
@@ -148,8 +148,13 @@
 		if("Mime")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/mime
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/mime
-	H.equip_or_collect(new suit(H), slot_wear_suit)
-	H.equip_or_collect(new helm(H), slot_head)
+
+	if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
+		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)
+		H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard(H), slot_head)
+	else
+		H.equip_or_collect(new suit(H), slot_wear_suit)
+		H.equip_or_collect(new helm(H), slot_head)
 	H.equip_or_collect(new /obj/item/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
 	H.equip_or_collect(new /obj/item/plasmensuit_cartridge(H), slot_in_backpack)
 	H.equip_or_collect(new /obj/item/plasmensuit_cartridge(H), slot_in_backpack) //Two refill cartridges for their suit. Can fit in boxes.

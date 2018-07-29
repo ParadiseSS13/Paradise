@@ -7,10 +7,9 @@ Pipelines and other atmospheric objects combine to form pipe_networks
 
 Pipes -> Pipelines
 Pipelines + Other Objects -> Pipe network
-
 */
+GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 /obj/machinery/atmospherics
-	auto_init = 0
 	anchored = 1
 	layer = 2.4 //under wires with their 2.44
 	idle_power_usage = 0
@@ -29,15 +28,11 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	var/obj/item/pipe/stored
 	var/image/pipe_image
-	var/global/datum/pipe_icon_manager/icon_manager
 
 /obj/machinery/atmospherics/New()
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)
 	..()
-	SSair.atmos_machinery += src
-	if(!icon_manager)
-		icon_manager = new()
 
 	if(!pipe_color)
 		pipe_color = color
@@ -45,12 +40,12 @@ Pipelines + Other Objects -> Pipe network
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
-	// No need for a tween worldstart roundstart handler - pipenet creation is
-	// handled there
 
-/obj/machinery/atmospherics/initialize()
-	..()
+/obj/machinery/atmospherics/Initialize()
+	. = ..()
+	SSair.atmos_machinery += src
 
+/obj/machinery/atmospherics/proc/atmos_init()
 	if(can_unwrench)
 		stored = new(src, make_from = src)
 
@@ -73,9 +68,9 @@ Pipelines + Other Objects -> Pipe network
 	pipe_image.plane = HUD_PLANE
 
 /obj/machinery/atmospherics/proc/check_icon_cache(var/safety = 0)
-	if(!istype(icon_manager))
+	if(!istype(GLOB.pipe_icon_manager))
 		if(!safety) //to prevent infinite loops
-			icon_manager = new()
+			GLOB.pipe_icon_manager = new()
 			check_icon_cache(1)
 		return 0
 
@@ -91,14 +86,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type)
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
-			//underlays += icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
-			underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			//underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay_down", direction, color_cache_name(node))
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			//underlays += icon_manager.get_atmos_icon("underlay_intact", direction, color_cache_name(node))
-			underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			//underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay_intact", direction, color_cache_name(node))
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
-		//underlays += icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
-		underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
+		//underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay_exposed", direction, pipe_color)
+		underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
 	if(check_icon_cache())
@@ -231,10 +226,10 @@ Pipelines + Other Objects -> Pipe network
 	var/turf/T = loc
 	level = T.intact ? 2 : 1
 	add_fingerprint(usr)
-	initialize()
+	atmos_init()
 	var/list/nodes = pipeline_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)
-		A.initialize()
+		A.atmos_init()
 		A.addMember(src)
 	build_network()
 
@@ -320,11 +315,11 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay_adapter(var/turf/T, var/obj/machinery/atmospherics/node, var/direction, var/icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe))
-			underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
-		underlays += icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
+		underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)

@@ -14,15 +14,6 @@
 	var/list/programs = list()
 	var/list/messenger_plugins = list()
 
-/obj/item/cartridge/New()
-	if(ticker && ticker.current_state >= GAME_STATE_SETTING_UP)
-		initialize()
-
-/obj/item/cartridge/initialize()
-	if(radio)
-		radio.initialize()
-	..()
-
 /obj/item/cartridge/Destroy()
 	QDEL_NULL(radio)
 	QDEL_LIST(programs)
@@ -68,7 +59,7 @@
 		new/datum/data/pda/app/crew_records/security,
 		new/datum/data/pda/app/secbot_control)
 
-/obj/item/cartridge/security/initialize()
+/obj/item/cartridge/security/Initialize()
 	radio = new /obj/item/integrated_radio/beepsky(src)
 	..()
 
@@ -118,7 +109,7 @@
 	desc = "A data cartridge with an integrated radio signaler module."
 	programs = list(new/datum/data/pda/app/signaller)
 
-/obj/item/cartridge/signal/initialize()
+/obj/item/cartridge/signal/Initialize()
 	radio = new /obj/item/integrated_radio/signal(src)
 	..()
 
@@ -141,7 +132,7 @@
 		new/datum/data/pda/app/supply,
 		new/datum/data/pda/app/mule_control)
 
-/obj/item/cartridge/quartermaster/initialize()
+/obj/item/cartridge/quartermaster/Initialize()
 	radio = new /obj/item/integrated_radio/mule(src)
 	..()
 
@@ -163,7 +154,7 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/hop/initialize()
+/obj/item/cartridge/hop/Initialize()
 	radio = new /obj/item/integrated_radio/mule(src)
 	..()
 
@@ -176,7 +167,7 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/hos/initialize()
+/obj/item/cartridge/hos/Initialize()
 	radio = new /obj/item/integrated_radio/beepsky(src)
 	..()
 
@@ -214,7 +205,7 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/rd/initialize()
+/obj/item/cartridge/rd/Initialize()
 	radio = new /obj/item/integrated_radio/signal(src)
 	..()
 
@@ -242,7 +233,7 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/captain/initialize()
+/obj/item/cartridge/captain/Initialize()
 	radio = new /obj/item/integrated_radio/beepsky(src)
 	..()
 
@@ -279,7 +270,7 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/centcom/initialize()
+/obj/item/cartridge/centcom/Initialize()
 	radio = new /obj/item/integrated_radio/beepsky(src)
 	..()
 

@@ -11,7 +11,7 @@
 		dream_images += pick_n_take(dreams)
 		dreaming++
 	for(var/i in 1 to dream_images.len)
-		addtimer(src, "experience_dream", ((i - 1) * rand(30,60)), FALSE, dream_images[i], FALSE)
+		addtimer(CALLBACK(src, .proc/experience_dream, dream_images[i], FALSE), ((i - 1) * rand(30,60)))
 	return TRUE
 
 
@@ -33,7 +33,7 @@
 		dream_images += pick_n_take(nightmares)
 		nightmare++
 	for(var/i in 1 to dream_images.len)
-		addtimer(src, "experience_dream", ((i - 1) * rand(30,60)), FALSE, nightmares[i], TRUE)
+		addtimer(CALLBACK(src, .proc/experience_dream, nightmares[i], TRUE), ((i - 1) * rand(30,60)))
 	return TRUE
 
 /mob/living/carbon/proc/handle_dreams()
@@ -43,7 +43,7 @@
 		nightmare()
 		if(ishuman(src))
 			if(prob(10))
-				emote("writhes in their sleep.")
+				emote("writhes in [p_their()] sleep.")
 				dir = pick(cardinal)
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)

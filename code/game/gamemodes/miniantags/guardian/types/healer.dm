@@ -32,7 +32,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
 
-/mob/living/simple_animal/hostile/guardian/healer/Life()
+/mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
 	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)

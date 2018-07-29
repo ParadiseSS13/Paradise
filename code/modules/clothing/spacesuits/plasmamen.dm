@@ -398,3 +398,13 @@
 	icon_state = "plasmaman_Nukeops_helmet0"
 	base_state = "plasmaman_Nukeops_helmet"
 	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
+
+//WIZARD
+/obj/item/clothing/suit/space/eva/plasmaman/wizard
+	name = "robed plasmaman suit"
+	icon_state = "plasmamanWizardBlue_suit"
+
+/obj/item/clothing/head/helmet/space/eva/plasmaman/wizard
+	name = "wizard hat"
+	icon_state = "plasmamanWizardBlue_helmet0"
+	base_state = "plasmamanWizardBlue_helmet"

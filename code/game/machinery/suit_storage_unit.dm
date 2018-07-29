@@ -413,13 +413,13 @@
 	var/i
 	for(i=0,i<4,i++) //Gradually give the guy inside some damaged based on the intensity
 		spawn(50)
-			if(src.OCCUPANT)
-				if(src.issuperUV)
+			if(OCCUPANT)
+				if(issuperUV)
 					OCCUPANT.take_organ_damage(0,40)
-					to_chat(user, "Test. You gave him 40 damage")
+					to_chat(user, "Test. You gave [OCCUPANT.p_them()] 40 damage")
 				else
 					OCCUPANT.take_organ_damage(0,8)
-					to_chat(user, "Test. You gave him 8 damage")
+					to_chat(user, "Test. You gave [OCCUPANT.p_them()] 8 damage")
 	return*/
 
 

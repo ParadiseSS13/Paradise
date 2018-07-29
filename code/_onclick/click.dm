@@ -70,6 +70,12 @@
 	changeNext_click(1)
 
 	var/list/modifiers = params2list(params)
+	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
+		MiddleShiftControlClickOn(A)
+		return
+	if(modifiers["middle"] && modifiers["shift"])
+		MiddleShiftClickOn(A)
+		return
 	if(modifiers["shift"] && modifiers["ctrl"])
 		CtrlShiftClickOn(A)
 		return
@@ -224,6 +230,32 @@
 		mind.changeling.chosen_sting.try_to_sting(src, A)
 	else
 		..()
+
+/*
+	Middle shift-click
+	Makes the mob face the direction of the clicked thing
+*/
+/mob/proc/MiddleShiftClickOn(atom/A)
+	var/face_dir = get_cardinal_dir(src, A)
+	if(forced_look == face_dir)
+		forced_look = null
+		to_chat(src, "<span class='notice'>You are no longer facing any direction.</span>")
+		return
+	forced_look = face_dir
+	to_chat(src, "<span class='notice'>You are now facing [dir2text(forced_look)].</span>")
+
+/*
+	Middle shift-control-click
+	Makes the mob constantly face the object (until it's out of sight)
+*/
+/mob/proc/MiddleShiftControlClickOn(atom/A)
+	var/face_uid = A.UID()
+	if(forced_look == face_uid)
+		forced_look = null
+		to_chat(src, "<span class='notice'>You are no longer facing [A].</span>")
+		return
+	forced_look = face_uid
+	to_chat(src, "<span class='notice'>You are now facing [A].</span>")
 
 // In case of use break glass
 /*

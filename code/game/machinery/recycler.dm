@@ -51,6 +51,7 @@ var/const/SAFETY_COOLDOWN = 100
 
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
 	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
 		return
 
@@ -60,9 +61,10 @@ var/const/SAFETY_COOLDOWN = 100
 	if(default_unfasten_wrench(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
-	..()
-	add_fingerprint(user)
+	if(default_deconstruction_crowbar(I))
+		return
+	else
+		return ..()
 
 /obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
@@ -143,7 +145,7 @@ var/const/SAFETY_COOLDOWN = 100
 	safety_mode = 1
 	update_icon()
 	L.loc = loc
-	addtimer(src, "reboot", SAFETY_COOLDOWN)
+	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(loc, 'sound/machines/ping.ogg', 50, 0)

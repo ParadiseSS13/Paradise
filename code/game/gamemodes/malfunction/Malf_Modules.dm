@@ -159,9 +159,8 @@
 	for(var/obj/machinery/door/D in airlocks)
 		if(!is_station_level(D.z))
 			continue
-		spawn(0)
-			D.hostile_lockdown(src)
-		addtimer(D, "disable_lockdown", 900)
+		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown, src)
+		addtimer(CALLBACK(D, /obj/machinery/door.proc/disable_lockdown), 900)
 
 	post_status("alert", "lockdown")
 

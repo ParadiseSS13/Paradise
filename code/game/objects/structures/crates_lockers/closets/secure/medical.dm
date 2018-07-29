@@ -262,6 +262,7 @@
 	new /obj/item/sensor_device(src)
 	new /obj/item/key/ambulance(src)
 	new /obj/item/pinpointer/crew(src)
+	new /obj/item/clothing/shoes/magboots(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
