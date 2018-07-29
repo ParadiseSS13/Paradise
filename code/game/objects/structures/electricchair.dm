@@ -13,7 +13,7 @@
 		if(isnull(part)) //This e-chair was not custom built
 			part = new(src)
 			var/obj/item/clothing/head/helmet/part1 = new(part)
-			var/obj/item/device/radio/electropack/part2 = new(part)
+			var/obj/item/radio/electropack/part2 = new(part)
 			part2.frequency = 1445
 			part2.code = 6
 			part2.master = part
@@ -21,8 +21,8 @@
 			part.part2 = part2
 	return
 
-/obj/structure/stool/bed/chair/e_chair/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/structure/stool/bed/chair/e_chair/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/wrench))
 		var/obj/structure/stool/bed/chair/C = new /obj/structure/stool/bed/chair(loc)
 		playsound(loc, W.usesound, 50, 1)
 		C.dir = dir

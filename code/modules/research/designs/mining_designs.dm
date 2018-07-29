@@ -8,7 +8,7 @@
 	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_DIAMOND = 2000) //Yes, a whole diamond is needed.
-	build_path = /obj/item/weapon/pickaxe/drill/diamonddrill
+	build_path = /obj/item/pickaxe/drill/diamonddrill
 	category = list("Mining")
 
 /datum/design/drill
@@ -18,7 +18,7 @@
 	req_tech = list("materials" = 2, "powerstorage" = 2, "engineering" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000)
-	build_path = /obj/item/weapon/pickaxe/drill
+	build_path = /obj/item/pickaxe/drill
 	category = list("Mining")
 
 /datum/design/plasmacutter
@@ -28,7 +28,7 @@
 	req_tech = list("materials" = 3, "plasmatech" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1500, MAT_GLASS = 500, MAT_PLASMA = 400)
-	build_path = /obj/item/weapon/gun/energy/plasmacutter
+	build_path = /obj/item/gun/energy/plasmacutter
 	category = list("Mining")
 
 /datum/design/plasmacutter_adv
@@ -38,7 +38,7 @@
 	req_tech = list("materials" = 4, "plasmatech" = 4, "engineering" = 2, "combat" = 3, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_PLASMA = 2000, MAT_GOLD = 500)
-	build_path = /obj/item/weapon/gun/energy/plasmacutter/adv
+	build_path = /obj/item/gun/energy/plasmacutter/adv
 	category = list("Mining")
 
 /datum/design/jackhammer
@@ -48,7 +48,7 @@
 	req_tech = list("materials" = 7, "powerstorage" = 5, "engineering" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000, MAT_SILVER = 2000, MAT_DIAMOND = 6000)
-	build_path = /obj/item/weapon/pickaxe/drill/jackhammer
+	build_path = /obj/item/pickaxe/drill/jackhammer
 	category = list("Mining")
 
 /datum/design/superresonator
@@ -58,7 +58,7 @@
 	req_tech = list("materials" = 4, "powerstorage" = 3, "engineering" = 3, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_URANIUM = 1000)
-	build_path = /obj/item/weapon/resonator/upgraded
+	build_path = /obj/item/resonator/upgraded
 	category = list("Mining")
 
 /datum/design/trigger_guard_mod

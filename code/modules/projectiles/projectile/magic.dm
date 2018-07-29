@@ -24,15 +24,15 @@
 	var/exp_flash = 3
 	var/exp_fire = 2
 
-/obj/item/projectile/magic/death/on_hit(var/mob/living/carbon/G)
+/obj/item/projectile/magic/death/on_hit(mob/living/carbon/C)
 	. = ..()
-	if(isliving(G))
-		if(G.get_species() == "Machine") //speshul snowfleks deserv speshul treetment
-			G.adjustFireLoss(6969)  //remember - slimes love fire
+	if(isliving(C))
+		if(ismachine(C)) //speshul snowfleks deserv speshul treetment
+			C.adjustFireLoss(6969)  //remember - slimes love fire
 		else
-			G.death()
+			C.death()
 
-		visible_message("<span class='danger'>[G] topples backwards as the death bolt impacts them!</span>")
+		visible_message("<span class='danger'>[C] topples backwards as the death bolt impacts [C.p_them()]!</span>")
 
 /obj/item/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -187,7 +187,7 @@ proc/wabbajack(mob/living/M)
 					new_mob.invisibility = 0
 					new_mob.job = "Cyborg"
 					var/mob/living/silicon/robot/Robot = new_mob
-					Robot.mmi = new /obj/item/device/mmi(new_mob)
+					Robot.mmi = new /obj/item/mmi(new_mob)
 					if(ishuman(M))
 						Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 				if("slime")
@@ -225,26 +225,23 @@ proc/wabbajack(mob/living/M)
 							else			new_mob = new /mob/living/simple_animal/chick(M.loc)
 					new_mob.universal_speak = 1
 				if("human")
-					new_mob = new /mob/living/carbon/human/human(M.loc)
+					new_mob = new /mob/living/carbon/human(M.loc)
 					// Include standard, whitelisted, and monkey species...
-					var/list/new_species = list("Human","Tajaran","Skrell","Unathi","Diona","Vulpkanin")
-					new_species |= whitelisted_species
-					for(var/SN in all_species)
-						var/datum/species/S = all_species[SN]
-						if(S.greater_form) // Monkeys
-							new_species |= SN
-					new_species -= "Vox Armalis" // ... but not Armalis. They're not really designed to be playable
-					new_species |= "Golem" // Also, golems, sure, why not
-					var/picked_species = pick(new_species)
+					var/list/new_species = list()
+					for(var/datum/species/S in subtypesof(/datum/species))
+						if(istype(S, /datum/species/vox/armalis))
+							continue
+						new_species.Add(S)
 					var/mob/living/carbon/human/H = new_mob
-					H.set_species(picked_species)
-					randomize = picked_species
+					var/datum/species/S = pick(new_species)
+					H.set_species(S)
+					randomize = initial(S.name)
 					var/datum/preferences/A = new()	//Randomize appearance for the human
 					A.copy_to(new_mob)
 				else
 					return
 
-			M.create_attack_log("<font color='orange'>[M.real_name] ([M.ckey]) became [new_mob.real_name].</font>")
+			M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
 			new_mob.attack_log = M.attack_log
 
 			new_mob.a_intent = INTENT_HARM
@@ -281,7 +278,7 @@ proc/wabbajack(mob/living/M)
 				qdel(src)
 		else
 			var/obj/O = change
-			if(istype(O, /obj/item/weapon/gun))
+			if(istype(O, /obj/item/gun))
 				new /mob/living/simple_animal/hostile/mimic/copy/ranged(O.loc, O, firer)
 			else
 				new /mob/living/simple_animal/hostile/mimic/copy(O.loc, O, firer)

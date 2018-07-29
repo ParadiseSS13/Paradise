@@ -5,7 +5,8 @@
 	icon_state = "sheater0"
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
-	var/obj/item/weapon/stock_parts/cell/cell
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100)
+	var/obj/item/stock_parts/cell/cell
 	var/on = 0
 	var/open = 0
 	var/set_temperature = 50		// in celcius, add T0C for kelvin
@@ -48,34 +49,33 @@
 	..(severity)
 
 /obj/machinery/space_heater/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/stock_parts/cell))
+	if(istype(I, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)
 				to_chat(user, "There is already a power cell inside.")
 				return
 			else
 				// insert cell
-				var/obj/item/weapon/stock_parts/cell/C = usr.get_active_hand()
+				var/obj/item/stock_parts/cell/C = user.get_active_hand()
 				if(istype(C))
-					user.drop_item()
-					cell = C
-					C.loc = src
-					C.add_fingerprint(usr)
+					if(user.drop_item())
+						cell = C
+						C.forceMove(src)
+						C.add_fingerprint(user)
 
-					user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+						user.visible_message("<span class='notice'>[user] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
 		else
 			to_chat(user, "The hatch must be open to insert a power cell.")
 			return
-	else if(istype(I, /obj/item/weapon/screwdriver))
+	else if(isscrewdriver(I))
 		open = !open
-		user.visible_message("<span class='notice'>[user] [open ? "opens" : "closes"] the hatch on the [src].</span>", "<span class='notice'>You [open ? "open" : "close"] the hatch on the [src].</span>")
+		user.visible_message("<span class='notice'>[user] [open ? "opens" : "closes"] the hatch on [src].</span>", "<span class='notice'>You [open ? "open" : "close"] the hatch on [src].</span>")
 		update_icon()
 		if(!open && user.machine == src)
 			user << browse(null, "window=spaceheater")
 			user.unset_machine()
 	else
-		..()
-	return
+		return ..()
 
 /obj/machinery/space_heater/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
@@ -105,7 +105,7 @@
 
 	else
 		on = !on
-		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] the [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] the [src].</span>")
+		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] [src].</span>")
 		update_icon()
 	return
 
@@ -126,23 +126,23 @@
 
 			if("cellremove")
 				if(open && cell && !usr.get_active_hand())
-					cell.updateicon()
+					cell.update_icon()
 					usr.put_in_hands(cell)
 					cell.add_fingerprint(usr)
 					cell = null
-					usr.visible_message("<span class='notice'>[usr] removes the power cell from \the [src].</span>", "<span class='notice'>You remove the power cell from \the [src].</span>")
+					usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
 
 
 			if("cellinstall")
 				if(open && !cell)
-					var/obj/item/weapon/stock_parts/cell/C = usr.get_active_hand()
+					var/obj/item/stock_parts/cell/C = usr.get_active_hand()
 					if(istype(C))
 						usr.drop_item()
 						cell = C
 						C.loc = src
 						C.add_fingerprint(usr)
 
-						usr.visible_message("<span class='notice'>[usr] inserts a power cell into \the [src].</span>", "<span class='notice'>You insert the power cell into \the [src].</span>")
+						usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
 
 		updateDialog()
 	else

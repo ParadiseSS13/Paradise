@@ -177,4 +177,21 @@
 		</div>
 	{{/if}}
 
+	<div class="item">
+		<div class="itemLabel">
+			Night Shift Lighting:
+		</div>
+		<div class="itemContent">
+			{{if data.locked}}
+				{{if data.nightshiftLights}}
+					<span class='good'>On</span>
+				{{else}}
+					<span class='bad'>Off</span>
+				{{/if}}
+			{{else}}
+				{{:helper.link('Enabled', 'lightbulb-o', {'toggle_nightshift' : 1}, data.nightshiftLights ? 'selected' : null)}}{{:helper.link('Disabled', 'lightbulb-o', {'toggle_nightshift' : 1}, data.nightshiftLights ? null : 'selected')}}
+			{{/if}}
+		</div>
+	</div>
+
 </div>

@@ -90,7 +90,7 @@ datum/hSB
 						P.back.layer = initial(P.back.layer)
 						P.back.plane = initial(P.back.plane)
 						P.back = null
-					P.back = new/obj/item/weapon/tank/jetpack(P)
+					P.back = new/obj/item/tank/jetpack(P)
 					P.back.layer = 20
 					P.back.plane = HUD_PLANE
 					P.internal = P.back
@@ -126,13 +126,13 @@ datum/hSB
 					//var/obj/hsb = new/obj/watertank
 					//hsb.loc = usr.loc
 				if("hsbtoolbox")
-					var/obj/item/weapon/storage/hsb = new/obj/item/weapon/storage/toolbox/mechanical
-					for(var/obj/item/device/radio/T in hsb)
+					var/obj/item/storage/hsb = new/obj/item/storage/toolbox/mechanical
+					for(var/obj/item/radio/T in hsb)
 						qdel(T)
-					new/obj/item/weapon/crowbar (hsb)
+					new/obj/item/crowbar (hsb)
 					hsb.loc = usr.loc
 				if("hsbmedkit")
-					var/obj/item/weapon/storage/firstaid/hsb = new/obj/item/weapon/storage/firstaid/regular
+					var/obj/item/storage/firstaid/hsb = new/obj/item/storage/firstaid/regular
 					hsb.loc = usr.loc
 				if("hsbobj")
 					if(!hsboxspawn) return
@@ -140,17 +140,17 @@ datum/hSB
 					var/list/selectable = list()
 					for(var/O in typesof(/obj/item/))
 					//Note, these istypes don't work
-						if(istype(O, /obj/item/weapon/gun))
+						if(istype(O, /obj/item/gun))
 							continue
 						if(istype(O, /obj/item/assembly))
 							continue
-						if(istype(O, /obj/item/device/camera))
+						if(istype(O, /obj/item/camera))
 							continue
-						if(istype(O, /obj/item/weapon/cloaking_device))
+						if(istype(O, /obj/item/cloaking_device))
 							continue
-						if(istype(O, /obj/item/weapon/dummy))
+						if(istype(O, /obj/item/dummy))
 							continue
-						if(istype(O, /obj/item/weapon/melee/energy/sword/saber))
+						if(istype(O, /obj/item/melee/energy/sword/saber))
 							continue
 						if(istype(O, /obj/structure))
 							continue

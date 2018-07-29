@@ -51,10 +51,10 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 			qdel(src)
 
 
-/mob/living/simple_animal/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/scalpel))
+/mob/living/simple_animal/tribble/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+	if(istype(O, /obj/item/scalpel))
 		to_chat(user, "<span class='notice'>You try to neuter the tribble, but it's moving too much and you fail!</span>")
-	else if(istype(O, /obj/item/weapon/cautery))
+	else if(istype(O, /obj/item/cautery))
 		to_chat(user, "<span class='notice'>You try to un-neuter the tribble, but it's moving too much and you fail!</span>")
 	..()
 
@@ -68,7 +68,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 				gestation = 0
 
 
-/mob/living/simple_animal/tribble/Life()
+/mob/living/simple_animal/tribble/Life(seconds, times_fired)
 	..()
 	if(src.health > 0) //no mostly dead procreation
 		if(gestation != null) //neuter check
@@ -93,13 +93,13 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	item_state = "tribble1"
 	w_class = 10
 	var/gestation = 0
+	flags = DROPDEL
 
 /obj/item/toy/tribble/attack_self(mob/user as mob) //hug that tribble (and play a sound if we add one)
 	..()
 	to_chat(user, "<span class='notice'>You nuzzle the tribble and it trills softly.</span>")
 
 /obj/item/toy/tribble/dropped(mob/user as mob) //now you can't item form them to get rid of them all so easily
-	..()
 	new /mob/living/simple_animal/tribble(user.loc)
 	for(var/mob/living/simple_animal/tribble/T in user.loc)
 		T.icon_state = src.icon_state
@@ -108,14 +108,14 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		T.gestation = src.gestation
 
 	to_chat(user, "<span class='notice'>The tribble gets up and wanders around.</span>")
-	qdel(src)
+	. = ..()
 
-/obj/item/toy/tribble/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob) //neutering and un-neutering
+/obj/item/toy/tribble/attackby(var/obj/item/O as obj, var/mob/user as mob) //neutering and un-neutering
 	..()
-	if(istype(O, /obj/item/weapon/scalpel) && src.gestation != null)
+	if(istype(O, /obj/item/scalpel) && src.gestation != null)
 		gestation = null
 		to_chat(user, "<span class='notice'>You neuter the tribble so that it can no longer re-produce.</span>")
-	else if(istype(O, /obj/item/weapon/cautery) && src.gestation == null)
+	else if(istype(O, /obj/item/cautery) && src.gestation == null)
 		gestation = 0
 		to_chat(user, "<span class='notice'>You fuse some recently cut tubes together, it should be able to reproduce again.</span>")
 
@@ -137,7 +137,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 /obj/structure/tribble_cage/ex_act(severity)
 	switch(severity)
 		if(1)
-			new /obj/item/weapon/shard( src.loc )
+			new /obj/item/shard( src.loc )
 			Break()
 			qdel(src)
 		if(2)
@@ -159,7 +159,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 
 /obj/structure/tribble_cage/blob_act()
 	if(prob(75))
-		new /obj/item/weapon/shard( src.loc )
+		new /obj/item/shard( src.loc )
 		Break()
 		qdel(src)
 
@@ -169,7 +169,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 		if(!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
-			new /obj/item/weapon/shard( src.loc )
+			new /obj/item/shard( src.loc )
 			playsound(src, "shatter", 70, 1)
 			Break()
 	else
@@ -184,7 +184,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	return
 
 
-/obj/structure/tribble_cage/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/tribble_cage/attackby(obj/item/W as obj, mob/user as mob, params)
 	src.health -= W.force
 	src.healthcheck()
 	..()
@@ -270,7 +270,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	item_state = "furcoat"
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO
-	allowed = list (/obj/item/weapon/tank/emergency_oxygen)
+	allowed = list (/obj/item/tank/emergency_oxygen)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 

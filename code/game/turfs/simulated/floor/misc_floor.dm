@@ -74,6 +74,11 @@
 	desc = "Tightly-pressed brass tiles. They emit minute vibration."
 	icon_state = "clockwork_floor"
 
+/turf/simulated/floor/clockwork/New()
+	..()
+	new /obj/effect/temp_visual/ratvar/floor(src)
+	new /obj/effect/temp_visual/ratvar/beam(src)
+
 /turf/simulated/floor/clockwork/attackby(obj/item/I, mob/living/user, params)
 	if(iscrowbar(I))
 		user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")

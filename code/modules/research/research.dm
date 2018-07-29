@@ -183,6 +183,21 @@ research holder datum.
 		return
 	..()
 
+//Smelter files
+/datum/research/smelter/New()
+	for(var/T in (subtypesof(/datum/tech)))
+		possible_tech += new T(src)
+	for(var/path in subtypesof(/datum/design))
+		var/datum/design/D = new path(src)
+		possible_designs += D
+		if((D.build_type & SMELTER) && ("initial" in D.category))
+			AddDesign2Known(D)
+
+/datum/research/smelter/AddDesign2Known(datum/design/D)
+	if(!(D.build_type & SMELTER))
+		return
+	..()
+
 /***************************************************************
 **						Technology Datums					  **
 **	Includes all the various technoliges and what they make.  **
@@ -313,7 +328,7 @@ datum/tech/robotics
 
 	return cost
 
-/obj/item/weapon/disk/tech_disk
+/obj/item/disk/tech_disk
 	name = "\improper Technology Disk"
 	desc = "A disk for storing technology data for further research."
 	icon_state = "datadisk2"
@@ -322,23 +337,23 @@ datum/tech/robotics
 	var/default_name = "\improper Technology Disk"
 	var/default_desc = "A disk for storing technology data for further research."
 
-/obj/item/weapon/disk/tech_disk/New()
+/obj/item/disk/tech_disk/New()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
 
-/obj/item/weapon/disk/tech_disk/proc/load_tech(datum/tech/T)
+/obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
 	desc = T.desc + " Level: '[T.level]'"
 	// NOTE: This is just a reference to the tech on the system it grabbed it from
 	// This seems highly fragile
 	stored = T
 
-/obj/item/weapon/disk/tech_disk/proc/wipe_tech()
+/obj/item/disk/tech_disk/proc/wipe_tech()
 	name = default_name
 	desc = default_desc
 	stored = null
 
-/obj/item/weapon/disk/design_disk
+/obj/item/disk/design_disk
 	name = "\improper Component Design Disk"
 	desc = "A disk for storing device design data for construction in lathes."
 	icon_state = "datadisk2"
@@ -349,18 +364,18 @@ datum/tech/robotics
 	var/default_name = "\improper Component Design Disk"
 	var/default_desc = "A disk for storing device design data for construction in lathes."
 
-/obj/item/weapon/disk/design_disk/New()
+/obj/item/disk/design_disk/New()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
 
-/obj/item/weapon/disk/design_disk/proc/load_blueprint(datum/design/D)
+/obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
 	name = "[default_name] \[[D]\]"
 	desc = D.desc
 	// NOTE: This is just a reference to the design on the system it grabbed it from
 	// This seems highly fragile
 	blueprint = D
 
-/obj/item/weapon/disk/design_disk/proc/wipe_blueprint()
+/obj/item/disk/design_disk/proc/wipe_blueprint()
 	name = default_name
 	desc = default_desc
 	blueprint = null

@@ -15,7 +15,7 @@ var/bomb_set
 	var/code = ""
 	var/yes_code = 0
 	var/safety = 1
-	var/obj/item/weapon/disk/nuclear/auth = null
+	var/obj/item/disk/nuclear/auth = null
 	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
 	var/lastentered
 	var/is_syndicate = 0
@@ -46,11 +46,11 @@ var/bomb_set
 		if(timeleft <= 0)
 			spawn
 				explode()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	return
 
-/obj/machinery/nuclearbomb/attackby(obj/item/weapon/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/screwdriver))
+/obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
+	if(istype(O, /obj/item/screwdriver))
 		add_fingerprint(user)
 		if(auth)
 			if(panel_open == 0)
@@ -74,11 +74,11 @@ var/bomb_set
 			flick("nuclearbombc", src)
 		return
 
-	if(panel_open && (istype(O, /obj/item/device/multitool) || istype(O, /obj/item/weapon/wirecutters)))
+	if(panel_open && (istype(O, /obj/item/multitool) || istype(O, /obj/item/wirecutters)))
 		return attack_hand(user)
 
 	if(extended)
-		if(istype(O, /obj/item/weapon/disk/nuclear))
+		if(istype(O, /obj/item/disk/nuclear))
 			usr.drop_item()
 			O.loc = src
 			auth = O
@@ -88,8 +88,8 @@ var/bomb_set
 	if(anchored)
 		switch(removal_stage)
 			if(0)
-				if(istype(O,/obj/item/weapon/weldingtool))
-					var/obj/item/weapon/weldingtool/WT = O
+				if(istype(O,/obj/item/weldingtool))
+					var/obj/item/weldingtool/WT = O
 					if(!WT.isOn()) return
 					if(WT.get_fuel() < 5) // uses up 5 fuel.
 						to_chat(user, "<span class='warning'>You need more fuel to complete this task.</span>")
@@ -104,7 +104,7 @@ var/bomb_set
 				return
 
 			if(1)
-				if(istype(O,/obj/item/weapon/crowbar))
+				if(istype(O,/obj/item/crowbar))
 					user.visible_message("[user] starts forcing open the bolt covers on [src].", "You start forcing open the anchoring bolt covers with [O]...")
 
 					if(do_after(user,15, target = src))
@@ -114,9 +114,9 @@ var/bomb_set
 				return
 
 			if(2)
-				if(istype(O,/obj/item/weapon/weldingtool))
+				if(istype(O,/obj/item/weldingtool))
 
-					var/obj/item/weapon/weldingtool/WT = O
+					var/obj/item/weldingtool/WT = O
 					if(!WT.isOn()) return
 					if(WT.get_fuel() < 5) // uses up 5 fuel.
 						to_chat(user, "<span class='warning'>You need more fuel to complete this task.</span>")
@@ -131,7 +131,7 @@ var/bomb_set
 				return
 
 			if(3)
-				if(istype(O,/obj/item/weapon/wrench))
+				if(istype(O,/obj/item/wrench))
 
 					user.visible_message("[user] begins unwrenching the anchoring bolts on [src].", "You begin unwrenching the anchoring bolts...")
 
@@ -142,7 +142,7 @@ var/bomb_set
 				return
 
 			if(4)
-				if(istype(O,/obj/item/weapon/crowbar))
+				if(istype(O,/obj/item/crowbar))
 
 					user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
 
@@ -177,7 +177,7 @@ var/bomb_set
 	return
 
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550, state = physical_state)
 		ui.open()
@@ -247,7 +247,7 @@ var/bomb_set
 			auth = null
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/weapon/disk/nuclear))
+			if(istype(I, /obj/item/disk/nuclear))
 				usr.drop_item()
 				I.loc = src
 				auth = I
@@ -280,11 +280,11 @@ var/bomb_set
 				timeleft = min(max(round(src.timeleft), 120), 600)
 			if(href_list["timer"])
 				if(timing == -1.0)
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				if(safety)
 					to_chat(usr, "<span class='warning'>The safety is still on.</span>")
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				timing = !(timing)
 				if(timing)
@@ -314,7 +314,7 @@ var/bomb_set
 				if(removal_stage == 5)
 					anchored = 0
 					visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 
 				if(!isinspace())
@@ -326,7 +326,7 @@ var/bomb_set
 				else
 					to_chat(usr, "<span class='warning'>There is nothing to anchor to!</span>")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 /obj/machinery/nuclearbomb/ex_act(severity)
 	return
@@ -396,17 +396,18 @@ var/bomb_set
 
 
 //==========DAT FUKKEN DISK===============
-/obj/item/weapon/disk/nuclear
+/obj/item/disk/nuclear
 	name = "nuclear authentication disk"
 	desc = "Better keep this safe."
 	icon_state = "nucleardisk"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
 
-/obj/item/weapon/disk/nuclear/New()
+/obj/item/disk/nuclear/New()
 	..()
 	processing_objects.Add(src)
 	poi_list |= src
 
-/obj/item/weapon/disk/nuclear/process()
+/obj/item/disk/nuclear/process()
 	var/turf/disk_loc = get_turf(src)
 	if(!is_secure_level(disk_loc.z))
 		var/holder = get(src, /mob)
@@ -414,7 +415,7 @@ var/bomb_set
 			to_chat(holder, "<span class='danger'>You can't help but feel that you just lost something back there...</span>")
 		qdel(src)
 
-/obj/item/weapon/disk/nuclear/Destroy(force)
+/obj/item/disk/nuclear/Destroy(force)
 	var/turf/diskturf = get_turf(src)
 
 	if(force)
@@ -426,7 +427,7 @@ var/bomb_set
 
 	if(blobstart.len > 0)
 		poi_list.Remove(src)
-		var/obj/item/weapon/disk/nuclear/NEWDISK = new(pick(blobstart))
+		var/obj/item/disk/nuclear/NEWDISK = new(pick(blobstart))
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")

@@ -46,10 +46,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_FADEDPURPLE
-	circuit = /obj/item/weapon/circuitboard/rdconsole
+	circuit = /obj/item/circuitboard/rdconsole
 	var/datum/research/files							//Stores all the collected research data.
-	var/obj/item/weapon/disk/tech_disk/t_disk = null	//Stores the technology disk.
-	var/obj/item/weapon/disk/design_disk/d_disk = null	//Stores the design disk.
+	var/obj/item/disk/tech_disk/t_disk = null	//Stores the technology disk.
+	var/obj/item/disk/design_disk/d_disk = null	//Stores the design disk.
 
 	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null	//Linked Destructive Analyzer
 	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
@@ -100,6 +100,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				return_name = "Tranquillite"
 			if("titanium")
 				return_name = "Titanium"
+			if("bluespace")
+				return_name = "Bluespace Mesh"
+			if("plastic")
+				return_name = "Plastic"
 		return return_name
 	else
 		for(var/R in subtypesof(/datum/reagent))
@@ -145,10 +149,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	matching_designs = list()
 	if(!id)
 		for(var/obj/machinery/r_n_d/server/centcom/S in world)
-			S.initialize()
+			S.initialize_serv()
 			break
 
-/obj/machinery/computer/rdconsole/initialize()
+/obj/machinery/computer/rdconsole/Initialize()
 	..()
 	SyncRDevices()
 
@@ -163,16 +167,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	griefProtection()
 */
 
-/obj/machinery/computer/rdconsole/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/rdconsole/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
 
 	//Loading a disk into it.
-	if(istype(D, /obj/item/weapon/disk))
+	if(istype(D, /obj/item/disk))
 		if(t_disk || d_disk)
 			to_chat(user, "A disk is already loaded into the machine.")
 			return
 
-		if(istype(D, /obj/item/weapon/disk/tech_disk)) t_disk = D
-		else if(istype(D, /obj/item/weapon/disk/design_disk)) d_disk = D
+		if(istype(D, /obj/item/disk/tech_disk)) t_disk = D
+		else if(istype(D, /obj/item/disk/design_disk)) d_disk = D
 		else
 			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
 			return
@@ -182,7 +186,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
 	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		..()
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/computer/rdconsole/emag_act(user as mob)
@@ -234,7 +238,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		spawn(TECH_UPDATE_DELAY)
 			clear_wait_message()
 			files.AddTech2Known(t_disk.stored)
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			griefProtection() //Update centcom too
 
 	else if(href_list["clear_tech"]) //Erase data on the technology disk.
@@ -259,7 +263,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		spawn(DESIGN_UPDATE_DELAY)
 			clear_wait_message()
 			files.AddDesign2Known(d_disk.blueprint)
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			griefProtection() //Update centcom too
 
 	else if(href_list["clear_design"]) //Erases data on the design disk.
@@ -312,7 +316,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		log_admin("[key_name(usr)] has maximized the research levels.")
 		message_admins("[key_name_admin(usr)] has maximized the research levels.")
 		Maximize()
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		griefProtection() //Update centcomm too
 
 	else if(href_list["deconstruct"]) //Deconstruct the item in the destructive analyzer and update the research holder.
@@ -332,7 +336,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					return
 			linked_destroy.busy = 1
 			add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			flick("d_analyzer_process", linked_destroy)
 			spawn(DECONSTRUCT_DELAY)
 				clear_wait_message()
@@ -374,7 +378,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								qdel(I)
 								linked_destroy.icon_state = "d_analyzer"
 					use_power(250)
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
 		if(!sync)
@@ -397,7 +401,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							server_processed = 1
 						if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 							S.produce_heat(100)
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 
 	else if(href_list["togglesync"]) //Prevents the console from being synced by other consoles. Can still send data.
 		sync = !sync
@@ -443,16 +447,16 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						enough_materials = 0
 						g2g = 0
 					else
-						for(var/R in being_built.reagents)
-							if(!linked_lathe.reagents.has_reagent(R, being_built.reagents[R])*coeff)
+						for(var/R in being_built.reagents_list)
+							if(!linked_lathe.reagents.has_reagent(R, being_built.reagents_list[R])*coeff)
 								src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough reagents to complete prototype.\"</span>")
 								enough_materials = 0
 								g2g = 0
 
 					if(enough_materials)
 						linked_lathe.materials.use_amount(efficient_mats, amount)
-						for(var/R in being_built.reagents)
-							linked_lathe.reagents.remove_reagent(R, being_built.reagents[R]*coeff)
+						for(var/R in being_built.reagents_list)
+							linked_lathe.reagents.remove_reagent(R, being_built.reagents_list[R]*coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					var/O = being_built.locked
@@ -461,12 +465,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						if(g2g) //And if we only fail the material requirements, we still spend time and power
 							for(var/i = 0, i<amount, i++)
 								var/obj/item/new_item = new P(src)
-								if( new_item.type == /obj/item/weapon/storage/backpack/holding )
+								if( new_item.type == /obj/item/storage/backpack/holding )
 									new_item.investigate_log("built by [key]","singulo")
 								if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 									new_item.materials = efficient_mats.Copy()
 								if(O)
-									var/obj/item/weapon/storage/lockbox/L = new/obj/item/weapon/storage/lockbox(linked_lathe.loc)
+									var/obj/item/storage/lockbox/L = new/obj/item/storage/lockbox(linked_lathe.loc)
 									new_item.loc = L
 									L.name += " ([new_item.name])"
 									L.origin_tech = new_item.origin_tech
@@ -479,11 +483,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 									new_item.loc = linked_lathe.loc
 						clear_wait_message()
 						linked_lathe.busy = 0
-						nanomanager.update_uis(src)
+						SSnanoui.update_uis(src)
 
 	else if(href_list["imprint"]) //Causes the Circuit Imprinter to build something.
 		var/coeff = linked_imprinter.efficiency_coeff
 		var/g2g = 1
+		var/enough_materials = 1
 		if(linked_imprinter)
 			if(linked_imprinter.busy)
 				to_chat(usr, "<span class='danger'>Circuit Imprinter is busy at the moment.</span>")
@@ -505,20 +510,25 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
 
-					for(var/M in being_built.materials)
-						if(!linked_imprinter.check_mat(being_built, M))
-							src.visible_message("<span class='notice'>The [src.name] beeps, \"Not enough materials to complete prototype.\"</span>")
-							g2g = 0
-							break
-						switch(M)
-							if(MAT_GLASS)
-								linked_imprinter.g_amount = max(0, (linked_imprinter.g_amount-being_built.materials[M]/coeff))
-							if(MAT_GOLD)
-								linked_imprinter.gold_amount = max(0, (linked_imprinter.gold_amount-being_built.materials[M]/coeff))
-							if(MAT_DIAMOND)
-								linked_imprinter.diamond_amount = max(0, (linked_imprinter.diamond_amount-being_built.materials[M]/coeff))
-							else
-								linked_imprinter.reagents.remove_reagent(M, being_built.materials[M]/coeff)
+					var/list/efficient_mats = list()
+					for(var/MAT in being_built.materials)
+						efficient_mats[MAT] = being_built.materials[MAT]/coeff
+
+					if(!linked_imprinter.materials.has_materials(efficient_mats))
+						visible_message("<span class='notice'>The [src.name] beeps, \"Not enough materials to complete prototype.\"</span>")
+						enough_materials = 0
+						g2g = 0
+					else
+						for(var/R in being_built.reagents_list)
+							if(!linked_imprinter.reagents.has_reagent(R, being_built.reagents_list[R]/coeff))
+								visible_message("<span class='notice'>The [name] beeps, \"Not enough reagents to complete prototype.\"</span>")
+								enough_materials = 0
+								g2g = 0
+
+					if(enough_materials)
+						linked_imprinter.materials.use_amount(efficient_mats)
+						for(var/R in being_built.reagents_list)
+							linked_imprinter.reagents.remove_reagent(R, being_built.reagents_list[R]/coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
 					spawn(IMPRINTER_DELAY)
@@ -527,7 +537,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							new_item.loc = linked_imprinter.loc
 						linked_imprinter.busy = 0
 						clear_wait_message()
-						nanomanager.update_uis(src)
+						SSnanoui.update_uis(src)
 
 	else if(href_list["disposeI"] && linked_imprinter)  //Causes the circuit imprinter to dispose of a single reagent (all of it)
 		linked_imprinter.reagents.del_reagent(href_list["disposeI"])
@@ -563,32 +573,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			desired_num_sheets = round(desired_num_sheets) // No partial-sheet goofery
 		else
 			desired_num_sheets = text2num(href_list["imprinter_ejectsheet_amt"])
-		var/res_amount, type
-		switch(href_list["imprinter_ejectsheet"])
-			if(MAT_GLASS)
-				type = /obj/item/stack/sheet/glass
-				res_amount = "g_amount"
-			if(MAT_GOLD)
-				type = /obj/item/stack/sheet/mineral/gold
-				res_amount = "gold_amount"
-			if(MAT_DIAMOND)
-				type = /obj/item/stack/sheet/mineral/diamond
-				res_amount = "diamond_amount"
-		if(ispath(type) && hasvar(linked_imprinter, res_amount))
-			var/obj/item/stack/sheet/sheet = new type(linked_imprinter.loc)
-			var/available_num_sheets = round(linked_imprinter.vars[res_amount]/sheet.perunit)
-			if(available_num_sheets>0)
-				sheet.amount = min(available_num_sheets, desired_num_sheets)
-				linked_imprinter.vars[res_amount] = max(0, (linked_imprinter.vars[res_amount]-sheet.amount * sheet.perunit))
-			else
-				qdel(sheet)
+		linked_imprinter.materials.retrieve_sheets(desired_num_sheets, href_list["imprinter_ejectsheet"])
 
 	else if(href_list["find_device"]) //The R&D console looks for devices nearby to link up with.
 		add_wait_message("Updating Database...", SYNC_DEVICE_DELAY)
 		spawn(SYNC_DEVICE_DELAY)
 			SyncRDevices()
 			clear_wait_message()
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 
 	else if(href_list["disconnect"]) //The R&D console disconnects with a specific device.
 		switch(href_list["disconnect"])
@@ -611,7 +603,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			files = new /datum/research(src)
 			spawn(RESET_RESEARCH_DELAY)
 				clear_wait_message()
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 
 	else if(href_list["search"]) //Search for designs with name matching pattern
 		var/compare
@@ -633,7 +625,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		selected_category = "Search Results for '[href_list["to_search"]]'"
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 
@@ -647,7 +639,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key="main", var/datum/nanoui/ui = null, var/force_open = 1)
 	user.set_machine(src)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "r_n_d.tmpl", src.name, 800, 550)
 		ui.open()
@@ -718,6 +710,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(b_type & MECHFAB) lathe_types += "Mech Fabricator"
 				if(b_type & PODFAB) lathe_types += "Spacepod Fabricator"
 				if(b_type & BIOGENERATOR) lathe_types += "Biogenerator"
+				if(b_type & SMELTER) lathe_types += "Smelter"
 			var/list/materials = list()
 			disk_data["materials"] = materials
 			for(var/M in d_disk.blueprint.materials)
@@ -785,11 +778,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						material_list["is_red"] = 0
 					c = min(c, t)
 
-				for(var/R in D.reagents)
+				for(var/R in D.reagents_list)
 					var/list/material_list = list()
 					materials_list[++materials_list.len] = material_list
 					material_list["name"] = CallMaterialName(R)
-					material_list["amount"] = D.reagents[R]*coeff
+					material_list["amount"] = D.reagents_list[R]*coeff
 					var/t = linked_lathe.check_mat(D, R)
 
 					if(t < 1)
@@ -805,12 +798,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = linked_lathe.materials.amount(MAT_GLASS))
 			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = linked_lathe.materials.amount(MAT_GOLD))
 			materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = linked_lathe.materials.amount(MAT_SILVER))
-			materials_list[++materials_list.len] = list("name" = "Plasma", "id" = MAT_PLASMA, "amount" = linked_lathe.materials.amount(MAT_PLASMA))
+			materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = linked_lathe.materials.amount(MAT_PLASMA))
 			materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = linked_lathe.materials.amount(MAT_URANIUM))
 			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_lathe.materials.amount(MAT_DIAMOND))
 			materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = linked_lathe.materials.amount(MAT_BANANIUM))
 			materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = linked_lathe.materials.amount(MAT_TRANQUILLITE))
 			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_lathe.materials.amount(MAT_TITANIUM))
+			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = linked_lathe.materials.amount(MAT_PLASTIC))
+			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = linked_lathe.materials.amount(MAT_BLUESPACE))
 		if(submenu == 3)
 			var/list/loaded_chemicals = list()
 			data["loaded_chemicals"] = loaded_chemicals
@@ -822,8 +817,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				loaded_chemical["id"] = R.id
 
 	if(menu == 5 && linked_imprinter)
-		data["total_materials"] = linked_imprinter.TotalMaterials()
+		data["total_materials"] = linked_imprinter.materials.total_amount
+		data["max_materials"] = linked_imprinter.materials.max_amount
 		data["total_chemicals"] = linked_imprinter.reagents.total_volume
+		data["max_chemicals"] = linked_imprinter.reagents.maximum_volume
 		data["categories"] = linked_imprinter.categories
 		if(submenu == 1)
 			var/list/designs_list = list()
@@ -847,13 +844,34 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 						material_list["is_red"] = 1
 					else
 						material_list["is_red"] = 0
+
+				for(var/R in D.reagents_list)
+					var/list/material_list = list()
+					materials_list[++materials_list.len] = material_list
+					material_list["name"] = CallMaterialName(R)
+					material_list["amount"] = D.reagents_list[R]*coeff
+					if(!linked_imprinter.check_mat(D, R))
+						check_materials = 0
+						material_list["is_red"] = 1
+					else
+						material_list["is_red"] = 0
+
 				design_list["can_build"] = check_materials
 		if(submenu == 2)
 			var/list/materials_list = list()
 			data["loaded_materials"] = materials_list
-			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = linked_imprinter.g_amount)
-			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = linked_imprinter.gold_amount)
-			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_imprinter.diamond_amount)
+			materials_list[++materials_list.len] = list("name" = "Metal", "id" = MAT_METAL, "amount" = linked_imprinter.materials.amount(MAT_METAL))
+			materials_list[++materials_list.len] = list("name" = "Glass", "id" = MAT_GLASS, "amount" = linked_imprinter.materials.amount(MAT_GLASS))
+			materials_list[++materials_list.len] = list("name" = "Gold", "id" = MAT_GOLD, "amount" = linked_imprinter.materials.amount(MAT_GOLD))
+			materials_list[++materials_list.len] = list("name" = "Silver", "id" = MAT_SILVER, "amount" = linked_imprinter.materials.amount(MAT_SILVER))
+			materials_list[++materials_list.len] = list("name" = "Solid Plasma", "id" = MAT_PLASMA, "amount" = linked_imprinter.materials.amount(MAT_PLASMA))
+			materials_list[++materials_list.len] = list("name" = "Uranium", "id" = MAT_URANIUM, "amount" = linked_imprinter.materials.amount(MAT_URANIUM))
+			materials_list[++materials_list.len] = list("name" = "Diamond", "id" = MAT_DIAMOND, "amount" = linked_imprinter.materials.amount(MAT_DIAMOND))
+			materials_list[++materials_list.len] = list("name" = "Bananium", "id" = MAT_BANANIUM, "amount" = linked_imprinter.materials.amount(MAT_BANANIUM))
+			materials_list[++materials_list.len] = list("name" = "Tranquillite", "id" = MAT_TRANQUILLITE, "amount" = linked_imprinter.materials.amount(MAT_TRANQUILLITE))
+			materials_list[++materials_list.len] = list("name" = "Titanium", "id" = MAT_TITANIUM, "amount" = linked_imprinter.materials.amount(MAT_TITANIUM))
+			materials_list[++materials_list.len] = list("name" = "Plastic", "id" = MAT_PLASTIC, "amount" = linked_imprinter.materials.amount(MAT_PLASTIC))
+			materials_list[++materials_list.len] = list("name" = "Bluespace Mesh", "id" = MAT_BLUESPACE, "amount" = linked_imprinter.materials.amount(MAT_BLUESPACE))
 		if(submenu == 3)
 			var/list/loaded_chemicals = list()
 			data["loaded_chemicals"] = loaded_chemicals
@@ -869,7 +887,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 //helper proc that guarantees the wait message will not freeze the UI
 /obj/machinery/computer/rdconsole/proc/add_wait_message(message, delay)
 	wait_message = message
-	wait_message_timer = addtimer(src, "clear_wait_message", delay, TRUE)
+	wait_message_timer = addtimer(CALLBACK(src, .proc/clear_wait_message), delay, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 // This is here to guarantee that we never lock the console, so long as the timer
 // process is running
@@ -884,7 +902,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		// if the timer calls this function
 		deltimer(wait_message_timer)
 		wait_message_timer = 0
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 
 
 /obj/machinery/computer/rdconsole/core
@@ -897,27 +915,27 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	desc = "A console used to interface with R&D tools."
 	id = 2
 	req_access = list(access_robotics)
-	circuit = /obj/item/weapon/circuitboard/rdconsole/robotics
+	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
-	circuit = /obj/item/weapon/circuitboard/rdconsole/experiment
+	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/mechanics
 	name = "mechanics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 4
 	req_access = list(access_mechanic)
-	circuit = /obj/item/weapon/circuitboard/rdconsole/mechanics
+	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public
 	name = "public R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 5
 	req_access = list()
-	circuit = /obj/item/weapon/circuitboard/rdconsole/public
+	circuit = /obj/item/circuitboard/rdconsole/public
 
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY

@@ -1,5 +1,5 @@
 /*
- *	Absorbs /obj/item/weapon/secstorage.
+ *	Absorbs /obj/item/secstorage.
  *	Reimplements it only slightly to use existing storage functionality.
  *
  *	Contains:
@@ -10,7 +10,7 @@
 // -----------------------------
 //         Generic Item
 // -----------------------------
-/obj/item/weapon/storage/secure
+/obj/item/storage/secure
 	name = "secstorage"
 	var/icon_locking = "secureb"
 	var/icon_sparking = "securespark"
@@ -27,22 +27,22 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 14
 
-/obj/item/weapon/storage/secure/examine(mob/user)
+/obj/item/storage/secure/examine(mob/user)
 	if(..(user, 1))
 		to_chat(user, text("The service panel is [open ? "open" : "closed"]."))
 
-/obj/item/weapon/storage/secure/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(locked)
-		if((istype(W, /obj/item/weapon/melee/energy/blade)) && (!emagged))
+		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
 			emag_act(user, W)
 
-		if(istype(W, /obj/item/weapon/screwdriver))
+		if(istype(W, /obj/item/screwdriver))
 			if(do_after(user, 20 * W.toolspeed, target = src))
 				open = !open
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
 
-		if((istype(W, /obj/item/device/multitool)) && (open == 1) && (!l_hacking))
+		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = 1
 			if(do_after(usr, 100 * W.toolspeed, target = src))
@@ -65,7 +65,7 @@
 
 	return ..()
 
-/obj/item/weapon/storage/secure/emag_act(user as mob, weapon as obj)
+/obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)
 		emagged = 1
 		overlays += image('icons/obj/storage.dmi', icon_sparking)
@@ -73,7 +73,7 @@
 		overlays = null
 		overlays += image('icons/obj/storage.dmi', icon_locking)
 		locked = 0
-		if(istype(weapon, /obj/item/weapon/melee/energy/blade))
+		if(istype(weapon, /obj/item/melee/energy/blade))
 			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 			spark_system.set_up(5, 0, src.loc)
 			spark_system.start()
@@ -85,14 +85,14 @@
 		return
 
 
-/obj/item/weapon/storage/secure/MouseDrop(over_object, src_location, over_location)
+/obj/item/storage/secure/MouseDrop(over_object, src_location, over_location)
 	if(locked)
 		add_fingerprint(usr)
 		to_chat(usr, "<span class='warning'>It's locked!</span>")
 		return 0
 	..()
 
-/obj/item/weapon/storage/secure/attack_self(mob/user as mob)
+/obj/item/storage/secure/attack_self(mob/user as mob)
 	user.set_machine(src)
 	var/dat = text("<TT><B>[]</B><BR>\n\nLock Status: []", src, (locked ? "LOCKED" : "UNLOCKED"))
 	var/message = "Code"
@@ -120,7 +120,7 @@
 		<A href='?src=[UID()];type=E'>E</A><BR>\n</TT>"}
 	user << browse(dat, "window=caselock;size=300x280")
 
-/obj/item/weapon/storage/secure/Topic(href, href_list)
+/obj/item/storage/secure/Topic(href, href_list)
 	..()
 	if(usr.incapacitated() || (get_dist(src, usr) > 1))
 		return
@@ -153,23 +153,23 @@
 			return
 	return
 
-/obj/item/weapon/storage/secure/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+/obj/item/storage/secure/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!locked)
 		return ..()
 	if(!stop_messages)
 		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
 	return 0
 
-/obj/item/weapon/storage/secure/hear_talk(mob/living/M as mob, msg)
+/obj/item/storage/secure/hear_talk(mob/living/M as mob, msg)
 	return
 
-/obj/item/weapon/storage/secure/hear_message(mob/living/M as mob, msg)
+/obj/item/storage/secure/hear_message(mob/living/M as mob, msg)
 	return
 
 // -----------------------------
 //        Secure Briefcase
 // -----------------------------
-/obj/item/weapon/storage/secure/briefcase
+/obj/item/storage/secure/briefcase
 	name = "secure briefcase"
 	desc = "A large briefcase with a digital locking system."
 	icon = 'icons/obj/storage.dmi'
@@ -185,12 +185,12 @@
 	max_combined_w_class = 21
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 
-/obj/item/weapon/storage/secure/briefcase/New()
+/obj/item/storage/secure/briefcase/New()
 	..()
-	handle_item_insertion(new /obj/item/weapon/paper, 1)
-	handle_item_insertion(new /obj/item/weapon/pen, 1)
+	handle_item_insertion(new /obj/item/paper, 1)
+	handle_item_insertion(new /obj/item/pen, 1)
 
-/obj/item/weapon/storage/secure/briefcase/attack_hand(mob/user as mob)
+/obj/item/storage/secure/briefcase/attack_hand(mob/user as mob)
 	if((loc == user) && (locked == 1))
 		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
 	else if((loc == user) && !locked)
@@ -208,27 +208,27 @@
 	return
 
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
-/obj/item/weapon/storage/secure/briefcase/syndie
+/obj/item/storage/secure/briefcase/syndie
 	force = 15
 
-/obj/item/weapon/storage/secure/briefcase/syndie/New()
+/obj/item/storage/secure/briefcase/syndie/New()
 	..()
 	for(var/i = 0, i < storage_slots - 2, i++)
 		handle_item_insertion(new /obj/item/stack/spacecash/c1000, 1)
 
-/obj/item/weapon/storage/secure/briefcase/reaper/New()
+/obj/item/storage/secure/briefcase/reaper/New()
 	..()
-	handle_item_insertion(new /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow, 1)
-	handle_item_insertion(new /obj/item/weapon/gun/projectile/revolver/mateba, 1)
+	handle_item_insertion(new /obj/item/gun/energy/kinetic_accelerator/crossbow, 1)
+	handle_item_insertion(new /obj/item/gun/projectile/revolver/mateba, 1)
 	handle_item_insertion(new /obj/item/ammo_box/a357, 1)
-	handle_item_insertion(new /obj/item/weapon/grenade/plastic/c4, 1)
+	handle_item_insertion(new /obj/item/grenade/plastic/c4, 1)
 
 
 // -----------------------------
 //        Secure Safe
 // -----------------------------
 
-/obj/item/weapon/storage/secure/safe
+/obj/item/storage/secure/safe
 	name = "secure safe"
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "safe"
@@ -240,12 +240,12 @@
 	max_w_class = 8
 	anchored = 1
 	density = 0
-	cant_hold = list(/obj/item/weapon/storage/secure/briefcase)
+	cant_hold = list(/obj/item/storage/secure/briefcase)
 
-/obj/item/weapon/storage/secure/safe/New()
+/obj/item/storage/secure/safe/New()
 	..()
-	handle_item_insertion(new /obj/item/weapon/paper, 1)
-	handle_item_insertion(new /obj/item/weapon/pen, 1)
+	handle_item_insertion(new /obj/item/paper, 1)
+	handle_item_insertion(new /obj/item/pen, 1)
 
-/obj/item/weapon/storage/secure/safe/attack_hand(mob/user as mob)
+/obj/item/storage/secure/safe/attack_hand(mob/user as mob)
 	return attack_self(user)

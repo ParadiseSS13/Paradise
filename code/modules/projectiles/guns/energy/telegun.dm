@@ -1,6 +1,6 @@
 // Telegun for Tator RDs
 
-/obj/item/weapon/gun/energy/telegun
+/obj/item/gun/energy/telegun
 	name = "Teleporter Gun"
 	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
 	icon_state = "telegun"
@@ -10,15 +10,15 @@
 	shaded_charge = 1
 	var/teleport_target = null
 
-/obj/item/weapon/gun/energy/telegun/Destroy()
+/obj/item/gun/energy/telegun/Destroy()
 	teleport_target = null
 	return ..()
 
-/obj/item/weapon/gun/energy/telegun/attack_self(mob/living/user as mob)
+/obj/item/gun/energy/telegun/attack_self(mob/living/user as mob)
 	var/list/L = list()
 	var/list/areaindex = list()
 
-	for(var/obj/item/device/radio/beacon/R in beacons)
+	for(var/obj/item/radio/beacon/R in beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue
@@ -36,7 +36,7 @@
 	var/desc = input("Please select a location to lock in.", "Telegun Target Interface") in L
 	teleport_target = L[desc]
 
-/obj/item/weapon/gun/energy/telegun/newshot()
+/obj/item/gun/energy/telegun/newshot()
 	var/obj/item/ammo_casing/energy/teleport/T = ammo_type[select]
 	T.teleport_target = teleport_target
 	..()

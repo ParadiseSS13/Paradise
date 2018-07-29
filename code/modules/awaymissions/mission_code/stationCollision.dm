@@ -47,44 +47,44 @@
 	name = "Safecode hint spawner"
 
 /obj/effect/landmark/sc_bible_spawner/New()
-	var/obj/item/weapon/storage/bible/B = new /obj/item/weapon/storage/bible/booze(src.loc)
+	var/obj/item/storage/bible/B = new /obj/item/storage/bible/booze(src.loc)
 	B.name = "The Holy book of the Geometer"
 	B.deity_name = "Narsie"
 	B.icon_state = "melted"
 	B.item_state = "melted"
-	new /obj/item/weapon/paper/sc_safehint_paper_bible(B)
-	new /obj/item/weapon/pen(B)
+	new /obj/item/paper/sc_safehint_paper_bible(B)
+	new /obj/item/pen(B)
 	qdel(src)
 
 /*
  * Guns - I'm making these specifically so that I dont spawn a pile of fully loaded weapons on the map.
  */
 //Captain's retro laser - Fires practice laser shots instead.
-obj/item/weapon/gun/energy/laser/retro/sc_retro
+obj/item/gun/energy/laser/retro/sc_retro
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's security or military forces."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/practice)
 	clumsy_check = 0 //No sense in having a harmless gun blow up in the clowns face
 
 //Syndicate sub-machine guns.
-/obj/item/weapon/gun/projectile/automatic/c20r/sc_c20r
+/obj/item/gun/projectile/automatic/c20r/sc_c20r
 
-/obj/item/weapon/gun/projectile/automatic/c20r/sc_c20r/New()
+/obj/item/gun/projectile/automatic/c20r/sc_c20r/New()
 	..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo
 
 //Barman's shotgun
-/obj/item/weapon/gun/projectile/shotgun/sc_pump
+/obj/item/gun/projectile/shotgun/sc_pump
 
-/obj/item/weapon/gun/projectile/shotgun/sc_pump/New()
+/obj/item/gun/projectile/shotgun/sc_pump/New()
 	..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo
 
 //Lasers
-/obj/item/weapon/gun/energy/laser/practice/sc_laser
+/obj/item/gun/energy/laser/practice/sc_laser
 	name = "Old laser"
 	desc = "A once potent weapon, years of dust have collected in the chamber and lens of this weapon, weakening the beam significantly."
 	clumsy_check = 0
@@ -101,30 +101,30 @@ var/sc_safecode4 = "[rand(0,9)]"
 var/sc_safecode5 = "[rand(0,9)]"
 
 //Pieces of paper actually containing the hints
-/obj/item/weapon/paper/sc_safehint_paper_prison
+/obj/item/paper/sc_safehint_paper_prison
 	name = "smudged paper"
 
-/obj/item/weapon/paper/sc_safehint_paper_prison/New()
+/obj/item/paper/sc_safehint_paper_prison/New()
 	info = "<i>The ink is smudged, you can only make out a couple numbers:</i> '[sc_safecode1]**[sc_safecode4]*'"
 
-/obj/item/weapon/paper/sc_safehint_paper_hydro
+/obj/item/paper/sc_safehint_paper_hydro
 	name = "shredded paper"
-/obj/item/weapon/paper/sc_safehint_paper_hydro/New()
+/obj/item/paper/sc_safehint_paper_hydro/New()
 	info = "<i>Although the paper is shredded, you can clearly see the number:</i> '[sc_safecode2]'"
 
-/obj/item/weapon/paper/sc_safehint_paper_caf
+/obj/item/paper/sc_safehint_paper_caf
 	name = "blood-soaked paper"
 	//This does not have to be in New() because it is a constant. There are no variables in it i.e. [sc_safcode]
 	info = "<font color=red><i>This paper is soaked in blood, it is impossible to read any text.</i></font>"
 
-/obj/item/weapon/paper/sc_safehint_paper_bible
+/obj/item/paper/sc_safehint_paper_bible
 	name = "hidden paper"
-/obj/item/weapon/paper/sc_safehint_paper_bible/New()
+/obj/item/paper/sc_safehint_paper_bible/New()
 	info = {"<i>It would appear that the pen hidden with the paper had leaked ink over the paper.
 			However you can make out the last three digits:</i>'[sc_safecode3][sc_safecode4][sc_safecode5]'
 			"}
 
-/obj/item/weapon/paper/sc_safehint_paper_shuttle
+/obj/item/paper/sc_safehint_paper_shuttle
 	info = {"<b>Target:</b> Research-station Epsilon<br>
 			<b>Objective:</b> Prototype weaponry. The captain likely keeps them locked in her safe.<br>
 			<br>
@@ -140,19 +140,19 @@ var/sc_safecode5 = "[rand(0,9)]"
 /*
  * Captain's safe
  */
-/obj/item/weapon/storage/secure/safe/sc_ssafe
+/obj/item/storage/secure/safe/sc_ssafe
 	name = "Captain's secure safe"
 
-/obj/item/weapon/storage/secure/safe/sc_ssafe/New()
+/obj/item/storage/secure/safe/sc_ssafe/New()
 	..()
 	l_code = "[sc_safecode1][sc_safecode2][sc_safecode3][sc_safecode4][sc_safecode5]"
 	l_set = 1
-	new /obj/item/weapon/gun/energy/mindflayer(src)
-	new /obj/item/device/soulstone(src)
+	new /obj/item/gun/energy/mindflayer(src)
+	new /obj/item/soulstone(src)
 	new /obj/item/clothing/head/helmet/space/cult(src)
 	new /obj/item/clothing/suit/space/cult(src)
-	//new /obj/item/weapon/teleportation_scroll(src)
-	new /obj/item/weapon/ore/diamond(src)
+	//new /obj/item/teleportation_scroll(src)
+	new /obj/item/ore/diamond(src)
 
 /*
  * Modified Nar-Sie

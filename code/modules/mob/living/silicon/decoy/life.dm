@@ -1,4 +1,4 @@
-/mob/living/silicon/decoy/Life()
+/mob/living/silicon/decoy/Life(seconds, times_fired)
 	if(src.stat == 2)
 		return
 	else

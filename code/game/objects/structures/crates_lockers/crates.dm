@@ -8,7 +8,7 @@
 	climbable = 1
 //	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
 	var/rigged = 0
-	var/obj/item/weapon/paper/manifest/manifest
+	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
 
@@ -34,7 +34,7 @@
 	if(!src.can_open())
 		return 0
 
-	if(rigged && locate(/obj/item/device/radio/electropack) in src)
+	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
 			var/mob/living/L = usr
 			if(L.electrocute_act(17, src))
@@ -80,9 +80,9 @@
 	src.opened = 0
 	return 1
 
-/obj/structure/closet/crate/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/rcs) && !src.opened)
-		var/obj/item/weapon/rcs/E = W
+/obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/rcs) && !src.opened)
+		var/obj/item/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
 			if(!is_level_reachable(src.z)) // This is inconsistent with the closet sending code
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
@@ -168,13 +168,13 @@
 		qdel(W)
 		rigged = 1
 		return
-	else if(istype(W, /obj/item/device/radio/electropack))
+	else if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
 			user.drop_item()
 			W.forceMove(src)
 			return
-	else if(istype(W, /obj/item/weapon/wirecutters))
+	else if(istype(W, /obj/item/wirecutters))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
 			playsound(loc, W.usesound, 100, 1)
@@ -213,7 +213,7 @@
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/device/radio/electropack) in src)
+		if(rigged && locate(/obj/item/radio/electropack) in src)
 			if(isliving(user))
 				var/mob/living/L = user
 				if(L.electrocute_act(17, src))
@@ -307,10 +307,10 @@
 		src.toggle(user)
 
 
-/obj/structure/closet/crate/secure/attackby(obj/item/weapon/W, mob/user, params)
-	if(is_type_in_list(W, list(/obj/item/stack/packageWrap, /obj/item/stack/cable_coil, /obj/item/device/radio/electropack, /obj/item/weapon/wirecutters,/obj/item/weapon/rcs)))
+/obj/structure/closet/crate/secure/attackby(obj/item/W, mob/user, params)
+	if(is_type_in_list(W, list(/obj/item/stack/packageWrap, /obj/item/stack/cable_coil, /obj/item/radio/electropack, /obj/item/wirecutters,/obj/item/rcs)))
 		return ..()
-	if((istype(W, /obj/item/weapon/card/emag) || istype(W, /obj/item/weapon/melee/energy/blade)))
+	if((istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade)))
 		emag_act(user)
 		return
 	if(!opened)
@@ -401,10 +401,10 @@
 
 /obj/structure/closet/crate/rcd/New()
 	..()
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd_ammo(src)
-	new /obj/item/weapon/rcd(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd(src)
 
 /obj/structure/closet/crate/freezer
 	desc = "A freezer."
@@ -442,7 +442,7 @@
 	icon_closed = "largebin"
 	anchored = TRUE
 
-/obj/structure/closet/crate/can/attackby(obj/item/weapon/W, mob/living/user, params)
+/obj/structure/closet/crate/can/attackby(obj/item/W, mob/living/user, params)
 	if(iswrench(W))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -598,20 +598,20 @@
 
 	New()
 		..()
-		new /obj/item/weapon/reagent_containers/glass/bucket(src)
-		new /obj/item/weapon/reagent_containers/glass/bucket(src)
-		new /obj/item/weapon/screwdriver(src)
-		new /obj/item/weapon/screwdriver(src)
-		new /obj/item/weapon/wrench(src)
-		new /obj/item/weapon/wrench(src)
-		new /obj/item/weapon/wirecutters(src)
-		new /obj/item/weapon/wirecutters(src)
-		new /obj/item/weapon/shovel/spade(src)
-		new /obj/item/weapon/shovel/spade(src)
-		new /obj/item/weapon/storage/box/beakers(src)
-		new /obj/item/weapon/storage/box/beakers(src)
-		new /obj/item/weapon/hand_labeler(src)
-		new /obj/item/weapon/hand_labeler(src)
+		new /obj/item/reagent_containers/glass/bucket(src)
+		new /obj/item/reagent_containers/glass/bucket(src)
+		new /obj/item/screwdriver(src)
+		new /obj/item/screwdriver(src)
+		new /obj/item/wrench(src)
+		new /obj/item/wrench(src)
+		new /obj/item/wirecutters(src)
+		new /obj/item/wirecutters(src)
+		new /obj/item/shovel/spade(src)
+		new /obj/item/shovel/spade(src)
+		new /obj/item/storage/box/beakers(src)
+		new /obj/item/storage/box/beakers(src)
+		new /obj/item/hand_labeler(src)
+		new /obj/item/hand_labeler(src)
 
 /obj/structure/closet/crate/sci
 	name = "science crate"

@@ -125,7 +125,7 @@
 
 /obj/machinery/atmospherics/trinary/mixer/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	user.set_machine(src)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "atmos_mixer.tmpl", name, 370, 165, state = state)
 		ui.open()
@@ -176,4 +176,4 @@
 		. = TRUE
 
 	update_icon()
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)

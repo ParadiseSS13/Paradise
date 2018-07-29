@@ -7,18 +7,18 @@
 /*
  * Banhammer
  */
-/obj/item/weapon/banhammer/attack(mob/M as mob, mob/user as mob)
+/obj/item/banhammer/attack(mob/M, mob/user)
 	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
 	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
+	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
 
 /*
  * Classic Baton
  */
 
-/obj/item/weapon/melee/classic_baton
+/obj/item/melee/classic_baton
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
 	slot_flags = SLOT_BELT
@@ -27,7 +27,7 @@
 	var/cooldown = 0
 	var/on = 1
 
-/obj/item/weapon/melee/classic_baton/attack(mob/target as mob, mob/living/user as mob)
+/obj/item/melee/classic_baton/attack(mob/target as mob, mob/living/user as mob)
 	if(on)
 		add_fingerprint(user)
 		if((CLUMSY in user.mutations) && prob(50))
@@ -55,8 +55,8 @@
 						return 0
 				playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
 				target.Weaken(3)
-				add_logs(user, target, "stunned", object="[src]")
-				src.add_fingerprint(user)
+				add_attack_logs(user, target, "Stunned with [src]")
+				add_fingerprint(user)
 				target.visible_message("<span class ='danger'>[user] has knocked down [target] with \the [src]!</span>", \
 					"<span class ='userdanger'>[user] has knocked down [target] with \the [src]!</span>")
 				if(!iscarbon(user))
@@ -70,21 +70,20 @@
 	else
 		return ..()
 
-/obj/item/weapon/melee/classic_baton/ntcane
+/obj/item/melee/classic_baton/ntcane
 	name = "fancy cane"
 	desc = "A cane with special engraving on it. It seems well suited for fending off assailants..."
 	icon_state = "cane_nt"
 	item_state = "cane_nt"
 	needs_permit = 0
 
-/obj/item/weapon/melee/classic_baton/ntcane/is_crutch()
+/obj/item/melee/classic_baton/ntcane/is_crutch()
 	return 1
 
 //Telescopic baton
-/obj/item/weapon/melee/classic_baton/telescopic
+/obj/item/melee/classic_baton/telescopic
 	name = "telescopic baton"
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
-	icon = 'icons/obj/weapons.dmi'
 	icon_state = "telebaton_0"
 	item_state = null
 	slot_flags = SLOT_BELT
@@ -93,7 +92,7 @@
 	force = 0
 	on = 0
 
-/obj/item/weapon/melee/classic_baton/telescopic/attack_self(mob/user as mob)
+/obj/item/melee/classic_baton/telescopic/attack_self(mob/user as mob)
 	on = !on
 	if(on)
 		to_chat(user, "<span class ='warning'>You extend the baton.</span>")

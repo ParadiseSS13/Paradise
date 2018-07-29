@@ -20,18 +20,6 @@
 	M.adjustToxLoss(1.5)
 	..()
 
-/datum/reagent/plasticide
-	name = "Plasticide"
-	id = "plasticide"
-	description = "Liquid plastic, do not eat."
-	reagent_state = LIQUID
-	color = "#CF3600" // rgb: 207, 54, 0
-
-/datum/reagent/plasticide/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1.5)
-	..()
-
-
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
 	id = "minttoxin"
@@ -73,12 +61,12 @@
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
-		if(human.species.name != "Shadow")
+		if(!isshadowperson(human))
 			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
 			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
 			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
-			human.set_species("Shadow")
+			human.set_species(/datum/species/shadow)
 	..()
 
 /datum/reagent/aslimetoxin
@@ -229,7 +217,7 @@
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.get_species() == "Grey")
+			if(isgrey(H))
 				return
 
 			if(volume > 25)
@@ -258,7 +246,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
-			if(H.get_species() == "Grey")
+			if(isgrey(H))
 				return
 
 			if(volume >=10 && volume <=25)
@@ -569,7 +557,7 @@
 		M.adjustBruteLoss(5)
 		M.Weaken(5)
 		M.AdjustJitter(6)
-		M.visible_message("<span class='danger'>[M] falls to the floor, scratching themselves violently!</span>")
+		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
 		M.emote("scream")
 	..()
 
@@ -623,11 +611,11 @@
 						return
 
 				if(!H.unacidable)
-					var/obj/item/organ/external/affecting = H.get_organ("head")
-					affecting.receive_damage(0, 75)
+					var/obj/item/organ/external/head/affecting = H.get_organ("head")
+					if(affecting)
+						affecting.receive_damage(0, 75)
 					H.UpdateDamageIcon()
 					H.emote("scream")
-					H.status_flags |= DISFIGURED
 
 /datum/reagent/facid/reaction_obj(obj/O, volume)
 	if((istype(O, /obj/item) || istype(O, /obj/structure/glowshroom)))
@@ -959,8 +947,7 @@
 /datum/reagent/glyphosate/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/structure/alien/weeds))
 		var/obj/structure/alien/weeds/alien_weeds = O
-		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
-		alien_weeds.healthcheck()
+		alien_weeds.take_damage(rand(15, 35), BRUTE, 0) // Kills alien weeds pretty fast
 	else if(istype(O, /obj/structure/glowshroom)) //even a small amount is enough to kill it
 		qdel(O)
 	else if(istype(O, /obj/structure/spacevine))
@@ -974,7 +961,7 @@
 			C.adjustToxLoss(lethality)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.species.species_traits) //plantmen take a LOT of damage
+			if(IS_PLANT in H.dna.species.species_traits) //plantmen take a LOT of damage
 				H.adjustToxLoss(50)
 				..()
 	else if(istype(M, /mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
@@ -1008,7 +995,7 @@
 			C.adjustToxLoss(2)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.get_species() == "Kidan") //RIP
+			if(iskidan(H)) //RIP
 				H.adjustToxLoss(20)
 
 /datum/reagent/capulettium
@@ -1028,7 +1015,7 @@
 			M.Drowsy(10)
 		if(11)
 			M.Paralyse(10)
-			M.visible_message("<B>[M]</B> seizes up and falls limp, their eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
+			M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
 		if(12 to 60)
 			M.Paralyse(10)
 		if(61 to INFINITY)

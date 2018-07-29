@@ -18,7 +18,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.50
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/extinguisher)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/extinguisher)
 	slowdown = 1
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
@@ -77,7 +77,7 @@
 	burn_state = FIRE_PROOF
 	species_fit = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/head.dmi'
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/bomb_suit
@@ -108,16 +108,12 @@
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
-	species_fit = null
-	sprite_sheets = null
 
 
 /obj/item/clothing/suit/bomb_suit/security
 	icon_state = "bombsuitsec"
 	item_state = "bombsuitsec"
-	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs)
-	species_fit = null
-	sprite_sheets = null
+	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs)
 
 /*
  * Radiation protection
@@ -147,7 +143,7 @@
 	permeability_coefficient = 0.50
 	flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen)
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen)
 	slowdown = 1.5
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 60, rad = 100)
 	flags_inv = HIDEJUMPSUIT|HIDETAIL

@@ -5,7 +5,7 @@
 	var/notify_silent = 0
 	var/hidden = 0				// program not displayed in main menu
 	var/category = "General"	// the category to list it in on the main menu
-	var/obj/item/device/pda/pda	// if this is null, and the app is running code, something's gone wrong
+	var/obj/item/pda/pda	// if this is null, and the app is running code, something's gone wrong
 
 /datum/data/pda/Destroy()
 	pda = null
@@ -35,7 +35,7 @@
 
 		if(L)
 			to_chat(L, "[bicon(pda)] [message]")
-			nanomanager.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
+			SSnanoui.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
 	if(!notify_silent)
 		pda.play_ringtone()
@@ -86,7 +86,7 @@
 	var/base_name
 	category = "Scanners"
 
-/datum/data/pda/utility/scanmode/New(obj/item/weapon/cartridge/C)
+/datum/data/pda/utility/scanmode/New(obj/item/cartridge/C)
 	..(C)
 	name = "Enable [base_name]"
 

@@ -7,7 +7,7 @@
 	anchored = 0
 	density = 1
 	var/on = 0
-	var/obj/item/weapon/stock_parts/cell/high/cell = null
+	var/obj/item/stock_parts/cell/high/cell = null
 	var/use = 5
 	var/unlocked = 0
 	var/open = 0
@@ -48,7 +48,7 @@
 			cell.loc = loc
 
 		cell.add_fingerprint(user)
-		cell.updateicon()
+		cell.update_icon()
 
 		src.cell = null
 		to_chat(user, "You remove the power cell")
@@ -71,8 +71,8 @@
 	updateicon()
 
 
-/obj/machinery/floodlight/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench))
+/obj/machinery/floodlight/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/wrench))
 		if(!anchored && !isinspace())
 			playsound(src.loc, W.usesound, 50, 1)
 			user.visible_message( \
@@ -87,7 +87,7 @@
 				"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 				"You hear ratchet.")
 			anchored = 0
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		if(!open)
 			if(unlocked)
 				unlocked = 0
@@ -96,7 +96,7 @@
 				unlocked = 1
 				to_chat(user, "You unscrew the battery panel.")
 
-	if(istype(W, /obj/item/weapon/crowbar))
+	if(istype(W, /obj/item/crowbar))
 		if(unlocked)
 			if(open)
 				open = 0
@@ -107,7 +107,7 @@
 					open = 1
 					to_chat(user, "You remove the battery panel.")
 
-	if(istype(W, /obj/item/weapon/stock_parts/cell))
+	if(istype(W, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)
 				to_chat(user, "There is a power cell already installed.")

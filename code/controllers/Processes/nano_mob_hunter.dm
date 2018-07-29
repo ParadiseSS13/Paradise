@@ -44,7 +44,7 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 		recover_time = 3000
 	if(recover_time > 0)	//when provided with a negative or zero valued recover_time argument, the server won't auto-restart but can be manually rebooted still
 		//set a timer to automatically recover after recover_time has passed (can be manually restarted if you get impatient too)
-		addtimer(src, "auto_recover", recover_time, TRUE)
+		addtimer(CALLBACK(src, .proc/auto_recover), recover_time, TIMER_UNIQUE)
 
 /datum/controller/process/mob_hunt/proc/client_mob_update()
 	var/list/ex_players = list()

@@ -37,7 +37,7 @@
 	suit_overlay_active = "plasmacutter"
 	suit_overlay_inactive = "plasmacutter"
 
-	device_type = /obj/item/weapon/gun/energy/plasmacutter
+	device_type = /obj/item/gun/energy/plasmacutter
 
 /obj/item/rig_module/device/healthscanner
 	name = "health scanner module"
@@ -46,7 +46,7 @@
 	interface_name = "health scanner"
 	interface_desc = "Shows an informative health readout when used on a subject."
 
-	device_type = /obj/item/device/healthanalyzer
+	device_type = /obj/item/healthanalyzer
 
 /obj/item/rig_module/device/drill
 	name = "hardsuit drill mount"
@@ -56,7 +56,7 @@
 	interface_desc = "A diamond-tipped industrial drill."
 	suit_overlay_active = "mounted-drill"
 	suit_overlay_inactive = "mounted-drill"
-	device_type = /obj/item/weapon/pickaxe/diamonddrill
+	device_type = /obj/item/pickaxe/diamonddrill
 
 /obj/item/rig_module/device/orescanner
 	name = "ore scanner module"
@@ -67,7 +67,7 @@
 	engage_string = "Begin Scan"
 	usable = 1
 	selectable = 0
-	device_type = /obj/item/device/mining_scanner
+	device_type = /obj/item/mining_scanner
 /*
 /obj/item/rig_module/device/rcd
 	name = "RCD mount"
@@ -78,7 +78,7 @@
 	usable = 1
 	engage_string = "Configure RCD"
 
-	device_type = /obj/item/weapon/rcd/mounted
+	device_type = /obj/item/rcd/mounted
 */
 /obj/item/rig_module/device/New()
 	..()
@@ -322,7 +322,7 @@
 	interface_name = "maneuvering jets"
 	interface_desc = "An inbuilt EVA maneuvering system that runs off the rig air supply."
 
-	var/obj/item/weapon/tank/jetpack/rig/jets
+	var/obj/item/tank/jetpack/rig/jets
 
 /obj/item/rig_module/maneuvering_jets/engage()
 	if(!..())
@@ -378,7 +378,7 @@
 	engage_string = "Dispense"
 	usable = 1
 	selectable = 0
-	device_type = /obj/item/weapon/paper_bin
+	device_type = /obj/item/paper_bin
 
 /obj/item/rig_module/device/paperdispenser/engage(atom/target)
 
@@ -397,7 +397,7 @@
 	interface_desc = "Signatures with style(tm)."
 	engage_string = "Change color"
 	usable = 1
-	device_type = /obj/item/weapon/pen/multi
+	device_type = /obj/item/pen/multi
 
 /obj/item/rig_module/device/stamp
 	name = "mounted internal affairs stamp"
@@ -412,8 +412,8 @@
 
 /obj/item/rig_module/device/stamp/New()
 	..()
-	iastamp = new /obj/item/weapon/stamp/law(src)
-	deniedstamp = new /obj/item/weapon/stamp/denied(src)
+	iastamp = new /obj/item/stamp/law(src)
+	deniedstamp = new /obj/item/stamp/denied(src)
 	iastamp.flags |= ABSTRACT
 	deniedstamp.flags |= ABSTRACT
 	device = iastamp
@@ -454,7 +454,7 @@
 
 	if(!target)
 		if(get_fuel() >= 0)
-			var/obj/item/weapon/weldingtool/W = holder.wearer.get_active_hand()
+			var/obj/item/weldingtool/W = holder.wearer.get_active_hand()
 			if(istype(W))
 				fill_welder(W)
 			else
@@ -466,7 +466,7 @@
 	else
 		to_chat(holder.wearer, "<span class='notice'>You need to have a welding tool in one of your hands to dispense fuel.</span>")
 
-/obj/item/rig_module/welding_tank/proc/fill_welder(var/obj/item/weapon/weldingtool/W)
+/obj/item/rig_module/welding_tank/proc/fill_welder(var/obj/item/weldingtool/W)
 	if(!istype(W))
 		return 0
 

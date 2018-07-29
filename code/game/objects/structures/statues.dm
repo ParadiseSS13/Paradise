@@ -9,7 +9,7 @@
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
-/obj/structure/statue/attackby(obj/item/weapon/W, mob/living/user, params)
+/obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswrench(W))
@@ -37,7 +37,7 @@
 									 "<span class='notice'>You have secured the [name]'s bolts.</span>")
 				anchored = 1
 
-	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		playsound(src, W.usesound, 100, 1)
 		user.visible_message("[user] is slicing apart the [name]...", \
 							 "<span class='notice'>You are slicing apart the [name]...</span>")
@@ -48,8 +48,8 @@
 								 "<span class='notice'>You slice apart the [name].</span>")
 			Dismantle(TRUE)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
-		var/obj/item/weapon/pickaxe/drill/jackhammer/D = W
+	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
+		var/obj/item/pickaxe/drill/jackhammer/D = W
 		if(!loc)
 			return
 		user.visible_message("[user] destroys the [name]!", \
@@ -58,7 +58,7 @@
 		qdel(src)
 
 	else if(iswelder(W) && !anchored)
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			playsound(loc, W.usesound, 40, 1)
 			user.visible_message("[user] is slicing apart the [name].", \
@@ -134,7 +134,7 @@
 	desc = "This statue has a sickening green colour."
 	icon_state = "eng"
 
-/obj/structure/statue/uranium/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/statue/uranium/attackby(obj/item/W, mob/user, params)
 	radiate()
 	..()
 
@@ -190,7 +190,7 @@
 			log_game("Plasma statue ignited by [Proj] in ([x],[y],[z]). No known firer.")
 	..()
 
-/obj/structure/statue/plasma/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma statue ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma statue ignited by [key_name(user)] in ([x],[y],[z])")
@@ -288,7 +288,7 @@
 	honk()
 	..()
 
-/obj/structure/statue/bananium/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/statue/bananium/attackby(obj/item/W, mob/user, params)
 	honk()
 	..()
 

@@ -73,7 +73,7 @@
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(8)
 			M.Weaken(4)
 		if(effect <= 15)
@@ -92,13 +92,14 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.receive_damage(-0.4)
+			I.heal_internal_damage(0.4)
 	..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/organ))
 		var/obj/item/organ/Org = O
-		Org.rejuvenate()
+		if(!Org.is_robotic())
+			Org.rejuvenate()
 
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
@@ -115,7 +116,11 @@
 		M.adjustToxLoss(-3)
 		M.adjustBruteLoss(-12)
 		M.adjustFireLoss(-12)
-		M.status_flags &= ~DISFIGURED
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/external/head/head = H.get_organ("head")
+			if(head)
+				head.disfigured = FALSE
 	..()
 
 /datum/reagent/medicine/rezadone
@@ -131,7 +136,11 @@
 	M.adjustCloneLoss(-1) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate.
 	M.adjustBruteLoss(-1)
 	M.adjustFireLoss(-1)
-	M.status_flags &= ~DISFIGURED
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		if(head)
+			head.disfigured = FALSE
 	..()
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/M, severity)
@@ -212,7 +221,7 @@
 		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.species.species_traits))//do not restore blood on things with no blood by nature.
+		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 1
 	..()
@@ -277,7 +286,7 @@
 	if(severity == 1) //lesser
 		M.stuttering += 1
 		if(effect <= 1)
-			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
 			M.emote("scream")
 			M.Stun(4)
 			M.Weaken(4)
@@ -293,7 +302,7 @@
 			M.Jitter(30)
 	else if(severity == 2) // greater
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] suddenly cluches their gut!</span>")
+			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] gut!</span>")
 			M.emote("scream")
 			M.Stun(7)
 			M.Weaken(7)
@@ -446,7 +455,7 @@
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M.name] staggers and drools, their eyes bloodshot!</span>")
+			M.visible_message("<span class='warning'>[M.name] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(2)
 			M.Weaken(3)
 		if(effect <= 15)
@@ -512,7 +521,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.receive_damage(-1)
+				E.heal_internal_damage(1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))
@@ -597,7 +606,7 @@
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			M.fakevomit(no_text = 1)
 		else if(effect <= 5)
-			M.visible_message("<span class='warning'>[M] staggers and drools, their eyes bloodshot!</span>")
+			M.visible_message("<span class='warning'>[M] staggers and drools, [M.p_their()] eyes bloodshot!</span>")
 			M.Dizzy(2)
 			M.Weaken(3)
 		if(effect <= 15)
@@ -666,7 +675,7 @@
 
 					M.update_revive()
 					M.stat = UNCONSCIOUS
-					add_logs(M, M, "revived", object="strange reagent") //Yes, the logs say you revived yourself.
+					add_attack_logs(M, M, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
 
 /datum/reagent/medicine/mannitol
@@ -853,16 +862,17 @@
 	description = "A strong anesthetic and sedative."
 	reagent_state = LIQUID
 	color = "#96DEDE"
+	metabolization_rate = 0.1
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
 	M.AdjustJitter(-25)
 	switch(current_cycle)
-		if(1 to 15)
+		if(1 to 30)
 			if(prob(7))
 				M.emote("yawn")
-		if(16 to 35)
+		if(31 to 40)
 			M.Drowsy(20)
-		if(36 to INFINITY)
+		if(41 to INFINITY)
 			M.Paralyse(15)
 			M.Drowsy(20)
 	..()
@@ -1042,6 +1052,7 @@
 	description = "Highly advanced nanites equipped with calcium payloads designed to repair bones. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
+	can_synth = FALSE
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	switch(current_cycle)

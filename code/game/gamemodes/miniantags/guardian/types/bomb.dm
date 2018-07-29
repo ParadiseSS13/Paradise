@@ -17,7 +17,7 @@
 		return
 	if(istype(A, /obj/))
 		if(bomb_cooldown <= world.time && !stat)
-			var/obj/item/weapon/guardian_bomb/B = new /obj/item/weapon/guardian_bomb(get_turf(A))
+			var/obj/item/guardian_bomb/B = new /obj/item/guardian_bomb(get_turf(A))
 			to_chat(src, "<span class='danger'>Success! Bomb on [A] armed!</span>")
 			if(summoner)
 				to_chat(summoner, "<span class='warning'>Your guardian has primed [A] to explode!</span>")
@@ -27,14 +27,14 @@
 		else
 			to_chat(src, "<span class='danger'>Your powers are on cooldown! You must wait 20 seconds between bombs.</span>")
 
-/obj/item/weapon/guardian_bomb
+/obj/item/guardian_bomb
 	name = "bomb"
 	desc = "You shouldn't be seeing this!"
 	var/obj/stored_obj
 	var/mob/living/spawner
 
 
-/obj/item/weapon/guardian_bomb/proc/disguise(var/obj/A)
+/obj/item/guardian_bomb/proc/disguise(var/obj/A)
 	A.forceMove(src)
 	stored_obj = A
 	anchored = A.anchored
@@ -47,7 +47,7 @@
 				to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
 			qdel(src)
 
-/obj/item/weapon/guardian_bomb/proc/detonate(var/mob/living/user)
+/obj/item/guardian_bomb/proc/detonate(var/mob/living/user)
 	to_chat(user, "<span class='danger'>The [src] was boobytrapped!</span>")
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
@@ -62,15 +62,15 @@
 	user.ex_act(2)
 	qdel(src)
 
-/obj/item/weapon/guardian_bomb/attackby(mob/living/user)
+/obj/item/guardian_bomb/attackby(mob/living/user)
 	detonate(user)
 	return
 
-/obj/item/weapon/guardian_bomb/pickup(mob/living/user)
+/obj/item/guardian_bomb/pickup(mob/living/user)
 	detonate(user)
 	return
 
-/obj/item/weapon/guardian_bomb/examine(mob/user)
+/obj/item/guardian_bomb/examine(mob/user)
 	stored_obj.examine(user)
 	if(get_dist(user,src) <= 2)
 		to_chat(user, "<span class='notice'>Looks odd!</span>")

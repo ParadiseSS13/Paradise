@@ -38,20 +38,23 @@
 			language_keys[".[lowertext(L.key)]"] = L
 			language_keys["#[lowertext(L.key)]"] = L
 
-	var/list/paths = subtypesof(/datum/species)
 	var/rkey = 0
-	for(var/T in paths)
-		var/datum/species/S = new T
+	for(var/spath in subtypesof(/datum/species))
+		var/datum/species/S = new spath()
 		S.race_key = ++rkey //Used in mob icon caching.
-		all_species[S.name] = S
+		GLOB.all_species[S.name] = S
 
 		if(IS_WHITELISTED in S.species_traits)
 			whitelisted_species += S.name
 
 	init_subtypes(/datum/crafting_recipe, crafting_recipes)
 
-	all_cults = typesof(/datum/cult_info)
-
+	//Pipe list building
+	init_subtypes(/datum/pipes, GLOB.construction_pipe_list)
+	for(var/D in GLOB.construction_pipe_list)
+		var/datum/pipes/P = D
+		if(P.rpd_dispensable)
+			GLOB.rpd_pipe_list += list(list("pipe_name" = P.pipe_name, "pipe_id" = P.pipe_id, "pipe_type" = P.pipe_type, "pipe_category" = P.pipe_category, "orientations" = P.orientations, "pipe_icon" = P.pipe_icon, "bendy" = P.bendy))
 	return 1
 
 /* // Uncomment to debug chemical reaction list.

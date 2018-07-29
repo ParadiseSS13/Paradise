@@ -52,6 +52,9 @@
 /datum/atom_hud/data/bot_path
 	hud_icons = list(DIAG_PATH_HUD)
 
+/datum/atom_hud/abductor
+	hud_icons = list(GLAND_HUD)
+
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
@@ -193,15 +196,15 @@
 	for(var/i in list(IMPTRACK_HUD, IMPMINDSHIELD_HUD, IMPCHEM_HUD))
 		holder = hud_list[i]
 		holder.icon_state = null
-	for(var/obj/item/weapon/implant/I in src)
+	for(var/obj/item/implant/I in src)
 		if(I.implanted)
-			if(istype(I,/obj/item/weapon/implant/tracking))
+			if(istype(I,/obj/item/implant/tracking))
 				holder = hud_list[IMPTRACK_HUD]
 				holder.icon_state = "hud_imp_tracking"
-			else if(istype(I,/obj/item/weapon/implant/mindshield))
+			else if(istype(I,/obj/item/implant/mindshield))
 				holder = hud_list[IMPMINDSHIELD_HUD]
 				holder.icon_state = "hud_imp_loyal"
-			else if(istype(I,/obj/item/weapon/implant/chem))
+			else if(istype(I,/obj/item/implant/chem))
 				holder = hud_list[IMPCHEM_HUD]
 				holder.icon_state = "hud_imp_chem"
 

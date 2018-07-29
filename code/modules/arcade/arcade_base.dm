@@ -60,15 +60,15 @@
 		return
 
 /obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
+	if(istype(O, /obj/item/screwdriver) && anchored)
 		playsound(src.loc, O.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		update_icon()
 		return
 	if(!freeplay)
-		if(istype(O, /obj/item/weapon/card/id))
-			var/obj/item/weapon/card/id/C = O
+		if(istype(O, /obj/item/card/id))
+			var/obj/item/card/id/C = O
 			if(pay_with_card(C))
 				tokens += 1
 			return
@@ -77,7 +77,7 @@
 			if(pay_with_cash(C, user))
 				tokens += 1
 			return
-	if(panel_open && component_parts && istype(O, /obj/item/weapon/crowbar))
+	if(panel_open && component_parts && istype(O, /obj/item/crowbar))
 		default_deconstruction_crowbar(O)
 
 /obj/machinery/arcade/update_icon()
@@ -91,7 +91,7 @@
 	cashmoney.use(token_price)
 	return 1
 
-/obj/machinery/arcade/proc/pay_with_card(var/obj/item/weapon/card/id/I, var/mob/user)
+/obj/machinery/arcade/proc/pay_with_card(var/obj/item/card/id/I, var/mob/user)
 	visible_message("<span class='info'>[usr] swipes a card through [src].</span>")
 	var/datum/money_account/customer_account = attempt_account_access_nosec(I.associated_account_number)
 	if(!customer_account)
@@ -131,7 +131,7 @@
 			T.amount = "[token_price]"
 		T.source_terminal = src.name
 		T.date = current_date_string
-		T.time = worldtime2text()
+		T.time = station_time_timestamp()
 		customer_account.transaction_log.Add(T)
 		return 1
 

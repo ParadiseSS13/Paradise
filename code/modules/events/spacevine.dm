@@ -319,9 +319,9 @@
 
 /datum/spacevine_mutation/woodening/on_grow(obj/structure/spacevine/holder)
 	if(holder.energy)
-		holder.density = 1
-	holder.maxhealth = 100
-	holder.health = holder.maxhealth
+		holder.density = TRUE
+	holder.max_integrity = 100
+	holder.obj_integrity = holder.max_integrity
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/I, expected_damage)
 	if(!is_sharp(I))
@@ -408,13 +408,12 @@
 	desc = "An extremely expansionistic species of vine."
 	icon = 'icons/effects/spacevines.dmi'
 	icon_state = "Light1"
-	anchored = 1
-	density = 0
-	layer = MOB_LAYER + 0.8
+	anchored = TRUE
+	density = FALSE
+	layer = SPACEVINE_LAYER
 	mouse_opacity = 2 //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
-	var/health = 50
-	var/maxhealth = 50
+	max_integrity = 50
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
@@ -481,37 +480,39 @@
 			eater.say("Nom")
 		wither()
 
-/obj/structure/spacevine/attackby(obj/item/weapon/W, mob/user, params)
-	if (!W || !user || !W.type)
-		return
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/damage_to_do = W.force
-
-	if(istype(W, /obj/item/weapon/scythe))
-		var/obj/item/weapon/scythe/S = W
+/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+	var/damage_dealt = I.force
+	if(istype(I, /obj/item/scythe))
+		var/obj/item/scythe/S = I
 		if(S.extend)	//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
-			damage_to_do *= 4
+			damage_dealt *= 4
 			for(var/obj/structure/spacevine/B in range(1,src))
-				if(B.health > damage_to_do)	//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
-					B.health -= damage_to_do
+				if(B.obj_integrity > damage_dealt)	//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
+					B.take_damage(damage_dealt, I.damtype, "melee", 1)
 				else
 					B.wither()
 			return
-
-	if(is_sharp(W))
-		damage_to_do *= 4
-
-	if(W && W.damtype == "fire")
-		damage_to_do *= 4
+	if(is_sharp(I))
+		damage_dealt *= 4
+	if(I.damtype == BURN)
+		damage_dealt *= 4
 
 	for(var/datum/spacevine_mutation/SM in mutations)
-		damage_to_do = SM.on_hit(src, user, W, damage_to_do) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
+		damage_dealt = SM.on_hit(src, user, I, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
+	take_damage(damage_dealt, I.damtype, "melee", 1)
 
-	health -= damage_to_do
-	if(health < 1)
-		wither()
+/obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src, 'sound/weapons/slash.ogg', 50, 1)
+			else
+				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+		if(BURN)
+			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
-	..()
+/obj/structure/spacevine/obj_destruction()
+	wither()
 
 /obj/structure/spacevine/Crossed(mob/crosser)
 	if(isliving(crosser))
@@ -605,7 +606,7 @@
 	var/list/obj/structure/spacevine/queue_end = list()
 
 	for(var/obj/structure/spacevine/SV in growth_queue)
-		if(qdeleted(SV))
+		if(QDELETED(SV))
 			continue
 		i++
 		queue_end += SV

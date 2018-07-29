@@ -3,7 +3,7 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "ai-fixer"
-	circuit = /obj/item/weapon/circuitboard/aifixer
+	circuit = /obj/item/circuitboard/aifixer
 	req_access = list(access_captain, access_robotics, access_heads)
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_PURPLE
 
 /obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
-	if(occupant && istype(I, /obj/item/weapon/screwdriver))
+	if(occupant && istype(I, /obj/item/screwdriver))
 		if(stat & BROKEN)
 			..()
 		if(stat & NOPOWER)
@@ -33,7 +33,7 @@
 			to_chat(user, "<span class='warning'>You have been locked out from this console!</span>")
 
 /obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 
 	if(!ui)
 		ui = new(user, src, ui_key, "ai_fixer.tmpl", "AI System Integrity Restorer", 550, 500)
@@ -90,7 +90,7 @@
 		if(radio == 0 || radio == 1)
 			occupant.aiRadio.disabledAi = radio
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	update_icon()
 	return
 
@@ -111,7 +111,7 @@
 		else
 			overlays += image(icon,"ai-fixer-empty",overlay_layer)
 
-/obj/machinery/computer/aifixer/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/device/aicard/card)
+/obj/machinery/computer/aifixer/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
 	if(!..())
 		return
 	//Downloading AI from card to terminal.

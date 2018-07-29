@@ -7,7 +7,7 @@
 	use_power = 1
 	idle_power_usage = 300
 	active_power_usage = 300
-	var/obj/item/weapon/circuitboard/circuit = null //if circuit==null, computer can't disassembly
+	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
 	var/processing = 0
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
@@ -19,7 +19,7 @@
 	overlay_layer = layer
 	..()
 
-/obj/machinery/computer/initialize()
+/obj/machinery/computer/Initialize()
 	..()
 	power_change()
 	update_icon()
@@ -110,19 +110,19 @@
 	return ..()
 
 /obj/machinery/computer/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/screwdriver) && circuit)
-		var/obj/item/weapon/screwdriver/S = I
+	if(istype(I, /obj/item/screwdriver) && circuit)
+		var/obj/item/screwdriver/S = I
 		playsound(src.loc, S.usesound, 50, 1)
 		if(do_after(user, 20 * S.toolspeed, target = src))
 			var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-			var/obj/item/weapon/circuitboard/M = new circuit( A )
+			var/obj/item/circuitboard/M = new circuit( A )
 			A.circuit = M
 			A.anchored = 1
 			for(var/obj/C in src)
 				C.loc = src.loc
 			if(src.stat & BROKEN)
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-				new /obj/item/weapon/shard(loc)
+				new /obj/item/shard(loc)
 				A.state = 3
 				A.icon_state = "3"
 			else

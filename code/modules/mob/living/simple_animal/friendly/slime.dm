@@ -20,7 +20,6 @@
 	maxHealth = 200
 	icon_state = "grey adult slime"
 	icon_living = "grey adult slime"
-	icon_dead = "grey baby slime dead"
 
 /mob/living/simple_animal/slime/New()
 	..()

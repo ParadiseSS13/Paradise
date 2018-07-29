@@ -1,6 +1,6 @@
 //This file contains xenoborg specic weapons.
 
-/obj/item/weapon/melee/energy/alien/claws
+/obj/item/melee/energy/alien/claws
 	name = "energy claws"
 	desc = "A set of alien energy claws."
 	icon = 'icons/mob/alien.dmi'
@@ -18,19 +18,19 @@
 	attack_verb_on = list()
 
 //Bottles for borg liquid squirters. PSSH PSSH
-/obj/item/weapon/reagent_containers/spray/alien
+/obj/item/reagent_containers/spray/alien
 	name = "liquid synthesizer"
 	desc = "squirts alien liquids."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-default"
 
-/obj/item/weapon/reagent_containers/spray/alien/smoke
+/obj/item/reagent_containers/spray/alien/smoke
 	name = "smoke synthesizer"
 	desc = "squirts smokey liquids."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-smoke"
 
-/obj/item/weapon/reagent_containers/spray/alien/smoke/afterattack(atom/A as mob|obj, mob/user as mob)
+/obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/A as mob|obj, mob/user as mob)
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
 		if(!A.reagents.total_volume && A.reagents)
 			to_chat(user, "<span class='notice'>\The [A] is empty.</span>")
@@ -45,13 +45,13 @@
 	smoke.start()
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 2)
 
-/obj/item/weapon/reagent_containers/spray/alien/acid
+/obj/item/reagent_containers/spray/alien/acid
 	name = "acid synthesizer"
 	desc = "squirts burny liquids."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-acid"
 
-/obj/item/weapon/reagent_containers/spray/alien/stun
+/obj/item/reagent_containers/spray/alien/stun
 	name = "paralytic toxin synthesizer"
 	desc = "squirts viagra."
 	icon = 'icons/mob/alien.dmi'
@@ -59,7 +59,7 @@
 
 //SKREEEEEEEEEEEE tool
 
-/obj/item/device/flash/cyborg/alien
+/obj/item/flash/cyborg/alien
 	name = "eye flash"
 	desc = "Useful for taking pictures, making friends and flash-frying chips."
 	icon = 'icons/mob/alien.dmi'

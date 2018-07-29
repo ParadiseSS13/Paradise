@@ -13,31 +13,31 @@
 /obj/machinery/telecomms/attackby(obj/item/P as obj, mob/user as mob, params)
 
 	// Using a multitool lets you access the receiver's interface
-	if(istype(P, /obj/item/device/multitool))
+	if(istype(P, /obj/item/multitool))
 		attack_hand(user)
 
 
 	switch(construct_op)
 		if(0)
-			if(istype(P, /obj/item/weapon/screwdriver))
+			if(istype(P, /obj/item/screwdriver))
 				to_chat(user, "You unfasten the bolts.")
 				playsound(src.loc, P.usesound, 50, 1)
 				construct_op++
 		if(1)
-			if(istype(P, /obj/item/weapon/screwdriver))
+			if(istype(P, /obj/item/screwdriver))
 				to_chat(user, "You fasten the bolts.")
 				playsound(src.loc,P.usesound, 50, 1)
 				construct_op--
-			if(istype(P, /obj/item/weapon/wrench))
+			if(istype(P, /obj/item/wrench))
 				to_chat(user, "You dislodge the external plating.")
 				playsound(src.loc, P.usesound, 75, 1)
 				construct_op++
 		if(2)
-			if(istype(P, /obj/item/weapon/wrench))
+			if(istype(P, /obj/item/wrench))
 				to_chat(user, "You secure the external plating.")
 				playsound(src.loc, P.usesound, 75, 1)
 				construct_op--
-			if(istype(P, /obj/item/weapon/wirecutters))
+			if(istype(P, /obj/item/wirecutters))
 				playsound(src.loc, P.usesound, 50, 1)
 				to_chat(user, "You remove the cables.")
 				construct_op++
@@ -56,7 +56,7 @@
 						qdel(A)
 					construct_op--
 					stat &= ~BROKEN // the machine's not borked anymore!
-			if(istype(P, /obj/item/weapon/crowbar))
+			if(istype(P, /obj/item/crowbar))
 				to_chat(user, "You begin prying out the circuit board other components...")
 				playsound(src.loc, P.usesound, 50, 1)
 				if(do_after(user, 60 * P.toolspeed, target = src))
@@ -69,7 +69,7 @@
 					else
 						// If the machine wasn't made during runtime, probably doesn't have components:
 						// manually find the components and drop them!
-						var/obj/item/weapon/circuitboard/C = new circuitboard
+						var/obj/item/circuitboard/C = new circuitboard
 						for(var/I in C.req_components)
 							for(var/i = 1, i <= C.req_components[I], i++)
 								var/obj/item/s = new I
@@ -98,11 +98,11 @@
 /obj/machinery/telecomms/attack_hand(var/mob/user as mob)
 	update_multitool_menu(user)
 
-/obj/machinery/telecomms/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/machinery/telecomms/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	// You need a multitool to use this, or be silicon
 	if(!issilicon(user))
 		// istype returns false if the value is null
-		if(!istype(user.get_active_hand(), /obj/item/device/multitool))
+		if(!istype(user.get_active_hand(), /obj/item/multitool))
 			return
 
 	if(stat & (BROKEN|NOPOWER))
@@ -189,15 +189,15 @@
 
 /obj/machinery/telecomms/proc/get_multitool(mob/user as mob)
 
-	var/obj/item/device/multitool/P = null
+	var/obj/item/multitool/P = null
 	// Let's double check
-	if(!issilicon(user) && istype(user.get_active_hand(), /obj/item/device/multitool))
+	if(!issilicon(user) && istype(user.get_active_hand(), /obj/item/multitool))
 		P = user.get_active_hand()
 	else if(isAI(user))
 		var/mob/living/silicon/ai/U = user
 		P = U.aiMulti
 	else if(isrobot(user) && in_range(user, src))
-		if(istype(user.get_active_hand(), /obj/item/device/multitool))
+		if(istype(user.get_active_hand(), /obj/item/multitool))
 			P = user.get_active_hand()
 	return P
 
@@ -279,13 +279,13 @@
 /obj/machinery/telecomms/Topic(href, href_list)
 
 	if(!issilicon(usr))
-		if(!istype(usr.get_active_hand(), /obj/item/device/multitool))
+		if(!istype(usr.get_active_hand(), /obj/item/multitool))
 			return
 
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	var/obj/item/device/multitool/P = get_multitool(usr)
+	var/obj/item/multitool/P = get_multitool(usr)
 
 	if(href_list["input"])
 		switch(href_list["input"])

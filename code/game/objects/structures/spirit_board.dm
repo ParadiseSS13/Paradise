@@ -33,7 +33,7 @@
 		notify_ghosts("Someone has begun playing with a [src.name] in [get_area(src)]!", source = src)
 
 	planchette = input("Choose the letter.", "Seance!") in list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
-	add_logs(M, src, "picked a letter on", addition="which was \"[planchette]\".")
+	add_attack_logs(M, src, "Picked a letter on [src] which was \"[planchette]\".")
 	cooldown = world.time
 	lastuser = M.ckey
 

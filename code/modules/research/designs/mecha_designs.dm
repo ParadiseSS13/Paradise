@@ -8,8 +8,8 @@
 	id = "ripley_main"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/ripley/main
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/ripley/main
 	category = list("Exosuit Modules")
 
 /datum/design/ripley_peri
@@ -18,8 +18,8 @@
 	id = "ripley_peri"
 	req_tech = list("programming" = 2)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/ripley/peripherals
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/ripley/peripherals
 	category = list("Exosuit Modules")
 
 // Odysseus
@@ -29,8 +29,8 @@
 	id = "odysseus_main"
 	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/odysseus/main
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/odysseus/main
 	category = list("Exosuit Modules")
 
 /datum/design/odysseus_peri
@@ -39,8 +39,8 @@
 	id = "odysseus_peri"
 	req_tech = list("programming" = 3,"biotech" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/odysseus/peripherals
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/odysseus/peripherals
 	category = list("Exosuit Modules")
 
 // Gygax
@@ -50,8 +50,8 @@
 	id = "gygax_main"
 	req_tech = list("programming" = 4, "combat" = 3, "engineering" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/gygax/main
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/gygax/main
 	category = list("Exosuit Modules")
 
 /datum/design/gygax_peri
@@ -60,8 +60,8 @@
 	id = "gygax_peri"
 	req_tech = list("programming" = 4, "combat" = 3, "engineering" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/gygax/peripherals
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/gygax/peripherals
 	category = list("Exosuit Modules")
 
 /datum/design/gygax_targ
@@ -70,8 +70,8 @@
 	id = "gygax_targ"
 	req_tech = list("programming" = 4, "combat" = 4, "engineering" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/gygax/targeting
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/gygax/targeting
 	category = list("Exosuit Modules")
 
 // Durand
@@ -81,8 +81,8 @@
 	id = "durand_main"
 	req_tech = list("programming" = 4, "combat" = 4, "engineering" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/durand/main
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/durand/main
 	category = list("Exosuit Modules")
 
 /datum/design/durand_peri
@@ -91,8 +91,8 @@
 	id = "durand_peri"
 	req_tech = list("programming" = 4, "combat" = 4, "engineering" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/durand/peripherals
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/durand/peripherals
 	category = list("Exosuit Modules")
 
 /datum/design/durand_targ
@@ -101,8 +101,8 @@
 	id = "durand_targ"
 	req_tech = list("programming" = 5, "combat" = 4, "engineering" = 4)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/durand/targeting
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/durand/targeting
 	category = list("Exosuit Modules")
 
 // Phazon
@@ -112,8 +112,8 @@
 	id = "phazon_main"
 	req_tech = list("programming" = 6, "materials" = 6, "plasmatech" = 5)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/phazon/main
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
+	build_path = /obj/item/circuitboard/mecha/phazon/main
 	category = list("Exosuit Modules")
 
 /datum/design/phazon_peri
@@ -122,8 +122,8 @@
 	id = "phazon_peri"
 	req_tech = list("programming" = 6, "bluespace" = 5, "plasmatech" = 5)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/phazon/peripherals
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
+	build_path = /obj/item/circuitboard/mecha/phazon/peripherals
 	category = list("Exosuit Modules")
 
 /datum/design/phazon_targ
@@ -132,8 +132,8 @@
 	id = "phazon_targ"
 	req_tech = list("programming" = 6, "magnets" = 5, "plasmatech" = 5)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/phazon/targeting
+	materials = list(MAT_GLASS = 1000, MAT_BLUESPACE = 100)
+	build_path = /obj/item/circuitboard/mecha/phazon/targeting
 	category = list("Exosuit Modules")
 
 // H.O.N.K.
@@ -143,8 +143,8 @@
 	id = "honker_main"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/honker/main
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/honker/main
 	category = list("Exosuit Modules")
 
 /datum/design/honker_peri
@@ -153,8 +153,8 @@
 	id = "honker_peri"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/honker/peripherals
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/honker/peripherals
 	category = list("Exosuit Modules")
 
 /datum/design/honker_targ
@@ -163,8 +163,8 @@
 	id = "honker_targ"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/honker/targeting
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/honker/targeting
 	category = list("Exosuit Modules")
 
 /datum/design/reticence_main
@@ -173,8 +173,8 @@
 	id = "reticence_main"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/reticence/main
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/reticence/main
 	category = list("Exosuit Modules")
 
 /datum/design/reticence_peri
@@ -183,8 +183,8 @@
 	id = "reticence_peri"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/reticence/peripherals
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/reticence/peripherals
 	category = list("Exosuit Modules")
 
 /datum/design/reticence_targ
@@ -193,6 +193,6 @@
 	id = "reticence_targ"
 	req_tech = list("programming" = 3, "engineering" = 3)
 	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/mecha/reticence/targeting
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/mecha/reticence/targeting
 	category = list("Exosuit Modules")

@@ -18,14 +18,9 @@
 		template_name = tname
 	if(template_name)
 		template = map_templates[template_name]
-	// Catches the interim-zone of worldstart and roundstart
-	// I want both the ticker to exist (so mapped-in maploaders don't trip this)
-	// but also not have started yet (since the zlevel system would handle this on its own otherwise)
-	if((ticker && ticker.current_state < GAME_STATE_PLAYING))
-		attempt_init()
 
-/obj/effect/landmark/map_loader/initialize()
-	..()
+/obj/effect/landmark/map_loader/Initialize()
+	. = ..()
 	if(template)
 		load(template)
 
@@ -48,7 +43,7 @@
 /obj/effect/landmark/map_loader/random
 	var/template_list = ""
 
-/obj/effect/landmark/map_loader/random/initialize()
+/obj/effect/landmark/map_loader/random/Initialize()
 	..()
 	if(template_list)
 		template_name = safepick(splittext(template_list, ";"))

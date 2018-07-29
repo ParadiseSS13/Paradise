@@ -12,6 +12,11 @@
 	if(proximity && istype(G) && G.Touch(A, 1))
 		return
 
+	if(HULK in mutations)
+		if(proximity) //no telekinetic hulk attack
+			if(A.attack_hulk(src))
+				return
+
 	A.attack_hand(src)
 
 /atom/proc/attack_hand(mob/user as mob)

@@ -13,7 +13,7 @@
 	var/obj/screen/alert/canstealthalert
 	var/obj/screen/alert/instealthalert
 
-/mob/living/simple_animal/hostile/guardian/assassin/Life()
+/mob/living/simple_animal/hostile/guardian/assassin/Life(seconds, times_fired)
 	. = ..()
 	updatestealthalert()
 	if(loc == summoner && toggle)
@@ -45,6 +45,8 @@
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
 		armour_penetration = initial(armour_penetration)
+		obj_damage = initial(obj_damage)
+		environment_smash = initial(environment_smash)
 		alpha = initial(alpha)
 		if(!forced)
 			to_chat(src, "<span class='danger'>You exit stealth.</span>")
@@ -61,7 +63,9 @@
 		melee_damage_lower = 50
 		melee_damage_upper = 50
 		armour_penetration = 100
-		new /obj/effect/temp_visual/guardian/phase(get_turf(src))
+		obj_damage = 0
+		environment_smash = ENVIRONMENT_SMASH_NONE
+		new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 		alpha = 15
 		if(!forced)
 			to_chat(src, "<span class='danger'>You enter stealth, empowering your next attack.</span>")

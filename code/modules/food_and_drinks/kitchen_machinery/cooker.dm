@@ -19,19 +19,19 @@
 	var/upgradeable = 0			//Set to 1 if the machine supports upgrades / deconstruction, or else it will ignore stuff like screwdrivers and parts exchangers
 
 // checks if the snack has been cooked in a certain way
-/obj/machinery/cooker/proc/checkCooked(obj/item/weapon/reagent_containers/food/snacks/D)
+/obj/machinery/cooker/proc/checkCooked(obj/item/reagent_containers/food/snacks/D)
 	if(D.cooktype[thiscooktype])
 		return 1
 	return 0
 
 // Sets the new snack's cooktype list to the same as the old one - no more cooking something in the same machine more than once!
-/obj/machinery/cooker/proc/setCooked(obj/item/weapon/reagent_containers/food/snacks/oldtypes, obj/item/weapon/reagent_containers/food/snacks/newtypes)
+/obj/machinery/cooker/proc/setCooked(obj/item/reagent_containers/food/snacks/oldtypes, obj/item/reagent_containers/food/snacks/newtypes)
 	var/ct
 	for(ct in oldtypes.cooktype)
 		newtypes.cooktype[ct] = oldtypes.cooktype[ct]
 
 // transfers reagents
-/obj/machinery/cooker/proc/setRegents(obj/item/weapon/reagent_containers/OldReg, obj/item/weapon/reagent_containers/NewReg)
+/obj/machinery/cooker/proc/setRegents(obj/item/reagent_containers/OldReg, obj/item/reagent_containers/NewReg)
 	OldReg.reagents.trans_to(NewReg, OldReg.reagents.total_volume)
 
 // check if you can put it in the machine
@@ -39,9 +39,9 @@
 	if(on)
 		to_chat(user, "<span class='notice'>[src] is still active!</span>")
 		return 0
-	if(istype(check, /obj/item/weapon/reagent_containers/food/snacks))
+	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return 1
-	if(istype(check, /obj/item/weapon/grab))
+	if(istype(check, /obj/item/grab))
 		return special_attack(check, user)
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
 	return 0
@@ -62,8 +62,8 @@
 // Burns the food with a chance of starting a fire - for if you try cooking something that's already been cooked that way
 // if burns = 0 then it'll just tell you that the item is already that foodtype and it would do nothing
 // if you wanted a different side effect set burns to 1 and override burn_food()
-/obj/machinery/cooker/proc/burn_food(mob/user, obj/item/weapon/reagent_containers/props)
-	var/obj/item/weapon/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
+/obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
+	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
 	setRegents(props, burnt)
 	to_chat(user, "<span class='warning'>You smell burning coming from the [src]!</span>")
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
@@ -91,7 +91,7 @@
 
 // Override this with the correct snack type
 /obj/machinery/cooker/proc/gettype()
-	var/obj/item/weapon/reagent_containers/food/snacks/type = new(get_turf(src))
+	var/obj/item/reagent_containers/food/snacks/type = new(get_turf(src))
 	return type
 
 /obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
@@ -104,7 +104,7 @@
 		if(iscrowbar(I))
 			default_deconstruction_crowbar(I)
 			return
-		if(istype(I, /obj/item/weapon/storage/part_replacer))
+		if(istype(I, /obj/item/storage/part_replacer))
 			exchange_parts(user, I)
 			return
 	if(stat & (NOPOWER|BROKEN))
@@ -115,7 +115,7 @@
 	if(!checkValid(I, user))
 		return
 	if(!burns)
-		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))
+		if(istype(I, /obj/item/reagent_containers/food/snacks))
 			if(checkCooked(I))
 				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
 				return
@@ -130,23 +130,23 @@
 				cookSpecial(special)			//Handle cooking the item as appropriate
 				turnoff(I)						//Shut off the machine and qdel the original item
 				return
-		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))
+		if(istype(I, /obj/item/reagent_containers/food/snacks))
 			if(checkCooked(I))
 				burn_food(user, I)
 				turnoff(I)
 				return
-		var/obj/item/weapon/reagent_containers/food/snacks/newfood = gettype()
+		var/obj/item/reagent_containers/food/snacks/newfood = gettype()
 		setIcon(I, newfood)
 		changename(I, newfood)
-		if(istype(I, /obj/item/weapon/reagent_containers))
+		if(istype(I, /obj/item/reagent_containers))
 			setRegents(I, newfood)
-		if(istype(I, /obj/item/weapon/reagent_containers/food/snacks))
+		if(istype(I, /obj/item/reagent_containers/food/snacks))
 			setCooked(I, newfood)
 		newfood.cooktype[thiscooktype] = 1
 		turnoff(I)
 		//qdel(I)
 
-/obj/machinery/cooker/proc/special_attack(obj/item/weapon/grab/G, mob/user)
+/obj/machinery/cooker/proc/special_attack(obj/item/grab/G, mob/user)
 	return 0
 
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!

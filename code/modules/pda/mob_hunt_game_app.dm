@@ -131,7 +131,7 @@
 /datum/data/pda/app/mob_hunter_game/proc/print_card()
 	if(!pda || !my_collection.len)
 		return
-	var/obj/item/weapon/nanomob_card/card = new/obj/item/weapon/nanomob_card(null)
+	var/obj/item/nanomob_card/card = new/obj/item/nanomob_card(null)
 	var/datum/mob_hunt/mob_info = my_collection[current_index]
 	card.mob_data = mob_info
 	card.update_info()

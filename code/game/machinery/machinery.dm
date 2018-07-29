@@ -117,9 +117,9 @@ Class Procs:
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
-	var/speed_process = 0 // Process as fast as possible?
+	var/defer_process = 0
 
-/obj/machinery/initialize()
+/obj/machinery/Initialize()
 	addAtProcessing()
 	. = ..()
 	power_change()
@@ -128,27 +128,34 @@ Class Procs:
 	if(use_power)
 		myArea = get_area_master(src)
 	if(!speed_process)
-		machine_processing += src
+		if(!defer_process)
+			START_PROCESSING(SSmachines, src)
+		else
+			START_DEFERRED_PROCESSING(SSmachines, src)
 	else
 		fast_processing += src
+		isprocessing = TRUE // all of these  isprocessing = TRUE  can be removed when the PS is dead
 
 // gotta go fast
-/obj/machinery/proc/makeSpeedProcess()
+/obj/machinery/makeSpeedProcess()
 	if(speed_process)
 		return
 	speed_process = 1
-	machine_processing -= src
+	STOP_PROCESSING(SSmachines, src)
 	fast_processing += src
+	isprocessing = TRUE
 
 // gotta go slow
-/obj/machinery/proc/makeNormalProcess()
+/obj/machinery/makeNormalProcess()
 	if(!speed_process)
 		return
 	speed_process = 0
-	machine_processing += src
+	START_PROCESSING(SSmachines, src)
 	fast_processing -= src
 
 /obj/machinery/New() //new
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
 	machines += src
 	..()
 
@@ -156,7 +163,7 @@ Class Procs:
 	if(myArea)
 		myArea = null
 	fast_processing -= src
-	machine_processing -= src
+	STOP_PROCESSING(SSmachines, src)
 	machines -= src
 	return ..()
 
@@ -170,10 +177,9 @@ Class Procs:
 	return PROCESS_KILL
 
 /obj/machinery/emp_act(severity)
-	if(use_power && stat == 0)
+	if(use_power && !stat)
 		use_power(7500/severity)
-
-	new/obj/effect/temp_visual/emp(loc)
+		new /obj/effect/temp_visual/emp(loc)
 	..()
 
 /obj/machinery/ex_act(severity)
@@ -237,7 +243,7 @@ Class Procs:
 /obj/machinery/proc/handle_multitool_topic(var/href, var/list/href_list, var/mob/user)
 	if(!allowed(user))//no, not even HREF exploits
 		return 0
-	var/obj/item/device/multitool/P = get_multitool(usr)
+	var/obj/item/multitool/P = get_multitool(usr)
 	if(P && istype(P))
 		var/update_mt_menu=0
 		var/re_init=0
@@ -308,7 +314,7 @@ Class Procs:
 			re_init=1
 
 		if(re_init)
-			initialize()
+			Initialize()
 		if(update_mt_menu)
 			//usr.set_machine(src)
 			update_multitool_menu(usr)
@@ -396,7 +402,7 @@ Class Procs:
 	uid = gl_uid
 	gl_uid++
 
-/obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/weapon/crowbar/C, var/ignore_panel = 0)
+/obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/crowbar/C, var/ignore_panel = 0)
 	if(istype(C) && (panel_open || ignore_panel))
 		playsound(loc, C.usesound, 50, 1)
 		deconstruct()
@@ -414,13 +420,19 @@ Class Procs:
 
 /obj/machinery/proc/spawn_frame(disassembled)
 	var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(loc)
+	. = M
+	M.anchored = anchored
 	if(!disassembled)
 		M.obj_integrity = M.max_integrity * 0.5 //the frame is already half broken
 	transfer_fingerprints_to(M)
 	M.state = 2
 	M.icon_state = "box_1"
 
-/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/weapon/screwdriver/S)
+/obj/machinery/obj_break(damage_flag)
+	if(can_deconstruct)
+		stat |= BROKEN
+
+/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/screwdriver/S)
 	if(istype(S))
 		playsound(loc, S.usesound, 50, 1)
 		if(!panel_open)
@@ -434,7 +446,7 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/weapon/wrench/W)
+/obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/wrench/W)
 	if(panel_open && istype(W))
 		playsound(loc, W.usesound, 50, 1)
 		dir = turn(dir,-90)
@@ -442,7 +454,7 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench/W, time = 20)
 	if(istype(W))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		playsound(loc, W.usesound, 50, 1)
@@ -456,20 +468,20 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/exchange_parts(mob/user, obj/item/weapon/storage/part_replacer/W)
+/obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)
-			var/obj/item/weapon/circuitboard/CB = locate(/obj/item/weapon/circuitboard) in component_parts
+			var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts
 			var/P
 			if(W.works_from_distance)
 				display_parts(user)
-			for(var/obj/item/weapon/stock_parts/A in component_parts)
+			for(var/obj/item/stock_parts/A in component_parts)
 				for(var/D in CB.req_components)
 					if(ispath(A.type, D))
 						P = D
 						break
-				for(var/obj/item/weapon/stock_parts/B in W.contents)
+				for(var/obj/item/stock_parts/B in W.contents)
 					if(istype(B, P) && istype(A, P))
 						if(B.rating > A.rating)
 							W.remove_from_storage(B, src)
@@ -495,7 +507,20 @@ Class Procs:
 		to_chat(user, "<span class='notice'>[bicon(C)] [C.name]</span>")
 
 /obj/machinery/examine(mob/user)
-	..(user)
+	..()
+	if(stat & BROKEN)
+		to_chat(user, "<span class='notice'>It looks broken and non-functional.</span>")
+	if(!(resistance_flags & INDESTRUCTIBLE))
+		if(burn_state == ON_FIRE)
+			to_chat(user, "<span class='warning'>It's on fire!</span>")
+		var/healthpercent = (obj_integrity/max_integrity) * 100
+		switch(healthpercent)
+			if(50 to 99)
+				to_chat(user,  "It looks slightly damaged.")
+			if(25 to 50)
+				to_chat(user,  "It appears heavily damaged.")
+			if(0 to 25)
+				to_chat(user,  "<span class='warning'>It's falling apart!</span>")
 	if(user.research_scanner && component_parts)
 		display_parts(user)
 
@@ -516,27 +541,27 @@ Class Procs:
 		return threatcount
 
 	//Agent cards lower threatlevel.
-	var/obj/item/weapon/card/id/id = GetIdCard(perp)
-	if(id && istype(id, /obj/item/weapon/card/id/syndicate))
+	var/obj/item/card/id/id = GetIdCard(perp)
+	if(id && istype(id, /obj/item/card/id/syndicate))
 		threatcount -= 2
 	// A proper	CentCom id is hard currency.
-	else if(id && istype(id, /obj/item/weapon/card/id/centcom))
+	else if(id && istype(id, /obj/item/card/id/centcom))
 		threatcount -= 2
 
 	if(check_access && !allowed(perp))
 		threatcount += 4
 
 	if(auth_weapons && !allowed(perp))
-		if(istype(perp.l_hand, /obj/item/weapon/gun) || istype(perp.l_hand, /obj/item/weapon/melee))
+		if(istype(perp.l_hand, /obj/item/gun) || istype(perp.l_hand, /obj/item/melee))
 			threatcount += 4
 
-		if(istype(perp.r_hand, /obj/item/weapon/gun) || istype(perp.r_hand, /obj/item/weapon/melee))
+		if(istype(perp.r_hand, /obj/item/gun) || istype(perp.r_hand, /obj/item/melee))
 			threatcount += 4
 
-		if(istype(perp.belt, /obj/item/weapon/gun) || istype(perp.belt, /obj/item/weapon/melee))
+		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee))
 			threatcount += 2
 
-		if(perp.species.name != "Human") //beepsky so racist.
+		if(!ishumanbasic(perp)) //beepsky so racist.
 			threatcount += 2
 
 	if(check_records || check_arrest)
@@ -584,6 +609,6 @@ Class Procs:
 	if(prob(85) && explosive)
 		explosion(loc, 1, 2, 4, flame_range = 2, adminlog = 0, smoke = 0)
 	else if(prob(50))
-		emp_act(2)
+		emp_act(EMP_LIGHT)
 	else
-		ex_act(2)
+		ex_act(EXPLODE_HEAVY)

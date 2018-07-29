@@ -1,15 +1,16 @@
 // Floor painter
 
-/obj/item/device/floor_painter
+/obj/item/floor_painter
 	name = "floor painter"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "floor_painter"
+	item_state = "electronic"
 
 	var/floor_icon
 	var/floor_state = "floor"
 	var/floor_dir = SOUTH
 
 	w_class = WEIGHT_CLASS_TINY
-	item_state = "electronic"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 
@@ -25,7 +26,7 @@
 		"whitered", "whiteredcorner", "whiteredfull", "whiteyellow", "whiteyellowcorner", "whiteyellowfull", "yellow",
 		"yellowcorner", "yellowcornersiding", "yellowsiding")
 
-/obj/item/device/floor_painter/afterattack(var/atom/A, var/mob/user, proximity, params)
+/obj/item/floor_painter/afterattack(var/atom/A, var/mob/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -38,14 +39,14 @@
 	F.icon_regular_floor = floor_state
 	F.dir = floor_dir
 
-/obj/item/device/floor_painter/attack_self(var/mob/user)
+/obj/item/floor_painter/attack_self(var/mob/user)
 	if(!user)
 		return 0
 	user.set_machine(src)
 	interact(user)
 	return 1
 
-/obj/item/device/floor_painter/interact(mob/user as mob)
+/obj/item/floor_painter/interact(mob/user as mob)
 	if(!floor_icon)
 		floor_icon = icon('icons/turf/floors.dmi', floor_state, floor_dir)
 	user << browse_rsc(floor_icon, "floor.png")
@@ -65,7 +66,7 @@
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/device/floor_painter/Topic(href, href_list)
+/obj/item/floor_painter/Topic(href, href_list)
 	if(..())
 		return
 

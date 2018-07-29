@@ -60,7 +60,7 @@
 	..()
 
 /obj/machinery/ntnet_relay/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "ntnet_relay.tmpl", "NTNet Quantum Relay", 500, 300)
 		ui.open()
@@ -97,9 +97,9 @@
 	uid = gl_uid
 	gl_uid++
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/machine/ntnet_relay(null)
+	component_parts += new /obj/item/circuitboard/machine/ntnet_relay(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
-	component_parts += new /obj/item/weapon/stock_parts/subspace/filter(null)
+	component_parts += new /obj/item/stock_parts/subspace/filter(null)
 
 	if(ntnet_global)
 		ntnet_global.relays.Add(src)
@@ -119,10 +119,10 @@
 
 	return ..()
 
-/obj/item/weapon/circuitboard/machine/ntnet_relay
+/obj/item/circuitboard/machine/ntnet_relay
 	name = "NTNet Relay (Machine Board)"
 	build_path = /obj/machinery/ntnet_relay
 	origin_tech = "programming=3;bluespace=3;magnets=2"
 	req_components = list(
 							/obj/item/stack/cable_coil = 2,
-							/obj/item/weapon/stock_parts/subspace/filter = 1)
+							/obj/item/stock_parts/subspace/filter = 1)

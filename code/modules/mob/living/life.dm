@@ -1,4 +1,4 @@
-/mob/living/Life()
+/mob/living/Life(seconds, times_fired)
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
@@ -22,7 +22,7 @@
 		handle_mutations_and_radiation()
 
 		//Breathing, if applicable
-		handle_breathing()
+		handle_breathing(times_fired)
 
 		//Random events (vomiting etc)
 		handle_random_events()
@@ -38,13 +38,13 @@
 	handle_fire()
 
 	//stuff in the stomach
-	handle_stomach()
+	handle_stomach(times_fired)
 
 	update_gravity(mob_has_gravity())
 
 	update_pulling()
 
-	for(var/obj/item/weapon/grab/G in src)
+	for(var/obj/item/grab/G in src)
 		G.process()
 
 	if(handle_regular_status_updates()) // Status & health update, are we dead or alive etc.
@@ -61,7 +61,7 @@
 
 	..()
 
-/mob/living/proc/handle_breathing()
+/mob/living/proc/handle_breathing(times_fired)
 	return
 
 /mob/living/proc/handle_mutations_and_radiation()
@@ -80,7 +80,7 @@
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	return
 
-/mob/living/proc/handle_stomach()
+/mob/living/proc/handle_stomach(times_fired)
 	return
 
 /mob/living/proc/update_pulling()

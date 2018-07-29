@@ -1,4 +1,4 @@
-/mob/living/carbon/alien/larva/Life()
+/mob/living/carbon/alien/larva/Life(seconds, times_fired)
 	if(..()) //still breathing
 		// GROW!
 		if(amount_grown < max_grown)

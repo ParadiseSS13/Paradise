@@ -13,6 +13,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	var/emergencyCallTime = 6000	//time taken for emergency shuttle to reach the station when called (in deciseconds)
 	var/emergencyDockTime = 1800	//time taken for emergency shuttle to leave again once it has docked (in deciseconds)
 	var/emergencyEscapeTime = 1200	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
+	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 
@@ -134,7 +135,11 @@ DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 	var/area/signal_origin = get_area(user)
 	var/emergency_reason = "\nNature of emergency:\n\n[call_reason]"
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
-		emergency.request(null, 0.5, signal_origin, html_decode(emergency_reason), 1)
+		var/extra_minutes = 0
+		var/priority_time = emergencyCallTime * 0.5
+		if(world.time - emergency_sec_level_time < priority_time)
+			extra_minutes = 5
+		emergency.request(null, 0.5 + extra_minutes / (emergencyCallTime / 600), signal_origin, html_decode(emergency_reason), 1)
 	else
 		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
 
@@ -185,7 +190,7 @@ DECLARE_GLOBAL_CONTROLLER(shuttle, shuttle_master)
 			var/obj/machinery/computer/communications/C = thing
 			if(C.stat & BROKEN)
 				continue
-		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/weapon/circuitboard/communications))
+		else if(istype(thing, /datum/computer_file/program/comm) || istype(thing, /obj/item/circuitboard/communications))
 			continue
 
 		var/turf/T = get_turf(thing)

@@ -1,9 +1,11 @@
-/obj/item/radio/integrated
+//TODO convert this crap over to proper radios or find a way to utilize regualr radios for this object, this thing needs to go.
+
+/obj/item/integrated_radio
 	name = "\improper PDA radio module"
 	desc = "An electronic radio system of Nanotrasen origin."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "power_mod"
-	var/obj/item/device/pda/hostpda = null
+	var/obj/item/pda/hostpda = null
 	var/list/botlist = null		// list of bots
 	var/mob/living/simple_animal/bot/active 	// the active bot; if null, show bot list
 	var/list/botstatus			// the status signal sent by the bot
@@ -15,21 +17,21 @@
 	var/on = 0 //Are we currently active??
 	var/menu_message = ""
 
-/obj/item/radio/integrated/New()
+/obj/item/integrated_radio/New()
 	..()
-	if(istype(loc.loc, /obj/item/device/pda))
+	if(istype(loc.loc, /obj/item/pda))
 		hostpda = loc.loc
 	if(bot_filter)
 		spawn(5)
 			add_to_radio(bot_filter)
 
-/obj/item/radio/integrated/Destroy()
+/obj/item/integrated_radio/Destroy()
 	if(radio_controller)
 		radio_controller.remove_object(src, control_freq)
 	hostpda = null
 	return ..()
 
-/obj/item/radio/integrated/proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3,var/key4, var/value4, s_filter)
+/obj/item/integrated_radio/proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3,var/key4, var/value4, s_filter)
 
 //	to_chat(world, "Post: [freq]: [key]=[value], [key2]=[value2]")
 	var/datum/radio_frequency/frequency = radio_controller.return_frequency(freq)
@@ -50,7 +52,7 @@
 
 	frequency.post_signal(src, signal, filter = s_filter)
 
-/obj/item/radio/integrated/receive_signal(datum/signal/signal)
+/obj/item/integrated_radio/receive_signal(datum/signal/signal)
 	if(bot_type && istype(signal.source, /obj/machinery/bot_core) && signal.data["type"] == bot_type)
 		if(!botlist)
 			botlist = new()
@@ -64,7 +66,7 @@
 			var/list/b = signal.data
 			botstatus = b.Copy()
 
-/obj/item/radio/integrated/Topic(href, href_list)
+/obj/item/integrated_radio/Topic(href, href_list)
 	..()
 	switch(href_list["op"])
 		if("control")
@@ -90,32 +92,32 @@
 				post_signal(control_freq, "command", "summon", "active", active, "target", get_turf(hostpda), "useraccess", hostpda.GetAccess(), "user", usr, s_filter = bot_filter)
 				post_signal(control_freq, "command", "bot_status", "active", active, s_filter = bot_filter)
 
-/obj/item/radio/integrated/proc/add_to_radio(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
+/obj/item/integrated_radio/proc/add_to_radio(bot_filter) //Master filter control for bots. Must be placed in the bot's local New() to support map spawned bots.
 	if(radio_controller)
 		radio_controller.add_object(src, control_freq, filter = bot_filter)
 
 
-/obj/item/radio/integrated/beepsky
+/obj/item/integrated_radio/beepsky
 	bot_filter = RADIO_SECBOT
 	bot_type = SEC_BOT
 
-/obj/item/radio/integrated/medbot
+/obj/item/integrated_radio/medbot
 	bot_filter = RADIO_MEDBOT
 	bot_type = MED_BOT
 
-/obj/item/radio/integrated/floorbot
+/obj/item/integrated_radio/floorbot
 	bot_filter = RADIO_FLOORBOT
 	bot_type = FLOOR_BOT
 
-/obj/item/radio/integrated/cleanbot
+/obj/item/integrated_radio/cleanbot
 	bot_filter = RADIO_CLEANBOT
 	bot_type = CLEAN_BOT
 
-/obj/item/radio/integrated/mule
+/obj/item/integrated_radio/mule
 	bot_filter = RADIO_MULEBOT
 	bot_type = MULE_BOT
 
-/obj/item/radio/integrated/mule/Topic(href, href_list)
+/obj/item/integrated_radio/mule/Topic(href, href_list)
 	..()
 	switch(href_list["op"])
 		if("start")
@@ -159,18 +161,19 @@
  */
 
 
-/obj/item/radio/integrated/signal
+/obj/item/integrated_radio/signal
 	var/frequency = 1457
 	var/code = 30.0
 	var/last_transmission
 	var/datum/radio_frequency/radio_connection
 
-/obj/item/radio/integrated/signal/Destroy()
+/obj/item/integrated_radio/signal/Destroy()
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
+	radio_connection = null
 	return ..()
 
-/obj/item/radio/integrated/signal/initialize()
+/obj/item/integrated_radio/signal/Initialize()
 	if(!radio_controller)
 		return
 	if(src.frequency < PUBLIC_LOW_FREQ || src.frequency > PUBLIC_HIGH_FREQ)
@@ -178,12 +181,12 @@
 
 	set_frequency(frequency)
 
-/obj/item/radio/integrated/signal/proc/set_frequency(new_frequency)
+/obj/item/integrated_radio/signal/proc/set_frequency(new_frequency)
 	radio_controller.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = radio_controller.add_object(src, frequency)
 
-/obj/item/radio/integrated/signal/proc/send_signal(message="ACTIVATE")
+/obj/item/integrated_radio/signal/proc/send_signal(message="ACTIVATE")
 
 	if(last_transmission && world.time < (last_transmission + 5))
 		return

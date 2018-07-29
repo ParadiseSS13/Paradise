@@ -28,29 +28,29 @@
 
 /datum/theft_objective/antique_laser_gun
 	name = "the captain's antique laser gun"
-	typepath = /obj/item/weapon/gun/energy/laser/captain
+	typepath = /obj/item/gun/energy/laser/captain
 	protected_jobs = list("Captain")
 
 /datum/theft_objective/captains_jetpack
 	name = "the captain's deluxe jetpack"
-	typepath = /obj/item/weapon/tank/jetpack/oxygen/captain
+	typepath = /obj/item/tank/jetpack/oxygen/captain
 	protected_jobs = list("Captain")
 
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
-	typepath = /obj/item/weapon/gun/energy/gun/hos
+	typepath = /obj/item/gun/energy/gun/hos
 	protected_jobs = list("Head Of Security")
 
 /datum/theft_objective/hand_tele
 	name = "a hand teleporter"
-	typepath = /obj/item/weapon/hand_tele
+	typepath = /obj/item/hand_tele
 	protected_jobs = list("Captain", "Research Director")
 
 /datum/theft_objective/ai
 	name = "a functional AI"
-	typepath = /obj/item/device/aicard
+	typepath = /obj/item/aicard
 
-datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
+datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	if(..())
 		for(var/mob/living/silicon/ai/A in C)
 			if(istype(A, /mob/living/silicon/ai) && A.stat != 2) //See if any AI's are alive inside that card.
@@ -59,7 +59,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/defib
 	name = "a compact defibrillator"
-	typepath = /obj/item/weapon/defibrillator/compact
+	typepath = /obj/item/defibrillator/compact
 	protected_jobs = list("Chief Medical Officer")
 
 /datum/theft_objective/magboots
@@ -71,13 +71,13 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 	name = "the station blueprints"
 	typepath = /obj/item/areaeditor/blueprints
 	protected_jobs = list("Chief Engineer")
-	altitems = list(/obj/item/weapon/photo)
+	altitems = list(/obj/item/photo)
 
 /datum/objective_item/steal/blueprints/check_special_completion(obj/item/I)
 	if(istype(I, /obj/item/areaeditor/blueprints))
 		return 1
-	if(istype(I, /obj/item/weapon/photo))
-		var/obj/item/weapon/photo/P = I
+	if(istype(I, /obj/item/photo))
+		var/obj/item/photo/P = I
 		if(P.blueprints)
 			return 1
 	return 0
@@ -105,7 +105,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/nukedisc
 	name = "the nuclear authentication disk"
-	typepath = /obj/item/weapon/disk/nuclear
+	typepath = /obj/item/disk/nuclear
 	protected_jobs = list("Captain")
 
 /datum/theft_objective/reactive
@@ -119,7 +119,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/hypospray
 	name = "a hypospray"
-	typepath = /obj/item/weapon/reagent_containers/hypospray/CMO
+	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 
 /datum/theft_objective/ablative
@@ -165,7 +165,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/device/aicard/C)
 
 /datum/theft_objective/number/plasma_gas
 	name = "moles of plasma (full tank)"
-	typepath = /obj/item/weapon/tank
+	typepath = /obj/item/tank
 	min=28
 	max=28
 	protected_jobs = list("Chief Engineer", "Station Engineer", "Scientist", "Research Director", "Life Support Specialist")

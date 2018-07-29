@@ -11,8 +11,8 @@
 	density = 0
 	light_color = LIGHT_COLOR_GREEN
 	req_one_access = list(access_heads)
-	circuit = /obj/item/weapon/circuitboard/skills
-	var/obj/item/weapon/card/id/scan = null
+	circuit = /obj/item/circuitboard/skills
+	var/obj/item/card/id/scan = null
 	var/authenticated = null
 	var/rank = null
 	var/screen = null
@@ -23,9 +23,12 @@
 	var/sortBy = "name"
 	var/order = 1 // -1 = Descending - 1 = Ascending
 
+/obj/machinery/computer/skills/Destroy()
+	active1 = null
+	return ..()
 
 /obj/machinery/computer/skills/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/weapon/card/id) && !scan)
+	if(istype(O, /obj/item/card/id) && !scan)
 		user.drop_item()
 		O.forceMove(src)
 		scan = O
@@ -43,7 +46,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/skills/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "skills_data.tmpl", name, 800, 380)
 		ui.open()
@@ -129,7 +132,7 @@
 			scan = null
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/weapon/card/id))
+			if(istype(I, /obj/item/card/id))
 				usr.drop_item()
 				I.forceMove(src)
 				scan = I
@@ -142,7 +145,7 @@
 			authenticated = usr.name
 			var/mob/living/silicon/robot/R = usr
 			rank = "[R.modtype] [R.braintype]"
-		else if(istype(scan, /obj/item/weapon/card/id))
+		else if(istype(scan, /obj/item/card/id))
 			if(check_access(scan))
 				authenticated = scan.registered_name
 				rank = scan.assignment
@@ -219,7 +222,7 @@
 				printing = 1
 				playsound(loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
 				sleep(50)
-				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+				var/obj/item/paper/P = new /obj/item/paper(loc)
 				P.info = "<CENTER><B>Employment Record</B></CENTER><BR>"
 				if(istype(active1, /datum/data/record) && data_core.general.Find(active1))
 					P.info += {"Name: [active1.fields["name"]] ID: [active1.fields["id"]]
@@ -232,7 +235,7 @@
 				else
 					P.info += "<B>General Record Lost!</B><BR>"
 				P.info += "</TT>"
-				P.name = "paper - 'Employment Record'"
+				P.name = "paper - 'Employment Record: [active1.fields["name"]]'"
 				printing = 0
 
 		if(href_list["field"])

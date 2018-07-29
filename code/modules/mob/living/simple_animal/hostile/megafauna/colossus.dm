@@ -47,7 +47,7 @@ Difficulty: Very Hard
 	medal_type = MEDAL_PREFIX
 	score_type = COLOSSUS_SCORE
 	loot = list(/obj/machinery/anomalous_crystal/random, /obj/item/organ/internal/vocal_cords/colossus)
-	butcher_results = list(/obj/item/weapon/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
+	butcher_results = list(/obj/item/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	deathmessage = "disintegrates, leaving a glowing core in its wake."
 	death_sound = 'sound/misc/demon_dies.ogg'
 
@@ -95,7 +95,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/New()
 	..()
-	internal_gps = new/obj/item/device/gps/internal/colossus(src)
+	internal_gps = new/obj/item/gps/internal/colossus(src)
 
 /obj/effect/temp_visual/at_shield
 	name = "anti-toolbox field"
@@ -257,7 +257,7 @@ Difficulty: Very Hard
 	if(isturf(target) || isobj(target))
 		target.ex_act(2)
 
-/obj/item/device/gps/internal/colossus
+/obj/item/gps/internal/colossus
 	icon_state = null
 	gpstag = "Angelic Signal"
 	desc = "Get in the fucking robot."
