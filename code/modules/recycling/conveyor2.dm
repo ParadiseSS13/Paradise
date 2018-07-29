@@ -408,6 +408,64 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	operating = TRUE
 	update_icon()
 
+//Other types of conveyor, mostly for saving yourself a headache during mapping
+
+/obj/machinery/conveyor/north
+	dir = NORTH
+
+/obj/machinery/conveyor/northeast
+	dir = NORTHEAST
+
+/obj/machinery/conveyor/east
+	dir = EAST
+
+/obj/machinery/conveyor/southeast
+	dir = SOUTHEAST
+
+/obj/machinery/conveyor/south
+	dir = SOUTH
+
+/obj/machinery/conveyor/southwest
+	dir = SOUTHWEST
+
+/obj/machinery/conveyor/west
+	dir = WEST
+
+/obj/machinery/conveyor/northwest
+	dir = NORTHWEST
+
+/obj/machinery/conveyor/north/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
+/obj/machinery/conveyor/northeast/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
+/obj/machinery/conveyor/east/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
+/obj/machinery/conveyor/southeast/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
+/obj/machinery/conveyor/south/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
+/obj/machinery/conveyor/southwest/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
+/obj/machinery/conveyor/west/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
+/obj/machinery/conveyor/northwest/ccw
+	icon_state = "conveyor_stopped_ccw"
+	clockwise = FALSE
+
 #undef DIRECTION_FORWARDS
 #undef DIRECTION_OFF
 #undef DIRECTION_REVERSED
