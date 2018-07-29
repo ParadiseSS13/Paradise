@@ -130,7 +130,7 @@
 
 /obj/item/storage/pill_bottle/random_meds/New()
 	..()
-	for(var/i=1, i<storage_slots, i++)						// Why was this a while loop?
+	for(var/i in 1 to storage_slots)
 		var/list/possible_medicines = standard_medicines.Copy()
 		if(prob(50))
 			possible_medicines += rare_medicines.Copy()
