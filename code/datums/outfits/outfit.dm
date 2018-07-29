@@ -90,8 +90,8 @@
 		if(backpack_contents)
 			for(var/path in backpack_contents)
 				var/number = backpack_contents[path]
-				for(var/i=0,i<number,i++)
-					H.equip_to_slot_or_del(new path(H),slot_in_backpack)
+				for(var/i=0, i<number, i++)
+					H.equip_to_slot_or_del(new path(H), slot_in_backpack)
 
 		for(var/path in cybernetic_implants)
 			var/obj/item/organ/internal/O = new path(H)
@@ -108,7 +108,7 @@
 	if(implants)
 		for(var/implant_type in implants)
 			var/obj/item/implant/I = new implant_type(H)
-			I.implant(H, null, silent=TRUE)
+			I.implant(H, null)
 
 	H.update_body()
 	return 1

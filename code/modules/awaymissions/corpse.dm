@@ -46,7 +46,7 @@
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
 
-/obj/effect/mob_spawn/New()
+/obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
 	if(instant || (roundstart && (ticker && ticker.current_state > GAME_STATE_SETTING_UP)))
 		create()
@@ -58,6 +58,8 @@
 	poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
+	if(!LAZYLEN(spawners))
+		GLOB.mob_spawners -= name
 	return ..()
 
 /obj/effect/mob_spawn/proc/special(mob/M)
@@ -145,7 +147,7 @@
 	var/skin_tone
 
 
-/obj/effect/mob_spawn/human/New()
+/obj/effect/mob_spawn/human/Initialize()
 	if(ispath(outfit))
 		outfit = new outfit()
 	if(!outfit)
@@ -332,7 +334,7 @@
 	id_job = "Clown"
 	outfit = /datum/outfit/job/clown
 
-/obj/effect/mob_spawn/human/clown/New()
+/obj/effect/mob_spawn/human/clown/Initialize()
 	mob_name = pick(clown_names)
 	..()
 
@@ -370,7 +372,7 @@
 	id_job = "Mime"
 	outfit = /datum/outfit/job/mime
 
-/obj/effect/mob_spawn/human/mime/New()
+/obj/effect/mob_spawn/human/mime/Initialize()
 	mob_name = pick(mime_names)
 	..()
 
@@ -447,7 +449,7 @@
 /obj/effect/mob_spawn/human/skeleton
 	name = "skeletal remains"
 	mob_name = "skeleton"
-	mob_species = "Skeleton"
+	mob_species = /datum/species/skeleton
 	mob_gender = NEUTER
 
 /obj/effect/mob_spawn/human/skeleton/alive
@@ -497,7 +499,7 @@
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"
 	mob_name = "alien"
-	mob_species = "Abductor"
+	mob_species = /datum/species/abductor
 	outfit = /datum/outfit/abductorcorpse
 
 /datum/outfit/abductorcorpse
