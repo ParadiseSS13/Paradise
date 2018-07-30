@@ -7,7 +7,7 @@
 	icon_state = "director"
 	item_state = "g_suit"
 	item_color = "director"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 10, rad = 0, shock = 0)
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/scientist
@@ -17,7 +17,7 @@
 	item_state = "w_suit"
 	item_color = "toxinswhite"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0, shock = 0)
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/scientist/skirt
@@ -34,7 +34,7 @@
 	item_state = "w_suit"
 	item_color = "chemistrywhite"
 	permeability_coefficient = 0.50
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, shock = 0)
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/chemist/skirt

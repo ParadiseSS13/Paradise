@@ -8,7 +8,7 @@
 	origin_tech = "syndicate=2"
 	var/list/clothing_choices = list()
 	burn_state = FIRE_PROOF
-	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 10, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, shock = 0)
 
 	New()
 		..()

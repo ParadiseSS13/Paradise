@@ -21,9 +21,9 @@
 
 /obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
 	var/deflected = 0 //0 for not deflected, 1 for partially, 2 for totally.
-	if(ishuman(target)) //have to do this stuff before we call ..(), but I want the messages to come in the right order. So the deflected tag.
+	if(ishuman(target)) //have to do this stuff before we call ..(), but I want the messages to come in the right order. So the deflected var.
 		var/mob/living/carbon/human/H = target//typecast
-		var/protection = H.getarmor("chest", "shock") //checks for taser resistance of worn armor
+		var/protection = H.getarmor(def_zone, "shock") //checks for taser resistance of worn armor
 		if(prob(protection)) //chance to completely negate taser hit
 			stun = 0
 			weaken = 0
@@ -49,7 +49,7 @@
 		var/mob/living/carbon/C = target
 		if(HULK in C.mutations)
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		else if(C.status_flags & CANWEAKEN & (deflected != 2))
+		else if((C.status_flags & CANWEAKEN) && (deflected != 2))
 			spawn(5)
 				C.do_jitter_animation(jitter)
 
