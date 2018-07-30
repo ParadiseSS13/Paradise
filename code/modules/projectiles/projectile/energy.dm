@@ -37,15 +37,15 @@
 		else if(prob(protection)) //chance for a glancing blow if first check fails
 			stun = 0
 			weaken = 0
-			H.apply_effect(stamina, 50, 0) //stamina damage, still better than being stunned.
+			H.apply_damage(50, STAMINA) //stamina damage, still better than being stunned.
 			deflected = PARTIAL_DEFLECTION
 	. = ..()
 	if(deflected == PARTIAL_DEFLECTION)
 		target.visible_message("<span class='danger'>The shock is weakened by the armor!</span>", \
 								"<span class='userdanger'>The shock is weakened by your armor!</span>")
 	else if(deflected == FULL_DEFLECTION)
-		target.visible_message("<span class='danger'>The electrode glance off of the armor!</span>", \
-								"<span class='userdanger'>The electrode glance off of your armor!</span>")
+		target.visible_message("<span class='danger'>The electrode glances off the armor!</span>", \
+								"<span class='userdanger'>The electrode glances off your armor!</span>")
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 		sparks.set_up(1, 1, src)
