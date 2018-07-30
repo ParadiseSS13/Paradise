@@ -24,7 +24,7 @@
 	var/prize_inside = pick(possible_contents)
 	spawn(10)
 		user.unEquip(src)
-		if(prize_inside == /obj/item/stack/tickets)
+		if(ispath(prize_inside,/obj/item/stack))
 			var/amount = pick(5, 10, 15, 25, 50)
 			new prize_inside(user.loc, amount)
 		else
@@ -77,8 +77,7 @@
 	return
 
 /obj/item/stack/tickets/update_icon()
-	var/amount = get_amount()
-	switch(amount)
+	switch(get_amount())
 		if(1 to 3)
 			icon_state = "tickets_1"	// One ticket
 		if(4 to 24)
