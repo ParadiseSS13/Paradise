@@ -34,6 +34,7 @@
 	var/faint_ticker = 0 //If we hit three, another mushroom's gonna eat us
 	var/image/cap_living = null //Where we store our cap icons so we dont generate them constantly to update our icon
 	var/image/cap_dead = null
+	var/spawn_time = 0
 
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
 	..(user)
@@ -44,7 +45,7 @@
 
 /mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()
-	if(!stat)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
+	if(!stat && world.time < (spawn_time + 3000))//Mushrooms slowly during their first 5 minutes of life.
 		adjustBruteLoss(-2)
 
 /mob/living/simple_animal/hostile/mushroom/New()//Makes every shroom a little unique
@@ -59,6 +60,7 @@
 	cap_dead.color = cap_color
 	UpdateMushroomCap()
 	health = maxHealth
+	spawn_time = world.time
 	..()
 
 /mob/living/simple_animal/hostile/mushroom/adjustHealth(damage)//Possibility to flee from a fight just to make it more visually interesting
