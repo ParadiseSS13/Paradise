@@ -245,6 +245,36 @@
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
 	category = list("Medical")
 
+/datum/design/alienbonegel
+	name = "Alien Bone Gel"
+	desc = "Advanced bone gel obtained through Abductor technology."
+	id = "alien_bonegel"
+	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	build_path = /obj/item/bonegel/alien
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
+	category = list("Medical")
+
+/datum/design/alienbonesetter
+	name = "Alien Bone Setter"
+	desc = "An advanced bone setter obtained through Abductor technology."
+	id = "alien_bonesetter"
+	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	build_path = /obj/item/bonesetter/alien
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
+	category = list("Medical")
+
+/datum/design/alienfixovein
+	name = "Alien FixOVein"
+	desc = "An advanced FixOVein obtained through Abductor technology."
+	id = "alien_fixovein"
+	req_tech = list("biotech" = 4, "materials" = 4, "abductor" = 3)
+	build_path = /obj/item/FixOVein/alien
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 1500, MAT_PLASMA = 500, MAT_TITANIUM = 1500)
+	category = list("Medical")
+
 /////////////////////////////////////////
 //////////Cybernetic Implants////////////
 /////////////////////////////////////////

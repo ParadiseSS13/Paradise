@@ -590,6 +590,7 @@
 	target.UpdateDamageIcon()
 	user.visible_message("<span class='notice'> [user] reprograms the appearance of [target]'s [affected.name] with [tool].</span>", \
 	"<span class='notice'> You reprogram the appearance of [target]'s [affected.name] with [tool].</span>")
+	affected.open = 0
 	return TRUE
 
 /datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)

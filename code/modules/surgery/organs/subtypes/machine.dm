@@ -115,15 +115,22 @@
 
 	. = ..()
 
+/obj/item/organ/internal/brain/mmi_holder/posibrain
+	name = "positronic brain"
+
 /obj/item/organ/internal/brain/mmi_holder/posibrain/New()
 	..()
 	stored_mmi = new /obj/item/mmi/robotic_brain/positronic(src)
-	if(owner)
-		stored_mmi.name = "positronic brain ([owner.real_name])"
-		stored_mmi.brainmob.real_name = owner.real_name
-		stored_mmi.brainmob.name = stored_mmi.brainmob.real_name
-		stored_mmi.icon_state = "posibrain-occupied"
-		update_from_mmi()
-	else
+	if(!owner)
 		stored_mmi.forceMove(get_turf(src))
 		qdel(src)
+
+/obj/item/organ/internal/brain/mmi_holder/posibrain/remove(mob/living/user, special = 0)
+	if(stored_mmi && dna)
+		stored_mmi.name = "[initial(name)] ([dna.real_name])"
+		stored_mmi.brainmob.real_name = dna.real_name
+		stored_mmi.brainmob.name = stored_mmi.brainmob.real_name
+		stored_mmi.icon_state = "posibrain-occupied"
+		if(!stored_mmi.brainmob.dna)
+			stored_mmi.brainmob.dna = dna.Clone()
+	. = ..()

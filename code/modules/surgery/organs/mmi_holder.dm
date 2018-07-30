@@ -29,7 +29,7 @@
 /obj/item/organ/internal/brain/mmi_holder/proc/update_from_mmi()
 	if(!stored_mmi)
 		return
-	name = stored_mmi.name
+	name = initial(stored_mmi.name)
 	desc = stored_mmi.desc
 	icon = stored_mmi.icon
 	icon_state = stored_mmi.icon_state

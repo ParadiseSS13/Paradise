@@ -14,6 +14,7 @@
 /obj/screen/buildmode
 	icon = 'icons/misc/buildmode.dmi'
 	var/datum/click_intercept/buildmode/bd
+	layer = HUD_LAYER_BUILDMODE
 
 /obj/screen/buildmode/New(bld)
 	..()
@@ -78,6 +79,7 @@
 /obj/effect/buildmode_reticule
 	var/image/I
 	var/client/cl
+	anchored = TRUE
 
 /obj/effect/buildmode_reticule/New(var/turf/t, var/client/c)
 	loc = t
@@ -349,13 +351,13 @@
 		if(BOOM_BUILDMODE)
 			devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null
 			if(devastation == null) devastation = -1
-			var/heavy = input("Range of heavy impact. -1 to none", text("Input"))  as num|null
+			heavy = input("Range of heavy impact. -1 to none", text("Input"))  as num|null
 			if(heavy == null) heavy = -1
-			var/light = input("Range of light impact. -1 to none", text("Input"))  as num|null
+			light = input("Range of light impact. -1 to none", text("Input"))  as num|null
 			if(light == null) light = -1
-			var/flash = input("Range of flash. -1 to none", text("Input"))  as num|null
+			flash = input("Range of flash. -1 to none", text("Input"))  as num|null
 			if(flash == null) flash = -1
-			var/flames = input("Range of flames. -1 to none", text("Input"))  as num|null
+			flames = input("Range of flames. -1 to none", text("Input"))  as num|null
 			if(flames == null) flames = -1
 
 		if(SAVE_BUILDMODE)
@@ -454,10 +456,12 @@
 					var/turf/T = get_turf(object)
 					log_admin("Build Mode: [key_name(user)] modified [T] ([T.x],[T.y],[T.z]) to [objholder]")
 					T.ChangeTurf(objholder)
-				else
+				else if(!isnull(objholder))
 					var/obj/A = new objholder (get_turf(object))
 					A.setDir(build_dir)
 					log_admin("Build Mode: [key_name(user)] modified [A]'s ([A.x],[A.y],[A.z]) dir to [build_dir]")
+				else
+					to_chat(user, "<span class='warning'>Select object type first.</span>")
 			else if(right_click)
 				if(isobj(object))
 					log_admin("Build Mode: [key_name(user)] deleted [object] at ([object.x],[object.y],[object.z])")
@@ -625,7 +629,7 @@
 						L2.color = L.color
 						link_lines += L2
 		if(BOOM_BUILDMODE)
-			explosion(object, devastation, heavy, light, flash, null, null,flames)
+			explosion(object, devastation, heavy, light, flash, null, TRUE, flames)
 		if(SAVE_BUILDMODE)
 			if(!cornerA)
 				cornerA = select_tile(get_turf(object))
