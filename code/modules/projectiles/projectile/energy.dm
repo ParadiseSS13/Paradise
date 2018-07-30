@@ -20,7 +20,27 @@
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
 /obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
+	var/deflected = 0 //0 for not deflected, 1 for partially, 2 for totally.
+	if(ishuman(target)) //have to do this stuff before we call ..(), but I want the messages to come in the right order. So the deflected tag.
+		var/mob/living/carbon/human/H = target//typecast
+		var/protection = H.getarmor("chest", "shock") //checks for taser resistance of worn armor
+		if(prob(protection)) //chance to completely negate taser hit
+			stun = 0
+			weaken = 0
+			stutter = 0
+			jitter = 0
+			deflected = 2
+		else if(prob(protection)) //chance for a glancing blow if first check fails
+			stun = 0
+			deflected = 1
+			H.apply_effect(stamina, 40, 0) //stamina damage, still better than being stunned.
 	. = ..()
+	if(deflected == 1)
+		target.visible_message("<span class='danger'>The shock is weakened by the armor!</span>", \
+								"<span class='userdanger'>The shock is weakened by the armor!</span>")
+	else if(deflected == 2)
+		target.visible_message("<span class='danger'>The electrode glance off of the armor!</span>", \
+								"<span class='userdanger'>The electrode glance off of the armor!</span>")
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 		sparks.set_up(1, 1, src)
@@ -29,7 +49,7 @@
 		var/mob/living/carbon/C = target
 		if(HULK in C.mutations)
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		else if(C.status_flags & CANWEAKEN)
+		else if(C.status_flags & CANWEAKEN & (deflected != 2))
 			spawn(5)
 				C.do_jitter_animation(jitter)
 

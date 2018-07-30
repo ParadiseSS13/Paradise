@@ -106,7 +106,7 @@
 /obj/item/clothing/suit/space/eva/plasmaman/atmostech
 	name = "plasmaman atmospheric suit"
 	icon_state = "plasmamanAtmos_suit"
-	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 0, shock = 15)
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/atmostech
@@ -120,7 +120,7 @@
 /obj/item/clothing/suit/space/eva/plasmaman/engineer
 	name = "plasmaman engineer suit"
 	icon_state = "plasmamanEngineer_suit"
-	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75, shock = 15)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/engineer
 	name = "plasmaman engineer helmet"
@@ -221,7 +221,7 @@
 /obj/item/clothing/suit/space/eva/plasmaman/miner
 	name = "plasmaman miner suit"
 	icon_state = "plasmamanMiner_suit"
-	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50)
+	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 50, bio = 100, rad = 50, shock = 25)
 	slowdown = 1
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/miner
@@ -339,7 +339,7 @@
 /obj/item/clothing/suit/space/eva/plasmaman/security
 	name = "plasmaman security suit"
 	icon_state = "plasmamanSecurity_suit"
-	armor = list(melee = 15, bullet = 15, laser = 15, energy = 10, bomb = 10, bio = 100, rad = 50)
+	armor = list(melee = 15, bullet = 15, laser = 15, energy = 10, bomb = 10, bio = 100, rad = 50, shock = 25)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/security
 	name = "plasmaman security helmet"
@@ -390,7 +390,7 @@
 /obj/item/clothing/suit/space/eva/plasmaman/nuclear
 	name = "blood red plasmaman suit"
 	icon_state = "plasmaman_Nukeops"
-	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
+	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50, shock = 50)
 	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/gun,/obj/item/ammo_casing,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs)
 
 /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear

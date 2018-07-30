@@ -14,7 +14,7 @@
 	desc = "Has a tag on it: Totally not property of a hostile corporation, honest!"
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
-	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, shock = 25)
 
 
 //Green syndicate space suit
@@ -86,7 +86,7 @@ obj/item/clothing/head/helmet/space/syndicate/black/strike
 obj/item/clothing/suit/space/syndicate/black/strike
 	name = "Syndicate Strike Team commando space suit"
 	desc = "A heavily armored, black space suit that is only given to high-ranking Syndicate operatives."
-	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100, shock = 95) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
 
@@ -159,7 +159,7 @@ obj/item/clothing/head/helmet/space/syndicate/black/red/strike
 obj/item/clothing/suit/space/syndicate/black/red/strike
 	name = "Syndicate Strike Team leader space suit"
 	desc = "A heavily armored, black and red space suit that is only given to elite Syndicate operatives, it looks particularly menacing."
-	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100) //Matches DS gear.
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100, shock = 95) //Matches DS gear.
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	unacidable = 1
 

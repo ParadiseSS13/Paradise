@@ -30,7 +30,7 @@
 	item_state = "capspacesuit"
 	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/tank, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
-	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
+	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50, shock = 70)
 	species_restricted = list("exclude", "Diona", "Wryn")
 	species_fit = list("Vox")
 	sprite_sheets = list(
@@ -57,7 +57,7 @@
 	icon_state = "deathsquad"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
-	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100, shock = 95)
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
@@ -69,7 +69,7 @@
 	icon_state = "heavy"
 	item_state = "swat_suit"
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
-	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 50, bio = 90, rad = 20)
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 50, bio = 90, rad = 20, shock = 15)
 	strip_delay = 120
 	species_restricted = list("exclude", "Diona", "Wryn")
 	species_fit = list("Vox")
@@ -132,7 +132,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank)
 	slowdown = 0
-	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list(melee = 30, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30, shock = 15)
 	strip_delay = 40
 	put_on_delay = 20
 
