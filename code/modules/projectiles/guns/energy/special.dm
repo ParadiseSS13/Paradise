@@ -196,7 +196,7 @@
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
-	select_fire()
+	select_fire(usr)
 
 /obj/item/gun/energy/wormhole_projector/proc/portal_destroyed(obj/effect/portal/P)
 	if(P.icon_state == "portal")
