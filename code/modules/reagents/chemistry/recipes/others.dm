@@ -290,6 +290,15 @@
 	result_amount = 2
 	mix_message = "The substance gives off a lovely scent!"
 
+/datum/chemical_reaction/jestosterone
+	name = "Jestosterone"
+	id = "jestosterone"
+	result = "jestosterone"
+	required_reagents = list("blood" = 1, "sodiumchloride" = 1, "banana" = 1, "lube" = 1, "mercury" = 1) //Or one freshly-squeezed clown
+	min_temp = 374
+	result_amount = 5
+	mix_message = "The substance quickly shifts colour, cycling from red, to yellow, to green, to blue, and finally settles at a vibrant fuchsia."
+
 /datum/chemical_reaction/royal_bee_jelly
 	name = "royal bee jelly"
 	id = "royal_bee_jelly"

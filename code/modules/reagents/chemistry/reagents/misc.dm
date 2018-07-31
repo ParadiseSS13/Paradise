@@ -419,6 +419,44 @@
 /datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
+/datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
+	name = "Jestosterone"
+	id = "jestosterone"
+	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication."
+	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
+	taste_message = "a funny flavour"
+
+/datum/reagent/jestosterone/reaction_mob(mob/living/M, method, volume)
+	if(ishuman(M) && M.job in list("Clown"))
+		to_chat(M, "<span class='notice'>Whatever that was, it feels great!</span>")
+	else
+		to_chat(M, "<span class='warning'>Something doesn't feel right...</span>")
+		M.AdjustDizzy(volume)
+	..()
+
+/datum/reagent/jestosterone/on_mob_life(mob/living/M)
+	if(prob(10))
+		M.emote("giggle")
+	if(ishuman(M) && M.job in list("Clown"))
+		M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
+	else
+		M.AdjustDizzy(10, 0, 500)
+		M.Druggy(15)
+		if(prob(10))
+			M.EyeBlurry(5)
+		else if(prob(5))
+			var/list/clown_message = list("You feel light-headed.",
+			"You can't see straight.",
+			"You feel about as funny as the station clown.",
+			"Bright colours and rainbows cloud your vision.",
+			"Your funny bone aches.",
+			"You can hear bike horns in the distance.",
+			"You feel like <em>SHOUTING</em>!",
+			"Sinister laughter echoes in your ears.",
+			"Your legs feel like jelly.",
+			"You feel like telling a pun.")
+			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
+	..()
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"

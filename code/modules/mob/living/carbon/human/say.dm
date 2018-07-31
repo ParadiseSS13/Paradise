@@ -124,9 +124,6 @@
 		|| istype(get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown))
 		span = "sans"
 
-	if(WINGDINGS in mutations)
-		span = "wingdings"
-
 	var/list/parent = ..()
 	verb = parent["verb"]
 

@@ -26,6 +26,8 @@
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
 					return 1
+	if(reagents.has_reagent("jestosterone") && I.force)
+		playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
 	return ..()
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
@@ -60,6 +62,11 @@
 			adjustFireLoss(M.powerlevel * rand(6,10))
 			updatehealth("slime attack")
 		return 1
+
+/mob/living/carbon/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if((M.a_intent == INTENT_HARM) && reagents.has_reagent("jestosterone"))
+		playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+	..()
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
 	if((!mask_only && head && (head.flags_cover & HEADCOVERSMOUTH)) || (!head_only && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH)))
