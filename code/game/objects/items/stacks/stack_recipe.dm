@@ -36,32 +36,11 @@
 	..()
 
 
-/datum/stack_recipe/p_tile
-/datum/stack_recipe/p_tile/post_build(var/obj/item/stack/S, var/obj/result)
+/datum/stack_recipe/dangerous
+/datum/stack_recipe/dangerous/post_build(var/obj/item/stack/S, var/obj/result)
 	var/turf/targ = get_turf(usr)
-	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [ADMIN_COORDJMP(targ)]!",0,1)
-	log_game("[title] made by [key_name_admin(usr)]at [targ.x], [targ.y], [targ.z].")
-	..()
-
-/datum/stack_recipe/p_door
-/datum/stack_recipe/p_door/post_build(var/obj/item/stack/S, var/obj/result)
-	var/turf/targ = get_turf(usr)
-	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [ADMIN_COORDJMP(targ)]!",0,1)
-	log_game("[title] made by [key_name_admin(usr)] at [targ.x], [targ.y], [targ.z].")
-	..()
-
-/datum/stack_recipe/p_scistat
-/datum/stack_recipe/p_scistat/post_build(var/obj/item/stack/S, var/obj/result)
-	var/turf/targ = get_turf(usr)
-	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [ADMIN_COORDJMP(targ)]!",0,1)
-	log_game("[title] made by [key_name_admin(usr)] at [targ.x], [targ.y], [targ.z].")
-	..()
-
-/datum/stack_recipe/p_xenostat
-/datum/stack_recipe/p_xenostat/post_build(var/obj/item/stack/S, var/obj/result)
-	var/turf/targ = get_turf(usr)
-	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [ADMIN_COORDJMP(targ)]!",0,1)
-	log_game("[title] made by [key_name_admin(usr)] at [targ.x], [targ.y], [targ.z].")
+	message_admins("[title] made by [key_name_admin(usr)](<A HREF='?_src_=holder;adminmoreinfo=\ref[usr]'>?</A>) in [get_area(usr)] [ADMIN_COORDJMP(targ)]!",0,1)
+	log_game("[title] made by [key_name_admin(usr)] at [get_area(usr)] [targ.x], [targ.y], [targ.z].")
 	..()
 
 /datum/stack_recipe/rods
