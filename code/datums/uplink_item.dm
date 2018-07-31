@@ -129,6 +129,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/clownmagboots
+	name = "Clown Magboots"
+	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
+	reference = "CM"
+	item = /obj/item/clothing/shoes/magboots/clown
+	cost = 3
+	job = list("Clown")
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
@@ -394,6 +402,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 40
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+
+/datum/uplink_item/dangerous/rapid
+	name = "Gloves of the North Star"
+	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed."
+	reference = "RPGD"
+	item = /obj/item/clothing/gloves/fingerless/rapid
+	cost = 8
 
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
@@ -1333,13 +1348,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SYSM"
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
-
-/datum/uplink_item/badass/rapid
-	name = "Gloves of the North Star"
-	desc = "These gloves let the user punch people very fast. Does not improve weapon attack speed or the meaty fists of a hulk."
-	reference = "RPGD"
-	item = /obj/item/clothing/gloves/fingerless/rapid
-	cost = 8
 
 /datum/uplink_item/badass/bundle
 	name = "Syndicate Bundle"

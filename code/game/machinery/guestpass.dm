@@ -48,20 +48,22 @@
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
 
-/obj/machinery/computer/guestpass/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/card/id))
+/obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id))
 		if(!giver)
-			user.drop_item()
-			O.loc = src
-			giver = O
-			updateUsrDialog()
+			if(user.drop_item())
+				I.forceMove(src)
+				giver = I
+				updateUsrDialog()
 		else
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
+	else
+		return ..()
 
 /obj/machinery/computer/guestpass/proc/get_changeable_accesses()
 	return giver.access
 
-/obj/machinery/computer/guestpass/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/guestpass/attack_ai(mob/user)
 	return attack_hand(user)
 
 

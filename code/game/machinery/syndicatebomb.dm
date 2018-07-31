@@ -487,7 +487,8 @@
 		else
 			to_chat(user, "<span class='warning'>The [I] wont fit! The [src] can only hold up to [max_beakers] containers.</span>")
 			return
-	..()
+	else
+		return ..()
 
 /obj/item/bombcore/chemical/CheckParts(list/parts_list)
 	..()

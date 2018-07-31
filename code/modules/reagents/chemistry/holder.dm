@@ -209,17 +209,17 @@ var/const/INGEST = 2
 			//Check if this mob's species is set and can process this type of reagent
 			var/can_process = 0
 			//If we somehow avoided getting a species or reagent_tag set, we'll assume we aren't meant to process ANY reagents (CODERS: SET YOUR SPECIES AND TAG!)
-			if(H.species && H.species.reagent_tag)
-				if((R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
+			if(H.dna.species && H.dna.species.reagent_tag)
+				if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
 					can_process = 1
-				if((R.process_flags & ORGANIC) && (H.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
+				if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
 					can_process = 1
 				//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-				if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_DUO))
+				if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
 					can_process = 1
 
 			//If handle_reagents returns 0, it's doing the reagent removal on its own
-			var/species_handled = !(H.species.handle_reagents(H, R))
+			var/species_handled = !(H.dna.species.handle_reagents(H, R))
 			can_process = can_process && !species_handled
 			//If the mob can't process it, remove the reagent at it's normal rate without doing any addictions, overdoses, or on_mob_life() for the reagent
 			if(can_process == 0)
@@ -481,13 +481,13 @@ var/const/INGEST = 2
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		//Check if this mob's species is set and can process this type of reagent
-		if(H.species && H.species.reagent_tag)
-			if((R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
+		if(H.dna.species && H.dna.species.reagent_tag)
+			if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
 				can_process = 1
-			if((R.process_flags & ORGANIC) && (H.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
+			if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
 				can_process = 1
 			//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-			if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.species.reagent_tag & PROCESS_DUO))
+			if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
 				can_process = 1
 	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 	else

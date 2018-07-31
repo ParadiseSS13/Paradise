@@ -7,8 +7,6 @@
 	var/implant_color = "#FFFFFF"
 	var/implant_overlay
 	tough = TRUE // Immune to damage
-	sterile = TRUE // Doesn't accumulate germs
-	robotic = 2 // these are cybernetic after all
 
 /obj/item/organ/internal/cyberimp/New(var/mob/M = null)
 	. = ..()

@@ -48,7 +48,10 @@
 /obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
 	if(istype(tool, /obj/item/screwdriver) && isturf(user.loc))
 		var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-		if(direction == "Cancel") return
+		if(direction == "Cancel")
+			return
+		if(QDELETED(src))
+			return
 		var/obj/structure/sign/S = new(user.loc)
 		switch(direction)
 			if("North")
@@ -59,7 +62,8 @@
 				S.pixel_y = -32
 			if("West")
 				S.pixel_x = -32
-			else return
+			else
+				return
 		S.name = name
 		S.desc = desc
 		S.icon_state = sign_state

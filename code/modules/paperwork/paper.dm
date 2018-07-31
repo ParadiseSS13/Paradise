@@ -34,6 +34,8 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
+	var/paper_width = 400//Width of the window that opens
+	var/paper_height = 400//Height of the window that opens
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -72,12 +74,12 @@
 	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
 		if(view)
-			usr << browse(data, "window=[name]")
+			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
 			onclose(usr, "[name]")
 	else
 		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>"
 		if(view)
-			usr << browse(data, "window=[name]")
+			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
 			onclose(usr, "[name]")
 	return data
 
@@ -476,6 +478,20 @@
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
+/obj/item/paper/fortune
+	name = "fortune"
+	icon_state = "slip"
+	paper_height = 150
+
+/obj/item/paper/fortune/New()
+	..()
+	var/fortunemessage = pick(GLOB.fortune_cookie_messages)
+	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
+	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
+
+/obj/item/paper/fortune/update_icon()
+	..()
+	icon_state = initial(icon_state)
 /*
  * Premade paper
  */

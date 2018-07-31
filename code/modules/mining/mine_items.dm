@@ -523,7 +523,7 @@
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
-/obj/structure/fans/New(loc)
+/obj/structure/fans/Initialize(loc)
 	..()
 	air_update_turf(1)
 

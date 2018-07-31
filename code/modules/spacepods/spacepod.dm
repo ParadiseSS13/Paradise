@@ -812,10 +812,17 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 	if(!istype(user))
 		return
 
-	if(usr.incapacitated()) // unconscious and restrained people can't let themselves out
+	if(usr.stat != CONSCIOUS) // unconscious people can't let themselves out
 		return
 
 	occupant_sanity_check()
+
+	if(usr.restrained())
+		to_chat(usr, "<span class='notice'>You attempt to stumble out of the [src]. This will take two minutes.</span>")
+		if(pilot)
+			to_chat(pilot, "<span class='warning'>[usr] is trying to escape the [src].</span>")
+		if(!do_after(usr, 1200, target = src))
+			return
 
 	if(user == pilot)
 		user.forceMove(get_turf(src))

@@ -400,7 +400,7 @@
 		if(!S)
 			return
 
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
+		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(!isOn())		//why wasn't this being checked already?

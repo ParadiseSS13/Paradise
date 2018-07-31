@@ -21,13 +21,12 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	src.update_status()
 
+	space_manager.initialize() //Before the MC starts up
 
 	. = ..()
 
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
-
-	space_manager.initialize() //Before the MC starts up
 
 	Master.Initialize(10, FALSE)
 
@@ -494,4 +493,3 @@ proc/establish_db_connection()
 		return 1
 
 #undef FAILED_DB_CONNECTION_CUTOFF
-

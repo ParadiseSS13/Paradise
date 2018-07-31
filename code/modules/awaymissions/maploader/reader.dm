@@ -57,8 +57,6 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/list/grid_models = list()
 	var/key_len = 0
 
-
-
 	var/dmm_suite/loaded_map/LM = new
 	// This try-catch is used as a budget "Finally" clause, as the dirt count
 	// needs to be reset
@@ -128,7 +126,6 @@ var/global/dmm_suite/preloader/_preloader = new
 					bounds[MAP_MAXY] = max(bounds[MAP_MAXY], min(ycrd, world.maxy))
 
 				var/maxx = xcrdStart
-				log_debug("[xcrdStart]")
 				if(measureOnly)
 					for(var/line in gridLines)
 						maxx = max(maxx, xcrdStart + length(line) / key_len - 1)
