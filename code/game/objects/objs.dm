@@ -282,3 +282,6 @@ a {
 /obj/vv_get_dropdown()
 	. = ..()
 	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
+
+/obj/proc/check_uplink_validity()
+	return 1
