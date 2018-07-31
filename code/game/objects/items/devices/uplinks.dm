@@ -153,7 +153,7 @@ var/list/world_uplinks = list()
 				var/datum/uplink_item/UI = item
 				var/path = UI.refund_path || UI.item
 				var/cost = UI.refund_amount || UI.cost
-				if(I.type == path && UI.refundable && I.check_uplink_validity())
+				if(I.type == path && UI.refundable)
 					uses += cost
 					used_TC -= cost
 					to_chat(user, "<span class='notice'>[I] refunded.</span>")
