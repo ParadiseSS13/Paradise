@@ -43,15 +43,15 @@
 	if(shocked)
 		shock(user,50)
 	if(panel_open)
-		var/dat as text
+		var/list/dat = list()
 		dat += "[src.name] Wires:<BR>"
-		for(var/wire in src.wires)
-			dat += text("[wire] Wire: <A href='?src=[UID()];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</A> <A href='?src=[UID()];wire=[wire];pulse=1'>Pulse</A><BR>")
+		for(var/wire in wires)
+			dat += "[wire] Wire: <A href='?src=[UID()];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</A> <A href='?src=[UID()];wire=[wire];pulse=1'>Pulse</A><BR>"
 
-		dat += text("The red light is [src.disabled ? "off" : "on"].<BR>")
-		dat += text("The green light is [src.shocked ? "off" : "on"].<BR>")
-		dat += text("The blue light is [src.hacked ? "off" : "on"].<BR>")
-		user << browse("<HTML><HEAD><TITLE>[src.name] Hacking</TITLE></HEAD><BODY>[dat]</BODY></HTML>","window=hack_win")
+		dat += "The red light is [src.disabled ? "off" : "on"].<BR>"
+		dat += "The green light is [src.shocked ? "off" : "on"].<BR>"
+		dat += "The blue light is [src.hacked ? "off" : "on"].<BR>"
+		user << browse("<HTML><HEAD><TITLE>[src.name] Hacking</TITLE></HEAD><BODY>[dat.Join("")]</BODY></HTML>","window=hack_win")
 	return
 
 
