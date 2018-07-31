@@ -405,7 +405,8 @@
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-	var/{x; y;}
+	var/x
+	var/y
 	if(istype(S, /obj/item/stamp/captain) || istype(S, /obj/item/stamp/centcom))
 		x = rand(-2, 0)
 		y = rand(-1, 2)
