@@ -12,7 +12,7 @@ var/list/world_uplinks = list()
 	var/welcome 			// Welcoming menu message
 	var/uses 				// Numbers of crystals
 	var/hidden_crystals = 0
-	var/list/ItemsCategory	// List of categories with lists of items
+	var/list/uplink_items	// List of categories with lists of items
 	var/list/ItemsReference	// List of references with an associated item
 	var/list/nanoui_items	// List of items for NanoUI use
 	var/nanoui_menu = 0		// The current menu we are in
@@ -32,7 +32,7 @@ var/list/world_uplinks = list()
 	..()
 	welcome = ticker.mode.uplink_welcome
 	uses = ticker.mode.uplink_uses
-	ItemsCategory = get_uplink_items()
+	uplink_items = get_uplink_items()
 
 	world_uplinks += src
 
@@ -57,14 +57,14 @@ var/list/world_uplinks = list()
 	dat += "<I>Each item costs a number of telecrystals as indicated by the number following its name.</I><br>"
 
 	var/category_items = 1
-	for(var/category in ItemsCategory)
+	for(var/category in uplink_items)
 		if(category_items < 1)
 			dat += "<i>We apologize, as you could not afford anything from this category.</i><br>"
 		dat += "<br>"
 		dat += "<b>[category]</b><br>"
 		category_items = 0
 
-		for(var/datum/uplink_item/I in ItemsCategory[category])
+		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.cost > uses)
 				continue
 			if(I.job && I.job.len)
@@ -87,9 +87,9 @@ var/list/world_uplinks = list()
 	var/list/nano = new
 	var/list/reference = new
 
-	for(var/category in ItemsCategory)
+	for(var/category in uplink_items)
 		nano[++nano.len] = list("Category" = category, "items" = list())
-		for(var/datum/uplink_item/I in ItemsCategory[category])
+		for(var/datum/uplink_item/I in uplink_items[category])
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue
@@ -148,26 +148,18 @@ var/list/world_uplinks = list()
 /obj/item/uplink/proc/refund(mob/user as mob)
 	var/obj/item/I = user.get_active_hand()
 	if(I) // Make sure there's actually something in the hand before even bothering to check
-		for(var/item in subtypesof(/datum/uplink_item))
-			var/datum/uplink_item/UI = item
-			var/path = null
-			if(initial(UI.refund_path))
-				path = initial(UI.refund_path)
-			else
-				path = initial(UI.item)
-			var/cost = 0
-			if(initial(UI.refund_amount))
-				cost = initial(UI.refund_amount)
-			else
-				cost = initial(UI.cost)
-			var/refundable = initial(UI.refundable)
-			if(I.type == path && refundable && I.check_uplink_validity())
-				uses += cost
-				used_TC -= cost
-				to_chat(user, "<span class='notice'>[I] refunded.</span>")
-				qdel(I)
-				return
-	..()
+		for(var/category in uplink_items)
+			for(var/item in uplink_items[category])
+				var/datum/uplink_item/UI = item
+				var/path = UI.refund_path || UI.item
+				var/cost = UI.refund_amount || UI.cost
+				if(I.type == path && UI.refundable && I.check_uplink_validity())
+					uses += cost
+					used_TC -= cost
+					to_chat(user, "<span class='notice'>[I] refunded.</span>")
+					qdel(I)
+					return
+		..()
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
 /* How to create an uplink in 3 easy steps!

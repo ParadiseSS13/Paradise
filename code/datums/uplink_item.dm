@@ -1,16 +1,13 @@
-var/list/uplink_items = list()
+GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /proc/get_uplink_items(var/job = null)
-	// If not already initialized..
+	var/list/uplink_items = list()
 	if(!uplink_items.len)
 
-		// Fill in the list	and order it like this:
-		// A keyed list, acting as categories, which are lists to the datum.
-
 		var/list/last = list()
-		for(var/item in typesof(/datum/uplink_item))
+		for(var/path in GLOB.uplink_items)
 
-			var/datum/uplink_item/I = new item()
+			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
 			if(I.gamemodes.len && ticker && !(ticker.mode.type in I.gamemodes))
@@ -528,6 +525,7 @@ var/list/uplink_items = list()
 	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
 	reference = "SC"
 	item = /obj/item/antag_spawner/borg_tele
+	refund_path = /obj/item/antag_spawner/borg_tele
 	cost = 50
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
