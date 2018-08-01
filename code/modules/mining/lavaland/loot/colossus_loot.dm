@@ -289,7 +289,7 @@
 			if(ishuman(i))
 				var/mob/living/carbon/human/H = i
 				if(H.stat == DEAD)
-					H.set_species("Shadow")
+					H.set_species(/datum/species/shadow)
 					H.revive()
 					H.disabilities |= NOCLONE //Free revives, but significantly limits your options for reviving except via the crystal
 					H.grab_ghost(force = TRUE)

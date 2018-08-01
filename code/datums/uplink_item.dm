@@ -129,6 +129,14 @@ var/list/uplink_items = list()
 	cost = 5
 	job = list("Clown")
 
+/datum/uplink_item/jobspecific/clownmagboots
+	name = "Clown Magboots"
+	desc = "A pair of modified clown shoes fitted with an advanced magnetic traction system. Look and sound exactly like regular clown shoes unless closely inspected."
+	reference = "CM"
+	item = /obj/item/clothing/shoes/magboots/clown
+	cost = 3
+	job = list("Clown")
+
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun + Assassination Darts"
@@ -1021,9 +1029,8 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/suits/hardsuit
 	name = "Syndicate Hardsuit"
-	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armoring and a built in jetpack \
-			that runs off standard atmospheric tanks. When the built in helmet is deployed your identity will be \
-			protected, even in death, as the suit cannot be removed by outside forces. Toggling the suit in and out of \
+	desc = "The feared suit of a syndicate nuclear agent. Features armor and a combat mode \
+			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
 			Nanotrasen crew who spot these suits are known to panic."

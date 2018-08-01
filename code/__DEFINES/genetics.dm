@@ -143,3 +143,4 @@
 #define NOCRITDAMAGE	15
 #define RESISTHOT		16
 #define RESISTCOLD		17
+#define NO_EXAMINE		18

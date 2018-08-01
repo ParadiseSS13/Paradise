@@ -62,7 +62,7 @@
 	animation.master = src
 
 	flick("dust-h", animation)
-	new species.remains_type(get_turf(src))
+	new dna.species.remains_type(get_turf(src))
 
 	spawn(15)
 		if(animation)	qdel(animation)
@@ -103,8 +103,8 @@
 	set_heartattack(FALSE)
 
 	//Handle species-specific deaths.
-	if(species)
-		species.handle_death(src)
+	if(dna.species)
+		dna.species.handle_death(src)
 
 	callHook("death", list(src, gibbed))
 

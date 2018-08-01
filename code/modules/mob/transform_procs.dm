@@ -86,7 +86,7 @@
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
 		if(O.mind.role_alt_title == "Android")
-			O.mmi = new /obj/item/mmi/posibrain(O)
+			O.mmi = new /obj/item/mmi/robotic_brain(O)
 		else if(O.mind.role_alt_title == "Robot")
 			O.mmi = null //Robots do not have removable brains.
 		else
