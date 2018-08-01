@@ -1,10 +1,10 @@
 /mob/living/simple_animal/create_mob_hud()
-	hud_used = new /datum/hud/simple(src)
+	hud_used = new /datum/hud/simple_animal(src)
 
-/datum/hud/simple/New(mob/user)
+/datum/hud/simple_animal/New(mob/user)
 	..()
 	var/obj/screen/using
-	using = new /obj/screen/act_intent/simple()
+	using = new /obj/screen/act_intent/simple_animal()
 	using.icon_state = mymob.a_intent
 	static_inventory += using
 	action_intent = using

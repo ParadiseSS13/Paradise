@@ -95,7 +95,7 @@
 	icon_state = "running"
 
 
-/obj/screen/act_intent/simple
+/obj/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_acti
 
