@@ -1,0 +1,5 @@
+author: "CornMyCob"
+delete-after: True
+changes: 
+  - tweak: "The description for miniature energy guns is now accurate"
+  - tweak: "The third person text of someone reinforcing an airlock is now accurate"
