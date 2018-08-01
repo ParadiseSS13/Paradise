@@ -294,7 +294,7 @@
 	name = "Jestosterone"
 	id = "jestosterone"
 	result = "jestosterone"
-	required_reagents = list("blood" = 1, "sodiumchloride" = 1, "banana" = 1, "lube" = 1, "mercury" = 1) //Or one freshly-squeezed clown
+	required_reagents = list("blood" = 1, "sodiumchloride" = 1, "banana" = 1, "lube" = 1, "space_drugs" = 1) //Or one freshly-squeezed clown
 	min_temp = 374
 	result_amount = 5
 	mix_message = "The substance quickly shifts colour, cycling from red, to yellow, to green, to blue, and finally settles at a vibrant fuchsia."
