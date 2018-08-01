@@ -1,4 +1,0 @@
-author: "Tails2091"
-delete-after: True
-changes: 
-  - bugfix: "Karma refund now uses switch statement."
