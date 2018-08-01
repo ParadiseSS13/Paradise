@@ -87,13 +87,13 @@
 	sideslist = list("heads")
 	credits = 20
 
-/obj/item/coin/antagtoken
-	name = "antag token"
+/obj/item/coin/syndicate
+	name = "syndicate coin"
 	icon_state = "coin_valid_valid"
 	cmineral = "valid"
 	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
 	sideslist = list("valid", "salad")
-	credits = 20
+	credits = 160
 
 /obj/item/coin/antagtoken/New()
 	return

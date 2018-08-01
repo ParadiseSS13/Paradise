@@ -186,6 +186,8 @@
 		/obj/item/clothing/under/syndicate = 1,
 		/obj/item/clothing/under/syndicate/tacticool = 1,
 		/obj/item/clothing/mask/gas/syndicate = 1,
+		/obj/item/suppressor = 1,
+		/obj/item/coin/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/cutouts = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/spawn_item(turf/T)
@@ -220,6 +222,11 @@
 		/obj/item/stamp/chameleon = 1,
 		/obj/item/flag/chameleon = 1,
 		/obj/item/lighter/zippo/gonzofist = 1,
+		/obj/item/clothing/gloves/fingerless/rapid = 1,
+		/obj/item/grenade/spawnergrenade/manhacks = 1,
+		/obj/item/grenade/syndieminibomb = 1,
+		/obj/item/storage/box/syndie_kit/throwing_weapons = 1,
+		/obj/item/pen/edagger = 1,
 		/obj/item/stack/sheet/mineral/plasma{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/silver{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1)
@@ -229,7 +236,6 @@
 	// Loot schema: medkits, very useful devices (jammer, illegal upgrade, RCD), better quality ammo (AP, fire), basic weapons (pistol, empgrenade), high value ores (diamond, uranium)
 	result = list(/obj/item/jammer = 1,
 		/obj/item/storage/firstaid = 1,
-		/obj/item/storage/firstaid/tactical = 1,
 		/obj/item/storage/box/syndie_kit/bonerepair = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
@@ -247,9 +253,11 @@
 		/obj/item/grenade/spawnergrenade/feral_cats = 1,
 		/obj/item/ammo_box/magazine/m10mm/ap = 1,
 		/obj/item/ammo_box/magazine/m10mm/fire = 1,
-		/obj/item/storage/box/syndie_kit/throwing_weapons = 1,
-		/obj/item/gun/syringe/syndicate = 1,
-		/obj/item/suppressor = 1,
+		/obj/item/ammo_box/magazine/m10mm/hp = 1,
+		/obj/item/rad_laser = 1,
+		/obj/item/storage/box/syndie_kit/emp = 1,
+		/obj/item/batterer = 1,
+		/obj/item/toy/carpplushie/dehy_carp = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
@@ -258,6 +266,7 @@
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(/obj/item/gun/projectile/automatic/c20r = 1,
 		/obj/item/gun/projectile/automatic/m90 = 1,
+		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
 		/obj/item/melee/energy/sword/saber = 1,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
 		/obj/item/gun/projectile/revolver = 1,
@@ -269,7 +278,6 @@
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
 		/obj/item/storage/box/syndie_kit/atmosgasgrenades = 1,
-		/obj/item/grenade/syndieminibomb = 1,
 		/obj/item/grenade/plastic/x4 = 1)
 
 
