@@ -427,24 +427,26 @@
 	taste_message = "a funny flavour"
 
 /datum/reagent/jestosterone/reaction_mob(mob/living/M, method, volume)
-	if(ishuman(M) && M.job in list("Clown"))
+	..()
+	if(M.reagents.has_reagent("jestosterone"))
+		return
+	if(M.mind && (M.mind.assigned_role == "Clown" || M.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD))
 		to_chat(M, "<span class='notice'>Whatever that was, it feels great!</span>")
 	else
 		to_chat(M, "<span class='warning'>Something doesn't feel right...</span>")
 		M.AdjustDizzy(volume)
-	..()
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/M)
 	if(prob(10))
 		M.emote("giggle")
-	if(ishuman(M) && M.job in list("Clown"))
+	if(M.mind && (M.mind.assigned_role == "Clown" || M.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD))
 		M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
 		M.AdjustDizzy(10, 0, 500)
 		M.Druggy(15)
 		if(prob(10))
 			M.EyeBlurry(5)
-		else if(prob(5))
+		if(prob(6))
 			var/list/clown_message = list("You feel light-headed.",
 			"You can't see straight.",
 			"You feel about as funny as the station clown.",
