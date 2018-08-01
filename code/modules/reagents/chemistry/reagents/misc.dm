@@ -428,13 +428,12 @@
 
 /datum/reagent/jestosterone/reaction_mob(mob/living/M, method, volume)
 	..()
-	if(M.reagents.has_reagent("jestosterone"))
-		return
 	if(M.mind && (M.mind.assigned_role == "Clown" || M.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD))
 		to_chat(M, "<span class='notice'>Whatever that was, it feels great!</span>")
 	else
-		to_chat(M, "<span class='warning'>Something doesn't feel right...</span>")
 		M.AdjustDizzy(volume)
+		if(!M.reagents.has_reagent("jestosterone"))
+			to_chat(M, "<span class='warning'>Something doesn't feel right...</span>")
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/M)
 	if(prob(10))
