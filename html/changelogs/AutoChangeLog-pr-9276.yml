@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - tweak: "Heaters and freezers now have min and max buttons"
