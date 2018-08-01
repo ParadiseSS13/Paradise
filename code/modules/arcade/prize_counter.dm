@@ -79,49 +79,36 @@ html {
 	background:#333;
 	color:#999;
 }
-table {
-	background:#303030;
-	border-collapse: collapse;
-	border:1px solid #232323;
-}
-caption {
-    text-align:left;
-}
+
+table {background:#303030;}
+
+caption {text-align:left;}
+
 a {
 	color:#cfcfcf;
 	text-decoration:none;
 	font-weight:bold;
 }
 
-a:hover {
-	color:#ffffff;
-}
-p {
-	margin:0;
-}
-tr.dark {
-	background:#303030;
-}
-tr.light {
-	background:#3f3f3f;
-}
-td,th {
-	padding:15px;
-	border-bottom:1px solid #232323;
-}
+a:hover {color:#ffffff;}
+
+p {margin:0;}
+
+tr.dark {background:#303030;}
+
+tr.light {background:#3f3f3f;}
+
+td,th {padding:15px;}
+
 td.cost {
 	font-size:20pt;
 	font-weight:bold;
 	text-align:center;
 }
 
-td.cost.affordable {
-	background:green;
-}
+td.cost.affordable {background:green;}
 
-td.cost.toomuch {
-	background:maroon;
-}
+td.cost.toomuch {background:maroon;}
 
 		</style>
 	</head>
