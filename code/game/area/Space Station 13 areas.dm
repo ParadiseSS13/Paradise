@@ -744,11 +744,12 @@ var/list/ghostteleportlocs = list()
 	if(comms_online)
 		spawn(0)
 			for(var/obj/effect/landmark/L in landmarks_list)
-				if(L.name == "syndi_depot_backup")
-					var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
-					S.name = "Syndicate Backup " + "([rand(1, 1000)])"
-					S.depotarea = src
-					list_add(S, guard_list)
+				if(prob(50))
+					if(L.name == "syndi_depot_backup")
+						var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
+						S.name = "Syndicate Backup " + "([rand(1, 1000)])"
+						S.depotarea = src
+						list_add(S, guard_list)
 	else if(!silent)
 		announce_here("Depot Communications Offline", "Comms computer is damaged, destroyed or depowered. Unable to call in backup from Syndicate HQ.")
 	updateicon()
@@ -836,7 +837,6 @@ var/list/ghostteleportlocs = list()
 	for(var/obj/effect/landmark/L in landmarks_list)
 		if(L.name == "syndi_depot_shield")
 			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
-			S.dir = L.dir
 			shield_list += S.UID()
 
 /area/syndicate_depot/proc/shields_down()
@@ -927,6 +927,25 @@ var/list/ghostteleportlocs = list()
 	name = "Suspicious Asteroid"
 	icon_state = "green"
 
+/area/syndicate_depot/perimeter
+	name = "Suspicious Asteroid Perimeter"
+	icon_state = "yellow"
+
+
+/area/syndicate_depot/perimeter/proc/perimeter_shields_up()
+	if(shield_list.len)
+		return
+	for(var/turf/T in src)
+		var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(T)
+		S.alpha = 0
+		shield_list += S.UID()
+
+/area/syndicate_depot/perimeter/proc/perimeter_shields_down()
+	for(var/shuid in shield_list)
+		var/obj/machinery/shieldwall/syndicate/S = locateUID(shuid)
+		if(S)
+			qdel(S)
+	shield_list = list()
 
 
 //EXTRA

@@ -77,7 +77,7 @@
 	. = ..()
 	if(alerts_when_broken && !has_alerted)
 		has_alerted = TRUE
-		raise_alert("[src] damaged.")
+		raise_alert("[src] was damaged.")
 	disable_special_functions()
 
 /obj/machinery/computer/syndicate_depot/proc/disable_special_functions()
@@ -159,8 +159,6 @@
 	var menutext = {"<B>Syndicate Depot Fusion Reactor Control</B><HR>
 	<BR><BR><a href='?src=[UID()];primary=1'>Disable Containment Field</a>
 	<BR>"}
-	if(check_rights(R_ADMIN, 0, user))
-		menutext += {"(ADMIN) Defense Shield: [depotarea.shield_list.len ? "ON" : "OFF"] (<a href='?src=[UID()];secondary=1'>[depotarea.shield_list.len ? "Disable" : "Enable"]</a>)<BR>"}
 	return menutext
 
 /obj/machinery/computer/syndicate_depot/selfdestruct/primary(mob/user)
@@ -174,10 +172,51 @@
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
 
 
-/obj/machinery/computer/syndicate_depot/selfdestruct/secondary(mob/user)
+// Shield computer, used to manipulate base shield, and armory shield
+
+/obj/machinery/computer/syndicate_depot/shieldcontrol
+	name = "shield control computer"
+	icon_screen = "accelerator"
+	req_access = list(access_syndicate_leader)
+	alerts_when_broken = TRUE
+	var/area/syndicate_depot/perimeter/perimeterarea
+
+/obj/machinery/computer/syndicate_depot/shieldcontrol/New()
+	. = ..()
+	perimeterarea = locate(/area/syndicate_depot/perimeter)
+	if(istype(perimeterarea) && (GAMEMODE_IS_NUCLEAR || prob(20)))
+		spawn(200)
+			perimeterarea.perimeter_shields_up()
+
+/obj/machinery/computer/syndicate_depot/shieldcontrol/Destroy()
+	if(istype(perimeterarea) && perimeterarea.shield_list.len)
+		perimeterarea.perimeter_shields_down()
+	return ..()
+
+/obj/machinery/computer/syndicate_depot/shieldcontrol/get_menu(mob/user)
+	var menutext = {"<B>Syndicate Depot Shield Grid Control</B><HR>
+	<BR>"}
+	menutext += {"(SYNDI-LEADER) Whole-base Shield: [perimeterarea.shield_list.len ? "ON" : "OFF"] (<a href='?src=[UID()];primary=1'>[perimeterarea.shield_list.len ? "Disable" : "Enable"]</a>)<BR>"}
+	menutext += {"(SYNDI-LEADER) Armory Shield: [depotarea.shield_list.len ? "ON" : "OFF"] (<a href='?src=[UID()];secondary=1'>[depotarea.shield_list.len ? "Disable" : "Enable"]</a>)<BR>"}
+	return menutext
+
+/obj/machinery/computer/syndicate_depot/shieldcontrol/primary(mob/user)
 	if(..())
 		return
-	if(!check_rights(R_ADMIN, 0, user))
+	if(depotarea.used_self_destruct)
+		playsound(user, sound_no, 50, 0)
+		return
+	if(!istype(perimeterarea))
+		return
+	if(perimeterarea.shield_list.len)
+		perimeterarea.perimeter_shields_down()
+	else
+		perimeterarea.perimeter_shields_up()
+	playsound(user, sound_yes, 50, 0)
+
+
+/obj/machinery/computer/syndicate_depot/shieldcontrol/secondary(mob/user)
+	if(..())
 		return
 	if(!istype(depotarea))
 		return
@@ -185,6 +224,7 @@
 		depotarea.shields_down()
 	else
 		depotarea.shields_up()
+	playsound(user, sound_yes, 50, 0)
 
 
 // Syndicate comms computer, used to activate visitor mode, and message syndicate. Traitor-only use.
@@ -200,6 +240,11 @@
 	. = ..()
 	if(depotarea)
 		depotarea.comms_computer = src
+
+/obj/machinery/computer/syndicate_depot/syndiecomms/Destroy()
+	if(depotarea)
+		depotarea.comms_computer = null
+	return ..()
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/get_menu(mob/user)
 	var/menu = "<B>Syndicate Communications Relay</B><HR>"
