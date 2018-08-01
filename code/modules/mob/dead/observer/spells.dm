@@ -43,7 +43,7 @@ var/global/list/boo_phrases=list(
 
 			// Ro-ro-rotate your chair
 			if(istype(A,/obj/structure/stool/bed/chair))
-				var/structure/stool/bed/chair/C = A
+				var/obj/structure/stool/bed/chair/C = A
 				if(C)
 					C.rotate()
 
