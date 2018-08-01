@@ -84,6 +84,21 @@ table {background:#303030;}
 
 caption {text-align:left;}
 
+.button {
+	color:#cfcfcf;
+	text-decoration:none;
+	font-weight:bold;
+	text-align:center;
+	width:75px;
+	padding:21px;
+	box-sizing:border-box;
+	background:none;
+	border:none;
+	display: inline-block;
+}
+
+.button:hover {color:#ffffff;}
+
 a {
 	color:#cfcfcf;
 	text-decoration:none;
@@ -100,15 +115,11 @@ tr.light {background:#3f3f3f;}
 
 td,th {padding:15px;}
 
-td.cost {
-	font-size:20pt;
-	font-weight:bold;
-	text-align:center;
-}
+th.cost{padding:0px}
 
-td.cost.affordable {background:green;}
+th.cost.affordable {background:green;}
 
-td.cost.toomuch {background:maroon;}
+th.cost.toomuch {background:maroon;}
 
 		</style>
 	</head>
@@ -148,9 +159,9 @@ td.cost.toomuch {background:maroon;}
 				</td>
 		"}
 		dat += {"
-				<td class="cost [cost_class]">
-					<a href="byond://?src=[UID()];buy=[itemID]">[item.cost]</a>
-				</td>
+				<th class="cost [cost_class]">
+					<a href="byond://?src=[UID()];buy=[itemID]" class="button">[item.cost]</a>
+				</th>
 			</tr>
 		"}
 
