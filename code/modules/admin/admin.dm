@@ -878,10 +878,10 @@ var/global/nologevent = 0
 				to_chat(usr, "[P.pai_laws]")
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			to_chat(usr, "<b>SILICON [key_name(S, usr)]'s laws:</b>")
+			to_chat(usr, "<b>SILICON [key_name(S, TRUE)]'s laws:</b>")
 
 		if(S.laws == null)
-			to_chat(usr, "[key_name(S, usr)]'s laws are null. Contact a coder.")
+			to_chat(usr, "[key_name(S, TRUE)]'s laws are null. Contact a coder.")
 		else
 			S.laws.show_laws(usr)
 	if(!ai_number)
