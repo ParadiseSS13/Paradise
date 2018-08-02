@@ -307,21 +307,14 @@
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
-		var/turf/T = get_turf(target)
-		var/area/A = get_area(T)
-		if(!T || !is_teleport_allowed(T.z) || A.tele_proof)
-			return
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)
+		var/turf/T = get_turf(target)
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		do_teleport(target, T, teleport_radius)
 
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
-	var/turf/T = get_turf(C)
-	var/area/A = get_area(T)
-	if(!T || !is_teleport_allowed(T.z) || A.tele_proof)
-		qdel(G)
-		return
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
+	var/turf/T = get_turf(C)
 	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
 	do_teleport(C, T, teleport_radius)
 	if(prob(50))
