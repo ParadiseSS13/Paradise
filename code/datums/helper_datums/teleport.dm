@@ -97,7 +97,12 @@
 
 	var/turf/destturf
 	var/turf/curturf = get_turf(teleatom)
+	var/area/curarea = get_area(curturf)
 	var/area/destarea = get_area(destination)
+
+	if(!is_teleport_allowed(curturf.z) || curarea.tele_proof || !is_teleport_allowed(destturf.z) || destarea.tele_proof)
+		return 0
+
 	if(precision)
 		var/list/posturfs = list()
 		var/center = get_turf(destination)
