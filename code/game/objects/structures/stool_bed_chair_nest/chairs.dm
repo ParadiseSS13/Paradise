@@ -56,14 +56,12 @@
 	if(buckled_mob)
 		buckled_mob.dir = dir
 
-/obj/structure/stool/bed/chair/verb/rotate(var/clockwise=0)
+/obj/structure/stool/bed/chair/verb/rotate(var/clockwise as null|num)
 	set name = "Rotate Chair"
 	set category = "Object"
 	set src in oview(1)
 
-	var/degrees = 90
-	if(clockwise)
-		degrees = -90
+	var/degrees = clockwise ? -90 : 90
 
 	if(config.ghost_interaction)
 		setDir(turn(dir, degrees))
