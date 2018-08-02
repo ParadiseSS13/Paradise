@@ -11,7 +11,7 @@
 		var/health = max_health //The shield can only take so much beating (prevents perma-prisons)
 
 /obj/machinery/shield/New()
-	dir = pick(1,2,3,4)
+	dir = pick(NORTH, SOUTH, EAST, WEST)
 	..()
 
 /obj/machinery/shield/Initialize()
@@ -137,10 +137,10 @@
 	var/const/max_health = 100
 	var/health = max_health
 	var/active = 0
-	var/malfunction = 0 //Malfunction causes parts of the shield to slowly dissapate
+	var/malfunction = FALSE //Malfunction causes parts of the shield to slowly dissapate
 	var/list/deployed_shields = list()
-	var/is_open = 0 //Whether or not the wires are exposed
-	var/locked = 0
+	var/is_open = FALSE //Whether or not the wires are exposed
+	var/locked = FALSE
 
 /obj/machinery/shieldgen/Destroy()
 	QDEL_LIST(deployed_shields)
@@ -179,7 +179,7 @@
 
 /obj/machinery/shieldgen/proc/checkhp()
 	if(health <= 30)
-		malfunction = 1
+		malfunction = TRUE
 	if(health <= 0)
 		qdel(src)
 	update_icon()
@@ -193,7 +193,7 @@
 		if(2.0)
 			health -= 30
 			if(prob(15))
-				malfunction = 1
+				malfunction = TRUE
 			checkhp()
 		if(3.0)
 			health -= 10
@@ -204,12 +204,12 @@
 	switch(severity)
 		if(1)
 			health /= 2 //cut health in half
-			malfunction = 1
-			locked = pick(0,1)
+			malfunction = TRUE
+			locked = pick(TRUE, FALSE)
 		if(2)
 			if(prob(50))
 				health *= 0.3 //chop off a third of the health
-				malfunction = 1
+				malfunction = TRUE
 	checkhp()
 
 /obj/machinery/shieldgen/attack_hand(mob/user as mob)
@@ -236,17 +236,17 @@
 
 /obj/machinery/shieldgen/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/emag))
-		malfunction = 1
+		malfunction = TRUE
 		update_icon()
 
 	else if(istype(W, /obj/item/screwdriver))
 		playsound(loc, W.usesound, 100, 1)
 		if(is_open)
 			to_chat(user, "<span class='notice'>You close the panel.</span>")
-			is_open = 0
+			is_open = FALSE
 		else
 			to_chat(user, "<span class='notice'>You open the panel and expose the wiring.</span>")
-			is_open = 1
+			is_open = TRUE
 
 	else if(istype(W, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = W
@@ -255,7 +255,7 @@
 			if(!src || !coil) return
 			coil.use(1)
 			health = max_health
-			malfunction = 0
+			malfunction = TRUE
 			playsound(loc, coil.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
@@ -314,7 +314,7 @@
 		var/last_check = 0
 		var/check_delay = 10
 		var/recalc = 0
-		var/locked = 1
+		var/locked = TRUE
 		var/destroyed = 0
 		var/directwired = 1
 		var/obj/structure/cable/attached		// the attached cable
