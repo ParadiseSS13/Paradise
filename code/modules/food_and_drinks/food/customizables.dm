@@ -378,9 +378,9 @@
 
 /obj/item/reagent_containers/food/snacks/customizable/examine(mob/user)
 	..(user)
-	var/whatsinside = pick(ingredients)
-
-	to_chat(user, "<span class='notice'> You think you can see [whatsinside] in there.</span>")
+	if(LAZYLEN(ingredients))
+		var/whatsinside = pick(ingredients)
+		to_chat(user, "<span class='notice'> You think you can see [whatsinside] in there.</span>")
 
 
 /obj/item/reagent_containers/food/snacks/customizable/proc/newname()
@@ -470,4 +470,3 @@
 			if(unsorted[it] == i)
 				sorted[it] = i
 	return sorted
-
