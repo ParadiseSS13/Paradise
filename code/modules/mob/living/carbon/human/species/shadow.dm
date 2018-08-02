@@ -4,6 +4,7 @@
 
 	icobase = 'icons/mob/human_races/r_shadow.dmi'
 	deform = 'icons/mob/human_races/r_shadow.dmi'
+	dangerous_existence = TRUE
 
 	unarmed_type = /datum/unarmed_attack/claws
 

@@ -3,6 +3,7 @@
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
+	blacklisted = TRUE
 	language = "Wryn Hivemind"
 	tail = "wryntail"
 	punchdamagelow = 0

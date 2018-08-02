@@ -93,6 +93,8 @@
 	var/show_ssd = 1
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 	var/has_gender = TRUE
+	var/blacklisted = FALSE
+	var/dangerous_existence = FALSE
 
 	//Death vars.
 	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
@@ -705,3 +707,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
 	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
 		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling
+
+/proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
+	var/static/list/random_species = list()
+	if(!random_species.len)
+		for(var/thing  in subtypesof(/datum/species))
+			var/datum/species/S = thing
+			if(!initial(S.dangerous_existence) && !initial(S.blacklisted))
+				random_species += initial(S.name)
+	var/picked_species = pick(random_species)
+	var/datum/species/selected_species = GLOB.all_species[picked_species]
+	return species_name ? picked_species : selected_species.type

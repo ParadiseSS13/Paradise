@@ -4,6 +4,7 @@
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
+	blacklisted = TRUE
 
 	blood_color = "#555555"
 	flesh_color = "#222222"
@@ -60,7 +61,7 @@
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE)
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_EXAMINE)
 	burn_mod = 1.1
 	oxy_mod = 0
 	heatmod = 1.1

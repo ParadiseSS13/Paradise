@@ -3,6 +3,7 @@
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
+	dangerous_existence = TRUE
 	language = "Vox-pidgin"
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
@@ -145,6 +146,7 @@
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
 	unarmed_type = /datum/unarmed_attack/claws/armalis
+	blacklisted = TRUE
 
 	warning_low_pressure = 50
 	hazard_low_pressure = 0
