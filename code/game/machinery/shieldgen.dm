@@ -34,10 +34,10 @@
 		return 0
 	return ..()
 
-/obj/machinery/shield/CanAtmosPass(var/turf/T)
+/obj/machinery/shield/CanAtmosPass(turf/T)
 	return !density
 
-/obj/machinery/shield/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/shield/attackby(obj/item/W, mob/user, params)
 	if(!istype(W))
 		return
 
@@ -61,7 +61,7 @@
 
 	..()
 
-/obj/machinery/shield/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/shield/bullet_act(obj/item/projectile/Proj)
 	health -= Proj.damage
 	..()
 	if(health <=0)
@@ -149,7 +149,8 @@
 
 
 /obj/machinery/shieldgen/proc/shields_up()
-	if(active) return 0 //If it's already turned on, how did this get called?
+	if(active)
+		return 0 //If it's already turned on, how did this get called?
 
 	active = 1
 	update_icon()
@@ -231,7 +232,6 @@
 			shields_up()
 		else
 			to_chat(user, "The device must first be secured to the floor.")
-	return
 
 /obj/machinery/shieldgen/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/card/emag))
@@ -316,7 +316,6 @@
 		var/locked = 1
 		var/destroyed = 0
 		var/directwired = 1
-//		var/maxshieldload = 200
 		var/obj/structure/cable/attached		// the attached cable
 		var/storedpower = 0
 		flags = CONDUCT
@@ -330,7 +329,8 @@
 
 	var/obj/structure/cable/C = T.get_cable_node()
 	var/datum/powernet/PN
-	if(C)	PN = C.powernet		// find the powernet of the connected cable
+	if(C)
+		PN = C.powernet		// find the powernet of the connected cable
 
 	if(!PN)
 		power = 0
@@ -349,7 +349,7 @@
 //		message_admins("[PN.load]", 1)
 //		use_power(250) //uses APC power
 
-/obj/machinery/shieldwallgen/attack_hand(mob/user as mob)
+/obj/machinery/shieldwallgen/attack_hand(mob/user)
 	if(state != 1)
 		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
 		return 1
@@ -367,7 +367,8 @@
 		user.visible_message("[user] turned the shield generator off.", \
 			"You turn off the shield generator.", \
 			"You hear heavy droning fade out.")
-		for(var/dir in list(1,2,4,8)) cleanup(dir)
+		for(var/dir in list(1,2,4,8))
+			cleanup(dir)
 	else
 		active = 1
 		icon_state = "Shield_Gen +a"
@@ -385,8 +386,6 @@
 		storedpower = maxstoredpower
 	if(storedpower <= 0)
 		storedpower = 0
-//	if(shieldload >= maxshieldload) //there was a loop caused by specifics of process(), so this was needed.
-//		shieldload = maxshieldload
 
 	if(active == 1)
 		if(!state == 1)
@@ -407,9 +406,10 @@
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
-			for(var/dir in list(1,2,4,8)) cleanup(dir)
+			for(var/dir in list(1,2,4,8))
+				cleanup(dir)
 
-/obj/machinery/shieldwallgen/proc/setup_field(var/NSEW = 0)
+/obj/machinery/shieldwallgen/proc/setup_field(NSEW = 0)
 	var/turf/T = loc
 	var/turf/T2 = loc
 	var/obj/machinery/shieldwallgen/G
@@ -485,7 +485,7 @@
 		add_fingerprint(user)
 		..()
 
-/obj/machinery/shieldwallgen/proc/cleanup(var/NSEW)
+/obj/machinery/shieldwallgen/proc/cleanup(NSEW)
 	var/obj/machinery/shieldwall/F
 	var/obj/machinery/shieldwallgen/G
 	var/turf/T = loc
@@ -510,13 +510,13 @@
 	cleanup(8)
 	return ..()
 
-/obj/machinery/shieldwallgen/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/shieldwallgen/bullet_act(obj/item/projectile/Proj)
 	storedpower -= Proj.damage
 	..()
 	return
 
 
-//////////////Containment Field START
+////////////// Containment Field START
 /obj/machinery/shieldwall
 		name = "Shield"
 		desc = "An energy shield."
@@ -528,21 +528,20 @@
 		luminosity = 3
 		var/needs_power = 0
 		var/active = 1
-//		var/power = 10
 		var/delay = 5
 		var/last_active
 		var/mob/U
 		var/obj/machinery/shieldwallgen/gen_primary
 		var/obj/machinery/shieldwallgen/gen_secondary
 
-/obj/machinery/shieldwall/New(var/obj/machinery/shieldwallgen/A, var/obj/machinery/shieldwallgen/B)
+/obj/machinery/shieldwall/New(obj/machinery/shieldwallgen/A, obj/machinery/shieldwallgen/B)
 	..()
 	gen_primary = A
 	gen_secondary = B
 	if(A && B)
 		needs_power = 1
 
-/obj/machinery/shieldwall/attack_hand(mob/user as mob)
+/obj/machinery/shieldwall/attack_hand(mob/user)
 	return
 
 
@@ -555,14 +554,14 @@
 		if(!(gen_primary.active)||!(gen_secondary.active))
 			qdel(src)
 			return
-//
+
 		if(prob(50))
 			gen_primary.storedpower -= 10
 		else
 			gen_secondary.storedpower -=10
 
 
-/obj/machinery/shieldwall/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/shieldwall/bullet_act(obj/item/projectile/Proj)
 	if(needs_power)
 		var/obj/machinery/shieldwallgen/G
 		if(prob(50))
