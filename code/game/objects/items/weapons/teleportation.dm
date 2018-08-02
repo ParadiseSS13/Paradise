@@ -108,9 +108,11 @@ Frequency:
 
 /obj/item/hand_tele/attack_self(mob/user as mob)
 	var/turf/current_location = get_turf(user)//What turf is the user on?
-	if(!current_location||!is_teleport_allowed(current_location.z))//If turf was not found or they're somewhere teleproof
+	var/area/current_area = get_area(user)
+	if(!current_location || !is_teleport_allowed(current_location.z) || current_area.tele_proof)//If turf was not found or they're somewhere teleproof
 		to_chat(user, "<span class='notice'>\The [src] is malfunctioning.</span>")
 		return
+
 	var/list/L = list(  )
 	for(var/obj/machinery/computer/teleporter/com in world)
 		if(com.target)
@@ -118,13 +120,16 @@ Frequency:
 				L["[com.id] (Active)"] = com.target
 			else
 				L["[com.id] (Inactive)"] = com.target
-	var/list/turfs = list(	)
+	var/list/turfs = list()
 	var/area/A
 	for(var/turf/T in orange(10))
-		if(T.x>world.maxx-8 || T.x<8)	continue	//putting them at the edge is dumb
-		if(T.y>world.maxy-8 || T.y<8)	continue
+		if(T.x>world.maxx-8 || T.x<8)
+			continue	//putting them at the edge is dumb
+		if(T.y>world.maxy-8 || T.y<8)
+			continue
 		A = get_area(T)
-		if(A.tele_proof == 1) continue // Telescience-proofed areas require a beacon.
+		if(A.tele_proof == 1)
+			continue // Telescience-proofed areas require a beacon.
 		turfs += T
 	if(turfs.len)
 		L["None (Dangerous)"] = pick(turfs)
