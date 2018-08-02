@@ -31,7 +31,7 @@
 
 /obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
 	if(!height)
-		return 0
+		return FALSE
 	return ..()
 
 /obj/machinery/shield/CanAtmosPass(turf/T)
@@ -150,7 +150,7 @@
 
 /obj/machinery/shieldgen/proc/shields_up()
 	if(active)
-		return 0 //If it's already turned on, how did this get called?
+		return //If it's already turned on, how did this get called?
 
 	active = 1
 	update_icon()
@@ -161,7 +161,8 @@
 				deployed_shields += new /obj/machinery/shield(target_tile)
 
 /obj/machinery/shieldgen/proc/shields_down()
-	if(!active) return 0 //If it's already off, how did this get called?
+	if(!active)
+		return //If it's already off, how did this get called?
 
 	active = 0
 	update_icon()
