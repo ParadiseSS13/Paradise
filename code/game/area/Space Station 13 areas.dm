@@ -570,6 +570,8 @@ var/list/ghostteleportlocs = list()
 	var/on_peaceful = FALSE
 	var/peace_betrayed = FALSE
 	var/detected_mech = FALSE
+	var/detected_pod = FALSE
+	var/detected_double_agent = FALSE
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
@@ -603,6 +605,8 @@ var/list/ghostteleportlocs = list()
 	used_self_destruct = FALSE
 	something_looted = FALSE
 	detected_mech = FALSE
+	detected_pod = FALSE
+	detected_double_agent = FALSE
 	updateicon()
 	despawn_guards()
 
@@ -644,6 +648,18 @@ var/list/ghostteleportlocs = list()
 		return
 	detected_mech = TRUE
 	increase_alert("Hostile mecha detected: [E]")
+
+/area/syndicate_depot/proc/saw_pod(obj/spacepod/P)
+	if(detected_pod)
+		return
+	detected_pod = TRUE
+	increase_alert("Hostile spacepod detected: [P]")
+
+/area/syndicate_depot/proc/saw_double_agent(mob/living/M)
+	if(detected_double_agent)
+		return
+	detected_double_agent = TRUE
+	increase_alert("Hostile double-agent detected: [M]")
 
 /area/syndicate_depot/proc/peaceful_mode(newvalue, bycomputer)
 	if(newvalue)
@@ -838,6 +854,13 @@ var/list/ghostteleportlocs = list()
 		if(L.name == "syndi_depot_shield")
 			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
 			shield_list += S.UID()
+
+/area/syndicate_depot/proc/shields_key_check()
+	if(!shield_list.len)
+		return
+	if(detected_mech || detected_pod || detected_double_agent)
+		return
+	shields_down()
 
 /area/syndicate_depot/proc/shields_down()
 	for(var/shuid in shield_list)

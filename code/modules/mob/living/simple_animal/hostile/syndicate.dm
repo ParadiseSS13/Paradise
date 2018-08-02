@@ -83,6 +83,7 @@
 	var/alert_on_death = FALSE
 	var/alert_on_timeout = FALSE
 	var/alert_on_spacing = TRUE
+	var/alert_on_shield_breach = FALSE
 	var/seen_enemy = FALSE
 	var/seen_enemy_name = null
 	var/seen_revived_enemy = FALSE
@@ -103,11 +104,23 @@
 		if(!seen_enemy)
 			seen_enemy = TRUE
 			playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
-			depotarea.list_add(target, depotarea.hostile_list)
+			if(alert_on_shield_breach)
+				if(depotarea.shield_list.len)
+					raise_alert("[name] reports that an intruder is trying to breach the armory shield!")
+					alert_on_shield_breach = FALSE
+					raised_alert = FALSE
+					alert_on_death = TRUE
+			if(isliving(target))
+				var/mob/living/M = target
+				depotarea.list_add(M, depotarea.hostile_list)
+				if(M.mind && M.mind.special_role == SPECIAL_ROLE_TRAITOR)
+					depotarea.saw_double_agent(M)
 			depotarea.declare_started()
 		seen_enemy_name = target.name
 		if(istype(target, /obj/mecha))
 			depotarea.saw_mech(target)
+		if(istype(target, /obj/spacepod))
+			depotarea.saw_pod(target)
 		if(depotarea.list_includes(target, depotarea.dead_list))
 			seen_revived_enemy = TRUE
 			raise_alert("[name] reports intruder [target] has returned from death!")
@@ -153,7 +166,7 @@
 		else
 			raise_alert("[name] has died.")
 	if(shield_key && depotarea)
-		depotarea.shields_down()
+		depotarea.shields_key_check()
 	if(depotarea)
 		depotarea.list_remove(src, depotarea.guard_list)
 	return ..()
@@ -182,6 +195,7 @@
 	health = 250
 	melee_block_chance = 80
 	alert_on_timeout = TRUE
+	alert_on_shield_breach = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/death()
 	if(depotarea)
