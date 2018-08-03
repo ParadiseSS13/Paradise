@@ -1,8 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "IPC Change monitor is now an action button"
-  - tweak: "Slime Color change is now an action button"
-  - bugfix: "Fixes staff of change leaving behind unknowns"
-  - bugfix: "Fixes Shadowlings not having shock resistant and thermal vision"
-  - bugfix: "Fixes staff of change gibbing people"
