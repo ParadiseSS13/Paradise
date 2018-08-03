@@ -66,7 +66,7 @@
 	chosentype = pick(virspecies)
 	chosensuff = pick(virsuffix)
 
-	name = "[chosentype.name] [chosensuff]"
+	name = "[initial(chosentype.name)] [chosensuff]"
 
 /datum/disease/kingstons/advanced/stage_act()
 	..()
