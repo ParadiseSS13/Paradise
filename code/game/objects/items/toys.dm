@@ -698,13 +698,15 @@ obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
 			user.unEquip(src)
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [cardname] to your hand.</span>")
 			H.interact(user)
-			update_icon()
+			H.update_icon()
 			qdel(src)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
 
 obj/item/toy/cards/cardhand/update_icon()
 	switch(currenthand.len)
+		if(0 to 1)
+			return
 		if(2)
 			icon_state = "[deckstyle]_hand2"
 		if(3)
@@ -712,8 +714,7 @@ obj/item/toy/cards/cardhand/update_icon()
 		if(4)
 			icon_state = "[deckstyle]_hand4"
 		else
-			if(currenthand.len > 4)
-				icon_state = "[deckstyle]_hand5"
+			icon_state = "[deckstyle]_hand5"
 
 
 obj/item/toy/cards/singlecard/attack_self(mob/user)
