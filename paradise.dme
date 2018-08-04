@@ -265,6 +265,7 @@
 #include "code\datums\cache\powermonitor.dm"
 #include "code\datums\components\_component.dm"
 #include "code\datums\components\ducttape.dm"
+#include "code\datums\components\jestosterone.dm"
 #include "code\datums\components\material_container.dm"
 #include "code\datums\components\squeak.dm"
 #include "code\datums\diseases\_disease.dm"

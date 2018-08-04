@@ -25,8 +25,6 @@
 /mob/living/carbon/Move(NewLoc, direct)
 	. = ..()
 	if(.)
-		if(reagents.has_reagent("jestosterone"))
-			playsound(loc, "clownstep", 25, 1) //Yes, this means that if you put jestosterone inside an alien, it will squeak. Also it stacks with shoes, THE HORROR!
 		if(nutrition && stat != DEAD)
 			nutrition -= hunger_drain / 10
 			if(m_intent == MOVE_INTENT_RUN)

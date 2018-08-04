@@ -428,36 +428,24 @@
 
 /datum/reagent/jestosterone/reaction_mob(mob/living/M, method, volume)
 	..()
+	if(istype(M, /mob/living/carbon)
+		return
+	var/is_a_clown = FALSE
 	if(M.mind && (M.mind.assigned_role == "Clown" || M.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD))
-		to_chat(M, "<span class='notice'>Whatever that was, it feels great!</span>")
-	else
+		is_a_clown = TRUE
+	if(!is_a_clown)
 		M.AdjustDizzy(volume)
-		if(!M.reagents.has_reagent("jestosterone"))
-			to_chat(M, "<span class='warning'>Something doesn't feel right...</span>")
+	if(!issilicon(user))
+		M.AddComponent(/datum/component/jestosterone, M, is_a_clown)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/M)
-	if(prob(10))
-		M.emote("giggle")
-	if(M.mind && (M.mind.assigned_role == "Clown" || M.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD))
-		M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
-	else
-		M.AdjustDizzy(10, 0, 500)
-		M.Druggy(15)
-		if(prob(10))
-			M.EyeBlurry(5)
-		if(prob(6))
-			var/list/clown_message = list("You feel light-headed.",
-			"You can't see straight.",
-			"You feel about as funny as the station clown.",
-			"Bright colours and rainbows cloud your vision.",
-			"Your funny bone aches.",
-			"You can hear bike horns in the distance.",
-			"You feel like <em>SHOUTING</em>!",
-			"Sinister laughter echoes in your ears.",
-			"Your legs feel like jelly.",
-			"You feel like telling a pun.")
-			to_chat(M, "<span class='warning'>[pick(clown_message)]</span>")
+	M.SendSignal(COMSIG_ON_MOB_LIFE, M)
 	..()
+
+/datum/reagent/jestosterone/on_mob_delete(mob/living/M)
+	..()
+	GET_COMPONENT_FROM(remove_fun, /datum/component/jestosterone, M)
+	remove_fun.Destroy()
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"
