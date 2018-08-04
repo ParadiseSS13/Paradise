@@ -48,7 +48,7 @@ var/global/pipe_processing_killed = 0
 
 		// load in extra levels of space ruins
 
-		var/num_extra_space = 6
+		var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
 		for(var/i = 1, i <= num_extra_space, i++)
 			var/zlev = space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED)
 			seedRuins(zlev, rand(0, 3), /area/space, space_ruins_templates)
