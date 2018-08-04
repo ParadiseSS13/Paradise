@@ -428,15 +428,14 @@
 
 /datum/reagent/jestosterone/reaction_mob(mob/living/M, method, volume)
 	..()
-	if(istype(M, /mob/living/carbon)
+	if(istype(M, /mob/living/carbon))
 		return
 	var/is_a_clown = FALSE
 	if(M.mind && (M.mind.assigned_role == "Clown" || M.mind.assigned_role == SPECIAL_ROLE_HONKSQUAD))
 		is_a_clown = TRUE
 	if(!is_a_clown)
 		M.AdjustDizzy(volume)
-	if(!issilicon(user))
-		M.AddComponent(/datum/component/jestosterone, M, is_a_clown)
+	M.AddComponent(/datum/component/jestosterone, M, is_a_clown)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/M)
 	M.SendSignal(COMSIG_ON_MOB_LIFE, M)
