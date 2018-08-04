@@ -3,6 +3,7 @@
 	name_plural = "Plasmamen"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
+	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
@@ -162,7 +163,7 @@
 	H.internal = H.get_item_by_slot(tank_slot)
 	H.update_action_buttons_icon()
 
-/datum/species/plasmaman/handle_life(var/mob/living/carbon/human/H)
+/datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment && environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Plasmamen so long as there's enough oxygen (0.5 moles, same as it takes to burn gaseous plasma).
@@ -178,7 +179,7 @@
 	H.update_fire()
 	..()
 
-/datum/species/plasmaman/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+/datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "plasma")
 		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)

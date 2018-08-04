@@ -4,6 +4,7 @@
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
+	blacklisted = TRUE
 
 	blood_color = "#555555"
 	flesh_color = "#222222"
@@ -20,7 +21,7 @@
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes)
 
-/datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
+/datum/species/shadow/ling/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0
@@ -60,12 +61,12 @@
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE)
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_EXAMINE)
 	burn_mod = 1.1
 	oxy_mod = 0
 	heatmod = 1.1
 
-/datum/species/shadow/ling/lesser/handle_life(var/mob/living/carbon/human/H)
+/datum/species/shadow/ling/lesser/handle_life(mob/living/carbon/human/H)
 	if(!H.weakeyes)
 		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
 	var/light_amount = 0

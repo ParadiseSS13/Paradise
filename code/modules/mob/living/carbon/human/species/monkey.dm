@@ -35,7 +35,7 @@
 	brute_mod = 1.5
 	burn_mod = 1.5
 
-/datum/species/monkey/handle_npc(var/mob/living/carbon/human/H)
+/datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return
 	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
@@ -46,16 +46,17 @@
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
-/datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
+	..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
 	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/monkey = 5)
 
+/datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
-
-/datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
-	H.dna.SetSEState(MONKEYBLOCK,1)
-	genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
+	if(!remove)
+		H.dna.SetSEState(MONKEYBLOCK, TRUE)
+		genemutcheck(H, MONKEYBLOCK, null, MUTCHK_FORCED)
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	switch(slot)

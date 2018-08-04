@@ -56,12 +56,18 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-	var/datum/action/innate/tail_lash/lash = new()
+	var/datum/action/innate/tail_lash/lash
 
 
-/datum/species/unathi/handle_post_spawn(var/mob/living/carbon/human/H)
-	lash.Grant(H)
+/datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
+	lash = new
+	lash.Grant(H)
+
+/datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
+	..()
+	if(lash)
+		lash.Remove(H)
 
 /datum/action/innate/tail_lash
 	name = "Tail lash"
@@ -81,7 +87,7 @@
 		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
 		if(E)
 			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message("<span class='danger'>[src] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
+			user.visible_message("<span class='danger'>[user] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
 			user.adjustStaminaLoss(15)
 			C.apply_damage(5, BRUTE, E)
 			user.spin(20, 1)
@@ -90,7 +96,7 @@
 			if(user.restrained())
 				if(prob(50))
 					user.Weaken(5)
-					user.visible_message("<span class='danger'>[src] loses [p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
+					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
 					return
 			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
 				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
@@ -98,5 +104,5 @@
 
 
 
-/datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
+/datum/species/unathi/handle_death(mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
