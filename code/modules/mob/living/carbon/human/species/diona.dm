@@ -76,17 +76,16 @@
 		"pulls out a secret stash of herbicide and takes a hearty swig!",
 		"is pulling themselves apart!")
 
-/datum/species/diona/can_understand(var/mob/other)
+/datum/species/diona/can_understand(mob/other)
 	if(istype(other, /mob/living/simple_animal/diona))
 		return 1
 	return 0
 
-/datum/species/diona/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/diona/on_species_gain(mob/living/carbon/human/H)
+	..()
 	H.gender = NEUTER
 
-	return ..()
-
-/datum/species/diona/handle_life(var/mob/living/carbon/human/H)
+/datum/species/diona/handle_life(mob/living/carbon/human/H)
 	H.radiation = Clamp(H.radiation, 0, 100) //We have to clamp this first, then decrease it, or there's a few edge cases of massive heals if we clamp and decrease at the same time.
 	var/rads = H.radiation / 25
 	H.radiation = max(H.radiation-rads, 0)
