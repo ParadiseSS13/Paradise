@@ -14,10 +14,9 @@
 	RegisterSignal(COMSIG_ON_MOB_LIFE, .proc/process_jestosterone)
 
 /datum/component/jestosterone/proc/on_move(mob/user)
-	playsound(user.loc, "clownstep", 25, 1) //Yes, this means that if you put jestosterone inside an alien, it will squeak. Also it stacks with shoes, THE HORROR!
+	playsound(user.loc, "clownstep", 25, 1)
 
 /datum/component/jestosterone/proc/mob_was_attacked(mob/user)
-	to_chat(user, "was attacked")
 	playsound(user.loc, 'sound/items/bikehorn.ogg', 50, 1)
 
 /datum/component/jestosterone/proc/process_jestosterone(mob/living/user)
