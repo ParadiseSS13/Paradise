@@ -508,6 +508,7 @@
 	var/turf/T = loc
 	. = ..()
 	if(.)
+		SendSignal(COMSIG_MOVABLE_MOVED, src)
 		handle_footstep(loc)
 		step_count++
 

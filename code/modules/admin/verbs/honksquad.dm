@@ -119,6 +119,7 @@ var/global/sent_honksquad = 0
 	equip_to_slot_or_del(new /obj/item/stamp/clown(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/reagent_containers/spray/waterflower(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/patch/jestosterone(src), slot_r_store)
 	if(prob(50))
 		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), slot_in_backpack)
 	else
