@@ -1675,22 +1675,23 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/mob/M = locate(href_list["CentcommReply"])
+		var/mob/M = locateUID(href_list["CentcommReply"])
 		usr.client.admin_headset_message(M, "Centcomm")
 
 	else if(href_list["SyndicateReply"])
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/mob/M = locate(href_list["SyndicateReply"])
+		var/mob/M = locateUID(href_list["SyndicateReply"])
 		usr.client.admin_headset_message(M, "Syndicate")
 
 	else if(href_list["HeadsetMessage"])
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/mob/M = locate(href_list["HeadsetMessage"])
+		var/mob/M = locateUID(href_list["HeadsetMessage"])
 		usr.client.admin_headset_message(M)
+
 	else if(href_list["EvilFax"])
 		if(!check_rights(R_ADMIN))
 			return
