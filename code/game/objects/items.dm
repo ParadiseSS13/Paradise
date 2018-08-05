@@ -500,10 +500,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			itempush = 0 // too light to push anything
 		return A.hitby(src, 0, itempush)
 
-/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+/obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, var/atmos = FALSE)
 	thrownby = thrower
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
-	. = ..(target, range, speed, thrower, spin, diagonals_first, callback)
+	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, atmos)
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if(callback) //call the original callback

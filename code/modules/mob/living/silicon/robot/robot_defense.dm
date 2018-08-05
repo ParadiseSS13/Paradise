@@ -64,10 +64,6 @@
 	var/obj/item/I
 	if(istype(AM, /obj/item))
 		I = AM
-	if(I)
-		if(I.throwforce)
-			if(!I.thrownby)
-				if(prob(80))
-					visible_message("<span class='danger'>[I] Hits [src] but does not leave a mark!</span>","<span class='userdanger'>[I] hits you just right, failing to cause any damage!</span>")
-					blocked = 1
+		if(I.throwforce && (I.flags_2 & ATMOS_THROW) && prob(80))
+			blocked = 1
 	return ..()
