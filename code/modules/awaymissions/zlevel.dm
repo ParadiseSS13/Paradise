@@ -156,7 +156,8 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 		while(sanity > 0)
 			sanity--
-			var/turf/T = locate(rand(25, world.maxx - 25), rand(25, world.maxy - 25), z_level)
+			// 8: 7 is the normal view distance of a client, +1 so that ruins don't suddenly appear
+			var/turf/T = locate(rand(TRANSITION_BORDER_WEST + (8 + ruin.width/2), TRANSITION_BORDER_EAST - (8 + ruin.width/2)), rand(TRANSITION_BORDER_SOUTH + (8 + ruin.height/2), TRANSITION_BORDER_NORTH - (8 + ruin.height/2)), z_level)
 			var/valid = 1
 
 			for(var/turf/check in ruin.get_affected_turfs(T,1))
