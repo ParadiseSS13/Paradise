@@ -15,6 +15,7 @@
 	icon_state = "spark"
 	color = "#FFFF00"
 	nodamage = 1
+	flag = "shock"
 	stun = 5
 	weaken = 5
 	stutter = 5
@@ -24,28 +25,8 @@
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
 /obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
-	var/deflected = NO_DEFLECTION //0 for not deflected, 1 for partially, 2 for totally.
-	if(ishuman(target)) //have to do this stuff before we call ..(), but I want the messages to come in the right order. So the deflected var.
-		var/mob/living/carbon/human/H = target//typecast
-		var/protection = H.getarmor(def_zone, "shock") //checks for taser resistance of worn armor
-		if(prob(protection)) //chance to completely negate taser hit
-			stun = 0
-			weaken = 0
-			stutter = 0
-			jitter = 0
-			deflected = FULL_DEFLECTION
-		else if(prob(protection)) //chance for a glancing blow if first check fails
-			stun = 0
-			weaken = 0
-			H.apply_damage(50, STAMINA) //stamina damage, still better than being stunned.
-			deflected = PARTIAL_DEFLECTION
+
 	. = ..()
-	if(deflected == PARTIAL_DEFLECTION)
-		target.visible_message("<span class='danger'>The shock is weakened by the armor!</span>", \
-								"<span class='userdanger'>The shock is weakened by your armor!</span>")
-	else if(deflected == FULL_DEFLECTION)
-		target.visible_message("<span class='danger'>The electrode glances off the armor!</span>", \
-								"<span class='userdanger'>The electrode glances off your armor!</span>")
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 		sparks.set_up(1, 1, src)
@@ -54,7 +35,7 @@
 		var/mob/living/carbon/C = target
 		if(HULK in C.mutations)
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		else if((C.status_flags & CANWEAKEN) && (deflected != FULL_DEFLECTION))
+		else if((C.status_flags & CANWEAKEN))
 			spawn(5)
 				C.do_jitter_animation(jitter)
 
@@ -62,6 +43,19 @@
 	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 	sparks.set_up(1, 1, src)
 	sparks.start()
+	..()
+
+/obj/item/projectile/energy/electrode/deflection_act(var/mob/living/target)	//define how taser electrodes act when defelcted
+	stun = 0
+	weaken = 0
+	stutter = 0
+	jitter = 0
+	..()
+
+/obj/item/projectile/energy/electrode/soften_act(var/mob/living/target)		// and softened
+	stun = 0
+	weaken = 0
+	target.apply_damage(40, STAMINA) //stamina damage, still better than being stunned.
 	..()
 
 /obj/item/projectile/energy/declone

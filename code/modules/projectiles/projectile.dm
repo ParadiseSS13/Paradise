@@ -126,6 +126,15 @@
 			add_attack_logs(firer, L, "Shot with a [type] (containing [reagent_note])")
 		else
 			add_attack_logs(firer, L, "Shot with a [type]")
+
+	if(flag == "shock" && blocked > 0)//applying the deflection acts of the taser. We don't want to double-dip and also have apply_effects halve the effect
+		if(blocked == 100)				//so blocked is set to 0 afterwards
+			blocked = 0
+			deflection_act(L)
+		else if(blocked == 50)
+			blocked = 0
+			soften_act(L)
+
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).
@@ -136,6 +145,12 @@
 	for(var/atom/movable/border_obstacle in step_over) //Check to see if we're blocked by a (non-full) window or some such. Do deeper investigation if we're splattering blood diagonally.
 		if(border_obstacle.flags&ON_BORDER && get_dir(step_cardinal ? step_cardinal : target_loca, step_over) ==  turn(border_obstacle.dir, 180))
 			return TRUE
+
+/obj/item/projectile/proc/deflection_act(var/mob/living/target)	//those two are used for tasers right now
+	return														//to define how their damage is modified when deflected
+
+/obj/item/projectile/proc/soften_act(var/mob/living/target)		//just in case there are other projectiles in the future that use that
+	return														//for most projectiles, they do nothing at all (and shouldn't even be called)
 
 /obj/item/projectile/proc/vol_by_damage()
 	if(damage)
