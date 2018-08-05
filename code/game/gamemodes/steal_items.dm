@@ -118,7 +118,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 
 /datum/theft_objective/hypospray
-	name = "a hypospray"
+	name = "the Chief Medical Officer's hypospray"
 	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 

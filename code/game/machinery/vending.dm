@@ -1027,7 +1027,7 @@
 	req_access_txt = "5"
 	products = list(/obj/item/reagent_containers/glass/bottle/charcoal = 4,/obj/item/reagent_containers/glass/bottle/morphine = 4,/obj/item/reagent_containers/glass/bottle/ether = 4,/obj/item/reagent_containers/glass/bottle/epinephrine = 4,
 					/obj/item/reagent_containers/glass/bottle/toxin = 4,/obj/item/reagent_containers/syringe/antiviral = 6,/obj/item/reagent_containers/syringe/insulin = 4,
-					/obj/item/reagent_containers/syringe = 12,/obj/item/healthanalyzer = 5,/obj/item/healthupgrade = 5,/obj/item/reagent_containers/glass/beaker = 4,
+					/obj/item/reagent_containers/syringe = 12,/obj/item/healthanalyzer = 5,/obj/item/healthupgrade = 5,/obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/hypospray/safety = 2,
 					/obj/item/reagent_containers/dropper = 2,/obj/item/stack/medical/bruise_pack/advanced = 3, /obj/item/stack/medical/ointment/advanced = 3,
 					/obj/item/stack/medical/bruise_pack = 3,/obj/item/stack/medical/splint = 4, /obj/item/sensor_device = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4,
 					/obj/item/pinpointer/crew = 2)
