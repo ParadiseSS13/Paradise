@@ -1,5 +1,0 @@
-author: "Crazylemon64"
-delete-after: True
-changes: 
-  - bugfix: "Space ruins can no longer trap you upon border transition"
-  - rscadd: "There are now several levels of space ruins"
