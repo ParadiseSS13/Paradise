@@ -7,8 +7,9 @@
 	req_human = 1
 
 /obj/effect/proc_holder/changeling/headcrab/try_to_sting(mob/user, mob/target)
-    if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No")=="Yes")
-        sting_action()
+    if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No")=="No")
+        return
+    ..()
 
 /obj/effect/proc_holder/changeling/headcrab/sting_action(mob/user)
 	var/datum/mind/M = user.mind
