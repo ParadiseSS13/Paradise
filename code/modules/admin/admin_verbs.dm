@@ -826,10 +826,10 @@ var/list/admin_verbs_ticket = list(
 	if(!istype(H))
 		if(istype(H, /mob/living/carbon/brain))
 			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/mmi/posibrain/ipc))
-				var/obj/item/mmi/posibrain/ipc/C = B.container
+			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
+				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
+				if(ishuman(P.owner))
 					H = P.owner
 			else
 				return
@@ -852,10 +852,10 @@ var/list/admin_verbs_ticket = list(
 	if(!istype(H))
 		if(istype(H, /mob/living/carbon/brain))
 			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/mmi/posibrain/ipc))
-				var/obj/item/mmi/posibrain/ipc/C = B.container
+			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
+				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
+				if(ishuman(P.owner))
 					H = P.owner
 			else
 				return

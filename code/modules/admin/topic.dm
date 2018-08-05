@@ -337,7 +337,7 @@
 			if("queen")				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob, 1 )
 			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob, 1 )
 			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob, 1 )
-			if("human")				M.change_mob_type( /mob/living/carbon/human/human , null, null, delmob, 1 )
+			if("human")				M.change_mob_type( /mob/living/carbon/human, null, null, delmob, 1 )
 			if("slime")				M.change_mob_type( /mob/living/carbon/slime , null, null, delmob, 1 )
 			if("monkey")			M.change_mob_type( /mob/living/carbon/human/monkey , null, null, delmob, 1 )
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1 )

@@ -79,7 +79,7 @@
 	var/death_sound = null //The sound played on death
 
 
-/mob/living/simple_animal/New()
+/mob/living/simple_animal/Initialize()
 	..()
 	simple_animal_list += src
 	verbs -= /mob/verb/observe

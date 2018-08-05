@@ -37,7 +37,7 @@
 	createCorpse()
 
 /obj/effect/landmark/corpse/proc/createCorpse() //Creates a mob and checks for gear in each slot before attempting to equip it.
-	var/mob/living/carbon/human/human/M = new /mob/living/carbon/human/human (src.loc)
+	var/mob/living/carbon/human/M = new /mob/living/carbon/human(src.loc)
 	M.real_name = src.name
 	M.death(1) //Kills the new mob
 	M.adjustOxyLoss(oxy_damage)
@@ -293,6 +293,6 @@
 /obj/effect/landmark/corpse/abductor //Connected to ruins, for some reason?
 	name = "abductor"
 	mobname = "???"
-	mob_species = "abductor"
+	mob_species = /datum/species/abductor
 	corpseuniform = /obj/item/clothing/under/color/grey
 	corpseshoes = /obj/item/clothing/shoes/combat

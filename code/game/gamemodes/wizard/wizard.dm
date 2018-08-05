@@ -141,7 +141,7 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	if(wizard_mob.get_species() != "Plasmaman") //handled in the species file for plasmen on the afterjob equip proc for now
+	if(!isplasmaman(wizard_mob)) //handled in the species file for plasmen on the afterjob equip proc for now
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
@@ -153,7 +153,7 @@
 
 	wizard_mob.faction = list("wizard")
 
-	wizard_mob.species.after_equip_job(null, wizard_mob)
+	wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 
 	to_chat(wizard_mob, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
 	to_chat(wizard_mob, "The spellbook is bound to you, and others cannot use it.")

@@ -31,7 +31,8 @@
 
 	if(href_list["race"])
 		if(can_change(APPEARANCE_RACE) && (href_list["race"] in valid_species))
-			if(owner.change_species(href_list["race"]))
+			var/datum/species/S = GLOB.all_species[href_list["race"]]
+			if(owner.set_species(S.type))
 				cut_and_generate_data()
 				// Species change creates new organs - runtimes ahoy if we forget this
 				head_organ = owner.get_organ("head")
@@ -44,24 +45,24 @@
 	if(href_list["skin_tone"])
 		if(can_change_skin_tone())
 			var/new_s_tone = null
-			if(owner.species.bodyflags & HAS_SKIN_TONE)
+			if(owner.dna.species.bodyflags & HAS_SKIN_TONE)
 				new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
 				if(isnum(new_s_tone) && can_still_topic(state))
 					new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
-			else if(owner.species.bodyflags & HAS_ICON_SKIN_TONE)
+			else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 				var/const/MAX_LINE_ENTRIES = 4
-				var/prompt = "Choose your character's skin tone: 1-[owner.species.icon_skin_tones.len]\n("
-				for(var/i = 1 to owner.species.icon_skin_tones.len)
+				var/prompt = "Choose your character's skin tone: 1-[owner.dna.species.icon_skin_tones.len]\n("
+				for(var/i = 1 to owner.dna.species.icon_skin_tones.len)
 					if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
 						prompt += "\n"
-					prompt += "[i] = [owner.species.icon_skin_tones[i]]"
-					if(i != owner.species.icon_skin_tones.len)
+					prompt += "[i] = [owner.dna.species.icon_skin_tones[i]]"
+					if(i != owner.dna.species.icon_skin_tones.len)
 						prompt += ", "
 				prompt += ")"
 
 				new_s_tone = input(usr, prompt, "Skin Tone", owner.s_tone) as num|null
 				if(isnum(new_s_tone) && can_still_topic(state))
-					new_s_tone = max(min(round(new_s_tone), owner.species.icon_skin_tones.len), 1)
+					new_s_tone = max(min(round(new_s_tone), owner.dna.species.icon_skin_tones.len), 1)
 
 			if(new_s_tone)
 				return owner.change_skin_tone(new_s_tone)
@@ -183,9 +184,9 @@
 	generate_data(check_whitelist, whitelist, blacklist)
 	var/data[0]
 
-	data["specimen"] = owner.species.name
+	data["specimen"] = owner.dna.species.name
 	data["gender"] = owner.gender
-	data["has_gender"] = owner.species.has_gender
+	data["has_gender"] = owner.dna.species.has_gender
 	data["change_race"] = can_change(APPEARANCE_RACE)
 	if(data["change_race"])
 		var/species[0]
@@ -283,25 +284,25 @@
 	return owner && (flags & flag)
 
 /datum/nano_module/appearance_changer/proc/can_change_skin_tone()
-	return owner && (flags & APPEARANCE_SKIN) && ((owner.species.bodyflags & HAS_SKIN_TONE) || (owner.species.bodyflags & HAS_ICON_SKIN_TONE))
+	return owner && (flags & APPEARANCE_SKIN) && ((owner.dna.species.bodyflags & HAS_SKIN_TONE) || (owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 
 /datum/nano_module/appearance_changer/proc/can_change_skin_color()
-	return owner && (flags & APPEARANCE_SKIN) && (owner.species.bodyflags & HAS_SKIN_COLOR)
+	return owner && (flags & APPEARANCE_SKIN) && (owner.dna.species.bodyflags & HAS_SKIN_COLOR)
 
 /datum/nano_module/appearance_changer/proc/can_change_head_accessory()
 	if(!head_organ)
 		log_runtime(EXCEPTION("Missing head!"), owner)
 		return 0
-	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
+	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 
 /datum/nano_module/appearance_changer/proc/can_change_markings(var/location = "body")
 	var/marking_flag = HAS_BODY_MARKINGS
-	var/body_flags = owner.species.bodyflags
+	var/body_flags = owner.dna.species.bodyflags
 	if(location == "head")
 		if(!head_organ)
 			log_debug("Missing head!")
 			return 0
-		body_flags = head_organ.species.bodyflags
+		body_flags = head_organ.dna.species.bodyflags
 		marking_flag = HAS_HEAD_MARKINGS
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
@@ -311,13 +312,13 @@
 	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag)
 
 /datum/nano_module/appearance_changer/proc/can_change_body_accessory()
-	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.species.bodyflags & HAS_TAIL)
+	return owner && (flags & APPEARANCE_BODY_ACCESSORY) && (owner.dna.species.bodyflags & HAS_TAIL)
 
 /datum/nano_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)
 		log_debug("Missing head!")
 		return 0
-	return owner && (flags & APPEARANCE_ALT_HEAD) && (head_organ.species.bodyflags & HAS_ALT_HEADS)
+	return owner && (flags & APPEARANCE_ALT_HEAD) && (head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 
 /datum/nano_module/appearance_changer/proc/cut_and_generate_data()
 	// Making the assumption that the available species remain constant

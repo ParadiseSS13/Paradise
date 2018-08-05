@@ -17,17 +17,13 @@
 
 	var/mob/living/carbon/human/H = user
 
-	if(!istype(H) || !H.species.primitive_form)
+	if(!istype(H) || !H.dna.species.primitive_form)
 		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return
 
-	user.dna = user.dna.Clone()
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
 	changeling.geneticdamage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
-	var/list/implants = list() //Try to preserve implants.
-	for(var/obj/item/implant/W in H)
-		implants += W
 	H.monkeyize()
 	changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
 	feedback_add_details("changeling_powers","LF")

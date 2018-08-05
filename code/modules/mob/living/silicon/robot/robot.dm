@@ -131,8 +131,8 @@ var/list/robot_verbs_default = list(
 			camera.status = 0
 
 	if(mmi == null)
-		mmi = new /obj/item/mmi/posibrain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a posibrain, but it works)
-		mmi.icon_state="posibrain-occupied"
+		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
+		mmi.icon_state = "boris"
 
 	initialize_components()
 	//if(!unfinished)
@@ -210,7 +210,7 @@ var/list/robot_verbs_default = list(
 	if(prefix)
 		modtype = prefix
 	if(mmi)
-		if(istype(mmi, /obj/item/mmi/posibrain))
+		if(istype(mmi, /obj/item/mmi/robotic_brain))
 			braintype = "Android"
 		else
 			braintype = "Cyborg"

@@ -58,7 +58,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.species.is_small)
+		if(H.dna.species.is_small)
 			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
 			return
 	if(user.get_inactive_hand())
@@ -313,7 +313,6 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
-	var/war_cry = "AAAAARGH!!!"
 
 /obj/item/twohanded/spear/update_icon()
 	if(explosive)
@@ -327,7 +326,6 @@
 	if(isturf(AM)) //So you can actually melee with it
 		return
 	if(explosive && wielded)
-		user.say("[war_cry]")
 		explosive.forceMove(AM)
 		explosive.prime()
 		qdel(src)
@@ -337,30 +335,6 @@
 	if(explosive)
 		explosive.prime()
 		qdel(src)
-
-/obj/item/twohanded/spear/AltClick(mob/user)
-	..()
-	if(!explosive)
-		return
-	if(ishuman(loc))
-		var/mob/living/carbon/human/M = loc
-		var/input = stripped_input(M, "What do you want your war cry to be? You will shout it when you hit someone in melee.", ,"", 50)
-		if(input)
-			war_cry = input
-
-/obj/item/twohanded/spear/CheckParts(list/parts_list)
-	..()
-	if(explosive)
-		explosive.forceMove(get_turf(loc))
-		explosive = null
-		update_icon()
-	var/obj/item/grenade/G = locate() in contents
-	if(G)
-		explosive = G
-		name = "explosive lance"
-		embed_chance = 0
-		desc = "A makeshift spear with [G] attached to it. Alt+click on the spear to set your war cry!"
-		update_icon()
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide

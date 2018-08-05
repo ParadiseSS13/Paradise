@@ -1,5 +1,5 @@
 //Languages/species/whitelist. //Languages and species fit with mobs right
-var/global/list/all_species[0]
+GLOBAL_LIST_EMPTY(all_species)
 var/global/list/all_languages[0]
 var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_superheroes[0]
