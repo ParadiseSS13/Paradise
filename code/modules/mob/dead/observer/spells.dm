@@ -41,6 +41,11 @@ var/global/list/boo_phrases=list(
 				if(L)
 					L.flicker()
 
+			// Ro-ro-rotate your chair
+			if(istype(A, /obj/structure/stool/bed/chair))
+				var/obj/structure/stool/bed/chair/C = A
+				C.rotate(prob(50))
+
 			// OH GOD BLUE APC (single animation cycle)
 			if(istype(A, /obj/machinery/power/apc))
 				A:spookify()
