@@ -80,7 +80,7 @@ html {
 	color:#999;
 }
 
-table {background:#303030;}
+table {background:#303030;border:1px solid #262626;}
 
 caption {text-align:left;}
 
@@ -96,7 +96,6 @@ caption {text-align:left;}
 	border:none;
 	display: inline-block;
 }
-
 .button:hover {color:#ffffff;}
 
 a {
@@ -104,7 +103,6 @@ a {
 	text-decoration:none;
 	font-weight:bold;
 }
-
 a:hover {color:#ffffff;}
 
 p {margin:0;}
@@ -113,9 +111,9 @@ tr.dark {background:#303030;}
 
 tr.light {background:#3f3f3f;}
 
-td,th {padding:15px;}
+td,th {padding:15px;border-bottom:1px solid #262626;}
 
-th.cost{padding:0px}
+th.cost{padding:0px;border-left:1px solid #262626;}
 
 th.cost.affordable {background:green;}
 
