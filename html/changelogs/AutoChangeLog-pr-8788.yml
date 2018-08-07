@@ -1,5 +1,0 @@
-author: "MarsM0nd"
-delete-after: True
-changes: 
-  - bugfix: "Unathi can now tailwhip when they are supposed to be able to."
-  - rscadd: "Tail whipping gets logged."
