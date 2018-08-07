@@ -457,27 +457,27 @@
 		CF.dir = field_dir
 
 
-/obj/machinery/shieldwallgen/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
+/obj/machinery/shieldwallgen/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/wrench))
 		if(active)
 			to_chat(user, "Turn off the field generator first.")
 			return
 
 		else if(state == 0)
 			state = 1
-			playsound(loc, W.usesound, 75, 1)
+			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
 			anchored = 1
 			return
 
 		else if(state == 1)
 			state = 0
-			playsound(loc, W.usesound, 75, 1)
+			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
 			anchored = 0
 			return
 
-	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
+	if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
