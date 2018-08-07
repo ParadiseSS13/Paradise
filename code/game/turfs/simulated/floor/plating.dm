@@ -31,17 +31,30 @@
 			return 1
 		var/obj/item/stack/rods/R = C
 		if(R.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two rods to make a reinforced floor!</span>")
+			to_chat(user, "<span class='warning'>You need two rods to do this!</span>")
 			return 1
 		else
-			to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-			if(do_after(user, 30 * C.toolspeed, target = src))
-				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
-					ChangeTurf(/turf/simulated/floor/engine)
-					playsound(src, C.usesound, 80, 1)
-					R.use(2)
-					to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
-				return 1
+			switch(alert("Do you want to make a catwalk or reinforce the tile?",,"Reinforce","Catwalk","Cancel"))
+				if("Reinforce")
+					to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
+					if(do_after(user, 30 * C.toolspeed, target = src))
+						if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
+							ChangeTurf(/turf/simulated/floor/engine)
+							playsound(src, C.usesound, 80, 1)
+							R.use(2)
+							to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
+						return 1
+				if("Catwalk")
+					to_chat(user, "<span class='notice'>You begin constructing a catwalk...</span>")
+					if(do_after(user, 30 * C.toolspeed, target = src))
+						if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
+							ChangeTurf(/turf/simulated/floor/plating/catwalk)
+							playsound(src, C.usesound, 80, 1)
+							R.use(2)
+							to_chat(user, "<span class='notice'>You build a catwalk.</span>")
+						return 1
+				if("Cancel")
+					return 1
 
 	else if(istype(C, /obj/item/stack/tile))
 		if(!broken && !burnt)
