@@ -99,10 +99,10 @@
 					objective_count++
 
 		for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
-				var/datum/objective/maroon/maroon_objective = new
-				maroon_objective.owner = traitor
-				maroon_objective.find_target()
-				traitor.objectives += maroon_objective
+			var/datum/objective/maroon/maroon_objective = new
+			maroon_objective.owner = traitor
+			maroon_objective.find_target()
+			traitor.objectives += maroon_objective
 
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = traitor
