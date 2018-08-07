@@ -69,8 +69,8 @@
 
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
-	desc = "A modified hypospray for quickly injecting safe medicinal chemicals."
-	icon_state = "combat_hypo"
+	desc = "An uninspiring general use medical hypospray for quick injection of chemicals. This model seems a bit outdated."
+	icon_state = "medivend_hypo"
 	safety_hypo = TRUE
 
 /obj/item/reagent_containers/hypospray/CMO
