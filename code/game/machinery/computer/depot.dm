@@ -363,6 +363,9 @@
 		mybeacon.mycomputer = null
 	return ..()
 
+/obj/machinery/computer/syndicate_depot/teleporter/portal_destroyed(obj/effect/portal/P)
+	myportal = null
+
 /obj/machinery/computer/syndicate_depot/teleporter/disable_special_functions()
 	if(mybeacon)
 		if(mybeacon.enabled)

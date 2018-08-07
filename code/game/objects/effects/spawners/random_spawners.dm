@@ -8,23 +8,28 @@
 	/obj/effect/decal/cleanable/blood/splatter = 1,
 	/obj/effect/decal/cleanable/blood/oil = 1,
 	/obj/effect/decal/cleanable/fungus = 1)
-	var/spawn_nothing_percentage = 0
+	var/spawn_inside = null
 
-// This needs to come before the initialization wave because
-// the thing it creates might need to be initialized too
-/obj/effect/spawner/random_spawners/Initialize()
+// This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
+/obj/effect/spawner/random_spawners/New()
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)
 		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
 		return
-	spawn_item(T)
+	randspawn(T)
 
-/obj/effect/spawner/random_spawners/proc/spawn_item(turf/T)
-	if(!prob(spawn_nothing_percentage))
-		var/thing_to_place = pickweight(result)
-		if(ispath(thing_to_place, /turf))
-			T.ChangeTurf(thing_to_place)
+/obj/effect/spawner/random_spawners/proc/randspawn(turf/T)
+	var/thing_to_place = pickweight(result)
+	if(ispath(thing_to_place, /datum/nothing))
+		// Nothing.
+	else if(ispath(thing_to_place, /turf))
+		T.ChangeTurf(thing_to_place)
+	else
+		if(ispath(spawn_inside, /obj))
+			var/obj/O = new thing_to_place(T)
+			var/obj/E = new spawn_inside(T)
+			O.forceMove(E)
 		else
 			new thing_to_place(T)
 	qdel(src)
@@ -118,7 +123,7 @@
 // z6 DEPOT SPAWNERS
 
 /obj/effect/spawner/random_spawners/syndicate
-	spawn_nothing_percentage = 50
+
 
 
 // Turrets
@@ -126,11 +131,13 @@
 /obj/effect/spawner/random_spawners/syndicate/turret
 	name = "50pc int turret"
 	icon_state = "x"
-	result = list(/obj/machinery/porta_turret/syndicate/interior = 1)
+	result = list(/datum/nothing = 1,
+		/obj/machinery/porta_turret/syndicate/interior = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/turret/external
 	name = "50pc ext turret"
-	result = list(/obj/machinery/porta_turret/syndicate/exterior = 1)
+	result = list(/datum/nothing = 1,
+		/obj/machinery/porta_turret/syndicate/exterior = 1)
 
 
 // Mobs
@@ -139,7 +146,8 @@
 	name = "50pc melee syndimob"
 	icon_state = "x"
 	color = "#333333"
-	result = list(/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1)
+	result = list(/datum/nothing = 1,
+		/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot = 1)
 
 
 // Traps
@@ -150,22 +158,23 @@
 
 /obj/effect/spawner/random_spawners/syndicate/trap/pizzabomb
 	name = "50pc trap pizza"
-	spawn_nothing_percentage = 0
 	result = list(/obj/item/pizzabox/meat = 1,
 		/obj/item/pizza_bomb/autoarm = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/medbot
 	name = "50pc trap medibot"
-	result = list(/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1)
+	result = list(/datum/nothing = 1,
+		/mob/living/simple_animal/bot/medbot/syndicate/emagged = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/mine
 	name = "50pc trap landmine"
-	result = list(/obj/effect/mine/explosive = 1)
+	result = list(/datum/nothing = 1,
+		/obj/effect/mine/explosive = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/trap/documents
 	name = "66pc trapped documents"
-	spawn_nothing_percentage = 0
-	result = list(/obj/item/documents/syndicate/yellow = 1)
+	result = list(/obj/item/documents/syndicate/yellow = 1,
+		/obj/item/documents/syndicate/yellow/trapped = 1)
 
 
 
@@ -175,8 +184,10 @@
 /obj/effect/spawner/random_spawners/syndicate/loot
 	name = "common loot"
 	icon_state = "x3"
+	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
 	// Loot schema: costumes, toys, useless gimmick items, trapped items
-	result = list(/obj/item/storage/toolbox/syndicate = 1,
+	result = list(/datum/nothing = 13,
+		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/toolbox/syndicate/trapped = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/toy/cards/deck/syndicate = 1,
@@ -190,21 +201,11 @@
 		/obj/item/coin/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/cutouts = 1)
 
-/obj/effect/spawner/random_spawners/syndicate/loot/spawn_item(turf/T)
-	if(!prob(spawn_nothing_percentage))
-		var/thing_to_place = pickweight(result)
-		if(ispath(thing_to_place, /turf))
-			T.ChangeTurf(thing_to_place)
-		else
-			var/obj/O = new thing_to_place(T)
-			var/obj/structure/closet/secure_closet/syndicate/depot/E = new /obj/structure/closet/secure_closet/syndicate/depot(T)
-			O.forceMove(E)
-	qdel(src)
-
 /obj/effect/spawner/random_spawners/syndicate/loot/level2
 	name = "rare loot"
 	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
-	result = list(/obj/item/storage/box/syndie_kit/space = 1,
+	result = list(/datum/nothing = 27,
+		/obj/item/storage/box/syndie_kit/space = 1,
 		/obj/item/storage/box/syndie_kit/hardsuit = 1,
 		/obj/item/clothing/shoes/magboots/syndie = 1,
 		/obj/item/clothing/suit/armor/vest/combat = 1,
@@ -234,7 +235,8 @@
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
 	// Loot schema: medkits, very useful devices (jammer, illegal upgrade, RCD), better quality ammo (AP, fire), basic weapons (pistol, empgrenade), high value ores (diamond, uranium)
-	result = list(/obj/item/jammer = 1,
+	result = list(/datum/nothing = 25,
+		/obj/item/jammer = 1,
 		/obj/item/storage/firstaid = 1,
 		/obj/item/storage/box/syndie_kit/bonerepair = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
@@ -262,7 +264,6 @@
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
-	spawn_nothing_percentage = 0
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(/obj/item/gun/projectile/automatic/c20r = 1,
 		/obj/item/gun/projectile/automatic/m90 = 1,
@@ -288,20 +289,17 @@
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door
 	name = "50pc door 25pc falsewall 25pc wall"
-	spawn_nothing_percentage = 0
 	result = list(/obj/machinery/door/airlock/hatch/syndicate = 6,
 		/turf/simulated/wall/r_wall = 2,
 		/obj/structure/falsewall/reinforced = 2)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/secret
 	name = "50pc falsewall 50pc wall"
-	spawn_nothing_percentage = 0
 	result = list(/turf/simulated/wall/r_wall = 1,
 		/obj/structure/falsewall/reinforced = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault
 	name = "60pc vaultdoor 20pc falsewall 20pc wall"
-	spawn_nothing_percentage = 0
 	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 6,
 		/turf/simulated/wall/r_wall = 2,
 		/obj/structure/falsewall/reinforced = 2)

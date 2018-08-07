@@ -69,8 +69,8 @@
 /mob/living/simple_animal/bot/ed209/syndicate/ed209_ai()
 	var/turf/current_turf = get_turf(src)
 	if(saved_turf && current_turf != saved_turf)
-		playsound(src.loc, stepsound, 40, 1)
-	if(spawn_turf && current_turf.z != spawn_turf.z)
+		playsound(loc, stepsound, 40, 1)
+	if(spawn_turf && !atoms_share_level(src, spawn_turf))
 		raise_alert("[src] lost in space.")
 		raised_alert = FALSE
 		raise_alert("[src] activated self-destruct.")

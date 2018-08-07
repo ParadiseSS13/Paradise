@@ -32,12 +32,12 @@
 	name = "'Yellow' secret documents"
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\"."
 	icon_state = "docs_yellow"
-	var/poison_type = "amanitin"
-	var/poison_dose = 20
-	var/poison_total = 60
 
 /obj/item/documents/syndicate/yellow/trapped
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\", and have a thin film of clear material covering their surface."
+	var/poison_type = "amanitin"
+	var/poison_dose = 20
+	var/poison_total = 60
 
 /obj/item/documents/syndicate/yellow/trapped/pickup(user)
 	if(ishuman(user) && poison_total > 0)

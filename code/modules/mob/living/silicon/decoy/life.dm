@@ -8,6 +8,10 @@
 		stat = CONSCIOUS
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+	update_stat()
+
+
+/mob/living/silicon/decoy/update_stat()
 	if(stat == DEAD)
 		return
 	if(health <= 0)

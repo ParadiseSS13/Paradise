@@ -133,8 +133,7 @@
 			raise_alert("[name] has reported contact with hostile entity: [seen_enemy_name]")
 	if(scan_cycles >= 15 && istype(depotarea))
 		scan_cycles = 0
-		var/turf/current_turf = get_turf(src)
-		if(spawn_turf && current_turf.z != spawn_turf.z)
+		if(!atoms_share_level(src, spawn_turf))
 			if(alert_on_spacing)
 				raise_alert("[src] lost in space.")
 			death()
@@ -203,19 +202,18 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/New()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize()
 	. = ..()
 	if(istype(depotarea))
-		spawn(100)
-			var/list/key_candidates = list()
-			for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in living_mob_list)
-				if(O == src)
-					continue
-				key_candidates += O
-			if(key_candidates.len)
-				var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)
-				O.shield_key = TRUE
-				depotarea.shields_up()
+		var/list/key_candidates = list()
+		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in living_mob_list)
+			if(O == src)
+				continue
+			key_candidates += O
+		if(key_candidates.len)
+			var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)
+			O.shield_key = TRUE
+			depotarea.shields_up()
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space

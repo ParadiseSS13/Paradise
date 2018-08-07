@@ -38,3 +38,7 @@
 		dc.Cut()
 
 	return QDEL_HINT_QUEUE
+
+
+/datum/nothing
+	// Placeholder object, used for ispath checks. Has to be defined to prevent errors, but shouldn't ever be created.

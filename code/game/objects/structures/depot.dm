@@ -8,8 +8,8 @@
 	max_integrity = 50
 	var/area/syndicate_depot/depotarea
 
-/obj/structure/fusionreactor/New()
-	..()
+/obj/structure/fusionreactor/Initialize()
+	. = ..()
 	depotarea = areaMaster
 	if(depotarea)
 		depotarea.reactor = src
@@ -67,8 +67,8 @@
 	var/max_fire_range = 6
 	var/area/syndicate_depot/depotarea
 
-/obj/effect/overload/New()
-	..()
+/obj/effect/overload/Initialize()
+	. = ..()
 	processing_objects.Add(src)
 	depotarea = areaMaster
 	if(depotarea)
