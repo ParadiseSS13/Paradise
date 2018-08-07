@@ -113,10 +113,13 @@
 	name = "Locker Mech"
 	result = /obj/mecha/makeshift
 	reqs = list(/obj/item/stack/cable_coil = 20,
-				/obj/item/stack/sheet/metal = 10,
+				/obj/item/stack/sheet/metal = 40,
 				/obj/item/storage/toolbox = 2, // For feet
 				/obj/item/tank/oxygen = 1, // For air
 				/obj/item/airlock_electronics = 1, //You are stealing the motors from airlocks
+				/obj/item/circuitboard/mecha/ripley/peripherals = 1, //to control the arms
+				/obj/item/circuitboard/mecha/ripley/main = 1, //for the main systems
+				/obj/item/stock_parts/cell/high = 1, //to power the mech
 				/obj/item/extinguisher = 1, //For bastard pnumatics
 				/obj/item/stack/tape_roll = 5, //to make it airtight
 				/obj/item/flashlight = 1, //For the mech light
@@ -130,7 +133,7 @@
 	name = "Makeshift exosuit drill"
 	result = /obj/item/mecha_parts/mecha_equipment/drill/makeshift
 	reqs = list(/obj/item/stack/cable_coil = 5,
-				/obj/item/stack/sheet/metal = 2,
+				/obj/item/stack/sheet/metal = 5,
 				/obj/item/surgicaldrill = 1)
 	tools = list(/obj/item/screwdriver)
 	time = 50
@@ -140,7 +143,7 @@
 	name = "Makeshift exosuit clamp"
 	result = /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/makeshift
 	reqs = list(/obj/item/stack/cable_coil = 5,
-				/obj/item/stack/sheet/metal = 2,
+				/obj/item/stack/sheet/metal = 5,
 				/obj/item/wirecutters = 1) //Don't ask, its just for the grabby grabby thing
 	tools = list(/obj/item/screwdriver)
 	time = 50
