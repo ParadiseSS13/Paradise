@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Simple_animal mobs now get a HUD button that lets them switch between HELP and HARM intents."
