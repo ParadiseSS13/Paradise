@@ -1,6 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Replaced the Syndicate Supply Depot with a new version, rebuilt from scratch, that is much more challenging/interesting."
-  - bugfix: "It is no longer possible to walk straight through decoy AI cores as if they were not there."
-  - bugfix: "Syndicate grenade launcher turrets now actually launch grenades."
