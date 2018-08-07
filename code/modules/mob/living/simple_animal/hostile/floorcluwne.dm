@@ -36,6 +36,7 @@
 	var/target_area
 	var/invalid_area_typecache = list(/area/space, /area/centcom)
 	var/eating = FALSE
+	var/smiting = FALSE
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/New()
@@ -135,10 +136,12 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
-	for(var/mob/living/carbon/human/I in player_list)
-		var/mob/living/carbon/human/H = pick(player_list)//so the check is fair
+	var/list/players_copy = player_list.Copy()
+	while(players_copy.len)
+		var/mob/living/carbon/human/H = pick_n_take(players_copy)
 
 		if(specific)
+			smiting = TRUE
 			H = specific
 			if(H.stat != DEAD && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 				return target = current_victim
@@ -331,8 +334,7 @@
 			H.density = FALSE
 			H.anchored = TRUE
 			addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Kill, H), 100)
-			visible_message("<span class='danger'>[src] pulls [H] under!</span>")
-			to_chat(H, "<span class='userdanger'>[src] drags you underneath the floor!</span>")
+			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
 	else
 		eating = FALSE
 
@@ -376,9 +378,13 @@
 
 	eating = FALSE
 	switch_stage = switch_stage * 0.75 //he gets faster after each feast
-	Acquire_Victim()
+	if(smiting)
+		playsound(loc, 'sound/spookoween/scary_horn2.ogg', 100, 0, -4)
+		qdel(src)
+	else
+		Acquire_Victim()
 
-	interest = 0
+		interest = 0
 
 //manifestation animation
 /obj/effect/temp_visual/fcluwne_manifest
