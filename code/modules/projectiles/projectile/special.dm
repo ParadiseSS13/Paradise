@@ -8,14 +8,14 @@
 
 /obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
 	..()
-	empulse(target, 1, 1)
+	empulse(target, 1, 1, 1)
 	return 1
 
 /obj/item/projectile/ion/weak
 
 /obj/item/projectile/ion/weak/on_hit(atom/target, blocked = 0)
 	..()
-	empulse(target, 0, 0)
+	empulse(target, 0, 0, 1)
 	return 1
 
 /obj/item/projectile/bullet/gyro
@@ -52,7 +52,7 @@
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 
 /obj/item/projectile/temp/New(loc, shot_temp)
-	..(loc)
+	..()
 	if(!isnull(shot_temp))
 		temperature = shot_temp
 	switch(temperature)
@@ -86,7 +86,6 @@
 		else
 			name = "temperature beam"//failsafe
 			icon_state = "temp_4"
-	..()
 
 
 /obj/item/projectile/temp/on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
@@ -134,11 +133,11 @@
 	var/mob/living/M = target
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.species.species_traits)
+		if(IS_PLANT in H.dna.species.species_traits)
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
-				M.visible_message("<span class='warning'>[M] writhes in pain as \his vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
+				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 			if(prob(35))
 				if(prob(80))
 					randmutb(M)
@@ -167,7 +166,7 @@
 	var/mob/M = target
 	if(ishuman(target)) //These rays make plantmen fat.
 		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.species.species_traits)
+		if(IS_PLANT in H.dna.species.species_traits)
 			H.nutrition = min(H.nutrition+30, NUTRITION_LEVEL_FULL)
 	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")

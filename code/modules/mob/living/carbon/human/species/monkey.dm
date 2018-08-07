@@ -8,10 +8,11 @@
 	damage_overlays = 'icons/mob/human_races/masks/dam_monkey.dmi'
 	damage_mask = 'icons/mob/human_races/masks/dam_mask_monkey.dmi'
 	blood_mask = 'icons/mob/human_races/masks/blood_monkey.dmi'
-	path = /mob/living/carbon/human/monkey
 	language = null
 	default_language = "Chimpanzee"
-	greater_form = "Human"
+	species_traits = list(NO_EXAMINE)
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	greater_form = /datum/species/human
 	is_small = 1
 	has_fine_manipulation = 0
 	ventcrawler = 1
@@ -28,14 +29,13 @@
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
 
-	//unarmed_types = list(/datum/unarmed_attack/bite, /datum/unarmed_attack/claws)
-	//inherent_verbs = list(/mob/living/proc/ventcrawl)
+	unarmed_type = /datum/unarmed_attack/bite
 
 	total_health = 75
 	brute_mod = 1.5
 	burn_mod = 1.5
 
-/datum/species/monkey/handle_npc(var/mob/living/carbon/human/H)
+/datum/species/monkey/handle_npc(mob/living/carbon/human/H)
 	if(H.stat != CONSCIOUS)
 		return
 	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
@@ -46,16 +46,17 @@
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
-/datum/species/monkey/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
+	..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"
 	H.name = H.real_name
 	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/monkey = 5)
 
+/datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
-
-/datum/species/monkey/handle_dna(var/mob/living/carbon/human/H)
-	H.dna.SetSEState(MONKEYBLOCK,1)
-	genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
+	if(!remove)
+		H.dna.SetSEState(MONKEYBLOCK, TRUE)
+		genemutcheck(H, MONKEYBLOCK, null, MUTCHK_FORCED)
 
 /datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	switch(slot)
@@ -100,7 +101,7 @@
 	icobase = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_farwa.dmi'
 
-	greater_form = "Tajaran"
+	greater_form = /datum/species/tajaran
 	default_language = "Farwa"
 	flesh_color = "#AFA59E"
 	base_color = "#000000"
@@ -124,7 +125,7 @@
 	icobase = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_wolpin.dmi'
 
-	greater_form = "Vulpkanin"
+	greater_form = /datum/species/vulpkanin
 	default_language = "Wolpin"
 	flesh_color = "#966464"
 	base_color = "#000000"
@@ -148,7 +149,7 @@
 	icobase = 'icons/mob/human_races/monkeys/r_neara.dmi'
 	deform = 'icons/mob/human_races/monkeys/r_neara.dmi'
 
-	greater_form = "Skrell"
+	greater_form = /datum/species/skrell
 	default_language = "Neara"
 	flesh_color = "#8CD7A3"
 	blood_color = "#1D2CBF"
@@ -163,7 +164,7 @@
 	deform = 'icons/mob/human_races/monkeys/r_stok.dmi'
 
 	tail = "stoktail"
-	greater_form = "Unathi"
+	greater_form = /datum/species/unathi
 	default_language = "Stok"
 	flesh_color = "#34AF10"
 	base_color = "#000000"

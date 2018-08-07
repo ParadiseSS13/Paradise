@@ -17,7 +17,7 @@
 
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 		return (OXYLOSS)
 
 /obj/item/melee/rapier

@@ -188,7 +188,7 @@
 			visible_message("[usr] switches [on ? "on" : "off"] [src].")
 		if("cellremove")
 			if(open && cell && !usr.get_active_hand())
-				cell.updateicon()
+				cell.update_icon()
 				usr.put_in_active_hand(cell)
 				cell.add_fingerprint(usr)
 				cell = null
@@ -715,7 +715,7 @@
 	var/list/blood_dna = H.get_blood_dna_list()
 	if(blood_dna)
 		transfer_blood_dna(blood_dna)
-		currentBloodColor = H.species.blood_color
+		currentBloodColor = H.dna.species.blood_color
 		return
 
 /mob/living/simple_animal/bot/mulebot/bot_control_message(command, mob/user, user_turf)

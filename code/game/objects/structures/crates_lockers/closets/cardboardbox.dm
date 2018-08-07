@@ -10,6 +10,7 @@
 	burntime = 20
 	sound = 'sound/effects/rustle2.ogg'
 	material_drop = /obj/item/stack/sheet/cardboard
+	var/amt = 4
 	cutting_sound = 'sound/items/poster_ripped.ogg'
 	var/move_delay = 0
 	var/egged = 0
@@ -60,7 +61,7 @@
 			return
 		if(istype(W, /obj/item/wirecutters))
 			var/obj/item/wirecutters/WC = W
-			new /obj/item/stack/sheet/cardboard(src.loc)
+			new /obj/item/stack/sheet/cardboard(src.loc, amt)
 			for(var/mob/M in viewers(src))
 				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WC].</span>", 3, "You hear cutting.", 2)
 			qdel(src)

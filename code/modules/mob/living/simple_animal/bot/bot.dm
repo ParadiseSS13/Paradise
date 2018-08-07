@@ -276,7 +276,7 @@
 		return
 	apply_damage(M.melee_damage_upper, BRUTE)
 	visible_message("<span class='danger'>[M] has [M.attacktext] [src]!</span>")
-	add_attack_logs(M, src, "Animal attacked", FALSE)
+	add_attack_logs(M, src, "Animal attacked", ATKLOG_ALL)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 

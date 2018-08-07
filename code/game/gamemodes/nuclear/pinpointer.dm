@@ -53,7 +53,7 @@
 	var/turf/T = get_turf(target)
 	var/turf/L = get_turf(src)
 
-	if(T.z != L.z)
+	if(!(T && L) || (T.z != L.z))
 		icon_state = icon_null
 	else
 		dir = get_dir(L, T)
@@ -341,7 +341,7 @@
 	if(active)
 		active = FALSE
 		icon_state = icon_off
-		user.visible_message("<span class='notice'>[user] deactivates their pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
+		user.visible_message("<span class='notice'>[user] deactivates [user.p_their()] pinpointer.</span>", "<span class='notice'>You deactivate your pinpointer.</span>")
 		return
 
 	var/list/name_counts = list()
@@ -354,7 +354,8 @@
 		var/name = "Unknown"
 		if(H.wear_id)
 			var/obj/item/card/id/I = H.wear_id.GetID()
-			name = I.registered_name
+			if(I)
+				name = I.registered_name
 
 		while(name in name_counts)
 			name_counts[name]++
@@ -372,7 +373,7 @@
 
 	var/target = names[A]
 	active = TRUE
-	user.visible_message("<span class='notice'>[user] activates their pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
+	user.visible_message("<span class='notice'>[user] activates [user.p_their()] pinpointer.</span>", "<span class='notice'>You activate your pinpointer.</span>")
 	point_at(target)
 
 /obj/item/pinpointer/crew/point_at(atom/target, spawnself = 1)

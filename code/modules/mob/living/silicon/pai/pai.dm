@@ -114,8 +114,6 @@
 		pda.name = pda.owner + " (" + pda.ownjob + ")"
 		var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
 		M.toff = 1
-		var/datum/data/pda/app/chatroom/C = pda.find_program(/datum/data/pda/app/chatroom)
-		C.toff = 1
 	..()
 
 /mob/living/silicon/pai/Destroy()
@@ -599,7 +597,7 @@
 	var/mob/living/carbon/human/H = over_object //changed to human to avoid stupid issues like xenos holding pAIs.
 	if(!istype(H) || !Adjacent(H))  return ..()
 	if(usr == src)
-		switch(alert(H, "[src] wants you to pick them up. Do it?",,"Yes","No"))
+		switch(alert(H, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
 			if("Yes")
 				if(Adjacent(H))
 					get_scooped(H)

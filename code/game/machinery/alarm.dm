@@ -118,6 +118,8 @@
 
 	var/report_danger_level = 1
 
+	var/automatic_emergency = 1 //Does the alarm automaticly respond to an emergency condition
+
 /obj/machinery/alarm/monitor
 	report_danger_level = 0
 
@@ -236,9 +238,11 @@
 		elect_master()
 
 /obj/machinery/alarm/proc/master_is_operating()
-	if(! alarm_area)
+	if(!alarm_area)
 		alarm_area = areaMaster
-
+	if(!alarm_area)
+		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
+		return FALSE
 	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (NOPOWER|BROKEN))
 
 
@@ -304,7 +308,7 @@
 
 	if(old_danger_level!=danger_level)
 		apply_danger_level()
-		if(mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
+		if(automatic_emergency && mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
 			if(pressure_dangerlevel == ATMOS_ALARM_DANGER)
 				mode = AALARM_MODE_OFF
 				if(temperature_dangerlevel == ATMOS_ALARM_DANGER && cur_tlv.max2 <= environment.temperature)
@@ -969,31 +973,30 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, 1)
 		return
 
-/obj/machinery/alarm/attackby(obj/item/W as obj, mob/user as mob, params)
-	src.add_fingerprint(user)
+/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
 
 	switch(buildstage)
 		if(2)
-			if(istype(W, /obj/item/screwdriver))  // Opening that Air Alarm up.
-//				to_chat(user, "You pop the Air Alarm's maintence panel open.")
+			if(isscrewdriver(I))  // Opening that Air Alarm up.
 				wiresexposed = !wiresexposed
 				to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
 				update_icon()
 				return
 
-			if(istype(W, /obj/item/wirecutters))  // cutting the wires out
+			if(iswirecutter(I))  // cutting the wires out
 				if(wires.wires_status == 31) // all wires cut
 					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
 					new_coil.amount = 5
-					new_coil.loc = user.loc
+					new_coil.forceMove(user.loc)
 					buildstage = 1
 					update_icon()
-					return
+				return
 
-			if(wiresexposed && ((istype(W, /obj/item/multitool) || istype(W, /obj/item/wirecutters))))
+			if(wiresexposed && ((ismultitool(I) || iswirecutter(I))))
 				return attack_hand(user)
 
-			if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))// trying to unlock the interface with an ID card
+			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return
@@ -1004,13 +1007,11 @@
 						updateUsrDialog()
 					else
 						to_chat(user, "<span class='warning'>Access denied.</span>")
-
-
-			return
+				return
 
 		if(1)
-			if(istype(W, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/coil = W
+			if(istype(I, /obj/item/stack/cable_coil))
+				var/obj/item/stack/cable_coil/coil = I
 				if(coil.amount < 5)
 					to_chat(user, "You need more cable for this!")
 					return
@@ -1026,34 +1027,35 @@
 				first_run()
 				return
 
-			else if(istype(W, /obj/item/crowbar))
+			else if(iscrowbar(I))
 				to_chat(user, "You start prying out the circuit.")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 20 * W.toolspeed, target = src))
+				playsound(get_turf(src), I.usesound, 50, 1)
+				if(do_after(user, 20 * I.toolspeed, target = src))
 					if(buildstage != 1)
 						return
 					to_chat(user, "You pry out the circuit!")
 					var/obj/item/airalarm_electronics/circuit = new /obj/item/airalarm_electronics()
-					circuit.loc = user.loc
+					circuit.forceMove(user.loc)
 					buildstage = 0
 					update_icon()
 				return
 		if(0)
-			if(istype(W, /obj/item/airalarm_electronics))
+			if(istype(I, /obj/item/airalarm_electronics))
 				to_chat(user, "You insert the circuit!")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				qdel(W)
+				playsound(get_turf(src), I.usesound, 50, 1)
+				qdel(I)
 				buildstage = 1
 				update_icon()
 				return
 
-			else if(istype(W, /obj/item/wrench))
+			else if(iswrench(I))
 				to_chat(user, "You remove the fire alarm assembly from the wall!")
 				new /obj/item/mounted/frame/alarm_frame(get_turf(user))
-				playsound(get_turf(src), W.usesound, 50, 1)
+				playsound(get_turf(src), I.usesound, 50, 1)
 				qdel(src)
+				return
 
-	return 0
+	return ..()
 
 /obj/machinery/alarm/power_change()
 	if(powered(power_channel))

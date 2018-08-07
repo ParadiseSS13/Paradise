@@ -44,8 +44,8 @@ SUBSYSTEM_DEF(machines)
 		if(O)
 			var/datum/powernet/newPN = new() // create a new powernet...
 			propagate_network(O, newPN)//... and propagate it to the other side of the cable
-		else
-			deferred_powernet_rebuilds.Remove(O)
+
+		deferred_powernet_rebuilds.Remove(O)
 		if(MC_TICK_CHECK)
 			return
 

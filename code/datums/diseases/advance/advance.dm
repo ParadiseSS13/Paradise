@@ -438,5 +438,3 @@ var/list/advance_cures = 	list(
 		var/datum/symptom/S = i
 		total_transmittable += S.transmittable
 	return total_transmittable
-
-#undef RANDOM_STARTING_LEVEL

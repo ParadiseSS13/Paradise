@@ -143,7 +143,7 @@ var/ert_request_answered = 0
 		else
 			M.change_gender(FEMALE)
 
-	M.set_species("Human",1)
+	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M)
 	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ERT.
 	M.overeatduration = 0
@@ -158,8 +158,8 @@ var/ert_request_answered = 0
 	head_organ.sec_hair_colour = hair_c
 	M.change_eye_color(eye_c)
 	M.s_tone = skin_tone
-	head_organ.h_style = random_hair_style(M.gender, head_organ.species.name)
-	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.species.name)
+	head_organ.h_style = random_hair_style(M.gender, head_organ.dna.species.name)
+	head_organ.f_style = random_facial_hair_style(M.gender, head_organ.dna.species.name)
 
 	M.rename_character(null, "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]")
 	M.age = rand(23,35)
@@ -171,7 +171,7 @@ var/ert_request_answered = 0
 	M.mind = new
 	M.mind.current = M
 	M.mind.original = M
-	M.mind.assigned_role = "MODE"
+	M.mind.assigned_role = SPECIAL_ROLE_ERT
 	M.mind.special_role = SPECIAL_ROLE_ERT
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind //Adds them to regular mind list.
@@ -203,13 +203,13 @@ var/ert_request_answered = 0
 	var/cyborg_unlock = 0
 
 /datum/response_team/proc/setSlots(com, sec, med, eng, jan, par, cyb)
-	command_slots = com
-	security_slots = sec
-	medical_slots = med
-	engineer_slots = eng
-	janitor_slots = jan
-	paranormal_slots = par
-	cyborg_slots = cyb
+	command_slots = com == null ? command_slots : com
+	security_slots = sec == null ? security_slots : sec
+	medical_slots = med == null ? medical_slots : med
+	engineer_slots = eng == null ? engineer_slots : eng
+	janitor_slots = jan == null ? janitor_slots : jan
+	paranormal_slots = par == null ? paranormal_slots : par
+	cyborg_slots = cyb == null ? cyborg_slots : cyb
 
 /datum/response_team/proc/reduceCyborgSlots()
 	cyborg_slots--

@@ -57,7 +57,7 @@
 		return
 	if(!rune)
 		if(isturf(user.loc))
-			user.visible_message("<span class='hierophant_warning'>[user] holds [src] carefully in front of them, moving it in a strange pattern...</span>", \
+			user.visible_message("<span class='hierophant_warning'>[user] holds [src] carefully in front of [user.p_them()], moving it in a strange pattern...</span>", \
 			"<span class='notice'>You start creating a hierophant rune to teleport to...</span>")
 			timer = world.time + 51
 			if(do_after(user, 50, target = user))
@@ -67,7 +67,7 @@
 				var/obj/effect/hierophant/H = new/obj/effect/hierophant(T)
 				rune = H
 				user.update_action_buttons_icon()
-				user.visible_message("<span class='hierophant_warning'>[user] creates a strange rune beneath them!</span>", \
+				user.visible_message("<span class='hierophant_warning'>[user] creates a strange rune beneath [user.p_them()]!</span>", \
 				"<span class='hierophant'>You create a hierophant rune, which you can teleport yourself and any allies to at any time!</span>\n\
 				<span class='notice'>You can remove the rune to place a new one by striking it with the staff.</span>")
 			else

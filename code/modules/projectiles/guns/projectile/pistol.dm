@@ -26,12 +26,6 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = 0
 
-/obj/item/gun/projectile/automatic/pistol/empty	//empty stetchshit for maint spawns
-
-/obj/item/gun/projectile/automatic/pistol/empty/New()
-	magazine = new /obj/item/ammo_box/magazine/m10mm/empty(src)
-	..()
-
 /obj/item/gun/projectile/automatic/pistol/enforcer
 	name = "Enforcer .45"
 	desc = "A pistol of modern design."

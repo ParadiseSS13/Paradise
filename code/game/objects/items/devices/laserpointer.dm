@@ -81,7 +81,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if((HULK in H.mutations) || (NOGUNS in H.species.species_traits))
+		if((HULK in H.mutations) || (NOGUNS in H.dna.species.species_traits))
 			user << "<span class='warning'>Your fingers can't press the button!</span>"
 			return
 
@@ -109,11 +109,11 @@
 
 			//20% chance to actually hit the eyes
 			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
-				outmsg = "<span class='notice'>You blind [C] by shining [src] in their eyes.</span>"
+				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
 				if(C.weakeyes)
 					C.Stun(1)
 			else
-				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at their eyes!</span>"
+				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
 
 	//robots and AI
 	else if(issilicon(target))
@@ -123,11 +123,11 @@
 			S.flash_eyes(affect_silicon = 1)
 			S.Weaken(rand(5,10))
 			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-			outmsg = "<span class='notice'>You overload [S] by shining [src] at their sensors.</span>"
+			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
 
 			add_attack_logs(user, S, "shone [src] in their eyes")
 		else
-			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at their sensors.</span>"
+			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>"
 
 	//cameras
 	else if(istype(target, /obj/machinery/camera))

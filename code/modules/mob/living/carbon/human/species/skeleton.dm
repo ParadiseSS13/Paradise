@@ -6,14 +6,12 @@
 
 	icobase = 'icons/mob/human_races/r_skeleton.dmi'
 	deform = 'icons/mob/human_races/r_skeleton.dmi'
-	path = /mob/living/carbon/human/skeleton
-	default_language = "Galactic Common"
-	unarmed_type = /datum/unarmed_attack/punch
 
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	skinned_type = /obj/item/stack/sheet/bone
 
 	oxy_mod = 0
 
@@ -41,7 +39,7 @@
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.
 
-/datum/species/skeleton/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+/datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	// Crazylemon is still silly
 	if(R.id == "milk")
 		H.heal_overall_damage(4,4)

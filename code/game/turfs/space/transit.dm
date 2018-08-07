@@ -1,5 +1,4 @@
 /turf/space/transit
-	flags = null
 	var/pushdirection // push things that get caught in the transit tile this direction
 
 //Overwrite because we dont want people building rods in space.
@@ -94,8 +93,7 @@
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
-	var/datum/space_level/dest = pick(levels_by_trait(REACHABLE))
-	var/_z = dest.zpos	//select a random space zlevel
+	var/_z = pick(levels_by_trait(REACHABLE))	//select a random space zlevel
 
 	//now select coordinates for a border turf
 	var/_x
@@ -119,7 +117,8 @@
 	AM.newtonian_move(dir)
 
 
-
+/turf/space/transit/rpd_act()
+	return
 
 //Overwrite because we dont want people building rods in space.
 /turf/space/transit/attackby()

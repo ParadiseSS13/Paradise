@@ -74,7 +74,7 @@
 		H = M
 
 	spawn(0) //Some mutations have sleeps in them, like monkey
-		if(!(NOCLONE in M.mutations) && !(H && (NO_DNA in H.species.species_traits))) // prevents drained people from having their DNA changed
+		if(!(NOCLONE in M.mutations) && !(H && (NO_DNA in H.dna.species.species_traits))) // prevents drained people from having their DNA changed
 			var/prev_ue = M.dna.unique_enzymes
 			var/mutflags = 0
 			// UI in syringe.
@@ -113,7 +113,7 @@
 
 	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
 		var/mob/living/carbon/human/H = M
-		if(NO_DNA in H.species.species_traits)
+		if(NO_DNA in H.dna.species.species_traits)
 			return 0
 
 	if(!user.IsAdvancedToolUser())
@@ -142,7 +142,7 @@
 	else
 		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
 
-	add_attack_logs(user, M, attack_log, FALSE)
+	add_attack_logs(user, M, attack_log, ATKLOG_ALL)
 	if(!iscarbon(user))
 		M.LAssailant = null
 	else

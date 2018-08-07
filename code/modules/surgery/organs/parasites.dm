@@ -35,7 +35,8 @@
 /obj/item/organ/internal/body_egg/spider_eggs/remove(var/mob/living/carbon/M, var/special = 0)
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
-	qdel(src) //We don't want people re-implanting these for near instant gibbings.
+	if(!QDELETED(src))
+		qdel(src) // prevent people re-implanting them into others
 	return null
 
 
@@ -82,7 +83,7 @@
 				// Actually, let's make it slightly worse... just to discourage people from bringing back infections.
 				alternate_ending = 1
 			to_chat(owner,"<span class='danger'>The shapes extend tendrils out of your wound... no... those are legs! SPIDER LEGS! You have spiderlings growing inside you! You scratch at the wound, but it just aggrivates them - they swarm out of the wound, biting you all over!</span>")
-			owner.visible_message("<span class='danger'>[owner] flails around on the floor as spiderlings erupt from their skin and swarm all over them! </span>")
+			owner.visible_message("<span class='danger'>[owner] flails around on the floor as spiderlings erupt from [owner.p_their()] skin and swarm all over them! </span>")
 			owner.Stun(20)
 			owner.Weaken(20)
 			// yes, this is a long stun - that's intentional. Gotta give the spiderlings time to escape.
@@ -114,5 +115,6 @@
 
 /obj/item/organ/internal/body_egg/terror_eggs/remove(var/mob/living/carbon/M, var/special = 0)
 	..()
-	qdel(src) // prevent people re-implanting them into others
+	if(!QDELETED(src))
+		qdel(src) // prevent people re-implanting them into others
 	return null

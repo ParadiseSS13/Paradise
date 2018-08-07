@@ -31,7 +31,7 @@
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				if(prob(50))
 					M.adjustBruteLoss(-1)
-					if(!(NO_BLOOD in H.species.species_traits))//do not restore blood on things with no blood by nature.
+					if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 						if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 							H.blood_volume += 0.4
 	..()
@@ -66,7 +66,7 @@
 		M.satiety += 30
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.species.species_traits))//do not restore blood on things with no blood by nature.
+		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.5
 	..()

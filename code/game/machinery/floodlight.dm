@@ -48,7 +48,7 @@
 			cell.loc = loc
 
 		cell.add_fingerprint(user)
-		cell.updateicon()
+		cell.update_icon()
 
 		src.cell = null
 		to_chat(user, "You remove the power cell")
