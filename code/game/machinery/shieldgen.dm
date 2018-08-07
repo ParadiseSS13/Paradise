@@ -275,7 +275,7 @@
 		else
 			if(istype(get_turf(src), /turf/space))
 				return //No wrenching these in space!
-			playsound(loc, W.usesound, 100, 1)
+			playsound(loc, I.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You secure the [src] to the floor!</span>")
 			anchored = 1
 
