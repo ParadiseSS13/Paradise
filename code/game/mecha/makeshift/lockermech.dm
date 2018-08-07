@@ -7,8 +7,8 @@
 	lights_power = 5
 	step_in = 5 //Slower than ripley
 	max_temperature = 5000
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
-	damage_absorption = list("brute"=1,"fire"=1,"bullet"=1,"laser"=1,"energy"=1,"bomb"=1)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	damage_absorption = list("brute"= 1, "fire"= 1, "bullet"= 1, "laser"= 1, "energy"= 1, "bomb"= 1)
 	max_equip = 2
 	wreckage = null
 	var/list/cargo = list()
