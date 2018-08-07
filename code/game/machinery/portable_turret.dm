@@ -1016,12 +1016,12 @@ var/list/turret_icons
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
-	var/area/syndicate_depot/depotarea = areaMaster
-	if(depotarea)
+	var/area/syndicate_depot/core/depotarea = areaMaster
+	if(istype(depotarea))
 		depotarea.turret_died()
 
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
-	var/area/syndicate_depot/depotarea = areaMaster
+	var/area/syndicate_depot/core/depotarea = areaMaster
 	if(istype(depotarea))
 		depotarea.list_add(target, depotarea.hostile_list)
 		depotarea.declare_started()

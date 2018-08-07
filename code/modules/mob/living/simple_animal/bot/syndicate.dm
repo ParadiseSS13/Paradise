@@ -22,7 +22,7 @@
 	window_name = "Syndicate Bot Interface"
 	var/turf/saved_turf
 	var/stepsound = 'sound/mecha/mechstep.ogg'
-	var/area/syndicate_depot/depotarea
+	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
 	var/pathing_failed = FALSE
 	var/turf/spawn_turf

@@ -26,7 +26,7 @@
 	. = ..()
 
 /obj/structure/closet/secure_closet/syndicate/depot/proc/loot_pickup()
-	var/area/syndicate_depot/depotarea = areaMaster
+	var/area/syndicate_depot/core/depotarea = areaMaster
 	if(depotarea)
 		depotarea.locker_looted()
 

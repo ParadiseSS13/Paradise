@@ -17,7 +17,7 @@
 	var/sound_yes = 'sound/machines/twobeep.ogg'
 	var/sound_no = 'sound/machines/buzz-sigh.ogg'
 	var/sound_click = 'sound/machines/click.ogg'
-	var/area/syndicate_depot/depotarea
+	var/area/syndicate_depot/core/depotarea
 	var/alerts_when_broken = FALSE
 	var/has_alerted = FALSE
 

@@ -6,7 +6,7 @@
 	icon_state = "powersink1"
 	anchored = 1
 	max_integrity = 50
-	var/area/syndicate_depot/depotarea
+	var/area/syndicate_depot/core/depotarea
 
 /obj/structure/fusionreactor/Initialize()
 	. = ..()
@@ -65,14 +65,14 @@
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE
 	var/max_cycles = 10
-	var/max_fire_range = 6
-	var/area/syndicate_depot/depotarea
+	var/max_fire_range = 9
+	var/area/syndicate_depot/core/depotarea
 
 /obj/effect/overload/Initialize()
 	. = ..()
 	processing_objects.Add(src)
 	depotarea = areaMaster
-	if(depotarea)
+	if(istype(depotarea))
 		if(!depotarea.used_self_destruct)
 			depotarea.used_self_destruct = TRUE // Silences all further alerts from this point onwards.
 			depotarea.updateicon()
@@ -90,7 +90,9 @@
 			new /obj/effect/hotspot(turf)
 		return
 
-	if(depotarea)
+	if(!istype(depotarea))
+		depotarea = areaMaster
+	if(istype(depotarea))
 		depotarea.destroyed = TRUE
 		depotarea.updateicon()
 

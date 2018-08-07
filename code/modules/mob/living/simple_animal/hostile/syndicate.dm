@@ -78,7 +78,7 @@
 	stat_attack = 1
 	universal_speak = 1
 	melee_block_chance = 40
-	var/area/syndicate_depot/depotarea
+	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
 	var/alert_on_death = FALSE
 	var/alert_on_timeout = FALSE

@@ -1,8 +1,11 @@
 
 /area/syndicate_depot
 	name = "Suspicious Supply Depot"
-	icon_state = "red"
+	icon_state = "dark"
 	tele_proof = 1
+
+/area/syndicate_depot/core
+	icon_state = "red"
 
 	var/local_alarm = FALSE // Level 1: Local alarm tripped, bot spawned, red fire overlay activated
 	var/called_backup = FALSE // Level 2: Remote alarm tripped. Bot may path through depot. Backup spawned.
@@ -31,7 +34,7 @@
 	var/obj/machinery/computer/syndicate_depot/syndiecomms/comms_computer = null
 	var/obj/structure/fusionreactor/reactor
 
-/area/syndicate_depot/updateicon()
+/area/syndicate_depot/core/updateicon()
 	if(destroyed)
 		icon_state = null
 		invisibility = INVISIBILITY_MAXIMUM
@@ -51,7 +54,7 @@
 		icon_state = null
 		invisibility = INVISIBILITY_MAXIMUM
 
-/area/syndicate_depot/proc/reset_alert()
+/area/syndicate_depot/core/proc/reset_alert()
 
 	if(used_self_destruct)
 		return
@@ -73,7 +76,7 @@
 
 	alert_log += "Alert level reset."
 
-/area/syndicate_depot/proc/increase_alert(reason)
+/area/syndicate_depot/core/proc/increase_alert(reason)
 	if(on_peaceful)
 		peaceful_mode(FALSE, FALSE)
 		peace_betrayed = TRUE
@@ -89,35 +92,35 @@
 		activate_self_destruct(reason, FALSE, null)
 	updateicon()
 
-/area/syndicate_depot/proc/locker_looted()
+/area/syndicate_depot/core/proc/locker_looted()
 	something_looted = TRUE
 	if(on_peaceful)
 		increase_alert("Thieves!")
 
-/area/syndicate_depot/proc/turret_died()
+/area/syndicate_depot/core/proc/turret_died()
 	something_looted = TRUE
 	if(on_peaceful)
 		increase_alert("Vandals!")
 
-/area/syndicate_depot/proc/saw_mech(obj/mecha/E)
+/area/syndicate_depot/core/proc/saw_mech(obj/mecha/E)
 	if(detected_mech)
 		return
 	detected_mech = TRUE
 	increase_alert("Hostile mecha detected: [E]")
 
-/area/syndicate_depot/proc/saw_pod(obj/spacepod/P)
+/area/syndicate_depot/core/proc/saw_pod(obj/spacepod/P)
 	if(detected_pod)
 		return
 	detected_pod = TRUE
 	increase_alert("Hostile spacepod detected: [P]")
 
-/area/syndicate_depot/proc/saw_double_agent(mob/living/M)
+/area/syndicate_depot/core/proc/saw_double_agent(mob/living/M)
 	if(detected_double_agent)
 		return
 	detected_double_agent = TRUE
 	increase_alert("Hostile double-agent detected: [M]")
 
-/area/syndicate_depot/proc/peaceful_mode(newvalue, bycomputer)
+/area/syndicate_depot/core/proc/peaceful_mode(newvalue, bycomputer)
 	if(newvalue)
 		log_game("Depot visit: started")
 		alert_log += "Code GREEN: visitor mode started."
@@ -173,7 +176,7 @@
 		peaceful_list = list()
 	updateicon()
 
-/area/syndicate_depot/proc/local_alarm(reason, silent)
+/area/syndicate_depot/core/proc/local_alarm(reason, silent)
 	if(local_alarm)
 		return
 	log_game("Depot code: blue: " + list_show(hostile_list, TRUE))
@@ -194,7 +197,7 @@
 			B.depotarea = src
 	updateicon()
 
-/area/syndicate_depot/proc/call_backup(reason, silent)
+/area/syndicate_depot/core/proc/call_backup(reason, silent)
 	if(called_backup || used_self_destruct)
 		return
 	log_game("Depot code: red: " + list_show(hostile_list, TRUE))
@@ -226,7 +229,7 @@
 		announce_here("Depot Communications Offline", "Comms computer is damaged, destroyed or depowered. Unable to call in backup from Syndicate HQ.")
 	updateicon()
 
-/area/syndicate_depot/proc/activate_self_destruct(reason, containment_failure, mob/user)
+/area/syndicate_depot/core/proc/activate_self_destruct(reason, containment_failure, mob/user)
 	if(used_self_destruct)
 		return
 	log_game("Depot code: delta: " + list_show(hostile_list, TRUE))
@@ -259,7 +262,7 @@
 		message_admins("<span class='adminnotice'>Syndicate Depot lacks reactor to initiate self-destruct. Must be destroyed manually.</span>")
 	updateicon()
 
-/area/syndicate_depot/proc/activate_lockdown()
+/area/syndicate_depot/core/proc/activate_lockdown()
 	if(used_lockdown)
 		return
 	used_lockdown = TRUE
@@ -269,27 +272,27 @@
 			if(A.density)
 				A.lock()
 
-/area/syndicate_depot/proc/lockout_computers()
+/area/syndicate_depot/core/proc/lockout_computers()
 	for(var/obj/machinery/computer/syndicate_depot/C in src)
 		C.activate_security_lockout()
 
-/area/syndicate_depot/proc/toggle_door_locks()
+/area/syndicate_depot/core/proc/toggle_door_locks()
 	for(var/obj/machinery/door/airlock/A in src)
 		A.emergency = !A.emergency
 		if(A.locked)
 			A.locked = !A.locked
 		A.update_icon()
 
-/area/syndicate_depot/proc/toggle_falsewalls()
+/area/syndicate_depot/core/proc/toggle_falsewalls()
 	for(var/obj/structure/falsewall/reinforced/F in src)
 		spawn(0)
 			F.toggle()
 
-/area/syndicate_depot/proc/toggle_teleport_beacon()
+/area/syndicate_depot/core/proc/toggle_teleport_beacon()
 	for(var/obj/machinery/bluespace_beacon/syndicate/B in src)
 		return B.toggle()
 
-/area/syndicate_depot/proc/announce_here(a_header = "Depot Defense Alert", a_text = "")
+/area/syndicate_depot/core/proc/announce_here(a_header = "Depot Defense Alert", a_text = "")
 	var/msg_text = "<font size=4 color='red'>[a_header]</font><br><font color='red'>[a_text]</font>"
 	var/list/receivers = list()
 	for(var/mob/M in mob_list)
@@ -303,7 +306,7 @@
 		to_chat(R, msg_text)
 		R << sound('sound/misc/notice1.ogg')
 
-/area/syndicate_depot/proc/shields_up()
+/area/syndicate_depot/core/proc/shields_up()
 	if(shield_list.len)
 		return
 	for(var/obj/effect/landmark/L in landmarks_list)
@@ -311,42 +314,42 @@
 			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
 			shield_list += S.UID()
 
-/area/syndicate_depot/proc/shields_key_check()
+/area/syndicate_depot/core/proc/shields_key_check()
 	if(!shield_list.len)
 		return
 	if(detected_mech || detected_pod || detected_double_agent)
 		return
 	shields_down()
 
-/area/syndicate_depot/proc/shields_down()
+/area/syndicate_depot/core/proc/shields_down()
 	for(var/shuid in shield_list)
 		var/obj/machinery/shieldwall/syndicate/S = locateUID(shuid)
 		if(S)
 			qdel(S)
 	shield_list = list()
 
-/area/syndicate_depot/proc/despawn_guards()
+/area/syndicate_depot/core/proc/despawn_guards()
 	for(var/mob/thismob in list_getmobs(guard_list))
 		new /obj/effect/portal(get_turf(thismob))
 		qdel(thismob)
 	guard_list = list()
 
-/area/syndicate_depot/proc/ghostlog(gmsg)
+/area/syndicate_depot/core/proc/ghostlog(gmsg)
 	if(istype(reactor))
 		var/image/alert_overlay = image('icons/obj/flag.dmi', "syndiflag")
 		notify_ghosts(gmsg, title = "Depot News", source = reactor, alert_overlay = alert_overlay, action = NOTIFY_JUMP)
 
-/area/syndicate_depot/proc/declare_started()
+/area/syndicate_depot/core/proc/declare_started()
 	if(!run_started)
 		run_started = TRUE
 		log_game("Depot run: started: " + list_show(hostile_list, TRUE))
 
-/area/syndicate_depot/proc/declare_finished()
+/area/syndicate_depot/core/proc/declare_finished()
 	if(!run_finished && !used_self_destruct)
 		run_finished = TRUE
 		log_game("Depot run: finished successfully: " + list_show(hostile_list, TRUE))
 
-/area/syndicate_depot/proc/list_add(mob/M, list/L)
+/area/syndicate_depot/core/proc/list_add(mob/M, list/L)
 	if(!istype(M))
 		return
 	var/mob_uid = M.UID()
@@ -354,14 +357,14 @@
 		return
 	L += mob_uid
 
-/area/syndicate_depot/proc/list_remove(mob/M, list/L)
+/area/syndicate_depot/core/proc/list_remove(mob/M, list/L)
 	if(!istype(M))
 		return
 	var/mob_uid = M.UID()
 	if(mob_uid in L)
 		L -= mob_uid
 
-/area/syndicate_depot/proc/list_includes(mob/M, list/L)
+/area/syndicate_depot/core/proc/list_includes(mob/M, list/L)
 	if(!istype(M))
 		return FALSE
 	var/mob_uid = M.UID()
@@ -369,7 +372,7 @@
 		return TRUE
 	return FALSE
 
-/area/syndicate_depot/proc/list_show(list/L, show_ckeys = FALSE)
+/area/syndicate_depot/core/proc/list_show(list/L, show_ckeys = FALSE)
 	var/list/formatted = list()
 	for(var/uid in L)
 		var/mob/M = locateUID(uid)
@@ -381,7 +384,7 @@
 			formatted += "[M]"
 	return formatted.Join(", ")
 
-/area/syndicate_depot/proc/list_getmobs(list/L, show_ckeys = FALSE)
+/area/syndicate_depot/core/proc/list_getmobs(list/L, show_ckeys = FALSE)
 	var/list/moblist = list()
 	for(var/uid in L)
 		var/mob/M = locateUID(uid)
@@ -390,7 +393,7 @@
 		moblist += M
 	return moblist
 
-/area/syndicate_depot/proc/list_gethtmlmobs(list/L)
+/area/syndicate_depot/core/proc/list_gethtmlmobs(list/L)
 	var/returntext = ""
 	var/list/moblist = list_getmobs(L)
 	if(moblist.len)
@@ -409,7 +412,7 @@
 /area/syndicate_depot/perimeter
 	name = "Suspicious Asteroid Perimeter"
 	icon_state = "yellow"
-
+	var/list/shield_list = list()
 
 /area/syndicate_depot/perimeter/proc/perimeter_shields_up()
 	if(shield_list.len)
