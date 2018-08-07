@@ -14,7 +14,7 @@
 
 /mob/living/silicon/decoy/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/aicard))
-		user.visible_message("<span class='notice'>[user] cannot find an intellicard slot on [src].</span>")
+		to_chat(user, "<span class='warning'>You cannot find an intellicard slot on [src].</span>")
 		return TRUE
 	else
 		return ..()
