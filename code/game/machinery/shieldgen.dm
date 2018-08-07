@@ -4,7 +4,7 @@
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shield-old"
 		density = 1
-		opacity = 0
+		opacity = FALSE
 		anchored = 1
 		unacidable = 1
 		var/const/max_health = 200
@@ -19,7 +19,7 @@
 	..()
 
 /obj/machinery/shield/Destroy()
-	opacity = 0
+	opacity = FALSE
 	density = 0
 	air_update_turf(1)
 	return ..()
@@ -37,13 +37,13 @@
 /obj/machinery/shield/CanAtmosPass(turf/T)
 	return !density
 
-/obj/machinery/shield/attackby(obj/item/W, mob/user, params)
-	if(!istype(W))
+/obj/machinery/shield/attackby(obj/item/I, mob/user, params)
+	if(!istype(I))
 		return
 
 	//Calculate damage
-	var/aforce = W.force
-	if(W.damtype == BRUTE || W.damtype == BURN)
+	var/aforce = I.force
+	if(I.damtype == BRUTE || I.damtype == BURN)
 		health -= aforce
 
 	//Play a fitting sound
@@ -54,10 +54,10 @@
 		qdel(src)
 		return
 
-	opacity = 1
+	opacity = TRUE
 	spawn(20)
 		if(src)
-			opacity = 0
+			opacity = FALSE
 
 	..()
 
@@ -68,10 +68,10 @@
 		visible_message("<span class='notice'>The [src] dissipates</span>")
 		qdel(src)
 		return
-	opacity = 1
+	opacity = TRUE
 	spawn(20)
 		if(src)
-			opacity = 0
+			opacity = FALSE
 
 /obj/machinery/shield/ex_act(severity)
 	switch(severity)
@@ -118,10 +118,10 @@
 		return
 
 	//The shield becomes dense to absorb the blow.. purely asthetic.
-	opacity = 1
+	opacity = TRUE
 	spawn(20)
 		if(src)
-			opacity = 0
+			opacity = FALSE
 
 
 /obj/machinery/shieldgen
@@ -130,7 +130,7 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
 	density = 1
-	opacity = 0
+	opacity = FALSE
 	anchored = 0
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(access_engine)
@@ -203,7 +203,7 @@
 /obj/machinery/shieldgen/emp_act(severity)
 	switch(severity)
 		if(1)
-			health /= 2 //cut health in half
+			health = health * 0.5 //cut health in half
 			malfunction = TRUE
 			locked = pick(TRUE, FALSE)
 		if(2)
@@ -234,13 +234,13 @@
 		else
 			to_chat(user, "The device must first be secured to the floor.")
 
-/obj/machinery/shieldgen/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/card/emag))
+/obj/machinery/shieldgen/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I, /obj/item/card/emag))
 		malfunction = TRUE
 		update_icon()
 
-	else if(istype(W, /obj/item/screwdriver))
-		playsound(loc, W.usesound, 100, 1)
+	else if(isscrewdriver(I))
+		playsound(loc, I.usesound, 100, 1)
 		if(is_open)
 			to_chat(user, "<span class='notice'>You close the panel.</span>")
 			is_open = FALSE
@@ -248,11 +248,12 @@
 			to_chat(user, "<span class='notice'>You open the panel and expose the wiring.</span>")
 			is_open = TRUE
 
-	else if(istype(W, /obj/item/stack/cable_coil) && malfunction && is_open)
-		var/obj/item/stack/cable_coil/coil = W
+	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
+		var/obj/item/stack/cable_coil/coil = I
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
 		if(do_after(user, 30 * coil.toolspeed, target = src))
-			if(!src || !coil) return
+			if(!src || !coil)
+				return
 			coil.use(1)
 			health = max_health
 			malfunction = TRUE
@@ -260,25 +261,26 @@
 			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
 
-	else if(istype(W, /obj/item/wrench))
+	else if(istype(I, /obj/item/wrench))
 		if(locked)
 			to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
 			return
 		if(anchored)
-			playsound(loc, W.usesound, 100, 1)
+			playsound(loc, I.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You unsecure the [src] from the floor!</span>")
 			if(active)
 				to_chat(user, "<span class='notice'>The [src] shuts off!</span>")
 				shields_down()
 			anchored = 0
 		else
-			if(istype(get_turf(src), /turf/space)) return //No wrenching these in space!
+			if(istype(get_turf(src), /turf/space))
+				return //No wrenching these in space!
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You secure the [src] to the floor!</span>")
 			anchored = 1
 
 
-	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
+	else if(istype(I, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
@@ -354,7 +356,7 @@
 	if(state != 1)
 		to_chat(user, "<span class='warning'>The shield generator needs to be firmly secured to the floor first.</span>")
 		return 1
-	if(locked && !istype(user, /mob/living/silicon))
+	if(locked && !issilicon(user))
 		to_chat(user, "<span class='warning'>The controls are locked!</span>")
 		return 1
 	if(power != 1)
@@ -368,7 +370,7 @@
 		user.visible_message("[user] turned the shield generator off.", \
 			"You turn off the shield generator.", \
 			"You hear heavy droning fade out.")
-		for(var/dir in list(1,2,4,8))
+		for(var/dir in list(NORTH, SOUTH, EAST, WEST))
 			cleanup(dir)
 	else
 		active = 1
@@ -407,7 +409,7 @@
 				"You hear heavy droning fade out")
 			icon_state = "Shield_Gen"
 			active = 0
-			for(var/dir in list(1,2,4,8))
+			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
 				cleanup(dir)
 
 /obj/machinery/shieldwallgen/proc/setup_field(NSEW = 0)
@@ -602,8 +604,8 @@
 
 
 /obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
+	if(height == 0)
+		return TRUE
 
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return prob(20)
