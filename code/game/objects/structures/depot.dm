@@ -65,6 +65,7 @@
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE
 	var/max_cycles = 10
+	var/max_fire_range = 6
 	var/area/syndicate_depot/depotarea
 
 /obj/effect/overload/Initialize()
@@ -83,7 +84,7 @@
 		if(!deliberate)
 			playsound(loc, beepsound, 50, 0)
 		cycles++
-		var/fire_range = min(cycles, 6)
+		var/fire_range = min(cycles, max_fire_range)
 
 		for(var/turf/simulated/turf in range(fire_range, T))
 			new /obj/effect/hotspot(turf)
