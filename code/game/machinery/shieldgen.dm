@@ -280,7 +280,7 @@
 			anchored = 1
 
 
-	else if(istype(I, /obj/item/card/id) || istype(W, /obj/item/pda))
+	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "The controls are now [locked ? "locked." : "unlocked."]")
