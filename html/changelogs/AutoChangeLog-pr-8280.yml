@@ -1,0 +1,4 @@
+author: "Anasari"
+delete-after: True
+changes: 
+  - rscadd: "Polaris card system partially ported. Credits to Jedr for the hand of card item_action sprites."
