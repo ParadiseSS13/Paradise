@@ -4,7 +4,7 @@
 	stat = DEAD
 	icon_state = "ai-crash"
 	for(var/obj/machinery/ai_status_display/O in world) //change status
-		if(O.z == z)
+		if(atoms_share_level(O, src))
 			O.mode = 2
 	..(0)
 	gib()

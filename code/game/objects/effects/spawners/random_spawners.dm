@@ -198,7 +198,7 @@
 		/obj/item/clothing/under/syndicate/tacticool = 1,
 		/obj/item/clothing/mask/gas/syndicate = 1,
 		/obj/item/suppressor = 1,
-		/obj/item/coin/syndicate = 1,
+		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/cutouts = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level2

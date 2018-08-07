@@ -87,16 +87,17 @@
 	sideslist = list("heads")
 	credits = 20
 
-/obj/item/coin/syndicate
-	name = "syndicate coin"
+/obj/item/coin/antagtoken
+	name = "antag token"
 	icon_state = "coin_valid_valid"
 	cmineral = "valid"
 	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
 	sideslist = list("valid", "salad")
-	credits = 160
+	credits = 20
 
-/obj/item/coin/antagtoken/New()
-	return
+/obj/item/coin/antagtoken/syndicate
+	name = "syndicate coin"
+	credits = 160
 
 /obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/cable_coil))

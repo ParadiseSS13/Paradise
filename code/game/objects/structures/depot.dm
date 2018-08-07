@@ -20,8 +20,9 @@
 	..()
 
 /obj/structure/fusionreactor/ex_act(severity)
-	obj_integrity -= 10 * severity
-	healthcheck()
+	if(severity < 3)
+		obj_integrity = 0
+		healthcheck()
 
 /obj/structure/fusionreactor/bullet_act(obj/item/projectile/Proj)
 	obj_integrity -= Proj.damage
@@ -64,7 +65,6 @@
 	var/beepsound = 'sound/items/timer.ogg'
 	var/deliberate = FALSE
 	var/max_cycles = 10
-	var/max_fire_range = 6
 	var/area/syndicate_depot/depotarea
 
 /obj/effect/overload/Initialize()
@@ -83,9 +83,7 @@
 		if(!deliberate)
 			playsound(loc, beepsound, 50, 0)
 		cycles++
-		var/fire_range = cycles
-		if(max_fire_range > 6)
-			max_fire_range = 6
+		var/fire_range = min(cycles, 6)
 
 		for(var/turf/simulated/turf in range(fire_range, T))
 			new /obj/effect/hotspot(turf)

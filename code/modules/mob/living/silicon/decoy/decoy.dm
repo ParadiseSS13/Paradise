@@ -4,7 +4,7 @@
 	icon_state = "ai"
 	anchored = 1 // -- TLE
 	canmove = 0
-	a_intent = "harm" // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
+	a_intent = INTENT_HARM // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
 
 /mob/living/silicon/decoy/New()
 	src.icon = 'icons/mob/AI.dmi'
@@ -15,6 +15,7 @@
 /mob/living/silicon/decoy/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/aicard))
 		user.visible_message("<span class='notice'>[user] cannot find an intellicard slot on [src].</span>")
+		return TRUE
 	else
 		return ..()
 
