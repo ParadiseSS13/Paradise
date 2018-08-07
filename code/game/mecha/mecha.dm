@@ -854,7 +854,7 @@
 
 
 /obj/mecha/emag_act(user as mob)
-	if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
+	if(istype(src,	/obj/mecha/working/ripley) && !istype(src, /obj/mecha/working/ripley/makeshift) && emagged == 0)
 		emagged = 1
 		to_chat(usr, "<span class='notice'>You slide the card through the [src]'s ID slot.</span>")
 		playsound(loc, "sparks", 100, 1)

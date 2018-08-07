@@ -111,9 +111,9 @@
 
 /datum/crafting_recipe/lockermech
 	name = "Locker Mech"
-	result = /obj/mecha/makeshift
+	result = /obj/mecha/working/ripley/makeshift
 	reqs = list(/obj/item/stack/cable_coil = 20,
-				/obj/item/stack/sheet/metal = 40,
+				/obj/item/stack/sheet/metal = 50,
 				/obj/item/storage/toolbox = 2, // For feet
 				/obj/item/tank/oxygen = 1, // For air
 				/obj/item/airlock_electronics = 1, //You are stealing the motors from airlocks
