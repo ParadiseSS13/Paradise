@@ -1965,6 +1965,7 @@
 				logmsg = "floor cluwne"
 				var/turf/T = get_turf(M)
 				var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
+				FC.smiting = TRUE
 				FC.Acquire_Victim(M)
 		if(logmsg)
 			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")

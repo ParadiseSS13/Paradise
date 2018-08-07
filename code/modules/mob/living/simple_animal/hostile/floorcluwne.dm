@@ -19,6 +19,7 @@
 	del_on_death = TRUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB | LETPASSTHROW | PASSGLASS | PASSBLOB//it's practically a ghost when unmanifested (under the floor)
 	loot = list(/obj/item/clothing/mask/cursedclown)
+	a_intent = INTENT_HARM
 	wander = FALSE
 	minimum_distance = 2
 	move_to_delay = 1
@@ -141,7 +142,6 @@
 		var/mob/living/carbon/human/H = pick_n_take(players_copy)
 
 		if(specific)
-			smiting = TRUE
 			H = specific
 			if(H.stat != DEAD && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 				return target = current_victim
@@ -356,6 +356,11 @@
 
 
 		if(prob(75))
+			if(smiting)//if we are smiting we might as well cluwne them ANYWAY
+				H.makeCluwne()
+				H.adjustBruteLoss(30)
+				H.adjustBrainLoss(100)
+				//..and THEN dismember them...
 			for(var/I in H.bodyparts)
 				var/obj/item/organ/external/O = I
 				if(O.name == "head")//irksome runtimes
