@@ -395,6 +395,7 @@
 #include "code\game\world.dm"
 #include "code\game\area\ai_monitored.dm"
 #include "code\game\area\areas.dm"
+#include "code\game\area\depot-areas.dm"
 #include "code\game\area\Dynamic areas.dm"
 #include "code\game\area\Space Station 13 areas.dm"
 #include "code\game\dna\dna2.dm"
