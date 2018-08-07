@@ -69,7 +69,7 @@
 
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
-	desc = "An uninspiring general use medical hypospray for quick injection of chemicals. This model seems a bit outdated."
+	desc = "A general use medical hypospray for quick injection of chemicals. There is a safety button by the trigger."
 	icon_state = "medivend_hypo"
 	safety_hypo = TRUE
 
