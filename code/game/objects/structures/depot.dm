@@ -7,6 +7,7 @@
 	anchored = 1
 	max_integrity = 50
 	var/area/syndicate_depot/core/depotarea
+	var/has_overloaded = FALSE
 
 /obj/structure/fusionreactor/Initialize()
 	. = ..()
@@ -15,7 +16,9 @@
 		depotarea.reactor = src
 
 /obj/structure/fusionreactor/Destroy()
-	if(depotarea)
+	if(istype(depotarea))
+		if(!has_overloaded)
+			overload(TRUE, TRUE)
 		depotarea.reactor = null
 	..()
 
@@ -30,7 +33,7 @@
 	healthcheck()
 
 /obj/structure/fusionreactor/proc/healthcheck()
-	if(obj_integrity <= 0)
+	if(obj_integrity <= 0 && istype(depotarea))
 		overload(TRUE)
 
 /obj/structure/fusionreactor/attackby(obj/item/I, mob/user, params)
@@ -47,13 +50,20 @@
 	else
 		return ..()
 
-/obj/structure/fusionreactor/proc/overload(containment_failure)
+/obj/structure/fusionreactor/proc/overload(containment_failure = FALSE, skip_qdel = FALSE)
+	if(has_overloaded)
+		return
+	has_overloaded = TRUE
+	if(istype(depotarea) && !depotarea.used_self_destruct)
+		depotarea.activate_self_destruct("Fusion reactor cracked open. Core loose!", TRUE)
 	var/obj/effect/overload/O = new /obj/effect/overload(get_turf(src))
 	if(containment_failure)
 		playsound(loc, 'sound/machines/Alarm.ogg', 100, 0, 0)
 		O.deliberate = TRUE
 		O.max_cycles = 6
-	qdel(src)
+	if(!skip_qdel)
+		qdel(src)
+
 
 /obj/effect/overload
 	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
