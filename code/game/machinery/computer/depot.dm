@@ -169,9 +169,9 @@
 	if(depotarea.used_self_destruct)
 		playsound(user, sound_no, 50, 0)
 		return
-	playsound(user, sound_click, 20, 1)
 	if(depotarea)
 		depotarea.activate_self_destruct("Fusion reactor containment field disengaged. All hands, evacuate. All hands, evacuate!", TRUE, user)
+		playsound(user, sound_click, 20, 1)
 
 
 // Shield computer, used to manipulate base shield, and armory shield

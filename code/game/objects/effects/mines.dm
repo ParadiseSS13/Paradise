@@ -34,6 +34,11 @@
 	triggered = 1
 	qdel(src)
 
+/obj/effect/mine/ex_act(severity)
+	// Necessary because, as effects, they have infinite health, and wouldn't be destroyed otherwise.
+	// Also, they're pressure-sensitive mines, it makes sense that an explosion (wave of pressure) triggers/destroys them.
+	qdel(src)
+
 /obj/effect/mine/explosive
 	name = "explosive mine"
 	var/range_devastation = 0
