@@ -17,8 +17,8 @@
 	if(announce)
 		event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", new_sound = 'sound/AI/poweroff.ogg')
 
-	var/list/skipped_areas = list(/area/turret_protected/ai, /area/syndicate_depot)
-	var/list/skipped_areas_apc = list(/area/engine/engineering, /area/syndicate_depot)
+	var/list/skipped_areas = list(/area/turret_protected/ai, /area/syndicate_depot/core, /area/syndicate_depot/outer)
+	var/list/skipped_areas_apc = list(/area/engine/engineering, /area/syndicate_depot/core, /area/syndicate_depot/outer)
 
 	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
@@ -41,8 +41,8 @@
 			C.cell.charge = 0
 
 /proc/power_restore(var/announce = 1)
-	var/list/skipped_areas = list(/area/turret_protected/ai, /area/syndicate_depot)
-	var/list/skipped_areas_apc = list(/area/engine/engineering, /area/syndicate_depot)
+	var/list/skipped_areas = list(/area/turret_protected/ai, /area/syndicate_depot/core, /area/syndicate_depot/outer)
+	var/list/skipped_areas_apc = list(/area/engine/engineering, /area/syndicate_depot/core, /area/syndicate_depot/outer)
 
 	if(announce)
 		event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')

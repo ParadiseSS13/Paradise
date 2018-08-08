@@ -134,6 +134,14 @@
 	if(scan_cycles >= 15 && istype(depotarea))
 		scan_cycles = 0
 		if(!atoms_share_level(src, spawn_turf))
+			if(istype(loc, /obj/structure/closet))
+				var/obj/structure/closet/O = loc
+				forceMove(get_turf(src))
+				visible_message("<span class='boldwarning'>[src] smashes their way out of [O]!</span>")
+				qdel(O)
+				raise_alert("[src] reported being trapped in a locker.")
+				raised_alert = FALSE
+				return
 			if(alert_on_spacing)
 				raise_alert("[src] lost in space.")
 			death()

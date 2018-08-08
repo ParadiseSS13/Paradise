@@ -138,6 +138,7 @@
 	if(depotarea)
 		depotarea.toggle_door_locks(src)
 		to_chat(user, "<span class='notice'>Door locks toggled.</span>")
+		playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/doors/secondary(mob/user, subcommand)
 	if(..())
@@ -145,6 +146,7 @@
 	if(depotarea)
 		depotarea.toggle_falsewalls(src)
 		to_chat(user, "<span class='notice'>False walls toggled.</span>")
+		playsound(user, sound_yes, 50, 0)
 
 
 // Engineering AKA self destruct computer, no useful functions, just a trap for the people who can't resist pushing dangerous-sounding buttons.
@@ -285,6 +287,7 @@
 		to_chat(user, "<span class='warning'>[src] requires authentication with syndicate codewords, which you do not know.</span>")
 		raise_alert("Detected unauthorized access by [user] to [src]!")
 	updateUsrDialog()
+	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/secondary(mob/user, subcommand)
 	if(..())
@@ -319,6 +322,7 @@
 	else
 		to_chat(user, "<span class='warning'>ERROR: [src] is unable to uplink to depot network.</span>")
 	updateUsrDialog()
+	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/syndiecomms/proc/grant_syndie_faction(mob/user)
 	user.faction += "syndicate"
@@ -432,6 +436,7 @@
 	var/bresult = mybeacon.toggle()
 	to_chat(user, "<span class='notice'>Syndicate Teleporter Beacon: [bresult ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
 	updateUsrDialog()
+	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/secondary(mob/user)
 	if(..())
@@ -444,6 +449,7 @@
 	toggle_portal()
 	to_chat(user, "<span class='notice'>Outgoing Teleport Portal: [portal_enabled ? "<span class='green'>ON</span>" : "<span class='red'>OFF</span>"]</span>")
 	updateUsrDialog()
+	playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/teleporter/proc/toggle_portal()
 	portal_enabled = !portal_enabled
@@ -507,6 +513,7 @@
 	if(depotarea)
 		depotarea.reset_alert()
 		to_chat(user, "Alert level reset.")
+		playsound(user, sound_yes, 50, 0)
 
 /obj/machinery/computer/syndicate_depot/aiterminal/secondary(mob/user)
 	if(..())
@@ -517,3 +524,4 @@
 		to_chat(user, "[B] has been recalled.")
 		qdel(B)
 		raise_alert("Sentry bot removed via emergency recall.")
+	playsound(user, sound_yes, 50, 0)
