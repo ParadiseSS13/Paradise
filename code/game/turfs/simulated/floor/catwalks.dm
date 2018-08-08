@@ -12,36 +12,36 @@
 	update_overlays()
 
 /turf/simulated/floor/plating/catwalk/proc/update_overlays()
-	var/image/I = image(icon = 'icons/obj/catwalks.dmi', icon_state = "catwalk_white", loc = src, layer = 2.51)	//layer 2.51 is right above all on-plating stuff (pipes, disposals, cables)
+	var/image/I = image(icon = 'icons/turf/floors.dmi', icon_state = "catwalk_white", loc = src, layer = 2.51)	//layer 2.51 is right above all on-plating stuff (pipes, disposals, cables)
 	if(iscovered)
 		overlays += I
 	else
 		overlays -= I
-		qdel(I)
+		overlays.Cut(I)
 
-/turf/simulated/floor/plating/catwalk/attackby(obj/item/W, mob/user, params)
+/turf/simulated/floor/plating/catwalk/attackby(obj/item/I, mob/user, params)
 	if(iscovered)
-		if(istype(W,/obj/item/crowbar))	//instant, but doesn't refund
-			to_chat(user, "<span class='notice'>You pry apart the catwalk.</span>")
-			playsound(src, W.usesound, 80, 1)
+		if(iscrowbar(I))	//instant, but doesn't refund
+			to_chat(user, "<span class='notice'>You pry apart [src].</span>")
+			playsound(src, I.usesound, 80, 1)
 			iscovered = FALSE
 			update_overlays()
 			ChangeTurf(/turf/simulated/floor/plating)
 			return 1
-		if(istype(W,/obj/item/screwdriver))
-			to_chat(user, "<span class='notice'>You begin to unscrew the rods and disassemble the catwalk...</span>")
-			if(do_after(user, 20 * W.toolspeed, target = src))
+		if(isscrewdriver(I))
+			to_chat(user, "<span class='notice'>You begin to unscrew the rods and disassemble [src]...</span>")
+			if(do_after(user, 20 * I.toolspeed, target = src))
 				new /obj/item/stack/rods(src, 2)	//screwdriver refunds, but takes longer
-				playsound(src, W.usesound, 80, 1)
-				to_chat(user, "<span class='notice'>You disassemble the catwalk.</span>")
+				playsound(src, I.usesound, 80, 1)
+				to_chat(user, "<span class='notice'>You disassemble [src].</span>")
 				iscovered = FALSE
 				update_overlays()
 				ChangeTurf(/turf/simulated/floor/plating)
 			return 1
-		if(istype(W,/obj/item/floor_painter))
-			to_chat(user, "<span class='notice'>You begin dying the catwalk...</span>")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				to_chat(user, "<span class='notice'>You dye the catwalk with a darker color.</span>")
+		if(istype(I,/obj/item/floor_painter))
+			to_chat(user, "<span class='notice'>You begin dying [src]...</span>")
+			if(do_after(user, 20 * I.toolspeed, target = src))
+				to_chat(user, "<span class='notice'>You dye [src] with a darker color.</span>")
 				playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
 				iscovered = FALSE
 				update_overlays()
@@ -52,17 +52,17 @@
 	icon_state = "catwalk_dark"
 
 /turf/simulated/floor/plating/catwalk/dark/update_overlays()
-	var/image/I = image(icon = 'icons/obj/catwalks.dmi', icon_state = "catwalk_dark", loc = src, layer = 2.51)
+	var/image/I = image(icon = 'icons/turf/floors.dmi', icon_state = "catwalk_dark", loc = src, layer = 2.51)
 	if(iscovered)
 		overlays += I
 	else
 		overlays -= I
-		qdel(I)
+		overlays.Cut(I)
 
-/turf/simulated/floor/plating/catwalk/dark/attackby(obj/item/W, mob/user, params)
-	if(istype(W,/obj/item/floor_painter) && iscovered)
+/turf/simulated/floor/plating/catwalk/dark/attackby(obj/item/I, mob/user, params)
+	if(istype(I,/obj/item/floor_painter) && iscovered)
 		to_chat(user, "<span class='notice'>You begin dying over the catwalk...</span>")
-		if(do_after(user, 20 * W.toolspeed, target = src))
+		if(do_after(user, 20 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You dye the catwalk a brighter color.</span>")
 			playsound(src, 'sound/items/deconstruct.ogg', 80, 1)
 			iscovered = FALSE

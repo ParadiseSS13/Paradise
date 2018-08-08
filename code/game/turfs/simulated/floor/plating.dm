@@ -21,15 +21,15 @@
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
 
-/turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
+/turf/simulated/floor/plating/attackby(obj/item/I, mob/user, params)
 	if(..())
 		return 1
 
-	if(istype(C, /obj/item/stack/rods))
+	if(istype(I, /obj/item/stack/rods))
 		if(broken || burnt)
 			to_chat(user, "<span class='warning'>Repair the plating first!</span>")
 			return 1
-		var/obj/item/stack/rods/R = C
+		var/obj/item/stack/rods/R = I
 		if(R.get_amount() < 2)
 			to_chat(user, "<span class='warning'>You need two rods to do this!</span>")
 			return 1
@@ -37,28 +37,28 @@
 			switch(alert("Do you want to make a catwalk or reinforce the tile?",,"Reinforce","Catwalk","Cancel"))
 				if("Reinforce")
 					to_chat(user, "<span class='notice'>You begin reinforcing the floor...</span>")
-					if(do_after(user, 30 * C.toolspeed, target = src))
-						if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
+					if(do_after(user, 30 * I.toolspeed, target = src))
+						if(R.get_amount() >= 2 && !istype(src,/turf/simulated/floor/engine))
 							ChangeTurf(/turf/simulated/floor/engine)
-							playsound(src, C.usesound, 80, 1)
+							playsound(src, I.usesound, 80, 1)
 							R.use(2)
 							to_chat(user, "<span class='notice'>You reinforce the floor.</span>")
 						return 1
 				if("Catwalk")
 					to_chat(user, "<span class='notice'>You begin constructing a catwalk...</span>")
-					if(do_after(user, 30 * C.toolspeed, target = src))
-						if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
+					if(do_after(user, 30 * I.toolspeed, target = src))
+						if(R.get_amount() >= 2 && !istype(src,/turf/simulated/floor/plating/catwalk))
 							ChangeTurf(/turf/simulated/floor/plating/catwalk)
-							playsound(src, C.usesound, 80, 1)
+							playsound(src, I.usesound, 80, 1)
 							R.use(2)
 							to_chat(user, "<span class='notice'>You build a catwalk.</span>")
 						return 1
 				if("Cancel")
 					return 1
 
-	else if(istype(C, /obj/item/stack/tile))
+	else if(istype(I, /obj/item/stack/tile))
 		if(!broken && !burnt)
-			var/obj/item/stack/tile/W = C
+			var/obj/item/stack/tile/W = I
 			if(!W.use(1))
 				return
 			ChangeTurf(W.turf_type)
@@ -67,12 +67,12 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return 1
 
-	else if(istype(C, /obj/item/weldingtool))
-		var/obj/item/weldingtool/welder = C
+	else if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/welder = I
 		if( welder.isOn() && (broken || burnt) )
 			if(welder.remove_fuel(0,user))
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
-				playsound(src, welder.usesound, 80, 1)
+				playsound(src, I.usesound, 80, 1)
 				icon_state = icon_plating
 				burnt = 0
 				broken = 0
