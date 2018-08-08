@@ -202,6 +202,8 @@
 					return
 				name = reject_bad_text(name)
 				while(count--)
+					if(!LAZYLEN(reagents.reagent_list))
+						return
 					var/obj/item/reagent_containers/food/pill/P = new/obj/item/reagent_containers/food/pill(loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] pill"
