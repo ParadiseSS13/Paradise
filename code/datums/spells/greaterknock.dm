@@ -19,9 +19,9 @@
 			if(is_station_level(A.z))
 				A.req_access = list()
 		if (is_station_level(usr.z))
-			command_announcement.Announce("We have noticed several issues inhibiting productivity on your station, and would like to help resolving them! We have already improved your airlock access system. No longer will you be unable to get what you need, as of now you can go anywhere you want! One of our employees should already be on-site to further improve your station. Have a pleasant day!", "Greetings!", 'sound/misc/notice2.ogg', , , "Space Wizard Federation Message")
+			command_announcement.Announce("We have noticed several issues inhibiting productivity on your station, and would like to help resolve them! We have already improved your airlock access system. No longer will you be unable to get what you need, as of now you can go anywhere you want! One of our employees should already be on-site to further improve your station. Have a pleasant day!", "Greetings!", 'sound/misc/notice2.ogg', , , "Space Wizard Federation Message")
 		else
-			command_announcement.Announce("We have noticed several issues inhibiting productivity on your station, and would like to help resolving them! We have already improved your airlock access system. No longer will you be unable to get what you need, as of now you can go anywhere you want! We are sending one of our employees to further improve your station. Have a pleasant day!", "Greetings!", 'sound/misc/notice2.ogg', , , "Space Wizard Federation Message")
+			command_announcement.Announce("We have noticed several issues inhibiting productivity on your station, and would like to help resolve them! We have already improved your airlock access system. No longer will you be unable to get what you need, as of now you can go anywhere you want! We are sending one of our employees to further improve your station. Have a pleasant day!", "Greetings!", 'sound/misc/notice2.ogg', , , "Space Wizard Federation Message")
 		used = TRUE
 	else
 		for(var/turf/T in targets)
