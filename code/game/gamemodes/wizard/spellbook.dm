@@ -204,7 +204,7 @@
 
 /datum/spellbook_entry/greaterknock
 	name = "Greater Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/greaterknock
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock/greater
 	log_name = "GK"
 	category = "Mobility"
 	cost = 2
