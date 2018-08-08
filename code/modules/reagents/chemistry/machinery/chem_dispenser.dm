@@ -6,6 +6,7 @@
 	icon_state = "dispenser"
 	use_power = 0
 	idle_power_usage = 40
+	layer = BELOW_OBJ_LAYER
 	var/ui_title = "Chem Dispenser 5000"
 	var/energy = 100
 	var/max_energy = 100
