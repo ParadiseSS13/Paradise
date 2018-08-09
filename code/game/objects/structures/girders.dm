@@ -47,6 +47,11 @@
 		new /obj/item/stack/sheet/metal(get_turf(src))
 		qdel(src)
 
+/obj/structure/girder/temperature_expose(gas_mixture/air, exposed_temperature)
+	var/temp_check = exposed_temperature
+	if(temp_check >= GIRDER_MELTING_TEMP)
+		take_damage(10)
+
 /obj/structure/girder/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
 	if(isscrewdriver(W))
