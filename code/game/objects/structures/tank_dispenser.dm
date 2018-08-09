@@ -3,7 +3,6 @@
 	desc = "A simple yet bulky storage device for gas tanks. Has room for up to ten oxygen tanks, and ten plasma tanks."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "dispenser"
-	layer = BELOW_OBJ_LAYER
 	density = 1
 	anchored = 1.0
 	var/oxygentanks = 10
