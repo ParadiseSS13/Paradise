@@ -264,6 +264,7 @@
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
+	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(/obj/item/gun/projectile/automatic/c20r = 1,
 		/obj/item/gun/projectile/automatic/m90 = 1,

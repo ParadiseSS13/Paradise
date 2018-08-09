@@ -6,6 +6,7 @@
 	anchored = 1
 	health = 200
 	req_access = list()
+	var/is_armory = FALSE
 	var/ignore_use = FALSE
 
 
@@ -29,8 +30,10 @@
 /obj/structure/closet/secure_closet/syndicate/depot/proc/loot_pickup()
 	if(!ignore_use)
 		var/area/syndicate_depot/core/depotarea = areaMaster
-		if(depotarea)
+		if(istype(depotarea))
 			depotarea.locker_looted()
+			if(is_armory)
+				depotarea.armory_locker_looted()
 
 /obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/M)
 	if(isanimal(M) && "syndicate" in M.faction)
@@ -51,3 +54,7 @@
 		ignore_use = TRUE
 		toggle(user)
 		ignore_use = FALSE
+
+/obj/structure/closet/secure_closet/syndicate/depot/armory
+	req_access = list(access_syndicate)
+	is_armory = TRUE

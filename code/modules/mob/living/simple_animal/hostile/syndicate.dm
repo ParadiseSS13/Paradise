@@ -204,15 +204,6 @@
 	alert_on_timeout = TRUE
 	alert_on_shield_breach = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/death()
-	if(istype(depotarea))
-		if(depotarea.shield_list.len)
-			depotarea.activate_self_destruct("[src] has died while the armory shield is up.", FALSE)
-		else
-			depotarea.declare_finished()
-	return ..()
-
-
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize()
 	. = ..()
 	if(istype(depotarea))
