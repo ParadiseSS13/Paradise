@@ -7,7 +7,7 @@
 	icon_state = "cortical-stack"
 	parent_organ = "head"
 	organ_tag = "stack"
-	slot =  "vox_stack"
+	slot = "vox_stack"
 	status = ORGAN_ROBOT
 	vital = TRUE
 	var/stackdamaged = FALSE

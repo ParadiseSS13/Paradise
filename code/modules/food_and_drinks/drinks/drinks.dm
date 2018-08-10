@@ -391,3 +391,10 @@
 
 /obj/item/reagent_containers/food/drinks/waterbottle/large/empty
 	list_reagents = list()
+
+/obj/item/reagent_containers/food/drinks/oilcan
+	name = "Oil Injection Device"
+	desc = "A device with a spout on one end for use in replacing fluid in synthtics who have sprung leaks."
+	icon = 'icons/obj/surgery.dmi'
+	icon_state = "fixovein_old"
+	volume = 100
