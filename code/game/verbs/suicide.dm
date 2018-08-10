@@ -37,7 +37,7 @@
 
 	// Failing that...
 	if(!(damagetype & BRUTELOSS) && !(damagetype & FIRELOSS) && !(damagetype & TOXLOSS) && !(damagetype & OXYLOSS))
-		if(NO_BREATHE in species.species_traits)
+		if(NO_BREATHE in dna.species.species_traits)
 			// the ultimate fallback
 			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0)
 		else
@@ -84,7 +84,7 @@
 				do_suicide(damagetype, held_item)
 				return
 
-		to_chat(viewers(src), "<span class=danger>[src] [replacetext(pick(species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class=danger>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
 		do_suicide(0)
 
 		updatehealth()

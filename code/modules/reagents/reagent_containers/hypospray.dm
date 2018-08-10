@@ -13,7 +13,9 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	flags = OPENCONTAINER
 	slot_flags = SLOT_BELT
-	var/ignore_flags = 0
+	var/ignore_flags = FALSE
+	var/emagged = FALSE
+	var/safety_hypo = FALSE
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
@@ -31,7 +33,12 @@
 			for(var/datum/reagent/R in reagents.reagent_list)
 				injected += R.name
 
+			var/primary_reagent_name = reagents.get_master_reagent_name()
 			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
+
+			if(safety_hypo)
+				visible_message("<span class='warning'>[user] injects [M] with [trans] units of [primary_reagent_name].</span>")
+				playsound(loc, 'sound/goonstation/items/hypo.ogg', 80, 0)
 
 			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
 
@@ -40,6 +47,31 @@
 			add_attack_logs(user, M, "Injected with [src] containing ([contained])")
 
 		return TRUE
+
+/obj/item/reagent_containers/hypospray/on_reagent_change()
+	if(safety_hypo && !emagged)
+		var/found_forbidden_reagent = FALSE
+		for(var/datum/reagent/R in reagents.reagent_list)
+			if(!safe_chem_list.Find(R.id))
+				reagents.del_reagent(R.id)
+				found_forbidden_reagent = TRUE
+		if(found_forbidden_reagent)
+			if(ismob(loc))
+				to_chat(loc, "<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+			else
+				visible_message("<span class='warning'>[src] identifies and removes a harmful substance.</span>")
+
+/obj/item/reagent_containers/hypospray/emag_act(mob/user)
+	if(safety_hypo && !emagged)
+		emagged = TRUE
+		ignore_flags = TRUE
+		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
+
+/obj/item/reagent_containers/hypospray/safety
+	name = "medical hypospray"
+	desc = "A modified hypospray for quickly injecting safe medicinal chemicals."
+	icon_state = "combat_hypo"
+	safety_hypo = TRUE
 
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)

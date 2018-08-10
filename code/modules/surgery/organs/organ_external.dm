@@ -105,13 +105,12 @@
 /obj/item/organ/external/New(var/mob/living/carbon/holder)
 	..()
 	var/mob/living/carbon/human/H = holder
-	icobase = species.icobase
-	deform = species.deform
+	icobase = dna.species.icobase
+	deform = dna.species.deform
 	if(istype(H))
 		replaced(H)
 		sync_colour_to_human(H)
-	spawn(1)
-		get_icon()
+	get_icon()
 
 /obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
 	owner = target
@@ -279,7 +278,8 @@ This function completely restores a damaged organ to perfect condition.
 	for(var/obj/item/organ/external/EO in contents)
 		EO.rejuvenate()
 
-	owner.updatehealth()
+	if(owner)
+		owner.updatehealth()
 	update_icon()
 	if(!owner)
 		processing_objects |= src
@@ -328,7 +328,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 */
 /obj/item/organ/external/proc/update_germs()
 
-	if(is_robotic() || (IS_PLANT in owner.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
+	if(is_robotic() || (IS_PLANT in owner.dna.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
 		germ_level = 0
 		return
 
@@ -400,7 +400,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
-	if(NO_BLOOD in owner.species.species_traits)
+	if(NO_BLOOD in owner.dna.species.species_traits)
 		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
@@ -449,7 +449,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 ****************************************************/
 
 //Handles dismemberment
-/obj/item/organ/external/proc/droplimb(var/clean, var/disintegrate, var/ignore_children, var/nodamage)
+/obj/item/organ/external/proc/droplimb(clean, disintegrate, ignore_children, nodamage)
 
 	if(cannot_amputate || !owner)
 		return
@@ -494,16 +494,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 			parent.receive_damage(total_brute, total_burn, ignore_resists = TRUE) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
 
-	spawn(1)
-		if(victim)
-			victim.updatehealth()
-			victim.UpdateDamageIcon()
-			victim.regenerate_icons()
 		dir = 2
+
+	if(victim)
+		victim.updatehealth()
+		victim.UpdateDamageIcon()
+		victim.regenerate_icons()
+
 	switch(disintegrate)
 		if(DROPLIMB_SHARP)
 			compile_icon()
-			add_blood(victim.blood_DNA, victim.species.blood_color)
+			add_blood(victim.blood_DNA, victim.dna.species.blood_color)
 			var/matrix/M = matrix()
 			M.Turn(rand(180))
 			src.transform = M
@@ -513,7 +514,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 					dropped_part.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
 				dir = 2
 			brute_dam = 0
-			burn_dam = 0  //Reset the damage on the limb; the damage should have transferred to the parent; we don't want extra damage being re-applie when then limb is re-attached
+			burn_dam = 0  //Reset the damage on the limb; the damage should have transferred to the parent; we don't want extra damage being re-applied when then limb is re-attached
 			return dropped_part
 		else
 			qdel(src) // If you flashed away to ashes, YOU FLASHED AWAY TO ASHES
@@ -606,7 +607,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
 			"You hear a sickening crack.")
-		if(owner.species && !(NO_PAIN in owner.species.species_traits))
+		if(owner.dna.species && !(NO_PAIN in owner.dna.species.species_traits))
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN

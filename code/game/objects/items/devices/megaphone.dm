@@ -24,7 +24,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/abductor/H = user
-		if(H && H.mind.abductor)
+		if(isabductor(H))
 			to_chat(user, "<span class='warning'>Megaphones can't project psionic communication!</span>")
 			return
 	if(ishuman(user))
@@ -59,6 +59,7 @@
 
 /obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
 	audible_message("<span class='game say'><span class='name'>[user]</span> broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
+	log_say(message, user)
 	for(var/obj/O in oview(14, get_turf(src)))
 		O.hear_talk(user, "<span class='reallybig'>[message]</span>")
 

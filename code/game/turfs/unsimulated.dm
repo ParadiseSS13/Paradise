@@ -7,6 +7,9 @@
 /turf/unsimulated/can_lay_cable()
 	return 0
 
+/turf/unsimulated/rpd_act()
+	return
+
 /turf/unsimulated/floor/plating/vox
 	icon_state = "plating"
 	name = "plating"

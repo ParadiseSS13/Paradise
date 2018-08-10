@@ -136,9 +136,9 @@
 		if(owner.gloves)
 			owner.unEquip(owner.gloves)
 		if(owner.l_hand)
-			owner.unEquip(owner.l_hand,1)
+			owner.unEquip(owner.l_hand, TRUE)
 		if(owner.r_hand)
-			owner.unEquip(owner.r_hand,1)
+			owner.unEquip(owner.r_hand, TRUE)
 
 	. = ..()
 
@@ -194,17 +194,14 @@
 			owner.unEquip(owner.r_ear)
 		if(owner.wear_mask)
 			owner.unEquip(owner.wear_mask)
-		spawn(1)
-			if(owner)//runtimer no runtiming
-				owner.update_hair()
-				owner.update_fhair()
-				owner.update_head_accessory()
-				owner.update_markings()
+		owner.update_hair()
+		owner.update_fhair()
+		owner.update_head_accessory()
+		owner.update_markings()
 	. = ..()
 
 /obj/item/organ/external/head/replaced()
 	name = limb_name
-
 	..()
 
 /obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
@@ -223,6 +220,11 @@
 	else //If alt_head is null, set it to "None" and default icon_name for sanity.
 		alt_head = initial(alt_head)
 		icon_name = initial(icon_name)
+
+/obj/item/organ/external/head/robotize(company, make_tough = 0, convert_all = 1) //Undoes alt_head business to avoid getting in the way of robotization. Make sure we pass all args down the line...
+	alt_head = initial(alt_head)
+	icon_name = initial(icon_name)
+	..()
 
 /obj/item/organ/external/head/set_dna(datum/dna/new_dna)
 	..()

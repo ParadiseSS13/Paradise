@@ -1,4 +1,4 @@
-/mob/living/New()
+/mob/living/Initialize()
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
@@ -660,14 +660,14 @@
 						TH.transfer_mob_blood_dna(src)
 						if(ishuman(src))
 							var/mob/living/carbon/human/H = src
-							if(H.species.blood_color)
-								TH.color = H.species.blood_color
+							if(H.dna.species.blood_color)
+								TH.color = H.dna.species.blood_color
 						else
 							TH.color = "#A10808"
 
 /mob/living/carbon/human/makeTrail(turf/T)
 
-	if((NO_BLOOD in species.species_traits) || species.exotic_blood || !bleed_rate || bleedsuppress)
+	if((NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !bleed_rate || bleedsuppress)
 		return
 	..()
 

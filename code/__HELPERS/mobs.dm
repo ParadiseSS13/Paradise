@@ -178,7 +178,7 @@ proc/random_name(gender, species = "Human")
 
 	var/datum/species/current_species
 	if(species)
-		current_species = all_species[species]
+		current_species = GLOB.all_species[species]
 
 	if(!current_species || current_species.name == "Human")
 		if(gender==FEMALE)
@@ -373,11 +373,11 @@ This is always put in the attack log.
 	if(progress)
 		qdel(progbar)
 
-/proc/is_species(A, species_name)
+/proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
-		if(H.get_species() == species_name)
+		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)

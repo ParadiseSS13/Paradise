@@ -141,3 +141,6 @@ Frequency:
 	active_portals++
 	add_fingerprint(user)
 	return
+
+/obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
+    active_portals--

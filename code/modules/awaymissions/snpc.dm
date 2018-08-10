@@ -4,15 +4,19 @@
 	var/squad_member = 0				// was spawned by squad
 	var/home_z
 
-/mob/living/carbon/human/interactive/away/New()
-	..()
+/mob/living/carbon/human/interactive/away/Initialize(mapload)
+	. = ..()
 	TRAITS |= TRAIT_ROBUST
 	faction += "away"
 
 /mob/living/carbon/human/interactive/away/random()
-	if(ispath(override_under, /obj/item/clothing/under))
-		equip_to_slot(new override_under(src), slot_w_uniform)
 	..()
+	// a little hacky but it should prevent doubled uniforms
+	if(ispath(override_under, /obj/item/clothing/under))
+		var/old_under = w_uniform
+		w_uniform = null
+		equip_to_slot(new override_under(src), slot_w_uniform)
+		qdel(old_under)
 
 /mob/living/carbon/human/interactive/away/doSetup()
 	..()

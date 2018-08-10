@@ -83,7 +83,7 @@
 				var/blood_color = "#C80000"
 				if(ishuman(target))
 					H = target
-					blood_color = H.species.blood_color
+					blood_color = H.dna.species.blood_color
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)

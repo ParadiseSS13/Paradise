@@ -33,7 +33,7 @@
 	var/mob/living/carbon/human/H = HA
 	if(!istype(H))
 		H = owner
-	var/icon/cybereyes_icon = new /icon('icons/mob/human_face.dmi', H.species.eyes)
+	var/icon/cybereyes_icon = new /icon('icons/mob/human_face.dmi', H.dna.species.eyes)
 	cybereyes_icon.Blend(eye_colour, ICON_ADD) // Eye implants override native DNA eye color
 
 	return cybereyes_icon
