@@ -14,7 +14,7 @@
 	organ_tag = "brain"
 	parent_organ = "head"
 	slot = "brain"
-	vital = 1
+	vital = TRUE
 	hidden_pain = TRUE //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
 	var/mmi_icon = 'icons/obj/assemblies.dmi'
 	var/mmi_icon_state = "mmi_full"

@@ -26,6 +26,7 @@
 	item_state = "syringe_kit"
 	burn_state = FLAMMABLE
 	var/foldable = /obj/item/stack/sheet/cardboard
+	var/amt = 1
 
 /obj/item/storage/box/attack_self(mob/user)
 	..()
@@ -49,7 +50,7 @@
 		return
 
 	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
-	var/obj/item/I = new foldable(get_turf(src))
+	var/obj/item/stack/I = new foldable(get_turf(src), amt)
 	user.put_in_hands(I)
 	qdel(src)
 
@@ -59,6 +60,7 @@
 	icon_state = "largebox"
 	w_class = 42 // Big, bulky.
 	foldable = /obj/item/stack/sheet/cardboard
+	amt = 4
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 

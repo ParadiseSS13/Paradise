@@ -591,6 +591,14 @@
 	build_path = /obj/item/reagent_containers/syringe
 	category = list("initial", "Medical")
 
+/datum/design/safety_hypo
+	name = "Medical Hypospray"
+	id = "safetyhypo"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/hypospray/safety
+	category = list("initial", "Medical")
+
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
 	id = "prox_sensor"
@@ -798,6 +806,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 450, MAT_GLASS = 190)
 	build_path = /obj/item/conveyor_switch_construct
+	category = list("initial", "Construction")
+
+/datum/design/conveyor_belt_placer
+	name = "Conveyor Belt Placer"
+	id = "conveyor_belt_placer"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000) //This thing doesn't need to be very resource-intensive as the belts are already expensive
+	build_path = /obj/item/storage/conveyor
 	category = list("initial", "Construction")
 
 /datum/design/laptop

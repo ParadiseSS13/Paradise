@@ -178,7 +178,7 @@
 
 		if(ishuman(the_target))
 			var/mob/living/carbon/human/H = the_target
-			if(is_type_in_list(src, H.species.ignored_by))
+			if(is_type_in_list(src, H.dna.species.ignored_by))
 				return 0
 
 		if(istype(the_target, /obj/mecha))

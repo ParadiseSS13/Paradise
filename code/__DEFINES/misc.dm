@@ -1,6 +1,16 @@
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
+//Directions (already defined on BYOND natively, purely here for reference)
+//#define NORTH		1
+//#define SOUTH		2
+//#define EAST		4
+//#define WEST		8
+//#define NORTHEAST	5
+//#define SOUTHEAST 6
+//#define NORTHWEST 9
+//#define SOUTHWEST 10
+
 //Security levels
 #define SEC_LEVEL_GREEN	0
 #define SEC_LEVEL_BLUE	1
@@ -343,10 +353,13 @@
 //for obj explosion block calculation
 #define EXPLOSION_BLOCK_PROC -1
 
+// Defines for investigate to prevent typos and for styling
+#define INVESTIGATE_LABEL "labels"
+
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 3
+#define SQL_VERSION 4
 
 // Vending machine stuff
 #define CAT_NORMAL 1

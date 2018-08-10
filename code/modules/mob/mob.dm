@@ -24,7 +24,7 @@
 	..()
 	return QDEL_HINT_HARDDEL
 
-/mob/New()
+/mob/Initialize()
 	mob_list += src
 	if(stat == DEAD)
 		dead_mob_list += src
@@ -1079,9 +1079,6 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/activate_hand(selhand)
 	return
-
-/mob/proc/get_species()
-	return ""
 
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"

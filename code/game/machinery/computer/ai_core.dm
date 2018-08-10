@@ -117,7 +117,7 @@
 					return
 				laws = M.laws
 
-			if(istype(P, /obj/item/mmi) || istype(P, /obj/item/mmi/posibrain))
+			if(istype(P, /obj/item/mmi))
 				if(!P:brainmob)
 					to_chat(user, "<span class='warning'>Sticking an empty [P] into the frame would sort of defeat the purpose.</span>")
 					return

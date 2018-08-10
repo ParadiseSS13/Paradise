@@ -95,8 +95,9 @@
 	sideslist = list("valid", "salad")
 	credits = 20
 
-/obj/item/coin/antagtoken/New()
-	return
+/obj/item/coin/antagtoken/syndicate
+	name = "syndicate coin"
+	credits = 160
 
 /obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -106,7 +107,7 @@
 			return
 
 		if(CC.use(1))
-			overlays += image('icons/obj/items.dmi',"coin_string_overlay")
+			overlays += image('icons/obj/economy.dmi',"coin_string_overlay")
 			string_attached = 1
 			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
 		else

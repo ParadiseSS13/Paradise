@@ -32,7 +32,7 @@
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
 			return 0
-		if(affected.status & ORGAN_ROBOT)
+		if(affected.is_robotic())
 			return 0
 		if(!affected.encased) //no bone, problem.
 			return 0
@@ -43,7 +43,7 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 
-		if(affected && (affected.status & ORGAN_ROBOT))
+		if(affected && affected.is_robotic())
 			return 0//no operating on robotic limbs in an organic surgery
 		if(!affected)
 			// I'd like to see you do surgery on LITERALLY NOTHING
@@ -101,6 +101,9 @@
 	if(is_int_organ(tool))
 		current_type = "insert"
 		I = tool
+		if(I.requires_robotic_bodypart)
+			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+			return -1
 		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
 			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 			return -1
@@ -208,12 +211,12 @@
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
 			if(I && I.damage)
-				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
+				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
 					if(!(I.sterile))
 						spread_germs_to_organ(I, user, tool)
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
-				else if(I.robotic >= 2 && istype(tool, /obj/item/stack/nanopaste))
+				else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
 					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
 					"You start treating damage to [target]'s [I.name] with [tool_name]." )
 
@@ -246,23 +249,25 @@
 			if(I)
 				I.surgeryize()
 			if(I && I.damage)
-				if(I.robotic < 2 && !istype (tool, /obj/item/stack/nanopaste))
+				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
 					I.damage = 0
-				else if(I.robotic >= 2 && istype (tool, /obj/item/stack/nanopaste))
+				else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
 					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
 					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
 					I.damage = 0
 
 	else if(current_type == "insert")
 		I = tool
-		user.drop_item()
-		I.insert(target)
-		spread_germs_to_organ(I, user, tool)
-		if(!user.canUnEquip(I, 0))
+		if(I.requires_robotic_bodypart)
+			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+			return FALSE
+		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
 			return 0
+		I.insert(target)
+		spread_germs_to_organ(I, user, tool)
 
 		if(affected)
 			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [affected.name].</span>",

@@ -2,8 +2,10 @@
 
 /obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
 	if(!H || !istype(H)) return
-	if(H.get_species() == "Shadowling" && is_shadow(H)) return 1
-	if(H.get_species() == "Lesser Shadowling" && is_thrall(H)) return 1
+	if(isshadowling(H) && is_shadow(H))
+		return 1
+	if(isshadowlinglesser(H) && is_thrall(H))
+		return 1
 	if(!is_shadow_or_thrall(usr))
 		to_chat(usr, "<span class='warning'>You can't wrap your head around how to do this.</span>")
 	else if(is_thrall(usr))
@@ -267,7 +269,7 @@
 	listclearnulls(ticker.mode.shadowling_thralls)
 	if(!(ling.mind in ticker.mode.shadows))
 		return
-	if(ling.get_species() != "Shadowling")
+	if(!isshadowling(ling))
 		if(ticker.mode.shadowling_thralls.len >= 5)
 			charge_counter = charge_max
 			return
@@ -363,6 +365,7 @@
 		var/mob/living/carbon/human/H = target
 		H.visible_message("<span class='warning'>[H]'s skin suddenly bubbles and shifts around [H.p_their()] body!</span>", \
 							 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
+		H.set_species(/datum/species/shadow/ling)
 		H.adjustCloneLoss(-target.getCloneLoss())
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(H), slot_shoes)
@@ -371,7 +374,6 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(H), slot_wear_mask)
 		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(H), slot_glasses)
-		H.set_species("Shadowling")
 
 /obj/effect/proc_holder/spell/targeted/collective_mind //Lets a shadowling bring together their thralls' strength, granting new abilities and a headcount
 	name = "Collective Hivemind"
@@ -610,7 +612,7 @@
 					to_chat(user, "<span class='warning'>[thrallToRevive] must be conscious to become empowered.</span>")
 					charge_counter = charge_max
 					return
-				if(thrallToRevive.get_species() == "Lesser Shadowling")
+				if(isshadowlinglesser(thrallToRevive))
 					to_chat(user, "<span class='warning'>[thrallToRevive] is already empowered.</span>")
 					charge_counter = charge_max
 					return
@@ -619,7 +621,7 @@
 					if(!ishuman(M.current))
 						return
 					var/mob/living/carbon/human/H = M.current
-					if(H.get_species() == "Lesser Shadowling")
+					if(isshadowlinglesser(H))
 						empowered_thralls++
 				if(empowered_thralls >= EMPOWERED_THRALL_LIMIT)
 					to_chat(user, "<span class='warning'>You cannot spare this much energy. There are too many empowered thralls.</span>")
@@ -644,7 +646,7 @@
 				thrallToRevive.visible_message("<span class='warning'>[thrallToRevive] slowly rises, no longer recognizable as human.</span>", \
 											   "<span class='shadowling'><b>You feel new power flow into you. You have been gifted by your masters. You now closely resemble them. You are empowered in \
 											    darkness but wither slowly in light. In addition, you now have glare and true shadow walk.</b></span>")
-				thrallToRevive.set_species("Lesser Shadowling")
+				thrallToRevive.set_species(/datum/species/shadow/ling/lesser)
 				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))

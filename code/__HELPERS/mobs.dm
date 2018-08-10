@@ -178,7 +178,7 @@ proc/random_name(gender, species = "Human")
 
 	var/datum/species/current_species
 	if(species)
-		current_species = all_species[species]
+		current_species = GLOB.all_species[species]
 
 	if(!current_species || current_species.name == "Human")
 		if(gender==FEMALE)
@@ -266,12 +266,12 @@ This is always put in the attack log.
 
 	var/loglevel = ATKLOG_MOST
 
-	if(custom_level)
+	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))
 		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
 			loglevel = ATKLOG_FEW
-		else if(!user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+		else if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
 			loglevel = ATKLOG_ALL
 		else if(!target.ckey) // Attacks by players on NPCs are only shown to admins with ATKLOG_ALL or ATKLOG_ALMOSTALL
 			loglevel = ATKLOG_ALMOSTALL
@@ -373,11 +373,11 @@ This is always put in the attack log.
 	if(progress)
 		qdel(progbar)
 
-/proc/is_species(A, species_name)
+/proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
-		if(H.get_species() == species_name)
+		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
