@@ -143,6 +143,9 @@
 
 		if(specific)
 			H = specific
+			if((!H || H.stat == DEAD) && smiting)//safety check, target somehow DIED after we sent a smite
+				message_admins("Smiting Floor Cluwne was deleted due to a lack of valid target. Someone killed them first.")
+				qdel(src)
 			if(H.stat != DEAD && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 				return target = current_victim
 
