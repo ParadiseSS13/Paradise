@@ -73,8 +73,8 @@
 	if(..())
 		return
 	if(istype(C, /obj/item/shovel))
-		new /obj/item/ore/glass(src)
-		new /obj/item/ore/glass(src) //Make some sand if you shovel grass
+		new /obj/item/stack/ore/glass(src)
+		new /obj/item/stack/ore/glass(src) //Make some sand if you shovel grass
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
@@ -92,8 +92,8 @@
 	if(..())
 		return
 	if(istype(W, /obj/item/shovel))
-		new /obj/item/ore/glass/basalt(src)
-		new /obj/item/ore/glass/basalt(src)
+		new /obj/item/stack/ore/glass/basalt(src)
+		new /obj/item/stack/ore/glass/basalt(src)
 		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
