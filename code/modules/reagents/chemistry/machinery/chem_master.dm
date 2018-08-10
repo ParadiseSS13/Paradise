@@ -203,6 +203,7 @@
 				name = reject_bad_text(name)
 				while(count--)
 					if(reagents.total_volume <= 0)
+						to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
 						return
 					var/obj/item/reagent_containers/food/pill/P = new/obj/item/reagent_containers/food/pill(loc)
 					if(!name) name = reagents.get_master_reagent_name()
