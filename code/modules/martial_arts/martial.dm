@@ -33,8 +33,8 @@
 
 /datum/martial_art/proc/basic_hit(var/mob/living/carbon/human/A,var/mob/living/carbon/human/D)
 
-	var/damage = rand(A.species.punchdamagelow, A.species.punchdamagehigh)
-	var/datum/unarmed_attack/attack = A.species.unarmed
+	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
+	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
 	if(D.lying)
@@ -62,7 +62,7 @@
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
-	if((D.stat != DEAD) && damage >= A.species.punchstunthreshold)
+	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(4, WEAKEN, armor_block)

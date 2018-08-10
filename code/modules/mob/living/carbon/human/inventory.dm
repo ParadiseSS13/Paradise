@@ -419,7 +419,7 @@
 	..(what, who, where, silent = is_silent)
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = 0)
-	switch(species.handle_can_equip(I, slot, disable_warning, src))
+	switch(dna.species.handle_can_equip(I, slot, disable_warning, src))
 		if(1)	return 1
 		if(2)	return 0 //if it returns 2, it wants no normal handling
 

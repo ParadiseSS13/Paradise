@@ -13,6 +13,7 @@
 	icon_state = "smes"
 	density = 1
 	anchored = 1
+	defer_process = 1
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -38,7 +39,6 @@
 	var/name_tag = null
 	var/building_terminal = 0 //Suggestions about how to avoid clickspam building several terminals accepted!
 	var/obj/machinery/power/terminal/terminal = null
-
 
 /obj/machinery/power/smes/New()
 	..()

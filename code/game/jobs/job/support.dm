@@ -244,7 +244,7 @@
 	if(visualsOnly)
 		return
 
-	if(H.get_species() == "Machine")
+	if(ismachine(H))
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
@@ -381,7 +381,6 @@
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	backpack_contents = list(
-		/obj/item/clothing/shoes/black = 1,
 		/obj/item/storage/box/lip_stick = 1,
 		/obj/item/storage/box/barber = 1
 	)

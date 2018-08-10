@@ -1,5 +1,4 @@
 /turf/space/transit
-	flags = null
 	var/pushdirection // push things that get caught in the transit tile this direction
 
 //Overwrite because we dont want people building rods in space.
@@ -118,7 +117,8 @@
 	AM.newtonian_move(dir)
 
 
-
+/turf/space/transit/rpd_act()
+	return
 
 //Overwrite because we dont want people building rods in space.
 /turf/space/transit/attackby()
