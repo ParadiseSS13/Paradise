@@ -45,6 +45,7 @@
 	var/treat_virus = 1 //If on, the bot will attempt to treat viral infections, curing them if possible.
 	var/shut_up = 0 //self explanatory :)
 	var/syndicate_aligned = FALSE // Will it only treat operatives?
+	var/drops_parts = TRUE
 
 /mob/living/simple_animal/bot/medbot/tox
 	skin = "tox"
@@ -77,6 +78,7 @@
 	name = "Suspicious Medibot"
 	desc = "You'd better have insurance!"
 	skin = "bezerk"
+	faction = list("syndicate")
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
@@ -90,6 +92,11 @@
 /mob/living/simple_animal/bot/medbot/syndicate/New()
 	..()
 	Radio.syndie = 1
+
+/mob/living/simple_animal/bot/medbot/syndicate/emagged
+	emagged = 2
+	declare_crit = 0
+	drops_parts = FALSE
 
 /mob/living/simple_animal/bot/medbot/update_icon()
 	overlays.Cut()
@@ -373,7 +380,7 @@
 	// is secretly a silicon
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		if(H.species && H.species.reagent_tag == PROCESS_SYN)
+		if(H.dna.species && H.dna.species.reagent_tag == PROCESS_SYN)
 			return 0
 
 	if(emagged == 2) //Everyone needs our medicine. (Our medicine is toxins)
@@ -554,35 +561,36 @@
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
-	switch(skin)
-		if("ointment")
-			new /obj/item/storage/firstaid/fire/empty(Tsec)
-		if("tox")
-			new /obj/item/storage/firstaid/toxin/empty(Tsec)
-		if("o2")
-			new /obj/item/storage/firstaid/o2/empty(Tsec)
-		if("brute")
-			new /obj/item/storage/firstaid/brute/empty(Tsec)
-		if("adv")
-			new /obj/item/storage/firstaid/adv/empty(Tsec)
-		if("bezerk")
-			var/obj/item/storage/firstaid/tactical/empty/T = new(Tsec)
-			T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
-		if("fish")
-			new /obj/item/storage/firstaid/aquatic_kit(Tsec)
-		else
-			new /obj/item/storage/firstaid(Tsec)
+	if(drops_parts)
+		switch(skin)
+			if("ointment")
+				new /obj/item/storage/firstaid/fire/empty(Tsec)
+			if("tox")
+				new /obj/item/storage/firstaid/toxin/empty(Tsec)
+			if("o2")
+				new /obj/item/storage/firstaid/o2/empty(Tsec)
+			if("brute")
+				new /obj/item/storage/firstaid/brute/empty(Tsec)
+			if("adv")
+				new /obj/item/storage/firstaid/adv/empty(Tsec)
+			if("bezerk")
+				var/obj/item/storage/firstaid/tactical/empty/T = new(Tsec)
+				T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
+			if("fish")
+				new /obj/item/storage/firstaid/aquatic_kit(Tsec)
+			else
+				new /obj/item/storage/firstaid(Tsec)
 
-	new /obj/item/assembly/prox_sensor(Tsec)
+		new /obj/item/assembly/prox_sensor(Tsec)
 
-	new /obj/item/healthanalyzer(Tsec)
+		new /obj/item/healthanalyzer(Tsec)
+
+		if(prob(50))
+			new /obj/item/robot_parts/l_arm(Tsec)
 
 	if(reagent_glass)
 		reagent_glass.forceMove(Tsec)
 		reagent_glass = null
-
-	if(prob(50))
-		new /obj/item/robot_parts/l_arm(Tsec)
 
 	if(emagged && prob(25))
 		playsound(loc, 'sound/voice/minsult.ogg', 50, 0)

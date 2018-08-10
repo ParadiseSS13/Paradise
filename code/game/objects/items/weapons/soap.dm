@@ -26,7 +26,7 @@
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
 	else if(target == user && user.a_intent == INTENT_GRAB && ishuman(target))
 		var/mob/living/carbon/human/muncher = user
-		if(muncher && muncher.get_species() == "Drask")
+		if(muncher && isdrask(muncher))
 			to_chat(user, "You take a bite of the [name]. Delicious!")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
 			user.nutrition += 2

@@ -329,6 +329,20 @@
 	note_overlay_file = 'icons/obj/doors/airlocks/hatch/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_hatch
 
+/obj/machinery/door/airlock/hatch/syndicate
+	name = "syndicate hatch"
+	req_access_txt = "150"
+
+/obj/machinery/door/airlock/hatch/syndicate/vault
+	name = "syndicate vault hatch"
+	req_access_txt = "151"
+	icon = 'icons/obj/doors/airlocks/vault/vault.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/vault/overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_vault
+	security_level = 6
+	hackProof = TRUE
+	aiControlDisabled = TRUE
+
 /obj/machinery/door/airlock/hatch/gamma
 	name = "gamma level hatch"
 	hackProof = 1

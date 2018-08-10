@@ -2,7 +2,7 @@
 	. = 0
 	. += ..()
 	. += config.human_delay
-	. += species.movement_delay(src)
+	. += dna.species.movement_delay(src)
 
 /mob/living/carbon/human/Process_Spacemove(movement_dir = 0)
 
@@ -39,12 +39,12 @@
 		if(!lying && !buckled && !throwing)
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
 				splinted.update_splints()
-        
+
 	if(!has_gravity(loc))
 		return
-	
+
 	var/obj/item/clothing/shoes/S = shoes
-			
+
 	//Bloody footprints
 	var/turf/T = get_turf(src)
 	var/obj/item/organ/external/l_foot = get_organ("l_foot")
@@ -119,7 +119,7 @@
 					if(step_count % 3) //this basically says, every three moves make a noise
 						return 0       //1st - none, 1%3==1, 2nd - none, 2%3==2, 3rd - noise, 3%3==0
 
-				if(species.silent_steps)
+				if(dna.species.silent_steps)
 					return 0 //species is silent
 
 				playsound(T, S, volume, 1, range)

@@ -31,18 +31,18 @@
 
 		emagged = 1 //Set the emag var to true.
 
-/obj/machinery/poolcontroller/attackby(obj/item/P as obj, mob/user as mob, params) //Proc is called when a user hits the pool controller with something.
-	if(istype(P,/obj/item/multitool)) //If the mob hits the pool controller with a multitool, reset the emagged status
+/obj/machinery/poolcontroller/attackby(obj/item/I, mob/user, params) //Proc is called when a user hits the pool controller with something.
+	if(ismultitool(I)) //If the mob hits the pool controller with a multitool, reset the emagged status
 		if(emagged) //Check the emag status
-			to_chat(user, "<span class='warning'>You re-enable \the [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
+			to_chat(user, "<span class='warning'>You re-enable [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
 
-			emagged = 0 //Set the emagged var to false.
+			emagged = FALSE //Set the emagged var to false.
 		else
 			to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
 
 	else //If it's not a multitool, defer to /obj/machinery/attackby
-		..()
+		return ..()
 
 /obj/machinery/poolcontroller/attack_hand(mob/user as mob)
 	ui_interact(user)
@@ -90,9 +90,9 @@
 	if(drownee && (drownee.lying || deep_water)) //Mob lying down or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((NO_BREATHE in drownee.species.species_traits) || (BREATHLESS in drownee.mutations))
+		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
 			return //doesn't breathe, no drowning
-		if(drownee.get_species() == "Skrell" || drownee.get_species() == "Neara")
+		if(isskrell(drownee) || isneara(drownee))
 			return //fish things don't drown
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more

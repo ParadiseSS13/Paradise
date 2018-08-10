@@ -42,7 +42,7 @@
 	if(has_brain_worms()) //Brain worms translate everything. Even mice and alien speak.
 		return 1
 
-	if(species.can_understand(other))
+	if(dna.species.can_understand(other))
 		return 1
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
@@ -87,7 +87,7 @@
 
 /mob/living/carbon/human/IsVocal()
 	// how do species that don't breathe talk? magic, that's what.
-	var/breathes = (!(NO_BREATHE in species.species_traits))
+	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
@@ -219,8 +219,8 @@
 
 /mob/living/carbon/human/handle_speech_sound()
 	var/list/returns[2]
-	if(species.speech_sounds && prob(species.speech_chance))
-		returns[1] = sound(pick(species.speech_sounds))
+	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
+		returns[1] = sound(pick(dna.species.speech_sounds))
 		returns[2] = 50
 	return returns
 

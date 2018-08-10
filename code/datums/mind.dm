@@ -61,7 +61,6 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/nations/nation			//nation holder
-	var/datum/abductor/abductor			//abductor holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -1132,14 +1131,17 @@
 				log_admin("[key_name(usr)] turned [current] into abductor.")
 				ticker.mode.update_abductor_icons_added(src)
 			if("equip")
+				if(!ishuman(current))
+					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
+					return
+
+				var/mob/living/carbon/human/H = current
 				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
 				if(gear)
-					var/datum/game_mode/abduction/temp = new
-					temp.equip_common(current)
 					if(gear=="Agent")
-						temp.equip_agent(current)
+						H.equipOutfit(/datum/outfit/abductor/agent)
 					else
-						temp.equip_scientist(current)
+						H.equipOutfit(/datum/outfit/abductor/scientist)
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
@@ -1424,36 +1426,32 @@
 
 	var/mob/living/carbon/human/H = current
 
-	H.set_species("Abductor")
+	H.set_species(/datum/species/abductor)
+	var/datum/species/abductor/S = H.dna.species
 
-	switch(role)
-		if("Agent")
-			H.mind.abductor.agent = 1
-		if("Scientist")
-			H.mind.abductor.scientist = 1
-	H.mind.abductor.team = team
+	if(role == "Scientist")
+		S.scientist = TRUE
+
+	S.team = team
 
 	var/list/obj/effect/landmark/abductor/agent_landmarks = new
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
 	agent_landmarks.len = 4
 	scientist_landmarks.len = 4
 	for(var/obj/effect/landmark/abductor/A in landmarks_list)
-		if(istype(A,/obj/effect/landmark/abductor/agent))
+		if(istype(A, /obj/effect/landmark/abductor/agent))
 			agent_landmarks[text2num(A.team)] = A
-		else if(istype(A,/obj/effect/landmark/abductor/scientist))
+		else if(istype(A, /obj/effect/landmark/abductor/scientist))
 			scientist_landmarks[text2num(A.team)] = A
 
 	var/obj/effect/landmark/L
-	if(teleport=="Yes")
+	if(teleport == "Yes")
 		switch(role)
 			if("Agent")
-				H.mind.abductor.agent = 1
 				L = agent_landmarks[team]
-				H.loc = L.loc
 			if("Scientist")
-				H.mind.abductor.scientist = 1
 				L = agent_landmarks[team]
-				H.loc = L.loc
+		H.forceMove(L.loc)
 
 
 // check whether this mind's mob has been brigged for the given duration

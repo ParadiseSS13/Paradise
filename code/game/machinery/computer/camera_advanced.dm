@@ -31,6 +31,7 @@
 	for(var/V in actions)
 		var/datum/action/A = V
 		A.Remove(user)
+	actions.Cut()
 	if(user.client)
 		user.reset_perspective(null)
 		eyeobj.RemoveImages()
@@ -52,6 +53,7 @@
 	if(current_user)
 		current_user.unset_machine()
 	QDEL_NULL(eyeobj)
+	QDEL_LIST(actions)
 	return ..()
 
 /obj/machinery/computer/camera_advanced/on_unset_machine(mob/M)
