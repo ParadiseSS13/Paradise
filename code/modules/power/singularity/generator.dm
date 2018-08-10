@@ -11,7 +11,7 @@
 	var/creation_type = /obj/singularity
 
 	// You can buckle someone to the singularity generator, then start the engine. Fun!
-	can_buckle=TRUE
+	can_buckle = TRUE
 	buckle_lying = 0
 	buckle_requires_restraints = 1
 

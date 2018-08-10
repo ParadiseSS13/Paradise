@@ -11,31 +11,30 @@
 
 /obj/structure/stool/bed/nest/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
 	if(has_buckled_mobs())
-		for(var/buck in buckled_mobs) //breaking a nest releases all the buckled mobs, because the nest isn't holding them down anymore
-			var/mob/living/M = buck
+		var/mob/living/M = buckled_mobs[1]
 
-			if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
-				unbuckle_mob(M)
-				add_fingerprint(user)
+		if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
+			unbuckle_mob(M)
+			add_fingerprint(user)
+			return
+
+		if(M != user)
+			M.visible_message("[user] pulls [M] free from the sticky nest!",\
+				"<span class='notice'>[user] pulls you free from the gelatinous resin.</span>",\
+				"<span class='italics'>You hear squelching...</span>")
+		else
+			M.visible_message("<span class='warning'>[M] struggles to break free from the gelatinous resin!</span>",\
+				"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
+				"<span class='italics'>You hear squelching...</span>")
+			if(!do_after(M, 1200, target = src))
+				if(M && M.buckled)
+					to_chat(M, "<span class='warning'>You fail to unbuckle yourself!</span>")
 				return
-
-			if(M != user)
-				M.visible_message("[user] pulls [M] free from the sticky nest!",\
-					"<span class='notice'>[user] pulls you free from the gelatinous resin.</span>",\
-					"<span class='italics'>You hear squelching...</span>")
-			else
-				M.visible_message("<span class='warning'>[M] struggles to break free from the gelatinous resin!</span>",\
-					"<span class='notice'>You struggle to break free from the gelatinous resin... (Stay still for two minutes.)</span>",\
-					"<span class='italics'>You hear squelching...</span>")
-				if(!do_after(M, 1200, target = src))
-					if(M && M.buckled)
-						to_chat(M, "<span class='warning'>You fail to unbuckle yourself!</span>")
-					return
-				if(!M.buckled)
-					return
-				M.visible_message("<span class='warning'>[M] breaks free from the gelatinous resin!</span>",\
-					"<span class='notice'>You break free from the gelatinous resin!</span>",\
-					"<span class='italics'>You hear squelching...</span>")
+			if(!M.buckled)
+				return
+			M.visible_message("<span class='warning'>[M] breaks free from the gelatinous resin!</span>",\
+				"<span class='notice'>You break free from the gelatinous resin!</span>",\
+				"<span class='italics'>You hear squelching...</span>")
 
 			unbuckle_mob(M)
 			add_fingerprint(user)
