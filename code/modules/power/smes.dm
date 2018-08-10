@@ -64,9 +64,10 @@
 					if(term && term.dir == turn(d, 180))
 						terminal = term
 						break dir_loop
-		if(!terminal)
+		/*if(!terminal)
 			stat |= BROKEN
 			return
+			*/ //
 		terminal.master = src
 		if(!terminal.powernet)
 			terminal.connect_to_network()
