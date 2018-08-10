@@ -237,8 +237,7 @@
 					if(!E.is_robotic())
 						continue
 					organ_found = 1
-					to_chat(user, "[E.name]: <font color='red'>[round(E.brute_dam)]</font> <font color='#FFA500'>[round(E.burn_dam)]</font>")
-
+					to_chat(user, "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>")
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
 			to_chat(user, "<hr>")

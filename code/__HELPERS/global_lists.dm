@@ -38,12 +38,11 @@
 			language_keys[".[lowertext(L.key)]"] = L
 			language_keys["#[lowertext(L.key)]"] = L
 
-	var/list/paths = subtypesof(/datum/species)
 	var/rkey = 0
-	for(var/T in paths)
-		var/datum/species/S = new T
+	for(var/spath in subtypesof(/datum/species))
+		var/datum/species/S = new spath()
 		S.race_key = ++rkey //Used in mob icon caching.
-		all_species[S.name] = S
+		GLOB.all_species[S.name] = S
 
 		if(IS_WHITELISTED in S.species_traits)
 			whitelisted_species += S.name

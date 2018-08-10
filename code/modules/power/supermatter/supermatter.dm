@@ -15,7 +15,7 @@
 //Controls how much power is produced by each collector in range - this is the main parameter for tweaking SM balance, as it basically controls how the power variable relates to the rest of the game.
 #define POWER_FACTOR 1.0
 #define DECAY_FACTOR 700			//Affects how fast the supermatter power decays
-#define CRITICAL_TEMPERATURE 5000	//K
+#define CRITICAL_TEMPERATURE 10000	//K
 #define CHARGING_FACTOR 0.05
 #define DAMAGE_RATE_LIMIT 4.5		//damage rate cap at power = 300, scales linearly with power
 
@@ -424,8 +424,6 @@
 				"<span class='danger'>The unearthly ringing subsides and you notice you have new radiation burns.</span>", 2)
 		else
 			L.show_message("<span class='italics'>You hear an uneartly ringing and notice your skin is covered in fresh radiation burns.</span>", 2)
-
-#define CRITICAL_TEMPERATURE 10000
 
 /obj/machinery/power/supermatter_shard/proc/get_status()
 	var/turf/T = get_turf(src)

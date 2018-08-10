@@ -42,7 +42,8 @@
 		"is crumbling into dust!",
 		"is smashing their body apart!")
 
-/datum/species/golem/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/golem/on_species_gain(mob/living/carbon/human/H)
+	..()
 	if(H.mind)
 		H.mind.assigned_role = "Golem"
 		H.mind.special_role = SPECIAL_ROLE_GOLEM
@@ -53,7 +54,6 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/golem(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/golem(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/golem(H), slot_gloves)
-	..()
 
 
 ////////Adamantine Golem stuff I dunno where else to put it
