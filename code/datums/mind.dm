@@ -937,35 +937,18 @@
 	else if(href_list["vampire"])
 		switch(href_list["vampire"])
 			if("clear")
-				if(src in ticker.mode.vampires)
-					ticker.mode.vampires -= src
-					special_role = null
-					if(vampire)
-						vampire.remove_vampire_powers()
-						qdel(vampire)
-						vampire = null
-					ticker.mode.update_vampire_icons_removed(src)
-					to_chat(current, "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a vampire and are stuck in your current form!</B></FONT>")
-					log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
+				remove_vampire(current)
+				log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
+				message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
 			if("vampire")
-				if(!(src in ticker.mode.vampires))
-					ticker.mode.vampires += src
-					ticker.mode.grant_vampire_powers(current)
-					ticker.mode.update_vampire_icons_added(src)
-					var/datum/mindslaves/slaved = new()
-					slaved.masters += src
-					som = slaved //we MIGT want to mindslave someone
-					special_role = SPECIAL_ROLE_VAMPIRE
-					to_chat(current, "<B><font color='red'>Your powers have awoken. Your lust for blood grows... You are a Vampire!</font></B>")
+				if(!is_vampire(current))
+
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")
+					add_vampire(current)
+				else
+					to_chat(usr, "<span class='warning'>[current] is already a vampire!</span>")
 
-			if("autoobjectives")
-				ticker.mode.forge_vampire_objectives(src)
-				to_chat(usr, "<span class='notice'>The objectives for vampire [key] have been generated. You can edit them and announce manually.</span>")
-				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
-				message_admins("[key_name_admin(usr)] has automatically forged objectives for [key_name_admin(current)]")
 
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
@@ -1345,11 +1328,9 @@
 /datum/mind/proc/make_Vampire()
 	if(!(src in ticker.mode.vampires))
 		ticker.mode.vampires += src
-		ticker.mode.grant_vampire_powers(current)
 		special_role = SPECIAL_ROLE_VAMPIRE
-		ticker.mode.forge_vampire_objectives(src)
-		ticker.mode.greet_vampire(src)
 		ticker.mode.update_change_icons_added(src)
+		add_vampire(src)
 
 /datum/mind/proc/make_Changeling()
 	if(!(src in ticker.mode.changelings))

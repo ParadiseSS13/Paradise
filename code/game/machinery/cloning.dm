@@ -419,8 +419,8 @@
 		ticker.mode.update_cult_icons_added() //So the icon actually appears
 	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
 		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
-	if(H.mind.vampire)
-		H.mind.vampire.update_owner(H)
+	if(H.mind.has_antag_datum(/datum/antagonist/vampire))
+		ticker.mode.update_vampire_icons_added(H.mind)
 	if((H.mind in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
 		ticker.mode.update_vampire_icons_added(H.mind)
 	if(H.mind in ticker.mode.changelings)

@@ -365,17 +365,18 @@
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
+	var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && is_vampire(M) && vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
-		if(M.mind.vampire.bloodusable)
+		if(vampire.bloodusable)
 			M.Stuttering(1)
 			M.Jitter(30)
 			M.adjustStaminaLoss(5)
 			if(prob(20))
 				M.emote("scream")
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
-			if(M.mind.vampire.bloodusable)
+			vampire.nullified = max(5, vampire.nullified + 2)
+			vampire.bloodusable = max(vampire.bloodusable - 3,0)
+			if(vampire.bloodusable)
 				V.vomit(0,1)
 			else
 				holder.remove_reagent(id, volume)
@@ -385,7 +386,7 @@
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					vampire.nullified = max(5, vampire.nullified + 2)
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					M.adjustFireLoss(1)
@@ -393,7 +394,7 @@
 					M.Jitter(20)
 					if(prob(20))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					vampire.nullified = max(5, vampire.nullified + 2)
 				if(13 to INFINITY)
 					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
 					for(var/mob/O in viewers(M, null))
@@ -405,13 +406,14 @@
 					M.Jitter(30)
 					if(prob(40))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					vampire.nullified = max(5, vampire.nullified + 2)
 	..()
 
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
+	var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && M.mind && is_vampire(M) && !vampire.get_ability(/datum/vampire_passive/full))
 		var/mob/living/carbon/human/H=M
 		if(method == TOUCH)
 			if(H.wear_mask)
@@ -422,7 +424,7 @@
 				return
 			else
 				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+				vampire.nullified = max(5, vampire.nullified + 2)
 
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)

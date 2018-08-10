@@ -39,3 +39,4 @@
 /datum/status_effect/void_price/tick()
 	playsound(owner, 'sound/weapons/bite.ogg', 50, 1)
 	owner.adjustBruteLoss(3)
+

@@ -490,7 +490,8 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	return target_amount
 
 /datum/objective/blood/check_completion()
-	if(owner && owner.vampire && owner.vampire.bloodtotal && owner.vampire.bloodtotal >= target_amount)
+	var/datum/antagonist/vampire/vamp = owner.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp && target_amount <= vamp.bloodtotal)
 		return 1
 	else
 		return 0

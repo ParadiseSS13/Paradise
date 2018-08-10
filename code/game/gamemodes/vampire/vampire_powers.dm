@@ -22,10 +22,10 @@
 		to_chat(user, "<span class='warning'>You are in too weak of a form to do this!</span>")
 		return 0
 
-	var/datum/vampire/vampire = user.mind.vampire
-
-	if(!vampire)
+	if(!is_vampire(user))
 		return 0
+
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 
 	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
@@ -40,7 +40,7 @@
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
 		return 0
 	//chapel check
-	if(istype(loc.loc, /area/chapel) && !fullpower)
+	if(istype(user.loc.loc, /area/chapel) && !fullpower)
 		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 		return 0
 	return ..()
@@ -51,11 +51,11 @@
 	if(!ishuman(user))
 		return 0
 
-	var/datum/vampire/vampire = user.mind.vampire
 
-	if(!vampire)
+	if(!is_vampire(user))
 		return 0
 
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
 	if(user.stat >= DEAD)
@@ -65,16 +65,17 @@
 		return 0
 	if(vampire.bloodusable < required_blood)
 		return 0
-	if(istype(loc.loc, /area/chapel) && !fullpower)
+	if(istype(user.loc.loc, /area/chapel) && !fullpower)
 		return 0
 	return ..()
 
 /obj/effect/proc_holder/spell/vampire/proc/affects(mob/target, mob/user = usr)
 	//Other vampires aren't affected
-	if(target.mind && target.mind.vampire)
+	if(is_vampire(target))
 		return 0
 	//Vampires who have reached their full potential can affect nearly everything
-	if(user.mind.vampire.get_ability(/datum/vampire_passive/full))
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire.get_ability(/datum/vampire_passive/full))
 		return 1
 	//Chaplains are resistant to vampire powers
 	if(target.mind && target.mind.assigned_role == "Chaplain")
@@ -88,7 +89,7 @@
 
 /obj/effect/proc_holder/spell/vampire/before_cast(list/targets)
 	// sanity check before we cast
-	if(!usr.mind || !usr.mind.vampire)
+	if(!usr.mind || !is_vampire(usr))
 		targets.Cut()
 		return
 
@@ -96,7 +97,7 @@
 		return
 
 	// enforce blood
-	var/datum/vampire/vampire = usr.mind.vampire
+	var/datum/antagonist/vampire/vampire = usr.mind.has_antag_datum(/datum/antagonist/vampire)
 
 	if(required_blood <= vampire.bloodusable)
 		vampire.bloodusable -= required_blood
@@ -133,13 +134,6 @@
 
 	perform(targets, user = user)
 
-/datum/vampire_passive
-	var/gain_desc
-
-/datum/vampire_passive/New()
-	..()
-	if(!gain_desc)
-		gain_desc = "You have gained \the [src] ability."
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -157,9 +151,11 @@
 	user.SetStunned(0)
 	user.SetParalysis(0)
 	U.adjustStaminaLoss(-75)
+
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	to_chat(user, "<span class='notice'>You flush your system with clean blood and remove any incapacitating effects.</span>")
 	spawn(1)
-		if(usr.mind.vampire.get_ability(/datum/vampire_passive/regen))
+		if(vampire.get_ability(/datum/vampire_passive/full))
 			for(var/i = 1 to 5)
 				U.adjustBruteLoss(-2)
 				U.adjustOxyLoss(-5)
@@ -314,7 +310,7 @@
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
 		return 0
-	if(enthrall_safe || ( C.mind in ticker.mode.vampires )||( C.mind.vampire )||( C.mind in ticker.mode.vampire_enthralled ))
+	if(enthrall_safe || ( C.mind in ticker.mode.vampires) || (is_vampire(C)) || ( C.mind in ticker.mode.vampire_enthralled))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
 		return 0
 	if(!affects(C))
@@ -363,15 +359,16 @@
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/proc/update_name()
 	var/mob/living/user = loc
-	if(!ishuman(user) || !user.mind || !user.mind.vampire)
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(!ishuman(user) || !user.mind || !is_vampire(user))
 		return
-	name = "[initial(name)] ([user.mind.vampire.iscloaking ? "Deactivate" : "Activate"])"
+	name = "[initial(name)] ([vampire.iscloaking ? "Deactivate" : "Activate"])"
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/cast(list/targets, mob/user = usr)
-	var/datum/vampire/V = user.mind.vampire
-	V.iscloaking = !V.iscloaking
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	vampire.iscloaking = !vampire.iscloaking
 	update_name()
-	to_chat(user, "<span class='notice'>You will now be [V.iscloaking ? "hidden" : "seen"] in darkness.</span>")
+	to_chat(user, "<span class='notice'>You will now be [vampire.iscloaking ? "hidden" : "seen"] in darkness.</span>")
 
 /obj/effect/proc_holder/spell/vampire/bats
 	name = "Summon Bats (75)"
@@ -526,6 +523,15 @@
 		user.forceMove(picked)
 		spawn(10)
 			qdel(animation)
+
+
+/datum/vampire_passive
+	var/gain_desc
+
+/datum/vampire_passive/New()
+	..()
+	if(!gain_desc)
+		gain_desc = "You have gained \the [src] ability."
 
 /datum/vampire_passive/regen
 	gain_desc = "Your rejuvination abilities have improved and will now heal you over time when used."

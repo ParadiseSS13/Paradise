@@ -19,11 +19,12 @@
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
 	if(M.mind)
-		if(M.mind.vampire)
+		if(M.mind.has_antag_datum(/datum/antagonist/vampire))
 			if(ishuman(M))
-				if(!M.mind.vampire.get_ability(/datum/vampire_passive/full))
+				var/datum/antagonist/vampire/V = M.mind.has_antag_datum(/datum/antagonist/vampire)
+				if(!V.get_ability(/datum/vampire_passive/full))
 					to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					V.nullified = max(5, V.nullified + 2)
 
 /obj/item/nullrod/attack_self(mob/user)
 	if(reskinned)
@@ -417,7 +418,7 @@
 
 	praying = 1
 	if(do_after(user, 150, target = M))
-		if(ishuman(M)) // This probably should not work on vulps. They're unholy abominations.
+		if(ishuman(M))
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)
@@ -426,11 +427,13 @@
 					praying = 0
 					return
 
-				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
-					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)
-					to_chat(target, "<span class='userdanger'>[user]'s prayer to [ticker.Bible_deity_name] has interfered with your power!</span>")
-					praying = 0
-					return
+				if(is_vampire(target))
+					var/datum/antagonist/vampire/V = target.mind.has_antag_datum(/datum/antagonist/vampire)
+					if(!V.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
+						V.nullified = max(120, V.nullified + 120)
+						to_chat(target, "<span class='userdanger'>[user]'s prayer to [ticker.Bible_deity_name] has interfered with your power!</span>")
+						praying = 0
+						return
 
 			if(prob(25))
 				to_chat(target, "<span class='notice'>[user]'s prayer to [ticker.Bible_deity_name] has eased your pain!</span>")
@@ -451,10 +454,12 @@
 
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5))
-				if(H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
-					H.mind.vampire.nullified = max(5, H.mind.vampire.nullified + 2)
-					if(prob(10))
-						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
+				if(is_vampire(H))
+					var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
+					if(!V.get_ability(/datum/vampire_passive/full))
+						V.nullified = max(5, V.nullified + 2)
+						if(prob(10))
+							to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
 /obj/item/nullrod/salt
 	name = "Holy Salt"

@@ -34,10 +34,6 @@
 	name = get_visible_name()
 	pulse = handle_pulse(times_fired)
 
-	if(mind && mind.vampire)
-		mind.vampire.handle_vampire()
-		if(life_tick == 1)
-			regenerate_icons() // Make sure the inventory updates
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
@@ -754,7 +750,7 @@
 			stat = UNCONSCIOUS
 
 			if(mind)
-				if(mind.vampire)
+				if(is_vampire(mind))
 					if(istype(loc, /obj/structure/closet/coffin))
 						adjustBruteLoss(-1)
 						adjustFireLoss(-1)

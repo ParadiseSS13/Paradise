@@ -39,8 +39,5 @@
 
 /datum/game_mode/traitor/vampire/post_setup()
 	for(var/datum/mind/vampire in vampires)
-		grant_vampire_powers(vampire.current)
-		vampire.special_role = SPECIAL_ROLE_VAMPIRE
-		forge_vampire_objectives(vampire)
-		greet_vampire(vampire)
+		add_vampire(vampire.current)
 	..()
