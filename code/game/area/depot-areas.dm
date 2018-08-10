@@ -72,7 +72,7 @@
 	run_started = FALSE
 	run_finished = FALSE
 
-	guard_list = list()
+	despawn_guards()
 	hostile_list = list()
 	dead_list = list()
 	peaceful_list = list()
@@ -82,7 +82,7 @@
 	detected_pod = FALSE
 	detected_double_agent = FALSE
 	updateicon()
-	despawn_guards()
+
 
 	alert_log += "Alert level reset."
 
