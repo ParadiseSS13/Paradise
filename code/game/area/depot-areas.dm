@@ -335,12 +335,6 @@
 		if(!L.locked)
 			L.locked = !L.locked
 		L.update_icon()
-	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/V in src)
-		if(!V.density)
-			V.close()
-		if(!V.locked)
-			V.locked = !V.locked
-		V.update_icon()
 
 /area/syndicate_depot/core/proc/shields_key_check()
 	if(!shield_list.len)
@@ -359,10 +353,6 @@
 		if(L.locked)
 			L.locked = !L.locked
 			L.update_icon()
-	for(var/obj/machinery/door/airlock/hatch/syndicate/vault/V in src)
-		if(V.locked)
-			V.locked = !V.locked
-			V.update_icon()
 
 /area/syndicate_depot/core/proc/despawn_guards()
 	for(var/mob/thismob in list_getmobs(guard_list))
