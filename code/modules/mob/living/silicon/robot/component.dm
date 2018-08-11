@@ -252,7 +252,9 @@
 			if(!organ_found)
 				to_chat(user, "<span class='warning'>No prosthetics located.</span>")
 
-			if(H.isSynthetic() && H.bleed_rate)
-				to_chat(user, "<span class='warning'>Warning:Component leak detected!</span>")
+			if(H.isSynthetic())
+				to_chat(user, "<span class='notice'>Internal Fluid Level:[H.blood_volume]/[H.max_blood]</span>")
+				if(H.bleed_rate)
+					to_chat(user, "<span class='warning'>Warning:External component leak detected!</span>")
 
 	src.add_fingerprint(user)
