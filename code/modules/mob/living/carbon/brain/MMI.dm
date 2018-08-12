@@ -16,6 +16,9 @@
 	var/obj/mecha/mecha = null//This does not appear to be used outside of reference in mecha.dm.
 // I'm using this for mechs giving MMIs HUDs now
 
+	var/obj/item/radio/radio = null // For use with the radio MMI upgrade
+	var/datum/action/generic/configure_mmi_radio/radio_action = null
+
 /obj/item/mmi/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	if(istype(O, /obj/item/organ/internal/brain/crystal ))
 		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
@@ -29,32 +32,68 @@
 			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
 			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return
-		for(var/mob/V in viewers(src, null))
-			V.show_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
-		brainmob = B.brainmob
-		B.brainmob = null
-		brainmob.loc = src
-		brainmob.container = src
-		brainmob.stat = CONSCIOUS
-		respawnable_list -= brainmob
-		dead_mob_list -= brainmob//Update dem lists
-		living_mob_list += brainmob
+		if(user.drop_item())
+			B.forceMove(src)
+			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
+			brainmob = B.brainmob
+			B.brainmob = null
+			brainmob.loc = src
+			brainmob.container = src
+			brainmob.stat = CONSCIOUS
+			respawnable_list -= brainmob
+			dead_mob_list -= brainmob//Update dem lists
+			living_mob_list += brainmob
 
-		user.drop_item()
-		B.forceMove(src)
-		held_brain = B
-		if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
-			name = "Man-Machine Interface: Alien - [brainmob.real_name]"
-			icon = 'icons/mob/alien.dmi'
-			icon_state = "AlienMMI"
-			alien = 1
+			held_brain = B
+			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
+				name = "Man-Machine Interface: Alien - [brainmob.real_name]"
+				icon = 'icons/mob/alien.dmi'
+				become_occupied("AlienMMI")
+				alien = 1
+			else
+				name = "Man-Machine Interface: [brainmob.real_name]"
+				icon = B.mmi_icon
+				become_occupied("[B.mmi_icon_state]")
+				alien = 0
+
+			if(radio_action)
+				radio_action.UpdateButtonIcon()
+			feedback_inc("cyborg_mmis_filled",1)
 		else
-			name = "Man-Machine Interface: [brainmob.real_name]"
-			icon = B.mmi_icon
-			icon_state = "[B.mmi_icon_state]"
-			alien = 0
-		feedback_inc("cyborg_mmis_filled",1)
+			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
 
+		return
+
+	if(istype(O, /obj/item/mmi_radio_upgrade))
+		if(radio)
+			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
+		else
+			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
+				"<span class='notice'>You start to install the [O] into [src]...</span>")
+			if(do_after(user, 20, target=src))
+				if(user.drop_item())
+					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
+						"<span class='notice'>You install [O] in [src].</span>")
+					if(brainmob)
+						to_chat(brainmob, "<span class='notice'>MMI radio capability installed.</span>")
+					install_radio()
+					qdel(O)
+				else
+					to_chat(user, "<span class='warning'>You can't drop [O]!</span>")
+		return
+
+	// Maybe later add encryption key support, but that's a pain in the neck atm
+	if(isscrewdriver(O))
+		if(radio)
+			user.visible_message("<span class='warning'>[user] begins to uninstall the radio from [src]...</span>", \
+								 "<span class='notice'>You start to uninstall the radio from [src]...</span>")
+			if(do_after(user, 40 * O.toolspeed, target = src))
+				uninstall_radio()
+				new /obj/item/mmi_radio_upgrade(get_turf(src))
+				user.visible_message("<span class='warning'>[user] uninstalls the radio from [src].</span>", \
+									 "<span class='notice'>You uninstall the radio from [src].</span>")
+		else
+			to_chat(user, "<span class='warning'>There is no radio in [src]!</span>")
 		return
 
 	if(brainmob)
@@ -82,10 +121,10 @@
 	brainmob.dna = H.dna.Clone()
 	brainmob.container = src
 
-	if(!istype(H.species) || isnull(H.species.return_organ("brain"))) // Diona/buggy people
+	if(!istype(H.dna.species) || isnull(H.dna.species.return_organ("brain"))) // Diona/buggy people
 		held_brain = new(src)
 	else // We have a species, and it has a brain
-		var/brain_path = H.species.return_organ("brain")
+		var/brain_path = H.dna.species.return_organ("brain")
 		if(!ispath(brain_path, /obj/item/organ/internal/brain))
 			brain_path = /obj/item/organ/internal/brain
 		held_brain = new brain_path(src) // Slime people will keep their slimy brains this way
@@ -93,8 +132,7 @@
 	held_brain.name = "\the [brainmob.name]'s [initial(held_brain.name)]"
 
 	name = "Man-Machine Interface: [brainmob.real_name]"
-	icon_state = "mmi_full"
-	return
+	become_occupied("mmi_full")
 
 //I made this proc as a way to have a brainmob be transferred to any created brain, and to solve the
 //problem i was having with alien/nonalien brain drops.
@@ -116,31 +154,54 @@
 	held_brain.forceMove(dropspot)
 	held_brain = null
 
+/obj/item/mmi/proc/become_occupied(var/new_icon)
+	icon_state = new_icon
+	if(radio)
+		radio_action.ApplyIcon()
 
-/obj/item/mmi/radio_enabled
-	name = "Radio-enabled Man-Machine Interface"
-	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity. This one comes with a built-in radio."
-	origin_tech = "biotech=2;programming=3;engineering=2;magnets=2"
+/obj/item/mmi/examine(mob/user)
+	. = ..()
+	if(radio)
+		to_chat(user, "<span class='notice'>A radio is installed on [src].</span>")
 
-	var/obj/item/radio/radio = null//Let's give it a radio.
+/obj/item/mmi/proc/install_radio()
+	radio = new(src)
+	radio.broadcasting = TRUE
+	radio_action = new(radio, src)
+	if(brainmob && brainmob.loc == src)
+		radio_action.Grant(brainmob)
 
-/obj/item/mmi/radio_enabled/New()
-	..()
-	radio = new(src)//Spawns a radio inside the MMI.
-	radio.broadcasting = 1//So it's broadcasting from the start.
+/obj/item/mmi/proc/uninstall_radio()
+	QDEL_NULL(radio)
+	QDEL_NULL(radio_action)
 
-/obj/item/mmi/radio_enabled/verb/Toggle_Listening()
-	set name = "Toggle Listening"
-	set desc = "Toggle listening channel on or off."
-	set category = "MMI"
-	set src = usr.loc
-	set popup_menu = 0
+/datum/action/generic/configure_mmi_radio
+	name = "Configure MMI Radio"
+	desc = "Configure the radio installed in your MMI."
+	check_flags = AB_CHECK_CONSCIOUS
+	procname = "ui_interact"
+	var/obj/item/mmi = null
 
-	if(brainmob.stat)
-		to_chat(brainmob, "Can't do that while incapacitated or dead.")
+/datum/action/generic/configure_mmi_radio/New(var/Target, var/obj/item/mmi/M)
+	. = ..()
+	mmi = M
 
-	radio.listening = radio.listening==1 ? 0 : 1
-	to_chat(brainmob, "<span class='notice'>Radio is [radio.listening==1 ? "now" : "no longer"] receiving broadcast.</span>")
+/datum/action/generic/configure_mmi_radio/Destroy()
+	mmi = null
+	return ..()
+
+/datum/action/generic/configure_mmi_radio/ApplyIcon(obj/screen/movable/action_button/current_button)
+	// A copy/paste of the item action icon code
+	current_button.overlays.Cut()
+	if(target)
+		var/obj/item/I = mmi
+		var/old_layer = I.layer
+		var/old_plane = I.plane
+		I.layer = 21
+		I.plane = HUD_PLANE
+		current_button.overlays += I
+		I.layer = old_layer
+		I.plane = old_plane
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
@@ -168,7 +229,21 @@
 		borg.mmi = null
 	QDEL_NULL(brainmob)
 	QDEL_NULL(held_brain)
+	QDEL_NULL(radio)
+	QDEL_NULL(radio_action)
 	return ..()
+
+// These two procs are important for when an MMI pilots a mech
+// (Brainmob "enters/leaves" the MMI when piloting)
+// Also neatly handles basically every case where a brain
+// is inserted or removed from an MMI
+/obj/item/mmi/Entered(atom/movable/A)
+	if(radio && istype(A, /mob/living/carbon/brain))
+		radio_action.Grant(A)
+
+/obj/item/mmi/Exited(atom/movable/A)
+	if(radio && istype(A, /mob/living/carbon/brain))
+		radio_action.Remove(A)
 
 /obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
@@ -190,10 +265,25 @@
 	forceMove(holder)
 	holder.stored_mmi = src
 	holder.update_from_mmi()
-	if(istype(src, /obj/item/mmi/posibrain))
-		holder.robotize()
 	if(brainmob && brainmob.mind)
 		brainmob.mind.transfer_to(H)
 	holder.insert(H)
 
 	return 1
+
+// As a synthetic, the only limit on visibility is view range
+/obj/item/mmi/contents_nano_distance(var/src_object, var/mob/living/user)
+	if((src_object in view(src)) && get_dist(src_object, src) <= user.client.view)
+		return STATUS_INTERACTIVE	// interactive (green visibility)
+	return user.shared_living_nano_distance(src_object)
+
+// For now the only thing that is helped by this is radio access
+// Later a more intricate system for MMI UI interaction can be established
+/obj/item/mmi/contents_nano_interact(var/src_object, var/mob/living/user)
+	if(!istype(user, /mob/living/carbon/brain))
+		log_runtime(EXCEPTION("Somehow a non-brain mob is inside an MMI!"), user)
+		return ..()
+	var/mob/living/carbon/brain/BM = user
+	if(BM.container == src && src_object == radio)
+		return STATUS_INTERACTIVE
+	return ..()

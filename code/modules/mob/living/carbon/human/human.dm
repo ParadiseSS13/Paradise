@@ -4,10 +4,6 @@
 	voice_name = "unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
-
-	//why are these here and not in human_defines.dm
-	//var/list/hud_list[10]
-	var/datum/species/species //Contains icon generation and language information, set during New().
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
@@ -15,21 +11,17 @@
 		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
 	. = ..()
 
-/mob/living/carbon/human/Initialize(mapload, new_species = null)
+/mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	if(!species)
-		if(new_species)
-			set_species(new_species, 1, delay_icon_update = 1)
-		else
-			set_species(delay_icon_update = 1)
+	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
 
 	..()
 
-	if(species)
-		real_name = species.get_random_name(gender)
+	if(dna.species)
+		real_name = dna.species.get_random_name(gender)
 		name = real_name
 		if(mind)
 			mind.name = real_name
@@ -74,82 +66,95 @@
 	status_flags = GODMODE|CANPUSH
 
 /mob/living/carbon/human/skrell/Initialize(mapload)
-	..(mapload, "Skrell")
+	..(mapload, /datum/species/skrell)
 
 /mob/living/carbon/human/tajaran/Initialize(mapload)
-	..(mapload, "Tajaran")
+	..(mapload, /datum/species/tajaran)
 
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
-	..(mapload, "Vulpkanin")
+	..(mapload, /datum/species/vulpkanin)
 
 /mob/living/carbon/human/unathi/Initialize(mapload)
-	..(mapload, "Unathi")
+	..(mapload, /datum/species/unathi)
 
 /mob/living/carbon/human/vox/Initialize(mapload)
-	..(mapload, "Vox")
+	..(mapload, /datum/species/vox)
 
 /mob/living/carbon/human/voxarmalis/Initialize(mapload)
-	..(mapload, "Vox Armalis")
+	..(mapload, /datum/species/vox/armalis)
 
 /mob/living/carbon/human/skeleton/Initialize(mapload)
-	..(mapload, "Skeleton")
+	..(mapload, /datum/species/skeleton)
 
 /mob/living/carbon/human/kidan/Initialize(mapload)
-	..(mapload, "Kidan")
+	..(mapload, /datum/species/kidan)
 
 /mob/living/carbon/human/plasma/Initialize(mapload)
-	..(mapload, "Plasmaman")
+	..(mapload, /datum/species/plasmaman)
 
 /mob/living/carbon/human/slime/Initialize(mapload)
-	..(mapload, "Slime People")
+	..(mapload, /datum/species/slime)
 
 /mob/living/carbon/human/grey/Initialize(mapload)
-	..(mapload, "Grey")
+	..(mapload, /datum/species/grey)
 
 /mob/living/carbon/human/abductor/Initialize(mapload)
-	..(mapload, "Abductor")
-
-/mob/living/carbon/human/human/Initialize(mapload)
-	..(mapload, "Human")
+	..(mapload, /datum/species/abductor)
 
 /mob/living/carbon/human/diona/Initialize(mapload)
-	..(mapload, "Diona")
+	..(mapload, /datum/species/diona)
 
 /mob/living/carbon/human/machine/Initialize(mapload)
-	..(mapload, "Machine")
+	..(mapload, /datum/species/machine)
+
+/mob/living/carbon/human/machine/created
+	name = "Integrated Robotic Chassis"
+
+/mob/living/carbon/human/machine/created/Initialize(mapload)
+	..()
+	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
+	update_dna()
+	for(var/obj/item/organ/external/E in bodyparts)
+		if(istype(E, /obj/item/organ/external/chest) || istype(E, /obj/item/organ/external/groin))
+			continue
+		qdel(E)
+	for(var/obj/item/organ/O in internal_organs)
+		qdel(O)
+	regenerate_icons()
+	death()
 
 /mob/living/carbon/human/shadow/Initialize(mapload)
-	..(mapload, "Shadow")
+	..(mapload, /datum/species/shadow)
 
 /mob/living/carbon/human/golem/Initialize(mapload)
-	..(mapload, "Golem")
+	..(mapload, /datum/species/golem)
 
 /mob/living/carbon/human/wryn/Initialize(mapload)
-	..(mapload, "Wryn")
+	..(mapload, /datum/species/wryn)
 
 /mob/living/carbon/human/nucleation/Initialize(mapload)
-	..(mapload, "Nucleation")
+	..(mapload, /datum/species/nucleation)
 
 /mob/living/carbon/human/drask/Initialize(mapload)
-	..(mapload, "Drask")
+	..(mapload, /datum/species/drask)
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
-	..(mapload, "Monkey")
+	..(mapload, /datum/species/monkey)
 
 /mob/living/carbon/human/farwa/Initialize(mapload)
-	..(mapload, "Farwa")
+	..(mapload, /datum/species/monkey/tajaran)
 
 /mob/living/carbon/human/wolpin/Initialize(mapload)
-	..(mapload, "Wolpin")
+	..(mapload, /datum/species/monkey/vulpkanin)
 
 /mob/living/carbon/human/neara/Initialize(mapload)
-	..(mapload, "Neara")
+	..(mapload, /datum/species/monkey/skrell)
 
 /mob/living/carbon/human/stok/Initialize(mapload)
-	..(mapload, "Stok")
+	..(mapload, /datum/species/monkey/unathi)
 
-/mob/living/carbon/human/murghal/New(var/new_loc)
-	..(new_loc, "Murghal")
+/mob/living/carbon/human/murghal/Initialize(mapload)
+	..(mapload, "Murghal")
 
 /mob/living/carbon/human/Stat()
 	..()
@@ -516,7 +521,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if( !head || head.disfigured || !real_name || (HUSK in mutations) )	//disfigured. use id-name if possible
+	if(!head || head.disfigured || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -553,7 +558,7 @@
 		grant_death_vision()
 		return
 
-	species.update_sight(src)
+	dna.species.update_sight(src)
 
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
@@ -583,8 +588,8 @@
 		if(gloves)
 			var/obj/item/clothing/gloves/G = gloves
 			gloves_siemens_coeff = G.siemens_coefficient
-		if(species)
-			species_siemens_coeff = species.siemens_coeff
+		if(dna.species)
+			species_siemens_coeff = dna.species.siemens_coeff
 		siemens_coeff = gloves_siemens_coeff * species_siemens_coeff
 	if(undergoing_cardiac_arrest())
 		if(shock_damage * siemens_coeff >= 1 && prob(25))
@@ -654,12 +659,12 @@
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
-						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src))
+						add_attack_logs(usr, src, "Stripped of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 				else
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
-						add_attack_logs(usr, src, "Equipped with [pocket_item]", isLivingSSD(src))
+						add_attack_logs(usr, src, "Equipped with [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -668,7 +673,7 @@
 				// Display a warning if the user mocks up if they don't have pickpocket gloves.
 				if(!thief_mode)
 					to_chat(src, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
-				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src))
+				add_attack_logs(usr, src, "Attempted strip of [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 		if(href_list["set_sensor"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -683,7 +688,7 @@
 														"<span class='danger'>You have dislodged everything from [src]'s headpocket!</span>")
 				var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 				C.empty_contents()
-				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src))
+				add_attack_logs(usr, src, "Stripped of headpocket items", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 		if(href_list["strip_accessory"])
 			if(istype(w_uniform, /obj/item/clothing/under))
@@ -1035,14 +1040,6 @@
 
 /mob/living/carbon/human/proc/check_dna()
 	dna.check_integrity(src)
-	return
-
-/mob/living/carbon/human/get_species()
-
-	if(!species)
-		set_species()
-
-	return species.name
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
@@ -1068,7 +1065,7 @@
 	if(!affecting)
 		. = 0
 		fail_msg = "[p_they(TRUE)] [p_are()] missing that limb."
-	else if(affecting.status & ORGAN_ROBOT)
+	else if(affecting.is_robotic())
 		. = 0
 		fail_msg = "That limb is robotic."
 	else
@@ -1143,9 +1140,9 @@
 
 	//Replacing lost limbs with the species default.
 	var/mob/living/carbon/human/temp_holder
-	for(var/limb_type in H.species.has_limbs)
+	for(var/limb_type in H.dna.species.has_limbs)
 		if(!(limb_type in H.bodyparts_by_name))
-			var/list/organ_data = H.species.has_limbs[limb_type]
+			var/list/organ_data = H.dna.species.has_limbs[limb_type]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(temp_holder)
 			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
@@ -1158,8 +1155,8 @@
 
 	//Replacing lost organs with the species default.
 	temp_holder = new /mob/living/carbon/human()
-	for(var/index in H.species.has_organ)
-		var/organ = H.species.has_organ[index]
+	for(var/index in H.dna.species.has_organ)
+		var/organ = H.dna.species.has_organ[index]
 		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
 			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
@@ -1176,7 +1173,7 @@
 	surgeries.Cut() //End all surgeries.
 	update_revive()
 
-	if(species.name != "Skeleton" && (SKELETON in mutations))
+	if(!isskeleton(src) && (SKELETON in mutations))
 		mutations.Remove(SKELETON)
 	if(NOCLONE in mutations)
 		mutations.Remove(NOCLONE)
@@ -1206,7 +1203,7 @@
 		return 0
 
 	if(!L.is_bruised())
-		src.custom_pain("You feel a stabbing pain in your chest!", 1)
+		custom_pain("You feel a stabbing pain in your chest!")
 		L.damage = L.min_bruised_damage
 
 //returns 1 if made bloody, returns 0 otherwise
@@ -1239,7 +1236,7 @@
 		..()
 
 /mob/living/carbon/human/generate_name()
-	name = species.makeName(gender,src)
+	name = dna.species.get_random_name(gender)
 	real_name = name
 	if(dna)
 		dna.real_name = name
@@ -1278,88 +1275,90 @@
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
-/mob/living/carbon/human/proc/set_species(var/new_species, var/default_colour, var/delay_icon_update = 0)
-	var/datum/species/oldspecies = species
-	var/datum/species/NS = all_species[new_species]
-	if(!dna)
-		if(!new_species)
-			new_species = "Human"
-	else
-		if(!new_species)
-			new_species = dna.species
-		else
-			dna.species = new_species
-
-	if(species)
-		if(species.name && species.name == new_species)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE)
+	if(!skip_same_check)
+		if(dna.species.name == initial(new_species.name))
 			return
-
-		if(species.language)
-			remove_language(species.language)
-
-		if(species.default_language)
-			remove_language(species.default_language)
-
-		if(gender == PLURAL && NS.has_gender)
-			change_gender(pick(MALE,FEMALE))
-		species.handle_pre_change(src)
-
-	species = all_species[new_species]
+	var/datum/species/oldspecies = dna.species
 
 	if(oldspecies)
+		if(oldspecies.language)
+			remove_language(oldspecies.language)
+
+		if(oldspecies.default_language)
+			remove_language(oldspecies.default_language)
+
+		if(gender == PLURAL && oldspecies.has_gender)
+			change_gender(pick(MALE, FEMALE))
+
 		if(oldspecies.default_genes.len)
-			oldspecies.handle_dna(src,1) // Remove any genes that belong to the old species
+			oldspecies.handle_dna(src, TRUE) // Remove any genes that belong to the old species
 
-	tail = species.tail
+		oldspecies.on_species_loss(src)
 
-	maxHealth = species.total_health
+	dna.species = new new_species()
 
-	if(species.language)
-		add_language(species.language)
+	tail = dna.species.tail
 
-	if(species.default_language)
-		add_language(species.default_language)
+	maxHealth = dna.species.total_health
 
-	hunger_drain = species.hunger_drain
-	digestion_ratio = species.digestion_ratio
+	if(dna.species.language)
+		add_language(dna.species.language)
 
-	if(species.base_color && default_colour)
+	if(dna.species.default_language)
+		add_language(dna.species.default_language)
+
+	hunger_drain = dna.species.hunger_drain
+	digestion_ratio = dna.species.digestion_ratio
+
+	if(dna.species.base_color && default_colour)
 		//Apply colour.
-		skin_colour = species.base_color
+		skin_colour = dna.species.base_color
 	else
 		skin_colour = "#000000"
 
-	if(!(species.bodyflags & HAS_SKIN_TONE))
+	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	species.create_organs(src)
+	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
+	var/list/kept_items[0]
+
+	for(var/thing in thing_to_check)
+		var/obj/item/I = get_item_by_slot(thing)
+		if(I)
+			kept_items[I] = thing
+
+	dna.species.create_organs(src)
+
+	for(var/thing in kept_items)
+		equip_to_slot_or_del(thing, kept_items[thing])
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(species.default_hair)
-		H.h_style = species.default_hair
+	if(dna.species.default_hair)
+		H.h_style = dna.species.default_hair
 	else
 		H.h_style = "Bald"
-	if(species.default_fhair)
-		H.f_style = species.default_fhair
+	if(dna.species.default_fhair)
+		H.f_style = dna.species.default_fhair
 	else
 		H.f_style = "Shaved"
-	if(species.default_headacc)
-		H.ha_style = species.default_headacc
+	if(dna.species.default_headacc)
+		H.ha_style = dna.species.default_headacc
 	else
 		H.ha_style = "None"
 
-	if(species.default_hair_colour)
+	if(dna.species.default_hair_colour)
 		//Apply colour.
-		H.hair_colour = species.default_hair_colour
+		H.hair_colour = dna.species.default_hair_colour
 	else
 		H.hair_colour = "#000000"
-	if(species.default_fhair_colour)
-		H.facial_colour = species.default_fhair_colour
+	if(dna.species.default_fhair_colour)
+		H.facial_colour = dna.species.default_fhair_colour
 	else
 		H.facial_colour = "#000000"
-	if(species.default_headacc_colour)
-		H.headacc_colour = species.default_headacc_colour
+	if(dna.species.default_headacc_colour)
+		H.headacc_colour = dna.species.default_headacc_colour
 	else
 		H.headacc_colour = "#000000"
 
@@ -1367,43 +1366,39 @@
 	m_colours = DEFAULT_MARKING_COLOURS //Defaults colour to #00000 for all markings.
 	body_accessory = null
 
-	if(!dna)
-		dna = new /datum/dna(null)
-		dna.species = species.name
-		dna.real_name = real_name
+	dna.real_name = real_name
 
-	species.handle_post_spawn(src)
+	dna.species.on_species_gain(src)
 
-	see_in_dark = species.get_resultant_darksight(src)
+	see_in_dark = dna.species.get_resultant_darksight(src)
 	if(see_in_dark > 2)
 		see_invisible = SEE_INVISIBLE_LEVEL_ONE
 	else
 		see_invisible = SEE_INVISIBLE_LIVING
 
-	species.handle_dna(src) //Give them whatever special dna business they got.
+	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 
 	update_client_colour(0)
-
-	spawn(0)
-		overlays.Cut()
-		update_mutantrace(1)
-		regenerate_icons()
 
 	if(!delay_icon_update)
 		UpdateAppearance()
 
-	if(species)
-		return 1
+	overlays.Cut()
+	update_mutantrace(1)
+	regenerate_icons()
+
+	if(dna.species)
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /mob/living/carbon/human/get_default_language()
 	if(default_language)
 		return default_language
 
-	if(!species)
+	if(!dna.species)
 		return null
-	return species.default_language ? all_languages[species.default_language] : null
+	return dna.species.default_language ? all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
@@ -1455,127 +1450,11 @@
 		W.message = message
 		W.add_fingerprint(src)
 
-// Allows IPC's to change their monitor display
-/mob/living/carbon/human/proc/change_monitor()
-	set category = "IC"
-	set name = "Change Monitor/Optical Display"
-	set desc = "Change the display on your monitor or the colour of your optics."
-
-	if(incapacitated())
-		to_chat(src, "<span class='warning'>You cannot change your monitor or optical display in your current state.</span>")
-		return
-
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
-		return
-
-	if(species.bodyflags & ALL_RPARTS) //If they can have a fully cybernetic body...
-		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
-		if(!head_organ)
-			return
-		if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-			var/optic_colour = input(src, "Select optic colour", m_colours["head"]) as color|null
-			if(incapacitated())
-				to_chat(src, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
-				return
-			if(optic_colour)
-				change_markings(optic_colour, "head")
-
-		else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
-			var/list/hair = list()
-			for(var/i in hair_styles_public_list)
-				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_public_list[i]
-				if((head_organ.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
-					hair += i
-
-			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
-			if(incapacitated())
-				to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
-				return
-			if(new_style)
-				change_hair(new_style)
-
-//Putting a couple of procs here that I don't know where else to dump.
-//Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
-/mob/living/carbon/human/proc/leap()
-	set category = "Abilities"
-	set name = "Leap"
-	set desc = "Leap at a target and grab them aggressively."
-
-	if(last_special > world.time)
-		return
-
-	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
-		to_chat(src, "You cannot leap in your current state.")
-		return
-
-	var/list/choices = list()
-	for(var/mob/living/M in view(6,src))
-		if(!istype(M,/mob/living/silicon))
-			choices += M
-	choices -= src
-
-	var/mob/living/T = input(src,"Who do you wish to leap at?") as null|anything in choices
-
-	if(!T || !src || src.stat) return
-
-	if(get_dist(get_turf(T), get_turf(src)) > 6) return
-
-	if(last_special > world.time)
-		return
-
-	if(!canmove)
-		to_chat(src, "You cannot leap in your current state.")
-		return
-
-	last_special = world.time + 75
-	status_flags |= LEAPING
-
-	src.visible_message("<span class='warning'><b>\The [src]</b> leaps at [T]!</span>")
-	src.throw_at(get_step(get_turf(T),get_turf(src)), 5, 1, src)
-	playsound(src.loc, 'sound/voice/shriek1.ogg', 50, 1)
-
-	sleep(5)
-
-	if(status_flags & LEAPING) status_flags &= ~LEAPING
-
-	if(!src.Adjacent(T))
-		to_chat(src, "<span class='warning'>You miss!</span>")
-		return
-
-	T.Weaken(5)
-
-	//Only official raider vox get the grab and no self-prone."
-	if(src.mind && src.mind.special_role != "Vox Raider")
-		src.Weaken(5)
-		return
-
-	var/use_hand = "left"
-	if(l_hand)
-		if(r_hand)
-			to_chat(src, "<span class='warning'>You need to have one hand free to grab someone.</span>")
-			return
-		else
-			use_hand = "right"
-
-	src.visible_message("<span class='warning'><b>\The [src]</b> seizes [T] aggressively!</span>")
-
-	var/obj/item/grab/G = new(src,T)
-	if(use_hand == "left")
-		l_hand = G
-	else
-		r_hand = G
-
-	G.state = GRAB_AGGRESSIVE
-	G.icon_state = "grabbed1"
-	G.synch()
-
 /mob/living/carbon/human/proc/get_eyecon()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
-	if(istype(species) && species.eyes)
-		var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', species.eyes)
+	if(istype(dna.species) && dna.species.eyes)
+		var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', dna.species.eyes)
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
@@ -1605,43 +1484,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 
 	return TRUE
-
-/mob/living/carbon/human/proc/gut()
-	set category = "Abilities"
-	set name = "Gut"
-	set desc = "While grabbing someone aggressively, rip their guts out or tear them apart."
-
-	if(last_special > world.time)
-		return
-
-	if(!canmove)
-		to_chat(src, "<span class='warning'>You cannot do that in your current state.</span>")
-		return
-
-	var/obj/item/grab/G = locate() in src
-	if(!G || !istype(G))
-		to_chat(src, "<span class='warning'>You are not grabbing anyone.</span>")
-		return
-
-	if(G.state < GRAB_AGGRESSIVE)
-		to_chat(src, "<span class='warning'>You must have an aggressive grab to gut your prey!</span>")
-		return
-
-	last_special = world.time + 50
-
-	visible_message("<span class='warning'><b>\The [src]</b> rips viciously at \the [G.affecting]'s body with its claws!</span>")
-
-	if(istype(G.affecting,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = G.affecting
-		H.apply_damage(50,BRUTE)
-		if(H.stat == 2)
-			H.gib()
-	else
-		var/mob/living/M = G.affecting
-		if(!istype(M)) return //wut
-		M.apply_damage(50,BRUTE)
-		if(M.stat == 2)
-			M.gib()
 
 /mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)
@@ -1765,7 +1607,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 			to_chat(src, "<span class='alert'>Repeat at least every 7 seconds.")
-			add_attack_logs(src, H, "CPRed", FALSE)
+			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 			return 1
 	else
 		to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
@@ -1781,7 +1623,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/IsAdvancedToolUser()
-	if(species.has_fine_manipulation)
+	if(dna.species.has_fine_manipulation)
 		return 1
 	return 0
 
@@ -1816,7 +1658,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return 1
 
 /mob/living/carbon/human/can_eat(flags = 255)
-	return species && (species.dietflags & flags)
+	return dna.species && (dna.species.dietflags & flags)
 
 /mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
@@ -1826,14 +1668,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
-		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (get_species() == "Machine"))))
+		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachine(src)))))
 			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
 			return 0
 	return ..()
 
 /mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
-		if(!get_species() == "Machine")
+		if(!ismachine(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
 			return 0
 		else
@@ -1877,7 +1719,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				. |= A.GetAccess()
 
 /mob/living/carbon/human/is_mechanical()
-	return ..() || (species.bodyflags & ALL_RPARTS) != 0
+	return ..() || (dna.species.bodyflags & ALL_RPARTS) != 0
 
 /mob/living/carbon/human/can_use_guns(var/obj/item/gun/G)
 	. = ..()
@@ -1886,7 +1728,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(HULK in mutations)
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return 0
-		if(NOGUNS in species.species_traits)
+		if(NOGUNS in dna.species.species_traits)
 			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
 			return 0
 
@@ -1953,7 +1795,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		dna.deserialize(data["dna"])
 		real_name = dna.real_name
 		name = real_name
-		set_species(dna.species)
+		set_species(dna.species.type, skip_same_check = TRUE)
 	age = data["age"]
 	undershirt = data["ushirt"]
 	underwear = data["uwear"]
@@ -2015,8 +1857,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. += "---"
 
 /mob/living/carbon/human/get_taste_sensitivity()
-	if(species)
-		return species.taste_sensitivity
+	if(dna.species)
+		return dna.species.taste_sensitivity
 	else
 		return 1
 

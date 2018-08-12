@@ -341,19 +341,27 @@
 //Pod turfs and objects
 
 //Window
+/obj/structure/window/shuttle/survival_pod
+	name = "pod window"
+	icon = 'icons/obj/smooth_structures/pod_window.dmi'
+	icon_state = "smooth"
+	dir = FULLTILE_WINDOW_DIR
+	max_integrity = 100
+	fulltile = TRUE
+	reinf = TRUE
+	heat_resistance = 1600
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100)
+	smooth = SMOOTH_MORE
+	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/shuttle/survival_pod)
+	explosion_block = 3
+	level = 3
+	glass_type = /obj/item/stack/sheet/titaniumglass
+	glass_amount = 2
+
 /obj/structure/window/reinforced/survival_pod
 	name = "pod window"
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
-
-// This override can be removed whenever we get rid of the stupid fucking `dir = 9` = full tile!!!! shit
-/obj/structure/window/reinforced/survival_pod/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
 
 //Floors
 /turf/simulated/floor/pod
@@ -515,7 +523,7 @@
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
-/obj/structure/fans/New(loc)
+/obj/structure/fans/Initialize(loc)
 	..()
 	air_update_turf(1)
 

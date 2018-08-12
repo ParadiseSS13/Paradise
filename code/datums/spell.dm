@@ -115,7 +115,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			caster.reset_perspective(0)
 			return 0
 
-	if(is_admin_level(user.z) && (!centcom_cancast || ticker.mode.name == "ragin' mages")) //Certain spells are not allowed on the centcom zlevel
+	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
 	if(!skipcharge)
@@ -171,10 +171,13 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
-			if(prob(50))//Auto-mute? Fuck that noise
-				user.say(invocation)
+			if(!user.IsVocal())
+				user.emote("makes frantic gestures!")
 			else
-				user.say(replacetext(invocation," ","`"))
+				if(prob(50))//Auto-mute? Fuck that noise
+					user.say(invocation)
+				else
+					user.say(replacetext(invocation," ","`"))
 		if("whisper")
 			if(prob(50))
 				user.whisper(invocation)
@@ -418,7 +421,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
 		return 0
 
-	if(is_admin_level(user.z) && (!centcom_cancast || ticker.mode.name == "ragin' mages")) //Certain spells are not allowed on the centcom zlevel
+	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
 	switch(charge_type)

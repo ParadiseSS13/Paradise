@@ -308,7 +308,7 @@
 	var/list/choices = list()
 	for(var/mob/living/carbon/human/H in view(1,src))
 		var/obj/item/organ/external/head/head = H.get_organ("head")
-		if(head.status & ORGAN_ROBOT)
+		if(head.is_robotic())
 			continue
 		if(H.stat != DEAD && Adjacent(H) && !H.has_brain_worms())
 			choices += H

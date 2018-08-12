@@ -1,4 +1,4 @@
-/mob/living/New()
+/mob/living/Initialize()
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
@@ -137,10 +137,12 @@
 	if(!AM.anchored)
 		now_pushing = 1
 		var/t = get_dir(src, AM)
-		if(istype(AM, /obj/structure/window/full))
-			for(var/obj/structure/window/win in get_step(AM, t))
-				now_pushing = 0
-				return
+		if(istype(AM, /obj/structure/window))
+			var/obj/structure/window/W = AM
+			if(W.fulltile)
+				for(var/obj/structure/window/win in get_step(W, t))
+					now_pushing = 0
+					return
 		if(pulling == AM)
 			stop_pulling()
 		var/current_dir
@@ -658,14 +660,14 @@
 						TH.transfer_mob_blood_dna(src)
 						if(ishuman(src))
 							var/mob/living/carbon/human/H = src
-							if(H.species.blood_color)
-								TH.color = H.species.blood_color
+							if(H.dna.species.blood_color)
+								TH.color = H.dna.species.blood_color
 						else
 							TH.color = "#A10808"
 
 /mob/living/carbon/human/makeTrail(turf/T)
 
-	if((NO_BLOOD in species.species_traits) || species.exotic_blood || !bleed_rate || bleedsuppress)
+	if((NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !bleed_rate || bleedsuppress)
 		return
 	..()
 
@@ -816,7 +818,7 @@
 			who.unEquip(what)
 			if(silent)
 				put_in_hands(what)
-			add_attack_logs(src, who, "Stripped of [what]", isLivingSSD(who))
+			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
@@ -835,8 +837,7 @@
 			if(what && Adjacent(who))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
-				add_attack_logs(src, who, "Equipped [what]", isLivingSSD(who))
-
+				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
 	var/gain = 20

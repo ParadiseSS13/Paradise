@@ -31,6 +31,8 @@
 	..()
 
 /obj/item/clothing/suit/hooded/proc/RemoveHood()
+	if(isnull(hood))
+		return
 	icon_state = "[initial(icon_state)]"
 	suit_adjusted = 0
 	if(ishuman(hood.loc))

@@ -116,7 +116,7 @@
 				if((man.mind.assigned_role in ticker.mode.protected_jobs) || (man.mind.assigned_role in ticker.mode.restricted_jobs))
 					return
 			//don't include suspects who can't possibly be the antag based on their species (no suspecting the machines of being sneaky changelings)
-			if(man.get_species() in ticker.mode.protected_species)
+			if(man.dna.species.name in ticker.mode.protected_species)
 				return
 			dudes += man
 	for(var/i = 0, i < max(player_list.len/10,2), i++)

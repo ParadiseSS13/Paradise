@@ -244,7 +244,7 @@
 	if(visualsOnly)
 		return
 
-	if(H.get_species() == "Machine")
+	if(ismachine(H))
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 

@@ -20,13 +20,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = 1
 	var/party = null
-	var/radalert = 0
 	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
-	layer = 10
+	layer = AREA_LAYER
 	luminosity = 0
 	mouse_opacity = 0
 	invisibility = INVISIBILITY_LIGHTING
@@ -139,9 +138,6 @@ var/list/ghostteleportlocs = list()
 	return
 
 /area/space/readyalert()
-	return
-
-/area/space/radiation_alert()
 	return
 
 /area/space/partyalert()
@@ -580,6 +576,18 @@ var/list/ghostteleportlocs = list()
 
 /area/tdome/arena_source
 	name = "\improper Thunderdome Arena Template"
+	icon_state = "thunder"
+
+/area/tdome/arena_source2
+	name = "\improper Thunderdome Arena Template 2"
+	icon_state = "thunder"
+
+/area/tdome/arena_source3
+	name = "\improper Thunderdome Arena Template 3"
+	icon_state = "thunder"
+
+/area/tdome/arena_source4
+	name = "\improper Thunderdome Arena Template 4"
 	icon_state = "thunder"
 
 /area/tdome/arena

@@ -20,7 +20,6 @@
 // It will also stream the chunk that the new loc is in.
 
 /mob/camera/aiEye/setLoc(T)
-
 	if(ai)
 		if(!isturf(ai.loc))
 			return
@@ -30,8 +29,9 @@
 		if(ai.client)
 			ai.client.eye = src
 		//Holopad
-		if(ai.holo)
-			ai.holo.move_hologram()
+		if(istype(ai.current, /obj/machinery/hologram/holopad))
+			var/obj/machinery/hologram/holopad/H = ai.current
+			H.move_hologram(ai, T)
 
 /mob/camera/aiEye/Move()
 	return 0
@@ -41,8 +41,22 @@
 		return ai.client
 	return null
 
+
+/mob/camera/aiEye/proc/RemoveImages()
+	var/client/C = GetViewerClient()
+	if(C)
+		for(var/V in visibleCameraChunks)
+			var/datum/camerachunk/chunk = V
+			C.images -= chunk.obscured
+
+
 /mob/camera/aiEye/Destroy()
-	ai = null
+	if(ai)
+		//ai.all_eyes -= src
+		ai = null
+	for(var/V in visibleCameraChunks)
+		var/datum/camerachunk/chunk = V
+		chunk.remove(src)
 	return ..()
 
 /atom/proc/move_camera_by_click()
@@ -102,11 +116,17 @@
 		src.eyeobj.loc = src.loc
 	else
 		to_chat(src, "ERROR: Eyeobj not found. Creating new eye...")
-		src.eyeobj = new(src.loc)
-		src.eyeobj.ai = src
-		src.eyeobj.name = "[src.name] (AI Eye)" // Give it a name
+		create_eye()
 
 	eyeobj.setLoc(loc)
+
+/mob/living/silicon/ai/proc/create_eye()
+	if(eyeobj)
+		return
+	eyeobj = new /mob/camera/aiEye()
+	eyeobj.ai = src
+	eyeobj.setLoc(loc)
+	eyeobj.name = "[name] (AI Eye)"
 
 /mob/living/silicon/ai/proc/toggle_acceleration()
 	set category = "AI Commands"

@@ -174,6 +174,9 @@
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
 
+	var/extra_space_ruin_levels_min = 2
+	var/extra_space_ruin_levels_max = 4
+
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
 	var/dooc_allowed = 1
@@ -182,7 +185,7 @@
 	var/disable_lobby_music = 0 // Disables the lobby music
 	var/disable_cid_warn_popup = 0 //disables the annoying "You have already logged in this round, disconnect or be banned" popup, because it annoys the shit out of me when testing.
 
-	var/max_loadout_points = 5 // How many points can be spent on extra items in character setup
+	var/max_loadout_points = 10 // How many points can be spent on extra items in character setup
 
 	var/disable_ooc_emoji = 0 // prevents people from using emoji in OOC
 
@@ -588,6 +591,14 @@
 
 				if("disable_cid_warn_popup")
 					config.disable_cid_warn_popup = 1
+
+				if("extra_space_ruin_levels_min")
+					var/vvalue = text2num(value)
+					config.extra_space_ruin_levels_min = max(vvalue, 0)
+
+				if("extra_space_ruin_levels_max")
+					var/vvalue = text2num(value)
+					config.extra_space_ruin_levels_max = max(vvalue, 0)
 
 				if("max_loadout_points")
 					config.max_loadout_points = text2num(value)

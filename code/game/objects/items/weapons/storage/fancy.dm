@@ -14,7 +14,7 @@
  */
 
 /obj/item/storage/fancy/
-	icon = 'icons/obj/food/food.dmi'
+	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "donutbox6"
 	name = "donut box"
 	burn_state = FLAMMABLE
@@ -43,7 +43,6 @@
  */
 
 /obj/item/storage/fancy/donut_box
-	icon = 'icons/obj/food/food.dmi'
 	icon_state = "donutbox6"
 	icon_type = "donut"
 	name = "donut box"
@@ -61,7 +60,6 @@
  */
 
 /obj/item/storage/fancy/egg_box
-	icon = 'icons/obj/food/food.dmi'
 	icon_state = "eggbox"
 	icon_type = "egg"
 	name = "egg box"
@@ -403,6 +401,7 @@
 	icon_state = "AquaticKit"
 	throw_speed = 2
 	throw_range = 8
+	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/full
 	desc = "It's a starter kit for an acquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, and 1 container of fish food."

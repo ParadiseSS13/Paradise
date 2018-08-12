@@ -59,9 +59,13 @@
 
 	return STATUS_CLOSE
 
-//Some atoms such as vehicles might have special rules for how mobs inside them interact with NanoUI.
+//Some atoms such as vehicles might have special limitations for how mobs inside them interact with NanoUI.
 /atom/proc/contents_nano_distance(var/src_object, var/mob/living/user)
 	return user.shared_living_nano_distance(src_object)
+
+//Some atoms such as vehicles might have special benefits for how mobs inside them interact with NanoUI.
+/atom/proc/contents_nano_interact(var/src_object, var/mob/living/user)
+	return STATUS_CLOSE // No help at all by default
 
 /mob/living/proc/shared_living_nano_distance(var/atom/movable/src_object)
 	if(!(src_object in view(4, src))) 	// If the src object is not in visable, disable updates
@@ -83,6 +87,16 @@
 			. = min(., loc.contents_nano_distance(src_object, src))
 	if(STATUS_INTERACTIVE)
 		return STATUS_UPDATE
+
+/mob/living/carbon/brain/default_can_use_topic(var/src_object)
+	. = shared_nano_interaction(src_object)
+	if(. <= STATUS_DISABLED)
+		return
+	// Maybe add a handler here to call an "interaction state" thing on the MMI,
+	// later
+	if(loc)
+		. = max(., loc.contents_nano_interact(src_object, src)) // This is an "augment" on interaction
+		. = min(., loc.contents_nano_distance(src_object, src)) // This is a "limit" on interaction
 
 /mob/living/carbon/human/default_can_use_topic(var/src_object)
 	. = shared_nano_interaction(src_object)
