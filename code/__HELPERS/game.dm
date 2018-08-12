@@ -490,19 +490,26 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 
 	return candidates
 
-/proc/pollCandidatesByKeyWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
+/proc/pollCandidatesWithVeto(adminclient, adminusr, max_slots, Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
 	var/list/willing_ghosts = pollCandidates(Question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud)
-	var/list/candidate_ckeys = list()
-	var/list/selected_ckeys = list()
+	var/list/selected_ghosts = list()
 	if(!willing_ghosts.len)
-		return selected_ckeys
-	for(var/mob/dead/observer/G in willing_ghosts)
-		candidate_ckeys += G.key
-	for(var/i = max_slots, (i > 0 && candidate_ckeys.len), i--)
-		var/this_ckey = input("Pick players. This will go on until there either no more ghosts to pick from or the slots are full.", "Candidates") as null|anything in candidate_ckeys
-		candidate_ckeys -= this_ckey
-		selected_ckeys += this_ckey
-	return selected_ckeys
+		return selected_ghosts
+
+	var/list/candidate_ghosts = willing_ghosts.Copy()
+
+	to_chat(adminusr, "Candidate Ghosts:");
+	for(var/mob/dead/observer/G in candidate_ghosts)
+		if(G.key && G.client)
+			to_chat(adminusr, "- [G] ([G.key])");
+		else
+			candidate_ghosts -= G
+
+	for(var/i = max_slots, (i > 0 && candidate_ghosts.len), i--)
+		var/this_ghost = input("Pick players. This will go on until there either no more ghosts to pick from or the [i] remaining slot(s) are full.", "Candidates") as null|anything in candidate_ghosts
+		candidate_ghosts -= this_ghost
+		selected_ghosts += this_ghost
+	return selected_ghosts
 
 /proc/window_flash(client/C)
 	if(ismob(C))

@@ -179,8 +179,7 @@
 		C.ExtinguishMob()
 
 		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")
-		log_attack(user, C, "Used cryokinesis on a victim without internals or a suit")
-		msg_admin_attack("[key_name_admin(user)] has cast cryokinesis on [key_name_admin(C)] (NO SUIT)")
+		add_attack_logs(user, C, "Cryokinesis- NO SUIT/INTERNALS")
 
 	//playsound(user.loc, 'bamf.ogg', 50, 0)
 

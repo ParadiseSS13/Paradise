@@ -201,7 +201,7 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	add_attack_logs(M, src, "Shaked", admin_notify = FALSE)
+	add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 	if(health >= config.health_threshold_crit)
 		if(src == M && ishuman(src))
 			var/mob/living/carbon/human/H = src
@@ -342,7 +342,7 @@
 			AdjustEyeBlurry(damage * rand(3, 6))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
-				if(!(E.status & ORGAN_ROBOT))
+				if(!E.is_robotic())
 					to_chat(src, "<span class='warning'>Your eyes start to burn badly!</span>")
 				else //snowflake conditions piss me off for the record
 					to_chat(src, "<span class='warning'>The flash blinds you!</span>")
@@ -382,7 +382,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(!ventcrawler)
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
-			ventcrawlerlocal = H.species.ventcrawler
+			ventcrawlerlocal = H.dna.species.ventcrawler
 
 	if(!ventcrawlerlocal)	return
 
@@ -1015,7 +1015,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagentlist(toEat)]")
+	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagentlist(toEat)]", ATKLOG_FEW)
 	if(!iscarbon(user))
 		LAssailant = null
 	else

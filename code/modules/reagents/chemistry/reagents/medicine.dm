@@ -92,13 +92,14 @@
 
 		//Mitocholide is hard enough to get, it's probably fair to make this all internal organs
 		for(var/obj/item/organ/internal/I in H.internal_organs)
-			I.receive_damage(-0.4)
+			I.heal_internal_damage(0.4)
 	..()
 
 /datum/reagent/medicine/mitocholide/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/organ))
 		var/obj/item/organ/Org = O
-		Org.rejuvenate()
+		if(!Org.is_robotic())
+			Org.rejuvenate()
 
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
@@ -115,7 +116,11 @@
 		M.adjustToxLoss(-3)
 		M.adjustBruteLoss(-12)
 		M.adjustFireLoss(-12)
-		M.status_flags &= ~DISFIGURED
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/external/head/head = H.get_organ("head")
+			if(head)
+				head.disfigured = FALSE
 	..()
 
 /datum/reagent/medicine/rezadone
@@ -131,7 +136,11 @@
 	M.adjustCloneLoss(-1) //What? We just set cloneloss to 0. Why? Simple; this is so external organs properly unmutate.
 	M.adjustBruteLoss(-1)
 	M.adjustFireLoss(-1)
-	M.status_flags &= ~DISFIGURED
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/head/head = H.get_organ("head")
+		if(head)
+			head.disfigured = FALSE
 	..()
 
 /datum/reagent/medicine/rezadone/overdose_process(mob/living/M, severity)
@@ -212,7 +221,7 @@
 		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.species.species_traits))//do not restore blood on things with no blood by nature.
+		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 1
 	..()
@@ -512,7 +521,7 @@
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.receive_damage(-1)
+				E.heal_internal_damage(1)
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))

@@ -13,7 +13,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	name = "heist"
 	config_tag = "heist"
 	required_players = 12
-	required_enemies = 4
+	required_enemies = 2
 	recommended_enemies = 5
 	votable = 0
 
@@ -101,7 +101,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	vox.name = vox.real_name
 	newraider.name = vox.name
 	vox.age = rand(12,20)
-	vox.set_species("Vox")
+	vox.set_species(/datum/species/vox)
 	vox.s_tone = rand(1, 6)
 	vox.languages = list() // Removing language from chargen.
 	vox.flavor_text = ""

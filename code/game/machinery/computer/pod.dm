@@ -205,8 +205,8 @@
 		if(href_list["dstele"])
 			var/choices = list(0)
 			var/list/reachable_levels = levels_by_trait(REACHABLE)
-			for(var/datum/space_level/S in reachable_levels)
-				choices += S.zpos
+			for(var/z in reachable_levels)
+				choices += z
 			var/obj/machinery/computer/pod/deathsquad/D = src
 			var/input = input("Enter the destination Z-Level. The mechs will arrive from the East. Leave 0 if you don't want to set a specific ZLevel", "Mass Driver Controls", 0) in choices
 			D.teleporter_dest = input

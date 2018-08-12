@@ -9,15 +9,17 @@ var/global/nologevent = 0
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_ADMINLOGS))
 				to_chat(C, msg)
 
-/proc/msg_admin_attack(var/text) //Toggleable Attack Messages
+/proc/msg_admin_attack(var/text, var/loglevel)
 	if(!nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in admins)
 			if(R_ADMIN & C.holder.rights)
-				if(C.prefs.toggles & CHAT_ATTACKLOGS)
-					if(!istype(C, /mob/living))
-						var/msg = rendered
-						to_chat(C, msg)
+				if(C.prefs.atklog == ATKLOG_NONE)
+					continue
+				var/msg = rendered
+				if(C.prefs.atklog <= loglevel)
+					to_chat(C, msg)
+
 
 /proc/message_adminTicket(var/msg)
 	msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
@@ -876,10 +878,10 @@ var/global/nologevent = 0
 				to_chat(usr, "[P.pai_laws]")
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			to_chat(usr, "<b>SILICON [key_name(S, usr)]'s laws:</b>")
+			to_chat(usr, "<b>SILICON [key_name(S, TRUE)]'s laws:</b>")
 
 		if(S.laws == null)
-			to_chat(usr, "[key_name(S, usr)]'s laws are null. Contact a coder.")
+			to_chat(usr, "[key_name(S, TRUE)]'s laws are null. Contact a coder.")
 		else
 			S.laws.show_laws(usr)
 	if(!ai_number)

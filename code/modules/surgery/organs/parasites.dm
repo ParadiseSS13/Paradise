@@ -35,7 +35,8 @@
 /obj/item/organ/internal/body_egg/spider_eggs/remove(var/mob/living/carbon/M, var/special = 0)
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
-	qdel(src) //We don't want people re-implanting these for near instant gibbings.
+	if(!QDELETED(src))
+		qdel(src) // prevent people re-implanting them into others
 	return null
 
 
@@ -114,5 +115,6 @@
 
 /obj/item/organ/internal/body_egg/terror_eggs/remove(var/mob/living/carbon/M, var/special = 0)
 	..()
-	qdel(src) // prevent people re-implanting them into others
+	if(!QDELETED(src))
+		qdel(src) // prevent people re-implanting them into others
 	return null

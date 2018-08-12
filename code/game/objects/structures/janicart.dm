@@ -7,6 +7,9 @@
 	icon_state = "cart"
 	anchored = 0
 	density = 1
+	buckle_offset = 0
+	can_buckle = 1
+	buckle_lying = 0
 	flags = OPENCONTAINER
 	//copypaste sorry
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
@@ -184,3 +187,24 @@
 		overlays += "cart_replacer"
 	if(signs)
 		overlays += "cart_sign[signs]"
+
+/obj/structure/janitorialcart/handle_buckled_offsets()
+	..()
+	if(buckled_mob)
+		switch(buckled_mob.dir)
+			if(NORTH)
+				buckled_mob.pixel_x = 5
+				buckled_mob.pixel_y = 7
+			if(EAST)
+				buckled_mob.pixel_x = -5
+				buckled_mob.pixel_y = 7
+			if(SOUTH)
+				buckled_mob.pixel_x = -5
+				buckled_mob.pixel_y = 7
+			if(WEST)
+				buckled_mob.pixel_x = 5
+				buckled_mob.pixel_y = 7
+
+/obj/structure/janitorialcart/Move(NewLoc,Dir=0,step_x=0,step_y=0)
+    ..()
+    handle_buckled_offsets()

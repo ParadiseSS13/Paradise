@@ -226,7 +226,14 @@
 	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
 
 /datum/language/vox/get_random_name()
-	return ..(FEMALE,1,6)
+	var/sounds = rand(2, 8)
+	var/i = 0
+	var/newname = ""
+
+	while(i <= sounds)
+		i++
+		newname += pick(vox_name_syllables)
+	return capitalize(newname)
 
 /datum/language/diona
 	name = "Rootspeak"
@@ -240,8 +247,8 @@
 	syllables = list("hs","zt","kr","st","sh")
 
 /datum/language/diona/get_random_name()
-	var/new_name = "[pick(list("To Sleep Beneath","Wind Over","Embrace of","Dreams of","Witnessing","To Walk Beneath","Approaching the"))]"
-	new_name += " [pick(list("the Void","the Sky","Encroaching Night","Planetsong","Starsong","the Wandering Star","the Empty Day","Daybreak","Nightfall","the Rain"))]"
+	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace of", "Dreams of", "Witnessing", "To Walk Beneath", "Approaching the", "Glimmer of", "The Ripple of", "Colors of", "The Still of", "Silence of", "Gentle Breeze of", "Glistening Waters under", "Child of", "Blessed Plant-ling of", "Grass-Walker of", "Element of", "Spawn of"))]"
+	new_name += " [pick(list("the Void", "the Sky", "Encroaching Night", "Planetsong", "Starsong", "the Wandering Star", "the Empty Day", "Daybreak", "Nightfall", "the Rain", "the Stars", "the Waves", "Dusk", "Night", "the Wind", "the Summer Wind", "the Blazing Sun", "the Scorching Sun", "Eternal Fields", "the Soothing Plains", "the Undying Fiona", "Mother Nature's Bousum"))]"
 	return new_name
 
 /datum/language/trinary
@@ -507,8 +514,10 @@
 	..(speaker,message,speaker.real_name)
 
 /datum/language/abductor/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
-	if(other.mind && other.mind.abductor)
-		if(other.mind.abductor.team == speaker.mind.abductor.team)
+	if(isabductor(other) && isabductor(speaker))
+		var/datum/species/abductor/A = speaker.dna.species
+		var/datum/species/abductor/A2 = other.dna.species
+		if(A.team == A2.team)
 			return TRUE
 	return FALSE
 

@@ -4,7 +4,7 @@
 	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
-	var/tos_consent = TRUE
+	var/tos_consent = FALSE
 	universal_speak = 1
 
 	invisibility = 101
@@ -26,6 +26,7 @@
 
 /mob/new_player/proc/handle_tos_consent()
 	if(!GLOB.join_tos)
+		tos_consent = TRUE
 		return TRUE
 
 	establish_db_connection()
@@ -76,8 +77,8 @@
 
 	output += "<p><a href='byond://?src=[UID()];observe=1'>Observe</A></p>"
 
-//	if(GLOB.join_tos)
-//		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
+	if(GLOB.join_tos)
+		output += "<p><a href='byond://?src=[UID()];tos=1'>Terms of Service</A></p>"
 
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
@@ -144,7 +145,7 @@
 
 /mob/new_player/Topic(href, href_list[])
 	if(!client)	return 0
-/*
+
 	if(href_list["consent_signed"])
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
@@ -158,15 +159,15 @@
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
 		query.Execute()
-*/
+
 	if(href_list["show_preferences"])
 		client.prefs.ShowChoices(src)
 		return 1
 
 	if(href_list["ready"])
-	/*	if(!tos_consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0*/
+			return 0
 		ready = !ready
 		new_player_panel_proc()
 
@@ -179,9 +180,9 @@
 		new_player_panel_proc()
 
 	if(href_list["observe"])
-		/*if(!tos_consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0*/
+			return 0
 
 		if(alert(src,"Are you sure you wish to observe? You cannot normally join the round after doing this!","Player Setup","Yes","No") == "Yes")
 			if(!client)	return 1
@@ -216,9 +217,9 @@
 		return 0
 
 	if(href_list["late_join"])
-	/*	if(!tos_consent)
+		if(!tos_consent)
 			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
-			return 0*/
+			return 0
 		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
@@ -394,7 +395,7 @@
 					var/arrivalmessage = announcer.arrivalmsg
 					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
 					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
-					arrivalmessage = replacetext(arrivalmessage,"$species",character.species.name)
+					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
 					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
 					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
 					announcer.say(";[arrivalmessage]")
@@ -536,9 +537,6 @@
 		else if(mind.assigned_role == "Mime")
 			new_character.real_name = pick(mime_names)
 			new_character.rename_self("mime")
-		else if(new_character.species == "Diona")
-			new_character.real_name = pick(diona_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
-			new_character.rename_self("diona")
 		mind.original = new_character
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
 
@@ -551,7 +549,7 @@
 /mob/new_player/proc/check_prefs_are_sane()
 	var/datum/species/chosen_species
 	if(client.prefs.species)
-		chosen_species = all_species[client.prefs.species]
+		chosen_species = GLOB.all_species[client.prefs.species]
 	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
 		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
@@ -589,19 +587,6 @@
 /mob/new_player/proc/is_species_whitelisted(datum/species/S)
 	if(!S) return 1
 	return is_alien_whitelisted(src, S.name) || !config.usealienwhitelist || !(IS_WHITELISTED in S.species_traits)
-
-/mob/new_player/get_species()
-	var/datum/species/chosen_species
-	if(client.prefs.species)
-		chosen_species = all_species[client.prefs.species]
-
-	if(!chosen_species)
-		return "Human"
-
-	if(is_species_whitelisted(chosen_species) || has_admin_rights())
-		return chosen_species.name
-
-	return "Human"
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

@@ -21,7 +21,7 @@
 				for(var/datum/surgery/S in all_surgeries)
 					if(!S.possible_locs.Find(selected_zone))
 						continue
-					if(affecting && S.requires_organic_bodypart && affecting.status == ORGAN_ROBOT)
+					if(affecting && S.requires_organic_bodypart && affecting.is_robotic())
 						continue
 					if(!S.can_start(user, M))
 						continue
@@ -39,7 +39,7 @@
 						S = available_surgeries["Apply Robotic Prosthetic"]
 					if(istype(I,/obj/item/organ/external))
 						var/obj/item/organ/external/E = I
-						if(E.robotic == 2)
+						if(E.is_robotic())
 							S = available_surgeries["Synthetic Limb Reattachment"]
 					if(S)
 						var/datum/surgery/procedure = new S.type
@@ -84,7 +84,7 @@
 /proc/get_pain_modifier(mob/living/carbon/human/M) //returns modfier to make surgery harder if patient is conscious and feels pain
 	if(M.stat) //stat=0 if CONSCIOUS, 1=UNCONSCIOUS and 2=DEAD. Operating on dead people is easy, too. Just sleeping won't work, though.
 		return 1
-	if(NO_PAIN in M.species.species_traits)//if you don't feel pain, you can hold still
+	if(NO_PAIN in M.dna.species.species_traits)//if you don't feel pain, you can hold still
 		return 1
 	if(M.reagents.has_reagent("hydrocodone"))//really good pain killer
 		return 0.99

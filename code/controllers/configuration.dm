@@ -174,6 +174,9 @@
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
 
+	var/extra_space_ruin_levels_min = 2
+	var/extra_space_ruin_levels_max = 4
+
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
 	var/dooc_allowed = 1
@@ -588,6 +591,14 @@
 
 				if("disable_cid_warn_popup")
 					config.disable_cid_warn_popup = 1
+
+				if("extra_space_ruin_levels_min")
+					var/vvalue = text2num(value)
+					config.extra_space_ruin_levels_min = max(vvalue, 0)
+
+				if("extra_space_ruin_levels_max")
+					var/vvalue = text2num(value)
+					config.extra_space_ruin_levels_max = max(vvalue, 0)
 
 				if("max_loadout_points")
 					config.max_loadout_points = text2num(value)

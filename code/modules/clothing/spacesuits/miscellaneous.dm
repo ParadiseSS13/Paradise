@@ -16,7 +16,7 @@
 
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == slot_head)
-		if(user.species.name == "Vox")
+		if(isvox(user))
 			if(flags & BLOCKHAIR)
 				flags &= ~BLOCKHAIR
 		else
@@ -71,6 +71,11 @@
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
 	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 50, bio = 90, rad = 20)
 	strip_delay = 120
+	species_restricted = list("exclude", "Diona", "Wryn")
+	species_fit = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
+		)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"

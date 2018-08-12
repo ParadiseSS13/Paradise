@@ -380,6 +380,13 @@
 						update_icon()
 						return
 					else
+						var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
+						if(heart.status & ORGAN_DEAD)
+							user.visible_message("<span class='boldnotice'>[defib] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
+							playsound(get_turf(src), 'sound/machines/defib_failed.ogg', 50, 0)
+							busy = 0
+							update_icon()
+							return
 						H.set_heartattack(FALSE)
 						user.visible_message("<span class='boldnotice'>[defib] pings: Cardiac arrhythmia corrected.</span>")
 						M.visible_message("<span class='warning'>[M]'s body convulses a bit.")

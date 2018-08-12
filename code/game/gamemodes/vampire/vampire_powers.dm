@@ -239,7 +239,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		scramble(1, H, 100)
-		H.real_name = random_name(H.gender, H.species.name) //Give them a name that makes sense for their species.
+		H.real_name = random_name(H.gender, H.dna.species.name) //Give them a name that makes sense for their species.
 		H.sync_organ_dna(assimilate = 1)
 		H.update_body(0)
 		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
@@ -270,7 +270,7 @@
 		C.Stun(4)
 		C.Jitter(150)
 	for(var/obj/structure/window/W in view(4))
-		W.destroy()
+		W.deconstruct(FALSE)
 	playsound(user.loc, 'sound/effects/creepyshriek.ogg', 100, 1)
 
 

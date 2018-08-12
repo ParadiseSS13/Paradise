@@ -24,7 +24,7 @@
 	..()
 	return QDEL_HINT_HARDDEL
 
-/mob/New()
+/mob/Initialize()
 	mob_list += src
 	if(stat == DEAD)
 		dead_mob_list += src
@@ -543,11 +543,11 @@ var/list/slot_equipment_priority = list( \
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
-/mob/setDir(new_dir)	
+/mob/setDir(new_dir)
 	if(forced_look)
 		if(isnum(forced_look))
 			dir = forced_look
-		else 
+		else
 			var/atom/A = locateUID(forced_look)
 			if(istype(A))
 				dir = get_cardinal_dir(src, A)
@@ -592,7 +592,7 @@ var/list/slot_equipment_priority = list( \
 		return
 	if(!src || !isturf(src.loc))
 		return 0
-	if(istype(A, /obj/effect/decal/point))
+	if(istype(A, /obj/effect/temp_visual/point))
 		return 0
 
 	var/tile = get_turf(A)
@@ -600,12 +600,8 @@ var/list/slot_equipment_priority = list( \
 		return 0
 
 	changeNext_move(CLICK_CD_POINT)
-	var/obj/P = new /obj/effect/decal/point(tile)
+	var/obj/P = new /obj/effect/temp_visual/point(tile)
 	P.invisibility = invisibility
-	spawn (20)
-		if(P)
-			qdel(P)
-
 	return 1
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
@@ -1083,9 +1079,6 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/activate_hand(selhand)
 	return
-
-/mob/proc/get_species()
-	return ""
 
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"

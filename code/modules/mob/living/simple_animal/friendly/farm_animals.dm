@@ -234,7 +234,7 @@ var/global/chicken_count = 0
 	can_hide = 1
 	can_collar = 1
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
-	var/list/layMessage = list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 

@@ -108,7 +108,7 @@
 		max_traitors = round(playercount / 10) + 1
 		traitor_prob = (playercount - (max_traitors - 1) * 10) * 5
 		if(traitorcount < max_traitors - 1)
-			traitor_prob += 50
+			traitor_prob += 0
 
 
 		if(traitorcount < max_traitors)
@@ -191,7 +191,7 @@
 			//message_admins("The probability of a new traitor is [traitor_prob]%")
 			if(prob(traitor_prob))
 				message_admins("New traitor roll passed.  Making a new Traitor.")
-				character.mind.make_Tratior()	//TEMP: Add proper checks for loyalty here. uc_guy
+				character.mind.make_Traitor()	//TEMP: Add proper checks for loyalty here. uc_guy
 			//else
 				//message_admins("New traitor roll failed.  No new traitor.")
 	//else
