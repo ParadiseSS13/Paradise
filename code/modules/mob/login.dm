@@ -56,11 +56,7 @@
 	if(abilities)
 		client.verbs |= abilities
 
-	if(istype(src,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = src
-		if(H.dna.species && H.dna.species.abilities)
-			client.verbs |= H.dna.species.abilities
-
+	if(ishuman(src))
 		client.screen += client.void
 
 	//HUD updates (antag hud, etc)

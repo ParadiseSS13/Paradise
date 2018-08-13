@@ -591,6 +591,14 @@
 	build_path = /obj/item/reagent_containers/syringe
 	category = list("initial", "Medical")
 
+/datum/design/safety_hypo
+	name = "Medical Hypospray"
+	id = "safetyhypo"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/hypospray/safety
+	category = list("initial", "Medical")
+
 /datum/design/prox_sensor
 	name = "Proximity Sensor"
 	id = "prox_sensor"

@@ -39,7 +39,7 @@
 		"brain" = /obj/item/organ/internal/brain/golem,
 	) //Has default darksight of 2.
 
-/datum/species/skeleton/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+/datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	// Crazylemon is still silly
 	if(R.id == "milk")
 		H.heal_overall_damage(4,4)
