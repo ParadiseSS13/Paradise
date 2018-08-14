@@ -267,7 +267,7 @@
 	return
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
-	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicateautogib)
 
 
 /mob/living/simple_animal/hostile/viscerator

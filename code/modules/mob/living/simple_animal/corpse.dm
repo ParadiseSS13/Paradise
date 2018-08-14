@@ -37,12 +37,22 @@
 	id = /obj/item/card/id
 
 
-/obj/effect/mob_spawn/human/clown/corpse
+/obj/effect/mob_spawn/human/corpse/syndicateautogib
 	roundstart = FALSE
 	instant = TRUE
 
+/obj/effect/mob_spawn/human/corpse/syndicateautogib/special(mob/living/L)
+	L.real_name = src.name
+	L.gib()
+	qdel(src)
+
+
+/obj/effect/mob_spawn/human/clown/corpse
+	roundstart = TRUE
+	instant = TRUE
+
 /obj/effect/mob_spawn/human/mime/corpse
-	roundstart = FALSE
+	roundstart = TRUE
 	instant = TRUE
 
 /obj/effect/mob_spawn/human/corpse/pirate
