@@ -43,7 +43,7 @@ SUBSYSTEM_DEF(atoms)
 		count = atoms.len
 		for(var/I in atoms)
 			var/atom/A = I
-			if(!A.initialized)
+			if(A && !A.initialized)
 				if(InitAtom(I, mapload_arg))
 					atoms -= I
 				CHECK_TICK

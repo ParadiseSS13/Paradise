@@ -1291,7 +1291,7 @@
 		if(oldspecies.default_genes.len)
 			oldspecies.handle_dna(src, TRUE) // Remove any genes that belong to the old species
 
-		oldspecies.handle_pre_change(src)
+		oldspecies.on_species_loss(src)
 
 	dna.species = new new_species()
 
@@ -1365,7 +1365,7 @@
 
 	dna.real_name = real_name
 
-	dna.species.handle_post_spawn(src)
+	dna.species.on_species_gain(src)
 
 	see_in_dark = dna.species.get_resultant_darksight(src)
 	if(see_in_dark > 2)
@@ -1447,122 +1447,6 @@
 		W.message = message
 		W.add_fingerprint(src)
 
-// Allows IPC's to change their monitor display
-/mob/living/carbon/human/proc/change_monitor()
-	set category = "IC"
-	set name = "Change Monitor/Optical Display"
-	set desc = "Change the display on your monitor or the colour of your optics."
-
-	if(incapacitated())
-		to_chat(src, "<span class='warning'>You cannot change your monitor or optical display in your current state.</span>")
-		return
-
-	var/obj/item/organ/external/head/head_organ = get_organ("head")
-	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(src, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
-		return
-
-	if(dna.species.bodyflags & ALL_RPARTS) //If they can have a fully cybernetic body...
-		var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
-		if(!head_organ)
-			return
-		if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-			var/optic_colour = input(src, "Select optic colour", m_colours["head"]) as color|null
-			if(incapacitated())
-				to_chat(src, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
-				return
-			if(optic_colour)
-				change_markings(optic_colour, "head")
-
-		else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
-			var/list/hair = list()
-			for(var/i in hair_styles_public_list)
-				var/datum/sprite_accessory/hair/tmp_hair = hair_styles_public_list[i]
-				if((head_organ.dna.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
-					hair += i
-
-			var/new_style = input(src, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
-			if(incapacitated())
-				to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
-				return
-			if(new_style)
-				change_hair(new_style)
-
-//Putting a couple of procs here that I don't know where else to dump.
-//Mostly going to be used for Vox and Vox Armalis, but other human mobs might like them (for adminbuse).
-/mob/living/carbon/human/proc/leap()
-	set category = "Abilities"
-	set name = "Leap"
-	set desc = "Leap at a target and grab them aggressively."
-
-	if(last_special > world.time)
-		return
-
-	if(stat || paralysis || stunned || weakened || lying || restrained() || buckled)
-		to_chat(src, "You cannot leap in your current state.")
-		return
-
-	var/list/choices = list()
-	for(var/mob/living/M in view(6,src))
-		if(!istype(M,/mob/living/silicon))
-			choices += M
-	choices -= src
-
-	var/mob/living/T = input(src,"Who do you wish to leap at?") as null|anything in choices
-
-	if(!T || !src || src.stat) return
-
-	if(get_dist(get_turf(T), get_turf(src)) > 6) return
-
-	if(last_special > world.time)
-		return
-
-	if(!canmove)
-		to_chat(src, "You cannot leap in your current state.")
-		return
-
-	last_special = world.time + 75
-	status_flags |= LEAPING
-
-	src.visible_message("<span class='warning'><b>\The [src]</b> leaps at [T]!</span>")
-	src.throw_at(get_step(get_turf(T),get_turf(src)), 5, 1, src)
-	playsound(src.loc, 'sound/voice/shriek1.ogg', 50, 1)
-
-	sleep(5)
-
-	if(status_flags & LEAPING) status_flags &= ~LEAPING
-
-	if(!src.Adjacent(T))
-		to_chat(src, "<span class='warning'>You miss!</span>")
-		return
-
-	T.Weaken(5)
-
-	//Only official raider vox get the grab and no self-prone."
-	if(src.mind && src.mind.special_role != "Vox Raider")
-		src.Weaken(5)
-		return
-
-	var/use_hand = "left"
-	if(l_hand)
-		if(r_hand)
-			to_chat(src, "<span class='warning'>You need to have one hand free to grab someone.</span>")
-			return
-		else
-			use_hand = "right"
-
-	src.visible_message("<span class='warning'><b>\The [src]</b> seizes [T] aggressively!</span>")
-
-	var/obj/item/grab/G = new(src,T)
-	if(use_hand == "left")
-		l_hand = G
-	else
-		r_hand = G
-
-	G.state = GRAB_AGGRESSIVE
-	G.icon_state = "grabbed1"
-	G.synch()
-
 /mob/living/carbon/human/proc/get_eyecon()
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
@@ -1597,43 +1481,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 
 	return TRUE
-
-/mob/living/carbon/human/proc/gut()
-	set category = "Abilities"
-	set name = "Gut"
-	set desc = "While grabbing someone aggressively, rip their guts out or tear them apart."
-
-	if(last_special > world.time)
-		return
-
-	if(!canmove)
-		to_chat(src, "<span class='warning'>You cannot do that in your current state.</span>")
-		return
-
-	var/obj/item/grab/G = locate() in src
-	if(!G || !istype(G))
-		to_chat(src, "<span class='warning'>You are not grabbing anyone.</span>")
-		return
-
-	if(G.state < GRAB_AGGRESSIVE)
-		to_chat(src, "<span class='warning'>You must have an aggressive grab to gut your prey!</span>")
-		return
-
-	last_special = world.time + 50
-
-	visible_message("<span class='warning'><b>\The [src]</b> rips viciously at \the [G.affecting]'s body with its claws!</span>")
-
-	if(istype(G.affecting,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = G.affecting
-		H.apply_damage(50,BRUTE)
-		if(H.stat == 2)
-			H.gib()
-	else
-		var/mob/living/M = G.affecting
-		if(!istype(M)) return //wut
-		M.apply_damage(50,BRUTE)
-		if(M.stat == 2)
-			M.gib()
 
 /mob/living/carbon/human/assess_threat(var/mob/living/simple_animal/bot/secbot/judgebot, var/lasercolor)
 	if(judgebot.emagged == 2)

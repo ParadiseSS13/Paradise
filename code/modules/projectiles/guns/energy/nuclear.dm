@@ -28,7 +28,7 @@
 
 /obj/item/gun/energy/gun/mini
 	name = "miniature energy gun"
-	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: stun and kill."
+	desc = "A small, pistol-sized energy gun with a built-in flashlight. It has two settings: disable and kill."
 	icon_state = "mini"
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_x_offset = 2

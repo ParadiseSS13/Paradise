@@ -48,8 +48,8 @@
 	if(!message)
 		return
 
-	var/tmp/message_title = new_title ? new_title : title
-	var/tmp/message_sound = new_sound ? sound(new_sound) : sound
+	var/message_title = new_title ? new_title : title
+	var/message_sound = new_sound ? sound(new_sound) : sound
 
 	if(!msg_sanitized)
 		message = trim_strip_html_properly(message, allow_lines = 1)

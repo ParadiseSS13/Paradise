@@ -79,8 +79,6 @@
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
-	var/list/abilities = list()	// For species-derived or admin-given powers
-
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
@@ -95,6 +93,8 @@
 	var/show_ssd = 1
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 	var/has_gender = TRUE
+	var/blacklisted = FALSE
+	var/dangerous_existence = FALSE
 
 	//Death vars.
 	var/death_message = "seizes up and falls limp, their eyes dead and lifeless..."
@@ -151,9 +151,7 @@
 		"l_hand" = list("path" = /obj/item/organ/external/hand),
 		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
 		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
-		)
-	var/list/proc/species_abilities = list()
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
 
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
@@ -259,24 +257,15 @@
 			. -= 2
 	return .
 
-/datum/species/proc/handle_post_spawn(mob/living/carbon/C) //Handles anything not already covered by basic species assignment.
-	grant_abilities(C)
+/datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
+	return
+
+/datum/species/proc/on_species_loss(mob/living/carbon/human/H)
+	if(H.butcher_results) //clear it out so we don't butcher a actual human.
+		H.butcher_results = null
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
-
-/datum/species/proc/grant_abilities(mob/living/carbon/human/H)
-	for(var/proc/ability in species_abilities)
-		H.verbs += ability
-
-/datum/species/proc/handle_pre_change(mob/living/carbon/human/H)
-	if(H.butcher_results) //clear it out so we don't butcher a actual human.
-		H.butcher_results = null
-	remove_abilities(H)
-
-/datum/species/proc/remove_abilities(mob/living/carbon/human/H)
-	for(var/proc/ability in species_abilities)
-		H.verbs -= ability
 
 // Do species-specific reagent handling here
 // Return 1 if it should do normal processing too
@@ -297,7 +286,7 @@
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
 
-/datum/species/proc/handle_dna(mob/living/carbon/C, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
+/datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
@@ -718,3 +707,14 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
 	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
 		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling
+
+/proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
+	var/static/list/random_species = list()
+	if(!random_species.len)
+		for(var/thing  in subtypesof(/datum/species))
+			var/datum/species/S = thing
+			if(!initial(S.dangerous_existence) && !initial(S.blacklisted))
+				random_species += initial(S.name)
+	var/picked_species = pick(random_species)
+	var/datum/species/selected_species = GLOB.all_species[picked_species]
+	return species_name ? picked_species : selected_species.type
