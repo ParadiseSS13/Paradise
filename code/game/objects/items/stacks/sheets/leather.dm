@@ -109,7 +109,7 @@ var/global/list/datum/stack_recipe/human_recipes = list( \
 	origin_tech = "biotech=4"
 
 var/global/list/datum/stack_recipe/sinew_recipes = list ( \
-	new/datum/stack_recipe("sinew restraints", /obj/item/weapon/restraints/handcuffs/sinew, 1, on_floor = 1), \
+	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
 	)
 
 /obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
@@ -138,7 +138,7 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 
 //Step one - dehairing.
 
-/obj/item/stack/sheet/animalhide/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/item/stack/sheet/animalhide/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.sharp)
 		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
 		if(do_after(user, 50 * W.toolspeed, target = src))

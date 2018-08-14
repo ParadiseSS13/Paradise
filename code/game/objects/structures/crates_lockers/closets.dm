@@ -4,16 +4,16 @@
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
+	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, rad = 0)
 	var/icon_closed = "closed"
 	var/icon_opened = "open"
 	var/opened = 0
 	var/welded = 0
 	var/locked = 0
-	var/broken = 0
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/health = 100
 	var/lastbang
-	var/cutting_tool = /obj/item/weapon/weldingtool
+	var/cutting_tool = /obj/item/weldingtool
 	var/sound = 'sound/machines/click.ogg'
 	var/cutting_sound
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
@@ -32,9 +32,6 @@
 /obj/structure/closet/Destroy()
 	dump_contents()
 	return ..()
-
-/obj/structure/closet/alter_health()
-	return get_turf(src)
 
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0 || wall_mounted) return 1
@@ -124,26 +121,25 @@
 	if(!(opened ? close() : open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
-// this should probably use dump_contents()
 /obj/structure/closet/ex_act(severity)
 	switch(severity)
 		if(1)
 			for(var/atom/movable/A in src)//pulls everything out of the locker and hits it with an explosion
-				A.forceMove(loc)
 				A.ex_act(severity++)
+			dump_contents()
 			qdel(src)
 		if(2)
 			if(prob(50))
 				for(var/atom/movable/A in src)
-					A.forceMove(loc)
 					A.ex_act(severity++)
+				dump_contents()
 				new /obj/item/stack/sheet/metal(loc)
 				qdel(src)
 		if(3)
 			if(prob(5))
 				for(var/atom/movable/A in src)
-					A.forceMove(loc)
 					A.ex_act(severity++)
+				dump_contents()
 				new /obj/item/stack/sheet/metal(loc)
 				qdel(src)
 
@@ -152,30 +148,27 @@
 	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		health -= Proj.damage
 		if(health <= 0)
-			for(var/atom/movable/A in src)
-				A.forceMove(loc)
+			dump_contents()
 			qdel(src)
 
 /obj/structure/closet/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
 		user.do_attack_animation(src)
 		visible_message("<span class='warning'>[user] destroys the [src].</span>")
-		for(var/atom/movable/A in src)
-			A.forceMove(loc)
+		dump_contents()
 		qdel(src)
 
 // this should probably use dump_contents()
 /obj/structure/closet/blob_act()
 	if(prob(75))
-		for(var/atom/movable/A in src)
-			A.forceMove(loc)
+		dump_contents()
 		qdel(src)
 
-/obj/structure/closet/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/rcs) && !opened)
+/obj/structure/closet/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/rcs) && !opened)
 		if(user in contents) //to prevent self-teleporting.
 			return
-		var/obj/item/weapon/rcs/E = W
+		var/obj/item/rcs/E = W
 		if(E.rcell && (E.rcell.charge >= E.chargecost))
 			if(!is_level_reachable(z))
 				to_chat(user, "<span class='warning'>The rapid-crate-sender can't locate any telepads!</span>")
@@ -212,7 +205,7 @@
 					if(!(E.rcell && E.rcell.use(E.chargecost)))
 						to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 						return
-					var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 					s.set_up(5, 1, src)
 					s.start()
 					do_teleport(src, E.pad, 0)
@@ -239,7 +232,7 @@
 				if(!(E.rcell && E.rcell.use(E.chargecost)))
 					to_chat(user, "<span class='notice'>Unable to teleport, insufficient charge.</span>")
 					return
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				do_teleport(src, L)
@@ -250,13 +243,13 @@
 			return
 
 	if(opened)
-		if(istype(W, /obj/item/weapon/grab))
+		if(istype(W, /obj/item/grab))
 			MouseDrop_T(W:affecting, user)      //act like they were dragged onto the closet
 		if(istype(W,/obj/item/tk_grab))
 			return 0
 		if(istype(W, cutting_tool))
-			if(istype(W, /obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/WT = W
+			if(istype(W, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = W
 				if(!WT.remove_fuel(0, user))
 					return
 				to_chat(user, "<span class='notice'>You begin cutting \the [src] apart...</span>")
@@ -281,8 +274,8 @@
 			W.forceMove(loc)
 	else if(istype(W, /obj/item/stack/packageWrap))
 		return
-	else if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+	else if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = W
 		if(src == user.loc)
 			to_chat(user, "<span class='notice'>You can not [welded?"unweld":"weld"] the locker from inside.</span>")
 			return

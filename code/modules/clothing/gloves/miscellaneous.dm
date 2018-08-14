@@ -68,7 +68,7 @@
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
 	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
-	var/obj/item/weapon/stock_parts/cell/cell = null
+	var/obj/item/stock_parts/cell/cell = null
 	var/stun_strength = 5
 	var/stun_cost = 2000
 
@@ -92,7 +92,7 @@
 		if(H.a_intent == INTENT_HARM)
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 0, loc)
 				s.start()
 				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
@@ -113,8 +113,8 @@
 	if(cell)
 		overlays += "gloves_cell"
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/weapon/W, mob/living/user, params)
-	if(istype(W, /obj/item/weapon/stock_parts/cell))
+/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
+	if(istype(W, /obj/item/stock_parts/cell))
 		if(!cell)
 			if(!user.drop_item())
 				to_chat(user, "<span class='warning'>[W] is stuck to you!</span>")
@@ -132,3 +132,14 @@
 			cell.forceMove(get_turf(loc))
 			cell = null
 			update_icon()
+
+/obj/item/clothing/gloves/fingerless/rapid
+	name = "Gloves of the North Star"
+	desc = "Just looking at these fills you with an urge to beat the shit out of people."
+
+/obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
+	var/mob/living/M = loc
+
+	if(M.a_intent == INTENT_HARM)
+		M.changeNext_move(CLICK_CD_RAPID)
+	.= FALSE

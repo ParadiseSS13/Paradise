@@ -5,7 +5,6 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	default_language = "Galactic Common"
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NOGUNS)
 
 	oxy_mod = 0
@@ -13,7 +12,6 @@
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
 
-	unarmed_type = /datum/unarmed_attack/punch
 	punchdamagelow = 5
 	punchdamagehigh = 14
 	punchstunthreshold = 11 //about 40% chance to stun
@@ -30,7 +28,6 @@
 	heat_level_1 = 999999999
 	heat_level_2 = 999999999
 	heat_level_3 = 999999999
-	heat_level_3_breathe = 999999999
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
@@ -45,7 +42,8 @@
 		"is crumbling into dust!",
 		"is smashing their body apart!")
 
-/datum/species/golem/handle_post_spawn(var/mob/living/carbon/human/H)
+/datum/species/golem/on_species_gain(mob/living/carbon/human/H)
+	..()
 	if(H.mind)
 		H.mind.assigned_role = "Golem"
 		H.mind.special_role = SPECIAL_ROLE_GOLEM
@@ -56,7 +54,6 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/golem(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/golem(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/golem(H), slot_gloves)
-	..()
 
 
 ////////Adamantine Golem stuff I dunno where else to put it

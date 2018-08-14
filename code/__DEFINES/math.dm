@@ -31,3 +31,21 @@
 #define Root(n, x)					((x) ** (1 / (n)))
 #define ToDegrees(radians)			((radians) * 57.2957795)			// 180 / Pi
 #define ToRadians(degrees)			((degrees) * 0.0174532925)			// Pi / 180
+
+#define SHORT_REAL_LIMIT 16777216
+
+//"fancy" math for calculating time in ms from tick_usage percentage and the length of ticks
+//percent_of_tick_used * (ticklag * 100(to convert to ms)) / 100(percent ratio)
+//collapsed to percent_of_tick_used * tick_lag
+#define TICK_DELTA_TO_MS(percent_of_tick_used) ((percent_of_tick_used) * world.tick_lag)
+#define TICK_USAGE_TO_MS(starting_tickusage) (TICK_DELTA_TO_MS(TICK_USAGE_REAL - starting_tickusage))
+
+//time of day but automatically adjusts to the server going into the next day within the same round.
+//for when you need a reliable time number that doesn't depend on byond time.
+#define REALTIMEOFDAY (world.timeofday + (MIDNIGHT_ROLLOVER * MIDNIGHT_ROLLOVER_CHECK))
+#define MIDNIGHT_ROLLOVER_CHECK ( GLOB.rollovercheck_last_timeofday != world.timeofday ? update_midnight_rollover() : GLOB.midnight_rollovers )
+
+#define CEILING(x, y) ( -round(-(x) / (y)) * (y) )
+
+// round() acts like floor(x, 1) by default but can't handle other values
+#define FLOOR(x, y) ( round((x) / (y)) * (y) )

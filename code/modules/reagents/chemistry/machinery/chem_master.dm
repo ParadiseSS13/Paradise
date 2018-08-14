@@ -6,8 +6,8 @@
 	icon_state = "mixer0"
 	use_power = 1
 	idle_power_usage = 20
-	var/obj/item/weapon/reagent_containers/beaker = null
-	var/obj/item/weapon/storage/pill_bottle/loaded_pill_bottle = null
+	var/obj/item/reagent_containers/beaker = null
+	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = 0
 	var/condi = 0
 	var/useramount = 30 // Last used amount
@@ -43,9 +43,9 @@
 		spawn(rand(0, 15))
 			stat |= NOPOWER
 
-/obj/machinery/chem_master/attackby(obj/item/weapon/B, mob/user, params)
+/obj/machinery/chem_master/attackby(obj/item/B, mob/user, params)
 
-	if(istype(B, /obj/item/weapon/reagent_containers/glass) || istype(B, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass))
+	if(istype(B, /obj/item/reagent_containers/glass) || istype(B, /obj/item/reagent_containers/food/drinks/drinkingglass))
 
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
@@ -56,10 +56,10 @@
 		beaker = B
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		icon_state = "mixer1"
 
-	else if(istype(B, /obj/item/weapon/storage/pill_bottle))
+	else if(istype(B, /obj/item/storage/pill_bottle))
 
 		if(loaded_pill_bottle)
 			to_chat(user, "<span class='warning'>A pill bottle is already loaded into the machine.</span>")
@@ -71,7 +71,7 @@
 		loaded_pill_bottle = B
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the pill bottle into the dispenser slot!</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/chem_master/Topic(href, href_list)
@@ -97,9 +97,9 @@
 			printing = 1
 			visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(loc)
+			var/obj/item/paper/P = new /obj/item/paper(loc)
 			P.info = "<CENTER><B>Chemical Analysis</B></CENTER><BR>"
-			P.info += "<b>Time of analysis:</b> [worldtime2text(world.time)]<br><br>"
+			P.info += "<b>Time of analysis:</b> [station_time_timestamp()]<br><br>"
 			P.info += "<b>Chemical name:</b> [href_list["name"]]<br>"
 			if(href_list["name"] == "Blood")
 				var/datum/reagents/R = beaker.reagents
@@ -202,7 +202,7 @@
 					return
 				name = reject_bad_text(name)
 				while(count--)
-					var/obj/item/weapon/reagent_containers/food/pill/P = new/obj/item/weapon/reagent_containers/food/pill(loc)
+					var/obj/item/reagent_containers/food/pill/P = new/obj/item/reagent_containers/food/pill(loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] pill"
 					P.pixel_x = rand(-7, 7) //random position
@@ -218,7 +218,7 @@
 				if(!name)
 					return
 				name = reject_bad_text(name)
-				var/obj/item/weapon/reagent_containers/food/condiment/pack/P = new/obj/item/weapon/reagent_containers/food/condiment/pack(loc)
+				var/obj/item/reagent_containers/food/condiment/pack/P = new/obj/item/reagent_containers/food/condiment/pack(loc)
 				if(!name) name = reagents.get_master_reagent_name()
 				P.originalname = name
 				P.name = "[name] pack"
@@ -243,7 +243,7 @@
 				name = reject_bad_text(name)
 				var/is_medical_patch = chemical_safety_check(reagents)
 				while(count--)
-					var/obj/item/weapon/reagent_containers/food/pill/patch/P = new/obj/item/weapon/reagent_containers/food/pill/patch(loc)
+					var/obj/item/reagent_containers/food/pill/patch/P = new/obj/item/reagent_containers/food/pill/patch(loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] patch"
 					P.pixel_x = rand(-7, 7) //random position
@@ -258,7 +258,7 @@
 				if(!name)
 					return
 				name = reject_bad_text(name)
-				var/obj/item/weapon/reagent_containers/glass/bottle/P = new/obj/item/weapon/reagent_containers/glass/bottle(loc)
+				var/obj/item/reagent_containers/glass/bottle/P = new/obj/item/reagent_containers/glass/bottle(loc)
 				if(!name) name = reagents.get_master_reagent_name()
 				P.name = "[name] bottle"
 				P.pixel_x = rand(-7, 7) //random position
@@ -266,7 +266,7 @@
 				P.icon_state = bottlesprite
 				reagents.trans_to(P,30)
 			else
-				var/obj/item/weapon/reagent_containers/food/condiment/P = new/obj/item/weapon/reagent_containers/food/condiment(loc)
+				var/obj/item/reagent_containers/food/condiment/P = new/obj/item/reagent_containers/food/condiment(loc)
 				reagents.trans_to(P,50)
 		else if(href_list["change_pill"])
 			#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
@@ -304,7 +304,7 @@
 			bottlesprite = href_list["bottle_sprite"]
 			usr << browse(null, "window=chem_master_iconsel")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return
 
 /obj/machinery/chem_master/attack_ai(mob/user)
@@ -323,7 +323,7 @@
 	var/datum/asset/chem_master/assets = get_asset_datum(/datum/asset/chem_master)
 	assets.send(user)
 
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 400)
 		ui.open()
@@ -384,11 +384,11 @@
 /obj/machinery/chem_master/constructable/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/chem_master(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
-	component_parts += new /obj/item/weapon/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/circuitboard/chem_master(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 
 /obj/machinery/chem_master/constructable/attackby(obj/item/B, mob/user, params)
 
@@ -406,7 +406,7 @@
 		return
 
 	if(panel_open)
-		if(istype(B, /obj/item/weapon/crowbar))
+		if(istype(B, /obj/item/crowbar))
 			default_deconstruction_crowbar(B)
 			return 1
 		else

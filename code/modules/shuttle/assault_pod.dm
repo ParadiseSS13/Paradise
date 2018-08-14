@@ -17,8 +17,9 @@
 
 
 
-/obj/item/device/assault_pod
+/obj/item/assault_pod
 	name = "Assault Pod Targetting Device"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "gangtool-red"
 	item_state = "walkietalkie"
 	desc = "Used to select a landing zone for assault pods."
@@ -30,11 +31,11 @@
 	var/lz_dir = 1
 
 
-/obj/item/device/assault_pod/attack_self(mob/living/user)
+/obj/item/assault_pod/attack_self(mob/living/user)
 	var/target_area
 	target_area = input("Area to land", "Select a Landing Zone", target_area) in teleportlocs
 	var/area/picked_area = teleportlocs[target_area]
-	if(!src || qdeleted(src))
+	if(!src || QDELETED(src))
 		return
 
 	var/turf/T = safepick(get_area_turfs(picked_area))

@@ -19,6 +19,7 @@
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
+	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 1
 	var/mob/living/carbon/occupant = null
@@ -29,7 +30,7 @@
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	//the values in this list show how much damage will pass through, not how much will be absorbed.
 	var/list/damage_absorption = list("brute"=0.8,"fire"=1.2,"bullet"=0.9,"laser"=1,"energy"=1,"bomb"=1)
-	var/obj/item/weapon/stock_parts/cell/cell
+	var/obj/item/stock_parts/cell/cell
 	var/state = 0
 	var/list/log = new
 	var/last_message = 0
@@ -37,7 +38,7 @@
 	var/maint_access = 1
 	var/dna	//dna-locking the mech
 	var/list/proc_res = list() //stores proc owners, like proc_res["functionname"] = owner reference
-	var/datum/effect/system/spark_spread/spark_system = new
+	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
 	var/emagged = 0
@@ -49,7 +50,7 @@
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port = null
 
-	var/obj/item/device/radio/radio = null
+	var/obj/item/radio/radio = null
 	var/list/trackers = list()
 
 	var/max_temperature = 25000
@@ -98,8 +99,8 @@
 	log_message("[src] created.")
 	mechas_list += src //global mech list
 	prepare_huds()
-	var/datum/atom_hud/data/diagnostic/diag_hud = huds[DATA_HUD_DIAGNOSTIC]
-	diag_hud.add_to_hud(src)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
+		diag_hud.add_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
@@ -119,7 +120,7 @@
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
 
-/obj/mecha/proc/add_cell(var/obj/item/weapon/stock_parts/cell/C=null)
+/obj/mecha/proc/add_cell(var/obj/item/stock_parts/cell/C=null)
 	if(C)
 		C.forceMove(src)
 		cell = C
@@ -232,7 +233,7 @@
 	M.occupant_message("<span class='danger'>You hit [src].</span>")
 	visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
 	take_damage(M.force, damtype)
-	add_logs(M.occupant, src, "attacked", object=M, addition="(INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+	add_attack_logs(M.occupant, src, "Mecha-attacked with [M] (INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
 	return
 
 /obj/mecha/proc/range_action(atom/target)
@@ -333,11 +334,7 @@
 
 		else if(istype(obstacle, /obj/structure/grille/))
 			var/obj/structure/grille/G = obstacle
-			G.health = (0.25*initial(G.health))
-			G.broken = 1
-			G.icon_state = "[initial(G.icon_state)]-b"
-			G.density = 0
-			new /obj/item/stack/rods(get_turf(G.loc))
+			G.obj_break()
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/table))
@@ -346,7 +343,7 @@
 			breakthrough = 1
 
 		else if(istype(obstacle, /obj/structure/rack))
-			new /obj/item/weapon/rack_parts(obstacle.loc)
+			new /obj/item/rack_parts(obstacle.loc)
 			qdel(obstacle)
 			breakthrough = 1
 
@@ -447,7 +444,7 @@
 ////////  Health related procs  ////////
 ////////////////////////////////////////
 
-/obj/mecha/proc/take_damage(amount, type="brute")
+/obj/mecha/take_damage(amount, type="brute")
 	if(amount)
 		var/damage = absorbDamage(amount,type)
 		health -= damage
@@ -472,18 +469,11 @@
 
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
 	log_message("Attack by hand/paw. Attacker - [user].",1)
-
-	if((HULK in user.mutations) && !prob(deflect_chance))
-		take_damage(15)
-		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
-		user.visible_message("<span class='danger'>[user] hits [name], doing some damage.</span>",
-		"<span class='danger'>You hit [name] with all your might. The metal creaks and bends.</span>")
-	else
-		user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>","<span class='danger'>You hit [name] with no visible effect.</span>")
-		log_append_to_last("Armor saved.")
-	return
+	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+	playsound(loc, 'sound/weapons/tap.ogg', 40, 1, -1)
+	user.visible_message("<span class='danger'>[user] hits [name]. Nothing happens</span>", "<span class='danger'>You hit [name] with no visible effect.</span>")
+	log_append_to_last("Armor saved.")
 
 
 /obj/mecha/attack_alien(mob/living/user)
@@ -526,6 +516,16 @@
 			visible_message("<span class='notice'>The [user] rebounds off [name]'s armor!</span>")
 			user.create_attack_log("<font color='red'>attacked [name]</font>")
 	return
+
+/obj/mecha/hulk_damage()
+	return 15
+
+/obj/mecha/attack_hulk(mob/living/carbon/human/user)
+	. = ..()
+	if(.)
+		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL, MECHA_INT_TANK_BREACH, MECHA_INT_CONTROL_LOST))
+		log_message("Attack by hulk. Attacker - [user].", 1)
+		add_attack_logs(user, src, "Punched with hulk powers")
 
 /obj/mecha/hitby(atom/movable/A) //wrapper
 	..()
@@ -676,8 +676,8 @@
 ////// AttackBy //////
 //////////////////////
 
-/obj/mecha/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/device/mmi))
+/obj/mecha/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/mmi))
 		if(mmi_move_inside(W,user))
 			to_chat(user, "[src]-MMI interface initialized successfuly")
 		else
@@ -699,11 +699,11 @@
 	if(W.GetID())
 		if(add_req_access || maint_access)
 			if(internals_access_allowed(usr))
-				var/obj/item/weapon/card/id/id_card
-				if(istype(W, /obj/item/weapon/card/id))
+				var/obj/item/card/id/id_card
+				if(istype(W, /obj/item/card/id))
 					id_card = W
 				else
-					var/obj/item/device/pda/pda = W
+					var/obj/item/pda/pda = W
 					id_card = pda.id
 				output_maintenance_dialog(id_card, user)
 				return
@@ -763,7 +763,7 @@
 			to_chat(user, "<span class='notice'>You screw the cell in place.</span>")
 		return
 
-	else if(istype(W, /obj/item/weapon/stock_parts/cell))
+	else if(istype(W, /obj/item/stock_parts/cell))
 		if(state==4)
 			if(!cell)
 				if(!user.drop_item())
@@ -777,7 +777,7 @@
 		return
 
 	else if(iswelder(W) && user.a_intent != INTENT_HARM)
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(health<initial(health))
 			if (WT.remove_fuel(0,user))
 				if (internal_damage & MECHA_INT_TANK_BREACH)
@@ -803,12 +803,12 @@
 		diag_hud_set_mechtracking()
 		return
 
-	else if(istype(W, /obj/item/weapon/paintkit))
+	else if(istype(W, /obj/item/paintkit))
 		if(occupant)
 			to_chat(user, "You can't customize a mech while someone is piloting it - that would be unsafe!")
 			return
 
-		var/obj/item/weapon/paintkit/P = W
+		var/obj/item/paintkit/P = W
 		var/found = null
 
 		for(var/type in P.allowed_types)
@@ -833,7 +833,7 @@
 	else
 		return attacked_by(W, user)
 
-/obj/mecha/proc/attacked_by(obj/item/I, mob/user)
+/obj/mecha/attacked_by(obj/item/I, mob/user)
 	log_message("Attacked by [I]. Attacker - [user]")
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
@@ -896,7 +896,7 @@
 			return
 		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'><span class='boldnotice'>Take control of exosuit?</span></a><br>")
 
-/obj/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/device/aicard/card)
+/obj/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
 		return
 
@@ -1167,7 +1167,7 @@
 	else
 		return 0
 
-/obj/mecha/proc/mmi_move_inside(var/obj/item/device/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/proc/mmi_move_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 		to_chat(user, "<span class='warning'>Consciousness matrix not detected!</span>")
 		return 0
@@ -1190,7 +1190,7 @@
 		to_chat(user, "<span class='notice'>You stop inserting the MMI.</span>")
 	return 0
 
-/obj/mecha/proc/mmi_moved_inside(obj/item/device/mmi/mmi_as_oc,mob/user)
+/obj/mecha/proc/mmi_moved_inside(obj/item/mmi/mmi_as_oc,mob/user)
 	if(mmi_as_oc && user in range(1))
 		if(!mmi_as_oc.brainmob || !mmi_as_oc.brainmob.client)
 			to_chat(user, "Consciousness matrix not detected.")
@@ -1206,6 +1206,10 @@
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
 		brainmob.canmove = 1
+		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
+			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
+			if(R.imprinted_master)
+				to_chat(brainmob, "<span class='notice'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
 		verbs -= /obj/mecha/verb/eject
@@ -1225,7 +1229,7 @@
 	if(istype(occupant, /mob/living/carbon/brain))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
-	if(istype(mob_container, /obj/item/device/mmi))
+	if(istype(mob_container, /obj/item/mmi))
 		return 1
 	return 0
 
@@ -1278,7 +1282,7 @@
 			occupant = null
 			return
 		else
-			if(!AI.linked_core || qdeleted(AI.linked_core))
+			if(!AI.linked_core || QDELETED(AI.linked_core))
 				to_chat(AI, "<span class='userdanger'>Inactive core destroyed. Unable to return.</span>")
 				AI.linked_core = null
 				return
@@ -1297,14 +1301,18 @@
 		log_message("[mob_container] moved out.")
 		L << browse(null, "window=exosuit")
 
-		if(istype(mob_container, /obj/item/device/mmi))
-			var/obj/item/device/mmi/mmi = mob_container
+		if(istype(mob_container, /obj/item/mmi))
+			var/obj/item/mmi/mmi = mob_container
 			if(mmi.brainmob)
 				L.loc = mmi
 				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()
 			L.canmove = 0
+			if(istype(mmi, /obj/item/mmi/robotic_brain))
+				var/obj/item/mmi/robotic_brain/R = mmi
+				if(R.imprinted_master)
+					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
 		icon_state = initial(icon_state)+"-open"
 		dir = dir_in
 
@@ -1331,13 +1339,13 @@
 	return 0
 
 
-/obj/mecha/check_access(obj/item/weapon/card/id/I, list/access_list)
+/obj/mecha/check_access(obj/item/card/id/I, list/access_list)
 	if(!istype(access_list))
 		return 1
 	if(!access_list.len) //no requirements
 		return 1
-	if(istype(I, /obj/item/device/pda))
-		var/obj/item/device/pda/pda = I
+	if(istype(I, /obj/item/pda))
+		var/obj/item/pda/pda = I
 		I = pda.id
 	if(!istype(I) || !I.access) //not ID or no access
 		return 0
@@ -1481,3 +1489,15 @@
 	if(occupant_sight_flags)
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
+
+/obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+	if(!no_effect)
+		if(selected)
+			used_item = selected
+		else if(!visual_effect_icon)
+			visual_effect_icon = ATTACK_EFFECT_SMASH
+			if(damtype == BURN)
+				visual_effect_icon = ATTACK_EFFECT_MECHFIRE
+			else if(damtype == TOX)
+				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
+	..()

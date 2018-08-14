@@ -8,6 +8,7 @@
 	health = 250
 	deflect_chance = 5
 	damage_absorption = list("brute"=0.75,"fire"=1,"bullet"=0.8,"laser"=0.7,"energy"=0.85,"bomb"=1)
+	armor = list(melee = 25, bullet = 20, laser = 30, energy = 15, bomb = 0, bio = 0, rad = 0)
 	max_temperature = 25000
 	infra_luminosity = 6
 	var/overload = 0
@@ -52,7 +53,7 @@
 	ME.attach(src)
 
 /obj/mecha/combat/gygax/dark/add_cell()
-	cell = new /obj/item/weapon/stock_parts/cell/bluespace(src)
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
 	cell.charge = 30000
 	cell.maxcharge = 30000
 

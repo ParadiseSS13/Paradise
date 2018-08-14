@@ -7,7 +7,7 @@
 	anchored = 1
 
 	var/obj/item/seeds/seed
-	var/obj/item/weapon/disk/plantgene/disk
+	var/obj/item/disk/plantgene/disk
 
 	var/list/core_genes = list()
 	var/list/reagent_genes = list()
@@ -25,11 +25,11 @@
 /obj/machinery/plantgenes/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/plantgenes(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
-	component_parts += new /obj/item/weapon/stock_parts/scanning_module(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/plantgenes(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
@@ -42,7 +42,7 @@
 	return ..()
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		if(M.rating > 3)
 			max_potency = 95
 		else
@@ -50,7 +50,7 @@
 
 		max_yield = initial(max_yield) + (M.rating*2) // 4,6,8,10 	Clamps at 10
 
-	for(var/obj/item/weapon/stock_parts/scanning_module/SM in component_parts)
+	for(var/obj/item/stock_parts/scanning_module/SM in component_parts)
 		if(SM.rating > 3) //If you create t5 parts I'm a step ahead mwahahaha!
 			min_production = 1
 		else
@@ -58,7 +58,7 @@
 
 		max_endurance = initial(max_endurance) + (SM.rating * 25) // 35,60,85,100	Clamps at 10min 100max
 
-	for(var/obj/item/weapon/stock_parts/micro_laser/ML in component_parts)
+	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
 		var/wratemod = ML.rating * 2.5
 		min_wrate = Floor(10-wratemod) // 7,5,2,0	Clamps at 0 and 10	You want this low
 		min_wchance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
@@ -96,7 +96,7 @@
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 			interact(user)
 		return
-	else if(istype(I, /obj/item/weapon/disk/plantgene))
+	else if(istype(I, /obj/item/disk/plantgene))
 		if(disk)
 			to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
 		else
@@ -292,7 +292,7 @@
 			update_genes()
 		else
 			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/weapon/disk/plantgene))
+			if(istype(I, /obj/item/disk/plantgene))
 				if(!usr.drop_item())
 					return
 				disk = I
@@ -417,7 +417,7 @@
  *  Plant DNA disk
  */
 
-/obj/item/weapon/disk/plantgene
+/obj/item/disk/plantgene
 	name = "plant data disk"
 	desc = "A disk for storing plant genetic data."
 	icon_state = "datadisk_hydro"
@@ -425,19 +425,19 @@
 	var/datum/plant_gene/gene
 	var/read_only = 0 //Well, it's still a floppy disk
 
-/obj/item/weapon/disk/plantgene/New()
+/obj/item/disk/plantgene/New()
 	..()
 	overlays += "datadisk_gene"
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/weapon/disk/plantgene/Destroy()
+/obj/item/disk/plantgene/Destroy()
 	QDEL_NULL(gene)
 	return ..()
 
-/obj/item/weapon/disk/plantgene/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/disk/plantgene/attackby(obj/item/W, mob/user, params)
 	..()
-	if(istype(W, /obj/item/weapon/pen))
+	if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "What would you like the label to be?", name, null)
 		if(user.get_active_hand() != W)
 			return
@@ -448,17 +448,17 @@
 		else
 			name = "plant data disk"
 
-/obj/item/weapon/disk/plantgene/proc/update_name()
+/obj/item/disk/plantgene/proc/update_name()
 	if(gene)
 		name = "[gene.get_name()] (Plant Data Disk)"
 	else
 		name = "plant data disk"
 
-/obj/item/weapon/disk/plantgene/attack_self(mob/user)
+/obj/item/disk/plantgene/attack_self(mob/user)
 	read_only = !read_only
 	to_chat(user, "<span class='notice'>You flip the write-protect tab to [read_only ? "protected" : "unprotected"].</span>")
 
-/obj/item/weapon/disk/plantgene/examine(mob/user)
+/obj/item/disk/plantgene/examine(mob/user)
 	..()
 	to_chat(user, "The write-protect tab is set to [read_only ? "protected" : "unprotected"].")
 
@@ -466,11 +466,11 @@
 /*
  *  Plant DNA Disks Box
  */
-/obj/item/weapon/storage/box/disks_plantgene
+/obj/item/storage/box/disks_plantgene
 	name = "plant data disks box"
 	icon_state = "disk_kit"
 
-/obj/item/weapon/storage/box/disks_plantgene/New()
+/obj/item/storage/box/disks_plantgene/New()
 	..()
 	for(var/i in 1 to 7)
-		new /obj/item/weapon/disk/plantgene(src)
+		new /obj/item/disk/plantgene(src)

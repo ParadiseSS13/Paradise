@@ -34,6 +34,7 @@
 	R.notify_ai(2)
 
 	R.uneq_all()
+	R.sight_mode = null
 	R.hands.icon_state = "nomod"
 	R.icon_state = "robot"
 	R.module.remove_subsystems_and_actions(R)
@@ -68,6 +69,9 @@
 /obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
 	if(..())
 		return
+	if(!R.allow_rename)
+		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
+		return 0
 	R.notify_ai(3, R.name, heldname)
 	R.name = heldname
 	R.custom_name = heldname
@@ -123,13 +127,13 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4;combat=4"
 	require_module = 1
-	module_type = /obj/item/weapon/robot_module/security
+	module_type = /obj/item/robot_module/security
 
 /obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
-	var/obj/item/weapon/gun/energy/disabler/cyborg/T = locate() in R.module.modules
+	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 	if(!T)
 		to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
 		return
@@ -165,18 +169,18 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=5"
 	require_module = 1
-	module_type = /obj/item/weapon/robot_module/miner
+	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
-	for(var/obj/item/weapon/pickaxe/drill/cyborg/D in R.module.modules)
+	for(var/obj/item/pickaxe/drill/cyborg/D in R.module.modules)
 		qdel(D)
-	for(var/obj/item/weapon/shovel/S in R.module.modules)
+	for(var/obj/item/shovel/S in R.module.modules)
 		qdel(S)
 
-	R.module.modules += new /obj/item/weapon/pickaxe/drill/cyborg/diamond(R.module)
+	R.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
 	R.module.rebuild()
 
 	return 1
@@ -187,16 +191,16 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=4;bluespace=4"
 	require_module = 1
-	module_type = /obj/item/weapon/robot_module/miner
+	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
-	for(var/obj/item/weapon/storage/bag/ore/cyborg/S in R.module.modules)
+	for(var/obj/item/storage/bag/ore/cyborg/S in R.module.modules)
 		qdel(S)
 
-	R.module.modules += new /obj/item/weapon/storage/bag/ore/holding(R.module)
+	R.module.modules += new /obj/item/storage/bag/ore/holding(R.module)
 	R.module.rebuild()
 
 	return 1
@@ -213,6 +217,10 @@
 		return
 
 	if(R.emagged)
+		return
+
+	if(R.weapons_unlock)
+		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
 		return
 
 	R.emagged = 1

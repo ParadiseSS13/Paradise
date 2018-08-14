@@ -28,7 +28,7 @@
 		config.continuous_rounds = 0
 	return ..()
 
-/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)	
+/obj/effect/proc_holder/spell/targeted/lichdom/cast(list/targets,mob/user = usr)
 	if(!config.continuous_rounds)
 		existence_stops_round_end = 1
 		config.continuous_rounds = 1
@@ -49,7 +49,7 @@
 				charge_counter = charge_max
 				return
 
-			if(!marked_item || qdeleted(marked_item)) //Wait nevermind
+			if(!marked_item || QDELETED(marked_item)) //Wait nevermind
 				to_chat(M, "<span class='warning'>Your phylactery is gone!</span>")
 				return
 
@@ -66,14 +66,9 @@
 
 			var/mob/living/carbon/human/lich = new /mob/living/carbon/human(item_turf)
 
-			lich.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(lich), slot_shoes)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(lich), slot_w_uniform)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(lich), slot_wear_suit)
-			lich.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(lich), slot_head)
-
 			lich.real_name = M.mind.name
 			M.mind.transfer_to(lich)
-			lich.set_species("Skeleton")
+			lich.set_species(/datum/species/skeleton)
 			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
 			charge_max += 600
 			var/mob/old_body = current_body
@@ -81,6 +76,11 @@
 			current_body = lich
 			lich.Weaken(10+10*resurrections)
 			++resurrections
+			lich.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(lich), slot_shoes)
+			lich.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(lich), slot_w_uniform)
+			lich.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(lich), slot_wear_suit)
+			lich.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(lich), slot_head)
+
 			if(old_body && old_body.loc)
 				if(iscarbon(old_body))
 					var/mob/living/carbon/C = old_body
@@ -122,8 +122,12 @@
 				current_body = M.mind.current
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					H.set_species("Skeleton")
+					H.set_species(/datum/species/skeleton)
 					H.unEquip(H.wear_suit)
+					H.unEquip(H.head)
+					H.unEquip(H.shoes)
 					H.unEquip(H.head)
 					H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), slot_wear_suit)
 					H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), slot_head)
+					H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+					H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), slot_w_uniform)

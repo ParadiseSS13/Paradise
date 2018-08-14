@@ -50,7 +50,7 @@
 	NERVOUSBLOCK       = getAssignedBlock("NERVOUS",       numsToAssign)
 
 	// Bay muts
-	NOBREATHBLOCK      = getAssignedBlock("NOBREATH",      numsToAssign, DNA_HARD_BOUNDS, good=1)
+	BREATHLESSBLOCK    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
 	REMOTEVIEWBLOCK    = getAssignedBlock("REMOTEVIEW",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	REGENERATEBLOCK    = getAssignedBlock("REGENERATE",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
 	INCREASERUNBLOCK   = getAssignedBlock("INCREASERUN",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
@@ -151,12 +151,12 @@
 		ticker.syndicate_coalition.Add(S)
 
 /proc/setupcult()
-	var/static/picked_cult // Only needs to get picked once
+	var/static/datum/cult_info/picked_cult // Only needs to get picked once
 
 	if(picked_cult)
 		return picked_cult
 
-	var/random_cult = pick(all_cults)
+	var/random_cult = pick(typesof(/datum/cult_info))
 	picked_cult = new random_cult()
 
 	if(!picked_cult)

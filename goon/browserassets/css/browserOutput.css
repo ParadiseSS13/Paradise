@@ -32,6 +32,12 @@ a {color: #0000ff;}
 a:visited {color: #ff00ff;}
 a.popt {text-decoration: none;}
 
+/*****************************************
+*
+* CUSTOM FONTS
+*
+******************************************/
+@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); } 
 
 /*****************************************
 *
@@ -217,6 +223,21 @@ a.popt {text-decoration: none;}
 /* ADD HERE FOR ITALIC */
 .italic, .ghostdronesay.broadcast {font-style: italic;}
 
+/* BADGE */
+.repeatBadge {
+    display: inline-block;
+    min-width: 0.5em;
+    font-size: 0.7em;
+    padding: 0.2em 0.3em;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: crimson;
+    border-radius: 10px;
+}
+
 /* OUTPUT COLORS */
 .highlight {background: yellow;}
 h1, h2, h3, h4, h5, h6	{color: #0000ff;font-family: Georgia, Verdana, sans-serif;}
@@ -301,6 +322,7 @@ h1.alert, h2.alert			{color: #000000;}
 .rose					{color: #ff5050;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
+.robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
 .ancient				{color: #008B8B;	font-stye: italic;}
 .newscaster				{color: #800000;}
 .mod					{color: #735638;	font-weight: bold;}
@@ -320,7 +342,8 @@ h1.alert, h2.alert			{color: #000000;}
 .clown					{color: #ff0000;}
 .shadowling				{color: #3b2769;}
 .vulpkanin				{color: #B97A57;}
-.abductor				{color: #800080;}
+.abductor				{color: #800080; font-style: italic;}
+.mind_control				{color: #A00D6F; font-size: 3; font-weight: bold; font-style: italic;}
 .rough					{font-family: 'Trebuchet MS', cursive, sans-serif;}
 .say_quote				{font-family: Georgia, Verdana, sans-serif;}
 .cult					{color: #800080; font-weight: bold; font-style: italic;}

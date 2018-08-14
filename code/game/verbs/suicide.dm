@@ -37,7 +37,7 @@
 
 	// Failing that...
 	if(!(damagetype & BRUTELOSS) && !(damagetype & FIRELOSS) && !(damagetype & TOXLOSS) && !(damagetype & OXYLOSS))
-		if(NO_BREATHE in species.species_traits)
+		if(NO_BREATHE in dna.species.species_traits)
 			// the ultimate fallback
 			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0)
 		else
@@ -84,7 +84,7 @@
 				do_suicide(damagetype, held_item)
 				return
 
-		to_chat(viewers(src), "<span class=danger>[src] [pick(species.suicide_messages)] It looks like they're trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class=danger>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
 		do_suicide(0)
 
 		updatehealth()
@@ -129,7 +129,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()
@@ -149,7 +149,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()
@@ -162,7 +162,7 @@
 	if(answer == "Yes")
 		if(canmove || resting)
 			close_up()
-		var/obj/item/device/paicard/card = loc
+		var/obj/item/paicard/card = loc
 		card.removePersonality()
 		var/turf/T = get_turf_or_move(card.loc)
 		for(var/mob/M in viewers(T))
@@ -186,7 +186,7 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like \he's trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 		updatehealth()

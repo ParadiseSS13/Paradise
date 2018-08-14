@@ -13,7 +13,7 @@
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to sow havoc at random."
 	var/toggle = FALSE
 
-/mob/living/simple_animal/hostile/guardian/fire/Life() //Dies if the summoner dies
+/mob/living/simple_animal/hostile/guardian/fire/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
 		summoner.ExtinguishMob()
@@ -39,9 +39,9 @@
 				if(ismovableatom(target))
 					var/atom/movable/M = target
 					if(!M.anchored && M != summoner)
-						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
+						new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 						do_teleport(M, M, 10)
-						new /obj/effect/overlay/temp/guardian/phase/out(get_turf(M))
+						new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 
 /mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj)
 	..()

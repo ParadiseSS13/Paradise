@@ -23,7 +23,7 @@
 /mob/living/carbon/human/proc/handle_shock()
 	if(status_flags & GODMODE) //godmode
 		return
-	if(NO_PAIN in species.species_traits)
+	if(NO_PAIN in dna.species.species_traits)
 		return
 
 	updateshock()
@@ -43,7 +43,7 @@
 
 	if(shock_stage >= 30)
 		if(shock_stage == 30)
-			custom_emote(1,"is having trouble keeping their eyes open.")
+			custom_emote(1,"is having trouble keeping [p_their()] eyes open.")
 		EyeBlurry(2)
 		Stuttering(5)
 

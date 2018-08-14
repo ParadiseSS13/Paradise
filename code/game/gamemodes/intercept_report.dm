@@ -91,7 +91,7 @@
 	var/list/dudes = list()
 	for(var/mob/living/carbon/human/man in player_list)
 		if(!man.mind) continue
-		if(man.mind.assigned_role=="MODE") continue
+		if(man.mind.assigned_role == man.mind.special_role) continue
 		dudes += man
 	if(dudes.len==0)
 		return null
@@ -116,7 +116,7 @@
 				if((man.mind.assigned_role in ticker.mode.protected_jobs) || (man.mind.assigned_role in ticker.mode.restricted_jobs))
 					return
 			//don't include suspects who can't possibly be the antag based on their species (no suspecting the machines of being sneaky changelings)
-			if(man.get_species() in ticker.mode.protected_species)
+			if(man.dna.species.name in ticker.mode.protected_species)
 				return
 			dudes += man
 	for(var/i = 0, i < max(player_list.len/10,2), i++)
@@ -210,14 +210,14 @@
 	var/prob_right_job = rand(prob_correct_job_lower, prob_correct_job_higher)
 	if(prob(prob_right_job))
 		if(correct_person)
-			if(correct_person:assigned_role=="MODE")
+			if(correct_person:assigned_role == correct_person:special_role)
 				changeling_job = pick(joblist)
 			else
 				changeling_job = correct_person:assigned_role
 	else
 		changeling_job = pick(joblist)
 	if(prob(prob_right_dude) && ticker.mode == "changeling")
-		if(correct_person:assigned_role=="MODE")
+		if(correct_person:assigned_role == correct_person:special_role)
 			changeling_name = correct_person:current
 		else
 			changeling_name = src.pick_mob()

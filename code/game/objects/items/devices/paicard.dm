@@ -1,4 +1,4 @@
-/obj/item/device/paicard
+/obj/item/paicard
 	name = "personal AI device"
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "pai"
@@ -8,34 +8,34 @@
 	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
 	var/last_request
-	var/obj/item/device/radio/radio
+	var/obj/item/radio/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
 
-/obj/item/device/paicard/syndicate
+/obj/item/paicard/syndicate
 	name = "syndicate personal AI device"
 	faction = list("syndicate")
 
-/obj/item/device/paicard/relaymove(var/mob/user, var/direction)
+/obj/item/paicard/relaymove(var/mob/user, var/direction)
 	if(user.stat || user.stunned)
 		return
-	var/obj/item/weapon/rig/rig = get_rig()
+	var/obj/item/rig/rig = get_rig()
 	if(istype(rig))
 		rig.forced_move(direction, user)
 
-/obj/item/device/paicard/New()
+/obj/item/paicard/New()
 	..()
 	overlays += "pai-off"
 
-/obj/item/device/paicard/Destroy()
+/obj/item/paicard/Destroy()
 	if(pai)
 		pai.ghostize()
 		QDEL_NULL(pai)
 	QDEL_NULL(radio)
 	return ..()
 
-/obj/item/device/paicard/attack_self(mob/user)
+/obj/item/paicard/attack_self(mob/user)
 	if(!in_range(src, user))
 		return
 	user.set_machine(src)
@@ -231,7 +231,7 @@
 	onclose(user, "paicard")
 	return
 
-/obj/item/device/paicard/Topic(href, href_list)
+/obj/item/paicard/Topic(href, href_list)
 
 	var/mob/U = usr
 
@@ -298,18 +298,18 @@
 //		WIRE_RECEIVE = 2
 //		WIRE_TRANSMIT = 4
 
-/obj/item/device/paicard/proc/setPersonality(mob/living/silicon/pai/personality)
+/obj/item/paicard/proc/setPersonality(mob/living/silicon/pai/personality)
 	pai = personality
 	overlays += "pai-happy"
 
-/obj/item/device/paicard/proc/removePersonality()
+/obj/item/paicard/proc/removePersonality()
 	pai = null
 	overlays.Cut()
 	overlays += "pai-off"
 
-/obj/item/device/paicard
+/obj/item/paicard
 	var/current_emotion = 1
-/obj/item/device/paicard/proc/setEmotion(var/emotion)
+/obj/item/paicard/proc/setEmotion(var/emotion)
 	if(pai)
 		overlays.Cut()
 		switch(emotion)
@@ -324,17 +324,17 @@
 			if(9) overlays += "pai-what"
 		current_emotion = emotion
 
-/obj/item/device/paicard/proc/alertUpdate()
+/obj/item/paicard/proc/alertUpdate()
 	var/turf/T = get_turf_or_move(loc)
 	for(var/mob/M in viewers(T))
 		M.show_message("<span class='notice'>[src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", 3, "<span class='notice'>[src] bleeps electronically.</span>", 2)
 
-/obj/item/device/paicard/emp_act(severity)
+/obj/item/paicard/emp_act(severity)
 	for(var/mob/M in src)
 		M.emp_act(severity)
 	..()
 
-/obj/item/device/paicard/ex_act(severity)
+/obj/item/paicard/ex_act(severity)
 	if(pai)
 		pai.ex_act(severity)
 	else

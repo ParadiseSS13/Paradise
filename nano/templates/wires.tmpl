@@ -2,7 +2,7 @@
 	<table style='width:100%;'>
 		{{for data.wires}}
 			<tr>
-			<td style='color: {{:value.colour}};'>{{:value.colour}} {{if value.index}}({{:value.index}}){{/if}}</td>
+			<td style='color: {{:value.seen_colour}};'>{{:value.colour_name}} {{if value.index}}({{:value.index}}){{/if}}</td>
 			<td class='floatRight'>
 			{{:helper.link(value.cut ? 'Mend' : 'Cut', null, {'action' : 'cut', 'wire' : value.colour})}}
 			{{:helper.link('Pulse', null, {'action' : 'pulse', 'wire' : value.colour})}}

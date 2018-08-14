@@ -2,7 +2,7 @@
 
 // TODO: Split everything into easy to manage procs.
 
-/obj/item/device/detective_scanner
+/obj/item/detective_scanner
 	name = "forensic scanner"
 	desc = "Used to remotely scan objects and biomass for DNA and fingerprints. Can print a report of the findings."
 	icon = 'icons/goonstation/objects/objects.dmi'
@@ -16,7 +16,7 @@
 	var/list/log = list()
 	actions_types = list(/datum/action/item_action/print_report)
 
-/obj/item/device/detective_scanner/attack_self(var/mob/user)
+/obj/item/detective_scanner/attack_self(var/mob/user)
 	var/search = input(user, "Enter name, fingerprint or blood DNA.", "Find record", "")
 
 	if(!search || user.stat || user.incapacitated())
@@ -59,10 +59,10 @@
 
 	to_chat(user, "<span class='warning'>No match found in station records.</span>")
 
-/obj/item/device/detective_scanner/ui_action_click()
+/obj/item/detective_scanner/ui_action_click()
 	print_scanner_report()
 
-/obj/item/device/detective_scanner/proc/print_scanner_report()
+/obj/item/detective_scanner/proc/print_scanner_report()
 	if(log.len && !scanning)
 		scanning = 1
 		to_chat(usr, "<span class='notice'>Printing report, please wait...</span>")
@@ -70,7 +70,7 @@
 		spawn(100)
 
 			// Create our paper
-			var/obj/item/weapon/paper/P = new(get_turf(src))
+			var/obj/item/paper/P = new(get_turf(src))
 			P.name = "paper- 'Scanner Report'"
 			P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
 			P.info += jointext(log, "<BR>")
@@ -89,14 +89,14 @@
 		to_chat(usr, "<span class='notice'>The scanner has no logs or is in use.</span>")
 
 
-/obj/item/device/detective_scanner/attack(mob/living/M as mob, mob/user as mob)
+/obj/item/detective_scanner/attack(mob/living/M as mob, mob/user as mob)
 	return
 
 
-/obj/item/device/detective_scanner/afterattack(atom/A, mob/user as mob, proximity)
+/obj/item/detective_scanner/afterattack(atom/A, mob/user as mob, proximity)
 	scan(A, user)
 
-/obj/item/device/detective_scanner/proc/scan(var/atom/A, var/mob/user)
+/obj/item/detective_scanner/proc/scan(var/atom/A, var/mob/user)
 
 	if(!scanning)
 		// Can remotely scan objects and mobs.
@@ -159,7 +159,7 @@
 		spawn(0)
 
 			var/found_something = 0
-			add_log("<B>[worldtime2text()][get_timestamp()] - [target_name]</B>", 0)
+			add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", 0)
 
 			// Fingerprints
 			if(fingerprints && fingerprints.len)
@@ -210,7 +210,7 @@
 			scanning = 0
 			return
 
-/obj/item/device/detective_scanner/proc/add_log(var/msg, var/broadcast = 1)
+/obj/item/detective_scanner/proc/add_log(var/msg, var/broadcast = 1)
 	if(scanning)
 		if(broadcast && ismob(loc))
 			var/mob/M = loc

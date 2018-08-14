@@ -982,6 +982,14 @@
 	icon_state = "skrell_hair_f"
 	gender = FEMALE
 
+/datum/sprite_accessory/hair/skrell/skr_tentacleslong
+	name = "Long Skrell Tentacles"
+	icon_state = "skrell_hair_verylong"
+
+/datum/sprite_accessory/hair/skrell/skr_tentaclesshort
+	name = "Short Skrell Tentacles"
+	icon_state = "skrell_hair_veryshort"
+
 /datum/sprite_accessory/hair/skrell/skr_gold_m
 	name = "Gold plated Skrell Male Tentacles"
 	icon_state = "skrell_hair_m"
@@ -1007,6 +1015,117 @@
 	icon_state = "skrell_hair_f"
 	gender = FEMALE
 	secondary_theme = "cloth"
+
+/datum/sprite_accessory/hair/skrell/skr_gclothtentacle_m
+	name = "Ombre Dye, Skrell Male Tentacles"
+	icon_state = "skrell_hair_m"
+	gender = MALE
+	secondary_theme = "gradient"
+
+/datum/sprite_accessory/hair/skrell/skr_gclothtentacle_f
+	name = "Ombre Dye, Skrell Female Tentacles"
+	icon_state = "skrell_hair_f"
+	gender = FEMALE
+	secondary_theme = "gradient"
+
+/datum/sprite_accessory/hair/skrell/skr_gclothtentacleslong
+	name = "Ombre Dye, Long Skrell Tentacles"
+	icon_state = "skrell_hair_verylong"
+	secondary_theme = "gradient"
+
+/datum/sprite_accessory/hair/skrell/skr_gclothtentaclesshort
+	name = "Ombre Dye, Short Skrell Tentacles"
+	icon_state = "skrell_hair_veryshort"
+	secondary_theme = "gradient"
+
+/datum/sprite_accessory/hair/skrell/skr_diablacktentacle_m
+	name = "Black headress Skrell Male Tentacles"
+	icon_state = "skrell_hair_m"
+	gender = MALE
+	secondary_theme = "blackdia"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_diablacktentacle_f
+	name = "Black headress Skrell Female Tentacles"
+	icon_state = "skrell_hair_f"
+	gender = FEMALE
+	secondary_theme = "blackdia"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_diablacktentacleslong
+	name = "Black headress Long Skrell Tentacles"
+	icon_state = "skrell_hair_verylong"
+	secondary_theme = "blackdia"
+	no_sec_colour = 1
+
+
+/datum/sprite_accessory/hair/skrell/skr_diagoldtentacle_m
+	name = "Gold headress Skrell Male Tentacles"
+	icon_state = "skrell_hair_m"
+	gender = MALE
+	secondary_theme = "golddia"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_diagoldtentacle_f
+	name = "Gold headress Skrell Female Tentacles"
+	icon_state = "skrell_hair_f"
+	gender = FEMALE
+	secondary_theme = "golddia"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_diagoldtentacleslong
+	name = "Gold headress Long Skrell Tentacles"
+	icon_state = "skrell_hair_verylong"
+	secondary_theme = "golddia"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_diasilvertentacle_m
+	name = "Silver headress Skrell Male Tentacles"
+	icon_state = "skrell_hair_m"
+	gender = MALE
+	secondary_theme = "silvdia"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_diasilvertentacle_f
+	name = "Silver headress Skrell Female Tentacles"
+	icon_state = "skrell_hair_f"
+	gender = FEMALE
+	secondary_theme = "silvdia"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_diasilvertentacleslong
+	name = "Silver headress Long Skrell Tentacles"
+	icon_state = "skrell_hair_verylong"
+	secondary_theme = "silvdia"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_festivetentacle_m
+	name = "Festive headress Skrell Male Tentacles"
+	icon_state = "skrell_hair_m"
+	gender = MALE
+	secondary_theme = "fest"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_festivetentacle_f
+	name = "Festive headress Skrell Female Tentacles"
+	icon_state = "skrell_hair_f"
+	gender = FEMALE
+	secondary_theme = "fest"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_festivetentacleslong
+	name = "Festive headress Long Skrell Tentacles"
+	icon_state = "skrell_hair_verylong"
+	secondary_theme = "fest"
+	no_sec_colour = 1
+
+/datum/sprite_accessory/hair/skrell/skr_festivetentaclesshort
+	name = "Festive headress Short Skrell Tentacles"
+	icon_state = "skrell_hair_veryshort"
+	secondary_theme = "fest"
+	no_sec_colour = 1
+
+//Tajaran styles
 
 /datum/sprite_accessory/hair/tajara
 	species_allowed = list("Tajaran")
@@ -1062,6 +1181,11 @@
 /datum/sprite_accessory/hair/tajara/taj_hair_curls
 	name = "Tajara Curly"
 	icon_state = "hair_curly"
+	glasses_over = null
+
+/datum/sprite_accessory/hair/tajara/taj_hair_bedhead
+	name = "Tajara bedhead"
+	icon_state = "hair_tbedhead"
 	glasses_over = null
 
 /datum/sprite_accessory/hair/tajara/taj_hair_retro
@@ -1227,6 +1351,64 @@
 /datum/sprite_accessory/hair/vox/vox_razor_clipped
 	name = "Clipped Vox Razorback"
 	icon_state = "vox_razor_clipped"
+
+//DIONA: Sprites by skittles below
+/datum/sprite_accessory/hair/diona
+	species_allowed = list("Diona")
+	glasses_over = 1
+	do_colouration = 0
+
+/datum/sprite_accessory/hair/diona/diona_bracket
+	name = "Bracket"
+	icon_state = "diona_bracket"
+
+/datum/sprite_accessory/hair/diona/diona_brush
+	name = "Brush"
+	icon_state = "diona_brush"
+
+/datum/sprite_accessory/hair/diona/diona_cornflow
+	name = "Corn Flowers"
+	icon_state = "diona_cornflower"
+
+/datum/sprite_accessory/hair/diona/diona_laur
+	name = "Laural"
+	icon_state = "diona_laurel"
+
+/datum/sprite_accessory/hair/diona/diona_leaf
+	name = "Leafy"
+	icon_state = "diona_leafy"
+
+/datum/sprite_accessory/hair/diona/diona_mead
+	name = "Meadow"
+	icon_state = "diona_meadow"
+
+/datum/sprite_accessory/hair/diona/diona_oak
+	name = "Oak"
+	icon_state = "diona_oak"
+
+/datum/sprite_accessory/hair/diona/diona_root
+	name = "Roots"
+	icon_state = "diona_root"
+
+/datum/sprite_accessory/hair/diona/diona_rose
+	name = "Rose"
+	icon_state = "diona_rosey"
+
+/datum/sprite_accessory/hair/diona/diona_spinner
+	name = "Spinners"
+	icon_state = "diona_spinner"
+
+/datum/sprite_accessory/hair/diona/diona_spout
+	name = "Sprouts"
+	icon_state = "diona_sprout"
+
+/datum/sprite_accessory/hair/diona/diona_vine
+	name = "Vines"
+	icon_state = "diona_vine"
+
+/datum/sprite_accessory/hair/diona/diona_wildflow
+	name = "Wildflowers"
+	icon_state = "diona_wildflower"
 
 // Apollo-specific
 

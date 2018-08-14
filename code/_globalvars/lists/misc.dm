@@ -30,3 +30,7 @@ var/list/round_end_sounds = list( // Maps available round end sounds to their du
 		'sound/goonstation/misc/newround1.ogg' = 6.9 SECONDS,
 		'sound/goonstation/misc/newround2.ogg' = 14.8 SECONDS
 		)
+
+GLOBAL_LIST(station_level_space_turfs)
+
+#define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")

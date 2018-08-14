@@ -14,7 +14,7 @@
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 
-		var/obj/item/weapon/card/id/id = H.wear_id
+		var/obj/item/card/id/id = H.wear_id
 		if((istype(id) && id.is_untrackable()) && H.HasVoiceChanger())
 			changed_voice = 1
 			var/mob/living/carbon/human/I = locate(speaker_name)

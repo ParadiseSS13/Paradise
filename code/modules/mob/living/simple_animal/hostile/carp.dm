@@ -9,7 +9,7 @@
 	icon_gib = "carp_gib"
 	speak_chance = 0
 	turns_per_move = 5
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/carpmeat = 2)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/carpmeat = 2)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
@@ -18,6 +18,7 @@
 	health = 25
 
 	harm_intent_damage = 8
+	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	attacktext = "bites"
@@ -70,6 +71,6 @@
 	health = 65
 	pixel_x = -16
 	mob_size = MOB_SIZE_LARGE
-
+	obj_damage = 80
 	melee_damage_lower = 20
 	melee_damage_upper = 20

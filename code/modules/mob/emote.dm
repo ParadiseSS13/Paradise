@@ -46,7 +46,7 @@
 
 
 	if(message)
-		log_emote("[name]/[key] : [message]")
+		log_emote(message, src)
 
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.
@@ -70,7 +70,7 @@
 
 				if(O.status_flags & PASSEMOTES)
 
-					for(var/obj/item/weapon/holder/H in O.contents)
+					for(var/obj/item/holder/H in O.contents)
 						H.show_message(message, m_type)
 
 					for(var/mob/living/M in O.contents)
@@ -85,7 +85,7 @@
 
 				if(O.status_flags & PASSEMOTES)
 
-					for(var/obj/item/weapon/holder/H in O.contents)
+					for(var/obj/item/holder/H in O.contents)
 						H.show_message(message, m_type)
 
 					for(var/mob/living/M in O.contents)
@@ -94,7 +94,6 @@
 				O.show_message(message, m_type)
 
 /mob/proc/emote_dead(var/message)
-
 	if(client.prefs.muted & MUTE_DEADCHAT)
 		to_chat(src, "<span class='warning'>You cannot send deadchat emotes (muted).</span>")
 		return
@@ -122,8 +121,6 @@
 
 
 	if(message)
-		log_emote("Ghost/[src.key] : [message]")
-
 		for(var/mob/M in player_list)
 			if(istype(M, /mob/new_player))
 				continue

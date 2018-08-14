@@ -1,4 +1,4 @@
-/obj/item/weapon/gun/rocketlauncher
+/obj/item/gun/rocketlauncher
 	var/projectile
 	name = "rocket launcher"
 	desc = "Say hello to my little friend"
@@ -15,19 +15,19 @@
 	var/max_rockets = 1
 	var/list/rockets = new/list()
 
-/obj/item/weapon/gun/rocketlauncher/examine(mob/user)
+/obj/item/gun/rocketlauncher/examine(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
 
-/obj/item/weapon/gun/rocketlauncher/Destroy()
+/obj/item/gun/rocketlauncher/Destroy()
 	QDEL_LIST(rockets)
 	rockets = null
 	return ..()
 
-/obj/item/weapon/gun/rocketlauncher/update_icon()
+/obj/item/gun/rocketlauncher/update_icon()
 	return
 
-/obj/item/weapon/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/rocketlauncher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_casing/rocket))
 		if(rockets.len < max_rockets)
 			user.drop_item()
@@ -38,10 +38,10 @@
 		else
 			to_chat(usr, "<span class='notice'>[src] cannot hold more rockets.</span>")
 
-/obj/item/weapon/gun/rocketlauncher/can_shoot()
+/obj/item/gun/rocketlauncher/can_shoot()
 	return rockets.len
 
-/obj/item/weapon/gun/rocketlauncher/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
+/obj/item/gun/rocketlauncher/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
 	if(rockets.len)
 		var/obj/item/ammo_casing/rocket/I = rockets[1]
 		var/obj/item/missile/M = new /obj/item/missile(user.loc)

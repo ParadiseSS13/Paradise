@@ -32,7 +32,7 @@
 		if(WEST)
 			initialize_directions = NORTH|EAST|SOUTH
 
-/obj/machinery/atmospherics/pipe/manifold/initialize()
+/obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()
 	for(var/D in cardinal)
 		if(D == dir)
@@ -122,8 +122,8 @@
 	alpha = 255
 
 	overlays.Cut()
-	overlays += icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
-	overlays += icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , pipe_color, "core" + icon_connect_type)
+	overlays += GLOB.pipe_icon_manager.get_atmos_icon("manifold", , , "clamps" + icon_connect_type)
 	underlays.Cut()
 
 	var/turf/T = get_turf(src)
@@ -149,7 +149,7 @@
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/manifold/check_nodes_exist()
 	if(!node1 && !node2 && !node3)
-		Deconstruct()
+		deconstruct()
 		return 0 // 0: No nodes exist
 	// 1: 1-3 nodes exist, we continue existing
 	return 1

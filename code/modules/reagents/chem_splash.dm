@@ -29,7 +29,7 @@
 	splash_holder.handle_reactions() // React them now.
 
 	if(splash_holder.total_volume && affected_range >= 0)	//The possible reactions didnt use up all reagents, so we spread it around.
-		var/datum/effect/system/steam_spread/steam = new /datum/effect/system/steam_spread()
+		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
 		steam.set_up(10, 0, epicenter)
 		steam.attach(epicenter)
 		steam.start()

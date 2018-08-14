@@ -3,7 +3,7 @@
 	desc = "Used to teleport objects to and from the telescience telepad."
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
-	circuit = /obj/item/weapon/circuitboard/telesci_console
+	circuit = /obj/item/circuitboard/telesci_console
 	req_access = list(access_research)
 	var/sending = 1
 	var/obj/machinery/telepad/telepad = null
@@ -29,7 +29,7 @@
 	var/starting_crystals = 0
 	var/max_crystals = 4
 	var/list/crystals = list()
-	var/obj/item/device/gps/inserted_gps
+	var/obj/item/gps/inserted_gps
 
 /obj/machinery/computer/telescience/New()
 	..()
@@ -46,13 +46,13 @@
 	..(user)
 	to_chat(user, "There are [crystals.len ? crystals.len : "no"] bluespace crystal\s in the crystal slots.")
 
-/obj/machinery/computer/telescience/initialize()
+/obj/machinery/computer/telescience/Initialize()
 	..()
 	for(var/i = 1; i <= starting_crystals; i++)
-		crystals += new /obj/item/weapon/ore/bluespace_crystal/artificial(null) // starting crystals
+		crystals += new /obj/item/ore/bluespace_crystal/artificial(null) // starting crystals
 
 /obj/machinery/computer/telescience/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/ore/bluespace_crystal))
+	if(istype(W, /obj/item/ore/bluespace_crystal))
 		if(crystals.len >= max_crystals)
 			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
 			return
@@ -61,15 +61,15 @@
 		W.loc = null
 		user.visible_message("<span class='notice'>[user] inserts [W] into \the [src]'s crystal slot.</span>")
 		updateUsrDialog()
-	else if(istype(W, /obj/item/device/gps))
+	else if(istype(W, /obj/item/gps))
 		if(!inserted_gps)
 			inserted_gps = W
 			user.unEquip(W)
 			W.loc = src
 			user.visible_message("<span class='notice'>[user] inserts [W] into \the [src]'s GPS device slot.</span>")
 			updateUsrDialog()
-	else if(istype(W, /obj/item/device/multitool))
-		var/obj/item/device/multitool/M = W
+	else if(istype(W, /obj/item/multitool))
+		var/obj/item/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
 			telepad = M.buffer
 			M.buffer = null
@@ -148,7 +148,7 @@
 
 /obj/machinery/computer/telescience/proc/sparks()
 	if(telepad)
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(5, 1, get_turf(telepad))
 		s.start()
 	else
@@ -206,7 +206,7 @@
 			// use a lot of power
 			use_power(power * 10)
 
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(5, 1, get_turf(telepad))
 			s.start()
 
@@ -217,7 +217,7 @@
 				temp_msg += "Data printed below."
 
 			var/sparks = get_turf(target)
-			var/datum/effect/system/spark_spread/y = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/y = new /datum/effect_system/spark_spread
 			y.set_up(5, 1, sparks)
 			y.start()
 

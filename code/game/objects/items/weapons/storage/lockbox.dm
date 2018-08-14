@@ -1,4 +1,4 @@
-/obj/item/weapon/storage/lockbox
+/obj/item/storage/lockbox
 	name = "lockbox"
 	desc = "A locked box."
 	icon_state = "lockbox+l"
@@ -14,8 +14,8 @@
 	var/icon_closed = "lockbox"
 	var/icon_broken = "lockbox+b"
 
-/obj/item/weapon/storage/lockbox/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+/obj/item/storage/lockbox/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(broken)
 			to_chat(user, "<span class='warning'>It appears to be broken.</span>")
 			return
@@ -33,7 +33,7 @@
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 			return
-	else if((istype(W, /obj/item/weapon/card/emag) || (istype(W, /obj/item/weapon/melee/energy/blade)) && !broken))
+	else if((istype(W, /obj/item/card/emag) || (istype(W, /obj/item/melee/energy/blade)) && !broken))
 		emag_act(user)
 		return
 	if(!locked)
@@ -43,21 +43,21 @@
 	return
 
 
-/obj/item/weapon/storage/lockbox/show_to(mob/user as mob)
+/obj/item/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
 		to_chat(user, "<span class='warning'>It's locked!</span>")
 	else
 		..()
 	return
 
-/obj/item/weapon/storage/lockbox/can_be_inserted(obj/item/W as obj, stop_messages = 0)
+/obj/item/storage/lockbox/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!locked)
 		return ..()
 	if(!stop_messages)
 		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
 	return 0
 
-/obj/item/weapon/storage/lockbox/emag_act(user as mob)
+/obj/item/storage/lockbox/emag_act(user as mob)
 	if(!broken)
 		broken = 1
 		locked = 0
@@ -67,38 +67,38 @@
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 		return
 
-/obj/item/weapon/storage/lockbox/hear_talk(mob/living/M as mob, msg)
+/obj/item/storage/lockbox/hear_talk(mob/living/M as mob, msg)
 
-/obj/item/weapon/storage/lockbox/hear_message(mob/living/M as mob, msg)
+/obj/item/storage/lockbox/hear_message(mob/living/M as mob, msg)
 
-/obj/item/weapon/storage/lockbox/large
+/obj/item/storage/lockbox/large
 	name = "Large lockbox"
 	desc = "A large lockbox"
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 1
 
-/obj/item/weapon/storage/lockbox/mindshield
+/obj/item/storage/lockbox/mindshield
 	name = "Lockbox (Mindshield Implants)"
 	req_access = list(access_security)
 
-/obj/item/weapon/storage/lockbox/mindshield/New()
+/obj/item/storage/lockbox/mindshield/New()
 	..()
-	new /obj/item/weapon/implantcase/mindshield(src)
-	new /obj/item/weapon/implantcase/mindshield(src)
-	new /obj/item/weapon/implantcase/mindshield(src)
-	new /obj/item/weapon/implanter/mindshield(src)
+	new /obj/item/implantcase/mindshield(src)
+	new /obj/item/implantcase/mindshield(src)
+	new /obj/item/implantcase/mindshield(src)
+	new /obj/item/implanter/mindshield(src)
 
-/obj/item/weapon/storage/lockbox/clusterbang
+/obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"
 	desc = "You have a bad feeling about opening this."
 	req_access = list(access_security)
 
-/obj/item/weapon/storage/lockbox/clusterbang/New()
+/obj/item/storage/lockbox/clusterbang/New()
 	..()
-	new /obj/item/weapon/grenade/clusterbuster(src)
+	new /obj/item/grenade/clusterbuster(src)
 
-/obj/item/weapon/storage/lockbox/medal
+/obj/item/storage/lockbox/medal
 	name = "medal box"
 	desc = "A locked box used to store medals of honor."
 	icon_state = "medalbox+l"
@@ -112,7 +112,7 @@
 	icon_closed = "medalbox"
 	icon_broken = "medalbox+b"
 
-/obj/item/weapon/storage/lockbox/medal/New()
+/obj/item/storage/lockbox/medal/New()
 	..()
 	new /obj/item/clothing/accessory/medal/gold/heroism(src)
 	new /obj/item/clothing/accessory/medal/silver/security(src)

@@ -155,10 +155,6 @@
 	//writepanic("[__FILE__].[__LINE__] (no type)([usr ? usr.ckey : ""])  \\/proc/time() called tick#: [world.time]")
 	return world.time + (12 HOURS)
 
-/proc/timestamp(var/format = "hh:mm:ss") // Get the game time in text
-	//writepanic("[__FILE__].[__LINE__] (no type)([usr ? usr.ckey : ""])  \\/proc/timestamp() called tick#: [world.time]")
-	return time2text(world.time + (10 HOURS), format) // Yes, 10, not 12 hours, for some reason time2text() is being moronic (T-thanks BYOND), and it's adding 2 hours to this, I don't even know either.
-
 proc/string_explode(var/string, var/separator = "")
 	//writepanic("[__FILE__].[__LINE__] \\/proc/string_explode() called tick#: [world.time]")
 	if(istext(string) && (istext(separator) || isnull(separator)))

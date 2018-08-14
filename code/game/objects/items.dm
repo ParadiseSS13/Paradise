@@ -15,6 +15,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/inhand_x_dimension = 32
 	var/inhand_y_dimension = 32
 
+	can_be_hit = FALSE
+
 	var/r_speed = 1.0
 	var/health = null
 	var/hitsound = null
@@ -44,10 +46,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/permeability_coefficient = 1 // for chemicals/diseases
 	var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
 	var/slowdown = 0 // How much clothing is slowing you down. Negative values speeds you up
-	var/armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/armour_penetration = 0 //percentage of armour effectiveness to remove
 	var/list/allowed = null //suit storage stuff.
-	var/obj/item/device/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
+	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
 	var/needs_permit = 0			//Used by security bots to determine if this item is safe for public use.
 
@@ -101,7 +102,14 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	for(var/path in actions_types)
 		new path(src)
 
+	if(!hitsound)
+		if(damtype == "fire")
+			hitsound = 'sound/items/welder.ogg'
+		if(damtype == "brute")
+			hitsound = "swing_hit"
+
 /obj/item/Destroy()
+	flags &= ~DROPDEL	//prevent reqdels
 	QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
@@ -115,9 +123,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		return 0
 	else
 		return 1
-
-/obj/item/device
-	icon = 'icons/obj/device.dmi'
 
 /obj/item/ex_act(severity)
 	switch(severity)
@@ -225,16 +230,16 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			else
 				to_chat(user, "<span class='warning'>You burn your hand on [src]!</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
-				if(affecting && affecting.take_damage(0, 5))		// 5 burn damage
+				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
 				H.updatehealth()
 				return
 		else
 			extinguish()
 
-	if(istype(src.loc, /obj/item/weapon/storage))
+	if(istype(src.loc, /obj/item/storage))
 		//If the item is in a storage item, take it out
-		var/obj/item/weapon/storage/S = src.loc
+		var/obj/item/storage/S = src.loc
 		S.remove_from_storage(src)
 
 	if(throwing)
@@ -263,7 +268,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	attack_hand(A)
 
 /obj/item/attack_ai(mob/user as mob)
-	if(istype(src.loc, /obj/item/weapon/robot_module))
+	if(istype(src.loc, /obj/item/robot_module))
 		//If the item is part of a cyborg module, equip it
 		if(!isrobot(user))
 			return
@@ -274,25 +279,25 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 // Due to storage type consolidation this should get used more now.
 // I have cleaned it up a little, but it could probably use more.  -Sayu
-/obj/item/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = W
+/obj/item/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/storage))
+		var/obj/item/storage/S = I
 		if(S.use_to_pickup)
 			if(S.collection_mode) //Mode is set to collect all items on a tile and we clicked on a valid one.
-				if(isturf(src.loc))
+				if(isturf(loc))
 					var/list/rejections = list()
 					var/success = 0
 					var/failure = 0
 
-					for(var/obj/item/I in src.loc)
-						if(I.type in rejections) // To limit bag spamming: any given type only complains once
+					for(var/obj/item/IT in loc)
+						if(IT.type in rejections) // To limit bag spamming: any given type only complains once
 							continue
-						if(!S.can_be_inserted(I))	// Note can_be_inserted still makes noise when the answer is no
-							rejections += I.type	// therefore full bags are still a little spammy
+						if(!S.can_be_inserted(IT))	// Note can_be_inserted still makes noise when the answer is no
+							rejections += IT.type	// therefore full bags are still a little spammy
 							failure = 1
 							continue
 						success = 1
-						S.handle_item_insertion(I, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
+						S.handle_item_insertion(IT, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
 					if(success && !failure)
 						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
 					else if(success)
@@ -302,8 +307,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
-
-	return
+	else
+		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(prob(final_block_chance))
@@ -318,17 +323,19 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
+	if(flags & DROPDEL)
+		qdel(src)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
 	return
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
-/obj/item/proc/on_exit_storage(obj/item/weapon/storage/S as obj)
+/obj/item/proc/on_exit_storage(obj/item/storage/S as obj)
 	return
 
 // called when this item is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
-/obj/item/proc/on_enter_storage(obj/item/weapon/storage/S as obj)
+/obj/item/proc/on_enter_storage(obj/item/storage/S as obj)
 	return
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
@@ -377,15 +384,12 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	if(!(usr)) //BS12 EDIT
 		return
-	if(!usr.canmove || usr.stat || usr.restrained() || !Adjacent(usr))
+	if(usr.incapacitated() || !Adjacent(usr))
 		return
-	if((!istype(usr, /mob/living/carbon)) || (istype(usr, /mob/living/carbon/brain)))//Is humanoid, and is not a brain
+	if(!iscarbon(usr) || isbrain(usr)) //Is humanoid, and is not a brain
 		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
 		return
-	if( usr.stat || usr.restrained() )//Is not asleep/dead and is not restrained
-		to_chat(usr, "<span class='warning'>You can't pick things up!</span>")
-		return
-	if(src.anchored) //Object isn't anchored
+	if(anchored) //Object isn't anchored
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
 	if(!usr.hand && usr.r_hand) //Right hand is not full
@@ -394,12 +398,11 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(usr.hand && usr.l_hand) //Left hand is not full
 		to_chat(usr, "<span class='warning'>Your left hand is full.</span>")
 		return
-	if(!istype(src.loc, /turf)) //Object is on a turf
+	if(!isturf(loc)) //Object is on a turf
 		to_chat(usr, "<span class='warning'>You can't pick that up!</span>")
 		return
 	//All checks are done, time to pick it up!
 	usr.UnarmedAttack(src)
-	return
 
 
 //This proc is executed when someone clicks the on-screen UI button.
@@ -442,28 +445,29 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	playsound(loc, src.hitsound, 30, 1, -1)
 
+	user.do_attack_animation(M)
+
 	if(M != user)
 		M.visible_message("<span class='danger'>[user] has stabbed [M] in the eye with [src]!</span>", \
 							"<span class='userdanger'>[user] stabs you in the eye with [src]!</span>")
-		user.do_attack_animation(M)
 	else
 		user.visible_message( \
-			"<span class='danger'>[user] has stabbed themself in the eyes with [src]!</span>", \
+			"<span class='danger'>[user] has stabbed [user.p_them()]self in the eyes with [src]!</span>", \
 			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
 		)
 
-	add_logs(user, M, "attacked", "[name]", "(INTENT: [uppertext(user.a_intent)])")
+	add_attack_logs(user, M, "Eye-stabbed with [src] (INTENT: [uppertext(user.a_intent)])")
 
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
 			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
-			head.take_damage(rand(10,14), 1)
+			head.receive_damage(rand(10,14), 1)
 			return
-		eyes.take_damage(rand(3,4), 1)
+		eyes.receive_damage(rand(3,4), 1)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
-				if(!(eyes.status & ORGAN_ROBOT) || !(eyes.status & ORGAN_ASSISTED))  //robot eyes bleeding might be a bit silly
+				if(!eyes.is_robotic())  //robot eyes bleeding might be a bit silly
 					to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
 			if(prob(50))
 				if(M.stat != DEAD)
@@ -476,7 +480,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
 		var/obj/item/organ/external/affecting = H.get_organ("head")
-		if(affecting.take_damage(7))
+		if(affecting.receive_damage(7))
 			H.UpdateDamageIcon()
 	else
 		M.take_organ_damage(7)
@@ -490,7 +494,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		else ..()
 
 /obj/item/throw_impact(atom/A)
-	if(A && !qdeleted(A))
+	if(A && !QDELETED(A))
 		var/itempush = 1
 		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = 0 // too light to push anything
@@ -509,11 +513,11 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/proc/pwr_drain()
 	return 0 // Process Kill
 
-/obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/weapon/storage
+/obj/item/proc/remove_item_from_storage(atom/newLoc) //please use this if you're going to snowflake an item out of a obj/item/storage
 	if(!newLoc)
 		return 0
-	if(istype(loc,/obj/item/weapon/storage))
-		var/obj/item/weapon/storage/S = loc
+	if(istype(loc,/obj/item/storage))
+		var/obj/item/storage/S = loc
 		S.remove_from_storage(src,newLoc)
 		return 1
 	return 0
@@ -548,3 +552,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/proc/on_trip(mob/living/carbon/human/H)
 	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
 		return TRUE
+
+/obj/item/attack_hulk(mob/living/carbon/human/user)
+	return FALSE

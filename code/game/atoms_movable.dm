@@ -24,18 +24,22 @@
 
 	var/area/areaMaster
 
-	var/auto_init = 1
-
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area_master(src)
 
-	// If you're wondering what goofery this is, this is for things that need the environment
-	// around them set up - like `air_update_turf` and the like
-	if((ticker && ticker.current_state >= GAME_STATE_SETTING_UP))
-		attempt_init()
+/atom/movable/attempt_init()
+	var/turf/T = get_turf(src)
+	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && space_manager.is_zlevel_dirty(T.z))
+		space_manager.postpone_init(T.z, src)
+		return
+	. = ..()
+
+
 
 /atom/movable/Destroy()
+	if(loc)
+		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
 	var/turf/un_opaque
@@ -50,19 +54,6 @@
 			pulledby.pulling = null
 		pulledby = null
 	return ..()
-
-// used to provide a good interface for the init delay system to step in
-// and we don't need to call `get_turf` until the game's started
-// at which point object creations are a fair toss more seldom
-/atom/movable/proc/attempt_init()
-	var/turf/T = get_turf(src)
-	if(T && space_manager.is_zlevel_dirty(T.z))
-		space_manager.postpone_init(T.z, src)
-	else if(auto_init)
-		initialize()
-
-/atom/movable/proc/initialize()
-	return
 
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
@@ -142,7 +133,7 @@
 		if(throwing)
 			throwing.hit_atom(A)
 			. = 1
-			if(!A || qdeleted(A))
+			if(!A || QDELETED(A))
 				return
 		A.Bumped(src)
 
@@ -174,11 +165,11 @@
 
 /mob/living/forceMove(atom/destination)
 	if(buckled)
-		addtimer(src, "check_buckled", 1, TRUE)
+		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
 	if(buckled_mob)
-		addtimer(buckled_mob, "check_buckled", 1, TRUE)
+		addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
 	if(pulling)
-		addtimer(src, "check_pull", 1, TRUE)
+		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
 	. = ..()
 	if(client)
 		reset_perspective(destination)
@@ -215,14 +206,15 @@
 		return 1
 
 	inertia_last_loc = loc
-	drift_master.processing_list[src] = src
+	SSspacedrift.processing[src] = src
 	return 1
 
 
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, throwingdatum)
 	set waitfor = 0
-	return hit_atom.hitby(src)
+	if(!QDELETED(hit_atom))
+		return hit_atom.hitby(src)
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked)
 	if(!anchored && hitpush)
@@ -299,7 +291,7 @@
 	if(spin && !no_spin && !no_spin_thrown)
 		SpinAnimation(5, 1)
 
-	throw_master.processing_list[src] = TT
+	SSthrowing.processing[src] = TT
 	TT.tick()
 
 
@@ -370,3 +362,74 @@
 		target.fingerprints += fingerprints
 		target.fingerprintshidden += fingerprintshidden
 	target.fingerprintslast = fingerprintslast
+
+/atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+	if(!no_effect && (visual_effect_icon || used_item))
+		do_item_attack_animation(A, visual_effect_icon, used_item)
+
+	if(A == src)
+		return //don't do an animation if attacking self
+	var/pixel_x_diff = 0
+	var/pixel_y_diff = 0
+	var/final_pixel_y = initial(pixel_y)
+	if(end_pixel_y)
+		final_pixel_y = end_pixel_y
+
+	var/direction = get_dir(src, A)
+	if(direction & NORTH)
+		pixel_y_diff = 8
+	else if(direction & SOUTH)
+		pixel_y_diff = -8
+
+	if(direction & EAST)
+		pixel_x_diff = 8
+	else if(direction & WEST)
+		pixel_x_diff = -8
+
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
+	animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
+
+/atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item)
+	var/image/I
+	if(visual_effect_icon)
+		I = image('icons/effects/effects.dmi', A, visual_effect_icon, A.layer + 0.1)
+	else if(used_item)
+		I = image(used_item.icon, A, used_item.icon_state, A.layer + 0.1)
+
+		// Scale the icon.
+		I.transform *= 0.75
+		// The icon should not rotate.
+		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+
+		// Set the direction of the icon animation.
+		var/direction = get_dir(src, A)
+		if(direction & NORTH)
+			I.pixel_y = -16
+		else if(direction & SOUTH)
+			I.pixel_y = 16
+
+		if(direction & EAST)
+			I.pixel_x = -16
+		else if(direction & WEST)
+			I.pixel_x = 16
+
+		if(!direction) // Attacked self?!
+			I.pixel_z = 16
+
+	if(!I)
+		return
+
+	// Who can see the attack?
+	var/list/viewing = list()
+	for(var/mob/M in viewers(A))
+		if(M.client && M.client.prefs.show_ghostitem_attack)
+			viewing |= M.client
+
+	flick_overlay(I, viewing, 5) // 5 ticks/half a second
+
+	// And animate the attack!
+	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+
+
+/atom/movable/proc/portal_destroyed(obj/effect/portal/P)
+	return

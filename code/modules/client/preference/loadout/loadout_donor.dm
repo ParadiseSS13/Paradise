@@ -25,14 +25,6 @@
 	path = /obj/item/clothing/suit/furcoat
 	cost = 2
 
-/datum/gear/donor/lord_admiral
-	display_name = "Lord Admiral Coat"
-	path = /obj/item/clothing/suit/lordadmiral
-
-/datum/gear/donor/lord_admiral_hat
-	display_name = "Lord Admiral Hat"
-	path = /obj/item/clothing/head/lordadmiralhat
-
 /datum/gear/donor/kamina
 	display_name = "Spiky Orange-tinted Shades"
 	path = /obj/item/clothing/glasses/fluff/kamina

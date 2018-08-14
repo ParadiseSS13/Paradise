@@ -100,7 +100,7 @@
 		else
 			return "South"
 
-/obj/machinery/atmospherics/binary/circulator/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/atmospherics/binary/circulator/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(ismultitool(W))
 		if(side_inverted == 0)
 			side_inverted = 1

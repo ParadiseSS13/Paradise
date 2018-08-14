@@ -1,11 +1,11 @@
-/obj/item/weapon/implant/chem
+/obj/item/implant/chem
 	name = "chem implant"
 	desc = "Injects things."
 	icon_state = "reagents"
 	origin_tech = "materials=3;biotech=4"
 	flags = OPENCONTAINER
 
-/obj/item/weapon/implant/chem/get_data()
+/obj/item/implant/chem/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Robust Corp MJ-420 Prisoner Management Implant<BR>
 				<b>Life:</b> Deactivates upon death but remains within the body.<BR>
@@ -21,23 +21,23 @@
 				<b>Integrity:</b> Implant will last so long as the subject is alive."}
 	return dat
 
-/obj/item/weapon/implant/chem/New()
+/obj/item/implant/chem/New()
 	..()
 	create_reagents(50)
 	tracked_implants += src
 
-/obj/item/weapon/implant/chem/Destroy()
+/obj/item/implant/chem/Destroy()
 	tracked_implants -= src
 	return ..()
 
 
 
 
-/obj/item/weapon/implant/chem/trigger(emote, mob/source)
+/obj/item/implant/chem/trigger(emote, mob/source)
 	if(emote == "deathgasp")
 		activate(reagents.total_volume)
 
-/obj/item/weapon/implant/chem/activate(cause)
+/obj/item/implant/chem/activate(cause)
 	if(!cause || !imp_in)	return 0
 	var/mob/living/carbon/R = imp_in
 	var/injectamount = null
@@ -52,10 +52,10 @@
 		qdel(src)
 
 
-/obj/item/weapon/implantcase/chem
+/obj/item/implantcase/chem
 	name = "implant case - 'Remote Chemical'"
 	desc = "A glass case containing a remote chemical implant."
 
-/obj/item/weapon/implantcase/chem/New()
-	imp = new /obj/item/weapon/implant/chem(src)
+/obj/item/implantcase/chem/New()
+	imp = new /obj/item/implant/chem(src)
 	..()

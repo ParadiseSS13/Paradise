@@ -22,7 +22,7 @@
 	speed = 8
 	projectiletype = /obj/item/projectile/beam/drone
 	projectilesound = 'sound/weapons/laser3.ogg'
-	var/datum/effect/system/ion_trail_follow/ion_trail
+	var/datum/effect_system/trail_follow/ion/ion_trail
 
 	//the drone randomly switches between these states because it's malfunctioning
 	var/hostile_drone = 0
@@ -62,7 +62,7 @@
 		return ..()
 
 //self repair systems have a chance to bring the drone back to life
-/mob/living/simple_animal/hostile/retaliate/malf_drone/Life()
+/mob/living/simple_animal/hostile/retaliate/malf_drone/Life(seconds, times_fired)
 
 	//emps and lots of damage can temporarily shut us down
 	if(disabled > 0)
@@ -80,14 +80,14 @@
 	//repair a bit of damage
 	if(prob(1))
 		src.visible_message("<span class='warning'>[bicon(src)] [src] shudders and shakes as some of it's damaged systems come back online.</span>")
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 		health += rand(25,100)
 
 	//spark for no reason
 	if(prob(5))
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
@@ -129,7 +129,7 @@
 			src.visible_message("<span class='warning'>[bicon(src)] [src] begins to spark and shake violenty!</span>")
 		else
 			src.visible_message("<span class='warning'>[bicon(src)] [src] sparks and shakes like it's about to explode!</span>")
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 
@@ -154,22 +154,22 @@
 /mob/living/simple_animal/hostile/retaliate/malf_drone/Destroy() //Seriously, what the actual hell.
 	//some random debris left behind
 	if(has_loot)
-		var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 		s.set_up(3, 1, src)
 		s.start()
 		var/obj/O
 
 		//shards
-		O = new /obj/item/weapon/shard(loc)
+		O = new /obj/item/shard(loc)
 		step_to(O, get_turf(pick(view(7, src))))
 		if(prob(75))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 		if(prob(50))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 		if(prob(25))
-			O = new /obj/item/weapon/shard(loc)
+			O = new /obj/item/shard(loc)
 			step_to(O, get_turf(pick(view(7, src))))
 
 		//rods
@@ -199,7 +199,7 @@
 			step_to(O, get_turf(pick(view(7, src))))
 
 		//also drop dummy circuit boards deconstructable for research (loot)
-		var/obj/item/weapon/circuitboard/C
+		var/obj/item/circuitboard/C
 
 		//spawn 1-4 boards of a random type
 		var/spawnees = 0

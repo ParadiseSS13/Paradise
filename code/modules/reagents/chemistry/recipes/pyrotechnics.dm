@@ -7,7 +7,7 @@
 	mix_message = "The mixture explodes!"
 
 /datum/chemical_reaction/explosion_potassium/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/effect/system/reagents_explosion/e = new()
+	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
 	e.start()
 	holder.clear_reagents()
@@ -26,6 +26,33 @@
 	empulse(location, round(created_volume / 24), round(created_volume / 14), 1)
 	holder.clear_reagents()
 
+/datum/chemical_reaction/beesplosion
+	name = "Bee Explosion"
+	id = "beesplosion"
+	result = null
+	required_reagents = list("honey" = 1, "strange_reagent" = 1, "radium" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	if(created_volume < 5)
+		playsound(location,'sound/effects/sparks1.ogg', 100, 1)
+	else
+		playsound(location,'sound/creatures/bee.ogg', 100, 1)
+		var/list/beeagents = list()
+		for(var/X in holder.reagent_list)
+			var/datum/reagent/R = X
+			if(R.id in required_reagents)
+				continue
+			if(!R.can_synth)
+				continue
+			beeagents += R
+		var/bee_amount = round(created_volume * 0.2)
+		for(var/i in 1 to bee_amount)
+			var/mob/living/simple_animal/hostile/poison/bees/new_bee = new(location)
+			if(LAZYLEN(beeagents))
+				new_bee.assign_reagent(pick(beeagents))
+
 /datum/chemical_reaction/nitroglycerin
 	name = "Nitroglycerin"
 	id = "nitroglycerin"
@@ -34,7 +61,7 @@
 	result_amount = 2
 
 /datum/chemical_reaction/nitroglycerin/on_reaction(datum/reagents/holder, created_volume)
-	var/datum/effect/system/reagents_explosion/e = new()
+	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(round(created_volume/2, 1), holder.my_atom, 0, 0)
 	e.start()
 	holder.clear_reagents()
@@ -130,7 +157,7 @@
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(2, 1, location)
 	s.start()
 	sleep(rand(20,30))
@@ -159,7 +186,7 @@ datum/chemical_reaction/flash_powder
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(2, 1, location)
 	s.start()
 	for(var/mob/living/carbon/C in viewers(5, location))
@@ -179,7 +206,7 @@ datum/chemical_reaction/flash_powder
 
 /datum/chemical_reaction/flash_powder_flash/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(2, 1, location)
 	s.start()
 	for(var/mob/living/carbon/C in viewers(5, location))
@@ -211,22 +238,21 @@ datum/chemical_reaction/flash_powder
 		if(holder.has_reagent(f_reagent))
 			holder.remove_reagent(f_reagent, holder.get_reagent_amount(f_reagent))
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect/system/chem_smoke_spread/S = new /datum/effect/system/chem_smoke_spread
+	var/datum/effect_system/smoke_spread/chem/S = new
 	S.attach(location)
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
-	spawn(0)
-		if(S)
-			S.set_up(holder, 10, 0, location)
-			if(created_volume < 5)
-				S.start(1)
-			if(created_volume >=5 && created_volume < 10)
-				S.start(2)
-			if(created_volume >= 10 && created_volume < 15)
-				S.start(3)
-			if(created_volume >=15)
-				S.start(4)
-		if(holder && holder.my_atom)
-			holder.clear_reagents()
+	if(S)
+		S.set_up(holder, 10, 0, location)
+		if(created_volume < 5)
+			S.start(1)
+		if(created_volume >=5 && created_volume < 10)
+			S.start(2)
+		if(created_volume >= 10 && created_volume < 15)
+			S.start(3)
+		if(created_volume >=15)
+			S.start(4)
+	if(holder && holder.my_atom)
+		holder.clear_reagents()
 
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"

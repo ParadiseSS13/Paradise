@@ -14,7 +14,7 @@
 /obj/effect/proc_holder/spell/targeted/rathens/cast(list/targets, mob/user = usr)
 	playsound(get_turf(user), 'sound/goonstation/effects/superfart.ogg', 25, 1)
 	for(var/mob/living/carbon/human/H in targets)
-		var/datum/effect/system/harmless_smoke_spread/s = new /datum/effect/system/harmless_smoke_spread
+		var/datum/effect_system/smoke_spread/s = new
 		s.set_up(5, 0, H)
 		s.start()
 		var/obj/item/organ/internal/appendix/A = H.get_int_organ(/obj/item/organ/internal/appendix)

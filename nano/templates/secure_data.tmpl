@@ -29,24 +29,24 @@ Used In File(s): \code\game\machinery\computer\security.dm
 				hidden.parent("td").parent("tr").hide()
 			}
 		}
-		
+
 		function selectTextField(){
 			var filter_text = document.getElementById('filter');
 			filter_text.focus();
 			filter_text.select();
 		}
-		
+
 		$(window).load(function() {
 			selectTextField();
 			updateSearch();
 		});
-		
+
 		$("#filter").keyup(function() {
 			updateSearch();
 		});
 	</script>
 {{/if}}
-<style type="text/css">			
+<style type="text/css">
 	.infoButton {
 		background: none;
 		border: none;
@@ -143,9 +143,11 @@ Used In File(s): \code\game\machinery\computer\security.dm
 					</td>
 					<td valign='middle' align='center' style='width: 300px;'>
 						{{if data.general.has_photos}}
-							<div style="text-align: center;">
+<!--	Removed due to BYOND issue.
+						<div style="text-align: center;">
 								<div style="display: inline-block;">{{:helper.link('Print photo', 'camera', {'print_p' : 1})}}</div>
 							</div>
+						-->
 							{{for data.general.photos}}
 								{{if value.photo}}
 									<img src={{:value.photo}} height=96 width=96 border=5>
@@ -156,7 +158,7 @@ Used In File(s): \code\game\machinery\computer\security.dm
 				</tr></table>
 			</div>
 		{{/if}}
-		
+
 		<h4><center>Security Data</center></h4>
 		{{if data.security.empty}}
 			<span class="bad"><center>Security Record Lost!</center></span>
@@ -178,22 +180,22 @@ Used In File(s): \code\game\machinery\computer\security.dm
 					<br>
 				{{/if}}
 			{{/for}}
-			
+
 			<h4><center>Comments/Log</center></h4>
 			{{for data.security.comments}}
 				<div class="line">{{:value}}</div>
 				<div class="line">{{:helper.link('Remove entry', 'trash', {'del_c' : index})}}</div>
 				<br><hr>
 			{{/for}}
-			
+
 			<div style="text-align: center;">
 				<div style="display: inline-block; height: 100%; vertical-align: middle;">{{:helper.link('Add Entry', 'plus', {'add_c' : 1})}}</div>
 			</div>
-			
+
 			<h3><center>Menu</center></h3>
 			<div class="line">{{:helper.link('Delete Record (Security Only)', 'trash', {'del_r' : 1})}}</div>
 		{{/if}}
-		
+
 		<div class="line">{{:helper.link('Delete Record (All)', 'trash', {'del_rg' : 1})}}</div>
 		<div class="line">{{:helper.link('Print Record', 'print', {'print_r' : 1})}}</div>
 		<div class="line">{{:helper.link('Back', 'arrow-left', {'screen' : 1})}}</div>
@@ -211,7 +213,7 @@ Used In File(s): \code\game\machinery\computer\security.dm
 			{{else}}
 				<center>{{:data.temp.text}}</center>
 			{{/if}}
-			
+
 			{{if data.temp.has_buttons}}
 				<div class="line">
 					<div style="display: inline-block;">
@@ -223,7 +225,7 @@ Used In File(s): \code\game\machinery\computer\security.dm
 					</div>
 				</div>
 			{{/if}}
-			
+
 			<div style="display: inline-block;">
 				<div class="item">{{:helper.link('Clear screen', 'home', {'temp' : 1})}}</div>
 			</div>

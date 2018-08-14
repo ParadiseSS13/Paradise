@@ -232,7 +232,7 @@ var/global/datum/controller/processScheduler/processScheduler
 		stat("Processes", "Scheduler not running")
 		return
 	if(!statclick)
-		statclick = new (src)
+		statclick = new /obj/effect/statclick/debug(src)
 	stat("Processes", statclick.update("[processes.len] (R [running.len] / Q [queued.len] / I [idle.len])"))
 	for(var/datum/controller/process/p in processes)
 		p.statProcess()

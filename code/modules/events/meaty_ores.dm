@@ -44,7 +44,7 @@
 			if(prob(80))
 				gibs(loc)
 				if(prob(45))
-					new /obj/item/weapon/reagent_containers/food/snacks/meat(loc)
+					new /obj/item/reagent_containers/food/snacks/meat(loc)
 				else if(prob(10))
 					explosion(get_turf(loc), 0, pick(0,1), pick(2,3), 0)
 			else

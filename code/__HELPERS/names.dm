@@ -17,19 +17,7 @@ var/church_name = null
 
 var/command_name = null
 /proc/command_name()
-	if(command_name)
-		return command_name
-
-	var/name = "Central Command"
-
-	command_name = name
-	return name
-
-/proc/change_command_name(var/name)
-
-	command_name = name
-
-	return name
+	return using_map.dock_name
 
 var/religion_name = null
 /proc/religion_name()
@@ -44,20 +32,10 @@ var/religion_name = null
 	return capitalize(name)
 
 /proc/system_name()
-	return "Nyx"
+	return using_map.starsys_name
 
 /proc/station_name()
-	if(station_name)
-		return station_name
-
-	var/name = ""
-
-	if(config && config.server_name)
-		world.name = "[config.server_name]: [name]"
-	else
-		world.name = station_name
-
-	return station_name
+	return using_map.station_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)
@@ -101,18 +79,6 @@ var/religion_name = null
 		if(13)
 			new_station_name += pick("13","XIII","Thirteen")
 	return new_station_name
-
-
-/proc/world_name(var/name)
-
-	station_name = name
-
-	if(config && config.server_name)
-		world.name = "[config.server_name]: [name]"
-	else
-		world.name = name
-
-	return name
 
 var/syndicate_name = null
 /proc/syndicate_name()

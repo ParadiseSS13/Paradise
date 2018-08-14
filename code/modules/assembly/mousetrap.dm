@@ -1,4 +1,4 @@
-/obj/item/device/assembly/mousetrap
+/obj/item/assembly/mousetrap
 	name = "mousetrap"
 	desc = "A handy little spring-loaded trap for catching pesty rodents."
 	icon_state = "mousetrap"
@@ -53,7 +53,7 @@
 						affecting = H.get_organ(type)
 						H.Stun(3)
 			if(affecting)
-				affecting.take_damage(1, 0)
+				affecting.receive_damage(1, 0)
 				H.updatehealth()
 		else if(ismouse(target))
 			var/mob/living/simple_animal/mouse/M = target
@@ -75,7 +75,7 @@
 				if(!user.hand)
 					which_hand = "r_hand"
 				triggered(user, which_hand)
-				user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking their fingers.</span>", \
+				user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking [user.p_their()] fingers.</span>", \
 									 "<span class='warning'>You accidentally trigger [src]!</span>")
 				return
 			to_chat(user, "<span class='notice'>You disarm [src].</span>")
@@ -91,7 +91,7 @@
 				if(!user.hand)
 					which_hand = "r_hand"
 				triggered(user, which_hand)
-				user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking their fingers.</span>", \
+				user.visible_message("<span class='warning'>[user] accidentally sets off [src], breaking [user.p_their()] fingers.</span>", \
 									 "<span class='warning'>You accidentally trigger [src]!</span>")
 				return
 		..()
@@ -114,7 +114,7 @@
 
 	on_found(mob/finder as mob)
 		if(armed)
-			finder.visible_message("<span class='warning'>[finder] accidentally sets off [src], breaking their fingers.</span>", \
+			finder.visible_message("<span class='warning'>[finder] accidentally sets off [src], breaking [finder.p_their()] fingers.</span>", \
 								   "<span class='warning'>You accidentally trigger [src]!</span>")
 			triggered(finder, finder.hand ? "l_hand" : "r_hand")
 			return 1	//end the search!
@@ -128,12 +128,12 @@
 		triggered(null)
 
 
-/obj/item/device/assembly/mousetrap/armed
+/obj/item/assembly/mousetrap/armed
 	icon_state = "mousetraparmed"
 	armed = 1
 
 
-/obj/item/device/assembly/mousetrap/verb/hide_under()
+/obj/item/assembly/mousetrap/verb/hide_under()
 	set src in oview(1)
 	set name = "Hide"
 	set category = "Object"

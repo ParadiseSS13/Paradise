@@ -1,41 +1,28 @@
-mob/var/list/pain_stored = list()
-mob/var/last_pain_message = ""
-mob/var/next_pain_time = 0
+/mob/living/carbon/human
+	var/last_pain_message = ""
+	var/next_pain_time = 0
 
 // partname is the name of a body part
 // amount is a num from 1 to 100
-mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0)
-	if(stat >= 2) return
+/mob/living/carbon/human/proc/pain(partname, amount)
+	if(stat >= UNCONSCIOUS)
+		return
 	if(reagents.has_reagent("sal_acid"))
 		return
 	if(reagents.has_reagent("morphine"))
 		return
 	if(reagents.has_reagent("hydrocodone"))
 		return
-	if(world.time < next_pain_time && !force)
+	if(world.time < next_pain_time)
 		return
-	if(amount > 10 && istype(src,/mob/living/carbon/human))
-		if(paralysis)
-			AdjustParalysis(-round(amount/10))
-	if(amount > 50 && prob(amount / 5))
-		src:drop_item()
 	var/msg
-	if(burning)
-		switch(amount)
-			if(1 to 10)
-				msg = "<span class='danger'>Your [partname] burns.</span>"
-			if(11 to 90)
-				msg = "<span class='danger'><font size=2>Your [partname] burns badly!</font></span>"
-			if(91 to 10000)
-				msg = "<span class='danger'><font size=3>OH GOD! Your [partname] is on fire!</font></span>"
-	else
-		switch(amount)
-			if(1 to 10)
-				msg = "<b>Your [partname] hurts.</b>"
-			if(11 to 90)
-				msg = "<b><font size=2>Your [partname] hurts badly.</font></b>"
-			if(91 to 10000)
-				msg = "<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>"
+	switch(amount)
+		if(1 to 10)
+			msg = "<b>Your [partname] hurts.</b>"
+		if(11 to 90)
+			msg = "<b><font size=2>Your [partname] hurts badly.</font></b>"
+		if(91 to INFINITY)
+			msg = "<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>"
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg
 		to_chat(src, msg)
@@ -43,20 +30,18 @@ mob/living/carbon/proc/pain(var/partname, var/amount, var/force, var/burning = 0
 
 
 // message is the custom message to be displayed
-// flash_strength is 0 for weak pain flash, 1 for strong pain flash
-mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
-	if(stat >= 1) return
-
-	if(NO_PAIN in species.species_traits)
+mob/living/carbon/human/proc/custom_pain(message)
+	if(stat >= UNCONSCIOUS)
 		return
 
+	if(NO_PAIN in dna.species.species_traits)
+		return
 	if(reagents.has_reagent("morphine"))
 		return
 	if(reagents.has_reagent("hydrocodone"))
 		return
-	var/msg = "<span class='danger'>[message]</span>"
-	if(flash_strength >= 1)
-		msg = "<span class='warning'><font size=3><b>[message]</b></font></span>"
+
+	var/msg = "<span class='userdanger'>[message]</span>"
 
 	// Anti message spam checks
 	if(msg && ((msg != last_pain_message) || (world.time >= next_pain_time)))
@@ -67,70 +52,33 @@ mob/living/carbon/human/proc/custom_pain(var/message, var/flash_strength)
 mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
-	if(NO_PAIN in species.species_traits)
-		//While synthetics don't feel pain, they will notice their gears gunking up with residue (toxins)
-		if(isSynthetic())
-			var/toxDamageMessage = null
-			var/toxMessageProb = 1
-			switch(getToxLoss())
-				if(25 to 50)
-					toxMessageProb = 1
-					toxDamageMessage = "Your servos seem to be working harder."
-				if(50 to 75)
-					toxMessageProb = 2
-					toxDamageMessage = "Your joints seem to stick randomly."
-				if(75 to INFINITY)
-					toxMessageProb = 5
-					toxDamageMessage = "Your motors seem to slip; it really grinds your gears!"
-			if(toxDamageMessage && prob(toxMessageProb))
-				src.custom_pain(toxDamageMessage, getToxLoss() >= 15)
+	if(stat >= UNCONSCIOUS)
 		return
-
-	if(stat >= 2) return
+	if(NO_PAIN in dna.species.species_traits)
+		return
 	if(reagents.has_reagent("morphine"))
 		return
 	if(reagents.has_reagent("hydrocodone"))
 		return
+
 	var/maxdam = 0
 	var/obj/item/organ/external/damaged_organ = null
 	for(var/obj/item/organ/external/E in bodyparts)
-		if(E.status & ORGAN_DEAD|ORGAN_ROBOT) continue
+		if((E.status & ORGAN_DEAD|ORGAN_ROBOT) || E.hidden_pain)
+			continue
 		var/dam = E.get_damage()
 		// make the choice of the organ depend on damage,
 		// but also sometimes use one of the less damaged ones
-		if(dam > maxdam && (maxdam == 0 || prob(70)) )
+		if(dam > maxdam && (maxdam == 0 || prob(70)))
 			damaged_organ = E
 			maxdam = dam
 		if(damaged_organ)
-			pain(damaged_organ.name, maxdam, 0)
-
+			pain(damaged_organ.name, maxdam)
 
 	// Damage to internal organs hurts a lot.
 	for(var/obj/item/organ/internal/I in internal_organs)
-		if(istype(I, /obj/item/organ/internal/brain)) //the brain has no pain receptors, and brain damage is meant to be a stealthy damage type.
+		if(I.hidden_pain)
 			continue
-		if(I.damage > 2) if(prob(2))
+		if(I.damage > 2 && prob(2))
 			var/obj/item/organ/external/parent = get_organ(I.parent_organ)
-			src.custom_pain("You feel a sharp pain in your [parent.limb_name]", 1)
-
-	var/toxDamageMessage = null
-	var/toxMessageProb = 1
-	switch(getToxLoss())
-		if(1 to 5)
-			toxMessageProb = 1
-			toxDamageMessage = "Your body stings slightly."
-		if(6 to 10)
-			toxMessageProb = 2
-			toxDamageMessage = "Your whole body hurts a little."
-		if(11 to 15)
-			toxMessageProb = 2
-			toxDamageMessage = "Your whole body hurts."
-		if(15 to 25)
-			toxMessageProb = 3
-			toxDamageMessage = "Your whole body hurts badly."
-		if(26 to INFINITY)
-			toxMessageProb = 5
-			toxDamageMessage = "Your body aches all over, it's driving you mad."
-
-	if(toxDamageMessage && prob(toxMessageProb))
-		src.custom_pain(toxDamageMessage, getToxLoss() >= 15)
+			custom_pain("You feel a sharp pain in your [parent.limb_name]")

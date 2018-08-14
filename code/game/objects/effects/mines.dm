@@ -3,7 +3,7 @@
 	desc = "I Better stay away from that thing."
 	density = 0
 	anchored = 1
-	icon = 'icons/obj/weapons.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "uglyminearmed"
 	var/triggered = 0
 	var/faction = "syndicate"
@@ -27,7 +27,7 @@
 	if(triggered)
 		return
 	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
 	mineEffect(victim)
@@ -60,7 +60,7 @@
 	victim.apply_effect(radiation_amount, IRRADIATE, 0)
 	if(ishuman(victim))
 		var/mob/living/carbon/human/V = victim
-		if(NO_DNA in V.species.species_traits)
+		if(NO_DNA in V.dna.species.species_traits)
 			return
 	randmutb(victim)
 	domutcheck(victim ,null)
@@ -130,7 +130,7 @@
 	spawn(0)
 		new /obj/effect/hallucination/delusion(victim.loc, victim, force_kind = "demon", duration = duration, skip_nearby = 0)
 
-	var/obj/item/weapon/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
+	var/obj/item/twohanded/required/chainsaw/doomslayer/chainsaw = new(victim.loc)
 	chainsaw.flags |= NODROP
 	victim.drop_l_hand()
 	victim.drop_r_hand()

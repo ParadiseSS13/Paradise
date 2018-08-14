@@ -17,7 +17,7 @@
 	user.status_flags |= FAKEDEATH		//play dead
 	user.update_canmove()
 
-	addtimer(src, "ready_to_regenerate", LING_FAKEDEATH_TIME, FALSE, user)
+	addtimer(CALLBACK(src, .proc/ready_to_regenerate, user), LING_FAKEDEATH_TIME)
 	feedback_add_details("changeling_powers","FD")
 	return 1
 

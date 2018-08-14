@@ -1,6 +1,6 @@
 /datum/wires/rig
 	random = 1
-	holder_type = /obj/item/weapon/rig
+	holder_type = /obj/item/rig
 	wire_count = 5
 
 #define RIG_SECURITY 1
@@ -17,7 +17,7 @@
 
 /datum/wires/rig/UpdateCut(var/index, var/mended)
 
-	var/obj/item/weapon/rig/rig = holder
+	var/obj/item/rig/rig = holder
 	switch(index)
 		if(RIG_SECURITY)
 			if(mended)
@@ -29,7 +29,7 @@
 
 /datum/wires/rig/UpdatePulsed(var/index)
 
-	var/obj/item/weapon/rig/rig = holder
+	var/obj/item/rig/rig = holder
 	switch(index)
 		if(RIG_SECURITY)
 			rig.security_check_enabled = !rig.security_check_enabled
@@ -50,8 +50,21 @@
 				rig.electrified = 30
 			rig.shock(usr,100)
 
+/datum/wires/rig/GetWireName(index)
+	switch(index)
+		if(RIG_SECURITY)
+			return "ID check"
+		if(RIG_AI_OVERRIDE)
+			return "AI control"
+		if(RIG_SYSTEM_CONTROL)
+			return "System control"
+		if(RIG_INTERFACE_LOCK)
+			return "Interface lock"
+		if(RIG_INTERFACE_SHOCK)
+			return "Electrification"
+
 /datum/wires/rig/CanUse(var/mob/living/L)
-	var/obj/item/weapon/rig/rig = holder
+	var/obj/item/rig/rig = holder
 	if(rig.open)
 		return 1
 	return 0

@@ -4,7 +4,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "shock_kit"
 	var/obj/item/clothing/head/helmet/part1 = null
-	var/obj/item/device/radio/electropack/part2 = null
+	var/obj/item/radio/electropack/part2 = null
 	var/status = 0
 	w_class = WEIGHT_CLASS_HUGE
 	flags = CONDUCT
@@ -14,8 +14,8 @@
 	QDEL_NULL(part2)
 	return ..()
 
-/obj/item/assembly/shock_kit/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/wrench) && !status)
+/obj/item/assembly/shock_kit/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/wrench) && !status)
 		var/turf/T = loc
 		if(ismob(T))
 			T = T.loc
@@ -27,7 +27,7 @@
 		part2 = null
 		qdel(src)
 		return
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 		status = !status
 		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
 	add_fingerprint(user)

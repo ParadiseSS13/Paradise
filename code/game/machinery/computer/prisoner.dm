@@ -4,14 +4,14 @@
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
 	req_access = list(access_armory)
-	circuit = /obj/item/weapon/circuitboard/prisoner
+	circuit = /obj/item/circuitboard/prisoner
 	var/id = 0.0
 	var/temp = null
 	var/status = 0
 	var/timeleft = 60
 	var/stop = 0.0
 	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
-	var/obj/item/weapon/card/id/prisoner/inserted_id
+	var/obj/item/card/id/prisoner/inserted_id
 
 	light_color = LIGHT_COLOR_DARKRED
 
@@ -46,7 +46,7 @@
 			dat += text("<A href='?src=[UID()];id=0'>Insert Prisoner ID</A><br>")
 		var/turf/Tr = null
 		dat += "<HR>Chemical Implants<BR>"
-		for(var/obj/item/weapon/implant/chem/C in tracked_implants)
+		for(var/obj/item/implant/chem/C in tracked_implants)
 			Tr = get_turf(C)
 			if((Tr) && (Tr.z != src.z))	continue//Out of range
 			if(!C.implanted) continue
@@ -59,7 +59,7 @@
 				********************************<BR>"}
 			// END AUTOFIX
 		dat += "<HR>Tracking Implants<BR>"
-		for(var/obj/item/weapon/implant/tracking/T in tracked_implants)
+		for(var/obj/item/implant/tracking/T in tracked_implants)
 			Tr = get_turf(T)
 			if((Tr) && (Tr.z != src.z))	continue//Out of range
 			if(!T.implanted) continue
@@ -96,7 +96,7 @@
 	if(href_list["id"])
 		switch(href_list["id"])
 			if("0")
-				var/obj/item/weapon/card/id/prisoner/I = usr.get_active_hand()
+				var/obj/item/card/id/prisoner/I = usr.get_active_hand()
 				if(istype(I))
 					usr.drop_item()
 					I.loc = src
@@ -113,15 +113,15 @@
 				if(num >= 0)
 					inserted_id.goal = num
 	if(href_list["inject1"])
-		var/obj/item/weapon/implant/I = locate(href_list["inject1"])
+		var/obj/item/implant/I = locate(href_list["inject1"])
 		if(I)	I.activate(1)
 
 	else if(href_list["inject5"])
-		var/obj/item/weapon/implant/I = locate(href_list["inject5"])
+		var/obj/item/implant/I = locate(href_list["inject5"])
 		if(I)	I.activate(5)
 
 	else if(href_list["inject10"])
-		var/obj/item/weapon/implant/I = locate(href_list["inject10"])
+		var/obj/item/implant/I = locate(href_list["inject10"])
 		if(I)	I.activate(10)
 
 	else if(href_list["lock"])
@@ -133,7 +133,7 @@
 	else if(href_list["warn"])
 		var/warning = sanitize(copytext(input(usr,"Message:","Enter your message here!",""),1,MAX_MESSAGE_LEN))
 		if(!warning) return
-		var/obj/item/weapon/implant/I = locate(href_list["warn"])
+		var/obj/item/implant/I = locate(href_list["warn"])
 		if((I)&&(I.imp_in))
 			var/mob/living/carbon/R = I.imp_in
 			to_chat(R, "<span class='boldnotice'>You hear a voice in your head saying: '[warning]'</span>")

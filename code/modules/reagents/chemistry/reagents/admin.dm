@@ -20,7 +20,7 @@
 		var/mob/living/carbon/human/H = M
 		for(var/thing in H.internal_organs)
 			var/obj/item/organ/internal/I = thing
-			I.take_damage(-5)
+			I.receive_damage(-5)
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(E.mend_fracture())
 				E.perma_injury = 0

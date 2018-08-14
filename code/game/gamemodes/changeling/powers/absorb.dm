@@ -15,7 +15,7 @@
 		to_chat(user, "<span class='warning'>We are already absorbing!</span>")
 		return
 
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 	if(!istype(G))
 		to_chat(user, "<span class='warning'>We must be grabbing a creature in our active hand to absorb them.</span>")
 		return
@@ -28,7 +28,7 @@
 
 /obj/effect/proc_holder/changeling/absorbDNA/sting_action(var/mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 	changeling.isabsorbing = 1
 	for(var/stage = 1, stage<=3, stage++)
@@ -73,8 +73,8 @@
 			recent_speech = target.say_log.Copy()
 
 		if(recent_speech.len)
-			user.mind.store_memory("<B>Some of [target]'s speech patterns, we should study these to better impersonate them!</B>")
-			to_chat(user, "<span class='boldnotice'>Some of [target]'s speech patterns, we should study these to better impersonate them!</span>")
+			user.mind.store_memory("<B>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
+			to_chat(user, "<span class='boldnotice'>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</span>")
 			for(var/spoken_memory in recent_speech)
 				user.mind.store_memory("\"[spoken_memory]\"")
 				to_chat(user, "<span class='notice'>\"[spoken_memory]\"</span>")

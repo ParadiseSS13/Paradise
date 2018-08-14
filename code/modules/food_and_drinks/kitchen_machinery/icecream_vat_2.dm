@@ -55,7 +55,7 @@ var/list/ingredients_source = list(
 	anchored = 0
 	var/list/ingredients = list()
 	var/dispense_flavour = 1
-	var/obj/item/weapon/reagent_containers/glass/held_container
+	var/obj/item/reagent_containers/glass/held_container
 
 /obj/machinery/icecream_vat/New()
 	..()
@@ -92,9 +92,9 @@ var/list/ingredients_source = list(
 	popup.open(0)
 
 /obj/machinery/icecream_vat/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/weapon/reagent_containers))
-		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/icecream))
-			var/obj/item/weapon/reagent_containers/food/snacks/icecream/I = O
+	if(istype(O, /obj/item/reagent_containers))
+		if(istype(O, /obj/item/reagent_containers/food/snacks/icecream))
+			var/obj/item/reagent_containers/food/snacks/icecream/I = O
 			if(!I.ice_creamed)
 				if(ingredients[ICECREAM_VANILLA] > 0)
 					var/flavour_name = get_icecream_flavour_string(dispense_flavour)
@@ -114,7 +114,7 @@ var/list/ingredients_source = list(
 					to_chat(user, "<span class='warning'>There is not enough icecream left! Insert more milk and ice.</span>")
 			else
 				to_chat(user, "<span class='notice'>[O] already has icecream in it.</span>")
-		else if(istype(O, /obj/item/weapon/reagent_containers/glass))
+		else if(istype(O, /obj/item/reagent_containers/glass))
 			if(held_container)
 				to_chat(user, "<span class='notice'>You must remove [held_container] from [src] first.</span>")
 			else
@@ -125,7 +125,7 @@ var/list/ingredients_source = list(
 				to_chat(user, "<span class='info'>You insert [O] into [src].</span>")
 				held_container = O
 		else
-			var/obj/item/weapon/reagent_containers/R = O
+			var/obj/item/reagent_containers/R = O
 			if(R.reagents)
 				visible_message("<span class='info'>[user] has emptied all of [R] into [src].</span>")
 				for(var/datum/reagent/current_reagent in R.reagents.reagent_list)
@@ -187,7 +187,7 @@ var/list/ingredients_source = list(
 			var/cone_name = get_icecream_flavour_string(dispense_cone)
 			if(ingredients[dispense_cone] >= 1)
 				ingredients[dispense_cone] -= 1
-				var/obj/item/weapon/reagent_containers/food/snacks/icecream/I = new(loc)
+				var/obj/item/reagent_containers/food/snacks/icecream/I = new(loc)
 				I.cone_type = cone_name
 				I.icon_state = "icecream_cone_[cone_name]"
 				I.desc = "Delicious [cone_name] cone, but no ice cream."
@@ -214,7 +214,7 @@ var/list/ingredients_source = list(
 		usr << browse(null,"window=icecreamvat")
 	return
 
-/obj/item/weapon/reagent_containers/food/snacks/icecream
+/obj/item/reagent_containers/food/snacks/icecream
 	name = "ice cream cone"
 	desc = "Delicious waffle cone, but no ice cream."
 	icon = 'icons/obj/kitchen.dmi'
@@ -224,11 +224,11 @@ var/list/ingredients_source = list(
 	var/cone_type
 	bitesize = 3
 
-/obj/item/weapon/reagent_containers/food/snacks/icecream/New()
+/obj/item/reagent_containers/food/snacks/icecream/New()
 	create_reagents(20)
 	reagents.add_reagent("nutriment", 5)
 
-/obj/item/weapon/reagent_containers/food/snacks/icecream/proc/add_ice_cream(var/flavour)
+/obj/item/reagent_containers/food/snacks/icecream/proc/add_ice_cream(var/flavour)
 	var/flavour_name = get_icecream_flavour_string(flavour)
 	name = "[flavour_name] icecream"
 	overlays += "icecream_[flavour_name]"

@@ -107,7 +107,7 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
-		log_game("[shadow.key] (ckey) has been selected as a Shadowling.")
+		log_game("[key_name(shadow)] has been selected as a Shadowling.")
 		sleep(10)
 		to_chat(shadow.current, "<br>")
 		to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
@@ -188,7 +188,7 @@ Made by Xhuis
 		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>", \
 							"<span class='userdanger'>You have been turned into a robot! You are no longer a thrall! Though you try, you cannot remember anything about your servitude...</span>")
 	else
-		M.visible_message("<span class='big'>[M] looks like their mind is their own again!</span>", \
+		M.visible_message("<span class='big'>[M] looks like [M.p_their()] mind is [M.p_their()] own again!</span>", \
 						"<span class='userdanger'>A piercing white light floods your eyes. Your mind is your own again! Though you try, you cannot remember anything about the shadowlings or your time \
 							under their command...</span>")
 	return 1
@@ -201,11 +201,23 @@ Made by Xhuis
 /datum/game_mode/shadowling/check_finished()
 	var/shadows_alive = 0 //and then shadowling was kill
 	for(var/datum/mind/shadow in shadows) //but what if shadowling was not kill?
-		if(!istype(shadow.current,/mob/living/carbon/human) && !istype(shadow.current,/mob/living/simple_animal/ascendant_shadowling))
+		if(!ishuman(shadow.current) && !istype(shadow.current,/mob/living/simple_animal/ascendant_shadowling))
 			continue
 		if(shadow.current.stat == DEAD)
 			continue
 		shadows_alive++
+		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && config.shadowling_max_age)
+			if(ishuman(shadow.current))
+				var/mob/living/carbon/human/H = shadow.current
+				if(!isshadowling(H))
+					for(var/obj/effect/proc_holder/spell/targeted/shadowling_hatch/hatch_ability in shadow.spell_list)
+						hatch_ability.cycles_unused++
+						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > config.shadowling_max_age)
+							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
+							H.take_overall_damage(0, 3)
+							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
+							H << 'sound/weapons/sear.ogg'
+
 	if(shadows_alive)
 		return ..()
 	else
@@ -228,7 +240,7 @@ Made by Xhuis
 		M.visible_message("<span class='big'>[M] screams and contorts!</span>", \
 						  "<span class='userdanger'>THE LIGHT-- YOUR MIND-- <i>BURNS--</i></span>")
 		spawn(30)
-			if(!M || qdeleted(M))
+			if(!M || QDELETED(M))
 				return
 			M.visible_message("<span class='warning'>[M] suddenly bloats and explodes!</span>", \
 							  "<span class='warning'><b>AAAAAAAAA<font size=3>AAAAAAAAAAAAA</font><font size=4>AAAAAAAAAAAA----</font></span>")
@@ -293,87 +305,6 @@ Made by Xhuis
 /*
 	MISCELLANEOUS
 */
-
-
-/datum/species/shadow/ling
-	//Normal shadowpeople but with enhanced effects
-	name = "Shadowling"
-
-	icobase = 'icons/mob/human_races/r_shadowling.dmi'
-	deform = 'icons/mob/human_races/r_shadowling.dmi'
-
-	blood_color = "#555555"
-	flesh_color = "#222222"
-
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS) //Can't use guns due to muzzle flash
-	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
-	oxy_mod = 0
-	hot_env_multiplier = 1.5
-
-	silent_steps = 1
-	grant_vision_toggle = 0
-
-/datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
-	if(!H.weakeyes)
-		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
-	var/light_amount = 0
-	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
-	if(isturf(H.loc))
-		var/turf/T = H.loc
-		light_amount = T.get_lumcount() * 10
-		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
-			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
-			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
-			if(H.stat != DEAD)
-				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"
-				H << 'sound/weapons/sear.ogg'
-		else if(light_amount < LIGHT_HEAL_THRESHOLD)
-			H.clear_alert("lightexposure")
-			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-			if(istype(E))
-				E.take_damage(-1)
-			H.heal_overall_damage(5, 5)
-			H.adjustToxLoss(-5)
-			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
-			H.AdjustEyeBlurry(-1)
-			H.CureNearsighted()
-			H.CureBlind()
-			H.adjustCloneLoss(-1)
-			H.SetWeakened(0)
-			H.SetStunned(0)
-
-
-/datum/species/shadow/ling/lesser //Empowered thralls. Obvious, but powerful
-	name = "Lesser Shadowling"
-
-	icobase = 'icons/mob/human_races/r_lshadowling.dmi'
-	deform = 'icons/mob/human_races/r_lshadowling.dmi'
-
-	blood_color = "#CCCCCC"
-	flesh_color = "#AAAAAA"
-
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE)
-	burn_mod = 1.1
-	oxy_mod = 0
-	hot_env_multiplier = 1.1
-
-/datum/species/shadow/ling/lesser/handle_life(var/mob/living/carbon/human/H)
-	if(!H.weakeyes)
-		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
-	var/light_amount = 0
-	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
-	if(isturf(H.loc))
-		var/turf/T = H.loc
-		light_amount = T.get_lumcount() * 10
-		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move)
-			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
-			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN/2)
-		else if(light_amount < LIGHT_HEAL_THRESHOLD)
-			H.clear_alert("lightexposure")
-			H.heal_overall_damage(2,2)
-			H.adjustToxLoss(-5)
-			H.adjustBrainLoss(-25)
-			H.adjustCloneLoss(-1)
 
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
 	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]

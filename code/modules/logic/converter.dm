@@ -20,7 +20,7 @@
 	mono_input = 1
 
 	var/logic_output = 0					//When set to 1, the logic signal is the output. When set to 0, the logic signal is the input.
-	var/obj/item/device/assembly/signaler/attached_signaler = null
+	var/obj/item/assembly/signaler/attached_signaler = null
 
 /obj/machinery/logic_gate/convert/handle_logic()
 	output_state = input1_state
@@ -29,8 +29,8 @@
 /obj/machinery/logic_gate/convert/attackby(obj/item/O, mob/user, params)
 	if(tamperproof)		//Extra precaution to avoid people attaching/removing signalers from tamperproofed converters
 		return
-	if(istype(O, /obj/item/device/assembly/signaler))
-		var/obj/item/device/assembly/signaler/S = O
+	if(istype(O, /obj/item/assembly/signaler))
+		var/obj/item/assembly/signaler/S = O
 		if(S.secured)
 			to_chat(user, "<span class='warning'>The [S] is already secured.</span>")
 			return
@@ -48,8 +48,8 @@
 		attached_signaler = S
 		to_chat(user, "<span class='notice'>You attach \the [S] to the I/O connection port and secure it.</span>")
 		return
-	if(attached_signaler && istype(O, /obj/item/weapon/screwdriver))		//Makes sure we remove the attached signaler before we can open up and deconstruct the machine
-		var/obj/item/device/assembly/signaler/S = attached_signaler
+	if(attached_signaler && istype(O, /obj/item/screwdriver))		//Makes sure we remove the attached signaler before we can open up and deconstruct the machine
+		var/obj/item/assembly/signaler/S = attached_signaler
 		attached_signaler = null
 		S.forceMove(get_turf(src))
 		S.holder = null
@@ -58,7 +58,7 @@
 		return
 	..()
 
-/obj/machinery/logic_gate/convert/multitool_menu(var/mob/user, var/obj/item/device/multitool/P)
+/obj/machinery/logic_gate/convert/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	var/logic_state_string
 	var/menu_contents = {"
 	<dl>
@@ -132,7 +132,7 @@
 			attached_signaler.signal()
 		return
 
-/obj/machinery/logic_gate/convert/proc/process_activation(var/obj/item/device/D)
+/obj/machinery/logic_gate/convert/proc/process_activation(var/obj/item/D)
 	if(!logic_output)	//Don't bother if our input is a logic signal
 		return
 	if(D == attached_signaler)		//Ignore if we somehow got called by a device that isn't what we have attached

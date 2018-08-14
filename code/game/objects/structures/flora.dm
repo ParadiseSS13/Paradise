@@ -203,7 +203,7 @@
 	icon_state = "fullgrass_[rand(1, 3)]"
 
 
-/obj/item/weapon/twohanded/required/kirbyplants
+/obj/item/twohanded/required/kirbyplants
 	name = "potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-1"
@@ -215,22 +215,22 @@
 	throw_speed = 2
 	throw_range = 4
 
-/obj/item/weapon/twohanded/required/kirbyplants/New()
+/obj/item/twohanded/required/kirbyplants/New()
 	..()
 	icon_state = "plant-[rand(1,35)]"
 	if(prob(1))
 		icon_state = "plant-36"
 
-/obj/item/weapon/twohanded/required/kirbyplants/equipped(mob/living/user)
+/obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
 	I.override = 1
 	user.add_alt_appearance("sneaking_mission", I, player_list)
 
-/obj/item/weapon/twohanded/required/kirbyplants/dropped(mob/living/user)
+/obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()
 	user.remove_alt_appearance("sneaking_mission")
 
-/obj/item/weapon/twohanded/required/kirbyplants/dead
+/obj/item/twohanded/required/kirbyplants/dead
 	name = "\improper RD's potted plant"
 	desc = "A gift from the botanical staff, presented after the RD's reassignment. There's a tag on it that says \"Y'all come back now, y'hear?\"\nIt doesn't look very healthy..."
 	icon_state = "plant-dead"
@@ -311,7 +311,7 @@
 
 /obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob, params)
 	//hatchets can clear away undergrowth
-	if(istype(I, /obj/item/weapon/hatchet) && !stump)
+	if(istype(I, /obj/item/hatchet) && !stump)
 		if(indestructable)
 			//this bush marks the edge of the map, you can't destroy it
 			to_chat(user, "<span class='warning'>You flail away at the undergrowth, but it's too thick here.</span>")

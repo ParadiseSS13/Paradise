@@ -23,7 +23,7 @@
 
 /obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
 	if(iswelder(W))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 
 		if(is_hot(W) && !mineralType)
 			to_chat(user, "<span class='warning'>You can not reform this!</span>")

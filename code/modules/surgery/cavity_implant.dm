@@ -23,7 +23,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
 	if(!affected)
 		return 0
-	if(affected.status & ORGAN_ROBOT)
+	if(affected.is_robotic())
 		return 0
 	return 1
 
@@ -33,7 +33,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
 	if(!affected)
 		return 0
-	return (affected.status & ORGAN_ROBOT)
+	return affected.is_robotic()
 
 /datum/surgery_step/cavity
 	priority = 1
@@ -62,13 +62,13 @@
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>")
-	affected.take_damage(20)
+	affected.receive_damage(20)
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
 	allowed_tools = list(
-	/obj/item/weapon/surgicaldrill = 100,	\
-	/obj/item/weapon/pen = 90,	\
+	/obj/item/surgicaldrill = 100,	\
+	/obj/item/pen = 90,	\
 	/obj/item/stack/rods = 60
 	)
 
@@ -78,7 +78,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].", \
 	"You start making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]." )
-	target.custom_pain("The pain in your chest is living hell!",1)
+	target.custom_pain("The pain in your chest is living hell!")
 	..()
 
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -91,11 +91,11 @@
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
 	allowed_tools = list(
-	/obj/item/weapon/scalpel/laser = 100, \
-	/obj/item/weapon/cautery = 100,			\
+	/obj/item/scalpel/laser = 100, \
+	/obj/item/cautery = 100,			\
 	/obj/item/clothing/mask/cigarette = 90,	\
-	/obj/item/weapon/lighter = 60,			\
-	/obj/item/weapon/weldingtool = 30
+	/obj/item/lighter = 60,			\
+	/obj/item/weldingtool = 30
 	)
 
 	time = 24
@@ -104,7 +104,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts mending [target]'s [get_cavity(affected)] cavity wall with \the [tool].", \
 	"You start mending [target]'s [get_cavity(affected)] cavity wall with \the [tool]." )
-	target.custom_pain("The pain in your chest is living hell!",1)
+	target.custom_pain("The pain in your chest is living hell!")
 	..()
 
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -145,7 +145,7 @@
 		if(!istype(I, /obj/item/organ))
 			IC = I
 			break
-	if(istype(tool,/obj/item/weapon/cautery))
+	if(istype(tool,/obj/item/cautery))
 		to_chat(user, "<span class='notice'>You prepare to close the cavity wall.</span>")
 	else if(tool)
 		user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
@@ -155,17 +155,17 @@
 	else //no internal items..but we still need a message!
 		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
 
-	target.custom_pain("The pain in your [target_zone] is living hell!",1)
+	target.custom_pain("The pain in your [target_zone] is living hell!")
 	..()
 
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 
-	if(istype(tool, /obj/item/weapon/disk/nuclear))
+	if(istype(tool, /obj/item/disk/nuclear))
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>")
 		return 0//fail
 
-	var/obj/item/weapon/disk/nuclear/datdisk = locate() in tool
+	var/obj/item/disk/nuclear/datdisk = locate() in tool
 	if(datdisk)
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box.</span>")
 		return 0//fail
@@ -178,7 +178,7 @@
 		to_chat(user, "<span class='warning'>[tool] is stuck to your hand, you can't put it in [target]!</span>")
 		return 0
 
-	if(istype(tool,/obj/item/weapon/cautery))
+	if(istype(tool,/obj/item/cautery))
 		return 1//god this is ugly....
 	else if(tool)
 		if(IC)
@@ -187,10 +187,10 @@
 		else
 			user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
 			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
-			if((tool.w_class > get_max_wclass(affected)/2 && prob(50) && !(affected.status & ORGAN_ROBOT)))
+			if((tool.w_class > get_max_wclass(affected) / 2 && prob(50) && !affected.is_robotic()))
 				to_chat(user, "<span class='warning'> You tear some vessels trying to fit the object in the cavity.</span>")
 				affected.internal_bleeding = TRUE
-				affected.owner.custom_pain("You feel something rip in your [affected.name]!", 1)
+				affected.owner.custom_pain("You feel something rip in your [affected.name]!")
 			user.drop_item()
 			affected.hidden = tool
 			tool.forceMove(affected)

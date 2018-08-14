@@ -172,7 +172,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 
 	for(var/turf/T in get_area_turfs(end_location) )
 		var/mob/M = locate(/mob) in T
-		to_chat(M, "<span class='warning'>You have arrived to [station_name]. Commence operation!</span>")
+		to_chat(M, "<span class='warning'>You have arrived to [station_name()]. Commence operation!</span>")
 
 /proc/syndicate_elite_can_move()
 	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return 0
@@ -186,7 +186,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 	return 1
 
 /obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob, params)
-	if(istype(I,/obj/item/weapon/card/emag))
+	if(istype(I,/obj/item/card/emag))
 		to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
 	else
 		return attack_hand(user)
@@ -209,8 +209,8 @@ var/syndicate_elite_shuttle_timeleft = 0
 		dat = temp
 	else
 		dat  = {"<BR><B>Special Operations Shuttle</B><HR>
-		\nLocation: [syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership ? "Departing for [station_name] in ([syndicate_elite_shuttle_timeleft] seconds.)":syndicate_elite_shuttle_at_station ? "Station":"Dock"]<BR>
-		[syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership ? "\n*The Syndicate Elite shuttle is already leaving.*<BR>\n<BR>":syndicate_elite_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle Offline</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name]</A><BR>\n<BR>"]
+		\nLocation: [syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership ? "Departing for [station_name()] in ([syndicate_elite_shuttle_timeleft] seconds.)":syndicate_elite_shuttle_at_station ? "Station":"Dock"]<BR>
+		[syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership ? "\n*The Syndicate Elite shuttle is already leaving.*<BR>\n<BR>":syndicate_elite_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle Offline</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name()]</A><BR>\n<BR>"]
 		\n<A href='?src=[user.UID()];mach_close=computer'>Close</A>"}
 
 	user << browse(dat, "window=computer;size=575x450")
@@ -237,7 +237,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 			to_chat(usr, "<span class='warning'>The Syndicate Elite shuttle is unable to leave.</span>")
 			return
 
-		to_chat(usr, "<span class='notice'>The Syndicate Elite shuttle will arrive on [station_name] in [(SYNDICATE_ELITE_MOVETIME/10)] seconds.</span>")
+		to_chat(usr, "<span class='notice'>The Syndicate Elite shuttle will arrive on [station_name()] in [(SYNDICATE_ELITE_MOVETIME/10)] seconds.</span>")
 
 		temp  = "Shuttle departing.<BR><BR><A href='?src=[UID()];mainmenu=1'>OK</A>"
 		updateUsrDialog()

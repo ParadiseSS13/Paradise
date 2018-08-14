@@ -1,5 +1,3 @@
-#define HYDRO_CYCLES_PER_AGE	2	//Adjust this to adjust how many hydroponics cycles it takes to increase age. Positive integers only.
-
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -22,7 +20,6 @@
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
 	var/cycledelay = 200	//About 10 seconds / cycle
-	var/current_cycle = 0	//Used for tracking when to age
 	var/harvest = 0			//Ready to harvest?
 	var/obj/item/seeds/myseed = null	//The currently planted seed
 	var/rating = 1
@@ -56,18 +53,18 @@
 /obj/machinery/hydroponics/constructable/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/hydroponics(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/hydroponics(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
 	var/tmp_capacity = 0
-	for (var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
 		tmp_capacity += M.rating
-	for (var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for (var/obj/item/stock_parts/manipulator/M in component_parts)
 		rating = M.rating
 	maxwater = tmp_capacity * 50 // Up to 300
 	maxnutri = tmp_capacity * 5 // Up to 30
@@ -155,10 +152,7 @@
 		lastcycle = world.time
 		if(myseed && !dead)
 			// Advance age
-			current_cycle++
-			if(current_cycle == HYDRO_CYCLES_PER_AGE)
-				age++
-				current_cycle = 0
+			age++
 			if(age < myseed.maturation)
 				lastproduce = age
 
@@ -710,7 +704,7 @@
 		adjustPests(rand(2,4))
 
 	// FEED ME SEYMOUR
-	if(S.has_reagent("strangereagent", 1))
+	if(S.has_reagent("strange_reagent", 1))
 		spawnplant()
 
 	// The best stuff there is. For testing/debugging.
@@ -733,11 +727,11 @@
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
-	if(istype(O, /obj/item/weapon/reagent_containers))  // Syringe stuff (and other reagent containers now too)
-		var/obj/item/weapon/reagent_containers/reagent_source = O
+	if(istype(O, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
+		var/obj/item/reagent_containers/reagent_source = O
 
-		if(istype(reagent_source, /obj/item/weapon/reagent_containers/syringe))
-			var/obj/item/weapon/reagent_containers/syringe/syr = reagent_source
+		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
+			var/obj/item/reagent_containers/syringe/syr = reagent_source
 			if(syr.mode != 1)
 				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")		//That. Gives me an idea...
 				return
@@ -750,27 +744,30 @@
 		var/target = myseed ? myseed.plantname : src
 		var/visi_msg = ""
 		var/irrigate = 0	//How am I supposed to irrigate pill contents?
+		var/transfer_amount
 
-		if(istype(reagent_source, /obj/item/weapon/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/weapon/reagent_containers/food/pill))
+		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/food/pill))
 			visi_msg="[user] composts [reagent_source], spreading it through [target]"
+			transfer_amount = reagent_source.reagents.total_volume
 		else
-			if(istype(reagent_source, /obj/item/weapon/reagent_containers/syringe/))
-				var/obj/item/weapon/reagent_containers/syringe/syr = reagent_source
+			transfer_amount = reagent_source.amount_per_transfer_from_this
+			if(istype(reagent_source, /obj/item/reagent_containers/syringe/))
+				var/obj/item/reagent_containers/syringe/syr = reagent_source
 				visi_msg="[user] injects [target] with [syr]"
 				if(syr.reagents.total_volume <= syr.amount_per_transfer_from_this)
 					syr.mode = 0
-			else if(istype(reagent_source, /obj/item/weapon/reagent_containers/spray/))
+			else if(istype(reagent_source, /obj/item/reagent_containers/spray/))
 				visi_msg="[user] sprays [target] with [reagent_source]"
 				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 				irrigate = 1
-			else if(reagent_source.amount_per_transfer_from_this) // Droppers, cans, beakers, what have you.
+			else if(transfer_amount) // Droppers, cans, beakers, what have you.
 				visi_msg="[user] uses [reagent_source] on [target]"
 				irrigate = 1
 			// Beakers, bottles, buckets, etc.  Can't use is_open_container though.
-			if(istype(reagent_source, /obj/item/weapon/reagent_containers/glass/))
+			if(istype(reagent_source, /obj/item/reagent_containers/glass/))
 				playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 
-		if(irrigate && reagent_source.amount_per_transfer_from_this > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
+		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
 			trays = FindConnected()
 			if (trays.len > 1)
 				visi_msg += ", setting off the irrigation system"
@@ -778,7 +775,7 @@
 		if(visi_msg)
 			visible_message("<span class='notice'>[visi_msg].</span>")
 
-		var/split = round(reagent_source.amount_per_transfer_from_this/trays.len)
+		var/split = round(transfer_amount/trays.len)
 
 		for(var/obj/machinery/hydroponics/H in trays)
 		//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
@@ -787,7 +784,7 @@
 			S.my_atom = H
 
 			reagent_source.reagents.trans_to(S,split)
-			if(istype(reagent_source, /obj/item/weapon/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/weapon/reagent_containers/food/pill))
+			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/food/pill))
 				qdel(reagent_source)
 
 			H.applyChemicals(S, user)
@@ -802,7 +799,7 @@
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
-				investigate_log("had Kudzu planted in it by [user.ckey]([user]) at ([x],[y],[z])","kudzu")
+				investigate_log("had Kudzu planted in it by [key_name(user)] at ([x],[y],[z])","kudzu")
 			user.unEquip(O)
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
@@ -817,7 +814,7 @@
 		else
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
-	else if(istype(O, /obj/item/device/plant_analyzer))
+	else if(istype(O, /obj/item/plant_analyzer))
 		if(myseed)
 			to_chat(user, "*** <B>[myseed.plantname]</B> ***") //Carn: now reports the plants growing, not the seeds.
 			to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
@@ -833,7 +830,7 @@
 		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
 		to_chat(user, "")
 
-	else if(istype(O, /obj/item/weapon/cultivator))
+	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
 			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
 			adjustWeeds(-10)
@@ -841,10 +838,10 @@
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
-	else if(istype(O, /obj/item/weapon/storage/bag/plants))
+	else if(istype(O, /obj/item/storage/bag/plants))
 		attack_hand(user)
-		var/obj/item/weapon/storage/bag/plants/S = O
-		for(var/obj/item/weapon/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
+		var/obj/item/storage/bag/plants/S = O
+		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
 			if(!S.can_be_inserted(G))
 				return
 			S.handle_item_insertion(G, 1)
@@ -882,7 +879,7 @@
 		for(var/obj/machinery/hydroponics/h in range(1,src))
 			h.update_icon()
 
-	else if(istype(O, /obj/item/weapon/shovel/spade))
+	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
 			return
@@ -1021,10 +1018,8 @@
 	return // Has no lights
 
 /obj/machinery/hydroponics/soil/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/weapon/shovel) && !istype(O, /obj/item/weapon/shovel/spade)) //Doesn't include spades because of uprooting plants
+	if(istype(O, /obj/item/shovel) && !istype(O, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
 		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
 		qdel(src)
 	else
 		..()
-
-#undef HYDRO_CYCLES_PER_AGE

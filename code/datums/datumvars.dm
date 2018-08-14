@@ -1,8 +1,5 @@
 // reference: /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
 
-/datum
-	var/var_edited = FALSE //Warranty void if seal is broken
-
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
@@ -784,6 +781,30 @@
 				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 
+	else if(href_list["makespeedy"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+		var/obj/A = locateUID(href_list["makespeedy"])
+		if(!istype(A))
+			return
+		A.var_edited = TRUE
+		A.makeSpeedProcess()
+		log_admin("[key_name(usr)] has made [A] speed process")
+		message_admins("<span class='notice'>[key_name(usr)] has made [A] speed process</span>")
+		return TRUE
+
+	else if(href_list["makenormalspeed"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+		var/obj/A = locateUID(href_list["makenormalspeed"])
+		if(!istype(A))
+			return
+		A.var_edited = TRUE
+		A.makeNormalProcess()
+		log_admin("[key_name(usr)] has made [A] process normally")
+		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
+		return TRUE
+
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
@@ -795,24 +816,28 @@
 				A.create_reagents(amount)
 
 		if(A.reagents)
-			var/list/reagent_options = list()
-			for(var/r_id in chemical_reagents_list)
-				var/datum/reagent/R = chemical_reagents_list[r_id]
-				reagent_options[R.name] = r_id
-
-			if(reagent_options.len)
-				reagent_options = sortAssoc(reagent_options)
-				reagent_options.Insert(1, "CANCEL")
-
-				var/chosen = input(usr, "Choose a reagent to add.", "Choose a reagent.") in reagent_options
-				var/chosen_id = reagent_options[chosen]
-
-				if(chosen_id)
-					var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
-					if(amount)
-						A.reagents.add_reagent(chosen_id, amount)
-						log_admin("[key_name(usr)] has added [amount] units of [chosen] to \the [A]")
-						message_admins("[key_name_admin(usr)] has added [amount] units of [chosen] to \the [A]")
+			var/chosen_id
+			var/list/reagent_options = sortAssoc(chemical_reagents_list)
+			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter ID", "Choose ID"))
+				if("Enter ID")
+					var/valid_id
+					while(!valid_id)
+						chosen_id = stripped_input(usr, "Enter the ID of the reagent you want to add.")
+						if(!chosen_id) //Get me out of here!
+							break
+						for(var/ID in reagent_options)
+							if(ID == chosen_id)
+								valid_id = 1
+						if(!valid_id)
+							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
+				if("Choose ID")
+					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in reagent_options
+			if(chosen_id)
+				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", A.reagents.maximum_volume) as num
+				if(amount)
+					A.reagents.add_reagent(chosen_id, amount)
+					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]")
+					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
 
 	else if(href_list["explode"])
 		if(!check_rights(R_DEBUG|R_EVENT))	return
@@ -985,14 +1010,15 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
 
-		var/new_species = input("Please choose a new species.","Species",null) as null|anything in all_species
+		var/new_species = input("Please choose a new species.","Species",null) as null|anything in GLOB.all_species
 
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.set_species(new_species))
-			to_chat(usr, "Set species of [H] to [H.species].")
+		var/datum/species/S = GLOB.all_species[new_species]
+		if(H.set_species(S.type))
+			to_chat(usr, "Set species of [H] to [H.dna.species].")
 			H.regenerate_icons()
 			message_admins("[key_name_admin(usr)] has changed the species of [key_name_admin(H)] to [new_species]")
 			log_admin("[key_name(usr)] has changed the species of [key_name(H)] to [new_species]")
@@ -1259,7 +1285,7 @@
 		if(prompt != "Yes")
 			return
 		L.Cut(index, index+1)
-		log_to_dd("### ListVarEdit by [src]: /list's contents: REMOVED=[html_encode("[variable]")]")
+		log_world("### ListVarEdit by [src]: /list's contents: REMOVED=[html_encode("[variable]")]")
 		log_admin("[key_name(src)] modified list's contents: REMOVED=[variable]")
 		message_admins("[key_name_admin(src)] modified list's contents: REMOVED=[variable]")
 		return TRUE
@@ -1280,7 +1306,7 @@
 			return TRUE
 
 		uniqueList_inplace(L)
-		log_to_dd("### ListVarEdit by [src]: /list contents: CLEAR DUPES")
+		log_world("### ListVarEdit by [src]: /list contents: CLEAR DUPES")
 		log_admin("[key_name(src)] modified list's contents: CLEAR DUPES")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR DUPES")
 		return TRUE
@@ -1292,7 +1318,7 @@
 			return TRUE
 
 		listclearnulls(L)
-		log_to_dd("### ListVarEdit by [src]: /list contents: CLEAR NULLS")
+		log_world("### ListVarEdit by [src]: /list contents: CLEAR NULLS")
 		log_admin("[key_name(src)] modified list's contents: CLEAR NULLS")
 		message_admins("[key_name_admin(src)] modified list's contents: CLEAR NULLS")
 		return TRUE
@@ -1307,7 +1333,7 @@
 			return TRUE
 
 		L.len = value["value"]
-		log_to_dd("### ListVarEdit by [src]: /list len: [L.len]")
+		log_world("### ListVarEdit by [src]: /list len: [L.len]")
 		log_admin("[key_name(src)] modified list's len: [L.len]")
 		message_admins("[key_name_admin(src)] modified list's len: [L.len]")
 		return TRUE
@@ -1319,7 +1345,7 @@
 			return TRUE
 
 		shuffle_inplace(L)
-		log_to_dd("### ListVarEdit by [src]: /list contents: SHUFFLE")
+		log_world("### ListVarEdit by [src]: /list contents: SHUFFLE")
 		log_admin("[key_name(src)] modified list's contents: SHUFFLE")
 		message_admins("[key_name_admin(src)] modified list's contents: SHUFFLE")
 		return TRUE

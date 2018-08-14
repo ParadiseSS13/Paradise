@@ -22,20 +22,21 @@
 /*
  * Twohanded
  */
-/obj/item/weapon/twohanded
-	var/wielded = 0
+/obj/item/twohanded
+	var/wielded = FALSE
 	var/force_unwielded = 0
 	var/force_wielded = 0
 	var/wieldsound = null
 	var/unwieldsound = null
 
-/obj/item/weapon/twohanded/proc/unwield(mob/living/carbon/user)
-	if(!wielded || !user) return
-	wielded = 0
+/obj/item/twohanded/proc/unwield(mob/living/carbon/user)
+	if(!wielded || !user)
+		return
+	wielded = FALSE
 	force = force_unwielded
 	var/sf = findtext(name," (Wielded)")
 	if(sf)
-		name = copytext(name,1,sf)
+		name = copytext(name, 1, sf)
 	else //something wrong
 		name = "[initial(name)]"
 	update_icon()
@@ -45,25 +46,25 @@
 	if(isrobot(user))
 		to_chat(user, "<span class='notice'>You free up your module.</span>")
 	else
-		to_chat(user, "<span class='notice'>You are now carrying the [name] with one hand.</span>")
+		to_chat(user, "<span class='notice'>You are now carrying [name] with one hand.</span>")
 	if(unwieldsound)
 		playsound(loc, unwieldsound, 50, 1)
-	var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
+	var/obj/item/twohanded/offhand/O = user.get_inactive_hand()
 	if(O && istype(O))
 		O.unwield()
-	return
 
-/obj/item/weapon/twohanded/proc/wield(mob/living/carbon/user)
-	if(wielded) return
+/obj/item/twohanded/proc/wield(mob/living/carbon/user)
+	if(wielded)
+		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.species.is_small)
+		if(H.dna.species.is_small)
 			to_chat(user, "<span class='warning'>It's too heavy for you to wield fully.</span>")
 			return
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='warning'>You need your other hand to be empty!</span>")
 		return
-	wielded = 1
+	wielded = TRUE
 	force = force_wielded
 	name = "[name] (Wielded)"
 	update_icon()
@@ -76,25 +77,24 @@
 		to_chat(user, "<span class='notice'>You grab the [name] with both hands.</span>")
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
-	var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
+	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 	O.name = "[name] - offhand"
 	O.desc = "Your second grip on the [name]"
 	user.put_in_inactive_hand(O)
-	return
 
-/obj/item/weapon/twohanded/dropped(mob/user)
+/obj/item/twohanded/dropped(mob/user)
 	..()
 	//handles unwielding a twohanded weapon when dropped as well as clearing up the offhand
 	if(user)
-		var/obj/item/weapon/twohanded/O = user.get_inactive_hand()
+		var/obj/item/twohanded/O = user.get_inactive_hand()
 		if(istype(O))
 			O.unwield(user)
 	return unwield(user)
 
-/obj/item/weapon/twohanded/update_icon()
+/obj/item/twohanded/update_icon()
 	return
 
-/obj/item/weapon/twohanded/attack_self(mob/user)
+/obj/item/twohanded/attack_self(mob/user)
 	..()
 	if(wielded) //Trying to unwield it
 		unwield(user)
@@ -102,42 +102,44 @@
 		wield(user)
 
 
-/obj/item/weapon/twohanded/equip_to_best_slot(mob/M)
+/obj/item/twohanded/equip_to_best_slot(mob/M)
 	if(..())
 		unwield(M)
 		return
 
 ///////////OFFHAND///////////////
-/obj/item/weapon/twohanded/offhand
+/obj/item/twohanded/offhand
 	w_class = WEIGHT_CLASS_HUGE
 	icon_state = "offhand"
 	name = "offhand"
 	flags = ABSTRACT
 
-/obj/item/weapon/twohanded/offhand/unwield()
-	qdel(src)
+/obj/item/twohanded/offhand/unwield()
+	if(!QDELETED(src))
+		qdel(src)
 
-/obj/item/weapon/twohanded/offhand/wield()
-	qdel(src)
+/obj/item/twohanded/offhand/wield()
+	if(!QDELETED(src))
+		qdel(src)
 
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
-/obj/item/weapon/twohanded/required/
+/obj/item/twohanded/required
 	w_class = WEIGHT_CLASS_HUGE
 
-/obj/item/weapon/twohanded/required/attack_self()
+/obj/item/twohanded/required/attack_self()
 	return
 
-/obj/item/weapon/twohanded/required/mob_can_equip(M as mob, slot)
+/obj/item/twohanded/required/mob_can_equip(mob/M, slot)
 	if(wielded && !slot_flags)
 		to_chat(M, "<span class='warning'>[src] is too cumbersome to carry with anything but your hands!</span>")
-		return 0
+		return FALSE
 	return ..()
 
-/obj/item/weapon/twohanded/required/attack_hand(mob/user)//Can't even pick it up without both hands empty
-	var/obj/item/weapon/twohanded/required/H = user.get_inactive_hand()
-	if(get_dist(src,user) > 1)
-		return 0
+/obj/item/twohanded/required/attack_hand(mob/user)//Can't even pick it up without both hands empty
+	var/obj/item/twohanded/required/H = user.get_inactive_hand()
+	if(get_dist(src, user) > 1)
+		return FALSE
 	if(H != null)
 		to_chat(user, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
 		return
@@ -145,7 +147,7 @@
 		wield(user)
 	..()
 
-/obj/item/weapon/twohanded/required/equipped(mob/user, slot)
+/obj/item/twohanded/required/equipped(mob/user, slot)
 	..()
 	if(slot == slot_l_hand || slot == slot_r_hand)
 		wield(user)
@@ -155,13 +157,13 @@
 /*
  * Fireaxe
  */
-/obj/item/weapon/twohanded/fireaxe  // DEM AXES MAN, marker -Agouri
+/obj/item/twohanded/fireaxe  // DEM AXES MAN, marker -Agouri
 	icon_state = "fireaxe0"
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
 	force = 5
 	throwforce = 15
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	force_unwielded = 5
@@ -170,32 +172,31 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/Crowbar.ogg'
 
-/obj/item/weapon/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
-	return
 
-/obj/item/weapon/twohanded/fireaxe/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
-	if(!proximity) return
-	..()
-	if(A && wielded && (istype(A,/obj/structure/window) || istype(A,/obj/structure/grille))) //destroys windows and grilles in one hit
-
-		if(istype(A,/obj/structure/window))
+/obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
+	if(wielded) //destroys windows and grilles in one hit
+		if(istype(A, /obj/structure/window))
 			var/obj/structure/window/W = A
-			W.destroy()
-		else
-			qdel(A)
+			W.take_damage(200, BRUTE, "melee", 0)
+		else if(istype(A, /obj/structure/grille))
+			var/obj/structure/grille/G = A
+			G.take_damage(40, BRUTE, "melee", 0)
 
 /*
  * Double-Bladed Energy Swords - Cheridan
  */
-/obj/item/weapon/twohanded/dualsaber
-	var/hacked = 0
+/obj/item/twohanded/dualsaber
+	var/hacked = FALSE
 	var/blade_color
 	icon_state = "dualsaber0"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
 	force = 3
-	throwforce = 5.0
+	throwforce = 5
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
@@ -207,78 +208,94 @@
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
-	sharp = 1
+	sharp = TRUE
+	light_power = 2
+	var/brightness_on = 2
+	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
 
-/obj/item/weapon/twohanded/dualsaber/New()
-	blade_color = pick("red", "blue", "green", "purple")
+/obj/item/twohanded/dualsaber/New()
+	if(!blade_color)
+		blade_color = pick("red", "blue", "green", "purple")
 
-/obj/item/weapon/twohanded/dualsaber/update_icon()
+/obj/item/twohanded/dualsaber/update_icon()
 	if(wielded)
 		icon_state = "dualsaber[blade_color][wielded]"
+		set_light(brightness_on, l_color=colormap[blade_color])
 	else
 		icon_state = "dualsaber0"
+		set_light(0)
 
-/obj/item/weapon/twohanded/dualsaber/attack(target as mob, mob/living/user as mob)
+/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
 		unwield()
 		return
 	..()
-	if((CLUMSY in user.mutations) && (wielded) &&prob(40))
+	if((CLUMSY in user.mutations) && (wielded) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
-		user.take_organ_damage(20,25)
+		user.take_organ_damage(20, 25)
 		return
 	if((wielded) && prob(50))
-		spawn(0)
-			for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2))
-				user.dir = i
-				sleep(1)
+		INVOKE_ASYNC(src, .proc/jedi_spin, user)
 
-/obj/item/weapon/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/twohanded/dualsaber/proc/jedi_spin(mob/living/user)
+	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
+		user.setDir(i)
+		if(i == WEST)
+			user.SpinAnimation(7, 1)
+		sleep(1)
+
+/obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
 	if(wielded)
 		return ..()
-	return 0
+	return FALSE
 
-/obj/item/weapon/twohanded/dualsaber/green/New()
+/obj/item/twohanded/dualsaber/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)  //In case thats just so happens that it is still activated on the groud, prevents hulk from picking it up
+	if(wielded)
+		to_chat(user, "<span class='warning'>You can't pick up such a dangerous item with your meaty hands without losing fingers, better not to!</span>")
+		return TRUE
+
+/obj/item/twohanded/dualsaber/green
 	blade_color = "green"
 
-/obj/item/weapon/twohanded/dualsaber/red/New()
+/obj/item/twohanded/dualsaber/red
 	blade_color = "red"
 
-/obj/item/weapon/twohanded/dualsaber/purple/New()
+/obj/item/twohanded/dualsaber/purple
 	blade_color = "purple"
 
-/obj/item/weapon/twohanded/dualsaber/blue/New()
+/obj/item/twohanded/dualsaber/blue
 	blade_color = "blue"
 
-/obj/item/weapon/twohanded/dualsaber/unwield()
+/obj/item/twohanded/dualsaber/unwield()
 	..()
 	hitsound = "swing_hit"
 
-/obj/item/weapon/twohanded/dualsaber/IsReflect()
+/obj/item/twohanded/dualsaber/IsReflect()
 	if(wielded)
-		return 1
+		return TRUE
 
-/obj/item/weapon/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
+/obj/item/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
 	if(HULK in M.mutations)
 		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
 		return
 	..()
 	hitsound = 'sound/weapons/blade1.ogg'
 
-/obj/item/weapon/twohanded/dualsaber/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/device/multitool))
-		if(hacked == 0)
-			hacked = 1
+/obj/item/twohanded/dualsaber/attackby(obj/item/W, mob/user, params)
+	if(ismultitool(W))
+		if(!hacked)
+			hacked = TRUE
 			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
 			blade_color = "rainbow"
 			update_icon()
 		else
 			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
+	else
+		return ..()
 
 //spears
-/obj/item/weapon/twohanded/spear
+/obj/item/twohanded/spear
 	icon_state = "spearglass0"
 	name = "spear"
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
@@ -290,63 +307,37 @@
 	throwforce = 20
 	throw_speed = 4
 	armour_penetration = 10
-	materials = list(MAT_METAL=1150, MAT_GLASS=2075)
+	materials = list(MAT_METAL = 1150, MAT_GLASS = 2075)
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
-	sharp = 1
-	no_spin_thrown = 1
-	var/obj/item/weapon/grenade/explosive = null
-	var/war_cry = "AAAAARGH!!!"
+	sharp = TRUE
+	no_spin_thrown = TRUE
+	var/obj/item/grenade/explosive = null
 
-/obj/item/weapon/twohanded/spear/update_icon()
+/obj/item/twohanded/spear/update_icon()
 	if(explosive)
 		icon_state = "spearbomb[wielded]"
 	else
 		icon_state = "spearglass[wielded]"
 
-/obj/item/weapon/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
 		return
 	if(isturf(AM)) //So you can actually melee with it
 		return
 	if(explosive && wielded)
-		user.say("[war_cry]")
 		explosive.forceMove(AM)
 		explosive.prime()
 		qdel(src)
 
-/obj/item/weapon/twohanded/spear/throw_impact(atom/target)
+/obj/item/twohanded/spear/throw_impact(atom/target)
 	. = ..()
 	if(explosive)
 		explosive.prime()
 		qdel(src)
 
-/obj/item/weapon/twohanded/spear/AltClick(mob/user)
-	..()
-	if(!explosive)
-		return
-	if(ismob(loc))
-		var/mob/M = loc
-		var/input = stripped_input(M, "What do you want your war cry to be? You will shout it when you hit someone in melee.", ,"", 50)
-		if(input)
-			war_cry = input
-
-/obj/item/weapon/twohanded/spear/CheckParts(list/parts_list)
-	..()
-	if(explosive)
-		explosive.forceMove(get_turf(loc))
-		explosive = null
-		update_icon()
-	var/obj/item/weapon/grenade/G = locate() in contents
-	if(G)
-		explosive = G
-		name = "explosive lance"
-		embed_chance = 0
-		desc = "A makeshift spear with [G] attached to it. Alt+click on the spear to set your war cry!"
-		update_icon()
-
 //GREY TIDE
-/obj/item/weapon/twohanded/spear/grey_tide
+/obj/item/twohanded/spear/grey_tide
 	icon_state = "spearglass0"
 	name = "\improper Grey Tide"
 	desc = "Recovered from the aftermath of a revolt aboard Defense Outpost Theta Aegis, in which a seemingly endless tide of Assistants caused heavy casualities among Nanotrasen military forces."
@@ -356,7 +347,7 @@
 	throw_speed = 4
 	attack_verb = list("gored")
 
-/obj/item/weapon/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
+/obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
 	..()
 	if(!proximity)
 		return
@@ -373,76 +364,75 @@
 			M.GiveTarget(L)
 
 //Putting heads on spears
-/obj/item/organ/external/head/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
-	if(istype(W, /obj/item/weapon/twohanded/spear))
-		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
-		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
-		var/matrix/M = matrix()
-		src.transform = M
-		user.drop_item()
-		src.loc = HS
-		var/image/IM = image(src.icon,src.icon_state)
-		IM.overlays = src.overlays.Copy()
-		HS.overlays += IM
-		qdel(W)
-		return
-	return ..()
-
-/obj/item/weapon/twohanded/spear/attackby(var/obj/item/I, var/mob/living/user)
+/obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/organ/external/head))
-		to_chat(user, "<span class='notice'>You stick the head onto the spear and stand it upright on the ground.</span>")
-		var/obj/structure/headspear/HS = new /obj/structure/headspear(user.loc)
-		var/matrix/M = matrix()
-		I.transform = M
-		usr.drop_item()
-		I.loc = HS
-		var/image/IM = image(I.icon,I.icon_state)
-		IM.overlays = I.overlays.Copy()
-		HS.overlays += IM
-		qdel(src)
-		return
-	return ..()
+		if(user.unEquip(src) && user.drop_item())
+			to_chat(user, "<span class='notice'>You stick [I] onto the spear and stand it upright on the ground.</span>")
+			var/obj/structure/headspear/HS = new /obj/structure/headspear(get_turf(src))
+			var/matrix/M = matrix()
+			I.transform = M
+			var/image/IM = image(I.icon, I.icon_state)
+			IM.overlays = I.overlays.Copy()
+			HS.overlays += IM
+			I.forceMove(HS)
+			HS.mounted_head = I
+			forceMove(HS)
+			HS.contained_spear = src
+	else
+		return ..()
 
 /obj/structure/headspear
 	name = "head on a spear"
 	desc = "How barbaric."
 	icon_state = "headspear"
-	density = 0
-	anchored = 1
+	density = FALSE
+	anchored = TRUE
+	var/obj/item/organ/external/head/mounted_head = null
+	var/obj/item/twohanded/spear/contained_spear = null
+
+/obj/structure/headspear/Destroy()
+	QDEL_NULL(mounted_head)
+	QDEL_NULL(contained_spear)
+	return ..()
 
 /obj/structure/headspear/attack_hand(mob/living/user)
-	user.visible_message("<span class='warning'>[user] kicks over \the [src]!</span>", "<span class='danger'>You kick down \the [src]!</span>")
-	new /obj/item/weapon/twohanded/spear(user.loc)
-	for(var/obj/item/organ/external/head/H in src)
-		H.loc = user.loc
+	user.visible_message("<span class='warning'>[user] kicks over [src]!</span>", "<span class='danger'>You kick down [src]!</span>")
+	playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+	var/turf/T = get_turf(src)
+	if(contained_spear)
+		contained_spear.forceMove(T)
+		contained_spear = null
+	if(mounted_head)
+		mounted_head.forceMove(T)
+		mounted_head = null
 	qdel(src)
 
-/obj/item/weapon/twohanded/spear/kidan
+/obj/item/twohanded/spear/kidan
 	icon_state = "kidanspear0"
 	name = "Kidan spear"
 	desc = "A spear brought over from the Kidan homeworld."
 
 // DIY CHAINSAW
-/obj/item/weapon/twohanded/required/chainsaw
+/obj/item/twohanded/required/chainsaw
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
 	icon_state = "gchainsaw_off"
 	flags = CONDUCT
 	force = 13
-	var/force_on = 21
+	var/force_on = 24
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
-	materials = list(MAT_METAL=13000)
+	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	hitsound = "swing_hit"
-	sharp = 1
+	sharp = TRUE
 	actions_types = list(/datum/action/item_action/startchainsaw)
-	var/on = 0
+	var/on = FALSE
 
-/obj/item/weapon/twohanded/required/chainsaw/attack_self(mob/user)
+/obj/item/twohanded/required/chainsaw/attack_self(mob/user)
 	on = !on
 	to_chat(user, "As you pull the starting cord dangling from [src], [on ? "it begins to whirr." : "the chain stops moving."]")
 	if(on)
@@ -463,22 +453,22 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/weapon/twohanded/required/chainsaw/doomslayer
+/obj/item/twohanded/required/chainsaw/doomslayer
 	name = "OOOH BABY"
 	desc = "<span class='warning'>VRRRRRRR!!!</span>"
 	armour_penetration = 100
 	force_on = 30
 
-/obj/item/weapon/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 ///CHAINSAW///
-/obj/item/weapon/twohanded/chainsaw
+/obj/item/twohanded/chainsaw
 	icon_state = "chainsaw0"
 	name = "Chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
@@ -494,15 +484,15 @@
 	armour_penetration = 35
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
-	sharp = 1
+	sharp = TRUE
 
-/obj/item/weapon/twohanded/chainsaw/update_icon()
+/obj/item/twohanded/chainsaw/update_icon()
 	if(wielded)
 		icon_state = "chainsaw[wielded]"
 	else
 		icon_state = "chainsaw0"
 
-/obj/item/weapon/twohanded/chainsaw/attack(mob/target as mob, mob/living/user as mob)
+/obj/item/twohanded/chainsaw/attack(mob/target, mob/living/user)
 	if(wielded)
 		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
 		if(isrobot(target))
@@ -518,16 +508,16 @@
 		playsound(loc, "swing_hit", 50, 1, -1)
 		return ..()
 
-/obj/item/weapon/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
+/obj/item/twohanded/chainsaw/wield() //you can't disarm an active chainsaw, you crazy person.
 	..()
 	flags |= NODROP
 
-/obj/item/weapon/twohanded/chainsaw/unwield()
+/obj/item/twohanded/chainsaw/unwield()
 	..()
 	flags &= ~NODROP
 
 // SINGULOHAMMER
-/obj/item/weapon/twohanded/singularityhammer
+/obj/item/twohanded/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
 	icon_state = "mjollnir0"
@@ -539,59 +529,58 @@
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 50, bio = 0, rad = 0)
 	var/charged = 5
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
-/obj/item/weapon/twohanded/singularityhammer/New()
+/obj/item/twohanded/singularityhammer/New()
 	..()
 	processing_objects.Add(src)
 
-/obj/item/weapon/twohanded/singularityhammer/Destroy()
+/obj/item/twohanded/singularityhammer/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/weapon/twohanded/singularityhammer/process()
+/obj/item/twohanded/singularityhammer/process()
 	if(charged < 5)
 		charged++
-	return
 
-/obj/item/weapon/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/singularityhammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
-	return
 
-/obj/item/weapon/twohanded/singularityhammer/proc/vortex(var/turf/pull as turf, mob/wielder as mob)
-	for(var/atom/X in orange(5,pull))
-		if(istype(X, /atom/movable))
-			if(X == wielder) continue
-			if((X) &&(!X:anchored) && (!istype(X,/mob/living/carbon/human)))
-				step_towards(X,pull)
-				step_towards(X,pull)
-				step_towards(X,pull)
-			else if(istype(X,/mob/living/carbon/human))
-				var/mob/living/carbon/human/H = X
-				if(istype(H.shoes,/obj/item/clothing/shoes/magboots))
-					var/obj/item/clothing/shoes/magboots/M = H.shoes
-					if(M.magpulse)
-						continue
-				H.apply_effect(1, WEAKEN, 0)
-				step_towards(H,pull)
-				step_towards(H,pull)
-				step_towards(H,pull)
-	return
+/obj/item/twohanded/singularityhammer/proc/vortex(turf/pull, mob/wielder)
+	for(var/atom/movable/X in orange(5, pull))
+		if(X == wielder)
+			continue
+		if((X) && (!X.anchored) && (!ishuman(X)))
+			step_towards(X, pull)
+			step_towards(X, pull)
+			step_towards(X, pull)
+		else if(ishuman(X))
+			var/mob/living/carbon/human/H = X
+			if(istype(H.shoes, /obj/item/clothing/shoes/magboots))
+				var/obj/item/clothing/shoes/magboots/M = H.shoes
+				if(M.magpulse)
+					continue
+			H.apply_effect(1, WEAKEN, 0)
+			step_towards(H, pull)
+			step_towards(H, pull)
+			step_towards(H, pull)
 
-/obj/item/weapon/twohanded/singularityhammer/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
-	if(!proximity) return
+/obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
 	if(wielded)
 		if(charged == 5)
 			charged = 0
-			if(istype(A, /mob/living/))
+			if(isliving(A))
 				var/mob/living/Z = A
-				Z.take_organ_damage(20,0)
+				Z.take_organ_damage(20, 0)
 			playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			var/turf/target = get_turf(A)
-			vortex(target,user)
+			vortex(target, user)
 
-/obj/item/weapon/twohanded/mjollnir
+/obj/item/twohanded/mjollnir
 	name = "Mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
 	icon_state = "mjollnir0"
@@ -606,39 +595,37 @@
 	//var/charged = 5
 	origin_tech = "combat=4;powerstorage=7"
 
-/obj/item/weapon/twohanded/mjollnir/proc/shock(mob/living/target as mob)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread()
+/obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread()
 	s.set_up(5, 1, target.loc)
 	s.start()
-	target.visible_message("<span class='danger'>[target.name] was shocked by the [src.name]!</span>", \
+	target.visible_message("<span class='danger'>[target.name] was shocked by the [name]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
 		"<span class='italics'>You hear a heavy electrical crack!</span>")
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 200, 4)
-	return
 
-/obj/item/weapon/twohanded/mjollnir/attack(mob/M as mob, mob/user as mob)
+/obj/item/twohanded/mjollnir/attack(mob/M, mob/user)
 	..()
 	if(wielded)
 		//if(charged == 5)
 		//charged = 0
-		playsound(src.loc, "sparks", 50, 1)
-		if(istype(M, /mob/living))
+		playsound(loc, "sparks", 50, 1)
+		if(isliving(M))
 			M.Stun(3)
 			shock(M)
 
-/obj/item/weapon/twohanded/mjollnir/throw_impact(atom/target)
+/obj/item/twohanded/mjollnir/throw_impact(atom/target)
 	. = ..()
-	if(istype(target, /mob/living))
+	if(isliving(target))
 		var/mob/living/L = target
 		L.Stun(3)
 		shock(L)
 
-/obj/item/weapon/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/mjollnir/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[wielded]"
-	return
 
-/obj/item/weapon/twohanded/knighthammer
+/obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
 	icon_state = "knighthammer0"
@@ -653,38 +640,37 @@
 	var/charged = 5
 	origin_tech = "combat=5;bluespace=4"
 
-/obj/item/weapon/twohanded/knighthammer/New()
+/obj/item/twohanded/knighthammer/New()
 	..()
 	processing_objects.Add(src)
 
-/obj/item/weapon/twohanded/knighthammer/Destroy()
+/obj/item/twohanded/knighthammer/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/weapon/twohanded/knighthammer/process()
+/obj/item/twohanded/knighthammer/process()
 	if(charged < 5)
 		charged++
-	return
 
-/obj/item/weapon/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
+/obj/item/twohanded/knighthammer/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[wielded]"
-	return
 
-/obj/item/weapon/twohanded/knighthammer/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
-	if(!proximity) return
+/obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity)
+	if(!proximity)
+		return
 	if(charged == 5)
 		charged = 0
-		if(istype(A, /mob/living/))
+		if(isliving(A))
 			var/mob/living/Z = A
 			if(Z.health >= 1)
-				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from the [src.name]!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was sent flying by a blow from the [name]!</span>", \
 					"<span class='userdanger'>You feel a powerful blow connect with your body and send you flying!</span>", \
 					"<span class='danger'>You hear something heavy impact flesh!.</span>")
 				var/atom/throw_target = get_edge_target_turf(Z, get_dir(src, get_step_away(Z, src)))
 				Z.throw_at(throw_target, 200, 4)
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 			else if(wielded && Z.health < 1)
-				Z.visible_message("<span class='danger'>[Z.name] was blown to peices by the power of [src.name]!</span>", \
+				Z.visible_message("<span class='danger'>[Z.name] was blown to pieces by the power of [name]!</span>", \
 					"<span class='userdanger'>You feel a powerful blow rip you apart!</span>", \
 					"<span class='danger'>You hear a heavy impact and the sound of ripping flesh!.</span>")
 				Z.gib()
@@ -695,20 +681,20 @@
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
-			else if(istype(A, /obj/structure) || istype(A, /obj/mecha/))
+			else if(istype(A, /obj/structure) || istype(A, /obj/mecha))
 				var/obj/Z = A
 				Z.ex_act(2)
 				charged = 3
 				playsound(user, 'sound/weapons/marauder.ogg', 50, 1)
 
 // Energized Fire axe
-/obj/item/weapon/twohanded/energizedfireaxe
+/obj/item/twohanded/energizedfireaxe
 	name = "energized fire axe"
 	desc = "Someone with a love for fire axes decided to turn one into a single-charge energy weapon. Seems excessive."
 	icon_state = "fireaxe0"
 	force = 5
 	throwforce = 15
-	sharp = 1
+	sharp = TRUE
 	w_class = WEIGHT_CLASS_HUGE
 	armour_penetration = 20
 	slot_flags = SLOT_BACK
@@ -718,31 +704,31 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
 
-/obj/item/weapon/twohanded/energizedfireaxe/update_icon()
+/obj/item/twohanded/energizedfireaxe/update_icon()
 	if(wielded)
 		icon_state = "fireaxe2"
 	else
 		icon_state = "fireaxe0"
 
-/obj/item/weapon/twohanded/energizedfireaxe/afterattack(atom/A, mob/user, proximity)
+/obj/item/twohanded/energizedfireaxe/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
 		return
 	if(wielded)
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/Z = A
 			if(charged)
 				charged--
-				Z.take_organ_damage(0,30)
-				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all their might!</span>")
+				Z.take_organ_damage(0, 30)
+				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all [user.p_their()] might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-				var/datum/effect/system/spark_spread/sparks = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 				sparks.set_up(1, 1, src)
 				sparks.start()
 
 		if(A && wielded && (istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)))
 			if(istype(A, /obj/structure/window))
 				var/obj/structure/window/W = A
-				W.destroy()
+				W.deconstruct(FALSE)
 				if(prob(4))
 					charged++
 					user.visible_message("<span class='notice'>The axe starts to emit an electric buzz!</span>")

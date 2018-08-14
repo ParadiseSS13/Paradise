@@ -3,7 +3,7 @@
 #define SUPPLY_SCREEN_WIDTH 625 //width of supply computer interaction window
 #define SUPPLY_SCREEN_HEIGHT 620 //height of supply computer interaction window
 
-/obj/item/weapon/paper/manifest
+/obj/item/paper/manifest
 	name = "supply manifest"
 	var/erroneous = 0
 	var/points = 0
@@ -118,14 +118,14 @@
 			for(var/thing in MA)
 				// Sell manifests
 				shuttle_master.sold_atoms += " [thing:name]"
-				if(find_slip && istype(thing,/obj/item/weapon/paper/manifest))
-					var/obj/item/weapon/paper/manifest/slip = thing
+				if(find_slip && istype(thing,/obj/item/paper/manifest))
+					var/obj/item/paper/manifest/slip = thing
 					// TODO: Check for a signature, too.
 					if(slip.stamped && slip.stamped.len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 						// Did they mark it as erroneous?
 						var/denied = 0
 						for(var/i=1,i<=slip.stamped.len,i++)
-							if(slip.stamped[i] == /obj/item/weapon/stamp/denied)
+							if(slip.stamped[i] == /obj/item/stamp/denied)
 								denied = 1
 						if(slip.erroneous && denied) // Caught a mistake by Centcom (IDEA: maybe Centcom rarely gets offended by this)
 							pointsEarned = slip.points - shuttle_master.points_per_crate
@@ -168,8 +168,8 @@
 					++intel_count
 
 				// Sell tech levels
-				if(istype(thing, /obj/item/weapon/disk/tech_disk))
-					var/obj/item/weapon/disk/tech_disk/disk = thing
+				if(istype(thing, /obj/item/disk/tech_disk))
+					var/obj/item/disk/tech_disk/disk = thing
 					if(!disk.stored) continue
 					var/datum/tech/tech = disk.stored
 
@@ -184,8 +184,8 @@
 						msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
 
 				// Sell designs
-				if(istype(thing, /obj/item/weapon/disk/design_disk))
-					var/obj/item/weapon/disk/design_disk/disk = thing
+				if(istype(thing, /obj/item/disk/design_disk))
+					var/obj/item/disk/design_disk/disk = thing
 					if(!disk.blueprint)
 						continue
 					var/datum/design/design = disk.blueprint
@@ -237,9 +237,9 @@
 		/mob/living,
 		/obj/structure/blob,
 		/obj/structure/spider/spiderling,
-		/obj/item/weapon/disk/nuclear,
+		/obj/item/disk/nuclear,
 		/obj/machinery/nuclearbomb,
-		/obj/item/device/radio/beacon,
+		/obj/item/radio/beacon,
 		/obj/machinery/the_singularitygen,
 		/obj/singularity,
 		/obj/machinery/teleport/station,
@@ -248,7 +248,7 @@
 		/obj/machinery/telepad_cargo,
 		/obj/machinery/clonepod,
 		/obj/effect/hierophant,
-		/obj/item/device/warp_cube,
+		/obj/item/warp_cube,
 		/obj/machinery/quantumpad
 	)
 	if(A)
@@ -294,10 +294,10 @@
 	if(!object)
 		return
 
-	var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(_loc)
+	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
 	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
-	reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
+	reqform.info += "<h3>[station_name()] Supply Requisition Form</h3><hr>"
 	reqform.info += "INDEX: #[shuttle_master.ordernum]<br>"
 	reqform.info += "REQUESTED BY: [orderedby]<br>"
 	reqform.info += "RANK: [orderedbyRank]<br>"
@@ -325,7 +325,7 @@
 		Crate:req_access = list(text2num(object.access))
 
 	//create the manifest slip
-	var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest()
+	var/obj/item/paper/manifest/slip = new /obj/item/paper/manifest()
 	slip.erroneous = errors
 	slip.points = object.cost
 	slip.ordernumber = ordernum
@@ -403,7 +403,7 @@
 	desc = "Used to order supplies."
 	icon_screen = "supply"
 	req_access = list(access_cargo)
-	circuit = /obj/item/weapon/circuitboard/supplycomp
+	circuit = /obj/item/circuitboard/supplycomp
 	var/temp = null
 	var/reqtime = 0
 	var/hacked = 0
@@ -416,7 +416,7 @@
 	desc = "Used to order supplies from cargo staff."
 	icon = 'icons/obj/computer.dmi'
 	icon_screen = "request"
-	circuit = /obj/item/weapon/circuitboard/ordercomp
+	circuit = /obj/item/circuitboard/ordercomp
 	var/reqtime = 0
 	var/last_viewed_group = "categories"
 	var/datum/supply_packs/content_pack
@@ -428,7 +428,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/ordercomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
 		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
 		ui.open()
@@ -462,7 +462,7 @@
 		var/datum/supply_order/SO = set_name
 		if(SO)
 			// Check if the user owns the request, so they can cancel requests
-			var/obj/item/weapon/card/id/I = user.get_id_card()
+			var/obj/item/card/id/I = user.get_id_card()
 			var/owned = 0
 			if(I && SO.orderedby == I.registered_name)
 				owned = 1
@@ -492,7 +492,7 @@
 	if(href_list["doorder"])
 		if(world.time < reqtime)
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return 1
 
 		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
@@ -535,7 +535,7 @@
 
 	else if(href_list["rreq"])
 		var/ordernum = text2num(href_list["rreq"])
-		var/obj/item/weapon/card/id/I = usr.get_id_card()
+		var/obj/item/card/id/I = usr.get_id_card()
 		for(var/i=1, i<=shuttle_master.requestlist.len, i++)
 			var/datum/supply_order/SO = shuttle_master.requestlist[i]
 			if(SO.ordernum == ordernum && (I && SO.orderedby == I.registered_name))
@@ -555,7 +555,7 @@
 			content_pack = P
 
 	add_fingerprint(usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/computer/supplycomp/attack_ai(var/mob/user as mob)
@@ -577,7 +577,7 @@
 		return
 
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
 		ui.open()
@@ -673,7 +673,7 @@
 	else if(href_list["doorder"])
 		if(world.time < reqtime)
 			visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
-			nanomanager.update_uis(src)
+			SSnanoui.update_uis(src)
 			return 1
 
 		var/index = copytext(href_list["doorder"], 1, lentext(href_list["doorder"])) //text2num(copytext(href_list["doorder"], 1))
@@ -754,7 +754,7 @@
 			content_pack = P
 
 	add_fingerprint(usr)
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/computer/supplycomp/proc/post_signal(var/command)
@@ -781,143 +781,6 @@
 	name = "Supply Shuttle"
 	icon_state = "shuttle3"
 	requires_power = 0
-
-/obj/structure/plasticflaps
-	name = "\improper plastic flaps"
-	desc = "Completely impassable - or are they?"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "plasticflaps"
-	density = 0
-	anchored = 1
-	layer = 4
-	var/list/mobs_can_pass = list(
-		/mob/living/carbon/slime,
-		/mob/living/simple_animal/mouse,
-		/mob/living/silicon/robot/drone,
-		/mob/living/simple_animal/bot/mulebot
-		)
-	var/state = PLASTIC_FLAPS_NORMAL
-	var/can_deconstruct = TRUE
-
-/obj/structure/plasticflaps/examine(mob/user)
-	. = ..()
-	switch(state)
-		if(PLASTIC_FLAPS_NORMAL)
-			to_chat(user, "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>")
-		if(PLASTIC_FLAPS_DETACHED)
-			to_chat(user, "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>")
-
-/obj/structure/plasticflaps/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(isscrewdriver(W))
-		if(state == PLASTIC_FLAPS_NORMAL)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 180*W.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_NORMAL)
-					return
-				state = PLASTIC_FLAPS_DETACHED
-				anchored = FALSE
-				to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
-		else if(state == PLASTIC_FLAPS_DETACHED)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 40*W.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_DETACHED)
-					return
-				state = PLASTIC_FLAPS_NORMAL
-				anchored = TRUE
-				to_chat(user, "<span class='notice'>You screw [src] from the floor.</span>")
-	else if(iswelder(W))
-		if(state == PLASTIC_FLAPS_DETACHED)
-			var/obj/item/weapon/weldingtool/WT = W
-			if(!WT.remove_fuel(0, user))
-				return
-			playsound(loc, WT.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] slices apart [src].</span>", "<span class='notice'>You start to slice apart [src].</span>", "You hear welding.")
-			if(do_after(user, 120*WT.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_DETACHED)
-					return
-				to_chat(user, "<span class='notice'>You slice apart [src].</span>")
-				var/obj/item/stack/sheet/plastic/five/P = new(loc)
-				P.add_fingerprint(user)
-				qdel(src)
-	else
-		. = ..()
-
-/obj/structure/plasticflaps/CanPass(atom/A, turf/T)
-	if(istype(A) && A.checkpass(PASSGLASS))
-		return prob(60)
-
-	var/obj/structure/stool/bed/B = A
-	if(istype(A, /obj/structure/stool/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
-		return 0
-
-	if(istype(A, /obj/structure/closet/cardboard))
-		var/obj/structure/closet/cardboard/C = A
-		if(C.move_delay)
-			return 0
-
-	if(istype(A, /obj/vehicle))	//no vehicles
-		return 0
-
-	var/mob/living/M = A
-	if(istype(M))
-		if(M.lying)
-			return ..()
-		for(var/mob_type in mobs_can_pass)
-			if(istype(A, mob_type))
-				return ..()
-		if(istype(A, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = M
-			if(H.species.is_small)
-				return ..()
-		return 0
-
-	return ..()
-
-
-/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
-	if(istype(caller, /mob/living))
-		for(var/mob_type in mobs_can_pass)
-			if(istype(caller, mob_type))
-				return 1
-
-		var/mob/living/M = caller
-		if(!M.ventcrawler && M.mob_size > MOB_SIZE_SMALL)
-			return 0
-	return 1
-
-/obj/structure/plasticflaps/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(5))
-				qdel(src)
-
-/obj/structure/plasticflaps/proc/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
-		new /obj/item/stack/sheet/plastic/five(loc)
-	qdel(src)
-
-/obj/structure/plasticflaps/mining //A specific type for mining that doesn't allow airflow because of them damn crates
-	name = "\improper Airtight plastic flaps"
-	desc = "Heavy duty, airtight, plastic flaps."
-
-/obj/structure/plasticflaps/mining/initialize()
-	air_update_turf(1)
-	..()
-
-/obj/structure/plasticflaps/mining/Destroy()
-	air_update_turf(1)
-	return ..()
-
-/obj/structure/plasticflaps/mining/CanAtmosPass(turf/T)
-	return 0
 
 #undef ORDER_SCREEN_WIDTH
 #undef ORDER_SCREEN_HEIGHT

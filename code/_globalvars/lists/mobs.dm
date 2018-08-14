@@ -1,5 +1,5 @@
 //Languages/species/whitelist. //Languages and species fit with mobs right
-var/global/list/all_species[0]
+GLOBAL_LIST_EMPTY(all_species)
 var/global/list/all_languages[0]
 var/global/list/language_keys[0]					// Table of say codes for all languages
 var/global/list/all_superheroes[0]
@@ -25,6 +25,7 @@ var/global/list/respawnable_list = list()			//List of all mobs, dead or in mindl
 var/global/list/non_respawnable_keys = list()	//List of ckeys that are excluded from respawning for remainder of round.
 var/global/list/simple_animal_list = list()			//List of all simple animals, including clientless
 var/global/list/snpc_list = list()      			//List of all snpc's, including clientless
+var/global/list/bots_list = list() 					//List of all bots(beepsky, medibots,etc)
 
 var/global/list/med_hud_users = list()
 var/global/list/sec_hud_users = list()

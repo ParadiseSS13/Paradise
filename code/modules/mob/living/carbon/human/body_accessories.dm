@@ -97,7 +97,7 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	animated_icon_state = "null"
 
 /datum/body_accessory/tail/try_restrictions(var/mob/living/carbon/human/H)
-	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL) && !istype(H.wear_suit, /obj/item/clothing/suit/space))
+	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL))
 		return 1
 	return 0
 
@@ -140,4 +140,3 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	icon_state = "vulptail6"
 	animated_icon_state = "vulptail6_a"
 	allowed_species = list("Vulpkanin")
-

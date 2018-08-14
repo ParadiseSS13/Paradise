@@ -20,18 +20,6 @@
 	M.adjustToxLoss(1.5)
 	..()
 
-/datum/reagent/plasticide
-	name = "Plasticide"
-	id = "plasticide"
-	description = "Liquid plastic, do not eat."
-	reagent_state = LIQUID
-	color = "#CF3600" // rgb: 207, 54, 0
-
-/datum/reagent/plasticide/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1.5)
-	..()
-
-
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
 	id = "minttoxin"
@@ -73,12 +61,12 @@
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
-		if(human.species.name != "Shadow")
+		if(!isshadowperson(human))
 			to_chat(M, "<span class='danger'>Your flesh rapidly mutates!</span>")
 			to_chat(M, "<span class='danger'>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</span>")
 			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
-			human.set_species("Shadow")
+			human.set_species(/datum/species/shadow)
 	..()
 
 /datum/reagent/aslimetoxin
@@ -229,7 +217,7 @@
 	if(method == TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.get_species() == "Grey")
+			if(isgrey(H))
 				return
 
 			if(volume > 25)
@@ -246,7 +234,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(5, 10)
+							affecting.receive_damage(5, 10)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -258,7 +246,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
-			if(H.get_species() == "Grey")
+			if(isgrey(H))
 				return
 
 			if(volume >=10 && volume <=25)
@@ -272,7 +260,7 @@
 					if(prob(75))
 						var/obj/item/organ/external/affecting = H.get_organ("head")
 						if(affecting)
-							affecting.take_damage(0, 20)
+							affecting.receive_damage(0, 20)
 							H.UpdateDamageIcon()
 							H.emote("scream")
 					else
@@ -323,12 +311,12 @@
 	M.EyeBlurry(3)
 	..()
 
-/datum/reagent/beer2	//disguised as normal beer for use by emagged brobots
+/datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Beer"
 	id = "beer2"
 	description = "An alcoholic beverage made from malted grains, hops, yeast, and water."
 	color = "#664300" // rgb: 102, 67, 0
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	metabolization_rate = 0.1 * REAGENTS_METABOLISM
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
@@ -569,7 +557,7 @@
 		M.adjustBruteLoss(5)
 		M.Weaken(5)
 		M.AdjustJitter(6)
-		M.visible_message("<span class='danger'>[M] falls to the floor, scratching themselves violently!</span>")
+		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
 		M.emote("scream")
 	..()
 
@@ -623,11 +611,11 @@
 						return
 
 				if(!H.unacidable)
-					var/obj/item/organ/external/affecting = H.get_organ("head")
-					affecting.take_damage(0, 75)
+					var/obj/item/organ/external/head/affecting = H.get_organ("head")
+					if(affecting)
+						affecting.receive_damage(0, 75)
 					H.UpdateDamageIcon()
 					H.emote("scream")
-					H.status_flags |= DISFIGURED
 
 /datum/reagent/facid/reaction_obj(obj/O, volume)
 	if((istype(O, /obj/item) || istype(O, /obj/structure/glowshroom)))
@@ -959,8 +947,7 @@
 /datum/reagent/glyphosate/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/structure/alien/weeds))
 		var/obj/structure/alien/weeds/alien_weeds = O
-		alien_weeds.health -= rand(15,35) // Kills alien weeds pretty fast
-		alien_weeds.healthcheck()
+		alien_weeds.take_damage(rand(15, 35), BRUTE, 0) // Kills alien weeds pretty fast
 	else if(istype(O, /obj/structure/glowshroom)) //even a small amount is enough to kill it
 		qdel(O)
 	else if(istype(O, /obj/structure/spacevine))
@@ -974,7 +961,7 @@
 			C.adjustToxLoss(lethality)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.species.species_traits) //plantmen take a LOT of damage
+			if(IS_PLANT in H.dna.species.species_traits) //plantmen take a LOT of damage
 				H.adjustToxLoss(50)
 				..()
 	else if(istype(M, /mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
@@ -1008,7 +995,7 @@
 			C.adjustToxLoss(2)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(H.get_species() == "Kidan") //RIP
+			if(iskidan(H)) //RIP
 				H.adjustToxLoss(20)
 
 /datum/reagent/capulettium
@@ -1028,7 +1015,7 @@
 			M.Drowsy(10)
 		if(11)
 			M.Paralyse(10)
-			M.visible_message("<B>[M]</B> seizes up and falls limp, their eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
+			M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
 		if(12 to 60)
 			M.Paralyse(10)
 		if(61 to INFINITY)
@@ -1131,31 +1118,4 @@
 		shock_timer = 0
 		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
-	..()
-
-/datum/reagent/peaceborg/confuse
-	name = "Dizzying Solution"
-	id = "dizzysolution"
-	description = "Makes the target off balance and dizzy"
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-
-/datum/reagent/peaceborg/confuse/on_mob_life(mob/living/M)
-	M.AdjustConfused(3, bound_lower = 0, bound_upper = 5)
-	M.AdjustDizzy(3, bound_lower = 0, bound_upper = 5)
-	if(prob(20))
-		to_chat(M, "<span class='warning'>You feel confused and disorientated.</span>")
-	..()
-
-/datum/reagent/peaceborg/tire
-	name = "Tiring Solution"
-	id = "tiresolution"
-	description = "An extremely weak stamina-toxin that tires out the target. Completely harmless."
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
-
-/datum/reagent/peaceborg/tire/on_mob_life(mob/living/M)
-	var/healthcomp = (M.maxHealth - M.health)
-	if(M.staminaloss < (45 - healthcomp))	//At 50 health you would have 200 - 150 health meaning 50 compensation. 60 - 50 = 10, so would only do 10-19 stamina.)
-		M.adjustStaminaLoss(10)
-	if(prob(30))
-		to_chat(M, "<span class='warning'>You feel like you should sit down and take a rest...</span>")
 	..()

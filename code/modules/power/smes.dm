@@ -13,6 +13,7 @@
 	icon_state = "smes"
 	density = 1
 	anchored = 1
+	defer_process = 1
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -39,17 +40,16 @@
 	var/building_terminal = 0 //Suggestions about how to avoid clickspam building several terminals accepted!
 	var/obj/machinery/power/terminal/terminal = null
 
-
 /obj/machinery/power/smes/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/smes(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/high(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/circuitboard/smes(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/cell/high(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
@@ -76,24 +76,24 @@
 /obj/machinery/power/smes/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/smes(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/weapon/stock_parts/cell/hyper(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor/super(null)
+	component_parts += new /obj/item/circuitboard/smes(null)
+	component_parts += new /obj/item/stock_parts/cell/hyper(null)
+	component_parts += new /obj/item/stock_parts/cell/hyper(null)
+	component_parts += new /obj/item/stock_parts/cell/hyper(null)
+	component_parts += new /obj/item/stock_parts/cell/hyper(null)
+	component_parts += new /obj/item/stock_parts/cell/hyper(null)
+	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
 /obj/machinery/power/smes/RefreshParts()
 	var/IO = 0
 	var/C = 0
-	for(var/obj/item/weapon/stock_parts/capacitor/CP in component_parts)
+	for(var/obj/item/stock_parts/capacitor/CP in component_parts)
 		IO += CP.rating
 	input_level_max = 200000 * IO
 	output_level_max = 200000 * IO
-	for(var/obj/item/weapon/stock_parts/cell/PC in component_parts)
+	for(var/obj/item/stock_parts/cell/PC in component_parts)
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 
@@ -173,7 +173,7 @@
 		return
 
 	//disassembling the terminal
-	if(istype(I, /obj/item/weapon/wirecutters) && terminal && panel_open)
+	if(istype(I, /obj/item/wirecutters) && terminal && panel_open)
 		var/turf/T = get_turf(terminal)
 		if(T.intact) //is the floor plating removed ?
 			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
@@ -184,7 +184,7 @@
 
 		if(do_after(user, 50 * I.toolspeed, target = src))
 			if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 				s.set_up(5, 1, src)
 				s.start()
 				return
@@ -223,8 +223,6 @@
 
 /obj/machinery/power/smes/proc/chargedisplay()
 	return round(5.5*charge/(capacity ? capacity : 5e6))
-
-#define SMESRATE 0.05
 
 /obj/machinery/power/smes/process()
 
@@ -325,7 +323,7 @@
 		var/turf/T = get_turf(user)
 		var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
 		if(prob(50) && electrocute_mob(user, N, N)) //animate the electrocution if uncautious and unlucky
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(5, 1, src)
 			s.start()
 			return
@@ -365,7 +363,7 @@
 
 
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -440,7 +438,7 @@
 			for(var/mob/M in viewers(src))
 				M.show_message("<span class='warning'>The [src.name] is making strange noises!</span>", 3, "<span class='warning'>You hear sizzling electronics.</span>", 2)
 			sleep(10*pick(4,5,6,7,10,14))
-			var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(3, 0, src.loc)
 			smoke.attach(src)
 			smoke.start()
@@ -448,7 +446,7 @@
 			qdel(src)
 			return
 		if(prob(15)) //Power drain
-			var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 			s.set_up(3, 1, src)
 			s.start()
 			if(prob(50))
@@ -456,7 +454,7 @@
 			else
 				emp_act(2)
 		if(prob(5)) //smoke only
-			var/datum/effect/system/harmless_smoke_spread/smoke = new /datum/effect/system/harmless_smoke_spread()
+			var/datum/effect_system/smoke_spread/smoke = new
 			smoke.set_up(3, 0, src.loc)
 			smoke.attach(src)
 			smoke.start()

@@ -29,7 +29,6 @@
 	var/ert_disabled = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 20
-	var/datum/cult_info/cultdat //here instead of cult for adminbus purposes
 
 	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
@@ -108,8 +107,7 @@
 			tries_left = 5		//reset our tries since we found a new chump
 	//make sure we have chumps before we try misinforming them. if we don't make a note of it.
 	if(!chumps.len)
-		message_admins("<span class='notice'>Game mode failed to find ANY chumps. Possible causes: no one is opposed/skeptical, or FalseIncarnate can't code.</span>")
-		log_admin("Game mode failed to find ANY chumps. Possible causes: no one is opposed/skeptical, or FalseIncarnate can't code.")
+		log_debug("Game mode failed to find ANY chumps. This is likely due to the server being in extreme low-pop with no one set to opposed or skeptical.")
 		return 0
 	//we've got chumps! misinform them!
 	for(var/mob/living/carbon/human/chump in chumps)
@@ -136,8 +134,8 @@
 				break
 	for(var/mob/M in player_list)
 		if(M.mind)
-			var/obj/item/device/pda/P=null
-			for(var/obj/item/device/pda/check_pda in PDAs)
+			var/obj/item/pda/P=null
+			for(var/obj/item/pda/check_pda in PDAs)
 				if(check_pda.owner==M.name)
 					P=check_pda
 					break
@@ -164,7 +162,7 @@
 						T.purpose = "Payment"
 						T.amount = pay
 						T.date = current_date_string
-						T.time = worldtime2text()
+						T.time = station_time_timestamp()
 						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
 						M.mind.initial_account.transaction_log.Add(T)
 						msg += "You have been sent the $[pay], as agreed."
@@ -281,10 +279,11 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-			player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-			candidates += player.mind
-			players -= player
+		if(!player.skip_antag)
+			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
+				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
+				candidates += player.mind
+				players -= player
 
 	// If we don't have enough antags, draft people who voted for the round.
 	if(candidates.len < recommended_enemies)
@@ -336,7 +335,8 @@
 /datum/game_mode/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in command_positions))
+		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
 
@@ -346,7 +346,8 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in mob_list)
-		if(player.mind && (player.mind.assigned_role in command_positions))
+		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
 //////////////////////////////////////////////
@@ -372,7 +373,6 @@
 
 /datum/game_mode/New()
 	newscaster_announcements = pick(newscaster_standard_feeds)
-	cultdat = setupcult()
 
 //////////////////////////
 //Reports player logouts//
@@ -490,34 +490,39 @@ proc/display_roundstart_logout_report()
 		M.ghostize()
 		M.key = theghost.key
 	else
-		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take their place.")
+		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
 		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
 
-/datum/game_mode/proc/printplayer(datum/mind/ply, fleecheck)
-	var/text = "<br><b>[ply.key]</b> was <b>[ply.name]</b> the <b>[ply.assigned_role]</b> and"
+/proc/printplayer(datum/mind/ply, fleecheck)
+	var/jobtext = ""
+	if(ply.assigned_role)
+		jobtext = " the <b>[ply.assigned_role]</b>"
+	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
-			text += " <span class='boldannounce'>died</span>"
+			text += " <span class='redtext'>died</span>"
 		else
-			text += " <span class='greenannounce'>survived</span>"
-		if(fleecheck && !is_station_level(ply.current.z))
-			text += " while <span class='boldannounce'>fleeing the station</span>"
+			text += " <span class='greentext'>survived</span>"
+		if(fleecheck)
+			var/turf/T = get_turf(ply.current)
+			if(!T || !is_station_level(T.z))
+				text += " while <span class='redtext'>fleeing the station</span>"
 		if(ply.current.real_name != ply.name)
 			text += " as <b>[ply.current.real_name]</b>"
 	else
-		text += " <span class='boldannounce'>had their body destroyed</span>"
+		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
 	return text
 
-/datum/game_mode/proc/printobjectives(datum/mind/ply)
-	var/text = ""
+/proc/printobjectives(datum/mind/ply)
+	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective in ply.objectives)
 		if(objective.check_completion())
-			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='greenannounce'>Success!</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else
-			text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <span class='boldannounce'>Fail.</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
 		count++
-	return text
+	return objective_parts.Join("<br>")
 
 /datum/game_mode/proc/generate_station_goals()
 	var/list/possible = list()

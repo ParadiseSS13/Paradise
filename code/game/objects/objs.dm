@@ -1,7 +1,6 @@
 /obj
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
-	var/reliability = 100	//Used by SOME devices to determine how reliable they are.
 	var/crit_fail = 0
 	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
 	animate_movement = 2
@@ -9,9 +8,16 @@
 	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/sharp = 0		// whether this object cuts
 	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-
+	var/can_deconstruct = TRUE
 	var/damtype = "brute"
 	var/force = 0
+	var/list/armor
+	var/obj_integrity	//defaults to max_integrity
+	var/max_integrity = INFINITY
+	var/integrity_failure = 0 //0 if we have no special broken behavior
+
+	var/resistance_flags = NONE // INDESTRUCTIBLE
+	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
@@ -19,13 +25,17 @@
 	var/burntime = 10 //How long it takes to burn to ashes, in seconds
 	var/burn_world_time //What world time the object will burn up completely
 	var/being_shocked = 0
+	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 
 /obj/New()
-	. = ..()
-
+	..()
+	if(!armor)
+		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	if(obj_integrity == null)
+		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
 		if(force_blueprints)
@@ -57,8 +67,13 @@
 /obj/Destroy()
 	machines -= src
 	processing_objects -= src
-	nanomanager.close_uis(src)
+	fast_processing -= src
+	SSnanoui.close_uis(src)
 	return ..()
+
+/obj/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	var/turf/T = get_turf(src) //This preserves RPD behaviour on specific turfs
+	T.rpd_act(user, our_rpd)
 
 /obj/proc/process()
 	set waitfor = 0
@@ -158,10 +173,6 @@
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-
-/obj/proc/alter_health()
-	return 1
-
 /obj/proc/hide(h)
 	return
 
@@ -171,7 +182,7 @@
 
 /obj/proc/hear_message(mob/M as mob, text)
 
-/obj/proc/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/proc/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
 
 /obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
@@ -203,7 +214,7 @@
 
 
 /obj/proc/update_multitool_menu(mob/user as mob)
-	var/obj/item/device/multitool/P = get_multitool(user)
+	var/obj/item/multitool/P = get_multitool(user)
 
 	if(!istype(P))
 		return 0
@@ -253,12 +264,6 @@ a {
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
 
-/obj/singularity_act()
-	ex_act(1.0)
-	if(src && isnull(gcDestroyed))
-		qdel(src)
-	return 2
-
 /obj/singularity_pull(S, current_size)
 	if(anchored)
 		if(current_size >= STAGE_FIVE)
@@ -269,39 +274,8 @@ a {
 /obj/proc/container_resist(var/mob/living)
 	return
 
-/obj/proc/tesla_act(var/power)
-	being_shocked = 1
-	var/power_bounced = power * 0.5
-	tesla_zap(src, 3, power_bounced)
-	addtimer(src, "reset_shocked", 10)
-
-/obj/proc/reset_shocked()
-	being_shocked = 0
-
 /obj/proc/CanAStarPass()
 	. = !density
-
-/obj/fire_act(global_overlay=1)
-	if(!burn_state)
-		burn_state = ON_FIRE
-		fire_master.burning += src
-		burn_world_time = world.time + burntime*rand(10,20)
-		if(global_overlay)
-			overlays += fire_overlay
-		return 1
-
-/obj/proc/burn()
-	empty_object_contents(1, loc)
-	var/obj/effect/decal/cleanable/ash/A = new(loc)
-	A.desc = "Looks like this used to be a [name] some time ago."
-	fire_master.burning -= src
-	qdel(src)
-
-/obj/proc/extinguish()
-	if(burn_state == ON_FIRE)
-		burn_state = FLAMMABLE
-		overlays -= fire_overlay
-		fire_master.burning -= src
 
 /obj/proc/empty_object_contents(burn = 0, new_loc = loc)
 	for(var/obj/item/Item in contents) //Empty out the contents
@@ -312,6 +286,24 @@ a {
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 
+/obj/proc/makeSpeedProcess()
+	if(speed_process)
+		return
+	speed_process = TRUE
+	processing_objects.Remove(src)
+	fast_processing.Add(src)
+
+/obj/proc/makeNormalProcess()
+	if(!speed_process)
+		return
+	speed_process = FALSE
+	processing_objects.Add(src)
+	fast_processing.Remove(src)
+
 /obj/vv_get_dropdown()
 	. = ..()
 	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
+	if(!speed_process)
+		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
+	else
+		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"

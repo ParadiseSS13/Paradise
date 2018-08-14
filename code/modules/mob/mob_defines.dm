@@ -46,7 +46,6 @@
 	var/gen_record = ""
 	var/blinded = null
 	var/bhunger = 0			//Carbon
-	var/ajourn = 0
 	var/lying = 0
 	var/lying_prev = 0
 	var/canmove = 1
@@ -79,9 +78,9 @@
 	var/atom/movable/buckled = null//Living
 	var/obj/item/l_hand = null//Living
 	var/obj/item/r_hand = null//Living
-	var/obj/item/weapon/back = null//Human/Monkey
-	var/obj/item/weapon/tank/internal = null//Human/Monkey
-	var/obj/item/weapon/storage/s_active = null//Carbon
+	var/obj/item/back = null//Human/Monkey
+	var/obj/item/tank/internal = null//Human/Monkey
+	var/obj/item/storage/s_active = null//Carbon
 	var/obj/item/clothing/mask/wear_mask = null//Carbon
 
 	var/seer = 0 //for cult//Carbon, probably Human
@@ -99,8 +98,6 @@
 	var/list/mapobjs = list()
 
 	var/in_throw_mode = 0
-
-	var/coughedtime = null
 
 	var/emote_cd = 0		// Used to supress emote spamming. 1 if on CD, 2 if disabled by admin (manually set), else 0
 
@@ -201,3 +198,5 @@
 	var/list/progressbars = null	//for stacking do_after bars
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
+
+	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.

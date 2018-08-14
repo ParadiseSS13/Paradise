@@ -13,8 +13,8 @@
 	create_reagents(100)
 	..()
 
-/obj/effect/decal/cleanable/attackby(obj/item/weapon/W as obj, mob/user as mob,)
-	if(istype(W, /obj/item/weapon/reagent_containers/glass) || istype(W, /obj/item/weapon/reagent_containers/food/drinks))
+/obj/effect/decal/cleanable/attackby(obj/item/W as obj, mob/user as mob,)
+	if(istype(W, /obj/item/reagent_containers/glass) || istype(W, /obj/item/reagent_containers/food/drinks))
 		if(src.reagents && W.reagents && !noscoop)
 			if(!src.reagents.total_volume)
 				to_chat(user, "<span class='notice'>There isn't enough [src] to scoop up!</span>")

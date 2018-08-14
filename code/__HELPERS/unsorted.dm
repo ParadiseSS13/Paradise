@@ -170,9 +170,12 @@ Turf and target are seperate in case you want to teleport some distance from a t
 // Checks if doors are open
 /proc/DirBlocked(turf/loc,var/dir)
 	for(var/obj/structure/window/D in loc)
-		if(!D.density)			continue
-		if(D.is_fulltile())	return 1
-		if(D.dir == dir)		return 1
+		if(!D.density)
+			continue
+		if(D.fulltile)
+			return 1
+		if(D.dir == dir)
+			return 1
 
 	for(var/obj/machinery/door/D in loc)
 		if(!D.density)//if the door is open
@@ -394,6 +397,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		moblist.Add(M)
 	return moblist
 
+// Format a power value in W, kW, MW, or GW.
+/proc/DisplayPower(powerused)
+	if(powerused < 1000) //Less than a kW
+		return "[powerused] W"
+	else if(powerused < 1000000) //Less than a MW
+		return "[round((powerused * 0.001), 0.01)] kW"
+	else if(powerused < 1000000000) //Less than a GW
+		return "[round((powerused * 0.000001), 0.001)] MW"
+	return "[round((powerused * 0.000000001), 0.0001)] GW"
+
 //E = MC^2
 /proc/convert2energy(var/M)
 	var/E = M*(SPEED_OF_LIGHT_SQ)
@@ -515,23 +528,6 @@ proc/GaussRand(var/sigma)
 proc/GaussRandRound(var/sigma,var/roundto)
 	return round(GaussRand(sigma),roundto)
 
-proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,flick_anim as text,sleeptime = 0,direction as num)
-//This proc throws up either an icon or an animation for a specified amount of time.
-//The variables should be apparent enough.
-	var/atom/movable/overlay/animation = new(location)
-	if(direction)
-		animation.dir = direction
-	animation.icon = a_icon
-	animation.layer = target:layer+1
-	if(a_icon_state)
-		animation.icon_state = a_icon_state
-	else
-		animation.icon_state = "blank"
-		animation.master = target
-		flick(flick_anim, animation)
-	sleep(max(sleeptime, 15))
-	qdel(animation)
-
 //Will return the contents of an atom recursivly to a depth of 'searchDepth'
 /atom/proc/GetAllContents(searchDepth = 5)
 	var/list/toReturn = list()
@@ -542,6 +538,14 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 			toReturn += part.GetAllContents(searchDepth - 1)
 
 	return toReturn
+
+//Searches contents of the atom and returns the sum of all w_class of obj/item within
+/atom/proc/GetTotalContentsWeight(searchDepth = 5)
+	var/weight = 0
+	var/list/content = GetAllContents(searchDepth)
+	for(var/obj/item/I in content)
+		weight += I.w_class
+	return weight
 
 //Step-towards method of determining whether one atom can see another. Similar to viewers()
 /proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
@@ -794,15 +798,15 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 
 	if(toupdate.len)
 		for(var/turf/simulated/T1 in toupdate)
-			air_master.remove_from_active(T1)
+			SSair.remove_from_active(T1)
 			T1.CalculateAdjacentTurfs()
-			air_master.add_to_active(T1,1)
+			SSair.add_to_active(T1,1)
 
 	if(fromupdate.len)
 		for(var/turf/simulated/T2 in fromupdate)
-			air_master.remove_from_active(T2)
+			SSair.remove_from_active(T2)
 			T2.CalculateAdjacentTurfs()
-			air_master.add_to_active(T2,1)
+			SSair.add_to_active(T2,1)
 
 
 
@@ -958,7 +962,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 	if(toupdate.len)
 		for(var/turf/simulated/T1 in toupdate)
 			T1.CalculateAdjacentTurfs()
-			air_master.add_to_active(T1,1)
+			SSair.add_to_active(T1,1)
 
 
 	return copiedobjs
@@ -1051,6 +1055,8 @@ proc/get_mob_with_client_list()
 
 	//Find coordinates
 	var/turf/T = get_turf(AM) //use AM's turfs, as it's coords are the same as AM's AND AM's coords are lost if it is inside another atom
+	if(!T)
+		return null
 	var/final_x = T.x + rough_x
 	var/final_y = T.y + rough_y
 
@@ -1097,12 +1103,12 @@ var/list/can_embed_types = typecacheof(list(
 //Quick type checks for some tools
 var/global/list/common_tools = list(
 /obj/item/stack/cable_coil,
-/obj/item/weapon/wrench,
-/obj/item/weapon/weldingtool,
-/obj/item/weapon/screwdriver,
-/obj/item/weapon/wirecutters,
-/obj/item/device/multitool,
-/obj/item/weapon/crowbar)
+/obj/item/wrench,
+/obj/item/weldingtool,
+/obj/item/screwdriver,
+/obj/item/wirecutters,
+/obj/item/multitool,
+/obj/item/crowbar)
 
 /proc/istool(O)
 	if(O && is_type_in_list(O, common_tools))
@@ -1110,12 +1116,12 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/iswrench(O)
-	if(istype(O, /obj/item/weapon/wrench))
+	if(istype(O, /obj/item/wrench))
 		return 1
 	return 0
 
 /proc/iswelder(O)
-	if(istype(O, /obj/item/weapon/weldingtool))
+	if(istype(O, /obj/item/weldingtool))
 		return 1
 	return 0
 
@@ -1125,22 +1131,22 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/iswirecutter(O)
-	if(istype(O, /obj/item/weapon/wirecutters))
+	if(istype(O, /obj/item/wirecutters))
 		return 1
 	return 0
 
 /proc/isscrewdriver(O)
-	if(istype(O, /obj/item/weapon/screwdriver))
+	if(istype(O, /obj/item/screwdriver))
 		return 1
 	return 0
 
 /proc/ismultitool(O)
-	if(istype(O, /obj/item/device/multitool))
+	if(istype(O, /obj/item/multitool))
 		return 1
 	return 0
 
 /proc/iscrowbar(O)
-	if(istype(O, /obj/item/weapon/crowbar))
+	if(istype(O, /obj/item/crowbar))
 		return 1
 	return 0
 
@@ -1150,20 +1156,20 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/is_hot(obj/item/W as obj)
-	if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/O = W
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/O = W
 		if(O.isOn())
 			return 3800
 		else
 			return 0
-	if(istype(W, /obj/item/weapon/lighter))
-		var/obj/item/weapon/lighter/O = W
+	if(istype(W, /obj/item/lighter))
+		var/obj/item/lighter/O = W
 		if(O.lit)
 			return 1500
 		else
 			return 0
-	if(istype(W, /obj/item/weapon/match))
-		var/obj/item/weapon/match/O = W
+	if(istype(W, /obj/item/match))
+		var/obj/item/match/O = W
 		if(O.lit == 1)
 			return 1000
 		else
@@ -1180,21 +1186,21 @@ var/global/list/common_tools = list(
 			return 1000
 		else
 			return 0
-	if(istype(W, /obj/item/device/flashlight/flare))
-		var/obj/item/device/flashlight/flare/O = W
+	if(istype(W, /obj/item/flashlight/flare))
+		var/obj/item/flashlight/flare/O = W
 		if(O.on)
 			return 1000
 		else
 			return 0
-	if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		return 3800
-	if(istype(W, /obj/item/weapon/melee/energy))
-		var/obj/item/weapon/melee/energy/O = W
+	if(istype(W, /obj/item/melee/energy))
+		var/obj/item/melee/energy/O = W
 		if(O.active)
 			return 3500
 		else
 			return 0
-	if(istype(W, /obj/item/device/assembly/igniter))
+	if(istype(W, /obj/item/assembly/igniter))
 		return 1000
 	else
 		return 0
@@ -1209,12 +1215,12 @@ var/global/list/common_tools = list(
 
 /proc/is_surgery_tool(obj/item/W as obj)
 	return (	\
-	istype(W, /obj/item/weapon/scalpel)			||	\
-	istype(W, /obj/item/weapon/hemostat)		||	\
-	istype(W, /obj/item/weapon/retractor)		||	\
-	istype(W, /obj/item/weapon/cautery)			||	\
-	istype(W, /obj/item/weapon/bonegel)			||	\
-	istype(W, /obj/item/weapon/bonesetter)
+	istype(W, /obj/item/scalpel)			||	\
+	istype(W, /obj/item/hemostat)		||	\
+	istype(W, /obj/item/retractor)		||	\
+	istype(W, /obj/item/cautery)			||	\
+	istype(W, /obj/item/bonegel)			||	\
+	istype(W, /obj/item/bonesetter)
 	)
 
 //check if mob is lying down on something we can operate him on.
@@ -1248,11 +1254,11 @@ var/global/list/common_tools = list(
 Checks if that loc and dir has a item on the wall
 */
 var/list/static/global/wall_items = typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
-	/obj/item/device/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
+	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
 	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/airlock,
-	/obj/item/weapon/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
+	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
 	/obj/structure/sign))
 
@@ -1354,7 +1360,7 @@ Standard way to write links -Sayu
 			if(covered_locations & HEAD)
 				return 0
 		if("eyes")
-			if(covered_locations & HEAD || face_covered & HIDEEYES || eyesmouth_covered & GLASSESCOVERSEYES)
+			if(face_covered & HIDEEYES || eyesmouth_covered & GLASSESCOVERSEYES || eyesmouth_covered & HEADCOVERSEYES)
 				return 0
 		if("mouth")
 			if(covered_locations & HEAD || face_covered & HIDEFACE || eyesmouth_covered & MASKCOVERSMOUTH)
@@ -1491,14 +1497,34 @@ var/mob/dview/dview_mob = new
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 
-/proc/IsValidSrc(var/A)
-	if(istype(A, /datum))
-		var/datum/B = A
-		return isnull(B.gcDestroyed)
-	if(istype(A, /client))
-		return 1
-	return 0
+/mob/dview/Destroy()
+	// should never be deleted
+	return QDEL_HINT_LETMELIVE
 
+/proc/IsValidSrc(A)
+	if(istype(A, /datum))
+		var/datum/D = A
+		return !QDELETED(D)
+	if(istype(A, /client))
+		return TRUE
+	return FALSE
+
+//can a window be here, or is there a window blocking it?
+/proc/valid_window_location(turf/T, dir_to_check)
+	if(!T)
+		return FALSE
+	for(var/obj/O in T)
+		if(istype(O, /obj/machinery/door/window) && (O.dir == dir_to_check || dir_to_check == FULLTILE_WINDOW_DIR))
+			return FALSE
+		if(istype(O, /obj/structure/windoor_assembly))
+			var/obj/structure/windoor_assembly/W = O
+			if(W.ini_dir == dir_to_check || dir_to_check == FULLTILE_WINDOW_DIR)
+				return FALSE
+		if(istype(O, /obj/structure/window))
+			var/obj/structure/window/W = O
+			if(W.ini_dir == dir_to_check || W.ini_dir == FULLTILE_WINDOW_DIR || dir_to_check == FULLTILE_WINDOW_DIR)
+				return FALSE
+	return TRUE
 
 //Get the dir to the RIGHT of dir if they were on a clock
 //NORTH --> NORTHEAST
@@ -1760,13 +1786,13 @@ var/mob/dview/dview_mob = new
 		var/typename = "[type]"
 		var/static/list/TYPES_SHORTCUTS = list(
 			/obj/effect/decal/cleanable = "CLEANABLE",
-			/obj/item/device/radio/headset = "HEADSET",
+			/obj/item/radio/headset = "HEADSET",
 			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
-			/obj/item/weapon/book/manual = "MANUAL",
-			/obj/item/weapon/reagent_containers/food/drinks = "DRINK", //longest paths comes first
-			/obj/item/weapon/reagent_containers/food = "FOOD",
-			/obj/item/weapon/reagent_containers = "REAGENT_CONTAINERS",
-			/obj/item/weapon = "WEAPON",
+			/obj/item/book/manual = "MANUAL",
+			/obj/item/reagent_containers/food/drinks = "DRINK", //longest paths comes first
+			/obj/item/reagent_containers/food = "FOOD",
+			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
+			/obj/item = "WEAPON",
 			/obj/machinery/atmospherics = "ATMOS_MECH",
 			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
 			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
@@ -1899,3 +1925,45 @@ var/mob/dview/dview_mob = new
 		num_sample -= num
 		result += (1 << num)
 	return result
+
+/proc/pixel_shift_dir(var/dir, var/amount_x = 32, var/amount_y = 32) //Returns a list with pixel_shift values that will shift an object's icon one tile in the direction passed.
+	amount_x = min(max(0, amount_x), 32) //No less than 0, no greater than 32.
+	amount_y = min(max(0, amount_x), 32)
+	var/list/shift = list("x" = 0, "y" = 0)
+	switch(dir)
+		if(NORTH)
+			shift["y"] = amount_y
+		if(SOUTH)
+			shift["y"] = -amount_y
+		if(EAST)
+			shift["x"] = amount_x
+		if(WEST)
+			shift["x"] = -amount_x
+		if(NORTHEAST)
+			shift = list("x" = amount_x, "y" = amount_y)
+		if(NORTHWEST)
+			shift = list("x" = -amount_x, "y" = amount_y)
+		if(SOUTHEAST)
+			shift = list("x" = amount_x, "y" = -amount_y)
+		if(SOUTHWEST)
+			shift = list("x" = -amount_x, "y" = -amount_y)
+
+	return shift
+
+//Return a list of atoms in a location of a given type. Can be refined to look for pixel-shift.
+/proc/get_atoms_of_type(var/atom/here, var/type, var/check_shift, var/shift_x = 0, var/shift_y = 0)
+	. = list()
+	if(here)
+		for(var/atom/thing in here)
+			if(istype(thing, type) && (check_shift && thing.pixel_x == shift_x && thing.pixel_y == shift_y))
+				. += thing
+
+//gives us the stack trace from CRASH() without ending the current proc.
+/proc/stack_trace(msg)
+	CRASH(msg)
+
+/datum/proc/stack_trace(msg)
+	CRASH(msg)
+
+/proc/pass()
+	return

@@ -9,7 +9,7 @@
 
 /datum/martial_art/wrestling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	D.grabbedby(A,1)
-	var/obj/item/weapon/grab/G = A.get_active_hand()
+	var/obj/item/grab/G = A.get_active_hand()
 	if(G && prob(50))
 		G.state = GRAB_AGGRESSIVE
 		D.visible_message("<span class='danger'>[A] has [D] in a clinch!</span>", \
@@ -28,7 +28,7 @@
 	var/armor_block = D.run_armor_check(null, "melee")
 	D.apply_damage(30, BRUTE, null, armor_block)
 	D.apply_effect(6, WEAKEN, armor_block)
-	add_logs(A, D, "suplexed")
+	add_attack_logs(A, D, "Melee attacked with [src] (SUPLEX)")
 
 	A.SpinAnimation(10,1)
 
@@ -39,8 +39,8 @@
 	return
 
 /datum/martial_art/wrestling/disarm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(istype(A.get_inactive_hand(),/obj/item/weapon/grab))
-		var/obj/item/weapon/grab/G = A.get_inactive_hand()
+	if(istype(A.get_inactive_hand(),/obj/item/grab))
+		var/obj/item/grab/G = A.get_inactive_hand()
 		if(G.affecting == D)
 			Suplex(A,D)
 			return 1

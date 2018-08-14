@@ -1,5 +1,5 @@
 
-/obj/item/weapon/bee_briefcase
+/obj/item/bee_briefcase
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
 	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
@@ -18,11 +18,11 @@
 	var/sound_file = 'sound/misc/briefcase_bees.ogg'
 	var/next_sound = 0
 
-/obj/item/weapon/bee_briefcase/Destroy()
+/obj/item/bee_briefcase/Destroy()
 	blood_list.Cut()
 	return ..()
 
-/obj/item/weapon/bee_briefcase/examine(mob/user)
+/obj/item/bee_briefcase/examine(mob/user)
 	..()
 	if(loc == user)
 		if(bees_left)
@@ -30,9 +30,9 @@
 		else
 			to_chat(user, "<span class='danger'>The bees are gone... Colony collapse disorder?</span>")
 
-/obj/item/weapon/bee_briefcase/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/reagent_containers/syringe))
-		var/obj/item/weapon/reagent_containers/syringe/S = I
+/obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/syringe))
+		var/obj/item/reagent_containers/syringe/S = I
 		if(!bees_left)
 			to_chat(user, "<span class='warning'>The briefcase is empty, so there is no point in injecting something into it.</span>")
 			return
@@ -50,12 +50,12 @@
 						to_chat(user, "<span class='warning'>The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped...</span>")
 				S.reagents.clear_reagents()
 				S.update_icon()
-	else if(istype(I, /obj/item/weapon/reagent_containers/spray/pestspray))
+	else if(istype(I, /obj/item/reagent_containers/spray/pestspray))
 		bees_left = max(0, (bees_left - 6))
 		to_chat(user, "You spray [I] into [src].")
 		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 
-/obj/item/weapon/bee_briefcase/attack_self(mob/user as mob)
+/obj/item/bee_briefcase/attack_self(mob/user as mob)
 	if(!bees_left)
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
 		return

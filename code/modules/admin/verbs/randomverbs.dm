@@ -141,6 +141,46 @@
 	message_admins("<span class='boldnotice'>DirectNarrate: [key_name_admin(usr)] to ([key_name_admin(M)]): [msg]<BR></span>", 1)
 	feedback_add_details("admin_verb","DIRN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+
+
+
+/client/proc/cmd_admin_headset_message(mob/M in mob_list)
+	set category = "Event"
+	set name = "Headset Message"
+
+	admin_headset_message(M)
+
+/client/proc/admin_headset_message(mob/M in mob_list, sender = null)
+	var/mob/living/carbon/human/H = M
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(!istype(H))
+		to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
+		return
+	if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+		to_chat(usr, "The person you are trying to contact is not wearing a headset")
+		return
+
+	if(!sender)
+		sender = input("Who is the message from?", "Sender") as null|anything in list("Centcomm", "Syndicate")
+		if(!sender)
+			return
+
+	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
+	var/input = input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "") as text|null
+	if(!input)
+		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
+		return
+
+	log_admin("[key_name(src)] replied to [key_name(H)]'s [sender] message with the message [input].")
+	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
+	to_chat(H, "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"] <span class='bold'>[input].</span> Message ends.\"")
+
+
+
+
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)
 	set category = "Admin"
 	set name = "Godmode"
@@ -410,7 +450,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("Death Commando")//Leaves them at late-join spawn.
 			new_character.equip_death_commando()
 			new_character.internal = new_character.s_store
-			new_character.update_internals_hud_icon(1)
+			new_character.update_action_buttons_icon()
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
 				if("Cyborg")//More rigging to make em' work and check if they're traitor.
@@ -429,7 +469,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	//Announces the character on all the systems, based on the record.
 	if(!issilicon(new_character))//If they are not a cyborg/AI.
-		if(!record_found&&new_character.mind.assigned_role!="MODE")//If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
+		if(!record_found && new_character.mind.assigned_role != new_character.mind.special_role)//If there are no records for them. If they have a record, this info is already in there. Offstation special characters announced anyway.
 			//Power to the user!
 			if(alert(new_character,"Warning: No data core entry detected. Would you like to announce the arrival of this character by adding them to various databases, such as medical records?",,"No","Yes")=="Yes")
 				data_core.manifest_inject(new_character)
@@ -576,9 +616,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 			command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
 			print_command_report(input, "[command_name()] Update")
-		else if("No")
+		if("No")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			command_announcement.Announce("A report has been downloaded and printed out at all communications consoles.", "Incoming Classified Message", 'sound/AI/commandreport.ogg', from = "[command_name()] Update")
+			command_announcer.autosay("A classified message has been printed out at all communication consoles.");
 			print_command_report(input, "Classified [command_name()] Update")
 		else
 			return
@@ -763,6 +803,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
 	if(confirm != "Yes") return
 
+	if(alert("Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", "Yes", "No") == "Yes")
+		shuttle_master.emergency.canRecall = TRUE
+	else
+		shuttle_master.emergency.canRecall = FALSE
+
 	shuttle_master.emergency.request()
 
 	feedback_add_details("admin_verb","CSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -781,7 +826,18 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
-	shuttle_master.emergency.cancel()
+	if(shuttle_master.emergency.canRecall == FALSE)
+		if(alert("Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
+			return
+		else
+			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
+			shuttle_master.emergency.canRecall = TRUE // must be true for cancel proc to work
+			shuttle_master.emergency.cancel()
+			if(keepStatus)
+				shuttle_master.emergency.canRecall = FALSE // restores original status
+	else
+		shuttle_master.emergency.cancel()
+
 	feedback_add_details("admin_verb","CCSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")

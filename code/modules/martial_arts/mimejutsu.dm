@@ -23,7 +23,7 @@
 
 /datum/martial_art/mimejutsu/proc/mimeChuck(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.stunned && !D.weakened)
-		var/damage = rand(5, 8) + A.species.punchdamagelow
+		var/damage = rand(5, 8) + A.dna.species.punchdamagelow
 		if(!damage)
 			playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 			D.visible_message("<span class='warning'>[A] swings invisible nunchcuks at [D]..and misses?</span>")
@@ -38,7 +38,7 @@
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		D.apply_damage(damage, STAMINA, affecting, armor_block)
-		add_logs(A, D, "mimechucked")
+		add_attack_logs(A, D, "Melee attacked with [src] (mimechuck)")
 
 		return 1
 	return basic_hit(A,D)
@@ -47,7 +47,7 @@
 
 	D.visible_message("<span class='danger'>[A] throws an invisible smoke bomb!!</span>")
 
-	var/datum/effect/system/bad_smoke_spread/smoke = new /datum/effect/system/bad_smoke_spread()
+	var/datum/effect_system/smoke_spread/bad/smoke = new
 	smoke.set_up(5, 0, D.loc)
 	smoke.start()
 
@@ -55,8 +55,8 @@
 
 /datum/martial_art/mimejutsu/proc/mimePalm(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(!D.stat && !D.stunned && !D.weakened)
-		D.visible_message("<span class='danger'>[A] has barely touched [D] with their palm!</span>", \
-						"<span class='userdanger'>[A] hovers their palm over your face!</span>")
+		D.visible_message("<span class='danger'>[A] has barely touched [D] with [A.p_their()] palm!</span>", \
+						"<span class='userdanger'>[A] hovers [A.p_their()] palm over your face!</span>")
 
 		var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 		D.throw_at(throw_target, 200, 4,A)
@@ -86,14 +86,14 @@
 
 	return 1
 
-/obj/item/weapon/mimejutsu_scroll
+/obj/item/mimejutsu_scroll
 	name = "Mimejutsu 'scroll'"
 	desc =	"Its a beret with a note stapled to it..."
 	icon = 'icons/obj/clothing/hats.dmi'
 	icon_state = "beret"
 	var/used = 0
 
-/obj/item/weapon/mimejutsu_scroll/attack_self(mob/user as mob)
+/obj/item/mimejutsu_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
 		return
 	if(!used)

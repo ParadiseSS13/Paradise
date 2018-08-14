@@ -37,9 +37,9 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-/obj/machinery/door_control/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/machinery/door_control/attackby(obj/item/W, mob/user as mob, params)
 	/* For later implementation
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 	{
 		if(wiresexposed)
 			icon_state = "doorctrl0"
@@ -52,7 +52,7 @@
 		return
 	}
 	*/
-	if(istype(W, /obj/item/device/detective_scanner))
+	if(istype(W, /obj/item/detective_scanner))
 		return
 	return attack_hand(user)
 

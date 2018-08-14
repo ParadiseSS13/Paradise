@@ -1,106 +1,89 @@
 /obj/machinery/door/poddoor
-	name = "Podlock"
-	desc = "That looks like it doesn't open easily."
-	icon = 'icons/obj/doors/rapid_pdoor.dmi'
-	icon_state = "pdoor1"
+	name = "blast door"
+	desc = "A heavy duty blast door that opens mechanically."
+	icon = 'icons/obj/doors/blastdoor.dmi'
+	icon_state = "closed"
+	layer = BLASTDOOR_LAYER
+	closingLayer = CLOSED_BLASTDOOR_LAYER
 	explosion_block = 3
-	heat_proof = 1
+	heat_proof = TRUE
+	safe = FALSE
+	armor = list(melee = 50, bullet = 100, laser = 100, energy = 100, bomb = 50, bio = 100, rad = 100)
+	burn_state = FIRE_PROOF
+	damage_deflection = 70
 	var/id_tag = 1.0
 	var/protected = 1
 
 /obj/machinery/door/poddoor/preopen
-	icon_state = "pdoor0"
-	density = 0
+	icon_state = "open"
+	density = FALSE
 	opacity = 0
 
 /obj/machinery/door/poddoor/Bumped(atom/AM)
-	if(!density)
-		return ..()
+	if(density)
+		return
 	else
 		return 0
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
 /obj/machinery/door/poddoor/ex_act(severity, target)
-	switch(severity)
-		if(1.0)
-			if(prob(80))
-				qdel(src)
-			else
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-				s.set_up(2, 1, src)
-				s.start()
-		if(2.0)
-			if(prob(20))
-				qdel(src)
-			else
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-				s.set_up(2, 1, src)
-				s.start()
-
-		if(3.0)
-			if(prob(80))
-				var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
-				s.set_up(2, 1, src)
-				s.start()
-
-/obj/machinery/door/poddoor/attackby(obj/item/weapon/C as obj, mob/user as mob, params)
-	src.add_fingerprint(user)
-	if(!( istype(C, /obj/item/weapon/crowbar) || (istype(C, /obj/item/weapon/twohanded/fireaxe) && C:wielded == 1) ))
+	if(severity == 3)
 		return
-	if((src.density && (stat & NOPOWER) && !operating))
-		spawn( 0 )
-			operating = 1
-			flick("pdoorc0", src)
-			src.icon_state = "pdoor0"
-			src.set_opacity(0)
-			sleep(15)
-			src.density = 0
-			operating = 0
-			return
-	return
+	..()
 
-/obj/machinery/door/poddoor/open()
-	if(operating || emagged) //doors can still open when emag-disabled
-		return
-	if(!ticker)
-		return 0
-	if(!operating) //in case of emag
-		operating = 1
-	flick("pdoorc0", src)
-	src.icon_state = "pdoor0"
-	src.set_opacity(0)
-	sleep(5)
-	src.density = 0
-	sleep(5)
-	air_update_turf(1)
+/obj/machinery/door/poddoor/do_animate(animation)
+	switch(animation)
+		if("opening")
+			flick("opening", src)
+			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+		if("closing")
+			flick("closing", src)
+			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+
+/obj/machinery/door/poddoor/update_icon()
+	if(density)
+		icon_state = "closed"
+	else
+		icon_state = "open"
+
+/obj/machinery/door/poddoor/try_to_activate_door(mob/user)
+ 	return
+
+/obj/machinery/door/poddoor/try_to_crowbar(obj/item/I, mob/user)
+	if(!hasPower())
+		open()
+
+ // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
+ // Wise words. - Bxil
+/obj/machinery/door/poddoor/multi_tile
+	name = "large pod door"
+	layer = CLOSED_DOOR_LAYER
+	closingLayer = CLOSED_DOOR_LAYER
+
+/obj/machinery/door/poddoor/multi_tile/New()
+	. = ..()
+	apply_opacity_to_my_turfs(opacity)
+
+/obj/machinery/door/poddoor/multi_tile/open()
+	if(..())
+		apply_opacity_to_my_turfs(opacity)
+
+
+/obj/machinery/door/poddoor/multi_tile/close()
+	if(..())
+		apply_opacity_to_my_turfs(opacity)
+
+/obj/machinery/door/poddoor/multi_tile/Destroy()
+	apply_opacity_to_my_turfs(0)
+	return ..()
+
+//Multi-tile poddoors don't turn invisible automatically, so we change the opacity of the turfs below instead one by one.
+/obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(var/new_opacity)
+	for(var/turf/T in locs)
+		T.opacity = new_opacity
+		T.has_opaque_atom = new_opacity
+		T.reconsider_lights()
 	update_freelook_sight()
-
-	if(operating) //emag again
-		operating = 0
-	if(autoclose)
-		spawn(150)
-			autoclose()
-	return 1
-
-/obj/machinery/door/poddoor/close()
-	if(operating)
-		return
-	operating = 1
-	flick("pdoorc1", src)
-	src.icon_state = "pdoor1"
-	src.set_opacity(initial(opacity))
-	air_update_turf(1)
-	update_freelook_sight()
-	sleep(5)
-	crush()
-	src.density = 1
-	sleep(5)
-
-	operating = 0
-	return
-
-/obj/machinery/door/poddoor/multi_tile // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell.
-	name = "Large Pod Door"
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver/
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'

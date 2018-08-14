@@ -1,9 +1,9 @@
-/obj/item/weapon/implant/health
+/obj/item/implant/health
 	name = "health implant"
 	activated = FALSE
 	var/healthstring = ""
 
-/obj/item/weapon/implant/health/proc/sensehealth()
+/obj/item/implant/health/proc/sensehealth()
 	if(!imp_in)
 		return "ERROR"
 	else

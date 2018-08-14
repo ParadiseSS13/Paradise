@@ -1,6 +1,7 @@
-/obj/item/device/taperecorder
+/obj/item/taperecorder
 	name = "universal recorder"
 	desc = "A device that can record to cassette tapes, and play them. It automatically translates the content in playback."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_empty"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
@@ -11,33 +12,33 @@
 	var/recording = 0
 	var/playing = 0
 	var/playsleepseconds = 0
-	var/obj/item/device/tape/mytape
+	var/obj/item/tape/mytape
 	var/open_panel = 0
 	var/canprint = 1
 
 
-/obj/item/device/taperecorder/New()
-	mytape = new /obj/item/device/tape/random(src)
+/obj/item/taperecorder/New()
+	mytape = new /obj/item/tape/random(src)
 	update_icon()
 
-/obj/item/device/taperecorder/Destroy()
+/obj/item/taperecorder/Destroy()
 	QDEL_NULL(mytape)
 	return ..()
 
-/obj/item/device/taperecorder/examine(mob/user)
+/obj/item/taperecorder/examine(mob/user)
 	if(..(user, 1))
 		to_chat(user, "The wire panel is [open_panel ? "opened" : "closed"].")
 
 
-/obj/item/device/taperecorder/attackby(obj/item/I, mob/user)
-	if(!mytape && istype(I, /obj/item/device/tape))
+/obj/item/taperecorder/attackby(obj/item/I, mob/user)
+	if(!mytape && istype(I, /obj/item/tape))
 		user.drop_item()
 		I.loc = src
 		mytape = I
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
 		update_icon()
 
-/obj/item/device/taperecorder/proc/eject(mob/user)
+/obj/item/taperecorder/proc/eject(mob/user)
 	if(mytape)
 		to_chat(user, "<span class='notice'>You remove [mytape] from [src].</span>")
 		stop()
@@ -46,11 +47,11 @@
 		update_icon()
 
 
-/obj/item/device/taperecorder/fire_act()
+/obj/item/taperecorder/fire_act()
 	mytape.ruin() //Fires destroy the tape
 	return ..()
 
-/obj/item/device/taperecorder/attack_hand(mob/user)
+/obj/item/taperecorder/attack_hand(mob/user)
 	if(loc == user)
 		if(mytape)
 			if(user.l_hand != src && user.r_hand != src)
@@ -61,7 +62,7 @@
 	..()
 
 
-/obj/item/device/taperecorder/verb/ejectverb()
+/obj/item/taperecorder/verb/ejectverb()
 	set name = "Eject Tape"
 	set category = "Object"
 
@@ -73,7 +74,7 @@
 	eject(usr)
 
 
-/obj/item/device/taperecorder/update_icon()
+/obj/item/taperecorder/update_icon()
 	if(!mytape)
 		icon_state = "taperecorder_empty"
 	else if(recording)
@@ -84,7 +85,7 @@
 		icon_state = "taperecorder_idle"
 
 
-/obj/item/device/taperecorder/hear_talk(mob/living/M as mob, msg)
+/obj/item/taperecorder/hear_talk(mob/living/M as mob, msg)
 	if(mytape && recording)
 		var/ending = copytext(msg, length(msg))
 		mytape.timestamp += mytape.used_capacity
@@ -102,12 +103,12 @@
 			return
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] says, \"[msg]\""
 
-/obj/item/device/taperecorder/hear_message(mob/living/M as mob, msg)
+/obj/item/taperecorder/hear_message(mob/living/M as mob, msg)
 	if(mytape && recording)
 		mytape.timestamp += mytape.used_capacity
 		mytape.storedinfo += "\[[time2text(mytape.used_capacity * 10,"mm:ss")]\] [M.name] [msg]"
 
-/obj/item/device/taperecorder/verb/record()
+/obj/item/taperecorder/verb/record()
 	set name = "Start Recording"
 	set category = "Object"
 
@@ -140,7 +141,7 @@
 		to_chat(usr, "<span class='notice'>The tape is full.</span>")
 
 
-/obj/item/device/taperecorder/verb/stop()
+/obj/item/taperecorder/verb/stop()
 	set name = "Stop"
 	set category = "Object"
 
@@ -159,7 +160,7 @@
 	update_icon()
 
 
-/obj/item/device/taperecorder/verb/play()
+/obj/item/taperecorder/verb/play()
 	set name = "Play Tape"
 	set category = "Object"
 
@@ -203,7 +204,7 @@
 	update_icon()
 
 
-/obj/item/device/taperecorder/attack_self(mob/user)
+/obj/item/taperecorder/attack_self(mob/user)
 	if(!mytape || mytape.ruined)
 		return
 	if(recording)
@@ -212,7 +213,7 @@
 		record()
 
 
-/obj/item/device/taperecorder/verb/print_transcript()
+/obj/item/taperecorder/verb/print_transcript()
 	set name = "Print Transcript"
 	set category = "Object"
 
@@ -228,7 +229,7 @@
 
 	to_chat(usr, "<span class='notice'>Transcript printed.</span>")
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
+	var/obj/item/paper/P = new /obj/item/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i = 1, mytape.storedinfo.len >= i, i++)
 		t1 += "[mytape.storedinfo[i]]<BR>"
@@ -240,13 +241,14 @@
 	canprint = 1
 
 //empty tape recorders
-/obj/item/device/taperecorder/empty/New()
+/obj/item/taperecorder/empty/New()
 	return
 
 
-/obj/item/device/tape
+/obj/item/tape
 	name = "tape"
 	desc = "A magnetic tape that can hold up to ten minutes of content."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "tape_white"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_TINY
@@ -259,15 +261,15 @@
 	var/list/timestamp = list()
 	var/ruined = 0
 
-/obj/item/device/tape/fire_act()
+/obj/item/tape/fire_act()
 	ruin()
 
-/obj/item/device/tape/attack_self(mob/user)
+/obj/item/tape/attack_self(mob/user)
 	if(!ruined)
 		to_chat(user, "<span class='notice'>You pull out all the tape!</span>")
 		ruin()
 
-/obj/item/device/tape/verb/wipe()
+/obj/item/tape/verb/wipe()
 	set name = "Wipe Tape"
 	set category = "Object"
 
@@ -279,30 +281,30 @@
 	to_chat(usr, "You erase the data from the [src]")
 	clear()
 
-/obj/item/device/tape/proc/clear()
+/obj/item/tape/proc/clear()
 	used_capacity = 0
 	storedinfo.Cut()
 	timestamp.Cut()
 
-/obj/item/device/tape/proc/ruin()
+/obj/item/tape/proc/ruin()
 	if(!ruined)
 		overlays += "ribbonoverlay"
 	ruined = 1
 
 
 
-/obj/item/device/tape/proc/fix()
+/obj/item/tape/proc/fix()
 	overlays -= "ribbonoverlay"
 	ruined = 0
 
 
-/obj/item/device/tape/attackby(obj/item/I, mob/user)
-	if(ruined && istype(I, /obj/item/weapon/screwdriver))
+/obj/item/tape/attackby(obj/item/I, mob/user)
+	if(ruined && istype(I, /obj/item/screwdriver))
 		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
 		if(do_after(user, 120 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
 			fix()
-	else if(istype(I, /obj/item/weapon/pen))
+	else if(istype(I, /obj/item/pen))
 		var/title = stripped_input(usr,"What do you want to name the tape?", "Tape Renaming", name, MAX_NAME_LEN)
 		if(!title || !length(title))
 			name = initial(name)
@@ -311,5 +313,5 @@
 
 
 //Random colour tapes
-/obj/item/device/tape/random/New()
+/obj/item/tape/random/New()
 	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple")]"

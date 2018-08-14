@@ -5,18 +5,14 @@
 	pass_flags = PASSTABLE
 	ventcrawler = 2
 	speak_emote = list("telepathically chirps")
-
 	layer = 5
-
 	maxHealth = 150
 	health = 150
 	gender = NEUTER
-
 	nutrition = 700
-
 	see_in_dark = 8
 	update_slimes = 0
-
+	faction = list("slime","neutral")
 	// canstun and canweaken don't affect slimes because they ignore stun and weakened variables
 	// for the sake of cleanliness, though, here they are.
 	status_flags = CANPARALYSE|CANPUSH
@@ -44,7 +40,7 @@
 
 	var/mood = "" // To show its face
 	var/is_adult = 0
-
+	var/docile = 0
 	var/core_removal_stage = 0 //For removing cores.
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
 
@@ -64,6 +60,10 @@
 		slime_mutation = mutation_table(colour)
 		var/sanitizedcolour = replacetext(colour, " ", "")
 		coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
+	..()
+
+/mob/living/carbon/slime/random/New()
+	colour = pick("grey","orange", "metal", "blue", "purple", "dark purple", "dark blue", "green", "silver", "yellow", "gold", "yellow", "red", "silver", "pink", "cerulean", "sepia", "bluespace", "pyrite", "light pink", "oil", "adamantine", "black")
 	..()
 
 /mob/living/carbon/slime/Destroy()
@@ -136,7 +136,8 @@
 		stat(null, "Health: [round((health / 150) * 100)]%")
 
 	if(client.statpanel == "Status")
-		stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
+		if(!docile)
+			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
 		if(amount_grown >= 10)
 			if(is_adult)
 				stat(null, "You can reproduce!")
@@ -189,6 +190,12 @@
 	updatehealth()
 	return
 
+/mob/living/carbon/slime/MouseDrop(atom/movable/A)
+	if(isliving(A) && A != src && usr == src)
+		var/mob/living/Food = A
+		if(Food.Adjacent(src) && !stat && Food.stat != DEAD) //messy
+			Feedon(Food)
+	..()
 
 /mob/living/carbon/slime/unEquip(obj/item/W as obj)
 	return
@@ -196,79 +203,58 @@
 /mob/living/carbon/slime/attack_ui(slot)
 	return
 
-/mob/living/carbon/slime/attack_slime(mob/living/carbon/slime/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
+/mob/living/carbon/slime/attack_slime(mob/living/carbon/slime/M)
+	..()
+	if(Victim)
+		Victim = null
+		visible_message("<span class='danger'>[M] pulls [src] off!</span>")
 		return
-
-	if(Victim) return // can't attack while eating!
-
-	if(health > -100)
-
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'> The [M.name] has glomped [src]!</span>", \
-				"<span class='userdanger'> The [M.name] has glomped [src]!</span>")
-		var/damage = rand(1, 3)
-		attacked += 5
-
-		if(M.is_adult)
-			damage = rand(1, 6)
-		else
-			damage = rand(1, 3)
-
-		adjustBruteLoss(damage)
-
+	attacked += 5
+	if(nutrition >= 100) //steal some nutrition. negval handled in life()
+		nutrition -= (50 + (5 * M.amount_grown))
+		M.add_nutrition(50 + (5 * M.amount_grown))
+	if(health > 0)
+		adjustBruteLoss(4 + (2 * M.amount_grown)) //amt_grown isn't very linear but it works
 		updatehealth()
-	return
+		M.adjustBruteLoss(-4 + (-2 * M.amount_grown))
+		M.updatehealth()
 
-/mob/living/carbon/slime/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
-	else
-		M.do_attack_animation(src)
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>", \
-				"<span class='userdanger'>[M] [M.attacktext] [src]!</span>")
-		M.create_attack_log("<font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.create_attack_log("<font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
+/mob/living/carbon/slime/attack_animal(mob/living/simple_animal/M)
+	if(..())
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attacked += 10
 		adjustBruteLoss(damage)
 		updatehealth()
 
-/mob/living/carbon/slime/attack_larva(mob/living/carbon/alien/larva/L as mob)
+/mob/living/carbon/slime/attack_larva(mob/living/carbon/alien/larva/L)
+	if(..()) //successful larva bite.
+		var/damage = rand(1, 3)
+		if(stat != DEAD)
+			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
+			adjustBruteLoss(damage)
+			updatehealth()
 
-	switch(L.a_intent)
+/mob/living/carbon/slime/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		if(Victim || Target)
+			Victim = null
+			Target = null
+			anchored = 0
+			if(prob(80) && !client)
+				Discipline++
+		spawn(0)
+			step_away(src, user, 15)
+			sleep(3)
+			step_away(src, user, 15)
+		..(user, TRUE)
+		playsound(loc, "punch", 25, 1, -1)
+		visible_message("<span class='danger'>[user] has punched [src]!</span>", "<span class='userdanger'>[user] has punched [src]!</span>")
+		adjustBruteLoss(15)
+		return TRUE
 
-		if(INTENT_HELP)
-			visible_message("<span class='notice'>[L] rubs its head against [src].</span>")
-
-
-		else
-			L.do_attack_animation(src)
-			attacked += 10
-			visible_message("<span class='danger'>[L] bites [src]!</span>", \
-					"<span class='userdanger'>[L] bites [src]!</span>")
-			playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-
-			if(stat != DEAD)
-				var/damage = rand(1, 3)
-				L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-				adjustBruteLoss(damage)
-
-/mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
-	..()
-
+/mob/living/carbon/slime/attack_hand(mob/living/carbon/human/M)
 	if(Victim)
+		M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 		if(Victim == M)
 			if(prob(60))
 				visible_message("<span class='warning'>[M] attempts to wrestle \the [name] off!</span>")
@@ -316,26 +302,9 @@
 				step_away(src,M)
 
 			return
-	else
-		if(stat == DEAD && surgeries.len)
-			if(M.a_intent == INTENT_HELP)
-				for(var/datum/surgery/S in surgeries)
-					if(S.next_step(M, src))
-						return 1
 
-/*
-	if(M.gloves && istype(M.gloves,/obj/item/clothing/gloves))
-		var/obj/item/clothing/gloves/G = M.gloves
-		if(G.cell)
-			if(M.a_intent == "hurt")//Stungloves. Any contact will stun the alien.
-				if(G.cell.charge >= 2500)
-					G.cell.use(2500)
-					visible_message("<span class='warning'>[src] has been touched with the stun gloves by [M]!</span>")
-					return
-				else
-					to_chat(M, "<span class='warning'>Not enough charge! </span>")
-					return
-*/
+	if(..()) //To allow surgery to return properly.
+		return
 
 	switch(M.a_intent)
 
@@ -346,77 +315,46 @@
 			grabbedby(M)
 
 		else
-			M.do_attack_animation(src)
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			var/damage = rand(1, 9)
-
 			attacked += 10
 			if(prob(90))
-				if(HULK in M.mutations)
-					damage += 15
-					if(Victim || Target)
-						Victim = null
-						Target = null
-						anchored = 0
-						if(prob(80) && !client)
-							Discipline++
-					spawn(0)
-
-						step_away(src,M,15)
-						sleep(3)
-						step_away(src,M,15)
-
-
 				playsound(loc, "punch", 25, 1, -1)
+				add_attack_logs(M, src, "Melee attacked with fists")
 				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
 						"<span class='userdanger'>[M] has punched [src]!</span>")
-
-				adjustBruteLoss(damage)
-				updatehealth()
+				if(stat != DEAD)
+					adjustBruteLoss(damage)
+					updatehealth()
 			else
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to punch [src]!</span>")
 	return
 
-
-
-/mob/living/carbon/slime/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	if(!ticker)
-		to_chat(M, "You cannot attack people before the game has started.")
-		return
-
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
-	switch(M.a_intent)
-		if(INTENT_HELP)
-			visible_message("<span class='notice'>[M] caresses [src] with its scythe like arm.</span>")
-
-		if(INTENT_HARM)
-			M.do_attack_animation(src)
+/mob/living/carbon/slime/attack_alien(mob/living/carbon/alien/humanoid/M)
+	if(..()) //if harm or disarm intent.
+		if(M.a_intent == INTENT_HARM)
 			if(prob(95))
 				attacked += 10
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
 				if(damage >= 25)
 					damage = rand(20, 40)
-					visible_message("<span class='danger'>[M] has attacked [name]!</span>", \
-							"<span class='userdanger'>[M] has attacked [name]!</span>")
+					visible_message("<span class='danger'>[M] has slashed [name]!</span>", \
+							"<span class='userdanger'>[M] has slashed [name]!</span>")
 				else
 					visible_message("<span class='danger'>[M] has wounded [name]!</span>", \
 							"<span class='userdanger'>)[M] has wounded [name]!</span>")
-				adjustBruteLoss(damage)
-				updatehealth()
+				add_attack_logs(M, src, "Alien attacked")
+				if(stat != DEAD)
+					adjustBruteLoss(damage)
+					updatehealth()
 			else
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
 				visible_message("<span class='danger'>[M] has attempted to lunge at [name]!</span>", \
 						"<span class='userdanger'>[M] has attempted to lunge at [name]!</span>")
 
-		if(INTENT_GRAB)
-			grabbedby(M)
-
-		if(INTENT_DISARM)
-			M.do_attack_animation(src)
+		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			var/damage = 5
 			attacked += 10
@@ -431,7 +369,7 @@
 					anchored = 0
 					if(prob(80) && !client)
 						Discipline++
-						if(!istype(src, /mob/living/carbon/slime))
+						if(!isslime(src))
 							if(Discipline == 1)
 								attacked = 0
 
@@ -449,16 +387,12 @@
 				drop_item()
 				visible_message("<span class='danger'>[M] has disarmed [name]!</span>",
 						"<span class='userdanger'>[M] has disarmed [name]!</span>")
+			add_attack_logs(M, src, "Alien disarmed")
 			adjustBruteLoss(damage)
 			updatehealth()
 	return
 
-/mob/living/carbon/slime/attackby(obj/item/W, mob/user, params)
-	if(stat == DEAD && surgeries.len)
-		if(user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return 1
+/mob/living/carbon/slime/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W,/obj/item/stack/sheet/mineral/plasma)) //Lets you feed slimes plasma.
 		if(user in Friends)
 			++Friends[user]
@@ -471,6 +405,7 @@
 	else if(W.force > 0)
 		attacked += 10
 		if(prob(25))
+			user.do_attack_animation(src)
 			to_chat(user, "<span class='danger'>[W] passes right through [src]!</span>")
 			return
 		if(Discipline && prob(50)) // wow, buddy, why am I getting attacked??
@@ -550,8 +485,8 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 		return "You cannot ventcrawl while feeding."
 	..()
 
-/mob/living/carbon/slime/forceFed(var/obj/item/weapon/reagent_containers/food/toEat, mob/user, fullness)
-	if(istype(toEat, /obj/item/weapon/reagent_containers/food/drinks))
+/mob/living/carbon/slime/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+	if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 		return 1
 	to_chat(user, "This creature does not seem to have a mouth!")
 	return 0

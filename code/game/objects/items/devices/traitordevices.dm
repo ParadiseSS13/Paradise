@@ -14,9 +14,10 @@ effective or pretty fucking useless.
 
 */
 
-/obj/item/device/batterer
+/obj/item/batterer
 	name = "mind batterer"
 	desc = "A strange device with twin antennas."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "batterer"
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
@@ -29,14 +30,14 @@ effective or pretty fucking useless.
 	var/times_used = 0 //Number of times it's been used.
 	var/max_uses = 5
 
-/obj/item/device/batterer/examine(mob/user)
+/obj/item/batterer/examine(mob/user)
 	..(user)
 	if(times_used >= max_uses)
 		to_chat(user, "<span class='notice'>[src] is out of charge.</span>")
 	if(times_used < max_uses)
 		to_chat(user, "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>")
 
-/obj/item/device/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
+/obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user)
 		return
 	if(times_used >= max_uses)
@@ -47,7 +48,7 @@ effective or pretty fucking useless.
 	for(var/mob/living/carbon/human/M in oview(7, user))
 		if(prob(50))
 			M.Weaken(rand(4,7))
-			add_logs(user, M, "stunned", src)
+			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, "<span class='danger'>You feel a tremendous, paralyzing wave flood your mind.</span>")
 		else
 			to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through your head.</span>")
@@ -71,8 +72,9 @@ effective or pretty fucking useless.
 		Wavelength is also slightly increased by the intensity as well.
 */
 
-/obj/item/device/rad_laser
+/obj/item/rad_laser
 	name = "Health Analyzer"
+	icon = 'icons/obj/device.dmi'
 	icon_state = "health2"
 	item_state = "healthanalyzer"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
@@ -88,9 +90,9 @@ effective or pretty fucking useless.
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
 	var/used = 0 // is it cooling down?
 
-/obj/item/device/rad_laser/attack(mob/living/M, mob/living/user)
+/obj/item/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)
-		add_logs(user, M, "irradiated", src)
+		add_attack_logs(user, M, "Irradiated by [src]")
 		user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>")
 		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 		used = 1
@@ -104,16 +106,16 @@ effective or pretty fucking useless.
 	else
 		to_chat(user, "<span class='warning'>The radioactive microlaser is still recharging.</span>")
 
-/obj/item/device/rad_laser/proc/handle_cooldown(cooldown)
+/obj/item/rad_laser/proc/handle_cooldown(cooldown)
 	spawn(cooldown)
 		used = 0
 		icon_state = "health2"
 
-/obj/item/device/rad_laser/attack_self(mob/user)
+/obj/item/rad_laser/attack_self(mob/user)
 	..()
 	interact(user)
 
-/obj/item/device/rad_laser/interact(mob/user)
+/obj/item/rad_laser/interact(mob/user)
 	user.set_machine(src)
 
 	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
@@ -127,7 +129,7 @@ effective or pretty fucking useless.
 	popup.set_content(dat)
 	popup.open()
 
-/obj/item/device/rad_laser/Topic(href, href_list)
+/obj/item/rad_laser/Topic(href, href_list)
 	if(..())
 		return 1
 
@@ -147,18 +149,19 @@ effective or pretty fucking useless.
 	add_fingerprint(usr)
 	return
 
-/obj/item/device/jammer
+/obj/item/jammer
 	name = "radio jammer"
 	desc = "Device used to disrupt nearby radio communication."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
 	var/active = FALSE
 	var/range = 12
 
-/obj/item/device/jammer/Destroy()
+/obj/item/jammer/Destroy()
 	active_jammers -= src
 	return ..()
 
-/obj/item/device/jammer/attack_self(mob/user)
+/obj/item/jammer/attack_self(mob/user)
 	to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] the [src].</span>")
 	active = !active
 	if(active)

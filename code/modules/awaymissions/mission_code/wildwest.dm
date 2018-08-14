@@ -78,16 +78,16 @@
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				user.mutations.Add(LASER)
-				user.mutations.Add(RESIST_COLD)
+				user.mutations.Add(COLDRES)
 				user.mutations.Add(XRAY)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Wealth")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -95,12 +95,12 @@
 				new /obj/structure/closet/syndicate/resources/everything(loc)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -108,12 +108,12 @@
 				user.verbs += /mob/living/carbon/proc/immortality
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("To Kill")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -130,12 +130,12 @@
 					obj_count++
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Peace")
 				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
@@ -177,7 +177,7 @@
 		call(src,triggerproc)(M)
 
 /obj/effect/meatgrinder/proc/triggerrad1(mob)
-	var/datum/effect/system/spark_spread/s = new /datum/effect/system/spark_spread
+	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	for(var/mob/O in viewers(world.view, src.loc))
 		s.set_up(3, 1, src)
 		s.start()
@@ -216,3 +216,76 @@
 		C.visible_message("<span class='warning'>[usr] appears to wake from the dead, having healed all wounds.</span>")
 		C.update_canmove()
 	return 1
+
+/obj/item/wildwest_communicator
+	name = "Syndicate Comms Device"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "gangtool-red"
+	item_state = "walkietalkie"
+	desc = "Use to communicate with the syndicate base commander."
+	var/used = FALSE
+
+/obj/item/wildwest_communicator/attack_self(mob/living/user)
+
+	if(!is_away_level(user.z))
+		to_chat(user, "<span class='warning'>The communicator emits a faint beep. Perhaps it is out of range?</span>")
+		return
+
+	if(used)
+		to_chat(user, "<span class='warning'>The communicator buzzes, and then dies. Apparently nobody is responding.</span>")
+		return
+
+	var/initial_question = "<span class='warning'>The communicator buzzes, and you hear a voice on the line, almost lost in the static. 'Hello? Who is this?'.</span>"
+	to_chat(user, initial_question)
+
+	var/const/option_explorer = "(TRUTH) Explorers."
+	var/const/option_bluff = "(BLUFF) Weapons delivery."
+	var/const/option_threat = "(THREAT) NT, here to kick your ass!"
+	var/const/option_syndicate = "(SYNDI) Agent reporting in..."
+	var/list/response_choices = list(option_explorer, option_bluff, option_threat)
+
+	if(istype(user, /mob/living) && user.mind)
+		if(user.mind.special_role == "Traitor")
+			response_choices |= option_syndicate
+
+	var/selected_choice = input(user, "How do you respond on the comms device?", "Response to Syndicate") as null|anything in response_choices
+
+	if(!selected_choice)
+		return
+	switch(selected_choice)
+		if(option_explorer)
+			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Hah! You sure picked the wrong asteroid to explore. Get em, boys!'</span>")
+		if(option_bluff)
+			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'</span>")
+		if(option_threat)
+			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble'. Then the line goes dead.</span>")
+			for(var/obj/effect/landmark/L in landmarks_list)
+				if(L.name == "wildwest_syndipod")
+					var/obj/spacepod/syndi/P = new /obj/spacepod/syndi(get_turf(L))
+					P.name = "Syndi Recon Pod"
+				if(L.name == "wildwest_syndibackup")
+					var/mob/living/simple_animal/hostile/syndicate/ranged/space/R = new /mob/living/simple_animal/hostile/syndicate/ranged/space(get_turf(L))
+					R.name = "Syndi Recon Team"
+		if(option_syndicate)
+			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Well, I'll be damned. An agent out here? You must be off-mission! Leave my troops alone, and they will do the same for you. Our Commander will handle you himself.'</span>")
+			stand_down()
+	used = TRUE
+
+/obj/item/wildwest_communicator/proc/stand_down()
+	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
+		W.on_alert = FALSE
+
+/mob/living/simple_animal/hostile/syndicate/ranged/wildwest
+	var/on_alert = TRUE
+
+/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/ListTargets()
+	if(on_alert)
+		return ..()
+	return list()
+
+/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/death(gibbed)
+	if(!on_alert)
+		say("How could you betray the Syndicate?")
+		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
+			W.on_alert = TRUE
+	..(gibbed)

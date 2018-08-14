@@ -7,7 +7,7 @@
 		return
 	else
 		bleedsuppress = TRUE
-		addtimer(src, "resume_bleeding", amount)
+		addtimer(CALLBACK(src, .proc/resume_bleeding), amount)
 
 /mob/living/carbon/human/proc/resume_bleeding()
 	bleedsuppress = FALSE
@@ -18,7 +18,7 @@
 /mob/living/carbon/human/handle_blood()
 	var/list/blood_data = get_blood_data(get_blood_id())//PROCCEPTION
 
-	if(NO_BLOOD in species.species_traits)
+	if(NO_BLOOD in dna.species.species_traits)
 		bleed_rate = 0
 		return
 
@@ -43,14 +43,14 @@
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
 					to_chat(src, "<span class='warning'>You feel [word].</span>")
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1), species.blood_damage_type)
+				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1), dna.species.blood_damage_type)
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), species.blood_damage_type)
+				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), dna.species.blood_damage_type)
 				if(prob(5))
 					EyeBlurry(6)
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				apply_damage_type(5, species.blood_damage_type)
+				apply_damage_type(5, dna.species.blood_damage_type)
 				if(prob(15))
 					Paralyse(rand(1,3))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
@@ -64,7 +64,7 @@
 			var/obj/item/organ/external/BP = X
 			var/brutedamage = BP.brute_dam
 
-			if(BP.status & ORGAN_ROBOT)
+			if(BP.is_robotic())
 				continue
 
 			//We want an accurate reading of .len
@@ -99,9 +99,9 @@
 				add_splatter_floor(loc, 1)
 
 /mob/living/carbon/human/bleed(amt)
-	if(!(NO_BLOOD in species.species_traits))
+	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
-		if(species.exotic_blood)
+		if(dna.species.exotic_blood)
 			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
 			if(istype(R) && isturf(loc))
 				R.reaction_turf(get_turf(src), amt)
@@ -186,7 +186,7 @@
 		blood_data["blood_type"] = copytext(src.dna.b_type,1,0)
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
-		blood_data["blood_color"] = species.blood_color
+		blood_data["blood_color"] = dna.species.blood_color
 		blood_data["factions"] = faction
 		return blood_data
 
@@ -199,9 +199,9 @@
 		return "blood"
 
 /mob/living/carbon/human/get_blood_id()
-	if(species.exotic_blood)//some races may bleed water..or kethcup..
-		return species.exotic_blood
-	else if((NO_BLOOD in species.species_traits) || (NOCLONE in mutations))
+	if(dna.species.exotic_blood)//some races may bleed water..or kethcup..
+		return dna.species.exotic_blood
+	else if((NO_BLOOD in dna.species.species_traits) || (NOCLONE in mutations))
 		return
 	return "blood"
 
@@ -229,7 +229,7 @@
 			return list("O-", "O+")
 
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip)
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(get_blood_id() != "blood")//is it blood or welding fuel?
 		return
 	if(!T)
@@ -260,29 +260,61 @@
 			return
 
 	// Find a blood decal or create a new one.
-	var/obj/effect/decal/cleanable/blood/B = locate() in T
+	var/obj/effect/decal/cleanable/blood/splatter/B = locate() in T
+	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //Get all the non-projectile-splattered blood on this turf (not pixel-shifted).
+	if(shift_x || shift_y)
+		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
+		B = locate() in bloods
 	if(!B)
-		B = new /obj/effect/decal/cleanable/blood/splatter(T)
+		B = new(T)
+
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.blood_DNA |= temp_blood_DNA
+	B.pixel_x = (shift_x)
+	B.pixel_y = (shift_y)
 	B.update_icon()
+	if(shift_x || shift_y)
+		B.off_floor = TRUE
+		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
-/mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
-	if(!(NO_BLOOD in species.species_traits))
+/mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
 
-/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip)
+/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(!T)
 		T = get_turf(src)
-	var/obj/effect/decal/cleanable/blood/xeno/B = locate() in T.contents
-	if(!B)
-		B = new(T)
-	B.blood_DNA["UNKNOWN DNA"] = "X*"
 
-/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip)
-	if(!T)
-		T = get_turf(src)
-	var/obj/effect/decal/cleanable/blood/oil/B = locate() in T.contents
+	var/obj/effect/decal/cleanable/blood/xeno/splatter/B = locate() in T
+	var/list/bloods = get_atoms_of_type(T, B, TRUE, 0, 0) //The more the better.
+	if(shift_x || shift_y)
+		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y)
+		B = locate() in bloods
 	if(!B)
 		B = new(T)
+
+	B.blood_DNA["UNKNOWN DNA"] = "X*"
+	B.pixel_x = (shift_x)
+	B.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		B.off_floor = TRUE
+		B.layer = BELOW_MOB_LAYER
+
+/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+	if(!T)
+		T = get_turf(src)
+
+	var/obj/effect/decal/cleanable/blood/oil/streak/O = locate() in T
+	var/list/oils = get_atoms_of_type(T, O, TRUE, 0, 0) //Don't let OSHA catch wind of this.
+	if(shift_x || shift_y)
+		oils = get_atoms_of_type(T, O, TRUE, shift_x, shift_y)
+		O = locate() in oils
+	if(!O)
+		O = new(T)
+
+	O.pixel_x = (shift_x)
+	O.pixel_y = (shift_y)
+	if(shift_x || shift_y)
+		O.off_floor = TRUE
+		O.layer = BELOW_MOB_LAYER

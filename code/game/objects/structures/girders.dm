@@ -9,7 +9,6 @@
 	var/health = 200
 	var/can_displace = TRUE //If the girder can be moved around by crowbarring it
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
-	var/can_deconstruct = TRUE
 
 /obj/structure/girder/examine(mob/user)
 	. = ..()
@@ -33,8 +32,8 @@
 /obj/structure/girder/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
 	M.do_attack_animation(src)
-	if(M.environment_smash >= 1)
-		if(M.environment_smash == 3)
+	if((M.environment_smash & ENVIRONMENT_SMASH_STRUCTURES) || (M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
+		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
 			ex_act(2)
 			M.visible_message("<span class='warning'>[M] smashes through \the [src].</span>", "<span class='warning'>You smash through \the [src].</span>")
 		else
@@ -42,7 +41,7 @@
 			take_damage(rand(25, 75))
 			return
 
-/obj/structure/girder/proc/take_damage(amount)
+/obj/structure/girder/take_damage(amount)
 	health -= amount
 	if(health <= 0)
 		new /obj/item/stack/sheet/metal(get_turf(src))
@@ -105,7 +104,7 @@
 				transfer_fingerprints_to(G)
 				qdel(src)
 
-	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
 		if(do_after(user, 40 * W.toolspeed, target = src))
 			if(!src)
@@ -115,12 +114,12 @@
 			refundMetal(metalUsed)
 			qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/diamonddrill))
+	else if(istype(W, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, "<span class='notice'>You drill through the girder!</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
+	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You disintegrate the girder!</span>")
 		refundMetal(metalUsed)
@@ -369,7 +368,7 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSGRILLE)
 
-/obj/structure/girder/proc/deconstruct(disassembled = TRUE)
+/obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(can_deconstruct)
 		var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
 		new remains(loc)
@@ -441,13 +440,13 @@
 
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/item/weapon/tome) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
+	if(istype(W, /obj/item/tome) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
 		refundMetal(metalUsed)
 		qdel(src)
 
 	else if(iswelder(W))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0,user))
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
@@ -460,7 +459,7 @@
 				transfer_fingerprints_to(R)
 				qdel(src)
 
-	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
+	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
 		if(do_after(user, 40* W.toolspeed, target = src))
 			playsound(loc, W.usesound, 100, 1)
@@ -470,8 +469,8 @@
 			transfer_fingerprints_to(R)
 			qdel(src)
 
-	else if(istype(W, /obj/item/weapon/pickaxe/drill/jackhammer))
-		var/obj/item/weapon/pickaxe/drill/jackhammer/D = W
+	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
+		var/obj/item/pickaxe/drill/jackhammer/D = W
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
 		var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
 		R.amount = 1
