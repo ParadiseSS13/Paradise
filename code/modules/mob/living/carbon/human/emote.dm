@@ -12,7 +12,7 @@
 	var/muzzled = is_muzzled()
 	if(muzzled)
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
-		if(M.mute == MUTE_NONE)
+		if(M.mute == MUZZLE_MUTE_NONE)
 			muzzled = 0 //Not all muzzles block sound
 	if(!can_speak())
 		muzzled = 1
