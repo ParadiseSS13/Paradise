@@ -52,7 +52,7 @@
 	if(!(silent || (disabilities & MUTE)))
 		if(is_muzzled())
 			var/obj/item/clothing/mask/muzzle/M = wear_mask
-			if(M.mute & EMOTE_SOUND)
+			if(M.mute >= MUTE_MUFFLE)
 				return FALSE
 		return TRUE
 	else
