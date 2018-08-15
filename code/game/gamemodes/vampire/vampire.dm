@@ -6,12 +6,6 @@
 	var/list/vampire_thralls = list() //vammpires controlling somebody
 
 
-/mob/living/carbon/human/Stat()
-	. = ..()
-	var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
-	if(vamp && statpanel("Status"))
-		stat("Total Blood", vamp.bloodtotal)
-		stat("Usable Blood", vamp.bloodusable)
 
 /mob/living/carbon/human/Life()
 	. = ..()
@@ -71,49 +65,13 @@
 	if(vampires.len)
 		var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
 		for(var/datum/mind/vampire in vampires)
-			var/traitorwin = 1
 
-			var/datum/antagonist/vampire/V = vampire.has_antag_datum(/datum/antagonist/vampire)
-
-			if(!V)
+			if(!is_vampire(vampire))
 				continue
 
-			text += "<br>[vampire.key] was [vampire.name] ("
-			if(vampire.current)
-				if(vampire.current.stat == DEAD)
-					text += "died"
-				else
-					text += "survived"
-				if(vampire.current.real_name != vampire.name)
-					text += " as [vampire.current.real_name]"
-			else
-				text += "body destroyed"
-			text += ")"
-
-			if(vampire.objectives.len)//If the traitor had no objectives, don't need to process this.
-				var/count = 1
-				for(var/datum/objective/objective in vampire.objectives)
-					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-						feedback_add_details("traitor_objective","[objective.type]|SUCCESS")
-					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						feedback_add_details("traitor_objective","[objective.type]|FAIL")
-						traitorwin = 0
-					count++
-
-			var/special_role_text
-			if(vampire.special_role)
-				special_role_text = lowertext(vampire.special_role)
-			else
-				special_role_text = "antagonist"
-
-			if(traitorwin)
-				text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
-				feedback_add_details("traitor_success","SUCCESS")
-			else
-				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
-				feedback_add_details("traitor_success","FAIL")
+			text += printplayer(vampire)
+			text += printobjectives(vampire)
+		text += "<br>"
 		to_chat(world, text)
 	return 1
 
@@ -121,17 +79,8 @@
 	if(vampire_enthralled.len)
 		var/text = "<FONT size = 2><B>The Enthralled were:</B></FONT>"
 		for(var/datum/mind/Mind in vampire_enthralled)
-			text += "<br>[Mind.key] was [Mind.name] ("
-			if(Mind.current)
-				if(Mind.current.stat == DEAD)
-					text += "died"
-				else
-					text += "survived"
-				if(Mind.current.real_name != Mind.name)
-					text += " as [Mind.current.real_name]"
-			else
-				text += "body destroyed"
-			text += ")"
+			text += printplayer(Mind)
+		text += "<br>"
 		to_chat(world, text)
 	return 1
 

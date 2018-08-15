@@ -22,17 +22,16 @@
 		to_chat(user, "<span class='warning'>You are in too weak of a form to do this!</span>")
 		return 0
 
-	if(!is_vampire(user))
-		return 0
-
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+
+	if(!vampire)
+		return 0
 
 	var/fullpower = vampire.get_ability(/datum/vampire_passive/full)
 
 	if(user.stat >= DEAD)
 		to_chat(user, "<span class='warning'>Not when you're dead!</span>")
 		return 0
-
 	if(vampire.nullified && !fullpower)
 		to_chat(user, "<span class='warning'>Something is blocking your powers!</span>")
 		return 0
@@ -40,7 +39,7 @@
 		to_chat(user, "<span class='warning'>You require at least [required_blood] units of usable blood to do that!</span>")
 		return 0
 	//chapel check
-	if(istype(user.loc.loc, /area/chapel) && !fullpower)
+	if(istype(get_area(user), /area/chapel) && !fullpower)
 		to_chat(user, "<span class='warning'>Your powers are useless on this holy ground.</span>")
 		return 0
 	return ..()
@@ -65,7 +64,7 @@
 		return 0
 	if(vampire.bloodusable < required_blood)
 		return 0
-	if(istype(user.loc.loc, /area/chapel) && !fullpower)
+	if(istype(get_area(user), /area/chapel) && !fullpower)
 		return 0
 	return ..()
 

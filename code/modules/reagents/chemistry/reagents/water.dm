@@ -365,66 +365,68 @@
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
-	var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && is_vampire(M) && vampire.get_ability(/datum/vampire_passive/full) && prob(80))
-		var/mob/living/carbon/V = M
-		if(vampire.bloodusable)
-			M.Stuttering(1)
-			M.Jitter(30)
-			M.adjustStaminaLoss(5)
-			if(prob(20))
-				M.emote("scream")
-			vampire.nullified = max(5, vampire.nullified + 2)
-			vampire.bloodusable = max(vampire.bloodusable - 3,0)
+	if(is_vampire(M))//since is_vampire checks for existence of a mind.
+		var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
+		if(ishuman(M) && vampire && !vampire.get_ability(/datum/vampire_passive/full) && prob(80))
+			var/mob/living/carbon/V = M
 			if(vampire.bloodusable)
-				V.vomit(0,1)
+				M.Stuttering(1)
+				M.Jitter(30)
+				M.adjustStaminaLoss(5)
+				if(prob(20))
+					M.emote("scream")
+				vampire.nullified = max(5, vampire.nullified + 2)
+				vampire.bloodusable = max(vampire.bloodusable - 3,0)
+				if(vampire.bloodusable)
+					V.vomit(0,1)
+				else
+					holder.remove_reagent(id, volume)
+					V.vomit(0,0)
+					return
 			else
-				holder.remove_reagent(id, volume)
-				V.vomit(0,0)
-				return
-		else
-			switch(current_cycle)
-				if(1 to 4)
-					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					vampire.nullified = max(5, vampire.nullified + 2)
-				if(5 to 12)
-					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
-					M.adjustFireLoss(1)
-					M.Stuttering(1)
-					M.Jitter(20)
-					if(prob(20))
-						M.emote("scream")
-					vampire.nullified = max(5, vampire.nullified + 2)
-				if(13 to INFINITY)
-					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
-					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
-					M.fire_stacks = min(5,M.fire_stacks + 3)
-					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-					M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
-					M.Stuttering(1)
-					M.Jitter(30)
-					if(prob(40))
-						M.emote("scream")
-					vampire.nullified = max(5, vampire.nullified + 2)
+				switch(current_cycle)
+					if(1 to 4)
+						to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
+						vampire.nullified = max(5, vampire.nullified + 2)
+					if(5 to 12)
+						to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+						M.adjustFireLoss(1)
+						M.Stuttering(1)
+						M.Jitter(20)
+						if(prob(20))
+							M.emote("scream")
+						vampire.nullified = max(5, vampire.nullified + 2)
+					if(13 to INFINITY)
+						to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
+						for(var/mob/O in viewers(M, null))
+							O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
+						M.fire_stacks = min(5,M.fire_stacks + 3)
+						M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
+						M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
+						M.Stuttering(1)
+						M.Jitter(30)
+						if(prob(40))
+							M.emote("scream")
+						vampire.nullified = max(5, vampire.nullified + 2)
 	..()
 
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && M.mind && is_vampire(M) && !vampire.get_ability(/datum/vampire_passive/full))
-		var/mob/living/carbon/human/H=M
-		if(method == TOUCH)
-			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
-				return
-			else if(H.head)
-				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
-				return
-			else
-				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
-				vampire.nullified = max(5, vampire.nullified + 2)
+	if(is_vampire(M))
+		var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
+		if(ishuman(M) && !vampire.get_ability(/datum/vampire_passive/full))
+			var/mob/living/carbon/human/H=M
+			if(method == TOUCH)
+				if(H.wear_mask)
+					to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
+					return
+				else if(H.head)
+					to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+					return
+				else
+					to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
+					vampire.nullified = max(5, vampire.nullified + 2)
 
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)

@@ -188,6 +188,9 @@
 			stat("Chemicals", B.chemicals)
 
 		if(mind)
+			var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
+			if(vamp)
+				vamp.handle_stat()
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)

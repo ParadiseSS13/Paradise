@@ -1,4 +1,9 @@
 /datum/antagonist/vampire
+	name = "Vampire"
+	roundend_category  = "vampires"
+	job_rank = ROLE_VAMPIRE
+
+
 	var/bloodusable = 0
 	var/bloodtotal = 0
 	var/fullpower = FALSE
@@ -87,17 +92,17 @@
 	add_objective(steal_objective)
 
 
-	switch(rand(1,100))
-		if(1 to 80)
-			if(!(locate(/datum/objective/escape) in owner.objectives))
-				var/datum/objective/escape/escape_objective = new
-				escape_objective.owner = owner
-				add_objective(escape_objective)
-		else
-			if(!(locate(/datum/objective/survive) in owner.objectives))
-				var/datum/objective/survive/survive_objective = new
-				survive_objective.owner = owner
-				add_objective(survive_objective)
+
+	if(prob(80))
+		if(!(locate(/datum/objective/escape) in owner.objectives))
+			var/datum/objective/escape/escape_objective = new
+			escape_objective.owner = owner
+			add_objective(escape_objective)
+	else
+		if(!(locate(/datum/objective/survive) in owner.objectives))
+			var/datum/objective/survive/survive_objective = new
+			survive_objective.owner = owner
+			add_objective(survive_objective)
 	return
 
 /datum/antagonist/vampire/proc/add_objective(var/datum/objective/O)
@@ -113,16 +118,16 @@
 	if(prob(burn_chance) && L.health >= 50)
 		switch(L.health)
 			if(75 to 100)
-				to_chat(owner, "<span class='warning'>Your skin flakes away...</span>")
+				to_chat(L, "<span class='warning'>Your skin flakes away...</span>")
 			if(50 to 75)
-				to_chat(owner, "<span class='warning'>Your skin sizzles!</span>")
+				to_chat(L, "<span class='warning'>Your skin sizzles!</span>")
 		L.adjustFireLoss(3)
 	else if(L.health < 50)
 		if(!L.on_fire)
-			to_chat(owner, "<span class='danger'>Your skin catches fire!</span>")
+			to_chat(L, "<span class='danger'>Your skin catches fire!</span>")
 			L.emote("scream")
 		else
-			to_chat(owner, "<span class='danger'>You continue to burn!</span>")
+			to_chat(L, "<span class='danger'>You continue to burn!</span>")
 		L.adjust_fire_stacks(5)
 		L.IgniteMob()
 	return
@@ -145,6 +150,10 @@
 			return
 	vamp_burn(TRUE)
 
+/datum/antagonist/vampire/handle_stat()
+	stat("Total Blood",  bloodtotal)
+	stat("Usable Blood", bloodusable)
+
 /datum/antagonist/vampire/proc/vampire_life()
 	var/mob/living/carbon/C = owner.current
 	if(!C)
@@ -162,7 +171,7 @@
 	handle_vampire_cloak()
 	if(istype(C.loc, /turf/space))
 		check_sun()
-	if(istype(C.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
+	if(istype(get_area(C), /area/chapel) && !get_ability(/datum/vampire_passive/full))
 		vamp_burn()
 	nullified = max(0, nullified - 1)
 

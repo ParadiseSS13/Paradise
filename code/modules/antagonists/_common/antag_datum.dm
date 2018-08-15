@@ -93,6 +93,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 		team.remove_member(owner)
 	qdel(src)
 
+/datum/antagonist/proc/handle_stat() //To handle info on the display panel.
+	return
+
 /datum/antagonist/proc/greet()
 	return
 
