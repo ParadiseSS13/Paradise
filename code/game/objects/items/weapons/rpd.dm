@@ -192,6 +192,10 @@ var/list/pipemenu = list(
 		return
 	if(world.time < lastused + spawndelay)
 		return
+	var/turf/T = get_turf(target)
+	for(var/obj/machinery/shieldwall/S in T)
+		to_chat(user, "<span class='warning'>[S] blocks access!</span>")
+		return
 	target.rpd_act(user, src) //Handle RPD effects in separate procs
 
 #undef RPD_COOLDOWN_TIME
