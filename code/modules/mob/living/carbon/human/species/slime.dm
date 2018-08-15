@@ -26,7 +26,7 @@
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_INTORGANS, NO_SCAN)
+	species_traits = list(LIPS, NO_BREATHE, NO_INTORGANS, NO_SCAN)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN

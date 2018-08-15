@@ -15,7 +15,7 @@
 	to the degree it can cause conflict with more rigorous and strict authorities. They speak a guttural language known as 'Canilunzt' \
     which has a heavy emphasis on utilizing tail positioning and ear twitches to communicate intent."
 
-	species_traits = list(LIPS)
+	species_traits = list(LIPS, IS_WHITELISTED)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
