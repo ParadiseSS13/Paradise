@@ -38,11 +38,11 @@ var/list/chemical_mob_spawn_nicecritters = list() // and possible friendly mobs
 		var/turf/T = get_turf(A)
 		var/area/my_area = get_area(T)
 		var/message = "A [reaction_name] reaction has occured in [my_area.name]. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</A>)"
-		message += " (<A HREF='?_src_=vars;Vars=[A.UID()]'>VV</A>)"
+		message += " [ADMIN_VV(A)]"
 
 		var/mob/M = get(A, /mob)
 		if(M)
-			message += " - Carried By: [key_name_admin(M)](<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[M]'>FLW</A>)"
+			message += " - Carried By: [key_name_admin(M)][ADMIN_QUE(M)] [ADMIN_FLW(M)]"
 		else
 			message += " - Last Fingerprint: [(A.fingerprintslast ? A.fingerprintslast : "N/A")]"
 
