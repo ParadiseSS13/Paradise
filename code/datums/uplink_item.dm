@@ -500,6 +500,7 @@ var/list/uplink_items = list()
 	reference = "AGG"
 	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
 	cost = 11
+	surplus = 0
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
