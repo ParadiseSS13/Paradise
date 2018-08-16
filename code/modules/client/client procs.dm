@@ -183,7 +183,7 @@
 							else
 								if(alert("Are you sure you want to unlock Machine People?", "Confirmation", "No", "Yes") != "Yes")
 									return
-								DB_species_unlock("Machine",15)
+								DB_species_unlock("Machine",5)
 								return
 						if("2")
 							if(karma <30)
@@ -192,7 +192,7 @@
 							else
 								if(alert("Are you sure you want to unlock Kidan?", "Confirmation", "No", "Yes") != "Yes")
 									return
-								DB_species_unlock("Kidan",30)
+								DB_species_unlock("Kidan",10)
 								return
 						if("3")
 							if(karma <30)
@@ -201,7 +201,7 @@
 							else
 								if(alert("Are you sure you want to unlock Grey?", "Confirmation", "No", "Yes") != "Yes")
 									return
-								DB_species_unlock("Grey",30)
+								DB_species_unlock("Grey",10)
 								return
 						if("4")
 							if(karma <45)
@@ -210,7 +210,7 @@
 							else
 								if(alert("Are you sure you want to unlock Vox?", "Confirmation", "No", "Yes") != "Yes")
 									return
-								DB_species_unlock("Vox",45)
+								DB_species_unlock("Vox",15)
 								return
 						if("5")
 							if(karma <45)
@@ -219,7 +219,7 @@
 							else
 								if(alert("Are you sure you want to unlock Slime People?", "Confirmation", "No", "Yes") != "Yes")
 									return
-								DB_species_unlock("Slime People",45)
+								DB_species_unlock("Slime People",15)
 								return
 						if("6")
 							if(karma <100)
@@ -228,7 +228,7 @@
 							else
 								if(alert("Are you sure you want to unlock Plasmaman?", "Confirmation", "No", "Yes") != "Yes")
 									return
-								DB_species_unlock("Plasmaman",100)
+								DB_species_unlock("Plasmaman",20)
 								return
 						if("7")
 							if(karma <30)
@@ -237,7 +237,7 @@
 							else
 								if(alert("Are you sure you want to unlock Drask?", "Confirmation", "No", "Yes") != "Yes")
 									return
-								DB_species_unlock("Drask",30)
+								DB_species_unlock("Drask",10)
 								return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
