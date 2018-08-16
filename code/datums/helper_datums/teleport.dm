@@ -114,6 +114,7 @@
 
 	if(!is_teleport_allowed(destturf.z))
 		return 0
+	// Only check the destination zlevel for is_teleport_allowed. Checking origin as well breaks ERT teleporters.
 
 	var/area/destarea = get_area(destturf)
 

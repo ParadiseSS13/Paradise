@@ -403,8 +403,6 @@
 		var/turf/portal_turf = get_step(src, portaldir)
 		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, 0)
 		myportal = P
-		P.failchance = 0
-		P.icon_state = "portal1"
 		var/area/A = get_area(tele_target)
 		P.name = "[A] portal"
 	else if(!portal_enabled && myportal)

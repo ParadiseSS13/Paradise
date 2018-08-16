@@ -65,6 +65,7 @@
 
 /obj/effect/portal/redspace
 	name = "redspace portal"
-	desc = "A rare kind of subspace portal, capable of cutting through interference that can jam normal bluespace portals."
+	desc = "A portal capable of bypassing bluespace interference."
 	icon_state = "portal1"
+	failchance = 0
 	ignore_tele_proof_area_setting = TRUE
