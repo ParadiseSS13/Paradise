@@ -192,11 +192,27 @@ var/list/pipemenu = list(
 		return
 	if(world.time < lastused + spawndelay)
 		return
+
+
 	var/turf/T = get_turf(target)
-	for(var/obj/machinery/shieldwall/S in T)
-		to_chat(user, "<span class='warning'>[S] blocks access!</span>")
-		return
-	target.rpd_act(user, src) //Handle RPD effects in separate procs
+	if(target != T)
+		// We only check the rpd_act of the target if it isn't the turf, because otherwise
+		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.
+		if(target.rpd_act(user, src) == TRUE)
+			// If the object we are clicking on has a valid RPD interaction for just that specific object, do that and nothing else.
+			// Example: clicking on a pipe with a RPD in rotate mode should rotate that pipe and ignore everything else on the tile.
+			return
+
+	// If we get this far, we have to check every object in the tile, to make sure that none of them block RPD usage on this tile.
+	// This is done by calling rpd_blocksusage on every /obj in the tile. If any block usage, fail at this point.
+
+	for(var/obj/O in T)
+		if(O.rpd_blocksusage() == TRUE)
+			to_chat(user, "<span class='warning'>[O] blocks the [src]!</span>")
+			return
+
+	// If we get here, then we're effectively acting on the turf, probably placing a pipe.
+	T.rpd_act(user, src)
 
 #undef RPD_COOLDOWN_TIME
 #undef RPD_WALLBUILD_TIME
