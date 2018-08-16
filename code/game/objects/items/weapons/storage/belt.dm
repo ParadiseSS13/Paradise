@@ -128,6 +128,8 @@
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/gloves/color/latex,
         /obj/item/reagent_containers/hypospray/autoinjector,
+        /obj/item/reagent_containers/hypospray/CMO,
+        /obj/item/reagent_containers/hypospray/safety,
         /obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
