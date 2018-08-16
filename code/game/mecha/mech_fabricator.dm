@@ -461,6 +461,7 @@
 								"Pod_Parts",
 								"Pod_Frame",
 								"Misc")
+	req_access = list(access_mechanic)
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
 	. = ..()
