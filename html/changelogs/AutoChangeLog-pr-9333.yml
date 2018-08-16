@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - bugfix: "Prevents creation of 0u pills with Chem Master"
