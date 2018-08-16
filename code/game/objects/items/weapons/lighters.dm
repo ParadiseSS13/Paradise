@@ -57,7 +57,7 @@
 						if(affecting.receive_damage( 0, 5 ))		//INFERNO
 							H.UpdateDamageIcon()
 							H.updatehealth()
-					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], they however burn their finger in the process.</span>")
+					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], [user.p_they()] however burn[user.p_s()] [user.p_their()] finger in the process.</span>")
 
 			set_light(2)
 			processing_objects.Add(src)
@@ -70,7 +70,7 @@
 			force = 0
 			attack_verb = null //human_defense.dm takes care of it
 			if(istype(src, /obj/item/lighter/zippo) )
-				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing. Wow.")
+				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
 				playsound(src.loc, 'sound/items/ZippoClose.ogg', 25, 1)
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
@@ -95,7 +95,7 @@
 			cig.attackby(src, user)
 		else
 			if(istype(src, /obj/item/lighter/zippo))
-				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. Their arm is as steady as the unflickering flame they light \the [cig] with.</span>")
+				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
 				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
 			M.update_inv_wear_mask()

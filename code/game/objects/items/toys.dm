@@ -229,8 +229,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/toy/katana/suicide_act(mob/user)
-	var/dmsg = pick("[user] tries to stab \the [src] into their abdomen, but it shatters! They look as if they might die from the shame.","[user] tries to stab \the [src] into their abdomen, but \the [src] bends and breaks in half! They look as if they might die from the shame.","[user] tries to slice their own throat, but the plastic blade has no sharpness, causing them to lose their balance, slip over, and break their neck with a loud snap!")
-	user.visible_message("<span class='suicide'>[dmsg] It looks like they are trying to commit suicide.</span>")
+	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
+	user.visible_message("<span class='suicide'>[dmsg] It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return (BRUTELOSS)
 
 
@@ -362,7 +362,6 @@
 	desc = "Mini-Mecha action figure! Collect them all! 4/11."
 	icon_state = "gygaxtoy"
 
-
 /obj/item/toy/prize/durand
 	name = "toy durand"
 	desc = "Mini-Mecha action figure! Collect them all! 5/11."
@@ -398,18 +397,6 @@
 	desc = "Mini-Mecha action figure! Collect them all! 11/11."
 	icon_state = "phazonprize"
 
-
-/obj/item/toy/katana
-	name = "replica katana"
-	desc = "Woefully underpowered in D20."
-	icon_state = "katana"
-	item_state = "katana"
-	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 
 
 /*
@@ -450,7 +437,7 @@ obj/item/toy/cards/deck
 obj/item/toy/cards/deck/New()
 	..()
 	icon_state = "deck_[deckstyle]_full"
-	for(var/i = 2; i <= 10; i++)
+	for(var/i in 2 to 10)
 		cards += "[i] of Hearts"
 		cards += "[i] of Spades"
 		cards += "[i] of Clubs"
@@ -472,7 +459,6 @@ obj/item/toy/cards/deck/New()
 	cards += "Ace of Clubs"
 	cards += "Ace of Diamonds"
 
-
 obj/item/toy/cards/deck/attack_hand(mob/user as mob)
 	var/choice = null
 	if(cards.len == 0)
@@ -489,12 +475,7 @@ obj/item/toy/cards/deck/attack_hand(mob/user as mob)
 	H.pickup(user)
 	user.put_in_active_hand(H)
 	visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
-	if(cards.len > 26)
-		icon_state = "deck_[deckstyle]_full"
-	else if(cards.len > 10)
-		icon_state = "deck_[deckstyle]_half"
-	else if(cards.len > 1)
-		icon_state = "deck_[deckstyle]_low"
+	update_icon()
 
 obj/item/toy/cards/deck/attack_self(mob/user as mob)
 	if(cooldown < world.time - 50)
@@ -515,12 +496,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/use
 			qdel(C)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
-		if(cards.len > 26)
-			icon_state = "deck_[deckstyle]_full"
-		else if(cards.len > 10)
-			icon_state = "deck_[deckstyle]_half"
-		else if(cards.len > 1)
-			icon_state = "deck_[deckstyle]_low"
+		update_icon()
 
 
 obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user, params)
@@ -531,16 +507,11 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user,
 				to_chat(user, "<span class='notice'>The hand of cards is stuck to your hand, you can't add it to the deck!</span>")
 				return
 			cards += C.currenthand
-			user.visible_message("<span class='notice'>[user] puts their hand of cards in the deck.</span>", "<span class='notice'>You put the hand of cards in the deck.</span>")
+			user.visible_message("<span class='notice'>[user] puts [user.p_their()] hand of cards in the deck.</span>", "<span class='notice'>You put the hand of cards in the deck.</span>")
 			qdel(C)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
-		if(cards.len > 26)
-			icon_state = "deck_[deckstyle]_full"
-		else if(cards.len > 10)
-			icon_state = "deck_[deckstyle]_half"
-		else if(cards.len > 1)
-			icon_state = "deck_[deckstyle]_low"
+		update_icon()
 
 obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	var/mob/M = usr
@@ -566,7 +537,16 @@ obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	else
 		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
 
-
+obj/item/toy/cards/deck/update_icon()
+	switch(cards.len)
+		if(0)
+			icon_state = "deck_[deckstyle]_empty"
+		if(1 to 10)
+			icon_state = "deck_[deckstyle]_low"
+		if(11 to 26)
+			icon_state = "deck_[deckstyle]_half"
+		else
+			icon_state = "deck_[deckstyle]_full"
 
 obj/item/toy/cards/cardhand
 	name = "hand of cards"
@@ -610,15 +590,10 @@ obj/item/toy/cards/cardhand/Topic(href, href_list)
 			C.apply_card_vars(C,O)
 			C.pickup(cardUser)
 			cardUser.put_in_any_hand_if_possible(C)
-			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from \his hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
+			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
 
 			interact(cardUser)
-			if(currenthand.len < 3)
-				icon_state = "[deckstyle]_hand2"
-			else if(src.currenthand.len < 4)
-				icon_state = "[deckstyle]_hand3"
-			else if(src.currenthand.len < 5)
-				icon_state = "[deckstyle]_hand4"
+			update_icon()
 			if(currenthand.len == 1)
 				var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(src.loc)
 				N.parentdeck = src.parentdeck
@@ -637,14 +612,9 @@ obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living
 		if(C.parentdeck == parentdeck)
 			currenthand += C.cardname
 			user.unEquip(C)
-			user.visible_message("<span class='notice'>[user] adds a card to their hand.</span>", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
+			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
 			interact(user)
-			if(currenthand.len > 4)
-				icon_state = "[deckstyle]_hand5"
-			else if(currenthand.len > 3)
-				icon_state = "[deckstyle]_hand4"
-			else if(currenthand.len > 2)
-				icon_state = "[deckstyle]_hand3"
+			update_icon()
 			qdel(C)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
@@ -677,7 +647,7 @@ obj/item/toy/cards/singlecard/examine(mob/user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/cardUser = user
 			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
-				cardUser.visible_message("<span class='notice'>[cardUser] checks \his card.</span>", "<span class='notice'>The card reads: [src.cardname]</span>")
+				cardUser.visible_message("<span class='notice'>[cardUser] checks [cardUser.p_their()] card.</span>", "<span class='notice'>The card reads: [src.cardname]</span>")
 			else
 				to_chat(cardUser, "<span class='notice'>You need to have the card in your hand to check it.</span>")
 
@@ -697,7 +667,7 @@ obj/item/toy/cards/singlecard/verb/Flip()
 			icon_state = "sc_Ace of Spades_[deckstyle]"
 			name = "What Card"
 		pixel_x = 5
-	else if(flipped)
+	else
 		flipped = 0
 		icon_state = "singlecard_down_[deckstyle]"
 		name = "card"
@@ -726,17 +696,25 @@ obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
 		if(H.parentdeck == parentdeck)
 			H.currenthand += cardname
 			user.unEquip(src)
-			user.visible_message("<span class='notice'>[user] adds a card to \his hand.</span>", "<span class='notice'>You add the [cardname] to your hand.</span>")
+			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [cardname] to your hand.</span>")
 			H.interact(user)
-			if(H.currenthand.len > 4)
-				H.icon_state = "[deckstyle]_hand5"
-			else if(H.currenthand.len > 3)
-				H.icon_state = "[deckstyle]_hand4"
-			else if(H.currenthand.len > 2)
-				H.icon_state = "[deckstyle]_hand3"
+			H.update_icon()
 			qdel(src)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
+
+obj/item/toy/cards/cardhand/update_icon()
+	switch(currenthand.len)
+		if(0 to 1)
+			return
+		if(2)
+			icon_state = "[deckstyle]_hand2"
+		if(3)
+			icon_state = "[deckstyle]_hand3"
+		if(4)
+			icon_state = "[deckstyle]_hand4"
+		else
+			icon_state = "[deckstyle]_hand5"
 
 
 obj/item/toy/cards/singlecard/attack_self(mob/user)
@@ -813,10 +791,12 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/therapy
 	name = "therapy doll"
 	desc = "A toy for therapeutic and recreational purposes."
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "therapyred"
 	item_state = "egg4"
 	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
+	burn_state = FLAMMABLE
 
 /obj/item/toy/therapy/New()
 	if(item_color)
@@ -836,7 +816,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "therapyred"
 
-/obj/random/prize/item_to_spawn()
+/obj/random/therapy/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/therapy)) //exclude the base type.
 
 /obj/item/toy/therapy/red
@@ -1367,7 +1347,7 @@ obj/item/toy/cards/deck/syndicate/black
 	var/bullet_position = 1
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at \his head before pulling the trigger! It looks like they are trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/Gunshot.ogg', 50, 1)
 	return (BRUTELOSS)
 
@@ -1393,7 +1373,7 @@ obj/item/toy/cards/deck/syndicate/black
 	if(!(user.has_organ("head"))) //For sanity
 		to_chat(user, "<span class='notice'>Playing this game without a head would be classed as cheating.</span>")
 		return
-	user.visible_message("<span class='danger'>[user] points [src] at their head, ready to pull the trigger!</span>")
+	user.visible_message("<span class='danger'>[user] points [src] at [user.p_their()] head, ready to pull the trigger!</span>")
 	if(do_after(user, 30, target = user))
 		if(bullet_position > 1)
 			user.visible_message("<span class='danger'>*click*</span>")
@@ -1407,7 +1387,7 @@ obj/item/toy/cards/deck/syndicate/black
 			user.apply_damage(200, BRUTE, "head", sharp = 1, used_weapon = "Self-inflicted gunshot wound to the head.")
 			user.death()
 	else
-		user.visible_message("<span class='danger'>[user] lowers [src] from their head.</span>")
+		user.visible_message("<span class='danger'>[user] lowers [src] from [user.p_their()] head.</span>")
 
 /obj/item/toy/russian_revolver/proc/spin_cylinder()
 	bullet_position = rand(1,6)
@@ -1662,7 +1642,7 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/eight_ball/attack_self(mob/user as mob)
 	if(!cooldown)
 		var/answer = pick(possible_answers)
-		user.visible_message("<span class='notice'>[user] focuses on their question and [use_action]...</span>")
+		user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")
 		user.visible_message("<span class='notice'>[bicon(src)] The [src] says \"[answer]\"</span>")
 		spawn(30)
 			cooldown = 0

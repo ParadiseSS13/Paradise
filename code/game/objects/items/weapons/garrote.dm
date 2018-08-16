@@ -75,7 +75,7 @@
 		return
 
 	if(improvised && ((M.head && (M.head.flags_cover & HEADCOVERSMOUTH)) || (M.wear_mask && (M.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
-		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something they're wearing!</span>")
+		to_chat(user, "<span class = 'warning'>[M]'s neck is blocked by something [M.p_theyre()] wearing!</span>")
 
 	if(strangling)
 		to_chat(user, "<span class = 'warning'>You cannot use [src] on two people at once!</span>")
@@ -134,7 +134,7 @@
 		G = user.r_hand
 
 	else
-		user.visible_message("<span class='warning'>[user] loses \his grip on [strangling]'s neck.</span>", \
+		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				 "<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
@@ -144,7 +144,7 @@
 		return
 
 	if(!G.affecting)
-		user.visible_message("<span class='warning'>[user] loses \his grip on [strangling]'s neck.</span>", \
+		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [strangling]'s neck.</span>", \
 				"<span class='warning'>You lose your grip on [strangling]'s neck.</span>")
 
 		strangling = null
@@ -167,6 +167,6 @@
 
 
 /obj/item/twohanded/garrote/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping the [src] around \his neck and pulling the handles! It looks like \he's trying to commit suicide.</span>")
+	user.visible_message("<span class='suicide'>[user] is wrapping the [src] around [user.p_their()] neck and pulling the handles! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(src.loc, 'sound/weapons/cablecuff.ogg', 15, 1, -1)
 	return (OXYLOSS)

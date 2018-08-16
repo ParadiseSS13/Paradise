@@ -39,7 +39,7 @@
 	var/lastnestsetup = 0
 	var/neststep = 0
 	var/hasnested = 0
-	var/spider_max_per_nest = 25 // above this, AI queens become stable
+	var/spider_max_per_nest = 35 // above this, AI queens become stable
 	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
 	var/spider_can_fakelings = 3 // spawns defective spiderlings that don't grow up, used to freak out crew, atmosphere

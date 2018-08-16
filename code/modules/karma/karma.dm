@@ -371,29 +371,30 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 			return
 
 /client/proc/karmarefund(var/type,var/name,var/cost)
-	if(name == "Tajaran Ambassador")
-		cost = 30
-	else if(name == "Unathi Ambassador")
-		cost = 30
-	else if(name == "Skrell Ambassador")
-		cost = 30
-	else if(name == "Diona Ambassador")
-		cost = 30
-	else if(name == "Kidan Ambassador")
-		cost = 30
-	else if(name == "Slime People Ambassador")
-		cost = 30
-	else if(name == "Grey Ambassador")
-		cost = 30
-	else if(name == "Vox Ambassador")
-		cost = 30
-	else if(name == "Customs Officer")
-		cost = 30
-	else if(name == "Nanotrasen Recruiter")
-		cost = 10
-	else
-		to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
-		return
+	switch(name)
+		if("Tajaran Ambassador")
+			cost = 30
+		if("Unathi Ambassador")
+			cost = 30
+		if("Skrell Ambassador")
+			cost = 30
+		if("Diona Ambassador")
+			cost = 30
+		if("Kidan Ambassador")
+			cost = 30
+		if("Slime People Ambassador")
+			cost = 30
+		if("Grey Ambassador")
+			cost = 30
+		if("Vox Ambassador")
+			cost = 30
+		if("Customs Officer")
+			cost = 30
+		if("Nanotrasen Recruiter")
+			cost = 10
+		else
+			to_chat(usr, "<span class='warning'>That job is not refundable.</span>")
+			return
 
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
 	query.Execute()
@@ -408,12 +409,13 @@ You've gained <b>[totalkarma]</b> total karma in your time here.<br>"}
 
 	if(dbckey)
 		var/list/typelist = list()
-		if(type == "job")
-			typelist = splittext(dbjob,",")
-		else if(type == "species")
-			typelist = splittext(dbspecies,",")
-		else
-			to_chat(usr, "<span class='warning'>Type [type] is not a valid column.</span>")
+		switch(type)
+			if("job")
+				typelist = splittext(dbjob,",")
+			if("species")
+				typelist = splittext(dbspecies,",")
+			else
+				to_chat(usr, "<span class='warning'>Type [type] is not a valid column.</span>")
 
 		if(name in typelist)
 			typelist -= name

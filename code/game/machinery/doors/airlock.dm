@@ -647,7 +647,7 @@ About the new airlock wires panel:
 				if(affecting.receive_damage(10, 0))
 					H.UpdateDamageIcon()
 			else
-				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing they're wearing a helmet.</span>")
+				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet.</span>")
 			return
 
 	if(panel_open)
@@ -796,7 +796,7 @@ About the new airlock wires panel:
 					if(do_after(user, 20, 1, target = src))
 						if(!panel_open || !S.use(2))
 							return
-						user.visible_message("<span class='notice'>[user] reinforce \the [src] with metal.</span>",
+						user.visible_message("<span class='notice'>[user] reinforces \the [src] with metal.</span>",
 											"<span class='notice'>You reinforce \the [src] with metal.</span>")
 						security_level = AIRLOCK_SECURITY_METAL
 						update_icon()
@@ -810,7 +810,7 @@ About the new airlock wires panel:
 					if(do_after(user, 20, 1, target = src))
 						if(!panel_open || !S.use(2))
 							return
-						user.visible_message("<span class='notice'>[user] reinforce \the [src] with plasteel.</span>",
+						user.visible_message("<span class='notice'>[user] reinforces \the [src] with plasteel.</span>",
 											"<span class='notice'>You reinforce \the [src] with plasteel.</span>")
 						security_level = AIRLOCK_SECURITY_PLASTEEL
 						modify_max_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)

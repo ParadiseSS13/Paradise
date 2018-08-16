@@ -93,5 +93,5 @@
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.
 		visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
 	else
-		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into their [inject_target]!</span>")
+		visible_message("<span class='danger'>[src] bites [target], but cannot inject venom into [target.p_their()] [inject_target]!</span>")
 	L.attack_animal(src)

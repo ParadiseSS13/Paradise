@@ -94,7 +94,7 @@
 	if(D.weakened || D.resting || D.stat)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.visible_message("<span class='warning'>[A] elbow drops [D]!</span>", \
-						  "<span class='userdanger'>[A] piledrives you with their elbow!</span>")
+						  "<span class='userdanger'>[A] piledrives you with [A.p_their()] elbow!</span>")
 		if(D.stat)
 			D.death() //FINISH HIM!
 		D.apply_damage(50, BRUTE, "chest")

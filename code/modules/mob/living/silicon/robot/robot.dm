@@ -131,8 +131,8 @@ var/list/robot_verbs_default = list(
 			camera.status = 0
 
 	if(mmi == null)
-		mmi = new /obj/item/mmi/posibrain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a posibrain, but it works)
-		mmi.icon_state="posibrain-occupied"
+		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
+		mmi.icon_state = "boris"
 
 	initialize_components()
 	//if(!unfinished)
@@ -210,7 +210,7 @@ var/list/robot_verbs_default = list(
 	if(prefix)
 		modtype = prefix
 	if(mmi)
-		if(istype(mmi, /obj/item/mmi/posibrain))
+		if(istype(mmi, /obj/item/mmi/robotic_brain))
 			braintype = "Android"
 		else
 			braintype = "Cyborg"
@@ -738,7 +738,7 @@ var/list/robot_verbs_default = list(
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
-			to_chat(user, "<span class='warning'>You must access the borgs internals!</span>")
+			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
 		else if(!src.module && U.require_module)
 			to_chat(user, "<span class='warning'>The borg must choose a module before it can be upgraded!</span>")
 		else if(U.locked)
@@ -752,6 +752,21 @@ var/list/robot_verbs_default = list(
 			else
 				to_chat(user, "<span class='danger'>Upgrade error.</span>")
 
+	else if(istype(W, /obj/item/mmi_radio_upgrade))
+		if(!opened)
+			to_chat(user, "<span class='warning'>You must access the borg's internals!</span>")
+			return
+		else if(!mmi)
+			to_chat(user, "<span class='warning'>This cyborg does not have an MMI to augment!</span>")
+			return
+		else if(mmi.radio)
+			to_chat(user, "<span class='warning'>A radio upgrade is already installed in the MMI!</span>")
+			return
+		else if(user.drop_item())
+			to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
+			to_chat(src, "<span class='notice'>MMI radio capability installed.</span>")
+			mmi.install_radio()
+			qdel(W)
 	else
 		return ..()
 
@@ -794,7 +809,7 @@ var/list/robot_verbs_default = list(
 			laws = new /datum/ai_laws/syndicate_override
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
-			set_zeroth_law("Only [M.real_name] and people he designates as being such are Syndicate Agents.")
+			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
 			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
@@ -810,7 +825,7 @@ var/list/robot_verbs_default = list(
 			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
-			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and his commands.</span>")
+			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
 			SetLockdown(0)
 			if(src.module && istype(src.module, /obj/item/robot_module/miner))
 				for(var/obj/item/pickaxe/drill/cyborg/D in src.module.modules)

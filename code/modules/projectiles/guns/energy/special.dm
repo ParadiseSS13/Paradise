@@ -128,7 +128,7 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow \his brains out! It looks like \he's trying to commit suicide!</b></span>")
+	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 	shoot_live_shot()
 	return (OXYLOSS)
 
@@ -196,9 +196,9 @@
 
 /obj/item/gun/energy/wormhole_projector/process_chamber()
 	..()
-	select_fire()
+	select_fire(usr)
 
-/obj/item/gun/energy/wormhole_projector/proc/portal_destroyed(obj/effect/portal/P)
+/obj/item/gun/energy/wormhole_projector/portal_destroyed(obj/effect/portal/P)
 	if(P.icon_state == "portal")
 		blue = null
 		if(orange)

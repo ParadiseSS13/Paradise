@@ -48,9 +48,9 @@
 	update_icon()
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
-	user.visible_message("<span class='danger'>[user] zaps \himself with [src].</span>")
+	user.visible_message("<span class='danger'>[user] zaps [user.p_them()]self with [src].</span>")
 	playsound(user, fire_sound, 50, 1)
-	user.create_attack_log("<b>[key_name(user)]</b> zapped \himself with a <b>[src]</b>")
+	user.create_attack_log("<b>[key_name(user)]</b> zapped [user.p_them()]self with a <b>[src]</b>")
 
 /////////////////////////////////////
 //WAND OF DEATH

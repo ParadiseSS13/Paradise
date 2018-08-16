@@ -151,7 +151,7 @@
 	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 		return ..(user, 0)
 
-	user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and they disappear in a flash of red light!</span>", \
+	user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman and find yourself somewhere else!</span>")
 	user.forceMove(get_turf(actual_selected_rune))
 	return ..()
@@ -279,7 +279,7 @@
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [user]!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, arming yourself!</span>")
-	if(H.get_species() == "Plasmaman")
+	if(isplasmaman(H))
 		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/cultist(H), slot_wear_suit)
 		H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/cultist(H), slot_head)
 	else

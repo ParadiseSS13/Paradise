@@ -33,7 +33,7 @@
 	if(W)
 		melee_damage_lower = initial(melee_damage_lower) * 2
 		melee_damage_upper = initial(melee_damage_upper) * 2
-		visible_message("<span class='danger'>[src] savagely mauls [target] while they are stuck in the web!</span>")
+		visible_message("<span class='danger'>[src] savagely mauls [target] while [L.p_theyre()] stuck in the web!</span>")
 	else
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)

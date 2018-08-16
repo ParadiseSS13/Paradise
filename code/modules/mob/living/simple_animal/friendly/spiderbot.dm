@@ -35,7 +35,7 @@
 
 	var/emagged = 0               //is it getting ready to explode?
 	var/obj/item/mmi/mmi = null
-	var/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
+	var/mob/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
 
 /mob/living/simple_animal/spiderbot/Destroy()
 	if(emagged)
@@ -135,8 +135,8 @@
 	else
 		emagged = 1
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
-		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and their every order!</span>")
-		emagged_master = user.name
+		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
+		emagged_master = user
 		add_attack_logs(user, src, "Emagged")
 		maxHealth = 60
 		health = 60
@@ -150,14 +150,14 @@
 	ckey = M.brainmob.ckey
 	name = "Spider-bot ([M.brainmob.name])"
 	if(emagged)
-		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and their every order!</span>")
+		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!</span>")
 
 /mob/living/simple_animal/spiderbot/proc/update_icon()
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi))
 			icon_state = "spiderbot-chassis-mmi"
 			icon_living = "spiderbot-chassis-mmi"
-		if(istype(mmi, /obj/item/mmi/posibrain))
+		if(istype(mmi, /obj/item/mmi/robotic_brain))
 			icon_state = "spiderbot-chassis-posi"
 			icon_living = "spiderbot-chassis-posi"
 

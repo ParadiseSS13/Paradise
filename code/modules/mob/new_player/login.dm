@@ -30,11 +30,11 @@
 	callHook("mob_login", list("client" = client, "mob" = src))
 
 	new_player_panel()
-	
+
 	spawn(30)
 		// Annoy the player with polls.
 		establish_db_connection()
-		if(dbcon.IsConnected() && client.can_vote())
+		if(dbcon.IsConnected() && client && client.can_vote())
 			var/isadmin = 0
 			if(client && client.holder)
 				isadmin = 1
@@ -46,7 +46,7 @@
 				break
 			if(newpoll)
 				client.handle_player_polling()
-	
+
 	if(ckey in deadmins)
 		verbs += /client/proc/readmin
 	spawn(40)

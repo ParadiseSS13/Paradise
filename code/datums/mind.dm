@@ -61,7 +61,6 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/nations/nation			//nation holder
-	var/datum/abductor/abductor			//abductor holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -177,7 +176,7 @@
 		if(ismindshielded(H))
 			text = "Mindshield Implant:<a href='?src=[UID()];implant=remove'>Remove</a>|<b><font color='green'>Implanted</font></b></br>"
 		else
-			text = "Mindshield Implant:<b>No Implant</b>|<a href='?src=[UID()];implant=add'>Implant him!</a></br>"
+			text = "Mindshield Implant:<b>No Implant</b>|<a href='?src=[UID()];implant=add'>Implant [H.p_them()]!</a></br>"
 		sections["implant"] = text
 		/** REVOLUTION ***/
 		text = "revolution"
@@ -483,9 +482,11 @@
 		var/new_memo = copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN)
 		if(isnull(new_memo))
 			return
-		memory = new_memo
-		log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
-		message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s memory")
+		var/confirmed = alert(usr, "Are you sure?", "Edit Memory", "Yes", "No")
+		if(confirmed == "Yes") // Because it is too easy to accidentally wipe someone's memory
+			memory = new_memo
+			log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
+			message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s memory")
 
 	else if(href_list["obj_edit"] || href_list["obj_add"])
 		var/datum/objective/objective
@@ -630,7 +631,7 @@
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.owner = src
 				new_objective.target = new_target
-				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing their identification card."
+				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
 			if("custom")
 				var/expl = sanitize(copytext(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
 				if(!expl)
@@ -1130,14 +1131,17 @@
 				log_admin("[key_name(usr)] turned [current] into abductor.")
 				ticker.mode.update_abductor_icons_added(src)
 			if("equip")
+				if(!ishuman(current))
+					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
+					return
+
+				var/mob/living/carbon/human/H = current
 				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
 				if(gear)
-					var/datum/game_mode/abduction/temp = new
-					temp.equip_common(current)
 					if(gear=="Agent")
-						temp.equip_agent(current)
+						H.equipOutfit(/datum/outfit/abductor/agent)
 					else
-						temp.equip_scientist(current)
+						H.equipOutfit(/datum/outfit/abductor/scientist)
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
@@ -1217,12 +1221,8 @@
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
 	else if(href_list["obj_announce"])
-		var/obj_count = 1
-		to_chat(current, "<BR><span class='userdanger'>Your current objectives:</span>")
-		for(var/datum/objective/objective in objectives)
-			to_chat(current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-			obj_count++
-		current << 'sound/ambience/alarm4.ogg'
+		announce_objectives()
+		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
 
@@ -1282,6 +1282,14 @@
 		else if(A.type == datum_type)
 			return A
 
+/datum/mind/proc/announce_objectives()
+	var/obj_count = 1
+	to_chat(current, "<span class='notice'>Your current objectives:</span>")
+	for(var/objective in objectives)
+		var/datum/objective/O = objective
+		to_chat(current, "<B>Objective #[obj_count]</B>: [O.explanation_text]")
+		obj_count++
+
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
 	for(var/obj/item/I in L)
@@ -1294,7 +1302,7 @@
 	if(H)
 		qdel(H)
 
-/datum/mind/proc/make_Tratior()
+/datum/mind/proc/make_Traitor()
 	if(!(src in ticker.mode.traitors))
 		ticker.mode.traitors += src
 		special_role = SPECIAL_ROLE_TRAITOR
@@ -1334,7 +1342,16 @@
 
 		ticker.mode.equip_syndicate(current)
 
-/datum/mind/proc/make_Changling()
+/datum/mind/proc/make_Vampire()
+	if(!(src in ticker.mode.vampires))
+		ticker.mode.vampires += src
+		ticker.mode.grant_vampire_powers(current)
+		special_role = SPECIAL_ROLE_VAMPIRE
+		ticker.mode.forge_vampire_objectives(src)
+		ticker.mode.greet_vampire(src)
+		ticker.mode.update_change_icons_added(src)
+
+/datum/mind/proc/make_Changeling()
 	if(!(src in ticker.mode.changelings))
 		ticker.mode.changelings += src
 		ticker.mode.grant_changeling_powers(current)
@@ -1362,42 +1379,6 @@
 		ticker.mode.forge_wizard_objectives(src)
 		ticker.mode.greet_wizard(src)
 		ticker.mode.update_wiz_icons_added(src)
-
-
-/datum/mind/proc/make_Cultist()
-	if(!(src in ticker.mode.cult))
-		ticker.mode.cult += src
-		ticker.mode.update_cult_icons_added(src)
-		special_role = SPECIAL_ROLE_CULTIST
-		to_chat(current, "<font color=\"cultitalic\"><b><i>You catch a glimpse of the Realm of [ticker.cultdat.entity_name], [ticker.cultdat.entity_title2]. You now see how flimsy the world is, you see that it should be open to the knowledge of [ticker.cultdat.entity_name].</b></i></font>")
-		to_chat(current, "<font color=\"cultitalic\"><b><i>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve the Dark One above all else. Bring It back.</b></i></font>")
-		var/datum/game_mode/cult/cult = ticker.mode
-		if(GAMEMODE_IS_CULT)
-			cult.memorize_cult_objectives(src)
-		else
-			var/explanation = "Summon [ticker.cultdat.entity_name] via the use of the appropriate rune. It will only work if nine cultists stand on and around it."
-			to_chat(current, "<B>Objective #1</B>: [explanation]")
-			current.memory += "<B>Objective #1</B>: [explanation]<BR>"
-
-
-	var/mob/living/carbon/human/H = current
-	if(istype(H))
-		var/obj/item/tome/T = new(H)
-
-		var/list/slots = list (
-			"backpack" = slot_in_backpack,
-			"left pocket" = slot_l_store,
-			"right pocket" = slot_r_store,
-			"left hand" = slot_l_hand,
-			"right hand" = slot_r_hand,
-		)
-		var/where = H.equip_in_one_of_slots(T, slots)
-		if(!where)
-		else
-			to_chat(H, "A tome, a message from your new master, appears in your [where].")
-
-	if(!ticker.mode.equip_cultist(current))
-		to_chat(H, "Summoning an amulet from your Master failed.")
 
 /datum/mind/proc/make_Rev()
 	if(ticker.mode.head_revolutionaries.len>0)
@@ -1445,36 +1426,32 @@
 
 	var/mob/living/carbon/human/H = current
 
-	H.set_species("Abductor")
+	H.set_species(/datum/species/abductor)
+	var/datum/species/abductor/S = H.dna.species
 
-	switch(role)
-		if("Agent")
-			H.mind.abductor.agent = 1
-		if("Scientist")
-			H.mind.abductor.scientist = 1
-	H.mind.abductor.team = team
+	if(role == "Scientist")
+		S.scientist = TRUE
+
+	S.team = team
 
 	var/list/obj/effect/landmark/abductor/agent_landmarks = new
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
 	agent_landmarks.len = 4
 	scientist_landmarks.len = 4
 	for(var/obj/effect/landmark/abductor/A in landmarks_list)
-		if(istype(A,/obj/effect/landmark/abductor/agent))
+		if(istype(A, /obj/effect/landmark/abductor/agent))
 			agent_landmarks[text2num(A.team)] = A
-		else if(istype(A,/obj/effect/landmark/abductor/scientist))
+		else if(istype(A, /obj/effect/landmark/abductor/scientist))
 			scientist_landmarks[text2num(A.team)] = A
 
 	var/obj/effect/landmark/L
-	if(teleport=="Yes")
+	if(teleport == "Yes")
 		switch(role)
 			if("Agent")
-				H.mind.abductor.agent = 1
 				L = agent_landmarks[team]
-				H.loc = L.loc
 			if("Scientist")
-				H.mind.abductor.scientist = 1
 				L = agent_landmarks[team]
-				H.loc = L.loc
+		H.forceMove(L.loc)
 
 
 // check whether this mind's mob has been brigged for the given duration
@@ -1549,7 +1526,7 @@
 	ticker.mode.implanter[ref] = implanters
 	ticker.mode.traitors += src
 	special_role = "traitor"
-	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect them and assist in their goals at any cost.</span>")
+	to_chat(current, "<span class='warning'><B>You're now a loyal zealot of [missionary.name]!</B> You now must lay down your life to protect [missionary.p_them()] and assist in [missionary.p_their()] goals at any cost.</span>")
 	var/datum/objective/protect/mindslave/MS = new
 	MS.owner = src
 	MS.target = missionary.mind

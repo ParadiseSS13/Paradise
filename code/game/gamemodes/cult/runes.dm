@@ -1,4 +1,4 @@
-/var/list/sacrificed = list()
+var/list/sacrificed = list()
 var/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
 
 /*
@@ -153,7 +153,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/M in invokers)
 		var/mob/living/L = M
 		if(invocation)
-			L.say(invocation)
+			if(!L.IsVocal())
+				L.emote("gestures ominously.")
+			else
+				L.say(invocation)
 			L.changeNext_move(CLICK_CD_MELEE)//THIS IS WHY WE CAN'T HAVE NICE THINGS
 		if(invoke_damage)
 			L.apply_damage(invoke_damage, BRUTE)
@@ -473,7 +476,6 @@ var/list/teleport_runes = list()
 	rune_in_use = 0
 
 
-
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
 /obj/effect/rune/narsie
 	cultist_name = "Tear Reality (God)"
@@ -700,7 +702,7 @@ var/list/teleport_runes = list()
 		return
 	mob_to_revive.revive() //This does remove disabilities and such, but the rune might actually see some use because of it!
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
-	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from their eyes.</span>", \
+	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
 								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")
 	rune_in_use = 0
 
@@ -787,11 +789,11 @@ var/list/teleport_runes = list()
 			return
 		affecting.apply_damage(1, BRUTE)
 		if(!(user in T.contents))
-			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls them back to the rune!</span>")
+			user.visible_message("<span class='warning'>A spectral tendril wraps around [user] and pulls [user.p_them()] back to the rune!</span>")
 			Beam(user,icon_state="drainbeam",time=2)
 			user.forceMove(get_turf(src)) //NO ESCAPE :^)
 		if(user.key)
-			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around them dimming.</span>", \
+			user.visible_message("<span class='warning'>[user] slowly relaxes, the glow around [user.p_them()] dimming.</span>", \
 								 "<span class='danger'>You are re-united with your physical form. [src] releases its hold over you.</span>")
 			user.color = initial(user.color)
 			user.Weaken(3)
@@ -833,7 +835,7 @@ var/list/teleport_runes = list()
 	var/mob/living/user = invokers[1]
 	..()
 	density = !density
-	user.visible_message("<span class='warning'>[user] places their hands on [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"].</span>", \
+	user.visible_message("<span class='warning'>[user] places [user.p_their()] hands on [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"].</span>", \
 						 "<span class='cultitalic'>You channel your life energy into [src], [density ? "preventing" : "allowing"] passage above it.</span>")
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
@@ -875,7 +877,7 @@ var/list/teleport_runes = list()
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target in away mission")
 		return
-	if((cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained()) && invokers < 3)
+	if((cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained()) && invokers.len < 3)
 		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow! You need 3 chanters to counter it!</span>")
 		fail_invoke()
 		new /obj/effect/temp_visual/cult/sparks(get_turf(cultist_to_summon)) //observer warning

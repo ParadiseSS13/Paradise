@@ -1,4 +1,0 @@
-author: "Tayyyyyyy"
-delete-after: True
-changes: 
-  - bugfix: "Newscasters properly check for feed channel creation and wanted issue creation"

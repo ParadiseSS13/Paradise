@@ -131,7 +131,7 @@
 
 			var/obj/item/assembly_holder/H = I
 			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
-				msg_admin_attack("[key_name_admin(user)] rigged [src.name] with [I.name] for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				msg_admin_attack("[key_name_admin(user)] rigged [src.name] with [I.name] for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", ATKLOG_FEW)
 				log_game("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]")
 				investigate_log("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 
@@ -155,11 +155,11 @@
 				to_chat(user, "<span class='warning'>Your [W] is already full!</span>")
 				return
 			reagents.trans_to(W, W.max_fuel)
-			user.visible_message("<span class='notice'>[user] refills \his [W].</span>", "<span class='notice'>You refill [W].</span>")
+			user.visible_message("<span class='notice'>[user] refills [user.p_their()] [W].</span>", "<span class='notice'>You refill [W].</span>")
 			playsound(src, 'sound/effects/refill.ogg', 50, 1)
 			W.update_icon()
 		else
-			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling \his [W]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
+			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling [user.p_their()] [W]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
 			message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
 			log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
 			investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)

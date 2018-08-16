@@ -26,12 +26,9 @@
 
 /obj/effect/portal/Destroy()
 	portals -= src
-	if(istype(creator, /obj/item/hand_tele))
-		var/obj/item/hand_tele/O = creator
-		O.active_portals--
-	else if(istype(creator, /obj/item/gun/energy/wormhole_projector))
-		var/obj/item/gun/energy/wormhole_projector/P = creator
-		P.portal_destroyed(src)
+	if(istype(creator, /obj))
+		var/obj/O = creator
+		O.portal_destroyed(src)
 	creator = null
 	target = null
 	return ..()

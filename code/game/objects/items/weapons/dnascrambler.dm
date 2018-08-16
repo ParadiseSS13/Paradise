@@ -24,12 +24,12 @@
 
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(NO_DNA in H.species.species_traits)
-				to_chat(user, "<span class='warning'>You failed to inject [M], as they have no DNA to scramble, nor flesh to inject.</span>")
+			if(NO_DNA in H.dna.species.species_traits)
+				to_chat(user, "<span class='warning'>You failed to inject [M], as [M.p_they()] [M.p_have()] no DNA to scramble, nor flesh to inject.</span>")
 				return
 
 		if(M == user)
-			user.visible_message("<span class='danger'>[user] injects \himself with [src]!</span>")
+			user.visible_message("<span class='danger'>[user] injects [user.p_them()]self with [src]!</span>")
 			injected(user, user)
 		else
 			user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
@@ -43,7 +43,7 @@
 		if(istype(target))
 			var/mob/living/carbon/human/H = target
 			scramble(1, H, 100)
-			H.real_name = random_name(H.gender, H.species.name) //Give them a name that makes sense for their species.
+			H.real_name = random_name(H.gender, H.dna.species.name) //Give them a name that makes sense for their species.
 			H.sync_organ_dna(assimilate = 1)
 			H.update_body(0)
 			H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.

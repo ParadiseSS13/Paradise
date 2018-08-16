@@ -20,7 +20,7 @@
 /obj/item/creeping_widow_injector/attack_self(mob/living/carbon/human/user as mob)
 	if(!used)
 		user.visible_message("<span class='warning'>You stick the [src]'s needle into your arm and press the button.", \
-			  "<span class='warning'>[user] sticks the [src]'s needle \his arm and presses the button.")
+			  "<span class='warning'>[user] sticks the [src]'s needle [user.p_their()] arm and presses the button.")
 		to_chat(user, "<span class='info'>The nanomachines in the [src] flow through your bloodstream.")
 
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
@@ -98,8 +98,8 @@
 				D.silent += 1
 				D.adjustOxyLoss(1)
 			else
-				D.visible_message("<span class='warning'>[A] loses \his grip on [D]'s neck!</span>", \
-									"<span class='userdanger'>[A] loses \his grip on your neck!</span>")
+				D.visible_message("<span class='warning'>[A] loses [A.p_their()] grip on [D]'s neck!</span>", \
+									"<span class='userdanger'>[A] loses [A.p_their()] grip on your neck!</span>")
 				has_choke_hold = 0
 				return 0
 			I++
