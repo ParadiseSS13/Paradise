@@ -335,7 +335,10 @@
 				to_chat(T, "[pick(TPError)]")
 			return
 		else
-			teleport(M)
+			if(!teleport(M))
+				visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+
 			use_power(5000)
 		//--FalseIncarnate
 	return

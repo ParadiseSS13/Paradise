@@ -347,7 +347,7 @@
 	icon_screen = "telesci"
 	icon_keyboard = "teleport_key"
 	var/obj/machinery/bluespace_beacon/syndicate/mybeacon
-	var/obj/effect/portal/myportal
+	var/obj/effect/portal/redspace/myportal
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
 
@@ -401,7 +401,7 @@
 		if(!tele_target)
 			return
 		var/turf/portal_turf = get_step(src, portaldir)
-		var/obj/effect/portal/P = new(portal_turf, tele_target, src, 0)
+		var/obj/effect/portal/redspace/P = new(portal_turf, tele_target, src, 0)
 		myportal = P
 		P.failchance = 0
 		P.icon_state = "portal1"

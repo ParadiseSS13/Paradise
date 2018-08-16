@@ -1,5 +1,5 @@
 //wrapper
-/proc/do_teleport(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null)
+/proc/do_teleport(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null, bypass_area_flag=FALSE)
 	var/datum/teleport/instant/science/D = new
 	if(D.start(arglist(args)))
 		return 1
@@ -14,14 +14,15 @@
 	var/soundin //soundfile to play before teleportation
 	var/soundout //soundfile to play after teleportation
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
+	var/ignore_area_flag = FALSE
 
 
-/datum/teleport/proc/start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null)
+/datum/teleport/proc/start(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null, bypass_area_flag=FALSE)
 	if(!initTeleport(arglist(args)))
 		return 0
 	return 1
 
-/datum/teleport/proc/initTeleport(ateleatom,adestination,aprecision,afteleport,aeffectin,aeffectout,asoundin,asoundout)
+/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag=FALSE)
 	if(!setTeleatom(ateleatom))
 		return 0
 	if(!setDestination(adestination))
@@ -31,6 +32,7 @@
 	setEffects(aeffectin,aeffectout)
 	setForceTeleport(afteleport)
 	setSounds(asoundin,asoundout)
+	ignore_area_flag = bypass_area_flag
 	return 1
 
 //must succeed
@@ -98,10 +100,6 @@
 	var/turf/destturf
 	var/turf/curturf = get_turf(teleatom)
 	var/area/curarea = get_area(curturf)
-	var/area/destarea = get_area(destination)
-
-	if(!is_teleport_allowed(curturf.z) || curarea.tele_proof || !is_teleport_allowed(destturf.z) || destarea.tele_proof)
-		return 0
 
 	if(precision)
 		var/list/posturfs = list()
@@ -113,6 +111,17 @@
 		destturf = safepick(posturfs)
 	else
 		destturf = get_turf(destination)
+
+	if(!is_teleport_allowed(destturf.z))
+		return 0
+
+	var/area/destarea = get_area(destturf)
+
+	if(!ignore_area_flag)
+		if(curarea.tele_proof)
+			return 0
+		if(destarea.tele_proof)
+			return 0
 
 	if(!destturf || !curturf)
 		return 0

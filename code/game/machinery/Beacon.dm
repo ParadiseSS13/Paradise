@@ -9,6 +9,7 @@
 	use_power = 1
 	idle_power_usage = 0
 	var/syndicate = 0
+	var/bypasses_area_teleport_lock = FALSE
 	var/obj/item/radio/beacon/Beacon
 	var/enabled = TRUE
 
@@ -64,6 +65,7 @@
 /obj/machinery/bluespace_beacon/syndicate
 	syndicate = TRUE
 	enabled = FALSE
+	bypasses_area_teleport_lock = TRUE
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
 /obj/machinery/bluespace_beacon/syndicate/New()
