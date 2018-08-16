@@ -198,19 +198,11 @@ var/global/list/all_cults = list()
 
 /datum/game_mode/proc/auto_declare_completion_cult()
 	if(cult.len || (ticker && GAMEMODE_IS_CULT))
-		var/text = "<FONT size = 2><B>The cultists were:</B></FONT>"
+		var/text = "<br><FONT size = 2><B>The cultists were:</B></FONT>"
 		for(var/datum/mind/cultist in cult)
 
-			text += "<br>[cultist.key] was [cultist.name] ("
-			if(cultist.current)
-				if(cultist.current.stat == DEAD)
-					text += "died"
-				else
-					text += "survived"
-				if(cultist.current.real_name != cultist.name)
-					text += " as [cultist.current.real_name]"
-			else
-				text += "body destroyed"
-			text += ")"
+			text += printplayer(cultist)
+			text += "<br>"
 
+		text += "<br>"
 		to_chat(world, text)
