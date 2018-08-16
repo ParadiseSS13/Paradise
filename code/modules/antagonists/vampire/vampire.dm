@@ -154,7 +154,7 @@
 	stat("Total Blood",  bloodtotal)
 	stat("Usable Blood", bloodusable)
 
-/datum/antagonist/vampire/proc/vampire_life()
+/datum/antagonist/vampire/antag_life()
 	var/mob/living/carbon/C = owner.current
 	if(!C)
 		return

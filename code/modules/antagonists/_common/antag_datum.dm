@@ -93,6 +93,9 @@ GLOBAL_LIST_EMPTY(antagonists)
 		team.remove_member(owner)
 	qdel(src)
 
+/datum/antagonist/proc/antag_life() //To anything to check on an antags life proc.
+	return
+
 /datum/antagonist/proc/handle_stat() //To handle info on the display panel.
 	return
 

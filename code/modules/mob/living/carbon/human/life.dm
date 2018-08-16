@@ -19,6 +19,12 @@
 
 		if(!client)
 			dna.species.handle_npc(src)
+		if(mind)
+			for(var/a in mind.antag_datums)
+				if(!a)//no antag datum, break out.
+					break
+				var/datum/antagonist/antag = a
+				antag.antag_life()
 
 	if(stat != DEAD)
 		//Stuff jammed in your limbs hurts
