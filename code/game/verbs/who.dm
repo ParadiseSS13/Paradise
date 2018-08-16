@@ -47,7 +47,7 @@
 
 			if(is_special_character(C.mob))
 				entry += " - <b><font color='red'>Antagonist</font></b>"
-			entry += " [ADMIN_QUE(C.mob,"?")]"
+			entry += " ([ADMIN_QUE(C.mob,"?")])"
 			Lines += entry
 	else
 		for(var/client/C in clients)
