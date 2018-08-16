@@ -445,7 +445,7 @@ This is always put in the attack log.
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a>) [ADMIN_PP(M)] [ADMIN_VV(M)] [ADMIN_SM(M)] [ADMIN_FLW(M)] (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>)")
+	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a>) [ADMIN_PP(M,"PP")] [ADMIN_VV(M,"VV")] [ADMIN_SM(M,"SM")] [ADMIN_FLW(M,"FLW")] (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>)")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)

@@ -836,7 +836,7 @@
 			if(locate(/obj/item/storage/bible) in get_turf(src))
 				to_chat(viewers(src), "<span class='danger'>[src] farts on the Bible!</span>")
 				var/image/cross = image('icons/obj/storage.dmi', "bible")
-				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=[UID()]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[UID()]'>PP</A>) [ADMIN_VV(src)] (<A HREF='?_src_=holder;subtlemessage=[UID()]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
+				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=[UID()]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[UID()]'>PP</A>) [ADMIN_VV(src,"VV")] (<A HREF='?_src_=holder;subtlemessage=[UID()]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
 				for(var/client/X in admins)
 					if(check_rights(R_EVENT, 0, X.mob))
 						to_chat(X, adminbfmessage)

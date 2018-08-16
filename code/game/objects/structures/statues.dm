@@ -182,17 +182,17 @@
 		burn = TRUE
 	if(burn)
 		if(Proj.firer)
-			message_admins("Plasma statue ignited by [key_name_admin(Proj.firer)][ADMIN_QUE(Proj.firer)] [ADMIN_FLW(Proj.firer)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			message_admins("Plasma statue ignited by [key_name_admin(Proj.firer)][ADMIN_QUE(Proj.firer,"?")] [ADMIN_FLW(Proj.firer,"FLW")] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 			log_game("Plasma statue ignited by [key_name(Proj.firer)] in ([x],[y],[z])")
 			investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(Proj.firer)]","atmos")
 		else
-			message_admins("Plasma statue ignited by [Proj]. No known firer.[ADMIN_QUE(Proj.firer)] [ADMIN_FLW(Proj.firer)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			message_admins("Plasma statue ignited by [Proj]. No known firer.[ADMIN_QUE(Proj.firer,"?")] [ADMIN_FLW(Proj.firer,"FLW")] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 			log_game("Plasma statue ignited by [Proj] in ([x],[y],[z]). No known firer.")
 	..()
 
 /obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma statue ignited by [key_name_admin(user)][ADMIN_QUE(user)] [ADMIN_FLW(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		message_admins("Plasma statue ignited by [key_name_admin(user)][ADMIN_QUE(user,"?")] [ADMIN_FLW(user,"FLW")] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma statue ignited by [key_name(user)] in ([x],[y],[z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		ignite(is_hot(W))

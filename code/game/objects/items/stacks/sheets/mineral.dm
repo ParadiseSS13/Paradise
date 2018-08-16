@@ -166,7 +166,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma sheets ignited by [key_name_admin(user)][ADMIN_QUE(user)] [ADMIN_FLW(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		message_admins("Plasma sheets ignited by [key_name_admin(user)][ADMIN_QUE(user,"?")] [ADMIN_FLW(user,"FLW")] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma sheets ignited by [key_name(user)] in ([x],[y],[z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		fire_act()
