@@ -254,7 +254,7 @@
 		if(G.summoner == user)
 			to_chat(user, "You already have a [mob_name]!")
 			return
-	if(user.mind && (user.mind.changeling || is_vampire(user)))
+	if(user.mind && (user.mind.changeling || isvampire(user)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used == TRUE)

@@ -756,7 +756,7 @@
 			stat = UNCONSCIOUS
 
 			if(mind)
-				if(is_vampire(mind))
+				if(isvampire(mind))
 					if(istype(loc, /obj/structure/closet/coffin))
 						adjustBruteLoss(-1)
 						adjustFireLoss(-1)

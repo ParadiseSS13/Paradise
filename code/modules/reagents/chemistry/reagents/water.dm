@@ -365,7 +365,7 @@
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
-	if(is_vampire(M))//since is_vampire checks for existence of a mind.
+	if(isvampire(M))//since is_vampire checks for existence of a mind.
 		var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
 		if(ishuman(M) && vampire && !vampire.get_ability(/datum/vampire_passive/full) && prob(80))
 			var/mob/living/carbon/V = M
@@ -413,7 +413,7 @@
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	if(is_vampire(M))
+	if(isvampire(M))
 		var/datum/antagonist/vampire/vampire = M.mind.has_antag_datum(/datum/antagonist/vampire)
 		if(ishuman(M) && !vampire.get_ability(/datum/vampire_passive/full))
 			var/mob/living/carbon/human/H=M

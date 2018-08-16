@@ -51,7 +51,7 @@
 		return 0
 
 
-	if(!is_vampire(user))
+	if(!isvampire(user))
 		return 0
 
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -70,7 +70,7 @@
 
 /obj/effect/proc_holder/spell/vampire/proc/affects(mob/target, mob/user = usr)
 	//Other vampires aren't affected
-	if(is_vampire(target))
+	if(isvampire(target))
 		return 0
 	//Vampires who have reached their full potential can affect nearly everything
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -88,7 +88,7 @@
 
 /obj/effect/proc_holder/spell/vampire/before_cast(list/targets)
 	// sanity check before we cast
-	if(!usr.mind || !is_vampire(usr))
+	if(!usr.mind || !isvampire(usr))
 		targets.Cut()
 		return
 
@@ -309,7 +309,7 @@
 	if(!C.mind)
 		to_chat(user, "<span class='warning'>[C.name]'s mind is not there for you to enthrall.</span>")
 		return 0
-	if(enthrall_safe || ( C.mind in ticker.mode.vampires) || (is_vampire(C)) || ( C.mind in ticker.mode.vampire_enthralled))
+	if(enthrall_safe || ( C.mind in ticker.mode.vampires) || (isvampire(C)) || ( C.mind in ticker.mode.vampire_enthralled))
 		C.visible_message("<span class='warning'>[C] seems to resist the takeover!</span>", "<span class='notice'>You feel a familiar sensation in your skull that quickly dissipates.</span>")
 		return 0
 	if(!affects(C))
@@ -359,7 +359,7 @@
 /obj/effect/proc_holder/spell/vampire/self/cloak/proc/update_name()
 	var/mob/living/user = loc
 	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
-	if(!ishuman(user) || !user.mind || !is_vampire(user))
+	if(!ishuman(user) || !user.mind || !isvampire(user))
 		return
 	name = "[initial(name)] ([vampire.iscloaking ? "Deactivate" : "Activate"])"
 

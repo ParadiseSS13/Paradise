@@ -57,7 +57,7 @@
 		var/text = "<FONT size = 2><B>The vampires were:</B></FONT>"
 		for(var/datum/mind/vampire in vampires)
 
-			if(!is_vampire(vampire))
+			if(!isvampire(vampire))
 				continue
 
 			text += printplayer(vampire)
@@ -89,7 +89,7 @@
 	vamp.on_removal()
 	return TRUE
 
-/proc/is_vampire(mob/living/M)
+/proc/isvampire(mob/living/M)
 	return M && M.mind && M.mind.has_antag_datum(/datum/antagonist/vampire)
 
 

@@ -941,7 +941,7 @@
 				log_admin("[key_name(usr)] has de-vampired [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-vampired [key_name_admin(current)]")
 			if("vampire")
-				if(!is_vampire(current))
+				if(!isvampire(current))
 
 					log_admin("[key_name(usr)] has vampired [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has vampired [key_name_admin(current)]")

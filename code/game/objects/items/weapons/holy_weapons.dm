@@ -427,7 +427,7 @@
 					praying = 0
 					return
 
-				if(is_vampire(target))
+				if(isvampire(target))
 					var/datum/antagonist/vampire/V = target.mind.has_antag_datum(/datum/antagonist/vampire)
 					if(!V.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 						V.nullified = max(120, V.nullified + 120)
@@ -454,7 +454,7 @@
 
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
 			for(var/mob/living/carbon/human/H in range(5))
-				if(is_vampire(H))
+				if(isvampire(H))
 					var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
 					if(!V.get_ability(/datum/vampire_passive/full))
 						V.nullified = max(5, V.nullified + 2)

@@ -195,7 +195,7 @@
 		H.LAssailant = O
 	playsound(O.loc, 'sound/weapons/bite.ogg', 50, 1)
 	while(do_mob(O, H, 50))
-		if(!is_vampire(O))
+		if(!isvampire(O))
 			to_chat(owner, "<span class='warning'>Your fangs have disappeared!</span>")
 			return
 		old_bloodtotal = bloodtotal
