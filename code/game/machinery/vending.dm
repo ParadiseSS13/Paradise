@@ -1027,7 +1027,7 @@
 	req_access_txt = "5"
 	products = list(/obj/item/reagent_containers/glass/bottle/charcoal = 4,/obj/item/reagent_containers/glass/bottle/morphine = 4,/obj/item/reagent_containers/glass/bottle/ether = 4,/obj/item/reagent_containers/glass/bottle/epinephrine = 4,
 					/obj/item/reagent_containers/glass/bottle/toxin = 4,/obj/item/reagent_containers/syringe/antiviral = 6,/obj/item/reagent_containers/syringe/insulin = 4,
-					/obj/item/reagent_containers/syringe = 12,/obj/item/healthanalyzer = 5,/obj/item/healthupgrade = 5,/obj/item/reagent_containers/glass/beaker = 4,
+					/obj/item/reagent_containers/syringe = 12,/obj/item/healthanalyzer = 5,/obj/item/healthupgrade = 5,/obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/hypospray/safety = 2,
 					/obj/item/reagent_containers/dropper = 2,/obj/item/stack/medical/bruise_pack/advanced = 3, /obj/item/stack/medical/ointment/advanced = 3,
 					/obj/item/stack/medical/bruise_pack = 3,/obj/item/stack/medical/splint = 4, /obj/item/sensor_device = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4,
 					/obj/item/pinpointer/crew = 2)
@@ -1205,7 +1205,8 @@
 					/obj/item/clothing/suit/snowman = 1,/obj/item/clothing/head/snowman = 1,
 					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1,
 					/obj/item/clothing/under/victdress = 1, /obj/item/clothing/under/victdress/red = 1, /obj/item/clothing/suit/victcoat = 1, /obj/item/clothing/suit/victcoat/red = 1,
-					/obj/item/clothing/under/victsuit = 1, /obj/item/clothing/under/victsuit/redblk = 1, /obj/item/clothing/under/victsuit/red = 1, /obj/item/clothing/suit/tailcoat = 1)
+					/obj/item/clothing/under/victsuit = 1, /obj/item/clothing/under/victsuit/redblk = 1, /obj/item/clothing/under/victsuit/red = 1, /obj/item/clothing/suit/tailcoat = 1,
+					/obj/item/clothing/suit/draculacoat = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/shield/riot/roman = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe

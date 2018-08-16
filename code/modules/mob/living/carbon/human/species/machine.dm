@@ -72,17 +72,64 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
-	species_abilities = list(
-		/mob/living/carbon/human/proc/change_monitor
-		)
+	var/datum/action/innate/change_monitor/monitor
 
-/datum/species/machine/handle_death(var/mob/living/carbon/human/H)
+/datum/species/machine/on_species_gain(mob/living/carbon/human/H)
+	..()
+	monitor = new()
+	monitor.Grant(H)
+
+/datum/species/machine/on_species_loss(mob/living/carbon/human/H)
+	..()
+	if(monitor)
+		monitor.Remove(H)
+
+/datum/species/machine/handle_death(mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	if(!head_organ)
 		return
 	head_organ.h_style = "Bald"
 	head_organ.f_style = "Shaved"
 	spawn(100)
-		if(H)
+		if(H && head_organ)
 			H.update_hair()
 			H.update_fhair()
+
+// Allows IPC's to change their monitor display
+/datum/action/innate/change_monitor
+	name = "Change Monitor"
+	check_flags = AB_CHECK_CONSCIOUS
+	button_icon_state = "scan_mode"
+
+/datum/action/innate/change_monitor/Activate()
+	var/mob/living/carbon/human/H = owner
+	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+
+	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
+		to_chat(H, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
+		return
+
+	var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
+	if(!head_organ)
+		return
+	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
+		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
+		if(H.incapacitated())
+			to_chat(H, "<span class='warning'>You were interrupted while changing the colour of your optics.</span>")
+			return
+		if(optic_colour)
+			H.change_markings(optic_colour, "head")
+
+	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
+		var/list/hair = list()
+		for(var/i in hair_styles_public_list)
+			var/datum/sprite_accessory/hair/tmp_hair = hair_styles_public_list[i]
+			if((head_organ.dna.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
+				hair += i
+
+		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
+		if(H.incapacitated())
+			to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
+			return
+		if(new_style)
+			H.change_hair(new_style)

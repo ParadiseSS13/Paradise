@@ -1675,21 +1675,22 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/mob/living/carbon/human/H = locate(href_list["CentcommReply"])
-		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
-			return
-		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-			to_chat(usr, "The person you are trying to contact is not wearing a headset")
+		var/mob/M = locateUID(href_list["CentcommReply"])
+		usr.client.admin_headset_message(M, "Centcomm")
+
+	else if(href_list["SyndicateReply"])
+		if(!check_rights(R_ADMIN))
 			return
 
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from Centcomm", "")
-		if(!input)	return
+		var/mob/M = locateUID(href_list["SyndicateReply"])
+		usr.client.admin_headset_message(M, "Syndicate")
 
-		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-		log_admin("[key_name(src.owner)] replied to [key_name(H)]'s Centcomm message with the message [input].")
-		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)]'s Centcom message with: \"[input]\"")
-		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\"")
+	else if(href_list["HeadsetMessage"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		var/mob/M = locateUID(href_list["HeadsetMessage"])
+		usr.client.admin_headset_message(M)
 
 	else if(href_list["EvilFax"])
 		if(!check_rights(R_ADMIN))
@@ -2031,26 +2032,6 @@
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
-
-	else if(href_list["SyndicateReply"])
-		if(!check_rights(R_ADMIN))
-			return
-		var/mob/living/carbon/human/H = locate(href_list["SyndicateReply"])
-		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
-			return
-		if(H.stat != 0)
-			to_chat(usr, "The person you are trying to contact is not conscious.")
-			return
-		if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-			to_chat(usr, "The person you are trying to contact is not wearing a headset")
-			return
-		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via [H.p_their()] headset.","Outgoing message from The Syndicate", "")
-		if(!input)
-			return
-		to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
-		log_admin("[src.owner] replied to [key_name(H)]'s Syndicate message with the message [input].")
-		to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your benefactor.  Message as follows, agent. [input].  Message ends.\"")
 
 	else if(href_list["HONKReply"])
 		var/mob/living/carbon/human/H = locate(href_list["HONKReply"])
