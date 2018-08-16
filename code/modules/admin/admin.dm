@@ -57,9 +57,9 @@ var/global/nologevent = 0
 
 	body += "<br><br>\[ "
 	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
-	body += "<a href='?_src_=holder;traitor=\ref[M]'>TP</a> - "
+	body += "[ADMIN_TP(M,"TP")] - "
 	body += "<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a> - "
-	body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
+	body += "[ADMIN_SM(M,"SM")] - "
 	body += "[admin_jump_link(M)]\] </b><br>"
 	if(ishuman(M) && M.mind)
 		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a>"
@@ -106,9 +106,9 @@ var/global/nologevent = 0
 		<A href='?_src_=holder;getmob=\ref[M]'>Get</A> |
 		<A href='?_src_=holder;sendmob=\ref[M]'>Send To</A>
 		<br><br>
-		[check_rights(R_ADMIN,0) ? "<A href='?_src_=holder;traitor=\ref[M]'>Traitor panel</A> | " : "" ]
+		[check_rights(R_ADMIN,0) ? "[ADMIN_TP(M,"Traitor panel")] | " : "" ]
 		<A href='?_src_=holder;narrateto=\ref[M]'>Narrate to</A> |
-		<A href='?_src_=holder;subtlemessage=\ref[M]'>Subtle message</A>
+		[ADMIN_SM(M,"Subtle message")]
 	"}
 
 	if(check_rights(R_EVENT, 0))
@@ -953,7 +953,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 	return "[A.name] - [loc.x],[loc.y],[loc.z]"
 
 /proc/formatPlayerPanel(var/mob/U,var/text="PP")
-	return "<A HREF='?_src_=holder;adminplayeropts=\ref[U]'>[text]</A>"
+	return "[ADMIN_PP(U,"[text]")]"
 
 //Kicks all the clients currently in the lobby. The second parameter (kick_only_afk) determins if an is_afk() check is ran, or if all clients are kicked
 //defaults to kicking everyone (afk + non afk clients in the lobby)

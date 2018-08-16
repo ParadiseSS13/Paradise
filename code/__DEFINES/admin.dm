@@ -46,7 +46,7 @@
 #define R_HOST			65535
 
 #define ADMIN_QUE(user,display) "<a href='?_src_=holder;adminmoreinfo=[user.UID()]'>[display]</a>"
-#define ADMIN_FLW(user,display) "<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]/a>"
+#define ADMIN_FLW(user,display) "<a href='?_src_=holder;adminplayerobservefollow=[user.UID()]'>[display]</a>"
 #define ADMIN_PP(user,display) "<a href='?_src_=holder;adminplayeropts=[user.UID()]'>[display]</a>"
 #define ADMIN_VV(atom,display) "<a href='?_src_=vars;Vars=[atom.UID()]'>[display]</a>"
 #define ADMIN_SM(user,display) "<a href='?_src_=holder;subtlemessage=[user.UID()]'>[display]</a>"

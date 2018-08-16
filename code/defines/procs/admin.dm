@@ -68,7 +68,10 @@
 	return .
 
 /proc/key_name_admin(whom)
-	var/message = "[key_name(whom, 1)](<A HREF='?_src_=holder;adminmoreinfo=\ref[whom]'>?</A>)[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
+	var/mob/whom_mob = whom //Should be always be a mob.
+	if(!istype(whom_mob)) //Best to check anyway
+		return  "key_name_admin did get a non-mob as argument. Argument is [whom]. Report it to a coder."
+	var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_mob,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
 	return message
 
 /proc/key_name_mentor(whom)

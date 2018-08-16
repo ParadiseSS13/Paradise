@@ -472,7 +472,7 @@
 			for(var/datum/mind/blob in mode.infected_crew)
 				var/mob/M = blob.current
 				if(M)
-					dat += "<tr><td><a href='?_src_=holder;adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
 					dat += "<td><A href='?priv_msg=[M.ckey]'>PM</A></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
