@@ -462,6 +462,19 @@
 								"Pod_Frame",
 								"Misc")
 
+/obj/machinery/mecha_part_fabricator/spacepod/New()
+	. = ..()
+	for(var/obj/O in component_parts)
+		qdel(O)
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/podfab(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	RefreshParts()
+
 /obj/machinery/mecha_part_fabricator/robot
 	name = "Robotic Fabricator"
 	part_sets = list("Cyborg")
