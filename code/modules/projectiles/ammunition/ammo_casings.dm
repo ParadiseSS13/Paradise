@@ -1,6 +1,7 @@
 /obj/item/ammo_casing/a357
 	desc = "A .357 bullet casing."
 	caliber = "357"
+	casing_sound = 'sound/weapons/dropCasingMed.ogg'
 	projectile_type = /obj/item/projectile/bullet
 
 /obj/item/ammo_casing/rubber9mm
@@ -13,6 +14,7 @@
 	desc = "A 7.62mm bullet casing."
 	icon_state = "762-casing"
 	caliber = "a762"
+	casing_sound = 'sound/weapons/dropCasingMed.ogg'
 	projectile_type = /obj/item/projectile/bullet
 
 /obj/item/ammo_casing/a762/enchanted
@@ -21,6 +23,7 @@
 /obj/item/ammo_casing/a50
 	desc = "A .50AE bullet casing."
 	caliber = ".50"
+	casing_sound = 'sound/weapons/dropCasingLrg.ogg'
 	projectile_type = /obj/item/projectile/bullet
 
 /obj/item/ammo_casing/c38
@@ -63,24 +66,29 @@
 	caliber = "9mm"
 	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
 
+// These should really be their own sub; c46x30mm/ap
 /obj/item/ammo_casing/c46x30mm
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
+	casing_sound = 'sound/weapons/dropCasingMed.ogg'
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 
 /obj/item/ammo_casing/c46x30mmap
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
+	casing_sound = 'sound/weapons/dropCasingMed.ogg'
 	projectile_type = /obj/item/projectile/bullet/armourpiercing
 
 /obj/item/ammo_casing/c46x30mmtox
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
+	casing_sound = 'sound/weapons/dropCasingMed.ogg'
 	projectile_type = /obj/item/projectile/bullet/toxinbullet
 
 /obj/item/ammo_casing/c46x30mminc
 	desc = "A 4.6x30mm bullet casing."
 	caliber = "4.6x30mm"
+	casing_sound = 'sound/weapons/dropCasingMed.ogg'
 	projectile_type = /obj/item/projectile/bullet/incendiary/firebullet
 
 /obj/item/ammo_casing/rubber45
@@ -102,6 +110,7 @@
 /obj/item/ammo_casing/n762
 	desc = "A 7.62x38mmR bullet casing."
 	caliber = "n762"
+	casing_sound = 'sound/weapons/dropCasingLrg.ogg'
 	projectile_type = /obj/item/projectile/bullet
 
 /obj/item/ammo_casing/caseless/magspear
@@ -118,6 +127,7 @@
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
 	caliber = "shotgun"
+	casing_sound = 'sound/weapons/dropCasingShell.ogg'
 	projectile_type = /obj/item/projectile/bullet
 	materials = list(MAT_METAL=4000)
 
@@ -273,6 +283,7 @@
 /obj/item/ammo_casing/a556
 	desc = "A 5.56mm bullet casing."
 	caliber = "a556"
+	casing_sound = 'sound/weapons/dropCasingMed.ogg'
 	projectile_type = /obj/item/projectile/bullet/heavybullet
 
 /obj/item/ammo_casing/shotgun/fakebeanbag
@@ -287,9 +298,11 @@
 	icon_state = "rocketshell"
 	projectile_type = /obj/item/missile
 	caliber = "rocket"
+	casing_sound = 'sound/weapons/dropCasing40mm.ogg'
 
 /obj/item/ammo_casing/caseless
 	desc = "A caseless bullet casing."
+	casing_sound = null
 
 /obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet)
 	if(..())
@@ -307,6 +320,7 @@
 	name = "40mm HE shell"
 	desc = "A cased high explosive grenade that can only be activated once fired out of a grenade launcher."
 	caliber = "40mm"
+	casing_sound = 'sound/weapons/dropCasing40mm.ogg'
 	icon_state = "40mmHE"
 	projectile_type = /obj/item/projectile/bullet/a40mm
 
@@ -373,10 +387,12 @@
 /obj/item/ammo_casing/cap
 	desc = "A cap for children toys."
 	caliber = "caps"
+	casing_sound = null
 	projectile_type = /obj/item/projectile/bullet/cap
 
 /obj/item/ammo_casing/laser
 	desc = "An experimental laser casing."
 	caliber = "laser"
+	casing_sound = 'sound/weapons/dropCasingMed.ogg'
 	projectile_type = /obj/item/projectile/beam/laser
 	icon_state = "lasercasing"

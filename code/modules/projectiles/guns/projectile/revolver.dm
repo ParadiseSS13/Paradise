@@ -36,6 +36,7 @@
 		chamber_round(0)
 
 /obj/item/gun/projectile/revolver/attack_self(mob/living/user)
+	playsound(user, 'sound/weapons/gun_break.ogg', 40, 1)
 	var/num_unloaded = 0
 	chambered = null
 	while(get_ammo() > 0)
@@ -45,7 +46,9 @@
 			CB.loc = get_turf(loc)
 			CB.SpinAnimation(10, 1)
 			CB.update_icon()
+			CB.play_casing_sound()
 			num_unloaded++
+			sleep(1)
 	if(num_unloaded)
 		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
 	else
@@ -291,6 +294,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+		playsound(user, 'sound/weapons/shellLoad.ogg', 85, 1)
 		chamber_round()
 	if(istype(A, /obj/item/melee/energy))
 		var/obj/item/melee/energy/W = A
@@ -300,6 +304,7 @@
 		sawoff(user)
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
+	playsound(user, 'sound/weapons/gun_break.ogg', 40, 1)
 	var/num_unloaded = 0
 	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
@@ -307,6 +312,8 @@
 		chambered = null
 		CB.loc = get_turf(loc)
 		CB.update_icon()
+		CB.SpinAnimation(5, 1)
+		CB.play_casing_sound()
 		num_unloaded++
 	if(num_unloaded)
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")

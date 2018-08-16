@@ -8,6 +8,7 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
+	var/casing_sound = 'sound/weapons/dropCasingSml.ogg' //What sound should play when ammo is dropped.
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet
@@ -75,6 +76,13 @@
 			else
 				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		..()
+
+/obj/item/ammo_casing/proc/play_casing_sound()
+	//Used to play sound of spent casing hitting floor. Checks for gravity first.
+	spawn(5) //Gravity in effect, boys.
+		if(has_gravity(src))
+			playsound(src, casing_sound, 40, 1)
+	return
 
 //Boxes of ammo
 /obj/item/ammo_box

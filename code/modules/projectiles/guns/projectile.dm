@@ -32,6 +32,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
+		AC.play_casing_sound()
 
 	if(empty_chamber)
 		chambered = null
