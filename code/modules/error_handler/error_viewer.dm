@@ -68,10 +68,10 @@ var/global/datum/ErrorViewer/ErrorCache/error_cache = null
 	if(!linktext)
 		linktext = name
 	if(istype(back_to))
-		back_to_param = ";viewruntime_backto=\ref[back_to]"
+		back_to_param = ";viewruntime_backto=[back_to.UID()]"
 	if(linear)
 		back_to_param += ";viewruntime_linear=1"
-	return "<A HREF='?_src_=holder;viewruntime=\ref[src][back_to_param]'>[html_encode(linktext)]</A>"
+	return "<A HREF='?_src_=holder;viewruntime=[src.UID()][back_to_param]'>[html_encode(linktext)]</A>"
 
 /datum/ErrorViewer/ErrorCache
 	var/list/errors = list()

@@ -70,44 +70,44 @@ var/global/nologevent = 0
 		if(M.client.related_accounts_ip.len)
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
-	body += "<A href='?_src_=holder;boot2=\ref[M]'>Kick</A> | "
+	body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
 	body += "<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> | "
-	body += "<A href='?_src_=holder;newban=\ref[M]'>Ban</A> | "
-	body += "<A href='?_src_=holder;jobban2=\ref[M]'>Jobban</A> | "
-	body += "<A href='?_src_=holder;appearanceban=\ref[M]'>Appearance Ban</A> | "
+	body += "<A href='?_src_=holder;newban=[M.UID()]'>Ban</A> | "
+	body += "<A href='?_src_=holder;jobban2=[M.UID()]'>Jobban</A> | "
+	body += "<A href='?_src_=holder;appearanceban=[M.UID()]'>Appearance Ban</A> | "
 	body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
 	if(M.client)
 		if(M.client.check_watchlist(M.client.ckey))
 			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
 			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
 		else
-			body += "<A href='?_src_=holder;watchadd=\ref[M.ckey]'>Add to Watchlist</A> "
+			body += "<A href='?_src_=holder;watchadd=[M.ckey]'>Add to Watchlist</A> "
 
 	if(M.client)
-		body += "| <A HREF='?_src_=holder;sendtoprison=\ref[M]'>Prison</A> | "
-		body += "\ <A href='?_src_=holder;sendbacktolobby=\ref[M]'>Send back to Lobby</A> | "
+		body += "| <A href='?_src_=holder;sendtoprison=[M.UID()]'>Prison</A> | "
+		body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
 		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
-			\[<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
-			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"blue"]'>OOC</font></a> |
-			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"blue"]'>PRAY</font></a> |
-			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"blue"]'>ADMINHELP</font></a> |
-			<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"blue"]'>DEADCHAT</font></a>\]
-			(<A href='?_src_=holder;mute=\ref[M];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
+			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"blue"]'>IC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"blue"]'>OOC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"blue"]'>PRAY</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"blue"]'>ADMINHELP</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"blue"]'>DEADCHAT</font></a>\]
+			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"blue"]'>toggle all</font></a>)
 		"}
 
 	var/jumptoeye = ""
 	if(isAI(M))
 		var/mob/living/silicon/ai/A = M
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			jumptoeye = " <b>(<A href='?_src_=holder;jumpto=\ref[A.eyeobj]'>Eye</A>)</b>"
+			jumptoeye = " <b>(<A href='?_src_=holder;jumpto=[A.eyeobj.UID()]'>Eye</A>)</b>"
 	body += {"<br><br>
-		<A href='?_src_=holder;jumpto=\ref[M]'><b>Jump to</b></A>[jumptoeye] |
-		<A href='?_src_=holder;getmob=\ref[M]'>Get</A> |
-		<A href='?_src_=holder;sendmob=\ref[M]'>Send To</A>
+		<A href='?_src_=holder;jumpto=[M.UID()]'><b>Jump to</b></A>[jumptoeye] |
+		<A href='?_src_=holder;getmob=[M.UID()]'>Get</A> |
+		<A href='?_src_=holder;sendmob=[M.UID()]'>Send To</A>
 		<br><br>
 		[check_rights(R_ADMIN,0) ? "[ADMIN_TP(M,"Traitor panel")] | " : "" ]
-		<A href='?_src_=holder;narrateto=\ref[M]'>Narrate to</A> |
+		<A href='?_src_=holder;narrateto=[M.UID()]'>Narrate to</A> |
 		[ADMIN_SM(M,"Subtle message")]
 	"}
 
@@ -128,39 +128,39 @@ var/global/nologevent = 0
 			if(issmall(M))
 				body += "<B>Monkeyized</B> | "
 			else
-				body += "<A href='?_src_=holder;monkeyone=\ref[M]'>Monkeyize</A> | "
+				body += "<A href='?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</A> | "
 
 			//Corgi
 			if(iscorgi(M))
 				body += "<B>Corgized</B> | "
 			else
-				body += "<A href='?_src_=holder;corgione=\ref[M]'>Corgize</A> | "
+				body += "<A href='?_src_=holder;corgione=[M.UID()]'>Corgize</A> | "
 
 			//AI / Cyborg
 			if(isAI(M))
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
-				body += {"<A href='?_src_=holder;makeai=\ref[M]'>Make AI</A> |
-					<A href='?_src_=holder;makemask=\ref[M]'>Make Mask</A> |
-					<A href='?_src_=holder;makerobot=\ref[M]'>Make Robot</A> |
-					<A href='?_src_=holder;makealien=\ref[M]'>Make Alien</A> |
-					<A href='?_src_=holder;makeslime=\ref[M]'>Make Slime</A> |
-					<A href='?_src_=holder;makesuper=\ref[M]'>Make Superhero</A>
+				body += {"<A href='?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
+					<A href='?_src_=holder;makemask=[M.UID()]'>Make Mask</A> |
+					<A href='?_src_=holder;makerobot=[M.UID()]'>Make Robot</A> |
+					<A href='?_src_=holder;makealien=[M.UID()]'>Make Alien</A> |
+					<A href='?_src_=holder;makeslime=[M.UID()]'>Make Slime</A> |
+					<A href='?_src_=holder;makesuper=[M.UID()]'>Make Superhero</A>
 				"}
 
 			//Simple Animals
 			if(isanimal(M))
-				body += "<A href='?_src_=holder;makeanimal=\ref[M]'>Re-Animalize</A> | "
+				body += "<A href='?_src_=holder;makeanimal=[M.UID()]'>Re-Animalize</A> | "
 			else
-				body += "<A href='?_src_=holder;makeanimal=\ref[M]'>Animalize</A> | "
+				body += "<A href='?_src_=holder;makeanimal=[M.UID()]'>Animalize</A> | "
 
 			if(istype(M, /mob/dead/observer))
-				body += "<a href='?_src_=holder;incarn_ghost=\ref[M]'>Re-incarnate</a> | "
+				body += "<A href='?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
 
 			if(ispAI(M))
 				body += "<B>Is a pAI</B> "
 			else
-				body += "<A href='?_src_=holder;makePAI=\ref[M]'>Make pAI</A> | "
+				body += "<A href='?_src_=holder;makePAI=[M.UID()]'>Make pAI</A> | "
 
 			// DNA2 - Admin Hax
 			if(M.dna && iscarbon(M))
@@ -175,7 +175,7 @@ var/global/nologevent = 0
 					if(bname)
 						var/bstate=M.dna.GetSEState(block)
 						var/bcolor="[(bstate)?"#006600":"#ff0000"]"
-						body += "<A href='?_src_=holder;togmutate=\ref[M];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
+						body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
 					body+="</td>"
@@ -183,39 +183,39 @@ var/global/nologevent = 0
 
 			body += {"<br><br>
 				<b>Rudimentary transformation:</b><font size=2><br>These transformations only create a new mob type and copy stuff over. They do not take into account MMIs and similar mob-specific things. The buttons in 'Transformations' are preferred, when possible.</font><br>
-				<A href='?_src_=holder;simplemake=observer;mob=\ref[M]'>Observer</A> |
-				\[ Alien: <A href='?_src_=holder;simplemake=drone;mob=\ref[M]'>Drone</A>,
-				<A href='?_src_=holder;simplemake=hunter;mob=\ref[M]'>Hunter</A>,
-				<A href='?_src_=holder;simplemake=queen;mob=\ref[M]'>Queen</A>,
-				<A href='?_src_=holder;simplemake=sentinel;mob=\ref[M]'>Sentinel</A>,
-				<A href='?_src_=holder;simplemake=larva;mob=\ref[M]'>Larva</A> \]
-				<A href='?_src_=holder;simplemake=human;mob=\ref[M]'>Human</A>
-				\[ slime: <A href='?_src_=holder;simplemake=slime;mob=\ref[M]'>Baby</A>,
-				<A href='?_src_=holder;simplemake=adultslime;mob=\ref[M]'>Adult</A> \]
-				<A href='?_src_=holder;simplemake=monkey;mob=\ref[M]'>Monkey</A> |
-				<A href='?_src_=holder;simplemake=robot;mob=\ref[M]'>Cyborg</A> |
-				<A href='?_src_=holder;simplemake=cat;mob=\ref[M]'>Cat</A> |
-				<A href='?_src_=holder;simplemake=runtime;mob=\ref[M]'>Runtime</A> |
-				<A href='?_src_=holder;simplemake=corgi;mob=\ref[M]'>Corgi</A> |
-				<A href='?_src_=holder;simplemake=ian;mob=\ref[M]'>Ian</A> |
-				<A href='?_src_=holder;simplemake=crab;mob=\ref[M]'>Crab</A> |
-				<A href='?_src_=holder;simplemake=coffee;mob=\ref[M]'>Coffee</A> |
-				\[ Construct: <A href='?_src_=holder;simplemake=constructarmoured;mob=\ref[M]'>Armoured</A> ,
-				<A href='?_src_=holder;simplemake=constructbuilder;mob=\ref[M]'>Builder</A> ,
-				<A href='?_src_=holder;simplemake=constructwraith;mob=\ref[M]'>Wraith</A> \]
-				<A href='?_src_=holder;simplemake=shade;mob=\ref[M]'>Shade</A>
+				<A href='?_src_=holder;simplemake=observer;mob=[M.UID()]'>Observer</A> |
+				\[ Alien: <A href='?_src_=holder;simplemake=drone;mob=[M.UID()]'>Drone</A>,
+				<A href='?_src_=holder;simplemake=hunter;mob=[M.UID()]'>Hunter</A>,
+				<A href='?_src_=holder;simplemake=queen;mob=[M.UID()]'>Queen</A>,
+				<A href='?_src_=holder;simplemake=sentinel;mob=[M.UID()]'>Sentinel</A>,
+				<A href='?_src_=holder;simplemake=larva;mob=[M.UID()]'>Larva</A> \]
+				<A href='?_src_=holder;simplemake=human;mob=[M.UID()]'>Human</A>
+				\[ slime: <A href='?_src_=holder;simplemake=slime;mob=[M.UID()]'>Baby</A>,
+				<A href='?_src_=holder;simplemake=adultslime;mob=[M.UID()]'>Adult</A> \]
+				<A href='?_src_=holder;simplemake=monkey;mob=[M.UID()]'>Monkey</A> |
+				<A href='?_src_=holder;simplemake=robot;mob=[M.UID()]'>Cyborg</A> |
+				<A href='?_src_=holder;simplemake=cat;mob=[M.UID()]'>Cat</A> |
+				<A href='?_src_=holder;simplemake=runtime;mob=[M.UID()]'>Runtime</A> |
+				<A href='?_src_=holder;simplemake=corgi;mob=[M.UID()]'>Corgi</A> |
+				<A href='?_src_=holder;simplemake=ian;mob=[M.UID()]'>Ian</A> |
+				<A href='?_src_=holder;simplemake=crab;mob=[M.UID()]'>Crab</A> |
+				<A href='?_src_=holder;simplemake=coffee;mob=[M.UID()]'>Coffee</A> |
+				\[ Construct: <A href='?_src_=holder;simplemake=constructarmoured;mob=[M.UID()]'>Armoured</A> ,
+				<A href='?_src_=holder;simplemake=constructbuilder;mob=[M.UID()]'>Builder</A> ,
+				<A href='?_src_=holder;simplemake=constructwraith;mob=[M.UID()]'>Wraith</A> \]
+				<A href='?_src_=holder;simplemake=shade;mob=[M.UID()]'>Shade</A>
 			"}
 
 	if(M.client)
 		body += {"<br><br>
 			<b>Other actions:</b>
 			<br>
-			<A href='?_src_=holder;forcespeech=\ref[M]'>Forcesay</A> |
-			<A href='?_src_=holder;aroomwarp=\ref[M]'>Admin Room</A> |
-			<A href='?_src_=holder;tdome1=\ref[M]'>Thunderdome 1</A> |
-			<A href='?_src_=holder;tdome2=\ref[M]'>Thunderdome 2</A> |
-			<A href='?_src_=holder;tdomeadmin=\ref[M]'>Thunderdome Admin</A> |
-			<A href='?_src_=holder;tdomeobserve=\ref[M]'>Thunderdome Observer</A> |
+			<A href='?_src_=holder;forcespeech=[M.UID()]'>Forcesay</A> |
+			<A href='?_src_=holder;aroomwarp=[M.UID()]'>Admin Room</A> |
+			<A href='?_src_=holder;tdome1=[M.UID()]'>Thunderdome 1</A> |
+			<A href='?_src_=holder;tdome2=[M.UID()]'>Thunderdome 2</A> |
+			<A href='?_src_=holder;tdomeadmin=[M.UID()]'>Thunderdome Admin</A> |
+			<A href='?_src_=holder;tdomeobserve=[M.UID()]'>Thunderdome Observer</A> |
 		"}
 
 	body += {"<br>
