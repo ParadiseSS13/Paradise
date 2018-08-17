@@ -86,7 +86,7 @@
 		return
 	var/turf/newloc = loc
 	message_admins("Megafauna [src] \
-		(<A HREF='?_src_=holder;adminplayerobservefollow=[UID()]'>FLW</A>) \
+		([ADMIN_FLW(src,"FLW")]) \
 		moved via shuttle from ([oldloc.x], [oldloc.y], [oldloc.z]) to \
 		([newloc.x], [newloc.y], [newloc.z])")
 

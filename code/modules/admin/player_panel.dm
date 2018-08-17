@@ -61,7 +61,7 @@
 
 				}
 
-				function expand(id,job,name,real_name,image,key,ip,antagonist,ref,eyeref){
+				function expand(id,job,name,real_name,image,key,ip,antagonist,UID,eyeUID){
 
 					clearAll();
 
@@ -75,15 +75,15 @@
 
 					body += "</td><td align='center'>";
 
-					body += "<a href='?src=[UID()];adminplayeropts="+ref+"'>PP</a> - "
+					body += "<a href='?src=[UID()];adminplayeropts="+UID+"'>PP</a> - "
 					body += "<a href='?src=[UID()];shownoteckey="+key+"'>N</a> - "
-					body += "<a href='?_src_=vars;Vars="+ref+"'>VV</a> - "
-					body += "<a href='?src=[UID()];traitor="+ref+"'>TP</a> - "
-					body += "<a href='?src=[usr.UID()];priv_msg=\ref"+ref+"'>PM</a> - "
-					body += "<a href='?src=[UID()];subtlemessage="+ref+"'>SM</a> - "
-					body += "<a href='?src=[UID()];adminplayerobservefollow="+ref+"'>FLW</a>"
-					if(eyeref)
-						body += "|<a href='?src=[UID()];adminplayerobservefollow="+eyeref+"'>EYE</a>"
+					body += "<a href='?_src_=vars;Vars="+UID+"'>VV</a> - "
+					body += "<a href='?src=[UID()];traitor="+UID+"'>TP</a> - "
+					body += "<a href='?src=[usr.UID()];priv_msg="+UID+"'>PM</a> - "
+					body += "<a href='?src=[UID()];subtlemessage="+UID+"'>SM</a> - "
+					body += "<a href='?src=[UID()];adminplayerobservefollow="+UID+"'>FLW</a>"
+					if(eyeUID)
+						body += "|<a href='?src=[UID()];adminplayerobservefollow="+eyeUID+"'>EYE</a>"
 					body += "<br>"
 					if(antagonist > 0)
 						body += "<font size='2'><a href='?src=[UID()];check_antagonist=1'><font color='red'><b>Antagonist</b></font></a></font>";
@@ -288,11 +288,11 @@
 			M_key = replacetext(M_key, "\"", "")
 			M_key = replacetext(M_key, "\\", "")
 
-			var/M_eyeref = ""
+			var/M_eyeUID = ""
 			if(isAI(M))
 				var/mob/living/silicon/ai/A = M
 				if(A.client && A.eyeobj) // No point following clientless AI eyes
-					M_eyeref = "\ref[A.eyeobj]"
+					M_eyeUID = "[A.eyeobj.UID()]"
 			//output for each mob
 			dat += {"
 
@@ -300,7 +300,7 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"\ref[M]", "[M_eyeref]")'
+						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"[M.UID()]", "[M_eyeUID]")'
 						>
 						<b id='search[i]'>[M_name] - [M_rname] - [M_key] ([M_job])</b>
 						</a>
@@ -370,16 +370,16 @@
 
 
 		dat += {"<td>[(M.client ? "[M.client]" : "No client")]</td>
-		<td align=center><A HREF='?src=[UID()];adminplayeropts=\ref[M]'>X</A></td>
-		<td align=center><A href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</A></td>
+		<td align=center><A HREF='?src=[UID()];adminplayeropts=[M.UID()]'>X</A></td>
+		<td align=center><A href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</A></td>
 		"}
 		switch(is_special_character(M))
 			if(0)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=\ref[M]'>Traitor?</A></td>"}
+				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'>Traitor?</A></td>"}
 			if(1)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=\ref[M]'><font color=red>Traitor?</font></A></td>"}
+				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'><font color=red>Traitor?</font></A></td>"}
 			if(2)
-				dat += {"<td align=center><A HREF='?src=[UID()];traitor=\ref[M]'><font color=red><b>Traitor?</b></font></A></td>"}
+				dat += {"<td align=center><A HREF='?src=[UID()];traitor=[M.UID()]'><font color=red><b>Traitor?</b></font></A></td>"}
 
 	dat += "</table></body></html>"
 
@@ -397,8 +397,8 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=\ref[M]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><A href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</A></td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+		<td><A href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</A></td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))	return
@@ -433,7 +433,7 @@
 				while(!istype(disk_loc, /turf))
 					if(istype(disk_loc, /mob))
 						var/mob/M = disk_loc
-						dat += "carried by <a href='?src=[UID()];adminplayeropts=\ref[M]'>[M.real_name]</a> "
+						dat += "carried by <a href='?src=[UID()];adminplayeropts=[M.UID()]'>[M.real_name]</a> "
 					if(istype(disk_loc, /obj))
 						var/obj/O = disk_loc
 						dat += "in \a [O.name] "
@@ -563,7 +563,7 @@
 	if(show_objectives)
 		txt += {"
 			<td>
-				<a href='?src=[UID()];traitor=\ref[M]'>Show Objective</a>
+				<a href='?src=[UID()];traitor=[M.UID()]'>Show Objective</a>
 			</td>
 		"}
 

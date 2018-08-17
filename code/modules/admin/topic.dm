@@ -3365,19 +3365,13 @@
 /proc/admin_jump_link(var/atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
-	var/source = "_src_=holder"
 
+	. = ADMIN_FLW(target,"FLW")
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
-		. = "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<A HREF='?[source];adminplayerobservefollow=\ref[A.eyeobj]'>EYE</A>"
-		return
+			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target
-		. = "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"
 		if(O.mind && O.mind.current)
-			. += "|<A HREF='?[source];adminplayerobservefollow=\ref[O.mind.current]'>BDY</A>"
-		return
-	else
-		return "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"
+			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"

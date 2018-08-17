@@ -53,12 +53,12 @@ var/global/nologevent = 0
 	if(istype(M, /mob/new_player))
 		body += " <B>Hasn't Entered Game</B> "
 	else
-		body += " \[<A href='?_src_=holder;revive=\ref[M]'>Heal</A>\] "
+		body += " \[<A href='?_src_=holder;revive=[M.UID()]'>Heal</A>\] "
 
 	body += "<br><br>\[ "
 	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
-	body += "<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a> - "
+	body += "<a href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</a> - "
 	body += "[ADMIN_SM(M,"SM")] - "
 	body += "[admin_jump_link(M)]\] </b><br>"
 	if(ishuman(M) && M.mind)

@@ -46,7 +46,7 @@
 			. += "Administrator"
 		else
 			if(include_link && C)
-				. += "<a href='?priv_msg=\ref[C];type=[type]'>"
+				. += "<a href='?priv_msg=[C.UID()];type=[type]'>"
 			. += key
 
 		if(include_link)
