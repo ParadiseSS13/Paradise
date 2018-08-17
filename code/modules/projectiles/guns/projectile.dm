@@ -32,7 +32,7 @@
 	if(eject_casing)
 		AC.loc = get_turf(src) //Eject casing onto ground.
 		AC.SpinAnimation(10, 1) //next gen special effects
-		AC.play_casing_sound()
+		addtimer(CALLBACK(AC, .ammo_casing/proc/play_casing_sound), rand(5, 7))
 
 	if(empty_chamber)
 		chambered = null

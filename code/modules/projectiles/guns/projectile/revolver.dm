@@ -46,9 +46,8 @@
 			CB.loc = get_turf(loc)
 			CB.SpinAnimation(10, 1)
 			CB.update_icon()
-			CB.play_casing_sound()
+			addtimer(CALLBACK(CB, .ammo_casing/proc/play_casing_sound), rand(5, 7))
 			num_unloaded++
-			sleep(1)
 	if(num_unloaded)
 		to_chat(user, "<span class='notice'>You unload [num_unloaded] shell\s from [src].</span>")
 	else
@@ -313,7 +312,7 @@
 		CB.loc = get_turf(loc)
 		CB.update_icon()
 		CB.SpinAnimation(5, 1)
-		CB.play_casing_sound()
+		addtimer(CALLBACK(CB, .ammo_casing/proc/play_casing_sound), rand(5, 7))
 		num_unloaded++
 	if(num_unloaded)
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
