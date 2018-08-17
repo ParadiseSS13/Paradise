@@ -159,21 +159,21 @@
 	var/b2y1 = 0
 	var/b2y2 = 0
 
-	New(var/obj/item/target/Target, var/pixel_x = 0, var/pixel_y = 0)
-		if(!Target) return
+/datum/bullethole/New(obj/item/target/Target, pixel_x = 0, pixel_y = 0)
+	if(!Target) return
 
-		// Randomize the first box
-		b1x1 = pixel_x - pick(1,1,1,1,2,2,3,3,4)
-		b1x2 = pixel_x + pick(1,1,1,1,2,2,3,3,4)
-		b1y = pixel_y
-		if(prob(35))
-			b1y += rand(-4,4)
+	// Randomize the first box
+	b1x1 = pixel_x - pick(1,1,1,1,2,2,3,3,4)
+	b1x2 = pixel_x + pick(1,1,1,1,2,2,3,3,4)
+	b1y = pixel_y
+	if(prob(35))
+		b1y += rand(-4,4)
 
-		// Randomize the second box
-		b2x = pixel_x
-		if(prob(35))
-			b2x += rand(-4,4)
-		b2y1 = pixel_y + pick(1,1,1,1,2,2,3,3,4)
-		b2y2 = pixel_y - pick(1,1,1,1,2,2,3,3,4)
+	// Randomize the second box
+	b2x = pixel_x
+	if(prob(35))
+		b2x += rand(-4,4)
+	b2y1 = pixel_y + pick(1,1,1,1,2,2,3,3,4)
+	b2y2 = pixel_y - pick(1,1,1,1,2,2,3,3,4)
 
-		Target.bulletholes.Add(src)
+	Target.bulletholes.Add(src)

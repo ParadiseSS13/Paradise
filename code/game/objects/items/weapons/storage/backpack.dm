@@ -167,10 +167,9 @@
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
 	icon_state = "nt_deluxe"
 
-/obj/item/storage/backpack/satchel/withwallet
-	New()
-		..()
-		new /obj/item/storage/wallet/random( src )
+/obj/item/storage/backpack/satchel/withwallet/New()
+	..()
+	new /obj/item/storage/wallet/random(src)
 
 /obj/item/storage/backpack/satchel_norm
 	name = "satchel"

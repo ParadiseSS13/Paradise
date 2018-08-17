@@ -204,16 +204,8 @@
 /atom/proc/is_open_container()
 	return flags & OPENCONTAINER
 
-/*//Convenience proc to see whether a container can be accessed in a certain way.
-
-	proc/can_subract_container()
-		return flags & EXTRACT_CONTAINER
-
-	proc/can_add_container()
-		return flags & INSERT_CONTAINER
-*/
-
-
+/atom/proc/allow_drop()
+	return 1
 
 /atom/proc/CheckExit()
 	return 1
