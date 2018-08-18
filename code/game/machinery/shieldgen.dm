@@ -499,7 +499,7 @@
 		T2 = T
 		if(locate(/obj/machinery/shieldwall) in T)
 			F = (locate(/obj/machinery/shieldwall) in T)
-			if(F.type == /obj/machinery/shieldwall)
+			if(F.gen_primary == src || F.gen_secondary == src)
 				qdel(F)
 
 		if(locate(/obj/machinery/shieldwallgen) in T)
