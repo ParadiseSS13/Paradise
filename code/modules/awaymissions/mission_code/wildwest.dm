@@ -72,7 +72,7 @@
 	else
 		chargesa--
 		insistinga = 0
-		var/wish = input("You want...","Wish") as null|anything in list("Power","Wealth","Immortality","To Kill","Peace")
+		var/wish = input("You want...","Wish") as null|anything in list("Power","Wealth","Immortality","Peace")
 		switch(wish)
 			if("Power")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -106,28 +106,6 @@
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				user.verbs += /mob/living/carbon/proc/immortality
-				if(ishuman(user))
-					var/mob/living/carbon/human/human = user
-					if(!isshadowperson(human))
-						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
-						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
-						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species(/datum/species/shadow)
-				user.regenerate_icons()
-			if("To Kill")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your wickedness, claiming your soul and warping your body to match the darkness in your heart.")
-				ticker.mode.traitors += user.mind
-				user.mind.special_role = SPECIAL_ROLE_TRAITOR
-				var/datum/objective/hijack/hijack = new
-				hijack.owner = user.mind
-				user.mind.objectives += hijack
-				to_chat(user, "<B>Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!</B>")
-				var/obj_count = 1
-				for(var/datum/objective/OBJ in user.mind.objectives)
-					to_chat(user, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-					obj_count++
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
