@@ -52,7 +52,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("stabbed", "jabbed", "iced,", "drill")
 
-/obj/item/weapon/melee/icepick/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/melee/icepick/attack(mob/living/M as mob, mob/living/user as mob)
 	if(user.a_intent == INTENT_HELP)
 		if(user.zone_sel.selecting == "eyes")
 			var/time = 80
