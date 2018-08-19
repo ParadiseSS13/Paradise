@@ -69,7 +69,7 @@
 	return 0
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicateautogib)
+	loot = list()//no loot, its gonna delete and gib.
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot
 	name = "Syndicate Operative"
@@ -78,6 +78,7 @@
 	stat_attack = 1
 	universal_speak = 1
 	melee_block_chance = 40
+	del_on_death = 1
 	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
 	var/alert_on_death = FALSE
@@ -168,6 +169,7 @@
 		depotarea.shields_key_check()
 	if(depotarea)
 		depotarea.list_remove(src, depotarea.guard_list)
+	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
@@ -267,8 +269,7 @@
 	return
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
-	loot = list(/obj/effect/mob_spawn/human/corpse/syndicateautogib)
-
+	loot = list()//gonna gibe, no loot.
 
 /mob/living/simple_animal/hostile/viscerator
 	name = "viscerator"

@@ -171,10 +171,12 @@
 			D.h_style = hair_style
 		else
 			D.h_style = random_hair_style(gender)
+		D.hair_colour = rand_hex_color()
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else
 			D.f_style = random_facial_hair_style(gender)
+		D.facial_colour = rand_hex_color()
 	if(skin_tone)
 		H.s_tone = skin_tone
 	else
@@ -229,6 +231,7 @@
 
 /obj/effect/mob_spawn/human/corpse/damaged
 	brute_damage = 1000
+
 
 /obj/effect/mob_spawn/human/alive
 	icon = 'icons/obj/Cryogenic2.dmi'
@@ -342,9 +345,18 @@
 	name = "Clown Soldier"
 	outfit = /datum/outfit/clownsoldier
 
+/obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
+	mob_name = "Officer [pick(clown_names)]"
+	..()
+
 /obj/effect/mob_spawn/human/corpse/clownoff
 	name = "Clown Officer"
 	outfit = /datum/outfit/clownofficer
+
+/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
+	mob_name = "Honk Specialist [pick(clown_names)]"
+	..()
+
 
 /datum/outfit/clownsoldier
 		uniform = /obj/item/clothing/under/soldieruniform

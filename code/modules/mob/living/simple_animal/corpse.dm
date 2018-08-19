@@ -1,6 +1,9 @@
 //List of different corpse types
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier
 	name = "Syndicate Operative"
+	mob_name = "Syndicate Operative"
+	hair_style = "bald"
+	facial_hair_style = "shaved"
 	id_job = "Operative"
 	id_access_list = list(access_syndicate)
 	outfit = /datum/outfit/syndicatesoldiercorpse
@@ -20,6 +23,9 @@
 
 /obj/effect/mob_spawn/human/corpse/syndicatecommando
 	name = "Syndicate Commando"
+	mob_name = "Syndicate Commando"
+	hair_style = "bald"
+	facial_hair_style = "shaved"
 	id_job = "Operative"
 	id_access_list = list(access_syndicate)
 	outfit = /datum/outfit/syndicatecommandocorpse
@@ -37,16 +43,6 @@
 	id = /obj/item/card/id
 
 
-/obj/effect/mob_spawn/human/corpse/syndicateautogib
-	roundstart = FALSE
-	instant = TRUE
-
-/obj/effect/mob_spawn/human/corpse/syndicateautogib/special(mob/living/L)
-	L.real_name = src.name
-	L.gib()
-	qdel(src)
-
-
 /obj/effect/mob_spawn/human/clown/corpse
 	roundstart = TRUE
 	instant = TRUE
@@ -57,6 +53,9 @@
 
 /obj/effect/mob_spawn/human/corpse/pirate
 	name = "Pirate"
+	mob_name = "Pirate"
+	hair_style = "bald"
+	facial_hair_style = "shaved"
 	outfit = /datum/outfit/piratecorpse
 
 /datum/outfit/piratecorpse
@@ -69,6 +68,7 @@
 
 /obj/effect/mob_spawn/human/corpse/pirate/ranged
 	name = "Pirate Gunner"
+	mob_name = "Pirate Gunner"
 	outfit = /datum/outfit/piratecorpse/ranged
 
 /datum/outfit/piratecorpse/ranged
@@ -79,6 +79,9 @@
 
 /obj/effect/mob_spawn/human/corpse/russian
 	name = "Russian"
+	mob_name = "Russian"
+	hair_style = "bald"
+	facial_hair_style = "shaved"
 	outfit = /datum/outfit/russiancorpse
 
 /datum/outfit/russiancorpse
@@ -99,6 +102,10 @@
 /obj/effect/mob_spawn/human/corpse/wizard
 	name = "Space Wizard Corpse"
 	outfit = /datum/outfit/wizardcorpse
+
+/obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
+	mob_name = "[pick(wizard_first)], [pick(wizard_second)]"
+	..()
 
 /datum/outfit/wizardcorpse
 	name = "Space Wizard Corpse"
