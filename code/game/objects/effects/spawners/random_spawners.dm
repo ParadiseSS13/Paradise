@@ -300,10 +300,9 @@
 		/obj/structure/falsewall/reinforced = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault
-	name = "60pc vaultdoor 20pc falsewall 20pc wall"
-	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 6,
-		/turf/simulated/wall/r_wall = 2,
-		/obj/structure/falsewall/reinforced = 2)
+	name = "80pc vaultdoor 20pc wall"
+	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
+		/turf/simulated/wall/r_wall = 1)
 
 
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod
