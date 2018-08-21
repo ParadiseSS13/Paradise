@@ -890,6 +890,13 @@
 	icon_state = "hesphiastos_alt_rainbow"
 	models_allowed = list("Hesphiastos Industries alt.")
 
+/datum/sprite_accessory/hair/ipc/fluff
+	fluff = 1
+
+/datum/sprite_accessory/hair/ipc/fluff/lumi_face //Lumi Fluff hair
+	name = "Lumi Face"
+	icon_state = "lumi_face"
+
 /*
 ///////////////////////////////////
 /  =---------------------------=  /
