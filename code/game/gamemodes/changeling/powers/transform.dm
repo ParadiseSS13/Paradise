@@ -15,7 +15,7 @@
 	if(!chosen_dna)
 		return
 	if(ishuman(user))
-		user.set_species(chosen_dna.species.type)
+		user.set_species(chosen_dna.species.type, retain_damage = TRUE)
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
 	domutcheck(user, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
