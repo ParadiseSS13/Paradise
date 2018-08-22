@@ -1,3 +1,7 @@
+body {
+	/*	Disables scroll bars */
+	overflow:hidden;
+}
 #background {
 	width:900px;
 	height:406px;
