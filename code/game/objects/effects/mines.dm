@@ -14,14 +14,12 @@
 /obj/effect/mine/Crossed(AM as mob|obj)
 	if(!isliving(AM))
 		return
-	if(isanimal(AM))
-		var/mob/living/simple_animal/SA = AM
-		if(faction && (faction in SA.faction))
-			return
-		if(!SA.flying)
-			triggermine(SA)
-	else
-		triggermine(AM)
+	var/mob/living/M = AM
+	if(faction && (faction in M.faction))
+		return
+	if(M.flying)
+		return
+	triggermine(M)
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
