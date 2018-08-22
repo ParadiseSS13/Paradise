@@ -51,7 +51,10 @@
 			var/damage = O.force
 			if(O.damtype == STAMINA)
 				damage = 0
-			health -= damage
+			if(force_threshold && damage < force_threshold)
+				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
+				return
+			adjustHealth(damage)
 			visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
