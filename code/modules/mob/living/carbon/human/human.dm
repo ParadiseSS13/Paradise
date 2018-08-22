@@ -1330,7 +1330,7 @@
 		var/bodypart_damages = list()
 		//Loop through all external organs and save the damage states for brute and burn
 		for(var/obj/item/organ/external/E in bodyparts)
-			if(E.brute_dam == 0 && E.burn_dam == 0) //If there's no damage we don't bother remembering it.
+			if(E.brute_dam == 0 && E.burn_dam == 0 && E.internal_bleeding == FALSE) //If there's no damage we don't bother remembering it.
 				continue
 			var/brute = E.brute_dam
 			var/burn = E.burn_dam
