@@ -215,15 +215,12 @@
 		M.pixel_y -= GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
 		M.layer += GUILLOTINE_LAYER_DIFF
 	else
-		unbuckle_mob()
+		unbuckle_all_mobs()
 
-
-/obj/structure/guillotine/unbuckle_mob(force = TRUE)
-	if(has_buckled_mobs())
-		var/mob/living/carbon/human/M = buckled_mobs[1]
+/obj/structure/guillotine/unbuckle_mob(mob/living/M, force = TRUE)
+	if(M && (M in buckled_mobs))
 		M.pixel_y += GUILLOTINE_HEAD_OFFSET  // Move their body back
 		M.layer -= GUILLOTINE_LAYER_DIFF
-		unbuckle_all_mobs()
 	. = ..()
 
 #undef GUILLOTINE_BLADE_MAX_SHARP
