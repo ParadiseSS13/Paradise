@@ -86,3 +86,7 @@ body {
 	//border-radius: 30px;
 	position: absolute;
 }
+
+.button {
+	cursor: pointer;
+}

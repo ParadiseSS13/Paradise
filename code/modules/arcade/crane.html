@@ -22,7 +22,6 @@
 		$(pic).append(ball);
 		$('#game').append(pic);
 
-		//console.log(crane);
 		this.GetState = function() {return state};
 		
 		var CheckBoundaries = function () {
@@ -95,7 +94,7 @@
 				top += vspd;
 			
 			if(state=='won' && top > 460) {
-				$('#prize'+id).remove();//css({visibility:'hidden'});
+				$('#prize'+id).remove();
 				state='hidden';
 				gameShutDown();
 			}
@@ -105,13 +104,11 @@
 		
 		this.Repaint = function () {
 			$('#prize'+id).css({'top':top, 'left':left});
-			//$('#'+id+' #crane-handle-top').css({height: handleHeight});
 		};
 		
 	}</script>
 	<!-- Crane.js --><script>
 	function Crane(id) {
-		//console.log("crane created");
 		var top = 131; //private
 		var left = 100;
 		var hspd = 5;
@@ -210,9 +207,8 @@
 	})();
 
 	function animate(){
-		//console.log("animate called");
 		crane.Update();
-		for(var i = 0; i < 5; i++){
+		for(var i=0; i<prizes.length; i++){
 			prizes[i].Update();
 			prizes[i].Repaint();
 		}
@@ -224,21 +220,15 @@
 	}
 
 	function joystickControlOn(direction){
-		//console.log(direction);
 		keys[direction] = true;
 	}
 	function joystickControlOff(direction){
-		//console.log(direction);
 		keys[direction] = false;
 	}
-	function randInt(range){
-		return Math.ceil(Math.random()*range);
-	}
 	function gameStartUp(){ //main function
-		//console.log("game start!");
 		document.getElementById("play_btn").disabled = true;	//to prevent button-mashing the start button.
-		for(var i = 0; i< 5; i++){	// Creates prize balls.
-			prizes[i] = new Prize(i,{top: randInt(100),left: 400+i*100-randInt(50)},crane);
+		for(var i=0; i<5; i++){	// Creates prize balls.
+			prizes[i] = new Prize(i,{top: Math.ceil(Math.random()*100),left: 400+i*100-Math.ceil(Math.random()*50)},crane);
 		}
 		animate();
 	}
@@ -278,14 +268,14 @@
 			
 		</div>
 		
-		<div id='controls' style='position: absolute; top: 515px'>
+		<div id='controls' style='position: absolute; top: 515px; left: 385px;'>
 			<br>
-				<button id="play_btn" onclick="gameStartUp()">Play Now!</button>
-				<button id="close_btn" onclick="emergencyShutDown()">Close Game.</button>
+				<button class="button" id="play_btn" onclick="gameStartUp()">Play Now!</button>
+				<button class="button" id="close_btn" onclick="emergencyShutDown()">Close.</button>
 				<a id="close_nao" hidden="true" href="byond://?src=/* ref src */;prizeWon=0"></a>
 			<br>
 			<button onmouseover="joystickControlOn('left')" onmouseout="joystickControlOff('left')">/==<br>\==</button>
-			<button onmousedown="joystickControlOn('down')" onmouseup="joystickControlOff('down')">DROP<br>CLAW</button>
+			<button class="button" onmousedown="joystickControlOn('down')" onmouseup="joystickControlOff('down')">DROP<br>CLAW</button>
 			<button onmouseover="joystickControlOn('right')" onmouseout="joystickControlOff('right')">==\<br>==/</button>
 		</div>
 	</body>
