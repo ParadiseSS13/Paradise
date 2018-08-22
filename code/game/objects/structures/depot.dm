@@ -12,8 +12,12 @@
 /obj/structure/fusionreactor/Initialize()
 	. = ..()
 	depotarea = areaMaster
-	if(depotarea)
+	if(istype(depotarea))
 		depotarea.reactor = src
+		spawn(50) // Necessary since random spawners may take a second to spawn turrets in depot.
+			for(var/obj/machinery/porta_turret/syndicate/T in range(50, loc))
+				if(!istype(T.depotarea))
+					T.depotarea = depotarea
 
 /obj/structure/fusionreactor/Destroy()
 	if(istype(depotarea))
