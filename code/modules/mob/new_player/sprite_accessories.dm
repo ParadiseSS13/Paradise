@@ -897,6 +897,14 @@
 	name = "Lumi Face"
 	icon_state = "lumi_face"
 
+/datum/sprite_accessory/hair/ipc/fluff/lumi_blush //Lumi Fluff hair
+	name = "Lumi Blush"
+	icon_state = "lumi_blush"
+
+/datum/sprite_accessory/hair/ipc/fluff/lumi_waiting //Lumi Fluff hair
+	name = "Lumi Waiting"
+	icon_state = "lumi_waiting"
+
 /*
 ///////////////////////////////////
 /  =---------------------------=  /
