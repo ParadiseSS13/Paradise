@@ -1,0 +1,4 @@
+author: "Aurorablade"
+delete-after: True
+changes: 
+  - tweak: "Changes to air Subsystem to make it load faster taken from TG by SpaceManiac."
