@@ -303,3 +303,6 @@ a {
 		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
 	else
 		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
+
+/obj/proc/check_uplink_validity()
+	return 1

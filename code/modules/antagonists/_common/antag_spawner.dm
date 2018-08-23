@@ -45,7 +45,7 @@
 		spawn_antag(C, get_turf(src.loc), "syndieborg")
 	else
 		checking = FALSE
-		to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or use the teleporter on your uplink to get your points refunded.</span>")
+		to_chat(user, "<span class='notice'>Unable to connect to Syndicate command. Please wait and try again later or refund your teleporter through your uplink.</span>")
 		return
 
 /obj/item/antag_spawner/borg_tele/spawn_antag(client/C, turf/T, type = "")
