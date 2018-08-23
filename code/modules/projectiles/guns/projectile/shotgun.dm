@@ -18,7 +18,7 @@
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
 		to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
-		playsound(user, 'sound/weapons/shellLoad.ogg', 85, 1)
+		playsound(user, 'sound/weapons/shellLoad.ogg', 80, 1, -2)
 		A.update_icon()
 		update_icon()
 
@@ -108,10 +108,10 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	if(bolt_open)
-		playsound(M, 'sound/weapons/bolt_close.ogg', 40, 1)
+		playsound(M, 'sound/weapons/bolt_close.ogg', 40, 1, -1)
 		pump_reload(M)
 	else
-		playsound(M, 'sound/weapons/bolt_open.ogg', 40, 1)
+		playsound(M, 'sound/weapons/bolt_open.ogg', 40, 1, -1)
 		pump_unload(M)
 	bolt_open = !bolt_open
 	update_icon()	//I.E. fix the desc
