@@ -1013,15 +1013,14 @@ var/list/turret_icons
 	check_anomalies = 1
 	check_synth	= 1
 	ailock = 1
+	var/area/syndicate_depot/core/depotarea
 
 /obj/machinery/porta_turret/syndicate/die()
 	. = ..()
-	var/area/syndicate_depot/core/depotarea = areaMaster
 	if(istype(depotarea))
 		depotarea.turret_died()
 
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
-	var/area/syndicate_depot/core/depotarea = areaMaster
 	if(istype(depotarea))
 		depotarea.list_add(target, depotarea.hostile_list)
 		depotarea.declare_started()
