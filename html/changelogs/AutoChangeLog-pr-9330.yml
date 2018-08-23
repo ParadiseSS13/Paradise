@@ -1,5 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Fixes the discard action not displaying who discarded a card from a hand of card"
-  - bugfix: "Fixes deck of card not being removed properly from your pocket when you drag it over your sprite."

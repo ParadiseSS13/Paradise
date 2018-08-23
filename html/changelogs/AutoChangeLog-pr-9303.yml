@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed hand_tele, bluespace tomatoes, etc not respecting the tele_proof flag of areas."

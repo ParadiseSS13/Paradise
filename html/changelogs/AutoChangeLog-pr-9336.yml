@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed a few bugs (notably, grid check event raising alert level) in the depot."

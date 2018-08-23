@@ -1,4 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - bugfix: "Fixes unexpected item deletion upon changing species."
