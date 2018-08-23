@@ -866,7 +866,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 				if(16)
 					playsound_local(null, 'sound/items/Screwdriver.ogg', 15, 1)
 					sleep(rand(10,30))
-					for(var/i = rand(1,3), i>0, i--) //Can this be formatted?
+					for(var/i in 0 to rand(1,3))
 						playsound_local(null, 'sound/weapons/empty.ogg', 15, 1)
 						sleep(rand(10,30))
 					playsound_local(null, 'sound/machines/airlockforced.ogg', 15, 1)
