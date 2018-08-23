@@ -6,5 +6,5 @@
 	mount_reqs = list("simfloor", "nospace")
 
 /obj/item/mounted/frame/extinguisher/do_build(turf/on_wall, mob/user)
-	new /obj/structure/extinguisher_cabinet(get_turf(src), get_dir(user, on_wall))
+	new /obj/structure/extinguisher_cabinet/empty(get_turf(src), get_dir(user, on_wall))
 	qdel(src)
