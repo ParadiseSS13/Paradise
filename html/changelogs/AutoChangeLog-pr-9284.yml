@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - rscadd: "Admin logging for kinetic accelerator."
