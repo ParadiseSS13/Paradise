@@ -84,7 +84,7 @@
 					else
 						current_action = 0
 				else
-					unbuckle_mob()
+					..()
 			else
 				blade_status = GUILLOTINE_BLADE_MOVING
 				icon_state = "guillotine_drop"
@@ -117,7 +117,7 @@
 			head.droplimb()
 			add_attack_logs(user, H, "beheaded with [src]")
 			H.regenerate_icons()
-			unbuckle_mob()
+			unbuckle_all_mobs()
 			kill_count += 1
 
 			var/blood_overlay = "bloody"
