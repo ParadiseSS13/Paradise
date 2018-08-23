@@ -1,0 +1,4 @@
+author: "alex-gh"
+delete-after: True
+changes: 
+  - bugfix: "Changeling fleshmend no longer overfills their blood."
