@@ -9,7 +9,6 @@
 	window_name = "Claw Game"
 	var/machine_image = "_1"
 	var/bonus_prize_chance = 5		//chance to dispense a SECOND prize if you win, increased by matter bin rating
-
 	//This is to make sure the images are available
 	var/list/img_resources = list('icons/obj/arcade_images/backgroundsprite.png',
 								'icons/obj/arcade_images/clawpieces.png',
@@ -61,8 +60,7 @@
 		visible_message("<span class='game say'><span class='name'>[src.name]</span> beeps, \"WINNER!\"</span>")
 	new /obj/item/toy/prizeball(get_turf(src))
 	playsound(src.loc, 'sound/arcade/Win.ogg', 50, 1, extrarange = -3, falloff = 10)
-	spawn(10)
-		update_icon()
+	addtimer(CALLBACK(src, .update_icon), 10)
 
 /obj/machinery/arcade/claw/start_play(mob/user as mob)
 	..()
