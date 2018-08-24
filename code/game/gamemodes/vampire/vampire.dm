@@ -296,8 +296,11 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			break
 		if(H.stat < DEAD)
 			blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
-			bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
 			bloodusable += blood / 2
+			if (H.mind)
+				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
+			else
+				bloodtotal += blood / 4	// Case does not have mind, receive at minimun 5 blood
 		else
 			blood = min(5, H.blood_volume)	// The dead only give 5 blood
 			bloodtotal += blood
