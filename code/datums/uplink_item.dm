@@ -352,7 +352,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/pen/poison
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
-	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
+	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
 
 // DANGEROUS WEAPONS
