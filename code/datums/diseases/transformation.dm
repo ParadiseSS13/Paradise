@@ -110,6 +110,90 @@
 			if(prob(3))
 				affected_mob.say(pick("Eeek, ook ook!", "Eee-eeek!", "Eeee!", "Ungh, ungh."))
 
+/datum/disease/transformation/virush
+	name = "VirusH"
+	cure_text = "Unknown"
+	spread_text = "Zombie Bites"
+	spread_flags = SPECIAL
+	viable_mobtypes = list(/mob/living/carbon/human)
+	permeability_mod = 1
+	disease_flags = CAN_CARRY|CAN_RESIST
+	desc = "An unknown virus that will turn one human into a zombie"
+	severity = BIOHAZARD
+	stage_prob = 2
+	visibility_flags = 0
+	agent = "Zombie H-2018"
+	stage1	= null
+	stage2	= null
+	stage3	= null
+	stage4	= list("<span class='warning'>Your body hurts.</span>", "<span class='warning'>You can't breathe easily.</span>",
+					"<span class='warning'>You have a craving for meat.</span>", "<span class='warning'>Your mind feels clouded.</span>")
+	stage5	= null
+	new_form = /mob/living/simple_animal/hostile/zombie
+
+/datum/disease/transformation/virush/do_disease_transformation(mob/living/affected_mob)
+	to_chat(affected_mob, "<span class='danger'>Now, you are one of them. Eat and infect them.</span>")
+	affected_mob.notransform = 1
+	affected_mob.canmove = 0
+	affected_mob.icon = null
+	affected_mob.overlays.Cut()
+	affected_mob.invisibility = 101
+	for(var/obj/item/W in affected_mob)
+		if(istype(W, /obj/item/implant))
+			qdel(W)
+			continue
+		W.layer = initial(W.layer)
+		W.plane = initial(W.plane)
+		W.loc = affected_mob.loc
+		W.dropped(affected_mob)
+	var/mob/living/new_mob = new new_form(affected_mob.loc)
+	if(istype(new_mob))
+		new_mob.a_intent = "harm"
+		if(affected_mob.mind)
+			affected_mob.mind.transfer_to(new_mob)
+		else
+			new_mob.key = affected_mob.key
+	qdel(affected_mob)
+
+/datum/disease/transformation/virush/stage_act()
+	..()
+	switch(stage)
+		if(1)
+			if(prob(2))
+				affected_mob.adjustToxLoss(1)
+				affected_mob.updatehealth()
+				to_chat(affected_mob, "<span class='notice'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
+				if(affected_mob.health <= 0)
+					do_disease_transformation(affected_mob)
+		if(2)
+			if(prob(4))
+				affected_mob.adjustToxLoss(2)
+				affected_mob.updatehealth()
+				to_chat(affected_mob, "<span class='notice'>Your body itches.</span>")
+				if(affected_mob.health <= 0)
+					do_disease_transformation(affected_mob)
+		if(3)
+			if(prob(8))
+				affected_mob.adjustToxLoss(4)
+				affected_mob.updatehealth()
+				to_chat(affected_mob, "<span class='danger'>You feel exhausted.</span>")
+				if(affected_mob.health <= 0)
+					do_disease_transformation(affected_mob)
+		if(4)
+			stage_prob = 0
+			if(prob(16))
+				affected_mob.adjustToxLoss(8)
+				affected_mob.updatehealth()
+				to_chat(affected_mob, "<span class='danger'>All living forms started to look delicious.</span>")
+				if(affected_mob.health <= 0)
+					do_disease_transformation(affected_mob)
+		if(5)
+			if(prob(32))
+				affected_mob.adjustToxLoss(16)
+				affected_mob.updatehealth()
+				to_chat(affected_mob, "<span class='danger'>You feel like you are going to die.</span>")
+				if(affected_mob.health <= 0)
+					do_disease_transformation(affected_mob)
 
 /datum/disease/transformation/robot
 
