@@ -21,7 +21,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/image/halbody
 	var/obj/halitem
 	var/hal_screwyhud = SCREWYHUD_NONE
-	var/handling_hal = 0
+	var/handling_hal = FALSE
 
 /mob/living/carbon/proc/handle_hallucinations()
 	if(handling_hal)
@@ -34,7 +34,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	//AAAAHg
 	var/list/major = list("fake"=20,"death"=10,"xeno"=10,"singulo"=10,"borer"=10,"delusion"=20,"koolaid"=10)
 
-	handling_hal = 1
+	handling_hal = TRUE
 	while(hallucination > 20)
 		sleep(rand(200, 500) / (hallucination * 0.04))
 		if(prob(20))
@@ -51,7 +51,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 		var/halpick = pickweight(current)
 
 		hallucinate(halpick)
-	handling_hal = 0
+	handling_hal = FALSE
 
 
 /obj/effect/hallucination
@@ -70,7 +70,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/col_mod = null
 	var/image/current_image = null
 	var/image_layer = MOB_LAYER
-	var/active = 1 //qdelery
+	var/active = TRUE //qdelery
 
 /obj/effect/hallucination/simple/New(loc, mob/living/carbon/T)
 	..()
@@ -113,7 +113,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/simple/Destroy()
 	if(target.client)
 		target.client.images.Remove(current_image)
-	active = 0
+	active = FALSE
 	return ..()
 
 #define FAKE_FLOOD_EXPAND_TIME 20
@@ -198,7 +198,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			pump = U
 			break
 	if(!pump)
-		return 0
+		return FALSE
 	xeno = new(pump.loc,target)
 	sleep(10)
 	if(!xeno)
@@ -605,11 +605,9 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/fake_attacker/New(loc, mob/living/carbon/T)
 	..()
 	my_target = T
-	spawn(300)
-		qdel(src)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), 300)
 	step_away(src,my_target,2)
-	spawn(0)
-		attack_loop()
+	addtimer(CALLBACK(src, .proc/attack_loop))
 
 
 /obj/effect/fake_attacker/proc/updateimage()
@@ -673,8 +671,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	O.name = "blood"
 	var/image/I = image('icons/effects/blood.dmi',O,"floor[rand(1,7)]",O.dir,1)
 	target << I
-	spawn(300)
-		qdel(O)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, O), 300)
 	return
 
 var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_box/a357,\
@@ -829,19 +826,17 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 				if(9)
 					//To make it more realistic, I added two gunshots (enough to kill)
 					playsound_local(null, 'sound/weapons/Gunshot.ogg', 25, 1)
-					spawn(rand(10,30))
-						playsound_local(null, 'sound/weapons/Gunshot.ogg', 25, 1)
-						sleep(rand(5,10))
-						playsound_local(null, sound(get_sfx("bodyfall"), 25), 25, 1)
+					var/timer_pause = rand(10,30)
+					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound_local, null, 'sound/weapons/Gunshot.ogg', 25, 1), timer_pause)
+					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound_local, null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
 				if(10)
 					playsound_local(null, 'sound/effects/pray_chaplain.ogg', 50)
 				if(11)
 					//Same as above, but with tasers.
 					playsound_local(null, 'sound/weapons/Taser.ogg', 25, 1)
-					spawn(rand(10,30))
-						playsound_local(null, 'sound/weapons/Taser.ogg', 25, 1)
-						sleep(rand(5,10))
-						playsound_local(null, sound(get_sfx("bodyfall"), 25), 25, 1)
+					var/timer_pause = rand(10,30)
+					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound_local, null, 'sound/weapons/Taser.ogg', 25, 1), timer_pause)
+					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound_local, null, sound(get_sfx("bodyfall"), 25), 25, 1), timer_pause+rand(5,10))
 			//Rare audio
 				if(12)
 			//These sounds are (mostly) taken from Hidden: Source
@@ -988,8 +983,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 							halitem.icon_state = "flashbang1"
 							halitem.name = "Flashbang"
 					if(client) client.screen += halitem
-					spawn(rand(100,250))
-						qdel(halitem)
+					addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, halitem), rand(100,250))
 		if("dangerflash")
 			//Flashes of danger
 			if(!halimage)
