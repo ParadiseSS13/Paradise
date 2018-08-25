@@ -1295,7 +1295,6 @@
 /datum/sprite_accessory/hair/vulpkanin/vulp_hair_raine
 	name = "Raine"
 	icon_state = "vulp_hair_raine"
-	species_allowed = list("Vulpkanin")
 	gender = FEMALE
 
 /datum/sprite_accessory/hair/vox
