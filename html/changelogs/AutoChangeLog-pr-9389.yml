@@ -1,0 +1,5 @@
+author: "Agameofscones"
+delete-after: True
+changes: 
+  - rscadd: "Mr. Chang vendor sprite (icon_state: chang)."
+  - rscadd: "Three new Mr. Chang vendor slogans."
