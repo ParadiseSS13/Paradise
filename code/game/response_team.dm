@@ -599,11 +599,12 @@ var/ert_request_answered = 0
 	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/color/latex
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
+	suit_store = /obj/item/gun/energy/gun/mini
 	glasses = /obj/item/clothing/glasses/hud/health
 
 	belt = /obj/item/storage/belt/medical/surgery/loaded
 
-	l_pocket = /obj/item/gun/energy/gun/mini
+	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
@@ -629,6 +630,7 @@ var/ert_request_answered = 0
 	)
 	belt = /obj/item/defibrillator/compact/loaded
 
+	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
