@@ -432,7 +432,7 @@
 	drink_icon = "gargleblasterglass"
 	drink_name = "Pan-Galactic Gargle Blaster"
 	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
-	taste_message = "your brains getting smashed out by a gold brick"
+	taste_message = "your brains smashed out by a slice of lemon, wrapped around a large gold brick"
 
 /datum/reagent/consumable/ethanol/flaming_homer
 	name = "Flaming Moe"
