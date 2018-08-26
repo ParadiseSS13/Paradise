@@ -50,10 +50,6 @@
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
 	..()
-	if(current_skin)
-		icon_state = "[current_skin][chambered ? "" : "-e"]"
-	else
-		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
 	overlays.Cut()
 	if(gun_light)
 		var/iconF = "Enforcer_light"
@@ -63,12 +59,6 @@
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
 	toggle_gunlight()
-
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot	// Different starting color, for mapers and crates
-	icon_state = "enforcer-riot"
-
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/nt
-	icon_state = "enforcer-nt"
 
 /obj/item/gun/projectile/shotgun/toy
 	name = "foam force shotgun"
