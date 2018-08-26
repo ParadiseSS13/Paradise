@@ -480,7 +480,7 @@
 	drink_icon = "toxinsspecialglass"
 	drink_name = "Toxins Special"
 	drink_desc = "Whoah, this thing is on FIRE"
-	taste_message = "<span class='FIRE'>evil</span>"
+	taste_message = "<span class='warning'>FIRE</span>"
 
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
