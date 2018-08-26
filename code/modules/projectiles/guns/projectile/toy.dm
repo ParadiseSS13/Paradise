@@ -47,16 +47,6 @@
 	icon_state = "enforcer-train"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
-	unique_reskin = TRUE
-
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/New()
-	..()
-	options["Trainer Cyan"] = "enforcer-train"
-	options["Riot Lavender"] = "enforcer-riot"
-	options["NT Blue"] = "enforcer-nt"
-	options["Safety Orange"] = "enforcer-safety"
-	options["Lime Green"] = "enforcer-lime"
-	options["Cancel"] = null
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/update_icon()
 	..()
