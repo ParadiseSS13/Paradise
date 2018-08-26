@@ -121,14 +121,13 @@
 	desc = "An unknown virus that will turn one human into a zombie"
 	severity = BIOHAZARD
 	stage_prob = 2
+	max_stages = 4
 	visibility_flags = 0
 	agent = "Zombie H-2018"
 	stage1	= null
-	stage2	= null
-	stage3	= null
-	stage4	= list("<span class='warning'>Your body hurts.</span>", "<span class='warning'>You can't breathe easily.</span>",
-					"<span class='warning'>You have a craving for meat.</span>", "<span class='warning'>Your mind feels clouded.</span>")
-	stage5	= null
+	stage2	= list("<span class='warning'>You can't breathe easily.</span>")
+	stage3	= list("<span class='warning'>Your body hurts.</span>")
+	stage4	= list("<span class='warning'>You have a craving for meat.</span>")
 	new_form = /mob/living/simple_animal/hostile/zombie
 
 /datum/disease/transformation/virush/do_disease_transformation(mob/living/affected_mob)
@@ -159,41 +158,35 @@
 	..()
 	switch(stage)
 		if(1)
-			if(prob(2))
-				affected_mob.adjustToxLoss(1)
+			if(prob(5))
+				affected_mob.adjustToxLoss(3)
 				affected_mob.updatehealth()
 				to_chat(affected_mob, "<span class='notice'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
 				if(affected_mob.health <= 0)
 					do_disease_transformation(affected_mob)
 		if(2)
-			if(prob(4))
-				affected_mob.adjustToxLoss(2)
+			if(prob(5))
+				affected_mob.adjustToxLoss(5)
 				affected_mob.updatehealth()
 				to_chat(affected_mob, "<span class='notice'>Your body itches.</span>")
 				if(affected_mob.health <= 0)
 					do_disease_transformation(affected_mob)
 		if(3)
-			if(prob(8))
-				affected_mob.adjustToxLoss(4)
+			if(prob(10))
+				affected_mob.adjustToxLoss(5)
 				affected_mob.updatehealth()
-				to_chat(affected_mob, "<span class='danger'>You feel exhausted.</span>")
+				to_chat(affected_mob, "<span class='danger'>Your body itches.</span>")
 				if(affected_mob.health <= 0)
 					do_disease_transformation(affected_mob)
 		if(4)
-			stage_prob = 0
-			if(prob(16))
+			if(prob(8))
 				affected_mob.adjustToxLoss(8)
 				affected_mob.updatehealth()
 				to_chat(affected_mob, "<span class='danger'>All living forms started to look delicious.</span>")
 				if(affected_mob.health <= 0)
 					do_disease_transformation(affected_mob)
-		if(5)
-			if(prob(32))
-				affected_mob.adjustToxLoss(16)
-				affected_mob.updatehealth()
-				to_chat(affected_mob, "<span class='danger'>You feel like you are going to die.</span>")
-				if(affected_mob.health <= 0)
-					do_disease_transformation(affected_mob)
+
+
 
 /datum/disease/transformation/robot
 
