@@ -1164,6 +1164,14 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Fitness Room"
 	icon_state = "fitness"
 
+/area/crew_quarters/dorms
+	name = "\improper Dorms"
+	icon_state = "dorms"
+
+/area/crew_quarters/arcade
+	name = "\improper Arcade"
+	icon_state = "arcade"
+
 /area/crew_quarters/cafeteria
 	name = "\improper Cafeteria"
 	icon_state = "cafeteria"
@@ -1207,15 +1215,15 @@ var/list/ghostteleportlocs = list()
 
 /area/magistrateoffice
 	name = "\improper Magistrate's Office"
-	icon_state = "law"
+	icon_state = "magistrate"
 
 /area/clownoffice
 	name = "\improper Clown's Office"
-	icon_state = "dk_yellow"
+	icon_state = "clown_office"
 
 /area/mimeoffice
 	name = "\improper Mime's Office"
-	icon_state = "dk_yellow"
+	icon_state = "mime_office"
 
 /area/civilian/barber
 	name = "\improper Barber Shop"
@@ -1227,7 +1235,7 @@ var/list/ghostteleportlocs = list()
 
 /area/civilian/pet_store
 	name = "\improper Pet Store"
-	icon_state = "Theatre"
+	icon_state = "pet_store"
 
 /area/holodeck
 	name = "\improper Holodeck"
@@ -1690,7 +1698,7 @@ var/list/ghostteleportlocs = list()
 
 /area/security/medbay
 	name = "\improper Security Medbay"
-	icon_state = "brig"
+	icon_state = "security_medbay"
 
 /area/security/prisonershuttle
 	name = "\improper Security Prisoner Shuttle"
@@ -1952,6 +1960,10 @@ area/security/podbay
 	requires_power = 0
 	name = "\improper Test Room"
 	icon_state = "storage"
+
+/area/storage/office
+	name = "\improper Office Supplies"
+	icon_state = "office_supplies"
 
 // ENGIE OUTPOST
 
