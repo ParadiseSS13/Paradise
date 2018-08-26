@@ -30,7 +30,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/ticketID = text2num(href_list["openadminticket"])
-		globAdminTicketHolder.showDetailUI(usr, ticketID)
+		SStickets.showDetailUI(usr, ticketID)
 
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
