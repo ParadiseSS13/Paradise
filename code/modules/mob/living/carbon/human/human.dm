@@ -1346,7 +1346,8 @@
 				continue
 			var/obj/item/organ/internal/OI = new I.type()
 			var/damage = I.damage
-			var/stats = list(OI, damage)
+			var/broken = I.is_broken()
+			var/stats = list(OI, damage, broken)
 			internal_damages += list(stats)
 
 		//Create the new organs for the species change
@@ -1377,7 +1378,10 @@
 
 				if(istype(I, organ_type))
 					var/damage = part[2]
+					var/broken = part[3]
 					I.receive_damage(damage, 1)
+					if(broken && !(I.status & ORGAN_BROKEN))
+						I.status |= ORGAN_BROKEN
 					qdel(part)
 
 	else
