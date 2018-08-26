@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(tickets)
 	var/client/C = M.client
 
   //Check if the user has an open ticket already within the cooldown period, if so we don't create a new one and re-set the cooldown period
-	var/datum/admin_ticket/existingTicket = checkForOpenTicket(C)
+	var/datum/admin_ticket/existingTicket = checkForOpenTicket(M)
 	if(existingTicket)
 		existingTicket.setCooldownPeriod()
 		to_chat(C, "<span class='adminticket'>Your ticket #[existingTicket.ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
@@ -310,7 +310,7 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/userDetailUI(mob/user)
 //dat
-	var/tickets = checkForTicket(user.client)
+	var/tickets = checkForTicket(user)
 	var/dat
 	dat += "<h1>Your open tickets</h1>"
 	dat += "<table>"
