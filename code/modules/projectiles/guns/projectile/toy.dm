@@ -44,7 +44,7 @@
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	name = "Foam Enforcer"
 	desc = "A foam shooting version of the Enforcer meant to be used for training new caddets who can't be trusted with rubber bullets."
-	icon_state = "enforcer-train"
+	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
 
