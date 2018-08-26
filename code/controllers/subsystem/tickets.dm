@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(tickets)
 		var/report
 		for(var/num in stales)
 			report += "[num], "
-		message_adminTicket("<span class='adminticket'>Tickets [report] have been open for over [ADMIN_TICKET_TIMEOUT * 0.1] seconds. Changing status to stale.</span>")
+		message_adminTicket("<span class='adminticket'>Tickets [report] have been open for over [ADMIN_TICKET_TIMEOUT MINUTES] minutes. Changing status to stale.</span>")
 
 /datum/controller/subsystem/tickets/proc/checkStaleness()
 	var/stales = list()
@@ -65,9 +65,11 @@ SUBSYSTEM_DEF(tickets)
 		resolveTicket(T.ticketNum)
 
 //Open a new ticket and populate details then add to the list of open tickets
-/datum/controller/subsystem/tickets/proc/newTicket(client/C, passedContent, title)
-	if(!C || !passedContent)
+/datum/controller/subsystem/tickets/proc/newTicket(mob/M, passedContent, title)
+	if(!M || !passedContent)
 		return
+
+	var/client/C = M.client
 
   //Check if the user has an open ticket already within the cooldown period, if so we don't create a new one and re-set the cooldown period
 	var/datum/admin_ticket/existingTicket = checkForOpenTicket(C)
@@ -79,52 +81,46 @@ SUBSYSTEM_DEF(tickets)
 	if(!title)
 		title = passedContent
 
-	var/datum/admin_ticket/T =  new /datum/admin_ticket
+	var/datum/admin_ticket/T =  new(title, passedContent)
 	T.clientName = C
-	T.timeOpened = worldtime2text()
-	T.title = title
-	T.content += passedContent
-	T.locationSent = C.mob.loc.loc.name
-	T.mobControlled = C.mob
-	T.ticketState = ADMIN_TICKET_OPEN
-	T.timeUntilStale = world.time + ADMIN_TICKET_TIMEOUT
-	T.setCooldownPeriod()
-	T.ticketNum = getTicketCounterAndInc()
-	allTickets += T
+	T.locationSent = M.loc.name
+	T.mobControlled = M
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "<span class='adminticket'>You have opened admin ticket number #[(SStickets.getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
 
 //Set ticket state with key N to open
-/datum/controller/subsystem/tickets/proc/openTicket(var/N)
+/datum/controller/subsystem/tickets/proc/openTicket(N)
 	var/datum/admin_ticket/T = SStickets.allTickets[N]
 	if(T.ticketState != ADMIN_TICKET_OPEN)
 		T.ticketState = ADMIN_TICKET_OPEN
 		return TRUE
 
 //Set ticket state with key N to resolved
-/datum/controller/subsystem/tickets/proc/resolveTicket(var/N)
+/datum/controller/subsystem/tickets/proc/resolveTicket(N)
 	var/datum/admin_ticket/T = SStickets.allTickets[N]
 	if(T.ticketState != ADMIN_TICKET_RESOLVED)
 		T.ticketState = ADMIN_TICKET_RESOLVED
 		return TRUE
 
 //Set ticket state with key N to closed
-/datum/controller/subsystem/tickets/proc/closeTicket(var/N)
+/datum/controller/subsystem/tickets/proc/closeTicket(N)
 	var/datum/admin_ticket/T = SStickets.allTickets[N]
 	if(T.ticketState != ADMIN_TICKET_CLOSED)
 		T.ticketState = ADMIN_TICKET_CLOSED
 		return TRUE
 
 //Check if the user already has a ticket open and within the cooldown period.
-/datum/controller/subsystem/tickets/proc/checkForOpenTicket(var/client/C)
+/datum/controller/subsystem/tickets/proc/checkForOpenTicket(mob/M)
+	var/client/C = M.client
 	for(var/datum/admin_ticket/T in allTickets)
 		if(T.clientName == C && T.ticketState == ADMIN_TICKET_OPEN && (T.ticketCooldown > world.time))
 			return T
 	return FALSE
 
 //Check if the user has ANY ticket not resolved or closed.
-/datum/controller/subsystem/tickets/proc/checkForTicket(var/client/C)
+/datum/controller/subsystem/tickets/proc/checkForTicket(mob/M)
+	var/client/C = M.client
 	var/list/tickets = list()
 	for(var/datum/admin_ticket/T in allTickets)
 		if(T.clientName == C && (T.ticketState == ADMIN_TICKET_OPEN || T.ticketState == ADMIN_TICKET_STALE))
@@ -134,11 +130,12 @@ SUBSYSTEM_DEF(tickets)
 	return FALSE
 
 //return the client of a ticket number
-/datum/controller/subsystem/tickets/proc/returnClient(var/N)
+/datum/controller/subsystem/tickets/proc/returnClient(N)
 	var/datum/admin_ticket/T = SStickets.allTickets[N]
 	return T.clientName
 
-/datum/controller/subsystem/tickets/proc/assignAdminToTicket(var/client/C, var/N)
+/datum/controller/subsystem/tickets/proc/assignAdminToTicket(mob/M, var/N)
+	var/client/C = M.client
 	var/datum/admin_ticket/T = SStickets.allTickets[N]
 	T.assignAdmin(C)
 	return TRUE
@@ -150,7 +147,7 @@ SUBSYSTEM_DEF(tickets)
 	var/clientName // Client which opened the ticket
 	var/timeOpened // Time the ticket was opened
 	var/title //The initial message with links
-	var/list/content = list() // content of the admin help
+	var/list/content // content of the admin help
 	var/lastAdminResponse // Last admin who responded
 	var/lastResponseTime // When the admin last responded
 	var/locationSent // Location the player was when they send the ticket
@@ -160,12 +157,24 @@ SUBSYSTEM_DEF(tickets)
 	var/ticketCooldown // Cooldown before allowing the user to open another ticket.
 	var/adminAssigned // Admin who has assigned themselves to this ticket
 
+/datum/admin_ticket/New(tit, cont)
+	title = tit
+	content = list()
+	content += cont
+	timeOpened = worldtime2text()
+	timeUntilStale = world.time + ADMIN_TICKET_TIMEOUT
+	setCooldownPeriod()
+	ticketNum = SStickets.getTicketCounterAndInc()
+	ticketState = ADMIN_TICKET_OPEN
+	SStickets.allTickets += src
+
 //Set the cooldown period for the ticket. The time when it's created plus the defined cooldown time.
 /datum/admin_ticket/proc/setCooldownPeriod()
 	ticketCooldown = world.time + ADMIN_TICKET_DUPLICATE_COOLDOWN
 
 //Set the last admin who responded as the client passed as an arguement.
-/datum/admin_ticket/proc/setLastAdminResponse(var/client/C)
+/datum/admin_ticket/proc/setLastAdminResponse(mob/M)
+	var/client/C = M.client
 	lastAdminResponse = C
 	lastResponseTime = worldtime2text()
 
@@ -182,17 +191,19 @@ SUBSYSTEM_DEF(tickets)
 			return "<font color='orange'>STALE</font>"
 
 //Assign the client passed to var/adminAsssigned
-/datum/admin_ticket/proc/assignAdmin(var/client/C, var/N)
+/datum/admin_ticket/proc/assignAdmin(mob/M, var/N)
+	var/client/C = M.client
 	if(!C)
 		return
 	adminAssigned = C
 	return TRUE
 
-/datum/admin_ticket/proc/addResponse(var/client/C, var/M as text)
+/datum/admin_ticket/proc/addResponse(mob/M, msg)
+	var/client/C = M.client
 	if(C.holder)
 		setLastAdminResponse(C)
-	M = "[C]: [M]"
-	content += M
+	M = "[C]: [msg]"
+	content += msg
 
 /datum/admin_ticket/proc/makeStale()
 	ticketState = ADMIN_TICKET_STALE
@@ -204,7 +215,7 @@ UI STUFF
 
 */
 
-/datum/controller/subsystem/tickets/proc/returnUI(var/tab = ADMIN_TICKET_OPEN)
+/datum/controller/subsystem/tickets/proc/returnUI(tab = ADMIN_TICKET_OPEN)
 	set name = "Open Ticket Interface"
 	set category = "Tickets"
 
@@ -250,14 +261,14 @@ UI STUFF
 
 	return dat
 
-/datum/controller/subsystem/tickets/proc/showUI(mob/user, var/tab)
+/datum/controller/subsystem/tickets/proc/showUI(mob/user, tab)
 	var/dat = null
 	dat = returnUI(tab)
 	var/datum/browser/popup = new(user, "admintickets", "Admin Tickets", 1400, 600)
 	popup.set_content(dat)
 	popup.open()
 
-/datum/controller/subsystem/tickets/proc/showDetailUI(mob/user, var/ticketID)
+/datum/controller/subsystem/tickets/proc/showDetailUI(mob/user, ticketID)
 	var/datum/admin_ticket/T = SStickets.allTickets[ticketID]
 	var/status = "[T.state2text()]"
 
