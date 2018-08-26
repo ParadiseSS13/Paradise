@@ -6,6 +6,7 @@
 /mob/living/silicon/robot/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
 	if(..())
 		return 1
+	used_radios += radio
 	if(message_mode)
 		if(!is_component_functioning("radio"))
 			to_chat(src, "<span class='warning'>Your radio isn't functional at this time.</span>")
@@ -17,6 +18,7 @@
 /mob/living/silicon/ai/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
 	if(..())
 		return 1
+	used_radios += aiRadio
 	if(message_mode == "department")
 		return holopad_talk(message, verb, speaking)
 	else if(message_mode)
@@ -36,6 +38,7 @@
 	else if(message_mode)
 		if(message_mode == "general")
 			message_mode = null
+		used_radios += radio
 		return radio.talk_into(src,message,message_mode,verb,speaking)
 
 /mob/living/silicon/say_quote(var/text)
