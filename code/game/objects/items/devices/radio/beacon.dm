@@ -7,6 +7,7 @@
 	origin_tech = "bluespace=1"
 	var/emagged = 0
 	var/syndicate = 0
+	var/area_bypass = FALSE
 
 /obj/item/radio/beacon/New()
 	..()

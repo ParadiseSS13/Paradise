@@ -264,6 +264,7 @@
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
+	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
 	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
 	result = list(/obj/item/gun/projectile/automatic/c20r = 1,
 		/obj/item/gun/projectile/automatic/m90 = 1,
@@ -299,10 +300,9 @@
 		/obj/structure/falsewall/reinforced = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault
-	name = "60pc vaultdoor 20pc falsewall 20pc wall"
-	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 6,
-		/turf/simulated/wall/r_wall = 2,
-		/obj/structure/falsewall/reinforced = 2)
+	name = "80pc vaultdoor 20pc wall"
+	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
+		/turf/simulated/wall/r_wall = 1)
 
 
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod

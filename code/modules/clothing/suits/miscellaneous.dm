@@ -331,6 +331,12 @@
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/suit/draculacoat // Bleh!
+	name = "transylvanian coat"
+	desc = "<i>What is a spessman? A miserable little pile of secrets.</i>"
+	icon_state = "draculacoat"
+	item_state = "draculacoat"
+
 /*
  * Winter Coats
  */
