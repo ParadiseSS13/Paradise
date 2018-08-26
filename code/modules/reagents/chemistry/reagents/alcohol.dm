@@ -43,7 +43,7 @@
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
-	taste_message = "beer"
+	taste_message = "piss water"
 
 /datum/reagent/consumable/ethanol/cider
 	name = "Cider"
@@ -55,7 +55,7 @@
 	drink_icon = "rewriter"
 	drink_name = "Cider"
 	drink_desc = "a refreshing glass of traditional cider"
-	taste_message = "cider"
+	taste_message = "apples"
 
 /datum/reagent/consumable/ethanol/whiskey
 	name = "Whiskey"
@@ -67,6 +67,7 @@
 	drink_icon = "whiskeyglass"
 	drink_name = "Glass of whiskey"
 	drink_desc = "The silky, smokey whiskey goodness inside the glass makes the drink look very classy."
+	taste_message = "mollasses"
 
 /datum/reagent/consumable/ethanol/specialwhiskey
 	name = "Special Blend Whiskey"
@@ -74,7 +75,7 @@
 	description = "Just when you thought regular station whiskey was good... This silky, amber goodness has to come along and ruin everything."
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.5
-	taste_message = "class"
+	taste_message = "high class"
 
 /datum/reagent/consumable/ethanol/gin
 	name = "Gin"
@@ -86,6 +87,7 @@
 	drink_icon = "ginvodkaglass"
 	drink_name = "Glass of gin"
 	drink_desc = "A crystal clear glass of Griffeater gin."
+	taste_message = "an alcoholic christmas tree"
 
 /datum/reagent/consumable/ethanol/absinthe
 	name = "Absinthe"
@@ -119,6 +121,7 @@
 	drink_icon = "rumglass"
 	drink_name = "Glass of Rum"
 	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
+	taste_message = "spiked butterscotch"
 
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
 	M.adjustToxLoss(1)
@@ -132,7 +135,7 @@
 	drink_icon = "mojito"
 	drink_name = "Glass of Mojito"
 	drink_desc = "Fresh from Spesscuba."
-	taste_message = "mojito"
+	taste_message = "minty pleasure"
 
 /datum/reagent/consumable/ethanol/vodka
 	name = "Vodka"
@@ -143,6 +146,7 @@
 	drink_icon = "ginvodkaglass"
 	drink_name = "Glass of vodka"
 	drink_desc = "The glass contain wodka. Xynta."
+	taste_message = "comradery"
 
 /datum/reagent/consumable/ethanol/sake
 	name = "Sake"
@@ -153,17 +157,18 @@
 	drink_icon = "ginvodkaglass"
 	drink_name = "Glass of Sake"
 	drink_desc = "A glass of Sake."
-	taste_message = "sake"
+	taste_message = "weeaboo shit"
 
 /datum/reagent/consumable/ethanol/tequila
 	name = "Tequila"
 	id = "tequila"
-	description = "A strong and mildly flavoured, mexican produced spirit. Feeling thirsty hombre?"
+	description = "A strong and mildly flavoured, mexican produced spirit. Feeling thirsty, amigo?"
 	color = "#A8B0B7" // rgb: 168, 176, 183
 	alcohol_perc = 0.4
 	drink_icon = "tequilaglass"
 	drink_name = "Glass of Tequila"
 	drink_desc = "Now all that's missing is the weird colored shades!"
+	taste_message = "a cheap stripper"
 
 /datum/reagent/consumable/ethanol/vermouth
 	name = "Vermouth"
@@ -174,7 +179,7 @@
 	drink_icon = "vermouthglass"
 	drink_name = "Glass of Vermouth"
 	drink_desc = "You wonder why you're even drinking this straight."
-	taste_message = "vermouth"
+	taste_message = "dry alcohol"
 
 /datum/reagent/consumable/ethanol/wine
 	name = "Wine"
@@ -186,7 +191,7 @@
 	drink_icon = "wineglass"
 	drink_name = "Glass of wine"
 	drink_desc = "A very classy looking drink."
-	taste_message = "wine"
+	taste_message = "bitter sweetness"
 
 /datum/reagent/consumable/ethanol/cognac
 	name = "Cognac"
@@ -198,6 +203,7 @@
 	drink_icon = "cognacglass"
 	drink_name = "Glass of cognac"
 	drink_desc = "Damn, you feel like some kind of French aristocrat just by holding this."
+	taste_message = "anger and failure"
 
 /datum/reagent/consumable/ethanol/suicider //otherwise known as "I want to get so smashed my liver gives out and I die from alcohol poisoning".
 	name = "Suicider"
@@ -209,7 +215,7 @@
 	drink_icon = "suicider"
 	drink_name = "Suicider"
 	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
-	taste_message = "approaching death"
+	taste_message = "imminent death"
 
 /datum/reagent/consumable/ethanol/ale
 	name = "Ale"
@@ -220,7 +226,7 @@
 	drink_icon = "aleglass"
 	drink_name = "Ale glass"
 	drink_desc = "A freezing pint of delicious Ale"
-	taste_message = "ale"
+	taste_message = "manliness"
 
 /datum/reagent/consumable/ethanol/thirteenloko
 	name = "Thirteen Loko"
@@ -234,7 +240,7 @@
 	drink_icon = "thirteen_loko_glass"
 	drink_name = "Glass of Thirteen Loko"
 	drink_desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
-	taste_message = "party"
+	taste_message = "a wild rave"
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-7)
@@ -258,7 +264,7 @@
 	drink_icon = "glass_brown"
 	drink_name = "Glass of bilk"
 	drink_desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
-	taste_message = "bilk"
+	taste_message = "desperation and lactose"
 
 /datum/reagent/consumable/ethanol/atomicbomb
 	name = "Atomic Bomb"
@@ -270,7 +276,7 @@
 	drink_icon = "atomicbombglass"
 	drink_name = "Atomic Bomb"
 	drink_desc = "Nanotrasen cannot take legal responsibility for your actions after imbibing."
-	taste_message = "fruity alcohol"
+	taste_message = "Hiroshima's tears"
 
 /datum/reagent/consumable/ethanol/threemileisland
 	name = "THree Mile Island Iced Tea"
@@ -282,7 +288,7 @@
 	drink_icon = "threemileislandglass"
 	drink_name = "Three Mile Island Ice Tea"
 	drink_desc = "A glass of this is sure to prevent a meltdown."
-	taste_message = "fruity alcohol"
+	taste_message = "delicate dryness"
 
 /datum/reagent/consumable/ethanol/goldschlager
 	name = "Goldschlager"
@@ -294,6 +300,7 @@
 	drink_icon = "ginvodkaglass"
 	drink_name = "Glass of goldschlager"
 	drink_desc = "100 proof that teen girls will drink anything with gold in it."
+	taste_message = "burning cinnamon"
 
 /datum/reagent/consumable/ethanol/patron
 	name = "Patron"
@@ -305,6 +312,7 @@
 	drink_icon = "patronglass"
 	drink_name = "Glass of Patron"
 	drink_desc = "Drinking patron in the bar, with all the subpar ladies."
+	taste_message = "metallic exclusiveness"
 
 /datum/reagent/consumable/ethanol/gintonic
 	name = "Gin and Tonic"
@@ -316,6 +324,7 @@
 	drink_icon = "gintonicglass"
 	drink_name = "Gin and Tonic"
 	drink_desc = "A mild but still great cocktail. Drink up, like a true Englishman."
+	taste_message = "mild and tart"
 
 /datum/reagent/consumable/ethanol/cuba_libre
 	name = "Cuba Libre"
@@ -327,7 +336,7 @@
 	drink_icon = "cubalibreglass"
 	drink_name = "Cuba Libre"
 	drink_desc = "A classic mix of rum and cola."
-	taste_message = "fruity alcohol"
+	taste_message = "communism, citrus and rum"
 
 /datum/reagent/consumable/ethanol/whiskey_cola
 	name = "Whiskey Cola"
@@ -339,7 +348,7 @@
 	drink_icon = "whiskeycolaglass"
 	drink_name = "Whiskey Cola"
 	drink_desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
-	taste_message = "whiskey and coke"
+	taste_message = "alcoholic coke"
 
 /datum/reagent/consumable/ethanol/martini
 	name = "Classic Martini"
@@ -351,7 +360,7 @@
 	drink_icon = "martiniglass"
 	drink_name = "Classic Martini"
 	drink_desc = "Damn, the bartender even stirred it, not shook it."
-	taste_message = "martini"
+	taste_message = "dry class"
 
 /datum/reagent/consumable/ethanol/vodkamartini
 	name = "Vodka Martini"
@@ -363,6 +372,7 @@
 	drink_icon = "martiniglass"
 	drink_name = "Vodka martini"
 	drink_desc ="A bastardisation of the classic martini. Still great."
+	taste_message = "shaken, not stirred"
 
 /datum/reagent/consumable/ethanol/white_russian
 	name = "White Russian"
@@ -374,7 +384,7 @@
 	drink_icon = "whiterussianglass"
 	drink_name = "White Russian"
 	drink_desc = "A very nice looking drink. But that's just, like, your opinion, man."
-	taste_message = "creamy alcohol"
+	taste_message = "bitter cream"
 
 /datum/reagent/consumable/ethanol/screwdrivercocktail
 	name = "Screwdriver"
@@ -386,7 +396,7 @@
 	drink_icon = "screwdriverglass"
 	drink_name = "Screwdriver"
 	drink_desc = "A simple, yet superb mixture of Vodka and orange juice. Just the thing for the tired engineer."
-	taste_message = "fruity alcohol"
+	taste_message = "oranges"
 
 /datum/reagent/consumable/ethanol/booger
 	name = "Booger"
@@ -398,7 +408,7 @@
 	drink_icon = "booger"
 	drink_name = "Booger"
 	drink_desc = "Ewww..."
-	taste_message = "sweet alcohol"
+	taste_message = "sweet n' slimy"
 
 /datum/reagent/consumable/ethanol/bloody_mary
 	name = "Bloody Mary"
@@ -410,7 +420,7 @@
 	drink_icon = "bloodymaryglass"
 	drink_name = "Bloody Mary"
 	drink_desc = "Tomato juice, mixed with Vodka and a lil' bit of lime. Tastes like liquid murder."
-	taste_message = "tomatoes with booze"
+	taste_message = "tomatoes with a hint of lime"
 
 /datum/reagent/consumable/ethanol/gargle_blaster
 	name = "Pan-Galactic Gargle Blaster"
@@ -422,7 +432,7 @@
 	drink_icon = "gargleblasterglass"
 	drink_name = "Pan-Galactic Gargle Blaster"
 	drink_desc = "Does... does this mean that Arthur and Ford are on the station? Oh joy."
-	taste_message = "the number fourty two"
+	taste_message = "the number fourty two as your brains get smashed out by a lemon wrapped around a gold brick"
 
 /datum/reagent/consumable/ethanol/flaming_homer
 	name = "Flaming Moe"
@@ -434,7 +444,7 @@
 	drink_icon = "flamingmoeglass"
 	drink_name = "Flaming Moe"
 	drink_desc = "Happiness is just a Flaming Moe away!"
-	taste_message = "caramelised booze and sweet, salty medicine"
+	taste_message = "caramelised medicine"
 
 /datum/reagent/consumable/ethanol/brave_bull
 	name = "Brave Bull"
@@ -446,7 +456,7 @@
 	drink_icon = "bravebullglass"
 	drink_name = "Brave Bull"
 	drink_desc = "Tequila and Coffee liquor, brought together in a mouthwatering mixture. Drink up."
-	taste_message = "sweet alcohol"
+	taste_message = "alcoholic bravery"
 
 /datum/reagent/consumable/ethanol/tequila_sunrise
 	name = "Tequila Sunrise"
@@ -458,7 +468,7 @@
 	drink_icon = "tequilasunriseglass"
 	drink_name = "Tequila Sunrise"
 	drink_desc = "Oh great, now you feel nostalgic about sunrises back on Terra..."
-	taste_message = "fruity alcohol"
+	taste_message = "oranges jumping over a wall"
 
 /datum/reagent/consumable/ethanol/toxins_special
 	name = "Toxins Special"
@@ -488,7 +498,7 @@
 	description = "Whiskey-imbued cream, what else would you expect from the Irish."
 	drink_name = "Beepsky Smash"
 	drink_desc = "Heavy, hot and strong. Just like the Iron fist of the LAW."
-	taste_message = "THE LAW"
+	taste_message = "JUSTICE"
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
 	M.Stun(1)
@@ -515,7 +525,7 @@
 	drink_icon = "manlydorfglass"
 	drink_name = "The Manly Dorf"
 	drink_desc = "A manly concotion made from Ale and Beer. Intended for true men only."
-	taste_message = "manliness"
+	taste_message = "hair on your chest and your chin"
 
 /datum/reagent/consumable/ethanol/longislandicedtea
 	name = "Long Island Iced Tea"
@@ -527,7 +537,7 @@
 	drink_icon = "longislandicedteaglass"
 	drink_name = "Long Island Iced Tea"
 	drink_desc = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
-	taste_message = "fruity alcohol"
+	taste_message = "a delicate mixture of cola and alcohol"
 
 /datum/reagent/consumable/ethanol/moonshine
 	name = "Moonshine"
@@ -539,7 +549,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Moonshine"
 	drink_desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
-	taste_message = "prohibition"
+	taste_message = "bitter prohibition"
 
 /datum/reagent/consumable/ethanol/b52
 	name = "B-52"
@@ -551,7 +561,7 @@
 	drink_icon = "b52glass"
 	drink_name = "B-52"
 	drink_desc = "Kahlua, Irish Cream, and congac. You will get bombed."
-	taste_message = "creamy alcohol"
+	taste_message = "angry and irish"
 
 /datum/reagent/consumable/ethanol/irishcoffee
 	name = "Irish Coffee"
@@ -563,7 +573,7 @@
 	drink_icon = "irishcoffeeglass"
 	drink_name = "Irish Coffee"
 	drink_desc = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
-	taste_message = "coffee and booze"
+	taste_message = "your hopes and dreams"
 
 /datum/reagent/consumable/ethanol/margarita
 	name = "Margarita"
@@ -575,7 +585,7 @@
 	drink_icon = "margaritaglass"
 	drink_name = "Margarita"
 	drink_desc = "On the rocks with salt on the rim. Arriba~!"
-	taste_message = "fruity alcohol"
+	taste_message = "dry and salty"
 
 /datum/reagent/consumable/ethanol/black_russian
 	name = "Black Russian"
@@ -587,7 +597,7 @@
 	drink_icon = "blackrussianglass"
 	drink_name = "Black Russian"
 	drink_desc = "For the lactose-intolerant. Still as classy as a White Russian."
-	taste_message = "sweet alcohol"
+	taste_message = "classy bitterness"
 
 /datum/reagent/consumable/ethanol/manhattan
 	name = "Manhattan"
@@ -599,7 +609,7 @@
 	drink_icon = "manhattanglass"
 	drink_name = "Manhattan"
 	drink_desc = "The Detective's undercover drink of choice. He never could stomach gin..."
-	taste_message = "bitter alcohol"
+	taste_message = "mild dryness"
 
 /datum/reagent/consumable/ethanol/manhattan_proj
 	name = "Manhattan Project"
@@ -611,7 +621,7 @@
 	drink_icon = "proj_manhattanglass"
 	drink_name = "Manhattan Project"
 	drink_desc = "A scientist's drink of choice, for thinking how to blow up the station."
-	taste_message = "bitter alcohol"
+	taste_message = "death, the destroyer of worlds"
 
 /datum/reagent/consumable/ethanol/whiskeysoda
 	name = "Whiskey Soda"
@@ -652,7 +662,7 @@
 	drink_icon = "b&p"
 	drink_name = "Barefoot"
 	drink_desc = "Barefoot and pregnant"
-	taste_message = "sweet alcohol"
+	taste_message = "creamy berries"
 
 /datum/reagent/consumable/ethanol/snowwhite
 	name = "Snow White"
@@ -664,7 +674,7 @@
 	drink_icon = "snowwhite"
 	drink_name = "Snow White"
 	drink_desc = "A cold refreshment."
-	taste_message = "refreshing alcohol"
+	taste_message = "refreshing cold"
 
 /datum/reagent/consumable/ethanol/demonsblood
 	name = "Demons Blood"
@@ -690,7 +700,7 @@
 	drink_icon = "vodkatonicglass"
 	drink_name = "Vodka and Tonic"
 	drink_desc = "For when a gin and tonic isn't russian enough."
-	taste_message = "fizzy alcohol"
+	taste_message = "tart bitterness"
 
 /datum/reagent/consumable/ethanol/ginfizz
 	name = "Gin Fizz"
@@ -703,7 +713,7 @@
 	drink_icon = "ginfizzglass"
 	drink_name = "Gin Fizz"
 	drink_desc = "Refreshingly lemony, deliciously dry."
-	taste_message = "fizzy alcohol"
+	taste_message = "dry, tart lemons"
 
 /datum/reagent/consumable/ethanol/bahama_mama
 	name = "Bahama mama"
@@ -715,7 +725,7 @@
 	drink_icon = "bahama_mama"
 	drink_name = "Bahama Mama"
 	drink_desc = "Tropic cocktail"
-	taste_message = "fruity alcohol"
+	taste_message = "lime and orange"
 
 /datum/reagent/consumable/ethanol/singulo
 	name = "Singulo"
@@ -740,7 +750,7 @@
 	drink_icon = "sbitenglass"
 	drink_name = "Sbiten"
 	drink_desc = "A spicy mix of Vodka and Spice. Very hot."
-	taste_message = "spicy alcohol"
+	taste_message = "spicy hotness"
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 360)
@@ -757,7 +767,7 @@
 	drink_icon = "devilskiss"
 	drink_name = "Devils Kiss"
 	drink_desc = "Creepy time!"
-	taste_message = "blood"
+	taste_message = "bitter iron"
 
 /datum/reagent/consumable/ethanol/red_mead
 	name = "Red Mead"
@@ -769,7 +779,7 @@
 	drink_icon = "red_meadglass"
 	drink_name = "Red Mead"
 	drink_desc = "A True Vikings Beverage, though its color is strange."
-	taste_message = "blood"
+	taste_message = "sweet and salty alcohol with a crimson touch"
 
 /datum/reagent/consumable/ethanol/mead
 	name = "Mead"
@@ -782,7 +792,7 @@
 	drink_icon = "meadglass"
 	drink_name = "Mead"
 	drink_desc = "A Vikings Beverage, though a cheap one."
-	taste_message = "sweet alcohol"
+	taste_message = "good ol' alcohol"
 
 /datum/reagent/consumable/ethanol/iced_beer
 	name = "Iced Beer"
@@ -811,7 +821,7 @@
 	drink_icon = "grogglass"
 	drink_name = "Grog"
 	drink_desc = "A fine and cepa drink for Space."
-	taste_message = "rum"
+	taste_message = "a poor excuse for alcohol"
 
 /datum/reagent/consumable/ethanol/aloe
 	name = "Aloe"
@@ -835,7 +845,7 @@
 	drink_icon = "andalusia"
 	drink_name = "Andalusia"
 	drink_desc = "A nice, strange named drink."
-	taste_message = "sweet alcohol"
+	taste_message = "lemons"
 
 /datum/reagent/consumable/ethanol/alliescocktail
 	name = "Allies Cocktail"
@@ -847,7 +857,7 @@
 	drink_icon = "alliescocktail"
 	drink_name = "Allies cocktail"
 	drink_desc = "A drink made from your allies."
-	taste_message = "bitter alcohol"
+	taste_message = "bitter yet free"
 
 /datum/reagent/consumable/ethanol/acid_spit
 	name = "Acid Spit"
@@ -906,6 +916,7 @@
 	drink_icon = "hippiesdelightglass"
 	drink_name = "Hippie's Delight"
 	drink_desc = "A drink enjoyed by people during the 1960's."
+	taste_message = "peace"
 
 /datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/M)
 	M.Druggy(50)
@@ -952,7 +963,7 @@
 	drink_icon = "irishcarbomb"
 	drink_name = "Irish Car Bomb"
 	drink_desc = "An irish car bomb."
-	taste_message = "creamy alcohol"
+	taste_message = "delicious anger"
 
 /datum/reagent/consumable/ethanol/syndicatebomb
 	name = "Syndicate Bomb"
@@ -964,7 +975,7 @@
 	drink_icon = "syndicatebomb"
 	drink_name = "Syndicate Bomb"
 	drink_desc = "A syndicate bomb."
-	taste_message = "a job offer"
+	taste_message = "purified antagonism"
 
 /datum/reagent/consumable/ethanol/erikasurprise
 	name = "Erika Surprise"
@@ -976,7 +987,7 @@
 	drink_icon = "erikasurprise"
 	name = "Erika Surprise"
 	drink_desc = "The surprise is, it's green!"
-	taste_message = "sweet alcohol"
+	taste_message = "tartness and bananas"
 
 /datum/reagent/consumable/ethanol/driestmartini
 	name = "Driest Martini"
@@ -989,7 +1000,7 @@
 	drink_icon = "driestmartiniglass"
 	drink_name = "Driest Martini"
 	drink_desc = "Only for the experienced. You think you see sand floating in the glass."
-	taste_message = "bitter alcohol"
+	taste_message = "the beach"
 
 /datum/reagent/consumable/ethanol/driestmartini/on_mob_life(mob/living/M)
 	if(current_cycle >= 55 && current_cycle < 115)
@@ -1049,7 +1060,7 @@
 	drink_icon = "cognacglass"
 	drink_name = "Glass of applejack"
 	drink_desc = "When cider isn't strong enough, you gotta jack it."
-	taste_message = "strong cider"
+	taste_message = "southern charm"
 
 /datum/reagent/consumable/ethanol/jackrose
 	name = "Jack Rose"
@@ -1071,7 +1082,7 @@
 	drink_icon = "drunkenblumpkin"
 	drink_name = "Drunken Blumpkin"
 	drink_desc = "A drink for the drunks"
-	taste_message = "weirdness"
+	taste_message = "molasses and a mouthful of pool water"
 
 /datum/reagent/consumable/ethanol/eggnog
 	name = "Eggnog"
@@ -1167,6 +1178,7 @@
 	drink_icon = "robottearsglass"
 	drink_name = "Glass of Robot Tears"
 	drink_desc = "No robots were hurt in the making of this drink."
+	taste_message = "thick slavery"
 
 /datum/reagent/consumable/ethanol/synthanol/trinary
 	name = "Trinary"
@@ -1178,6 +1190,7 @@
 	drink_icon = "trinaryglass"
 	drink_name = "Glass of Trinary"
 	drink_desc = "Colorful drink made for synthetic crewmembers. It doesn't seem like it would taste well."
+	taste_message = "the glory of Synthetica"
 
 /datum/reagent/consumable/ethanol/synthanol/servo
 	name = "Servo"
@@ -1189,6 +1202,7 @@
 	drink_icon = "servoglass"
 	drink_name = "Glass of Servo"
 	drink_desc = "Chocolate - based drink made for IPCs. Not sure if anyone's actually tried out the recipe."
+	taste_message = "Sweet motor oil"
 
 /datum/reagent/consumable/ethanol/synthanol/uplink
 	name = "Uplink"
@@ -1200,6 +1214,7 @@
 	drink_icon = "uplinkglass"
 	drink_name = "Glass of Uplink"
 	drink_desc = "An exquisite mix of the finest liquoirs and synthanol. Meant only for synthetics."
+	taste_message = "something that came out of an exhaust pipe"
 
 /datum/reagent/consumable/ethanol/synthanol/synthnsoda
 	name = "Synth 'n Soda"
@@ -1211,6 +1226,7 @@
 	drink_icon = "synthnsodaglass"
 	drink_name = "Glass of Synth 'n Soda"
 	drink_desc = "Classic drink altered to fit the tastes of a robot. Bad idea to drink if you're made of carbon."
+	taste_message = "bubbly energy"
 
 /datum/reagent/consumable/ethanol/synthanol/synthignon
 	name = "Synthignon"
@@ -1222,3 +1238,4 @@
 	drink_icon = "synthignonglass"
 	drink_name = "Glass of Synthignon"
 	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
+	taste_message = "binary love"
