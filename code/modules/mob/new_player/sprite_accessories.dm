@@ -1292,6 +1292,11 @@
 	name = "Rough-Cropped Mane"
 	icon_state = "rough"
 
+/datum/sprite_accessory/hair/vulpkanin/vulp_hair_raine
+	name = "Raine"
+	icon_state = "vulp_hair_raine"
+	gender = FEMALE
+
 /datum/sprite_accessory/hair/vox
 	species_allowed = list("Vox")
 	glasses_over = 1
