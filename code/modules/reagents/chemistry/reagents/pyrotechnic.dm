@@ -209,7 +209,7 @@
 /datum/reagent/cryostylane/on_tick()
 	if(holder.has_reagent("oxygen"))
 		holder.remove_reagent("oxygen", 1)
-		holder.chem_temp -= 10
+		holder.chem_temp -= 99999999999999
 		holder.handle_reactions()
 	..()
 
