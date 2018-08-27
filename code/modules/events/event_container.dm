@@ -129,7 +129,7 @@ var/list/event_last_fired = list()
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
 		// Severity level, event name, even type, base weight, role weights, one shot, min weight, max weight. Last two only used if set and non-zero
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Nothing",			/datum/event/nothing,			1100),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Nothing",			/datum/event/nothing,			900),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "PDA Spam",			/datum/event/pda_spam, 			0, 		list(ASSIGNMENT_ANY = 4), 0, 25, 50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Money Lotto",		/datum/event/money_lotto, 		0, 		list(ASSIGNMENT_ANY = 1), 1, 5,  15),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Money Hacker",		/datum/event/money_hacker, 		0, 		list(ASSIGNMENT_ANY = 4), 1, 10, 25),
@@ -139,14 +139,14 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Vermin Infestation",/datum/event/infestation, 		100,	list(ASSIGNMENT_JANITOR = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Sentience",			/datum/event/sentience,			50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Aurora Caelus",		/datum/event/aurora_caelus,		15,		is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		80,)
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Aurora Caelus",		/datum/event/aurora_caelus,		115,		is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		100,)
 	)
 
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Nothing",					/datum/event/nothing,					1230),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Nothing",					/datum/event/nothing,					1100),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Appendicitis", 			/datum/event/spontaneous_appendicitis, 	0,		list(ASSIGNMENT_MEDICAL = 10), 1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Carp School",				/datum/event/carp_migration,			200, 	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), 1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Rogue Drones",				/datum/event/rogue_drone, 				0,		list(ASSIGNMENT_SECURITY = 20)),
@@ -162,7 +162,7 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Radiation Storm",			/datum/event/radiation_storm, 			25,		list(ASSIGNMENT_MEDICAL = 50), 1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Spider Infestation",		/datum/event/spider_infestation, 		100,	list(ASSIGNMENT_SECURITY = 30), 1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ion Storm",				/datum/event/ion_storm, 				0,		list(ASSIGNMENT_AI = 50, ASSIGNMENT_CYBORG = 50, ASSIGNMENT_ENGINEER = 15, ASSIGNMENT_SCIENTIST = 5)),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Borer Infestation",		/datum/event/borer_infestation, 		40,		list(ASSIGNMENT_SECURITY = 30), 1),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Borer Infestation",		/datum/event/borer_infestation, 		15,		list(ASSIGNMENT_SECURITY = 20), 1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Immovable Rod",			/datum/event/immovable_rod,				0,		list(ASSIGNMENT_ENGINEER = 30), 1),
 		//new /datum/event_meta/ninja(EVENT_LEVEL_MODERATE, "Space Ninja",		/datum/event/space_ninja, 				0,		list(ASSIGNMENT_SECURITY = 15), 1),
 		// NON-BAY EVENTS
