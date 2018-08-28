@@ -65,17 +65,15 @@ SUBSYSTEM_DEF(tickets)
 		resolveTicket(T.ticketNum)
 
 //Open a new ticket and populate details then add to the list of open tickets
-/datum/controller/subsystem/tickets/proc/newTicket(mob/M, passedContent, title)
-	if(!M || !passedContent)
+/datum/controller/subsystem/tickets/proc/newTicket(client/C, passedContent, title)
+	if(!C || !passedContent)
 		return
 
-	var/client/C = M.client
-
   //Check if the user has an open ticket already within the cooldown period, if so we don't create a new one and re-set the cooldown period
-	var/datum/admin_ticket/existingTicket = checkForOpenTicket(M)
+	var/datum/admin_ticket/existingTicket = checkForOpenTicket(C)
 	if(existingTicket)
 		existingTicket.setCooldownPeriod()
-		to_chat(C, "<span class='adminticket'>Your ticket #[existingTicket.ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
+		to_chat(C.mob, "<span class='adminticket'>Your ticket #[existingTicket.ticketNum] remains open! Visit \"My tickets\" under the Admin Tab to view it.</span>")
 		return
 
 	if(!title)
@@ -83,8 +81,8 @@ SUBSYSTEM_DEF(tickets)
 
 	var/datum/admin_ticket/T =  new(title, passedContent)
 	T.clientName = C
-	T.locationSent = M.loc.name
-	T.mobControlled = M
+	T.locationSent = C.mob.loc.name
+	T.mobControlled = C.mob
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "<span class='adminticket'>You have opened admin ticket number #[(SStickets.getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
@@ -111,16 +109,14 @@ SUBSYSTEM_DEF(tickets)
 		return TRUE
 
 //Check if the user already has a ticket open and within the cooldown period.
-/datum/controller/subsystem/tickets/proc/checkForOpenTicket(mob/M)
-	var/client/C = M.client
+/datum/controller/subsystem/tickets/proc/checkForOpenTicket(client/C)
 	for(var/datum/admin_ticket/T in allTickets)
 		if(T.clientName == C && T.ticketState == ADMIN_TICKET_OPEN && (T.ticketCooldown > world.time))
 			return T
 	return FALSE
 
 //Check if the user has ANY ticket not resolved or closed.
-/datum/controller/subsystem/tickets/proc/checkForTicket(mob/M)
-	var/client/C = M.client
+/datum/controller/subsystem/tickets/proc/checkForTicket(client/C)
 	var/list/tickets = list()
 	for(var/datum/admin_ticket/T in allTickets)
 		if(T.clientName == C && (T.ticketState == ADMIN_TICKET_OPEN || T.ticketState == ADMIN_TICKET_STALE))
@@ -134,8 +130,7 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/admin_ticket/T = SStickets.allTickets[N]
 	return T.clientName
 
-/datum/controller/subsystem/tickets/proc/assignAdminToTicket(mob/M, var/N)
-	var/client/C = M.client
+/datum/controller/subsystem/tickets/proc/assignAdminToTicket(client/C, var/N)
 	var/datum/admin_ticket/T = SStickets.allTickets[N]
 	T.assignAdmin(C)
 	return TRUE
@@ -173,8 +168,7 @@ SUBSYSTEM_DEF(tickets)
 	ticketCooldown = world.time + ADMIN_TICKET_DUPLICATE_COOLDOWN
 
 //Set the last admin who responded as the client passed as an arguement.
-/datum/admin_ticket/proc/setLastAdminResponse(mob/M)
-	var/client/C = M.client
+/datum/admin_ticket/proc/setLastAdminResponse(client/C)
 	lastAdminResponse = C
 	lastResponseTime = worldtime2text()
 
@@ -191,15 +185,13 @@ SUBSYSTEM_DEF(tickets)
 			return "<font color='orange'>STALE</font>"
 
 //Assign the client passed to var/adminAsssigned
-/datum/admin_ticket/proc/assignAdmin(mob/M, var/N)
-	var/client/C = M.client
+/datum/admin_ticket/proc/assignAdmin(client/C, var/N)
 	if(!C)
 		return
 	adminAssigned = C
 	return TRUE
 
-/datum/admin_ticket/proc/addResponse(mob/M, msg)
-	var/client/C = M.client
+/datum/admin_ticket/proc/addResponse(client/C, msg)
 	if(C.holder)
 		setLastAdminResponse(C)
 	M = "[C]: [msg]"
@@ -310,7 +302,7 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/userDetailUI(mob/user)
 //dat
-	var/tickets = checkForTicket(user)
+	var/tickets = checkForTicket(user.client)
 	var/dat
 	dat += "<h1>Your open tickets</h1>"
 	dat += "<table>"
