@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/Initialize()
 	LAZYINITLIST(allTickets)
-	..()
+	return ..()
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()
@@ -33,6 +33,9 @@ SUBSYSTEM_DEF(tickets)
 		for(var/num in stales)
 			report += "[num], "
 		message_adminTicket("<span class='adminticket'>Tickets [report] have been open for over [ADMIN_TICKET_TIMEOUT MINUTES] minutes. Changing status to stale.</span>")
+
+/datum/controller/subsystem/tickets/stat_entry()
+	..("Tickets: [allTickets.len]")
 
 /datum/controller/subsystem/tickets/proc/checkStaleness()
 	var/stales = list()
@@ -44,10 +47,6 @@ SUBSYSTEM_DEF(tickets)
 			var/id = ticket.makeStale()
 			stales += id
 	return stales
-
-/datum/controller/subsystem/tickets/proc/purgeAllTickets()
-	if(LAZYLEN(allTickets))
-		LAZYCLEARLIST(allTickets)
 
 //Return the current ticket number ready to be called off.
 /datum/controller/subsystem/tickets/proc/getTicketCounter()
@@ -185,7 +184,7 @@ SUBSYSTEM_DEF(tickets)
 			return "<font color='orange'>STALE</font>"
 
 //Assign the client passed to var/adminAsssigned
-/datum/admin_ticket/proc/assignAdmin(client/C, var/N)
+/datum/admin_ticket/proc/assignAdmin(client/C)
 	if(!C)
 		return
 	adminAssigned = C
@@ -194,7 +193,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/admin_ticket/proc/addResponse(client/C, msg)
 	if(C.holder)
 		setLastAdminResponse(C)
-	M = "[C]: [msg]"
+	msg = "[C]: [msg]"
 	content += msg
 
 /datum/admin_ticket/proc/makeStale()

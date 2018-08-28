@@ -22,8 +22,6 @@
 
 	SStickets.resolveAllOpenTickets()
 
-
-
 /client/proc/openUserUI()
 
 	set name = "My Tickets"
