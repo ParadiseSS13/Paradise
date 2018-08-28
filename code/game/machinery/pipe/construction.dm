@@ -140,6 +140,7 @@
 //update the name and icon of the pipe item depending on the type
 
 /obj/item/pipe/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	. = TRUE
 	if(our_rpd.mode == RPD_ROTATE_MODE)
 		rotate()
 	else if(our_rpd.mode == RPD_FLIP_MODE)
@@ -147,7 +148,7 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_single_pipe(user, src)
 	else
-		..()
+		return ..()
 
 /obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"

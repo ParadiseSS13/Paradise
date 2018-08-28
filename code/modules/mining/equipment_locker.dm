@@ -664,6 +664,9 @@
 							var/turf/T = get_turf(H)
 							T.add_vomit_floor(H)
 							playsound(H, 'sound/effects/splat.ogg', 50, 1)
+		else
+			visible_message("<span class='warning'>[src] flickers and fails, due to bluespace interference!</span>")
+			qdel(src)
 
 /**********************Resonator**********************/
 

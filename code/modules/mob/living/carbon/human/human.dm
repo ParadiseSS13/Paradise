@@ -1328,7 +1328,7 @@
 	dna.species.create_organs(src)
 
 	for(var/thing in kept_items)
-		equip_to_slot_or_del(thing, kept_items[thing])
+		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")

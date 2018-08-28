@@ -258,6 +258,7 @@
 			return
 
 /obj/structure/disposalconstruct/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	. = TRUE
 	if(our_rpd.mode == RPD_ROTATE_MODE)
 		rotate()
 	else if(our_rpd.mode == RPD_FLIP_MODE)
@@ -265,4 +266,4 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_single_pipe(user, src)
 	else
-		..()
+		return ..()
