@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "Silicons no longer broadcast their radio message to everyone in hearing range (Only those next to them). Yes, that's a bug, not a feature."
