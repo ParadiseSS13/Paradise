@@ -1354,7 +1354,8 @@
 		dna.species.create_organs(src)
 
 		//Apply relevant damages and variables to the new organs.
-		for(var/obj/item/organ/external/E in bodyparts)
+		for(var/B in bodyparts)
+			var/obj/item/organ/external/E = B
 			for(var/list/part in bodypart_damages)
 				var/obj/item/organ/external/OE = part[1]
 				if((E.type == OE.type)) // Type has to be explicit, as right limbs are a child of left ones etc.
@@ -1366,7 +1367,8 @@
 					E.internal_bleeding = IB
 					qdel(part)
 
-		for(var/obj/item/organ/internal/I in internal_organs)
+		for(var/O in internal_organs)
+			var/obj/item/organ/internal/I = O
 			for(var/list/part in internal_damages)
 				var/obj/item/organ/internal/OI = part[1]
 				var/organ_type
