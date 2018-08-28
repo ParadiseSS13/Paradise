@@ -200,7 +200,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"large_stamp-law.png"       = 'icons/paper_icons/large_stamp-law.png',
 		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
 		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
-		"large_stamp-rep.png"		= 'icons/paper_icons/large_stamp-rep.png',
+		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
 	)
