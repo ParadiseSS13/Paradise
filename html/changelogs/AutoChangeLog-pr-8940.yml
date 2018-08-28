@@ -1,0 +1,6 @@
+author: "Alffd"
+delete-after: True
+changes: 
+  - bugfix: "Fixes emote code to preform mute checking in the same manner as say code."
+  - rscadd: "Adds a new type of muzzle that will shock its wearer when pulsed by an assembly."
+  - rscadd: "Adds a new type of voice trigger assembly that is activated by audible emotes."
