@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - bugfix: "Fixes torn down posters dropping hypothetical poster when their wall is deconstructed."
