@@ -202,45 +202,26 @@
 	var/aggressiveness = 1
 	var/safety = 1
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
-	var/phrase_sound_list = list(
-								"halt",
-								"bobby",
-								"compliance",
-								"justice",
-								"running",
-								"dontmove",
-								"floor",
-								"robocop",
-								"god",
-								"freeze",
-								"imperial",
-								"bash",
-								"harry",
-								"asshole",
-								"stfu",
-								"shutup",
-								"super",
-								"dredd"
-								)
-	var/phrase_text_list = list(
-								"HALT! HALT! HALT! HALT!",
-								"Stop in the name of the Law.",
-								"Compliance is in your best ineterest.",
-								"Prepare for justice!",
-								"Running will only increase your sentence",
-								"Don't move, Creep!",
-								"Down on the floor, Creep!",
-								"Dead or alive you're coming with me.",
-								"God made today for the crooks we could not catch yesterday.",
-								"Freeze, Scum Bag!",
-								"Stop right there, criminal scum!",
-								"Stop or I'll bash you.",
-								"Go ahead, make my day",
-								"Stop breaking the law, asshole.",
-								"You have the right to shut the fuck up",
-								"Shut up crime!",
-								"Face the wrath of the golden bolt.",
-								"I am, the LAW!"
+	var/phrase_list = list(
+					
+								"halt" 			= "HALT! HALT! HALT! HALT!",
+								"bobby" 		= "Stop in the name of the Law.",
+								"compliance" 	= "Compliance is in your best ineterest.",
+								"justice"		= "Prepare for justice!",
+								"running"		= "Running will only increase your sentence",
+								"dontmove"		= "Don't move, Creep!",
+								"floor"			= "Down on the floor, Creep!",
+								"robocop"		= "Dead or alive you're coming with me.",
+								"god"			= "God made today for the crooks we could not catch yesterday.",
+								"freeze"		= "Freeze, Scum Bag!",
+								"imperial"		= "Stop right there, criminal scum!",
+								"bash"			= "Stop or I'll bash you.",
+								"harry"			= "Go ahead, make my day",
+								"asshole"		= "Stop breaking the law, asshole.",
+								"stfu"			= "You have the right to shut the fuck up",
+								"shutup"		= "Shut up crime!",
+								"super"			= "Face the wrath of the golden bolt.",
+								"dredd"			= "I am, the LAW!"
 								)
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
@@ -289,19 +270,34 @@
 	else if(actiontype == /datum/action/item_action/adjust)
 		adjustmask(user)
 	else if(actiontype == /datum/action/item_action/selectphrase)
+		var/key = phrase_list[phrase]
+		var/message = phrase_list[key]
+		
+		if (!safety)
+			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
+			return
+		
 		switch(aggressiveness)
 			if(1)
 				phrase = (phrase < 6) ? (phrase + 1) : 1
-				to_chat(user,"<span class='notice'>You set the restrictor to: [phrase_text_list[phrase]]</span>")
+				key = phrase_list[phrase]
+				message = phrase_list[key]
+				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			if(2)
 				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
-				to_chat(user,"<span class='notice'>You set the restrictor to: [phrase_text_list[phrase]]</span>")
+				key = phrase_list[phrase]
+				message = phrase_list[key]
+				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			if(3)
 				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
-				to_chat(user,"<span class='notice'>You set the restrictor to: [phrase_text_list[phrase]]</span>")
+				key = phrase_list[phrase]
+				message = phrase_list[key]
+				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			if(4)
 				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
-				to_chat(user,"<span class='notice'>You set the restrictor to: [phrase_text_list[phrase]]</span>")
+				key = phrase_list[phrase]
+				message = phrase_list[key]
+				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			else
 				to_chat(user, "<span class='notice'>It's broken.</span>")
 
@@ -344,20 +340,20 @@
 		return
 
 /obj/item/clothing/mask/gas/sechailer/proc/halt()
-	var/phrase_text = phrase_text_list[phrase]
-	var/phrase_sound = phrase_sound_list[phrase]
+	var/key = phrase_list[phrase]
+	var/message = phrase_list[key]
 
 
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
 		if(!safety)
-			phrase_text = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
-			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[phrase_text]</b></font>")
+			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
+			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
 			playsound(src.loc, 'sound/voice/binsult.ogg', 100, 0, 4)
 			cooldown = world.time
 			return
 
-		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[phrase_text]</b></font>")
-		playsound(src.loc, "sound/voice/complionator/[phrase_sound].ogg", 100, 0, 4)
+		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
+		playsound(src.loc, "sound/voice/complionator/[phrase_list[phrase]].ogg", 100, 0, 4)
 		cooldown = world.time
 
 
