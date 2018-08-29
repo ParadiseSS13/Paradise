@@ -206,7 +206,7 @@
 					
 								"halt" 			= "HALT! HALT! HALT! HALT!",
 								"bobby" 		= "Stop in the name of the Law.",
-								"compliance" 	= "Compliance is in your best ineterest.",
+								"compliance" 		= "Compliance is in your best ineterest.",
 								"justice"		= "Prepare for justice!",
 								"running"		= "Running will only increase your sentence",
 								"dontmove"		= "Don't move, Creep!",
