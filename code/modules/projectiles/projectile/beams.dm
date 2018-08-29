@@ -119,6 +119,14 @@
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"
 
+/obj/item/projectile/beam/immolator/strong
+	name = "heavy immolation beam"
+	damage = 45
+
+/obj/item/projectile/beam/immolator/weak
+	name = "light immolation beam"
+	damage = 8
+
 /obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
 	if(istype(target, /mob/living/carbon))
