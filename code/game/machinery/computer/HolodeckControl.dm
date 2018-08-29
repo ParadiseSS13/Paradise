@@ -383,8 +383,26 @@
 /obj/structure/rack/holorack
 	can_deconstruct = FALSE
 
+
+/obj/structure/stool/holostool
+	can_deconstruct = FALSE
+
+
 /obj/item/holo
 	damtype = STAMINA
+
+/obj/item/stool/holostool
+	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/stool/holostool/attack(mob/M as mob, mob/user as mob)
+	if(prob(5) && istype(M,/mob/living))
+		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
+		user.unEquip(src)
+		qdel(src)
+		var/mob/living/T = M
+		T.Weaken(5)
+		return
+	..()
 
 /obj/item/holo/claymore
 	name = "claymore"
@@ -457,14 +475,18 @@
 	add_fingerprint(user)
 	return
 
-//BASKETBALL OBJECTS
+
 /obj/item/beach_ball/holoball
+	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pocket
+
+
+//BASKETBALL OBJECTS
+/obj/item/beach_ball/holoball/basketball
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "basketball"
 	name = "basketball"
 	item_state = "basketball"
 	desc = "Here's your chance, do your dance at the Space Jam."
-	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 
 /obj/structure/holohoop
 	name = "basketball hoop"
