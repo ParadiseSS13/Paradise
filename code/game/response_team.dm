@@ -651,7 +651,7 @@ var/ert_request_answered = 0
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/night
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/surgery = 1
+		/obj/item/organ/internal/cyberimp/arm/surgery
 	)
 
 	belt = /obj/item/defibrillator/compact/loaded
@@ -739,7 +739,7 @@ var/ert_request_answered = 0
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment = 1
+		/obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 	r_pocket = /obj/item/scythe/tele
 	l_pocket = /obj/item/gun/energy/gun/mini
