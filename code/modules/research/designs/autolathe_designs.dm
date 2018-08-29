@@ -551,6 +551,14 @@
 	build_path = /obj/item/assembly/voice
 	category = list("initial", "Miscellaneous")
 
+/datum/design/noise_analyser
+	name = "Noise Analyser"
+	id = "Noise_analyser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 10)
+	build_path = /obj/item/assembly/voice/noise
+	category = list("initial", "Miscellaneous")
+
 /datum/design/light_tube
 	name = "Light Tube"
 	id = "light_tube"

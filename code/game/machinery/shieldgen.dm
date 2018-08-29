@@ -541,6 +541,8 @@
 /obj/machinery/shieldwall/attack_hand(mob/user as mob)
 	return
 
+/obj/machinery/shieldwall/rpd_blocksusage()
+	return TRUE
 
 /obj/machinery/shieldwall/process()
 	if(needs_power)
