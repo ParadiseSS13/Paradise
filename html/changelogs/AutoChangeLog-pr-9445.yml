@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "Cutting wires shouldn't cause a runtime error anymore."
