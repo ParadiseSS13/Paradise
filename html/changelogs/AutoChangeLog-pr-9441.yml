@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Fixed various bugs with spider structures (webs, cocoons, etc), such as them not triggering attack animations, not respecting melee cooldowns, being invulnerable to simple_animals and aliens, etc."
