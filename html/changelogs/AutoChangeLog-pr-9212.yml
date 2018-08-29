@@ -1,6 +1,0 @@
-author: "Superhats"
-delete-after: True
-changes: 
-  - tweak: "ERT equipment has been reviewed by Nanotrasen and changed to more appropriately assist the station when called."
-  - bugfix: "Amber Janitor ERT Armor sprite now works."
-  - rscadd: "Field Surgery Belt added for Code Amber Medical ERT"
