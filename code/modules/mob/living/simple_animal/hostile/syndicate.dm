@@ -211,12 +211,13 @@
 	alert_on_shield_breach = TRUE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize()
-	. = ..()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
 	if(istype(depotarea))
 		var/list/key_candidates = list()
 		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in living_mob_list)
-			if(O == src)
-				continue
 			key_candidates += O
 		if(key_candidates.len)
 			var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)
