@@ -246,6 +246,8 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	if(istype(M, /mob/living/carbon))
 		if(exilecheck(M)) return
 	if(istype(M, /obj))
+		if(M.can_buckle && M.has_buckled_mobs())
+			if(exilecheck(M.buckled_mob)) return
 		for(var/mob/living/carbon/F in M)
 			if(exilecheck(F)) return
 	M.forceMove(get_step(stationgate.loc, SOUTH))
