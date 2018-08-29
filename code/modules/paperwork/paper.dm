@@ -316,7 +316,7 @@
 				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
 				add_fingerprint(user)
 				return
-		var/obj/item/paper_bundle/B = new(src.loc)
+		var/obj/item/paper_bundle/B = new(src.loc, default_papers = FALSE)
 		if(name != "paper")
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
