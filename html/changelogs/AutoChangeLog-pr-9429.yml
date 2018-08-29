@@ -1,0 +1,4 @@
+author: "Agameofscones"
+delete-after: True
+changes: 
+  - bugfix: "Removes stray pixel in RD sechud."
