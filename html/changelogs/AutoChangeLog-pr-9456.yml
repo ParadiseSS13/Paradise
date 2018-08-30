@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "Being incapacitated when changing IPC monitor now show a message properly."
