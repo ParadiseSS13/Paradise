@@ -1,0 +1,4 @@
+author: "Alffd"
+delete-after: True
+changes: 
+  - bugfix: "Fix emote check of can_speak() to only return if the emote produces sound."
