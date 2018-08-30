@@ -206,7 +206,7 @@
 					
 								"halt" 			= "HALT! HALT! HALT! HALT!",
 								"bobby" 		= "Stop in the name of the Law.",
-								"compliance" 		= "Compliance is in your best ineterest.",
+								"compliance" 	= "Compliance is in your best ineterest.",
 								"justice"		= "Prepare for justice!",
 								"running"		= "Running will only increase your sentence",
 								"dontmove"		= "Don't move, Creep!",
@@ -353,7 +353,7 @@
 			return
 
 		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
-		playsound(src.loc, "sound/voice/complionator/[phrase_list[phrase]].ogg", 100, 0, 4)
+		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, 0, 4)
 		cooldown = world.time
 
 
