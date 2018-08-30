@@ -280,6 +280,7 @@
 		if(iscarbon(A))
 			var/mob/living/carbon/C = A
 			if(C.can_breathe_gas())
+				chemholder.reagents.reaction(C, INGEST)//React with the living, transfers virusses and vaccines alike
 				chemholder.reagents.copy_to(C, chemholder.reagents.total_volume)
 	qdel(smokeholder)
 	for(var/i=0, i<number, i++)

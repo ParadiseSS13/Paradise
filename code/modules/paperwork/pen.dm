@@ -133,6 +133,7 @@
 	if(..())
 		if(reagents.total_volume)
 			if(M.reagents)
+				reagents.reaction(M, INGEST)//React with the living, transfers virusses and vaccines alike
 				reagents.trans_to(M, 50)
 
 
