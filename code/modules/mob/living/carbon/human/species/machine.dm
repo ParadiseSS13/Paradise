@@ -131,7 +131,7 @@
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 	
 		if(H.incapacitated())
-			to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
+			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 			return
 
 		if(new_style)
