@@ -142,7 +142,7 @@
 	doing = 0
 	inactivity_period = 0
 
-/client/proc/resetSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
+/client/proc/resetSNPC(mob/living/carbon/human/interactive/T in SSnpcpool.botPool_l)
 	set name = "Reset SNPC"
 	set desc = "Reset the SNPC"
 	set category = "Debug"
@@ -153,7 +153,7 @@
 	if(istype(T))
 		T.reset()
 
-/client/proc/toggleSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
+/client/proc/toggleSNPC(mob/living/carbon/human/interactive/T in SSnpcpool.botPool_l)
 	set name = "Toggle SNPC Proccessing Mode"
 	set desc = "Toggle SNPC Proccessing Mode"
 	set category = "Debug"
@@ -166,7 +166,7 @@
 		T.forceProcess = 1
 		to_chat(usr, "[T]'s processing has been switched to [T.alternateProcessing ? "High Profile" : "Low Profile"]")
 
-/client/proc/customiseSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
+/client/proc/customiseSNPC(mob/living/carbon/human/interactive/T in SSnpcpool.botPool_l)
 	set name = "Customize SNPC"
 	set desc = "Customize the SNPC"
 	set category = "Debug"
@@ -419,7 +419,7 @@
 	sync_mind()
 	random()
 	doSetup()
-	npc_master.insertBot(src)
+	SSnpcpool.insertBot(src)
 	loadVoice()
 	hear_radio_list += src
 
@@ -434,7 +434,7 @@
 /mob/living/carbon/human/interactive/Destroy()
 	hear_radio_list -= src
 	snpc_list -= src
-	npc_master.removeBot(src)
+	SSnpcpool.removeBot(src)
 	return ..()
 
 /mob/living/carbon/human/interactive/proc/retalTarget(mob/living/target)

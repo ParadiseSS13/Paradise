@@ -1,6 +1,9 @@
-var/global/datum/controller/process/npcpool/npc_master
+SUBSYSTEM_DEF(npcpool)
+	name = "NPC Pool"
+	flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
+	priority = FIRE_PRIORITY_NPC
+	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
-/datum/controller/process/npcpool
 	var/list/canBeUsed = list()
 	var/list/canBeUsed_non = list()
 	var/list/needsDelegate = list()
@@ -9,36 +12,14 @@ var/global/datum/controller/process/npcpool/npc_master
 	var/list/botPool_l = list() //list of all npcs using the pool
 	var/list/botPool_l_non = list() //list of all non SNPC mobs using the pool
 
-/datum/controller/process/npcpool/setup()
-	name = "npc pool"
-	schedule_interval = 100
-	start_delay = 17
-	log_startup_progress("NPC pool ticker starting up.")
-
-/datum/controller/process/npcpool/copyStateFrom(var/datum/controller/process/npcpool/target)
-	canBeUsed = target.canBeUsed
-	canBeUsed_non = target.canBeUsed_non
-	needsDelegate = target.needsDelegate
-	needsAssistant = target.needsAssistant
-	needsHelp_non = target.needsHelp_non
-	botPool_l = target.botPool_l
-	botPool_l_non = target.botPool_l_non
-
-
-DECLARE_GLOBAL_CONTROLLER(npcpool, npc_master)
-
-/datum/controller/process/npcpool/proc/insertBot(toInsert)
+/datum/controller/subsystem/npcpool/proc/insertBot(toInsert)
 	if(istype(toInsert, /mob/living/carbon/human/interactive))
 		botPool_l |= toInsert
 
-/datum/controller/process/npcpool/proc/removeBot(toRemove)
+/datum/controller/subsystem/npcpool/proc/removeBot(toRemove)
 	botPool_l -= toRemove
 
-/datum/controller/process/npcpool/statProcess()
-	..()
-	stat(null, "T [botPool_l.len + botPool_l_non.len] | D [needsDelegate.len] | A [needsAssistant.len + needsHelp_non.len] | U [canBeUsed.len + canBeUsed_non.len]")
-
-/datum/controller/process/npcpool/doWork()
+/datum/controller/subsystem/npcpool/fire()
 	//bot delegation and coordination systems
 	//General checklist/Tasks for delegating a task or coordinating it (for SNPCs)
 	// 1. Bot proximity to task target: if too far, delegate, if close, coordinate
@@ -66,7 +47,6 @@ DECLARE_GLOBAL_CONTROLLER(npcpool, npc_master)
 
 		else
 			canBeUsed |= check
-		SCHECK
 
 	if(needsDelegate.len)
 		needsDelegate -= pick(needsDelegate) // cheapo way to make sure stuff doesn't pingpong around in the pool forever. delegation runs seperately to each loop so it will work much smoother
@@ -91,7 +71,6 @@ DECLARE_GLOBAL_CONTROLLER(npcpool, npc_master)
 						needsDelegate -= check
 						canBeUsed -= candidate
 						candidate.change_eye_color(255, 0, 0)
-			SCHECK
 
 	if(needsAssistant.len)
 		needsAssistant -= pick(needsAssistant)
@@ -116,4 +95,3 @@ DECLARE_GLOBAL_CONTROLLER(npcpool, npc_master)
 						needsAssistant -= check
 						canBeUsed -= candidate
 						candidate.change_eye_color(255, 255, 0)
-			SCHECK
