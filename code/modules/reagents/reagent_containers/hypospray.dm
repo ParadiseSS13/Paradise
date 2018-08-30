@@ -34,6 +34,7 @@
 				injected += R.name
 
 			var/primary_reagent_name = reagents.get_master_reagent_name()
+			reagents.reaction(M, INGEST)
 			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
 
 			if(safety_hypo)
