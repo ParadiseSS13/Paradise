@@ -268,7 +268,7 @@
 					var/turf/T = get_turf(src)
 					new material_drop(T, material_drop_amount)
 					qdel(src)
-					return
+				return
 		if(isrobot(user))
 			return
 		if(!user.drop_item()) //couldn't drop the item
