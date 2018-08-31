@@ -122,10 +122,12 @@
 /obj/item/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
 	damage = 45
+	icon_state = "heavylaser"
 
 /obj/item/projectile/beam/immolator/weak
 	name = "light immolation beam"
 	damage = 8
+	icon_state = "scatterlaser"
 
 /obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
