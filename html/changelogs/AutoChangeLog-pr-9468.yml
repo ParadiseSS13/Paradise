@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "Borg & AI say actually work properly now. They no longer become whisper."
