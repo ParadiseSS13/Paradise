@@ -7,9 +7,9 @@
 	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, rad = 0)
 	var/icon_closed = "closed"
 	var/icon_opened = "open"
-	var/opened = 0
-	var/welded = 0
-	var/locked = 0
+	var/opened = FALSE
+	var/welded = FALSE
+	var/locked = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
 	var/health = 100
 	var/lastbang
@@ -34,19 +34,20 @@
 	return ..()
 
 /obj/structure/closet/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0 || wall_mounted) return 1
+	if(height==0 || wall_mounted)
+		return TRUE
 	return (!density)
 
 /obj/structure/closet/proc/can_open()
 	if(welded)
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /obj/structure/closet/proc/can_close()
 	for(var/obj/structure/closet/closet in get_turf(src))
 		if(closet != src && closet.anchored != 1)
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /obj/structure/closet/proc/dump_contents()
 	var/turf/T = get_turf(src)
@@ -59,27 +60,27 @@
 
 /obj/structure/closet/proc/open()
 	if(opened)
-		return 0
+		return FALSE
 
 	if(!can_open())
-		return 0
+		return FALSE
 
 	dump_contents()
 
 	icon_state = icon_opened
-	opened = 1
+	opened = TRUE
 	if(sound)
 		playsound(loc, sound, 15, 1, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 0
-	return 1
+	return TRUE
 
 /obj/structure/closet/proc/close()
 	if(!opened)
-		return 0
+		return FALSE
 	if(!can_close())
-		return 0
+		return FALSE
 
 	var/itemcount = 0
 
@@ -109,13 +110,13 @@
 		itemcount++
 
 	icon_state = icon_closed
-	opened = 0
+	opened = FALSE
 	if(sound)
 		playsound(loc, sound, 15, 1, -3)
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, 1, -3)
 	density = 1
-	return 1
+	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/user)
 	if(!(opened ? close() : open()))
@@ -250,7 +251,7 @@
 		if(istype(W, /obj/item/grab))
 			MouseDrop_T(W:affecting, user)      //act like they were dragged onto the closet
 		if(istype(W,/obj/item/tk_grab))
-			return 0
+			return FALSE
 		if(istype(W, cutting_tool))
 			if(istype(W, /obj/item/weldingtool))
 				var/obj/item/weldingtool/WT = W
@@ -375,8 +376,9 @@
 // should be independently resolved, but this is also an interesting twist.
 /obj/structure/closet/Exit(atom/movable/AM)
 	open()
-	if(AM.loc == src) return 0
-	return 1
+	if(AM.loc == src)
+		return FALSE
+	return TRUE
 
 /obj/structure/closet/container_resist(var/mob/living/L)
 	var/breakout_time = 2 //2 minutes by default
@@ -408,7 +410,7 @@
 				return
 
 			//Well then break it!
-			welded = 0
+			welded = FALSE
 			update_icon()
 			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
 			for(var/mob/O in viewers(L.loc))
