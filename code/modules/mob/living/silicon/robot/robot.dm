@@ -653,9 +653,14 @@ var/list/robot_verbs_default = list(
 					var/datum/robot_component/C = components[V]
 					if(C.installed == 1 || C.installed == -1)
 						removable_components += V
-
+				if(src.module && istype(src.module, /obj/item/robot_module/miner))
+					removable_components += "KA modkits"
 				var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
 				if(!remove)
+					return
+				if(remove == "KA modkits")
+					for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src.module.modules)
+						D.attackby(W, user, params)
 					return
 				var/datum/robot_component/C = components[remove]
 				var/obj/item/robot_parts/robot_component/I = C.wrapped
