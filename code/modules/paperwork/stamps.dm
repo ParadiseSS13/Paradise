@@ -72,8 +72,13 @@
 	icon_state = "stamp-clown"
 	item_color = "clown"
 
-/obj/item/stamp/centcom
+/obj/item/stamp/rep
 	name = "Nanotrasen Representative's rubber stamp"
+	icon_state = "stamp-rep"
+	item_color = "rep"
+	
+/obj/item/stamp/centcom
+	name = "Central Command rubber stamp"
 	icon_state = "stamp-cent"
 	item_color = "centcom"
 

@@ -133,6 +133,40 @@
 		/obj/item/wrench/medical,
 	)
 
+/obj/item/storage/belt/medical/surgery
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 17
+	use_to_pickup = 1
+	name = "Surgical Belt"
+	desc = "Can hold various surgical tools."
+	storage_slots = 9
+	use_item_overlays = 1
+	can_hold = list(
+		/obj/item/scalpel,
+		/obj/item/hemostat,
+		/obj/item/retractor,
+		/obj/item/circular_saw,
+		/obj/item/bonegel,
+		/obj/item/bonesetter,
+		/obj/item/FixOVein,
+		/obj/item/surgicaldrill,
+		/obj/item/cautery,
+	)
+
+/obj/item/storage/belt/medical/surgery/loaded
+
+/obj/item/storage/belt/medical/surgery/loaded/New()
+	..()
+	new /obj/item/scalpel(src)
+	new /obj/item/hemostat(src)
+	new /obj/item/retractor(src)
+	new /obj/item/circular_saw(src)
+	new /obj/item/bonegel(src)
+	new /obj/item/bonesetter(src)
+	new /obj/item/FixOVein(src)
+	new /obj/item/surgicaldrill(src)
+	new /obj/item/cautery(src)
+
 /obj/item/storage/belt/medical/response_team
 
 /obj/item/storage/belt/medical/response_team/New()
@@ -203,7 +237,7 @@
 
 /obj/item/storage/belt/security/response_team/New()
 	..()
-	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/flash(src)
 	new /obj/item/melee/classic_baton/telescopic(src)
