@@ -290,9 +290,8 @@ var/list/robot_verbs_default = list(
 		if(N.kickoff)
 			modules = list("Nations")
 	if(mmi != null && mmi.alien)
-		modtype = "Hunter"
-	else
-		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+		modules = list("Hunter")
+	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
 		return
 	designation = modtype
