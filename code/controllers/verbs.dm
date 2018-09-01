@@ -85,7 +85,7 @@
 			debug_variables(SSmobs)
 			feedback_add_details("admin_verb","DMob")
 		if("NPC AI")
-			debug_variables(npcai_master)
+			debug_variables(SSnpcai)
 			feedback_add_details("admin_verb","DNPCAI")
 		if("Shuttle")
 			debug_variables(shuttle_master)
