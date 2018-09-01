@@ -179,8 +179,12 @@
 		T.myjob = cjob
 		T.job = cjob.title
 		T.mind.assigned_role = cjob.title
-		for(var/obj/item/W in T)
-			qdel(W)
+		for(var/obj/item/I in T)
+			if(istype(I, /obj/item/implant))
+				continue
+			if(istype(I, /obj/item/organ))
+				continue
+			qdel(I)
 		T.myjob.equip(T)
 		T.doSetup(alt_title)
 
