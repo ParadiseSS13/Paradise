@@ -376,8 +376,8 @@
 				setMenuState(usr,COMM_SCREEN_MAIN)
 
 			if("RestartNanoMob")
-				if(mob_hunt_server)
-					if(mob_hunt_server.manual_reboot())
+				if(SSmob_hunt)
+					if(SSmob_hunt.manual_reboot())
 						var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
 											"Capturing all of them", "Fixing minor text issues", "Being the very best",
 											"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
