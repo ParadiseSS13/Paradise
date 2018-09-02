@@ -784,7 +784,7 @@
 "pd" = (/obj/effect/decal/warning_stripes/southeastcorner,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pe" = (/obj/effect/decal/warning_stripes/south,/turf/unsimulated/floor{icon_state = "bar"; dir = 2},/area/syndicate_mothership)
 "pf" = (/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
-"pg" = (/obj/machinery/power/apc{dir = 2; name = "Gamma Armory APC"; pixel_x = -24; pixel_y = 0},/obj/structure/cable{d2 = 2; icon_state = "0-2"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
+"pg" = (/obj/machinery/power/apc{dir = 8; name = "Gamma Armory APC"; pixel_x = -24; pixel_y = 0},/obj/structure/cable{d2 = 2; icon_state = "0-2"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
 "ph" = (/obj/machinery/recharger/wallcharger{pixel_x = 32},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
 "pi" = (/obj/machinery/computer/mech_bay_power_console,/obj/structure/cable,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
 "pj" = (/obj/structure/sign/securearea{pixel_x = -32; pixel_y = 0},/obj/mecha/combat/durand/loaded{operation_req_access = list(1)},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/mech_bay_recharge_floor,/area/shuttle/gamma/space)
