@@ -16,7 +16,7 @@
 	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
 	shuttle_caller_list -= src
-	shuttle_master.autoEvac()
+	SSshuttle.autoEvac()
 
 	if(nuking)
 		set_security_level("red")
@@ -26,10 +26,10 @@
 
 	if(doomsday_device)
 		doomsday_device.timing = 0
-		shuttle_master.emergencyNoEscape = 0
-		if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
-			shuttle_master.emergency.mode = SHUTTLE_DOCKED
-			shuttle_master.emergency.timer = world.time
+		SSshuttle.emergencyNoEscape = 0
+		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+			SSshuttle.emergency.mode = SHUTTLE_DOCKED
+			SSshuttle.emergency.timer = world.time
 			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 		qdel(doomsday_device)
 

@@ -108,7 +108,7 @@
 
 	//check for centcomm shuttles
 	for(var/centcom_shuttle in list("emergency", "pod1", "pod2", "pod3", "pod4", "ferry"))
-		var/obj/docking_port/mobile/M = shuttle_master.getShuttle(centcom_shuttle)
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(centcom_shuttle)
 		if(T in M.areaInstance)
 			return 1
 

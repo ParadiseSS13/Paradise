@@ -251,10 +251,10 @@
 		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
-	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
+	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
-		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
-		shuttle_master.emergency.setTimer(timer)
+		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
+		SSshuttle.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
 		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 50, 1)
 		qdel(src)

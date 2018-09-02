@@ -299,7 +299,7 @@ proc/issyndicate(mob/living/M as mob)
 		if(!D.onCentcom())
 			disk_rescued = 0
 			break
-	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	var/crew_evacuated = (SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 	//var/operatives_are_dead = is_operatives_are_dead()
 
 

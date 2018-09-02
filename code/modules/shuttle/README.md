@@ -124,7 +124,7 @@ use on Paradise, and none are very complex.
 ### Shuttle Controller
 This is a very simple change. On -tg-station13, the shuttle controller is referenced by a
 variable named `SSShuttle`. On Paradise, due to controller naming conventions, it is
-instead named `shuttle_master`.
+instead named `SSshuttle`.
 
 ### Airlocks
 The biggest modification comes in the form of how docking ports interact with airlocks.

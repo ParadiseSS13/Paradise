@@ -256,7 +256,7 @@ var/global/list/all_cults = list()
 			var/area/A = get_area(cult_mind.current )
 			if( is_type_in_list(A, centcom_areas))
 				acolytes_survived++
-			else if(A == shuttle_master.emergency.areaInstance && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)  //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
+			else if(A == SSshuttle.emergency.areaInstance && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)  //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
 				acolytes_survived++
 
 	if(acolytes_survived>=acolytes_needed)

@@ -89,10 +89,10 @@
 			return 1
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
 			var/use_warn = 0
-			if(shuttle_master.emergency && shuttle_master.emergency.timer)
+			if(SSshuttle.emergency && SSshuttle.emergency.timer)
 				use_warn = 1
-				message1 = "-[shuttle_master.emergency.getModeStr()]-"
-				message2 = shuttle_master.emergency.getTimerStr()
+				message1 = "-[SSshuttle.emergency.getModeStr()]-"
+				message2 = SSshuttle.emergency.getTimerStr()
 
 				if(length(message2) > CHARS_PER_LINE)
 					message2 = "Error!"
