@@ -88,6 +88,9 @@
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
 		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
 			mob_swap = 1
+		//the AI is not supposed to move without being pulled, unanchor and drag it
+		if (M.type == /mob/living/silicon/ai)
+			mob_swap = 0
 		if(mob_swap)
 			//switch our position with M
 			if(loc && !loc.Adjacent(M.loc))
