@@ -10,6 +10,7 @@
 	var/spamcheck = 0
 	var/emagged = 0
 	var/insults = 0
+	var/span = ""
 	var/list/insultmsg = list("FUCK EVERYONE!", "I'M A TATER!", "ALL SECURITY TO SHOOT ME ON SIGHT!", "I HAVE A BOMB!", "CAPTAIN IS A COMDOM!", "FOR THE SYNDICATE!")
 
 /obj/item/megaphone/attack_self(mob/living/user as mob)
@@ -32,6 +33,10 @@
 		if(H && H.mind && H.mind.miming)
 			to_chat(user, "<span class='warning'>Your vow of silence prevents you from speaking.</span>")
 			return
+		if(H.mind)
+			span = H.mind.speech_span
+		if((COMIC in H.mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in H.internal_organs))
+			span = "sans"
 	if(spamcheck)
 		to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
 		return
@@ -51,6 +56,8 @@
 			else
 				to_chat(user, "<span class='warning'>*BZZZZzzzzzt*</span>")
 		else
+			if(span)
+				message = "<span class='[span]'>[message]</span>"
 			saymsg(user, message)
 
 		spamcheck = 1
