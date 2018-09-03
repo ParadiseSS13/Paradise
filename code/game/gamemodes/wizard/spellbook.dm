@@ -220,6 +220,14 @@
 	log_name = "LD"
 	category = "Defensive"
 
+/datum/spellbook_entry/lichdom/IsAvailible()
+	if(!ticker.mode) // In case spellbook is placed on map
+		return 0
+	if(ticker.mode.name == "ragin' mages")
+		return 0
+	else
+		return 1
+
 /datum/spellbook_entry/lightningbolt
 	name = "Lightning Bolt"
 	spell_type = /obj/effect/proc_holder/spell/targeted/lightning
