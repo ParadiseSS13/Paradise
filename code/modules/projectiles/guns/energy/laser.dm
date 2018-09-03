@@ -133,6 +133,12 @@
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
 	shaded_charge = TRUE
 
+/obj/item/gun/energy/immolator/multi/update_icon()
+	..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/append = shot.select_name
+	overlays += image(icon = icon, icon_state = "multilensimmolator-[append]")
+
 ////////Laser Tag////////////////////
 
 /obj/item/gun/energy/laser/bluetag
