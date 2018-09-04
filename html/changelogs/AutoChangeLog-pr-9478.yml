@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "Hivelord remains send the proper feedback about its preservation method to database."
