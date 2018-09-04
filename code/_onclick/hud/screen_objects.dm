@@ -167,7 +167,7 @@
 	if(master)
 		var/obj/item/I = usr.get_active_hand()
 		if(I)
-			master.attackby(I, usr, params)
+			master.attackby(null, I, usr, params)
 	return 1
 
 /obj/screen/zone_sel

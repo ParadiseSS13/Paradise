@@ -283,7 +283,7 @@
 		else
 			to_chat(user, "Nothing.")
 
-	SendSignal(COMSIG_PARENT_EXAMINE, user)
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
 
 	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
