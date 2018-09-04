@@ -1,0 +1,5 @@
+author: "Ty-Omaha"
+delete-after: True
+changes: 
+  - bugfix: "Secure fridges can be properly emagged"
+  - rscadd: "Secure fridges can now be EMP'd to override their access requirements"
