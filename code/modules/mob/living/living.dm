@@ -88,6 +88,9 @@
 		//restrained people act if they were on 'help' intent to prevent a person being pulled from being seperated from their puller
 		else if((M.restrained() || M.a_intent == INTENT_HELP) && (restrained() || a_intent == INTENT_HELP))
 			mob_swap = 1
+		//anchored mobs are not supposed to move
+		if(M.anchored == 1)
+			mob_swap = 0
 		if(mob_swap)
 			//switch our position with M
 			if(loc && !loc.Adjacent(M.loc))
