@@ -17,8 +17,8 @@
 			            access_teleporter, access_external_airlocks, access_atmospherics, access_emergency_storage, access_eva,
 			            access_heads, access_construction, access_sec_doors,
 			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, access_minisat, access_mechanic, access_mineral_storeroom)
-	minimal_player_age = 21
-	exp_requirements = 600
+	minimal_player_age = 25
+	exp_requirements = 2160
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/chief_engineer
 
