@@ -197,3 +197,10 @@
 	icon_state = "sofaend_right"
 /obj/structure/stool/bed/chair/sofa/corner
 	icon_state = "sofacorner"
+
+/obj/structure/stool/bed/chair/sofa/corner/handle_rotation()
+    overlays = null
+    var/image/O = image(icon = icon, icon_state = "[icon_state]_overlay", layer = FLY_LAYER, dir = src.dir)
+    overlays += O
+    if(buckled_mob)
+        buckled_mob.dir = dir
