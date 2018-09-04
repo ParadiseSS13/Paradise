@@ -500,6 +500,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AGG"
 	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
 	cost = 11
+	surplus = 0
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
