@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - tweak: "Lateround blobs now start off as an infected mouse. By moving around/ventcrawling as a mouse, they can find themselves a good nesting area before they turn into a blob core."
