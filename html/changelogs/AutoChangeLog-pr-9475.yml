@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "The power grid in the black market packers away mission has been fixed, and it is no longer possible to effectively skip the entire mission using a crowbar."
