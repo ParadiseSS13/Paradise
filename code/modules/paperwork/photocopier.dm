@@ -74,7 +74,7 @@
 			else if(istype(copyitem, /obj/item/paper_bundle))
 				var/obj/item/paper_bundle/C = copyitem
 				if(toner < (C.amount + 1))
-					visible_message("<span class='notice'>A yellow light on \the [src] flashes, indicating there's not enough toner for the operation.</span>") // It is better to prevent partial bundle than to produce broken paper bundle
+					visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>") // It is better to prevent partial bundle than to produce broken paper bundle
 					return
 				var/obj/item/paper_bundle/B = bundlecopy(copyitem)
 				if(!B)
