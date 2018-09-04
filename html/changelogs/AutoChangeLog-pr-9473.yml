@@ -1,0 +1,4 @@
+author: "nicetoolbox"
+delete-after: True
+changes: 
+  - bugfix: "Fixes Plasmamen wizards not counting as fully garbed"
