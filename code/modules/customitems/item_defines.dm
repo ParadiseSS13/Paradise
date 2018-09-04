@@ -1391,7 +1391,7 @@
 /obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
 	name = "Zxiax Garnet"
 	desc = "Green Garnet on fancy blue cord, when you look at the Garnet, you feel strangely appeased."
-	icon = "icons/obj/custom_items.dmi"
+	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
