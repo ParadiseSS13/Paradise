@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "Analyzer are now consistently spelled Analyzer instead of Analyser."
