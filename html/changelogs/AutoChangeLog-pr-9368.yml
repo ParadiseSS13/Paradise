@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "IPC no longer displays their UI / SE in console. Same goes for other invalid subjects. You also can't save their UI / SE anymore."
