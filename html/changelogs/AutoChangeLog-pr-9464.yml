@@ -1,5 +1,0 @@
-author: "Tails2091"
-delete-after: True
-changes: 
-  - bugfix: "Double welding a closet no longer removes welding tool.
-format: Changed 0 1 booleans to TRUE FALSE."
