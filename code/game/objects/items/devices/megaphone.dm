@@ -35,7 +35,7 @@
 			return
 		if(H.mind)
 			span = H.mind.speech_span
-		if((COMIC in H.mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in H.internal_organs))
+		if((COMIC in H.mutations) || H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/clown_voice))
 			span = "sans"
 	if(spamcheck)
 		to_chat(user, "<span class='warning'>\The [src] needs to recharge!</span>")
