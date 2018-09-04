@@ -177,7 +177,7 @@
 					var/karma=verify_karma()
 					switch(href_list["KarmaBuy2"])
 						if("1")
-							if(karma <15)
+							if(karma <5)
 								to_chat(usr, "You do not have enough karma!")
 								return
 							else
@@ -186,7 +186,7 @@
 								DB_species_unlock("Machine",5)
 								return
 						if("2")
-							if(karma <30)
+							if(karma <10)
 								to_chat(usr, "You do not have enough karma!")
 								return
 							else
@@ -195,7 +195,7 @@
 								DB_species_unlock("Kidan",10)
 								return
 						if("3")
-							if(karma <30)
+							if(karma <10)
 								to_chat(usr, "You do not have enough karma!")
 								return
 							else
@@ -204,7 +204,7 @@
 								DB_species_unlock("Grey",10)
 								return
 						if("4")
-							if(karma <45)
+							if(karma <15)
 								to_chat(usr, "You do not have enough karma!")
 								return
 							else
@@ -213,7 +213,7 @@
 								DB_species_unlock("Vox",15)
 								return
 						if("5")
-							if(karma <45)
+							if(karma <15)
 								to_chat(usr, "You do not have enough karma!")
 								return
 							else
@@ -222,7 +222,7 @@
 								DB_species_unlock("Slime People",15)
 								return
 						if("6")
-							if(karma <100)
+							if(karma <20)
 								to_chat(usr, "You do not have enough karma!")
 								return
 							else
@@ -231,7 +231,7 @@
 								DB_species_unlock("Plasmaman",20)
 								return
 						if("7")
-							if(karma <30)
+							if(karma <10)
 								to_chat(usr, "You do not have enough karma!")
 								return
 							else
