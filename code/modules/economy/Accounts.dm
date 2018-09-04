@@ -135,7 +135,7 @@ var/global/list/all_money_accounts = list()
 	var/time = ""
 	var/source_terminal = ""
 
-/obj/machinery/computer/account_database/proc/charge_to_account(var/attempt_account_number, datum/money_account/source, var/purpose, var/terminal_id, var/amount)
+/obj/machinery/computer/account_database/proc/charge_to_account(attempt_account_number, datum/money_account/source, purpose, terminal_id, amount)
 	if(!activated)
 		return 0
 	for(var/datum/money_account/D in all_money_accounts)

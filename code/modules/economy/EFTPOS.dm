@@ -170,6 +170,7 @@
 
 		if(!linked_account)
 			to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
+			return
 
 		var/confirm = alert("Are you sure you want to pay $[transaction_amount] to Account: [linked_account.owner_name] ", "Confirm transaction", "Yes", "No")
 		if(confirm == "No")
