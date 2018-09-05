@@ -1,8 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Economy code has been slightly refactored. Report issues."
-  - rscdel: "EFTPOS no longer has a name."
-  - tweak: "All date on transaction log should be in long form like  \"1 January, 2500 22:00:00\"."
-  - tweak: "Negative number is represented by parentheses in transaction log, positive without (Opposite of before)."
-  - tweak: "There's a higher chance of winning $10 in the slot machine now."
