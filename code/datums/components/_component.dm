@@ -81,7 +81,7 @@
 /datum/component/proc/RegisterSignal(datum/target, sig_type_or_types, proc_or_callback, override = FALSE)
 	if(QDELETED(src) || QDELETED(target))
 		return
-		
+
 	var/list/procs = signal_procs
 	if(!procs)
 		signal_procs = procs = list()
@@ -90,7 +90,7 @@
 	var/list/lookup = target.comp_lookup
 	if(!lookup)
 		target.comp_lookup = lookup = list()
-	
+
 	if(!istype(proc_or_callback, /datum/callback)) //if it wasnt a callback before, it is now
 		proc_or_callback = CALLBACK(src, proc_or_callback)
 
@@ -105,7 +105,7 @@
 		else if(lookup[sig_type] == src) // We already registered here
 			continue
 		else if(!length(lookup[sig_type])) // One other thing registered here
-			lookup[sig_type] = list(lookup[sig_type]=TRUE)	
+			lookup[sig_type] = list(lookup[sig_type]=TRUE)
 			lookup[sig_type][src] = TRUE
 		else // Many other things have registered here
 			lookup[sig_type][src] = TRUE
@@ -137,7 +137,7 @@
 				lookup[sig] -= src
 
 	signal_procs[target] -= sig_type_or_types
-	if(!signal_procs[target].len)
+	if(length(signal_procs[target]))
 		signal_procs -= target
 
 /datum/component/proc/InheritComponent(datum/component/C, i_am_original)
