@@ -1,0 +1,4 @@
+author: "IrkallaEpsilon"
+delete-after: True
+changes: 
+  - bugfix: "Adds an attack cooldown on mirrors for all mobs. Yes simple mobs and Xenomorph larvaes included"
