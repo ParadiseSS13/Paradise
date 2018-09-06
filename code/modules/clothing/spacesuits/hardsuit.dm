@@ -13,6 +13,8 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	//Species-specific stuff.
+	var/list/hide_tail_by_species = null
+	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 	species_restricted = list("exclude","Diona","Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
