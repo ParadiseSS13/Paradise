@@ -174,7 +174,7 @@
 
 /obj/item/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
-	desc = "A hand held seed extractor that can, by its namesake, extract seeds from the inserted contents."
+	desc = "A handheld seed extractor that can, by its namesake, extract seeds from the inserted contents."
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
