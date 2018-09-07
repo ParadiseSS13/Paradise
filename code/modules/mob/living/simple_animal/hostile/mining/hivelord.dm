@@ -65,10 +65,12 @@
 	addtimer(CALLBACK(src, .proc/inert_check), 2400)
 
 /obj/item/organ/internal/hivelord_core/proc/inert_check()
-	if(!owner && !preserved)
-		go_inert()
-	else
+	if(owner)
 		preserved(implanted = 1)
+	else if(preserved)
+		preserved()
+	else
+		go_inert()
 
 /obj/item/organ/internal/hivelord_core/proc/preserved(implanted = 0)
 	inert = FALSE

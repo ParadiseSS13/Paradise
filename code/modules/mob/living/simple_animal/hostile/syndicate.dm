@@ -51,7 +51,10 @@
 			var/damage = O.force
 			if(O.damtype == STAMINA)
 				damage = 0
-			health -= damage
+			if(force_threshold && damage < force_threshold)
+				visible_message("<span class='boldwarning'>[src] is unharmed by [O]!</span>")
+				return
+			adjustHealth(damage)
 			visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
 		playsound(loc, O.hitsound, 25, 1, -1)
 	else
@@ -126,6 +129,9 @@
 			seen_revived_enemy = TRUE
 			raise_alert("[name] reports intruder [target] has returned from death!")
 			depotarea.list_remove(target, depotarea.dead_list)
+		if(!atoms_share_level(src, target) && prob(20))
+			// This prevents someone from aggroing a depot mob, then hiding in a locker, perfectly safe, while the mob stands there getting killed by their friends.
+			LoseTarget()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
 	if(seen_enemy)
@@ -135,6 +141,14 @@
 	if(scan_cycles >= 15 && istype(depotarea))
 		scan_cycles = 0
 		if(!atoms_share_level(src, spawn_turf))
+			if(istype(loc, /obj/structure/closet))
+				var/obj/structure/closet/O = loc
+				forceMove(get_turf(src))
+				visible_message("<span class='boldwarning'>[src] smashes their way out of [O]!</span>")
+				qdel(O)
+				raise_alert("[src] reported being trapped in a locker.")
+				raised_alert = FALSE
+				return
 			if(alert_on_spacing)
 				raise_alert("[src] lost in space.")
 			death()
@@ -198,19 +212,14 @@
 	alert_on_timeout = TRUE
 	alert_on_shield_breach = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/death()
-	if(depotarea)
-		depotarea.declare_finished()
-	return ..()
-
-
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize()
-	. = ..()
+	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
 	if(istype(depotarea))
 		var/list/key_candidates = list()
 		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in living_mob_list)
-			if(O == src)
-				continue
 			key_candidates += O
 		if(key_candidates.len)
 			var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)

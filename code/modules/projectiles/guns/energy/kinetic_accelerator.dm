@@ -172,7 +172,6 @@
 	damage_type = BRUTE
 	flag = "bomb"
 	range = 3
-	log_override = TRUE
 
 	var/pressure_decrease = 0.25
 	var/turf_aoe = FALSE
@@ -218,7 +217,9 @@
 		for(var/mob/living/L in range(1, target_turf) - firer - target)
 			var/armor = L.run_armor_check(def_zone, flag, "", "", armour_penetration)
 			L.apply_damage(damage*mob_aoe, damage_type, def_zone, armor)
-			to_chat(L, "<span class='userdanger'>You're struck by a [name]!</span>")
+			L.visible_message("<span class='danger'>[L] is hit by \a [src]!</span>",
+								"<span class='userdanger'>You are hit by \a [src]!</span>")
+			add_attack_logs(firer, L, "Shot with a [type]")
 
 
 //Modkits

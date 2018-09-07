@@ -568,7 +568,7 @@
 "kV" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "kW" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "kX" = (/obj/structure/table,/obj/item/flash,/obj/item/flash,/turf/simulated/floor/plasteel{tag = "icon-vault";icon_state = "vault"},/area/awaymission/centcomAway/hangar)
-"kY" = (/obj/structure/table,/obj/item/mmi/radio_enabled,/turf/simulated/floor/plasteel{tag = "icon-vault";icon_state = "vault"},/area/awaymission/centcomAway/hangar)
+"kY" = (/obj/structure/table,/obj/item/mmi,/turf/simulated/floor/plasteel{tag = "icon-vault";icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "kZ" = (/obj/structure/cable{d1 = 2;d2 = 4;icon_state = "2-4";tag = ""},/turf/simulated/floor/plasteel{dir = 2;icon_state = "green"},/area/awaymission/centcomAway/general)
 "la" = (/obj/machinery/light,/obj/structure/cable{d1 = 4;d2 = 8;icon_state = "4-8";pixel_x = 0;tag = ""},/turf/simulated/floor/plasteel{tag = "icon-blackcorner";icon_state = "blackcorner"},/area/awaymission/centcomAway/general)
 "lb" = (/obj/structure/cable{d1 = 4;d2 = 8;icon_state = "4-8";pixel_x = 0;tag = ""},/turf/simulated/floor/plasteel{tag = "icon-blackcorner (WEST)";icon_state = "blackcorner";dir = 8},/area/awaymission/centcomAway/general)

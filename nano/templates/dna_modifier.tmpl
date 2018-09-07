@@ -45,104 +45,158 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 				<div class="statusValue">{{:data.occupant.uniqueEnzymes ? data.occupant.uniqueEnzymes : '<span class="bad">Unknown</span>'}}</div>
 			</div>
 
-			<!--<div class="line">
-				<div class="statusLabel"><small>Unique Identifier:</small></div>
-				<div class="statusValue"><small>{{:data.occupant.uniqueIdentity}}</small></div>
-			</div>
-
-			<div class="line">
-				<div class="statusLabel"><small>Structural Enzymes:</small></div>
-				<div class="statusValue"><small>{{:data.occupant.structuralEnzymes}}</small></div>
-			</div>-->
 		{{/if}}
 	{{/if}}
     <div class="clearBoth"></div>
 </div>
 
-<h3>Operations</h3>
-<div class="item">
-	{{:helper.link('Modify U.I.', 'link', {'selectMenuKey' : 'ui'}, data.selectedMenuKey == 'ui' ? 'selected' : null)}}
-	{{:helper.link('Modify S.E.', 'link', {'selectMenuKey' : 'se'}, data.selectedMenuKey == 'se' ? 'selected' : null)}}
-	{{:helper.link('Transfer Buffers', 'floppy-o', {'selectMenuKey' : 'buffer'}, data.selectedMenuKey == 'buffer' ? 'selected' : null)}}
-	{{:helper.link('Rejuvenators', 'plus', {'selectMenuKey' : 'rejuvenators'}, data.selectedMenuKey == 'rejuvenators' ? 'selected' : null)}}
-</div>
-
-<div class="item">&nbsp;</div>
-
-{{if !data.selectedMenuKey || data.selectedMenuKey == 'ui'}}
-	<h3>Modify Unique Identifier</h3>
-    {{:helper.displayDNABlocks(data.occupant.uniqueIdentity, data.selectedUIBlock, data.selectedUISubBlock, data.dnaBlockSize, 'UI')}}
-    <div class="clearBoth"></div>
+	<h3>Operations</h3>
+	{{if !data.occupant.isViableSubject || !data.occupant.uniqueIdentity || !data.occupant.structuralEnzymes}}
+		<div class="notice">
+			No operation possible on this subject
+		</div>
+	{{else}}
 	<div class="item">
-		<div class="itemLabelNarrow">
-			Target:
-		</div>
-		<div class="itemContentWide">
-			{{:helper.link('-', null, {'changeUITarget' : 0}, (data.selectedUITarget > 0) ? null : 'disabled')}}
-            <div class="statusValue">&nbsp;{{:data.selectedUITargetHex}}&nbsp;</div>
-            {{:helper.link('+', null, {'changeUITarget' : 1}, (data.selectedUITarget < 15) ? null : 'disabled')}}
-		</div>
+		{{:helper.link('Modify U.I.', 'link', {'selectMenuKey' : 'ui'}, data.selectedMenuKey == 'ui' ? 'selected' : null)}}
+		{{:helper.link('Modify S.E.', 'link', {'selectMenuKey' : 'se'}, data.selectedMenuKey == 'se' ? 'selected' : null)}}
+		{{:helper.link('Transfer Buffers', 'floppy-o', {'selectMenuKey' : 'buffer'}, data.selectedMenuKey == 'buffer' ? 'selected' : null)}}
+		{{:helper.link('Rejuvenators', 'plus', {'selectMenuKey' : 'rejuvenators'}, data.selectedMenuKey == 'rejuvenators' ? 'selected' : null)}}
 	</div>
-    <div class="item">
-		<div class="itemContentWide">
-			{{:helper.link('Irradiate Block', 'exclamation-circle', {'pulseUIRadiation' : 1}, !data.occupant.isViableSubject ? 'disabled' : null)}}
+
+	<div class="item">&nbsp;</div>
+
+	{{if !data.selectedMenuKey || data.selectedMenuKey == 'ui'}}
+		<h3>Modify Unique Identifier</h3>
+	    {{:helper.displayDNABlocks(data.occupant.uniqueIdentity, data.selectedUIBlock, data.selectedUISubBlock, data.dnaBlockSize, 'UI')}}
+	    <div class="clearBoth"></div>
+		<div class="item">
+			<div class="itemLabelNarrow">
+				Target:
+			</div>
+			<div class="itemContentWide">
+				{{:helper.link('-', null, {'changeUITarget' : 0}, (data.selectedUITarget > 0) ? null : 'disabled')}}
+	            <div class="statusValue">&nbsp;{{:data.selectedUITargetHex}}&nbsp;</div>
+	            {{:helper.link('+', null, {'changeUITarget' : 1}, (data.selectedUITarget < 15) ? null : 'disabled')}}
+			</div>
 		</div>
-	</div>
-{{else data.selectedMenuKey == 'se'}}
-	<h3>Modify Structural Enzymes</h3>
-    {{:helper.displayDNABlocks(data.occupant.structuralEnzymes, data.selectedSEBlock, data.selectedSESubBlock, data.dnaBlockSize, 'SE')}}
-    <div class="clearBoth"></div>
-    <div class="item">
-		<div class="itemContentWide">
-			{{:helper.link('Irradiate Block', 'exclamation-circle', {'pulseSERadiation' : 1}, !data.occupant.isViableSubject ? 'disabled' : null)}}
+	    <div class="item">
+			<div class="itemContentWide">
+				{{:helper.link('Irradiate Block', 'exclamation-circle', {'pulseUIRadiation' : 1}, !data.occupant.isViableSubject ? 'disabled' : null)}}
+			</div>
 		</div>
-	</div>
-{{else data.selectedMenuKey == 'buffer'}}
-	<h3>Transfer Buffers</h3>
-	{{for data.buffers}}
-		<h4>Buffer {{:(index + 1)}}</h4>
-		<div class="itemGroup">
-			<div class="item">
-				<div class="itemLabelNarrow">
-					Load Data:
+	{{else data.selectedMenuKey == 'se'}}
+		<h3>Modify Structural Enzymes</h3>
+	    {{:helper.displayDNABlocks(data.occupant.structuralEnzymes, data.selectedSEBlock, data.selectedSESubBlock, data.dnaBlockSize, 'SE')}}
+	    <div class="clearBoth"></div>
+	    <div class="item">
+			<div class="itemContentWide">
+				{{:helper.link('Irradiate Block', 'exclamation-circle', {'pulseSERadiation' : 1}, !data.occupant.isViableSubject ? 'disabled' : null)}}
+			</div>
+		</div>
+	{{else data.selectedMenuKey == 'buffer'}}
+		<h3>Transfer Buffers</h3>
+		{{for data.buffers}}
+			<h4>Buffer {{:(index + 1)}}</h4>
+			<div class="itemGroup">
+				<div class="item">
+					<div class="itemLabelNarrow">
+						Load Data:
+					</div>
+					<div class="itemContentWide">
+						{{:helper.link('Subject U.I.', 'link', {'bufferOption' : 'saveUI', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
+						{{:helper.link('Subject U.I. + U.E.', 'link', {'bufferOption' : 'saveUIAndUE', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
+						{{:helper.link('Subject S.E.', 'link', {'bufferOption' : 'saveSE', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
+						{{:helper.link('From Disk', 'floppy-o', {'bufferOption' : 'loadDisk', 'bufferId' : (index + 1)}, (!data.hasDisk || !data.disk.data) ? 'disabled' : null)}}
+					</div>
 				</div>
-				<div class="itemContentWide">
-					{{:helper.link('Subject U.I.', 'link', {'bufferOption' : 'saveUI', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
-					{{:helper.link('Subject U.I. + U.E.', 'link', {'bufferOption' : 'saveUIAndUE', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
-					{{:helper.link('Subject S.E.', 'link', {'bufferOption' : 'saveSE', 'bufferId' : (index + 1)}, !data.hasOccupant ? 'disabled' : null)}}
-					{{:helper.link('From Disk', 'floppy-o', {'bufferOption' : 'loadDisk', 'bufferId' : (index + 1)}, (!data.hasDisk || !data.disk.data) ? 'disabled' : null)}}
+				{{if value.data}}
+					<div class="item">
+						<div class="itemLabelNarrow">
+							Label:
+						</div>
+						<div class="itemContentWide">
+							{{:helper.link(value.label, 'file', {'bufferOption' : 'changeLabel', 'bufferId' : (index + 1)})}}
+						</div>
+					</div>
+					<div class="item">
+						<div class="itemLabelNarrow">
+							Subject:
+						</div>
+						<div class="itemContentWide">
+							{{:value.owner ? value.owner : '<span class="average">Unknown</span>'}}
+						</div>
+					</div>
+					<div class="item">
+						<div class="itemLabelNarrow">
+							Stored Data:
+						</div>
+						<div class="itemContentWide">
+							{{:value.data == 'ui' ? 'Unique Identifiers' : 'Structural Enzymes'}}
+							{{:value.ue ? ' + Unique Enzymes' : ''}}
+						</div>
+					</div>
+				{{else}}
+					<div class="item">
+						<div class="itemContentWide">
+							<span class="highlight">This buffer is empty.</span>
+						</div>
+					</div>
+				{{/if}}
+				<div class="item">
+					<div class="itemLabelNarrow">
+						Options:
+					</div>
+					<div class="itemContentWide">
+						{{:helper.link('Clear', 'trash', {'bufferOption' : 'clear', 'bufferId' : (index + 1)}, !value.data ? 'disabled' : null)}}
+						{{:helper.link('Injector', data.isInjectorReady ? 'pencil' : 'clock-o', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1)}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
+						{{:helper.link('Block Injector', data.isInjectorReady ? 'pencil' : 'clock-o', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1), 'createBlockInjector' : 1}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
+						{{:helper.link('Transfer', 'exclamation-circle', {'bufferOption' : 'transfer', 'bufferId' : (index + 1)}, (!data.hasOccupant || !value.data) ? 'disabled' : null)}}
+						{{:helper.link('Save To Disk', 'floppy-o', {'bufferOption' : 'saveDisk', 'bufferId' : (index + 1)}, (!value.data || !data.hasDisk) ? 'disabled' : null)}}
+					</div>
 				</div>
 			</div>
-			{{if value.data}}
-				<div class="item">
-					<div class="itemLabelNarrow">
-						Label:
+		{{/for}}
+
+		<h4>Data Disk</h4>
+		<div class="itemGroup">
+			{{if data.hasDisk}}
+				{{if data.disk.data}}
+					<div class="item">
+						<div class="itemLabelNarrow">
+							Label:
+						</div>
+						<div class="itemContentWide">
+							{{:data.disk.label ? data.disk.label : 'No Label'}}
+						</div>
 					</div>
-					<div class="itemContentWide">
-						{{:helper.link(value.label, 'file', {'bufferOption' : 'changeLabel', 'bufferId' : (index + 1)})}}
+					<div class="item">
+						<div class="itemLabelNarrow">
+							Subject:
+						</div>
+						<div class="itemContentWide">
+							{{:data.disk.owner ? data.disk.owner : '<span class="average">Unknown</span>'}}
+						</div>
 					</div>
-				</div>
-				<div class="item">
-					<div class="itemLabelNarrow">
-						Subject:
+					<div class="item">
+						<div class="itemLabelNarrow">
+							Stored Data:
+						</div>
+						<div class="itemContentWide">
+							{{:data.disk.data == 'ui' ? 'Unique Identifiers' : 'Structural Enzymes'}}
+							{{:data.disk.ue ? ' + Unique Enzymes' : ''}}
+						</div>
 					</div>
-					<div class="itemContentWide">
-						{{:value.owner ? value.owner : '<span class="average">Unknown</span>'}}
+				{{else}}
+					<div class="item">
+						<div class="itemContentWide">
+							<span class="average">Disk is blank.</span>
+						</div>
 					</div>
-				</div>
-				<div class="item">
-					<div class="itemLabelNarrow">
-						Stored Data:
-					</div>
-					<div class="itemContentWide">
-						{{:value.data == 'ui' ? 'Unique Identifiers' : 'Structural Enzymes'}}
-						{{:value.ue ? ' + Unique Enzymes' : ''}}
-					</div>
-				</div>
+				{{/if}}
 			{{else}}
 				<div class="item">
 					<div class="itemContentWide">
-						<span class="highlight">This buffer is empty.</span>
+						<span class="highlight">No disk inserted.</span>
 					</div>
 				</div>
 			{{/if}}
@@ -151,140 +205,82 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 					Options:
 				</div>
 				<div class="itemContentWide">
-					{{:helper.link('Clear', 'trash', {'bufferOption' : 'clear', 'bufferId' : (index + 1)}, !value.data ? 'disabled' : null)}}
-					{{:helper.link('Injector', data.isInjectorReady ? 'pencil' : 'clock-o', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1)}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
-					{{:helper.link('Block Injector', data.isInjectorReady ? 'pencil' : 'clock-o', {'bufferOption' : 'createInjector', 'bufferId' : (index + 1), 'createBlockInjector' : 1}, (!data.isInjectorReady || !value.data) ? 'disabled' : null)}}
-					{{:helper.link('Transfer', 'exclamation-circle', {'bufferOption' : 'transfer', 'bufferId' : (index + 1)}, (!data.hasOccupant || !value.data) ? 'disabled' : null)}}
-					{{:helper.link('Save To Disk', 'floppy-o', {'bufferOption' : 'saveDisk', 'bufferId' : (index + 1)}, (!value.data || !data.hasDisk) ? 'disabled' : null)}}
+					{{:helper.link('Wipe Disk', 'trash', {'bufferOption' : 'wipeDisk'}, (!data.hasDisk || !data.disk.data) ? 'disabled' : null)}}
+					{{:helper.link('Eject Disk', 'eject', {'bufferOption' : 'ejectDisk'}, !data.hasDisk ? 'disabled' : null)}}
 				</div>
 			</div>
 		</div>
-	{{/for}}
-
-	<h4>Data Disk</h4>
-	<div class="itemGroup">
-		{{if data.hasDisk}}
-			{{if data.disk.data}}
-				<div class="item">
-					<div class="itemLabelNarrow">
-						Label:
-					</div>
-					<div class="itemContentWide">
-						{{:data.disk.label ? data.disk.label : 'No Label'}}
-					</div>
-				</div>
-				<div class="item">
-					<div class="itemLabelNarrow">
-						Subject:
-					</div>
-					<div class="itemContentWide">
-						{{:data.disk.owner ? data.disk.owner : '<span class="average">Unknown</span>'}}
-					</div>
-				</div>
-				<div class="item">
-					<div class="itemLabelNarrow">
-						Stored Data:
-					</div>
-					<div class="itemContentWide">
-						{{:data.disk.data == 'ui' ? 'Unique Identifiers' : 'Structural Enzymes'}}
-						{{:data.disk.ue ? ' + Unique Enzymes' : ''}}
-					</div>
-				</div>
-			{{else}}
-				<div class="item">
-					<div class="itemContentWide">
-						<span class="average">Disk is blank.</span>
-					</div>
-				</div>
-			{{/if}}
-		{{else}}
-			<div class="item">
-				<div class="itemContentWide">
-					<span class="highlight">No disk inserted.</span>
-				</div>
-			</div>
-		{{/if}}
+	{{else data.selectedMenuKey == 'rejuvenators'}}
+		<h3>Rejuvenators</h3>
 		<div class="item">
 			<div class="itemLabelNarrow">
-				Options:
+				Inject:
 			</div>
 			<div class="itemContentWide">
-				{{:helper.link('Wipe Disk', 'trash', {'bufferOption' : 'wipeDisk'}, (!data.hasDisk || !data.disk.data) ? 'disabled' : null)}}
-				{{:helper.link('Eject Disk', 'eject', {'bufferOption' : 'ejectDisk'}, !data.hasDisk ? 'disabled' : null)}}
+				{{:helper.link('5', 'pencil', {'injectRejuvenators' : 5}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
+				{{:helper.link('10', 'pencil', {'injectRejuvenators' : 10}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
+				{{:helper.link('20', 'pencil', {'injectRejuvenators' : 20}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
+				{{:helper.link('30', 'pencil', {'injectRejuvenators' : 30}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
+				{{:helper.link('50', 'pencil', {'injectRejuvenators' : 50}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
 			</div>
 		</div>
-	</div>
-{{else data.selectedMenuKey == 'rejuvenators'}}
-	<h3>Rejuvenators</h3>
-	<div class="item">
-		<div class="itemLabelNarrow">
-			Inject:
-		</div>
-		<div class="itemContentWide">
-			{{:helper.link('5', 'pencil', {'injectRejuvenators' : 5}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
-			{{:helper.link('10', 'pencil', {'injectRejuvenators' : 10}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
-			{{:helper.link('20', 'pencil', {'injectRejuvenators' : 20}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
-			{{:helper.link('30', 'pencil', {'injectRejuvenators' : 30}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
-			{{:helper.link('50', 'pencil', {'injectRejuvenators' : 50}, (!data.hasOccupant || !data.beakerVolume) ? 'disabled' : null)}}
-		</div>
-	</div>
-	<div class="item">&nbsp;</div>
-	<div class="item">
-		<div class="itemLabelNarrow">
-			Beaker:
-		</div>
-		<div class="itemContentWide" style="width: 40%;">
-			{{if data.isBeakerLoaded}}
-				{{:data.beakerLabel ? data.beakerLabel : '<span class="average">No label</span>'}}<br>
-				{{if data.beakerVolume}}
-					<span class="highlight">{{:data.beakerVolume}} units remaining</span><br>
+		<div class="item">&nbsp;</div>
+		<div class="item">
+			<div class="itemLabelNarrow">
+				Beaker:
+			</div>
+			<div class="itemContentWide" style="width: 40%;">
+				{{if data.isBeakerLoaded}}
+					{{:data.beakerLabel ? data.beakerLabel : '<span class="average">No label</span>'}}<br>
+					{{if data.beakerVolume}}
+						<span class="highlight">{{:data.beakerVolume}} units remaining</span><br>
+					{{else}}
+						<span class="bad">Beaker is empty</span>
+					{{/if}}
 				{{else}}
-					<span class="bad">Beaker is empty</span>
+					<span class="average"><i>No beaker loaded</i></span>
 				{{/if}}
-			{{else}}
-				<span class="average"><i>No beaker loaded</i></span>
-			{{/if}}
+			</div>
+			<div class="itemContentWide" style="width: 26%;">
+				{{:helper.link('Eject Beaker', 'eject', {'ejectBeaker' : 1}, data.isBeakerLoaded ? null : 'disabled')}}
+			</div>
 		</div>
-		<div class="itemContentWide" style="width: 26%;">
-			{{:helper.link('Eject Beaker', 'eject', {'ejectBeaker' : 1}, data.isBeakerLoaded ? null : 'disabled')}}
+	{{/if}}
+
+	<div class="item">&nbsp;</div>
+
+	{{if !data.selectedMenuKey || data.selectedMenuKey == 'ui' || data.selectedMenuKey == 'se'}}
+		<h3>Radiation Emitter Settings</h3>
+		<div class="item">
+			<div class="itemLabelNarrow">
+				Intensity:
+			</div>
+			<div class="itemContentWide">
+				{{:helper.link('-', null, {'radiationIntensity' : 0}, (data.radiationIntensity > 1) ? null : 'disabled')}}
+	            <div class="statusValue">&nbsp;{{:data.radiationIntensity}}&nbsp;</div>
+	            {{:helper.link('+', null, {'radiationIntensity' : 1}, (data.radiationIntensity < 10) ? null : 'disabled')}}
+			</div>
 		</div>
-	</div>
+		<div class="item">
+			<div class="itemLabelNarrow">
+				Duration:
+			</div>
+			<div class="itemContentWide">
+				{{:helper.link('-', null, {'radiationDuration' : 0}, (data.radiationDuration > 2) ? null : 'disabled')}}
+	            <div class="statusValue">&nbsp;{{:data.radiationDuration}}&nbsp;</div>
+	            {{:helper.link('+', null, {'radiationDuration' : 1}, (data.radiationDuration < 20) ? null : 'disabled')}}
+			</div>
+		</div>
+		<div class="item">
+			<div class="itemLabelNarrow">
+				&nbsp;
+			</div>
+			<div class="itemContentWide">
+				{{:helper.link('Pulse Radiation', 'exclamation-circle', {'pulseRadiation' : 1}, !data.hasOccupant ? 'disabled' : null)}}
+			</div>
+		</div>
+	{{/if}}
 {{/if}}
-
-<div class="item">&nbsp;</div>
-
-{{if !data.selectedMenuKey || data.selectedMenuKey == 'ui' || data.selectedMenuKey == 'se'}}
-	<h3>Radiation Emitter Settings</h3>
-	<div class="item">
-		<div class="itemLabelNarrow">
-			Intensity:
-		</div>
-		<div class="itemContentWide">
-			{{:helper.link('-', null, {'radiationIntensity' : 0}, (data.radiationIntensity > 1) ? null : 'disabled')}}
-            <div class="statusValue">&nbsp;{{:data.radiationIntensity}}&nbsp;</div>
-            {{:helper.link('+', null, {'radiationIntensity' : 1}, (data.radiationIntensity < 10) ? null : 'disabled')}}
-		</div>
-	</div>
-	<div class="item">
-		<div class="itemLabelNarrow">
-			Duration:
-		</div>
-		<div class="itemContentWide">
-			{{:helper.link('-', null, {'radiationDuration' : 0}, (data.radiationDuration > 2) ? null : 'disabled')}}
-            <div class="statusValue">&nbsp;{{:data.radiationDuration}}&nbsp;</div>
-            {{:helper.link('+', null, {'radiationDuration' : 1}, (data.radiationDuration < 20) ? null : 'disabled')}}
-		</div>
-	</div>
-	<div class="item">
-		<div class="itemLabelNarrow">
-			&nbsp;
-		</div>
-		<div class="itemContentWide">
-			{{:helper.link('Pulse Radiation', 'exclamation-circle', {'pulseRadiation' : 1}, !data.hasOccupant ? 'disabled' : null)}}
-		</div>
-	</div>
-{{/if}}
-
 <div class="item">&nbsp;</div>
 
 <hr>
@@ -315,4 +311,3 @@ Used In File(s): D:\Development\SS13-BS12\code\game\dna\dna_modifier.dm
 		</div>
 	</div>
 {{/if}}
-

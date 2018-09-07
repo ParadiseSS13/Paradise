@@ -371,3 +371,6 @@
 #define GET_RANDOM_JOB 0
 #define BE_ASSISTANT 1
 #define RETURN_TO_LOBBY 2
+
+//Melting Temperatures for various specific objects
+#define GIRDER_MELTING_TEMP 5000
