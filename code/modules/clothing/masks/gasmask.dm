@@ -202,7 +202,27 @@
 	var/aggressiveness = 1
 	var/safety = 1
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
-
+	var/phrase_list = list(
+					
+								"halt" 			= "HALT! HALT! HALT! HALT!",
+								"bobby" 		= "Stop in the name of the Law.",
+								"compliance" 	        = "Compliance is in your best ineterest.",
+								"justice"		= "Prepare for justice!",
+								"running"		= "Running will only increase your sentence",
+								"dontmove"		= "Don't move, Creep!",
+								"floor"			= "Down on the floor, Creep!",
+								"robocop"		= "Dead or alive you're coming with me.",
+								"god"			= "God made today for the crooks we could not catch yesterday.",
+								"freeze"		= "Freeze, Scum Bag!",
+								"imperial"		= "Stop right there, criminal scum!",
+								"bash"			= "Stop or I'll bash you.",
+								"harry"			= "Go ahead, make my day",
+								"asshole"		= "Stop breaking the law, asshole.",
+								"stfu"			= "You have the right to shut the fuck up",
+								"shutup"		= "Shut up crime!",
+								"super"			= "Face the wrath of the golden bolt.",
+								"dredd"			= "I am, the LAW!"
+								)
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
@@ -250,133 +270,34 @@
 	else if(actiontype == /datum/action/item_action/adjust)
 		adjustmask(user)
 	else if(actiontype == /datum/action/item_action/selectphrase)
+		var/key = phrase_list[phrase]
+		var/message = phrase_list[key]
+		
+		if (!safety)
+			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
+			return
+		
 		switch(aggressiveness)
 			if(1)
-				switch(phrase)
-					if(1)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Stop in the name of the Law.</span>")
-						phrase = 2
-					if(2)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Compliance is in your best interest.</span>")
-						phrase = 3
-					if(3)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Prepare for justice.</span>")
-						phrase = 4
-					if(4)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Running will only increase your sentence.</span>")
-						phrase = 5
-					if(5)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Don't move, Creep!</span>")
-						phrase = 6
-					if(6)
-						to_chat(user, "<span class='notice'>You set the restrictor to: HALT! HALT! HALT! HALT!</span>")
-						phrase = 1
-					else
-						to_chat(user, "<span class='notice'>You set the restrictor to: HALT! HALT! HALT! HALT!</span>")
-						phrase = 1
+				phrase = (phrase < 6) ? (phrase + 1) : 1
+				key = phrase_list[phrase]
+				message = phrase_list[key]
+				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			if(2)
-				switch(phrase)
-					if(7)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Dead or alive you're coming with me.</span>")
-						phrase = 8
-					if(8)
-						to_chat(user, "<span class='notice'>You set the restrictor to: God made today for the crooks we could not catch yesterday.</span>")
-						phrase = 9
-					if(9)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Freeze, Scum Bag!</span>")
-						phrase = 10
-					if(10)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Stop right there, criminal scum!</span>")
-						phrase = 11
-					if(11)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Down on the floor, Creep!</span>")
-						phrase = 7
-					else
-						to_chat(user, "<span class='notice'>You set the restrictor to: Down on the floor, Creep!</span>")
-						phrase = 7
+				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
+				key = phrase_list[phrase]
+				message = phrase_list[key]
+				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			if(3)
-				switch(phrase)
-					if(12)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Go ahead, make my day.</span>")
-						phrase = 13
-					if(13)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Stop breaking the law, ass hole.</span>")
-						phrase = 14
-					if(14)
-						to_chat(user, "<span class='notice'>You set the restrictor to: You have the right to shut the fuck up.</span>")
-						phrase = 15
-					if(15)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Shut up crime!</span>")
-						phrase = 16
-					if(16)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Face the wrath of the golden bolt.</span>")
-						phrase = 17
-					if(17)
-						to_chat(user, "<span class='notice'>You set the restrictor to: I am, the LAW!</span>")
-						phrase = 18
-					if(18)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Stop or I'll bash you.</span>")
-						phrase = 12
-					else
-						to_chat(user, "<span class='notice'>You set the restrictor to: Go ahead, make my day.</span>")
-						phrase = 13
-
+				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
+				key = phrase_list[phrase]
+				message = phrase_list[key]
+				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			if(4)
-				switch(phrase)
-					if(1)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Stop in the name of the Law.</span>")
-						phrase = 2
-					if(2)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Compliance is in your best interest.</span>")
-						phrase = 3
-					if(3)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Prepare for justice.</span>")
-						phrase = 4
-					if(4)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Running will only increase your sentence.</span>")
-						phrase = 5
-					if(5)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Don't move, Creep!</span>")
-						phrase = 6
-					if(6)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Down on the floor, Creep!</span>")
-						phrase = 7
-					if(7)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Dead or alive you're coming with me.</span>")
-						phrase = 8
-					if(8)
-						to_chat(user, "<span class='notice'>You set the restrictor to: God made today for the crooks we could not catch yesterday.</span>")
-						phrase = 9
-					if(9)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Freeze, Scum Bag!</span>")
-						phrase = 10
-					if(10)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Stop right there, criminal scum!</span>")
-						phrase = 11
-					if(11)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Stop or I'll bash you.</span>")
-						phrase = 12
-					if(12)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Go ahead, make my day.</span>")
-						phrase = 13
-					if(13)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Stop breaking the law, ass hole.</span>")
-						phrase = 14
-					if(14)
-						to_chat(user, "<span class='notice'>You set the restrictor to: You have the right to shut the fuck up.</span>")
-						phrase = 15
-					if(15)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Shut up crime!</span>")
-						phrase = 16
-					if(16)
-						to_chat(user, "<span class='notice'>You set the restrictor to: Face the wrath of the golden bolt.</span>")
-						phrase = 17
-					if(17)
-						to_chat(user, "<span class='notice'>You set the restrictor to: I am, the LAW!</span>")
-						phrase = 18
-					if(18)
-						to_chat(user, "<span class='notice'>You set the restrictor to: HALT! HALT! HALT! HALT!</span>")
-						phrase = 1
+				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
+				key = phrase_list[phrase]
+				message = phrase_list[key]
+				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
 			else
 				to_chat(user, "<span class='notice'>It's broken.</span>")
 
@@ -419,77 +340,20 @@
 		return
 
 /obj/item/clothing/mask/gas/sechailer/proc/halt()
-	var/phrase_text = null
-	var/phrase_sound = null
+	var/key = phrase_list[phrase]
+	var/message = phrase_list[key]
 
 
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
 		if(!safety)
-			phrase_text = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
-			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[phrase_text]</b></font>")
+			message = "FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."
+			usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
 			playsound(src.loc, 'sound/voice/binsult.ogg', 100, 0, 4)
 			cooldown = world.time
 			return
 
-
-		switch(phrase)	//sets the properties of the chosen phrase
-			if(1)				// good cop
-				phrase_text = "HALT! HALT! HALT! HALT!"
-				phrase_sound = "halt"
-			if(2)
-				phrase_text = "Stop in the name of the Law."
-				phrase_sound = "bobby"
-			if(3)
-				phrase_text = "Compliance is in your best interest."
-				phrase_sound = "compliance"
-			if(4)
-				phrase_text = "Prepare for justice!"
-				phrase_sound = "justice"
-			if(5)
-				phrase_text = "Running will only increase your sentence."
-				phrase_sound = "running"
-			if(6)				// bad cop
-				phrase_text = "Don't move, Creep!"
-				phrase_sound = "dontmove"
-			if(7)
-				phrase_text = "Down on the floor, Creep!"
-				phrase_sound = "floor"
-			if(8)
-				phrase_text = "Dead or alive you're coming with me."
-				phrase_sound = "robocop"
-			if(9)
-				phrase_text = "God made today for the crooks we could not catch yesterday."
-				phrase_sound = "god"
-			if(10)
-				phrase_text = "Freeze, Scum Bag!"
-				phrase_sound = "freeze"
-			if(11)
-				phrase_text = "Stop right there, criminal scum!"
-				phrase_sound = "imperial"
-			if(12)				// LA-PD
-				phrase_text = "Stop or I'll bash you."
-				phrase_sound = "bash"
-			if(13)
-				phrase_text = "Go ahead, make my day."
-				phrase_sound = "harry"
-			if(14)
-				phrase_text = "Stop breaking the law, ass hole."
-				phrase_sound = "asshole"
-			if(15)
-				phrase_text = "You have the right to shut the fuck up."
-				phrase_sound = "stfu"
-			if(16)
-				phrase_text = "Shut up crime!"
-				phrase_sound = "shutup"
-			if(17)
-				phrase_text = "Face the wrath of the golden bolt."
-				phrase_sound = "super"
-			if(18)
-				phrase_text = "I am, the LAW!"
-				phrase_sound = "dredd"
-
-		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[phrase_text]</b></font>")
-		playsound(src.loc, "sound/voice/complionator/[phrase_sound].ogg", 100, 0, 4)
+		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='4'><b>[message]</b></font>")
+		playsound(src.loc, "sound/voice/complionator/[key].ogg", 100, 0, 4)
 		cooldown = world.time
 
 

@@ -61,7 +61,8 @@
 	var/obj/item/clothing/accessory/petcollar/collar = null
 	var/can_collar = 0 // can add collar to mob or not
 
-//Hot simple_animal baby making vars
+	//Hot simple_animal baby making vars
+
 	var/childtype = null
 	var/scan_ready = 1
 	var/simplespecies //Sorry, no spider+corgi buttbabies.
@@ -570,3 +571,4 @@
 
 /mob/living/simple_animal/SetEarDeaf()
 	return
+

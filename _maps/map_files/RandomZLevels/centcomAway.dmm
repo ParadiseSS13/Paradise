@@ -520,7 +520,7 @@
 "jZ" = (/obj/structure/table,/obj/item/firstaid_arm_assembly,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "ka" = (/obj/structure/table,/obj/item/flash,/obj/item/flash,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "kb" = (/obj/structure/stool/bed/chair{dir = 1},/mob/living/simple_animal/hostile/russian/ranged{loot = list(/obj/effect/landmark/mobcorpse/russian/ranged)},/turf/simulated/shuttle/floor{icon_state = "floor2"},/area/awaymission/centcomAway/hangar)
-"kc" = (/obj/structure/table,/obj/item/mmi/radio_enabled,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
+"kc" = (/obj/structure/table,/obj/item/mmi,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "kd" = (/obj/structure/table,/obj/item/storage/toolbox/mechanical,/turf/simulated/floor/plasteel{tag = "icon-vault"; icon_state = "vault"},/area/awaymission/centcomAway/hangar)
 "ke" = (/obj/machinery/door/airlock/maintenance_hatch{req_access_txt = "101"},/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
 "kf" = (/obj/machinery/door/window/northright,/obj/machinery/door/window/southleft,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
@@ -971,4 +971,3 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
-

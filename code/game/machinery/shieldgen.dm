@@ -541,6 +541,8 @@
 /obj/machinery/shieldwall/attack_hand(mob/user as mob)
 	return
 
+/obj/machinery/shieldwall/rpd_blocksusage()
+	return TRUE
 
 /obj/machinery/shieldwall/process()
 	if(needs_power)
@@ -607,3 +609,61 @@
 			return prob(10)
 		else
 			return !src.density
+
+
+/obj/machinery/shieldwall/syndicate
+	name = "energy shield"
+	desc = "A strange energy shield."
+	icon_state = "shield-red"
+
+/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+	if(isliving(mover))
+		var/mob/living/M = mover
+		if("syndicate" in M.faction)
+			return 1
+	if(istype(mover, /obj/item/projectile))
+		return 0
+	return ..(mover, target, height)
+
+/obj/machinery/shieldwall/syndicate/CanAStarPass(ID, to_dir, caller)
+	if(isliving(caller))
+		var/mob/living/M = caller
+		if("syndicate" in M.faction)
+			return 1
+	return ..(ID, to_dir, caller)
+
+/obj/machinery/shieldwall/syndicate/proc/phaseout()
+	// If you're bumping into an invisible shield, make it fully visible, then fade out over a couple of seconds.
+	if(alpha == 0)
+		alpha = 255
+		animate(src, alpha = 10, time = 20, easing = EASE_OUT)
+		spawn(20)
+			alpha = 0
+
+/obj/machinery/shieldwall/syndicate/Bumped(atom/user)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/attackby(obj/item/W, mob/user, params)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/bullet_act(obj/item/projectile/Proj)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/ex_act(severity)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/emp_act(severity)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/attack_hand(mob/user)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/hitby(AM as mob|obj)
+	phaseout()
+	return ..()

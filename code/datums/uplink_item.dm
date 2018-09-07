@@ -1,16 +1,13 @@
-var/list/uplink_items = list()
+GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /proc/get_uplink_items(var/job = null)
-	// If not already initialized..
+	var/list/uplink_items = list()
 	if(!uplink_items.len)
 
-		// Fill in the list	and order it like this:
-		// A keyed list, acting as categories, which are lists to the datum.
-
 		var/list/last = list()
-		for(var/item in typesof(/datum/uplink_item))
+		for(var/path in GLOB.uplink_items)
 
-			var/datum/uplink_item/I = new item()
+			var/datum/uplink_item/I = new path
 			if(!I.item)
 				continue
 			if(I.gamemodes.len && ticker && !(ticker.mode.type in I.gamemodes))
@@ -55,6 +52,9 @@ var/list/uplink_items = list()
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
+	var/refundable = FALSE
+	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
+	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
 	if(hijack_only)
@@ -214,7 +214,7 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyser. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyser, only appears like one. May not function correctly on radiation resistant humanoids!"
+	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
 	item = /obj/item/rad_laser
 	cost = 5
@@ -500,6 +500,7 @@ var/list/uplink_items = list()
 	reference = "AGG"
 	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
 	cost = 11
+	surplus = 0
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -540,9 +541,11 @@ var/list/uplink_items = list()
 	desc = "A cyborg designed and programmed for systematic extermination of non-Syndicate personnel."
 	reference = "SC"
 	item = /obj/item/antag_spawner/borg_tele
+	refund_path = /obj/item/antag_spawner/borg_tele
 	cost = 50
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
+	refundable = TRUE
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Toy Submachine Gun"
@@ -571,19 +574,14 @@ var/list/uplink_items = list()
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
-
-//for refunding the syndieborg teleporter
-/datum/uplink_item/dangerous/syndieborg/spawn_item()
-	var/obj/item/antag_spawner/borg_tele/T = ..()
-	if(istype(T))
-		T.TC_cost = cost
-
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel."
 	item = /obj/item/storage/box/syndie_kit/guardian
 	excludefrom = list(/datum/game_mode/nuclear)
 	cost = 12
+	refund_path = /obj/item/guardiancreator/tech/choose
+	refundable = TRUE
 
 // Ammunition
 
@@ -1029,9 +1027,8 @@ var/list/uplink_items = list()
 
 /datum/uplink_item/suits/hardsuit
 	name = "Syndicate Hardsuit"
-	desc = "The feared suit of a syndicate nuclear agent. Features slightly better armoring and a built in jetpack \
-			that runs off standard atmospheric tanks. When the built in helmet is deployed your identity will be \
-			protected, even in death, as the suit cannot be removed by outside forces. Toggling the suit in and out of \
+	desc = "The feared suit of a syndicate nuclear agent. Features armor and a combat mode \
+			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
 			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
 			Nanotrasen crew who spot these suits are known to panic."

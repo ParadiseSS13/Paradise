@@ -523,7 +523,6 @@ responsible for properly tagging new pull requests and issues, moderating commen
 pull requests/issues, and merging/closing pull requests.
 
 ### Maintainer List
-* [tigercat2000](https://github.com/tigercat2000)
 * [Fox P McCloud](https://github.com/Fox-McCloud)
 * [Crazy Lemon](https://github.com/Crazylemon64)
 

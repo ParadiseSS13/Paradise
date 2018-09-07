@@ -60,8 +60,9 @@ var/global/nologevent = 0
 	body += "<a href='?_src_=holder;traitor=\ref[M]'>TP</a> - "
 	body += "<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a> - "
 	body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
+	if(ishuman(M) && M.mind)
+		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> -"
 	body += "[admin_jump_link(M)]\] </b><br>"
-
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
 		if(M.client.related_accounts_cid.len)
@@ -878,10 +879,10 @@ var/global/nologevent = 0
 				to_chat(usr, "[P.pai_laws]")
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			to_chat(usr, "<b>SILICON [key_name(S, usr)]'s laws:</b>")
+			to_chat(usr, "<b>SILICON [key_name(S, TRUE)]'s laws:</b>")
 
 		if(S.laws == null)
-			to_chat(usr, "[key_name(S, usr)]'s laws are null. Contact a coder.")
+			to_chat(usr, "[key_name(S, TRUE)]'s laws are null. Contact a coder.")
 		else
 			S.laws.show_laws(usr)
 	if(!ai_number)

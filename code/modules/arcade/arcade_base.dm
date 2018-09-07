@@ -118,22 +118,7 @@
 	else
 		// Okay to move the money at this point
 
-		// debit money from the purchaser's account
-		customer_account.money -= token_price
-
-		// create entry in the purchaser's account log
-		var/datum/transaction/T = new()
-		T.target_name = "[src.name]"
-		T.purpose = "Purchase of [src.name] credit"
-		if(token_price > 0)
-			T.amount = "([token_price])"
-		else
-			T.amount = "[token_price]"
-		T.source_terminal = src.name
-		T.date = current_date_string
-		T.time = station_time_timestamp()
-		customer_account.transaction_log.Add(T)
-		return 1
+		customer_account.charge(token_price, null, "Purchase of [name] credit", name, name)
 
 /obj/machinery/arcade/proc/start_play(mob/user as mob)
 	user.set_machine(src)

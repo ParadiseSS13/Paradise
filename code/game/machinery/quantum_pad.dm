@@ -132,6 +132,7 @@
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
 			flick("qpad-beam", linked_pad)
 			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			var/tele_success = TRUE
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is anchored, don't let through
 				if(ROI.anchored)
@@ -145,4 +146,6 @@
 							continue
 					else if(!isobserver(ROI))
 						continue
-				do_teleport(ROI, get_turf(linked_pad))
+				tele_success = do_teleport(ROI, get_turf(linked_pad))
+			if(!tele_success)
+				to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")

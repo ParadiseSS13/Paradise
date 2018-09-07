@@ -543,12 +543,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Syndicate Infiltrators"
 	icon_state = "syndie-elite"
 
-/area/syndicate_depot
-	name = "\improper Suspicious Supply Depot"
-	icon_state = "red"
-	tele_proof = 1
-	requires_power = 0
-
 //EXTRA
 
 /area/asteroid					// -- TLE
