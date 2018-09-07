@@ -543,12 +543,20 @@
 	build_path = /obj/item/assembly/timer
 	category = list("initial", "Miscellaneous")
 
-/datum/design/voice_analyser
-	name = "Voice Analyser"
-	id = "voice_analyser"
+/datum/design/voice_analyzer
+	name = "Voice Analyzer"
+	id = "voice_analyzer"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/assembly/voice
+	category = list("initial", "Miscellaneous")
+
+/datum/design/noise_analyser
+	name = "Noise Analyser"
+	id = "Noise_analyser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 10)
+	build_path = /obj/item/assembly/voice/noise
 	category = list("initial", "Miscellaneous")
 
 /datum/design/light_tube

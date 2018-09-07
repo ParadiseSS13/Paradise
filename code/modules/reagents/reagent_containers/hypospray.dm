@@ -69,9 +69,12 @@
 
 /obj/item/reagent_containers/hypospray/safety
 	name = "medical hypospray"
-	desc = "A modified hypospray for quickly injecting safe medicinal chemicals."
-	icon_state = "combat_hypo"
+	desc = "A general use medical hypospray for quick injection of chemicals. There is a safety button by the trigger."
+	icon_state = "medivend_hypo"
 	safety_hypo = TRUE
+
+/obj/item/reagent_containers/hypospray/safety/ert
+	list_reagents = list("omnizine" = 30)
 
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)

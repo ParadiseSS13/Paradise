@@ -1,3 +1,5 @@
+#define HEALPERWELD 15
+
 /* Tools!
  * Note: Multitools are in devices
  *
@@ -408,25 +410,47 @@
 			to_chat(user, "<span class='warning'>Turn on [src] before attempting repairs!</span>")
 			return 1
 
-		if(S.brute_dam)
-			if(S.brute_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				if(get_fuel() >= 1)
-					if(H == user)
-						if(!do_mob(user, H, 10))
-							return 1
-					if(remove_fuel(1,null))
-						playsound(src.loc, usesound, 50, 1)
-						S.heal_damage(15,0,0,1)
-						user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
+		if(S.brute_dam > ROBOLIMB_SELF_REPAIR_CAP)
+			to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
+			return
 
-				else if(S.open != 2)
-					to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
-					return 1
-			else
-				to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
-			return 1
-		else if(S.open != 2)
+		if(!S.brute_dam)
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			return
+
+		if(get_fuel() >= 1)
+			if(H == user)
+				if(!do_mob(user, H, 10))
+					return 1
+			if(!remove_fuel(1,null))
+				to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
+			var/rembrute = HEALPERWELD
+			var/nrembrute = 0
+			var/childlist
+			if(!isnull(S.children))
+				childlist = S.children.Copy()
+			var/parenthealed = FALSE
+			while(rembrute > 0)
+				var/obj/item/organ/external/E
+				if(S.brute_dam)
+					E = S
+				else if(LAZYLEN(childlist))
+					E = pick_n_take(childlist)
+					if(!E.brute_dam || !E.is_robotic())
+						continue
+				else if(S.parent && !parenthealed)
+					E = S.parent
+					parenthealed = TRUE
+					if(!E.brute_dam || !E.is_robotic())
+						break
+				else
+					break
+				playsound(src.loc, usesound, 50, 1)
+				nrembrute = max(rembrute - E.brute_dam, 0)
+				E.heal_damage(rembrute,0,0,1)
+				rembrute = nrembrute
+				user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [E.name] with \the [src].</span>")
+			return 1
 	else
 		return ..()
 

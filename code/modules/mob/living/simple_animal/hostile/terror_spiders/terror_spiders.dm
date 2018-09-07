@@ -171,8 +171,8 @@ var/global/list/ts_spiderling_list = list()
 			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
 		T.CheckFaction()
 		CheckFaction()
-	else if(istype(target, /obj/structure/spider/cocoon))
-		to_chat(src, "Destroying our own cocoons would not help us.")
+	else if(istype(target, /obj/structure/spider)) // Prevents destroying coccoons (exploit), eggs (horrible misclick), etc
+		to_chat(src, "Destroying things created by fellow spiders would not help us.")
 	else if(istype(target, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = target
 		if(F.density)

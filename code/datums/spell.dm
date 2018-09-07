@@ -146,7 +146,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my sandals.</span>")
 			return 0
-		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard) && !istype(H.wear_suit, /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard))
+		if(!istype(H.head, /obj/item/clothing/head/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/hardsuit/wizard) && !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard))
 			to_chat(user, "<span class='notice'>I don't feel strong enough without my hat.</span>")
 			return 0
 	else if(!ishuman(user))

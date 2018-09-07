@@ -9,6 +9,7 @@
 	use_power = 1
 	idle_power_usage = 0
 	var/syndicate = 0
+	var/area_bypass = FALSE
 	var/obj/item/radio/beacon/Beacon
 	var/enabled = TRUE
 
@@ -22,6 +23,7 @@
 	Beacon.invisibility = INVISIBILITY_MAXIMUM
 	Beacon.loc = T
 	Beacon.syndicate = syndicate
+	Beacon.area_bypass = area_bypass
 	hide(T.intact)
 
 /obj/machinery/bluespace_beacon/proc/destroy_beacon()
@@ -64,6 +66,7 @@
 /obj/machinery/bluespace_beacon/syndicate
 	syndicate = TRUE
 	enabled = FALSE
+	area_bypass = TRUE // This enables teleports to this beacon to bypass the tele_proof flag of /area/s. Intended for depot syndi teleport computer.
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
 /obj/machinery/bluespace_beacon/syndicate/New()

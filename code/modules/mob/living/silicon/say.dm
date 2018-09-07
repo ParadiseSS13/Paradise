@@ -7,6 +7,7 @@
 	if(..())
 		return 1
 	if(message_mode)
+		used_radios += radio
 		if(!is_component_functioning("radio"))
 			to_chat(src, "<span class='warning'>Your radio isn't functional at this time.</span>")
 			return 0
@@ -18,8 +19,10 @@
 	if(..())
 		return 1
 	if(message_mode == "department")
+		used_radios += aiRadio
 		return holopad_talk(message, verb, speaking)
 	else if(message_mode)
+		used_radios += aiRadio
 		if(aiRadio.disabledAi || aiRestorePowerRoutine || stat)
 			to_chat(src, "<span class='danger'>System Error - Transceiver Disabled.</span>")
 			return 0
@@ -36,6 +39,7 @@
 	else if(message_mode)
 		if(message_mode == "general")
 			message_mode = null
+		used_radios += radio
 		return radio.talk_into(src,message,message_mode,verb,speaking)
 
 /mob/living/silicon/say_quote(var/text)
