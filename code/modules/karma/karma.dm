@@ -157,12 +157,11 @@ var/list/karma_spenders = list()
 
 	if(config.disable_karma)
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
-		return FALSE
+		return
 
 	var/currentkarma = verify_karma()
 	if(!isnull(currentkarma))
 		to_chat(usr, {"<br>You have <b>[currentkarma]</b> available."})
-	return
 
 /client/proc/verify_karma()
 	var/currentkarma = 0
@@ -189,10 +188,8 @@ var/list/karma_spenders = list()
 
 	if(config.disable_karma)
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
-		return FALSE
-
+		return
 	karmashopmenu()
-	return
 
 /client/proc/karmashopmenu()
 	var/dat = "<html><body><center>"
@@ -268,7 +265,6 @@ var/list/karma_spenders = list()
 	var/datum/browser/popup = new(usr, "karmashop", "<div align='center'>Karma Shop</div>", 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
-	return
 
 //Checks if can afford, what you're purchasing, then purchases. (used in client_procs.dm)
 /client/proc/karma_purchase(var/karma = 0, var/price = 1, var/category, var/name, var/DBname = null)
@@ -277,15 +273,15 @@ var/list/karma_spenders = list()
 		return
 	if(alert("Are you sure you want to unlock [name]?", "Confirmation", "No", "Yes") != "Yes")
 		return
+	if(karma < price)	//Check one more time. (definitely not repeated code)
+		to_chat(usr, "You do not have enough karma!")
+		return
 	if(!isnull(DBname)) //In case database uses another name for logging. (Machine, Machine People)
 		name = DBname
 	if(category == "job")
 		DB_job_unlock(name,price)
-		return
 	else if(category == "species")
 		DB_species_unlock(name,price)
-		return
-	return
 
 /client/proc/DB_job_unlock(var/job,var/cost)
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
