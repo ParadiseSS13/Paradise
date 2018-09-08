@@ -1349,7 +1349,7 @@
 		special_role = SPECIAL_ROLE_VAMPIRE
 		ticker.mode.forge_vampire_objectives(src)
 		ticker.mode.greet_vampire(src)
-		ticker.mode.update_change_icons_added(src)
+		ticker.mode.update_vampire_icons_added(src)
 
 /datum/mind/proc/make_Changeling()
 	if(!(src in ticker.mode.changelings))
