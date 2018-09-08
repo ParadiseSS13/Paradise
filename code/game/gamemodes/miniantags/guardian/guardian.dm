@@ -442,7 +442,7 @@
 	info = {"<b>A list of Holoparasite Types</b><br>
 
  <br>
- <b>Chaos</b>: Has two modes. Deception: Causes target of attacks to hallucinate. Dispertion Mode: Attacks have a chance to teleport the target randomly. Ignites mobs on touch. Automatically extinguishes the user if they catch fire.<br>
+ <b>Chaos</b>: Has two modes. Deception: Causes target of attacks to hallucinate. Dispersion: Attacks have a chance to teleport the target randomly. Ignites mobs on touch. Automatically extinguishes the user if they catch fire.<br>
  <br>
  <b>Standard</b>: Devestating close combat attacks and high damage resist. No special powers.<br>
  <br>
