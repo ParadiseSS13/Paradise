@@ -109,135 +109,53 @@
 			if("shop")
 				if(href_list["KarmaBuy"])
 					var/karma=verify_karma()
-					switch(href_list["KarmaBuy"])
-						if("1")
-							if(karma <5)
-								to_chat(usr, "You do not have enough karma!")
+					if(!isnull(karma)) //Doesn't display anything if karma database is down.
+						switch(href_list["KarmaBuy"])
+							if("1")
+								karma_purchase(karma,5,"job","Barber")
 								return
-							else
-								if(alert("Are you sure you want to unlock Barber?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Barber",5)
+							if("2")
+								karma_purchase(karma,5,"job","Brig Physician")
 								return
-						if("2")
-							if(karma <5)
-								to_chat(usr, "You do not have enough karma!")
+							if("3")
+								karma_purchase(karma,30,"job","Nanotrasen Representative")
 								return
-							else
-								if(alert("Are you sure you want to unlock Brig Physician?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Brig Physician",5)
+							if("5")
+								karma_purchase(karma,30,"job","Blueshield")
 								return
-						if("3")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
+							if("6")
+								karma_purchase(karma,30,"job","Mechanic")
 								return
-							else
-								if(alert("Are you sure you want to unlock Nanotrasen Representative?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Nanotrasen Representative",30)
+							if("7")
+								karma_purchase(karma,45,"job","Magistrate")
 								return
-						if("5")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Blueshield?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Blueshield",30)
-								return
-						if("6")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Mechanic?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Mechanic",30)
-								return
-						if("7")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Magistrate?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Magistrate",45)
-								return
-						if("9")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Security Pod Pilot?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Security Pod Pilot",30)
+							if("9")
+								karma_purchase(karma,30,"job","Security Pod Pilot")
 								return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
-					switch(href_list["KarmaBuy2"])
-						if("1")
-							if(karma <15)
-								to_chat(usr, "You do not have enough karma!")
+					if(!isnull(karma)) //Doesn't display anything if karma database is down.
+						switch(href_list["KarmaBuy2"])
+							if("1")
+								karma_purchase(karma,15,"species","Machine People","Machine")
 								return
-							else
-								if(alert("Are you sure you want to unlock Machine People?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Machine",15)
+							if("2")
+								karma_purchase(karma,30,"species","Kidan")
 								return
-						if("2")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
+							if("3")
+								karma_purchase(karma,30,"species","Grey")
 								return
-							else
-								if(alert("Are you sure you want to unlock Kidan?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Kidan",30)
+							if("4")
+								karma_purchase(karma,45,"species","Vox")
 								return
-						if("3")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
+							if("5")
+								karma_purchase(karma,45,"species","Slime People")
 								return
-							else
-								if(alert("Are you sure you want to unlock Grey?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Grey",30)
+							if("6")
+								karma_purchase(karma,100,"species","Plasmaman")
 								return
-						if("4")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Vox?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Vox",45)
-								return
-						if("5")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Slime People?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Slime People",45)
-								return
-						if("6")
-							if(karma <100)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Plasmaman?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Plasmaman",100)
-								return
-						if("7")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Drask?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Drask",30)
+							if("7")
+								karma_purchase(karma,30,"species","Drask")
 								return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
