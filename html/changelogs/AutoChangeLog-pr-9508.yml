@@ -1,0 +1,4 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - bugfix: "Ghosts can no longer eject IDs from fax machines and ID computers."
