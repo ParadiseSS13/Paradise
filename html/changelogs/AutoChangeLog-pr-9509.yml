@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "The cancel button actually work properly when editing memory now."
