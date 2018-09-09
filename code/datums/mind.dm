@@ -482,7 +482,7 @@
 		var/new_memo = copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN)
 		if(isnull(new_memo))
 			return
-		var/confirmed = alert(usr, "Are you sure?", "Edit Memory", "Yes", "No")
+		var/confirmed = alert(usr, "Are you sure? (Click NO to cancel! YES will replace current memory!)", "Edit Memory", "Yes", "No")
 		if(confirmed == "Yes") // Because it is too easy to accidentally wipe someone's memory
 			memory = new_memo
 			log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
