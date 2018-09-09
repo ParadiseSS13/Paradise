@@ -1,0 +1,4 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - bugfix: "You can no longer gib everyone on the server by forcing admins to call verbs with NTSL"
