@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Claw game should give you token for payment by card properly again."

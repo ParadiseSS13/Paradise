@@ -1,4 +1,0 @@
-author: "Agameofscones"
-delete-after: True
-changes: 
-  - bugfix: "removes the equip region for the mask slot on holobadge-cords"
