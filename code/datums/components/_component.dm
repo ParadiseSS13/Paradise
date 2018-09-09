@@ -56,7 +56,11 @@
 	if(!force)
 		_RemoveFromParent()
 	if(!silent)
-		SEND_SIGNAL(P, COMSIG_COMPONENT_REMOVING, src)
+		#if DM_VERSION > 511
+		#warn Remove the garbage bypass code below
+		#endif
+		var/Removein512 = SEND_SIGNAL(P, COMSIG_COMPONENT_REMOVING, src)
+		KillMeIn512(Removein512)
 	parent = null
 	for(var/target in signal_procs)
 		UnregisterSignal(target, signal_procs[target])
@@ -258,7 +262,11 @@
 		new_comp = new nt(arglist(args)) // Dupes are allowed, act like normal
 
 	if(!old_comp && !QDELETED(new_comp)) // Nothing related to duplicate components happened and the new component is healthy
-		SEND_SIGNAL(src, COMSIG_COMPONENT_ADDED, new_comp)
+		#if DM_VERSION > 511
+		#warn Remove the garbage bypass code below
+		#endif
+		var/Removein512 = SEND_SIGNAL(src, COMSIG_COMPONENT_ADDED, new_comp)
+		KillMeIn512(Removein512)
 		return new_comp
 	return old_comp
 
@@ -278,7 +286,11 @@
 		qdel(C)
 		return
 	C._RemoveFromParent()
-	SEND_SIGNAL(helicopter, COMSIG_COMPONENT_REMOVING, C)
+	#if DM_VERSION > 511
+	#warn Remove the garbage bypass code below
+	#endif
+	var/Removein512 = SEND_SIGNAL(helicopter, COMSIG_COMPONENT_REMOVING, C)
+	KillMeIn512(Removein512)
 	C.parent = src
 	if(C == AddComponent(C))
 		C._JoinParent()
