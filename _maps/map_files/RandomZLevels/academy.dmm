@@ -177,7 +177,7 @@
 "du" = (/obj/structure/stool,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dv" = (/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dw" = (/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/awaymission/academy/classrooms)
-"dx" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/effect/landmark{name = "awaystart"},/obj/item/weldingtool,/turf/simulated/floor/greengrid,/area/awaymission/academy/classrooms)
+"dx" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/item/weldingtool,/turf/simulated/floor/greengrid,/area/awaymission/academy/classrooms)
 "dy" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/greengrid,/area/awaymission/academy/classrooms)
 "dz" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/greengrid,/area/awaymission/academy/classrooms)
 "dA" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
@@ -200,6 +200,7 @@
 "dR" = (/obj/structure/kitchenspike,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/academy/classrooms)
 "dS" = (/obj/structure/mineral_door/iron,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dT" = (/obj/structure/mineral_door/iron,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
+"dU" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/wood,/area/awaymission/academy/classrooms)
 "dV" = (/obj/machinery/seed_extractor,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dW" = (/obj/structure/cable,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "dX" = (/obj/structure/closet/crate/freezer,/turf/simulated/floor/plasteel{icon_state = "white"},/area/awaymission/academy/classrooms)
@@ -305,7 +306,6 @@
 "fT" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "fU" = (/obj/structure/target_stake,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
 "fV" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plating,/area/awaymission/academy/classrooms)
-"fW" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plating,/area/awaymission/academy/classrooms)
 "fX" = (/obj/structure/grille,/obj/structure/cable,/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/structure/window/reinforced{dir = 5},/turf/simulated/floor/plating,/area/awaymission/academy/classrooms)
 "fY" = (/turf/simulated/floor/plasteel{dir = 8; icon_state = "warning"},/area/awaymission/academy/classrooms)
 "fZ" = (/obj/structure/table,/obj/item/pen/red,/turf/simulated/floor/plasteel,/area/awaymission/academy/classrooms)
@@ -655,7 +655,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabscXcYcZcZcZcZdadvbEdbdcdcdcdcdcdcddasbrbJbKbraVapbrbJbKbrasasasasasasasasasabbsbsbsbsbsbsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsdededebVbVdvcMdvbEdcdcdfdcdfdcdfdcasbrbrbrbraVapbrbrbrbrasdhdidjdkdidididjdidlbEdmdmdnbsbsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsdodpdqbVdvdvcMdrbEdcdcdsdcdsdcdsdcasaFaFaFaFaVapaFaFaFaFasdtdudvjMdudvdvdvdvdwbEdmdmdmdmbsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsdxdydzcYcYcYdAdvbEdcdcdcdcdfdcdfdcasaFdBdBaFaVapaFdBdBaFasdtdvdvdvdvdvdvdCdDdwdEdmkydmdFbsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsdxdydzcYcYcYdAdvbEdcdcdUdcdfdcdfdcasaFdBdBaFaVapaFdBdBaFasdtdvdvdvdvdvdvdCdDdwdEdmkydmdFbsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsdGdpdHbVdvdvcMdvbEdcdcdcdcdsdcdsdcasaFdBdBaFaVapaFdBdBaFasdtdudvdvdudIdvdJdKdwbEdmdmdmdmbsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsdedededvbVdvcMdvbEdcdcdcdcdcdcdcdcasaFdBdBaFaVapaFdBdBaFasdtdvdvdvdvdvdvdLdMdNdOdPdQdmdRbsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsbsbsbsbEbEbEdSdTbEbEbEewewbEbEbEbEbEasasasasasaVapasasasasasdtdudvdvdvdVdvdvdWdwbEdXdYdmdRbsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -669,7 +669,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsdZdZbsfsftfuedfvfwfefefefefxeieifyfefefefzekeihEekekeieieibEeCeCeCeCfAeCeCeCeCeFeGeGeGbsbsaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsbsbsbsbsbsbEdSdTbEbEbEbEbEererererbEbEfBfCfDfBkTfDfDfBbEbEbEbEbEbEbEbEbEbEbEbEbEbEbEbsbsaPaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsbBbBbBfEfFfGfHfIfIfJbEfKdcdcdcdcdcbEfLfCfDfLkUfDfDfMbEfNfOfPbzbzkvfQfRfSfTdvdvfUbsbsaPaaaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsfVfWbBfXfYdvdvdvfZgabEdcgbdcgcgcdcgdgegffDfLkUfDfDfLbEggghgigjggcAdvgkdvdvdvdvbsbsaPaPaaaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabsfVbBbBfXfYdvdvdvfZgabEdcgbdcgcgcdcgdgegffDfLkUfDfDfLbEggghgigjggcAdvgkdvdvdvdvbsbsaPaPaaaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaaaaaaaaaaaaaaaaaaaaaabsglbBbBgmfYdvgndvdvgobEdcdfdcdcdcdcgpfLfDfDfLkUfDfDfLbEgggqggggggcAfQkzdvdvfUbsbsaPaaaPaaaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSaSaSaSaSaaaaaaaaaaaaaaaaaabsgrgrgrfXfYdvdudvdvgsbEgtdsdckAgudcgpfLfDfDfLkUfDfDgvbEgwgqggggggcAdvgxdvgybsbsaPaaaaaPaaaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaSkBaSaSaSaaaaaaaaaaaaaaaaaabsgzgzgzfXfYdvgAdvgngobEdcgbdcdcdcdcgBgegCgDfLkUfDfDfLbEgggqdggEgGcAgHfRfUbsbsaPaaaaaaaPaaaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
