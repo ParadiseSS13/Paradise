@@ -92,12 +92,12 @@
 		internal_tank = new /obj/item/tank/nitrogen(H)
 	else
 		internal_tank = new /obj/item/tank/emergency_oxygen/vox(H)
-	if (!H.equip_to_appropriate_slot(internal_tank))
-		if (!H.put_in_any_hand_if_possible(internal_tank))
+	if(!H.equip_to_appropriate_slot(internal_tank))
+		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
 			H.equip_or_collect(internal_tank, slot_l_hand)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
-	internal_tank.toggle_internals(H)
+	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.update_action_buttons_icon()
 
