@@ -464,7 +464,7 @@
 	req_access = list(access_mechanic)
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
-	. = ..()
+	..()
 	QDEL_LIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/podfab(null)
