@@ -1,0 +1,4 @@
+author: "Agameofscones"
+delete-after: True
+changes: 
+  - tweak: "changes implementation of https://github.com/ParadiseSS13/Paradise/pull/9471 to be smarter and more long term."
