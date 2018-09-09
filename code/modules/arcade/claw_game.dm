@@ -48,16 +48,14 @@
 		icon_state = "clawmachine[machine_image]_off"
 	else
 		icon_state = "clawmachine[machine_image]_on"
-	return
 
 /obj/machinery/arcade/claw/win()
 	icon_state = "clawmachine[machine_image]_win"
-	if(prob(bonus_prize_chance))
-		//double prize mania!
-		visible_message("<span class='game say'><span class='name'>[src.name]</span> beeps, \"DOUBLE PRIZE!\"</span>")
+	if(prob(bonus_prize_chance))	//double prize mania!
+		atom_say("DOUBLE PRIZE!")
 		new /obj/item/toy/prizeball(get_turf(src))
 	else
-		visible_message("<span class='game say'><span class='name'>[src.name]</span> beeps, \"WINNER!\"</span>")
+		atom_say("WINNER!")
 	new /obj/item/toy/prizeball(get_turf(src))
 	playsound(src.loc, 'sound/arcade/Win.ogg', 50, 1, extrarange = -3, falloff = 10)
 	addtimer(CALLBACK(src, .update_icon), 10)
