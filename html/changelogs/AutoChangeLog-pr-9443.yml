@@ -1,4 +1,0 @@
-author: "uc_guy"
-delete-after: True
-changes: 
-  - bugfix: "Fixed exploit that allowed exiled mobs to return to the station"

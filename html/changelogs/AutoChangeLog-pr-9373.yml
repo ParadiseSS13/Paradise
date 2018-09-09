@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - tweak: "A wallet now shows a green card decal by default if there's a card inside."

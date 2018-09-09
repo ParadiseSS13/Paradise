@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Mime forcewall now properly last for 30 seconds instead of 10."

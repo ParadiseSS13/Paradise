@@ -1,4 +1,0 @@
-author: "nicetoolbox"
-delete-after: True
-changes: 
-  - bugfix: "Prevent instant rev victory in rev gamemode"
