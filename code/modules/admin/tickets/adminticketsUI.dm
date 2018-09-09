@@ -44,14 +44,14 @@
 
 	return dat
 
-/datum/adminTicketHolder/proc/showUI(var/client/user, var/tab)
+/datum/adminTicketHolder/proc/showUI(mob/user, var/tab)
 	var/dat = null
 	dat = returnUI(tab)
 	var/datum/browser/popup = new(user, "admintickets", "Admin Tickets", 1400, 600)
 	popup.set_content(dat)
 	popup.open()
 
-/datum/adminTicketHolder/proc/showDetailUI(var/client/user, var/ticketID)
+/datum/adminTicketHolder/proc/showDetailUI(mob/user, var/ticketID)
 	var/datum/admin_ticket/T = globAdminTicketHolder.allTickets[ticketID]
 	var/status = "[T.state2text()]"
 
@@ -91,9 +91,9 @@
 	popup.set_content(dat)
 	popup.open()
 
-/datum/adminTicketHolder/proc/userDetailUI(var/client/user)
+/datum/adminTicketHolder/proc/userDetailUI(mob/user)
 //dat
-	var/tickets = checkForTicket(user)
+	var/tickets = checkForTicket(user.client)
 	var/dat
 	dat += "<h1>Your open tickets</h1>"
 	dat += "<table>"
@@ -130,7 +130,7 @@
 
 	if(href_list["details"])
 		var/indexNum = text2num(href_list["details"])
-		showDetailUI(usr.client, indexNum)
+		showDetailUI(usr, indexNum)
 		return
 
 	if(href_list["resolve"])

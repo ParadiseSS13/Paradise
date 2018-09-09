@@ -49,7 +49,14 @@
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
-	return !(silent || (disabilities & MUTE) || is_muzzled())
+	if(!(silent || (disabilities & MUTE)))
+		if(is_muzzled())
+			var/obj/item/clothing/mask/muzzle/M = wear_mask
+			if(M.mute >= MUZZLE_MUTE_MUFFLE)
+				return FALSE
+		return TRUE
+	else
+		return FALSE
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()

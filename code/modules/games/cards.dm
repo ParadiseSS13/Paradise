@@ -221,6 +221,8 @@
 		return
 
 	if(over_object == M)
+		if(!remove_item_from_storage(M))
+			M.unEquip(src)
 		M.put_in_hands(src)
 
 	else if(istype(over_object, /obj/screen))
@@ -374,10 +376,11 @@
 	H.parentdeck = parentdeck
 	H.concealed = concealed
 	H.update_icon()
-	update_icon()
 
 	if(!cards.len)
 		qdel(src)
+		return
+	update_icon()
 
 /obj/item/cardhand/verb/discard(var/mob/user as mob)
 
@@ -410,7 +413,7 @@
 		if(cards.len)
 			update_icon()
 		if(H.cards.len)
-			usr.visible_message("<span class='notice'>The [user] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
+			usr.visible_message("<span class='notice'>The [usr] plays the [discarding].</span>", "<span class='notice'>You play the [discarding].</span>")
 		H.loc = get_step(usr,usr.dir)
 
 	if(!cards.len)
@@ -419,7 +422,6 @@
 /obj/item/cardhand/update_icon(var/direction = 0)
 
 	if(!cards.len)
-		qdel(src)
 		return
 	else if(cards.len > 1)
 		name = "hand of cards"

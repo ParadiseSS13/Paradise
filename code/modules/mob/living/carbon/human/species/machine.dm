@@ -140,8 +140,13 @@
 					hair += Entry[3]							// Adds custom screen to list
 
 		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
+		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
+
 		if(H.incapacitated())
-			to_chat(src, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
+			to_chat(H, "<span class='warning'>You were interrupted while changing your monitor display.</span>")
 			return
+
 		if(new_style)
 			H.change_hair(new_style, 1)							// The 1 is to enable custom sprites
+		if(new_color)
+			H.change_hair_color(new_color)
