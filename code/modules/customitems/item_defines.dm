@@ -1515,3 +1515,25 @@
 		return new /obj/item/twohanded/shockpaddles/kotiro(src)
 
 */
+
+/obj/item/organ/internal/brain/blob
+	name = "defective core"
+	desc = "It seems to be the defective core of a slime"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "defective slime core"
+	mmi_icon_state = "slime_mmi"
+		
+// Función de mierda que detecta cuando un pj entra a la estación
+/mob/new_player/proc/start_player(mob/user)
+	var/mob/living/carbon/human/target = user
+
+	//					BLOB
+	var/obj/item/organ/internal/organ = new/obj/item/organ/internal/brain/blob
+
+	if(isslimeperson(target) && target.real_name == "Blob Bob" && target.ckey == "alfred987")
+		organ.insert(target)
+		organ.dna = target.dna
+		return
+	//					---
+	
+	return
