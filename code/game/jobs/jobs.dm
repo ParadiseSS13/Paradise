@@ -167,6 +167,9 @@ var/list/whitelisted_positions = list(
 /proc/guest_jobbans(var/job)
 	return (job in whitelisted_positions)
 
+/proc/heads_jobbans(var/job)
+	return (job in command_positions)
+
 /proc/get_job_datums()
 	var/list/occupations = list()
 	var/list/all_jobs = typesof(/datum/job)
