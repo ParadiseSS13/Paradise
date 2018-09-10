@@ -48,9 +48,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			if(86 to 100)
 				current = major
 
-		var/halpick = pickweight(current)
-
-		hallucinate(halpick)
+		hallucinate(pickweight(current))
 	handling_hal = FALSE
 
 
@@ -198,21 +196,17 @@ Gunshots/explosions/opening doors/less rare audio (done)
 			pump = U
 			break
 	if(!pump)
-		return FALSE
+		return
 	xeno = new(pump.loc,target)
 	sleep(10)
 	if(!xeno)
 		return
-	xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
-	xeno.throw_at(target,7,1, spin = 0, diagonals_first = 1)
-	sleep(10)
-	if(!xeno)
-		return
-	xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
-	xeno.throw_at(pump,7,1, spin = 0, diagonals_first = 1)
-	sleep(10)
-	if(!xeno)
-		return
+	for(var/i in 0 to 2)
+		xeno.update_icon("alienh_leap",'icons/mob/alienleap.dmi',-32,-32)
+		xeno.throw_at(target,7,1, spin = 0, diagonals_first = 1)
+		sleep(10)
+		if(!xeno)
+			return
 	var/xeno_name = xeno.name
 	to_chat(target, "<span class='notice'>[xeno_name] begins climbing into the ventilation system...</span>")
 	sleep(10)
@@ -813,10 +807,9 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 					playsound_local(null, pick('sound/effects/Glassbr1.ogg','sound/effects/Glassbr2.ogg','sound/effects/Glassbr3.ogg'), 50, 1)
 				if(5)
 					playsound_local(null, 'sound/weapons/ring.ogg', 35)
-					sleep(15)
-					playsound_local(null, 'sound/weapons/ring.ogg', 35)
-					sleep(15)
-					playsound_local(null, 'sound/weapons/ring.ogg', 35)
+					for(var/i in 0 to 2)
+						sleep(15)
+						playsound_local(null, 'sound/weapons/ring.ogg', 35)
 				if(6)
 					playsound_local(null, 'sound/magic/Summon_guns.ogg', 50, 1)
 				if(7)
@@ -873,10 +866,9 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
 					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, 1)
-					sleep(20)
-					playsound_local(null, 'sound/magic/lightningbolt.ogg', 65, 1)
-					sleep(20)
-					playsound_local(null, 'sound/magic/lightningbolt.ogg', 100, 1)
+					for(var/i in 0 to 2)
+						sleep(20)
+						playsound_local(null, 'sound/magic/lightningbolt.ogg', 65+(35*(i-1)), 1)	//65%, then 100% volume.
 				if(20) //AI is doomsdaying!
 					to_chat(src, "<h1 class='alert'>Anomaly Alert</h1>")
 					to_chat(src, "<br><br><span class='alert'>Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.</span><br><br>")
@@ -1002,8 +994,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 							halimage = image('icons/turf/floors/Chasms.dmi',target,"smooth",TURF_LAYER)
 						if(4)
 							halimage = image('icons/obj/assemblies.dmi',target,"plastic-explosive2",OBJ_LAYER+0.01)
-
-
+						
 					if(client)
 						client.images += halimage
 					sleep(rand(40,60)) //Only seen for a brief moment.
