@@ -163,12 +163,26 @@ var/list/whitelisted_positions = list(
 	"Security Pod Pilot",
 )
 
+var/list/hispa_whitelist = list(
+	"Captain",
+	"Head of Personnel",
+	"Head of Security",
+	"Chief Engineer",
+	"Research Director",
+	"Chief Medical Officer",
+	"Nanotrasen Representative",
+	"Blueshield",
+	"AI",
+	"Cyborg",
+	"Magistrate"
+)
+
 
 /proc/guest_jobbans(var/job)
 	return (job in whitelisted_positions)
 
 /proc/heads_jobbans(var/job)
-	return (job in command_positions)
+	return (job in hispa_whitelist)
 
 /proc/get_job_datums()
 	var/list/occupations = list()
