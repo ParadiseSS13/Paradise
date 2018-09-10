@@ -484,7 +484,7 @@
 
 
 	// create a light tube/bulb item and put it in the user's hand
-	var/obj/item/light/L = new light_type()
+	var/obj/item/light/L = new light_type(get_turf(user))
 	L.status = status
 	L.rigged = rigged
 	L.brightness_range = brightness_range
@@ -499,7 +499,7 @@
 	L.update()
 	L.add_fingerprint(user)
 
-	user.put_in_active_hand(L)	//puts it in our active hand
+	user.put_in_hands(L)	//puts it in our active hand
 
 	status = LIGHT_EMPTY
 	update()
