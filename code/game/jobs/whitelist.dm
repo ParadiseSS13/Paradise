@@ -65,7 +65,7 @@ var/list/whitelist = list()
 				else return 1
 			return 0
 	else
-return 1
+		return 1
 
 
 /var/list/alien_whitelist = list()
