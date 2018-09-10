@@ -83,7 +83,6 @@
 		return
 	if(has_gravity(src))
 		playsound(src, casing_sound, 40, 1)
-	return
 
 //Boxes of ammo
 /obj/item/ammo_box
