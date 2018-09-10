@@ -9,7 +9,7 @@
 	department_head = list("Captain")
 	req_admin_notify = 1
 	minimal_player_age = 30
-	exp_requirements = 1200
+	exp_requirements = 2160
 	exp_type = EXP_TYPE_CREW
 
 /datum/job/ai/equip(mob/living/carbon/human/H)
@@ -30,7 +30,7 @@
 	department_head = list("AI")
 	selection_color = "#ddffdd"
 	minimal_player_age = 21
-	exp_requirements = 300
+	exp_requirements = 336
 	exp_type = EXP_TYPE_CREW
 	alt_titles = list("Android", "Robot")
 
