@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "pAI can no longer use name with special characters that cause their chat messages to disappear."
