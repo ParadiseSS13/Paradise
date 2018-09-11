@@ -44,6 +44,26 @@ var/list/whitelist = list()
 		return 1
 
 
+/proc/is_heads_whitelisted(mob/M, var/rank)
+	if(heads_jobbans(rank))
+		if(check_rights(R_ADMIN, 0, M))
+			return 1
+		if(!dbcon.IsConnected())
+			to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
+			return 0
+		else
+			var/DBQuery/query = dbcon.NewQuery("SELECT job FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
+			query.Execute()
+
+			while(query.NextRow())
+				var/joblist = query.item[1]
+				if(joblist!="*")
+					var/allowed_jobs = splittext(joblist,",")
+					if(rank in allowed_jobs) return 1
+				else return 1
+			return 0
+	else
+		return 1
 
 
 /var/list/alien_whitelist = list()

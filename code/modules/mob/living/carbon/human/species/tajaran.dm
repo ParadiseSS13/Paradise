@@ -2,6 +2,7 @@
 	name = "Tajaran"
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
+	blacklisted = TRUE
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
 	language = "Siik'tajr"
 	tail = "tajtail"
@@ -24,7 +25,7 @@
 
 	primitive_form = /datum/species/monkey/tajaran
 
-	species_traits = list(LIPS, CAN_BE_FAT, IS_WHITELISTED)
+	species_traits = list(LIPS, CAN_BE_FAT)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	dietflags = DIET_OMNI

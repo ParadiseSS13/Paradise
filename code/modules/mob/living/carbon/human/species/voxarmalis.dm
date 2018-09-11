@@ -2,6 +2,7 @@
 	name = "Vox Armalis"
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
+	blacklisted = TRUE
 	deform = 'icons/mob/human_races/r_armalis.dmi'
 	path = /mob/living/carbon/human/voxarmalis
 	unarmed_type = /datum/unarmed_attack/claws/armalis
@@ -22,7 +23,7 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
+	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN)
 	bodyflags = HAS_TAIL
 	dietflags = DIET_OMNI	//should inherit this from vox, this is here just in case
 
