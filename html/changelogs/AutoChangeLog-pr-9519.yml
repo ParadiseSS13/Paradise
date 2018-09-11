@@ -1,0 +1,4 @@
+author: "alex-gh"
+delete-after: True
+changes: 
+  - bugfix: "It is now possible to heal robotic limbs and IPCs through View Variables"
