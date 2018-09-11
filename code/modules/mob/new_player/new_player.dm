@@ -264,6 +264,7 @@
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
+	if(!is_heads_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
 	if(job.available_in_playtime(client))
@@ -405,6 +406,7 @@
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
 					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					call(/mob/new_player/proc/start_player)(character)
 
 /mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
 	if(ticker.current_state == GAME_STATE_PLAYING)
