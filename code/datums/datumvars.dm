@@ -1215,8 +1215,8 @@
 			return
 
 		switch(Text)
-			if("brute")	L.adjustBruteLoss(amount)
-			if("fire")	L.adjustFireLoss(amount)
+			if("brute")	L.adjustBruteLoss(amount, robotic=1)
+			if("fire")	L.adjustFireLoss(amount, robotic=1)
 			if("toxin")	L.adjustToxLoss(amount)
 			if("oxygen")L.adjustOxyLoss(amount)
 			if("brain")	L.adjustBrainLoss(amount)
