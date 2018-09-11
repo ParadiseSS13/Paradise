@@ -1,0 +1,4 @@
+author: "Aurorablade"
+delete-after: True
+changes: 
+  - bugfix: "Adds a missing var to cult comms logging."
