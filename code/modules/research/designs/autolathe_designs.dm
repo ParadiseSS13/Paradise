@@ -856,6 +856,7 @@
 	build_path = /obj/item/videocam
 	category = list("initial", "Miscellaneous")
 
+/* THESE ARE BROKEN AND CRASH EVERYONE. SEE code/game/objects/structures/artstuff.dm
 /datum/design/canvas
 	name = "11px by 11px Canvas"
 	id = "canvas"
@@ -887,6 +888,7 @@
 	materials = list(MAT_METAL = 100)
 	build_path = /obj/item/canvas/twentythreeXtwentythree
 	category = list("initial", "Miscellaneous")
+*/
 
 /datum/design/logic_board
 	name = "Logic Circuit"
