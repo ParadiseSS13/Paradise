@@ -163,7 +163,7 @@ var/list/whitelisted_positions = list(
 	"Security Pod Pilot",
 )
 
-var/list/hispa_whitelist = list(
+var/list/hispa_whitelist = list (
 	"Captain",
 	"Head of Personnel",
 	"Head of Security",
@@ -171,10 +171,9 @@ var/list/hispa_whitelist = list(
 	"Research Director",
 	"Chief Medical Officer",
 	"Nanotrasen Representative",
-	"Blueshield",
 	"AI",
-	"Cyborg",
-	"Magistrate"
+	"Blueshield",
+	"Cyborg"
 )
 
 

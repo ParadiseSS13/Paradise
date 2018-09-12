@@ -1279,9 +1279,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", /*"Vulpkanin"*/)
+					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Machine", "Plasmaman", "Kidan", "Drask", "Vox", "Slime People")
 					var/prev_species = species
 //						var/whitelisted = 0
+					new_species -= list("Tajaran", "Vulpkanin", "Vox Armalis", "Nucleation")
 
 					if(config.usealienwhitelist) //If we're using the whitelist, make sure to check it!
 						for(var/Spec in whitelisted_species)
