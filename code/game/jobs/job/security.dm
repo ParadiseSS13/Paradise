@@ -17,8 +17,8 @@
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
 			            access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting,
 			            access_heads, access_hos, access_RC_announce, access_keycard_auth, access_gateway, access_pilot, access_weapons)
-	minimal_player_age = 21
-	exp_requirements = 600
+	minimal_player_age = 30
+	exp_requirements = 2400
 	exp_type = EXP_TYPE_CREW
 	disabilities_allowed = 0
 	outfit = /datum/outfit/job/hos
@@ -62,8 +62,8 @@
 	selection_color = "#ffeeee"
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue, access_weapons, access_eva)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_weapons)
-	minimal_player_age = 21
-	exp_requirements = 300
+	minimal_player_age = 25
+	exp_requirements = 2160
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/warden
 
@@ -107,7 +107,7 @@
 	access = list(access_security, access_sec_doors, access_forensics_lockers, access_maint_tunnels, access_court, access_weapons, access_forensics_lockers, access_morgue)
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	minimal_player_age = 14
-	exp_requirements = 300
+	exp_requirements = 720
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/detective
 
@@ -164,7 +164,7 @@
 	access = list(access_medical, access_morgue, access_security, access_sec_doors, access_forensics_lockers, access_maint_tunnels, access_court, access_weapons, access_forensics_lockers)
 	minimal_access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court, access_weapons)
 	minimal_player_age = 14
-	exp_requirements = 300
+	exp_requirements = 720
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/forensic
 
@@ -203,7 +203,7 @@
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue, access_weapons, access_pilot, access_external_airlocks)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 14
-	exp_requirements = 300
+	exp_requirements = 720
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/officer
 	alt_titles = list("Spacepod Pilot")
