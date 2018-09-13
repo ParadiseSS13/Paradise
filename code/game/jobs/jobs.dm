@@ -173,9 +173,7 @@ var/list/hispa_whitelist = list (
 	"Nanotrasen Representative",
 	"AI",
 	"Blueshield",
-	"Cyborg",
-	"Magistrate",
-	"Warden"
+	"Cyborg"
 )
 
 
