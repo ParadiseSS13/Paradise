@@ -46,6 +46,8 @@ var/list/whitelist = list()
 
 /proc/is_heads_whitelisted(mob/M, var/rank)
 	if(heads_jobbans(rank))
+		if(!config.usewhitelist)
+			return 1
 		if(check_rights(R_ADMIN, 0, M))
 			return 1
 		if(!dbcon.IsConnected())
