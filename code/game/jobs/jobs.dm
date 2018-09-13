@@ -175,7 +175,7 @@ var/list/hispa_whitelist = list (
 	"Blueshield",
 	"Cyborg",
 	"Magistrate",
-	"Warden"
+	"Warden",
 )
 
 
