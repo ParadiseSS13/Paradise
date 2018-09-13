@@ -1515,25 +1515,80 @@
 		return new /obj/item/twohanded/shockpaddles/kotiro(src)
 
 */
+//KOTIRO DEFIB ENDS HERE//
+
+//YACKER MASK STARTS HERE//
+
+/obj/item/clothing/mask/breath/weathered
+	desc = "A metal mask with leather straps. It looks weathered, but it's still functional."
+	name = "weathered mask"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "weathered_mask"				//Sprites del mob usando la máscara están en icons/mob/mask.dmi con el mismo nombre
+	item_state = "weathered_mask"
+	w_class = WEIGHT_CLASS_NORMAL
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	species_restricted = list("Human")
+
+//YACKER MASK ENDS HERE//
+
+//DRAGONC305 HOODIE STARTS HERE//
+
+/obj/item/clothing/suit/storage/labcoat/killerhoodie
+	name = "blue hoodie"
+	desc = "It's just a sky blue hoodie."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "killerhoodie_open" 					//icons/mob/suit.dmi
+	item_state = "killerhoodie_open"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unhoodie"
+
+//DRAGONC305 HOODIE ENDS HERE//
+
+//RYZOR SLIME BRAIN STARTS HERE//
 
 /obj/item/organ/internal/brain/blob
 	name = "defective core"
-	desc = "It seems to be the defective core of a slime"
+	desc = "It seems to be the defective core of a slime."
 	icon = 'icons/obj/hispania_custom_items.dmi'
-	icon_state = "defective slime core"
+	icon_state = "defectivecore"
 	mmi_icon_state = "slime_mmi"
-		
+
+//RYZOR SLIME BRAIN ENDS HERE//
+
+//ASDFLYY TOASTER BRAIN STARTS HERE//
+
+/obj/item/organ/internal/brain/toaster
+	name = "modified positronic brain"
+	desc = "A strange positronic brain. A human brain should be here instead."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "toasterbrain"
+	mmi_icon_state = "mmi_toaster"
+
+//ASDFLYY TOASTER BRAIN ENDS HERE//
+
+
 // Función de mierda que detecta cuando un pj entra a la estación
 /mob/new_player/proc/start_player(mob/user)
 	var/mob/living/carbon/human/target = user
+	var/obj/item/organ/internal/organ
 
-	//					BLOB
-	var/obj/item/organ/internal/organ = new/obj/item/organ/internal/brain/blob
-
+	//                    BLOB
 	if(isslimeperson(target) && target.real_name == "Blob Bob" && target.ckey == "alfred987")
+		organ = new/obj/item/organ/internal/brain/blob
 		organ.insert(target)
 		organ.dna = target.dna
 		return
-	//					---
-	
+    //                    ---
+
+    //                    TOASTER
+	if(ishuman(target) && target.real_name == "Toaster" && target.ckey == "asdflyy")
+		organ = new/obj/item/organ/internal/brain/toaster
+		organ.insert(target)
+		organ.dna = target.dna
+		return
+	//                    ---
+
 	return
