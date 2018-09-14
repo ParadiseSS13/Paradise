@@ -3,7 +3,7 @@
 	desc = "what the paramedic uses to run over people to take to medbay."
 	icon_state = "docwagon2"
 	keytype = /obj/item/key/ambulance
-	var/obj/structure/stool/bed/amb_trolley/bed = null
+	var/obj/structure/bed/amb_trolley/bed = null
 
 
 /obj/item/key/ambulance
@@ -40,11 +40,11 @@
 		if(bed.buckled_mob)
 			bed.buckled_mob.dir = Dir
 
-/obj/structure/stool/bed/amb_trolley
+/obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"
 	icon = 'icons/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
-	anchored = 0
+	anchored = FALSE
 	throw_pressure_limit = INFINITY //Throwing an ambulance trolley can kill the process scheduler.
 
 /obj/structure/stool/bed/amb_trolley/MouseDrop(obj/over_object as obj)

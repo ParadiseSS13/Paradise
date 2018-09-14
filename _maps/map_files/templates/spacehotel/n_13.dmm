@@ -5,7 +5,7 @@
 "e" = (/obj/structure/sign/poster/official/random{dir = 1; pixel_y = 32},/obj/random/plushie,/turf/unsimulated/floor/carpet,/area/template_noop)
 "f" = (/obj/structure/dresser,/obj/structure/sign/poster/official/random{dir = 1; pixel_y = 32},/obj/structure/sign/poster/official/random{dir = 4; pixel_x = 32},/turf/unsimulated/floor/carpet,/area/template_noop)
 "g" = (/obj/machinery/light{dir = 8},/obj/random/plushie,/turf/unsimulated/floor/carpet,/area/template_noop)
-"h" = (/obj/structure/stool/bed,/obj/structure/sign/poster/official/random{dir = 4; pixel_x = 32},/obj/item/bedsheet/rainbow,/obj/random/plushie,/turf/unsimulated/floor/carpet,/area/template_noop)
+"h" = (/obj/structure/bed,/obj/structure/sign/poster/official/random{dir = 4; pixel_x = 32},/obj/item/bedsheet/rainbow,/obj/random/plushie,/turf/unsimulated/floor/carpet,/area/template_noop)
 "i" = (/obj/random/plushie,/turf/unsimulated/floor/carpet,/area/template_noop)
 "j" = (/obj/structure/window/reinforced/polarized{id = "room_n"},/obj/structure/sign/poster/official/random{dir = 8; pixel_x = -32},/obj/random/plushie,/turf/unsimulated/floor/carpet,/area/template_noop)
 "k" = (/obj/structure/window/reinforced/polarized{id = "room_n"},/turf/unsimulated/floor/carpet,/area/template_noop)
