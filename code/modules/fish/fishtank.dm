@@ -584,51 +584,46 @@
 		else
 			return ..()
 	//Open reagent containers add and remove water
-	else if(O.is_open_container())
-		if(istype(O, /obj/item/reagent_containers/glass))
-			if(lid_switch)
-				to_chat(user, "Open the lid on [src] first!")
-				return
-			var/obj/item/reagent_containers/glass/C = O
-			//Containers with any reagents will get dumped in
-			if(C.reagents.total_volume)
-				var/water_value = 0
-				water_value += C.reagents.get_reagent_amount("water")				//Water is full value
-				water_value += C.reagents.get_reagent_amount("holywater") *1.1		//Holywater is (somehow) better. Who said religion had to make sense?
-				water_value += C.reagents.get_reagent_amount("tonic") * 0.25		//Tonic water is 25% value
-				water_value += C.reagents.get_reagent_amount("sodawater") * 0.50	//Sodawater is 50% value
-				water_value += C.reagents.get_reagent_amount("fishwater") * 0.75	//Fishwater is 75% value, to account for the fish poo
-				water_value += C.reagents.get_reagent_amount("ice") * 0.80			//Ice is 80% value
-				var/message = ""
-				if(!water_value)													//The container has no water value, clear everything in it
-					message = "The filtration process removes everything, leaving the water level unchanged."
-					C.reagents.clear_reagents()
-				else
-					if(water_level == water_capacity)
-						to_chat(user, "[src] is already full!")
-					else
-						message = "The filtration process purifies the water, raising the water level."
-
-						if((water_level + water_value) == water_capacity)
-							message += " You filled [src] to the brim!"
-						if((water_level + water_value) > water_capacity)
-							message += " You overfilled [src] and some water runs down the side, wasted."
-						C.reagents.clear_reagents()
-						adjust_water_level(water_value)
-				user.visible_message("[user.name] pours the contents of [C.name] into [src].", "[message]")
-			//Empty containers will scoop out water, filling the container as much as possible from the water_level
+	else if(O.is_drainable())
+		//Containers with any reagents will get dumped in
+		if(O.reagents.total_volume)
+			var/water_value = 0
+			water_value += O.reagents.get_reagent_amount("water")				//Water is full value
+			water_value += O.reagents.get_reagent_amount("holywater") *1.1		//Holywater is (somehow) better. Who said religion had to make sense?
+			water_value += O.reagents.get_reagent_amount("tonic") * 0.25		//Tonic water is 25% value
+			water_value += O.reagents.get_reagent_amount("sodawater") * 0.50	//Sodawater is 50% value
+			water_value += O.reagents.get_reagent_amount("fishwater") * 0.75	//Fishwater is 75% value, to account for the fish poo
+			water_value += O.reagents.get_reagent_amount("ice") * 0.80			//Ice is 80% value
+			var/message = ""
+			if(!water_value)													//The container has no water value, clear everything in it
+				message = "The filtration process removes everything, leaving the water level unchanged."
+				O.reagents.clear_reagents()
 			else
-				if(!water_level)
-					to_chat(user, "[src] is empty!")
+				if(water_level == water_capacity)
+					to_chat(user, "[src] is already full!")
 				else
-					if(water_level >= C.volume)										//Enough to fill the container completely
-						C.reagents.add_reagent("fishwater", C.volume)
-						adjust_water_level(-C.volume)
-						user.visible_message("[user.name] scoops out some water from [src].", "You completely fill [C.name] from [src].")
-					else															//Fill the container as much as possible with the water_level
-						C.reagents.add_reagent("fishwater", water_level)
-						adjust_water_level(-water_level)
-						user.visible_message("[user.name] scoops out some water from [src].", "You fill [C.name] with the last of the water in [src].")
+					message = "The filtration process purifies the water, raising the water level."
+
+					if((water_level + water_value) == water_capacity)
+						message += " You filled [src] to the brim!"
+					if((water_level + water_value) > water_capacity)
+						message += " You overfilled [src] and some water runs down the side, wasted."
+					O.reagents.clear_reagents()
+					adjust_water_level(water_value)
+			user.visible_message("[user.name] pours the contents of [O.name] into [src].", "[message]")
+		//Empty containers will scoop out water, filling the container as much as possible from the water_level
+		else if(O.is_refillable())
+			if(!water_level)
+				to_chat(user, "[src] is empty!")
+			else
+				if(water_level >= O.reagents.maximum_volume) //Enough to fill the container completely
+					O.reagents.add_reagent("fishwater", O.reagents.maximum_volume)
+					adjust_water_level(-O.reagents.maximum_volume)
+					user.visible_message("[user.name] scoops out some water from [src].", "You completely fill [O.name] from [src].")
+				else															//Fill the container as much as possible with the water_level
+					O.reagents.add_reagent("fishwater", water_level)
+					adjust_water_level(-water_level)
+					user.visible_message("[user.name] scoops out some water from [src].", "You fill [O.name] with the last of the water in [src].")
 	//Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
 	else if(iswrench(O))
 		if(!water_level)
