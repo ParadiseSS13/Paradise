@@ -576,7 +576,7 @@
 
 /obj/machinery/light/blob_act()
 	if(prob(75))
-		broken()
+		qdel(src)
 
 
 // timed process
