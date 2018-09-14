@@ -1043,6 +1043,15 @@
 	item_color = "aegisuniform"
 	displays_id = 0
 
+/obj/item/clothing/under/fluff/elo_turtleneck // vforcebomber: E.L.O.
+	name = "E.L.O's Turtleneck"
+	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
+	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
+	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
+	icon_state = "eloturtleneckfloor"
+	item_color = "eloturtleneck"
+	displays_id = FALSE
+
 //////////// Masks ////////////
 
 /obj/item/clothing/mask/bandana/fluff/dar //sasanek12: Dar'Konr
