@@ -2557,7 +2557,7 @@
 "aXi" = (/obj/item/stool,/turf/simulated/floor/plasteel,/area/storage/eva)
 "aXj" = (/obj/structure/closet/secure_closet/personal,/obj/effect/decal/warning_stripes/blue/hollow,/turf/simulated/floor/plasteel,/area/storage/eva)
 "aXk" = (/obj/machinery/suit_storage_unit/standard_unit,/turf/simulated/floor/plasteel,/area/storage/eva)
-"aXl" = (/obj/structure/sign/poster/official/random{step_x = 30},/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 4},/area/storage/eva)
+"aXl" = (/obj/structure/sign/poster/official/random,/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 4},/area/storage/eva)
 "aXm" = (/obj/structure/rack,/obj/item/clothing/shoes/magboots{pixel_y = -5},/obj/item/clothing/shoes/magboots{pixel_y = -5},/obj/machinery/light{dir = 8},/obj/effect/decal/warning_stripes/blue,/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 10},/area/storage/eva)
 "aXn" = (/turf/simulated/floor/plasteel{dir = 0; icon_state = "blue"},/area/storage/eva)
 "aXo" = (/obj/structure/rack,/obj/item/tank/jetpack/carbondioxide,/obj/item/tank/jetpack/carbondioxide,/obj/effect/decal/warning_stripes/blue,/turf/simulated/floor/plasteel{icon_state = "blue"; dir = 6},/area/storage/eva)
