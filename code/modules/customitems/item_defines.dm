@@ -1491,10 +1491,12 @@
 		return
 	else
 		return ..()
+
 //DIOSDADO STUNBATON ENDS HERE//
 
 //KOTIRO DEFIB STARTS HERE//
-/* /obj/item/defibrillator/compact/kotiro
+
+/obj/item/defibrillator/compact/kotiro
 	name = "De-Clown-Fibrillator"
 	desc = "A modified belt-equipped defibrillator that can be rapidly deployed. Seems it doesn't like clowns too much"
 	icon = 'icons/obj/hispania_custom_items.dmi'
@@ -1514,26 +1516,126 @@
 /obj/item/defibrillator/proc/make_paddles_custom()
 		return new /obj/item/twohanded/shockpaddles/kotiro(src)
 
-*/
+/obj/item/twohanded/shockpaddles/kotiro
+	name = "defibrillator paddles"
+	desc = "A pair of plastic-gripped paddles with flat metal surfaces that are used to deliver powerful electric shocks."
+	icon_state = "kdefibpaddles"
+	item_state = "kdefibpaddles"
+	force = 0
+	throwforce = 6
+	w_class = WEIGHT_CLASS_BULKY
+	toolspeed = 1
+
+	revivecost = 1000
+	cooldown = 0
+	busy = 0
+	obj/item/defibrillator/compact/kotiro
+	custom = 1
+
+/obj/item/twohanded/shockpaddles/kotiro/update_icon()
+	icon_state = "kdefibpaddles[wielded]"
+	item_state = "kdefibpaddles[wielded]"
+	if(cooldown)
+		icon_state = "kdefibpaddles[wielded]_cooldown"
+
+//KOTIRO DEFIB ENDS HERE
+
+//YACKER MASK STARTS HERE
+
+/obj/item/clothing/mask/breath/weathered
+	desc = "A close-fitting mask that can be connected to an air supply."
+	name = "breath mask"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "weatheredmask"
+	item_state = "weatheredmask"
+	gas_transfer_coefficient = 0.10
+	permeability_coefficient = 0.50
+
+//YACKER MASK ENDS HERE
+
+//DRAGONC305 HOODIE STARTS HERE
+
+/obj/item/clothing/suit/storage/labcoat/killerhoodie
+	name = "blue hoodie"
+	desc = "It's just a plain sky blue hoodie."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "killerhoodie_open"
+	item_state = "killerhoodie_open"
+	adjust_flavour = "unhoodie"
+
+//DRAGONC305 HOODIE ENDS HERE
+
+//GOD.TITAN HALO STARTS HERE
+
+/obj/item/clothing/head/hardhat/halo
+	name = "holy halo"
+	desc = "A holy halo of light."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "hardhat0_halo"
+	item_state = "hardhat0_halo"
+	item_color = "halo"
+
+//GOD.TITAN HALO ENDS HERE
+
+//HARMONY HAT STARTS HERE
+
+/obj/item/clothing/head/helmet/propeller
+	name = "propeller hat"
+	desc = "A colorful, childish and silly-looking hat."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "propellerhat"
+	item_state = "propellerhat"
+	toggle_message = "You stop spinning the propeller on"
+	alt_toggle_message = "You spin the propeller on"
+	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
+	can_toggle = 1
+	toggle_cooldown = 20
+	species_restricted = list("Grey")
+
+
+//HARMONY HAT ENDS HERE
+
+//RYZOR BLOB CORE STARTS HERE
 
 /obj/item/organ/internal/brain/blob
 	name = "defective core"
-	desc = "It seems to be the defective core of a slime"
+	desc = "It seems to be the defective core of a slime."
 	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "defective slime core"
 	mmi_icon_state = "slime_mmi"
-		
+
+//RYZOR BLOB CORE ENDS HERE
+
+//ASDFLYY TOASTER BRAIN STARTS HERE
+
+/obj/item/organ/internal/brain/toaster
+	name = "modified positronic brain"
+	desc = "A strange positronic brain. A human brain should be here instead."
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "toasterbrain"
+	mmi_icon_state = "toaster_mmi"
+
+//ASDFLYY TOASTER BRAIN ENDS HERE
+
 // Función de mierda que detecta cuando un pj entra a la estación
 /mob/new_player/proc/start_player(mob/user)
 	var/mob/living/carbon/human/target = user
+	var/obj/item/organ/internal/organ
 
-	//					BLOB
-	var/obj/item/organ/internal/organ = new/obj/item/organ/internal/brain/blob
-
+    //                    BLOB
 	if(isslimeperson(target) && target.real_name == "Blob Bob" && target.ckey == "alfred987")
+		organ = new/obj/item/organ/internal/brain/blob
 		organ.insert(target)
 		organ.dna = target.dna
 		return
-	//					---
-	
+	//                    ---
+
+	//                    TOASTER
+	if(ishuman(target) && target.real_name == "Toaster" && target.ckey == "asdflyy")
+		organ = new/obj/item/organ/internal/brain/toaster
+		organ.insert(target)
+		organ.dna = target.dna
+		return
+	//                    ---
+
 	return
