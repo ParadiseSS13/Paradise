@@ -1096,6 +1096,18 @@
 	drink_desc = "For enjoying the most wonderful time of the year."
 	taste_message = "christmas spirit"
 
+/datum/reagent/consumable/ethanol/michelada
+	name = "Michelada"
+	id = "michelada"
+	description = "A Mexican alcoholic drink that is prepared by mixing beer, hot sauce, some lime and salt"
+	nutriment_factor = 1 * REAGENTS_METABOLISM
+	color = "#f4b042" // rgb: 102, 67, 0
+	alcohol_perc = 0.2
+	drink_icon ="michelada"
+	drink_name = "Michelada glass"
+	drink_desc = "Beer with some reddish touches in a frosted glass"
+	taste_message = "salty and spicy beer"
+	
 /datum/reagent/consumable/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
 	name = "Dragon's Breath"
 	id = "dragonsbreath"
@@ -1240,14 +1252,3 @@
 	drink_desc = "Someone mixed good wine and robot booze. Romantic, but atrocious."
 	taste_message = "binary love"
 
-/datum/reagent/consumable/ethanol/michelada
-	name = "Michelada"
-	id = "michelada"
-	description = "A Mexican alcoholic drink that is prepared by mixing beer, hot sauce, some lime and salt"
-	nutriment_factor = 1 * REAGENTS_METABOLISM
-	color = "#f4b042" // rgb: 102, 67, 0
-	alcohol_perc = 0.2
-	drink_icon ="michelada"
-	drink_name = "Michelada glass"
-	drink_desc = "Beer with some reddish touches in a frosted glass"
-	taste_message = "salty and spicy beer"
