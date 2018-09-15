@@ -1626,7 +1626,7 @@ window "rpane"
 	elem "textb"
 		type = BUTTON
 		pos = 0,0
-		size = 60x16
+		size = 70x20
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Text"
@@ -1636,8 +1636,8 @@ window "rpane"
 		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 64,0
-		size = 60x16
+		pos = 75,0
+		size = 70x20
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Info"
@@ -1646,52 +1646,41 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 155,0
-		size = 60x16
+		pos = 150,0
+		size = 70x20
 		text = "Wiki"
 		command = "wiki"
 	elem "forumb"
 		type = BUTTON
-		pos = 220,0
-		size = 60x16
+		pos = 225,0
+		size = 70x20
+		background-color = #FFA500
+		text-color = #FFFFFF
+		font-style = bold
 		text = "Forum"
 		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 285,0
-		size = 60x16
+		pos = 300,0
+		size = 70x20
+		background-color = #FF0000
+		text-color = #FFFFFF
+		font-style = bold
 		text = "Rules"
 		command = "rules"
-	elem "githubb"
+	elem "discordb"
 		type = BUTTON
-		pos = 350,0
-		size = 60x16
-		text = "GitHub"
-		command = "github"
-	elem "changelog"
-		type = BUTTON
-		pos = 415,0
-		size = 67x16
-		text = "Changelog"
-		command = "Changelog"
-	elem "karma"
-		type = BUTTON
-		pos = 487,0
-		size = 67x16
-		background-color = #ff8040
-		text = "Karma Shop"
-		command = "karmashop"
-	elem "donate"
-		type = BUTTON
-		pos = 559,0
-		size = 60x16
-		background-color = #8080ff
-		text = "Donate"
-		command = "Donate"
+		pos = 375,0
+		size = 70x20
+		background-color = #7289DA
+		text-color = #FFFFFF
+		font-style = bold
+		text = "Discord"
+		command = "discord"
 	elem "browseb"
 		type = BUTTON
 		pos = 561,0
-		size = 60x16
+		size = 70x20
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Browser"

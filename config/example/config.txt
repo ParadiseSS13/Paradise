@@ -188,14 +188,8 @@ CHECK_RANDOMIZER
 ## Rules address
 # RULESURL http://example.org
 
-## GitHub address
-# GITHUBURL http://example.org
-
-## Donations address
-# DONATIONSURL http://example.org
-
-## Repository address
-# REPOSITORYURL http://example.org
+## Discord address
+# DISCORDURL http://example.org
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
 # BANAPPEALS http://example.org
