@@ -4,18 +4,19 @@
 	icon_state = "flood00"
 	anchored = FALSE
 	density = TRUE
+	light_power = 20
 	var/on = FALSE
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/use = 5
 	var/unlocked = FALSE
 	var/open = FALSE
 	var/brightness_on = 14
-	light_power = 20
 
-/obj/machinery/floodlight/New()
+
+/obj/machinery/floodlight/Initialize()
+	. = ..()
 	src.cell = new(src)
-	turnOn()
-	..()
+	mapVarInit()
 
 /obj/machinery/floodlight/Destroy()
 	QDEL_NULL(cell)
@@ -67,7 +68,7 @@
 
 	updateicon()
 
-/obj/machinery/floodlight/proc/turnOn()
+/obj/machinery/floodlight/proc/mapVarInit()
 	if(on)
 		if(!cell)
 			return
