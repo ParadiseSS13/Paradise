@@ -6,8 +6,20 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
-	M.adjustToxLoss(2)
+	M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER)
 	..()
+
+/datum/reagent/amatoxin
+	name = "Amatoxin"
+	id = "amatoxin"
+	description = "A powerful poison derived from certain species of mushroom."
+	reagent_state = LIQUID
+	color = "#792300" // rgb: 121, 35, 0
+
+/datum/reagent/amatoxin/on_mob_life(mob/living/M)
+	M.adjustToxLoss(3*REAGENTS_EFFECT_MULTIPLIER)
+	..()
+
 
 /datum/reagent/spider_venom
 	name = "Spider venom"

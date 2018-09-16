@@ -372,7 +372,7 @@
 /obj/machinery/chem_master/proc/chemical_safety_check(datum/reagents/R)
 	var/all_safe = 1
 	for(var/datum/reagent/A in R.reagent_list)
-		if(!safe_chem_list.Find(A.id))
+		if(!GLOB.safe_chem_list.Find(A.id))
 			all_safe = 0
 	return all_safe
 

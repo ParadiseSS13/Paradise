@@ -51,9 +51,9 @@
 /obj/item/reagent_containers/glass/bottle/random_reagent/New()
 	..()
 	var/list/possible_chems = chemical_reagents_list.Copy()
-	possible_chems -= blocked_chems.Copy()
+	possible_chems -= GLOB.blocked_chems.Copy()
 	var/datum/reagent/R = pick(possible_chems)
-	if(rare_chemicals.Find(R))
+	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
 	else
 		reagents.add_reagent(R, rand(2, 3)*10)
@@ -68,7 +68,7 @@
 /obj/item/reagent_containers/glass/bottle/random_chem/New()
 	..()
 	var/R = get_random_reagent_id()
-	if(rare_chemicals.Find(R))
+	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
 	else
 		reagents.add_reagent(R, rand(2, 3)*10)
@@ -82,7 +82,7 @@
 
 /obj/item/reagent_containers/glass/bottle/random_base_chem/New()
 	..()
-	var/datum/reagent/R = pick(base_chemicals)
+	var/datum/reagent/R = pick(GLOB.base_chemicals)
 	reagents.add_reagent(R, rand(2, 6)*5)
 	name = "unlabelled bottle"
 	pixel_x = rand(-10, 10)
@@ -94,7 +94,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/random_drink/New()
 	..()
-	var/list/possible_drinks = drinks.Copy()
+	var/list/possible_drinks = GLOB.drinks.Copy()
 	if(prob(50))
 		possible_drinks += list("pancuronium","lsd","omnizine","blood")
 
@@ -113,7 +113,7 @@
 	..()
 
 	var/R = get_random_reagent_id()
-	if(rare_chemicals.Find(R))
+	if(GLOB.rare_chemicals.Find(R))
 		reagents.add_reagent(R, 10)
 	else
 		reagents.add_reagent(R, rand(3, 10)*10)
@@ -131,13 +131,13 @@
 /obj/item/storage/pill_bottle/random_meds/New()
 	..()
 	for(var/i in 1 to storage_slots)
-		var/list/possible_medicines = standard_medicines.Copy()
+		var/list/possible_medicines = GLOB.standard_medicines.Copy()
 		if(prob(50))
-			possible_medicines += rare_medicines.Copy()
+			possible_medicines += GLOB.rare_medicines.Copy()
 		var/datum/reagent/R = pick(possible_medicines)
 		var/obj/item/reagent_containers/food/pill/P = new(src)
 
-		if(rare_medicines.Find(R))
+		if(GLOB.rare_medicines.Find(R))
 			P.reagents.add_reagent(R, 10)
 		else
 			P.reagents.add_reagent(R, rand(2, 5)*10)
@@ -182,7 +182,7 @@
 
 /obj/structure/closet/crate/secure/chemicals/New()
 	..()
-	for(var/chem in standard_chemicals)
+	for(var/chem in GLOB.standard_chemicals)
 		var/obj/item/reagent_containers/glass/bottle/B = new(src)
 		B.reagents.add_reagent(chem, B.volume)
 		if(prob(85))

@@ -78,7 +78,7 @@
 	if(S.has_reagent("blood", 15))
 		adjust_production(rand(15, -5))
 
-	if(S.has_reagent("amanitin", 5))
+	if(S.has_reagent("amatoxin", 5))
 		adjust_production(rand(5, -15))
 
 	if(S.has_reagent("plasma", 5))
