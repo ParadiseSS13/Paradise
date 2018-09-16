@@ -6,7 +6,7 @@
 	icon_state = "clawmachine_on"
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/tokens = 0
 	var/freeplay = 0				//for debugging and admin kindness
@@ -111,7 +111,7 @@
 		if(!customer_account)
 			to_chat(user, "Unable to access account: incorrect credentials.")
 			return 0
-	
+
 	return customer_account.charge(token_price, null, "Purchase of [name] credit", name, name)
 
 /obj/machinery/arcade/proc/start_play(mob/user as mob)

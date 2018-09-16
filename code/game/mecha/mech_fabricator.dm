@@ -5,7 +5,7 @@
 	desc = "Nothing is being built."
 	density = TRUE
 	anchored = TRUE
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
 	var/time_coeff = 1
@@ -151,10 +151,10 @@
 	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.use_amount(res_coef)
 	overlays += "fab-active"
-	use_power = 2
+	use_power = ACTIVE_POWER_USE
 	updateUsrDialog()
 	sleep(get_construction_time_w_coeff(D))
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	overlays -= "fab-active"
 	desc = initial(desc)
 

@@ -13,7 +13,7 @@ FIRE ALARM
 	var/lockdownbyai = 0
 	anchored = 1.0
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100)
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON
@@ -281,7 +281,7 @@ Just a object used in constructing fire alarms
 	var/timing = 0.0
 	var/lockdownbyai = 0
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
 

@@ -4,7 +4,7 @@
 	icon_state = "box_0"
 	density = 1
 	anchored = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 	var/obj/item/circuitboard/circuit = null
 	var/list/components = null
 	var/list/req_components = null

@@ -4,7 +4,7 @@
 	icon_state = "borgcharger0"
 	density = 1
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
 	var/mob/occupant = null
@@ -177,7 +177,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	build_icon()
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	return
 
 /obj/machinery/recharge_station/proc/restock_modules()

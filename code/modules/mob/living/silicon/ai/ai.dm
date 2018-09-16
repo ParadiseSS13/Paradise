@@ -281,7 +281,7 @@ var/list/ai_verbs_default = list(
 /obj/machinery/ai_powersupply
 	name="\improper AI power supply"
 	active_power_usage=1000
-	use_power = 2
+	use_power = ACTIVE_POWER_USE
 	power_channel = EQUIP
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
@@ -303,9 +303,9 @@ var/list/ai_verbs_default = list(
 		return
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
-		use_power = 0
+		use_power = NO_POWER_USE
 	if(powered_ai.anchored)
-		use_power = 2
+		use_power = ACTIVE_POWER_USE
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
@@ -1250,7 +1250,7 @@ var/list/ai_verbs_default = list(
 
 	else
 		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
-		
+
 /mob/living/silicon/ai/handle_fire()
 	return
 
