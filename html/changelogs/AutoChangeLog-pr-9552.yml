@@ -1,4 +1,0 @@
-author: "dandykong"
-delete-after: True
-changes: 
-  - bugfix: "Internal manipulation surgeries can now be performed on mouths after the head is augmented."

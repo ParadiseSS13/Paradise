@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Contribution.md now properly state that changelog is mandated for all PR."

@@ -1,5 +1,0 @@
-author: "Shazbot"
-delete-after: True
-changes: 
-  - rscadd: "Adds in the ability to have multiple custom screens."
-  - rscadd: "Adds in Lumi's custom faces."
