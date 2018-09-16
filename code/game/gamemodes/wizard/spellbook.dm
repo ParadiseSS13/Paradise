@@ -534,6 +534,7 @@
 
 	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
+
 		if(istype(O, /obj/item/antag_spawner/slaughter_demon/laughter))
 			uses+=1
 		else
