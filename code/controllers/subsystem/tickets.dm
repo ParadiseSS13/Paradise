@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(tickets)
 		var/report
 		for(var/num in stales)
 			report += "[num], "
-		message_adminTicket("<span class='adminticket'>Tickets [report] have been open for over [ADMIN_TICKET_TIMEOUT MINUTES] minutes. Changing status to stale.</span>")
+		message_adminTicket("<span class='adminticket'>Tickets [report] have been open for over [ADMIN_TICKET_TIMEOUT / 600] minutes. Changing status to stale.</span>")
 
 /datum/controller/subsystem/tickets/stat_entry()
 	..("Tickets: [allTickets.len]")
