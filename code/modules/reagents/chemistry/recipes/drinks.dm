@@ -870,3 +870,12 @@
 	result_amount = 15
 	mix_message = "The mixtures becomes quite sticky."
 	mix_sound = 'sound/effects/blobattack.ogg'
+
+/datum/chemical_reaction/michelada
+	name = "Michelada"
+	id = "michelada"
+	result = "michelada"
+	required_reagents = list("beer" = 2, "capsaicin" = 1, "sodiumchloride" = 1, "limejuice" = 1)
+	result_amount = 3
+	mix_message = "The beer looks a little more delicious."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
