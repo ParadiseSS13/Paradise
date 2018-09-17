@@ -115,6 +115,13 @@
 				if(R.rcell.give(R.rcell.chargerate))
 					use_power(200)
 					using_power = 1
+		
+		if(istype(charging, /obj/item/bodyanalyzer))
+			var/obj/item/bodyanalyzer/B = charging
+			if(B.power_supply)
+				if(B.power_supply.give(B.power_supply.chargerate))
+					use_power(200)
+					using_power = 1
 
 	update_icon(using_power)
 

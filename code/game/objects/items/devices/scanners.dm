@@ -645,70 +645,90 @@ REAGENT SCANNER
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=6;biotech=6"
-	var/time_to_use = 0
 	var/obj/item/stock_parts/cell/power_supply
-	var/cell_type = /obj/item/stock_parts/cell
-	var/printing = FALSE
+	var/cell_type = /obj/item/stock_parts/cell/upgraded
+	var/printing = FALSE // Printing the paper.
+	var/ready = TRUE // Ready to scan
+	var/time_to_use = 0 // How much time remaining before next scan is available.
+	var/usecharge = 750
 
-/obj/item/bodyanalyzer/New()
+/obj/item/bodyanalyzer/New(cell)
 	..()
-	power_supply = new cell_type(src)
+	if(cell && istype(cell, /obj/item/stock_parts/cell))
+		power_supply = new cell(src)
+	else
+		power_supply = new cell_type(src)
 	power_supply.give(power_supply.maxcharge)
+	update_icon()
+
+/obj/item/bodyanalyzer/proc/setReady()
+	ready = TRUE
+	playsound(src, 'sound/machines/defib_saftyOn.ogg', 50, 0)
 	update_icon()
 
 /obj/item/bodyanalyzer/update_icon()
 	overlays.Cut()
-
-	var/iconid
-	if(percent > 60)
-		icon_state = bodyanalyzer_1
-	else
-		icon_state = bodyanalyzer_2
-	
 	var/percent = power_supply.percent()
-	var/overlayid = round(percent)
+	if(ready)
+		icon_state = "bodyanalyzer_1"
+	else
+		icon_state = "bodyanalyzer_2"
+	
+	var/overlayid = round(percent / 10)
 	overlayid = "bodyanalyzer_charge[overlayid]"
-	overlays += icon(overlayid)
+	overlays += icon(icon, overlayid)
 
 	if(printing)
-		overlays += icon('bodyanalyzer_printing')
+		overlays += icon(icon, "bodyanalyzer_printing")
 
 /obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
 	if(user.incapacitated() || !user.Adjacent(M))
 		return
 	
-	if(time_to_use > world.time)
+	if(!ready)
 		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining.")
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 		return
 	
-	user.visible_message("[user] begins scanning [M] with [src]", "You begin scanning [M]")
-	if(do_after(user, 100, target = M))
-		var/report = mobScan(M, user)
-		if(report)
+	if(power_supply.charge >= usecharge)
+		mobScan(M, user)
+	else
+		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!")
+		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+	
+/obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
+	if(ishuman(M))
+		var/report = generate_printing_text(M, user)
+		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
+		if(do_after(user, 100, target = M))
 			var/obj/item/paper/printout = new
 			printout.info = report
 			printout.name = "Scan report"
 			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			user.put_in_hands(printout)
 			time_to_use = world.time + 600
-			power_supply.use(300)
-		else
-			to_chat(user, "<span class='notice'>Scanning error detected.</span>")
+			power_supply.use(usecharge)
+			printing = TRUE
+			ready = FALSE
+			update_icon()
+			printing = FALSE
+			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), 600)
+			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
 
-/obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
-	if(istype(M, /mob/living/carbon/human))
-		var/dat = generate_printing_text(M, user)
-		if(dat)
-			return dat
-
+	else if(iscorgi(M) && M.stat == DEAD)
+		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(
+		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+		ready = FALSE
+		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), 600)
+		time_to_use = world.time + 600
+	else
+		to_chat(user, "<span class='notice'>Scanning error detected. Invalid specimen.</span>")
+		
+//Unashamedly ripped from adv_med.dm
 /obj/item/bodyanalyzer/proc/generate_printing_text(mob/living/M, mob/user)
 	var/dat = ""
 	var/mob/living/carbon/human/target = M
-	if(!istype(target))
-		to_chat(user, "<span class='notice'><b>Target Invalid</b>: Unable to collect data</span>")
-		return
-
+	
 	dat = "<font color='blue'><b>Target Statistics:</b></font><br>"
 	var/t1
 	switch(target.stat) // obvious, see what their status is
