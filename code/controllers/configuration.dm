@@ -84,9 +84,7 @@
 	var/wikiurl = "http://example.org"
 	var/forumurl = "http://example.org"
 	var/rulesurl = "http://example.org"
-	var/githuburl = "http://example.org"
-	var/donationsurl = "http://example.org"
-	var/repositoryurl = "http://example.org"
+	var/discordurl = "http://example.org"
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
@@ -394,14 +392,8 @@
 				if("rulesurl")
 					config.rulesurl = value
 
-				if("githuburl")
-					config.githuburl = value
-
-				if("donationsurl")
-					config.donationsurl = value
-
-				if("repositoryurl")
-					config.repositoryurl = value
+				if("discordurl")
+					config.discordurl = value
 
 				if("guest_jobban")
 					config.guest_jobban = 1

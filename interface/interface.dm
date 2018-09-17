@@ -13,37 +13,8 @@
 		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
 	return
 
-/client/verb/changes()
-	set name = "Changelog"
-	set desc = "View the changelog."
-	set hidden = 1
-
-	getFiles(
-		'html/88x31.png',
-		'html/bug-minus.png',
-		'html/cross-circle.png',
-		'html/hard-hat-exclamation.png',
-		'html/image-minus.png',
-		'html/image-plus.png',
-		'html/music-minus.png',
-		'html/music-plus.png',
-		'html/tick-circle.png',
-		'html/wrench-screwdriver.png',
-		'html/spell-check.png',
-		'html/burn-exclamation.png',
-		'html/chevron.png',
-		'html/chevron-expand.png',
-		'html/changelog.css',
-		'html/changelog.js',
-		'html/changelog.html'
-		)
-	src << browse('html/changelog.html', "window=changes;size=675x650")
-
-	if(prefs.lastchangelog != changelog_hash) //if it's already opened, no need to tell them they have unread changes
-		prefs.SetChangelog(src,changelog_hash)
-
 /client/verb/forum()
-	set name = "forum"
+	set name = "Forum"
 	set desc = "Visit the forum."
 	set hidden = 1
 	if(config.forumurl)
@@ -66,28 +37,16 @@
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 	return
 
-/client/verb/github()
-	set name = "GitHub"
-	set desc = "Visit the GitHub page."
+/client/verb/discord()
+	set name = "Discord"
+	set desc = "Join our Discord server."
 	set hidden = 1
-	if(config.githuburl)
-		if(alert("This will open our GitHub repository in your browser. Are you sure?",,"Yes","No")=="No")
+	if(config.discordurl)
+		if(alert("This will invite you to our Discord server. Are you sure?",,"Yes","No")=="No")
 			return
-		src << link(config.githuburl)
+		src << link(config.discordurl)
 	else
-		to_chat(src, "<span class='danger'>The GitHub URL is not set in the server configuration.</span>")
-	return
-
-/client/verb/donate()
-	set name = "Donate"
-	set desc = "Donate to help with hosting costs."
-	set hidden = 1
-	if(config.donationsurl)
-		if(alert("This will open the donation page in your browser. Are you sure?",,"Yes","No")=="No")
-			return
-		src << link(config.donationsurl)
-	else
-		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
+		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
 	return
 
 /client/verb/hotkeys_help()
@@ -101,7 +60,6 @@ Admin:
 \tF7 = Player Panel
 \tF8 = Admin PM
 \tF9 = Invisimin
-
 Admin ghost:
 \tCtrl+Click = Player Panel
 \tCtrl+Shift+Click = View Variables
