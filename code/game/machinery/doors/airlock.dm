@@ -650,6 +650,17 @@ About the new airlock wires panel:
 				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet.</span>")
 			return
 
+	if(ishuman(user))
+		var/mob/living.carbon/human/H = user
+		if(H.a_intent==INTENT_GRAB)
+			if(note)
+				user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
+				playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
+				note.forceMove(get_turf(user))
+				note = null
+				update_icon()
+				return
+
 	if(panel_open)
 		if(security_level)
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
