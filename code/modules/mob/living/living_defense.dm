@@ -13,6 +13,9 @@
 /mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null, armour_penetration, penetrated_text)
 	var/armor = getarmor(def_zone, attack_flag)
 
+	if(attack_flag == "shock")	//special treatment for taser hits/stunning hits
+		return run_taser_check(armor, absorb_text, soften_text, armour_penetration, penetrated_text)
+
 	//the if "armor" check is because this is used for everything on /living, including humans
 	if(armor && armor < 100 && armour_penetration) // Armor with 100+ protection can not be penetrated for admin items
 		armor = max(0, armor - armour_penetration)
@@ -32,6 +35,35 @@
 		else
 			to_chat(src, "<span class='userdanger'>Your armor softens the blow!</span>")
 	return armor
+
+//decides based on shock armor if a taser hit should get deflected, weakened or applied at full strength. Returns 100 for full deflection and 50 for partial deflection
+/mob/living/proc/run_taser_check(var/armor, var/absorb_text = null, var/soften_text = null, armour_penetration, penetrated_text)
+	if(armor)
+		armor = max(0, armor - armour_penetration)
+
+	if(armor == 0)
+		return 0
+
+	if(prob(armor))//full deflection
+		if(absorb_text)
+			to_chat(src, "<span class='userdanger'>[absorb_text]</span>")
+		else
+			to_chat(src, "<span class='userdanger'>Your armor deflects the electrode!</span>")
+		return 100
+
+	if(prob(armor))//partial deflection
+		if(soften_text)
+			to_chat(src, "<span class='userdanger'>[soften_text]</span>")
+		else
+			to_chat(src, "<span class='userdanger'>Your armor softens the shock!</span>")
+		return 50
+
+	if(penetrated_text)
+		to_chat(src, "<span class='userdanger'>[penetrated_text]</span>")
+	else
+		to_chat(src, "<span class='userdanger'>Your armor fails to deflect the electrode!</span>")
+	return 0
+
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
 /mob/living/proc/getarmor(var/def_zone, var/type)

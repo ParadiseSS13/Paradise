@@ -1,3 +1,7 @@
+#define NO_DEFLECTION 0		//defines to avoid magic numbers, used for taser glancing off of armor
+#define PARTIAL_DEFLECTION 1
+#define FULL_DEFLECTION 2
+
 /obj/item/projectile/energy
 	name = "energy"
 	icon_state = "spark"
@@ -11,6 +15,7 @@
 	icon_state = "spark"
 	color = "#FFFF00"
 	nodamage = 1
+	flag = "shock"
 	stun = 5
 	weaken = 5
 	stutter = 5
@@ -20,6 +25,7 @@
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
 /obj/item/projectile/energy/electrode/on_hit(var/atom/target, var/blocked = 0)
+
 	. = ..()
 	if(!ismob(target) || blocked >= 100) //Fully blocked by mob or collided with dense object - burst into sparks!
 		var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
@@ -29,7 +35,7 @@
 		var/mob/living/carbon/C = target
 		if(HULK in C.mutations)
 			C.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
-		else if(C.status_flags & CANWEAKEN)
+		else if((C.status_flags & CANWEAKEN))
 			spawn(5)
 				C.do_jitter_animation(jitter)
 
@@ -37,6 +43,19 @@
 	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
 	sparks.set_up(1, 1, src)
 	sparks.start()
+	..()
+
+/obj/item/projectile/energy/electrode/deflection_act(var/mob/living/target)	//define how taser electrodes act when defelcted
+	stun = 0
+	weaken = 0
+	stutter = 0
+	jitter = 0
+	..()
+
+/obj/item/projectile/energy/electrode/soften_act(var/mob/living/target)		// and softened
+	stun = 0
+	weaken = 0
+	target.apply_damage(40, STAMINA) //stamina damage, still better than being stunned.
 	..()
 
 /obj/item/projectile/energy/declone

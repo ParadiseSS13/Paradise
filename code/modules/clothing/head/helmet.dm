@@ -5,7 +5,7 @@
 	flags = HEADBANGPROTECT
 	flags_cover = HEADCOVERSEYES
 	item_state = "helmetmaterials"
-	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0, shock = 10)
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
@@ -74,14 +74,14 @@
 	desc = "A bulletproof helmet that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
 	icon_state = "swat"
 	item_state = "swat-alt"
-	armor = list(melee = 15, bullet = 40, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0)
+	armor = list(melee = 15, bullet = 40, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0, shock = 10)
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
 	desc = "It's a helmet specifically designed to protect against close range attacks."
 	icon_state = "riot"
 	item_state = "helmet"
-	armor = list(melee = 41, bullet = 15, laser = 5, energy = 5, bomb = 5, bio = 2, rad = 0)
+	armor = list(melee = 41, bullet = 15, laser = 5, energy = 5, bomb = 5, bio = 2, rad = 0, shock = 15)
 	flags_inv = HIDEEARS
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
@@ -118,7 +118,7 @@
 	desc = "They're often used by highly trained Swat Members."
 	icon_state = "swat"
 	item_state = "swat"
-	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 50, bio = 90, rad = 20)
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 50, bio = 90, rad = 20, shock = 25)
 	flags = null
 	flags_inv = HIDEEARS|HIDEEYES
 	cold_protection = HEAD
@@ -139,7 +139,7 @@
 	icon_state = "thunderdome"
 	flags = null
 	item_state = "thunderdome"
-	armor = list(melee = 40, bullet = 30, laser = 25, energy = 10, bomb = 25, bio = 10, rad = 0)
+	armor = list(melee = 40, bullet = 30, laser = 25, energy = 10, bomb = 25, bio = 10, rad = 0, shock = 0)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
@@ -150,7 +150,7 @@
 	name = "roman helmet"
 	desc = "An ancient helmet made of bronze and leather."
 	flags = null
-	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0)
+	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0, shock = 0)
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
@@ -181,7 +181,7 @@ obj/item/clothing/head/helmet/redtaghelm
 	icon_state = "redtaghelm"
 	flags = null
 	item_state = "redtaghelm"
-	armor = list(melee = 15, bullet = 10, laser = 20, energy = 10, bomb = 20, bio = 0, rad = 0)
+	armor = list(melee = 15, bullet = 10, laser = 20, energy = 10, bomb = 20, bio = 0, rad = 0, shock = 0)
 	// Offer about the same protection as a hardhat.
 	flags_inv = HIDEEARS|HIDEEYES
 
@@ -191,7 +191,7 @@ obj/item/clothing/head/helmet/bluetaghelm
 	icon_state = "bluetaghelm"
 	flags = null
 	item_state = "bluetaghelm"
-	armor = list(melee = 15, bullet = 10, laser = 20, energy = 10, bomb = 20, bio = 0, rad = 0)
+	armor = list(melee = 15, bullet = 10, laser = 20, energy = 10, bomb = 20, bio = 0, rad = 0, shock = 0)
 	// Offer about the same protection as a hardhat.
 	flags_inv = HIDEEARS|HIDEEYES
 
@@ -224,7 +224,7 @@ obj/item/clothing/head/blob
 	desc = "Deus Vult."
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0)
+	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0, shock = 5)
 
 //Commander
 /obj/item/clothing/head/helmet/ert/command
