@@ -651,7 +651,7 @@ About the new airlock wires panel:
 			return
 
 	if(ishuman(user))
-		var/mob/living.carbon/human/H = user
+		var/mob/living/carbon/human/H = user
 		if(H.a_intent==INTENT_GRAB)
 			if(note)
 				user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
