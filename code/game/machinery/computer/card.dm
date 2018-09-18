@@ -107,7 +107,7 @@ var/time_last_changed_position = 0
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(scan)

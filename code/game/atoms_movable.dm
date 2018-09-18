@@ -428,4 +428,11 @@
 	flick_overlay(I, viewing, 5) // 5 ticks/half a second
 
 	// And animate the attack!
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+	var/t_color = "#ffffff"
+	if(ismob(src) &&  ismob(A) && (!used_item))
+		var/mob/M = src
+		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
+	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
+	
+/atom/movable/proc/portal_destroyed(obj/effect/portal/P)
+	return

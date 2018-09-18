@@ -48,4 +48,4 @@
 	if(!holder && !check_rights(R_ADMIN))
 		return
 
-	globAdminTicketHolder.userDetailUI(usr.client)
+	globAdminTicketHolder.userDetailUI(usr)

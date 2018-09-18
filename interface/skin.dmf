@@ -1401,69 +1401,85 @@ menu "menu"
 		group = ""
 		is-disabled = false
 		saved-params = "is-checked"
-	elem
+	elem 
 		name = "&Icons"
 		command = ""
-		category = ""
-		is-checked = false
-		can-check = false
-		group = ""
-		is-disabled = false
+		saved-params = "is-checked"
+	elem 
+		name = "&Size"
+		command = ""
+		category = "&Icons"
 		saved-params = "is-checked"
 	elem "stretch"
 		name = "&Stretch to fit"
 		command = ".winset \"mapwindow.map.icon-size=0\""
-		category = "&Icons"
+		category = "&Size"
 		is-checked = true
 		can-check = true
 		group = "size"
-		is-disabled = false
 		saved-params = "is-checked"
 	elem "icon96"
 		name = "&96x96 (3x)"
 		command = ".winset \"mapwindow.map.icon-size=96\""
-		category = "&Icons"
-		is-checked = false
+		category = "&Size"
 		can-check = true
 		group = "size"
-		is-disabled = false
 		saved-params = "is-checked"
 	elem "icon64"
 		name = "&64x64 (2x)"
 		command = ".winset \"mapwindow.map.icon-size=64\""
-		category = "&Icons"
-		is-checked = false
+		category = "&Size"
 		can-check = true
 		group = "size"
-		is-disabled = false
 		saved-params = "is-checked"
 	elem "icon48"
 		name = "&48x48 (1.5x)"
 		command = ".winset \"mapwindow.map.icon-size=48\""
-		category = "&Icons"
-		is-checked = false
+		category = "&Size"
 		can-check = true
 		group = "size"
-		is-disabled = false
 		saved-params = "is-checked"
 	elem "icon32"
 		name = "&32x32"
 		command = ".winset \"mapwindow.map.icon-size=32\""
-		category = "&Icons"
-		is-checked = false
+		category = "&Size"
 		can-check = true
 		group = "size"
-		is-disabled = false
+		saved-params = "is-checked"
+	elem 
+		name = "&Scaling"
+		command = ""
+		category = "&Icons"
+		saved-params = "is-checked"
+	elem "NN"
+		name = "&Nearest Neighbor"
+		command = ".winset \"mapwindow.map.zoom-mode=distort\""
+		category = "&Scaling"
+		can-check = true
+		group = "scale"
+		saved-params = "is-checked"
+	elem "PS"
+		name = "&Point Sampling"
+		command = ".winset \"mapwindow.map.zoom-mode=normal\""
+		category = "&Scaling"
+		can-check = true
+		group = "scale"
+		saved-params = "is-checked"
+	elem "BL"
+		name = "&Bilinear"
+		command = ".winset \"mapwindow.map.zoom-mode=blur\""
+		category = "&Scaling"
+		can-check = true
+		group = "scale"
 		saved-params = "is-checked"
 	elem "textmode"
 		name = "&Text"
 		command = ".winset \"menu.textmode.is-checked=true?mapwindow.map.text-mode=true:mapwindow.map.text-mode=false\""
 		category = "&Icons"
-		is-checked = false
 		can-check = true
 		group = ""
-		is-disabled = false
 		saved-params = "is-checked"
+
 	elem
 		name = "&Help"
 		command = ""

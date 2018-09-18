@@ -857,7 +857,7 @@ var/list/slot_equipment_priority = list( \
 		if(machine && in_range(src, usr))
 			show_inv(machine)
 
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+	if(!usr.incapacitated() && in_range(src, usr))
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
 			var/obj/item/what = get_item_by_slot(slot)

@@ -181,7 +181,7 @@
 
 /obj/item/paper/terrorspiders9
 	name = "paper - 'Research Notes'"
-	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyser in R&D could make sense of them.</b>"
+	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
 /obj/item/gun/energy/laser/awaymission_aeg
@@ -257,5 +257,3 @@
 		else
 			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
 		. = 1
-
-

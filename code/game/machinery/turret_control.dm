@@ -56,6 +56,7 @@
 
 	syndicate = 1
 	faction = "syndicate"
+	req_access = list(access_syndicate_leader)
 
 /obj/machinery/turretid/Destroy()
 	if(control_area)
