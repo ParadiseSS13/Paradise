@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - spellcheck: "adds a missing italics tag to nano/templates/song.tmpl"
