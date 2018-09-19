@@ -47,3 +47,9 @@
 	permeability_coefficient = 0.01
 	species_restricted = list("Vox")
 	actions_types = list()
+
+/obj/item/clothing/mask/breath/vox/attack_self(var/mob/user)
+	return
+
+/obj/item/clothing/mask/breath/vox/AltClick(mob/user)
+	return
