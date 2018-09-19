@@ -60,7 +60,7 @@
 	if(nadeassembly)
 		nadeassembly.attack_self(user)
 		return
-	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
+	var/newtime = input(usr, "Please set the timer.", "Timer", det_time) as num
 	if(user.is_in_active_hand(src))
 		newtime = Clamp(newtime, 10, 60000)
 		det_time = newtime
@@ -231,3 +231,36 @@
 	CB.prime()
 
 	..()
+
+/obj/item/grenade/plastic/x4/thermite
+	name = "T4"
+	desc = "A wall breaching charge, containing fuel, metal oxide and metal powder mixed in just the right way. One hell of a combination. Effective against walls, ineffective against airlocks..."
+	det_time = 2
+
+/obj/item/grenade/plastic/x4/thermite/prime()
+	var/turf/location
+	if(target)
+		if(!QDELETED(target))
+			location = get_turf(target)
+			target.overlays -= image_overlay
+	else
+		location = get_turf(src)
+	if(location)
+		var/datum/effect_system/smoke_spread/smoke = new
+		smoke.set_up(8,0, location, aim_dir)
+		if(target && target.density)
+			var/turf/T = get_step(location, aim_dir)
+			for(var/turf/simulated/wall/W in range(1, location))
+				W.thermitemelt(speed = 30)
+			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
+			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
+		else
+			addtimer(CALLBACK(null, .proc/explosion, T, 0, 0, 2), 3)
+			addtimer(CALLBACK(smoke, /datum/effect_system/smoke_spread/.proc/start), 3)
+
+
+	if(isliving(target))
+		var/mob/living/M = target
+		M.adjust_fire_stacks(2)
+		M.IgniteMob()
+	qdel(src)
