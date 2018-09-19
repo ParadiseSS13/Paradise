@@ -29,11 +29,10 @@
 	areaMaster = get_area_master(src)
 
 /atom/movable/attempt_init()
-	if(ticker && ticker.current_state >= GAME_STATE_SETTING_UP)
-		var/turf/T = get_turf(src)
-		if(T && space_manager.is_zlevel_dirty(T.z))
-			space_manager.postpone_init(T.z, src)
-			return
+	var/turf/T = get_turf(src)
+	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && space_manager.is_zlevel_dirty(T.z))
+		space_manager.postpone_init(T.z, src)
+		return
 	. = ..()
 
 
@@ -429,4 +428,11 @@
 	flick_overlay(I, viewing, 5) // 5 ticks/half a second
 
 	// And animate the attack!
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+	var/t_color = "#ffffff"
+	if(ismob(src) &&  ismob(A) && (!used_item))
+		var/mob/M = src
+		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
+	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
+	
+/atom/movable/proc/portal_destroyed(obj/effect/portal/P)
+	return

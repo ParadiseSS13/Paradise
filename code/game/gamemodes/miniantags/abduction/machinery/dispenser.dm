@@ -3,8 +3,8 @@
 	desc = "A tank filled with replacement organs"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "dispenser"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/list/gland_types
 	var/list/gland_colors
 	var/list/amounts
@@ -49,7 +49,7 @@
 		var/g_color = gland_colors[i]
 		var/amount = amounts[i]
 		dat += "<a class='box gland' style='background-color:[g_color]' href='?src=[UID()];dispense=[i]'>[amount]</a>"
-		if(item_count == 3) // Three boxes per line
+		if(item_count == 4) // Three boxes per line
 			dat +="</br></br>"
 			item_count = 0
 	var/datum/browser/popup = new(user, "glands", "Gland Dispenser", 200, 200)
@@ -68,7 +68,7 @@
 			if(gland_types[i] == W.type)
 				amounts[i]++
 	else
-		..()
+		return ..()
 
 /obj/machinery/abductor/gland_dispenser/Topic(href, href_list)
 	if(..())

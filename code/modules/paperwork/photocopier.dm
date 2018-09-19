@@ -207,7 +207,7 @@
 	var/image/img                                //and puts a matching
 	for(var/j = 1, j <= temp_overlays.len, j++) //gray overlay onto the copy
 		if(copy.ico.len)
-			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent"))
+			if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
 			else if(findtext(copy.ico[j], "deny"))
 				img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
@@ -260,7 +260,7 @@
 			emag_cooldown = world.time + EMAG_DELAY
 	if(ishuman(ass)) //Suit checks are in check_ass
 		var/mob/living/carbon/human/H = ass
-		temp_img = icon('icons/obj/butts.dmi', H.species.butt_sprite)
+		temp_img = icon('icons/obj/butts.dmi', H.dna.species.butt_sprite)
 	else if(istype(ass,/mob/living/silicon/robot/drone))
 		temp_img = icon('icons/obj/butts.dmi', "drone")
 	else if(istype(ass,/mob/living/simple_animal/diona))

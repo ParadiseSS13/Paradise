@@ -1,3 +1,5 @@
+#define HEALPERCABLE 3
+#define MAXCABLEPERHEAL 8
 ///////////////////////////////
 //CABLE STRUCTURE
 ///////////////////////////////
@@ -149,7 +151,7 @@ By design, d1 is the smallest direction and d2 is the highest
 						if(c.d1 == 12 || c.d2 == 12)
 							c.qdel()*/
 ///// Z-Level Stuff
-		investigate_log("was cut by [key_name(usr, usr.client)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 
 		qdel(src) // qdel
 		return
@@ -528,26 +530,47 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
+		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
-		if(S.burn_dam)
-			if(S.burn_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				if(H == user)
-					if(!do_mob(user, H, 10))
-						return 1
-				var/cable_to_use = 0
-				for(cable_to_use in 1 to 5)
-					if(cable_to_use == amount || (cable_to_use * 3) >= S.burn_dam)
-						break
-				use(cable_to_use)
-				S.heal_damage(0, (cable_to_use * 3), 0, 1)
-				user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [S.name] with \the [src].</span>")
-			else if(S.open != 2)
-				to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
-			return 1
-		else if(S.open != 2)
+		if(S.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
+			to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
+			return
+
+		if(!S.burn_dam)
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			return
+
+		if(H == user)
+			if(!do_mob(user, H, 10))
+				return 0
+		var/cable_used = 0
+		var/childlist
+		if(!isnull(S.children))
+			childlist = S.children.Copy()
+		var/parenthealed = FALSE
+		while(cable_used <= MAXCABLEPERHEAL && amount >= 1)
+			var/obj/item/organ/external/E
+			if(S.burn_dam)
+				E = S
+			else if(LAZYLEN(childlist))
+				E = pick_n_take(childlist)
+				if(!E.burn_dam || !E.is_robotic())
+					continue
+			else if(S.parent && !parenthealed)
+				E = S.parent
+				parenthealed = TRUE
+				if(!E.burn_dam || !E.is_robotic())
+					break
+			else
+				break
+			while(cable_used <= MAXCABLEPERHEAL && E.burn_dam && amount >= 1)
+				use(1)
+				cable_used += 1
+				E.heal_damage(0, HEALPERCABLE, 0, 1)
+			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
+		return 1
+
 	else
 		return ..()
 
@@ -820,3 +843,6 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	color = cablecolor
 	update_icon()
+
+#undef MAXCABLEPERHEAL
+#undef HEALPERCABLE

@@ -106,7 +106,7 @@
 
 /datum/component/proc/_GetInverseTypeList(our_type = type)
 	#if DM_VERSION >= 513
-	#warning 512 is definitely stable now, remove the old code
+	#warn 512 is definitely stable now, remove the old code
 	#endif
 
 	#if DM_VERSION < 512

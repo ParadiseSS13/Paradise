@@ -26,11 +26,11 @@
 
 //temp
 /datum/TCS_Compiler
-	var/datum/n_scriptOptions/nS_Options/options		
-	var/datum/n_Scanner/nS_Scanner/scanner				
-	var/list/tokens										
-	var/datum/n_Parser/nS_Parser/parser					
-	var/datum/node/BlockDefinition/GlobalBlock/program	
+	var/datum/n_scriptOptions/nS_Options/options
+	var/datum/n_Scanner/nS_Scanner/scanner
+	var/list/tokens
+	var/datum/n_Parser/nS_Parser/parser
+	var/datum/node/BlockDefinition/GlobalBlock/program
 
 	/* -- Compile a raw block of text -- */
 
@@ -248,7 +248,7 @@
 	   But I like HTML, so back to no sanitizing.*/
 
 	var/message = interpreter.GetVar("$content")
-	var/regex/bannedTags = new ("(<script|<iframe|<video|<audio)")
+	var/regex/bannedTags = new ("(<script|<iframe|<video|<audio|<embed|<svg)")
 	if(bannedTags.Find(message)) //uh oh
 		message_admins("Warning: Current Telecomms script contains banned html. Stripping message.")
 		log_admin("Warning: Current Telecomms script contains banned html. Stripping message.")

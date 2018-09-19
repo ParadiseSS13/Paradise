@@ -33,7 +33,7 @@
 	var/mob/living/carbon/human/H = HA
 	if(!istype(H))
 		H = owner
-	var/icon/cybereyes_icon = new /icon('icons/mob/human_face.dmi', H.species.eyes)
+	var/icon/cybereyes_icon = new /icon('icons/mob/human_face.dmi', H.dna.species.eyes)
 	cybereyes_icon.Blend(eye_colour, ICON_ADD) // Eye implants override native DNA eye color
 
 	return cybereyes_icon
@@ -46,6 +46,16 @@
 			return
 	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
 	owner.flash_eyes(visual = 1)
+
+/obj/item/organ/internal/cyberimp/eyes/meson
+	name = "Meson scanner implant"
+	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
+	eye_colour = "#199900"
+	implant_color = "#AEFF00"
+	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
+	vision_flags = SEE_TURFS
+	see_invisible = SEE_INVISIBLE_MINIMUM
+	aug_message = "Suddenly, you realize how much of a mess the station really is..."
 
 /obj/item/organ/internal/cyberimp/eyes/xray
 	name = "X-ray implant"
@@ -95,6 +105,15 @@
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
 	HUD_type = DATA_HUD_MEDICAL_ADVANCED
+
+/obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
+	name = "Diagnostic HUD implant"
+	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see."
+	eye_colour = "#723E02"
+	implant_color = "#ff9000"
+	origin_tech = "materials=4;engineering=4;biotech=4"
+	aug_message = "You see the diagnostic information of the synthetics around you..."
+	HUD_type = DATA_HUD_DIAGNOSTIC
 
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"

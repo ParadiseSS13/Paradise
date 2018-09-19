@@ -70,6 +70,7 @@
 	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
 	siemens_coefficient = 0
 
+	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 	species_restricted = list("exclude","Diona","Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
@@ -313,7 +314,7 @@
 	on = 1
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
-	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
+	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
@@ -379,7 +380,7 @@
 		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
 		slowdown = 1
 		flags = STOPSPRESSUREDMAGE | THICKMATERIAL
-		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	else
 		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>")

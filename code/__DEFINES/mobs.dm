@@ -6,7 +6,8 @@
 #define ORGAN_SPLINTED   4
 #define ORGAN_DEAD       8
 #define ORGAN_MUTATED    16
-#define ORGAN_ASSISTED   32
+
+#define PROCESS_ACCURACY 10
 
 #define DROPLIMB_SHARP 0
 #define DROPLIMB_BLUNT 1
@@ -128,8 +129,35 @@
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 #define EYE_SHINE_THRESHOLD 6	//dark_view threshold past which a humanoid's eyes will 'shine' in the dark.
 
+#define EMOTE_VISUAL 1  //A mob emote is visual
+#define EMOTE_SOUND 2  //A mob emote is sound
+
 //Human sub-species
-#define isabductor(A) (is_species(A, "Abductor"))
+#define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
+#define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
+#define isabductor(A) (is_species(A, /datum/species/abductor))
+#define isgolem(A) (is_species(A, /datum/species/golem))
+#define ismonkeybasic(A) (is_species(A, /datum/species/monkey))
+#define isfarwa(A) (is_species(A, /datum/species/monkey/tajaran))
+#define iswolpin(A) (is_species(A, /datum/species/monkey/vulpkanin))
+#define isneara(A) (is_species(A, /datum/species/monkey/skrell))
+#define isstok(A) (is_species(A, /datum/species/monkey/unathi))
+#define isplasmaman(A) (is_species(A, /datum/species/plasmaman))
+#define isshadowperson(A) (is_species(A, /datum/species/shadow))
+#define isskeleton(A) (is_species(A, /datum/species/skeleton))
+#define ishumanbasic(A) (is_species(A, /datum/species/human))
+#define isunathi(A) (is_species(A, /datum/species/unathi))
+#define istajaran(A) (is_species(A, /datum/species/tajaran))
+#define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
+#define isskrell(A) (is_species(A, /datum/species/skrell))
+#define isvox(A) (is_species(A, /datum/species/vox))
+#define isvoxarmalis(A) (is_species(A, /datum/species/vox/armalis))
+#define iskidan(A) (is_species(A, /datum/species/kidan))
+#define isslimeperson(A) (is_species(A, /datum/species/slime))
+#define isgrey(A) (is_species(A, /datum/species/grey))
+#define isdiona(A) (is_species(A, /datum/species/diona))
+#define ismachine(A) (is_species(A, /datum/species/machine))
+#define isdrask(A) (is_species(A, /datum/species/drask))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))

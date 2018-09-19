@@ -27,6 +27,7 @@
 #define PLANT_WEED_HUD		"22"// Weed level
 #define DIAG_TRACK_HUD		"23"// Mech tracking beacon
 #define DIAG_PATH_HUD 		"24"//Bot path indicators
+#define GLAND_HUD 			"25"//Gland indicators for abductors
 
 //by default everything in the hud_list of an atom is an image
 //a value in hud_list with one of these will change that behavior
@@ -54,6 +55,7 @@
 #define ANTAG_HUD_CHANGELING 16
 #define ANTAG_HUD_VAMPIRE 17
 #define ANTAG_HUD_ABDUCTOR 18
+#define DATA_HUD_ABDUCTOR	19
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

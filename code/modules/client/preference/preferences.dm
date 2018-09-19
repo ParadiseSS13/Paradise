@@ -246,10 +246,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
-			var/datum/species/S = all_species[species]
+			var/datum/species/S = GLOB.all_species[species]
 			if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 				species = initial(species)
-				S = all_species[species]
+				S = GLOB.all_species[species]
 				random_character()
 
 			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
@@ -369,21 +369,40 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				var/status = organ_data[name]
 				var/organ_name = null
 				switch(name)
-					if("chest")		organ_name = "torso"
-					if("groin")		organ_name = "lower body"
-					if("head")		organ_name = "head"
-					if("l_arm")		organ_name = "left arm"
-					if("r_arm")		organ_name = "right arm"
-					if("l_leg")		organ_name = "left leg"
-					if("r_leg")		organ_name = "right leg"
-					if("l_foot")	organ_name = "left foot"
-					if("r_foot")	organ_name = "right foot"
-					if("l_hand")	organ_name = "left hand"
-					if("r_hand")	organ_name = "right hand"
-					if("heart")		organ_name = "heart"
-					if("eyes")		organ_name = "eyes"
+					if("chest")
+						organ_name = "torso"
+					if("groin")
+						organ_name = "lower body"
+					if("head")
+						organ_name = "head"
+					if("l_arm")
+						organ_name = "left arm"
+					if("r_arm")
+						organ_name = "right arm"
+					if("l_leg")
+						organ_name = "left leg"
+					if("r_leg")
+						organ_name = "right leg"
+					if("l_foot")
+						organ_name = "left foot"
+					if("r_foot")
+						organ_name = "right foot"
+					if("l_hand")
+						organ_name = "left hand"
+					if("r_hand")
+						organ_name = "right hand"
+					if("eyes")
+						organ_name = "eyes"
+					if("heart")
+						organ_name = "heart"
+					if("lungs")
+						organ_name = "lungs"
+					if("liver")
+						organ_name = "liver"
+					if("kidneys")
+						organ_name = "kidneys"
 
-				if(status in list("cyborg", "amputated", "mechanical", "assisted"))
+				if(status in list("cyborg", "amputated", "cybernetic"))
 					++ind
 					if(ind > 1) dat += ", "
 
@@ -395,14 +414,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						else
 							R = basic_robolimb
 						dat += "\t[R.company] [organ_name] prosthesis"
-					if("amputated")		dat += "\tAmputated [organ_name]"
-					if("mechanical")	dat += "\tMechanical [organ_name]"
-					if("assisted")
-						switch(organ_name)
-							if("heart")		dat += "\tPacemaker-assisted [organ_name]"
-							if("voicebox")	dat += "\tSurgically altered [organ_name]"
-							if("eyes")		dat += "\tRetinal overlayed [organ_name]"
-							else			dat += "\tMechanically assisted [organ_name]"
+					if("amputated")
+						dat += "\tAmputated [organ_name]"
+					if("cybernetic")
+						dat += "\tCybernetic [organ_name]"
 			if(!ind)	dat += "\[...\]<br>"
 			else		dat += "<br>"
 
@@ -813,7 +828,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/ShowDisabilityState(mob/user,flag,label)
-	var/datum/species/S = all_species[species]
+	var/datum/species/S = GLOB.all_species[species]
 	if(flag==DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))
 		return "<li><i>[species] cannot be fat.</i></li>"
 	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
@@ -1038,7 +1053,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/proc/process_link(mob/user, list/href_list)
 	if(!user)	return
 
-	var/datum/species/S = all_species[species]
+	var/datum/species/S = GLOB.all_species[species]
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
 			if("close")
@@ -1276,7 +1291,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						new_species += whitelisted_species
 
 					species = input("Please select a species", "Character Generation", null) in new_species
-					var/datum/species/NS = all_species[species]
+					var/datum/species/NS = GLOB.all_species[species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						species = prev_species
 						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
@@ -1866,26 +1881,31 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
 				if("organs")
-					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Heart", "Eyes")
-					if(!organ_name) return
+					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Heart", "Lungs", "Liver", "Kidneys")
+					if(!organ_name)
+						return
 
 					var/organ = null
 					switch(organ_name)
-						if("Heart")
-							organ = "heart"
 						if("Eyes")
 							organ = "eyes"
+						if("Heart")
+							organ = "heart"
+						if("Lungs")
+							organ = "lungs"
+						if("Liver")
+							organ = "liver"
+						if("Kidneys")
+							organ = "kidneys"
 
-					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal","Assisted","Mechanical")
+					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal", "Cybernetic")
 					if(!new_state) return
 
 					switch(new_state)
 						if("Normal")
 							organ_data[organ] = null
-						if("Assisted")
-							organ_data[organ] = "assisted"
-						if("Mechanical")
-							organ_data[organ] = "mechanical"
+						if("Cybernetic")
+							organ_data[organ] = "cybernetic"
 
 				if("clientfps")
 					var/version_message
@@ -2063,8 +2083,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
-	var/datum/species/S = all_species[species]
-	character.change_species(species) // Yell at me if this causes everything to melt
+	var/datum/species/S = GLOB.all_species[species]
+	character.set_species(S.type) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 
@@ -2130,9 +2150,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		else
 			var/obj/item/organ/internal/I = character.get_int_organ_tag(name)
 			if(I)
-				if(status == "assisted")
-					I.mechassist()
-				else if(status == "mechanical")
+				if(status == "cybernetic")
 					I.robotize()
 
 	character.dna.b_type = b_type
@@ -2152,10 +2170,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.undershirt = undershirt
 	character.socks = socks
 
-	if(character.species.bodyflags & HAS_HEAD_ACCESSORY)
+	if(character.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 		H.headacc_colour = hacc_colour
 		H.ha_style = ha_style
-	if(character.species.bodyflags & HAS_MARKINGS)
+	if(character.dna.species.bodyflags & HAS_MARKINGS)
 		character.m_colours = m_colours
 		character.m_styles = m_styles
 
@@ -2165,14 +2183,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.backbag = backbag
 
 	//Debugging report to track down a bug, which randomly assigned the plural gender to people.
-	if(S.has_gender && (character.gender in list(PLURAL, NEUTER)))
+	if(character.dna.species.has_gender && (character.gender in list(PLURAL, NEUTER)))
 		if(isliving(src)) //Ghosts get neuter by default
 			message_admins("[key_name_admin(character)] has spawned with their gender as plural or neuter. Please notify coders.")
 			character.change_gender(MALE)
 
 	character.change_eye_color(e_colour)
 
-	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.species.species_traits))
+	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.dna.species.species_traits))
 		character.dna.SetSEState(FATBLOCK,1,1)
 		character.overeatduration = 600
 
@@ -2215,7 +2233,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
 		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
 
-	S.handle_dna(character)
+	character.dna.species.handle_dna(character)
 
 	if(character.dna.dirtySE)
 		character.dna.UpdateSE()

@@ -10,6 +10,10 @@
 		act = copytext(act, 1, t1)
 
 	var/muzzled = is_muzzled()
+	if(muzzled)
+		var/obj/item/clothing/mask/muzzle/M = wear_mask
+		if(M.mute == MUZZLE_MUTE_NONE)
+			muzzled = 0 //Not all muzzles block sound
 	if(!can_speak())
 		muzzled = 1
 	//var/m_type = 1
@@ -29,34 +33,42 @@
 	switch(act)
 		//Cooldown-inducing emotes
 		if("ping", "pings", "buzz", "buzzes", "beep", "beeps", "yes", "no", "buzz2")
-			if(species.name == "Machine")		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
+			var/found_machine_head = FALSE
+			if(ismachine(src))		//Only Machines can beep, ping, and buzz, yes, no, and make a silly sad trombone noise.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
-			else								//Everyone else fails, skip the emote attempt
-				return
+				found_machine_head = TRUE
+			else
+				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises
+				if(H && H.is_robotic())
+					on_CD = handle_emote_CD()
+					found_machine_head = TRUE
+
+			if(!found_machine_head)								//Everyone else fails, skip the emote attempt
+				return								//Everyone else fails, skip the emote attempt
 		if("drone","drones","hum","hums","rumble","rumbles")
-			if(get_species() == "Drask")		//Only Drask can make whale noises
+			if(isdrask(src))		//Only Drask can make whale noises
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm
 			else
 				return
 		if("howl", "howls")
-			if(get_species() == "Vulpkanin")		//Only Vulpkanin can howl
+			if(isvulpkanin(src))		//Only Vulpkanin can howl
 				on_CD = handle_emote_CD(100)
 			else
 				return
 		if("growl", "growls")
-			if(get_species() == "Vulpkanin")		//Only Vulpkanin can growl
+			if(isvulpkanin(src))		//Only Vulpkanin can growl
 				on_CD = handle_emote_CD()
 			else
 				return
 		if("squish", "squishes")
 			var/found_slime_bodypart = 0
 
-			if(get_species() == "Slime People")	//Only Slime People can squish
+			if(isslimeperson(src))	//Only Slime People can squish
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 				found_slime_bodypart = 1
 			else
 				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
-					if(L.dna.species in list("Slime People"))
+					if(istype(L.dna.species, /datum/species/slime))
 						on_CD = handle_emote_CD()
 						found_slime_bodypart = 1
 						break
@@ -65,31 +77,31 @@
 				return
 
 		if("clack", "clacks")
-			if(get_species() == "Kidan")	//Only Kidan can clack and rightfully so.
+			if(iskidan(src))	//Only Kidan can clack and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("click", "clicks")
-			if(get_species() == "Kidan")	//Only Kidan can click and rightfully so.
+			if(iskidan(src))	//Only Kidan can click and rightfully so.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("creaks", "creak")
-			if(get_species() == "Diona") //Only Dionas can Creaks.
+			if(isdiona(src)) //Only Dionas can Creaks.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("hiss", "hisses")
-			if(get_species() == "Unathi") //Only Unathi can hiss.
+			if(isunathi(src)) //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
 		if("quill", "quills")
-			if(get_species() == "Vox") //Only Vox can rustle their quills.
+			if(isvox(src)) //Only Vox can rustle their quills.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -225,7 +237,7 @@
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
 					start_tail_wagging(1)
 
-			else if(species.bodyflags & TAIL_WAGGING)
+			else if(dna.species.bodyflags & TAIL_WAGGING)
 				if(!wear_suit || !(wear_suit.flags_inv & HIDETAIL) && !istype(wear_suit, /obj/item/clothing/suit/space))
 					message = "<B>[src]</B> starts wagging [p_their()] tail."
 					start_tail_wagging(1)
@@ -236,7 +248,7 @@
 			m_type = 1
 
 		if("swag", "swags")
-			if(species.bodyflags & TAIL_WAGGING || body_accessory)
+			if(dna.species.bodyflags & TAIL_WAGGING || body_accessory)
 				message = "<B>[src]</B> stops wagging [p_their()] tail."
 				stop_tail_wagging(1)
 			else
@@ -431,11 +443,11 @@
 					message = "<B>[src]</B> coughs!"
 					m_type = 2
 					if(gender == FEMALE)
-						if(species.female_cough_sounds)
-							playsound(src, pick(species.female_cough_sounds), 120)
+						if(dna.species.female_cough_sounds)
+							playsound(src, pick(dna.species.female_cough_sounds), 120)
 					else
-						if(species.male_cough_sounds)
-							playsound(src, pick(species.male_cough_sounds), 120)
+						if(dna.species.male_cough_sounds)
+							playsound(src, pick(dna.species.male_cough_sounds), 120)
 				else
 					message = "<B>[src]</B> makes a strong noise."
 					m_type = 2
@@ -479,7 +491,7 @@
 					m_type = 2
 
 		if("deathgasp", "deathgasps")
-			message = "<B>[src]</B> [replacetext(species.death_message, "their", p_their())]"
+			message = "<B>[src]</B> [replacetext(dna.species.death_message, "their", p_their())]"
 			m_type = 1
 
 		if("giggle", "giggles")
@@ -676,9 +688,9 @@
 				if(!muzzled)
 					message = "<B>[src]</B> sneezes."
 					if(gender == FEMALE)
-						playsound(src, species.female_sneeze_sound, 70)
+						playsound(src, dna.species.female_sneeze_sound, 70)
 					else
-						playsound(src, species.male_sneeze_sound, 70)
+						playsound(src, dna.species.male_sneeze_sound, 70)
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a strange noise."
@@ -784,12 +796,12 @@
 				m_type = 1
 			else
 				if(!muzzled)
-					message = "<B>[src]</B> [species.scream_verb][M ? " at [M]" : ""]!"
+					message = "<B>[src]</B> [dna.species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, "[species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
+						playsound(loc, "[dna.species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
 					else
-						playsound(loc, "[species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, "[dna.species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
@@ -890,9 +902,7 @@
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), quill(s)"
 
-			switch(species.name)
-				if("Machine")
-					emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+			switch(dna.species.name)
 				if("Drask")
 					emotelist += "\nDrask specific emotes :- drone(s)-(none)/mob, hum(s)-(none)/mob, rumble(s)-(none)/mob"
 				if("Kidan")
@@ -906,11 +916,18 @@
 				if("Diona")
 					emotelist += "\nDiona specific emotes :- creak(s)"
 
-			if (species.name == "Slime People")
+			if(ismachine(src))
+				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+			else
+				var/obj/item/organ/external/head/H = get_organ("head") // If you have a robotic head, you can make beep-boop noises
+				if(H && H.is_robotic())
+					emotelist += "\nRobotic head specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
+
+			if(isslimeperson(src))
 				emotelist += "\nSlime people specific emotes :- squish(es)-(none)/mob"
 			else
 				for(var/obj/item/organ/external/L in bodyparts) // if your limbs are squishy you can squish too!
-					if(L.dna.species in list("Slime People"))
+					if(istype(L.dna.species, /datum/species/slime))
 						emotelist += "\nSlime people body part specific emotes :- squish(es)-(none)/mob"
 						break
 

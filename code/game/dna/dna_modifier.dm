@@ -327,7 +327,7 @@
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
-		if(NO_DNA in H.species.species_traits)
+		if(NO_DNA in H.dna.species.species_traits)
 			return 1
 
 	var/radiation_protection = occupant.run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm.")
@@ -533,7 +533,7 @@
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
+		if((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna || connected.occupant.dna.species.bodyflags & NO_DNA)
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth

@@ -61,7 +61,6 @@
 	var/linglink
 	var/datum/vampire/vampire			//vampire holder
 	var/datum/nations/nation			//nation holder
-	var/datum/abductor/abductor			//abductor holder
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -480,10 +479,11 @@
 		message_admins("[key_name_admin(usr)] has changed [key_name_admin(current)]'s assigned role to [assigned_role]")
 
 	else if(href_list["memory_edit"])
-		var/new_memo = copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN)
-		if(isnull(new_memo))
+		var/messageinput = input("Write new memory", "Memory", memory) as null|message
+		if(isnull(messageinput))
 			return
-		var/confirmed = alert(usr, "Are you sure?", "Edit Memory", "Yes", "No")
+		var/new_memo = copytext(messageinput, 1,MAX_MESSAGE_LEN)
+		var/confirmed = alert(usr, "Are you sure you want to edit their memory? It will wipe out their original memory!", "Edit Memory", "Yes", "No")
 		if(confirmed == "Yes") // Because it is too easy to accidentally wipe someone's memory
 			memory = new_memo
 			log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
@@ -1132,14 +1132,17 @@
 				log_admin("[key_name(usr)] turned [current] into abductor.")
 				ticker.mode.update_abductor_icons_added(src)
 			if("equip")
+				if(!ishuman(current))
+					to_chat(usr, "<span class='warning'>This only works on humans!</span>")
+					return
+
+				var/mob/living/carbon/human/H = current
 				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
 				if(gear)
-					var/datum/game_mode/abduction/temp = new
-					temp.equip_common(current)
 					if(gear=="Agent")
-						temp.equip_agent(current)
+						H.equipOutfit(/datum/outfit/abductor/agent)
 					else
-						temp.equip_scientist(current)
+						H.equipOutfit(/datum/outfit/abductor/scientist)
 
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
@@ -1347,7 +1350,7 @@
 		special_role = SPECIAL_ROLE_VAMPIRE
 		ticker.mode.forge_vampire_objectives(src)
 		ticker.mode.greet_vampire(src)
-		ticker.mode.update_change_icons_added(src)
+		ticker.mode.update_vampire_icons_added(src)
 
 /datum/mind/proc/make_Changeling()
 	if(!(src in ticker.mode.changelings))
@@ -1424,36 +1427,32 @@
 
 	var/mob/living/carbon/human/H = current
 
-	H.set_species("Abductor")
+	H.set_species(/datum/species/abductor)
+	var/datum/species/abductor/S = H.dna.species
 
-	switch(role)
-		if("Agent")
-			H.mind.abductor.agent = 1
-		if("Scientist")
-			H.mind.abductor.scientist = 1
-	H.mind.abductor.team = team
+	if(role == "Scientist")
+		S.scientist = TRUE
+
+	S.team = team
 
 	var/list/obj/effect/landmark/abductor/agent_landmarks = new
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
 	agent_landmarks.len = 4
 	scientist_landmarks.len = 4
 	for(var/obj/effect/landmark/abductor/A in landmarks_list)
-		if(istype(A,/obj/effect/landmark/abductor/agent))
+		if(istype(A, /obj/effect/landmark/abductor/agent))
 			agent_landmarks[text2num(A.team)] = A
-		else if(istype(A,/obj/effect/landmark/abductor/scientist))
+		else if(istype(A, /obj/effect/landmark/abductor/scientist))
 			scientist_landmarks[text2num(A.team)] = A
 
 	var/obj/effect/landmark/L
-	if(teleport=="Yes")
+	if(teleport == "Yes")
 		switch(role)
 			if("Agent")
-				H.mind.abductor.agent = 1
 				L = agent_landmarks[team]
-				H.loc = L.loc
 			if("Scientist")
-				H.mind.abductor.scientist = 1
 				L = agent_landmarks[team]
-				H.loc = L.loc
+		H.forceMove(L.loc)
 
 
 // check whether this mind's mob has been brigged for the given duration

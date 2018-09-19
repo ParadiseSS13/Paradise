@@ -45,7 +45,7 @@
 
 	var/mob/living/carbon/human/target = M
 
-	if(istype(target.species, /datum/species/machine))
+	if(ismachine(target))
 		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
 		return
 
@@ -54,7 +54,7 @@
 		return
 
 	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = marking_styles_list[tattoo_icon]
-	if(!(target.species.name in temp_tatt.species_allowed))
+	if(!(target.dna.species.name in temp_tatt.species_allowed))
 		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
 		return
 
@@ -268,7 +268,7 @@
 		return
 
 	var/mob/living/carbon/human/target = user
-	if(!istype(target) || target.get_species() != "Tajaran") // Only catbeasts, kthnx.
+	if(!istype(target) || !istajaran(target)) // Only catbeasts, kthnx.
 		return
 
 	if(target.change_body_accessory("Jay Wingler Tail"))
@@ -1276,7 +1276,7 @@
 
 /obj/item/fluff/zekemirror/attack_self(mob/user)
 	var/mob/living/carbon/human/target = user
-	if(!istype(target) || target.get_species() != "Skrell") // It'd be strange to see other races with head tendrils.
+	if(!istype(target) || !isskrell(target)) // It'd be strange to see other races with head tendrils.
 		return
 
 	if(target.change_hair("Zekes Tentacles", 1))
@@ -1386,4 +1386,13 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
+	slot_flags = SLOT_TIE
+
+/obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
+	name = "Zxiax Garnet"
+	desc = "Green Garnet on fancy blue cord, when you look at the Garnet, you feel strangely appeased."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "Xann_necklace"
+	item_state = "Xann_necklace"
+	item_color = "Xann_necklace"
 	slot_flags = SLOT_TIE
