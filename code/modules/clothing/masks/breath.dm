@@ -24,6 +24,12 @@
 /obj/item/clothing/mask/breath/attack_self(var/mob/user)
 	adjustmask(user)
 
+/obj/item/clothing/mask/breath/AltClick(mob/user)
+	..()
+	if( (!in_range(src, user)) || user.stat || user.restrained() )
+		return
+	adjustmask(user)
+
 /obj/item/clothing/mask/breath/medical
 	desc = "A close-fitting sterile mask that can be connected to an air supply."
 	name = "medical mask"
