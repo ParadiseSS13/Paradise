@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - bugfix: "Screwdrivers now open fire alarms instead of wirecutters."
