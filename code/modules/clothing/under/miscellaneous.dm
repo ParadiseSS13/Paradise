@@ -129,6 +129,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/blueshield/New()
+	..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/representative
@@ -141,6 +142,7 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative/New()
+	..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
