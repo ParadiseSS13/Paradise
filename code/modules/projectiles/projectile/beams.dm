@@ -36,7 +36,7 @@
 	damage = 15
 	irradiate = 30
 	forcedodge = 1
-	range = 15
+	range = 7
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/item/projectile/beam/disabler
