@@ -13,6 +13,33 @@
 		to_chat(src, "<span class='danger'>The wiki URL is not set in the server configuration.</span>")
 	return
 
+/client/verb/changes()	
+	set name = "Changelog"	
+	set desc = "View the changelog."	
+	set hidden = 1	
+ 	getFiles(	
+		'html/88x31.png',	
+		'html/bug-minus.png',	
+		'html/cross-circle.png',	
+		'html/hard-hat-exclamation.png',	
+		'html/image-minus.png',	
+		'html/image-plus.png',	
+		'html/music-minus.png',	
+		'html/music-plus.png',	
+		'html/tick-circle.png',	
+		'html/wrench-screwdriver.png',	
+		'html/spell-check.png',	
+		'html/burn-exclamation.png',	
+		'html/chevron.png',	
+		'html/chevron-expand.png',	
+		'html/changelog.css',	
+		'html/changelog.js',	
+		'html/changelog.html'	
+		)	
+	src << browse('html/changelog.html', "window=changes;size=675x650")	
+ 	if(prefs.lastchangelog != changelog_hash) //if it's already opened, no need to tell them they have unread changes	
+		prefs.SetChangelog(src,changelog_hash)
+		
 /client/verb/forum()
 	set name = "Forum"
 	set desc = "Visit the forum."
