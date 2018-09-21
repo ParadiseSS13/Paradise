@@ -374,3 +374,7 @@
 
 //Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
+
+
+
+#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
