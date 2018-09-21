@@ -381,7 +381,6 @@
 	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/headset_service
 	backpack_contents = list(
-		/obj/item/clothing/shoes/black = 1,
 		/obj/item/storage/box/lip_stick = 1,
 		/obj/item/storage/box/barber = 1
 	)

@@ -99,3 +99,7 @@
 /obj/item/pizza_bomb/New()
 	..()
 	correct_wire = pick(wires)
+
+/obj/item/pizza_bomb/autoarm
+	timer_set = 1
+	timer = 10

@@ -295,6 +295,10 @@
 		update_icon()
 	return unwield(user)
 
+/obj/item/twohanded/shockpaddles/on_mob_move(dir, mob/user)
+	if(defib && !(defib.Adjacent(user)))
+		defib.remove_paddles(user)
+
 /obj/item/twohanded/shockpaddles/proc/check_defib_exists(mainunit, var/mob/living/carbon/human/M, var/obj/O)
 	if(!mainunit || !istype(mainunit, /obj/item/defibrillator))	//To avoid weird issues from admin spawns
 		M.unEquip(O)

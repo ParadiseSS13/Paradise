@@ -205,6 +205,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
+	stop_bleeding = 0
 	heal_brute = 12
 
 

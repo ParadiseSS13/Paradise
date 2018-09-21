@@ -362,7 +362,6 @@
 	desc = "Mini-Mecha action figure! Collect them all! 4/11."
 	icon_state = "gygaxtoy"
 
-
 /obj/item/toy/prize/durand
 	name = "toy durand"
 	desc = "Mini-Mecha action figure! Collect them all! 5/11."
@@ -398,18 +397,6 @@
 	desc = "Mini-Mecha action figure! Collect them all! 11/11."
 	icon_state = "phazonprize"
 
-
-/obj/item/toy/katana
-	name = "replica katana"
-	desc = "Woefully underpowered in D20."
-	icon_state = "katana"
-	item_state = "katana"
-	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
-	force = 5
-	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 
 
 /*
@@ -450,7 +437,7 @@ obj/item/toy/cards/deck
 obj/item/toy/cards/deck/New()
 	..()
 	icon_state = "deck_[deckstyle]_full"
-	for(var/i = 2; i <= 10; i++)
+	for(var/i in 2 to 10)
 		cards += "[i] of Hearts"
 		cards += "[i] of Spades"
 		cards += "[i] of Clubs"
@@ -472,7 +459,6 @@ obj/item/toy/cards/deck/New()
 	cards += "Ace of Clubs"
 	cards += "Ace of Diamonds"
 
-
 obj/item/toy/cards/deck/attack_hand(mob/user as mob)
 	var/choice = null
 	if(cards.len == 0)
@@ -489,12 +475,7 @@ obj/item/toy/cards/deck/attack_hand(mob/user as mob)
 	H.pickup(user)
 	user.put_in_active_hand(H)
 	visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
-	if(cards.len > 26)
-		icon_state = "deck_[deckstyle]_full"
-	else if(cards.len > 10)
-		icon_state = "deck_[deckstyle]_half"
-	else if(cards.len > 1)
-		icon_state = "deck_[deckstyle]_low"
+	update_icon()
 
 obj/item/toy/cards/deck/attack_self(mob/user as mob)
 	if(cooldown < world.time - 50)
@@ -515,12 +496,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/singlecard/C, mob/living/use
 			qdel(C)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
-		if(cards.len > 26)
-			icon_state = "deck_[deckstyle]_full"
-		else if(cards.len > 10)
-			icon_state = "deck_[deckstyle]_half"
-		else if(cards.len > 1)
-			icon_state = "deck_[deckstyle]_low"
+		update_icon()
 
 
 obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user, params)
@@ -535,12 +511,7 @@ obj/item/toy/cards/deck/attackby(obj/item/toy/cards/cardhand/C, mob/living/user,
 			qdel(C)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
-		if(cards.len > 26)
-			icon_state = "deck_[deckstyle]_full"
-		else if(cards.len > 10)
-			icon_state = "deck_[deckstyle]_half"
-		else if(cards.len > 1)
-			icon_state = "deck_[deckstyle]_low"
+		update_icon()
 
 obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	var/mob/M = usr
@@ -566,7 +537,16 @@ obj/item/toy/cards/deck/MouseDrop(atom/over_object)
 	else
 		to_chat(usr, "<span class='notice'>You can't reach it from here.</span>")
 
-
+obj/item/toy/cards/deck/update_icon()
+	switch(cards.len)
+		if(0)
+			icon_state = "deck_[deckstyle]_empty"
+		if(1 to 10)
+			icon_state = "deck_[deckstyle]_low"
+		if(11 to 26)
+			icon_state = "deck_[deckstyle]_half"
+		else
+			icon_state = "deck_[deckstyle]_full"
 
 obj/item/toy/cards/cardhand
 	name = "hand of cards"
@@ -613,12 +593,7 @@ obj/item/toy/cards/cardhand/Topic(href, href_list)
 			cardUser.visible_message("<span class='notice'>[cardUser] draws a card from [cardUser.p_their()] hand.</span>", "<span class='notice'>You take the [C.cardname] from your hand.</span>")
 
 			interact(cardUser)
-			if(currenthand.len < 3)
-				icon_state = "[deckstyle]_hand2"
-			else if(src.currenthand.len < 4)
-				icon_state = "[deckstyle]_hand3"
-			else if(src.currenthand.len < 5)
-				icon_state = "[deckstyle]_hand4"
+			update_icon()
 			if(currenthand.len == 1)
 				var/obj/item/toy/cards/singlecard/N = new/obj/item/toy/cards/singlecard(src.loc)
 				N.parentdeck = src.parentdeck
@@ -639,12 +614,7 @@ obj/item/toy/cards/cardhand/attackby(obj/item/toy/cards/singlecard/C, mob/living
 			user.unEquip(C)
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [C.cardname] to your hand.</span>")
 			interact(user)
-			if(currenthand.len > 4)
-				icon_state = "[deckstyle]_hand5"
-			else if(currenthand.len > 3)
-				icon_state = "[deckstyle]_hand4"
-			else if(currenthand.len > 2)
-				icon_state = "[deckstyle]_hand3"
+			update_icon()
 			qdel(C)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
@@ -697,7 +667,7 @@ obj/item/toy/cards/singlecard/verb/Flip()
 			icon_state = "sc_Ace of Spades_[deckstyle]"
 			name = "What Card"
 		pixel_x = 5
-	else if(flipped)
+	else
 		flipped = 0
 		icon_state = "singlecard_down_[deckstyle]"
 		name = "card"
@@ -728,15 +698,23 @@ obj/item/toy/cards/singlecard/attackby(obj/item/I, mob/living/user, params)
 			user.unEquip(src)
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>You add the [cardname] to your hand.</span>")
 			H.interact(user)
-			if(H.currenthand.len > 4)
-				H.icon_state = "[deckstyle]_hand5"
-			else if(H.currenthand.len > 3)
-				H.icon_state = "[deckstyle]_hand4"
-			else if(H.currenthand.len > 2)
-				H.icon_state = "[deckstyle]_hand3"
+			H.update_icon()
 			qdel(src)
 		else
 			to_chat(user, "<span class='notice'>You can't mix cards from other decks.</span>")
+
+obj/item/toy/cards/cardhand/update_icon()
+	switch(currenthand.len)
+		if(0 to 1)
+			return
+		if(2)
+			icon_state = "[deckstyle]_hand2"
+		if(3)
+			icon_state = "[deckstyle]_hand3"
+		if(4)
+			icon_state = "[deckstyle]_hand4"
+		else
+			icon_state = "[deckstyle]_hand5"
 
 
 obj/item/toy/cards/singlecard/attack_self(mob/user)
@@ -813,10 +791,12 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/therapy
 	name = "therapy doll"
 	desc = "A toy for therapeutic and recreational purposes."
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "therapyred"
 	item_state = "egg4"
 	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
+	burn_state = FLAMMABLE
 
 /obj/item/toy/therapy/New()
 	if(item_color)
@@ -836,7 +816,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "therapyred"
 
-/obj/random/prize/item_to_spawn()
+/obj/random/therapy/item_to_spawn()
 	return pick(subtypesof(/obj/item/toy/therapy)) //exclude the base type.
 
 /obj/item/toy/therapy/red

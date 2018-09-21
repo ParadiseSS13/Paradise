@@ -108,6 +108,9 @@
 	qdel(src)
 
 /obj/structure/sign/poster/proc/roll_and_drop(loc)
+	if(ruined)
+		qdel(src)
+		return
 	pixel_x = 0
 	pixel_y = 0
 	var/obj/item/poster/P = new(loc, src)

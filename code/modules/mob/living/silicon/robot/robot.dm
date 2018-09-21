@@ -290,7 +290,7 @@ var/list/robot_verbs_default = list(
 		if(N.kickoff)
 			modules = list("Nations")
 	if(mmi != null && mmi.alien)
-		modules = "Hunter"
+		modules = list("Hunter")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
 	if(!modtype)
 		return
@@ -394,7 +394,6 @@ var/list/robot_verbs_default = list(
 
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
-			icon = "icons/mob/alien.dmi"
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
 			feedback_inc("xeborg_hunter",1)

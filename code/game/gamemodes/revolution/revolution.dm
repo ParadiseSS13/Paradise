@@ -306,7 +306,7 @@
 			if(!(objective.check_completion()))
 				return 0
 
-		return 1
+	return 1
 
 /////////////////////////////
 //Checks for a head victory//

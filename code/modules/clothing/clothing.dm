@@ -561,6 +561,7 @@ BLIND     // can't see anything
 	strip_delay = 80
 	put_on_delay = 80
 	burn_state = FIRE_PROOF
+	hide_tail_by_species = null
 	species_restricted = list("exclude","Diona","Vox","Wryn")
 
 //Under clothing

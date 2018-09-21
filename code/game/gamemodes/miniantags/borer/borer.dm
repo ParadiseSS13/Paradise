@@ -363,7 +363,9 @@
 	if(M.has_brain_worms())
 		to_chat(src, "<span class='warning'>[M] is already infested!</span>")
 		return
+
 	host = M
+	add_attack_logs(src, host, "Infested as borer")
 	M.borer = src
 	forceMove(M)
 

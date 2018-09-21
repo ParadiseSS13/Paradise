@@ -226,9 +226,8 @@
 
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
-
 		SSnanoui.update_uis(src)
-
+			
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/bag/P = O
 		var/plants_loaded = 0
@@ -242,7 +241,7 @@
 
 		SSnanoui.update_uis(src)
 
-	else
+	else if(!istype(O, /obj/item/card/emag))
 		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
 		return 1
 
@@ -307,11 +306,6 @@
 	if(P.contents.len > 0)
 		to_chat(user, "<span class='notice'>Some items are refused.</span>")
 	SSnanoui.update_uis(src)
-
-/obj/machinery/smartfridge/secure/emag_act(mob/user)
-	emagged = 1
-	locked = -1
-	to_chat(user, "You short out the product lock on [src].")
 
 /*******************
 *   SmartFridge Menu
@@ -539,6 +533,16 @@
 /************************
 *   Secure SmartFridges
 *************************/
+/obj/machinery/smartfridge/secure/emag_act(mob/user)
+	emagged = 1
+	locked = -1
+	to_chat(user, "You short out the product lock on [src].")
+
+/obj/machinery/smartfridge/secure/emp_act(severity)
+	if(prob(40/severity) && (!emagged) && (locked != -1))
+		playsound(loc, 'sound/effects/sparks4.ogg', 60, 1)
+		emagged = 1
+		locked = -1
 
 /obj/machinery/smartfridge/secure/Topic(href, href_list)
 	if(stat & (NOPOWER|BROKEN))
