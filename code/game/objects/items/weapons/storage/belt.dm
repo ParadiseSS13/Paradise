@@ -252,6 +252,7 @@
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
+	update_icon()
 	
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"

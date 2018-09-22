@@ -131,7 +131,6 @@
 	icon_state = "multilensimmolator"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
-	shaded_charge = TRUE
 
 /obj/item/gun/energy/immolator/multi/update_icon()
 	..()

@@ -647,7 +647,6 @@ REAGENT SCANNER
 	origin_tech = "magnets=6;biotech=6"
 	var/obj/item/stock_parts/cell/power_supply
 	var/cell_type = /obj/item/stock_parts/cell/upgraded
-	var/printing = FALSE // Printing the paper.
 	var/ready = TRUE // Ready to scan
 	var/time_to_use = 0 // How much time remaining before next scan is available.
 	var/usecharge = 750
@@ -666,7 +665,7 @@ REAGENT SCANNER
 	playsound(src, 'sound/machines/defib_saftyOn.ogg', 50, 0)
 	update_icon()
 
-/obj/item/bodyanalyzer/update_icon()
+/obj/item/bodyanalyzer/update_icon(printing = FALSE)
 	overlays.Cut()
 	var/percent = power_supply.percent()
 	if(ready)
@@ -703,15 +702,13 @@ REAGENT SCANNER
 		if(do_after(user, 100, target = M))
 			var/obj/item/paper/printout = new
 			printout.info = report
-			printout.name = "Scan report"
+			printout.name = "Scan report - [M.name]"
 			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			user.put_in_hands(printout)
 			time_to_use = world.time + 600
 			power_supply.use(usecharge)
-			printing = TRUE
 			ready = FALSE
-			update_icon()
-			printing = FALSE
+			update_icon(TRUE)
 			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), 600)
 			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
 

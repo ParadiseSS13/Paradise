@@ -58,7 +58,6 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-	
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
@@ -110,7 +109,6 @@
 /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
-
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
 	name = "emergency response team medical helmet"
@@ -120,7 +118,6 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
-
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical
 	name = "emergency response team medical suit"
