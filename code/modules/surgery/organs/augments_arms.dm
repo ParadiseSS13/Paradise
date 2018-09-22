@@ -319,3 +319,10 @@
 			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
+
+
+/obj/item/organ/internal/cyberimp/arm/telebaton
+	name = "telebaton implant"
+	desc = "Telescopic baton implant."
+	
+	var/list/items_list = list(/obj/item/melee/classic_baton/telescopic)
