@@ -65,7 +65,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 				if("name")
 					t = input("Enter a name for your pAI", "pAI Name", candidate.name) as text
 					if(t)
-						candidate.name = sanitize(copytext(t,1,MAX_NAME_LEN))
+						candidate.name = reject_bad_name(sanitize(copytext(t,1,MAX_NAME_LEN)))
 				if("desc")
 					t = input("Enter a description for your pAI", "pAI Description", candidate.description) as message
 					if(t)
@@ -84,7 +84,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 					candidate.savefile_load(usr)
 					//In case people have saved unsanitized stuff.
 					if(candidate.name)
-						candidate.name = sanitize(copytext(candidate.name,1,MAX_NAME_LEN))
+						candidate.name = reject_bad_name(sanitize(copytext(candidate.name,1,MAX_NAME_LEN)))
 					if(candidate.description)
 						candidate.description = sanitize(copytext(candidate.description,1,MAX_MESSAGE_LEN))
 					if(candidate.role)

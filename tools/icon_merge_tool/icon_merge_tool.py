@@ -60,7 +60,7 @@ def main(relative_root):
         path = icon_conflicts[i]
         print("{}: {}".format("Merging", path))
 
-        common_ancestor_hash = run_shell_command("git merge-base ORIG_HEAD master").strip()
+        common_ancestor_hash = run_shell_command("git merge-base MERGE_HEAD HEAD").strip()
 
         ours_icon = NamedTemporaryFile(delete=False)
         theirs_icon = NamedTemporaryFile(delete=False)

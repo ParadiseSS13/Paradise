@@ -1,8 +1,0 @@
-author: "Triiodine (Agameofscones)"
-delete-after: True
-changes: 
-  - rscdel: "Removed original paramedic EVA sprites"
-  - rscadd: "Replaced paramedic EVA sprites with medical hardsuit inspired set."
-  - rscadd: "Added species variants _(Which did not exist before hand)_ to Unathi, Tajaran, Drask, Skrells, & Vulpkanins."
-  - rscadd: "Added the same armor values the basic EVA suit gets (bio 100, rad 20), this puts the paramedic suit in standard with other NT soft suits.
-edit: Fixed a typo in the santasuit comment, because why not."

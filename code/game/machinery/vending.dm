@@ -399,11 +399,9 @@
 		return 0
 	else
 		// Okay to move the money at this point
-		var/paid = customer_account.charge(currently_vending.price,
-			transaction_purpose = "Purchase of [currently_vending.product_name]",
-			terminal_name = name,
-			terminal_id = name,
-			dest_name = vendor_account.owner_name)
+		var/paid = customer_account.charge(currently_vending.price, vendor_account,
+			"Purchase of [currently_vending.product_name]", name, vendor_account.owner_name,
+			"Sale of [currently_vending.product_name]", customer_account.owner_name)
 
 		if(paid)
 			// Give the vendor the money. We use the account owner name, which means
@@ -419,15 +417,8 @@
  */
 /obj/machinery/vending/proc/credit_purchase(var/target as text)
 	vendor_account.money += currently_vending.price
-
-	var/datum/transaction/T = new()
-	T.target_name = target
-	T.purpose = "Purchase of [currently_vending.product_name]"
-	T.amount = "[currently_vending.price]"
-	T.source_terminal = src.name
-	T.date = current_date_string
-	T.time = station_time_timestamp()
-	vendor_account.transaction_log.Add(T)
+	vendor_account.credit(currently_vending.price, "Sale of [currently_vending.product_name]",
+	name, target)
 
 /obj/machinery/vending/attack_ai(mob/user)
 	return attack_hand(user)

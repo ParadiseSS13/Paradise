@@ -156,15 +156,7 @@
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.money += pay
-						var/datum/transaction/T = new()
-						T.target_name = "[command_name()] Payroll"
-						T.purpose = "Payment"
-						T.amount = pay
-						T.date = current_date_string
-						T.time = station_time_timestamp()
-						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
-						M.mind.initial_account.transaction_log.Add(T)
+						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
