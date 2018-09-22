@@ -3,14 +3,14 @@
 		alert("The game hasn't started yet!")
 		return
 
-	var/list/incompatible_species = list("Plasmaman", "Vox")
+	var/list/incompatible_species = list(/datum/species/plasmaman, /datum/species/vox)
 	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == DEAD || !(H.client))
 			continue
 		if(is_special_character(H))
 			continue
-		if(H.species.name in incompatible_species)
-			H.set_species("Human")
+		if(is_type_in_list(H.dna.species, incompatible_species))
+			H.set_species(/datum/species/human)
 			var/datum/preferences/A = new()	// Randomize appearance
 			A.copy_to(H)
 
@@ -28,20 +28,20 @@
 			obj_count++
 
 		for(var/obj/item/I in H)
-			if(istype(I, /obj/item/weapon/implant))
+			if(istype(I, /obj/item/implant))
 				continue
 			if(istype(I, /obj/item/organ))
 				continue
 			qdel(I)
 
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(H), slot_w_uniform)
-		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
+		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), slot_l_ear)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), slot_head)
-		H.equip_to_slot_or_del(new /obj/item/weapon/claymore/highlander(H), slot_r_hand)
+		H.equip_to_slot_or_del(new /obj/item/claymore/highlander(H), slot_r_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/weapon/pinpointer(H.loc), slot_l_store)
+		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), slot_l_store)
 
-		var/obj/item/weapon/card/id/W = new(H)
+		var/obj/item/card/id/W = new(H)
 		W.name = "[H.real_name]'s ID Card"
 		W.icon_state = "centcom"
 		W.access = get_all_accesses()
@@ -49,7 +49,7 @@
 		W.assignment = "Highlander"
 		W.registered_name = H.real_name
 		H.equip_to_slot_or_del(W, slot_wear_id)
-		H.species.after_equip_job(null, H)
+		H.dna.species.after_equip_job(null, H)
 		H.regenerate_icons()
 
 	message_admins("[key_name_admin(usr)] used THERE CAN BE ONLY ONE! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
@@ -84,10 +84,10 @@
 		var/obj/item/slot_item_hand = H.get_item_by_slot(slot_r_hand)
 		H.unEquip(slot_item_hand)
 
-		var /obj/item/weapon/multisword/pure_evil/multi = new(H)
+		var /obj/item/multisword/pure_evil/multi = new(H)
 		H.equip_to_slot_or_del(multi, slot_r_hand)
 
-		var/obj/item/weapon/card/id/W = new(H)
+		var/obj/item/card/id/W = new(H)
 		W.icon_state = "centcom"
 		W.access = get_all_accesses()
 		W.access += get_all_centcom_access()

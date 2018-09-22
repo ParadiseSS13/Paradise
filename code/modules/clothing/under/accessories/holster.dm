@@ -4,8 +4,8 @@
 	icon_state = "holster"
 	item_color = "holster"
 	slot = "utility"
-	var/holster_allow = /obj/item/weapon/gun
-	var/obj/item/weapon/gun/holstered = null
+	var/holster_allow = /obj/item/gun
+	var/obj/item/gun/holstered = null
 	actions_types = list(/datum/action/item_action/accessory/holster)
 	w_class = WEIGHT_CLASS_NORMAL // so it doesn't fit in pockets
 
@@ -14,7 +14,7 @@
 	return ..()
 
 //subtypes can override this to specify what can be holstered
-/obj/item/clothing/accessory/holster/proc/can_holster(obj/item/weapon/gun/W)
+/obj/item/clothing/accessory/holster/proc/can_holster(obj/item/gun/W)
 	if(!W.isHandgun())
 		return 0
 	else if(!istype(W,holster_allow))
@@ -34,11 +34,11 @@
 		to_chat(user, "<span class='warning'>There is already a [holstered] holstered here!</span>")
 		return
 
-	if(!istype(I, /obj/item/weapon/gun))
+	if(!istype(I, /obj/item/gun))
 		to_chat(user, "<span class='warning'>Only guns can be holstered!</span>")
 		return
 
-	var/obj/item/weapon/gun/W = I
+	var/obj/item/gun/W = I
 	if(!can_holster(W))
 		to_chat(user, "<span class='warning'>This [W] won't fit in the [src]!</span>")
 		return
@@ -121,10 +121,10 @@
 		to_chat(usr, "<span class='warning'>Something is very wrong.</span>")
 
 	if(!H.holstered)
-		if(!istype(usr.get_active_hand(), /obj/item/weapon/gun))
+		if(!istype(usr.get_active_hand(), /obj/item/gun))
 			to_chat(usr, "<span class='warning'>You need your gun equiped to holster it.</span>")
 			return
-		var/obj/item/weapon/gun/W = usr.get_active_hand()
+		var/obj/item/gun/W = usr.get_active_hand()
 		H.holster(W, usr)
 	else
 		H.unholster(usr)
@@ -134,7 +134,7 @@
 	desc = "A worn-out handgun holster. Perfect for concealed carry"
 	icon_state = "holster"
 	item_color = "holster"
-	holster_allow = /obj/item/weapon/gun/projectile
+	holster_allow = /obj/item/gun/projectile
 
 /obj/item/clothing/accessory/holster/waist
 	name = "shoulder holster"

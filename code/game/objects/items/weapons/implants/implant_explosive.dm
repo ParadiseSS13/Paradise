@@ -1,4 +1,4 @@
-/obj/item/weapon/implant/explosive
+/obj/item/implant/explosive
 	name = "microbomb implant"
 	desc = "And boom goes the weasel."
 	icon_state = "explosive"
@@ -8,7 +8,7 @@
 	var/heavy = 0.4
 	var/delay = 7
 
-/obj/item/weapon/implant/explosive/get_data()
+/obj/item/implant/explosive/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Robust Corp RX-78 Employee Management Implant<BR>
 				<b>Life:</b> Activates upon death.<BR>
@@ -20,11 +20,11 @@
 				"}
 	return dat
 
-/obj/item/weapon/implant/explosive/trigger(emote, mob/source)
+/obj/item/implant/explosive/trigger(emote, mob/source)
 	if(emote == "deathgasp")
 		activate("death")
 
-/obj/item/weapon/implant/explosive/activate(cause)
+/obj/item/implant/explosive/activate(cause)
 	if(!cause || !imp_in)	return 0
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your microbomb implant? This will cause you to explode!", "Microbomb Implant Confirmation", "Yes", "No") != "Yes")
 		return 0
@@ -41,8 +41,8 @@
 		return
 	timed_explosion()
 
-/obj/item/weapon/implant/explosive/implant(mob/source)
-	var/obj/item/weapon/implant/explosive/imp_e = locate(src.type) in source
+/obj/item/implant/explosive/implant(mob/source)
+	var/obj/item/implant/explosive/imp_e = locate(src.type) in source
 	if(imp_e && imp_e != src)
 		imp_e.heavy += heavy
 		imp_e.medium += medium
@@ -53,7 +53,7 @@
 
 	return ..()
 
-/obj/item/weapon/implant/explosive/proc/timed_explosion()
+/obj/item/implant/explosive/proc/timed_explosion()
 	imp_in.visible_message("<span class = 'warning'>[imp_in] starts beeping ominously!</span>")
 	playsound(loc, 'sound/items/timer.ogg', 30, 0)
 	sleep(delay/4)
@@ -71,7 +71,7 @@
 		imp_in.gib()
 	qdel(src)
 
-/obj/item/weapon/implant/explosive/macro
+/obj/item/implant/explosive/macro
 	name = "macrobomb implant"
 	desc = "And boom goes the weasel. And everything else nearby."
 	icon_state = "explosive"
@@ -81,18 +81,18 @@
 	heavy = 4
 	delay = 70
 
-/obj/item/weapon/implant/explosive/macro/activate(cause)
+/obj/item/implant/explosive/macro/activate(cause)
 	if(!cause || !imp_in)	return 0
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your macrobomb implant? This will cause you to explode and gib!", "Macrobomb Implant Confirmation", "Yes", "No") != "Yes")
 		return 0
 	to_chat(imp_in, "<span class='notice'>You activate your macrobomb implant.</span>")
 	timed_explosion()
 
-/obj/item/weapon/implant/explosive/macro/implant(mob/source)
-	var/obj/item/weapon/implant/explosive/imp_e = locate(src.type) in source
+/obj/item/implant/explosive/macro/implant(mob/source)
+	var/obj/item/implant/explosive/imp_e = locate(src.type) in source
 	if(imp_e && imp_e != src)
 		return 0
-	imp_e = locate(/obj/item/weapon/implant/explosive) in source
+	imp_e = locate(/obj/item/implant/explosive) in source
 	if(imp_e && imp_e != src)
 		heavy += imp_e.heavy
 		medium += imp_e.medium
@@ -103,40 +103,40 @@
 	return ..()
 
 
-/obj/item/weapon/implanter/explosive
+/obj/item/implanter/explosive
 	name = "implanter (explosive)"
 
-/obj/item/weapon/implanter/explosive/New()
-	imp = new /obj/item/weapon/implant/explosive(src)
+/obj/item/implanter/explosive/New()
+	imp = new /obj/item/implant/explosive(src)
 	..()
 
 
-/obj/item/weapon/implantcase/explosive
+/obj/item/implantcase/explosive
 	name = "implant case - 'Explosive'"
 	desc = "A glass case containing an explosive implant."
 
-/obj/item/weapon/implantcase/explosive/New()
-	imp = new /obj/item/weapon/implant/explosive(src)
+/obj/item/implantcase/explosive/New()
+	imp = new /obj/item/implant/explosive(src)
 	..()
 
 
-/obj/item/weapon/implanter/explosive_macro
+/obj/item/implanter/explosive_macro
 	name = "implanter (macro-explosive)"
 
-/obj/item/weapon/implanter/explosive_macro/New()
-	imp = new /obj/item/weapon/implant/explosive/macro(src)
+/obj/item/implanter/explosive_macro/New()
+	imp = new /obj/item/implant/explosive/macro(src)
 	..()
 
 
 // Dust implant, for CC officers. Prevents gear theft if they die.
 
-/obj/item/weapon/implant/dust
+/obj/item/implant/dust
 	name = "duster implant"
 	desc = "An alarm which monitors host vital signs, transmitting a radio message and dusting the corpse on death."
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 
-/obj/item/weapon/implant/dust/get_data()
+/obj/item/implant/dust/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
 				<b>Name:</b> Ultraviolet Corp XX-13 Security Implant<BR>
 				<b>Life:</b> Activates upon death.<BR>
@@ -148,11 +148,11 @@
 				"}
 	return dat
 
-/obj/item/weapon/implant/dust/trigger(emote, mob/source)
+/obj/item/implant/dust/trigger(emote, mob/source)
 	if(emote == "deathgasp")
 		activate("death")
 
-/obj/item/weapon/implant/dust/activate(cause)
+/obj/item/implant/dust/activate(cause)
 	if(!cause || !imp_in || cause == "emp")
 		return 0
 	if(cause == "action_button" && alert(imp_in, "Are you sure you want to activate your dusting implant? This will turn you to ash!", "Dusting Confirmation", "Yes", "No") != "Yes")
@@ -166,12 +166,12 @@
 			qdel(I)
 	imp_in.dust()
 
-/obj/item/weapon/implant/dust/emp_act(severity)
+/obj/item/implant/dust/emp_act(severity)
 	return
 
-/obj/item/weapon/implanter/dust
+/obj/item/implanter/dust
 	name = "implanter (Dust-on-death)"
 
-/obj/item/weapon/implanter/dust/New()
-	imp = new /obj/item/weapon/implant/dust(src)
+/obj/item/implanter/dust/New()
+	imp = new /obj/item/implant/dust(src)
 	..()

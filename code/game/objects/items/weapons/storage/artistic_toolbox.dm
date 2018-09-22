@@ -1,4 +1,4 @@
-/obj/item/weapon/storage/toolbox/green
+/obj/item/storage/toolbox/green
 	name = "artistic toolbox"
 	desc = "A metal container designed to hold various tools. This variety holds art supplies."
 	icon_state = "green"
@@ -7,7 +7,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 
-/obj/item/weapon/storage/toolbox/green/memetic
+/obj/item/storage/toolbox/green/memetic
 	name = "artistic toolbox"
 	desc = "His Grace."
 	force = 5
@@ -20,7 +20,7 @@
 	var/activated = 0
 	var/mindless_override = 0
 
-/obj/item/weapon/storage/toolbox/green/memetic/attack_hand(mob/living/carbon/user)
+/obj/item/storage/toolbox/green/memetic/attack_hand(mob/living/carbon/user)
 	if(!activated)
 		if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
 			activated = 1
@@ -38,10 +38,10 @@
 			return
 	..()
 
-/obj/item/weapon/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user)
+/obj/item/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user)
 	if(activated)
-		if(istype(I, /obj/item/weapon/grab/))
-			var/obj/item/weapon/grab/G = I
+		if(istype(I, /obj/item/grab/))
+			var/obj/item/grab/G = I
 			if(!G.affecting)
 				return
 			if(!user.HasDisease(new /datum/disease/memetic_madness(0)))
@@ -73,7 +73,7 @@
 
 	..()
 
-/obj/item/weapon/storage/toolbox/green/memetic/proc/consume(mob/M)
+/obj/item/storage/toolbox/green/memetic/proc/consume(mob/M)
 	if(!M)
 		return
 	hunger = 0
@@ -84,11 +84,11 @@
 	M.ghostize()
 	if(M == original_owner)
 		qdel(M)
-		var/obj/item/weapon/storage/toolbox/green/fake_toolbox = new(get_turf(src))
+		var/obj/item/storage/toolbox/green/fake_toolbox = new(get_turf(src))
 		fake_toolbox.desc = "It looks a lot duller than it used to."
 		qdel(src)
 
-/obj/item/weapon/storage/toolbox/green/memetic/Destroy()
+/obj/item/storage/toolbox/green/memetic/Destroy()
 	for(var/mob/living/carbon/human/H in src)
 		H.forceMove(get_turf(src))
 		visible_message("<span class='warning'>[H] bursts out of [src]!</span>")
@@ -118,7 +118,7 @@
 	severity = BIOHAZARD
 	disease_flags = CURABLE
 	spread_flags = NON_CONTAGIOUS
-	var/obj/item/weapon/storage/toolbox/green/memetic/progenitor = null
+	var/obj/item/storage/toolbox/green/memetic/progenitor = null
 
 /datum/disease/memetic_madness/Destroy()
 	progenitor = null

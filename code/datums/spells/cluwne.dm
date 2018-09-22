@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/targeted/touch/cluwne
 	name = "Curse of the Cluwne"
 	desc = "Turns the target into a fat and cursed monstrosity of a clown."
-	hand_path = /obj/item/weapon/melee/touch_attack/cluwne
+	hand_path = /obj/item/melee/touch_attack/cluwne
 
 	school = "transmutation"
 

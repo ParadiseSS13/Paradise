@@ -41,6 +41,7 @@
 				<span class="average" style="font-weight: bold;">{{:value.title}}: {{:value.current_positions}}/{{:value.total_positions}}</span>
 				{{:helper.link('-', null, {'action' : 'PRG_make_job_unavailable', 'job' : value.title}, value.can_close == 1 && data.authenticated ? null : 'disabled')}}
 				{{:helper.link('+', null, {'action' : 'PRG_make_job_available', 'job' : value.title}, value.can_open == 1 && data.authenticated ? null : 'disabled')}}
+				{{:helper.link('Pri', null, {'action' : 'PRG_prioritize_job', 'job' : value.title}, value.can_prioritize > 0 && data.authenticated ? null : 'disabled')}} {{if value.can_prioritize == 2}}<span class='warning'>Priority Job</span> {{/if}}
 			</div>
 		{{/for}}
 	</div>

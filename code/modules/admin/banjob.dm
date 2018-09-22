@@ -78,8 +78,7 @@ DEBUG
 				log_runtime(EXCEPTION("Skipping malformed job ban: [s]"))
 	else
 		if(!establish_db_connection())
-			log_to_dd("Database connection failed. Reverting to the legacy ban system.")
-			diary << "Database connection failed. Reverting to the legacy ban system."
+			log_world("Database connection failed. Reverting to the legacy ban system.")
 			config.ban_legacy_system = 1
 			jobban_loadbanfile()
 			return

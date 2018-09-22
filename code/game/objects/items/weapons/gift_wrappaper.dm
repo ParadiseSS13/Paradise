@@ -7,7 +7,7 @@
 /*
  * Gifts
  */
-/obj/item/weapon/a_gift
+/obj/item/a_gift
 	name = "gift"
 	desc = "PRESENTS!!!! eek!"
 	icon = 'icons/obj/items.dmi'
@@ -15,7 +15,7 @@
 	item_state = "gift1"
 	burn_state = FLAMMABLE
 
-/obj/item/weapon/a_gift/New()
+/obj/item/a_gift/New()
 	..()
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
@@ -25,7 +25,7 @@
 		icon_state = "gift[pick(1, 2, 3)]"
 	return
 
-/obj/item/weapon/gift/attack_self(mob/user as mob)
+/obj/item/gift/attack_self(mob/user as mob)
 	user.drop_item()
 	if(src.gift)
 		user.put_in_active_hand(gift)
@@ -35,7 +35,7 @@
 	qdel(src)
 	return
 
-/obj/item/weapon/a_gift/ex_act()
+/obj/item/a_gift/ex_act()
 	qdel(src)
 	return
 
@@ -44,10 +44,10 @@
 		return
 	to_chat(user, "<span class='notice'>You cant move.</span>")
 
-/obj/effect/spresent/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/effect/spresent/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 
-	if(!istype(W, /obj/item/weapon/wirecutters))
+	if(!istype(W, /obj/item/wirecutters))
 		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
 		return
 
@@ -59,38 +59,38 @@
 
 	qdel(src)
 
-/obj/item/weapon/a_gift/attack_self(mob/M as mob)
-	var/gift_type = pick(/obj/item/weapon/sord,
-		/obj/item/weapon/storage/wallet,
-		/obj/item/weapon/storage/photo_album,
-		/obj/item/weapon/storage/box/snappops,
-		/obj/item/weapon/storage/fancy/crayons,
-		/obj/item/weapon/storage/belt/champion,
-		/obj/item/weapon/soap/deluxe,
-		/obj/item/weapon/pickaxe/silver,
-		/obj/item/weapon/pen/invisible,
-		/obj/item/weapon/lipstick/random,
-		/obj/item/weapon/grenade/smokebomb,
-		/obj/item/weapon/grown/corncob,
-		/obj/item/weapon/poster/random_contraband,
-		/obj/item/weapon/bikehorn,
-		/obj/item/weapon/beach_ball,
-		/obj/item/weapon/beach_ball/holoball,
-		/obj/item/weapon/banhammer,
+/obj/item/a_gift/attack_self(mob/M as mob)
+	var/gift_type = pick(/obj/item/sord,
+		/obj/item/storage/wallet,
+		/obj/item/storage/photo_album,
+		/obj/item/storage/box/snappops,
+		/obj/item/storage/fancy/crayons,
+		/obj/item/storage/belt/champion,
+		/obj/item/soap/deluxe,
+		/obj/item/pickaxe/silver,
+		/obj/item/pen/invisible,
+		/obj/item/lipstick/random,
+		/obj/item/grenade/smokebomb,
+		/obj/item/grown/corncob,
+		/obj/item/poster/random_contraband,
+		/obj/item/bikehorn,
+		/obj/item/beach_ball,
+		/obj/item/beach_ball/holoball,
+		/obj/item/banhammer,
 		/obj/item/toy/balloon,
 		/obj/item/toy/blink,
-		/obj/item/weapon/gun/projectile/shotgun/toy/crossbow,
-		/obj/item/weapon/gun/projectile/revolver/capgun,
+		/obj/item/gun/projectile/shotgun/toy/crossbow,
+		/obj/item/gun/projectile/revolver/capgun,
 		/obj/item/toy/katana,
 		/obj/random/mech,
 		/obj/item/toy/spinningtoy,
 		/obj/item/toy/sword,
-		/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/deus,
-		/obj/item/weapon/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
-		/obj/item/device/paicard,
-		/obj/item/device/instrument/violin,
-		/obj/item/device/instrument/guitar,
-		/obj/item/weapon/storage/belt/utility/full,
+		/obj/item/reagent_containers/food/snacks/grown/ambrosia/deus,
+		/obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris,
+		/obj/item/paicard,
+		/obj/item/instrument/violin,
+		/obj/item/instrument/guitar,
+		/obj/item/storage/belt/utility/full,
 		/obj/item/clothing/accessory/horrible,
 		/obj/random/carp_plushie,
 		/obj/random/plushie,
@@ -100,12 +100,12 @@
 		/obj/item/toy/owl,
 		/obj/item/toy/griffin,
 		/obj/item/clothing/head/blob,
-		/obj/item/weapon/id_decal/gold,
-		/obj/item/weapon/id_decal/silver,
-		/obj/item/weapon/id_decal/prisoner,
-		/obj/item/weapon/id_decal/centcom,
-		/obj/item/weapon/id_decal/emag,
-		/obj/item/weapon/spellbook/oneuse/fake_gib,
+		/obj/item/id_decal/gold,
+		/obj/item/id_decal/silver,
+		/obj/item/id_decal/prisoner,
+		/obj/item/id_decal/centcom,
+		/obj/item/id_decal/emag,
+		/obj/item/spellbook/oneuse/fake_gib,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/flash,
 		/obj/item/toy/minigibber,
@@ -113,8 +113,8 @@
 		/obj/item/toy/cards/deck,
 		/obj/item/toy/AI,
 		/obj/item/clothing/under/syndicate/tacticool,
-		/obj/item/weapon/storage/box/fakesyndiesuit,
-		/obj/item/weapon/gun/projectile/shotgun/toy/tommygun,
+		/obj/item/storage/box/fakesyndiesuit,
+		/obj/item/gun/projectile/shotgun/toy/tommygun,
 		/obj/item/stack/tile/fakespace/loaded,
 		)
 

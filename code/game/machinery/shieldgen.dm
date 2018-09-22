@@ -14,7 +14,7 @@
 	src.dir = pick(1,2,3,4)
 	..()
 
-/obj/machinery/shield/initialize()
+/obj/machinery/shield/Initialize()
 	air_update_turf(1)
 	..()
 
@@ -36,7 +36,7 @@
 /obj/machinery/shield/CanAtmosPass(var/turf/T)
 	return !density
 
-/obj/machinery/shield/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/machinery/shield/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!istype(W)) return
 
 	//Calculate damage
@@ -229,12 +229,12 @@
 			to_chat(user, "The device must first be secured to the floor.")
 	return
 
-/obj/machinery/shieldgen/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/card/emag))
+/obj/machinery/shieldgen/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/card/emag))
 		malfunction = 1
 		update_icon()
 
-	else if(istype(W, /obj/item/weapon/screwdriver))
+	else if(istype(W, /obj/item/screwdriver))
 		playsound(src.loc, W.usesound, 100, 1)
 		if(is_open)
 			to_chat(user, "<span class='notice'>You close the panel.</span>")
@@ -256,7 +256,7 @@
 			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
 
-	else if(istype(W, /obj/item/weapon/wrench))
+	else if(istype(W, /obj/item/wrench))
 		if(locked)
 			to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
 			return
@@ -274,7 +274,7 @@
 			anchored = 1
 
 
-	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(src.allowed(user))
 			src.locked = !src.locked
 			to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
@@ -451,7 +451,7 @@
 
 
 /obj/machinery/shieldwallgen/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		if(active)
 			to_chat(user, "Turn off the field generator first.")
 			return
@@ -470,7 +470,7 @@
 			src.anchored = 0
 			return
 
-	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
+	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(src.allowed(user))
 			src.locked = !src.locked
 			to_chat(user, "Controls are now [src.locked ? "locked." : "unlocked."]")
@@ -541,6 +541,8 @@
 /obj/machinery/shieldwall/attack_hand(mob/user as mob)
 	return
 
+/obj/machinery/shieldwall/rpd_blocksusage()
+	return TRUE
 
 /obj/machinery/shieldwall/process()
 	if(needs_power)
@@ -607,3 +609,61 @@
 			return prob(10)
 		else
 			return !src.density
+
+
+/obj/machinery/shieldwall/syndicate
+	name = "energy shield"
+	desc = "A strange energy shield."
+	icon_state = "shield-red"
+
+/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+	if(isliving(mover))
+		var/mob/living/M = mover
+		if("syndicate" in M.faction)
+			return 1
+	if(istype(mover, /obj/item/projectile))
+		return 0
+	return ..(mover, target, height)
+
+/obj/machinery/shieldwall/syndicate/CanAStarPass(ID, to_dir, caller)
+	if(isliving(caller))
+		var/mob/living/M = caller
+		if("syndicate" in M.faction)
+			return 1
+	return ..(ID, to_dir, caller)
+
+/obj/machinery/shieldwall/syndicate/proc/phaseout()
+	// If you're bumping into an invisible shield, make it fully visible, then fade out over a couple of seconds.
+	if(alpha == 0)
+		alpha = 255
+		animate(src, alpha = 10, time = 20, easing = EASE_OUT)
+		spawn(20)
+			alpha = 0
+
+/obj/machinery/shieldwall/syndicate/Bumped(atom/user)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/attackby(obj/item/W, mob/user, params)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/bullet_act(obj/item/projectile/Proj)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/ex_act(severity)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/emp_act(severity)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/attack_hand(mob/user)
+	phaseout()
+	return ..()
+
+/obj/machinery/shieldwall/syndicate/hitby(AM as mob|obj)
+	phaseout()
+	return ..()

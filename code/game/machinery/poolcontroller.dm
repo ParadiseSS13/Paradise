@@ -1,3 +1,9 @@
+#define FRIGID		80
+#define COOL		290
+#define NORMAL		310
+#define WARM		330
+#define SCALDING	500
+
 /obj/machinery/poolcontroller
 	name = "Pool Controller"
 	desc = "A controller for the nearby pool."
@@ -6,7 +12,7 @@
 	anchored = 1 //this is what I get for assuming /obj/machinery has anchored set to 1 by default
 	var/list/linkedturfs = list() //List contains all of the linked pool turfs to this controller, assignment happens on New()
 	var/linked_area = null
-	var/temperature = "normal" //The temperature of the pool, starts off on normal, which has no effects.
+	var/temperature = NORMAL //The temperature of the pool, starts off on normal, which has no effects.
 	var/temperaturecolor = "" //used for nanoUI fancyness
 	var/srange = 5 //The range of the search for pool turfs, change this for bigger or smaller pools.
 	var/list/linkedmist = list() //Used to keep track of created mist
@@ -25,18 +31,18 @@
 
 		emagged = 1 //Set the emag var to true.
 
-/obj/machinery/poolcontroller/attackby(obj/item/P as obj, mob/user as mob, params) //Proc is called when a user hits the pool controller with something.
-	if(istype(P,/obj/item/device/multitool)) //If the mob hits the pool controller with a multitool, reset the emagged status
+/obj/machinery/poolcontroller/attackby(obj/item/I, mob/user, params) //Proc is called when a user hits the pool controller with something.
+	if(ismultitool(I)) //If the mob hits the pool controller with a multitool, reset the emagged status
 		if(emagged) //Check the emag status
-			to_chat(user, "<span class='warning'>You re-enable \the [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
+			to_chat(user, "<span class='warning'>You re-enable [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.
 
-			emagged = 0 //Set the emagged var to false.
+			emagged = FALSE //Set the emagged var to false.
 		else
 			to_chat(user, "<span class='warning'>Nothing happens.</span>")//If not emagged, don't do anything, and don't tell the user that it can be emagged.
 
 
 	else //If it's not a multitool, defer to /obj/machinery/attackby
-		..()
+		return ..()
 
 /obj/machinery/poolcontroller/attack_hand(mob/user as mob)
 	ui_interact(user)
@@ -59,32 +65,23 @@
 				qdel(decal)
 
 /obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
-	M.water_act(100, 0, src)//leave temp at 0, we handle it in the switch.
-	if(temperature == "normal")		//This setting does nothing, so let's skip the next checks since we won't be doing jack
-		return
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
 		return
+	M.water_act(100, temperature, src)//leave temp at 0, we handle it in the switch. oh wait
 	switch(temperature) //Apply different effects based on what the temperature is set to.
-		if("scalding") //Burn the mob.
-			M.bodytemperature = min(500, M.bodytemperature + 35) //heat mob at 35k(elvin) per cycle
+		if(SCALDING) //Burn the mob.
 			to_chat(M, "<span class='danger'>The water is searing hot!</span>")
 
-		if("warm") //Gently warm the mob.
-			M.bodytemperature = min(330, M.bodytemperature + 10) //Heats up mobs to just over normal, not enough to burn
+		if(WARM) //Warm the mob.
 			if(prob(50)) //inform the mob of warm water half the time
 				to_chat(M, "<span class='warning'>The water is quite warm.</span>")//Inform the mob it's warm water.
 
-
-		if("cool") //Gently cool the mob.
-			M.bodytemperature = max(290, M.bodytemperature - 10) //Cools mobs to just below normal, not enough to burn
+		if(COOL) //Cool the mob.
 			if(prob(50)) //inform the mob of cold water half the time
 				to_chat(M, "<span class='warning'>The water is chilly.</span>")//Inform the mob it's chilly water.
 
-
-		if("frigid") //Freeze the mob.
-			M.bodytemperature = max(80, M.bodytemperature - 35) //cool mob at -35k per cycle
+		if(FRIGID) //YOU'RE AS COLD AS ICE
 			to_chat(M, "<span class='danger'>The water is freezing!</span>")
-	return
 
 /obj/machinery/poolcontroller/proc/handleDrowning(var/mob/living/carbon/human/drownee)
 	if(!drownee)
@@ -93,9 +90,9 @@
 	if(drownee && (drownee.lying || deep_water)) //Mob lying down or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
-		if((NO_BREATHE in drownee.species.species_traits) || (BREATHLESS in drownee.mutations))
+		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
 			return //doesn't breathe, no drowning
-		if(drownee.get_species() == "Skrell" || drownee.get_species() == "Neara")
+		if(isskrell(drownee) || isneara(drownee))
 			return //fish things don't drown
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more
@@ -103,14 +100,14 @@
 		if(drownee.losebreath > 20)	//You've probably got bigger problems than drowning at this point, so we won't add to it until you get that under control.
 			return
 
-		add_logs(src, drownee, "drowned", null, null, 0)	//log it to their VV, but don't spam the admins' chats with the logs
+		add_attack_logs(src, drownee, "Drowned", isLivingSSD(drownee) ? null : ATKLOG_ALL)
 		if(drownee.stat) //Mob is in critical.
 			drownee.AdjustLoseBreath(3, bound_lower = 0, bound_upper = 20)
 			drownee.visible_message("<span class='danger'>\The [drownee] appears to be drowning!</span>","<span class='userdanger'>You're quickly drowning!</span>") //inform them that they are fucked.
 		else
 			drownee.AdjustLoseBreath(2, bound_lower = 0, bound_upper = 20)		//For every time you drown, you miss 2 breath attempts. Hope you catch on quick!
 			if(prob(35)) //35% chance to tell them what is going on. They should probably figure it out before then.
-				drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like they are drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
+				drownee.visible_message("<span class='danger'>\The [drownee] flails, almost like [drownee.p_they()] [drownee.p_are()] drowning!</span>","<span class='userdanger'>You're lacking air!</span>") //*gasp* *gasp* *gasp* *gasp* *gasp*
 
 
 
@@ -129,15 +126,26 @@
 
 
 /obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "poolcontroller.tmpl", "Pool Controller Interface", 520, 410)
 		ui.open()
 
 /obj/machinery/poolcontroller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-
-	data["currentTemp"] = temperature
+	var/currenttemp
+	switch(temperature) //So we can output nice things like "Cool" to nanoUI
+		if(FRIGID)
+			currenttemp = "frigid"
+		if(COOL)
+			currenttemp = "cool"
+		if(NORMAL)
+			currenttemp = "normal"
+		if(WARM)
+			currenttemp = "warm"
+		if(SCALDING)
+			currenttemp = "scalding"
+	data["currentTemp"] = currenttemp
 	data["emagged"] = emagged
 	data["TempColor"] = temperaturecolor
 
@@ -152,25 +160,25 @@
 		if("Scalding")
 			if(!emagged)
 				return 0
-			temperature = "scalding"
+			temperature = SCALDING
 			temperaturecolor = "#FF0000"
 			miston()
 		if("Frigid")
 			if(!emagged)
 				return 0
-			temperature = "frigid"
+			temperature = FRIGID
 			temperaturecolor = "#00CCCC"
 			mistoff()
 		if("Warm")
-			temperature = "warm"
+			temperature = WARM
 			temperaturecolor = "#990000"
 			mistoff()
 		if("Cool")
-			temperature = "cool"
+			temperature = COOL
 			temperaturecolor = "#009999"
 			mistoff()
 		if("Normal")
-			temperature = "normal"
+			temperature = NORMAL
 			temperaturecolor = ""
 			mistoff()
 
@@ -201,3 +209,9 @@
 			animate(decal, alpha = 10, time = 20)
 			spawn(25)
 				qdel(decal)
+
+#undef FRIGID
+#undef COOL
+#undef NORMAL
+#undef WARM
+#undef SCALDING

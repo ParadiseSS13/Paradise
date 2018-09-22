@@ -49,12 +49,12 @@
 		if("exclude" in species_restricted)
 			exclusive = 1
 
-		if(H.species)
+		if(H.dna.species)
 			if(exclusive)
-				if(!(H.species.name in species_restricted))
+				if(!(H.dna.species.name in species_restricted))
 					wearable = 1
 			else
-				if(H.species.name in species_restricted)
+				if(H.dna.species.name in species_restricted)
 					wearable = 1
 
 			if(!wearable)
@@ -198,8 +198,8 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
 	return 0 // return 1 to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/weapon/wirecutters))
+/obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/wirecutters))
 		if(!clipped)
 			playsound(src.loc, W.usesound, 100, 1)
 			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
@@ -383,8 +383,8 @@ BLIND     // can't see anything
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/match) && src.loc == user)
-		var/obj/item/weapon/match/M = I
+	if(istype(I, /obj/item/match) && src.loc == user)
+		var/obj/item/match/M = I
 		if(!M.lit) // Match isn't lit, but isn't burnt.
 			M.lit = 1
 			M.icon_state = "match_lit"
@@ -399,7 +399,7 @@ BLIND     // can't see anything
 			to_chat(user, "<span class='notice'>The [M] has already been extinguished.</span>")
 		return
 
-	if(istype(I, /obj/item/weapon/wirecutters))
+	if(istype(I, /obj/item/wirecutters))
 		if(can_cut_open)
 			if(!cut_open)
 				playsound(src.loc, I.usesound, 100, 1)
@@ -411,7 +411,7 @@ BLIND     // can't see anything
 				desc = "[desc] They have had their toes opened up."
 				update_icon()
 			else
-				to_chat(user, "<span class='notice'>[src] have already had their toes cut open!</span>")
+				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
 			return
 	else
 		..()
@@ -443,7 +443,7 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
 	var/fire_resist = T0C+100
-	allowed = list(/obj/item/weapon/tank/emergency_oxygen)
+	allowed = list(/obj/item/tank/emergency_oxygen)
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
@@ -484,12 +484,12 @@ BLIND     // can't see anything
 				if(user.canUnEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
 					if(contents) //If the suit's got any storage capability...
 						for(var/obj/item/O in contents) //AVOIDING ITEM LOSS. Check through everything that's stored in the jacket and see if one of the items is a pocket.
-							if(istype(O, /obj/item/weapon/storage/internal)) //If it's a pocket...
+							if(istype(O, /obj/item/storage/internal)) //If it's a pocket...
 								if(O.contents) //Check to see if the pocket's got anything in it.
 									for(var/obj/item/I in O.contents) //Dump the pocket out onto the floor below the user.
 										user.unEquip(I,1)
 
-					user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] their jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] \the [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
+					user.visible_message("<span class='warning'>[user] bellows, [pick("shredding", "ripping open", "tearing off")] [user.p_their()] jacket in a fit of rage!</span>","<span class='warning'>You accidentally [pick("shred", "rend", "tear apart")] [src] with your [pick("excessive", "extreme", "insane", "monstrous", "ridiculous", "unreal", "stupendous")] [pick("power", "strength")]!</span>")
 					user.unEquip(src)
 					qdel(src) //Now that the pockets have been emptied, we can safely destroy the jacket.
 					user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!"))
@@ -504,7 +504,7 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
 	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
-		if(user.species.name in hide_tail_by_species)
+		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
 		else
@@ -550,7 +550,7 @@ BLIND     // can't see anything
 	permeability_coefficient = 0.02
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank)
+	allowed = list(/obj/item/flashlight,/obj/item/tank)
 	slowdown = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 50)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
@@ -561,6 +561,7 @@ BLIND     // can't see anything
 	strip_delay = 80
 	put_on_delay = 80
 	burn_state = FIRE_PROOF
+	hide_tail_by_species = null
 	species_restricted = list("exclude","Diona","Vox","Wryn")
 
 //Under clothing

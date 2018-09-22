@@ -1,7 +1,7 @@
 /proc/get_rune_cult(word)
 	var/animated
 
-	if(word && !(ticker.mode.cultdat.theme == "fire" || ticker.mode.cultdat.theme == "death"))
+	if(word && !(ticker.cultdat.theme == "fire" || ticker.cultdat.theme == "death"))
 		animated = 1
 	else
 		animated = 0
@@ -20,9 +20,9 @@ var/runetype = "rune"
 
 	if(!ticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		runetype = "rune"
-	else if(ticker.mode.cultdat.theme == "fire")
+	else if(ticker.cultdat.theme == "fire")
 		runetype = "fire-rune"
-	else if(ticker.mode.cultdat.theme == "death")
+	else if(ticker.cultdat.theme == "death")
 		runetype = "death-rune"
 
 

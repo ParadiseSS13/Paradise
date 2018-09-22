@@ -56,7 +56,7 @@ var/list/whitelist = list()
 /proc/load_alienwhitelist()
 	var/text = file2text("config/alienwhitelist.txt")
 	if(!text)
-		diary << "Failed to load config/alienwhitelist.txt\n"
+		log_config("Failed to load config/alienwhitelist.txt\n")
 	else
 		alien_whitelist = splittext(text, "\n")
 

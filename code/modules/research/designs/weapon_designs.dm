@@ -8,8 +8,8 @@
 	id = "nuclear_gun"
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_URANIUM = 4000)
-	build_path = /obj/item/weapon/gun/energy/gun/nuclear
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_URANIUM = 3000, MAT_TITANIUM = 1000)
+	build_path = /obj/item/gun/energy/gun/nuclear
 	locked = 1
 	category = list("Weapons")
 
@@ -20,8 +20,8 @@
 	req_tech = list("combat" = 5, "materials" = 5, "biotech" = 6, "plasmatech" = 7)
 	build_type = PROTOLATHE
 	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000)
-	reagents = list("mutagen" = 40)
-	build_path = /obj/item/weapon/gun/energy/decloner
+	reagents_list = list("mutagen" = 40)
+	build_path = /obj/item/gun/energy/decloner
 	locked = 1
 	category = list("Weapons")
 
@@ -32,7 +32,7 @@
 	req_tech = list("combat" = 5, "engineering" = 3, "magnets" = 5, "syndicate" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1500, MAT_URANIUM = 1500, MAT_SILVER = 1500)
-	build_path = /obj/item/weapon/gun/energy/kinetic_accelerator/crossbow/large
+	build_path = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	locked = 1
 	category = list("Weapons")
 
@@ -43,8 +43,8 @@
 	req_tech = list("materials" = 2, "biotech" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 500)
-	reagents = list("radium" = 20)
-	build_path = /obj/item/weapon/gun/energy/floragun
+	reagents_list = list("radium" = 20)
+	build_path = /obj/item/gun/energy/floragun
 	category = list("Weapons")
 
 /datum/design/ioncarbine
@@ -54,7 +54,7 @@
 	req_tech = list("combat" = 5, "magnets" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_SILVER = 6000, MAT_METAL = 8000, MAT_URANIUM = 2000)
-	build_path = /obj/item/weapon/gun/energy/ionrifle/carbine
+	build_path = /obj/item/gun/energy/ionrifle/carbine
 	locked = 1
 	category = list("Weapons")
 
@@ -64,8 +64,8 @@
 	id = "wormholeprojector"
 	req_tech = list("combat" = 5, "engineering" = 5, "bluespace" = 7, "plasmatech" = 6)
 	build_type = PROTOLATHE
-	materials = list(MAT_SILVER = 2000, MAT_METAL = 5000, MAT_DIAMOND = 3000)
-	build_path = /obj/item/weapon/gun/energy/wormhole_projector
+	materials = list(MAT_SILVER = 2000, MAT_METAL = 5000, MAT_DIAMOND = 2000, MAT_BLUESPACE = 3000)
+	build_path = /obj/item/gun/energy/wormhole_projector
 	locked = 1
 	access_requirement = list(access_rd) //screw you, HoS, this aint yours; this is only for a man of science---and trouble.
 	category = list("Weapons")
@@ -77,7 +77,7 @@
 	req_tech = list("combat" = 3, "engineering" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000)
-	build_path = /obj/item/weapon/grenade/chem_grenade/large
+	build_path = /obj/item/grenade/chem_grenade/large
 	category = list("Weapons")
 
 /datum/design/pyro_grenade
@@ -87,7 +87,7 @@
 	req_tech = list("combat" = 4, "engineering" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 500)
-	build_path = /obj/item/weapon/grenade/chem_grenade/pyro
+	build_path = /obj/item/grenade/chem_grenade/pyro
 	category = list("Weapons")
 
 /datum/design/cryo_grenade
@@ -97,7 +97,7 @@
 	req_tech = list("combat" = 3, "materials" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 500)
-	build_path = /obj/item/weapon/grenade/chem_grenade/cryo
+	build_path = /obj/item/grenade/chem_grenade/cryo
 	category = list("Weapons")
 
 /datum/design/adv_grenade
@@ -107,7 +107,7 @@
 	req_tech = list("combat" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 500)
-	build_path = /obj/item/weapon/grenade/chem_grenade/adv_release
+	build_path = /obj/item/grenade/chem_grenade/adv_release
 	category = list("Weapons")
 
 /datum/design/tele_shield
@@ -116,8 +116,8 @@
 	id = "tele_shield"
 	req_tech = list("combat" = 4, "materials" = 3, "engineering" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 5000, MAT_SILVER = 300)
-	build_path = /obj/item/weapon/shield/riot/tele
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 4000, MAT_SILVER = 300, MAT_TITANIUM = 200)
+	build_path = /obj/item/shield/riot/tele
 	category = list("Weapons")
 
 /datum/design/lasercannon
@@ -127,7 +127,7 @@
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 3000, MAT_DIAMOND = 3000)
-	build_path = /obj/item/weapon/gun/energy/lasercannon
+	build_path = /obj/item/gun/energy/lasercannon
 	locked = 1
 	category = list("Weapons")
 
@@ -138,7 +138,7 @@
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_PLASMA = 3000)
-	build_path = /obj/item/weapon/gun/energy/toxgun
+	build_path = /obj/item/gun/energy/toxgun
 	locked = 1
 	category = list("Weapons")
 
@@ -182,7 +182,7 @@
 	req_tech = list("combat" = 2, "biotech" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000)
-	build_path = /obj/item/weapon/gun/syringe/rapidsyringe
+	build_path = /obj/item/gun/syringe/rapidsyringe
 	category = list("Weapons")
 
 /datum/design/stunshell
@@ -202,7 +202,7 @@
 	req_tech = list("combat" = 4, "materials" = 4, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 10000, MAT_SILVER = 10000)
-	build_path = /obj/item/weapon/gun/energy/shock_revolver
+	build_path = /obj/item/gun/energy/shock_revolver
 	locked = 1
 	category = list("Weapons")
 
@@ -213,7 +213,7 @@
 	req_tech = list("combat" = 4, "materials" = 4, "powerstorage" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 500, MAT_SILVER = 3000)
-	build_path = /obj/item/weapon/gun/energy/temperature
+	build_path = /obj/item/gun/energy/temperature
 	category = list("Weapons")
 
 /datum/design/suppressor
@@ -223,7 +223,7 @@
 	req_tech = list("combat" = 6, "engineering" = 5, "syndicate" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_SILVER = 500)
-	build_path = /obj/item/weapon/suppressor
+	build_path = /obj/item/suppressor
 	category = list("Weapons")
 
 /datum/design/techshell
@@ -242,8 +242,8 @@
 	id = "xray"
 	req_tech = list("combat" = 7, "magnets" = 5, "biotech" = 5, "powerstorage" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_GOLD = 5000,MAT_URANIUM = 10000, MAT_METAL = 5000)
-	build_path = /obj/item/weapon/gun/energy/xray
+	materials = list(MAT_GOLD = 5000, MAT_URANIUM = 4000, MAT_METAL = 5000, MAT_TITANIUM = 2000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/gun/energy/xray
 	locked = 1
 	category = list("Weapons")
 
@@ -254,6 +254,6 @@
 	req_tech = list("combat" = 5, "magnets" = 5, "powerstorage" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_SILVER = 3000, MAT_PLASMA = 2000)
-	build_path = /obj/item/weapon/gun/energy/immolator
+	build_path = /obj/item/gun/energy/immolator
 	locked = 1
 	category = list("Weapons")

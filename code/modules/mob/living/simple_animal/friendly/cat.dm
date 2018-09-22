@@ -17,7 +17,7 @@
 	mob_size = MOB_SIZE_SMALL
 	simplespecies = /mob/living/simple_animal/pet/cat
 	childtype = /mob/living/simple_animal/pet/cat/kitten
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/meat = 3)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
@@ -46,7 +46,7 @@
 	Read_Memory()
 	..()
 
-/mob/living/simple_animal/pet/cat/Runtime/Life()
+/mob/living/simple_animal/pet/cat/Runtime/Life(seconds, times_fired)
 	if(!cats_deployed && ticker.current_state >= GAME_STATE_SETTING_UP)
 		Deploy_The_Cats()
 	if(!stat && ticker.current_state == GAME_STATE_FINISHED && !memory_saved)
@@ -175,3 +175,5 @@
 	eats_mice = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
+	melee_damage_lower = 5
+	melee_damage_upper = 15

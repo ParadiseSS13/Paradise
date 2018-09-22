@@ -5,7 +5,8 @@
 	var/lootdoubles = 0		//if the same item can be spawned twice
 	var/loot = ""			//a list of possible items to spawn- a string of paths
 
-/obj/effect/spawner/away/lootdrop/initialize()
+/obj/effect/spawner/away/lootdrop/Initialize()
+	..()
 	var/list/things = params2list(loot)
 
 	if(things && things.len)

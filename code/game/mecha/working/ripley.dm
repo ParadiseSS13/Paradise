@@ -9,6 +9,7 @@
 	lights_power = 7
 	deflect_chance = 15
 	damage_absorption = list("brute"=0.6,"fire"=1,"bullet"=0.8,"laser"=0.9,"energy"=1,"bomb"=0.6)
+	armor = list(melee = 40, bullet = 20, laser = 10, energy = 20, bomb = 40, bio = 0, rad = 0)
 	max_equip = 6
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley
 	var/list/cargo = new
@@ -46,7 +47,7 @@
 		overlays = null
 		overlays += image("icon" = "mecha.dmi", "icon_state" = "ripley-g-full")
 
-/obj/mecha/working/ripley/mmi_moved_inside(var/obj/item/device/mmi/mmi_as_oc as obj,mob/user as mob)
+/obj/mecha/working/ripley/mmi_moved_inside(var/obj/item/mmi/mmi_as_oc as obj,mob/user as mob)
 	..()
 	if(damage_absorption.["brute"] < 0.6 && damage_absorption.["brute"] > 0.3)
 		overlays = null
@@ -65,6 +66,7 @@
 	burn_state = LAVA_PROOF
 	lights_power = 7
 	damage_absorption = list("brute"=0.6,"fire"=0.5,"bullet"=0.7,"laser"=0.7,"energy"=1,"bomb"=0.4)
+	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 60, bio = 0, rad = 0)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/firefighter
 

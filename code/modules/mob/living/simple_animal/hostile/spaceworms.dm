@@ -190,7 +190,7 @@
 			SW.death()
 
 
-/mob/living/simple_animal/hostile/spaceWorm/Life()
+/mob/living/simple_animal/hostile/spaceWorm/Life(seconds, times_fired)
 	if(nextWorm && !(Adjacent(nextWorm)))
 		Detach(0)
 
@@ -328,7 +328,7 @@
 
 
 //Jiggle the whole worm forwards towards the next segment
-/mob/living/simple_animal/hostile/spaceWorm/do_attack_animation(atom/A)
+/mob/living/simple_animal/hostile/spaceWorm/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
 	..()
 	if(previousWorm)
 		previousWorm.do_attack_animation(src)

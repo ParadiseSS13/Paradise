@@ -4,7 +4,7 @@
 
 
 
-/obj/item/device/camera_bug
+/obj/item/camera_bug
 	name = "camera bug"
 	desc = "For illicit snooping through the camera network."
 	icon = 'icons/obj/device.dmi'
@@ -30,11 +30,11 @@
 	var/last_found = null
 	var/last_seen = null
 
-/obj/item/device/camera_bug/New()
+/obj/item/camera_bug/New()
 	..()
 	processing_objects += src
 
-/obj/item/device/camera_bug/Destroy()
+/obj/item/camera_bug/Destroy()
 	get_cameras()
 	for(var/cam_tag in bugged_cameras)
 		var/obj/machinery/camera/camera = bugged_cameras[cam_tag]
@@ -45,16 +45,16 @@
 		tracking = null
 	return ..()
 
-/obj/item/device/camera_bug/interact(var/mob/user = usr)
+/obj/item/camera_bug/interact(var/mob/user = usr)
 	var/datum/browser/popup = new(user, "camerabug","Camera Bug",nref=src)
 	popup.set_content(menu(get_cameras()))
 	popup.open()
 
-/obj/item/device/camera_bug/attack_self(mob/user as mob)
+/obj/item/camera_bug/attack_self(mob/user as mob)
 	user.set_machine(src)
 	interact(user)
 
-/obj/item/device/camera_bug/check_eye(var/mob/user as mob)
+/obj/item/camera_bug/check_eye(var/mob/user as mob)
 	if(user.stat || loc != user || !user.canmove || !user.has_vision() || !current)
 		user.reset_perspective(null)
 		user.unset_machine()
@@ -70,7 +70,7 @@
 
 	return 1
 
-/obj/item/device/camera_bug/proc/get_cameras()
+/obj/item/camera_bug/proc/get_cameras()
 	if(world.time > (last_net_update + 100))
 		bugged_cameras = list()
 		for(var/obj/machinery/camera/camera in cameranet.cameras)
@@ -83,7 +83,7 @@
 
 
 
-/obj/item/device/camera_bug/proc/menu(var/list/cameras)
+/obj/item/camera_bug/proc/menu(var/list/cameras)
 	if(!cameras || !cameras.len)
 		return "No bugged cameras found."
 
@@ -136,7 +136,7 @@
 				return .(cameras)
 	return html
 
-/obj/item/device/camera_bug/proc/camera_report()
+/obj/item/camera_bug/proc/camera_report()
 	// this should only be called if current exists
 	var/dat = ""
 	if(current && current.can_use())
@@ -181,7 +181,7 @@
 	else
 		return "Camera Offline<br>"
 
-/obj/item/device/camera_bug/Topic(var/href,var/list/href_list)
+/obj/item/camera_bug/Topic(var/href,var/list/href_list)
 	if(usr != loc)
 		usr.unset_machine()
 		usr.reset_perspective(null)
@@ -244,7 +244,7 @@
 
 	interact()
 
-/obj/item/device/camera_bug/process()
+/obj/item/camera_bug/process()
 	if(track_mode == BUGMODE_LIST || (world.time < (last_tracked + refresh_interval)))
 		return
 	last_tracked = world.time

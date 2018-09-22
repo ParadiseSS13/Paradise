@@ -78,13 +78,13 @@
 			if(starting)
 				splatter_dir = get_dir(starting, target_loca)
 			if(isalien(L))
-				new /obj/effect/overlay/temp/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter/xenosplatter(target_loca, splatter_dir)
 			else
 				var/blood_color = "#C80000"
 				if(ishuman(target))
 					H = target
-					blood_color = H.species.blood_color
-				new /obj/effect/overlay/temp/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
+					blood_color = H.dna.species.blood_color
+				new /obj/effect/temp_visual/dir_setting/bloodsplatter(target_loca, splatter_dir, blood_color)
 			if(prob(33))
 				var/list/shift = list("x" = 0, "y" = 0)
 				var/turf/step_over = get_step(target_loca, splatter_dir)
@@ -114,13 +114,18 @@
 								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 	var/reagent_note
+	var/has_reagents = FALSE
 	if(reagents && reagents.reagent_list)
 		reagent_note = " REAGENTS:"
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += R.id + " ("
 			reagent_note += num2text(R.volume) + ") "
+			has_reagents = TRUE
 	if(!log_override && firer && original)
-		add_logs(firer, L, "shot", src, reagent_note)
+		if(has_reagents)
+			add_attack_logs(firer, L, "Shot with a [type] (containing [reagent_note])")
+		else
+			add_attack_logs(firer, L, "Shot with a [type]")
 	return L.apply_effects(stun, weaken, paralyze, irradiate, slur, stutter, eyeblur, drowsy, blocked, stamina, jitter)
 
 /obj/item/projectile/proc/get_splatter_blockage(var/turf/step_over, var/atom/target, var/splatter_dir, var/target_loca) //Check whether the place we want to splatter blood is blocked (i.e. by windows).

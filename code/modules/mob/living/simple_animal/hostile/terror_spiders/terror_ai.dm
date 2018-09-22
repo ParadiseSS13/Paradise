@@ -148,7 +148,7 @@
 				last_ventcrawl_time = world.time
 				var/vdistance = 99
 				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10, src))
-					if(!v.welded)
+					if(!v.welded || ai_ventbreaker)
 						if(get_dist(src,v) < vdistance)
 							entry_vent = v
 							vdistance = get_dist(src,v)
@@ -217,7 +217,8 @@
 				var/tgt_dir = get_dir(src,mygoal)
 				for(var/obj/machinery/door/airlock/A in view(1, src))
 					if(A.density)
-						try_open_airlock(A)
+						spawn(0)
+							try_open_airlock(A)
 				for(var/obj/machinery/door/firedoor/F in view(1, src))
 					if(tgt_dir == get_dir(src,F) && F.density && !F.welded)
 						visible_message("<span class='danger'>[src] pries open the firedoor!</span>")
@@ -234,9 +235,13 @@
 		if(is_type_in_list(obstacle, valid_obstacles))
 			obstacle.attack_animal(src)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/TSVentCrawlRandom(/var/entry_vent)
+/mob/living/simple_animal/hostile/poison/terror_spider/proc/TSVentCrawlRandom()
 	if(entry_vent)
 		if(get_dist(src, entry_vent) <= 2)
+			if(ai_ventbreaker && entry_vent.welded)
+				entry_vent.welded = 0
+				entry_vent.update_icon()
+				entry_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [entry_vent]!</span>")
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
@@ -250,17 +255,23 @@
 				forceMove(exit_vent)
 				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
 				spawn(travel_time)
-					if(!exit_vent || exit_vent.welded)
+					if(!exit_vent || (exit_vent.welded && !ai_ventbreaker))
 						forceMove(original_location)
 						entry_vent = null
 						return
 					if(prob(50))
 						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 					spawn(travel_time)
-						if(!exit_vent || exit_vent.welded)
+						if(!exit_vent || (exit_vent.welded && !ai_ventbreaker))
 							forceMove(original_location)
 							entry_vent = null
 							return
+						if(ai_ventbreaker && exit_vent.welded)
+							exit_vent.welded = 0
+							exit_vent.update_icon()
+							exit_vent.update_pipe_image()
+							exit_vent.visible_message("<span class='danger'>[src] smashes the welded cover off [exit_vent]!</span>")
+							playsound(exit_vent.loc, 'sound/machines/airlock_alien_prying.ogg', 50, 0)
 						forceMove(exit_vent.loc)
 						entry_vent = null
 						var/area/new_area = get_area(loc)

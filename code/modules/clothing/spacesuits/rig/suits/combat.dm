@@ -1,6 +1,6 @@
 /obj/item/clothing/head/helmet/space/new_rig/combat
 
-/obj/item/weapon/rig/combat
+/obj/item/rig/combat
 	name = "combat hardsuit control module"
 	desc = "A sleek and dangerous hardsuit for active combat."
 	icon_state = "security_rig"
@@ -11,10 +11,10 @@
 	offline_vision_restriction = 1
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/combat
-	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
+	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank,/obj/item/melee/baton)
 
 
-/obj/item/weapon/rig/combat/equipped
+/obj/item/rig/combat/equipped
 
 
 	initial_modules = list(

@@ -1,10 +1,10 @@
 /datum/preferences
 	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
-	var/datum/species/S = all_species[species]
+	var/datum/species/S = GLOB.all_species[species]
 	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 		species = initial(species)
-		S = all_species[species]
+		S = GLOB.all_species[species]
 	var/datum/robolimb/robohead
 
 	if(S.bodyflags & ALL_RPARTS)
@@ -216,20 +216,20 @@
 	if(gender == FEMALE)	g = "f"
 
 	var/icon/icobase
-	var/datum/species/current_species = all_species[species]
+	var/datum/species/current_species = GLOB.all_species[species]
 
 	//Icon-based species colour.
 	var/coloured_tail
 	if(current_species)
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			var/mob/living/carbon/human/H = new
-			H.species = current_species
+			H.dna.species = current_species
 			H.s_tone = s_tone
-			H.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
 			var/obj/item/organ/external/chest/C = H.get_organ("chest")
-			icobase = C.icobase ? C.icobase : C.species.icobase
-			if(H.species.bodyflags & HAS_TAIL)
-				coloured_tail = H.tail ? H.tail : H.species.tail
+			icobase = C.icobase ? C.icobase : C.dna.species.icobase
+			if(H.dna.species.bodyflags & HAS_TAIL)
+				coloured_tail = H.tail ? H.tail : H.dna.species.tail
 
 			qdel(H)
 		else
@@ -346,12 +346,12 @@
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
 			hair_s.Blend("[s_colour]A0", ICON_ADD)
-		else
+		else if(hair_style.do_colouration)
 			hair_s.Blend(h_colour, ICON_ADD)
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
-			if(!hair_style.no_sec_colour)
+			if(!hair_style.no_sec_colour && hair_style.do_colouration )
 				hair_secondary_s.Blend(h_sec_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 
@@ -370,12 +370,12 @@
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
 			facial_s.Blend("[s_colour]A0", ICON_ADD)
-		else
+		else if(facial_hair_style.do_colouration)
 			facial_s.Blend(f_colour, ICON_ADD)
 
 		if(facial_hair_style.secondary_theme)
 			var/icon/facial_secondary_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_[facial_hair_style.secondary_theme]_s")
-			if(!facial_hair_style.no_sec_colour)
+			if(!facial_hair_style.no_sec_colour && facial_hair_style.do_colouration)
 				facial_secondary_s.Blend(f_sec_colour, ICON_ADD)
 			facial_s.Blend(facial_secondary_s, ICON_OVERLAY)
 

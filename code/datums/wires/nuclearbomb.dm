@@ -11,12 +11,12 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 	switch(index)
 		if(NUCLEARBOMB_WIRE_LIGHT)
 			return "Bomb Light"
-		
+
 		if(NUCLEARBOMB_WIRE_TIMING)
 			return "Bomb Timing"
-		
+
 		if(NUCLEARBOMB_WIRE_SAFETY)
-			return "Bomb Safety"	
+			return "Bomb Safety"
 
 /datum/wires/nuclearbomb/CanUse(mob/living/L)
 	var/obj/machinery/nuclearbomb/N = holder
@@ -77,6 +77,6 @@ var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
 			N.lighthack = !N.lighthack
 
 /datum/wires/nuclearbomb/proc/updateUIs()
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	if(holder)
-		nanomanager.update_uis(holder)
+		SSnanoui.update_uis(holder)

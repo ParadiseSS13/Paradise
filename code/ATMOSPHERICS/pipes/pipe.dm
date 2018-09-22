@@ -32,16 +32,16 @@
 	. = ..()
 
 	// if we're somehow by ourself
-	if(parent && isnull(parent.gcDestroyed) && parent.members.len == 1 && parent.members[1] == src)
+	if(parent && !QDELETED(parent) && parent.members.len == 1 && parent.members[1] == src)
 		qdel(parent)
 	parent = null
 
-/obj/machinery/atmospherics/pipe/attackby(obj/item/weapon/W, mob/user, params)
-	if(istype(W, /obj/item/device/analyzer))
+/obj/machinery/atmospherics/pipe/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/analyzer))
 		atmosanalyzer_scan(parent.air, user)
 		return
 
-	if(istype(W,/obj/item/device/pipe_painter))
+	if(istype(W,/obj/item/pipe_painter))
 		return
 
 	return ..()
@@ -66,10 +66,11 @@
 		return 0
 	return parent.air
 
-/obj/machinery/atmospherics/pipe/build_network()
+/obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
 	if(!parent)
 		parent = new /datum/pipeline()
 		parent.build_pipeline(src)
+	..()
 
 /obj/machinery/atmospherics/pipe/setPipenet(datum/pipeline/P)
 	parent = P

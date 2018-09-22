@@ -85,19 +85,11 @@ var/const/GRAV_NEEDS_WRENCH = 3
 // Generator which spawns with the station.
 //
 
-/obj/machinery/gravity_generator/main/station/initialize()
+/obj/machinery/gravity_generator/main/station/Initialize()
 	..()
 	setup_parts()
 	middle.overlays += "activated"
 	update_list()
-
-//
-// Generator an admin can spawn
-//
-
-/obj/machinery/gravity_generator/main/station/admin/New()
-	..()
-	initialize()
 
 //
 // Main Generator with the main code
@@ -186,13 +178,13 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	var/old_broken_state = broken_state
 	switch(broken_state)
 		if(GRAV_NEEDS_SCREWDRIVER)
-			if(istype(I, /obj/item/weapon/screwdriver))
+			if(istype(I, /obj/item/screwdriver))
 				to_chat(user, "<span class='notice'>You secure the screws of the framework.</span>")
 				playsound(src.loc, I.usesound, 50, 1)
 				broken_state++
 		if(GRAV_NEEDS_WELDING)
-			if(istype(I, /obj/item/weapon/weldingtool))
-				var/obj/item/weapon/weldingtool/WT = I
+			if(istype(I, /obj/item/weldingtool))
+				var/obj/item/weldingtool/WT = I
 				if(WT.remove_fuel(1, user))
 					to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
 					playsound(src.loc, WT.usesound, 50, 1)
@@ -208,7 +200,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 				else
 					to_chat(user, "<span class='notice'>You need 10 sheets of plasteel.</span>")
 		if(GRAV_NEEDS_WRENCH)
-			if(istype(I, /obj/item/weapon/wrench))
+			if(istype(I, /obj/item/wrench))
 				to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
 				playsound(src.loc, I.usesound, 75, 1)
 				set_fix()
@@ -404,7 +396,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 
 // Misc
 
-/obj/item/weapon/paper/gravity_gen
+/obj/item/paper/gravity_gen
 	name = "paper- 'Generate your own gravity!'"
 	info = {"<h1>Gravity Generator Instructions For Dummies</h1>
 	<p>Surprisingly, gravity isn't that hard to make! All you have to do is inject deadly radioactive minerals into a ball of

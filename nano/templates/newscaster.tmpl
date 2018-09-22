@@ -97,6 +97,13 @@ Property of Nanotrasen</font><br>
 			</div>
 		</div>
 		<div class='item'>
+			<div class='itemLabel'>Title:</div>
+			<div class='itemContent'>
+				<a style='float: left; padding-right: 6px;'>{{:data.title}}</a>
+				{{:helper.link('Edit', 'pencil', {'set_message_title' : 1})}}
+			</div>
+		</div>
+		<div class='item'>
 			<div class='itemLabel'>Message body:</div>
 			<div class='itemContent'>
 				<a style='float: left; padding-right: 6px;'>{{:data.msg}}</a>
@@ -132,7 +139,8 @@ Property of Nanotrasen</font><br>
 		{{else}}
 			{{for data.messages}}
 				<div class='statusDisplay'>
-					- {{:value.body}}<br>
+					<b>{{:value.title}}</b><br>
+					{{:value.body}}<br>
 					{{if value.img}}
 						<img src='data:image/png;base64,{{:value.img}}' width=180><br>
 					{{/if}}
@@ -198,7 +206,8 @@ Property of Nanotrasen</font><br>
 		<i>{{:helper.link(data.author_redacted ? 'Undo author censorship' : 'Censor channel author', null, {'censor_channel_author' : data.ref})}}</i><br><hr>
 		{{for data.messages}}
 			<div class='statusDisplay'>
-				- {{:value.body}}<br>
+				<b>{{:value.title}}</b><br>
+				{{:value.body}}<br>
 				{{if value.img}}
 					<img src='{{:value.img}}' width=180><br>
 				{{/if}}
@@ -217,7 +226,7 @@ Property of Nanotrasen</font><br>
 		</div>
 	{{else data.screen == 9}} <!-- NEWSCASTER_D_NOTICE_FC -->
 		<b>{{:data.channel_name}}</b> <i><font size=1>[created by: <span class='good'>{{:data.author}}</span>]</font></i><br>
-		<i>Channel messages listed below. If you deem them dangerous to the station, you can <div style='clear: both;'>{{:helper.link('Bestow a D-Notice upon the channel', null, {'toggle_d_notice' : data.ref})}}</div></i><br><hr>
+		<i>Channel messages listed below. If you deem them dangerous to the station, you can <div style='clear: both;'>{{:helper.link(data.censored ? 'Remove the D-Notice on the channel' : 'Bestow a D-Notice upon the channel', null, {'toggle_d_notice' : data.ref})}}</div></i><br><hr>
 		{{if data.censored}}
 			<div class='statusDisplay'>
 				<b class='bad'>ATTENTION: </b>This channel has been deemed as threatening to the welfare of the station, and marked with a Nanotrasen D-Notice. 
@@ -226,7 +235,8 @@ Property of Nanotrasen</font><br>
 		{{else}}
 			{{for data.messages}}
 				<div class='statusDisplay'>
-					- {{:value.body}}<br>
+					<b>{{:value.title}}</b><br>
+					{{:value.body}}<br>
 					{{if value.img}}
 						<img src='{{:value.img}}' width=180><br>
 					{{/if}}

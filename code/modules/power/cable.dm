@@ -1,3 +1,5 @@
+#define HEALPERCABLE 3
+#define MAXCABLEPERHEAL 8
 ///////////////////////////////
 //CABLE STRUCTURE
 ///////////////////////////////
@@ -72,19 +74,13 @@ By design, d1 is the smallest direction and d2 is the highest
 	var/turf/T = src.loc			// hide if turf is not intact
 
 	if(level==1) hide(T.intact)
-	cable_list += src //add it to the global cable list
-
-	// Catches the interim-zone of worldstart and roundstart
-	// I want both the ticker to exist (so mapped-in cables don't trip this)
-	// but also not have started yet (since the zlevel system would handle this on its own otherwise)
-	if((ticker && ticker.current_state < GAME_STATE_PLAYING))
-		attempt_init()
+	LAZYADD(GLOB.cable_list, src) //add it to the global cable list
 
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
 		cut_cable_from_powernet()				// update the powernets
-	cable_list -= src							//remove it from global cable list
+	LAZYREMOVE(GLOB.cable_list, src)			//remove it from global cable list
 	return ..()									// then go ahead and delete the cable
 
 ///////////////////////////////////
@@ -124,7 +120,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(T.intact)
 		return
 
-	if(istype(W, /obj/item/weapon/wirecutters))
+	if(istype(W, /obj/item/wirecutters))
 ///// Z-Level Stuff
 		/* if(src.d1 == 12 || src.d2 == 12)
 			to_chat(user, "<span class='warning'>You must cut this cable from above.</span>")
@@ -155,7 +151,7 @@ By design, d1 is the smallest direction and d2 is the highest
 						if(c.d1 == 12 || c.d2 == 12)
 							c.qdel()*/
 ///// Z-Level Stuff
-		investigate_log("was cut by [key_name(usr, usr.client)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 
 		qdel(src) // qdel
 		return
@@ -168,13 +164,13 @@ By design, d1 is the smallest direction and d2 is the highest
 			return
 		coil.cable_join(src, user)
 
-	else if(istype(W, /obj/item/weapon/twohanded/rcl))
-		var/obj/item/weapon/twohanded/rcl/R = W
+	else if(istype(W, /obj/item/twohanded/rcl))
+		var/obj/item/twohanded/rcl/R = W
 		if(R.loaded)
 			R.loaded.cable_join(src, user)
 			R.is_empty(user)
 
-	else if(istype(W, /obj/item/device/multitool))
+	else if(istype(W, /obj/item/multitool))
 
 		if(powernet && (powernet.avail > 0))		// is it powered?
 			to_chat(user, "<span class='warning'>[powernet.avail]W in power network.</span>")
@@ -183,6 +179,10 @@ By design, d1 is the smallest direction and d2 is the highest
 			to_chat(user, "<span class='warning'>The cable is not powered.</span>")
 
 		shock(user, 5, 0.2)
+
+	else if(istype(W, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = W
+		cable_color(C.colourName)
 
 	else
 		if(W.flags & CONDUCT)
@@ -218,11 +218,18 @@ By design, d1 is the smallest direction and d2 is the highest
 				qdel(src) // qdel
 	return
 
-obj/structure/cable/proc/cableColor(var/colorC)
-	var/color_n = "#DD0000"
+obj/structure/cable/proc/cable_color(var/colorC)
 	if(colorC)
-		color_n = colorC
-	color = color_n
+		if(colorC == "rainbow")
+			color = color_rainbow()
+		else
+			color = colorC
+	else
+		color = "#DD0000"
+
+/obj/structure/cable/proc/color_rainbow()
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	return color
 
 /////////////////////////////////////////////////
 // Cable laying helpers
@@ -451,7 +458,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
 	// queue it to rebuild
-	deferred_powernet_rebuilds += O
+	SSmachines.deferred_powernet_rebuilds += O
 
 	// Disconnect machines connected to nodes
 	if(d1 == 0) // if we cut a node (O-X) cable
@@ -467,10 +474,8 @@ obj/structure/cable/proc/cableColor(var/colorC)
 // Definitions
 ////////////////////////////////
 
-#define MAXCOIL 30
-
 var/global/list/datum/stack_recipe/cable_coil_recipes = list(
-	new /datum/stack_recipe/cable_restraints("cable restraints", /obj/item/weapon/restraints/handcuffs/cable, 15),
+	new /datum/stack_recipe/cable_restraints("cable restraints", /obj/item/restraints/handcuffs/cable, 15),
 )
 
 /obj/item/stack/cable_coil
@@ -498,9 +503,9 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/stool) in user.loc)
-		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like \he's trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	else
-		user.visible_message("<span class='suicide'>[user] is strangling \himself with the [name]! It looks like \he's trying to commit suicide.</span>")
+		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return(OXYLOSS)
 
 /obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/paramcolor = null)
@@ -525,26 +530,47 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(!S)
 			return
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
+		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
-		if(S.burn_dam)
-			if(S.burn_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				if(H == user)
-					if(!do_mob(user, H, 10))
-						return 1
-				var/cable_to_use = 0
-				for(cable_to_use in 1 to 5)
-					if(cable_to_use == amount || (cable_to_use * 3) >= S.burn_dam)
-						break
-				use(cable_to_use)
-				S.heal_damage(0, (cable_to_use * 3), 0, 1)
-				user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [S.name] with \the [src].</span>")
-			else if(S.open != 2)
-				to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
-			return 1
-		else if(S.open != 2)
+		if(S.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
+			to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
+			return
+
+		if(!S.burn_dam)
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			return
+
+		if(H == user)
+			if(!do_mob(user, H, 10))
+				return 0
+		var/cable_used = 0
+		var/childlist
+		if(!isnull(S.children))
+			childlist = S.children.Copy()
+		var/parenthealed = FALSE
+		while(cable_used <= MAXCABLEPERHEAL && amount >= 1)
+			var/obj/item/organ/external/E
+			if(S.burn_dam)
+				E = S
+			else if(LAZYLEN(childlist))
+				E = pick_n_take(childlist)
+				if(!E.burn_dam || !E.is_robotic())
+					continue
+			else if(S.parent && !parenthealed)
+				E = S.parent
+				parenthealed = TRUE
+				if(!E.burn_dam || !E.is_robotic())
+					break
+			else
+				break
+			while(cable_used <= MAXCABLEPERHEAL && E.burn_dam && amount >= 1)
+				use(1)
+				cable_used += 1
+				E.heal_damage(0, HEALPERCABLE, 0, 1)
+			user.visible_message("<span class='alert'>\The [user] repairs some burn damage on \the [M]'s [E.name] with \the [src].</span>")
+		return 1
+
 	else
 		return ..()
 
@@ -586,34 +612,24 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !
 //   - Cable coil : merge cables
-/obj/item/stack/cable_coil/attackby(obj/item/weapon/W, mob/user)
+/obj/item/stack/cable_coil/attackby(obj/item/W, mob/user)
 	..()
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
+		// Cable merging is handled by parent proc
 		if(C.amount >= MAXCOIL)
-			to_chat(user, "The coil is too long, you cannot add any more cable to it.")
+			to_chat(user, "The coil is as long as it will get.")
 			return
-
 		if( (C.amount + src.amount <= MAXCOIL) )
 			to_chat(user, "You join the cable coils together.")
-			C.give(src.amount) // give it cable
-			src.use(src.amount) // make sure this one cleans up right
 			return
-
 		else
-			var/amt = MAXCOIL - C.amount
-			to_chat(user, "You transfer [amt] length\s of cable from one coil to the other.")
-			C.give(amt)
-			src.use(amt)
+			to_chat(user, "You transfer [get_amount_transferred()] length\s of cable from one coil to the other.")
 			return
 
-//add cables to the stack
-/obj/item/stack/cable_coil/proc/give(var/extra)
-	if(amount + extra > MAXCOIL)
-		amount = MAXCOIL
-	else
-		amount += extra
-	update_icon()
+	if(istype(W, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = W
+		cable_color(C.colourName)
 
 ///////////////////////////////////////////////
 // Cable laying procedures
@@ -621,7 +637,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 /obj/item/stack/cable_coil/proc/get_new_cable(location)
 	var/obj/structure/cable/C = new(location)
-	C.cableColor(color)
+	C.cable_color(color)
 
 	return C
 
@@ -738,7 +754,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 				return
 
 
-		C.cableColor(color)
+		C.cable_color(color)
 
 		C.d1 = nd1
 		C.d2 = nd2
@@ -808,6 +824,18 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_WHITE, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
 	..()
 
+/obj/item/stack/cable_coil/proc/cable_color(var/colorC)
+	if(colorC)
+		if(colorC == "rainbow")
+			colorC = color_rainbow()
+		color = colorC
+	else
+		color = COLOR_RED
+
+/obj/item/stack/cable_coil/proc/color_rainbow()
+	color = pick(COLOR_RED, COLOR_BLUE, COLOR_GREEN, COLOR_PINK, COLOR_YELLOW, COLOR_CYAN)
+	return color
+
 /obj/item/stack/cable_coil/cyborg
 	name = "cyborg cable coil"
 
@@ -815,3 +843,6 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	color = cablecolor
 	update_icon()
+
+#undef MAXCABLEPERHEAL
+#undef HEALPERCABLE

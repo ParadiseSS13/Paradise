@@ -1,7 +1,7 @@
 /obj/machinery/slot_machine
 	name = "slot machine"
 	desc = "Gambling for the antisocial."
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/obj/economy.dmi'
 	icon_state = "slots-off"
 	anchored = 1
 	density = 1
@@ -14,7 +14,7 @@
 /obj/machinery/slot_machine/attack_hand(mob/user as mob)
 	account = user.get_worn_id_account()
 	if(!account)
-		if(istype(user.get_active_hand(), /obj/item/weapon/card/id))
+		if(istype(user.get_active_hand(), /obj/item/card/id))
 			account = get_card_account(user.get_active_hand())
 		else
 			account = null
@@ -22,7 +22,7 @@
 	ui_interact(user)
 
 /obj/machinery/slot_machine/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "slotmachine.tmpl", name, 350, 200)
 		ui.open()
@@ -49,7 +49,7 @@
 				return
 			if(!account || account.money < 10)
 				return
-			if(!account.charge(10, transaction_purpose = "Bet", dest_name = name))
+			if(!account.charge(10, null, "Bet", "Slot Machine", "Slot Machine"))
 				return
 			plays += 1
 			working = 1
@@ -89,7 +89,7 @@
 					result = "You win fifty credits!"
 					resultlvl = "good"
 					win_money(50)
-				else if(roll > 300 && roll <= 600)
+				else if(roll > 300 && roll <= 1000)
 					visible_message("<b>[src]</b> says, 'Winner! [usr.name] has won ten credits!'")
 					result = "You win ten credits!"
 					resultlvl = "good"
@@ -106,12 +106,5 @@
 
 	if(!account)
 		return
-	account.money += amt
 
-	var/datum/transaction/T = new()
-	T.target_name = account.owner_name
-	T.purpose = "Slot Winnings"
-	T.amount = "[amt]"
-	T.date = current_date_string
-	T.time = worldtime2text()
-	account.transaction_log.Add(T)
+	account.credit(amt, "Slot Winnings", "Slot Machine", account.owner_name)

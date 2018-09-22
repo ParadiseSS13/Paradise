@@ -208,7 +208,7 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
 			M.emote("scream")
-			M.visible_message("<span class='warning'>[M] nervously scratches at their skin!</span>")
+			M.visible_message("<span class='warning'>[M] nervously scratches at [M.p_their()] skin!</span>")
 			M.Jitter(10)
 			M.adjustBruteLoss(5)
 			M.emote("twitch_s")
@@ -302,20 +302,20 @@
 	M.AdjustWeakened(-2.5)
 	M.adjustStaminaLoss(-2)
 	M.SetSleeping(0)
-	M.status_flags |= GOTTAGOREALLYFAST
+	M.status_flags |= GOTTAGOFAST_METH
 	if(prob(50))
 		M.adjustBrainLoss(1.0)
 	..()
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOREALLYFAST
+	M.status_flags &= ~GOTTAGOFAST_METH
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
 	var/effect = ..()
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] can't seem to control their legs!</span>")
+			M.visible_message("<span class='warning'>[M] can't seem to control [M.p_their()] legs!</span>")
 			M.AdjustConfused(20)
 			M.Weaken(4)
 		else if(effect <= 4)
@@ -356,7 +356,7 @@
 			head_organ.f_style = "Very Long Beard"
 			H.update_hair()
 			H.update_fhair()
-			H.visible_message("<span class='warning'>[H] has a wild look in their eyes!</span>")
+			H.visible_message("<span class='warning'>[H] has a wild look in [H.p_their()] eyes!</span>")
 	if(check < 60)
 		M.SetParalysis(0)
 		M.SetStunned(0)
@@ -368,7 +368,7 @@
 		M.AdjustConfused(10)
 	if(check < 8)
 		M.reagents.add_reagent(pick("methamphetamine", "crank", "neurotoxin"), rand(1,5))
-		M.visible_message("<span class='warning'>[M] scratches at something under their skin!</span>")
+		M.visible_message("<span class='warning'>[M] scratches at something under [M.p_their()] skin!</span>")
 		M.adjustBruteLoss(5)
 	else if(check < 16)
 		M.AdjustHallucinate(30)
@@ -427,7 +427,7 @@
 			M.reagents.add_reagent("jagged_crystals", 5)
 		else if(effect <= 7)
 			M.emote("scream")
-			M.visible_message("<span class='danger'>[M] tears at their own skin!</span>")
+			M.visible_message("<span class='danger'>[M] tears at [M.p_their()] own skin!</span>")
 			M.adjustBruteLoss(5)
 			M.reagents.add_reagent("jagged_crystals", 5)
 			M.emote("twitch")
@@ -541,7 +541,7 @@
 	var/effect = ..()
 	if(severity == 1)
 		if(effect <= 2)
-			M.visible_message("<span class='warning'>[M] can't seem to control their legs!</span>")
+			M.visible_message("<span class='warning'>[M] can't seem to control [M.p_their()] legs!</span>")
 			M.AdjustConfused(33)
 			M.Weaken(2)
 		else if(effect <= 4)
@@ -590,7 +590,7 @@
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
 	M.adjustStaminaLoss(-2)
-	M.status_flags |= GOTTAGOREALLYFAST
+	M.status_flags |= GOTTAGOFAST_METH
 	M.Jitter(3)
 	M.adjustBrainLoss(0.5)
 	if(prob(5))
@@ -598,7 +598,7 @@
 	..()
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOREALLYFAST
+	M.status_flags &= ~GOTTAGOFAST_METH
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)

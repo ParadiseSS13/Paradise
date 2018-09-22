@@ -88,7 +88,7 @@
 
 		switch(target_zone)
 			if(1)
-				if(isobj(H.head) && !istype(H.head, /obj/item/weapon/paper))
+				if(isobj(H.head) && !istype(H.head, /obj/item/paper))
 					Cl = H.head
 					passed = prob((Cl.permeability_coefficient*100) - 1)
 				if(passed && isobj(H.wear_mask))
@@ -134,7 +134,7 @@
 
 
 /mob/living/carbon/human/CanContractDisease(datum/disease/D)
-	if((VIRUSIMMUNE in species.species_traits) && !D.bypasses_immunity)
+	if((VIRUSIMMUNE in dna.species.species_traits) && !D.bypasses_immunity)
 		return 0
 	for(var/thing in D.required_organs)
 		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))

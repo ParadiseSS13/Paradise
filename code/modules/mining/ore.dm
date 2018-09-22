@@ -1,4 +1,4 @@
-/obj/item/weapon/ore
+/obj/item/ore
 	name = "rock"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "ore"
@@ -6,9 +6,9 @@
 	var/refined_type = null //What this ore defaults to being refined into
 	var/datum/geosample/geologic_data
 
-/obj/item/weapon/ore/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = I
+/obj/item/ore/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/W = I
 		if(W.remove_fuel(15) && refined_type)
 			new refined_type(get_turf(src.loc))
 			qdel(src)
@@ -16,21 +16,21 @@
 			to_chat(user, "<span class='info'>Not enough fuel to smelt [src].</span>")
 	..()
 
-/obj/item/weapon/ore/Crossed(AM as mob|obj)
-	var/obj/item/weapon/storage/bag/ore/OB
+/obj/item/ore/Crossed(AM as mob|obj)
+	var/obj/item/storage/bag/ore/OB
 	var/turf/simulated/floor/F = get_turf(src)
 	if(loc != F)
 		return ..()
 	if(ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		for(var/thing in H.get_body_slots())
-			if(istype(thing, /obj/item/weapon/storage/bag/ore))
+			if(istype(thing, /obj/item/storage/bag/ore))
 				OB = thing
 				break
 	else if(isrobot(AM))
 		var/mob/living/silicon/robot/R = AM
 		for(var/thing in R.get_all_slots())
-			if(istype(thing, /obj/item/weapon/storage/bag/ore))
+			if(istype(thing, /obj/item/storage/bag/ore))
 				OB = thing
 				break
 	if(OB && istype(F, /turf/simulated/floor/plating/airless/asteroid))
@@ -39,7 +39,7 @@
 
 
 
-/obj/item/weapon/ore/uranium
+/obj/item/ore/uranium
 	name = "uranium ore"
 	icon_state = "Uranium ore"
 	origin_tech = "materials=5"
@@ -47,7 +47,7 @@
 	refined_type = /obj/item/stack/sheet/mineral/uranium
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/iron
+/obj/item/ore/iron
 	name = "iron ore"
 	icon_state = "Iron ore"
 	origin_tech = "materials=1"
@@ -55,7 +55,7 @@
 	refined_type = /obj/item/stack/sheet/metal
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/glass
+/obj/item/ore/glass
 	name = "sand pile"
 	icon_state = "Glass ore"
 	origin_tech = "materials=1"
@@ -63,14 +63,14 @@
 	refined_type = /obj/item/stack/sheet/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/glass/basalt
+/obj/item/ore/glass/basalt
 	name = "volcanic ash"
 	icon_state = "volcanic_sand"
 
-/obj/item/weapon/ore/glass/attack_self(mob/living/user as mob)
+/obj/item/ore/glass/attack_self(mob/living/user as mob)
 	to_chat(user, "<span class='notice'>You use the sand to make sandstone.</span>")
 	var/sandAmt = 1
-	for(var/obj/item/weapon/ore/glass/G in user.loc) // The sand on the floor
+	for(var/obj/item/ore/glass/G in user.loc) // The sand on the floor
 		sandAmt += 1
 		qdel(G)
 	while(sandAmt > 0)
@@ -86,7 +86,7 @@
 	qdel(src)
 	return
 
-/obj/item/weapon/ore/plasma
+/obj/item/ore/plasma
 	name = "plasma ore"
 	icon_state = "Plasma ore"
 	origin_tech = "plasmatech=2;materials=2"
@@ -94,15 +94,15 @@
 	refined_type = /obj/item/stack/sheet/mineral/plasma
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/plasma/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/W = I
+/obj/item/ore/plasma/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(istype(I, /obj/item/weldingtool))
+		var/obj/item/weldingtool/W = I
 		if(W.welding)
 			to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
 	else
 		..()
 
-/obj/item/weapon/ore/silver
+/obj/item/ore/silver
 	name = "silver ore"
 	icon_state = "Silver ore"
 	origin_tech = "materials=3"
@@ -110,7 +110,7 @@
 	refined_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/gold
+/obj/item/ore/gold
 	name = "gold ore"
 	icon_state = "Gold ore"
 	origin_tech = "materials=4"
@@ -118,7 +118,7 @@
 	refined_type = /obj/item/stack/sheet/mineral/gold
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/diamond
+/obj/item/ore/diamond
 	name = "diamond ore"
 	icon_state = "Diamond ore"
 	origin_tech = "materials=6"
@@ -126,7 +126,7 @@
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/bananium
+/obj/item/ore/bananium
 	name = "bananium ore"
 	icon_state = "Clown ore"
 	origin_tech = "materials=4"
@@ -134,7 +134,7 @@
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/tranquillite
+/obj/item/ore/tranquillite
 	name = "tranquillite ore"
 	icon_state = "Mime ore"
 	origin_tech = "materials=4"
@@ -142,12 +142,19 @@
 	refined_type = /obj/item/stack/sheet/mineral/tranquillite
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 
-/obj/item/weapon/ore/slag
+/obj/item/ore/titanium
+	name = "titanium ore"
+	icon_state = "Titanium ore"
+	points = 50
+	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
+	refined_type = /obj/item/stack/sheet/mineral/titanium
+
+/obj/item/ore/slag
 	name = "slag"
 	desc = "Completely useless"
 	icon_state = "slag"
 
-/obj/item/weapon/twohanded/required/gibtonite
+/obj/item/twohanded/required/gibtonite
 	name = "gibtonite ore"
 	desc = "Extremely explosive if struck with mining equipment, Gibtonite is often used by miners to speed up their work by using it as a mining charge. This material is illegal to possess by unauthorized personnel under space law."
 	icon = 'icons/obj/mining.dmi'
@@ -162,12 +169,12 @@
 	var/attacher = "UNKNOWN"
 	var/datum/wires/explosive/gibtonite/wires
 
-/obj/item/weapon/twohanded/required/gibtonite/Destroy()
+/obj/item/twohanded/required/gibtonite/Destroy()
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/item/weapon/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(!wires && istype(I, /obj/item/device/assembly/igniter))
+/obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
+	if(!wires && istype(I, /obj/item/assembly/igniter))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
 		wires = new(src)
 		attacher = key_name(user)
@@ -176,15 +183,15 @@
 		return
 
 	if(wires && !primed)
-		if(istype(I, /obj/item/weapon/wirecutters) || istype(I, /obj/item/device/multitool) || istype(I, /obj/item/device/assembly/signaler))
+		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler))
 			wires.Interact(user)
 			return
 
-	if(istype(I, /obj/item/weapon/pickaxe) || istype(I, /obj/item/weapon/resonator) || I.force >= 10)
+	if(istype(I, /obj/item/pickaxe) || istype(I, /obj/item/resonator) || I.force >= 10)
 		GibtoniteReaction(user)
 		return
 	if(primed)
-		if(istype(I, /obj/item/device/mining_scanner) || istype(I, /obj/item/device/t_scanner/adv_mining_scanner) || istype(I, /obj/item/device/multitool))
+		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
 			primed = 0
 			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
 			icon_state = "Gibtonite ore"
@@ -192,24 +199,24 @@
 			return
 	..()
 
-/obj/item/weapon/twohanded/required/gibtonite/attack_ghost(mob/user)
+/obj/item/twohanded/required/gibtonite/attack_ghost(mob/user)
 	if(wires)
 		wires.Interact(user)
 
-/obj/item/weapon/twohanded/required/gibtonite/attack_self(mob/user)
+/obj/item/twohanded/required/gibtonite/attack_self(mob/user)
 	if(wires)
 		wires.Interact(user)
 	else
 		..()
 
-/obj/item/weapon/twohanded/required/gibtonite/bullet_act(var/obj/item/projectile/P)
+/obj/item/twohanded/required/gibtonite/bullet_act(var/obj/item/projectile/P)
 	GibtoniteReaction(P.firer)
 	..()
 
-/obj/item/weapon/twohanded/required/gibtonite/ex_act()
+/obj/item/twohanded/required/gibtonite/ex_act()
 	GibtoniteReaction(null, 1)
 
-/obj/item/weapon/twohanded/required/gibtonite/proc/GibtoniteReaction(mob/user, triggered_by = 0)
+/obj/item/twohanded/required/gibtonite/proc/GibtoniteReaction(mob/user, triggered_by = 0)
 	if(!primed)
 		playsound(src,'sound/effects/hit_on_shattered_glass.ogg',50,1)
 		primed = 1
@@ -244,11 +251,11 @@
 				explosion(src.loc,-1,1,3,adminlog = notify_admins)
 			qdel(src)
 
-/obj/item/weapon/ore/New()
+/obj/item/ore/New()
 	pixel_x = rand(0,16)-8
 	pixel_y = rand(0,8)-8
 	if(is_mining_level(src.z))
 		score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining asteroid (No Clown Planet)
 
-/obj/item/weapon/ore/ex_act()
+/obj/item/ore/ex_act()
 	return

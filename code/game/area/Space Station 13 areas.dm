@@ -20,13 +20,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = 1
 	var/party = null
-	var/radalert = 0
 	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
-	layer = 10
+	layer = AREA_LAYER
 	luminosity = 0
 	mouse_opacity = 0
 	invisibility = INVISIBILITY_LIGHTING
@@ -61,6 +60,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/no_teleportlocs = 0
 
 	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
@@ -138,9 +138,6 @@ var/list/ghostteleportlocs = list()
 	return
 
 /area/space/readyalert()
-	return
-
-/area/space/radiation_alert()
 	return
 
 /area/space/partyalert()
@@ -548,12 +545,6 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_mothership/infteam
 	name = "\improper Syndicate Infiltrators"
 	icon_state = "syndie-elite"
-
-/area/syndicate_depot
-	name = "\improper Suspicious Supply Depot"
-	icon_state = "red"
-	tele_proof = 1
-	requires_power = 0
 
 //EXTRA
 
@@ -1899,6 +1890,7 @@ area/security/podbay
 /area/toxins/xenobiology
 	name = "\improper Xenobiology Lab"
 	icon_state = "toxmix"
+	xenobiology_compatible = TRUE
 
 /area/toxins/xenobiology/xenoflora_storage
 	name = "\improper Xenoflora Storage"
@@ -2159,8 +2151,8 @@ area/security/podbay
 	name = "\improper Construction Site Eng Core"
 	icon_state = "green"
 
-/area/constructionsite/hallway/scicore
-	name = "\improper Construction Site Sci Core"
+/area/constructionsite/hallway/fore
+	name = "\improper Construction Site Fore"
 	icon_state = "green"
 
 /area/constructionsite/hallway/port

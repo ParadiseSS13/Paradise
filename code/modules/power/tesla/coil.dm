@@ -15,8 +15,8 @@
 /obj/machinery/power/tesla_coil/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/tesla_coil(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/circuitboard/tesla_coil(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	wires = new(src)
 	RefreshParts()
 
@@ -27,7 +27,7 @@
 /obj/machinery/power/tesla_coil/RefreshParts()
 	var/power_multiplier = 0
 	zap_cooldown = 100
-	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		power_multiplier += C.rating
 		zap_cooldown -= (C.rating * 20)
 	input_power_multiplier = power_multiplier
@@ -49,7 +49,7 @@
 	if(default_deconstruction_crowbar(W))
 		return
 
-	else if(iswirecutter(W) || ismultitool(W) || istype(W, /obj/item/device/assembly/signaler))
+	else if(iswirecutter(W) || ismultitool(W) || istype(W, /obj/item/assembly/signaler))
 		if(panel_open)
 			wires.Interact(user)
 
@@ -66,7 +66,7 @@
 		flick("coilhit", src)
 		playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
 		tesla_zap(src, 5, power_produced)
-		addtimer(src, "reset_shocked", 10)
+		addtimer(CALLBACK(src, .proc/reset_shocked), 10)
 	else
 		..()
 
@@ -92,8 +92,8 @@
 /obj/machinery/power/grounding_rod/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/grounding_rod(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/circuitboard/grounding_rod(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
 /obj/machinery/power/grounding_rod/attackby(obj/item/W, mob/user, params)

@@ -3,10 +3,11 @@
 	name_plural = "Plasmamen"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
 	deform = 'icons/mob/human_races/r_plasmaman_pb.dmi'  // TODO: Need deform.
+	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
-	unarmed_type = /datum/unarmed_attack/punch
 
 	species_traits = list(IS_WHITELISTED, NO_BLOOD, NOTRANSSTING)
+	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
@@ -82,7 +83,7 @@
 		if("Warden","Security Officer","Security Pod Pilot")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security
-			H.equip_or_collect(new /obj/item/weapon/gun/energy/gun/advtaser(H), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/gun/energy/gun/advtaser(H), slot_in_backpack)
 		if("Internal Affairs Agent")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/lawyer
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/lawyer
@@ -92,7 +93,7 @@
 		if("Head of Security")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/hos
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/hos
-			H.equip_or_collect(new /obj/item/weapon/gun/energy/gun(H), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/gun/energy/gun(H), slot_in_backpack)
 		if("Captain", "Blueshield")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/security/captain
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/security/captain
@@ -105,7 +106,7 @@
 		if("Medical Doctor","Brig Physician","Virologist")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical
-			H.equip_or_collect(new /obj/item/device/flashlight/pen(H), slot_in_backpack)
+			H.equip_or_collect(new /obj/item/flashlight/pen(H), slot_in_backpack)
 		if("Paramedic")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/medical/paramedic
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/medical/paramedic
@@ -148,16 +149,21 @@
 		if("Mime")
 			suit=/obj/item/clothing/suit/space/eva/plasmaman/mime
 			helm=/obj/item/clothing/head/helmet/space/eva/plasmaman/mime
-	H.equip_or_collect(new suit(H), slot_wear_suit)
-	H.equip_or_collect(new helm(H), slot_head)
-	H.equip_or_collect(new /obj/item/weapon/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
-	H.equip_or_collect(new /obj/item/weapon/plasmensuit_cartridge(H), slot_in_backpack)
-	H.equip_or_collect(new /obj/item/weapon/plasmensuit_cartridge(H), slot_in_backpack) //Two refill cartridges for their suit. Can fit in boxes.
+
+	if((H.mind.special_role == SPECIAL_ROLE_WIZARD) || (H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
+		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/wizard(H), slot_wear_suit)
+		H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/wizard(H), slot_head)
+	else
+		H.equip_or_collect(new suit(H), slot_wear_suit)
+		H.equip_or_collect(new helm(H), slot_head)
+	H.equip_or_collect(new /obj/item/tank/plasma/plasmaman(H), tank_slot) // Bigger plasma tank from Raggy.
+	H.equip_or_collect(new /obj/item/plasmensuit_cartridge(H), slot_in_backpack)
+	H.equip_or_collect(new /obj/item/plasmensuit_cartridge(H), slot_in_backpack) //Two refill cartridges for their suit. Can fit in boxes.
 	to_chat(H, "<span class='notice'>You are now running on plasma internals from the [H.s_store] in your [tank_slot_name]. You must breathe plasma in order to survive, and are extremely flammable.</span>")
 	H.internal = H.get_item_by_slot(tank_slot)
 	H.update_action_buttons_icon()
 
-/datum/species/plasmaman/handle_life(var/mob/living/carbon/human/H)
+/datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
 	if(!istype(H.wear_suit, /obj/item/clothing/suit/space/eva/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/eva/plasmaman))
 		var/datum/gas_mixture/environment = H.loc.return_air()
 		if(environment && environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Plasmamen so long as there's enough oxygen (0.5 moles, same as it takes to burn gaseous plasma).
@@ -173,7 +179,7 @@
 	H.update_fire()
 	..()
 
-/datum/species/plasmaman/handle_reagents(var/mob/living/carbon/human/H, var/datum/reagent/R)
+/datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "plasma")
 		H.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
 		H.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)

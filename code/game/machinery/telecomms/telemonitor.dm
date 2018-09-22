@@ -15,7 +15,7 @@
 	var/network = "NULL"		// the network to probe
 
 	var/temp = ""				// temporary feedback messages
-	circuit = /obj/item/weapon/circuitboard/comm_monitor
+	circuit = /obj/item/circuitboard/comm_monitor
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
@@ -123,15 +123,15 @@
 		updateUsrDialog()
 		return
 
-	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
-		if(istype(D, /obj/item/weapon/screwdriver))
+	attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+		if(istype(D, /obj/item/screwdriver))
 			playsound(src.loc, D.usesound, 50, 1)
 			if(do_after(user, 20 * D.toolspeed, target = src))
 				if(src.stat & BROKEN)
 					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					new /obj/item/weapon/shard(loc)
-					var/obj/item/weapon/circuitboard/comm_monitor/M = new /obj/item/weapon/circuitboard/comm_monitor( A )
+					new /obj/item/shard(loc)
+					var/obj/item/circuitboard/comm_monitor/M = new /obj/item/circuitboard/comm_monitor( A )
 					for(var/obj/C in src)
 						C.loc = src.loc
 					A.circuit = M
@@ -142,7 +142,7 @@
 				else
 					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 					var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-					var/obj/item/weapon/circuitboard/comm_monitor/M = new /obj/item/weapon/circuitboard/comm_monitor( A )
+					var/obj/item/circuitboard/comm_monitor/M = new /obj/item/circuitboard/comm_monitor( A )
 					for(var/obj/C in src)
 						C.loc = src.loc
 					A.circuit = M

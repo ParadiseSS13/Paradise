@@ -17,18 +17,18 @@
     return 0
 
 /obj/machinery/door/airlock/onShuttleMove()
-    . = ..()
-    if(!.)
-        return
-    addtimer(src, "close", 0, TRUE, 0, 1)
-    // Close any nearby airlocks as well
-    for(var/obj/machinery/door/airlock/D in orange(1, src))
-        addtimer(D, "close", 0, TRUE, 0, 1)
+	. = ..()
+	if(!.)
+		return
+	INVOKE_ASYNC(src, .proc/close, 0, 1)
+	// Close any nearby airlocks as well
+	for(var/obj/machinery/door/airlock/D in orange(1, src))
+		INVOKE_ASYNC(D, .proc/close, 0, 1)
 
 /obj/machinery/door/airlock/onShuttleMove()
-    . = ..()
-    if(id_tag == "s_docking_airlock")
-        addtimer(src, "lock", 0, TRUE)
+	. = ..()
+	if(id_tag == "s_docking_airlock")
+		INVOKE_ASYNC(src, .proc/lock)
 
 /mob/onShuttleMove()
     if(!move_on_shuttle)
@@ -57,7 +57,7 @@
 /obj/machinery/door/airlock/postDock(obj/docking_port/stationary/S1)
 	. = ..()
 	if(!S1.lock_shuttle_doors && id_tag == "s_docking_airlock")
-		addtimer(src, "unlock", 0, TRUE)
+		INVOKE_ASYNC(src, .proc/unlock)
 
 // Shuttle Rotation //
 /atom/proc/shuttleRotate(rotation)

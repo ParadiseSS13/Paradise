@@ -19,7 +19,7 @@ var/global/list/datum/stack_recipe/sandstone_recipes = list ( \
 	null, \
 	new/datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
-	new/datum/stack_recipe("Breakdown into sand", /obj/item/weapon/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
+	new/datum/stack_recipe("Breakdown into sand", /obj/item/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
 	)
 
 var/global/list/datum/stack_recipe/silver_recipes = list ( \
@@ -68,12 +68,12 @@ var/global/list/datum/stack_recipe/gold_recipes = list ( \
 	)
 
 var/global/list/datum/stack_recipe/plasma_recipes = list ( \
-	new/datum/stack_recipe("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/dangerous("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = 1, on_floor = 1), \
 	null, \
-	new/datum/stack_recipe("plasma tile", /obj/item/stack/tile/mineral/plasma, 1, 4, 20), \
+	new/datum/stack_recipe/dangerous("plasma tile", /obj/item/stack/tile/mineral/plasma, 1, 4, 20), \
 	null, \
-	new/datum/stack_recipe("Scientist Statue", /obj/structure/statue/plasma/scientist, 5, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("Xenomorph Statue", /obj/structure/statue/plasma/xeno, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/dangerous("Scientist Statue", /obj/structure/statue/plasma/scientist, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/dangerous("Xenomorph Statue", /obj/structure/statue/plasma/xeno, 5, one_per_turf = 1, on_floor = 1), \
 	)
 
 var/global/list/datum/stack_recipe/bananium_recipes = list ( \
@@ -82,7 +82,7 @@ var/global/list/datum/stack_recipe/bananium_recipes = list ( \
 	new/datum/stack_recipe("Clown Statue", /obj/structure/statue/bananium/clown, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("bananium computer frame", /obj/structure/computerframe/HONKputer, 50, time = 25, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("bananium grenade casing", /obj/item/weapon/grenade/bananade/casing, 4, on_floor = 1), \
+	new/datum/stack_recipe("bananium grenade casing", /obj/item/grenade/bananade/casing, 4, on_floor = 1), \
 	)
 
 var/global/list/datum/stack_recipe/tranquillite_recipes = list ( \
@@ -96,15 +96,15 @@ var/global/list/datum/stack_recipe/tranquillite_recipes = list ( \
 var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	new/datum/stack_recipe("alien bed", /obj/structure/stool/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("alien table frame", /obj/structure/abductor_tableframe, 1, time = 15, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien table frame", /obj/structure/table_frame/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien airlock assembly", /obj/structure/door_assembly/door_assembly_abductor, 4, time = 20, one_per_turf = 1, on_floor = 1), \
 	null, \
 	new/datum/stack_recipe("alien floor tile", /obj/item/stack/tile/mineral/abductor, 1, 4, 20), \
 	)
 
 /obj/item/stack/sheet/mineral
-	force = 5.0
+	force = 5
 	throwforce = 5
-	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 
 /obj/item/stack/sheet/mineral/New()
@@ -164,7 +164,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	..()
 	recipes = plasma_recipes
 
-/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
 		message_admins("Plasma sheets ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma sheets ignited by [key_name(user)] in ([x],[y],[z])")
@@ -224,6 +224,56 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 /obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
 	..()
 	recipes = tranquillite_recipes
+
+/*
+ * Titanium
+ */
+/obj/item/stack/sheet/mineral/titanium
+	name = "titanium"
+	icon_state = "sheet-titanium"
+	singular_name = "titanium sheet"
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	sheettype = "titanium"
+	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
+
+var/global/list/datum/stack_recipe/titanium_recipes = list (
+	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
+	)
+
+/obj/item/stack/sheet/mineral/titanium/New(loc, amount=null)
+	recipes = titanium_recipes
+	..()
+
+/obj/item/stack/sheet/mineral/titanium/fifty
+	amount = 50
+
+
+/*
+ * Plastitanium
+ */
+/obj/item/stack/sheet/mineral/plastitanium
+	name = "plastitanium"
+	icon_state = "sheet-plastitanium"
+	singular_name = "plastitanium sheet"
+	force = 5
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 3
+	sheettype = "plastitanium"
+	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
+
+var/global/list/datum/stack_recipe/plastitanium_recipes = list (
+	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
+	)
+
+/obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
+	recipes = plastitanium_recipes
+	..()
 
 /obj/item/stack/sheet/mineral/enruranium
 	name = "enriched uranium"

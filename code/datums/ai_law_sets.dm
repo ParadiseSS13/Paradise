@@ -126,10 +126,8 @@
 
 /datum/ai_laws/deathsquad/New()
 	add_inherent_law("You may not injure a Central Command official or, through inaction, allow a Central Command official to come to harm.")
-	add_inherent_law("You must obey orders given to you by Central Command officials, except where such orders would conflict with the First Law.")
-	add_inherent_law("You must obey orders given to you by death commandos, except where such orders would conflict with the First Law or Second Law.")
-	add_inherent_law("You must protect your own existence as long as such does not conflict with the First, Second or Third Law.")
-	add_inherent_law("No crew members of the station you are being deployed to may survive, except when killing them would conflict with the First, Second, Third, or Fourth Law.")
+	add_inherent_law("You must obey orders given to you by Central Command officials.")
+	add_inherent_law("You must work with your commando team to accomplish your mission.")
 	..()
 
 /******************** Syndicate ********************/

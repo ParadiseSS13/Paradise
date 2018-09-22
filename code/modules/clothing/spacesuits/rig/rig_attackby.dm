@@ -1,4 +1,4 @@
-/obj/item/weapon/rig/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/rig/attackby(obj/item/W as obj, mob/user as mob)
 
 	if(!istype(user,/mob/living)) return 0
 
@@ -7,7 +7,7 @@
 			return
 
 	// Pass repair items on to the chestpiece.
-	if(chest && (istype(W,/obj/item/stack) || istype(W, /obj/item/weapon/weldingtool)))
+	if(chest && (istype(W,/obj/item/stack) || istype(W, /obj/item/weldingtool)))
 		return chest.attackby(W,user)
 
 	// Lock or unlock the access panel.
@@ -30,7 +30,7 @@
 		to_chat(user, "You [locked ? "lock" : "unlock"] \the [src] access panel.")
 		return
 
-	else if(istype(W,/obj/item/weapon/crowbar))
+	else if(istype(W,/obj/item/crowbar))
 
 		if(!open && locked)
 			to_chat(user, "The access panel is locked shut.")
@@ -43,14 +43,14 @@
 	if(open)
 
 		// Hacking.
-		if(istype(W,/obj/item/weapon/wirecutters) || istype(W,/obj/item/device/multitool))
+		if(istype(W,/obj/item/wirecutters) || istype(W,/obj/item/multitool))
 			if(open)
 				wires.Interact(user)
 			else
 				to_chat(user, "You can't reach the wiring.")
 			return
 		// Air tank.
-		if(istype(W,/obj/item/weapon/tank)) //Todo, some kind of check for suits without integrated air supplies.
+		if(istype(W,/obj/item/tank)) //Todo, some kind of check for suits without integrated air supplies.
 
 			if(air_supply)
 				to_chat(user, "\The [src] already has a tank installed.")
@@ -92,7 +92,7 @@
 			update_icon()
 			return 1
 
-		else if(!cell && istype(W,/obj/item/weapon/stock_parts/cell))
+		else if(!cell && istype(W,/obj/item/stock_parts/cell))
 
 			to_chat(user, "You jack \the [W] into \the [src]'s battery mount.")
 			user.unEquip(W)
@@ -100,7 +100,7 @@
 			src.cell = W
 			return
 
-		else if(istype(W,/obj/item/weapon/wrench))
+		else if(istype(W,/obj/item/wrench))
 
 			if(!air_supply)
 				to_chat(user, "There is not tank to remove.")
@@ -114,7 +114,7 @@
 			air_supply = null
 			return
 
-		else if(istype(W,/obj/item/weapon/screwdriver))
+		else if(istype(W,/obj/item/screwdriver))
 
 			var/list/current_mounts = list()
 			if(cell) current_mounts   += "cell"
@@ -179,14 +179,14 @@
 	..()
 
 
-/obj/item/weapon/rig/attack_hand(var/mob/user)
+/obj/item/rig/attack_hand(var/mob/user)
 
 	if(electrified != 0)
 		if(shock(user)) //Handles removing charge from the cell, as well. No need to do that here.
 			return
 	..()
 
-/obj/item/weapon/rig/emag_act(var/remaining_charges, var/mob/user)
+/obj/item/rig/emag_act(var/remaining_charges, var/mob/user)
 	if(!subverted)
 		req_access.Cut()
 		req_one_access.Cut()

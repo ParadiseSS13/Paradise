@@ -1,10 +1,10 @@
-/obj/item/weapon/grenade/confetti
+/obj/item/grenade/confetti
 	name = "party grenade"
 	desc = "Party time!"
 	icon_state = "confetti"
 	var/spawner_type = /obj/effect/decal/cleanable/confetti
 
-/obj/item/weapon/grenade/confetti/prime()
+/obj/item/grenade/confetti/prime()
 	var/turf/T = get_turf(src)
 	playsound(T, 'sound/effects/confetti_partywhistle.ogg', 100, 1)
 	for(var/i in 1 to 20) //20 confettis. Yes.

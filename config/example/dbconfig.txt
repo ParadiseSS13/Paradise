@@ -9,7 +9,7 @@
 ## This value must be set to the version of the paradise schema in use.
 ## If this value does not match, the SQL database will not be loaded and an error will be generated.
 ## Roundstart will be delayed.
-DB_VERSION 1
+DB_VERSION 4
 
 ## Server the MySQL database can be found at.
 # Examples: localhost, 200.135.5.43, www.mysqldb.com, etc.
@@ -26,11 +26,11 @@ FEEDBACK_DATABASE feedback
 ## Note, this does not change the table names in the database, you will have to do that yourself.
 ## IE:
 ##	FEEDBACK_TABLEPREFIX erro_
-##	FEEDBACK_TABLEPREFIX 
+##	FEEDBACK_TABLEPREFIX
 ##	FEEDBACK_TABLEPREFIX SS13_
 ##
 ## Leave as is if you are using the standard schema file.
-FEEDBACK_TABLEPREFIX 
+FEEDBACK_TABLEPREFIX
 
 ## Username/Login used to access the database.
 FEEDBACK_LOGIN username

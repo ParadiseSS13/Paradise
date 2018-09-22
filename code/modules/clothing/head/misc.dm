@@ -14,11 +14,6 @@
 	desc = "Smells nice."
 	item_state = "hairflower"
 
-/obj/item/clothing/head/hairflower/purple
-	icon_state = "hairflowerp"
-	item_state = "hairflowerp"
-	item_state = "that"
-
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
 	desc = "A powdered wig."
@@ -227,7 +222,7 @@
 		return 1
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("[user] tips their fedora.", "You tip your fedora")
+	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora")
 
 
 /obj/item/clothing/head/fez

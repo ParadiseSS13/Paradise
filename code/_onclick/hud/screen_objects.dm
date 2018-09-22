@@ -9,12 +9,15 @@
 /obj/screen
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
-	layer = 20
+	layer = HUD_LAYER_SCREEN
 	plane = HUD_PLANE
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
+
+/obj/screen/take_damage()
+	return
 
 /obj/screen/Destroy()
 	master = null
@@ -33,8 +36,8 @@
 
 /obj/screen/close/Click()
 	if(master)
-		if(istype(master, /obj/item/weapon/storage))
-			var/obj/item/weapon/storage/S = master
+		if(istype(master, /obj/item/storage))
+			var/obj/item/storage/S = master
 			S.close(usr)
 	return 1
 
@@ -50,7 +53,7 @@
 	name = "grab"
 
 /obj/screen/grab/Click()
-	var/obj/item/weapon/grab/G = master
+	var/obj/item/grab/G = master
 	G.s_click(src)
 	return 1
 
@@ -68,17 +71,14 @@
 	if(ishuman(usr))
 		var/_x = text2num(params2list(params)["icon-x"])
 		var/_y = text2num(params2list(params)["icon-y"])
-
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
 			usr.a_intent_change(INTENT_HELP)
 		else if(_x>=17 && _y<=16)
 			usr.a_intent_change(INTENT_GRAB)
-
 		else if(_x>=17 && _y>=17)
 			usr.a_intent_change(INTENT_DISARM)
-
 	else
 		usr.a_intent_change("right")
 
@@ -93,6 +93,11 @@
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
+
+
+/obj/screen/act_intent/simple_animal
+	icon = 'icons/mob/screen_simplemob.dmi'
+	screen_loc = ui_acti
 
 /obj/screen/mov_intent/Click()
 	if(iscarbon(usr))

@@ -1,13 +1,13 @@
-obj/item/weapon/firework
+obj/item/firework
 	name = "fireworks"
 	icon = 'icons/obj/fireworks.dmi'
 	icon_state = "rocket_0"
 	var/litzor = 0
 	var/datum/effect_system/sparkle_spread/S
-obj/item/weapon/firework/attackby(obj/item/weapon/W,mob/user, params)
+obj/item/firework/attackby(obj/item/W,mob/user, params)
 	if(litzor)
 		return
-	if(istype(W, /obj/item/weapon/weldingtool) && W:welding || istype(W,/obj/item/weapon/lighter) && W:lit)
+	if(istype(W, /obj/item/weldingtool) && W:welding || istype(W,/obj/item/lighter) && W:lit)
 		for(var/mob/M in viewers(user))
 			to_chat(M, "[user] lits \the [src]")
 		litzor = 1
@@ -20,16 +20,16 @@ obj/item/weapon/firework/attackby(obj/item/weapon/W,mob/user, params)
 		S.start()
 		qdel(src)
 
-obj/item/weapon/sparkler
+obj/item/sparkler
 	name = "sparkler"
 	icon = 'icons/obj/fireworks.dmi'
 	icon_state = "sparkler_0"
 	var/litzor = 0
 	var/datum/effect_system/spark_spread/S
-obj/item/weapon/sparkler/attackby(obj/item/weapon/W,mob/user, params)
+obj/item/sparkler/attackby(obj/item/W,mob/user, params)
 	if(litzor)
 		return
-	if(istype(W, /obj/item/weapon/weldingtool) && W:welding || istype(W,/obj/item/weapon/lighter) && W:lit)
+	if(istype(W, /obj/item/weldingtool) && W:welding || istype(W,/obj/item/lighter) && W:lit)
 		for(var/mob/M in viewers(user))
 			to_chat(M, "[user] lits \the [src]")
 		litzor = 1
@@ -46,21 +46,21 @@ obj/item/weapon/sparkler/attackby(obj/item/weapon/W,mob/user, params)
 /obj/crate/fireworks
 	name = "Fireworks!"
 /obj/crate/fireworks/New()
-	new /obj/item/weapon/sparkler(src)
-	new /obj/item/weapon/sparkler(src)
-	new /obj/item/weapon/sparkler(src)
-	new /obj/item/weapon/sparkler(src)
-	new /obj/item/weapon/sparkler(src)
-	new /obj/item/weapon/sparkler(src)
-	new /obj/item/weapon/sparkler(src)
-	new /obj/item/weapon/sparkler(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
-	new /obj/item/weapon/firework(src)
+	new /obj/item/sparkler(src)
+	new /obj/item/sparkler(src)
+	new /obj/item/sparkler(src)
+	new /obj/item/sparkler(src)
+	new /obj/item/sparkler(src)
+	new /obj/item/sparkler(src)
+	new /obj/item/sparkler(src)
+	new /obj/item/sparkler(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)
+	new /obj/item/firework(src)

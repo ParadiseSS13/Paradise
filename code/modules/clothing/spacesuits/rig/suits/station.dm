@@ -10,7 +10,7 @@
 
 /obj/item/clothing/head/helmet/space/new_rig/hazard
 
-/obj/item/weapon/rig/internalaffairs
+/obj/item/rig/internalaffairs
 	name = "augmented tie"
 	suit_type = "augmented suit"
 	desc = "Prepare for paperwork."
@@ -21,7 +21,7 @@
 	offline_slowdown = 0
 	offline_vision_restriction = 0
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/briefcase,/obj/item/weapon/storage/secure/briefcase)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/briefcase,/obj/item/storage/secure/briefcase)
 
 	req_access = list()
 	req_one_access = list()
@@ -30,7 +30,7 @@
 	helm_type = null
 	boot_type = null
 
-/obj/item/weapon/rig/internalaffairs/equipped
+/obj/item/rig/internalaffairs/equipped
 
 	req_access = list(access_lawyer)
 
@@ -46,7 +46,7 @@
 	helm_type = null
 	boot_type = null
 
-/obj/item/weapon/rig/industrial
+/obj/item/rig/industrial
 	name = "industrial suit control module"
 	suit_type = "industrial hardsuit"
 	desc = "A heavy, powerful rig used by construction crews and mining corporations."
@@ -59,13 +59,13 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/industrial
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/bag/ore,/obj/item/t_scanner,/obj/item/pickaxe, /obj/item/rcd)
 
 	req_access = list()
 	req_one_access = list()
 
 
-/obj/item/weapon/rig/industrial/equipped
+/obj/item/rig/industrial/equipped
 
 	initial_modules = list(
 		/obj/item/rig_module/device/plasmacutter,
@@ -75,7 +75,7 @@
 		/obj/item/rig_module/vision/meson
 		)
 
-/obj/item/weapon/rig/eva
+/obj/item/rig/eva
 	name = "EVA suit control module"
 	suit_type = "EVA hardsuit"
 	desc = "A light rig for repairs and maintenance to the outside of habitats and vessels."
@@ -86,12 +86,12 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/eva
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/toolbox,/obj/item/weapon/storage/briefcase/inflatable,/obj/item/device/t_scanner,/obj/item/weapon/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/toolbox,/obj/item/storage/briefcase/inflatable,/obj/item/t_scanner,/obj/item/rcd)
 
 	req_access = list()
 	req_one_access = list()
 
-/obj/item/weapon/rig/eva/equipped
+/obj/item/rig/eva/equipped
 
 	initial_modules = list(
 		/obj/item/rig_module/device/plasmacutter,
@@ -101,7 +101,7 @@
 		)
 
 //Chief Engineer's rig. This is sort of a halfway point between the old hardsuits (voidsuits) and the rig class.
-/obj/item/weapon/rig/ce
+/obj/item/rig/ce
 
 	name = "advanced voidsuit control module"
 	suit_type = "advanced voidsuit"
@@ -114,7 +114,7 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/ce
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/bag/ore,/obj/item/t_scanner,/obj/item/pickaxe, /obj/item/rcd)
 
 
 	req_access = list()
@@ -123,7 +123,7 @@
 	boot_type =  null
 	glove_type = null
 
-/obj/item/weapon/rig/ce/equipped
+/obj/item/rig/ce/equipped
 
 	req_access = list(access_ce)
 
@@ -143,7 +143,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 
-/obj/item/weapon/rig/hazmat
+/obj/item/rig/hazmat
 
 	name = "AMI control module"
 	suit_type = "hazmat hardsuit"
@@ -156,12 +156,12 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/ert
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/pickaxe,/obj/item/device/healthanalyzer,/obj/item/device/gps,/obj/item/device/radio/beacon)
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/pickaxe,/obj/item/healthanalyzer,/obj/item/gps,/obj/item/radio/beacon)
 
 	req_access = list()
 	req_one_access = list()
 
-/obj/item/weapon/rig/hazmat/equipped
+/obj/item/rig/hazmat/equipped
 
 	req_access = list(access_rd)
 
@@ -169,7 +169,7 @@
 		/obj/item/rig_module/ai_container,
 		/obj/item/rig_module/maneuvering_jets)
 
-/obj/item/weapon/rig/medical
+/obj/item/rig/medical
 
 	name = "rescue suit control module"
 	suit_type = "rescue hardsuit"
@@ -181,12 +181,12 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/medical
 
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical,/obj/item/roller )
+	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/roller )
 
 	req_access = list()
 	req_one_access = list()
 
-/obj/item/weapon/rig/medical/equipped
+/obj/item/rig/medical/equipped
 
 	initial_modules = list(
 		/obj/item/rig_module/chem_dispenser/injector,
@@ -195,7 +195,7 @@
 		/obj/item/rig_module/vision/medhud
 		)
 
-/obj/item/weapon/rig/hazard
+/obj/item/rig/hazard
 	name = "hazard hardsuit control module"
 	suit_type = "hazard hardsuit"
 	desc = "A Security hardsuit designed for prolonged EVA in dangerous environments."
@@ -207,13 +207,13 @@
 
 	helm_type = /obj/item/clothing/head/helmet/space/new_rig/hazard
 
-	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
+	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank,/obj/item/melee/baton)
 
 	req_access = list()
 	req_one_access = list()
 
 
-/obj/item/weapon/rig/hazard/equipped
+/obj/item/rig/hazard/equipped
 
 	initial_modules = list(
 		/obj/item/rig_module/vision/sechud,

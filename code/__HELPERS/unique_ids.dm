@@ -16,7 +16,6 @@
 
 var/global/next_unique_datum_id = 1
 
-/datum/var/tmp/unique_datum_id = null
 /client/var/tmp/unique_datum_id = null
 
 /datum/proc/UID()

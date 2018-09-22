@@ -137,17 +137,6 @@
 		if(!locate(/obj/effect/decal/cleanable/dirt/blackpowder) in T) //let's not have hundreds of decals of black powder on the same turf
 			new /obj/effect/decal/cleanable/dirt/blackpowder(T)
 
-/*
-/datum/reagent/blackpowder/on_ex_act()
-	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(2, 1, location)
-	s.start()
-	sleep(rand(10,15))
-	blackpowder_detonate(holder, volume)
-	holder.remove_reagent("blackpowder", volume)
-	return */
-
 /datum/reagent/flash_powder
 	name = "Flash Powder"
 	id = "flash_powder"
@@ -232,7 +221,7 @@
 /datum/reagent/pyrosium
 	name = "Pyrosium"
 	id = "pyrosium"
-	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly cools all other reagents in the mob down to 0K."
+	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents."
 	color = "#B20000" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
 

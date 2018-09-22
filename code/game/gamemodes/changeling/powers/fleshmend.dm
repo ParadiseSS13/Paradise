@@ -31,7 +31,7 @@
 			by quick repeated use!</span>")
 
 	recent_uses++
-	addtimer(src, "fleshmend", 0, FALSE, user)
+	INVOKE_ASYNC(src, .proc/fleshmend, user)
 	feedback_add_details("changeling_powers","RR")
 	return TRUE
 
@@ -48,7 +48,7 @@
 			var/healpertick = -(total_healing / healing_ticks)
 			user.heal_overall_damage((-healpertick/recent_uses), (-healpertick/recent_uses))
 			user.adjustOxyLoss(healpertick/recent_uses)
-			user.blood_volume += 30
+			user.blood_volume = min(user.blood_volume + 30, BLOOD_VOLUME_NORMAL)
 			user.updatehealth()
 		else
 			break

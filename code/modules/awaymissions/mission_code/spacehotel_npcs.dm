@@ -3,8 +3,8 @@
 	override_under = /obj/item/clothing/under/mafia
 	chattyness = SNPC_CHANCE_TALK / 4
 
-/mob/living/carbon/human/interactive/away/hotel/New(loc)
-	..(loc, "Skrell")
+/mob/living/carbon/human/interactive/away/hotel/Initialize(mapload)
+	. = ..(mapload, /datum/species/skrell)
 
 /mob/living/carbon/human/interactive/away/hotel/doSetup()
 	..()
@@ -16,6 +16,20 @@
 
 /mob/living/carbon/human/interactive/away/hotel/guard/doSetup()
 	..("Guard")
+
+	// anti-pinata cheese
+	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
+	D.implant(src)
+
+	for(var/obj/item/I in get_all_slots())
+		I.flags |= NODROP
+
+/mob/living/carbon/human/interactive/away/hotel/guard/KnockOut()
+	// you'll never take me alive (this triggers the implant)
+	emote("deathgasp")
+	if(stat != DEAD)
+		// mission failed. we'll get em next time
+		..()
 
 /mob/living/carbon/human/interactive/away/hotel/chef
 	default_job = /datum/job/chef
@@ -31,17 +45,17 @@
 	away_area = /area/awaymission/spacehotel/reception
 	var/list/known_guests[0]
 	var/obj/effect/hotel_controller/hotel
-	var/obj/item/weapon/card/id/last_seen_id = null
+	var/obj/item/card/id/last_seen_id = null
 
 /mob/living/carbon/human/interactive/away/hotel/concierge/random()
 	..()
-	equip_or_collect(new /obj/item/weapon/clipboard(src), slot_l_hand)
+	equip_or_collect(new /obj/item/clipboard(src), slot_l_hand)
 
 /mob/living/carbon/human/interactive/away/hotel/concierge/doSetup()
 	..("Concierge")
 
 /mob/living/carbon/human/interactive/away/hotel/concierge/setup_job()
-	favoured_types = list(/obj/item/weapon/paper, /obj/item/weapon/clipboard)
+	favoured_types = list(/obj/item/paper, /obj/item/clipboard)
 	functions += list("stamping", "concierge")
 	restrictedJob = 1
 
@@ -69,9 +83,9 @@
 		say("Welcome to [hotel], [nouns_generic]! Please check in by [ing_verb(verbs_move)] and [ing_verb(verbs_use)] your [adjective_objects] ID onto the table.")
 		return
 
-	var/obj/item/weapon/card/id
+	var/obj/item/card/id
 	var/id_seen = 0
-	for(var/obj/item/weapon/card/id/I in get_area(src))
+	for(var/obj/item/card/id/I in get_area(src))
 		id_seen = 1
 		if(I != last_seen_id)
 			id = I
@@ -111,7 +125,7 @@
 				// Check in
 				say("$100 per 10 minutes. The cost will be automatically [past_verb(verbs_touch)] while you're checked in.")
 
-				var/obj/item/weapon/card/hotel_card/K = hotel.checkin(D.id, id_owner, id)
+				var/obj/item/card/hotel_card/K = hotel.checkin(D.id, id_owner, id)
 				if(K)
 					K.forceMove(idloc)
 				else
