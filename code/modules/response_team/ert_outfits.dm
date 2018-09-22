@@ -297,6 +297,8 @@
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
+	l_hand = /obj/item/defibrillator
+
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/ert/medical = 1,
 		/obj/item/clothing/mask/surgical = 1,
@@ -331,7 +333,8 @@
 		/obj/item/storage/firstaid/fire = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller = 1,
-		/obj/item/clothing/shoes/magboots = 1
+		/obj/item/clothing/shoes/magboots = 1,
+		/obj/item/scanner/bodyanalyzer = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
@@ -357,7 +360,7 @@
 		/obj/item/storage/box/responseteam/ = 1,
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
-		/obj/item/storage/belt/medical/response_team = 1,
+		/obj/item/storage/belt/medical/surgery/loaded = 1,
 		/obj/structure/stool/bed/roller = 1,
 		)
 
@@ -457,8 +460,19 @@
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/combat
-	suit_store = /obj/item/gun/energy/pulse/pistol
+	suit_store = /obj/item/gun/energy/gun
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner
-	r_pocket = /obj/item/grenade/clusterbuster/antiweed
+	r_pocket = /obj/item/scythe/tele
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
+	backpack_contents = list(
+		/obj/item/storage/box/responseteam/ = 1,
+		/obj/item/grenade/chem_grenade/antiweed = 2,
+		/obj/item/storage/box/lights/mixed = 1,
+		/obj/item/storage/bag/trash/bluespace = 1,
+		/obj/item/reagent_containers/spray/cleaner = 1
+	)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/arm/advmop
+	)
