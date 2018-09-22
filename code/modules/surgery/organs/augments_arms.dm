@@ -323,6 +323,6 @@
 
 /obj/item/organ/internal/cyberimp/arm/telebaton
 	name = "telebaton implant"
-	desc = "Telescopic baton implant."
+	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
 	
-	var/list/items_list = list(/obj/item/melee/classic_baton/telescopic)
+	contents = newlist(/obj/item/melee/classic_baton/telescopic)

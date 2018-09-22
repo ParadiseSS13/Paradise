@@ -652,13 +652,11 @@ REAGENT SCANNER
 	var/time_to_use = 0 // How much time remaining before next scan is available.
 	var/usecharge = 750
 
-/obj/item/bodyanalyzer/New(cell)
+/obj/item/bodyanalyzer/advanced
+	cell_type = /obj/item/stock_parts/cell/upgraded/plus
+
+/obj/item/bodyanalyzer/New()
 	..()
-	if(cell && istype(cell, /obj/item/stock_parts/cell))
-		power_supply = new cell(src)
-	else
-		power_supply = new cell_type(src)
-	power_supply.give(power_supply.maxcharge)
 	update_icon()
 
 /obj/item/bodyanalyzer/proc/setReady()

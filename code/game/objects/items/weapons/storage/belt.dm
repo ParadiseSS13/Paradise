@@ -210,6 +210,13 @@
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
+/obj/item/storage/belt/security/response_team/gamma/New()
+	new /obj/item/melee/classic_baton(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/flash(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/grenade/flashbang(src)
+	
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
