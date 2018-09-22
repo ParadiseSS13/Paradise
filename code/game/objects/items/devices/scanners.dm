@@ -657,6 +657,8 @@ REAGENT SCANNER
 
 /obj/item/bodyanalyzer/New()
 	..()
+	power_supply = new cell_type(src)
+	power_supply.give(power_supply.maxcharge)
 	update_icon()
 
 /obj/item/bodyanalyzer/proc/setReady()

@@ -80,15 +80,12 @@
 	name = "RT Commander (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander/gamma
 	glasses = /obj/item/clothing/glasses/night
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
 
-	belt = /obj/item/gun/projectile/automatic/pistol/enforcer
-
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam/ = 1,
-		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
+		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
@@ -102,6 +99,10 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stun,
 		/obj/item/organ/internal/cyberimp/arm/flash
 	)
+
+/datum/outfit/job/centcomm/response_team/commander/gamma/pre_equip()
+	var/gun = new /obj/item/gun/projectile/automatic/pistol/enforcer {mag_type = /obj/item/ammo_box/magazine/m45/enforcer45/lethal}
+	belt = gun
 
 //////////////////// SECURITY ///////////////////
 
@@ -163,7 +164,7 @@
 	has_grenades = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/security/gamma
 	belt = /obj/item/storage/belt/security/response_team/gamma
 	suit_store = /obj/item/gun/energy/gun/nuclear
 	glasses = /obj/item/clothing/glasses/night
@@ -173,11 +174,10 @@
 	r_hand = /obj/item/gun/energy/immolator/multi
 
 	backpack_contents = list(
-		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
+		/obj/item/clothing/head/helmet/space/hardsuit/ert/security/gamma = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/flashbangs = 1,
-		/obj/item/storage/box/responseteam/ = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/storage/lockbox/t4 = 1,
 	)
@@ -250,7 +250,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/color/yellow
 	belt = /obj/item/storage/belt/utility/chief/full
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
 	glasses = /obj/item/clothing/glasses/meson/night
 
@@ -258,11 +258,10 @@
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
-		/obj/item/clothing/head/helmet/space/hardsuit/ert/engineer = 1,
+		/obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 3,
-		/obj/item/storage/box/responseteam/ = 1
 	)
 
 	cybernetic_implants = list(
@@ -334,14 +333,14 @@
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller = 1,
 		/obj/item/clothing/shoes/magboots = 1,
-		/obj/item/scanner/bodyanalyzer = 1
+		/obj/item/bodyanalyzer = 1
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
 	name = "RT Medic (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
 	glasses = /obj/item/clothing/glasses/night
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
 	cybernetic_implants = list(
@@ -353,15 +352,13 @@
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
 
-	r_hand = /obj/item/gun/medbeam
 	backpack_contents = list(
-		/obj/item/clothing/head/helmet/space/hardsuit/ert/medical = 1,
+		/obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
-		/obj/item/storage/box/responseteam/ = 1,
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/storage/belt/medical/surgery/loaded = 1,
-		/obj/structure/stool/bed/roller = 1,
+		/obj/item/roller = 1,
 		)
 
 	cybernetic_implants = list(
@@ -456,8 +453,7 @@
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
-	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
-	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	gloves = /obj/item/clothing/gloves/combat
 	suit_store = /obj/item/gun/energy/gun
@@ -466,7 +462,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam/ = 1,
+		/obj/item/clothing/head/helmet/space/hardsuit/ert/janitor/gamma = 1,
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/storage/bag/trash/bluespace = 1,
