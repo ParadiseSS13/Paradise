@@ -708,13 +708,13 @@
 
 
 
-	if(NO_BLOOD in H.dna.species.species_traits)
-		return
+	if(NO_BLOOD in H.dna.species.species_traits)//Does the run over mob have blood?
+		return//If it doesn't it shouldn't bleed (Though a check should be made eventually for things with liquid in them, like slime people, vox armalis, etc.)
 	else
-		var/turf/T = get_turf(src)
-	H.add_mob_blood(H)
-	H.add_splatter_floor(T)
-	bloodiness += 4
+		var/turf/T = get_turf(src)//Where are we?
+		H.add_mob_blood(H)//Cover the victim in their own blood.
+		H.add_splatter_floor(T)//Put the blood where we are.
+		bloodiness += 4
 
 	var/list/blood_dna = H.get_blood_dna_list()
 	if(blood_dna)
