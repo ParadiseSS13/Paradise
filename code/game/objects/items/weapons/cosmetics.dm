@@ -12,8 +12,11 @@
 	colour = "purple"
 
 /obj/item/lipstick/jade
-	//It's still called Jade, but theres no HTML color for jade, so we use lime.
 	name = "jade lipstick"
+	colour = "#216F43"
+
+/obj/item/lipstick/lime
+	name = "lime lipstick"
 	colour = "lime"
 
 /obj/item/lipstick/black
