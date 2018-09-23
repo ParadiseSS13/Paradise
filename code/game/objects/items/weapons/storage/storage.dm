@@ -557,3 +557,6 @@
 		else
 			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 	..()
+
+/obj/item/storage/AllowDrop()
+	return TRUE

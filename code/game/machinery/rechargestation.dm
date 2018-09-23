@@ -109,8 +109,8 @@
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
 	move_inside(AM)
 
-/obj/machinery/recharge_station/allow_drop()
-	return 0
+/obj/machinery/recharge_station/AllowDrop()
+	return FALSE
 
 /obj/machinery/recharge_station/relaymove(mob/user as mob)
 	if(user.stat)

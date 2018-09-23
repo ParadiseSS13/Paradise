@@ -103,8 +103,8 @@
 	for(var/obj/item/stock_parts/micro_laser/P in component_parts)
 		damage_coeff = P.rating
 
-/obj/machinery/dna_scannernew/allow_drop()
-	return 0
+/obj/machinery/dna_scannernew/AllowDrop()
+	return FALSE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
 	if(user.stat)
