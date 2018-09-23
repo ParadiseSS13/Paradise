@@ -706,10 +706,14 @@
 	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", "melee"))
 
 
-	var/turf/T = get_turf(src)
+
+
+	if(NO_BLOOD in H.dna.species.species_traits)
+		return
+	else
+		var/turf/T = get_turf(src)
 	H.add_mob_blood(H)
 	H.add_splatter_floor(T)
-
 	bloodiness += 4
 
 	var/list/blood_dna = H.get_blood_dna_list()
