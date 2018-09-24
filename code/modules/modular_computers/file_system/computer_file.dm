@@ -43,9 +43,8 @@ var/global/file_uid = 0
 /datum/computer_file/proc/can_access_file(var/mob/user, input_password = "")
 	if(!password)
 		return TRUE
-	else
-		if (!input_password)
-			input_password = sanitize(input(user, "Please enter a password to access file '[filename]':"))
+	else if(!input_password)
+		input_password = sanitize(input(user, "Please enter a password to access file '[filename]':"))
 	if (input_password == password)
 		return TRUE
 	else
