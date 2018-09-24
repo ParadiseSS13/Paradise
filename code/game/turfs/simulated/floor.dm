@@ -25,6 +25,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	var/lava = 0
 	var/broken = 0
 	var/burnt = 0
+	var/current_overlay = null
 	var/floor_tile = null //tile that this floor drops
 	var/obj/item/stack/tile/builtin_tile = null //needed for performance reasons when the singularity rips off floor tiles
 	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
@@ -89,6 +90,9 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 /turf/simulated/floor/proc/update_icon()
 	if(air)
 		update_visuals()
+	overlays.Cut(current_overlay)
+	if (current_overlay)
+		overlays.Add(current_overlay)
 	return 1
 
 /turf/simulated/floor/proc/gets_drilled()
@@ -101,17 +105,19 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 /turf/simulated/floor/proc/break_tile()
 	if(broken)
 		return
-	icon_state = pick(broken_states)
+	current_overlay = pick(broken_states)
 	broken = 1
+	update_icon()
 
 /turf/simulated/floor/burn_tile()
 	if(broken || burnt)
 		return
 	if(burnt_states.len)
-		icon_state = pick(burnt_states)
+		current_overlay = pick(burnt_states)
 	else
-		icon_state = pick(broken_states)
+		current_overlay = pick(broken_states)
 	burnt = 1
+	update_icon()
 
 /turf/simulated/floor/proc/make_plating()
 	return ChangeTurf(/turf/simulated/floor/plating)
@@ -187,6 +193,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	if(broken || burnt)
 		broken = 0
 		burnt = 0
+		current_overlay = null
 		if(user && !silent)
 			to_chat(user, "<span class='danger'>You remove the broken plating.</span>")
 	else
