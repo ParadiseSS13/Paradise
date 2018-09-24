@@ -1,0 +1,4 @@
+author: "Triiodine, Desolate,"
+delete-after: True
+changes: 
+  - bugfix: "Things without blood bleeding red when rolled over by a mulebot."
