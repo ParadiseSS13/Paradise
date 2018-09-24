@@ -272,7 +272,6 @@
 				var/obj/item/reagent_containers/food/condiment/P = new/obj/item/reagent_containers/food/condiment(loc)
 				reagents.trans_to(P,50)
 		else if(href_list["change_pill"])
-			#define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
 			var/dat = "<table>"
 			var/j = 0
 			for(var/i = 1 to MAX_PILL_SPRITE)
