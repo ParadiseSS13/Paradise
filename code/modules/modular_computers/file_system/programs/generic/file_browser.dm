@@ -55,7 +55,8 @@
 					"name" = F.filename,
 					"type" = F.filetype,
 					"size" = F.size,
-					"undeletable" = F.undeletable
+					"undeletable" = F.undeletable,
+					"encrypted" = !!F.password
 				)))
 			data["files"] = files
 			if(RHDD)
@@ -66,7 +67,8 @@
 						"name" = F.filename,
 						"type" = F.filetype,
 						"size" = F.size,
-						"undeletable" = F.undeletable
+						"undeletable" = F.undeletable,
+						"encrypted" = !!F.password
 					)))
 				data["usbfiles"] = usbfiles
 
@@ -83,7 +85,13 @@
 	switch(href_list["action"])
 		if("PRG_openfile")
 			. = 1
-			open_file = href_list["name"]
+			var/datum/computer_file/F = HDD.find_file_by_name(href_list["PRG_openfile"])
+			if (!F)
+				return
+			if (F.can_access_file(usr))
+				open_file = href_list["PRG_openfile"]
+			else
+				return
 		if("PRG_newtextfile")
 			. = 1
 			var/newname = stripped_input(usr, "Enter file name or leave blank to cancel:", "File rename", max_length=50)
@@ -198,3 +206,22 @@
 				return 1
 			var/datum/computer_file/C = F.clone(0)
 			HDD.store_file(C)
+		if("PRG_encrypt")
+			. = 1
+			if(!HDD)
+				return 1
+			var/datum/computer_file/F = HDD.find_file_by_name(href_list["name"])
+			if(!F || F.undeletable)
+				return 1
+			if(F.password)
+				return
+			F.password = sanitize(input(usr, "Enter an encryption key:", "Encrypt File"))
+		if("PRG_decrypt")
+			. = 1
+			if(!HDD)
+				return 1
+			var/datum/computer_file/F = HDD.find_file_by_name(href_list["name"])
+			if(!F || F.undeletable)
+				return 1
+			if(F.can_access_file(usr))
+				F.password = ""
