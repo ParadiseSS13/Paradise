@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - tweak: "One-click-antag now respects game-mode's protected jobs."
