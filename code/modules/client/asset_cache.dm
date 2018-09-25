@@ -299,7 +299,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 	var/verify = FALSE
 
 /datum/asset/chem_master/register()
-	for(var/i = 1 to 20)
+	for(var/i = 1 to MAX_PILL_SPRITE)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
 	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")

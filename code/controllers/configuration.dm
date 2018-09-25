@@ -84,7 +84,10 @@
 	var/wikiurl = "http://example.org"
 	var/forumurl = "http://example.org"
 	var/rulesurl = "http://example.org"
+	// Hispania Configs
 	var/discordurl = "http://example.org"
+	var/ryzorbot = "http://example.org"
+
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
@@ -394,6 +397,9 @@
 
 				if("discordurl")
 					config.discordurl = value
+
+				if("ryzorbot")
+					config.ryzorbot = value
 
 				if("guest_jobban")
 					config.guest_jobban = 1

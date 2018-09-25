@@ -1666,9 +1666,15 @@ window "rpane"
 		size = 70x20
 		text = "Wiki"
 		command = "wiki"
-	elem "forumb"
+	elem "changelog"
 		type = BUTTON
 		pos = 225,0
+		size = 70x20	
+		text = "Changelog"	
+		command = "Changelog"
+	elem "forumb"
+		type = BUTTON
+		pos = 300,0
 		size = 70x20
 		background-color = #FFA500
 		text-color = #FFFFFF
@@ -1677,7 +1683,7 @@ window "rpane"
 		command = "forum"
 	elem "rulesb"
 		type = BUTTON
-		pos = 300,0
+		pos = 375,0
 		size = 70x20
 		background-color = #FF0000
 		text-color = #FFFFFF
@@ -1686,7 +1692,7 @@ window "rpane"
 		command = "rules"
 	elem "discordb"
 		type = BUTTON
-		pos = 375,0
+		pos = 450,0
 		size = 70x20
 		background-color = #7289DA
 		text-color = #FFFFFF
@@ -1695,7 +1701,7 @@ window "rpane"
 		command = "discord"
 	elem "browseb"
 		type = BUTTON
-		pos = 561,0
+		pos = 560,0
 		size = 70x20
 		is-visible = false
 		saved-params = "is-checked"
