@@ -68,8 +68,8 @@
 
 		var/list/antags = client.prefs.be_special
 		if(antags && antags.len)
-			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidancy</A>"
-			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidancy</A>"
+			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 			output += "<br /><small>You are <b>[skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
