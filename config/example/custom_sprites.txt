@@ -1,5 +1,7 @@
 Each entry should be composed of 2 parts, divided by a colon (:) with no spaces, in order to work. Failure to do so will result in that entry being disregarded by the code.
-- The first part should be either "cyborg", "ai", "hologram", "pai", or "drone". This tells the code what type of custom sprite this entry is for. The "ai" option is for AI core displays, while "hologram" is for AI hologram projections.
+- The first part should be either "cyborg", "ai", "hologram", "pai", "drone", or "screen". This tells the code what type of custom sprite this entry is for. The "ai" option is for AI core displays, while "hologram" is for AI hologram projections.
 - The second part should be the ckey of the player this entry is for. This tells the code who it works for and also is used to retrieve the proper sprite for them to use.
+- If the entry is a custom screen, it will need a 3rd part which is the screen name. This tells the code which screen to use, as well allows for someone to have more then one custom screen.
+
 
 example:example

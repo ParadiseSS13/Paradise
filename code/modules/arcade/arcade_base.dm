@@ -111,14 +111,8 @@
 		if(!customer_account)
 			to_chat(user, "Unable to access account: incorrect credentials.")
 			return 0
-
-	if(token_price > customer_account.money)
-		to_chat(user, "Insufficient funds in account.")
-		return 0
-	else
-		// Okay to move the money at this point
-
-		customer_account.charge(token_price, null, "Purchase of [name] credit", name, name)
+	
+	return customer_account.charge(token_price, null, "Purchase of [name] credit", name, name)
 
 /obj/machinery/arcade/proc/start_play(mob/user as mob)
 	user.set_machine(src)

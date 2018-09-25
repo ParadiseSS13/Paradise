@@ -546,7 +546,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
-		var/new_name = sanitize(copytext(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null,1,MAX_NAME_LEN))
+		var/new_name = reject_bad_name(sanitize(copytext(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null,1,MAX_NAME_LEN)))
 		if( !new_name || !M )	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -1215,8 +1215,8 @@
 			return
 
 		switch(Text)
-			if("brute")	L.adjustBruteLoss(amount)
-			if("fire")	L.adjustFireLoss(amount)
+			if("brute")	L.adjustBruteLoss(amount, robotic=1)
+			if("fire")	L.adjustFireLoss(amount, robotic=1)
 			if("toxin")	L.adjustToxLoss(amount)
 			if("oxygen")L.adjustOxyLoss(amount)
 			if("brain")	L.adjustBrainLoss(amount)
