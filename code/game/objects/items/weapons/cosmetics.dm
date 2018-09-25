@@ -6,49 +6,51 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/colour = "red"
 	var/open = 0
-	var/stickprefix = "red"
+	var/list/lipstick_colors = list(
+		"purple" = "purple",
+		"jade" = "#216F43",
+		"lime" = "lime",
+		"black" = "black",
+		"green" = "green",
+		"blue" = "blue",
+		"white" = "white")
+
 
 /obj/item/lipstick/purple
 	name = "purple lipstick"
 	colour = "purple"
-	stickprefix = "purple"
 
 /obj/item/lipstick/jade
 	name = "jade lipstick"
 	colour = "#216F43"
-	stickprefix = "jade"
 
 /obj/item/lipstick/lime
 	name = "lime lipstick"
 	colour = "lime"
-	stickprefix = "lime"
 
 /obj/item/lipstick/black
 	name = "black lipstick"
 	colour = "black"
-	stickprefix = "black"
 
 /obj/item/lipstick/green
 	name = "green lipstick"
 	colour = "green"
-	stickprefix = "green"
 
 /obj/item/lipstick/blue
 	name = "blue lipstick"
 	colour = "blue"
-	stickprefix = "blue"
 
 /obj/item/lipstick/white
 	name = "white lipstick"
 	colour = "white"
-	stickprefix = "white"
 
 /obj/item/lipstick/random
 	name = "lipstick"
 
 /obj/item/lipstick/random/New()
-	colour = pick("red","purple","lime","black","green","blue","white","#216F43")
-	name = "[stickprefix] lipstick"
+	var/lscolor = pick(lipstick_colors)
+	colour = lipstick_colors[lscolor]
+	name = "[lscolor] lipstick"
 
 
 /obj/item/lipstick/attack_self(mob/user as mob)
