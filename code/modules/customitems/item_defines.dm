@@ -945,13 +945,21 @@
 	flags_inv = HIDEEARS
 
 //////////// Uniforms ////////////
+/obj/item/clothing/under/fluff/benjaminfallout // Benjaminfallout: Pretzel Brassheart
+	icon = 'icons/obj/custom_items.dmi'
+	name = "Pretzel's dress"
+	desc = "A nice looking dress"
+	icon_state = "fallout_dress"
+	item_state = "fallout_dress"
+	item_color = "fallout_dress"
+
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
-    icon = 'icons/obj/custom_items.dmi'
-    name = "Soviet Casual Uniform"
-    desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
-    icon_state = "soviet_casual_uniform"
-    item_state = "soviet_casual_uniform"
-    item_color = "soviet_casual_uniform"
+	icon = 'icons/obj/custom_items.dmi'
+	name = "Soviet Casual Uniform"
+	desc = "Female U.S.S.P. casual wear. Dlya Rodiny!"
+	icon_state = "soviet_casual_uniform"
+	item_state = "soviet_casual_uniform"
+	item_color = "soviet_casual_uniform"
 
 /obj/item/clothing/under/fluff/kharshai // Kharshai: Athena Castile
 	name = "Castile formal outfit"
@@ -1386,4 +1394,13 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
+	slot_flags = SLOT_TIE
+
+/obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
+	name = "Zxiax Garnet"
+	desc = "Green Garnet on fancy blue cord, when you look at the Garnet, you feel strangely appeased."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "Xann_necklace"
+	item_state = "Xann_necklace"
+	item_color = "Xann_necklace"
 	slot_flags = SLOT_TIE

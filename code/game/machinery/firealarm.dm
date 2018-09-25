@@ -70,7 +70,7 @@ FIRE ALARM
 /obj/machinery/firealarm/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 
-	if(iswirecutter(I) && buildstage == 2)
+	if(isscrewdriver(I) && buildstage == 2)
 		wiresexposed = !wiresexposed
 		update_icon()
 		return
