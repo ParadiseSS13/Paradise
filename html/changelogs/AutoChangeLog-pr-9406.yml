@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "adds support for 128x128 skin interface pixel size for 4K monitors"
