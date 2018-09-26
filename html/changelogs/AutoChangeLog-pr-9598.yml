@@ -1,0 +1,4 @@
+author: "DesolateG"
+delete-after: True
+changes: 
+  - bugfix: "Added a check to whispering adverbs to prevent double adverbs while whispering."
