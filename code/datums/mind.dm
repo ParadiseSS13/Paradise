@@ -479,10 +479,11 @@
 		message_admins("[key_name_admin(usr)] has changed [key_name_admin(current)]'s assigned role to [assigned_role]")
 
 	else if(href_list["memory_edit"])
-		var/new_memo = copytext(input("Write new memory", "Memory", memory) as null|message,1,MAX_MESSAGE_LEN)
-		if(isnull(new_memo))
+		var/messageinput = input("Write new memory", "Memory", memory) as null|message
+		if(isnull(messageinput))
 			return
-		var/confirmed = alert(usr, "Are you sure?", "Edit Memory", "Yes", "No")
+		var/new_memo = copytext(messageinput, 1,MAX_MESSAGE_LEN)
+		var/confirmed = alert(usr, "Are you sure you want to edit their memory? It will wipe out their original memory!", "Edit Memory", "Yes", "No")
 		if(confirmed == "Yes") // Because it is too easy to accidentally wipe someone's memory
 			memory = new_memo
 			log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
@@ -1349,7 +1350,7 @@
 		special_role = SPECIAL_ROLE_VAMPIRE
 		ticker.mode.forge_vampire_objectives(src)
 		ticker.mode.greet_vampire(src)
-		ticker.mode.update_change_icons_added(src)
+		ticker.mode.update_vampire_icons_added(src)
 
 /datum/mind/proc/make_Changeling()
 	if(!(src in ticker.mode.changelings))

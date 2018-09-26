@@ -207,7 +207,7 @@ var/list/alldepartments = list()
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(scan)

@@ -6,8 +6,8 @@
 /mob/living/silicon/robot/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
 	if(..())
 		return 1
-	used_radios += radio
 	if(message_mode)
+		used_radios += radio
 		if(!is_component_functioning("radio"))
 			to_chat(src, "<span class='warning'>Your radio isn't functional at this time.</span>")
 			return 0
@@ -18,10 +18,11 @@
 /mob/living/silicon/ai/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
 	if(..())
 		return 1
-	used_radios += aiRadio
 	if(message_mode == "department")
+		used_radios += aiRadio
 		return holopad_talk(message, verb, speaking)
 	else if(message_mode)
+		used_radios += aiRadio
 		if(aiRadio.disabledAi || aiRestorePowerRoutine || stat)
 			to_chat(src, "<span class='danger'>System Error - Transceiver Disabled.</span>")
 			return 0
