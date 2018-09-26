@@ -1,0 +1,5 @@
+author: "alex-gh"
+delete-after: True
+changes: 
+  - bugfix: "Drask no longer take damage from cryokinesis"
+  - tweak: "Cryokinesis deals less damage, but lowers the body temperature a lot more."
