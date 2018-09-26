@@ -1,0 +1,4 @@
+author: "Ty-Omaha"
+delete-after: True
+changes: 
+  - bugfix: "Fixes vending machine bank account security. You can now use them with a bank account security level above zero."
