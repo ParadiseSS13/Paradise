@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - bugfix: "Atmospherics external airlocks can now be controlled by borgs and AIs"
