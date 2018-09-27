@@ -1,0 +1,5 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - bugfix: "NT Formal clothing now updates to the station names correctly."
+  - spellcheck: "Fixes typos in NT Formal clothing"
