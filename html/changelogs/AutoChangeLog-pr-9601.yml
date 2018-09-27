@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "drop_location & AllowDrop() has been ported over from tg. Report unexpected issues with dropping items."
