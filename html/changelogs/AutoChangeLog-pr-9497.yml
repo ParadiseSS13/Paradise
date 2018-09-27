@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "Non-human's DNA (Except for IPC, of course) should show up properly in the DNA modifier now."
