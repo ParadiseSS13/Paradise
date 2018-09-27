@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - tweak: "use_power variable is more clearly defined as non-boolean via defines."
