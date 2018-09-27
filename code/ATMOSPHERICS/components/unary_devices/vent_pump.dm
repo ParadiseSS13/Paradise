@@ -381,6 +381,8 @@
 	if(!welded)
 		if(open)
 			for(var/obj/item/W in src)
+				if(istype(W, /obj/item/pipe))
+					continue
 				W.forceMove(get_turf(src))
 
 
