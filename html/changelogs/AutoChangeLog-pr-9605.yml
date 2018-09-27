@@ -1,0 +1,4 @@
+author: "Triiodine"
+delete-after: True
+changes: 
+  - bugfix: "righthand fork sprite being oriented wrong."
