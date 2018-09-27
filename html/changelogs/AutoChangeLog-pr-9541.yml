@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - bugfix: "Blobs now delete light fixtures correctly."
