@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - tweak: "You can remove notes from an airlock now with the grab intent using an empty hand."
