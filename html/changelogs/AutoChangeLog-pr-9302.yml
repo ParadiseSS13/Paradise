@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Refactored shieldgen.dm, fixed a bug which could cause shieldgens to behave improperly under some rare conditions."
