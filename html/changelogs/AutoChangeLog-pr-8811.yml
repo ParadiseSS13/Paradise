@@ -1,0 +1,7 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - rscadd: "Adds mixing bowls, which allow you to cook multiple recipes at the same time! The dinnerware vendor comes pre-stocked with 10!"
+  - rscadd: "Adds 2 mixing bowls to the Food Crate from cargo should you need additional. This is the same crate that includes the extra bottle of enzymes."
+  - tweak: "Burned messes now scale their carbon and \"????\" content with both physical ingredients and directly inserted reagents while burning in the cooking machines."
+  - tweak: "Upgraded cooking machines now attempt to evenly distribute reagents from ingredients across all produced results, rather than just the original."
