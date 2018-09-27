@@ -129,7 +129,7 @@
 
 /obj/item/storage/bag/ore
 	name = "mining satchel"
-	desc = "This little bugger can be used to store and transport ores."
+	desc = "A rugged, if limited space satchel for ore transport."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
@@ -162,6 +162,7 @@
 
 /obj/item/storage/bag/plants
 	name = "plant bag"
+	desc = "A large sack for moving around anything and everything a botanist can and could make, namely: plants."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "plantbag"
 	storage_slots = 100 //the number of plant pieces it can carry.
@@ -173,7 +174,7 @@
 
 /obj/item/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
-	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
+	desc = "A handheld seed extractor that can, by its namesake, extract seeds from the inserted contents."
 	icon_state = "portaseeder"
 	origin_tech = "biotech=3;engineering=2"
 
@@ -355,7 +356,7 @@
 
 /obj/item/storage/bag/books
 	name = "book bag"
-	desc = "A bag for books."
+	desc = "A bag of books, and by extension, the deepest lore and knowledge of all things. Ever."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bookbag"
 	display_contents_with_number = 0 //This would look really stupid otherwise
@@ -479,10 +480,10 @@
  */
 
 /obj/item/storage/bag/bio
-	name = "bio bag"
+	name = "bio box"
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "biobag"
-	desc = "A bag for the safe transportation and disposal of biowaste and other biological materials."
+	desc = "A plastic box for the safe transportation and disposal of biowaste and other biological materials."
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
