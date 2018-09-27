@@ -202,6 +202,14 @@
 	category = "Mobility"
 	cost = 1
 
+/datum/spellbook_entry/greaterknock
+	name = "Greater Knock"
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock/greater
+	log_name = "GK"
+	category = "Mobility"
+	cost = 2
+	refundable = 0 //global effect on cast
+
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	spell_type = /obj/effect/proc_holder/spell/targeted/touch/flesh_to_stone
