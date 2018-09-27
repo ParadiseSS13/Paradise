@@ -601,8 +601,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	my_target = T
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, src), 300)
 	step_away(src,my_target,2)
-	addtimer(CALLBACK(src, .proc/attack_loop))
-
+	INVOKE_ASYNC(src, .proc/attack_loop)
 
 /obj/effect/fake_attacker/proc/updateimage()
 //	qdel(src.currentimage)
