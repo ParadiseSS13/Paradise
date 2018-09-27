@@ -1,0 +1,4 @@
+author: "CornMyCob"
+delete-after: True
+changes: 
+  - tweak: "Adds in a prompt for becoming a headslug."
