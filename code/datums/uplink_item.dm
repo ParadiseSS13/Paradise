@@ -1425,7 +1425,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
-	var/obj/structure/closet/crate/C = new(loc)
+	var/obj/structure/closet/crate/suspicious/C = new(loc)
 	var/list/temp_uplink_list = get_uplink_items()
 	var/list/buyable_items = list()
 	for(var/category in temp_uplink_list)
