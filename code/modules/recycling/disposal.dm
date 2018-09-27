@@ -761,11 +761,16 @@
 	if(T.intact && istype(T,/turf/simulated/floor)) //intact floor, pop the tile
 		var/turf/simulated/floor/F = T
 		//F.health	= 100
-		F.burnt	= 1
-		F.intact	= 0
-		F.levelupdate()
-		new /obj/item/stack/tile(H)	// add to holder so it will be thrown with other stuff
-		F.icon_state = "Floor[F.burnt ? "1" : ""]"
+		//F.burnt	= 0
+		//F.intact	= 0
+		//F.levelupdate()
+		
+		
+		new F.builtin_tile.type(H)
+		F.remove_tile(null,TRUE,FALSE)
+		
+		//new /obj/item/stack/tile(H)	// add to holder so it will be thrown with other stuff
+		//F.icon_state = "Floor[F.burnt ? "1" : ""]"
 
 	if(direction)		// direction is specified
 		if(istype(T, /turf/space)) // if ended in space, then range is unlimited
