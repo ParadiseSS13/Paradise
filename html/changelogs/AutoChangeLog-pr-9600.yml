@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - tweak: "When you late join, extra items you can't equip / hold spawn on the ground instead of in the lobby screen. Including vox medkit etc."

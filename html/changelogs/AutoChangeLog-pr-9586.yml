@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Capitalisation correction in automated chef npcs"

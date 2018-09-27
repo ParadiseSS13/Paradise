@@ -1,4 +1,0 @@
-author: "Anasari"
-delete-after: True
-changes: 
-  - rscadd: "You can now deconstruct a fire extinguisher cabinet to yield a single piece of metal. You can construct them for five pieces of metal, with extinguisher included. (Using metal construction menu)"
