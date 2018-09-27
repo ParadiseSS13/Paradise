@@ -185,7 +185,7 @@
 	set name = "Destroy RCDs"
 	set desc = "Detonate all RCDs on the station, while sparing onboard cyborg RCDs."
 
-	if(stat || malf_cooldown)
+	if(stat || malf_cooldown > world.time)
 		return
 
 	for(var/obj/item/rcd/RCD in rcd_list)
@@ -193,9 +193,7 @@
 			RCD.detonate_pulse()
 
 	to_chat(src, "<span class='danger'>RCD detonation pulse emitted.</span>")
-	malf_cooldown = 1
-	spawn(100)
-		malf_cooldown = 0
+	malf_cooldown = world.time + 100
 
 
 /datum/AI_Module/large/mecha_domination
@@ -454,7 +452,7 @@
 	set name = "Reactivate Cameranet"
 	set category = "Malfunction"
 
-	if(stat || malf_cooldown)
+	if(stat || malf_cooldown > world.time)
 		return
 	var/fixedcams = 0 //Tells the AI how many cams it fixed. Stats are fun.
 
@@ -477,9 +475,7 @@
 				break
 	to_chat(src, "<span class='notice'>Diagnostic complete! Operations completed: [fixedcams].</span>")
 
-	malf_cooldown = 1
-	spawn(30) //Lag protection
-		malf_cooldown = 0
+	malf_cooldown = world.time + 30
 
 
 /datum/AI_Module/large/upgrade_cameras
