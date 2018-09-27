@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Plasmaman no longer get double the firepower when spawning in as Captain, BS, or sec roles."

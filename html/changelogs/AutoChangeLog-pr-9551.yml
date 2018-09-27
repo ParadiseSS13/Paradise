@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Holopads now use the correct amount of power."
