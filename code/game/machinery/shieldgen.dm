@@ -322,7 +322,7 @@
 		var/obj/structure/cable/attached		// the attached cable
 		var/storedpower = 0
 		flags = CONDUCT
-		use_power = 0
+		use_power = NO_POWER_USE
 
 /obj/machinery/shieldwallgen/proc/power()
 	if(!anchored)
