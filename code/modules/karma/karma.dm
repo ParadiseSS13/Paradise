@@ -295,7 +295,7 @@ var/list/karma_spenders = list()
 	if(!dbckey)
 		query = dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, job) VALUES ('[usr.ckey]','[job]')")
 		if(!query.Execute())
-			queryErrorLogKey(query.ErrorMsg())
+			queryErrorLog(query.ErrorMsg(),"adding new key")
 			return
 		else
 			to_chat(usr, "You have unlocked [job].")
@@ -309,7 +309,7 @@ var/list/karma_spenders = list()
 			var/newjoblist = jointext(joblist,",")
 			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET job='[newjoblist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
-				queryErrorLogEntry(query.ErrorMsg())
+				queryErrorLog(query.ErrorMsg(),"updating existing entry")
 				return
 			else
 				to_chat(usr, "You have unlocked [job].")
@@ -331,7 +331,7 @@ var/list/karma_spenders = list()
 	if(!dbckey)
 		query = dbcon.NewQuery("INSERT INTO [format_table_name("whitelist")] (ckey, species) VALUES ('[usr.ckey]','[species]')")
 		if(!query.Execute())
-			queryErrorLogKey(query.ErrorMsg())
+			queryErrorLog(query.ErrorMsg(),"adding new key")
 			return
 		else
 			to_chat(usr, "You have unlocked [species].")
@@ -345,7 +345,7 @@ var/list/karma_spenders = list()
 			var/newspecieslist = jointext(specieslist,",")
 			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET species='[newspecieslist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
-				queryErrorLogEntry(query.ErrorMsg())
+				queryErrorLog(query.ErrorMsg(),"updating existing entry")
 				return
 			else
 				to_chat(usr, "You have unlocked [species].")
@@ -367,7 +367,7 @@ var/list/karma_spenders = list()
 			spent += cost
 		query = dbcon.NewQuery("UPDATE [format_table_name("karmatotals")] SET karmaspent=[spent] WHERE byondkey='[usr.ckey]'")
 		if(!query.Execute())
-			queryErrorLogEntry(query.ErrorMsg())
+			queryErrorLog(query.ErrorMsg(),"updating existing entry")
 			return
 		else
 			to_chat(usr, "You have been [refund ? "refunded" : "charged"] [cost] karma.")
@@ -411,7 +411,7 @@ var/list/karma_spenders = list()
 			var/newtypelist = jointext(typelist,",")
 			query = dbcon.NewQuery("UPDATE [format_table_name("whitelist")] SET [type]='[newtypelist]' WHERE ckey='[dbckey]'")
 			if(!query.Execute())
-				queryErrorLogEntry(query.ErrorMsg())
+				queryErrorLog(query.ErrorMsg(),"updating existing entry")
 				return
 			else
 				to_chat(usr, "You have been refunded [cost] karma for [type] [name].")
@@ -423,13 +423,9 @@ var/list/karma_spenders = list()
 	else
 		to_chat(usr, "<span class='warning'>Your ckey ([dbckey]) was not found.</span>")
 
-/client/proc/queryErrorLogEntry(var/err = null)
-	log_game("SQL ERROR during whitelist logging (updating existing entry). Error: \[[err]\]\n")
-	message_admins("SQL ERROR during whitelist logging (updating existing entry). Error: \[[err]\]\n")
-
-/client/proc/queryErrorLogKey(var/err = null)
-	log_game("SQL ERROR during whitelist logging (adding new key). Error : \[[err]\]\n")
-	message_admins("SQL ERROR during whitelist logging (adding new key). Error : \[[err]\]\n")
+/client/proc/queryErrorLog(err = null, errType)
+	log_game("SQL ERROR during whitelist logging ([errType]]). Error : \[[err]\]\n")
+	message_admins("SQL ERROR during whitelist logging ([errType]]). Error : \[[err]\]\n")
 
 /client/proc/checkpurchased(var/name = null) // If the first parameter is null, return a full list of purchases
 	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("whitelist")] WHERE ckey='[usr.ckey]'")
