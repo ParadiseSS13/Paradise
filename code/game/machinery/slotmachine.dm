@@ -53,7 +53,7 @@
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			addtimer(CALLBACK(src, .proc/spin_slots, usr.name), 25)
 			
-/obj/machinery/slot_machine/proc/spin_slots(var/userName)
+/obj/machinery/slot_machine/proc/spin_slots(userName)
 	switch(rand(1,4050))
 		if(1)
 			atom_say("JACKPOT! [userName] has won a MILLION CREDITS!")
