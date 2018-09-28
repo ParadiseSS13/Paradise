@@ -133,7 +133,7 @@
 	desc = "A lighting fixture."
 	anchored = 1
 	layer = 5  					// They were appearing under mobs which is a little weird - Ostaf
-	use_power = 2
+	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
@@ -258,10 +258,10 @@
 					on = 0
 					set_light(0)
 			else
-				use_power = 2
+				use_power = ACTIVE_POWER_USE
 				set_light(BR, PO, CO)
 	else
-		use_power = 1
+		use_power = IDLE_POWER_USE
 		set_light(0)
 
 	active_power_usage = (brightness_range * 10)
@@ -484,7 +484,7 @@
 
 
 	// create a light tube/bulb item and put it in the user's hand
-	var/obj/item/light/L = new light_type()
+	var/obj/item/light/L = new light_type(get_turf(user))
 	L.status = status
 	L.rigged = rigged
 	L.brightness_range = brightness_range
@@ -499,7 +499,7 @@
 	L.update()
 	L.add_fingerprint(user)
 
-	user.put_in_active_hand(L)	//puts it in our active hand
+	user.put_in_hands(L)	//puts it in our active hand
 
 	status = LIGHT_EMPTY
 	update()
@@ -576,7 +576,7 @@
 
 /obj/machinery/light/blob_act()
 	if(prob(75))
-		broken()
+		qdel(src)
 
 
 // timed process

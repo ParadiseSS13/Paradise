@@ -316,8 +316,7 @@
 	job_master.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
-	character = job_master.EquipRank(character, rank, 1)					//equips the human
-	EquipCustomItems(character)
+
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
@@ -364,6 +363,9 @@
 		character.buckled.dir = character.dir
 
 	ticker.mode.latespawn(character)
+
+	character = job_master.EquipRank(character, rank, 1)					//equips the human
+	EquipCustomItems(character)
 
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)
