@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Fixed emagged camera consoles not opening the tabs"
