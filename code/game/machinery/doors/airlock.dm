@@ -643,9 +643,9 @@ About the new airlock wires panel:
 		user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
 							"<span class='noticealien'>You begin digging your hands into [src] with all your might!</span>",\
 							"<span class='warning'>You hear groaning metal...</span>")
-		var/time_to_open = 10
+		var/time_to_open = 20
 		if(arePowerSystemsOn())
-			time_to_open = 70 //Powered airlocks take longer to open, and are loud.
+			time_to_open = 90 //Powered airlocks take longer to open, and are loud.
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
 
 
