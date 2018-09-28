@@ -327,7 +327,7 @@
 	contents = newlist(/obj/item/melee/classic_baton/telescopic)
 
 /obj/item/organ/internal/cyberimp/arm/advmop
-	name = "advanced mob implant"
+	name = "advanced mop implant"
 	desc = "Advanced mop implant. Does what it says on the tin" // A better description
 	
 	contents = newlist(/obj/item/mop/advanced)
