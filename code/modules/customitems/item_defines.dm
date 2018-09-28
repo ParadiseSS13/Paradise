@@ -1224,6 +1224,7 @@
 	desc = "A well made satchel for military operations. Totally not made by an enemy corporation"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "rawk_satchel"
+	sprite_sheets = null
 
 /obj/item/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
 	name = "Voxcaster"
