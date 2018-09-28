@@ -1,0 +1,4 @@
+author: "Ty-Omaha"
+delete-after: True
+changes: 
+  - rscdel: "Removes canvases due to everybody crashing from them."
