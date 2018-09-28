@@ -1,0 +1,4 @@
+author: "Tails2091"
+delete-after: True
+changes: 
+  - bugfix: "Refactored Hallucinations to match contribution guide standards a bit more."

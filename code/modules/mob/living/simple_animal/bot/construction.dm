@@ -44,7 +44,7 @@
 	icon_state = "ed209_frame"
 	item_state = "ed209_frame"
 	var/build_step = 0
-	var/created_name = "ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
+	var/created_name = "\improper ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
 
 /obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)

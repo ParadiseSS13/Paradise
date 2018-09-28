@@ -381,6 +381,7 @@ proc/get_radio_key_from_channel(var/channel)
 	var/eavesdropping_range = 2
 	var/watching_range = 5
 	var/italics = 1
+	var/adverb_added = FALSE
 
 	var/not_heard //the message displayed to people who could not hear the whispering
 	if(speaking)
@@ -389,6 +390,7 @@ proc/get_radio_key_from_channel(var/channel)
 			not_heard = "[verb] something"
 		else
 			var/adverb = pick("quietly", "softly")
+			adverb_added = TRUE
 			verb = "[speaking.speech_verb] [adverb]"
 			not_heard = "[speaking.speech_verb] something [adverb]"
 	else
@@ -404,7 +406,7 @@ proc/get_radio_key_from_channel(var/channel)
 	if(verb == "yells loudly")
 		verb = "slurs emphatically"
 
-	else if(speech_problem_flag)
+	else if(speech_problem_flag && !adverb_added)
 		var/adverb = pick("quietly", "softly")
 		verb = "[verb] [adverb]"
 

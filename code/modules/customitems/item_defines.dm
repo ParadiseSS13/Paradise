@@ -945,6 +945,14 @@
 	flags_inv = HIDEEARS
 
 //////////// Uniforms ////////////
+/obj/item/clothing/under/fluff/benjaminfallout // Benjaminfallout: Pretzel Brassheart
+	icon = 'icons/obj/custom_items.dmi'
+	name = "Pretzel's dress"
+	desc = "A nice looking dress"
+	icon_state = "fallout_dress"
+	item_state = "fallout_dress"
+	item_color = "fallout_dress"
+
 /obj/item/clothing/under/fluff/soviet_casual_uniform // Norstead : Natalya Sokolova
     icon = 'icons/obj/custom_items.dmi'
     name = "Soviet Casual Uniform"
@@ -1042,6 +1050,15 @@
 	item_state = "aegisuniform"
 	item_color = "aegisuniform"
 	displays_id = 0
+
+/obj/item/clothing/under/fluff/elo_turtleneck // vforcebomber: E.L.O.
+	name = "E.L.O's Turtleneck"
+	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
+	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
+	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
+	icon_state = "eloturtleneckfloor"
+	item_color = "eloturtleneck"
+	displays_id = FALSE
 
 //////////// Masks ////////////
 

@@ -650,6 +650,14 @@ About the new airlock wires panel:
 				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet.</span>")
 			return
 
+	if(note && ishuman(user) && user.a_intent == INTENT_GRAB)
+		user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
+		playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
+		note.forceMove(get_turf(user))
+		note = null
+		update_icon()
+		return
+
 	if(panel_open)
 		if(security_level)
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
@@ -938,7 +946,7 @@ About the new airlock wires panel:
 		cable.plugin(src, user)
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
-			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters to remove it.</span>")
+			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
 		if(!user.unEquip(C))
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")

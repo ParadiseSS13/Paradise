@@ -37,8 +37,7 @@
 	add_to_streak("G",D)
 	if(check_streak(A,D))
 		return 1
-	D.grabbedby(A,1)
-	var/obj/item/grab/G = A.get_active_hand()
+	var/obj/item/grab/G = D.grabbedby(A,1)
 	if(G)
 		G.state = GRAB_NECK
 
