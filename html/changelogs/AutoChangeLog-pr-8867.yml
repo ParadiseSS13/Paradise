@@ -1,0 +1,4 @@
+author: "DarkPyrolord"
+delete-after: True
+changes: 
+  - bugfix: "Fixes a ten year old atmos bug, fix will cause toxins bombs and plasma fires to be a little less lethal"
