@@ -345,13 +345,9 @@ var/ert_request_answered = 0
 	pda = /obj/item/pda/heads/ert
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
+	box = /obj/item/storage/box/responseteam
 
 	implants = list(/obj/item/implant/mindshield)
-
-/datum/outfit/job/centcom/response_team/pre_equip()
-	. = ..()
-	backpack_contents.Insert(1, /obj/item/storage/box/responseteam)
-	backpack_contents[/obj/item/storage/box/responseteam] = 1
 
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
@@ -363,13 +359,11 @@ var/ert_request_answered = 0
 
 /obj/item/storage/box/responseteam/New()
 	..()
-	contents = list()
-	sleep(1)
-	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/emergency_oxygen/engi( src )
-	new /obj/item/flashlight/flare( src )
-	new /obj/item/kitchen/knife/combat( src )
-	new /obj/item/radio/centcom( src )
-	new /obj/item/reagent_containers/food/pill/salicylic( src )
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh( src )
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/radio/centcom(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	return

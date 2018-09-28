@@ -634,7 +634,7 @@ REAGENT SCANNER
 	user.show_message("Growth progress: [T.amount_grown]/10", 1)
 
 /obj/item/bodyanalyzer
-	name = "body analyzer"
+	name = "handheld body analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
 	item_state = "healthanalyser"

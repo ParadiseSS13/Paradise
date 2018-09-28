@@ -75,7 +75,7 @@
 /obj/item/ammo_casing/energy/immolator/scatter
 	projectile_type = /obj/item/projectile/beam/immolator/weak
 	e_cost = 125
-	pellets = 8
+	pellets = 6
 	variance = 25
 	select_name = "scatter"
 

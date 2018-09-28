@@ -65,7 +65,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/chest/nutriment
 	)
-	belt = /obj/item/gun/energy/gun/nuclear
+	belt = /obj/item/gun/energy/gun/blueshield/pdw9
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander = 1,
@@ -114,7 +114,6 @@
 	belt = /obj/item/storage/belt/security/response_team
 	pda = /obj/item/pda/heads/ert/security
 	id = /obj/item/card/id/ert/security
-	var/has_grenades = FALSE
 
 /datum/outfit/job/centcom/response_team/security/amber
 	name = "RT Security (Amber)"
@@ -136,19 +135,21 @@
 
 /datum/outfit/job/centcom/response_team/security/red
 	name = "RT Security (Red)"
-	has_grenades = TRUE
 
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/color/black
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
-	suit_store = /obj/item/gun/energy/gun/blueshield
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/flash,
-		/obj/item/organ/internal/cyberimp/chest/nutriment
-	)
+	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	glasses = /obj/item/clothing/glasses/sunglasses
+
 	r_hand = /obj/item/gun/projectile/automatic/lasercarbine
 
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/arm/flash,
+		/obj/item/organ/internal/cyberimp/chest/nutriment,
+		/obj/item/organ/internal/cyberimp/eyes/hud/security
+	)
+	
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
@@ -161,7 +162,6 @@
 
 /datum/outfit/job/centcom/response_team/security/gamma
 	name = "RT Security (Gamma)"
-	has_grenades = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security/gamma
@@ -386,11 +386,13 @@
 	backpack_contents = list(
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight = 1)
+		/obj/item/flashlight/seclite = 1
+		)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
-	suit = /obj/item/clothing/suit/armor/vest/ert/security
+	suit = /obj/item/clothing/suit/armor/vest/ert/security/paranormal
+	head = /obj/item/clothing/head/helmet/ert/security/paranormal
 	suit_store = /obj/item/gun/energy/gun/advtaser
 	r_pocket = /obj/item/nullrod
 
@@ -398,17 +400,29 @@
 	name = "RT Paranormal (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
-	suit_store = /obj/item/gun/energy/gun/nuclear
+	suit_store = /obj/item/gun/energy/gun
 	r_pocket = /obj/item/nullrod
+	glasses = /obj/item/clothing/glasses/sunglasses
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/chest/nutriment
+	)
 
 /datum/outfit/job/centcom/response_team/paranormal/gamma
 	name = "RT Paranormal (Gamma)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
 	suit_store = /obj/item/gun/energy/gun/nuclear
-	r_pocket = /obj/item/gun/energy/pulse/pistol
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	shoes = /obj/item/clothing/shoes/magboots/advance
+	glasses = /obj/item/clothing/glasses/night
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun
+	)
 
 //////////////////// JANITORIAL ///////////////////
 
@@ -450,6 +464,10 @@
 	)
 	r_pocket = /obj/item/scythe/tele
 	l_pocket = /obj/item/gun/energy/gun/mini
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/arm/advmop
+	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
