@@ -1,4 +1,0 @@
-author: "DarkPyrolord"
-delete-after: True
-changes: 
-  - bugfix: "Readds modkit sprites to items.dm to fix invis fluff item modkits."
