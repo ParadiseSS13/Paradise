@@ -65,7 +65,7 @@
 			spamcheck = 0
 
 /obj/item/megaphone/proc/saymsg(mob/living/user as mob, message)
-	audible_message("<span class='game say'><span class='name'>[user]</span> broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
+	audible_message("<span class='game say'><span class='name'>[user.GetVoice()]</span> [user.GetAltName()] broadcasts, <span class='reallybig'>\"[message]\"</span></span>", hearing_distance = 14)
 	log_say(message, user)
 	for(var/obj/O in oview(14, get_turf(src)))
 		O.hear_talk(user, "<span class='reallybig'>[message]</span>")

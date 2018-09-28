@@ -395,3 +395,9 @@
 		temp_airlock.prison_open()
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		temp_windoor.open()
+
+/area/AllowDrop()
+	CRASH("Bad op: area/AllowDrop() called")
+
+/area/drop_location()
+	CRASH("Bad op: area/drop_location() called")
