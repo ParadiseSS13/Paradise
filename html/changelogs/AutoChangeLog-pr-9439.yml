@@ -1,5 +1,0 @@
-author: "uc_guy"
-delete-after: True
-changes: 
-  - tweak: "Vox auto equip the nitrogen tank when spawning if possible."
-  - bugfix: "Nitrogen tanks no longer overwrite job items."

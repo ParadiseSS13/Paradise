@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "When you remove a light tube while lying down, the light tube disappear. This no longer happens."

@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - tweak: "Qdel log is now re-added to the garbage subsystem to enable coders to investigate sources of hard delete."
