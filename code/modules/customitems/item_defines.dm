@@ -589,7 +589,7 @@
 		P.desc = "A rare winterised variant of the security hardsuit helmet, used on colder mining worlds for security patrols."
 		P.icon = 'icons/obj/custom_items.dmi'
 		P.icon_state = "hardsuit0-secf"
-		P.item_state = "hardsuit0_secf"
+		P.item_state = "hardsuit0-secf"
 		P.item_color = "secf"
 		user.update_icons()
 
@@ -608,7 +608,7 @@
 		P.desc = "A rare winterised variant of the security hardsuit, used on colder mining worlds for securiry patrols, this one has 'Haliber' written on an ID patch located on the right side of the chest."
 		P.icon = 'icons/obj/custom_items.dmi'
 		P.icon_state = "hardsuit-secf"
-		P.item_state = "hardsuit_secf"
+		P.item_state = "hardsuit-secf"
 		user.update_icons()
 
 		if(P == H.wear_suit)
