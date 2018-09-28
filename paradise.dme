@@ -954,7 +954,6 @@
 #include "code\game\objects\items\weapons\tanks\watertank.dm"
 #include "code\game\objects\random\random.dm"
 #include "code\game\objects\structures\aliens.dm"
-#include "code\game\objects\structures\artstuff.dm"
 #include "code\game\objects\structures\barsign.dm"
 #include "code\game\objects\structures\bedsheet_bin.dm"
 #include "code\game\objects\structures\coathanger.dm"

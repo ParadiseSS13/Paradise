@@ -35,8 +35,6 @@
 		icon_state = "[icon_base]-photo"
 	else if(istype(displayed, /obj/structure/sign/poster))
 		icon_state = "[icon_base]-[(displayed.icon_state in wide_posters) ? "wposter" : "poster"]"
-	else if(istype(displayed, /obj/item/canvas))
-		icon_state = "[icon_base]-canvas-[displayed.icon_state]"
 	else
 		icon_state = "[icon_base]-paper"
 
