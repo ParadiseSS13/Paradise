@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscdel: "The wild west away mission no longer offers hijack traitor status as a potential reward."
