@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Not spawning in with your memory of bank account at roundstart..."
