@@ -1421,11 +1421,9 @@ menu "menu"
 	elem "icon128"
 		name = "&128x128 (4x)"
 		command = ".winset \"mapwindow.map.icon-size=128\""
-		category = "&Icons"
-		is-checked = false
+		category = "&Size"
 		can-check = true
 		group = "size"
-		is-disabled = false
 		saved-params = "is-checked"		
 	elem "icon96"
 		name = "&96x96 (3x)"

@@ -4,7 +4,7 @@
 	icon_state = "box_0"
 	density = 1
 	anchored = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 	var/obj/item/circuitboard/circuit = null
 	var/list/components = null
 	var/list/req_components = null
@@ -655,11 +655,11 @@ obj/item/circuitboard/rdserver
 	build_path = /obj/machinery/mecha_part_fabricator/spacepod
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
-	frame_desc = "Requires 3 Matter Bins, 2 Manipulators, 2 Micro-Lasers, and 1 Console Screen."
+	frame_desc = "Requires 2 Matter Bins, 1 Manipulators, 1 Micro-Lasers, and 1 Console Screen."
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 3,
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stock_parts/micro_laser = 2,
+							/obj/item/stock_parts/matter_bin = 2,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/console_screen = 1)
 
 

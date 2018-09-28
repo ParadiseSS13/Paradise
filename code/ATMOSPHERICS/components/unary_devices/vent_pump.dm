@@ -8,7 +8,7 @@
 
 	name = "air vent"
 	desc = "Has a valve and pump attached to it"
-	use_power = 1
+	use_power = IDLE_POWER_USE
 
 	can_unwrench = 1
 	var/open = 0

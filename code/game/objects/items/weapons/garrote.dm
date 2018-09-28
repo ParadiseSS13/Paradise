@@ -84,8 +84,7 @@
 	unwield(U)
 
 	U.swap_hand() // For whatever reason the grab will not properly work if we don't have the free hand active.
-	M.grabbedby(U, 1)
-	var/obj/item/grab/G = U.get_active_hand()
+	var/obj/item/grab/G = M.grabbedby(U, 1)
 	U.swap_hand()
 
 	if(G && istype(G))

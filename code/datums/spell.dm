@@ -321,28 +321,40 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/include_user = 0 //if it includes usr in the target list
 	var/random_target = 0 // chooses random viable target instead of asking the caster
 	var/random_target_priority = TARGET_CLOSEST // if random_target is enabled how it will pick the target
-
+	var/humans_only = 0 //for avoiding simple animals and only doing "human" mobs, 0 = all mobs, 1 = humans only
 
 /obj/effect/proc_holder/spell/aoe_turf //affects all turfs in view or range (depends)
 	var/inner_radius = -1 //for all your ring spell needs
 
 /obj/effect/proc_holder/spell/targeted/choose_targets(mob/user = usr)
 	var/list/targets = list()
-
+	
 	switch(max_targets)
 		if(0) //unlimited
-			for(var/mob/living/target in view_or_range(range, user, selection_type))
-				targets += target
+		
+			if(!humans_only)
+				for(var/mob/living/target in view_or_range(range, user, selection_type))
+					targets += target
+			else
+				for(var/mob/living/carbon/human/target in view_or_range(range, user, selection_type))
+					targets += target
+
 		if(1) //single target can be picked
 			if(range < 0)
 				targets += user
 			else
 				var/possible_targets = list()
-
-				for(var/mob/living/M in view_or_range(range, user, selection_type))
-					if(!include_user && user == M)
-						continue
-					possible_targets += M
+				
+				if(!humans_only)
+					for(var/mob/living/M in view_or_range(range, user, selection_type))
+						if(!include_user && user == M)
+							continue
+						possible_targets += M
+				else
+					for(var/mob/living/carbon/human/M in view_or_range(range, user, selection_type))
+						if(!include_user && user == M)
+							continue
+						possible_targets += M
 
 				//targets += input("Choose the target for the spell.", "Targeting") as mob in possible_targets
 				//Adds a safety check post-input to make sure those targets are actually in range.
@@ -366,8 +378,12 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 		else
 			var/list/possible_targets = list()
-			for(var/mob/living/target in view_or_range(range, user, selection_type))
-				possible_targets += target
+			if(!humans_only)
+				for(var/mob/living/target in view_or_range(range, user, selection_type))
+					possible_targets += target
+			else
+				for(var/mob/living/carbon/human/target in view_or_range(range, user, selection_type))
+					possible_targets += target
 			for(var/i=1,i<=max_targets,i++)
 				if(!possible_targets.len)
 					break
