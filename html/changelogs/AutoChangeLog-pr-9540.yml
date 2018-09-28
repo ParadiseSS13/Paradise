@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - rscadd: "Mappers can now have Floodlights round-start enabled."
