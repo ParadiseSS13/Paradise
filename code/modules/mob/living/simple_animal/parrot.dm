@@ -703,12 +703,12 @@
 	available_channels = list(":e")
 	..()
 
-/mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios, var/alt_name)
+/mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios)
 	if(message_mode && istype(ears))
 		ears.talk_into(src, message, message_mode, verb, speaking)
 		used_radios += ears
 
-/mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "",var/italics = 0, var/mob/speaker = null)
+/mob/living/simple_animal/parrot/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/italics = 0, var/mob/speaker = null)
 	if(speaker != src && prob(50))
 		parrot_hear(html_decode(message))
 	..()

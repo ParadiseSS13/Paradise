@@ -95,10 +95,10 @@ proc/get_radio_key_from_channel(var/channel)
 	returns[3] = speech_problem_flag
 	return returns
 
-/mob/living/proc/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
+/mob/living/proc/handle_message_mode(message_mode, message, verb, speaking, used_radios)
 	switch(message_mode)
 		if("whisper") //all mobs can whisper by default
-			whisper_say(message, speaking, alt_name)
+			whisper_say(message, speaking)
 			return 1
 	return 0
 
@@ -109,7 +109,7 @@ proc/get_radio_key_from_channel(var/channel)
 	return returns
 
 
-/mob/living/say(var/message, var/datum/language/speaking = null, var/verb = "says", var/alt_name = "", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
+/mob/living/say(var/message, var/datum/language/speaking = null, var/verb = "says", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -184,7 +184,7 @@ proc/get_radio_key_from_channel(var/channel)
 		return 0
 
 	var/list/used_radios = list()
-	if(handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name))
+	if(handle_message_mode(message_mode, message, verb, speaking, used_radios))
 		return 1
 
 	var/list/handle_v = handle_speech_sound()
@@ -268,7 +268,7 @@ proc/get_radio_key_from_channel(var/channel)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message, verb, speaking, alt_name, italics, src, speech_sound, sound_vol)
+		M.hear_say(message, verb, speaking, italics, src, speech_sound, sound_vol)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 	spawn(0)
@@ -359,7 +359,7 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/proc/get_whisper_loc()
 	return src
 
-/mob/living/proc/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
+/mob/living/proc/whisper_say(var/message, var/datum/language/speaking = null, var/verb="whispers")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -466,14 +466,14 @@ proc/get_radio_key_from_channel(var/channel)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message, verb, speaking, alt_name, italics, src)
+		M.hear_say(message, verb, speaking, italics, src)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
 		var/new_message = stars(message)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(new_message, verb, speaking, alt_name, italics, src)
+			M.hear_say(new_message, verb, speaking, italics, src)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 
