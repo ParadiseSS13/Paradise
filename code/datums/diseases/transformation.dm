@@ -16,6 +16,7 @@
 	var/list/stage4 = list("You feel white bread.")
 	var/list/stage5 = list("Oh the humanity!")
 	var/new_form = /mob/living/carbon/human
+	var/notransform = 0
 
 /datum/disease/transformation/stage_act()
 	..()
@@ -33,7 +34,10 @@
 			if(prob(stage_prob*2) && stage4)
 				to_chat(affected_mob, pick(stage4))
 		if(5)
-			do_disease_transformation(affected_mob)
+			if(notransform == 0)
+			else
+				if(prob(stage_prob*2) && stage5)
+					to_chat(affected_mob, pick(stage5))
 
 /datum/disease/transformation/proc/do_disease_transformation(mob/living/affected_mob)
 	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
@@ -123,69 +127,60 @@
 	stage_prob = 2
 	max_stages = 4
 	visibility_flags = 0
+	notransform = 1
 	agent = "Zombie H-2018"
-	stage1	= null
+	stage1	= list("<span class='warning'>You feel strange.</span>")
 	stage2	= list("<span class='warning'>You can't breathe easily.</span>")
 	stage3	= list("<span class='warning'>Your body hurts.</span>")
-	stage4	= list("<span class='warning'>You have a craving for meat.</span>")
-	new_form = /mob/living/simple_animal/hostile/zombie
-
-/datum/disease/transformation/virush/do_disease_transformation(mob/living/affected_mob)
-	to_chat(affected_mob, "<span class='danger'>Now, you are one of them. Eat and infect them.</span>")
-	affected_mob.notransform = 1
-	affected_mob.canmove = 0
-	affected_mob.icon = null
-	affected_mob.overlays.Cut()
-	affected_mob.invisibility = 101
-	for(var/obj/item/W in affected_mob)
-		if(istype(W, /obj/item/implant))
-			qdel(W)
-			continue
-		W.layer = initial(W.layer)
-		W.plane = initial(W.plane)
-		W.loc = affected_mob.loc
-		W.dropped(affected_mob)
-	var/mob/living/new_mob = new new_form(affected_mob.loc)
-	if(istype(new_mob))
-		new_mob.a_intent = "harm"
-		if(affected_mob.mind)
-			affected_mob.mind.transfer_to(new_mob)
-		else
-			new_mob.key = affected_mob.key
-	qdel(affected_mob)
+	stage4	= list("<span class='warning'>All living things started to look delicious.</span>")
+	new_form = /datum/species/zombie
 
 /datum/disease/transformation/virush/stage_act()
 	..()
 	switch(stage)
 		if(1)
-			if(prob(5))
-				affected_mob.adjustToxLoss(3)
-				affected_mob.updatehealth()
-				to_chat(affected_mob, "<span class='notice'>Your [pick("back", "arm", "leg", "elbow", "head")] itches.</span>")
-				if(affected_mob.health <= 0)
-					do_disease_transformation(affected_mob)
+			if(prob(10))
+				to_chat(affected_mob, "<span class='notice'>Your skin itches.</span>")
 		if(2)
 			if(prob(5))
 				affected_mob.adjustToxLoss(5)
 				affected_mob.updatehealth()
-				to_chat(affected_mob, "<span class='notice'>Your body itches.</span>")
-				if(affected_mob.health <= 0)
-					do_disease_transformation(affected_mob)
+				to_chat(affected_mob, "<span class='notice'>Your organs hurts.</span>")
 		if(3)
 			if(prob(10))
 				affected_mob.adjustToxLoss(5)
 				affected_mob.updatehealth()
-				to_chat(affected_mob, "<span class='danger'>Your body itches.</span>")
-				if(affected_mob.health <= 0)
-					do_disease_transformation(affected_mob)
-		if(4)
-			if(prob(8))
-				affected_mob.adjustToxLoss(8)
+				to_chat(affected_mob, "<span class='danger'>Your skin started to loose his colour.</span>")
+			if(affected_mob.health <= -50 && prob(7))
+				affected_mob.adjustBruteLoss(-200)
+				affected_mob.adjustFireLoss(-200)
+				affected_mob.adjustOxyLoss(-200)
+				affected_mob.adjustToxLoss(-200)
+				affected_mob.adjustBrainLoss(-200)
+				affected_mob.adjustCloneLoss(-200)
+				affected_mob.adjustStaminaLoss(-200)
 				affected_mob.updatehealth()
-				to_chat(affected_mob, "<span class='danger'>All living forms started to look delicious.</span>")
-				if(affected_mob.health <= 0)
-					do_disease_transformation(affected_mob)
+				playsound(src, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
+				var/mob/living/carbon/human/human = affected_mob
+				human.set_species(/datum/species/zombie)
 
+		if(4)
+			if(prob(10))
+				affected_mob.adjustToxLoss(7)
+				affected_mob.updatehealth()
+				to_chat(affected_mob, "<span class='danger'>You have a huge craving for meat.</span>")
+			if(affected_mob.health <= 0 && prob(7))
+				affected_mob.adjustBruteLoss(-200)
+				affected_mob.adjustFireLoss(-200)
+				affected_mob.adjustOxyLoss(-200)
+				affected_mob.adjustToxLoss(-200)
+				affected_mob.adjustBrainLoss(-200)
+				affected_mob.adjustCloneLoss(-200)
+				affected_mob.adjustStaminaLoss(-200)
+				affected_mob.updatehealth()
+				playsound(src, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
+				var/mob/living/carbon/human/human = affected_mob
+				human.set_species(/datum/species/zombie)
 
 
 /datum/disease/transformation/robot
