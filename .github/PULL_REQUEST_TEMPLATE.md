@@ -1,8 +1,5 @@
-**What does this PR tweak:**
-Include a small description of what your PR changes
-
-**Why is this better:**
-This is your reasoning for why the PR should be merged
+**What does this PR do:**
+Include a small to medium description of what your PR changes. Feel free to give it a little flourish if you want to show off a new feature more completely.
 
 **Images of sprite/map changes (IF APPLICABLE):**
 If you did not make a map or sprite edit, you may leave this section blank. You may include a gif of your feature if you want
