@@ -461,6 +461,19 @@
 								"Pod_Parts",
 								"Pod_Frame",
 								"Misc")
+	req_access = list(access_mechanic)
+
+/obj/machinery/mecha_part_fabricator/spacepod/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/podfab(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	RefreshParts()
 
 /obj/machinery/mecha_part_fabricator/robot
 	name = "Robotic Fabricator"
