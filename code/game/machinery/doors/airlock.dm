@@ -630,6 +630,29 @@ About the new airlock wires panel:
 	return ..()
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
+	if(iszombie(user)) //From attack_alien
+		add_fingerprint(user)
+		if(isElectrified())
+			shock(user, 100)
+			return
+		if(!density) //Already open
+			return
+		if(locked || welded)
+			to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
+			return
+		user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
+							"<span class='noticealien'>You begin digging your hands into [src] with all your might!</span>",\
+							"<span class='warning'>You hear groaning metal...</span>")
+		var/time_to_open = 10
+		if(arePowerSystemsOn())
+			time_to_open = 70 //Powered airlocks take longer to open, and are loud.
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
+
+
+		if(do_after(user, time_to_open, target = src))
+			if(density && !open(1)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
+				to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
+
 	if(!issilicon(user))
 		if(isElectrified())
 			if(shock(user, 100))
