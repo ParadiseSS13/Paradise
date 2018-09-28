@@ -1,6 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Deconstructing/reconstructing the space pod fab no longer turns it into a mech fab. No more mechanics building surprise mechs."
-  - tweak: "The spacepod fab circuit is now buildable in R&D."
-  - tweak: "Spacepod fabs now require mechanic access to use, like the mechanic R&D console does."
