@@ -590,6 +590,7 @@
 		P.icon = 'icons/obj/custom_items.dmi'
 		P.icon_state = "hardsuit0-secf"
 		P.item_state = "hardsuit0-secf"
+		P.sprite_sheets = null
 		P.item_color = "secf"
 		user.update_icons()
 
@@ -609,6 +610,7 @@
 		P.icon = 'icons/obj/custom_items.dmi'
 		P.icon_state = "hardsuit-secf"
 		P.item_state = "hardsuit-secf"
+		P.sprite_sheets = null
 		user.update_icons()
 
 		if(P == H.wear_suit)
