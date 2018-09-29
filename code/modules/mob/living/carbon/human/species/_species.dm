@@ -328,6 +328,17 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
+	//zombie code
+	if(/datum/species/zombie)
+		var/mob/living/L = target
+		var/poison_per_bite = 10
+		var/poison_type = "virush"
+		if(L.reagents)
+			L.reagents.add_reagent("virush", poison_per_bite)
+			if(prob(poison_per_bite))
+				to_chat(L, "<span class='danger'>You feel a lot of pain.</span>")
+				L.reagents.add_reagent(poison_type, poison_per_bite)
+				//end zombie code
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return TRUE
 	else
@@ -480,6 +491,14 @@
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
+
+/datum/unarmed_attack/zombie
+	attack_verb = list("bites", "slash")
+	damage = 5
+	attack_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
+	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
+	animation_type = ATTACK_EFFECT_BITE
+
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
