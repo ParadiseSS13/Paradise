@@ -13,7 +13,6 @@
 				new/obj/item/organ/internal/body_egg/spider_eggs(M) //Yes, even Xenos can fall victim to the plague that is spider infestation.
 	..()
 
-
 /datum/reagent/nanomachines
 	name = "Nanomachines"
 	id = "nanomachines"
@@ -48,7 +47,7 @@
 
 /datum/reagent/virush/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
-		M.ContractDisease(new /datum/disease/transformation/virush(0))
+		M.ForceContractDisease(new /datum/disease/transformation/virush(0))
 	..()
 
 /datum/reagent/fungalspores

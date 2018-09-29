@@ -11,8 +11,10 @@
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	hunger_drain = -1
 	dietflags = DIET_OMNI
-	language = null
-	default_language = null
+	language = "Zombie"
+	default_language = "Zombie"
+	speech_sounds = list('sound/voice/zombievoice.ogg') 
+	speech_chance = 20
 	has_fine_manipulation = 0
 	death_message = "Stops moving..."
 	total_health = 85
@@ -25,8 +27,8 @@
 	brain_mod = 0
 	slowdown = 2
 	punchdamagelow = 5
-	punchdamagehigh = 9
-	punchstunthreshold = 13
+	punchdamagehigh = 8
+	punchstunthreshold = 12
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 
 	has_organ = list(
@@ -60,4 +62,6 @@
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	..()
 	return
+
+
 
