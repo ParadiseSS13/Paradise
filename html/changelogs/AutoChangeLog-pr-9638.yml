@@ -1,0 +1,6 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - tweak: "Headbutting the airlock is more consistent."
+  - bugfix: "refactored the airlock code."
+  - bugfix: "Using multitools and such on a door with a note now doesn't remove the note. Only grabbing with an empty hand now."
