@@ -116,12 +116,14 @@
 
 /datum/disease/transformation/virush
 	name = "VirusH"
-	cure_text = "Unknown"
-	spread_text = "Zombie Bites"
+	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
+	cure_text = "Mother cell stabilizer"
+	cures = list("virushcure")
+	permeability_mod = 1
+	cure_chance = 1
+	spread_text = "segregations from other infected"
 	spread_flags = SPECIAL
 	viable_mobtypes = list(/mob/living/carbon/human)
-	permeability_mod = 1
-	disease_flags = CAN_CARRY|CAN_RESIST
 	desc = "An unknown virus that will turn one human into a zombie"
 	severity = BIOHAZARD
 	stage_prob = 2
@@ -160,7 +162,8 @@
 				affected_mob.adjustCloneLoss(-200)
 				affected_mob.adjustStaminaLoss(-200)
 				affected_mob.updatehealth()
-				playsound(src, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
+				to_chat(affected_mob, "<span class='danger'><b>You are a zombie, a new biological weapon. Your brain is dead and You can only think about infecting and eating living people and can't remember anything. Silicon are not living people, but you must destroy them if they try to hurt you.</b></span>")
+				playsound(affected_mob, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
 				var/mob/living/carbon/human/human = affected_mob
 				human.set_species(/datum/species/zombie)
 
@@ -178,7 +181,8 @@
 				affected_mob.adjustCloneLoss(-200)
 				affected_mob.adjustStaminaLoss(-200)
 				affected_mob.updatehealth()
-				playsound(src, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
+				to_chat(affected_mob, "<span class='danger'><b>You are a zombie, a new biological weapon. Your brain is dead and You can only think about infecting and eating living people and can't remember anything. Silicon are not living people, but you must destroy them if they try to hurt you.</b></span>")
+				playsound(affected_mob, 'sound/goonstation/voice/zombie.ogg', 40, 1, 1)
 				var/mob/living/carbon/human/human = affected_mob
 				human.set_species(/datum/species/zombie)
 
