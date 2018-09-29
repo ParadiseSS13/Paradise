@@ -329,7 +329,7 @@
 		return
 		//end vampire codes
 	//zombie code
-	if(/datum/species/zombie)
+	if(iszombie(user))
 		var/mob/living/L = target
 		var/poison_per_bite = 10
 		var/poison_type = "virush"
