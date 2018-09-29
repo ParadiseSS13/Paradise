@@ -12,7 +12,7 @@
 	unacidable = 1
 	burn_state = LAVA_PROOF | FIRE_PROOF
 	pixel_y = -4
-	use_power = 0
+	use_power = NO_POWER_USE
 	var/memory_saved = FALSE
 	var/list/stored_items = list()
 	var/static/list/blacklist = typecacheof(list(/obj/item/spellbook))
@@ -97,7 +97,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	luminosity = 8
-	use_power = 0
+	use_power = NO_POWER_USE
 	density = 1
 	burn_state = LAVA_PROOF | FIRE_PROOF
 	unacidable = 1

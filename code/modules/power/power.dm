@@ -12,7 +12,7 @@
 	anchored = 1.0
 	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
-	use_power = 0
+	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
 
@@ -297,7 +297,7 @@
 //source is an object caused electrocuting (airlock, grille, etc)
 //No animations will be performed by this proc.
 /proc/electrocute_mob(mob/living/carbon/M as mob, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
-	if(!istype(M)) 
+	if(!istype(M))
 		return 0
 	if(istype(M.loc,/obj/mecha))
 		return 0	//feckin mechs are dumb
@@ -305,7 +305,7 @@
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
-			if(G.siemens_coefficient == 0)	
+			if(G.siemens_coefficient == 0)
 				return 0		//to avoid spamming with insulated glvoes on
 
 	var/area/source_area

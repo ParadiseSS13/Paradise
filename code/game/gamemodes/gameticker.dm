@@ -369,6 +369,7 @@ var/round_start_time = 0
 			if(player.mind.assigned_role == "Captain")
 				captainless=0
 			if(player.mind.assigned_role != player.mind.special_role)
+				job_master.AssignRank(player, player.mind.assigned_role, 0)
 				job_master.EquipRank(player, player.mind.assigned_role, 0)
 				EquipCustomItems(player)
 	if(captainless)

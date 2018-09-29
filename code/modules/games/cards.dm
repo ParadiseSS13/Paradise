@@ -252,7 +252,7 @@
 
 /obj/item/pack/attack_self(mob/user as mob)
 	user.visible_message("<span class='notice'>[name] rips open the [src]!</span>", "<span class='notice'>You rips open the [src]!</span>")
-	var/obj/item/cardhand/H = new()
+	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
 	cards.Cut()
@@ -260,7 +260,7 @@
 	qdel(src)
 
 	H.update_icon()
-	user.put_in_active_hand(H)
+	user.put_in_hands(H)
 
 /obj/item/cardhand
 	name = "hand of cards"
@@ -370,7 +370,7 @@
 	var/datum/playingcard/card = pickablecards[pickedcard]
 
 	var/obj/item/cardhand/H = new(get_turf(src))
-	user.put_in_active_hand(H)
+	user.put_in_hands(H)
 	H.cards += card
 	cards -= card
 	H.parentdeck = parentdeck

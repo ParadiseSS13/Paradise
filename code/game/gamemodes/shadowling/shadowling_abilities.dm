@@ -22,6 +22,7 @@
 	charge_max = 300
 	clothes_req = 0
 	action_icon_state = "glare"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/glare/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
@@ -263,6 +264,7 @@
 	range = 1 //Adjacent to user
 	var/enthralling = 0
 	action_icon_state = "enthrall"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
@@ -595,6 +597,7 @@
 	clothes_req = 0
 	include_user = 0
 	action_icon_state = "revive_thrall"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/reviveThrall/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))

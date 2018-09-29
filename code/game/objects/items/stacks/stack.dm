@@ -31,7 +31,10 @@
 
 /obj/item/stack/examine(mob/user)
 	if(..(user, 1))
-		to_chat(user, "There are [amount] [singular_name]\s in the stack.")
+		if(singular_name)
+			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
+		else
+			to_chat(user, "There are [amount] [name]\s in the stack.")
 
 /obj/item/stack/attack_self(mob/user)
 	list_recipes(user)
