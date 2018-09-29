@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Fixed several bugs with blob, including lateround blobs not generating biohazard alerts, blobs missing out on early resources they should have, and a bug with blob storage being broken that prevented blobs getting any resources."
