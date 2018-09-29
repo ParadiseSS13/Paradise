@@ -109,54 +109,42 @@
 			if("shop")
 				if(href_list["KarmaBuy"])
 					var/karma=verify_karma()
-					if(!isnull(karma)) //Doesn't display anything if karma database is down.
-						switch(href_list["KarmaBuy"])
-							if("1")
-								karma_purchase(karma,5,"job","Barber")
-								return
-							if("2")
-								karma_purchase(karma,5,"job","Brig Physician")
-								return
-							if("3")
-								karma_purchase(karma,30,"job","Nanotrasen Representative")
-								return
-							if("5")
-								karma_purchase(karma,30,"job","Blueshield")
-								return
-							if("6")
-								karma_purchase(karma,30,"job","Mechanic")
-								return
-							if("7")
-								karma_purchase(karma,45,"job","Magistrate")
-								return
-							if("9")
-								karma_purchase(karma,30,"job","Security Pod Pilot")
-								return
+					if(isnull(karma)) //Doesn't display anything if karma database is down.
+						return
+					switch(href_list["KarmaBuy"])
+						if("1")
+							karma_purchase(karma,5,"job","Barber")
+						if("2")
+							karma_purchase(karma,5,"job","Brig Physician")
+						if("3")
+							karma_purchase(karma,30,"job","Nanotrasen Representative")
+						if("5")
+							karma_purchase(karma,30,"job","Blueshield")
+						if("6")
+							karma_purchase(karma,30,"job","Mechanic")
+						if("7")
+							karma_purchase(karma,45,"job","Magistrate")
+						if("9")
+							karma_purchase(karma,30,"job","Security Pod Pilot")
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
-					if(!isnull(karma)) //Doesn't display anything if karma database is down.
-						switch(href_list["KarmaBuy2"])
-							if("1")
-								karma_purchase(karma,15,"species","Machine People","Machine")
-								return
-							if("2")
-								karma_purchase(karma,30,"species","Kidan")
-								return
-							if("3")
-								karma_purchase(karma,30,"species","Grey")
-								return
-							if("4")
-								karma_purchase(karma,45,"species","Vox")
-								return
-							if("5")
-								karma_purchase(karma,45,"species","Slime People")
-								return
-							if("6")
-								karma_purchase(karma,100,"species","Plasmaman")
-								return
-							if("7")
-								karma_purchase(karma,30,"species","Drask")
-								return
+					if(isnull(karma)) //Doesn't display anything if karma database is down.
+						return
+					switch(href_list["KarmaBuy2"])
+						if("1")
+							karma_purchase(karma,15,"species","Machine People","Machine")
+						if("2")
+							karma_purchase(karma,30,"species","Kidan")
+						if("3")
+							karma_purchase(karma,30,"species","Grey")
+						if("4")
+							karma_purchase(karma,45,"species","Vox")
+						if("5")
+							karma_purchase(karma,45,"species","Slime People")
+						if("6")
+							karma_purchase(karma,100,"species","Plasmaman")
+						if("7")
+							karma_purchase(karma,30,"species","Drask")
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
 					var/job = href_list["KarmaRefund"]
