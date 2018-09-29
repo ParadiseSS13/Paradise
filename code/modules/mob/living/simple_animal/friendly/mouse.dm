@@ -186,9 +186,7 @@
 	if(istype(blobmind) && istype(C))
 		blobmind.special_role = SPECIAL_ROLE_BLOB
 		var/obj/structure/blob/core/core = new(T, 200, C, 3)
-		if(core.overmind && core.overmind.mind)
-			//core.overmind.mind.name = blob.name
-			core.overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+		core.lateblobtimer()
 	else
 		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
 	if(ismob(loc)) // in case some taj/etc ate the mouse.
