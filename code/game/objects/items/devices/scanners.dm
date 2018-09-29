@@ -685,14 +685,14 @@ REAGENT SCANNER
 		return
 	
 	if(!ready)
-		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining.")
+		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining.</span>")
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 		return
 	
 	if(power_supply.charge >= usecharge)
 		mobScan(M, user)
 	else
-		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!")
+		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!</span>")
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 	
 /obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
@@ -740,7 +740,7 @@ REAGENT SCANNER
 	var/found_disease = FALSE
 	for(var/thing in target.viruses)
 		var/datum/disease/D = thing
-		if(D.visibility_flags & HIDDEN_SCANNER || D.visibility_flags & HIDDEN_PANDEMIC)
+		if(D.visibility_flags) //If any visibility flags are on.
 			continue
 		found_disease = TRUE
 		break

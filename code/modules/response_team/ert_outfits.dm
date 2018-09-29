@@ -90,7 +90,7 @@
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
-		/obj/item/ammo_box/magazine/m45/enforcer45/lethal = 2,
+		/obj/item/ammo_box/magazine/m45/enforcer45/lethal = 2
 		)
 
 	cybernetic_implants = list(
@@ -179,7 +179,7 @@
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/storage/box/flashbangs = 1,
 		/obj/item/whetstone = 1,
-		/obj/item/storage/lockbox/t4 = 1,
+		/obj/item/storage/lockbox/t4 = 1
 	)
 
 	cybernetic_implants = list(
@@ -187,7 +187,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun,
 		/obj/item/organ/internal/cyberimp/arm/telebaton,
-		/obj/item/organ/internal/cyberimp/chest/reviver,
+		/obj/item/organ/internal/cyberimp/chest/reviver
 	)
 
 
@@ -261,7 +261,7 @@
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma = 1,
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/rcd/combat = 1,
-		/obj/item/rcd_ammo/large = 3,
+		/obj/item/rcd_ammo/large = 3
 	)
 
 	cybernetic_implants = list(
@@ -269,7 +269,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun,
 		/obj/item/organ/internal/cyberimp/eyes/shield,
-		/obj/item/organ/internal/cyberimp/arm/toolset,
+		/obj/item/organ/internal/cyberimp/arm/toolset
 	)
 
 //////////////////// MEDIC ///////////////////
@@ -343,9 +343,6 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
 	glasses = /obj/item/clothing/glasses/night
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
-	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/surgery
-	)
 
 	belt = /obj/item/defibrillator/compact/loaded
 
@@ -358,7 +355,7 @@
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/storage/belt/medical/surgery/loaded = 1,
-		/obj/item/roller = 1,
+		/obj/item/roller = 1
 		)
 
 	cybernetic_implants = list(
@@ -459,14 +456,13 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment
-	)
+
 	r_pocket = /obj/item/scythe/tele
 	l_pocket = /obj/item/gun/energy/gun/mini
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/advmop
+		/obj/item/organ/internal/cyberimp/arm/advmop,
+		/obj/item/organ/internal/cyberimp/chest/nutriment
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma

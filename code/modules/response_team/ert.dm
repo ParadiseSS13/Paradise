@@ -10,8 +10,8 @@
 var/list/response_team_members = list()
 var/responseteam_age = 21 // Minimum account age to play as an ERT member
 var/datum/response_team/active_team = null
-var/send_emergency_team = 0
-var/ert_request_answered = 0
+var/send_emergency_team = FALSE
+var/ert_request_answered = FALSE
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
@@ -25,7 +25,7 @@ var/ert_request_answered = 0
 		to_chat(usr, "<span class='warning'>The game hasn't started yet!</span>")
 		return
 
-	if(ticker.current_state == 1)
+	if(ticker.current_state == GAME_STATE_PREGAME)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
@@ -39,11 +39,11 @@ var/ert_request_answered = 0
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!send_emergency_team)
-		to_chat(src, "No emergency response team is currently being sent.")
+		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
 		return 0
 
 	if(jobban_isbanned(src, ROLE_ERT))
-		to_chat(src, "<span class='warning'>You are jobbanned from the emergency reponse team!</span>")
+		to_chat(src, "<span class='warning'>You are jobbanned from playing on an emergency response team!</span>")
 		return 0
 
 	var/player_age_check = check_client_age(client, responseteam_age)
@@ -56,7 +56,7 @@ var/ert_request_answered = 0
 		return 0
 
 	if(response_team_members.len > 6)
-		to_chat(src, "The emergency response team is already full!")
+		to_chat(src, "<span class='warning'>The emergency response team is already full!</span>")
 		return 0
 
 	return 1
@@ -66,11 +66,11 @@ var/ert_request_answered = 0
 	active_team = response_team_type
 	active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
-	send_emergency_team = 1
+	send_emergency_team = TRUE
 	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT])
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
-		send_emergency_team = 0
+		send_emergency_team = FALSE
 		return 0
 
 	// Respawnable players get first dibs
@@ -86,7 +86,7 @@ var/ert_request_answered = 0
 
 	if(!response_team_members.len)
 		active_team.cannot_send_team()
-		send_emergency_team = 0
+		send_emergency_team = FALSE
 		return 0
 
 	var/index = 1
@@ -115,7 +115,7 @@ var/ert_request_answered = 0
 		new_commando.update_icons()
 		index++
 
-	send_emergency_team = 0
+	send_emergency_team = FALSE
 	active_team.announce_team()
 	return 1
 
@@ -366,4 +366,3 @@ var/ert_request_answered = 0
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	return

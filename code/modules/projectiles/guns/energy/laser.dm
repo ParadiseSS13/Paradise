@@ -127,7 +127,7 @@
 
 /obj/item/gun/energy/immolator/multi
 	name = "multi lens immolator cannon"
-	desc = "A large laser cannon, similar to the Immolator Laser, with togglable firemodes. It is frequently used by military-like forces through Nanotrasen."
+	desc = "A large laser cannon, similar to the Immolator Laser, with toggleable firemodes. It is frequently used by military-like forces through Nanotrasen."
 	icon_state = "multilensimmolator"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
 	origin_tech = "combat=5;magnets=5;powerstorage=4"
