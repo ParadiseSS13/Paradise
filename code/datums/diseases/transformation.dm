@@ -116,7 +116,7 @@
 
 /datum/disease/transformation/virush
 	name = "VirusH"
-	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST
+	disease_flags = CURABLE|CAN_CARRY|CAN_RESIST|HIDDEN_PANDEMIC
 	cure_text = "Mother cell stabilizer"
 	cures = list("virushcure")
 	permeability_mod = 1
