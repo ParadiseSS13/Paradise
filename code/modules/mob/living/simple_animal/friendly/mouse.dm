@@ -186,16 +186,7 @@
 	if(istype(blobmind) && istype(C))
 		blobmind.special_role = SPECIAL_ROLE_BLOB
 		var/obj/structure/blob/core/core = new(T, 200, C, 3)
-		spawn(20)
-			// This delay is necessary because /obj/structure/blob/core/proc/create_overmind has a spawn() in it which causes core.overmind not to be defined immediately.
-			if(core.overmind)
-				core.overmind.add_points(60)
-				if(core.overmind.mind)
-					core.overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
-				else
-					log_debug("blobinfected/proc/burst: Blob lacks a core.overmind.mind.")
-			else
-				log_debug("blobinfected/proc/burst: Blob lacks an core.overmind.")
+		core.lateblobtimer()
 	else
 		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
 	if(ismob(loc)) // in case some taj/etc ate the mouse.
