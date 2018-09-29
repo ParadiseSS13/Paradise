@@ -738,6 +738,14 @@
 	desc = "Bark bark bark."
 	key = "vu"
 
-
+/datum/language/zombie
+    name = "Zombie"
+    desc = "A language annoying."
+    ask_verb = "Cry"
+    exclaim_verb = "shouts"
+    colour = "zombie"
+    key = "zo"
+    flags = RESTRICTED
+    syllables = list("BRaRArGh", "aaAARGaaHrrG", "ARrGAaAGUR", "GUrRuGHRGH")
 
 #undef SCRAMBLE_CACHE_LEN
