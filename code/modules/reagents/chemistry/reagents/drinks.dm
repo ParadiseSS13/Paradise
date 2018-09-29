@@ -248,7 +248,7 @@
 	name = "Hot Chocolate"
 	id = "hot_coco"
 	description = "Made with love! And coco beans."
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 1 * REAGENTS_METABOLISM
 	color = "#403010" // rgb: 64, 48, 16
 	adj_temp_hot = 5
 	drink_icon = "hot_coco"
@@ -412,7 +412,7 @@
 	id = "chocolatepudding"
 	description = "A great dessert for chocolate lovers."
 	color = "#800000"
-	nutriment_factor = 4 * REAGENTS_METABOLISM
+	nutriment_factor = 3 * REAGENTS_METABOLISM
 	drink_icon = "chocolatepudding"
 	drink_name = "Chocolate Pudding"
 	drink_desc = "Tasty"
@@ -423,7 +423,7 @@
 	id = "vanillapudding"
 	description = "A great dessert for vanilla lovers."
 	color = "#FAFAD2"
-	nutriment_factor = 4 * REAGENTS_METABOLISM
+	nutriment_factor = 3 * REAGENTS_METABOLISM
 	drink_icon = "vanillapudding"
 	drink_name = "Vanilla Pudding"
 	drink_desc = "Tasty."
@@ -434,7 +434,7 @@
 	id = "cherryshake"
 	description = "A cherry flavored milkshake."
 	color = "#FFB6C1"
-	nutriment_factor = 4 * REAGENTS_METABOLISM
+	nutriment_factor = 3 * REAGENTS_METABOLISM
 	drink_icon = "cherryshake"
 	drink_name = "Cherry Shake"
 	drink_desc = "A cherry flavored milkshake."
@@ -445,7 +445,7 @@
 	id = "bluecherryshake"
 	description = "An exotic milkshake."
 	color = "#00F1FF"
-	nutriment_factor = 4 * REAGENTS_METABOLISM
+	nutriment_factor = 3 * REAGENTS_METABOLISM
 	drink_icon = "bluecherryshake"
 	drink_name = "Blue Cherry Shake"
 	drink_desc = "An exotic blue milkshake."
@@ -467,7 +467,7 @@
 	id = "gibbfloats"
 	description = "Ice cream on top of a Dr. Gibb glass."
 	color = "#B22222"
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 2 * REAGENTS_METABOLISM
 	drink_icon= "gibbfloats"
 	drink_name = "Gibbfloat"
 	drink_desc = "Dr. Gibb with ice cream on top."
@@ -499,7 +499,7 @@
 	id = "rainbowjuice"
 	description = "A colorful mixture of fruit juices."
 	color = "#FF8EC8"
-	nutriment_factor = 4 * REAGENTS_METABOLISM
+	nutriment_factor = 2 * REAGENTS_METABOLISM
 	drink_icon = "rainbowjuice"
 	drink_name = "Rainbow Juice"
 	drink_desc = "A colorful mixture of fruit juices."
@@ -510,7 +510,7 @@
 	id = "unclegits_specialmilk"
 	description = "It is sticky and has a strong chlorine smell."
 	color = "#FFFEC6"
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 2 * REAGENTS_METABOLISM
 	drink_icon = "unclegits_specialmilk"
 	drink_name = "Uncle Git's Special Milk"
 	drink_desc = "It is sticky and has a strong chlorine smell."
