@@ -13,7 +13,7 @@
 	dietflags = DIET_OMNI
 	language = "Zombie"
 	default_language = "Zombie"
-	speech_sounds = list('sound/voice/zombievoice.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
+	speech_sounds = list('sound/voice/zombievoice.ogg') 
 	speech_chance = 20
 	has_fine_manipulation = 0
 	death_message = "Stops moving..."
@@ -26,8 +26,9 @@
 	oxy_mod = 0
 	brain_mod = 0
 	slowdown = 2
-	punchdamagelow = 3
-	punchdamagehigh = 5
+	punchdamagelow = 5
+	punchdamagehigh = 8
+	punchstunthreshold = 12
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 
 	has_organ = list(
