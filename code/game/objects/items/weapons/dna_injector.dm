@@ -74,7 +74,7 @@
 		H = M
 
 	spawn(0) //Some mutations have sleeps in them, like monkey
-		if(!(NOCLONE in M.mutations) && !(H && (NO_DNA in H.dna.species.species_traits))) // prevents drained people from having their DNA changed
+		if(!(M.has_trait(TRAIT_NOCLONE)) && !(H && (NO_DNA in H.dna.species.species_traits))) // prevents drained people from having their DNA changed
 			var/prev_ue = M.dna.unique_enzymes
 			var/mutflags = 0
 			// UI in syringe.
@@ -201,7 +201,7 @@
 	value = 0xFFF
 	//block = 10
 	New()
-		block = FIREBLOCK
+		block = COLDRESBLOCK
 		..()
 
 /obj/item/dnainjector/antifire
@@ -211,7 +211,7 @@
 	value = 0x001
 	//block = 10
 	New()
-		block = FIREBLOCK
+		block = COLDRESBLOCK
 		..()
 
 /obj/item/dnainjector/telemut

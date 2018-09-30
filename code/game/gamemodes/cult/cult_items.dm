@@ -32,7 +32,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.Dizzy(120)
 
-	if(HULK in user.mutations)
+	if(user.has_trait(TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
 		user.unEquip(src, 1)
 

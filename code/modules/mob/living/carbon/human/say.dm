@@ -114,7 +114,7 @@
 	if(mind)
 		span = mind.speech_span
 
-	if(silent || (disabilities & MUTE))
+	if(silent || (has_trait(TRAIT_MUTE)))
 		message = ""
 		speech_problem_flag = 1
 
@@ -150,7 +150,7 @@
 				message = uppertext(message)
 				verb = "yells loudly"
 
-	if((COMIC in mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs))
+	if((has_trait(TRAIT_COMIC)) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs))
 		span = "sans"
 
 	if(span)

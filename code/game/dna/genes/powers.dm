@@ -7,7 +7,7 @@
 	activation_messages=list("You feel no need to breathe.")
 	deactivation_messages=list("You feel the need to breathe, once more.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = BREATHLESS
+	trait = TRAIT_BREATHLESS
 	activation_prob=25
 
 /datum/dna/gene/basic/nobreath/New()
@@ -19,7 +19,7 @@
 	activation_messages=list("Your wounds start healing.")
 	deactivation_messages=list("Your regenerative powers feel like they've vanished.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=REGEN
+	trait = TRAIT_REGEN
 
 /datum/dna/gene/basic/regenerate/New()
 	block=REGENERATEBLOCK
@@ -29,7 +29,7 @@
 	activation_messages=list("You feel swift and unencumbered.")
 	deactivation_messages=list("You feel slow.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=RUN
+	trait = TRAIT_RUN
 
 /datum/dna/gene/basic/increaserun/New()
 	block=INCREASERUNBLOCK
@@ -48,10 +48,10 @@
 	activation_messages=list("Your skin is icy to the touch.")
 	deactivation_messages=list("Your skin no longer feels icy to the touch.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = HEATRES
+	trait = TRAIT_HEATRES
 
 /datum/dna/gene/basic/heat_resist/New()
-	block=COLDBLOCK
+	block=HEATRESBLOCK
 
 /datum/dna/gene/basic/heat_resist/OnDrawUnderlays(var/mob/M,var/g,var/fat)
 	return "cold[fat]_s"
@@ -61,10 +61,10 @@
 	activation_messages=list("Your body is filled with warmth.")
 	deactivation_messages=list("Your body is no longer filled with warmth.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = COLDRES
+	trait = TRAIT_COLDRES
 
 /datum/dna/gene/basic/cold_resist/New()
-	block=FIREBLOCK
+	block=COLDRESBLOCK
 
 /datum/dna/gene/basic/cold_resist/OnDrawUnderlays(var/mob/M,var/g,var/fat)
 	return "fire[fat]_s"
@@ -74,7 +74,7 @@
 	activation_messages=list("Your fingers feel numb.")
 	deactivation_messages=list("your fingers no longer feel numb.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=FINGERPRINTS
+	trait = TRAIT_FINGERPRINTS
 
 /datum/dna/gene/basic/noprints/New()
 	block=NOPRINTSBLOCK
@@ -84,7 +84,7 @@
 	activation_messages=list("Your skin feels dry and unreactive.")
 	deactivation_messages=list("Your skin no longer feels dry and unreactive.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation=NO_SHOCK
+	trait = TRAIT_NO_SHOCK
 
 /datum/dna/gene/basic/noshock/New()
 	block=SHOCKIMMUNITYBLOCK
@@ -94,7 +94,7 @@
 	activation_messages=list("Everything around you seems bigger now...")
 	deactivation_messages = list("Everything around you seems to shrink...")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=DWARF
+	trait = TRAIT_DWARF
 
 /datum/dna/gene/basic/midget/New()
 	block=SMALLSIZEBLOCK
@@ -115,23 +115,25 @@
 	activation_messages=list("Your muscles hurt.")
 	deactivation_messages=list("Your muscles shrink.")
 	instability = GENE_INSTABILITY_MAJOR
-	mutation=HULK
+	trait = TRAIT_HULK
 	activation_prob=15
 
 /datum/dna/gene/basic/hulk/New()
 	block=HULKBLOCK
 
-/datum/dna/gene/basic/hulk/activate(var/mob/M, var/connected, var/flags)
+/datum/dna/gene/basic/hulk/activate(mob/living/M, connected, flags)
 	..()
-	var/status = CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
-	M.status_flags &= ~status
-
-/datum/dna/gene/basic/hulk/deactivate(var/mob/M, var/connected, var/flags)
+	M.status_flags &= ~CANPARALYSE
+	M.add_trait(TRAIT_STUNIMMUNE, SOURCE_TRAIT_HULK)
+	M.add_trait(TRAIT_PUSHIMMUNE, SOURCE_TRAIT_HULK)
+/datum/dna/gene/basic/hulk/deactivate(mob/living/M, connected, flags)
 	..()
-	M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH
+	M.status_flags |=  CANPARALYSE
+	M.remove_trait(TRAIT_STUNIMMUNE, SOURCE_TRAIT_HULK)
+	M.remove_trait(TRAIT_PUSHIMMUNE, SOURCE_TRAIT_HULK)
 
 /datum/dna/gene/basic/hulk/OnDrawUnderlays(var/mob/M,var/g,var/fat)
-	if(HULK in M.mutations)
+	if(M.has_trait(TRAIT_HULK))
 		if(fat)
 			return "hulk_[fat]_s"
 		else
@@ -141,13 +143,15 @@
 /datum/dna/gene/basic/hulk/OnMobLife(var/mob/living/carbon/human/M)
 	if(!istype(M))
 		return
-	if((HULK in M.mutations) && M.health <= 0)
-		M.mutations.Remove(HULK)
+	if((M.has_trait(TRAIT_HULK)) && M.health <= 0)
+		M.remove_trait(TRAIT_HULK)
 		M.dna.SetSEState(HULKBLOCK,0)
 		genemutcheck(M, HULKBLOCK,null,MUTCHK_FORCED)
 		M.update_mutations()		//update our mutation overlays
 		M.update_body()
-		M.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | CANPUSH //temporary fix until the problem can be solved.
+		M.status_flags |= CANPARALYSE
+		M.remove_trait(TRAIT_STUNIMMUNE, SOURCE_TRAIT_HULK)
+		M.remove_trait(TRAIT_PUSHIMMUNE, SOURCE_TRAIT_HULK)
 		to_chat(M, "<span class='danger'>You suddenly feel very weak.</span>")
 
 /datum/dna/gene/basic/xray
@@ -155,7 +159,7 @@
 	activation_messages=list("The walls suddenly disappear.")
 	deactivation_messages=list("the walls around you re-appear.")
 	instability = GENE_INSTABILITY_MAJOR
-	mutation=XRAY
+	trait = TRAIT_XRAY
 	activation_prob=15
 
 /datum/dna/gene/basic/xray/New()
@@ -176,7 +180,7 @@
 	activation_messages = list("You feel smarter.")
 	deactivation_messages = list("You feel dumber.")
 	instability = GENE_INSTABILITY_MAJOR
-	mutation=TK
+	trait = TRAIT_TK
 	activation_prob=15
 
 /datum/dna/gene/basic/tk/New()

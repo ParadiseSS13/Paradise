@@ -46,7 +46,7 @@
 			move_delay_add = max(0, move_delay_add - rand(1, 2))
 
 		//Eyes
-		if(disabilities & BLIND)	//disabled-blind, doesn't get better on its own
+		if(has_trait(TRAIT_BLIND))	//disabled-blind, doesn't get better on its own
 			blinded = 1
 		else if(eye_blind)			//blindness, heals slowly over time
 			AdjustEyeBlind(-1)
@@ -55,7 +55,7 @@
 			AdjustEyeBlurry(-1)
 
 		//Ears
-		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+		if(has_trait(TRAIT_DEAF))	//disabled-deaf, doesn't get better on its own
 			EarDeaf(1)
 		else if(ear_deaf)			//deafness, heals slowly over time
 			AdjustEarDeaf(-1)

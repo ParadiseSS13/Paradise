@@ -302,7 +302,7 @@
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot) //grant them laser eyes upon equipping it.
 	if(slot == slot_glasses)
-		user.mutations.Add(LASER)
+		user.add_trait(TRAIT_LASER)
 		user.regenerate_icons()
 	..(user, slot)
 
@@ -396,10 +396,10 @@
 			if(M.glasses == src)
 				M.EyeBlind(3)
 				M.EyeBlurry(5)
-				if(!(M.disabilities & NEARSIGHTED))
-					M.BecomeNearsighted()
+				if(!(M.has_trait(TRAIT_NEARSIGHT)))
+					M.become_nearsighted("overload")
 					spawn(100)
-						M.CureNearsighted()
+						M.cure_nearsighted("overload")
 		..()
 
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete

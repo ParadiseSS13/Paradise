@@ -26,7 +26,7 @@
 
 	var/obj/item/organ/internal/honktumor/cursed/tumor = new
 	tumor.insert(src)
-	mutations.Add(NERVOUS)
+	add_trait(TRAIT_NERVOUS, GENETIC_MUTATION)
 	dna.SetSEState(NERVOUSBLOCK, 1, 1)
 	genemutcheck(src, NERVOUSBLOCK, null, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
@@ -55,13 +55,13 @@
 	if(tumor)
 		tumor.remove(src)
 	else
-		mutations.Remove(CLUMSY)
-		mutations.Remove(COMICBLOCK)
+		remove_trait(TRAIT_CLUMSY)
+		remove_trait(TRAIT_COMIC)
 		dna.SetSEState(CLUMSYBLOCK,0)
 		dna.SetSEState(COMICBLOCK,0)
 		genemutcheck(src, CLUMSYBLOCK, null, MUTCHK_FORCED)
 		genemutcheck(src, COMICBLOCK, null, MUTCHK_FORCED)
-	mutations.Remove(NERVOUS)
+	remove_trait(TRAIT_NERVOUS, GENETIC_MUTATION)
 	dna.SetSEState(NERVOUSBLOCK, 0)
 	genemutcheck(src, NERVOUSBLOCK, null, MUTCHK_FORCED)
 

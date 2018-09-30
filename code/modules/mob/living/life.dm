@@ -98,7 +98,7 @@
 		if(paralysis)
 			stat = UNCONSCIOUS
 
-		else if(status_flags & FAKEDEATH)
+		else if(has_trait(TRAIT_FAKEDEATH))
 			stat = UNCONSCIOUS
 
 		else
@@ -185,7 +185,7 @@
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
-	if(disabilities & BLIND || stat)	//blindness from disability or unconsciousness doesn't get better on its own
+	if((has_trait(TRAIT_BLIND)) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
 		EyeBlind(1)
 	else if(eye_blind)			//blindness, heals slowly over time
 		AdjustEyeBlind(-1)
@@ -193,7 +193,7 @@
 		AdjustEyeBlurry(-1)
 
 	//Ears
-	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
+	if(has_trait(TRAIT_DEAF))		//disabled-deaf, doesn't get better on its own
 		EarDeaf(1)
 	else
 		// deafness heals slowly over time, unless ear_damage is over 100
@@ -222,7 +222,7 @@
 		clear_fullscreen("blind")
 		clear_alert("blind")
 
-		if(disabilities & NEARSIGHTED)
+		if(has_trait(TRAIT_NEARSIGHT))
 			overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 		else
 			clear_fullscreen("nearsighted")

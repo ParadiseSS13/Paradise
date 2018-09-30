@@ -533,7 +533,7 @@
 		occupantData["name"] = connected.occupant.dna.real_name
 		occupantData["stat"] = connected.occupant.stat
 		occupantData["isViableSubject"] = 1
-		if((NOCLONE in connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
+		if(((connected.occupant.has_trait(TRAIT_NOCLONE)) && connected.scan_level < 3) || !connected.occupant.dna || (NO_DNA in connected.occupant.dna.species.species_traits))
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
@@ -882,7 +882,7 @@
 			return 1
 
 		if(bufferOption == "transfer")
-			if(!src.connected.occupant || (NOCLONE in src.connected.occupant.mutations && connected.scan_level < 3) || !src.connected.occupant.dna)
+			if(!src.connected.occupant || ((connected.occupant.has_trait(TRAIT_NOCLONE)) && connected.scan_level < 3) || !src.connected.occupant.dna)
 				return 1
 
 			irradiating = 2

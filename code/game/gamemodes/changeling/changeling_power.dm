@@ -50,7 +50,7 @@
 	changeling.geneticdamage += genetic_damage
 
 //Fairly important to remember to return 1 on success >.<
-/obj/effect/proc_holder/changeling/proc/can_sting(var/mob/user, var/mob/target)
+/obj/effect/proc_holder/changeling/proc/can_sting(var/mob/living/user, var/mob/target)
 	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
 	if(req_human && (!ishuman(user) || issmall(user)))
@@ -66,7 +66,7 @@
 	if(req_stat < user.stat)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return 0
-	if((user.status_flags & FAKEDEATH) && name!="Regenerate")
+	if((user.has_trait(TRAIT_FAKEDEATH)) && name!="Regenerate")
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return 0
 	if(c.geneticdamage > max_genetic_damage)
@@ -81,3 +81,18 @@
 	if(req_human && !ishuman(user))
 		return 0
 	return 1
+
+// Transform the target to the chosen dna. Used in transform.dm and tiny_prick.dm (handy for changes since it's the same thing done twice)
+/obj/effect/proc_holder/changeling/proc/transform_dna(var/mob/living/carbon/human/H, var/datum/dna/D)
+	if(!D)
+		return
+	
+	H.set_species(D.species.type)
+	H.dna = D.Clone()
+	H.real_name = D.real_name
+	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	H.flavor_text = ""
+	H.dna.UpdateSE()
+	H.dna.UpdateUI()
+	H.sync_organ_dna(1)
+	H.UpdateAppearance()

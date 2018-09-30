@@ -123,7 +123,7 @@ var/global/sent_honksquad = 0
 		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), slot_in_backpack)
-	src.mutations.Add(CLUMSY)
+	add_trait(TRAIT_CLUMSY, GENETIC_MUTATION)
 
 
 

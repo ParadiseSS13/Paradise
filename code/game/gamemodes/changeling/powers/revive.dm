@@ -19,9 +19,9 @@
 	user.SetEarDamage(0)
 	user.SetEarDeaf(0)
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss())
-	user.CureBlind()
-	user.CureDeaf()
-	user.CureNearsighted()
+	user.cure_blind()
+	user.cure_deaf()
+	user.cure_nearsighted()
 	user.reagents.clear_reagents()
 	user.germ_level = 0
 	user.timeofdeath = 0
@@ -58,7 +58,7 @@
 
 	user.regenerate_icons()
 
-	user.status_flags &= ~(FAKEDEATH)
+	user.cure_fakedeath("changeling")
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.
 	user.mind.changeling.purchasedpowers -= src
 	user.med_hud_set_status()

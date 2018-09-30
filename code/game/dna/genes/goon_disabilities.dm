@@ -10,10 +10,10 @@
 /datum/dna/gene/disability/mute
 	name = "Mute"
 	desc = "Completely shuts down the speech center of the subject's brain."
-	activation_message   = "You feel unable to express yourself at all."
-	deactivation_message = "You feel able to speak freely again."
+	activation_messages   = "You feel unable to express yourself at all."
+	deactivation_messages = "You feel able to speak freely again."
 	instability = -GENE_INSTABILITY_MODERATE
-	disability = MUTE
+	trait = TRAIT_MUTE
 
 /datum/dna/gene/disability/mute/New()
 	..()
@@ -29,10 +29,10 @@
 /datum/dna/gene/disability/radioactive
 	name = "Radioactive"
 	desc = "The subject suffers from constant radiation sickness and causes the same on nearby organics."
-	activation_message = "You feel a strange sickness permeate your whole body."
-	deactivation_message = "You no longer feel awful and sick all over."
+	activation_messages = list("You feel a strange sickness permeate your whole body.")
+	deactivation_messages = list("You no longer feel awful and sick all over.")
 	instability = -GENE_INSTABILITY_MAJOR
-	mutation = RADIOACTIVE
+	trait = TRAIT_RADIOACTIVE
 
 /datum/dna/gene/disability/radioactive/New()
 	..()
@@ -69,10 +69,10 @@
 /datum/dna/gene/disability/fat
 	name = "Obesity"
 	desc = "Greatly slows the subject's metabolism, enabling greater buildup of lipid tissue."
-	activation_message = "You feel blubbery and lethargic!"
-	deactivation_message = "You feel fit!"
+	activation_messages = list("You feel blubbery and lethargic!")
+	deactivation_messages = list("You feel fit!")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = OBESITY
+	trait = TRAIT_FAT
 
 /datum/dna/gene/disability/fat/New()
 	..()
@@ -82,9 +82,9 @@
 /datum/dna/gene/disability/speech/chav
 	name = "Chav"
 	desc = "Forces the language center of the subject's brain to construct sentences in a more rudimentary manner."
-	activation_message = "Ye feel like a reet prat like, innit?"
-	deactivation_message = "You no longer feel like being rude and sassy."
-	mutation = CHAV
+	activation_messages = list("Ye feel like a reet prat like, innit?")
+	deactivation_messages = list("You no longer feel like being rude and sassy.")
+	trait = TRAIT_CHAV
 
 /datum/dna/gene/disability/speech/chav/New()
 	..()
@@ -121,9 +121,9 @@
 /datum/dna/gene/disability/speech/swedish
 	name = "Swedish"
 	desc = "Forces the language center of the subject's brain to construct sentences in a vaguely norse manner."
-	activation_message = "You feel Swedish, however that works."
-	deactivation_message = "The feeling of Swedishness passes."
-	mutation = SWEDISH
+	activation_messages = list("You feel Swedish, however that works.")
+	deactivation_messages = list("The feeling of Swedishness passes.")
+	trait = TRAIT_SWEDISH
 
 /datum/dna/gene/disability/speech/swedish/New()
 	..()
@@ -150,10 +150,10 @@
 /datum/dna/gene/disability/unintelligable
 	name = "Unintelligable"
 	desc = "Heavily corrupts the part of the brain responsible for forming spoken sentences."
-	activation_message = "You can't seem to form any coherent thoughts!"
-	deactivation_message = "Your mind feels more clear."
+	activation_messages = list("You can't seem to form any coherent thoughts!")
+	deactivation_messages = list("Your mind feels more clear.")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = SCRAMBLED
+	trait = TRAIT_SCRAMBLED
 
 /datum/dna/gene/disability/unintelligable/New()
 	..()
@@ -186,9 +186,9 @@
 /datum/dna/gene/disability/toxic_farts
 	name = "Toxic Farts"
 	desc = "Causes the subject's digestion to create a significant amount of noxious gas."
-	activation_message = "Your stomach grumbles unpleasantly."
-	deactivation_message = "Your stomach stops acting up. Phew!"
-	mutation = TOXIC_FARTS
+	activation_messages = list("Your stomach grumbles unpleasantly.")
+	deactivation_messages = list("Your stomach stops acting up. Phew!")
+	trait = TRAIT_TOXIC_FARTS
 
 /datum/dna/gene/disability/toxic_farts/New()
 	..()
@@ -203,9 +203,9 @@
 	// pretty sure this doesn't do jack shit, putting it here until it does
 	name = "Strong"
 	desc = "Enhances the subject's ability to build and retain heavy muscles."
-	activation_message = "You feel buff!"
-	deactivation_message = "You feel wimpy and weak."
-	mutation = STRONG
+	activation_messages = list("You feel buff!")
+	deactivation_messages = list("You feel wimpy and weak.")
+	trait = TRAIT_STRONG
 
 /datum/dna/gene/disability/strong/New()
 	..()
@@ -215,9 +215,9 @@
 /datum/dna/gene/disability/horns
 	name = "Horns"
 	desc = "Enables the growth of a compacted keratin formation on the subject's head."
-	activation_message = "A pair of horns erupt from your head."
-	deactivation_message = "Your horns crumble away into nothing."
-	mutation = HORNS
+	activation_messages = list("A pair of horns erupt from your head.")
+	deactivation_messages = list("Your horns crumble away into nothing.")
+	trait = TRAIT_HORNS
 
 /datum/dna/gene/disability/horns/New()
 	..()
@@ -233,7 +233,7 @@
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
 	activation_messages = list("You suddenly feel rather hot.")
 	deactivation_messages = list("You no longer feel uncomfortably hot.")
-	mutation = IMMOLATE
+	trait = TRAIT_IMMOLATE
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/immolate
 

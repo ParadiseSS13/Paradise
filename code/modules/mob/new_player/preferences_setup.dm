@@ -923,7 +923,7 @@
 					if(4)
 						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
-	if(disabilities & NEARSIGHTED)
+	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
 		preview_icon.Blend(new /icon('icons/mob/eyes.dmi', "glasses"), ICON_OVERLAY)
 
 	// Observers get tourist outfit.

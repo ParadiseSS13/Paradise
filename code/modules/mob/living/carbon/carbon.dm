@@ -29,7 +29,7 @@
 			nutrition -= hunger_drain / 10
 			if(m_intent == MOVE_INTENT_RUN)
 				nutrition -= hunger_drain / 10
-		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
+		if((has_trait(TRAIT_FAT)) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
 		// Moving around increases germ_level faster
@@ -135,7 +135,7 @@
 /mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, override = 0, tesla_shock = 0)
 	if(status_flags & GODMODE)	//godmode
 		return 0
-	if(NO_SHOCK in mutations) //shockproof
+	if(has_trait(TRAIT_NO_SHOCK)) //shockproof
 		return 0
 	if(tesla_shock && tesla_ignore)
 		return FALSE
@@ -256,7 +256,7 @@
 					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
 				else
 					to_chat(src, "<span class='info'>You feel fatigued.</span>")
-			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+			if((H.has_trait(TRAIT_SKELETON)) && (!H.w_uniform) && (!H.wear_suit))
 				H.play_xylophone()
 		else
 			if(player_logged)

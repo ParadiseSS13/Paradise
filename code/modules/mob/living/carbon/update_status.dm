@@ -7,7 +7,7 @@
 			death()
 			return
 //		if(paralysis || sleeping || getOxyLoss() > low_oxy_ko || (status_flags & FAKEDEATH) || health <= crit_health)
-		if(paralysis || sleeping || getOxyLoss() > 50 || (status_flags & FAKEDEATH) || health <= config.health_threshold_crit)
+		if(paralysis || sleeping || getOxyLoss() > 50 || has_trait(TRAIT_FAKEDEATH) || health <= config.health_threshold_crit)
 			if(stat == CONSCIOUS)
 				KnockOut()
 		else

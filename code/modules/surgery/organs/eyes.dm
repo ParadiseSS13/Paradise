@@ -26,7 +26,7 @@
 	return eyes_icon
 
 /obj/item/organ/internal/eyes/proc/get_colourmatrix() //Returns a special colour matrix if the eyes are organic and the mob is colourblind, otherwise it uses the current one.
-	if(!is_robotic() && owner.disabilities & COLOURBLIND)
+	if(!is_robotic() && owner.has_trait(TRAIT_COLOURBLIND))
 		return colourblind_matrix
 	else
 		return colourmatrix
@@ -43,17 +43,17 @@
 	if(istype(M) && eye_colour)
 		M.update_body() //Apply our eye colour to the target.
 
-	if(!(M.disabilities & COLOURBLIND) && (dependent_disabilities & COLOURBLIND)) //If the eyes are colourblind and we're not, carry over the gene.
-		dependent_disabilities &= ~COLOURBLIND
+	if(!(M.has_trait(TRAIT_COLOURBLIND)) && (TRAIT_COLOURBLIND in dependent_disabilities)) //If the eyes are colourblind and we're not, carry over the gene.
+		dependent_disabilities -= TRAIT_COLOURBLIND
 		M.dna.SetSEState(COLOURBLINDBLOCK,1)
 		genemutcheck(M,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
 	else
 		M.update_client_colour() //If we're here, that means the mob acquired the colourblindness gene while they didn't have eyes. Better handle it.
 
 /obj/item/organ/internal/eyes/remove(mob/living/carbon/human/M, special = 0)
-	if(!special && (M.disabilities & COLOURBLIND)) //If special is set, that means these eyes are getting deleted (i.e. during set_species())
-		if(!(dependent_disabilities & COLOURBLIND)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
-			dependent_disabilities |= COLOURBLIND
+	if(!special && (M.has_trait(TRAIT_COLOURBLIND))) //If special is set, that means these eyes are getting deleted (i.e. during set_species())
+		if(!(TRAIT_COLOURBLIND in dependent_disabilities)) //We only want to change COLOURBLINDBLOCK and such it the eyes are being surgically removed.
+			dependent_disabilities += TRAIT_COLOURBLIND
 		M.dna.SetSEState(COLOURBLINDBLOCK,0)
 		genemutcheck(M,COLOURBLINDBLOCK,null,MUTCHK_FORCED)
 	. = ..()
@@ -61,8 +61,8 @@
 /obj/item/organ/internal/eyes/surgeryize()
 	if(!owner)
 		return
-	owner.CureNearsighted()
-	owner.CureBlind()
+	owner.cure_nearsighted()
+	owner.cure_blind()
 	owner.SetEyeBlurry(0)
 	owner.SetEyeBlind(0)
 

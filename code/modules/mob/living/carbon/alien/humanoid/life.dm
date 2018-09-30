@@ -5,21 +5,21 @@
 
 
 /mob/living/carbon/alien/humanoid/handle_disabilities()
-	if(disabilities & EPILEPSY)
+	if(has_trait(TRAIT_EPILEPSY))
 		if((prob(1) && paralysis < 10))
 			to_chat(src, "<span class='danger'>You have a seizure!</span>")
 			Paralyse(10)
-	if(disabilities & COUGHING)
+	if(has_trait(TRAIT_COUGHING))
 		if((prob(5) && paralysis <= 1))
 			drop_item()
 			emote("cough")
 			return
-	if(disabilities & TOURETTES)
+	if(has_trait(TRAIT_TOURETTES))
 		if((prob(10) && paralysis <= 1))
 			Stun(10)
 			emote("twitch")
 			return
-	if(disabilities & NERVOUS)
+	if(has_trait(TRAIT_NERVOUS))
 		if(prob(10))
 			stuttering = max(10, stuttering)
 
@@ -78,7 +78,7 @@
 			move_delay_add = max(0, move_delay_add - rand(1, 2))
 
 		//Eyes
-		if(disabilities & BLIND)		//disabled-blind, doesn't get better on its own
+		if(has_trait(TRAIT_BLIND))		//disabled-blind, doesn't get better on its own
 			blinded = 1
 		else if(eye_blind)			//blindness, heals slowly over time
 			AdjustEyeBlind(-1)
@@ -87,7 +87,7 @@
 			AdjustEyeBlurry(-1)
 
 		//Ears
-		if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
+		if(has_trait(TRAIT_DEAF))		//disabled-deaf, doesn't get better on its own
 			EarDeaf(1)
 		else if(ear_deaf)			//deafness, heals slowly over time
 			AdjustEarDeaf(-1)

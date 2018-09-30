@@ -19,7 +19,7 @@
 	return (BRUTELOSS|FIRELOSS)
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)
-	if(user.disabilities & CLUMSY && prob(50))
+	if((user.has_trait(TRAIT_CLUMSY)) && prob(50))
 		to_chat(user, "<span class='warning'>You accidentally cut yourself with [src], like a doofus!</span>")
 		user.take_organ_damage(5,5)
 	active = !active

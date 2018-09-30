@@ -54,7 +54,7 @@
 	to_chat(user, "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>")
 
 /obj/structure/cult/functional/attackby(obj/I, mob/user, params)
-	if(HULK in user.mutations)
+	if(user.has_trait(TRAIT_HULK))
 		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
 		return
 

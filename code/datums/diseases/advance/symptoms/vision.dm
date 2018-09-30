@@ -44,9 +44,9 @@ Bonus
 				M.EyeBlurry(30)
 				eyes.receive_damage(5)
 				if(eyes.damage >= 10)
-					M.BecomeNearsighted()
+					M.become_nearsighted(VIRUS_SYMPTOM)
 					if(prob(eyes.damage - 10 + 1))
-						if(M.BecomeBlind())
+						if(M.become_blind(VIRUS_SYMPTOM))
 							to_chat(M, "<span class='userdanger'>You go blind!</span>")
 
 

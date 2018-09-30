@@ -87,10 +87,10 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			to_chat(user, "<span clas='warning'>Plants needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
 			return
 		if(plants[H.myseed.type])
-			to_chat(user, "<span class='notice'>Plant data already present in local storage.<span>")
+			to_chat(user, "<span class='notice'>Plant data already present in local storage.</span>")
 			return
 		plants[H.myseed.type] = 1
-		to_chat(user, "<span class='notice'>Plant data added to local storage.<span>")
+		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
 
 	//animals
 	if(isanimal(target) || is_type_in_typecache(target, non_simple_animals))
@@ -100,19 +100,19 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
 				return
 		if(animals[target.type])
-			to_chat(user, "<span class='notice'>Animal data already present in local storage.<span>")
+			to_chat(user, "<span class='notice'>Animal data already present in local storage.</span>")
 			return
 		animals[target.type] = 1
-		to_chat(user, "<span class='notice'>Animal data added to local storage.<span>")
+		to_chat(user, "<span class='notice'>Animal data added to local storage.</span>")
 
 	//humans
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(dna[H.dna.uni_identity])
-			to_chat(user, "<span class='notice'>Humanoid data already present in local storage.<span>")
+			to_chat(user, "<span class='notice'>Humanoid data already present in local storage.</span>")
 			return
 		dna[H.dna.uni_identity] = 1
-		to_chat(user, "<span class='notice'>Humanoid data added to local storage.<span>")
+		to_chat(user, "<span class='notice'>Humanoid data added to local storage.</span>")
 
 
 /obj/item/circuitboard/machine/dna_vault
@@ -278,27 +278,27 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	switch(upgrade_type)
 		if(VAULT_SPACEIMMUNE)
 			to_chat(H, "<span class='notice'>You suddenly don't feel the need to breathe anymore. You also don't feel any cold anymore.</span>")
-			grant_power(H, BREATHLESSBLOCK, BREATHLESS)
-			grant_power(H, FIREBLOCK, COLDRES)
+			grant_power(H, BREATHLESSBLOCK, TRAIT_BREATHLESS)
+			grant_power(H, COLDRESBLOCK, TRAIT_COLDRES)
 		if(VAULT_XRAY)
 			to_chat(H, "<span class='notice'>You can suddenly see through walls.</span>")
-			grant_power(H, XRAYBLOCK, XRAY)
+			grant_power(H, XRAYBLOCK, TRAIT_XRAY)
 		if(VAULT_TELEKINESIS)
 			to_chat(H, "<span class='notice'>You gain the ability to control objects from a distance.</span>")
-			grant_power(H, TELEBLOCK, TK)
+			grant_power(H, TELEBLOCK, TRAIT_TK)
 		if(VAULT_PSYCHIC)
 			to_chat(H, "<span class='notice'>Your mind expands, giving you psychic powers.</span>")
-			grant_power(H, REMOTETALKBLOCK, REMOTE_TALK)
-			grant_power(H, REMOTEVIEWBLOCK, REMOTE_VIEW)
-			grant_power(H, EMPATHBLOCK, EMPATH)
-			grant_power(H, PSYRESISTBLOCK, PSY_RESIST)
+			grant_power(H, REMOTETALKBLOCK, TRAIT_REMOTE_TALK)
+			grant_power(H, REMOTEVIEWBLOCK, TRAIT_REMOTE_VIEW)
+			grant_power(H, EMPATHBLOCK, TRAIT_EMPATH)
+			grant_power(H, PSYRESISTBLOCK, TRAIT_PSY_RESIST)
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
-			grant_power(H, JUMPBLOCK, JUMPY)
-			grant_power(H, INCREASERUNBLOCK, RUN)
+			grant_power(H, JUMPBLOCK, TRAIT_JUMPY)
+			grant_power(H, INCREASERUNBLOCK, TRAIT_RUN)
 	power_lottery[H] = list()
 
 /obj/machinery/dna_vault/proc/grant_power(mob/living/carbon/human/H, block, power)
 	H.dna.SetSEState(block, 1, 1)
-	H.mutations |= power
+	H.add_trait(power, GENETIC_MUTATION)
 	genemutcheck(H, block, null, MUTCHK_FORCED)

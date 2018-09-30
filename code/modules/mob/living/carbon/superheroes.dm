@@ -7,7 +7,6 @@
 	var/name
 	var/desc
 	var/class
-	var/list/default_genes = list(REGEN, BREATHLESS, COLDRES)
 	var/list/default_spells = list()
 
 /datum/superheroes/proc/create(var/mob/living/carbon/human/H)
@@ -28,9 +27,10 @@
 		W.flags |= NODROP
 
 /datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
-	if(default_genes.len)
-		for(var/gene in default_genes)
-			H.mutations |= gene
+	var/list/default_genes = list(REGENERATEBLOCK, BREATHLESSBLOCK, HEATRESBLOCK) // Apparently putting global variable in a list would throw a "constant expression" error
+	for(var/gene in default_genes)
+		H.dna.SetSEState(gene, 1)
+		genemutcheck(H, gene,  null, MUTCHK_FORCED)
 		H.update_mutations()
 
 /datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)

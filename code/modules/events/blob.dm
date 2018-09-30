@@ -1,7 +1,6 @@
 /datum/event/blob
-	announceWhen	= 60
-	endWhen			= 120
-	var/obj/structure/blob/core/Blob
+	announceWhen	= 120
+	endWhen			= 180
 
 /datum/event/blob/announce()
 	event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
@@ -25,10 +24,3 @@
 	to_chat(B, "<span class='userdanger'>You are now a mouse, infected with blob spores. Find somewhere isolated... before you burst and become the blob! Use ventcrawl (alt-click on vents) to move around.</span>")
 	var/image/alert_overlay = image('icons/mob/blob.dmi', "blank_blob")
 	notify_ghosts("Infected Mouse has appeared in [get_area(B)].", source = B, alert_overlay = alert_overlay)
-
-/datum/event/blob/tick()
-	if(!Blob)
-		kill()
-		return
-	if(IsMultiple(activeFor, 3))
-		Blob.process()

@@ -6,7 +6,7 @@
 	activation_messages=list("You feel unusually sober.")
 	deactivation_messages = list("You feel like you could use a stiff drink.")
 
-	mutation=SOBER
+	trait = TRAIT_SOBER
 
 /datum/dna/gene/basic/sober/New()
 	block=SOBERBLOCK
@@ -18,7 +18,7 @@
 	activation_messages = list("Your mind feels closed.")
 	deactivation_messages = list("You feel oddly exposed.")
 
-	mutation=PSY_RESIST
+	trait = TRAIT_PSY_RESIST
 
 /datum/dna/gene/basic/psychic_resist/New()
 	block=PSYRESISTBLOCK
@@ -48,7 +48,7 @@
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
 	activation_prob=25
-	mutation = CLOAK
+	trait = TRAIT_CLOAK
 
 /datum/dna/gene/basic/stealth/darkcloak/New()
 	block=SHADOWBLOCK
@@ -70,7 +70,7 @@
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly visible.")
 	activation_prob=25
-	mutation = CHAMELEON
+	trait = TRAIT_CHAMELEON
 
 /datum/dna/gene/basic/stealth/chameleon/New()
 		block=CHAMELEONBLOCK
@@ -117,7 +117,7 @@
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = CRYO
+	trait = TRAIT_CRYO
 
 	spelltype = /obj/effect/proc_holder/spell/targeted/cryokinesis
 
@@ -154,7 +154,7 @@
 		to_chat(user, "<span class='warning'>This will only work on normal organic beings.</span>")
 		return
 
-	if(COLDRES in C.mutations)
+	if(C.has_trait(TRAIT_COLDRES))
 		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
 		return
 	var/handle_suit = 0
@@ -209,7 +209,7 @@
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = EATER
+	trait = TRAIT_EATER
 
 	spelltype=/obj/effect/proc_holder/spell/targeted/eat
 
@@ -362,7 +362,7 @@
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = JUMPY
+	trait = TRAIT_JUMPY
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/leap
 
@@ -386,7 +386,7 @@
 
 	action_icon_state = "genetic_jump"
 
-/obj/effect/proc_holder/spell/targeted/leap/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = 0
 	if(istype(user.loc,/mob/) || user.lying || user.stunned || user.buckled || user.stat)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
@@ -422,7 +422,7 @@
 			sleep(1)
 		user.flying = prevFlying
 
-		if(FAT in user.mutations && prob(66))
+		if((user.has_trait(TRAIT_FAT)) && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(10)
@@ -459,7 +459,7 @@
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = POLYMORPH
+	trait = TRAIT_POLYMORPH
 
 /datum/dna/gene/basic/grant_spell/polymorph/New()
 	..()
@@ -508,7 +508,7 @@
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=EMPATH
+	trait = TRAIT_EMPATH
 
 /datum/dna/gene/basic/grant_spell/empath/New()
 	..()
@@ -543,7 +543,7 @@
 			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
 			return
 
-		if(PSY_RESIST in M.mutations)
+		if(M.has_trait(TRAIT_PSY_RESIST))
 			to_chat(user, "<span class='warning'>You can't see into [M.name]'s mind at all!</span>")
 			return
 
@@ -610,7 +610,7 @@
 				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
-		if(EMPATH in M.mutations)
+		if(M.has_trait(TRAIT_EMPATH))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
 		else if(prob(5) || M.mind.assigned_role=="Chaplain")
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
@@ -625,7 +625,7 @@
 	activation_messages = list("You feel bloated and gassy.")
 	deactivation_messages = list("You no longer feel gassy. What a relief!")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = SUPER_FART
+	trait = TRAIT_SUPER_FART
 	spelltype = /obj/effect/proc_holder/spell/aoe_turf/superfart
 
 /datum/dna/gene/basic/grant_spell/superfart/New()

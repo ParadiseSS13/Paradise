@@ -1,3 +1,5 @@
+#define CHANGELING_MUSCLES "changeling_muscles"
+
 //Strained Muscles: Temporary speed boost at the cost of rapid damage
 //Limited because of hardsuits and such; ideally, used for a quick getaway
 
@@ -16,7 +18,7 @@
 	if(enabled)
 		to_chat(user, "<span class='notice'>Our muscles tense and strengthen.</span>")
 	else
-		user.status_flags &= ~GOTTAGOFAST
+		user.add_trait(TRAIT_GOTTAGOFAST, CHANGELING_MUSCLES)
 		to_chat(user, "<span class='notice'>Our muscles relax.</span>")
 		if(stacks >= 10)
 			to_chat(user, "<span class='danger'>We collapse in exhaustion.</span>")
@@ -24,11 +26,11 @@
 			user.emote("gasp")
 
 	while(enabled)
-		user.status_flags |= GOTTAGOFAST
+		user.add_trait(TRAIT_GOTTAGOFAST, CHANGELING_MUSCLES)
 		if(user.stat || user.staminaloss >= 90)
 			enabled = 0 //Let's use something exact instead of !enabled where we can.
 			to_chat(user, "<span class='notice'>Our muscles relax without the energy to strengthen them.</span>")
-			user.status_flags &= ~GOTTAGOFAST
+			user.remove_trait(TRAIT_GOTTAGOFAST, CHANGELING_MUSCLES)
 			user.Weaken(2)
 			user.emote("gasp")
 			break
@@ -49,3 +51,5 @@
 
 	feedback_add_details("changeling_powers","SANIC")
 	return 1
+
+#undef CHANGELING_MUSCLES

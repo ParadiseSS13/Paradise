@@ -80,7 +80,7 @@
 
 //helper for getting the appropriate health status UPDATED BY PUCKABOO2 TO INCLUDE NEGATIVES.
 /proc/RoundHealth(mob/living/M)
-	if(M.stat == DEAD || (M.status_flags & FAKEDEATH))
+	if(M.stat == DEAD || (M.has_trait(TRAIT_FAKEDEATH)))
 		return "health-100" //what's our health? it doesn't matter, we're dead, or faking
 	var/maxi_health = M.maxHealth
 	if(iscarbon(M) && M.health < 0)
@@ -165,7 +165,7 @@
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(stat == DEAD)
 		holder.icon_state = "huddead"
-	else if(status_flags & XENO_HOST)
+	else if(has_trait(TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(check_virus())
 		holder.icon_state = "hudill"

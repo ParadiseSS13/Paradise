@@ -525,9 +525,9 @@
 		M.AdjustEyeBlurry(-1)
 		M.AdjustEarDamage(-1)
 	if(prob(50))
-		M.CureNearsighted()
+		M.cure_nearsighted()
 	if(prob(30))
-		M.CureBlind()
+		M.cure_blind()
 		M.SetEyeBlind(0)
 	if(M.ear_damage <= 25)
 		if(prob(30))
@@ -651,7 +651,7 @@
 					window_flash(ghost.client)
 					ghost << sound('sound/effects/genetics.ogg')
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
-				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations))
+				if(!M.suiciding && !ghost && !(M.has_trait(TRAIT_NOCLONE)))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
@@ -699,7 +699,7 @@
 		..()
 		return
 	M.SetJitter(0)
-	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
+	var/needs_update = M.status_traits.len > 0
 
 	if(needs_update)
 		for(var/block=1;block<=DNA_SE_LENGTH;block++)
@@ -772,7 +772,7 @@
 	can_synth = FALSE
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
-	M.status_flags |= GOTTAGOFAST
+	M.add_trait(TRAIT_GOTTAGOFAST)
 	if(M.health < 50 && M.health > 0)
 		M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
 		M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
@@ -785,7 +785,7 @@
 	..()
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOFAST
+	M.add_trait(TRAIT_GOTTAGOFAST)
 	..()
 
 /datum/reagent/medicine/stimulative_agent/overdose_process(mob/living/M, severity)

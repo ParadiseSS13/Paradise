@@ -50,7 +50,7 @@
 	include_user = 1
 	centcom_cancast = 0
 
-	mutations = list(LASER, HULK)
+	traits = list(TRAIT_LASER, TRAIT_HULK)
 	duration = 300
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
@@ -248,7 +248,7 @@
 	sound = 'sound/magic/Blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
-	disabilities = BLIND
+	traits = list(TRAIT_BLIND)
 	duration = 300
 	sound = 'sound/magic/Blind.ogg'
 

@@ -65,7 +65,7 @@
 			to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
 			if(prob(M.ear_damage - 5))
 				to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-				M.BecomeDeaf()
+				M.become_deaf(ORGAN_DAMAGE)
 		else
 			if(M.ear_damage >= 5)
 				to_chat(M, "<span class='warning'>Your ears start to ring!</span>")

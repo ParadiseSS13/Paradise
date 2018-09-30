@@ -169,7 +169,7 @@
 	icon_dead = "Syndicat_dead"
 	icon_resting = "Syndicat_rest"
 	gender = FEMALE
-	mutations = list(BREATHLESS)
+	status_traits = list(TRAIT_BREATHLESS)
 	faction = list("syndicate")
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 	eats_mice = 0

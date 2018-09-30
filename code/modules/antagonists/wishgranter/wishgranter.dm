@@ -28,11 +28,11 @@
 	H.dna.SetSEState(XRAYBLOCK, TRUE)
 	genemutcheck(H, XRAYBLOCK, null, MUTCHK_FORCED)
 
-	H.dna.SetSEState(FIREBLOCK, TRUE)
-	genemutcheck(H, FIREBLOCK, null, MUTCHK_FORCED)
+	H.dna.SetSEState(COLDRESBLOCK, TRUE)
+	genemutcheck(H, COLDRESBLOCK, null, MUTCHK_FORCED)
 
-	H.dna.SetSEState(COLDBLOCK, TRUE)
-	genemutcheck(H, COLDBLOCK, null, MUTCHK_FORCED)
+	H.dna.SetSEState(HEATRESBLOCK, TRUE)
+	genemutcheck(H, HEATRESBLOCK, null, MUTCHK_FORCED)
 
 	H.dna.SetSEState(TELEBLOCK, TRUE)
 	genemutcheck(H, TELEBLOCK, null, MUTCHK_FORCED)
@@ -76,6 +76,6 @@
 	H.dna.SetSEState(IMMOLATEBLOCK, TRUE)
 	genemutcheck(H, IMMOLATEBLOCK, null, MUTCHK_FORCED)
 
-	H.mutations.Add(LASER)
+	H.add_trait(TRAIT_LASER, GENETIC_MUTATION)
 	H.update_mutations()
 	H.update_body()

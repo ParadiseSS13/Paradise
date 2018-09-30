@@ -88,7 +88,7 @@
 /obj/effect/proc_holder/changeling/sting/transformation/can_sting(var/mob/user, var/mob/target)
 	if(!..())
 		return
-	if((HUSK in target.mutations) || (!ishuman(target)))
+	if(!ishuman(target))
 		to_chat(user, "<span class='warning'>Our sting appears ineffective against its DNA.</span>")
 		return FALSE
 	if(ishuman(target))
@@ -96,11 +96,13 @@
 		if(NO_DNA in H.dna.species.species_traits)
 			to_chat(user, "<span class='warning'>This won't work on a creature without DNA.</span>")
 			return FALSE
+		if(H.has_trait(TRAIT_HUSK))
+			to_chat(user, "<span class='warning'>This won't work on a creature without intact DNA.</span>")
+			return FALSE
 	return TRUE
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
 	add_attack_logs(user, target, "Transformation sting (changeling) (new identity is [selected_dna.real_name])")
-	var/datum/dna/NewDNA = selected_dna
 	if(issmall(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
 
@@ -111,13 +113,7 @@
 	target.visible_message("<span class='danger'>[target] begins to violenty convulse!</span>","<span class='userdanger'>You feel a tiny prick and a begin to uncontrollably convulse!</span>")
 
 	spawn(10)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			H.set_species(NewDNA.species.type)
-		target.dna = NewDNA.Clone()
-		target.real_name = NewDNA.real_name
-		target.UpdateAppearance()
-		domutcheck(target, null)
+		transform_dna(target,selected_dna)//target is always human so no problem here
 	feedback_add_details("changeling_powers","TS")
 	return TRUE
 
@@ -165,7 +161,7 @@ obj/effect/proc_holder/changeling/sting/blind
 /obj/effect/proc_holder/changeling/sting/blind/sting_action(var/mob/living/user, var/mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.BecomeNearsighted()
+	target.become_nearsighted(ORGAN_DAMAGE)
 	target.EyeBlind(20)
 	target.EyeBlurry(40)
 	feedback_add_details("changeling_powers","BS")

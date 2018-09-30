@@ -1,4 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "Point blank shots not hitting the correct person. When multiple people are on the same tile."

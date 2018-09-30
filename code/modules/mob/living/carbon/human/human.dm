@@ -310,7 +310,7 @@
 	if(martial_art && martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!prob(martial_art.deflection_chance))
 			return ..()
-		if(!src.lying && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
+		if(!lying && !(has_trait(TRAIT_HULK))) //But only if they're not lying down, and hulks can't do it
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			return 0
 	..()
@@ -518,7 +518,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head = get_organ("head")
-	if(!head || head.disfigured || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
+	if(!head || head.disfigured || cloneloss > 50 || !real_name || (has_trait(TRAIT_HUSK)))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -562,7 +562,7 @@
 /mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, override = 0, tesla_shock = 0)
 	if(status_flags & GODMODE)	//godmode
 		return 0
-	if(NO_SHOCK in mutations) //shockproof
+	if(has_trait(TRAIT_NO_SHOCK)) //shockproof
 		return 0
 	if(tesla_shock)
 		var/total_coeff = 1
@@ -1170,12 +1170,12 @@
 	surgeries.Cut() //End all surgeries.
 	update_revive()
 
-	if(!isskeleton(src) && (SKELETON in mutations))
-		mutations.Remove(SKELETON)
-	if(NOCLONE in mutations)
-		mutations.Remove(NOCLONE)
-	if(HUSK in mutations)
-		mutations.Remove(HUSK)
+	if(!isskeleton(src) && (has_trait(TRAIT_SKELETON)))
+		remove_trait(TRAIT_SKELETON)
+	if(has_trait(TRAIT_NOCLONE))
+		remove_trait(TRAIT_NOCLONE)
+	if(has_trait(TRAIT_HUSK))
+		remove_trait(TRAIT_HUSK)
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
 		for(var/obj/item/organ/internal/brain/H in world)
@@ -1216,7 +1216,7 @@
 		return 1
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
-	if(HULK in mutations)
+	if(has_trait(TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		if(..(I, cuff_break = 1))
 			unEquip(I)
@@ -1477,7 +1477,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return FALSE
 	if(!get_location_accessible(src, "eyes"))
 		return FALSE
-	if(!(eyes.shine()) && !istype(eye_implant) && !(XRAY in mutations)) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
+	if(!(eyes.shine()) && !istype(eye_implant) && !(has_trait(TRAIT_XRAY))) //If their eyes don't shine, they don't have other augs, nor do they have X-RAY vision
 		return FALSE
 
 	return TRUE
@@ -1577,7 +1577,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
-	if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
+	if(H.stat == DEAD || (H.has_trait(TRAIT_FAKEDEATH)))
 		to_chat(src, "<span class='warning'>[H.name] is dead!</span>")
 		return
 	if(!check_has_mouth())
@@ -1728,7 +1728,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(HULK in mutations)
+		if(has_trait(TRAIT_HULK))
 			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
 			return 0
 		if(NOGUNS in dna.species.species_traits)

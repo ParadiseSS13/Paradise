@@ -9,118 +9,84 @@
 /datum/dna/gene/disability
 	name="DISABILITY"
 
-	// Mutation to give (or 0)
-	var/mutation=0
-
-	// Disability to give (or 0)
-	var/disability=0
-
-	// Activation message
-	var/activation_message=""
-
-	// Yay, you're no longer growing 3 arms
-	var/deactivation_message=""
-
 /datum/dna/gene/disability/can_activate(var/mob/M,var/flags)
 	return 1 // Always set!
 
-/datum/dna/gene/disability/activate(var/mob/living/M, var/connected, var/flags)
-	..()
-	if(mutation && !(mutation in M.mutations))
-		M.mutations.Add(mutation)
-	if(disability)
-		M.disabilities|=disability
-	if(activation_message)
-		to_chat(M, "<span class='warning'>[activation_message]</span>")
-	else
-		testing("[name] has no activation message.")
-
-/datum/dna/gene/disability/deactivate(var/mob/living/M, var/connected, var/flags)
-	..()
-	if(mutation && (mutation in M.mutations))
-		M.mutations.Remove(mutation)
-	if(disability)
-		M.disabilities &= ~disability
-	if(deactivation_message)
-		to_chat(M, "<span class='warning'>[deactivation_message]</span>")
-	else
-		testing("[name] has no deactivation message.")
-
 /datum/dna/gene/disability/hallucinate
 	name="Hallucinate"
-	activation_message="Your mind says 'Hello'."
-	deactivation_message ="Sanity returns. Or does it?"
+	activation_messages = list("Your mind says 'Hello'.")
+	deactivation_messages = list("Sanity returns. Or does it?")
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation=HALLUCINATE
+	trait = TRAIT_HALLUCINATE
 
 /datum/dna/gene/disability/hallucinate/New()
 	block=HALLUCINATIONBLOCK
 
 /datum/dna/gene/disability/epilepsy
 	name="Epilepsy"
-	activation_message="You get a headache."
-	deactivation_message ="Your headache is gone, at last."
+	activation_messages = list("You get a headache.")
+	deactivation_messages = list("Your headache is gone, at last.")
 	instability = -GENE_INSTABILITY_MODERATE
-	disability=EPILEPSY
+	trait = TRAIT_EPILEPSY
 
 /datum/dna/gene/disability/epilepsy/New()
 	block=EPILEPSYBLOCK
 
 /datum/dna/gene/disability/cough
 	name="Coughing"
-	activation_message="You start coughing."
-	deactivation_message ="Your throat stops aching."
+	activation_messages = list("You start coughing.")
+	deactivation_messages = list("Your throat stops aching.")
 	instability = -GENE_INSTABILITY_MINOR
-	disability=COUGHING
+	trait = TRAIT_COUGHING
 
 /datum/dna/gene/disability/cough/New()
 	block=COUGHBLOCK
 
 /datum/dna/gene/disability/clumsy
 	name="Clumsiness"
-	activation_message="You feel lightheaded."
-	deactivation_message ="You regain some control of your movements"
+	activation_messages = list("You feel lightheaded.")
+	deactivation_messages = list("You regain some control of your movements")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation=CLUMSY
+	trait = TRAIT_CLUMSY
 
 /datum/dna/gene/disability/clumsy/New()
 	block=CLUMSYBLOCK
 
 /datum/dna/gene/disability/tourettes
 	name="Tourettes"
-	activation_message="You twitch."
-	deactivation_message ="Your mouth tastes like soap."
+	activation_messages = list("You twitch.")
+	deactivation_messages = list("Your mouth tastes like soap.")
 	instability = -GENE_INSTABILITY_MODERATE
-	disability=TOURETTES
+	trait = TRAIT_TOURETTES
 
 /datum/dna/gene/disability/tourettes/New()
 	block=TWITCHBLOCK
 
 /datum/dna/gene/disability/nervousness
 	name="Nervousness"
-	activation_message="You feel nervous."
-	deactivation_message ="You feel much calmer."
-	disability=NERVOUS
+	activation_messages = list("You feel nervous.")
+	deactivation_messages = list("You feel much calmer.")
+	trait = TRAIT_NERVOUS
 
 /datum/dna/gene/disability/nervousness/New()
 	block=NERVOUSBLOCK
 
 /datum/dna/gene/disability/blindness
 	name="Blindness"
-	activation_message="You can't seem to see anything."
-	deactivation_message ="You can see now, in case you didn't notice..."
+	activation_messages = list("You can't seem to see anything.")
+	deactivation_messages = list("You can see now, in case you didn't notice...")
 	instability = -GENE_INSTABILITY_MAJOR
-	disability=BLIND
+	trait = TRAIT_BLIND
 
 /datum/dna/gene/disability/blindness/New()
 	block=BLINDBLOCK
 
 /datum/dna/gene/disability/colourblindness
 	name = "Colourblindness"
-	activation_message = "You feel a peculiar prickling in your eyes while your perception of colour changes."
-	deactivation_message ="Your eyes tingle unsettlingly, though everything seems to become alot more colourful."
+	activation_messages = list("You feel a peculiar prickling in your eyes while your perception of colour changes.")
+	deactivation_messages = list("Your eyes tingle unsettlingly, though everything seems to become alot more colourful.")
 	instability = -GENE_INSTABILITY_MODERATE
-	disability = COLOURBLIND
+	trait = TRAIT_COLOURBLIND
 
 /datum/dna/gene/disability/colourblindness/New()
 	block=COLOURBLINDBLOCK
@@ -137,10 +103,10 @@
 
 /datum/dna/gene/disability/deaf
 	name="Deafness"
-	activation_message="It's kinda quiet."
-	deactivation_message ="You can hear again!"
+	activation_messages = list("It's kinda quiet.")
+	deactivation_messages = list("You can hear again!")
 	instability = -GENE_INSTABILITY_MAJOR
-	disability=DEAF
+	trait = TRAIT_DEAF
 
 /datum/dna/gene/disability/deaf/New()
 	block=DEAFBLOCK
@@ -151,10 +117,10 @@
 
 /datum/dna/gene/disability/nearsighted
 	name="Nearsightedness"
-	activation_message="Your eyes feel weird..."
-	deactivation_message ="You can see clearly now"
+	activation_messages = list("Your eyes feel weird...")
+	deactivation_messages = list("You can see clearly now")
 	instability = -GENE_INSTABILITY_MODERATE
-	disability=NEARSIGHTED
+	trait = TRAIT_NEARSIGHT
 
 /datum/dna/gene/disability/nearsighted/New()
 	block=GLASSESBLOCK
@@ -162,9 +128,9 @@
 /datum/dna/gene/disability/lisp
 	name = "Lisp"
 	desc = "I wonder wath thith doeth."
-	activation_message = "Thomething doethn't feel right."
-	deactivation_message = "You now feel able to pronounce consonants."
-	mutation = LISP
+	activation_messages = list("Thomething doethn't feel right.")
+	deactivation_messages = list("You now feel able to pronounce consonants.")
+	trait = TRAIT_LISP
 
 /datum/dna/gene/disability/lisp/New()
 	..()
@@ -176,9 +142,9 @@
 /datum/dna/gene/disability/comic
 	name = "Comic"
 	desc = "This will only bring death and destruction."
-	activation_message = "<span class='sans'>Uh oh!</span>"
-	deactivation_message = "Well thank god that's over with."
-	mutation=COMIC
+	activation_messages = list("<span class='sans'>Uh oh!</span>")
+	deactivation_messages = list("Well thank god that's over with.")
+	trait = TRAIT_COMIC
 
 /datum/dna/gene/disability/comic/New()
 	block = COMICBLOCK

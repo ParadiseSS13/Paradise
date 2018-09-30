@@ -116,6 +116,10 @@
 	// not if he's not CANPUSH of course
 	if(!(M.status_flags & CANPUSH))
 		return 1
+	if(isliving(M))
+		var/mob/living/L = M
+		if(L.has_trait(TRAIT_PUSHIMMUNE))
+			return 1
 	//anti-riot equipment is also anti-push
 	if(M.r_hand && (prob(M.r_hand.block_chance * 2)) && !istype(M.r_hand, /obj/item/clothing))
 		return 1
@@ -195,7 +199,7 @@
 /mob/living/pointed(atom/A as mob|obj|turf in view())
 	if(incapacitated(ignore_lying = TRUE))
 		return FALSE
-	if(status_flags & FAKEDEATH)
+	if(has_trait(TRAIT_FAKEDEATH))
 		return FALSE
 	if(!..())
 		return FALSE
@@ -499,14 +503,14 @@
 	blinded = 0
 	nutrition = NUTRITION_LEVEL_FED + 50
 	bodytemperature = 310
-	CureBlind()
-	CureNearsighted()
-	CureMute()
-	CureDeaf()
-	CureTourettes()
-	CureEpilepsy()
-	CureCoughing()
-	CureNervous()
+	cure_blind()
+	cure_nearsighted()
+	cure_mute()
+	cure_deaf()
+	cure_tourettes()
+	cure_epilepsy()
+	cure_coughing()
+	cure_nervous()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
 	SetEarDamage(0)
