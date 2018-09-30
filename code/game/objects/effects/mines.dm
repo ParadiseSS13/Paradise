@@ -147,7 +147,7 @@
 	spawn(10)
 		animate(victim.client,color = old_color, time = duration)//, easing = SINE_EASING|EASE_OUT)
 	spawn(duration)
-		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.<span>")
+		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
 		qdel(chainsaw)
 		qdel(src)
 
