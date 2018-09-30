@@ -43,7 +43,6 @@
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/C as mob, mob/living/user as mob)
 	C.visible_message("<span class='warning'>[user] has analyzed [C]'s vitals!</span>")
 
-<<<<<<< HEAD
 	user.show_message("<span class=notice>Analyzing Results for [C]:</span>")
 	user.show_message("<span class=notice>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health]% healthy"]</span>", 1)
 	user.show_message("<span class=notice>\t Damage Specifics: [C.getOxyLoss() > 50 ? "</span><span class=warning>" : ""][C.getOxyLoss()]-[C.getToxLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getToxLoss()]-[C.getFireLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getFireLoss()]-[C.getBruteLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getBruteLoss()]</span>", 1)
@@ -51,15 +50,6 @@
 	user.show_message("<span class=notice>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
 	if(C.timeofdeath && (C.stat == DEAD || (C.has_trait(TRAIT_FAKEDEATH))))
 		user.show_message("<span class=notice>\t Time of Death: [station_time_timestamp("hh:mm:ss", C.timeofdeath)]</span>")
-=======
-	user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
-	user.show_message("<span class='notice'>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health]% healthy"]</span>", 1)
-	user.show_message("<span class='notice'>\t Damage Specifics: [C.getOxyLoss() > 50 ? "</span><span class='warning'>" : ""][C.getOxyLoss()]-[C.getToxLoss() > 50 ? "</span><span class='warning'>" : "</span><span class='notice'>"][C.getToxLoss()]-[C.getFireLoss() > 50 ? "</span><span class='warning'>" : "</span><span class='notice'>"][C.getFireLoss()]-[C.getBruteLoss() > 50 ? "</span><span class='warning'>" : "</span><span class='notice'>"][C.getBruteLoss()]</span>", 1)
-	user.show_message("<span class='notice'>\t Key: Suffocation/Toxin/Burns/Brute</span>", 1)
-	user.show_message("<span class='notice'>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
-	if(C.timeofdeath && (C.stat == DEAD || (C.status_flags & FAKEDEATH)))
-		user.show_message("<span class='notice'>\t Time of Death: [station_time_timestamp("hh:mm:ss", C.timeofdeath)]</span>")
->>>>>>> 5823536fdb92367939df9ba97dbb299726f98809
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		var/list/damaged = H.get_damaged_organs(1,1)

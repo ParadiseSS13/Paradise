@@ -11,29 +11,29 @@
 
 /datum/dna/gene
 	// Display name
-	var/name="BASE GENE"
+	var/name = "BASE GENE"
 
 	// Probably won't get used but why the fuck not
-	var/desc="Oh god who knows what this does."
+	var/desc = "Oh god who knows what this does."
 
 	// Set in initialize()!
 	//  What gene activates this?
-	var/block=0
+	var/block = 0
 
 	// Any of a number of GENE_ flags.
-	var/flags=0
+	var/flags = 0
 
 	// Trait to give
 	var/trait 
 
 	// Possible activation messages
-	var/list/activation_messages=list()
+	var/list/activation_messages = list()
 
 	// Possible deactivation messages
-	var/list/deactivation_messages=list()
+	var/list/deactivation_messages = list()
 
 	// Chance of the gene to cause adverse effects when active
-	var/instability=0
+	var/instability = 0
 
 /*
 * Is the gene active in this mob's DNA?
