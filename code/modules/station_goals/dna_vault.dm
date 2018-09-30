@@ -300,9 +300,5 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 
 /obj/machinery/dna_vault/proc/grant_power(mob/living/carbon/human/H, block, power)
 	H.dna.SetSEState(block, 1, 1)
-<<<<<<< HEAD
 	H.add_trait(power, GENETIC_MUTATION)
-=======
-	H.mutations |= power
->>>>>>> master
 	genemutcheck(H, block, null, MUTCHK_FORCED)
