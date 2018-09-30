@@ -53,6 +53,10 @@
 	icon_state = "water"
 	mouse_opacity = 0
 
+/turf/simulated/floor/beach/water/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	return	//cannot pry off tiles of water
+
+
 /turf/simulated/floor/beach/water/New()
 	..()
 	overlays += image("icon"='icons/misc/beach.dmi',"icon_state"="water5","layer"=MOB_LAYER+0.1)
