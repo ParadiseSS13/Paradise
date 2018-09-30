@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - bugfix: "Plasma statues and walls are no longer ignited by laser tag guns or practice lasers."
