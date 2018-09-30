@@ -653,9 +653,12 @@ var/list/robot_verbs_default = list(
 					var/datum/robot_component/C = components[V]
 					if(C.installed == 1 || C.installed == -1)
 						removable_components += V
-
+				if(module)
+					removable_components += module.custom_removals
 				var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
 				if(!remove)
+					return
+				if(module && module.handle_custom_removal(remove, user, W, params))
 					return
 				var/datum/robot_component/C = components[remove]
 				var/obj/item/robot_parts/robot_component/I = C.wrapped
