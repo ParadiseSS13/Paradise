@@ -386,7 +386,7 @@
 	// empty at high security levels
 	if(customer_account.security_level != 0) //If card requires pin authentication (ie seclevel 1 or 2)
 		var/attempt_pin = input("Enter pin code", "Vendor transaction") as num
-	
+
 		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
 			src.status_message = "Unable to access account: incorrect credentials."
 			src.status_error = 1
@@ -537,7 +537,7 @@
 	if((href_list["vend"]) && vend_ready && !currently_vending)
 
 		if(issilicon(usr) && !isrobot(usr))
-			to_chat(usr, "<span class=warning>The vending machine refuses to interface with you, as you are not in its target demographic!</span>")
+			to_chat(usr, "<span class='warning'>The vending machine refuses to interface with you, as you are not in its target demographic!</span>")
 			return
 
 		if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id) //For SECURE VENDING MACHINES YEAH
@@ -846,7 +846,7 @@
 		to_chat(user, "<span class='warning'>[I] is not compatible with this machine.</span>")
 		return FALSE
 	if(!I.is_open_container())
-		to_chat(user, "<span class='warning>You need to open [I] before you insert it.</span>")
+		to_chat(user, "<span class='warning'>You need to open [I] before you insert it.</span>")
 		return FALSE
 	return TRUE
 

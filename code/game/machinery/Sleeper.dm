@@ -420,7 +420,7 @@
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if(!(chemical in injection_chems))
-		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</notice>")
+		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")
 		return
 
 	if(occupant)

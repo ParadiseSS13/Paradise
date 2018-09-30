@@ -739,7 +739,7 @@ var/list/teleport_runes = list()
 			playsound(E, 'sound/effects/EMPulse.ogg', 100, 1)
 			for(var/M in invokers)
 				var/mob/living/L = M
-				to_chat(L, "<span class=userdanger'>You chant in unison and a colossal burst of energy knocks you backward!</span>")
+				to_chat(L, "<span class='userdanger'>You chant in unison and a colossal burst of energy knocks you backward!</span>")
 				L.Weaken(2)
 	qdel(src) //delete before pulsing because it's a delay reee
 	empulse(E, 9*invokers.len, 12*invokers.len, 1) // Scales now, from a single room to most of the station depending on # of chanters

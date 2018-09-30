@@ -754,7 +754,7 @@
 	playsound(user.loc, 'sound/magic/Staff_Chaos.ogg', 100, 1)
 	for(var/mob/living/boom in targets)
 		if(is_shadow(boom)) //Used to not work on thralls. Now it does so you can PUNISH THEM LIKE THE WRATHFUL GOD YOU ARE.
-			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.<span>")
+			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.</span>")
 			charge_counter = charge_max
 			return
 		user.visible_message("<span class='danger'>[user]'s markings flare as [user.p_they()] gesture[user.p_s()] at [boom]!</span>", \
@@ -785,7 +785,7 @@
 
 	for(var/mob/living/carbon/human/target in targets)
 		if(is_shadow_or_thrall(target))
-			to_chat(user, "<span class='warning'>You cannot enthrall an ally.<span>")
+			to_chat(user, "<span class='warning'>You cannot enthrall an ally.</span>")
 			charge_counter = charge_max
 			return
 		if(!target.ckey || !target.mind)
