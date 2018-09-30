@@ -465,7 +465,7 @@
 "iW" = (/obj/structure/cable/heavyduty{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/heavyduty{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "iX" = (/obj/structure/cable/heavyduty{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "iY" = (/obj/structure/cable/heavyduty{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
-"iZ" = (/obj/structure/cable/heavyduty{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/unsimulated/floor/plating{icon_state = "platingdmg1"},/area/awaymission/spacehotel)
+"iZ" = (/obj/structure/cable/heavyduty{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/effect/landmark/damageturf,/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "ja" = (/obj/structure/cable/heavyduty{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/heavyduty{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "jb" = (/obj/machinery/light/small{dir = 4},/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "jc" = (/obj/machinery/gateway{dir = 8},/turf/unsimulated/floor{icon_state = "warning"; dir = 8},/area/awaymission/spacehotel)
@@ -479,7 +479,7 @@
 "jk" = (/obj/structure/closet/crate/critter,/turf/unsimulated/floor{icon_state = "floor"},/area/awaymission/spacehotel)
 "jl" = (/obj/machinery/door/airlock/public/glass{name = "Lobby"},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "jm" = (/obj/effect/spawner/snpc_squad{squad_type = /mob/living/carbon/human/interactive/away/hotel/guard},/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
-"jn" = (/obj/structure{desc = "It appears to be similar to a SMES."; icon = 'icons/obj/power.dmi'; icon_state = "smes"; name = "WaffeCo PSU"},/turf/unsimulated/floor/plating{icon_state = "platingdmg1"},/area/awaymission/spacehotel)
+"jn" = (/obj/structure{desc = "It appears to be similar to a SMES."; icon = 'icons/obj/power.dmi'; icon_state = "smes"; name = "WaffeCo PSU"},/obj/effect/landmark/damageturf,/turf/unsimulated/floor/plating,/area/awaymission/spacehotel)
 "jo" = (/obj/effect/decal/remains/human,/obj/item/clothing/head/soft/red,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "jp" = (/obj/item/toy/prize/honk,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
 "jq" = (/obj/item/toy/spinningtoy,/turf/unsimulated/floor/carpet,/area/awaymission/spacehotel)
@@ -715,4 +715,3 @@ dOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdO
 dOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdO
 dOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdOdO
 "}
-

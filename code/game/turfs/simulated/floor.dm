@@ -29,7 +29,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	var/floor_tile = null //tile that this floor drops
 	var/obj/item/stack/tile/builtin_tile = null //needed for performance reasons when the singularity rips off floor tiles
 	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
-	var/list/burnt_states = list()
+	var/list/burnt_states = list("floorscorched1", "floorscorched2")
 
 
 /turf/simulated/floor/New()
@@ -102,21 +102,18 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	var/turf/simulated/floor/plating/T = make_plating()
 	T.break_tile()
 
-/turf/simulated/floor/proc/break_tile()
+/turf/simulated/floor/break_tile()
 	if(broken)
 		return
 	current_overlay = pick(broken_states)
-	broken = 1
+	broken = TRUE
 	update_icon()
 
 /turf/simulated/floor/burn_tile()
-	if(broken || burnt)
+	if(burnt)
 		return
-	if(burnt_states.len)
-		current_overlay = pick(burnt_states)
-	else
-		current_overlay = pick(broken_states)
-	burnt = 1
+	current_overlay = pick(burnt_states)
+	burnt = TRUE
 	update_icon()
 
 /turf/simulated/floor/proc/make_plating()
