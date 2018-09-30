@@ -1,0 +1,4 @@
+author: "Crazylemon"
+delete-after: True
+changes: 
+  - tweak: "Corrects a comment in the code regarding IPC damage."
