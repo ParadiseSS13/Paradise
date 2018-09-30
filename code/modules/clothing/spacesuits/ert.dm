@@ -58,6 +58,8 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammacommander"
+	item_color = "gammacommander"
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
@@ -78,6 +80,8 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/security/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammasecurity"
+	item_color = "gammasecurity"
 
 /obj/item/clothing/suit/space/hardsuit/ert/security
 	name = "emergency response team security suit"
@@ -99,6 +103,8 @@
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammaengineer"
+	item_color = "gammaengineer"
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	name = "emergency response team engineer suit"
@@ -118,6 +124,8 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammamedical"
+	item_color = "gammamedical"
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical
 	name = "emergency response team medical suit"
@@ -136,6 +144,8 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammajanitor"
+	item_color = "gammajanitor"
 
 /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	name = "emergency response team janitor suit"
