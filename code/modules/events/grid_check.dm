@@ -17,12 +17,12 @@
 	if(announce)
 		event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", new_sound = 'sound/AI/poweroff.ogg')
 
-	var/list/skipped_areas = list(/area/turret_protected/ai, /area/syndicate_depot)
-	var/list/skipped_areas_apc = list(/area/engine/engineering, /area/syndicate_depot)
+	var/list/skipped_areas = list(/area/turret_protected/ai)
+	var/list/skipped_areas_apc = list(/area/engine/engineering)
 
 	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas || !is_station_level(S.z))
+		if((current_area.type in skipped_areas) || !is_station_level(S.z))
 			continue
 		S.last_charge			= S.charge
 		S.last_output_attempt	= S.output_attempt
@@ -35,26 +35,26 @@
 
 	for(var/obj/machinery/power/apc/C in apcs)
 		var/area/current_area = get_area(C)
-		if(current_area.type in skipped_areas_apc || !is_station_level(C.z))
+		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
 			continue
 		if(C.cell)
 			C.cell.charge = 0
 
 /proc/power_restore(var/announce = 1)
-	var/list/skipped_areas = list(/area/turret_protected/ai, /area/syndicate_depot)
-	var/list/skipped_areas_apc = list(/area/engine/engineering, /area/syndicate_depot)
+	var/list/skipped_areas = list(/area/turret_protected/ai)
+	var/list/skipped_areas_apc = list(/area/engine/engineering)
 
 	if(announce)
 		event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 	for(var/obj/machinery/power/apc/C in apcs)
 		var/area/current_area = get_area(C)
-		if(current_area.type in skipped_areas_apc || !is_station_level(C.z))
+		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
 			continue
 		if(C.cell)
 			C.cell.charge = C.cell.maxcharge
 	for(var/obj/machinery/power/smes/S in machines)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas || !is_station_level(S.z))
+		if((current_area.type in skipped_areas) || !is_station_level(S.z))
 			continue
 		S.charge = S.last_charge
 		S.output_attempt = S.last_output_attempt

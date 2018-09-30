@@ -7,7 +7,7 @@
 
 	var/turf/T = get_turf_or_move(loc)
 	for(var/mob/M in viewers(T))
-		M.show_message("<span class=warning>[src] emits a dull beep before it loses power and collapses.</span>", 3, "<span class=warning>You hear a dull beep followed by the sound of glass crunching.</span>", 2)
+		M.show_message("<span class='warning'>[src] emits a dull beep before it loses power and collapses.</span>", 3, "<span class='warning'>You hear a dull beep followed by the sound of glass crunching.</span>", 2)
 	name = "pAI debris"
 	desc = "The unfortunate remains of some poor personal AI device."
 	icon_state = "[chassis]_dead"

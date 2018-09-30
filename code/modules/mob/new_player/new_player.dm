@@ -68,8 +68,8 @@
 
 		var/list/antags = client.prefs.be_special
 		if(antags && antags.len)
-			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidancy</A>"
-			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidancy</A>"
+			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
 			output += "<br /><small>You are <b>[skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
@@ -316,12 +316,10 @@
 	job_master.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character()	//creates the human and transfers vars and mind
-	character = job_master.EquipRank(character, rank, 1)					//equips the human
-	EquipCustomItems(character)
+	character = job_master.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
 	if(character.mind.assigned_role == "AI")
-
 		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
@@ -364,6 +362,9 @@
 		character.buckled.dir = character.dir
 
 	ticker.mode.latespawn(character)
+
+	character = job_master.EquipRank(character, rank, 1)					//equips the human
+	EquipCustomItems(character)
 
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)

@@ -14,14 +14,12 @@
 /obj/effect/mine/Crossed(AM as mob|obj)
 	if(!isliving(AM))
 		return
-	if(isanimal(AM))
-		var/mob/living/simple_animal/SA = AM
-		if(faction && (faction in SA.faction))
-			return
-		if(!SA.flying)
-			triggermine(SA)
-	else
-		triggermine(AM)
+	var/mob/living/M = AM
+	if(faction && (faction in M.faction))
+		return
+	if(M.flying)
+		return
+	triggermine(M)
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	if(triggered)
@@ -32,6 +30,11 @@
 	s.start()
 	mineEffect(victim)
 	triggered = 1
+	qdel(src)
+
+/obj/effect/mine/ex_act(severity)
+	// Necessary because, as effects, they have infinite health, and wouldn't be destroyed otherwise.
+	// Also, they're pressure-sensitive mines, it makes sense that an explosion (wave of pressure) triggers/destroys them.
 	qdel(src)
 
 /obj/effect/mine/explosive
@@ -144,7 +147,7 @@
 	spawn(10)
 		animate(victim.client,color = old_color, time = duration)//, easing = SINE_EASING|EASE_OUT)
 	spawn(duration)
-		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.<span>")
+		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
 		qdel(chainsaw)
 		qdel(src)
 
@@ -169,7 +172,7 @@
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.status_flags |= GOTTAGOREALLYFAST
+	victim.status_flags |= GOTTAGOFAST
 	spawn(duration)
-		victim.status_flags &= ~GOTTAGOREALLYFAST
+		victim.status_flags &= ~GOTTAGOFAST
 		to_chat(victim, "<span class='notice'>You slow down.</span>")

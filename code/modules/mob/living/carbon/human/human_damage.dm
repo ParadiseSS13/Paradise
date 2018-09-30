@@ -88,21 +88,21 @@
 	return amount
 
 
-/mob/living/carbon/human/adjustBruteLoss(amount, damage_source)
+/mob/living/carbon/human/adjustBruteLoss(amount, damage_source, robotic=0)
 	if(dna.species)
 		amount = amount * dna.species.brute_mod
 	if(amount > 0)
 		take_overall_damage(amount, 0, used_weapon = damage_source)
 	else
-		heal_overall_damage(-amount, 0)
+		heal_overall_damage(-amount, 0, 0, robotic)
 
-/mob/living/carbon/human/adjustFireLoss(amount, damage_source)
+/mob/living/carbon/human/adjustFireLoss(amount, damage_source, robotic=0)
 	if(dna.species)
 		amount = amount * dna.species.burn_mod
 	if(amount > 0)
 		take_overall_damage(0, amount, used_weapon = damage_source)
 	else
-		heal_overall_damage(0, -amount)
+		heal_overall_damage(0, -amount, 0, robotic)
 
 /mob/living/carbon/human/proc/adjustBruteLossByPart(amount, organ_name, obj/damage_source = null)
 	if(dna.species)

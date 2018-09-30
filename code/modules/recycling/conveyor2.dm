@@ -377,7 +377,7 @@
 			found = 1
 			break
 	if(!found)
-		to_chat(usr, "<span class=notice>[bicon(src)] The conveyor switch did not detect any linked conveyor belts in range.</span>")
+		to_chat(usr, "<span class='notice'>[bicon(src)] The conveyor switch did not detect any linked conveyor belts in range.</span>")
 		return
 	var/obj/machinery/conveyor_switch/NC = new/obj/machinery/conveyor_switch(A, id)
 	transfer_fingerprints_to(NC)

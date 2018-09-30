@@ -581,7 +581,7 @@
 	saveVoice()
 	..()
 
-/mob/living/carbon/human/interactive/hear_say(message, verb = "says", datum/language/language = null, alt_name = "", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
+/mob/living/carbon/human/interactive/hear_say(message, verb = "says", datum/language/language = null, italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
 	if(!istype(speaker, /mob/living/carbon/human/interactive))
 		knownStrings |= html_decode(message)
 	..()

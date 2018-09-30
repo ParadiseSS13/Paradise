@@ -329,11 +329,17 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	explanation_text = "Destroy the station with a nuclear device."
 	martyr_compatible = 1
 
-
-
 /datum/objective/steal
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
+	var/theft_area
+
+/datum/objective/steal/proc/get_location()
+    if(steal_target.location_override)
+        return steal_target.location_override
+    var/obj/item/T = locate(steal_target.typepath)
+    theft_area = get_area(T.loc)
+    return "[theft_area]"
 
 /datum/objective/steal/find_target()
 	var/loop=50
@@ -346,7 +352,9 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		if(O.flags & 2)
 			continue
 		steal_target=O
-		explanation_text = "Steal [O]."
+		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
+		if(islist(O.protected_jobs) && O.protected_jobs.len)
+			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
 		return
 	explanation_text = "Free Objective."
 

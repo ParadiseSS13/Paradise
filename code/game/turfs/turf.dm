@@ -475,3 +475,6 @@
 	SSair.remove_from_active(T0)
 	T0.CalculateAdjacentTurfs()
 	SSair.add_to_active(T0,1)
+
+/turf/AllowDrop()
+	return TRUE

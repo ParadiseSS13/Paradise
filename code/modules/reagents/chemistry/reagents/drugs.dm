@@ -302,13 +302,13 @@
 	M.AdjustWeakened(-2.5)
 	M.adjustStaminaLoss(-2)
 	M.SetSleeping(0)
-	M.status_flags |= GOTTAGOREALLYFAST
+	M.status_flags |= GOTTAGOFAST_METH
 	if(prob(50))
 		M.adjustBrainLoss(1.0)
 	..()
 
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOREALLYFAST
+	M.status_flags &= ~GOTTAGOFAST_METH
 	..()
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
@@ -590,7 +590,7 @@
 	M.AdjustStunned(-2)
 	M.AdjustWeakened(-2)
 	M.adjustStaminaLoss(-2)
-	M.status_flags |= GOTTAGOREALLYFAST
+	M.status_flags |= GOTTAGOFAST_METH
 	M.Jitter(3)
 	M.adjustBrainLoss(0.5)
 	if(prob(5))
@@ -598,7 +598,7 @@
 	..()
 
 /datum/reagent/lube/ultra/on_mob_delete(mob/living/M)
-	M.status_flags &= ~GOTTAGOREALLYFAST
+	M.status_flags &= ~GOTTAGOFAST_METH
 	..()
 
 /datum/reagent/lube/ultra/overdose_process(mob/living/M, severity)

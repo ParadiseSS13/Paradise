@@ -11,6 +11,7 @@
 	anchored = 1
 	var/precision = 1 // how close to the portal you will teleport. 0 = on the portal, 1 = adjacent
 	var/can_multitool_to_remove = 0
+	var/ignore_tele_proof_area_setting = FALSE
 
 /obj/effect/portal/Bumped(mob/M as mob|obj)
 	teleport(M)
@@ -42,12 +43,29 @@
 		qdel(src)
 		return
 	if(istype(M, /atom/movable))
-		if(prob(failchance)) //oh dear a problem, put em in deep space
+		if(prob(failchance))
 			src.icon_state = "portal1"
-			do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0)
+			if(!do_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), 3), 0, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to deep space.
+				invalid_teleport()
 		else
-			do_teleport(M, target, precision) ///You will appear adjacent to the beacon
+			if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
+				invalid_teleport()
 
 /obj/effect/portal/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/multitool) && can_multitool_to_remove)
 		qdel(src)
+
+/obj/effect/portal/proc/invalid_teleport()
+	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")
+	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
+	spark_system.set_up(5, 0, loc)
+	spark_system.start()
+	qdel(src)
+
+
+/obj/effect/portal/redspace
+	name = "redspace portal"
+	desc = "A portal capable of bypassing bluespace interference."
+	icon_state = "portal1"
+	failchance = 0
+	ignore_tele_proof_area_setting = TRUE
