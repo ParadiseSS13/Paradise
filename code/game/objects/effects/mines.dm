@@ -174,5 +174,10 @@
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
 	victim.add_trait(TRAIT_GOTTAGOFAST, "pickup")
 	spawn(duration)
+<<<<<<< HEAD
 	victim.remove_trait(TRAIT_GOTTAGOFAST, "pickup")
 	to_chat(victim, "<span class='notice'>You slow down.</span>")
+=======
+		victim.status_flags &= ~GOTTAGOFAST
+		to_chat(victim, "<span class='notice'>You slow down.</span>")
+>>>>>>> master
