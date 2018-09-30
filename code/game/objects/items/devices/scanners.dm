@@ -509,7 +509,7 @@ REAGENT SCANNER
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(P)
-			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
+			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 			datatoprint = ""
 	else
 		to_chat(usr, "<span class='notice'>[src] has no logs or is already in use.</span>")
@@ -580,7 +580,7 @@ REAGENT SCANNER
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(P)
-			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
+			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 			datatoprint = ""
 			scanning = 1
 	else

@@ -78,7 +78,7 @@
 				to_chat(user, "<span class='warning'>[src] is wearing too much armor! You can't cause [p_them()] any damage.</span>")
 				visible_message("<span class='danger'> [user] hits [src] with [O], however [src] is too armored.</span>")
 			else
-				to_chat(user, "<span class='warning'>[src] is wearing too much armor! You can't reach [p_their()] skin.<span>")
+				to_chat(user, "<span class='warning'>[src] is wearing too much armor! You can't reach [p_their()] skin.</span>")
 				visible_message("[user] gently taps [src] with [O].")
 			if(health>0 && prob(15))
 				custom_emote(1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")

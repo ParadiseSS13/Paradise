@@ -87,8 +87,7 @@
 						  "<span class='userdanger'>[A]\ puts you in a [hold_name]! You are unable to speak!</span>")
 		step_to(D,get_step(D,D.dir),1)
 
-		D.grabbedby(A, 1)
-		var/obj/item/grab/G = A.get_active_hand()
+		var/obj/item/grab/G = D.grabbedby(A, 1)
 		if(G)
 			G.state = GRAB_NECK
 
@@ -136,8 +135,7 @@
 	return A.pointed(D)
 
 /datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D) //Instant aggressive grab
-	D.grabbedby(A)
-	var/obj/item/grab/G = A.get_active_hand()
+	var/obj/item/grab/G = D.grabbedby(A)
 	if(G)
 		G.state = GRAB_AGGRESSIVE
 

@@ -204,9 +204,6 @@
 
 
 
-/atom/proc/allow_drop()
-	return 1
-
 /atom/proc/CheckExit()
 	return 1
 
@@ -713,3 +710,12 @@ var/list/blood_splatter_icons = list()
 	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
 	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
+
+/atom/proc/AllowDrop()
+	return FALSE
+
+/atom/proc/drop_location()
+	var/atom/L = loc
+	if(!L)
+		return null
+	return L.AllowDrop() ? L : get_turf(L)

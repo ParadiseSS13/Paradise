@@ -171,11 +171,9 @@
 					H.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals engulfing, [H]!</span>",
 										"<span class='warning'>[user] sprays a cloud of fine ice crystals cover your [H.head]'s visor and make it into your air vents!.</span>")
 					add_attack_logs(user, C, "Cryokinesis")
-					H.bodytemperature = max(0, H.bodytemperature - 50)
-					H.adjustFireLoss(5)
+					H.bodytemperature = max(0, H.bodytemperature - 100)
 	if(!handle_suit)
-		C.bodytemperature = max(0, C.bodytemperature - 100)
-		C.adjustFireLoss(10)
+		C.bodytemperature = max(0, C.bodytemperature - 200)
 		C.ExtinguishMob()
 
 		C.visible_message("<span class='warning'>[user] sprays a cloud of fine ice crystals, engulfing [C]!</span>")

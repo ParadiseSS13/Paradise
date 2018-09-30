@@ -1,7 +1,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector
 	icon = 'icons/atmos/injector.dmi'
 	icon_state = "map_injector"
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	layer = 3
 
 	can_unwrench = 1

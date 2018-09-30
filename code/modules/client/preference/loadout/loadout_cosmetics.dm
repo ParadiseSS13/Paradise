@@ -1,7 +1,11 @@
 /datum/gear/lipstick
+	display_name = "lipstick, red"
+	path = /obj/item/lipstick
+	sort_category = "Cosmetics"
+
+/datum/gear/lipstick/black
 	display_name = "lipstick, black"
 	path = /obj/item/lipstick/black
-	sort_category = "Cosmetics"
 
 /datum/gear/lipstick/jade
 	display_name = "lipstick, jade"
@@ -11,9 +15,13 @@
 	display_name = "lipstick, purple"
 	path = /obj/item/lipstick/purple
 
-/datum/gear/lipstick/red
-	display_name = "lipstick, red"
-	path = /obj/item/lipstick
+/datum/gear/lipstick/blue
+	display_name = "lipstick, blue"
+	path = /obj/item/lipstick/blue
+
+/datum/gear/lipstick/lime
+	display_name = "lipstick, lime"
+	path = /obj/item/lipstick/lime
 
 /datum/gear/monocle
 	display_name = "monocle"

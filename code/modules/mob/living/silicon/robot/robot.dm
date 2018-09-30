@@ -51,6 +51,7 @@ var/list/robot_verbs_default = list(
 	var/opened = 0
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
+	var/list/custom_eye_names = list("Cricket","Standard")
 	var/emagged = 0
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
@@ -306,7 +307,7 @@ var/list/robot_verbs_default = list(
 			module.channels = list("Service" = 1)
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
-			module_sprites["Default"] = "robot"
+			module_sprites["Default"] = "Standard"
 			module_sprites["Noble-STD"] = "Noble-STD"
 
 		if("Service")
@@ -317,7 +318,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Bro"] = "Brobot"
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
-			module_sprites["Standard"] = "robotServ"
+			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
 
@@ -329,7 +330,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "Miner_old"
 			module_sprites["Advanced Droid"] = "droid-miner"
 			module_sprites["Treadhead"] = "Miner"
-			module_sprites["Standard"] = "robotMine"
+			module_sprites["Standard"] = "Standard-Mine"
 			module_sprites["Noble-DIG"] = "Noble-DIG"
 			module_sprites["Cricket"] = "Cricket-MINE"
 
@@ -342,7 +343,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Surgeon"] = "surgeon"
 			module_sprites["Advanced Droid"] = "droid-medical"
 			module_sprites["Needles"] = "medicalrobot"
-			module_sprites["Standard"] = "robotMedi"
+			module_sprites["Standard"] = "Standard-Medi"
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
 			status_flags &= ~CANPUSH
@@ -354,7 +355,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
 			module_sprites["Bloodhound"] = "bloodhound"
-			module_sprites["Standard"] = "robotSecy"
+			module_sprites["Standard"] = "Standard-Secy"
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			module_sprites["Cricket"] = "Cricket-SEC"
 			status_flags &= ~CANPUSH
@@ -367,7 +368,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "Engineering"
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
-			module_sprites["Standard"] = "robotEngi"
+			module_sprites["Standard"] = "Standard-Engi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
 			module_sprites["Cricket"] = "Cricket-ENGI"
 			magpulse = 1
@@ -378,7 +379,7 @@ var/list/robot_verbs_default = list(
 			module_sprites["Basic"] = "JanBot2"
 			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
-			module_sprites["Standard"] = "robotJani"
+			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
 			module_sprites["Cricket"] = "Cricket-JANI"
 
@@ -652,9 +653,12 @@ var/list/robot_verbs_default = list(
 					var/datum/robot_component/C = components[V]
 					if(C.installed == 1 || C.installed == -1)
 						removable_components += V
-
+				if(module)
+					removable_components += module.custom_removals
 				var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
 				if(!remove)
+					return
+				if(module && module.handle_custom_removal(remove, user, W, params))
 					return
 				var/datum/robot_component/C = components[remove]
 				var/obj/item/robot_parts/robot_component/I = C.wrapped
@@ -870,7 +874,10 @@ var/list/robot_verbs_default = list(
 
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || weakened || low_power_mode)) //Not dead, not stunned.
-		overlays += "eyes-[icon_state]"
+		if(custom_panel in custom_eye_names)
+			overlays += "eyes-[custom_panel]"
+		else
+			overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
 

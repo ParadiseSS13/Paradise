@@ -8,7 +8,7 @@ var/global/list/rad_collectors = list()
 	anchored = 0
 	density = 1
 	req_access = list(access_engine_equip)
-//	use_power = 0
+//	use_power = NO_POWER_USE
 	var/obj/item/tank/plasma/P = null
 	var/last_power = 0
 	var/active = 0
@@ -148,4 +148,3 @@ var/global/list/rad_collectors = list()
 		flick("ca_deactive", src)
 	update_icons()
 	return
-

@@ -85,6 +85,7 @@
 	var/githuburl = "http://example.org"
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
+	var/discordurl = "http://example.org"
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
@@ -388,7 +389,10 @@
 
 				if("githuburl")
 					config.githuburl = value
-
+				
+				if("discordurl")
+					config.discordurl = value
+				
 				if("donationsurl")
 					config.donationsurl = value
 
