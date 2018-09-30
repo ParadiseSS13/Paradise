@@ -174,5 +174,5 @@
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
 	victim.add_trait(TRAIT_GOTTAGOFAST, "pickup")
 	spawn(duration)
-		victim.remove_trait(TRAIT_GOTTAGOFAST, "pickup")
-		to_chat(victim, "<span class='notice'>You slow down.</span>")
+	victim.remove_trait(TRAIT_GOTTAGOFAST, "pickup")
+	to_chat(victim, "<span class='notice'>You slow down.</span>")
