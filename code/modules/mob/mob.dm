@@ -47,6 +47,9 @@
 /mob/proc/generate_name()
 	return name
 
+/mob/proc/GetAltName()
+	return ""
+
 
 /mob/proc/Cell()
 	set category = "Admin"

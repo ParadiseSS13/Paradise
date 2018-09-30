@@ -24,7 +24,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	icon = 'icons/obj/machines/gravity_generator.dmi'
 	anchored = 1
 	density = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 	unacidable = 1
 	var/sprite_number = 0
 
@@ -101,7 +101,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	active_power_usage = 3000
 	power_channel = ENVIRON
 	sprite_number = 8
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	interact_offline = 1
 	var/on = 1
 	var/breaker = 1
@@ -287,7 +287,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 /obj/machinery/gravity_generator/main/proc/set_state(var/new_state)
 	charging_state = POWER_IDLE
 	on = new_state
-	use_power = on ? 2 : 1
+	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	// Sound the alert if gravity was just enabled or disabled.
 	var/alert = 0
 	var/area/area = get_area(src)

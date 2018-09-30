@@ -47,8 +47,8 @@
 			changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
 				var/mob/living/carbon/C = target
-				C.adjustBruteLoss(-5)
-				C.adjustFireLoss(-5)
+				C.adjustBruteLoss(-5, robotic=1)
+				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
 				heal_cooldown = world.time + 20
