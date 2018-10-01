@@ -55,7 +55,7 @@
 
 // Polycrystals, aka stacks
 
-var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/ore/bluespace_crystal/refined, 1, one_per_turf = 0, on_floor = 1))
+var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/ore/bluespace_crystal/refined, 1))
 
 /obj/item/stack/sheet/bluespace_crystal
 	name = "bluespace polycrystal"
