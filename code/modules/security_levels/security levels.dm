@@ -29,7 +29,7 @@
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != security_level)
 		if(level >= SEC_LEVEL_RED && security_level < SEC_LEVEL_RED)
 			// Mark down this time to prevent shuttle cheese
-			shuttle_master.emergency_sec_level_time = world.time
+			SSshuttle.emergency_sec_level_time = world.time
 
 		switch(level)
 			if(SEC_LEVEL_GREEN)

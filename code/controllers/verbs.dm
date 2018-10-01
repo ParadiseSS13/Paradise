@@ -88,7 +88,7 @@
 			debug_variables(npcai_master)
 			feedback_add_details("admin_verb","DNPCAI")
 		if("Shuttle")
-			debug_variables(shuttle_master)
+			debug_variables(SSshuttle)
 			feedback_add_details("admin_verb","DShuttle")
 		if("Timer")
 			debug_variables(SStimer)

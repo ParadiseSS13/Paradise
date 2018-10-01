@@ -57,10 +57,10 @@
 
 /obj/machinery/doomsday_device/Destroy()
 	fast_processing -= src
-	shuttle_master.emergencyNoEscape = 0
-	if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
-		shuttle_master.emergency.mode = SHUTTLE_DOCKED
-		shuttle_master.emergency.timer = world.time
+	SSshuttle.emergencyNoEscape = 0
+	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+		SSshuttle.emergency.mode = SHUTTLE_DOCKED
+		SSshuttle.emergency.timer = world.time
 		priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 	return ..()
 
@@ -68,7 +68,7 @@
 	detonation_timer = world.time + default_timer
 	timing = 1
 	fast_processing += src
-	shuttle_master.emergencyNoEscape = 1
+	SSshuttle.emergencyNoEscape = 1
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
 	. = max(0, (round(detonation_timer - world.time) / 10))
@@ -77,10 +77,10 @@
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
 		minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
-		shuttle_master.emergencyNoEscape = 0
-		if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
-			shuttle_master.emergency.mode = SHUTTLE_DOCKED
-			shuttle_master.emergency.timer = world.time
+		SSshuttle.emergencyNoEscape = 0
+		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+			SSshuttle.emergency.mode = SHUTTLE_DOCKED
+			SSshuttle.emergency.timer = world.time
 			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)

@@ -387,7 +387,7 @@ var/round_start_time = 0
 
 	//emergency_shuttle.process() DONE THROUGH PROCESS SCHEDULER
 
-	var/game_finished = shuttle_master.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
+	var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
 	if(config.continuous_rounds)
 		mode.check_finished() // some modes contain var-changing code in here, so call even if we don't uses result
 	else
