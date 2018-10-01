@@ -100,7 +100,7 @@
 			debug_variables(space_manager)
 			feedback_add_details("admin_verb","DSpace")
 		if("Mob Hunt Server")
-			debug_variables(mob_hunt_server)
+			debug_variables(SSmob_hunt)
 			feedback_add_details("admin_verb","DMobHuntServer")
 
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
