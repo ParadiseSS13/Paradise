@@ -370,7 +370,7 @@ var/bomb_set
 
 	if(ticker)
 		if(ticker.mode && ticker.mode.name == "nuclear emergency")
-			var/obj/docking_port/mobile/syndie_shuttle = shuttle_master.getShuttle("syndicate")
+			var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
 			if(syndie_shuttle)
 				ticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
 			ticker.mode:nuke_off_station = off_station

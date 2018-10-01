@@ -30,7 +30,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/ticketID = text2num(href_list["openadminticket"])
-		globAdminTicketHolder.showDetailUI(usr, ticketID)
+		SStickets.showDetailUI(usr, ticketID)
 
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
@@ -274,22 +274,22 @@
 
 		switch(href_list["call_shuttle"])
 			if("1")
-				if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
+				if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 					return
-				shuttle_master.emergency.request()
+				SSshuttle.emergency.request()
 				log_admin("[key_name(usr)] called the Emergency Shuttle")
 				message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station</span>")
 
 			if("2")
-				if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
+				if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 					return
-				switch(shuttle_master.emergency.mode)
+				switch(SSshuttle.emergency.mode)
 					if(SHUTTLE_CALL)
-						shuttle_master.emergency.cancel()
+						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] sent the Emergency Shuttle back")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] sent the Emergency Shuttle back</span>")
 					else
-						shuttle_master.emergency.cancel()
+						SSshuttle.emergency.cancel()
 						log_admin("[key_name(usr)] called the Emergency Shuttle")
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station</span>")
 
@@ -299,10 +299,10 @@
 	else if(href_list["edit_shuttle_time"])
 		if(!check_rights(R_SERVER))	return
 
-		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", shuttle_master.emergency.timeLeft() ) as num
-		shuttle_master.emergency.setTimer(timer*10)
+		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
+		SSshuttle.emergency.setTimer(timer*10)
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
-		minor_announcement.Announce("The emergency shuttle will reach its destination in [round(shuttle_master.emergency.timeLeft(600))] minutes.")
+		minor_announcement.Announce("The emergency shuttle will reach its destination in [round(SSshuttle.emergency.timeLeft(600))] minutes.")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
 		href_list["secrets"] = "check_antagonist"
 
@@ -2859,21 +2859,21 @@
 			if("moveminingshuttle")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","ShM")
-				if(!shuttle_master.toggleShuttle("mining","mining_home","mining_away"))
+				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
 					message_admins("[key_name_admin(usr)] moved mining shuttle")
 					log_admin("[key_name(usr)] moved the mining shuttle")
 
 			if("movelaborshuttle")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","ShL")
-				if(!shuttle_master.toggleShuttle("laborcamp","laborcamp_home","laborcamp_away"))
+				if(!SSshuttle.toggleShuttle("laborcamp","laborcamp_home","laborcamp_away"))
 					message_admins("[key_name_admin(usr)] moved labor shuttle")
 					log_admin("[key_name(usr)] moved the labor shuttle")
 
 			if("moveferry")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","ShF")
-				if(!shuttle_master.toggleShuttle("ferry","ferry_home","ferry_away"))
+				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
 

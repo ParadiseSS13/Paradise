@@ -433,9 +433,9 @@
 	var/dat = "<html><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
 
-	if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
-	else if(shuttle_master.emergency.mode >= SHUTTLE_CALL)
+	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
 		dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
 
 	if(length(job_master.prioritized_jobs))
