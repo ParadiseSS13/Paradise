@@ -184,7 +184,8 @@
 		var/reason = input(user,"Enter a reason for the release", "Write", null) as message
 		reason += "<span class=\"paper_field\"></span>"
 		var/english_symptoms = list()
-		for(var/datum/symptom/S in D.symptoms)
+		for(var/I in D.symptoms)
+			var/datum/symptom/S = I
 			english_symptoms += S.name
 		var/symtoms = english_list(english_symptoms)
 
