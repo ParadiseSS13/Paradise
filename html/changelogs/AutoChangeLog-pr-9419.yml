@@ -1,4 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - rscadd: "Admin ticket subsystem - migrates existing global datum."

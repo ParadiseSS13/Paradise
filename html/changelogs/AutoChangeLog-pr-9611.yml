@@ -1,5 +1,0 @@
-author: "Purpose & AndrewMontagne"
-delete-after: True
-changes: 
-  - rscadd: "Tiles now retain the styling when damaged."
-  - rscadd: "Tile damage now uses decals, and can be mapped easier."

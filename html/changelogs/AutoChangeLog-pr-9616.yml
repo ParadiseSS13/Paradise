@@ -1,4 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "Not being able to place chutes over tiles with multiple pipes."

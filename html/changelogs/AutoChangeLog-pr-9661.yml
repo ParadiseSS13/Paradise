@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - bugfix: "bluespace polycrystals can now correctly be broken down while floating in space."
