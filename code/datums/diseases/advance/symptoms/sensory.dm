@@ -24,39 +24,36 @@ Bonus
 	level = 5
 	severity = 0
 
+/datum/symptom/sensory_restoration/proc/check_and_add(var/reagent, var/check, var/add, var/mob/living/M)
+	if(M.reagents.get_reagent_amount(reagent) < check)
+		M.reagents.add_reagent(reagent, check)
+		return 1
+
 /datum/symptom/sensory_restoration/Activate(var/datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 3))
 		var/mob/living/M = A.affected_mob
+
 		switch(A.stage)
 			if(2)
-				if(M.reagents.get_reagent_amount("oculine") < 10)
-					M.reagents.add_reagent("oculine", 10)
+				if(check_and_add("oculine", 10, 10, M))
 					to_chat(M, "<span class='notice'>Your hearing feels clearer and crisp.</span>")
 			if(3)
-				if(M.reagents.get_reagent_amount("antihol") < 10)
-					M.reagents.add_reagent("antihol" = 10)
+				if(check_and_add("antihol", 10, 10, M))
 					to_chat(M, "<span class='notice'>You feel sober.</span>")
-				if(M.reagents.get_reagent_amount("oculine") < 10)
-					M.reagents.add_reagent("oculine", 10)
+				check_and_add("oculine", 10, 10, M)
 			if(4)
-				if(M.reagents.get_reagent_amount("synaphydramine") < 10)
-					M.reagents.add_reagent("synaphydramine" = 5)
+				if(check_and_add("synaphydramine", 10, 5, M))
 					to_chat(M, "<span class='notice'>You feel focused.</span>")
-				if(M.reagents.get_reagent_amount("antihol") < 10)
-					M.reagents.add_reagent("antihol" = 10)
-				if(M.reagents.get_reagent_amount("oculine") < 10)
-					M.reagents.add_reagent("oculine", 10)
+				check_and_add("antihol", 10, 10, M)
+				check_and_add("oculine", 10, 10, M)
 			if(5)
-				if(M.reagents.get_reagent_amount("mannitol") < 10)
-					M.reagents.add_reagent("mannitol" = 10)
+				if(check_and_add("mannitol", 10, 10, M))
 					to_chat(M, "<span class='notice'>Your mind feels relaxed.</span>")
-				if(M.reagents.get_reagent_amount("synaphydramine") < 10)
-					M.reagents.add_reagent("synaphydramine" = 5)
-				if(M.reagents.get_reagent_amount("antihol") < 10)
-					M.reagents.add_reagent("antihol" = 10)
-				if(M.reagents.get_reagent_amount("oculine") < 10)
-					M.reagents.add_reagent("oculine", 10)
+				check_and_add("synaphydramine", 10, 5, M)
+				check_and_add("antihol", 10, 10, M)
+				check_and_add("oculine", 10, 10, M)
+
 	return
 
 /*
