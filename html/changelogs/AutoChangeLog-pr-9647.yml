@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - bugfix: "RnD server control console's data management now works, allowing for deletion of research levels and known techs."

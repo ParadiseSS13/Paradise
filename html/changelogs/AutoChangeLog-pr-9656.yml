@@ -1,4 +1,0 @@
-author: "Dapocalypse"
-delete-after: True
-changes: 
-  - bugfix: "Added a grille cooldown to prevent alt-click spam someone on a grille to instantly husk people."
