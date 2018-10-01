@@ -34,6 +34,13 @@
 							{{:helper.link('CLONE', 'files-o', {'action' : 'PRG_clone', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
 							{{if data.usbconnected}}
 								{{:helper.link('EXPORT', 'upload', {'action' : 'PRG_copytousb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+							{{if !value.encrypted}}
+								{{:helper.link('ENCRYPT', null, { "PRG_encrypt" : value.name }, (value.undeletable) ? 'disabled' : null)}}
+							{{else}}
+								{{:helper.link('DECRYPT', null, { "PRG_decrypt" : value.name }, (value.undeletable) ? 'disabled' : null)}}
+							{{/if}}
+							{{if data.usbconnected}}
+								{{:helper.link('EXPORT', 'upload', {'action' : 'PRG_copytousb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
 							{{/if}}
 						</td>
 					</tr>
