@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyser. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyser, only appears like one. May not function correctly on radiation resistant humanoids!"
+	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
 	item = /obj/item/rad_laser
 	cost = 5
@@ -352,7 +352,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/pen/poison
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
-	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
+	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
 
 // DANGEROUS WEAPONS
@@ -500,6 +500,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AGG"
 	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
 	cost = 11
+	surplus = 0
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"

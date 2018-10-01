@@ -13,8 +13,8 @@
 	return desc
 
 /datum/job_objective/maximize_research/check_for_completion()
-	for(var/tech in shuttle_master.techLevels)
-		if(shuttle_master.techLevels[tech] > 0)
+	for(var/tech in SSshuttle.techLevels)
+		if(SSshuttle.techLevels[tech] > 0)
 			return 1
 	return 0
 

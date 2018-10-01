@@ -890,6 +890,21 @@
 	icon_state = "hesphiastos_alt_rainbow"
 	models_allowed = list("Hesphiastos Industries alt.")
 
+/datum/sprite_accessory/hair/ipc/fluff
+	fluff = 1
+
+/datum/sprite_accessory/hair/ipc/fluff/lumi_face //Lumi Fluff hair
+	name = "Lumi Face"
+	icon_state = "lumi_face"
+
+/datum/sprite_accessory/hair/ipc/fluff/lumi_blush //Lumi Fluff hair
+	name = "Lumi Blush"
+	icon_state = "lumi_blush"
+
+/datum/sprite_accessory/hair/ipc/fluff/lumi_waiting //Lumi Fluff hair
+	name = "Lumi Waiting"
+	icon_state = "lumi_waiting"
+
 /*
 ///////////////////////////////////
 /  =---------------------------=  /
@@ -1414,6 +1429,42 @@
 /datum/sprite_accessory/hair/diona/diona_wildflow
 	name = "Wildflowers"
 	icon_state = "diona_wildflower"
+
+//Kidan Hairstyles, sprites by Travelling Merchant
+
+/datum/sprite_accessory/hair/kidan
+	species_allowed = list("Kidan")
+	glasses_over = 1
+	do_colouration = 0
+
+/datum/sprite_accessory/hair/kidan/hollow_horns
+	name = "Hollow Horns"
+	icon_state = "kidan_hollow_horns"
+
+/datum/sprite_accessory/hair/kidan/wide_horns
+	name = "Wide Horns"
+	icon_state = "kidan_wide_horns"
+
+/datum/sprite_accessory/hair/kidan/curled_horns
+	name = "Curled Horns"
+	icon_state = "kidan_curled_horns"
+
+/datum/sprite_accessory/hair/kidan/hawk_horn
+	name = "Hawk Horn"
+	icon_state = "kidan_hawk_horn"
+
+/datum/sprite_accessory/hair/kidan/kidan_bull_horns
+	name = "Bull Horns"
+	icon_state = "kidan_bull_horns"
+
+/datum/sprite_accessory/hair/kidan/kidan_broken_bull_horns
+	name = "Broken Bull Horns"
+	icon_state = "kidan_broken_bull_horns"
+
+/datum/sprite_accessory/hair/kidan/kidan_tall_horns
+	name = "Tall Horns"
+	icon_state = "kidan_tall_horns"
+
 
 // Apollo-specific
 
@@ -2522,6 +2573,17 @@
 	name = "Moth Antennae"
 	icon_state = "kidan_moth"
 
+/datum/sprite_accessory/head_accessory/kidan/kidan_Mantie_Long
+	name = "Mantie Long"
+	icon_state = "kidan_Mantie_Long"
+
+/datum/sprite_accessory/head_accessory/kidan/kidan_Mantie_Curled
+	name = "Mantie Curled"
+	icon_state = "kidan_Mantie_Curled"
+
+/datum/sprite_accessory/head_accessory/kidan/kidan_very_short
+	name = "Very Short"
+	icon_state = "kidan_very_short"
 
 /* BODY MARKINGS */
 

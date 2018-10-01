@@ -146,6 +146,7 @@ proc/issyndicate(mob/living/M as mob)
 
 	M.set_species(/datum/species/human, TRUE)
 	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
+	M.dna.species.create_organs(M)
 	M.reagents.add_reagent("mutadone", 1) //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
 
@@ -299,7 +300,7 @@ proc/issyndicate(mob/living/M as mob)
 		if(!D.onCentcom())
 			disk_rescued = 0
 			break
-	var/crew_evacuated = (shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	var/crew_evacuated = (SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 	//var/operatives_are_dead = is_operatives_are_dead()
 
 

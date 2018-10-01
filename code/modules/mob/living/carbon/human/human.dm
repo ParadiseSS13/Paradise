@@ -1615,6 +1615,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	else
 		return FALSE
 
+/mob/living/carbon/human/has_mutated_organs()
+	for(var/obj/item/organ/external/E in bodyparts)
+		if(E.status & ORGAN_MUTATED)
+			return TRUE
+	return FALSE
+
 /mob/living/carbon/human/InCritical()
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
 

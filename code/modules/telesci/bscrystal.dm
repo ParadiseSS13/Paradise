@@ -26,7 +26,7 @@
 
 /obj/item/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
 	if(!is_teleport_allowed(L.z))
-		src.visible_message("<span class=warning>[src]'s fragments begin rapidly vibrating and blink out of existence.<span>")
+		src.visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
 		qdel(src)
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')

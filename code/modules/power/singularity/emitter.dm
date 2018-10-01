@@ -7,7 +7,7 @@
 	density = 1
 	req_access = list(access_engine_equip)
 
-	use_power = 0
+	use_power = NO_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 300
 
@@ -167,7 +167,7 @@
 /*	if((severity == 1)&&prob(1)&&prob(1))
 		if(src.active)
 			src.active = 0
-			src.use_power = 1	*/
+			src.use_power = IDLE_POWER_USE	*/
 	return 1
 
 

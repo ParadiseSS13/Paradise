@@ -4,7 +4,7 @@
 	icon_state = "computer"
 	density = 1
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 300
 	active_power_usage = 300
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly

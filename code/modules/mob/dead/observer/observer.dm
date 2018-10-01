@@ -207,7 +207,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	for(var/obj/effect/step_trigger/S in locate(x, y, z))	//<-- this is dumb
 		S.Crossed(src)
 
-	var/area/A = get_area_master(src)
+	var/area/A = get_area(src)
 	if(A)
 		A.Entered(src)
 

@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "Nano Mob Hunter ported to StonedMC. Report unexpected issues."

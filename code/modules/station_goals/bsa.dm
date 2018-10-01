@@ -15,7 +15,7 @@
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_packs/misc/bsa/P = shuttle_master.supply_packs["[/datum/supply_packs/misc/bsa]"]
+	var/datum/supply_packs/misc/bsa/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/bsa]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_cannon/check_completion()
@@ -256,7 +256,7 @@
 	var/obj/machinery/bsa/full/cannon
 	var/notice
 	var/target
-	use_power = 0
+	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/computer/bsa_control
 	icon = 'icons/obj/machines/particle_accelerator3.dmi'
 	icon_state = "control_boxp"

@@ -5,7 +5,7 @@
 	icon = 'icons/obj/cooking_machines.dmi'
 	icon_state = "candymaker_off"
 	cook_verbs = list("Wonderizing", "Scrumpdiddlyumptiousification", "Miracle-coating", "Flavorifaction")
-	recipe_type = /datum/recipe/candy
+	recipe_type = RECIPE_CANDY
 	off_icon = "candymaker_off"
 	on_icon = "candymaker_on"
 	broken_icon = "candymaker_broke"
