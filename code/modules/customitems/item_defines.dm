@@ -1475,3 +1475,30 @@
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
 	slot_flags = SLOT_TIE
+
+/obj/item/fluff/rsik_katana_kit //Xydonus: Rsik Ugsharki
+	name = "ceremonial katana nanowrap"
+	desc = "An ornate box, containing ceremonial golden nanowrap, for the most distinguished class of ninja."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "rsik_katana_kit"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/fluff/rsik_katana_kit/afterattack(atom/target, mob/user, proximity)
+	if(!proximity || !ishuman(user) || user.incapacitated())
+		return
+
+	if(istype(target, /obj/item/katana) || (istype(target, /obj/item/toy/katana) && (!istype(target, /obj/item/katana/energy))))
+		to_chat(user, "<span class='notice'>You apply the wrap to [target].</span>")
+		var/obj/item/katana/K = target
+		K.desc = "A katana coated in golden nanowrap, it doesn't seem any sharper than usual."
+		K.item_state = "rsik_katana"
+		K.icon = 'icons/obj/custom_items.dmi'
+		K.icon_state = "rsik_katana"
+		K.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+		K.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+		K.update_icon()
+		user.update_icons()
+		qdel(src)
+		return
+
+	to_chat(user, "<span class='warning'>The wrap isn't compatible with [target]!</span>")
