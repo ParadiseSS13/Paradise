@@ -17,9 +17,9 @@
 
 //	flick("gibbed-m", animation)
 	gibs(loc, dna)
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	if(client)
-		respawnable_list += src
+		GLOB.respawnable_list += src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
@@ -44,9 +44,9 @@
 //	flick("dust-m", animation)
 	new /obj/effect/decal/cleanable/ash(loc)
 
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	if(client)
-		respawnable_list += src
+		GLOB.respawnable_list += src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
@@ -67,9 +67,9 @@
 //	flick("liquify", animation)
 //	new /obj/effect/decal/cleanable/ash(loc)
 
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	if(client)
-		respawnable_list += src
+		GLOB.respawnable_list += src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
@@ -87,8 +87,8 @@
 
 	timeofdeath = world.time
 
-	living_mob_list -= src
-	dead_mob_list += src
+	GLOB.living_mob_list -= src
+	GLOB.dead_mob_list += src
 	if(client)
-		respawnable_list += src
+		GLOB.respawnable_list += src
 	return ..(gibbed)

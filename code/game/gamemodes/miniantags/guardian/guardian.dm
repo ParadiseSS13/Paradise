@@ -162,11 +162,11 @@
 	var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 	if(!input) return
 
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M == summoner)
 			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
 			log_say("(GUARDIAN to [key_name(M)]) [input]", src)
-		else if(M in dead_mob_list)
+		else if(M in GLOB.dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
@@ -181,14 +181,14 @@
 	var/input = stripped_input(src, "Please enter a message to tell your guardian.", "Message", "")
 	if(!input) return
 
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(istype (M, /mob/living/simple_animal/hostile/guardian))
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
 				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
 				log_say("(GUARDIAN to [key_name(G)]) [input]", src)
 
-		else if(M in dead_mob_list)
+		else if(M in GLOB.dead_mob_list)
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
@@ -196,7 +196,7 @@
 	set name = "Recall Guardian"
 	set category = "Guardian"
 	set desc = "Forcibly recall your guardian."
-	for(var/mob/living/simple_animal/hostile/guardian/G in mob_list)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.mob_list)
 		if(G.summoner == src)
 			G.Recall()
 
@@ -206,7 +206,7 @@
 	set desc = "Re-rolls which ghost will control your Guardian. One use."
 
 	src.verbs -= /mob/living/proc/guardian_reset
-	for(var/mob/living/simple_animal/hostile/guardian/G in mob_list)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.mob_list)
 		if(G.summoner == src)
 			var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [G.real_name]?", ROLE_GUARDIAN, 0, 100)
 			var/mob/dead/observer/new_stand = null
@@ -250,7 +250,7 @@
 	var/random = TRUE
 
 /obj/item/guardiancreator/attack_self(mob/living/user)
-	for(var/mob/living/simple_animal/hostile/guardian/G in living_mob_list)
+	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.living_mob_list)
 		if(G.summoner == user)
 			to_chat(user, "You already have a [mob_name]!")
 			return

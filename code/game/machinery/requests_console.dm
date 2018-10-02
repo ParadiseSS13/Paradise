@@ -150,7 +150,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["assist_dept"] = req_console_assistance
 	data["supply_dept"] = req_console_supplies
 	data["info_dept"]   = req_console_information
-	data["ship_dept"]	= TAGGERLOCATIONS
+	data["ship_dept"]	= GLOB.TAGGERLOCATIONS
 
 	data["message"] = message
 	data["recipient"] = recipient
@@ -243,7 +243,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	if(href_list["shipSelect"])
 		ship_tag_name = href_list["shipSelect"]
-		ship_tag_index = TAGGERLOCATIONS.Find(ship_tag_name)
+		ship_tag_index = GLOB.TAGGERLOCATIONS.Find(ship_tag_name)
 
 	//Handle Shipping Label Printing
 	if(href_list["printLabel"])

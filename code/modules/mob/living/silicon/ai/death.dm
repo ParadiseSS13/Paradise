@@ -15,13 +15,13 @@
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
-	shuttle_caller_list -= src
+	GLOB.shuttle_caller_list -= src
 	shuttle_master.autoEvac()
 
 	if(nuking)
 		set_security_level("red")
 		nuking = 0
-		for(var/obj/item/pinpointer/point in pinpointer_list)
+		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = null //Point back to the disk.
 
 	if(doomsday_device)

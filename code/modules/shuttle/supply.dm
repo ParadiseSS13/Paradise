@@ -177,7 +177,7 @@
 					if(cost)
 						shuttle_master.techLevels[tech.id] = tech.level
 						shuttle_master.points += cost
-						for(var/mob/M in player_list)
+						for(var/mob/M in GLOB.player_list)
 							if(M.mind)
 								for(var/datum/job_objective/further_research/objective in M.mind.job_objectives)
 									objective.unit_completed(cost)

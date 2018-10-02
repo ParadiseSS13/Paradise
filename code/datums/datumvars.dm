@@ -817,7 +817,7 @@
 
 		if(A.reagents)
 			var/chosen_id
-			var/list/reagent_options = sortAssoc(chemical_reagents_list)
+			var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
 			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter ID", "Choose ID"))
 				if("Enter ID")
 					var/valid_id
@@ -1033,7 +1033,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		var/new_language = input("Please choose a language to add.","Language",null) as null|anything in all_languages
+		var/new_language = input("Please choose a language to add.","Language",null) as null|anything in GLOB.all_languages
 
 		if(!new_language)
 			return

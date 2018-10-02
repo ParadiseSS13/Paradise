@@ -13,25 +13,25 @@ proc/GetOppositeDir(var/dir)
 proc/random_underwear(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = underwear_m
-		if(FEMALE)	pick_list = underwear_f
-		else		pick_list = underwear_list
+		if(MALE)	pick_list = GLOB.underwear_m
+		if(FEMALE)	pick_list = GLOB.underwear_f
+		else		pick_list = GLOB.underwear_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/random_undershirt(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = undershirt_m
-		if(FEMALE)	pick_list = undershirt_f
-		else		pick_list = undershirt_list
+		if(MALE)	pick_list = GLOB.undershirt_m
+		if(FEMALE)	pick_list = GLOB.undershirt_f
+		else		pick_list = GLOB.undershirt_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/random_socks(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = socks_m
-		if(FEMALE)	pick_list = socks_f
-		else		pick_list = socks_list
+		if(MALE)	pick_list = GLOB.socks_m
+		if(FEMALE)	pick_list = GLOB.socks_f
+		else		pick_list = GLOB.socks_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/pick_species_allowed_underwear(list/all_picks, species)
@@ -49,8 +49,8 @@ proc/pick_species_allowed_underwear(list/all_picks, species)
 proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
-	for(var/hairstyle in hair_styles_public_list)
-		var/datum/sprite_accessory/S = hair_styles_public_list[hairstyle]
+	for(var/hairstyle in GLOB.hair_styles_public_list)
+		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
 
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
@@ -78,8 +78,8 @@ proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohea
 proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
-	for(var/facialhairstyle in facial_hair_styles_list)
-		var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
+	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
+		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
@@ -107,8 +107,8 @@ proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/
 proc/random_head_accessory(species = "Human")
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
-	for(var/head_accessory in head_accessory_styles_list)
-		var/datum/sprite_accessory/S = head_accessory_styles_list[head_accessory]
+	for(var/head_accessory in GLOB.head_accessory_styles_list)
+		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
 
 		if(!(species in S.species_allowed))
 			continue
@@ -122,8 +122,8 @@ proc/random_head_accessory(species = "Human")
 proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
-	for(var/marking in marking_styles_list)
-		var/datum/sprite_accessory/body_markings/S = marking_styles_list[marking]
+	for(var/marking in GLOB.marking_styles_list)
+		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
 		if(S.name == "None")
 			valid_markings += marking
 			continue
@@ -139,7 +139,7 @@ proc/random_marking_style(var/location = "body", species = "Human", var/datum/ro
 				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
 					continue
 		if(location == "head")
-			var/datum/sprite_accessory/body_markings/head/M = marking_styles_list[S.name]
+			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(species == "Machine")//If the user is a species that can have a robotic head...
 				if(!robohead)
 					robohead = all_robolimbs["Morpheus Cyberkinetics"]
@@ -182,9 +182,9 @@ proc/random_name(gender, species = "Human")
 
 	if(!current_species || current_species.name == "Human")
 		if(gender==FEMALE)
-			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 		else
-			return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 	else
 		return current_species.get_random_name(gender)
 
@@ -489,7 +489,7 @@ This is always put in the attack log.
 	LogMouseMacro(".mouse", params)
 
 /proc/update_all_mob_security_hud()
-	for(var/mob/living/carbon/human/H in mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.mob_list)
 		H.sec_hud_set_security_status()
 
 /proc/getviewsize(view)

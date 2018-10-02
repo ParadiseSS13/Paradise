@@ -177,8 +177,8 @@
 
 	spawn(rand(800,1200))
 		if(C.stat == DEAD)
-			dead_mob_list -= C
-			living_mob_list += C
+			GLOB.dead_mob_list -= C
+			GLOB.living_mob_list += C
 		C.stat = CONSCIOUS
 		C.timeofdeath = 0
 		C.setToxLoss(0)
@@ -237,7 +237,7 @@
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'</span>")
 		if(option_threat)
 			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble'. Then the line goes dead.</span>")
-			for(var/obj/effect/landmark/L in landmarks_list)
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name == "wildwest_syndipod")
 					var/obj/spacepod/syndi/P = new /obj/spacepod/syndi(get_turf(L))
 					P.name = "Syndi Recon Pod"
@@ -250,7 +250,7 @@
 	used = TRUE
 
 /obj/item/wildwest_communicator/proc/stand_down()
-	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
+	for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.living_mob_list)
 		W.on_alert = FALSE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest
@@ -264,6 +264,6 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest/death(gibbed)
 	if(!on_alert)
 		say("How could you betray the Syndicate?")
-		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
+		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in GLOB.living_mob_list)
 			W.on_alert = TRUE
 	..(gibbed)

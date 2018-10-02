@@ -69,7 +69,7 @@ var/global/list/default_medbay_channels = list(
 	wires = new(src)
 
 	internal_channels = default_internal_channels.Copy()
-	global_radios |= src
+	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
 	QDEL_NULL(wires)
@@ -78,7 +78,7 @@ var/global/list/default_medbay_channels = list(
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
 	radio_connection = null
-	global_radios -= src
+	GLOB.global_radios -= src
 	follow_target = null
 	return ..()
 
@@ -250,7 +250,7 @@ var/global/list/default_medbay_channels = list(
 	A.role = role
 	A.message = message
 	var/jammed = FALSE
-	for(var/obj/item/jammer/jammer in active_jammers)
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
 			jammed = TRUE
 			break
@@ -342,7 +342,7 @@ var/global/list/default_medbay_channels = list(
 	var/turf/position = get_turf(src)
 
 	var/jammed = FALSE
-	for(var/obj/item/jammer/jammer in active_jammers)
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(position, get_turf(jammer)) < jammer.range)
 			jammed = TRUE
 			break

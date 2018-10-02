@@ -5,7 +5,7 @@
 	if(!speaking)
 		speaking = parse_language(message)
 		if(!speaking)
-			speaking = istype(get_default_language(), /datum/language) ? get_default_language() : all_languages[get_default_language()]
+			speaking = istype(get_default_language(), /datum/language) ? get_default_language() : GLOB.all_languages[get_default_language()]
 			message = speaking.key + " " + message; // Prepend key to prevent the message from getting trimmed
 	if(speaking)
 		return ..()

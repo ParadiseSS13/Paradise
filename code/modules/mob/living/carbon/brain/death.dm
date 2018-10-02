@@ -31,7 +31,7 @@
 //	flick("gibbed-m", animation)
 	gibs(loc, dna)
 
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	if(container && istype(container, /obj/item/mmi))
 		qdel(container)//Gets rid of the MMI if there is one
 	if(loc)

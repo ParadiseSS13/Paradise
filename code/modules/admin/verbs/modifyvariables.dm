@@ -195,7 +195,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 
 
 		if(VV_CLIENT)
-			.["value"] = input("Select reference:", "Reference", current_value) as null|anything in clients
+			.["value"] = input("Select reference:", "Reference", current_value) as null|anything in GLOB.clients
 			if(.["value"] == null)
 				.["class"] = null
 				return

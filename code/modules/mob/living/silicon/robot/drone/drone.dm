@@ -274,7 +274,7 @@
 //Reboot procs.
 
 /mob/living/silicon/robot/drone/proc/request_player()
-	for(var/mob/dead/observer/O in player_list)
+	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(cannotPossess(O))
 			continue
 		if(jobban_isbanned(O,"nonhumandept") || jobban_isbanned(O,"Drone"))

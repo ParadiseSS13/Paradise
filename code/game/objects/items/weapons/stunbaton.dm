@@ -158,7 +158,7 @@
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.forcesay(hit_appends)
+		H.forcesay(GLOB.hit_appends)
 
 	add_attack_logs(user, L, "Stunned with [src]")
 

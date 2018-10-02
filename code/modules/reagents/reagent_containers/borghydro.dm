@@ -82,7 +82,7 @@
 
 		R.add_reagent(M)
 		if(M.reagents)
-			var/datum/reagent/injected = chemical_reagents_list[reagent_ids[mode]]
+			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
 			add_attack_logs(M, user, "Injected with [name] containing [contained], transfered [trans] units")
@@ -97,7 +97,7 @@
 		mode = 1
 
 	charge_tick = 0 //Prevents wasted chems/cell charge if you're cycling through modes.
-	var/datum/reagent/R = chemical_reagents_list[reagent_ids[mode]]
+	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent_ids[mode]]
 	to_chat(user, "<span class='notice'>Synthesizer is now producing '[R.name]'.</span>")
 	return
 

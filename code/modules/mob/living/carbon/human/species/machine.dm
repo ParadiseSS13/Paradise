@@ -122,8 +122,8 @@
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
 		var/list/hair = list()
-		for(var/i in hair_styles_public_list)
-			var/datum/sprite_accessory/hair/tmp_hair = hair_styles_public_list[i]
+		for(var/i in GLOB.hair_styles_public_list)
+			var/datum/sprite_accessory/hair/tmp_hair = GLOB.hair_styles_public_list[i]
 			if((head_organ.dna.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 				hair += i
 

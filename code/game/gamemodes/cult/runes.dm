@@ -46,7 +46,7 @@ To draw a rune, use an arcane tome.
 	check_icon()
 	var/image/blood = image(loc = src)
 	blood.override = 1
-	for(var/mob/living/silicon/ai/AI in player_list)
+	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		AI.client.images += blood
 
 /obj/effect/rune/examine(mob/user)

@@ -119,7 +119,7 @@
 	pr_give_air = new /datum/global_iterator/pod_tank_give_air(list(src))
 	equipment_system = new(src)
 	equipment_system.installed_modules += battery
-	spacepods_list += src
+	GLOB.spacepods_list += src
 	cargo_hold = new/obj/item/storage/internal(src)
 	cargo_hold.w_class = 5	//so you can put bags in
 	cargo_hold.storage_slots = 0	//You need to install cargo modules to use it.
@@ -145,7 +145,7 @@
 		for(var/mob/M in passengers)
 			M.forceMove(get_turf(src))
 			passengers -= M
-	spacepods_list -= src
+	GLOB.spacepods_list -= src
 	return ..()
 
 /obj/spacepod/process()

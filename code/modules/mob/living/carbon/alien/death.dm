@@ -15,7 +15,7 @@
 
 	flick("gibbed-a", animation)
 	xgibs(loc)
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 
 	spawn(15)
 		if(animation)	qdel(animation)
@@ -36,7 +36,7 @@
 
 	flick("dust-a", animation)
 	new /obj/effect/decal/remains/xeno(loc)
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 
 	spawn(15)
 		if(animation)	qdel(animation)

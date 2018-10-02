@@ -66,8 +66,8 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	setup_allturfs()
-	setup_atmos_machinery(machines)
-	setup_pipenets(machines)
+	setup_atmos_machinery(GLOB.machines)
+	setup_pipenets(GLOB.machines)
 	..()
 
 

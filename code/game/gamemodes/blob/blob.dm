@@ -54,7 +54,7 @@ var/list/blob_nodes = list()
 
 /datum/game_mode/blob/proc/get_blob_candidates()
 	var/list/candidates = list()
-	for(var/mob/living/carbon/human/player in player_list)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!player.stat && player.mind && !player.mind.special_role && !jobban_isbanned(player, "Syndicate") && (ROLE_BLOB in player.client.prefs.be_special))
 			candidates += player
 	return candidates
@@ -113,8 +113,8 @@ var/list/blob_nodes = list()
 
 	if(iscarbon(blob.current))
 		var/mob/living/carbon/C = blob.current
-		if(directory[ckey(blob.key)])
-			blob_client = directory[ckey(blob.key)]
+		if(GLOB.directory[ckey(blob.key)])
+			blob_client = GLOB.directory[ckey(blob.key)]
 			location = get_turf(C)
 			if(!is_station_level(location.z) || istype(location, /turf/space))
 				if(!warned)

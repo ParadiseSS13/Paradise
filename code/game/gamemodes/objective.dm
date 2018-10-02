@@ -200,7 +200,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 	var/area/A = shuttle_master.emergency.areaInstance
 
-	for(var/mob/living/player in player_list) //Make sure nobody else is onboard
+	for(var/mob/living/player in GLOB.player_list) //Make sure nobody else is onboard
 		if(player.mind && player.mind != owner)
 			if(player.stat != DEAD)
 				if(issilicon(player))
@@ -209,7 +209,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 					if(player.real_name != owner.current.real_name && !istype(get_turf(player.mind.current), /turf/simulated/shuttle/floor4))
 						return 0
 
-	for(var/mob/living/player in player_list) //Make sure at least one of you is onboard
+	for(var/mob/living/player in GLOB.player_list) //Make sure at least one of you is onboard
 		if(player.mind && player.mind != owner)
 			if(player.stat != DEAD)
 				if(issilicon(player))
@@ -234,7 +234,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/area/A = shuttle_master.emergency.areaInstance
 	var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 
-	for(var/mob/living/player in player_list)
+	for(var/mob/living/player in GLOB.player_list)
 		if(player.type in protected_mobs)
 			continue
 
@@ -446,13 +446,13 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	if(ticker)
 		var/n_p = 1 //autowin
 		if(ticker.current_state == GAME_STATE_SETTING_UP)
-			for(var/mob/new_player/P in player_list)
+			for(var/mob/new_player/P in GLOB.player_list)
 				if(P.client && P.ready && P.mind != owner)
 					if(P.client.prefs && (P.client.prefs.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
 						continue
 					n_p++
 		else if(ticker.current_state == GAME_STATE_PLAYING)
-			for(var/mob/living/carbon/human/P in player_list)
+			for(var/mob/living/carbon/human/P in GLOB.player_list)
 				if(NO_DNA in P.dna.species.species_traits)
 					continue
 				if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)

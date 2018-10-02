@@ -56,7 +56,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/mineral/New()
 	..()
-	mineral_turfs += src
+	GLOB.mineral_turfs += src
 
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in cardinal)
@@ -79,7 +79,7 @@ var/global/list/rockTurfEdgeCache = list(
 /hook/startup/proc/add_mineral_edges()
 	var/watch = start_watch()
 	log_startup_progress("Reticulating splines...")
-	for(var/turf/simulated/mineral/M in mineral_turfs)
+	for(var/turf/simulated/mineral/M in GLOB.mineral_turfs)
 		M.add_edges()
 	log_startup_progress(" Splines reticulated in [stop_watch(watch)]s.")
 	return 1

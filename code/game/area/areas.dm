@@ -24,7 +24,7 @@
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
-	all_areas += src
+	GLOB.all_areas += src
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
 	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area

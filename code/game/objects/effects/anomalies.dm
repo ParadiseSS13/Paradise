@@ -18,11 +18,11 @@
 
 	var/new_frequency = sanitize_frequency(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ))
 	aSignal.set_frequency(new_frequency)
-	poi_list |= src
+	GLOB.poi_list |= src
 
 /obj/effect/anomaly/Destroy()
 	QDEL_NULL(aSignal)
-	poi_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/effect/anomaly/proc/anomalyEffect()

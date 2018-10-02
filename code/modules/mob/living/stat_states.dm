@@ -45,8 +45,8 @@
 	create_attack_log("<font color='red'>Came back to life at [atom_loc_line(get_turf(src))]</font>")
 	log_game("[key_name(src)] came back to life at [atom_loc_line(get_turf(src))]")
 	stat = CONSCIOUS
-	dead_mob_list -= src
-	living_mob_list += src
+	GLOB.dead_mob_list -= src
+	GLOB.living_mob_list += src
 	timeofdeath = null
 	if(updating)
 		update_canmove()

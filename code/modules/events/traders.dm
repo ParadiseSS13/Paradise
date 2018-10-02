@@ -17,7 +17,7 @@ var/global/list/unused_trade_stations = list("sol")
 	if(!station) // If there are no unused stations, just no.
 		return
 	var/list/spawnlocs = list()
-	for(var/obj/effect/landmark/landmark in landmarks_list)
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(landmark.name == "traderstart_[station]")
 			spawnlocs += get_turf(landmark)
 	if(!spawnlocs.len)
@@ -36,7 +36,7 @@ var/global/list/unused_trade_stations = list("sol")
 			index++
 			var/mob/C = pick_n_take(candidates)
 			if(C)
-				respawnable_list -= C.client
+				GLOB.respawnable_list -= C.client
 				var/mob/living/carbon/human/M = create_trader(picked_loc)
 				M.ckey = C.ckey
 				M.mind.objectives += trader_objectives

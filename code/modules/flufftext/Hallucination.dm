@@ -222,7 +222,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/simple/clown/New(loc, mob/living/carbon/T, duration)
 	..(loc, T)
-	name = pick(clown_names)
+	name = pick(GLOB.clown_names)
 	sleep(duration)
 	qdel(src)
 
@@ -444,7 +444,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	target = T
 	var/image/A = null
 	var/kind = force_kind ? force_kind : pick("clown", "corgi", "carp", "skeleton", "demon","zombie")
-	for(var/mob/living/carbon/human/H in living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(H == target)
 			continue
 		if(skip_nearby && (H in view(target)))
@@ -523,7 +523,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	var/mob/living/carbon/human/clone = null
 	var/clone_weapon = null
 
-	for(var/mob/living/carbon/human/H in living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(H.stat || H.lying)
 			continue
 		clone = H
@@ -735,7 +735,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 			target.client.images.Remove(speech_overlay)
 	else // Radio talk
 		var/list/humans = list()
-		for(var/mob/living/carbon/human/H in living_mob_list)
+		for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 			humans += H
 		person = pick(humans)
 		target.hear_radio(pick(radio_messages),language = pick(person.languages),speaker = person, part_a = "<span class='[frequency_span_class(PUB_FREQ)]'><b>\[[get_frequency_name(PUB_FREQ)]\]</b> <span class='name'>", part_b = "</span> <span class='message'>")
@@ -1005,7 +1005,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 			SetSleeping(20, no_alert = TRUE)
 			if(prob(50))
 				var/list/dead_people = list()
-				for(var/mob/dead/observer/G in player_list)
+				for(var/mob/dead/observer/G in GLOB.player_list)
 					dead_people += G
 				var/mob/dead/observer/fakemob = pick(dead_people)
 				if(fakemob)

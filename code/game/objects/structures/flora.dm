@@ -224,7 +224,7 @@
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
 	I.override = 1
-	user.add_alt_appearance("sneaking_mission", I, player_list)
+	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()

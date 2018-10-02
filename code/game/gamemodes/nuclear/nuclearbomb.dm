@@ -32,11 +32,11 @@ var/bomb_set
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
-	poi_list |= src
+	GLOB.poi_list |= src
 
 /obj/machinery/nuclearbomb/Destroy()
 	QDEL_NULL(wires)
-	poi_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/machinery/nuclearbomb/process()
@@ -405,7 +405,7 @@ var/bomb_set
 /obj/item/disk/nuclear/New()
 	..()
 	processing_objects.Add(src)
-	poi_list |= src
+	GLOB.poi_list |= src
 
 /obj/item/disk/nuclear/process()
 	var/turf/disk_loc = get_turf(src)
@@ -421,12 +421,12 @@ var/bomb_set
 	if(force)
 		message_admins("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>":"nonexistent location"]).")
 		log_game("[src] has been !!force deleted!! in ([diskturf ? "[diskturf.x], [diskturf.y] ,[diskturf.z]":"nonexistent location"]).")
-		poi_list.Remove(src)
+		GLOB.poi_list.Remove(src)
 		processing_objects.Remove(src)
 		return ..()
 
 	if(blobstart.len > 0)
-		poi_list.Remove(src)
+		GLOB.poi_list.Remove(src)
 		var/obj/item/disk/nuclear/NEWDISK = new(pick(blobstart))
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")

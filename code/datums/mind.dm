@@ -315,7 +315,7 @@
 			text += "<b><font color='red'>OPERATIVE</b></font>|<a href='?src=[UID()];nuclear=clear'>no</a>"
 			text += "<br><a href='?src=[UID()];nuclear=lair'>To shuttle</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];nuclear=dressup'>dress up</a>."
 			var/code
-			for(var/obj/machinery/nuclearbomb/bombue in machines)
+			for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
 				if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 					code = bombue.r_code
 					break
@@ -471,7 +471,7 @@
 		return
 
 	if(href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in joblist
+		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in GLOB.joblist
 		if(!new_role)
 			return
 		assigned_role = new_role
@@ -1029,7 +1029,7 @@
 
 			if("tellcode")
 				var/code
-				for(var/obj/machinery/nuclearbomb/bombue in machines)
+				for(var/obj/machinery/nuclearbomb/bombue in GLOB.machines)
 					if(length(bombue.r_code) <= 5 && bombue.r_code != "LOLNO" && bombue.r_code != "ADMIN")
 						code = bombue.r_code
 						break
@@ -1439,7 +1439,7 @@
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = new
 	agent_landmarks.len = 4
 	scientist_landmarks.len = 4
-	for(var/obj/effect/landmark/abductor/A in landmarks_list)
+	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
 		if(istype(A, /obj/effect/landmark/abductor/agent))
 			agent_landmarks[text2num(A.team)] = A
 		else if(istype(A, /obj/effect/landmark/abductor/scientist))
@@ -1497,7 +1497,7 @@
 		S.action.Grant(new_character)
 
 /datum/mind/proc/get_ghost(even_if_they_cant_reenter)
-	for(var/mob/dead/observer/G in dead_mob_list)
+	for(var/mob/dead/observer/G in GLOB.dead_mob_list)
 		if(G.mind == src)
 			if(G.can_reenter_corpse || even_if_they_cant_reenter)
 				return G

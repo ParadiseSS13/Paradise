@@ -74,8 +74,8 @@
 			if(src.occupant.health >= 0 && src.occupant.stat == 2)
 				src.occupant.stat = 0
 				src.occupant.lying = 0
-				dead_mob_list -= src.occupant
-				living_mob_list += src.occupant
+				GLOB.dead_mob_list -= src.occupant
+				GLOB.living_mob_list += src.occupant
 			sleep(10)
 		src.active = 0
 		src.add_fingerprint(usr)

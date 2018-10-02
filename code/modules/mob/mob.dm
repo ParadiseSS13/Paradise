@@ -1,7 +1,7 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
-	mob_list -= src
-	dead_mob_list -= src
-	living_mob_list -= src
+	GLOB.mob_list -= src
+	GLOB.dead_mob_list -= src
+	GLOB.living_mob_list -= src
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -25,11 +25,11 @@
 	return QDEL_HINT_HARDDEL
 
 /mob/Initialize()
-	mob_list += src
+	GLOB.mob_list += src
 	if(stat == DEAD)
-		dead_mob_list += src
+		GLOB.dead_mob_list += src
 	else
-		living_mob_list += src
+		GLOB.living_mob_list += src
 	prepare_huds()
 	..()
 
@@ -164,7 +164,7 @@
 		M.show_message( message, 2, deaf_message, 1)
 
 /mob/proc/findname(msg)
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M.real_name == text("[]", msg))
 			return M
 	return 0
@@ -810,7 +810,7 @@ var/list/slot_equipment_priority = list( \
 			creatures[name] = O
 
 
-	for(var/mob/M in sortAtom(mob_list))
+	for(var/mob/M in sortAtom(GLOB.mob_list))
 		var/name = M.name
 		if(names.Find(name))
 			namecounts[name]++
@@ -1095,26 +1095,26 @@ var/list/slot_equipment_priority = list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
+	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in living_mob_list)
+		for(var/mob/living/L in GLOB.living_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				respawnable_list -= usr
+				GLOB.respawnable_list -= usr
 				become_mouse()
 				spawn(5)
-					respawnable_list += usr
+					GLOB.respawnable_list += usr
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					respawnable_list -= usr
+					GLOB.respawnable_list -= usr
 					NPC.key = key
 					spawn(5)
-						respawnable_list += usr
+						GLOB.respawnable_list += usr
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return

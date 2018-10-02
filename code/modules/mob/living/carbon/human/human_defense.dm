@@ -288,7 +288,7 @@ emp_act
 
 
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
-		forcesay(hit_appends)	//forcesay checks stat already
+		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)

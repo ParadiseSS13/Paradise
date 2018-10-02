@@ -2,7 +2,7 @@
 	if(!config.sql_enabled)
 		return
 	var/playercount = 0
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			playercount += 1
 	establish_db_connection()
@@ -19,7 +19,7 @@
 /proc/sql_poll_admins()
 	if(!config.sql_enabled)
 		return
-	var/admincount = admins.len
+	var/admincount = GLOB.admins.len
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during admin polling. Failed to connect.")

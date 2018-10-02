@@ -97,7 +97,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/New()
 	..()
-	name = "[name] [pick(last_names)]"
+	name = "[name] [pick(GLOB.last_names)]"
 	depotarea = areaMaster
 	spawn_turf = get_turf(src)
 
@@ -217,7 +217,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
 	if(istype(depotarea))
 		var/list/key_candidates = list()
-		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in living_mob_list)
+		for(var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O in GLOB.living_mob_list)
 			key_candidates += O
 		if(key_candidates.len)
 			var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/O = pick(key_candidates)

@@ -4,14 +4,14 @@
 	set desc = "Tag yourself for delivery through the disposals system."
 	set category = "Drone"
 
-	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in TAGGERLOCATIONS
+	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
 
-	if(!tag || TAGGERLOCATIONS[tag])
+	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
 		return
 
 	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
-	mail_destination = TAGGERLOCATIONS.Find(tag)
+	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc

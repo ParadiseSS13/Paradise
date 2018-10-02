@@ -162,7 +162,7 @@
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
 			var/fullmin_count = 0
-			for(var/client/C in admins)
+			for(var/client/C in GLOB.admins)
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
 			if(fullmin_count)

@@ -669,9 +669,9 @@
 		return
 
 	if(is_tsf_lieutenant)
-		H.real_name = "Lieutenant [pick(last_names)]"
+		H.real_name = "Lieutenant [pick(GLOB.last_names)]"
 	else
-		H.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
+		H.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]"
 	H.name = H.real_name
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))

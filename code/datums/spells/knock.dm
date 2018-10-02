@@ -47,7 +47,7 @@
 /obj/effect/proc_holder/spell/aoe_turf/knock/greater/cast(list/targets, mob/user = usr)
 	if(!used)
 		used = TRUE
-		for(var/obj/machinery/door/airlock/A in airlocks)
+		for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 			if(is_station_level(A.z))
 				A.req_access = list()
 				A.req_one_access = list()

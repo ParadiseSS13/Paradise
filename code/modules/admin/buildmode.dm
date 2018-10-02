@@ -308,7 +308,7 @@
 				if("number")
 					valueholder = input(user,"Enter variable value:" ,"Value", 123) as num
 				if("mob-reference")
-					valueholder = input(user,"Enter variable value:" ,"Value") as mob in mob_list
+					valueholder = input(user,"Enter variable value:" ,"Value") as mob in GLOB.mob_list
 				if("obj-reference")
 					valueholder = input(user,"Enter variable value:" ,"Value") as obj in world
 				if("turf-reference")
@@ -394,7 +394,7 @@
 /datum/click_intercept/buildmode/proc/select_tile(var/turf/T)
 	return new /obj/effect/buildmode_reticule(T, holder)
 
-/proc/togglebuildmode(mob/M as mob in player_list)
+/proc/togglebuildmode(mob/M as mob in GLOB.player_list)
 	set name = "Toggle Build Mode"
 	set category = "Event"
 
@@ -618,7 +618,7 @@
 						var/obj/effect/buildmode_line/L2 = new(holder, P, M, "[M.name] to [P.name]") // Yes, reversed one so that you can see it from both sides.
 						L2.color = L.color
 						link_lines += L2
-				for(var/obj/machinery/door/poddoor/P in airlocks)
+				for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
 					if(P.id_tag == M.id)
 						var/obj/effect/buildmode_line/L = new(holder, M, P, "[M.name] to [P.name]")
 						L.color = M.normaldoorcontrol ? "#993333" : "#339933"

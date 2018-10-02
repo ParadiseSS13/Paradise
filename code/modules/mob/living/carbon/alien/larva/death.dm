@@ -10,6 +10,6 @@
 
 	timeofdeath = world.time
 	if(mind)	mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
-	living_mob_list -= src
+	GLOB.living_mob_list -= src
 
 	return ..(gibbed)

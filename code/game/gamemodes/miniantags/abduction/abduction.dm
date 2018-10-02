@@ -99,7 +99,7 @@
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = list()
 	agent_landmarks.len = max_teams
 	scientist_landmarks.len = max_teams
-	for(var/obj/effect/landmark/abductor/A in landmarks_list)
+	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
 		if(istype(A,/obj/effect/landmark/abductor/agent))
 			agent_landmarks[text2num(A.team)] = A
 		else if(istype(A,/obj/effect/landmark/abductor/scientist))
@@ -166,7 +166,7 @@
 	abductor.announce_objectives()
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in machines)
+	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.team == team_number)
 			return C
 
@@ -237,7 +237,7 @@
 			return FALSE
 		var/datum/species/abductor/S = H.dna.species
 		ab_team = S.team
-	for(var/obj/machinery/abductor/experiment/E in machines)
+	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
 		if(E.team == ab_team)
 			if(E.points >= target_amount)
 				return TRUE

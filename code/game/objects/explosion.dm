@@ -43,7 +43,7 @@
 			var/sound/explosion_sound = sound(get_sfx("explosion"))
 			var/sound/global_boom = sound('sound/effects/explosionfar.ogg')
 
-			for(var/P in player_list)
+			for(var/P in GLOB.player_list)
 				var/mob/M = P
 				// Double check for client
 				if(M && M.client)

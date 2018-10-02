@@ -161,7 +161,7 @@
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
-	var/datum/language/species_language = all_languages[language]
+	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
@@ -361,9 +361,9 @@
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
 			target.apply_effect(4, WEAKEN, armor_block)
-			target.forcesay(hit_appends)
+			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
-			target.forcesay(hit_appends)
+			target.forcesay(GLOB.hit_appends)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.disarm_act(user, target))

@@ -203,7 +203,7 @@
 
 
 	// Try to find all the players who can hear the message
-	for(var/A in player_list + hear_radio_list)
+	for(var/A in GLOB.player_list + GLOB.hear_radio_list)
 		var/mob/M = A
 		if(M)
 			var/turf/ear = get_turf(M)
@@ -274,7 +274,7 @@
 			break
 
 /proc/get_mob_by_key(var/key)
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M.ckey == lowertext(key))
 			return M
 	return null
@@ -284,7 +284,7 @@
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!candidates.len && afk_bracket < 6000)
-		for(var/mob/dead/observer/G in player_list)
+		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
@@ -300,7 +300,7 @@
 	var/list/candidates = list()
 	// Keep looping until we find a non-afk candidate within the time bracket (we limit the bracket to 10 minutes (6000))
 	while(!candidates.len && afk_bracket < 6000)
-		for(var/mob/dead/observer/G in player_list)
+		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(G.client != null)
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (be_special_type in G.client.prefs.be_special))
@@ -321,7 +321,7 @@
 
 /proc/Show2Group4Delay(obj/O, list/group, delay=0)
 	if(!isobj(O))	return
-	if(!group)	group = clients
+	if(!group)	group = GLOB.clients
 	for(var/client/C in group)
 		C.screen += O
 	if(delay)
@@ -339,8 +339,8 @@
 /proc/get_active_player_count()
 	// Get active players who are playing in the round
 	var/active_players = 0
-	for(var/i = 1; i <= player_list.len; i++)
-		var/mob/M = player_list[i]
+	for(var/i = 1; i <= GLOB.player_list.len; i++)
+		var/mob/M = GLOB.player_list[i]
 		if(M && M.client)
 			if(istype(M, /mob/new_player)) // exclude people in the lobby
 				continue
@@ -390,7 +390,7 @@
 	return new /datum/projectile_data(src_x, src_y, time, distance, power_x, power_y, dest_x, dest_y)
 
 
-/proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=mob_list)
+/proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=GLOB.mob_list)
 	var/list/mobs_found[0]
 	var/area/our_area = get_area_master(the_area)
 	for(var/mob/M in moblist)
@@ -403,7 +403,7 @@
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area_master(the_area)
-	for(var/C in living_mob_list)
+	for(var/C in GLOB.living_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
@@ -442,7 +442,7 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 	if(!Question)
 		Question = "Would you like to be a special role?"
 
-	for(var/mob/dead/observer/G in (ignore_respawnability ? player_list : respawnable_list))
+	for(var/mob/dead/observer/G in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
 		if(!G.key || !G.client)
 			continue
 		if(be_special_type)

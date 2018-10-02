@@ -912,9 +912,9 @@
 		newcrew = specific
 	else
 		if(prob(50))
-			newcrew = pick(first_names_male)
+			newcrew = pick(GLOB.first_names_male)
 		else
-			newcrew = pick(first_names_female)
+			newcrew = pick(GLOB.first_names_female)
 	if(newcrew)
 		settlers += newcrew
 		alive++
