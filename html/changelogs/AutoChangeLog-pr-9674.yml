@@ -1,0 +1,4 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - bugfix: "Chat no longer horribly breaks at the first high-ascii character."
