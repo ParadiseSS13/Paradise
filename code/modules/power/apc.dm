@@ -161,7 +161,7 @@
 	if(building==0)
 		init()
 	else
-		area = src.loc.loc
+		area = get_area(src)
 		area.apc |= src
 		opened = 1
 		operating = 0
@@ -1068,7 +1068,6 @@
 		if(prob(3))
 			src.locked = 1
 			if(src.cell.charge > 0)
-//				to_chat(world, "<span class='warning'>blew APC in [src.loc.loc]</span>")
 				src.cell.charge = 0
 				cell.corrupt()
 				src.malfhack = 1

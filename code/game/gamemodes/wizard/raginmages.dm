@@ -116,7 +116,7 @@
 
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
 
-	if(making_mage || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	if(making_mage || SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return 0
 	making_mage = 1
 	var/list/candidates = list()

@@ -40,7 +40,7 @@
 "aN" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f6"; icon_state = "swall_f6"; dir = 2},/area/awaymission/BMPship/Gate)
 "aO" = (/turf/simulated/shuttle/wall{tag = "icon-swall13"; icon_state = "swall13"},/area/awaymission/BMPship/Gate)
 "aP" = (/turf/simulated/shuttle/wall{tag = "icon-swall3"; icon_state = "swall3"},/area/awaymission/BMPship/Aft)
-"aQ" = (/obj/machinery/door/airlock/silver{locked = 1},/turf/simulated/floor/plating{tag = "icon-panelscorched"; icon_state = "panelscorched"},/area/awaymission/BMPship/Gate)
+"aQ" = (/obj/machinery/door/airlock/silver{locked = 1},/obj/effect/landmark/burnturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Gate)
 "aR" = (/turf/simulated/shuttle/wall{tag = "icon-swall8"; icon_state = "swall8"},/area/awaymission/BMPship/Gate)
 "aS" = (/turf/simulated/shuttle/wall{tag = "icon-swall12"; icon_state = "swall12"; dir = 2},/area/awaymission/BMPship/Gate)
 "aT" = (/turf/simulated/shuttle/wall,/area/awaymission/BMPship/Gate)
@@ -73,8 +73,8 @@
 "bu" = (/obj/structure/table,/obj/item/storage/box,/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating{tag = "icon-warnplate (NORTH)"; icon_state = "warnplate"; dir = 1},/area/awaymission/BMPship/Gate)
 "bv" = (/turf/simulated/floor/plating{tag = "icon-warnplate (NORTHEAST)"; icon_state = "warnplate"; dir = 5},/turf/simulated/shuttle/wall{tag = "icon-swall_f5"; icon_state = "swall_f5"; dir = 2},/area/awaymission/BMPship/Gate)
 "bw" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/obj/machinery/power/apc/noalarm{dir = 1; environ = 2; equipment = 0; lighting = 0; locked = 0; operating = 1; req_access = ""},/turf/simulated/floor/plating{tag = "icon-warnplate (NORTH)"; icon_state = "warnplate"; dir = 1},/area/awaymission/BMPship/Gate)
-"bx" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission/BMPship/Gate)
-"by" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg2"; icon_state = "platingdmg2"},/area/awaymission/BMPship/Gate)
+"bx" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Gate)
+"by" = (/obj/effect/landmark/burnturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Gate)
 "bz" = (/obj/effect/gibspawner/generic,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Gate)
 "bA" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Gate)
 "bB" = (/turf/simulated/shuttle/wall{tag = "icon-swall1"; icon_state = "swall1"},/area/awaymission/BMPship/Gate)
@@ -99,8 +99,8 @@
 "bU" = (/turf/simulated/shuttle/wall{tag = "icon-swall2"; icon_state = "swall2"},/area/awaymission/BMPship/Fore)
 "bV" = (/turf/simulated/shuttle/wall{tag = "icon-swall11"; icon_state = "swall11"},/area/awaymission/BMPship/Aft)
 "bW" = (/obj/item/hand_labeler,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plating,/area/awaymission/BMPship/Gate)
-"bX" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg1"; icon_state = "platingdmg1"},/area/awaymission/BMPship/Gate)
-"bY" = (/turf/simulated/floor/plating/airless{tag = "icon-panelscorched"; icon_state = "panelscorched"},/area/awaymission/BMPship/Gate)
+"bX" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
+"bY" = (/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "bZ" = (/obj/machinery/seed_extractor,/obj/item/seeds/plump/walkingmushroom,/turf/simulated/floor/plasteel{tag = "icon-green"; icon_state = "green"},/area/awaymission/BMPship/Midship)
 "ca" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/obj/item/clothing/glasses/regular/hipster,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Gate)
 "cb" = (/obj/machinery/door/unpowered/shuttle,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated,/area/awaymission/BMPship/Gate)
@@ -248,9 +248,9 @@
 "eN" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/wall/r_wall,/area/awaymission/BMPship/Midship)
 "eO" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "eP" = (/obj/structure/disposalpipe/segment{dir = 2; icon_state = "pipe-c"},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
-"eQ" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
-"eR" = (/obj/structure/window/reinforced{dir = 1},/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
-"eS" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
+"eQ" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
+"eR" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/disposalpipe/trunk{dir = 8},/obj/structure/disposaloutlet{dir = 4},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
+"eS" = (/obj/effect/gibspawner/human,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "eT" = (/obj/structure/rack,/obj/item/storage/box/lights,/turf/simulated/floor/plasteel{dir = 8; icon_state = "warning"},/area/awaymission/BMPship/Aft)
 "eU" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel{icon_state = "hydrofloor"},/area/awaymission/BMPship/Aft)
 "eV" = (/obj/machinery/power/smes/magical{desc = "A high-capacity superconducting magnetic energy storage (SMES) unit."; name = "power storage unit"; outputting = 0},/obj/structure/cable,/obj/structure/cable,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
@@ -271,10 +271,10 @@
 "fk" = (/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Aft)
 "fl" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
 "fm" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
-"fn" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/disposalpipe/trunk{dir = 8},/obj/structure/disposaloutlet{dir = 4},/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
+"fn" = (/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "fo" = (/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
-"fp" = (/obj/effect/gibspawner/human,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
-"fq" = (/obj/structure/window/reinforced{dir = 4},/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
+"fp" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
+"fq" = (/obj/machinery/door/window{base_state = "right"; dir = 4; icon_state = "right"},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "fr" = (/obj/structure/rack,/obj/item/storage/belt/utility/full,/turf/simulated/floor/plasteel{dir = 8; icon_state = "warning"},/area/awaymission/BMPship/Aft)
 "fs" = (/obj/machinery/light/small{dir = 4},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "ft" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f9"; icon_state = "swall_f9"; dir = 2},/area/awaymission/BMPship/Aft)
@@ -287,8 +287,8 @@
 "fA" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "fB" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "fC" = (/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Aft)
-"fD" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
-"fE" = (/obj/machinery/door/window{base_state = "right"; dir = 4; icon_state = "right"},/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
+"fD" = (/obj/effect/gibspawner/generic,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
+"fE" = (/obj/structure/mopbucket,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "fF" = (/obj/structure/rack,/turf/simulated/floor/plasteel{dir = 8; icon_state = "warning"},/area/awaymission/BMPship/Aft)
 "fG" = (/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
 "fH" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/structure/grille,/turf/simulated/floor/plating,/area/awaymission/BMPship/Fore)
@@ -304,7 +304,7 @@
 "fR" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Aft)
 "fS" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
 "fT" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
-"fU" = (/obj/effect/gibspawner/generic,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
+"fU" = (/obj/structure/window/reinforced{dir = 4},/obj/item/kitchen/knife,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "fV" = (/obj/machinery/porta_turret{check_synth = 1; lethal = 1; name = "ship defense turret"},/turf/simulated/floor/engine,/area/awaymission/BMPship/Fore)
 "fW" = (/obj/structure/closet,/obj/item/clothing/head/bio_hood,/obj/item/clothing/suit/bio_suit,/obj/item/clothing/gloves/color/black,/turf/simulated/floor/plating,/area/awaymission)
 "fX" = (/obj/effect/decal/cleanable/cobweb,/obj/machinery/power/port_gen/pacman/super,/turf/simulated/floor/engine,/area/awaymission/BMPship/Aft)
@@ -315,33 +315,33 @@
 "gc" = (/obj/item/wrench,/turf/simulated/floor/plating,/area/awaymission/BMPship/Midship)
 "gd" = (/obj/structure/disposalpipe/segment{dir = 4; icon_state = "pipe-c"},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "ge" = (/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Aft)
-"gf" = (/obj/structure/mopbucket,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
-"gg" = (/obj/structure/window/reinforced{dir = 4},/obj/item/kitchen/knife,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
+"gf" = (/obj/structure/window/reinforced{dir = 4},/obj/effect/landmark/burnturf,/turf/simulated/floor/plating,/area/awaymission/BMPship/Midship)
+"gg" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "gh" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f5"; icon_state = "swall_f5"; dir = 2},/area/awaymission/BMPship/Fore)
 "gi" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/floor/plasteel{tag = "icon-carpetside"; icon_state = "carpetside"},/area/awaymission/BMPship/Fore)
 "gj" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/machinery/door/unpowered/shuttle,/turf/simulated/floor/plasteel{tag = "icon-carpetside"; icon_state = "carpetside"},/area/awaymission/BMPship/Fore)
 "gk" = (/turf/simulated/shuttle/wall{tag = "icon-swall11"; icon_state = "swall11"; dir = 2},/area/awaymission/BMPship/Midship)
-"gl" = (/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plasteel{tag = "icon-panelscorched"; icon_state = "panelscorched"},/area/awaymission/BMPship/Midship)
+"gl" = (/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "gm" = (/obj/structure/kitchenspike,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "gn" = (/turf/simulated/floor/plasteel{tag = "icon-loadingareadirty1 (EAST)"; icon_state = "loadingareadirty1"; dir = 4},/area/awaymission/BMPship/Midship)
 "go" = (/obj/machinery/conveyor{dir = 4; id = "meatConvey2"},/obj/item/kitchen/knife,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Midship)
 "gp" = (/obj/machinery/conveyor{dir = 4; id = "meatConvey2"},/obj/structure/plasticflaps,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Midship)
 "gq" = (/obj/machinery/conveyor{dir = 4; id = "meatConvey2"},/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Midship)
 "gr" = (/obj/structure/disposalpipe/segment{dir = 8; icon_state = "pipe-c"},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
-"gs" = (/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
-"gt" = (/obj/structure/window/reinforced,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
-"gu" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/turf/simulated/shuttle/plating,/area/awaymission/BMPship/Aft)
+"gs" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
+"gt" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
+"gu" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/obj/effect/landmark/burnturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "gv" = (/obj/item/stack/cable_coil,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "gw" = (/obj/structure/reagent_dispensers/beerkeg,/turf/simulated/floor/plating,/area/awaymission)
 "gx" = (/obj/item/stack/sheet/mineral/uranium{amount = 50},/turf/simulated/floor/engine,/area/awaymission/BMPship/Aft)
 "gy" = (/turf/space,/turf/simulated/shuttle/wall{tag = "icon-swall_f5"; icon_state = "swall_f5"; dir = 2},/area/space)
-"gz" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg1"; icon_state = "platingdmg1"},/area/awaymission/BMPship/Fore)
+"gz" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "gA" = (/obj/structure/lattice,/turf/space,/area/awaymission/BMPship/Fore)
-"gB" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission/BMPship/Fore)
+"gB" = (/obj/item/shard,/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "gC" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "gD" = (/obj/item/shard{icon_state = "small"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
-"gE" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating/airless{tag = "icon-panelscorched"; icon_state = "panelscorched"},/area/awaymission/BMPship/Fore)
-"gF" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor/plating/airless{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission/BMPship/Fore)
+"gE" = (/obj/structure/stool,/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
+"gF" = (/obj/structure/computerframe{anchored = 1},/obj/effect/landmark/burnturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "gG" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/item/kitchen/knife,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "gH" = (/obj/machinery/conveyor_switch/oneway{id = "meatConvey2"},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "gI" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
@@ -350,29 +350,27 @@
 "gL" = (/obj/item/mop,/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
 "gM" = (/obj/effect/decal/cleanable/blood/oil,/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
 "gN" = (/obj/structure/reagent_dispensers/fueltank,/turf/simulated/floor/plasteel{dir = 4; icon_state = "warning"},/area/awaymission/BMPship/Aft)
-"gO" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg2"; icon_state = "platingdmg2"},/area/awaymission/BMPship/Fore)
-"gP" = (/obj/item/shard,/turf/simulated/floor/plating/airless{tag = "icon-platingdmg1"; icon_state = "platingdmg1"},/area/awaymission/BMPship/Fore)
-"gQ" = (/obj/structure/stool,/turf/simulated/floor/plating/airless{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission/BMPship/Fore)
+"gO" = (/obj/structure/computerframe{anchored = 1},/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
+"gP" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plating,/area/awaymission/BMPship/Midship)
+"gQ" = (/obj/item/multitool,/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission)
 "gR" = (/obj/item/stack/cable_coil{amount = 5},/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "gS" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
-"gT" = (/turf/simulated/floor/plasteel{tag = "icon-plating"; icon_state = "plating"},/area/awaymission/BMPship/Midship)
+"gT" = (/obj/structure/cable,/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "gU" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
 "gV" = (/obj/structure/closet/crate/freezer,/obj/item/reagent_containers/food/snacks/meat,/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
 "gW" = (/obj/item/reagent_containers/glass/bucket,/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
 "gX" = (/obj/structure/reagent_dispensers,/turf/simulated/floor/plasteel{icon_state = "showroomfloor"},/area/awaymission/BMPship/Aft)
 "gY" = (/obj/machinery/porta_turret{check_synth = 1; lethal = 1; name = "ship defense turret"},/turf/simulated/floor/engine,/area/awaymission/BMPship/Aft)
 "gZ" = (/turf/simulated/shuttle/wall{tag = "icon-swallc2"; icon_state = "swallc2"},/area/awaymission/BMPship/Aft)
-"ha" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg2"; icon_state = "platingdmg2"},/turf/simulated/shuttle/wall{dir = 3; icon_state = "swall_f10"; layer = 2; tag = "icon-swall_f10"},/area/awaymission/BMPship/Fore)
-"hb" = (/obj/structure/computerframe{anchored = 1},/turf/simulated/floor/plating/airless{tag = "icon-panelscorched"; icon_state = "panelscorched"},/area/awaymission/BMPship/Fore)
-"hc" = (/obj/structure/computerframe{anchored = 1},/turf/simulated/floor/plating/airless{tag = "icon-platingdmg1"; icon_state = "platingdmg1"},/area/awaymission/BMPship/Fore)
+"ha" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission)
+"hb" = (/obj/effect/landmark{name = "awaystart"},/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission)
+"hc" = (/obj/effect/gibspawner/robot,/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/awaymission)
 "hd" = (/obj/machinery/light/small,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/BMPship/Midship)
-"he" = (/turf/simulated/floor/plasteel{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission/BMPship/Midship)
-"hf" = (/turf/simulated/floor/plasteel{tag = "icon-platingdmg1"; icon_state = "platingdmg1"},/area/awaymission/BMPship/Midship)
+"he" = (/obj/effect/landmark/burnturf,/turf/simulated/floor/plating/airless,/area/awaymission)
 "hg" = (/obj/machinery/door/airlock/silver{locked = 1},/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "hh" = (/obj/machinery/door/airlock/silver{locked = 1},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "hi" = (/obj/machinery/door/unpowered/shuttle,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "hj" = (/turf/simulated/mineral/random,/area/awaymission)
-"hk" = (/obj/item/multitool,/turf/simulated/floor/plating/airless{tag = "icon-platingdmg2"; icon_state = "platingdmg2"},/area/awaymission)
 "hl" = (/turf/simulated/shuttle/wall{tag = "icon-swallc3"; icon_state = "swallc3"},/area/awaymission/BMPship/Fore)
 "hm" = (/turf/simulated/shuttle/wall{tag = "icon-swallc1"; icon_state = "swallc1"},/area/awaymission/BMPship/Fore)
 "hn" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/obj/machinery/door/airlock/silver,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
@@ -388,7 +386,6 @@
 "hx" = (/obj/structure/closet,/obj/item/clothing/under/overalls,/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "hy" = (/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 4},/obj/structure/grille,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "hz" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/engine,/area/awaymission/BMPship/Fore)
-"hA" = (/obj/structure/cable,/turf/simulated/floor/plating/airless{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission/BMPship/Fore)
 "hB" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "hC" = (/turf/simulated/floor/plating/airless/asteroid,/area/awaymission/BMPship/Fore)
 "hD" = (/obj/structure/rack,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
@@ -396,9 +393,7 @@
 "hF" = (/turf/simulated/shuttle/wall,/area/awaymission)
 "hG" = (/turf/simulated/shuttle/wall{tag = "icon-swall1"; icon_state = "swall1"},/area/awaymission)
 "hH" = (/turf/simulated/floor/plating/airless,/area/awaymission)
-"hI" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg1"; icon_state = "platingdmg1"},/area/awaymission)
 "hJ" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating/airless,/area/awaymission)
-"hK" = (/turf/simulated/floor/plating{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission)
 "hL" = (/obj/item/mounted/frame/apc_frame,/turf/simulated/floor/plating/airless,/area/awaymission)
 "hM" = (/obj/structure/ore_box,/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating/airless,/area/awaymission)
 "hN" = (/obj/item/stack/cable_coil{amount = 5},/turf/simulated/floor/plating/airless,/area/awaymission)
@@ -413,17 +408,14 @@
 "hW" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated,/area/awaymission/BMPship/Fore)
 "hX" = (/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
 "hY" = (/obj/effect/gibspawner/robot,/turf/simulated,/area/awaymission/BMPship/Fore)
-"hZ" = (/turf/simulated/floor/plating/airless{tag = "icon-platingdmg2"; icon_state = "platingdmg2"},/area/awaymission)
 "ia" = (/obj/effect/decal/mecha_wreckage/ripley,/turf/simulated/floor/plating/airless,/area/awaymission)
 "ib" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plating/airless/asteroid,/area/awaymission)
-"ic" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plating{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission)
 "id" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plating/airless,/area/awaymission)
 "ie" = (/obj/structure/stool/bed,/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "if" = (/obj/structure/stool/bed,/obj/item/bedsheet,/obj/item/storage/wallet/random,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; tag = ""},/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "ig" = (/obj/structure/closet,/obj/item/clothing/under/lawyer/bluesuit,/obj/item/clothing/suit/apron,/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "ih" = (/obj/item/clothing/suit/space/syndicate/green/dark,/turf/space,/area/awaymission)
 "ii" = (/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced,/obj/structure/grille,/turf/simulated/floor/plating/airless,/area/awaymission/BMPship/Fore)
-"ij" = (/obj/effect/gibspawner/robot,/turf/simulated/floor/plating/airless{tag = "icon-platingdmg3"; icon_state = "platingdmg3"},/area/awaymission)
 "ik" = (/obj/structure/cable{icon_state = "0-4"; d2 = 4},/turf/simulated/floor/plating/airless,/area/awaymission)
 "il" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/awaymission)
 "im" = (/obj/machinery/door/unpowered/shuttle,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/awaymission/BMPship/Aft)
@@ -432,7 +424,6 @@
 "ip" = (/obj/item/shard{icon_state = "medium"},/turf/space,/area/space)
 "iq" = (/turf/simulated/shuttle/wall{tag = "icon-swall13"; icon_state = "swall13"},/area/awaymission/BMPship/Fore)
 "ir" = (/turf/simulated/shuttle/wall,/area/awaymission/BMPship/Fore)
-"is" = (/turf/simulated/floor/plating/airless{tag = "icon-panelscorched"; icon_state = "panelscorched"},/area/awaymission)
 "it" = (/obj/effect/decal/remains/human,/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "iu" = (/obj/structure/stool/bed,/obj/item/bedsheet,/turf/simulated/floor/plasteel,/area/awaymission/BMPship/Aft)
 "iv" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/BMPship/Aft)
@@ -550,31 +541,31 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasaaaaaaaaaaaaaaaaaaaaaaaaaKataLaDaJaJaJaMaqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasaNakakakakakakakakakanakakakaOaRaQamaOaOakaSaqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasaaasaTaVaUaXaWaZaYbcbabfbebhbgbjbibubtbtbtbtbtbwbvaqaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafagagahagagagagagagagaiaaaaaaaaaaaaasbybxaUaUbzaUaUaUbAaUaUbBbCaJaJbDaJaJbMbLbNaJbWbObeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacababacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabkblbmbnbobpbqbpbqbpbrbsaaaaaaaaaaasbXbxaUbYaUaUaUaVaUcababacbcdccaJceaJaJcqcpcscrctbObeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabEbFbGbnbHararararararbIaaaaaaasaNaTaUbYbxaUbYaUaUaUbzaUaUaUcubCctaJaJaJaJcwcvcxaJctcybeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabPbQbFbnarbRbRbSbRbRbTbUaaaaaaaNczbXbYaUcXjhaUaUaUjiaUcXjiaUbebCjjjljkjkjmjkjkjkjkjojnbeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafagagahagagagagagagagaiaaaaaaaaaaaaasbxbxaUaUbzaUaUaUbAaUaUbBbCaJaJbDaJaJbMbLbNaJbWbObeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacababacaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabkblbmbnbobpbqbpbqbpbrbsaaaaaaaaaaasbxbxaUbyaUaUaUaVaUcababacbcdccaJceaJaJcqcpcscrctbObeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabEbFbGbnbHararararararbIaaaaaaasaNaTaUbybxaUbyaUaUaUbzaUaUaUcubCctaJaJaJaJcwcvcxaJctcybeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabPbQbFbnarbRbRbSbRbRbTbUaaaaaaaNczbxbyaUcXjhaUaUaUjiaUcXjiaUbebCjjjljkjkjmjkjkjkjkjojnbeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacfcgchcicjckclclclclclcmclclclcmjpakakakakaRjqjqjqamakakakakczjsjrjujtjrjrjwjvjyjxjAjzbeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcCcCaucCcEcFcGcHcIcJcKcIcLcGcMcNcOcPcQcRcMcMcMcMcScTcUavcVaMakakakakakakakakanaRjBamjpcoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcYcZcYdacCcEcMdbcHdcdcdcdccLcMcMdddedededfcMcMcMcMdgdgcMdgcMdhdididjdkdldmdldnaPdodpdqdrazaxaycoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcCdsdtdsdudvcEcMcMcHdcdwdcdccLcMcMdxdydzdAdBcMcMcMcMcMcMcMcMcMaPdjdCdjbJdDdEdFdGaPdHdpdodoawdJcWazaxcoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacAcBcCcCdKdLdMdNdOcEcMcMdPdQdQbZdQdScMcMdTcMdUdVdVdVdVdVdVdVdVdVdWcMdhdjdXdjdraxaxaxaxbVcDdIdZeaebdYbbedeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaciegegegeheiejekelddemeneoeoeoeoeoeodWcMddcMepcMeqerererererererepcMaPdjesdjdjdjdjdjetaPeuevbdecbdbKeyezeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeAeBeCegcYcZcYcZeDeEeoeFererererereGeHcMefcMepeJeKeLeKeKeKeKeMeNeOePbbdjeseQeReReSdjdjaPeTeUbdexeWeIbJezeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeYeZfaegfbdtdsdtfcdTcMcMerfdfefdfffgepfhepcMepcMfierererererererepfjfkflfmfnfofpfqdjdjaPfreUbdewbdeccWayaxftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeYeZfaegcYfufvfwfxddcMcMerfdfdfgfffgfyeofzeofAcMcMcMcMcMfBcMcMcMepcMfCdjesfDfofofEdjdjaPfFevfoewbdewcWazaxcoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafHfIfJegdsfKdsdtcCfLcMcMerfMfdfgfNfgepcMfOcMepcMcMfPcMcMcMcMcMcMfQdVfRfSfTfDfUfofEdjdjaPfFevfoeVeWeXbbfXeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabUegegegegfYegfZgadTemcMerfdfggbffgcepcMdTcMepcMeqerererererererepgdgeflfmfngffoggdjetaPeuevfobdbdbdeyezeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaghahagaggigjagagaggkcMcMerfgfgfgglfgepgmddcMepgngogpgqgqgqgqeMeNeOgrbJdjesgsgtgtgudjdjaPdHeUbdgvbdfsbJgxeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagygzgAgBgCgDgEgFcEcMcMererererereGgGcMdxcMepcMgHerererererererepcMaPdjgIgJgJgJgKdjgLaPdHevdqdogMgNcWayaxftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajaaasgOgPgAgQgRgScEcMcMcMcMcMcMcMcMgTcMdTcMgUeoeoeoeoeoeodVdVdVeFcMdhgVdjdjdjfGesgWgXaPdHecfogZayaxazftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacaaajasaaaaaaaahahbhcgBgScEcMhdcMcMcMcMhecMhfhecNcMhdcMcMcMhdcMcMcMcMhdcMcMcWaxaAhgaCaAhhaCaxazaAhiaCcnftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjhjhjacaaasaahkasaahlagaghmhnhoclclclclclclclhphqhrhsclclclclclclclclclclclclclbVdqdqdqdqhtdphuhvhwhtevhxaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjhjhjhjacaaaaajaaaahyfVhzcihAhBhChDgzhEgBhFhjhjhjhjhGacachHhIachJhHachKhLhMhNhOaPhPdqbddqdqhQhRhRhRhRhShTaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjhjhjhjhUajaaaaaaaahValalhWhXgOhXhChYhXhChjhjhjhjhjhjhFachZiahHibicididhHhHhHhHbbhudqdqiedqifdqiedqdqdqigaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjacihaaaaaaaaaaiifValbUgBgBhCgzhCgBhChFhjhjhjhFhjhjhjacijacididididhHhHikiliminininininiodqdqdqaCaxaxbVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacaaaaaaajipacafagagiqagirhjhChFhjhjhjhjhjhjhjhjhjhjhjhIhZididibidhHishHhHbJdqdqitiudqiedqiedqiviwixaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajaaacacachjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhFachZhHhHhKiyiyiyizaPiAiAdqbddqdqdqdqdqbJiBiCftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeAeBeCegcYcZcYcZeDeEeoeFererererereGeHcMefcMepeJeKeLeKeKeKeKeMeNeOePbbdjesbXbYbYeQdjdjaPeTeUbdexeWeIbJezeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeYeZfaegfbdtdsdtfcdTcMcMerfdfefdfffgepfhepcMepcMfierererererererepfjfkflfmeRbdeSfndjdjaPfreUbdewbdeccWayaxftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaeYeZfaegcYfufvfwfxddcMcMerfdfdfgfffgfyeofzeofAcMcMcMcMcMfBcMcMcMepcMfCdjesfpbdbdfqdjdjaPfFevfoewbdewcWazaxcoaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafHfIfJegdsfKdsdtcCfLcMcMerfMfdfgfNfgepcMfOcMepcMcMfPcMcMcMcMcMcMfQdVfRfSfTfpfDbdfqdjdjaPfFevfoeVeWeXbbfXeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabUegegegegfYegfZgadTemcMerfdfggbffgcepcMdTcMepcMeqerererererererepgdgeflfmeRfEbdfUdjetaPeuevfobdbdbdeyezeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaghahagaggigjagagaggkcMcMerfgfgfggffgepgmddcMepgngogpgqgqgqgqeMeNeOgrbJdjesggglglgsdjdjaPdHeUbdgvbdfsbJgxeedRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagygtgAgtgCgDgugzcEcMcMererererereGgGcMdxcMepcMgHerererererererepcMaPdjgIgJgJgJgKdjgLaPdHevdqdogMgNcWayaxftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajaaasgtgBgAgEgRgScEcMcMcMcMcMcMcMcMfgcMdTcMgUeoeoeoeoeoeodVdVdVeFcMdhgVdjdjdjfGesgWgXaPdHecfogZayaxazftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacaaajasaaaaaaaagtgFgOgtgScEcMhdcMcMcMcMgPcMgPgPcNcMhdcMcMcMhdcMcMcMcMhdcMcMcWaxaAhgaCaAhhaCaxazaAhiaCcnftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjhjhjacaaasaagQasaahlagaghmhnhoclclclclclclclhphqhrhsclclclclclclclclclclclclclbVdqdqdqdqhtdphuhvhwhtevhxaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjhjhjhjacaaaaajaaaahyfVhzcigThBhChDgthEgthFhjhjhjhjhGacachHhaachJhHachahLhMhNhOaPhPdqbddqdqhQhRhRhRhRhShTaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjhjhjhjhUajaaaaaaaahValalhWhXgthXhChYhXhChjhjhjhjhjhjhFachaiahHibhbididhHhHhHhHbbhudqdqiedqifdqiedqdqdqigaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaahjacihaaaaaaaaaaiifValbUgtgthCgthCgthChFhjhjhjhFhjhjhjachcacididididhHhHikiliminininininiodqdqdqaCaxaxbVaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacaaaaaaajipacafagagiqagirhjhChFhjhjhjhjhjhjhjhjhjhjhjhahaididibidhHhehHhHbJdqdqitiudqiedqiedqiviwixaPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajaaacacachjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhFachahHhHhaiyiyiyizaPiAiAdqbddqdqdqdqdqbJiBiCftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiDacacachjhjhjhjhjhjhjhjhjhjhjhFhjhjhjhjhjhjhjhjhFiEiFiFiFiFiFiFiFazaxaxaxayaAhgaCayayazaxftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacachjhjhjhjhjhjhjhjhjhjhjhjhjhjhjhjfWhjgwhjhjhjhjhjhjhjacacaaaaaaiGgYiHbbiIbdiJcWftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacacacacachjhjhjhjhjhjhjhjhjhjhjhjhjhjhjiLiKiKiNiPiOiKiQiKiKiRaciSaaaaaaapezezeybdbdiTftaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -625,4 +616,3 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
-

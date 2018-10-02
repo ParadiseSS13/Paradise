@@ -80,8 +80,8 @@
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
-	if(shuttle_master)
-		shuttle_master.emergencyNoEscape = 1
+	if(SSshuttle)
+		SSshuttle.emergencyNoEscape = 1
 	..()
 
 
@@ -216,10 +216,10 @@
 /datum/game_mode/revolution/check_finished()
 	if(config.continuous_rounds)
 		if(finished != 0)
-			shuttle_master.emergencyNoEscape = 0
-			if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
-				shuttle_master.emergency.mode = SHUTTLE_DOCKED
-				shuttle_master.emergency.timer = world.time
+			SSshuttle.emergencyNoEscape = 0
+			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+				SSshuttle.emergency.mode = SHUTTLE_DOCKED
+				SSshuttle.emergency.timer = world.time
 				command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg')
 		return ..()
 	if(finished != 0)
