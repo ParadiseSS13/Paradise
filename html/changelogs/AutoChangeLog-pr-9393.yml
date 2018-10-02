@@ -1,5 +1,0 @@
-author: "Tails2091"
-delete-after: True
-changes: 
-  - bugfix: "Claw Game is now a bit easier to use. Slower speeds, still receive prize when interrupted, and auto-close."
-  - bugfix: "Claw Game has correct window size, centered buttons, general code cleanup."
