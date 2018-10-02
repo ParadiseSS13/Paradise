@@ -1,5 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - tweak: "Wizard Academy now uses decals"
-  - bugfix: "Wizard Academy misplaced wires fixed"
