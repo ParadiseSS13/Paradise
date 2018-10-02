@@ -120,6 +120,8 @@
 	C.forceMove(loc)
 	if(user.pulling == C)
 		user.stop_pulling()
+	if(C.s_active)//Close the container opened
+		C.s_active.close(C)
 	for(var/obj/O in src)
 		O.loc = src.loc
 	src.add_fingerprint(user)
