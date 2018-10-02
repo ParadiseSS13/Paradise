@@ -24,7 +24,7 @@ Bonus
 	level = 5
 	severity = 0
 
-/datum/symptom/sensory_restoration/proc/check_and_add(reagent, check, add, /mob/living/M)
+/datum/symptom/sensory_restoration/proc/check_and_add(reagent, check, add, mob/living/M)
 	if(M.reagents.get_reagent_amount(reagent) < check)
 		M.reagents.add_reagent(reagent, add)
 		return 1
