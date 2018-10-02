@@ -1,3 +1,7 @@
+body {
+	/*	Disables scroll bars */
+	overflow:hidden;
+}
 #background {
 	width:900px;
 	height:406px;
@@ -81,4 +85,8 @@
 	//-webkit-border-radius: 30px;
 	//border-radius: 30px;
 	position: absolute;
+}
+
+.button {
+	cursor: pointer;
 }
