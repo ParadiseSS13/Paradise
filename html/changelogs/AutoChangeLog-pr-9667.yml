@@ -1,0 +1,4 @@
+author: "name here"
+delete-after: True
+changes: 
+  - rscdel: "Remove canvas and easel from Deltastation"
