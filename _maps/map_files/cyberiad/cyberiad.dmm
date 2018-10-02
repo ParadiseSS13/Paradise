@@ -3883,7 +3883,7 @@
 "bwI" = (/obj/structure/stool/bed/chair{dir = 1},/turf/simulated/shuttle/floor,/area/shuttle/transport)
 "bwJ" = (/obj/structure/stool/bed/chair{dir = 1},/obj/machinery/light/spot,/turf/simulated/shuttle/floor,/area/shuttle/transport)
 "bwK" = (/obj/machinery/meter,/obj/machinery/atmospherics/pipe/manifold/visible{dir = 4; initialize_directions = 11; level = 2},/obj/effect/decal/warning_stripes/northeast,/turf/simulated/floor/plating,/area/maintenance/port)
-"bwL" = (/obj/machinery/door/airlock/public/glass{name = "Vacant Office"},/turf/simulated/floor/wood,/area/security/vacantoffice)
+"bwL" = (/obj/machinery/door/airlock/public/glass{name = "Vacant Office"},/obj/machinery/door/firedoor,/turf/simulated/floor/wood,/area/security/vacantoffice)
 "bwM" = (/obj/structure/stool/bed/chair/office/dark,/turf/simulated/floor/wood,/area/security/vacantoffice)
 "bwN" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plasteel,/area/crew_quarters/locker)
 "bwO" = (/obj/structure/closet/emcloset,/obj/effect/decal/warning_stripes/northwest,/turf/simulated/floor/plasteel,/area/hallway/secondary/entry)
