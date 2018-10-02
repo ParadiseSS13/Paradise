@@ -78,6 +78,10 @@
 
 #undef STOMACH_ATTACK_DELAY
 
+/mob/living/carbon/proc/has_mutated_organs()
+	return FALSE
+
+
 /mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
 	if(src.is_muzzled())
 		if(message)

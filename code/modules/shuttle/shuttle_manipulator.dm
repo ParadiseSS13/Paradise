@@ -87,7 +87,7 @@
 			data["templates_tabs"] += S.port_id
 			// The first found shuttle type will be our default
 			if(!existing_shuttle)
-				existing_shuttle = shuttle_master.getShuttle(S.port_id)
+				existing_shuttle = SSshuttle.getShuttle(S.port_id)
 			templates[S.port_id] = list(
 				"port_id" = S.port_id,
 				"templates" = list()
@@ -111,7 +111,7 @@
 
 	// Status panel
 	data["shuttles"] = list()
-	for(var/i in shuttle_master.mobile)
+	for(var/i in SSshuttle.mobile)
 		var/obj/docking_port/mobile/M = i
 		var/list/L = list()
 		L["name"] = M.name
@@ -148,19 +148,19 @@
 	if(href_list["select_template_category"])
 		var/chosen_shuttle_id = href_list["select_template_category"]
 		selected = null
-		existing_shuttle = shuttle_master.getShuttle(chosen_shuttle_id)
+		existing_shuttle = SSshuttle.getShuttle(chosen_shuttle_id)
 		return 1
 
 	if(href_list["select_template"])
 		if(S)
-			existing_shuttle = shuttle_master.getShuttle(S.port_id)
+			existing_shuttle = SSshuttle.getShuttle(S.port_id)
 			selected = S
 			. = TRUE
 
 	if(href_list["jump_to"])
 
 		if(href_list["type"] == "mobile")
-			for(var/i in shuttle_master.mobile)
+			for(var/i in SSshuttle.mobile)
 				var/obj/docking_port/mobile/M = i
 				if(M.id == href_list["id"])
 					user.forceMove(get_turf(M))
@@ -170,7 +170,7 @@
 
 	if(href_list["fast_travel"])
 
-		for(var/i in shuttle_master.mobile)
+		for(var/i in SSshuttle.mobile)
 			var/obj/docking_port/mobile/M = i
 			if(M.id == href_list["id"] && M.timer && M.timeLeft() >= 50)
 				M.setTimer(50)
@@ -192,7 +192,7 @@
 				user.forceMove(get_turf(preview_shuttle))
 
 	if(href_list["load"])
-		if(existing_shuttle == shuttle_master.backup_shuttle)
+		if(existing_shuttle == SSshuttle.backup_shuttle)
 			// TODO make the load button disabled
 			WARNING("The shuttle that the selected shuttle will replace \
 				is the backup shuttle. Backup shuttle is required to be \

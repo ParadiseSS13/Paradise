@@ -47,6 +47,9 @@
 /mob/proc/generate_name()
 	return name
 
+/mob/proc/GetAltName()
+	return ""
+
 
 /mob/proc/Cell()
 	set category = "Admin"
@@ -992,9 +995,9 @@ var/list/slot_equipment_priority = list( \
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
-	var/ETA = shuttle_master.emergency.getModeStr()
+	var/ETA = SSshuttle.emergency.getModeStr()
 	if(ETA)
-		stat(null, "[ETA] [shuttle_master.emergency.getTimerStr()]")
+		stat(null, "[ETA] [SSshuttle.emergency.getTimerStr()]")
 
 /mob/proc/show_stat_turf_contents()
 	if(listed_turf && client)

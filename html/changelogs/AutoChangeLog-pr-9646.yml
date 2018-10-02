@@ -1,0 +1,5 @@
+author: "Kurgis"
+delete-after: True
+changes: 
+  - bugfix: "The chief engineer jumpsuit no longer appears as a green suit when held in-hand."
+  - imageadd: "Added a new in-hand sprite for the chief engineer jumpsuit from Polaris."

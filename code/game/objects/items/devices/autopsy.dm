@@ -146,7 +146,7 @@
 		if(damaging_weapon)
 			scan_data += "Severity: [damage_desc]<br>"
 			scan_data += "Hits by weapon: [total_hits]<br>"
-		scan_data += "Approximate time of wound infliction: [station_time(age)]<br>"
+		scan_data += "Approximate time of wound infliction: [station_time_timestamp("hh:mm", age)]<br>"
 		scan_data += "Affected limbs: [D.organ_names]<br>"
 		scan_data += "Possible weapons:<br>"
 		for(var/weapon_name in weapon_chances)

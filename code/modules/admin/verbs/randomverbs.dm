@@ -435,6 +435,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Now for special roles and equipment.
 	switch(new_character.mind.special_role)
 		if("traitor")
+			job_master.AssignRank(new_character, new_character.mind.assigned_role, 0)
 			job_master.EquipRank(new_character, new_character.mind.assigned_role, 1)
 			ticker.mode.equip_traitor(new_character)
 		if("Wizard")
@@ -465,6 +466,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						call(/datum/game_mode/proc/add_law_zero)(new_character)
 				//Add aliens.
 				else
+					job_master.AssignRank(new_character, new_character.mind.assigned_role, 0)
 					job_master.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
@@ -794,7 +796,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Call Shuttle"
 
-	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
+	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -804,11 +806,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(confirm != "Yes") return
 
 	if(alert("Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", "Yes", "No") == "Yes")
-		shuttle_master.emergency.canRecall = TRUE
+		SSshuttle.emergency.canRecall = TRUE
 	else
-		shuttle_master.emergency.canRecall = FALSE
+		SSshuttle.emergency.canRecall = FALSE
 
-	shuttle_master.emergency.request()
+	SSshuttle.emergency.request()
 
 	feedback_add_details("admin_verb","CSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
@@ -823,20 +825,20 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 	if(alert(src, "You sure?", "Confirm", "Yes", "No") != "Yes") return
 
-	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
+	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
-	if(shuttle_master.emergency.canRecall == FALSE)
+	if(SSshuttle.emergency.canRecall == FALSE)
 		if(alert("Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
 			return
 		else
 			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
-			shuttle_master.emergency.canRecall = TRUE // must be true for cancel proc to work
-			shuttle_master.emergency.cancel()
+			SSshuttle.emergency.canRecall = TRUE // must be true for cancel proc to work
+			SSshuttle.emergency.cancel()
 			if(keepStatus)
-				shuttle_master.emergency.canRecall = FALSE // restores original status
+				SSshuttle.emergency.canRecall = FALSE // restores original status
 	else
-		shuttle_master.emergency.cancel()
+		SSshuttle.emergency.cancel()
 
 	feedback_add_details("admin_verb","CCSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
@@ -853,11 +855,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(shuttle_master)
-		shuttle_master.emergencyNoEscape = !shuttle_master.emergencyNoEscape
+	if(SSshuttle)
+		SSshuttle.emergencyNoEscape = !SSshuttle.emergencyNoEscape
 
-	log_admin("[key_name(src)] has [shuttle_master.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
-	message_admins("[key_name_admin(usr)] has [shuttle_master.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
+	log_admin("[key_name(src)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
+	message_admins("[key_name_admin(usr)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 
 /client/proc/cmd_admin_attack_log(mob/M as mob in mob_list)
 	set category = "Admin"

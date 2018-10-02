@@ -41,24 +41,24 @@
 	icon = "heart-o"
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	C.visible_message("<span class=warning>[user] has analyzed [C]'s vitals!</span>")
+	C.visible_message("<span class='warning'>[user] has analyzed [C]'s vitals!</span>")
 
-	user.show_message("<span class=notice>Analyzing Results for [C]:</span>")
-	user.show_message("<span class=notice>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health]% healthy"]</span>", 1)
-	user.show_message("<span class=notice>\t Damage Specifics: [C.getOxyLoss() > 50 ? "</span><span class=warning>" : ""][C.getOxyLoss()]-[C.getToxLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getToxLoss()]-[C.getFireLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getFireLoss()]-[C.getBruteLoss() > 50 ? "</span><span class=warning>" : "</span><span class=notice>"][C.getBruteLoss()]</span>", 1)
-	user.show_message("<span class=notice>\t Key: Suffocation/Toxin/Burns/Brute</span>", 1)
-	user.show_message("<span class=notice>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
+	user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
+	user.show_message("<span class='notice'>\t Overall Status: [C.stat > 1 ? "dead" : "[C.health]% healthy"]</span>", 1)
+	user.show_message("<span class='notice'>\t Damage Specifics: [C.getOxyLoss() > 50 ? "</span><span class='warning'>" : ""][C.getOxyLoss()]-[C.getToxLoss() > 50 ? "</span><span class='warning'>" : "</span><span class='notice'>"][C.getToxLoss()]-[C.getFireLoss() > 50 ? "</span><span class='warning'>" : "</span><span class='notice'>"][C.getFireLoss()]-[C.getBruteLoss() > 50 ? "</span><span class='warning'>" : "</span><span class='notice'>"][C.getBruteLoss()]</span>", 1)
+	user.show_message("<span class='notice'>\t Key: Suffocation/Toxin/Burns/Brute</span>", 1)
+	user.show_message("<span class='notice'>\t Body Temperature: [C.bodytemperature-T0C]&deg;C ([C.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
 	if(C.timeofdeath && (C.stat == DEAD || (C.status_flags & FAKEDEATH)))
-		user.show_message("<span class=notice>\t Time of Death: [station_time_timestamp("hh:mm:ss", C.timeofdeath)]</span>")
+		user.show_message("<span class='notice'>\t Time of Death: [station_time_timestamp("hh:mm:ss", C.timeofdeath)]</span>")
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		var/list/damaged = H.get_damaged_organs(1,1)
-		user.show_message("<span class=notice>Localized Damage, Brute/Burn:</span>",1)
+		user.show_message("<span class='notice'>Localized Damage, Brute/Burn:</span>",1)
 		if(length(damaged)>0)
 			for(var/obj/item/organ/external/org in damaged)
-				user.show_message("<span class=notice>\t [capitalize(org.name)]: [org.brute_dam > 0 ? "<span class=warning>[org.brute_dam]</span>" : "0"]-[org.burn_dam > 0 ? "<span class=warning>[org.burn_dam]</span>" : "0"]", 1)
+				user.show_message("<span class='notice'>\t [capitalize(org.name)]: [org.brute_dam > 0 ? "<span class='warning'>[org.brute_dam]</span>" : "0"]-[org.burn_dam > 0 ? "<span class='warning'>[org.burn_dam]</span>" : "0"]", 1)
 		else
-			user.show_message("<span class=notice>\t Limbs are OK.",1)
+			user.show_message("<span class='notice'>\t Limbs are OK.",1)
 
 /datum/data/pda/utility/scanmode/dna
 	base_name = "DNA Scanner"
@@ -68,9 +68,9 @@
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		if(!istype(H.dna, /datum/dna))
-			to_chat(user, "<span class=notice>No fingerprints found on [H]</span>")
+			to_chat(user, "<span class='notice'>No fingerprints found on [H]</span>")
 		else
-			to_chat(user, "<span class=notice>[H]'s Fingerprints: [md5(H.dna.uni_identity)]</span>")
+			to_chat(user, "<span class='notice'>[H]'s Fingerprints: [md5(H.dna.uni_identity)]</span>")
 	scan_blood(C, user)
 
 /datum/data/pda/utility/scanmode/dna/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
@@ -78,27 +78,27 @@
 
 /datum/data/pda/utility/scanmode/dna/proc/scan_blood(atom/A, mob/user)
 	if(!A.blood_DNA)
-		to_chat(user, "<span class=notice>No blood found on [A]</span>")
+		to_chat(user, "<span class='notice'>No blood found on [A]</span>")
 		if(A.blood_DNA)
 			qdel(A.blood_DNA)
 	else
-		to_chat(user, "<span class=notice>Blood found on [A]. Analysing...</span>")
+		to_chat(user, "<span class='notice'>Blood found on [A]. Analysing...</span>")
 		spawn(15)
 			for(var/blood in A.blood_DNA)
-				to_chat(user, "<span class=notice>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>")
+				to_chat(user, "<span class='notice'>Blood type: [A.blood_DNA[blood]]\nDNA: [blood]</span>")
 
 /datum/data/pda/utility/scanmode/halogen
 	base_name = "Halogen Counter"
 	icon = "exclamation-circle"
 
 /datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	C.visible_message("<span class=warning>[user] has analyzed [C]'s radiation levels!</span>")
+	C.visible_message("<span class='warning'>[user] has analyzed [C]'s radiation levels!</span>")
 
-	user.show_message("<span class=notice>Analyzing Results for [C]:</span>")
+	user.show_message("<span class='notice'>Analyzing Results for [C]:</span>")
 	if(C.radiation)
-		user.show_message("<span class=notice>Radiation Level: [C.radiation > 0 ? "</span><span class=danger>[C.radiation]" : "0"]</span>")
+		user.show_message("<span class='notice'>Radiation Level: [C.radiation > 0 ? "</span><span class='danger'>[C.radiation]" : "0"]</span>")
 	else
-		user.show_message("<span class=notice>No radiation detected.</span>")
+		user.show_message("<span class='notice'>No radiation detected.</span>")
 
 /datum/data/pda/utility/scanmode/reagent
 	base_name = "Reagent Scanner"
@@ -194,7 +194,7 @@
 		// notehtml ISN'T set to allow user to get their old notes back. A better implementation would add a "scanned documents"
 		// feature to the PDA, which would better convey the availability of the feature, but this will work for now.
 		// Inform the user
-		to_chat(user, "<span class=notice>Paper scanned and OCRed to notekeeper.</span>")//concept of scanning paper copyright brainoblivion 2009
+		to_chat(user, "<span class='notice'>Paper scanned and OCRed to notekeeper.</span>")//concept of scanning paper copyright brainoblivion 2009
 
 	else
-		to_chat(user, "<span class=warning>Error scanning [A].</span>")
+		to_chat(user, "<span class='warning'>Error scanning [A].</span>")

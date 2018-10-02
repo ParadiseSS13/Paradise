@@ -16,7 +16,7 @@
 	name = "status display"
 	anchored = 1
 	density = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/mode = 1	// 0 = Blank
 					// 1 = Shuttle timer
@@ -89,10 +89,10 @@
 			return 1
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
 			var/use_warn = 0
-			if(shuttle_master.emergency && shuttle_master.emergency.timer)
+			if(SSshuttle.emergency && SSshuttle.emergency.timer)
 				use_warn = 1
-				message1 = "-[shuttle_master.emergency.getModeStr()]-"
-				message2 = shuttle_master.emergency.getTimerStr()
+				message1 = "-[SSshuttle.emergency.getModeStr()]-"
+				message2 = SSshuttle.emergency.getTimerStr()
 
 				if(length(message2) > CHARS_PER_LINE)
 					message2 = "Error!"

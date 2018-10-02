@@ -22,6 +22,7 @@
 	charge_max = 300
 	clothes_req = 0
 	action_icon_state = "glare"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/glare/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
@@ -263,6 +264,7 @@
 	range = 1 //Adjacent to user
 	var/enthralling = 0
 	action_icon_state = "enthrall"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
@@ -595,6 +597,7 @@
 	clothes_req = 0
 	include_user = 0
 	action_icon_state = "revive_thrall"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/reviveThrall/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -703,7 +706,7 @@
 			to_chat(user, "<span class='warning'>[target] must be a thrall.</span>")
 			charge_counter = charge_max
 			return
-		if(shuttle_master.emergency.mode != SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode != SHUTTLE_CALL)
 			to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
 			charge_counter = charge_max
 			return
@@ -720,13 +723,13 @@
 		M.visible_message("<span class='warning'>[M]'s eyes suddenly flare red. They proceed to collapse on the floor, not breathing.</span>", \
 						  "<span class='warning'><b>...speeding by... ...pretty blue glow... ...touch it... ...no glow now... ...no light... ...nothing at all...</span>")
 		M.death()
-		if(shuttle_master.emergency.mode == SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 			var/more_minutes = 9000
-			var/timer = shuttle_master.emergency.timeLeft()
+			var/timer = SSshuttle.emergency.timeLeft()
 			timer += more_minutes
 			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
-			shuttle_master.emergency.setTimer(timer)
-			shuttle_master.emergency.canRecall = FALSE
+			SSshuttle.emergency.setTimer(timer)
+			SSshuttle.emergency.canRecall = FALSE
 		user.mind.spell_list.Remove(src) //Can only be used once!
 		qdel(src)
 
@@ -751,7 +754,7 @@
 	playsound(user.loc, 'sound/magic/Staff_Chaos.ogg', 100, 1)
 	for(var/mob/living/boom in targets)
 		if(is_shadow(boom)) //Used to not work on thralls. Now it does so you can PUNISH THEM LIKE THE WRATHFUL GOD YOU ARE.
-			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.<span>")
+			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.</span>")
 			charge_counter = charge_max
 			return
 		user.visible_message("<span class='danger'>[user]'s markings flare as [user.p_they()] gesture[user.p_s()] at [boom]!</span>", \
@@ -782,7 +785,7 @@
 
 	for(var/mob/living/carbon/human/target in targets)
 		if(is_shadow_or_thrall(target))
-			to_chat(user, "<span class='warning'>You cannot enthrall an ally.<span>")
+			to_chat(user, "<span class='warning'>You cannot enthrall an ally.</span>")
 			charge_counter = charge_max
 			return
 		if(!target.ckey || !target.mind)

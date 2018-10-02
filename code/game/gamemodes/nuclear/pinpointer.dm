@@ -246,7 +246,7 @@
 		visible_message("<span class='notice'>Authentication Disk Locator mode actived.</span>")
 		return
 	if(!home)
-		home = shuttle_master.getShuttle("syndicate")
+		home = SSshuttle.getShuttle("syndicate")
 		if(!home)
 			icon_state = icon_null
 			return
