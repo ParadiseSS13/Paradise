@@ -63,6 +63,10 @@
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
 
+/proc/multiline_paranoid_sanitize(txt)
+	var/regex/sanitized = regex("\[^a-zA-Z0-9!@#$%^&*(){}\\-=_+\\\[\\]\\\\\\/|;':\",.<>?~`\\r\\n\\s]", "gm")
+	return sanitized.Replace(txt, " ")
+
 //Runs sanitize and strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
