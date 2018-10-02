@@ -64,7 +64,7 @@
 	return alphanum_only.Replace(t, "#")
 
 /proc/multiline_paranoid_sanitize(txt)
-	var/regex/sanitized = regex("\[^a-zA-Z0-9!@#$%^&*(){}\\-=_+\\\[\\]\\\\\\/|;':\",.<>?~`\\s]", "g")
+	var/regex/sanitized = regex("\[^a-zA-Z0-9!@#$%^&*(){}\\-=_+\\\[\\]\\\\\\/|;':\",.<>?~`\\r\\n\\s]", "gm")
 	return sanitized.Replace(txt, " ")
 
 //Runs sanitize and strip_html_simple
