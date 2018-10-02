@@ -45,7 +45,7 @@ var/global/file_uid = 0
 		return TRUE
 	else if(!input_password)
 		input_password = sanitize(input(user, "Please enter a password to access file '[filename]':"))
-	if (input_password == password)
+	if(input_password == password)
 		return TRUE
 	else
 		return FALSE

@@ -86,9 +86,9 @@
 		if("PRG_openfile")
 			. = 1
 			var/datum/computer_file/F = HDD.find_file_by_name(href_list["PRG_openfile"])
-			if (!F)
+			if(!F)
 				return
-			if (F.can_access_file(usr))
+			if(F.can_access_file(usr))
 				open_file = href_list["PRG_openfile"]
 			else
 				return
