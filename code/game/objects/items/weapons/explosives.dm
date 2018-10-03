@@ -236,6 +236,8 @@
 	name = "T4"
 	desc = "A wall breaching charge, containing fuel, metal oxide and metal powder mixed in just the right way. One hell of a combination. Effective against walls, ineffective against airlocks..."
 	det_time = 2
+	icon_state = "t4breach0"
+	item_state = "t4breach"
 
 /obj/item/grenade/plastic/x4/thermite/prime()
 	var/turf/location
