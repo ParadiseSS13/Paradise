@@ -1,6 +1,0 @@
-author: "FreeStylaLT"
-delete-after: True
-changes: 
-  - tweak: "Remapped Medbay Lobby."
-  - tweak: "Moved the cell charger from Cryo to the break room."
-  - rscadd: "Added a cell to Medbay's break room."
