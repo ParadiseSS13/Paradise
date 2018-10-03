@@ -472,7 +472,7 @@
 /mob/living/proc/CureBlind()
 	var/val_change = !!(disabilities & BLIND)
 	disabilities &= ~BLIND
-	src.CureIfHasDisability(BLINDBLOCK)
+	CureIfHasDisability(BLINDBLOCK)
 	
 	if(val_change)
 		update_blind_effects()
@@ -484,7 +484,7 @@
 
 /mob/living/proc/CureCoughing()
 	disabilities &= ~COUGHING
-	src.CureIfHasDisability(COUGHBLOCK)
+	CureIfHasDisability(COUGHBLOCK)
 
 // Deaf
 
@@ -493,7 +493,7 @@
 
 /mob/living/proc/CureDeaf()
 	disabilities &= ~DEAF
-	src.CureIfHasDisability(DEAFBLOCK)
+	CureIfHasDisability(DEAFBLOCK)
 
 // Epilepsy
 
@@ -502,7 +502,7 @@
 
 /mob/living/proc/CureEpilepsy()
 	disabilities &= ~EPILEPSY
-	src.CureIfHasDisability(EPILEPSYBLOCK)
+	CureIfHasDisability(EPILEPSYBLOCK)
 
 // Mute
 
@@ -511,7 +511,7 @@
 
 /mob/living/proc/CureMute()
 	disabilities &= ~MUTE
-	src.CureIfHasDisability(MUTEBLOCK)
+	CureIfHasDisability(MUTEBLOCK)
 
 // Nearsighted
 
@@ -524,7 +524,7 @@
 /mob/living/proc/CureNearsighted()
 	var/val_change = !!(disabilities & NEARSIGHTED)
 	disabilities &= ~NEARSIGHTED
-	src.CureIfHasDisability(GLASSESBLOCK)
+	CureIfHasDisability(GLASSESBLOCK)
 	if(val_change)
 		update_nearsighted_effects()
 
@@ -535,7 +535,7 @@
 
 /mob/living/proc/CureNervous()
 	disabilities &= ~NERVOUS
-	src.CureIfHasDisability(NERVOUSBLOCK)
+	CureIfHasDisability(NERVOUSBLOCK)
 
 // Tourettes
 
@@ -544,10 +544,10 @@
 
 /mob/living/proc/CureTourettes()
 	disabilities &= ~TOURETTES
-	src.CureIfHasDisability(TWITCHBLOCK)
+	CureIfHasDisability(TWITCHBLOCK)
 
 /mob/living/proc/CureIfHasDisability(block)
-	if(src.dna.GetSEState(block))
-		src.dna.SetSEState(block,0, 1)//Fix the gene
-		genemutcheck(src,block,null,MUTCHK_FORCED)
-		src.dna.UpdateSE()
+	if(dna.GetSEState(block))
+		dna.SetSEState(block, 0, 1) //Fix the gene
+		genemutcheck(src, block,null, MUTCHK_FORCED)
+		dna.UpdateSE()
