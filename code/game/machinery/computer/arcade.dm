@@ -965,26 +965,11 @@
 		emagged = 1
 
 /mob/living/simple_animal/hostile/syndicate/ranged/orion
-	name = "Spaceport Security"
-	desc = "The Premier security forces for all spaceports found along the Orion Trail."
+	name = "spaceport security"
+	desc = "Premier corporate security forces for all spaceports found along the Orion Trail."
 	faction = list("orion")
-	loot = list(/obj/effect/landmark/mobcorpse/orionsecurity,
-				/obj/item/gun/projectile/automatic/c20r,
-				/obj/item/shield/energy)
-
-/obj/effect/landmark/mobcorpse/orionsecurity
-	name = "Spaceport Security"
-	corpseuniform = /obj/item/clothing/under/syndicate
-	corpsesuit = /obj/item/clothing/suit/armor/vest
-	corpseshoes = /obj/item/clothing/shoes/combat
-	corpsegloves = /obj/item/clothing/gloves/combat
-	corpseradio = /obj/item/radio/headset
-	corpsemask = /obj/item/clothing/mask/gas
-	corpsehelmet = /obj/item/clothing/head/helmet/swat
-	corpseback = /obj/item/storage/backpack
-	corpseid = 1
-	corpseidjob = "Officer"
-	corpseidaccess = "Syndicate"
+	loot = list()
+	del_on_death = TRUE
 
 /obj/item/orion_ship
 	name = "model settler ship"
