@@ -183,7 +183,7 @@
 
 /obj/item/projectile/bullet/meteorshot/on_hit(var/atom/target, var/blocked = 0)
 	..()
-	if(istype(target, /atom/movable))
+	if(istype(target, /atom/movable) && !istype(target, /obj/machinery/disposal))
 		var/atom/movable/M = target
 		var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
 		M.throw_at(throw_target, 3, 2)
