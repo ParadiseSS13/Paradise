@@ -23,7 +23,7 @@
 	faction = list("syndicate")
 	check_friendly_fire = 1
 	status_flags = CANPUSH
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier)
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
 
@@ -38,7 +38,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 28
 	status_flags = 0
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 	var/melee_block_chance = 20
 
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
@@ -72,7 +72,7 @@
 	return 0
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
-	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
+	loot = list()//no loot, its gonna delete and gib.
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot
 	name = "Syndicate Operative"
@@ -81,6 +81,7 @@
 	stat_attack = 1
 	universal_speak = 1
 	melee_block_chance = 40
+	del_on_death = 1
 	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
 	var/alert_on_death = FALSE
@@ -182,6 +183,7 @@
 		depotarea.shields_key_check()
 	if(depotarea)
 		depotarea.list_remove(src, depotarea.guard_list)
+	new /obj/effect/gibspawner/human(get_turf(src))
 	return ..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
@@ -247,7 +249,7 @@
 	icon_state = "syndicatemeleespace"
 	icon_living = "syndicatemeleespace"
 	speed = 1
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
 	return
@@ -261,7 +263,7 @@
 	icon_state = "syndicateranged"
 	icon_living = "syndicateranged"
 	casingtype = /obj/item/ammo_casing/c45
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
 	icon_state = "syndicaterangedpsace"
@@ -270,14 +272,13 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	speed = 1
-	loot = list(/obj/effect/landmark/mobcorpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
+	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
 	return
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
-	loot = list(/obj/effect/landmark/mobcorpse/syndicateautogib)
-
+	loot = list()//gonna gibe, no loot.
 
 /mob/living/simple_animal/hostile/viscerator
 	name = "viscerator"
