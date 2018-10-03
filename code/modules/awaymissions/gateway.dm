@@ -258,8 +258,9 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 			return
 	if(istype(M, /obj))
 		if(M.can_buckle && M.has_buckled_mobs())
-			if(exilecheck(M.buckled_mob))
-				return
+			for(var/mob/living/carbon/C in M.buckled_mobs)
+				if(exilecheck(C))
+					return
 		for(var/mob/living/carbon/F in M)
 			if(exilecheck(F))
 				return
