@@ -36,8 +36,8 @@
 				"<span class='notice'>You break free from the gelatinous resin!</span>",\
 				"<span class='italics'>You hear squelching...</span>")
 
-			unbuckle_mob(M)
-			add_fingerprint(user)
+		unbuckle_mob(M)
+		add_fingerprint(user)
 
 /obj/structure/stool/bed/nest/user_buckle_mob(mob/living/M, mob/living/user)
 	if(!ismob(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled )
