@@ -29,7 +29,7 @@
 
 /datum/surgery/proc/next_step(mob/user, mob/living/carbon/target)
 	if(step_in_progress)	return
-
+	
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
 		if(S.try_op(user, target, user.zone_sel.selecting, user.get_active_hand(), src))
@@ -86,8 +86,8 @@
 		if(target_zone == surgery.location)
 			initiate(user, target, target_zone, tool, surgery)
 			return 1//returns 1 so we don't stab the guy in the dick or wherever.
-	if(isrobot(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
-		return 1
+	/*if(isrobot(user) && user.a_intent != INTENT_HARM) //to save asimov borgs a LOT of heartache
+		return 1*/
 	return 0
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
