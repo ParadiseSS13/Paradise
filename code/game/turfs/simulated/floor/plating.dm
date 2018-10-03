@@ -3,8 +3,8 @@
 	icon_state = "plating"
 	intact = 0
 	floor_tile = null
-	broken_states = list("platingdmg1", "platingdmg2", "platingdmg3")
-	burnt_states = list("panelscorched")
+	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+	burnt_states = list("floorscorched1", "floorscorched2")
 
 	footstep_sounds = list(
 	"human" = list('sound/effects/footstep/plating_human.ogg'),
@@ -60,9 +60,10 @@
 			if(welder.remove_fuel(0,user))
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
 				playsound(src, welder.usesound, 80, 1)
-				icon_state = icon_plating
+				current_overlay = null
 				burnt = 0
 				broken = 0
+				update_icon()
 			return 1
 
 /turf/simulated/floor/plating/airless

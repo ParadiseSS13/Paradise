@@ -20,3 +20,8 @@
 	name = "\improper Fore Block"
 	icon_state = "away3"
 	requires_power = 1
+
+/area/awaymission/BMPship/Gate
+	name = "\improper Gateway Block"
+	icon_state = "away4"
+	requires_power = 1

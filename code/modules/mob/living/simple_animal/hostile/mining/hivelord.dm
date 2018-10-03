@@ -65,10 +65,12 @@
 	addtimer(CALLBACK(src, .proc/inert_check), 2400)
 
 /obj/item/organ/internal/hivelord_core/proc/inert_check()
-	if(!owner && !preserved)
-		go_inert()
-	else
+	if(owner)
 		preserved(implanted = 1)
+	else if(preserved)
+		preserved()
+	else
+		go_inert()
 
 /obj/item/organ/internal/hivelord_core/proc/preserved(implanted = 0)
 	inert = FALSE
@@ -240,7 +242,7 @@
 			stored_mob.forceMove(get_turf(src))
 			stored_mob = null
 		else
-			new /obj/effect/landmark/corpse/damaged(T)
+			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
 	..(gibbed)
 
 
@@ -319,3 +321,13 @@
 	desc = "The once living, now empty eyes of the former human's skull cut deep into your soul."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "skull"
+
+
+/obj/effect/mob_spawn/human/corpse/charredskeleton
+	name = "charred skeletal remains"
+	burn_damage = 1000
+	mob_name = "ashen skeleton"
+	mob_gender = NEUTER
+	husk = FALSE
+	mob_species = /datum/species/skeleton
+	mob_color = "#454545"

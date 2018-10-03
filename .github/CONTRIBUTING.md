@@ -37,9 +37,9 @@ actual development.
  * Document and explain your pull requests thoroughly. Detail what each commit changes,
  and why it changes it. We do not want to have to read all of you commit names to figure
  out what your pull request is about.
- * Any pull request that is not solely composed of fixes or non gameplay-affecting
- refactors must have a changelog. Inline changelogs are supported through the format
- described [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
+ * Any pull request must have a changelog, this is to allow us to know when a PR is deployed 
+ on the live server. Inline changelogs are supported through the format described 
+ [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
  and should be used rather than manually edited .yml file changelogs.
  * Pull requests should not have any merge commits except in the case of fixing merge
  conflicts for an existing pull request. New pull requests should not have any merge

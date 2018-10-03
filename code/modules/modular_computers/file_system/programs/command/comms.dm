@@ -34,7 +34,7 @@
 
 /datum/computer_file/program/comm/Destroy()
 	shuttle_caller_list -= src
-	shuttle_master.autoEvac()
+	SSshuttle.autoEvac()
 	return ..()
 
 /datum/computer_file/program/comm/proc/is_authenticated(mob/user, loud = 1)
@@ -145,16 +145,16 @@
 		data["current_message"] = data["is_ai"] ? messagetext[aicurrmsg] : messagetext[currmsg]
 		data["current_message_title"] = data["is_ai"] ? messagetitle[aicurrmsg] : messagetitle[currmsg]
 
-	data["lastCallLoc"]     = shuttle_master.emergencyLastCallLoc ? format_text(shuttle_master.emergencyLastCallLoc.name) : null
+	data["lastCallLoc"]     = SSshuttle.emergencyLastCallLoc ? format_text(SSshuttle.emergencyLastCallLoc.name) : null
 
 	var/shuttle[0]
-	switch(shuttle_master.emergency.mode)
+	switch(SSshuttle.emergency.mode)
 		if(SHUTTLE_IDLE, SHUTTLE_RECALL)
 			shuttle["callStatus"] = 2 //#define
 		else
 			shuttle["callStatus"] = 1
-	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
-		var/timeleft = shuttle_master.emergency.timeLeft()
+	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
+		var/timeleft = SSshuttle.emergency.timeLeft()
 		shuttle["eta"] = "[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 
 	data["shuttle"] = shuttle
@@ -257,7 +257,7 @@
 					return 1
 
 				call_shuttle_proc(usr, input)
-				if(shuttle_master.emergency.timer)
+				if(SSshuttle.emergency.timer)
 					post_status("shuttle")
 				setMenuState(usr, COMM_SCREEN_MAIN)
 
@@ -269,7 +269,7 @@
 				var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
 				if(response == "Yes")
 					cancel_call_proc(usr)
-					if(shuttle_master.emergency.timer)
+					if(SSshuttle.emergency.timer)
 						post_status("shuttle")
 				setMenuState(usr, COMM_SCREEN_MAIN)
 
@@ -376,8 +376,8 @@
 				setMenuState(usr,COMM_SCREEN_MAIN)
 
 			if("RestartNanoMob")
-				if(mob_hunt_server)
-					if(mob_hunt_server.manual_reboot())
+				if(SSmob_hunt)
+					if(SSmob_hunt.manual_reboot())
 						var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
 											"Capturing all of them", "Fixing minor text issues", "Being the very best",
 											"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")

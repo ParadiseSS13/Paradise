@@ -407,11 +407,11 @@
 		dat += "Current Game Mode: <B>[ticker.mode.name]</B><BR>"
 		dat += "Round Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)]:[add_zero(num2text(ROUND_TIME / 10 % 60), 2)]</B><BR>"
 		dat += "<B>Emergency shuttle</B><BR>"
-		if(shuttle_master.emergency.mode < SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode < SHUTTLE_CALL)
 			dat += "<a href='?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
 		else
-			var/timeleft = shuttle_master.emergency.timeLeft()
-			if(shuttle_master.emergency.mode < SHUTTLE_DOCKED)
+			var/timeleft = SSshuttle.emergency.timeLeft()
+			if(SSshuttle.emergency.mode < SHUTTLE_DOCKED)
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
 				dat += "<a href='?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else

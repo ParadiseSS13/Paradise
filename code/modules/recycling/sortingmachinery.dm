@@ -134,6 +134,7 @@
 	name = "package wrapper"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "deliveryPaper"
+	singular_name = "package wrapper"
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25

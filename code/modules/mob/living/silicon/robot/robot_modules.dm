@@ -15,6 +15,7 @@
 
 	var/list/stacktypes
 	var/channels = list()
+	var/list/custom_removals = list()
 
 
 /obj/item/robot_module/emp_act(severity)
@@ -102,6 +103,10 @@
 		A.Remove(R)
 		qdel(A)
 	R.module_actions.Cut()
+
+// Return true in an overridden subtype to prevent normal removal handling
+/obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W, params)
+    return FALSE
 
 /obj/item/robot_module/standard
 	name = "standard robot module"
@@ -325,6 +330,7 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
+	custom_removals = list("KA modkits")
 
 /obj/item/robot_module/miner/New()
 	..()
@@ -340,6 +346,13 @@
 	emag = new /obj/item/borg/stun(src)
 
 	fix_modules()
+
+/obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W, params)
+    if(component_id == "KA modkits")
+        for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
+            D.attackby(W, user, params)
+        return TRUE
+    return ..()
 
 /obj/item/robot_module/deathsquad
 	name = "NT advanced combat module"

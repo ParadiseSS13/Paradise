@@ -126,11 +126,11 @@ var/world_topic_spam_protect_time = world.timeofday
 			s["security_level"] = get_security_level()
 			s["ticker_state"] = ticker.current_state
 
-			if(shuttle_master && shuttle_master.emergency)
+			if(SSshuttle && SSshuttle.emergency)
 				// Shuttle status, see /__DEFINES/stat.dm
-				s["shuttle_mode"] = shuttle_master.emergency.mode
+				s["shuttle_mode"] = SSshuttle.emergency.mode
 				// Shuttle timer, in seconds
-				s["shuttle_timer"] = shuttle_master.emergency.timeLeft()
+				s["shuttle_timer"] = SSshuttle.emergency.timeLeft()
 
 			for(var/i in 1 to admins.len)
 				var/list/A = admins[i]
@@ -442,9 +442,11 @@ var/failed_old_db_connections = 0
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
+	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
+	start_log(GLOB.world_qdel_log)
 
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")

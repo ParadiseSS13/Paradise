@@ -35,8 +35,6 @@
 		icon_state = "[icon_base]-photo"
 	else if(istype(displayed, /obj/structure/sign/poster))
 		icon_state = "[icon_base]-[(displayed.icon_state in wide_posters) ? "wposter" : "poster"]"
-	else if(istype(displayed, /obj/item/canvas))
-		icon_state = "[icon_base]-canvas-[displayed.icon_state]"
 	else
 		icon_state = "[icon_base]-paper"
 
@@ -61,7 +59,7 @@
 	if(istype(I, /obj/item/screwdriver))
 		if(displayed)
 			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class=warning>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class=warning>You unfasten \the [displayed] out of \the [src].</span>")
+			user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
 
 			if(istype(displayed, /obj/structure/sign/poster))
 				var/obj/structure/sign/poster/P = displayed
@@ -72,10 +70,10 @@
 			name = initial(name)
 			update_icon()
 		else
-			to_chat(user, "<span class=notice>There is nothing to remove from \the [src].</span>")
+			to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
 	else if(istype(I, /obj/item/crowbar))
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class=warning>[user] breaks down \the [src].</span>", "<span class=warning>You break down \the [src].</span>")
+		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
 		for(var/A in contents)
 			if(istype(A, /obj/structure/sign/poster))
 				var/obj/structure/sign/poster/P = A
@@ -91,7 +89,7 @@
 			insert(I)
 			update_icon()
 		else
-			to_chat(user, "<span class=notice>\The [src] already contains \a [displayed].</span>")
+			to_chat(user, "<span class='notice'>\The [src] already contains \a [displayed].</span>")
 	else
 		return ..()
 
@@ -214,10 +212,10 @@
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/screwdriver))
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class=warning>[user] begins to unfasten \the [src] from the wall.</span>", "<span class=warning>You begin to unfasten \the [src] from the wall.</span>")
+		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
 		if(do_after(user, 100 * I.toolspeed, target = src))
 			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class=warning>[user] unfastens \the [src] from the wall.</span>", "<span class=warning>You unfasten \the [src] from the wall.</span>")
+			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
 			frame.forceMove(user.loc)
 			frame = null
 			if(explosive)
@@ -231,7 +229,7 @@
 		if(!tilted)
 			to_chat(user, "<span class='warning'>\The [src] needs to be already tilted before being rigged with \the [I].</span>")
 			return 1
-		user.visible_message("<span class=warning>[user] is fiddling around behind \the [src].</span>", "<span class=warning>You begin to secure \the [I] behind \the [src].</span>")
+		user.visible_message("<span class='warning'>[user] is fiddling around behind \the [src].</span>", "<span class='warning'>You begin to secure \the [I] behind \the [src].</span>")
 		if(do_after(user, 150, target = src))
 			if(explosive || !tilted)
 				return

@@ -268,3 +268,20 @@
 	ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
+
+// Damage tiles
+/obj/effect/landmark/damageturf
+	icon_state = "damaged"
+
+/obj/effect/landmark/damageturf/New()
+	..()
+	var/turf/simulated/T = get_turf(src)
+	T.break_tile()
+
+/obj/effect/landmark/burnturf
+	icon_state = "burned"
+
+/obj/effect/landmark/burnturf/New()
+	..()
+	var/turf/simulated/T = get_turf(src)
+	T.burn_tile()

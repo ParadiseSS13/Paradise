@@ -311,7 +311,10 @@
 		return
 
 	if(teles_left > 0)
-		doteleport(user)
+		if(!doteleport(user))
+			telefail()
+			temp_msg = "ERROR! Target destination unreachable due to interference."
+			return
 	else
 		telefail()
 		temp_msg = "ERROR!<BR>Calibration required."

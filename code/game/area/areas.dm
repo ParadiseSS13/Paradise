@@ -309,8 +309,8 @@
 		var/mob/M=A
 
 		if(!M.lastarea)
-			M.lastarea = get_area_master(M)
-		newarea = get_area_master(M)
+			M.lastarea = get_area(M)
+		newarea = get_area(M)
 		oldarea = M.lastarea
 
 		if(newarea==oldarea) return
@@ -395,3 +395,9 @@
 		temp_airlock.prison_open()
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		temp_windoor.open()
+
+/area/AllowDrop()
+	CRASH("Bad op: area/AllowDrop() called")
+
+/area/drop_location()
+	CRASH("Bad op: area/drop_location() called")
