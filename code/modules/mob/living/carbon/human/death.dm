@@ -108,6 +108,11 @@
 
 	callHook("death", list(src, gibbed))
 
+	if(mind)
+		for(var/mob/dead/observer/O in player_list)
+			if(O.client)
+				to_chat(O, "<span class='deadsay'><b>[src]</b> has died. <a href='?src=[O.UID()];follow=\ref[get_turf(src)]'>(FLW)</a> </span>")
+
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)
