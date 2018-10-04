@@ -840,3 +840,16 @@
 	item_state = "medicalgown"
 	item_color = "medicalgown"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/val
+	desc = "test"
+	name = "custom uniform"
+	icon_state = "val"
+	item_color = "val"
+
+/obj/item/clothing/under/deimos
+	desc = "A custom tailored suit with initials V.R embroided into the left wrist cuff."
+	name = "tailored suit"
+	icon_state = "deimos"
+	item_color = "deimos"
+	displays_id = FALSE

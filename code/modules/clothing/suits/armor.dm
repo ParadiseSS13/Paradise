@@ -94,6 +94,13 @@
 	species_fit = null
 	sprite_sheets = null
 
+/obj/item/clothing/suit/armor/vest/valarmor
+	name = "tactical rig"
+	desc = "Lightweight armor made from nanofibers allowing for maneuverability. It is covered in dents and scratches. Has the initials S.G.M faded into the left pauldron."
+	icon_state = "valarmor"
+	item_state = "valarmor"
+	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
 	desc = "A sturdy black jacket with reinforced fabric. Bears insignia of NT corporate security."
