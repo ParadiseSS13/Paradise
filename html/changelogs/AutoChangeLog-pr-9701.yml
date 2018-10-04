@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - bugfix: "Damaged plating when fixed, now loses the aesthetic damage too."
