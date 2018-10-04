@@ -44,3 +44,21 @@
 
 	. = ..()
 
+
+
+
+
+/obj/mecha/medical/odysseus/emag_act(user as mob)
+	if(emagged == 0)
+		emagged = 1
+		for(var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/I in equipment)	//you get some juicy traitor chems for this...
+			I.add_known_reagent("initropidril", "Initropidril")
+			I.add_known_reagent("sarin", "Sarin")
+		to_chat(usr, "<span class='notice'>The [src]'s speaker chimes in a distorted voice \"First...do harm.\" as you swipe the card through the ID slot.</span>")
+		playsound(loc, "sparks", 100, 1)
+		desc += "</br><span class='danger'>The mech's movement is sudden and jerky!</span>"
+	else
+		to_chat(usr, "<span class='warning'>The [src]'s ID slot rejects the card.</span>")
+	return
+
+
