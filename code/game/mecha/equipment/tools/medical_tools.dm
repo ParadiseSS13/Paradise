@@ -521,3 +521,34 @@
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
 
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_clamp
+	name = "rescue clamp"
+	desc = "Emergency rescue clamp, designed to help first responders reach their patients. Opens doors and removes obstacles."
+	icon_state = "mecha_clamp"	//placeholder for now, add icons later
+	equip_cooldown = 15
+	energy_drain = 10
+	var/dam_force = 20
+
+
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_clamp/action(atom/target)
+	if(!action_checks(target))
+		return
+	if(istype(target,/obj))
+		if(!istype(target,/obj/machinery/door))//early return if we're not trying to open a door
+			return
+		var/obj/machinery/door/D = target	//the door we want to open
+		D.try_to_crowbar(src, chassis.occupant)//use the door's crowbar function
+	if(istype(target,/mob/living))	//interact with living beings
+		var/mob/living/M = target
+		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.
+			target.visible_message("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides kick in.", \
+								"[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides kick in.")
+		else
+			step_away(M,chassis)//out of the way, I have people to save!
+			occupant_message("You gently push [target] out of the way.")
+			chassis.visible_message("[chassis] gently pushes [target] out of the way.")
+		return 1
+
+
+
+

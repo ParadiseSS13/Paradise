@@ -670,12 +670,12 @@ About the new airlock wires panel:
 	return FALSE
 
 //For the tools being used on the door. Since you don't want to call the attack_hand method if you're using hands. That would be silly
-//Also it's a bit inconsistent that when you access the panel you headbutt it. But not while crowbarring 
+//Also it's a bit inconsistent that when you access the panel you headbutt it. But not while crowbarring
 //Try to interact with the panel. If the user can't it'll try activating the door
 /obj/machinery/door/airlock/proc/interact_with_panel(mob/user)
 	if(shock_user(user, 100))
 		return
-	
+
 	if(panel_open)
 		if(security_level)
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
@@ -1025,7 +1025,7 @@ About the new airlock wires panel:
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
 	else if(!welded && !operating)
-		if(!beingcrowbarred) //being fireaxe'd
+		if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific
 			var/obj/item/twohanded/fireaxe/F = I
 			if(F.wielded)
 				spawn(0)
@@ -1042,7 +1042,7 @@ About the new airlock wires panel:
 				else
 					close(1)
 
-	if(istype(I, /obj/item/crowbar/power))
+	if(ispowertool(I)) //jaws of life and rescue claw
 		if(isElectrified())
 			shock(user, 100)//it's like sticking a forck in a power socket
 			return
@@ -1325,7 +1325,7 @@ About the new airlock wires panel:
 				user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 				playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 			else return FALSE
-		else 
+		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 			playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
 		note.forceMove(get_turf(user))
