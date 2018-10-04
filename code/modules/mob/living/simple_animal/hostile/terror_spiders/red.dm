@@ -21,7 +21,8 @@
 	health = 200
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	move_to_delay = 20
+	move_to_delay = 10 // at 20ticks/sec, this is 2 tile/sec movespeed
+	speed = 2 // movement_delay() gives 4.5, or 0.45s between steps, which = about 2.2 tiles/second. Player is slightly faster than AI, but cannot move on diagonals.
 	spider_opens_doors = 2
 	var/enrage = 0
 	var/melee_damage_lower_rage0 = 15

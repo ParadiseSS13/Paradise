@@ -21,7 +21,6 @@
 	health = 120
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	move_to_delay = 5
 	stat_attack = 1 // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
 
