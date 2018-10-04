@@ -20,6 +20,23 @@
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
 
+/obj/item/clothing/head/greenhelmet
+	name = "outdated helmet"
+	desc = "An old dented and scraped helmet of unknown origin. Most systems appear to be offline. Has the initials S.G.M faded into the side."
+	icon_state = "greenhelm"
+	flags = HEADBANGPROTECT
+	flags_cover = HEADCOVERSEYES
+	flags = BLOCKHAIR
+	item_state = "greenhelm"
+	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+	flags_inv = HIDEEARS|HIDEEYES
+	cold_protection = HEAD
+	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
+	heat_protection = HEAD
+	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
+	strip_delay = 60
+	burn_state = FIRE_PROOF
+
 /obj/item/clothing/head/helmet/attack_self(mob/user)
 	if(can_toggle && !user.incapacitated())
 		if(world.time > cooldown + toggle_cooldown)
