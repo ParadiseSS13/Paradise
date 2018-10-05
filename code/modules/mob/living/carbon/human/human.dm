@@ -1390,7 +1390,7 @@
 		dna.species.create_organs(src)
 
 	for(var/thing in kept_items)
-		equip_to_slot_or_del(thing, kept_items[thing])
+		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
 
 	//Handle default hair/head accessories for created mobs.
 	var/obj/item/organ/external/head/H = get_organ("head")
@@ -1676,6 +1676,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return TRUE
 	else
 		return FALSE
+
+/mob/living/carbon/human/has_mutated_organs()
+	for(var/obj/item/organ/external/E in bodyparts)
+		if(E.status & ORGAN_MUTATED)
+			return TRUE
+	return FALSE
 
 /mob/living/carbon/human/InCritical()
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)

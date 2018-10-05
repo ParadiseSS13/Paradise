@@ -352,6 +352,10 @@
 		W.fire_act()
 	return 1
 
+/obj/item/storage/Exited(atom/A, loc)
+	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
+	..()
+
 /obj/item/storage/empty_object_contents(burn, loc)
 	for(var/obj/item/Item in contents)
 		remove_from_storage(Item, loc, burn)
@@ -553,3 +557,6 @@
 		else
 			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 	..()
+
+/obj/item/storage/AllowDrop()
+	return TRUE

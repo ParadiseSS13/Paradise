@@ -154,15 +154,15 @@
 	var/lock_shuttle_doors = 0
 
 /obj/docking_port/stationary/register()
-	if(!shuttle_master)
+	if(!SSshuttle)
 		throw EXCEPTION("docking port [src] could not initialize.")
 		return 0
 
-	shuttle_master.stationary += src
+	SSshuttle.stationary += src
 	if(!id)
-		id = "[shuttle_master.stationary.len]"
+		id = "[SSshuttle.stationary.len]"
 	if(name == "dock")
-		name = "dock[shuttle_master.stationary.len]"
+		name = "dock[SSshuttle.stationary.len]"
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -191,7 +191,7 @@
 
 	name = "In transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
 
-	shuttle_master.transit += src
+	SSshuttle.transit += src
 	return 1
 
 /obj/docking_port/mobile
@@ -236,22 +236,22 @@
 	..()
 
 /obj/docking_port/mobile/register()
-	if(!shuttle_master)
+	if(!SSshuttle)
 		throw EXCEPTION("docking port [src] could not initialize.")
 		return 0
 
-	shuttle_master.mobile += src
+	SSshuttle.mobile += src
 
 	if(!id)
-		id = "[shuttle_master.mobile.len]"
+		id = "[SSshuttle.mobile.len]"
 	if(name == "shuttle")
-		name = "shuttle[shuttle_master.mobile.len]"
+		name = "shuttle[SSshuttle.mobile.len]"
 
 	return 1
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
-		shuttle_master.mobile -= src
+		SSshuttle.mobile -= src
 		areaInstance = null
 		destination = null
 		previous = null
@@ -517,14 +517,14 @@
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
-	var/obj/docking_port/stationary/transit/T = shuttle_master.getDock("[id]_transit")
+	var/obj/docking_port/stationary/transit/T = SSshuttle.getDock("[id]_transit")
 	if(T && check_dock(T))
 		return T
 
 
 /obj/docking_port/mobile/proc/findRoundstartDock()
 	var/obj/docking_port/stationary/D
-	D = shuttle_master.getDock(roundstart_move)
+	D = SSshuttle.getDock(roundstart_move)
 
 	if(D)
 		return D
@@ -536,7 +536,7 @@
 	. = dock_id(roundstart_move)
 
 /obj/docking_port/mobile/proc/dock_id(id)
-	var/port = shuttle_master.getDock(id)
+	var/port = SSshuttle.getDock(id)
 	if(port)
 		. = dock(port)
 	else
@@ -707,20 +707,20 @@
 	var/obj/docking_port/mobile/M
 	if(!shuttleId)
 		// find close shuttle that is ok to mess with
-		if(!shuttle_master) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
+		if(!SSshuttle) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
 			return
-		for(var/obj/docking_port/mobile/D in shuttle_master.mobile)
+		for(var/obj/docking_port/mobile/D in SSshuttle.mobile)
 			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
 				M = D
 				shuttleId = M.id
 				break
-	else if(!possible_destinations && shuttle_master) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
-		M = shuttle_master.getShuttle(shuttleId)
+	else if(!possible_destinations && SSshuttle) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
+		M = SSshuttle.getShuttle(shuttleId)
 
 	if(M && !possible_destinations)
 		// find perfect fits
 		possible_destinations = ""
-		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
 				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
 
@@ -734,7 +734,7 @@
 	ui_interact(user)
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "shuttle_console.tmpl", M ? M.name : "shuttle", 300, 200)
@@ -742,14 +742,14 @@
 
 /obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	data["status"] = M ? M.getStatusText() : null
 	if(M)
 		data["shuttle"] = 1
 		var/list/docking_ports = list()
 		data["docking_ports"] = docking_ports
 		var/list/options = params2list(possible_destinations)
-		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!options.Find(S.id))
 				continue
 			if(!M.check_dock(S))
@@ -775,7 +775,7 @@
 			// Seriously, though, NEVER trust a Topic with something like this. Ever.
 			message_admins("move HREF ([src] attempted to move to: [href_list["move"]]) exploit attempted by [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			return
-		switch(shuttle_master.moveShuttle(shuttleId, href_list["move"], 1))
+		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
 				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
 			if(1)

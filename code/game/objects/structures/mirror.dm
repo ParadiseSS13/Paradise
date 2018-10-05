@@ -54,6 +54,7 @@
 
 
 /obj/structure/mirror/attackby(obj/item/I, mob/living/user, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(isscrewdriver(I))
 		user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
 		if(do_after(user, 30 * I.toolspeed, target = src))
@@ -80,6 +81,7 @@
 
 
 /obj/structure/mirror/attack_alien(mob/living/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(islarva(user))
 		return
 	user.do_attack_animation(src)
@@ -91,6 +93,7 @@
 
 
 /obj/structure/mirror/attack_animal(mob/living/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(!isanimal(user))
 		return
 	var/mob/living/simple_animal/M = user
@@ -105,6 +108,7 @@
 
 
 /obj/structure/mirror/attack_slime(mob/living/user)
+	user.changeNext_move(CLICK_CD_MELEE)
 	var/mob/living/carbon/slime/S = user
 	if(!S.is_adult)
 		return

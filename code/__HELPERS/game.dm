@@ -7,17 +7,11 @@
 	src:Topic(href, href_list)
 	return null
 
-/proc/get_area_master(const/O)
-	var/area/A = get_area(O)
-
+/proc/get_area(atom/A)
 	if(isarea(A))
 		return A
-
-/proc/get_area(atom/A)
-	if(!istype(A))
-		return
-	for(A, A && !isarea(A), A=A.loc); //semicolon is for the empty statement
-	return A
+	var/turf/T = get_turf(A)
+	return T ? T.loc : null
 
 /proc/get_area_name(N) //get area by its name
 	for(var/area/A in world)
@@ -392,23 +386,23 @@
 
 /proc/mobs_in_area(var/area/the_area, var/client_needed=0, var/moblist=mob_list)
 	var/list/mobs_found[0]
-	var/area/our_area = get_area_master(the_area)
+	var/area/our_area = get_area(the_area)
 	for(var/mob/M in moblist)
 		if(client_needed && !M.client)
 			continue
-		if(our_area != get_area_master(M))
+		if(our_area != get_area(M))
 			continue
 		mobs_found += M
 	return mobs_found
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
-	var/area/our_area = get_area_master(the_area)
+	var/area/our_area = get_area(the_area)
 	for(var/C in living_mob_list)
 		if(!istype(C, check_type))
 			continue
 		if(C == must_be_alone)
 			continue
-		if(our_area == get_area_master(C))
+		if(our_area == get_area(C))
 			return 0
 	return 1
 

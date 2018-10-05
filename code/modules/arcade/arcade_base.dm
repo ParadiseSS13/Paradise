@@ -6,7 +6,7 @@
 	icon_state = "clawmachine_on"
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/tokens = 0
 	var/freeplay = 0				//for debugging and admin kindness
@@ -112,28 +112,7 @@
 			to_chat(user, "Unable to access account: incorrect credentials.")
 			return 0
 
-	if(token_price > customer_account.money)
-		to_chat(user, "Insufficient funds in account.")
-		return 0
-	else
-		// Okay to move the money at this point
-
-		// debit money from the purchaser's account
-		customer_account.money -= token_price
-
-		// create entry in the purchaser's account log
-		var/datum/transaction/T = new()
-		T.target_name = "[src.name]"
-		T.purpose = "Purchase of [src.name] credit"
-		if(token_price > 0)
-			T.amount = "([token_price])"
-		else
-			T.amount = "[token_price]"
-		T.source_terminal = src.name
-		T.date = current_date_string
-		T.time = station_time_timestamp()
-		customer_account.transaction_log.Add(T)
-		return 1
+	return customer_account.charge(token_price, null, "Purchase of [name] credit", name, name)
 
 /obj/machinery/arcade/proc/start_play(mob/user as mob)
 	user.set_machine(src)

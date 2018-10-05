@@ -271,7 +271,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			return 0
 	var/obj/item/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
-	pai.name = input(choice, "Enter your pAI name:", "pAI Name", "Personal AI") as text
+	var/raw_name = input(choice, "Enter your pAI name:", "pAI Name", "Personal AI") as text
+	var/new_name = reject_bad_name(raw_name, 1)
+	if(new_name)
+		pai.name = new_name
+		pai.real_name = new_name
+	else
+		to_chat(usr, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 	pai.real_name = pai.name
 	pai.key = choice.key
 	card.setPersonality(pai)

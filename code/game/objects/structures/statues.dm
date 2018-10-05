@@ -174,6 +174,8 @@
 
 /obj/structure/statue/plasma/bullet_act(obj/item/projectile/Proj)
 	var/burn = FALSE
+	if(Proj.damage == 0)//lasertag guns and so on don't set off plasma anymore. can't use nodamage here because lasertag guns actually don't have it.
+		return
 	if(istype(Proj,/obj/item/projectile/beam))
 		PlasmaBurn(2500)
 		burn = TRUE

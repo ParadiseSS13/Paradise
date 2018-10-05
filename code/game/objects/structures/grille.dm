@@ -17,6 +17,8 @@
 	var/rods_broken = 1
 	var/grille_type
 	var/broken_type = /obj/structure/grille/broken
+	var/shockcooldown = 0
+	var/my_shockcooldown = 50
 
 /obj/structure/grille/fence/
 	var/width = 3
@@ -67,7 +69,10 @@
 
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
+		if(!(shockcooldown <= world.time))
+			return
 		shock(user, 70)
+		shockcooldown = world.time + my_shockcooldown
 
 /obj/structure/grille/hulk_damage()
 	return 60

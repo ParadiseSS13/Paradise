@@ -11,11 +11,11 @@
 		return
 	if(!istype(W, /obj/item/card))
 		return
-	if(shuttle_master.emergency.mode != SHUTTLE_DOCKED)
+	if(SSshuttle.emergency.mode != SHUTTLE_DOCKED)
 		return
 	if(!user)
 		return
-	if(shuttle_master.emergency.timeLeft() < 11)
+	if(SSshuttle.emergency.timeLeft() < 11)
 		return
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(istype(W, /obj/item/pda))
@@ -35,10 +35,10 @@
 			return 0
 
 		var/choice = alert(user, text("Would you like to (un)authorize a shortened launch time? [] authorization\s are still needed. Use abort to cancel all authorizations.", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
-		if(shuttle_master.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
+		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
 			return 0
 
-		var/seconds = shuttle_master.emergency.timeLeft()
+		var/seconds = SSshuttle.emergency.timeLeft()
 		if(seconds <= 10)
 			return 0
 
@@ -54,7 +54,7 @@
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
 						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
 						minor_announcement.Announce("The emergency shuttle will launch in 10 seconds")
-						shuttle_master.emergency.setTimer(100)
+						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
 				if(authorized.Remove(W:registered_name))
@@ -66,12 +66,12 @@
 					authorized.Cut()
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
-	if(!emagged && shuttle_master.emergency.mode == SHUTTLE_DOCKED)
-		var/time = shuttle_master.emergency.timeLeft()
+	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED)
+		var/time = SSshuttle.emergency.timeLeft()
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
 		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
 		minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
-		shuttle_master.emergency.setTimer(100)
+		SSshuttle.emergency.setTimer(100)
 		emagged = 1
 
 
@@ -98,15 +98,15 @@
 	if(!..())
 		return 0 //shuttle master not initialized
 
-	shuttle_master.emergency = src
+	SSshuttle.emergency = src
 	return 1
 
 /obj/docking_port/mobile/emergency/Destroy(force)
 	if(force)
 		// This'll make the shuttle subsystem use the backup shuttle.
-		if(shuttle_master.emergency == src)
+		if(SSshuttle.emergency == src)
 			// If we're the selected emergency shuttle
-			shuttle_master.emergencyDeregister()
+			SSshuttle.emergencyDeregister()
 
 
 	return ..()
@@ -115,21 +115,21 @@
 	if(divisor <= 0)
 		divisor = 10
 	if(!timer)
-		return round(shuttle_master.emergencyCallTime/divisor, 1)
+		return round(SSshuttle.emergencyCallTime/divisor, 1)
 
 	var/dtime = world.time - timer
 	switch(mode)
 		if(SHUTTLE_ESCAPE)
-			dtime = max(shuttle_master.emergencyEscapeTime - dtime, 0)
+			dtime = max(SSshuttle.emergencyEscapeTime - dtime, 0)
 		if(SHUTTLE_DOCKED)
-			dtime = max(shuttle_master.emergencyDockTime - dtime, 0)
+			dtime = max(SSshuttle.emergencyDockTime - dtime, 0)
 		else
 
-			dtime = max(shuttle_master.emergencyCallTime - dtime, 0)
+			dtime = max(SSshuttle.emergencyCallTime - dtime, 0)
 	return round(dtime/divisor, 1)
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)
-	shuttle_master.emergencyCallTime = initial(shuttle_master.emergencyCallTime) * coefficient
+	SSshuttle.emergencyCallTime = initial(SSshuttle.emergencyCallTime) * coefficient
 	switch(mode)
 		if(SHUTTLE_RECALL)
 			mode = SHUTTLE_CALL
@@ -144,11 +144,11 @@
 			return
 
 	if(prob(70))
-		shuttle_master.emergencyLastCallLoc = signalOrigin
+		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
-		shuttle_master.emergencyLastCallLoc = null
+		SSshuttle.emergencyLastCallLoc = null
 
-	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][shuttle_master.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
+	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
 
 	if(reason == "Automatic Crew Transfer" && signalOrigin == null) // Best way we have to check that it's actually a crew transfer and not just a player using the same message- any other calls to this proc should have a signalOrigin.
 		atc.shift_ending()
@@ -167,10 +167,10 @@
 	mode = SHUTTLE_RECALL
 
 	if(prob(70))
-		shuttle_master.emergencyLastCallLoc = signalOrigin
+		SSshuttle.emergencyLastCallLoc = signalOrigin
 	else
-		shuttle_master.emergencyLastCallLoc = null
-	emergency_shuttle_recalled.Announce("The emergency shuttle has been recalled.[shuttle_master.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]")
+		SSshuttle.emergencyLastCallLoc = null
+	emergency_shuttle_recalled.Announce("The emergency shuttle has been recalled.[SSshuttle.emergencyLastCallLoc ? " Recall signal traced. Results can be viewed on any communications console." : "" ]")
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	for(var/mob/living/player in player_list)
@@ -215,9 +215,9 @@
 	if(!ripples.len && (time_left <= SHUTTLE_RIPPLE_TIME) && ((mode == SHUTTLE_CALL) || (mode == SHUTTLE_ESCAPE)))
 		var/destination
 		if(mode == SHUTTLE_CALL)
-			destination = shuttle_master.getDock("emergency_home")
+			destination = SSshuttle.getDock("emergency_home")
 		else if(mode == SHUTTLE_ESCAPE)
-			destination = shuttle_master.getDock("emergency_away")
+			destination = SSshuttle.getDock("emergency_away")
 		create_ripples(destination)
 
 	switch(mode)
@@ -228,7 +228,7 @@
 		if(SHUTTLE_CALL)
 			if(time_left <= 0)
 				//move emergency shuttle to station
-				if(dock(shuttle_master.getDock("emergency_home")))
+				if(dock(SSshuttle.getDock("emergency_home")))
 					setTimer(20)
 					return
 				mode = SHUTTLE_DOCKED
@@ -246,7 +246,7 @@
 */
 		if(SHUTTLE_DOCKED)
 
-			if(time_left <= 0 && shuttle_master.emergencyNoEscape)
+			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
 				priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
@@ -256,9 +256,9 @@
 				for(var/area/shuttle/escape/E in world)
 					E << 'sound/effects/hyperspace_begin.ogg'
 
-			if(time_left <= 0 && !shuttle_master.emergencyNoEscape)
+			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
 				//move each escape pod to its corresponding transit dock
-				for(var/obj/docking_port/mobile/pod/M in shuttle_master.mobile)
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
 						M.enterTransit()
 				//now move the actual emergency shuttle to its transit dock
@@ -275,8 +275,8 @@
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
 				//move each escape pod to its corresponding escape dock
-				for(var/obj/docking_port/mobile/pod/M in shuttle_master.mobile)
-					M.dock(shuttle_master.getDock("[M.id]_away"))
+				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
+					M.dock(SSshuttle.getDock("[M.id]_away"))
 
 				for(var/area/shuttle/escape/E in world)
 					E << 'sound/effects/hyperspace_end.ogg'
@@ -321,7 +321,7 @@
 
 /*
 	findTransitDock()
-		. = shuttle_master.getDock("[id]_transit")
+		. = SSshuttle.getDock("[id]_transit")
 		if(.)	return .
 		return ..()
 */
@@ -368,7 +368,7 @@
 	roundstart_move = "backup_away"
 
 /obj/docking_port/mobile/emergency/backup/register()
-	var/current_emergency = shuttle_master.emergency
+	var/current_emergency = SSshuttle.emergency
 	..()
-	shuttle_master.emergency = current_emergency
-	shuttle_master.backup_shuttle = src
+	SSshuttle.emergency = current_emergency
+	SSshuttle.backup_shuttle = src

@@ -57,10 +57,10 @@
 
 /obj/machinery/doomsday_device/Destroy()
 	fast_processing -= src
-	shuttle_master.emergencyNoEscape = 0
-	if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
-		shuttle_master.emergency.mode = SHUTTLE_DOCKED
-		shuttle_master.emergency.timer = world.time
+	SSshuttle.emergencyNoEscape = 0
+	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+		SSshuttle.emergency.mode = SHUTTLE_DOCKED
+		SSshuttle.emergency.timer = world.time
 		priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 	return ..()
 
@@ -68,7 +68,7 @@
 	detonation_timer = world.time + default_timer
 	timing = 1
 	fast_processing += src
-	shuttle_master.emergencyNoEscape = 1
+	SSshuttle.emergencyNoEscape = 1
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
 	. = max(0, (round(detonation_timer - world.time) / 10))
@@ -77,10 +77,10 @@
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
 		minor_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
-		shuttle_master.emergencyNoEscape = 0
-		if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
-			shuttle_master.emergency.mode = SHUTTLE_DOCKED
-			shuttle_master.emergency.timer = world.time
+		SSshuttle.emergencyNoEscape = 0
+		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+			SSshuttle.emergency.mode = SHUTTLE_DOCKED
+			SSshuttle.emergency.timer = world.time
 			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
@@ -185,7 +185,7 @@
 	set name = "Destroy RCDs"
 	set desc = "Detonate all RCDs on the station, while sparing onboard cyborg RCDs."
 
-	if(stat || malf_cooldown)
+	if(stat || malf_cooldown > world.time)
 		return
 
 	for(var/obj/item/rcd/RCD in rcd_list)
@@ -193,9 +193,7 @@
 			RCD.detonate_pulse()
 
 	to_chat(src, "<span class='danger'>RCD detonation pulse emitted.</span>")
-	malf_cooldown = 1
-	spawn(100)
-		malf_cooldown = 0
+	malf_cooldown = world.time + 100
 
 
 /datum/AI_Module/large/mecha_domination
@@ -454,7 +452,7 @@
 	set name = "Reactivate Cameranet"
 	set category = "Malfunction"
 
-	if(stat || malf_cooldown)
+	if(stat || malf_cooldown > world.time)
 		return
 	var/fixedcams = 0 //Tells the AI how many cams it fixed. Stats are fun.
 
@@ -477,9 +475,7 @@
 				break
 	to_chat(src, "<span class='notice'>Diagnostic complete! Operations completed: [fixedcams].</span>")
 
-	malf_cooldown = 1
-	spawn(30) //Lag protection
-		malf_cooldown = 0
+	malf_cooldown = world.time + 30
 
 
 /datum/AI_Module/large/upgrade_cameras

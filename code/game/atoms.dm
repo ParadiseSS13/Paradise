@@ -108,7 +108,7 @@
 
 	//check for centcomm shuttles
 	for(var/centcom_shuttle in list("emergency", "pod1", "pod2", "pod3", "pod4", "ferry"))
-		var/obj/docking_port/mobile/M = shuttle_master.getShuttle(centcom_shuttle)
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(centcom_shuttle)
 		if(T in M.areaInstance)
 			return 1
 
@@ -203,9 +203,6 @@
 */
 
 
-
-/atom/proc/allow_drop()
-	return 1
 
 /atom/proc/CheckExit()
 	return 1
@@ -304,6 +301,10 @@
 
 /atom/proc/rpd_act()
 	return
+
+/atom/proc/rpd_blocksusage()
+	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
+	return FALSE
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
@@ -709,3 +710,12 @@ var/list/blood_splatter_icons = list()
 	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
 	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
+
+/atom/proc/AllowDrop()
+	return FALSE
+
+/atom/proc/drop_location()
+	var/atom/L = loc
+	if(!L)
+		return null
+	return L.AllowDrop() ? L : get_turf(L)
