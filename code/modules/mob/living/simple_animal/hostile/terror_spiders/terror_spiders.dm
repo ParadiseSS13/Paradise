@@ -41,6 +41,7 @@ var/global/list/ts_spiderling_list = list()
 	pressure_resistance = 50    //50 kPa difference required to push
 	throw_pressure_limit = 100  //100 kPa difference required to throw
 	pass_flags = PASSTABLE
+	pullable = FALSE
 
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
@@ -313,6 +314,7 @@ var/global/list/ts_spiderling_list = list()
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/handle_dying()
 	if(!hasdied)
 		hasdied = 1
+		pullable = TRUE
 		ts_count_dead++
 		ts_death_last = world.time
 		if(spider_awaymission)
