@@ -27,9 +27,15 @@
 	density = 0
 	anchored = 1
 	layer = 2
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dirt"
+	canSmoothWith = list(/obj/effect/decal/cleanable/dirt, /turf/simulated/wall, /obj/structure/falsewall)
+	smooth = SMOOTH_MORE
 	mouse_opacity = 0
+
+/obj/effect/decal/cleanable/dirt/Initialize()
+	..()
+	icon_state = ""
 
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
@@ -199,5 +205,3 @@
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
 	anchored = 1
-
-
