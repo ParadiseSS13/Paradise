@@ -49,8 +49,9 @@
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
+		non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
 		user.key = ghost.key
-
+	qdel(ghost)
 	user.Paralyse(2)
 	target.add_language("Changeling")
 	user.remove_language("Changeling")
