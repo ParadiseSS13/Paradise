@@ -265,7 +265,7 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
 	shuttle_caller_list -= src
-	shuttle_master.autoEvac()
+	SSshuttle.autoEvac()
 	QDEL_NULL(eyeobj) // No AI, no Eye
 	if(malfhacking)
 		deltimer(malfhacking)

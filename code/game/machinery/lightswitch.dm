@@ -33,7 +33,7 @@
 	if(radio_controller)
 		set_frequency(frequency)
 	spawn(5)
-		src.area = src.loc.loc
+		src.area = get_area(src)
 
 		if(otherarea)
 			src.area = locate(text2path("/area/[otherarea]"))

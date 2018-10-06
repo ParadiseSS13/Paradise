@@ -163,7 +163,7 @@
 				return
 
 			call_shuttle_proc(usr, input)
-			if(shuttle_master.emergency.timer)
+			if(SSshuttle.emergency.timer)
 				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
@@ -175,7 +175,7 @@
 			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
 			if(response == "Yes")
 				cancel_call_proc(usr)
-				if(shuttle_master.emergency.timer)
+				if(SSshuttle.emergency.timer)
 					post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
@@ -288,8 +288,8 @@
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
 		if("RestartNanoMob")
-			if(mob_hunt_server)
-				if(mob_hunt_server.manual_reboot())
+			if(SSmob_hunt)
+				if(SSmob_hunt.manual_reboot())
 					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
 										"Capturing all of them", "Fixing minor text issues", "Being the very best",
 										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
@@ -392,16 +392,16 @@
 		data["current_message"] = data["is_ai"] ? messagetext[aicurrmsg] : messagetext[currmsg]
 		data["current_message_title"] = data["is_ai"] ? messagetitle[aicurrmsg] : messagetitle[currmsg]
 
-	data["lastCallLoc"]     = shuttle_master.emergencyLastCallLoc ? format_text(shuttle_master.emergencyLastCallLoc.name) : null
+	data["lastCallLoc"]     = SSshuttle.emergencyLastCallLoc ? format_text(SSshuttle.emergencyLastCallLoc.name) : null
 
 	var/shuttle[0]
-	switch(shuttle_master.emergency.mode)
+	switch(SSshuttle.emergency.mode)
 		if(SHUTTLE_IDLE, SHUTTLE_RECALL)
 			shuttle["callStatus"] = 2 //#define
 		else
 			shuttle["callStatus"] = 1
-	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
-		var/timeleft = shuttle_master.emergency.timeLeft()
+	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
+		var/timeleft = SSshuttle.emergency.timeLeft()
 		shuttle["eta"] = "[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 
 	data["shuttle"] = shuttle
@@ -447,11 +447,11 @@
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
 		return
 
-	if(shuttle_master.emergencyNoEscape)
+	if(SSshuttle.emergencyNoEscape)
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>")
 		return
 
-	if(shuttle_master.emergency.mode > SHUTTLE_ESCAPE)
+	if(SSshuttle.emergency.mode > SHUTTLE_ESCAPE)
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>")
 		return
 
@@ -459,7 +459,7 @@
 		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
 		return
 
-	shuttle_master.requestEvac(user, reason)
+	SSshuttle.requestEvac(user, reason)
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
 
@@ -468,7 +468,7 @@
 /proc/init_shift_change(var/mob/user, var/force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
-		if(shuttle_master.emergencyNoEscape)
+		if(SSshuttle.emergencyNoEscape)
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
@@ -485,11 +485,11 @@
 			return
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
-		shuttle_master.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
-		shuttle_master.emergency.canRecall = FALSE
+		SSshuttle.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
+		SSshuttle.emergency.canRecall = FALSE
 	else
-		shuttle_master.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
-		shuttle_master.emergency.canRecall = FALSE
+		SSshuttle.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
+		SSshuttle.emergency.canRecall = FALSE
 	if(user)
 		log_game("[key_name(user)] has called the shuttle.")
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
@@ -500,7 +500,7 @@
 	if(ticker.mode.name == "meteor")
 		return
 
-	if(shuttle_master.cancelEvac(user))
+	if(SSshuttle.cancelEvac(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
 		message_admins("[key_name_admin(user)] has recalled the shuttle - [ADMIN_FLW(user)].", 1)
 	else
@@ -534,7 +534,7 @@
 
 /obj/machinery/computer/communications/Destroy()
 	shuttle_caller_list -= src
-	shuttle_master.autoEvac()
+	SSshuttle.autoEvac()
 	return ..()
 
 /obj/item/circuitboard/communications/New()
@@ -543,7 +543,7 @@
 
 /obj/item/circuitboard/communications/Destroy()
 	shuttle_caller_list -= src
-	shuttle_master.autoEvac()
+	SSshuttle.autoEvac()
 	return ..()
 
 /proc/print_command_report(text = "", title = "Central Command Update")

@@ -59,11 +59,13 @@
 // defaults to power_channel
 /obj/machinery/proc/powered(var/chan = -1) // defaults to power_channel
 
-	if(!src.loc)
+	if(!loc)
 		return 0
+	if(!use_power)
+		return 1
 
-	var/area/A = src.loc.loc		// make sure it's in an area
-	if(!A || !isarea(A))
+	var/area/A = get_area(src)		// make sure it's in an area
+	if(!A)
 		return 0					// if not, then not powered
 	if(chan == -1)
 		chan = power_channel
@@ -72,7 +74,7 @@
 // increment the power usage stats for an area
 /obj/machinery/proc/use_power(var/amount, var/chan = -1) // defaults to power_channel
 	var/area/A = get_area(src)		// make sure it's in an area
-	if(!A || !isarea(A))
+	if(!A)
 		return
 	if(chan == -1)
 		chan = power_channel

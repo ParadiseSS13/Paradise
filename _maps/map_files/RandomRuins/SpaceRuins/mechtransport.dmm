@@ -31,8 +31,7 @@
 "E" = (/obj/item/stack/rods,/turf/simulated/floor/plating/airless,/area/ruin/powered)
 "F" = (/obj/effect/decal/cleanable/blood/gibs/robot,/turf/simulated/floor/plating/airless,/area/ruin/powered)
 "G" = (/obj/item/stack/tile/plasteel{pixel_x = 7; pixel_y = 8},/obj/effect/decal/cleanable/blood/gibs/robot,/turf/simulated/shuttle/floor{tag = "icon-floor2"; icon_state = "floor2"},/area/ruin/powered)
-"H" = (/turf/unsimulated/floor/plating/airless{tag = "icon-platingdmg1"; icon_state = "platingdmg1"},/area/ruin/powered)
-"I" = (/turf/unsimulated/floor/plating/airless{tag = "icon-platingdmg2"; icon_state = "platingdmg2"},/area/ruin/powered)
+"H" = (/obj/effect/landmark/damageturf,/turf/simulated/floor/plating/airless,/area/ruin/powered)
 "J" = (/obj/effect/decal/mecha_wreckage/odysseus,/turf/simulated/shuttle/floor{tag = "icon-floor2"; icon_state = "floor2"},/area/ruin/powered)
 "K" = (/obj/item/stack/sheet/metal,/turf/space,/area/space)
 "L" = (/obj/effect/decal/mecha_wreckage/gygax,/turf/simulated/shuttle/floor{tag = "icon-floor3"; icon_state = "floor3"},/area/ruin/powered)
@@ -54,7 +53,7 @@ ewtxtvtty
 ezABtttty
 BCtAtCtty
 DECtFGtwy
-HCIBJJtty
+HCHBJJtty
 KDDCrCLre
 aMDKECqNO
 aPaaDabQd
