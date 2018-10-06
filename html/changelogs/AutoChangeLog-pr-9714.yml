@@ -1,0 +1,4 @@
+author: "Squirgenheimer"
+delete-after: True
+changes: 
+  - bugfix: "Victims of changeling swap forms and wizard mindswap can now re-enter their corpses"
