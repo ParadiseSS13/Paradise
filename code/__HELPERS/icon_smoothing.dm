@@ -111,12 +111,15 @@
 /proc/smooth_icon(atom/A)
 	if(QDELETED(A))
 		return
-	if(A && (A.smooth & SMOOTH_TRUE) || (A.smooth & SMOOTH_MORE))
-		var/adjacencies = calculate_adjacencies(A)
-		if(A.smooth & SMOOTH_DIAGONAL)
-			A.diagonal_smooth(adjacencies)
-		else
-			cardinal_smooth(A, adjacencies)
+	if(!A || !A.smooth)
+		return
+	spawn(0)
+		if((A.smooth & SMOOTH_TRUE) || (A.smooth & SMOOTH_MORE))
+			var/adjacencies = calculate_adjacencies(A)
+			if(A.smooth & SMOOTH_DIAGONAL)
+				A.diagonal_smooth(adjacencies)
+			else
+				cardinal_smooth(A, adjacencies)
 
 /atom/proc/diagonal_smooth(adjacencies)
 	switch(adjacencies)
@@ -244,23 +247,11 @@
 		A.bottom_left_corner = se
 		A.overlays += se
 
-/proc/find_type_in_direction(atom/source, direction, range=1)
-	var/x_offset = 0
-	var/y_offset = 0
-
-	if(direction & NORTH)
-		y_offset = range
-	else if(direction & SOUTH)
-		y_offset -= range
-
-	if(direction & EAST)
-		x_offset = range
-	else if(direction & WEST)
-		x_offset -= range
-
-	var/turf/target_turf = locate(source.x + x_offset, source.y + y_offset, source.z)
+/proc/find_type_in_direction(atom/source, direction)
+	var/turf/target_turf = get_step(source, direction)
 	if(!target_turf)
 		return NULLTURF_BORDER
+
 	if(source.canSmoothWith)
 		var/atom/A
 		if(source.smooth & SMOOTH_MORE)
@@ -287,22 +278,22 @@
 
 //Icon smoothing helpers
 
-/proc/smooth_icon_neighbors(atom/A)
-	for(var/V in orange(1,A))
-		var/atom/T = V
-		if(T.smooth)
-			smooth_icon(T)
-
-/proc/smooth_zlevel(var/zlevel)
+/proc/smooth_zlevel(var/zlevel, now = FALSE)
 	var/list/away_turfs = block(locate(1, 1, zlevel), locate(world.maxx, world.maxy, zlevel))
 	for(var/V in away_turfs)
 		var/turf/T = V
 		if(T.smooth)
-			smooth_icon(T)
+			if(now)
+				smooth_icon(T)
+			else
+				queue_smooth(T)
 		for(var/R in T)
 			var/atom/A = R
 			if(A.smooth)
-				smooth_icon(A)
+				if(now)
+					smooth_icon(A)
+				else
+					queue_smooth(A)
 
 /atom/proc/clear_smooth_overlays()
 	overlays -= top_left_corner
@@ -361,6 +352,31 @@
 			return SOUTHEAST
 		else
 			return 0
+
+//SSicon_smooth
+/proc/ss_smooth_icon(atom/A)
+	if(QDELETED(A))
+		return
+	if(!istype(A) || (A && !A.smooth))
+		return
+	if((A.smooth & SMOOTH_TRUE) || (A.smooth & SMOOTH_MORE))
+		var/adjacencies = calculate_adjacencies(A)
+		if(A.smooth & SMOOTH_DIAGONAL)
+			A.diagonal_smooth(adjacencies)
+		else
+			cardinal_smooth(A, adjacencies)
+ //SSicon_smooth
+/proc/queue_smooth_neighbors(atom/A)
+	for(var/V in orange(1,A))
+		var/atom/T = V
+		if(T.smooth)
+			queue_smooth(T)
+ //SSicon_smooth
+/proc/queue_smooth(atom/A)
+	if(SSicon_smooth)
+		SSicon_smooth.smooth_queue |= A
+	else
+		smooth_icon(A)
 
 //Example smooth wall
 /turf/simulated/wall/smooth

@@ -425,7 +425,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 /obj/structure/window/proc/update_nearby_icons()
 	update_icon()
 	if(smooth)
-		smooth_icon_neighbors(src)
+		queue_smooth_neighbors(src)
 
 /obj/structure/window/update_icon()
 	if(!QDELETED(src))
@@ -434,7 +434,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		var/ratio = obj_integrity / max_integrity
 		ratio = CEILING(ratio*4, 1) * 25
 		if(smooth)
-			smooth_icon(src)
+			queue_smooth(src)
 		overlays -= crack_overlay
 		if(ratio > 75)
 			return

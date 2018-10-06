@@ -72,7 +72,7 @@
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
-	smooth_icon(src)
+	queue_smooth(src)
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]
