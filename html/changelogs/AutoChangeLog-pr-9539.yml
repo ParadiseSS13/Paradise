@@ -1,6 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - rscadd: "You can now pick up most chairs and beat colleagues with them. Careful too many whacks and they'll break."
-  - rscadd: "Adds new bar stools."
-  - bugfix: "Delta - Removes extra door in arrivals."
