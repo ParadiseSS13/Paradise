@@ -138,6 +138,7 @@
 	icon_state = "wooden_chair_wings"
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
+	item_chair = /obj/item/chair/wood/wings
 
 /obj/structure/chair/comfy
 	name = "comfy chair"
