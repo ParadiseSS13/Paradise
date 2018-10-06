@@ -221,7 +221,7 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, var/datum/callback/callback, var/atmos = FALSE)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, var/datum/callback/callback, atmos = FALSE)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
