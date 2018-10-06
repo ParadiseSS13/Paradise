@@ -1,6 +1,7 @@
 /obj/structure/chair/wheelchair
 	name = "wheelchair"
 	icon_state = "wheelchair"
+	item_chair = null
 	anchored = FALSE
 	movable = TRUE
 
