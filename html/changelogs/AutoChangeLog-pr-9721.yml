@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Winged chairs now get placed back down correctly as winged chairs."
