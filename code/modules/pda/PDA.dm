@@ -511,3 +511,8 @@ var/global/list/obj/item/pda/PDAs = list()
 /obj/item/pda/process()
 	if(current_app)
 		current_app.program_process()
+
+/obj/item/pda/extinguish_light()
+	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
+	if(FL && FL.fon)
+		FL.start()

@@ -996,3 +996,8 @@
 		return
 
 	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")
+
+/mob/living/extinguish_light()
+	for(var/atom/A in src)
+		if(A.light_range > 0)
+			A.extinguish_light()
