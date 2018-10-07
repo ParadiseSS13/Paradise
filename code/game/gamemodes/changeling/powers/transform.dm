@@ -14,10 +14,14 @@
 
 	if(!chosen_dna)
 		return
-	
+
 	transform_dna(user,chosen_dna)
 
 	user.changeling_update_languages(changeling.absorbed_languages)
+
+	if(user.mind.speech_span == "wingdings") //greys' wingdings isn't stored in DNA
+		user.mind.speech_span = ""
+		to_chat(user, "<span class='warning'>Our vocal cords have permanently shifted. We will now speak regularly.</span>")
 
 	feedback_add_details("changeling_powers","TR")
 	return 1
