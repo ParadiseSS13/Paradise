@@ -86,12 +86,9 @@
 		if("PRG_openfile")
 			. = 1
 			var/datum/computer_file/F = HDD.find_file_by_name(href_list["PRG_openfile"])
-			if(!F)
+			if(!F.can_access_file(usr))
 				return
-			if(F.can_access_file(usr))
-				open_file = href_list["PRG_openfile"]
-			else
-				return
+			open_file = href_list["PRG_openfile"]
 		if("PRG_newtextfile")
 			. = 1
 			var/newname = stripped_input(usr, "Enter file name or leave blank to cancel:", "File rename", max_length=50)
@@ -215,7 +212,11 @@
 				return 1
 			if(F.password)
 				return
-			F.password = sanitize(input(usr, "Enter an encryption key:", "Encrypt File"))
+			var/new_password = sanitize(input(usr, "Enter an encryption key:", "Encrypt File"))
+			if(!new_password)
+				to_chat(usr, "<span class='warning'>File not encrypted.</span>")
+				return
+			F.password=new_password
 		if("PRG_decrypt")
 			. = 1
 			if(!HDD)
