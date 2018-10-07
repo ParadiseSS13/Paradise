@@ -33,7 +33,7 @@
 "G" = (/obj/structure/table,/obj/item/paper_bin,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "H" = (/obj/structure/table,/obj/item/storage/box/prisoner,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "I" = (/obj/structure/window/reinforced{dir = 4; pixel_x = 0},/obj/machinery/light,/obj/structure/table,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
-"J" = (/obj/machinery/portable_atmospherics/scrubber,/turf/simulated/floor/plasteel{icon_state = "bot"; dir = 1},/area/ruin/unpowered)
+"J" = (/obj/machinery/portable_atmospherics/scrubber,/obj/effect/decal/warning_stripes/yellow/hollow,/turf/simulated/floor/plasteel,/area/ruin/unpowered)
 "K" = (/obj/structure/table/reinforced,/obj/item/surgicaldrill,/obj/item/hemostat,/obj/item/scalpel,/obj/item/surgical_drapes,/obj/item/retractor,/obj/item/cautery,/obj/item/circular_saw,/obj/machinery/light,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "L" = (/obj/effect/decal/cleanable/blood/old,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
 "M" = (/obj/structure/table/reinforced,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/glass/bottle/mutagen,/obj/item/reagent_containers/glass/bottle/mutagen,/obj/item/razor,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/ruin/unpowered)
