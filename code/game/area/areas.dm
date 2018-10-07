@@ -309,8 +309,8 @@
 		var/mob/M=A
 
 		if(!M.lastarea)
-			M.lastarea = get_area_master(M)
-		newarea = get_area_master(M)
+			M.lastarea = get_area(M)
+		newarea = get_area(M)
 		oldarea = M.lastarea
 
 		if(newarea==oldarea) return

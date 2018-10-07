@@ -442,7 +442,7 @@
 	attack_self(user)
 
 //Bed
-/obj/structure/stool/bed/pod
+/obj/structure/bed/pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "bed"
 

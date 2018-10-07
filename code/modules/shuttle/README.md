@@ -13,6 +13,9 @@
 		- [Initialization](#initialization)
 <!-- /TOC -->
 
+ # Important note:
+The following readme was last updated during Late 2015. The changes between Paradise & TG's shuttle system has diverged greatly since then. Do not take the documentation here's description of differences between tg & paradise seriously without double checking. 
+
 # Shuttle system
 ## Introduction
 This folder belongs to the "shuttle" system. The shuttle system is used to control the
@@ -120,11 +123,6 @@ direction as the "Stationary" docking port.
 ## Modifications
 There are three main differences between -tg-station13's shuttle system and the one in
 use on Paradise, and none are very complex.
-
-### Shuttle Controller
-This is a very simple change. On -tg-station13, the shuttle controller is referenced by a
-variable named `SSShuttle`. On Paradise, due to controller naming conventions, it is
-instead named `shuttle_master`.
 
 ### Airlocks
 The biggest modification comes in the form of how docking ports interact with airlocks.

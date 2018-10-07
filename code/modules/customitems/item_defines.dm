@@ -168,9 +168,9 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/structure/stool/bed/chair/wheelchair) && !istype(target, /obj/structure/stool/bed/chair/wheelchair/bike))
+	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
-		var/obj/structure/stool/bed/chair/wheelchair/chair = target
+		var/obj/structure/chair/wheelchair/chair = target
 		chair.icon = 'icons/obj/custom_items.dmi'
 		chair.icon_state = "vox_wheelchair"
 		chair.name = "vox wheelchair"
@@ -1206,6 +1206,15 @@
 	body_parts_covered = HEAD
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
+
+
+/obj/item/clothing/shoes/fluff/arachno_boots
+	name = "Arachno-Man boots"
+	desc = "These boots were made for crawlin'"
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "superior_boots"
+	item_state = "superior_boots"
+
 
 /obj/item/nullrod/fluff/chronx //chronx100: Hughe O'Splash
 	fluff_transformations = list(/obj/item/nullrod/fluff/chronx/scythe)

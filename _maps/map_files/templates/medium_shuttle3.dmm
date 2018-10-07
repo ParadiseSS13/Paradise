@@ -21,7 +21,7 @@
 "u" = (/turf/simulated/shuttle/wall,/turf/simulated/shuttle{tag = "icon-wall3 (NORTHWEST)"; icon_state = "wall3"; dir = 9},/area/ruin/powered{name = "Shuttle"})
 "v" = (/obj/structure/table,/turf/simulated/floor/plasteel{tag = "icon-whiteyellowfull"; icon_state = "whiteyellowfull"},/area/ruin/powered{name = "Shuttle"})
 "w" = (/turf/simulated/floor/plasteel{tag = "icon-whiteyellowfull"; icon_state = "whiteyellowfull"},/area/ruin/powered{name = "Shuttle"})
-"x" = (/obj/structure/stool/bed/chair/comfy{tag = "icon-comfychair (WEST)"; icon_state = "comfychair"; dir = 8},/turf/simulated/floor/plasteel{tag = "icon-whiteyellowfull"; icon_state = "whiteyellowfull"},/area/ruin/powered{name = "Shuttle"})
+"x" = (/obj/structure/chair/comfy{tag = "icon-comfychair (WEST)"; icon_state = "comfychair"; dir = 8},/turf/simulated/floor/plasteel{tag = "icon-whiteyellowfull"; icon_state = "whiteyellowfull"},/area/ruin/powered{name = "Shuttle"})
 "y" = (/turf/space,/turf/simulated/shuttle{tag = "icon-wall3 (SOUTHWEST)"; icon_state = "wall3"; dir = 10},/area/ruin/powered{name = "Shuttle"})
 "z" = (/obj/machinery/sleeper,/turf/simulated/floor/plasteel{tag = "icon-bluefull"; icon_state = "bluefull"},/area/ruin/powered{name = "Shuttle"})
 "A" = (/turf/simulated/floor/plasteel{tag = "icon-dark"; icon_state = "dark"},/area/ruin/powered{name = "Shuttle"})
