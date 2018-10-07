@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Less things will refer to the NSS Cyberiad when not actually ON the NSS Cyberiad."
