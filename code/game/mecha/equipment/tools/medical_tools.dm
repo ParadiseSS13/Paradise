@@ -528,7 +528,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_clamp
 	name = "rescue clamp"
 	desc = "Emergency rescue clamp, designed to help first responders reach their patients. Opens doors and removes obstacles."
-	icon_state = "mecha_clamp"	//placeholder for now, add icons later
+	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
 	origin_tech = "engineering=4;biotech=3"
 	equip_cooldown = 15
 	energy_drain = 10
@@ -539,7 +539,7 @@
 	if(!action_checks(target))
 		return
 	if(istype(target,/obj))
-		if(!istype(target,/obj/machinery/door))//early return if we're not trying to open a door
+		if(!istype(target , /obj/machinery/door))//early return if we're not trying to open a door
 			return
 		var/obj/machinery/door/D = target	//the door we want to open
 		D.try_to_crowbar(src, chassis.occupant)//use the door's crowbar function
