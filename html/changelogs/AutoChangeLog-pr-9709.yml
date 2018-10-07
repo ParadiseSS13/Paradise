@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - rscadd: "CyberiadAI Discord Bot now announces which station is being used."
