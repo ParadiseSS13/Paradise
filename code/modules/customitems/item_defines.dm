@@ -136,7 +136,7 @@
 	return 0
 
 /obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki
-	name = "Ceremonial Katana"
+	name = "ceremonial katana"
 	desc = "A shimmering ceremonial golden katana, for the most discerning class of ninja. Looks expensive, and fragile."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "rsik_katana"
@@ -146,7 +146,7 @@
 	force = 5
 	sharp = 0
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BELT
+	slot_flags = SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
