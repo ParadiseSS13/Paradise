@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - bugfix: "Adds the missing turfs under windows & doors on Mech Transport Space ruin."
