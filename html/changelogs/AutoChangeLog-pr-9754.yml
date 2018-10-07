@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - tweak: "CentComm Away Mission now uses Decals properly."
