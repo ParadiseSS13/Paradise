@@ -1,6 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "fixed bluespace disposal bins"
-  - bugfix: "instant recall doesn't fuck up disposals"
-  - bugfix: "meteor shots now deconstruct the disposals unit, removing weird behaviour"

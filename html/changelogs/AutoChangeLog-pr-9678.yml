@@ -1,4 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "Fixing a disability now fixes the gene related to it if needed. No more free gene stability from blindness and such"

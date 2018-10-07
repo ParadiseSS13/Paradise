@@ -1,4 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - bugfix: "Ammo boxes now return materials proportional to their contents when recycling, nullifying infinite ammo exploit."
