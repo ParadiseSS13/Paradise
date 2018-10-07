@@ -27,8 +27,8 @@
 "aA" = (/turf/simulated/floor/plating,/obj/structure/shuttle/engine/propulsion/burst,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/ruin/powered)
 "aB" = (/obj/machinery/door/airlock/shuttle{name = "Escape Pod Airlock"},/turf/simulated/shuttle/floor,/area/ruin/powered)
 "aC" = (/turf/simulated/floor/plating,/obj/structure/shuttle/engine/propulsion/burst,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/ruin/powered)
-"aD" = (/obj/machinery/door_control{name = "pod door cycle"; pixel_x = 6; id = "pod cycle"},/turf/simulated/wall,/area/ruin/powered{name = "Space Bar"})
-"aE" = (/obj/machinery/vending/boozeomat,/turf/simulated/wall,/area/ruin/powered{name = "Space Bar"})
+"aD" = (/obj/machinery/door_control{id = "pod cycle"; name = "pod door cycle"; pixel_x = -26},/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
+"aE" = (/obj/machinery/vending/boozeomat,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aF" = (/obj/structure/closet/secure_closet/freezer/kitchen,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aG" = (/obj/machinery/light/small,/obj/structure/table,/obj/machinery/microwave,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aH" = (/obj/structure/closet/secure_closet/freezer/fridge,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
@@ -37,7 +37,7 @@
 "aK" = (/obj/structure/table,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aL" = (/obj/structure/table,/obj/item/reagent_containers/food/drinks/cans/beer,/obj/item/reagent_containers/glass/rag,/turf/simulated/floor/wood,/area/ruin/powered{name = "Space Bar"})
 "aM" = (/obj/machinery/door/airlock{name = "Bar Storage"; req_access_txt = "25"},/turf/simulated/floor/plasteel{icon_state = "wood"},/area/ruin/powered{name = "Space Bar"})
-"aN" = (/obj/structure/chair/stool,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
+"aN" = (/obj/structure/chair/stool/bar,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "aO" = (/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "aP" = (/obj/machinery/light{dir = 1},/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "aQ" = (/obj/structure/grille,/obj/structure/window/full/reinforced,/turf/simulated/floor/plating,/area/ruin/powered{name = "Space Bar"})
@@ -65,9 +65,11 @@
 "bm" = (/obj/structure/glowshroom/single,/turf/simulated/floor/plasteel,/area/ruin/powered{name = "Space Bar"})
 "bn" = (/obj/machinery/door/airlock/external,/turf/simulated/floor/plating,/area/ruin/powered)
 "bo" = (/turf/simulated/floor/plating,/area/ruin/powered)
-"bp" = (/turf/simulated/floor/plating{icon_plating = "warnplate"; icon_state = "warnplate"},/area/ruin/powered)
+"bp" = (/turf/simulated/floor/plating/airless/asteroid,/obj/structure/shuttle/engine/propulsion/burst,/turf/simulated/shuttle/wall{icon_state = "swall_f5"; dir = 2},/area/ruin/powered)
 "bq" = (/obj/machinery/door/poddoor/preopen{id_tag = "pod cycle"; name = "airlock dock"},/turf/simulated/floor/plating,/area/ruin/powered)
 "br" = (/obj/machinery/door/poddoor{id_tag = "pod cycle"; name = "airlock dock"},/turf/simulated/floor/plating,/area/ruin/powered)
+"bs" = (/turf/simulated/floor/plating/airless/asteroid,/obj/structure/shuttle/engine/propulsion/burst,/turf/simulated/shuttle/wall{icon_state = "swall_f9"; dir = 2},/area/ruin/powered)
+"bt" = (/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plating,/area/ruin/powered)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -84,7 +86,7 @@ aaaaaaaaaaaaaaacacacafagagagagagagaiaiaiaiagagagagagagagagagagagagafacacaaaaaaaa
 aaaaaaaaaaacacacacafagajakalagagaiaiaiamamamamamamamamamamamamagagafacacaaaaaaaa
 aaaaaaaaaaacacacafagaganaoanagagaiaiaiamapaqarasamatauavasawamagagafacacacaaaaaa
 aaaaaaaaacacafafagagaganaxanagagaiaiaiamasasasasayasasasasazamagagagafacacaaaaaa
-aaaaaaababacafagagagagaAaBaCagagagaiaiaDasasasasaEaFaGaHasaIamagagagafacacaaaaaa
+aaaaaaababacafagagagagaAaBaCagagagaiaiamaDasasasaEaFaGaHasaIamagagagafacacaaaaaa
 aaaaaaaaabacaJagagagagagagagagagagagagamaKaKaLaKamamamamaMamamagagagaJacaaaaaaaa
 aaaaaaaaabacafafagagagagagagagagagagagamaNaNaNaNaOaOaPaOaOaOamagagagafacabaaaaaa
 aaaaaaaaacacacacafagagagagagagagamaQaRamaOaOaOaOaOaOaOaOaOaOaQagagafacacababaaaa
@@ -96,11 +98,11 @@ aaaaaaababacafagagagagagagagagagagagagambeaOaOaOamamamamambfamaiagagafacacacaaaa
 aaaaaaaaabacafagagagagagagagagajakalagamaOaOaOaOambgaOaOaOaOamaiagagagafacabaaaa
 aaaaaaaaacacafagagagagagagagaganaoanagaQaOaOaOaYambgaOaOaObhamaiaiagagafacabaaaa
 aaaaaaaaacacacafagagagagagagaganaxanagagaQaOaObiamamambjaObhamaiaiagagafacabaaaa
-aaaaaaaaaaacacafagagagagagagagaAaBaCagagagaQaObeambkblaObmaOamaiaiagagafacacaaaa
+aaaaaaaaaaacacafagagagagagagagbpaBbsagagagaQaObeambkblaObmaOamaiaiagagafacacaaaa
 aaaaaaaaaaacaJaJaJaJagagagagagagagagagagagagaQamamamamamamamamaiaiagafacacacaaaa
 aaaaaaaaaaaabnbobobnagagagagagagagagagagaiaiagagagaiaiaiaiaiaiaiaiagafacacacaaaa
 aaaaaaaaaaaaaJaJaJaJagagagagagagagagagaiaiaiagagagagagaiaiaiaiaiaiafacacacaaaaaa
-aaaaaaaaaaaaacacaJagaJbpbpbpbpbpbpaJagagaiagagagagagagagagaiaiaiagafacacaaaaaaaa
+aaaaaaaaaaaaacacaJagaJbtbtbtbtbtbtaJagagaiagagagagagagagagaiaiaiagafacacaaaaaaaa
 aaaaaaaaaaaaacabaJagaJbqbqbqbqbqbqaJagagagagagagagagagagagagagagafaJacabaaaaaaaa
 aaaaaaaaaaaaababaJaJaJboboboboboboaJaJaJaJafafafafafafafafafafaJacacacacaaaaaaaa
 aaaaaaaaaaaaababababaJboboboboboboaJacacacacacacacacacacacacacacacacacaaaaaaaaaa
