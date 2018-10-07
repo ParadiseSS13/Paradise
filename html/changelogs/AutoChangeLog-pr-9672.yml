@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Changelings with wingdings now permanently switch to regular speech after transforming"
