@@ -1709,14 +1709,15 @@ window "rpane"
 	elem "karma"
 		type = BUTTON
 		pos = 552,0
-		size = 77x16
-		background-color = #ff8040
+		size = 60x16
+		background-color = #FF4500
+		text-color = #FFFFFF
 		font-style = bold
-		text = "Karma Shop"
+		text = "Karma"
 		command = "karmashop"
 	elem "donate"
 		type = BUTTON
-		pos = 634,0
+		pos = 617,0
 		size = 60x16
 		background-color = #008000
 		text-color = #FFFFFF
