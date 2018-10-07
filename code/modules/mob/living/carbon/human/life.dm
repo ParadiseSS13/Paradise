@@ -55,7 +55,7 @@
 
 
 /mob/living/carbon/human/handle_disabilities()
-	if(disabilities & EPILEPSY)
+	if(has_trait(TRAIT_EPILEPSY))
 		if((prob(1) && paralysis < 1))
 			visible_message("<span class='danger'>[src] starts having a seizure!</span>","<span class='alert'>You have a seizure!</span>")
 			Paralyse(10)
@@ -66,11 +66,11 @@
 		if(prob(1))
 			Hallucinate(20)
 
-	if(disabilities & COUGHING)
+	if(has_trait(TRAIT_COUGHING))
 		if((prob(5) && paralysis <= 1))
 			drop_item()
 			emote("cough")
-	if(disabilities & TOURETTES)
+	if(has_trait(TRAIT_TOURETTES))
 		speech_problem_flag = 1
 		if((prob(10) && paralysis <= 1))
 			Stun(10)
@@ -85,7 +85,7 @@
 			animate(src, pixel_x = pixel_x + x_offset, pixel_y = pixel_y + y_offset, time = 1)
 			animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y), time = 1)
 
-	if(disabilities & NERVOUS)
+	if(has_trait(TRAIT_NERVOUS))
 		speech_problem_flag = 1
 		if(prob(10))
 			Stuttering(10)
@@ -380,7 +380,7 @@
 	if(status_flags & GODMODE)	return 1	//godmode
 
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
-		if(!(HEATRES in mutations))
+		if(!(has_trait(TRAIT_HEATRES)))
 			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
 			take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
@@ -393,7 +393,7 @@
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
 		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
-		if(COLDRES in mutations)
+		if(has_trait(TRAIT_COLDRES))
 			clear_alert("pressure")
 		else
 			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
@@ -404,7 +404,7 @@
 /mob/living/carbon/human/handle_fire()
 	if(..())
 		return
-	if(HEATRES in mutations)
+	if(has_trait(TRAIT_HEATRES))
 		return
 	if(on_fire)
 		var/thermal_protection = get_thermal_protection()
@@ -468,7 +468,7 @@
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
 
-	if(HEATRES in mutations)
+	if(has_trait(TRAIT_HEATRES))
 		return 1
 
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
@@ -529,7 +529,7 @@
 
 /mob/living/carbon/human/proc/get_cold_protection(temperature)
 
-	if(COLDRES in mutations)
+	if(has_trait(TRAIT_COLDRES))
 		return 1 //Fully protected from the cold.
 
 	temperature = max(temperature, 2.7) //There is an occasional bug where the temperature is miscalculated in ares with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
@@ -589,7 +589,7 @@
 
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
 	if(CAN_BE_FAT in dna.species.species_traits)
-		if(FAT in mutations)
+		if(has_trait(TRAIT_FAT))
 			if(overeatduration < 100)
 				becomeSlim()
 		else
@@ -615,8 +615,8 @@
 
 	else
 		if(overeatduration > 1)
-			if(OBESITY in mutations)
-				overeatduration -= 1 // Those with obesity gene take twice as long to unfat
+			if(has_trait(TRAIT_FAT))
+				overeatduration -= 1 // Those with fat trait take twice as long to unfat
 			else
 				overeatduration -= 2
 
@@ -672,7 +672,7 @@
 	var/collapse_start = 75
 	var/braindamage_start = 120
 	var/alcohol_strength = drunk
-	var/sober_str=!(SOBER in mutations)?1:2
+	var/sober_str=!(has_trait(TRAIT_SOBER))?1:2
 
 	if(drunk)
 		alcohol_strength/=sober_str
@@ -740,7 +740,7 @@
 	. = ..()
 
 	if(.) //alive
-		if(REGEN in mutations)
+		if(has_trait(TRAIT_REGEN))
 			heal_overall_damage(0.1, 0.1)
 
 		if(paralysis)
@@ -760,7 +760,7 @@
 						adjustFireLoss(-1)
 						adjustToxLoss(-1)
 
-		else if(status_flags & FAKEDEATH)
+		else if(has_trait(TRAIT_FAKEDEATH))
 			blinded = 1
 			stat = UNCONSCIOUS
 
@@ -781,7 +781,7 @@
 
 		else
 			//blindness
-			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
+			if(has_trait(TRAIT_BLIND)) // Disabled-blind, doesn't get better on its own
 				blinded =    1
 
 			else if(eye_blind)		       // Blindness, heals slowly over time
@@ -801,7 +801,7 @@
 
 
 		//Ears
-		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
+		if(has_trait(TRAIT_DEAF))	//disabled-deaf, doesn't get better on its own
 			EarDeaf(1)
 
 		else if(ear_deaf)			//deafness, heals slowly over time
@@ -836,14 +836,14 @@
 			reset_perspective(null)
 	else
 		var/isRemoteObserve = 0
-		if((REMOTE_VIEW in mutations) && remoteview_target)
+		if((has_trait(TRAIT_REMOTE_VIEW)) && remoteview_target)
 			isRemoteObserve = 1
 
 			if(remoteview_target.stat != CONSCIOUS)
 				to_chat(src, "<span class='alert'>Your psy-connection grows too faint to maintain!</span>")
 				isRemoteObserve = 0
 
-			if(PSY_RESIST in remoteview_target.mutations)
+			if(remoteview_target.has_trait(TRAIT_PSY_RESIST))
 				to_chat(src, "<span class='alert'>Your mind is shut out!</span>")
 				isRemoteObserve = 0
 
@@ -921,7 +921,7 @@
 	if(blood_volume <= BLOOD_VOLUME_BAD)//how much blood do we have
 		temp = PULSE_THREADY	//not enough :(
 
-	if(status_flags & FAKEDEATH)
+	if(has_trait(TRAIT_FAKEDEATH))
 		temp = PULSE_NONE		//pretend that we're dead. unlike actual death, can be inflienced by meds
 
 	for(var/datum/reagent/R in reagents.reagent_list)

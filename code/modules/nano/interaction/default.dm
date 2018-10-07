@@ -102,7 +102,7 @@
 	. = shared_nano_interaction(src_object)
 	if(. != STATUS_CLOSE)
 		. = min(., shared_living_nano_distance(src_object))
-		if(. == STATUS_UPDATE && (TK in mutations))	// If we have telekinesis and remain close enough, allow interaction.
+		if(. == STATUS_UPDATE && (has_trait(TRAIT_TK)))	// If we have telekinesis and remain close enough, allow interaction.
 			return STATUS_INTERACTIVE
 
 /mob/living/carbon/alien/default_can_use_topic(var/src_object)

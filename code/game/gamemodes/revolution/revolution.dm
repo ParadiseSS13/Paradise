@@ -124,7 +124,7 @@
 	if(mob.mind)
 		if(mob.mind.assigned_role == "Clown")
 			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			mob.mutations.Remove(CLUMSY)
+			mob.remove_trait(TRAIT_CLUMSY)
 
 
 	var/obj/item/flash/T = new(mob)

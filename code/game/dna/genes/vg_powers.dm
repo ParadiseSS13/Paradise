@@ -7,7 +7,7 @@
 	activation_messages=list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=MORPH
+	trait = TRAIT_MORPH
 
 /datum/dna/gene/basic/grant_spell/morph/New()
 	..()
@@ -180,7 +180,7 @@
 	activation_messages=list("You feel you can project your thoughts.")
 	deactivation_messages=list("You no longer feel you can project your thoughts.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=REMOTE_TALK
+	trait = TRAIT_REMOTE_TALK
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remotetalk
 
@@ -234,7 +234,7 @@
 
 	for(var/mob/living/target in targets)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
-		if(REMOTE_TALK in target.mutations)
+		if(target.has_trait(TRAIT_REMOTE_TALK))
 			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else
 			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
@@ -247,7 +247,7 @@
 	activation_messages=list("Your mind can see things from afar.")
 	deactivation_messages=list("Your mind can no longer can see things from afar.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation=REMOTE_VIEW
+	trait = TRAIT_REMOTE_VIEW
 
 	spelltype =/obj/effect/proc_holder/spell/targeted/remoteview
 
@@ -272,9 +272,9 @@
 	var/list/targets = list()
 	var/list/remoteviewers = new /list()
 	for(var/mob/M in living_mob_list)
-		if(PSY_RESIST in M.mutations)
+		if(M.has_trait(TRAIT_PSY_RESIST))
 			continue
-		if(REMOTE_VIEW in M.mutations)
+		if(M.has_trait(TRAIT_REMOTE_VIEW))
 			remoteviewers += M
 	if(!remoteviewers.len || remoteviewers.len == 1)
 		to_chat(user, "<span class='warning'>No valid targets with remote view were found!</span>")

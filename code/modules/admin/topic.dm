@@ -1784,7 +1784,7 @@
 				H.gene_stability = 100
 				logmsg = "permanent regeneration."
 			if("Super Powers")
-				var/list/default_genes = list(REGENERATEBLOCK, BREATHLESSBLOCK, COLDBLOCK)
+				var/list/default_genes = list(REGENERATEBLOCK, BREATHLESSBLOCK, HEATRESBLOCK)
 				for(var/gene in default_genes)
 					H.dna.SetSEState(gene, 1)
 					genemutcheck(H, gene,  null, MUTCHK_FORCED)
@@ -1911,7 +1911,7 @@
 				logmsg = "a hellwater cookie."
 			if("Hunter")
 				logmsg = "hunter."
-				H.mutations |= NOCLONE
+				H.add_trait(TRAIT_NOCLONE)
 				usr.client.create_eventmob_for(H, 1)
 			if("Crew Traitor")
 				logmsg = "crew traitor."

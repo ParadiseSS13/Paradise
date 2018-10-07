@@ -11,42 +11,59 @@
 
 /datum/dna/gene
 	// Display name
-	var/name="BASE GENE"
+	var/name = "BASE GENE"
 
 	// Probably won't get used but why the fuck not
-	var/desc="Oh god who knows what this does."
+	var/desc = "Oh god who knows what this does."
 
 	// Set in initialize()!
 	//  What gene activates this?
-	var/block=0
+	var/block = 0
 
 	// Any of a number of GENE_ flags.
-	var/flags=0
+	var/flags = 0
+
+	// Trait to give
+	var/trait 
+
+	// Possible activation messages
+	var/list/activation_messages = list()
+
+	// Possible deactivation messages
+	var/list/deactivation_messages = list()
 
 	// Chance of the gene to cause adverse effects when active
-	var/instability=0
+	var/instability = 0
 
 /*
 * Is the gene active in this mob's DNA?
 */
-/datum/dna/gene/proc/is_active(var/mob/M)
+/datum/dna/gene/proc/is_active(mob/M)
 	return M.active_genes && type in M.active_genes
 
 // Return 1 if we can activate.
 // HANDLE MUTCHK_FORCED HERE!
-/datum/dna/gene/proc/can_activate(var/mob/M, var/flags)
+/datum/dna/gene/proc/can_activate(mob/M, flags)
 	return 0
 
 // Called when the gene activates.  Do your magic here.
-/datum/dna/gene/proc/activate(var/mob/living/M, var/connected, var/flags)
+/datum/dna/gene/proc/activate(mob/living/M, connected, flags)
+	if(trait)
+		M.add_trait(trait, GENETIC_MUTATION) 
+	if(activation_messages.len)
+		var/msg = pick(activation_messages)
+		to_chat(M, "<span class='notice'>[msg]</span>")
 	M.gene_stability -= instability
 	return
 
-/**
-* Called when the gene deactivates.  Undo your magic here.
-* Only called when the block is deactivated.
-*/
-/datum/dna/gene/proc/deactivate(var/mob/living/M, var/connected, var/flags)
+// Called when the gene deactivates.  Undo your magic here.
+// Only called when the block is deactivated.
+/datum/dna/gene/proc/deactivate(mob/living/M, connected, flags)
+	if(trait)
+		M.remove_trait(trait, GENETIC_MUTATION)
+	if(deactivation_messages.len)
+		var/msg = pick(deactivation_messages)
+		to_chat(M, "<span class='warning'>[msg]</span>")
 	M.gene_stability += instability
 	return
 
@@ -96,34 +113,11 @@
 /datum/dna/gene/basic
 	name="BASIC GENE"
 
-	// Mutation to give
-	var/mutation=0
-
 	// Activation probability
 	var/activation_prob=100
-
-	// Possible activation messages
-	var/list/activation_messages=list()
-
-	// Possible deactivation messages
-	var/list/deactivation_messages=list()
 
 /datum/dna/gene/basic/can_activate(var/mob/M,var/flags)
 	if(flags & MUTCHK_FORCED)
 		return 1
 	// Probability check
 	return prob(activation_prob)
-
-/datum/dna/gene/basic/activate(var/mob/M)
-	..()
-	M.mutations.Add(mutation)
-	if(activation_messages.len)
-		var/msg = pick(activation_messages)
-		to_chat(M, "<span class='notice'>[msg]</span>")
-
-/datum/dna/gene/basic/deactivate(var/mob/M)
-	..()
-	M.mutations.Remove(mutation)
-	if(deactivation_messages.len)
-		var/msg = pick(deactivation_messages)
-		to_chat(M, "<span class='warning'>[msg]</span>")

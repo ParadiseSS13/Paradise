@@ -400,18 +400,18 @@
 			qdel(src)
 
 /obj/item/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
-	if(ishuman(attacker) && (/datum/dna/gene/basic/grant_spell/mattereater in attacker.active_genes)) // MATTER EATER CARES NOT OF YOUR FORM
-		return 1
+	if(ishuman(attacker))
+		var/mob/living/carbon/human/H = attacker
+		if(/datum/dna/gene/basic/grant_spell/mattereater in H.active_genes) // MATTER EATER CARES NOT OF YOUR FORM
+			return TRUE
 
-	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
-		return 1
+		if((H.has_trait(TRAIT_FAT)) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
+			return TRUE
+		if(is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
+			return TRUE
 
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
-		return 1
-
-	var/mob/living/carbon/human/H = attacker
-	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
-		return 1
+		return TRUE
 
 	return 0
 

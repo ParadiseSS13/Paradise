@@ -700,7 +700,7 @@ var/list/teleport_runes = list()
 		visible_message("<span class='warning'>The glowing tendril snaps against the rune with a shocking crack.</span>")
 		rune_in_use = 0
 		return
-	mob_to_revive.revive() //This does remove disabilities and such, but the rune might actually see some use because of it!
+	mob_to_revive.revive() //This does remove traits and such, but the rune might actually see some use because of it!
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
 	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
 								  "<span class='cultlarge'>You awaken suddenly from the void. You're alive!</span>")

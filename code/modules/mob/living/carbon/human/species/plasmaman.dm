@@ -11,8 +11,6 @@
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
-	//default_mutations=list(SKELETON) // This screws things up
-
 	butt_sprite = "plasma"
 
 	breathid = "tox"

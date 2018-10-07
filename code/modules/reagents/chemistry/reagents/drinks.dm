@@ -71,7 +71,7 @@
 			//nothing
 		if(21 to INFINITY)
 			if(prob(current_cycle-10))
-				M.disabilities &= ~NEARSIGHTED
+				M.remove_trait(TRAIT_NEARSIGHT)
 	..()
 
 /datum/reagent/consumable/drink/doctor_delight

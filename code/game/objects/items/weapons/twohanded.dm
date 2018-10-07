@@ -226,12 +226,12 @@
 		set_light(0)
 
 /obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
-	if(HULK in user.mutations)
+	if(user.has_trait(TRAIT_HULK))
 		to_chat(user, "<span class='warning'>You grip the blade too hard and accidentally close it!</span>")
 		unwield()
 		return
 	..()
-	if((CLUMSY in user.mutations) && (wielded) && prob(40))
+	if((user.has_trait(TRAIT_HULK)) && (wielded) && prob(40))
 		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
 		user.take_organ_damage(20, 25)
 		return
@@ -276,7 +276,7 @@
 		return TRUE
 
 /obj/item/twohanded/dualsaber/wield(mob/living/carbon/M) //Specific wield () hulk checks due to reflection chance for balance issues and switches hitsounds.
-	if(HULK in M.mutations)
+	if(M.has_trait(TRAIT_HULK))
 		to_chat(M, "<span class='warning'>You lack the grace to wield this!</span>")
 		return
 	..()

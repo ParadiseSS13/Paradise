@@ -215,10 +215,10 @@ var/global/list/damage_icon_parts = list()
 	var/husk_color_mod = rgb(96,88,80)
 	var/hulk_color_mod = rgb(48,224,40)
 
-	var/husk = (HUSK in mutations)
-	var/fat = (FAT in mutations)
-	var/hulk = (HULK in mutations)
-	var/skeleton = (SKELETON in mutations)
+	var/husk = has_trait(TRAIT_HUSK)
+	var/fat = has_trait(TRAIT_FAT)
+	var/hulk = has_trait(TRAIT_HULK)
+	var/skeleton = has_trait(TRAIT_SKELETON)
 
 	if(dna.species && dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		dna.species.updatespeciescolor(src)
@@ -524,7 +524,7 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/update_mutations(var/update_icons=1)
 	var/fat
-	if(FAT in mutations)
+	if(has_trait(TRAIT_FAT))
 		fat = "fat"
 
 	var/image/standing	= image("icon" = 'icons/effects/genetics.dmi')
@@ -540,12 +540,10 @@ var/global/list/damage_icon_parts = list()
 			if(underlay)
 				standing.underlays += underlay
 				add_image = 1
-	for(var/mut in mutations)
-		switch(mut)
-			if(LASER)
-				standing.overlays	+= "lasereyes_s"
-				add_image = 1
-	if((COLDRES in mutations) && (HEATRES in mutations))
+	if(has_trait(TRAIT_LASER))
+		standing.overlays	+= "lasereyes_s"
+		add_image = 1
+	if((has_trait(TRAIT_COLDRES)) && (has_trait(TRAIT_HEATRES)))
 		standing.underlays	-= "cold[fat]_s"
 		standing.underlays	-= "fire[fat]_s"
 		standing.underlays	+= "coldfire[fat]_s"
@@ -558,7 +556,7 @@ var/global/list/damage_icon_parts = list()
 
 /mob/living/carbon/human/proc/update_mutantrace(var/update_icons=1)
 //BS12 EDIT
-	var/skel = (SKELETON in mutations)
+	var/skel = has_trait(TRAIT_SKELETON)
 	if(skel)
 		skeleton = 'icons/mob/human_races/r_skeleton.dmi'
 	else
@@ -633,7 +631,7 @@ var/global/list/damage_icon_parts = list()
 		if(!t_color)		t_color = icon_state
 		var/image/standing	= image("icon_state" = "[t_color]_s")
 
-		if(FAT in mutations)
+		if(has_trait(TRAIT_FAT))
 			if(w_uniform.flags_size & ONESIZEFITSALL)
 				standing.icon	= 'icons/mob/uniform_fat.dmi'
 			else
@@ -952,7 +950,7 @@ var/global/list/damage_icon_parts = list()
 			standing = image("icon" = wear_suit.icon_override, "icon_state" = "[wear_suit.icon_state]")
 		else if(wear_suit.sprite_sheets && wear_suit.sprite_sheets[dna.species.name])
 			standing = image("icon" = wear_suit.sprite_sheets[dna.species.name], "icon_state" = "[wear_suit.icon_state]")
-		else if(FAT in mutations)
+		else if(has_trait(TRAIT_FAT))
 			if(wear_suit.flags_size & ONESIZEFITSALL)
 				standing = image("icon" = 'icons/mob/suit_fat.dmi', "icon_state" = "[wear_suit.icon_state]")
 			else

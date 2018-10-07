@@ -379,7 +379,7 @@
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		SSnanoui.update_uis(src)
 		return
-	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
+	if((subject.has_trait(TRAIT_NOCLONE)) && src.scanner.scan_level < 2)
 		scantemp = "<span class=\"bad\">Error: Mental interface failure.</span>"
 		SSnanoui.update_uis(src)
 		return

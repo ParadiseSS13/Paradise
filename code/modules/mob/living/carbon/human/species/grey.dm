@@ -19,9 +19,6 @@
 
 	brute_mod = 1.25 //greys are fragile
 
-	default_genes = list(REMOTE_TALK)
-
-
 	species_traits = list(LIPS, IS_WHITELISTED, CAN_BE_FAT)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
@@ -29,7 +26,8 @@
 	reagent_tag = PROCESS_ORG
 	blood_color = "#A200FF"
 
-/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
+/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)	
+	default_genes = list(REMOTETALKBLOCK) // Global var in list don't work properly under type def
 	..()
 	H.dna.SetSEState(REMOTETALKBLOCK, !remove, 1)
 	genemutcheck(H, REMOTETALKBLOCK, null, MUTCHK_FORCED)

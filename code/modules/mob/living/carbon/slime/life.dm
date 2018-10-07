@@ -197,7 +197,7 @@
 		src.lying = 1
 		src.blinded = 1
 	else
-		if(src.paralysis || src.stunned || src.weakened || (status_flags && FAKEDEATH)) //Stunned etc.
+		if(src.paralysis || src.stunned || src.weakened || has_trait(TRAIT_FAKEDEATH)) //Stunned etc.
 			if(src.stunned > 0)
 				AdjustStunned(-1)
 				src.stat = 0
@@ -227,9 +227,9 @@
 
 	src.density = !( src.lying )
 
-	if(src.disabilities & BLIND)
-		src.blinded = 1
-	if(src.disabilities & DEAF)
+	if(has_trait(TRAIT_BLIND))
+		blinded = 1
+	if(has_trait(TRAIT_DEAF))
 		EarDeaf(1)
 
 	if(src.eye_blurry > 0)

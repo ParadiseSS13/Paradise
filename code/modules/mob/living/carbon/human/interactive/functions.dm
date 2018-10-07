@@ -641,7 +641,7 @@
 	set background = 1
 	enforce_hands()
 	if(canmove)
-		if((graytide || (TRAITS & TRAIT_MEAN)) || retal)
+		if((graytide || (TRAITS & AI_TRAIT_MEAN)) || retal)
 			interest += targetInterestShift
 			a_intent = INTENT_HARM
 			zone_sel.selecting = pick("chest","r_leg","l_leg","r_arm","l_arm","head")

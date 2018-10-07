@@ -191,7 +191,7 @@
 		O.owner = H
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
-	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+	if((NO_BREATHE in species_traits) || (H.has_trait(TRAIT_BREATHLESS)))
 		return TRUE
 
 ////////////////
@@ -207,7 +207,7 @@
 	if(H.flying)
 		flight = 1
 
-	if((H.status_flags & IGNORESLOWDOWN) || (RUN in H.mutations))
+	if((H.has_trait(TRAIT_IGNORESLOWDOWN)) || (H.has_trait(TRAIT_RUN)))
 		ignoreslow = 1
 
 	if(has_gravity(H))
@@ -246,14 +246,14 @@
 
 		if((hungry >= 70) && !flight)
 			. += hungry/50
-		if(FAT in H.mutations)
+		if(H.has_trait(TRAIT_FAT))
 			. += (1.5 - flight)
 		if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
-		if(H.status_flags & GOTTAGOFAST)
+		if(H.has_trait(TRAIT_GOTTAGOFAST))
 			. -= 1
-		if(H.status_flags & GOTTAGOFAST_METH)
+		if(H.has_trait(TRAIT_GOTTAGOFAST_METH))
 			. -= 1
 	return .
 
@@ -282,7 +282,7 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
-	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+	if((NO_BREATHE in species_traits) || (H.has_trait(TRAIT_BREATHLESS)))
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
 
@@ -317,7 +317,7 @@
 		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
-		if(SKELETON in target.mutations)
+		if(target.has_trait(TRAIT_SKELETON))
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
 			return
 		if(issmall(target) && !target.ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
@@ -514,7 +514,7 @@
 		H.clear_alert("blind")
 
 
-	if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
+	if(H.has_trait(TRAIT_NEARSIGHT))	//this looks meh but saves a lot of memory by not requiring to add var/prescription
 		if(H.glasses)					//to every /obj/item
 			var/obj/item/clothing/glasses/G = H.glasses
 			if(G.prescription)
@@ -696,7 +696,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.weakeyes = 1
 		H.sight |= H.vision_type.sight_flags
 
-	if(XRAY in H.mutations)
+	if(H.has_trait(TRAIT_XRAY))
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		H.see_in_dark = max(H.see_in_dark, 8)
 		H.see_invisible = SEE_INVISIBLE_MINIMUM

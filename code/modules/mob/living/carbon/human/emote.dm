@@ -1,6 +1,6 @@
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null,var/force)
 
-	if((stat == DEAD) || (status_flags & FAKEDEATH))
+	if((stat == DEAD) || (has_trait(TRAIT_FAKEDEATH)))
 		return // No screaming bodies
 
 	var/param = null
@@ -844,9 +844,9 @@
 				for(var/client/X in admins)
 					if(check_rights(R_EVENT, 0, X.mob))
 						to_chat(X, adminbfmessage)
-			else if(TOXIC_FARTS in mutations)
+			else if(has_trait(TRAIT_TOXIC_FARTS))
 				message = "<b>[src]</b> unleashes a [pick("horrible", "terrible", "foul", "disgusting", "awful")] fart."
-			else if(SUPER_FART in mutations)
+			else if(has_trait(TRAIT_SUPER_FART))
 				message = "<b>[src]</b> unleashes a [pick("loud", "deafening")] fart."
 			else
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
@@ -855,7 +855,7 @@
 			var/turf/location = get_turf(src)
 
 			// Process toxic farts first.
-			if(TOXIC_FARTS in mutations)
+			if(has_trait(TRAIT_TOXIC_FARTS))
 				for(var/mob/living/carbon/C in range(location, 2))
 					if(C.internal != null && C.wear_mask && (C.wear_mask.flags & AIRTIGHT))
 						continue
@@ -864,7 +864,7 @@
 					C.reagents.add_reagent("jenkem", 1)
 
 			// Farting as a form of locomotion in space
-			if(SUPER_FART in mutations)
+			if(has_trait(TRAIT_SUPER_FART))
 				newtonian_move(dir)
 
 		if("hem")

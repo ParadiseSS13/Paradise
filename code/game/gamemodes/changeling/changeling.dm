@@ -138,7 +138,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	if(changeling.current.mind)
 		if(changeling.current.mind.assigned_role == "Clown")
 			to_chat(changeling.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-			changeling.current.mutations.Remove(CLUMSY)
+			changeling.current.remove_trait(TRAIT_CLUMSY)
 
 	var/obj_count = 1
 	for(var/datum/objective/objective in changeling.objectives)
@@ -312,7 +312,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		to_chat(user, "<span class='warning'>[T] is not compatible with our biology.</span>")
 		return
 
-	if((NOCLONE || SKELETON || HUSK) in T.mutations)
+	if(target.has_trait(TRAIT_SKELETON) || target.has_trait(TRAIT_NOCLONE) || target.has_trait(TRAIT_HUSK))
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
 

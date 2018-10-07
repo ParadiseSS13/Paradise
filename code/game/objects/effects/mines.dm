@@ -172,7 +172,7 @@
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.status_flags |= GOTTAGOFAST
+	victim.add_trait(TRAIT_GOTTAGOFAST, "pickup")
 	spawn(duration)
-		victim.status_flags &= ~GOTTAGOFAST
-		to_chat(victim, "<span class='notice'>You slow down.</span>")
+	victim.remove_trait(TRAIT_GOTTAGOFAST, "pickup")
+	to_chat(victim, "<span class='notice'>You slow down.</span>")

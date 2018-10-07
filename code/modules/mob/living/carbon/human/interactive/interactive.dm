@@ -296,24 +296,24 @@
 	functions = list("nearbyscan", "combat", "shitcurity", "chatter") // stop customize adding multiple copies of a function
 	setup_job(job)
 
-	if(TRAITS & TRAIT_ROBUST)
+	if(TRAITS & AI_TRAIT_ROBUST)
 		robustness = 75
-	else if(TRAITS & TRAIT_UNROBUST)
+	else if(TRAITS & AI_TRAIT_UNROBUST)
 		robustness = 25
 
 	//modifiers are prob chances, lower = smarter
-	if(TRAITS & TRAIT_SMART)
+	if(TRAITS & AI_TRAIT_SMART)
 		smartness = 75
-	else if(TRAITS & TRAIT_DUMB)
-		disabilities |= CLUMSY
+	else if(TRAITS & AI_TRAIT_DUMB)
+		add_trait(TRAIT_CLUMSY)
 		smartness = 25
 
-	if(TRAITS & TRAIT_MEAN)
+	if(TRAITS & AI_TRAIT_MEAN)
 		attitude = 75
-	else if(TRAITS & TRAIT_FRIENDLY)
+	else if(TRAITS & AI_TRAIT_FRIENDLY)
 		attitude = 1
 
-	if(TRAITS & TRAIT_THIEVING)
+	if(TRAITS & AI_TRAIT_THIEVING)
 		slyness = 75
 
 /mob/living/carbon/human/interactive/proc/setup_job(thejob)

@@ -1,9 +1,8 @@
 /obj/effect/proc_holder/spell/targeted/genetic
 	name = "Genetic"
-	desc = "This spell inflicts a set of mutations and disabilities upon the target."
+	desc = "This spell inflicts a set of genetic traits upon the target."
 
-	var/disabilities = 0 //bits
-	var/list/mutations = list() //mutation strings
+	var/list/traits = list() //traits
 	var/duration = 100 //deciseconds
 	/*
 		Disabilities
@@ -15,23 +14,16 @@
 			6th bit - ?
 	*/
 
-/obj/effect/proc_holder/spell/targeted/genetic/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/genetic/cast(list/targets,mob/user = usr)
+	playMagSound()
+	for(var/mob/living/carbon/target in targets)
+		if(!target.dna)
+			continue
+		for(var/A in traits)
+			target.add_trait(A, GENETICS_SPELL)
+		addtimer(CALLBACK(src, .proc/remove, target), duration)
 
-	for(var/mob/living/target in targets)
-		for(var/x in mutations)
-			target.mutations.Add(x)
-		/*	if(x == HULK && ishuman(target))
-				target:hulk_time=world.time + duration */
-		target.disabilities |= disabilities
-		target.update_mutations()	//update target's mutation overlays
-		var/mob/living/carbon/human/H = target
-		if(ishuman(target))
-			H.update_body()
-		spawn(duration)
-			target.mutations.Remove(mutations)
-			target.disabilities &= ~disabilities
-			target.update_mutations()
-			if(ishuman(target))
-				H.update_body()
-
-	return
+/obj/effect/proc_holder/spell/targeted/genetic/proc/remove(mob/living/carbon/target)
+	if(!QDELETED(target))
+		for(var/A in traits)
+			target.remove_trait(A, GENETICS_SPELL)

@@ -463,9 +463,9 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (HEATRES in user.mutations))
+		if(prot > 0 || (user.has_trait(TRAIT_HEATRES)))
 			to_chat(user, "You remove the light [fitting]")
-		else if(TK in user.mutations)
+		else if(user.has_trait(TRAIT_TK))
 			to_chat(user, "You telekinetically remove the light [fitting].")
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)

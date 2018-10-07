@@ -50,7 +50,7 @@
 	changeling.geneticdamage += genetic_damage
 
 //Fairly important to remember to return 1 on success >.<
-/obj/effect/proc_holder/changeling/proc/can_sting(var/mob/user, var/mob/target)
+/obj/effect/proc_holder/changeling/proc/can_sting(var/mob/living/user, var/mob/target)
 	if(!ishuman(user)) //typecast everything from mob to carbon from this point onwards
 		return 0
 	if(req_human && (!ishuman(user) || issmall(user)))
@@ -66,7 +66,7 @@
 	if(req_stat < user.stat)
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return 0
-	if((user.status_flags & FAKEDEATH) && name!="Regenerate")
+	if((user.has_trait(TRAIT_FAKEDEATH)) && name!="Regenerate")
 		to_chat(user, "<span class='warning'>We are incapacitated.</span>")
 		return 0
 	if(c.geneticdamage > max_genetic_damage)

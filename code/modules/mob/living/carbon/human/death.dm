@@ -139,7 +139,7 @@
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(SKELETON in src.mutations)
+	if(has_trait(TRAIT_SKELETON))
 		return
 
 	if(istype(H))
@@ -159,15 +159,15 @@
 	update_head_accessory(0)
 	update_markings(0)
 
-	mutations.Add(SKELETON)
-	mutations.Add(NOCLONE)
+	add_trait(TRAIT_SKELETON)
+	add_trait(TRAIT_NOCLONE)
 	update_body(0)
 	update_mutantrace()
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(HUSK in mutations)
+	if(has_trait(TRAIT_HUSK))
 		return
 
 	if(istype(H))
@@ -179,12 +179,12 @@
 	update_fhair(0)
 	update_hair(0)
 
-	mutations.Add(HUSK)
+	add_trait(TRAIT_HUSK)
 	update_body(0)
 	update_mutantrace()
 	return
 
 /mob/living/carbon/human/proc/Drain()
 	ChangeToHusk()
-	mutations |= NOCLONE
+	add_trait(TRAIT_NOCLONE)
 	return

@@ -81,21 +81,21 @@
 // These are more permanent than the above.
 // Disabilities sorted alphabetically
 /*
-	*	Blind	(32)
+	*	Blind
 			Can't see. EyeBlind does not heal when this is active.
-	*	Coughing	(4)
+	*	Coughing
 			Cough occasionally, causing you to drop your items
-	*	Deaf	(128)
+	*	Deaf	
 			Can't hear. EarDeaf does not heal when this is active
-	*	Epilepsy	(2)
+	*	Epilepsy
 			Occasionally go "Epileptic", causing you to become very twitchy, drop all items, and fall to the floor
-	*	Mute	(64)
+	*	Mute
 			Cannot talk.
-	*	Nearsighted	(1)
+	*	Nearsighted
 			My glasses! I can't see without my glasses! (Nearsighted overlay when not wearing prescription eyewear)
-	*	Nervous	(16)
+	*	Nervous
 			Occasionally begin to stutter.
-	*	Tourettes	(8)
+	*	Tourettes
 			SHIT (say bad words, and drop stuff occasionally)
 */
 
@@ -305,7 +305,7 @@
 
 /mob/living/SetJitter(amount, force = 0)
 	// Jitter is also associated with stun
-	if(status_flags & CANSTUN || force)
+	if(((status_flags & CANSTUN) && !(has_trait(TRAIT_STUNIMMUNE))) || force)
 		jitteriness = max(amount, 0)
 
 /mob/living/AdjustJitter(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
@@ -416,7 +416,7 @@
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
 	if((!!amount) == (!!stunned)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
-	if(status_flags & CANSTUN || force)
+	if(((status_flags & CANSTUN) && !(has_trait(TRAIT_STUNIMMUNE)))|| force)
 		stunned = max(amount, 0)
 		if(updating)
 			update_canmove()
@@ -433,7 +433,7 @@
 
 /mob/living/SetStuttering(amount, force = 0)
 	//From mob/living/apply_effect: "Stuttering is often associated with Stun"
-	if(status_flags & CANSTUN || force)
+	if(((status_flags & CANSTUN) && !(has_trait(TRAIT_STUNIMMUNE)))|| force)
 		stuttering = max(amount, 0)
 
 /mob/living/AdjustStuttering(amount, bound_lower = 0, bound_upper = INFINITY, force = 0)
@@ -448,7 +448,7 @@
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
 	if((!!amount) == (!!weakened)) // We're not changing from + to 0 or vice versa
 		updating = FALSE
-	if(status_flags & CANWEAKEN || force)
+	if(((status_flags & CANWEAKEN) && !(has_trait(TRAIT_STUNIMMUNE))) || force)
 		weakened = max(amount, 0)
 		if(updating)
 			update_canmove()	//updates lying, canmove and icons
@@ -456,83 +456,3 @@
 /mob/living/AdjustWeakened(amount, bound_lower = 0, bound_upper = INFINITY, updating = 1, force = 0)
 	var/new_value = directional_bounded_sum(weakened, amount, bound_lower, bound_upper)
 	SetWeakened(new_value, updating, force)
-
-//
-//		DISABILITIES
-//
-
-// Blind
-
-/mob/living/proc/BecomeBlind()
-	var/val_change = !(disabilities & BLIND)
-	disabilities |= BLIND
-	if(val_change)
-		update_blind_effects()
-
-/mob/living/proc/CureBlind()
-	var/val_change = !!(disabilities & BLIND)
-	disabilities &= ~BLIND
-	if(val_change)
-		update_blind_effects()
-
-// Coughing
-
-/mob/living/proc/BecomeCoughing()
-	disabilities |= COUGHING
-
-/mob/living/proc/CureCoughing()
-	disabilities &= ~COUGHING
-
-// Deaf
-
-/mob/living/proc/BecomeDeaf()
-	disabilities |= DEAF
-
-/mob/living/proc/CureDeaf()
-	disabilities &= ~DEAF
-
-// Epilepsy
-
-/mob/living/proc/BecomeEpilepsy()
-	disabilities |= EPILEPSY
-
-/mob/living/proc/CureEpilepsy()
-	disabilities &= ~EPILEPSY
-
-// Mute
-
-/mob/living/proc/BecomeMute()
-	disabilities |= MUTE
-
-/mob/living/proc/CureMute()
-	disabilities &= ~MUTE
-
-// Nearsighted
-
-/mob/living/proc/BecomeNearsighted()
-	var/val_change = !(disabilities & NEARSIGHTED)
-	disabilities |= NEARSIGHTED
-	if(val_change)
-		update_nearsighted_effects()
-
-/mob/living/proc/CureNearsighted()
-	var/val_change = !!(disabilities & NEARSIGHTED)
-	disabilities &= ~NEARSIGHTED
-	if(val_change)
-		update_nearsighted_effects()
-
-// Nervous
-
-/mob/living/proc/BecomeNervous()
-	disabilities |= NERVOUS
-
-/mob/living/proc/CureNervous()
-	disabilities &= ~NERVOUS
-
-// Tourettes
-
-/mob/living/proc/BecomeTourettes()
-	disabilities |= TOURETTES
-
-/mob/living/proc/CureTourettes()
-	disabilities &= ~TOURETTES

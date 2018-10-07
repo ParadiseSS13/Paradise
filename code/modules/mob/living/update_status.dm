@@ -25,7 +25,7 @@
 		clear_alert("high")
 
 /mob/living/update_nearsighted_effects()
-	if(disabilities & NEARSIGHTED)
+	if(has_trait(TRAIT_NEARSIGHT))
 		overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")
@@ -41,7 +41,7 @@
 
 // Whether the mob can hear things
 /mob/living/can_hear()
-	return !(ear_deaf || (disabilities & DEAF))
+	return !(ear_deaf || (has_trait(TRAIT_DEAF)))
 
 // Whether the mob is able to see
 /mob/living/has_vision()
@@ -49,7 +49,7 @@
 
 // Whether the mob is capable of talking
 /mob/living/can_speak()
-	if(!(silent || (disabilities & MUTE)))
+	if(!(silent || (has_trait(TRAIT_MUTE))))
 		if(is_muzzled())
 			var/obj/item/clothing/mask/muzzle/M = wear_mask
 			if(M.mute >= MUZZLE_MUTE_MUFFLE)
@@ -60,7 +60,7 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(weakened || paralysis || stat || (status_flags & FAKEDEATH))
+	return !(weakened || paralysis || stat || (has_trait(TRAIT_FAKEDEATH)))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)

@@ -266,7 +266,7 @@
 			if(G.tint)
 				update_tint()
 			if(G.prescription)
-				if(disabilities & NEARSIGHTED)
+				if(has_trait(TRAIT_NEARSIGHT))
 					overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
 				update_sight()
@@ -424,8 +424,7 @@
 		if(2)	return 0 //if it returns 2, it wants no normal handling
 
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
-		if(FAT in mutations)
-			//testing("[M] TOO FAT TO WEAR [src]!")
+		if(has_trait(TRAIT_FAT))
 			if(!(I.flags_size & ONESIZEFITSALL))
 				if(!disable_warning)
 					to_chat(src, "<span class='alert'>You're too fat to wear the [I].</span>")

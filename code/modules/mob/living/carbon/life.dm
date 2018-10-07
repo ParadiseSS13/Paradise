@@ -441,7 +441,7 @@
 	see_in_dark = initial(see_in_dark)
 	sight = initial(sight)
 
-	if(XRAY in mutations)
+	if(has_trait(TRAIT_XRAY))
 		grant_xray_vision()
 
 	if(client.eye != src)

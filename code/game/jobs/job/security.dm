@@ -150,7 +150,7 @@
 		return
 
 	H.dna.SetSEState(SOBERBLOCK,1)
-	H.mutations += SOBER
+	H.add_trait(TRAIT_SOBER, GENETIC_MUTATION)
 	H.check_mutations = 1
 
 /datum/job/officer

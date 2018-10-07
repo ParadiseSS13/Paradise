@@ -232,7 +232,7 @@
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = 0)
 	if(user == src || anchored)
 		return 0
-	if(!(status_flags & CANPUSH))
+	if(!(status_flags & CANPUSH) || (has_trait(TRAIT_PUSHIMMUNE)))
 		return 0
 
 	for(var/obj/item/grab/G in grabbed_by)

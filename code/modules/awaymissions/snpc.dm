@@ -6,7 +6,7 @@
 
 /mob/living/carbon/human/interactive/away/Initialize(mapload)
 	. = ..()
-	TRAITS |= TRAIT_ROBUST
+	TRAITS |= AI_TRAIT_ROBUST
 	faction += "away"
 
 /mob/living/carbon/human/interactive/away/random()

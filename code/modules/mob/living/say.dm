@@ -63,7 +63,7 @@ proc/get_radio_key_from_channel(var/channel)
 	var/robot = isSynthetic()
 
 
-	if((HULK in mutations) && health >= 25 && length(message))
+	if((has_trait(TRAIT_HULK)) && health >= 25 && length(message))
 		message = "[uppertext(message)]!!!"
 		verb = pick("yells","roars","hollers")
 		speech_problem_flag = 1

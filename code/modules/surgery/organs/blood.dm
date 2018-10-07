@@ -22,7 +22,7 @@
 		bleed_rate = 0
 		return
 
-	if(bodytemperature >= 225 && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
+	if(bodytemperature >= 225 && !(has_trait(TRAIT_NOCLONE))) //cryosleep or husked people do not pump the blood.
 
 		//Blood regeneration if there is some space
 		if(blood_volume < max_blood && blood_volume)
@@ -82,10 +82,10 @@
 
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
 
-		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
+		if(internal_bleeding_rate && !(has_trait(TRAIT_FAKEDEATH)))
 			bleed(internal_bleeding_rate)
 
-		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
+		if(bleed_rate && !bleedsuppress && !(has_trait(TRAIT_FAKEDEATH)))
 			bleed(bleed_rate)
 
 //Makes a blood drop, leaking amt units of blood from the mob
@@ -201,7 +201,7 @@
 /mob/living/carbon/human/get_blood_id()
 	if(dna.species.exotic_blood)//some races may bleed water..or kethcup..
 		return dna.species.exotic_blood
-	else if((NO_BLOOD in dna.species.species_traits) || (NOCLONE in mutations))
+	else if((NO_BLOOD in dna.species.species_traits) || (has_trait(TRAIT_NOCLONE)))
 		return
 	return "blood"
 

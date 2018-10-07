@@ -585,7 +585,7 @@ Class Procs:
 		return 0
 	if(!prob(prb))
 		return 0
-	if((TK in user.mutations) && !Adjacent(user))
+	if((user.has_trait(TRAIT_TK)) && !Adjacent(user))
 		return 0
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(5, 1, src)

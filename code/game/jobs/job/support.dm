@@ -34,7 +34,7 @@
 		return
 
 	H.dna.SetSEState(SOBERBLOCK,1)
-	H.mutations += SOBER
+	H.add_trait(TRAIT_SOBER, GENETIC_MUTATION)
 	H.check_mutations = 1
 
 
@@ -248,7 +248,7 @@
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	H.mutations.Add(CLUMSY)
+	H.add_trait(TRAIT_CLUMSY, GENETIC_MUTATION)
 	H.dna.SetSEState(COMICBLOCK, 1, 1)
 	genemutcheck(H, COMICBLOCK, null, MUTCHK_FORCED)
 
