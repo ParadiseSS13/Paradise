@@ -455,7 +455,8 @@ var/const/INGEST = 2
 			reagent_list -= A
 			qdel(A)
 			update_total()
-			my_atom.on_reagent_change()
+			if(my_atom)
+				my_atom.on_reagent_change()
 			return 0
 
 
@@ -537,7 +538,8 @@ var/const/INGEST = 2
 		if(R.id == reagent)
 			R.volume += amount
 			update_total()
-			my_atom.on_reagent_change()
+			if(my_atom)
+				my_atom.on_reagent_change()
 			R.on_merge(data)
 			if(!no_react)
 				handle_reactions()
@@ -555,7 +557,8 @@ var/const/INGEST = 2
 			R.on_new(data)
 
 		update_total()
-		my_atom.on_reagent_change()
+		if(my_atom)
+			my_atom.on_reagent_change()
 		if(!no_react)
 			handle_reactions()
 		return 0
@@ -578,7 +581,8 @@ var/const/INGEST = 2
 			update_total()
 			if(!safety)//So it does not handle reactions when it need not to
 				handle_reactions()
-			my_atom.on_reagent_change()
+			if(my_atom)
+				my_atom.on_reagent_change()
 			return 0
 
 	return 1
