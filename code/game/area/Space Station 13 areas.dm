@@ -161,6 +161,9 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/arrival/station
 	icon_state = "shuttle"
 
+/area/shuttle/auxillary_base
+	icon_state = "shuttle"
+
 /area/shuttle/escape
 	name = "\improper Emergency Shuttle"
 	music = "music/escape.ogg"
@@ -967,6 +970,14 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_environ = 0
 
+/area/maintenance/electrical_shop
+	name ="Electronics Den"
+	icon_state = "yellow"
+
+/area/maintenance/gambling_den
+	name = "Gambling Den"
+	icon_state = "yellow"
+
 /area/maintenance/consarea
 	name = "Alternate Construction Area"
 	icon_state = "yellow"
@@ -1176,6 +1187,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Bar"
 	icon_state = "bar"
 
+/area/crew_quarters/bar/atrium
+	name = "Atrium"
+	icon_state = "bar"
+
 /area/crew_quarters/theatre
 	name = "\improper Theatre"
 	icon_state = "Theatre"
@@ -1185,8 +1200,12 @@ var/list/ghostteleportlocs = list()
 	icon_state = "Theatre"
 
 /area/library
- 	name = "\improper Library"
- 	icon_state = "library"
+	name = "\improper Library"
+	icon_state = "library"
+
+/area/library/abandoned
+	name = "\improper Abandoned Library"
+	icon_state = "library"
 
 /area/chapel/main
 	name = "\improper Chapel"
@@ -1363,6 +1382,14 @@ var/list/ghostteleportlocs = list()
 
 /area/engine/mechanic_workshop
 	name = "\improper Mechanic Workshop"
+	icon_state = "engine"
+
+/area/engine/mechanic_workshop/hanger
+	name = "\improper Hanger Bay"
+	icon_state = "engine"
+
+/area/engine/supermatter
+	name = "\improper Supermatter Engine"
 	icon_state = "engine"
 
 //Solars
@@ -1838,6 +1865,10 @@ area/security/podbay
 	name = "\improper Hydroponics"
 	icon_state = "hydro"
 
+/area/hydroponics/abandoned_garden
+	name = "\improper Abandoned Garden"
+	icon_state = "hydro"
+
 //Toxins
 
 /area/toxins/lab
@@ -2161,6 +2192,10 @@ area/security/podbay
 
 /area/construction
 	name = "\improper Construction Area"
+	icon_state = "yellow"
+
+/area/mining_construction
+	name = "Auxillary Base Construction"
 	icon_state = "yellow"
 
 /area/construction/supplyshuttle
