@@ -12,7 +12,6 @@
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\cyberiad.dm"
-#include "_maps\arena_template.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -1477,6 +1476,7 @@
 #include "code\modules\hydroponics\grown\chili.dm"
 #include "code\modules\hydroponics\grown\citrus.dm"
 #include "code\modules\hydroponics\grown\cocoa_vanilla.dm"
+#include "code\modules\hydroponics\grown\coconut.dm"
 #include "code\modules\hydroponics\grown\corn.dm"
 #include "code\modules\hydroponics\grown\eggplant.dm"
 #include "code\modules\hydroponics\grown\flowers.dm"

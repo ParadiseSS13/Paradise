@@ -61,3 +61,13 @@
 	trash = /obj/item/reagent_containers/food/drinks/mug
 	filling_color = "#F40909"
 	list_reagents = list("nutriment" = 7, "psilocybin" = 1, "amanitin" = 1)
+
+
+/obj/item/reagent_containers/food/snacks/macacosoup
+	name = "Macaco Soup"
+	desc = "Uma delicia"
+	icon = 'icons/obj/food/hispania-food.dmi'
+	icon_state = "macacosoup"
+	trash = /obj/item/trash/snack_bowl
+	bitesize = 5
+	list_reagents = list("nutriment" = 7, "vitamin" = 2)
