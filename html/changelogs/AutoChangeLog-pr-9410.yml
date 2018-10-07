@@ -1,0 +1,5 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - rscadd: "All sharp items can cut sliceables like cheesewheel now."
+  - tweak: "Putting items inside sliceables is done by alt-click now."
