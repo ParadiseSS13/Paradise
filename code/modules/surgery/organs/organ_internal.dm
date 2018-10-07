@@ -19,6 +19,7 @@
 
 	var/obj/item/organ/internal/replaced = M.get_organ_slot(slot)
 	if(replaced)
+		to_chat(world, "[replaced] replaced by [src]")
 		if(dont_remove_slot)
 			non_primary = 1
 		else

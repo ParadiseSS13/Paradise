@@ -246,8 +246,9 @@
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
-/obj/item/storage/belt/security/response_team/gamma/New()
-	new /obj/item/melee/classic_baton(src)
+/obj/item/storage/belt/security/response_team_gamma/New()
+	..()
+	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)

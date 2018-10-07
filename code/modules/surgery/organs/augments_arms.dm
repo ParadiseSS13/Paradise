@@ -168,7 +168,6 @@
 /obj/item/organ/internal/cyberimp/arm/gun/laser/l
 	parent_organ = "l_arm"
 
-
 /obj/item/organ/internal/cyberimp/arm/gun/taser
 	name = "arm-mounted taser implant"
 	desc = "A variant of the arm cannon implant that fires electrodes and disabler shots. The cannon emerges from the subject's arm and remains inside when not in use."
@@ -244,6 +243,10 @@
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
 	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/bonesetter/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
+
+/obj/item/organ/internal/cyberimp/arm/surgery/l
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
 
 // lets make IPCs even *more* vulnerable to EMPs!
 /obj/item/organ/internal/cyberimp/arm/power_cord

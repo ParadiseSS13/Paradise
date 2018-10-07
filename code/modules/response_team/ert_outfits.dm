@@ -83,6 +83,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander/gamma
 	glasses = /obj/item/clothing/glasses/night
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
+	belt = /obj/item/gun/projectile/automatic/pistol/enforcer {mag_type = /obj/item/ammo_box/magazine/m45/enforcer45/lethal}
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma = 1,
@@ -99,10 +100,6 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stun,
 		/obj/item/organ/internal/cyberimp/arm/flash
 	)
-
-/datum/outfit/job/centcomm/response_team/commander/gamma/pre_equip()
-	var/gun = new /obj/item/gun/projectile/automatic/pistol/enforcer {mag_type = /obj/item/ammo_box/magazine/m45/enforcer45/lethal}
-	belt = gun
 
 //////////////////// SECURITY ///////////////////
 
@@ -165,7 +162,7 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/security/gamma
-	belt = /obj/item/storage/belt/security/response_team/gamma
+	belt = /obj/item/storage/belt/security/response_team_gamma
 	suit_store = /obj/item/gun/energy/gun/nuclear
 	glasses = /obj/item/clothing/glasses/night
 	l_pocket = /obj/item/restraints/legcuffs/bola/energy
@@ -359,11 +356,11 @@
 		)
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/arm/surgery/l,
+		/obj/item/organ/internal/cyberimp/arm/medibeam,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/eyes/hud/medical,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun,
-		/obj/item/organ/internal/cyberimp/arm/surgery,
-		/obj/item/organ/internal/cyberimp/arm/medibeam
+		/obj/item/organ/internal/cyberimp/brain/anti_stun
 	)
 
 //////////////////// PARANORMAL ///////////////////

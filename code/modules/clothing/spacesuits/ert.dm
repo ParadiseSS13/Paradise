@@ -40,7 +40,7 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun/energy/laser, /obj/item/gun/energy/pulse, \
-	/obj/item/gun/energy/gun/advtaser, /obj/item/melee/baton, /obj/item/gun/energy/gun, /obj/item/gun/projectile/automatic/lasercarbine, /obj/item/gun/energy/gun/blueshield)
+	/obj/item/gun/energy/gun/advtaser, /obj/item/melee/baton, /obj/item/gun/energy/gun, /obj/item/gun/projectile/automatic/lasercarbine, /obj/item/gun/energy/gun/blueshield, /obj/item/gun/energy/immolator/multi)
 	strip_delay = 130
 	species_fit = list("Drask", "Vox")
 	sprite_sheets = list(
@@ -57,6 +57,7 @@
 	item_color = "ert_commander"
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma
+	name = "elite emergency response team commander helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammacommander"
 	item_color = "gammacommander"
@@ -68,6 +69,7 @@
 	item_state = "suit-command"
 
 /obj/item/clothing/suit/space/hardsuit/ert/commander/gamma
+	name = "elite emergency response team commander suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 //Security
@@ -79,6 +81,7 @@
 	item_color = "ert_security"
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/security/gamma
+	name = "elite emergency response team security helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammasecurity"
 	item_color = "gammasecurity"
@@ -90,6 +93,7 @@
 	item_state = "syndicate-black-red"
 
 /obj/item/clothing/suit/space/hardsuit/ert/security/gamma
+	name = "elite emergency response team security suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 //Engineer
@@ -102,6 +106,7 @@
 
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
+	name = "elite emergency response team engineer helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammaengineer"
 	item_color = "gammaengineer"
@@ -113,6 +118,7 @@
 	item_state = "suit-orange"
 
 /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
+	name = "elite emergency response team engineer suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 //Medical
@@ -123,6 +129,7 @@
 	item_color = "ert_medical"
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma
+	name = "elite emergency response team medical helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammamedical"
 	item_color = "gammamedical"
@@ -133,6 +140,7 @@
 	icon_state = "ert_medical"
 
 /obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
+	name = "elite emergency response team medical suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 //Janitor
@@ -143,6 +151,7 @@
 	item_color = "ert_janitor"
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor/gamma
+	name = "elite emergency response team janitor helmet"
 	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
 	icon_state = "hardsuit0-gammajanitor"
 	item_color = "gammajanitor"
@@ -153,6 +162,7 @@
 	icon_state = "ert_janitor"
 
 /obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
+	name = "elite emergency response team janitor suit"
 	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
 
 //Paranormal
