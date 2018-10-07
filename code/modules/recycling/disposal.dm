@@ -45,6 +45,26 @@
 		flush = initial(flush)
 		T.nicely_link_to_other_stuff(src)
 
+//When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
+/obj/machinery/disposal/Moved(atom/OldLoc, Dir) 
+	. = ..()
+	eject()
+	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
+	var/turf/T = OldLoc
+	if(T.intact)
+		var/turf/simulated/floor/F = T
+		F.remove_tile(null,TRUE,TRUE)
+		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
+	if(trunk)
+		trunk.remove_trunk_links()
+	var/obj/structure/disposalconstruct/C = new (loc)
+	transfer_fingerprints_to(C)
+	C.ptype = ptype
+	C.update()
+	C.anchored = 0
+	C.density = 1
+	qdel(src)
+
 /obj/machinery/disposal/Destroy()
 	eject()
 	if(trunk)
@@ -1344,6 +1364,24 @@
 		else
 			to_chat(user, "You need more welding fuel to complete this task.")
 			return
+
+//When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
+/obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir) 
+	. = ..()
+	var/turf/T = OldLoc
+	if(T.intact)
+		var/turf/simulated/floor/F = T
+		F.remove_tile(null,TRUE,TRUE)
+		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
+	if(linkedtrunk)
+		linkedtrunk.remove_trunk_links()
+	var/obj/structure/disposalconstruct/C = new (loc)
+	transfer_fingerprints_to(C)
+	C.ptype = PIPE_DISPOSALS_OUTLET
+	C.update()
+	C.anchored = 0
+	C.density = 1
+	qdel(src)
 
 /obj/structure/disposaloutlet/Destroy()
 	if(linkedtrunk)

@@ -881,7 +881,7 @@ var/global/trade_dockrequest_timelimit = 0
 	docking_request = 1
 	var/possible_destinations_dock
 	var/possible_destinations_nodock
-	var/docking_request_message = "A trading ship has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
+	var/docking_request_message = "A trading ship has submitted a request to dock for trading. This request can be accepted or denied using a communications console."
 
 /obj/machinery/computer/shuttle/trade/attack_hand(mob/user)
 	if(world.time < trade_dock_timelimit)
