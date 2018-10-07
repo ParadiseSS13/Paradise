@@ -746,6 +746,6 @@
     colour = "zombie"
     key = "zo"
     flags = RESTRICTED
-    syllables = list("BRaRArGh", "aaAARGaaHrrG", "ARrGAaAGUR", "GUrRuGHRGH")
+    syllables = list("BRaGh", "aGarG", "AaAGUR", "GUrRH")
 
 #undef SCRAMBLE_CACHE_LEN

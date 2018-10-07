@@ -6,38 +6,39 @@
 	icobase = 'icons/mob/human_races/r_zombie.dmi'
 	deform = 'icons/mob/human_races/r_zombie.dmi'
 	unarmed_type = /datum/unarmed_attack/zombie
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, NOGUNS, NOCRITDAMAGE, RESISTCOLD, NO_EXAMINE)
+	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, NOGUNS, NOCRITDAMAGE, RESISTCOLD, NO_EXAMINE, NO_DNA, NOTRANSSTING, NO_INTORGANS, NO_PAIN, VIRUSIMMUNE)
 	reagent_tag = null
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	hunger_drain = -1
-	dietflags = DIET_OMNI
+	dietflags = DIET_CARN //Comen carne.
 	language = "Zombie"
 	default_language = "Zombie"
 	speech_sounds = list('sound/voice/zombievoice.ogg') 
-	speech_chance = 20
+	speech_chance = 30
+	male_scream_sound = 'sound/voice/zombievoice.ogg'
+	female_scream_sound = 'sound/voice/zombievoice.ogg'
 	has_fine_manipulation = 0
 	death_message = "Stops moving..."
 	total_health = 85
 	brute_mod = 1.0
 	burn_mod = 0.85
 	stun_mod = 0.3
+	//Estas muerto, no respiras, no metabolizas.
 	tox_mod = 0
 	clone_mod = 0
 	oxy_mod = 0
 	brain_mod = 0
-	slowdown = 2
+	slowdown = 2 //Mas lentos que un humano.
 	punchdamagelow = 5
-	punchdamagehigh = 8
-	punchstunthreshold = 12
+	punchdamagehigh = 9
+	punchstunthreshold = 14 //Solo tumbaran con una probabilidad del 25% con cada golpe.
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
-		"appendix" = /obj/item/organ/internal/appendix,
+		"heart" =    /obj/item/organ/internal/heart/zombie,
+		"lungs" =    /obj/item/organ/internal/lungs/zombie,
+		"liver" =    /obj/item/organ/internal/liver/zombie,
+		"kidneys" =  /obj/item/organ/internal/kidneys/zombie,
+		"appendix" = /obj/item/organ/internal/appendix/zombie,
 		"eyes" = /obj/item/organ/internal/eyes/zombie,
 		)
 
