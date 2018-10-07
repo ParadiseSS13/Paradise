@@ -293,7 +293,7 @@
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/classic_baton/telescopic
 
-	l_hand = /obj/item/defibrillator
+	l_hand = /obj/item/defibrillator/loaded
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/ert/medical = 1,
