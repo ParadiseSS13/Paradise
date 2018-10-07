@@ -191,7 +191,7 @@ CHECK_RANDOMIZER
 ## Discord address
 # DISCORDURL http://example.org
 
-## Repository address
+## Bot ip address
 # RYZORBOT http://ryzorbot.herokuapp.com
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
