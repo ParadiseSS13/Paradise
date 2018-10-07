@@ -1401,11 +1401,11 @@ menu "menu"
 		group = ""
 		is-disabled = false
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Icons"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Size"
 		command = ""
 		category = "&Icons"
@@ -1424,7 +1424,7 @@ menu "menu"
 		category = "&Size"
 		can-check = true
 		group = "size"
-		saved-params = "is-checked"		
+		saved-params = "is-checked"
 	elem "icon96"
 		name = "&96x96 (3x)"
 		command = ".winset \"mapwindow.map.icon-size=96\""
@@ -1453,7 +1453,7 @@ menu "menu"
 		can-check = true
 		group = "size"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Scaling"
 		command = ""
 		category = "&Icons"
@@ -1718,7 +1718,8 @@ window "rpane"
 		type = BUTTON
 		pos = 634,0
 		size = 60x16
-		background-color = #008000	
+		background-color = #008000
+		text-color = #FFFFFF
 		font-style = bold
 		text = "Donate"
 		command = "Donate"
