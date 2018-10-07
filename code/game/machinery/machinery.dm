@@ -127,7 +127,7 @@ Class Procs:
 
 /obj/machinery/proc/addAtProcessing()
 	if(use_power)
-		myArea = get_area_master(src)
+		myArea = get_area(src)
 	if(!speed_process)
 		if(!defer_process)
 			START_PROCESSING(SSmachines, src)

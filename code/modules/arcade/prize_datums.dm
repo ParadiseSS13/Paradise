@@ -306,5 +306,5 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."
-	typepath = /obj/structure/stool/bed/chair/wheelchair/bike
+	typepath = /obj/structure/chair/wheelchair/bike
 	cost = 10000	//max stack + 1 tickets.

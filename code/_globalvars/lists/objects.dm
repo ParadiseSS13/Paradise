@@ -44,3 +44,5 @@ var/global/list/poi_list = list()					//list of points of interest for observe/f
 var/global/list/active_jammers = list()             // List of active radio jammers
 
 var/global/list/active_diseases = list() 			//List of Active disease in all mobs; purely for quick referencing.
+
+GLOBAL_LIST_EMPTY(mob_spawners) 		    // All mob_spawn objects

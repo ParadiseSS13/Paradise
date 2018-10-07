@@ -354,8 +354,8 @@
 		handle_dreams()
 		adjustStaminaLoss(-10)
 		var/comfort = 1
-		if(istype(buckled, /obj/structure/stool/bed))
-			var/obj/structure/stool/bed/bed = buckled
+		if(istype(buckled, /obj/structure/bed))
+			var/obj/structure/bed/bed = buckled
 			comfort+= bed.comfort
 		for(var/obj/item/bedsheet/bedsheet in range(loc,0))
 			if(bedsheet.loc != loc) //bedsheets in your backpack/neck don't give you comfort

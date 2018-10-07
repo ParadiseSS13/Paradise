@@ -626,8 +626,8 @@ var/list/teleport_runes = list()
 	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
 	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
 	cult_mode.demons_summoned = 1
-	shuttle_master.emergency.request(null, 0.5,null)
-	shuttle_master.emergency.canRecall = FALSE
+	SSshuttle.emergency.request(null, 0.5,null)
+	SSshuttle.emergency.canRecall = FALSE
 	cult_mode.third_phase()
 	qdel(src)
 

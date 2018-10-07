@@ -177,16 +177,16 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
 		return 0
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	if(issilicon(owner.current))
 		return 0
 
 	var/area/A = get_area(owner.current)
-	if(shuttle_master.emergency.areaInstance != A)
+	if(SSshuttle.emergency.areaInstance != A)
 		return 0
 
-	return shuttle_master.emergency.is_hijacked()
+	return SSshuttle.emergency.is_hijacked()
 
 /datum/objective/hijackclone
 	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
@@ -195,10 +195,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/hijackclone/check_completion()
 	if(!owner.current)
 		return 0
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 
-	var/area/A = shuttle_master.emergency.areaInstance
+	var/area/A = SSshuttle.emergency.areaInstance
 
 	for(var/mob/living/player in player_list) //Make sure nobody else is onboard
 		if(player.mind && player.mind != owner)
@@ -226,12 +226,12 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
 		return 0
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	if(!owner.current)
 		return 0
 
-	var/area/A = shuttle_master.emergency.areaInstance
+	var/area/A = SSshuttle.emergency.areaInstance
 	var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 
 	for(var/mob/living/player in player_list)
@@ -258,7 +258,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return 1
 	if(ticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
 		return 1
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	var/turf/location = get_turf(owner.current)
 	if(!location)
