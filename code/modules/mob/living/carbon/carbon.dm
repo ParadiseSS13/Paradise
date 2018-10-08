@@ -269,7 +269,7 @@
 						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-5)
 				if(sleeping == 0)
-					resting = 0
+					StopResting()
 				AdjustParalysis(-3)
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
