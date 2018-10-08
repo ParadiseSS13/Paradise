@@ -16,11 +16,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 
 
 /area
-	var/fire = null
-	var/atmosalm = ATMOS_ALARM_NONE
-	var/poweralm = 1
-	var/party = null
-	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
@@ -32,6 +27,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/lightswitch = 1
+	var/fire = null // used for fire alarms
+	var/atmosalm = ATMOS_ALARM_NONE
+	var/party = null // used for party alarms
+	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
 
 	var/eject = null
 
@@ -2237,7 +2236,7 @@ area/security/podbay
 /area/traitor
 	name = "\improper Syndicate Base"
 	icon_state = "syndie_hall"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/traitor/rnd
 	name = "\improper Syndicate Research and Development"
@@ -2436,7 +2435,7 @@ area/security/podbay
 /area/awaymission
 	name = "\improper Strange Location"
 	icon_state = "away"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaymission/example
 	name = "\improper Strange Station"
@@ -2536,7 +2535,7 @@ area/security/podbay
 
 /area/awaycontent
 	name = "space"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaycontent/a1
 	icon_state = "awaycontent1"
