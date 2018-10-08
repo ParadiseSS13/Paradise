@@ -1,5 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Fixes the corpse spawners in Space Battle Away Mission."
-  - tweak: "Space Battle Away Mission now uses Decals properly."
