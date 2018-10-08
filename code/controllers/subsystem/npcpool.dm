@@ -36,16 +36,16 @@ SUBSYSTEM_DEF(npcpool)
 	// 5. Do all assignments: goes through the delegated/coordianted bots and assigns the right variables/tasks to them.
 
 	if (!resumed)
-		src.currentrun = processing.Copy()
+		currentrun = processing.Copy()
 		stage = PROCESSING_NPCS
 	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
-	var/list/canBeUsed = src.canBeUsed
+	var/list/cachecurrentrun = currentrun
+	var/list/cachecanBeUsed = canBeUsed
 
 	if(stage == PROCESSING_NPCS)
-		while(currentrun.len)
-			var/mob/living/carbon/human/interactive/thing = currentrun[currentrun.len]
-			--currentrun.len
+		while(cachecurrentrun.len)
+			var/mob/living/carbon/human/interactive/thing = cachecurrentrun[cachecurrentrun.len]
+			--cachecurrentrun.len
 
 			thing.InteractiveProcess()
 
@@ -55,19 +55,19 @@ SUBSYSTEM_DEF(npcpool)
 			else if(thing.doing & SNPC_FIGHTING)
 				needsAssistant += thing
 			else
-				canBeUsed += thing
+				cachecanBeUsed += thing
 
 			if (MC_TICK_CHECK)
 				return
 		stage = PROCESSING_DELEGATES
-		currentrun = needsDelegate	//localcache
-		src.currentrun = currentrun
+		cachecurrentrun = needsDelegate	//localcache
+		currentrun = cachecurrentrun
 
 	if(stage == PROCESSING_DELEGATES)
-		while(currentrun.len && canBeUsed.len)
-			var/mob/living/carbon/human/interactive/check = currentrun[currentrun.len]
-			var/mob/living/carbon/human/interactive/candidate = canBeUsed[canBeUsed.len]
-			--currentrun.len
+		while(cachecurrentrun.len && cachecanBeUsed.len)
+			var/mob/living/carbon/human/interactive/check = cachecurrentrun[cachecurrentrun.len]
+			var/mob/living/carbon/human/interactive/candidate = cachecanBeUsed[cachecanBeUsed.len]
+			--cachecurrentrun.len
 
 			var/helpProb = 0
 			var/list/chfac = check.faction
@@ -84,22 +84,22 @@ SUBSYSTEM_DEF(npcpool)
 				helpProb = 100
 
 			if(prob(helpProb) && candidate.takeDelegate(check))
-				--canBeUsed.len
+				--cachecanBeUsed.len
 				candidate.change_eye_color(255, 0, 0)
 				candidate.update_icons()
 
 			if(MC_TICK_CHECK)
 				return
 		stage = PROCESSING_ASSISTANTS
-		currentrun = needsAssistant	//localcache
-		src.currentrun = currentrun
+		cachecurrentrun = needsAssistant	//localcache
+		currentrun = cachecurrentrun
 
 	//no need for the stage check
 
-	while(currentrun.len && canBeUsed.len)
-		var/mob/living/carbon/human/interactive/check = currentrun[currentrun.len]
-		var/mob/living/carbon/human/interactive/candidate = canBeUsed[canBeUsed.len]
-		--currentrun.len
+	while(cachecurrentrun.len && cachecanBeUsed.len)
+		var/mob/living/carbon/human/interactive/check = cachecurrentrun[cachecurrentrun.len]
+		var/mob/living/carbon/human/interactive/candidate = cachecanBeUsed[cachecanBeUsed.len]
+		--cachecurrentrun.len
 
 		var/helpProb = 0
 		var/list/chfac = check.faction
@@ -116,11 +116,11 @@ SUBSYSTEM_DEF(npcpool)
 			helpProb = 100
 	
 		if(prob(helpProb) && candidate.takeDelegate(check,FALSE))
-			--canBeUsed.len
+			--cachecanBeUsed.len
 			candidate.change_eye_color(255, 255, 0)
 			candidate.update_icons()
 			
-		if(!currentrun.len || MC_TICK_CHECK)	//don't change SS state if it isn't necessary
+		if(!cachecurrentrun.len || MC_TICK_CHECK)	//don't change SS state if it isn't necessary
 			return
 
 /datum/controller/subsystem/npcpool/Recover()
