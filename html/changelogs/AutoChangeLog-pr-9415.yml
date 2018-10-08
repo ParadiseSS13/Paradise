@@ -1,6 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - tweak: "Logging added to RD teleport gun, some projectile are always logged"
-  - tweak: "EMPulse & Explosion can optionally log a cause for administrative purpose"
-  - tweak: "Backend Attack logs now display coordinates of attacker & defender for forensic reconstruction."
