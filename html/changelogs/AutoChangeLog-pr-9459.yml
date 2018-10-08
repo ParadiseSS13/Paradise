@@ -1,6 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - tweak: "NPCpool (SNPC) is now a subsystem."
-  - tweak: "NPCAI (For simple mob) is now a subsystem."
-  - bugfix: "Customising SNPC no longer results in screaming death and a naked person."

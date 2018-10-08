@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - rscadd: "Adds plasma window spawners for mappers."
