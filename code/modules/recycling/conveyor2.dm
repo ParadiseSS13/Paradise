@@ -6,14 +6,14 @@ GLOBAL_LIST_INIT(conveyor_belts, list()) //Saves us having to look through the e
 GLOBAL_LIST_INIT(conveyor_switches, list())
 
 //conveyor2 is pretty much like the original, except it supports corners, but not diverters.
-//note that corner pieces transfer stuff clockwise when running forward, and anti-clockwise backwards.
+//Except this is pretty heavily modified so it's more like conveyor2.5
 
 /obj/machinery/conveyor
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_stopped_cw"
 	name = "conveyor belt"
-	desc = "A conveyor belt."
-	layer = TURF_LAYER 		// so they appear under stuff
+	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
+	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
 	var/forwards			// The direction the conveyor sends you in
@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "A conveyor control switch."
+	desc = "This switch controls any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch-off"
 	var/position = DIRECTION_OFF
@@ -324,7 +324,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_loose"
 	name = "conveyor belt assembly"
-	desc = "A conveyor belt assembly."
+	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems."
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 
@@ -344,7 +344,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	if(!istype(T, /turf/simulated/floor))
 		return
 	if(T == get_turf(user))
-		to_chat(user, "<span class='notice'>You cannot place a conveyor belt under yourself.</span>")
+		to_chat(user, "<span class='notice'>You cannot place [src] under yourself.</span>")
 		return
 	if(locate(/obj/machinery/conveyor) in T) //Can't put conveyors beneath conveyors
 		to_chat(user, "<span class='notice'>There's already a conveyor there!</span>")
@@ -355,7 +355,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
-	desc = "A conveyor control switch assembly."
+	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "switch"
 	w_class = WEIGHT_CLASS_BULKY
@@ -397,7 +397,13 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/item/paper/conveyor
 	name = "paper- 'Nano-it-up U-build series, #9: Build your very own conveyor belt, in SPACE'"
-	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined assembly procedure that puts all other mail-order products to shame!</p><p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! </p><p> Set single directional switches by using your multitool on the switch after you've installed the switch assembly.</p><p> This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
+	info = "<h1>Congratulations!</h1><p>You are now the proud owner of the best conveyor set available for space mail order! \
+	We at Nano-it-up know you love to prepare your own structures without wasting time, so we have devised a special streamlined \
+	assembly procedure that puts all other mail-order products to shame!</p>\
+	<p>Firstly, you need to link the conveyor switch assembly to each of the conveyor belt assemblies. After doing so, you simply need to install the belt \
+	assemblies onto the floor, et voila, belt built. Our special Nano-it-up smart switch will detected any linked assemblies as far as the eye can see! </p>\
+	<p> Set single directional switches by using your multitool on the switch after you've installed the switch assembly.</p>\
+	<p> This convenience, you can only have it when you Nano-it-up. Stay nano!</p>"
 
 /obj/machinery/conveyor/counterclockwise
 	clockwise = FALSE
