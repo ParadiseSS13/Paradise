@@ -1,0 +1,4 @@
+author: "Ansari, Birdtalon"
+delete-after: True
+changes: 
+  - bugfix: "Updates resting procs, fixes getting people up from help intent."
