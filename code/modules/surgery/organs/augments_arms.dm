@@ -327,7 +327,7 @@
 	name = "telebaton implant"
 	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
 	
-	contents = newlist(/obj/item/melee/classic_baton/telescopic)
+	contents = newlist(/obj/item/melee/classic_baton)
 
 /obj/item/organ/internal/cyberimp/arm/advmop
 	name = "advanced mop implant"
