@@ -653,12 +653,12 @@
 	construction_time = 200
 	category = list("Exosuit Equipment")
 
-/datum/design/medical_clamp
-	name = "Exosuit Medical Equipment (Rescue Clamp)"
-	id = "mech_medical_clamp"
+/datum/design/medical_jaw
+	name = "Exosuit Medical Equipment (Rescue Jaw)"
+	id = "mech_medical_jaw"
 	build_type = MECHFAB
 	req_tech = list("biotech" = 4, "engineering" = 4)
-	build_path = /obj/item/mecha_parts/mecha_equipment/medical/rescue_clamp
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	materials = list(MAT_METAL=5000,MAT_GLASS=2000,MAT_DIAMOND=1500)
 	construction_time = 200
 	category = list("Exosuit Equipment")

@@ -851,8 +851,8 @@
 		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 
 
-/obj/mecha/emag_act(user as mob)
-	to_chat(usr, "<span class='warning'>The [src]'s ID slot rejects the card.</span>")
+/obj/mecha/emag_act(mob/user)
+	to_chat(user, "<span class='warning'>The [src]'s ID slot rejects the card.</span>")
 	return
 
 

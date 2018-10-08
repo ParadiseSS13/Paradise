@@ -524,9 +524,9 @@
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
 
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_clamp
-	name = "rescue clamp"
-	desc = "Emergency rescue clamp, designed to help first responders reach their patients. Opens doors and removes obstacles."
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
+	name = "rescue jaw"
+	desc = "Emergency rescue jaw, designed to help first responders reach their patients. Opens doors and removes obstacles."
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
 	origin_tech = "engineering=4;biotech=3"
 	equip_cooldown = 15
@@ -534,7 +534,7 @@
 	var/dam_force = 20
 
 
-/obj/item/mecha_parts/mecha_equipment/medical/rescue_clamp/action(atom/target)
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
 	if(!action_checks(target))
 		return
 	if(istype(target,/obj))
@@ -542,7 +542,7 @@
 			return
 		var/obj/machinery/door/D = target	//the door we want to open
 		D.try_to_crowbar(src, chassis.occupant)//use the door's crowbar function
-	if(istype(target,/mob/living))	//interact with living beings
+	if(isliving(target))	//interact with living beings
 		var/mob/living/M = target
 		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not. (unless it is emagged, of course)
 			if(chassis.emagged == 0)
