@@ -18,3 +18,10 @@
 				if((health >= (config.health_threshold_dead + config.health_threshold_crit) * 0.5) && getBrainLoss()<120)
 					update_revive()
 					create_debug_log("revived from healing, trigger reason: [reason]")
+
+/mob/living/carbon/human/update_nearsighted_effects()
+	var/obj/item/clothing/glasses/G = glasses
+	if((disabilities & NEARSIGHTED) && (!istype(G) || !G.prescription))
+		overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+	else
+		clear_fullscreen("nearsighted")
