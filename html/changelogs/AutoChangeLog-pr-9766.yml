@@ -1,0 +1,5 @@
+author: "Crazylemon"
+delete-after: True
+changes: 
+  - bugfix: "Fixes AIs being unable to examine due to a runtime."
+  - bugfix: "Fixes nearsighted glasses behavior being inverted (seeing worse with glasses)."
