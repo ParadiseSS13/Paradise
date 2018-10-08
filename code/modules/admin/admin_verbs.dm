@@ -212,7 +212,6 @@ var/list/admin_verbs_proccall = list(
 )
 var/list/admin_verbs_snpc = list(
 	/client/proc/resetSNPC,
-	/client/proc/toggleSNPC,
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )
