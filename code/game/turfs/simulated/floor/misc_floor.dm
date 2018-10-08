@@ -51,7 +51,7 @@
 /turf/simulated/floor/beach/water
 	name = "water"
 	icon_state = "water"
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /turf/simulated/floor/beach/water/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return	//cannot pry off tiles of water

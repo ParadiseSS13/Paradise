@@ -26,7 +26,7 @@
 /obj/screen/text
 	icon = null
 	icon_state = null
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = "CENTER-7,CENTER-7"
 	maptext_height = 480
 	maptext_width = 480
@@ -379,7 +379,7 @@
 	icon = 'icons/mob/guardian.dmi'
 	icon_state = "base"
 	screen_loc = ui_health
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/screen/healthdoll
 	name = "health doll"

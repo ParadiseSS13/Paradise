@@ -22,7 +22,7 @@
 	faction = list("mushroom")
 	environment_smash = 0
 	stat_attack = 2
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
 	ventcrawler = 2
 	robust_searching = 1

@@ -348,7 +348,7 @@ var/list/holopads = list()
 			hologram.alpha = 100
 			hologram.Impersonation = user
 
-		hologram.mouse_opacity = 0//So you can't click on it.
+		hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 		hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
 		hologram.anchored = 1//So space wind cannot drag it.
 		hologram.name = "[user.name] (hologram)"//If someone decides to right click.
@@ -481,7 +481,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	layer = FLY_LAYER
 	density = FALSE
 	anchored = TRUE
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100
