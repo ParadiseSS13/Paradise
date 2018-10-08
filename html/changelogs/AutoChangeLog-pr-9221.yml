@@ -1,0 +1,5 @@
+author: "Crazylemon64"
+delete-after: True
+changes: 
+  - bugfix: "Updates for damage on HUD elements are now instant for cyborgs and humans."
+  - rscadd: "When dead, you can now see your surroundings with ghost vision and examine things around you."
