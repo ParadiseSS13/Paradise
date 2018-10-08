@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - tweak: "MoonOutpost19 Away Mission now uses Decals properly."
