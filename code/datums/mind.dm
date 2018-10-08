@@ -128,7 +128,7 @@
 	output += memory
 
 	if(objectives.len)
-		output += "<HR><B>Objectives:</B>"
+		output += "<HR><B>Objectives:</B><BR>"
 		output += gen_objective_text()
 
 	if(job_objectives.len)
@@ -150,7 +150,7 @@
 	for(var/datum/objective/objective in objectives)
 		. += "<b>Objective #[obj_count]</b>: [objective.explanation_text]"
 		if(admin)
-			. += "<a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
+			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
 			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete
 
 			. += "<a href='?src=[UID()];obj_completed=\ref[objective]'>" // Mark Completed
