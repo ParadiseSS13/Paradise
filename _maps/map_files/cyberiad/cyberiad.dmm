@@ -578,7 +578,7 @@
 "alf" = (/obj/machinery/vending/security,/obj/machinery/firealarm{dir = 1; pixel_y = -24},/obj/item/radio/intercom/department/security{pixel_x = -28},/turf/simulated/floor/plasteel{icon_state = "redcorner"; dir = 1},/area/security/armoury)
 "alg" = (/turf/simulated/floor/plasteel{icon_state = "redcorner"; dir = 1},/area/security/armoury)
 "alh" = (/obj/effect/decal/warning_stripes/red/hollow,/obj/structure/closet/l3closet/security,/turf/simulated/floor/plasteel{icon_state = "redcorner"; dir = 4},/area/security/armoury)
-"ali" = (/obj/effect/decal/warning_stripes/red/hollow,/obj/structure/closet/bombcloset,/turf/simulated/floor/plasteel{icon_state = "redcorner"; dir = 4},/area/security/armoury)
+"ali" = (/obj/effect/decal/warning_stripes/red/hollow,/obj/structure/closet/bombclosetsecurity,/turf/simulated/floor/plasteel{icon_state = "redcorner"; dir = 4},/area/security/armoury)
 "alj" = (/obj/machinery/light_switch{pixel_x = -25},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/securearmoury)
 "alk" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5; level = 1},/obj/machinery/light,/obj/machinery/door_control{id = "Secure Armory"; name = "Secure Armory Shutter Control"; pixel_x = 7; pixel_y = -28; req_access_txt = "3"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/securearmoury)
 "all" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/securearmoury)
