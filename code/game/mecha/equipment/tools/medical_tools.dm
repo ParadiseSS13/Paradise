@@ -88,9 +88,12 @@
 	if(!patient)
 		return
 	if(chassis.emagged)//you won't escape this easily...
-		to_chat(patient, "<span class = 'userdanger'> The [src]'s internal release level refuses to move. You are trapped! </span>")
+		to_chat(patient, "<span class = 'userdanger'>[src]'s internal release level refuses to move. You look for a way out!</span>")
 		chassis.visible_message("<span class='warning'>You hear someone bang against the inside of [chassis]'s sleeper.</span>")//at least they'll notice your struggles.
-		return
+		do_after(patient, 300, needhand = 0, target = chassis)//progress bar of your struggle to get free
+		if(!patient)//if the patient was removed, there's no need for this anymore. Otherwise move on to normal release.
+			return
+		to_chat(patient, "<span class = 'userdanger'>You finally manage to force open the sleeper's hatch. You are free!</span>")
 	patient.forceMove(get_turf(src))
 	occupant_message("[patient] ejected. Life support functions disabled.")
 	log_message("[patient] ejected. Life support functions disabled.")
