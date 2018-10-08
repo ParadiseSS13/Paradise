@@ -38,7 +38,7 @@
 	thickweb_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/death(gibbed)
-	if(spider_myqueen)
+	if(can_die() && spider_myqueen)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/queen/Q = spider_myqueen
 		if(Q.stat != DEAD && !Q.ckey)
 			if(get_dist(src,Q) > 20)
@@ -46,7 +46,7 @@
 					degenerate = 1
 					Q.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple,1,0)
 					visible_message("<span class='notice'>[src] chitters in the direction of [Q]!</span>")
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple/Life(seconds, times_fired)
 	. = ..()

@@ -294,7 +294,7 @@
 			if(prob(50) && !shielded)
 				Paralyse(10)
 
-	take_overall_damage(b_loss,f_loss, used_weapon = "Explosive Blast")
+	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
 
 	..()
 
@@ -1598,7 +1598,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(H.health > config.health_threshold_dead && H.health <= config.health_threshold_crit)
 			var/suff = min(H.getOxyLoss(), 7)
 			H.adjustOxyLoss(-suff)
-			H.updatehealth()
+			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", \
 							  "<span class='notice'>You perform CPR on [H.name].</span>")
 

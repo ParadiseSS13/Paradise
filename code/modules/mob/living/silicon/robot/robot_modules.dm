@@ -106,7 +106,10 @@
 
 // Return true in an overridden subtype to prevent normal removal handling
 /obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W, params)
-    return FALSE
+	return FALSE
+
+/obj/item/robot_module/proc/handle_death(gibbed)
+	return
 
 /obj/item/robot_module/standard
 	name = "standard robot module"
@@ -216,6 +219,11 @@
 		modules += M
 
 	fix_modules()
+
+/obj/item/robot_module/engineering/handle_death()
+	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
+	if(G)
+		G.drop_item()
 
 /obj/item/robot_module/security
 	name = "security robot module"
@@ -529,6 +537,12 @@
 	LR.Charge(R)
 
 	..()
+
+
+/obj/item/robot_module/drone/handle_death()
+	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
+	if(G)
+		G.drop_item()
 
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()

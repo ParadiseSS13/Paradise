@@ -60,7 +60,7 @@
 					if(organ.receive_damage(d, 0))
 						H.UpdateDamageIcon()
 
-				H.updatehealth()
+				H.updatehealth("stomach attack")
 
 			else
 				src.take_organ_damage(d)
@@ -144,7 +144,7 @@
 		return 0
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	take_overall_damage(0,shock_damage, used_weapon = "Electrocution")
+	take_overall_damage(0,shock_damage, TRUE, used_weapon = "Electrocution")
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \

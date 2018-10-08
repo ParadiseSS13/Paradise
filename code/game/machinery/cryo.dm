@@ -385,7 +385,7 @@
 					occupant.adjustToxLoss(max(-efficiency, (-20*(efficiency ** 2)) / occupant.getToxLoss()))
 				var/heal_brute = occupant.getBruteLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getBruteLoss()) : 0
 				var/heal_fire = occupant.getFireLoss() ? min(efficiency, 20*(efficiency**2) / occupant.getFireLoss()) : 0
-				occupant.heal_organ_damage(heal_brute,heal_fire)
+				occupant.heal_organ_damage(heal_brute, heal_fire)
 		if(beaker && next_trans == 0)
 			var/proportion = 10 * min(1/beaker.volume, 1)
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch

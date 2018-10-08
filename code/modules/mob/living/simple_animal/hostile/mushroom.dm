@@ -91,7 +91,10 @@
 	UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/death(gibbed)
-	..()
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/proc/UpdateMushroomCap()
