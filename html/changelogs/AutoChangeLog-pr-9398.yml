@@ -1,0 +1,5 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - rscadd: "Conservation of damage mechanic for set species"
+  - tweak: "Changeling transform conserves damage when transforming to a different species."
