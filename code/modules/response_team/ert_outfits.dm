@@ -83,7 +83,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander/gamma
 	glasses = /obj/item/clothing/glasses/night
 	suit_store = /obj/item/gun/energy/gun/blueshield/pdw9
-	belt = /obj/item/gun/projectile/automatic/pistol/enforcer {mag_type = /obj/item/ammo_box/magazine/m45/enforcer45/lethal}
+	belt = /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
 
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma = 1,
@@ -91,7 +91,7 @@
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
-		/obj/item/ammo_box/magazine/m45/enforcer45/lethal = 2
+		/obj/item/ammo_box/magazine/enforcer/lethal = 2
 		)
 
 	cybernetic_implants = list(
