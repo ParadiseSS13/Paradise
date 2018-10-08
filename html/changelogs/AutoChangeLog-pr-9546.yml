@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - rscadd: "Thrown stunbatons & improvised batons have a low chance to stun."
