@@ -36,7 +36,6 @@ In all, this is a lot like the monkey code. /N
 						"<span class='userdanger'>[M.name] bites [src]!</span>")
 				adjustBruteLoss(damage)
 				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
-				updatehealth()
 			else
 				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
 
@@ -75,4 +74,3 @@ In all, this is a lot like the monkey code. /N
 				adjustCloneLoss(damage)
 			if(STAMINA)
 				adjustStaminaLoss(damage)
-		updatehealth()

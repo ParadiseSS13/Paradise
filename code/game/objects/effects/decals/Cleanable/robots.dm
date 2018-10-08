@@ -3,7 +3,7 @@
 	desc = "It's a useless heap of junk... <i>or is it?</i>"
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "gib1"
-	basecolor="#030303"
+	basecolor = "#030303"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7")
 	bloodiness = MAX_SHOE_BLOODINESS
 
@@ -20,7 +20,7 @@
 	return FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/robot/streak(var/list/directions)
-	spawn (0)
+	spawn(0)
 		var/direction = pick(directions)
 		for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
 			sleep(3)
@@ -39,15 +39,15 @@
 	random_icon_states = list("gibarm", "gibleg")
 
 /obj/effect/decal/cleanable/blood/gibs/robot/up
-	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7","gibup1","gibup1") //2:7 is close enough to 1:4
+	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7", "gibup1", "gibup1") //2:7 is close enough to 1:4
 
 /obj/effect/decal/cleanable/blood/gibs/robot/down
-	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7","gibdown1","gibdown1") //2:7 is close enough to 1:4
+	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gib7", "gibdown1", "gibdown1") //2:7 is close enough to 1:4
 
 /obj/effect/decal/cleanable/blood/oil
 	name = "motor oil"
 	desc = "It's black and greasy. Looks like Beepsky made another mess."
-	basecolor="#030303"
+	basecolor = "#030303"
 	bloodiness = MAX_SHOE_BLOODINESS
 
 /obj/effect/decal/cleanable/blood/oil/can_bloodcrawl_in()

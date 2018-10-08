@@ -24,27 +24,36 @@ Bonus
 	level = 5
 	severity = 0
 
+/datum/symptom/sensory_restoration/proc/check_and_add(reagent, check, add, mob/living/M)
+	if(M.reagents.get_reagent_amount(reagent) < check)
+		M.reagents.add_reagent(reagent, add)
+		return 1
+
 /datum/symptom/sensory_restoration/Activate(var/datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 3))
 		var/mob/living/M = A.affected_mob
+
 		switch(A.stage)
 			if(2)
-				if(M.reagents.get_reagent_amount("oculine")<10)
-					M.reagents.add_reagent("oculine", 10)
+				if(check_and_add("oculine", 10, 10, M))
 					to_chat(M, "<span class='notice'>Your hearing feels clearer and crisp.</span>")
 			if(3)
-				if(M.reagents.get_reagent_amount("antihol") < 10 && M.reagents.get_reagent_amount("oculine") < 10 )
-					M.reagents.add_reagent_list(list("antihol"=10, "oculine"=10))
+				if(check_and_add("antihol", 10, 10, M))
 					to_chat(M, "<span class='notice'>You feel sober.</span>")
+				check_and_add("oculine", 10, 10, M)
 			if(4)
-				if(M.reagents.get_reagent_amount("antihol") < 10 && M.reagents.get_reagent_amount("oculine") < 10 && M.reagents.get_reagent_amount("synaphydramine") < 10)
-					M.reagents.add_reagent_list(list("antihol"=10, "oculine"=10, "synaphydramine"=5))
+				if(check_and_add("synaphydramine", 10, 5, M))
 					to_chat(M, "<span class='notice'>You feel focused.</span>")
+				check_and_add("antihol", 10, 10, M)
+				check_and_add("oculine", 10, 10, M)
 			if(5)
-				if(M.reagents.get_reagent_amount("antihol") < 10 && M.reagents.get_reagent_amount("oculine") < 10 && M.reagents.get_reagent_amount("synaphydramine") < 10 && M.reagents.get_reagent_amount("mannitol") < 10)
-					M.reagents.add_reagent_list(list("mannitol"=10, "antihol"=10, "oculine"=10, "synaphydramine"=10))
+				if(check_and_add("mannitol", 10, 10, M))
 					to_chat(M, "<span class='notice'>Your mind feels relaxed.</span>")
+				check_and_add("synaphydramine", 10, 5, M)
+				check_and_add("antihol", 10, 10, M)
+				check_and_add("oculine", 10, 10, M)
+
 	return
 
 /*

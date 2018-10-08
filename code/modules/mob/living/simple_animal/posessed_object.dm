@@ -15,6 +15,7 @@
 
 	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
 	no_spin_thrown = 1
+	del_on_death = TRUE
 
 	var/obj/item/possessed_item
 
@@ -44,21 +45,14 @@
 	ghost.timeofdeath = world.time
 	death(0) // Turn back into a regular object.
 
-
 /mob/living/simple_animal/possessed_object/death(gibbed)
-	var/mob/dead/observer/ghost = ghostize(1)
-	..()
-
-	if(gibbed) // Leave no trace.
-		ghost.timeofdeath = world.time
-		qdel(src)
-		return
-
-	if(possessed_item.loc == src)
-		possessed_item.forceMove(loc) // Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place
-
-	qdel(src)
-
+	if(can_die())
+		ghostize(GHOST_CAN_REENTER)
+		// if gibbed, the item goes with the ghost
+		if(!gibbed && possessed_item.loc == src)
+			// Put the normal item back once the EVIL SPIRIT has been vanquished from it. If it's not already in place
+			possessed_item.forceMove(loc)
+	return ..()
 
 /mob/living/simple_animal/possessed_object/Life(seconds, times_fired)
 	..()

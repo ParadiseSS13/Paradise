@@ -25,7 +25,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/LoseAggro()
 	..()
-	icon_state = icon_living
+	if(stat == CONSCIOUS)
+		icon_state = icon_living
 
 /mob/living/simple_animal/hostile/asteroid/bullet_act(var/obj/item/projectile/P)//Reduces damage from most projectiles to curb off-screen kills
 	if(!stat)

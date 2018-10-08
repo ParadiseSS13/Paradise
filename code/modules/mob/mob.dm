@@ -75,7 +75,7 @@
 	if(!client)	return
 
 	if(type)
-		if(type & 1 && !has_vision())//Vision related
+		if(type & 1 && !has_vision(information_only=TRUE))//Vision related
 			if(!( alt ))
 				return
 			else
@@ -87,7 +87,7 @@
 			else
 				msg = alt
 				type = alt_type
-				if(type & 1 && !has_vision())
+				if(type & 1 && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
@@ -576,7 +576,7 @@ var/list/slot_equipment_priority = list( \
 	set name = "Examine"
 	set category = "IC"
 
-	if((is_blind(src) || usr.stat) && !isobserver(src))
+	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
@@ -1246,13 +1246,22 @@ var/list/slot_equipment_priority = list( \
 			return 1
 	return 0
 
-/mob/proc/create_attack_log(var/text, var/collapse = 1)//forgive me code gods for this shitcode proc
+/mob/proc/create_attack_log(text, collapse = TRUE)
+	LAZYINITLIST(attack_log)
+	create_log_in_list(attack_log, text, collapse, last_log)
+	last_log = world.timeofday
+
+/mob/proc/create_debug_log(text, collapse = TRUE)
+	LAZYINITLIST(debug_log)
+	create_log_in_list(debug_log, text, collapse, world.timeofday)
+
+/proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
 	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
 	var/new_log = "\[[time_stamp()]] [text]"
 
-	if(length(attack_log) > 0)//if there are other logs already present
-		var/previous_log = attack_log[length(attack_log)]//get the latest log
+	if(target.len)//if there are other logs already present
+		var/previous_log = target[target.len]//get the latest log
 		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
 		var/x_sign_position = findtext(previous_log, "x")
 
@@ -1277,10 +1286,9 @@ var/list/slot_equipment_priority = list( \
 				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
 
 			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
-			attack_log -= attack_log[length(attack_log)]//remove the last log
+			target -= target[target.len]//remove the last log
 
-	attack_log += new_log
-	last_log = world.timeofday
+	target += new_log
 
 /mob/vv_get_dropdown()
 	. = ..()

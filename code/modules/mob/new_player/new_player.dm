@@ -357,14 +357,14 @@
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
-	if(character.buckled && istype(character.buckled, /obj/structure/stool/bed/chair/wheelchair))
+	if(character.buckled && istype(character.buckled, /obj/structure/chair/wheelchair))
 		character.buckled.loc = character.loc
 		character.buckled.dir = character.dir
 
-	ticker.mode.latespawn(character)
-
 	character = job_master.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
+
+	ticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)

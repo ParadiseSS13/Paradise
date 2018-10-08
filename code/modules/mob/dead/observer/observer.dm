@@ -12,7 +12,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	stat = DEAD
 	density = 0
 	canmove = 0
-	blinded = 0
 	anchored = 1	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse

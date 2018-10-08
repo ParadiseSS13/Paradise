@@ -41,14 +41,6 @@
 	. = ..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/death(gibbed)
-	..()
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/corgi/revive()
-	..()
-	regenerate_icons()
-
 /mob/living/simple_animal/pet/corgi/show_inv(mob/user as mob)
 	user.set_machine(src)
 	if(user.stat) return
@@ -626,7 +618,10 @@
 		s.start()
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	..()

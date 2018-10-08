@@ -232,7 +232,6 @@
 		return
 	if(M.health > 0)
 		M.adjustOxyLoss(-1)
-		M.updatehealth()
 	M.AdjustStunned(-4)
 	M.AdjustWeakened(-4)
 	M.AdjustStunned(-4)
@@ -563,5 +562,3 @@
 			step_away(M,chassis)//out of the way, I have people to save!
 			occupant_message("You gently push [target] out of the way.")
 			chassis.visible_message("[chassis] gently pushes [target] out of the way.")
-
-

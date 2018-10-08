@@ -73,7 +73,6 @@
 
 	else
 		M.heal_organ_damage(heal_brute, heal_burn)
-		M.updatehealth()
 		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", \
 							 "<span class='green'>You apply [src] on [M].</span>")
 		use(1)

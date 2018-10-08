@@ -374,3 +374,7 @@
 
 //Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
+
+// Area selection defines
+#define AREASELECT_CORNERA "corner A"
+#define AREASELECT_CORNERB "corner B"

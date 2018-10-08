@@ -196,13 +196,13 @@
 		if("winter") //Snow terrain is slow to move in and cold! Get the assistants to shovel your driveway.
 			NewTerrainFloors = /turf/simulated/floor/snow // Needs to be updated after turf update
 			NewTerrainWalls = /turf/simulated/wall/mineral/wood
-			NewTerrainChairs = /obj/structure/stool/bed/chair/wood/normal
+			NewTerrainChairs = /obj/structure/chair/wood/normal
 			NewTerrainTables = /obj/structure/table/glass
 			NewFlora = list(/obj/structure/flora/grass/green, /obj/structure/flora/grass/brown, /obj/structure/flora/grass/both)
 		if("jungle") //Beneficial due to actually having breathable air. Plus, monkeys and bows and arrows.
 			NewTerrainFloors = /turf/simulated/floor/grass
 			NewTerrainWalls = /turf/simulated/wall/mineral/sandstone
-			NewTerrainChairs = /obj/structure/stool/bed/chair/wood/normal
+			NewTerrainChairs = /obj/structure/chair/wood/normal
 			NewTerrainTables = /obj/structure/table/wood
 			NewFlora = list(/obj/structure/flora/ausbushes/sparsegrass, /obj/structure/flora/ausbushes/fernybush, /obj/structure/flora/ausbushes/leafybush,
 							/obj/structure/flora/ausbushes/grassybush, /obj/structure/flora/ausbushes/sunnybush, /obj/structure/flora/tree/palm, /mob/living/carbon/human/monkey,
@@ -211,7 +211,7 @@
 		if("alien") //Beneficial, turns stuff into alien alloy which is useful to cargo and research. Also repairs atmos.
 			NewTerrainFloors = /turf/simulated/floor/mineral/abductor
 			NewTerrainWalls = /turf/simulated/wall/mineral/abductor
-			NewTerrainChairs = /obj/structure/stool/bed/abductor //ayys apparently don't have chairs. An entire species of people who only recline.
+			NewTerrainChairs = /obj/structure/bed/abductor //ayys apparently don't have chairs. An entire species of people who only recline.
 			NewTerrainTables = /obj/structure/table/abductor
 
 /obj/machinery/anomalous_crystal/theme_warp/ActivationReaction(mob/user, method)
@@ -233,9 +233,9 @@
 					if(iswallturf(T) && NewTerrainWalls)
 						T.ChangeTurf(NewTerrainWalls)
 						continue
-				if(istype(Stuff, /obj/structure/stool/bed/chair) && NewTerrainChairs)
-					var/obj/structure/stool/bed/chair/Original = Stuff
-					var/obj/structure/stool/bed/chair/C = new NewTerrainChairs(Original.loc)
+				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)
+					var/obj/structure/chair/Original = Stuff
+					var/obj/structure/chair/C = new NewTerrainChairs(Original.loc)
 					C.dir = Original.dir
 					qdel(Stuff)
 					continue
