@@ -94,7 +94,6 @@
 
 	if(target)
 		target.Paralyse(10)
-		target.updatehealth()
 
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill

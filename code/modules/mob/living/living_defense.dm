@@ -122,7 +122,7 @@
 				M.mech_toxin_damage(src)
 			else
 				return
-		updatehealth()
+		updatehealth("mech melee attack")
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 						"<span class='userdanger'>[src] has been hit by [M.name].</span>")

@@ -2,7 +2,7 @@
 #define TRACKS_CRUSTIFY_TIME   50
 
 // color-dir-dry
-var/global/list/image/fluidtrack_cache=list()
+var/global/list/image/fluidtrack_cache = list()
 
 // Footprints, tire trails...
 /obj/effect/decal/cleanable/blood/tracks
@@ -23,7 +23,7 @@ var/global/list/image/fluidtrack_cache=list()
 	desc = "You REALLY shouldn't follow these.."
 	gender = PLURAL
 	random_icon_states = null
-	basecolor="#A10808"
+	basecolor = "#A10808"
 	var/entered_dirs = 0
 	var/exited_dirs = 0
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
@@ -35,9 +35,9 @@ var/global/list/image/fluidtrack_cache=list()
 		var/obj/item/clothing/shoes/S = H.shoes
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
-		var/hasfeet = 1
+		var/hasfeet = TRUE
 		if(!l_foot && !r_foot)
-			hasfeet = 0
+			hasfeet = FALSE
 		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			entered_dirs |= H.dir
@@ -58,9 +58,9 @@ var/global/list/image/fluidtrack_cache=list()
 		var/obj/item/clothing/shoes/S = H.shoes
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
-		var/hasfeet = 1
+		var/hasfeet = TRUE
 		if(!l_foot && !r_foot)
-			hasfeet = 0
+			hasfeet = FALSE
 		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
 			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
 			exited_dirs |= H.dir

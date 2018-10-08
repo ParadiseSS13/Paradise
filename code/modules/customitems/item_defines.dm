@@ -135,6 +135,27 @@
 /obj/item/claymore/fluff/hit_reaction()
 	return 0
 
+/obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki
+	name = "ceremonial katana"
+	desc = "A shimmering ceremonial golden katana, for the most discerning class of ninja. Looks expensive, and fragile."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "rsik_katana"
+	item_state = "rsik_katana"
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	force = 5
+	sharp = 0
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
+	throwforce = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
+/obj/item/fluff/rsik_katana/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] tries to stab [src] into [user.p_their()] stomach! Except [src] shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.</span>")
+	return(BRUTELOSS)
+
 /obj/item/crowbar/fluff/zelda_creedy_1 // Zomgponies: Griffin Rowley
 	name = "Zelda's Crowbar"
 	desc = "A pink crow bar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
@@ -168,9 +189,9 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/structure/stool/bed/chair/wheelchair) && !istype(target, /obj/structure/stool/bed/chair/wheelchair/bike))
+	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
-		var/obj/structure/stool/bed/chair/wheelchair/chair = target
+		var/obj/structure/chair/wheelchair/chair = target
 		chair.icon = 'icons/obj/custom_items.dmi'
 		chair.icon_state = "vox_wheelchair"
 		chair.name = "vox wheelchair"
@@ -1484,3 +1505,4 @@
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
 	slot_flags = SLOT_TIE
+

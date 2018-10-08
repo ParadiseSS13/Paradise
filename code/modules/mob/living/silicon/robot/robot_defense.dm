@@ -34,7 +34,6 @@
 		damage = rand(5, 35)
 	damage = round(damage / 2) // borgs recieve half damage
 	adjustBruteLoss(damage)
-	updatehealth()
 	return
 
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
@@ -47,7 +46,7 @@
 			user.put_in_active_hand(cell)
 			to_chat(user, "<span class='notice'>You remove \the [cell].</span>")
 			cell = null
-			update_icons()
+			update_stat()
 			diag_hud_set_borgcell()
 
 	if(!opened)
