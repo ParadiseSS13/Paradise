@@ -14,52 +14,6 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 */
 
 
-
-/area
-	level = null
-	name = "Space"
-	icon = 'icons/turf/areas.dmi'
-	icon_state = "unknown"
-	layer = AREA_LAYER
-	luminosity = 0
-	mouse_opacity = 0
-	invisibility = INVISIBILITY_LIGHTING
-	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
-	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
-	var/lightswitch = TRUE
-	var/fire = null // used for fire alarms
-	var/atmosalm = ATMOS_ALARM_NONE
-	var/party = null // used for party alarms
-	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
-
-	var/music = null
-	var/eject = null
-
-	var/requires_power = TRUE
-	var/always_unpowered = FALSE	//this gets overriden to 1 for space in area/New()
-	var/power_equip = TRUE
-	var/power_light = TRUE
-	var/power_environ = TRUE
-
-
-	var/used_equip = 0
-	var/used_light = 0
-	var/used_environ = 0
-	var/static_equip
-	var/static_light = 0
-	var/static_environ
-
-	var/has_gravity = TRUE
-	var/list/apc = list()
-
-	var/air_doors_activated = FALSE
-
-	var/tele_proof = FALSE
-	var/no_teleportlocs = FALSE
-
-	var/outdoors = FALSE // For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
-	var/xenobiology_compatible = FALSE // Can the Xenobio management console transverse this area by default?
-
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
@@ -93,30 +47,6 @@ var/list/ghostteleportlocs = list()
 
 /*-----------------------------------------------------------------------------*/
 
-/area/engine/
-
-/area/turret_protected/
-
-/area/arrival
-	requires_power = FALSE
-
-/area/arrival/start
-	name = "\improper Arrival Area"
-	icon_state = "start"
-
-/area/admin/
-	name = "\improper Admin Room"
-	icon_state = "start"
-	requires_power = FALSE
-	dynamic_lighting = FALSE
-
-
-/area/adminconstruction
-	name = "\improper Admin Testing Area"
-	icon_state = "start"
-	requires_power = FALSE
-	dynamic_lighting = FALSE
-
 /area/space
 	icon_state = "space"
 	requires_power = TRUE
@@ -142,6 +72,30 @@ var/list/ghostteleportlocs = list()
 
 /area/space/partyalert()
 	return
+
+/area/engine/
+
+/area/turret_protected/
+
+/area/arrival
+	requires_power = FALSE
+
+/area/arrival/start
+	name = "\improper Arrival Area"
+	icon_state = "start"
+
+/area/admin/
+	name = "\improper Admin Room"
+	icon_state = "start"
+	requires_power = FALSE
+	dynamic_lighting = FALSE
+
+
+/area/adminconstruction
+	name = "\improper Admin Testing Area"
+	icon_state = "start"
+	requires_power = FALSE
+	dynamic_lighting = FALSE
 
 //These are shuttle areas, they must contain two areas in a subgroup if you want to move a shuttle from one
 //place to another. Look at escape shuttle for example.

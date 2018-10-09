@@ -2,6 +2,49 @@
 
 // ===
 /area
+	level = null
+	name = "Space"
+	icon = 'icons/turf/areas.dmi'
+	icon_state = "unknown"
+	layer = AREA_LAYER
+	luminosity = 0
+	mouse_opacity = 0
+	invisibility = INVISIBILITY_LIGHTING
+	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
+	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
+	var/lightswitch = TRUE
+	var/fire = null // used for fire alarms
+	var/atmosalm = ATMOS_ALARM_NONE
+	var/party = null // used for party alarms
+	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
+
+	var/music = null
+	var/eject = null
+
+	var/requires_power = TRUE
+	var/always_unpowered = FALSE	//this gets overriden to 1 for space in area/New()
+	var/power_equip = TRUE
+	var/power_light = TRUE
+	var/power_environ = TRUE
+
+
+	var/used_equip = 0
+	var/used_light = 0
+	var/used_environ = 0
+	var/static_equip
+	var/static_light = 0
+	var/static_environ
+
+	var/outdoors = FALSE // For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/xenobiology_compatible = FALSE // Can the Xenobio management console transverse this area by default?
+	var/has_gravity = TRUE
+	var/list/apc = list()
+
+	var/air_doors_activated = FALSE
+
+	var/tele_proof = FALSE
+	var/no_teleportlocs = FALSE
+
 	var/global/global_uid = 0
 	var/uid
 	var/list/ambientsounds = list('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg',\
@@ -19,31 +62,26 @@
 
 
 /area/New()
-
 	..()
+
+	all_areas += src
+
+/area/Initialize()
 	icon_state = ""
 	layer = AREA_LAYER
 	uid = ++global_uid
-	all_areas += src
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
-	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area
-		requires_power = TRUE
-		always_unpowered = TRUE
-		dynamic_lighting = TRUE
-		power_light = FALSE
-		power_equip = FALSE
-		power_environ = FALSE
+	if(requires_power)
+		luminosity = 0
+	else
+		power_light = TRUE
+		power_equip = TRUE
+		power_environ = TRUE
 
-	if(requires_power != FALSE)
-		power_light = FALSE
-		power_equip = FALSE
-		power_environ = FALSE
+	. = ..()
 
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-
-/area/Initialize()
-	. = ..()
 
 	if(contents.len)
 		var/list/areas_in_z = space_manager.areas_in_z
