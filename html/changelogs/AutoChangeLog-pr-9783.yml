@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Plating shadow faux 3d now works properly."
