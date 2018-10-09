@@ -1,0 +1,4 @@
+author: "DesolateG"
+delete-after: True
+changes: 
+  - bugfix: "Refactors the timer subsystems and bugfixes"
