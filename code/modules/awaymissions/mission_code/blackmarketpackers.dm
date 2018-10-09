@@ -4,7 +4,7 @@
 	name = "\improper BMP Asteroids"
 	icon_state = "away"
 	luminosity = 0
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaymission/BMPship/Aft
 	name = "\improper Aft Block"

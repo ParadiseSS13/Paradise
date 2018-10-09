@@ -4,7 +4,7 @@
 	name = "\improper Space Battle"
 	icon_state = "away"
 	requires_power = FALSE
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaymission/spacebattle/cruiser
 	name = "\improper Nanotrasen Cruiser"

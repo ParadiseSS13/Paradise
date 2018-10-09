@@ -3,7 +3,7 @@
 /area/awaymission/academy
 	name = "\improper Academy Asteroids"
 	icon_state = "away"
-	report_alerts = 0
+	report_alerts = FALSE
 
 /area/awaymission/academy/headmaster
 	name = "\improper Academy Fore Block"

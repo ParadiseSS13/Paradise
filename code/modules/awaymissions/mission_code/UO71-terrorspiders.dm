@@ -1,7 +1,7 @@
 /area/awaymission/UO71
 	name = "UO71"
 	icon_state = "away"
-	report_alerts = 0
+	report_alerts = FALSE
 	tele_proof = TRUE
 
 

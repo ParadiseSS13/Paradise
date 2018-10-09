@@ -40,6 +40,9 @@
 	var/has_gravity = TRUE
 	var/list/apc = list()
 
+	/// If false, loading multiple maps with this area type will create multiple instances.
+	var/unique = TRUE
+
 	var/air_doors_activated = FALSE
 
 	var/tele_proof = FALSE
@@ -56,6 +59,13 @@
 	var/there_can_be_many = FALSE
 
 
+/area/New()
+	// This interacts with the map loader, so it needs to be set immediately
+	// rather than waiting for atoms to initialize.
+	if (unique)
+		GLOB.areas_by_type[type] = src
+	return ..()
+
 /area/Initialize()
 	icon_state = ""
 	layer = AREA_LAYER
@@ -69,9 +79,7 @@
 		power_equip = TRUE
 		power_environ = TRUE
 
-	..()
-
-	power_change()		// all machines set to current power level, also updates lighting icon
+	. = ..()
 
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
 
@@ -90,6 +98,16 @@
 		if(!areas_in_z["[z]"])
 			areas_in_z["[z]"] = list()
 		areas_in_z["[z]"] += src
+
+	return INITIALIZE_HINT_LATELOAD
+
+/area/LateInitialize()
+	power_change()		// all machines set to current power level, also updates icon
+
+/area/Destroy()
+	if(GLOB.areas_by_type[type] == src)
+		GLOB.areas_by_type[type] = null
+	return ..()
 
 /area/proc/get_cameras()
 	var/list/cameras = list()

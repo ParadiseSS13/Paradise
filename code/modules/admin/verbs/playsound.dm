@@ -6,7 +6,7 @@ var/list/sounds_cache = list()
 	if(!check_rights(R_SOUNDS))
 		return
 
-	var/sound/awful_sound = sound(null, repeat = TRUE, wait = 0, channel = CHANNEL_ADMIN)
+	var/sound/awful_sound = sound(null, repeat = FALSE, wait = 0, channel = CHANNEL_ADMIN)
 
 	log_admin("[key_name(src)] stopped admin sounds.")
 	message_admins("[key_name_admin(src)] stopped admin sounds.", 1)
@@ -19,7 +19,7 @@ var/list/sounds_cache = list()
 	if(!check_rights(R_SOUNDS))
 		return
 
-	var/sound/uploaded_sound = sound(S, repeat = TRUE, wait = 1, channel = CHANNEL_ADMIN)
+	var/sound/uploaded_sound = sound(S, repeat = FALSE, wait = 1, channel = CHANNEL_ADMIN)
 	uploaded_sound.priority = 250
 
 	sounds_cache += S

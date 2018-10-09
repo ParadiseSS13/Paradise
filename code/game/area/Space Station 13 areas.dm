@@ -104,9 +104,12 @@ var/list/ghostteleportlocs = list()
 	no_teleportlocs = TRUE
 	requires_power = FALSE
 	valid_territory = FALSE
+	// Loading the same shuttle map at a different time will produce distinct area instances.
+	unique = FALSE
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
+	unique = TRUE  // SSjob refers to this area for latejoiners - when its ported...
 
 /area/shuttle/arrival/pre_game
 	icon_state = "shuttle2"

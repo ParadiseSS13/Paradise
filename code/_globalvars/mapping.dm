@@ -54,3 +54,6 @@ var/list/datum/map_template/lava_ruins_templates = list()
 var/list/datum/map_template/shelter_templates = list()
 var/list/datum/map_template/shuttle_templates = list()
 var/list/datum/map_template/vr_templates = list()
+
+/// An association from typepath to area instance. Only includes areas with `unique` set.
+GLOBAL_LIST_EMPTY(areas_by_type)
