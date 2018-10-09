@@ -4,7 +4,7 @@
 	var/match_tag = "none"
 	var/match_width = -1
 	var/match_height = -1
-	var/enable_lights = 0
+	var/enable_lights = TRUE
 
 /area/dynamic/destination // Do not use.
 	name = "dynamic area destination"
@@ -14,7 +14,7 @@
 	match_tag = "arrivals"
 	match_width = 5
 	match_height = 4
-	enable_lights = 1
+	enable_lights = TRUE
 
 /area/dynamic/source // Do not use.
 	name = "dynamic area source"

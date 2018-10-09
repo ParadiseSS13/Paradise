@@ -1,4 +1,3 @@
-
 /area/syndicate_depot
 	name = "Suspicious Supply Depot"
 	icon_state = "dark"

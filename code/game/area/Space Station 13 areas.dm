@@ -414,10 +414,6 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
 
-/area/airtunnel1/      // referenced in airtunnel.dm:759
-
-/area/dummy/           // Referenced in engine.dm:261
-
 /area/start            // will be unused once kurper gets his login interface patch done
 	name = "start area"
 	icon_state = "start"
@@ -565,31 +561,31 @@ var/list/ghostteleportlocs = list()
 	icon_state = "yellow"
 
 /area/syndicate_station/southwest
-	name = "\improper South-West of SS13"
+	name = "\improper South-West of the Station"
 	icon_state = "southwest"
 
 /area/syndicate_station/northwest
-	name = "\improper North-West of SS13"
+	name = "\improper North-West of the Station"
 	icon_state = "northwest"
 
 /area/syndicate_station/northeast
-	name = "\improper North-East of SS13"
+	name = "\improper North-East of the Station"
 	icon_state = "northeast"
 
 /area/syndicate_station/southeast
-	name = "\improper South-East of SS13"
+	name = "\improper South-East of the Station"
 	icon_state = "southeast"
 
 /area/syndicate_station/north
-	name = "\improper North of SS13"
+	name = "\improper North of the Station"
 	icon_state = "north"
 
 /area/syndicate_station/south
-	name = "\improper South of SS13"
+	name = "\improper South of the Station"
 	icon_state = "south"
 
 /area/syndicate_station/commssat
-	name = "\improper South of the Communication Satellite"
+	name = "\improper South of the Communications Satellite"
 	icon_state = "south"
 
 /area/syndicate_station/mining
@@ -911,7 +907,6 @@ var/list/ghostteleportlocs = list()
 	name = "Genetics Maintenance"
 	icon_state = "asmaint"
 
-
 /area/maintenance/electrical
 	name = "Electrical Maintenance"
 	icon_state = "yellow"
@@ -1061,10 +1056,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Chief Engineer's Office"
 	icon_state = "head_quarters"
 
-/area/mint
-	name = "\improper Mint"
-	icon_state = "green"
-
 /area/comms
 	name = "\improper Communications Relay"
 	icon_state = "tcomsatcham"
@@ -1201,6 +1192,8 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Pet Store"
 	icon_state = "Theatre"
 
+// Holodeck
+
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
@@ -1208,7 +1201,6 @@ var/list/ghostteleportlocs = list()
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
-
 
 /area/holodeck/source_plating
 	name = "\improper Holodeck - Off"
@@ -1256,44 +1248,6 @@ var/list/ghostteleportlocs = list()
 
 /area/holodeck/source_knightarena
 	name = "\improper Holodeck - Knight Arena"
-
-
-//Embassies
-/area/embassy/
-	name = "\improper Embassy Hallway"
-
-/area/embassy/tajaran
-	name = "\improper Tajaran Embassy"
-	icon_state = "tajaran"
-
-/area/embassy/skrell
-	name = "\improper Skrell Embassy"
-	icon_state = "skrell"
-
-/area/embassy/unathi
-	name = "\improper Unathi Embassy"
-	icon_state = "unathi"
-
-/area/embassy/kidan
-	name = "\improper Kidan Embassy"
-	icon_state = "kidan"
-
-/area/embassy/diona
-	name = "\improper Diona Embassy"
-	icon_state = "diona"
-
-/area/embassy/slime
-	name = "\improper Slime Person Embassy"
-	icon_state = "slime"
-
-/area/embassy/grey
-	name = "\improper Grey Embassy"
-	icon_state = "grey"
-
-/area/embassy/vox
-	name = "\improper Vox Embassy"
-	icon_state = "vox"
-
 
 
 //Engineering
@@ -1352,27 +1306,27 @@ var/list/ghostteleportlocs = list()
 	dynamic_lighting = FALSE
 	valid_territory = FALSE
 
-	auxport
+/area/solar/auxport
 		name = "\improper Fore Port Solar Array"
 		icon_state = "panelsA"
 
-	auxstarboard
+/area/solar/auxstarboard
 		name = "\improper Fore Starboard Solar Array"
 		icon_state = "panelsA"
 
-	fore
+/area/solar/fore
 		name = "\improper Fore Solar Array"
 		icon_state = "yellow"
 
-	aft
+/area/solar/aft
 		name = "\improper Aft Solar Array"
 		icon_state = "aft"
 
-	starboard
+/area/solar/starboard
 		name = "\improper Aft Starboard Solar Array"
 		icon_state = "panelsS"
 
-	port
+/area/solar/port
 		name = "\improper Aft Port Solar Array"
 		icon_state = "panelsP"
 
@@ -1455,7 +1409,6 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Medbay"
 	icon_state = "medbay3"
 	music = 'sound/ambience/signal.ogg'
-
 
 /area/medical/biostorage
 	name = "\improper Secondary Storage"
@@ -1712,23 +1665,6 @@ area/security/podbay
 /area/security/range
 	name = "\improper Firing Range"
 	icon_state = "firingrange"
-
-/*
-	New()
-		..()
-
-		spawn(10) //let objects set up first
-			for(var/turf/turfToGrayscale in src)
-				if(turfToGrayscale.icon)
-					var/icon/newIcon = icon(turfToGrayscale.icon)
-					newIcon.GrayScale()
-					turfToGrayscale.icon = newIcon
-				for(var/obj/objectToGrayscale in turfToGrayscale) //1 level deep, means tables, apcs, locker, etc, but not locker contents
-					if(objectToGrayscale.icon)
-						var/icon/newIcon = icon(objectToGrayscale.icon)
-						newIcon.GrayScale()
-						objectToGrayscale.icon = newIcon
-*/
 
 /area/security/nuke_storage
 	name = "\improper Vault"

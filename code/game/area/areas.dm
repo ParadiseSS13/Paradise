@@ -8,7 +8,7 @@
 	icon_state = "unknown"
 	layer = AREA_LAYER
 	luminosity = 0
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
@@ -166,14 +166,14 @@
 
 /area/proc/fire_alert()
 	if(!fire)
-		fire = 1	//used for firedoor checks
+		fire = TRUE	//used for firedoor checks
 		updateicon()
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		air_doors_close()
 
 /area/proc/fire_reset()
 	if(fire)
-		fire = 0	//used for firedoor checks
+		fire = FALSE	//used for firedoor checks
 		updateicon()
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		air_doors_open()
@@ -199,7 +199,7 @@
 		burglar_alarm.clearAlarm(src, trigger)
 
 /area/proc/set_fire_alarm_effect()
-	fire = 1
+	fire = TRUE
 	updateicon()
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
@@ -215,13 +215,13 @@
 
 /area/proc/partyalert()
 	if(!party)
-		party = 1
+		party = TRUE
 		updateicon()
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /area/proc/partyreset()
 	if(party)
-		party = 0
+		party = FALSE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		updateicon()
 
@@ -313,7 +313,6 @@
 			static_environ += value
 
 /area/proc/clear_usage()
-
 	used_equip = 0
 	used_light = 0
 	used_environ = 0
@@ -365,22 +364,22 @@
 
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))	//split off the white noise from the rest of the ambience because of annoyance complaints - Kluys
-		L.client.ambience_playing = 1
-		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = CHANNEL_BUZZ)
+		L.client.ambience_playing = TRUE
+		L << sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = 0, volume = 35, channel = CHANNEL_BUZZ)
 	else if(L && L.client && !(L.client.prefs.sound & SOUND_BUZZ))
-		L.client.ambience_playing = 0
+		L.client.ambience_playing = FALSE
 
 	if(prob(35) && L && L.client && (L.client.prefs.sound & SOUND_AMBIENCE))
 		var/sound = pick(ambientsounds)
 
 		if(!L.client.played)
-			L << sound(sound, repeat = 0, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE)
-			L.client.played = 1
+			L << sound(sound, repeat = FALSE, wait = 0, volume = 25, channel = CHANNEL_AMBIENCE)
+			L.client.played = TRUE
 			spawn(600)			//ewww - this is very very bad
 				if(L.&& L.client)
-					L.client.played = 0
+					L.client.played = FALSE
 
-/area/proc/gravitychange(var/gravitystate = 0, var/area/A)
+/area/proc/gravitychange(var/gravitystate = FALSE, var/area/A)
 	A.has_gravity = gravitystate
 
 	if(gravitystate)
@@ -392,7 +391,7 @@
 		if(istype(M.shoes, /obj/item/clothing/shoes/magboots) && (M.shoes.flags & NOSLIP))
 			return
 
-	if(M.buckled) //Cam't fall down if you are buckled
+	if(M.buckled) // Can't fall down if you are buckled
 		return
 
 	if(istype(get_turf(M), /turf/space)) // Can't fall onto nothing.
@@ -407,22 +406,22 @@
 		M.Weaken(2)
 
 
-	to_chat(M, "Gravity!")
+	to_chat(M, "<span class='warning'>Gravity!</span>")
 
 /proc/has_gravity(atom/AT, turf/T)
 	if(!T)
 		T = get_turf(AT)
 	var/area/A = get_area(T)
 	if(istype(T, /turf/space)) // Turf never has gravity
-		return 0
+		return FALSE
 	else if(A && A.has_gravity) // Areas which always has gravity
-		return 1
+		return TRUE
 	else
 		// There's a gravity generator on our z level
 		// This would do well when integrated with the z level manager
 		if(T && gravity_generators["[T.z]"] && length(gravity_generators["[T.z]"]))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in src)
