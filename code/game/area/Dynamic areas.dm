@@ -4,7 +4,7 @@
 	var/match_tag = "none"
 	var/match_width = -1
 	var/match_height = -1
-	var/enable_lights = TRUE
+	var/enable_lights = FALSE
 
 /area/dynamic/destination // Do not use.
 	name = "dynamic area destination"
