@@ -67,6 +67,7 @@ obj/machinery/vr_reset_button/attack_hand(mob/user as mob)
 						continue
 					else if(istype(M, /mob/living/carbon/human/virtual_reality))
 						M.forceMove(src.loc)
+						continue
 					qdel(M, TRUE)
 					CHECK_TICK
 			T.ChangeTurf(/turf/space)
