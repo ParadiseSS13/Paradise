@@ -5,6 +5,7 @@
 	icon_state = "away"
 	has_gravity = TRUE
 	there_can_be_many = TRUE
+	ambientsounds = RUINS
 
 
 /area/ruin/unpowered
@@ -15,8 +16,6 @@
 
 /area/ruin/powered
 	requires_power = FALSE
-
-
 
 
 //Areas

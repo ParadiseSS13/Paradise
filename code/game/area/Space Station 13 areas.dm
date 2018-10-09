@@ -55,7 +55,7 @@ var/list/ghostteleportlocs = list()
 	power_environ = FALSE
 	valid_territory = FALSE
 	outdoors = TRUE
-	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
+	ambientsounds = SPACE
 
 /area/space/atmosalert()
 	return
@@ -405,6 +405,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/syndicate
 	name = "Syndicate Nuclear Team Shuttle"
 	icon_state = "shuttle"
+	ambientsounds = HIGHSEC
 
 /area/shuttle/trade
 	name = "Trade Shuttle"
@@ -482,6 +483,7 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Syndicate Mothership"
 	icon_state = "syndie-ship"
 	requires_power = FALSE
+	ambientsounds = HIGHSEC
 
 /area/syndicate_mothership/control
 	name = "\improper Syndicate Control Room"
@@ -497,13 +499,14 @@ var/list/ghostteleportlocs = list()
 
 //EXTRA
 
-/area/asteroid					// -- TLE
+/area/asteroid
 	name = "\improper Asteroid"
 	icon_state = "asteroid"
 	requires_power = FALSE
 	valid_territory = FALSE
+	ambientsounds = MINING
 
-/area/asteroid/cave				// -- TLE
+/area/asteroid/cave
 	name = "\improper Asteroid - Underground"
 	icon_state = "cave"
 	requires_power = FALSE
@@ -512,6 +515,7 @@ var/list/ghostteleportlocs = list()
 /area/asteroid/artifactroom
 	name = "\improper Asteroid - Artifact"
 	icon_state = "cave"
+	ambientsounds = RUINS
 
 /area/tdome
 	name = "\improper Thunderdome"
@@ -720,6 +724,7 @@ var/list/ghostteleportlocs = list()
 /area/prison
 	name = "\improper Prison Station"
 	icon_state = "brig"
+	ambientsounds = HIGHSEC
 
 /area/prison/arrival_airlock
 	name = "\improper Prison Station Airlock"
@@ -761,6 +766,7 @@ var/list/ghostteleportlocs = list()
 /area/prison/morgue
 	name = "\improper Prison Morgue"
 	icon_state = "morgue"
+	ambientsounds = SPOOKY
 
 /area/prison/medical_research
 	name = "\improper Prison Genetic Research"
@@ -811,6 +817,7 @@ var/list/ghostteleportlocs = list()
 /area/mine/laborcamp/security
 	name = "Labor Camp Security"
 	icon_state = "security"
+	ambientsounds = HIGHSEC
 
 //STATION13
 
@@ -828,7 +835,7 @@ var/list/ghostteleportlocs = list()
 
 //Maintenance
 /area/maintenance
-	ambientsounds = list('sound/ambience/ambimaint1.ogg', 'sound/ambience/ambimaint2.ogg', 'sound/ambience/ambimaint3.ogg', 'sound/ambience/ambimaint4.ogg', 'sound/ambience/ambimaint5.ogg')
+	ambientsounds = MAINTENANCE
 	valid_territory = FALSE
 
 /area/maintenance/atmos_control
@@ -1151,10 +1158,12 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Abandoned Library"
 	icon_state = "library"
 
-/area/chapel/main
+/area/chapel
 	name = "\improper Chapel"
 	icon_state = "chapel"
-	ambientsounds = list('sound/ambience/ambicha1.ogg','sound/ambience/ambicha2.ogg','sound/ambience/ambicha3.ogg','sound/ambience/ambicha4.ogg','sound/music/traitor.ogg')
+	ambientsounds = HOLY
+
+/area/chapel/main
 
 /area/chapel/office
 	name = "\improper Chapel Office"
@@ -1252,7 +1261,7 @@ var/list/ghostteleportlocs = list()
 
 //Engineering
 /area/engine
-	ambientsounds = list('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg')
+	ambientsounds = ENGINEERING
 
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
@@ -1305,6 +1314,7 @@ var/list/ghostteleportlocs = list()
 	requires_power = FALSE
 	dynamic_lighting = FALSE
 	valid_territory = FALSE
+	ambientsounds = ENGINEERING
 
 /area/solar/auxport
 		name = "\improper Fore Port Solar Array"
@@ -1369,14 +1379,16 @@ var/list/ghostteleportlocs = list()
 //Teleporter
 
 /area/teleporter
-	name = "\improper Teleporter"
+	name = "\improper Teleporter Room"
 	icon_state = "teleporter"
 	music = "signal"
+	ambientsounds = ENGINEERING
 
 /area/gateway
 	name = "\improper Gateway"
 	icon_state = "teleporter"
 	music = "signal"
+	ambientsounds = ENGINEERING
 
 /area/AIsattele
 	name = "\improper Abandoned Teleporter"
@@ -1394,9 +1406,12 @@ var/list/ghostteleportlocs = list()
 
 //MedBay
 
-/area/medical/medbay
+/area/medical
 	name = "\improper Medbay"
 	icon_state = "medbay"
+	ambientsounds = MEDICAL
+
+/area/medical/medbay
 	music = 'sound/ambience/signal.ogg'
 
 //Medbay is a large area, these additional areas help level out APC load.
@@ -1485,7 +1500,7 @@ var/list/ghostteleportlocs = list()
 /area/medical/morgue
 	name = "\improper Morgue"
 	icon_state = "morgue"
-	ambientsounds = list('sound/ambience/ambimo1.ogg','sound/ambience/ambimo2.ogg')
+	ambientsounds = SPOOKY
 
 /area/medical/chemistry
 	name = "\improper Chemistry"
@@ -1532,6 +1547,11 @@ var/list/ghostteleportlocs = list()
 	icon_state = "medbay"
 
 //Security
+
+/area/security
+	name = "Security"
+	icon_state = "securityoffice"
+	ambientsounds = HIGHSEC
 
 /area/security/main
 	name = "\improper Security Office"
@@ -2082,6 +2102,7 @@ area/security/podbay
 /area/construction
 	name = "\improper Construction Area"
 	icon_state = "yellow"
+	ambientsounds = ENGINEERING
 
 /area/mining_construction
 	name = "Auxillary Base Construction"
@@ -2174,17 +2195,20 @@ area/security/podbay
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
 	icon_state = "eva"
+	ambientsounds = HIGHSEC
 
 /area/ai_monitored/storage/secure
 	name = "Secure Storage"
 	icon_state = "storage"
+	ambientsounds = HIGHSEC
 
 /area/ai_monitored/storage/emergency
 	name = "Emergency Storage"
 	icon_state = "storage"
+	ambientsounds = HIGHSEC
 
 /area/turret_protected/
-	ambientsounds = list('sound/ambience/ambimalf.ogg')
+	ambientsounds = list('sound/ambience/ambimalf.ogg', 'sound/ambience/ambitech.ogg', 'sound/ambience/ambitech2.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambiatmos2.ogg')
 
 /area/turret_protected/ai_upload
 	name = "\improper AI Upload Chamber"
@@ -2275,7 +2299,8 @@ area/security/podbay
 // Telecommunications Satellite
 
 /area/tcommsat
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
+	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
+										'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
 
 /area/tcommsat/entrance
 	name = "\improper Telecoms Teleporter"
@@ -2288,22 +2313,18 @@ area/security/podbay
 /area/turret_protected/tcomsat
 	name = "\improper Telecoms Satellite"
 	icon_state = "tcomsatlob"
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomfoyer
 	name = "\improper Telecoms Foyer"
 	icon_state = "tcomsatentrance"
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomwest
 	name = "\improper Telecoms West Wing"
 	icon_state = "tcomsatwest"
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/turret_protected/tcomeast
 	name = "\improper Telecoms East Wing"
 	icon_state = "tcomsateast"
-	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
 
 /area/tcommsat/computer
 	name = "\improper Telecoms Control Room"
@@ -2326,6 +2347,7 @@ area/security/podbay
 	name = "\improper Strange Location"
 	icon_state = "away"
 	report_alerts = FALSE
+	ambientsounds = AWAY_MISSION
 
 /area/awaymission/example
 	name = "\improper Strange Station"
@@ -2414,7 +2436,7 @@ area/security/podbay
 	luminosity = 1
 	dynamic_lighting = FALSE
 	requires_power = FALSE
-	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
+	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg','sound/ambience/ambiodd.ogg','sound/ambience/ambinice.ogg')
 
 /area/awaymission/undersea
 	name = "Undersea"

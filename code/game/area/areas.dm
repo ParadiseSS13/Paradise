@@ -47,12 +47,7 @@
 
 	var/global/global_uid = 0
 	var/uid
-	var/list/ambientsounds = list('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg',\
-								'sound/ambience/ambigen4.ogg','sound/ambience/ambigen5.ogg',\
-								'sound/ambience/ambigen6.ogg','sound/ambience/ambigen7.ogg',\
-								'sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg',\
-								'sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg',\
-								'sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
+	var/list/ambientsounds = GENERIC
 
 	// This var is used with the maploader (modules/awaymissions/maploader/reader.dm)
 	// if this is 1, when used in a map snippet, this will instantiate a unique
