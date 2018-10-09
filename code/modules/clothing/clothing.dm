@@ -387,10 +387,10 @@ BLIND     // can't see anything
 		var/obj/item/match/M = I
 		if(M.matchignite()) // Match isn't lit, but isn't burnt.
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
-		else if(M.matchburnout()) // Match is lit, not extinguished.
+			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
+		else
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
-		else // Match has been previously lit and extinguished.
-			to_chat(user, "<span class='notice'>The [M] has already been extinguished.</span>")
+			M.dropped()
 		return
 
 	if(istype(I, /obj/item/wirecutters))
