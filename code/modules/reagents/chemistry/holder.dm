@@ -196,6 +196,9 @@ var/const/INGEST = 2
 	if(M)
 		chem_temp = M.bodytemperature
 		handle_reactions()
+
+	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
+	var/update_flags = STATUS_UPDATE_NONE
 	for(var/A in reagent_list)
 		var/datum/reagent/R = A
 		if(!istype(R)) // How are non-reagents ending up in the reagents_list?
@@ -233,14 +236,18 @@ var/const/INGEST = 2
 				continue
 		//If you got this far, that means we can process whatever reagent this iteration is for. Handle things normally from here.
 		if(M && R)
-			R.on_mob_life(M)
+			update_flags |= R.on_mob_life(M)
 			if(R.volume >= R.overdose_threshold && !R.overdosed && R.overdose_threshold > 0)
 				R.overdosed = TRUE
 				R.overdose_start(M)
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = FALSE
 			if(R.overdosed)
-				R.overdose_process(M, R.volume >= R.overdose_threshold*2 ? 2 : 1)
+				var/list/overdose_results = R.overdose_process(M, R.volume >= R.overdose_threshold*2 ? 2 : 1)
+				if(overdose_results) // to protect against poorly-coded overdose procs
+					update_flags |= overdose_results[REAGENT_OVERDOSE_FLAGS]
+				else
+					log_runtime(EXCEPTION("Reagent '[R.name]' does not return an overdose info list!"))
 
 	for(var/A in addiction_list)
 		var/datum/reagent/R = A
@@ -250,18 +257,36 @@ var/const/INGEST = 2
 					R.addiction_stage++
 			switch(R.addiction_stage)
 				if(1)
-					R.addiction_act_stage1(M)
+					update_flags |= R.addiction_act_stage1(M)
 				if(2)
-					R.addiction_act_stage2(M)
+					update_flags |= R.addiction_act_stage2(M)
 				if(3)
-					R.addiction_act_stage3(M)
+					update_flags |= R.addiction_act_stage3(M)
 				if(4)
-					R.addiction_act_stage4(M)
+					update_flags |= R.addiction_act_stage4(M)
 				if(5)
-					R.addiction_act_stage5(M)
+					update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
 				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)
+	if(update_flags & STATUS_UPDATE_HEALTH)
+		M.updatehealth("reagent metabolism")
+	else if(update_flags & STATUS_UPDATE_STAT)
+		// update_stat is called in updatehealth
+		M.update_stat("reagent metabolism")
+	if(update_flags & STATUS_UPDATE_CANMOVE)
+		M.update_canmove()
+	if(update_flags & STATUS_UPDATE_STAMINA)
+		M.handle_hud_icons_health()
+		M.update_stamina()
+	if(update_flags & STATUS_UPDATE_BLIND)
+		M.update_blind_effects()
+	if(update_flags & STATUS_UPDATE_BLURRY)
+		M.update_blurry_effects()
+	if(update_flags & STATUS_UPDATE_NEARSIGHTED)
+		M.update_nearsighted_effects()
+	if(update_flags & STATUS_UPDATE_DRUGGY)
+		M.update_druggy_effects()
 	update_total()
 
 /datum/reagents/proc/death_metabolize(mob/living/M)
@@ -455,7 +480,8 @@ var/const/INGEST = 2
 			reagent_list -= A
 			qdel(A)
 			update_total()
-			my_atom.on_reagent_change()
+			if(my_atom)
+				my_atom.on_reagent_change()
 			return 0
 
 
@@ -537,7 +563,8 @@ var/const/INGEST = 2
 		if(R.id == reagent)
 			R.volume += amount
 			update_total()
-			my_atom.on_reagent_change()
+			if(my_atom)
+				my_atom.on_reagent_change()
 			R.on_merge(data)
 			if(!no_react)
 				handle_reactions()
@@ -555,7 +582,8 @@ var/const/INGEST = 2
 			R.on_new(data)
 
 		update_total()
-		my_atom.on_reagent_change()
+		if(my_atom)
+			my_atom.on_reagent_change()
 		if(!no_react)
 			handle_reactions()
 		return 0
@@ -578,7 +606,8 @@ var/const/INGEST = 2
 			update_total()
 			if(!safety)//So it does not handle reactions when it need not to
 				handle_reactions()
-			my_atom.on_reagent_change()
+			if(my_atom)
+				my_atom.on_reagent_change()
 			return 0
 
 	return 1
@@ -688,7 +717,7 @@ var/const/INGEST = 2
 
 // Convenience proc to create a reagents holder for an atom
 // Max vol is maximum volume of holder
-atom/proc/create_reagents(max_vol)
+/atom/proc/create_reagents(max_vol)
 	reagents = new/datum/reagents(max_vol)
 	reagents.my_atom = src
 

@@ -41,33 +41,22 @@
 	anchored = TRUE
 	mob_size = MOB_SIZE_LARGE
 	layer = MOB_LAYER + 0.5 //Looks weird with them slipping under mineral walls and cameras and shit otherwise
-	mouse_opacity = 2 // Easier to click on in melee, they're giant targets anyway
+	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
 	. = ..()
 
+/mob/living/simple_animal/hostile/megafauna/can_die()
+	return ..() && health <= 0
+
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
-	if(health > 0)
-		return
-	else
-		if(!admin_spawned)
-			feedback_set_details("megafauna_kills","[initial(name)]")
-			if(!elimination)	//used so the achievment only occurs for the last legion to die.
-				grant_achievement(medal_type,score_type)
-		..()
-
-/mob/living/simple_animal/hostile/megafauna/gib()
-	if(health > 0)
-		return
-	else
-		..()
-
-/mob/living/simple_animal/hostile/megafauna/dust()
-	if(health > 0)
-		return
-	else
-		..()
+	// this happens before the parent call because `del_on_death` may be set
+	if(can_die() && !admin_spawned)
+		feedback_set_details("megafauna_kills","[initial(name)]")
+		if(!elimination)	//used so the achievment only occurs for the last legion to die.
+			grant_achievement(medal_type,score_type)
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
 	..()

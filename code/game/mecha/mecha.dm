@@ -165,8 +165,6 @@
 			to_chat(user, "[bicon(ME)] [ME]")
 
 
-/obj/mecha/proc/drop_item()//Derpfix, but may be useful in future for engineering exosuits.
-	return
 
 /obj/mecha/hear_talk(mob/M, text)
 	if(M == occupant && radio.broadcasting)

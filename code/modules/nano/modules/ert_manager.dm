@@ -50,7 +50,7 @@
 		cyborg_slots = text2num(href_list["set_cyb"])
 
 	if(href_list["dispatch_ert"])
-		ert_request_answered = 1
+		ert_request_answered = TRUE
 		var/slots_list = list()
 		if(commander_slots > 0)
 			slots_list += "commander: [commander_slots]"

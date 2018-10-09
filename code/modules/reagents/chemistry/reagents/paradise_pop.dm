@@ -43,23 +43,24 @@
 	taste_message = "a permaban"
 
 /datum/reagent/consumable/drink/berry_banned/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		var/heal_type = rand(0, 5)		//still prefer the string version
 		switch(heal_type)
 			if(0)
-				M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+				update_flags |= M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			if(1)
-				M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+				update_flags |= M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			if(2)
-				M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+				update_flags |= M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			if(3)
-				M.adjustOxyLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+				update_flags |= M.adjustOxyLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			if(4)
-				M.adjustCloneLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER)
+				update_flags |= M.adjustCloneLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 			if(5)
-				M.adjustBrainLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+				update_flags |= M.adjustBrainLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 		to_chat(M, "<span class='notice'>You feel slightly rejuvinated!</span>")
-	..()
+	return ..() | update_flags
 
 //Berry Banned 2: This one is tasty and toxic. Deals toxin damage and MAYBE plays the "BWOINK!" sound if it kills someone?
 /datum/reagent/consumable/drink/berry_banned2
@@ -71,11 +72,12 @@
 	taste_message = "a permaban"
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(50))
-		M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER)		//double strength of poison berry juice alone, because it's concentrated (this is equal to the damage of normal toxin, less often)
+		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)		//double strength of poison berry juice alone, because it's concentrated (this is equal to the damage of normal toxin, less often)
 	if(prob(10))
 		to_chat(M, "<span class='notice'>You feel slightly rejuvinated!</span>")		//meta this!
-	..()
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_death(mob/living/M)
 	M << sound('sound/effects/adminhelp.ogg',0,1,0,25)
@@ -103,7 +105,7 @@
 									"THIS DOOR WAS SHOCKED WHEN I GOT HERE",
 									"ANIMALS ARE NOT CREW")
 		M.say(pick(tider_talk))
-	..()
+	return ..()
 
 //Grape Granade: causes the drinker to sometimes burp, has a low chance to cause a goonchem vortex that pushes things within a very small radius (1-2 tiles) away from the drinker
 /datum/reagent/consumable/drink/grape_granade
@@ -122,7 +124,7 @@
 		to_chat(M, "<span class='notice'>You feel ready to burst! Oh wait, just a burp...</span>")
 	else if(prob(25))
 		M.emote("burp")
-	..()
+	return ..()
 
 //Meteor Malt: Sometimes causes screen shakes for the drinker like a meteor impact, low chance to add 1-5 units of a random mineral reagent to the drinker's blood (iron, copper, silver, gold, uranium, carbon, etc)
 /datum/reagent/consumable/drink/meteor_malt
@@ -141,4 +143,4 @@
 		var/amount = rand(1, 5)
 		var/mineral = pick("copper", "iron", "gold", "carbon", "silver", "aluminum", "silicon", "sodiumchloride", "plasma")
 		M.reagents.add_reagent(mineral, amount)
-	..()
+	return ..()

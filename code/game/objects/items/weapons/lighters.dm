@@ -56,7 +56,6 @@
 						var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 						if(affecting.receive_damage( 0, 5 ))		//INFERNO
 							H.UpdateDamageIcon()
-							H.updatehealth()
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], [user.p_they()] however burn[user.p_s()] [user.p_their()] finger in the process.</span>")
 
 			set_light(2)

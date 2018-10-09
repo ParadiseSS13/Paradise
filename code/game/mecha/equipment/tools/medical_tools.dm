@@ -41,8 +41,8 @@
 	var/inject_amount = 10
 	salvageable = 0
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/allow_drop()
-	return 0
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/AllowDrop()
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Destroy()
 	for(var/atom/movable/AM in src)
@@ -228,7 +228,6 @@
 		return
 	if(M.health > 0)
 		M.adjustOxyLoss(-1)
-		M.updatehealth()
 	M.AdjustStunned(-4)
 	M.AdjustWeakened(-4)
 	M.AdjustStunned(-4)
@@ -520,4 +519,3 @@
 	for(var/reagent in processed_reagents)
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
-

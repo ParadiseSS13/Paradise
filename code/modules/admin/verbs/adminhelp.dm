@@ -114,15 +114,15 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		if("Adminhelp")
 			var/ticketNum // Holder for the ticket number
 			var/prunedmsg ="[usr.client]: [msg]" // Message without links
-			if(globAdminTicketHolder.checkForOpenTicket(usr.client)) // If user already has an open ticket
-				var/datum/admin_ticket/T = globAdminTicketHolder.checkForOpenTicket(usr.client) // Make T equal to the ticket they have open
+			if(SStickets.checkForOpenTicket(usr)) // If user already has an open ticket
+				var/datum/admin_ticket/T = SStickets.checkForOpenTicket(usr) // Make T equal to the ticket they have open
 				ticketNum = T.ticketNum // ticketNum is the number of their ticket.
 				T.addResponse(usr.client, msg)
 			else
 				ticketNum = globAdminTicketHolder.getTicketCounter() // ticketNum is the ticket ready to be assigned.
 			msg = "<span class='adminhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;openadminticket=[ticketNum]'>TICKET</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""](<A HREF='?_src_=holder;take_question=[mob.UID()]'>TAKE</A>) :</span> <span class='adminhelp'>[msg]</span>"
 			//Open a new adminticket and inform the user.
-			globAdminTicketHolder.newTicket(src, prunedmsg, msg)
+			SStickets.newTicket(src, prunedmsg, msg)
 			for(var/client/X in modholders + adminholders)
 				if(X.prefs.sound & SOUND_ADMINHELP)
 					X << 'sound/effects/adminhelp.ogg'

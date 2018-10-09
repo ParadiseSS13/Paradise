@@ -60,7 +60,7 @@
 					if(organ.receive_damage(d, 0))
 						H.UpdateDamageIcon()
 
-				H.updatehealth()
+				H.updatehealth("stomach attack")
 
 			else
 				src.take_organ_damage(d)
@@ -77,6 +77,10 @@
 				src.gib()
 
 #undef STOMACH_ATTACK_DELAY
+
+/mob/living/carbon/proc/has_mutated_organs()
+	return FALSE
+
 
 /mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
 	if(src.is_muzzled())
@@ -140,7 +144,7 @@
 		return 0
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	take_overall_damage(0,shock_damage, used_weapon = "Electrocution")
+	take_overall_damage(0,shock_damage, TRUE, used_weapon = "Electrocution")
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
@@ -265,7 +269,7 @@
 						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-5)
 				if(sleeping == 0)
-					resting = 0
+					StopResting()
 				AdjustParalysis(-3)
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
@@ -574,14 +578,14 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
-		return 0
-	if(buckled && ! istype(buckled, /obj/structure/stool/bed/chair)) // buckling does not restrict hands
-		return 0
-	return 1
+		return FALSE
+	if(buckled && ! istype(buckled, /obj/structure/chair)) // buckling does not restrict hands
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/restrained()
 	if(handcuffed)
-		return 1
+		return TRUE
 	return
 
 

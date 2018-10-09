@@ -440,6 +440,13 @@
 	name = "emergency response team security armor"
 	desc = "A set of armor worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "ertarmor_sec"
+	
+
+/obj/item/clothing/suit/armor/vest/ert/security/paranormal
+	name = "emergency response team paranormal armor"
+	desc = "A set of armor worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
+	icon_state = "knight_templar"
+	item_state = "knight_templar"
 
 //Engineer
 /obj/item/clothing/suit/armor/vest/ert/engineer

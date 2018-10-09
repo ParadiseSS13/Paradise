@@ -100,7 +100,7 @@ Class Procs:
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
 	var/emagged = 0
-	var/use_power = 1
+	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
 		//2 = run auto, use active
@@ -127,7 +127,7 @@ Class Procs:
 
 /obj/machinery/proc/addAtProcessing()
 	if(use_power)
-		myArea = get_area_master(src)
+		myArea = get_area(src)
 	if(!speed_process)
 		if(!defer_process)
 			START_PROCESSING(SSmachines, src)
@@ -210,9 +210,9 @@ Class Procs:
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))
 		return 0
-	if(use_power == 1)
+	if(use_power == IDLE_POWER_USE)
 		use_power(idle_power_usage,power_channel, 1)
-	else if(use_power >= 2)
+	else if(use_power >= ACTIVE_POWER_USE)
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 

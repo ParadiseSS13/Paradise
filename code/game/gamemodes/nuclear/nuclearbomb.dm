@@ -19,7 +19,7 @@ var/bomb_set
 	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
 	var/lastentered
 	var/is_syndicate = 0
-	use_power = 0
+	use_power = NO_POWER_USE
 	unacidable = 1
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
@@ -370,7 +370,7 @@ var/bomb_set
 
 	if(ticker)
 		if(ticker.mode && ticker.mode.name == "nuclear emergency")
-			var/obj/docking_port/mobile/syndie_shuttle = shuttle_master.getShuttle("syndicate")
+			var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
 			if(syndie_shuttle)
 				ticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
 			ticker.mode:nuke_off_station = off_station

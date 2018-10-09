@@ -13,7 +13,7 @@ var/list/alldepartments = list()
 	var/long_range_enabled = 0 // Can we send messages off the station?
 	req_one_access = list(access_lawyer, access_heads, access_armory)
 
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	active_power_usage = 200
 
@@ -207,7 +207,7 @@ var/list/alldepartments = list()
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(scan)

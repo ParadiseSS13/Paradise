@@ -24,24 +24,24 @@
 
 	//Do dmgamt damage divided by the number of damage types applied.
 	if(damagetype & BRUTELOSS)
-		adjustBruteLoss(dmgamt / damage_mod)
+		adjustBruteLoss(dmgamt / damage_mod, FALSE)
 
 	if(damagetype & FIRELOSS)
-		adjustFireLoss(dmgamt / damage_mod)
+		adjustFireLoss(dmgamt / damage_mod, FALSE)
 
 	if(damagetype & TOXLOSS)
-		adjustToxLoss(dmgamt / damage_mod)
+		adjustToxLoss(dmgamt / damage_mod, FALSE)
 
 	if(damagetype & OXYLOSS)
-		adjustOxyLoss(dmgamt / damage_mod)
+		adjustOxyLoss(dmgamt / damage_mod, FALSE)
 
 	// Failing that...
 	if(!(damagetype & BRUTELOSS) && !(damagetype & FIRELOSS) && !(damagetype & TOXLOSS) && !(damagetype & OXYLOSS))
 		if(NO_BREATHE in dna.species.species_traits)
 			// the ultimate fallback
-			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0)
+			take_overall_damage(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), 0, updating_health = FALSE)
 		else
-			adjustOxyLoss(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
+			adjustOxyLoss(max(dmgamt - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0), FALSE)
 
 	var/obj/item/organ/external/affected = get_organ("head")
 	if(affected)
@@ -84,10 +84,8 @@
 				do_suicide(damagetype, held_item)
 				return
 
-		to_chat(viewers(src), "<span class=danger>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
+		to_chat(viewers(src), "<span class='danger'>[src] [replacetext(pick(dna.species.suicide_messages), "their", p_their())] It looks like [p_theyre()] trying to commit suicide.</span>")
 		do_suicide(0)
-
-		updatehealth()
 
 /mob/living/carbon/brain/verb/suicide()
 	set hidden = 1
@@ -132,7 +130,6 @@
 		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-		updatehealth()
 
 /mob/living/silicon/robot/verb/suicide()
 	set hidden = 1
@@ -152,7 +149,6 @@
 		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-		updatehealth()
 
 /mob/living/silicon/pai/verb/suicide()
 	set category = "pAI Commands"
@@ -189,7 +185,6 @@
 		to_chat(viewers(src), "<span class='danger'>[src] is thrashing wildly! It looks like [p_theyre()] trying to commit suicide.</span>")
 		//put em at -175
 		adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
-		updatehealth()
 
 
 /mob/living/carbon/slime/verb/suicide()
@@ -206,9 +201,9 @@
 
 	if(confirm == "Yes")
 		suiciding = 1
-		setOxyLoss(100)
-		adjustBruteLoss(100 - getBruteLoss())
-		setToxLoss(100)
-		setCloneLoss(100)
+		setOxyLoss(100, FALSE)
+		adjustBruteLoss(100 - getBruteLoss(), FALSE)
+		setToxLoss(100, FALSE)
+		setCloneLoss(100, FALSE)
 
 		updatehealth()

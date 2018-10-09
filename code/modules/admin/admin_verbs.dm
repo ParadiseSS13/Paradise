@@ -170,7 +170,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
-	/client/proc/startadmintickets,
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -213,7 +212,6 @@ var/list/admin_verbs_proccall = list(
 )
 var/list/admin_verbs_snpc = list(
 	/client/proc/resetSNPC,
-	/client/proc/toggleSNPC,
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )

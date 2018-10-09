@@ -1,0 +1,6 @@
+author: "Triiodine"
+delete-after: True
+changes: 
+  - tweak: "Tidied up nuclear shuttle's mini-medbay to better utilize the space provided."
+  - rscadd: "Full Body-Scanner, surgery set, replacement limbs, bloodpacks to the nuclear shuttle's mini-medbay."
+  - rscdel: "One of the nuclear shuttle's sleepers."

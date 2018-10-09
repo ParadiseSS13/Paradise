@@ -1,10 +1,10 @@
 /mob/living/carbon/human/say(var/message, var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
-	var/alt_name = ""
+	..(message, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
 
+/mob/living/carbon/human/GetAltName()
 	if(name != GetVoice())
-		alt_name = " (as [get_id_name("Unknown")])"
-
-	..(message, alt_name = alt_name, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
+		return " (as [get_id_name("Unknown")])"
+	return ..()
 
 /mob/living/carbon/human/proc/forcesay(list/append)
 	if(stat == CONSCIOUS)
@@ -160,7 +160,7 @@
 	returns[3] = speech_problem_flag
 	return returns
 
-/mob/living/carbon/human/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios, var/alt_name)
+/mob/living/carbon/human/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios)
 	switch(message_mode)
 		if("intercom")
 			for(var/obj/item/radio/intercom/I in view(1, src))
@@ -203,7 +203,7 @@
 				R.talk_into(src, message, null, verb, speaking)
 
 		if("whisper")
-			whisper_say(message, speaking, alt_name)
+			whisper_say(message, speaking)
 			return 1
 		else
 			if(message_mode)

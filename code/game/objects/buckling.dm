@@ -71,13 +71,16 @@
 		buckled_mob.clear_alert("buckled")
 		buckled_mob = null
 
-		post_buckle_mob(.)
+		post_unbuckle_mob(.)
 
 //Handle any extras after buckling/unbuckling
 //Called on buckle_mob() and unbuckle_mob()
 /atom/movable/proc/post_buckle_mob(mob/living/M)
 	return
 
+//same but for unbuckle
+/atom/movable/proc/post_unbuckle_mob(mob/living/M)
+	return
 
 //Wrapper procs that handle sanity and user feedback
 /atom/movable/proc/user_buckle_mob(mob/living/M, mob/user)

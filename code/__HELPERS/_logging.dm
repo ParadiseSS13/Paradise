@@ -91,6 +91,9 @@
 /proc/log_adminsay(text, mob/speaker)
 	if(config.log_adminchat)
 		WRITE_LOG(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+	
+/proc/log_qdel(text)
+	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text]")
 
 /proc/log_mentorsay(text, mob/speaker)
 	if(config.log_adminchat)

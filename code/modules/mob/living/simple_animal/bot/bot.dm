@@ -202,8 +202,11 @@
 	return ..()
 
 /mob/living/simple_animal/bot/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	explode()
-	..()
 
 /mob/living/simple_animal/bot/proc/explode()
 	qdel(src)
@@ -242,8 +245,8 @@
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..(amount)
 
-/mob/living/simple_animal/bot/updatehealth()
-	..()
+/mob/living/simple_animal/bot/updatehealth(reason = "none given")
+	..(reason)
 	diag_hud_set_bothealth()
 
 /mob/living/simple_animal/bot/handle_automated_action()
@@ -889,7 +892,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 // Machinery to simplify topic and access calls
 /obj/machinery/bot_core
-	use_power = 0
+	use_power = NO_POWER_USE
 	var/mob/living/simple_animal/bot/owner = null
 
 /obj/machinery/bot_core/New(loc)

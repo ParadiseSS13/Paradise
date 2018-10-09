@@ -157,18 +157,14 @@
 		honk()
 
 /turf/simulated/floor/mineral/bananium/proc/honk()
-	if(!spam_flag)
-		spam_flag = 1
+	if(spam_flag < world.time)
 		playsound(src, 'sound/items/bikehorn.ogg', 50, 1)
-		spawn(20)
-			spam_flag = 0
+		spam_flag = world.time + 20
 
 /turf/simulated/floor/mineral/bananium/proc/squeek()
-	if(!spam_flag)
-		spam_flag = 1
+	if(spam_flag < world.time)
 		playsound(src, "clownstep", 50, 1)
-		spawn(10)
-			spam_flag = 0
+		spam_flag = world.time + 10
 
 /turf/simulated/floor/mineral/bananium/airless
 	oxygen = 0.01

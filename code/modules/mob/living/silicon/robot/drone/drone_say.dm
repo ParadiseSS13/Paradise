@@ -1,7 +1,7 @@
 /mob/living/silicon/robot/drone/say(var/message, var/datum/language/speaking = null)
 	if(copytext(message, 1, 2) == "*")
 		return emote(copytext(message, 2))
-		
+
 	if(!speaking)
 		speaking = parse_language(message)
 		if(!speaking)
@@ -10,6 +10,6 @@
 	if(speaking)
 		return ..()
 
-/mob/living/silicon/robot/drone/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
+/mob/living/silicon/robot/drone/whisper_say(var/message, var/datum/language/speaking = null, var/verb="whispers")
 	say(message) //drones do not get to whisper, only speak normally
 	return 1

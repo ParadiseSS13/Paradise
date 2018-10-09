@@ -248,7 +248,7 @@
 	   But I like HTML, so back to no sanitizing.*/
 
 	var/message = interpreter.GetVar("$content")
-	var/regex/bannedTags = new ("(<script|<iframe|<video|<audio|<embed)")
+	var/regex/bannedTags = new ("(<script|<iframe|<video|<audio|<embed|<svg)")
 	if(bannedTags.Find(message)) //uh oh
 		message_admins("Warning: Current Telecomms script contains banned html. Stripping message.")
 		log_admin("Warning: Current Telecomms script contains banned html. Stripping message.")

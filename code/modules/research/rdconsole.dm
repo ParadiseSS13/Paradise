@@ -426,7 +426,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/key = usr.key	//so we don't lose the info during the spawn delay
 				if(!(being_built.build_type & PROTOLATHE))
 					g2g = 0
-					message_admins("Protolathe exploit attempted by [key_name(usr, usr.client)]!")
+					message_admins("Protolathe exploit attempted by [key_name(usr, TRUE)]!")
 
 				if(g2g) //If input is incorrect, nothing happens
 					var/new_coeff = coeff * being_built.lathe_time_factor
@@ -502,7 +502,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				power = max(2000, power)
 				if(!(being_built.build_type & IMPRINTER))
 					g2g = 0
-					message_admins("Circuit imprinter exploit attempted by [key_name(usr, usr.client)]!")
+					message_admins("Circuit imprinter exploit attempted by [key_name(usr, TRUE)]!")
 
 				if(g2g) //Again, if input is wrong, do nothing
 					add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY)

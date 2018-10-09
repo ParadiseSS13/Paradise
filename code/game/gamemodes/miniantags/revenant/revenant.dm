@@ -161,15 +161,18 @@
 
 
 /mob/living/simple_animal/revenant/dust()
-	death()
+	. = death()
 
 /mob/living/simple_animal/revenant/gib()
-	death()
+	. = death()
 
 /mob/living/simple_animal/revenant/death()
-	..()
 	if(!revealed)
-		return
+		return FALSE
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	ghost_darkness_images -= ghostimage
 	updateallghostimages()
 
@@ -190,7 +193,6 @@
 	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
 	ghostize()
 	qdel(src)
-	return
 
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/nullrod))
