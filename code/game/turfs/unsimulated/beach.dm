@@ -34,8 +34,8 @@
 /turf/unsimulated/beach/water
 	name = "Shallow Water"
 	icon_state = "seashallow"
-	var/obj/machinery/poolcontroller/linkedcontroller = null
 	water_overlay_image = "water_shallow"
+	var/obj/machinery/poolcontroller/linkedcontroller = null
 
 /turf/unsimulated/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
