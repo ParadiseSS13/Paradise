@@ -1,0 +1,4 @@
+author: "Purpose & AndrewMontagne"
+delete-after: True
+changes: 
+  - rscadd: "Adds tile smoothing to plating. Plating should now be a bit more of a 3d look..."
