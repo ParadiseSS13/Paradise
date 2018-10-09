@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - tweak: "Code improvements on mouse_opacity"
