@@ -82,6 +82,7 @@
 // NEEDS TO BE UPDATED
 /turf/simulated/floor/basalt //By your powers combined, I am captain planet
 	name = "volcanic floor"
+	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt0"
 	oxygen = 14
 	nitrogen = 23
