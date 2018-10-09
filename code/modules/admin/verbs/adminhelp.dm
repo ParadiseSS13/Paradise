@@ -119,7 +119,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 				ticketNum = T.ticketNum // ticketNum is the number of their ticket.
 				T.addResponse(usr.client, msg)
 			else
-				ticketNum = globAdminTicketHolder.getTicketCounter() // ticketNum is the ticket ready to be assigned.
+				ticketNum = SStickets.getTicketCounter() // ticketNum is the ticket ready to be assigned.
 			msg = "<span class='adminhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;openadminticket=[ticketNum]'>TICKET</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""](<A HREF='?_src_=holder;take_question=[mob.UID()]'>TAKE</A>) :</span> <span class='adminhelp'>[msg]</span>"
 			//Open a new adminticket and inform the user.
 			SStickets.newTicket(src, prunedmsg, msg)
