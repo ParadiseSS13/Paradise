@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - bugfix: "Deconstructing a syndicate console will no longer ruin it forever."
