@@ -91,12 +91,11 @@
 
 /obj/structure/closet/secure_closet/emag_act(mob/user)
 	if(!broken)
-		broken = 1
-		locked = 0
-		desc = "It appears to be broken."
+		broken = TRUE
+		locked = FALSE
 		icon_state = icon_off
 		flick(icon_broken, src)
-		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+		to_chat(user, "<span class='notice'>You break the lock on \the [src].</span>")
 
 /obj/structure/closet/secure_closet/attack_hand(mob/user)
 	add_fingerprint(user)
