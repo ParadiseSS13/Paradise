@@ -45,15 +45,16 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, var/ndir = 0, var/building = 3)
+/obj/item/radio/intercom/New(turf/loc, ndir, building = 3)
 	..()
 	buildstage = building
 	if(buildstage)
 		processing_objects.Add(src)
 	else
-		pixel_x = (ndir & 3)? 0 : (ndir == 4 ? 28 : -28)
-		pixel_y = (ndir & 3)? (ndir ==1 ? 28 : -28) : 0
-		dir=ndir
+		if(ndir)
+			pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
+			pixel_y = (ndir & NORTH|SOUTH) ? (ndir == NORTH ? 28 : -28) : 0
+			dir=ndir
 		b_stat=1
 		on = 0
 	global_intercoms.Add(src)

@@ -442,7 +442,7 @@
 	attack_self(user)
 
 //Bed
-/obj/structure/stool/bed/pod
+/obj/structure/bed/pod
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "bed"
 
@@ -523,7 +523,7 @@
 	icon_state = "fan_tiny"
 	buildstackamount = 2
 
-/obj/structure/fans/New(loc)
+/obj/structure/fans/Initialize(loc)
 	..()
 	air_update_turf(1)
 

@@ -1,7 +1,7 @@
 /proc/issmall(A)
 	if(A && istype(A, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = A
-		if(H.species && H.species.is_small)
+		if(H.dna.species && H.dna.species.is_small)
 			return 1
  	return 0
 
@@ -16,9 +16,9 @@
 	return 0
 
 /mob/living/carbon/human/isSynthetic()
-	if(get_species() == "Machine")
-		return 1
-	return 0
+	if(ismachine(src))
+		return TRUE
+	return FALSE
 
 /mob/proc/get_screen_colour()
 
@@ -356,7 +356,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src))
+		else if(isrobot(src) || islarva(src) || isanimal(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP
@@ -396,13 +396,6 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 	else if(resting)
 		to_chat(src, "<span class='notice'>You are now getting up.</span>")
 		StopResting()
-
-/proc/is_blind(A)
-	if(iscarbon(A))
-		var/mob/living/carbon/C = A
-		if(C.disabilities & BLIND || C.blinded)
-			return 1
-	return 0
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
@@ -469,7 +462,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, var/action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in player_list)
 		if(O.client)
-			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]<span>")
+			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
 			if(ghost_sound)
 				O << sound(ghost_sound)
 			if(flashwindow)
@@ -498,7 +491,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !canmove))
 		return 0
 	check_eye(src)
 	return 1

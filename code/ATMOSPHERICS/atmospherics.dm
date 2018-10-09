@@ -33,7 +33,6 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 100, bomb = 0, bio = 100, rad = 100)
 	..()
-	SSair.atmos_machinery += src
 
 	if(!pipe_color)
 		pipe_color = color
@@ -41,6 +40,10 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 
 	if(!pipe_color_check(pipe_color))
 		pipe_color = null
+
+/obj/machinery/atmospherics/Initialize()
+	. = ..()
+	SSair.atmos_machinery += src
 
 /obj/machinery/atmospherics/proc/atmos_init()
 	if(can_unwrench)

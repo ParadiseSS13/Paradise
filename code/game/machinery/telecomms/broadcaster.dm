@@ -15,7 +15,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	desc = "A dish-shaped machine used to broadcast processed subspace signals."
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 25
 	machinetype = 5
 	circuitboard = /obj/item/circuitboard/telecomms/broadcaster
@@ -113,7 +113,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	desc = "A compact machine used for portable subspace telecommuniations processing."
 	density = 1
 	anchored = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	machinetype = 6
 	var/intercept = 0 // if nonzero, broadcasts all messages to syndicate channel
@@ -180,15 +180,15 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			old_type = SYNDICATE_RADIO_TYPE
 		if(new_freq == antag_freq)
 			new_type = SYNDICATE_RADIO_TYPE
-			
+
 	for(var/cent_freq in CENT_FREQS)
 		if(old_freq == cent_freq)
 			old_type = CENTCOMM_RADIO_TYPE
 		if(new_freq == cent_freq)
 			new_type = CENTCOMM_RADIO_TYPE
-			
+
 	return new_type > old_type
-	
+
 /**
 
 	Here is the big, bad function that broadcasts a message given the appropriate
@@ -259,11 +259,11 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 	var/bad_connection = FALSE
 	var/datum/radio_frequency/new_connection = connection
-	
+
 	if(connection.frequency != display_freq)
 		bad_connection = Is_Bad_Connection(connection.frequency, display_freq)
 		new_connection = radio_controller.return_frequency(display_freq)
-	
+
 	var/list/obj/item/radio/radios = list()
 
 	// --- Broadcast only to intercom devices ---

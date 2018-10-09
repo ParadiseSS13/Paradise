@@ -17,6 +17,8 @@
 	..()
 
 /mob/living/carbon/human/virtual_reality/death()
+	if(!can_die())
+		return false
 	myroom.players.Remove(src)
 	vr_all_players.Remove(src)
 	if((myroom.players.len == 0) && (myroom.expires == 1))

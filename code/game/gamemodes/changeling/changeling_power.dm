@@ -81,3 +81,18 @@
 	if(req_human && !ishuman(user))
 		return 0
 	return 1
+
+// Transform the target to the chosen dna. Used in transform.dm and tiny_prick.dm (handy for changes since it's the same thing done twice)
+/obj/effect/proc_holder/changeling/proc/transform_dna(var/mob/living/carbon/human/H, var/datum/dna/D)
+	if(!D)
+		return
+	
+	H.set_species(D.species.type, retain_damage = TRUE)
+	H.dna = D.Clone()
+	H.real_name = D.real_name
+	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
+	H.flavor_text = ""
+	H.dna.UpdateSE()
+	H.dna.UpdateUI()
+	H.sync_organ_dna(1)
+	H.UpdateAppearance()

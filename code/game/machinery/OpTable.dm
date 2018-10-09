@@ -5,7 +5,7 @@
 	icon_state = "table2-idle"
 	density = 1
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 1
 	active_power_usage = 5
 	var/mob/living/carbon/human/victim = null
@@ -120,6 +120,8 @@
 	C.forceMove(loc)
 	if(user.pulling == C)
 		user.stop_pulling()
+	if(C.s_active) //Close the container opened
+		C.s_active.close(C)
 	for(var/obj/O in src)
 		O.loc = src.loc
 	src.add_fingerprint(user)
@@ -142,19 +144,20 @@
 
 	take_victim(usr,usr)
 
-/obj/machinery/optable/attackby(obj/item/W as obj, mob/living/carbon/user as mob, params)
-	if(istype(W, /obj/item/grab))
-		if(iscarbon(W:affecting))
-			take_victim(W:affecting,usr)
-			qdel(W)
-			return
-	if(istype(W, /obj/item/wrench))
-		playsound(src.loc, W.usesound, 50, 1)
-		if(do_after(user, 20 * W.toolspeed, target = src))
+/obj/machinery/optable/attackby(obj/item/I, mob/living/carbon/user, params)
+	if(istype(I, /obj/item/grab))
+		var/obj/item/grab/G = I
+		if(iscarbon(G.affecting))
+			take_victim(G.affecting, user)
+			qdel(G)
+	if(iswrench(I))
+		playsound(loc, I.usesound, 50, 1)
+		if(do_after(user, 20 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
 			new /obj/item/stack/sheet/plasteel(loc, 5)
 			qdel(src)
-
+	else
+		return ..()
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
 	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)

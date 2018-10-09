@@ -178,7 +178,7 @@ proc/random_name(gender, species = "Human")
 
 	var/datum/species/current_species
 	if(species)
-		current_species = all_species[species]
+		current_species = GLOB.all_species[species]
 
 	if(!current_species || current_species.name == "Human")
 		if(gender==FEMALE)
@@ -255,8 +255,8 @@ This is always put in the attack log.
 			add_attack_logs(user, M, what_done, custom_level)
 		return
 
-	var/user_str = key_name_log(user)
-	var/target_str = key_name_log(target)
+	var/user_str = key_name_log(user) + COORD(user)
+	var/target_str = key_name_log(target) + COORD(target)
 
 	if(istype(user))
 		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
@@ -265,7 +265,6 @@ This is always put in the attack log.
 	log_attack(user_str, target_str, what_done)
 
 	var/loglevel = ATKLOG_MOST
-
 	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))
@@ -373,11 +372,11 @@ This is always put in the attack log.
 	if(progress)
 		qdel(progbar)
 
-/proc/is_species(A, species_name)
+/proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
-		if(H.get_species() == species_name)
+		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)

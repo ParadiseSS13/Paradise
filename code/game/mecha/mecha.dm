@@ -165,8 +165,6 @@
 			to_chat(user, "[bicon(ME)] [ME]")
 
 
-/obj/mecha/proc/drop_item()//Derpfix, but may be useful in future for engineering exosuits.
-	return
 
 /obj/mecha/hear_talk(mob/M, text)
 	if(M == occupant && radio.broadcasting)
@@ -1206,6 +1204,10 @@
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
 		brainmob.canmove = 1
+		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
+			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
+			if(R.imprinted_master)
+				to_chat(brainmob, "<span class='notice'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
 		verbs -= /obj/mecha/verb/eject
@@ -1305,6 +1307,10 @@
 			mmi.mecha = null
 			mmi.update_icon()
 			L.canmove = 0
+			if(istype(mmi, /obj/item/mmi/robotic_brain))
+				var/obj/item/mmi/robotic_brain/R = mmi
+				if(R.imprinted_master)
+					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
 		icon_state = initial(icon_state)+"-open"
 		dir = dir_in
 

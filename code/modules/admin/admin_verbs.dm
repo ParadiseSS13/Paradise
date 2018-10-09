@@ -76,6 +76,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds,
+	/client/proc/cmd_admin_headset_message,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -169,7 +170,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
-	/client/proc/startadmintickets,
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -212,7 +212,6 @@ var/list/admin_verbs_proccall = list(
 )
 var/list/admin_verbs_snpc = list(
 	/client/proc/resetSNPC,
-	/client/proc/toggleSNPC,
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )
@@ -826,10 +825,10 @@ var/list/admin_verbs_ticket = list(
 	if(!istype(H))
 		if(istype(H, /mob/living/carbon/brain))
 			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/mmi/posibrain/ipc))
-				var/obj/item/mmi/posibrain/ipc/C = B.container
+			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
+				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
+				if(ishuman(P.owner))
 					H = P.owner
 			else
 				return
@@ -852,10 +851,10 @@ var/list/admin_verbs_ticket = list(
 	if(!istype(H))
 		if(istype(H, /mob/living/carbon/brain))
 			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/mmi/posibrain/ipc))
-				var/obj/item/mmi/posibrain/ipc/C = B.container
+			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
+				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
+				if(ishuman(P.owner))
 					H = P.owner
 			else
 				return

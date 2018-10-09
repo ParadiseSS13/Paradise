@@ -175,7 +175,7 @@ Auto Patrol: []"},
 		mode = BOT_HUNT
 
 /mob/living/simple_animal/bot/secbot/attack_hand(mob/living/carbon/human/H)
-	if(H.a_intent == INTENT_HARM)
+	if(H.a_intent == INTENT_HARM || H.a_intent == INTENT_DISARM)
 		retaliate(H)
 	return ..()
 

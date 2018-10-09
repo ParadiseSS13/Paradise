@@ -33,7 +33,7 @@
 		dream_images += pick_n_take(nightmares)
 		nightmare++
 	for(var/i in 1 to dream_images.len)
-		addtimer(CALLBACK(src, .proc/experience_dream, nightmares[i], TRUE), ((i - 1) * rand(30,60)))
+		addtimer(CALLBACK(src, .proc/experience_dream, dream_images[i], TRUE), ((i - 1) * rand(30,60)))
 	return TRUE
 
 /mob/living/carbon/proc/handle_dreams()
@@ -43,7 +43,7 @@
 		nightmare()
 		if(ishuman(src))
 			if(prob(10))
-				emote("writhes in [p_their()] sleep.")
+				custom_emote(1,"writhes in [p_their()] sleep.")
 				dir = pick(cardinal)
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)
@@ -54,4 +54,3 @@
 	if(isNightmare)
 		dream_image = "<span class='cultitalic'>[dream_image]</span>"
 	to_chat(src, "<span class='notice'><i>... [dream_image] ...</i></span>")
-

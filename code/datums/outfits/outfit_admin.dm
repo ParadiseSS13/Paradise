@@ -371,7 +371,7 @@
 	)
 
 /datum/outfit/admin/vox/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(H.get_species() == "Vox Armalis")
+	if(isvoxarmalis(H))
 		. = ..()
 	else
 		H.equip_vox_raider()

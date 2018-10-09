@@ -11,6 +11,7 @@
 	var/list/protected_jobs = list()
 	var/list/altitems = list()
 	var/flags = 0
+	var/location_override
 
 /datum/theft_objective/proc/check_completion(var/datum/mind/owner)
 	if(!owner.current)
@@ -49,6 +50,7 @@
 /datum/theft_objective/ai
 	name = "a functional AI"
 	typepath = /obj/item/aicard
+	location_override = "AI Satellite. An intellicard for transportation can be found in Tech Storage, Science Department or manufactured"
 
 datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	if(..())
@@ -91,6 +93,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	name = "a sample of unused slime extract"
 	typepath = /obj/item/slime_extract
 	protected_jobs = list("Research Director","Scientist")
+	location_override = "Xenobiology"
 
 /datum/theft_objective/slime_extract/check_special_completion(var/obj/item/slime_extract/E)
 	if(..())
@@ -118,7 +121,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	typepath = /obj/item/documents //Any set of secret documents. Doesn't have to be NT's
 
 /datum/theft_objective/hypospray
-	name = "a hypospray"
+	name = "the Chief Medical Officer's hypospray"
 	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 
@@ -169,6 +172,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	min=28
 	max=28
 	protected_jobs = list("Chief Engineer", "Station Engineer", "Scientist", "Research Director", "Life Support Specialist")
+	location_override = "Engineering or Toxin Mixing"
 
 /datum/theft_objective/number/plasma_gas/getAmountStolen(var/obj/item/I)
 	return I:air_contents:toxins

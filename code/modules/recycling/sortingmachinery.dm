@@ -134,6 +134,7 @@
 	name = "package wrapper"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "deliveryPaper"
+	singular_name = "package wrapper"
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
@@ -349,7 +350,7 @@
 				if(!src || !W.isOn()) return
 				to_chat(user, "You sliced the floorweld off the delivery chute.")
 				var/obj/structure/disposalconstruct/C = new (src.loc)
-				C.ptype = 8 // 8 =  Delivery chute
+				C.ptype = PIPE_DISPOSALS_CHUTE
 				C.update()
 				C.anchored = 1
 				C.density = 1

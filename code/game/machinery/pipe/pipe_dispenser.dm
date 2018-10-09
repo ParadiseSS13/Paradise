@@ -10,12 +10,12 @@
 /obj/machinery/pipedispenser/attack_hand(mob/user)
 	if(..())
 		return 1
-		
+
 	interact(user)
-	
+
 /obj/machinery/pipedispenser/attack_ghost(mob/user)
 	interact(user)
-			
+
 /obj/machinery/pipedispenser/interact(mob/user)
 	var/dat = {"
 <b>Regular pipes:</b><BR>
@@ -87,15 +87,11 @@
 			var/obj/item/pipe/P = new (loc, pipe_type=p_type, dir=p_dir)
 			P.update()
 			P.add_fingerprint(usr)
-			wait = 1
-			spawn(10)
-				wait = 0
+			wait = world.time + 10
 	if(href_list["makemeter"])
-		if(!wait)
+		if(wait < world.time)
 			new /obj/item/pipe_meter(loc)
-			wait = 1
-			spawn(15)
-				wait = 0
+			wait = world.time + 15
 	if(href_list["makegsensor"])
 		if(!wait)
 			new /obj/item/pipe_gsensor(loc)
@@ -163,22 +159,22 @@
 /obj/machinery/pipedispenser/disposal/attack_hand(mob/user)
 	if(..())
 		return
-		
+
 	interact(user)
-	
+
 /obj/machinery/pipedispenser/disposal/attack_ghost(mob/user)
 	interact(user)
-	
+
 /obj/machinery/pipedispenser/disposal/interact(mob/user)
 	var/dat = {"<b>Disposal Pipes</b><br><br>
-<A href='?src=[UID()];dmake=0'>Pipe</A><BR>
-<A href='?src=[UID()];dmake=1'>Bent Pipe</A><BR>
-<A href='?src=[UID()];dmake=2'>Junction</A><BR>
-<A href='?src=[UID()];dmake=3'>Y-Junction</A><BR>
-<A href='?src=[UID()];dmake=4'>Trunk</A><BR>
-<A href='?src=[UID()];dmake=5'>Bin</A><BR>
-<A href='?src=[UID()];dmake=6'>Outlet</A><BR>
-<A href='?src=[UID()];dmake=7'>Chute</A><BR>
+<A href='?src=[UID()];dmake=100'>Pipe</A><BR>
+<A href='?src=[UID()];dmake=101'>Bent Pipe</A><BR>
+<A href='?src=[UID()];dmake=102'>Junction</A><BR>
+<A href='?src=[UID()];dmake=104'>Y-Junction</A><BR>
+<A href='?src=[UID()];dmake=105'>Trunk</A><BR>
+<A href='?src=[UID()];dmake=106'>Bin</A><BR>
+<A href='?src=[UID()];dmake=107'>Outlet</A><BR>
+<A href='?src=[UID()];dmake=108'>Chute</A><BR>
 "}
 
 	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
@@ -192,31 +188,10 @@
 	usr.set_machine(src)
 	add_fingerprint(usr)
 
-	if(!wait)
+	if(wait < world.time)
 		var/p_type = text2num(href_list["dmake"])
-		var/obj/structure/disposalconstruct/C = new (loc)
-		switch(p_type)
-			if(0)
-				C.ptype = 0
-			if(1)
-				C.ptype = 1
-			if(2)
-				C.ptype = 2
-			if(3)
-				C.ptype = 4
-			if(4)
-				C.ptype = 5
-			if(5)
-				C.ptype = 6
-				C.density = 1
-			if(6)
-				C.ptype = 7
-				C.density = 1
-			if(7)
-				C.ptype = 8
-				C.density = 1
+		var/obj/structure/disposalconstruct/C = new(loc, p_type)
+		if(p_type in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE))
+			C.density = TRUE
 		C.add_fingerprint(usr)
-		C.update()
-		wait = 1
-		spawn(15)
-			wait = 0
+		wait = world.time + 15

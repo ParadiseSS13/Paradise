@@ -15,10 +15,10 @@
 		handle_heartbeat()
 		handle_heartattack()
 		handle_drunk()
-		species.handle_life(src)
+		dna.species.handle_life(src)
 
 		if(!client)
-			species.handle_npc(src)
+			dna.species.handle_npc(src)
 
 	if(stat != DEAD)
 		//Stuff jammed in your limbs hurts
@@ -144,12 +144,12 @@
 				if(3)
 					emote("drool")
 
-	if(getBrainLoss() >= 100 && stat != 2) //you lapse into a coma and die without immediate aid; RIP. -Fox
+	if(getBrainLoss() >= 100 && stat != DEAD) //you lapse into a coma and die without immediate aid; RIP. -Fox
 		Weaken(20)
 		AdjustLoseBreath(10)
 		AdjustSilence(2)
 
-	if(getBrainLoss() >= 120 && stat != 2) //they died from stupidity--literally. -Fox
+	if(getBrainLoss() >= 120 && stat != DEAD) //they died from stupidity--literally. -Fox
 		visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
 		death()
 
@@ -178,7 +178,7 @@
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
 
-	if(!(RADIMMUNE in species.species_traits))
+	if(!(RADIMMUNE in dna.species.species_traits))
 		if(radiation)
 			radiation = Clamp(radiation, 0, 200)
 
@@ -238,7 +238,7 @@
 					chest.add_autopsy_data("Radiation Poisoning", autopsy_damage)
 
 /mob/living/carbon/human/breathe()
-	if(!species.breathe(src))
+	if(!dna.species.breathe(src))
 		..()
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
@@ -253,8 +253,8 @@
 
 		failed_last_breath = TRUE
 
-		if(species)
-			var/datum/species/S = species
+		if(dna.species)
+			var/datum/species/S = dna.species
 
 			if(S.breathid == "o2")
 				throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
@@ -332,41 +332,41 @@
 				bodytemperature += min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
 
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
-	if(bodytemperature > species.heat_level_1)
+	if(bodytemperature > dna.species.heat_level_1)
 		//Body temperature is too hot.
 		if(status_flags & GODMODE)	return 1	//godmode
-		var/mult = species.heatmod
+		var/mult = dna.species.heatmod
 
-		if(bodytemperature >= species.heat_level_1 && bodytemperature <= species.heat_level_2)
+		if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
 			throw_alert("temp", /obj/screen/alert/hot, 1)
-			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
-		if(bodytemperature > species.heat_level_2 && bodytemperature <= species.heat_level_3)
+			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "High Body Temperature")
+		if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
 			throw_alert("temp", /obj/screen/alert/hot, 2)
-			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
-		if(bodytemperature > species.heat_level_3 && bodytemperature < INFINITY)
+			take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
+		if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
 			throw_alert("temp", /obj/screen/alert/hot, 3)
 			if(on_fire)
-				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Fire")
 			else
-				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
 
-	else if(bodytemperature < species.cold_level_1)
+	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
 			return 1
 		if(stat == DEAD)
 			return 1
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-			var/mult = species.coldmod
-			if(bodytemperature >= species.cold_level_2 && bodytemperature <= species.cold_level_1)
+			var/mult = dna.species.coldmod
+			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
 				throw_alert("temp", /obj/screen/alert/cold, 1)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
-			if(bodytemperature >= species.cold_level_3 && bodytemperature < species.cold_level_2)
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "Low Body Temperature")
+			if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
 				throw_alert("temp", /obj/screen/alert/cold, 2)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
-			if(bodytemperature > -INFINITY && bodytemperature < species.cold_level_3)
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "Low Body Temperature")
+			if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
 				throw_alert("temp", /obj/screen/alert/cold, 3)
-				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
+				take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Low Body Temperature")
 			else
 				clear_alert("temp")
 	else
@@ -379,24 +379,24 @@
 	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
 	if(status_flags & GODMODE)	return 1	//godmode
 
-	if(adjusted_pressure >= species.hazard_high_pressure)
+	if(adjusted_pressure >= dna.species.hazard_high_pressure)
 		if(!(HEATRES in mutations))
-			var/pressure_damage = min( ( (adjusted_pressure / species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
-			take_overall_damage(brute=pressure_damage, used_weapon = "High Pressure")
+			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
+			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
 			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
 		else
 			clear_alert("pressure")
-	else if(adjusted_pressure >= species.warning_high_pressure)
+	else if(adjusted_pressure >= dna.species.warning_high_pressure)
 		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
-	else if(adjusted_pressure >= species.warning_low_pressure)
+	else if(adjusted_pressure >= dna.species.warning_low_pressure)
 		clear_alert("pressure")
-	else if(adjusted_pressure >= species.hazard_low_pressure)
+	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
 		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
 	else
 		if(COLDRES in mutations)
 			clear_alert("pressure")
 		else
-			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, used_weapon = "Low Pressure")
+			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
 			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
 
 
@@ -430,13 +430,13 @@
 //END FIRE CODE
 
 /mob/living/carbon/human/proc/stabilize_temperature_from_calories()
-	var/body_temperature_difference = species.body_temperature - bodytemperature
+	var/body_temperature_difference = dna.species.body_temperature - bodytemperature
 
-	if(bodytemperature <= species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
+	if(bodytemperature <= dna.species.cold_level_1) //260.15 is 310.15 - 50, the temperature where you start to feel effects.
 		bodytemperature += max((body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR), BODYTEMP_AUTORECOVERY_MINIMUM)
-	if(bodytemperature >= species.cold_level_1 && bodytemperature <= species.heat_level_1)
+	if(bodytemperature >= dna.species.cold_level_1 && bodytemperature <= dna.species.heat_level_1)
 		bodytemperature += body_temperature_difference * metabolism_efficiency / BODYTEMP_AUTORECOVERY_DIVISOR
-	if(bodytemperature >= species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
+	if(bodytemperature >= dna.species.heat_level_1) //360.15 is 310.15 + 50, the temperature where you start to feel effects.
 		//We totally need a sweat system cause it totally makes sense...~
 		bodytemperature += min((body_temperature_difference / BODYTEMP_AUTORECOVERY_DIVISOR), -BODYTEMP_AUTORECOVERY_MINIMUM)	//We're dealing with negative numbers
 
@@ -588,7 +588,7 @@
 		return 0	//godmode
 
 	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
-	if(CAN_BE_FAT in species.species_traits)
+	if(CAN_BE_FAT in dna.species.species_traits)
 		if(FAT in mutations)
 			if(overeatduration < 100)
 				becomeSlim()
@@ -652,12 +652,10 @@
 		AdjustDizzy(-3)
 		AdjustJitter(-3)
 
-	if(NO_INTORGANS in species.species_traits)
+	if(NO_INTORGANS in dna.species.species_traits)
 		return
 
 	handle_trace_chems()
-
-	updatehealth()
 
 	return //TODO: DEFERRED
 
@@ -744,13 +742,11 @@
 			heal_overall_damage(0.1, 0.1)
 
 		if(paralysis)
-			blinded = 1
 			stat = UNCONSCIOUS
 
 		else if(sleeping)
 			speech_problem_flag = 1
 
-			blinded = 1
 			stat = UNCONSCIOUS
 
 			if(mind)
@@ -761,36 +757,30 @@
 						adjustToxLoss(-1)
 
 		else if(status_flags & FAKEDEATH)
-			blinded = 1
 			stat = UNCONSCIOUS
 
 		//Vision //god knows why this is here
 		var/obj/item/organ/vision
-		if(species.vision_organ)
-			vision = get_int_organ(species.vision_organ)
+		if(dna.species.vision_organ)
+			vision = get_int_organ(dna.species.vision_organ)
 
-		if(!species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
+		if(!dna.species.vision_organ) // Presumably if a species has no vision organs, they see via some other means.
 			SetEyeBlind(0)
-			blinded =    0
 			SetEyeBlurry(0)
 
 		else if(!vision || vision.is_broken())   // Vision organs cut out or broken? Permablind.
 			EyeBlind(2)
-			blinded =    1
 			EyeBlurry(2)
 
 		else
 			//blindness
 			if(disabilities & BLIND) // Disabled-blind, doesn't get better on its own
-				blinded =    1
 
 			else if(eye_blind)		       // Blindness, heals slowly over time
 				AdjustEyeBlind(-1)
-				blinded =    1
 
 			else if(istype(glasses, /obj/item/clothing/glasses/sunglasses/blindfold))	//resting your eyes with a blindfold heals blurry eyes faster
 				AdjustEyeBlurry(-3)
-				blinded =    1
 
 			//blurry sight
 			if(vision.is_bruised())   // Vision organs impaired? Permablurry.
@@ -826,7 +816,6 @@
 
 
 	else //dead
-		blinded = 1
 		SetSilence(0)
 
 
@@ -860,10 +849,12 @@
 			remoteview_target = null
 			reset_perspective(null)
 
-	species.handle_vision(src)
-
 /mob/living/carbon/human/handle_hud_icons()
-	species.handle_hud_icons(src)
+	dna.species.handle_hud_icons(src)
+
+/mob/living/carbon/human/handle_hud_icons_health()
+	dna.species.handle_hud_icons_health(src)
+	handle_hud_icons_health_overlay()
 
 /mob/living/carbon/human/handle_random_events()
 	// Puke if toxloss is too high
@@ -907,7 +898,7 @@
 	if(times_fired % 5 == 1)
 		return pulse	//update pulse every 5 life ticks (~1 tick/sec, depending on server load)
 
-	if(NO_BLOOD in species.species_traits)
+	if(NO_BLOOD in dna.species.species_traits)
 		return PULSE_NONE //No blood, no pulse.
 
 	if(stat == DEAD)
@@ -977,7 +968,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				return
-			if(NO_BREATHE in H.species.species_traits)
+			if(NO_BREATHE in H.dna.species.species_traits)
 				return //no puking if you can't smell!
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == "Detective" || H.mind.assigned_role == "Coroner"))
@@ -993,7 +984,7 @@
 		if(!H) //H.status will runtime if there is no H (obviously)
 			return
 
-		if(H.status & ORGAN_ROBOT) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+		if(H.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
 			if(shock_stage >= 10 || istype(get_turf(src), /turf/space))
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.
@@ -1020,10 +1011,7 @@
 
 			if(heartbeat >= rate)
 				heartbeat = 0
-				if(H.status & ORGAN_ASSISTED)
-					src << sound('sound/effects/pacemakebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
-				else
-					src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
+				src << sound('sound/effects/singlebeat.ogg',0,0,CHANNEL_HEARTBEAT,50)
 			else
 				heartbeat++
 
@@ -1057,9 +1045,9 @@
 
 
 /mob/living/carbon/human/proc/can_heartattack()
-	if(NO_BLOOD in species.species_traits)
+	if(NO_BLOOD in dna.species.species_traits)
 		return FALSE
-	if(NO_INTORGANS in species.species_traits)
+	if(NO_INTORGANS in dna.species.species_traits)
 		return FALSE
 	return TRUE
 

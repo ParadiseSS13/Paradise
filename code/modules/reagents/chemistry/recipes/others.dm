@@ -52,7 +52,7 @@
 /datum/chemical_reaction/ironfoam/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 
-	holder.my_atom.visible_message("<span class='warning>The solution spews out a metalic foam!</span>")
+	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
 	var/datum/effect_system/foam_spread/s = new()
 	s.set_up(created_volume, location, holder, MFOAM_IRON)

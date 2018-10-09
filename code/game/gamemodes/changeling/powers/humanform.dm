@@ -26,10 +26,10 @@
 	to_chat(user, "<span class='notice'>We transform our appearance.</span>")
 	user.dna.SetSEState(MONKEYBLOCK,0,1)
 	genemutcheck(user,MONKEYBLOCK,null,MUTCHK_FORCED)
+	if(istype(user))
+		user.set_species(chosen_dna.species.type)
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
-	if(istype(user))
-		user.set_species(chosen_dna.species)
 	domutcheck(user,null,MUTCHK_FORCED)
 	user.flavor_text = ""
 	user.dna.UpdateSE()

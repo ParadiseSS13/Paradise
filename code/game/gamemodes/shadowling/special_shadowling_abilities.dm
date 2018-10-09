@@ -84,6 +84,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.socks = "None"
 				H.faction |= "faithless"
 
+				H.set_species(/datum/species/shadow/ling)	//can't be a shadowling without being a shadowling
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), slot_w_uniform)
 				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), slot_shoes)
 				H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), slot_wear_suit)
@@ -91,7 +92,6 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), slot_gloves)
 				H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), slot_wear_mask)
 				H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), slot_glasses)
-				H.set_species("Shadowling")	//can't be a shadowling without being a shadowling
 
 				H.mind.RemoveSpell(src)
 
@@ -178,8 +178,8 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.loc = A
 				sleep(50)
 				if(!ticker.mode.shadowling_ascended)
-					shuttle_master.emergency.request(null, 0.3)
-					shuttle_master.emergency.canRecall = FALSE
+					SSshuttle.emergency.request(null, 0.3)
+					SSshuttle.emergency.canRecall = FALSE
 				ticker.mode.shadowling_ascended = 1
 				A.mind.RemoveSpell(src)
 				qdel(H)

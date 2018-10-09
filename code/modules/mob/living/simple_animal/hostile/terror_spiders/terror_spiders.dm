@@ -171,8 +171,8 @@ var/global/list/ts_spiderling_list = list()
 			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
 		T.CheckFaction()
 		CheckFaction()
-	else if(istype(target, /obj/structure/spider/cocoon))
-		to_chat(src, "Destroying our own cocoons would not help us.")
+	else if(istype(target, /obj/structure/spider)) // Prevents destroying coccoons (exploit), eggs (horrible misclick), etc
+		to_chat(src, "Destroying things created by fellow spiders would not help us.")
 	else if(istype(target, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = target
 		if(F.density)
@@ -196,7 +196,7 @@ var/global/list/ts_spiderling_list = list()
 			var/can_poison = 1
 			if(ishuman(G))
 				var/mob/living/carbon/human/H = G
-				if(!(H.species.reagent_tag & PROCESS_ORG) || (!H.species.tox_mod))
+				if(!(H.dna.species.reagent_tag & PROCESS_ORG) || (!H.dna.species.tox_mod))
 					can_poison = 0
 			spider_specialattack(G,can_poison)
 		else
@@ -321,10 +321,11 @@ var/global/list/ts_spiderling_list = list()
 			ts_count_alive_station--
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
-	if(!gibbed)
-		msg_terrorspiders("[src] has died in [get_area(src)].")
-	handle_dying()
-	..()
+	if(can_die())
+		if(!gibbed)
+			msg_terrorspiders("[src] has died in [get_area(src)].")
+		handle_dying()
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return

@@ -313,19 +313,19 @@
 /datum/data/pda/app/supply/update_ui(mob/user as mob, list/data)
 	var/supplyData[0]
 
-	if(shuttle_master.supply.mode == SHUTTLE_CALL)
+	if(SSshuttle.supply.mode == SHUTTLE_CALL)
 		supplyData["shuttle_moving"] = 1
 
-	if(!is_station_level(shuttle_master.supply.z))
+	if(!is_station_level(SSshuttle.supply.z))
 		supplyData["shuttle_loc"] = "station"
 	else
 		supplyData["shuttle_loc"] = "centcom"
 
-	supplyData["shuttle_time"] = "([shuttle_master.supply.timeLeft(600)] Mins)"
+	supplyData["shuttle_time"] = "([SSshuttle.supply.timeLeft(600)] Mins)"
 
 	var/supplyOrderCount = 0
 	var/supplyOrderData[0]
-	for(var/S in shuttle_master.shoppinglist)
+	for(var/S in SSshuttle.shoppinglist)
 		var/datum/supply_order/SO = S
 		supplyOrderCount++
 		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
@@ -338,7 +338,7 @@
 
 	var/requestCount = 0
 	var/requestData[0]
-	for(var/S in shuttle_master.requestlist)
+	for(var/S in SSshuttle.requestlist)
 		var/datum/supply_order/SO = S
 		requestCount++
 		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))

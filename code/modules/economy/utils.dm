@@ -46,47 +46,69 @@
 /datum/money_account/proc/fmtBalance()
 	return "$[num2septext(money)]"
 
-/datum/money_account/proc/charge(var/transaction_amount,var/datum/money_account/dest,var/transaction_purpose, var/terminal_name="", var/terminal_id=0, var/dest_name = "UNKNOWN")
+// Seperated from charge so they can reuse the code and also because there's many instances where a log will be made without actually making a transaction
+/datum/money_account/proc/makeTransactionLog(transaction_amount = 0, transaction_purpose, terminal_name = "",
+ dest_name = "UNKNOWN", charging = TRUE, date = current_date_string, time = "")
+	var/datum/transaction/T = new()
+	T.target_name = dest_name
+	T.purpose = transaction_purpose
+	if(!charging || transaction_amount == 0)
+		T.amount = "[transaction_amount]"
+	else
+		T.amount = "([transaction_amount])"
+
+	T.source_terminal = terminal_name
+	T.date = date
+	if(time == "")
+		T.time = station_time_timestamp()
+	else
+		T.time = time
+	transaction_log.Add(T)
+
+ // Charge is for transferring money from an account to another. The destination account can possibly not exist (Magical money sink)
+/datum/money_account/proc/charge(transaction_amount = 0, datum/money_account/dest, transaction_purpose,
+ terminal_name = "", dest_name = "UNKNOWN", dest_purpose, dest_target_name)
 	if(suspended)
 		to_chat(usr, "<span class='warning'>Unable to access source account: account suspended.</span>")
 		return 0
-	
+
+	if(transaction_amount <= money)
+		//transfer the money
+		money -= transaction_amount
+		makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name)
+		if(dest)
+			dest.money += transaction_amount
+			dest.makeTransactionLog(transaction_amount,
+			dest_purpose ? dest_purpose : transaction_purpose, terminal_name, dest_target_name ? dest_target_name : dest_name, FALSE)
+		return 1
+	else
+		to_chat(usr, "<span class='warning'>Insufficient funds in account.</span>")
+		return 0
+
+// phantom_charge is for when you want to charge an account, without making any corresponding log (e.g. you make it yourself with custom date
+// or there won't be any log for some IC reasons (hacking)
+/datum/money_account/proc/phantom_charge(transaction_amount = 0, datum/money_account/dest, suspensionbypass = 0)
+	if(suspended && !suspensionbypass)
+		return 0
+
 	if(transaction_amount <= money)
 		//transfer the money
 		money -= transaction_amount
 		if(dest)
 			dest.money += transaction_amount
-
-		//create entries in the two account transaction logs
-		var/datum/transaction/T
-		if(dest)
-			T = new()
-			T.target_name = owner_name
-			if(terminal_name!="")
-				T.target_name += " (via [terminal_name])"
-			T.purpose = transaction_purpose
-			if(transaction_amount > 0)
-				T.amount = "([transaction_amount])"
-			else
-				T.amount = "[transaction_amount]"
-			if(terminal_id)
-				T.source_terminal = terminal_id
-			T.date = current_date_string
-			T.time = station_time_timestamp()
-			dest.transaction_log.Add(T)
-		//
-		T = new()
-		T.target_name = (!dest) ? dest_name : dest.owner_name
-		if(terminal_name!="")
-			T.target_name += " (via [terminal_name])"
-		T.purpose = transaction_purpose
-		T.amount = "[transaction_amount]"
-		if(terminal_id)
-			T.source_terminal = terminal_id
-		T.date = current_date_string
-		T.time = station_time_timestamp()
-		transaction_log.Add(T)
 		return 1
 	else
-		to_chat(usr, "<span class='warning'>Insufficient funds in account.</span>")
 		return 0
+
+// Credit is for giving money to an account out of thin air. Suspension does not matter.
+/datum/money_account/proc/credit(transaction_amount = 0, transaction_purpose,
+ terminal_name = "", dest_name = "UNKNOWN", date = current_date_string, time = "")
+
+	money += transaction_amount
+	makeTransactionLog(transaction_amount, transaction_purpose, terminal_name, dest_name, FALSE, date, time)
+	return 1
+
+//phantom_credit is like the above without any log
+/datum/money_account/proc/phantom_credit(transaction_amount = 0)
+	money += transaction_amount
+	return 1

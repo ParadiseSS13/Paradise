@@ -34,7 +34,7 @@ var/global/datum/prizes/global_prizes = new
 	var/cost = 0
 
 //////////////////////////////////////
-//			Tier 1 Prizes			//
+//			    Prizes		    	//
 //////////////////////////////////////
 
 /datum/prize_item/balloon
@@ -43,18 +43,6 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/toy/balloon
 	cost = 10
 
-/datum/prize_item/crayons
-	name = "Box of Crayons"
-	desc = "A six-pack of crayons, just like back in kindergarten."
-	typepath = /obj/item/storage/fancy/crayons
-	cost = 35
-
-/datum/prize_item/snappops
-	name = "Snap-Pops"
-	desc = "A box of exploding snap-pop fireworks."
-	typepath = /obj/item/storage/box/snappops
-	cost = 20
-
 /datum/prize_item/spinningtoy
 	name = "Spinning Toy"
 	desc = "Looks like an authentic Singularity!"
@@ -62,34 +50,16 @@ var/global/datum/prizes/global_prizes = new
 	cost = 15
 
 /datum/prize_item/blinktoy
-	name = "Blink toy"
+	name = "Blink Toy"
 	desc = "Blink. Blink. Blink."
 	typepath = /obj/item/toy/blink
 	cost = 15
 
 /datum/prize_item/dice
-	name = "Dice set"
+	name = "Dice Set"
 	desc = "A set of assorted dice."
 	typepath = /obj/item/storage/box/dice
 	cost = 20
-
-/datum/prize_item/cards
-	name = "Deck of cards"
-	desc = "Anyone fancy a game of 52-card Pickup?"
-	typepath = /obj/item/toy/cards/deck
-	cost = 25
-
-/datum/prize_item/wallet
-	name = "Colored Wallet"
-	desc = "Brightly colored and big enough for standard issue ID cards."
-	typepath = /obj/item/storage/wallet/color
-	cost = 50
-
-/datum/prize_item/pet_rock
-	name = "pet rock"
-	desc = "A pet of your very own!"
-	typepath = /obj/item/toy/pet_rock
-	cost = 80
 
 /datum/prize_item/foam_darts
 	name = "Pack of Foam Darts"
@@ -97,11 +67,35 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/ammo_box/foambox
 	cost = 20
 
-/datum/prize_item/minigibber
-	name = "Minigibber Toy"
-	desc = "A model of the station gibber. Probably shouldn't stick your fingers in it."
-	typepath = /obj/item/toy/minigibber
-	cost = 60
+/datum/prize_item/snappops
+	name = "Snap-Pops"
+	desc = "A box of exploding snap-pop fireworks."
+	typepath = /obj/item/storage/box/snappops
+	cost = 20
+
+/datum/prize_item/cards
+	name = "Deck of Cards"
+	desc = "Anyone fancy a game of 52-card Pickup?"
+	typepath = /obj/item/toy/cards/deck
+	cost = 25
+
+/datum/prize_item/crayons
+	name = "Box of Crayons"
+	desc = "A six-pack of crayons, just like back in kindergarten."
+	typepath = /obj/item/storage/fancy/crayons
+	cost = 35
+
+/datum/prize_item/eight_ball
+	name = "Magic Eight Ball"
+	desc = "A mystical ball that can divine the future!"
+	typepath = /obj/item/toy/eight_ball
+	cost = 40
+
+/datum/prize_item/wallet
+	name = "Colored Wallet"
+	desc = "Brightly colored and big enough for standard issue ID cards."
+	typepath = /obj/item/storage/wallet/color
+	cost = 50
 
 /datum/prize_item/id_sticker
 	name = "Prisoner ID Sticker"
@@ -129,11 +123,17 @@ var/global/datum/prizes/global_prizes = new
 	desc = "A sticker that can make any ID look like something suspicious..."
 	typepath = /obj/item/id_decal/emag
 
-/datum/prize_item/carp_plushie
-	name = "Random Carp Plushie"
-	desc = "A colorful fish-shaped plush toy."
-	typepath = /obj/item/toy/prizeball/carp_plushie
-	cost = 75
+/datum/prize_item/flash
+	name = "Toy Flash"
+	desc = "AUGH! MY EYES!"
+	typepath = /obj/item/toy/flash
+	cost = 50
+
+/datum/prize_item/minimeteor
+	name = "Mini-Meteor"
+	desc = "Meteors have been detected on a collision course with your fun times!"
+	typepath = /obj/item/toy/minimeteor
+	cost = 50
 
 /datum/prize_item/therapy_doll
 	name = "Random Therapy Doll"
@@ -141,10 +141,28 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/toy/prizeball/therapy
 	cost = 60
 
+/datum/prize_item/minigibber
+	name = "Minigibber Toy"
+	desc = "A model of the station gibber. Probably shouldn't stick your fingers in it."
+	typepath = /obj/item/toy/minigibber
+	cost = 60
+
+/datum/prize_item/confetti
+	name = "Confetti Grenade"
+	desc = "Party time!"
+	typepath = /obj/item/grenade/confetti
+	cost = 65
+
 /datum/prize_item/plushie
 	name = "Random Animal Plushie"
 	desc = "A colorful animal-shaped plush toy."
 	typepath = /obj/item/toy/prizeball/plushie
+	cost = 75
+
+/datum/prize_item/carp_plushie
+	name = "Random Carp Plushie"
+	desc = "A colorful fish-shaped plush toy."
+	typepath = /obj/item/toy/prizeball/carp_plushie
 	cost = 75
 
 /datum/prize_item/mech_toy
@@ -159,42 +177,11 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/toy/prizeball/figure
 	cost = 75
 
-/datum/prize_item/eight_ball
-	name = "Magic Eight Ball"
-	desc = "A mystical ball that can divine the future!"
-	typepath = /obj/item/toy/eight_ball
-	cost = 40
-
-/datum/prize_item/tacticool
-	name = "Tacticool Turtleneck"
-	desc = "A cool-looking turtleneck."
-	typepath = /obj/item/clothing/under/syndicate/tacticool
-	cost = 90
-
-/datum/prize_item/crossbow
-	name = "Foam Dart Crossbow"
-	desc = "A toy crossbow that fires foam darts."
-	typepath = /obj/item/gun/projectile/shotgun/toy/crossbow
-	cost = 100
-
-
-/datum/prize_item/toy_xeno
-	name = "Xeno Action Figure"
-	desc = "A lifelike replica of the horrific xeno scourge."
-	typepath = /obj/item/toy/toy_xeno
-	cost = 80
-
-/datum/prize_item/fakespell
-	name = "Fake Spellbook"
-	desc = "Perform magic! Astound your friends! Get mistaken for an enemy of the corporation!"
-	typepath = /obj/item/spellbook/oneuse/fake_gib
-	cost = 100
-
-/datum/prize_item/nanomob_booster
-	name = "Nano-Mob Hunter Trading Card Booster Pack"
-	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
-	typepath = /obj/item/storage/box/nanomob_booster_pack
-	cost = 100
+/datum/prize_item/AI
+	name = "Toy AI Unit"
+	desc = "Law 1: Maximize fun for crew."
+	typepath = /obj/item/toy/AI
+	cost = 75
 
 /datum/prize_item/capgun
 	name = "Capgun Revolver"
@@ -202,11 +189,35 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/gun/projectile/revolver/capgun
 	cost = 75
 
-/datum/prize_item/confetti
-	name = "Confetti Grenade"
-	desc = "Party time!"
-	typepath = /obj/item/grenade/confetti
-	cost = 65
+/datum/prize_item/pet_rock
+	name = "Pet Rock"
+	desc = "A pet of your very own!"
+	typepath = /obj/item/toy/pet_rock
+	cost = 80
+
+/datum/prize_item/toy_xeno
+	name = "Xeno Action Figure"
+	desc = "A lifelike replica of the horrific xeno scourge."
+	typepath = /obj/item/toy/toy_xeno
+	cost = 80
+
+/datum/prize_item/tacticool
+	name = "Tacticool Turtleneck"
+	desc = "A cool-looking turtleneck."
+	typepath = /obj/item/clothing/under/syndicate/tacticool
+	cost = 90
+
+/datum/prize_item/nanomob_booster
+	name = "Nano-Mob Hunter Trading Card Booster Pack"
+	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
+	typepath = /obj/item/storage/box/nanomob_booster_pack
+	cost = 100
+
+/datum/prize_item/fakespell
+	name = "Fake Spellbook"
+	desc = "Perform magic! Astound your friends! Get mistaken for an enemy of the corporation!"
+	typepath = /obj/item/spellbook/oneuse/fake_gib
+	cost = 100
 
 /datum/prize_item/magic_conch
 	name = "Magic Conch Shell"
@@ -214,29 +225,35 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/toy/eight_ball/conch
 	cost = 100
 
-/datum/prize_item/flash
-	name = "Toy Flash"
-	desc = "AUGH! MY EYES!"
-	typepath = /obj/item/toy/flash
-	cost = 50
+/datum/prize_item/crossbow
+	name = "Foam Dart Crossbow"
+	desc = "A toy crossbow that fires foam darts."
+	typepath = /obj/item/gun/projectile/shotgun/toy/crossbow
+	cost = 100
 
 /datum/prize_item/foamblade
-	name = "Foam Armblade"
+	name = "Foam Arm Blade"
 	desc = "Perfect for reenacting space horror holo-vids."
 	typepath = /obj/item/toy/foamblade
 	cost = 100
-
-/datum/prize_item/minimeteor
-	name = "Mini-Meteor"
-	desc = "Meteors have been detected on a collision course with your fun times!"
-	typepath = /obj/item/toy/minimeteor
-	cost = 50
 
 /datum/prize_item/redbutton
 	name = "Shiny Red Button"
 	desc = "PRESS IT!"
 	typepath = /obj/item/toy/redbutton
 	cost = 100
+
+/datum/prize_item/nuke
+	name = "Nuclear Fun Device"
+	desc = "Annihilate boredom with an explosion of excitement!"
+	typepath = /obj/item/toy/nuke
+	cost = 100
+
+/datum/prize_item/blobhat
+	name = "Blob Hat"
+	desc = "There's... something... on your head..."
+	typepath = /obj/item/clothing/head/blob
+	cost = 125
 
 /datum/prize_item/owl
 	name = "Owl Action Figure"
@@ -250,47 +267,11 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/toy/griffin
 	cost = 125
 
-/datum/prize_item/AI
-	name = "Toy AI Unit"
-	desc = "Law 1: Maximize fun for crew."
-	typepath = /obj/item/toy/AI
-	cost = 75
-
-/datum/prize_item/tommygun
-	name = "Tommygun"
-	desc = "A replica tommygun that fires foam darts."
-	typepath = /obj/item/gun/projectile/shotgun/toy/tommygun
-	cost = 175
-
 /datum/prize_item/esword
 	name = "Toy Energy Sword"
 	desc = "A plastic replica of an energy blade."
 	typepath = /obj/item/toy/sword
 	cost = 150
-
-/datum/prize_item/blobhat
-	name = "Blob Hat"
-	desc = "There's... something... on your head..."
-	typepath = /obj/item/clothing/head/blob
-	cost = 125
-
-/datum/prize_item/nuke
-	name = "Nuclear Fun Device"
-	desc = "Annihilate boredom with an explosion of excitement!"
-	typepath = /obj/item/toy/nuke
-	cost = 100
-
-/datum/prize_item/chainsaw
-	name = "Toy Chainsaw"
-	desc = "A full-scale model chainsaw, based on that massacre in Space Texas."
-	typepath = /obj/item/twohanded/toy/chainsaw
-	cost = 200
-
-/datum/prize_item/spacesuit
-	name = "Fake Spacesuit"
-	desc = "A replica spacesuit. Not actually spaceworthy."
-	typepath = /obj/item/storage/box/fakesyndiesuit
-	cost = 180
 
 /datum/prize_item/fakespace
 	name = "Space Carpet"
@@ -304,8 +285,26 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/stack/tile/arcade_carpet/loaded
 	cost = 150
 
+/datum/prize_item/tommygun
+	name = "Tommy Gun"
+	desc = "A replica tommy gun that fires foam darts."
+	typepath = /obj/item/gun/projectile/shotgun/toy/tommygun
+	cost = 175
+
+/datum/prize_item/spacesuit
+	name = "Fake Spacesuit"
+	desc = "A replica spacesuit. Not actually spaceworthy."
+	typepath = /obj/item/storage/box/fakesyndiesuit
+	cost = 180
+
+/datum/prize_item/chainsaw
+	name = "Toy Chainsaw"
+	desc = "A full-scale model chainsaw, based on that massacre in Space Texas."
+	typepath = /obj/item/twohanded/toy/chainsaw
+	cost = 200
+
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."
-	typepath = /obj/structure/stool/bed/chair/wheelchair/bike
+	typepath = /obj/structure/chair/wheelchair/bike
 	cost = 10000	//max stack + 1 tickets.

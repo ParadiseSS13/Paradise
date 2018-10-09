@@ -630,7 +630,7 @@
 			var/obj/item/reagent_containers/food/snacks/newSnack = new chosenType(get_turf(src))
 			TARGET = newSnack
 			newSnack.reagents.remove_any((newSnack.reagents.total_volume/2)-1)
-			newSnack.name = "Synthetic [newSnack.name]"
+			newSnack.name = "synthetic [newSnack.name]"
 			custom_emote(2, "[pick("gibbers","drools","slobbers","claps wildly","spits")] as [p_they()] vomit[p_s()] [newSnack] from [p_their()] mouth!")
 	catch(var/exception/e)
 		log_runtime(e, src, "Caught in SNPC cooking module")

@@ -694,7 +694,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
 	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
-					"<span class='userdanger'>[src] drives over you!<span>")
+					"<span class='userdanger'>[src] drives over you!</span>")
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = rand(5,15)
@@ -706,16 +706,20 @@
 	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", "melee"))
 
 
-	var/turf/T = get_turf(src)
-	H.add_mob_blood(H)
-	H.add_splatter_floor(T)
 
+
+	if(NO_BLOOD in H.dna.species.species_traits)//Does the run over mob have blood?
+		return//If it doesn't it shouldn't bleed (Though a check should be made eventually for things with liquid in them, like slime people, vox armalis, etc.)
+
+	var/turf/T = get_turf(src)//Where are we?
+	H.add_mob_blood(H)//Cover the victim in their own blood.
+	H.add_splatter_floor(T)//Put the blood where we are.
 	bloodiness += 4
 
 	var/list/blood_dna = H.get_blood_dna_list()
 	if(blood_dna)
 		transfer_blood_dna(blood_dna)
-		currentBloodColor = H.species.blood_color
+		currentBloodColor = H.dna.species.blood_color
 		return
 
 /mob/living/simple_animal/bot/mulebot/bot_control_message(command, mob/user, user_turf)

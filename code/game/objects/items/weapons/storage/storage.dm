@@ -166,7 +166,7 @@
 
 	if(display_contents_with_number)
 		for(var/datum/numbered_display/ND in display_contents)
-			ND.sample_object.mouse_opacity = 2
+			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
 			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
 			ND.sample_object.layer = 20
@@ -177,7 +177,7 @@
 				cy--
 	else
 		for(var/obj/O in contents)
-			O.mouse_opacity = 2 //This is here so storage items that spawn with contents correctly have the "click around item to equip"
+			O.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
 			O.screen_loc = "[cx]:16,[cy]:16"
 			O.maptext = ""
 			O.layer = 20
@@ -309,7 +309,7 @@
 		src.orient2hud(usr)
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
-	W.mouse_opacity = 2 //So you can click on the area around the item to equip it, instead of having to pixel hunt
+	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
 	update_icon()
 	return 1
 
@@ -352,24 +352,31 @@
 		W.fire_act()
 	return 1
 
+/obj/item/storage/Exited(atom/A, loc)
+	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
+	..()
+
 /obj/item/storage/empty_object_contents(burn, loc)
 	for(var/obj/item/Item in contents)
 		remove_from_storage(Item, loc, burn)
 
 //This proc is called when you want to place an item into the storage item.
-/obj/item/storage/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/storage/attackby(obj/item/I, mob/user, params)
 	..()
-
+	if(istype(I, /obj/item/hand_labeler))
+		var/obj/item/hand_labeler/labeler = I
+		if(labeler.mode)
+			return FALSE
+	. = 1 //no afterattack
 	if(isrobot(user))
-		to_chat(user, "<span class='notice'>You're a robot. No.</span>")
-		return 1//Robots can't interact with storage items.
+		return //Robots can't interact with storage items.
 
-	if(!can_be_inserted(W))
-		return 0
+	if(!can_be_inserted(I))
+		if(contents.len >= storage_slots) //don't use items on the backpack if they don't fit
+			return TRUE
+		return FALSE
 
-	handle_item_insertion(W)
-	return 1
-
+	handle_item_insertion(I)
 
 /obj/item/storage/attack_hand(mob/user as mob)
 	playsound(src.loc, "rustle", 50, 1, -5)
@@ -550,3 +557,6 @@
 		else
 			log_runtime(EXCEPTION("Non-list thing found in storage/deserialize."), src, list("Thing: [thing]"))
 	..()
+
+/obj/item/storage/AllowDrop()
+	return TRUE

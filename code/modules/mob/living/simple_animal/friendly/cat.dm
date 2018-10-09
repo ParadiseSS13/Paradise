@@ -60,9 +60,9 @@
 		return baby
 
 /mob/living/simple_animal/pet/cat/Runtime/death()
-	if(!memory_saved)
+	if(can_die() && !memory_saved)
 		Write_Memory(1)
-	..()
+	return ..()
 
 /mob/living/simple_animal/pet/cat/Runtime/proc/Read_Memory()
 	var/savefile/S = new /savefile("data/npc_saves/Runtime.sav")

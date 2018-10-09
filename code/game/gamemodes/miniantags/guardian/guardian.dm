@@ -90,7 +90,10 @@
 	snapback()
 
 /mob/living/simple_animal/hostile/guardian/death(gibbed)
-	..()
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
 	summoner.death()
 
@@ -415,6 +418,9 @@
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
 	ling_failure = "The holoparasites recoil in horror. They want nothing to do with a creature like you."
 
+/obj/item/guardiancreator/tech/check_uplink_validity()
+	return !used
+
 /obj/item/guardiancreator/tech/choose
 	random = FALSE
 
@@ -439,13 +445,13 @@
 	info = {"<b>A list of Holoparasite Types</b><br>
 
  <br>
- <b>Chaos</b>: Ignites mobs on touch. teleports them at random on attack. Automatically extinguishes the user if they catch fire.<br>
+ <b>Chaos</b>: Has two modes. Deception: Causes target of attacks to hallucinate. Dispersion: Attacks have a chance to teleport the target randomly. Ignites mobs on touch. Automatically extinguishes the user if they catch fire.<br>
  <br>
- <b>Standard</b>:Devestating close combat attacks and high damage resist. No special powers.<br>
+ <b>Standard</b>: Devestating close combat attacks and high damage resist. No special powers.<br>
  <br>
  <b>Ranged</b>: Has two modes. Ranged: Extremely weak, highly spammable projectile attack. Scout: Can not attack, but can move through walls. Can lay surveillance snares in either mode.<br>
  <br>
- <b>Support</b>:Has two modes. Combat: Medium power attacks and damage resist. Healer: Attacks heal damage, but low damage resist and slow movemen. Can deploy a bluespace beacon and warp targets to it (including you) in either mode.<br>
+ <b>Support</b>: Has two modes. Combat: Medium power attacks and damage resist. Healer: Attacks heal damage, but low damage resist and slow movemen. Can deploy a bluespace beacon and warp targets to it (including you) in either mode.<br>
  <br>
  <b>Explosive</b>: High damage resist and medium power attack. Can turn any object into a bomb, dealing explosive damage to the next person to touch it. The object will return to normal after the trap is triggered.<br>
  <br>

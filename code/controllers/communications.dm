@@ -356,7 +356,7 @@ var/global/datum/controller/radio/radio_controller
 /datum/signal/proc/get_race(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		. = H.species.name
+		. = H.dna.species.name
 	else if(isbrain(M))
 		var/mob/living/carbon/brain/B = M
 		. = B.get_race()

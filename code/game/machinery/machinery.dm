@@ -97,9 +97,10 @@ Class Procs:
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
 	pressure_resistance = 10
+	layer = BELOW_OBJ_LAYER
 	var/stat = 0
 	var/emagged = 0
-	var/use_power = 1
+	var/use_power = IDLE_POWER_USE
 		//0 = dont run the auto
 		//1 = run auto, use idle
 		//2 = run auto, use active
@@ -117,7 +118,6 @@ Class Procs:
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
 	atom_say_verb = "beeps"
-	var/speed_process = 0 // Process as fast as possible?
 	var/defer_process = 0
 
 /obj/machinery/Initialize()
@@ -127,7 +127,7 @@ Class Procs:
 
 /obj/machinery/proc/addAtProcessing()
 	if(use_power)
-		myArea = get_area_master(src)
+		myArea = get_area(src)
 	if(!speed_process)
 		if(!defer_process)
 			START_PROCESSING(SSmachines, src)
@@ -138,7 +138,7 @@ Class Procs:
 		isprocessing = TRUE // all of these  isprocessing = TRUE  can be removed when the PS is dead
 
 // gotta go fast
-/obj/machinery/proc/makeSpeedProcess()
+/obj/machinery/makeSpeedProcess()
 	if(speed_process)
 		return
 	speed_process = 1
@@ -147,7 +147,7 @@ Class Procs:
 	isprocessing = TRUE
 
 // gotta go slow
-/obj/machinery/proc/makeNormalProcess()
+/obj/machinery/makeNormalProcess()
 	if(!speed_process)
 		return
 	speed_process = 0
@@ -210,9 +210,9 @@ Class Procs:
 /obj/machinery/proc/auto_use_power()
 	if(!powered(power_channel))
 		return 0
-	if(use_power == 1)
+	if(use_power == IDLE_POWER_USE)
 		use_power(idle_power_usage,power_channel, 1)
-	else if(use_power >= 2)
+	else if(use_power >= ACTIVE_POWER_USE)
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
@@ -562,7 +562,7 @@ Class Procs:
 		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee))
 			threatcount += 2
 
-		if(perp.species.name != "Human") //beepsky so racist.
+		if(!ishumanbasic(perp)) //beepsky so racist.
 			threatcount += 2
 
 	if(check_records || check_arrest)

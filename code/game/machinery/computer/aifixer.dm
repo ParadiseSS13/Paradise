@@ -64,21 +64,19 @@
 		return 1
 
 	if(href_list["fix"])
-		src.active = 1
-		while(src.occupant.health < 100)
-			src.occupant.adjustOxyLoss(-1)
-			src.occupant.adjustFireLoss(-1)
-			src.occupant.adjustToxLoss(-1)
-			src.occupant.adjustBruteLoss(-1)
-			src.occupant.updatehealth()
-			if(src.occupant.health >= 0 && src.occupant.stat == 2)
-				src.occupant.stat = 0
-				src.occupant.lying = 0
-				dead_mob_list -= src.occupant
-				living_mob_list += src.occupant
+		active = 1
+		while(occupant.health < 100)
+			occupant.adjustOxyLoss(-1, FALSE)
+			occupant.adjustFireLoss(-1, FALSE)
+			occupant.adjustToxLoss(-1, FALSE)
+			occupant.adjustBruteLoss(-1, FALSE)
+			occupant.updatehealth()
+			if(occupant.health >= 0 && occupant.stat == DEAD)
+				occupant.update_revive()
+				occupant.lying = 0
 			sleep(10)
-		src.active = 0
-		src.add_fingerprint(usr)
+		active = 0
+		add_fingerprint(usr)
 
 	if(href_list["wireless"])
 		var/wireless = text2num(href_list["wireless"])

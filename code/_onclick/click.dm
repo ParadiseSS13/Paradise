@@ -392,7 +392,7 @@
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "passage0"
 	plane = CLICKCATCHER_PLANE
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER-7,CENTER-7"
 
 /obj/screen/click_catcher/Click(location, control, params)

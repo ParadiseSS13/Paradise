@@ -123,7 +123,7 @@
 	to_chat(src, "<b>Prime Directives:</b>")
 	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
-	to_chat(src, "3. Biological and Sentient resources will be harvested at a later date, do not harm them.")
+	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
@@ -306,6 +306,12 @@
 /obj/spacepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>Destroying this vehicle would destroy us. Aborting.</span>")
 
+/obj/machinery/clonepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(occupant)
+		to_chat(S, "<span class='warning'>Destroying this machine while it is occupied would result in biological and sentient resources to be harmed. Aborting.</span>")
+		return
+	..()
+	
 /mob/living/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.DisperseTarget(src)
 
@@ -418,7 +424,7 @@
 	anchored = 1
 	unacidable = 1
 	light_range = 1
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	var/health = 30
 	light_color = LIGHT_COLOR_CYAN
 	var/lon_range = 1

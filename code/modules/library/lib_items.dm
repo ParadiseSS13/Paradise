@@ -77,7 +77,7 @@
 				health -= O.force * 0.75
 			else
 		if(health <= 0)
-			visible_message("<span class=warning>The bookcase is smashed apart!</span>")
+			visible_message("<span class='warning'>The bookcase is smashed apart!</span>")
 			qdel(src)
 		return ..()
 
@@ -228,7 +228,7 @@
 					src.name = newtitle
 					src.title = newtitle
 			if("Contents")
-				var/content = strip_html(input(usr, "Write your book's contents (HTML NOT allowed):"), MAX_BOOK_MESSAGE_LEN) as message|null
+				var/content = strip_html(input(usr, "Write your book's contents (HTML NOT allowed):") as message|null, MAX_BOOK_MESSAGE_LEN)
 				if(!content)
 					to_chat(usr, "The content is invalid.")
 					return 1

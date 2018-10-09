@@ -9,7 +9,7 @@
 		var/obj/item/organ/external/head/head = H.get_organ(user.zone_sel.selecting)
 		if(!head)
 			return FALSE
-		if(head.status & ORGAN_ROBOT)
+		if(head.is_robotic())
 			return FALSE
 		return TRUE
 
@@ -24,7 +24,7 @@
 
 /datum/surgery_step/reshape_face/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
-	var/species_names = target.get_species()
+	var/species_names = target.dna.species.name
 	if(head.disfigured)
 		head.disfigured = FALSE
 		user.visible_message("[user] successfully restores [target]'s appearance!", "<span class='notice'>You successfully restore [target]'s appearance.</span>")

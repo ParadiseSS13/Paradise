@@ -66,8 +66,8 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	setup_allturfs()
-	setup_atmos_machinery()
-	setup_pipenets()
+	setup_atmos_machinery(machines)
+	setup_pipenets(machines)
 	..()
 
 
@@ -284,9 +284,12 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/setup_allturfs(var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	var/list/active_turfs = src.active_turfs
 
+	// Clear active turfs - faster than removing every single turf in the world
+	// one-by-one, and Initalize_Atmos only ever adds `src` back in.
+	active_turfs.Cut()
+
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
-		active_turfs -= T
 		if(T.blocks_air)
 			continue
 		T.Initialize_Atmos(times_fired)
@@ -316,11 +319,17 @@ SUBSYSTEM_DEF(air)
 			ET.excited = 1
 			. += ET
 
-/datum/controller/subsystem/air/proc/setup_atmos_machinery()
+/datum/controller/subsystem/air/proc/setup_atmos_machinery(var/list/machines_to_init)
 	var/watch = start_watch()
-	var/count = 0
 	log_startup_progress("Initializing atmospherics machinery...")
-	for(var/obj/machinery/atmospherics/A in machines)
+	var/count = _setup_atmos_machinery(machines_to_init)
+	log_startup_progress("	Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
+
+// this underscored variant is so that we can have a means of late initing
+// atmos machinery without a loud announcement to the world
+/datum/controller/subsystem/air/proc/_setup_atmos_machinery(var/list/machines_to_init)
+	var/count = 0
+	for(var/obj/machinery/atmospherics/A in machines_to_init)
 		A.atmos_init()
 		count++
 		if(istype(A, /obj/machinery/atmospherics/unary/vent_pump))
@@ -329,38 +338,44 @@ SUBSYSTEM_DEF(air)
 		else if(istype(A, /obj/machinery/atmospherics/unary/vent_scrubber))
 			var/obj/machinery/atmospherics/unary/vent_scrubber/T = A
 			T.broadcast_status()
-	log_startup_progress("	Initialized [count] atmospherics machines in [stop_watch(watch)]s.")
+	return count
 
 //this can't be done with setup_atmos_machinery() because
 //	all atmos machinery has to initalize before the first
 //	pipenet can be built.
-/datum/controller/subsystem/air/proc/setup_pipenets()
+/datum/controller/subsystem/air/proc/setup_pipenets(var/list/pipes)
 	var/watch = start_watch()
-	var/count = 0
 	log_startup_progress("Initializing pipe networks...")
-	for(var/obj/machinery/atmospherics/machine in machines)
+	var/count = _setup_pipenets(pipes)
+	log_startup_progress("	Initialized [count] pipenets in [stop_watch(watch)]s.")
+
+// An underscored wrapper that exists for the same reason
+// the machine init wrapper does
+/datum/controller/subsystem/air/proc/_setup_pipenets(var/list/pipes)
+	var/count = 0
+	for(var/obj/machinery/atmospherics/machine in pipes)
 		machine.build_network()
 		count++
-	log_startup_progress("	Initialized [count] pipenets in [stop_watch(watch)]s.")
+	return count
 
 /datum/controller/subsystem/air/proc/setup_overlays()
 	plmaster = new /obj/effect/overlay()
 	plmaster.icon = 'icons/effects/tile_effects.dmi'
 	plmaster.icon_state = "plasma"
 	plmaster.layer = FLY_LAYER
-	plmaster.mouse_opacity = 0
+	plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	slmaster = new /obj/effect/overlay()
 	slmaster.icon = 'icons/effects/tile_effects.dmi'
 	slmaster.icon_state = "sleeping_agent"
 	slmaster.layer = FLY_LAYER
-	slmaster.mouse_opacity = 0
+	slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	icemaster = new /obj/effect/overlay()
 	icemaster.icon = 'icons/turf/overlays.dmi'
 	icemaster.icon_state = "snowfloor"
 	icemaster.layer = TURF_LAYER + 0.1
-	icemaster.mouse_opacity = 0
+	icemaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

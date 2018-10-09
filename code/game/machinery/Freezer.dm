@@ -5,7 +5,7 @@
 	density = 1
 	var/min_temperature = 0
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	current_heat_capacity = 1000
 	layer = 3
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
@@ -57,9 +57,10 @@
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
 
-	if(istype(I, /obj/item/wrench))
+	if(iswrench(I))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
@@ -75,6 +76,8 @@
 				break
 		build_network()
 		update_icon()
+	else
+		return ..()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -137,7 +140,11 @@
 	if(href_list["toggleStatus"])
 		src.on = !src.on
 		update_icon()
-	if(href_list["temp"])
+	else if(href_list["minimum"])
+		current_temperature = min_temperature
+	else if(href_list["maximum"])
+		current_temperature = T20C
+	else if(href_list["temp"])
 		var/amount = text2num(href_list["temp"])
 		if(amount > 0)
 			src.current_temperature = min(T20C, src.current_temperature+amount)
@@ -216,9 +223,10 @@
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
 
-	if(istype(I, /obj/item/wrench))
+	if(iswrench(I))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
@@ -234,6 +242,8 @@
 				break
 		build_network()
 		update_icon()
+	else
+		return ..()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)
@@ -293,7 +303,11 @@
 	if(href_list["toggleStatus"])
 		src.on = !src.on
 		update_icon()
-	if(href_list["temp"])
+	else if(href_list["minimum"])
+		current_temperature = T20C
+	else if(href_list["maximum"])
+		current_temperature = max_temperature + T20C
+	else if(href_list["temp"])
 		var/amount = text2num(href_list["temp"])
 		if(amount > 0)
 			src.current_temperature = min((T20C+max_temperature), src.current_temperature+amount)

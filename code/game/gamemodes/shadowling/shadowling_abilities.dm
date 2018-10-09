@@ -2,8 +2,10 @@
 
 /obj/effect/proc_holder/spell/proc/shadowling_check(var/mob/living/carbon/human/H)
 	if(!H || !istype(H)) return
-	if(H.get_species() == "Shadowling" && is_shadow(H)) return 1
-	if(H.get_species() == "Lesser Shadowling" && is_thrall(H)) return 1
+	if(isshadowling(H) && is_shadow(H))
+		return 1
+	if(isshadowlinglesser(H) && is_thrall(H))
+		return 1
 	if(!is_shadow_or_thrall(usr))
 		to_chat(usr, "<span class='warning'>You can't wrap your head around how to do this.</span>")
 	else if(is_thrall(usr))
@@ -20,6 +22,7 @@
 	charge_max = 300
 	clothes_req = 0
 	action_icon_state = "glare"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/glare/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
@@ -261,13 +264,14 @@
 	range = 1 //Adjacent to user
 	var/enthralling = 0
 	action_icon_state = "enthrall"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
 	listclearnulls(ticker.mode.shadowling_thralls)
 	if(!(ling.mind in ticker.mode.shadows))
 		return
-	if(ling.get_species() != "Shadowling")
+	if(!isshadowling(ling))
 		if(ticker.mode.shadowling_thralls.len >= 5)
 			charge_counter = charge_max
 			return
@@ -363,6 +367,7 @@
 		var/mob/living/carbon/human/H = target
 		H.visible_message("<span class='warning'>[H]'s skin suddenly bubbles and shifts around [H.p_their()] body!</span>", \
 							 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
+		H.set_species(/datum/species/shadow/ling)
 		H.adjustCloneLoss(-target.getCloneLoss())
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(H), slot_shoes)
@@ -371,7 +376,6 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(H), slot_wear_mask)
 		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(H), slot_glasses)
-		H.set_species("Shadowling")
 
 /obj/effect/proc_holder/spell/targeted/collective_mind //Lets a shadowling bring together their thralls' strength, granting new abilities and a headcount
 	name = "Collective Hivemind"
@@ -489,18 +493,19 @@
 	metabolization_rate = 100 //lel
 
 /datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(!is_shadow_or_thrall(M))
 		to_chat(M, "<span class='warning'><b>You breathe in the black smoke, and your eyes burn horribly!</b></span>")
-		M.EyeBlind(5)
+		update_flags |= M.EyeBlind(5, FALSE)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
 			M.Stun(3)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
-		M.heal_organ_damage(2,2)
-		M.adjustOxyLoss(-2)
-		M.adjustToxLoss(-2)
-	..()
+		update_flags |= M.heal_organ_damage(2, 2, updating_health = FALSE)
+		update_flags |= M.adjustOxyLoss(-2, FALSE)
+		update_flags |= M.adjustToxLoss(-2, FALSE)
+	return ..() | update_flags
 
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech
 	name = "Sonic Screech"
@@ -593,6 +598,7 @@
 	clothes_req = 0
 	include_user = 0
 	action_icon_state = "revive_thrall"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/reviveThrall/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -610,7 +616,7 @@
 					to_chat(user, "<span class='warning'>[thrallToRevive] must be conscious to become empowered.</span>")
 					charge_counter = charge_max
 					return
-				if(thrallToRevive.get_species() == "Lesser Shadowling")
+				if(isshadowlinglesser(thrallToRevive))
 					to_chat(user, "<span class='warning'>[thrallToRevive] is already empowered.</span>")
 					charge_counter = charge_max
 					return
@@ -619,7 +625,7 @@
 					if(!ishuman(M.current))
 						return
 					var/mob/living/carbon/human/H = M.current
-					if(H.get_species() == "Lesser Shadowling")
+					if(isshadowlinglesser(H))
 						empowered_thralls++
 				if(empowered_thralls >= EMPOWERED_THRALL_LIMIT)
 					to_chat(user, "<span class='warning'>You cannot spare this much energy. There are too many empowered thralls.</span>")
@@ -644,7 +650,7 @@
 				thrallToRevive.visible_message("<span class='warning'>[thrallToRevive] slowly rises, no longer recognizable as human.</span>", \
 											   "<span class='shadowling'><b>You feel new power flow into you. You have been gifted by your masters. You now closely resemble them. You are empowered in \
 											    darkness but wither slowly in light. In addition, you now have glare and true shadow walk.</b></span>")
-				thrallToRevive.set_species("Lesser Shadowling")
+				thrallToRevive.set_species(/datum/species/shadow/ling/lesser)
 				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
@@ -701,7 +707,7 @@
 			to_chat(user, "<span class='warning'>[target] must be a thrall.</span>")
 			charge_counter = charge_max
 			return
-		if(shuttle_master.emergency.mode != SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode != SHUTTLE_CALL)
 			to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
 			charge_counter = charge_max
 			return
@@ -718,13 +724,13 @@
 		M.visible_message("<span class='warning'>[M]'s eyes suddenly flare red. They proceed to collapse on the floor, not breathing.</span>", \
 						  "<span class='warning'><b>...speeding by... ...pretty blue glow... ...touch it... ...no glow now... ...no light... ...nothing at all...</span>")
 		M.death()
-		if(shuttle_master.emergency.mode == SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 			var/more_minutes = 9000
-			var/timer = shuttle_master.emergency.timeLeft()
+			var/timer = SSshuttle.emergency.timeLeft()
 			timer += more_minutes
 			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
-			shuttle_master.emergency.setTimer(timer)
-			shuttle_master.emergency.canRecall = FALSE
+			SSshuttle.emergency.setTimer(timer)
+			SSshuttle.emergency.canRecall = FALSE
 		user.mind.spell_list.Remove(src) //Can only be used once!
 		qdel(src)
 
@@ -749,7 +755,7 @@
 	playsound(user.loc, 'sound/magic/Staff_Chaos.ogg', 100, 1)
 	for(var/mob/living/boom in targets)
 		if(is_shadow(boom)) //Used to not work on thralls. Now it does so you can PUNISH THEM LIKE THE WRATHFUL GOD YOU ARE.
-			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.<span>")
+			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.</span>")
 			charge_counter = charge_max
 			return
 		user.visible_message("<span class='danger'>[user]'s markings flare as [user.p_they()] gesture[user.p_s()] at [boom]!</span>", \
@@ -780,7 +786,7 @@
 
 	for(var/mob/living/carbon/human/target in targets)
 		if(is_shadow_or_thrall(target))
-			to_chat(user, "<span class='warning'>You cannot enthrall an ally.<span>")
+			to_chat(user, "<span class='warning'>You cannot enthrall an ally.</span>")
 			charge_counter = charge_max
 			return
 		if(!target.ckey || !target.mind)

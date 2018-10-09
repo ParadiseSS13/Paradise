@@ -46,7 +46,7 @@
 
 	anchored = 1
 	density = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 
 	var/chargesa = 1
 	var/insistinga = 0
@@ -72,7 +72,7 @@
 	else
 		chargesa--
 		insistinga = 0
-		var/wish = input("You want...","Wish") as null|anything in list("Power","Wealth","Immortality","To Kill","Peace")
+		var/wish = input("You want...","Wish") as null|anything in list("Power","Wealth","Immortality","Peace")
 		switch(wish)
 			if("Power")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -82,12 +82,12 @@
 				user.mutations.Add(XRAY)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Wealth")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -95,12 +95,12 @@
 				new /obj/structure/closet/syndicate/resources/everything(loc)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
@@ -108,34 +108,12 @@
 				user.verbs += /mob/living/carbon/proc/immortality
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
+					if(!isshadowperson(human))
 						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
 						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
-				user.regenerate_icons()
-			if("To Kill")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your wickedness, claiming your soul and warping your body to match the darkness in your heart.")
-				ticker.mode.traitors += user.mind
-				user.mind.special_role = SPECIAL_ROLE_TRAITOR
-				var/datum/objective/hijack/hijack = new
-				hijack.owner = user.mind
-				user.mind.objectives += hijack
-				to_chat(user, "<B>Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!</B>")
-				var/obj_count = 1
-				for(var/datum/objective/OBJ in user.mind.objectives)
-					to_chat(user, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-					obj_count++
-				if(ishuman(user))
-					var/mob/living/carbon/human/human = user
-					if(human.species.name != "Shadow")
-						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
-						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
-						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
-						human.set_species("Shadow")
+						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Peace")
 				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
@@ -284,8 +262,9 @@
 	return list()
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest/death(gibbed)
-	if(!on_alert)
+	// putting this up here so we don't say anything after deathgasp
+	if(can_die() && !on_alert)
 		say("How could you betray the Syndicate?")
 		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
 			W.on_alert = TRUE
-	..(gibbed)
+	return ..(gibbed)

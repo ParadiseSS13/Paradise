@@ -42,7 +42,7 @@
 	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
 
-	var/delay = (rand(350,450) + B.host.brainloss)
+	var/delay = (rand(350,450) + B.host.getBrainLoss())
 	addtimer(CALLBACK(src, .proc/return_control, B), delay)
 
 
@@ -308,7 +308,7 @@
 	var/list/choices = list()
 	for(var/mob/living/carbon/human/H in view(1,src))
 		var/obj/item/organ/external/head/head = H.get_organ("head")
-		if(head.status & ORGAN_ROBOT)
+		if(head.is_robotic())
 			continue
 		if(H.stat != DEAD && Adjacent(H) && !H.has_brain_worms())
 			choices += H
@@ -363,7 +363,9 @@
 	if(M.has_brain_worms())
 		to_chat(src, "<span class='warning'>[M] is already infested!</span>")
 		return
+
 	host = M
+	add_attack_logs(src, host, "Infested as borer")
 	M.borer = src
 	forceMove(M)
 

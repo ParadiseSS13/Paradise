@@ -127,7 +127,7 @@
 			var/obj/item/I = target
 			var/old_layer = I.layer
 			var/old_plane = I.plane
-			I.layer = 21
+			I.layer = HUD_LAYER_SCREEN + 1
 			I.plane = HUD_PLANE
 			current_button.overlays += I
 			I.layer = old_layer

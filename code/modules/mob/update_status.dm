@@ -37,7 +37,7 @@
 /mob/proc/can_hear()
 	return 1
 
-/mob/proc/has_vision()
+/mob/proc/has_vision(information_only = FALSE)
 	return 1
 
 /mob/proc/can_speak()

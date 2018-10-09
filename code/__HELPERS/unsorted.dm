@@ -1226,7 +1226,7 @@ var/global/list/common_tools = list(
 //check if mob is lying down on something we can operate him on.
 /proc/can_operate(mob/living/carbon/M)
 	return (locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting)) || \
-	(locate(/obj/structure/stool/bed/roller, M.loc) && 	\
+	(locate(/obj/structure/bed/roller, M.loc) && 	\
 	(M.buckled || M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat)) && prob(75) || 	\
 	(locate(/obj/structure/table/, M.loc) && 	\
 	(M.lying || M.weakened || M.stunned || M.paralysis || M.sleeping || M.stat) && prob(66))
@@ -1496,6 +1496,10 @@ var/mob/dview/dview_mob = new
 	see_in_dark = 1e6
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
+
+/mob/dview/Destroy()
+	// should never be deleted
+	return QDEL_HINT_LETMELIVE
 
 /proc/IsValidSrc(A)
 	if(istype(A, /datum))
@@ -1781,28 +1785,99 @@ var/mob/dview/dview_mob = new
 	for(var/type in types)
 		var/typename = "[type]"
 		var/static/list/TYPES_SHORTCUTS = list(
+			//longest paths comes first - otherwise they get shadowed by the more generic ones
 			/obj/effect/decal/cleanable = "CLEANABLE",
-			/obj/item/radio/headset = "HEADSET",
-			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
-			/obj/item/book/manual = "MANUAL",
-			/obj/item/reagent_containers/food/drinks = "DRINK", //longest paths comes first
-			/obj/item/reagent_containers/food = "FOOD",
-			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
-			/obj/item = "WEAPON",
-			/obj/machinery/atmospherics = "ATMOS_MECH",
-			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
-			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
-			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
-			/obj/item/organ = "ORGAN",
-			/obj/item = "ITEM",
-			/obj/machinery = "MACHINERY",
 			/obj/effect = "EFFECT",
+			/obj/item/ammo_casing = "AMMO",
+			/obj/item/book/manual = "MANUAL",
+			/obj/item/borg/upgrade = "BORG_UPGRADE",
+			/obj/item/cartridge = "PDA_CART",
+			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
+			/obj/item/clothing/head = "HEAD",
+			/obj/item/clothing/under = "UNIFORM",
+			/obj/item/clothing/shoes = "SHOES",
+			/obj/item/clothing/suit = "SUIT",
+			/obj/item/clothing/gloves = "GLOVES",
+			/obj/item/clothing/mask/cigarette = "CIGARRETE", // oof
+			/obj/item/clothing/mask = "MASK",
+			/obj/item/clothing/glasses = "GLASSES",
+			/obj/item/clothing = "CLOTHING",
+			/obj/item/grenade/clusterbuster = "CLUSTERBUSTER",
+			/obj/item/grenade = "GRENADE",
+			/obj/item/gun = "GUN",
+			/obj/item/implant = "IMPLANT",
+			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
+			/obj/item/mecha_parts/mecha_equipment/weapon = "MECHA_WEAPON",
+			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
+			/obj/item/melee = "MELEE",
+			/obj/item/mmi = "MMI",
+			/obj/item/nullrod = "NULLROD",
+			/obj/item/organ/external = "EXT_ORG",
+			/obj/item/organ/internal/cyberimp = "CYBERIMP",
+			/obj/item/organ/internal = "INT_ORG",
+			/obj/item/organ = "ORGAN",
+			/obj/item/pda = "PDA",
+			/obj/item/projectile = "PROJ",
+			/obj/item/radio/headset = "HEADSET",
+			/obj/item/reagent_containers/glass/beaker = "BEAKER",
+			/obj/item/reagent_containers/glass/bottle = "BOTTLE",
+			/obj/item/reagent_containers/food/pill/patch = "PATCH",
+			/obj/item/reagent_containers/food/pill = "PILL",
+			/obj/item/reagent_containers/food/drinks = "DRINK",
+			/obj/item/reagent_containers/food = "FOOD",
+			/obj/item/reagent_containers/syringe = "SYRINGE",
+			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
+			/obj/item/robot_parts = "ROBOT_PARTS",
+			/obj/item/seeds = "SEED",
+			/obj/item/slime_extract = "SLIME_CORE",
+			/obj/item/spacepod_equipment/weaponry = "POD_WEAPON",
+			/obj/item/spacepod_equipment = "POD_EQUIP",
+			/obj/item/stack/sheet/mineral = "MINERAL",
+			/obj/item/stack/sheet = "SHEET",
+			/obj/item/stack/tile = "TILE",
+			/obj/item/stack = "STACK",
+			/obj/item/stock_parts/cell = "POWERCELL",
+			/obj/item/stock_parts = "STOCK_PARTS",
+			/obj/item/storage/firstaid = "FIRSTAID",
+			/obj/item/storage = "STORAGE",
+			/obj/item/tank = "GAS_TANK",
+			/obj/item/toy/crayon = "CRAYON",
+			/obj/item/toy = "TOY",
+			/obj/item = "ITEM",
+			/obj/machinery/atmospherics = "ATMOS_MACH",
+			/obj/machinery/computer = "CONSOLE",
+			/obj/machinery/door/airlock = "AIRLOCK",
+			/obj/machinery/door = "DOOR",
+			/obj/machinery/kitchen_machine = "KITCHEN",
+			/obj/machinery/portable_atmospherics/canister = "CANISTER",
+			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
+			/obj/machinery/power = "POWER",
+			/obj/machinery/telecomms = "TCOMMS",
+			/obj/machinery = "MACHINERY",
+			/obj/mecha = "MECHA",
+			/obj/structure/closet/crate = "CRATE",
+			/obj/structure/closet = "CLOSET",
+			/obj/structure/statue = "STATUE",
+			/obj/structure/chair = "CHAIR", // oh no
+			/obj/structure/stool/bed = "BED",
+			/obj/structure/stool = "STOOL",
+			/obj/structure/table = "TABLE",
+			/obj/structure = "STRUCTURE",
+			/obj/vehicle = "VEHICLE",
 			/obj = "O",
 			/datum = "D",
-			/turf/simulated/floor = "FLOOR",
-			/turf/simulated/wall = "WALL",
+			/turf/simulated/floor = "SIM_FLOOR",
+			/turf/simulated/wall = "SIM_WALL",
+			/turf/unsimulated/floor = "UNSIM_FLOOR",
+			/turf/unsimulated/wall = "UNSIM_WALL",
 			/turf = "T",
+			/mob/living/carbon/alien = "XENO",
+			/mob/living/carbon/human = "HUMAN",
 			/mob/living/carbon = "CARBON",
+			/mob/living/silicon/robot = "CYBORG",
+			/mob/living/silicon/ai = "AI",
+			/mob/living/silicon = "SILICON",
+			/mob/living/simple_animal/bot = "BOT",
 			/mob/living/simple_animal = "SIMPLE",
 			/mob/living = "LIVING",
 			/mob = "M"

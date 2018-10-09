@@ -943,6 +943,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/reagent_containers/food/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
 					/obj/item/storage/fancy/egg_box,
+					/obj/item/mixing_bowl,
+					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/food/condiment/enzyme,
 					/obj/item/reagent_containers/food/condiment/sugar,
 					/obj/item/reagent_containers/food/snacks/meat/monkey,
@@ -1236,8 +1238,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/materials/plastic30
 	name = "30 Plastic Sheets Crate"
 	contains = list(/obj/item/stack/sheet/plastic)
-	amount = 50
-	cost = 10
+	amount = 30
+	cost = 20
 	containername = "plastic sheets crate"
 
 //////////////////////////////////////////////////////////////////////////////

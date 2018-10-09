@@ -177,16 +177,16 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
 		return 0
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	if(issilicon(owner.current))
 		return 0
 
 	var/area/A = get_area(owner.current)
-	if(shuttle_master.emergency.areaInstance != A)
+	if(SSshuttle.emergency.areaInstance != A)
 		return 0
 
-	return shuttle_master.emergency.is_hijacked()
+	return SSshuttle.emergency.is_hijacked()
 
 /datum/objective/hijackclone
 	explanation_text = "Hijack the shuttle by ensuring only you (or your copies) escape."
@@ -195,10 +195,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/hijackclone/check_completion()
 	if(!owner.current)
 		return 0
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 
-	var/area/A = shuttle_master.emergency.areaInstance
+	var/area/A = SSshuttle.emergency.areaInstance
 
 	for(var/mob/living/player in player_list) //Make sure nobody else is onboard
 		if(player.mind && player.mind != owner)
@@ -226,12 +226,12 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 /datum/objective/block/check_completion()
 	if(!istype(owner.current, /mob/living/silicon))
 		return 0
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	if(!owner.current)
 		return 0
 
-	var/area/A = shuttle_master.emergency.areaInstance
+	var/area/A = SSshuttle.emergency.areaInstance
 	var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 
 	for(var/mob/living/player in player_list)
@@ -258,7 +258,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return 1
 	if(ticker.mode.station_was_nuked) //If they escaped the blast somehow, let them win
 		return 1
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME)
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME)
 		return 0
 	var/turf/location = get_turf(owner.current)
 	if(!location)
@@ -281,7 +281,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	for(var/datum/mind/possible_target in ticker.minds)
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != DEAD) && possible_target.current.client)
 			var/mob/living/carbon/human/H = possible_target.current
-			if(!(NO_DNA in H.species.species_traits))
+			if(!(NO_DNA in H.dna.species.species_traits))
 				possible_targets += possible_target
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
@@ -329,11 +329,17 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	explanation_text = "Destroy the station with a nuclear device."
 	martyr_compatible = 1
 
-
-
 /datum/objective/steal
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0
+	var/theft_area
+
+/datum/objective/steal/proc/get_location()
+    if(steal_target.location_override)
+        return steal_target.location_override
+    var/obj/item/T = locate(steal_target.typepath)
+    theft_area = get_area(T.loc)
+    return "[theft_area]"
 
 /datum/objective/steal/find_target()
 	var/loop=50
@@ -346,7 +352,9 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		if(O.flags & 2)
 			continue
 		steal_target=O
-		explanation_text = "Steal [O]."
+		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
+		if(islist(O.protected_jobs) && O.protected_jobs.len)
+			explanation_text += "It may also be in the possession of the [jointext(O.protected_jobs, ", ")]."
 		return
 	explanation_text = "Free Objective."
 
@@ -445,7 +453,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 					n_p++
 		else if(ticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/P in player_list)
-				if(NO_DNA in P.species.species_traits)
+				if(NO_DNA in P.dna.species.species_traits)
 					continue
 				if(P.client && !(P.mind in ticker.mode.changelings) && P.mind!=owner)
 					n_p++

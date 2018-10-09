@@ -39,7 +39,7 @@
 
 	else
 		var/area/A = get_area(src)
-		if(!A || !isarea(A))
+		if(!istype(A))
 			return 0
 
 		if(A.powered(EQUIP))

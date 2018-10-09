@@ -178,7 +178,7 @@
 
 		if(ishuman(the_target))
 			var/mob/living/carbon/human/H = the_target
-			if(is_type_in_list(src, H.species.ignored_by))
+			if(is_type_in_list(src, H.dna.species.ignored_by))
 				return 0
 
 		if(istype(the_target, /obj/mecha))
@@ -289,8 +289,11 @@
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	LoseTarget()
-	..(gibbed)
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance)
 	do_alert_animation(src)

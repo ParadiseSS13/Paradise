@@ -24,13 +24,14 @@
 	taste_message = "corporate assets going to waste"
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(holder.has_reagent("epinephrine"))
 		holder.remove_reagent("epinephrine", 2)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.adjustPlasma(10)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/plasma/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma is stronger than fuel!
 	if(method == TOUCH)
@@ -80,10 +81,11 @@
 	taste_message = null
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.adjust_fire_stacks(2)
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg)
-	..()
+	update_flags |= M.adjustFireLoss(burndmg, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/clf3/reaction_turf(turf/simulated/T, volume)
 	if(prob(1) && istype(T, /turf/simulated/floor/plating))
@@ -167,10 +169,11 @@
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/phlogiston/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.adjust_fire_stacks(1)
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
-	M.adjustFireLoss(burndmg)
-	..()
+	update_flags |= M.adjustFireLoss(burndmg, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, volume)
 	M.adjust_fire_stacks(1)
@@ -187,7 +190,7 @@
 
 /datum/reagent/napalm/on_mob_life(mob/living/M)
 	M.adjust_fire_stacks(1)
-	..()
+	return ..()
 
 /datum/reagent/napalm/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
@@ -204,7 +207,7 @@
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature -= 30
-	..()
+	return ..()
 
 /datum/reagent/cryostylane/on_tick()
 	if(holder.has_reagent("oxygen"))
@@ -221,7 +224,7 @@
 /datum/reagent/pyrosium
 	name = "Pyrosium"
 	id = "pyrosium"
-	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly cools all other reagents in the mob down to 0K."
+	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents."
 	color = "#B20000" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
 
@@ -229,7 +232,7 @@
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
 		M.bodytemperature += 30
-	..()
+	return ..()
 
 /datum/reagent/pyrosium/on_tick()
 	if(holder.has_reagent("oxygen"))
@@ -276,11 +279,12 @@
 	taste_message = "corporate assets going to waste"
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)
-	M.adjustToxLoss(3)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(3, FALSE)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		C.adjustPlasma(20)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/plasma_dust/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with plasma dust is stronger than fuel!
 	if(method == TOUCH)

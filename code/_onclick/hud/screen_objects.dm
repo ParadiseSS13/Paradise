@@ -9,7 +9,7 @@
 /obj/screen
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
-	layer = 20
+	layer = HUD_LAYER_SCREEN
 	plane = HUD_PLANE
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
@@ -26,7 +26,7 @@
 /obj/screen/text
 	icon = null
 	icon_state = null
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = "CENTER-7,CENTER-7"
 	maptext_height = 480
 	maptext_width = 480
@@ -71,17 +71,14 @@
 	if(ishuman(usr))
 		var/_x = text2num(params2list(params)["icon-x"])
 		var/_y = text2num(params2list(params)["icon-y"])
-
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
 			usr.a_intent_change(INTENT_HELP)
 		else if(_x>=17 && _y<=16)
 			usr.a_intent_change(INTENT_GRAB)
-
 		else if(_x>=17 && _y>=17)
 			usr.a_intent_change(INTENT_DISARM)
-
 	else
 		usr.a_intent_change("right")
 
@@ -96,6 +93,11 @@
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
+
+
+/obj/screen/act_intent/simple_animal
+	icon = 'icons/mob/screen_simplemob.dmi'
+	screen_loc = ui_acti
 
 /obj/screen/mov_intent/Click()
 	if(iscarbon(usr))
@@ -377,7 +379,7 @@
 	icon = 'icons/mob/guardian.dmi'
 	icon_state = "base"
 	screen_loc = ui_health
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/screen/healthdoll
 	name = "health doll"

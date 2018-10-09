@@ -543,12 +543,20 @@
 	build_path = /obj/item/assembly/timer
 	category = list("initial", "Miscellaneous")
 
-/datum/design/voice_analyser
-	name = "Voice Analyser"
-	id = "voice_analyser"
+/datum/design/voice_analyzer
+	name = "Voice Analyzer"
+	id = "voice_analyzer"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
 	build_path = /obj/item/assembly/voice
+	category = list("initial", "Miscellaneous")
+
+/datum/design/noise_analyser
+	name = "Noise Analyser"
+	id = "Noise_analyser"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 10)
+	build_path = /obj/item/assembly/voice/noise
 	category = list("initial", "Miscellaneous")
 
 /datum/design/light_tube
@@ -589,6 +597,14 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 10, MAT_GLASS = 20)
 	build_path = /obj/item/reagent_containers/syringe
+	category = list("initial", "Medical")
+
+/datum/design/safety_hypo
+	name = "Medical Hypospray"
+	id = "safetyhypo"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/hypospray/safety
 	category = list("initial", "Medical")
 
 /datum/design/prox_sensor
@@ -840,38 +856,6 @@
 	build_path = /obj/item/videocam
 	category = list("initial", "Miscellaneous")
 
-/datum/design/canvas
-	name = "11px by 11px Canvas"
-	id = "canvas"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50)
-	build_path = /obj/item/canvas
-	category = list("initial", "Miscellaneous")
-
-/datum/design/canvas/nineteenXnineteen
-	name = "19px by 19px Canvas"
-	id = "canvas19x19"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50)
-	build_path = /obj/item/canvas/nineteenXnineteen
-	category = list("initial", "Miscellaneous")
-
-/datum/design/canvas/twentythreeXnineteen
-	name = "23px by 19px Canvas"
-	id = "canvas23x19"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 70)
-	build_path = /obj/item/canvas/twentythreeXnineteen
-	category = list("initial", "Miscellaneous")
-
-/datum/design/canvas/twentythreeXtwentythree
-	name = "23px by 23px Canvas"
-	id = "canvas23x23"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 100)
-	build_path = /obj/item/canvas/twentythreeXtwentythree
-	category = list("initial", "Miscellaneous")
-
 /datum/design/logic_board
 	name = "Logic Circuit"
 	id = "logic_board"
@@ -905,3 +889,4 @@
 	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
 	build_path = /obj/item/clothing/ears/vr_headset
 	category = list("initial","Miscellaneous")
+

@@ -2,7 +2,6 @@
 * Prize balls
 * Prize tickets
 */
-
 /obj/item/toy/prizeball
 	name = "prize ball"
 	desc = "A toy is a toy, but a prize ball could be anything! It could even be a toy!"
@@ -25,7 +24,7 @@
 	var/prize_inside = pick(possible_contents)
 	spawn(10)
 		user.unEquip(src)
-		if(istype(prize_inside, /obj/item/stack))
+		if(ispath(prize_inside,/obj/item/stack))
 			var/amount = pick(5, 10, 15, 25, 50)
 			new prize_inside(user.loc, amount)
 		else
@@ -78,12 +77,12 @@
 	return
 
 /obj/item/stack/tickets/update_icon()
-	var/amount = get_amount()
-	if((amount >= 75))
-		icon_state = "tickets_4"
-	else if(amount >=25)
-		icon_state = "tickets_3"
-	else if(amount >= 4)
-		icon_state = "tickets_2"
-	else
-		icon_state = "tickets_1"
+	switch(get_amount())
+		if(1 to 3)
+			icon_state = "tickets_1"	// One ticket
+		if(4 to 24)
+			icon_state = "tickets_2"	// Couple tickets
+		if(25 to 74)
+			icon_state = "tickets_3"	// Buncha tickets
+		else
+			icon_state = "tickets_4"	// Ticket snake

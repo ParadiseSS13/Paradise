@@ -31,4 +31,16 @@ var/list/round_end_sounds = list( // Maps available round end sounds to their du
 		'sound/goonstation/misc/newround2.ogg' = 14.8 SECONDS
 		)
 
+GLOBAL_LIST_INIT(cooking_recipe_types, list(
+	RECIPE_MICROWAVE = /datum/recipe/microwave,
+	RECIPE_OVEN = /datum/recipe/oven,
+	RECIPE_GRILL = /datum/recipe/grill,
+	RECIPE_CANDY = /datum/recipe/candy
+	))
+GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
+GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
+GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
+
 GLOBAL_LIST(station_level_space_turfs)
+
+#define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")
