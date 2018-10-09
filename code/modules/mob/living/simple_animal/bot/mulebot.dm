@@ -17,7 +17,7 @@
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	a_intent = INTENT_HARM //No swapping
-	buckle_lying = 0
+	buckle_lying = 1
 	mob_size = MOB_SIZE_LARGE
 	radio_channel = "Supply"
 
