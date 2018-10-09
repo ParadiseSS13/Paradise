@@ -134,7 +134,7 @@
 		name = mimiced_atom.name
 		appearance = mimiced_atom.appearance
 		setDir(mimiced_atom.dir)
-		mouse_opacity = 0
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/temp_visual/decoy/fading/New(loc, atom/mimiced_atom)
 	..()

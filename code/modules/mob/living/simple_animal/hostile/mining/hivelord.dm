@@ -7,7 +7,7 @@
 	icon_aggro = "Hivelord_alert"
 	icon_dead = "Hivelord_dead"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 14
 	ranged = 1
 	vision_range = 5
@@ -50,7 +50,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 
 /obj/item/organ/internal/hivelord_core
 	name = "hivelord remains"
@@ -135,7 +135,7 @@
 	icon_aggro = "Hivelordbrood"
 	icon_dead = "Hivelordbrood"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 1
 	friendly = "buzzes near"
 	vision_range = 10

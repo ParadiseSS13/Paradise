@@ -722,7 +722,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = 4.1
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/resonance_damage = 20
 
 /obj/effect/resonance/New(loc, var/creator = null, var/timetoburst)
@@ -975,7 +975,7 @@
 	layer = 18
 	icon = 'icons/turf/mining.dmi'
 	anchored = 1
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	duration = 30
 	pixel_x = -4
 	pixel_y = -4

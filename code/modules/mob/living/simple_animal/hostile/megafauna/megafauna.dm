@@ -41,7 +41,7 @@
 	anchored = TRUE
 	mob_size = MOB_SIZE_LARGE
 	layer = MOB_LAYER + 0.5 //Looks weird with them slipping under mineral walls and cameras and shit otherwise
-	mouse_opacity = 2 // Easier to click on in melee, they're giant targets anyway
+	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
