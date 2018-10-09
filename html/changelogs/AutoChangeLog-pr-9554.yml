@@ -1,0 +1,5 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "Poolcontroller performance are improved dramatically. Expect slightly reduced CPU use on beach gateway map"
+  - tweak: "Poolcontroller will no longer work properly if you directly var-edit someone's location to inside a body of water and a decal's (However if the mob move right after it will still work)"
