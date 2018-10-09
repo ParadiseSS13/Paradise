@@ -1,6 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - tweak: "Conveyor belts have received a facelift!"
-  - tweak: "Rotating a belt with a wrench now nicely rotates the belt for you"
-  - tweak: "Click a lever with a lever to link their IDs. Click a belt with a lever to link that belt to that lever."
