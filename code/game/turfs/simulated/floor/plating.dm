@@ -1,7 +1,6 @@
 /turf/simulated/floor/plating
 	name = "plating"
 	icon_state = "plating"
-	icon = 'icons/turf/floors/plating.dmi'
 	intact = 0
 	floor_tile = null
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
@@ -15,17 +14,12 @@
 /turf/simulated/floor/plating/New()
 	..()
 	icon_plating = icon_state
-	if(icon == 'icons/turf/floors/plating.dmi')
-		smooth = SMOOTH_MORE
-		canSmoothWith = list(/turf/simulated/floor/plating, /turf/space)
-	update_icon()
 
 /turf/simulated/floor/plating/update_icon()
 	if(!..())
 		return
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
-	underlays += image(icon, icon_state)
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
