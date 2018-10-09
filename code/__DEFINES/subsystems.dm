@@ -124,3 +124,22 @@
 #define RUNLEVEL_POSTGAME 8
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
+
+#define COMPILE_OVERLAYS(A)\
+	if (TRUE) {\
+		var/list/ad = A.add_overlays;\
+		var/list/rm = A.remove_overlays;\
+		var/list/po = A.priority_overlays;\
+		if(LAZYLEN(rm)){\
+			A.overlays -= rm;\
+			rm.Cut();\
+		}\
+		if(LAZYLEN(ad)){\
+			A.overlays |= ad;\
+			ad.Cut();\
+		}\
+		if(LAZYLEN(po)){\
+			A.overlays |= po;\
+		}\
+		A.flags_2 &= ~OVERLAY_QUEUED_2;\
+}
