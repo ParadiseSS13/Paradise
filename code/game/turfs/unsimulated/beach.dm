@@ -34,7 +34,30 @@
 /turf/unsimulated/beach/water
 	name = "Shallow Water"
 	icon_state = "seashallow"
+	var/obj/machinery/poolcontroller/linkedcontroller = null
 	water_overlay_image = "water_shallow"
+
+/turf/unsimulated/beach/water/Entered(atom/movable/AM, atom/OldLoc)
+	. = ..()
+	if(!linkedcontroller)
+		return 
+	if(ishuman(AM))
+		var/mob/living/carbon/human/M = AM
+		linkedcontroller.mobinpool += M
+
+/turf/unsimulated/beach/water/Exited(atom/movable/AM, atom/newloc)
+	. = ..()
+	if(!linkedcontroller)
+		return
+	if(ishuman(AM))
+		var/mob/living/carbon/human/M = AM
+		linkedcontroller.mobinpool -= M
+
+/turf/unsimulated/beach/water/InitializedOn(atom/A)
+	if(!linkedcontroller)
+		return
+	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
+		linkedcontroller.decalinpool += A
 
 /turf/unsimulated/beach/water/dense			//for boundary "walls"
 	density = 1
