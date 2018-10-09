@@ -40,10 +40,10 @@
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
 		I.flags |= NODROP
-		I.mouse_opacity = 2
+		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 	if(emag)
 		emag.flags |= NODROP
-		emag.mouse_opacity = 2
+		emag.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 /obj/item/robot_module/proc/respawn_consumable(mob/living/silicon/robot/R)
 	if(!stacktypes || !stacktypes.len)

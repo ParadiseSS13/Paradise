@@ -363,19 +363,19 @@ SUBSYSTEM_DEF(air)
 	plmaster.icon = 'icons/effects/tile_effects.dmi'
 	plmaster.icon_state = "plasma"
 	plmaster.layer = FLY_LAYER
-	plmaster.mouse_opacity = 0
+	plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	slmaster = new /obj/effect/overlay()
 	slmaster.icon = 'icons/effects/tile_effects.dmi'
 	slmaster.icon_state = "sleeping_agent"
 	slmaster.layer = FLY_LAYER
-	slmaster.mouse_opacity = 0
+	slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	icemaster = new /obj/effect/overlay()
 	icemaster.icon = 'icons/turf/overlays.dmi'
 	icemaster.icon_state = "snowfloor"
 	icemaster.layer = TURF_LAYER + 0.1
-	icemaster.mouse_opacity = 0
+	icemaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

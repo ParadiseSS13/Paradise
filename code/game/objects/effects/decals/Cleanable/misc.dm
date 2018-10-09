@@ -29,11 +29,11 @@
 	layer = TURF_LAYER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "dirt"
-	mouse_opacity = FALSE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
-	mouse_opacity = TRUE
+	mouse_opacity = MOUSE_OPACITY_ICON
 	noscoop = TRUE
 
 /obj/effect/decal/cleanable/dirt/blackpowder/Initialize()
