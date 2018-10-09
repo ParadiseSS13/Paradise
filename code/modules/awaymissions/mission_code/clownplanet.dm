@@ -4,7 +4,7 @@
 	name = "\improper Clown Planet"
 	icon_state = "honk"
 	luminosity = 1
-	dynamic_lighting = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 	requires_power = FALSE
 	report_alerts = FALSE
 

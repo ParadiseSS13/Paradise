@@ -1,7 +1,6 @@
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1
-	luminosity = 1
 
 	var/intact = 1
 	var/turf/baseturf = /turf/space

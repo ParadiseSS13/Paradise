@@ -26,14 +26,14 @@
 	anchored = 0
 
 /obj/effect/mark
-		var/mark = ""
-		icon = 'icons/misc/mark.dmi'
-		icon_state = "blank"
-		anchored = 1
-		layer = 99
-		plane = HUD_PLANE
-		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		unacidable = 1//Just to be sure.
+	var/mark = ""
+	icon = 'icons/misc/mark.dmi'
+	icon_state = "blank"
+	anchored = 1
+	layer = 99
+	plane = HUD_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	unacidable = 1//Just to be sure.
 
 /obj/effect/beam
 	name = "beam"
@@ -93,3 +93,11 @@
 	desc = "Some sort of pod filled with blood and vicerea. You swear you can see it moving..."
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_g"
+
+//Makes a tile fully lit no matter what
+/obj/effect/fullbright
+	icon = 'icons/effects/alphacolors.dmi'
+	icon_state = "white"
+	plane = LIGHTING_PLANE
+	layer = LIGHTING_LAYER
+	blend_mode = BLEND_ADD

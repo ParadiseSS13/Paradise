@@ -7,7 +7,7 @@
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
 	layer = AREA_LAYER
-	luminosity = 0
+	luminosity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
@@ -35,6 +35,7 @@
 	var/static_light = 0
 	var/static_environ
 
+	var/dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
 	var/outdoors = FALSE // For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
 	var/xenobiology_compatible = FALSE // Can the Xenobio management console transverse this area by default?
 	var/has_gravity = TRUE
@@ -79,6 +80,19 @@
 		power_equip = TRUE
 		power_environ = TRUE
 
+		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
+			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+			luminosity = 0
+		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
+			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
+		dynamic_lighting = config.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
+
+	/*if(requires_power != 0)
+		power_light = 0			//rastaf0
+		power_equip = 0			//rastaf0
+		power_environ = 0		//rastaf0
+		*/
 	. = ..()
 
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.

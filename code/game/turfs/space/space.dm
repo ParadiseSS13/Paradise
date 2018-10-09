@@ -2,8 +2,7 @@
 	icon = 'icons/turf/space.dmi'
 	name = "\proper space"
 	icon_state = "0"
-	dynamic_lighting = FALSE
-	luminosity = 1
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
@@ -44,14 +43,14 @@
 	S.apply_transition(src)
 
 /turf/space/proc/update_starlight()
-	if(!config.starlight)
-		return FALSE
-	if(locate(/turf/simulated) in orange(src,1))
-		set_light(config.starlight)
-		return TRUE
-	else
+	if(config.starlight)
+		for(var/t in RANGE_TURFS(1,src))
+			if(isspaceturf(t))
+				//let's NOT update this that much pls
+				continue
+			set_light(2)
+			return
 		set_light(0)
-		return FALSE
 
 /turf/space/attackby(obj/item/C as obj, mob/user as mob, params)
 	..()
@@ -220,7 +219,7 @@
 	return
 
 /turf/space/can_have_cabling()
-	return 0
+	return FALSE
 
 /turf/space/proc/set_transition_north(dest_z)
 	destination_x = x
