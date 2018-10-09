@@ -66,17 +66,15 @@
 	. = ..()
 	if(!linkedcontroller)
 		return 
-	if(ishuman(AM))
-		var/mob/living/carbon/human/M = AM
-		linkedcontroller.mobinpool += M
+	if(ismob(AM))
+		linkedcontroller.mobinpool += AM
 
 /turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
 	. = ..()
 	if(!linkedcontroller)
 		return
-	if(ishuman(AM))
-		var/mob/living/carbon/human/M = AM
-		linkedcontroller.mobinpool -= M
+	if(ismob(AM))
+		linkedcontroller.mobinpool -= AM
 
 /turf/simulated/floor/beach/water/InitializedOn(atom/A)
 	if(!linkedcontroller)

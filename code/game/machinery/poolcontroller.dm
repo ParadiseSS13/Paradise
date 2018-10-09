@@ -57,7 +57,7 @@
 /obj/machinery/poolcontroller/proc/processMob()
 	for(var/M in mobinpool) //They're already typecasted when entering the turf
 		// Following two are sanity check. If the mob is no longer in the pool for whatever reason (Looking at you teleport), remove them
-		if(!(istype(get_turf(M), /turf/simulated/floor/beach/water/)) && !(istype(get_turf(M), /turf/unsimulated/beach/water/))) // Water component when?
+		if(!istype(get_turf(M), /turf/simulated/floor/beach/water) && !istype(get_turf(M), /turf/unsimulated/beach/water)) // Water component when?
 			mobinpool -= M
 			continue
 		handleTemp(M)	//handles pool temp effects on the swimmers
@@ -66,8 +66,9 @@
 
 /obj/machinery/poolcontroller/proc/cleanPool()
 	for(var/obj/effect/decal/cleanable/decal in decalinpool)		//Cleans up cleanable decals like blood and such
-		animate(decal, alpha = 10, time = 20)
-		QDEL_IN(decal, 25)
+		if(!QDELETED(decal))
+			animate(decal, alpha = 10, time = 20)
+			QDEL_IN(decal, 25)
 
 /obj/machinery/poolcontroller/proc/handleTemp(var/mob/M)
 	if(!M || isAIEye(M) || issilicon(M) || isobserver(M) || M.stat == DEAD)
@@ -192,10 +193,8 @@
 /obj/machinery/poolcontroller/seacontroller
 	invisibility = 101
 	unacidable = 1
-
 	name = "Sea Controller"
 	desc = "A controller for the underwater portion of the sea. Players shouldn't see this."
-	var/numturf = 0
 	deep_water = TRUE		//deep sea is deep water
 
 /obj/machinery/poolcontroller/seacontroller/Initialize()
