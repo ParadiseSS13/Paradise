@@ -183,6 +183,7 @@
 		attack_verb = list("burnt","singed")
 		processing_objects.Add(src)
 		update_icon()
+		return TRUE
 
 /obj/item/match/proc/matchburnout()
 	if(lit)
@@ -196,6 +197,7 @@
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
 		processing_objects.Remove(src)
+		return TRUE
 
 /obj/item/match/dropped(mob/user)
 	matchburnout()
