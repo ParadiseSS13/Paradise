@@ -2,7 +2,7 @@
 	icon = 'icons/turf/space.dmi'
 	name = "\proper space"
 	icon_state = "0"
-	dynamic_lighting = 0
+	dynamic_lighting = FALSE
 	luminosity = 1
 
 	temperature = TCMB
@@ -19,7 +19,7 @@
 	if(!istype(src, /turf/space/transit))
 		icon_state = SPACE_ICON_STATE
 	if(update_starlight() && is_station_level(z))
-	// before you ask: Yes, this is fucking stupid, but looping through turf/space in world is how you make the server freeze 
+	// before you ask: Yes, this is fucking stupid, but looping through turf/space in world is how you make the server freeze
 	// so I don't see a better way of doing this
 		LAZYADD(GLOB.station_level_space_turfs, src)
 

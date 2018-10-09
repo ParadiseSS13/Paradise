@@ -24,18 +24,18 @@
 	match_tag = "arrivals"
 	match_width = 5
 	match_height = 4
-	requires_power = 0
+	requires_power = FALSE
 
 /area/dynamic/source/lobby_russian
 	name = "\improper Russian Lounge"
 	match_tag = "arrivals"
 	match_width = 5
 	match_height = 4
-	requires_power = 0
+	requires_power = FALSE
 
 /area/dynamic/source/lobby_disco
 	name = "\improper Disco Lounge"
 	match_tag = "arrivals"
 	match_width = 5
 	match_height = 4
-	requires_power = 0
+	requires_power = FALSE

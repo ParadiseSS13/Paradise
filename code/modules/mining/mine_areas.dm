@@ -7,24 +7,24 @@
 	name = "Mine"
 	icon_state = "explored"
 	music = null
-	always_unpowered = 1
-	requires_power = 1
-	power_environ = 0
-	power_equip = 0
-	power_light = 0
-	outdoors = 1
+	always_unpowered = TRUE
+	requires_power = TRUE
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	outdoors = TRUE
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 
 /area/mine/dangerous/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
 	music = null
-	always_unpowered = 1
-	requires_power = 1
-	power_environ = 0
-	power_equip = 0
-	power_light = 0
-	outdoors = 1
+	always_unpowered = TRUE
+	requires_power = TRUE
+	power_environ = FALSE
+	power_equip = FALSE
+	power_light = FALSE
+	outdoors = TRUE
 	ambientsounds = list('sound/ambience/ambimine.ogg')
 
 /area/mine/lobby

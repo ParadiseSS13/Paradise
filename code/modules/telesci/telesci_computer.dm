@@ -305,7 +305,7 @@
 	var/turf/target = locate(Clamp(round(proj_data.dest_x, 1), 1, world.maxx), Clamp(round(proj_data.dest_y, 1), 1, world.maxy), z_co)
 	var/area/A = get_area(target)
 
-	if(A.tele_proof == 1)
+	if(A.tele_proof)
 		telefail()
 		temp_msg = "ERROR! Target destination unreachable due to interference."
 		return

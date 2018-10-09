@@ -198,10 +198,10 @@
 	//var/ma
 	//ma = A.master ? "[A.master]" : "(null)"
 //	to_chat(world, "DEBUG: create_area: <br>A.name=[A.name]<br>A.tag=[A.tag]<br>A.master=[ma]")
-	A.power_equip = 0
-	A.power_light = 0
-	A.power_environ = 0
-	A.always_unpowered = 0
+	A.power_equip = FALSE
+	A.power_light = FALSE
+	A.power_environ = FALSE
+	A.always_unpowered = FALSE
 	move_turfs_to_area(turfs, A)
 
 	interact()

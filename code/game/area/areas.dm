@@ -15,7 +15,7 @@
 	// if this is 1, when used in a map snippet, this will instantiate a unique
 	// area from any other instances already present (meaning you can have
 	// separate APCs, and so on)
-	var/there_can_be_many = 0
+	var/there_can_be_many = FALSE
 
 
 /area/New()
@@ -28,19 +28,17 @@
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
 	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area
-		requires_power = 1
-		always_unpowered = 1
-		dynamic_lighting = 1
-		power_light = 0
-		power_equip = 0
-		power_environ = 0
-//		lighting_state = 4
-		//has_gravity = 0    // Space has gravity.  Because.. because.
+		requires_power = TRUE
+		always_unpowered = TRUE
+		dynamic_lighting = TRUE
+		power_light = FALSE
+		power_equip = FALSE
+		power_environ = FALSE
 
-	if(requires_power != 0)
-		power_light = 0			//rastaf0
-		power_equip = 0			//rastaf0
-		power_environ = 0		//rastaf0
+	if(requires_power != FALSE)
+		power_light = FALSE
+		power_equip = FALSE
+		power_environ = FALSE
 
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
 
@@ -145,7 +143,7 @@
 	return
 
 /area/proc/burglaralert(var/obj/trigger)
-	if(always_unpowered == 1) //no burglar alarms in space/asteroid
+	if(always_unpowered) //no burglar alarms in space/asteroid
 		return
 
 	//Trigger alarm effect
@@ -169,12 +167,12 @@
 
 /area/proc/readyalert()
 	if(!eject)
-		eject = 1
+		eject = TRUE
 		updateicon()
 
 /area/proc/readyreset()
 	if(eject)
-		eject = 0
+		eject = FALSE
 		updateicon()
 
 /area/proc/partyalert()
@@ -225,9 +223,9 @@
 /area/proc/powered(var/chan)		// return true if the area has power to given channel
 
 	if(!requires_power)
-		return 1
+		return TRUE
 	if(always_unpowered)
-		return 0
+		return FALSE
 	switch(chan)
 		if(EQUIP)
 			return power_equip
@@ -236,10 +234,10 @@
 		if(ENVIRON)
 			return power_environ
 
-	return 0
+	return FALSE
 
 /area/space/powered(chan) //Nope.avi
-	return 0
+	return FALSE
 
 // called when power status changes
 
@@ -324,7 +322,7 @@
 
 	var/mob/living/L = A
 	if(!L.ckey)	return
-	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
+	if((oldarea.has_gravity == FALSE) && (newarea.has_gravity == TRUE) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
 		thunk(L)
 
 	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch

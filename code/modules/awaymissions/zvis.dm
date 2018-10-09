@@ -1,8 +1,8 @@
 /area/awaymission/upperlevel
 	name = "Open Space"
 	color = "#888"
-	dynamic_lighting = 0
-	requires_power = 0
+	dynamic_lighting = FALSE
+	requires_power = FALSE
 
 // Used by /turf/unsimulated/floor/upperlevel as a reference for where the other floor is
 /obj/effect/levelref
@@ -231,7 +231,7 @@
 	if(Tloc)
 		Tloc.icon = null
 		Tloc.icon_state = null
-		Tloc.dynamic_lighting = 0
+		Tloc.dynamic_lighting = FALSE
 		layer = AREA_LAYER + 0.5
 
 	// setup references

@@ -2,7 +2,7 @@
 
 /area/awaymission/spacehotel
 	name = "Deep Space Hotel 419"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/awaymission/spacehotel/kitchen
 	name = "Hotel Kitchen"

@@ -210,9 +210,9 @@ var/round_start_time = 0
 			selected_source.copy_contents_to(current_destination, 0)
 
 			if(current_destination.enable_lights || selected_source.enable_lights)
-				current_destination.power_light = 1
+				current_destination.power_light = TRUE
 			else
-				current_destination.power_light = 0
+				current_destination.power_light = FALSE
 			current_destination.power_change()
 
 	//start_events() //handles random events and space dust.

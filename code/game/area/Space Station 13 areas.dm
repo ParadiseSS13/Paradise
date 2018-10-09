@@ -6,7 +6,7 @@
 	name = "NICE NAME" 				(not required but makes things really nice)
 	icon = "ICON FILENAME" 			(defaults to areas.dmi)
 	icon_state = "NAME OF ICON" 	(defaults to "unknown" (blank))
-	requires_power = 0 				(defaults to 1)
+	requires_power = FALSE 				(defaults to 1)
 	music = "music/music.ogg"		(defaults to "music/music.ogg")
 
 NOTE: there are two lists of areas in the end of this file: centcom and station itself. Please maintain these lists valid. --rastaf0
@@ -26,22 +26,22 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	invisibility = INVISIBILITY_LIGHTING
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
-	var/lightswitch = 1
+	var/lightswitch = TRUE
 	var/fire = null // used for fire alarms
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/party = null // used for party alarms
 	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
 
+	var/music = null
 	var/eject = null
 
-	var/debug = 0
-	var/requires_power = 1
-	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
+	var/requires_power = TRUE
+	var/always_unpowered = FALSE	//this gets overriden to 1 for space in area/New()
+	var/power_equip = TRUE
+	var/power_light = TRUE
+	var/power_environ = TRUE
 
-	var/power_equip = 1
-	var/power_light = 1
-	var/power_environ = 1
-	var/music = null
+
 	var/used_equip = 0
 	var/used_light = 0
 	var/used_environ = 0
@@ -49,25 +49,26 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/static_light = 0
 	var/static_environ
 
-	var/has_gravity = 1
+	var/has_gravity = TRUE
 	var/list/apc = list()
-	var/no_air = null
-//	var/list/lights				// list of all lights on this area
-	var/air_doors_activated = 0
 
-	var/tele_proof = 0
-	var/no_teleportlocs = 0
+	var/air_doors_activated = FALSE
 
-	var/outdoors = 0 //For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
-	var/xenobiology_compatible = FALSE //Can the Xenobio management console transverse this area by default?
+	var/tele_proof = FALSE
+	var/no_teleportlocs = FALSE
+
+	var/outdoors = FALSE // For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)
+	var/xenobiology_compatible = FALSE // Can the Xenobio management console transverse this area by default?
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
 /*I am far too lazy to make it a proper list of areas so I'll just make it run the usual telepot routine at the start of the game*/
 var/list/teleportlocs = list()
 /hook/startup/proc/process_teleport_locs()
 	for(var/area/AR in world)
-		if(AR.no_teleportlocs) continue
-		if(teleportlocs.Find(AR.name)) continue
+		if(AR.no_teleportlocs)
+			continue
+		if(teleportlocs.Find(AR.name))
+			continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
 			teleportlocs += AR.name
@@ -97,7 +98,7 @@ var/list/ghostteleportlocs = list()
 /area/turret_protected/
 
 /area/arrival
-	requires_power = 0
+	requires_power = FALSE
 
 /area/arrival/start
 	name = "\improper Arrival Area"
@@ -106,25 +107,25 @@ var/list/ghostteleportlocs = list()
 /area/admin/
 	name = "\improper Admin Room"
 	icon_state = "start"
-	requires_power = 0
-	dynamic_lighting = 0
+	requires_power = FALSE
+	dynamic_lighting = FALSE
 
 
 /area/adminconstruction
 	name = "\improper Admin Testing Area"
 	icon_state = "start"
-	requires_power = 0
-	dynamic_lighting = 0
+	requires_power = FALSE
+	dynamic_lighting = FALSE
 
 /area/space
 	icon_state = "space"
-	requires_power = 1
-	always_unpowered = 1
-	power_light = 0
-	power_equip = 0
-	power_environ = 0
+	requires_power = TRUE
+	always_unpowered = TRUE
+	power_light = FALSE
+	power_equip = FALSE
+	power_environ = FALSE
 	valid_territory = FALSE
-	outdoors = 1
+	outdoors = TRUE
 	ambientsounds = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/traitor.ogg')
 
 /area/space/atmosalert()
@@ -147,8 +148,8 @@ var/list/ghostteleportlocs = list()
 //All shuttles show now be under shuttle since we have smooth-wall code.
 
 /area/shuttle
-	no_teleportlocs = 1
-	requires_power = 0
+	no_teleportlocs = TRUE
+	requires_power = FALSE
 	valid_territory = FALSE
 
 /area/shuttle/arrival
@@ -258,22 +259,22 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/alien/base
 	icon_state = "shuttle"
 	name = "\improper Alien Shuttle Base"
-	requires_power = 1
+	requires_power = TRUE
 
 /area/shuttle/alien/mine
 	icon_state = "shuttle"
 	name = "\improper Alien Shuttle Mine"
-	requires_power = 1
+	requires_power = TRUE
 
 /area/shuttle/gamma/space
 	icon_state = "shuttle"
 	name = "\improper Gamma Armory"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/shuttle/gamma/station
 	icon_state = "shuttle"
 	name = "\improper Gamma Armory Station"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/shuttle/prison/
 	name = "\improper Prison Shuttle"
@@ -375,17 +376,17 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/vox
 	name = "\improper Vox Skipjack"
 	icon_state = "shuttle"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/shuttle/vox/station
 	name = "\improper Vox Skipjack"
 	icon_state = "yellow"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/shuttle/salvage
 	name = "\improper Salvage Ship"
 	icon_state = "yellow"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/shuttle/salvage/start
 	name = "\improper Middle of Nowhere"
@@ -442,7 +443,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/supply
 	name = "Supply Shuttle"
 	icon_state = "shuttle3"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/shuttle/abandoned
 	name = "Abandoned Ship"
@@ -455,7 +456,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/trade
 	name = "Trade Shuttle"
 	icon_state = "shuttle"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/shuttle/trade/sol
 	name = "Sol Freighter"
@@ -467,25 +468,25 @@ var/list/ghostteleportlocs = list()
 /area/start            // will be unused once kurper gets his login interface patch done
 	name = "start area"
 	icon_state = "start"
-	requires_power = 0
+	requires_power = FALSE
 	luminosity = 1
-	dynamic_lighting = 0
-	has_gravity = 1
+	dynamic_lighting = FALSE
+	has_gravity = TRUE
 
 // === end remove
 
 /area/alien
 	name = "\improper Alien base"
 	icon_state = "yellow"
-	requires_power = 0
+	requires_power = FALSE
 
 // CENTCOM
 
 /area/centcom
 	name = "\improper Centcom"
 	icon_state = "centcom"
-	requires_power = 0
-	dynamic_lighting = 0
+	requires_power = FALSE
+	dynamic_lighting = FALSE
 
 /area/centcom/control
 	name = "\improper Centcom Control"
@@ -531,7 +532,7 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_mothership
 	name = "\improper Syndicate Mothership"
 	icon_state = "syndie-ship"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/syndicate_mothership/control
 	name = "\improper Syndicate Control Room"
@@ -550,14 +551,14 @@ var/list/ghostteleportlocs = list()
 /area/asteroid					// -- TLE
 	name = "\improper Asteroid"
 	icon_state = "asteroid"
-	requires_power = 0
+	requires_power = FALSE
 	valid_territory = FALSE
 
 /area/asteroid/cave				// -- TLE
 	name = "\improper Asteroid - Underground"
 	icon_state = "cave"
-	requires_power = 0
-	outdoors = 1
+	requires_power = FALSE
+	outdoors = TRUE
 
 /area/asteroid/artifactroom
 	name = "\improper Asteroid - Artifact"
@@ -566,8 +567,8 @@ var/list/ghostteleportlocs = list()
 /area/tdome
 	name = "\improper Thunderdome"
 	icon_state = "thunder"
-	requires_power = 0
-	dynamic_lighting = 0
+	requires_power = FALSE
+	dynamic_lighting = FALSE
 
 
 /area/tdome/arena_source
@@ -604,7 +605,7 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_station
 	name = "\improper Syndicate Station"
 	icon_state = "yellow"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/syndicate_station/start
 	name = "\improper Syndicate Forward Operating Base"
@@ -650,20 +651,20 @@ var/list/ghostteleportlocs = list()
 /area/abductor_ship
 	name = "\improper Abductor Ship"
 	icon_state = "yellow"
-	requires_power = 0
-	has_gravity = 1
-	dynamic_lighting = 0
+	requires_power = FALSE
+	has_gravity = TRUE
+	dynamic_lighting = FALSE
 
 /area/wizard_station
 	name = "\improper Wizard's Den"
 	icon_state = "yellow"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/ninja
 	name = "\improper Ninja Area Parent"
 	icon_state = "ninjabase"
-	requires_power = 0
-	no_teleportlocs = 1
+	requires_power = FALSE
+	no_teleportlocs = TRUE
 
 /area/ninja/outpost
 	name = "\improper SpiderClan Outpost"
@@ -674,39 +675,39 @@ var/list/ghostteleportlocs = list()
 /area/vox_station
 	name = "\improper Vox Base"
 	icon_state = "yellow"
-	requires_power = 0
-	dynamic_lighting = 0
-	no_teleportlocs = 1
+	requires_power = FALSE
+	dynamic_lighting = FALSE
+	no_teleportlocs = TRUE
 
 /area/vox_station/transit
 	name = "\improper Hyperspace"
 	icon_state = "shuttle"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/vox_station/southwest_solars
 	name = "\improper Aft Port Solars"
 	icon_state = "southwest"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/vox_station/northwest_solars
 	name = "\improper Fore Port Solars"
 	icon_state = "northwest"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/vox_station/northeast_solars
 	name = "\improper Fore Starboard Solars"
 	icon_state = "northeast"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/vox_station/southeast_solars
 	name = "\improper Aft Starboard Solars"
 	icon_state = "southeast"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/trader_station
 	name = "Trade Base"
 	icon_state = "yellow"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/trader_station/sol
 	name = "Jupiter Station 6"
@@ -714,57 +715,57 @@ var/list/ghostteleportlocs = list()
 /area/vox_station/mining
 	name = "\improper Nearby Mining Asteroid"
 	icon_state = "north"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/start
 	name = "\improper Alien Shuttle"
 	icon_state = "north"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/transit
 	name = "\improper Hyperspace"
 	icon_state = "shuttle"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/southwest
 	name = "\improper Aft Port Solars Landing Area"
 	icon_state = "southwest"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/northwest
 	name = "\improper Fore Port Solars Landing Area"
 	icon_state = "northwest"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/northeast
 	name = "\improper Fore Starboard Solars Landing Area"
 	icon_state = "northeast"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/southeast
 	name = "\improper Aft Starboard Solars Landing Area"
 	icon_state = "southeast"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/east
 	name = "\improper East Landing Area"
 	icon_state = "east"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/west
 	name = "\improper West Landing Area"
 	icon_state = "west"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/researchoutpost
 	name = "\improper Research Outpost Landing Area"
 	icon_state = "north"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/xenos_station/miningoutpost
 	name = "\improper Mining Outpost Landing Area"
 	icon_state = "south"
-	requires_power = 0
+	requires_power = FALSE
 
 //PRISON
 /area/prison
@@ -774,7 +775,7 @@ var/list/ghostteleportlocs = list()
 /area/prison/arrival_airlock
 	name = "\improper Prison Station Airlock"
 	icon_state = "green"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/prison/control
 	name = "\improper Prison Security Checkpoint"
@@ -823,7 +824,7 @@ var/list/ghostteleportlocs = list()
 /area/prison/solar
 	name = "\improper Prison Solar Array"
 	icon_state = "storage"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/prison/podbay
 	name = "\improper Prison Podbay"
@@ -965,9 +966,9 @@ var/list/ghostteleportlocs = list()
 /area/maintenance/abandonedbar
 	name = "Maintenance Bar"
 	icon_state = "yellow"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 /area/maintenance/electrical_shop
 	name ="Electronics Den"
@@ -1250,7 +1251,7 @@ var/list/ghostteleportlocs = list()
 /area/holodeck
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
-	dynamic_lighting = 0
+	dynamic_lighting = FALSE
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
@@ -1349,7 +1350,7 @@ var/list/ghostteleportlocs = list()
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
 	icon_state = "engine_smes"
-	requires_power = 0//This area only covers the batteries and they deal with their own power
+	requires_power = FALSE //This area only covers the batteries and they deal with their own power
 
 /area/engine/engineering
 	name = "Engineering"
@@ -1394,8 +1395,8 @@ var/list/ghostteleportlocs = list()
 //Solars
 
 /area/solar
-	requires_power = 0
-	dynamic_lighting = 0
+	requires_power = FALSE
+	dynamic_lighting = FALSE
 	valid_territory = FALSE
 
 	auxport
@@ -1454,9 +1455,9 @@ var/list/ghostteleportlocs = list()
 /area/assembly/assembly_line //Derelict Assembly Line
 	name = "\improper Assembly Line"
 	icon_state = "ass_line"
-	power_equip = 0
-	power_light = 0
-	power_environ = 0
+	power_equip = FALSE
+	power_light = FALSE
+	power_environ = FALSE
 
 //Teleporter
 
@@ -1737,7 +1738,7 @@ var/list/ghostteleportlocs = list()
 /area/security/armoury/gamma
 	name = "\improper Gamma Armory"
 	icon_state = "Warden"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/security/securehallway
 	name = "\improper Security Secure Hallway"
@@ -1979,7 +1980,7 @@ area/security/podbay
 	icon_state = "auxstorage"
 
 /area/storage/testroom
-	requires_power = 0
+	requires_power = FALSE
 	name = "\improper Test Room"
 	icon_state = "storage"
 
@@ -2332,25 +2333,25 @@ area/security/podbay
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	dynamic_lighting = 0
+	dynamic_lighting = FALSE
 
 /area/turret_protected/AIsatextFS
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	dynamic_lighting = 0
+	dynamic_lighting = FALSE
 
 /area/turret_protected/AIsatextAS
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	dynamic_lighting = 0
+	dynamic_lighting = FALSE
 
 /area/turret_protected/AIsatextAP
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	dynamic_lighting = 0
+	dynamic_lighting = FALSE
 
 /area/turret_protected/NewAIMain
 	name = "\improper AI Main New"
@@ -2445,19 +2446,19 @@ area/security/podbay
 	name = "\improper Wild West Mines"
 	icon_state = "away1"
 	luminosity = 1
-	requires_power = 0
+	requires_power = FALSE
 
 /area/awaymission/wwgov
 	name = "\improper Wild West Mansion"
 	icon_state = "away2"
 	luminosity = 1
-	requires_power = 0
+	requires_power = FALSE
 
 /area/awaymission/wwrefine
 	name = "\improper Wild West Refinery"
 	icon_state = "away3"
 	luminosity = 1
-	requires_power = 0
+	requires_power = FALSE
 
 /area/awaymission/wwvault
 	name = "\improper Wild West Vault"
@@ -2467,7 +2468,7 @@ area/security/podbay
 /area/awaymission/wwvaultdoors
 	name = "\improper Wild West Vault Doors"  // this is to keep the vault area being entirely lit because of requires_power
 	icon_state = "away2"
-	requires_power = 0
+	requires_power = FALSE
 	luminosity = 0
 
 /area/awaymission/desert
@@ -2489,7 +2490,7 @@ area/security/podbay
 /area/awaymission/spacebattle
 	name = "\improper Space Battle"
 	icon_state = "away"
-	requires_power = 0
+	requires_power = FALSE
 
 /area/awaymission/spacebattle/cruiser
 	name = "\improper Nanotrasen Cruiser"
@@ -2522,8 +2523,8 @@ area/security/podbay
 	name = "Beach"
 	icon_state = "beach"
 	luminosity = 1
-	dynamic_lighting = 0
-	requires_power = 0
+	dynamic_lighting = FALSE
+	requires_power = FALSE
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
 
 /area/awaymission/undersea
@@ -2634,9 +2635,9 @@ area/security/podbay
 
 /area/vr
 	name = "VR"
-	requires_power = 0
-	dynamic_lighting = 0
-	no_teleportlocs = 1
+	requires_power = FALSE
+	dynamic_lighting = FALSE
+	no_teleportlocs = TRUE
 
 
 /area/vr/lobby
