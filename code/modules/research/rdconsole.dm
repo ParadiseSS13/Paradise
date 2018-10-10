@@ -196,6 +196,29 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		emagged = 1
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
+/obj/machinery/computer/rdconsole/proc/upload_data()
+	if(!sync)
+		to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
+	else
+		add_wait_message("Updating Database...", SYNC_RESEARCH_DELAY)
+		griefProtection() //Putting this here because I dont trust the sync process
+		spawn(SYNC_RESEARCH_DELAY)
+			clear_wait_message()
+			if(src)
+				for(var/obj/machinery/r_n_d/server/S in world)
+					var/server_processed = 0
+					if(S.disabled)
+						continue
+					if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
+						files.push_data(S.files)
+						server_processed = 1
+					if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
+						S.files.push_data(files)
+						server_processed = 1
+					if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
+						S.produce_heat(100)
+				SSnanoui.update_uis(src)
+
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
 	if(..())
 		return 1
@@ -381,27 +404,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					SSnanoui.update_uis(src)
 
 	else if(href_list["sync"]) //Sync the research holder with all the R&D consoles in the game that aren't sync protected.
-		if(!sync)
-			to_chat(usr, "<span class='danger'>You must connect to the network first!</span>")
-		else
-			add_wait_message("Updating Database...", SYNC_RESEARCH_DELAY)
-			griefProtection() //Putting this here because I dont trust the sync process
-			spawn(SYNC_RESEARCH_DELAY)
-				clear_wait_message()
-				if(src)
-					for(var/obj/machinery/r_n_d/server/S in world)
-						var/server_processed = 0
-						if(S.disabled)
-							continue
-						if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
-							files.push_data(S.files)
-							server_processed = 1
-						if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
-							S.files.push_data(files)
-							server_processed = 1
-						if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
-							S.produce_heat(100)
-					SSnanoui.update_uis(src)
+		upload_data()
 
 	else if(href_list["togglesync"]) //Prevents the console from being synced by other consoles. Can still send data.
 		sync = !sync

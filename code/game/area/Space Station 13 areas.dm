@@ -1655,6 +1655,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
 
+/area/security/vr
+	name = "\improper Prison VR Exile"
+	icon_state = "brig"
+
 /area/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
 		temp_closet.locked = 0
@@ -2634,18 +2638,29 @@ area/security/podbay
 ////////////////////////VR AREAS///////////////////////////////////
 
 /area/vr
-	name = "VR"
+	name = "\improper VR"
 	requires_power = 0
 	dynamic_lighting = 0
 	no_teleportlocs = 1
-
+	tele_proof = 1
+	there_can_be_many = 1
 
 /area/vr/lobby
-	name = "VR Lobby"
+	name = "\improper VR Lobby"
 
 /area/vr/roman
-	name = "Roman Arena"
+	name = "\improper VR Roman Arena"
 
+/area/vr/medical
+	name = "\improper VR Medical Trainer"
+
+/area/vr/bombs
+	name = "\improper VR Bomb Range"
+
+/area/vr/engineering
+	name = "\improper VR Engineering Trainer"
+	requires_power = 1
+	dynamic_lighting = 1
 
 /////////////////////////////////////////////////////////////////////
 /*

@@ -1,0 +1,98 @@
+"aa" = (/turf/simulated/floor/plasteel,/area/vr/bombs)
+"ab" = (/turf/simulated/wall,/area/vr/bombs)
+"ac" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/vr/bombs)
+"ad" = (/obj/effect/decal/cleanable/cobweb,/obj/structure/bookcase,/obj/structure/sign/poster/random{pixel_x = -32},/turf/simulated/floor/wood,/area/vr/bombs)
+"ae" = (/obj/structure/bookcase,/turf/simulated/floor/wood,/area/vr/bombs)
+"af" = (/turf/simulated/floor/wood,/area/vr/bombs)
+"ag" = (/obj/machinery/computer/library/checkout,/obj/structure/table/wood,/turf/simulated/floor/wood,/area/vr/bombs)
+"ah" = (/obj/machinery/light/spot{tag = "icon-tube1 (NORTH)"; icon_state = "tube1"; dir = 1},/obj/machinery/vending/coffee,/turf/simulated/floor/wood,/area/vr/bombs)
+"ai" = (/obj/machinery/vending/snack,/turf/simulated/floor/wood,/area/vr/bombs)
+"aj" = (/obj/structure/closet{icon_closed = "cabinet_closed"; icon_opened = "cabinet_open"; icon_state = "cabinet_closed"},/obj/item/storage/backpack/satchel,/turf/simulated/floor/carpet,/area/vr/bombs)
+"ak" = (/obj/structure/mirror{pixel_y = 28},/turf/simulated/floor/carpet,/area/vr/bombs)
+"al" = (/obj/structure/stool/bed,/obj/item/bedsheet/wiz,/turf/simulated/floor/carpet,/area/vr/bombs)
+"am" = (/mob/living/carbon/human/tajaran,/turf/simulated/floor/plasteel,/area/vr/bombs)
+"an" = (/turf/simulated/floor/carpet,/area/vr/bombs)
+"ao" = (/mob/living/carbon/human/tajaran,/turf/simulated/floor/carpet,/area/vr/bombs)
+"ap" = (/turf/simulated/wall/r_wall,/area/vr/bombs)
+"aq" = (/obj/structure/sign/poster/random{pixel_x = -32},/turf/simulated/floor/plasteel,/area/vr/bombs)
+"ar" = (/obj/structure/table/wood,/obj/item/trash/tray,/turf/simulated/floor/carpet,/area/vr/bombs)
+"as" = (/obj/structure/table/wood,/turf/simulated/floor/carpet,/area/vr/bombs)
+"at" = (/obj/structure/table,/obj/item/storage/fancy/crayons,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/bombs)
+"au" = (/obj/machinery/washing_machine,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/bombs)
+"av" = (/obj/item/storage/fancy/crayons,/obj/machinery/light{dir = 1; on = 1},/obj/structure/table,/obj/item/storage/fancy/crayons,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/bombs)
+"aw" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"ax" = (/obj/structure/sign/poster/random{pixel_x = -32},/turf/simulated/floor/carpet,/area/vr/bombs)
+"ay" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/wood,/area/vr/bombs)
+"az" = (/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/vr/bombs)
+"aA" = (/obj/machinery/vending/coffee,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"aB" = (/obj/machinery/vending/snack,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"aC" = (/obj/machinery/vending/cigarette,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"aD" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/wood,/area/vr/bombs)
+"aE" = (/obj/structure/table/wood,/turf/simulated/floor/wood,/area/vr/bombs)
+"aF" = (/obj/structure/rack,/obj/item/clothing/suit/wizrobe/marisa,/obj/item/clothing/shoes/sandal/marisa,/obj/item/clothing/head/wizard/marisa,/obj/structure/sign/poster/random{pixel_x = -32},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/vr/bombs)
+"aG" = (/obj/structure/rack,/obj/item/clothing/suit/wizrobe/magusblue,/obj/item/clothing/head/wizard/magus,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/vr/bombs)
+"aH" = (/obj/structure/noticeboard{pixel_x = -32},/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"aI" = (/obj/structure/stool,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"aJ" = (/obj/structure/table/wood,/obj/item/stack/spacecash,/turf/simulated/floor/wood,/area/vr/bombs)
+"aK" = (/obj/structure/rack,/obj/item/clothing/suit/wizrobe/red,/obj/item/clothing/shoes/sandal,/obj/item/clothing/head/wizard/red,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/vr/bombs)
+"aL" = (/obj/structure/rack,/obj/item/clothing/suit/wizrobe/magusred,/obj/item/clothing/head/wizard/magus,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/vr/bombs)
+"aM" = (/obj/structure/table/wood,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"aN" = (/obj/structure/table/wood,/obj/item/pizzabox,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"aO" = (/obj/structure/stool,/turf/simulated/floor/carpet,/area/vr/bombs)
+"aP" = (/obj/machinery/slot_machine,/turf/simulated/floor/carpet,/area/vr/bombs)
+"aQ" = (/obj/structure/table/wood,/obj/item/toy/cards/deck,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"aR" = (/obj/item/trash/raisins,/turf/simulated/floor/wood,/area/vr/bombs)
+"aS" = (/obj/structure/showcase,/turf/simulated/floor/plasteel{dir = 1; icon_state = "chapel"},/area/vr/bombs)
+"aT" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{dir = 4; icon_state = "chapel"},/area/vr/bombs)
+"aU" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel{dir = 1; icon_state = "chapel"},/area/vr/bombs)
+"aV" = (/obj/effect/decal/cleanable/cobweb2,/obj/structure/showcase,/turf/simulated/floor/plasteel{dir = 4; icon_state = "chapel"},/area/vr/bombs)
+"aW" = (/obj/structure/bookcase,/obj/structure/sign/poster/random{pixel_x = -32},/turf/simulated/floor/wood,/area/vr/bombs)
+"aX" = (/turf/simulated/floor/plasteel{dir = 8; icon_state = "chapel"},/area/vr/bombs)
+"aY" = (/turf/simulated/floor/plasteel{icon_state = "chapel"},/area/vr/bombs)
+"aZ" = (/mob/living/carbon/human/tajaran,/turf/simulated/floor/plasteel{dir = 8; icon_state = "chapel"},/area/vr/bombs)
+"ba" = (/obj/structure/stool,/mob/living/carbon/human/tajaran,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
+"bb" = (/turf/unsimulated/wall,/area/vr/bombs)
+"bc" = (/turf/simulated/shuttle/plating,/area/vr/bombs)
+"bd" = (/turf/simulated/floor/plasteel{dir = 1; icon_state = "chapel"},/area/vr/bombs)
+"be" = (/turf/simulated/floor/plasteel{dir = 4; icon_state = "chapel"},/area/vr/bombs)
+"bf" = (/obj/structure/table/wood,/obj/item/toy/nuke,/turf/simulated/floor/wood,/area/vr/bombs)
+"bg" = (/obj/structure/sign/poster/random{pixel_x = -32},/turf/simulated/floor/wood,/area/vr/bombs)
+"bh" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 8},/area/vr/bombs)
+"bi" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows2 (WEST)"; icon_state = "fakewindows2"; dir = 8},/area/vr/bombs)
+"bj" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (EAST)"; icon_state = "fakewindows"; dir = 4},/area/vr/bombs)
+"bk" = (/obj/structure/table/reinforced,/obj/machinery/chem_dispenser/beer,/turf/simulated/floor/carpet,/area/vr/bombs)
+"bl" = (/obj/structure/table/reinforced,/obj/machinery/chem_dispenser/soda,/turf/simulated/floor/carpet,/area/vr/bombs)
+"bm" = (/obj/structure/sign/double/map/left{pixel_y = -32},/obj/structure/rack/skeletal_bar/left,/turf/simulated/floor/carpet,/area/vr/bombs)
+"bn" = (/obj/structure/sign/double/map/right{pixel_y = -32},/obj/structure/rack/skeletal_bar/right,/turf/simulated/floor/wood,/area/vr/bombs)
+"bo" = (/turf/unsimulated/floor{tag = "icon-alienpod2"; icon_state = "alienpod2"},/area/vr/bombs)
+"bp" = (/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/bombs)
+"bq" = (/obj/structure/sign/poster/random{pixel_x = 32},/turf/simulated/floor/plasteel,/area/vr/bombs)
+"br" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (NORTHWEST)"; icon_state = "fakewindows"; dir = 9},/area/vr/bombs)
+"bs" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 1},/area/vr/bombs)
+"bt" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows2"; dir = 1},/area/vr/bombs)
+"bu" = (/obj/structure/closet/secure_closet/freezer{name = "blast shelter"},/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/bombs)
+"bv" = (/turf/unsimulated/wall/fakeglass{dir = 10; icon_state = "fakewindows"; tag = "icon-fakewindows (SOUTHEAST)"},/area/vr/bombs)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaabababacacacacacabababab
+aaaaaaaaaaaaaaaaaaabadaeafafagahaiabajakal
+aaaaaaaaaaaaamaaaaaaanananananananananaoan
+aaapacacacacapaqaaabaeaeanananananabaranas
+apapatauavawapacacabaxanananafayayababazab
+acaAawawawawawaBaCabaeaeananaDaEaEabaFazaG
+apaHawaIaIawawawawacananananaDaEaJabaKazaL
+acawaIaMaNaIawaOaPacaeaeananafaeababababab
+acawaIaMaQaIawaOaPacananananaRaeacaSaTaUaV
+acawawawawawawaOaPabaWaeanananananaXaYaZaY
+apawaIbaaIawawaOaPbbbcananananananbdbebdbe
+apaEaEaEaEbfawawawaaaaaaaaacacacacacacacac
+apbganaoanafawawawbhbibjaaaaaaaaaaaaaaaaaa
+apaEbkblbmbnawawawbobpboaaaaaaaaaaaaaaaabq
+apacacacapapacaabrbjbpbsaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaabtbubpbvbibibibibibibibibi
+aaaaaaaaaaaaaaaabtbubpbpbpbpbpbpbpbpbpbpbp
+aaaaaaaaaaaaaaaabvbibibibibibibibibibibibi
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam
+"}

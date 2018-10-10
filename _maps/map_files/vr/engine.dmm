@@ -1,0 +1,66 @@
+"a" = (/obj/structure/lattice,/turf/space,/area/vr/engineering)
+"b" = (/turf/space,/area/vr/engineering)
+"c" = (/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"d" = (/obj/machinery/power/emitter,/obj/structure/cable/yellow{d1 = 0; d2 = 2; icon_state = "0-2"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"e" = (/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"f" = (/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"g" = (/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"h" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"i" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"j" = (/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"k" = (/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"l" = (/obj/machinery/power/grounding_rod{anchored = 1},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"m" = (/obj/machinery/power/tesla_coil{anchored = 1},/obj/structure/cable/yellow,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"n" = (/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"o" = (/obj/machinery/field/generator{anchored = 1; state = 2},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"p" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/vr/engineering)
+"q" = (/obj/structure/lattice,/obj/item/wirecutters,/turf/space,/area/vr/engineering)
+"r" = (/obj/machinery/power/tesla_coil{anchored = 1},/obj/structure/cable/yellow{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"s" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"t" = (/obj/effect/decal/warning_stripes/northwest,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"u" = (/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"v" = (/obj/effect/decal/warning_stripes/northeast,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"w" = (/obj/item/crowbar,/turf/space,/area/vr/engineering)
+"x" = (/obj/effect/spawner/window/reinforced,/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/vr/engineering)
+"y" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"z" = (/obj/effect/decal/warning_stripes/west,/obj/machinery/the_singularitygen/vr,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"A" = (/obj/item/wrench,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"B" = (/obj/effect/decal/warning_stripes/east,/obj/machinery/the_singularitygen/tesla/vr,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"C" = (/obj/item/weldingtool,/turf/space,/area/vr/engineering)
+"D" = (/obj/effect/decal/warning_stripes/southwest,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"E" = (/obj/effect/decal/warning_stripes/south,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"F" = (/obj/effect/decal/warning_stripes/southeast,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"G" = (/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"H" = (/obj/machinery/power/tesla_coil{anchored = 1},/obj/structure/cable/yellow{d1 = 0; d2 = 2; icon_state = "0-2"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"I" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/wall/r_wall,/area/vr/engineering)
+"J" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"K" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"L" = (/obj/machinery/door/airlock/external{auto_close_time = 5; desc = "It opens and closes. Virtually. And quickly."; name = "Virtual Reality Airlock"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"M" = (/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/obj/machinery/power/emitter{dir = 1},/obj/structure/cable/yellow{d1 = 0; d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"N" = (/obj/machinery/power/emitter{dir = 1},/obj/structure/cable/yellow,/turf/simulated/floor/plating/airless,/area/vr/engineering)
+"O" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0},/turf/simulated/wall/r_wall,/area/vr/engineering)
+"P" = (/turf/simulated/floor/plating/airless,/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/airless/catwalk{tag = "icon-catwalk2"; icon_state = "catwalk2"},/area/vr/engineering)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaabb
+acdcaaaaacdcaaaaa
+cefgggggggfggghaa
+ciaaaaaaaaaaaaiaa
+ejgkggkggkgghaiaa
+ilcmccmccmcciaiaa
+nhobbbbobbociaiaa
+pibbbbbqbbbrsaiaa
+pibbaaaaabbciaiaa
+pibaatuvawbciaiaa
+xyobazABaborsaiaa
+pibCaDEFaabciaiaa
+pibbaaaaabbciaiaa
+pibbbabbbbbrsaiaa
+eGobbbobbbociaiaa
+ilcHccHccHcciaiaa
+icejggjggjggGaiaa
+iaiaaaaaaaaaaaiaa
+IaJgggggggKgggGaa
+LgMcaaaaacNcaaaab
+OPbaaaaaaaaaaaaab
+"}

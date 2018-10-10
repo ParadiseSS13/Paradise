@@ -23,6 +23,15 @@
 		if("avatarspawn")
 			avatarspawn += loc
 
+		if("resetpoint")
+			resetpoint += loc
+
+		if("vr_loot_common")
+			vr_loot_common += loc
+
+		if("vr_loot_rare")
+			vr_loot_rare += loc
+
 		if("JoinLate")
 			latejoin += loc
 			qdel(src)

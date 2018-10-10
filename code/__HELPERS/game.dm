@@ -170,9 +170,7 @@
 
 	return hear
 
-
-/proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios)
-
+/proc/get_mobs_in_radio_ranges(var/list/obj/item/radio/radios, freq)
 	set background = 1
 
 	. = list()
@@ -180,21 +178,7 @@
 	var/list/speaker_coverage = list()
 	for(var/obj/item/radio/R in radios)
 		if(R)
-			//Cyborg checks. Receiving message uses a bit of cyborg's charge.
-			var/obj/item/radio/borg/BR = R
-			if(istype(BR) && BR.myborg)
-				var/mob/living/silicon/robot/borg = BR.myborg
-				var/datum/robot_component/CO = borg.get_component("radio")
-				if(!CO)
-					continue //No radio component (Shouldn't happen)
-				if(!borg.is_component_functioning("radio"))
-					continue //No power.
-
-			var/turf/speaker = get_turf(R)
-			if(speaker)
-				for(var/turf/T in hear(R.canhear_range,speaker))
-					speaker_coverage[T] = T
-
+			speaker_coverage.Add(R.get_listening_turfs(freq))
 
 	// Try to find all the players who can hear the message
 	for(var/A in player_list + hear_radio_list)

@@ -881,3 +881,12 @@
 	materials = list(MAT_GLASS = 2500)	//1.25 glass sheets, broken mirrors will return a shard (1 sheet)
 	build_path = /obj/item/mounted/mirror
 	category = list("initial", "Miscellaneous")
+
+/datum/design/vr_headset
+	name = "VR Goggles"
+	id = "vr_goggles"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
+	build_path = /obj/item/clothing/ears/vr_headset
+	category = list("initial","Miscellaneous")
+

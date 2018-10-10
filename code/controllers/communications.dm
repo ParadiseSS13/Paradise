@@ -109,6 +109,7 @@ var/const/AI_FREQ	= 1343
 var/const/ERT_FREQ = 1345
 var/const/COMM_FREQ = 1353
 var/const/BOT_FREQ = 1447
+var/const/VR_FREQ = 1337
 
 // department channels
 var/const/PUB_FREQ = 1459
@@ -138,7 +139,8 @@ var/list/radiochannels = list(
 	"Service" 		= SRV_FREQ,
 	"AI Private"	= AI_FREQ,
 	"Medical(I)"	= MED_I_FREQ,
-	"Security(I)"	= SEC_I_FREQ
+	"Security(I)"	= SEC_I_FREQ,
+	"VR"			= VR_FREQ
 )
 
 // central command channels, i.e deathsquid & response teams
@@ -154,6 +156,9 @@ var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, SCI
 #define TRANSMISSION_RADIO	1
 
 /proc/frequency_span_class(var/frequency)
+	// VR
+	if(frequency == VR_FREQ)
+		return "vrradio"
 	// Antags!
 	if(frequency in ANTAG_FREQS)
 		return "syndradio"

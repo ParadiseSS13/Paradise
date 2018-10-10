@@ -1303,9 +1303,11 @@
 	icon_state = "sustenance"
 	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
 					/obj/item/reagent_containers/food/drinks/ice = 12,
-					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
+					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6,
+					/obj/item/clothing/ears/vr_headset = 5)
 	contraband = list(/obj/item/kitchen/knife = 6)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+
 
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
@@ -1450,3 +1452,10 @@
 	component_parts += new /obj/item/vending_refill/crittercare(0)
 	component_parts += new /obj/item/vending_refill/crittercare(0)
 	component_parts += new /obj/item/vending_refill/crittercare(0)
+
+/obj/machinery/vending/vr
+	name = "\improper N.T.S.R.S. Storage Unit"
+	desc = "A storage unit for NanoTrasen. Simulated. Reality. System."
+	icon_state = "expvendor"
+	products = list(/obj/item/clothing/ears/vr_headset = 100)
+

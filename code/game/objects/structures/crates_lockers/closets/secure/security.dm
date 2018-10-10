@@ -388,6 +388,16 @@
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 
+/obj/structure/closet/secure_closet/vr
+	name = "VR exile"
+	req_access = list(access_security)
+	anchored = 1
+
+/obj/structure/closet/secure_closet/vr/New()
+	..()
+	for(var/i in 0 to 7)
+		new /obj/item/clothing/ears/vr_headset/exile(src)
+
 
 /obj/structure/closet/secure_closet/courtroom
 	name = "courtroom locker"

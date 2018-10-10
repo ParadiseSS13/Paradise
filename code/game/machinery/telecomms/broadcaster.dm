@@ -117,6 +117,11 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	idle_power_usage = 0
 	machinetype = 6
 	var/intercept = 0 // if nonzero, broadcasts all messages to syndicate channel
+	var/list/freqs
+
+/obj/machinery/telecomms/allinone/New()
+	freqs = ANTAG_FREQS // Inputs the proper freqs
+	..()
 
 /obj/machinery/telecomms/allinone/receive_signal(datum/signal/signal)
 
@@ -140,7 +145,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 		var/datum/radio_frequency/connection = signal.data["connection"]
 
-		if(connection.frequency in ANTAG_FREQS) // if antag broadcast, just
+		if(connection.frequency in freqs) // if antag broadcast, just
 			Broadcast_Message(signal.data["connection"], signal.data["mob"],
 							  signal.data["vmask"], signal.data["vmessage"],
 							  signal.data["radio"], signal.data["message"],
@@ -155,6 +160,14 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 							  signal.data["name"], signal.data["job"],
 							  signal.data["realname"], signal.data["vname"], 3, signal.data["compression"], list(0), connection.frequency,
 							  signal.data["verb"], signal.data["language"])
+
+/obj/machinery/telecomms/allinone/vr
+	name = "Communication Mainframe"
+	desc = "A data structure used to handle VR chat."
+
+/obj/machinery/telecomms/allinone/vr/New()
+	..()
+	freqs = list(VR_FREQ) // Inputs the proper freqs
 
 #define CREW_RADIO_TYPE 0
 #define CENTCOMM_RADIO_TYPE 1
@@ -291,7 +304,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 				radios += R
 
 	// Get a list of mobs who can hear from the radios we collected.
-	var/list/receive = get_mobs_in_radio_ranges(radios)
+	var/list/receive = get_mobs_in_radio_ranges(radios, freq)
 
   /* ###### Organize the receivers into categories for displaying the message ###### */
 

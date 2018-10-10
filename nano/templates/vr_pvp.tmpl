@@ -1,0 +1,41 @@
+<!--
+Title: vr pvp UI
+Used In File(s): \code\modules\vr\vr_pvp.dm
+-->
+<div class="item">
+	<div class="itemLabel">
+		Join Next Round:
+	</div>
+	<div class="itemContent">
+		{{if data.user_in_room}}
+			{{:helper.link("Unready", 'user-times', {'toggle_ready': 1})}}
+		{{else data.playercount >= 20}}
+			{{:helper.link("Ready", 'user-plus', {}, 'disabled')}}
+		{{else}}
+			{{:helper.link("Ready", 'user-plus', {'toggle_ready': 1})}}
+		{{/if}}
+	</div>
+</div>
+<div class="item">
+	<div class="itemLabel">
+		Player Count:
+	</div>
+	<div class="itemContent">
+		{{:data.playercount}} / 20
+	</div>
+</div>
+<div class="statusDisplay">
+	<div style="height: 110px; overflow: auto;">
+		<div class="item">
+			<div class="itemContent">
+				<div style="width: 100%;">
+					<b>Players:</b><br>
+					{{for data.players}}
+						<span class="highlight">{{:value.name}}</span><br>
+						<div style="height:2px"></div>
+					{{/for}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

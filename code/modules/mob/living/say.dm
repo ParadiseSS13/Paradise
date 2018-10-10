@@ -15,6 +15,7 @@ var/list/department_radio_keys = list(
 	  ":z" = "Service",		"#z" = "Service",		".z" = "Service",
 	  ":p" = "AI Private",	"#p" = "AI Private",	".p" = "AI Private",
 	  ":x" = "cords",		"#x" = "cords",			".x" = "cords",
+	  ":vr" = "VR",			"#vr" = "VR",			".vr" = "VR",
 
 	  ":R" = "right ear",	"#R" = "right ear",		".R" = "right ear",
 	  ":L" = "left ear",	"#L" = "left ear",		".L" = "left ear",
@@ -33,7 +34,8 @@ var/list/department_radio_keys = list(
 	  ":$" = "Response Team", "#$" = "Response Team", ".$" = "Response Team",
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
+	  ":X" = "cords",		"#X" = "cords",			".X" = "cords",
+	  ":VR" = "VR",			"#VR" = "VR",			".VR" = "VR",
 )
 
 
@@ -123,7 +125,15 @@ proc/get_radio_key_from_channel(var/channel)
 			return say_dead(message)
 		return
 
-	var/message_mode = parse_message_mode(message, "headset")
+	var/key = parse_message_mode(message, "headset")
+	var/message_mode
+
+	if(key != "headset")
+		message_mode = department_radio_keys[key]
+	else if(key == null)
+		message_mode = null
+	else
+		message_mode = key
 
 	if(copytext(message, 1, 2) == "*")
 		return emote(copytext(message, 2))
@@ -133,7 +143,7 @@ proc/get_radio_key_from_channel(var/channel)
 		if(message_mode == "headset")
 			message = copytext(message, 2)	//it would be really nice if the parse procs could do this for us.
 		else
-			message = copytext(message, 3)
+			message = copytext(message, 1 + length(key))
 
 	message = trim_left(message)
 

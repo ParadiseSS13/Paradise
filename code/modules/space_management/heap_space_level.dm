@@ -44,14 +44,15 @@
 		return
 	if(C.zpos != zpos)
 		return
-	C.set_occupied(FALSE)
 	for(var/turf/T in block(locate(C.x, C.y, C.zpos), locate(C.x+C.width-1, C.y+C.height-1, C.zpos)))
-		for(var/atom/movable/M in T)
-			if(istype(M, /mob/dead/observer))
-				continue
-			M.loc = null
-			qdel(M, TRUE)
+		for(var/i = 1 to 3)
+			for(var/atom/movable/M in T)
+				if(istype(M, /mob/dead/observer) || istype(M, /mob/dview))
+					continue
+				qdel(M, TRUE)
+				CHECK_TICK
 		T.ChangeTurf(/turf/space)
+		CHECK_TICK
 	var/datum/space_chunk/last_empty_parent = C
 	while(last_empty_parent.parent && last_empty_parent.parent.is_empty)
 		last_empty_parent = last_empty_parent.parent
@@ -60,3 +61,4 @@
 	for(var/datum/space_chunk/child in last_empty_parent.children)
 		qdel(child)
 	last_empty_parent.children.Cut()
+	C.set_occupied(FALSE)

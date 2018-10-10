@@ -637,6 +637,14 @@ var/global/list/default_medbay_channels = list(
 	if(!disable_timer)
 		on = 1
 
+/obj/item/radio/proc/get_listening_turfs(freq)
+	var/turf/speaker = get_turf(src)
+	var/list/listening_turfs = list()
+	if(speaker)
+		for(var/turf/T in hear(src.canhear_range,speaker))
+			listening_turfs[T] = T
+	return listening_turfs
+
 ///////////////////////////////
 //////////Borg Radios//////////
 ///////////////////////////////
@@ -793,6 +801,17 @@ var/global/list/default_medbay_channels = list(
 		return
 
 	. = ..()
+
+/obj/item/radio/borg/get_listening_turfs(freq)
+	var/obj/item/radio/borg/BR = src
+	if(istype(BR) && BR.myborg)
+		var/mob/living/silicon/robot/borg = BR.myborg
+		var/datum/robot_component/CO = borg.get_component("radio")
+		if(!CO)
+			return null //No radio component (Shouldn't happen)
+		if(!borg.is_component_functioning("radio"))
+			return null //No power.
+	..(freq)
 
 /obj/item/radio/borg/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

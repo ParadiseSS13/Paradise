@@ -324,9 +324,12 @@
 					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] appears to be [interestdebug] and [dodebug].</span>\n"
 			else if(dna.species.show_ssd)
 				if(!key)
-					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
-				else if(!client)
-					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
+					if(!vr_avatar)
+						msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
+					else
+						msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] in virtual reality, [p_their()] body is totally limp with all muscle inputs being captured by the headgear.</span>\n"
+			else if(!client)
+				msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
 
 		if(digitalcamo)
 			msg += "[p_they(TRUE)] [p_are()] moving [p_their()] body in an unnatural and blatantly inhuman manner.\n"

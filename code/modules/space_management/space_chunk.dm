@@ -96,9 +96,11 @@
 
 /datum/space_chunk/proc/search_chunk(object_list)
 	var/list/located = list()
+	var/testnum = 1
 	for(var/atom/object in object_list)
 		if(((object.x >= x) && (object.x <= (x + width))) && ((object.y >= y) && (object.y <= (y + height))) && (object.z == zpos))
 			located.Add(object)
+			testnum += 1
 	return located
 
 #undef BOTTOM_LEFT_CHUNK

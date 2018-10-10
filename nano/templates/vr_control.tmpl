@@ -1,0 +1,51 @@
+<!--
+Title: vr control UI
+Used In File(s): \code\modules\vr\vr_control.dm
+-->
+<div class="item">
+	<div class="itemLabel">
+		Mode : 
+	</div>
+	<div class="itemContent">
+		{{if data.making_room}}
+			{{:helper.link("Join Room", 'sign-in', {'toggle_making': 1})}}
+			{{:helper.link("Make Room", 'plus', {}, 'disabled')}}
+		{{else}}
+			{{:helper.link("Join Room", 'sign-in', {}, 'disabled')}}
+			{{:helper.link("Make Room", 'plus', {'toggle_making': 1})}}
+		{{/if}}
+	</div>
+</div>
+<div class="statusDisplay">
+	{{if data.making_room}}
+		<div style="height: 280px; overflow: auto;">
+			<div style="width: 100%;">
+				<table width="100%"><tbody>
+						<tr>
+							<td style="width: 160x;"><b>Map Name</b></td><td style="width: 240px;"><b>Description</b></td>
+						</tr>
+					{{for data.templates}}
+						<tr>
+							<td style="width: 160px;">{{:value.name}}</td><td style="width: 240px;">{{:value.description}}</td><td>{{:helper.link("Make Room", null, {'make_room' : value.id})}}</td>
+						</tr>
+					{{/for}}
+				</tbody></table>
+			</div>
+		</div>
+	{{else}}
+		<div style="height: 280px; overflow: auto;">
+			<div style="width: 100%;">
+				<table width="100%"><tbody>
+					<tr>
+						<td style="width: 100px;"><b>Room Name</b></td><td style="width: 100px;><b>Players</b></td><td style="width: 60px;"><b>Map Name</b></td>
+					</tr>
+					{{for data.rooms}}
+						<tr>
+							<td style="width: 100px;">{{:value.name}}</td><td style="width: 100px;>{{:value.players}}</td><td style="width: 60px;">{{:value.template}}</td><td>{{:helper.link("Join", null, {'join_room' : value.name})}} {{if value.creator = data.user_ckey}} {{:helper.link("Delete", null, {'delete' : value.name})}} {{/if}}</td>
+						</tr>
+					{{/for}}
+				</tbody></table>
+			</div>
+		</div>
+	{{/if}}
+</div>
