@@ -87,13 +87,6 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/go_out()
 	if(!patient)
 		return
-	if(chassis.emagged)//you won't escape this easily...
-		to_chat(patient, "<span class = 'userdanger'>[src]'s internal release level refuses to move. You look for a way out!</span>")
-		chassis.visible_message("<span class='warning'>You hear someone bang against the inside of [chassis]'s sleeper.</span>")//at least they'll notice your struggles.
-		do_after(patient, 300, needhand = 0, target = chassis)//progress bar of your struggle to get free
-		if(!patient)//if the patient was removed, there's no need for this anymore. Otherwise move on to normal release.
-			return
-		to_chat(patient, "<span class = 'userdanger'>You finally manage to force open the sleeper's hatch. You are free!</span>")
 	patient.forceMove(get_turf(src))
 	occupant_message("[patient] ejected. Life support functions disabled.")
 	log_message("[patient] ejected. Life support functions disabled.")
@@ -529,7 +522,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
 	name = "rescue jaw"
-	desc = "Emergency rescue jaw, designed to help first responders reach their patients. Opens doors and removes obstacles."
+	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
 	origin_tech = "engineering=4;biotech=3"
 	equip_cooldown = 15
@@ -547,21 +540,17 @@
 		D.try_to_crowbar(src, chassis.occupant)//use the door's crowbar function
 	if(isliving(target))	//interact with living beings
 		var/mob/living/M = target
-		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not. (unless it is emagged, of course)
-			if(chassis.emagged == 0)
-				target.visible_message("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.", \
+		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.
+			target.visible_message("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.", \
 								"[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.")
-			else
-				M.take_overall_damage(dam_force)//shamelessly stolen from Ripley code. No oxy loss though.
-				if(!M)
-					return
-				M.updatehealth()
-				target.visible_message("<span class='danger'>[chassis] brutally punches [target].</span>", \
-								"<span class='userdanger'>[chassis] brutally punches [target].</span>",\
-								"<span class='italics'>You hear something crack.</span>")
-				add_attack_logs(chassis.occupant, M, "Mech-punched with [src] (INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
-				start_cooldown()
 		else
 			step_away(M,chassis)//out of the way, I have people to save!
 			occupant_message("You gently push [target] out of the way.")
 			chassis.visible_message("[chassis] gently pushes [target] out of the way.")
+
+
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
+	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter))	//Odys or firefighters
+		if(M.equipment.len<M.max_equip)
+			return 1
+	return 0
