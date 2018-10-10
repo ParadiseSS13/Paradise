@@ -44,6 +44,10 @@
 
 	var/initialized = FALSE
 
+	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
+	var/list/remove_overlays // a very temporary list of overlays to remove
+	var/list/add_overlays // a very temporary list of overlays to add
+
 /atom/New(loc, ...)
 	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		_preloader.load(src)
@@ -142,6 +146,8 @@
 
 	QDEL_NULL(reagents)
 	invisibility = 101
+	LAZYCLEARLIST(overlays)
+	LAZYCLEARLIST(priority_overlays)
 	return ..()
 
 //Hook for running code when a dir change occurs
