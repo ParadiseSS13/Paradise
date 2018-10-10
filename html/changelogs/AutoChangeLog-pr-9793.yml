@@ -1,4 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - bugfix: "Emagging a locker will keep the original description instead of telling you it was emagged twice."
