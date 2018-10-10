@@ -256,7 +256,7 @@ var/round_start_time = 0
 	cinematic.icon = 'icons/effects/station_explosion.dmi'
 	cinematic.icon_state = "station_intact"
 	cinematic.layer = 21
-	cinematic.mouse_opacity = 0
+	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	cinematic.screen_loc = "1,0"
 
 	var/obj/structure/stool/bed/temp_buckle = new(src)

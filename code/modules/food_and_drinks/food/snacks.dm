@@ -45,15 +45,15 @@
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
 		M.unEquip(src)	//so icons update :[
 		qdel(src)
-		return 0
+		return FALSE
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.eat(src, user))
 			bitecount++
 			On_Consume(C, user)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/item/reagent_containers/food/snacks/afterattack(obj/target, mob/user, proximity)
 	return
@@ -115,70 +115,7 @@
 					TrashItem = trash
 				TrashItem.forceMove(loc)
 			qdel(src)
-		return 1
-
-	if((slices_num <= 0 || !slices_num) || !slice_path)
-		return 0
-
-	var/inaccurate = 0
-	if( \
-			istype(W, /obj/item/kitchen/knife) || \
-			istype(W, /obj/item/scalpel) \
-		)
-	else if( \
-			istype(W, /obj/item/circular_saw) || \
-			istype(W, /obj/item/melee/energy/sword/saber) && W:active || \
-			istype(W, /obj/item/melee/energy/blade) || \
-			istype(W, /obj/item/shovel) || \
-			istype(W, /obj/item/hatchet) \
-		)
-		inaccurate = 1
-	else if(W.w_class <= WEIGHT_CLASS_SMALL && istype(src,/obj/item/reagent_containers/food/snacks/sliceable))
-		var/newweight = GetTotalContentsWeight() + W.GetTotalContentsWeight() + W.w_class
-		if(newweight > MAX_WEIGHT_CLASS)
-			// Nope, no bluespace slice food
-			to_chat(user, "<span class='warning'>You cannot fit [W] in [src]!</span>")
-			return 1
-		if(!iscarbon(user))
-			return 1
-		to_chat(user, "<span class='warning'>You slip [W] inside [src].</span>")
-		user.unEquip(W)
-		if((user.client && user.s_active != src))
-			user.client.screen -= W
-		W.dropped(user)
-		total_w_class += W.w_class
-		add_fingerprint(user)
-		contents += W
-		return
-	else
-		return 1
-	if( \
-			!isturf(loc) || \
-			!(locate(/obj/structure/table) in loc) && \
-			!(locate(/obj/machinery/optable) in loc) && \
-			!(locate(/obj/item/storage/bag/tray) in loc) \
-		)
-		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
-		return 1
-	var/slices_lost = 0
-	if(!inaccurate)
-		user.visible_message( \
-			"<span class='notice'>[user] slices [src]!</span>", \
-			"<span class='notice'>You slice [src]!</span>" \
-		)
-	else
-		user.visible_message( \
-			"<span class='notice'>[user] crudely slices [src] with [W]!</span>", \
-			"<span class='notice'>You crudely slice [src] with your [W]</span>!" \
-		)
-		slices_lost = rand(1,min(1,round(slices_num/2)))
-	var/reagents_per_slice = reagents.total_volume/slices_num
-	for(var/i=1 to (slices_num-slices_lost))
-		var/obj/slice = new slice_path (loc)
-		reagents.trans_to(slice,reagents_per_slice)
-	qdel(src)
-
-	return
+		return TRUE
 
 /obj/item/reagent_containers/food/snacks/proc/generate_trash(atom/location)
 	if(trash)
@@ -228,7 +165,60 @@
 			N.adjustBruteLoss(-1)
 			N.adjustFireLoss(-1)
 
+/obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>Alt-click to put something small inside.</span>")
 
+/obj/item/reagent_containers/food/snacks/sliceable/AltClick(mob/user)
+	var/obj/item/I = user.get_active_hand()
+	if(!I)
+		return
+	if(I.w_class > WEIGHT_CLASS_SMALL)
+		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		return
+	var/newweight = GetTotalContentsWeight() + I.GetTotalContentsWeight() + I.w_class
+	if(newweight > MAX_WEIGHT_CLASS)
+		// Nope, no bluespace slice food
+		to_chat(user, "<span class='warning'>You cannot fit [I] in [src]!</span>")
+		return
+	if(!iscarbon(user))
+		return
+	if(!user.drop_item())
+		to_chat(user, "<span class='warning'>You cannot slip [I] inside [src]!</span>")
+		return
+	to_chat(user, "<span class='warning'>You slip [I] inside [src].</span>")
+	total_w_class += I.w_class
+	add_fingerprint(user)
+	I.forceMove(src)
+
+/obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
+	if((slices_num <= 0 || !slices_num) || !slice_path)
+		return FALSE
+
+	var/inaccurate = TRUE
+	if(I.sharp)
+		if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
+			inaccurate = FALSE
+	else
+		return TRUE
+	if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && \
+			!(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
+		to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
+		return TRUE
+	var/slices_lost = 0
+	if(!inaccurate)
+		user.visible_message("<span class='notice'>[user] slices [src]!</span>",
+		 "<span class='notice'>You slice [src]!</span>")
+	else
+		user.visible_message("<span class='notice'>[user] crudely slices [src] with [I]!</span>",
+			"<span class='notice'>You crudely slice [src] with your [I]</span>!")
+		slices_lost = rand(1,min(1,round(slices_num/2)))
+	var/reagents_per_slice = reagents.total_volume/slices_num
+	for(var/i=1 to (slices_num-slices_lost))
+		var/obj/slice = new slice_path (loc)
+		reagents.trans_to(slice,reagents_per_slice)
+	qdel(src)
+	return ..()
 ////////////////////////////////////////////////////////////////////////////////
 /// FOOD END
 ////////////////////////////////////////////////////////////////////////////////

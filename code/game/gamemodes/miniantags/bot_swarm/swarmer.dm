@@ -424,7 +424,7 @@
 	anchored = 1
 	unacidable = 1
 	light_range = 1
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	var/health = 30
 	light_color = LIGHT_COLOR_CYAN
 	var/lon_range = 1

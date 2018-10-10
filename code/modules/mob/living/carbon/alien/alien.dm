@@ -19,6 +19,8 @@
 	var/leaping = 0
 	ventcrawler = 2
 	var/list/alien_organs = list()
+	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
+	var/death_sound = 'sound/voice/hiss6.ogg'
 
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/verb/mob_sleep
@@ -49,25 +51,25 @@
 
 
 /mob/living/carbon/alien/adjustToxLoss(amount)
-	return
+	return STATUS_UPDATE_NONE
 
 /mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
 	if(amount > 0)
-		..(amount * 2)
+		return ..(amount * 2)
 	else
-		..(amount)
-	return
+		return ..(amount)
 
 
 /mob/living/carbon/alien/check_eye_prot()
 	return 2
 
-/mob/living/carbon/alien/updatehealth()
+/mob/living/carbon/alien/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
 		stat = CONSCIOUS
 		return
 	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	update_stat("updatehealth([reason])")
 
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 

@@ -255,8 +255,8 @@ This is always put in the attack log.
 			add_attack_logs(user, M, what_done, custom_level)
 		return
 
-	var/user_str = key_name_log(user)
-	var/target_str = key_name_log(target)
+	var/user_str = key_name_log(user) + COORD(user)
+	var/target_str = key_name_log(target) + COORD(target)
 
 	if(istype(user))
 		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
@@ -265,7 +265,6 @@ This is always put in the attack log.
 	log_attack(user_str, target_str, what_done)
 
 	var/loglevel = ATKLOG_MOST
-
 	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))

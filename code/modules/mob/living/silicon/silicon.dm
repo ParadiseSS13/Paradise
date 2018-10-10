@@ -317,7 +317,7 @@
 	to_chat(src, "[A.alarm_name()]! ([(cameratext)? cameratext : "No Camera"])")
 
 /mob/living/silicon/adjustToxLoss(var/amount)
-	return
+	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access

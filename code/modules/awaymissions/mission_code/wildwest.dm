@@ -262,8 +262,9 @@
 	return list()
 
 /mob/living/simple_animal/hostile/syndicate/ranged/wildwest/death(gibbed)
-	if(!on_alert)
+	// putting this up here so we don't say anything after deathgasp
+	if(can_die() && !on_alert)
 		say("How could you betray the Syndicate?")
 		for(var/mob/living/simple_animal/hostile/syndicate/ranged/wildwest/W in living_mob_list)
 			W.on_alert = TRUE
-	..(gibbed)
+	return ..(gibbed)
