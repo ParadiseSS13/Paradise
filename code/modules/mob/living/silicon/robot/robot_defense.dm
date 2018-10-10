@@ -36,6 +36,8 @@
 	adjustBruteLoss(damage)
 	return
 
+
+
 /mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user)
 	add_fingerprint(user)
 
@@ -56,3 +58,11 @@
 				step_away(src, user, 15)
 				sleep(3)
 				step_away(src, user, 15)
+
+/mob/living/silicon/robot/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
+	var/obj/item/I
+	if(istype(AM, /obj/item))
+		I = AM
+		if(I.throwforce && (I.flags_2 & ATMOS_THROW) && prob(80))
+			blocked = 1
+	return ..()

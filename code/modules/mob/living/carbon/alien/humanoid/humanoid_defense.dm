@@ -1,3 +1,14 @@
+/mob/living/carbon/alien/humanoid/hitby(atom/movable/AM, skipcatch = 0, hitpush = 0, blocked = 0)
+	var/obj/item/I
+	if(istype(AM, /obj/item))
+		I = AM
+		if(I.throwforce && (I.flags_2 & ATMOS_THROW))
+			if(prob(90))
+				blocked = 1
+			else
+				Paralyse(1)
+	return ..()
+
 /mob/living/carbon/alien/humanoid/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		..(user, TRUE)

@@ -342,9 +342,9 @@
 						break
 					target = possible_target
 				if(max_distance)
-					throw_at(target, get_dist(src, target), pressure_difference / 200, null, 0, 0, null)
+					throw_at(target, get_dist(src, target), pressure_difference / 200, null, 0, 0, null, 1)
 				else
-					throw_at(target, pressure_difference / 10, pressure_difference / 200, null, 0, 0, null)
+					throw_at(target, pressure_difference / 10, pressure_difference / 200, null, 0, 0, null, 1)
 			last_forced_movement = SSair.times_fired
 			return 1
 		else if(pressure_difference > pressure_resistance)

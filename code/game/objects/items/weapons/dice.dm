@@ -111,7 +111,7 @@
 /obj/item/dice/attack_self(mob/user as mob)
 	diceroll(user)
 
-/obj/item/dice/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
+/obj/item/dice/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, atmos = FALSE)
 	if(!..())
 		return
 	diceroll(thrower)

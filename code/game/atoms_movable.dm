@@ -221,9 +221,14 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, var/datum/callback/callback)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, var/datum/callback/callback, atmos = FALSE)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
+
+	if(atmos)
+		flags_2 |= ATMOS_THROW
+	else
+		flags_2 &= ~ATMOS_THROW
 
 	if(pulledby)
 		pulledby.stop_pulling()

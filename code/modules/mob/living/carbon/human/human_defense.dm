@@ -316,6 +316,9 @@ emp_act
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 					hitpush = 0
 					skipcatch = 1 //can't catch the now embedded item
+		if(I.throwforce && (I.flags_2 & ATMOS_THROW))
+			visible_message("<span class='danger'>[I] knocks [src] over!</span>","<span class='userdanger'>[I] knocks you over!</span>")
+			Weaken(2)
 	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
