@@ -202,6 +202,7 @@
 /turf/simulated/floor/plating/ironsand/New()
 	..()
 	name = "Iron Sand"
+	icon = 'icons/turf/floors/ironsand.dmi'
 	icon_state = "ironsand[rand(1,15)]"
 
 /turf/simulated/floor/plating/snow
