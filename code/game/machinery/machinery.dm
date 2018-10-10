@@ -391,6 +391,9 @@ Class Procs:
 
 	return ..()
 
+/obj/machinery/proc/is_operational()
+	return !(stat & (NOPOWER|BROKEN|MAINT))
+
 /obj/machinery/CheckParts(list/parts_list)
 	..()
 	RefreshParts()
