@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a few broken tiles in maintenance, by breaking those tiles properly."

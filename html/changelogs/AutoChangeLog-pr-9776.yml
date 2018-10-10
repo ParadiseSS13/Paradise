@@ -1,5 +1,0 @@
-author: "tigercat2000"
-delete-after: True
-changes: 
-  - rscadd: "Hovering over an inventory slot now shows an indicator for if that item can go in that slot or not. Pretty!"
-  - wip: "SSOverlays has been added, but not implemented!"
