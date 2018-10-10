@@ -34,12 +34,12 @@ SUBSYSTEM_DEF(overlays)
 /datum/controller/subsystem/overlays/fire(resumed = FALSE, mc_check = TRUE)
 	var/list/queue = src.queue
 	var/static/count = 0
-	if (count)
+	if(count)
 		var/c = count
 		count = 0 //so if we runtime on the Cut, we don't try again.
-		queue.Cut(1,c+1)
+		queue.Cut(1, c + 1)
 
-	for (var/thing in queue)
+	for(var/thing in queue)
 		count++
 		if(thing)
 			var/atom/A = thing
@@ -50,21 +50,21 @@ SUBSYSTEM_DEF(overlays)
 		else
 			CHECK_TICK
 
-	if (count)
-		queue.Cut(1,count+1)
+	if(count)
+		queue.Cut(1, count + 1)
 		count = 0
 
 /proc/iconstate2appearance(icon, iconstate)
 	var/static/image/stringbro = new()
 	var/list/icon_states_cache = SSoverlays.overlay_icon_state_caches
 	var/list/cached_icon = icon_states_cache[icon]
-	if (cached_icon)
+	if(cached_icon)
 		var/cached_appearance = cached_icon["[iconstate]"]
-		if (cached_appearance)
+		if(cached_appearance)
 			return cached_appearance
 	stringbro.icon = icon
 	stringbro.icon_state = iconstate
-	if (!cached_icon) //not using the macro to save an associated lookup
+	if(!cached_icon) //not using the macro to save an associated lookup
 		cached_icon = list()
 		icon_states_cache[icon] = cached_icon
 	var/cached_appearance = stringbro.appearance
@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(overlays)
 	var/static/image/iconbro = new()
 	var/list/icon_cache = SSoverlays.overlay_icon_cache
 	. = icon_cache[icon]
-	if (!.)
+	if(!.)
 		iconbro.icon = icon
 		. = iconbro.appearance
 		icon_cache[icon] = .
@@ -83,19 +83,19 @@ SUBSYSTEM_DEF(overlays)
 /atom/proc/build_appearance_list(old_overlays)
 	var/static/image/appearance_bro = new()
 	var/list/new_overlays = list()
-	if (!islist(old_overlays))
+	if(!islist(old_overlays))
 		old_overlays = list(old_overlays)
-	for (var/overlay in old_overlays)
+	for(var/overlay in old_overlays)
 		if(!overlay)
 			continue
-		if (istext(overlay))
+		if(istext(overlay))
 			new_overlays += iconstate2appearance(icon, overlay)
 		else if(isicon(overlay))
 			new_overlays += icon2appearance(overlay)
 		else
 			if(isloc(overlay))
 				var/atom/A = overlay
-				if (A.flags_2 & OVERLAY_QUEUED_2)
+				if(A.flags_2 & OVERLAY_QUEUED_2)
 					COMPILE_OVERLAYS(A)
 			appearance_bro.appearance = overlay //this works for images and atoms too!
 			if(!ispath(overlay))
@@ -132,7 +132,6 @@ SUBSYSTEM_DEF(overlays)
 	var/p_len = priority_overlays.len
 	remove_overlays += overlays
 	add_overlays -= overlays
-
 
 	if(priority)
 		var/list/cached_priority = priority_overlays
