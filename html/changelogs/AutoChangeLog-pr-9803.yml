@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - bugfix: "Iron sand icons now render correctly."
