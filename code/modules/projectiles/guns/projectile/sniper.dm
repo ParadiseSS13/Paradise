@@ -46,6 +46,7 @@
 /obj/item/ammo_casing/point50
 	desc = "A .50 bullet casing."
 	caliber = ".50"
+	casing_sound = 'sound/weapons/dropCasingLrg.ogg'
 	projectile_type = /obj/item/projectile/bullet/sniper
 	icon_state = ".50"
 
@@ -76,6 +77,7 @@
 /obj/item/ammo_casing/soporific
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
 	caliber = ".50"
+	casing_sound = 'sound/weapons/dropCasingLrg.ogg'
 	projectile_type = /obj/item/projectile/bullet/sniper/soporific
 	icon_state = ".50"
 
@@ -107,6 +109,7 @@
 /obj/item/ammo_casing/haemorrhage
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
 	caliber = ".50"
+	casing_sound = 'sound/weapons/dropCasingLrg.ogg'
 	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
 	icon_state = ".50"
 
@@ -136,6 +139,7 @@
 /obj/item/ammo_casing/penetrator
 	desc = "A .50 caliber penetrator round casing."
 	caliber = ".50"
+	casing_sound = 'sound/weapons/dropCasingLrg.ogg'
 	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
 	icon_state = ".50"
 

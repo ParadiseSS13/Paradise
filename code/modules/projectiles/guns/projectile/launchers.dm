@@ -13,6 +13,7 @@
 /obj/item/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
 	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
+		playsound(user, 'sound/weapons/shellLoad.ogg', 80, 1, -2)
 		chamber_round()
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi
