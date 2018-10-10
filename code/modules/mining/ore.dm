@@ -16,9 +16,9 @@
 
 /obj/item/stack/ore/New()
 	..()
-	pixel_x = rand(0,16)-8
-	pixel_y = rand(0,8)-8
-	if(is_mining_level(src.z))
+	pixel_x = rand(0, 16) - 8
+	pixel_y = rand(0, 8) - 8
+	if(is_mining_level(z))
 		score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining asteroid (No Clown Planet)
 
 /obj/item/stack/ore/attackby(obj/item/I, mob/user, params)
@@ -57,11 +57,11 @@
 	if(isnull(refined_type))
 		return
 	else
-		var/amountrefined = round((PROBABILITY_REFINE_BY_FIRE/100) * amount, 1)
+		var/amountrefined = round((PROBABILITY_REFINE_BY_FIRE / 100) * amount, 1)
 		if(amountrefined < 1)
 			qdel(src)
 		else
-			new refined_type(get_turf(src.loc), amountrefined)
+			new refined_type(get_turf(loc), amountrefined)
 			qdel(src)
 
 /obj/item/stack/ore/uranium
@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	C.EyeBlurry(6)
 	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(5)
-	to_chat(C, "<span class='userdanger'>\The [src] gets into your eyes! The pain, it burns!</span>")
+	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
 	qdel(src)
 
 /obj/item/stack/ore/glass/basalt

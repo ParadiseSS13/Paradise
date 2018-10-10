@@ -281,7 +281,7 @@
 	link_power_station()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
@@ -289,7 +289,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
 

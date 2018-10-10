@@ -532,11 +532,7 @@ var/global/list/rockTurfEdgeCache = list(
 /turf/simulated/floor/plating/airless/asteroid/proc/gets_dug()
 	if(dug)
 		return
-	new/obj/item/stack/ore/glass(src)
-	new/obj/item/stack/ore/glass(src)
-	new/obj/item/stack/ore/glass(src)
-	new/obj/item/stack/ore/glass(src)
-	new/obj/item/stack/ore/glass(src)
+	new/obj/item/stack/ore/glass(src, 5)
 	dug = 1
 	playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 	icon_plating = "asteroid_dug"

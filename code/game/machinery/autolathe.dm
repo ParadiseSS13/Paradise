@@ -218,9 +218,9 @@
 /obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	switch(id_inserted)
 		if(MAT_METAL)
-			flick("autolathe_o",src)//plays metal insertion animation
+			flick("autolathe_o", src)//plays metal insertion animation
 		if(MAT_GLASS)
-			flick("autolathe_r",src)//plays glass insertion animation
+			flick("autolathe_r", src)//plays glass insertion animation
 	use_power(min(1000, amount_inserted / 100))
 	SSnanoui.update_uis(src)
 

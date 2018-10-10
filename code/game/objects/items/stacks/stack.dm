@@ -165,7 +165,6 @@
 
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		var/atom/creation_loc = (loc == usr) ? usr.loc : loc
 		if(!multiplier)
 			multiplier = 1
 
@@ -180,11 +179,11 @@
 			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
 			return FALSE
 
-		if(R.one_per_turf && (locate(R.result_type) in creation_loc))
+		if(R.one_per_turf && (locate(R.result_type) in usr.drop_location()))
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return 0
 
-		if(R.on_floor && !istype(creation_loc, /turf/simulated))
+		if(R.on_floor && !istype(usr.drop_location(), /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return 0
 
@@ -196,15 +195,16 @@
 		if(amount < R.req_amount * multiplier)
 			return
 
-		var/atom/O = new R.result_type(creation_loc)
+		var/atom/O
+		if(R.max_res_amount > 1) //Is it a stack?
+			O = new R.result_type(usr.drop_location(), R.res_amount * multiplier)
+		else
+			O = new R.result_type(usr.drop_location())
 		O.setDir(usr.dir)
-		if(R.max_res_amount > 1)
-			var/obj/item/stack/new_item = O
-			new_item.amount = R.res_amount * multiplier
+		use(R.req_amount * multiplier)
 
 		R.post_build(src, O)
 
-		amount -= R.req_amount * multiplier
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
 			src = null //dont kill proc after del()
@@ -280,11 +280,11 @@
 	//get amount from user
 	var/min = 0
 	var/max = get_amount()
-	var/stackmaterial = round(input(user,"How many sheets do you wish to take out of this stack? (Maximum[max])") as num)
-	if(stackmaterial == null || stackmaterial <= min || stackmaterial >= get_amount())
+	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as num)
+	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
 		return
 	change_stack(user,stackmaterial)
-	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack</span>")
+	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
 
 /obj/item/stack/proc/change_stack(mob/user,amount)
 	var/obj/item/stack/F = new type(user, amount, FALSE)
@@ -294,7 +294,6 @@
 	add_fingerprint(user)
 	F.add_fingerprint(user)
 	use(amount)
-	zero_amount()
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
 	if(istype(W, merge_type))
@@ -302,7 +301,7 @@
 		merge(S)
 		to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
 	else
-		..()
+		return ..()
 
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
@@ -322,7 +321,6 @@
 	S.copy_evidences(src)
 	S.add(transfer)
 	use(transfer)
-	zero_amount()
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)
 	blood_DNA			= from.blood_DNA
