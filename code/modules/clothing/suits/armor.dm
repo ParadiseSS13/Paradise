@@ -295,7 +295,7 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
-		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text], shutting itself off in the process!</span>")
+		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(tele_range, H))
 			if(istype(T, /turf/space))
@@ -440,6 +440,13 @@
 	name = "emergency response team security armor"
 	desc = "A set of armor worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "ertarmor_sec"
+	
+
+/obj/item/clothing/suit/armor/vest/ert/security/paranormal
+	name = "emergency response team paranormal armor"
+	desc = "A set of armor worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
+	icon_state = "knight_templar"
+	item_state = "knight_templar"
 
 //Engineer
 /obj/item/clothing/suit/armor/vest/ert/engineer

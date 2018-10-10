@@ -13,7 +13,7 @@
 	if(!O)
 		return 0
 
-	O.mouse_opacity = 2
+	O.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 	if(client)
 		client.screen -= O

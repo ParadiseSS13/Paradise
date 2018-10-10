@@ -44,6 +44,10 @@
 
 	var/initialized = FALSE
 
+	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
+	var/list/remove_overlays // a very temporary list of overlays to remove
+	var/list/add_overlays // a very temporary list of overlays to add
+
 /atom/New(loc, ...)
 	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		_preloader.load(src)
@@ -83,6 +87,9 @@
 	if(opacity && isturf(loc))
 		var/turf/T = loc
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
+	
+	if(loc)
+		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	ComponentInitialize()
 
@@ -97,6 +104,8 @@
 /atom/proc/ComponentInitialize()
 	return
 
+/atom/proc/InitializedOn(atom/A) // Proc for when something is initialized on a atom - Optional to call. Useful for observer pattern etc.
+	return
 
 /atom/proc/onCentcom()
 	var/turf/T = get_turf(src)
@@ -137,6 +146,8 @@
 
 	QDEL_NULL(reagents)
 	invisibility = 101
+	LAZYCLEARLIST(overlays)
+	LAZYCLEARLIST(priority_overlays)
 	return ..()
 
 //Hook for running code when a dir change occurs

@@ -90,7 +90,10 @@
 	snapback()
 
 /mob/living/simple_animal/hostile/guardian/death(gibbed)
-	..()
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
 	summoner.death()
 

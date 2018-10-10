@@ -302,14 +302,12 @@
 
 		if(cyborg.health < cyborg.maxHealth)
 			if(cyborg.health < 0)
-				repair_amount = -2.5
+				repair_amount = 2.5
 				powercost = 30
 			else
-				repair_amount = -1
+				repair_amount = 1
 				powercost = 10
-			cyborg.adjustBruteLoss(repair_amount)
-			cyborg.adjustFireLoss(repair_amount)
-			cyborg.updatehealth()
+			cyborg.heal_overall_damage(repair_amount, repair_amount)
 			cyborg.cell.use(powercost)
 		else
 			cyborg.cell.use(5)

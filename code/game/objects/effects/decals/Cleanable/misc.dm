@@ -62,8 +62,8 @@
 	color = "#EBEBEB"
 
 /obj/effect/decal/cleanable/flour/foam/Initialize()
-		. = ..()
-		QDEL_IN(src, 15 SECONDS)
+	. = ..()
+	QDEL_IN(src, 15 SECONDS)
 
 /obj/effect/decal/cleanable/greenglow
 	name = "glowing goo"
@@ -77,8 +77,8 @@
 	icon_state = "greenglow"
 
 /obj/effect/decal/cleanable/greenglow/Initialize(mapload)
-		. = ..()
-		QDEL_IN(src, 2 MINUTES)
+	. = ..()
+	QDEL_IN(src, 2 MINUTES)
 
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
@@ -201,4 +201,3 @@
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
 	anchored = TRUE
-

@@ -87,7 +87,7 @@
 	if(!D)
 		return
 	
-	H.set_species(D.species.type)
+	H.set_species(D.species.type, retain_damage = TRUE)
 	H.dna = D.Clone()
 	H.real_name = D.real_name
 	domutcheck(H, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them

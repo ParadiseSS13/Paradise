@@ -33,23 +33,24 @@
 	ventsmash_action.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
-	var/always_stillborn = FALSE
-	if(spider_awaymission && !is_away_level(z))
-		always_stillborn = TRUE
-	if(canspawn)
-		canspawn = 0
-		for(var/i in 0 to 30)
-			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
-			S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray)
-			if(always_stillborn || prob(66))
-				S.stillborn = 1
-			else if(prob(10))
-				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/green)
-			S.amount_grown = 50 // double speed growth
-			S.immediate_ventcrawl = 1
-		visible_message("<span class='userdanger'>[src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
-		degenerate = 1
-	..()
+	if(can_die())
+		var/always_stillborn = FALSE
+		if(spider_awaymission && !is_away_level(z))
+			always_stillborn = TRUE
+		if(canspawn)
+			canspawn = 0
+			for(var/i in 0 to 30)
+				var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
+				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray)
+				if(always_stillborn || prob(66))
+					S.stillborn = 1
+				else if(prob(10))
+					S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+				S.amount_grown = 50 // double speed growth
+				S.immediate_ventcrawl = 1
+			visible_message("<span class='userdanger'>[src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
+			degenerate = 1
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/Destroy()
 	canspawn = 0

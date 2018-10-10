@@ -36,15 +36,14 @@
 
 
 /mob/living/simple_animal/hostile/winter/snowman/death(gibbed)
-	if(prob(50) && !ranged)		//50% chance to drop candy cane sword on death, if it has one to drop
-		loot = list(/obj/item/melee/candy_sword)
-	if(prob(20))	//chance to become a stationary snowman structure instead of a corpse
-		loot.Add(/obj/structure/snowman)
-		deathmessage = "shimmers as its animating magic fades away!"
-		del_on_death = 1
-		..()		//this is just to make sure it gets properly killed before we qdel it
-	else
-		..()
+	if(can_die())
+		if(prob(50) && !ranged)		//50% chance to drop candy cane sword on death, if it has one to drop
+			loot = list(/obj/item/melee/candy_sword)
+		if(prob(20))	//chance to become a stationary snowman structure instead of a corpse
+			loot.Add(/obj/structure/snowman)
+			deathmessage = "shimmers as its animating magic fades away!"
+			del_on_death = 1
+	return ..()
 
 /mob/living/simple_animal/hostile/winter/snowman/ranged
 	maxHealth = 50
@@ -79,7 +78,10 @@
 	icon_dead = "santa-dead"
 
 /mob/living/simple_animal/hostile/winter/santa/death(gibbed)
-	..()
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	if(death_message)
 		visible_message(death_message)
 	if(next_stage)
@@ -133,11 +135,15 @@
 	melee_damage_upper = 30		//that's gonna leave a mark, for sure
 
 /mob/living/simple_animal/hostile/winter/santa/stage_4/death(gibbed)
-	to_chat(world, "<span class='notice'><hr></span>")
-	to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
-	to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")
-	to_chat(world, "<span class='notice'><hr></span>")
-	..()
+	if(can_die())
+		to_chat(world, "<span class='notice'><hr></span>")
+		to_chat(world, "<span class='notice'>THE FAT MAN HAS FALLEN!</span>")
+		to_chat(world, "<span class='notice'>SANTA CLAUS HAS BEEN DEFEATED!</span>")
+		to_chat(world, "<span class='notice'><hr></span>")
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	var/obj/item/grenade/clusterbuster/xmas/X = new /obj/item/grenade/clusterbuster/xmas(get_turf(src))
 	var/obj/item/grenade/clusterbuster/xmas/Y = new /obj/item/grenade/clusterbuster/xmas(get_turf(src))
 	X.prime()

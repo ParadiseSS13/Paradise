@@ -117,10 +117,13 @@
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	layer = MOB_LAYER
 	if(client)
 		client.time_died_as_mouse = world.time
-	..()
 
 /*
  * Mouse types

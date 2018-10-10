@@ -56,7 +56,10 @@
         AA.Grant(M)
     else
         AA.Remove(M)
-	
+
+/obj/vehicle/ambulance/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	AA.Remove(M)
 
 /obj/item/key/ambulance
 	name = "ambulance key"
@@ -99,7 +102,7 @@
 	anchored = FALSE
 	throw_pressure_limit = INFINITY //Throwing an ambulance trolley can kill the process scheduler.
 
-/obj/structure/stool/bed/amb_trolley/MouseDrop(obj/over_object as obj)
+/obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()
 	if(istype(over_object, /obj/vehicle/ambulance))
 		var/obj/vehicle/ambulance/amb = over_object

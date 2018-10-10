@@ -375,7 +375,7 @@ emp_act
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
-			updatehealth()
+			updatehealth("larva attack")
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(check_shields(0, M.name))
@@ -404,7 +404,7 @@ emp_act
  					"<span class='userdanger'>[M] has wounded [src]!</span>")
 				apply_effect(4, WEAKEN, armor_block)
 				add_attack_logs(M, src, "Alien attacked")
-			updatehealth()
+			updatehealth("alien attack")
 
 		if(M.a_intent == INTENT_DISARM)
 			if(prob(80))
@@ -434,7 +434,7 @@ emp_act
 		if(affected)
 			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
-		updatehealth()
+		updatehealth("animal attack")
 
 /mob/living/carbon/human/attack_slime(mob/living/carbon/slime/M)
 	..()
@@ -473,7 +473,7 @@ emp_act
 					M.mech_toxin_damage(src)
 				else
 					return
-			updatehealth()
+			updatehealth("mech melee attack")
 
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
