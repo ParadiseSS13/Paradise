@@ -29,7 +29,7 @@
 
 	for(var/I in callees)
 		var/obj/machinery/hologram/holopad/H = I
-		if(!QDELETED(H) && !(H.stat & NOPOWER))
+		if(!QDELETED(H) && !(H.stat & NOPOWER) && H.anchored)
 			dialed_holopads += H
 			var/area/area = get_area(H)
 			LAZYADD(H.holo_calls, src)
@@ -159,7 +159,7 @@
 /datum/holocall/proc/Check()
 	for(var/I in dialed_holopads)
 		var/obj/machinery/hologram/holopad/H = I
-		if((H.stat & NOPOWER))
+		if((H.stat & NOPOWER) || !H.anchored)
 			ConnectionFailure(H)
 
 	if(QDELETED(src))
