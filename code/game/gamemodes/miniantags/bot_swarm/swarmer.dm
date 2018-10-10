@@ -121,9 +121,9 @@
 	to_chat(src, "<b>Clicking on any object will try to consume it, either deconstructing it into its components, destroying it, or integrating any materials it has into you if successful.</b>")
 	to_chat(src, "<b>Ctrl-Clicking on a mob will attempt to remove it from the area and place it in a safe environment for storage.</b>")
 	to_chat(src, "<b>Prime Directives:</b>")
-	to_chat(src, "1. Consume resources and replicate until there are no more resources left.")
-	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
-	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
+	to_chat(src, "1. <span class='warning'>Consume resources and replicate until there are no more resources left.</span>")
+	to_chat(src, "2. <span class='warning'>Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.</span>")
+	to_chat(src, "3. <span class='warning'>Biological and Sentient resources will be harvested at a later date, prioritize resource acquisition over seeking out potential threats.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
@@ -361,6 +361,9 @@
 	target.ex_act(3)
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(var/mob/living/target)
+	if(target.stat == DEAD)
+		to_chat(src, "<span class='info'> Our target is no threat. Aborting Dispersal.</span>")
+		return
 	if(target != src)
 		to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
 		if(!is_station_level(src.z))
