@@ -157,6 +157,14 @@
 	else if(occupant)
 		add_overlay("human")
 
+/obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob, params)
+	if(!is_operational())
+		return
+	if(isscrewdriver(I))
+		panel_open = !panel_open
+		playsound(loc, I.usesound, 100, 1)
+		to_chat(user, text("<span class='notice'>You [panel_open ? "open up" : "close"] the unit's maintenance panel.</span>"))
+		updateUsrDialog()
 
 /obj/machinery/suit_storage_unit/power_change()
 	..()
@@ -164,7 +172,6 @@
 		open_machine()
 		dump_contents()
 	update_icon()
-
 
 
 /obj/machinery/suit_storage_unit/proc/dump_contents()
