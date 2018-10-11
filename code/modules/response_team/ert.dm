@@ -36,6 +36,7 @@ var/ert_request_answered = FALSE
 	var/datum/nano_module/ert_manager/E = new()
 	E.ui_interact(usr)
 
+
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!send_emergency_team)
 		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
