@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "NPC's now initialise correctly. Removing a lot of runtime errors."
