@@ -341,6 +341,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/proc/on_found(mob/finder as mob)
 	return
 
+// called when the giver gives it to the receiver
+/obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	return
+
 // called after an item is placed in an equipment slot
 // user is mob that equipped it
 // slot uses the slot_X defines found in setup.dm
