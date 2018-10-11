@@ -123,7 +123,7 @@
 	update_icon()
 
 	//move this into machinery eventually...
-	if (occupant_typecache)
+	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
 
 /obj/machinery/suit_storage_unit/Destroy()
@@ -323,7 +323,7 @@
 	density = TRUE
 	if(!target)
 		for(var/am in loc)
-			if (!(occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)))
+			if(!(occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)))
 				continue
 			var/atom/movable/AM = am
 			if(AM.has_buckled_mobs())
@@ -378,11 +378,11 @@
 			dat+= text("Breathmask storage compartment: <B>[]</B><BR>",(storage ? storage.name : "</font><font color ='grey'>No storage item detected.") )
 			if(storage && state_open)
 				dat+="<A href='?src=[UID()];dispense_storage=1'>Dispense storage item</A><BR>"
-			if(src.occupant)
+			if(occupant)
 				dat+= "<HR><B><font color ='red'>WARNING: Biological entity detected inside the Unit's storage. Please remove.</B></font><BR>"
 				dat+= "<A href='?src=[UID()];eject_guy=1'>Eject extra load</A>"
 			dat+= text("<HR>Unit is: [] - <A href='?src=[UID()];toggle_open=1'>[] Unit</A> ",(state_open ? "Open" : "Closed"),(state_open ? "Close" : "Open"))
-			if(src.state_open)
+			if(state_open)
 				dat+="<HR>"
 			else
 				dat+= text(" - <A href='?src=[UID()];toggle_lock=1'>*[] Unit*</A><HR>",(locked ? "Unlock" : "Lock") )
