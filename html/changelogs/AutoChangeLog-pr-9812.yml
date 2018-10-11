@@ -1,0 +1,4 @@
+author: "Stork Industries"
+delete-after: True
+changes: 
+  - bugfix: "Fixes \"Arachno-Man's\" boots"
