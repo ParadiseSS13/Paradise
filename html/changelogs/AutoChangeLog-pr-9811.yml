@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed the admin ERT panel not working correctly if the admin using it was playing as a carbon mob."
