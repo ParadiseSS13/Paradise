@@ -1021,6 +1021,17 @@
 	flags_inv = HIDEEARS
 
 //////////// Uniforms ////////////
+/obj/item/clothing/under/fluff/counterfeitguise_uniform 	// thatdanguy23 : Rissa Williams
+	icon = 'icons/obj/custom_items.dmi'
+	name = "Rissa's hand-me-downs"
+	desc = "An old, hand-me-down baggy sweater and sweatpants combo. A label on the neck reads 'RISSA' in scruffy handwriting."
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	icon_state = "counterfeitguise"
+	item_state = "counterfeitguise"
+	item_color = "counterfeitguise"
+	flags_size = ONESIZEFITSALL
+
 /obj/item/clothing/under/fluff/benjaminfallout // Benjaminfallout: Pretzel Brassheart
 	icon = 'icons/obj/custom_items.dmi'
 	name = "Pretzel's dress"
