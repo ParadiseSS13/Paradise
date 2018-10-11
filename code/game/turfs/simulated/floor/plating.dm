@@ -1,6 +1,7 @@
 /turf/simulated/floor/plating
 	name = "plating"
 	icon_state = "plating"
+	icon = 'icons/turf/floors/plating.dmi'
 	intact = 0
 	floor_tile = null
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
@@ -14,12 +15,17 @@
 /turf/simulated/floor/plating/New()
 	..()
 	icon_plating = icon_state
+	if(icon == 'icons/turf/floors/plating.dmi')
+		smooth = SMOOTH_MORE
+		canSmoothWith = list(/turf/simulated/floor/plating, /turf/space)
+	update_icon()
 
 /turf/simulated/floor/plating/update_icon()
 	if(!..())
 		return
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
+	underlays += image(icon, icon_state)
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
@@ -60,6 +66,7 @@
 			if(welder.remove_fuel(0,user))
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
 				playsound(src, welder.usesound, 80, 1)
+				overlays -= current_overlay
 				current_overlay = null
 				burnt = 0
 				broken = 0
@@ -195,6 +202,7 @@
 /turf/simulated/floor/plating/ironsand/New()
 	..()
 	name = "Iron Sand"
+	icon = 'icons/turf/floors/ironsand.dmi'
 	icon_state = "ironsand[rand(1,15)]"
 
 /turf/simulated/floor/plating/snow

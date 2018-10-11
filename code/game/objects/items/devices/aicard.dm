@@ -90,7 +90,6 @@
 			to_chat(AI, "Your core files are being wiped!")
 			while(AI && AI.stat != DEAD)
 				AI.adjustOxyLoss(2)
-				AI.updatehealth()
 				sleep(10)
 			flush = 0
 

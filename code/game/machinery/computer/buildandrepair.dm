@@ -296,6 +296,15 @@
 /obj/item/circuitboard/white_ship
 	name = "circuit Board (White Ship)"
 	build_path = /obj/machinery/computer/shuttle/white_ship
+/obj/item/circuitboard/shuttle/syndicate
+	name = "circuit board (Syndicate Shuttle)"
+	build_path = /obj/machinery/computer/shuttle/syndicate
+/obj/item/circuitboard/shuttle/syndicate/recall
+	name = "circuit board (Syndicate Shuttle Recall Terminal)"
+	build_path = /obj/machinery/computer/shuttle/syndicate/recall
+/obj/item/circuitboard/shuttle/syndicate/drop_pod
+	name = "circuit board (Syndicate Drop Pod)"
+	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
 
 
 /obj/item/circuitboard/HolodeckControl

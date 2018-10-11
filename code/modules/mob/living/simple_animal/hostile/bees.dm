@@ -31,7 +31,7 @@
 	move_to_delay = 0
 	obj_damage = 0
 	environment_smash = 0
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	flying = 1
 	search_objects = 1 //have to find those plant trays!

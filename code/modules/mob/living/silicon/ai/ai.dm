@@ -549,7 +549,6 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/blob_act()
 	if(stat != 2)
 		adjustBruteLoss(60)
-		updatehealth()
 		return TRUE
 	return FALSE
 
@@ -685,7 +684,6 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
-	updatehealth()
 	return 2
 
 /mob/living/silicon/ai/reset_perspective(atom/A)

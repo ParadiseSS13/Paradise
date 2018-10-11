@@ -232,7 +232,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
 				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
-				H.updatehealth()
 				return
 		else
 			extinguish()

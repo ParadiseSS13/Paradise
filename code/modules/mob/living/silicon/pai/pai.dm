@@ -160,9 +160,8 @@
 	return 1
 
 /mob/living/silicon/pai/blob_act()
-	if(stat != 2)
+	if(stat != DEAD)
 		adjustBruteLoss(60)
-		updatehealth()
 		return 1
 	return 0
 
@@ -238,7 +237,6 @@
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		add_attack_logs(M, src, "Animal attacked for [damage] damage")
 		adjustBruteLoss(damage)
-		updatehealth()
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
@@ -454,9 +452,7 @@
 		if(stat == DEAD)
 			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
 		else if(getBruteLoss() || getFireLoss())
-			adjustBruteLoss(-15)
-			adjustFireLoss(-15)
-			updatehealth()
+			heal_overall_damage(15, 15)
 			N.use(1)
 			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
@@ -467,7 +463,6 @@
 	else if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		adjustBruteLoss(W.force)
-		updatehealth()
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
 	spawn(1)
@@ -557,7 +552,6 @@
 
 /mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
-	updatehealth()
 	if(stat != 2)
 		spawn(1)
 			close_up()

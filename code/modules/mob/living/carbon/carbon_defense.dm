@@ -55,7 +55,7 @@
 		var/stunprob = M.powerlevel * 7 + 10
 		if(prob(stunprob) && M.powerlevel >= 8)
 			adjustFireLoss(M.powerlevel * rand(6,10))
-			updatehealth()
+			updatehealth("slime attack")
 		return 1
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)

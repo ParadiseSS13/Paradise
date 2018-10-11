@@ -210,9 +210,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 					if(ishuman(L))
-						L.adjustBruteLoss(-1)
-						L.adjustFireLoss(-1)
-						L.updatehealth()
+						L.heal_overall_damage(1, 1)
 					if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 						var/mob/living/simple_animal/M = L
 						if(M.health < M.maxHealth)

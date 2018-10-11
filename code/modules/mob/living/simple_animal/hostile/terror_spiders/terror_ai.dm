@@ -162,11 +162,11 @@
 	..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(damage)
-	..(damage)
+	. = ..(damage)
 	Retaliate()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/adjustFireLoss(damage)
-	..(damage)
+	. = ..(damage)
 	Retaliate()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/Retaliate()

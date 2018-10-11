@@ -397,13 +397,6 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 		to_chat(src, "<span class='notice'>You are now getting up.</span>")
 		StopResting()
 
-/proc/is_blind(A)
-	if(iscarbon(A))
-		var/mob/living/carbon/C = A
-		if(C.disabilities & BLIND || C.blinded)
-			return 1
-	return 0
-
 /proc/get_multitool(mob/user as mob)
 	// Get tool
 	var/obj/item/multitool/P
@@ -498,7 +491,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !canmove))
 		return 0
 	check_eye(src)
 	return 1

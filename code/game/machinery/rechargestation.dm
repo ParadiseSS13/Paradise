@@ -158,9 +158,7 @@
 			var/mob/living/silicon/robot/R = occupant
 			restock_modules()
 			if(repairs)
-				R.adjustBruteLoss(-(repairs))
-				R.adjustFireLoss(-(repairs))
-				R.updatehealth()
+				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
 				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
@@ -168,8 +166,7 @@
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
 				if(repairs)
-					H.heal_overall_damage(repairs, repairs, 0, 1)
-					H.updatehealth()
+					H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)

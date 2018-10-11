@@ -56,7 +56,6 @@
 			if(!M)
 				return
 			M.adjustOxyLoss(round(dam_force/2))
-			M.updatehealth()
 			target.visible_message("<span class='danger'>[chassis] squeezes [target].</span>", \
 								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
 								"<span class='italics'>You hear something crack.</span>")
@@ -451,4 +450,3 @@
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return 1
-

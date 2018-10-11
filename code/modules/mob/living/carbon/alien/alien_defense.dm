@@ -17,7 +17,7 @@ In all, this is a lot like the monkey code. /N
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			AdjustSleeping(-5)
-			resting = 0
+			StopResting()
 			AdjustParalysis(-3)
 			AdjustStunned(-3)
 			AdjustWeakened(-3)
@@ -36,7 +36,6 @@ In all, this is a lot like the monkey code. /N
 						"<span class='userdanger'>[M.name] bites [src]!</span>")
 				adjustBruteLoss(damage)
 				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
-				updatehealth()
 			else
 				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
 
@@ -75,4 +74,3 @@ In all, this is a lot like the monkey code. /N
 				adjustCloneLoss(damage)
 			if(STAMINA)
 				adjustStaminaLoss(damage)
-		updatehealth()

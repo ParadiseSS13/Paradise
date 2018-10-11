@@ -42,7 +42,7 @@
 	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
 
-	var/delay = (rand(350,450) + B.host.brainloss)
+	var/delay = (rand(350,450) + B.host.getBrainLoss())
 	addtimer(CALLBACK(src, .proc/return_control, B), delay)
 
 

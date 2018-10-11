@@ -321,10 +321,11 @@ var/global/list/ts_spiderling_list = list()
 			ts_count_alive_station--
 
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
-	if(!gibbed)
-		msg_terrorspiders("[src] has died in [get_area(src)].")
-	handle_dying()
-	..()
+	if(can_die())
+		if(!gibbed)
+			msg_terrorspiders("[src] has died in [get_area(src)].")
+		handle_dying()
+	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return

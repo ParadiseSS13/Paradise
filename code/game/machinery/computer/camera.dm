@@ -217,7 +217,7 @@
 
 // Check if camera is accessible when jumping
 /obj/machinery/computer/security/proc/can_access_camera(var/obj/machinery/camera/C, var/mob/M)
-	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || M.blinded)
+	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || !M.has_vision())
 		return 0
 
 	if(isrobot(M))

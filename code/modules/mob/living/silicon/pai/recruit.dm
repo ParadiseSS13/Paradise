@@ -226,7 +226,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 				<td class="button"><a href='byond://?src=[UID()];option=submit;new=1;candidate=\ref[candidate]' class="button"><b><font size="4px">Submit Personality</font></b></a></td>
 			</table><br>
 
-		<body>
+		</body>
 		"}
 
 		M << browse(dat, "window=paiRecruit;size=580x580;")

@@ -96,10 +96,15 @@
 	desc = "A repulsive pile of guts and gore."
 
 /mob/living/simple_animal/slaughter/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	for(var/mob/living/M in consumed_mobs)
-		M.forceMove(get_turf(src))
-	..()
+		release_consumed(M)
 
+/mob/living/simple_animal/slaughter/proc/release_consumed(mob/living/M)
+	M.forceMove(get_turf(src))
 
 /mob/living/simple_animal/slaughter/phasein()
 	. = ..()
@@ -297,13 +302,12 @@
 	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 
-/mob/living/simple_animal/slaughter/laughter/death(gibbed)
-	for(var/mob/living/M in consumed_mobs)
-		if(M.revive())
-			M.grab_ghost(force = TRUE)
-			playsound(get_turf(src), feast_sound, 50, 1, -1)
-			to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
-	..()
+/mob/living/simple_animal/slaughter/laughter/release_consumed(mob/living/M)
+	if(M.revive())
+		M.grab_ghost(force = TRUE)
+		playsound(get_turf(src), feast_sound, 50, 1, -1)
+		to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
+	..(M)
 
 
 //Objectives and helpers.

@@ -215,33 +215,13 @@
 //DRONE LIFE/DEATH
 
 //For some goddamn reason robots have this hardcoded. Redefining it for our fragile friends here.
-/mob/living/silicon/robot/drone/updatehealth()
+/mob/living/silicon/robot/drone/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 35
 		stat = CONSCIOUS
 		return
 	health = 35 - (getBruteLoss() + getFireLoss())
-	return
-
-//Easiest to check this here, then check again in the robot proc.
-//Standard robots use config for crit, which is somewhat excessive for these guys.
-//Drones killed by damage will gib.
-/mob/living/silicon/robot/drone/handle_regular_status_updates()
-
-	if(health <= -35 && src.stat != DEAD)
-		timeofdeath = world.time
-		death() //Possibly redundant, having trouble making death() cooperate.
-		gib()
-		return
-	return ..() // If you don't return anything here, you won't update status effects, like weakening
-
-/mob/living/silicon/robot/drone/death(gibbed)
-
-	if(module)
-		var/obj/item/gripper/G = locate(/obj/item/gripper) in module
-		if(G) G.drop_item()
-
-	..(gibbed)
+	update_stat("updatehealth([reason])")
 
 
 //CONSOLE PROCS

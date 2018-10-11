@@ -453,7 +453,6 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/floor/plating/airless/asteroid
 	name = "Asteroid"
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "asteroid"
 	icon_plating = "asteroid"
 	var/dug = 0       //0 = has not yet been dug, 1 = has already been dug
@@ -463,10 +462,10 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/floor/plating/airless/asteroid/New()
 	var/proper_name = name
-	..()
 	name = proper_name
 	if(prob(20))
 		icon_state = "asteroid[rand(0,12)]"
+	..()
 
 /turf/simulated/floor/plating/airless/asteroid/ex_act(severity, target)
 	switch(severity)

@@ -125,6 +125,19 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = 1
 
+/obj/item/gun/energy/immolator/multi
+	name = "multi lens immolator cannon"
+	desc = "A large laser cannon, similar to the Immolator Laser, with toggleable firemodes. It is frequently used by military-like forces through Nanotrasen."
+	icon_state = "multilensimmolator"
+	ammo_type = list(/obj/item/ammo_casing/energy/immolator/strong, /obj/item/ammo_casing/energy/immolator/scatter)
+	origin_tech = "combat=5;magnets=5;powerstorage=4"
+
+/obj/item/gun/energy/immolator/multi/update_icon()
+	..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/append = shot.select_name
+	overlays += image(icon = icon, icon_state = "multilensimmolator-[append]")
+
 ////////Laser Tag////////////////////
 
 /obj/item/gun/energy/laser/bluetag

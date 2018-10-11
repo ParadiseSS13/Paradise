@@ -401,9 +401,16 @@
 			M.layer = layer + 0.1
 
 	else //post unbuckling
-		load = null
-		M.layer = initial(M.layer)
-		M.pixel_y = initial(M.pixel_y)
+		reset_buckled_mob(M)
+
+/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	reset_buckled_mob(M)
+
+/mob/living/simple_animal/bot/mulebot/proc/reset_buckled_mob(mob/living/M)
+	load = null
+	M.layer = initial(M.layer)
+	M.pixel_y = initial(M.pixel_y)
 
 // called to unload the bot
 // argument is optional direction to unload
