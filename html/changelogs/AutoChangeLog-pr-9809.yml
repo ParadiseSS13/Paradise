@@ -1,0 +1,4 @@
+author: "Triiodine"
+delete-after: True
+changes: 
+  - rscdel: "SLOT_MASK from necklaces."
