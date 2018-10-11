@@ -541,12 +541,12 @@
 	if(isliving(target))	//interact with living beings
 		var/mob/living/M = target
 		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.
-			target.visible_message("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.", \
-								"[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.")
+			target.visible_message("<span class='notice'>[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.</span>", \
+								"<span class='notice'[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.</span>")
 		else
 			push_aside(chassis, M)//out of the way, I have people to save!
-			occupant_message("You gently push [target] out of the way.")
-			chassis.visible_message("[chassis] gently pushes [target] out of the way.")
+			occupant_message("<span class='notice'>You gently push [target] out of the way.</span>")
+			chassis.visible_message("<span class='notice'>[chassis] gently pushes [target] out of the way.</span>")
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/proc/push_aside(obj/mecha/M, mob/living/L)
 	switch(get_dir(M, L))
