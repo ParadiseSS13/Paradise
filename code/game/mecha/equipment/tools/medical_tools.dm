@@ -524,7 +524,7 @@
 	name = "rescue jaw"
 	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
 	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
-	origin_tech = "engineering=4;biotech=3"
+	origin_tech = "materials=2;engineering=2"	//kind of sad, but identical to jaws of life
 	equip_cooldown = 15
 	energy_drain = 10
 	var/dam_force = 20
@@ -533,8 +533,8 @@
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
 	if(!action_checks(target))
 		return
-	if(istype(target,/obj))
-		if(!istype(target , /obj/machinery/door))//early return if we're not trying to open a door
+	if(istype(target, /obj))
+		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
 			return
 		var/obj/machinery/door/D = target	//the door we want to open
 		D.try_to_crowbar(src, chassis.occupant)//use the door's crowbar function
@@ -544,13 +544,13 @@
 			target.visible_message("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.", \
 								"[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.")
 		else
-			step_away(M,chassis)//out of the way, I have people to save!
+			step_away(M, chassis)//out of the way, I have people to save!
 			occupant_message("You gently push [target] out of the way.")
 			chassis.visible_message("[chassis] gently pushes [target] out of the way.")
 
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter))	//Odys or firefighters
-		if(M.equipment.len<M.max_equip)
-			return 1
-	return 0
+		if(M.equipment.len < M.max_equip)
+			return TRUE
+	return FALSE

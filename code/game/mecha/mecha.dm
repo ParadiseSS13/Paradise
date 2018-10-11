@@ -41,7 +41,7 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/emagged = 0
+	var/emagged = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -852,7 +852,7 @@
 
 
 /obj/mecha/emag_act(mob/user)
-	to_chat(user, "<span class='warning'>The [src]'s ID slot rejects the card.</span>")
+	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
 	return
 
 

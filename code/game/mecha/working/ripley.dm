@@ -183,11 +183,10 @@
 			drill.equip_cooldown = initial(drill.equip_cooldown)
 
 /obj/mecha/working/ripley/emag_act(mob/user)
-	if(emagged == 0)
-		emagged = 1
-		to_chat(user, "<span class='notice'>You slide the card through the [src]'s ID slot.</span>")
+	if(!emagged)
+		emagged = TRUE
+		to_chat(user, "<span class='notice'>You slide the card through [src]'s ID slot.</span>")
 		playsound(loc, "sparks", 100, 1)
 		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
 	else
-		to_chat(user, "<span class='warning'>The [src]'s ID slot rejects the card.</span>")
-	return
+		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
