@@ -544,10 +544,22 @@
 			target.visible_message("[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.", \
 								"[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.")
 		else
-			step_away(M, chassis)//out of the way, I have people to save!
+			push_aside(chassis, M)//out of the way, I have people to save!
 			occupant_message("You gently push [target] out of the way.")
 			chassis.visible_message("[chassis] gently pushes [target] out of the way.")
 
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/proc/push_aside(obj/mecha/M, mob/living/L)
+	switch(get_dir(M, L))
+		if(NORTH, SOUTH)
+			if(prob(50))
+				step(L, WEST)
+			else
+				step(L, EAST)
+		if(WEST, EAST)
+			if(prob(50))
+				step(L, NORTH)
+			else
+				step(L, SOUTH)
 
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter))	//Odys or firefighters
