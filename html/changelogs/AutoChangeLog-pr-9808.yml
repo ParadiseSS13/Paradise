@@ -1,4 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - bugfix: "Fixes an oversight in autopsy report drawer's description."
