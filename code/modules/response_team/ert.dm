@@ -34,7 +34,7 @@ var/ert_request_answered = FALSE
 		return
 
 	var/datum/nano_module/ert_manager/E = new()
-	E.ui_interact(usr, state = admin_state)
+	E.ui_interact(usr)
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!send_emergency_team)
