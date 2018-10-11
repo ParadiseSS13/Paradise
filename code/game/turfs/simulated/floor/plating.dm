@@ -199,10 +199,13 @@
 	oxygen = 0
 	nitrogen = 0
 
-/turf/simulated/floor/plating/ironsand/New()
-	..()
+/turf/simulated/floor/plating/ironsand
 	name = "Iron Sand"
 	icon = 'icons/turf/floors/ironsand.dmi'
+	icon_state = "ironsand1"
+
+/turf/simulated/floor/plating/ironsand/New()
+	..()
 	icon_state = "ironsand[rand(1,15)]"
 
 /turf/simulated/floor/plating/snow
