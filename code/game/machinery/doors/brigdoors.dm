@@ -38,7 +38,7 @@
 	if(!logname || !logcharges)
 		return 0
 
-	for(var/obj/machinery/computer/prisoner/C in prisoncomputer_list)
+	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
 		P.name = "[id] log - [logname] [station_time_timestamp()]"
 		P.info =  "<center><b>[id] - Brig record</b></center><br><hr><br>"
@@ -52,7 +52,7 @@
 						<small>This log file was generated automatically upon activation of a cell timer.</small>"}
 
 		playsound(C.loc, "sound/goonstation/machines/printer_dotmatrix.ogg", 50, 1)
-		cell_logs += P
+		GLOB.cell_logs += P
 
 	var/datum/data/record/R = find_security_record("name", logname)
 	Radio.autosay("Detainee [logname] has been incarcerated for [seconds_to_time(timetoset / 10)] for the charges of, '[logcharges]'. \
@@ -85,11 +85,11 @@
 	pixel_y = ((dir & 3)? (dir ==1 ? 32 : -32) : (0))
 
 	spawn(20)
-		for(var/obj/machinery/door/window/brigdoor/M in airlocks)
+		for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)
 			if(M.id == id)
 				targets += M
 
-		for(var/obj/machinery/flasher/F in machines)
+		for(var/obj/machinery/flasher/F in GLOB.machines)
 			if(F.id == id)
 				targets += F
 
@@ -97,7 +97,7 @@
 			if(C.id == id)
 				targets += C
 
-		for(var/obj/machinery/treadmill_monitor/T in machines)
+		for(var/obj/machinery/treadmill_monitor/T in GLOB.machines)
 			if(T.id == id)
 				targets += T
 

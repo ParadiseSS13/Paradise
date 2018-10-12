@@ -23,6 +23,8 @@ freezing
 the sun
 a hat
 the Cyberiad
+the Cerebron
+the Kerberos
 a ruined station
 a planet
 plasma
@@ -80,8 +82,8 @@ the pod pilot
 the barber
 the mechanic
 the magistrate
-the nanotrasen representative 
-the blueshield 
+the nanotrasen representative
+the blueshield
 a mouse
 an ert member
 a beach
@@ -93,18 +95,18 @@ the bar
 the rain
 a skrell
 an unathi
-a tajaran 
-a vulpkanin 
-a slime 
-an ipc 
-a vox 
-a plasmaman 
-a grey 
-a kidan 
-a diona 
-a drask 
+a tajaran
+a vulpkanin
+a slime
+an ipc
+a vox
+a plasmaman
+a grey
+a kidan
+a diona
+a drask
 the ai core
 the mining station
-the research station 
+the research station
 a beaker of strange liquid
 Captain [DREAMER]

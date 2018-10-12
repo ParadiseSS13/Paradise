@@ -9,7 +9,7 @@
 "i" = (/obj/machinery/light/spot{tag = "icon-tube1 (WEST)"; icon_state = "tube1"; dir = 8},/turf/simulated/shuttle/floor,/area/shuttle/supply)
 "j" = (/obj/machinery/light/spot{tag = "icon-tube1 (EAST)"; icon_state = "tube1"; dir = 4},/obj/machinery/door_control{id = "QMLoaddoor2"; layer = 3; name = "Loading Doors"; pixel_x = 24; pixel_y = 8; req_access_txt = "0"},/obj/machinery/door_control{id = "QMLoaddoor"; layer = 3; name = "Loading Doors"; pixel_x = 24; pixel_y = -8; req_access_txt = "0"},/turf/simulated/shuttle/floor,/area/shuttle/supply)
 "k" = (/obj/machinery/door/airlock/external{id_tag = "s_docking_airlock"; name = "Shuttle Hatch"; req_access_txt = "31"},/obj/docking_port/mobile/supply{timid = 1},/turf/simulated/shuttle/floor,/area/shuttle/supply)
-"l" = (/obj/machinery/conveyor{dir = 4; id = "QMLoad"},/obj/structure/plasticflaps/mining,/turf/simulated/shuttle/plating,/area/shuttle/supply)
+"l" = (/obj/machinery/conveyor{dir = 8; id = "QMLoad"},/obj/structure/plasticflaps/mining,/turf/simulated/shuttle/plating,/area/shuttle/supply)
 "m" = (/turf/simulated/shuttle/wall{tag = "icon-swall7"; icon_state = "swall7"; dir = 2},/area/shuttle/supply)
 "n" = (/turf/simulated/shuttle/floor,/turf/simulated/shuttle/wall/interior{tag = "icon-swall_f10"; icon_state = "swall_f10"},/area/shuttle/supply)
 "o" = (/obj/machinery/light/spot,/turf/simulated/shuttle/floor,/area/shuttle/supply)
@@ -38,3 +38,4 @@ mneoepq
 rstttsu
 vwxxxyv
 "}
+

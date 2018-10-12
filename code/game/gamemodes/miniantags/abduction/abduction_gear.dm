@@ -119,7 +119,7 @@
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
 	processing_objects.Remove(src)
-	for(var/obj/machinery/abductor/console/C in machines)
+	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.vest == src)
 			C.vest = null
 			break
@@ -491,7 +491,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.forcesay(hit_appends)
+		H.forcesay(GLOB.hit_appends)
 
 	add_attack_logs(user, L, "Stunned with [src]")
 
@@ -672,7 +672,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 // Operating Table / Beds / Lockers
 
-/obj/structure/stool/bed/abductor
+/obj/structure/bed/abductor
 	name = "resting contraption"
 	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
 	icon = 'icons/obj/abductor.dmi'

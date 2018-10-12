@@ -20,17 +20,17 @@
 	// Score Calculation and Display
 
 	// Who is alive/dead, who escaped
-	for(var/mob/living/silicon/ai/I in mob_list)
+	for(var/mob/living/silicon/ai/I in GLOB.mob_list)
 		if(I.stat == DEAD && is_station_level(I.z))
 			score_deadaipenalty++
 			score_deadcrew++
 
-	for(var/mob/living/carbon/human/I in mob_list)
+	for(var/mob/living/carbon/human/I in GLOB.mob_list)
 		if(I.stat == DEAD && is_station_level(I.z))
 			score_deadcrew++
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
-		for(var/mob/living/player in mob_list)
+		for(var/mob/living/player in GLOB.mob_list)
 			if(player.client)
 				if(player.stat != DEAD)
 					var/turf/location = get_turf(player.loc)
@@ -44,7 +44,7 @@
 	var/dmg_score = 0
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
-		for(var/mob/living/carbon/human/E in mob_list)
+		for(var/mob/living/carbon/human/E in GLOB.mob_list)
 			cash_score = 0
 			dmg_score = 0
 			var/turf/location = get_turf(E.loc)
@@ -71,7 +71,7 @@
 
 
 	// Check station's power levels
-	for(var/obj/machinery/power/apc/A in apcs)
+	for(var/obj/machinery/power/apc/A in GLOB.apcs)
 		if(!is_station_level(A.z)) continue
 		for(var/obj/item/stock_parts/cell/C in A.contents)
 			if(C.charge < 2300)
@@ -142,7 +142,7 @@
 	// Show the score - might add "ranks" later
 	to_chat(world, "<b>The crew's final score is:</b>")
 	to_chat(world, "<b><font size='4'>[score_crewscore]</font></b>")
-	for(var/mob/E in player_list)
+	for(var/mob/E in GLOB.player_list)
 		if(E.client && !E.get_preference(DISABLE_SCOREBOARD))
 			E.scorestats()
 

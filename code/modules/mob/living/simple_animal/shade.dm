@@ -29,24 +29,19 @@
 	deathmessage = "lets out a contented sigh as their form unwinds."
 
 
-	attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
-		if(istype(O, /obj/item/soulstone))
-			O.transfer_soul("SHADE", src, user)
+/mob/living/simple_animal/shade/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
+	if(istype(O, /obj/item/soulstone))
+		O.transfer_soul("SHADE", src, user)
+	else
+		if(O.force)
+			var/damage = O.force
+			if(O.damtype == STAMINA)
+				damage = 0
+			health -= damage
+			user.visible_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
 		else
-			if(O.force)
-				var/damage = O.force
-				if(O.damtype == STAMINA)
-					damage = 0
-				health -= damage
-				for(var/mob/M in viewers(src, null))
-					if((M.client && !( M.blinded )))
-						M.show_message("<span class='boldwarning'>[src] has been attacked with the [O] by [user]. </span>")
-			else
-				to_chat(usr, "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
-				for(var/mob/M in viewers(src, null))
-					if((M.client && !( M.blinded )))
-						M.show_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>")
-		return
+			user.visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>", "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
+	return
 
 /mob/living/simple_animal/shade/sword
 	universal_speak = 1

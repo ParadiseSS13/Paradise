@@ -38,7 +38,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/surnames = list()
 	var/list/forenames = list()
 	var/list/ckeys = list()
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		var/list/indexing = list(M.real_name, M.name)
 		if(M.mind)	indexing += M.mind.name
 
@@ -94,7 +94,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/mentorholders = list()
 	var/list/modholders = list()
 	var/list/adminholders = list()
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		if(check_rights(R_ADMIN, 0, X.mob))
 			if(X.is_afk())
 				admin_number_afk++
@@ -152,7 +152,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/admin_number_afk = 0		//Holds the number of admins who are afk
 	var/admin_number_ignored = 0	//Holds the number of admins without +BAN (so admins who are not really admins)
 	var/admin_number_decrease = 0	//Holds the number of admins with are afk, ignored or both
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		admin_number_total++;
 		var/invalid = 0
 		if(requiredflags != 0 && !check_rights_for(X, requiredflags))

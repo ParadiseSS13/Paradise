@@ -22,7 +22,7 @@
 		to_chat(src, "You whisper silently, \"[message]\"")
 		to_chat(B.host, "<i><span class='alien'>The captive mind of [src] whispers, \"[message]\"</span></i>")
 
-		for(var/mob/M in mob_list)
+		for(var/mob/M in GLOB.mob_list)
 			if(M.mind && isobserver(M))
 				to_chat(M, "<i>Thought-speech, <b>[src]</b> -> <b>[B.truename]:</b> [message]</i>")
 
@@ -42,7 +42,7 @@
 	to_chat(src, "<span class='danger'>You begin doggedly resisting the parasite's control (this will take approximately sixty seconds).</span>")
 	to_chat(B.host, "<span class='danger'>You feel the captive mind of [src] begin to resist your control.</span>")
 
-	var/delay = (rand(350,450) + B.host.brainloss)
+	var/delay = (rand(350,450) + B.host.getBrainLoss())
 	addtimer(CALLBACK(src, .proc/return_control, B), delay)
 
 
@@ -181,7 +181,7 @@
 		if(host)
 			to_chat(host, "<span class='changeling'><i>[truename] [say_string]:</i> [input]</span>")
 			log_say("(BORER to [key_name(host)]) [input]", src)
-			for(var/M in dead_mob_list)
+			for(var/M in GLOB.dead_mob_list)
 				if(isobserver(M))
 					to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 		to_chat(src, "<span class='changeling'><i>[truename] [say_string]:</i> [input]</span>")
@@ -217,7 +217,7 @@
 	to_chat(B, "<span class='changeling'><i>[src] says:</i> [input]</span>")
 	log_say("(BORER to [key_name(B)]) [input]", src)
 
-	for(var/M in dead_mob_list)
+	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
 			to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src] says:</i> [input]</span>")
@@ -239,7 +239,7 @@
 	to_chat(CB, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
 	log_say("(BORER to [key_name(CB)]) [input]", B)
 
-	for(var/M in dead_mob_list)
+	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
 			to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
@@ -397,7 +397,7 @@
 	for(var/datum in typesof(/datum/borer_chem))
 		var/datum/borer_chem/C = datum
 		var/cname = initial(C.chemname)
-		var/datum/reagent/R = chemical_reagents_list[cname]
+		var/datum/reagent/R = GLOB.chemical_reagents_list[cname]
 		if(cname)
 			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[cname]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
 
@@ -431,7 +431,7 @@
 
 		if(!C || !host || controlling || !src || stat)
 			return
-		var/datum/reagent/R = chemical_reagents_list[C.chemname]
+		var/datum/reagent/R = GLOB.chemical_reagents_list[C.chemname]
 		if(chemicals < C.chemuse)
 			to_chat(src, "<span class='boldnotice'>You need [C.chemuse] chemicals stored to secrete [R.name]!</span>")
 			return

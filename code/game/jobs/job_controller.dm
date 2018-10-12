@@ -177,7 +177,7 @@ var/global/datum/controller/occupations/job_master
 			break
 
 /datum/controller/occupations/proc/ResetOccupations()
-	for(var/mob/new_player/player in player_list)
+	for(var/mob/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
 			player.mind.assigned_role = null
 			player.mind.special_role = null
@@ -291,7 +291,7 @@ var/global/datum/controller/occupations/job_master
 				A.spawn_positions = 3
 
 	//Get the players who are ready
-	for(var/mob/new_player/player in player_list)
+	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned += player
 			if(player.client.prefs.randomslot)
@@ -461,7 +461,7 @@ var/global/datum/controller/occupations/job_master
 	if(!joined_late)
 		var/turf/T = null
 		var/obj/S = null
-		for(var/obj/effect/landmark/start/sloc in landmarks_list)
+		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 			if(sloc.name != rank)
 				continue
 			if(locate(/mob/living) in sloc.loc)
@@ -490,7 +490,7 @@ var/global/datum/controller/occupations/job_master
 		if(T)
 			H.loc = T
 			// Moving wheelchair if they have one
-			if(H.buckled && istype(H.buckled, /obj/structure/stool/bed/chair/wheelchair))
+			if(H.buckled && istype(H.buckled, /obj/structure/chair/wheelchair))
 				H.buckled.loc = H.loc
 				H.buckled.dir = H.dir
 
@@ -562,7 +562,7 @@ var/global/datum/controller/occupations/job_master
 		var/level5 = 0 //banned
 		var/level6 = 0 //account too young
 		var/level7 = 0 //has disability rendering them ineligible
-		for(var/mob/new_player/player in player_list)
+		for(var/mob/new_player/player in GLOB.player_list)
 			if(!(player.ready && player.mind && !player.mind.assigned_role))
 				continue //This player is not ready
 			if(jobban_isbanned(player, job.title))

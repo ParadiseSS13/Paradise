@@ -217,7 +217,7 @@
 
 	var/chemicals[0]
 	for(var/re in injection_chems)
-		var/datum/reagent/temp = chemical_reagents_list[re]
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
 			var/reagent_amount = 0
 			var/pretty_amount

@@ -553,7 +553,7 @@
 	if(!istype(S0))
 		return 1
 
-	for(var/obj/machinery/door/airlock/A in airlocks)
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == S0.id)
 			spawn(-1)
 				A.close()
@@ -563,7 +563,7 @@
 	if(!istype(S1))
 		return 0
 
-	for(var/obj/machinery/door/airlock/A in airlocks)
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == S1.id)
 			spawn(-1)
 				if(A.locked)
@@ -881,7 +881,7 @@ var/global/trade_dockrequest_timelimit = 0
 	docking_request = 1
 	var/possible_destinations_dock
 	var/possible_destinations_nodock
-	var/docking_request_message = "A trading ship has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
+	var/docking_request_message = "A trading ship has submitted a request to dock for trading. This request can be accepted or denied using a communications console."
 
 /obj/machinery/computer/shuttle/trade/attack_hand(mob/user)
 	if(world.time < trade_dock_timelimit)

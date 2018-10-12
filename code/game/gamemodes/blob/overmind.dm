@@ -98,7 +98,7 @@
 	var/verb = "states,"
 	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(isovermind(M) || isobserver(M))
 			M.show_message(rendered, 2)
 

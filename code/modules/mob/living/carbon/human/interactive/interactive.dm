@@ -67,13 +67,12 @@
 	//modules
 	var/list/functions = list("nearbyscan","combat","shitcurity","chatter")
 	var/restrictedJob = 0
-	var/shouldUseDynamicProc = 0 // switch to make the AI control it's own proccessing
-	var/alternateProcessing = 0
 	var/forceProcess = 0
-	var/processTime = 10
 	var/speak_file = "npc_chatter.json"
 	var/debugexamine = FALSE //If we show debug info in our examine
 	var/showexaminetext = TRUE	//If we show our telltale examine text
+
+	var/voice_saved = FALSE
 
 	var/list/knownStrings = list()
 
@@ -95,6 +94,8 @@
 		knownStrings = list()
 
 /mob/living/carbon/human/interactive/proc/saveVoice()
+	if(voice_saved)
+		return
 	var/savefile/S = new /savefile("data/npc_saves/snpc.sav")
 	S["knownStrings"] << knownStrings
 
@@ -142,7 +143,7 @@
 	doing = 0
 	inactivity_period = 0
 
-/client/proc/resetSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
+/client/proc/resetSNPC(mob/living/carbon/human/interactive/T in SSnpcpool.processing)
 	set name = "Reset SNPC"
 	set desc = "Reset the SNPC"
 	set category = "Debug"
@@ -153,20 +154,7 @@
 	if(istype(T))
 		T.reset()
 
-/client/proc/toggleSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
-	set name = "Toggle SNPC Proccessing Mode"
-	set desc = "Toggle SNPC Proccessing Mode"
-	set category = "Debug"
-
-	if(!holder)
-		return
-
-	if(istype(T))
-		T.alternateProcessing = !T.alternateProcessing
-		T.forceProcess = 1
-		to_chat(usr, "[T]'s processing has been switched to [T.alternateProcessing ? "High Profile" : "Low Profile"]")
-
-/client/proc/customiseSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
+/client/proc/customiseSNPC(mob/living/carbon/human/interactive/T in SSnpcpool.processing)
 	set name = "Customize SNPC"
 	set desc = "Customize the SNPC"
 	set category = "Debug"
@@ -191,15 +179,19 @@
 		T.myjob = cjob
 		T.job = cjob.title
 		T.mind.assigned_role = cjob.title
-		for(var/obj/item/W in T)
-			qdel(W)
+		for(var/obj/item/I in T)
+			if(istype(I, /obj/item/implant))
+				continue
+			if(istype(I, /obj/item/organ))
+				continue
+			qdel(I)
 		T.myjob.equip(T)
 		T.doSetup(alt_title)
 
 	var/shouldDoppel = input("Do you want the SNPC to disguise themself as a crewmember?") as anything in list("Yes", "No")
 	if(shouldDoppel == "Yes")
 		var/list/validchoices = list()
-		for(var/mob/living/carbon/human/M in mob_list)
+		for(var/mob/living/carbon/human/M in GLOB.mob_list)
 			validchoices += M
 
 		var/mob/living/carbon/human/chosen = input("Which crewmember?") as null|anything in validchoices
@@ -316,6 +308,12 @@
 	if(TRAITS & TRAIT_THIEVING)
 		slyness = 75
 
+/mob/living/carbon/human/interactive/proc/InteractiveProcess()
+	if(ticker.current_state == GAME_STATE_FINISHED)
+		saveVoice()
+		voice_saved = TRUE
+	doProcess()
+
 /mob/living/carbon/human/interactive/proc/setup_job(thejob)
 	switch(thejob)
 		if("Civilian")
@@ -412,16 +410,16 @@
 
 /mob/living/carbon/human/interactive/LateInitialize()
 	. = ..()
-	snpc_list += src
+	GLOB.snpc_list += src
 
 	create_mob_hud()
 
 	sync_mind()
 	random()
 	doSetup()
-	npc_master.insertBot(src)
+	START_PROCESSING(SSnpcpool, src)
 	loadVoice()
-	hear_radio_list += src
+	GLOB.hear_radio_list += src
 
 	// a little bit of variation to make individuals more unique
 	robustness += rand(-10, 10)
@@ -432,9 +430,7 @@
 	doProcess()
 
 /mob/living/carbon/human/interactive/Destroy()
-	hear_radio_list -= src
-	snpc_list -= src
-	npc_master.removeBot(src)
+	SSnpcpool.stop_processing(src)
 	return ..()
 
 /mob/living/carbon/human/interactive/proc/retalTarget(mob/living/target)
@@ -578,8 +574,11 @@
 	return get_dist(get_turf(towhere), get_turf(src))
 
 /mob/living/carbon/human/interactive/death()
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	saveVoice()
-	..()
 
 /mob/living/carbon/human/interactive/hear_say(message, verb = "says", datum/language/language = null, italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
 	if(!istype(speaker, /mob/living/carbon/human/interactive))
@@ -592,17 +591,7 @@
 	..()
 
 /mob/living/carbon/human/interactive/proc/doProcess()
-	forceProcess = 0
-
-	if(shouldUseDynamicProc)
-		var/isSeen = 0
-		for(var/mob/living/carbon/human/A in orange(12, src))
-			if(A.client)
-				isSeen = 1
-		alternateProcessing = isSeen
-		if(alternateProcessing)
-			forceProcess = 1
-
+	set waitfor = FALSE
 	if(IsDeadOrIncap())
 		reset()
 		return
@@ -630,10 +619,13 @@
 							if(istype(D,/obj/machinery/door/airlock))
 								var/obj/machinery/door/airlock/AL = D
 								if(!AL.CanAStarPass(RPID)) // only crack open doors we can't get through
+									inactivity_period = 20
 									AL.panel_open = 1
 									AL.update_icon()
 									AL.shock(src, mistake_chance)
 									sleep(5)
+									if(QDELETED(AL))
+										return
 									AL.unlock()
 									if(prob(mistake_chance))
 										if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_DOOR_BOLTS))
@@ -650,6 +642,8 @@
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_ELECTRIFY))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_ELECTRIFY)
 									sleep(5)
+									if(QDELETED(AL))
+										return
 									AL.panel_open = 0
 									AL.update_icon()
 							D.open()
@@ -683,7 +677,7 @@
 	//proc functions
 	for(var/Proc in functions)
 		if(!IsDeadOrIncap())
-			callfunction(Proc)
+			INVOKE_ASYNC(src, Proc)
 
 
 	//target interaction stays hardcoded
@@ -697,8 +691,8 @@
 		if(istype(TARGET, /obj/machinery/door))
 			var/obj/machinery/door/D = TARGET
 			if(D.check_access(MYID) && !istype(D,/obj/machinery/door/poddoor))
+				inactivity_period = 10
 				D.open()
-				sleep(15)
 				var/turf/T = get_step(get_step(D.loc, dir), dir) //recursion yo
 				tryWalk(T)
 		//THIEVING SKILLS
@@ -722,15 +716,8 @@
 					insert_into_backpack()
 		//---------FASHION
 		if(istype(TARGET, /obj/item/clothing))
-			var/obj/item/clothing/C = TARGET
 			drop_item()
-			spawn(5)
-				take_to_slot(C,1)
-				if(!equip_to_appropriate_slot(C))
-					var/obj/item/I = get_item_by_slot(C)
-					unEquip(I)
-					spawn(5)
-						equip_to_appropriate_slot(C)
+			dressup(TARGET)
 			update_hands = 1
 			if(MYPDA in loc)
 				equip_to_appropriate_slot(MYPDA)
@@ -787,9 +774,19 @@
 			TARGET = traitorTarget
 		tryWalk(TARGET)
 	LAST_TARGET = TARGET
-	if(alternateProcessing)
-		spawn(processTime)
-			doProcess()
+
+/mob/living/carbon/human/interactive/proc/dressup(obj/item/clothing/C)
+	set waitfor = FALSE
+	inactivity_period = 12
+	sleep(5)
+	if(!QDELETED(C) && !QDELETED(src))
+		take_to_slot(C,1)
+		if(!equip_to_appropriate_slot(C))
+			var/obj/item/I = get_item_by_slot(C)
+			unEquip(I)
+			sleep(5)
+			if(!QDELETED(src) && !QDELETED(C))
+				equip_to_appropriate_slot(C)
 
 /mob/living/carbon/human/interactive/proc/favouredObjIn(list/inList)
 	var/list/outList = list()
@@ -800,10 +797,6 @@
 	if(!outList.len)
 		outList = inList
 	return outList
-
-/mob/living/carbon/human/interactive/proc/callfunction(Proc)
-	spawn(0)
-		call(src, Proc)(src)
 
 /mob/living/carbon/human/interactive/proc/tryWalk(turf/inTarget)
 	if(restrictedJob) // we're a job that has to stay in our home

@@ -45,6 +45,26 @@
 		flush = initial(flush)
 		T.nicely_link_to_other_stuff(src)
 
+//When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
+/obj/machinery/disposal/Moved(atom/OldLoc, Dir) 
+	. = ..()
+	eject()
+	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
+	var/turf/T = OldLoc
+	if(T.intact)
+		var/turf/simulated/floor/F = T
+		F.remove_tile(null,TRUE,TRUE)
+		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
+	if(trunk)
+		trunk.remove_trunk_links()
+	var/obj/structure/disposalconstruct/C = new (loc)
+	transfer_fingerprints_to(C)
+	C.ptype = ptype
+	C.update()
+	C.anchored = 0
+	C.density = 1
+	qdel(src)
+
 /obj/machinery/disposal/Destroy()
 	eject()
 	if(trunk)
@@ -560,7 +580,7 @@
 		/*	if(hasmob && prob(3))
 				for(var/mob/living/H in src)
 					if(!istype(H,/mob/living/silicon/robot/drone)) //Drones use the mailing code to move through the disposal system,
-						H.take_overall_damage(20, 0, "Blunt Trauma") */ //horribly maim any living creature jumping down disposals.  c'est la vie
+						H.take_overall_damage(20, 0, TRUE, "Blunt Trauma") */ //horribly maim any living creature jumping down disposals.  c'est la vie
 
 			if(has_fat_guy && prob(2)) // chance of becoming stuck per segment if contains a fat guy
 				active = 0
@@ -983,7 +1003,7 @@
 	proc/updatedesc()
 		desc = "An underfloor disposal pipe with a package sorting mechanism."
 		if(sortType>0)
-			var/tag = uppertext(TAGGERLOCATIONS[sortType])
+			var/tag = uppertext(GLOB.TAGGERLOCATIONS[sortType])
 			desc += "\nIt's tagged with [tag]"
 
 	proc/updatedir()
@@ -1015,7 +1035,7 @@
 			if(O.currTag > 0)// Tag set
 				sortType = O.currTag
 				playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
-				var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
+				var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 				to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
 				updatedesc()
 
@@ -1344,6 +1364,24 @@
 		else
 			to_chat(user, "You need more welding fuel to complete this task.")
 			return
+
+//When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
+/obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir) 
+	. = ..()
+	var/turf/T = OldLoc
+	if(T.intact)
+		var/turf/simulated/floor/F = T
+		F.remove_tile(null,TRUE,TRUE)
+		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
+	if(linkedtrunk)
+		linkedtrunk.remove_trunk_links()
+	var/obj/structure/disposalconstruct/C = new (loc)
+	transfer_fingerprints_to(C)
+	C.ptype = PIPE_DISPOSALS_OUTLET
+	C.update()
+	C.anchored = 0
+	C.density = 1
+	qdel(src)
 
 /obj/structure/disposaloutlet/Destroy()
 	if(linkedtrunk)

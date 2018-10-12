@@ -18,7 +18,7 @@
 	var/grille_type
 	var/broken_type = /obj/structure/grille/broken
 	var/shockcooldown = 0
-	var/my_shockcooldown = 50
+	var/my_shockcooldown = 1 SECONDS
 
 /obj/structure/grille/fence/
 	var/width = 3
