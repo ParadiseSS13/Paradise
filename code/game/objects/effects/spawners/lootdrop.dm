@@ -1,6 +1,6 @@
 /obj/effect/spawner/lootdrop
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
+	icon = 'icons/effects/landmarks_static.dmi'
+	icon_state = "random_loot"
 	color = "#00FF00"
 	var/lootcount = 1		//how many items will be spawned
 	var/lootdoubles = 1		//if the same item can be spawned twice

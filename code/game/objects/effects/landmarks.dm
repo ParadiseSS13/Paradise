@@ -175,9 +175,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	name = "Detective"
 	icon_state = "Detective"
 
-/obj/effect/landmark/start/lawyer
-	name = "Lawyer"
-	icon_state = "Lawyer"
+/obj/effect/landmark/start/iaa
+	name = "Internal Affairs Agent"
+	icon_state = "iaa"
 
 // Medical //
 
@@ -259,7 +259,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/start/podpilot
 	name = "Pod Pilot"
-	icon_state = "pod_pilot"
+	icon_state = "Pod Pilot"
 
 /obj/effect/landmark/start/barber
 	name = "Barber"
@@ -267,15 +267,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/start/ntrep
 	name = "Nanotrasen Representative"
-	icon_state = "nt_rep"
+	icon_state = "NT Rep"
+
+/obj/effect/landmark/start/paramedic
+	name = "Paramedic"
+	icon_state = "Paramedic"
 
 /obj/effect/landmark/start/brigdoc
 	name = "Brig Physician"
-	icon_state = "brig_doc"
+	icon_state = "Brig Doc"
 
 /obj/effect/landmark/start/magistrate
 	name = "Magistrate"
-	icon_state = "magistrate"
+	icon_state = "Magistrate"
 
 // Antags //
 
@@ -472,6 +476,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 // Damage tiles
 /obj/effect/landmark/damageturf
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "damaged"
 
 /obj/effect/landmark/damageturf/New()
@@ -480,6 +485,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	T.break_tile()
 
 /obj/effect/landmark/burnturf
+	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "burned"
 
 /obj/effect/landmark/burnturf/New()
