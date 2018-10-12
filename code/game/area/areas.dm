@@ -73,26 +73,11 @@
 	uid = ++global_uid
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
-	if(requires_power)
-		luminosity = 0
-	else
-		power_light = TRUE
-		power_equip = TRUE
-		power_environ = TRUE
+	if(requires_power != 0)
+		power_light = 0
+		power_equip = 0
+		power_environ = 0
 
-		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
-			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
-			luminosity = 0
-		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = config.starlight ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
-
-	/*if(requires_power != 0)
-		power_light = 0			//rastaf0
-		power_equip = 0			//rastaf0
-		power_environ = 0		//rastaf0
-		*/
 	. = ..()
 
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
