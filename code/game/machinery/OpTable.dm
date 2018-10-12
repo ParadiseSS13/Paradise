@@ -15,6 +15,7 @@
 	buckle_lying = 90
 	var/no_icon_updates = 0 //set this to 1 if you don't want the icons ever changing
 	var/list/injected_reagents = list()
+	var/injected_target_amount = 1
 
 /obj/machinery/optable/New()
 	..()
@@ -107,8 +108,9 @@
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
 			for(var/chemical in injected_reagents)
-				if(C.reagents.get_reagent_amount(chemical) < 1)
-					C.reagents.add_reagent(chemical, 1)
+				var/current_amount = C.reagents.get_reagent_amount(chemical)
+				if(current_amount < injected_target_amount)
+					C.reagents.add_reagent(chemical, injected_target_amount - current_amount)
 
 /obj/machinery/optable/proc/take_victim(mob/living/carbon/C, mob/living/carbon/user as mob)
 	if(C == user)

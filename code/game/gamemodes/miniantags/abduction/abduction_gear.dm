@@ -736,6 +736,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.
 	injected_reagents = list("corazone","spaceacillin")
+	injected_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotization.
 
 /obj/structure/closet/abductor
 	name = "alien locker"
