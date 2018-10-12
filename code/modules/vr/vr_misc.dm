@@ -14,13 +14,13 @@ var/list/vr_reset_buttons = list()
 		to_chat(user, "Querying medical database for the next [round((cooldown-world.time)/10)] seconds. Please wait.")
 	else
 		var/mob/living/carbon/human/medical_dummy
-		var/S = input(user, "Choose a Species for your medical dummy.","Select Species") as null|anything in all_species
+		var/S = input(user, "Choose a Species for your medical dummy.","Select Species") as null|anything in GLOB.all_species
 		if(!S)
 			return 0
 		medical_dummy = new(loc)
 		medical_dummy.set_species(S)
-		medical_dummy.species.after_equip_job(null, medical_dummy)
-		if(medical_dummy.species.name == "Plasmaman") // This is a hack around how the after_equip_job proc works.
+		medical_dummy.dna.species.after_equip_job(null, medical_dummy)
+		if(medical_dummy.dna.species.type == "Plasmaman") // This is a hack around how the after_equip_job proc works.
 			for(var/obj/item/plasmensuit_cartridge/C in medical_dummy.loc)
 				qdel(C)
 		icon_state = "doorctrl1"
@@ -118,3 +118,13 @@ obj/machinery/vr_reset_button/engineering
 	item_state = "psysuit"
 	item_color = "psysuit"
 	flags = NODROP
+
+/obj/structure/closet/blast_shelter
+	name = "blast shelter"
+	desc = "This will protect you from all explosions. We recomend thinking happy thoughts as a failsafe."
+	icon_state = "cardboard"
+	icon_opened = "cardboard_open"
+	icon_closed = "cardboard"
+
+/obj/structure/closet/blast_shelter/ex_act(var/severity)
+	return

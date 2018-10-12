@@ -126,7 +126,7 @@
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		// TODO: Integrate radio with the space manager
-		if(isnull(position) || !(position.z in level))
+		if(isnull(position) || !(get_radio_id(position.z) in level))
 			return -1
 	if(freq in ANTAG_FREQS)
 		if(!(src.syndie))

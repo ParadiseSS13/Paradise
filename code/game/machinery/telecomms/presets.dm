@@ -30,6 +30,12 @@
 	toggled = 0
 	autolinkers = list("e_relay")
 
+/obj/machinery/telecomms/relay/preset/vr
+	id = "VR Relay"
+	listening_level = "vr"
+	autolinkers = list("vr_relay")
+	use_power = NO_POWER_USE
+
 /obj/machinery/telecomms/relay/preset/centcom
 	id = "Centcom Relay"
 	hide = 1
@@ -44,7 +50,7 @@
 /obj/machinery/telecomms/hub/preset
 	id = "Hub"
 	network = "tcommsat"
-	autolinkers = list("hub", "relay", "c_relay", "s_relay", "m_relay", "r_relay", "e_relay", "science", "medical",
+	autolinkers = list("hub", "relay", "c_relay", "s_relay", "m_relay", "r_relay", "e_relay", "vr_relay", "science", "medical",
 	"supply", "service", "common", "command", "engineering", "security",
 	"receiverA", "receiverB", "broadcasterA", "broadcasterB")
 
@@ -52,7 +58,7 @@
 	id = "CentComm Hub"
 	network = "tcommsat"
 	use_power = NO_POWER_USE
-	autolinkers = list("hub_cent", "c_relay", "s_relay", "m_relay", "r_relay", "e_relay",
+	autolinkers = list("hub_cent", "c_relay", "s_relay", "m_relay", "r_relay", "e_relay", "vr_relay",
 	 "centcomm", "receiverCent", "broadcasterCent")
 
 //Receivers

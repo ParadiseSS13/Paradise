@@ -2,7 +2,7 @@
 "ab" = (/turf/unsimulated/wall/metal,/area/vr/medical)
 "ac" = (/obj/machinery/door/airlock/medical{id_tag = "VRMedSpace"; name = "Space Vent"},/turf/simulated/floor/engine/insulated/vacuum,/area/vr/medical)
 "ad" = (/turf/simulated/floor/engine/insulated,/area/vr/medical)
-"ae" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/engine/insulated,/area/vr/medical)
+"ae" = (/obj/structure/chair/stool,/turf/simulated/floor/engine/insulated,/area/vr/medical)
 "af" = (/obj/machinery/atmospherics/unary/outlet_injector/on,/turf/simulated/floor/engine/insulated,/area/vr/medical)
 "ag" = (/obj/structure/alien/egg,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "ah" = (/turf/simulated/shuttle/plating,/area/vr/medical)
@@ -41,7 +41,7 @@
 "aO" = (/obj/structure/table/reinforced,/obj/item/gun/energy/decloner,/obj/item/gun/energy/decloner,/obj/item/gun/energy/decloner,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "aP" = (/turf/unsimulated/floor{dir = 4; heat_capacity = 1; icon_state = "warning"},/area/vr/medical)
 "aQ" = (/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
-"aR" = (/obj/structure/stool/bed/chair/office/dark{dir = 1},/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
+"aR" = (/obj/structure/chair/office/dark{dir = 1},/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "aS" = (/obj/structure/table/reinforced,/obj/item/twohanded/fireaxe,/obj/item/melee/energy/sword,/obj/item/melee/energy/sword,/turf/unsimulated/floor{tag = "icon-floor"; icon_state = "floor"},/area/vr/medical)
 "aT" = (/obj/structure/table,/obj/item/dnainjector/antiblind,/obj/item/dnainjector/antiblind,/obj/item/dnainjector/anticlumsy,/obj/item/dnainjector/anticlumsy,/obj/item/dnainjector/anticough,/obj/item/dnainjector/anticough,/obj/item/dnainjector/antideaf,/obj/item/dnainjector/antideaf,/obj/item/dnainjector/antiepi,/obj/item/dnainjector/antiepi,/obj/item/dnainjector/antifire,/obj/item/dnainjector/antifire,/obj/item/dnainjector/antiglasses,/obj/item/dnainjector/antiglasses,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
 "aU" = (/obj/structure/table,/obj/item/dnainjector/blindmut,/obj/item/dnainjector/blindmut,/obj/item/dnainjector/clumsymut,/obj/item/dnainjector/clumsymut,/obj/item/dnainjector/coughmut,/obj/item/dnainjector/coughmut,/obj/item/dnainjector/deafmut,/obj/item/dnainjector/deafmut,/obj/item/dnainjector/epimut,/obj/item/dnainjector/epimut,/obj/item/dnainjector/firemut,/obj/item/dnainjector/firemut,/obj/item/dnainjector/glassesmut,/obj/item/dnainjector/glassesmut,/turf/unsimulated/floor{icon_state = "white"},/area/vr/medical)
@@ -120,8 +120,8 @@
 "cp" = (/obj/structure/sink{icon_state = "sink"; dir = 8; pixel_x = -12; pixel_y = 2},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cq" = (/turf/unsimulated/wall/fakeglass{dir = 0; icon_state = "fakewindows"; tag = "icon-fakewindows (EAST)"},/area/vr/medical)
 "cr" = (/obj/structure/sink{dir = 4; icon_state = "sink"; pixel_x = 12; pixel_y = 2},/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
-"cs" = (/obj/structure/stool/bed/chair/office/light{dir = 4},/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/vr/medical)
-"ct" = (/obj/structure/stool/bed/chair/office/light{dir = 8},/turf/unsimulated/floor{icon_state = "green"; dir = 4},/area/vr/medical)
+"cs" = (/obj/structure/chair/office/light{dir = 4},/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/vr/medical)
+"ct" = (/obj/structure/chair/office/light{dir = 8},/turf/unsimulated/floor{icon_state = "green"; dir = 4},/area/vr/medical)
 "cu" = (/obj/machinery/chem_heater,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cv" = (/obj/structure/table,/obj/item/reagent_containers/glass/bottle/adminordrazine,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/obj/item/reagent_containers/glass/beaker/noreact,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cw" = (/obj/structure/table,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/signaler,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/infra,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/obj/item/assembly/prox_sensor,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
@@ -137,10 +137,10 @@
 "cG" = (/obj/machinery/computer/operating,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cH" = (/obj/item/circular_saw,/obj/item/FixOVein,/obj/structure/table/glass,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cI" = (/obj/structure/table/glass,/obj/structure/reagent_dispensers/virusfood{pixel_x = -30},/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/vr/medical)
-"cJ" = (/obj/structure/stool/bed/chair/office/light{dir = 8},/turf/unsimulated/floor{icon_state = "floor"},/area/vr/medical)
+"cJ" = (/obj/structure/chair/office/light{dir = 8},/turf/unsimulated/floor{icon_state = "floor"},/area/vr/medical)
 "cK" = (/obj/structure/table/glass,/obj/item/reagent_containers/syringe/antiviral,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/dropper/precision,/obj/item/reagent_containers/spray/cleaner,/turf/unsimulated/floor{icon_state = "green"; dir = 4},/area/vr/medical)
 "cL" = (/obj/structure/table/glass,/obj/item/reagent_containers/syringe/antiviral,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/dropper/precision,/obj/item/reagent_containers/spray/cleaner,/turf/unsimulated/floor{icon_state = "green"; dir = 8},/area/vr/medical)
-"cM" = (/obj/structure/stool/bed/chair/office/light{dir = 4},/turf/unsimulated/floor{icon_state = "floor"},/area/vr/medical)
+"cM" = (/obj/structure/chair/office/light{dir = 4},/turf/unsimulated/floor{icon_state = "floor"},/area/vr/medical)
 "cN" = (/obj/structure/table/glass,/obj/structure/reagent_dispensers/virusfood{pixel_x = 30},/turf/unsimulated/floor{icon_state = "green"; dir = 4},/area/vr/medical)
 "cO" = (/obj/item/storage/box/syringes,/obj/item/assembly/igniter,/obj/item/assembly/igniter,/obj/item/assembly/igniter,/obj/item/assembly/igniter,/obj/item/assembly/timer,/obj/item/assembly/timer,/obj/item/assembly/timer,/obj/item/assembly/timer,/obj/item/grenade/chem_grenade/large,/obj/item/grenade/chem_grenade/large,/obj/item/grenade/chem_grenade/large,/obj/item/grenade/chem_grenade/large,/obj/item/gun/syringe/rapidsyringe,/obj/item/reagent_containers/spray/chemsprayer,/obj/structure/closet,/obj/item/gun/projectile/shotgun/sc_pump,/obj/item/ammo_casing/shotgun/dart,/obj/item/ammo_casing/shotgun/dart,/obj/item/ammo_casing/shotgun/dart,/obj/item/ammo_casing/shotgun/dart,/obj/item/ammo_casing/shotgun/dart,/obj/item/ammo_casing/shotgun/dart,/obj/item/gun/syringe/rapidsyringe,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
 "cP" = (/obj/structure/table,/obj/item/storage/box/beakers,/obj/item/reagent_containers/glass/beaker/bluespace,/obj/item/reagent_containers/glass/beaker/bluespace,/obj/item/reagent_containers/glass/beaker/bluespace,/obj/item/reagent_containers/glass/beaker/bluespace,/obj/item/storage/box/autoinjectors,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/medical)
@@ -181,31 +181,51 @@
 "dy" = (/obj/structure/table/glass,/obj/item/reagent_containers/glass/bottle/diphenhydramine,/obj/item/reagent_containers/glass/bottle/diphenhydramine,/obj/item/reagent_containers/glass/bottle/diphenhydramine,/obj/item/reagent_containers/glass/bottle/diethylamine,/obj/item/reagent_containers/glass/bottle/diethylamine,/obj/item/reagent_containers/glass/bottle/diethylamine,/turf/unsimulated/floor{icon_state = "green"; dir = 6},/area/vr/medical)
 
 (1,1,1) = {"
-aaaaaaaaaaabababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaaaabaaacadaeadacaaaaaaabaaabababababaaaaaaaaaaaaaaaaaaaa
-aaaaaaaaababaaabafafafabababababaaabagagagabaaaaaaaaaaaaaaaaaaaa
-aaaaaaabahabaaabaiajakabalamamabaaabagagagabababababaaaaaaaaaaaa
-aaaaabahahahababanaoaoabalapapabaaabagagagabaqaqaqabaaaaaaaaaaaa
-aaabahahahahahabarararasalatatababababalababaqaqaqabaaaaaaaaaaaa
-aaababahahahababauaravabalawawabaxaxabalababaqaqaqabaaaaaaaaaaaa
-aaabababahabababayazaAabalaBaBabalaxabalabababalabababababababab
-ababababaCababababasabababababaDaEaDaFaGaFababaHabaIaJaKaLaJaIab
-abaMaNaOalalaPalalalalalalalalalalalalalalalalalabaQaRaQaQaRaQab
-abaSalalalalaPalalalalalalalalalalalalalalalalalabaTaQaUaUaQaTab
-abaValalalalalababababababababababababababababababaWaQaXaXaQaWab
-abaYalaZbaalbbabbcbdbebebebebfbgbgbfbebebebebdbcabbhaQbibiaQbhab
-abbjalbkblalbmabaQaQaQaQaQaQaQaQaQaQaQaQaQaQaQaQabaQaQaQaQaQaQab
-abbnalbobpalbqabaQbrbsbtbubvbwaQaQbxbybzbAbebeaQabaQaQbBbBaQaQab
-abbCbDbEbFbDbCabaQbGbHbIbJbKbLaQaQbMbNbObPbebeaQabbCbQbEbFbQbCab
-abbRbRbRbRbRbRbRbRbRbRbRbRbRbRbSbSbRbRbRbRbRbRbRbRbRbRbRbRbRbRab
-abbRbRbRbRbRbRbRbRbRbRbRbTbTbRbSbSbRbTbTbRbRbRbRbRbRbRbRbRbRbRab
-abbCbUbEbFbUbCabababababababbVbRbRbVabababababababbCbWbEbFbWbCab
-abbXbYbYbYbYbXabbZcacbcccdcecfbRbRcfcgcacbccchceabcicjckckcjclab
-abcmcncococncmabcpbYbYbYbYbYcqbRbRcqbYbYbYbYbYcrabcscjcjcjcjctab
-abcubYcvcwbYcuabbYbYbYbYbYbYcxbRbRcybYbYbYbYbYbYabczcjcAcBcjcCab
-abcDbYbYbYbYcDabcEbYcFcGbYbYababababbYbYcGcFbYcHabcIcJcKcLcMcNab
-abcObYcPcQbYcOabcRbYbYbYbYbYcSababcTbYbYbYbYbYcUabcVcjcWcXcjcYab
-abcZbYdadbbYcZabdcdddedfbYdgdhababdidjbYdkdldddmabdncjcjcjcjdoab
-abbYbYdpdqbYbYababababababdrdsababdsdrababababababdtdudvdwdxdyab
-abababababababababababababababababababababababababababababababab
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabababababababababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaacadaeadacaaaaaaabaaabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaababaaabafafafabababababaaabagagagabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaabahabaaabaiajakabalamamabaaabagagagabababababaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaabahahahababanaoaoabalapapabaaabagagagabaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaabahahahahahabarararasalatatababababalababaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaababahahahababauaravabalawawabaxaxabalababaqaqaqabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaabababahabababayazaAabalaBaBabalaxabalabababalababababababababaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaababababaCababababasabababababaDaEaDaFaGaFababaHabaIaJaKaLaJaIabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabaMaNaOalalaPalalalalalalalalalalalalalalalalalabaQaRaQaQaRaQabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabaSalalalalaPalalalalalalalalalalalalalalalalalabaTaQaUaUaQaTabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabaValalalalalababababababababababababababababababaWaQaXaXaQaWabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabaYalaZbaalbbabbcbdbebebebebfbgbgbfbebebebebdbcabbhaQbibiaQbhabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbjalbkblalbmabaQaQaQaQaQaQaQaQaQaQaQaQaQaQaQaQabaQaQaQaQaQaQabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbnalbobpalbqabaQbrbsbtbubvbwaQaQbxbybzbAbebeaQabaQaQbBbBaQaQabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbCbDbEbFbDbCabaQbGbHbIbJbKbLaQaQbMbNbObPbebeaQabbCbQbEbFbQbCabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbRbRbRbRbRbRbRbRbRbRbRbRbRbRbSbSbRbRbRbRbRbRbRbRbRbRbRbRbRbRabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbRbRbRbRbRbRbRbRbRbRbRbTbTbRbSbSbRbTbTbRbRbRbRbRbRbRbRbRbRbRabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbCbUbEbFbUbCabababababababbVbRbRbVabababababababbCbWbEbFbWbCabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbXbYbYbYbYbXabbZcacbcccdcecfbRbRcfcgcacbccchceabcicjckckcjclabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabcmcncococncmabcpbYbYbYbYbYcqbRbRcqbYbYbYbYbYcrabcscjcjcjcjctabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabcubYcvcwbYcuabbYbYbYbYbYbYcxbRbRcybYbYbYbYbYbYabczcjcAcBcjcCabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabcDbYbYbYbYcDabcEbYcFcGbYbYababababbYbYcGcFbYcHabcIcJcKcLcMcNabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabcObYcPcQbYcOabcRbYbYbYbYbYcSababcTbYbYbYbYbYcUabcVcjcWcXcjcYabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabcZbYdadbbYcZabdcdddedfbYdgdhababdidjbYdkdldddmabdncjcjcjcjdoabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaabbYbYdpdqbYbYababababababdrdsababdsdrababababababdtdudvdwdxdyabaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaababababababababababababababababababababababababababababababababaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}

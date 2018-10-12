@@ -22,12 +22,12 @@
 "av" = (/obj/item/storage/fancy/crayons,/obj/machinery/light{dir = 1; on = 1},/obj/structure/table,/obj/item/storage/fancy/crayons,/turf/unsimulated/floor{icon_state = "freezerfloor"; dir = 2},/area/vr/bombs)
 "aw" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
 "ax" = (/obj/structure/sign/poster/random{pixel_x = -32},/turf/simulated/floor/carpet,/area/vr/bombs)
-"ay" = (/obj/structure/stool/bed/chair,/turf/simulated/floor/wood,/area/vr/bombs)
+"ay" = (/obj/structure/chair/stool,/turf/simulated/floor/wood,/area/vr/bombs)
 "az" = (/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/vr/bombs)
 "aA" = (/obj/machinery/vending/coffee,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
 "aB" = (/obj/machinery/vending/snack,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
 "aC" = (/obj/machinery/vending/cigarette,/turf/simulated/floor/plasteel{dir = 2; icon_state = "cafeteria"; tag = "icon-cafeteria (NORTHEAST)"},/area/vr/bombs)
-"aD" = (/obj/structure/stool/bed/chair{dir = 4},/turf/simulated/floor/wood,/area/vr/bombs)
+"aD" = (/obj/structure/chair/stool{dir = 4},/turf/simulated/floor/wood,/area/vr/bombs)
 "aE" = (/obj/structure/table/wood,/turf/simulated/floor/wood,/area/vr/bombs)
 "aF" = (/obj/structure/rack,/obj/item/clothing/suit/wizrobe/marisa,/obj/item/clothing/shoes/sandal/marisa,/obj/item/clothing/head/wizard/marisa,/obj/structure/sign/poster/random{pixel_x = -32},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/vr/bombs)
 "aG" = (/obj/structure/rack,/obj/item/clothing/suit/wizrobe/magusblue,/obj/item/clothing/head/wizard/magus,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/vr/bombs)
@@ -70,7 +70,7 @@
 "br" = (/turf/unsimulated/wall/fakeglass{tag = "icon-fakewindows (NORTHWEST)"; icon_state = "fakewindows"; dir = 9},/area/vr/bombs)
 "bs" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows"; dir = 1},/area/vr/bombs)
 "bt" = (/turf/unsimulated/wall/fakeglass{icon_state = "fakewindows2"; dir = 1},/area/vr/bombs)
-"bu" = (/obj/structure/closet/secure_closet/freezer{name = "blast shelter"},/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/bombs)
+"bu" = (/obj/structure/closet/blast_shelter,/turf/unsimulated/floor{tag = "icon-dark"; icon_state = "dark"},/area/vr/bombs)
 "bv" = (/turf/unsimulated/wall/fakeglass{dir = 10; icon_state = "fakewindows"; tag = "icon-fakewindows (SOUTHEAST)"},/area/vr/bombs)
 
 (1,1,1) = {"

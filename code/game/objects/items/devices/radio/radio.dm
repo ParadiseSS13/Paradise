@@ -434,7 +434,7 @@ var/global/list/default_medbay_channels = list(
 			"type" = 0, // determines what type of radio input it is: normal broadcast
 			"server" = null, // the last server to log this signal
 			"reject" = 0,	// if nonzero, the signal will not be accepted by any broadcasting machinery
-			"level" = position.z, // The source's z level
+			"level" = get_radio_id(position.z), // The source's z level or heap radio id
 			"language" = speaking,
 			"verb" = verb
 		)
@@ -452,7 +452,7 @@ var/global/list/default_medbay_channels = list(
 				R.receive_signal(signal)
 
 		// Receiving code can be located in Telecommunications.dm
-		return signal.data["done"] && position.z in signal.data["level"]
+		return signal.data["done"] && get_radio_id(position.z) in signal.data["level"]
 
 
   /* ###### Intercoms and station-bounced radios ###### */
@@ -492,7 +492,7 @@ var/global/list/default_medbay_channels = list(
 		"type" = 0,
 		"server" = null,
 		"reject" = 0,
-		"level" = position.z,
+		"level" = get_radio_id(position.z),
 		"language" = speaking,
 		"verb" = verb
 	)
@@ -505,7 +505,7 @@ var/global/list/default_medbay_channels = list(
 
 	sleep(rand(10,25)) // wait a little...
 
-	if(signal.data["done"] && position.z in signal.data["level"])
+	if(signal.data["done"] && get_radio_id(position.z) in signal.data["level"])
 		// we're done here.
 		return 1
 
@@ -517,7 +517,7 @@ var/global/list/default_medbay_channels = list(
 
 	return Broadcast_Message(connection, M, voicemask, pick(M.speak_emote),
 					  src, message, displayname, jobname, real_name, M.voice_name,
-					  filter_type, signal.data["compression"], list(position.z), connection.frequency,verb,speaking)
+					  filter_type, signal.data["compression"], list(get_radio_id(position.z)), connection.frequency,verb,speaking)
 
 
 /obj/item/radio/hear_talk(mob/M as mob, msg, var/verb = "says", var/datum/language/speaking = null)
@@ -549,7 +549,7 @@ var/global/list/default_medbay_channels = list(
 		return -1
 	if(!(0 in level))
 		var/turf/position = get_turf(src)
-		if(!position || !(position.z in level))
+		if(!position || !(get_radio_id(position.z) in level))
 			return -1
 	if(freq in ANTAG_FREQS)
 		if(!(syndie))//Checks to see if it's allowed on that frequency, based on the encryption keys

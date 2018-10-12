@@ -68,7 +68,7 @@ var/list/vr_all_players = list()
 			space_manager.free_space(src.chunk)
 		round_end = world.time + 30 SECONDS
 		sleep(30 SECONDS)
-		chunk = space_manager.allocate_space(template.width, template.height)
+		chunk = space_manager.allocate_space(template.width, template.height, "vr")
 		template.load(locate(chunk.x,chunk.y,chunk.zpos), centered = FALSE)
 
 		sort_landmarks()
@@ -93,7 +93,7 @@ proc/make_vr_room(name, template, expires, creator)
 	R.name = name
 	R.template = template
 	R.template = vr_templates[R.template]
-	R.chunk = space_manager.allocate_space(R.template.width, R.template.height)
+	R.chunk = space_manager.allocate_space(R.template.width, R.template.height, "vr")
 	R.expires = expires
 	R.creator = creator
 	R.template.load(locate(R.chunk.x,R.chunk.y,R.chunk.zpos), centered = FALSE)
@@ -130,12 +130,15 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 		vr_avatar.real_me = H
 		H.vr_avatar = vr_avatar
 
+	vr_avatar.set_species(H.dna.species.type)
 	vr_avatar.dna = H.dna.Clone()
 	vr_avatar.sync_organ_dna(assimilate=1)
-	vr_avatar.set_species(H.dna.species.type)
 	vr_avatar.update_mutantrace(1)
 	vr_avatar.UpdateAppearance()
+	domutcheck(vr_avatar, null, MUTCHK_FORCED)
 
+	for(var/datum/language/L in H.languages)
+		vr_avatar.add_language(L.name)
 	vr_avatar.name = H.name
 	vr_avatar.real_name = H.real_name
 	vr_avatar.undershirt = H.undershirt
@@ -148,11 +151,11 @@ proc/build_virtual_avatar(mob/living/carbon/human/H, location, datum/vr_room/roo
 	var/obj/item/radio/headset/R = new /obj/item/radio/headset/vr(vr_avatar)
 	vr_avatar.equip_to_slot_or_del(R, slot_l_ear)
 
-	if(vr_avatar.species.name == "Plasmaman")
+	vr_avatar.dna.species.after_equip_job(null, vr_avatar)
+
+	if(vr_avatar.dna.species.name == "Plasmaman")
 		for(var/obj/item/plasmensuit_cartridge/C in vr_avatar.loc)
 			qdel(C)
-
-	vr_avatar.species.after_equip_job(null, vr_avatar)
 
 	vr_avatar.myroom = room
 	vr_all_players.Add(vr_avatar)
@@ -176,6 +179,7 @@ proc/control_remote(mob/living/carbon/human/H, mob/living/carbon/human/virtual_r
 			vr_avatar.real_me = V.real_me
 		else
 			vr_avatar.real_me = H
+		vr_avatar.add_mind_powers()
 
 proc/spawn_vr_avatar(mob/living/carbon/human/H, datum/vr_room/room)
 

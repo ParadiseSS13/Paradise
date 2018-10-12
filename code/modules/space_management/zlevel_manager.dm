@@ -133,32 +133,32 @@ var/global/datum/zlev_manager/space_manager = new
 
 
 // An internally-used proc used for heap-zlevel management
-/datum/zlev_manager/proc/add_new_heap()
+/datum/zlev_manager/proc/add_new_heap(radio_id)
 	world.maxz++
 	var/our_z = world.maxz
-	var/datum/space_level/yup = new /datum/space_level/heap(our_z, traits = list(BLOCK_TELEPORT, ADMIN_LEVEL))
+	var/datum/space_level/yup = new /datum/space_level/heap(our_z, radio_id = radio_id, traits = list(BLOCK_TELEPORT, ADMIN_LEVEL))
 	z_list["[our_z]"] = yup
 	return yup
 
 // This is what you can call to allocate a section of space
 // Later, I'll add an argument to let you define the flags on the region
-/datum/zlev_manager/proc/allocate_space(width, height)
+/datum/zlev_manager/proc/allocate_space(width, height, radio_id)
 	if(width > world.maxx || height > world.maxy)
 		throw EXCEPTION("Too much space requested! \[[width],[height]\]")
 	if(!heaps.len)
 		heaps.len++
-		heaps[heaps.len] = add_new_heap()
+		heaps[heaps.len] = add_new_heap(radio_id)
 	var/datum/space_level/heap/our_heap
 	var/weve_got_vacancy = 0
 	for(our_heap in heaps)
 		weve_got_vacancy = our_heap.request(width, height)
-		if(weve_got_vacancy)
-			break // We're sticking with the present value of `our_heap` - it's got room
+		if(weve_got_vacancy && our_heap.level_radio_id == radio_id)
+			break // We're sticking with the present value of `our_heap` - it's got room and has the correct radio id
 		// This loop will also run out if no vacancies are found
 
 	if(!weve_got_vacancy)
 		heaps.len++
-		our_heap = add_new_heap()
+		our_heap = add_new_heap(radio_id)
 		heaps[heaps.len] = our_heap
 	return our_heap.allocate(width, height)
 

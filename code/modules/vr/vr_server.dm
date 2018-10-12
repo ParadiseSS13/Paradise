@@ -13,7 +13,7 @@ var/vr_server_status = VR_SERVER_OFF
 	use_power = 1
 	idle_power_usage = 10
 	active_power_usage = 100
-	var/obj/item/radio/radio = null
+	var/obj/machinery/telecomms/relay/internal_relay = null
 
 
 /obj/machinery/vr_server/update_icon()
@@ -62,7 +62,7 @@ var/vr_server_status = VR_SERVER_OFF
 /obj/machinery/vr_server/New()
 	if(vr_server_status == VR_SERVER_OFF)
 		set_state(VR_SERVER_ON)
-	radio = new /obj/item/radio/internal/vr(src)
+	internal_relay = new /obj/machinery/telecomms/relay/preset/vr(src)
 	update_icon()
 
 /obj/machinery/vr_server/power_change()
@@ -93,32 +93,3 @@ var/vr_server_status = VR_SERVER_OFF
 	desc = "Its main circuit board appears to be fried."
 	for(var/mob/living/carbon/human/virtual_reality/player in vr_all_players)
 		to_chat(player, "ERROR: Containment protocal has encountered a fatal exception.")
-
-/obj/item/radio/internal/vr
-	channels = list("Common" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Response Team" = 1, "Special Ops" = 1,
-		"Syndicate" = 1, "SyndTeam" = 1, "Supply" = 1, "Service" = 1, "AI Private"= 1, "Medical(I)"= 1, "Security(I)"= 1)
-
-/obj/item/radio/internal/vr/get_listening_turfs(freq)
-	var/list/listening_turfs = list()
-	for(var/mob/living/carbon/human/virtual_reality/P in vr_all_players)
-		var/turf/T = P.loc
-		if(freq && P.real_me)
-			for(var/obj/item/radio/headset/H in P.real_me.get_head_slots())
-				for(var/channel in H.channels)
-					if(radiochannels[channel] == freq)
-						listening_turfs[T] = T
-		else
-			listening_turfs[T] = T
-	return listening_turfs
-
-/obj/item/radio/internal/vr/send_hear(freq, level)
-	var/list/listening_mobs = list()
-	for(var/mob/living/carbon/human/virtual_reality/P in vr_all_players)
-		if(freq && P.real_me)
-			for(var/obj/item/radio/headset/H in P.real_me.get_head_slots())
-				for(var/channel in H.channels)
-					if(radiochannels[channel] == freq)
-						listening_mobs += P
-		else
-			listening_mobs += P
-	return listening_mobs

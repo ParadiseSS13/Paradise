@@ -3,12 +3,14 @@
 /datum/space_level/heap
 	name = "Heap level #ERROR"
 	var/datum/space_chunk/top
+	var/level_radio_id
 	linkage = UNAFFECTED
 
-/datum/space_level/heap/New(z, name, transition_type, traits)
+/datum/space_level/heap/New(z, name, transition_type, radio_id, traits)
 	..(z, "Heap level #[z]", UNAFFECTED, traits)
 	top = new(1, 1, zpos, world.maxx, world.maxy)
 	flags = traits
+	level_radio_id = radio_id
 
 /datum/space_level/heap/proc/request(width, height)
 	return top.can_fit_space(width, height)
@@ -62,3 +64,9 @@
 		qdel(child)
 	last_empty_parent.children.Cut()
 	C.set_occupied(FALSE)
+
+/datum/space_level/heap/level_get_radio_id()
+	if(level_radio_id)
+		return level_radio_id
+	else
+		return zpos
