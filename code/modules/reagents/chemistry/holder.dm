@@ -594,6 +594,11 @@ var/const/INGEST = 2
 
 	return 1
 
+/datum/reagents/proc/check_and_add(reagent, check, add)
+	if(get_reagent_amount(reagent) < check)
+		add_reagent(reagent, add)
+		return TRUE
+
 /datum/reagents/proc/remove_reagent(reagent, amount, safety)//Added a safety check for the trans_id_to
 
 	if(!isnum(amount))
