@@ -33,7 +33,7 @@
 /datum/game_mode/meteor/declare_completion()
 	var/text
 	var/survivors = 0
-	for(var/mob/living/player in player_list)
+	for(var/mob/living/player in GLOB.player_list)
 		if(player.stat != DEAD)
 			var/turf/location = get_turf(player.loc)
 			if(!location)	continue

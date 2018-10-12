@@ -16,8 +16,8 @@
 	flick("gibbed-r", animation)
 	robogibs(loc)
 
-	living_mob_list -= src
-	dead_mob_list -= src
+	GLOB.living_mob_list -= src
+	GLOB.dead_mob_list -= src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
@@ -39,7 +39,7 @@
 	new /obj/effect/decal/remains/robot(loc)
 	if(mmi)		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
 
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)

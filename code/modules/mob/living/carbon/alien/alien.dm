@@ -34,7 +34,7 @@
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
 		return default_language
-	return all_languages["Xenomorph"]
+	return GLOB.all_languages["Xenomorph"]
 
 /mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
 	var/verb = "hisses"
@@ -194,7 +194,7 @@ Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
-		for(var/mob/living/C in mob_list)
+		for(var/mob/living/C in GLOB.mob_list)
 			if(C.status_flags & XENO_HOST)
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)

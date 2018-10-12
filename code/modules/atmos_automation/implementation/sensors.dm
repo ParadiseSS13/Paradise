@@ -45,10 +45,10 @@
 			return 1
 		if(href_list["set_sensor"])
 			var/list/sensor_list = list()
-			for(var/obj/machinery/air_sensor/G in machines)
+			for(var/obj/machinery/air_sensor/G in GLOB.machines)
 				if(!isnull(G.id_tag) && G.frequency == parent.frequency)
 					sensor_list|=G.id_tag
-			for(var/obj/machinery/meter/M in machines)
+			for(var/obj/machinery/meter/M in GLOB.machines)
 				if(!isnull(M.id_tag) && M.frequency == parent.frequency)
 					sensor_list|=M.id_tag
 			sensor = input("Select a sensor:", "Sensor Data", field) as null|anything in sensor_list

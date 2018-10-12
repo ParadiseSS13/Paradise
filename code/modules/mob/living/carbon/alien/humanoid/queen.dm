@@ -13,7 +13,7 @@
 	create_reagents(100)
 
 	//there should only be one queen
-	for(var/mob/living/carbon/alien/humanoid/queen/Q in living_mob_list)
+	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.living_mob_list)
 		if(Q == src)		continue
 		if(Q.stat == DEAD)	continue
 		if(Q.client)

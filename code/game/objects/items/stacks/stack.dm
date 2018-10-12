@@ -14,15 +14,34 @@
 	var/singular_name
 	var/amount = 1
 	var/to_transfer = 0
-	var/max_amount //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
+	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	var/merge_type = null // This path and its children should merge with this stack, defaults to src.type
 
-/obj/item/stack/New(var/loc, var/amt = null)
+/obj/item/stack/New(loc, new_amount, merge = TRUE)
 	..()
-	if(amt != null)	//Allow for stacks with the amount=0
-		amount = amt
+	if(new_amount != null)
+		amount = new_amount
+	while(amount > max_amount)
+		amount -= max_amount
+		new type(loc, max_amount, FALSE)
 	if(!merge_type)
 		merge_type = type
+	if(merge && !(amount >= max_amount))
+		for(var/obj/item/stack/S in loc)
+			if(S.merge_type == merge_type)
+				merge(S)
+
+/obj/item/stack/Crossed(obj/O)
+	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
+		return
+	if(istype(O, merge_type) && !O.throwing)
+		merge(O)
+	..()
+
+/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush)
+	if(istype(AM, merge_type) && !(amount >= max_amount))
+		merge(AM)
+	..()
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -35,6 +54,11 @@
 			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
 		else
 			to_chat(user, "There are [amount] [name]\s in the stack.")
+		to_chat(user,"<span class='notice'>Alt-click to take a custom amount.</span>")
+
+/obj/item/stack/proc/add(newamount)
+	amount += newamount
+	update_icon()
 
 /obj/item/stack/attack_self(mob/user)
 	list_recipes(user)
@@ -141,7 +165,6 @@
 
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		var/atom/creation_loc = (loc == usr) ? usr.loc : loc
 		if(!multiplier)
 			multiplier = 1
 
@@ -156,11 +179,11 @@
 			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
 			return FALSE
 
-		if(R.one_per_turf && (locate(R.result_type) in creation_loc))
+		if(R.one_per_turf && (locate(R.result_type) in usr.drop_location()))
 			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
 			return 0
 
-		if(R.on_floor && !istype(creation_loc, /turf/simulated))
+		if(R.on_floor && !istype(usr.drop_location(), /turf/simulated))
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return 0
 
@@ -172,16 +195,16 @@
 		if(amount < R.req_amount * multiplier)
 			return
 
-		var/atom/O = new R.result_type(creation_loc)
+		var/atom/O
+		if(R.max_res_amount > 1) //Is it a stack?
+			O = new R.result_type(usr.drop_location(), R.res_amount * multiplier)
+		else
+			O = new R.result_type(usr.drop_location())
 		O.setDir(usr.dir)
-		if(R.max_res_amount > 1)
-			var/obj/item/stack/new_item = O
-			new_item.amount = R.res_amount * multiplier
-			//new_item.add_to_stacks(usr)
+		use(R.req_amount * multiplier)
 
 		R.post_build(src, O)
 
-		amount -= R.req_amount * multiplier
 		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
 			var/oldsrc = src
 			src = null //dont kill proc after del()
@@ -202,36 +225,22 @@
 			interact(usr)
 			return
 
-/obj/item/stack/proc/use(used)
+/obj/item/stack/proc/use(used, check = TRUE)
+	if(check && zero_amount())
+		return FALSE
 	if(amount < used)
-		return 0
+		return FALSE
 	amount -= used
-	if(amount < 1) // Just in case a stack's amount ends up fractional somehow
+	if(amount < 1)
 		if(isrobot(loc))
-			var/mob/living/silicon/robot/R = loc  //Horrifying cyborg snowflake code that allows stacks to GC and cyborgs not to horrendously break
+			var/mob/living/silicon/robot/R = loc
 			if(locate(src) in R.module.modules)
 				R.module.modules -= src
-		if(usr)
-			usr.unEquip(src, TRUE) // this has to be unEquip() over drop_item() or something similar because of cyborgs
-		qdel(src)
+			if(R)
+				R.unEquip(src, TRUE)
+	zero_amount()
 	update_icon()
 	return 1
-
-/obj/item/stack/proc/add_to_stacks(mob/usr)
-	var/obj/item/stack/oldsrc = src
-	src = null
-	for(var/obj/item/stack/item in usr.loc)
-		if(item == oldsrc)
-			continue
-		if(!istype(item, oldsrc.type))
-			continue
-		if(item.amount >= item.max_amount)
-			continue
-		oldsrc.attackby(item, usr)
-		to_chat(usr, "You add new [item.singular_name] to the stack. It now contains [item.amount] [item.singular_name]\s.")
-		if(oldsrc.amount <= 0)
-			break
-	oldsrc.update_icon()
 
 /obj/item/stack/proc/get_amount()
 	return amount
@@ -252,46 +261,69 @@
 	return F
 
 /obj/item/stack/attack_hand(mob/user)
-	if(user.is_in_inactive_hand(src))
-		var/obj/item/stack/F = split(user, 1)
-		user.put_in_hands(F)
+	if(user.is_in_inactive_hand(src) && amount > 1)
+		change_stack(user, 1)
 		if(src && usr.machine == src)
 			spawn(0)
 				interact(usr)
 	else
 		..()
 
+/obj/item/stack/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
+	if(!in_range(src, user) || issilicon(usr))
+		return
+	if(amount < 1)
+		return
+	//get amount from user
+	var/min = 0
+	var/max = get_amount()
+	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as num)
+	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
+		return
+	change_stack(user,stackmaterial)
+	to_chat(user, "<span class='notice'>You take [stackmaterial] sheets out of the stack.</span>")
+
+/obj/item/stack/proc/change_stack(mob/user,amount)
+	var/obj/item/stack/F = new type(user, amount, FALSE)
+	. = F
+	F.copy_evidences(src)
+	user.put_in_hands(F)
+	add_fingerprint(user)
+	F.add_fingerprint(user)
+	use(amount)
+
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
-	..()
 	if(istype(W, merge_type))
 		var/obj/item/stack/S = W
-		if(S.amount >= max_amount)
-			return 1
-
-		if(user.is_in_inactive_hand(src))
-			var/desired = input("How much would you like to transfer from this stack?", "How much?", 1) as null|num
-			if(!desired)
-				return
-			desired = round(desired)
-			to_transfer = max(1,min(desired,S.max_amount-S.amount,src.amount))
-		else
-			to_transfer = min(src.amount, S.max_amount-S.amount)
-
-		S.amount += to_transfer
-		if(S && usr.machine == S)
-			spawn(0)
-				S.interact(usr)
-		use(to_transfer)
-		if(src && usr.machine == src)
-			spawn(0)
-				interact(usr)
-		S.update_icon()
+		merge(S)
+		to_chat(user, "<span class='notice'>Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s.</span>")
 	else
 		return ..()
+
+/obj/item/stack/proc/zero_amount()
+	if(amount < 1)
+		qdel(src)
+		return TRUE
+	return FALSE
+
+/obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
+	if(QDELETED(S) || QDELETED(src) || S == src) //amusingly this can cause a stack to consume itself, let's not allow that.
+		return FALSE
+	var/transfer = get_amount()
+	transfer = min(transfer, S.max_amount - S.amount)
+	if(transfer <= 0)
+		return
+	if(pulledby)
+		pulledby.start_pulling(S)
+	S.copy_evidences(src)
+	S.add(transfer)
+	use(transfer)
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)
 	blood_DNA			= from.blood_DNA
 	fingerprints		= from.fingerprints
 	fingerprintshidden	= from.fingerprintshidden
 	fingerprintslast	= from.fingerprintslast
-	//TODO bloody overlay

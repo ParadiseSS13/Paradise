@@ -77,8 +77,8 @@
 	if(A.health >= 0 && A.stat == DEAD)
 		A.stat = CONSCIOUS
 		A.lying = 0
-		dead_mob_list -= A
-		living_mob_list += A
+		GLOB.dead_mob_list -= A
+		GLOB.living_mob_list += A
 	// Finished restoring
 	if(A.health >= 100)
 		ai_slot.locked = FALSE

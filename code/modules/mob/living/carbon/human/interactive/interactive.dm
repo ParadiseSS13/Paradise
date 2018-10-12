@@ -191,7 +191,7 @@
 	var/shouldDoppel = input("Do you want the SNPC to disguise themself as a crewmember?") as anything in list("Yes", "No")
 	if(shouldDoppel == "Yes")
 		var/list/validchoices = list()
-		for(var/mob/living/carbon/human/M in mob_list)
+		for(var/mob/living/carbon/human/M in GLOB.mob_list)
 			validchoices += M
 
 		var/mob/living/carbon/human/chosen = input("Which crewmember?") as null|anything in validchoices
@@ -410,7 +410,7 @@
 
 /mob/living/carbon/human/interactive/LateInitialize()
 	. = ..()
-	snpc_list += src
+	GLOB.snpc_list += src
 
 	create_mob_hud()
 
@@ -419,7 +419,7 @@
 	doSetup()
 	START_PROCESSING(SSnpcpool, src)
 	loadVoice()
-	hear_radio_list += src
+	GLOB.hear_radio_list += src
 
 	// a little bit of variation to make individuals more unique
 	robustness += rand(-10, 10)

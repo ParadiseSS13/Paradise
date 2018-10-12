@@ -195,7 +195,7 @@
 	if(!silent)
 		announce_here("Depot Code BLUE", reason)
 		var/list/possible_bot_spawns = list()
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name == "syndi_depot_bot")
 				possible_bot_spawns |= L
 		if(possible_bot_spawns.len)
@@ -214,7 +214,7 @@
 	alert_log += "Code RED: [reason]"
 	called_backup = TRUE
 	lockout_computers()
-	for(var/obj/machinery/door/poddoor/P in airlocks)
+	for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
 		if(P.density && P.id_tag == "syndi_depot_lvl2" && !P.operating)
 			spawn(0)
 				P.open()
@@ -227,7 +227,7 @@
 			comms_online = TRUE
 	if(comms_online)
 		spawn(0)
-			for(var/obj/effect/landmark/L in landmarks_list)
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(prob(50))
 					if(L.name == "syndi_depot_backup")
 						var/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/S = new /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space(get_turf(L))
@@ -310,7 +310,7 @@
 /area/syndicate_depot/core/proc/announce_here(a_header = "Depot Defense Alert", a_text = "")
 	var/msg_text = "<font size=4 color='red'>[a_header]</font><br><font color='red'>[a_text]</font>"
 	var/list/receivers = list()
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(!M.ckey)
 			continue
 		var/turf/T = get_turf(M)
@@ -324,7 +324,7 @@
 /area/syndicate_depot/core/proc/shields_up()
 	if(shield_list.len)
 		return
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "syndi_depot_shield")
 			var/obj/machinery/shieldwall/syndicate/S = new /obj/machinery/shieldwall/syndicate(L.loc)
 			shield_list += S.UID()

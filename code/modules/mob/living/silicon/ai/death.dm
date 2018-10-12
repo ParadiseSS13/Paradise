@@ -12,13 +12,13 @@
 	if(eyeobj)
 		eyeobj.setLoc(get_turf(src))
 
-	shuttle_caller_list -= src
+	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 
 	if(nuking)
 		set_security_level("red")
 		nuking = 0
-		for(var/obj/item/pinpointer/point in pinpointer_list)
+		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = null //Point back to the disk.
 
 	if(doomsday_device)

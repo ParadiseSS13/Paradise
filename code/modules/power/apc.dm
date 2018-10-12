@@ -145,8 +145,8 @@
 	if(!armor)
 		armor = list(melee = 20, bullet = 20, laser = 10, energy = 100, bomb = 30, bio = 100, rad = 100)
 	..()
-	apcs += src
-	apcs = sortAtom(apcs)
+	GLOB.apcs += src
+	GLOB.apcs = sortAtom(GLOB.apcs)
 	wires = new(src)
 
 	// offset 24 pixels in direction of dir
@@ -172,7 +172,7 @@
 			src.update()
 
 /obj/machinery/power/apc/Destroy()
-	apcs -= src
+	GLOB.apcs -= src
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = Clamp(malfai.malf_picker.processing_time - 10,0,1000)
 	area.power_light = FALSE
@@ -1036,7 +1036,7 @@
 	occupier.verbs += /mob/living/silicon/ai/proc/corereturn
 	occupier.cancel_camera()
 	if((seclevel2num(get_security_level()) == SEC_LEVEL_DELTA) && malf.nuking)
-		for(var/obj/item/pinpointer/point in pinpointer_list)
+		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = src //the pinpointer will detect the shunted AI
 
 /obj/machinery/power/apc/proc/malfvacate(forced)
@@ -1049,7 +1049,7 @@
 		occupier.parent.cancel_camera()
 		qdel(occupier)
 		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
-			for(var/obj/item/pinpointer/point in pinpointer_list)
+			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				for(var/mob/living/silicon/ai/A in ai_list)
 					if((A.stat != DEAD) && A.nuking)
 						point.the_disk = A //The pinpointer tracks the AI back into its core.
@@ -1059,7 +1059,7 @@
 			occupier.loc = loc
 			occupier.death()
 			occupier.gib()
-			for(var/obj/item/pinpointer/point in pinpointer_list)
+			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 				point.the_disk = null //Pinpointers go back to tracking the nuke disk
 
 /obj/machinery/power/apc/proc/ion_act()

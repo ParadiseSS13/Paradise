@@ -211,8 +211,8 @@
 			disfigure()
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
-	if(alt_head && alt_heads_list[alt_head])
-		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[alt_head]
+	if(alt_head && GLOB.alt_heads_list[alt_head])
+		var/datum/sprite_accessory/alt_heads/alternate_head = GLOB.alt_heads_list[alt_head]
 		if(alternate_head.icon_state)
 			icon_name = alternate_head.icon_state
 		else //If alternate_head.icon_state doesn't exist, that means alternate_head is "None", so default icon_name back to "head".

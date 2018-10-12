@@ -89,8 +89,8 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	spawn(1)
-		trackedIan = locate(/mob/living/simple_animal/pet/corgi/Ian) in mob_list
-		trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in mob_list
+		trackedIan = locate(/mob/living/simple_animal/pet/corgi/Ian) in GLOB.mob_list
+		trackedRuntime = locate(/mob/living/simple_animal/pet/cat/Runtime) in GLOB.mob_list
 	SetTypeReactions()
 	RefreshParts()
 

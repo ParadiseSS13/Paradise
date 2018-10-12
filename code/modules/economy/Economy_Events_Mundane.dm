@@ -109,9 +109,9 @@
 					newMsg.body += "and their partner announced the birth of their [pick("first","second","third")] child on [affected_dest.name] early this morning. \
 					Doctors say the child is well, and the parents are considering "
 					if(prob(50))
-						newMsg.body += capitalize(pick(first_names_female))
+						newMsg.body += capitalize(pick(GLOB.first_names_female))
 					else
-						newMsg.body += capitalize(pick(first_names_male))
+						newMsg.body += capitalize(pick(GLOB.first_names_male))
 					newMsg.body += " for the name."
 				else if(prob(50))
 					newMsg.body += "announced their [pick("split","break up","marriage","engagement")] with [pick("TV host","webcast personality","superstar","model","actor","singer")] \

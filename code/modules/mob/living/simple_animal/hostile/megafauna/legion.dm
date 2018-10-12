@@ -124,7 +124,7 @@ Difficulty: Medium
 	else
 		// this must come before the parent call due to the setting of `loot` here
 		var/last_legion = TRUE
-		for(var/mob/living/simple_animal/hostile/megafauna/legion/other in mob_list)
+		for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 			if(other != src)
 				last_legion = FALSE
 				break
