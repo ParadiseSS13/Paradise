@@ -411,6 +411,7 @@
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
+	r_pocket = /obj/item/nullrod
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
