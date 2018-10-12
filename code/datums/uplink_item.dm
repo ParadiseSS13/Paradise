@@ -960,6 +960,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 20
 
+/datum/uplink_item/stealthy_tools/clownkit
+	name = "Honk Brand Infiltration Kit"
+	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer clown mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
+	reference = "HBIK"
+	item = /obj/item/storage/backpack/clown/syndie
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
