@@ -1,5 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Fixes stool's unique suicide message."
-  - bugfix: "Fixes rollerbeds no longer going through plastic flaps."
