@@ -1,0 +1,12 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "Ore now represented by stack that holds up to 50 items. Should reduce lag with ORM greatly."
+  - tweak: "Satchel can only carry ten items instead of 50 items. You should end up carrying more ore in total however"
+  - rscadd: "Fire acting on ore means they would be refined with 50% efficiency."
+  - rscadd: "Stack merges automatically if dropped on the floor, or a new stack is created. This doesn't happens on your body."
+  - rscadd: "They also merge if you drag them over eachother."
+  - rscadd: "Alt-click split a stack"
+  - rscadd: "You can throw sand into people's eyes! Pocket sand!"
+  - tweak: "Phazon take 5 bluespace crystal to construct now instead of 1.
+remove: Transfer prompt when you click on a stack of the same type with a stack"
