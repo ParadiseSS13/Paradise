@@ -27,13 +27,19 @@
 	density = FALSE
 	anchored = TRUE
 	layer = TURF_LAYER
-	icon = 'icons/effects/effects.dmi'
+	icon = 'icons/effects/dirt.dmi'
 	icon_state = "dirt"
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	canSmoothWith = list(/obj/effect/decal/cleanable/dirt, /turf/simulated/wall, /obj/structure/falsewall)
+	smooth = SMOOTH_MORE
+	mouse_opacity = FALSE
+
+/obj/effect/decal/cleanable/dirt/Initialize()
+	..()
+	icon_state = ""
 
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
-	mouse_opacity = MOUSE_OPACITY_ICON
+	mouse_opacity = TRUE
 	noscoop = TRUE
 
 /obj/effect/decal/cleanable/dirt/blackpowder/Initialize()
@@ -56,8 +62,8 @@
 	color = "#EBEBEB"
 
 /obj/effect/decal/cleanable/flour/foam/Initialize()
-		. = ..()
-		QDEL_IN(src, 15 SECONDS)
+	. = ..()
+	QDEL_IN(src, 15 SECONDS)
 
 /obj/effect/decal/cleanable/greenglow
 	name = "glowing goo"
@@ -71,8 +77,8 @@
 	icon_state = "greenglow"
 
 /obj/effect/decal/cleanable/greenglow/Initialize(mapload)
-		. = ..()
-		QDEL_IN(src, 2 MINUTES)
+	. = ..()
+	QDEL_IN(src, 2 MINUTES)
 
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"

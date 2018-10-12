@@ -56,8 +56,8 @@
 
 	if(istype(M, /atom/movable))
 		var/turf/target
-		if(portals.len)
-			var/obj/effect/portal/P = pick(portals)
+		if(GLOB.portals.len)
+			var/obj/effect/portal/P = pick(GLOB.portals)
 			if(P && isturf(P.loc))
 				target = P.loc
 		if(!target)	return

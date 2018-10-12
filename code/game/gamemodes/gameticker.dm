@@ -145,14 +145,14 @@ var/round_start_time = 0
 	spawn(0)//Forking here so we dont have to wait for this to finish
 		mode.post_setup()
 		//Cleanup some stuff
-		for(var/obj/effect/landmark/start/S in landmarks_list)
+		for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)
 			//Deleting Startpoints but we need the ai point to AI-ize people later
 			if(S.name != "AI")
 				qdel(S)
 
 		// take care of random spesspod spawning
 		var/list/obj/effect/landmark/spacepod/random/L = list()
-		for(var/obj/effect/landmark/spacepod/random/SS in landmarks_list)
+		for(var/obj/effect/landmark/spacepod/random/SS in GLOB.landmarks_list)
 			if(istype(SS))
 				L += SS
 		if(L.len)
@@ -238,7 +238,7 @@ var/round_start_time = 0
 
 	votetimer()
 
-	for(var/mob/new_player/N in mob_list)
+	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
 			N.new_player_panel_proc()
 
@@ -259,14 +259,14 @@ var/round_start_time = 0
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	cinematic.screen_loc = "1,0"
 
-	var/obj/structure/stool/bed/temp_buckle = new(src)
+	var/obj/structure/bed/temp_buckle = new(src)
 	if(station_missed)
-		for(var/mob/M in mob_list)
+		for(var/mob/M in GLOB.mob_list)
 			M.buckled = temp_buckle				//buckles the mob so it can't do anything
 			if(M.client)
 				M.client.screen += cinematic	//show every client the cinematic
 	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
-		for(var/mob/M in mob_list)
+		for(var/mob/M in GLOB.mob_list)
 			M.buckled = temp_buckle
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
@@ -343,7 +343,7 @@ var/round_start_time = 0
 
 
 /datum/controller/gameticker/proc/create_characters()
-	for(var/mob/new_player/player in player_list)
+	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind)
 			if(player.mind.assigned_role == "AI")
 				player.close_spawn_windows()
@@ -357,14 +357,14 @@ var/round_start_time = 0
 
 
 /datum/controller/gameticker/proc/collect_minds()
-	for(var/mob/living/player in player_list)
+	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind)
 			ticker.minds += player.mind
 
 
 /datum/controller/gameticker/proc/equip_characters()
 	var/captainless=1
-	for(var/mob/living/carbon/human/player in player_list)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(player && player.mind && player.mind.assigned_role)
 			if(player.mind.assigned_role == "Captain")
 				captainless=0
@@ -373,7 +373,7 @@ var/round_start_time = 0
 				job_master.EquipRank(player, player.mind.assigned_role, 0)
 				EquipCustomItems(player)
 	if(captainless)
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(!istype(M,/mob/new_player))
 				to_chat(M, "Captainship not forced on anyone.")
 
@@ -428,7 +428,7 @@ var/round_start_time = 0
 	to_chat(world, "<BR>")
 
 	//Silicon laws report
-	for(var/mob/living/silicon/ai/aiPlayer in mob_list)
+	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
 		if(aiPlayer.stat != 2)
 			to_chat(world, "<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the game were:</b>")
 		else
@@ -443,7 +443,7 @@ var/round_start_time = 0
 
 	var/dronecount = 0
 
-	for(var/mob/living/silicon/robot/robo in mob_list)
+	for(var/mob/living/silicon/robot/robo in GLOB.mob_list)
 
 		if(istype(robo,/mob/living/silicon/robot/drone))
 			dronecount++

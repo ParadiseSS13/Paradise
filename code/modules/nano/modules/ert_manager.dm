@@ -11,7 +11,7 @@
 	var/autoclose = 0
 
 
-/datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
+/datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = admin_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(ui && autoclose)
 		ui.close()

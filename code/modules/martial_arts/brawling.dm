@@ -40,9 +40,9 @@
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.apply_effect(10,WEAKEN,armor_block)
 			D.SetSleeping(5)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 	return 1
 
 /datum/martial_art/drunk_brawling
@@ -99,7 +99,7 @@
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.apply_effect(10,WEAKEN,armor_block)
 			D.Paralyse(5)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 	return 1

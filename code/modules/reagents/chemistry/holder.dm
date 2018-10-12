@@ -18,21 +18,21 @@ var/const/INGEST = 2
 	if(!(flags & REAGENT_NOREACT))
 		processing_objects |= src
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
-	if(!chemical_reagents_list)
+	if(!GLOB.chemical_reagents_list)
 		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
 		var/paths = subtypesof(/datum/reagent)
-		chemical_reagents_list = list()
+		GLOB.chemical_reagents_list = list()
 		for(var/path in paths)
 			var/datum/reagent/D = new path()
-			chemical_reagents_list[D.id] = D
-	if(!chemical_reactions_list)
+			GLOB.chemical_reagents_list[D.id] = D
+	if(!GLOB.chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 		// It is filtered into multiple lists within a list.
 		// For example:
 		// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
 
 		var/paths = subtypesof(/datum/chemical_reaction)
-		chemical_reactions_list = list()
+		GLOB.chemical_reactions_list = list()
 
 		for(var/path in paths)
 
@@ -45,9 +45,9 @@ var/const/INGEST = 2
 
 			// Create filters based on each reagent id in the required reagents list
 			for(var/id in reaction_ids)
-				if(!chemical_reactions_list[id])
-					chemical_reactions_list[id] = list()
-				chemical_reactions_list[id] += D
+				if(!GLOB.chemical_reactions_list[id])
+					GLOB.chemical_reactions_list[id] = list()
+				GLOB.chemical_reactions_list[id] += D
 				break // Don't bother adding ourselves to other reagent ids, it is redundant.
 
 /datum/reagents/proc/remove_any(amount=1)
@@ -377,7 +377,7 @@ var/const/INGEST = 2
 	do
 		reaction_occured = 0
 		for(var/datum/reagent/R in reagent_list) // Usually a small list
-			for(var/reaction in chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we filtered it with our reagent id
+			for(var/reaction in GLOB.chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we filtered it with our reagent id
 				if(!reaction)
 					continue
 
@@ -570,7 +570,7 @@ var/const/INGEST = 2
 				handle_reactions()
 			return 0
 
-	var/datum/reagent/D = chemical_reagents_list[reagent]
+	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
 	if(D)
 
 		var/datum/reagent/R = new D.type()

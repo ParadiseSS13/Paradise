@@ -20,7 +20,7 @@ proc/make_vr_room(name, template, expires)
 	vr_rooms[R.name] = R
 	R.template.load(locate(R.chunk.x,R.chunk.y,R.chunk.zpos), centered = FALSE)
 
-	for(var/atom/landmark in R.chunk.search_chunk(landmarks_list))
+	for(var/atom/landmark in R.chunk.search_chunk(GLOB.landmarks_list))
 		if(landmark.name == "avatarspawn")
 			R.spawn_points.Add(landmark)
 

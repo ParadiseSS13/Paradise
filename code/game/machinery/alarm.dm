@@ -189,8 +189,8 @@
 
 /obj/machinery/alarm/New(var/loc, var/dir, var/building = 0)
 	..()
-	air_alarms += src
-	air_alarms = sortAtom(air_alarms)
+	GLOB.air_alarms += src
+	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 
 	wires = new(src)
 
@@ -211,7 +211,7 @@
 	first_run()
 
 /obj/machinery/alarm/Destroy()
-	air_alarms -= src
+	GLOB.air_alarms -= src
 	if(radio_controller)
 		radio_controller.remove_object(src, frequency)
 	radio_connection = null

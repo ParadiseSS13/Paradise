@@ -705,7 +705,7 @@ obj/item/circuitboard/rdserver
 	origin_tech = "programming=3;engineering=4;bluespace=4;materials=4"
 	frame_desc = "Requires 3 Bluespace Crystals and 1 Matter Bin."
 	req_components = list(
-							/obj/item/ore/bluespace_crystal = 3,
+							/obj/item/stack/ore/bluespace_crystal = 3,
 							/obj/item/stock_parts/matter_bin = 1)
 
 /obj/item/circuitboard/teleporter_station
@@ -715,7 +715,7 @@ obj/item/circuitboard/rdserver
 	origin_tech = "programming=4;engineering=4;bluespace=4;plasmatech=3"
 	frame_desc = "Requires 2 Bluespace Crystals, 2 Capacitors and 1 Console Screen."
 	req_components = list(
-							/obj/item/ore/bluespace_crystal = 2,
+							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 2,
 							/obj/item/stock_parts/console_screen = 1)
 
@@ -726,7 +726,7 @@ obj/item/circuitboard/rdserver
 	origin_tech = "programming=3;engineering=4;bluespace=4;materials=4"
 	frame_desc = "Requires 3 Bluespace Crystals and 1 Matter Bin."
 	req_components = list(
-							/obj/item/ore/bluespace_crystal = 3,
+							/obj/item/stack/ore/bluespace_crystal = 3,
 							/obj/item/stock_parts/matter_bin = 1)
 	var/target
 
@@ -737,7 +737,7 @@ obj/item/circuitboard/rdserver
 	origin_tech = "programming=4;engineering=3;plasmatech=4;bluespace=4"
 	frame_desc = "Requires 2 Bluespace Crystals, 1 Capacitor, 1 piece of cable and 1 Console Screen."
 	req_components = list(
-							/obj/item/ore/bluespace_crystal = 2,
+							/obj/item/stack/ore/bluespace_crystal = 2,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stock_parts/console_screen = 1)
@@ -749,7 +749,7 @@ obj/item/circuitboard/rdserver
 	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4"
 	frame_desc = "Requires 1 Bluespace Crystal, 1 Capacitor, 1 piece of cable and 1 Manipulator."
 	req_components = list(
-							/obj/item/ore/bluespace_crystal = 1,
+							/obj/item/stack/ore/bluespace_crystal = 1,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 1)

@@ -26,7 +26,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	if("signup" in href_list)
 		var/mob/dead/observer/O = locate(href_list["signup"])
 		if(!O) return
-		if(!(O in respawnable_list))
+		if(!(O in GLOB.respawnable_list))
 			to_chat(O, "You've given up your ability to respawn!")
 			return
 		if(!check_recruit(O)) return
@@ -41,7 +41,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		if(istype(card,/obj/item/paicard) && istype(candidate,/datum/paiCandidate))
 			var/mob/living/silicon/pai/pai = new(card)
 			if(!candidate.name)
-				pai.name = pick(ninja_names)
+				pai.name = pick(GLOB.ninja_names)
 			else
 				pai.name = candidate.name
 			pai.real_name = pai.name
@@ -237,7 +237,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	for(var/datum/paiCandidate/c in paiController.pai_candidates)
 		if(c.ready)
 			var/found = 0
-			for(var/mob/o in respawnable_list)
+			for(var/mob/o in GLOB.respawnable_list)
 				if(o.key == c.key)
 					found = 1
 			if(found)
@@ -348,7 +348,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	user << browse(dat, "window=findPai")
 
 /datum/paiController/proc/requestRecruits(var/obj/item/paicard/P, mob/user)
-	for(var/mob/dead/observer/O in player_list)
+	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 			if(player_old_enough_antag(O.client,ROLE_PAI))
 				if(check_recruit(O))
@@ -362,7 +362,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		return 0
 	if(cannotPossess(O))
 		return 0
-	if(!(O in respawnable_list))
+	if(!(O in GLOB.respawnable_list))
 		return 0
 	if(O.client)
 		return 1

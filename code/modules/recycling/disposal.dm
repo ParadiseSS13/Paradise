@@ -1001,7 +1001,7 @@
 /obj/structure/disposalpipe/sortjunction/proc/updatedesc()
 	desc = "An underfloor disposal pipe with a package sorting mechanism."
 	if(sortType>0)
-		var/tag = uppertext(TAGGERLOCATIONS[sortType])
+		var/tag = uppertext(GLOB.TAGGERLOCATIONS[sortType])
 		desc += "\nIt's tagged with [tag]"
 
 /obj/structure/disposalpipe/sortjunction/proc/updatedir()
@@ -1033,7 +1033,7 @@
 		if(O.currTag > 0)// Tag set
 			sortType = O.currTag
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
-			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
+			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
 			updatedesc()
 

@@ -28,13 +28,13 @@
 
 /obj/effect/countdown/proc/start()
 	if(!started)
-		fast_processing += src
+		GLOB.fast_processing += src
 		started = TRUE
 
 /obj/effect/countdown/proc/stop()
 	if(started)
 		maptext = null
-		fast_processing -= src
+		GLOB.fast_processing -= src
 		started = FALSE
 
 /obj/effect/countdown/proc/get_value()
@@ -57,7 +57,7 @@
 
 /obj/effect/countdown/Destroy()
 	attached_to = null
-	fast_processing -= src
+	GLOB.fast_processing -= src
 	return ..()
 
 /obj/effect/countdown/ex_act(severity) //immune to explosions

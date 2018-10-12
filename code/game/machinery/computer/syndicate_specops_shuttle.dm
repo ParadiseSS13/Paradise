@@ -85,10 +85,10 @@ var/syndicate_elite_shuttle_timeleft = 0
 		sleep(10)
 
 		var/spawn_marauder[] = new()
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name == "Marauder Entry")
 				spawn_marauder.Add(L)
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name == "Marauder Exit")
 				var/obj/effect/portal/P = new(L.loc)
 				P.invisibility = 101//So it is not seen by anyone.
@@ -133,7 +133,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 		elite_squad.readyreset()//Reset firealarm after the team launched.
 	//End Marauder launchpad.
 
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "Syndicate Breach Area")
 			explosion(L.loc,4,6,8,10,0)
 

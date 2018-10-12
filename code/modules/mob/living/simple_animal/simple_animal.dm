@@ -82,7 +82,7 @@
 
 /mob/living/simple_animal/Initialize()
 	..()
-	simple_animal_list += src
+	GLOB.simple_animal_list += src
 	verbs -= /mob/verb/observe
 	if(!can_hide)
 		verbs -= /mob/living/simple_animal/verb/hide
@@ -96,7 +96,7 @@
 		collar.forceMove(loc)
 		collar = null
 	master_commander = null
-	simple_animal_list -= src
+	GLOB.simple_animal_list -= src
 	return ..()
 
 /mob/living/simple_animal/Login()
