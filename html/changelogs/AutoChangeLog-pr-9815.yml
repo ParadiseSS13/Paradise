@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - bugfix: "Removed Skrell discrimination, allows ! character in IDs (agent IDs or made via ID computer)"
