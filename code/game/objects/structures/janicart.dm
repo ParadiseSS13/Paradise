@@ -21,10 +21,10 @@
 /obj/structure/janitorialcart/New()
 	..()
 	create_reagents(100)
-	janitorial_equipment += src
+	GLOB.janitorial_equipment += src
 
 /obj/structure/janitorialcart/Destroy()
-	janitorial_equipment -= src
+	GLOB.janitorial_equipment -= src
 	QDEL_NULL(mybag)
 	QDEL_NULL(mymop)
 	QDEL_NULL(myspray)

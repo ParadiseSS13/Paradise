@@ -24,10 +24,10 @@
 /obj/item/implant/chem/New()
 	..()
 	create_reagents(50)
-	tracked_implants += src
+	GLOB.tracked_implants += src
 
 /obj/item/implant/chem/Destroy()
-	tracked_implants -= src
+	GLOB.tracked_implants -= src
 	return ..()
 
 

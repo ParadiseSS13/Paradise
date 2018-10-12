@@ -6,7 +6,7 @@
 	log_access_in(client)
 	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
 	if(config.log_access)
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue
 			if( M.key && (M.key != key) )
 				var/matches
@@ -26,7 +26,7 @@
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
 
 /mob/Login()
-	player_list |= src
+	GLOB.player_list |= src
 	update_Login_details()
 	world.update_status()
 
@@ -47,7 +47,7 @@
 	reset_perspective(loc)
 
 
-	if(ckey in deadmins)
+	if(ckey in GLOB.deadmins)
 		verbs += /client/proc/readmin
 
 	//Clear ability list and update from mob.

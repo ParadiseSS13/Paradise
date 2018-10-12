@@ -88,11 +88,11 @@
 			emergencyresponseteamspawn += loc
 			qdel(src)
 
-	landmarks_list += src
+	GLOB.landmarks_list += src
 	return 1
 
 /obj/effect/landmark/Destroy()
-	landmarks_list -= src
+	GLOB.landmarks_list -= src
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -259,13 +259,13 @@
 	var/datum/map_template/ruin/ruin_template
 
 /obj/effect/landmark/ruin/New(loc, my_ruin_template)
-	name = "ruin_[ruin_landmarks.len + 1]"
+	name = "ruin_[GLOB.ruin_landmarks.len + 1]"
 	..(loc)
 	ruin_template = my_ruin_template
-	ruin_landmarks |= src
+	GLOB.ruin_landmarks |= src
 
 /obj/effect/landmark/ruin/Destroy()
-	ruin_landmarks -= src
+	GLOB.ruin_landmarks -= src
 	ruin_template = null
 	. = ..()
 

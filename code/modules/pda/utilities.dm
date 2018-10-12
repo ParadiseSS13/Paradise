@@ -29,7 +29,7 @@
 	var/remote_door_id = ""
 
 /datum/data/pda/utility/toggle_door/start()
-	for(var/obj/machinery/door/poddoor/M in airlocks)
+	for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
 		if(M.id_tag == remote_door_id)
 			if(M.density)
 				M.open()

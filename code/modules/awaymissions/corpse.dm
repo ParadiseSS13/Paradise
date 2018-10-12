@@ -51,11 +51,11 @@
 	if(instant || (roundstart && (ticker && ticker.current_state > GAME_STATE_SETTING_UP)))
 		create()
 	else
-		poi_list |= src
+		GLOB.poi_list |= src
 		LAZYADD(GLOB.mob_spawners[name], src)
 
 /obj/effect/mob_spawn/Destroy()
-	poi_list -= src
+	GLOB.poi_list -= src
 	var/list/spawners = GLOB.mob_spawners[name]
 	LAZYREMOVE(spawners, src)
 	if(!LAZYLEN(spawners))
@@ -341,7 +341,7 @@
 	outfit = /datum/outfit/job/clown
 
 /obj/effect/mob_spawn/human/clown/Initialize()
-	mob_name = pick(clown_names)
+	mob_name = pick(GLOB.clown_names)
 	..()
 
 /obj/effect/mob_spawn/human/corpse/clownmili
@@ -349,7 +349,7 @@
 	outfit = /datum/outfit/clownsoldier
 
 /obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
-	mob_name = "Officer [pick(clown_names)]"
+	mob_name = "Officer [pick(GLOB.clown_names)]"
 	..()
 
 /obj/effect/mob_spawn/human/corpse/clownoff
@@ -357,7 +357,7 @@
 	outfit = /datum/outfit/clownofficer
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
-	mob_name = "Honk Specialist [pick(clown_names)]"
+	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	..()
 
 
@@ -388,7 +388,7 @@
 	outfit = /datum/outfit/job/mime
 
 /obj/effect/mob_spawn/human/mime/Initialize()
-	mob_name = pick(mime_names)
+	mob_name = pick(GLOB.mime_names)
 	..()
 
 /obj/effect/mob_spawn/human/scientist

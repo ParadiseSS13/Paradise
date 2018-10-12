@@ -17,7 +17,7 @@
 	event_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert")
 
 /datum/event/brand_intelligence/start()
-	for(var/obj/machinery/vending/V in machines)
+	for(var/obj/machinery/vending/V in GLOB.machines)
 		if(!is_station_level(V.z))	continue
 		vendingMachines.Add(V)
 

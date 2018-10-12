@@ -36,5 +36,5 @@
 			new undeadtype(T)
 
 /datum/event/undead/announce()
-	for(var/mob/living/M in player_list)
+	for(var/mob/living/M in GLOB.player_list)
 		to_chat(M, "You feel [pick("a chill","a deathly chill","the undead","dirty", "creeped out","afraid","fear")]!")

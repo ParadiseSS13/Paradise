@@ -118,13 +118,13 @@
 	return .
 
 /obj/effect/meteor/Destroy()
-	meteor_list -= src
+	GLOB.meteor_list -= src
 	walk(src,0) //this cancels the walk_towards() proc
 	return ..()
 
 /obj/effect/meteor/New()
 	..()
-	meteor_list += src
+	GLOB.meteor_list += src
 	SpinAnimation()
 
 /obj/effect/meteor/Bump(atom/A)
@@ -174,7 +174,7 @@
 		var/sound/meteor_sound = sound(meteorsound)
 		var/random_frequency = get_rand_frequency()
 
-		for(var/P in player_list)
+		for(var/P in GLOB.player_list)
 			var/mob/M = P
 			var/turf/T = get_turf(M)
 			if(!T || T.z != src.z)

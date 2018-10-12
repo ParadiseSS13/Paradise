@@ -37,7 +37,7 @@
 	doomsday_device = DOOM
 	doomsday_device.start()
 	verbs -= /mob/living/silicon/ai/proc/nuke_station
-	for(var/obj/item/pinpointer/point in pinpointer_list)
+	for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 		for(var/mob/living/silicon/ai/A in ai_list)
 			if((A.stat != DEAD) && A.nuking)
 				point.the_disk = A //The pinpointer now tracks the AI core
@@ -56,7 +56,7 @@
 	var/announced = 0
 
 /obj/machinery/doomsday_device/Destroy()
-	fast_processing -= src
+	GLOB.fast_processing -= src
 	SSshuttle.emergencyNoEscape = 0
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
@@ -67,7 +67,7 @@
 /obj/machinery/doomsday_device/proc/start()
 	detonation_timer = world.time + default_timer
 	timing = 1
-	fast_processing += src
+	GLOB.fast_processing += src
 	SSshuttle.emergencyNoEscape = 1
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
@@ -84,7 +84,7 @@
 			priority_announcement.Announce("Hostile environment resolved. You have 3 minutes to board the Emergency Shuttle.", "Priority Announcement", 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
-		fast_processing -= src
+		GLOB.fast_processing -= src
 		return
 	var/sec_left = seconds_remaining()
 	if(sec_left <= 0)
@@ -99,10 +99,10 @@
 		announced = max(0, announced-1)
 
 /obj/machinery/doomsday_device/proc/detonate(z_level = 1)
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		M << 'sound/machines/Alarm.ogg'
 	sleep(100)
-	for(var/mob/living/L in mob_list)
+	for(var/mob/living/L in GLOB.mob_list)
 		var/turf/T = get_turf(L)
 		if(!T || T.z != z_level)
 			continue
@@ -131,7 +131,7 @@
 		return
 
 	src.verbs -= /mob/living/silicon/ai/proc/upgrade_turrets
-	for(var/obj/machinery/porta_turret/turret in machines)
+	for(var/obj/machinery/porta_turret/turret in GLOB.machines)
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
@@ -156,7 +156,7 @@
 	if(stat)
 		return
 
-	for(var/obj/machinery/door/D in airlocks)
+	for(var/obj/machinery/door/D in GLOB.airlocks)
 		if(!is_station_level(D.z))
 			continue
 		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown, src)
@@ -188,7 +188,7 @@
 	if(stat || malf_cooldown > world.time)
 		return
 
-	for(var/obj/item/rcd/RCD in rcd_list)
+	for(var/obj/item/rcd/RCD in GLOB.rcd_list)
 		if(!istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
 			RCD.detonate_pulse()
 
@@ -237,7 +237,7 @@
 	if(stat)
 		return
 
-	for(var/obj/machinery/firealarm/F in machines)
+	for(var/obj/machinery/firealarm/F in GLOB.machines)
 		if(!is_station_level(F.z))
 			continue
 		F.emagged = 1
@@ -262,7 +262,7 @@
 	if(stat)
 		return
 
-	for(var/obj/machinery/alarm/AA in machines)
+	for(var/obj/machinery/alarm/AA in GLOB.machines)
 		if(!is_station_level(AA.z))
 			continue
 		AA.emagged = 1
@@ -279,7 +279,7 @@
 
 	power_type = /mob/living/silicon/ai/proc/overload_machine
 
-/mob/living/silicon/ai/proc/overload_machine(obj/machinery/M in machines)
+/mob/living/silicon/ai/proc/overload_machine(obj/machinery/M in GLOB.machines)
 	set name = "Overload Machine"
 	set category = "Malfunction"
 
@@ -312,7 +312,7 @@
 	power_type = /mob/living/silicon/ai/proc/override_machine
 
 
-/mob/living/silicon/ai/proc/override_machine(obj/machinery/M in machines)
+/mob/living/silicon/ai/proc/override_machine(obj/machinery/M in GLOB.machines)
 	set name = "Override Machine"
 	set category = "Malfunction"
 
@@ -428,7 +428,7 @@
 	for(var/datum/AI_Module/small/blackout/blackout in current_modules)
 		if(blackout.uses > 0)
 			blackout.uses --
-			for(var/obj/machinery/power/apc/apc in apcs)
+			for(var/obj/machinery/power/apc/apc in GLOB.apcs)
 				if(prob(30*apc.overload))
 					apc.overload_lighting()
 				else

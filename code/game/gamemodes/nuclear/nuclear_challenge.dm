@@ -52,12 +52,12 @@
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 	to_chat(user, "<b>Look below you on the floor for the extra uplink</b>")
 
-	for(var/obj/machinery/computer/shuttle/syndicate/S in machines)
+	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		S.challenge = TRUE
 
 	var/obj/item/radio/uplink/U = new /obj/item/radio/uplink(get_turf(user))
 	U.hidden_uplink.uplink_owner= "[user.key]"
-	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + round((((player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS)) // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
+	U.hidden_uplink.uses = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS)) // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
 	config.shuttle_refuel_delay = CHALLENGE_SHUTTLE_DELAY
 	qdel(src)
 
@@ -65,7 +65,7 @@
 	if(declaring_war)
 		to_chat(user, "You are already in the process of declaring war! Make your mind up.")
 		return FALSE
-	if(player_list.len < CHALLENGE_MIN_PLAYERS)
+	if(GLOB.player_list.len < CHALLENGE_MIN_PLAYERS)
 		to_chat(user, "The enemy crew is too small to be worth declaring war on.")
 		return FALSE
 	if(!is_admin_level(user.z))
@@ -74,7 +74,7 @@
 	if((world.time - round_start_time) > CHALLENGE_TIME_LIMIT) // Only count after the round started
 		to_chat(user, "It's too late to declare hostilities. Your benefactors are already busy with other schemes. You'll have to make  do with what you have on hand.")
 		return FALSE
-	for(var/obj/machinery/computer/shuttle/syndicate/S in machines)
+	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
 		if(S.moved)
 			to_chat(user, "The shuttle has already been moved! You have forfeit the right to declare war.")
 			return FALSE

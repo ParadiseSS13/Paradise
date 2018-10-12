@@ -241,7 +241,7 @@ var/global/list/ts_spiderling_list = list()
 	add_language("Spider Hivemind")
 	if(spider_tier >= TS_TIER_2)
 		add_language("Galactic Common")
-	default_language = all_languages["Spider Hivemind"]
+	default_language = GLOB.all_languages["Spider Hivemind"]
 
 	web_action = new()
 	web_action.Grant(src)

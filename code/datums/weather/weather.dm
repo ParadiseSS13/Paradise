@@ -60,7 +60,7 @@
 	weather_duration = rand(weather_duration_lower, weather_duration_upper)
 	START_PROCESSING(SSweather, src)
 	update_areas()
-	for(var/M in player_list)
+	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in impacted_z_levels))
 			if(telegraph_message)
@@ -74,7 +74,7 @@
 		return
 	stage = MAIN_STAGE
 	update_areas()
-	for(var/M in player_list)
+	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in impacted_z_levels))
 			if(weather_message)
@@ -88,7 +88,7 @@
 		return
 	stage = WIND_DOWN_STAGE
 	update_areas()
-	for(var/M in player_list)
+	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in impacted_z_levels))
 			if(end_message)

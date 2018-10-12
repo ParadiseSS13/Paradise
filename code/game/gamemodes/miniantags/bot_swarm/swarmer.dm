@@ -585,6 +585,6 @@
 /mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
 	var/message = input(src, "Announce to other swarmers", "Swarmer contact")
 	if(message)
-		for(var/mob/M in mob_list)
-			if(isswarmer(M) || (M in dead_mob_list))
+		for(var/mob/M in GLOB.mob_list)
+			if(isswarmer(M) || (M in GLOB.dead_mob_list))
 				to_chat(M, "<B>Swarm communication - </b> [src] states: [message]")
