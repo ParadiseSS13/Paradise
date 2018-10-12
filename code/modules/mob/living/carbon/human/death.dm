@@ -107,7 +107,7 @@
 	callHook("death", list(src, gibbed))
 
 	if(mind)
-		for(var/mob/dead/observer/O in player_list)
+		for(var/mob/dead/observer/O in GLOB.player_list)
 			if(O.client && O.get_preference(CHAT_DEAD))
 				to_chat(O, "<span class='deadsay'><b>[src]</b> has died in [get_area(src)]. <a href='?src=[O.UID()];follow=\ref[get_turf(src)]'>(FLW)</a> </span>")
 
