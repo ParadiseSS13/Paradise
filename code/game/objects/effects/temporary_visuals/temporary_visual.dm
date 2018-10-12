@@ -8,7 +8,7 @@
 
 /obj/effect/temp_visual/New()
 	if(randomdir)
-		setDir(pick(cardinal))
+		setDir(pick(GLOB.cardinal))
 
 	QDEL_IN(src, duration)
 

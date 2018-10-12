@@ -64,7 +64,7 @@ Difficulty: Very Hard
 			visible_message("<span class='colossus'>\"<b>You can't dodge.</b>\"</span>")
 		ranged_cooldown = world.time + 30
 		telegraph()
-		dir_shots(alldirs)
+		dir_shots(GLOB.alldirs)
 		move_to_delay = 3
 		return
 	else
@@ -130,13 +130,13 @@ Difficulty: Very Hard
 			. = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots()
-	dir_shots(diagonals)
+	dir_shots(GLOB.diagonals)
 	sleep(10)
-	dir_shots(cardinal)
+	dir_shots(GLOB.cardinal)
 	sleep(10)
-	dir_shots(diagonals)
+	dir_shots(GLOB.diagonals)
 	sleep(10)
-	dir_shots(cardinal)
+	dir_shots(GLOB.cardinal)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
 	visible_message("<span class='colossus'>\"<b>Die.</b>\"</span>")
@@ -229,7 +229,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots(list/dirs)
 	if(!islist(dirs))
-		dirs = alldirs.Copy()
+		dirs = GLOB.alldirs.Copy()
 	playsound(get_turf(src), 'sound/magic/invoke_general.ogg', 200, 1, 2)
 	for(var/d in dirs)
 		var/turf/E = get_step(src, d)

@@ -28,7 +28,7 @@
 
 	to_chat(usr, "Checking for overlapping pipes...")
 	for(var/turf/T in world)
-		for(var/dir in cardinal)
+		for(var/dir in GLOB.cardinal)
 			var/list/check = list(0, 0, 0)
 			var/done = 0
 			for(var/obj/machinery/atmospherics/pipe in T)

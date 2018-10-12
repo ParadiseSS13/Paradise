@@ -336,9 +336,9 @@
 
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
-			character.loc = pick(ertdirector)
+			character.loc = pick(GLOB.ertdirector)
 		else
-			character.loc = pick(aroomwarp)
+			character.loc = pick(GLOB.aroomwarp)
 		join_message = "has arrived"
 	else
 		if(spawning_at)
@@ -349,10 +349,10 @@
 				join_message = S.msg
 			else
 				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-				character.loc = pick(latejoin)
+				character.loc = pick(GLOB.latejoin)
 				join_message = "has arrived on the station"
 		else
-			character.loc = pick(latejoin)
+			character.loc = pick(GLOB.latejoin)
 			join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)

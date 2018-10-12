@@ -394,7 +394,7 @@
 	pulse2.icon_state = "empdisable"
 	pulse2.name = "emp sparks"
 	pulse2.anchored = 1
-	pulse2.dir = pick(cardinal)
+	pulse2.dir = pick(GLOB.cardinal)
 	QDEL_IN(pulse2, 10)
 
 	if(paicard)
@@ -1075,7 +1075,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 					var/turf/prevprevT = path[i - 2]
 					var/prevDir = get_dir(prevprevT, prevT)
 					var/mixDir = direction|prevDir
-					if(mixDir in diagonals)
+					if(mixDir in GLOB.diagonals)
 						prevI.dir = mixDir
 						if(prevDir & (NORTH|SOUTH))
 							var/matrix/ntransform = matrix()

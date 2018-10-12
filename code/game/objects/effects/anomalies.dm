@@ -27,7 +27,7 @@
 
 /obj/effect/anomaly/proc/anomalyEffect()
 	if(prob(50))
-		step(src,pick(alldirs))
+		step(src,pick(GLOB.alldirs))
 
 
 /obj/effect/anomaly/proc/anomalyNeutralize()

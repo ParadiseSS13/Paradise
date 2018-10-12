@@ -58,7 +58,7 @@
 			connect_to_network()
 
 		dir_loop:
-			for(var/d in cardinal)
+			for(var/d in GLOB.cardinal)
 				var/turf/T = get_step(src, d)
 				for(var/obj/machinery/power/terminal/term in T)
 					if(term && term.dir == turn(d, 180))

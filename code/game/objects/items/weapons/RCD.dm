@@ -297,7 +297,7 @@ RCD
 				QDEL_NULL(A)
 				for(var/obj/structure/window/W in T1.contents)
 					qdel(W)
-				for(var/cdir in cardinal)
+				for(var/cdir in GLOB.cardinal)
 					var/turf/T2 = get_step(T1, cdir)
 					if(locate(/obj/structure/window/full/shuttle) in T2.contents)
 						continue // Shuttle windows? Nah. We don't need extra windows there.
@@ -328,7 +328,7 @@ RCD
 				new /obj/structure/grille(A)
 				for(var/obj/structure/window/W in contents)
 					qdel(W)
-				for(var/cdir in cardinal)
+				for(var/cdir in GLOB.cardinal)
 					var/turf/T = get_step(A, cdir)
 					if(locate(/obj/structure/grille) in T.contents)
 						for(var/obj/structure/window/W in T.contents)

@@ -610,7 +610,7 @@
 	//doorscan is now integrated into life and runs before all other procs
 	var/mistake_chance = (100 - smartness) / 2
 	spawn(0)
-		for(var/dir in alldirs)
+		for(var/dir in GLOB.alldirs)
 			var/turf/T = get_step(src, dir)
 			if(T)
 				for(var/obj/machinery/door/D in T.contents)

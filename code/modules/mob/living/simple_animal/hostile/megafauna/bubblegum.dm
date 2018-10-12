@@ -61,9 +61,9 @@ Difficulty: Hard
 	if(amount > 0 && prob(25))
 		var/obj/effect/decal/cleanable/blood/gibs/bubblegum/B = new /obj/effect/decal/cleanable/blood/gibs/bubblegum(loc)
 		if(prob(40))
-			step(B, pick(cardinal))
+			step(B, pick(GLOB.cardinal))
 		else
-			B.dir = pick(cardinal)
+			B.dir = pick(GLOB.cardinal)
 	. = ..()
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum

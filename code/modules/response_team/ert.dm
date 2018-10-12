@@ -101,13 +101,13 @@ var/ert_request_answered = FALSE
 			for(var/mob/M in unspawnable_ert)
 				message_admins("- Unspawned ERT: [ADMIN_FULLMONTY(M)]")
 	for(var/mob/M in response_team_members)
-		if(index > emergencyresponseteamspawn.len)
+		if(index > GLOB.emergencyresponseteamspawn.len)
 			index = 1
 
 		if(!M || !M.client)
 			continue
 		var/client/C = M.client
-		var/mob/living/new_commando = C.create_response_team(emergencyresponseteamspawn[index])
+		var/mob/living/new_commando = C.create_response_team(GLOB.emergencyresponseteamspawn[index])
 		if(!M || !new_commando)
 			continue
 		new_commando.mind.key = M.key

@@ -320,14 +320,14 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		if(!(state in list("cap", "connector", "dtvalve", "dual-port vent", "dvalve", "filter", "he", "heunary", "injector", "junction", "manifold", "mixer", "tvalve", "mvalve", "passive vent", "passivegate", "pump", "scrubber", "simple", "universal", "uvent", "volumepump"))) //Basically all the pipes we want sprites for
 			continue
 		if(state in list("he", "simple"))
-			for(var/D in alldirs)
+			for(var/D in GLOB.alldirs)
 				assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
 	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
 		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet"))) //Pipes we want sprites for
 			continue
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])

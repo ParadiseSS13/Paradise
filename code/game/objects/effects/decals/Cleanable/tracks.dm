@@ -79,7 +79,7 @@ var/global/list/image/fluidtrack_cache = list()
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	overlays.Cut()
 
-	for(var/Ddir in cardinal)
+	for(var/Ddir in GLOB.cardinal)
 		if(entered_dirs & Ddir)
 			var/image/I
 			if(fluidtrack_cache["entered-[blood_state]-[Ddir]"])

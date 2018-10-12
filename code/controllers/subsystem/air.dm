@@ -274,7 +274,7 @@ SUBSYSTEM_DEF(air)
 		if(blockchanges && T.excited_group)
 			T.excited_group.garbage_collect()
 	else
-		for(var/direction in cardinal)
+		for(var/direction in GLOB.cardinal)
 			if(!(T.atmos_adjacent_turfs & direction))
 				continue
 			var/turf/simulated/S = get_step(T, direction)

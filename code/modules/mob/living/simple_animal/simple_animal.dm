@@ -146,7 +146,7 @@
 			turns_since_move++
 			if(turns_since_move >= turns_per_move)
 				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
-					var/anydir = pick(cardinal)
+					var/anydir = pick(GLOB.cardinal)
 					if(Process_Spacemove(anydir))
 						Move(get_step(src,anydir), anydir)
 						turns_since_move = 0
@@ -583,4 +583,3 @@
 
 /mob/living/simple_animal/SetEarDeaf()
 	return
-

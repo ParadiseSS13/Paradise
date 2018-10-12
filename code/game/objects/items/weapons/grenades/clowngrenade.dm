@@ -20,11 +20,11 @@
 		*/
 		var/i = 0
 		var/number = 0
-		for(var/direction in alldirs)
+		for(var/direction in GLOB.alldirs)
 			for(i = 0; i < 2; i++)
 				number++
 				var/obj/item/grown/bananapeel/traitorpeel/peel = new /obj/item/grown/bananapeel/traitorpeel(get_turf(src.loc))
-			/*	var/direction = pick(alldirs)
+			/*	var/direction = pick(GLOB.alldirs)
 				var/spaces = pick(1;150, 2)
 				var/a = 0
 				for(a = 0; a < spaces; a++)

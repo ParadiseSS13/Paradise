@@ -1207,7 +1207,7 @@
 			to_chat(usr, "This cannot be used on instances of type /mob/living/silicon/ai")
 			return
 
-		var/turf/prison_cell = pick(prisonwarp)
+		var/turf/prison_cell = pick(GLOB.prisonwarp)
 		if(!prison_cell)	return
 
 		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
@@ -1287,7 +1287,7 @@
 
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(tdome1)
+		M.loc = pick(GLOB.tdome1)
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 1)")
@@ -1317,7 +1317,7 @@
 
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(tdome2)
+		M.loc = pick(GLOB.tdome2)
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Team 2)")
@@ -1339,7 +1339,7 @@
 
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(tdomeadmin)
+		M.loc = pick(GLOB.tdomeadmin)
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Admin.)")
@@ -1373,7 +1373,7 @@
 			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(tdomeobserve)
+		M.loc = pick(GLOB.tdomeobserve)
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the thunderdome. (Observer.)")
@@ -1395,7 +1395,7 @@
 
 		M.Paralyse(5)
 		sleep(5)
-		M.loc = pick(aroomwarp)
+		M.loc = pick(GLOB.aroomwarp)
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the <b>Admin Room!</b>.</span>")
 		log_admin("[key_name(usr)] has sent [key_name(M)] to the Admin Room")
@@ -1762,7 +1762,7 @@
 		var/logmsg = null
 		switch(blessing)
 			if("To Arrivals")
-				M.forceMove(pick(latejoin))
+				M.forceMove(pick(GLOB.latejoin))
 				to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 				logmsg = "a teleport to arrivals."
 			if("Moderate Heal")
@@ -2580,48 +2580,6 @@
 				log_admin("[key_name(usr)] made all SMESs powered", 1)
 				message_admins("<span class='notice'>[key_name_admin(usr)] made all SMESs powered</span>", 1)
 				power_restore_quick()
-			if("prisonwarp")
-				if(!ticker)
-					alert("The game hasn't started yet!", null, null, null, null, null)
-					return
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","PW")
-				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
-				for(var/mob/living/carbon/human/H in GLOB.mob_list)
-					var/turf/loc = find_loc(H)
-					var/security = 0
-					if(!is_station_level(loc.z) || prisonwarped.Find(H))
-
-//don't warp them if they aren't ready or are already there
-						continue
-					H.Paralyse(5)
-					if(H.wear_id)
-						var/obj/item/card/id/id = H.get_idcard()
-						for(var/A in id.access)
-							if(A == access_security)
-								security++
-					if(!security)
-						//strip their stuff before they teleport into a cell :downs:
-						for(var/obj/item/W in H)
-							if(istype(W, /obj/item/organ/external))
-								continue
-								//don't strip organs
-							H.unEquip(W)
-							if(H.client)
-								H.client.screen -= W
-							if(W)
-								W.loc = H.loc
-								W.dropped(H)
-								W.layer = initial(W.layer)
-								W.plane = initial(W.plane)
-						//teleport person to cell
-						H.loc = pick(prisonwarp)
-						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)
-						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
-					else
-						//teleport security person
-						H.loc = pick(prisonsecuritywarp)
-					prisonwarped += H
 			if("traitor_all")
 				if(!ticker)
 					alert("The game hasn't started yet!")
@@ -3327,7 +3285,7 @@
 		return
 	var/datum/mind/hunter_mind = new /datum/mind(key_of_hunter)
 	hunter_mind.active = 1
-	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(latejoin))
+	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)

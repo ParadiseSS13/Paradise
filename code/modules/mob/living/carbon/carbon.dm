@@ -123,7 +123,7 @@
 		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
-			I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			I.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 
 	for(var/mob/M in src)
 		if(M in src.stomach_contents)

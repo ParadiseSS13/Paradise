@@ -46,7 +46,7 @@
 		T.nicely_link_to_other_stuff(src)
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
-/obj/machinery/disposal/Moved(atom/OldLoc, Dir) 
+/obj/machinery/disposal/Moved(atom/OldLoc, Dir)
 	. = ..()
 	eject()
 	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
@@ -824,7 +824,7 @@
 // remains : set to leave broken pipe pieces in place
 /obj/structure/disposalpipe/proc/broken(var/remains = 0)
 	if(remains)
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			if(D & dpdir)
 				var/obj/structure/disposalpipe/broken/P = new(src.loc)
 				P.dir = D
@@ -1366,7 +1366,7 @@
 			return
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
-/obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir) 
+/obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir)
 	. = ..()
 	var/turf/T = OldLoc
 	if(T.intact)
@@ -1403,7 +1403,7 @@
 	if(direction)
 		dirs = list( direction, turn(direction, -45), turn(direction, 45))
 	else
-		dirs = alldirs.Copy()
+		dirs = GLOB.alldirs.Copy()
 
 	src.streak(dirs)
 
@@ -1412,6 +1412,6 @@
 	if(direction)
 		dirs = list( direction, turn(direction, -45), turn(direction, 45))
 	else
-		dirs = alldirs.Copy()
+		dirs = GLOB.alldirs.Copy()
 
 	src.streak(dirs)

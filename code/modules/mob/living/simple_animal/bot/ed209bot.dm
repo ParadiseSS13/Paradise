@@ -471,7 +471,7 @@
 		pulse2.icon_state = "empdisable"
 		pulse2.name = "emp sparks"
 		pulse2.anchored = 1
-		pulse2.dir = pick(cardinal)
+		pulse2.dir = pick(GLOB.cardinal)
 		spawn(10)
 			qdel(pulse2)
 		var/list/mob/living/carbon/targets = new

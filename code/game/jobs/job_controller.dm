@@ -448,7 +448,7 @@ var/global/datum/controller/occupations/job_master
 		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://nanotrasen.se/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://nanotrasen.se/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://nanotrasen.se/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
 	if(job.req_admin_notify)
 		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
-	
+
 	return H
 /datum/controller/occupations/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
 	if(!H)
@@ -468,8 +468,8 @@ var/global/datum/controller/occupations/job_master
 				continue
 			S = sloc
 			break
-		if(!S)
-			S = locate("start*[rank]") // use old stype
+		if(length(GLOB.jobspawn_overrides[rank]))
+			S = pick(GLOB.jobspawn_overrides[rank])
 		if(!S) // still no spawn, fall back to the arrivals shuttle
 			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival))
 				if(!TS.density)

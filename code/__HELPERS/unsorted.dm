@@ -1438,7 +1438,7 @@ atom/proc/GetTypeInAllContents(typepath)
 	var/initial_chance = chance
 	while(steps > 0)
 		if(prob(chance))
-			step(AM, pick(alldirs))
+			step(AM, pick(GLOB.alldirs))
 		chance = max(chance - (initial_chance / steps), 0)
 		steps--
 

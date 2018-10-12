@@ -147,7 +147,7 @@
 
 	var/remove = 1 //set by non simulated turfs who are sharing with this turf
 
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		if(!(atmos_adjacent_turfs & direction))
 			continue
 
@@ -452,13 +452,13 @@ turf/simulated/proc/super_conduct()
 			archive()
 	else
 		//Does particate in air exchange so only consider directions not considered during process_cell()
-		for(var/direction in cardinal)
+		for(var/direction in GLOB.cardinal)
 			if(!(atmos_adjacent_turfs & direction) && !(atmos_supeconductivity & direction))
 				conductivity_directions += direction
 
 	if(conductivity_directions>0)
 		//Conduct with tiles around me
-		for(var/direction in cardinal)
+		for(var/direction in GLOB.cardinal)
 			if(conductivity_directions&direction)
 				var/turf/neighbor = get_step(src,direction)
 
@@ -539,7 +539,7 @@ turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 /turf/simulated/Initialize_Atmos(times_fired)
 	..()
 	update_visuals()
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		if(!(atmos_adjacent_turfs & direction))
 			continue
 		var/turf/enemy_tile = get_step(src, direction)

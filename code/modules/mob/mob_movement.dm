@@ -264,7 +264,7 @@
 						return
 
 	else if(mob.confused)
-		step(mob, pick(cardinal))
+		step(mob, pick(GLOB.cardinal))
 	else
 		. = ..()
 

@@ -8,8 +8,8 @@
 		mind.active = 1
 		mind.current = src
 
-	if(length(newplayer_start))
-		loc = pick(newplayer_start)
+	if(length(GLOB.newplayer_start))
+		loc = pick(GLOB.newplayer_start)
 	else
 		loc = locate(1,1,1)
 	lastarea = loc

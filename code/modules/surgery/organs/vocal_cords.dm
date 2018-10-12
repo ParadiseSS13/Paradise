@@ -297,7 +297,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 	else if((findtext(message, move_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			step(L, pick(cardinal))
+			step(L, pick(GLOB.cardinal))
 		next_command = world.time + cooldown_meme
 
 	//WALK

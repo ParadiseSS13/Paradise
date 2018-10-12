@@ -59,7 +59,7 @@ var/global/list/rockTurfEdgeCache = list(
 	GLOB.mineral_turfs += src
 
 	if(mineralType && mineralAmt && spread && spreadChance)
-		for(var/dir in cardinal)
+		for(var/dir in GLOB.cardinal)
 			if(prob(spreadChance))
 				var/turf/T = get_step(src, dir)
 				if(istype(T, /turf/simulated/mineral/random))
@@ -574,7 +574,7 @@ var/global/list/rockTurfEdgeCache = list(
 		src.length = length
 
 	// Get our directiosn
-	var/forward_cave_dir = pick(alldirs - exclude_dir)
+	var/forward_cave_dir = pick(GLOB.alldirs - exclude_dir)
 	// Get the opposite direction of our facing direction
 	var/backward_cave_dir = angle2dir(dir2angle(forward_cave_dir) + 180)
 

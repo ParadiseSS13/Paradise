@@ -299,7 +299,7 @@
 		return
 	if(!iscultist(user))
 		user.unEquip(src, 1)
-		step(src, pick(alldirs))
+		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>\The [src] flickers out of your hands, too eager to move!</span>")
 		return
 

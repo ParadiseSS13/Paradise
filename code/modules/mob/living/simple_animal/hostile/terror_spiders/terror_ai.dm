@@ -230,7 +230,7 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/ClearObstacle(turf/target_turf)
 	var/list/valid_obstacles = list(/obj/structure/window, /obj/structure/closet, /obj/structure/table, /obj/structure/grille, /obj/structure/rack, /obj/machinery/door/window)
-	for(var/dir in cardinal) // North, South, East, West
+	for(var/dir in GLOB.cardinal) // North, South, East, West
 		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
 		if(is_type_in_list(obstacle, valid_obstacles))
 			obstacle.attack_animal(src)

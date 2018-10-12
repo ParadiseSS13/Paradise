@@ -23,7 +23,7 @@
 		BB = new projectile_type(src)
 	pixel_x = rand(-10.0, 10)
 	pixel_y = rand(-10.0, 10)
-	dir = pick(alldirs)
+	dir = pick(GLOB.alldirs)
 	update_icon()
 
 /obj/item/ammo_casing/update_icon()
@@ -199,7 +199,7 @@
 		num_ammo++
 	for(var/M in initial_mats) //In case we have multiple types of materials
 		var/materials_per = initial_mats[M] / max_ammo
-		
+
 		var/value = max(materials_per * num_ammo, 2000) //Enforce a minimum of 2000 units even if empty.
 		materials[M] = value
 

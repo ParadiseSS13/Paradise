@@ -152,7 +152,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/fake_flood/proc/Expand()
 	for(var/turf/FT in flood_turfs)
-		for(var/dir in cardinal)
+		for(var/dir in GLOB.cardinal)
 			var/turf/T = get_step(FT, dir)
 			if((T in flood_turfs) || !FT.CanAtmosPass(T))
 				continue
@@ -324,7 +324,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/singularity_scare/New(loc, mob/living/carbon/T)
 	target = T
 	var/turf/start = get_turf(T)
-	var/screen_border = pick(cardinal)
+	var/screen_border = pick(GLOB.cardinal)
 	for(var/i in 0 to 10)
 		start = get_step(start, screen_border)
 	s = new(start,target)
@@ -993,7 +993,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 							halimage = image('icons/turf/floors/Chasms.dmi',target,"smooth",TURF_LAYER)
 						if(4)
 							halimage = image('icons/obj/assemblies.dmi',target,"plastic-explosive2",OBJ_LAYER+0.01)
-						
+
 					if(client)
 						client.images += halimage
 					sleep(rand(40,60)) //Only seen for a brief moment.

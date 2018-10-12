@@ -375,9 +375,9 @@
 	/** SILICON ***/
 	if(issilicon(current))
 		sections["silicon"] = memory_edit_silicon()
-	/* 
-		This prioritizes antags relevant to the current round to make them appear at the top of the panel. 
-		Traitorchan and traitorvamp are snowflaked in because they have multiple sections. 
+	/*
+		This prioritizes antags relevant to the current round to make them appear at the top of the panel.
+		Traitorchan and traitorvamp are snowflaked in because they have multiple sections.
 	*/
 	if(ticker.mode.config_tag == "traitorchan")
 		if(sections["traitor"])
@@ -830,7 +830,7 @@
 					log_admin("[key_name(usr)] has wizarded [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has wizarded [key_name_admin(current)]")
 			if("lair")
-				current.forceMove(pick(wizardstart))
+				current.forceMove(pick(GLOB.wizardstart))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the wizard's lair")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the wizard's lair")
 			if("dressup")
@@ -1316,11 +1316,11 @@
 		special_role = SPECIAL_ROLE_WIZARD
 		assigned_role = SPECIAL_ROLE_WIZARD
 		//ticker.mode.learn_basic_spells(current)
-		if(!wizardstart.len)
-			current.loc = pick(latejoin)
+		if(!GLOB.wizardstart.len)
+			current.loc = pick(GLOB.latejoin)
 			to_chat(current, "HOT INSERTION, GO GO GO")
 		else
-			current.loc = pick(wizardstart)
+			current.loc = pick(GLOB.wizardstart)
 
 		ticker.mode.equip_wizard(current)
 		for(var/obj/item/spellbook/S in current.contents)

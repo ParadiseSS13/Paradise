@@ -160,7 +160,7 @@
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
 	new /obj/effect/temp_visual/hierophant/blast(T, user, friendly_fire_check)
-	for(var/d in cardinal)
+	for(var/d in GLOB.cardinal)
 		spawn(0)
 			blast_wall(T, d, user)
 

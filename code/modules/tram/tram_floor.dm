@@ -11,7 +11,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)	return
 	if(!controller)	return
-	for(var/cdir in cardinal)
+	for(var/cdir in GLOB.cardinal)
 		var/turf/T2 = get_step(T,cdir)
 		var/obj/tram/floor/TF = locate(/obj/tram/floor) in T2
 		if(istype(TF))

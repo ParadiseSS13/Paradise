@@ -27,7 +27,7 @@
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!istype(pickedstart, /turf/space))
-		var/startSide = pick(cardinal)
+		var/startSide = pick(GLOB.cardinal)
 		pickedstart = spaceDebrisStartLoc(startSide, 1)
 		pickedgoal = spaceDebrisFinishLoc(startSide, 1)
 		max_i--

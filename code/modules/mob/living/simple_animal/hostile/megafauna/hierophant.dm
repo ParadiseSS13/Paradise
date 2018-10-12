@@ -234,7 +234,7 @@ Difficulty: Hard
 					blinking = TRUE
 					animate(src, color = "#660099", time = 10)
 					var/list/targets = ListTargets()
-					var/list/cardinal_copy = cardinal.Copy()
+					var/list/cardinal_copy = GLOB.cardinal.Copy()
 					while(health && targets.len && cardinal_copy.len)
 						var/mob/living/pickedtarget = pick(targets)
 						if(targets.len > 4)
@@ -281,7 +281,7 @@ Difficulty: Hard
 		if((prob(anger_modifier) || target.Adjacent(src)) && target != src)
 			var/obj/effect/temp_visual/hierophant/chaser/OC = new /obj/effect/temp_visual/hierophant/chaser(loc, src, target, max(1.5, 5 - anger_modifier * 0.07), FALSE)
 			OC.moving = 4
-			OC.moving_dir = pick(cardinal - C.moving_dir)
+			OC.moving_dir = pick(GLOB.cardinal - C.moving_dir)
 	else //just release a burst of power
 		spawn(0)
 			burst(get_turf(src))
@@ -295,7 +295,7 @@ Difficulty: Hard
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
 	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
-	for(var/d in diagonals)
+	for(var/d in GLOB.diagonals)
 		spawn(0)
 			blast_wall(T, d)
 
@@ -308,7 +308,7 @@ Difficulty: Hard
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
 	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
-	for(var/d in cardinal)
+	for(var/d in GLOB.cardinal)
 		spawn(0)
 			blast_wall(T, d)
 
@@ -321,7 +321,7 @@ Difficulty: Hard
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
 	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
-	for(var/d in alldirs)
+	for(var/d in GLOB.alldirs)
 		spawn(0)
 			blast_wall(T, d)
 
@@ -437,7 +437,7 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/chaser/proc/get_target_dir()
 	. = get_cardinal_dir(src, targetturf)
 	if((. != previous_moving_dir && . == more_previouser_moving_dir) || . == 0) //we're alternating, recalculate
-		var/list/cardinal_copy = cardinal.Copy()
+		var/list/cardinal_copy = GLOB.cardinal.Copy()
 		cardinal_copy -= more_previouser_moving_dir
 		. = pick(cardinal_copy)
 

@@ -34,7 +34,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()
-	for(var/D in cardinal)
+	for(var/D in GLOB.cardinal)
 		if(D == dir)
 			continue
 		for(var/obj/machinery/atmospherics/target in get_step(src, D))

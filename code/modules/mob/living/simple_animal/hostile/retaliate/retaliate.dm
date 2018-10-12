@@ -66,7 +66,7 @@
 	Retaliate()
 
 /mob/living/simple_animal/hostile/retaliate/DestroySurroundings()
-	for(var/dir in cardinal) // North, South, East, West
+	for(var/dir in GLOB.cardinal) // North, South, East, West
 		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
 		if(istype(obstacle, /obj/structure/closet) || istype(obstacle, /obj/structure/table))
 			obstacle.attack_animal(src)

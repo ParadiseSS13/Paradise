@@ -42,7 +42,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		T.ChangeTurf(/turf/space)
 
 /proc/createRandomZlevel()
-	if(awaydestinations.len)	//crude, but it saves another var!
+	if(GLOB.awaydestinations.len)	//crude, but it saves another var!
 		return
 
 	if(potentialRandomZlevels && potentialRandomZlevels.len)
@@ -62,7 +62,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name != "awaystart")
 				continue
-			awaydestinations.Add(L)
+			GLOB.awaydestinations.Add(L)
 
 		log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
 
@@ -72,7 +72,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 
 /proc/createALLZlevels()
-	if(awaydestinations.len)	//crude, but it saves another var!
+	if(GLOB.awaydestinations.len)	//crude, but it saves another var!
 		return
 
 	if(potentialRandomZlevels && potentialRandomZlevels.len)
@@ -95,7 +95,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name != "awaystart")
 					continue
-				awaydestinations.Add(L)
+				GLOB.awaydestinations.Add(L)
 
 			log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
 			watch = start_watch()

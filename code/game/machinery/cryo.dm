@@ -65,7 +65,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
 	if(node) return
-	for(var/cdir in cardinal)
+	for(var/cdir in GLOB.cardinal)
 		node = findConnecting(cdir)
 		if(node)
 			break

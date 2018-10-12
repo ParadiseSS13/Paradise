@@ -249,7 +249,7 @@
 	underlays += new /icon('icons/turf/space.dmi',SPACE_ICON_STATE)
 
 	var/dirs = 0
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		var/turf/T = get_step(src,direction)
 		if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
 			var/turf/simulated/floor/plating/airless/catwalk/C=T
@@ -271,7 +271,7 @@
 		to_chat(user, "<span class='notice'>You unscrew the catwalk's rods.</span>")
 		new /obj/item/stack/rods(src, 1)
 		ReplaceWithLattice()
-		for(var/direction in cardinal)
+		for(var/direction in GLOB.cardinal)
 			var/turf/T = get_step(src,direction)
 			if(istype(T, /turf/simulated/floor/plating/airless/catwalk))
 				var/turf/simulated/floor/plating/airless/catwalk/CW=T

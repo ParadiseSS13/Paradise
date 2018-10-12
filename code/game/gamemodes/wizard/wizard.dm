@@ -30,14 +30,14 @@
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.original = wizard.current
-	if(wizardstart.len == 0)
+	if(GLOB.wizardstart.len == 0)
 		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return 0
 	return 1
 
 /datum/game_mode/wizard/pre_setup()
 	for(var/datum/mind/wiz in wizards)
-		wiz.current.loc = pick(wizardstart)
+		wiz.current.loc = pick(GLOB.wizardstart)
 	..()
 	return 1
 

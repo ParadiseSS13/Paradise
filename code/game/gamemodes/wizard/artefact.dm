@@ -832,7 +832,7 @@ var/global/list/multiverse = list()
 					user.unset_machine()
 			if("r_leg","l_leg")
 				to_chat(user, "<span class='notice'>You move the doll's legs around.</span>")
-				var/turf/T = get_step(target,pick(cardinal))
+				var/turf/T = get_step(target,pick(GLOB.cardinal))
 				target.Move(T)
 			if("r_arm","l_arm")
 				//use active hand on random nearby mob

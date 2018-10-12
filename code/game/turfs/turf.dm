@@ -57,7 +57,7 @@
 /turf/Destroy()
 // Adds the adjacent turfs to the current atmos processing
 	if(SSair)
-		for(var/direction in cardinal)
+		for(var/direction in GLOB.cardinal)
 			if(atmos_adjacent_turfs & direction)
 				var/turf/simulated/T = get_step(src, direction)
 				if(istype(T))
@@ -244,7 +244,7 @@
 		var/atemp = 0
 		var/turf_count = 0
 
-		for(var/direction in cardinal)//Only use cardinals to cut down on lag
+		for(var/direction in GLOB.cardinal)//Only use cardinals to cut down on lag
 			var/turf/T = get_step(src,direction)
 			if(istype(T,/turf/space))//Counted as no air
 				turf_count++//Considered a valid turf for air calcs
@@ -298,7 +298,7 @@
 	var/list/L = new()
 	var/turf/simulated/T
 
-	for(var/dir in cardinal)
+	for(var/dir in GLOB.cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
 			if(!LinkBlockedWithAccess(src, T, ID))
@@ -311,7 +311,7 @@
 	var/list/L = new()
 	var/turf/simulated/T
 
-	for(var/dir in cardinal)
+	for(var/dir in GLOB.cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
 			if(!CanAtmosPass(T))

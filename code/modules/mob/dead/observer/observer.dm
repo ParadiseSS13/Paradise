@@ -78,7 +78,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	appearance_flags |= KEEP_TOGETHER
 	ghost_darkness_images |= ghostimage
 	updateallghostimages()
-	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
+	if(!T)	T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
