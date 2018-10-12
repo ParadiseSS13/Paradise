@@ -1,0 +1,6 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - rscadd: "Added the on_give proc for items. Was needed for the fixes"
+  - bugfix: "Giving two handed items like the DIY chainsaw and potted plants now works correctly"
+  - bugfix: "The DIY chainsaw, doomslayer chainsaw and the potted plants now do damage when given to somebody else and when picked up while the chainsaw was on."
