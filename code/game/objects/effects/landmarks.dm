@@ -319,6 +319,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	name = "carpspawn"
 	icon_state = "carp_spawn"
 
+/obj/effect/landmark/carpspawn/Initialize(mapload)
+	..()
+	GLOB.carplist += loc
+	return INITIALIZE_HINT_QDEL
+
 /obj/effect/landmark/xeno_spawn
 	name = "xeno_spawn"
 	icon_state = "xeno_spawn"
@@ -421,21 +426,12 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/ninja
-	name = "Ninja"
+	name = "ninjastart"
 	icon_state = "ninja"
 
 /obj/effect/landmark/ninja/Initialize(mapload)
 	..()
 	GLOB.ninjastart += loc
-	return INITIALIZE_HINT_QDEL
-
-/obj/effect/landmark/carp
-	name = "Carp"
-	icon_state = "carp"
-
-/obj/effect/landmark/carp/Initialize(mapload)
-	..()
-	GLOB.carplist += loc
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/avatar

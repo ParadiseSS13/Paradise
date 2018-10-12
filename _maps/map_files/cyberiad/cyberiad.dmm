@@ -2754,7 +2754,7 @@
 "baX" = (/obj/machinery/computer/emergency_shuttle,/turf/simulated/shuttle/floor,/area/shuttle/escape)
 "baY" = (/turf/simulated/shuttle/wall{icon_state = "swallc3"},/area/shuttle/escape)
 "baZ" = (/obj/structure/window/full/shuttle,/obj/structure/grille,/turf/simulated/shuttle/plating,/area/shuttle/arrival/station)
-"bba" = (/obj/effect/landmark{name = "Observer-Start"},/turf/simulated/shuttle/floor,/area/shuttle/arrival/station)
+"bba" = (/obj/effect/landmark/observer_start,/turf/simulated/shuttle/floor,/area/shuttle/arrival/station)
 "bbb" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/obj/structure/table/glass,/obj/item/reagent_containers/spray/plantbgone,/obj/item/reagent_containers/spray/pestspray,/obj/item/reagent_containers/glass/bottle/nutrient/ez,/obj/item/reagent_containers/glass/bottle/nutrient/rh,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel{icon_state = "green"; dir = 4},/area/hallway/secondary/construction{name = "\improper Garden"})
 "bbc" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plasteel,/area/storage/primary)
 "bbd" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 10},/turf/simulated/floor/plasteel,/area/storage/primary)

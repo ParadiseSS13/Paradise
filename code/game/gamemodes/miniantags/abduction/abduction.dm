@@ -213,10 +213,16 @@
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships
 /obj/effect/landmark/abductor
+	name = "Abductor"
+	icon_state = "Abductor"
 	var/team = 1
 
 /obj/effect/landmark/abductor/agent
+	name = "Abductor Agent"
+	icon_state = "abductor_agent"
+
 /obj/effect/landmark/abductor/scientist
+	name = "Abductor Scientist"
 
 
 // OBJECTIVES
