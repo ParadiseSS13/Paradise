@@ -96,7 +96,7 @@
 /obj/machinery/mineral/processing_unit/process()
 	var/turf/T = get_step(src, input_dir)
 	if(T)
-		for(var/obj/item/ore/O in T)
+		for(var/obj/item/stack/ore/O in T)
 			process_ore(O)
 			CHECK_TICK
 	if(on)
@@ -111,7 +111,7 @@
 			CONSOLE.updateUsrDialog()
 
 
-/obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/ore/O)
+/obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	GET_COMPONENT(materials, /datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(O)
 	if(!materials.has_space(material_amount))

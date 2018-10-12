@@ -160,8 +160,9 @@
 		S.use(1)
 		power_supply.give(1000)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else if(istype(A, /obj/item/ore/plasma))
-		qdel(A)
+	else if(istype(A, /obj/item/stack/ore/plasma))
+		var/obj/item/stack/ore/S = A
+		S.use(1)
 		power_supply.give(500)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else

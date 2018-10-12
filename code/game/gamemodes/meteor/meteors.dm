@@ -98,7 +98,7 @@
 	var/meteorsound = 'sound/effects/meteorimpact.ogg'
 	var/z_original = 1
 
-	var/meteordrop = /obj/item/ore/iron
+	var/meteordrop = /obj/item/stack/ore/iron
 	var/dropamt = 2
 
 /obj/effect/meteor/Move()
@@ -196,7 +196,7 @@
 	hits = 1
 	hitpwr = 3
 	meteorsound = 'sound/weapons/tap.ogg'
-	meteordrop = /obj/item/ore/glass
+	meteordrop = /obj/item/stack/ore/glass
 
 //Medium-sized
 /obj/effect/meteor/medium
@@ -226,7 +226,7 @@
 	hits = 5
 	heavy = 1
 	meteorsound = 'sound/effects/bamf.ogg'
-	meteordrop = /obj/item/ore/plasma
+	meteordrop = /obj/item/stack/ore/plasma
 
 /obj/effect/meteor/flaming/meteor_effect()
 	..(heavy)
@@ -237,7 +237,7 @@
 	name = "glowing meteor"
 	icon_state = "glowing"
 	heavy = 1
-	meteordrop = /obj/item/ore/uranium
+	meteordrop = /obj/item/stack/ore/uranium
 
 
 /obj/effect/meteor/irradiated/meteor_effect()
@@ -256,7 +256,7 @@
 	hitpwr = 1
 	heavy = 1
 	meteorsound = 'sound/effects/bamf.ogg'
-	meteordrop = /obj/item/ore/plasma
+	meteordrop = /obj/item/stack/ore/plasma
 
 /obj/effect/meteor/tunguska/meteor_effect()
 	..(heavy)
