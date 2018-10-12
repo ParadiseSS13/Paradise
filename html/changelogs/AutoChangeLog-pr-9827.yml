@@ -1,4 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - tweak: "Moves check_and_add() to reagents holder"
