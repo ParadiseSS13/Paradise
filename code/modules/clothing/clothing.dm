@@ -385,18 +385,12 @@ BLIND     // can't see anything
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
-		if(!M.lit) // Match isn't lit, but isn't burnt.
-			M.lit = 1
-			M.icon_state = "match_lit"
-			processing_objects.Add(M)
-			M.update_icon()
+		if(M.matchignite()) // Match isn't lit, but isn't burnt.
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
 			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-		else if(M.lit == 1) // Match is lit, not extinguished.
-			M.dropped()
+		else
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
-		else // Match has been previously lit and extinguished.
-			to_chat(user, "<span class='notice'>The [M] has already been extinguished.</span>")
+			M.dropped()
 		return
 
 	if(istype(I, /obj/item/wirecutters))

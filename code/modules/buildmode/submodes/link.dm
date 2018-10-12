@@ -89,6 +89,6 @@
 		for(var/obj/machinery/door/airlock/P in range(M.range,M))
 			if(P.id_tag == M.id)
 				form_connection(M, P, M.normaldoorcontrol)
-		for(var/obj/machinery/door/poddoor/P in airlocks)
+		for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
 			if(P.id_tag == M.id)
 				form_connection(M, P, !M.normaldoorcontrol)

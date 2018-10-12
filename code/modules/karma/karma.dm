@@ -59,7 +59,7 @@ var/list/karma_spenders = list()
 	if(config.disable_karma)
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return FALSE
-	if(!ticker || !player_list.len || (ticker.current_state == GAME_STATE_PREGAME))
+	if(!ticker || !GLOB.player_list.len || (ticker.current_state == GAME_STATE_PREGAME))
 		to_chat(src, "<span class='warning'>You can't award karma until the game has started.</span>")
 		return FALSE
 	if(client.karma_spent || (ckey in karma_spenders))
@@ -97,7 +97,7 @@ var/list/karma_spenders = list()
 		return
 
 	var/list/karma_list = list()
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(!(M.client && M.mind))
 			continue
 		if(M == src)

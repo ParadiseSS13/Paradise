@@ -53,7 +53,7 @@ var/global/sent_syndicate_strike_team = 0
 	sent_syndicate_strike_team = 1
 
 	//Spawns commandos and equips them.
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 
 		if(syndicate_commando_number <= 0)
 			break
@@ -88,7 +88,7 @@ var/global/sent_syndicate_strike_team = 0
 			is_leader = FALSE
 			syndicate_commando_number--
 
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "Syndicate-Commando-Bomb")
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
@@ -101,7 +101,7 @@ var/global/sent_syndicate_strike_team = 0
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
 	var/syndicate_commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
-	var/syndicate_commando_name = pick(last_names)
+	var/syndicate_commando_name = pick(GLOB.last_names)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)

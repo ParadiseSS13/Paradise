@@ -6,7 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 var/global/list/frozen_mob_list = list()
-/client/proc/freeze(var/mob/living/M as mob in mob_list)
+/client/proc/freeze(var/mob/living/M as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Freeze"
 
@@ -84,7 +84,7 @@ var/global/list/frozen_mob_list = list()
 
 //////////////////////////Freeze Mech
 
-/client/proc/freezemecha(var/obj/mecha/O as obj in mechas_list)
+/client/proc/freezemecha(var/obj/mecha/O as obj in GLOB.mechas_list)
 	set category = "Admin"
 	set name = "Freeze Mech"
 

@@ -95,9 +95,9 @@
 
 	processing_objects.Add(src)
 	removeVerb(/obj/mecha/verb/disconnect_from_port)
-	poi_list |= src
+	GLOB.poi_list |= src
 	log_message("[src] created.")
-	mechas_list += src //global mech list
+	GLOB.mechas_list += src //global mech list
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
 		diag_hud.add_to_hud(src)
@@ -616,7 +616,7 @@
 		QDEL_NULL(internal_tank)
 
 	processing_objects.Remove(src)
-	poi_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
 	internal_tank = null
@@ -628,7 +628,7 @@
 	cabin_air = null
 	QDEL_NULL(spark_system)
 
-	mechas_list -= src //global mech list
+	GLOB.mechas_list -= src //global mech list
 	return ..()
 
 /obj/mecha/ex_act(severity)

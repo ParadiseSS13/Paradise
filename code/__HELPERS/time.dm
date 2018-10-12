@@ -94,7 +94,7 @@ proc/isDay(var/month, var/day)
 	return round(0.1 * (TimeOfGame - wh), 0.1)
 
 /proc/numberToMonthName(number)
-	return month_names.Find(number)
+	return GLOB.month_names.Find(number)
 
 //Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
 /proc/seconds_to_time(var/seconds as num)

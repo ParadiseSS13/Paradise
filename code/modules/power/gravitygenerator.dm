@@ -366,7 +366,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
-	for(var/shaked in mob_list)
+	for(var/shaked in GLOB.mob_list)
 		var/mob/M = shaked
 		var/turf/their_turf = get_turf(M)
 		if(their_turf && their_turf.z == our_turf.z)

@@ -1,4 +1,0 @@
-author: "Squirgenheimer"
-delete-after: True
-changes: 
-  - bugfix: "fixed a potential runtime in the sentient animal event"

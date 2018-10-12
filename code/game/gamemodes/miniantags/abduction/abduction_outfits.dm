@@ -6,7 +6,7 @@
 	l_ear = /obj/item/radio/headset/abductor
 
 /datum/outfit/abductor/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in machines)
+	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.team == team_number)
 			return C
 

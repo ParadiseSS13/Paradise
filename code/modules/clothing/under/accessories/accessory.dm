@@ -390,7 +390,7 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = SLOT_TIE
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
@@ -398,7 +398,7 @@
 	icon_state = "locket"
 	item_state = "locket"
 	item_color = "locket"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = SLOT_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.

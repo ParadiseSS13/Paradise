@@ -149,9 +149,9 @@
 				update_all_mob_security_hud()
 				setTemp("<h3>All records deleted.</h3>")
 			if("del_alllogs2")
-				if(cell_logs.len)
+				if(GLOB.cell_logs.len)
 					setTemp("<h3>All cell logs deleted.</h3>")
-					cell_logs.Cut()
+					GLOB.cell_logs.Cut()
 				else
 					to_chat(usr, "<span class='notice'>Error; No cell logs to delete.</span>")
 			if("del_r2")
@@ -207,7 +207,7 @@
 			if("rank")
 				if(active1)
 					active1.fields["rank"] = temp_href[2]
-					if(temp_href[2] in joblist)
+					if(temp_href[2] in GLOB.joblist)
 						active1.fields["real_rank"] = temp_href[2]
 
 	if(href_list["scan"])
@@ -385,8 +385,8 @@
 */
 
 		else if(href_list["printlogs"])
-			if(cell_logs.len && !printing)
-				var/obj/item/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
+			if(GLOB.cell_logs.len && !printing)
+				var/obj/item/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in GLOB.cell_logs
 				if(!P)
 					return 0
 				printing = 1
@@ -500,7 +500,7 @@
 					//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
 					if(istype(active1, /datum/data/record) && L.Find(rank))
 						var/list/buttons = list()
-						for(var/rank in joblist)
+						for(var/rank in GLOB.joblist)
 							buttons[++buttons.len] = list("name" = rank, "icon" = null, "href" = "rank=[rank]", "status" = (active1.fields["rank"] == rank ? "selected" : null))
 						setTemp("<h3>Rank</h3>", buttons)
 					else
@@ -566,7 +566,7 @@
 		if(prob(10/severity))
 			switch(rand(1,6))
 				if(1)
-					R.fields["name"] = "[pick(pick(first_names_male), pick(first_names_female))] [pick(last_names)]"
+					R.fields["name"] = "[pick(pick(GLOB.first_names_male), pick(GLOB.first_names_female))] [pick(GLOB.last_names)]"
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)

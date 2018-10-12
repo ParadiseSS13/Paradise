@@ -13,8 +13,8 @@
 
 /obj/machinery/computer/monitor/New()
 	..()
-	power_monitors += src
-	power_monitors = sortAtom(power_monitors)
+	GLOB.power_monitors += src
+	GLOB.power_monitors = sortAtom(GLOB.power_monitors)
 	power_monitor = new(src)
 
 /obj/machinery/computer/monitor/Initialize()
@@ -23,7 +23,7 @@
 	powernet = find_powernet()
 
 /obj/machinery/computer/monitor/Destroy()
-	power_monitors -= src
+	GLOB.power_monitors -= src
 	powermonitor_repository.update_cache()
 	QDEL_NULL(power_monitor)
 	return ..()

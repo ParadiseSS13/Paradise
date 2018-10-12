@@ -336,7 +336,7 @@
 					continue
 				O.forceMove(src)
 
-	for(var/obj/machinery/computer/cloning/cloner in machines)
+	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
 		for(var/datum/dna2/record/R in cloner.records)
 			if(occupant.mind == locate(R.mind))
 				cloner.records.Remove(R)
@@ -434,7 +434,7 @@
 	control_computer.frozen_crew += "[occupant.real_name]"
 
 	var/ailist[] = list()
-	for(var/mob/living/silicon/ai/A in living_mob_list)
+	for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
 		ailist += A
 	if(ailist.len)
 		var/mob/living/silicon/ai/announcer = pick(ailist)
@@ -607,7 +607,7 @@
 	time_entered = world.time
 	if(findtext("[E.key]","@",1,2))
 		var/FT = replacetext(E.key, "@", "")
-		for(var/mob/dead/observer/Gh in respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
+		for(var/mob/dead/observer/Gh in GLOB.respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
@@ -761,7 +761,7 @@
 	if(istype(person_to_cryo.loc, /obj/machinery/cryopod))
 		return 0
 	var/list/free_cryopods = list()
-	for(var/obj/machinery/cryopod/P in machines)
+	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null

@@ -19,7 +19,7 @@ var/global/list/datum/stack_recipe/sandstone_recipes = list ( \
 	null, \
 	new/datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
-	new/datum/stack_recipe("Breakdown into sand", /obj/item/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
+	new/datum/stack_recipe("Breakdown into sand", /obj/item/stack/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
 	)
 
 var/global/list/datum/stack_recipe/silver_recipes = list ( \

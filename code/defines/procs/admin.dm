@@ -68,11 +68,10 @@
 	return .
 
 /proc/key_name_admin(whom)
-	var/mob/whom_mob = whom //Should be always be a mob.
-	if(!istype(whom_mob)) //Best to check anyway
-		return  "key_name_admin did get a non-mob as argument. Argument is [whom]. Report it to a coder."
-	var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_mob,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
-	return message
+	if(whom)
+		var/mob/whom_mob = whom //As long as it's not null, will be close enough/has the proc UID() that is all that's needed
+		var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_mob,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
+		return message
 
 /proc/key_name_mentor(whom)
 	// Same as key_name_admin, but does not include (?) or (A) for antags.

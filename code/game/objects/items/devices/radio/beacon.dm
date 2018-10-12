@@ -11,11 +11,11 @@
 
 /obj/item/radio/beacon/New()
 	..()
-	code = "[code] ([beacons.len + 1])"
-	beacons += src
+	code = "[code] ([GLOB.beacons.len + 1])"
+	GLOB.beacons += src
 
 /obj/item/radio/beacon/Destroy()
-	beacons -= src
+	GLOB.beacons -= src
 	return ..()
 
 /obj/item/radio/beacon/emag_act(user as mob)

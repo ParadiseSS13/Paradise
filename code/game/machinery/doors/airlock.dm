@@ -132,7 +132,7 @@ About the new airlock wires panel:
 	update_icon()
 
 /obj/machinery/door/airlock/proc/update_other_id()
-	for(var/obj/machinery/door/airlock/A in airlocks)
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.closeOtherId == closeOtherId && A != src)
 			closeOther = A
 			break
@@ -313,15 +313,14 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/update_icon(state=0, override=0)
 	if(operating && !override)
 		return
+	icon_state = density ? "closed" : "open"
 	switch(state)
 		if(0)
 			if(density)
 				state = AIRLOCK_CLOSED
 			else
 				state = AIRLOCK_OPEN
-			icon_state = ""
 		if(AIRLOCK_OPEN, AIRLOCK_CLOSED)
-			icon_state = ""
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
 	set_airlock_overlays(state)
@@ -670,12 +669,12 @@ About the new airlock wires panel:
 	return FALSE
 
 //For the tools being used on the door. Since you don't want to call the attack_hand method if you're using hands. That would be silly
-//Also it's a bit inconsistent that when you access the panel you headbutt it. But not while crowbarring 
+//Also it's a bit inconsistent that when you access the panel you headbutt it. But not while crowbarring
 //Try to interact with the panel. If the user can't it'll try activating the door
 /obj/machinery/door/airlock/proc/interact_with_panel(mob/user)
 	if(shock_user(user, 100))
 		return
-	
+
 	if(panel_open)
 		if(security_level)
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
@@ -1325,7 +1324,7 @@ About the new airlock wires panel:
 				user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 				playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 			else return FALSE
-		else 
+		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 			playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
 		note.forceMove(get_turf(user))

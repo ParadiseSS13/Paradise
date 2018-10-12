@@ -18,7 +18,7 @@
 	var/list/L = list()
 	var/list/areaindex = list()
 
-	for(var/obj/item/radio/beacon/R in beacons)
+	for(var/obj/item/radio/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
 			continue

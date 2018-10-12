@@ -13,7 +13,7 @@
 	if(!candidates.len)
 		return kill()
 	var/list/vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in all_vent_pumps)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in GLOB.all_vent_pumps)
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
 			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent
