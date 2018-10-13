@@ -78,6 +78,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.latejoin += loc
 	return INITIALIZE_HINT_QDEL
 
+/obj/effect/landmark/observer_start
+	name = "Observer-Start"
+	icon_state = "observer_start"
 
 /obj/effect/landmark/start/civilian
 	name = "Civilian"
@@ -177,7 +180,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/start/iaa
 	name = "Internal Affairs Agent"
-	icon_state = "iaa"
+	icon_state = "Lawyer"
 
 // Medical //
 
@@ -333,10 +336,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.xeno_spawn += loc
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/landmark/observer_start
-	name = "Observer-Start"
-	icon_state = "observer_start"
-
 /obj/effect/landmark/blobstart
 	name = "blobstart"
 	icon_state = "blob_start"
@@ -363,6 +362,16 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	..()
 	GLOB.emergencyresponseteamspawn += loc
 	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/ert_director
+	name = "ERT Director"
+	icon_state = "ert_spawn"
+
+/obj/effect/landmark/ert_director/Initialize(mapload)
+	..()
+	GLOB.ertdirector += loc
+	return INITIALIZE_HINT_QDEL
+
 
 // Thunderdome //
 /obj/effect/landmark/thunderdome/observe

@@ -443,7 +443,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			//ticker.mode.learn_basic_spells(new_character)
 			ticker.mode.equip_wizard(new_character)
 		if("Syndicate")
-			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
+			var/obj/effect/landmark/synd_spawn = locate(pick(GLOB.nukeop_start))
 			if(synd_spawn)
 				new_character.loc = get_turf(synd_spawn)
 			call(/datum/game_mode/proc/equip_syndicate)(new_character)

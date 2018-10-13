@@ -957,7 +957,7 @@
 					log_admin("[key_name(usr)] has nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has nuke op'd [key_name_admin(current)]")
 			if("lair")
-				current.forceMove(get_turf(locate("landmark*Syndicate-Spawn")))
+				current.forceMove(get_turf(pick(GLOB.nukeop_start)))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the nuclear operative spawn")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the nuclear operative spawn")
 			if("dressup")
@@ -1275,7 +1275,7 @@
 		ticker.mode.forge_syndicate_objectives(src)
 		ticker.mode.greet_syndicate(src)
 
-		current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
+		current.loc = get_turf(locate(pick(GLOB.nukeop_start)))
 
 		var/mob/living/carbon/human/H = current
 		qdel(H.belt)

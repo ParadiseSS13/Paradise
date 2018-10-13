@@ -214,7 +214,7 @@
 // TODO: Split into seperate landmarks for prettier ships
 /obj/effect/landmark/abductor
 	name = "Abductor"
-	icon_state = "Abductor"
+	icon_state = "abductor"
 	var/team = 1
 
 /obj/effect/landmark/abductor/agent
