@@ -547,7 +547,7 @@
 "kA" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/effect/decal/warning_stripes/northeastcorner,/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "kB" = (/obj/structure/rack,/obj/item/clothing/ears/earmuffs{pixel_x = -3; pixel_y = -2},/turf/simulated/floor/plating,/area/awaymission/centcomAway/hangar)
 "kC" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/awaymission/centcomAway/general)
-"kD" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/hangar)
+"kD" = (/obj/effect/landmark/away,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/awaymission/centcomAway/hangar)
 "kE" = (/obj/structure/sign/vacuum,/turf/simulated/wall/r_wall,/area/awaymission/centcomAway/general)
 "kF" = (/obj/structure/chair/comfy/beige{dir = 1},/turf/simulated/floor/plasteel{icon_state = "floor"},/area/awaymission/centcomAway/general)
 "kG" = (/turf/simulated/floor/plasteel{dir = 2; icon_state = "greencorner"},/area/awaymission/centcomAway/general)

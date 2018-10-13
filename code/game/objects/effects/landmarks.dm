@@ -453,7 +453,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/away
-	name = "Away Destination"
+	name = "awaystart"
 	icon_state = "awaydestinations"
 
 /obj/effect/landmark/away/Initialize(mapload)

@@ -86,7 +86,7 @@
 "bH" = (/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "bI" = (/obj/machinery/door/poddoor{id_tag = "challenge"; name = "Gateway Shutters"},/obj/effect/decal/warning_stripes/yellow,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "bJ" = (/obj/machinery/door_control{id = "challenge"; name = "Gateway Lockdown"; pixel_x = -4; pixel_y = 26; req_access_txt = "0"},/obj/effect/decal/warning_stripes/northeastcorner,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"bK" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/greengrid,/area/awaymission/challenge/start)
+"bK" = (/obj/effect/landmark/away,/turf/simulated/floor/greengrid,/area/awaymission/challenge/start)
 "bL" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "bM" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,/obj/item/paper/journal_scrap_1,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "bN" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 9},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)

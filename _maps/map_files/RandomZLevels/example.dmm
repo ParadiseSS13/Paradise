@@ -115,13 +115,13 @@
 "ck" = (/obj/machinery/door/airlock/public/glass,/turf/simulated/floor/plasteel,/area/awaymission/example)
 "cl" = (/obj/structure/noticeboard{pixel_y = 32},/obj/item/paper{info = "Remember, friday is David Bowie night! You guys had better fucking <i>be there!</i>"; name = "friday night"},/obj/item/cigbutt,/turf/simulated/floor/plasteel{icon_state = "yellowcorner"},/area/awaymission/example)
 "cm" = (/obj/item/trash/pistachios,/turf/simulated/floor/plasteel,/area/awaymission/example)
-"cn" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plasteel,/area/awaymission/example)
-"co" = (/obj/effect/landmark{name = "awaystart"},/obj/item/assembly/mousetrap/armed,/turf/simulated/floor/plasteel,/area/awaymission/example)
+"cn" = (/obj/effect/landmark/away,/turf/simulated/floor/plasteel,/area/awaymission/example)
+"co" = (/obj/effect/landmark/away,/obj/item/assembly/mousetrap/armed,/turf/simulated/floor/plasteel,/area/awaymission/example)
 "cp" = (/obj/structure/reagent_dispensers/watertank,/turf/simulated/floor/plasteel,/area/awaymission/example)
-"cq" = (/obj/effect/landmark{name = "awaystart"},/obj/machinery/light_construct/small{tag = "icon-bulb-construct-stage1 (WEST)"; icon_state = "bulb-construct-stage1"; dir = 8},/turf/simulated/floor/plasteel,/area/awaymission/example)
-"cr" = (/obj/effect/landmark{name = "awaystart"},/obj/item/mop,/turf/simulated/floor/plasteel,/area/awaymission/example)
+"cq" = (/obj/effect/landmark/away,/obj/machinery/light_construct/small{tag = "icon-bulb-construct-stage1 (WEST)"; icon_state = "bulb-construct-stage1"; dir = 8},/turf/simulated/floor/plasteel,/area/awaymission/example)
+"cr" = (/obj/effect/landmark/away,/obj/item/mop,/turf/simulated/floor/plasteel,/area/awaymission/example)
 "cs" = (/obj/structure/closet,/turf/simulated/floor/plasteel,/area/awaymission/example)
-"ct" = (/obj/structure/chair/stool,/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/plasteel,/area/awaymission/example)
+"ct" = (/obj/structure/chair/stool,/obj/effect/landmark/away,/turf/simulated/floor/plasteel,/area/awaymission/example)
 "cu" = (/obj/structure/mopbucket,/obj/machinery/light_construct/small{dir = 4},/turf/simulated/floor/plasteel,/area/awaymission/example)
 
 (1,1,1) = {"
