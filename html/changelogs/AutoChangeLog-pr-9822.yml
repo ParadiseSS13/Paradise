@@ -1,5 +1,0 @@
-author: "FlimFlamm"
-delete-after: True
-changes: 
-  - tweak: "Tweaked formatting of Newscaster stories"
-  - bugfix: "Fixes images displaying improperly on Newscaster stories"
