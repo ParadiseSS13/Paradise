@@ -1,0 +1,4 @@
+author: "Birdtalon"
+delete-after: True
+changes: 
+  - bugfix: "Chem master now will show its de-powered state properly."
