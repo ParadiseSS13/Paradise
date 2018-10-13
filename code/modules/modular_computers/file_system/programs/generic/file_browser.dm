@@ -85,10 +85,10 @@
 	switch(href_list["action"])
 		if("PRG_openfile")
 			. = 1
-			var/datum/computer_file/F = HDD.find_file_by_name(href_list["PRG_openfile"])
+			var/datum/computer_file/F = HDD.find_file_by_name(href_list["name"])
 			if(!F.can_access_file(usr))
 				return
-			open_file = href_list["PRG_openfile"]
+			open_file = href_list["name"]
 		if("PRG_newtextfile")
 			. = 1
 			var/newname = stripped_input(usr, "Enter file name or leave blank to cancel:", "File rename", max_length=50)
