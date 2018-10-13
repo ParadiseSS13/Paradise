@@ -125,9 +125,9 @@
 			giveObjectivesandGoals()
 		if(!giveSpells())
 			message_admins("Revenant was created but has no mind. Trying again in ten seconds.")
-			addtimer(CALLBACK(src, .proc/tryGiveinTen), 100)
+			addtimer(CALLBACK(src, .proc/giveSpellsObjectivesordelete), 100)
 	
-/mob/living/simple_animal/revenant/proc/tryGiveinTen()
+/mob/living/simple_animal/revenant/proc/giveSpellsObjectivesordelete()
 	if(!giveSpells())
 		message_admins("Revenant still has no mind. Deleting...")
 		qdel(src)
@@ -135,6 +135,8 @@
 		giveObjectivesandGoals()
 
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
+			mind.wipe_memory()
+			SEND_SOUND(src, 'sound/effects/ghost.ogg')
 			to_chat(src, "<br>")
 			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
