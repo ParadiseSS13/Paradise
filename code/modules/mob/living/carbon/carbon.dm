@@ -60,7 +60,7 @@
 					if(organ.receive_damage(d, 0))
 						H.UpdateDamageIcon()
 
-				H.updatehealth()
+				H.updatehealth("stomach attack")
 
 			else
 				src.take_organ_damage(d)
@@ -144,7 +144,7 @@
 		return 0
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	take_overall_damage(0,shock_damage, used_weapon = "Electrocution")
+	take_overall_damage(0,shock_damage, TRUE, used_weapon = "Electrocution")
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
@@ -269,7 +269,7 @@
 						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-5)
 				if(sleeping == 0)
-					resting = 0
+					StopResting()
 				AdjustParalysis(-3)
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
@@ -1019,7 +1019,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagentlist(toEat)]", ATKLOG_FEW)
+	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagentlist(toEat)]", ATKLOG_MOST)
 	if(!iscarbon(user))
 		LAssailant = null
 	else

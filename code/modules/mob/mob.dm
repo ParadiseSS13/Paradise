@@ -1,7 +1,7 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
-	mob_list -= src
-	dead_mob_list -= src
-	living_mob_list -= src
+	GLOB.mob_list -= src
+	GLOB.dead_mob_list -= src
+	GLOB.living_mob_list -= src
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -25,11 +25,11 @@
 	return QDEL_HINT_HARDDEL
 
 /mob/Initialize()
-	mob_list += src
+	GLOB.mob_list += src
 	if(stat == DEAD)
-		dead_mob_list += src
+		GLOB.dead_mob_list += src
 	else
-		living_mob_list += src
+		GLOB.living_mob_list += src
 	prepare_huds()
 	..()
 
@@ -75,7 +75,7 @@
 	if(!client)	return
 
 	if(type)
-		if(type & 1 && !has_vision())//Vision related
+		if(type & 1 && !has_vision(information_only=TRUE))//Vision related
 			if(!( alt ))
 				return
 			else
@@ -87,7 +87,7 @@
 			else
 				msg = alt
 				type = alt_type
-				if(type & 1 && !has_vision())
+				if(type & 1 && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
@@ -164,7 +164,7 @@
 		M.show_message( message, 2, deaf_message, 1)
 
 /mob/proc/findname(msg)
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M.real_name == text("[]", msg))
 			return M
 	return 0
@@ -576,7 +576,7 @@ var/list/slot_equipment_priority = list( \
 	set name = "Examine"
 	set category = "IC"
 
-	if((is_blind(src) || usr.stat) && !isobserver(src))
+	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
@@ -810,7 +810,7 @@ var/list/slot_equipment_priority = list( \
 			creatures[name] = O
 
 
-	for(var/mob/M in sortAtom(mob_list))
+	for(var/mob/M in sortAtom(GLOB.mob_list))
 		var/name = M.name
 		if(names.Find(name))
 			namecounts[name]++
@@ -1095,26 +1095,26 @@ var/list/slot_equipment_priority = list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
+	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in living_mob_list)
+		for(var/mob/living/L in GLOB.living_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				respawnable_list -= usr
+				GLOB.respawnable_list -= usr
 				become_mouse()
 				spawn(5)
-					respawnable_list += usr
+					GLOB.respawnable_list += usr
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					respawnable_list -= usr
+					GLOB.respawnable_list -= usr
 					NPC.key = key
 					spawn(5)
-						respawnable_list += usr
+						GLOB.respawnable_list += usr
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
@@ -1246,13 +1246,22 @@ var/list/slot_equipment_priority = list( \
 			return 1
 	return 0
 
-/mob/proc/create_attack_log(var/text, var/collapse = 1)//forgive me code gods for this shitcode proc
+/mob/proc/create_attack_log(text, collapse = TRUE)
+	LAZYINITLIST(attack_log)
+	create_log_in_list(attack_log, text, collapse, last_log)
+	last_log = world.timeofday
+
+/mob/proc/create_debug_log(text, collapse = TRUE)
+	LAZYINITLIST(debug_log)
+	create_log_in_list(debug_log, text, collapse, world.timeofday)
+
+/proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
 	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
 	var/new_log = "\[[time_stamp()]] [text]"
 
-	if(length(attack_log) > 0)//if there are other logs already present
-		var/previous_log = attack_log[length(attack_log)]//get the latest log
+	if(target.len)//if there are other logs already present
+		var/previous_log = target[target.len]//get the latest log
 		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
 		var/x_sign_position = findtext(previous_log, "x")
 
@@ -1277,10 +1286,9 @@ var/list/slot_equipment_priority = list( \
 				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
 
 			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
-			attack_log -= attack_log[length(attack_log)]//remove the last log
+			target -= target[target.len]//remove the last log
 
-	attack_log += new_log
-	last_log = world.timeofday
+	target += new_log
 
 /mob/vv_get_dropdown()
 	. = ..()

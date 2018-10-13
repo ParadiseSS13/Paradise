@@ -231,7 +231,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 	else if((findtext(message, heal_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.heal_overall_damage(10 * power_multiplier, 10 * power_multiplier, 0, 0)
+			L.heal_overall_damage(10 * power_multiplier, 10 * power_multiplier, TRUE, 0, 0)
 		next_command = world.time + cooldown_damage
 
 	//BRUTE DAMAGE

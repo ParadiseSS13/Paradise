@@ -14,6 +14,10 @@
 //prevents distinguishing identical timers with the wait variable
 #define TIMER_NO_HASH_WAIT  16
 
+//Loops the timer repeatedly until qdeleted
+//In most cases you want a subsystem instead
+#define TIMER_LOOP			32
+
 #define TIMER_NO_INVOKE_WARNING 600 //number of byond ticks that are allowed to pass before the timer subsystem thinks it hung on something
 
 #define TIMER_ID_NULL -1
@@ -120,3 +124,22 @@
 #define RUNLEVEL_POSTGAME 8
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
+
+#define COMPILE_OVERLAYS(A)\
+	if (TRUE) {\
+		var/list/ad = A.add_overlays;\
+		var/list/rm = A.remove_overlays;\
+		var/list/po = A.priority_overlays;\
+		if(LAZYLEN(rm)){\
+			A.overlays -= rm;\
+			rm.Cut();\
+		}\
+		if(LAZYLEN(ad)){\
+			A.overlays |= ad;\
+			ad.Cut();\
+		}\
+		if(LAZYLEN(po)){\
+			A.overlays |= po;\
+		}\
+		A.flags_2 &= ~OVERLAY_QUEUED_2;\
+}

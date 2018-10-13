@@ -226,6 +226,8 @@
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
 
+	smooth_icon(src)
+
 /turf/simulated/AfterChange(ignore_air, keep_cabling = FALSE)
 	..()
 	RemoveLattice()

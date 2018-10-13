@@ -146,7 +146,7 @@
 
 		var/mob/playermob
 
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(M.ckey == banckey)
 				playermob = M
 				break
@@ -238,7 +238,7 @@
 			else
 				D = new /datum/admins(new_rank, rights, adm_ckey)
 
-			var/client/C = directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
+			var/client/C = GLOB.directory[adm_ckey]						//find the client with the specified ckey (if they are logged in)
 			D.associate(C)											//link up with the client and add verbs
 
 			updateranktodb(adm_ckey, new_rank)
@@ -1259,7 +1259,7 @@
 		message_admins("[key_name_admin(usr)] has sent [key_name_admin(M)] back to the Lobby.")
 
 		var/mob/new_player/NP = new()
-		non_respawnable_keys -= M.ckey
+		GLOB.non_respawnable_keys -= M.ckey
 		NP.ckey = M.ckey
 		qdel(M)
 
@@ -1552,7 +1552,7 @@
 			if(is_mhelp)
 				helptype = "MENTORHELP"
 			var/take_msg = "<span class='notice'><b>[helptype]</b>: <b>[key_name(usr.client)]</b> is attending to <b>[key_name(M)]'s</b> question.</span>"
-			for(var/client/X in admins)
+			for(var/client/X in GLOB.admins)
 				if(check_rights(R_ADMIN, 0, X.mob))
 					to_chat(X, take_msg)
 				else if(is_mhelp && check_rights(R_MOD|R_MENTOR, 0, X.mob))
@@ -1583,7 +1583,7 @@
 			if (H.current)
 				to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
-		for(var/mob/dead/observer/O in player_list)
+		for(var/mob/dead/observer/O in GLOB.player_list)
 			to_chat(O, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[input]</span></span>")
 
 		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of [ticker.cultdat.entity_name].")
@@ -1916,7 +1916,7 @@
 			if("Crew Traitor")
 				logmsg = "crew traitor."
 				var/list/possible_traitors = list()
-				for(var/mob/living/player in living_mob_list)
+				for(var/mob/living/player in GLOB.living_mob_list)
 					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
 						if(ishuman(player))
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
@@ -1988,7 +1988,7 @@
 		P.name = "Central Command - paper"
 		var/stypes = list("Handle it yourselves!","Illegible fax","Fax not signed","Not Right Now","You are wasting our time", "Keep up the good work", "ERT Instructions")
 		var/stype = input(src.owner, "Which type of standard reply do you wish to send to [H]?","Choose your paperwork", "") as null|anything in stypes
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><B>Nanotrasen Science Station Cyberiad</B></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
+		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><B>Nanotrasen Science Station [using_map.station_short]</B></font><BR><BR><BR><font size='4'>NAS Trurl Communications Department Report</font></center><BR><BR>"
 		if(stype == "Handle it yourselves!")
 			tmsg += "Greetings, esteemed crewmember. Your fax has been <B><I>DECLINED</I></B> automatically by NAS Trurl Fax Registration.<BR><BR>Please proceed in accordance with Standard Operating Procedure and/or Space Law. You are fully trained to handle this situation without Central Command intervention.<BR><BR><i><small>This is an automatic message.</small>"
 		else if(stype == "Illegible fax")
@@ -2066,7 +2066,7 @@
 
 			var/input = input(src.owner, "Please enter a reason for denying [key_name(H)]'s ERT request.","Outgoing message from CentComm", "")
 			if(!input)	return
-			ert_request_answered = 1
+			ert_request_answered = TRUE
 			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
 			to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Your ERT request has been denied for the following reasons: [input].  Message ends.\"")
@@ -2509,14 +2509,14 @@
 			if("monkey")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","M")
-				for(var/mob/living/carbon/human/H in mob_list)
+				for(var/mob/living/carbon/human/H in GLOB.mob_list)
 					spawn(0)
 						H.monkeyize()
 				ok = 1
 			if("corgi")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","M")
-				for(var/mob/living/carbon/human/H in mob_list)
+				for(var/mob/living/carbon/human/H in GLOB.mob_list)
 					spawn(0)
 						H.corgize()
 				ok = 1
@@ -2587,7 +2587,7 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","PW")
 				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
-				for(var/mob/living/carbon/human/H in mob_list)
+				for(var/mob/living/carbon/human/H in GLOB.mob_list)
 					var/turf/loc = find_loc(H)
 					var/security = 0
 					if(!is_station_level(loc.z) || prisonwarped.Find(H))
@@ -2631,7 +2631,7 @@
 					return
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","TA([objective])")
-				for(var/mob/living/carbon/human/H in player_list)
+				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
 					//traitorize(H, objective, 0)
@@ -2644,7 +2644,7 @@
 					ticker.mode.greet_traitor(H.mind)
 					//ticker.mode.forge_traitor_objectives(H.mind)
 					ticker.mode.finalize_traitor(H.mind)
-				for(var/mob/living/silicon/A in player_list)
+				for(var/mob/living/silicon/A in GLOB.player_list)
 					ticker.mode.traitors += A.mind
 					A.mind.special_role = SPECIAL_ROLE_TRAITOR
 					var/datum/objective/new_objective = new
@@ -2681,7 +2681,7 @@
 				feedback_add_details("admin_secrets_fun_used","FL")
 				while(!usr.stat)
 //knock yourself out to stop the ghosts
-					for(var/mob/M in player_list)
+					for(var/mob/M in GLOB.player_list)
 						if(M.stat != 2 && prob(25))
 							var/area/AffectedArea = get_area(M)
 							if(AffectedArea.name != "Space" && AffectedArea.name != "Engine Walls" && AffectedArea.name != "Chemical Lab Test Chamber" && AffectedArea.name != "Escape Shuttle" && AffectedArea.name != "Arrival Area" && AffectedArea.name != "Arrival Shuttle" && AffectedArea.name != "start area" && AffectedArea.name != "Engine Combustion Chamber")
@@ -2704,7 +2704,7 @@
 									if(prob(25) && !W.anchored)
 										step_rand(W)
 					sleep(rand(100,1000))
-				for(var/mob/M in player_list)
+				for(var/mob/M in GLOB.player_list)
 					if(M.stat != 2)
 						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
 			if("lightout")
@@ -2717,13 +2717,13 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","BO")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
-				for(var/obj/machinery/light/L in machines)
+				for(var/obj/machinery/light/L in GLOB.machines)
 					L.broken()
 			if("whiteout")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","WO")
 				message_admins("[key_name_admin(usr)] fixed all lights", 1)
-				for(var/obj/machinery/light/L in machines)
+				for(var/obj/machinery/light/L in GLOB.machines)
 					L.fix()
 			if("floorlava")
 				feedback_inc("admin_secrets_fun_used", 1)
@@ -2752,7 +2752,7 @@
 			if("retardify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")
-				for(var/mob/living/carbon/human/H in player_list)
+				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody retarded")
@@ -2778,7 +2778,7 @@
 			if("eagles")//SCRAW
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","EgL")
-				for(var/obj/machinery/door/airlock/W in airlocks)
+				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
@@ -2918,7 +2918,7 @@
 			if("manifest")
 				var/dat = "<B>Showing Crew Manifest.</B><HR>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
-				for(var/mob/living/carbon/human/H in mob_list)
+				for(var/mob/living/carbon/human/H in GLOB.mob_list)
 					if(H.ckey)
 						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
 				dat += "</table>"
@@ -2928,7 +2928,7 @@
 			if("DNA")
 				var/dat = "<B>Showing DNA from blood.</B><HR>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"
-				for(var/mob/living/carbon/human/H in mob_list)
+				for(var/mob/living/carbon/human/H in GLOB.mob_list)
 					if(H.dna && H.ckey)
 						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.b_type]</td></tr>"
 				dat += "</table>"
@@ -2936,7 +2936,7 @@
 			if("fingerprints")
 				var/dat = "<B>Showing Fingerprints.</B><HR>"
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Fingerprints</th></tr>"
-				for(var/mob/living/carbon/human/H in mob_list)
+				for(var/mob/living/carbon/human/H in GLOB.mob_list)
 					if(H.ckey)
 						if(H.dna && H.dna.uni_identity)
 							dat += "<tr><td>[H]</td><td>[md5(H.dna.uni_identity)]</td></tr>"
@@ -2982,12 +2982,12 @@
 					dat += "No-one has done anything this round!"
 				usr << browse(dat, "window=admin_log")
 			if("maint_access_brig")
-				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
+				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
 					if(access_maint_tunnels in M.req_access)
 						M.req_access = list(access_brig)
 				message_admins("[key_name_admin(usr)] made all maint doors brig access-only.")
 			if("maint_access_engiebrig")
-				for(var/obj/machinery/door/airlock/maintenance/M in airlocks)
+				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
 					if(access_maint_tunnels in M.req_access)
 						M.req_access = list()
 						M.req_one_access = list(access_brig,access_engine)

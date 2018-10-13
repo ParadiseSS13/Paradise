@@ -42,7 +42,7 @@
 "aP" = (/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/turf/simulated/shuttle/wall{icon_state = "swall_f6"; dir = 2},/area/awaymission/challenge/main)
 "aQ" = (/turf/simulated/shuttle/wall{icon_state = "swall12"; dir = 2},/area/awaymission/challenge/main)
 "aR" = (/turf/simulated/shuttle/wall{icon_state = "swall8"; dir = 2},/area/awaymission/challenge/main)
-"aS" = (/obj/machinery/door/unpowered/shuttle,/obj/structure/fans/tiny,/turf/simulated/floor/plasteel{icon_state = "delivery"},/area/awaymission/challenge/main)
+"aS" = (/obj/machinery/door/unpowered/shuttle,/obj/structure/fans/tiny,/obj/effect/decal/warning_stripes/yellow,/turf/simulated/floor/plasteel{icon_state = "bar"},/area/awaymission/challenge/main)
 "aT" = (/turf/simulated/shuttle/wall{icon_state = "swall4"; dir = 2},/area/awaymission/challenge/main)
 "aU" = (/turf/simulated/floor/snow{carbon_dioxide = 21.8366; nitrogen = 0; oxygen = 82.1472; temperature = 73},/turf/simulated/shuttle/wall{icon_state = "swall_f10"; dir = 2},/area/awaymission/challenge/main)
 "aV" = (/turf/simulated/floor/plasteel{icon_plating = "asteroid"; icon_state = "asteroid"; name = "Asteroid"},/area/awaymission/challenge/main)
@@ -80,12 +80,12 @@
 "bB" = (/obj/structure/closet/toolcloset,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bC" = (/obj/item/storage/toolbox/emergency,/turf/simulated/floor/plasteel,/area/awaymission/challenge/main)
 "bD" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/awaymission/challenge/start)
-"bE" = (/obj/machinery/door/poddoor{id_tag = "challenge"; name = "Gateway Shutters"},/obj/structure/fans/tiny,/turf/simulated/floor/plasteel{tag = "icon-delivery (SOUTHEAST)"; icon_state = "delivery"; dir = 6},/area/awaymission/challenge/start)
-"bF" = (/obj/machinery/door/unpowered/shuttle,/turf/simulated/floor/plasteel{tag = "icon-delivery (SOUTHEAST)"; icon_state = "delivery"; dir = 6},/area/awaymission/challenge/start)
-"bG" = (/obj/machinery/door/poddoor{id_tag = "challenge"; name = "Gateway Shutters"},/turf/simulated/floor/plasteel{tag = "icon-delivery (SOUTHEAST)"; icon_state = "delivery"; dir = 6},/area/awaymission/challenge/start)
+"bE" = (/obj/machinery/door/unpowered/shuttle,/obj/structure/fans/tiny,/obj/effect/decal/warning_stripes/yellow,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/awaymission/challenge/main)
+"bF" = (/obj/machinery/door/poddoor{id_tag = "challenge"; name = "Gateway Shutters"},/obj/structure/fans/tiny,/obj/effect/decal/warning_stripes/yellow,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"bG" = (/obj/machinery/door/unpowered/shuttle,/obj/effect/decal/warning_stripes/yellow,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "bH" = (/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
-"bI" = (/obj/machinery/door_control{id = "challenge"; name = "Gateway Lockdown"; pixel_x = -4; pixel_y = 26; req_access_txt = "0"},/turf/simulated/floor/plasteel{dir = 1; icon_state = "warning"},/area/awaymission/challenge/start)
-"bJ" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1},/turf/simulated/floor/plasteel{dir = 1; icon_state = "warning"},/area/awaymission/challenge/start)
+"bI" = (/obj/machinery/door/poddoor{id_tag = "challenge"; name = "Gateway Shutters"},/obj/effect/decal/warning_stripes/yellow,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"bJ" = (/obj/machinery/door_control{id = "challenge"; name = "Gateway Lockdown"; pixel_x = -4; pixel_y = 26; req_access_txt = "0"},/obj/effect/decal/warning_stripes/northeastcorner,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "bK" = (/obj/effect/landmark{name = "awaystart"},/turf/simulated/floor/greengrid,/area/awaymission/challenge/start)
 "bL" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 5},/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 "bM" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,/obj/item/paper/journal_scrap_1,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
@@ -126,6 +126,8 @@
 "cv" = (/obj/machinery/atmospherics/unary/tank/air{dir = 1},/turf/simulated/floor/plating,/area/awaymission/challenge/start)
 "cw" = (/turf/space,/area/space)
 "cx" = (/obj/machinery/atmospherics/unary/outlet_injector/on{dir = 1},/turf/simulated/floor/plating/airless,/area/awaymission/challenge/start)
+"cy" = (/obj/machinery/atmospherics/unary/vent_scrubber{on = 1},/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
+"cz" = (/obj/machinery/door_control{id = "challenge"; name = "Gateway Lockdown"; pixel_x = -4; pixel_y = 26; req_access_txt = "0"},/obj/effect/decal/warning_stripes/northwestcorner,/turf/simulated/floor/plasteel,/area/awaymission/challenge/start)
 
 (1,1,1) = {"
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
@@ -156,15 +158,15 @@ aaabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacac
 aaabaJabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacaKacacacacacacacacacacacacacacacacacacacacacacacababababaa
 aaabaHaLacaLacabaKacacacacacacacacacacacaKacacacacacacacacacacacacacacaKacacacacacacacacacacacacacacacaHacacacacacacabababababaa
 aaabababacabababababacacacacacaHacacacacaKacacacacacacacacaGacacacaGacacacacacacacacacacacacacacacacacacacacacacacacabacabababaa
-aaabaMaMaNaMaOababacacacacacacacacacacacacacacacacacacaPaQaRaSaSaSaTaQaUacacacacacacacacacacacacacacacacacacacacacacacacabababaa
+aaabaMaMaNaMaOababacacacacacacacacacacacacacacacacacacaPaQaRaSbEaSaTaQaUacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabaMaVaVaVaWababacacacacacacacacacacacacacacacacacacaXaYaZaYaZaYaZaYaXacacacacacacacacacapacacacacacacacacacacacababababababaa
 aaabaOaVbaaVaMababacacacacacacacacacacacacacacacacacaGbbaZaYaZaYaZaYaZbbaGacacacacacacacacacacacacacacacacacacacacacabababababaa
 aaabaWbcbdbeaOababababacacacacacacaIacacacacacacacacacaSaYaZaYaZaYaZaYaSacacacacacacacacacacacacacacacacacacacacacacabababababaa
-aaabaMaMaOaMaWabababacacacacacacacacacacacacacacacacacaSaZaYaZbfaZaYaZaSacacacacacacacacacacacacacacacacavacacacacacabababababaa
+aaabaMaMaOaMaWabababacacacacacacacacacacacacacacacacacbEaZaYaZbfaZaYaZbEacacacacacacacacacacacacacacacacavacacacacacabababababaa
 aaababababababababacacacacacacacacacacacacacacacacacacaSaYaZaYaZaYaZaYaSacacacacacacacacacacacacacacacacacacacacacacabababababaa
 aaabababababababababacacacacacacacacacacacacacacacacaGbgaZaYaZaYaZaYaZbgaGacacacacacacacacacacacaIacacacacacacacacacacababababaa
 aaabababacabababababacacacacacacacacacacacacacacacacacaXaYaZaYaZaYaZaYaXacacacacacacacacacacacacacacacacacacacacacacacacabababaa
-aaabababacacacacacacacacacacacacacacacacacacacacacacacbhaQaRaSaSaSaTaQbiacacacaKacacacacaoacacacacacacacacacacacacacacacabababaa
+aaabababacacacacacacacacacacacacacacacacacacacacacacacbhaQaRaSbEaSaTaQbiacacacaKacacacacaoacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacacacacacacacacacaHacacacacaGacacacaGacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacaeacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
@@ -181,10 +183,10 @@ aaabababacacacacacagbwamambxagacacacacacacacacacacacacacacacaIacacacacacacacacaf
 aaabababacacacacacaubyamamamagbzacacacacacbjacacacacacacacacacbAacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacauasamamamaqacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacacabababaa
 aaabababacacacacacagbBamambCagbzacacacacacacacacacacacacacacacacacacacacacacacacacacacacacapacacacacacacacacacacacacacacabababaa
-aaabababacacacacacagagagagagagacacacacacacacacacacacacacacbDbEbEbEbDbkacacacacacacacacacacacacacacacacacacacacacacaeacacabababaa
-aaabababacacacacacalacacacacacacacacacacacacacacacacacaeacbDbFbFbFbDbjaIacacacacacacacacacacacacacacacacacacacacacacacacabababaa
-aaabababacacacacacacacacacacacacacacacacacacacacbDbDbDbDbDbDbGbGbGbDbDbDbDbDbDacacacacacacacacacacacacacacacacacacacacacabababaa
-aaabababacaeacacacacacacacacacacacacacacacabacabbDbHbHbHbHbIbJbJbJbIbHbHbHbHbDababacacacacacacacacacacacacacacacacacacacabababaa
+aaabababacacacacacagagagagagagacacacacacacacacacacacacacacbDbFbFbFbDbkacacacacacacacacacacacacacacacacacacacacacacaeacacabababaa
+aaabababacacacacacalacacacacacacacacacacacacacacacacacaeacbDbGbGbGbDbjaIacacacacacacacacacacacacacacacacacacacacacacacacabababaa
+aaabababacacacacacacacacacacacacacacacacacacacacbDbDbDbDbDbDbIbIbIbDbDbDbDbDbDacacacacacacacacacacacacacacacacacacacacacabababaa
+aaabababacaeacacacacacacacacacacacacacacacabacabbDbHbHbHbHbJcycycyczbHbHbHbHbDababacacacacacacacacacacacacacacacacacacacabababaa
 aaababababacacacacacacadacacacacacacacacababababbDbHbKbKbKbHbLbMbNbHbObPbQbHbDabbjacababacacacacacacacadacacacacacacacacabababaa
 aaabababababacacacacacacacacacacacacacababbRbRbRbDbHbKbKbKbHbSbTbSbHbUbVbWbHbDbRbRbRababacacacacacacacacacacacacacacacababababaa
 aaabababababacabacacacacacacacacacacacababbRbXbYbDbHbKbKbKbZcacbcacccdcecfbHbDcgcgbRabababacacacacacacacacacacacacacabababababaa

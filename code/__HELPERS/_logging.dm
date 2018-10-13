@@ -38,7 +38,7 @@
 	if(config.log_debug)
 		WRITE_LOG(GLOB.world_game_log, "DEBUG: [text][log_end]")
 
-	for(var/client/C in admins)
+	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG, 0, C.mob) && (C.prefs.toggles & CHAT_DEBUGLOGS))
 			to_chat(C, "DEBUG: [text]")
 

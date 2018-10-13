@@ -137,7 +137,7 @@
 
 /mob/living/simple_animal/bot/New()
 	..()
-	bots_list += src
+	GLOB.bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state
 	access_card = new /obj/item/card/id(src)
@@ -151,7 +151,7 @@
 	add_language("Tradeband", 1)
 	add_language("Gutter", 1)
 	add_language("Trinary", 1)
-	default_language = all_languages["Galactic Common"]
+	default_language = GLOB.all_languages["Galactic Common"]
 
 	bot_core = new bot_core_type(src)
 	spawn(30)
@@ -190,7 +190,7 @@
 	if(path_hud)
 		QDEL_NULL(path_hud)
 		path_hud = null
- 	bots_list -= src
+ 	GLOB.bots_list -= src
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
 	if(reset_access_timer_id)
@@ -202,8 +202,11 @@
 	return ..()
 
 /mob/living/simple_animal/bot/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	explode()
-	..()
 
 /mob/living/simple_animal/bot/proc/explode()
 	qdel(src)
@@ -242,8 +245,8 @@
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..(amount)
 
-/mob/living/simple_animal/bot/updatehealth()
-	..()
+/mob/living/simple_animal/bot/updatehealth(reason = "none given")
+	..(reason)
 	diag_hud_set_bothealth()
 
 /mob/living/simple_animal/bot/handle_automated_action()
@@ -656,7 +659,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/get_next_patrol_target()
 	// search the beacon list for the next target in the list.
-	for(var/obj/machinery/navbeacon/NB in navbeacons["[z]"])
+	for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[z]"])
 		if(NB.location == next_destination) //Does the Beacon location text match the destination?
 			destination = new_destination //We now know the name of where we want to go.
 			patrol_target = NB.loc //Get its location and set it as the target.
@@ -664,7 +667,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			return 1
 
 /mob/living/simple_animal/bot/proc/find_nearest_beacon()
-	for(var/obj/machinery/navbeacon/NB in navbeacons["[z]"])
+	for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[z]"])
 		var/dist = get_dist(src, NB)
 		if(nearest_beacon) //Loop though the beacon net to find the true closest beacon.
 			//Ignore the beacon if were are located on it.

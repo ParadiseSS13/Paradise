@@ -104,7 +104,7 @@
 	outfit = /datum/outfit/wizardcorpse
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
-	mob_name = "[pick(wizard_first)], [pick(wizard_second)]"
+	mob_name = "[pick(GLOB.wizard_first)], [pick(GLOB.wizard_second)]"
 	..()
 
 /datum/outfit/wizardcorpse

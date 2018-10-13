@@ -228,7 +228,6 @@
 		return
 	if(M.health > 0)
 		M.adjustOxyLoss(-1)
-		M.updatehealth()
 	M.AdjustStunned(-4)
 	M.AdjustWeakened(-4)
 	M.AdjustStunned(-4)
@@ -520,4 +519,3 @@
 	for(var/reagent in processed_reagents)
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
-

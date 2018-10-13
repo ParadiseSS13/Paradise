@@ -119,7 +119,7 @@
 
 /obj/item/clothing/suit/armor/abductor/Destroy()
 	processing_objects.Remove(src)
-	for(var/obj/machinery/abductor/console/C in machines)
+	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.vest == src)
 			C.vest = null
 			break
@@ -491,7 +491,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.forcesay(hit_appends)
+		H.forcesay(GLOB.hit_appends)
 
 	add_attack_logs(user, L, "Stunned with [src]")
 
@@ -736,6 +736,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.
 	injected_reagents = list("corazone","spaceacillin")
+	reagent_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotization.
+	inject_amount = 10
 
 /obj/structure/closet/abductor
 	name = "alien locker"

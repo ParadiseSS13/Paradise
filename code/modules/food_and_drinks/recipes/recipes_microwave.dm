@@ -471,7 +471,7 @@ datum/recipe/microwave/slimesandwich
 /datum/recipe/microwave/clownstears
 	reagents = list("water" = 10)
 	items = list(
-		/obj/item/ore/bananium,
+		/obj/item/stack/ore/bananium,
 		/obj/item/reagent_containers/food/snacks/grown/banana
 	)
 	result = /obj/item/reagent_containers/food/snacks/clownstears

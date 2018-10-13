@@ -91,7 +91,7 @@
 
 /mob/living/simple_animal/parrot/New()
 	..()
-	hear_radio_list += src
+	GLOB.hear_radio_list += src
 	if(!ears)
 		var/headset = pick(/obj/item/radio/headset/headset_sec, \
 						/obj/item/radio/headset/headset_eng, \
@@ -109,15 +109,16 @@
 			  /mob/living/simple_animal/parrot/proc/perch_player)
 
 /mob/living/simple_animal/parrot/Destroy()
-	hear_radio_list -= src
+	GLOB.hear_radio_list -= src
 	return ..()
 
 /mob/living/simple_animal/parrot/death(gibbed)
-	if(held_item)
-		held_item.loc = src.loc
-		held_item = null
-	walk(src,0)
-	..()
+	if(can_die())
+		if(held_item)
+			held_item.loc = src.loc
+			held_item = null
+		walk(src,0)
+	return ..()
 
 /mob/living/simple_animal/parrot/Stat()
 	..()

@@ -123,6 +123,10 @@
 	damage = 20
 	stamina = 65 //two rounds from the c20r knocks people down
 
+/obj/item/projectile/bullet/midbullet_r
+	damage = 5
+	stamina = 75 //Still two rounds to knock people down
+
 /obj/item/projectile/bullet/midbullet2
 	damage = 25
 

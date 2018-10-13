@@ -24,35 +24,31 @@ Bonus
 	level = 5
 	severity = 0
 
-/datum/symptom/sensory_restoration/proc/check_and_add(reagent, check, add, mob/living/M)
-	if(M.reagents.get_reagent_amount(reagent) < check)
-		M.reagents.add_reagent(reagent, add)
-		return 1
-
 /datum/symptom/sensory_restoration/Activate(var/datum/disease/advance/A)
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 3))
 		var/mob/living/M = A.affected_mob
+		var/datum/reagents/RD = M.reagents
 
 		switch(A.stage)
 			if(2)
-				if(check_and_add("oculine", 10, 10, M))
+				if(RD.check_and_add("oculine", 10, 10))
 					to_chat(M, "<span class='notice'>Your hearing feels clearer and crisp.</span>")
 			if(3)
-				if(check_and_add("antihol", 10, 10, M))
+				if(RD.check_and_add("antihol", 10, 10))
 					to_chat(M, "<span class='notice'>You feel sober.</span>")
-				check_and_add("oculine", 10, 10, M)
+				RD.check_and_add("oculine", 10, 10)
 			if(4)
-				if(check_and_add("synaphydramine", 10, 5, M))
+				if(RD.check_and_add("synaphydramine", 10, 5))
 					to_chat(M, "<span class='notice'>You feel focused.</span>")
-				check_and_add("antihol", 10, 10, M)
-				check_and_add("oculine", 10, 10, M)
+				RD.check_and_add("antihol", 10, 10)
+				RD.check_and_add("oculine", 10, 10)
 			if(5)
-				if(check_and_add("mannitol", 10, 10, M))
+				if(RD.check_and_add("mannitol", 10, 10))
 					to_chat(M, "<span class='notice'>Your mind feels relaxed.</span>")
-				check_and_add("synaphydramine", 10, 5, M)
-				check_and_add("antihol", 10, 10, M)
-				check_and_add("oculine", 10, 10, M)
+				RD.check_and_add("synaphydramine", 10, 5)
+				RD.check_and_add("antihol", 10, 10)
+				RD.check_and_add("oculine", 10, 10)
 
 	return
 

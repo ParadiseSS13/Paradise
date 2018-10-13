@@ -55,6 +55,7 @@ var/list/holopads = list()
 	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/obj/effect/overlay/holoray/ray
 	var/ringing = FALSE
+	var/dialling_input = FALSE //The user is currently selecting where to send their call
 
 /obj/machinery/hologram/holopad/New()
 	..()
@@ -133,6 +134,8 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/interact(mob/living/carbon/human/user) //Carn: hologram requests.
 	if(!istype(user))
 		return
+	if(!anchored)
+		return
 
 	var/dat
 	if(temp)
@@ -191,7 +194,9 @@ var/list/holopads = list()
 	else if(href_list["Holocall"])
 		if(outgoing_call)
 			return
-
+		if(dialling_input)
+			to_chat(usr, "<span class='notice'>Finish dialling first!</span>")
+			return
 		temp = "You must stand on the holopad to make a call!<br>"
 		temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 		if(usr.loc == loc)
@@ -201,9 +206,9 @@ var/list/holopads = list()
 				if(A)
 					LAZYADD(callnames[A], I)
 			callnames -= get_area(src)
-
+			dialling_input = TRUE
 			var/result = input(usr, "Choose an area to call", "Holocall") as null|anything in callnames
-
+			dialling_input = FALSE
 			if(QDELETED(usr) || !result || outgoing_call)
 				return
 
@@ -250,7 +255,7 @@ var/list/holopads = list()
 /obj/machinery/hologram/holopad/process()
 	for(var/I in masters)
 		var/mob/living/master = I
-		if((stat & NOPOWER) || !validate_user(master))
+		if((stat & NOPOWER) || !validate_user(master) || !anchored)
 			clear_holo(master)
 
 	if(outgoing_call)
@@ -348,7 +353,7 @@ var/list/holopads = list()
 			hologram.alpha = 100
 			hologram.Impersonation = user
 
-		hologram.mouse_opacity = 0//So you can't click on it.
+		hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 		hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
 		hologram.anchored = 1//So space wind cannot drag it.
 		hologram.name = "[user.name] (hologram)"//If someone decides to right click.
@@ -481,7 +486,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	layer = FLY_LAYER
 	density = FALSE
 	anchored = TRUE
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	pixel_x = -32
 	pixel_y = -32
 	alpha = 100

@@ -147,7 +147,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		var/datum/asset/A = new type()
 		A.register()
 
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		//doing this to a client too soon after they've connected can cause issues, also the proc we call sleeps
 		spawn(10)
 			getFilesSlow(C, asset_cache, FALSE)

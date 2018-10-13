@@ -66,7 +66,7 @@
 				src.icon_state = "tube-construct-stage1"
 			if("bulb")
 				src.icon_state = "bulb-construct-stage1"
-		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, COLOR_RED)
+		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, paramcolor = COLOR_RED)
 		user.visible_message("[user.name] removes the wiring from [src].", \
 			"You remove the wiring from [src].", "You hear a noise.")
 		playsound(loc, W.usesound, 100, 1)

@@ -140,7 +140,7 @@
 /obj/machinery/treadmill_monitor/Initialize()
 	..()
 	if(id)
-		for(var/obj/machinery/power/treadmill/T in machines)
+		for(var/obj/machinery/power/treadmill/T in GLOB.machines)
 			if(T.id == id)
 				treadmill = T
 				break

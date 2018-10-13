@@ -46,7 +46,7 @@ To draw a rune, use an arcane tome.
 	check_icon()
 	var/image/blood = image(loc = src)
 	blood.override = 1
-	for(var/mob/living/silicon/ai/AI in player_list)
+	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		AI.client.images += blood
 
 /obj/effect/rune/examine(mob/user)
@@ -487,7 +487,7 @@ var/list/teleport_runes = list()
 	icon_state = "rune_large"
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
 	pixel_y = -32
-	mouse_opacity = 1 //we're huge and easy to click
+	mouse_opacity = MOUSE_OPACITY_ICON //we're huge and easy to click
 	scribe_delay = 450 //how long the rune takes to create
 	scribe_damage = 40.1 //how much damage you take doing it
 	var/used
@@ -1031,7 +1031,7 @@ var/list/teleport_runes = list()
 	N.desc = "A weak shield summoned by cultists to protect them while they carry out delicate rituals"
 	N.color = "red"
 	N.health = 20
-	N.mouse_opacity = 0
+	N.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	new_human.key = ghost_to_spawn.key
 	ticker.mode.add_cultist(new_human.mind, 0)
 	summoned_guys |= new_human

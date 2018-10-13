@@ -27,7 +27,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "unknown"
 	layer = AREA_LAYER
 	luminosity = 0
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.

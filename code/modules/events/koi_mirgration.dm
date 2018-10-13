@@ -6,4 +6,4 @@
 
 
 /datum/event/carp_migration/koi/start()
-	spawn_fish(landmarks_list.len)
+	spawn_fish(GLOB.landmarks_list.len)

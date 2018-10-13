@@ -20,7 +20,7 @@
 
 /obj/machinery/chem_master/New()
 	create_reagents(100)
-	overlays += "waitlight"
+	update_icon()
 
 /obj/machinery/chem_master/ex_act(severity)
 	switch(severity)
@@ -31,6 +31,12 @@
 			if(prob(50))
 				qdel(src)
 				return
+
+/obj/machinery/chem_master/update_icon()
+	overlays.Cut()
+	icon_state = "mixer[beaker ? "1" : "0"][powered() ? "" : "_nopower"]"
+	if(powered())
+		overlays += "waitlight"
 
 /obj/machinery/chem_master/blob_act()
 	if(prob(50))
@@ -57,7 +63,7 @@
 		B.forceMove(src)
 		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 		SSnanoui.update_uis(src)
-		icon_state = "mixer1"
+		update_icon()
 
 	else if(istype(B, /obj/item/storage/pill_bottle))
 
@@ -184,7 +190,7 @@
 				beaker.forceMove(get_turf(src))
 				beaker = null
 				reagents.clear_reagents()
-				icon_state = "mixer0"
+				update_icon()
 		else if(href_list["createpill"] || href_list["createpill_multiple"])
 			if(!condi)
 				var/count = 1
