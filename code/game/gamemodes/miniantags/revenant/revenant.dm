@@ -121,9 +121,20 @@
 	remove_from_all_data_huds()
 
 	spawn(5)
-		if(src.mind)
-			src.mind.wipe_memory()
-			src << 'sound/effects/ghost.ogg'
+		if(mind)
+			giveObjectivesandGoals()
+		if(!giveSpells())
+			message_admins("Revenant was created but has no mind. Trying again in ten seconds.")
+			addtimer(CALLBACK(src, .proc/tryGiveinTen), 100)
+	
+/mob/living/simple_animal/revenant/proc/tryGiveinTen()
+	if(!giveSpells())
+		message_admins("Revenant still has no mind. Deleting...")
+		qdel(src)
+	else
+		giveObjectivesandGoals()
+
+/mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
 			to_chat(src, "<br>")
 			to_chat(src, "<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
 			to_chat(src, "<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
@@ -132,22 +143,15 @@
 			to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
 			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
 			to_chat(src, "<b>Be sure to read the wiki page at http://nanotrasen.se/wiki/index.php/Revenant to learn more.</b>")
-
 			var/datum/objective/revenant/objective = new
-			objective.owner = src.mind
-			src.mind.objectives += objective
+			objective.owner = mind
+			mind.objectives += objective
 			to_chat(src, "<b>Objective #1</b>: [objective.explanation_text]")
 			var/datum/objective/revenantFluff/objective2 = new
-			objective2.owner = src.mind
-			src.mind.objectives += objective2
+			objective2.owner = mind
+			mind.objectives += objective2
 			to_chat(src, "<b>Objective #2</b>: [objective2.explanation_text]")
-			ticker.mode.traitors |= src.mind //Necessary for announcing
-		if(!src.giveSpells())
-			message_admins("Revenant was created but has no mind. Trying again in five seconds.")
-			spawn(50)
-				if(!src.giveSpells())
-					message_admins("Revenant still has no mind. Deleting...")
-					qdel(src)
+			ticker.mode.traitors |= mind //Necessary for announcing
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
 	if(src.mind)
