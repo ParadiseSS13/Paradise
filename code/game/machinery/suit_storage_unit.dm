@@ -310,7 +310,6 @@
 
 /obj/machinery/suit_storage_unit/proc/open_machine(drop = TRUE)
 	state_open = TRUE
-	density = FALSE
 	if(drop)
 		dropContents()
 	update_icon()
@@ -327,7 +326,6 @@
 
 /obj/machinery/suit_storage_unit/proc/close_machine(atom/movable/target = null)
 	state_open = FALSE
-	density = TRUE
 	if(!target)
 		for(var/am in loc)
 			if(!(occupant_typecache ? is_type_in_typecache(am, occupant_typecache) : isliving(am)))
