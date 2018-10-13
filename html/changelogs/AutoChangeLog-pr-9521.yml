@@ -1,0 +1,6 @@
+author: "alex-gh"
+delete-after: True
+changes: 
+  - bugfix: "Species damage modifiers now only affect damage, not healing."
+  - tweak: "Races that took more damage from certain damage types no longer heal from that damage type faster. For example: Drask no longer heal from burn at double rate; Grey, Vox no longer heal from brute at increased rate (Note: IPC healing with welders/wires is not affected)."
+  - tweak: "Kidan no longer heal from brute at a reduced rate."
