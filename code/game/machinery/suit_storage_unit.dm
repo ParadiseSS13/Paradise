@@ -211,7 +211,7 @@
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)
-			user.visible_message("<span class='warning'>[user] slips into [src] and closes the door behind [user.p_them()]!</span>", "<span class=notice'>You slip into [src]'s cramped space and shut its door.</span>")
+			user.visible_message("<span class='warning'>[user] slips into [src] and closes the door behind [user.p_them()]!</span>", "<span class='notice'>You slip into [src]'s cramped space and shut its door.</span>")
 		else
 			target.visible_message("<span class='warning'>[user] pushes [target] into [src] and shuts its door!<span>", "<span class='userdanger'>[user] shoves you into [src] and shuts the door!</span>")
 		close_machine(target)
@@ -301,7 +301,7 @@
 		dump_contents()
 
 /obj/machinery/suit_storage_unit/proc/resist_open(mob/user)
-	if(!state_open && occupant && (user in src) && user.stat == 0) // Check they're still here.
+	if(!state_open && occupant && (user in src) && !user.stat) // Check they're still here.
 		visible_message("<span class='notice'>You see [user] burst out of [src]!</span>", \
 			"<span class='notice'>You escape the cramped confines of [src]!</span>")
 		open_machine()
@@ -361,7 +361,7 @@
 		dat+= "<HEAD><TITLE>Suit storage unit: Maintenance panel</TITLE></HEAD>"
 		dat+= "<B>Maintenance panel controls</B><HR>"
 		dat+= "<font color ='grey'>The panel is ridden with controls, button and meters, labeled in strange signs and symbols that <BR>you cannot understand. Probably the manufactoring world's language.<BR> Among other things, a few controls catch your eye.<BR><BR>"
-		dat+= text("A small dial with a \"�\" symbol embroidded on it. It's pointing towards a gauge that reads [].<BR> <font color='blue'><A href='?src=[UID()];toggleUV=1'> Turn towards []</A><BR>",(uv_super ? "15nm" : "185nm"),(uv_super ? "185nm" : "15nm") )
+		dat+= text("A small dial with a arrow embroidered on it. It's pointing towards a gauge that reads [].<BR> <font color='blue'><A href='?src=[UID()];toggleUV=1'> Turn towards []</A><BR>",(uv_super ? "15nm" : "185nm"),(uv_super ? "185nm" : "15nm") )
 		dat+= text("A thick old-style button, with 2 grimy LED lights next to it. The [] LED is on.<BR><font color ='blue'><A href='?src=[UID()];togglesafeties=1'>Press button</a></font>",(safeties ? "<font color='green'><B>GREEN</B></font>" : "<font color='red'><B>RED</B></font>"))
 		dat+= "<HR><BR><A href='?src=[user.UID()];mach_close=suit_storage_unit'>Close panel</A>"
 	else if(uv) //The thing is running its cauterisation cycle. You have to wait.
