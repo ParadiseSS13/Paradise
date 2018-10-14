@@ -6,29 +6,42 @@ FLOOR SAFES
 
 //SAFES
 /obj/structure/safe
-	name = "safe"
+	name = "\improper Safe"
 	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms - 2 tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = 1
 	density = 1
 	var/open = 0		//is the safe open?
+	var/unlocked = 0
 	var/tumbler_1_pos	//the tumbler position- from 0 to 72
 	var/tumbler_1_open	//the tumbler position to open at- 0 to 72
 	var/tumbler_2_pos
 	var/tumbler_2_open
+	var/open_pos
 	var/dial = 0		//where is the dial pointing?
 	var/space = 0		//the combined w_class of everything in the safe
 	var/maxspace = 24	//the maximum combined w_class of stuff in the safe
+	var/combo_to_open	//so admins know the code
 
 
 /obj/structure/safe/New()
-	tumbler_1_pos = rand(0, 71)
-	tumbler_1_open = rand(0, 71)
+	tumbler_1_pos = rand(0, 99)
+	tumbler_1_open = rand(0, 99)
 
-	tumbler_2_pos = rand(0, 71)
-	tumbler_2_open = rand(0, 71)
+	tumbler_2_pos = rand(0, 99)
+	tumbler_2_open = rand(0, 99)
 
+	open_pos = rand(0,99)
+
+	var/num1 = tumbler_2_open + 53
+	if(num1 > 99)
+		num1 = num1 - 99
+	var/num2 = tumbler_1_open + 97
+	if(num2 > 99)
+		num2 = num2 - 99
+
+	combo_to_open = "Go right past [num1] twice then stop at [num1]. Go left past [num2] once then stop at [num2]. Turn right till it stops and its open."
 
 /obj/structure/safe/Initialize()
 	..()
@@ -40,28 +53,43 @@ FLOOR SAFES
 			I.loc = src
 
 
-/obj/structure/safe/proc/check_unlocked(mob/user, canhear)
-	if(user && canhear)
-		if(tumbler_1_pos == tumbler_1_open)
-			to_chat(user, "<span class='italics'>You hear a [pick("tonk", "krunk", "plunk")] from [src].</span>")
-		if(tumbler_2_pos == tumbler_2_open)
-			to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
-	if(tumbler_1_pos == tumbler_1_open && tumbler_2_pos == tumbler_2_open)
-		if(user) visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
+/obj/structure/safe/proc/check_unlocked()
+	if(tumbler_1_pos == tumbler_1_open && tumbler_2_pos == tumbler_2_open && dial == open_pos)
+		unlocked = 1
 		return 1
+	unlocked = 0
 	return 0
+
+/obj/structure/safe/proc/make_noise(tum1_turns, tum2_turns, mob/user, canhear)
+	if(user && canhear)
+		var/tum1_tmp = tum1_turns
+		var/tum2_tmp = tum2_turns
+		while(tum1_tmp >= 1 || tum2_tmp >= 1)
+			if(tum1_tmp >= 1)
+				to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
+				tum1_tmp = tum1_tmp - rand(4, 8)
+			if(tum2_tmp >= 1)
+				to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
+				tum2_tmp = tum2_tmp - rand(4, 8)
+			if(tumbler_1_pos == tumbler_1_open && tum1_turns == 1)
+				to_chat(user, "<span class='italics'>You hear a [pick("tonk", "krunk", "plunk")] from [src].</span>")
+			if(tumbler_2_pos == tumbler_2_open && tum1_turns == 1 && tum2_turns == 1)
+				to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
+	if(unlocked)
+		if(user) visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
+
 
 
 /obj/structure/safe/proc/decrement(num)
 	num -= 1
 	if(num < 0)
-		num = 71
+		num = 99
 	return num
 
 
 /obj/structure/safe/proc/increment(num)
 	num += 1
-	if(num > 71)
+	if(num > 99)
 		num = 0
 	return num
 
@@ -72,75 +100,106 @@ FLOOR SAFES
 	else
 		icon_state = initial(icon_state)
 
-
 /obj/structure/safe/attack_hand(mob/user)
-	user.set_machine(src)
-	var/dat = "<center>"
-	dat += "<a href='?src=[UID()];open=1'>[open ? "Close" : "Open"] [src]</a> | <a href='?src=[UID()];decrement=1'>-</a> [dial * 5] <a href='?src=[UID()];increment=1'>+</a>"
-	if(open)
-		dat += "<table>"
-		for(var/i = contents.len, i>=1, i--)
-			var/obj/item/P = contents[i]
-			dat += "<tr><td><a href='?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
-		dat += "</table></center>"
-	user << browse("<html><head><title>[name]</title></head><body>[dat]</body></html>", "window=safe;size=350x300")
+	if(..())
+		return 1
+	ui_interact(user)
+	return
+
+/obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "safe.tmpl", name, 600, 750)
+		ui.open()
+		ui.set_auto_update(1)
+
+/obj/structure/safe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+	var/data[0]
+	var/list/contents_names = list()
+	for(var/obj/O in contents)
+		contents_names[++contents_names.len] = list("name" = O.name, "index" = contents.Find(O))
+
+	data["dial"] = dial
+	data["open"] = open
+	data["unlocked"] = unlocked
+	data["rotation"] = "[-dial*3.6]deg"
+	data["contents"] = contents_names
+
+	return data
 
 
 /obj/structure/safe/Topic(href, href_list)
-	if(!ishuman(usr))	return
-	var/mob/living/carbon/human/user = usr
+	if(..())
+		return 1
 
 	var/canhear = 0
+	if(!ishuman(usr))
+		to_chat(usr, "You don't have hands to operate the safe!")
+		return 0
+
+	var/mob/living/carbon/human/user = usr
 	if(istype(user.l_hand, /obj/item/clothing/accessory/stethoscope) || istype(user.r_hand, /obj/item/clothing/accessory/stethoscope))
 		canhear = 1
 
 	if(href_list["open"])
-		if(check_unlocked())
+		if(check_unlocked() || open)
 			to_chat(user, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
 			open = !open
 			update_icon()
-			updateUsrDialog()
-			return
+			.=1
 		else
-			to_chat(user, "<span class='warning'>You can't [open ? "close" : "open"] [src], the lock is engaged!</span>")
-			return
+			to_chat(user, "<span class='warning'>You can't open [src], the lock is engaged!</span>")
+			.=1
 
 	if(href_list["decrement"])
-		dial = decrement(dial)
-		if(dial == tumbler_1_pos + 1 || dial == tumbler_1_pos - 71)
-			tumbler_1_pos = decrement(tumbler_1_pos)
-			if(canhear)
-				to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
-			if(tumbler_1_pos == tumbler_2_pos + 37 || tumbler_1_pos == tumbler_2_pos - 35)
-				tumbler_2_pos = decrement(tumbler_2_pos)
-				if(canhear)
-					to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
-			check_unlocked(user, canhear)
-		updateUsrDialog()
-		return
+		var/ticks = text2num(href_list["decrement"])
+		var/tum1_turns = 0
+		var/tum2_turns = 0
+		if(open)
+			return
+		for(var/i=1 to ticks)
+			if(!check_unlocked())
+				dial = decrement(dial)
+				if(dial == tumbler_1_pos + 1 || dial == tumbler_1_pos - 99)
+					tumbler_1_pos = decrement(tumbler_1_pos)
+					tum1_turns++
+					if(tumbler_1_pos == tumbler_2_pos + 51 || tumbler_1_pos == tumbler_2_pos - 49)
+						tumbler_2_pos = decrement(tumbler_2_pos)
+						tum2_turns++
+		check_unlocked()
+		make_noise(tum1_turns, tum2_turns, user, canhear)
+		.=1
 
 	if(href_list["increment"])
-		dial = increment(dial)
-		if(dial == tumbler_1_pos - 1 || dial == tumbler_1_pos + 71)
-			tumbler_1_pos = increment(tumbler_1_pos)
-			if(canhear)
-				to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
-			if(tumbler_1_pos == tumbler_2_pos - 37 || tumbler_1_pos == tumbler_2_pos + 35)
-				tumbler_2_pos = increment(tumbler_2_pos)
-				if(canhear)
-					to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
-			check_unlocked(user, canhear)
-		updateUsrDialog()
-		return
+		var/ticks = text2num(href_list["increment"])
+		var/tum1_turns = 0
+		var/tum2_turns = 0
+		if(open)
+			return
+		for(var/i=1 to ticks)
+			check_unlocked()
+			dial = increment(dial)
+			if(dial == tumbler_1_pos - 1 || dial == tumbler_1_pos + 99)
+				tumbler_1_pos = increment(tumbler_1_pos)
+				tum1_turns++
+				if(tumbler_1_pos == tumbler_2_pos - 51 || tumbler_1_pos == tumbler_2_pos + 49)
+					tumbler_2_pos = increment(tumbler_2_pos)
+					tum2_turns++
+		make_noise(tum1_turns, tum2_turns, user, canhear)
+		.=1
 
 	if(href_list["retrieve"])
-		user << browse("", "window=safe") // Close the menu
+		var/index = text2num(href_list["retrieve"])
+		if(index > 0 && index <= contents.len)
+			var/obj/item/P = contents[index]
+			if(open)
+				if(P && in_range(src, user))
+					user.put_in_hands(P)
+		.=1
 
-		var/obj/item/P = locate(href_list["retrieve"]) in src
-		if(open)
-			if(P && in_range(src, user))
-				user.put_in_hands(P)
-				updateUsrDialog()
+	updateUsrDialog()
+	SSnanoui.update_uis(src)
+	return
 
 
 /obj/structure/safe/attackby(obj/item/I, mob/user, params)
