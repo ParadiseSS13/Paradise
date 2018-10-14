@@ -12,9 +12,9 @@ SUBSYSTEM_DEF(icon_smooth)
 		var/atom/A = smooth_queue[smooth_queue.len]
 		smooth_queue.len--
 		smooth_icon(A)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
-	if (!smooth_queue.len)
+	if(!smooth_queue.len)
 		can_fire = 0
 
 /datum/controller/subsystem/icon_smooth/Initialize()
