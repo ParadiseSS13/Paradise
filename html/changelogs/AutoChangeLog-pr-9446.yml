@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - bugfix: "A runtime that occurs with paper bundle being created with one or less paper."
