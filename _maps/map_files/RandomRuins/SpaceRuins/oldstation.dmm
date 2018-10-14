@@ -1,0 +1,200 @@
+"aa" = (/turf/template_noop,/area/template_noop)
+"ab" = (/turf/simulated/floor/plasteel,/area/template_noop)
+"ac" = (/turf/simulated/floor/plasteel/airless,/area/template_noop)
+"ad" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating,/area/template_noop)
+"ae" = (/turf/simulated/floor/plating/airless,/area/template_noop)
+"af" = (/turf/simulated/wall/rust,/area/template_noop)
+"ag" = (/obj/structure/lattice,/turf/template_noop,/area/template_noop)
+"ah" = (/turf/simulated/floor/plasteel/airless{dir = 4; icon_state = "whitehall"},/area/template_noop)
+"ai" = (/turf/simulated/floor/plating,/area/template_noop)
+"aj" = (/turf/simulated/wall/r_wall/rust,/area/template_noop)
+"ak" = (/turf/simulated/mineral,/area/template_noop)
+"al" = (/turf/simulated/wall/r_wall,/area/template_noop)
+"am" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/template_noop)
+"an" = (/turf/simulated/wall,/area/template_noop)
+"ao" = (/obj/structure/table,/turf/simulated/floor/plasteel,/area/template_noop)
+"ap" = (/obj/structure/table,/obj/machinery/atmospherics/unary/vent_pump/on,/turf/simulated/floor/plasteel,/area/template_noop)
+"aq" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plasteel,/area/template_noop)
+"ar" = (/obj/effect/spawner/window/reinforced,/turf/simulated/floor/plating/airless,/area/template_noop)
+"as" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/turf/simulated/floor/plasteel,/area/template_noop)
+"at" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plasteel,/area/template_noop)
+"au" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 9},/turf/simulated/floor/plasteel,/area/template_noop)
+"av" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plating,/area/template_noop)
+"aw" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/turf/simulated/floor/plasteel,/area/template_noop)
+"ax" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"ay" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 10},/turf/simulated/floor/plasteel,/area/template_noop)
+"az" = (/obj/structure/table,/turf/simulated/floor/plasteel/airless{dir = 5; icon_state = "whitehall"},/area/template_noop)
+"aA" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 5},/turf/simulated/floor/plasteel,/area/template_noop)
+"aB" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"aC" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plating,/area/template_noop)
+"aD" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 6},/turf/simulated/floor/plasteel/airless,/area/template_noop)
+"aE" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plasteel/airless,/area/template_noop)
+"aF" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"aG" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"aH" = (/turf/template_noop,/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
+"aI" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"aJ" = (/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"aK" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,/turf/simulated/floor/plasteel,/area/template_noop)
+"aL" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"aM" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"aN" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 1},/turf/simulated/floor/plasteel,/area/template_noop)
+"aO" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/structure/table,/turf/simulated/floor/plasteel,/area/template_noop)
+"aP" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/turf/simulated/floor/plating/airless,/area/template_noop)
+"aQ" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"aR" = (/obj/structure/table,/obj/machinery/atmospherics/unary/vent_pump/on{dir = 1},/turf/simulated/floor/plasteel,/area/template_noop)
+"aS" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"aT" = (/obj/effect/decal/cleanable/cobweb,/turf/simulated/floor/plating,/area/template_noop)
+"aU" = (/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel,/area/template_noop)
+"aV" = (/obj/effect/decal/cleanable/cobweb,/turf/simulated/floor/plasteel,/area/template_noop)
+"aW" = (/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/plating,/area/template_noop)
+"aX" = (/obj/structure/table/reinforced,/turf/simulated/floor/plasteel,/area/template_noop)
+"aY" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/engine/vacuum,/area/template_noop)
+"aZ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/light,/turf/simulated/floor/plasteel,/area/template_noop)
+"ba" = (/obj/effect/decal/warning_stripes/southeast,/obj/effect/decal/warning_stripes/northwest,/turf/simulated/floor/plasteel,/area/template_noop)
+"bb" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/effect/decal/warning_stripes/southeast,/obj/effect/decal/warning_stripes/northwest,/turf/simulated/floor/plasteel,/area/template_noop)
+"bc" = (/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/plasteel,/area/template_noop)
+"bd" = (/obj/structure/window/reinforced,/turf/simulated/floor/engine/vacuum,/area/template_noop)
+"be" = (/obj/machinery/atmospherics/unary/tank/air{dir = 4},/turf/simulated/floor/plating,/area/template_noop)
+"bf" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 4},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"bg" = (/obj/machinery/atmospherics/unary/vent_pump/on{dir = 1},/turf/simulated/floor/plasteel,/area/template_noop)
+"bh" = (/turf/template_noop,/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
+"bi" = (/obj/machinery/atmospherics/binary/pump{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"bj" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8},/obj/structure/window/reinforced{dir = 1},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/engine,/area/template_noop)
+"bk" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 1},/turf/simulated/floor/plating/airless,/area/template_noop)
+"bl" = (/turf/template_noop,/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
+"bm" = (/turf/simulated/mineral/uranium,/area/template_noop)
+"bn" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 8},/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel,/area/template_noop)
+"bo" = (/obj/structure/table,/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plasteel,/area/template_noop)
+"bp" = (/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"bq" = (/obj/structure/cable{icon_state = "0-2"; pixel_y = 1; d2 = 2},/turf/simulated/floor/plasteel,/area/template_noop)
+"br" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"bs" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel/airless,/area/template_noop)
+"bt" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/template_noop)
+"bu" = (/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plasteel,/area/template_noop)
+"bv" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plasteel,/area/template_noop)
+"bw" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/effect/spawner/window/reinforced,/obj/structure/cable{d2 = 8; icon_state = "0-8"},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plating,/area/template_noop)
+"bx" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plasteel,/area/template_noop)
+"by" = (/obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"bz" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"bA" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d2 = 4; icon_state = "0-4"},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"bB" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"bC" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"bD" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating,/area/template_noop)
+"bE" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 8},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"bF" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"bG" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"bH" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 1},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"bI" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/effect/spawner/window/reinforced,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"bJ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"bK" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"bL" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 4},/obj/structure/cable{d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plasteel,/area/template_noop)
+"bM" = (/obj/structure/table,/obj/machinery/light/small,/turf/simulated/floor/plating,/area/template_noop)
+"bN" = (/obj/structure/cable,/turf/simulated/floor/plasteel,/area/template_noop)
+"bO" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/template_noop)
+"bP" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating/airless,/area/template_noop)
+"bQ" = (/obj/structure/cable,/turf/simulated/floor/plating,/area/template_noop)
+"bR" = (/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plating,/area/template_noop)
+"bS" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/structure/cable{d1 = 1; d2 = 8; icon_state = "1-8"; tag = ""},/turf/simulated/floor/plasteel,/area/template_noop)
+"bT" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plasteel,/area/template_noop)
+"bU" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plasteel,/area/template_noop)
+"bV" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"; tag = "90Curve"},/turf/simulated/floor/plasteel,/area/template_noop)
+"bW" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/turf/simulated/floor/plasteel,/area/template_noop)
+"bX" = (/obj/machinery/atmospherics/pipe/simple/hidden/universal,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"bY" = (/obj/machinery/atmospherics/pipe/simple/hidden,/obj/machinery/meter,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"bZ" = (/obj/structure/cable{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plasteel,/area/template_noop)
+"ca" = (/obj/machinery/atmospherics/binary/pump{dir = 1},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"cb" = (/obj/machinery/atmospherics/pipe/simple/hidden{dir = 9},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/turf/simulated/floor/plating,/area/template_noop)
+"cc" = (/obj/structure/girder,/turf/simulated/floor/plating/airless,/area/template_noop)
+"cd" = (/obj/machinery/light/small{dir = 8; pixel_y = -8},/turf/simulated/floor/plasteel,/area/template_noop)
+"ce" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plasteel,/area/template_noop)
+"cf" = (/obj/machinery/light/small{dir = 4; pixel_y = 0},/turf/simulated/floor/plating,/area/template_noop)
+"cg" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel/airless,/area/template_noop)
+"ch" = (/obj/machinery/light/small{dir = 4; pixel_y = 0},/turf/simulated/floor/plasteel,/area/template_noop)
+"ci" = (/obj/machinery/light/small{dir = 4; pixel_y = 0},/turf/simulated/floor/plasteel/airless,/area/template_noop)
+"cj" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"ck" = (/turf/template_noop,/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
+"cl" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 10},/obj/machinery/light/small{dir = 4; pixel_y = 0},/turf/simulated/floor/plasteel,/area/template_noop)
+"cm" = (/obj/machinery/light/small,/turf/simulated/floor/plasteel,/area/template_noop)
+"cn" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/light/small{dir = 4; pixel_y = 0},/turf/simulated/floor/plasteel,/area/template_noop)
+"co" = (/turf/template_noop,/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/structure/cable/yellow{d1 = 2; d2 = 4; icon_state = "2-4"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
+"cp" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0; tag = ""},/obj/machinery/light/small{dir = 4; pixel_y = 0},/turf/simulated/floor/plasteel,/area/template_noop)
+"cq" = (/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 8},/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"cr" = (/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plating,/area/template_noop)
+"cs" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel,/area/template_noop)
+"ct" = (/obj/structure/table,/turf/simulated/floor/plating,/area/template_noop)
+"cu" = (/obj/machinery/light{dir = 1; in_use = 1},/turf/simulated/floor/plasteel,/area/template_noop)
+"cv" = (/obj/structure/table/reinforced,/obj/machinery/light{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"cw" = (/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor/plasteel,/area/template_noop)
+"cx" = (/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"cy" = (/obj/structure/table/reinforced,/obj/machinery/light{icon_state = "tube1"; dir = 4},/turf/simulated/floor/plasteel,/area/template_noop)
+"cz" = (/obj/structure/table,/obj/machinery/light/small{dir = 8},/turf/simulated/floor/plasteel,/area/template_noop)
+"cA" = (/obj/structure/table,/obj/machinery/light/small{dir = 4; pixel_y = 0},/turf/simulated/floor/plasteel,/area/template_noop)
+"cB" = (/obj/machinery/light,/turf/simulated/floor/plasteel,/area/template_noop)
+"cC" = (/obj/structure/cable/yellow{d2 = 4; icon_state = "0-4"},/turf/simulated/floor/plating/airless,/area/template_noop)
+"cD" = (/obj/structure/cable/yellow{d1 = 0; d2 = 8; icon_state = "0-8"},/turf/simulated/floor/plating/airless,/area/template_noop)
+"cE" = (/obj/structure/cable/yellow{d1 = 0; d2 = 2; icon_state = "0-2"},/turf/simulated/floor/plating,/area/template_noop)
+"cF" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/template_noop)
+"cG" = (/turf/template_noop,/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
+"cH" = (/turf/template_noop,/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
+"cI" = (/turf/template_noop,/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/turf/simulated/floor/plating/airless/catwalk,/area/template_noop)
+"cJ" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/template_noop)
+"cK" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/yellow{d1 = 4; d2 = 8; icon_state = "4-8"},/turf/simulated/floor/plating,/area/template_noop)
+"cL" = (/obj/structure/cable/yellow{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/cable/yellow{d1 = 1; d2 = 8; icon_state = "1-8"},/turf/simulated/floor/plating,/area/template_noop)
+"cM" = (/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plasteel,/area/template_noop)
+"cN" = (/obj/structure/cable/yellow,/turf/simulated/floor/plating,/area/template_noop)
+"cO" = (/obj/machinery/atmospherics/pipe/simple/hidden/universal,/turf/simulated/floor/plating/airless,/area/template_noop)
+"cP" = (/obj/machinery/light/small{dir = 8},/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plasteel,/area/template_noop)
+"cQ" = (/obj/machinery/atmospherics/pipe/simple/hidden,/turf/simulated/floor/plating/airless,/area/template_noop)
+"cR" = (/obj/structure/cable/yellow,/turf/simulated/floor/plasteel,/area/template_noop)
+"cS" = (/obj/machinery/light/small{dir = 4; pixel_y = 0},/obj/machinery/pipedispenser,/turf/simulated/floor/plasteel,/area/template_noop)
+"cT" = (/obj/machinery/atmospherics/pipe/manifold/hidden{dir = 8},/turf/simulated/floor/plating/airless,/area/template_noop)
+"cU" = (/obj/structure/window/reinforced{dir = 8},/obj/machinery/portable_atmospherics/canister/air,/turf/simulated/floor/engine,/area/template_noop)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakakakakakakakakakakaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakakakakakakakakakakakakakakakakaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakalalalalalalalalalalalalalalakakakaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakalamamalamamalanamamamamanalamalakakaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafafadadadadadafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakalamamalamamalamamamanamamalamananaiaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafafabababababababafafaaaaaaaaaaaaaaaaakakakaaaaaaaaaaagakakalamamalamamalamamamamamamalamamanaiaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafafafabababaoabaoabababafafafafaaaaagaaakakakakaaagaaaaaaagakakalanamaiamamaiamamanamamamaiamamanaiaa
+aaaaaaaaaaaaaaaaaaagaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafavafabaoabababababaoabafaGabafagagaaaaakakakakaaaaaaaaagaaakakalamamaiamamaiamamamamamamaiamamanaiaa
+aaaaaaaaaaaaakaaaaaaaaagagagagagagagagagagagagagagagagagafafaFafbpabababaoabababaUafababafaaaaaaagaaakakaaaaaaagaaaaaaakakalamamalanamalamanamamamamalamamanaiaa
+aaaaaaagaaakakakagaaagaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaafaiaFafabaoababapababaoabafabafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakalamamalamamalamamamanamamalamamanaiaa
+aaaeccaeagakakakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafaiaFafababababaqababababafcdabafaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakalamamalamamalamamamamamamalamalakakaa
+aeacafaeaeakakakaaaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafaiaFafafaoaoabaqabaoaoafafababafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakalalalaiaialalalalalalalalalakakaaaa
+aeafafafaeafafafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafafafafafaFafafafadadaqadadafafafabafafafafafaaaaaaaaaaaaaaafafafafaaaaakakanaiaiaiaianakakakakakakafafafafaa
+agacacacacacafacacaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadababafaIaJababceababaqababceababababafababadaaaaaaaaaaaaaaadababafafafafafafafaiaiafafafafafafafafafaiaiafaa
+aeacacacacacacacacaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadabababaLasatatatatatauababababababababababadaaaaaaaaaaaaaaadabababaIaQaQaQaQaQaJabababababababababaiaicfafaa
+aearafafacacafcgacaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadabchafaSawafafadadadadadadadafafasaxafaGabadaaaaaaaaaaaaaaadabaUafaLasatatataZatatatataZatatatayabafaiaiafaa
+aaaeazafacciafafafafafaaaaaaagaaagaaagaaaaaaaaaaafafafafafcjaqafaGabababababababchafaqchafafafafafaaaaaaaaaaaaafafafafbfawafafafafafababafafafafafaAbnafafafafaa
+agacaharacacafaeaeagccagagaeckaeckaeaHaeagagafafafapababafaLaqadabababababababababadaqabafboabaoafafafaaaaakakaaaaaaafaLaqafababababababababababafababafaaaaaaaa
+aeacacacacacafaeagagaaaaaaaeckaeckaebhaeaaaaafababaqababafaLaqababababapabaoababababaqabafaLabababaoafaaaaakakakaaaaafaLaqafbpababababababababaUafababafafafafaa
+aeacaharacacafaeaeaaaaaaaaaebhcCaHcDckaeaaaaafaGabaAatclafaLaqadabababaAayababababadaqabafcjabababaoafaaaaaaakakaaaaafaLaqafababababababababababafababafaiaiafaf
+aaaeahafacacafacaeaeaaaaaaaackaabhaackaaaaaaadabcEbqabaqafaLaqafaGababcmaqabababchafaqabafaLaoabababafaaaaaaaaafafafafbraqafababababababababababafabaUafaiaiaiaf
+aaagaaccacacaracaeaeagaaaaaackaabhaackaaadadadabcFaFabaqabaLcnafafafafafaCafafafafafaqababaLaoabababafagagagagafaiavafaLaqafbpababababababababaUafababafaiaiaiaf
+aaagaaaeaDaEataEbsbtbtagagblcocGcocGcocGcJcJcJcKcLbuaibvbwbxbybzbzbzbAbzbBbCbDbCbCbCbEbFbzbGbFbFbFbHbwbtbtbtbtbIbzbJbzbKbLafabaoaOatatayabaoaoabafababaiaiaiaiaf
+aaagaaaaaPacaracacaeagaaaaaabhaabhaabhaaadadadcMcFaFabaLabaLcnafafafafafaCafafafafafaqabababaoababaqafagagagagafbMaiafaLaqafaiaiaiaiabaqafafafafafababafaiaiaiaf
+aaaeagagaeaeafaeaeaeaaaaaaaabhaackaabhaaaaaaadcMcNbNabaLafaLaqafabababceaqabababaoafaqabafabaoababaqafaaaaaaaaafafafafbraqafabababababaqafaoaoaoafabaUafaiaiaiaf
+aaagaaaaaabOccaaagaaaaaaaacCcHaeckaebhaeaaaaafcPabababcpafaLaqadabababaoaRaoabababadaqabafaGabababaRafaaaaaaaaaaaaaaafaLaqafabababababaqafababaoafababafaiaiaiaf
+aaagaaaaaaagaaaaagagafaaaaaeckcCcHaecIcDaaaaafcRabababaLafaLaqabababababababababababaqabafababababaoafaaaaaaaaaaaaaaafaLaqafaoaOatatataKataxaoaoafababafaiaiaiaf
+aaagaaaaaaagagagaeaeccagagaecIaeckaebhaeagagafafafaoababafaLaqadabababababababababadaqabafabababafafafaaaaaaaaaaaaaaafaLaqafaoaoabababaqafababaoafababafaiaiafaf
+aaagaaaaaaagaaaaaaaaaaaaaaagckagbhagckagaaaaaaaaafafafafafcjaqafaGaoababaoababaochafaqabafafafafafaaaaaaaaaaaaafafafafbfawafabababababaqafaoaoaoafabaUafafafafaa
+aeaeafaaagagaaaaaaaaaaaaaaaeaaaeaaaeaaaeaaaaaaaaafaiavaiafaSawafafadadadadadadadafafcqaxafaGabadaaaaaaaaaaaaaaadabaUafaLaqafafafafafabaqafafafafafasaBafaiaiafaa
+agabaebPababaaaaaaaaaaaaaaaeaaaeaaaeaaaeaaaaaaaaafcrbQaibRbSaMatatatatataNatatatatatauababababadaaaaaaaaaaaaaaadabababaLaAatatatcsatataKatcsatatatauabaiaicfafaa
+aeababaeaeabaaaaaeagagagagaeaaaeaaaeaaaeagagagagafaiaictafbTbUababcmababaqababcmababababafababadaaaaaaaaaaaaaaadababafbVaQaQaQaQaQaQbWaqabababababababafaiaiafaa
+aebOafaaaeaeaaaaaaaaaaaaaaaaagaaaeaaagaaaaaaaaaaafafafafafafbXafafafadadaqadadafafafaiafafafafafaaaaaaaaaaaaaaafafafafafafajajajajajaLaqajajajajajafafafafafafaa
+aebNafafaaaeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafaTbYafafaVababaqabababafafaiaWafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajaXabcubZaJaqabcuabaXajaaaaaaaaaaaaaa
+ababaYaraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafaicaafababbaabbbabbaabbcafaiaiafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajcvcwabababaqababcxcyajaaaaaaaaaaaaaa
+cOabbdaraaagaaaaaaaaagaaaaaaaaaaaaagaaaaaaaaaaaaaaaaaaaaafbecbafaoabababaqababababafaiaiafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajajajabababaqababajajajaaaaaaaaaaaaaa
+cQaecSaragaaagagagagaaaaaaaaagaaagaaaaagagagagagagagagagafafaFafczabbaabbbabbaabcAafaiafafagagagagagagagagagagagagagagagagajcvcwabababbgababcxcyajaaaaaaaaaaaaaa
+cTbibjaraaaaaaaaaaaaaaaaaaagaaakakaaaaaaaaaaaaaaaaaaaaaaaaafbQafaoabababaqababababafaiafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajaXababcBababcBababaXajaaaaaaaaaaaaaa
+bkabcUaraaagaaaaaaaaaaaaagaaaaakakakaaagaaaaaaaaaaaaaaaaaaafafafababbaabbbabbaababafafafaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaajajajajajadadajajajajajaaaaaaaaaaaaaa
+aaabafafaaaaaaaaaaaaaaaaaaaaakakakakaaaaaaaaaaaaaaaaaaaaaaaaaaafafcmababbgababcmafafaaaaaaaaaaaaaaaaaaaaakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+agafafaaaaaaaaaaaaaaaaaaaaaaakbmakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaafafadafadafadafafaaaaaaaaaaaaaaaaaaaaakakakakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakakakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakakakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaakakakakaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+"}
