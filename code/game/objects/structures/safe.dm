@@ -26,14 +26,16 @@ FLOOR SAFES
 
 
 /obj/structure/safe/New()
-	tumbler_1_pos = rand(0, 99)
-	tumbler_1_open = rand(0, 99)
-
-	tumbler_2_pos = rand(0, 99)
+	tumbler_2_pos = rand(0, 99) // first value in the combination set first
 	tumbler_2_open = rand(0, 99)
 
-	open_pos = rand(0,99)
-
+	tumbler_1_pos = rand(0, 99)
+	do
+	tumbler_1_open = rand(0, 99)
+	while(tumbler_1_open > Wrap(tumbler_2_open +48, 0, 99) && tumbler_1_open < Wrap(tumbler_2_open + 53, 0, 99)) // prevents a combination that wont open
+	do
+		open_pos = rand(0,99)
+	while(open_pos > Wrap(tumbler_1_open - 2, 0, 99) && open_pos < Wrap(tumbler_1_open + 2, 0, 99)) // prevents a combination that wont open
 	var/num1 = tumbler_2_open + 54
 	if(num1 > 99)
 		num1 = num1 - 100
@@ -77,22 +79,6 @@ FLOOR SAFES
 				to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
 	if(unlocked)
 		if(user) visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
-
-
-
-/obj/structure/safe/proc/decrement(num)
-	num -= 1
-	if(num < 0)
-		num = 99
-	return num
-
-
-/obj/structure/safe/proc/increment(num)
-	num += 1
-	if(num > 99)
-		num = 0
-	return num
-
 
 /obj/structure/safe/update_icon()
 	if(open)
@@ -159,12 +145,12 @@ FLOOR SAFES
 			return
 		for(var/i=1 to ticks)
 			if(!check_unlocked())
-				dial = decrement(dial)
+				dial = Wrap(dial - 1, 0 ,99)
 				if(dial == tumbler_1_pos + 1 || dial == tumbler_1_pos - 99)
-					tumbler_1_pos = decrement(tumbler_1_pos)
+					tumbler_1_pos = Wrap(tumbler_1_pos - 1, 0, 99)
 					tum1_turns++
 					if(tumbler_1_pos == tumbler_2_pos + 51 || tumbler_1_pos == tumbler_2_pos - 49)
-						tumbler_2_pos = decrement(tumbler_2_pos)
+						tumbler_2_pos = Wrap(tumbler_1_pos - 1, 0, 99)
 						tum2_turns++
 		check_unlocked()
 		make_noise(tum1_turns, tum2_turns, user, canhear)
@@ -178,12 +164,12 @@ FLOOR SAFES
 			return
 		for(var/i=1 to ticks)
 			check_unlocked()
-			dial = increment(dial)
+			dial = Wrap(dial + 1, 0, 99)
 			if(dial == tumbler_1_pos - 1 || dial == tumbler_1_pos + 99)
-				tumbler_1_pos = increment(tumbler_1_pos)
+				tumbler_1_pos = Wrap(tumbler_1_pos + 1, 0, 99)
 				tum1_turns++
 				if(tumbler_1_pos == tumbler_2_pos - 51 || tumbler_1_pos == tumbler_2_pos + 49)
-					tumbler_2_pos = increment(tumbler_2_pos)
+					tumbler_2_pos = Wrap(tumbler_2_pos + 1, 0, 99)
 					tum2_turns++
 		make_noise(tum1_turns, tum2_turns, user, canhear)
 		.=1
