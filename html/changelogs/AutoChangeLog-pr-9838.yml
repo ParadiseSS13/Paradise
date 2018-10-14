@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "Stacks are split by CtrlShiftClick instead of AltClick now."
