@@ -3,6 +3,7 @@
 	..(user)
 
 	var/msg = "<span class='info'>"
+	msg += "It has loaded a [module.name].\n"
 	var/obj/act_module = get_active_hand()
 	if(act_module)
 		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
