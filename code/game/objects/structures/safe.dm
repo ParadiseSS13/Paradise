@@ -73,9 +73,9 @@ FLOOR SAFES
 			if(tum2_tmp >= 1)
 				to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
 				tum2_tmp = tum2_tmp - rand(4, 8)
-			if(tumbler_1_pos == tumbler_1_open && tum1_turns == 1)
+			if(tumbler_1_pos == tumbler_1_open && tum1_turns == 1) // You cant hear tumblers if you spin fast!
 				to_chat(user, "<span class='italics'>You hear a [pick("tonk", "krunk", "plunk")] from [src].</span>")
-			if(tumbler_2_pos == tumbler_2_open && tum1_turns == 1 && tum2_turns == 1)
+			if(tumbler_2_pos == tumbler_2_open && tum1_turns == 1 && tum2_turns == 1) // You cant hear tumblers if you spin fast!
 				to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
 	if(unlocked)
 		if(user) visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
