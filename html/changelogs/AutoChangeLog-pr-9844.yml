@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Makes it so that Screwdrivers & Wirecutters are no longer invisible in the map editor."
