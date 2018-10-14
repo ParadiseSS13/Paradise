@@ -34,12 +34,12 @@ FLOOR SAFES
 
 	open_pos = rand(0,99)
 
-	var/num1 = tumbler_2_open + 53
+	var/num1 = tumbler_2_open + 54
 	if(num1 > 99)
-		num1 = num1 - 99
-	var/num2 = tumbler_1_open + 97
+		num1 = num1 - 100
+	var/num2 = tumbler_1_open + 98
 	if(num2 > 99)
-		num2 = num2 - 99
+		num2 = num2 - 100
 
 	combo_to_open = "Go right past [num1] twice then stop at [num1]. Go left past [num2] once then stop at [num2]. Turn right till it stops and its open."
 
