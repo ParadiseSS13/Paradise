@@ -663,8 +663,17 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(job_master)
+		var/currentpositiontally
+		var/totalpositiontally
+		to_chat(src, "<span class='notice'>Job Name: Filled job slot / Total job slots <b>(Free job slots)</b> </span>")
 		for(var/datum/job/job in job_master.occupations)
-			to_chat(src, "[job.title]: [job.total_positions]")
+			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
+			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
+			 <b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
+			if(!(job.total_positions == -1))
+				currentpositiontally += job.current_positions
+				totalpositiontally += job.total_positions
+		to_chat(src, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])")
 	feedback_add_details("admin_verb","LFS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view())
