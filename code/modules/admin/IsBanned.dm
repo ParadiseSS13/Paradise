@@ -11,7 +11,7 @@ world/IsBanned(key,address,computer_id)
 	var/ckey = ckey(key)
 	if((ckey in admin_datums) || (ckey in GLOB.deadmins))
 		var/datum/admins/A = admin_datums[ckey]
-		if(A.rights & R_ADMIN)
+		if(A && (A.rights & R_ADMIN))
 			admin = 1
 
 	//Guest Checking
