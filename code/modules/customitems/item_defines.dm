@@ -1453,7 +1453,7 @@
 	if(on)
 		add_fingerprint(user)
 		if((CLUMSY in user.mutations) && prob(50))
-			to_chat(user, "<span class ='danger'>Se expropi� a si mismo.</span>")
+			to_chat(user, "<span class ='danger'>Se expropió a si mismo.</span>")
 			user.Weaken(3 * force)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
