@@ -25,12 +25,15 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
 	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
+	var/datum/spawners_menu/spawners_menu
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
-	verbs += /mob/dead/observer/proc/dead_tele
+	verbs += list(
+		/mob/dead/observer/proc/dead_tele,
+		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(null))
@@ -95,6 +98,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		ghost_darkness_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
+		QDEL_NULL(spawners_menu)
 	return ..()
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
@@ -678,3 +682,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		mind.transfer_to(new_char)
 	else
 		new_char.key = key
+
+/mob/dead/observer/proc/open_spawners_menu()
+	set name = "Mob spawners menu"
+	set desc = "See all currently available ghost spawners"
+	set category = "Ghost"
+	if(!spawners_menu)
+		spawners_menu = new(src)
+ 	spawners_menu.ui_interact(src) 

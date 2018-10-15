@@ -242,6 +242,7 @@
 #include "code\datums\ruins.dm"
 #include "code\datums\shuttles.dm"
 #include "code\datums\soullink.dm"
+#include "code\datums\spawners_menu.dm"
 #include "code\datums\spell.dm"
 #include "code\datums\statclick.dm"
 #include "code\datums\supplypacks.dm"
