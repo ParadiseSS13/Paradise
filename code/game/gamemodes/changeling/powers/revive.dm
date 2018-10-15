@@ -52,7 +52,8 @@
 			IO.rejuvenate()
 			IO.trace_chemicals.Cut()
 		H.remove_all_embedded_objects()
-	user.updatehealth()
+	user.status_flags &= ~(FAKEDEATH)
+	user.updatehealth("revive sting")
 	user.update_blind_effects()
 	user.update_blurry_effects()
 
@@ -60,7 +61,6 @@
 
 	user.regenerate_icons()
 
-	user.status_flags &= ~(FAKEDEATH)
 	user.update_revive() //Handle waking up the changeling after the regenerative stasis has completed.
 	user.mind.changeling.purchasedpowers -= src
 	user.med_hud_set_status()
