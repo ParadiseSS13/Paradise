@@ -13,12 +13,34 @@
 	new /obj/item/stack/medical/ointment(src)
 	new /obj/item/stack/medical/ointment(src)
 
+/obj/item/card/id/away/old
+	name = "a perfectly generic identification card"
+	desc = "A perfectly generic identification card. Looks like it could use some flavor."
+	access = list(access_away01)
+
+/obj/item/card/id/away/old/sec
+	name = "Security Officer ID"
+	desc = "Security officers ID card."
+	icon_state = "centcom"
+
+/obj/item/card/id/away/old/sci
+	name = "Scientist ID"
+	desc = "Scientists ID card."
+	icon_state = "centcom"
+
+/obj/item/card/id/away/old/eng
+	name = "Engineer ID"
+	desc = "Engineers ID card."
+	icon_state = "centcom"
+
 /obj/item/card/id/away/old/apc
 	name = "APC Access ID"
 	desc = "A special ID card that allows access to APC terminals."
 	icon_state = "centcom_old"
 	access = list(access_engine_equip)
 
+/obj/item/storage/backpack/old
+	max_combined_w_class = 12
 
 // Equipment
 /obj/item/clothing/head/helmet/space/nasavoid/old
@@ -58,6 +80,16 @@
 	projectile_type = /obj/item/projectile/beam/laser
 	e_cost = 200
 	select_name = "kill"
+
+/obj/item/gun/energy/e_gun/old
+	name = "prototype energy gun"
+	desc = "NT-P:01 Prototype Energy Gun. Early stage development of a unique laser rifle that has multifaceted energy lens allowing the gun to alter the form of projectile it fires on command."
+	icon_state = "protolaser"
+	ammo_x_offset = 2
+	ammo_type = list(/obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/electrode/old)
+
+/obj/item/ammo_casing/energy/electrode/old
+	e_cost = 1000
 
 // Papers
 /obj/item/paper/fluff/ruins/oldstation
@@ -112,6 +144,38 @@
 	name = "S.U.P.E.R.P.A.C.M.A.N.-type portable generator manual"
 	info = "You can barely make out a faded sentence... <br><br> Wrench down the generator on top of a wire node connected to either a SMES input terminal or the power grid."
 
+
+	//Old Prototype Hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/ancient
+	name = "prototype RIG hardsuit helmet"
+	desc = "Early prototype RIG hardsuit helmet, designed to quickly shift over a user's head. Design constraints of the helmet mean it has no inbuilt cameras, thus it restricts the users visability."
+	icon_state = "hardsuit0-ancient"
+	item_state = "anc_helm"
+	armor = list("melee" = 30, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 75)
+	item_color = "ancient"
+	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/suit/space/hardsuit/ancient
+	name = "prototype RIG hardsuit"
+	desc = "Prototype powered RIG hardsuit. Provides excellent protection from the elements of space while being comfortable to move around in, thanks to the powered locomotives. Remains very bulky however."
+	icon_state = "hardsuit-ancient"
+	item_state = "anc_hardsuit"
+	armor = list("melee" = 30, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 75)
+	slowdown = 3
+	resistance_flags = FIRE_PROOF
+	var/footstep = 1
+
+/obj/item/clothing/suit/space/hardsuit/ancient/on_mob_move()
+	var/mob/living/carbon/human/H = loc
+	if(!istype(H) || H.wear_suit != src)
+		return
+	if(footstep > 1)
+		playsound(src, 'sound/effects/servostep.ogg', 100, 1)
+		footstep = 0
+	else
+		footstep++
+	..()
+
 // Chemical bottles
 /obj/item/reagent_containers/glass/bottle/hydrogen
 	name = "hydrogen bottle"
@@ -140,10 +204,6 @@
 /obj/item/reagent_containers/glass/bottle/sodium
 	name = "sodium bottle"
 	list_reagents = list("sodium" = 30)
-
-/obj/item/reagent_containers/glass/bottle/aluminium
-	name = "aluminium bottle"
-	list_reagents = list("aluminium" = 30)
 
 /obj/item/reagent_containers/glass/bottle/silicon
 	name = "silicon bottle"
@@ -199,7 +259,7 @@
 
 /obj/item/reagent_containers/glass/bottle/welding_fuel
 	name = "welding fuel bottle"
-	list_reagents = list("welding_fuel" = 30)
+	list_reagents = list("fuel" = 30)
 
 /obj/item/reagent_containers/glass/bottle/silver
 	name = "silver bottle"
@@ -212,3 +272,168 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list("bromine" = 30)
+
+// Engines
+/obj/structure/shuttle/engine/large
+	name = "engine"
+	opacity = 1
+	icon = 'icons/obj/2x2.dmi'
+	icon_state = "large_engine"
+	desc = "A very large bluespace engine used to propel very large ships."
+	bound_width = 64
+	bound_height = 64
+	appearance_flags = 0
+
+// areas
+//Ruin of ancient Space Station
+
+/area/ruin/space/ancientstation
+	name = "Charlie Station Main Corridor"
+	icon_state = "green"
+	has_gravity = TRUE
+
+/area/ruin/space/ancientstation/powered
+	name = "Powered Tile"
+	icon_state = "teleporter"
+	requires_power = FALSE
+
+/area/ruin/space/ancientstation/space
+	name = "Exposed To Space"
+	icon_state = "teleporter"
+	has_gravity = FALSE
+
+/area/ruin/space/ancientstation/atmo
+	name = "Beta Station Atmospherics"
+	icon_state = "red"
+	has_gravity = FALSE
+
+/area/ruin/space/ancientstation/betanorth
+	name = "Beta Station North Corridor"
+	icon_state = "blue"
+
+/area/ruin/space/ancientstation/solar
+	name = "Station Solar Array"
+	icon_state = "panelsAP"
+
+/area/ruin/space/ancientstation/engi
+	name = "Charlie Station Engineering"
+	icon_state = "engine"
+
+/area/ruin/space/ancientstation/comm
+	name = "Charlie Station Command"
+	icon_state = "captain"
+
+/area/ruin/space/ancientstation/hydroponics
+	name = "Charlie Station Hydroponics"
+	icon_state = "garden"
+
+/area/ruin/space/ancientstation/kitchen
+	name = "Charlie Station Kitchen"
+	icon_state = "kitchen"
+
+/area/ruin/space/ancientstation/sec
+	name = "Charlie Station Security"
+	icon_state = "red"
+
+/area/ruin/space/ancientstation/deltacorridor
+	name = "Delta Station Main Corridor"
+	icon_state = "green"
+
+/area/ruin/space/ancientstation/proto
+	name = "Delta Station Prototype Lab"
+	icon_state = "toxlab"
+
+/area/ruin/space/ancientstation/rnd
+	name = "Delta Station Research and Development"
+	icon_state = "toxlab"
+
+/area/ruin/space/ancientstation/hivebot
+	name = "Hivebot Mothership"
+	icon_state = "teleporter"
+
+// Mob Spawners
+//Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
+
+/obj/effect/mob_spawn/human/oldsec
+	name = "old cryogenics pod"
+	desc = "A humming cryo pod. You can barely recognise a security uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	mob_name = "a security officer"
+	icon = 'icons/obj/Cryogenic2.dmi'
+	icon_state = "sleeper"
+	roundstart = FALSE
+	death = FALSE
+	random = TRUE
+	mob_species = /datum/species/human
+	flavour_text = "<span class='big bold'>You are a security officer working for Nanotrasen,</span><b> stationed onboard a state of the art research station. You vaguely recall rushing into a \
+	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
+	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
+	Work as a team with your fellow survivors and do not abandon them.</b>"
+	uniform = /obj/item/clothing/under/rank/security
+	shoes = /obj/item/clothing/shoes/jackboots
+	id = /obj/item/card/id/away/old/sec
+	r_pocket = /obj/item/restraints/handcuffs
+	l_pocket = /obj/item/flash
+	assignedrole = "Ancient Crew"
+
+/obj/effect/mob_spawn/human/oldsec/Destroy()
+	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
+	return ..()
+
+/obj/effect/mob_spawn/human/oldeng
+	name = "old cryogenics pod"
+	desc = "A humming cryo pod. You can barely recognise an engineering uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	mob_name = "an engineer"
+	icon = 'icons/obj/Cryogenic2.dmi'
+	icon_state = "sleeper"
+	roundstart = FALSE
+	death = FALSE
+	random = TRUE
+	mob_species = /datum/species/human
+	flavour_text = "<span class='big bold'>You are an engineer working for Nanotrasen,</span><b> stationed onboard a state of the art research station. You vaguely recall rushing into a \
+	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
+	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
+	Work as a team with your fellow survivors and do not abandon them.</b>"
+	uniform = /obj/item/clothing/under/rank/engineer
+	shoes = /obj/item/clothing/shoes/workboots
+	id = /obj/item/card/id/away/old/eng
+	gloves = /obj/item/clothing/gloves/color/fyellow/old
+	l_pocket = /obj/item/tank/emergency_oxygen
+	assignedrole = "Ancient Crew"
+
+/obj/effect/mob_spawn/human/oldeng/Destroy()
+	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
+	return ..()
+
+/obj/effect/mob_spawn/human/oldsci
+	name = "old cryogenics pod"
+	desc = "A humming cryo pod. You can barely recognise a science uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	mob_name = "a scientist"
+	icon = 'icons/obj/Cryogenic2.dmi'
+	icon_state = "sleeper"
+	roundstart = FALSE
+	death = FALSE
+	random = TRUE
+	mob_species = /datum/species/human
+	flavour_text = "<span class='big bold'>You are a scientist working for Nanotrasen,</span><b> stationed onboard a state of the art research station. You vaguely recall rushing into a \
+	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
+	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
+	Work as a team with your fellow survivors and do not abandon them.</b>"
+	uniform = /obj/item/clothing/under/rank/scientist
+	shoes = /obj/item/clothing/shoes/laceup
+	id = /obj/item/card/id/away/old/sci
+	l_pocket = /obj/item/stack/medical/bruise_pack
+	assignedrole = "Ancient Crew"
+
+/obj/effect/mob_spawn/human/oldsci/Destroy()
+	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
+	return ..()
+
+/obj/structure/showcase/machinery/oldpod
+	name = "damaged cryogenic pod"
+	desc = "A damaged cryogenic pod long since lost to time, including its former occupant..."
+	icon = 'icons/obj/Cryogenic2.dmi'
+	icon_state = "sleeper-open"
+
+/obj/structure/showcase/machinery/oldpod/used
+	name = "opened cryogenic pod"
+	desc = "A cryogenic pod that has recently discharged its occupant. The pod appears non-functional."
