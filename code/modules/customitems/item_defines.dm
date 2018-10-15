@@ -321,7 +321,7 @@
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
-		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words “Property of Yon-Dale” can be seen on the inner band."
+		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words Â“Property of Yon-DaleÂ“ can be seen on the inner band."
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.species_fit = list("Vulpkanin")
@@ -1433,9 +1433,9 @@
 		item_state = "expropiador"
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = 10 //stunbaton damage
-		attack_verb = list("expropió a")
+		attack_verb = list("expropiÃ³ a")
 	else
-		to_chat(user, "<span class ='notice'>No más expropiaciones por ahora.</span>")
+		to_chat(user, "<span class ='notice'>No mÃ¡s expropiaciones por ahora.</span>")
 		icon_state = "expropiador0"
 		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
@@ -1453,7 +1453,7 @@
 	if(on)
 		add_fingerprint(user)
 		if((CLUMSY in user.mutations) && prob(50))
-			to_chat(user, "<span class ='danger'>Se expropió a si mismo.</span>")
+			to_chat(user, "<span class ='danger'>Se expropiï¿½ a si mismo.</span>")
 			user.Weaken(3 * force)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -1617,7 +1617,22 @@
 
 //ASDFLYY TOASTER BRAIN ENDS HERE
 
-// Función de mierda que detecta cuando un pj entra a la estación
+
+//MELTYAS LENNOX SUITS START HERE
+
+/obj/item/clothing/under/lennoxsuit
+	name = "Lennox Captain Suit"
+	desc = "High tech protective suit made for NT operatives on the field. Adapted for Lennox to be used as an uniform"
+	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon_state = "lennoxsuit"
+	item_state = "lennoxsuit"
+	item_color = "lennoxsuit"
+	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+
+//MELTYAS LENNOX SUITS ENDS HERE
+
+
+// Funciï¿½n de mierda que detecta cuando un pj entra a la estaciï¿½n
 /mob/new_player/proc/start_player(mob/user)
 	var/mob/living/carbon/human/target = user
 	var/obj/item/organ/internal/organ
