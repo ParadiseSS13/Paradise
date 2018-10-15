@@ -801,7 +801,7 @@
 
 /obj/item/id_decal/prisoner
 	name = "prisoner ID card decal"
-	icon_state = "id_decal_prisonner"
+	icon_state = "id_decal_prisoner"
 	desc = "All the cool kids have an ID that's this color. Applies to any ID."
 	decal_desc = "You are a number, you are not a free man."
 	decal_icon_state = "prisoner"
