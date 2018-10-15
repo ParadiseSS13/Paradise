@@ -78,7 +78,8 @@ FLOOR SAFES
 			if(tumbler_2_pos == tumbler_2_open && tum1_turns == 1 && tum2_turns == 1) // You cant hear tumblers if you spin fast!
 				to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
 	if(unlocked)
-		if(user) visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
+		if(user)
+			visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
 
 /obj/structure/safe/update_icon()
 	if(open)
@@ -102,8 +103,11 @@ FLOOR SAFES
 /obj/structure/safe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/list/contents_names = list()
-	for(var/obj/O in contents)
-		contents_names[++contents_names.len] = list("name" = O.name, "index" = contents.Find(O))
+	if(open)
+		for(var/obj/O in contents)
+			contents_names[++contents_names.len] = list("name" = O.name, "index" = contents.Find(O))
+	else
+		contents_names = list(list("name" = "you're"), list("name" = "a"), list("name" = "cheater"))
 
 	data["dial"] = dial
 	data["open"] = open
@@ -152,6 +156,8 @@ FLOOR SAFES
 					if(tumbler_1_pos == tumbler_2_pos + 51 || tumbler_1_pos == tumbler_2_pos - 49)
 						tumbler_2_pos = Wrap(tumbler_2_pos - 1, 0, 100)
 						tum2_turns++
+			sleep(world.tick_lag)
+			SSnanoui.update_uis(src)
 		check_unlocked()
 		make_noise(tum1_turns, tum2_turns, user, canhear)
 		.=1
@@ -171,6 +177,8 @@ FLOOR SAFES
 				if(tumbler_1_pos == tumbler_2_pos - 51 || tumbler_1_pos == tumbler_2_pos + 49)
 					tumbler_2_pos = Wrap(tumbler_2_pos + 1, 0, 100)
 					tum2_turns++
+			sleep(world.tick_lag)
+			SSnanoui.update_uis(src)
 		make_noise(tum1_turns, tum2_turns, user, canhear)
 		.=1
 
@@ -205,6 +213,9 @@ FLOOR SAFES
 	else
 		if(istype(I, /obj/item/clothing/accessory/stethoscope))
 			to_chat(user, "<span class='warning'>Hold [I] in one of your hands while you manipulate the dial!</span>")
+			return
+		else
+			to_chat(user, "<span class='warning'>You can't put [I] in into the safe while it is closed!</span>")
 			return
 
 

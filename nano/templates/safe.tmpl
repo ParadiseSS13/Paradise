@@ -5,7 +5,20 @@
 		}
 	</style>
 </head>
-{{if data.open == 0}}
+{{if data.open}}
+	<div>
+		<div style='text-align: center;'>
+			<div style='display: inline-block;'>{{:helper.link('Close', 'caret-square-o-up', {'open': 1})}} </div>
+		</div>
+	</div>
+	<div class='statusDisplay'>	
+		{{for data.contents}}
+			<div class='line'>
+				{{:helper.link(value.name, 'arrow-left', {'retrieve': value.index})}}
+			</div>
+		{{/for}}
+	</div>
+{{else}}
 	<div>
 		<div style='text-align: center;'>
 			<div style='display: inline-block;'>{{:helper.link('Open', 'caret-square-o-down', {'open': 1})}} </div>
@@ -45,19 +58,5 @@
 			<div style='height: 32px;'>6. Open the safe</div>
 		</div>	
 		<div style='font-weight: bold;'>To lock fully turn the dial to the left for three rotations</div>
-	</div>
-{{/if}}
-{{if data.open == 1}}
-	<div>
-		<div style='text-align: center;'>
-			<div style='display: inline-block;'>{{:helper.link('Close', 'caret-square-o-up', {'open': 1})}} </div>
-		</div>
-	</div>
-	<div class='statusDisplay'>	
-		{{for data.contents}}
-			<div class='line'>
-				{{:helper.link(value.name, 'arrow-left', {'retrieve': value.index})}}
-			</div>
-		{{/for}}
 	</div>
 {{/if}}
