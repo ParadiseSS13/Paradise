@@ -125,7 +125,7 @@
 			giveObjectivesandGoals()
 		if(!giveSpells())
 			message_admins("Revenant was created but has no mind. Trying again in ten seconds.")
-			addtimer(CALLBACK(src, .proc/giveSpellsObjectivesordelete), 100)
+			addtimer(CALLBACK(src, .proc/giveSpellsObjectivesordelete), 10 SECONDS)
 	
 /mob/living/simple_animal/revenant/proc/giveSpellsObjectivesordelete()
 	if(!giveSpells())
