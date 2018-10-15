@@ -247,6 +247,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 					user << browse_rsc(M.img, "tmp_photo[message_number].png")
 				messages[++messages.len] = list("title" = M.title, "body" = M.body, "img" = M.img ? M.img : null, "message_type" = M.message_type, "author" = M.author, "view_count" = M.view_count, "message_number" = message_number)
 				message_number += 1
+			sleep(15)
 		if(8, 9)
 			data["channel_name"] = viewing_channel.channel_name
 			data["ref"] = "\ref[viewing_channel]"
