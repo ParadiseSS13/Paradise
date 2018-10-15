@@ -1,0 +1,4 @@
+author: "Ty-Omaha"
+delete-after: True
+changes: 
+  - bugfix: "Fixes stunbaton runtime (Stun() being called on a turf)"
