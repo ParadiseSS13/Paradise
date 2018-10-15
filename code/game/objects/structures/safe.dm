@@ -140,6 +140,7 @@ FLOOR SAFES
 		else
 			to_chat(user, "<span class='warning'>You can't open [src], the lock is engaged!</span>")
 			.=1
+		SSnanoui.update_uis(src)
 
 	if(href_list["decrement"])
 		var/ticks = text2num(href_list["decrement"])
@@ -157,8 +158,8 @@ FLOOR SAFES
 						tumbler_2_pos = Wrap(tumbler_2_pos - 1, 0, 100)
 						tum2_turns++
 			sleep(world.tick_lag)
+			check_unlocked()
 			SSnanoui.update_uis(src)
-		check_unlocked()
 		make_noise(tum1_turns, tum2_turns, user, canhear)
 		.=1
 
@@ -190,9 +191,9 @@ FLOOR SAFES
 				if(P && in_range(src, user))
 					user.put_in_hands(P)
 		.=1
+		SSnanoui.update_uis(src)
 
 	updateUsrDialog()
-	SSnanoui.update_uis(src)
 	return
 
 
