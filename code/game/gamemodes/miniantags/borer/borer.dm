@@ -489,7 +489,7 @@
 		return
 		
 	if(input_open)
-		to_chat(src, "You're already targetting someone!")
+		to_chat(src, "You're already targeting someone!")
 		return
 	
 	var/list/choices = list()
