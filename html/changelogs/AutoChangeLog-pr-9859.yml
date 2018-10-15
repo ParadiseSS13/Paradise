@@ -1,0 +1,4 @@
+author: "Squirgenheimer"
+delete-after: True
+changes: 
+  - bugfix: "Changelings will now wake up after using Regenerative Stasis."
