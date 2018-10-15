@@ -326,6 +326,9 @@
 		to_chat(src, "You cannot infest someone who is already infested!")
 		return
 
+	if(stat == DEAD)
+		return
+
 	to_chat(src, "You slither up [M] and begin probing at [M.p_their()] ear canal...")
 
 	if(!do_after(src, 50, target = M))
