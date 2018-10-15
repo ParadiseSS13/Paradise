@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - tweak: "The maximal length of a name that won't be rejected as a 'bad name' has been raised."
