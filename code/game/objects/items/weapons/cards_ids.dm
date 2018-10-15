@@ -774,7 +774,7 @@
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
-	desc = "A nano-cellophane wrap that molds to an ID card to make it look snazzy looking."
+	desc = "A nano-cellophane wrap that molds to an ID card to make it look snazzy."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "id_decal"
 	var/decal_name = "identification card"
