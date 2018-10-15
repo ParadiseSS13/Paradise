@@ -91,7 +91,7 @@
 			)
 	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
 	var/used_dominate
-	var/input_open = FALSE					// To prevent people from spam opening the Dominate Victim input
+	var/attempting_to_dominate = FALSE		// To prevent people from spam opening the Dominate Victim input
 	var/chemicals = 10						// Chemicals used for reproduction and chemical injection.
 	var/max_chems = 250
 	var/mob/living/carbon/human/host		// Human host for the brain worm.
@@ -326,7 +326,7 @@
 		to_chat(src, "You cannot infest someone who is already infested!")
 		return
 
-	if(stat == DEAD)
+	if(incapacitated())
 		return
 
 	to_chat(src, "You slither up [M] and begin probing at [M.p_their()] ear canal...")
@@ -488,7 +488,7 @@
 		to_chat(src, "You cannot do that in your current state.")
 		return
 		
-	if(input_open)
+	if(attempting_to_dominate)
 		to_chat(src, "You're already targeting someone!")
 		return
 	
@@ -501,29 +501,29 @@
 		to_chat(src, "You cannot use that ability again so soon.")
 		return
 		
-	input_open = TRUE
+	attempting_to_dominate = TRUE
 	
 	var/mob/living/carbon/M = input(src,"Who do you wish to dominate?") in null|choices
 
 	if(!M)
-		input_open = FALSE
+		attempting_to_dominate = FALSE
 		return
 
-	if(!src) //different statement to avoid a runtime since if the source is deleted then input_open would also be deleted
+	if(!src) //different statement to avoid a runtime since if the source is deleted then attempting_to_dominate would also be deleted
 		return
 
 	if(M.has_brain_worms())
 		to_chat(src, "You cannot dominate someone who is already infested!")
-		input_open = FALSE
+		attempting_to_dominate = FALSE
 		return
 
-	if(stat == DEAD)
-		input_open = FALSE
+	if(incapacitated())
+		attempting_to_dominate = FALSE
 		return 
 		
 	if(get_dist(src, M) > 7) //to avoid people remotely doing from across the map etc, 7 is the default view range
 		to_chat(src, "<span class='warning'>You're too far away!</span>")
-		input_open = FALSE
+		attempting_to_dominate = FALSE
 		return
 
 	to_chat(src, "<span class='warning'>You focus your psychic lance on [M] and freeze [M.p_their()] limbs with a wave of terrible dread.</span>")
@@ -531,7 +531,7 @@
 	M.Weaken(3)
 
 	used_dominate = world.time
-	input_open = FALSE
+	attempting_to_dominate = FALSE
 
 /mob/living/simple_animal/borer/verb/release_host()
 	set category = "Borer"
