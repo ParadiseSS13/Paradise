@@ -139,7 +139,7 @@
 
 
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
-	if(!ismob(L))
+	if(!ismob(L)) //because this was being called on turfs for some reason
 		return
 	
 	if(ishuman(L))
