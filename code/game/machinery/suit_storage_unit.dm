@@ -193,10 +193,10 @@
 		return
 	var/mob/living/target = A
 	if(!state_open)
-		to_chat(user, "<span class='warning'>The unit's doors are shut!</span>")
+		to_chat(user, "<span class='warning'>The [src]'s doors are shut!</span>")
 		return
 	if(!is_operational())
-		to_chat(user, "<span class='warning'>The unit is not operational!</span>")
+		to_chat(user, "<span class='warning'>The [src] is not operational!</span>")
 		return
 	if(occupant || helmet || suit || storage)
 		to_chat(user, "<span class='warning'>It's too cluttered inside to fit in!</span>")
