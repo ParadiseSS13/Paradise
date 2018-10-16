@@ -1,0 +1,4 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - bugfix: "Corpse spawners (such as those on the Wild West away mission) now properly spawn corpses at roundstart that don't remain standing."
