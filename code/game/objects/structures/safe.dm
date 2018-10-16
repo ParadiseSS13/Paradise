@@ -62,21 +62,18 @@ FLOOR SAFES
 	unlocked = 0
 	return 0
 
-/obj/structure/safe/proc/make_noise(tum1_turns, tum2_turns, mob/user, canhear)
+/obj/structure/safe/proc/make_noise(turns, turns_total, tum1 = 0, tum2 = 0, mob/user, canhear)
 	if(user && canhear)
-		var/tum1_tmp = tum1_turns
-		var/tum2_tmp = tum2_turns
-		while(tum1_tmp >= 1 || tum2_tmp >= 1)
-			if(tum1_tmp >= 1)
-				to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
-				tum1_tmp = tum1_tmp - rand(4, 8)
-			if(tum2_tmp >= 1)
-				to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
-				tum2_tmp = tum2_tmp - rand(4, 8)
-			if(tumbler_1_pos == tumbler_1_open && tum1_turns == 1) // You cant hear tumblers if you spin fast!
-				to_chat(user, "<span class='italics'>You hear a [pick("tonk", "krunk", "plunk")] from [src].</span>")
-			if(tumbler_2_pos == tumbler_2_open && tum1_turns == 1 && tum2_turns == 1) // You cant hear tumblers if you spin fast!
-				to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
+		if(turns == 2)
+			to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
+		if(tum1 && (turns_total == 1 || prob(10))) // So multi turns dont super spam the chat
+			to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
+		if(tum2 && (turns_total == 1 || prob(10))) // So multi turns dont super spam the chat
+			to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
+		if(tumbler_1_pos == tumbler_1_open && turns_total == 1) // You cant hear tumblers if you spin fast!
+			to_chat(user, "<span class='italics'>You hear a [pick("tonk", "krunk", "plunk")] from [src].</span>")
+		if(tumbler_2_pos == tumbler_2_open && turns_total == 1 ) // You cant hear tumblers if you spin fast!
+			to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
 	if(unlocked)
 		if(user)
 			visible_message("<i><b>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</b></i>")
@@ -105,7 +102,8 @@ FLOOR SAFES
 	var/list/contents_names = list()
 	if(open)
 		for(var/obj/O in contents)
-			contents_names[++contents_names.len] = list("name" = O.name, "index" = contents.Find(O))
+			contents_names[++contents_names.len] = list("name" = O.name, "index" = contents.Find(O), "sprite" = O.icon_state)
+			user << browse_rsc(icon(O.icon, O.icon_state), "[O.icon_state].png")
 	else
 		contents_names = list(list("name" = "you're"), list("name" = "a"), list("name" = "cheater"))
 
@@ -144,8 +142,6 @@ FLOOR SAFES
 
 	if(href_list["decrement"])
 		var/ticks = text2num(href_list["decrement"])
-		var/tum1_turns = 0
-		var/tum2_turns = 0
 		if(open)
 			return
 		for(var/i=1 to ticks)
@@ -153,20 +149,18 @@ FLOOR SAFES
 				dial = Wrap(dial - 1, 0 ,100)
 				if(dial == tumbler_1_pos + 1 || dial == tumbler_1_pos - 99)
 					tumbler_1_pos = Wrap(tumbler_1_pos - 1, 0, 100)
-					tum1_turns++
+					make_noise(i, ticks, 1, 0, user, canhear)
 					if(tumbler_1_pos == tumbler_2_pos + 51 || tumbler_1_pos == tumbler_2_pos - 49)
 						tumbler_2_pos = Wrap(tumbler_2_pos - 1, 0, 100)
-						tum2_turns++
-			sleep(world.tick_lag)
+						make_noise(0, ticks, 0, 1, user, canhear)
+			sleep(1)
 			check_unlocked()
 			SSnanoui.update_uis(src)
-		make_noise(tum1_turns, tum2_turns, user, canhear)
+		make_noise(0, 0, 0, 0, user, canhear)
 		.=1
 
 	if(href_list["increment"])
 		var/ticks = text2num(href_list["increment"])
-		var/tum1_turns = 0
-		var/tum2_turns = 0
 		if(open)
 			return
 		for(var/i=1 to ticks)
@@ -174,13 +168,13 @@ FLOOR SAFES
 			dial = Wrap(dial + 1, 0, 100)
 			if(dial == tumbler_1_pos - 1 || dial == tumbler_1_pos + 99)
 				tumbler_1_pos = Wrap(tumbler_1_pos + 1, 0, 100)
-				tum1_turns++
+				make_noise(i, ticks, 1, 0, user, canhear)
 				if(tumbler_1_pos == tumbler_2_pos - 51 || tumbler_1_pos == tumbler_2_pos + 49)
 					tumbler_2_pos = Wrap(tumbler_2_pos + 1, 0, 100)
-					tum2_turns++
-			sleep(world.tick_lag)
+					make_noise(0, ticks, 0, 1, user, canhear)
+			sleep(1)
 			SSnanoui.update_uis(src)
-		make_noise(tum1_turns, tum2_turns, user, canhear)
+		make_noise(0, 0, 0, 0, user, canhear)
 		.=1
 
 	if(href_list["retrieve"])
@@ -190,6 +184,7 @@ FLOOR SAFES
 			if(open)
 				if(P && in_range(src, user))
 					user.put_in_hands(P)
+					space -= P.w_class
 		.=1
 		SSnanoui.update_uis(src)
 

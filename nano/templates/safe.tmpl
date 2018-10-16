@@ -1,7 +1,7 @@
 <head>
 	<style type="text/css">
 		body {
-			background: #3E4E69
+			background: #3E4E69;
 		}
 	</style>
 </head>
@@ -14,7 +14,7 @@
 	<div class='statusDisplay'>	
 		{{for data.contents}}
 			<div class='line'>
-				{{:helper.link(value.name, 'arrow-left', {'retrieve': value.index})}}
+				{{:helper.link(value.name, 'arrow-left', {'retrieve': value.index})}} <img src='{{:value.sprite}}.png' style='position: relative; top: -6px'>
 			</div>
 		{{/for}}
 	</div>
@@ -57,6 +57,6 @@
 			<div>5. Turn to the right until the dial stops</div>
 			<div style='height: 32px;'>6. Open the safe</div>
 		</div>	
-		<div style='font-weight: bold;'>To lock fully turn the dial to the left for three rotations</div>
+		<div style='font-weight: bold;'>To lock fully, turn the dial to the left for three rotations</div>
 	</div>
 {{/if}}
