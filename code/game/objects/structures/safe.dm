@@ -12,8 +12,8 @@ FLOOR SAFES
 	icon_state = "safe"
 	anchored = 1
 	density = 1
-	var/open = 0		//is the safe open?
-	var/unlocked = 0
+	var/open = FALSE	//is the safe open?
+	var/unlocked = FALSE
 	var/tumbler_1_pos	//the tumbler position- from 0 to 72
 	var/tumbler_1_open	//the tumbler position to open at- 0 to 72
 	var/tumbler_2_pos
@@ -57,10 +57,10 @@ FLOOR SAFES
 
 /obj/structure/safe/proc/check_unlocked()
 	if(tumbler_1_pos == tumbler_1_open && tumbler_2_pos == tumbler_2_open && dial == open_pos)
-		unlocked = 1
-		return 1
-	unlocked = 0
-	return 0
+		unlocked = TRUE
+		return TRUE
+	unlocked = FALSE
+	return FALSE
 
 /obj/structure/safe/proc/make_noise(turns, turns_total, tum1 = 0, tum2 = 0, mob/user, canhear)
 	if(user && canhear)
@@ -86,7 +86,7 @@ FLOOR SAFES
 
 /obj/structure/safe/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 	ui_interact(user)
 	return
 
@@ -118,12 +118,12 @@ FLOOR SAFES
 
 /obj/structure/safe/Topic(href, href_list)
 	if(..())
-		return 1
+		return TRUE
 
 	var/canhear = 0
 	if(!ishuman(usr))
 		to_chat(usr, "You don't have hands to operate the safe!")
-		return 0
+		return FALSE
 
 	var/mob/living/carbon/human/user = usr
 	if(istype(user.l_hand, /obj/item/clothing/accessory/stethoscope) || istype(user.r_hand, /obj/item/clothing/accessory/stethoscope))
@@ -134,10 +134,9 @@ FLOOR SAFES
 			to_chat(user, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
 			open = !open
 			update_icon()
-			.=1
 		else
 			to_chat(user, "<span class='warning'>You can't open [src], the lock is engaged!</span>")
-			.=1
+		.= TRUE
 		SSnanoui.update_uis(src)
 
 	if(href_list["decrement"])
@@ -157,7 +156,7 @@ FLOOR SAFES
 			check_unlocked()
 			SSnanoui.update_uis(src)
 		make_noise(0, 0, 0, 0, user, canhear)
-		.=1
+		.= TRUE
 
 	if(href_list["increment"])
 		var/ticks = text2num(href_list["increment"])
@@ -175,7 +174,7 @@ FLOOR SAFES
 			sleep(1)
 			SSnanoui.update_uis(src)
 		make_noise(0, 0, 0, 0, user, canhear)
-		.=1
+		.= TRUE
 
 	if(href_list["retrieve"])
 		var/index = text2num(href_list["retrieve"])
@@ -185,8 +184,9 @@ FLOOR SAFES
 				if(P && in_range(src, user))
 					user.put_in_hands(P)
 					space -= P.w_class
-		.=1
 		SSnanoui.update_uis(src)
+		.= TRUE
+
 
 	updateUsrDialog()
 	return
@@ -215,13 +215,13 @@ FLOOR SAFES
 			return
 
 
-obj/structure/safe/blob_act()
+/obj/structure/safe/blob_act()
 	return
 
-obj/structure/safe/ex_act(severity)
+/obj/structure/safe/ex_act(severity)
 	return
 
-obj/structure/safe/examine_status(mob/user)
+/obj/structure/safe/examine_status(mob/user)
 	return
 
 //FLOOR SAFES
