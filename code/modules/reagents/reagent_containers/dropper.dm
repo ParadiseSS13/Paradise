@@ -109,3 +109,15 @@
 	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
 	volume = 1
+
+//Syndicate item. Virus transmitting mini hypospray
+/obj/item/reagent_containers/dropper/precision/viral_injector
+
+/obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/M, mob/living/user, def_zone)
+	if(M.can_inject(user, 1))
+		to_chat(user, "<span class='warning'>You stab [M] with the [src].</span>")
+		add_attack_logs(user, M, "Stabbed with Viral Injector")
+		
+		if(reagents.total_volume && M.reagents)
+			reagents.reaction(M, INGEST, reagents.total_volume)
+			reagents.trans_to(M, 1)
