@@ -627,9 +627,7 @@ About the new airlock wires panel:
 	if(isElectrified() && density && istype(mover, /obj/item))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(5, 1, src)
-			s.start()
+			do_sparks(5, 1, src)
 	return ..()
 
 /obj/machinery/door/airlock/attack_hand(mob/user)

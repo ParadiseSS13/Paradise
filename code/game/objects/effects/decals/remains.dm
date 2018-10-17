@@ -22,12 +22,6 @@
 	icon_state = "remainsrobot"
 	anchored = TRUE
 
-/obj/effect/decal/remains/robot/New()
-	..()
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
-
 /obj/effect/decal/remains/slime
 	name = "You shouldn't see this"
 	desc = "Noooooooooooooooooooooo"

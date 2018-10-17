@@ -107,12 +107,7 @@
 
 			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
 
-			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-			spark_system.set_up(5, 0, src)
-			spark_system.attach(src)
-			spark_system.start()
-			spawn(10)
-				qdel(spark_system)
+			do_sparks(5, 0, src)
 
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, "<span class='notice'>You feel fit again!</span>")
