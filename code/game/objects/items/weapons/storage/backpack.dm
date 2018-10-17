@@ -89,6 +89,24 @@
 	icon_state = "clownpack"
 	item_state = "clownpack"
 
+/obj/item/storage/backpack/clown/syndie
+
+/obj/item/storage/backpack/clown/syndie/New()
+	..()
+	new /obj/item/clothing/under/rank/clown(src)
+	new /obj/item/clothing/shoes/magboots/clown(src)
+	new /obj/item/clothing/mask/gas/voice/clown(src)
+	new /obj/item/radio/headset/headset_service(src)
+	new /obj/item/pda/clown(src)
+	new /obj/item/reagent_containers/food/snacks/grown/banana(src)
+	new /obj/item/stamp/clown(src)
+	new /obj/item/toy/crayon/rainbow(src)
+	new /obj/item/storage/fancy/crayons(src)
+	new /obj/item/reagent_containers/spray/waterflower(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
+	new /obj/item/instrument/bikehorn(src)
+	new /obj/item/bikehorn(src)
+
 /obj/item/storage/backpack/mime
 	name = "Parcel Parceaux"
 	desc = "A silent backpack made for those silent workers. Silence Co."
