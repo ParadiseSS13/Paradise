@@ -222,10 +222,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 //Virology
 
-/datum/uplink_item/jobspecific/rad_laser
+/datum/uplink_item/jobspecific/viral_injector
 	name = "Viral Injector"
 	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
-	reference = "RL"
+	reference = "VI"
 	item = /obj/item/reagent_containers/dropper/precision/viral_injector
 	cost = 3
 	job = list("Virologist")
