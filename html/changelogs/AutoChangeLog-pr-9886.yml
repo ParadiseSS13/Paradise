@@ -1,0 +1,4 @@
+author: "FalseIncarnate"
+delete-after: True
+changes: 
+  - bugfix: "Floodlights will now shut off if lacking a power cell."
