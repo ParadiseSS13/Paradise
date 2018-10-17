@@ -1,4 +1,0 @@
-author: "Crazylemon"
-delete-after: True
-changes: 
-  - bugfix: "Buildmode is now compatible with 511 clients."
