@@ -120,19 +120,33 @@
 	updateallghostimages()
 	remove_from_all_data_huds()
 
-	spawn(5)
-		if(mind)
-			giveObjectivesandGoals()
-		if(!giveSpells())
-			message_admins("Revenant was created but has no mind. Trying again in ten seconds.")
-			addtimer(CALLBACK(src, .proc/giveSpellsObjectivesordelete), 10 SECONDS)
-	
-/mob/living/simple_animal/revenant/proc/giveSpellsObjectivesordelete()
-	if(!giveSpells())
-		message_admins("Revenant still has no mind. Deleting...")
-		qdel(src)
-	else
+	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 10 seconds to put in a ghost (Or wait 10 seconds before giving it objectives)
+
+
+/mob/living/simple_animal/revenant/proc/firstSetupAttempt()
+	if(mind)
 		giveObjectivesandGoals()
+		giveSpells()
+	else
+		message_admins("Revenant was created but has no mind. Put a ghost inside, or a poll will be made in one minute.")
+		addtimer(CALLBACK(src, .proc/setupOrDelete), 1 MINUTES)
+	
+/mob/living/simple_animal/revenant/proc/setupOrDelete()
+	if(mind)
+		giveObjectivesandGoals()
+		giveSpells()
+	else
+		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [real_name]?", poll_time = 15 SECONDS)
+		var/mob/dead/observer/theghost = null
+		if(candidates.len)
+			theghost = pick(candidates)
+			message_admins("[key_name_admin(theghost)] has taken control of a revenant created without a mind")
+			key = theghost.key
+			giveObjectivesandGoals()
+			giveSpells()
+		else
+			message_admins("No ghost was willing to take control of a mindless revenant. Deleting...")
+			qdel(src)
 
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
 			mind.wipe_memory()
@@ -156,14 +170,12 @@
 			ticker.mode.traitors |= mind //Necessary for announcing
 
 /mob/living/simple_animal/revenant/proc/giveSpells()
-	if(src.mind)
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/revenant_transmit(null))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
-		src.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
-		return 1
-	return 0
+	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/revenant_transmit(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
+	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/malfunction(null))
+	return TRUE
 
 
 /mob/living/simple_animal/revenant/dust()
