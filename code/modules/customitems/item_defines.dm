@@ -321,7 +321,7 @@
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
-		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words “Property of Yon-Dale” can be seen on the inner band."
+		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words ï¿½Property of Yon-Daleï¿½ can be seen on the inner band."
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.species_fit = list("Vulpkanin")
@@ -1395,11 +1395,11 @@
 /obj/item/gun/projectile/revolver/doublebarrel/boris
 	name = "Boris Shotgun"
 	desc = "A double barreled shotgun with an engraved boar on it. It reads 'Boris - The Gulag Maker'"
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/guns/projectile.dmi'
 	icon_state = "borisshotgun"  //EL ICONO DE BACK.DMI Y EL DE HISPANIA_CUSTOM_ITEMS.DMI DEBE TENER EL MISMO NOMBRE
 	item_state = "borisshotgun"
-	lefthand_file = 'icons/mob/inhands/hcustom_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/hcustom_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags = CONDUCT
@@ -1414,10 +1414,10 @@
 /obj/item/melee/classic_baton/telescopic/diosdado
 	name = "El Expropiador"
 	desc = "When simply stunnning your target isn't enough"
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "expropiador0"
-	lefthand_file = 'icons/mob/inhands/hcustom_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/hcustom_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
 	item_state = null
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
@@ -1433,9 +1433,9 @@
 		item_state = "expropiador"
 		w_class = WEIGHT_CLASS_BULKY //doesnt fit in backpack when its on for balance
 		force = 10 //stunbaton damage
-		attack_verb = list("expropió a")
+		attack_verb = list("expropiÃ³ a")
 	else
-		to_chat(user, "<span class ='notice'>No más expropiaciones por ahora.</span>")
+		to_chat(user, "<span class ='notice'>No mÃ¡s expropiaciones por ahora.</span>")
 		icon_state = "expropiador0"
 		item_state = null //no sprite for concealment even when in hand
 		slot_flags = SLOT_BELT
@@ -1453,7 +1453,7 @@
 	if(on)
 		add_fingerprint(user)
 		if((CLUMSY in user.mutations) && prob(50))
-			to_chat(user, "<span class ='danger'>Se expropió a si mismo.</span>")
+			to_chat(user, "<span class ='danger'>Se expropiÃ³ a si mismo.</span>")
 			user.Weaken(3 * force)
 			if(ishuman(user))
 				var/mob/living/carbon/human/H = user
@@ -1499,7 +1499,7 @@
 /obj/item/defibrillator/compact/kotiro
 	name = "De-Clown-Fibrillator"
 	desc = "A modified belt-equipped defibrillator that can be rapidly deployed. Seems it doesn't like clowns too much"
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "kdefibcompact"
 	item_state = "kdefibcompact"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -1545,7 +1545,7 @@
 /obj/item/clothing/mask/breath/weathered
 	desc = "A close-fitting mask that can be connected to an air supply."
 	name = "breath mask"
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/clothing/masks.dmi'
 	icon_state = "weatheredmask"
 	item_state = "weatheredmask"
 	gas_transfer_coefficient = 0.10
@@ -1558,7 +1558,7 @@
 /obj/item/clothing/suit/storage/labcoat/killerhoodie
 	name = "blue hoodie"
 	desc = "It's just a plain sky blue hoodie."
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/clothing/suits.dmi'
 	icon_state = "killerhoodie_open"
 	item_state = "killerhoodie_open"
 	adjust_flavour = "unhoodie"
@@ -1570,7 +1570,7 @@
 /obj/item/clothing/head/hardhat/halo
 	name = "holy halo"
 	desc = "A holy halo of light."
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "hardhat0_halo"
 	item_state = "hardhat0_halo"
 	item_color = "halo"
@@ -1582,7 +1582,7 @@
 /obj/item/clothing/head/helmet/propeller
 	name = "propeller hat"
 	desc = "A colorful, childish and silly-looking hat."
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/clothing/hats.dmi'
 	icon_state = "propellerhat"
 	item_state = "propellerhat"
 	toggle_message = "You stop spinning the propeller on"
@@ -1600,7 +1600,7 @@
 /obj/item/organ/internal/brain/blob
 	name = "defective core"
 	desc = "It seems to be the defective core of a slime."
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "defective slime core"
 	mmi_icon_state = "slime_mmi"
 
@@ -1611,13 +1611,13 @@
 /obj/item/organ/internal/brain/toaster
 	name = "modified positronic brain"
 	desc = "A strange positronic brain. A human brain should be here instead."
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "toasterbrain"
 	mmi_icon_state = "toaster_mmi"
 
 //ASDFLYY TOASTER BRAIN ENDS HERE
 
-// Función de mierda que detecta cuando un pj entra a la estación
+// Funciï¿½n de mierda que detecta cuando un pj entra a la estaciï¿½n
 /mob/new_player/proc/start_player(mob/user)
 	var/mob/living/carbon/human/target = user
 	var/obj/item/organ/internal/organ
