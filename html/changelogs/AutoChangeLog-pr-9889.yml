@@ -1,4 +1,0 @@
-author: "Squirgenheimer"
-delete-after: True
-changes: 
-  - bugfix: "Ghosting from cryopods with an inventory open should no longer cause a runtime"
