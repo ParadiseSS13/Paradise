@@ -74,7 +74,7 @@
 		overlays += image('icons/obj/storage.dmi', icon_locking)
 		locked = 0
 		if(istype(weapon, /obj/item/melee/energy/blade))
-			do_sparks(5, 0, src.loc)
+			do_sparks(5, 0, loc)
 			playsound(loc, 'sound/weapons/blade1.ogg', 50, 1)
 			playsound(loc, "sparks", 50, 1)
 			to_chat(user, "You slice through the lock on [src].")

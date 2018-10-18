@@ -14,7 +14,6 @@
 	circuit = /obj/item/circuitboard/message_monitor
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
-	//Sparks effect - For emag
 	//Messages - Saves me time if I want to change something.
 	var/noserver = "<span class='alert'>ALERT: No server detected.</span>"
 	var/incorrectkey = "<span class='warning'>ALERT: Incorrect decryption key!</span>"
