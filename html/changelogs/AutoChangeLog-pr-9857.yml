@@ -1,0 +1,5 @@
+author: "Triiodine"
+delete-after: True
+changes: 
+  - rscadd: "id_decal icons"
+  - bugfix: "arcade id_decals using mind batterer sprite. (That's just silly.)"
