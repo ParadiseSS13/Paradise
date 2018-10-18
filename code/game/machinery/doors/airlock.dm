@@ -1024,7 +1024,7 @@ About the new airlock wires panel:
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
 	else if(!welded && !operating)
-		if(!beingcrowbarred) //being fireaxe'd
+		if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific
 			var/obj/item/twohanded/fireaxe/F = I
 			if(F.wielded)
 				spawn(0)
@@ -1041,7 +1041,7 @@ About the new airlock wires panel:
 				else
 					close(1)
 
-	if(istype(I, /obj/item/crowbar/power))
+	if(ispowertool(I)) //jaws of life and rescue claw
 		if(isElectrified())
 			shock(user, 100)//it's like sticking a forck in a power socket
 			return
