@@ -1,0 +1,4 @@
+author: "IrkallaEpsilon"
+delete-after: True
+changes: 
+  - bugfix: "Feral Cat grenades are now listed as job specific items."
