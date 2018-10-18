@@ -1,0 +1,4 @@
+author: "Triiodine"
+delete-after: True
+changes: 
+  - bugfix: "disposals pipes sprite offsets & stray pixels."
