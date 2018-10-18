@@ -69,8 +69,8 @@
 
 /proc/key_name_admin(whom)
 	if(whom)
-		var/mob/whom_mob = whom //As long as it's not null, will be close enough/has the proc UID() that is all that's needed
-		var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_mob,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
+		var/datum/whom_datum = whom //As long as it's not null, will be close enough/has the proc UID() that is all that's needed
+		var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_datum,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
 		return message
 
 /proc/key_name_mentor(whom)
