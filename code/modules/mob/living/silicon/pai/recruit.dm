@@ -36,7 +36,10 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		if(href_list["download"])
 			var/datum/paiCandidate/candidate = locate(href_list["candidate"])
 			var/obj/item/paicard/card = locate(href_list["device"])
+			var/mob/downloader = locate(href_list["downloader"])
 			if(card.pai)
+				return
+			if(downloader.stat == DEAD || istype(downloader,/mob/dead/observer))
 				return
 			if(istype(card,/obj/item/paicard) && istype(candidate,/datum/paiCandidate))
 				var/mob/living/silicon/pai/pai = new(card)
@@ -334,7 +337,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 						</tr>
 					</table>
 					<table class="download">
-						<td class="download"><a href='byond://?src=[UID()];download=1;candidate=\ref[c];device=\ref[p]' class="button"><b>Download [c.name]</b></a>
+						<td class="download"><a href='byond://?src=[UID()];download=1;candidate=\ref[c];device=\ref[p];downloader=\ref[user]' class="button"><b>Download [c.name]</b></a>
 						</td>
 					</table>
 					<br>
