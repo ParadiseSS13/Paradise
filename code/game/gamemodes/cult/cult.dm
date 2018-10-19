@@ -221,7 +221,7 @@ var/global/list/all_cults = list()
 
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()
-	for(var/mob/living/carbon/human/player in player_list)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
 		if(!is_convertable_to_cult(player.mind))
 			ucs += player.mind
 	return ucs
@@ -256,7 +256,7 @@ var/global/list/all_cults = list()
 			var/area/A = get_area(cult_mind.current )
 			if( is_type_in_list(A, centcom_areas))
 				acolytes_survived++
-			else if(A == shuttle_master.emergency.areaInstance && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)  //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
+			else if(A == SSshuttle.emergency.areaInstance && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)  //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
 				acolytes_survived++
 
 	if(acolytes_survived>=acolytes_needed)

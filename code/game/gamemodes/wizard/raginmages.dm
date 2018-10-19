@@ -116,7 +116,7 @@
 
 /datum/game_mode/wizard/raginmages/proc/make_more_mages()
 
-	if(making_mage || shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	if(making_mage || SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return 0
 	making_mage = 1
 	var/list/candidates = list()
@@ -128,7 +128,7 @@
 		if(!candidates.len)
 			message_admins("No applicable clients for the next ragin' mage, asking ghosts instead.")
 			var/time_passed = world.time
-			for(var/mob/dead/observer/G in player_list)
+			for(var/mob/dead/observer/G in GLOB.player_list)
 				if(!jobban_isbanned(G, "wizard") && !jobban_isbanned(G, "Syndicate"))
 					spawn(0)
 						switch(alert(G, "Do you wish to be considered for the position of Space Wizard Foundation 'diplomat'?","Please answer in 30 seconds!","Yes","No"))

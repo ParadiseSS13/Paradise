@@ -11,7 +11,7 @@
 	layer = RIPPLE_LAYER
 	alpha = 0
 	duration = 3 * SHUTTLE_RIPPLE_TIME
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 
 /obj/effect/temp_visual/ripple/New()
 	. = ..()

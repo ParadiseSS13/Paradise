@@ -187,24 +187,22 @@
 		update()
 		return
 
-	var/obj/structure/disposalpipe/CP = locate() in T
+	
 	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
-		if(CP) // There's something there
-			if(!istype(CP,/obj/structure/disposalpipe/trunk))
-				to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
-				return
-		else // Nothing under, fuck.
+		var/obj/structure/disposalpipe/trunk/CP = locate() in T
+		if(!CP) // There's no trunk
 			to_chat(user, "The [nicetype] requires a trunk underneath it in order to work.")
 			return
 	else
-		if(CP)
-			update()
-			var/pdir = CP.dpdir
-			if(istype(CP, /obj/structure/disposalpipe/broken))
-				pdir = CP.dir
-			if(pdir & dpdir)
-				to_chat(user, "There is already a [nicetype] at that location.")
-				return
+		for(var/obj/structure/disposalpipe/CP in T)
+			if(CP)
+				update()
+				var/pdir = CP.dpdir
+				if(istype(CP, /obj/structure/disposalpipe/broken))
+					pdir = CP.dir
+				if(pdir & dpdir)
+					to_chat(user, "There is already a [nicetype] at that location.")
+					return
 
 	if(istype(I, /obj/item/weldingtool))
 		if(anchored)

@@ -15,7 +15,7 @@
 					current_surgery = S
 
 			if(!current_surgery)
-				var/list/all_surgeries = surgeries_list.Copy()
+				var/list/all_surgeries = GLOB.surgeries_list.Copy()
 				var/list/available_surgeries = list()
 
 				for(var/datum/surgery/S in all_surgeries)
@@ -106,7 +106,7 @@
 		return 1
 	else if(locate(/obj/structure/table, T))
 		return 0.8
-	else if(locate(/obj/structure/stool/bed, T))
+	else if(locate(/obj/structure/bed, T))
 		return 0.7
 	else
 		return 0.5

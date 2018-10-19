@@ -57,7 +57,7 @@ RCD
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
-	rcd_list += src
+	GLOB.rcd_list += src
 	door_accesses_list = list()
 	for(var/access in get_all_accesses())
 		door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
@@ -65,7 +65,7 @@ RCD
 
 /obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)
-	rcd_list -= src
+	GLOB.rcd_list -= src
 	return ..()
 
 /obj/item/rcd/attackby(obj/item/W, mob/user, params)

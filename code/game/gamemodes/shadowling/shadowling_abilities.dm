@@ -22,6 +22,7 @@
 	charge_max = 300
 	clothes_req = 0
 	action_icon_state = "glare"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/glare/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
@@ -263,6 +264,7 @@
 	range = 1 //Adjacent to user
 	var/enthralling = 0
 	action_icon_state = "enthrall"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
@@ -400,7 +402,7 @@
 
 		to_chat(target, "<span class='shadowling'><b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b></span>")
 
-		for(M in living_mob_list)
+		for(M in GLOB.living_mob_list)
 			if(is_thrall(M))
 				thralls++
 				to_chat(M, "<span class='shadowling'>You feel hooks sink into your mind and pull.</span>")
@@ -437,7 +439,7 @@
 		else if(thralls >= victory_threshold)
 			to_chat(target, "<span class='shadowling'><b>You are now powerful enough to ascend. Use the Ascendance ability when you are ready. <i>This will kill all of your thralls.</i></span>")
 			to_chat(target, "<span class='shadowling'><b>You may find Ascendance in the Shadowling Evolution tab.</b></span>")
-			for(M in living_mob_list)
+			for(M in GLOB.living_mob_list)
 				if(is_shadow(M))
 					var/obj/effect/proc_holder/spell/targeted/collective_mind/CM
 					if(CM in M.mind.spell_list)
@@ -491,18 +493,19 @@
 	metabolization_rate = 100 //lel
 
 /datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(!is_shadow_or_thrall(M))
 		to_chat(M, "<span class='warning'><b>You breathe in the black smoke, and your eyes burn horribly!</b></span>")
-		M.EyeBlind(5)
+		update_flags |= M.EyeBlind(5, FALSE)
 		if(prob(25))
 			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
 			M.Stun(3)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
-		M.heal_organ_damage(2,2)
-		M.adjustOxyLoss(-2)
-		M.adjustToxLoss(-2)
-	..()
+		update_flags |= M.heal_organ_damage(2, 2, updating_health = FALSE)
+		update_flags |= M.adjustOxyLoss(-2, FALSE)
+		update_flags |= M.adjustToxLoss(-2, FALSE)
+	return ..() | update_flags
 
 /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech
 	name = "Sonic Screech"
@@ -595,6 +598,7 @@
 	clothes_req = 0
 	include_user = 0
 	action_icon_state = "revive_thrall"
+	humans_only = 1
 
 /obj/effect/proc_holder/spell/targeted/reviveThrall/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -703,7 +707,7 @@
 			to_chat(user, "<span class='warning'>[target] must be a thrall.</span>")
 			charge_counter = charge_max
 			return
-		if(shuttle_master.emergency.mode != SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode != SHUTTLE_CALL)
 			to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
 			charge_counter = charge_max
 			return
@@ -720,13 +724,13 @@
 		M.visible_message("<span class='warning'>[M]'s eyes suddenly flare red. They proceed to collapse on the floor, not breathing.</span>", \
 						  "<span class='warning'><b>...speeding by... ...pretty blue glow... ...touch it... ...no glow now... ...no light... ...nothing at all...</span>")
 		M.death()
-		if(shuttle_master.emergency.mode == SHUTTLE_CALL)
+		if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 			var/more_minutes = 9000
-			var/timer = shuttle_master.emergency.timeLeft()
+			var/timer = SSshuttle.emergency.timeLeft()
 			timer += more_minutes
 			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 15 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
-			shuttle_master.emergency.setTimer(timer)
-			shuttle_master.emergency.canRecall = FALSE
+			SSshuttle.emergency.setTimer(timer)
+			SSshuttle.emergency.canRecall = FALSE
 		user.mind.spell_list.Remove(src) //Can only be used once!
 		qdel(src)
 
@@ -751,7 +755,7 @@
 	playsound(user.loc, 'sound/magic/Staff_Chaos.ogg', 100, 1)
 	for(var/mob/living/boom in targets)
 		if(is_shadow(boom)) //Used to not work on thralls. Now it does so you can PUNISH THEM LIKE THE WRATHFUL GOD YOU ARE.
-			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.<span>")
+			to_chat(user, "<span class='warning'>Making an ally explode seems unwise.</span>")
 			charge_counter = charge_max
 			return
 		user.visible_message("<span class='danger'>[user]'s markings flare as [user.p_they()] gesture[user.p_s()] at [boom]!</span>", \
@@ -782,7 +786,7 @@
 
 	for(var/mob/living/carbon/human/target in targets)
 		if(is_shadow_or_thrall(target))
-			to_chat(user, "<span class='warning'>You cannot enthrall an ally.<span>")
+			to_chat(user, "<span class='warning'>You cannot enthrall an ally.</span>")
 			charge_counter = charge_max
 			return
 		if(!target.ckey || !target.mind)

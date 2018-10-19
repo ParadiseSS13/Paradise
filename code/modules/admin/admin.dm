@@ -4,7 +4,7 @@ var/global/nologevent = 0
 ////////////////////////////////
 /proc/message_admins(var/msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
-	for(var/client/C in admins)
+	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_ADMINLOGS))
 				to_chat(C, msg)
@@ -12,7 +12,7 @@ var/global/nologevent = 0
 /proc/msg_admin_attack(var/text, var/loglevel)
 	if(!nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
-		for(var/client/C in admins)
+		for(var/client/C in GLOB.admins)
 			if(R_ADMIN & C.holder.rights)
 				if(C.prefs.atklog == ATKLOG_NONE)
 					continue
@@ -23,7 +23,7 @@ var/global/nologevent = 0
 
 /proc/message_adminTicket(var/msg)
 	msg = "<span class='adminticket'><span class='prefix'>ADMIN TICKET:</span> [msg]</span>"
-	for(var/client/C in admins)
+	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & CHAT_NO_TICKETLOGS))
 				to_chat(C, msg)
@@ -31,7 +31,7 @@ var/global/nologevent = 0
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
-/datum/admins/proc/show_player_panel(var/mob/M in mob_list)
+/datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
@@ -60,9 +60,9 @@ var/global/nologevent = 0
 	body += "<a href='?_src_=holder;traitor=\ref[M]'>TP</a> - "
 	body += "<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a> - "
 	body += "<a href='?_src_=holder;subtlemessage=\ref[M]'>SM</a> - "
-	body += "[admin_jump_link(M)]\] </b><br>"
 	if(ishuman(M) && M.mind)
-		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a>"
+		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> -"
+	body += "[admin_jump_link(M)]\] </b><br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
 	if(M.client)
 		if(M.client.related_accounts_cid.len)
@@ -566,7 +566,7 @@ var/global/nologevent = 0
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, "<span class=notice><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
+		to_chat(world, "<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
 		log_admin("Announce: [key_name(usr)] : [message]")
 	feedback_add_details("admin_verb","A") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -827,7 +827,7 @@ var/global/nologevent = 0
 	log_admin("[key_name(usr)] spawned [chosen] at ([usr.x],[usr.y],[usr.z])")
 	feedback_add_details("admin_verb","SA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/show_traitor_panel(var/mob/M in mob_list)
+/datum/admins/proc/show_traitor_panel(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set desc = "Edit mobs's memory and role"
 	set name = "Show Traitor Panel"
@@ -864,7 +864,7 @@ var/global/nologevent = 0
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
-	for(var/mob/living/silicon/S in mob_list)
+	for(var/mob/living/silicon/S in GLOB.mob_list)
 		ai_number++
 		if(isAI(S))
 			to_chat(usr, "<b>AI [key_name(S, TRUE)]'s laws:</b>")
@@ -960,7 +960,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 //returns a list of ckeys of the kicked clients
 /proc/kick_clients_in_lobby(message, kick_only_afk = 0)
 	var/list/kicked_client_names = list()
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		if(istype(C.mob, /mob/new_player))
 			if(kick_only_afk && !C.is_afk())	//Ignore clients who are not afk
 				continue
@@ -1037,7 +1037,7 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 // result[3] is the number of staff that match the rank mask and are inactive
 /proc/staff_countup(rank_mask = R_BAN)
 	var/list/result = list(0, 0, 0)
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		if(rank_mask && !check_rights_for(X, rank_mask))
 			result[2]++
 			continue

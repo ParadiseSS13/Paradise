@@ -56,6 +56,7 @@
 				target.update_inv_l_hand()
 				target.update_inv_r_hand()
 				target.visible_message("<span class='notice'> [usr.name] handed \the [I.name] to [target.name].</span>")
+				I.on_give(usr, target)
 			if("No")
 				target.visible_message("<span class='warning'> [usr.name] tried to hand [I.name] to [target.name] but [target.name] didn't want it.</span>")
 	else

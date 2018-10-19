@@ -50,7 +50,7 @@ var/global/list/role_playtime_requirements = list(
 	var/pline
 	var/datum/job/theirjob
 	var/jtext
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		jtext = "No Job"
 		if(C.mob.mind && C.mob.mind.assigned_role)
 			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
@@ -212,7 +212,7 @@ var/global/list/role_playtime_requirements = list(
 	if(!establish_db_connection())
 		return -1
 	spawn(0)
-		for(var/client/L in clients)
+		for(var/client/L in GLOB.clients)
 			if(L.inactivity >= (10 MINUTES))
 				continue
 			spawn(0)

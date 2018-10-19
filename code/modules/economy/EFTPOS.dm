@@ -3,8 +3,7 @@
 	desc = "Swipe your ID card to make purchases electronically."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "eftpos"
-	var/machine_id = ""
-	var/eftpos_name = "Default EFTPOS scanner"
+	var/machine_name = ""
 	var/transaction_locked = 0
 	var/transaction_paid = 0
 	var/transaction_amount = 0
@@ -15,7 +14,7 @@
 
 /obj/item/eftpos/New()
 	..()
-	machine_id = "[station_name()] EFTPOS #[num_financial_terminals++]"
+	machine_name = "[station_name()] EFTPOS #[num_financial_terminals++]"
 	access_code = rand(1111,111111)
 	reconnect_database()
 	spawn(0)
@@ -28,14 +27,10 @@
 /obj/item/eftpos/proc/print_reference()
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/R = new(loc)
-	R.name = "Reference: [eftpos_name]"
-
-	// AUTOFIXED BY fix_string_idiocy.py
-	// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\EFTPOS.dm:31: R.info = "<b>[eftpos_name] reference</b><br><br>"
-	R.info = {"<b>[eftpos_name] reference</b><br><br>
+	R.name = "Reference: [machine_name]"
+	R.info = {"<b>[machine_name] reference</b><br><br>
 		Access code: [access_code]<br><br>
 		<b>Do not lose or misplace this code.</b><br>"}
-	// END AUTOFIX
 	//stamp the paper
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 	stampoverlay.icon_state = "paper_stamp-cent"
@@ -54,7 +49,7 @@
 	if(!location)
 		return
 
-	for(var/obj/machinery/computer/account_database/DB in machines)
+	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
 		if(DB.z == location.z)
 			linked_db = DB
 			break
@@ -86,8 +81,7 @@
 
 /obj/item/eftpos/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	data["eftpos_name"] = eftpos_name
-	data["machine_id"] = machine_id
+	data["machine_name"] = machine_name
 	data["transaction_locked"] = transaction_locked
 	data["transaction_paid"] = transaction_paid
 	data["transaction_purpose"] = transaction_purpose
@@ -110,15 +104,6 @@
 					else
 						alert("That is not a valid code!")
 					print_reference()
-				else
-					to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
-			if("change_id")
-				var/attempt_code = text2num(input("Re-enter the current EFTPOS access code", "Confirm EFTPOS code"))
-				if(attempt_code == access_code)
-					var/name = input("Enter a new terminal ID for this device", "Enter new EFTPOS ID") as text|null
-					if(name)
-						eftpos_name = "[name] EFTPOS scanner"
-						print_reference()
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>Incorrect code entered.</span>")
 			if("link_account")
@@ -179,47 +164,33 @@
 	if(istype(I, /obj/item/card/id))
 		var/obj/item/card/id/C = I
 		visible_message("<span class='info'>[user] swipes a card through [src].</span>")
-		if(transaction_locked && !transaction_paid)
-			if(linked_account)
-				var/attempt_pin = input("Enter pin code", "EFTPOS transaction") as num
-				var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
-				if(D)
-					if(transaction_amount <= D.money)
-						playsound(src, 'sound/machines/chime.ogg', 50, 1)
-						visible_message("[bicon(src)] The [src] chimes.")
-						transaction_paid = 1
 
-						//transfer the money
-						D.money -= transaction_amount
-						linked_account.money += transaction_amount
+		if(!transaction_locked || transaction_paid)
+			return
 
-						//create entries in the two account transaction logs
-						var/datum/transaction/T = new()
-						T.target_name = "[linked_account.owner_name] (via [eftpos_name])"
-						T.purpose = transaction_purpose
-						if(transaction_amount > 0)
-							T.amount = "([transaction_amount])"
-						else
-							T.amount = "[transaction_amount]"
-						T.source_terminal = machine_id
-						T.date = current_date_string
-						T.time = station_time_timestamp()
-						D.transaction_log.Add(T)
-						//
-						T = new()
-						T.target_name = D.owner_name
-						T.purpose = transaction_purpose
-						T.amount = "[transaction_amount]"
-						T.source_terminal = machine_id
-						T.date = current_date_string
-						T.time = station_time_timestamp()
-						linked_account.transaction_log.Add(T)
-					else
-						to_chat(user, "[bicon(src)]<span class='warning'>You don't have that much money!</span>")
-				else
-					to_chat(user, "[bicon(src)]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
-			else
-				to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
+		if(!linked_account)
+			to_chat(user, "[bicon(src)]<span class='warning'>EFTPOS is not connected to an account.</span>")
+			return
+
+		var/confirm = alert("Are you sure you want to pay $[transaction_amount] to Account: [linked_account.owner_name] ", "Confirm transaction", "Yes", "No")
+		if(confirm == "No")
+			return
+		var/attempt_pin = input("Enter pin code", "EFTPOS transaction") as num
+		var/datum/money_account/D = attempt_account_access(C.associated_account_number, attempt_pin, 2)
+
+		if(!D)
+			to_chat(user, "[bicon(src)]<span class='warning'>Unable to access account. Check security settings and try again.</span>")
+
+		if(transaction_amount > D.money)
+			to_chat(user, "[bicon(src)]<span class='warning'>You don't have that much money!</span>")
+			return
+
+		var/transSuccess = D.charge(transaction_amount, linked_account, transaction_purpose, machine_name, D.owner_name)
+		if(transSuccess == TRUE)
+			playsound(src, 'sound/machines/chime.ogg', 50, 1)
+			visible_message("[bicon(src)] The [src] chimes.")
+			transaction_paid = 1
+
 	else
 		..()
 

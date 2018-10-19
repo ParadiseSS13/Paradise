@@ -73,6 +73,9 @@
 	icon_state = "medivend_hypo"
 	safety_hypo = TRUE
 
+/obj/item/reagent_containers/hypospray/safety/ert
+	list_reagents = list("omnizine" = 30)
+
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)
 

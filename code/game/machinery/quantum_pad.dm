@@ -4,7 +4,7 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
@@ -18,7 +18,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)

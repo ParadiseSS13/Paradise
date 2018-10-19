@@ -41,12 +41,12 @@
 	L.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/adjustBruteLoss(damage)
-	..(damage)
+	. = ..(damage)
 	if(invisibility > 0)
 		GrayDeCloak()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/adjustFireLoss(damage)
-	..(damage)
+	. = ..(damage)
 	if(invisibility > 0)
 		GrayDeCloak()
 

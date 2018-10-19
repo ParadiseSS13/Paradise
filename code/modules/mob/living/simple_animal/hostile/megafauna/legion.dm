@@ -48,7 +48,7 @@ Difficulty: Medium
 	elimination = 1
 	idle_vision_range = 13
 	appearance_flags = 0
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = 1 // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
 /mob/living/simple_animal/hostile/megafauna/legion/New()
@@ -89,9 +89,12 @@ Difficulty: Medium
 	speed = 2
 	charging = 0
 
+/mob/living/simple_animal/hostile/megafauna/legion/can_die()
+	return ..() && health <= 0
+
 /mob/living/simple_animal/hostile/megafauna/legion/death()
-	if(health > 0)
-		return
+	if(!can_die())
+		return FALSE
 	if(size > 1)
 		adjustHealth(-maxHealth) //heal ourself to full in prep for splitting
 		var/mob/living/simple_animal/hostile/megafauna/legion/L = new(loc)
@@ -117,9 +120,11 @@ Difficulty: Medium
 		L.GiveTarget(target)
 
 		visible_message("<span class='boldannounce'>[src] splits in twain!</span>")
+		return FALSE // not dead
 	else
+		// this must come before the parent call due to the setting of `loot` here
 		var/last_legion = TRUE
-		for(var/mob/living/simple_animal/hostile/megafauna/legion/other in mob_list)
+		for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 			if(other != src)
 				last_legion = FALSE
 				break
@@ -128,7 +133,7 @@ Difficulty: Medium
 			elimination = 0
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
 	return 1

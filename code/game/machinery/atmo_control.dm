@@ -299,7 +299,7 @@ legend {
 
 			// Make a list of all available sensors on the same frequency
 			var/list/sensor_list = list()
-			for(var/obj/machinery/air_sensor/G in machines)
+			for(var/obj/machinery/air_sensor/G in GLOB.machines)
 				if(!isnull(G.id_tag) && G.frequency == frequency)
 					sensor_list|=G.id_tag
 			if(!sensor_list.len)
@@ -320,7 +320,7 @@ legend {
 
 		if("edit_sensor" in href_list)
 			var/list/sensor_list = list()
-			for(var/obj/machinery/air_sensor/G in machines)
+			for(var/obj/machinery/air_sensor/G in GLOB.machines)
 				if(!isnull(G.id_tag) && G.frequency == frequency)
 					sensor_list|=G.id_tag
 			if(!sensor_list.len)

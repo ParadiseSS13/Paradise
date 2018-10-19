@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(garbage)
 	msg += " | Fail:[fail_counts.Join(",")]"
 	..(msg)
 
-/* TO-DO
+
 /datum/controller/subsystem/garbage/Shutdown()
 	//Adds the del() log to the qdel log file
 	var/list/dellog = list()
@@ -83,7 +83,6 @@ SUBSYSTEM_DEF(garbage)
 		if(I.no_hint)
 			dellog += "\tNo hint: [I.no_hint] times"
 	log_qdel(dellog.Join("\n"))
-*/
 
 /datum/controller/subsystem/garbage/fire()
 	//the fact that this resets its processing each fire (rather then resume where it left off) is intentional.

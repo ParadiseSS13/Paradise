@@ -134,9 +134,9 @@ By design, d1 is the smallest direction and d2 is the highest
 			return
 
 		if(src.d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-			new/obj/item/stack/cable_coil(T, 2, color)
+			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
 		else
-			new/obj/item/stack/cable_coil(T, 1, color)
+			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
 
 		for(var/mob/O in viewers(src, null))
 			O.show_message("<span class='warning'>[user] cuts the cable.</span>", 1)
@@ -151,7 +151,7 @@ By design, d1 is the smallest direction and d2 is the highest
 						if(c.d1 == 12 || c.d2 == 12)
 							c.qdel()*/
 ///// Z-Level Stuff
-		investigate_log("was cut by [key_name(usr, usr.client)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 
 		qdel(src) // qdel
 		return
@@ -209,12 +209,12 @@ By design, d1 is the smallest direction and d2 is the highest
 			qdel(src) // qdel
 		if(2.0)
 			if(prob(50))
-				new/obj/item/stack/cable_coil(get_turf(src), src.d1 ? 2 : 1, color)
+				new/obj/item/stack/cable_coil(get_turf(src), src.d1 ? 2 : 1, paramcolor = color)
 				qdel(src) // qdel
 
 		if(3.0)
 			if(prob(25))
-				new/obj/item/stack/cable_coil(get_turf(src), src.d1 ? 2 : 1, color)
+				new/obj/item/stack/cable_coil(get_turf(src), src.d1 ? 2 : 1, paramcolor = color)
 				qdel(src) // qdel
 	return
 
@@ -502,13 +502,13 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 	toolspeed = 1
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
-	if(locate(/obj/structure/stool) in user.loc)
+	if(locate(/obj/structure/chair/stool) in user.loc)
 		user.visible_message("<span class='suicide'>[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	else
 		user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return(OXYLOSS)
 
-/obj/item/stack/cable_coil/New(loc, length = MAXCOIL, var/paramcolor = null)
+/obj/item/stack/cable_coil/New(loc, length = MAXCOIL, paramcolor = null)
 	..()
 	amount = length
 	if(paramcolor)
@@ -694,7 +694,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 	if(C.shock(user, 50))
 		if(prob(50)) //fail
-			new /obj/item/stack/cable_coil(get_turf(C), 1, C.color)
+			new /obj/item/stack/cable_coil(get_turf(C), 1, paramcolor = C.color)
 			qdel(C) // qdel
 
 	return C
@@ -777,7 +777,7 @@ var/global/list/datum/stack_recipe/cable_coil_recipes = list(
 
 		if(C.shock(user, 50))
 			if(prob(50)) //fail
-				new/obj/item/stack/cable_coil(get_turf(C), 2, C.color)
+				new/obj/item/stack/cable_coil(get_turf(C), 2, paramcolor = C.color)
 				qdel(C) // qdel
 				return
 

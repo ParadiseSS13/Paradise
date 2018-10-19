@@ -17,7 +17,7 @@
 	teleport(M)
 
 /obj/effect/portal/New(loc, turf/target, creator=null, lifespan=300)
-	portals += src
+	GLOB.portals += src
 	src.loc = loc
 	src.target = target
 	src.creator = creator
@@ -26,7 +26,7 @@
 			qdel(src)
 
 /obj/effect/portal/Destroy()
-	portals -= src
+	GLOB.portals -= src
 	if(istype(creator, /obj))
 		var/obj/O = creator
 		O.portal_destroyed(src)

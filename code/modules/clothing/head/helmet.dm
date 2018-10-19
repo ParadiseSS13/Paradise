@@ -238,6 +238,12 @@ obj/item/clothing/head/blob
 	desc = "An in-atmosphere helmet worn by security members of the Nanotrasen Emergency Response Team. Has red highlights."
 	icon_state = "erthelmet_sec"
 
+/obj/item/clothing/head/helmet/ert/security/paranormal
+	name = "paranormal emergency response team helmet"
+	desc = "An in-atmosphere helmet worn by paranormal members of the Nanotrasen Emergency Response Team. Has crusader sigils."
+	icon_state = "knight_templar"
+	item_state = "knight_templar"
+
 //Engineer
 /obj/item/clothing/head/helmet/ert/engineer
 	name = "emergency response team engineer helmet"

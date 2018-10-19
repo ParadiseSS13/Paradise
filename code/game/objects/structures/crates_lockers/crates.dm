@@ -69,8 +69,8 @@
 			break
 		if(O.density || O.anchored || istype(O,/obj/structure/closet))
 			continue
-		if(istype(O, /obj/structure/stool/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/stool/bed/B = O
+		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
+			var/obj/structure/bed/B = O
 			if(B.buckled_mob)
 				continue
 		O.forceMove(src)
@@ -270,9 +270,7 @@
 		return
 	if(src.allowed(user))
 		src.locked = !src.locked
-		for(var/mob/O in viewers(user, 3))
-			if((O.client && !( O.blinded )))
-				to_chat(O, "<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
+		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
 		update_icon()
 	else
 		to_chat(user, "<span class='notice'>Access Denied</span>")

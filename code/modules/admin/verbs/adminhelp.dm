@@ -38,7 +38,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/surnames = list()
 	var/list/forenames = list()
 	var/list/ckeys = list()
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		var/list/indexing = list(M.real_name, M.name)
 		if(M.mind)	indexing += M.mind.name
 
@@ -94,7 +94,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/mentorholders = list()
 	var/list/modholders = list()
 	var/list/adminholders = list()
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		if(check_rights(R_ADMIN, 0, X.mob))
 			if(X.is_afk())
 				admin_number_afk++
@@ -117,15 +117,15 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		if("Adminhelp")
 			var/ticketNum // Holder for the ticket number
 			var/prunedmsg ="[usr.client]: [msg]" // Message without links
-			if(globAdminTicketHolder.checkForOpenTicket(usr.client)) // If user already has an open ticket
-				var/datum/admin_ticket/T = globAdminTicketHolder.checkForOpenTicket(usr.client) // Make T equal to the ticket they have open
+			if(SStickets.checkForOpenTicket(usr)) // If user already has an open ticket
+				var/datum/admin_ticket/T = SStickets.checkForOpenTicket(usr) // Make T equal to the ticket they have open
 				ticketNum = T.ticketNum // ticketNum is the number of their ticket.
 				T.addResponse(usr.client, msg)
 			else
-				ticketNum = globAdminTicketHolder.getTicketCounter() // ticketNum is the ticket ready to be assigned.
+				ticketNum = SStickets.getTicketCounter() // ticketNum is the ticket ready to be assigned.
 			msg = "<span class='adminhelp'>[selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] (<A HREF='?_src_=holder;adminmoreinfo=[ref_mob]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[ref_mob]'>PP</A>) (<A HREF='?_src_=vars;Vars=[mob.UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=[ref_mob]'>SM</A>) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;openadminticket=[ticketNum]'>TICKET</A>) [ai_found ? " (<A HREF='?_src_=holder;adminchecklaws=[ref_mob]'>CL</A>)" : ""](<A HREF='?_src_=holder;take_question=[mob.UID()]'>TAKE</A>) :</span> <span class='adminhelp'>[msg]</span>"
 			//Open a new adminticket and inform the user.
-			globAdminTicketHolder.newTicket(src, prunedmsg, msg)
+			SStickets.newTicket(src, prunedmsg, msg)
 			for(var/client/X in modholders + adminholders)
 				if(X.prefs.sound & SOUND_ADMINHELP)
 					X << 'sound/effects/adminhelp.ogg'
@@ -152,7 +152,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/admin_number_afk = 0		//Holds the number of admins who are afk
 	var/admin_number_ignored = 0	//Holds the number of admins without +BAN (so admins who are not really admins)
 	var/admin_number_decrease = 0	//Holds the number of admins with are afk, ignored or both
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		admin_number_total++;
 		var/invalid = 0
 		if(requiredflags != 0 && !check_rights_for(X, requiredflags))

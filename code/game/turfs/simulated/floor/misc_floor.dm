@@ -48,14 +48,39 @@
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
 
-/turf/simulated/floor/beach/water
+/turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/obj/machinery/poolcontroller/linkedcontroller = null
+
+/turf/simulated/floor/beach/water/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	return	//cannot pry off tiles of water
+
 
 /turf/simulated/floor/beach/water/New()
 	..()
 	overlays += image("icon"='icons/misc/beach.dmi',"icon_state"="water5","layer"=MOB_LAYER+0.1)
+
+/turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
+	. = ..()
+	if(!linkedcontroller)
+		return 
+	if(ismob(AM))
+		linkedcontroller.mobinpool += AM
+
+/turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
+	. = ..()
+	if(!linkedcontroller)
+		return
+	if(ismob(AM))
+		linkedcontroller.mobinpool -= AM
+
+/turf/simulated/floor/beach/water/InitializedOn(atom/A)
+	if(!linkedcontroller)
+		return
+	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
+		linkedcontroller.decalinpool += A
 
 /turf/simulated/floor/noslip
 	name = "high-traction floor"

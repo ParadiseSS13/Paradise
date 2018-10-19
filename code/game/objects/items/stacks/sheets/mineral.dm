@@ -19,7 +19,7 @@ var/global/list/datum/stack_recipe/sandstone_recipes = list ( \
 	null, \
 	new/datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
-	new/datum/stack_recipe("Breakdown into sand", /obj/item/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
+	new/datum/stack_recipe("Breakdown into sand", /obj/item/stack/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
 	)
 
 var/global/list/datum/stack_recipe/silver_recipes = list ( \
@@ -68,12 +68,12 @@ var/global/list/datum/stack_recipe/gold_recipes = list ( \
 	)
 
 var/global/list/datum/stack_recipe/plasma_recipes = list ( \
-	new/datum/stack_recipe("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/dangerous("plasma door", /obj/structure/mineral_door/transparent/plasma, 10, one_per_turf = 1, on_floor = 1), \
 	null, \
-	new/datum/stack_recipe("plasma tile", /obj/item/stack/tile/mineral/plasma, 1, 4, 20), \
+	new/datum/stack_recipe/dangerous("plasma tile", /obj/item/stack/tile/mineral/plasma, 1, 4, 20), \
 	null, \
-	new/datum/stack_recipe("Scientist Statue", /obj/structure/statue/plasma/scientist, 5, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe("Xenomorph Statue", /obj/structure/statue/plasma/xeno, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/dangerous("Scientist Statue", /obj/structure/statue/plasma/scientist, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/dangerous("Xenomorph Statue", /obj/structure/statue/plasma/xeno, 5, one_per_turf = 1, on_floor = 1), \
 	)
 
 var/global/list/datum/stack_recipe/bananium_recipes = list ( \
@@ -94,7 +94,7 @@ var/global/list/datum/stack_recipe/tranquillite_recipes = list ( \
 	)
 
 var/global/list/datum/stack_recipe/abductor_recipes = list ( \
-	new/datum/stack_recipe("alien bed", /obj/structure/stool/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("alien bed", /obj/structure/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien locker", /obj/structure/closet/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien table frame", /obj/structure/table_frame/abductor, 1, time = 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("alien airlock assembly", /obj/structure/door_assembly/door_assembly_abductor, 4, time = 20, one_per_turf = 1, on_floor = 1), \
