@@ -15,7 +15,7 @@
 	icon_dead = "soybean-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/soya/koi)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list("soybeanoil" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/soybeans
 	seed = /obj/item/seeds/soya

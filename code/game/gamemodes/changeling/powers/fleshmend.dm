@@ -46,8 +46,8 @@
 	for(var/i in 1 to healing_ticks)
 		if(user)
 			var/healpertick = -(total_healing / healing_ticks)
-			user.heal_overall_damage((-healpertick/recent_uses), (-healpertick/recent_uses))
-			user.adjustOxyLoss(healpertick/recent_uses)
+			user.heal_overall_damage((-healpertick/recent_uses), (-healpertick/recent_uses), updating_health = FALSE)
+			user.adjustOxyLoss(healpertick/recent_uses, FALSE)
 			user.blood_volume = min(user.blood_volume + 30, BLOOD_VOLUME_NORMAL)
 			user.updatehealth()
 		else

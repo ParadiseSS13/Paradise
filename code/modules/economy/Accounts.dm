@@ -65,7 +65,7 @@ var/global/list/all_money_accounts = list()
 	T.amount = starting_funds
 	if(!source_db)
 		//set a random date, time and location some time over the past few decades
-		T.date = "[num2text(rand(1,31))] [pick(month_names)], [rand(game_year - 20,game_year - 1)]"
+		T.date = "[num2text(rand(1,31))] [pick(GLOB.month_names)], [rand(game_year - 20,game_year - 1)]"
 		T.time = "[rand(0,23)]:[rand(0,59)]:[rand(0,59)]"
 		T.source_terminal = "NTGalaxyNet Terminal #[rand(111,1111)]"
 

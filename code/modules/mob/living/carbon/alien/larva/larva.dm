@@ -12,6 +12,8 @@
 	var/amount_grown = 0
 	var/max_grown = 200
 	var/time_of_birth
+	death_message = "lets out a waning high-pitched cry."
+	death_sound = null
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/larva/New()

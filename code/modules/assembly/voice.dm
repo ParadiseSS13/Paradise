@@ -70,7 +70,7 @@
 /obj/item/assembly/voice/noise/hear_talk(mob/living/M as mob, msg)
 	return
 
-/obj/item/assembly/voice/hear_message(mob/living/M as mob, msg)
+/obj/item/assembly/voice/noise/hear_message(mob/living/M as mob, msg)
 	pulse(0)
 	var/turf/T = get_turf(src)  //otherwise it won't work in hand
 	T.visible_message("<span class='warning'>[bicon(src)] beeps!</span>")

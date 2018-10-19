@@ -9,7 +9,7 @@
 	icon_state = "turretCover"
 	anchored = 1
 	density = 0
-	use_power = 1				//this turret uses and requires power
+	use_power = IDLE_POWER_USE				//this turret uses and requires power
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
@@ -997,7 +997,7 @@ var/list/turret_icons
 	syndicate = 1
 	installation = null
 	always_up = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 	has_cover = 0
 	raised = 1
 	scan_range = 9

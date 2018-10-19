@@ -170,9 +170,7 @@
 	var/mob/M = can_shock(loc)
 	if(M)
 		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, M)
-		s.start()
+		do_sparks(3, 1, M)
 
 		M.Weaken(5)
 		M.Stuttering(1)

@@ -44,7 +44,7 @@
 		return
 
 	if(!user.canUnEquip(W, 0))
-		to_chat(user, "<span class='warning'>You can't let go of the [W]!<span>")
+		to_chat(user, "<span class='warning'>You can't let go of the [W]!</span>")
 		return
 
 	holstered = W

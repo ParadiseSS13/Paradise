@@ -1,6 +1,7 @@
 /mob/dead/observer/DblClickOn(var/atom/A, var/params)
 	if(client.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
+		// Not doing a click intercept here, because otherwise we double-tap with the `ClickOn` proc.
+		// But we return here since we don't want to do regular dblclick handling
 		return
 
 	if(can_reenter_corpse && mind && mind.current)

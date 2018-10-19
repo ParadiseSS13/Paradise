@@ -840,8 +840,8 @@
 			if(locate(/obj/item/storage/bible) in get_turf(src))
 				to_chat(viewers(src), "<span class='danger'>[src] farts on the Bible!</span>")
 				var/image/cross = image('icons/obj/storage.dmi', "bible")
-				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] (<A HREF='?_src_=holder;adminmoreinfo=[UID()]'>?</A>) (<A HREF='?_src_=holder;adminplayeropts=[UID()]'>PP</A>) (<A HREF='?_src_=vars;Vars=[UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=[UID()]'>SM</A>) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
-				for(var/client/X in admins)
+				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
+				for(var/client/X in GLOB.admins)
 					if(check_rights(R_EVENT, 0, X.mob))
 						to_chat(X, adminbfmessage)
 			else if(TOXIC_FARTS in mutations)
@@ -941,7 +941,7 @@
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.
 
-		for(var/mob/M in dead_mob_list)
+		for(var/mob/M in GLOB.dead_mob_list)
 			if(!M.client || istype(M, /mob/new_player))
 				continue //skip monkeys, leavers and new players
 			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))

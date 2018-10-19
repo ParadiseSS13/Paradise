@@ -27,16 +27,12 @@
 		if(battery_module && prob(25))
 			qdel(battery_module)
 			computer.visible_message("<span class='notice'>\The [computer]'s battery explodes in rain of sparks.</span>")
-			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-			spark_system.set_up(5, 0, computer.loc)
-			spark_system.start()
+			do_sparks(5, 0, computer.loc)
 
 		if(recharger && prob(50))
 			qdel(recharger)
 			computer.visible_message("<span class='notice'>\The [computer]'s recharger explodes in rain of sparks.</span>")
-			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-			spark_system.set_up(5, 0, computer.loc)
-			spark_system.start()
+			do_sparks(5, 0, computer.loc)
 
 
 /datum/computer_file/program/revelation/Topic(href, list/href_list)

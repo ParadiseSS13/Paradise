@@ -4,7 +4,7 @@
 	anchored = 1
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "dispenser"
-	use_power = 0
+	use_power = NO_POWER_USE
 	idle_power_usage = 40
 	var/ui_title = "Chem Dispenser 5000"
 	var/energy = 100
@@ -142,7 +142,7 @@
 
 	var/chemicals[0]
 	for(var/re in dispensable_reagents)
-		var/datum/reagent/temp = chemical_reagents_list[re]
+		var/datum/reagent/temp = GLOB.chemical_reagents_list[re]
 		if(temp)
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals

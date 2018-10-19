@@ -332,7 +332,6 @@
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
 			H.Weaken(5)
-			H.updatehealth() //forces health update before next life tick
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 			H.emote("gasp")
 			if(!H.undergoing_cardiac_arrest() && (prob(10) || defib.combat)) // Your heart explodes.
@@ -479,7 +478,6 @@
 					"<span class='userdanger'>[user] has touched [H.name] with [src]!</span>")
 			H.adjustStaminaLoss(50)
 			H.Weaken(5)
-			H.updatehealth() //forces health update before next life tick
 			if(!H.undergoing_cardiac_arrest() && prob(10)) // Your heart explodes.
 				H.set_heartattack(TRUE)
 			playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)

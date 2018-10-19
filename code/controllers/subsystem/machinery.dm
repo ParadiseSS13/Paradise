@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(machines)
 /datum/controller/subsystem/machines/proc/process_premachines(resumed = 0)
 	/* Literally exists as snowflake for fucking powersinks goddamnit */
 	if(!resumed)
-		src.currentrun = processing_power_items.Copy()
+		src.currentrun = GLOB.processing_power_items.Copy()
 	//cache for sanid speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	while(currentrun.len)
@@ -75,9 +75,9 @@ SUBSYSTEM_DEF(machines)
 		currentrun.len--
 		if(!QDELETED(I))
 			if(!I.pwr_drain())
-				processing_power_items.Remove(I)
+				GLOB.processing_power_items.Remove(I)
 		else
-			processing_power_items.Remove(I)
+			GLOB.processing_power_items.Remove(I)
 		if(MC_TICK_CHECK)
 			return
 

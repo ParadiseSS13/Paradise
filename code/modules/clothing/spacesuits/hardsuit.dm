@@ -70,6 +70,7 @@
 	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
 	siemens_coefficient = 0
 
+	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 	species_restricted = list("exclude","Diona","Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
@@ -590,9 +591,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, attack_text)
 	if(current_charges > 0)
-		var/datum/effect_system/spark_spread/s = new
-		s.set_up(2, 1, src)
-		s.start()
+		do_sparks(2, 1, src)
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
 		current_charges--
 		recharge_cooldown = world.time + recharge_delay

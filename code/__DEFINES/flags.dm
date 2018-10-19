@@ -54,6 +54,8 @@
 // LAVA_PROTECT used on the flags_2 variable for both SUIT and HEAD items, and stops lava damage. Must be present in both to stop lava damage.
 #define LAVA_PROTECT_2			2048
 
+#define OVERLAY_QUEUED_2		4096
+
 //Reagent flags
 #define REAGENT_NOREACT			1
 

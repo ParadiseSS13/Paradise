@@ -37,7 +37,7 @@
 	set_init_door_layer()
 	update_dir()
 	update_freelook_sight()
-	airlocks += src
+	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
 
@@ -72,12 +72,11 @@
 	density = 0
 	air_update_turf(1)
 	update_freelook_sight()
-	airlocks -= src
+	GLOB.airlocks -= src
 	if(autoclose_timer)
 		deltimer(autoclose_timer)
 		autoclose_timer = 0
-	if(spark_system)
-		QDEL_NULL(spark_system)
+	QDEL_NULL(spark_system)
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)

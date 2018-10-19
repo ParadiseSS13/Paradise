@@ -50,7 +50,7 @@
 
 /obj/item/reagent_containers/glass/bottle/random_reagent/New()
 	..()
-	var/list/possible_chems = chemical_reagents_list.Copy()
+	var/list/possible_chems = GLOB.chemical_reagents_list.Copy()
 	possible_chems -= blocked_chems.Copy()
 	var/datum/reagent/R = pick(possible_chems)
 	if(rare_chemicals.Find(R))
@@ -186,7 +186,7 @@
 		var/obj/item/reagent_containers/glass/bottle/B = new(src)
 		B.reagents.add_reagent(chem, B.volume)
 		if(prob(85))
-			var/datum/reagent/r = chemical_reagents_list[chem]
+			var/datum/reagent/r = GLOB.chemical_reagents_list[chem]
 			B.name	= "[r.name] bottle"
 //			B.identify_probability = 100
 		else

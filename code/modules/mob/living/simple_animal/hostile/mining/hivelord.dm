@@ -7,7 +7,7 @@
 	icon_aggro = "Hivelord_alert"
 	icon_dead = "Hivelord_dead"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 14
 	ranged = 1
 	vision_range = 5
@@ -46,8 +46,11 @@
 	OpenFire()
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/death(gibbed)
-	mouse_opacity = 1
-	..(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
+	mouse_opacity = MOUSE_OPACITY_ICON
 
 /obj/item/organ/internal/hivelord_core
 	name = "hivelord remains"
@@ -132,7 +135,7 @@
 	icon_aggro = "Hivelordbrood"
 	icon_dead = "Hivelordbrood"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 1
 	friendly = "buzzes near"
 	vision_range = 10
@@ -165,9 +168,10 @@
 	color = "#C80000"
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death()
-	if(loc) // Splash the turf we are on with blood
+	if(can_die() && loc)
+		// Splash the turf we are on with blood
 		reagents.reaction(get_turf(src))
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/New()
 	create_reagents(30)
@@ -235,15 +239,17 @@
 	var/mob/living/carbon/human/stored_mob
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
-	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
-	var/turf/T = get_turf(src)
-	if(T)
-		if(stored_mob)
-			stored_mob.forceMove(get_turf(src))
-			stored_mob = null
-		else
-			new /obj/effect/landmark/corpse/damaged(T)
-	..(gibbed)
+	if(can_die())
+		visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
+		var/turf/T = get_turf(src)
+		if(T)
+			if(stored_mob)
+				stored_mob.forceMove(get_turf(src))
+				stored_mob = null
+			else
+				new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
+	// due to `del_on_death`
+	return ..(gibbed)
 
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
@@ -321,3 +327,13 @@
 	desc = "The once living, now empty eyes of the former human's skull cut deep into your soul."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "skull"
+
+
+/obj/effect/mob_spawn/human/corpse/charredskeleton
+	name = "charred skeletal remains"
+	burn_damage = 1000
+	mob_name = "ashen skeleton"
+	mob_gender = NEUTER
+	husk = FALSE
+	mob_species = /datum/species/skeleton
+	mob_color = "#454545"

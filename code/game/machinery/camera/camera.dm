@@ -3,7 +3,7 @@
 	desc = "It's used to monitor rooms."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "camera"
-	use_power = 2
+	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
@@ -93,7 +93,7 @@
 						spawn(100)
 							if(!QDELETED(src))
 								cancelCameraAlarm()
-			for(var/mob/M in player_list)
+			for(var/mob/M in GLOB.player_list)
 				if(M.client && M.client.eye == src)
 					M.unset_machine()
 					M.reset_perspective(null)
@@ -192,7 +192,7 @@
 				info = N.notehtml
 		to_chat(U, "You hold \the [itemname] up to the camera ...")
 		U.changeNext_move(CLICK_CD_MELEE)
-		for(var/mob/O in player_list)
+		for(var/mob/O in GLOB.player_list)
 			if(istype(O, /mob/living/silicon/ai))
 				var/mob/living/silicon/ai/AI = O
 				if(AI.control_disabled || (AI.stat == DEAD))
@@ -286,7 +286,7 @@
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.
 	//I guess that doesn't matter since they can't use it anyway?
-	for(var/mob/O in player_list)
+	for(var/mob/O in GLOB.player_list)
 		if(O.client && O.client.eye == src)
 			O.unset_machine()
 			O.reset_perspective(null)

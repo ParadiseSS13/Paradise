@@ -214,7 +214,7 @@
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
 		if("destination")
-			var/new_dest = input(usr, "Enter Destination:", name, destination) as null|anything in deliverybeacontags
+			var/new_dest = input(usr, "Enter Destination:", name, destination) as null|anything in GLOB.deliverybeacontags
 			if(new_dest)
 				set_destination(new_dest)
 		if("setid")
@@ -222,7 +222,7 @@
 			if(new_id)
 				set_suffix(new_id)
 		if("sethome")
-			var/new_home = input(usr, "Enter Home:", name, home_destination) as null|anything in deliverybeacontags
+			var/new_home = input(usr, "Enter Home:", name, home_destination) as null|anything in GLOB.deliverybeacontags
 			if(new_home)
 				home_destination = new_home
 		if("unload")
@@ -401,9 +401,16 @@
 			M.layer = layer + 0.1
 
 	else //post unbuckling
-		load = null
-		M.layer = initial(M.layer)
-		M.pixel_y = initial(M.pixel_y)
+		reset_buckled_mob(M)
+
+/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	reset_buckled_mob(M)
+
+/mob/living/simple_animal/bot/mulebot/proc/reset_buckled_mob(mob/living/M)
+	load = null
+	M.layer = initial(M.layer)
+	M.pixel_y = initial(M.pixel_y)
 
 // called to unload the bot
 // argument is optional direction to unload
@@ -694,7 +701,7 @@
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
 	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
-					"<span class='userdanger'>[src] drives over you!<span>")
+					"<span class='userdanger'>[src] drives over you!</span>")
 	playsound(loc, 'sound/effects/splat.ogg', 50, 1)
 
 	var/damage = rand(5,15)
@@ -706,10 +713,14 @@
 	H.apply_damage(0.5*damage, BRUTE, "r_arm", run_armor_check("r_arm", "melee"))
 
 
-	var/turf/T = get_turf(src)
-	H.add_mob_blood(H)
-	H.add_splatter_floor(T)
 
+
+	if(NO_BLOOD in H.dna.species.species_traits)//Does the run over mob have blood?
+		return//If it doesn't it shouldn't bleed (Though a check should be made eventually for things with liquid in them, like slime people, vox armalis, etc.)
+
+	var/turf/T = get_turf(src)//Where are we?
+	H.add_mob_blood(H)//Cover the victim in their own blood.
+	H.add_splatter_floor(T)//Put the blood where we are.
 	bloodiness += 4
 
 	var/list/blood_dna = H.get_blood_dna_list()
@@ -805,7 +816,7 @@
 	if(!on || !wires.BeaconRX())
 		return
 
-	for(var/obj/machinery/navbeacon/NB in deliverybeacons)
+	for(var/obj/machinery/navbeacon/NB in GLOB.deliverybeacons)
 		if(NB.location == new_destination)	// if the beacon location matches the set destination
 			destination = new_destination	// the we will navigate there
 			target = NB.loc
@@ -836,9 +847,7 @@
 		cell.update_icon()
 		cell = null
 
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()

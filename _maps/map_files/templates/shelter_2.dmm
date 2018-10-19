@@ -17,7 +17,7 @@
 "q" = (/obj/structure/window/reinforced/survival_pod{dir = 9},/turf/simulated/floor/carpet/black,/area/survivalpod)
 "r" = (/turf/simulated/floor/carpet/black,/area/survivalpod)
 "s" = (/obj/item/gps/computer,/turf/simulated/floor/pod,/area/survivalpod)
-"t" = (/obj/structure/stool/bed/pod,/obj/item/bedsheet/brown,/turf/simulated/floor/pod,/area/survivalpod)
+"t" = (/obj/structure/bed/pod,/obj/item/bedsheet/brown,/turf/simulated/floor/pod,/area/survivalpod)
 "u" = (/obj/structure/tubes,/obj/item/twohanded/required/kirbyplants,/turf/simulated/floor/pod,/area/survivalpod)
 "v" = (/obj/structure/window/reinforced/survival_pod{dir = 1},/obj/structure/displaycase{desc = "A display case containing an expensive forgery, probably."; locked = 1; pixel_y = -4; req_access_txt = "48"; start_showpiece_type = /obj/item/fakeartefact},/turf/simulated/floor/carpet/black{dir = 1},/area/survivalpod)
 "w" = (/obj/structure/fans/tiny,/obj/machinery/door/airlock/survival_pod/glass,/turf/simulated/floor/pod,/area/survivalpod)
@@ -26,7 +26,7 @@
 "z" = (/obj/structure/window/reinforced/survival_pod{dir = 1},/obj/item/cardboard_cutout{desc = "A cardboard cutout of a xenomorph maid."; icon_state = "cutout_lusty"; name = "lusty xenomorph maid"}, /turf/simulated/floor/carpet/black,/area/survivalpod)
 "A" = (/obj/structure/table/wood/fancy/black,/obj/machinery/light{dir = 4},/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_x = 6; pixel_y = 3},/obj/item/reagent_containers/food/drinks/bottle/wine,/turf/simulated/floor/carpet/black,/area/survivalpod)
 "B" = (/obj/structure/table/wood/fancy/black,/obj/item/reagent_containers/food/drinks/drinkingglass{pixel_x = -4; pixel_y = 1},/obj/effect/spawner/lootdrop/three_course_meal,/turf/simulated/floor/carpet/black,/area/survivalpod)
-"C" = (/obj/structure/stool/bed/chair/comfy/black{dir = 1},/turf/simulated/floor/carpet/black,/area/survivalpod)
+"C" = (/obj/structure/chair/comfy/black{dir = 1},/turf/simulated/floor/carpet/black,/area/survivalpod)
 "D" = (/obj/structure/sign/mining,/turf/simulated/wall/mineral/titanium/survival,/area/survivalpod)
 
 (1,1,1) = {"

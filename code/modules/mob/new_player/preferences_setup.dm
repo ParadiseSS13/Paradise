@@ -211,7 +211,6 @@
 
 // Determine what job is marked as 'High' priority, and dress them up as such.
 /datum/preferences/proc/get_highest_job()
-
 	var/highRankFlag = job_support_high | job_medsci_high | job_engsec_high | job_karma_high
 
 	if(job_support_low & CIVILIAN)
@@ -230,7 +229,6 @@
 		for(var/datum/job/job in job_master.occupations)
 			if(job.flag & highRankFlag && job.department_flag == highDeptFlag)
 				return job
-
 
 /datum/preferences/proc/update_preview_icon()
 	// Silicons only need a very basic preview since there is no customization for them.
@@ -262,7 +260,6 @@
 	preview_icon.Scale(48+32, 16+32)
 	CHECK_TICK
 	mannequin.setDir(NORTH)
-
 
 	var/icon/stamp = getFlatIcon(mannequin)
 	CHECK_TICK

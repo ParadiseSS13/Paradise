@@ -318,18 +318,18 @@ var/global/list/damage_icon_parts = list()
 	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi',"nude")
 
 	if(underwear && dna.species.clothing_flags & HAS_UNDERWEAR)
-		var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
+		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
 		if(U)
 			underwear_standing.Blend(new /icon(U.icon, "uw_[U.icon_state]_s"), ICON_OVERLAY)
 
 	if(undershirt && dna.species.clothing_flags & HAS_UNDERSHIRT)
-		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
 		if(U2)
 			underwear_standing.Blend(new /icon(U2.icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 
 
 	if(socks && dna.species.clothing_flags & HAS_SOCKS)
-		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
+		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
 			underwear_standing.Blend(new /icon(U3.icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
 
@@ -369,7 +369,7 @@ var/global/list/damage_icon_parts = list()
 	var/obj/item/organ/external/chest/chest_organ = get_organ("chest")
 	if(chest_organ && m_styles["body"])
 		var/body_marking = m_styles["body"]
-		var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
+		var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
 		if(body_marking_style && body_marking_style.species_allowed && (dna.species.name in body_marking_style.species_allowed))
 			var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 			if(body_marking_style.do_colouration)
@@ -379,7 +379,7 @@ var/global/list/damage_icon_parts = list()
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	if(head_organ && m_styles["head"]) //If the head is destroyed, forget the head markings. This prevents floating optical markings on decapitated IPCs, for example.
 		var/head_marking = m_styles["head"]
-		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
+		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (head_organ.dna.species.name in head_marking_style.species_allowed))
 			var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
@@ -409,7 +409,7 @@ var/global/list/damage_icon_parts = list()
 	//base icons
 	var/icon/head_accessory_standing	= new /icon('icons/mob/body_accessory.dmi',"accessory_none_s")
 	if(head_organ.ha_style && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY))
-		var/datum/sprite_accessory/head_accessory/head_accessory_style = head_accessory_styles_list[head_organ.ha_style]
+		var/datum/sprite_accessory/head_accessory/head_accessory_style = GLOB.head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			if(head_organ.dna.species.name in head_accessory_style.species_allowed)
 				var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
@@ -448,7 +448,7 @@ var/global/list/damage_icon_parts = list()
 	//var/icon/debrained_s = new /icon("icon"='icons/mob/human_face.dmi', "icon_state" = "debrained_s")
 
 	if(head_organ.h_style && !(head && (head.flags & BLOCKHEADHAIR) && !(isSynthetic())))
-		var/datum/sprite_accessory/hair/hair_style = hair_styles_full_list[head_organ.h_style]
+		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		//if(!src.get_int_organ(/obj/item/organ/internal/brain) && !ismachine(src))//make it obvious we have NO BRAIN
 		//	hair_standing.Blend(debrained_s, ICON_OVERLAY)
 		if(hair_style && hair_style.species_allowed)
@@ -496,7 +496,7 @@ var/global/list/damage_icon_parts = list()
 	var/icon/face_standing	= new /icon('icons/mob/human_face.dmi',"bald_s")
 
 	if(head_organ.f_style)
-		var/datum/sprite_accessory/facial_hair/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
+		var/datum/sprite_accessory/facial_hair/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style && facial_hair_style.species_allowed)
 			if((head_organ.dna.species.name in facial_hair_style.species_allowed) || (head_organ.dna.species.bodyflags & ALL_RPARTS)) //If the head's species is in the list of allowed species for the hairstyle, or the head's species is one flagged to have bodies comprised wholly of cybernetics...
 				var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
@@ -765,7 +765,7 @@ var/global/list/damage_icon_parts = list()
 		else
 			new_glasses = image("icon" = 'icons/mob/eyes.dmi', "icon_state" = "[glasses.icon_state]")
 
-		var/datum/sprite_accessory/hair/hair_style = hair_styles_full_list[head_organ.h_style]
+		var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 		if(hair_style && hair_style.glasses_over) //Select which layer to use based on the properties of the hair style. Hair styles with hair that don't overhang the arms of the glasses should have glasses_over set to a positive value.
 			overlays_standing[GLASSES_OVER_LAYER] = new_glasses
 		else
@@ -1029,7 +1029,7 @@ var/global/list/damage_icon_parts = list()
 		var/obj/item/organ/external/head/head_organ = get_organ("head")
 		var/datum/sprite_accessory/alt_heads/alternate_head
 		if(head_organ && head_organ.alt_head && head_organ.alt_head != "None")
-			alternate_head = alt_heads_list[head_organ.alt_head]
+			alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
 
 		var/image/standing
 		var/icon/mask_icon = new(wear_mask.icon)
@@ -1166,7 +1166,7 @@ var/global/list/damage_icon_parts = list()
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
 	if(m_styles["tail"] != "None" && (dna.species.bodyflags & HAS_TAIL_MARKINGS))
 		var/tail_marking = m_styles["tail"]
-		tail_marking_style = marking_styles_list[tail_marking]
+		tail_marking_style = GLOB.marking_styles_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 		tail_marking_icon.Blend(m_colours["tail"], ICON_ADD)
 
@@ -1233,7 +1233,7 @@ var/global/list/damage_icon_parts = list()
 	var/datum/sprite_accessory/body_markings/tail/tail_marking_style
 	if(m_styles["tail"] != "None" && (dna.species.bodyflags & HAS_TAIL_MARKINGS))
 		var/tail_marking = m_styles["tail"]
-		tail_marking_style = marking_styles_list[tail_marking]
+		tail_marking_style = GLOB.marking_styles_list[tail_marking]
 		tail_marking_icon = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]w_s")
 		tail_marking_icon.Blend(m_colours["tail"], ICON_ADD)
 

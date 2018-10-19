@@ -116,7 +116,10 @@
 
 /obj/machinery/computer/security/proc/get_user_access(mob/user)
 	var/list/access = list()
-	if(ishuman(user))
+	
+	if(emagged)
+		access = get_all_accesses() // Assume captain level access when emagged
+	else if(ishuman(user))
 		access = user.get_access()
 	else if((isAI(user) || isrobot(user)) && CanUseTopic(user, default_state) == STATUS_INTERACTIVE)
 		access = get_all_accesses() // Assume captain level access when AI
@@ -159,7 +162,6 @@
 
 	var/list/access = get_user_access(user)
 	if(emagged)
-		access = get_all_accesses() // Assume captain level access when emagged
 		data["emagged"] = 1
 
 	var/list/networks_list = list()
@@ -215,7 +217,7 @@
 
 // Check if camera is accessible when jumping
 /obj/machinery/computer/security/proc/can_access_camera(var/obj/machinery/camera/C, var/mob/M)
-	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || M.blinded)
+	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || !M.has_vision())
 		return 0
 
 	if(isrobot(M))
