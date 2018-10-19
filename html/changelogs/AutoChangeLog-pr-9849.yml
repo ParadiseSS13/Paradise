@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - rscadd: "Examining a borg tells you what module it has loaded"

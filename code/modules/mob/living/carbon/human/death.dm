@@ -42,9 +42,7 @@
 		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
+		do_sparks(3, 1, src)
 	QDEL_IN(animation, 15)
 	QDEL_IN(src, 0)
 	return TRUE

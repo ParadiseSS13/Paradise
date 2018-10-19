@@ -165,9 +165,7 @@
 			depotarea.list_remove(src, depotarea.guard_list)
 		walk_to(src,0)
 		visible_message("<span class='userdanger'>[src] blows apart!</span>")
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
+		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 		var/obj/effect/decal/mecha_wreckage/gygax/dark/wreck = new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
 		wreck.name = "sentry bot wreckage"
