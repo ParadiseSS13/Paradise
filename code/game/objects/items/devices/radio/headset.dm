@@ -353,47 +353,47 @@
 
 
 /obj/item/radio/headset/proc/recalculateChannels(var/setDescription = 0)
-	src.channels = list()
-	src.translate_binary = 0
-	src.translate_hive = 0
-	src.syndiekey = null
+	channels = list()
+	translate_binary = 0
+	translate_hive = 0
+	syndiekey = null
 
 	if(keyslot1)
 		for(var/ch_name in keyslot1.channels)
-			if(ch_name in src.channels)
+			if(ch_name in channels)
 				continue
-			src.channels += ch_name
-			src.channels[ch_name] = keyslot1.channels[ch_name]
+			channels += ch_name
+			channels[ch_name] = keyslot1.channels[ch_name]
 
 		if(keyslot1.translate_binary)
-			src.translate_binary = 1
+			translate_binary = 1
 
 		if(keyslot1.translate_hive)
-			src.translate_hive = 1
+			translate_hive = 1
 
 		if(keyslot1.syndie)
-			src.syndiekey = keyslot1
+			syndiekey = keyslot1
 
 	if(keyslot2)
 		for(var/ch_name in keyslot2.channels)
-			if(ch_name in src.channels)
+			if(ch_name in channels)
 				continue
-			src.channels += ch_name
-			src.channels[ch_name] = keyslot2.channels[ch_name]
+			channels += ch_name
+			channels[ch_name] = keyslot2.channels[ch_name]
 
 		if(keyslot2.translate_binary)
-			src.translate_binary = 1
+			translate_binary = 1
 
 		if(keyslot2.translate_hive)
-			src.translate_hive = 1
+			translate_hive = 1
 
 		if(keyslot2.syndie)
-			src.syndiekey = keyslot2
+			syndiekey = keyslot2
 
 
 	for(var/ch_name in channels)
 		if(!radio_controller)
-			src.name = "broken radio headset"
+			name = "broken radio headset"
 			return
 
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
