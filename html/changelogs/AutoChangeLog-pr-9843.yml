@@ -1,0 +1,7 @@
+author: "Warior4356"
+delete-after: True
+changes: 
+  - rscadd: "Added nanoui for safe. Added minor quality of life to safe."
+  - rscdel: "Removed old UI from safe"
+  - tweak: "Safe now is only Right - Left - Right. Safe is 0-99 rather than 0-71."
+  - imageadd: "Added safe dial for it's nanoui."
