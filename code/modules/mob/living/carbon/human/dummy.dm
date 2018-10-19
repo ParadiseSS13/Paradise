@@ -13,7 +13,8 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 	return
 
 /mob/living/carbon/human/dummy/proc/wipe_state()
-	QDEL_LIST(contents)
+	for(var/slot in get_all_slots())
+		qdel(slot)
 	overlays.Cut()
 
 //Inefficient pooling/caching way.
@@ -23,18 +24,14 @@ GLOBAL_LIST_EMPTY(human_dummy_list)
 	if(!slotkey)
 		return new /mob/living/carbon/human/dummy
 	var/mob/living/carbon/human/dummy/D = GLOB.human_dummy_list[slotkey]
-	to_chat(world, "1[istype(D)]")
+	to_chat(world, "gowfhd - istype(D) ? [istype(D)]")
 	if(istype(D))
-		while(!D.in_use)
-			stoplag()
-	else
-		return
-
+		UNTIL(!D.in_use)
+	to_chat(world, "gowfhd - while loop exited")
 	if(QDELETED(D))
 		D = new
 		GLOB.human_dummy_list[slotkey] = D
 	D.in_use = TRUE
-	to_chat(world, "2[istype(D)]")
 	return D
 
 /proc/unset_busy_human_dummy(slotnumber)

@@ -104,10 +104,10 @@
 			H.internal = H.get_item_by_slot(internals_slot)
 			H.update_action_buttons_icon()
 
-	if(implants)
-		for(var/implant_type in implants)
-			var/obj/item/implant/I = new implant_type(H)
-			I.implant(H, null)
+		if(implants)
+			for(var/implant_type in implants)
+				var/obj/item/implant/I = new implant_type(H)
+				I.implant(H, null)
 
 	H.update_body()
 	return 1

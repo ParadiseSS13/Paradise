@@ -1799,7 +1799,7 @@ var/mob/dview/dview_mob = new
 			/obj/item/cartridge = "PDA_CART",
 			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
 			/obj/item/clothing/head = "HEAD",
-			/obj/item/clothing/under = "UNIFORM",
+			/obj/item/clothing/under = "7IFORM",
 			/obj/item/clothing/shoes = "SHOES",
 			/obj/item/clothing/suit = "SUIT",
 			/obj/item/clothing/gloves = "GLOVES",
@@ -2041,5 +2041,4 @@ var/mob/dview/dview_mob = new
 /datum/proc/stack_trace(msg)
 	CRASH(msg)
 
-/proc/pass()
-	return
+#define UNTIL(X) while(!(X)) stoplag()

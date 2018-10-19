@@ -2081,7 +2081,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
 	var/datum/species/S = GLOB.all_species[species]
-	character.set_species(S.type) // Yell at me if this causes everything to melt
+	character.set_species(S.type, skip_same_check = TRUE) // Yell at me if this causes everything to melt 
 	if(be_random_name)
 		real_name = random_name(gender,species)
 

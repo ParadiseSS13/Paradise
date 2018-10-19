@@ -73,16 +73,21 @@
 /datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, alt_title)
 	if(!H)
 		return 0
+	to_chat(world, "equip() - called")
 
 	H.dna.species.before_equip_job(src, H, visualsOnly)
+	to_chat(world, "equip() - after species be_job")
 
 	if(outfit)
 		H.equipOutfit(outfit, visualsOnly, alt_title)
+	to_chat(world, "equip() - after equipOutfit")
 
 	H.dna.species.after_equip_job(src, H, visualsOnly)
+	to_chat(world, "equip() - after species afterequip")
 
 	if(!visualsOnly && announce)
 		announce(H)
+	to_chat(world, "equip() - end")
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
