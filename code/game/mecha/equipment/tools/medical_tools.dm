@@ -519,3 +519,50 @@
 	for(var/reagent in processed_reagents)
 		reagents.add_reagent(reagent,amount)
 		chassis.use_power(energy_drain)
+
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw
+	name = "rescue jaw"
+	desc = "Emergency rescue jaws, designed to help first responders reach their patients. Opens doors and removes obstacles."
+	icon_state = "mecha_clamp"	//can work, might use a blue resprite later but I think it works for now
+	origin_tech = "materials=2;engineering=2"	//kind of sad, but identical to jaws of life
+	equip_cooldown = 15
+	energy_drain = 10
+	var/dam_force = 20
+
+
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
+	if(!action_checks(target))
+		return
+	if(istype(target, /obj))
+		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
+			return
+		var/obj/machinery/door/D = target	//the door we want to open
+		D.try_to_crowbar(src, chassis.occupant)//use the door's crowbar function
+	if(isliving(target))	//interact with living beings
+		var/mob/living/M = target
+		if(chassis.occupant.a_intent == INTENT_HARM)//the patented, medical rescue claw is incapable of doing harm. Worry not.
+			target.visible_message("<span class='notice'>[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.</span>", \
+								"<span class='notice'[chassis] gently boops [target] on the nose, its hydraulics hissing as safety overrides slow a brutal punch down at the last second.</span>")
+		else
+			push_aside(chassis, M)//out of the way, I have people to save!
+			occupant_message("<span class='notice'>You gently push [target] out of the way.</span>")
+			chassis.visible_message("<span class='notice'>[chassis] gently pushes [target] out of the way.</span>")
+
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/proc/push_aside(obj/mecha/M, mob/living/L)
+	switch(get_dir(M, L))
+		if(NORTH, SOUTH)
+			if(prob(50))
+				step(L, WEST)
+			else
+				step(L, EAST)
+		if(WEST, EAST)
+			if(prob(50))
+				step(L, NORTH)
+			else
+				step(L, SOUTH)
+
+/obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/can_attach(obj/mecha/M)
+	if(istype(M, /obj/mecha/medical) || istype(M, /obj/mecha/working/ripley/firefighter))	//Odys or firefighters
+		if(M.equipment.len < M.max_equip)
+			return TRUE
+	return FALSE

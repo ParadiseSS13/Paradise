@@ -57,9 +57,7 @@
 
 /obj/effect/portal/proc/invalid_teleport()
 	visible_message("<span class='warning'>[src] flickers and fails due to bluespace interference!</span>")
-	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-	spark_system.set_up(5, 0, loc)
-	spark_system.start()
+	do_sparks(5, 0, loc)
 	qdel(src)
 
 

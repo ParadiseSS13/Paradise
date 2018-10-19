@@ -540,9 +540,7 @@
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
-				var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread
-				sp.set_up(5, 1, S)
-				sp.start()
+				do_sparks(5, 1, S)
 				S.Weaken(6)
 		for(var/obj/structure/window/W in T.contents)
 			W.take_damage(rand(80, 100))

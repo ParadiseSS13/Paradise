@@ -45,7 +45,7 @@ var/list/adminfaxes = list()
 		html += "<td>[station_time_timestamp("hh:mm:ss", A.sent_at)]</td>"
 		if(A.sent_by)
 			var/mob/living/S = A.sent_by
-			html += "<td><A HREF='?_src_=holder;adminplayeropts=\ref[A.sent_by]'>[S.name]</A></td>"
+			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
 		html += "<td><A align='right' href='?src=[UID()];AdminFaxView=\ref[A.message]'>View</A></td>"
@@ -74,7 +74,7 @@ var/list/adminfaxes = list()
 		html += "<td>[station_time_timestamp("hh:mm:ss", F.sent_at)]</td>"
 		if(F.sent_by)
 			var/mob/living/S = F.sent_by
-			html += "<td><A HREF='?_src_=holder;adminplayeropts=\ref[F.sent_by]'>[S.name]</A></td>"
+			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
 		html += "<td><A align='right' href='?src=[UID()];AdminFaxView=\ref[F.message]'>View</A></td>"

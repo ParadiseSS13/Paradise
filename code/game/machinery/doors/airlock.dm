@@ -627,9 +627,7 @@ About the new airlock wires panel:
 	if(isElectrified() && density && istype(mover, /obj/item))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(5, 1, src)
-			s.start()
+			do_sparks(5, 1, src)
 	return ..()
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
@@ -1024,7 +1022,7 @@ About the new airlock wires panel:
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
 	else if(!welded && !operating)
-		if(!beingcrowbarred) //being fireaxe'd
+		if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific
 			var/obj/item/twohanded/fireaxe/F = I
 			if(F.wielded)
 				spawn(0)
@@ -1041,7 +1039,7 @@ About the new airlock wires panel:
 				else
 					close(1)
 
-	if(istype(I, /obj/item/crowbar/power))
+	if(ispowertool(I)) //jaws of life and rescue claw
 		if(isElectrified())
 			shock(user, 100)//it's like sticking a forck in a power socket
 			return
