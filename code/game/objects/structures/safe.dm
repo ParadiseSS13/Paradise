@@ -7,7 +7,7 @@ FLOOR SAFES
 //SAFES
 /obj/structure/safe
 	name = "\improper Safe"
-	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Nanotrasen Arms - 2 tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
+	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms - 2 tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = 1
