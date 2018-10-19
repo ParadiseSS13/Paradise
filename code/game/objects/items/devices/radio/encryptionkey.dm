@@ -22,6 +22,11 @@
 	channels = list("Syndicate" = 1)
 	origin_tech = "syndicate=1;engineering=3;bluespace=2"
 	syndie = 1 //Signifies that it de-crypts Syndicate transmissions
+	var/fake_name = "Agent ALERT_A_CODER"
+
+/obj/item/encryptionkey/syndicate/New()
+	..()
+	fake_name = "Agent " + pick(GLOB.html_colors)
 
 /obj/item/encryptionkey/syndteam
 	icon_state = "cypherkey"

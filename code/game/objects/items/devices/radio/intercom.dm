@@ -76,7 +76,7 @@
 	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
 	subspace_transmission = 1
-	syndie = 1
+	syndiekey = new /obj/item/encryptionkey/syndicate
 
 /obj/item/radio/intercom/syndicate/New()
 	..()
@@ -129,7 +129,7 @@
 		if(isnull(position) || !(position.z in level))
 			return -1
 	if(freq in ANTAG_FREQS)
-		if(!(src.syndie))
+		if(!(src.syndiekey))
 			return -1//Prevents broadcast of messages over devices lacking the encryption
 
 	return canhear_range

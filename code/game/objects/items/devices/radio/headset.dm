@@ -26,8 +26,12 @@
 
 	if(ks1type)
 		keyslot1 = new ks1type(src)
+		if(keyslot1.syndie)
+			syndiekey = keyslot1
 	if(ks2type)
 		keyslot2 = new ks2type(src)
+		if(keyslot2.syndie)
+			syndiekey = keyslot2
 
 	recalculateChannels(1)
 
@@ -79,7 +83,6 @@
 
 /obj/item/radio/headset/syndicate
 	origin_tech = "syndicate=3"
-	syndie = 1
 	ks1type = /obj/item/encryptionkey/syndicate
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
@@ -353,7 +356,7 @@
 	src.channels = list()
 	src.translate_binary = 0
 	src.translate_hive = 0
-	src.syndie = 0
+	src.syndiekey = null
 
 	if(keyslot1)
 		for(var/ch_name in keyslot1.channels)
@@ -369,7 +372,7 @@
 			src.translate_hive = 1
 
 		if(keyslot1.syndie)
-			src.syndie = 1
+			src.syndiekey = keyslot1
 
 	if(keyslot2)
 		for(var/ch_name in keyslot2.channels)
@@ -385,7 +388,7 @@
 			src.translate_hive = 1
 
 		if(keyslot2.syndie)
-			src.syndie = 1
+			src.syndiekey = keyslot2
 
 
 	for(var/ch_name in channels)
@@ -414,5 +417,5 @@
 /obj/item/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/encryptionkey/syndicate
-	syndie = 1
+	syndiekey = keyslot1
 	recalculateChannels()

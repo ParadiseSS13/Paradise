@@ -91,7 +91,7 @@
 
 /mob/living/simple_animal/bot/medbot/syndicate/New()
 	..()
-	Radio.syndie = 1
+	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
 	emagged = 2
