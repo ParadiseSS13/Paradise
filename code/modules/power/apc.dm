@@ -536,9 +536,7 @@
 				var/turf/T = get_turf(src)
 				var/obj/structure/cable/N = T.get_cable_node()
 				if(prob(50) && electrocute_mob(usr, N, N))
-					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-					s.set_up(5, 1, src)
-					s.start()
+					do_sparks(5, 1, src)
 					return
 				C.use(10)
 				user.visible_message(\
@@ -555,9 +553,7 @@
 		if(do_after(user, 50 * W.toolspeed, target = src))
 			if(terminal && opened && has_electronics!=2)
 				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal))
-					var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-					s.set_up(5, 1, src)
-					s.start()
+					do_sparks(5, 1, src)
 					return
 				new /obj/item/stack/cable_coil(loc,10)
 				to_chat(user, "<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
@@ -1076,9 +1072,7 @@
 				smoke.set_up(3, 0, src.loc)
 				smoke.attach(src)
 				smoke.start()
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
+				do_sparks(3, 1, src)
 				for(var/mob/M in viewers(src))
 					M.show_message("<span class='danger'>The [src.name] suddenly lets out a blast of smoke and some sparks!", 3, "<span class='danger'>You hear sizzling electronics.</span>", 2)
 

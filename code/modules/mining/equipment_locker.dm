@@ -352,9 +352,7 @@
 	updateUsrDialog()
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
+	do_sparks(5, 1, src)
 	if(severity == 1)
 		if(prob(50))
 			qdel(src)
@@ -564,9 +562,7 @@
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
+	do_sparks(5, 1, src)
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
 

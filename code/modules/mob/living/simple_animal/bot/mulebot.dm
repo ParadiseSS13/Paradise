@@ -847,9 +847,7 @@
 		cell.update_icon()
 		cell = null
 
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()
