@@ -271,6 +271,7 @@
 	if(candidates.len)
 		theghost = pick(candidates)
 		spawn_guardian(user, theghost.key)
+		desc += "\n[used_message]"
 	else
 		to_chat(user, "[failure_message]")
 		used = FALSE
@@ -325,83 +326,27 @@
 	user.verbs += /mob/living/proc/guardian_recall
 	user.verbs += /mob/living/proc/guardian_reset
 
-	var/color
+	create_theme(G, user)
 
-	//names and their RGB
+/obj/item/guardiancreator/proc/create_theme(var/mob/living/simple_animal/hostile/guardian/G, mob/living/user)
+
 	var/magic_list = list("Pink" = "#FFC0CB", \
 	"Red" = "#FF0000", \
 	"Orange" = "#FFA500", \
 	"Green" = "#008000", \
 	"Blue" = "#0000FF")
 
-	var/tech_list = list("Rose" = "#F62C6B", \
-	"Peony" = "#E54750", \
-	"Lily" = "#F6562C", \
-	"Daisy" = "#ECCD39", \
-	"Zinnia" = "#89F62C", \
-	"Ivy" = "#5DF62C", \
-	"Iris" = "#2CF6B8", \
-	"Petunia" = "#51A9D4", \
-	"Violet" = "#8A347C", \
-	"Lilac" = "#C7A0F6", \
-	"Orchid" = "#F62CF5")
+	var/color = pick(magic_list)
+	G.name_color = magic_list[color]
+	var/picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
-	var/bio_list = list("Rose" = "#F62C6B", \
-	"Peony" = "#E54750", \
-	"Lily" = "#F6562C", \
-	"Daisy" = "#ECCD39", \
-	"Zinnia" = "#89F62C", \
-	"Ivy" = "#5DF62C", \
-	"Iris" = "#2CF6B8", \
-	"Petunia" = "#51A9D4", \
-	"Violet" = "#8A347C", \
-	"Lilac" = "#C7A0F6", \
-	"Orchid" = "#F62CF5")
+	G.name = "[picked_name] [color]"
+	G.real_name = "[picked_name] [color]"
+	G.icon_living = "[theme][color]"
+	G.icon_state = "[theme][color]"
+	G.icon_dead = "[theme][color]"
 
-	var/picked_name
-//	var/picked_color = pick("#FFFFFF","#000000","#808080","#A52A2A","#FF0000","#8B0000","#DC143C","#FFA500","#FFFF00","#008000","#00FF00","#006400","#00FFFF","#0000FF","#000080","#008080","#800080","#4B0082")
-
-	switch(theme)
-		if("magic")
-			color = pick(magic_list)
-			G.name_color = magic_list[color]
-			picked_name = pick("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
-
-			G.name = "[picked_name] [color]"
-			G.real_name = "[picked_name] [color]"
-			G.icon_living = "[theme][color]"
-			G.icon_state = "[theme][color]"
-			G.icon_dead = "[theme][color]"
-
-			to_chat(user, "[G.magic_fluff_string].")
-		if("tech")
-			color = pick(tech_list) //technically not colors, just flowers that can be specific colors
-			G.name_color = tech_list[color]
-			picked_name = pick("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
-
-			G.name = "[picked_name] [color]"
-			G.real_name = "[picked_name] [color]"
-			G.icon_living = "[theme][color]"
-			G.icon_state = "[theme][color]"
-			G.icon_dead = "[theme][color]"
-
-			to_chat(user, "[G.tech_fluff_string].")
-			G.speak_emote = list("states")
-		if("bio")
-			color = pick(bio_list) //technically not colors, just using the same flowers as tech currerntly
-			G.name_color = tech_list[color]
-			picked_name = pick("brood", "hive", "nest")
-			to_chat(user, "[G.bio_fluff_string].")
-
-			G.name = "[color] [picked_name]"
-			G.real_name = "[color] [picked_name]"
-			G.icon_living = "[theme][color]"
-			G.icon_state = "[theme][color]"
-			G.icon_dead = "[theme][color]"
-
-			to_chat(user, "[G.bio_fluff_string].")
-			G.attacktext = "swarms"
-			G.speak_emote = list("chitters")
+	to_chat(user, "[G.magic_fluff_string].")
 
 /obj/item/guardiancreator/choose
 	random = FALSE
@@ -417,6 +362,32 @@
 	used_message = "The injector has already been used."
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
 	ling_failure = "The holoparasites recoil in horror. They want nothing to do with a creature like you."
+
+/obj/item/guardiancreator/tech/create_theme(var/mob/living/simple_animal/hostile/guardian/G, mob/living/user)
+	var/tech_list = list("Rose" = "#F62C6B", \
+	"Peony" = "#E54750", \
+	"Lily" = "#F6562C", \
+	"Daisy" = "#ECCD39", \
+	"Zinnia" = "#89F62C", \
+	"Ivy" = "#5DF62C", \
+	"Iris" = "#2CF6B8", \
+	"Petunia" = "#51A9D4", \
+	"Violet" = "#8A347C", \
+	"Lilac" = "#C7A0F6", \
+	"Orchid" = "#F62CF5")
+
+	var/color = pick(tech_list) //technically not colors, just flowers that can be specific colors
+	G.name_color = tech_list[color]
+	var/picked_name = pick("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
+
+	G.name = "[picked_name] [color]"
+	G.real_name = "[picked_name] [color]"
+	G.icon_living = "[theme][color]"
+	G.icon_state = "[theme][color]"
+	G.icon_dead = "[theme][color]"
+
+	to_chat(user, "[G.tech_fluff_string].")
+	G.speak_emote = list("states")
 
 /obj/item/guardiancreator/tech/check_uplink_validity()
 	return !used
@@ -434,6 +405,34 @@
 	use_message = "The eggs begin to twitch..."
 	used_message = "The cluster already hatched."
 	failure_message = "<B>...but soon settles again. Guess they weren't ready to hatch after all.</B>"
+
+/obj/item/guardiancreator/biological/create_theme(var/mob/living/simple_animal/hostile/guardian/G, mob/living/user)
+	var/bio_list = list("Rose" = "#F62C6B", \
+	"Peony" = "#E54750", \
+	"Lily" = "#F6562C", \
+	"Daisy" = "#ECCD39", \
+	"Zinnia" = "#89F62C", \
+	"Ivy" = "#5DF62C", \
+	"Iris" = "#2CF6B8", \
+	"Petunia" = "#51A9D4", \
+	"Violet" = "#8A347C", \
+	"Lilac" = "#C7A0F6", \
+	"Orchid" = "#F62CF5")
+
+	var/color = pick(bio_list) //technically not colors, just using the same flowers as tech currerntly
+	G.name_color = bio_list[color]
+	var/picked_name = pick("brood", "hive", "nest")
+	to_chat(user, "[G.bio_fluff_string].")
+
+	G.name = "[color] [picked_name]"
+	G.real_name = "[color] [picked_name]"
+	G.icon_living = "[theme][color]"
+	G.icon_state = "[theme][color]"
+	G.icon_dead = "[theme][color]"
+
+	to_chat(user, "[G.bio_fluff_string].")
+	G.attacktext = "swarms"
+	G.speak_emote = list("chitters")
 
 /obj/item/guardiancreator/biological/choose
 	random = FALSE
