@@ -30,9 +30,7 @@
 	var/obj/effect/decal/cleanable/blood/gibs/gib = null
 
 	if(sparks)
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(2, 1, location)
-		s.start()
+		do_sparks(2, 1, location)
 
 	for(var/i = 1, i<= gibtypes.len, i++)
 		if(gibamounts[i])

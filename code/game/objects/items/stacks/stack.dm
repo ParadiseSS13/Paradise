@@ -54,7 +54,7 @@
 			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
 		else
 			to_chat(user, "There are [amount] [name]\s in the stack.")
-		to_chat(user,"<span class='notice'>Alt-click to take a custom amount.</span>")
+		to_chat(user,"<span class='notice'>Ctrl-Shift-click to take a custom amount.</span>")
 
 /obj/item/stack/proc/add(newamount)
 	amount += newamount
@@ -269,7 +269,7 @@
 	else
 		..()
 
-/obj/item/stack/AltClick(mob/living/user)
+/obj/item/stack/CtrlShiftClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return

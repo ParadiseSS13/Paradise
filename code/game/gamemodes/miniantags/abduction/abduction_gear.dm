@@ -561,9 +561,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/restraints/handcuffs/energy/used/dropped(mob/user)
 	user.visible_message("<span class='danger'>[user]'s [src] break in a discharge of energy!</span>", \
 							"<span class='userdanger'>[user]'s [src] break in a discharge of energy!</span>")
-	var/datum/effect_system/spark_spread/S = new
-	S.set_up(4,0,user.loc)
-	S.start()
+	do_sparks(4, 0, user.loc)
 	. = ..()
 
 /obj/item/abductor_baton/examine(mob/user)
@@ -736,6 +734,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.
 	injected_reagents = list("corazone","spaceacillin")
+	reagent_target_amount = 31 //the patient needs at least 30u of spaceacillin to prevent necrotization.
+	inject_amount = 10
 
 /obj/structure/closet/abductor
 	name = "alien locker"

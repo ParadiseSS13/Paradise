@@ -25,9 +25,7 @@
 	if(triggered)
 		return
 	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 	mineEffect(victim)
 	triggered = 1
 	qdel(src)

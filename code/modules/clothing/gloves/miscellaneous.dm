@@ -92,9 +92,7 @@
 		if(H.a_intent == INTENT_HARM)
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(5, 0, loc)
-				s.start()
+				do_sparks(5, 0, loc)
 				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")

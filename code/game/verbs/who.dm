@@ -47,7 +47,7 @@
 
 			if(is_special_character(C.mob))
 				entry += " - <b><font color='red'>Antagonist</font></b>"
-			entry += " (<A HREF='?_src_=holder;adminmoreinfo=\ref[C.mob]'>?</A>)"
+			entry += " ([ADMIN_QUE(C.mob,"?")])"
 			Lines += entry
 	else
 		for(var/client/C in GLOB.clients)

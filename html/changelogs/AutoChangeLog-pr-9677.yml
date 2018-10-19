@@ -1,4 +1,0 @@
-author: "DesolateG"
-delete-after: True
-changes: 
-  - tweak: "Refactors global var lists to use the global subsystem."

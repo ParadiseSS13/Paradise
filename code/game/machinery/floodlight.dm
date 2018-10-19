@@ -15,7 +15,7 @@
 
 /obj/machinery/floodlight/Initialize()
 	. = ..()
-	src.cell = new(src)
+	cell = new(src)
 	mapVarInit()
 
 /obj/machinery/floodlight/Destroy()
@@ -26,13 +26,18 @@
 	icon_state = "flood[open ? "o" : ""][open && cell ? "b" : ""]0[on]"
 
 /obj/machinery/floodlight/process()
+	if(!cell && on)
+		on = FALSE
+		visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+		update_icon()
+		set_light(0)
 	if(on)
 		cell.charge -= use
 		if(cell.charge <= 0)
 			on = FALSE
 			updateicon()
 			set_light(0)
-			src.visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
 
 /obj/machinery/floodlight/attack_ai()
 	return
@@ -48,8 +53,12 @@
 		cell.add_fingerprint(user)
 		cell.update_icon()
 
-		src.cell = null
+		cell = null
 		to_chat(user, "You remove the power cell.")
+		if(on)
+			on = FALSE
+			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
+			set_light(0)
 		updateicon()
 		return
 
@@ -80,14 +89,14 @@
 /obj/machinery/floodlight/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/wrench))
 		if(!anchored && !isinspace())
-			playsound(src.loc, W.usesound, 50, 1)
+			playsound(loc, W.usesound, 50, 1)
 			user.visible_message( \
 				"[user] tightens \the [src]'s casters.", \
 				"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 				"You hear ratchet.")
 			anchored = TRUE
 		else if(anchored)
-			playsound(src.loc, W.usesound, 50, 1)
+			playsound(loc, W.usesound, 50, 1)
 			user.visible_message( \
 				"[user] loosens \the [src]'s casters.", \
 				"<span class='notice'> You have loosened \the [src]'s casters.</span>", \

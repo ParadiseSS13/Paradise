@@ -1,5 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - bugfix: "Ironsand is now visible in the Map Maker."
-  - bugfix: "Away missions updated with the appropriate dirt/grime so that it is now cleanable."

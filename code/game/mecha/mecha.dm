@@ -41,7 +41,7 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/emagged = 0
+	var/emagged = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -851,14 +851,8 @@
 		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 
 
-/obj/mecha/emag_act(user as mob)
-	if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
-		emagged = 1
-		to_chat(usr, "<span class='notice'>You slide the card through the [src]'s ID slot.</span>")
-		playsound(loc, "sparks", 100, 1)
-		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
-	else
-		to_chat(usr, "<span class='warning'>The [src]'s ID slot rejects the card.</span>")
+/obj/mecha/emag_act(mob/user)
+	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
 	return
 
 

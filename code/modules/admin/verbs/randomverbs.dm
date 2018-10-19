@@ -981,7 +981,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
 		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string]</TD>"
-		msg += "<TD>[get_area(H)]</TD><TD><A HREF='?_src_=holder;adminplayeropts=\ref[H]'>PP</A></TD>"
+		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
 		if(istype(H.loc, /obj/machinery/cryopod))
 			msg += "<TD>In Cryo</TD>"
 		else
