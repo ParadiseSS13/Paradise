@@ -15,9 +15,6 @@
 /turf/simulated/floor/plating/New()
 	..()
 	icon_plating = icon_state
-	if(icon == 'icons/turf/floors/plating.dmi')
-		smooth = SMOOTH_MORE
-		canSmoothWith = list(/turf/simulated/floor/plating, /turf/space)
 	update_icon()
 
 /turf/simulated/floor/plating/update_icon()
@@ -25,7 +22,6 @@
 		return
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
-	underlays += image(icon, icon_state)
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
