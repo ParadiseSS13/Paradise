@@ -38,6 +38,8 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		var/obj/item/paicard/card = locate(href_list["device"])
 		if(card.pai)
 			return
+		if(usr.incapacitated() || isobserver(usr) || !card.Adjacent(usr))
+			return
 		if(istype(card,/obj/item/paicard) && istype(candidate,/datum/paiCandidate))
 			var/mob/living/silicon/pai/pai = new(card)
 			if(!candidate.name)
