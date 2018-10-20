@@ -9,11 +9,11 @@
 	slot_flags = SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
-	var/on = 0
+	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 
 /obj/item/flashlight/Initialize()
-	..()
+	. = ..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 		set_light(brightness_on)
@@ -198,9 +198,10 @@ obj/item/flashlight/lamp/bananalamp
 
 	// Usual checks
 	if(!fuel)
-		to_chat(user, "<span class='notice'>It's out of fuel.</span>")
+		to_chat(user, "<span class='notice'>[src] is out of fuel.</span>")
 		return
 	if(on)
+		to_chat(user, "<span class='notice'>[src] is already on.</span>")
 		return
 
 	. = ..()
@@ -260,10 +261,11 @@ obj/item/flashlight/lamp/bananalamp
 
 /obj/item/flashlight/emp/process()
 	charge_tick++
-	if(charge_tick < 10) return 0
+	if(charge_tick < 10)
+		return FALSE
 	charge_tick = 0
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
-	return 1
+	return TRUE
 
 /obj/item/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
 	if(on && user.zone_sel.selecting == "eyes") // call original attack proc only if aiming at the eyes
@@ -300,3 +302,99 @@ obj/item/flashlight/lamp/bananalamp
 	var/range = null
 	unacidable = TRUE
 	burn_state = LAVA_PROOF
+
+/obj/item/flashlight/glowstick
+	name = "green glowstick"
+	desc = "A military-grade glowstick."
+	w_class = WEIGHT_CLASS_SMALL
+	brightness_on = 4
+	color = LIGHT_COLOR_GREEN
+	icon_state = "glowstick"
+	item_state = "glowstick"
+	var/fuel = 0
+
+/obj/item/flashlight/glowstick/Initialize()
+	fuel = rand(1600, 2000)
+	light_color = color
+	. = ..()
+
+/obj/item/flashlight/glowstick/Destroy()
+	processing_objects.Remove(src)
+	. = ..()
+
+/obj/item/flashlight/glowstick/process()
+	fuel = max(fuel - 1, 0)
+	if(!fuel)
+		turn_off()
+		processing_objects.Remove(src)
+		update_icon()
+
+/obj/item/flashlight/glowstick/proc/turn_off()
+	on = FALSE
+	update_icon()
+
+/obj/item/flashlight/glowstick/update_icon()
+	item_state = "glowstick"
+	cut_overlays()
+	if(!fuel)
+		icon_state = "glowstick-empty"
+		cut_overlays()
+		update_brightness(0)
+	else if(on)
+		var/mutable_appearance/glowstick_overlay = mutable_appearance(icon, "glowstick-glow")
+		glowstick_overlay.color = color
+		add_overlay(glowstick_overlay)
+		item_state = "glowstick-on"
+		update_brightness(brightness_on)
+	else
+		icon_state = "glowstick"
+		cut_overlays()
+
+/obj/item/flashlight/glowstick/attack_self(mob/user)
+	if(!fuel)
+		to_chat(user, "<span class='notice'>[src] is spent.</span>")
+		return
+	if(on)
+		to_chat(user, "<span class='notice'>[src] is already lit.</span>")
+		return
+
+ 	. = ..()
+	user.visible_message("<span class='notice'>[user] cracks and shakes [src].</span>", "<span class='notice'>You crack and shake [src], turning it on!</span>")
+	activate()
+
+/obj/item/flashlight/glowstick/proc/activate()
+	if(!on)
+		on = TRUE
+		processing_objects.Add(src)
+		update_icon()
+
+/obj/item/flashlight/glowstick/red
+	name = "red glowstick"
+	color = LIGHT_COLOR_RED
+
+/obj/item/flashlight/glowstick/blue
+	name = "blue glowstick"
+	color = LIGHT_COLOR_BLUE
+
+/obj/item/flashlight/glowstick/orange
+	name = "orange glowstick"
+	color = LIGHT_COLOR_ORANGE
+
+/obj/item/flashlight/glowstick/yellow
+	name = "yellow glowstick"
+	color = LIGHT_COLOR_YELLOW
+
+/obj/item/flashlight/glowstick/pink
+	name = "pink glowstick"
+	color = LIGHT_COLOR_PINK
+
+/obj/item/flashlight/glowstick/random
+	name = "random colored glowstick"
+	icon_state = "random_glowstick"
+	color = null
+
+/obj/item/flashlight/glowstick/random/Initialize()
+	..()
+	var/T = pick(typesof(/obj/item/flashlight/glowstick) - /obj/item/flashlight/glowstick/random)
+	new T(loc)
+	return INITIALIZE_HINT_QDEL

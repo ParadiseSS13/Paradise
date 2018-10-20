@@ -38,7 +38,7 @@
 	to_chat(src,"FUCKKK")
 	if(..())
 		return
-	to_chat(src,"FUCKKKssss")
+	to_chat(src, GLOB.mob_spawners.len)
 	var/spawner_ref = pick(GLOB.mob_spawners[href_list["name"]])
 	var/obj/effect/mob_spawn/MS = locate(spawner_ref) in GLOB.poi_list
 	if(!MS)
