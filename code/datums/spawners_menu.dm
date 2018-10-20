@@ -35,17 +35,16 @@
 	return data
 
 /datum/spawners_menu/Topic(href, href_list)
-	to_chat(src,"FUCKKK")
 	if(..())
-		return
-	to_chat(src, GLOB.mob_spawners.len)
-	var/spawner_ref = pick(GLOB.mob_spawners[href_list["name"]])
+		return 1
+	//var/spawner_ref = pick(GLOB.mob_spawners[href_list["name"]])
+	var/spawner_ref = href["name"]
+	to_chat(src,spawner_ref)
 	var/obj/effect/mob_spawn/MS = locate(spawner_ref) in GLOB.poi_list
 	if(!MS)
-		to_chat(src,"wank")
 		return
-	to_chat(src,"FUCweweKKK")
-	switch(href_list)
+	to_chat(src,"ms passed!")
+	switch(href)
 		if("jump")
 			if(MS)
 				owner.forceMove(get_turf(MS))

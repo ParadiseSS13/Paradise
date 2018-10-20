@@ -1,16 +1,18 @@
 <div class='statusDisplay'>
-	{{for data.spawners}}
-		<div class='item'>
-			<div class='itemLabel'>
-				{{:value.name}}
+	<table style='width:100%;'>
+		{{for data.spawners}}
+			<div class='item'>
+				<div class='itemLabel'>
+					{{:value.name}}
+				</div>
+				<div class='itemContent'>
+					{{:value.desc}}
+				</div>
+				<div class='floatRight'>
+					{{:helper.link('Jump', null, {'action': value.name})}}
+					{{:helper.link('Spawn', null, {'action': value.name})}}
+				</div>
 			</div>
-			<div class='itemContent'>
-				{{:value.desc}}
-			</div>
-			<div class='floatRight'>
-				{{:helper.link('Jump', '', {'jump': value.name})}}
-				{{:helper.link('Spawn', '', {'spawn': value.name})}}
-			</div>
-		</div>
-	{{/for}}
+		{{/for}}
+	</table>
 </div>
