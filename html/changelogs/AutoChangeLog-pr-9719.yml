@@ -1,0 +1,4 @@
+author: "Purpose"
+delete-after: True
+changes: 
+  - tweak: "Moves Icon Smoothing to a Subsystem."
