@@ -1,0 +1,4 @@
+author: "Desolate"
+delete-after: True
+changes: 
+  - tweak: "Refactors some reagent lists into global list"
