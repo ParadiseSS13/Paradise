@@ -76,7 +76,7 @@
 	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
 	subspace_transmission = 1
-	syndiekey = new /obj/item/encryptionkey/syndicate
+	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/intercom/syndicate/New()
 	..()

@@ -397,7 +397,7 @@ var/global/list/default_medbay_channels = list(
 		jobname = "Unknown"
 		voicemask = 1
 
-	if(syndiekey && connection.frequency == SYND_FREQ)
+	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
 		jobname = "Unknown"
 		voicemask = 1

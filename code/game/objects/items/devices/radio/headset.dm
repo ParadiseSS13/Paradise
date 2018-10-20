@@ -83,7 +83,7 @@
 
 /obj/item/radio/headset/syndicate
 	origin_tech = "syndicate=3"
-	ks1type = /obj/item/encryptionkey/syndicate
+	ks1type = /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
