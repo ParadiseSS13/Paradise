@@ -1627,7 +1627,7 @@
 /obj/item/clothing/under/lennoxsuit
 	name = "Lennox Captain Suit"
 	desc = "High tech protective suit made for NT operatives on the field. Adapted for Lennox to be used as an uniform"
-	icon = 'icons/hispania/obj/items.dmi'
+	icon = 'icons/hispania/obj/clothing/uniforms.dmi'
 	icon_state = "lennoxsuit"
 	item_state = "lennoxsuit"
 	item_color = "lennoxsuit"
