@@ -321,7 +321,11 @@
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
+<<<<<<< HEAD
 		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words �Property of Yon-Dale� can be seen on the inner band."
+=======
+		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words Property of Yon-Dale can be seen on the inner band."
+>>>>>>> ea39e6765911304af2e1277a53046b75bdea3d93
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.species_fit = list("Vulpkanin")
@@ -1617,6 +1621,35 @@
 
 //ASDFLYY TOASTER BRAIN ENDS HERE
 
+
+//MELTYAS LENNOX SUITS START HERE
+
+/obj/item/clothing/under/lennoxsuit
+	name = "Lennox Captain Suit"
+	desc = "High tech protective suit made for NT operatives on the field. Adapted for Lennox to be used as an uniform"
+	icon = 'icons/hispania/obj/items.dmi'
+	icon_state = "lennoxsuit"
+	item_state = "lennoxsuit"
+	item_color = "lennoxsuit"
+	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+
+//MELTYAS LENNOX SUITS ENDS HERE
+
+/obj/item/hand_tele/ryzor
+	name = "RyzorCo. Experimental Hand tele"
+	desc = "An experimental portable item using blue-space technology. It has a grumpy face."
+	icon = 'icons/hispania/obj/items.dmi'
+	icon_state = "hand_tele_ry"
+	item_state = "electronic"
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 3
+	throw_range = 5
+	materials = list(MAT_METAL=10000)
+	origin_tech = "magnets=3;bluespace=4"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
+
+
 // Funci�n de mierda que detecta cuando un pj entra a la estaci�n
 /mob/new_player/proc/start_player(mob/user)
 	var/mob/living/carbon/human/target = user
@@ -1639,3 +1672,4 @@
 	//                    ---
 
 	return
+
