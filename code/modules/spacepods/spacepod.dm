@@ -234,9 +234,9 @@
 		spawn(0)
 			message_to_riders("<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
 			for(var/i in 1 to 3)
-				var/count = 1
+				var/count = 3
 				message_to_riders("<span class='warning'>[count]</span>")
-				count++
+				count--
 				sleep(10)
 			if(LAZYLEN(pilot) || LAZYLEN(passengers))
 				for(var/M in passengers + pilot)
