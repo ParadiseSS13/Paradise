@@ -227,7 +227,7 @@
 					//Welding tools
 					if(istype(O, /obj/item/weldingtool))
 						var/obj/item/weldingtool/weld = O
-						ext.reagents.check_and_add("fuel", weld.max_fuel, 2 * coeff)
+						weld.reagents.check_and_add("fuel", weld.max_fuel, 2 * coeff)
 				if(R)
 					if(R.module)
 						R.module.respawn_consumable(R)
