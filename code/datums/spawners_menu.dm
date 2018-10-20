@@ -19,9 +19,9 @@
 		var/list/this = list()
 		this["name"] = spawner
 		this["desc"] = ""
-		this["refs"] = list()
+		this["uids"] = list()
 		for(var/spawner_obj in GLOB.mob_spawners[spawner])
-			this["refs"] += "[UID(spawner_obj)]"
+			this["uids"] += "[UID(spawner_obj)]"
 			if(!this["desc"])
 				if(istype(spawner_obj, /obj/effect/mob_spawn))
 					var/obj/effect/mob_spawn/MS = spawner_obj
@@ -38,13 +38,15 @@
 	if(..())
 		return 1
 	//var/spawner_ref = pick(GLOB.mob_spawners[href_list["name"]])
-	var/spawner_ref = href["name"]
-	to_chat(src,spawner_ref)
-	var/obj/effect/mob_spawn/MS = locate(spawner_ref) in GLOB.poi_list
+	var/spawners = href_list["uid"]
+	spawners = replacetext(spawners, ",", ";")
+	to_chat(world, spawners)
+	var/list/possible_spawners = params2list(spawners)
+	var/obj/effect/mob_spawn/MS = locateUID(pick(possible_spawners))
 	if(!MS)
 		return
-	to_chat(src,"ms passed!")
-	switch(href)
+	to_chat(world,"ms passed!")
+	switch(href_list["action"])
 		if("jump")
 			if(MS)
 				owner.forceMove(get_turf(MS))
@@ -53,4 +55,4 @@
 			if(MS)
 				MS.attack_ghost(owner)
 				. = TRUE
-	to_chat(src,"FUzxcCKKK")
+	to_chat(world,"FUzxcCKKK")
