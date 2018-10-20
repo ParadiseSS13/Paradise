@@ -1,0 +1,4 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - bugfix: "It is no longer possible to duplicate uvents."
