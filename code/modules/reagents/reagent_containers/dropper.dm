@@ -122,7 +122,7 @@
 				injected += R.name
 				var/datum/reagent/blood/B = R
 
-				if(B && B.data["viruses"])
+				if(istype(B) && B.data["viruses"])
 					var/virList = list()
 					for(var/dis in B.data["viruses"])
 						var/datum/disease/D = dis
