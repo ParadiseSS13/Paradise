@@ -492,9 +492,7 @@
 					if(water_level && prob(45))			//If there is water, there is a chance the cat will slip, Syndicat will spark like E-N when this happens
 						M.visible_message("<span class='notice'>[M.name] slipped and got soaked!</span>", "<span class='notice'>You slipped and got soaked!</span>")
 						if(istype(M, /mob/living/simple_animal/pet/cat/Syndi))
-							var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-							s.set_up(3, 1, src)
-							s.start()
+							do_sparks(3, 1, src)
 					else								//No water or didn't slip, get that fish!
 						M.visible_message("<span class='warning'>[M.name] catches and devours a live fish!</span>", "<span class='notice'>You catch and devour a live fish, yum!</span>")
 						kill_fish()						//Kill a random fish

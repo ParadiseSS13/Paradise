@@ -17,11 +17,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
 		if(T.smooth)
-			smooth_icon(T)
+			queue_smooth(T)
 		for(var/R in T)
 			var/atom/A = R
 			if(A.smooth)
-				smooth_icon(A)
+				queue_smooth(A)
 		if(istype(T, /turf/simulated/mineral)) // For the listening post, among other maps
 			var/turf/simulated/mineral/MT = T
 			MT.add_edges()

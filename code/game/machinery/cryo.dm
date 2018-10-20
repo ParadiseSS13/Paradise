@@ -1,5 +1,6 @@
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
+	desc = "Lowers the body temperature so certain medications may take effect."
 	icon = 'icons/obj/cryogenics.dmi'
 	icon_state = "pod0"
 	density = 1

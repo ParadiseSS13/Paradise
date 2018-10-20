@@ -220,6 +220,14 @@
 						var/i = 1
 						for(1, i <= coeff, i++)
 							LR.Charge(occupant)
+					//Fire extinguisher
+					if(istype(O, /obj/item/extinguisher))
+						var/obj/item/extinguisher/ext = O
+						ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
+					//Welding tools
+					if(istype(O, /obj/item/weldingtool))
+						var/obj/item/weldingtool/weld = O
+						weld.reagents.check_and_add("fuel", weld.max_fuel, 2 * coeff)
 				if(R)
 					if(R.module)
 						R.module.respawn_consumable(R)

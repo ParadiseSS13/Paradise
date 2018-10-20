@@ -392,9 +392,7 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
-	var/datum/effect_system/spark_spread/s = new
-	s.set_up(2, 1, src)
-	s.start()
+	do_sparks(2, 1, src)
 	icon_state = broken_icon // Make it look all busted up and shit
 	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
 	broken = 2 // Make it broken so it can't be used util fixed

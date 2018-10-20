@@ -261,9 +261,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		if(istype(target,/mob/living) && message)
 			to_chat(target, text("[message]"))
 		if(sparks_spread)
-			var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread()
-			sparks.set_up(sparks_amt, 0, location) //no idea what the 0 is
-			sparks.start()
+			do_sparks(sparks_amt, 0, location)
 		if(smoke_spread)
 			if(smoke_spread == 1)
 				var/datum/effect_system/smoke_spread/smoke = new
@@ -328,10 +326,10 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 
 /obj/effect/proc_holder/spell/targeted/choose_targets(mob/user = usr)
 	var/list/targets = list()
-	
+
 	switch(max_targets)
 		if(0) //unlimited
-		
+
 			if(!humans_only)
 				for(var/mob/living/target in view_or_range(range, user, selection_type))
 					targets += target
@@ -344,7 +342,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 				targets += user
 			else
 				var/possible_targets = list()
-				
+
 				if(!humans_only)
 					for(var/mob/living/M in view_or_range(range, user, selection_type))
 						if(!include_user && user == M)

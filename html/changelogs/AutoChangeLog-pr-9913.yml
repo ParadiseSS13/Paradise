@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - tweak: "Cyborgs can now refill welding tools and fire extinguishers using the recharging station"

@@ -48,9 +48,7 @@
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //exploding after touching yourself would be bad
 		return
 	var/mob/M = target
-	var/datum/effect_system/spark_spread/sparks = new
-	sparks.set_up(4, 0, M.loc) //no idea what the 0 is
-	sparks.start()
+	do_sparks(4, 0, M.loc) //no idea what the 0 is
 	M.gib()
 	..()
 
@@ -84,9 +82,7 @@
 /obj/item/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.lying || user.handcuffed) //not exploding after touching yourself would be bad
 		return
-	var/datum/effect_system/spark_spread/sparks = new
-	sparks.set_up(4, 0, target.loc) //no idea what the 0 is
-	sparks.start()
+	do_sparks(4, 0, target.loc)
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
 	..()
 

@@ -76,8 +76,7 @@
 	if(autoclose_timer)
 		deltimer(autoclose_timer)
 		autoclose_timer = 0
-	if(spark_system)
-		QDEL_NULL(spark_system)
+	QDEL_NULL(spark_system)
 	return ..()
 
 /obj/machinery/door/Bumped(atom/AM)

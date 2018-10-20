@@ -9,7 +9,7 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 	var/mob_type = null
-	var/mob_name = ""
+	var/mob_name = "unidentified entity"
 	var/mob_gender = null
 	var/death = TRUE //Kill the mob
 	var/roundstart = TRUE //fires on initialize
@@ -48,7 +48,7 @@
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
-	if(instant || (roundstart && (ticker && ticker.current_state > GAME_STATE_SETTING_UP)))
+	if(instant || roundstart)	//at some point we should probably re-introduce the (ticker && ticker.current_state > GAME_STATE_SETTING_UP) portion of this check, but for now it was preventing the corpses from spawning at roundstart and resulting in ghost role spawners that made dead bodies.
 		create()
 	else
 		GLOB.poi_list |= src
@@ -83,7 +83,7 @@
 	if(disease)
 		M.ForceContractDisease(new disease)
 	if(death)
-		M.death(1) //Kills the new mob
+		M.death() //Kills the new mob
 
 	M.adjustOxyLoss(oxy_damage)
 	M.adjustBruteLoss(brute_damage)
@@ -155,6 +155,8 @@
 		outfit = new outfit()
 	if(!outfit)
 		outfit = new /datum/outfit
+	if(!mob_name)
+		mob_name = id_job
 	return ..()
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
@@ -271,6 +273,7 @@
 
 /obj/effect/mob_spawn/human/corpse/assistant
 	name = "Assistant"
+	mob_name = "Assistant"
 	id_job = "Assistant"
 	outfit = /datum/outfit/job/assistant
 
@@ -285,11 +288,13 @@
 
 /obj/effect/mob_spawn/human/cook
 	name = "Cook"
+	mob_name = "Chef"
 	id_job = "Chef"
 	outfit = /datum/outfit/job/chef
 
 /obj/effect/mob_spawn/human/doctor
 	name = "Doctor"
+	mob_name = "Medical Doctor"
 	id_job = "Medical Doctor"
 	outfit = /datum/outfit/job/doctor
 
@@ -313,6 +318,7 @@
 
 /obj/effect/mob_spawn/human/engineer
 	name = "Engineer"
+	mob_name = "Engineer"
 	id_job = "Engineer"
 	outfit = /datum/outfit/job/engineer
 
@@ -393,16 +399,18 @@
 
 /obj/effect/mob_spawn/human/scientist
 	name = "Scientist"
+	mob_name = "Scientist"
 	id_job = "Scientist"
 	outfit = /datum/outfit/job/scientist
 
 /obj/effect/mob_spawn/human/miner
 	name = "Shaft Miner"
+	mob_name = "Shaft Miner"
 	id_job = "Shaft Miner"
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	name = "Station Engineer"
+	name = "Shaft Miner"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	head = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
@@ -416,6 +424,7 @@
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
+	mob_name = "Bartender"
 	id_job = "Bartender"
 	id_access_list = list(access_bar)
 	outfit = /datum/outfit/spacebartender
@@ -479,6 +488,7 @@
 
 /obj/effect/mob_spawn/human/bridgeofficer
 	name = "Bridge Officer"
+	mob_name = "Bridge Officer"
 	id_job = "Bridge Officer"
 	id_access = "Captain"
 	outfit = /datum/outfit/nanotrasenbridgeofficercorpse
@@ -495,6 +505,7 @@
 
 /obj/effect/mob_spawn/human/commander
 	name = "Commander"
+	mob_name = "Commander"
 	id_job = "Commander"
 	id_access = "Captain"
 	outfit = /datum/outfit/nanotrasencommandercorpse
