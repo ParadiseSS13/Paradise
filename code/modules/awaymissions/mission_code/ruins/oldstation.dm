@@ -177,6 +177,10 @@
 	..()
 
 // Chemical bottles
+/obj/item/reagent_containers/glass/bottle/aluminum
+	name = "aluminum bottle"
+	list_reagents = list("aluminum" = 30)
+
 /obj/item/reagent_containers/glass/bottle/hydrogen
 	name = "hydrogen bottle"
 	list_reagents = list("hydrogen" = 30)
