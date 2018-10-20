@@ -236,19 +236,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	name = "AI"
 	icon_state = "AI"
 	delete_after_roundstart = FALSE
-	var/primary_ai = TRUE
-	var/latejoin_active = TRUE
 
-/obj/effect/landmark/start/ai/after_round_start()
-	if(latejoin_active && !used)
-		new /obj/structure/AIcore/deactivated(loc)
-	return ..()
-
-/obj/effect/landmark/start/ai/secondary
+/obj/effect/landmark/start/tripai
+	name = "tripai"
 	icon = 'icons/effects/landmarks_static.dmi'
 	icon_state = "ai_spawn"
-	primary_ai = FALSE
-	latejoin_active = FALSE
 
 // Karma //
 
@@ -261,8 +253,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	icon_state = "Mechanic"
 
 /obj/effect/landmark/start/podpilot
-	name = "Pod Pilot"
-	icon_state = "Security Pod Pilot"
+	name = "Security Pod Pilot"
+	icon_state = "Pod Pilot"
 
 /obj/effect/landmark/start/barber
 	name = "Barber"

@@ -49,10 +49,10 @@ var/global/list/empty_playable_ai_cores = list()
 			continue
 		loc_landmark = sloc
 	if(!loc_landmark)
-		for(var/obj/effect/landmark/start/ai/secondary/tripai in GLOB.landmarks_list)
-			if(locate(/mob/living) in tripai.loc)
+		for(var/obj/effect/landmark/start/tripai/tripleai in GLOB.landmarks_list)
+			if(locate(/mob/living) in tripleai.loc)
 				continue
-			loc_landmark = tripai
+			loc_landmark = tripleai
 	if(!loc_landmark)
 		to_chat(src, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.")
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
