@@ -25,7 +25,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	var/ghostvision = 1 //is the ghost able to see things humans can't?
 	var/seedarkness = 1
 	var/data_hud_seen = 0 //this should one of the defines in __DEFINES/hud.dm
-	var/datum/spawners_menu/spawners_menu
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -98,7 +97,6 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		ghost_darkness_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
-		QDEL_NULL(spawners_menu)
 	return ..()
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
@@ -687,6 +685,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Mob spawners menu"
 	set desc = "See all currently available ghost spawners"
 	set category = "Ghost"
-	if(!spawners_menu)
-		spawners_menu = new(src)
- 	spawners_menu.ui_interact(src) 
+	
+	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
+	menu.ui_interact(src)
