@@ -152,8 +152,13 @@ RCD
 				var/obj/item/pda/pda = I
 				I = pda.id
 			var/obj/item/card/id/ID = I
-			if(istype(ID) && ID && check_access(ID))
-				locked = 0
+			if(istype(ID) && ID)
+				if(check_access(ID))
+					locked = 0
+				else 
+					to_chat(user, "<span class='warning'>This ID lacks access.</span>")
+			else
+				to_chat(user, "<span class='warning'>You can't swipe without your ID in hand.</span>")
 		. = 1
 
 	if(href_list["logout"])
