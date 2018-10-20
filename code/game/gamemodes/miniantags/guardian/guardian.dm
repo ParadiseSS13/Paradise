@@ -251,10 +251,10 @@
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = TRUE
-	var/color_list = list("Pink" = "#FFC0CB", 
-		"Red" = "#FF0000", 
-		"Orange" = "#FFA500", 
-		"Green" = "#008000", 
+	var/color_list = list("Pink" = "#FFC0CB",
+		"Red" = "#FF0000",
+		"Orange" = "#FFA500",
+		"Green" = "#008000",
 		"Blue" = "#0000FF")
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
@@ -277,11 +277,14 @@
 	if(candidates.len)
 		theghost = pick(candidates)
 		spawn_guardian(user, theghost.key)
-		desc += "\n[used_message]"
 	else
 		to_chat(user, "[failure_message]")
 		used = FALSE
 
+/obj/item/guardiancreator/examine(mob/user, distance)
+	. = ..()
+	if(used)
+		to_chat(user, "<span class='notice'>[used_message]</span>")
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key)
 	var/guardian_type = "Standard"
@@ -332,7 +335,7 @@
 	user.verbs += /mob/living/proc/guardian_recall
 	user.verbs += /mob/living/proc/guardian_reset
 
-	var/color = pick(color_list) 
+	var/color = pick(color_list)
 	G.name_color = color_list[color]
 	var/picked_name = pick(name_list)
 	create_theme(G, user, picked_name, color)
@@ -359,16 +362,16 @@
 	used_message = "The injector has already been used."
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
 	ling_failure = "The holoparasites recoil in horror. They want nothing to do with a creature like you."
-	color_list = list("Rose" = "#F62C6B", 
-		"Peony" = "#E54750", 
-		"Lily" = "#F6562C", 
-		"Daisy" = "#ECCD39", 
-		"Zinnia" = "#89F62C", 
-		"Ivy" = "#5DF62C", 
+	color_list = list("Rose" = "#F62C6B",
+		"Peony" = "#E54750",
+		"Lily" = "#F6562C",
+		"Daisy" = "#ECCD39",
+		"Zinnia" = "#89F62C",
+		"Ivy" = "#5DF62C",
 		"Iris" = "#2CF6B8",
-		"Petunia" = "#51A9D4", 
-		"Violet" = "#8A347C", 
-		"Lilac" = "#C7A0F6", 
+		"Petunia" = "#51A9D4",
+		"Violet" = "#8A347C",
+		"Lilac" = "#C7A0F6",
 		"Orchid" = "#F62CF5")
 	name_list = list("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 
@@ -397,16 +400,16 @@
 	use_message = "The eggs begin to twitch..."
 	used_message = "The cluster already hatched."
 	failure_message = "<B>...but soon settles again. Guess they weren't ready to hatch after all.</B>"
-	color_list = list("Rose" = "#F62C6B", 
-		"Peony" = "#E54750", 
-		"Lily" = "#F6562C", 
-		"Daisy" = "#ECCD39", 
-		"Zinnia" = "#89F62C", 
-		"Ivy" = "#5DF62C", 
-		"Iris" = "#2CF6B8", 
-		"Petunia" = "#51A9D4", 
-		"Violet" = "#8A347C", 
-		"Lilac" = "#C7A0F6", 
+	color_list = list("Rose" = "#F62C6B",
+		"Peony" = "#E54750",
+		"Lily" = "#F6562C",
+		"Daisy" = "#ECCD39",
+		"Zinnia" = "#89F62C",
+		"Ivy" = "#5DF62C",
+		"Iris" = "#2CF6B8",
+		"Petunia" = "#51A9D4",
+		"Violet" = "#8A347C",
+		"Lilac" = "#C7A0F6",
 		"Orchid" = "#F62CF5")
 	name_list = list("brood", "hive", "nest")
 
