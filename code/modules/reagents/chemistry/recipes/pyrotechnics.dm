@@ -121,7 +121,7 @@
 
 /datum/chemical_reaction/liquid_dark_matter/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
-		return FALSE
+		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	goonchem_vortex(T, 0, round(created_volume / 33), round(created_volume / 25))
 	holder.remove_reagent("liquid_dark_matter", created_volume)
