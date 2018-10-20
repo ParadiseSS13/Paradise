@@ -1,0 +1,4 @@
+author: "craftxbox"
+delete-after: True
+changes: 
+  - bugfix: "added check to make sure person downloading pAI isnt dead."

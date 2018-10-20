@@ -347,7 +347,7 @@
 	G.icon_state = "[theme][color]"
 	G.icon_dead = "[theme][color]"
 	to_chat(user, "[G.magic_fluff_string].")
-
+	
 /obj/item/guardiancreator/choose
 	random = FALSE
 
