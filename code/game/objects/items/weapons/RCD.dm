@@ -156,9 +156,9 @@ RCD
 				if(check_access(ID))
 					locked = 0
 				else 
-					to_chat(user, "<span class='warning'>This ID lacks access.</span>")
+					to_chat(usr, "<span class='warning'>This ID lacks access.</span>")
 			else
-				to_chat(user, "<span class='warning'>You can't swipe without your ID in hand.</span>")
+				to_chat(usr, "<span class='warning'>You can't swipe without your ID in hand.</span>")
 		. = 1
 
 	if(href_list["logout"])
