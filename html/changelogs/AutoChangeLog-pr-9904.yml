@@ -1,4 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - tweak: "Guardian injectors now tell in their examination text if they are spend or not."
