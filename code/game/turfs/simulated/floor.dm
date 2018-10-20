@@ -180,7 +180,6 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	var/turf/simulated/floor/plating/P = pry_tile(CB, user, TRUE)
 	if(!istype(P))
 		return
-	update_icon()
 	P.attackby(T, user, params)
 
 /turf/simulated/floor/proc/pry_tile(obj/item/C, mob/user, silent = FALSE)

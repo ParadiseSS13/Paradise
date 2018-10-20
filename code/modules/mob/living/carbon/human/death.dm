@@ -19,8 +19,9 @@
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
 			var/atom/movable/thing = I.remove(src)
-			thing.forceMove(get_turf(src))
-			thing.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
+			if(thing)
+				thing.forceMove(get_turf(src))
+				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
 
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(istype(E, /obj/item/organ/external/chest))
@@ -41,9 +42,7 @@
 		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
+		do_sparks(3, 1, src)
 	QDEL_IN(animation, 15)
 	QDEL_IN(src, 0)
 	return TRUE

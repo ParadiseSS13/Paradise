@@ -4,10 +4,11 @@ var/global/file_uid = 0
 	var/filename = "NewFile" 								// Placeholder. No spacebars
 	var/filetype = "XXX" 									// File full names are [filename].[filetype] so like NewFile.XXX in this case
 	var/size = 1											// File size in GQ. Integers only!
-	var/obj/item/computer_hardware/hard_drive/holder	// Holder that contains this file.
+	var/obj/item/computer_hardware/hard_drive/holder		// Holder that contains this file.
 	var/unsendable = 0										// Whether the file may be sent to someone via NTNet transfer or other means.
 	var/undeletable = 0										// Whether the file may be deleted. Setting to 1 prevents deletion/renaming/etc.
 	var/uid													// UID of this file
+	var/password = ""										// Placeholder for password.
 
 /datum/computer_file/New()
 	..()
@@ -36,4 +37,14 @@ var/global/file_uid = 0
 	else
 		temp.filename = filename
 	temp.filetype = filetype
+	temp.password = password
 	return temp
+
+/datum/computer_file/proc/can_access_file(mob/user, input_password = "")
+	if(!password)
+		return TRUE
+	if(!input_password)
+		input_password = sanitize(input(user, "Please enter a password to access file '[filename]':"))
+	if(input_password == password)
+		return TRUE
+	return FALSE

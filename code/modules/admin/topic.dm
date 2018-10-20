@@ -13,7 +13,7 @@
 	if(href_list["rejectadminhelp"])
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
-		var/client/C = locate(href_list["rejectadminhelp"])
+		var/client/C = locateUID(href_list["rejectadminhelp"])
 		if(!C)
 			return
 
@@ -317,7 +317,7 @@
 	else if(href_list["simplemake"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/M = locate(href_list["mob"])
+		var/mob/M = locateUID(href_list["mob"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -426,7 +426,7 @@
 	else if(href_list["appearanceban"])
 		if(!check_rights(R_BAN))
 			return
-		var/mob/M = locate(href_list["appearanceban"])
+		var/mob/M = locateUID(href_list["appearanceban"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -475,7 +475,7 @@
 	else if(href_list["jobban2"])
 //		if(!check_rights(R_BAN))	return
 
-		var/mob/M = locate(href_list["jobban2"])
+		var/mob/M = locateUID(href_list["jobban2"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -501,17 +501,17 @@
 //Regular jobs
 	//Command (Blue)
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(command_positions)]'><a href='?src=[UID()];jobban3=commanddept;jobban4=\ref[M]'>Command Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr align='center' bgcolor='ccccff'><th colspan='[length(command_positions)]'><a href='?src=[UID()];jobban3=commanddept;jobban4=[M.UID()]'>Command Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in command_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 6) //So things dont get squiiiiished!
@@ -522,17 +522,17 @@
 	//Security (Red)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(security_positions)]'><a href='?src=[UID()];jobban3=securitydept;jobban4=\ref[M]'>Security Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffddf0'><th colspan='[length(security_positions)]'><a href='?src=[UID()];jobban3=securitydept;jobban4=[M.UID()]'>Security Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in security_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -543,17 +543,17 @@
 	//Engineering (Yellow)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(engineering_positions)]'><a href='?src=[UID()];jobban3=engineeringdept;jobban4=\ref[M]'>Engineering Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='fff5cc'><th colspan='[length(engineering_positions)]'><a href='?src=[UID()];jobban3=engineeringdept;jobban4=[M.UID()]'>Engineering Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in engineering_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -564,17 +564,17 @@
 	//Medical (White)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(medical_positions)]'><a href='?src=[UID()];jobban3=medicaldept;jobban4=\ref[M]'>Medical Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffeef0'><th colspan='[length(medical_positions)]'><a href='?src=[UID()];jobban3=medicaldept;jobban4=[M.UID()]'>Medical Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in medical_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -585,17 +585,17 @@
 	//Science (Purple)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='e79fff'><th colspan='[length(science_positions)]'><a href='?src=[UID()];jobban3=sciencedept;jobban4=\ref[M]'>Science Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='e79fff'><th colspan='[length(science_positions)]'><a href='?src=[UID()];jobban3=sciencedept;jobban4=[M.UID()]'>Science Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in science_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -606,17 +606,17 @@
 	//Support (Grey)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(support_positions)]'><a href='?src=[UID()];jobban3=supportdept;jobban4=\ref[M]'>Support Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(support_positions)]'><a href='?src=[UID()];jobban3=supportdept;jobban4=[M.UID()]'>Support Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in support_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -627,17 +627,17 @@
 	//Non-Human (Green)
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(nonhuman_positions)+1]'><a href='?src=[UID()];jobban3=nonhumandept;jobban4=\ref[M]'>Non-human Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ccffcc'><th colspan='[length(nonhuman_positions)+1]'><a href='?src=[UID()];jobban3=nonhumandept;jobban4=[M.UID()]'>Non-human Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in nonhuman_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -646,29 +646,29 @@
 
 		//Drone
 		if(jobban_isbanned(M, "Drone"))
-			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=Drone;jobban4=\ref[M]'><font color=red>Drone</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=Drone;jobban4=[M.UID()]'><font color=red>Drone</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=Drone;jobban4=\ref[M]'>Drone</a></td>"
+			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=Drone;jobban4=[M.UID()]'>Drone</a></td>"
 
 		//pAI
 		if(jobban_isbanned(M, "pAI"))
-			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=pAI;jobban4=\ref[M]'><font color=red>pAI</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=pAI;jobban4=[M.UID()]'><font color=red>pAI</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=pAI;jobban4=\ref[M]'>pAI</a></td>"
+			jobs += "<td width='20%'><a href='?src=[UID()];jobban3=pAI;jobban4=[M.UID()]'>pAI</a></td>"
 
 		jobs += "</tr></table>"
 
 	//Antagonist (Orange)
 		var/isbanned_dept = jobban_isbanned(M, "Syndicate")
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='?src=[UID()];jobban3=Syndicate;jobban4=\ref[M]'>Antagonist Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='?src=[UID()];jobban3=Syndicate;jobban4=[M.UID()]'>Antagonist Positions</a></th></tr><tr align='center'>"
 
 		counter = 0
 		for(var/role in antag_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=\ref[M]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=[M.UID()]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=\ref[M]'>[replacetext(role, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=[M.UID()]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -683,9 +683,9 @@
 		counter = 0
 		for(var/role in other_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=\ref[M]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=[M.UID()]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=\ref[M]'>[replacetext(role, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[role];jobban4=[M.UID()]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -696,17 +696,17 @@
 	//Whitelisted positions
 		counter = 0
 		jobs += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		jobs += "<tr bgcolor='dddddd'><th colspan='[length(whitelisted_positions)]'><a href='?src=[UID()];jobban3=whitelistdept;jobban4=\ref[M]'>Whitelisted Positions</a></th></tr><tr align='center'>"
+		jobs += "<tr bgcolor='dddddd'><th colspan='[length(whitelisted_positions)]'><a href='?src=[UID()];jobban3=whitelistdept;jobban4=[M.UID()]'>Whitelisted Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in whitelisted_positions)
 			if(!jobPos)	continue
 			var/datum/job/job = job_master.GetJob(jobPos)
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
 				counter++
 			else
-				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=\ref[M]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
+				jobs += "<td width='20%'><a href='?src=[UID()];jobban3=[job.title];jobban4=[M.UID()]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
 				counter++
 
 			if(counter >= 5) //So things dont get squiiiiished!
@@ -723,7 +723,7 @@
 	else if(href_list["jobban3"])
 		if(!check_rights(R_BAN))	return
 
-		var/mob/M = locate(href_list["jobban4"])
+		var/mob/M = locateUID(href_list["jobban4"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -885,10 +885,10 @@
 		return 0 //we didn't do anything!
 
 	else if(href_list["boot2"])
-		var/mob/M = locate(href_list["boot2"])
+		var/mob/M = locateUID(href_list["boot2"])
 		if(ismob(M))
 			if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
-				to_chat(src, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
+				to_chat(usr, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
 				return
 			to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
 			log_admin("[key_name(usr)] booted [key_name(M)].")
@@ -958,7 +958,7 @@
 	else if(href_list["newban"])
 		if(!check_rights(R_BAN))	return
 
-		var/mob/M = locate(href_list["newban"])
+		var/mob/M = locateUID(href_list["newban"])
 		if(!ismob(M)) return
 
 		switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
@@ -1016,7 +1016,7 @@
 
 	//Watchlist
 	else if(href_list["watchadd"])
-		var/target_ckey = locate(href_list["watchadd"])
+		var/target_ckey = href_list["watchadd"]
 		usr.client.watchlist_add(target_ckey)
 
 	else if(href_list["watchremove"])
@@ -1062,7 +1062,7 @@
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
 
-		var/mob/M = locate(href_list["mute"])
+		var/mob/M = locateUID(href_list["mute"])
 		if(!ismob(M))	return
 		if(!M.client)	return
 
@@ -1128,7 +1128,7 @@
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["monkeyone"])
+		var/mob/living/carbon/human/H = locateUID(href_list["monkeyone"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1143,7 +1143,7 @@
 	else if(href_list["corgione"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["corgione"])
+		var/mob/living/carbon/human/H = locateUID(href_list["corgione"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1158,7 +1158,7 @@
 	else if(href_list["makePAI"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makePAI"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makePAI"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1182,7 +1182,7 @@
 	else if(href_list["forcespeech"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
 
-		var/mob/M = locate(href_list["forcespeech"])
+		var/mob/M = locateUID(href_list["forcespeech"])
 		if(!ismob(M))
 			to_chat(usr, "this can only be used on instances of type /mob")
 
@@ -1199,7 +1199,7 @@
 		if(alert(usr, "Send to admin prison for the round?", "Message", "Yes", "No") != "Yes")
 			return
 
-		var/mob/M = locate(href_list["sendtoprison"])
+		var/mob/M = locateUID(href_list["sendtoprison"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -1242,7 +1242,7 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		var/mob/M = locate(href_list["sendbacktolobby"])
+		var/mob/M = locateUID(href_list["sendbacktolobby"])
 
 		if(!isobserver(M))
 			to_chat(usr, "<span class='notice'>You can only send ghost players back to the Lobby.</span>")
@@ -1269,7 +1269,7 @@
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
-		var/mob/M = locate(href_list["tdome1"])
+		var/mob/M = locateUID(href_list["tdome1"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -1299,7 +1299,7 @@
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
-		var/mob/M = locate(href_list["tdome2"])
+		var/mob/M = locateUID(href_list["tdome2"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -1329,7 +1329,7 @@
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
-		var/mob/M = locate(href_list["tdomeadmin"])
+		var/mob/M = locateUID(href_list["tdomeadmin"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -1351,7 +1351,7 @@
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
-		var/mob/M = locate(href_list["tdomeobserve"])
+		var/mob/M = locateUID(href_list["tdomeobserve"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -1385,7 +1385,7 @@
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
 
-		var/mob/M = locate(href_list["aroomwarp"])
+		var/mob/M = locateUID(href_list["aroomwarp"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
@@ -1405,7 +1405,7 @@
 	else if(href_list["revive"])
 		if(!check_rights(R_REJUVINATE))	return
 
-		var/mob/living/L = locate(href_list["revive"])
+		var/mob/living/L = locateUID(href_list["revive"])
 		if(!istype(L))
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
@@ -1417,7 +1417,7 @@
 	else if(href_list["makeai"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makeai"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1433,7 +1433,7 @@
 	else if(href_list["makealien"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makealien"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makealien"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1445,7 +1445,7 @@
 	else if(href_list["makeslime"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makeslime"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makeslime"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1457,7 +1457,7 @@
 	else if(href_list["makesuper"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makesuper"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1470,7 +1470,7 @@
 	else if(href_list["makerobot"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["makerobot"])
+		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1482,7 +1482,7 @@
 	else if(href_list["makeanimal"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/M = locate(href_list["makeanimal"])
+		var/mob/M = locateUID(href_list["makeanimal"])
 		if(istype(M, /mob/new_player))
 			to_chat(usr, "This cannot be used on instances of type /mob/new_player")
 			return
@@ -1494,7 +1494,7 @@
 	else if(href_list["incarn_ghost"])
 		if(!check_rights(R_SPAWN)) return
 
-		var/mob/dead/observer/G = locate(href_list["incarn_ghost"])
+		var/mob/dead/observer/G = locateUID(href_list["incarn_ghost"])
 		if(!istype(G))
 			to_chat(usr, "This will only work on /mob/dead/observer")
 		log_admin("[key_name(G)] was incarnated by [key_name(src.owner)]")
@@ -1504,7 +1504,7 @@
 	else if(href_list["togmutate"])
 		if(!check_rights(R_SPAWN))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["togmutate"])
+		var/mob/living/carbon/human/H = locateUID(href_list["togmutate"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1515,25 +1515,14 @@
 		//H.regenerate_icons()
 
 	else if(href_list["adminplayeropts"])
-		var/mob/M = locate(href_list["adminplayeropts"])
+		var/mob/M = locateUID(href_list["adminplayeropts"])
 		show_player_panel(M)
-
-	else if(href_list["adminplayerobservejump"])
-		if(!check_rights(R_ADMIN|R_MOD))
-			return
-
-		var/mob/M = locate(href_list["adminplayerobservejump"])
-
-		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
-		sleep(2)
-		C.jumptomob(M)
 
 	else if(href_list["adminplayerobservefollow"])
 		if(!check_rights(R_ADMIN|R_MOD))
 			return
 
-		var/mob/M = locate(href_list["adminplayerobservefollow"])
+		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
 
 		var/client/C = usr.client
 		if(!isobserver(usr))	C.admin_ghost()
@@ -1605,13 +1594,13 @@
 		output_ai_laws()
 
 	else if(href_list["adminmoreinfo"])
-		var/mob/M = locate(href_list["adminmoreinfo"])
+		var/mob/M = locateUID(href_list["adminmoreinfo"])
 		admin_mob_info(M)
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
 
-		var/mob/living/carbon/human/H = locate(href_list["adminspawncookie"])
+		var/mob/living/carbon/human/H = locateUID(href_list["adminspawncookie"])
 		if(!ishuman(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1635,7 +1624,7 @@
 	else if(href_list["BlueSpaceArtillery"])
 		if(!check_rights(R_ADMIN|R_EVENT))	return
 
-		var/mob/living/M = locate(href_list["BlueSpaceArtillery"])
+		var/mob/living/M = locateUID(href_list["BlueSpaceArtillery"])
 		if(!isliving(M))
 			to_chat(usr, "This can only be used on instances of type /mob/living")
 			return
@@ -1694,7 +1683,7 @@
 	else if(href_list["EvilFax"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/living/carbon/human/H = locate(href_list["EvilFax"])
+		var/mob/living/carbon/human/H = locateUID(href_list["EvilFax"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -1979,7 +1968,7 @@
 	else if(href_list["FaxReplyTemplate"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/mob/living/carbon/human/H = locate(href_list["FaxReplyTemplate"])
+		var/mob/living/carbon/human/H = locateUID(href_list["FaxReplyTemplate"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -2033,7 +2022,7 @@
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
 
 	else if(href_list["HONKReply"])
-		var/mob/living/carbon/human/H = locate(href_list["HONKReply"])
+		var/mob/living/carbon/human/H = locateUID(href_list["HONKReply"])
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
@@ -2053,7 +2042,7 @@
 			return
 
 		if(alert(src.owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
-			var/mob/living/carbon/human/H = locate(href_list["ErtReply"])
+			var/mob/living/carbon/human/H = locateUID(href_list["ErtReply"])
 			if(!istype(H))
 				to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 				return
@@ -2282,32 +2271,32 @@
 	else if(href_list["jumpto"])
 		if(!check_rights(R_ADMIN))	return
 
-		var/mob/M = locate(href_list["jumpto"])
+		var/mob/M = locateUID(href_list["jumpto"])
 		usr.client.jumptomob(M)
 
 	else if(href_list["getmob"])
 		if(!check_rights(R_ADMIN))	return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
-		var/mob/M = locate(href_list["getmob"])
+		var/mob/M = locateUID(href_list["getmob"])
 		usr.client.Getmob(M)
 
 	else if(href_list["sendmob"])
 		if(!check_rights(R_ADMIN))	return
 
-		var/mob/M = locate(href_list["sendmob"])
+		var/mob/M = locateUID(href_list["sendmob"])
 		usr.client.sendmob(M)
 
 	else if(href_list["narrateto"])
 		if(!check_rights(R_ADMIN))	return
 
-		var/mob/M = locate(href_list["narrateto"])
+		var/mob/M = locateUID(href_list["narrateto"])
 		usr.client.cmd_admin_direct_narrate(M)
 
 	else if(href_list["subtlemessage"])
 		if(!check_rights(R_ADMIN))	return
 
-		var/mob/M = locate(href_list["subtlemessage"])
+		var/mob/M = locateUID(href_list["subtlemessage"])
 		usr.client.cmd_admin_subtle_message(M)
 
 	else if(href_list["traitor"])
@@ -2317,7 +2306,7 @@
 			alert("The game hasn't started yet!")
 			return
 
-		var/mob/M = locate(href_list["traitor"])
+		var/mob/M = locateUID(href_list["traitor"])
 		if(!ismob(M))
 			to_chat(usr, "This can only be used on instances of type /mob.")
 			return
@@ -3179,12 +3168,12 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/ErrorViewer/error_viewer = locate(href_list["viewruntime"])
+		var/datum/ErrorViewer/error_viewer = locateUID(href_list["viewruntime"])
 		if(!istype(error_viewer))
 			to_chat(usr, "<span class='warning'>That runtime viewer no longer exists.</span>")
 			return
 		if(href_list["viewruntime_backto"])
-			error_viewer.showTo(usr, locate(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
+			error_viewer.showTo(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
 			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
 
@@ -3322,19 +3311,13 @@
 /proc/admin_jump_link(var/atom/target)
 	if(!target) return
 	// The way admin jump links handle their src is weirdly inconsistent...
-	var/source = "_src_=holder"
 
+	. = ADMIN_FLW(target,"FLW")
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/A = target
-		. = "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"
 		if(A.client && A.eyeobj) // No point following clientless AI eyes
-			. += "|<A HREF='?[source];adminplayerobservefollow=\ref[A.eyeobj]'>EYE</A>"
-		return
+			. += "|[ADMIN_FLW(A.eyeobj,"EYE")]"
 	else if(istype(target, /mob/dead/observer))
 		var/mob/dead/observer/O = target
-		. = "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"
 		if(O.mind && O.mind.current)
-			. += "|<A HREF='?[source];adminplayerobservefollow=\ref[O.mind.current]'>BDY</A>"
-		return
-	else
-		return "<A HREF='?[source];adminplayerobservefollow=\ref[target]'>FLW</A>"
+			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"

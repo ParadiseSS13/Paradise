@@ -641,6 +641,7 @@
 			update_flags |= M.Weaken(3, FALSE)
 		if(effect <= 15)
 			M.emote("collapse")
+	return list(effect, update_flags)
 
 /datum/reagent/medicine/strange_reagent
 	name = "Strange Reagent"
