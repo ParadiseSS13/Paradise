@@ -377,7 +377,7 @@
 		if("tech")
 			color = pick(tech_list) //technically not colors, just flowers that can be specific colors
 			G.name_color = tech_list[color]
-			picked_name = pick("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
+			picked_name = pick("Gallium", "Indium", "Thallium", "Bismuth", "Aluminum", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 
 			G.name = "[picked_name] [color]"
 			G.real_name = "[picked_name] [color]"
