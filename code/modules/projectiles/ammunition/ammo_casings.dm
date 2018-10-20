@@ -87,7 +87,7 @@
 	desc = "A .45 rubber bullet casing."
 	caliber = ".45"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/weakbullet4
+	projectile_type = /obj/item/projectile/bullet/midbullet_r
 
 /obj/item/ammo_casing/c45
 	desc = "A .45 bullet casing."

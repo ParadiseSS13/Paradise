@@ -36,7 +36,7 @@
 	var/datum/disease/DD = new D.type(1, D, 0)
 	viruses += DD
 	DD.affected_mob = src
-	active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
+	GLOB.active_diseases += DD //Add it to the active diseases list, now that it's actually in a mob and being processed.
 
 	//Copy properties over. This is so edited diseases persist.
 	var/list/skipped = list("affected_mob","holder","carrier","stage","type","parent_type","vars","transformed")

@@ -33,12 +33,12 @@
 /datum/game_mode/meteor/declare_completion()
 	var/text
 	var/survivors = 0
-	for(var/mob/living/player in player_list)
+	for(var/mob/living/player in GLOB.player_list)
 		if(player.stat != DEAD)
 			var/turf/location = get_turf(player.loc)
 			if(!location)	continue
 
-			if(location.loc.type == shuttle_master.emergency.areaInstance.type) //didn't work in the switch for some reason
+			if(location.loc.type == SSshuttle.emergency.areaInstance.type) //didn't work in the switch for some reason
 				text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
 
 			else

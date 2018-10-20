@@ -2,7 +2,7 @@
 <html>
 	<head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Crane game</title>
+	<title>Claw Game</title>
 	<link rel="stylesheet" type="text/css" href="page.css" />
 	<script src="libraries.min.js"></script>
 	<!-- Prize.js --><script>
@@ -22,7 +22,6 @@
 		$(pic).append(ball);
 		$('#game').append(pic);
 
-		//console.log(crane);
 		this.GetState = function() {return state};
 		
 		var CheckBoundaries = function () {
@@ -38,12 +37,11 @@
 				top = 347;	
 				state = 'resting';
 			} else if(top > 500 && state =='won') {
-				top=500;
+				top = 500;
 			}
 		};
 		
 		var CheckGrabbed = function() {
-			 
 			var tmp = Math.floor(Math.random()*100);
 			if(tmp>error) {
 				setTimeout(function(){
@@ -51,8 +49,9 @@
 					$('#debug-streak').html(0); //reset streak
 					setTimeout(gameShutDown,500);	//end game because you dropped it
 				},4*error+300);
-			 } 
-			 
+			 }else{
+				prizeWon = true;					// Incase you are interupted, you still get a prize.
+			} 
 			state = 'is grabbed';
 		};
 		
@@ -63,7 +62,7 @@
 				top = 347;	
 				
 			left = crane.GetLeft()+23;
-			if(left <= 60) {
+			if(left <= 60) {		// Claw has reached the drop-off with payload.
 				left = 60;
 				state = 'won';
 			} 
@@ -95,10 +94,8 @@
 				top += vspd;
 			
 			if(state=='won' && top > 460) {
-				$('#prize'+id).remove();//css({visibility:'hidden'});
+				$('#prize'+id).remove();
 				state='hidden';
-				
-				prizeWon = true;
 				gameShutDown();
 			}
 			
@@ -107,16 +104,14 @@
 		
 		this.Repaint = function () {
 			$('#prize'+id).css({'top':top, 'left':left});
-			//$('#'+id+' #crane-handle-top').css({height: handleHeight});
 		};
 		
 	}</script>
 	<!-- Crane.js --><script>
 	function Crane(id) {
-		//console.log("crane created");
 		var top = 131; //private
 		var left = 100;
-		var hspd = 6;
+		var hspd = 5;
 		var vspd = 4;
 		var state = false;
 		var handleHeight = 83;
@@ -131,34 +126,39 @@
 		this.GetTop = function() {return top};
 		
 		var Grab = function () {
-			top += (state == 'down')?vspd:-vspd; 
-			handleHeight += (state == 'down')?vspd:-vspd;
-
-			if(top > 300 && state == 'down') { //when going down
-				top = 300;
-				//handleHeight = ;
-				state = 'up';
-				$('#'+id+' #crane-claw').css(frames['half']); 
-			} else if(top < 131 && state == 'up') { //when going up
-				top = 131;
-				handleHeight = 83;
-				state = 'drop';
-				
-			} else if(state == 'drop') { //when up and dropping
-				left -= hspd;
-				top = 131;
-				handleHeight = 83;
-				if(left < 30) {
-					left = 30;
-					$('#'+id+' #crane-claw').css(frames['open']);
-					setTimeout(function(){$('#'+id+' #crane-claw').css(frames['normal']);state = false;},500);
-					
-				}
+			switch (state) {
+				case 'up':
+					top -= vspd;
+					handleHeight -= vspd;
+					if(top < 131) {		// when going up
+						top = 131;
+						handleHeight = 83;
+						state = 'drop';
+					}
+					break;
+				case 'down':			// when going down
+					top += vspd;
+					handleHeight += vspd;
+					if(top > 300) {
+						top = 300;
+						state = 'up';
+						$('#'+id+' #crane-claw').css(frames['half']); 
+					}
+					break;
+				case 'drop':			// when up and dropping
+					left -= hspd;
+					top = 131;
+					handleHeight = 83;
+					if(left < 30) {
+						left = 30;
+						$('#'+id+' #crane-claw').css(frames['open']);
+						setTimeout(function(){$('#'+id+' #crane-claw').css(frames['normal']);state = false;},500);
+					}
+					break;
 			}
 		};
 		
 		var CheckBoundaries = function () {
-			
 			if(left < 30)
 				left = 30;
 			else if(left > 788)
@@ -166,20 +166,18 @@
 		};
 		
 		this.Update = function () {
-			//console.log(left);
-			if(keys["left"] && !state) //left
-				left -= hspd;
-				
-			if(keys["right"] && !state) //right
-				left += hspd;
-				
-			if(keys["down"] && !state) { //drop
-				state = 'down';
-				
-				$('#'+id+' #crane-claw').css(frames['open']);
-			}
-			
-			if(state) {
+			if(!state){
+				if(keys["left"]) //Move claw left
+					left -= hspd;
+					
+				if(keys["right"]) // Move claw right
+					left += hspd;
+					
+				if(keys["down"]){ // Drop claw.
+					state = 'down';
+					$('#'+id+' #crane-claw').css(frames['open']);
+				}
+			}else{
 				Grab();
 			}
 				
@@ -204,57 +202,49 @@
 		window.oRequestAnimationFrame ||
 		window.msRequestAnimationFrame ||
 		function(callback){
-			window.setTimeout(callback, 1000 / 30);
+			window.setTimeout(callback, 33.333);	//1000 / 30
 		};
 	})();
 
 	function animate(){
-		//console.log("animate called");
 		crane.Update();
-		
-		for(var i = 0; i< prizes.length; i++)
+		for(var i=0; i<prizes.length; i++){
 			prizes[i].Update();
-		
-		for(var i = 0; i< prizes.length; i++)
 			prizes[i].Repaint();
+		}
 			
 		crane.Repaint();
-		
 		requestAnimFrame(function(){
 			animate();
 		});
 	}
 
 	function joystickControlOn(direction){
-		//console.log(direction);
 		keys[direction] = true;
 	}
-
 	function joystickControlOff(direction){
-		//console.log(direction);
 		keys[direction] = false;
 	}
-
 	function gameStartUp(){ //main function
-		//console.log("game start!");
 		document.getElementById("play_btn").disabled = true;	//to prevent button-mashing the start button.
-		for(var i = 0; i< 5; i++)
+		for(var i=0; i<5; i++){	// Creates prize balls.
 			prizes[i] = new Prize(i,{top: Math.ceil(Math.random()*100),left: 400+i*100-Math.ceil(Math.random()*50)},crane);
-			//console.log("prize made");
-		
-		//crane.Repaint();
+		}
 		animate();
 	}
-	
-	function gameShutDown(){
-		document.getElementById("play_btn").disabled = true;
-		var close_game_link = '<h2>TRY AGAIN!</h2><br><a href="byond://?src=/* ref src */;prizeWon=0">\[Close Game\]</a>'
-		if(prizeWon)
-			close_game_link = '<h2>YOU WON!</h2><br><a href="byond://?src=/* ref src */;prizeWon=1">\[Close Game\]</a>'
-		document.getElementById('game').innerHTML = '<center><h1> GAME OVER!</h1><br>'+close_game_link+'</center>'
+	function checkPrize(){
+		//	Tells the machine if it should drop a prize.
+		prizeWon?document.getElementById("close_nao").href = "byond://?src=/* ref src */;prizeWon=1":document.getElementById("close_nao").href = "byond://?src=/* ref src */;prizeWon=0";
 	}
-	
+	function gameShutDown(){
+		checkPrize();
+		if(prizeWon){ emergencyShutDown(); }else{
+			document.getElementById('game').innerHTML = '<br><br><br><div class="end-text"><center><h1> GAME OVER!</h1><br><h2>BETTER LUCK NEXT TIME!</h2></center></div>';
+		}
+	}
+	// Runs if close window or press close button.
 	function emergencyShutDown(){
+		checkPrize();
 		document.getElementById("close_nao").click();
 	}
 	</script>
@@ -278,11 +268,14 @@
 			
 		</div>
 		
-		<div id='controls' style='position: absolute; top: 550px'>
-			<br><button id="play_btn" onclick="gameStartUp()">Play Now!</button> <button id="close_btn" onclick="gameShutDown()">Close Game.</button><a id="close_nao" hidden="true" href="byond://?src=/* ref src */;prizeWon=0"></a>
+		<div id='controls' style='position: absolute; top: 515px; left: 385px;'>
+			<br>
+				<button class="button" id="play_btn" onclick="gameStartUp()">Play Now!</button>
+				<button class="button" id="close_btn" onclick="emergencyShutDown()">Close.</button>
+				<a id="close_nao" hidden="true" href="byond://?src=/* ref src */;prizeWon=0"></a>
 			<br>
 			<button onmouseover="joystickControlOn('left')" onmouseout="joystickControlOff('left')">/==<br>\==</button>
-			<button onmousedown="joystickControlOn('down')" onmouseup="joystickControlOff('down')">DROP<br>CLAW</button>
+			<button class="button" onmousedown="joystickControlOn('down')" onmouseup="joystickControlOff('down')">DROP<br>CLAW</button>
 			<button onmouseover="joystickControlOn('right')" onmouseout="joystickControlOff('right')">==\<br>==/</button>
 		</div>
 	</body>

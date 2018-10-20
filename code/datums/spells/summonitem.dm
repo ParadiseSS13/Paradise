@@ -93,9 +93,10 @@
 						var/obj/machinery/portable_atmospherics/P = item_to_retrive.loc
 						P.disconnect()
 						P.update_icon()
-
+					if(istype(item_to_retrive.loc, /obj/structure/disposalholder) || istype(item_to_retrive.loc, /obj/machinery/disposal))//fixes the breaking of disposals. No more bluespace connected disposal bins!
+						break
 					item_to_retrive = item_to_retrive.loc
-
+				
 				infinite_recursion += 1
 
 			if(!item_to_retrive)

@@ -253,6 +253,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/under/rank/centcom/blueshield(src)
 
 
 /obj/structure/closet/secure_closet/ntrep

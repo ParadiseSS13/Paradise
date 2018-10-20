@@ -132,6 +132,18 @@
 #define EMOTE_VISUAL 1  //A mob emote is visual
 #define EMOTE_SOUND 2  //A mob emote is sound
 
+#define STATUS_UPDATE_HEALTH 1
+#define STATUS_UPDATE_STAT 2
+#define STATUS_UPDATE_CANMOVE 4
+#define STATUS_UPDATE_STAMINA 8
+#define STATUS_UPDATE_BLIND 16
+#define STATUS_UPDATE_BLURRY 32
+#define STATUS_UPDATE_NEARSIGHTED 64
+#define STATUS_UPDATE_DRUGGY 128
+
+#define STATUS_UPDATE_NONE 0
+#define STATUS_UPDATE_ALL (~0)
+
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))

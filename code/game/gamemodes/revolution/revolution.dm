@@ -80,8 +80,8 @@
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
-	if(shuttle_master)
-		shuttle_master.emergencyNoEscape = 1
+	if(SSshuttle)
+		SSshuttle.emergencyNoEscape = 1
 	..()
 
 
@@ -216,10 +216,10 @@
 /datum/game_mode/revolution/check_finished()
 	if(config.continuous_rounds)
 		if(finished != 0)
-			shuttle_master.emergencyNoEscape = 0
-			if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
-				shuttle_master.emergency.mode = SHUTTLE_DOCKED
-				shuttle_master.emergency.timer = world.time
+			SSshuttle.emergencyNoEscape = 0
+			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+				SSshuttle.emergency.mode = SHUTTLE_DOCKED
+				SSshuttle.emergency.timer = world.time
 				command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg')
 		return ..()
 	if(finished != 0)
@@ -267,7 +267,7 @@
 
 		if(beingborged)
 			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]</FONT></span>")
-			message_admins("[key_name_admin(rev_mind.current)] <A HREF='?_src_=holder;adminmoreinfo=\ref[rev_mind.current]'>?</A> (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[rev_mind.current]'>FLW</A>) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
+			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 
 		else
 			rev_mind.current.Paralyse(5)
@@ -337,7 +337,7 @@
 	if(head_revolutionaries.len || GAMEMODE_IS_REVOLUTION)
 		var/num_revs = 0
 		var/num_survivors = 0
-		for(var/mob/living/carbon/survivor in living_mob_list)
+		for(var/mob/living/carbon/survivor in GLOB.living_mob_list)
 			if(survivor.ckey)
 				num_survivors++
 				if(survivor.mind)

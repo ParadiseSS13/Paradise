@@ -202,7 +202,7 @@
 /obj/item/reagent_containers/food/drinks/ice
 	name = "Ice Cup"
 	desc = "Careful, cold ice, do not chew."
-	icon_state = "coffee"
+	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
 
 /obj/item/reagent_containers/food/drinks/tea
@@ -241,14 +241,14 @@
 /obj/item/reagent_containers/food/drinks/weightloss
 	name = "Weight-Loss Shake"
 	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
-	icon_state = "coffee"
+	icon_state = "weightshake"
 	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
 
 /obj/item/reagent_containers/food/drinks/dry_ramen
 	name = "Cup Ramen"
 	desc = "Just add 10ml of water, self heats! A taste that reminds you of your school years."
 	icon_state = "ramen"
-	item_state = "coffee"
+	item_state = "ramen"
 	list_reagents = list("dry_ramen" = 30)
 
 /obj/item/reagent_containers/food/drinks/dry_ramen/New()
@@ -257,10 +257,10 @@
 		reagents.add_reagent("enzyme", 3)
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
-	name = "Cup Chicken Soup"
-	desc = "A delicious and soothing cup of chicken noodle soup; just like spessmom used to make it."
-	icon_state = "ramen"
-	item_state = "coffee"
+	name = "Canned Chicken Soup"
+	desc = "A delicious and soothing can of chicken noodle soup; just like spessmom used to microwave it."
+	icon_state = "soupcan"
+	item_state = "soupcan"
 	list_reagents = list("chicken_soup" = 30)
 
 /obj/item/reagent_containers/food/drinks/sillycup

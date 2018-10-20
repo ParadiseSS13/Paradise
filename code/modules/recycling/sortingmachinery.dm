@@ -30,7 +30,7 @@
 		var/obj/item/destTagger/O = W
 
 		if(sortTag != O.currTag)
-			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
+			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
@@ -94,7 +94,7 @@
 		var/obj/item/destTagger/O = W
 
 		if(sortTag != O.currTag)
-			var/tag = uppertext(TAGGERLOCATIONS[O.currTag])
+			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>*[tag]*</span>")
 			sortTag = O.currTag
 			playsound(loc, 'sound/machines/twobeep.ogg', 100, 1)
@@ -134,6 +134,7 @@
 	name = "package wrapper"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "deliveryPaper"
+	singular_name = "package wrapper"
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
@@ -226,13 +227,13 @@
 		var/dat = "<tt><center><h1><b>TagMaster 2.2</b></h1></center>"
 
 		dat += "<table style='width:100%; padding:4px;'><tr>"
-		for(var/i = 1, i <= TAGGERLOCATIONS.len, i++)
-			dat += "<td><a href='?src=[UID()];nextTag=[i]'>[TAGGERLOCATIONS[i]]</a></td>"
+		for(var/i = 1, i <= GLOB.TAGGERLOCATIONS.len, i++)
+			dat += "<td><a href='?src=[UID()];nextTag=[i]'>[GLOB.TAGGERLOCATIONS[i]]</a></td>"
 
 			if(i%4==0)
 				dat += "</tr><tr>"
 
-		dat += "</tr></table><br>Current Selection: [currTag ? TAGGERLOCATIONS[currTag] : "None"]</tt>"
+		dat += "</tr></table><br>Current Selection: [currTag ? GLOB.TAGGERLOCATIONS[currTag] : "None"]</tt>"
 
 		user << browse(dat, "window=destTagScreen;size=450x350")
 		onclose(user, "destTagScreen")
@@ -425,7 +426,7 @@
 /obj/item/shippingPackage/proc/update_desc()
 	desc = "A pre-labeled package for shipping an item to coworkers."
 	if(sortTag)
-		desc += " The label says \"Deliver to [TAGGERLOCATIONS[sortTag]]\"."
+		desc += " The label says \"Deliver to [GLOB.TAGGERLOCATIONS[sortTag]]\"."
 	if(!sealed)
 		desc += " The package is not sealed."
 

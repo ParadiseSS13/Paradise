@@ -244,7 +244,7 @@
 	icon_state = "amanita_pie"
 	filling_color = "#FFCCCC"
 	bitesize = 4
-	list_reagents = list("nutriment" = 6, "amatoxin" = 3, "psilocybin" = 1, "vitamin" = 4)
+	list_reagents = list("nutriment" = 6, "amanitin" = 3, "psilocybin" = 1, "vitamin" = 4)
 
 /obj/item/reagent_containers/food/snacks/plump_pie
 	name = "plump pie"

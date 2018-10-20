@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 								"cryoxadone","spaceacillin","carpotoxin","lsd","fluorosurfactant",
 								"fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium",
 								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
-								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin","amatoxin"))
+								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin"))
 // Rare chemicals
 GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicrobes"))
 // Standard medicines
@@ -25,7 +25,7 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder",
 								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",
 								"diethylamine","antihol","pancuronium","lipolicide","condensedcapsaicin",
-								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin","amatoxin"))
+								"frostoil","amanitin","psilocybin","nothing","salglu_solution","neurotoxin"))
 // Rare medicines
 GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini", "flamingmoe"))
 
 //Liver Toxins list
-GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amatoxin","amanitin", "carpotoxin"))
+GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))
 
 //Random chem blacklist
 GLOBAL_LIST_INIT(blocked_chems, list("polonium", "initropidril", "concentrated_initro",

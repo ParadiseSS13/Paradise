@@ -9,7 +9,7 @@
 "i" = (/obj/structure/table/wood,/obj/item/flashlight/lamp/green,/turf/unsimulated/floor/carpet,/area/template_noop)
 "j" = (/obj/effect/levelref{id = "lavaland"; name = "lavaland"},/turf/unsimulated/floor/upperlevel,/area/awaymission/desert{name = "Sudden Drop"})
 "k" = (/obj/structure/window/reinforced/polarized{dir = 4; id = "room_s"},/turf/unsimulated/floor{dir = 8; icon_state = "whiteblue"},/area/template_noop)
-"l" = (/obj/structure/stool/bed,/obj/item/bedsheet/wiz,/turf/unsimulated/floor/carpet,/area/template_noop)
+"l" = (/obj/structure/bed,/obj/item/bedsheet/wiz,/turf/unsimulated/floor/carpet,/area/template_noop)
 "m" = (/obj/machinery/light{dir = 8},/obj/item/soap/deluxe,/obj/machinery/button/windowtint{id = "room_s"; pixel_x = -24; pixel_y = 0; range = 5},/turf/unsimulated/floor{dir = 1; icon_state = "whiteblue"},/area/template_noop)
 "n" = (/turf/unsimulated/floor{dir = 1; icon_state = "whiteblue"},/area/template_noop)
 "o" = (/obj/structure/window/reinforced/polarized{dir = 4; id = "room_s"},/turf/unsimulated/floor{dir = 1; icon_state = "whitebluecorner"},/area/template_noop)

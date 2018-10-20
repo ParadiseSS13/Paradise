@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(nightshift)
 			announce("Good evening, crew. To reduce power consumption and stimulate the circadian rhythms of some species, all of the lights aboard the station have been dimmed for the night.")
 		else
 			announce("Good morning, crew. As it is now day time, all of the lights aboard the station have been restored to their former brightness.")
-	for(var/A in apcs)
+	for(var/A in GLOB.apcs)
 		var/obj/machinery/power/apc/APC = A
 		if(is_station_level(APC.z))
 			APC.set_nightshift(active)

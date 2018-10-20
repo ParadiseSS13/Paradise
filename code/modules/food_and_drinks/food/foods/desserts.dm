@@ -78,7 +78,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#ED0758"
 	bitesize = 3
-	list_reagents = list("nutriment" = 6, "amatoxin" = 6, "psilocybin" = 3)
+	list_reagents = list("nutriment" = 6, "amanitin" = 6, "psilocybin" = 3)
 
 /obj/item/reagent_containers/food/snacks/candiedapple
 	name = "Candied Apple"

@@ -72,12 +72,12 @@
 		secondary_type = new secondary_type()
 	if(no_register)		//for booster pack cards
 		return
-	if(mob_hunt_server)
+	if(SSmob_hunt)
 		if(set_trap)
-			if(mob_hunt_server.register_trap(src))
+			if(SSmob_hunt.register_trap(src))
 				return
 		else if(select_spawn())
-			if(mob_hunt_server.register_spawn(src))
+			if(SSmob_hunt.register_spawn(src))
 				return
 	qdel(src)	//if you reach this, the datum is just pure clutter, so delete it
 

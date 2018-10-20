@@ -172,7 +172,7 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
 		log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
 
-		for(var/mob/living/silicon/robot/R in mob_list)
+		for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 			if(istype(R, /mob/living/silicon/robot/drone))
 				continue
 			// Ignore antagonistic cyborgs
@@ -190,7 +190,7 @@
 /obj/machinery/computer/robotics/proc/get_cyborgs(var/mob/operator)
 	var/list/robots = list()
 
-	for(var/mob/living/silicon/robot/R in mob_list)
+	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		// Ignore drones
 		if(istype(R, /mob/living/silicon/robot/drone))
 			continue
@@ -240,6 +240,6 @@
 /obj/machinery/computer/robotics/proc/get_cyborg_by_name(var/name)
 	if(!name)
 		return
-	for(var/mob/living/silicon/robot/R in mob_list)
+	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(R.name == name)
 			return R

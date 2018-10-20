@@ -168,11 +168,11 @@
 				W.ChangeTurf(/turf/simulated/floor/plating)
 				new /obj/item/stack/sheet/metal(src, plasmaPoopPotential)
 				currentlyEating = null //ffs, unstore this
-				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class=userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
+				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 			else
 				currentlyEating = null
 				contents += noms
-				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class=userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
+				src.visible_message("<span class='userdanger'>\the [src] eats \the [noms]!</span>","<span class='notice'>You eat \the [noms]!</span>","<span class='userdanger'>You hear gnashing.</span>") //inform everyone what the fucking worm is doing.
 				if(ismob(noms))
 					var/mob/M = noms //typecast because noms isn't movable
 					M.loc = src //because just setting a mob loc to null breaks the camera and such
@@ -184,7 +184,10 @@
 
 //Harder to kill the head, but it can kill off the whole worm
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/death(gibbed)
-	..()
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	if(prob(catastrophicDeathProb))
 		for(var/mob/living/simple_animal/hostile/spaceWorm/SW in totalWormSegments)
 			SW.death()
@@ -294,7 +297,10 @@
 
 
 /mob/living/simple_animal/hostile/spaceWorm/death(gibbed)
-	..()
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	if(myHead)
 		myHead.totalWormSegments -= src
 

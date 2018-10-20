@@ -29,19 +29,12 @@
 		adjustFireLoss(5.0*discomfort)
 
 /mob/living/carbon/brain/handle_regular_status_updates()
-	updatehealth()
+	. = ..()
 
-	if(stat == DEAD)
-		blinded = 1
-		SetSilence(0)
-	else
+	if(.)
 		if(!container && (health < config.health_threshold_dead || ((world.time - timeofhostdeath) > config.revival_brain_life)))
 			death()
-			blinded = 1
-			SetSilence(0)
-			return 1
-
-		. = 1
+			return 0
 
 /mob/living/carbon/brain/breathe()
 	return

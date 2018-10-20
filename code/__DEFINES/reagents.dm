@@ -1,3 +1,6 @@
 #define SOLID 1
 #define LIQUID 2
 #define GAS 3
+
+#define REAGENT_OVERDOSE_EFFECT 1
+#define REAGENT_OVERDOSE_FLAGS 2

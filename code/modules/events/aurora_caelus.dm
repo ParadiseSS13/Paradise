@@ -11,7 +11,7 @@ Nanotrasen has approved a short break for all employees to relax and observe thi
 During this time, starlight will be bright but gentle, shifting between quiet green and blue colors. \
 Any staff who would like to view these lights for themselves may proceed to the area nearest to them with viewing ports to open space. \
 We hope you enjoy the lights.", "Harmless ions approaching", new_sound = 'sound/misc/notice2.ogg', from = "Nanotrasen Meteorology Division")
-	for(var/V in player_list)
+	for(var/V in GLOB.player_list)
 		var/mob/M = V
 		if((M.client.prefs.toggles & SOUND_MIDI) && is_station_level(M.z))
 			M.playsound_local(null, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)

@@ -40,9 +40,9 @@
 			brainmob.loc = src
 			brainmob.container = src
 			brainmob.stat = CONSCIOUS
-			respawnable_list -= brainmob
-			dead_mob_list -= brainmob//Update dem lists
-			living_mob_list += brainmob
+			GLOB.respawnable_list -= brainmob
+			GLOB.dead_mob_list -= brainmob//Update dem lists
+			GLOB.living_mob_list += brainmob
 
 			held_brain = B
 			if(istype(O,/obj/item/organ/internal/brain/xeno)) // kept the type check, as it still does other weird stuff
@@ -146,8 +146,8 @@
 
 	brainmob.container = null//Reset brainmob mmi var.
 	brainmob.loc = held_brain//Throw mob into brain.
-	respawnable_list += brainmob
-	living_mob_list -= brainmob//Get outta here
+	GLOB.respawnable_list += brainmob
+	GLOB.living_mob_list -= brainmob//Get outta here
 	held_brain.brainmob = brainmob//Set the brain to use the brainmob
 	held_brain.brainmob.cancel_camera()
 	brainmob = null//Set mmi brainmob var to null

@@ -1401,11 +1401,11 @@ menu "menu"
 		group = ""
 		is-disabled = false
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Icons"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Size"
 		command = ""
 		category = "&Icons"
@@ -1415,6 +1415,13 @@ menu "menu"
 		command = ".winset \"mapwindow.map.icon-size=0\""
 		category = "&Size"
 		is-checked = true
+		can-check = true
+		group = "size"
+		saved-params = "is-checked"
+	elem "icon128"
+		name = "&128x128 (4x)"
+		command = ".winset \"mapwindow.map.icon-size=128\""
+		category = "&Size"
 		can-check = true
 		group = "size"
 		saved-params = "is-checked"
@@ -1446,7 +1453,7 @@ menu "menu"
 		can-check = true
 		group = "size"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Scaling"
 		command = ""
 		category = "&Icons"
@@ -1690,18 +1697,31 @@ window "rpane"
 		size = 67x16
 		text = "Changelog"
 		command = "Changelog"
-	elem "karma"
+	elem "discordb"
 		type = BUTTON
 		pos = 487,0
-		size = 67x16
-		background-color = #ff8040
-		text = "Karma Shop"
+		size = 60x16
+		background-color = #7289DA
+		text-color = #FFFFFF
+		font-style = bold
+		text = "Discord"
+		command = "discord"
+	elem "karma"
+		type = BUTTON
+		pos = 552,0
+		size = 60x16
+		background-color = #FF4500
+		text-color = #FFFFFF
+		font-style = bold
+		text = "Karma"
 		command = "karmashop"
 	elem "donate"
 		type = BUTTON
-		pos = 559,0
+		pos = 617,0
 		size = 60x16
-		background-color = #8080ff
+		background-color = #008000
+		text-color = #FFFFFF
+		font-style = bold
 		text = "Donate"
 		command = "Donate"
 	elem "browseb"
