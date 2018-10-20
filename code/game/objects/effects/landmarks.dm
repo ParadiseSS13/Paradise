@@ -262,7 +262,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 
 /obj/effect/landmark/start/podpilot
 	name = "Pod Pilot"
-	icon_state = "Pod Pilot"
+	icon_state = "Security Pod Pilot"
 
 /obj/effect/landmark/start/barber
 	name = "Barber"
