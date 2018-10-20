@@ -223,13 +223,11 @@
 					//Fire extinguisher
 					if(istype(O, /obj/item/extinguisher))
 						var/obj/item/extinguisher/ext = O
-						if(ext.reagents.get_reagent_amount("water") < ext.max_water)
-							ext.reagents.add_reagent("water", 5 * coeff)
+						ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
 					//Welding tools
-					if(istype(O,/obj/item/weldingtool))
+					if(istype(O, /obj/item/weldingtool))
 						var/obj/item/weldingtool/weld = O
-						if(weld.reagents.get_reagent_amount("fuel") < weld.max_fuel)
-							weld.reagents.add_reagent("fuel", 2 * coeff)
+						ext.reagents.check_and_add("fuel", weld.max_fuel, 2 * coeff)
 				if(R)
 					if(R.module)
 						R.module.respawn_consumable(R)
