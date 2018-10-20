@@ -1,5 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - rscadd: "Suit storage units now contain magboots for relevant roles."
-  - bugfix: "Adds the captains jetpack to his suit storage unit, so it is now stealable again on Delta."
