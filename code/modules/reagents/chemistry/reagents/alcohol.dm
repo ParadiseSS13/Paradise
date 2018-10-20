@@ -1107,6 +1107,7 @@
 	drink_name = "Michelada glass"
 	drink_desc = "Beer with some reddish touches in a frosted glass"
 	taste_message = "salty and spicy beer"
+	drink_hispania = TRUE
 	
 /datum/reagent/consumable/ethanol/dragons_breath //inaccessible to players, but here for admin shennanigans
 	name = "Dragon's Breath"

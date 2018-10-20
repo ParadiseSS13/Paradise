@@ -43,6 +43,8 @@
 		name = R.drink_name
 		desc = R.drink_desc
 		if(R.drink_icon)
+			if(R.drink_hispania)
+				icon = 'icons/hispania/obj/drinks.dmi'
 			icon_state = R.drink_icon
 		else
 			var/image/I = image(icon, "glassoverlay")
