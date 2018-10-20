@@ -65,7 +65,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		else
 			to_chat(user, "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>")
 	if(!anchored && !fulltile)
-		to_chat(user, "<span class='notice'>alt-click to rotate it.</span>")
+		to_chat(user, "<span class='notice'>Alt-click to rotate it.</span>")
 
 /obj/structure/window/New(Loc, direct)
 	..()
