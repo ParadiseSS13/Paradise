@@ -65,7 +65,7 @@
 
 				d_state = RWALL_INTACT
 				update_icon()
-				smooth_icon_neighbors(src)
+				queue_smooth_neighbors(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
 
 			return TRUE
@@ -84,7 +84,7 @@
 			to_chat(user, "<span class='notice'>You add an additional layer of coating to the wall.</span>")
 			ChangeTurf(/turf/simulated/wall/r_wall/coated)
 			update_icon()
-			smooth_icon_neighbors(src)
+			queue_smooth_neighbors(src)
 			can_be_reinforced = FALSE
 		return TRUE
 	return FALSE

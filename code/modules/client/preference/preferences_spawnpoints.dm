@@ -13,14 +13,14 @@ var/list/spawntypes = list()
 	var/list/restrict_job = null
 	var/list/disallow_job = null
 
-	proc/check_job_spawning(job)
-		if(restrict_job && !(job in restrict_job))
-			return 0
+/datum/spawnpoint/proc/check_job_spawning(job)
+	if(restrict_job && !(job in restrict_job))
+		return 0
 
-		if(disallow_job && (job in disallow_job))
-			return 0
+	if(disallow_job && (job in disallow_job))
+		return 0
 
-		return 1
+	return 1
 
 /datum/spawnpoint/arrivals
 	display_name = "Arrivals Shuttle"

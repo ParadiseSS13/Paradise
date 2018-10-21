@@ -242,11 +242,11 @@
 	name = "shotgun dart"
 	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
 	icon_state = "cshell"
+	container_type = OPENCONTAINER
 	projectile_type = /obj/item/projectile/bullet/dart
 
 /obj/item/ammo_casing/shotgun/dart/New()
 	..()
-	flags |= OPENCONTAINER
 	create_reagents(30)
 
 /obj/item/ammo_casing/shotgun/dart/attackby()

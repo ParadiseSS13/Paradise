@@ -138,7 +138,6 @@ var/syndicate_elite_shuttle_timeleft = 0
 			explosion(L.loc,4,6,8,10,0)
 
 	sleep(40)
-//	proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, adminlog = 1)
 
 
 	var/area/start_location = locate(/area/shuttle/syndicate_elite/mothership)

@@ -238,12 +238,4 @@ About the Tools:
 			It simply tells us how much to transfer when
 			'pouring' our reagents into something else.
 
-		atom/proc/is_open_container()
-			Checks atom/var/flags & OPENCONTAINER.
-			If this returns 1 , you can use syringes, beakers etc
-			to manipulate the contents of this object.
-			If it's 0, you'll need to write your own custom reagent
-			transfer code since you will not be able to use the standard
-			tools to manipulate it.
-
 */
