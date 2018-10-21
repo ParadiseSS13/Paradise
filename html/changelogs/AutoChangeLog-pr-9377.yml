@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Some relative path & commented out code has been cleared up in code. Report unexpected issues."

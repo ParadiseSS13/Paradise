@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - rscdel: "Atom code will no longer track a list atoms, for literally zero reason."
