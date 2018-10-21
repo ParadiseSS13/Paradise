@@ -6,7 +6,7 @@
 	desc = "yummy"
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
@@ -26,7 +26,11 @@
 /obj/item/reagent_containers/food/drinks/attack(mob/M, mob/user, def_zone)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'> None of [src] left, oh no!</span>")
-		return 0
+		return FALSE
+	
+	if(!is_drainable())
+		to_chat(user, "<span class='warning'> You need to open [src] first!</span>")
+		return FALSE
 
 	if(istype(M, /mob/living/carbon))
 		var/mob/living/carbon/C = M
@@ -36,14 +40,13 @@
 				borg.cell.use(30)
 				var/refill = reagents.get_master_reagent_id()
 				if(refill in GLOB.drinks) // Only synthesize drinks
-					spawn(600)
-						reagents.add_reagent(refill, bitesize)
-			return 1
-	return 0
+					addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, bitesize), 600)
+			return TRUE
+	return FALSE
 
 /obj/item/reagent_containers/food/drinks/MouseDrop(atom/over_object) //CHUG! CHUG! CHUG!
 	var/mob/living/carbon/chugger = over_object
-	if (!(flags & OPENCONTAINER))
+	if (!(container_type & DRAINABLE))
 		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
 		return
 	if(istype(chugger) && loc == chugger && src == chugger.get_active_hand() && reagents.total_volume)
@@ -56,39 +59,18 @@
 				break
 
 /obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity)
-	if(!proximity) return
+	if(!proximity)
+		return
 
-	// Moved from the can code; not necessary since closed cans aren't open containers now, but, eh.
-	if(istype(target, /obj/item/reagent_containers/food/drinks/cans))
-		var/obj/item/reagent_containers/food/drinks/cans/cantarget = target
-		if(cantarget.canopened == 0)
-			to_chat(user, "<span class='notice'>You need to open the drink you want to pour into!</span>")
-			return
-
-	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
-
-		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'> [target] is empty.</span>")
-			return
-
-		if(reagents.total_volume >= reagents.maximum_volume)
-			to_chat(user, "<span class='warning'> [src] is full.</span>")
-			return
-
-		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'> You fill [src] with [trans] units of the contents of [target].</span>")
-
-	else if(target.is_open_container()) //Something like a glass. Player probably wants to transfer TO it.
+	if(target.is_open_container()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'> [src] is empty.</span>")
-			return
+			return FALSE
 
-		if(target.reagents.total_volume >= target.reagents.maximum_volume)
+		if(target.reagents.holder_full())
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
-			return
-
-
-
+			return FALSE
+		
 		var/datum/reagent/refill
 		var/datum/reagent/refillName
 		if(isrobot(user))
@@ -103,18 +85,30 @@
 				var/mob/living/silicon/robot/bro = user
 				var/chargeAmount = max(30,4*trans)
 				bro.cell.use(chargeAmount)
-				to_chat(user, "Now synthesizing [trans] units of [refillName]...")
+				to_chat(user, "<span class='notice'>Now synthesizing [trans] units of [refillName]...</span>")
+				addtimer(CALLBACK(reagents, /datum/reagents.proc/add_reagent, refill, trans), 300)
+				addtimer(CALLBACK(GLOBAL_PROC, .proc/__to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 300)
 
+	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
+		if(!is_refillable())
+			to_chat(user, "<span class='warning'>[src]'s tab isn't open!</span>")
+			return FALSE
+		if(!target.reagents.total_volume)
+			to_chat(user, "<span class='warning'>[target] is empty.</span>")
+			return FALSE
 
-				spawn(300)
-					reagents.add_reagent(refill, trans)
-					to_chat(user, "Cyborg [src] refilled.")
+		if(reagents.holder_full())
+			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			return FALSE
 
-	return
+		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
+		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
+
+	return FALSE
 
 /obj/item/reagent_containers/food/drinks/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
-		return
+		return FALSE
 	if(is_hot(I))
 		if(reagents)
 			reagents.chem_temp += 15
@@ -151,7 +145,8 @@
 	materials = list(MAT_METAL=100)
 	possible_transfer_amounts = list()
 	volume = 5
-	flags = CONDUCT | OPENCONTAINER
+	flags = CONDUCT
+	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup
 	name = "gold cup"

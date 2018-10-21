@@ -17,8 +17,6 @@
 
 #define HEADBANGPROTECT			4096
 
-#define OPENCONTAINER			4096	// is an open container for chemistry purposes
-
 #define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
 #define THICKMATERIAL 			8192	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
 

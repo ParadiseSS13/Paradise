@@ -11,6 +11,7 @@
 	throw_speed = 2
 	throw_range = 7
 	force = 10
+	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL=90)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	var/max_water = 50
@@ -36,11 +37,8 @@
 	sprite_name = "miniFE"
 
 /obj/item/extinguisher/examine(mob/user)
-	if(..(user, 0))
-		to_chat(usr, "[bicon(src)] [src.name] contains:")
-		if(reagents && reagents.reagent_list.len)
-			for(var/datum/reagent/R in reagents.reagent_list)
-				to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
+	. = ..()
+	to_chat(user, "<span class='notice'>The safety is [safety ? "on" : "off"].</span>")
 
 
 /obj/item/extinguisher/New()
