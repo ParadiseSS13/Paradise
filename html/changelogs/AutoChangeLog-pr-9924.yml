@@ -1,0 +1,4 @@
+author: "Squirgenheimer"
+delete-after: True
+changes: 
+  - bugfix: "Explosive holoparasite booby traps will now behave better, such as correctly triggering on mobs"
