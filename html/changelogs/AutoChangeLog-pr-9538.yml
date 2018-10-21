@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - tweak: "How containers work is now standardized in the back-end. There might be unexpected or odd bugs with containers and reagent transfer, please report them."
