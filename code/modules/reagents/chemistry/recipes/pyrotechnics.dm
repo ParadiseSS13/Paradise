@@ -98,7 +98,7 @@
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, round(created_volume / 33), round(created_volume / 25))
+	goonchem_vortex(T, 1, min(10, created_volume), min(12, round(created_volume * 2)))
 	holder.remove_reagent("sorium", created_volume)
 
 /datum/chemical_reaction/sorium_vortex
@@ -110,7 +110,7 @@
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, round(created_volume / 33), round(created_volume / 25))
+	goonchem_vortex(T, 1, min(10, created_volume), min(12, round(created_volume * 2)))
 
 /datum/chemical_reaction/liquid_dark_matter
 	name = "Liquid Dark Matter"
@@ -123,7 +123,7 @@
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, round(created_volume / 33), round(created_volume / 25))
+	goonchem_vortex(T, 0, min(10, created_volume), min(12, round(created_volume * 2)))
 	holder.remove_reagent("liquid_dark_matter", created_volume)
 
 /datum/chemical_reaction/ldm_vortex
@@ -135,7 +135,7 @@
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, round(created_volume / 33), round(created_volume / 25))
+	goonchem_vortex(T, 0, min(10, created_volume), min(12, round(created_volume * 2)))
 
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
@@ -411,9 +411,9 @@ datum/chemical_reaction/flash_powder
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/mob/living/carbon/C in view(max(1, round(created_volume / 3)), T))
+	for(var/mob/living/carbon/C in view(min(12, round(created_volume * 2)), T))
 		C.Beam(T,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		C.electrocute_act(max(1, round(created_volume / 5)), "electrical blast")
+		C.electrocute_act(min(7, created_volume, "electrical blast")
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
 
