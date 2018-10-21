@@ -46,9 +46,10 @@
 	return
 
 /obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
-	proc/digest_delay()
+
+/obj/item/radio/beacon/bacon/proc/digest_delay()
 		spawn(600)
-			qdel(src)
+		qdel(src)
 
 // SINGULO BEACON SPAWNER
 /obj/item/radio/beacon/syndicate

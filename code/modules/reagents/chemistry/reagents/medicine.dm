@@ -558,7 +558,7 @@
 	if(M.ear_damage <= 25)
 		if(prob(30))
 			M.SetEarDeaf(0)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"

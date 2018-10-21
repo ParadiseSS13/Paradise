@@ -361,7 +361,7 @@
 		dat+= "<HEAD><TITLE>Suit storage unit: Maintenance panel</TITLE></HEAD>"
 		dat+= "<B>Maintenance panel controls</B><HR>"
 		dat+= "<font color ='grey'>The panel is ridden with controls, button and meters, labeled in strange signs and symbols that <BR>you cannot understand. Probably the manufactoring world's language.<BR> Among other things, a few controls catch your eye.<BR><BR>"
-		dat+= text("A small dial with a arrow embroidered on it. It's pointing towards a gauge that reads [].<BR> <font color='blue'><A href='?src=[UID()];toggleUV=1'> Turn towards []</A><BR>",(uv_super ? "15nm" : "185nm"),(uv_super ? "185nm" : "15nm") )
+		dat+= text("A small dial with an arrow embroidered on it. It's pointing towards a gauge that reads [].<BR> <font color='blue'><A href='?src=[UID()];toggleUV=1'> Turn towards []</A><BR>",(uv_super ? "15nm" : "185nm"),(uv_super ? "185nm" : "15nm") )
 		dat+= text("A thick old-style button, with 2 grimy LED lights next to it. The [] LED is on.<BR><font color ='blue'><A href='?src=[UID()];togglesafeties=1'>Press button</a></font>",(safeties ? "<font color='green'><B>GREEN</B></font>" : "<font color='red'><B>RED</B></font>"))
 		dat+= "<HR><BR><A href='?src=[user.UID()];mach_close=suit_storage_unit'>Close panel</A>"
 	else if(uv) //The thing is running its cauterisation cycle. You have to wait.
