@@ -12,13 +12,13 @@
 		src.icon_state = pick(src.random_icon_states)
 	create_reagents(100)
 	if(smooth)
-		smooth_icon(src)
-		smooth_icon_neighbors(src)
+		queue_smooth(src)
+		queue_smooth_neighbors(src)
 	..()
 
 /obj/effect/decal/cleanable/Destroy()
 	if(smooth)
-		smooth_icon_neighbors(src)
+		queue_smooth_neighbors(src)
 	return ..()
 
 /obj/effect/decal/cleanable/attackby(obj/item/W as obj, mob/user as mob,)

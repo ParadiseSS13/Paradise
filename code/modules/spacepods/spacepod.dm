@@ -233,12 +233,19 @@
 	if(!health)
 		spawn(0)
 			message_to_riders("<span class='userdanger'>Critical damage to the vessel detected, core explosion imminent!</span>")
-			for(var/i = 10, i >= 0; --i)
-				message_to_riders("<span class='warning'>[i]</span>")
-				if(i == 0)
-					explosion(loc, 2, 4, 8)
-					qdel(src)
+			for(var/i in 1 to 3)
+				var/count = 3
+				message_to_riders("<span class='warning'>[count]</span>")
+				count--
 				sleep(10)
+			if(LAZYLEN(pilot) || LAZYLEN(passengers))
+				for(var/M in passengers + pilot)
+					var/mob/living/L = M
+					L.adjustBruteLoss(300)
+			explosion(loc, 0, 0, 2)
+			robogibs(loc)
+			robogibs(loc)
+			qdel(src)
 
 	update_icons()
 

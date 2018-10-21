@@ -15,5 +15,5 @@
 
 /obj/effect/temp_visual/ripple/New()
 	. = ..()
-	smooth_icon(src)
+	queue_smooth(src)
 	animate(src, alpha=255, time=SHUTTLE_RIPPLE_TIME)

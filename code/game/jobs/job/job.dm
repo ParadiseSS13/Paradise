@@ -215,7 +215,7 @@
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]")
+					to_chat(H, "<span class='notice'>Placing [G.display_name] in [placed_in.name].</span>")
 				continue
 			if(H.equip_to_appropriate_slot(G))
 				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
