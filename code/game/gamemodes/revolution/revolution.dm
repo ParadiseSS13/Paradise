@@ -51,9 +51,9 @@
 		lenin.restricted_roles = restricted_jobs
 
 	if(head_revolutionaries.len < required_enemies)
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 
 /datum/game_mode/revolution/post_setup()
@@ -72,10 +72,7 @@
 		for(var/datum/mind/head_mind in heads)
 			mark_for_death(rev_mind, head_mind)
 
-		spawn(rand(10,100))
-		//	equip_traitor(rev_mind.current, 1) //changing how revs get assigned their uplink so they can get PDA uplinks. --NEO
-		//	Removing revolutionary uplinks.	-Pete
-			equip_revolutionary(rev_mind.current)
+		addtimer(CALLBACK(src, .proc/equip_revolutionary, rev_mind.current), rand(10, 100))
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
@@ -92,7 +89,7 @@
 			check_heads()
 			ticker.mode.check_win()
 		check_counter = 0
-	return 0
+	return FALSE
 
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
@@ -223,7 +220,7 @@
 				command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg')
 		return ..()
 	if(finished != 0)
-		return 1
+		return TRUE
 	else
 		return ..()
 
@@ -304,9 +301,9 @@
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		for(var/datum/objective/mutiny/objective in rev_mind.objectives)
 			if(!(objective.check_completion()))
-				return 0
+				return FALSE
 
-	return 1
+	return TRUE
 
 /////////////////////////////
 //Checks for a head victory//
@@ -316,8 +313,8 @@
 		var/turf/T = get_turf(rev_mind.current)
 		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != DEAD) && rev_mind.current.client && T && is_station_level(T.z))
 			if(ishuman(rev_mind.current))
-				return 0
-	return 1
+				return FALSE
+	return TRUE
 
 //////////////////////////////////////////////////////////////////////
 //Announces the end of the game with all relavent information stated//
@@ -330,7 +327,7 @@
 		feedback_set_details("round_end_result","loss - rev heads killed")
 		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
 	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/auto_declare_completion_revolution()
 	var/list/targets = list()
