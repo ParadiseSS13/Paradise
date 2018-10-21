@@ -551,14 +551,14 @@
 		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 		update_flags |= M.AdjustEarDamage(-1, FALSE)
 	if(prob(50))
-		update_flags |= M.CureNearsighted()
+		update_flags |= M.CureNearsighted(FALSE)
 	if(prob(30))
-		update_flags |= M.CureBlind()
-		update_flags |= M.SetEyeBlind(0)
+		update_flags |= M.CureBlind(FALSE)
+		update_flags |= M.SetEyeBlind(0, FALSE)
 	if(M.ear_damage <= 25)
 		if(prob(30))
 			M.SetEarDeaf(0)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"
