@@ -27,7 +27,6 @@
 
 /datum/autopsy_data
 	var/weapon = null
-	var/pretend_weapon = null
 	var/damage = 0
 	var/hits = 0
 	var/time_inflicted = 0
@@ -35,7 +34,6 @@
 /datum/autopsy_data/proc/copy()
 	var/datum/autopsy_data/W = new()
 	W.weapon = weapon
-	W.pretend_weapon = pretend_weapon
 	W.damage = damage
 	W.hits = hits
 	W.time_inflicted = time_inflicted
@@ -45,13 +43,6 @@
 	if(O.autopsy_data.len)
 		for(var/V in O.autopsy_data)
 			var/datum/autopsy_data/W = O.autopsy_data[V]
-
-			if(!W.pretend_weapon)
-				if(1)
-					W.pretend_weapon = W.weapon
-				else
-					W.pretend_weapon = pick("mechanical toolbox", "wirecutters", "revolver", "crowbar", "fire extinguisher", "tomato soup", "oxygen tank", "emergency oxygen tank", "laser", "bullet")
-
 
 			var/datum/autopsy_data_scanner/D = wdata[V]
 			if(!D)
@@ -102,19 +93,11 @@
 			var/datum/autopsy_data_scanner/D = wdata[wdata_idx]
 			var/total_hits = 0
 			var/total_score = 0
-			var/list/weapon_chances = list() // maps weapon names to a score
 			var/age = 0
 
 			for(var/wound_idx in D.organs_scanned)
 				var/datum/autopsy_data/W = D.organs_scanned[wound_idx]
 				total_hits += W.hits
-
-				var/wname = W.pretend_weapon
-
-				if(wname in weapon_chances)
-					weapon_chances[wname] += W.damage
-				else
-					weapon_chances[wname] = max(W.damage, 1)
 				total_score+=W.damage
 
 
@@ -122,13 +105,8 @@
 				age = max(age, wound_age)
 
 			var/damage_desc
-
-			var/damaging_weapon = (total_score != 0)
-
 			// total score happens to be the total damage
 			switch(total_score)
-				if(0)
-					damage_desc = "Unknown"
 				if(1 to 5)
 					damage_desc = "<font color='green'>negligible</font>"
 				if(5 to 15)
@@ -137,20 +115,17 @@
 					damage_desc = "<font color='orange'>moderate</font>"
 				if(30 to 1000)
 					damage_desc = "<font color='red'>severe</font>"
+				else
+					damage_desc = "Unknown"
 
-			if(!total_score)
-				total_score = D.organs_scanned.len
-
+			var/damaging_weapon = (total_score != 0)
 			scan_data += "<b>Weapon #[n]</b><br>"
 			if(damaging_weapon)
 				scan_data += "Severity: [damage_desc]<br>"
 				scan_data += "Hits by weapon: [total_hits]<br>"
 			scan_data += "Approximate time of wound infliction: [station_time_timestamp("hh:mm", age)]<br>"
 			scan_data += "Affected limbs: [D.organ_names]<br>"
-			scan_data += "Possible weapons:<br>"
-			for(var/weapon_name in weapon_chances)
-				scan_data += "\t[100*weapon_chances[weapon_name]/total_score]% [weapon_name]<br>"
-
+			scan_data += "Weapon: [D.weapon]<br>"
 			scan_data += "<br>"
 
 			n++
