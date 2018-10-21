@@ -115,8 +115,8 @@
 		if(!open)
 			return
 		var/obj/item/reagent_containers/RG = I
-		if(RG.is_open_container())
-			if(RG.reagents.total_volume >= RG.volume)
+		if(RG.is_refillable())
+			if(RG.reagents.holder_full())
 				to_chat(user, "<span class='warning'>[RG] is full.</span>")
 			else
 				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))

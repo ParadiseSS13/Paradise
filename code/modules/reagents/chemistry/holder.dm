@@ -683,6 +683,16 @@ var/const/INGEST = 2
 			stuff += A.id
 	return english_list(stuff)
 
+/datum/reagents/proc/log_list()
+	if(!length(reagent_list))
+		return "no reagents"
+	var/list/data = list()
+	for(var/r in reagent_list) //no reagents will be left behind
+		var/datum/reagent/R = r
+		data += "[R.id] ([round(R.volume, 0.1)]u)"
+		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
+	return english_list(data)
+
 //two helper functions to preserve data across reactions (needed for xenoarch)
 /datum/reagents/proc/get_data(reagent_id)
 	for(var/datum/reagent/D in reagent_list)
@@ -743,6 +753,11 @@ var/const/INGEST = 2
 			result = R
 			break
 	return result
+
+/datum/reagents/proc/holder_full()
+	if(total_volume >= maximum_volume)
+		return TRUE
+	return FALSE
 
 /datum/reagents/Destroy()
 	. = ..()

@@ -29,7 +29,7 @@
 	var/obj/item/dart_cartridge/cartridge = null //Container of darts.
 	var/max_beakers = 3
 	var/dart_reagent_amount = 15
-	var/container_type = /obj/item/reagent_containers/glass/beaker
+	var/containers_type = /obj/item/reagent_containers/glass/beaker
 	var/list/starting_chems = null
 
 /obj/item/gun/dartgun/update_icon()
@@ -49,7 +49,7 @@
 	..()
 	if(starting_chems)
 		for(var/chem in starting_chems)
-			var/obj/B = new container_type(src)
+			var/obj/B = new containers_type(src)
 			B.reagents.add_reagent(chem, 50)
 			beakers += B
 	cartridge = new /obj/item/dart_cartridge(src)
@@ -87,7 +87,7 @@
 		update_icon()
 		return
 	if(istype(I, /obj/item/reagent_containers/glass))
-		if(!istype(I, container_type))
+		if(!istype(I, containers_type))
 			to_chat(user, "<span class='warning'>[I] doesn't seem to fit into [src].</span>")
 			return
 		if(beakers.len >= max_beakers)

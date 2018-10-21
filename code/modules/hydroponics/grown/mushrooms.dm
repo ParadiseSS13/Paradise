@@ -81,7 +81,7 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/angel
 	seed = /obj/item/seeds/angel
 	name = "destroying angel"
-	desc = "<I>Amanita Virosa</I>: Deadly poisonous basidiomycete fungus filled with alpha amatoxins."
+	desc = "<I>Amanita Virosa</I>: Deadly poisonous basidiomycete fungus filled with alpha amanitin."
 	icon_state = "angel"
 	filling_color = "#C0C0C0"
 

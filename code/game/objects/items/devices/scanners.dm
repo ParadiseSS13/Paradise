@@ -439,7 +439,8 @@ REAGENT SCANNER
 	icon_state = "spectrometer"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
-	flags = CONDUCT | OPENCONTAINER
+	flags = CONDUCT
+	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
