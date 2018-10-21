@@ -12,6 +12,10 @@
 
 #define Clamp(x, y, z)			 	((x) <= (y) ? (y) : ((x) >= (z) ? (z) : (x)))
 #define CLAMP01(x) 					(Clamp((x), 0, 1))
+
+// Similar to clamp but the bottom rolls around to the top and vice versa. min is inclusive, max is exclusive
+#define WRAP(val, min, max) ( min == max ? min : (val) - (round(((val) - (min))/((max) - (min))) * ((max) - (min))) )
+
 #define SIMPLE_SIGN(X)				((X) < 0 ? -1 : 1)
 #define SIGN(X)						((X) ? SIMPLE_SIGN(X) : 0)
 #define hypotenuse(Ax, Ay, Bx, By)	(sqrt(((Ax) - (Bx))**2 + ((Ay) - (By))**2))
