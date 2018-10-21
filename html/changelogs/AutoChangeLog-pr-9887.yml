@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - rscadd: "Added the Viral Injector. A virologist specific traitor item that acts like a sleepy pen but can transfer viruses. It's disguised as a functional pipette."
