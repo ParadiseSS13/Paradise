@@ -69,13 +69,13 @@
 
 /datum/game_mode/traitor/autotraitor/proc/traitorcheckloop()
 	spawn(9000)
-		if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+		if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 			return
 		//message_admins("Performing AutoTraitor Check")
 		var/playercount = 0
 		var/traitorcount = 0
 		var/possible_traitors[0]
-		for(var/mob/living/player in mob_list)
+		for(var/mob/living/player in GLOB.mob_list)
 			if(player.client && player.stat != DEAD)
 				playercount += 1
 			if(player.client && player.mind && player.mind.special_role && player.stat != DEAD)
@@ -156,7 +156,7 @@
 
 /datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/character)
 	..()
-	if(shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 	//message_admins("Late Join Check")
 	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, "Syndicate"))
@@ -164,7 +164,7 @@
 		//message_admins("Checking number of players")
 		var/playercount = 0
 		var/traitorcount = 0
-		for(var/mob/living/player in mob_list)
+		for(var/mob/living/player in GLOB.mob_list)
 			if(player.client && player.stat != DEAD)
 				playercount += 1
 			if(player.client && player.mind && player.mind.special_role && player.stat != DEAD)

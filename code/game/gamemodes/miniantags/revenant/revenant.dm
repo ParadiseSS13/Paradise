@@ -98,11 +98,11 @@
 		return
 	log_say(message, src)
 	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(istype(M, /mob/living/simple_animal/revenant))
 			to_chat(M, rendered)
 		if(isobserver(M))
-			to_chat(M, "<a href='?src=[M.UID()];follow=\ref[src]'>(F)</a> [rendered]")
+			to_chat(M, "<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> [rendered]")
 	return
 
 /mob/living/simple_animal/revenant/Stat()
@@ -161,15 +161,18 @@
 
 
 /mob/living/simple_animal/revenant/dust()
-	death()
+	. = death()
 
 /mob/living/simple_animal/revenant/gib()
-	death()
+	. = death()
 
 /mob/living/simple_animal/revenant/death()
-	..()
 	if(!revealed)
-		return
+		return FALSE
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	ghost_darkness_images -= ghostimage
 	updateallghostimages()
 
@@ -190,7 +193,6 @@
 	R.client_to_revive = src.client //If the essence reforms, the old revenant is put back in the body
 	ghostize()
 	qdel(src)
-	return
 
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/nullrod))
@@ -366,7 +368,7 @@
 	loc = get_turf(src) //In case it's in a backpack or someone's hand
 	var/mob/living/simple_animal/revenant/R = new(get_turf(src))
 	if(client_to_revive)
-		for(var/mob/M in dead_mob_list)
+		for(var/mob/M in GLOB.dead_mob_list)
 			if(M.client == client_to_revive) //Only recreates the mob if the mob the client is in is dead
 				R.client = client_to_revive
 				key_of_revenant = client_to_revive.key

@@ -46,7 +46,7 @@
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
-	for(var/mob/new_player/player in player_list)
+	for(var/mob/new_player/player in GLOB.player_list)
 		if((player.client)&&(player.ready))
 			playerC++
 
@@ -132,7 +132,7 @@
 			if(MS.active)
 				useMS = MS
 				break
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(M.mind)
 			var/obj/item/pda/P=null
 			for(var/obj/item/pda/check_pda in PDAs)
@@ -156,15 +156,7 @@
 						msg="Task #[count] completed! "
 				if(pay>0)
 					if(M.mind.initial_account)
-						M.mind.initial_account.money += pay
-						var/datum/transaction/T = new()
-						T.target_name = "[command_name()] Payroll"
-						T.purpose = "Payment"
-						T.amount = pay
-						T.date = current_date_string
-						T.time = station_time_timestamp()
-						T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
-						M.mind.initial_account.transaction_log.Add(T)
+						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
 						msg += "You have been sent the $[pay], as agreed."
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
@@ -176,7 +168,7 @@
 					break
 
 /datum/game_mode/proc/check_finished() //to be called by ticker
-	if((shuttle_master.emergency && shuttle_master.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
+	if((SSshuttle.emergency && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
 		return 1
 	return 0
 
@@ -198,10 +190,10 @@
 
 	var/list/area/escape_locations = list(/area/shuttle/escape, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
 
-	if(shuttle_master.emergency.mode < SHUTTLE_ENDGAME) //shuttle didn't get to centcom
+	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME) //shuttle didn't get to centcom
 		escape_locations -= /area/shuttle/escape
 
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			clients++
 			if(ishuman(M))
@@ -214,7 +206,7 @@
 				if(M.loc && M.loc.loc && M.loc.loc.type in escape_locations)
 					escaped_total++
 
-				if(M.loc && M.loc.loc && M.loc.loc.type == shuttle_master.emergency.areaInstance.type && shuttle_master.emergency.mode >= SHUTTLE_ENDGAME)
+				if(M.loc && M.loc.loc && M.loc.loc.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
 					escaped_on_shuttle++
 
 				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod1/centcom)
@@ -268,7 +260,7 @@
 	var/roletext = get_roletext(role)
 
 	// Assemble a list of active players without jobbans.
-	for(var/mob/new_player/player in player_list)
+	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.client && player.ready)
 			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
 				if(player_old_enough_antag(player.client,role))
@@ -319,13 +311,13 @@
 
 /datum/game_mode/proc/num_players()
 	. = 0
-	for(var/mob/new_player/P in player_list)
+	for(var/mob/new_player/P in GLOB.player_list)
 		if(P.client && P.ready)
 			.++
 
 /datum/game_mode/proc/num_players_started()
 	. = 0
-	for(var/mob/living/carbon/human/H in player_list)
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.client)
 			.++
 
@@ -334,7 +326,7 @@
 ///////////////////////////////////
 /datum/game_mode/proc/get_living_heads()
 	. = list()
-	for(var/mob/living/carbon/human/player in mob_list)
+	for(var/mob/living/carbon/human/player in GLOB.mob_list)
 		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
@@ -345,7 +337,7 @@
 ////////////////////////////
 /datum/game_mode/proc/get_all_heads()
 	. = list()
-	for(var/mob/player in mob_list)
+	for(var/mob/player in GLOB.mob_list)
 		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
@@ -355,7 +347,7 @@
 //////////////////////////////////////////////
 /datum/game_mode/proc/get_living_sec()
 	. = list()
-	for(var/mob/living/carbon/human/player in mob_list)
+	for(var/mob/living/carbon/human/player in GLOB.mob_list)
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in security_positions))
 			. |= player.mind
 
@@ -364,7 +356,7 @@
 ////////////////////////////////////////
 /datum/game_mode/proc/get_all_sec()
 	. = list()
-	for(var/mob/living/carbon/human/player in mob_list)
+	for(var/mob/living/carbon/human/player in GLOB.mob_list)
 		if(player.mind && (player.mind.assigned_role in security_positions))
 			. |= player.mind
 
@@ -379,11 +371,11 @@
 //////////////////////////
 proc/display_roundstart_logout_report()
 	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
-	for(var/mob/living/L in mob_list)
+	for(var/mob/living/L in GLOB.mob_list)
 
 		if(L.ckey)
 			var/found = 0
-			for(var/client/C in clients)
+			for(var/client/C in GLOB.clients)
 				if(C.ckey == L.ckey)
 					found = 1
 					break
@@ -409,7 +401,7 @@ proc/display_roundstart_logout_report()
 					continue //Dead
 
 			continue //Happy connected client
-		for(var/mob/dead/observer/D in mob_list)
+		for(var/mob/dead/observer/D in GLOB.mob_list)
 			if(D.mind && (D.mind.original == L || D.mind.current == L))
 				if(L.stat == DEAD)
 					if(L.suiciding)	//Suicider
@@ -430,14 +422,14 @@ proc/display_roundstart_logout_report()
 
 
 
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(check_rights(R_ADMIN, 0, M))
 			to_chat(M, msg)
 
 
 /proc/get_nt_opposed()
 	var/list/dudes = list()
-	for(var/mob/living/carbon/human/man in player_list)
+	for(var/mob/living/carbon/human/man in GLOB.player_list)
 		if(man.client)
 			//don't try picking someone like the captain or a security officer for potential collaborators, even if they ARE opposed to Nanotrasen for some reason
 			if(man.mind && man.mind.assigned_role)

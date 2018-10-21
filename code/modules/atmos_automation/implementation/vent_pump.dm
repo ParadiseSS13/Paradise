@@ -41,7 +41,7 @@
 		if(href_list["set_vent_pump"])
 			var/list/injector_names = list()
 			if(!vent_type)
-				for(var/obj/machinery/atmospherics/unary/vent_pump/I in machines)
+				for(var/obj/machinery/atmospherics/unary/vent_pump/I in GLOB.machines)
 					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
 						injector_names |= I.id_tag
 			else
@@ -98,7 +98,7 @@
 		if(href_list["set_vent_pump"])
 			var/list/injector_names=list()
 			if(!mode)
-				for(var/obj/machinery/atmospherics/unary/vent_pump/I in machines)
+				for(var/obj/machinery/atmospherics/unary/vent_pump/I in GLOB.machines)
 					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
 						injector_names|=I.id_tag
 			else
@@ -190,7 +190,7 @@
 					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
 						injector_names|=I.id_tag
 			else
-				for(var/obj/machinery/atmospherics/unary/vent_pump/I in machines)
+				for(var/obj/machinery/atmospherics/unary/vent_pump/I in GLOB.machines)
 					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
 						injector_names|=I.id_tag
 			vent_pump = input("Select a vent:", "Vent Pumps", vent_pump) as null|anything in injector_names
@@ -282,7 +282,7 @@ checks bitflags
 					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
 						injector_names|=I.id_tag
 			else
-				for(var/obj/machinery/atmospherics/unary/vent_pump/I in machines)
+				for(var/obj/machinery/atmospherics/unary/vent_pump/I in GLOB.machines)
 					if(!isnull(I.id_tag) && I.frequency == parent.frequency)
 						injector_names|=I.id_tag
 			vent_pump = input("Select a vent:", "Vent Pumps", vent_pump) as null|anything in injector_names

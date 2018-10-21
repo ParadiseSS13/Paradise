@@ -1,4 +1,4 @@
-/client/proc/cmd_admin_drop_everything(mob/M as mob in mob_list)
+/client/proc/cmd_admin_drop_everything(mob/M as mob in GLOB.mob_list)
 	set category = null
 	set name = "Drop Everything"
 
@@ -16,7 +16,7 @@
 	message_admins("[key_name_admin(usr)] made [key_name_admin(M)] drop everything!", 1)
 	feedback_add_details("admin_verb","DEVR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_prison(mob/M as mob in mob_list)
+/client/proc/cmd_admin_prison(mob/M as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Prison"
 
@@ -44,7 +44,7 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] sent [key_name_admin(M)] to the prison station.</span>", 1)
 		feedback_add_details("admin_verb","PRISON") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_subtle_message(mob/M as mob in mob_list)
+/client/proc/cmd_admin_subtle_message(mob/M as mob in GLOB.mob_list)
 	set category = "Event"
 	set name = "Subtle Message"
 
@@ -83,7 +83,7 @@
 
 	var/missing_ages = 0
 	var/msg = ""
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		if(C.player_age == "Requires database")
 			missing_ages = 1
 			continue
@@ -144,13 +144,13 @@
 
 
 
-/client/proc/cmd_admin_headset_message(mob/M in mob_list)
+/client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Headset Message"
 
 	admin_headset_message(M)
 
-/client/proc/admin_headset_message(mob/M in mob_list, sender = null)
+/client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
 	var/mob/living/carbon/human/H = M
 
 	if(!check_rights(R_ADMIN))
@@ -181,7 +181,7 @@
 
 
 
-/client/proc/cmd_admin_godmode(mob/M as mob in mob_list)
+/client/proc/cmd_admin_godmode(mob/M as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Godmode"
 
@@ -342,7 +342,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	var/mob/dead/observer/G_found
-	for(var/mob/dead/observer/G in player_list)
+	for(var/mob/dead/observer/G in GLOB.player_list)
 		if(G.ckey == input)
 			G_found = G
 			break
@@ -435,6 +435,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Now for special roles and equipment.
 	switch(new_character.mind.special_role)
 		if("traitor")
+			job_master.AssignRank(new_character, new_character.mind.assigned_role, 0)
 			job_master.EquipRank(new_character, new_character.mind.assigned_role, 1)
 			ticker.mode.equip_traitor(new_character)
 		if("Wizard")
@@ -465,6 +466,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						call(/datum/game_mode/proc/add_law_zero)(new_character)
 				//Add aliens.
 				else
+					job_master.AssignRank(new_character, new_character.mind.assigned_role, 0)
 					job_master.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
 
 	//Announces the character on all the systems, based on the record.
@@ -488,7 +490,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /proc/create_xeno(ckey)
 	if(!ckey)
 		var/list/candidates = list()
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(M.stat != DEAD)		continue	//we are not dead!
 			if(!(ROLE_ALIEN in M.client.prefs.be_special))	continue	//we don't want to be an alium
 			if(jobban_isbanned(M, "alien") || jobban_isbanned(M, "Syndicate")) continue //we are jobbanned
@@ -523,7 +525,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/list/mobs = list()
 	var/list/ghosts = list()
-	var/list/sortmob = sortAtom(mob_list)                           // get the mob list.
+	var/list/sortmob = sortAtom(GLOB.mob_list)                           // get the mob list.
 	/var/any=0
 	for(var/mob/dead/observer/M in sortmob)
 		mobs.Add(M)                                             //filter it where it's only ghosts
@@ -562,7 +564,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	feedback_add_details("admin_verb","IONC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_rejuvenate(mob/living/M as mob in mob_list)
+/client/proc/cmd_admin_rejuvenate(mob/living/M as mob in GLOB.mob_list)
 	set category = "Event"
 	set name = "Rejuvenate"
 
@@ -661,8 +663,17 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	if(job_master)
+		var/currentpositiontally
+		var/totalpositiontally
+		to_chat(src, "<span class='notice'>Job Name: Filled job slot / Total job slots <b>(Free job slots)</b></span>")
 		for(var/datum/job/job in job_master.occupations)
-			to_chat(src, "[job.title]: [job.total_positions]")
+			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
+			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
+			 <b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
+			if(job.total_positions != -1) // Only count position that isn't unlimited
+				currentpositiontally += job.current_positions
+				totalpositiontally += job.total_positions
+		to_chat(src, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>")
 	feedback_add_details("admin_verb","LFS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view())
@@ -719,7 +730,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		return
 
-/client/proc/cmd_admin_gib(mob/M as mob in mob_list)
+/client/proc/cmd_admin_gib(mob/M as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Gib"
 
@@ -759,7 +770,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		message_admins("<span class='notice'>[key_name_admin(usr)] used gibself.</span>", 1)
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_check_contents(mob/living/M as mob in mob_list)
+/client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Check Contents"
 
@@ -794,7 +805,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Call Shuttle"
 
-	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
+	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -804,11 +815,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(confirm != "Yes") return
 
 	if(alert("Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", "Yes", "No") == "Yes")
-		shuttle_master.emergency.canRecall = TRUE
+		SSshuttle.emergency.canRecall = TRUE
 	else
-		shuttle_master.emergency.canRecall = FALSE
+		SSshuttle.emergency.canRecall = FALSE
 
-	shuttle_master.emergency.request()
+	SSshuttle.emergency.request()
 
 	feedback_add_details("admin_verb","CSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
@@ -823,20 +834,20 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 	if(alert(src, "You sure?", "Confirm", "Yes", "No") != "Yes") return
 
-	if(shuttle_master.emergency.mode >= SHUTTLE_DOCKED)
+	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
-	if(shuttle_master.emergency.canRecall == FALSE)
+	if(SSshuttle.emergency.canRecall == FALSE)
 		if(alert("Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
 			return
 		else
 			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
-			shuttle_master.emergency.canRecall = TRUE // must be true for cancel proc to work
-			shuttle_master.emergency.cancel()
+			SSshuttle.emergency.canRecall = TRUE // must be true for cancel proc to work
+			SSshuttle.emergency.cancel()
 			if(keepStatus)
-				shuttle_master.emergency.canRecall = FALSE // restores original status
+				SSshuttle.emergency.canRecall = FALSE // restores original status
 	else
-		shuttle_master.emergency.cancel()
+		SSshuttle.emergency.cancel()
 
 	feedback_add_details("admin_verb","CCSHUT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
@@ -853,13 +864,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(shuttle_master)
-		shuttle_master.emergencyNoEscape = !shuttle_master.emergencyNoEscape
+	if(SSshuttle)
+		SSshuttle.emergencyNoEscape = !SSshuttle.emergencyNoEscape
 
-	log_admin("[key_name(src)] has [shuttle_master.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
-	message_admins("[key_name_admin(usr)] has [shuttle_master.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
+	log_admin("[key_name(src)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
+	message_admins("[key_name_admin(usr)] has [SSshuttle.emergencyNoEscape ? "denied" : "allowed"] the shuttle to be called.")
 
-/client/proc/cmd_admin_attack_log(mob/M as mob in mob_list)
+/client/proc/cmd_admin_attack_log(mob/M as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Attack Log"
 
@@ -940,7 +951,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		var/datum/TCS_Compiler/C = S.Compiler
 		S.rawcode = ""
 		C.Compile("")
-	for(var/obj/machinery/computer/telecomms/traffic/T in machines)
+	for(var/obj/machinery/computer/telecomms/traffic/T in GLOB.machines)
 		T.storedcode = ""
 	log_admin("[key_name(usr)] blanked all telecomms scripts.")
 	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
@@ -961,7 +972,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/job_string
 	var/key_string
 	var/role_string
-	for(var/mob/living/carbon/human/H in living_mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(!isLivingSSD(H))
 			continue
 		mins_ssd = round((world.time - H.last_logout) / 600)
@@ -979,7 +990,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
 		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string]</TD>"
-		msg += "<TD>[get_area(H)]</TD><TD><A HREF='?_src_=holder;adminplayeropts=\ref[H]'>PP</A></TD>"
+		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
 		if(istype(H.loc, /obj/machinery/cryopod))
 			msg += "<TD>In Cryo</TD>"
 		else

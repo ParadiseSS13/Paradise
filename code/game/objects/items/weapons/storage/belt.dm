@@ -127,8 +127,10 @@
 		/obj/item/flashlight/pen,
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/gloves/color/latex,
-        /obj/item/reagent_containers/hypospray/autoinjector,
-        /obj/item/rad_laser,
+		/obj/item/reagent_containers/hypospray/autoinjector,
+		/obj/item/reagent_containers/hypospray/CMO,
+		/obj/item/reagent_containers/hypospray/safety,
+		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 	)
@@ -244,6 +246,15 @@
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
+/obj/item/storage/belt/security/response_team_gamma/New()
+	..()
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/flash(src)
+	new /obj/item/grenade/flashbang(src)
+	new /obj/item/grenade/flashbang(src)
+	update_icon()
+	
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"

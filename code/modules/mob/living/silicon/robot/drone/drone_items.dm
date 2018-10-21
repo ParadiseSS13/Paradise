@@ -29,7 +29,7 @@
 		/obj/item/tank,
 		/obj/item/circuitboard,
 		/obj/item/stack/tile/light,
-		/obj/item/ore/bluespace_crystal
+		/obj/item/stack/ore/bluespace_crystal
 		)
 
 	//Item currently being held.
@@ -281,7 +281,7 @@
 		grabbed_something = 1
 
 	if(grabbed_something)
-		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].<span>")
+		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].</span>")
 	else
 		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
 	return

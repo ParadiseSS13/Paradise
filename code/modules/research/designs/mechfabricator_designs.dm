@@ -653,6 +653,15 @@
 	construction_time = 200
 	category = list("Exosuit Equipment")
 
+/datum/design/medical_jaw
+	name = "Exosuit Medical Equipment (Rescue Jaw)"
+	id = "mech_medical_jaw"
+	build_type = MECHFAB
+	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6)	//now same as jaws of life
+	materials = list(MAT_METAL=5000,MAT_SILVER=2000,MAT_TITANIUM=1500)
+	construction_time = 200
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_generator
 	name = "Exosuit Equipment (Plasma Generator)"
 	id = "mech_generator"

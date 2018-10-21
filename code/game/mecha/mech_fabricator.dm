@@ -5,7 +5,7 @@
 	desc = "Nothing is being built."
 	density = TRUE
 	anchored = TRUE
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 5000
 	var/time_coeff = 1
@@ -39,7 +39,7 @@
 /obj/machinery/mecha_part_fabricator/New()
 	var/datum/component/material_container/materials = AddComponent(/datum/component/material_container,
 		list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), 0,
-		FALSE, list(/obj/item/stack, /obj/item/ore/bluespace_crystal), CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
+		FALSE, list(/obj/item/stack, /obj/item/stack/ore/bluespace_crystal), CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
 	materials.precise_insertion = TRUE
 	..()
 	component_parts = list()
@@ -151,10 +151,10 @@
 	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.use_amount(res_coef)
 	overlays += "fab-active"
-	use_power = 2
+	use_power = ACTIVE_POWER_USE
 	updateUsrDialog()
 	sleep(get_construction_time_w_coeff(D))
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	overlays -= "fab-active"
 	desc = initial(desc)
 
@@ -461,6 +461,19 @@
 								"Pod_Parts",
 								"Pod_Frame",
 								"Misc")
+	req_access = list(access_mechanic)
+
+/obj/machinery/mecha_part_fabricator/spacepod/New()
+	..()
+	QDEL_LIST(component_parts)
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/podfab(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
+	RefreshParts()
 
 /obj/machinery/mecha_part_fabricator/robot
 	name = "Robotic Fabricator"

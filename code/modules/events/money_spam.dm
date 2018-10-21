@@ -52,7 +52,7 @@
 				if(2)
 					sender = pick(300;"QuickDatingSystem",200;"Find your russian bride",50;"Tajaran beauties are waiting",50;"Find your secret skrell crush",50;"Beautiful unathi brides")
 					message = pick("Your profile caught my attention and I wanted to write and say hello (QuickDating).",\
-					"If you will write to me on my email [pick(first_names_female)]@[pick(last_names)].[pick("ru","ck","tj","ur","nt")] I shall necessarily send you a photo (QuickDating).",\
+					"If you will write to me on my email [pick(GLOB.first_names_female)]@[pick(GLOB.last_names)].[pick("ru","ck","tj","ur","nt")] I shall necessarily send you a photo (QuickDating).",\
 					"I want that we write each other and I hope, that you will like my profile and you will answer me (QuickDating).",\
 					"You have (1) new message!",\
 					"You have (2) new profile views!")
@@ -98,7 +98,7 @@
 			last_spam_time = world.time
 
 			if(prob(50)) //Give the AI an increased chance to intercept the message
-				for(var/mob/living/silicon/ai/ai in mob_list)
+				for(var/mob/living/silicon/ai/ai in GLOB.mob_list)
 					// Allows other AIs to intercept the message but the AI won't intercept their own message.
 					if(ai.aiPDA != P && ai.aiPDA != src)
 						ai.show_message("<i>Intercepted message from <b>[sender]</b></i> (Unknown / spam?) <i>to <b>[P:owner]</b>: [message]</i>")

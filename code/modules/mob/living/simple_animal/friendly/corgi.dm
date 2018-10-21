@@ -41,14 +41,6 @@
 	. = ..()
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/corgi/death(gibbed)
-	..()
-	regenerate_icons()
-
-/mob/living/simple_animal/pet/corgi/revive()
-	..()
-	regenerate_icons()
-
 /mob/living/simple_animal/pet/corgi/show_inv(mob/user as mob)
 	user.set_machine(src)
 	if(user.stat) return
@@ -78,7 +70,7 @@
 				to_chat(user, "<span class='warning'>[src] is wearing too much armor! You can't cause [p_them()] any damage.</span>")
 				visible_message("<span class='danger'> [user] hits [src] with [O], however [src] is too armored.</span>")
 			else
-				to_chat(user, "<span class='warning'>[src] is wearing too much armor! You can't reach [p_their()] skin.<span>")
+				to_chat(user, "<span class='warning'>[src] is wearing too much armor! You can't reach [p_their()] skin.</span>")
 				visible_message("[user] gently taps [src] with [O].")
 			if(health>0 && prob(15))
 				custom_emote(1, "looks at [user] with [pick("an amused","an annoyed","a confused","a resentful", "a happy", "an excited")] expression.")
@@ -621,12 +613,11 @@
 
 	//spark for no reason
 	if(prob(5))
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
+		do_sparks(3, 1, src)
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
-	..()
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
+	do_sparks(3, 1, src)

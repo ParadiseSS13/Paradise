@@ -56,7 +56,6 @@
 			if(!M)
 				return
 			M.adjustOxyLoss(round(dam_force/2))
-			M.updatehealth()
 			target.visible_message("<span class='danger'>[chassis] squeezes [target].</span>", \
 								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
 								"<span class='italics'>You hear something crack.</span>")
@@ -64,8 +63,8 @@
 			start_cooldown()
 		else
 			step_away(M,chassis)
-			occupant_message("You push [target] out of the way.")
-			chassis.visible_message("[chassis] pushes [target] out of the way.")
+			occupant_message("<span class='notice'>You push [target] out of the way.</span>")
+			chassis.visible_message("<span class='notice'>[chassis] pushes [target] out of the way.</span>")
 		return 1
 
 
@@ -199,11 +198,11 @@
 	usesound = 'sound/items/Deconstruct.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/rcd/New()
-	rcd_list += src
+	GLOB.rcd_list += src
 	..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
-	rcd_list -= src
+	GLOB.rcd_list -= src
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/action(atom/target)
@@ -451,4 +450,3 @@
 	//NC.mergeConnectedNetworksOnTurf()
 	last_piece = NC
 	return 1
-

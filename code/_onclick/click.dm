@@ -236,6 +236,8 @@
 	Makes the mob face the direction of the clicked thing
 */
 /mob/proc/MiddleShiftClickOn(atom/A)
+	if(incapacitated())
+		return
 	var/face_dir = get_cardinal_dir(src, A)
 	if(forced_look == face_dir)
 		forced_look = null
@@ -392,7 +394,7 @@
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "passage0"
 	plane = CLICKCATCHER_PLANE
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER-7,CENTER-7"
 
 /obj/screen/click_catcher/Click(location, control, params)

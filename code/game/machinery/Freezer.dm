@@ -5,7 +5,7 @@
 	density = 1
 	var/min_temperature = 0
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	current_heat_capacity = 1000
 	layer = 3
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)

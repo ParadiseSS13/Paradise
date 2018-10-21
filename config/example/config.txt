@@ -183,6 +183,9 @@ CHECK_RANDOMIZER
 ## GitHub address
 # GITHUBURL http://example.org
 
+## Discord address
+# DISCORDURL http://example.org
+
 ## Donations address
 # DONATIONSURL http://example.org
 

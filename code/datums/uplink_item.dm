@@ -214,13 +214,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyser. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyser, only appears like one. May not function correctly on radiation resistant humanoids!"
+	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
 	item = /obj/item/rad_laser
 	cost = 5
 	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
 
-/datum/uplink_item/dangerous/cat_grenade
+/datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
 	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
@@ -352,7 +352,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/pen/poison
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
-	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
+	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
 
 // DANGEROUS WEAPONS
@@ -500,6 +500,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AGG"
 	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
 	cost = 11
+	surplus = 0
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -958,6 +959,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/cutouts
 	cost = 1
 	surplus = 20
+
+/datum/uplink_item/stealthy_tools/clownkit
+	name = "Honk Brand Infiltration Kit"
+	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer clown mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
+	reference = "HBIK"
+	item = /obj/item/storage/backpack/clown/syndie
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
 
 // DEVICE AND TOOLS
 

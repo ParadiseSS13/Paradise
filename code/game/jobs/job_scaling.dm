@@ -1,6 +1,6 @@
 /hook/roundstart/proc/jobscaling()
 	sleep(10 SECONDS) // give everyone time to finish spawning, and the lag to die down
-	var/playercount = length(clients)
+	var/playercount = length(GLOB.clients)
 	var/highpop_trigger = 80
 
 	if(playercount >= highpop_trigger)
