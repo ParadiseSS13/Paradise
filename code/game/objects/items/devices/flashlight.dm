@@ -358,9 +358,10 @@ obj/item/flashlight/lamp/bananalamp
 		to_chat(user, "<span class='notice'>[src] is already lit.</span>")
 		return
 
- 	. = ..()
-	user.visible_message("<span class='notice'>[user] cracks and shakes [src].</span>", "<span class='notice'>You crack and shake [src], turning it on!</span>")
-	activate()
+	. = ..()
+	if(.)
+		user.visible_message("<span class='notice'>[user] cracks and shakes [src].</span>", "<span class='notice'>You crack and shake [src], turning it on!</span>")
+		activate()
 
 /obj/item/flashlight/glowstick/proc/activate()
 	if(!on)
