@@ -78,6 +78,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.latejoin += loc
 	return INITIALIZE_HINT_QDEL
 
+/obj/effect/landmark/latejoin
+	name = "JoinLate"
+
+/obj/effect/landmark/latejoin/Initialize(mapload)
+	..()
+	GLOB.latejoin += loc
+	return INITIALIZE_HINT_QDEL
+
 /obj/effect/landmark/observer_start
 	name = "Observer-Start"
 	icon_state = "observer_start"
@@ -453,6 +461,31 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/start/new_player)
 	GLOB.awaydestinations += loc
 	return INITIALIZE_HINT_QDEL
 
+
+// Unused but insisted upon //
+/obj/effect/landmark/latejoin_gateway
+	name = "JoinLateGateway"
+
+/obj/effect/landmark/latejoin_gateway/Initialize(mapload)
+	..()
+	GLOB.latejoin_gateway += loc
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/latejoin_cryo
+	name = "JoinLateCryo"
+
+/obj/effect/landmark/latejoin_cryo/Initialize(mapload)
+	..()
+	GLOB.latejoin_cryo += loc
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/landmark/latejoin_cyborg
+	name = "JoinLateCyborg"
+
+/obj/effect/landmark/latejoin_cyborg/Initialize(mapload)
+	..()
+	GLOB.latejoin_cyborg += loc
+	return INITIALIZE_HINT_QDEL
 
 
 // Ruins

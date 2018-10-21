@@ -23,6 +23,11 @@ GLOBAL_LIST_EMPTY(start_landmarks_list)			//list of all spawn points created
 GLOBAL_LIST_EMPTY(generic_event_spawns)			//list of all spawns for events
 GLOBAL_LIST_EMPTY(jobspawn_overrides)					//These will take precedence over normal spawnpoints if created.
 
+// Unused but insisted upon.
+GLOBAL_LIST_EMPTY(latejoin_gateway)
+GLOBAL_LIST_EMPTY(latejoin_cryo)
+GLOBAL_LIST_EMPTY(latejoin_cyborg)
+
 GLOBAL_LIST_EMPTY(wizardstart)
 GLOBAL_LIST_EMPTY(nukeop_start)
 GLOBAL_LIST_EMPTY(nukeop_leader_start)
