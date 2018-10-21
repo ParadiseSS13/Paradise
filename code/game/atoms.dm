@@ -290,11 +290,7 @@
 					to_chat(user, "[reagents.total_volume] units of various reagents.")
 		else
 			to_chat(user, "Nothing.")
-	#if DM_VERSION > 511
-	#warn Remove the garbage bypass code below
-	#endif
-	var/Removein512 = SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
-	KillMeIn512(Removein512)
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
 
 	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
