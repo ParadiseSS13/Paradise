@@ -10,44 +10,34 @@
 	var/path = 0
 	var/affected_area = 2
 
-	prime()
-		..()
-		playsound(src.loc, 'sound/items/bikehorn.ogg', 25, -3)
-		/*
-		for(var/turf/simulated/floor/T in view(affected_area, src.loc))
-			if(prob(75))
-				banana(T)
-		*/
-		var/i = 0
-		var/number = 0
-		for(var/direction in alldirs)
-			for(i = 0; i < 2; i++)
-				number++
-				var/obj/item/grown/bananapeel/traitorpeel/peel = new /obj/item/grown/bananapeel/traitorpeel(get_turf(src.loc))
-			/*	var/direction = pick(alldirs)
-				var/spaces = pick(1;150, 2)
-				var/a = 0
-				for(a = 0; a < spaces; a++)
-					step(peel,direction)*/
-				var/a = 1
-				if(number & 2)
-					for(a = 1; a <= 2; a++)
-						step(peel,direction)
-				else
+/obj/item/grenade/clown_grenade/prime()
+	..()
+	playsound(src.loc, 'sound/items/bikehorn.ogg', 25, -3)
+	/*
+	for(var/turf/simulated/floor/T in view(affected_area, src.loc))
+		if(prob(75))
+			banana(T)
+	*/
+	var/i = 0
+	var/number = 0
+	for(var/direction in alldirs)
+		for(i = 0; i < 2; i++)
+			number++
+			var/obj/item/grown/bananapeel/traitorpeel/peel = new /obj/item/grown/bananapeel/traitorpeel(get_turf(src.loc))
+		/*	var/direction = pick(alldirs)
+			var/spaces = pick(1;150, 2)
+			var/a = 0
+			for(a = 0; a < spaces; a++)
+				step(peel,direction)*/
+			var/a = 1
+			if(number & 2)
+				for(a = 1; a <= 2; a++)
 					step(peel,direction)
-		new /obj/item/grown/bananapeel/traitorpeel(get_turf(src.loc))
-		qdel(src)
-		return
-/*
-	proc/banana(turf/T as turf)
-		if(!T || !istype(T))
-			return
-		if(locate(/obj/structure/grille) in T)
-			return
-		if(locate(/obj/structure/window) in T)
-			return
-		new /obj/item/grown/bananapeel/traitorpeel(T)
-*/
+			else
+				step(peel,direction)
+	new /obj/item/grown/bananapeel/traitorpeel(get_turf(src.loc))
+	qdel(src)
+	return
 
 /obj/item/grown/bananapeel/traitorpeel
 	trip_stun = 0

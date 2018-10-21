@@ -432,18 +432,18 @@
 	desc = "Used for emergency sealing of air breaches."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/metalfoam/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("aluminum", 30)
-		B2.reagents.add_reagent("fluorosurfactant", 10)
-		B2.reagents.add_reagent("sacid", 10)
+	B1.reagents.add_reagent("aluminum", 30)
+	B2.reagents.add_reagent("fluorosurfactant", 10)
+	B2.reagents.add_reagent("sacid", 10)
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 
 /obj/item/grenade/chem_grenade/incendiary
@@ -451,19 +451,19 @@
 	desc = "Used for clearing rooms of living things."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
+/obj/item/grenade/chem_grenade/incendiary/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/large/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/large/B2 = new(src)
 
-		B1.reagents.add_reagent("phosphorus", 25)
-		B2.reagents.add_reagent("plasma", 25)
-		B2.reagents.add_reagent("sacid", 25)
+	B1.reagents.add_reagent("phosphorus", 25)
+	B2.reagents.add_reagent("plasma", 25)
+	B2.reagents.add_reagent("sacid", 25)
 
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 
 /obj/item/grenade/chem_grenade/antiweed
@@ -471,20 +471,20 @@
 	desc = "Used for purging large areas of invasive plant species. Contents under pressure. Do not directly inhale contents."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/antiweed/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("atrazine", 30)
-		B1.reagents.add_reagent("potassium", 20)
-		B2.reagents.add_reagent("phosphorus", 20)
-		B2.reagents.add_reagent("sugar", 20)
-		B2.reagents.add_reagent("atrazine", 10)
+	B1.reagents.add_reagent("atrazine", 30)
+	B1.reagents.add_reagent("potassium", 20)
+	B2.reagents.add_reagent("phosphorus", 20)
+	B2.reagents.add_reagent("sugar", 20)
+	B2.reagents.add_reagent("atrazine", 10)
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 
 /obj/item/grenade/chem_grenade/cleaner
@@ -492,18 +492,18 @@
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/cleaner/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("fluorosurfactant", 40)
-		B2.reagents.add_reagent("cleaner", 10)
-		B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
+	B1.reagents.add_reagent("fluorosurfactant", 40)
+	B2.reagents.add_reagent("cleaner", 10)
+	B2.reagents.add_reagent("water", 40) //when you make pre-designed foam reactions that carry the reagents, always add water last
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 
 /obj/item/grenade/chem_grenade/teargas
@@ -511,19 +511,19 @@
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/teargas/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("condensedcapsaicin", 25)
-		B1.reagents.add_reagent("potassium", 25)
-		B2.reagents.add_reagent("phosphorus", 25)
-		B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent("condensedcapsaicin", 25)
+	B1.reagents.add_reagent("potassium", 25)
+	B2.reagents.add_reagent("phosphorus", 25)
+	B2.reagents.add_reagent("sugar", 25)
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 /obj/item/grenade/chem_grenade/facid
 	name = "acid grenade"
@@ -550,19 +550,19 @@
 	desc = "Contains sarin gas; extremely deadly and fast acting; use with extreme caution."
 	stage = READY
 
-	New()
-		..()
-		var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
-		var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+/obj/item/grenade/chem_grenade/saringas/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
 
-		B1.reagents.add_reagent("sarin", 25)
-		B1.reagents.add_reagent("potassium", 25)
-		B2.reagents.add_reagent("phosphorus", 25)
-		B2.reagents.add_reagent("sugar", 25)
+	B1.reagents.add_reagent("sarin", 25)
+	B1.reagents.add_reagent("potassium", 25)
+	B2.reagents.add_reagent("phosphorus", 25)
+	B2.reagents.add_reagent("sugar", 25)
 
-		beakers += B1
-		beakers += B2
-		update_icon()
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 #undef EMPTY
 #undef WIRED

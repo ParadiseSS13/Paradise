@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Cyborg hypospray's attack log message should no longer be reversed."
