@@ -68,11 +68,9 @@
 
 /obj/item/guardian_bomb/attackby(obj/item/W, mob/living/user)
 	detonate(user)
-	return
 
 /obj/item/guardian_bomb/pickup(mob/living/user)
 	detonate(user)
-	return
 
 /obj/item/guardian_bomb/examine(mob/user)
 	stored_obj.examine(user)
