@@ -764,5 +764,7 @@ var/const/INGEST = 2
 	processing_objects -= src
 	QDEL_LIST(reagent_list)
 	reagent_list = null
+	QDEL_LIST(addiction_list)
+	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null
