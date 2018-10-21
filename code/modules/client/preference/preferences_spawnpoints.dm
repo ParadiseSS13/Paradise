@@ -29,3 +29,29 @@ var/list/spawntypes = list()
 /datum/spawnpoint/arrivals/New()
 	..()
 	turfs = GLOB.latejoin
+
+/datum/spawnpoint/gateway
+	display_name = "Gateway"
+	msg = "has completed translation from offsite gateway"
+
+/datum/spawnpoint/gateway/New()
+	..()
+	turfs = GLOB.latejoin_gateway
+
+/datum/spawnpoint/cryo
+	display_name = "Cryogenic Storage"
+	msg = "has completed cryogenic revival"
+	disallow_job = list("Cyborg")
+
+/datum/spawnpoint/cryo/New()
+	..()
+	turfs = GLOB.latejoin_cryo
+
+/datum/spawnpoint/cyborg
+	display_name = "Cyborg Storage"
+	msg = "has been activated from storage"
+	restrict_job = list("Cyborg")
+
+/datum/spawnpoint/cyborg/New()
+	..()
+	turfs = GLOB.latejoin_cyborg
