@@ -223,31 +223,31 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 
-	proc/openwindow(mob/user as mob)
-		var/dat = "<tt><center><h1><b>TagMaster 2.2</b></h1></center>"
+/obj/item/destTagger/proc/openwindow(mob/user as mob)
+	var/dat = "<tt><center><h1><b>TagMaster 2.2</b></h1></center>"
 
-		dat += "<table style='width:100%; padding:4px;'><tr>"
-		for(var/i = 1, i <= GLOB.TAGGERLOCATIONS.len, i++)
-			dat += "<td><a href='?src=[UID()];nextTag=[i]'>[GLOB.TAGGERLOCATIONS[i]]</a></td>"
+	dat += "<table style='width:100%; padding:4px;'><tr>"
+	for(var/i = 1, i <= GLOB.TAGGERLOCATIONS.len, i++)
+		dat += "<td><a href='?src=[UID()];nextTag=[i]'>[GLOB.TAGGERLOCATIONS[i]]</a></td>"
 
-			if(i%4==0)
-				dat += "</tr><tr>"
+		if(i%4==0)
+			dat += "</tr><tr>"
 
-		dat += "</tr></table><br>Current Selection: [currTag ? GLOB.TAGGERLOCATIONS[currTag] : "None"]</tt>"
+	dat += "</tr></table><br>Current Selection: [currTag ? GLOB.TAGGERLOCATIONS[currTag] : "None"]</tt>"
 
-		user << browse(dat, "window=destTagScreen;size=450x350")
-		onclose(user, "destTagScreen")
+	user << browse(dat, "window=destTagScreen;size=450x350")
+	onclose(user, "destTagScreen")
 
-	attack_self(mob/user as mob)
-		openwindow(user)
-		return
+/obj/item/destTagger/attack_self(mob/user as mob)
+	openwindow(user)
+	return
 
-	Topic(href, href_list)
-		src.add_fingerprint(usr)
-		if(href_list["nextTag"])
-			var/n = text2num(href_list["nextTag"])
-			src.currTag = n
-		openwindow(usr)
+/obj/item/destTagger/Topic(href, href_list)
+	src.add_fingerprint(usr)
+	if(href_list["nextTag"])
+		var/n = text2num(href_list["nextTag"])
+		src.currTag = n
+	openwindow(usr)
 
 /obj/machinery/disposal/deliveryChute
 	name = "Delivery chute"

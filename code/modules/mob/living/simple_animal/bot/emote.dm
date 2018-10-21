@@ -9,7 +9,7 @@
 		act = copytext(act,1,length(act))
 
 	//Emote Cooldown System (it's so simple!)
-	// proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
+	//proc/handle_emote_CD() located in [code\modules\mob\emote.dm]
 	var/on_CD = 0
 	act = lowertext(act)
 	switch(act)

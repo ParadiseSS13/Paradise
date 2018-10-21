@@ -143,7 +143,8 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/Welder.ogg'
 	toolspeed = 1
-	flags = CONDUCT | OPENCONTAINER
+	container_type = OPENCONTAINER
+	flags = CONDUCT
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	sharp = 1

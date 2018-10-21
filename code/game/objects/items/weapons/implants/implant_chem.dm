@@ -3,7 +3,7 @@
 	desc = "Injects things."
 	icon_state = "reagents"
 	origin_tech = "materials=3;biotech=4"
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 /obj/item/implant/chem/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>

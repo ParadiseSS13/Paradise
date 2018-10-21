@@ -8,6 +8,7 @@
 	icon_state = "grey slime extract"
 	force = 1
 	w_class = WEIGHT_CLASS_TINY
+	container_type = INJECTABLE | DRAWABLE
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 6
