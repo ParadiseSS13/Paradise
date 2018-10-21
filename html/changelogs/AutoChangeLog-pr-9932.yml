@@ -1,0 +1,4 @@
+author: "Shazbot194"
+delete-after: True
+changes: 
+  - bugfix: "all north facing in hand icons for flags."
