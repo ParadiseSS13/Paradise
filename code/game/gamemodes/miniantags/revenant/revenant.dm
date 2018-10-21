@@ -120,7 +120,7 @@
 	updateallghostimages()
 	remove_from_all_data_huds()
 
-	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 10 seconds to put in a ghost (Or wait 10 seconds before giving it objectives)
+	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
 
 
 /mob/living/simple_animal/revenant/proc/firstSetupAttempt()
@@ -136,7 +136,7 @@
 		giveObjectivesandGoals()
 		giveSpells()
 	else
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [real_name]?", poll_time = 15 SECONDS)
+		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as a revenant?", poll_time = 15 SECONDS)
 		var/mob/dead/observer/theghost = null
 		if(candidates.len)
 			theghost = pick(candidates)
