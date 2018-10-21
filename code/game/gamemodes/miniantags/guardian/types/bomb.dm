@@ -37,32 +37,36 @@
 /obj/item/guardian_bomb/proc/disguise(var/obj/A)
 	A.forceMove(src)
 	stored_obj = A
+	opacity = A.opacity
 	anchored = A.anchored
 	density = A.density
 	appearance = A.appearance
-	spawn(600)
-		if(src)
-			stored_obj.loc = get_turf(loc)
-			if(spawner)
-				to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
-			qdel(src)
+	dir = A.dir
+	addtimer(CALLBACK(src, .proc/disable), 600)
+
+/obj/item/guardian_bomb/proc/disable()
+	stored_obj.forceMove(get_turf(src))
+	to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
+	qdel(src)
 
 /obj/item/guardian_bomb/proc/detonate(var/mob/living/user)
+	if(!istype(user))
+		return
 	to_chat(user, "<span class='danger'>The [src] was boobytrapped!</span>")
 	if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
 		var/mob/living/simple_animal/hostile/guardian/G = spawner
 		if(user == G.summoner)
 			to_chat(user, "<span class='danger'>You knew this because of your link with your guardian, so you smartly defuse the bomb.</span>")
-			stored_obj.loc = get_turf(loc)
+			stored_obj.forceMove(get_turf(loc))
 			qdel(src)
 			return
 	to_chat(spawner, "<span class='danger'>Success! Your trap on [src] caught [user]!</span>")
-	stored_obj.loc = get_turf(loc)
+	stored_obj.forceMove(get_turf(loc))
 	playsound(get_turf(src),'sound/effects/Explosion2.ogg', 200, 1)
 	user.ex_act(2)
 	qdel(src)
 
-/obj/item/guardian_bomb/attackby(mob/living/user)
+/obj/item/guardian_bomb/attackby(obj/item/W, mob/living/user)
 	detonate(user)
 	return
 
