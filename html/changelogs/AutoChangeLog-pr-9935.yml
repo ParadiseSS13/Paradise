@@ -1,4 +1,0 @@
-author: "Ansari"
-delete-after: True
-changes: 
-  - tweak: "Oculine processing should be less expensive now."
