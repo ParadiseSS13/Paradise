@@ -46,7 +46,8 @@
 
 /obj/item/guardian_bomb/proc/disable()
 	stored_obj.forceMove(get_turf(src))
-	to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
+	if(spawner)
+		to_chat(spawner, "<span class='danger'>Failure! Your trap on [stored_obj] didn't catch anyone this time.</span>")
 	qdel(src)
 
 /obj/item/guardian_bomb/proc/detonate(var/mob/living/user)
