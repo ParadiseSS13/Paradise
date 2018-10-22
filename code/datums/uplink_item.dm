@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
-				log_game("[key_name(user)] purchased [I.name]")
+				log_game("[key_name(user)] purchased [name]")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
