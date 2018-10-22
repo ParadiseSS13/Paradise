@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - tweak: "Component refactor from tg made by ninjanomnom has been ported over. Report unexpected issue (with autolathe / ORM)"
