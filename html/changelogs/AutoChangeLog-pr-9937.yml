@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - rscdel: "Removes some empty icon files."

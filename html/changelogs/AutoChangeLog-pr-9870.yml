@@ -1,4 +1,0 @@
-author: "MrStonedOne"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a cause of lag in the Timer subsystem"

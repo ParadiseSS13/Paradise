@@ -1,4 +1,0 @@
-author: "Purpose"
-delete-after: True
-changes: 
-  - rscdel: "Removes unused code in Nuclear gamemode."
