@@ -82,8 +82,8 @@
 	new /obj/structure/table/reinforced/brass(loc)
 	qdel(src)
 
-/obj/structure/table/do_climb(var/mob/living/user)
-	.=..()
+/obj/structure/table/do_climb(mob/living/user)
+	. = ..()
 	item_placed(user)
 
 /obj/structure/table/attack_hand(mob/living/user)
@@ -95,8 +95,8 @@
 /obj/structure/table/attack_tk() // no telehulk sorry
 	return
 
-/obj/structure/table/proc/item_placed(var/item)
-	return 0
+/obj/structure/table/proc/item_placed(item)
+	return
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
@@ -557,7 +557,7 @@
 /obj/structure/table/tray
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
-	anchored = 0
+	anchored = FALSE
 	smooth = SMOOTH_FALSE
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tray"
@@ -566,8 +566,8 @@
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 
-/obj/structure/table/tray/New()
-	.=..()
+/obj/structure/table/tray/Initialize()
+	. = ..()
 	verbs -= /obj/structure/table/verb/do_flip
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
@@ -576,32 +576,29 @@
 
 /obj/structure/table/tray/Move(NewLoc, direct)
 	var/atom/OldLoc = loc
-	to_chat(world, "DEBUG: Line 578")
 
-	.=..()
+	. = ..()
 	if(!.) // ..() will return 0 if we didn't actually move anywhere.
 		return .
 
-	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
-
 	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
 		return .
+
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
 
 	var/atom/movable/held
 	for(var/held_uid in held_items)
 		held = locateUID(held_uid)
 		if(!held)
-			to_chat(world, "DEBUG: Line 584")
 			held_items -= held_uid
 			continue
 		if(OldLoc != held.loc)
-			to_chat(world, "DEBUG: Line 587")
 			held_items -= held_uid
 			continue
 		held.forceMove(NewLoc)
 
-/obj/structure/table/tray/item_placed(var/atom/movable/item)
-	.=..()
+/obj/structure/table/tray/item_placed(atom/movable/item)
+	. = ..()
 	if(is_type_in_typecache(item, typecache_can_hold))
 		held_items += item.UID()
 
