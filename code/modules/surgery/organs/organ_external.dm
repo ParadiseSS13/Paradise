@@ -175,6 +175,8 @@
 		owner.handle_splints()
 	if(used_weapon)
 		add_autopsy_data("[used_weapon]", brute + burn)
+	else
+		add_autopsy_data(null, brute + burn)
 
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
 	if((brute_dam + burn_dam + brute + burn) < max_damage)
