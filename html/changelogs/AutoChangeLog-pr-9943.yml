@@ -1,5 +1,0 @@
-author: "name here"
-delete-after: True
-changes: 
-  - bugfix: "The autopsy scanner now works even when it does not know the weapon and/or the time of death."
-  - rscdel: "Unused weapon chance code"
