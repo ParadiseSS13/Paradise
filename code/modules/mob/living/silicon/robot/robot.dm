@@ -56,6 +56,7 @@ var/list/robot_verbs_default = list(
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
 	var/ear_protection = 0
+	var/vtec = FALSE
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
@@ -97,6 +98,7 @@ var/list/robot_verbs_default = list(
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
+	var/ionpulse_cost = 25	//Charge per tile step with the jetpack
 	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
@@ -282,6 +284,7 @@ var/list/robot_verbs_default = list(
 	if(module)
 		return
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/sub_modules = list()
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
@@ -302,18 +305,18 @@ var/list/robot_verbs_default = list(
 	if(module)
 		return
 
+	var/list/radio_add = list()
 	switch(modtype)
 		if("Standard")
-			module = new /obj/item/robot_module/standard(src)
-			module.channels = list("Service" = 1)
+			radio_add = list("Service" = 1)
 			module_sprites["Basic"] = "robot_old"
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
 			module_sprites["Noble-STD"] = "Noble-STD"
+			sub_modules["Standard"] = /obj/item/robot_module/standard
 
 		if("Service")
-			module = new /obj/item/robot_module/butler(src)
-			module.channels = list("Service" = 1)
+			radio_add = list("Service" = 1)
 			module_sprites["Waitress"] = "Service"
 			module_sprites["Kent"] = "toiletbot"
 			module_sprites["Bro"] = "Brobot"
@@ -322,10 +325,10 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
+			sub_modules["Standard"] = /obj/item/robot_module/butler
 
 		if("Miner")
-			module = new /obj/item/robot_module/miner(src)
-			module.channels = list("Supply" = 1)
+			radio_add = list("Supply" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Mining Outpost")
 			module_sprites["Basic"] = "Miner_old"
@@ -334,10 +337,10 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Mine"
 			module_sprites["Noble-DIG"] = "Noble-DIG"
 			module_sprites["Cricket"] = "Cricket-MINE"
+			sub_modules["Standard"] = /obj/item/robot_module/miner
 
 		if("Medical")
-			module = new /obj/item/robot_module/medical(src)
-			module.channels = list("Medical" = 1)
+			radio_add = list("Medical" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Medical")
 			module_sprites["Basic"] = "Medbot"
@@ -348,10 +351,10 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
 			status_flags &= ~CANPUSH
+			sub_modules["Standard"] = /obj/item/robot_module/medical
 
 		if("Security")
-			module = new /obj/item/robot_module/security(src)
-			module.channels = list("Security" = 1)
+			radio_add = list("Security" = 1)
 			module_sprites["Basic"] = "secborg"
 			module_sprites["Red Knight"] = "Security"
 			module_sprites["Black Knight"] = "securityrobot"
@@ -360,10 +363,11 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			module_sprites["Cricket"] = "Cricket-SEC"
 			status_flags &= ~CANPUSH
+			sub_modules["Standard"] = /obj/item/robot_module/security
+			sub_modules["Combat"] = /obj/item/robot_module/combat	//For testing
 
 		if("Engineering")
-			module = new /obj/item/robot_module/engineering(src)
-			module.channels = list("Engineering" = 1)
+			radio_add = list("Engineering" = 1)
 			if(camera && "Robots" in camera.network)
 				camera.network.Add("Engineering")
 			module_sprites["Basic"] = "Engineering"
@@ -373,25 +377,26 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-ENG"] = "Noble-ENG"
 			module_sprites["Cricket"] = "Cricket-ENGI"
 			magpulse = 1
+			sub_modules["Standard"] = /obj/item/robot_module/engineering
 
 		if("Janitor")
-			module = new /obj/item/robot_module/janitor(src)
-			module.channels = list("Service" = 1)
+			radio_add = list("Service" = 1)
 			module_sprites["Basic"] = "JanBot2"
 			module_sprites["Mopbot"]  = "janitorrobot"
 			module_sprites["Mop Gear Rex"] = "mopgearrex"
 			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
 			module_sprites["Cricket"] = "Cricket-JANI"
+			sub_modules["Standard"] = /obj/item/robot_module/janitor
 
 		if("Combat")
 			module = new /obj/item/robot_module/combat(src)
-			module.channels = list("Security" = 1)
+			radio_add = list("Security" = 1)
 			icon_state =  "droidcombat"
 
 		if("Nations")
 			module = new /obj/item/robot_module/nations(src)
-			module.channels = list()
+			radio_add = list()
 			icon_state = "droidpeace"
 
 		if("Hunter")
@@ -400,6 +405,11 @@ var/list/robot_verbs_default = list(
 			modtype = "Xeno-Hu"
 			feedback_inc("xeborg_hunter",1)
 
+	if(sub_modules)
+		choose_sub_module(5, sub_modules)
+
+	//Needs to be after selecting a module
+	module.channels = radio_add
 
 	//languages
 	module.add_languages(src)
@@ -421,6 +431,43 @@ var/list/robot_verbs_default = list(
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	notify_ai(2)
+	update_speed()
+
+/mob/living/silicon/robot/proc/choose_sub_module(var/triesleft, var/list/sub_modules)
+
+	triesleft--
+
+	var/pick = input("Select a sub-module! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in sub_modules
+
+	var/obj/item/robot_module/S = sub_modules[pick]
+	module = new S(src)
+	if(!module)
+		to_chat(src, "Something is badly wrong with your sub-module selection. Harass a coder.")
+		return
+
+	if(triesleft >= 1)
+		var/choice = input("[module.desc]") in list("Yes","No")
+
+		if(choice=="No")
+			choose_sub_module(triesleft, sub_modules)
+			return
+		else
+			triesleft = 0
+	to_chat(src, "Your sub-module has been set. You now require a module reset to change it.")
+
+/mob/living/silicon/robot/proc/update_speed()
+	var/vtec_mod
+	if(module)
+		if(vtec)	//To be made smaller later
+			vtec_mod = 2
+		else
+			vtec_mod = 1
+		speed = (1 - vtec_mod * module.speed_mod)	//0 without and a mod of 1
+	else
+		if(vtec)
+			speed = -1
+		else
+			speed = 0
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -499,11 +546,11 @@ var/list/robot_verbs_default = list(
 	if(!ionpulse_on)
 		return
 
-	if(cell.charge <= 50)
+	if(cell.charge <= ionpulse_cost*2)
 		toggle_ionpulse()
 		return
 
-	cell.charge -= 25 // 500 steps on a default cell.
+	cell.charge -= ionpulse_cost // 500 steps on a default cell with default ionpulse_cost.
 	return 1
 
 /mob/living/silicon/robot/proc/toggle_ionpulse()

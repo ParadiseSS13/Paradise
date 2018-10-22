@@ -1,6 +1,7 @@
 /obj/item/robot_module
 	name = "robot module"
 	icon = 'icons/obj/module.dmi'
+	desc = "Nothing to see here, please report this to a coder."
 	icon_state = "std_module"
 	w_class = 100
 	item_state = "electronic"
@@ -10,6 +11,8 @@
 	var/obj/item/emag = null
 	var/list/subsystems = list()
 	var/list/module_actions = list()
+
+	var/speed_mod = 1
 
 	var/module_type = "NoMod" // For icon usage
 
@@ -114,6 +117,7 @@
 /obj/item/robot_module/standard
 	name = "standard robot module"
 	module_type = "Standard"
+	desc = "A sub-module made for people who don't really know what they want to be."
 
 /obj/item/robot_module/standard/New()
 	..()
@@ -129,6 +133,7 @@
 /obj/item/robot_module/medical
 	name = "medical robot module"
 	module_type = "Medical"
+	desc = "An all rounded sub-module made to be able to work in any position in any medbay."
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 	stacktypes = list(
 		/obj/item/stack/medical/bruise_pack/advanced = 6,
@@ -179,6 +184,7 @@
 /obj/item/robot_module/engineering
 	name = "engineering robot module"
 	module_type = "Engineer"
+	desc = "This sub-module is made be able to fix any part of the station that needs repairing."
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
@@ -228,6 +234,7 @@
 /obj/item/robot_module/security
 	name = "security robot module"
 	module_type = "Security"
+	desc = "A sub-module made to work as a security officer."
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
 
 /obj/item/robot_module/security/New()
@@ -244,6 +251,7 @@
 /obj/item/robot_module/janitor
 	name = "janitorial robot module"
 	module_type = "Janitor"
+	desc = "A sub_module that specialises in cleaning large messes by walking over them."
 
 /obj/item/robot_module/janitor/New()
 	..()
@@ -262,6 +270,7 @@
 /obj/item/robot_module/butler
 	name = "service robot module"
 	module_type = "Service"
+	desc = "A sub-module made to serve drinks."
 
 /obj/item/robot_module/butler/New()
 	..()
@@ -335,6 +344,7 @@
 /obj/item/robot_module/miner
 	name = "miner robot module"
 	module_type = "Miner"
+	desc = "A sub-module made to be able to both mine and defend itself."
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
@@ -365,6 +375,7 @@
 /obj/item/robot_module/deathsquad
 	name = "NT advanced combat module"
 	module_type = "Malf"
+	desc = "A very deadly sub-module with a very big gun."
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
@@ -380,6 +391,7 @@
 
 /obj/item/robot_module/syndicate
 	name = "syndicate assault robot module"
+	desc = "When you have a big need for death, look no further then this lmg wielding sub module"
 	module_type = "Malf" // cuz it looks cool
 
 /obj/item/robot_module/syndicate/New()
@@ -396,6 +408,7 @@
 
 /obj/item/robot_module/syndicate_medical
 	name = "syndicate medical robot module"
+	desc = "Even the syndicate need medical borgs, and this sub module is much deadlier then most medical modules."
 	module_type = "Malf"
 	stacktypes = list(
 		/obj/item/stack/medical/bruise_pack/advanced = 25,
@@ -434,6 +447,7 @@
 
 /obj/item/robot_module/combat
 	name = "combat robot module"
+	desc = "For when you need absolute firepower, speed, and defence, look no further."
 	module_type = "Malf"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
@@ -453,6 +467,7 @@
 
 /obj/item/robot_module/nations
 	name = "nations robot module"
+	desc = "With this sub module, you can server your master in combat well."
 	module_type = "Malf"
 
 /obj/item/robot_module/nations/New()
@@ -469,6 +484,7 @@
 
 /obj/item/robot_module/alien/hunter
 	name = "alien hunter module"
+	desc = "A sub module meant to mimic sever aspects of a hunter alien."
 	module_type = "Standard"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal/alien,
@@ -495,6 +511,7 @@
 
 /obj/item/robot_module/drone
 	name = "drone module"
+	desc = "An engineering style drone."
 	module_type = "Engineer"
 	stacktypes = list(
 		/obj/item/stack/sheet/wood = 10,

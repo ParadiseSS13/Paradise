@@ -48,7 +48,7 @@
 	R.update_icons()
 	R.update_headlamp()
 
-	R.speed = 0 // Remove upgrades.
+	R.update_speed()	//Resets speed
 	R.ionpulse = 0
 	R.magpulse = 0
 	R.add_language("Robot Talk", 1)
@@ -112,12 +112,13 @@
 /obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
 	if(..())
 		return
-	if(R.speed < 0)
+	if(R.vtec == TRUE)
 		to_chat(R, "<span class='notice'>A VTEC unit is already installed!</span>")
 		to_chat(usr, "<span class='notice'>There's no room for another VTEC unit!</span>")
 		return
 
-	R.speed = -1 // Gotta go fast.
+	R.vtec = TRUE // Gotta go fast.
+	R.update_speed()
 
 	return 1
 
