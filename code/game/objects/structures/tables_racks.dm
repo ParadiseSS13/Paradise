@@ -82,6 +82,10 @@
 	new /obj/structure/table/reinforced/brass(loc)
 	qdel(src)
 
+/obj/structure/table/do_climb(var/mob/living/user)
+	.=..()
+	item_placed(user)
+
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
 	if(climber)
@@ -90,6 +94,9 @@
 
 /obj/structure/table/attack_tk() // no telehulk sorry
 	return
+
+/obj/structure/table/proc/item_placed(var/item)
+	return 0
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height == 0)
@@ -181,6 +188,7 @@
 			return 0
 		G.affecting.forceMove(get_turf(src))
 		G.affecting.Weaken(2)
+		item_placed(G.affecting)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
@@ -221,6 +229,7 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			item_placed(I)
 	else
 		return ..()
 
@@ -544,6 +553,75 @@
 
 /obj/structure/table/reinforced/brass/ratvar_act()
 	obj_integrity = max_integrity
+
+/obj/structure/table/tray
+	name = "surgical tray"
+	desc = "A small metal tray with wheels."
+	anchored = 0
+	smooth = SMOOTH_FALSE
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "tray"
+	buildstack = /obj/item/stack/sheet/mineral/titanium
+	buildstackamount = 2
+	var/list/typecache_can_hold = list(/mob, /obj/item)
+	var/list/held_items = list()
+
+/obj/structure/table/tray/New()
+	.=..()
+	verbs -= /obj/structure/table/verb/do_flip
+	typecache_can_hold = typecacheof(typecache_can_hold)
+	for(var/atom/movable/held in get_turf(src))
+		if(is_type_in_typecache(held, typecache_can_hold))
+			held_items += held.UID()
+
+/obj/structure/table/tray/Move(NewLoc, direct)
+	var/atom/OldLoc = loc
+	to_chat(world, "DEBUG: Line 578")
+
+	.=..()
+	if(!.) // ..() will return 0 if we didn't actually move anywhere.
+		return .
+
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
+
+	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
+		return .
+
+	var/atom/movable/held
+	for(var/held_uid in held_items)
+		held = locateUID(held_uid)
+		if(!held)
+			to_chat(world, "DEBUG: Line 584")
+			held_items -= held_uid
+			continue
+		if(OldLoc != held.loc)
+			to_chat(world, "DEBUG: Line 587")
+			held_items -= held_uid
+			continue
+		held.forceMove(NewLoc)
+
+/obj/structure/table/tray/item_placed(var/atom/movable/item)
+	.=..()
+	if(is_type_in_typecache(item, typecache_can_hold))
+		held_items += item.UID()
+
+/obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
+	if(can_deconstruct)
+		var/turf/T = get_turf(src)
+		new buildstack(T, buildstackamount)
+	qdel(src)
+
+/obj/structure/table/tray/deconstruction_hints(mob/user)
+	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
+
+/obj/structure/table/tray/flip()
+	return 0
+
+/obj/structure/table/tray/narsie_act()
+	return 0
+
+/obj/structure/table/tray/ratvar_act()
+	return 0
 
 /*
  * Racks
