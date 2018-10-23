@@ -50,8 +50,8 @@
 /obj/structure/table/update_icon()
 	if(smooth && !flipped)
 		icon_state = ""
-		smooth_icon(src)
-		smooth_icon_neighbors(src)
+		queue_smooth(src)
+		queue_smooth_neighbors(src)
 
 	if(flipped)
 		clear_smooth_overlays()

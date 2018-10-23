@@ -16,6 +16,7 @@
 	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
 	///Chemistry.
+	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
 	//This atom's HUD (med/sec, etc) images. Associative list.
@@ -23,9 +24,6 @@
 	//HUD images that this atom can provide.
 	var/list/hud_possible
 
-
-	//var/chem_is_open_container = 0
-	// replaced by OPENCONTAINER flags and atom/proc/is_open_container()
 	///Chemistry.
 
 
@@ -198,22 +196,21 @@
 /atom/proc/Bumped(AM as mob|obj)
 	return
 
-// Convenience proc to see if a container is open for chemistry handling
-// returns true if open
-// false if closed
+// Convenience procs to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
-	return flags & OPENCONTAINER
+	return is_refillable() && is_drainable()
 
-/*//Convenience proc to see whether a container can be accessed in a certain way.
+/atom/proc/is_injectable(allowmobs = TRUE)
+	return reagents && (container_type & (INJECTABLE | REFILLABLE))
 
-	proc/can_subract_container()
-		return flags & EXTRACT_CONTAINER
+/atom/proc/is_drawable(allowmobs = TRUE)
+	return reagents && (container_type & (DRAWABLE | DRAINABLE))
 
-	proc/can_add_container()
-		return flags & INSERT_CONTAINER
-*/
+/atom/proc/is_refillable()
+	return reagents && (container_type & REFILLABLE)
 
-
+/atom/proc/is_drainable()
+	return reagents && (container_type & DRAINABLE)
 
 /atom/proc/CheckExit()
 	return 1
@@ -279,19 +276,26 @@
 	if(desc)
 		to_chat(user, desc)
 
-	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
-		to_chat(user, "It contains:")
-		if(reagents.reagent_list.len)
-			if(user.can_see_reagents()) //Show each individual reagent
-				for(var/datum/reagent/R in reagents.reagent_list)
-					to_chat(user, "[R.volume] units of [R.name]")
-			else //Otherwise, just show the total volume
-				if(reagents && reagents.reagent_list.len)
-					to_chat(user, "[reagents.total_volume] units of various reagents.")
-		else
-			to_chat(user, "Nothing.")
+	if(reagents)
+		if(container_type & TRANSPARENT)
+			to_chat(user, "<span class='notice'>It contains:</span>")
+			if(reagents.reagent_list.len)
+				if(user.can_see_reagents()) //Show each individual reagent
+					for(var/I in reagents.reagent_list)
+						var/datum/reagent/R = I
+						to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
+				else //Otherwise, just show the total volume
+					if(reagents && reagents.reagent_list.len)
+						to_chat(user, "<span class='notice'>[reagents.total_volume] units of various reagents.</span>")
+			else
+				to_chat(user, "<span class='notice'>Nothing.</span>	")
+		else if(container_type & AMOUNT_VISIBLE)
+			if(reagents.total_volume)
+				to_chat(user, "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>")
+			else
+				to_chat(user, "<span class='danger'>It's empty.</span>")
 
-	SendSignal(COMSIG_PARENT_EXAMINE, user)
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
 
 	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 

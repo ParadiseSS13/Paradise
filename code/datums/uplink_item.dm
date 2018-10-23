@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
-				log_game("[key_name(user)] purchased [I.name]")
+				log_game("[key_name(user)] purchased [name]")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -219,6 +219,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/rad_laser
 	cost = 5
 	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
+
+//Virology
+
+/datum/uplink_item/jobspecific/viral_injector
+	name = "Viral Injector"
+	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
+	reference = "VI"
+	item = /obj/item/reagent_containers/dropper/precision/viral_injector
+	cost = 3
+	job = list("Virologist")
 
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"

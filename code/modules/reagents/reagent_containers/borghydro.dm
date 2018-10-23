@@ -85,7 +85,7 @@
 			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
-			add_attack_logs(M, user, "Injected with [name] containing [contained], transfered [trans] units")
+			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units")
 			M.LAssailant = user
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 	return
