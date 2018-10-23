@@ -13,8 +13,6 @@
 	var/list/channels = list()
 
 
-/obj/item/encryptionkey/New()
-
 /obj/item/encryptionkey/attackby(obj/item/W as obj, mob/user as mob, params)
 
 /obj/item/encryptionkey/syndicate
@@ -24,11 +22,14 @@
 	syndie = 1 //Signifies that it de-crypts Syndicate transmissions
 	var/change_voice = 1
 	var/fake_name = "Agent ALERT_A_CODER"
+	var/static/list/fakename_list
 
-/obj/item/encryptionkey/syndicate/New()
-	..()
+/obj/item/encryptionkey/syndicate/Initialize()
+	if(!LAZYLEN(fakename_list))
+		fakename_list = GLOB.html_colors.Copy()
+	. = ..()
 	if(change_voice)
-		fake_name = "Agent " + pick(GLOB.html_colors)
+		fake_name = "Agent " + pick_n_take(fakename_list)
 
 /obj/item/encryptionkey/syndicate/nukeops
 	change_voice = 0
