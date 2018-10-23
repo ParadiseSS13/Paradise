@@ -154,7 +154,7 @@
 
 	var/tmp/list/gear_leftovers = list()
 
-/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE, alt_title)
 	if(allow_backbag_choice)
 		switch(H.backbag)
 			if(GBACKPACK)

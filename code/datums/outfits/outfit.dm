@@ -26,7 +26,7 @@
 	var/list/cybernetic_implants = null
 
 
-/datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE, alt_title)
+/datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc
 	return
 

@@ -941,7 +941,7 @@ The _flatIcons list is a cache for generated icon files.
 		return main
 
 //For creating consistent icons for human looking simple animals
-/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key)
+/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key, showDirs = cardinal, outfit_override = null)
 	var/static/list/humanoid_icon_cache = list()
 	if(!icon_id || !humanoid_icon_cache[icon_id])
 		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
@@ -950,25 +950,17 @@ The _flatIcons list is a cache for generated icon files.
 			prefs.copy_to(body)
 		if(J)
 			J.equip(body, TRUE, FALSE)
+		else if(outfit_override)
+			body.equipOutfit(outfit_override, visualsOnly = TRUE)
+
 
 
 		var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
 
-		body.setDir(NORTH)
-		var/icon/partial = getFlatIcon(body)
-		out_icon.Insert(partial,dir=NORTH)
-
-		body.setDir(SOUTH)
-		partial = getFlatIcon(body)
-		out_icon.Insert(partial,dir=SOUTH)
-
-		body.setDir(WEST)
-		partial = getFlatIcon(body)
-		out_icon.Insert(partial,dir=WEST)
-
-		body.setDir(EAST)
-		partial = getFlatIcon(body)
-		out_icon.Insert(partial,dir=EAST)
+		for(var/D in showDirs)
+			body.setDir(D)
+			var/icon/partial = getFlatIcon(body)
+			out_icon.Insert(partial,dir=D)
 
 		humanoid_icon_cache[icon_id] = out_icon
 		dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)

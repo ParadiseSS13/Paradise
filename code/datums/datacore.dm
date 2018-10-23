@@ -252,6 +252,7 @@ var/global/list/PDA_Manifest = list()
 
 var/record_id_num = 1001
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
+	var/static/list/show_directions = list(SOUTH, WEST)
 	if(PDA_Manifest.len)
 		PDA_Manifest.Cut()
 
@@ -281,7 +282,7 @@ var/record_id_num = 1001
 		G.fields["m_stat"]		= "Stable"
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
-		G.fields["photo"]		= get_id_photo(H)
+		G.fields["photo"]		= get_id_photo(H, show_directions)
 		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
 		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
@@ -341,11 +342,11 @@ var/record_id_num = 1001
 		locked += L
 	return
 
-/proc/get_id_photo(mob/living/carbon/human/H, client/C)
+/proc/get_id_photo(mob/living/carbon/human/H, client/C, show_directions = list(SOUTH))
 	var/datum/job/J = job_master.GetJob(H.mind.assigned_role)
 	var/datum/preferences/P
 	if(!C)
 		C = H.client
 	if(C)
 		P = C.prefs
-	return get_flat_human_icon(null, J, P, DUMMY_HUMAN_SLOT_MANIFEST)
+	return get_flat_human_icon(null, J, P, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
