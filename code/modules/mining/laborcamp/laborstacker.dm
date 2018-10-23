@@ -102,7 +102,7 @@
 				if(!alone_in_area(get_area(src), usr))
 					to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
 				else
-					switch(shuttle_master.moveShuttle("laborcamp","laborcamp_home"))
+					switch(SSshuttle.moveShuttle("laborcamp","laborcamp_home"))
 						if(1)
 							to_chat(usr, "<span class='notice'>Shuttle not found</span>")
 						if(2)
@@ -116,7 +116,7 @@
 
 			if(href_list["choice"] == "release")
 				if(alone_in_area(get_area(loc), usr))
-					var/obj/docking_port/stationary/S = shuttle_master.getDock("laborcamp_home")
+					var/obj/docking_port/stationary/S = SSshuttle.getDock("laborcamp_home")
 					if(S && S.get_docked())
 						if(release_door && release_door.density)
 							release_door.open()

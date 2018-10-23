@@ -73,8 +73,7 @@
 	if(..())
 		return
 	if(istype(C, /obj/item/shovel))
-		new /obj/item/ore/glass(src)
-		new /obj/item/ore/glass(src) //Make some sand if you shovel grass
+		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
@@ -82,7 +81,6 @@
 // NEEDS TO BE UPDATED
 /turf/simulated/floor/basalt //By your powers combined, I am captain planet
 	name = "volcanic floor"
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt0"
 	oxygen = 14
 	nitrogen = 23
@@ -92,8 +90,7 @@
 	if(..())
 		return
 	if(istype(W, /obj/item/shovel))
-		new /obj/item/ore/glass/basalt(src)
-		new /obj/item/ore/glass/basalt(src)
+		new /obj/item/stack/ore/glass/basalt(src, 2)
 		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
@@ -131,11 +128,11 @@
 		return 0
 	if(!broken && !burnt)
 		if(smooth)
-			smooth_icon(src)
+			queue_smooth(src)
 	else
 		make_plating()
 		if(smooth)
-			smooth_icon_neighbors(src)
+			queue_smooth_neighbors(src)
 
 /turf/simulated/floor/carpet/break_tile()
 	broken = 1

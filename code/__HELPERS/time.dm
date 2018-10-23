@@ -56,7 +56,7 @@
 
 /* This is used for displaying the "station time" equivelent of a world.time value
  Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
- - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date 
+ - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
    which is much more useful for a player)*/
 /proc/station_time(time=world.time, display_only=FALSE)
 	return ((((time - round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
@@ -93,8 +93,8 @@ proc/isDay(var/month, var/day)
 /proc/stop_watch(wh)
 	return round(0.1 * (TimeOfGame - wh), 0.1)
 
-/proc/month2number(month)
-	return month_names.Find(month)
+/proc/numberToMonthName(number)
+	return GLOB.month_names.Find(number)
 
 //Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
 /proc/seconds_to_time(var/seconds as num)

@@ -4,7 +4,7 @@
 	icon_state = "borgcharger0"
 	density = 1
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
 	var/mob/occupant = null
@@ -109,8 +109,8 @@
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
 	move_inside(AM)
 
-/obj/machinery/recharge_station/allow_drop()
-	return 0
+/obj/machinery/recharge_station/AllowDrop()
+	return FALSE
 
 /obj/machinery/recharge_station/relaymove(mob/user as mob)
 	if(user.stat)
@@ -158,9 +158,7 @@
 			var/mob/living/silicon/robot/R = occupant
 			restock_modules()
 			if(repairs)
-				R.adjustBruteLoss(-(repairs))
-				R.adjustFireLoss(-(repairs))
-				R.updatehealth()
+				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
 				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
@@ -168,8 +166,7 @@
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
 				if(repairs)
-					H.heal_overall_damage(repairs, repairs, 0, 1)
-					H.updatehealth()
+					H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
@@ -177,7 +174,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	build_icon()
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	return
 
 /obj/machinery/recharge_station/proc/restock_modules()
@@ -223,6 +220,14 @@
 						var/i = 1
 						for(1, i <= coeff, i++)
 							LR.Charge(occupant)
+					//Fire extinguisher
+					if(istype(O, /obj/item/extinguisher))
+						var/obj/item/extinguisher/ext = O
+						ext.reagents.check_and_add("water", ext.max_water, 5 * coeff)
+					//Welding tools
+					if(istype(O, /obj/item/weldingtool))
+						var/obj/item/weldingtool/weld = O
+						weld.reagents.check_and_add("fuel", weld.max_fuel, 2 * coeff)
 				if(R)
 					if(R.module)
 						R.module.respawn_consumable(R)

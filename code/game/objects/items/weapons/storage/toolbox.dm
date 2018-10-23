@@ -60,12 +60,12 @@
 	new /obj/item/wirecutters(src)
 	new /obj/item/t_scanner(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
-	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
+	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
+	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
 	if(prob(5))
 		new /obj/item/clothing/gloves/color/yellow(src)
 	else
-		new /obj/item/stack/cable_coil(src, 30, pickedcolor)
+		new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
@@ -86,6 +86,16 @@
 	new /obj/item/multitool(src)
 	new /obj/item/clothing/gloves/combat(src)
 
+
+/obj/item/storage/toolbox/syndicate/trapped
+	name = "suspicious looking toolbox"
+	desc = "Danger. Very robust. Has a small red marker by the handle."
+
+/obj/item/storage/toolbox/syndicate/trapped/New()
+	..()
+	new /obj/item/grenade/chem_grenade/explosion/mine_armed(src)
+
+
 /obj/item/storage/toolbox/drone
 	name = "mechanical toolbox"
 	icon_state = "blue"
@@ -98,7 +108,7 @@
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
 	new /obj/item/crowbar(src)
-	new /obj/item/stack/cable_coil(src, 30, pickedcolor)
+	new /obj/item/stack/cable_coil(src, 30, paramcolor = pickedcolor)
 	new /obj/item/wirecutters(src)
 	new /obj/item/multitool(src)
 

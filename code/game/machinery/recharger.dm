@@ -4,11 +4,11 @@
 	icon_state = "recharger0"
 	desc = "A charging dock for energy based weaponry."
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 250
 	var/obj/item/charging = null
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer)
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
@@ -48,7 +48,7 @@
 				return 1
 			G.forceMove(src)
 			charging = G
-			use_power = 2
+			use_power = ACTIVE_POWER_USE
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
@@ -66,7 +66,7 @@
 		charging.forceMove(loc)
 		user.put_in_hands(charging)
 		charging = null
-		use_power = 1
+		use_power = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/recharger/attack_tk(mob/user)
@@ -74,7 +74,7 @@
 		charging.update_icon()
 		charging.forceMove(loc)
 		charging = null
-		use_power = 1
+		use_power = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/recharger/process()
@@ -113,6 +113,13 @@
 			var/obj/item/rcs/R = charging
 			if(R.rcell)
 				if(R.rcell.give(R.rcell.chargerate))
+					use_power(200)
+					using_power = 1
+		
+		if(istype(charging, /obj/item/bodyanalyzer))
+			var/obj/item/bodyanalyzer/B = charging
+			if(B.power_supply)
+				if(B.power_supply.give(B.power_supply.chargerate))
 					use_power(200)
 					using_power = 1
 

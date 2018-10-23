@@ -100,7 +100,6 @@
 
 /obj/effect/proc_holder/changeling/sting/transformation/sting_action(var/mob/user, var/mob/target)
 	add_attack_logs(user, target, "Transformation sting (changeling) (new identity is [selected_dna.real_name])")
-	var/datum/dna/NewDNA = selected_dna
 	if(issmall(target))
 		to_chat(user, "<span class='notice'>Our genes cry out as we sting [target.name]!</span>")
 
@@ -111,13 +110,7 @@
 	target.visible_message("<span class='danger'>[target] begins to violenty convulse!</span>","<span class='userdanger'>You feel a tiny prick and a begin to uncontrollably convulse!</span>")
 
 	spawn(10)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			H.set_species(NewDNA.species.type)
-		target.dna = NewDNA.Clone()
-		target.real_name = NewDNA.real_name
-		target.UpdateAppearance()
-		domutcheck(target, null)
+		transform_dna(target,selected_dna)//target is always human so no problem here
 	feedback_add_details("changeling_powers","TS")
 	return TRUE
 

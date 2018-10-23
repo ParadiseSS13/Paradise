@@ -50,7 +50,6 @@
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
 			if(affecting.receive_damage(force*0.5))
 				H.UpdateDamageIcon()
-				H.updatehealth()
 
 /obj/item/shard/attackby(obj/item/I, mob/user, params)
 	if(iswelder(I))
@@ -87,7 +86,6 @@
 				H.Weaken(3)
 				if(affecting.receive_damage(5, 0))
 					H.UpdateDamageIcon()
-				H.updatehealth()
 	..()
 
 /obj/item/shard/plasma

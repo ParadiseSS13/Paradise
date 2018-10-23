@@ -46,7 +46,7 @@ Doesn't work on other aliens/AI.*/
 			log_say("(AWHISPER to [key_name(M)]) [msg]", src)
 			to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'>[msg]")
 			to_chat(src, "<span class='noticealien'>You said: [msg] to [M]</span>")
-			for(var/mob/dead/observer/G in player_list)
+			for(var/mob/dead/observer/G in GLOB.player_list)
 				G.show_message("<i>Alien message from <b>[src]</b> ([ghost_follow_link(src, ghost=G)]) to <b>[M]</b> ([ghost_follow_link(M, ghost=G)]): [msg]</i>")
 	return
 
@@ -146,7 +146,7 @@ Doesn't work on other aliens/AI.*/
 			if("resin membrane")
 				new /obj/structure/alien/resin/membrane(loc)
 			if("resin nest")
-				new /obj/structure/stool/bed/nest(loc)
+				new /obj/structure/bed/nest(loc)
 	return
 
 /mob/living/carbon/alien/humanoid/verb/regurgitate()

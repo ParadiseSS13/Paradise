@@ -94,7 +94,7 @@
 	if(istype(A, /obj/item/pipe))
 		unsaw(A, user)
 
-/obj/item/gun/projectile/sawoff(mob/user)
+/obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, "<span class='warning'>[src] has already been shortened!</span>")
 		return
@@ -124,7 +124,7 @@
 		return 1
 
 
-/obj/item/gun/projectile/proc/post_sawoff()
+/obj/item/gun/projectile/shotgun/riot/proc/post_sawoff()
 	name = "assault shotgun"
 	desc = sawn_desc
 	w_class = WEIGHT_CLASS_NORMAL
@@ -137,7 +137,7 @@
 	update_icon()
 
 
-/obj/item/gun/projectile/proc/unsaw(obj/item/A, mob/user)
+/obj/item/gun/projectile/shotgun/riot/proc/unsaw(obj/item/A, mob/user)
 	if(sawn_state == SAWN_INTACT)
 		to_chat(user, "<span class='warning'>[src] has not been shortened!</span>")
 		return
@@ -167,7 +167,7 @@
 		post_unsaw(user)
 		return 1
 
-/obj/item/gun/projectile/proc/post_unsaw()
+/obj/item/gun/projectile/shotgun/riot/proc/post_unsaw()
 	name = initial(name)
 	desc = initial(desc)
 	w_class = initial(w_class)

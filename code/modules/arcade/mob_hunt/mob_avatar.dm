@@ -94,33 +94,33 @@
 		P.audible_message(message, null, 4)
 
 /obj/effect/nanomob/proc/despawn()
-	if(mob_hunt_server)
+	if(SSmob_hunt)
 		if(mob_info.is_trap)
-			mob_hunt_server.trap_spawns -= src
+			SSmob_hunt.trap_spawns -= src
 		else
-			mob_hunt_server.normal_spawns -= src
+			SSmob_hunt.normal_spawns -= src
 	qdel(src)
 
 /obj/effect/nanomob/proc/reveal()
-	if(!mob_hunt_server)
+	if(!SSmob_hunt)
 		return
 	var/list/show_to = list()
-	for(var/A in mob_hunt_server.connected_clients)
-		if((A in clients_encountered) || !mob_hunt_server.connected_clients[A])
+	for(var/A in SSmob_hunt.connected_clients)
+		if((A in clients_encountered) || !SSmob_hunt.connected_clients[A])
 			continue
-		show_to |= mob_hunt_server.connected_clients[A]
+		show_to |= SSmob_hunt.connected_clients[A]
 	display_alt_appearance("nanomob_avatar", show_to)
 
 /obj/effect/nanomob/proc/conceal(list/hide_from)
-	if(!mob_hunt_server)
+	if(!SSmob_hunt)
 		return
 	var/list/hiding_from = list()
 	if(hide_from)
 		hiding_from = hide_from
 	else
-		for(var/A in mob_hunt_server.connected_clients)
-			if((A in clients_encountered) && mob_hunt_server.connected_clients[A])
-				hiding_from |= mob_hunt_server.connected_clients[A]
+		for(var/A in SSmob_hunt.connected_clients)
+			if((A in clients_encountered) && SSmob_hunt.connected_clients[A])
+				hiding_from |= SSmob_hunt.connected_clients[A]
 	hide_alt_appearance("nanomob_avatar", hiding_from)
 
 //		BATTLE MOB AVATARS

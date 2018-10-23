@@ -7,7 +7,7 @@
 	anchored = 1 //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
 	pass_flags = PASSTABLE
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 	pressure_resistance = INFINITY
@@ -28,16 +28,17 @@
 	var/speed = 1			//Amount of deciseconds it takes for projectile to travel
 	var/Angle = 0
 	var/spread = 0			//amount (in degrees) of projectile spread
-	var/legacy = 0			//legacy projectile system
+	var/legacy = FALSE			//legacy projectile system
 	animate_movement = 0
 
 	var/damage = 10
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
-	var/nodamage = 0 //Determines if the projectile will skip any damage inflictions
+	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
 	var/range = 50 //This will de-increment every step. When 0, it will delete the projectile.
 	var/is_reflectable = FALSE // Can it be reflected or not?
+	var/alwayslog = FALSE // ALWAYS log this projectile on hit even if it doesn't hit a living target. Useful for AOE explosion / EMP.
 	//Effects
 	var/stun = 0
 	var/weaken = 0
@@ -68,6 +69,8 @@
 
 /obj/item/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)
 	var/turf/target_loca = get_turf(target)
+	if(alwayslog)
+		add_attack_logs(firer, target, "Shot with a [type]")
 	if(!isliving(target))
 		return 0
 	var/mob/living/L = target
@@ -121,7 +124,7 @@
 			reagent_note += R.id + " ("
 			reagent_note += num2text(R.volume) + ") "
 			has_reagents = TRUE
-	if(!log_override && firer && original)
+	if(!log_override && firer && !alwayslog)
 		if(has_reagents)
 			add_attack_logs(firer, L, "Shot with a [type] (containing [reagent_note])")
 		else

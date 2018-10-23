@@ -30,8 +30,8 @@
 	precondition = _precondition
 	after_insert = _after_insert
 
-	RegisterSignal(COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
-	RegisterSignal(COMSIG_PARENT_EXAMINE, .proc/OnExamine)
+	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/OnAttackBy)
+	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/OnExamine)
 
 	var/list/possible_mats = list()
 	for(var/mat_type in subtypesof(/datum/material))
@@ -42,14 +42,14 @@
 			var/mat_path = possible_mats[id]
 			materials[id] = new mat_path()
 
-/datum/component/material_container/proc/OnExamine(mob/user)
+/datum/component/material_container/proc/OnExamine(datum/source, mob/user)
 	for(var/I in materials)
 		var/datum/material/M = materials[I]
 		var/amt = amount(M.id)
 		if(amt)
 			to_chat(user, "<span class='notice'>It has [amt] units of [lowertext(M.name)] stored.</span>")
 
-/datum/component/material_container/proc/OnAttackBy(obj/item/I, mob/living/user)
+/datum/component/material_container/proc/OnAttackBy(datum/source, obj/item/I, mob/living/user)
 	var/list/tc = allowed_typecache
 	if(user.a_intent != INTENT_HELP)
 		return

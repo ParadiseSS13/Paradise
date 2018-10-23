@@ -2,43 +2,46 @@
 	name = "ion bolt"
 	icon_state = "ion"
 	damage = 0
+	alwayslog = TRUE
 	damage_type = BURN
 	nodamage = 1
 	flag = "energy"
 
 /obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
 	..()
-	empulse(target, 1, 1, 1)
+	empulse(target, 1, 1, 1, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/item/projectile/ion/weak
 
 /obj/item/projectile/ion/weak/on_hit(atom/target, blocked = 0)
 	..()
-	empulse(target, 0, 0, 1)
+	empulse(target, 0, 0, 1, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/item/projectile/bullet/gyro
 	name ="explosive bolt"
 	icon_state= "bolter"
 	damage = 50
+	alwayslog = TRUE
 	flag = "bullet"
 
 /obj/item/projectile/bullet/gyro/on_hit(var/atom/target, var/blocked = 0)
 	..()
-	explosion(target, -1, 0, 2)
+	explosion(target, -1, 0, 2, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/item/projectile/bullet/a40mm
 	name ="40mm grenade"
 	desc = "USE A WEEL GUN"
 	icon_state= "bolter"
+	alwayslog = TRUE
 	damage = 60
 	flag = "bullet"
 
 /obj/item/projectile/bullet/a40mm/on_hit(atom/target, blocked = 0)
 	..()
-	explosion(target, -1, 0, 2, 1, 0, flame_range = 3)
+	explosion(target, -1, 0, 2, 1, 0, flame_range = 3, cause = "[type] fired by [key_name(firer)]")
 	return 1
 
 /obj/item/projectile/temp
@@ -190,9 +193,7 @@
 	icon_state = "snappop"
 
 /obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(loc)
 	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
@@ -229,6 +230,7 @@
 	name ="explosive slug"
 	damage = 25
 	weaken = 5
+	alwayslog = TRUE
 
 /obj/item/projectile/bullet/frag12/on_hit(atom/target, blocked = 0)
 	..()
@@ -276,6 +278,7 @@
 	icon_state = "bluespace"
 	damage = 0
 	nodamage = 1
+	alwayslog = TRUE
 	var/teleport_target = null
 
 /obj/item/projectile/energy/teleport/New(loc, tele_target)
@@ -289,6 +292,7 @@
 			do_teleport(target, teleport_target, 0)//teleport what's in the tile to the beacon
 		else
 			do_teleport(target, target, 15) //Otherwise it just warps you off somewhere.
+	add_attack_logs(firer, target, "Shot with a [type] [teleport_target ? "(Destination: [teleport_target])" : ""]")
 
 /obj/item/projectile/snowball
 	name = "snowball"

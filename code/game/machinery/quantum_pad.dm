@@ -4,7 +4,7 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
@@ -18,7 +18,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
@@ -94,9 +94,7 @@
 	doteleport(user)
 
 /obj/machinery/quantumpad/proc/sparks()
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, get_turf(src))
-	s.start()
+	do_sparks(5, 1, get_turf(src))
 
 /obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
 	if(linked_pad)
@@ -132,6 +130,7 @@
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
 			flick("qpad-beam", linked_pad)
 			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			var/tele_success = TRUE
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is anchored, don't let through
 				if(ROI.anchored)
@@ -145,4 +144,6 @@
 							continue
 					else if(!isobserver(ROI))
 						continue
-				do_teleport(ROI, get_turf(linked_pad))
+				tele_success = do_teleport(ROI, get_turf(linked_pad))
+			if(!tele_success)
+				to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")

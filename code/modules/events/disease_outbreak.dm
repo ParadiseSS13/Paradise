@@ -13,7 +13,7 @@
 	if(!virus_type)
 		virus_type = pick(/datum/disease/advance/flu, /datum/disease/advance/cold, /datum/disease/brainrot, /datum/disease/magnitis, /datum/disease/beesease, /datum/disease/anxiety, /datum/disease/fake_gbs, /datum/disease/fluspanish, /datum/disease/pierrot_throat, /datum/disease/lycan)
 
-	for(var/mob/living/carbon/human/H in shuffle(living_mob_list))
+	for(var/mob/living/carbon/human/H in shuffle(GLOB.living_mob_list))
 		if(issmall(H)) //don't infect monkies; that's a waste
 			continue
 		if(!H.client)

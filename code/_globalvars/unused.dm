@@ -18,7 +18,6 @@ var/list/liftable_structures = list(\
 	/obj/machinery/space_heater, \
 	/obj/machinery/recharge_station, \
 	/obj/machinery/flasher, \
-	/obj/structure/stool, \
 	/obj/structure/closet, \
 	/obj/machinery/photocopier, \
 	/obj/structure/filingcabinet, \
@@ -31,4 +30,3 @@ var/endicon = null
 var/datum/air_tunnel/air_tunnel1/SS13_airtunnel = null
 var/going = 1.0
 var/datum/engine_eject/engine_eject_control = null
-

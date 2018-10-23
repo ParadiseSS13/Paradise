@@ -65,15 +65,11 @@
 	// Nada
 
 /obj/Destroy()
-	machines -= src
+	GLOB.machines -= src
 	processing_objects -= src
-	fast_processing -= src
+	GLOB.fast_processing -= src
 	SSnanoui.close_uis(src)
 	return ..()
-
-/obj/rpd_act(mob/user, obj/item/rpd/our_rpd)
-	var/turf/T = get_turf(src) //This preserves RPD behaviour on specific turfs
-	T.rpd_act(user, our_rpd)
 
 /obj/proc/process()
 	set waitfor = 0
@@ -291,14 +287,14 @@ a {
 		return
 	speed_process = TRUE
 	processing_objects.Remove(src)
-	fast_processing.Add(src)
+	GLOB.fast_processing.Add(src)
 
 /obj/proc/makeNormalProcess()
 	if(!speed_process)
 		return
 	speed_process = FALSE
 	processing_objects.Add(src)
-	fast_processing.Remove(src)
+	GLOB.fast_processing.Remove(src)
 
 /obj/vv_get_dropdown()
 	. = ..()
@@ -307,3 +303,6 @@ a {
 		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
 	else
 		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"
+
+/obj/proc/check_uplink_validity()
+	return 1

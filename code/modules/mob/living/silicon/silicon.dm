@@ -35,7 +35,7 @@
 	var/obj/item/radio/common_radio
 
 /mob/living/silicon/New()
-	silicon_mob_list |= src
+	GLOB.silicon_mob_list |= src
 	..()
 	var/datum/atom_hud/data/diagnostic/diag_hud = huds[DATA_HUD_DIAGNOSTIC]
 	diag_hud.add_to_hud(src)
@@ -51,7 +51,7 @@
 	return //we use a different hud
 
 /mob/living/silicon/Destroy()
-	silicon_mob_list -= src
+	GLOB.silicon_mob_list -= src
 	for(var/datum/alarm_handler/AH in alarm_handlers)
 		AH.unregister(src)
 	return ..()
@@ -163,7 +163,7 @@
 
 /mob/living/silicon/add_language(var/language, var/can_speak=1)
 	if(..(language) && can_speak)
-		speech_synthesizer_langs.Add(all_languages[language])
+		speech_synthesizer_langs.Add(GLOB.all_languages[language])
 		return 1
 
 /mob/living/silicon/remove_language(var/rem_language)
@@ -317,7 +317,7 @@
 	to_chat(src, "[A.alarm_name()]! ([(cameratext)? cameratext : "No Camera"])")
 
 /mob/living/silicon/adjustToxLoss(var/amount)
-	return
+	return STATUS_UPDATE_NONE
 
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access

@@ -143,7 +143,8 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	usesound = 'sound/items/Welder.ogg'
 	toolspeed = 1
-	flags = CONDUCT | OPENCONTAINER
+	container_type = OPENCONTAINER
+	flags = CONDUCT
 	attack_verb = list("attacked", "slashed", "cut", "sliced")
 	force = 12
 	sharp = 1
@@ -160,8 +161,9 @@
 		S.use(1)
 		power_supply.give(1000)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else if(istype(A, /obj/item/ore/plasma))
-		qdel(A)
+	else if(istype(A, /obj/item/stack/ore/plasma))
+		var/obj/item/stack/ore/S = A
+		S.use(1)
 		power_supply.give(500)
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
@@ -198,7 +200,7 @@
 	..()
 	select_fire(usr)
 
-/obj/item/gun/energy/wormhole_projector/proc/portal_destroyed(obj/effect/portal/P)
+/obj/item/gun/energy/wormhole_projector/portal_destroyed(obj/effect/portal/P)
 	if(P.icon_state == "portal")
 		blue = null
 		if(orange)

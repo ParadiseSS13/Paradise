@@ -120,6 +120,76 @@
 	mute = MUZZLE_MUTE_NONE
 	security_lock = TRUE
 	locked = FALSE
+	materials = list(MAT_METAL=500, MAT_GLASS=50)
+
+/obj/item/clothing/mask/muzzle/safety/shock
+	name = "shock muzzle"
+	desc = "A muzzle designed to prevent biting.  This one is fitted with a behavior correction system."
+	var/obj/item/assembly/trigger = null
+	origin_tech = "materials=1;engineering=1"
+	materials = list(MAT_METAL=500, MAT_GLASS=50)
+
+/obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
+	if(isscrewdriver(W) && trigger)
+		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		trigger.forceMove(get_turf(user))
+		trigger.master = null
+		trigger.holder = null
+		trigger = null
+		return TRUE
+	else if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
+		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
+			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
+			return FALSE
+		if(!user.drop_item())
+			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
+			return FALSE
+		trigger = W
+		trigger.forceMove(src)
+		trigger.master = src
+		trigger.holder = src
+		to_chat(user, "<span class='notice'>You attach the [W] to [src].</span>")
+		return TRUE
+	else if(istype(W, /obj/item/assembly))
+		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
+		return FALSE
+
+	return ..()
+
+
+/obj/item/clothing/mask/muzzle/safety/shock/proc/can_shock(obj/item/clothing/C)
+	if(istype(C))
+		if(isliving(C.loc))
+			return C.loc
+	else if(isliving(loc))
+		return loc
+	return FALSE
+
+/obj/item/clothing/mask/muzzle/safety/shock/proc/process_activation(var/obj/D, var/normal = 1, var/special = 1)
+	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
+	var/mob/M = can_shock(loc)
+	if(M)
+		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
+		do_sparks(3, 1, M)
+
+		M.Weaken(5)
+		M.Stuttering(1)
+		M.Jitter(20)
+	return
+
+/obj/item/clothing/mask/muzzle/safety/shock/HasProximity(atom/movable/AM as mob|obj)
+	if(trigger)
+		trigger.HasProximity(AM)
+
+
+/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, msg)
+	if(trigger)
+		trigger.hear_talk(M, msg)
+
+/obj/item/clothing/mask/muzzle/safety/shock/hear_message(mob/living/M as mob, msg)
+	if(trigger)
+		trigger.hear_message(M, msg)
+
 
 
 /obj/item/clothing/mask/surgical

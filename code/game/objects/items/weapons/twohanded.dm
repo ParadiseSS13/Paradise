@@ -147,6 +147,14 @@
 		wield(user)
 	..()
 
+/obj/item/twohanded/required/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	var/obj/item/twohanded/required/H = receiver.get_inactive_hand()
+	if(H != null) //Check if he can wield it
+		receiver.drop_item() //Can't wear it so drop it
+		to_chat(receiver, "<span class='notice'>[src] is too cumbersome to carry in one hand!</span>")
+		return
+	equipped(receiver,receiver.hand ? slot_l_hand : slot_r_hand)
+
 /obj/item/twohanded/required/equipped(mob/user, slot)
 	..()
 	if(slot == slot_l_hand || slot == slot_r_hand)
@@ -438,7 +446,7 @@
 	if(on)
 		playsound(loc, 'sound/weapons/chainsawstart.ogg', 50, 1)
 	force = on ? force_on : initial(force)
-	throwforce = on ? force_on : initial(force)
+	throwforce = on ? force_on : initial(throwforce)
 	icon_state = "gchainsaw_[on ? "on" : "off"]"
 
 	if(hitsound == "swing_hit")
@@ -452,6 +460,16 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+/obj/item/twohanded/required/chainsaw/attack_hand(mob/user)
+	. = ..()
+	force = on ? force_on : initial(force)
+	throwforce = on ? force_on : initial(throwforce)
+
+/obj/item/twohanded/required/chainsaw/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
+	. = ..()
+	force = on ? force_on : initial(force)
+	throwforce = on ? force_on : initial(throwforce)
 
 /obj/item/twohanded/required/chainsaw/doomslayer
 	name = "OOOH BABY"
@@ -596,9 +614,7 @@
 	origin_tech = "combat=4;powerstorage=7"
 
 /obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread()
-	s.set_up(5, 1, target.loc)
-	s.start()
+	do_sparks(5, 1, target.loc)
 	target.visible_message("<span class='danger'>[target.name] was shocked by the [name]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
 		"<span class='italics'>You hear a heavy electrical crack!</span>")
@@ -721,9 +737,7 @@
 				Z.take_organ_damage(0, 30)
 				user.visible_message("<span class='danger'>[user] slams the charged axe into [Z.name] with all [user.p_their()] might!</span>")
 				playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-				var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
-				sparks.set_up(1, 1, src)
-				sparks.start()
+				do_sparks(1, 1, src)
 
 		if(A && wielded && (istype(A, /obj/structure/window) || istype(A, /obj/structure/grille)))
 			if(istype(A, /obj/structure/window))
