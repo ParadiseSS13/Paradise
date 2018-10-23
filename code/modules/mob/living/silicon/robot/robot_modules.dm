@@ -12,7 +12,9 @@
 	var/list/subsystems = list()
 	var/list/module_actions = list()
 
-	var/speed_mod = 1
+	var/speed_mod = 1	//All default settings
+	var/ionpulse_mod = 25
+	var/maxhealth_mod = 100
 
 	var/module_type = "NoMod" // For icon usage
 

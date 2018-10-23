@@ -50,6 +50,8 @@
 
 	R.update_speed()	//Resets speed
 	R.ionpulse = 0
+	R.ionpulse_cost = 25	//Reset Ion cost
+	R.maxHealth = 100	//Reset Max health
 	R.magpulse = 0
 	R.add_language("Robot Talk", 1)
 

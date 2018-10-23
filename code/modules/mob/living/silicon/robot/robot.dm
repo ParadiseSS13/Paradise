@@ -432,6 +432,8 @@ var/list/robot_verbs_default = list(
 		radio.config(module.channels)
 	notify_ai(2)
 	update_speed()
+	maxHealth = module.maxhealth_mod
+	ionpulse_cost = module.ionpulse_mod
 
 /mob/living/silicon/robot/proc/choose_sub_module(var/triesleft, var/list/sub_modules)
 
