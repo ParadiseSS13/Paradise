@@ -80,6 +80,7 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 	build_path = /obj/item/clothing/mask/muzzle/safety/shock
 	category = list("Miscellaneous")
+	
 /datum/design/data_disk
 	name = "Data Disk"
 	desc = "Disk that allows you to store genetic data."
