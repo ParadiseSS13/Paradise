@@ -11,7 +11,7 @@
 	if(confirm == "Yes")
 
 		var/turf/T = get_turf(usr)
-		target = input("Any specific target in mind? Please note only live, non cluwned, human targets are valid.", "Target", target) as null|anything in player_list
+		target = input("Any specific target in mind? Please note only live, non cluwned, human targets are valid.", "Target", target) as null|anything in GLOB.player_list
 		if(isnull(target))
 			return
 		if(target && ishuman(target))

@@ -137,7 +137,7 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Acquire_Victim(specific)
-	var/list/players_copy = player_list.Copy()
+	var/list/players_copy = GLOB.player_list.Copy()
 	while(players_copy.len)
 		var/mob/living/carbon/human/H = pick_n_take(players_copy)
 
