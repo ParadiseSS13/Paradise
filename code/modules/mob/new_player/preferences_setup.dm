@@ -264,6 +264,7 @@
 		to_chat(world, "update_preview_icon() - passed .equip")
 
 	to_chat(world, "update_preview_icon() - ct1")
+	COMPILE_OVERLAYS(mannequin)
 	CHECK_TICK
 	preview_icon = icon('icons/effects/effects.dmi', "nothing")
 	preview_icon.Scale(48+32, 16+32)
