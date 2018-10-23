@@ -256,8 +256,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	uniform = /obj/item/clothing/under/rank/internalaffairs
 	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	l_ear = /obj/item/radio/headset/headset_ia
+	glasses = /obj/item/clothing/glasses/hud/security
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/flash

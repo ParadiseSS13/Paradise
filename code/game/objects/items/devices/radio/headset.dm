@@ -114,6 +114,13 @@
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 
+/obj/item/radio/headset/headset_ia
+	name = "internal affairs radio headset"
+	desc = "This is used to discuss how to do paperwork."
+	icon_state = "sec_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_ia
+
 /obj/item/radio/headset/headset_eng
 	name = "engineering radio headset"
 	desc = "When the engineers wish to chat like girls."

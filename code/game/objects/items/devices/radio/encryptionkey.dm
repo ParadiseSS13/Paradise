@@ -66,6 +66,11 @@
 	icon_state = "medsci_cypherkey"
 	channels = list("Medical" = 1, "Science" = 1)
 
+/obj/item/encryptionkey/headset_ia
+	name = "Internal Affairs Radio Encryption Key"
+	icon_state = "sec_cypherkey"
+	channels = list("Security" = 1, "Service" = 1)
+
 /obj/item/encryptionkey/headset_com
 	name = "Command Radio Encryption Key"
 	icon_state = "com_cypherkey"
