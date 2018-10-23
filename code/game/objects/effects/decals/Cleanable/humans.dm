@@ -1,6 +1,6 @@
-#define DRYING_TIME 5 * 60*10                        //for 1 unit of depth in puddle (amount var)
+#define DRYING_TIME 5 * 60 * 10 //for 1 unit of depth in puddle (amount var)
 
-var/global/list/image/splatter_cache=list()
+var/global/list/image/splatter_cache = list()
 
 /obj/effect/decal/cleanable/blood
 	name = "blood"
@@ -8,24 +8,24 @@ var/global/list/image/splatter_cache=list()
 	desc = "It's thick and gooey. Perhaps it's the chef's cooking?"
 	var/drydesc = "It's dry and crusty. Someone is not doing their job."
 	gender = PLURAL
-	density = 0
-	anchored = 1
-	layer = 2
+	density = FALSE
+	anchored = TRUE
+	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
-	var/base_icon = 'icons/effects/blood.dmi'
+	appearance_flags = NO_CLIENT_COLOR
 	blood_DNA = list()
+	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
 	var/bloodiness = MAX_SHOE_BLOODINESS
 	var/basecolor = "#A10808" // Color when wet.
 	var/amount = 5
-	appearance_flags = NO_CLIENT_COLOR
 	var/dry_timer = 0
 	var/off_floor = FALSE
 
-/obj/effect/decal/cleanable/blood/New()
-	..()
+/obj/effect/decal/cleanable/blood/Initialize()
+	. = ..()
 	update_icon()
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
@@ -44,7 +44,8 @@ var/global/list/image/splatter_cache=list()
 	return ..()
 
 /obj/effect/decal/cleanable/blood/update_icon()
-	if(basecolor == "rainbow") basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
+	if(basecolor == "rainbow")
+		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	color = basecolor
 
 /obj/effect/decal/cleanable/blood/proc/dry()
@@ -79,9 +80,9 @@ var/global/list/image/splatter_cache=list()
 		var/mob/living/carbon/human/H = O
 		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
 		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
-		var/hasfeet = 1
+		var/hasfeet = TRUE
 		if(!l_foot && !r_foot)
-			hasfeet = 0
+			hasfeet = FALSE
 		if(H.shoes && blood_state && bloodiness)
 			var/obj/item/clothing/shoes/S = H.shoes
 			var/add_blood = 0
@@ -123,10 +124,10 @@ var/global/list/image/splatter_cache=list()
 	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
-	random_icon_states = list("1","2","3","4","5")
+	random_icon_states = list("1", "2", "3", "4", "5")
 	amount = 0
-	var/drips = 1
 	bloodiness = 0
+	var/drips = 1
 
 /obj/effect/decal/cleanable/blood/drip/can_bloodcrawl_in()
 	return TRUE
@@ -136,12 +137,12 @@ var/global/list/image/splatter_cache=list()
 	icon_state = "ltrails_1"
 	desc = "Your instincts say you shouldn't be following these."
 	gender = PLURAL
-	density = 0
-	layer = 2
+	density = FALSE
+	layer = TURF_LAYER
 	random_icon_states = null
-	var/list/existing_dirs = list()
 	blood_DNA = list()
 	appearance_flags = NO_CLIENT_COLOR
+	var/list/existing_dirs = list()
 
 /obj/effect/decal/cleanable/trail_holder/can_bloodcrawl_in()
 	return TRUE
@@ -150,12 +151,12 @@ var/global/list/image/splatter_cache=list()
 	icon_state = "tracks"
 	desc = "It looks like a writing in blood."
 	gender = NEUTER
-	random_icon_states = list("writing1","writing2","writing3","writing4","writing5")
+	random_icon_states = list("writing1", "writing2", "writing3", "writing4", "writing5")
 	amount = 0
 	var/message
 
-/obj/effect/decal/cleanable/blood/writing/New()
-	..()
+/obj/effect/decal/cleanable/blood/writing/Initialize()
+	. = ..()
 	if(random_icon_states.len)
 		for(var/obj/effect/decal/cleanable/blood/writing/W in loc)
 			random_icon_states.Remove(W.icon_state)
@@ -165,20 +166,20 @@ var/global/list/image/splatter_cache=list()
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
 	..(user)
-	to_chat(user, "It reads: <font color='[basecolor]'>\"[message]\"<font>")
+	to_chat(user, "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>")
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
 	desc = "They look bloody and gruesome."
 	gender = PLURAL
-	density = 0
-	anchored = 1
-	layer = 2
+	density = FALSE
+	anchored = TRUE
+	layer = TURF_LAYER
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "gibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
+	noclear = TRUE
 	var/fleshcolor = "#FFFFFF"
-	noclear = 1
 
 /obj/effect/decal/cleanable/blood/gibs/update_icon()
 	var/image/giblets = new(base_icon, "[icon_state]_flesh", dir)
@@ -193,10 +194,10 @@ var/global/list/image/splatter_cache=list()
 	. = ..()
 
 /obj/effect/decal/cleanable/blood/gibs/up
-	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6","gibup1","gibup1","gibup1")
+	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gibup1", "gibup1", "gibup1")
 
 /obj/effect/decal/cleanable/blood/gibs/down
-	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6","gibdown1","gibdown1","gibdown1")
+	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gibdown1", "gibdown1", "gibdown1")
 
 /obj/effect/decal/cleanable/blood/gibs/body
 	random_icon_states = list("gibhead", "gibtorso")
@@ -207,15 +208,15 @@ var/global/list/image/splatter_cache=list()
 /obj/effect/decal/cleanable/blood/gibs/core
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
 
-/obj/effect/decal/cleanable/blood/gibs/New()
-	..()
+/obj/effect/decal/cleanable/blood/gibs/Initialize()
+	. = ..()
 	reagents.add_reagent("liquidgibs", 5)
 
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 
-/obj/effect/decal/cleanable/blood/gibs/cleangibs/New() //no reagent!
-	..()
+/obj/effect/decal/cleanable/blood/gibs/cleangibs/Initialize() //no reagent!
+	. = ..()
 	reagents.remove_reagent("liquidgibs",5)
 
 
@@ -232,18 +233,20 @@ var/global/list/image/splatter_cache=list()
 			break
 
 
-/obj/effect/decal/cleanable/blood/old/New()
-	..()
+/obj/effect/decal/cleanable/blood/old/Initialize()
+	. = ..()
 	bloodiness = 0
 	dry()
 
 /obj/effect/decal/cleanable/blood/old/can_bloodcrawl_in()
 	return FALSE
 
-/obj/effect/decal/cleanable/blood/gibs/old/New()
-	..()
+/obj/effect/decal/cleanable/blood/gibs/old/Initialize()
+	. = ..()
 	bloodiness = 0
 	dry()
 
 /obj/effect/decal/cleanable/blood/gibs/old/can_bloodcrawl_in()
 	return FALSE
+
+#undef DRYING_TIME

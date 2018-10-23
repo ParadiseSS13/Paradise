@@ -136,9 +136,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/energy/proc/dissipate()
 	if(!ismob(loc))
-		var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
-		sparks.set_up(1, 1, src)
-		sparks.start()
+		do_sparks(1, 1, src)
 		qdel(src)
 
 /obj/item/restraints/legcuffs/beartrap/energy/attack_hand(mob/user)
@@ -160,7 +158,7 @@
 	if(..() || !iscarbon(hit_atom))//if it gets caught or the target can't be cuffed,
 		return//abort
 	var/mob/living/carbon/C = hit_atom
-	if(!C.legcuffed)
+	if(!C.legcuffed && C.get_num_legs() >= 2)
 		visible_message("<span class='danger'>[src] ensnares [C]!</span>")
 		C.legcuffed = src
 		forceMove(C)

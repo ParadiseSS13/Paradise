@@ -66,8 +66,8 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/Initialize(timeofday)
 	setup_overlays() // Assign icons and such for gas-turf-overlays
 	setup_allturfs()
-	setup_atmos_machinery(machines)
-	setup_pipenets(machines)
+	setup_atmos_machinery(GLOB.machines)
+	setup_pipenets(GLOB.machines)
 	..()
 
 
@@ -284,9 +284,12 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/setup_allturfs(var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz)))
 	var/list/active_turfs = src.active_turfs
 
+	// Clear active turfs - faster than removing every single turf in the world
+	// one-by-one, and Initalize_Atmos only ever adds `src` back in.
+	active_turfs.Cut()
+
 	for(var/thing in turfs_to_init)
 		var/turf/T = thing
-		active_turfs -= T
 		if(T.blocks_air)
 			continue
 		T.Initialize_Atmos(times_fired)
@@ -360,19 +363,19 @@ SUBSYSTEM_DEF(air)
 	plmaster.icon = 'icons/effects/tile_effects.dmi'
 	plmaster.icon_state = "plasma"
 	plmaster.layer = FLY_LAYER
-	plmaster.mouse_opacity = 0
+	plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	slmaster = new /obj/effect/overlay()
 	slmaster.icon = 'icons/effects/tile_effects.dmi'
 	slmaster.icon_state = "sleeping_agent"
 	slmaster.layer = FLY_LAYER
-	slmaster.mouse_opacity = 0
+	slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	icemaster = new /obj/effect/overlay()
 	icemaster.icon = 'icons/turf/overlays.dmi'
 	icemaster.icon_state = "snowfloor"
 	icemaster.layer = TURF_LAYER + 0.1
-	icemaster.mouse_opacity = 0
+	icemaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

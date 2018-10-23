@@ -77,7 +77,7 @@
 				health -= O.force * 0.75
 			else
 		if(health <= 0)
-			visible_message("<span class=warning>The bookcase is smashed apart!</span>")
+			visible_message("<span class='warning'>The bookcase is smashed apart!</span>")
 			qdel(src)
 		return ..()
 

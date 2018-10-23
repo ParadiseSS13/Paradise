@@ -32,8 +32,8 @@
 	..()
 	if(smooth)
 		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
-			smooth_icon(src)
-			smooth_icon_neighbors(src)
+			queue_smooth(src)
+			queue_smooth_neighbors(src)
 		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
@@ -46,7 +46,7 @@
 	if(smooth)
 		var/turf/T = get_turf(src)
 		spawn(0)
-			smooth_icon_neighbors(T)
+			queue_smooth_neighbors(T)
 	return ..()
 
 /obj/structure/proc/climb_on()
@@ -147,7 +147,6 @@
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
-			H.updatehealth()
 	return
 
 /obj/structure/proc/can_touch(var/mob/user)

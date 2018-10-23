@@ -211,6 +211,7 @@
 	layer = 5
 	w_class = WEIGHT_CLASS_HUGE
 	force = 10
+	force_wielded = 10
 	throwforce = 13
 	throw_speed = 2
 	throw_range = 4
@@ -222,9 +223,10 @@
 		icon_state = "plant-36"
 
 /obj/item/twohanded/required/kirbyplants/equipped(mob/living/user)
+	. = ..()
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
 	I.override = 1
-	user.add_alt_appearance("sneaking_mission", I, player_list)
+	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user)
 	..()

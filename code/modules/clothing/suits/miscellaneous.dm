@@ -247,7 +247,7 @@
 			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
 			I.override = 1
 			I.overlays += image(icon = 'icons/mob/robots.dmi' , icon_state = "eyes-robot") //gotta look realistic
-			H.add_alt_appearance("standard_borg_disguise", I, silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
+			H.add_alt_appearance("standard_borg_disguise", I, GLOB.silicon_mob_list+H) //you look like a robot to robots! (including yourself because you're totally a robot)
 
 /obj/item/clothing/suit/snowman
 	name = "snowman outfit"
@@ -330,6 +330,12 @@
 	icon_state = "lingspacesuit"
 	item_state = "lingspacesuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/suit/draculacoat // Bleh!
+	name = "transylvanian coat"
+	desc = "<i>What is a spessman? A miserable little pile of secrets.</i>"
+	icon_state = "draculacoat"
+	item_state = "draculacoat"
 
 /*
  * Winter Coats

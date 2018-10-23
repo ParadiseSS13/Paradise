@@ -5,7 +5,7 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "pad-idle"
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/efficiency
@@ -14,8 +14,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/telesci_pad(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
@@ -25,8 +24,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/telesci_pad(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
@@ -61,7 +59,7 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "pad-idle"
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 500
 	var/stage = 0
@@ -157,8 +155,6 @@
 /obj/item/rcs/emag_act(user as mob)
 	if(!emagged)
 		emagged = 1
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(5, 1, src)
-		s.start()
+		do_sparks(5, 1, src)
 		to_chat(user, "<span class = 'caution'> You emag the RCS. Activate it to toggle between modes.</span>")
 		return

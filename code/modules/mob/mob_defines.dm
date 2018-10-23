@@ -29,7 +29,8 @@
 	var/computer_id = null
 	var/lastattacker = null
 	var/lastattacked = null
-	var/attack_log = list( )
+	var/list/attack_log = list( )
+	var/list/debug_log = null
 	var/last_log = 0
 	var/obj/machinery/machine = null
 	var/other_mobs = null
@@ -44,7 +45,6 @@
 	var/med_record = ""
 	var/sec_record = ""
 	var/gen_record = ""
-	var/blinded = null
 	var/bhunger = 0			//Carbon
 	var/lying = 0
 	var/lying_prev = 0

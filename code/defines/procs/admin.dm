@@ -7,7 +7,7 @@
 
 /proc/key_name_helper(whom, include_name, include_link = FALSE, type = null)
 	if(include_link != FALSE && include_link != TRUE)
-		log_runtime(EXCEPTION("Key_name was called with an incorrect include_link [include_link]"))
+		log_runtime(EXCEPTION("Key_name was called with an incorrect include_link [include_link]"), src)
 
 	var/mob/M
 	var/client/C
@@ -46,7 +46,7 @@
 			. += "Administrator"
 		else
 			if(include_link && C)
-				. += "<a href='?priv_msg=\ref[C];type=[type]'>"
+				. += "<a href='?priv_msg=[C.UID()];type=[type]'>"
 			. += key
 
 		if(include_link)
@@ -68,8 +68,10 @@
 	return .
 
 /proc/key_name_admin(whom)
-	var/message = "[key_name(whom, 1)](<A HREF='?_src_=holder;adminmoreinfo=\ref[whom]'>?</A>)[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
-	return message
+	if(whom)
+		var/datum/whom_datum = whom //As long as it's not null, will be close enough/has the proc UID() that is all that's needed
+		var/message = "[key_name(whom, 1)]([ADMIN_QUE(whom_datum,"?")])[isAntag(whom) ? "<font color='red'>(A)</font>" : ""][isLivingSSD(whom) ? "<span class='danger'>(SSD!)</span>" : ""] ([admin_jump_link(whom)])"
+		return message
 
 /proc/key_name_mentor(whom)
 	// Same as key_name_admin, but does not include (?) or (A) for antags.

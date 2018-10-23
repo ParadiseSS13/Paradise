@@ -6,8 +6,9 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
-	M.adjustToxLoss(2)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/spider_venom
 	name = "Spider venom"
@@ -17,8 +18,9 @@
 	color = "#CF3600" // rgb: 207, 54, 0
 
 /datum/reagent/spider_venom/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1.5)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1.5, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/minttoxin
 	name = "Mint Toxin"
@@ -31,7 +33,7 @@
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
 	if(FAT in M.mutations)
 		M.gib()
-	..()
+	return ..()
 
 /datum/reagent/slimejelly
 	name = "Slime Jelly"
@@ -42,12 +44,13 @@
 	taste_message = "slimes"
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your insides are burning!</span>")
-		M.adjustToxLoss(rand(20,60)*REAGENTS_EFFECT_MULTIPLIER)
+		update_flags |= M.adjustToxLoss(rand(20,60)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	else if(prob(40))
-		M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER)
-	..()
+		update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
@@ -67,7 +70,7 @@
 			to_chat(M, "<span class='danger'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
 			to_chat(M, "<span class='danger'>Aside from your new traits, you are mentally unchanged and retain your prior obligations.</span>")
 			human.set_species(/datum/species/shadow)
-	..()
+	return ..()
 
 /datum/reagent/aslimetoxin
 	name = "Advanced Mutation Toxin"
@@ -93,9 +96,10 @@
 	taste_message = "metal"
 
 /datum/reagent/mercury/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(70))
 		M.adjustBrainLoss(1)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/chlorine
 	name = "Chlorine"
@@ -108,8 +112,9 @@
 	taste_message = "fire"
 
 /datum/reagent/chlorine/on_mob_life(mob/living/M)
-	M.adjustFireLoss(1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustFireLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/fluorine
 	name = "Fluorine"
@@ -122,9 +127,10 @@
 	taste_message = "spicy freshness"
 
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
-	M.adjustFireLoss(1)
-	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustFireLoss(1, FALSE)
+	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/radium
 	name = "Radium"
@@ -137,7 +143,7 @@
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
 		M.apply_effect(4, IRRADIATE, negate_armor = 1)
-	..()
+	return ..()
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T))
@@ -167,7 +173,7 @@
 	M.apply_effect(2*REAGENTS_EFFECT_MULTIPLIER, IRRADIATE, negate_armor = 1)
 	if(prob(4))
 		randmutb(M)
-	..()
+	return ..()
 
 
 /datum/reagent/uranium
@@ -180,7 +186,7 @@
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
-	..()
+	return ..()
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T))
@@ -196,8 +202,9 @@
 	metabolization_rate = 0.2
 
 /datum/reagent/lexorin/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
 
 
 /datum/reagent/sacid
@@ -210,8 +217,9 @@
 	taste_message = "<span class='userdanger'>ACID</span>"
 
 /datum/reagent/sacid/on_mob_life(mob/living/M)
-	M.adjustFireLoss(1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustFireLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/sacid/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
@@ -282,8 +290,9 @@
 	color = "#003333" // rgb: 0, 51, 51
 
 /datum/reagent/carpotoxin/on_mob_life(mob/living/M)
-	M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/staminatoxin
 	name = "Tirizene"
@@ -294,9 +303,10 @@
 	data = 13
 
 /datum/reagent/staminatoxin/on_mob_life(mob/living/M)
-	M.adjustStaminaLoss(REAGENTS_EFFECT_MULTIPLIER * data)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustStaminaLoss(REAGENTS_EFFECT_MULTIPLIER * data, FALSE)
 	data = max(data - 1, 3)
-	..()
+	return ..() | update_flags
 
 
 /datum/reagent/spore
@@ -306,10 +316,11 @@
 	color = "#9ACD32"
 
 /datum/reagent/spores/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
 	M.damageoverlaytemp = 60
-	M.EyeBlurry(3)
-	..()
+	update_flags |= M.EyeBlurry(3)
+	return ..() | update_flags
 
 /datum/reagent/beer2	//disguised as normal beer for use by emagged service borgs
 	name = "Beer"
@@ -323,13 +334,14 @@
 	taste_message = "beer"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 50)
-			M.Sleeping(2)
+			update_flags |= M.Sleeping(2, FALSE)
 		if(51 to INFINITY)
-			M.Sleeping(2)
-			M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER)
-	..()
+			update_flags |= M.Sleeping(2, FALSE)
+			update_flags |= M.adjustToxLoss((current_cycle - 50)*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/polonium
 	name = "Polonium"
@@ -344,7 +356,7 @@
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
 	M.apply_effect(8, IRRADIATE, negate_armor = 1)
-	..()
+	return ..()
 
 /datum/reagent/histamine
 	name = "Histamine"
@@ -365,60 +377,64 @@
 			M.emote("drool")
 
 /datum/reagent/histamine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
 		M.emote(pick("twitch", "grumble", "sneeze", "cough"))
 	if(prob(10))
 		to_chat(M, "<span class='notice'>Your eyes itch.</span>")
 		M.emote(pick("blink", "sneeze"))
-		M.AdjustEyeBlurry(3)
+		update_flags |= M.AdjustEyeBlurry(3, FALSE)
 	if(prob(10))
 		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
-		M.adjustBruteLoss(1)
+		update_flags |= M.adjustBruteLoss(1, FALSE)
 		M.emote("grumble")
 	if(prob(5))
 		to_chat(M, "<span class='danger'>You're getting a rash!</span>")
-		M.adjustBruteLoss(2)
-	..()
+		update_flags |= M.adjustBruteLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/histamine/overdose_process(mob/living/M, severity)
-	var/effect = ..()
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
 	if(severity == 1)
 		if(effect <= 2)
 			to_chat(M, "<span class='warning'>You feel mucus running down the back of your throat.</span>")
-			M.adjustToxLoss(1)
+			update_flags |= M.adjustToxLoss(1, FALSE)
 			M.Jitter(4)
 			M.emote(pick("sneeze", "cough"))
 		else if(effect <= 4)
-			M.stuttering += rand(0,5)
+			M.AdjustStuttering(rand(0,5))
 			if(prob(25))
 				M.emote(pick("choke","gasp"))
-				M.adjustOxyLoss(5)
+				update_flags |= M.adjustOxyLoss(5, FALSE)
 		else if(effect <= 7)
 			to_chat(M, "<span class='warning'>Your chest hurts!</span>")
 			M.emote(pick("cough","gasp"))
-			M.adjustOxyLoss(3)
+			update_flags |= M.adjustOxyLoss(3, FALSE)
 	else if(severity == 2)
 		if(effect <= 2)
 			M.visible_message("<span class='warning'>[M] breaks out in hives!</span>")
-			M.adjustBruteLoss(6)
+			update_flags |= M.adjustBruteLoss(6, FALSE)
 		else if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] has a horrible coughing fit!</span>")
 			M.Jitter(10)
-			M.stuttering += rand(0,5)
+			M.AdjustStuttering(rand(0,5))
 			M.emote("cough")
 			if(prob(40))
 				M.emote(pick("choke","gasp"))
-				M.adjustOxyLoss(6)
-			M.Weaken(8)
+				update_flags |= M.adjustOxyLoss(6, FALSE)
+			update_flags |= M.Weaken(8, FALSE)
 		else if(effect <= 7)
 			to_chat(M, "<span class='warning'>Your heartbeat is pounding inside your head!</span>")
 			M << 'sound/effects/singlebeat.ogg'
 			M.emote("collapse")
-			M.adjustOxyLoss(8)
-			M.adjustToxLoss(3)
-			M.Weaken(3)
+			update_flags |= M.adjustOxyLoss(8, FALSE)
+			update_flags |= M.adjustToxLoss(3, FALSE)
+			update_flags |= M.Weaken(3, FALSE)
 			M.emote(pick("choke", "gasp"))
 			to_chat(M, "<span class='warning'>You feel like you're dying!</span>")
+	return list(effect, update_flags)
 
 /datum/reagent/formaldehyde
 	name = "Formaldehyde"
@@ -429,10 +445,11 @@
 	penetrates_skin = TRUE
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(10))
 		M.reagents.add_reagent("histamine",rand(5,15))
-	..()
+	return ..() | update_flags
 
 /datum/reagent/venom
 	name = "Venom"
@@ -445,26 +462,29 @@
 	can_synth = FALSE
 
 /datum/reagent/venom/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(25))
 		M.reagents.add_reagent("histamine",rand(5,10))
 	if(volume < 20)
-		M.adjustToxLoss(1)
-		M.adjustBruteLoss(1)
+		update_flags |= M.adjustToxLoss(1, FALSE)
+		update_flags |= M.adjustBruteLoss(1, FALSE)
 	else if(volume < 40)
 		if(prob(8))
 			M.fakevomit()
-		M.adjustToxLoss(2)
-		M.adjustBruteLoss(2)
-	..()
+		update_flags |= M.adjustToxLoss(2, FALSE)
+		update_flags |= M.adjustBruteLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/venom/overdose_process(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(volume >= 40)
 		if(prob(4))
 			M.visible_message("<span class='danger'><B>[M]</B> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
-			M.Weaken(15)
+			update_flags |= M.Weaken(15, FALSE)
 			M.AdjustJitter(1000)
 			spawn(rand(20, 100))
 				M.gib()
+	return list(0, update_flags)
 
 /datum/reagent/neurotoxin2
 	name = "Neurotoxin"
@@ -475,6 +495,7 @@
 	metabolization_rate = 1
 
 /datum/reagent/neurotoxin2/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 4)
 			current_cycle++
@@ -489,19 +510,19 @@
 		if(13)
 			M.emote("faint")
 		if(14 to INFINITY)
-			M.Paralyse(10)
+			update_flags |= M.Paralyse(10, FALSE)
 			M.Drowsy(20)
 
 	M.AdjustJitter(-30)
 	if(M.getBrainLoss() <= 80)
-		M.adjustBrainLoss(1)
+		update_flags |= M.adjustBrainLoss(1, FALSE)
 	else
 		if(prob(10))
-			M.adjustBrainLoss(1)
+			update_flags |= M.adjustBrainLoss(1, FALSE)
 	if(prob(10))
 		M.emote("drool")
-	M.adjustToxLoss(1)
-	..()
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/cyanide
 	name = "Cyanide"
@@ -514,7 +535,8 @@
 	taste_message = "almonds"
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1.5*REAGENTS_EFFECT_MULTIPLIER)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1.5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(5))
 		M.emote("drool")
 	if(prob(10))
@@ -523,9 +545,9 @@
 		M.emote("gasp")
 	if(prob(8))
 		to_chat(M, "<span class='danger'>You feel horrendously weak!</span>")
-		M.Stun(2)
-		M.adjustToxLoss(2)
-	..()
+		update_flags |= M.Stun(2, FALSE)
+		update_flags |= M.adjustToxLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/itching_powder
 	name = "Itching Powder"
@@ -537,6 +559,7 @@
 	penetrates_skin = TRUE
 
 /datum/reagent/itching_powder/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_STAT
 	if(prob(25))
 		M.emote(pick("twitch", "laugh", "sneeze", "cry"))
 	if(prob(20))
@@ -544,22 +567,22 @@
 		M.emote(pick("laugh", "giggle"))
 	if(prob(15))
 		M.visible_message("<span class='danger'>[M] scratches at an itch.</span>")
-		M.adjustBruteLoss(1)
-		M.Stun(rand(0,1))
+		update_flags |= M.adjustBruteLoss(1, FALSE)
+		update_flags |= M.Stun(rand(0,1), FALSE)
 		M.emote("grumble")
 	if(prob(10))
 		to_chat(M, "<span class='danger'>So itchy!</span>")
-		M.adjustBruteLoss(2)
+		update_flags |= M.adjustBruteLoss(2, FALSE)
 	if(prob(6))
 		M.reagents.add_reagent("histamine", rand(1,3))
 	if(prob(2))
 		to_chat(M, "<span class='danger'>AHHHHHH!</span>")
-		M.adjustBruteLoss(5)
-		M.Weaken(5)
+		update_flags |= M.adjustBruteLoss(5, FALSE)
+		update_flags |= M.Weaken(5, FALSE)
 		M.AdjustJitter(6)
 		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
 		M.emote("scream")
-	..()
+	return ..() | update_flags
 
 /datum/reagent/facid
 	name = "Fluorosulfuric Acid"
@@ -571,9 +594,10 @@
 	taste_message = "<span class='userdanger'>ACID</span>"
 
 /datum/reagent/facid/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
-	M.adjustFireLoss(1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/facid/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH || method == INGEST)
@@ -635,26 +659,27 @@
 	taste_message = null
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
-		M.adjustToxLoss(rand(5,25))
+		update_flags |= M.adjustToxLoss(rand(5,25), FALSE)
 	if(prob(33))
 		to_chat(M, "<span class='danger'>You feel horribly weak.</span>")
-		M.Stun(2)
+		update_flags |= M.Stun(2, FALSE)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You cannot breathe!</span>")
-		M.adjustOxyLoss(10)
+		update_flags |= M.adjustOxyLoss(10, FALSE)
 		M.AdjustLoseBreath(1)
 	if(prob(10))
 		to_chat(M, "<span class='danger'>Your chest is burning with pain!</span>")
-		M.adjustOxyLoss(10)
+		update_flags |= M.adjustOxyLoss(10, FALSE)
 		M.AdjustLoseBreath(1)
-		M.Stun(3)
-		M.Weaken(2)
+		update_flags |= M.Stun(3, FALSE)
+		update_flags |= M.Weaken(2, FALSE)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(!H.undergoing_cardiac_arrest())
 				H.set_heartattack(TRUE) // rip in pepperoni
-	..()
+	return ..() | update_flags
 
 /datum/reagent/pancuronium
 	name = "Pancuronium"
@@ -666,6 +691,7 @@
 	taste_message = null
 
 /datum/reagent/pancuronium/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 5)
 			if(prob(10))
@@ -673,12 +699,12 @@
 		if(6 to 10)
 			if(prob(8))
 				to_chat(M, "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>")
-				M.Stun(1)
+				update_flags |= M.Stun(1, FALSE)
 			else if(prob(8))
 				M.emote(pick("drool", "tremble"))
 		if(11 to INFINITY)
-			M.Stun(20)
-			M.Weaken(20)
+			update_flags |= M.Stun(20, FALSE)
+			update_flags |= M.Weaken(20, FALSE)
 			if(prob(10))
 				M.emote(pick("drool", "tremble", "gasp"))
 				M.AdjustLoseBreath(1)
@@ -687,7 +713,7 @@
 			if(prob(7))
 				to_chat(M, "<span class='danger'>You can't breathe!</span>")
 				M.AdjustLoseBreath(3)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/sodium_thiopental
 	name = "Sodium Thiopental"
@@ -700,6 +726,7 @@
 	taste_message = null
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1)
 			M.emote("drool")
@@ -708,14 +735,14 @@
 			M.Drowsy(20)
 		if(5)
 			M.emote("faint")
-			M.Weaken(5)
+			update_flags |= M.Weaken(5, FALSE)
 		if(6 to INFINITY)
-			M.Paralyse(20)
+			update_flags |= M.Paralyse(20, FALSE)
 	M.AdjustJitter(-50)
 	if(prob(10))
 		M.emote("drool")
-		M.adjustBrainLoss(1)
-	..()
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/ketamine
 	name = "Ketamine"
@@ -729,20 +756,21 @@
 	taste_message = null
 
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 5)
 			if(prob(25))
 				M.emote("yawn")
 		if(6 to 9)
-			M.AdjustEyeBlurry(5)
+			update_flags |= M.AdjustEyeBlurry(5, FALSE)
 			if(prob(35))
 				M.emote("yawn")
 		if(10)
 			M.emote("faint")
-			M.Weaken(5)
+			update_flags |= M.Weaken(5, FALSE)
 		if(11 to INFINITY)
-			M.Paralyse(25)
-	..()
+			update_flags |= M.Paralyse(25, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/sulfonal
 	name = "Sulfonal"
@@ -753,6 +781,7 @@
 	metabolization_rate = 0.1
 
 /datum/reagent/sulfonal/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-30)
 	switch(current_cycle)
 		if(1 to 10)
@@ -765,10 +794,10 @@
 		if(22 to INFINITY)
 			if(prob(20))
 				M.emote("faint")
-				M.Paralyse(5)
+				update_flags |= M.Paralyse(5, FALSE)
 			M.Drowsy(20)
-	M.adjustToxLoss(1)
-	..()
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/amanitin
 	name = "Amanitin"
@@ -792,19 +821,20 @@
 	taste_message = "battery acid"
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(!M.nutrition)
 		switch(rand(1,3))
 			if(1)
 				to_chat(M, "<span class='warning'>You feel hungry...</span>")
 			if(2)
-				M.adjustToxLoss(1)
+				update_flags |= M.adjustToxLoss(1, FALSE)
 				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
 	else
 		if(prob(60))
 			var/fat_to_burn = max(round(M.nutrition/100,1), 5)
 			M.nutrition = max(0, M.nutrition-fat_to_burn)
 			M.overeatduration = 0
-	..()
+	return ..() | update_flags
 
 /datum/reagent/coniine
 	name = "Coniine"
@@ -816,9 +846,10 @@
 	can_synth = FALSE
 
 /datum/reagent/coniine/on_mob_life(mob/living/M)
-	M.adjustToxLoss(2)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(2, FALSE)
 	M.AdjustLoseBreath(5)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/curare
 	name = "Curare"
@@ -830,28 +861,29 @@
 	penetrates_skin = TRUE
 
 /datum/reagent/curare/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1)
-	M.adjustOxyLoss(1)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	update_flags |= M.adjustOxyLoss(1, FALSE)
 	switch(current_cycle)
 		if(1 to 5)
 			if(prob(20))
 				M.emote(pick("drool", "pale", "gasp"))
 		if(6 to 10)
-			M.AdjustEyeBlurry(5)
+			update_flags |= M.AdjustEyeBlurry(5, FALSE)
 			if(prob(8))
 				to_chat(M, "<span class='danger'>You feel [pick("weak", "horribly weak", "numb", "like you can barely move", "tingly")].</span>")
-				M.Stun(1)
+				update_flags |= M.Stun(1, FALSE)
 			else if(prob(8))
-				M.emote(pick("drool","pale", "gasp"))
+				M.emote(pick("drool", "pale", "gasp"))
 		if(11 to INFINITY)
-			M.Stun(30)
+			update_flags |= M.Stun(30, FALSE)
 			M.Drowsy(20)
 			if(prob(20))
 				M.emote(pick("drool", "faint", "pale", "gasp", "collapse"))
 			else if(prob(8))
 				to_chat(M, "<span class='danger'>You can't [pick("breathe", "move", "feel your legs", "feel your face", "feel anything")]!</span>")
 				M.AdjustLoseBreath(1)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/heparin //Based on a real-life anticoagulant.
 	name = "Heparin"
@@ -862,11 +894,12 @@
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
 
 /datum/reagent/heparin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		H.bleed_rate = min(H.bleed_rate + 2, 8)
-		H.adjustBruteLoss(1)
-	..()
+		update_flags |= H.adjustBruteLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/sarin
 	name = "Sarin"
@@ -880,6 +913,7 @@
 	taste_message = null
 
 /datum/reagent/sarin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 15)
 			M.AdjustJitter(20)
@@ -888,23 +922,23 @@
 		if(16 to 30)
 			if(prob(25))
 				M.emote(pick("twitch","twitch","drool","quiver","tremble"))
-			M.AdjustEyeBlurry(5)
+			update_flags |= M.AdjustEyeBlurry(5, FALSE)
 			M.Stuttering(5)
 			if(prob(10))
 				M.Confused(15)
 			if(prob(15))
-				M.Stun(1)
+				update_flags |= M.Stun(1, FALSE)
 				M.emote("scream")
 		if(30 to 60)
-			M.AdjustEyeBlurry(5)
+			update_flags |= M.AdjustEyeBlurry(5, FALSE)
 			M.Stuttering(5)
 			if(prob(10))
-				M.Stun(1)
+				update_flags |= M.Stun(1, FALSE)
 				M.emote(pick("twitch","twitch","drool","shake","tremble"))
 			if(prob(5))
 				M.emote("collapse")
 			if(prob(5))
-				M.Weaken(3)
+				update_flags |= M.Weaken(3, FALSE)
 				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
 				M.SetJitter(1000)
 			if(prob(5))
@@ -915,15 +949,15 @@
 			if(prob(15))
 				M.emote(pick("gasp", "choke", "cough","twitch", "shake", "tremble","quiver","drool", "twitch","collapse"))
 			M.LoseBreath(5)
-			M.adjustToxLoss(1)
-			M.adjustBrainLoss(1)
-			M.Weaken(4)
+			update_flags |= M.adjustToxLoss(1, FALSE)
+			update_flags |= M.adjustBrainLoss(1, FALSE)
+			update_flags |= M.Weaken(4, FALSE)
 	if(prob(8))
 		M.fakevomit()
-	M.adjustToxLoss(1)
-	M.adjustBrainLoss(1)
-	M.adjustFireLoss(1)
-	..()
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	update_flags |= M.adjustBrainLoss(1, FALSE)
+	update_flags |= M.adjustFireLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/glyphosate
 	name = "Glyphosate"
@@ -934,8 +968,9 @@
 	var/lethality = 0 //Glyphosate is non-toxic to people
 
 /datum/reagent/glyphosate/on_mob_life(mob/living/M)
-	M.adjustToxLoss(lethality)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(lethality, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/glyphosate/reaction_turf(turf/simulated/wall/W, volume) // Clear off wallrot fungi
 	if(istype(W) && W.rotting)
@@ -985,8 +1020,9 @@
 	color = "#4B004B" // rgb: 75, 0, 75
 
 /datum/reagent/pestkiller/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/pestkiller/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
@@ -1008,19 +1044,20 @@
 	taste_message = "sweetness"
 
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	switch(current_cycle)
 		if(1 to 5)
-			M.AdjustEyeBlurry(10)
+			update_flags |= M.AdjustEyeBlurry(10, FALSE)
 		if(6 to 10)
 			M.Drowsy(10)
 		if(11)
-			M.Paralyse(10)
+			update_flags |= M.Paralyse(10, FALSE)
 			M.visible_message("<B>[M]</B> seizes up and falls limp, [M.p_their()] eyes dead and lifeless...") //so you can't trigger deathgasp emote on people. Edge case, but necessary.
 		if(12 to 60)
-			M.Paralyse(10)
+			update_flags |= M.Paralyse(10, FALSE)
 		if(61 to INFINITY)
-			M.AdjustEyeBlurry(10)
-	..()
+			update_flags |= M.AdjustEyeBlurry(10, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
@@ -1033,7 +1070,7 @@
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
-	..()
+	return ..()
 
 /datum/reagent/toxic_slurry
 	name = "Toxic Slurry"
@@ -1043,14 +1080,15 @@
 	color = "#00C81E"
 
 /datum/reagent/toxic_slurry/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(10))
-		M.adjustToxLoss(rand(2.4))
+		update_flags |= M.adjustToxLoss(rand(2.4), FALSE)
 	if(prob(7))
 		to_chat(M, "<span class='danger'>A horrible migraine overpowers you.</span>")
-		M.Stun(rand(2,5))
+		update_flags |= M.Stun(rand(2,5), FALSE)
 	if(prob(7))
 		M.fakevomit(1)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/glowing_slurry
 	name = "Glowing Slurry"
@@ -1079,7 +1117,7 @@
 		randmutg(M)
 	domutcheck(M, null)
 	M.UpdateAppearance()
-	..()
+	return ..()
 
 /datum/reagent/ants
 	name = "Ants"
@@ -1091,8 +1129,9 @@
 	taste_message = "<span class='warning'>ANTS OH GOD</span>"
 
 /datum/reagent/ants/on_mob_life(mob/living/M)
-	M.adjustBruteLoss(2)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustBruteLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/ants/reaction_mob(mob/living/M, method=TOUCH, volume) //NOT THE ANTS
 	if(iscarbon(M))
@@ -1118,4 +1157,4 @@
 		shock_timer = 0
 		M.electrocute_act(rand(5,20), "Teslium in their body", 1, 1) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
-	..()
+	return ..()

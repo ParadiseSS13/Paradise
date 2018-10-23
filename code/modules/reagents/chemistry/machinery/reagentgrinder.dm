@@ -4,7 +4,7 @@
 	icon_state = "juicer1"
 	layer = 2.9
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	pass_flags = PASSTABLE
@@ -33,7 +33,6 @@
 			/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
 
 			//Blender Stuff
-			/obj/item/reagent_containers/food/snacks/grown/soybeans = list("soymilk" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/tomato = list("ketchup" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/wheat = list("flour" = -5),
 			/obj/item/reagent_containers/food/snacks/grown/oat = list("flour" = -5),
@@ -58,6 +57,7 @@
 	var/list/juice_items = list (
 
 			//Juicer Stuff
+			/obj/item/reagent_containers/food/snacks/grown/soybeans = list("soymilk" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/corn = list("corn_starch" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/tomato = list("tomatojuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/carrot = list("carrotjuice" = 0),
@@ -112,7 +112,7 @@
 		if(default_unfasten_wrench(user, I))
 				return
 
-		if (istype(I, /obj/item/reagent_containers) && (I.flags & OPENCONTAINER) )
+		if (istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
 				if (!beaker)
 						if(!user.drop_item())
 								return 1

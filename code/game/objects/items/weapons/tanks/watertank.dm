@@ -116,7 +116,8 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	flags = NODROP | OPENCONTAINER | NOBLUDGEON
+	flags = NODROP | NOBLUDGEON
+	container_type = OPENCONTAINER
 
 	var/obj/item/watertank/tank
 
@@ -315,7 +316,7 @@
 	desc = "A frozen shell of ice containing nanofrost that freezes the surrounding area after activation."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "frozen_smoke_capsule"
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pass_flags = PASSTABLE
 
 /obj/effect/nanofrost_container/proc/Smoke()

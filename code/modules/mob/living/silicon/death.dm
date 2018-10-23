@@ -16,7 +16,7 @@
 //	flick("gibbed-r", animation)
 	robogibs(loc)
 
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
@@ -37,7 +37,7 @@
 //	flick("dust-r", animation)
 	new /obj/effect/decal/remains/robot(loc)
 
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)

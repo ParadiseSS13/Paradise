@@ -3,7 +3,7 @@
 	desc = "Injects things."
 	icon_state = "reagents"
 	origin_tech = "materials=3;biotech=4"
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 /obj/item/implant/chem/get_data()
 	var/dat = {"<b>Implant Specifications:</b><BR>
@@ -24,10 +24,10 @@
 /obj/item/implant/chem/New()
 	..()
 	create_reagents(50)
-	tracked_implants += src
+	GLOB.tracked_implants += src
 
 /obj/item/implant/chem/Destroy()
-	tracked_implants -= src
+	GLOB.tracked_implants -= src
 	return ..()
 
 

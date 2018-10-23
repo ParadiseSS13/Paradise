@@ -1,4 +1,9 @@
-var/global/current_date_string
+#define STATION_CREATION_DATE "2 April, 2555"
+#define STATION_CREATION_TIME "11:24:30"
+#define STATION_START_CASH 75000
+#define STATION_SOURCE_TERMINAL "Biesel GalaxyNet Terminal #227"
+#define DEPARTMENT_START_CASH 5000
+
 var/global/num_financial_terminals = 1
 var/global/datum/money_account/station_account
 var/global/list/datum/money_account/department_accounts = list()
@@ -15,19 +20,13 @@ var/global/list/all_money_accounts = list()
 		station_account.owner_name = "[station_name()] Station Account"
 		station_account.account_number = rand(111111, 999999)
 		station_account.remote_access_pin = rand(1111, 111111)
-		station_account.money = 75000
+		station_account.money = STATION_START_CASH
 
 		//create an entry in the account transaction log for when it was created
-		var/datum/transaction/T = new()
-		T.target_name = station_account.owner_name
-		T.purpose = "Account creation"
-		T.amount = 75000
-		T.date = "2nd April, 2555"
-		T.time = "11:24"
-		T.source_terminal = "Biesel GalaxyNet Terminal #277"
+		station_account.makeTransactionLog(STATION_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, station_account.owner_name, FALSE,
+		 STATION_CREATION_DATE, STATION_CREATION_TIME)
 
 		//add the account
-		station_account.transaction_log.Add(T)
 		all_money_accounts.Add(station_account)
 
 /proc/create_department_account(department)
@@ -37,19 +36,13 @@ var/global/list/all_money_accounts = list()
 	department_account.owner_name = "[department] Account"
 	department_account.account_number = rand(111111, 999999)
 	department_account.remote_access_pin = rand(1111, 111111)
-	department_account.money = 5000
+	department_account.money = DEPARTMENT_START_CASH
 
 	//create an entry in the account transaction log for when it was created
-	var/datum/transaction/T = new()
-	T.target_name = department_account.owner_name
-	T.purpose = "Account creation"
-	T.amount = department_account.money
-	T.date = "2nd April, 2555"
-	T.time = "11:24"
-	T.source_terminal = "Biesel GalaxyNet Terminal #277"
+	department_account.makeTransactionLog(DEPARTMENT_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, department_account.owner_name, FALSE,
+	 STATION_CREATION_DATE, STATION_CREATION_TIME)
 
 	//add the account
-	department_account.transaction_log.Add(T)
 	all_money_accounts.Add(department_account)
 
 	department_accounts[department] = department_account
@@ -72,8 +65,8 @@ var/global/list/all_money_accounts = list()
 	T.amount = starting_funds
 	if(!source_db)
 		//set a random date, time and location some time over the past few decades
-		T.date = "[num2text(rand(1,31))] [pick(month_names)], [rand(game_year - 20,game_year - 1)]"
-		T.time = "[rand(0,23)]:[rand(0,59)]"
+		T.date = "[num2text(rand(1,31))] [pick(GLOB.month_names)], [rand(game_year - 20,game_year - 1)]"
+		T.time = "[rand(0,23)]:[rand(0,59)]:[rand(0,59)]"
 		T.source_terminal = "NTGalaxyNet Terminal #[rand(111,1111)]"
 
 		M.account_number = rand(111111, 999999)
@@ -104,7 +97,7 @@ var/global/list/all_money_accounts = list()
 			<i>Date and time:</i> [station_time_timestamp()], [current_date_string]<br><br>
 			<i>Creation terminal ID:</i> [source_db.machine_id]<br>
 			<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
-		// END AUTOFIX
+
 		//stamp the paper
 		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 		stampoverlay.icon_state = "paper_stamp-cent"
@@ -133,7 +126,6 @@ var/global/list/all_money_accounts = list()
 
 /datum/money_account/New()
 	..()
-	//security_level = pick (0,1) //Stealing is now slightly viable
 
 /datum/transaction
 	var/target_name = ""
@@ -142,222 +134,14 @@ var/global/list/all_money_accounts = list()
 	var/date = ""
 	var/time = ""
 	var/source_terminal = ""
-/*
-/obj/machinery/account_database
-	name = "Accounts database"
-	desc = "Holds transaction logs, account data and all kinds of other financial records."
-	icon = 'icons/obj/virology.dmi'
-	icon_state = "analyser"
-	density = 1
-	req_one_access = list(access_hop, access_captain)
-	var/receipt_num
-	var/machine_id = ""
-	var/obj/item/card/id/held_card
-	var/access_level = 0
-	var/datum/money_account/detailed_account_view
-	var/creating_new_account = 0
-	var/activated = 1
 
-/obj/machinery/account_database/New()
-	..()
-	if(!station_account)
-		create_station_account()
-
-	if(department_accounts.len == 0)
-		for(var/department in station_departments)
-			create_department_account(department)
-	if(!vendor_account)
-		create_department_account("Vendor")
-		vendor_account = department_accounts["Vendor"]
-
-	if(!current_date_string)
-		current_date_string = "[num2text(rand(1,31))] [pick("January","February","March","April","May","June","July","August","September","October","November","December")], 2557"
-
-	machine_id = "[station_name()] Acc. DB #[num_financial_terminals++]"
-
-/obj/machinery/account_database/attack_hand(mob/user as mob)
-	if(ishuman(user) && !user.stat && get_dist(src,user) <= 1)
-		var/dat = "<b>Accounts Database</b><br>"
-
-		// AUTOFIXED BY fix_string_idiocy.py
-		// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:171: dat += "<i>[machine_id]</i><br>"
-		dat += {"<i>[machine_id]</i><br>
-			Confirm identity: <a href='?src=[UID()];choice=insert_card'>[held_card ? held_card : "-----"]</a><br>"}
-		// END AUTOFIX
-		if(access_level > 0)
-
-			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:175: dat += "<a href='?src=[UID()];toggle_activated=1'>[activated ? "Disable" : "Enable"] remote access</a><br>"
-			dat += {"<a href='?src=[UID()];toggle_activated=1'>[activated ? "Disable" : "Enable"] remote access</a><br>
-				You may not edit accounts at this terminal, only create and view them.<br>"}
-			// END AUTOFIX
-			if(creating_new_account)
-
-				// AUTOFIXED BY fix_string_idiocy.py
-				// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:178: dat += "<br>"
-				dat += {"<br>
-					<a href='?src=[UID()];choice=view_accounts_list;'>Return to accounts list</a>
-					<form name='create_account' action='?src=[UID()]' method='get'>
-					<input type='hidden' name='src' value='[UID()]'>
-					<input type='hidden' name='choice' value='finalise_create_account'>
-					<b>Holder name:</b> <input type='text' id='holder_name' name='holder_name' style='width:250px; background-color:white;'><br>
-					<b>Initial funds:</b> <input type='text' id='starting_funds' name='starting_funds' style='width:250px; background-color:white;'> (subtracted from station account)<br>
-					<i>New accounts are automatically assigned a secret number and pin, which are printed separately in a sealed package.</i><br>
-					<input type='submit' value='Create'><br>
-					</form>"}
-				// END AUTOFIX
-			else
-				if(detailed_account_view)
-
-					// AUTOFIXED BY fix_string_idiocy.py
-					// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:190: dat += "<br>"
-					dat += {"<br>
-						<a href='?src=[UID()];choice=view_accounts_list;'>Return to accounts list</a><hr>
-						<b>Account number:</b> #[detailed_account_view.account_number]<br>
-						<b>Account holder:</b> [detailed_account_view.owner_name]<br>
-						<b>Account balance:</b> $[detailed_account_view.money]<br>
-						<table border=1 style='width:100%'>
-						<tr>
-						<td><b>Date</b></td>
-						<td><b>Time</b></td>
-						<td><b>Target</b></td>
-						<td><b>Purpose</b></td>
-						<td><b>Value</b></td>
-						<td><b>Source terminal ID</b></td>
-						</tr>"}
-					// END AUTOFIX
-					for(var/datum/transaction/T in detailed_account_view.transaction_log)
-
-						// AUTOFIXED BY fix_string_idiocy.py
-						// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:205: dat += "<tr>"
-						dat += {"<tr>
-							<td>[T.date]</td>
-							<td>[T.time]</td>
-							<td>[T.target_name]</td>
-							<td>[T.purpose]</td>
-							<td>$[T.amount]</td>
-							<td>[T.source_terminal]</td>
-							</tr>"}
-						// END AUTOFIX
-					dat += "</table>"
-				else
-
-					// AUTOFIXED BY fix_string_idiocy.py
-					// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:215: dat += "<a href='?src=[UID()];choice=create_account;'>Create new account</a><br><br>"
-					dat += {"<a href='?src=[UID()];choice=create_account;'>Create new account</a><br><br>
-						<table border=1 style='width:100%'>"}
-					// END AUTOFIX
-					for(var/i=1, i<=all_money_accounts.len, i++)
-						var/datum/money_account/D = all_money_accounts[i]
-
-						// AUTOFIXED BY fix_string_idiocy.py
-						// C:\Users\Rob\Documents\Projects\vgstation13\code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm:219: dat += "<tr>"
-						dat += {"<tr>
-							<td>#[D.account_number]</td>
-							<td>[D.owner_name]</td>
-							<td><a href='?src=[UID()];choice=view_account_detail;account_index=[i]'>View in detail</a></td>
-							</tr>"}
-						// END AUTOFIX
-					dat += "</table>"
-
-		user << browse(dat,"window=account_db;size=700x650")
-	else
-		user << browse(null,"window=account_db")
-
-/obj/machinery/account_database/attackby(O as obj, user as mob)//TODO:SANITY
-	if(istype(O, /obj/item/card))
-		var/obj/item/card/id/idcard = O
-		if(!held_card)
-			usr.drop_item()
-			idcard.loc = src
-			held_card = idcard
-
-			if(access_cent_captain in idcard.access)
-				access_level = 2
-			else if(access_hop in idcard.access || access_captain in idcard.access)
-				access_level = 1
-	else
-		..()
-
-/obj/machinery/account_database/Topic(var/href, var/href_list)
-	..()
-	if(href_list["toggle_activated"])
-		activated = !activated
-
-	if(href_list["choice"])
-		switch(href_list["choice"])
-			if("create_account")
-				creating_new_account = 1
-			if("finalise_create_account")
-				var/account_name = href_list["holder_name"]
-				var/starting_funds = max(text2num(href_list["starting_funds"]), 0)
-				create_account(account_name, starting_funds, src)
-				if(starting_funds > 0)
-					//subtract the money
-					station_account.money -= starting_funds
-
-					//create a transaction log entry
-					var/datum/transaction/T = new()
-					T.target_name = account_name
-					T.purpose = "New account funds initialisation"
-					T.amount = "([starting_funds])"
-					T.date = current_date_string
-					T.time = station_time_timestamp()
-					T.source_terminal = machine_id
-					station_account.transaction_log.Add(T)
-
-				creating_new_account = 0
-			if("insert_card")
-				if(held_card)
-					held_card.loc = src.loc
-
-					if(ishuman(usr) && !usr.get_active_hand())
-						usr.put_in_hands(held_card)
-					held_card = null
-					access_level = 0
-
-				else
-					var/obj/item/I = usr.get_active_hand()
-					if(istype(I, /obj/item/card/id))
-						var/obj/item/card/id/C = I
-						usr.drop_item()
-						C.loc = src
-						held_card = C
-
-						if(access_cent_captain in C.access)
-							access_level = 2
-						else if(access_hop in C.access || access_captain in C.access)
-							access_level = 1
-			if("view_account_detail")
-				var/index = text2num(href_list["account_index"])
-				if(index && index <= all_money_accounts.len)
-					detailed_account_view = all_money_accounts[index]
-			if("view_accounts_list")
-				detailed_account_view = null
-				creating_new_account = 0
-
-	src.attack_hand(usr)
-*/
-/obj/machinery/computer/account_database/proc/charge_to_account(var/attempt_account_number, var/source_name, var/purpose, var/terminal_id, var/amount)
+/obj/machinery/computer/account_database/proc/charge_to_account(attempt_account_number, datum/money_account/source, purpose, terminal_id, amount)
 	if(!activated)
 		return 0
 	for(var/datum/money_account/D in all_money_accounts)
 		if(D.account_number == attempt_account_number && !D.suspended)
-			D.money += amount
-
-			//create a transaction log entry
-			var/datum/transaction/T = new()
-			T.target_name = source_name
-			T.purpose = purpose
-			if(amount < 0)
-				T.amount = "([amount])"
-			else
-				T.amount = "[amount]"
-			T.date = current_date_string
-			T.time = station_time_timestamp()
-			T.source_terminal = terminal_id
-			D.transaction_log.Add(T)
-
+			source.charge(amount, D, purpose, terminal_id, "Account #[D.account_number]", "Transfer from [source.owner_name]",
+			"[D.owner_name]")
 			return 1
 
 	return 0
@@ -378,3 +162,9 @@ var/global/list/all_money_accounts = list()
 	for(var/datum/money_account/D in all_money_accounts)
 		if(D.account_number == attempt_account_number)
 			return D
+
+#undef STATION_CREATION_DATE
+#undef STATION_CREATION_TIME
+#undef STATION_START_CASH
+#undef STATION_SOURCE_TERMINAL
+#undef DEPARTMENT_START_CASH

@@ -19,7 +19,7 @@ log transactions
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/authenticated_account
@@ -74,7 +74,7 @@ log transactions
 				authenticated_account.charge(-cash_amount, null, "Credit deposit", terminal_id = machine_id, dest_name = "Terminal")
 
 /obj/machinery/atm/proc/reconnect_database()
-	for(var/obj/machinery/computer/account_database/DB in machines)
+	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
 		if(DB.z == z && !(DB.stat & NOPOWER) && DB.activated)
 			linked_db = DB
 			break
@@ -97,18 +97,9 @@ log transactions
 			if(!powered())
 				return
 			var/obj/item/stack/spacecash/C = I
-			authenticated_account.money += C.amount
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, 1)
 
-			//create a transaction log entry
-			var/datum/transaction/T = new()
-			T.target_name = authenticated_account.owner_name
-			T.purpose = "Credit deposit"
-			T.amount = C.amount
-			T.source_terminal = machine_id
-			T.date = current_date_string
-			T.time = station_time_timestamp()
-			authenticated_account.transaction_log.Add(T)
+			authenticated_account.credit(C.amount, "Credit deposit", machine_id, authenticated_account.owner_name)
 
 			to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
 			SSnanoui.update_uis(src)
@@ -175,19 +166,8 @@ log transactions
 					else if(transfer_amount <= authenticated_account.money)
 						var/target_account_number = text2num(href_list["target_acc_number"])
 						var/transfer_purpose = href_list["purpose"]
-						if(linked_db.charge_to_account(target_account_number, authenticated_account.owner_name, transfer_purpose, machine_id, transfer_amount))
+						if(linked_db.charge_to_account(target_account_number, authenticated_account, transfer_purpose, machine_id, transfer_amount))
 							to_chat(usr, "[bicon(src)]<span class='info'>Funds transfer successful.</span>")
-							authenticated_account.money -= transfer_amount
-
-							//create an entry in the account transaction log
-							var/datum/transaction/T = new()
-							T.target_name = "Account #[target_account_number]"
-							T.purpose = transfer_purpose
-							T.source_terminal = machine_id
-							T.date = current_date_string
-							T.time = station_time_timestamp()
-							T.amount = "([transfer_amount])"
-							authenticated_account.transaction_log.Add(T)
 						else
 							to_chat(usr, "[bicon(src)]<span class='warning'>Funds transfer failed.</span>")
 
@@ -263,15 +243,7 @@ log transactions
 						authenticated_account.money -= amount
 						withdraw_arbitrary_sum(amount)
 
-						//create an entry in the account transaction log
-						var/datum/transaction/T = new()
-						T.target_name = authenticated_account.owner_name
-						T.purpose = "Credit withdrawal"
-						T.amount = "([amount])"
-						T.source_terminal = machine_id
-						T.date = current_date_string
-						T.time = station_time_timestamp()
-						authenticated_account.transaction_log.Add(T)
+						authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name)
 					else
 						to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")
 			if("balance_statement")

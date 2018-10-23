@@ -11,6 +11,7 @@
 	var/calibrating
 	var/turf/target //Used for one-time-use teleport cards (such as clown planet coordinates.)
 						 //Setting this to 1 will set src.locked to null after a player enters the portal and will not allow hand-teles to open portals to that location.
+	var/area_bypass = FALSE
 
 /obj/machinery/computer/teleporter/New()
 	src.id = "[rand(1000, 9999)]"
@@ -87,7 +88,7 @@
 		data["accurate"] = null
 	data["regime"] = regime_set
 	var/area/targetarea = get_area(target)
-	data["target"] = (!target) ? "None" : sanitize(targetarea.name)
+	data["target"] = (!target || !targetarea) ? "None" : sanitize(targetarea.name)
 	data["calibrating"] = calibrating
 	data["locked"] = locked
 	return data
@@ -172,11 +173,12 @@
 		locked = null
 
 /obj/machinery/computer/teleporter/proc/set_target(mob/user)
+	area_bypass = FALSE
 	if(regime_set == "Teleporter")
 		var/list/L = list()
 		var/list/areaindex = list()
 
-		for(var/obj/item/radio/beacon/R in beacons)
+		for(var/obj/item/radio/beacon/R in GLOB.beacons)
 			var/turf/T = get_turf(R)
 			if(!T)
 				continue
@@ -191,7 +193,7 @@
 				areaindex[tmpname] = 1
 			L[tmpname] = R
 
-		for(var/obj/item/implant/tracking/I in tracked_implants)
+		for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
 			if(!I.implanted || !ismob(I.loc))
 				continue
 			else
@@ -211,7 +213,10 @@
 
 		var/desc = input("Please select a location to lock in.", "Locking Computer") in L
 		target = L[desc]
-
+		if(istype(target, /obj/item/radio/beacon))
+			var/obj/item/radio/beacon/B = target
+			if(B.area_bypass)
+				area_bypass = TRUE
 	else
 		var/list/L = list()
 		var/list/areaindex = list()
@@ -264,7 +269,7 @@
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
 	var/accurate = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
@@ -276,9 +281,7 @@
 	link_power_station()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
@@ -286,9 +289,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
 
@@ -335,7 +336,11 @@
 				to_chat(T, "[pick(TPError)]")
 			return
 		else
-			teleport(M)
+			if(!teleport(M) && isliving(M)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
+				visible_message("<span class='warning'>[src] emits a loud buzz, as its teleport portal flickers and fails!</span>")
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+				power_station.toggle() // turn off the portal.
+
 			use_power(5000)
 		//--FalseIncarnate
 	return
@@ -353,6 +358,7 @@
 	return ..()
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
+	. = TRUE
 	var/obj/machinery/computer/teleporter/com = power_station.teleporter_console
 	if(!com)
 		return
@@ -361,11 +367,10 @@
 		return
 	if(istype(M, /atom/movable))
 		if(!calibrated && prob(25 - ((accurate) * 10))) //oh dear a problem
-			do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3), 2)
+			. = do_teleport(M, locate(rand((2*TRANSITIONEDGE), world.maxx - (2*TRANSITIONEDGE)), rand((2*TRANSITIONEDGE), world.maxy - (2*TRANSITIONEDGE)), 3), 2, bypass_area_flag = com.area_bypass)
 		else
-			do_teleport(M, com.target)
+			. = do_teleport(M, com.target, bypass_area_flag = com.area_bypass)
 		calibrated = 0
-	return
 
 /obj/machinery/teleport/hub/update_icon()
 	if(panel_open)
@@ -380,7 +385,7 @@
 	desc = "A teleporter with the target pre-set on the circuit board."
 	icon_state = "tele0"
 	var/recalibrating = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 
@@ -457,7 +462,7 @@
 	desc = "The power control station for a bluespace teleporter."
 	icon_state = "controller"
 	var/engaged = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 	var/obj/machinery/computer/teleporter/teleporter_console
@@ -469,8 +474,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_station(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
@@ -574,8 +578,8 @@
 		visible_message("<span class='alert'>No target detected.</span>")
 		src.engaged = 0
 	teleporter_hub.update_icon()
-	src.add_fingerprint(user)
-	return
+	if(istype(user))
+		add_fingerprint(user)
 
 /obj/machinery/teleport/station/power_change()
 	..()

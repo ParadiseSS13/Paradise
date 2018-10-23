@@ -99,7 +99,7 @@
 	var/list/obj/effect/landmark/abductor/scientist_landmarks = list()
 	agent_landmarks.len = max_teams
 	scientist_landmarks.len = max_teams
-	for(var/obj/effect/landmark/abductor/A in landmarks_list)
+	for(var/obj/effect/landmark/abductor/A in GLOB.landmarks_list)
 		if(istype(A,/obj/effect/landmark/abductor/agent))
 			agent_landmarks[text2num(A.team)] = A
 		else if(istype(A,/obj/effect/landmark/abductor/scientist))
@@ -166,7 +166,7 @@
 	abductor.announce_objectives()
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in machines)
+	for(var/obj/machinery/abductor/console/C in GLOB.machines)
 		if(C.team == team_number)
 			return C
 
@@ -176,8 +176,8 @@
 			var/obj/machinery/abductor/console/con = get_team_console(team_number)
 			var/datum/objective/objective = team_objectives[team_number]
 			if(con.experiment.points >= objective.target_amount)
-				shuttle_master.emergency.request(null, 0.5)
-				shuttle_master.emergency.canRecall = FALSE
+				SSshuttle.emergency.request(null, 0.5)
+				SSshuttle.emergency.canRecall = FALSE
 				finished = 1
 				return ..()
 	return ..()
@@ -197,17 +197,17 @@
 /datum/game_mode/proc/auto_declare_completion_abduction()
 	var/text = ""
 	if(abductors.len)
-		text += "<br><span class='big'><b>The abductors were:</b></span>"
+		text += "<br><span class='big'><b>The abductors were:</b></span><br>"
 		for(var/datum/mind/abductor_mind in abductors)
 			text += printplayer(abductor_mind)
 			text += printobjectives(abductor_mind)
-		text += "<br>"
+			text += "<br>"
 		if(abductees.len)
-			text += "<br><span class='big'><b>The abductees were:</b></span>"
+			text += "<br><span class='big'><b>The abductees were:</b></span><br>"
 			for(var/datum/mind/abductee_mind in abductees)
 				text += printplayer(abductee_mind)
 				text += printobjectives(abductee_mind)
-	text += "<br>"
+				text += "<br>"
 	to_chat(world, text)
 
 //Landmarks
@@ -236,7 +236,7 @@
 			return FALSE
 		var/datum/species/abductor/S = H.dna.species
 		ab_team = S.team
-	for(var/obj/machinery/abductor/experiment/E in machines)
+	for(var/obj/machinery/abductor/experiment/E in GLOB.machines)
 		if(E.team == ab_team)
 			if(E.points >= target_amount)
 				return TRUE

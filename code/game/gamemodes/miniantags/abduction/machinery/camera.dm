@@ -14,7 +14,7 @@
 	icon_state = "camera"
 
 /obj/machinery/computer/camera_advanced/abductor/New()
-	abductor_equipment.Add(src)
+	GLOB.abductor_equipment.Add(src)
 	..()
 
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
