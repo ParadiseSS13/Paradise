@@ -14,6 +14,7 @@
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	var/taste = TRUE//whether you can taste eating from this
 	burn_state = FLAMMABLE
+	container_type = INJECTABLE
 
 /obj/item/reagent_containers/food/New()
 	..()
