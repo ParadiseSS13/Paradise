@@ -868,6 +868,11 @@
 
 	for(var/datum/reagent/R in tastes.reagent_list)
 		taste_sum += R.volume * R.taste_strength
+
+		if(R.data && R.data.len && R.data["tastes"]) //data can hold extra tastes
+			for(var/nom in R.data["tastes"])
+				taste_list[nom] += R.volume * R.data["tastes"][nom]
+
 		if(!R.taste_message)//set to null; no taste, like water
 			continue
 		taste_list[R.taste_message] += R.volume * R.taste_strength

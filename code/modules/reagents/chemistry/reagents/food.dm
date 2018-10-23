@@ -5,6 +5,8 @@
 /datum/reagent/consumable
 	name = "Consumable"
 	id = "consumable"
+	data = list()
+	taste_message = null
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
@@ -15,6 +17,13 @@
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				H.nutrition += nutriment_factor	// For hunger and fatness
 	return ..()
+
+/datum/reagent/consumable/on_merge(list/mix_data)
+	if(mix_data)
+		if(!data["tastes"])
+			data["tastes"] = list()
+		data["tastes"] += mix_data["tastes"]
+	return 1
 
 /datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective
 	name = "Nutriment"
