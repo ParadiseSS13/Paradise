@@ -114,7 +114,7 @@
 /obj/item/encryptionkey/heads/magistrate
 	name = "Magistrate's Encryption Key"
 	icon_state = "com_cypherkey"
-	channels = list("Command" = 1, "Security" = 1)
+	channels = list("Command" = 1, "Security" = 1, "Service" = 1)
 
 /obj/item/encryptionkey/heads/blueshield
 	name = "Blueshield's Encryption Key"
