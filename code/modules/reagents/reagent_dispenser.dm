@@ -13,9 +13,7 @@
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
 
 /obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
-	. = ..()
-	if(I.is_refillable())
-		return FALSE //so we can refill them via their afterattack.
+	return FALSE
 
 /obj/structure/reagent_dispensers/New()
 	create_reagents(tank_volume)
