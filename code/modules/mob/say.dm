@@ -137,11 +137,11 @@
 /mob/proc/parse_language(var/message)
 	var/prefix = copytext(message, 1, 2)
 	if(length(message) >= 1 && prefix == "!")
-		return all_languages["Noise"]
+		return GLOB.all_languages["Noise"]
 
 	if(length(message) >= 2)
 		var/language_prefix = trim_right(lowertext(copytext(message, 1 ,4)))
-		var/datum/language/L = language_keys[language_prefix]
+		var/datum/language/L = GLOB.language_keys[language_prefix]
 		if(can_speak_language(L))
 			return L
 

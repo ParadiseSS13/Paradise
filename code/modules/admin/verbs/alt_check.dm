@@ -7,7 +7,7 @@
 				<HR>"}
 
 	if(dbcon.IsConnected())
-		for(var/client/C in clients)
+		for(var/client/C in GLOB.clients)
 			dat += "<p>[C.ckey] (Player Age: <font color = 'red'>[C.player_age]</font>) - <b>[C.computer_id]</b> / <b>[C.address]</b><br>"
 			if(C.related_accounts_cid.len)
 				dat += "--Accounts associated with CID: "

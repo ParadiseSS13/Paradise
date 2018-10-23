@@ -68,7 +68,7 @@
 	if(new_hair)
 		M.change_hair_color(new_hair)
 
-	var/datum/sprite_accessory/hair_style = hair_styles_public_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
 	if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 		new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
 		if(new_hair)
@@ -85,7 +85,7 @@
 	if(new_facial)
 		M.change_facial_hair_color(new_facial)
 
-	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
+	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 		new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
 		if(new_facial)
@@ -239,7 +239,7 @@
 		else
 			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
 		user.show_message("<span class='abductor'>You project your mind into [target.name]: [say]</span>")
-		for(var/mob/dead/observer/G in player_list)
+		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
 /datum/dna/gene/basic/grant_spell/remoteview
@@ -271,7 +271,7 @@
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = list()
 	var/list/remoteviewers = new /list()
-	for(var/mob/M in living_mob_list)
+	for(var/mob/M in GLOB.living_mob_list)
 		if(PSY_RESIST in M.mutations)
 			continue
 		if(REMOTE_VIEW in M.mutations)

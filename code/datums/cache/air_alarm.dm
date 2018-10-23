@@ -16,7 +16,7 @@ var/global/datum/repository/air_alarm/air_alarm_repository = new()
 		if(is_station_contact(passed_alarm.z)) // Still need sanity checks
 			alarms[++alarms.len] = passed_alarm.get_nano_data_console() 
 	else
-		for(var/obj/machinery/alarm/alarm in (monitored_alarms ? monitored_alarms : air_alarms)) // Generating the whole list again is a bad habit but I can't be bothered to fix it right now
+		for(var/obj/machinery/alarm/alarm in (monitored_alarms ? monitored_alarms : GLOB.air_alarms)) // Generating the whole list again is a bad habit but I can't be bothered to fix it right now
 			if(!monitored_alarms && !is_station_contact(alarm.z)) 
 				continue
 			alarms[++alarms.len] = alarm.get_nano_data_console()

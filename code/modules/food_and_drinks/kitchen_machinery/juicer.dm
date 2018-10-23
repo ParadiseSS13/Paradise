@@ -6,7 +6,7 @@
 	layer = 2.9
 	density = 1
 	anchored = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	pass_flags = PASSTABLE

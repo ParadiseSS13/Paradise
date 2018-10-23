@@ -3,6 +3,7 @@
 	desc = "A roll of sticky tape. Possibly for taping ducks... or was that ducts?"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "taperoll"
+	singular_name = "tape roll"
 	w_class = WEIGHT_CLASS_TINY
 	amount = 10
 	max_amount = 10

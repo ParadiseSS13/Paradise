@@ -24,15 +24,20 @@
 					return target
 
 // All mobs should have custom emote, really..
-/mob/proc/custom_emote(var/m_type=1,var/message = null)
+/mob/proc/custom_emote(var/m_type=EMOTE_VISUAL,var/message = null)
 
 	if(stat || !use_me && usr == src)
 		if(usr)
 			to_chat(usr, "You are unable to emote.")
 		return
 
-	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)
-	if(m_type == 2 && muzzled) return
+	var/muzzled = is_muzzled()
+	if(muzzled)
+		var/obj/item/clothing/mask/muzzle/M = wear_mask
+		if(m_type == EMOTE_SOUND && M.mute >= MUZZLE_MUTE_MUFFLE)
+			return //Not all muzzles block sound
+	if(m_type == EMOTE_SOUND && !can_speak())
+		return
 
 	var/input
 	if(!message)
@@ -51,7 +56,7 @@
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.
 
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(!M.client)
 				continue //skip monkeys and leavers
 			if(istype(M, /mob/new_player))
@@ -63,7 +68,7 @@
 
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
-		if(m_type & 1)
+		if(m_type & EMOTE_VISUAL)
 			var/list/can_see = get_mobs_in_view(1,src)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 			can_see |= viewers(src,null)
 			for(var/mob/O in can_see)
@@ -80,7 +85,7 @@
 
 		// Type 2 (Audible) emotes are sent to anyone in hear range
 		// of the *LOCATION* -- this is important for pAIs to be heard
-		else if(m_type & 2)
+		else if(m_type & EMOTE_SOUND)
 			for(var/mob/O in get_mobs_in_view(7,src))
 
 				if(O.status_flags & PASSEMOTES)
@@ -121,7 +126,7 @@
 
 
 	if(message)
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(istype(M, /mob/new_player))
 				continue
 

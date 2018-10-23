@@ -134,7 +134,7 @@ CREATE TABLE `SS13_death` (
 DROP TABLE IF EXISTS `SS13_donators`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `donators` (
+CREATE TABLE `SS13_donators` (
   `patreon_name` varchar(32) NOT NULL,
   `tier` int(2),
   `ckey` varchar(32) COMMENT 'Manual Field',

@@ -17,6 +17,8 @@
 	var/rods_broken = 1
 	var/grille_type
 	var/broken_type = /obj/structure/grille/broken
+	var/shockcooldown = 0
+	var/my_shockcooldown = 1 SECONDS
 
 /obj/structure/grille/fence/
 	var/width = 3
@@ -67,7 +69,10 @@
 
 /obj/structure/grille/Bumped(atom/user)
 	if(ismob(user))
+		if(!(shockcooldown <= world.time))
+			return
 		shock(user, 70)
+		shockcooldown = world.time + my_shockcooldown
 
 /obj/structure/grille/hulk_damage()
 	return 60
@@ -249,9 +254,7 @@
 	var/obj/structure/cable/C = T.get_cable_node()
 	if(C)
 		if(electrocute_mob(user, C, src))
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(3, 1, src)
-			s.start()
+			do_sparks(3, 1, src)
 			return 1
 		else
 			return 0

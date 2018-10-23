@@ -7,7 +7,7 @@
 	var/id = null
 	var/on = 1.0
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
@@ -101,9 +101,7 @@
 
 
 	flick("[base_state]-spark", src)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(2, 1, src)
-	s.start()
+	do_sparks(2, 1, src)
 	src.last_spark = world.time
 	use_power(1000)
 	var/turf/location = src.loc

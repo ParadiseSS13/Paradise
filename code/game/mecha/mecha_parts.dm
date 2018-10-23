@@ -33,9 +33,9 @@
 /obj/item/mecha_parts/chassis/ripley
 	name = "Ripley Chassis"
 
-	New()
-		..()
-		construct = new /datum/construction/mecha/ripley_chassis(src)
+/obj/item/mecha_parts/chassis/ripley/New()
+	..()
+	construct = new /datum/construction/mecha/ripley_chassis(src)
 
 /obj/item/mecha_parts/part/ripley_torso
 	name="Ripley Torso"
@@ -68,9 +68,9 @@
 /obj/item/mecha_parts/chassis/gygax
 	name = "Gygax Chassis"
 
-	New()
-		..()
-		construct = new /datum/construction/mecha/gygax_chassis(src)
+/obj/item/mecha_parts/chassis/gygax/New()
+	..()
+	construct = new /datum/construction/mecha/gygax_chassis(src)
 
 /obj/item/mecha_parts/part/gygax_torso
 	name="Gygax Torso"
@@ -117,9 +117,9 @@
 /obj/item/mecha_parts/chassis/durand
 	name = "Durand Chassis"
 
-	New()
-		..()
-		construct = new /datum/construction/mecha/durand_chassis(src)
+/obj/item/mecha_parts/chassis/durand/New()
+	..()
+	construct = new /datum/construction/mecha/durand_chassis(src)
 
 /obj/item/mecha_parts/part/durand_torso
 	name="Durand Torso"
@@ -163,39 +163,18 @@
 /obj/item/mecha_parts/chassis/firefighter
 	name = "Firefighter Chassis"
 
-	New()
-		..()
-		construct = new /datum/construction/mecha/firefighter_chassis(src)
-/*
-/obj/item/mecha_parts/part/firefighter_torso
-	name="Ripley-on-Fire Torso"
-	icon_state = "ripley_harness"
-
-/obj/item/mecha_parts/part/firefighter_left_arm
-	name="Ripley-on-Fire Left Arm"
-	icon_state = "ripley_l_arm"
-
-/obj/item/mecha_parts/part/firefighter_right_arm
-	name="Ripley-on-Fire Right Arm"
-	icon_state = "ripley_r_arm"
-
-/obj/item/mecha_parts/part/firefighter_left_leg
-	name="Ripley-on-Fire Left Leg"
-	icon_state = "ripley_l_leg"
-
-/obj/item/mecha_parts/part/firefighter_right_leg
-	name="Ripley-on-Fire Right Leg"
-	icon_state = "ripley_r_leg"
-*/
+/obj/item/mecha_parts/chassis/firefighter/New()
+	..()
+	construct = new /datum/construction/mecha/firefighter_chassis(src)
 
 ////////// HONK
 
 /obj/item/mecha_parts/chassis/honker
 	name = "H.O.N.K Chassis"
 
-	New()
-		..()
-		construct = new /datum/construction/mecha/honker_chassis(src)
+/obj/item/mecha_parts/chassis/honker/New()
+	..()
+	construct = new /datum/construction/mecha/honker_chassis(src)
 
 /obj/item/mecha_parts/part/honker_torso
 	name="H.O.N.K Torso"
@@ -275,9 +254,9 @@
 /obj/item/mecha_parts/chassis/phazon
 	name = "Phazon Chassis"
 
-	New()
-		..()
-		construct = new /datum/construction/mecha/phazon_chassis(src)
+/obj/item/mecha_parts/chassis/phazon/New()
+	..()
+	construct = new /datum/construction/mecha/phazon_chassis(src)
 
 /obj/item/mecha_parts/part/phazon_torso
 	name="Phazon Torso"
@@ -319,9 +298,9 @@
 /obj/item/mecha_parts/chassis/odysseus
 	name = "Odysseus Chassis"
 
-	New()
-		..()
-		construct = new /datum/construction/mecha/odysseus_chassis(src)
+/obj/item/mecha_parts/chassis/odysseus/New()
+	..()
+	construct = new /datum/construction/mecha/odysseus_chassis(src)
 
 /obj/item/mecha_parts/part/odysseus_head
 	name="Odysseus Head"

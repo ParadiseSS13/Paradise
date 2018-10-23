@@ -231,7 +231,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 	else if((findtext(message, heal_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			L.heal_overall_damage(10 * power_multiplier, 10 * power_multiplier, 0, 0)
+			L.heal_overall_damage(10 * power_multiplier, 10 * power_multiplier, TRUE, 0, 0)
 		next_command = world.time + cooldown_damage
 
 	//BRUTE DAMAGE
@@ -380,7 +380,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 	else if((findtext(message, sit_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			for(var/obj/structure/stool/bed/chair/chair in get_turf(L))
+			for(var/obj/structure/chair/chair in get_turf(L))
 				chair.buckle_mob(L)
 				break
 		next_command = world.time + cooldown_meme
@@ -389,7 +389,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 	else if((findtext(message, stand_words)))
 		for(var/V in listeners)
 			var/mob/living/L = V
-			if(L.buckled && istype(L.buckled, /obj/structure/stool/bed/chair))
+			if(L.buckled && istype(L.buckled, /obj/structure/chair))
 				L.buckled.unbuckle_mob(L)
 		next_command = world.time + cooldown_meme
 

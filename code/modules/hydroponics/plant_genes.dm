@@ -107,7 +107,7 @@
 	reagent_id = reag_id
 	name = "UNKNOWN"
 
-	var/datum/reagent/R = chemical_reagents_list[reag_id]
+	var/datum/reagent/R = GLOB.chemical_reagents_list[reag_id]
 	if(R && R.id == reagent_id)
 		name = R.name
 
@@ -315,12 +315,16 @@
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
-	to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
-	do_teleport(C, T, teleport_radius)
-	if(prob(50))
-		do_teleport(G, T, teleport_radius)
+	if(do_teleport(C, T, teleport_radius))
+		to_chat(C, "<span class='warning'>You slip through spacetime!</span>")
+		if(prob(50))
+			do_teleport(G, T, teleport_radius)
+		else
+			new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
+			qdel(G)
 	else
-		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
+		to_chat(C, "<span class='warning'>[src] sparks, and burns up!</span>")
+		new /obj/effect/decal/cleanable/molten_object(T)
 		qdel(G)
 
 
