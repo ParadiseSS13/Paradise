@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "Tablets now spawn correctly. No more buying (seemingly) broken tablets"
