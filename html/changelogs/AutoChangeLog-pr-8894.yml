@@ -1,0 +1,6 @@
+author: "Fethas"
+delete-after: True
+changes: 
+  - tweak: "Ipcs bleed oil. Bleeding can be patched by welders and organ mainp surgery(if you have to heal an ipc via surgery we may as well take that out too)."
+  - tweak: "Kidan biolum slightly brighter.
+tweak:Vox now become confused and unintellible(..more) on cort stack damage."
