@@ -82,10 +82,10 @@
 	category = list("Miscellaneous")
 	
 /datum/design/data_disk
-	name = "Data Disk"
+	name = "Genetics Data Disk"
 	desc = "Disk that allows you to store genetic data."
 	id = "datadisk"
-	req_tech = list("programming" = 3)
+	req_tech = list("programming" = 3, "biotech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL=300, MAT_GLASS=100)
 	build_path = /obj/item/disk/data
