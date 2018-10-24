@@ -1,0 +1,4 @@
+author: "Warior4356"
+delete-after: True
+changes: 
+  - bugfix: "Safe tumbler 2 no longer makes I am open noise when turning tumbler 1."
