@@ -207,9 +207,7 @@
 		return
 	O.forceMove(loc)
 	if(user != O)
-		for(var/mob/B in viewers(user, 3))
-			if((B.client && !( B.blinded )))
-				to_chat(B, text("<span class='warning'>[] stuffs [] into []!</span>", user, O, src))
+		user.visible_message("<span class='warning'>[user] stuffs [O] into [src]!</span>")
 	return
 
 /obj/structure/m_tray/Destroy()
@@ -440,9 +438,7 @@
 		return
 	O.forceMove(loc)
 	if(user != O)
-		for(var/mob/B in viewers(user, 3))
-			if((B.client && !( B.blinded )))
-				to_chat(B, text("<span class='warning'>[] stuffs [] into []!</span>", user, O, src))
+		user.visible_message("<span class='warning'>[user] stuffs [O] into [src]!</span>")
 			//Foreach goto(99)
 	return
 

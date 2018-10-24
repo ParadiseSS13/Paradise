@@ -25,7 +25,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/LoseAggro()
 	..()
-	icon_state = icon_living
+	if(stat == CONSCIOUS)
+		icon_state = icon_living
 
 /mob/living/simple_animal/hostile/asteroid/bullet_act(var/obj/item/projectile/P)//Reduces damage from most projectiles to curb off-screen kills
 	if(!stat)
@@ -76,8 +77,8 @@
 	aggro_vision_range = 9
 	idle_vision_range = 2
 	turns_per_move = 5
-	loot = list(/obj/item/ore/diamond{layer = 4.1},
-				/obj/item/ore/diamond{layer = 4.1})
+	loot = list(/obj/item/stack/ore/diamond{layer = 4.1},
+				/obj/item/stack/ore/diamond{layer = 4.1})
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"
@@ -115,7 +116,7 @@
 	icon_dead = "Goliath_dead"
 	icon_gib = "syndicate_gib"
 	attack_sound = 'sound/weapons/punch4.ogg'
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 40
 	ranged = 1
 	ranged_cooldown = 2 //By default, start the Goliath with his cooldown off so that people can run away quickly on first sight

@@ -73,7 +73,7 @@
 	if(locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in chassis.equipment)
 		var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
 		if(ore_box)
-			for(var/obj/item/ore/ore in range(1, chassis))
+			for(var/obj/item/stack/ore/ore in range(1, chassis))
 				if(get_dir(chassis, ore) & chassis.dir)
 					ore.Move(ore_box)
 
@@ -94,7 +94,6 @@
 
 	if(target)
 		target.Paralyse(10)
-		target.updatehealth()
 
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill

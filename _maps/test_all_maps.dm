@@ -2,15 +2,20 @@
 
 #if !defined(USING_MAP_DATUM)
 	// Away missions
-	#include "map_files\RandomZLevels\beach.dmm"
-	#include "map_files\RandomZLevels\moonoutpost19.dmm"
-	#include "map_files\RandomZLevels\undergroundoutpost45.dmm"
 	#include "map_files\RandomZLevels\academy.dmm"
+	#include "map_files\RandomZLevels\beach.dmm"
 	#include "map_files\RandomZLevels\blackmarketpackers.dmm"
+	#include "map_files\RandomZLevels\centcomAway.dmm"
+	#include "map_files\RandomZLevels\evil_santa.dmm"
+	#include "map_files\RandomZLevels\example.dmm"
+	#include "map_files\RandomZLevels\moonoutpost19.dmm"
+	#include "map_files\RandomZLevels\spacebattle.dmm"
 	#include "map_files\RandomZLevels\spacehotel.dmm"
 	#include "map_files\RandomZLevels\stationCollision.dmm"
+	#include "map_files\RandomZLevels\terrorspiders.dmm"
+	#include "map_files\RandomZLevels\undergroundoutpost45.dmm"
 	#include "map_files\RandomZLevels\wildwest.dmm"
-	#include "map_files\RandomZLevels\evil_santa.dmm"
+
 
 	// Space Ruins
 	#include "map_files\RandomRuins\SpaceRuins\abandonedzoo.dmm"

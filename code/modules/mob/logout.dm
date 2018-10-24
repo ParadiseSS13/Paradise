@@ -1,7 +1,7 @@
 /mob/Logout()
 	SSnanoui.user_logout(src) // this is used to clean up (remove) this user's Nano UIs
 	unset_machine()
-	player_list -= src
+	GLOB.player_list -= src
 	log_access_out(src)
 	create_attack_log("<font color='red'>Logged out at [atom_loc_line(get_turf(src))]</font>")
 	// `holder` is nil'd out by now, so we check the `admin_datums` array directly

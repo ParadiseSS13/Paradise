@@ -129,8 +129,8 @@
 				post_signal(control_freq, "command", "unload", "active", active, s_filter = RADIO_MULEBOT)
 
 		if("setdest")
-			if(deliverybeacons)
-				var/dest = input("Select Bot Destination", "Mulebot [active.suffix] Interlink", active.destination) as null|anything in deliverybeacontags
+			if(GLOB.deliverybeacons)
+				var/dest = input("Select Bot Destination", "Mulebot [active.suffix] Interlink", active.destination) as null|anything in GLOB.deliverybeacontags
 				if(dest)
 					spawn(0)
 						post_signal(control_freq, "command", "target", "active", active, "destination", dest, s_filter = RADIO_MULEBOT)

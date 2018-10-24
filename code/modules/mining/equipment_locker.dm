@@ -70,12 +70,12 @@
 	point_upgrade = point_upgrade_temp
 	sheet_per_ore = sheet_per_ore_temp
 
-/obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/ore/O)
+/obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
 
 	ore_buffer -= O
 
 	if(O && O.refined_type)
-		points += O.points * point_upgrade
+		points += O.points * point_upgrade * O.amount
 
 	GET_COMPONENT(materials, /datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(O)
@@ -83,7 +83,7 @@
 	if(!material_amount)
 		qdel(O) //no materials, incinerate it
 
-	else if(!materials.has_space(material_amount * sheet_per_ore)) //if there is no space, eject it
+	else if(!materials.has_space(material_amount * sheet_per_ore * O.amount)) //if there is no space, eject it
 		unload_mineral(O)
 
 	else
@@ -157,7 +157,7 @@
 	if(OB)
 		input = OB
 
-	for(var/obj/item/ore/O in input)
+	for(var/obj/item/stack/ore/O in input)
 		if(QDELETED(O))
 			continue
 		ore_buffer |= O
@@ -352,9 +352,7 @@
 	updateUsrDialog()
 
 /obj/machinery/mineral/ore_redemption/ex_act(severity, target)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
+	do_sparks(5, 1, src)
 	if(severity == 1)
 		if(prob(50))
 			qdel(src)
@@ -564,9 +562,7 @@
 	qdel(voucher)
 
 /obj/machinery/mineral/equipment_vendor/ex_act(severity, target)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
+	do_sparks(5, 1, src)
 	if(prob(50 / severity) && severity < 3)
 		qdel(src)
 
@@ -722,7 +718,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shield1"
 	layer = 4.1
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/resonance_damage = 20
 
 /obj/effect/resonance/New(loc, var/creator = null, var/timetoburst)
@@ -975,7 +971,7 @@
 	layer = 18
 	icon = 'icons/turf/mining.dmi'
 	anchored = 1
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	duration = 30
 	pixel_x = -4
 	pixel_y = -4

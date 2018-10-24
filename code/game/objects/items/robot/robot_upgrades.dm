@@ -90,13 +90,13 @@
 		return 0
 
 	if(!R.key)
-		for(var/mob/dead/observer/ghost in player_list)
+		for(var/mob/dead/observer/ghost in GLOB.player_list)
 			if(ghost.mind && ghost.mind.current == R)
 				R.key = ghost.key
 
 	R.stat = CONSCIOUS
-	dead_mob_list -= R //please never forget this ever kthx
-	living_mob_list += R
+	GLOB.dead_mob_list -= R //please never forget this ever kthx
+	GLOB.living_mob_list += R
 	R.notify_ai(1)
 
 	return 1
@@ -302,14 +302,12 @@
 
 		if(cyborg.health < cyborg.maxHealth)
 			if(cyborg.health < 0)
-				repair_amount = -2.5
+				repair_amount = 2.5
 				powercost = 30
 			else
-				repair_amount = -1
+				repair_amount = 1
 				powercost = 10
-			cyborg.adjustBruteLoss(repair_amount)
-			cyborg.adjustFireLoss(repair_amount)
-			cyborg.updatehealth()
+			cyborg.heal_overall_damage(repair_amount, repair_amount)
 			cyborg.cell.use(powercost)
 		else
 			cyborg.cell.use(5)

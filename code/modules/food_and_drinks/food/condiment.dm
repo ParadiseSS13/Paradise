@@ -10,7 +10,7 @@
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5, 10, 15, 20, 25, 30, 50)
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
@@ -47,7 +47,7 @@
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.
 		user.visible_message("<span class='warning'>[user] feeds [M] from [src].</span>")
-		add_attack_logs(user, M, "Fed [src] containing [reagentlist()]")
+		add_attack_logs(user, M, "Fed [src] containing [reagents.log_list()]")
 
 	var/fraction = min(10/reagents.total_volume, 1)
 	reagents.reaction(M, INGEST, fraction)
@@ -75,7 +75,7 @@
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
 
 	//Something like a glass or a food item. Player probably wants to transfer TO it.
-	else if(target.is_open_container() || istype(target, /obj/item/reagent_containers/food/snacks))
+	else if(target.is_drainable() || istype(target, /obj/item/reagent_containers/food/snacks))
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'>[src] is empty!</span>")
 			return

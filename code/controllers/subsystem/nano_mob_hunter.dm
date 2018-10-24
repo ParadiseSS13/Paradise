@@ -1,6 +1,7 @@
-var/global/datum/controller/process/mob_hunt/mob_hunt_server
-
-/datum/controller/process/mob_hunt
+SUBSYSTEM_DEF(mob_hunt)
+	name = "Nano-Mob Hunter GO Server"
+	init_order = INIT_ORDER_NANOMOB
+	priority = FIRE_PRIORITY_NANOMOB // Low priority, no need for MC_TICK_CHECK due to extremely low performance impact.
 	var/max_normal_spawns = 15		//change this to adjust the number of normal spawns that can exist at one time. trapped spawns (from traitors) don't count towards this
 	var/list/normal_spawns = list()
 	var/max_trap_spawns = 15		//change this to adjust the number of trap spawns that can exist at one time. traps spawned beyond this point clear the oldest traps
@@ -12,11 +13,7 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 	var/obj/machinery/computer/mob_battle_terminal/blue_terminal
 	var/battle_turn = null
 
-/datum/controller/process/mob_hunt/setup()
-	name = "Nano-Mob Hunter GO Server"
-	start_delay = 20
-
-/datum/controller/process/mob_hunt/doWork()
+/datum/controller/subsystem/mob_hunt/fire(resumed = FALSE)
 	if(reset_cooldown)		//if reset_cooldown is set (we are on cooldown, duh), reduce the remaining cooldown every cycle
 		reset_cooldown--
 	if(!server_status)
@@ -25,10 +22,8 @@ var/global/datum/controller/process/mob_hunt/mob_hunt_server
 	if(normal_spawns.len < max_normal_spawns)
 		spawn_mob()
 
-DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
-
 //leaving this here in case admins want to use it for a random mini-event or something
-/datum/controller/process/mob_hunt/proc/server_crash(recover_time = 3000)
+/datum/controller/subsystem/mob_hunt/proc/server_crash(recover_time = 3000)
 	server_status = 0
 	for(var/datum/data/pda/app/mob_hunter_game/client in connected_clients)
 		client.disconnect("Server Crash")
@@ -46,7 +41,7 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 		//set a timer to automatically recover after recover_time has passed (can be manually restarted if you get impatient too)
 		addtimer(CALLBACK(src, .proc/auto_recover), recover_time, TIMER_UNIQUE)
 
-/datum/controller/process/mob_hunt/proc/client_mob_update()
+/datum/controller/subsystem/mob_hunt/proc/client_mob_update()
 	var/list/ex_players = list()
 	for(var/datum/data/pda/app/mob_hunter_game/client in connected_clients)
 		var/mob/living/carbon/human/H = client.get_player()
@@ -58,14 +53,14 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 		for(var/obj/effect/nanomob/N in (normal_spawns + trap_spawns))
 			N.conceal(ex_players)
 
-/datum/controller/process/mob_hunt/proc/auto_recover()
+/datum/controller/subsystem/mob_hunt/proc/auto_recover()
 	if(server_status != 0)
 		return
 	server_status = 1
 	while(normal_spawns.len < max_normal_spawns)		//repopulate the server's spawns completely if we auto-recover from crash
 		spawn_mob()
 
-/datum/controller/process/mob_hunt/proc/manual_reboot()
+/datum/controller/subsystem/mob_hunt/proc/manual_reboot()
 	if(server_status && reset_cooldown)
 		return 0
 	for(var/obj/effect/nanomob/N in trap_spawns)
@@ -76,12 +71,12 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 	reset_cooldown = 25		//25 controller cycle cooldown for manual restarts
 	return 1
 
-/datum/controller/process/mob_hunt/proc/spawn_mob()
+/datum/controller/subsystem/mob_hunt/proc/spawn_mob()
 	var/list/nanomob_types = subtypesof(/datum/mob_hunt)
 	var/datum/mob_hunt/mob_info = pick(nanomob_types)
 	new mob_info()
 
-/datum/controller/process/mob_hunt/proc/register_spawn(datum/mob_hunt/mob_info)
+/datum/controller/subsystem/mob_hunt/proc/register_spawn(datum/mob_hunt/mob_info)
 	if(!mob_info)
 		return 0
 	var/obj/effect/nanomob/new_mob = new /obj/effect/nanomob(mob_info.spawn_point, mob_info)
@@ -89,7 +84,7 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 	new_mob.reveal()
 	return 1
 
-/datum/controller/process/mob_hunt/proc/register_trap(datum/mob_hunt/mob_info)
+/datum/controller/subsystem/mob_hunt/proc/register_trap(datum/mob_hunt/mob_info)
 	if(!mob_info)
 		return 0
 	if(!mob_info.is_trap)
@@ -102,7 +97,7 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 		old_trap.despawn()
 	return 1
 
-/datum/controller/process/mob_hunt/proc/start_check()
+/datum/controller/subsystem/mob_hunt/proc/start_check()
 	if(battle_turn)		//somehow we got called mid-battle, so lets just stop now
 		return
 	if(red_terminal && red_terminal.ready && blue_terminal && blue_terminal.ready)
@@ -114,7 +109,7 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 		else if(battle_turn == "Blue")
 			blue_terminal.audible_message("Blue Player's Turn!", null, 5)
 
-/datum/controller/process/mob_hunt/proc/launch_attack(team, raw_damage, datum/mob_type/attack_type)
+/datum/controller/subsystem/mob_hunt/proc/launch_attack(team, raw_damage, datum/mob_type/attack_type)
 	if(!team || !raw_damage)
 		return
 	var/obj/machinery/computer/mob_battle_terminal/target = null
@@ -126,7 +121,7 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 		return
 	target.receive_attack(raw_damage, attack_type)
 
-/datum/controller/process/mob_hunt/proc/end_battle(loser, surrender = 0)
+/datum/controller/subsystem/mob_hunt/proc/end_battle(loser, surrender = 0)
 	var/obj/machinery/computer/mob_battle_terminal/winner_terminal = null
 	var/obj/machinery/computer/mob_battle_terminal/loser_terminal = null
 	if(loser == "Red")
@@ -145,7 +140,7 @@ DECLARE_GLOBAL_CONTROLLER(mob_hunt, mob_hunt_server)
 		winner_terminal.audible_message("[winner_terminal.team] Player wins!", null, 5)
 		winner_terminal.audible_message(progress_message, null, 2)
 
-/datum/controller/process/mob_hunt/proc/end_turn()
+/datum/controller/subsystem/mob_hunt/proc/end_turn()
 	red_terminal.updateUsrDialog()
 	blue_terminal.updateUsrDialog()
 	if(!battle_turn)

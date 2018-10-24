@@ -7,7 +7,7 @@
 	layer = 2.9
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
 	var/max_n_of_items = 1500
@@ -227,7 +227,7 @@
 	if(load(O, user))
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 		SSnanoui.update_uis(src)
-			
+
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/bag/P = O
 		var/plants_loaded = 0
@@ -410,7 +410,7 @@
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying_rack_on"
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 200
 	icon_on = "drying_rack_on"
@@ -447,13 +447,13 @@
 		return 1
 	if(href_list["dryingOn"])
 		drying = TRUE
-		use_power = 2
+		use_power = ACTIVE_POWER_USE
 		update_icon()
 		return 1
 
 	if(href_list["dryingOff"])
 		drying = FALSE
-		use_power = 1
+		use_power = IDLE_POWER_USE
 		update_icon()
 		return 1
 	return 0
@@ -497,10 +497,10 @@
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
 		drying = FALSE
-		use_power = 1
+		use_power = IDLE_POWER_USE
 	else
 		drying = TRUE
-		use_power = 2
+		use_power = ACTIVE_POWER_USE
 	update_icon()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry()

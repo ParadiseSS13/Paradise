@@ -763,8 +763,8 @@
 			else if(transfer_amount) // Droppers, cans, beakers, what have you.
 				visi_msg="[user] uses [reagent_source] on [target]"
 				irrigate = 1
-			// Beakers, bottles, buckets, etc.  Can't use is_open_container though.
-			if(istype(reagent_source, /obj/item/reagent_containers/glass/))
+			// Beakers, bottles, buckets, etc.
+			if(reagent_source.is_drainable())
 				playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 
 		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
@@ -1008,7 +1008,7 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "soil"
 	density = 0
-	use_power = 0
+	use_power = NO_POWER_USE
 	wrenchable = 0
 
 /obj/machinery/hydroponics/soil/update_icon_hoses()

@@ -383,7 +383,7 @@
 
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
-	for(var/mob/living/silicon/ai/AI in player_list)
+	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		if(!T || !is_station_contact(T.z))
 			break
 		if(T.loc)

@@ -209,7 +209,7 @@
 
 
 /obj/structure/blob/proc/get_chem_name()
-	for(var/mob/camera/blob/B in mob_list)
+	for(var/mob/camera/blob/B in GLOB.mob_list)
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.name
 	return "unknown"

@@ -61,14 +61,6 @@
 /obj/item/reagent_containers/afterattack(obj/target, mob/user , flag)
 	return
 
-/obj/item/reagent_containers/proc/reagentlist() //Return reagents in a reagent_container, default to source
-	var/data
-	if(reagents && reagents.reagent_list && reagents.reagent_list.len) //find a reagent list if there is and check if it has entries
-		for(var/datum/reagent/R in reagents.reagent_list) //no reagents will be left behind
-			data += "[R.id]([R.volume] units); " //Using IDs because SOME chemicals(I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
-		return data
-	else return "No reagents"
-
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())
 		if(reagents.total_volume >= volume)

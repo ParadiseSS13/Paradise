@@ -9,7 +9,6 @@
 	window_name = "Claw Game"
 	var/machine_image = "_1"
 	var/bonus_prize_chance = 5		//chance to dispense a SECOND prize if you win, increased by matter bin rating
-
 	//This is to make sure the images are available
 	var/list/img_resources = list('icons/obj/arcade_images/backgroundsprite.png',
 								'icons/obj/arcade_images/clawpieces.png',
@@ -49,26 +48,25 @@
 		icon_state = "clawmachine[machine_image]_off"
 	else
 		icon_state = "clawmachine[machine_image]_on"
-	return
 
 /obj/machinery/arcade/claw/win()
 	icon_state = "clawmachine[machine_image]_win"
-	visible_message("<span class='game say'><span class='name'>[src.name]</span> beeps, \"WINNER!\"</span>")
-	if(prob(bonus_prize_chance))
-		//double prize mania!
+	if(prob(bonus_prize_chance))	//double prize mania!
+		atom_say("DOUBLE PRIZE!")
 		new /obj/item/toy/prizeball(get_turf(src))
+	else
+		atom_say("WINNER!")
 	new /obj/item/toy/prizeball(get_turf(src))
 	playsound(src.loc, 'sound/arcade/Win.ogg', 50, 1, extrarange = -3, falloff = 10)
-	spawn(10)
-		update_icon()
+	addtimer(CALLBACK(src, .update_icon), 10)
 
 /obj/machinery/arcade/claw/start_play(mob/user as mob)
 	..()
 	user << browse_rsc('page.css')
-	for(var/i=1, i<=img_resources.len, i++)
+	for(var/i in 1 to img_resources.len)
 		user << browse_rsc(img_resources[i])
 	var/my_game_html = replacetext(claw_game_html, "/* ref src */", UID())
-	user << browse(my_game_html, "window=[window_name];size=700x600")
+	user << browse(my_game_html, "window=[window_name];size=915x600;can_resize=0")
 
 /obj/machinery/arcade/claw/Topic(href, list/href_list)
 	if(..())

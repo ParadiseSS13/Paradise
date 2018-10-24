@@ -95,10 +95,10 @@ proc/get_radio_key_from_channel(var/channel)
 	returns[3] = speech_problem_flag
 	return returns
 
-/mob/living/proc/handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name)
+/mob/living/proc/handle_message_mode(message_mode, message, verb, speaking, used_radios)
 	switch(message_mode)
 		if("whisper") //all mobs can whisper by default
-			whisper_say(message, speaking, alt_name)
+			whisper_say(message, speaking)
 			return 1
 	return 0
 
@@ -109,7 +109,7 @@ proc/get_radio_key_from_channel(var/channel)
 	return returns
 
 
-/mob/living/say(var/message, var/datum/language/speaking = null, var/verb = "says", var/alt_name = "", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
+/mob/living/say(var/message, var/datum/language/speaking = null, var/verb = "says", var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -184,7 +184,7 @@ proc/get_radio_key_from_channel(var/channel)
 		return 0
 
 	var/list/used_radios = list()
-	if(handle_message_mode(message_mode, message, verb, speaking, used_radios, alt_name))
+	if(handle_message_mode(message_mode, message, verb, speaking, used_radios))
 		return 1
 
 	var/list/handle_v = handle_speech_sound()
@@ -253,7 +253,7 @@ proc/get_radio_key_from_channel(var/channel)
 				hearturfs += get_turf(O)
 				listening_obj |= O
 
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(!M.client)
 				continue //skip monkeys and leavers
 			if(isnewplayer(M))
@@ -268,7 +268,7 @@ proc/get_radio_key_from_channel(var/channel)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message, verb, speaking, alt_name, italics, src, speech_sound, sound_vol)
+		M.hear_say(message, verb, speaking, italics, src, speech_sound, sound_vol)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 	spawn(0)
@@ -315,7 +315,7 @@ proc/get_radio_key_from_channel(var/channel)
 	if(act && type && message) //parent call
 		log_emote(message, src)
 
-		for(var/mob/M in dead_mob_list)
+		for(var/mob/M in GLOB.dead_mob_list)
 			if(!M.client || istype(M, /mob/new_player))
 				continue //skip monkeys, leavers and new players //who the hell knows why new players are in the dead mob list
 
@@ -359,7 +359,7 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/proc/get_whisper_loc()
 	return src
 
-/mob/living/proc/whisper_say(var/message, var/datum/language/speaking = null, var/alt_name="", var/verb="whispers")
+/mob/living/proc/whisper_say(var/message, var/datum/language/speaking = null, var/verb="whispers")
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -381,6 +381,7 @@ proc/get_radio_key_from_channel(var/channel)
 	var/eavesdropping_range = 2
 	var/watching_range = 5
 	var/italics = 1
+	var/adverb_added = FALSE
 
 	var/not_heard //the message displayed to people who could not hear the whispering
 	if(speaking)
@@ -389,6 +390,7 @@ proc/get_radio_key_from_channel(var/channel)
 			not_heard = "[verb] something"
 		else
 			var/adverb = pick("quietly", "softly")
+			adverb_added = TRUE
 			verb = "[speaking.speech_verb] [adverb]"
 			not_heard = "[speaking.speech_verb] something [adverb]"
 	else
@@ -404,7 +406,7 @@ proc/get_radio_key_from_channel(var/channel)
 	if(verb == "yells loudly")
 		verb = "slurs emphatically"
 
-	else if(speech_problem_flag)
+	else if(speech_problem_flag && !adverb_added)
 		var/adverb = pick("quietly", "softly")
 		verb = "[verb] [adverb]"
 
@@ -429,7 +431,7 @@ proc/get_radio_key_from_channel(var/channel)
 			hearturfs += get_turf(L)
 
 	//ghosts
-	for(var/mob/M in dead_mob_list)	//does this include players who joined as observers as well?
+	for(var/mob/M in GLOB.dead_mob_list)	//does this include players who joined as observers as well?
 		if(!M.client)
 			continue
 		if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTEARS))
@@ -437,7 +439,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	// This, in tandem with "hearturfs", lets nested mobs hear whispers that are in range
 	// Grifted from saycode above.
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(!M.client || isnewplayer(M))
 			continue //skip monkeys and leavers
 		if(get_turf(M) in hearturfs)
@@ -464,14 +466,14 @@ proc/get_radio_key_from_channel(var/channel)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message, verb, speaking, alt_name, italics, src)
+		M.hear_say(message, verb, speaking, italics, src)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
 		var/new_message = stars(message)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(new_message, verb, speaking, alt_name, italics, src)
+			M.hear_say(new_message, verb, speaking, italics, src)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 

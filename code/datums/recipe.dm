@@ -53,19 +53,18 @@
 		return -1
 	return .
 
-/datum/recipe/proc/check_items(obj/container) //1=precisely, 0=insufficiently, -1=superfluous
-	if(!items)
-		if(locate(/obj/) in container)
-			return -1
-		else
-			return 1
+/datum/recipe/proc/check_items(obj/container, list/ignored_items = null) //1=precisely, 0=insufficiently, -1=superfluous
 	. = 1
-	var/list/checklist = items.Copy()
+	var/list/checklist = items ? items.Copy() : list()
 	for(var/obj/O in container)
+		if(ignored_items && is_type_in_list(O, ignored_items))	//skip if this is something we are ignoring
+			continue
+		if(!items)
+			return -1
 		var/found = 0
 		for(var/type in checklist)
 			if(istype(O,type))
-				checklist-=type
+				checklist -= type
 				found = 1
 				break
 		if(!found)
@@ -95,16 +94,16 @@
 	container.reagents.clear_reagents()
 	return result_obj
 
-/proc/select_recipe(list/datum/recipe/avaiable_recipes, obj/obj, exact = 1 as num)
+/proc/select_recipe(list/datum/recipe/available_recipes, obj/obj, exact = 1 as num, list/ignored_items = null)
 	if(!exact)
 		exact = -1
 	var/list/datum/recipe/possible_recipes = new
-	for(var/datum/recipe/recipe in avaiable_recipes)
-		if(recipe.check_reagents(obj.reagents)==exact && recipe.check_items(obj)==exact)
-			possible_recipes+=recipe
-	if(possible_recipes.len==0)
+	for(var/datum/recipe/recipe in available_recipes)
+		if(recipe.check_reagents(obj.reagents) == exact && recipe.check_items(obj, ignored_items) == exact)
+			possible_recipes += recipe
+	if(possible_recipes.len == 0)
 		return null
-	else if(possible_recipes.len==1)
+	else if(possible_recipes.len == 1)
 		return possible_recipes[1]
 	else //okay, let's select the most complicated recipe
 		var/r_count = 0
