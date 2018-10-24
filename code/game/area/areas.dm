@@ -22,9 +22,9 @@
 
 	..()
 	icon_state = ""
-	layer = 10
+	layer = AREA_LAYER
 	uid = ++global_uid
-	all_areas += src
+	GLOB.all_areas += src
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
 	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area
@@ -45,7 +45,24 @@
 	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
 
 /area/Initialize()
-	..()
+	. = ..()
+
+	if(contents.len)
+		var/list/areas_in_z = space_manager.areas_in_z
+		var/z
+		for(var/i in 1 to contents.len)
+			var/atom/thing = contents[i]
+			if(!thing)
+				continue
+			z = thing.z
+			break
+		if(!z)
+			WARNING("No z found for [src]")
+			return
+		if(!areas_in_z["[z]"])
+			areas_in_z["[z]"] = list()
+		areas_in_z["[z]"] += src
+
 	return INITIALIZE_HINT_LATELOAD
 
 /area/LateInitialize()
@@ -115,14 +132,14 @@
 	if(!fire)
 		fire = 1	//used for firedoor checks
 		updateicon()
-		mouse_opacity = 0
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		air_doors_close()
 
 /area/proc/fire_reset()
 	if(fire)
 		fire = 0	//used for firedoor checks
 		updateicon()
-		mouse_opacity = 0
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		air_doors_open()
 
 	return
@@ -148,7 +165,7 @@
 /area/proc/set_fire_alarm_effect()
 	fire = 1
 	updateicon()
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /area/proc/readyalert()
 	if(!eject)
@@ -160,34 +177,21 @@
 		eject = 0
 		updateicon()
 
-/area/proc/radiation_alert()
-	if(!radalert)
-		radalert = 1
-		updateicon()
-
-/area/proc/reset_radiation_alert()
-	if(radalert)
-		radalert = 0
-		updateicon()
-
 /area/proc/partyalert()
 	if(!party)
 		party = 1
 		updateicon()
-		mouse_opacity = 0
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /area/proc/partyreset()
 	if(party)
 		party = 0
-		mouse_opacity = 0
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		updateicon()
 
 /area/proc/updateicon()
-	if(radalert) // always show the radiation alert, regardless of power
-		icon_state = "radiation"
-		invisibility = INVISIBILITY_LIGHTING
-	else if((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
-		if(fire && !radalert && !eject && !party)
+	if((fire || eject || party) && (!requires_power||power_environ))//If it doesn't require power, can still activate this proc.
+		if(fire && !eject && !party)
 			icon_state = "red"
 		else if(!fire && eject && !party)
 			icon_state = "red"
@@ -197,9 +201,15 @@
 			icon_state = "blue-red"
 		invisibility = INVISIBILITY_LIGHTING
 	else
-	//	new lighting behaviour with obj lights
-		icon_state = null
-		invisibility = INVISIBILITY_MAXIMUM
+		var/weather_icon
+		for(var/V in SSweather.processing)
+			var/datum/weather/W = V
+			if(W.stage != END_STAGE && (src in W.impacted_areas))
+				W.update_areas()
+				weather_icon = TRUE
+		if(!weather_icon)
+			icon_state = null
+			invisibility = INVISIBILITY_MAXIMUM
 
 /area/space/updateicon()
 	icon_state = null
@@ -299,8 +309,8 @@
 		var/mob/M=A
 
 		if(!M.lastarea)
-			M.lastarea = get_area_master(M)
-		newarea = get_area_master(M)
+			M.lastarea = get_area(M)
+		newarea = get_area(M)
 		oldarea = M.lastarea
 
 		if(newarea==oldarea) return
@@ -385,3 +395,9 @@
 		temp_airlock.prison_open()
 	for(var/obj/machinery/door/window/temp_windoor in src)
 		temp_windoor.open()
+
+/area/AllowDrop()
+	CRASH("Bad op: area/AllowDrop() called")
+
+/area/drop_location()
+	CRASH("Bad op: area/drop_location() called")

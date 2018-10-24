@@ -9,7 +9,7 @@
 	var/broken = 0
 	var/processing = 0
 
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
 	var/rating_speed = 1
@@ -86,6 +86,10 @@
 /datum/food_processor_process/spaghetti
 	input = /obj/item/reagent_containers/food/snacks/doughslice
 	output = /obj/item/reagent_containers/food/snacks/spaghetti
+
+/datum/food_processor_process/macaroni
+	input = /obj/item/reagent_containers/food/snacks/spaghetti
+	output = /obj/item/reagent_containers/food/snacks/macaroni
 
 /datum/food_processor_process/parsnip
 	input = /obj/item/reagent_containers/food/snacks/grown/parsnip

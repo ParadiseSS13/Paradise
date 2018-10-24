@@ -250,7 +250,7 @@
 	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
 	if(atmos_overlay)
 		overlays -= atmos_overlay
-		mouse_opacity = 1
+		mouse_opacity = MOUSE_OPACITY_ICON
 
 	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
 	if(atmos_overlay)
@@ -267,12 +267,12 @@
 
 /turf/simulated/proc/tile_graphic()
 	if(air.toxins > MOLES_PLASMA_VISIBLE)
-		mouse_opacity = 0
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		return "plasma"
 
 	var/datum/gas/sleeping_agent = locate(/datum/gas/sleeping_agent) in air.trace_gases
 	if(sleeping_agent && (sleeping_agent.moles > 1))
-		mouse_opacity = 0
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 		return "sleeping_agent"
 	return null
 
@@ -314,7 +314,7 @@
 	else if(!anchored && !pulledby)
 		var/turf/target = get_turf(src)
 		var/datum/gas_mixture/target_air = target.return_air()
-		if(isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())
+		if(isspaceturf(target) || isunsimulatedturf(target) || pressure_resistance > target_air.return_pressure())
 			return 0
 		if(pressure_difference >= throw_pressure_limit)
 			var/general_direction = get_edge_target_turf(src, direction)
@@ -324,7 +324,7 @@
 				var/max_distance = 14 // reduce by one each calculation to prevent infinate loops.
 				var/min_observed_pressure = INFINITY
 				var/turf/possible_target = get_turf(src)
-				while(!isunsimulatedturf(target) && max_distance > 0)
+				while(!isspaceturf(target) && !isunsimulatedturf(target) && max_distance > 0)
 					max_distance--
 					target_air = target.return_air()
 					min_observed_pressure = target_air.return_pressure()

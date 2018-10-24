@@ -69,7 +69,7 @@ var/list/ai_verbs_default = list(
 
 	var/control_disabled = 0 // Set to 1 to stop AI from interacting via Click() -- TLE
 	var/malfhacking = 0 // More or less a copy of the above var, so that malf AIs can hack and still get new cyborgs -- NeoFite
-	var/malf_cooldown = 0 //Cooldown var for malf modules
+	var/malf_cooldown = 0 //Cooldown var for malf modules, stores a worldtime + cooldown
 
 	var/obj/machinery/power/apc/malfhack = null
 	var/explosive = 0 //does the AI explode when it dies?
@@ -126,12 +126,12 @@ var/list/ai_verbs_default = list(
 	announcement.announcer = name
 	announcement.newscast = 0
 
-	var/list/possibleNames = ai_names
+	var/list/possibleNames = GLOB.ai_names
 
 	var/pickedName = null
 	while(!pickedName)
-		pickedName = pick(ai_names)
-		for(var/mob/living/silicon/ai/A in mob_list)
+		pickedName = pick(GLOB.ai_names)
+		for(var/mob/living/silicon/ai/A in GLOB.mob_list)
 			if(A.real_name == pickedName && possibleNames.len > 1) //fixing the theoretically possible infinite loop
 				possibleNames -= pickedName
 				pickedName = null
@@ -206,7 +206,7 @@ var/list/ai_verbs_default = list(
 	builtInCamera.network = list("SS13")
 
 	ai_list += src
-	shuttle_caller_list += src
+	GLOB.shuttle_caller_list += src
 	..()
 
 /mob/living/silicon/ai/proc/on_mob_init()
@@ -271,8 +271,8 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/Destroy()
 	ai_list -= src
-	shuttle_caller_list -= src
-	shuttle_master.autoEvac()
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
 	QDEL_NULL(eyeobj) // No AI, no Eye
 	if(malfhacking)
 		deltimer(malfhacking)
@@ -288,7 +288,7 @@ var/list/ai_verbs_default = list(
 /obj/machinery/ai_powersupply
 	name="\improper AI power supply"
 	active_power_usage=1000
-	use_power = 2
+	use_power = ACTIVE_POWER_USE
 	power_channel = EQUIP
 	var/mob/living/silicon/ai/powered_ai = null
 	invisibility = 100
@@ -310,9 +310,9 @@ var/list/ai_verbs_default = list(
 		return
 	if(!powered_ai.anchored)
 		loc = powered_ai.loc
-		use_power = 0
+		use_power = NO_POWER_USE
 	if(powered_ai.anchored)
-		use_power = 2
+		use_power = ACTIVE_POWER_USE
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
@@ -556,7 +556,6 @@ var/list/ai_verbs_default = list(
 /mob/living/silicon/ai/blob_act()
 	if(stat != 2)
 		adjustBruteLoss(60)
-		updatehealth()
 		return TRUE
 	return FALSE
 
@@ -620,7 +619,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["track"])
-		var/mob/living/target = locate(href_list["track"]) in mob_list
+		var/mob/living/target = locate(href_list["track"]) in GLOB.mob_list
 		if(target && target.can_track())
 			ai_actual_track(target)
 		else
@@ -628,7 +627,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["trackbot"])
-		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in simple_animal_list
+		var/mob/living/simple_animal/bot/target = locate(href_list["trackbot"]) in GLOB.simple_animal_list
 		if(target)
 			ai_actual_track(target)
 		else
@@ -636,7 +635,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["callbot"]) //Command a bot to move to a selected location.
-		Bot = locate(href_list["callbot"]) in simple_animal_list
+		Bot = locate(href_list["callbot"]) in GLOB.simple_animal_list
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return //True if there is no bot found, the bot is manually emagged, or the AI is carded with wireless off.
 		waypoint_mode = 1
@@ -644,7 +643,7 @@ var/list/ai_verbs_default = list(
 		return
 
 	if(href_list["interface"]) //Remotely connect to a bot!
-		Bot = locate(href_list["interface"]) in simple_animal_list
+		Bot = locate(href_list["interface"]) in GLOB.simple_animal_list
 		if(!Bot || Bot.remote_disabled || control_disabled)
 			return
 		Bot.attack_ai(src)
@@ -671,8 +670,8 @@ var/list/ai_verbs_default = list(
 			M.transfer_ai(AI_MECH_HACK,src, usr) //Called om the mech itself.
 
 	else if(href_list["faketrack"])
-		var/mob/target = locate(href_list["track"]) in mob_list
-		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in mob_list
+		var/mob/target = locate(href_list["track"]) in GLOB.mob_list
+		var/mob/living/silicon/ai/A = locate(href_list["track2"]) in GLOB.mob_list
 		if(A && target)
 
 			A.cameraFollow = target
@@ -686,13 +685,12 @@ var/list/ai_verbs_default = list(
 				continue
 
 	else if(href_list["open"])
-		var/mob/target = locate(href_list["open"]) in mob_list
+		var/mob/target = locate(href_list["open"]) in GLOB.mob_list
 		if(target)
 			open_nearest_door(target)
 
 /mob/living/silicon/ai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
-	updatehealth()
 	return 2
 
 /mob/living/silicon/ai/reset_perspective(atom/A)
@@ -727,7 +725,7 @@ var/list/ai_verbs_default = list(
 	d += "<A HREF=?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
-	for(var/mob/living/simple_animal/bot/Bot in simple_animal_list)
+	for(var/mob/living/simple_animal/bot/Bot in GLOB.simple_animal_list)
 		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "<span class='bad'>(!) </span>[Bot.name]" : Bot.name] ([Bot.model])</td>"
@@ -803,7 +801,7 @@ var/list/ai_verbs_default = list(
 		if(!C.can_use())
 			continue
 
-		var/list/tempnetwork = difflist(C.network,restricted_camera_networks,1)
+		var/list/tempnetwork = difflist(C.network,GLOB.restricted_camera_networks,1)
 		if(tempnetwork.len)
 			for(var/i in tempnetwork)
 				cameralist[i] = i
@@ -853,7 +851,7 @@ var/list/ai_verbs_default = list(
 	if(check_unable())
 		return
 
-	for(var/obj/machinery/M in machines) //change status
+	for(var/obj/machinery/M in GLOB.machines) //change status
 		if(istype(M, /obj/machinery/ai_status_display))
 			var/obj/machinery/ai_status_display/AISD = M
 			AISD.emotion = emote
@@ -1268,3 +1266,15 @@ var/list/ai_verbs_default = list(
 	. = ..()
 	if(.)
 		end_multicam()
+
+/mob/living/silicon/ai/handle_fire()
+	return
+
+/mob/living/silicon/ai/update_fire()
+	return
+
+/mob/living/silicon/ai/IgniteMob()
+	return FALSE
+
+/mob/living/silicon/ai/ExtinguishMob()
+	return

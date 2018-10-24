@@ -44,7 +44,7 @@
 	icon_state = "ed209_frame"
 	item_state = "ed209_frame"
 	var/build_step = 0
-	var/created_name = "ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
+	var/created_name = "\improper ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
 
 /obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)
@@ -282,73 +282,66 @@
 		log_game("[key_name(user)] has renamed a robot to [t]")
 
 //Medbot Assembly
-/obj/item/firstaid_arm_assembly
-	name = "incomplete medibot assembly."
-	desc = "A first aid kit with a robot arm permanently grafted to it."
-	icon = 'icons/obj/aibots.dmi'
-	icon_state = "firstaid_arm"
-	var/build_step = 0
-	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
-	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
-	w_class = WEIGHT_CLASS_NORMAL
-	var/treatment_brute = "salglu_solution"
-	var/treatment_oxy = "salbutamol"
-	var/treatment_fire = "salglu_solution"
-	var/treatment_tox = "charcoal"
-	var/treatment_virus = "spaceacillin"
-	req_one_access = list(access_medical, access_robotics)
-
-	/obj/item/firstaid_arm_assembly/New()
-		..()
-		spawn(5)
-			if(skin)
-				overlays += image('icons/obj/aibots.dmi', "kit_skin_[skin]")
-
-/obj/item/storage/firstaid/attackby(obj/item/robot_parts/S, mob/user, params)
-
-	if((!istype(S, /obj/item/robot_parts/l_arm)) && (!istype(S, /obj/item/robot_parts/r_arm)))
-		..()
-		return
+/obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm))
+		return ..()
 
 	//Making a medibot!
-	if(contents.len >= 1)
+	if(contents.len)
 		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
 		return
 
-	var/obj/item/firstaid_arm_assembly/A = new /obj/item/firstaid_arm_assembly
-	if(istype(src,/obj/item/storage/firstaid/fire))
-		A.skin = "ointment"
-	else if(istype(src,/obj/item/storage/firstaid/toxin))
-		A.skin = "tox"
-	else if(istype(src,/obj/item/storage/firstaid/o2))
-		A.skin = "o2"
-	else if(istype(src,/obj/item/storage/firstaid/brute))
-		A.skin = "brute"
-	else if(istype(src,/obj/item/storage/firstaid/adv))
-		A.skin = "adv"
-	else if(istype(src,/obj/item/storage/firstaid/tactical))
-		A.skin = "bezerk"
-	else if(istype(src,/obj/item/storage/firstaid/aquatic_kit))
-		A.skin = "fish"
+	var/obj/item/firstaid_arm_assembly/A = new /obj/item/firstaid_arm_assembly(loc, med_bot_skin)
 
 	A.req_one_access = req_one_access
+	A.syndicate_aligned = syndicate_aligned
 	A.treatment_oxy = treatment_oxy
 	A.treatment_brute = treatment_brute
 	A.treatment_fire = treatment_fire
 	A.treatment_tox = treatment_tox
 	A.treatment_virus = treatment_virus
 
-	qdel(S)
+	qdel(I)
 	user.put_in_hands(A)
 	to_chat(user, "<span class='notice'>You add the robot arm to the first aid kit.</span>")
 	user.unEquip(src, 1)
 	qdel(src)
 
+/obj/item/firstaid_arm_assembly
+	name = "incomplete medibot assembly."
+	desc = "A first aid kit with a robot arm permanently grafted to it."
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "firstaid_arm"
+	w_class = WEIGHT_CLASS_NORMAL
+	req_one_access = list(access_medical, access_robotics)
+	var/build_step = 0
+	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
+	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
+	var/syndicate_aligned = FALSE
+	var/treatment_brute = "salglu_solution"
+	var/treatment_oxy = "salbutamol"
+	var/treatment_fire = "salglu_solution"
+	var/treatment_tox = "charcoal"
+	var/treatment_virus = "spaceacillin"
 
-/obj/item/firstaid_arm_assembly/attackby(obj/item/W, mob/user, params)
+/obj/item/firstaid_arm_assembly/New(loc, new_skin)
 	..()
-	if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
+	if(new_skin)
+		skin = new_skin
+	update_icon()
+
+/obj/item/firstaid_arm_assembly/update_icon()
+	overlays.Cut()
+	if(skin)
+		overlays += image('icons/obj/aibots.dmi', "kit_skin_[skin]")
+	if(build_step > 0)
+		overlays += image('icons/obj/aibots.dmi', "na_scanner")
+
+
+/obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
+	..()
+	if(istype(I, /obj/item/pen))
+		var/t = stripped_input(user, "Enter new robot name", name, created_name, MAX_NAME_LEN)
 		if(!t)
 			return
 		if(!in_range(src, user) && loc != user)
@@ -358,32 +351,34 @@
 	else
 		switch(build_step)
 			if(0)
-				if(istype(W, /obj/item/healthanalyzer))
-					if(!user.unEquip(W))
+				if(istype(I, /obj/item/healthanalyzer))
+					if(!user.drop_item())
 						return
-					qdel(W)
+					qdel(I)
 					build_step++
 					to_chat(user, "<span class='notice'>You add the health sensor to [src].</span>")
 					name = "First aid/robot arm/health analyzer assembly"
-					overlays += image('icons/obj/aibots.dmi', "na_scanner")
+					update_icon()
 
 			if(1)
-				if(isprox(W))
-					if(!user.unEquip(W))
+				if(isprox(I))
+					if(!user.drop_item())
 						return
-					qdel(W)
+					qdel(I)
 					build_step++
 					to_chat(user, "<span class='notice'>You complete the Medibot. Beep boop!</span>")
 					var/turf/T = get_turf(src)
-					var/mob/living/simple_animal/bot/medbot/S = new /mob/living/simple_animal/bot/medbot(T)
-					S.skin = skin
-					S.name = created_name
-					S.bot_core.req_one_access = req_one_access
-					S.treatment_oxy = treatment_oxy
-					S.treatment_brute = treatment_brute
-					S.treatment_fire = treatment_fire
-					S.treatment_tox = treatment_tox
-					S.treatment_virus = treatment_virus
+					if(!syndicate_aligned)
+						var/mob/living/simple_animal/bot/medbot/S = new /mob/living/simple_animal/bot/medbot(T, skin)
+						S.name = created_name
+						S.bot_core.req_one_access = req_one_access
+						S.treatment_oxy = treatment_oxy
+						S.treatment_brute = treatment_brute
+						S.treatment_fire = treatment_fire
+						S.treatment_tox = treatment_tox
+						S.treatment_virus = treatment_virus
+					else
+						new /mob/living/simple_animal/bot/medbot/syndicate(T) //Syndicate medibots are a special case that have so many unique vars on them, it's not worth passing them through construction phases
 					user.unEquip(src, 1)
 					qdel(src)
 

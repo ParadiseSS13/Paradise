@@ -653,6 +653,15 @@
 	construction_time = 200
 	category = list("Exosuit Equipment")
 
+/datum/design/medical_jaw
+	name = "Exosuit Medical Equipment (Rescue Jaw)"
+	id = "mech_medical_jaw"
+	build_type = MECHFAB
+	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6)	//now same as jaws of life
+	materials = list(MAT_METAL=5000,MAT_SILVER=2000,MAT_TITANIUM=1500)
+	construction_time = 200
+	category = list("Exosuit Equipment")
+
 /datum/design/mech_generator
 	name = "Exosuit Equipment (Plasma Generator)"
 	id = "mech_generator"
@@ -1118,6 +1127,15 @@
 	build_path = /obj/item/organ/external/head/ipc
 	materials = list(MAT_METAL=15000, MAT_GLASS=5000)
 	construction_time = 350
+	category = list("Misc")
+
+/datum/design/integrated_robotic_chassis
+	name = "Integrated Robotic Chassis"
+	id = "integrated_robotic_chassis"
+	build_type = MECHFAB
+	build_path = /mob/living/carbon/human/machine/created
+	materials = list(MAT_METAL = 40000)
+	construction_time = 400
 	category = list("Misc")
 
 /datum/design/ipc_cell

@@ -150,7 +150,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	data["assist_dept"] = req_console_assistance
 	data["supply_dept"] = req_console_supplies
 	data["info_dept"]   = req_console_information
-	data["ship_dept"]	= TAGGERLOCATIONS
+	data["ship_dept"]	= GLOB.TAGGERLOCATIONS
 
 	data["message"] = message
 	data["recipient"] = recipient
@@ -243,7 +243,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	if(href_list["shipSelect"])
 		ship_tag_name = href_list["shipSelect"]
-		ship_tag_index = TAGGERLOCATIONS.Find(ship_tag_name)
+		ship_tag_index = GLOB.TAGGERLOCATIONS.Find(ship_tag_name)
 
 	//Handle Shipping Label Printing
 	if(href_list["printLabel"])
@@ -269,7 +269,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	return
 
 					//err... hacking code, which has no reason for existing... but anyway... it was once supposed to unlock priority 3 messanging on that console (EXTREME priority...), but the code for that was removed.
-/obj/machinery/requests_console/attackby(var/obj/item/O as obj, var/mob/user as mob)
+/obj/machinery/requests_console/attackby(obj/item/I, mob/user)
 	/*
 	if(istype(O, /obj/item/crowbar))
 		if(open)
@@ -292,14 +292,15 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		else
 			to_chat(user, "You can't do much with that.")*/
 
-	if(istype(O, /obj/item/card/id))
-		if(inoperable(MAINT)) return
+	if(istype(I, /obj/item/card/id))
+		if(inoperable(MAINT))
+			return
 		if(screen == RCS_MESSAUTH)
-			var/obj/item/card/id/T = O
+			var/obj/item/card/id/T = I
 			msgVerified = text("<font color='green'><b>Verified by [T.registered_name] ([T.assignment])</b></font>")
 			updateUsrDialog()
 		if(screen == RCS_ANNOUNCE)
-			var/obj/item/card/id/ID = O
+			var/obj/item/card/id/ID = I
 			if(access_RC_announce in ID.GetAccess())
 				announceAuth = 1
 				announcement.announcer = ID.assignment ? "[ID.assignment] [ID.registered_name]" : ID.registered_name
@@ -308,16 +309,18 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
 			updateUsrDialog()
 		if(screen == RCS_SHIPPING)
-			var/obj/item/card/id/T = O
+			var/obj/item/card/id/T = I
 			msgVerified = text("<font color='green'><b>Sender verified as [T.registered_name] ([T.assignment])</b></font>")
 			updateUsrDialog()
-	if(istype(O, /obj/item/stamp))
-		if(inoperable(MAINT)) return
+	if(istype(I, /obj/item/stamp))
+		if(inoperable(MAINT))
+			return
 		if(screen == RCS_MESSAUTH)
-			var/obj/item/stamp/T = O
+			var/obj/item/stamp/T = I
 			msgStamped = text("<font color='blue'><b>Stamped with the [T.name]</b></font>")
 			updateUsrDialog()
-	return
+	else
+		return ..()
 
 /obj/machinery/requests_console/proc/reset_message(var/mainmenu = 0)
 	message = ""

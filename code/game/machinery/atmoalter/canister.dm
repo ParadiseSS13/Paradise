@@ -74,24 +74,24 @@ var/datum/canister_icons/canister_icon_container = new()
 	pressure_resistance = 7*ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
 	volume = 1000
-	use_power = 0
+	use_power = NO_POWER_USE
 	interact_offline = 1
 	var/release_log = ""
 	var/busy = 0
 	var/update_flag = 0
 
-	New()
-		..()
-		canister_color = list(
-		"prim" = "yellow",
-		"sec" = "none",
-		"ter" = "none",
-		"quart" = "none")
-		oldcolor = new /list()
-		decals = list("cold" = 0, "hot" = 0, "plasma" = 0)
-		colorcontainer = list()
-		possibledecals = list()
-		update_icon()
+/obj/machinery/portable_atmospherics/canister/New()
+	..()
+	canister_color = list(
+	"prim" = "yellow",
+	"sec" = "none",
+	"ter" = "none",
+	"quart" = "none")
+	oldcolor = new /list()
+	decals = list("cold" = 0, "hot" = 0, "plasma" = 0)
+	colorcontainer = list()
+	possibledecals = list()
+	update_icon()
 
 /obj/machinery/portable_atmospherics/canister/proc/init_data_vars()
 	//passed to the ui to render the color lists
@@ -338,6 +338,7 @@ update_flag
 	..()
 
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+	user.changeNext_move(CLICK_CD_MELEE)
 	if(iswelder(W) && src.destroyed)
 		if(weld(W, user))
 			to_chat(user, "<span class='notice'>You salvage whats left of \the [src]</span>")

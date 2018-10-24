@@ -234,7 +234,7 @@ var/global/chicken_count = 0
 	can_hide = 1
 	can_collar = 1
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
-	var/list/layMessage = list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
+	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
@@ -250,7 +250,10 @@ var/global/chicken_count = 0
 	chicken_count += 1
 
 /mob/living/simple_animal/chicken/death(gibbed)
-	..(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return
 	chicken_count -= 1
 
 /mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)

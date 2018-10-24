@@ -15,6 +15,7 @@
 		user.emote("deathgasp")
 		user.timeofdeath = world.time
 	user.status_flags |= FAKEDEATH		//play dead
+	user.update_stat("fakedeath sting")
 	user.update_canmove()
 
 	addtimer(CALLBACK(src, .proc/ready_to_regenerate, user), LING_FAKEDEATH_TIME)

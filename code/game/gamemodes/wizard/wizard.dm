@@ -88,8 +88,8 @@
 
 /datum/game_mode/proc/name_wizard(mob/living/carbon/human/wizard_mob)
 	//Allows the wizard to choose a custom name or go with a random one. Spawn 0 so it does not lag the round starting.
-	var/wizard_name_first = pick(wizard_first)
-	var/wizard_name_second = pick(wizard_second)
+	var/wizard_name_first = pick(GLOB.wizard_first)
+	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
 	spawn(0)
 		var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
@@ -141,15 +141,10 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	if(!wizard_mob.get_species() == "Plasmaman")//handled in the species file for plasmen on the afterjob equip proc for now
+	if(!isplasmaman(wizard_mob)) //handled in the species file for plasmen on the afterjob equip proc for now
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
-	if(wizard_mob.backbag == 2)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(wizard_mob), slot_back)
-	if(wizard_mob.backbag == 3)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel_norm(wizard_mob), slot_back)
-	if(wizard_mob.backbag == 4)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), slot_in_backpack)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
@@ -158,7 +153,7 @@
 
 	wizard_mob.faction = list("wizard")
 
-	wizard_mob.species.after_equip_job(null, wizard_mob)
+	wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 
 	to_chat(wizard_mob, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
 	to_chat(wizard_mob, "The spellbook is bound to you, and others cannot use it.")
@@ -197,7 +192,7 @@
 
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
-		feedback_set_details("round_end_result","loss - wizard killed")
+		feedback_set_details("round_end_result","wizard loss - wizard killed")
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
 	return 1

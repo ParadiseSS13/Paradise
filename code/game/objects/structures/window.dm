@@ -65,7 +65,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		else
 			to_chat(user, "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>")
 	if(!anchored && !fulltile)
-		to_chat(user, "<span class='notice'>Alt-click to rotate it clockwise.</span>")
+		to_chat(user, "<span class='notice'>Alt-click to rotate it.</span>")
 
 /obj/structure/window/New(Loc, direct)
 	..()
@@ -122,6 +122,9 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	else
 		new/obj/structure/window/reinforced/clockwork/fulltile(get_turf(src))
 	qdel(src)
+
+/obj/structure/window/rpd_act()
+	return
 
 /obj/structure/window/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
@@ -352,7 +355,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(anchored)
@@ -375,7 +378,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	if(usr.incapacitated())
 		return
 
 	if(anchored)
@@ -394,12 +397,31 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	return TRUE
 
 /obj/structure/window/AltClick(mob/user)
+
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+
 	if(!Adjacent(user))
+		to_chat(user, "<span class='warning'>Move closer to the window!</span>")
 		return
-	revrotate()
+
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
+		return FALSE
+
+	var/target_dir = turn(dir, 270)
+
+	if(!valid_window_location(loc, target_dir))
+		target_dir = turn(dir, 90)
+	if(!valid_window_location(loc, target_dir))
+		to_chat(user, "<span class='warning'>There is no room to rotate the [src]</span>")
+		return FALSE
+
+	setDir(target_dir)
+	ini_dir = dir
+	add_fingerprint(user)
+	return TRUE
 
 /obj/structure/window/Destroy()
 	density = FALSE
@@ -422,7 +444,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 /obj/structure/window/proc/update_nearby_icons()
 	update_icon()
 	if(smooth)
-		smooth_icon_neighbors(src)
+		queue_smooth_neighbors(src)
 
 /obj/structure/window/update_icon()
 	if(!QDELETED(src))
@@ -431,7 +453,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		var/ratio = obj_integrity / max_integrity
 		ratio = CEILING(ratio*4, 1) * 25
 		if(smooth)
-			smooth_icon(src)
+			queue_smooth(src)
 		overlays -= crack_overlay
 		if(ratio > 75)
 			return

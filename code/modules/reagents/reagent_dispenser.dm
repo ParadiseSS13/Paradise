@@ -6,27 +6,21 @@
 	density = 1
 	anchored = 0
 	pressure_resistance = 2*ONE_ATMOSPHERE
+	container_type = DRAINABLE | AMOUNT_VISIBLE
 
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
 
-/obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
-	return
+/obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
+	if(I.is_refillable())
+		return FALSE //so we can refill them via their afterattack.
+	. = ..()
 
 /obj/structure/reagent_dispensers/New()
 	create_reagents(tank_volume)
 	reagents.add_reagent(reagent_id, tank_volume)
 	..()
-
-/obj/structure/reagent_dispensers/examine(mob/user)
-	if(!..(user, 2))
-		return
-	if(reagents.total_volume)
-		to_chat(user, "<span class='notice'>It has [reagents.total_volume] units left.</span>")
-	else
-		to_chat(user, "<span class='danger'>It's empty.</span>")
-
 
 /obj/structure/reagent_dispensers/proc/boom()
 	visible_message("<span class='danger'>[src] ruptures!</span>")
@@ -131,7 +125,7 @@
 
 			var/obj/item/assembly_holder/H = I
 			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
-				msg_admin_attack("[key_name_admin(user)] rigged [src.name] with [I.name] for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+				msg_admin_attack("[key_name_admin(user)] rigged [src.name] with [I.name] for explosion (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)", ATKLOG_FEW)
 				log_game("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]")
 				investigate_log("[key_name(user)] rigged [src.name] with [I.name] for explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 

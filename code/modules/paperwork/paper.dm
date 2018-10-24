@@ -34,6 +34,8 @@
 	var/contact_poison // Reagent ID to transfer on contact
 	var/contact_poison_volume = 0
 	var/contact_poison_poisoner = null
+	var/paper_width = 400//Width of the window that opens
+	var/paper_height = 400//Height of the window that opens
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -69,15 +71,15 @@
 	assets.send(user)
 
 	var/data
-	if((!user.say_understands(null, all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
+	if((!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
 		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
 		if(view)
-			usr << browse(data, "window=[name]")
+			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
 			onclose(usr, "[name]")
 	else
 		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>"
 		if(view)
-			usr << browse(data, "window=[name]")
+			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
 			onclose(usr, "[name]")
 	return data
 
@@ -314,7 +316,7 @@
 				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
 				add_fingerprint(user)
 				return
-		var/obj/item/paper_bundle/B = new(src.loc)
+		var/obj/item/paper_bundle/B = new(src.loc, default_papers = FALSE)
 		if(name != "paper")
 			B.name = name
 		else if(P.name != "paper" && P.name != "photo")
@@ -403,7 +405,8 @@
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
 
 	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-	var/{x; y;}
+	var/x
+	var/y
 	if(istype(S, /obj/item/stamp/captain) || istype(S, /obj/item/stamp/centcom))
 		x = rand(-2, 0)
 		y = rand(-1, 2)
@@ -476,6 +479,20 @@
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
+/obj/item/paper/fortune
+	name = "fortune"
+	icon_state = "slip"
+	paper_height = 150
+
+/obj/item/paper/fortune/New()
+	..()
+	var/fortunemessage = pick(GLOB.fortune_cookie_messages)
+	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
+	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
+
+/obj/item/paper/fortune/update_icon()
+	..()
+	icon_state = initial(icon_state)
 /*
  * Premade paper
  */

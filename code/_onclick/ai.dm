@@ -11,7 +11,8 @@
 */
 /mob/living/silicon/ai/DblClickOn(var/atom/A, params)
 	if(client.click_intercept)
-		client.click_intercept.InterceptClickOn(src, params, A)
+		// Not doing a click intercept here, because otherwise we double-tap with the `ClickOn` proc.
+		// But we return here since we don't want to do regular dblclick handling
 		return
 
 	if(control_disabled || stat) return
@@ -176,9 +177,6 @@
 	return
 
 /atom/proc/AICtrlClick(var/mob/living/silicon/ai/user)
-	if(user.holo)
-		var/obj/machinery/hologram/holopad/H = user.holo
-		H.face_atom(src)
 	return
 
 /obj/machinery/door/airlock/AICtrlClick() // Bolts doors

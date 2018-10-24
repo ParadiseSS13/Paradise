@@ -32,15 +32,13 @@
 #define CANWEAKEN	2
 #define CANPARALYSE	4
 #define CANPUSH		8
-#define LEAPING		16
-#define PASSEMOTES	32      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define GOTTAGOFAST	64
-#define GOTTAGOREALLYFAST	128
-#define IGNORESLOWDOWN	256
+#define PASSEMOTES	16      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define GOTTAGOFAST	32
+#define GOTTAGOFAST_METH	64
+#define IGNORESLOWDOWN	128
 #define GODMODE		4096
 #define FAKEDEATH	8192	//Replaces stuff like changeling.changeling_fakedeath
-#define DISFIGURED	16384	//I'll probably move this elsewhere if I ever get wround to writing a bitflag mob-damage system
-#define XENO_HOST	32768	//Tracks whether we're gonna be a baby alien's mummy.
+#define XENO_HOST	16384	//Tracks whether we're gonna be a baby alien's mummy.
 
 
 //Grab levels

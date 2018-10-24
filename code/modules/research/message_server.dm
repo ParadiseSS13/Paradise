@@ -50,7 +50,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 	name = "Messaging Server"
 	density = 1
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
 
@@ -199,7 +199,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	name = "Blackbox Recorder"
 	density = 1
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 100
 	var/list/messages = list()		//Stores messages of non-standard frequencies
@@ -267,7 +267,7 @@ var/obj/machinery/blackbox_recorder/blackbox
 	var/pda_msg_amt = 0
 	var/rc_msg_amt = 0
 
-	for(var/obj/machinery/message_server/MS in machines)
+	for(var/obj/machinery/message_server/MS in GLOB.machines)
 		if(MS.pda_msgs.len > pda_msg_amt)
 			pda_msg_amt = MS.pda_msgs.len
 		if(MS.rc_msgs.len > rc_msg_amt)

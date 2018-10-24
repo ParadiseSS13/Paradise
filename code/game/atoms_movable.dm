@@ -24,24 +24,16 @@
 
 	var/area/areaMaster
 
-// This needs to not call parent until the space_manager is either dead or integrated properly with SSmapping
-/atom/movable/New(loc, ...)
-	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
-		_preloader.load(src)
+/atom/movable/New()
+	. = ..()
+	areaMaster = get_area(src)
 
-	areaMaster = get_area_master(src)
-	if(ticker && ticker.current_state >= GAME_STATE_SETTING_UP)
-		var/turf/T = get_turf(src)
-		if(T && space_manager.is_zlevel_dirty(T.z))
-			space_manager.postpone_init(T.z, src)
-			return
-
-	var/do_initialize = SSatoms.initialized
-	if(do_initialize != INITIALIZATION_INSSATOMS)
-		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
-		if(SSatoms.InitAtom(src, args))
-			// we were deleted
-			return
+/atom/movable/attempt_init()
+	var/turf/T = get_turf(src)
+	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && space_manager.is_zlevel_dirty(T.z))
+		space_manager.postpone_init(T.z, src)
+		return
+	. = ..()
 
 /atom/movable/Destroy()
 	if(loc)
@@ -434,4 +426,11 @@
 	flick_overlay(I, viewing, 5) // 5 ticks/half a second
 
 	// And animate the attack!
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
+	var/t_color = "#ffffff"
+	if(ismob(src) &&  ismob(A) && (!used_item))
+		var/mob/M = src
+		t_color = M.a_intent == INTENT_HARM ? "#ff0000" : "#ffffff"
+	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3, color = t_color)
+
+/atom/movable/proc/portal_destroyed(obj/effect/portal/P)
+	return

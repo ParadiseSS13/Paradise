@@ -21,6 +21,8 @@
 	var/treatment_fire = "salglu_solution"
 	var/treatment_tox = "charcoal"
 	var/treatment_virus = "spaceacillin"
+	var/med_bot_skin = null
+	var/syndicate_aligned = FALSE
 
 
 /obj/item/storage/firstaid/fire
@@ -28,6 +30,7 @@
 	desc = "A medical kit that contains several medical patches and pills for treating burns. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "ointment"
 	item_state = "firstaid-ointment"
+	med_bot_skin = "ointment"
 
 	New()
 		..()
@@ -68,6 +71,7 @@
 	desc = "A medical kit designed to counter poisoning by common toxins. Contains three pills and syringes, and a health analyzer to determine the health of the patient."
 	icon_state = "antitoxin"
 	item_state = "firstaid-toxin"
+	med_bot_skin = "tox"
 
 	New()
 		..()
@@ -92,6 +96,7 @@
 	desc = "A first aid kit that contains four pills of salbutamol, which is able to counter injuries caused by suffocation. Also contains a health analyzer to determine the health of the patient."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
+	med_bot_skin = "o2"
 
 	New()
 		..()
@@ -111,6 +116,7 @@
 	desc = "A medical kit that contains several medical patches and pills for treating brute injuries. Contains one epinephrine syringe for emergency use and a health analyzer."
 	icon_state = "brute"
 	item_state = "firstaid-brute"
+	med_bot_skin = "brute"
 
 	New()
 		..()
@@ -135,6 +141,7 @@
 	desc = "Contains advanced medical treatments."
 	icon_state = "advfirstaid"
 	item_state = "firstaid-advanced"
+	med_bot_skin = "adv"
 
 /obj/item/storage/firstaid/adv/New()
 	..()
@@ -157,10 +164,12 @@
 	desc = "I hope you've got insurance."
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
-	treatment_brute = "styptic_powder"
-	treatment_fire = "silver_sulfadiazine"
+	treatment_brute = "bicaridine"
+	treatment_fire = "kelotane"
 	treatment_tox = "charcoal"
 	req_one_access =list(access_syndicate)
+	med_bot_skin = "bezerk"
+	syndicate_aligned = TRUE
 
 /obj/item/storage/firstaid/tactical/New()
 	..()
@@ -221,6 +230,15 @@
 /obj/item/storage/pill_bottle/New()
 	..()
 	base_name = name
+
+/obj/item/storage/pill_bottle/ert/New()
+	..()
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
 /obj/item/storage/pill_bottle/MouseDrop(obj/over_object as obj) //Quick pillbottle fix. -Agouri
 	if(ishuman(usr)) //Can monkeys even place items in the pocket slots? Leaving this in just in case~

@@ -26,6 +26,33 @@
 	empulse(location, round(created_volume / 24), round(created_volume / 14), 1)
 	holder.clear_reagents()
 
+/datum/chemical_reaction/beesplosion
+	name = "Bee Explosion"
+	id = "beesplosion"
+	result = null
+	required_reagents = list("honey" = 1, "strange_reagent" = 1, "radium" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	if(created_volume < 5)
+		playsound(location,'sound/effects/sparks1.ogg', 100, 1)
+	else
+		playsound(location,'sound/creatures/bee.ogg', 100, 1)
+		var/list/beeagents = list()
+		for(var/X in holder.reagent_list)
+			var/datum/reagent/R = X
+			if(R.id in required_reagents)
+				continue
+			if(!R.can_synth)
+				continue
+			beeagents += R
+		var/bee_amount = round(created_volume * 0.2)
+		for(var/i in 1 to bee_amount)
+			var/mob/living/simple_animal/hostile/poison/bees/new_bee = new(location)
+			if(LAZYLEN(beeagents))
+				new_bee.assign_reagent(pick(beeagents))
+
 /datum/chemical_reaction/nitroglycerin
 	name = "Nitroglycerin"
 	id = "nitroglycerin"
@@ -70,9 +97,9 @@
 /datum/chemical_reaction/sorium/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
 		return
-	holder.remove_reagent("sorium", created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, 5, 6)
+	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
+	holder.remove_reagent("sorium", created_volume)
 
 /datum/chemical_reaction/sorium_vortex
 	name = "sorium_vortex"
@@ -83,7 +110,7 @@
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, 5, 6)
+	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
 
 /datum/chemical_reaction/liquid_dark_matter
 	name = "Liquid Dark Matter"
@@ -95,9 +122,9 @@
 /datum/chemical_reaction/liquid_dark_matter/on_reaction(datum/reagents/holder, created_volume)
 	if(holder.has_reagent("stabilizing_agent"))
 		return
-	holder.remove_reagent("liquid_dark_matter", created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, 5, 6)
+	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
+	holder.remove_reagent("liquid_dark_matter", created_volume)
 
 /datum/chemical_reaction/ldm_vortex
 	name = "LDM Vortex"
@@ -108,7 +135,7 @@
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, 5, 6)
+	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
 
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
@@ -130,9 +157,7 @@
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(2, 1, location)
-	s.start()
+	do_sparks(2, 1, location)
 	sleep(rand(20,30))
 	blackpowder_detonate(holder, created_volume)
 
@@ -159,9 +184,7 @@ datum/chemical_reaction/flash_powder
 	if(holder.has_reagent("stabilizing_agent"))
 		return
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(2, 1, location)
-	s.start()
+	do_sparks(2, 1, location)
 	for(var/mob/living/carbon/C in viewers(5, location))
 		if(C.flash_eyes())
 			if(get_dist(C, location) < 4)
@@ -179,9 +202,7 @@ datum/chemical_reaction/flash_powder
 
 /datum/chemical_reaction/flash_powder_flash/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(2, 1, location)
-	s.start()
+	do_sparks(2, 1, location)
 	for(var/mob/living/carbon/C in viewers(5, location))
 		if(C.flash_eyes())
 			if(get_dist(C, location) < 4)
@@ -390,7 +411,7 @@ datum/chemical_reaction/flash_powder
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/mob/living/carbon/C in view(6, T))
+	for(var/mob/living/carbon/C in view(min(8, round(created_volume * 2)), T))
 		C.Beam(T,icon_state="lightning[rand(1,12)]",icon='icons/effects/effects.dmi',time=5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
 		C.electrocute_act(3.5, "electrical blast")
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.

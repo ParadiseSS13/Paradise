@@ -8,7 +8,7 @@
 	req_tech = list("bluespace" = 3, "materials" = 6, "plasmatech" = 4)
 	build_type = PROTOLATHE
 	materials = list(MAT_DIAMOND = 1500, MAT_PLASMA = 1500)
-	build_path = /obj/item/ore/bluespace_crystal/artificial
+	build_path = /obj/item/stack/ore/bluespace_crystal/artificial
 	category = list("Bluespace")
 
 /datum/design/bag_holding
@@ -51,13 +51,23 @@
 	build_path = /obj/item/storage/bag/ore/holding
 	category = list("Bluespace")
 
+/datum/design/bluespace_belt_holder
+	name = "Bluespace Conveyor Belt Placer"
+	desc = "This device facilitates the rapid deployment of conveyor belts. This one is powered by bluespace."
+	id = "bluespace_belt_holder"
+	req_tech = list("materials" = 1, "engineering" = 3, "bluespace" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1000, MAT_SILVER = 500) //Costs similar materials to the basic one, but this one needs silver
+	build_path = /obj/item/storage/conveyor/bluespace
+	category = list("Bluespace")
+
 /datum/design/telepad_beacon
 	name = "Telepad Beacon"
 	desc = "Use to warp in a cargo telepad."
 	id = "telepad_beacon"
 	req_tech = list("programming" = 5, "bluespace" = 4, "engineering" = 4, "plasmatech" = 4)
 	build_type = PROTOLATHE
-	materials = list (MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1750, MAT_SILVER = 500)
 	build_path = /obj/item/telepad_beacon
 	category = list("Bluespace")
 
@@ -67,6 +77,6 @@
 	id = "beacon"
 	req_tech = list("bluespace" = 1)
 	build_type = PROTOLATHE
-	materials = list (MAT_METAL = 150, MAT_GLASS = 100)
+	materials = list(MAT_METAL = 150, MAT_GLASS = 100)
 	build_path = /obj/item/radio/beacon
 	category = list("Bluespace")

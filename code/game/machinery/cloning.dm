@@ -231,7 +231,7 @@
 		R.dna = new /datum/dna()
 
 	var/mob/living/carbon/human/H = new /mob/living/carbon/human(src)
-	H.set_species(R.dna.species)
+	H.set_species(R.dna.species.type)
 	occupant = H
 
 	if(!R.dna.real_name)	//to prevent null names
@@ -263,9 +263,6 @@
 	//Get the clone body ready
 	maim_clone(H)
 	H.Paralyse(4)
-
-	//Here let's calculate their health so the pod doesn't immediately eject them!!!
-	H.updatehealth()
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
@@ -349,19 +346,19 @@
 		use_power(200)
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/W, mob/user, params)
+/obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
 	if(!(occupant || mess))
-		if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", W))
+		if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
 			return
 
-	if(exchange_parts(user, W))
+	if(exchange_parts(user, I))
 		return
 
-	if(default_deconstruction_crowbar(W))
+	if(default_deconstruction_crowbar(I))
 		return
 
-	if(W.GetID())
-		if(!check_access(W))
+	if(I.GetID())
+		if(!check_access(I))
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
 			return
 		if(!(occupant || mess))
@@ -374,34 +371,33 @@
 			go_out()
 
 //Removing cloning pod biomass
-	else if(istype(W, /obj/item/reagent_containers/food/snacks/meat))
-		to_chat(user, "<span class='notice'>\The [src] processes \the [W].</span>")
-		biomass += BIOMASS_MEAT_AMOUNT
-		user.drop_item()
-		qdel(W)
-		return
-	else if(istype(W, /obj/item/wrench))
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/meat))
+		if(user.drop_item())
+			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
+			biomass += BIOMASS_MEAT_AMOUNT
+			qdel(I)
+	else if(iswrench(I))
 		if(occupant)
 			to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
 		else
 			if(anchored)
-				anchored = 0
+				anchored = FALSE
 				connected.pods -= src
 				connected = null
 			else
-				anchored = 1
-			playsound(loc, W.usesound, 100, 1)
+				anchored = TRUE
+			playsound(loc, I.usesound, 100, 1)
 			if(anchored)
 				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
 			else
 				user.visible_message("[user] unsecures [src] from the floor.", "You unsecure [src] from the floor.")
-	else if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
+	else if(ismultitool(I))
+		var/obj/item/multitool/M = I
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You load connection data from [src] to [M].</span>")
 		return
 	else
-		..()
+		return ..()
 
 /obj/machinery/clonepod/emag_act(user)
 	if(isnull(occupant))
@@ -556,7 +552,7 @@
 		qdel(i)
 	missing_organs.Cut()
 
-	H.setCloneLoss(CLONE_INITIAL_DAMAGE)
+	H.setCloneLoss(CLONE_INITIAL_DAMAGE, FALSE)
 	H.setBrainLoss(BRAIN_INITIAL_DAMAGE)
 
 	for(var/o in H.internal_organs)
@@ -579,6 +575,7 @@
 		missing_organs += I
 
 	organs_number = LAZYLEN(missing_organs)
+	H.updatehealth()
 
 /obj/machinery/clonepod/proc/check_brine()
 	// Clones are in a pickled bath of mild chemicals, keeping

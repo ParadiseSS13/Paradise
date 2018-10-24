@@ -5,10 +5,10 @@
 	layer = 2.9
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	var/operating = 0 // Is it on?
 	var/dirty = 0 // = {0..100} Does it need cleaning?
 	var/broken = 0 // ={0,1,2} How broken is it???
@@ -16,10 +16,7 @@
 	var/list/cook_verbs = list("Cooking")
 	//Recipe & Item vars
 	var/recipe_type		//Make sure to set this on the machine definition, or else you're gonna runtime on New()
-	var/list/datum/recipe/available_recipes // List of the recipes you can use
-	var/list/acceptable_items // List of the items you can put in
-	var/list/acceptable_reagents // List of the reagents you can put in
-	var/max_n_of_items = 0
+	var/max_n_of_items = 25
 	//Icon states
 	var/off_icon
 	var/on_icon
@@ -35,23 +32,28 @@
 	..()
 	create_reagents(100)
 	reagents.set_reacting(FALSE)
-	if(!available_recipes)
-		available_recipes = new
-		acceptable_items = new
-		acceptable_reagents = new
-		for(var/type in subtypesof(recipe_type))
+	init_lists()
+
+/obj/machinery/kitchen_machine/proc/init_lists()
+	if(!GLOB.cooking_recipes[recipe_type])
+		GLOB.cooking_recipes[recipe_type] = list()
+		GLOB.cooking_ingredients[recipe_type] = list()
+		GLOB.cooking_reagents[recipe_type] = list()
+	if(!length(GLOB.cooking_recipes[recipe_type]))
+		for(var/type in subtypesof(GLOB.cooking_recipe_types[recipe_type]))
 			var/datum/recipe/recipe = new type
+			if(recipe in GLOB.cooking_recipes[recipe_type])
+				qdel(recipe)
+				continue
 			if(recipe.result) // Ignore recipe subtypes that lack a result
-				available_recipes += recipe
+				GLOB.cooking_recipes[recipe_type] += recipe
 				for(var/item in recipe.items)
-					acceptable_items |= item
+					GLOB.cooking_ingredients[recipe_type] |= item
 				for(var/reagent in recipe.reagents)
-					acceptable_reagents |= reagent
-				if(recipe.items)
-					max_n_of_items = max(max_n_of_items,recipe.count_n_items())
+					GLOB.cooking_reagents[recipe_type] |= reagent
 			else
 				qdel(recipe)
-		acceptable_items |= /obj/item/reagent_containers/food/snacks/grown
+		GLOB.cooking_ingredients[recipe_type] |= /obj/item/reagent_containers/food/snacks/grown
 
 /*******************
 *   Item Adding
@@ -80,78 +82,52 @@
 
 	if(broken > 0)
 		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
-			user.visible_message( \
-				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
-				"<span class='notice'>You start to fix part of \the [src].</span>" \
-			)
+			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message( \
-					"<span class='notice'>[user] fixes part of \the [src].</span>", \
-					"<span class='notice'>You have fixed part of \the [src].</span>" \
-				)
+				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
 				broken = 1 // Fix it a bit
 		else if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
-			user.visible_message( \
-				"<span class='notice'>[user] starts to fix part of \the [src].</span>", \
-				"<span class='notice'>You start to fix part of \the [src].</span>" \
-			)
+			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
 			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message( \
-					"<span class='notice'>[user] fixes \the [src].</span>", \
-					"<span class='notice'>You have fixed \the [src].</span>" \
-				)
+				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
 				icon_state = off_icon
 				broken = 0 // Fix it!
 				dirty = 0 // just to be sure
-				flags = OPENCONTAINER
+				container_type = OPENCONTAINER
 		else
 			to_chat(user, "<span class='alert'>It's broken!</span>")
 			return 1
 	else if(dirty==100) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
-			user.visible_message( \
-				"<span class='notice'>[user] starts to clean \the [src].</span>", \
-				"<span class='notice'>You start to clean \the [src].</span>" \
-			)
+			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
 			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message( \
-					"<span class='notice'>[user]  has cleaned \the [src].</span>", \
-					"<span class='notice'>You have cleaned \the [src].</span>" \
-				)
+				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
 				dirty = 0 // It's clean!
 				broken = 0 // just to be sure
 				icon_state = off_icon
-				flags = OPENCONTAINER
+				container_type = OPENCONTAINER
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
 			return 1
-	else if(is_type_in_list(O,acceptable_items))
+	else if(is_type_in_list(O, GLOB.cooking_ingredients[recipe_type]) || istype(O, /obj/item/mixing_bowl))
 		if(contents.len>=max_n_of_items)
 			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
 			return 1
-		if(istype(O,/obj/item/stack) && O:amount>1)
-			new O.type (src)
-			O:use(1)
-			user.visible_message( \
-				"<span class='notice'>[user] has added one of [O] to \the [src].</span>", \
-				"<span class='notice'>You add one of [O] to \the [src].</span>")
+		if(istype(O,/obj/item/stack))
+			var/obj/item/stack/S = O
+			if(S.amount > 1)
+				var/obj/item/stack/to_add = S.split(user, 1)
+				to_add.forceMove(src)
+				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
+			else
+				add_item(S, user)
 		else
-			if(!user.drop_item())
-				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand, you cannot put it in \the [src]</span>")
-				return 0
-
-			O.forceMove(src)
-			user.visible_message( \
-				"<span class='notice'>[user] has added \the [O] to \the [src].</span>", \
-				"<span class='notice'>You add \the [O] to \the [src].</span>")
-	else if(istype(O,/obj/item/reagent_containers/glass) || \
-	        istype(O,/obj/item/reagent_containers/food/drinks) || \
-	        istype(O,/obj/item/reagent_containers/food/condiment) \
-		)
+			add_item(O, user)
+	else if(is_type_in_list(O, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
 		if(!O.reagents)
 			return 1
 		for(var/datum/reagent/R in O.reagents.reagent_list)
-			if(!(R.id in acceptable_reagents))
+			if(!(R.id in GLOB.cooking_reagents[recipe_type]))
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
@@ -161,6 +137,14 @@
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
 		return 1
 	updateUsrDialog()
+
+/obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
+	if(!user.drop_item())
+		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
+		//return 0
+	else
+		I.forceMove(src)
+		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
 
 /obj/machinery/kitchen_machine/attack_ai(mob/user)
 	return 0
@@ -182,11 +166,11 @@
 		return
 	var/dat = ""
 	if(broken > 0)
-		dat = {"<TT>Bzzzzttttt</TT>"}
+		dat = {"<code>Bzzzzttttt</code>"}
 	else if(operating)
-		dat = {"<TT>[pick(cook_verbs)] in progress!<BR>Please wait...!</TT>"}
+		dat = {"<code>[pick(cook_verbs)] in progress!<BR>Please wait...!</code>"}
 	else if(dirty==100)
-		dat = {"<TT>This [src] is dirty!<BR>Please clean it before use!</TT>"}
+		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
 		var/list/items_counts = new
 		var/list/items_measures = new
@@ -260,12 +244,13 @@
 		stop()
 		return
 
-	var/datum/recipe/recipe = select_recipe(available_recipes,src)
-	var/obj/cooked
-	var/obj/byproduct
-	if(!recipe)
+	var/list/recipes_to_make = choose_recipes()
+
+	if(recipes_to_make.len == 1 && recipes_to_make[1][2] == RECIPE_FAIL)
+		//This only runs if there is a single recipe source to be made and it is a failure (the machine was loaded with only 1 mixing bowl that results in failure OR was directly loaded with ingredients that results in failure).
+		//If there are multiple sources, this bit gets skipped.
 		dirty += 1
-		if(prob(max(10,dirty*5)))
+		if(prob(max(10,dirty*5)))	//chance to get so dirty we require cleaning before next use
 			if(!wzhzhzh(4))
 				abort()
 				return
@@ -274,14 +259,14 @@
 			muck_finish()
 			fail()
 			return
-		else if(has_extra_item())
+		else if(has_extra_item())	//if extra items present, break down and require repair before next use
 			if(!wzhzhzh(4))
 				abort()
 				return
 			broke()
 			fail()
 			return
-		else
+		else	//otherwise just stop without requiring cleaning/repair
 			if(!wzhzhzh(10))
 				abort()
 				return
@@ -289,24 +274,69 @@
 			fail()
 			return
 	else
-		var/halftime = round(recipe.time/10/2)
-		if(!wzhzhzh(halftime))
+		if(!wzhzhzh(5))
 			abort()
 			return
-		if(!wzhzhzh(halftime))
+		if(!wzhzhzh(5))
 			abort()
 			fail()
 			return
-		cooked = recipe.make_food(src)
-		byproduct = recipe.get_byproduct()
-		stop()
-		if(cooked)
-			cooked.forceMove(loc)
-		for(var/i=1,i<efficiency,i++)
-			cooked = new cooked.type(loc)
-		if(byproduct)
-			new byproduct(loc)
+		make_recipes(recipes_to_make)
+
+//choose_recipes(): picks out recipes for the machine and any mixing bowls it may contain.
+	//builds a list of the selected recipes to be made in a later proc by associating the "source" of the ingredients (mixing bowl, machine) with the recipe for that source
+/obj/machinery/kitchen_machine/proc/choose_recipes()
+	var/list/recipes_to_make = list()
+	for(var/obj/item/mixing_bowl/mb in contents)	//if we have mixing bowls present, check each one for possible recipes from its respective contents. Mixing bowls act like a wrapper for recipes and ingredients, isolating them from other ingredients and mixing bowls within a machine.
+		var/datum/recipe/recipe = select_recipe(GLOB.cooking_recipes[recipe_type], mb)
+		if(recipe)
+			recipes_to_make.Add(list(list(mb, recipe)))
+		else	//if the ingredients of the mixing bowl don't make a valid recipe, we return a fail recipe to generate the burned mess
+			recipes_to_make.Add(list(list(mb, RECIPE_FAIL)))
+
+	var/datum/recipe/recipe_src = select_recipe(GLOB.cooking_recipes[recipe_type], src, ignored_items = list(/obj/item/mixing_bowl))	//check the machine's directly-inserted ingredients for possible recipes as well, ignoring the mixing bowls when selecting recipe
+	if(recipe_src)	//if we found a valid recipe for directly-inserted ingredients, add that to our list
+		recipes_to_make.Add(list(list(src, recipe_src)))
+	else if(!recipes_to_make.len)	//if the machine has no mixing bowls to make recipes from AND also doesn't have a valid recipe of directly-inserted ingredients, return a failure so we can make a burned mess
+		recipes_to_make.Add(list(list(src, RECIPE_FAIL)))
+	return recipes_to_make
+
+//make_recipes(recipes_to_make): cycles through the supplied list of recipes and creates each recipe associated with the "source" for that entry
+/obj/machinery/kitchen_machine/proc/make_recipes(list/recipes_to_make)
+	if(!recipes_to_make)
 		return
+	var/datum/reagents/temp_reagents = new(500)
+	for(var/i=1 to recipes_to_make.len)		//cycle through each entry on the recipes_to_make list for processing
+		var/list/L = recipes_to_make[i]
+		var/obj/source = L[1]	//this is the source of the recipe entry (mixing bowl or the machine)
+		var/datum/recipe/recipe = L[2]	//this is the recipe associated with the source (a valid recipe or null)
+		if(recipe == RECIPE_FAIL)		//we have a failure and create a burned mess
+			//failed recipe
+			fail()
+		else	//we have a valid recipe to begin making
+			for(var/obj/O in source.contents)	//begin processing the ingredients supplied
+				if(istype(O, /obj/item/mixing_bowl))	//ignore mixing bowls present among the ingredients in our source (only really applies to machine sourced recipes)
+					continue
+				if(O.reagents)
+					O.reagents.del_reagent("nutriment")
+					O.reagents.update_total()
+					O.reagents.trans_to(temp_reagents, O.reagents.total_volume)
+				qdel(O)
+			source.reagents.clear_reagents()
+			for(var/e=1 to efficiency)		//upgraded machine? make additional servings and split the ingredient reagents among each serving equally.
+				var/obj/cooked = new recipe.result()
+				temp_reagents.trans_to(cooked, temp_reagents.total_volume/efficiency)
+				cooked.forceMove(loc)
+			temp_reagents.clear_reagents()
+			var/obj/byproduct = recipe.get_byproduct()	//if the recipe has a byproduct, handle returning that (such as re-usable candy moulds)
+			if(byproduct)
+				new byproduct(loc)
+			if(istype(source, /obj/item/mixing_bowl))	//if the recipe's source was a mixing bowl, make it a little dirtier and return that for re-use.
+				var/obj/item/mixing_bowl/mb = source
+				mb.make_dirty(5 * efficiency)
+				mb.forceMove(loc)
+	stop()
+	return
 
 /obj/machinery/kitchen_machine/proc/wzhzhzh(seconds)
 	for(var/i=1 to seconds)
@@ -318,10 +348,7 @@
 
 /obj/machinery/kitchen_machine/proc/has_extra_item()
 	for(var/obj/O in contents)
-		if( \
-				!istype(O,/obj/item/reagent_containers/food) && \
-				!istype(O, /obj/item/grown) \
-			)
+		if(!is_type_in_list(O, list(/obj/item/reagent_containers/food, /obj/item/grown, /obj/item/mixing_bowl)))
 			return 1
 	return 0
 
@@ -365,9 +392,7 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
-	var/datum/effect_system/spark_spread/s = new
-	s.set_up(2, 1, src)
-	s.start()
+	do_sparks(2, 1, src)
 	icon_state = broken_icon // Make it look all busted up and shit
 	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
 	broken = 2 // Make it broken so it can't be used util fixed
@@ -376,19 +401,27 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/fail()
-	var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
 	var/amount = 0
-	for(var/obj/O in contents-ffuu)
+	for(var/obj/item/mixing_bowl/mb in contents)	//fail and remove any mixing bowls present before making the burned mess from the machine itself (to avoid them being destroyed as part of the failure)
+		mb.fail(src)
+		mb.forceMove(get_turf(src))
+	for(var/obj/O in contents)
 		amount++
-		if(O.reagents)
+		if(O.reagents)	//this is reagents in inserted objects (like chems in produce)
 			var/id = O.reagents.get_master_reagent_id()
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
+	if(reagents && reagents.total_volume)	//this is directly-added reagents (like water added directly into the machine)
+		var/id = reagents.get_master_reagent_id()
+		if(id)
+			amount += reagents.get_reagent_amount(id)
 	reagents.clear_reagents()
-	ffuu.reagents.add_reagent("carbon", amount)
-	ffuu.reagents.add_reagent("????", amount/10)
-	ffuu.forceMove(get_turf(src))
+	if(amount)
+		var/obj/item/reagent_containers/food/snacks/badrecipe/ffuu = new(src)
+		ffuu.reagents.add_reagent("carbon", amount)
+		ffuu.reagents.add_reagent("????", amount/10)
+		ffuu.forceMove(get_turf(src))
 
 /obj/machinery/kitchen_machine/Topic(href, href_list)
 	if(..() || panel_open)

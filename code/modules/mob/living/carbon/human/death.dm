@@ -1,5 +1,6 @@
 /mob/living/carbon/human/gib()
-	death(1)
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
@@ -18,8 +19,9 @@
 	for(var/obj/item/organ/internal/I in internal_organs)
 		if(isturf(loc))
 			var/atom/movable/thing = I.remove(src)
-			thing.forceMove(get_turf(src))
-			thing.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			if(thing)
+				thing.forceMove(get_turf(src))
+				thing.throw_at(get_edge_target_turf(src, pick(alldirs)), rand(1,3), 5)
 
 	for(var/obj/item/organ/external/E in bodyparts)
 		if(istype(E, /obj/item/organ/external/chest))
@@ -40,16 +42,14 @@
 		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
-		var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-		s.set_up(3, 1, src)
-		s.start()
-
-	spawn(15)
-		if(animation)	qdel(animation)
-		if(src)			qdel(src)
+		do_sparks(3, 1, src)
+	QDEL_IN(animation, 15)
+	QDEL_IN(src, 0)
+	return TRUE
 
 /mob/living/carbon/human/dust()
-	death(1)
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
@@ -62,14 +62,14 @@
 	animation.master = src
 
 	flick("dust-h", animation)
-	new species.remains_type(get_turf(src))
-
-	spawn(15)
-		if(animation)	qdel(animation)
-		if(src)			qdel(src)
+	new dna.species.remains_type(get_turf(src))
+	QDEL_IN(src, 0)
+	QDEL_IN(animation, 15)
+	return TRUE
 
 /mob/living/carbon/human/melt()
-	death(1)
+	if(!death(TRUE) && stat != DEAD)
+		return FALSE
 	var/atom/movable/overlay/animation = null
 	notransform = 1
 	canmove = 0
@@ -82,66 +82,56 @@
 	animation.master = src
 
 	flick("liquify", animation)
+	QDEL_IN(src, 0)
+	QDEL_IN(animation, 15)
 	//new /obj/effect/decal/remains/human(loc)
-
-	spawn(15)
-		if(animation)	qdel(animation)
-		if(src)			qdel(src)
+	return TRUE
 
 /mob/living/carbon/human/death(gibbed)
-	if(stat == DEAD)
-		return
-	if(healths)
-		healths.icon_state = "health5"
-
-	if(!gibbed)
+	if(can_die() && !gibbed)
 		emote("deathgasp") //let the world KNOW WE ARE DEAD
 
-	stat = DEAD
-	SetDizzy(0)
-	SetJitter(0)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
+
 	set_heartattack(FALSE)
 
-	//Handle species-specific deaths.
-	if(species)
-		species.handle_death(src)
-
-	callHook("death", list(src, gibbed))
+	if(dna.species)
+		dna.species.handle_hud_icons(src)
+		//Handle species-specific deaths.
+		dna.species.handle_death(src)
 
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant
 		if(H.mind)
 			H.mind.kills += "[key_name(src)]"
 
-	if(!gibbed)
-		update_canmove()
-
-	timeofdeath = world.time
-	med_hud_set_health()
-	med_hud_set_status()
-	if(mind)	mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 	if(ticker && ticker.mode)
 //		log_world("k")
 		sql_report_death(src)
-		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
 
 	if(wearing_rig)
 		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
 
-	return ..(gibbed)
-
 /mob/living/carbon/human/update_revive()
 	. = ..()
-	// Update healthdoll
 	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll
 		healthdoll.cached_healthdoll_overlays.Cut()
+	// Update healthdoll
+	if(dna.species)
+		dna.species.update_sight(src)
+		dna.species.handle_hud_icons(src)
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	var/obj/item/organ/external/head/H = get_organ("head")
-	if(SKELETON in src.mutations)	return
+	if(SKELETON in src.mutations)
+		return
 
 	if(istype(H))
+		H.disfigured = TRUE
 		if(H.f_style)
 			H.f_style = initial(H.f_style)
 		if(H.h_style)
@@ -159,16 +149,17 @@
 
 	mutations.Add(SKELETON)
 	mutations.Add(NOCLONE)
-	status_flags |= DISFIGURED
 	update_body(0)
 	update_mutantrace()
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
 	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(HUSK in mutations)	return
+	if(HUSK in mutations)
+		return
 
 	if(istype(H))
+		H.disfigured = TRUE //makes them unknown without fucking up other stuff like admintools
 		if(H.f_style)
 			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
 		if(H.h_style)
@@ -177,7 +168,6 @@
 	update_hair(0)
 
 	mutations.Add(HUSK)
-	status_flags |= DISFIGURED	//makes them unknown without fucking up other stuff like admintools
 	update_body(0)
 	update_mutantrace()
 	return

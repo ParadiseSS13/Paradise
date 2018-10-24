@@ -6,7 +6,7 @@
 	reference = "control_box"
 	anchored = 0
 	density = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 	idle_power_usage = 500
 	active_power_usage = 10000
 	construction_state = 0
@@ -42,7 +42,7 @@
 
 /obj/machinery/particle_accelerator/control_box/update_state()
 	if(construction_state < 3)
-		use_power = 0
+		use_power = NO_POWER_USE
 		assembled = 0
 		active = 0
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
@@ -52,7 +52,7 @@
 		connected_parts = list()
 		return
 	if(!part_scan())
-		use_power = 1
+		use_power = IDLE_POWER_USE
 		active = 0
 		connected_parts = list()
 
@@ -147,9 +147,9 @@
 	..()
 	if(stat & NOPOWER)
 		active = 0
-		use_power = 0
+		use_power = NO_POWER_USE
 	else if(!stat && construction_state <= 3)
-		use_power = 1
+		use_power = IDLE_POWER_USE
 	update_icon()
 
 	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
@@ -227,17 +227,17 @@
 	active = !active
 	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? usr.key : "outside forces"]","singulo")
 	if(active)
-		msg_admin_attack("PA Control Computer turned ON by [key_name_admin(usr)]",0,1)
+		msg_admin_attack("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
 		log_game("PA Control Computer turned ON by [key_name(usr)] in ([x],[y],[z])")
 		use_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] has turned on the PA Control Computer.</font>")
 	if(active)
-		use_power = 2
+		use_power = ACTIVE_POWER_USE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = strength
 			part.powered = 1
 			part.update_icon()
 	else
-		use_power = 1
+		use_power = IDLE_POWER_USE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
 			part.powered = 0

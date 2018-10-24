@@ -20,15 +20,14 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/atmosalm = ATMOS_ALARM_NONE
 	var/poweralm = 1
 	var/party = null
-	var/radalert = 0
 	var/report_alerts = 1 // Should atmos alerts notify the AI/computers
 	level = null
 	name = "Space"
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "unknown"
-	layer = 10
+	layer = AREA_LAYER
 	luminosity = 0
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
 	var/valid_territory = TRUE //used for cult summoning areas on station zlevel
 	var/map_name // Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.
@@ -141,9 +140,6 @@ var/list/ghostteleportlocs = list()
 /area/space/readyalert()
 	return
 
-/area/space/radiation_alert()
-	return
-
 /area/space/partyalert()
 	return
 
@@ -163,6 +159,9 @@ var/list/ghostteleportlocs = list()
 	icon_state = "shuttle2"
 
 /area/shuttle/arrival/station
+	icon_state = "shuttle"
+
+/area/shuttle/auxillary_base
 	icon_state = "shuttle"
 
 /area/shuttle/escape
@@ -546,12 +545,6 @@ var/list/ghostteleportlocs = list()
 /area/syndicate_mothership/infteam
 	name = "\improper Syndicate Infiltrators"
 	icon_state = "syndie-elite"
-
-/area/syndicate_depot
-	name = "\improper Suspicious Supply Depot"
-	icon_state = "red"
-	tele_proof = 1
-	requires_power = 0
 
 //EXTRA
 
@@ -977,6 +970,14 @@ var/list/ghostteleportlocs = list()
 	power_light = 0
 	power_environ = 0
 
+/area/maintenance/electrical_shop
+	name ="Electronics Den"
+	icon_state = "yellow"
+
+/area/maintenance/gambling_den
+	name = "Gambling Den"
+	icon_state = "yellow"
+
 /area/maintenance/consarea
 	name = "Alternate Construction Area"
 	icon_state = "yellow"
@@ -1186,6 +1187,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Bar"
 	icon_state = "bar"
 
+/area/crew_quarters/bar/atrium
+	name = "Atrium"
+	icon_state = "bar"
+
 /area/crew_quarters/theatre
 	name = "\improper Theatre"
 	icon_state = "Theatre"
@@ -1195,8 +1200,12 @@ var/list/ghostteleportlocs = list()
 	icon_state = "Theatre"
 
 /area/library
- 	name = "\improper Library"
- 	icon_state = "library"
+	name = "\improper Library"
+	icon_state = "library"
+
+/area/library/abandoned
+	name = "\improper Abandoned Library"
+	icon_state = "library"
 
 /area/chapel/main
 	name = "\improper Chapel"
@@ -1373,6 +1382,14 @@ var/list/ghostteleportlocs = list()
 
 /area/engine/mechanic_workshop
 	name = "\improper Mechanic Workshop"
+	icon_state = "engine"
+
+/area/engine/mechanic_workshop/hanger
+	name = "\improper Hanger Bay"
+	icon_state = "engine"
+
+/area/engine/supermatter
+	name = "\improper Supermatter Engine"
 	icon_state = "engine"
 
 //Solars
@@ -1743,23 +1760,6 @@ area/security/podbay
 	name = "\improper Firing Range"
 	icon_state = "firingrange"
 
-/*
-	New()
-		..()
-
-		spawn(10) //let objects set up first
-			for(var/turf/turfToGrayscale in src)
-				if(turfToGrayscale.icon)
-					var/icon/newIcon = icon(turfToGrayscale.icon)
-					newIcon.GrayScale()
-					turfToGrayscale.icon = newIcon
-				for(var/obj/objectToGrayscale in turfToGrayscale) //1 level deep, means tables, apcs, locker, etc, but not locker contents
-					if(objectToGrayscale.icon)
-						var/icon/newIcon = icon(objectToGrayscale.icon)
-						newIcon.GrayScale()
-						objectToGrayscale.icon = newIcon
-*/
-
 /area/security/nuke_storage
 	name = "\improper Vault"
 	icon_state = "nuke_storage"
@@ -1846,6 +1846,10 @@ area/security/podbay
 
 /area/hydroponics
 	name = "\improper Hydroponics"
+	icon_state = "hydro"
+
+/area/hydroponics/abandoned_garden
+	name = "\improper Abandoned Garden"
 	icon_state = "hydro"
 
 //Toxins
@@ -2171,6 +2175,10 @@ area/security/podbay
 
 /area/construction
 	name = "\improper Construction Area"
+	icon_state = "yellow"
+
+/area/mining_construction
+	name = "Auxillary Base Construction"
 	icon_state = "yellow"
 
 /area/construction/supplyshuttle

@@ -83,14 +83,13 @@
 	if(href_list["wipe"])
 		var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
 		if(confirm == "Yes" && (CanUseTopic(user, state) == STATUS_INTERACTIVE))
-			msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].")
+			msg_admin_attack("[key_name_admin(user)] wiped [key_name_admin(AI)] with \the [src].", ATKLOG_FEW)
 			add_attack_logs(user, AI, "Wiped with [src].")
 			flush = 1
 			AI.suiciding = 1
 			to_chat(AI, "Your core files are being wiped!")
 			while(AI && AI.stat != DEAD)
 				AI.adjustOxyLoss(2)
-				AI.updatehealth()
 				sleep(10)
 			flush = 0
 

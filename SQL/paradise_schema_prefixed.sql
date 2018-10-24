@@ -134,7 +134,7 @@ CREATE TABLE `SS13_death` (
 DROP TABLE IF EXISTS `SS13_donators`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `donators` (
+CREATE TABLE `SS13_donators` (
   `patreon_name` varchar(32) NOT NULL,
   `tier` int(2),
   `ckey` varchar(32) COMMENT 'Manual Field',
@@ -264,6 +264,7 @@ CREATE TABLE `SS13_player` (
   `ghost_anonsay` tinyint(1) NOT NULL DEFAULT '0',
   `exp` mediumtext,
   `clientfps` smallint(4) DEFAULT '0',
+  `atklog` smallint(4) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;

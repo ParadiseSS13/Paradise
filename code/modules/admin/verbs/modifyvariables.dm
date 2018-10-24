@@ -46,6 +46,8 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 
 	else if(isfile(var_value))
 		. = VV_FILE
+	else if(istype(var_value, /regex))
+		. = VV_REGEX
 	else
 		. = VV_NULL
 
@@ -66,6 +68,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 				VV_DATUM_TYPE,
 				VV_TYPE,
 				VV_MATRIX,
+				VV_REGEX,
 				VV_FILE,
 				VV_NEW_ATOM,
 				VV_NEW_DATUM,
@@ -141,6 +144,14 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 				.["class"] = null
 				return
 
+		if(VV_REGEX)
+			var/reg = input("Enter regex", "Regex", "") as null|text
+			if(!reg)
+				return
+			.["value"] = regex(reg)
+			if(.["value"] == null)
+				.["class"] = null
+
 
 		if(VV_ATOM_REFERENCE)
 			var/type = pick_closest_path(FALSE)
@@ -184,7 +195,7 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 
 
 		if(VV_CLIENT)
-			.["value"] = input("Select reference:", "Reference", current_value) as null|anything in clients
+			.["value"] = input("Select reference:", "Reference", current_value) as null|anything in GLOB.clients
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -505,6 +516,24 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 	log_admin("[key_name(src)] modified [original_name]'s [objectvar]: [original_var]=[new_var]")
 	message_admins("[key_name_admin(src)] modified [original_name]'s varlist [objectvar]: [original_var]=[new_var]")
 
+/proc/vv_varname_lockcheck(param_var_name)
+	if(param_var_name in VVlocked)
+		if(!check_rights(R_DEBUG))
+			return FALSE
+	if(param_var_name in VVckey_edit)
+		if(!check_rights(R_EVENT | R_DEBUG))
+			return FALSE
+	if(param_var_name in VVicon_edit_lock)
+		if(!check_rights(R_EVENT | R_DEBUG))
+			return FALSE
+	if(param_var_name in VVpixelmovement)
+		if(!check_rights(R_DEBUG))
+			return FALSE
+		var/prompt = alert(usr, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")
+		if(prompt != "Continue")
+			return FALSE
+	return TRUE
+
 /client/proc/modify_variables(atom/O, param_var_name = null, autodetect_class = 0)
 	if(!check_rights(R_VAREDIT))
 		return
@@ -533,24 +562,10 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 	if(!O.can_vv_get(variable))
 		return
 
+	if(!vv_varname_lockcheck(variable))
+		return
+
 	var_value = O.vars[variable]
-
-	if(variable in VVlocked)
-		if(!check_rights(R_DEBUG))
-			return
-	if(variable in VVckey_edit)
-		if(!check_rights(R_EVENT | R_DEBUG))
-			return
-	if(variable in VVicon_edit_lock)
-		if(!check_rights(R_EVENT | R_DEBUG))
-			return
-	if(variable in VVpixelmovement)
-		if(!check_rights(R_DEBUG))
-			return
-		var/prompt = alert(src, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")
-		if(prompt != "Continue")
-			return
-
 
 	var/default = vv_get_class(var_value)
 

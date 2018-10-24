@@ -25,13 +25,13 @@
 	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
 		qdel(user.l_hand)
 		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_l_hand()
 		return
 	if(istype(user.r_hand, weapon_type))
 		qdel(user.r_hand)
 		if(!silent)
-			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+			user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 		user.update_inv_r_hand()
 		return
 	..(user, target)
@@ -138,7 +138,7 @@
 		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 /obj/item/melee/arm_blade/dropped(mob/user)
-	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning>You hear organic matter ripping and tearing!</span>")
+	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 	. = ..()
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
@@ -216,7 +216,7 @@
 			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='warning'>The [name] is not ready yet.<span>")
+	to_chat(user, "<span class='warning'>The [name] is not ready yet.</span>")
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -315,10 +315,10 @@
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
 								return 1
 							else
-								to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!<span>")
+								to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
 								return 0
 						else
-							to_chat(firer, "<span class='danger'>[C] has nothing in hand to disarm!<span>")
+							to_chat(firer, "<span class='danger'>[C] has nothing in hand to disarm!</span>")
 							return 0
 
 					if(INTENT_GRAB)

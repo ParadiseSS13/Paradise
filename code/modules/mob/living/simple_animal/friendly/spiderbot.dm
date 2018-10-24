@@ -57,12 +57,12 @@
 		if(!B.brainmob.key)
 			var/ghost_can_reenter = 0
 			if(B.brainmob.mind)
-				for(var/mob/dead/observer/G in player_list)
+				for(var/mob/dead/observer/G in GLOB.player_list)
 					if(G.can_reenter_corpse && G.mind == B.brainmob.mind)
 						ghost_can_reenter = 1
 						break
-				for(var/mob/living/simple_animal/S in player_list)
-					if(S in respawnable_list)
+				for(var/mob/living/simple_animal/S in GLOB.player_list)
+					if(S in GLOB.respawnable_list)
 						ghost_can_reenter = 1
 						break
 			if(!ghost_can_reenter)
@@ -157,7 +157,7 @@
 		if(istype(mmi, /obj/item/mmi))
 			icon_state = "spiderbot-chassis-mmi"
 			icon_living = "spiderbot-chassis-mmi"
-		if(istype(mmi, /obj/item/mmi/posibrain))
+		if(istype(mmi, /obj/item/mmi/robotic_brain))
 			icon_state = "spiderbot-chassis-posi"
 			icon_living = "spiderbot-chassis-posi"
 

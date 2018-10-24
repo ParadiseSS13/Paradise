@@ -1,3 +1,5 @@
+#define HEALPERWELD 15
+
 /* Tools!
  * Note: Multitools are in devices
  *
@@ -118,7 +120,7 @@
 	name = "screwdriver"
 	desc = "You can be totally screwy with this."
 	icon = 'icons/obj/tools.dmi'
-	icon_state = null
+	icon_state = "screwdriver_map"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 5
@@ -131,6 +133,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/Screwdriver.ogg'
 	toolspeed = 1
+	var/random_color = TRUE //if the screwdriver uses random coloring
 
 /obj/item/screwdriver/nuke
 	name = "screwdriver"
@@ -144,7 +147,7 @@
 
 /obj/item/screwdriver/New(loc, var/param_color = null)
 	..()
-	if(!icon_state)
+	if(random_color)
 		if(!param_color)
 			param_color = pick("red","blue","pink","brown","green","cyan","yellow")
 		icon_state = "screwdriver_[param_color]"
@@ -166,6 +169,7 @@
 	desc = "A screwdriver made of brass. The handle feels freezing cold."
 	icon_state = "screwdriver_brass"
 	toolspeed = 0.5
+	random_color = FALSE
 
 /obj/item/screwdriver/abductor
 	name = "alien screwdriver"
@@ -174,6 +178,7 @@
 	icon_state = "screwdriver"
 	usesound = 'sound/items/PSHOOM.ogg'
 	toolspeed = 0.1
+	random_color = FALSE
 
 /obj/item/screwdriver/power
 	name = "hand drill"
@@ -190,6 +195,7 @@
 	hitsound = 'sound/items/drill_hit.ogg'
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.25
+	random_color = FALSE
 
 /obj/item/screwdriver/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -213,7 +219,7 @@
 	name = "wirecutters"
 	desc = "This cuts wires."
 	icon = 'icons/obj/tools.dmi'
-	icon_state = null
+	icon_state = "cutters"
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 6
@@ -227,10 +233,11 @@
 	usesound = 'sound/items/Wirecutter.ogg'
 	sharp = 1
 	toolspeed = 1
+	var/random_color = TRUE
 
 /obj/item/wirecutters/New(loc, param_color = null)
 	..()
-	if(!icon_state)
+	if(random_color)
 		if(!param_color)
 			param_color = pick("yellow", "red")
 		icon_state = "cutters_[param_color]"
@@ -256,6 +263,7 @@
 	desc = "A pair of wirecutters made of brass. The handle feels freezing cold to the touch."
 	icon_state = "cutters_brass"
 	toolspeed = 0.5
+	random_color = FALSE
 
 /obj/item/wirecutters/abductor
 	name = "alien wirecutters"
@@ -264,6 +272,7 @@
 	icon_state = "cutters"
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
+	random_color = FALSE
 
 /obj/item/wirecutters/cyborg
 	name = "wirecutters"
@@ -279,6 +288,7 @@
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
 	toolspeed = 0.25
+	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
@@ -400,31 +410,54 @@
 		if(!S)
 			return
 
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != INTENT_HELP || S.open == 2)
+		if(!S.is_robotic() || user.a_intent != INTENT_HELP || S.open == 2)
 			return ..()
 
 		if(!isOn())		//why wasn't this being checked already?
 			to_chat(user, "<span class='warning'>Turn on [src] before attempting repairs!</span>")
 			return 1
 
-		if(S.brute_dam)
-			if(S.brute_dam < ROBOLIMB_SELF_REPAIR_CAP)
-				if(get_fuel() >= 1)
-					if(H == user)
-						if(!do_mob(user, H, 10))
-							return 1
-					if(remove_fuel(1,null))
-						playsound(src.loc, usesound, 50, 1)
-						S.heal_damage(15,0,0,1)
-						user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [S.name] with \the [src].</span>")
-				else if(S.open != 2)
-					to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
-					return 1
-			else
-				to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
-			return 1
-		else if(S.open != 2)
+		if(S.brute_dam > ROBOLIMB_SELF_REPAIR_CAP)
+			to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
+			return
+
+		if(!S.brute_dam)
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			return
+
+		if(get_fuel() >= 1)
+			if(H == user)
+				if(!do_mob(user, H, 10))
+					return 1
+			if(!remove_fuel(1,null))
+				to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
+			var/rembrute = HEALPERWELD
+			var/nrembrute = 0
+			var/childlist
+			if(!isnull(S.children))
+				childlist = S.children.Copy()
+			var/parenthealed = FALSE
+			while(rembrute > 0)
+				var/obj/item/organ/external/E
+				if(S.brute_dam)
+					E = S
+				else if(LAZYLEN(childlist))
+					E = pick_n_take(childlist)
+					if(!E.brute_dam || !E.is_robotic())
+						continue
+				else if(S.parent && !parenthealed)
+					E = S.parent
+					parenthealed = TRUE
+					if(!E.brute_dam || !E.is_robotic())
+						break
+				else
+					break
+				playsound(src.loc, usesound, 50, 1)
+				nrembrute = max(rembrute - E.brute_dam, 0)
+				E.heal_damage(rembrute,0,0,1)
+				rembrute = nrembrute
+				user.visible_message("<span class='alert'>\The [user] patches some dents on \the [M]'s [E.name] with \the [src].</span>")
+			return 1
 	else
 		return ..()
 

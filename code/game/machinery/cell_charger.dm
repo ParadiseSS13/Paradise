@@ -4,7 +4,7 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "ccharger0"
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 60
 	power_channel = EQUIP
@@ -36,8 +36,8 @@
 	if(charging)
 		to_chat(user, "Current charge: [round(charging.percent(), 1)]%")
 
-/obj/machinery/cell_charger/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
+/obj/machinery/cell_charger/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stock_parts/cell))
 		if(stat & BROKEN)
 			to_chat(user, "<span class='warning'>[src] is broken!</span>")
 			return
@@ -57,19 +57,19 @@
 			if(!user.drop_item())
 				return
 
-			W.forceMove(src)
-			charging = W
+			I.forceMove(src)
+			charging = I
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			chargelevel = -1
 			updateicon()
-	else if(iswrench(W))
+	else if(iswrench(I))
 		if(charging)
 			to_chat(user, "<span class='warning'>Remove the cell first!</span>")
 			return
 
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "attach" : "detach"] the cell charger [anchored ? "to" : "from"] the ground</span>")
-		playsound(src.loc, W.usesound, 75, 1)
+		playsound(src.loc, I.usesound, 75, 1)
 	else
 		return ..()
 

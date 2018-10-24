@@ -11,7 +11,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 	var/label_text = ""
 	// the fucking asshole who designed this can go die in a fire - Iamgoofball
@@ -59,10 +59,10 @@
 	..()
 	if(is_open_container())
 		to_chat(usr, "<span class='notice'>You put the lid on [src].</span>")
-		flags ^= OPENCONTAINER
+		container_type ^= REFILLABLE | DRAINABLE
 	else
 		to_chat(usr, "<span class='notice'>You take the lid off [src].</span>")
-		flags |= OPENCONTAINER
+		container_type |= REFILLABLE | DRAINABLE
 	update_icon()
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
@@ -83,7 +83,7 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			injected += R.name
 		var/contained = english_list(injected)
-		add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey)
+		add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
 		if(!iscarbon(user))
 			M.LAssailant = null
 		else
@@ -262,7 +262,7 @@
 	volume = 100
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
@@ -272,7 +272,7 @@
 	volume = 25
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/drugs
@@ -282,7 +282,7 @@
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = 2
 	volume = 10
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/noreact
@@ -293,7 +293,7 @@
 	volume = 50
 	amount_per_transfer_from_this = 10
 	origin_tech = "materials=2;engineering=3;plasmatech=3"
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/beaker/noreact/New()
 	..()
@@ -307,7 +307,7 @@
 	volume = 300
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50,100,300)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	origin_tech = "bluespace=5;materials=4;plasmatech=4"
 
 /obj/item/reagent_containers/glass/beaker/cryoxadone
@@ -337,7 +337,7 @@
 	volume = 120
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_HEAD
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
     ..()

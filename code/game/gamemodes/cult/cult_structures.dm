@@ -161,7 +161,7 @@
 		var/obj/item/organ/external/head/head = C.get_organ("head")
 		if(head)
 			C.apply_damage(30, BURN, "head") //30 fire damage because it's FUCKING LAVA
-			head.disfigure("burn") //Your face is unrecognizable because it's FUCKING LAVA
+			head.disfigure() //Your face is unrecognizable because it's FUCKING LAVA
 		return 1
 	else
 		..()
@@ -210,9 +210,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 					if(ishuman(L))
-						L.adjustBruteLoss(-1)
-						L.adjustFireLoss(-1)
-						L.updatehealth()
+						L.heal_overall_damage(1, 1)
 					if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 						var/mob/living/simple_animal/M = L
 						if(M.health < M.maxHealth)

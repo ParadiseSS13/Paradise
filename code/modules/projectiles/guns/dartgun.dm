@@ -29,7 +29,7 @@
 	var/obj/item/dart_cartridge/cartridge = null //Container of darts.
 	var/max_beakers = 3
 	var/dart_reagent_amount = 15
-	var/container_type = /obj/item/reagent_containers/glass/beaker
+	var/containers_type = /obj/item/reagent_containers/glass/beaker
 	var/list/starting_chems = null
 
 /obj/item/gun/dartgun/update_icon()
@@ -49,7 +49,7 @@
 	..()
 	if(starting_chems)
 		for(var/chem in starting_chems)
-			var/obj/B = new container_type(src)
+			var/obj/B = new containers_type(src)
 			B.reagents.add_reagent(chem, 50)
 			beakers += B
 	cartridge = new /obj/item/dart_cartridge(src)
@@ -58,11 +58,11 @@
 /obj/item/gun/dartgun/examine(mob/user)
 	if(..(user, 2))
 		if(beakers.len)
-			to_chat(user, "<span class='notice>[src] contains:</span>")
+			to_chat(user, "<span class='notice'>[src] contains:</span>")
 			for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
 				if(B.reagents && B.reagents.reagent_list.len)
 					for(var/datum/reagent/R in B.reagents.reagent_list)
-						to_chat(user, "<span class='notice>[R.volume] units of [R.name]</span>")
+						to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
 
 /obj/item/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/dart_cartridge))
@@ -87,7 +87,7 @@
 		update_icon()
 		return
 	if(istype(I, /obj/item/reagent_containers/glass))
-		if(!istype(I, container_type))
+		if(!istype(I, containers_type))
 			to_chat(user, "<span class='warning'>[I] doesn't seem to fit into [src].</span>")
 			return
 		if(beakers.len >= max_beakers)
@@ -99,7 +99,7 @@
 			return
 		B.forceMove(src)
 		beakers += B
-		to_chat(user, "<span class='notice>You slot [B] into [src].</span>")
+		to_chat(user, "<span class='notice'>You slot [B] into [src].</span>")
 		src.updateUsrDialog()
 
 /obj/item/gun/dartgun/can_shoot()
@@ -178,7 +178,8 @@
 						else
 							M.LAssailant = user
 
-					add_attack_logs(user, M, "Shot with dartgun containing [R]", !!M.ckey)
+					add_attack_logs(user, M, "Shot with dartgun containing [R]")
+
 					if(D.reagents)
 						D.reagents.trans_to(M, 15)
 					to_chat(M, "<span class='danger'>You feel a slight prick.</span>")

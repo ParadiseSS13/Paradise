@@ -234,7 +234,7 @@
 	D.account = get_card_account(id, occupant)
 	if(!D.account)
 		return null
-	if(!D.account.charge(100, transaction_purpose = "10 minutes", dest_name = name))
+	if(!D.account.charge(100, null, "10 minutes hotel stay", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
 		return null
 
 	D.occupant = occupant
@@ -251,7 +251,7 @@
 	if(!D || !D.occupant)
 		return
 
-	if(D.account.charge(100, transaction_purpose = "10 minutes", dest_name = name))
+	if(D.account.charge(100, null, "10 minutes hotel stay extension", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
 		D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	else
 		force_checkout(roomid)

@@ -16,7 +16,7 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/proc/change_organ_icobase(var/new_icobase, var/new_deform, var/owner_sensitive) //Change the icobase/deform of this organ. If owner_sensitive is set, that means the proc won't mess with frankenstein limbs.
 	if(owner_sensitive) //This and the below statements mean that the icobase/deform will only get updated if the limb is the same species as and is owned by the mob it's attached to.
-		if(species && owner.species && species.name != owner.species.name)
+		if(dna.species && owner.dna.species && dna.species.name != owner.dna.species.name)
 			return
 		if(dna.unique_enzymes != owner.dna.unique_enzymes) // This isn't MY arm
 			return
@@ -25,31 +25,31 @@ var/global/list/limb_icon_cache = list()
 	deform	= new_deform ? new_deform : deform
 
 /obj/item/organ/external/proc/sync_colour_to_human(var/mob/living/carbon/human/H)
-	if(status & ORGAN_ROBOT && !(species && species.name == "Machine")) //machine people get skin color
+	if(is_robotic() && !istype(dna.species, /datum/species/machine)) //machine people get skin color
 		return
-	if(species && H.species && species.name != H.species.name)
+	if(dna.species && H.dna.species && dna.species.name != H.dna.species.name)
 		return
 	if(dna.unique_enzymes != H.dna.unique_enzymes) // This isn't MY arm
-		if(!(H.species.bodyflags & HAS_ICON_SKIN_TONE))
+		if(!(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
 			sync_colour_to_dna()
 			return
-	if(!isnull(H.s_tone) && ((H.species.bodyflags & HAS_SKIN_TONE) || (H.species.bodyflags & HAS_ICON_SKIN_TONE)))
+	if(!isnull(H.s_tone) && ((H.dna.species.bodyflags & HAS_SKIN_TONE) || (H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
 		s_tone = H.s_tone
-	if(H.species.bodyflags & HAS_SKIN_COLOR)
+	if(H.dna.species.bodyflags & HAS_SKIN_COLOR)
 		s_tone = null
 		s_col = H.skin_colour
-	if(H.species.bodyflags & HAS_ICON_SKIN_TONE)
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/obj/item/organ/external/chest/C = H.get_organ("chest")
 		change_organ_icobase(C.icobase, C.deform)
 
 /obj/item/organ/external/proc/sync_colour_to_dna()
-	if(status & ORGAN_ROBOT)
+	if(is_robotic())
 		return
-	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && ((species.bodyflags & HAS_SKIN_TONE) || (species.bodyflags & HAS_ICON_SKIN_TONE)))
+	if(!isnull(dna.GetUIValue(DNA_UI_SKIN_TONE)) && ((dna.species.bodyflags & HAS_SKIN_TONE) || (dna.species.bodyflags & HAS_ICON_SKIN_TONE)))
 		s_col = null
 		s_tone = dna.GetUIValue(DNA_UI_SKIN_TONE)
-	if(species.bodyflags & HAS_SKIN_COLOR)
+	if(dna.species.bodyflags & HAS_SKIN_COLOR)
 		s_tone = null
 		s_col = rgb(dna.GetUIValue(DNA_UI_SKIN_R), dna.GetUIValue(DNA_UI_SKIN_G), dna.GetUIValue(DNA_UI_SKIN_B))
 
@@ -64,11 +64,9 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/proc/get_icon(skeletal, fat)
 	// Kasparrov, you monster
-	if(istext(species))
-		species = all_species[species]
 	if(force_icon)
 		mob_icon = new /icon(force_icon, "[icon_name]")
-		if(species && species.name == "Machine") //snowflake for IPC's, sorry.
+		if(istype(dna.species, /datum/species/machine)) //snowflake for IPC's, sorry.
 			if(s_col)
 				mob_icon.Blend(s_col, ICON_ADD)
 	else
@@ -76,7 +74,7 @@ var/global/list/limb_icon_cache = list()
 		var/icon_file = new_icons[1]
 		var/new_icon_state = new_icons[2]
 		mob_icon = new /icon(icon_file, new_icon_state)
-		if(!skeletal && !(status & ORGAN_ROBOT))
+		if(!skeletal && !is_robotic())
 			if(status & ORGAN_DEAD)
 				mob_icon.ColorTone(rgb(10,50,0))
 				mob_icon.SetIntensity(0.7)
@@ -101,49 +99,49 @@ var/global/list/limb_icon_cache = list()
 	if(!owner)
 		return
 
-	if(species.has_organ["eyes"])
+	if(dna.species.has_organ["eyes"])
 		var/icon/eyes_icon = owner.get_eyecon()
 		if(eyes_icon)
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY)
 			overlays |= eyes_icon
 
-	if(owner.lip_style && (LIPS in species.species_traits))
+	if(owner.lip_style && (LIPS in dna.species.species_traits))
 		var/icon/lip_icon = new/icon('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")
 		overlays |= lip_icon
 		mob_icon.Blend(lip_icon, ICON_OVERLAY)
 
 	var/head_marking = owner.m_styles["head"]
 	if(head_marking && head_marking != "None")
-		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
-		if(head_marking_style && head_marking_style.species_allowed && (species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
+		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
+		if(head_marking_style && head_marking_style.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
 			var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
 				h_marking_s.Blend(owner.m_colours["head"], ICON_ADD)
 			overlays |= h_marking_s
 
 	if(ha_style)
-		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
-		if(head_accessory_style && head_accessory_style.species_allowed && (species.name in head_accessory_style.species_allowed))
+		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
+		if(head_accessory_style && head_accessory_style.species_allowed && (dna.species.name in head_accessory_style.species_allowed))
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			if(head_accessory_style.do_colouration)
 				head_accessory_s.Blend(headacc_colour, ICON_ADD)
 			overlays |= head_accessory_s
 
 	if(f_style)
-		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
-		if(facial_hair_style && ((facial_hair_style.species_allowed && (species.name in facial_hair_style.species_allowed)) || (src.species.bodyflags & ALL_RPARTS)))
+		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
+		if(facial_hair_style && ((facial_hair_style.species_allowed && (dna.species.name in facial_hair_style.species_allowed)) || (dna.species.bodyflags & ALL_RPARTS)))
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
-			if(species.name == "Slime People") // I am el worstos
+			if(istype(dna.species, /datum/species/slime)) // I am el worstos
 				facial_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 			else if(facial_hair_style.do_colouration)
 				facial_s.Blend(facial_colour, ICON_ADD)
 			overlays |= facial_s
 
 	if(h_style && !(owner.head && (owner.head.flags & BLOCKHEADHAIR)))
-		var/datum/sprite_accessory/hair_style = hair_styles_full_list[h_style]
-		if(hair_style && ((species.name in hair_style.species_allowed) || (src.species.bodyflags & ALL_RPARTS)))
+		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
+		if(hair_style && ((dna.species.name in hair_style.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-			if(species.name == "Slime People") // I am el worstos
+			if(istype(dna.species, /datum/species/slime)) // I am el worstos
 				hair_s.Blend("[owner.skin_colour]A0", ICON_AND) //A0 = 160 alpha.
 			else if(hair_style.do_colouration)
 				hair_s.Blend(hair_colour, ICON_ADD)
@@ -172,7 +170,7 @@ var/global/list/limb_icon_cache = list()
 
 		if(skeletal)
 			icon_file = 'icons/mob/human_races/r_skeleton.dmi'
-		else if(status & ORGAN_ROBOT)
+		else if(is_robotic())
 			icon_file = 'icons/mob/human_races/robotic.dmi'
 		else
 			if(status & ORGAN_MUTATED)
@@ -184,7 +182,7 @@ var/global/list/limb_icon_cache = list()
 
 /obj/item/organ/external/chest/get_icon_state(skeletal)
 	var/result = ..()
-	if(fat && !skeletal && !(status & ORGAN_ROBOT) && (CAN_BE_FAT in species.species_traits))
+	if(fat && !skeletal && !is_robotic() && (CAN_BE_FAT in dna.species.species_traits))
 		result[2] += "_fat"
 	return result
 

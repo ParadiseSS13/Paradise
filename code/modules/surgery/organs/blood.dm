@@ -18,7 +18,7 @@
 /mob/living/carbon/human/handle_blood()
 	var/list/blood_data = get_blood_data(get_blood_id())//PROCCEPTION
 
-	if(NO_BLOOD in species.species_traits)
+	if(NO_BLOOD in dna.species.species_traits)
 		bleed_rate = 0
 		return
 
@@ -43,14 +43,14 @@
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
 					to_chat(src, "<span class='warning'>You feel [word].</span>")
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1), species.blood_damage_type)
+				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.01, 1), dna.species.blood_damage_type)
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), species.blood_damage_type)
+				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.02, 1), dna.species.blood_damage_type)
 				if(prob(5))
 					EyeBlurry(6)
 					to_chat(src, "<span class='warning'>You feel very [word].</span>")
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				apply_damage_type(5, species.blood_damage_type)
+				apply_damage_type(5, dna.species.blood_damage_type)
 				if(prob(15))
 					Paralyse(rand(1,3))
 					to_chat(src, "<span class='warning'>You feel extremely [word].</span>")
@@ -64,7 +64,7 @@
 			var/obj/item/organ/external/BP = X
 			var/brutedamage = BP.brute_dam
 
-			if(BP.status & ORGAN_ROBOT)
+			if(BP.is_robotic())
 				continue
 
 			//We want an accurate reading of .len
@@ -99,10 +99,10 @@
 				add_splatter_floor(loc, 1)
 
 /mob/living/carbon/human/bleed(amt)
-	if(!(NO_BLOOD in species.species_traits))
+	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
-		if(species.exotic_blood)
-			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
+		if(dna.species.exotic_blood)
+			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
 			if(istype(R) && isturf(loc))
 				R.reaction_turf(get_turf(src), amt)
 
@@ -186,7 +186,7 @@
 		blood_data["blood_type"] = copytext(src.dna.b_type,1,0)
 		blood_data["gender"] = gender
 		blood_data["real_name"] = real_name
-		blood_data["blood_color"] = species.blood_color
+		blood_data["blood_color"] = dna.species.blood_color
 		blood_data["factions"] = faction
 		return blood_data
 
@@ -199,9 +199,9 @@
 		return "blood"
 
 /mob/living/carbon/human/get_blood_id()
-	if(species.exotic_blood)//some races may bleed water..or kethcup..
-		return species.exotic_blood
-	else if((NO_BLOOD in species.species_traits) || (NOCLONE in mutations))
+	if(dna.species.exotic_blood)//some races may bleed water..or kethcup..
+		return dna.species.exotic_blood
+	else if((NO_BLOOD in dna.species.species_traits) || (NOCLONE in mutations))
 		return
 	return "blood"
 
@@ -279,7 +279,7 @@
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(!(NO_BLOOD in species.species_traits))
+	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)

@@ -95,17 +95,16 @@ Difficulty: Hard
 				visible_message("<span class='hierophant'>\"Vitemvw gsqtpixi. Stivexmsrep ijjmgmirgc gsqtvsqmwih.\"</span>")*/
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/death()
-	if(health > 0 || stat == DEAD)
-		return
-	else
-		stat = DEAD
-		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
-		animate(src, alpha = 0, color = "660099", time = 20, easing = EASE_OUT)
-		burst_range = 10
-		//visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")
-		visible_message("<span class='hierophant_warning'>[src] disappears in a massive burst of magic, leaving only its staff.</span>")
-		burst(get_turf(src))
-		..()
+	if(!can_die())
+		return FALSE
+	blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
+	animate(src, alpha = 0, color = "660099", time = 20, easing = EASE_OUT)
+	burst_range = 10
+	//visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")
+	visible_message("<span class='hierophant_warning'>[src] disappears in a massive burst of magic, leaving only its staff.</span>")
+	burst(get_turf(src))
+	// Things are in this order due to `del_on_death`
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
 	QDEL_NULL(spawned_rune)

@@ -17,7 +17,7 @@
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(!istype(target) || issmall(target) || NO_DNA in target.species.species_traits)
+	if(!istype(target) || issmall(target) || NO_DNA in target.dna.species.species_traits)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
 	return 1
@@ -49,8 +49,9 @@
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
+		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
 		user.key = ghost.key
-
+	qdel(ghost)
 	user.Paralyse(2)
 	target.add_language("Changeling")
 	user.remove_language("Changeling")

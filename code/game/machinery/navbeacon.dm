@@ -29,16 +29,16 @@
 	if(!codes || !codes.len)
 		log_runtime(EXCEPTION("Empty codes datum at ([x],[y],[z])"), src, list("codes_txt: '[codes_txt]'"))
 	if("patrol" in codes)
-		if(!navbeacons["[z]"])
-			navbeacons["[z]"] = list()
-		navbeacons["[z]"] += src //Register with the patrol list!
+		if(!GLOB.navbeacons["[z]"])
+			GLOB.navbeacons["[z]"] = list()
+		GLOB.navbeacons["[z]"] += src //Register with the patrol list!
 	if("delivery" in codes)
-		deliverybeacons += src
-		deliverybeacontags += location
+		GLOB.deliverybeacons += src
+		GLOB.deliverybeacontags += location
 
 /obj/machinery/navbeacon/Destroy()
-	navbeacons["[z]"] -= src //Remove from beacon list, if in one.
-	deliverybeacons -= src
+	GLOB.navbeacons["[z]"] -= src //Remove from beacon list, if in one.
+	GLOB.deliverybeacons -= src
 	return ..()
 
 /obj/machinery/navbeacon/serialize()
@@ -72,7 +72,7 @@
 // called when turf state changes
 // hide the object if turf is intact
 /obj/machinery/navbeacon/hide(intact)
-	invisibility = intact ? 101 : 0
+	invisibility = intact ? INVISIBILITY_MAXIMUM : SEE_INVISIBLE_MINIMUM
 	updateicon()
 
 // update the icon_state
@@ -97,17 +97,18 @@
 
 		updateicon()
 
-	else if(istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
+	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(open)
-			if(src.allowed(user))
-				src.locked = !src.locked
-				to_chat(user, "<span class='notice'>Controls are now [src.locked ? "locked" : "unlocked"].</span>")
+			if(allowed(user))
+				locked = !locked
+				to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
 			else
 				to_chat(user, "<span class='danger'>Access denied.</span>")
 			updateDialog()
 		else
 			to_chat(user, "<span class='warning'>You must open the cover first!</span>")
-	return
+	else
+		return ..()
 
 /obj/machinery/navbeacon/attack_ai(mob/user)
 	interact(user, 1)
@@ -213,3 +214,11 @@ Transponder Codes:<UL>"}
 			codes[newkey] = newval
 
 			updateDialog()
+
+
+/obj/machinery/navbeacon/invisible
+	invisibility = INVISIBILITY_MAXIMUM
+
+/obj/machinery/navbeacon/invisible/hide(intact)
+	invisibility = INVISIBILITY_MAXIMUM
+	updateicon()

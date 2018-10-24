@@ -32,10 +32,11 @@
 		if(ai.client && !ai.multicam_on)
 			ai.client.eye = src
 		//Holopad
-		if(ai.holo)
-			ai.holo.move_hologram()
 		if(ai.master_multicam)
 			ai.master_multicam.refresh_view()
+		if(istype(ai.current, /obj/machinery/hologram/holopad))
+			var/obj/machinery/hologram/holopad/H = ai.current
+			H.move_hologram(ai, T)
 
 /mob/camera/aiEye/Move()
 	return 0
@@ -140,6 +141,6 @@
 	acceleration = !acceleration
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
-/mob/camera/aiEye/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
+/mob/camera/aiEye/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
 	if(relay_speech)
 		ai.relay_speech(speaker, message, verb, language)

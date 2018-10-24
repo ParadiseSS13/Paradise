@@ -1,10 +1,10 @@
 /datum/preferences
 	//The mob should have a gender you want before running this proc. Will run fine without H
 /datum/preferences/proc/random_character(gender_override)
-	var/datum/species/S = all_species[species]
+	var/datum/species/S = GLOB.all_species[species]
 	if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 		species = initial(species)
-		S = all_species[species]
+		S = GLOB.all_species[species]
 	var/datum/robolimb/robohead
 
 	if(S.bodyflags & ALL_RPARTS)
@@ -216,20 +216,20 @@
 	if(gender == FEMALE)	g = "f"
 
 	var/icon/icobase
-	var/datum/species/current_species = all_species[species]
+	var/datum/species/current_species = GLOB.all_species[species]
 
 	//Icon-based species colour.
 	var/coloured_tail
 	if(current_species)
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			var/mob/living/carbon/human/H = new
-			H.species = current_species
+			H.dna.species = current_species
 			H.s_tone = s_tone
-			H.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
 			var/obj/item/organ/external/chest/C = H.get_organ("chest")
-			icobase = C.icobase ? C.icobase : C.species.icobase
-			if(H.species.bodyflags & HAS_TAIL)
-				coloured_tail = H.tail ? H.tail : H.species.tail
+			icobase = C.icobase ? C.icobase : C.dna.species.icobase
+			if(H.dna.species.bodyflags & HAS_TAIL)
+				coloured_tail = H.tail ? H.tail : H.dna.species.tail
 
 			qdel(H)
 		else
@@ -244,7 +244,7 @@
 	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
 	var/head = "head"
 	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/H = alt_heads_list[alt_head]
+		var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
 		if(H.icon_state)
 			head = H.icon_state
 	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
@@ -308,7 +308,7 @@
 
 		if(current_species && (current_species.bodyflags & HAS_TAIL_MARKINGS))
 			var/tail_marking = m_styles["tail"]
-			var/datum/sprite_accessory/tail_marking_style = marking_styles_list[tail_marking]
+			var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[tail_marking]
 			if(tail_marking_style && tail_marking_style.species_allowed)
 				var/icon/t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 				t_marking_s.Blend(m_colours["tail"], ICON_ADD)
@@ -320,14 +320,14 @@
 	if(current_species && ((current_species.bodyflags & HAS_HEAD_MARKINGS) || (current_species.bodyflags & HAS_BODY_MARKINGS)))
 		if(current_species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
 			var/body_marking = m_styles["body"]
-			var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
+			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
 			if(body_marking_style && body_marking_style.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 				b_marking_s.Blend(m_colours["body"], ICON_ADD)
 				preview_icon.Blend(b_marking_s, ICON_OVERLAY)
 		if(current_species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = m_styles["head"]
-			var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
+			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 			if(head_marking_style && head_marking_style.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 				h_marking_s.Blend(m_colours["head"], ICON_ADD)
@@ -341,7 +341,7 @@
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
 
-	var/datum/sprite_accessory/hair_style = hair_styles_full_list[h_style]
+	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
@@ -359,13 +359,13 @@
 
 	//Head Accessory
 	if(current_species && (current_species.bodyflags & HAS_HEAD_ACCESSORY))
-		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
+		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			head_accessory_s.Blend(hacc_colour, ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
+	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 	if(facial_hair_style && facial_hair_style.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(current_species.name == "Slime People") // whee I am part of the problem
@@ -383,19 +383,19 @@
 
 	var/icon/underwear_s = null
 	if(underwear && (current_species.clothing_flags & HAS_UNDERWEAR))
-		var/datum/sprite_accessory/underwear/U = underwear_list[underwear]
+		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
 		if(U)
 			underwear_s = new/icon(U.icon, "uw_[U.icon_state]_s", ICON_OVERLAY)
 
 	var/icon/undershirt_s = null
 	if(undershirt && (current_species.clothing_flags & HAS_UNDERSHIRT))
-		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
+		var/datum/sprite_accessory/undershirt/U2 = GLOB.undershirt_list[undershirt]
 		if(U2)
 			undershirt_s = new/icon(U2.icon, "us_[U2.icon_state]_s", ICON_OVERLAY)
 
 	var/icon/socks_s = null
 	if(socks && (current_species.clothing_flags & HAS_SOCKS))
-		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
+		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
 			socks_s = new/icon(U3.icon, "sk_[U3.icon_state]_s", ICON_OVERLAY)
 

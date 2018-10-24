@@ -24,7 +24,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
-		if(affected.status & ORGAN_ROBOT)
+		if(affected.is_robotic())
 			return 0
 		return 1
 	return 0
@@ -80,7 +80,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool]." , \
 	"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("The pain in [affected.name] is unbearable!",1)
+	target.custom_pain("The pain in [affected.name] is unbearable!")
 	..()
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -133,7 +133,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool]." , \
 	"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("The pain in [affected.name] is unbearable!",1)
+	target.custom_pain("The pain in [affected.name] is unbearable!")
 	..()
 
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -191,7 +191,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]." , \
 	"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!",1)
+	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
 	..()
 
 /datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -241,7 +241,7 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery/remove_thrall
 	name = "Remove Shadow Tumor"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/dethrall, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
+	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,  /datum/surgery_step/internal/dethrall, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("head", "chest", "groin")
 
 /datum/surgery/remove_thrall/synth
@@ -260,7 +260,7 @@
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
-	if(affected.status & ORGAN_ROBOT)
+	if(affected.is_robotic())
 		return 0
 	if(!(B in affected.internal_organs))
 		return 0
@@ -276,7 +276,7 @@
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
-	if(!(affected.status & ORGAN_ROBOT))
+	if(!affected.is_robotic())
 		return 0
 	if(!(B in affected.internal_organs))
 		return 0
@@ -303,11 +303,11 @@
 	..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(target.get_species() == "Lesser Shadowling") //Empowered thralls cannot be deconverted
+	if(isshadowlinglesser(target)) //Empowered thralls cannot be deconverted
 		to_chat(target, "<span class='shadowling'><b><i>NOT LIKE THIS!</i></b></span>")
 		user.visible_message("<span class='warning'>[target] suddenly slams upward and knocks down [user]!</span>", \
 							 "<span class='userdanger'>[target] suddenly bolts up and slams you with tremendous force!</span>")
-		user.resting = 0 //Remove all stuns
+		user.StopResting() //Remove all stuns
 		user.SetSleeping(0)
 		user.SetStunned(0)
 		user.SetWeakened(0)

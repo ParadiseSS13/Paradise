@@ -6,14 +6,26 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/colour = "red"
 	var/open = 0
+	var/list/lipstick_colors = list(
+		"purple" = "purple",
+		"jade" = "#216F43",
+		"lime" = "lime",
+		"black" = "black",
+		"green" = "green",
+		"blue" = "blue",
+		"white" = "white")
+
 
 /obj/item/lipstick/purple
 	name = "purple lipstick"
 	colour = "purple"
 
 /obj/item/lipstick/jade
-	//It's still called Jade, but theres no HTML color for jade, so we use lime.
 	name = "jade lipstick"
+	colour = "#216F43"
+
+/obj/item/lipstick/lime
+	name = "lime lipstick"
 	colour = "lime"
 
 /obj/item/lipstick/black
@@ -36,8 +48,9 @@
 	name = "lipstick"
 
 /obj/item/lipstick/random/New()
-	colour = pick("red","purple","lime","black","green","blue","white")
-	name = "[colour] lipstick"
+	var/lscolor = pick(lipstick_colors)//A random color is picked from the var defined initially in a new var.
+	colour = lipstick_colors[lscolor]//The color of the lipstick is pulled from the new variable (right hand side, HTML & Hex RGB)
+	name = "[lscolor] lipstick"//The new variable is also used to match the name to the color of the lipstick. Kudos to Desolate & Lemon
 
 
 /obj/item/lipstick/attack_self(mob/user as mob)
@@ -99,7 +112,7 @@
 			if(!get_location_accessible(H, "mouth"))
 				to_chat(user, "<span class='warning'>The mask is in the way.</span>")
 				return
-			if((C.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
+			if((C.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
 				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of facial hair.</span>")
 				return
 			if(C.f_style == "Shaved")
@@ -130,13 +143,13 @@
 			if(!get_location_accessible(H, "head"))
 				to_chat(user, "<span class='warning'>The headgear is in the way.</span>")
 				return
-			if((C.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
+			if((C.dna.species.bodyflags & ALL_RPARTS) && robohead.is_monitor) //If the target is of a species that can have prosthetic heads, but the head doesn't support human hair 'wigs'...
 				to_chat(user, "<span class='warning'>You find yourself disappointed at the appalling lack of hair.</span>")
 				return
 			if(C.h_style == "Bald" || C.h_style == "Balding Hair" || C.h_style == "Skinhead")
 				to_chat(user, "<span class='notice'>There is not enough hair left to shave...</span>")
 				return
-			if(M.get_species() == "Skrell")
+			if(isskrell(M))
 				to_chat(user, "<span class='warning'>Your razor isn't going to cut through tentacles.</span>")
 				return
 			if(H == user) //shaving yourself

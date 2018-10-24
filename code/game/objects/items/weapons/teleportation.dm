@@ -59,14 +59,14 @@ Frequency:
 		if(sr)
 			temp += "<B>Located Beacons:</B><BR>"
 
-			for(var/obj/item/radio/beacon/W in beacons)
+			for(var/obj/item/radio/beacon/W in GLOB.beacons)
 				if(W.frequency == frequency && !W.syndicate)
 					if(W && W.z == z)
 						var/turf/TB = get_turf(W)
 						temp += "[W.code]: [TB.x], [TB.y], [TB.z]<BR>"
 
 			temp += "<B>Located Implants:</B><BR>"
-			for(var/obj/item/implant/tracking/T in tracked_implants)
+			for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
 				if(!T.implanted || !T.imp_in)
 					continue
 
@@ -141,3 +141,6 @@ Frequency:
 	active_portals++
 	add_fingerprint(user)
 	return
+
+/obj/item/hand_tele/portal_destroyed(obj/effect/portal/P)
+    active_portals--

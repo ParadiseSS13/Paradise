@@ -17,7 +17,7 @@
 	var/ert_reason = "Reason for ERT"
 
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON
@@ -162,11 +162,11 @@
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
 			var/fullmin_count = 0
-			for(var/client/C in admins)
+			for(var/client/C in GLOB.admins)
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
 			if(fullmin_count)
-				ert_request_answered = 0
+				ert_request_answered = TRUE
 				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = "Reason for ERT"
 				feedback_inc("alert_keycard_auth_ert",1)

@@ -10,6 +10,7 @@
 	move_self = 1 //Do we move on our own?
 	grav_pull = 5 //How many tiles out do we pull?
 	consume_range = 6 //How many tiles out do we eat
+	gender = FEMALE
 
 /obj/singularity/narsie/large
 	name = "Nar-Sie"
@@ -37,8 +38,8 @@
 	narsie_spawn_animation()
 
 	sleep(70)
-	shuttle_master.emergency.request(null, 0.3) // Cannot recall
-	shuttle_master.emergency.canRecall = FALSE
+	SSshuttle.emergency.request(null, 0.3) // Cannot recall
+	SSshuttle.emergency.canRecall = FALSE
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, null, 1)
@@ -92,7 +93,7 @@
 /obj/singularity/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
 	var/list/cultists = list()
 	var/list/noncultists = list()
-	for(var/mob/living/carbon/food in living_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
+	for(var/mob/living/carbon/food in GLOB.living_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
 		if(pos.z != src.z)
 			continue
@@ -111,7 +112,7 @@
 			return
 
 	//no living humans, follow a ghost instead.
-	for(var/mob/dead/observer/ghost in player_list)
+	for(var/mob/dead/observer/ghost in GLOB.player_list)
 		if(!ghost.client)
 			continue
 		var/turf/pos = get_turf(ghost)

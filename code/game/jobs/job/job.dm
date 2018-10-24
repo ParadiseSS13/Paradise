@@ -74,12 +74,12 @@
 	if(!H)
 		return 0
 
-	H.species.before_equip_job(src, H, visualsOnly)
+	H.dna.species.before_equip_job(src, H, visualsOnly)
 
 	if(outfit)
 		H.equipOutfit(outfit, visualsOnly)
 
-	H.species.after_equip_job(src, H, visualsOnly)
+	H.dna.species.after_equip_job(src, H, visualsOnly)
 
 	if(!visualsOnly && announce)
 		announce(H)
@@ -183,7 +183,7 @@
 				else
 					permitted = TRUE
 
-				if(G.whitelisted && (G.whitelisted != H.species.name || !is_alien_whitelisted(H, G.whitelisted)))
+				if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
 					permitted = FALSE
 
 				if(!permitted)
@@ -215,7 +215,7 @@
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]")
+					to_chat(H, "<span class='notice'>Placing [G.display_name] in [placed_in.name].</span>")
 				continue
 			if(H.equip_to_appropriate_slot(G))
 				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")

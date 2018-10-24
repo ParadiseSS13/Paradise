@@ -371,7 +371,7 @@
 	)
 
 /datum/outfit/admin/vox/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	if(H.get_species() == "Vox Armalis")
+	if(isvoxarmalis(H))
 		. = ..()
 	else
 		H.equip_vox_raider()
@@ -669,9 +669,9 @@
 		return
 
 	if(is_tsf_lieutenant)
-		H.real_name = "Lieutenant [pick(last_names)]"
+		H.real_name = "Lieutenant [pick(GLOB.last_names)]"
 	else
-		H.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(last_names)]"
+		H.real_name = "[pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant First Class", "Master Sergeant", "Sergeant Major")] [pick(GLOB.last_names)]"
 	H.name = H.real_name
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
@@ -1063,6 +1063,7 @@
 
 
 /datum/outfit/admin/wizard
+	name = "Blue Wizard"
 	uniform = /obj/item/clothing/under/color/lightpurple
 	suit = /obj/item/clothing/suit/wizrobe
 	back = /obj/item/storage/backpack
@@ -1085,10 +1086,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Wizard")
-
-/datum/outfit/admin/wizard/blue
-	name = "Blue Wizard"
-	// the default wizard clothes are blue
 
 /datum/outfit/admin/wizard/red
 	name = "Red Wizard"

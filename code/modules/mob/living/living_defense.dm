@@ -122,14 +122,14 @@
 				M.mech_toxin_damage(src)
 			else
 				return
-		updatehealth()
+		updatehealth("mech melee attack")
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
 		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
 						"<span class='userdanger'>[src] has been hit by [M.name].</span>")
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		step_away(src,M)
-		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", FALSE)
+		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
 		return
@@ -240,7 +240,7 @@
 			to_chat(user, "<span class='notice'>You already grabbed [src].</span>")
 			return
 
-	add_attack_logs(user, src, "Grabbed passively", admin_notify = FALSE)
+	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
 
 	var/obj/item/grab/G = new /obj/item/grab(user, src)
 	if(buckled)
@@ -286,9 +286,7 @@
 				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
 				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
 
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(5, 1, src)
-				s.start()
+				do_sparks(5, 1, src)
 				return 1
 	add_attack_logs(src, M, "Slime'd")
 	return

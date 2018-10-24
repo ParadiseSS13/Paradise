@@ -67,6 +67,18 @@
 	fire_sound = 'sound/weapons/laser3.ogg'
 	e_cost = 125
 
+/obj/item/ammo_casing/energy/immolator/strong
+	projectile_type = /obj/item/projectile/beam/immolator/strong
+	e_cost = 125
+	select_name = "precise"
+
+/obj/item/ammo_casing/energy/immolator/scatter
+	projectile_type = /obj/item/projectile/beam/immolator/weak
+	e_cost = 125
+	pellets = 6
+	variance = 25
+	select_name = "scatter"
+
 /obj/item/ammo_casing/energy/electrode
 	projectile_type = /obj/item/projectile/energy/electrode
 	select_name = "stun"

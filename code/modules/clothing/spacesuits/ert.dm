@@ -9,9 +9,10 @@
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
 	strip_delay = 130
-	species_fit = list("Grey")
+	species_fit = list("Grey", "Vox")
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/attack_self(mob/user)
@@ -39,11 +40,12 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun/energy/laser, /obj/item/gun/energy/pulse, \
-	/obj/item/gun/energy/gun/advtaser, /obj/item/melee/baton, /obj/item/gun/energy/gun)
+	/obj/item/gun/energy/gun/advtaser, /obj/item/melee/baton, /obj/item/gun/energy/gun, /obj/item/gun/projectile/automatic/lasercarbine, /obj/item/gun/energy/gun/blueshield, /obj/item/gun/energy/immolator/multi)
 	strip_delay = 130
-	species_fit = list("Drask")
+	species_fit = list("Drask", "Vox")
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/species/drask/suit.dmi'
+		"Drask" = 'icons/mob/species/drask/suit.dmi',
+		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
 //Commander
@@ -54,11 +56,24 @@
 	item_state = "helm-command"
 	item_color = "ert_commander"
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/commander/gamma
+	name = "elite emergency response team commander helmet"
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammacommander"
+	item_color = "gammacommander"
+	species_fit = null
+
 /obj/item/clothing/suit/space/hardsuit/ert/commander
 	name = "emergency response team commander suit"
 	desc = "A suit worn by the commander of a Nanotrasen Emergency Response Team. Has blue highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_commander"
 	item_state = "suit-command"
+
+/obj/item/clothing/suit/space/hardsuit/ert/commander/gamma
+	name = "elite emergency response team commander suit"
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	icon_state = "ert_gcommander"
+	species_fit = null
 
 //Security
 /obj/item/clothing/head/helmet/space/hardsuit/ert/security
@@ -68,11 +83,24 @@
 	item_state = "syndicate-helm-black-red"
 	item_color = "ert_security"
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/security/gamma
+	name = "elite emergency response team security helmet"
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammasecurity"
+	item_color = "gammasecurity"
+	species_fit = null
+
 /obj/item/clothing/suit/space/hardsuit/ert/security
 	name = "emergency response team security suit"
 	desc = "A suit worn by security members of a Nanotrasen Emergency Response Team. Has red highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_security"
 	item_state = "syndicate-black-red"
+
+/obj/item/clothing/suit/space/hardsuit/ert/security/gamma
+	name = "elite emergency response team security suit"
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	icon_state = "ert_gsecurity"
+	species_fit = null
 
 //Engineer
 /obj/item/clothing/head/helmet/space/hardsuit/ert/engineer
@@ -82,11 +110,25 @@
 	item_state = "helm-orange"
 	item_color = "ert_engineer"
 
+//Engineer
+/obj/item/clothing/head/helmet/space/hardsuit/ert/engineer/gamma
+	name = "elite emergency response team engineer helmet"
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammaengineer"
+	item_color = "gammaengineer"
+	species_fit = null
+
 /obj/item/clothing/suit/space/hardsuit/ert/engineer
 	name = "emergency response team engineer suit"
 	desc = "A suit worn by the engineers of a Nanotrasen Emergency Response Team. Has yellow highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_engineer"
 	item_state = "suit-orange"
+
+/obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
+	name = "elite emergency response team engineer suit"
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	icon_state = "ert_gengineer"
+	species_fit = null
 
 //Medical
 /obj/item/clothing/head/helmet/space/hardsuit/ert/medical
@@ -95,10 +137,23 @@
 	icon_state = "hardsuit0-ert_medical"
 	item_color = "ert_medical"
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/medical/gamma
+	name = "elite emergency response team medical helmet"
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammamedical"
+	item_color = "gammamedical"
+	species_fit = null
+
 /obj/item/clothing/suit/space/hardsuit/ert/medical
 	name = "emergency response team medical suit"
 	desc = "A suit worn by medical members of a Nanotrasen Emergency Response Team. Has white highlights. Armoured and space ready."
 	icon_state = "ert_medical"
+
+/obj/item/clothing/suit/space/hardsuit/ert/medical/gamma
+	name = "elite emergency response team medical suit"
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	icon_state = "ert_gmedical"
+	species_fit = null
 
 //Janitor
 /obj/item/clothing/head/helmet/space/hardsuit/ert/janitor
@@ -107,10 +162,23 @@
 	icon_state = "hardsuit0-ert_janitor"
 	item_color = "ert_janitor"
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/janitor/gamma
+	name = "elite emergency response team janitor helmet"
+	max_heat_protection_temperature = FIRE_IMMUNITY_HELM_MAX_TEMP_PROTECT
+	icon_state = "hardsuit0-gammajanitor"
+	item_color = "gammajanitor"
+	species_fit = null
+
 /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	name = "emergency response team janitor suit"
 	desc = "A suit worn by the janitorial of a Nanotrasen Emergency Response Team. Has purple highlights. Armoured, space ready, and fire resistant."
 	icon_state = "ert_janitor"
+
+/obj/item/clothing/suit/space/hardsuit/ert/janitor/gamma
+	name = "elite emergency response team janitor suit"
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	icon_state = "ert_gjanitor"
+	species_fit = null
 
 //Paranormal
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal

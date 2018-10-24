@@ -168,7 +168,6 @@
 /obj/item/organ/internal/cyberimp/arm/gun/laser/l
 	parent_organ = "l_arm"
 
-
 /obj/item/organ/internal/cyberimp/arm/gun/taser
 	name = "arm-mounted taser implant"
 	desc = "A variant of the arm cannon implant that fires electrodes and disabler shots. The cannon emerges from the subject's arm and remains inside when not in use."
@@ -242,8 +241,12 @@
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
-	contents = newlist(/obj/item/retractor, /obj/item/hemostat, /obj/item/cautery, /obj/item/surgicaldrill, /obj/item/scalpel, /obj/item/circular_saw, /obj/item/bonegel, /obj/item/FixOVein, /obj/item/bonesetter)
+	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/bonesetter/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
+
+/obj/item/organ/internal/cyberimp/arm/surgery/l
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
 
 // lets make IPCs even *more* vulnerable to EMPs!
 /obj/item/organ/internal/cyberimp/arm/power_cord
@@ -281,9 +284,7 @@
 	var/mob/living/carbon/human/H = user
 	if(H.get_int_organ(/obj/item/organ/internal/cell))
 		if(A.emagged || A.stat & BROKEN)
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(3, 1, A)
-			s.start()
+			do_sparks(3, 1, A)
 			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
 			H.adjustFireLoss(10,0)
 		else if(A.cell && A.cell.charge > 0)
@@ -319,3 +320,15 @@
 			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 			break
 	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
+
+/obj/item/organ/internal/cyberimp/arm/telebaton
+	name = "telebaton implant"
+	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
+
+	contents = newlist(/obj/item/melee/classic_baton)
+
+/obj/item/organ/internal/cyberimp/arm/advmop
+	name = "advanced mop implant"
+	desc = "Advanced mop implant. Does what it says on the tin" // A better description
+
+	contents = newlist(/obj/item/mop/advanced)

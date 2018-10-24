@@ -13,7 +13,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
 	if(!affected)
 		return 0
-	if(affected.status & ORGAN_ROBOT)
+	if(affected.is_robotic())
 		return 0
 	return 1
 
@@ -23,7 +23,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
 	if(!affected)
 		return 0
-	if(!(affected.status & ORGAN_ROBOT))
+	if(!affected.is_robotic())
 		return 0
 
 	return 1

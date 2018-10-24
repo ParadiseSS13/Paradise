@@ -263,7 +263,7 @@
 		state = GRAB_AGGRESSIVE
 		icon_state = "grabbed1"
 		hud.icon_state = "reinforce1"
-		add_attack_logs(assailant, affecting, "Aggressively grabbed", admin_notify = FALSE)
+		add_attack_logs(assailant, affecting, "Aggressively grabbed", ATKLOG_ALL)
 	else if(state < GRAB_NECK)
 		if(isslime(affecting))
 			to_chat(assailant, "<span class='notice'>You squeeze [affecting], but nothing interesting happens.</span>")
@@ -273,7 +273,7 @@
 		state = GRAB_NECK
 		icon_state = "grabbed+1"
 		assailant.setDir(get_dir(assailant, affecting))
-		add_attack_logs(assailant, affecting, "Neck grabbed", admin_notify = FALSE)
+		add_attack_logs(assailant, affecting, "Neck grabbed", ATKLOG_ALL)
 		if(!iscarbon(assailant))
 			affecting.LAssailant = null
 		else
@@ -410,7 +410,7 @@
 		return 1
 
 	var/mob/living/carbon/human/H = attacker
-	if(ishuman(H) && is_type_in_list(prey,  H.species.allowed_consumed_mobs)) //species eating of other mobs
+	if(ishuman(H) && is_type_in_list(prey,  H.dna.species.allowed_consumed_mobs)) //species eating of other mobs
 		return 1
 
 	return 0
