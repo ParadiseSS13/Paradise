@@ -834,6 +834,8 @@
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
+	storage_slots = 14
+	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/New()
 	..()
@@ -848,7 +850,8 @@
 	new /obj/item/implanter/death_alarm(src)
 
 	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
-	new /obj/item/pinpointer/advpinpointer(src)
+	new /obj/item/pinpointer(src)
+	new /obj/item/pinpointer/crew(src)
 
 
 #undef NODESIGN

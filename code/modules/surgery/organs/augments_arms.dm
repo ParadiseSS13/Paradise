@@ -238,6 +238,14 @@
 		var/obj/item/flash/armimplant/F = locate(/obj/item/flash/armimplant) in items_list
 		F.I = src
 
+/obj/item/organ/internal/cyberimp/arm/combat/centcom
+	name = "specops cybernetics implant"
+	desc = "An extremely powerful cybernetic implant that contains combat and utility modules used by special forces"
+	contents = newlist(/obj/item/gun/energy/pulse/destroyer, /obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
+
+/obj/item/organ/internal/cyberimp/arm/combat/centcom/emp_act()
+	return
+
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"

@@ -595,6 +595,19 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/browntrenchcoat/specops
+	name = "specops trench coat"
+	desc = "A reinforced, armored trench coat worn by special forces operatives."
+	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
+	armor = list(melee = 80, bullet = 80, laser = 50, energy = 50, bomb = 100, bio = 100, rad = 100)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	unacidable = 1
+	strip_delay = 130
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/clothing/suit/blacktrenchcoat
 	name = "black trench coat"
 	desc = "That shade of black just makes you look a bit more evil. Good for those mafia types."

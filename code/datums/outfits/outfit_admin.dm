@@ -269,15 +269,12 @@
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/syndigaloshes
-	l_ear = /obj/item/radio/headset/heads/captain
+	l_ear = /obj/item/radio/headset/centcom
 	id = /obj/item/card/id/syndicate
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/gun/projectile/automatic/proto = 1, // NT saber SMG
-		/obj/item/suppressor = 1, // silencer for SMG
-		/obj/item/ammo_box/magazine/smgm9mm = 3, // SMG ammo
 		/obj/item/door_remote/omni = 1,
 		/obj/item/implanter/mindshield = 1, // not implanted by default, as that would make them suspicious
 		/obj/item/implanter/storage = 1 // do not auto-implant this, that causes a bug
@@ -290,7 +287,8 @@
 		/obj/item/organ/internal/cyberimp/eyes/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 
 /datum/outfit/admin/nt_undercover/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -302,7 +300,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Civilian")
 		I.icon_state = "deathsquad"
-
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
