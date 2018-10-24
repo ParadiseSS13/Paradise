@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - rscadd: "Tracking for shadowling win rate. Improved parsability for other win/loss round type's win rate."
