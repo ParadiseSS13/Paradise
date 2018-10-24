@@ -1,0 +1,5 @@
+author: "Certhic"
+delete-after: True
+changes: 
+  - bugfix: "Runtime error in CureIfHasDisability"
+  - bugfix: "Borg health is now updated after being repaired"
