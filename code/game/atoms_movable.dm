@@ -35,6 +35,8 @@
 		return
 	. = ..()
 
+
+
 /atom/movable/Destroy()
 	if(loc)
 		loc.handle_atom_del(src)
