@@ -17,6 +17,7 @@
 		// Species name is handled by set_species()
 
 	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
+	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 
 	..()
 

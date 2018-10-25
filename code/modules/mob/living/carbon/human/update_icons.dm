@@ -138,35 +138,41 @@ var/global/list/damage_icon_parts = list()
 	previous_damage_appearance = damage_appearance
 
 	remove_overlay(H_DAMAGE_LAYER)
-	var/mutable_appearance/standing_image = mutable_appearance(dna.species.damage_overlays, "00", layer = H_DAMAGE_LAYER)
+	var/mutable_appearance/damage_overlay = mutable_appearance(dna.species.damage_overlays, "00", layer = H_DAMAGE_LAYER)
+	overlays_standing[H_DAMAGE_LAYER] = damage_overlay
 
 	// blend the individual damage states with our icons
-	for(var/obj/item/organ/external/O in bodyparts)
-		O.update_icon()
-		if(O.damage_state == "00") continue
+	for(var/D in bodyparts)
+		var/obj/item/organ/external/E = D
+		E.update_icon()
+		if(E.damage_state == "00")
+			continue
+		
 		var/icon/DI
-		var/cache_index = "[O.damage_state]/[O.icon_name]/[dna.species.blood_color]/[dna.species.name]"
+		var/cache_index = "[E.damage_state]/[E.icon_name]/[dna.species.blood_color]/[dna.species.name]"
 
 		if(damage_icon_parts[cache_index] == null)
-			DI = new /icon(dna.species.damage_overlays, O.damage_state)			// the damage icon for whole human
-			DI.Blend(new /icon(dna.species.damage_mask, O.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
+			DI = new /icon(dna.species.damage_overlays, E.damage_state)			// the damage icon for whole human
+			DI.Blend(new /icon(dna.species.damage_mask, E.icon_name), ICON_MULTIPLY)	// mask with this organ's pixels
 			DI.Blend(dna.species.blood_color, ICON_MULTIPLY)
 			damage_icon_parts[cache_index] = DI
 		else
 			DI = damage_icon_parts[cache_index]
-		standing_image.overlays += DI
+		damage_overlay.overlays += DI
 
-	overlays_standing[H_DAMAGE_LAYER] = standing_image
 	apply_overlay(H_DAMAGE_LAYER)
 
 
 //BASE MOB SPRITE
 /mob/living/carbon/human/proc/update_body(var/update_icons=1, var/rebuild_base=0)
-	var/husk_color_mod = rgb(96,88,80)
-	var/hulk_color_mod = rgb(48,224,40)
+	remove_overlay(BODY_LAYER)
+	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
+	remove_overlay(UNDERWEAR_LAYER)
+
+	var/husk_color_mod = rgb(96, 88, 80)
+	var/hulk_color_mod = rgb(48, 224, 40)
 
 	var/husk = (HUSK in mutations)
-	var/fat = (FAT in mutations)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
 
@@ -179,43 +185,17 @@ var/global/list/damage_icon_parts = list()
 	if(stand_icon)
 		qdel(stand_icon)
 
-	stand_icon = new(dna.species.icon_template ? dna.species.icon_template : 'icons/mob/human.dmi', "blank")
-	var/icon_key = ""
-	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
-
-	if(eyes)
-		icon_key += "[eyes.eye_colour]"
-	else
-		icon_key += "#000000"
-
 	update_misc_effects()
-	for(var/organ_tag in dna.species.has_limbs)
-		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
-		if(isnull(part))
-			icon_key += "0"
-		else if(part.is_robotic())
-			icon_key += "2[part.model ? "-[part.model]": ""]"
-		else if(part.status & ORGAN_DEAD)
-			icon_key += "3"
-		else
-			icon_key += "1"
+	stand_icon = new (dna.species.icon_template ? dna.species.icon_template : 'icons/mob/human.dmi', "blank")
+	var/list/standing = list()
+	var/icon_key = generate_icon_render_key()
 
-		if(part)
-			var/datum/species/S = GLOB.all_species[part.dna.species.name] //This has to reference the species datums from round start, since they're global and unchanging
-			icon_key += "[S.race_key]"
-			icon_key += "[part.dna.GetUIState(DNA_UI_GENDER)]"
-			icon_key += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
-			if(part.s_col)
-				icon_key += "[part.s_col]"
-			if(part.s_tone)
-				icon_key += "[part.s_tone]"
-
-	icon_key = "[icon_key][husk ? 1 : 0][fat ? 1 : 0][hulk ? 1 : 0][skeleton ? 1 : 0]"
-
-	var/icon/base_icon
+	var/mutable_appearance/base
 	if(human_icon_cache[icon_key] && !rebuild_base)
-		base_icon = human_icon_cache[icon_key]
+		base = human_icon_cache[icon_key]
+		standing += base
 	else
+		var/icon/base_icon
 		//BEGIN CACHED ICON GENERATION.
 		var/obj/item/organ/external/chest = get_organ("chest")
 		base_icon = chest.get_icon(skeleton)
@@ -224,7 +204,7 @@ var/global/list/damage_icon_parts = list()
 			var/icon/temp = part.get_icon(skeleton)
 			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
 			//And no change in rendering for other parts (they icon_position is 0, so goes to 'else' part)
-			if(part.icon_position&(LEFT|RIGHT))
+			if(part.icon_position & (LEFT | RIGHT))
 				var/icon/temp2 = new('icons/mob/human.dmi',"blank")
 				temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
 				temp2.Insert(new/icon(temp,dir=SOUTH),dir=SOUTH)
@@ -256,20 +236,16 @@ var/global/list/damage_icon_parts = list()
 			husk_over.Blend(mask, ICON_ADD)
 			base_icon.Blend(husk_over, ICON_OVERLAY)
 
-		human_icon_cache[icon_key] = base_icon
+		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = LIMBS_LAYER)
+		human_icon_cache[icon_key] = new_base
+		standing += new_base
+		//END CACHED ICON GENERATION.
 
-	//END CACHED ICON GENERATION.
-	stand_icon.Blend(base_icon, ICON_OVERLAY)
-	if((!body_accessory || istype(body_accessory, /datum/body_accessory/tail)) && dna.species.bodyflags & TAIL_OVERLAPPED) // If the user's species is flagged to have a tail that needs to be overlapped by limbs... (having a non-tail body accessory like the snake body will override this)
-		overlays_standing[LIMBS_LAYER] = mutable_appearance(stand_icon, layer = LIMBS_LAYER) // Diverts limbs to their own layer so they can overlay things (i.e. tails).
-		apply_overlay(LIMBS_LAYER)
-	else
-		remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
+	overlays_standing[LIMBS_LAYER] = standing
+	apply_overlay(LIMBS_LAYER)
 
 	//Underwear
-	remove_overlay(UNDERWEAR_LAYER)
-	var/icon/underwear_standing = new/icon('icons/mob/underwear.dmi',"nude")
-
+	var/icon/underwear_standing = new /icon('icons/mob/underwear.dmi', "nude")
 	if(underwear && dna.species.clothing_flags & HAS_UNDERWEAR)
 		var/datum/sprite_accessory/underwear/U = GLOB.underwear_list[underwear]
 		if(U)
@@ -280,23 +256,22 @@ var/global/list/damage_icon_parts = list()
 		if(U2)
 			underwear_standing.Blend(new /icon(U2.icon, "us_[U2.icon_state]_s"), ICON_OVERLAY)
 
-
 	if(socks && dna.species.clothing_flags & HAS_SOCKS)
 		var/datum/sprite_accessory/socks/U3 = GLOB.socks_list[socks]
 		if(U3)
 			underwear_standing.Blend(new /icon(U3.icon, "sk_[U3.icon_state]_s"), ICON_OVERLAY)
 
 	if(underwear_standing)
-		overlays_standing[UNDERWEAR_LAYER]	= mutable_appearance(underwear_standing, layer = UNDERWEAR_LAYER)
-
+		overlays_standing[UNDERWEAR_LAYER] = mutable_appearance(underwear_standing, layer = UNDERWEAR_LAYER)
 	apply_overlay(UNDERWEAR_LAYER)
 
 	if(lip_style  && (LIPS in dna.species.species_traits))
 		var/icon/lips = icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "lips_[lip_style]_s")
 		lips.Blend(lip_color, ICON_ADD)
-		stand_icon.Blend(lips, ICON_OVERLAY)
+		standing += mutable_appearance(lips, layer = BODY_LAYER)
 
-	icon = stand_icon
+	overlays_standing[BODY_LAYER] = standing
+	apply_overlay(BODY_LAYER)
 	//tail
 	update_tail_layer(0)
 	//head accessory
@@ -1278,3 +1253,40 @@ var/global/list/damage_icon_parts = list()
 				continue
 			out += overlays_standing[i]
 	return out
+
+/mob/living/carbon/human/proc/generate_icon_render_key()
+	var/husk = (HUSK in mutations)
+	var/fat = (FAT in mutations)
+	var/hulk = (HULK in mutations)
+	var/skeleton = (SKELETON in mutations)
+
+	. = ""
+
+	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
+	if(eyes)
+		. += "[eyes.eye_colour]"
+	else
+		. += "#000000"
+
+	for(var/organ_tag in dna.species.has_limbs)
+		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
+		if(isnull(part))
+			. += "0"
+		else if(part.is_robotic())
+			. += "2[part.model ? "-[part.model]" : ""]"
+		else if(part.status & ORGAN_DEAD)
+			. += "3"
+		else
+			. += "1"
+
+		if(part)
+			var/datum/species/S = GLOB.all_species[part.dna.species.name]
+			. += "[S.race_key]"
+			. += "[part.dna.GetUIState(DNA_UI_GENDER)]"
+			. += "[part.dna.GetUIValue(DNA_UI_SKIN_TONE)]"
+			if(part.s_col)
+				. += "[part.s_col]"
+			if(part.s_tone)
+				. += "[part.s_tone]"
+
+	. = "[.][!!husk][!!fat][!!hulk][!!skeleton]"
