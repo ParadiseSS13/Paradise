@@ -407,6 +407,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_sel.selecting]
+
 		if(!S)
 			return
 

@@ -1,0 +1,6 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - rscadd: "PiP Hud Elements"
+  - experiment: "AI PiP Multicam - Enabled by admins"
+  - bugfix: "Calling /New( with excess arguments is now properly directed to /Initialize("

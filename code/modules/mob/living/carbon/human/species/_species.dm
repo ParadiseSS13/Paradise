@@ -286,6 +286,11 @@
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
 
+		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
+		if((H.health <= config.health_threshold_crit) && takes_crit_damage)
+			H.adjustBruteLoss(1)
+	return
+
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
