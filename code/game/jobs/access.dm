@@ -275,8 +275,6 @@ var/const/access_trade_sol = 160
 			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
 		if(REGION_COMMAND) //command
 			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_all_personal_lockers, access_heads_vault, access_blueshield, access_ntrep, access_hop, access_captain)
-		if(REGION_HOP)	//HoP remote buff
-			return get_region_accesses(REGION_GENERAL) + get_region_accesses(REGION_SUPPLY) + access_hop
 		if(REGION_CENTCOMM) //because why the heck not
 			return get_all_centcom_access() + get_all_accesses()
 
