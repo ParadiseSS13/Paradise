@@ -283,16 +283,19 @@ datum/chemical_reaction/flash_powder
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
-			M.AdjustEarDamage(rand(0, 5))
-			M.EarDeaf(15)
-			if(M.ear_damage >= 15)
-				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-				if(prob(M.ear_damage - 5))
-					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-					M.disabilities |= DEAF
-			else
-				if(M.ear_damage >= 5)
-					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+			M.AdjustEarDamage(rand(0, 5), 15)
+			if(iscarbon(M))
+				var/mob/living/carbon/C = M
+				var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+				if(istype(ears))
+					if(ears.ear_damage >= 15)
+						to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+						if(prob(ears.ear_damage - 5))
+							to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+							M.BecomeDeaf()
+					else
+						if(ears.ear_damage >= 5)
+							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
 	holder.remove_reagent("sonic_powder", created_volume)
 
 /datum/chemical_reaction/sonic_powder_deafen
@@ -318,16 +321,20 @@ datum/chemical_reaction/flash_powder
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
-			M.AdjustEarDamage(rand(0, 5))
-			M.EarDeaf(15)
-			if(M.ear_damage >= 15)
-				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-				if(prob(M.ear_damage - 5))
-					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-					M.BecomeDeaf()
-			else
-				if(M.ear_damage >= 5)
-					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+			M.AdjustEarDamage(rand(0, 5), 15)
+			if(iscarbon(M))
+				var/mob/living/carbon/C = M
+				var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+				if(istype(ears))
+					if(ears.ear_damage >= 15)
+						to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+						if(prob(ears.ear_damage - 5))
+							to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+							M.BecomeDeaf()
+					else
+						if(ears.ear_damage >= 5)
+							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+
 
 /datum/chemical_reaction/phlogiston
 	name = "phlogiston"
