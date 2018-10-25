@@ -237,7 +237,9 @@
 #define R_HAND_LAYER			31
 #define TARGETED_LAYER			32	//BS12: Layer for the target overlay from weapon targeting system
 #define FIRE_LAYER				33	//If you're on fire
-#define TOTAL_LAYERS			33
+#define MISC_LAYER				34
+#define FROZEN_LAYER			35
+#define TOTAL_LAYERS			35
 
 ///Access Region Codes///
 #define REGION_ALL			0

@@ -105,7 +105,6 @@ Please contact me on #coderbus IRC. ~Carn x
 
 /mob/living/carbon/human
 	var/list/overlays_standing[TOTAL_LAYERS]
-	var/list/misc_effect_overlays = list() //Overlays that are applied at a custom layer (defined in each image's .layer property) outside of standard overlay application. Updated in update_misc_effects()
 	var/previous_damage_appearance // store what the body last looked like, so we only have to update it if something changed
 	var/icon/skeleton
 	var/list/cached_standing_overlays = list() // List of everything currently in a human's actual overlays
@@ -189,6 +188,7 @@ var/global/list/damage_icon_parts = list()
 	else
 		icon_key += "#000000"
 
+	update_misc_effects()
 	for(var/organ_tag in dna.species.has_limbs)
 		var/obj/item/organ/external/part = bodyparts_by_name[organ_tag]
 		if(isnull(part))
@@ -296,6 +296,7 @@ var/global/list/damage_icon_parts = list()
 		lips.Blend(lip_color, ICON_ADD)
 		stand_icon.Blend(lips, ICON_OVERLAY)
 
+	icon = stand_icon
 	//tail
 	update_tail_layer(0)
 	//head accessory
@@ -1246,11 +1247,23 @@ var/global/list/damage_icon_parts = list()
 	apply_overlay(COLLAR_LAYER)
 
 /mob/living/carbon/human/proc/update_misc_effects()
-	misc_effect_overlays.Cut()
+	remove_overlay(MISC_LAYER)
 
 	//Begin appending miscellaneous effects.
 	if(eyes_shine())
-		misc_effect_overlays += get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
+		overlays_standing[MISC_LAYER] = get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
+
+	apply_overlay(MISC_LAYER)
+
+/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE)
+	. = ..()
+	overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = FROZEN_LAYER)
+	apply_overlay(FROZEN_LAYER)
+
+/mob/living/carbon/human/admin_unFreeze(client/admin, skip_overlays = TRUE)
+	. = ..()
+	remove_overlay(FROZEN_LAYER)
+
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)
