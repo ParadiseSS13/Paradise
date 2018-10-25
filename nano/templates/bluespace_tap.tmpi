@@ -1,0 +1,60 @@
+<h3>Input Management</h3>
+<div style="min-width: 550px">
+
+<div class="item">
+	<div class="itemLabel">
+		Surplus power in network:
+	</div>
+	<div class="itemContent">
+		{{:helper.smoothRound(data.available_power)}} W
+	</div>
+		<div class="itemLabel">
+		Power demand at current setting:
+	</div>
+	<div class="itemContent">
+		{{:helper.smoothRound(data.power_use)}} W
+	</div>
+	<div class="itemLabel">
+		Machine mining level:
+	</div>
+	<div class="itemContent">
+		{{:helper.link('-', null, {'decrease' : '1'}, (data.level > 0) ? null : 'disabled')}} {{:helper.link(data.level, null, {'set' : '1'})}} {{:helper.link('+', null, {'increase' : '1'}, (data.level < data.max_level) ? null : 'disabled')}}
+	</div>
+	<div class="itemContent">
+		{{if data.emagged == 1}}
+			<span class='bad'>CAUTION. Device operating with reduced safety margins for output optimisation.</span>
+		{{/if}}
+		{{if data.level > 7}}
+			<span class='bad'>Device output high, anomalies are possible.</span>
+		{{/if}}
+	</div>
+</div>
+
+<h3>Mining Points</h3>
+<div class ="item">
+	<div class ="itemLabel">
+		Available points:
+	</div>
+	<div class="itemContent">
+		{{:data.points}}
+	</div>
+	<div class ="itemLabel">
+		Total points:
+	</div>
+	<div class="itemContent">
+		{{:data.total_points}}
+	</div>
+	<h2>Available targets:</h2>
+	<!--Lists purchases (hopefully)-->
+	{{for data.product}}
+	<div class="itemLabel">
+		{{:value.name}}
+	</div>
+	<div class ="itemContent">
+		{{:helper.link(value.price, null, { "vend" : value.key }, value.price < data.points ? null : 'disabled')}}
+	</div>
+
+
+	{{/for}}
+</div>
+</div>

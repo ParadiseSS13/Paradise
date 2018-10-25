@@ -174,3 +174,12 @@
 
 /obj/item/assembly/signaler/anomaly/attack_self()
 	return
+
+//a random anomaly core, with a random tech level at 7
+/obj/item/assembly/signaler/anomaly/random
+	desc = "A strange anomaly from another universe, who knows what technological discovers it might enable."
+
+/obj/item/assembly/signaler/anomaly/random/New()
+	..()
+	origin_tech = pick("magnets=7", "engineering=7", "plasmatech=7", "powerstorage=7", "bluespace=7", "biotech=7", "combat=7")//random tech origin
+
