@@ -38,13 +38,14 @@
 	return "\The [src]'s power light is [receiving?"on":"off"]"
 
 /obj/item/assembly/signaler/activate()
-	if(cooldown > 0)	return 0
+	if(cooldown > 0)
+		return FALSE
 	cooldown = 2
 	spawn(10)
 		process_cooldown()
 
 	signal()
-	return 1
+	return TRUE
 
 /obj/item/assembly/signaler/update_icon()
 	if(holder)
@@ -53,10 +54,6 @@
 
 /obj/item/assembly/signaler/interact(mob/user as mob, flag1)
 	var/t1 = "-------"
-//	if((src.b_stat && !( flag1 )))
-//		t1 = text("-------<BR>\nGreen Wire: []<BR>\nRed Wire:   []<BR>\nBlue Wire:  []<BR>\n", (src.wires & 4 ? "<A href='?src=[UID()];wires=4'>Cut Wire</A>" : "<A href='?src=[UID()];wires=4'>Mend Wire</A>"), (src.wires & 2 ? "<A href='?src=[UID()];wires=2'>Cut Wire</A>" : "<A href='?src=[UID()];wires=2'>Mend Wire</A>"), (src.wires & 1 ? "<A href='?src=[UID()];wires=1'>Cut Wire</A>" : "<A href='?src=[UID()];wires=1'>Mend Wire</A>"))
-//	else
-//		t1 = "-------"	Speaker: [src.listening ? "<A href='byond://?src=[UID()];listen=0'>Engaged</A>" : "<A href='byond://?src=[UID()];listen=1'>Disengaged</A>"]<BR>
 	var/dat = {"
 		<TT>
 	"}
@@ -144,13 +141,14 @@
 		return ..(radio)
 
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)
-	if( !receiving || !signal )
-		return 0
+	if(!receiving || !signal)
+		return FALSE
 
 	if(signal.encryption != code)
-		return 0
+		return FALSE
 
-	if(!(src.wires & WIRE_RADIO_RECEIVE))	return 0
+	if(!(src.wires & WIRE_RADIO_RECEIVE))
+		return FALSE
 	pulse(1)
 
 	for(var/mob/O in hearers(1, src.loc))

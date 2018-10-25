@@ -42,7 +42,7 @@
 
 		qdel(src)
 		return
-	if((istype(W, /obj/item/weldingtool) && W:welding))
+	if(istype(W, /obj/item/weldingtool) && W:welding)
 		if(!status)
 			status = 1
 			investigate_log("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)

@@ -21,7 +21,8 @@
 
 
 /obj/item/assembly/igniter/activate()
-	if(!..())	return 0//Cooldown check
+	if(!..())
+		return FALSE//Cooldown check
 	var/turf/location = get_turf(loc)
 	if(location)	location.hotspot_expose(1000,1000)
 	if(istype(src.loc,/obj/item/assembly_holder))
@@ -35,7 +36,7 @@
 				beakerbomb.heat_beaker()
 
 	sparks.start()
-	return 1
+	return TRUE
 
 
 /obj/item/assembly/igniter/attack_self(mob/user as mob)

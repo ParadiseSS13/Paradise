@@ -33,10 +33,11 @@
 	to_chat(user, describe())
 
 /obj/item/assembly/infra/activate()
-	if(!..())	return 0//Cooldown check
+	if(!..())
+		return FALSE//Cooldown check
 	on = !on
 	update_icon()
-	return 1
+	return TRUE
 
 /obj/item/assembly/infra/toggle_secure()
 	secured = !secured
@@ -110,9 +111,10 @@
 	qdel(first)
 
 /obj/item/assembly/infra/holder_movement()
-	if(!holder)	return 0
+	if(!holder)
+		return FALSE
 	qdel(first)
-	return 1
+	return TRUE
 
 /obj/item/assembly/infra/equipped(var/mob/user, var/slot)
 	qdel(first)
@@ -124,7 +126,7 @@
 
 /obj/item/assembly/infra/proc/trigger_beam()
 	if(!secured || !on || cooldown > 0)
-		return 0
+		return FALSE
 	pulse(0)
 	audible_message("[bicon(src)] *beep* *beep*", null, 3)
 	if(first)
