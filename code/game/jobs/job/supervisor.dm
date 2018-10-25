@@ -260,7 +260,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	glasses = /obj/item/clothing/glasses/hud/security
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/laser_pointer
-	r_pocket = /obj/item/flash
+	r_pocket = /obj/item/reagent_containers/spray/pepper
 	l_hand = /obj/item/storage/briefcase
 	pda = /obj/item/pda/lawyer
 	implants = list(/obj/item/implant/mindshield)
