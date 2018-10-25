@@ -105,7 +105,7 @@
 /obj/item/door_remote/civillian
 	name = "civillian door remote"
 	icon_state = "gangtool-white"
-	region_access = REGION_GENERAL
+	region_access = REGION_HOP
 
 /obj/item/door_remote/centcomm
 	name = "centcomm door remote"
