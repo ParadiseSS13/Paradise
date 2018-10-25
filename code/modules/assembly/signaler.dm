@@ -67,14 +67,14 @@
 		Frequency:
 		<A href='byond://?src=[UID()];freq=-10'>-</A>
 		<A href='byond://?src=[UID()];freq=-2'>-</A>
-		[format_frequency(src.frequency)]
+		[format_frequency(frequency)]
 		<A href='byond://?src=[UID()];freq=2'>+</A>
 		<A href='byond://?src=[UID()];freq=10'>+</A><BR>
 
 		Code:
 		<A href='byond://?src=[UID()];code=-5'>-</A>
 		<A href='byond://?src=[UID()];code=-1'>-</A>
-		[src.code]
+		[code]
 		<A href='byond://?src=[UID()];code=1'>+</A>
 		<A href='byond://?src=[UID()];code=5'>+</A><BR>
 		[t1]
@@ -102,10 +102,10 @@
 		set_frequency(new_frequency)
 
 	if(href_list["code"])
-		src.code += text2num(href_list["code"])
-		src.code = round(src.code)
-		src.code = min(100, src.code)
-		src.code = max(1, src.code)
+		code += text2num(href_list["code"])
+		code = round(code)
+		code = min(100, code)
+		code = max(1, code)
 	if(href_list["receive"])
 		receiving = !receiving
 
@@ -135,7 +135,7 @@
 	return
 
 /obj/item/assembly/signaler/pulse(var/radio = 0)
-	if(src.connected && src.wires)
+	if(connected && wires)
 		connected.Pulse(src)
 	else
 		return ..(radio)
@@ -147,11 +147,11 @@
 	if(signal.encryption != code)
 		return FALSE
 
-	if(!(src.wires & WIRE_RADIO_RECEIVE))
+	if(!(wires & WIRE_RADIO_RECEIVE))
 		return FALSE
 	pulse(1)
 
-	for(var/mob/O in hearers(1, src.loc))
+	for(var/mob/O in hearers(1, loc))
 		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
 	return
 

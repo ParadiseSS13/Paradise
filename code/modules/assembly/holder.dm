@@ -30,7 +30,7 @@
 	return ..()
 
 /obj/item/assembly_holder/attach(var/obj/item/D, var/obj/item/D2, var/mob/user)
-	if(!D||!D2)
+	if(!D || !D2)
 		return FALSE
 	if(!isassembly(D) || !isassembly(D2))
 		return FALSE
@@ -60,7 +60,7 @@
 		for(var/O in a_left.attached_overlays)
 			overlays += "[O]_l"
 	if(a_right)
-		src.overlays += "[a_right.icon_state]_right"
+		overlays += "[a_right.icon_state]_right"
 		for(var/O in a_right.attached_overlays)
 			overlays += "[O]_r"
 	if(master)
@@ -69,8 +69,8 @@
 
 /obj/item/assembly_holder/examine(mob/user)
 	..(user)
-	if(in_range(src, user) || src.loc == user)
-		if(src.secured)
+	if(in_range(src, user) || loc == user)
+		if(secured)
 			to_chat(user, "\The [src] is ready!")
 		else
 			to_chat(user, "\The [src] can be attached!")
@@ -157,8 +157,8 @@
 
 
 /obj/item/assembly_holder/attack_self(mob/user as mob)
-	src.add_fingerprint(user)
-	if(src.secured)
+	add_fingerprint(user)
+	if(secured)
 		if(!a_left || !a_right)
 			to_chat(user, "<span class='warning'>Assembly part missing!</span>")
 			return

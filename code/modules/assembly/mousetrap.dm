@@ -58,7 +58,7 @@
 		var/mob/living/simple_animal/mouse/M = target
 		visible_message("<span class='danger'>SPLAT!</span>")
 		M.splat()
-	playsound(src.loc, 'sound/effects/snap.ogg', 50, 1)
+	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 	layer = MOB_LAYER - 0.2
 	armed = 0
 	update_icon()
