@@ -30,7 +30,9 @@
 	var/busy = FALSE
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 
+	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/Wirecutter.ogg'
+
 
 /obj/machinery/camera/New()
 	..()
