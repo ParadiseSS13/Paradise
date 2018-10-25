@@ -57,9 +57,9 @@
 	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
+	. = ..()
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
-	return ..()
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
