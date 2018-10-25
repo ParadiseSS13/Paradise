@@ -598,6 +598,7 @@
 
 		if(objective)
 			objectives -= objective
+			qdel(objective)
 			objectives.Insert(objective_pos, new_objective)
 		else
 			objectives += new_objective
@@ -613,6 +614,7 @@
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
 		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s objectives: [objective]")
+		qdel(objective)
 
 	else if(href_list["obj_completed"])
 		var/datum/objective/objective = locate(href_list["obj_completed"])
@@ -939,6 +941,7 @@
 					special_role = null
 					for(var/datum/objective/nuclear/O in objectives)
 						objectives-=O
+						qdel(O)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
