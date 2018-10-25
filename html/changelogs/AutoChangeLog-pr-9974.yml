@@ -1,4 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - bugfix: "User responses not being appended to admin tickets"

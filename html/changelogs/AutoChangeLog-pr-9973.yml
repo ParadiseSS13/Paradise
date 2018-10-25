@@ -1,4 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "Objectives now get fully removed when removing them admin style. Removing the assassinate cryo message if you were de antagged."
