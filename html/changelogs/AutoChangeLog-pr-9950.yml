@@ -1,0 +1,4 @@
+author: "Dave-TH"
+delete-after: True
+changes: 
+  - rscadd: "Adds surgical trays! You can drag these cool tables around and the items placed on them come along for the ride! Nifty!"
