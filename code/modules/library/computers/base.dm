@@ -15,9 +15,24 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "computer"
 
+/obj/machinery/computer/library/attackby(obj/item/I, mob/user)
+	if(iswrench(I))
+		playsound(src, I.usesound, 50)
+		if(anchored)
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			anchored = FALSE
+		else
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			anchored = TRUE
+		return
+
 /obj/machinery/computer/library/proc/interact_check(var/mob/user)
 	if(stat & (BROKEN | NOPOWER))
 		return 1
+
+	if(!anchored)
+		to_chat(user, "<span class='notice'>You must anchor [src] first</span>")
+		return
 
 	if(!Adjacent(user))
 		if(!issilicon(user) && !isobserver(user))

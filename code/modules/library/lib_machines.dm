@@ -151,6 +151,20 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/obj/item/book/cache		// Last scanned book
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
+	if(iswrench(I))
+		playsound(src, I.usesound, 50)
+		if(anchored)
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			anchored = FALSE
+		else
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			anchored = TRUE
+		return
+	
+	if(!anchored)
+		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
+		return
+
 	if(istype(I, /obj/item/book))
 		user.drop_item()
 		I.forceMove(src)
@@ -207,6 +221,16 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	density = 1
 
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
+	if(iswrench(I))
+		playsound(src, I.usesound, 50)
+		if(anchored)
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			anchored = FALSE
+		else
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			anchored = TRUE
+		return
+
 	var/obj/item/paper/P = I
 	if(istype(P))
 		user.drop_item()
