@@ -35,7 +35,7 @@
 	var/obj/item/storage/bible/B = new /obj/item/storage/bible(H)
 
 	spawn()
-		H.equip_to_slot_or_del(B, slot_l_hand)
+		H.equip_to_slot_or_del(B, slot_r_hand)
 
 		var/religion_name = "Christianity"
 		var/new_religion = sanitize(copytext(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name),1,MAX_NAME_LEN))
