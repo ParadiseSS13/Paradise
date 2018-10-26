@@ -204,10 +204,11 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				36
-#define MUTANTRACE_LAYER		35
-#define TAIL_UNDERLIMBS_LAYER	34	//Tail split-rendering.
-#define LIMBS_LAYER				33
+#define BODY_LAYER				37
+#define MUTANTRACE_LAYER		36
+#define TAIL_UNDERLIMBS_LAYER	35	//Tail split-rendering.
+#define LIMBS_LAYER				34
+#define INTORGAN_LAYER			33
 #define MARKINGS_LAYER			32
 #define UNDERWEAR_LAYER			31
 #define MUTATIONS_LAYER			30
@@ -240,7 +241,7 @@
 #define FIRE_LAYER				3	//If you're on fire
 #define MISC_LAYER				2
 #define FROZEN_LAYER			1
-#define TOTAL_LAYERS			36
+#define TOTAL_LAYERS			37
 
 ///Access Region Codes///
 #define REGION_ALL			0

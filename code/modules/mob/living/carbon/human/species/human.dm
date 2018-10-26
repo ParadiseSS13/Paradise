@@ -18,3 +18,10 @@
 
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
+
+/datum/species/human/cat
+	name = "Felinid"
+	name_plural = "Felinids"
+	blurb = "CATGIRLS OMG"
+
+	mutantears = /obj/item/organ/internal/ears/cat

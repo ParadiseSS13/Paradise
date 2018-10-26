@@ -265,8 +265,7 @@
 				else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				AdjustEarDamage(30)
-				AdjustEarDeaf(120)
+				AdjustEarDamage(30, 120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
 
@@ -290,8 +289,7 @@
 					else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				AdjustEarDamage(15)
-				AdjustEarDeaf(60)
+				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
 

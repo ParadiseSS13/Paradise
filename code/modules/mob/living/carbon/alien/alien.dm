@@ -27,6 +27,7 @@
 	verbs += /mob/living/verb/lay_down
 	alien_organs += new /obj/item/organ/internal/brain/xeno
 	alien_organs += new /obj/item/organ/internal/xenos/hivenode
+	alien_organs += new /obj/item/organ/internal/ears
 	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
 	..()

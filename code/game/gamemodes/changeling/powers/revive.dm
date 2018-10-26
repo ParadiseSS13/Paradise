@@ -16,8 +16,7 @@
 	user.radiation = 0
 	user.SetEyeBlind(0, FALSE)
 	user.SetEyeBlurry(0, FALSE)
-	user.SetEarDamage(0)
-	user.SetEarDeaf(0)
+	user.RestoreEars()
 	user.heal_overall_damage(user.getBruteLoss(), user.getFireLoss(), updating_health = FALSE)
 	user.CureBlind(FALSE)
 	user.CureDeaf()

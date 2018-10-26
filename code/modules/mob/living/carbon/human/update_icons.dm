@@ -274,6 +274,7 @@ var/global/list/damage_icon_parts = list()
 	apply_overlay(BODY_LAYER)
 	//tail
 	update_tail_layer(0)
+	update_int_organs()
 	//head accessory
 	update_head_accessory(0)
 	//markings
@@ -1186,6 +1187,19 @@ var/global/list/damage_icon_parts = list()
 	remove_overlay(TAIL_UNDERLIMBS_LAYER)
 	remove_overlay(TAIL_LAYER)
 	update_tail_layer(update_icons) //just trigger a full update for normal stationary sprites
+
+/mob/living/carbon/human/proc/update_int_organs()
+	remove_overlay(INTORGAN_LAYER)
+
+	var/list/standing = list()
+	for(var/organ in internal_organs)
+		var/obj/item/organ/internal/I = organ
+		var/render = I.render()
+		if(render)
+			standing += render
+
+	overlays_standing[INTORGAN_LAYER] = standing
+	apply_overlay(INTORGAN_LAYER)
 
 /mob/living/carbon/human/handle_transform_change()
 	..()

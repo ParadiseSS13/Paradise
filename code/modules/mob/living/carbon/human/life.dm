@@ -786,20 +786,6 @@
 				AdjustEyeBlurry(-1)
 
 
-		//Ears
-		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			EarDeaf(1)
-
-		else if(ear_deaf)			//deafness, heals slowly over time
-			AdjustEarDeaf(-1)
-
-		else if(istype(l_ear, /obj/item/clothing/ears/earmuffs) || istype(r_ear, /obj/item/clothing/ears/earmuffs))	//resting your ears with earmuffs heals ear damage faster
-			AdjustEarDamage(-0.15)
-			EarDeaf(1)
-
-		else if(ear_damage < 25)	//ear damage heals slowly under this threshold. otherwise you'll need earmuffs
-			AdjustEarDamage(-0.05)
-
 		if(flying)
 			animate(src, pixel_y = pixel_y + 5 , time = 10, loop = 1, easing = SINE_EASING)
 			animate(pixel_y = pixel_y - 5, time = 10, loop = 1, easing = SINE_EASING)
