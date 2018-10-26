@@ -75,7 +75,7 @@
 	name = "illicit intercom"
 	desc = "Talk through this. Evilly"
 	frequency = SYND_FREQ
-	subspace_transmission = 1
+	subspace_transmission = TRUE
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/intercom/syndicate/New()

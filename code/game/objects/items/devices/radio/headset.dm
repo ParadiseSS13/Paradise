@@ -5,12 +5,12 @@
 	icon_state = "headset"
 	item_state = "headset"
 	materials = list(MAT_METAL=75)
-	subspace_transmission = 1
+	subspace_transmission = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
 
 	slot_flags = SLOT_EARS
-	var/translate_binary = 0
-	var/translate_hive = 0
+	var/translate_binary = FALSE
+	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
 	var/obj/item/encryptionkey/keyslot2 = null
 
@@ -33,7 +33,7 @@
 		if(keyslot2.syndie)
 			syndiekey = keyslot2
 
-	recalculateChannels(1)
+	recalculateChannels(TRUE)
 
 /obj/item/radio/headset/Destroy()
 	QDEL_NULL(keyslot1)
@@ -352,10 +352,10 @@
 	return
 
 
-/obj/item/radio/headset/proc/recalculateChannels(var/setDescription = 0)
+/obj/item/radio/headset/proc/recalculateChannels(var/setDescription = FALSE)
 	channels = list()
-	translate_binary = 0
-	translate_hive = 0
+	translate_binary = FALSE
+	translate_hive = FALSE
 	syndiekey = null
 
 	if(keyslot1)
@@ -366,10 +366,10 @@
 			channels[ch_name] = keyslot1.channels[ch_name]
 
 		if(keyslot1.translate_binary)
-			translate_binary = 1
+			translate_binary = TRUE
 
 		if(keyslot1.translate_hive)
-			translate_hive = 1
+			translate_hive = TRUE
 
 		if(keyslot1.syndie)
 			syndiekey = keyslot1
@@ -382,10 +382,10 @@
 			channels[ch_name] = keyslot2.channels[ch_name]
 
 		if(keyslot2.translate_binary)
-			translate_binary = 1
+			translate_binary = TRUE
 
 		if(keyslot2.translate_hive)
-			translate_hive = 1
+			translate_hive = TRUE
 
 		if(keyslot2.syndie)
 			syndiekey = keyslot2

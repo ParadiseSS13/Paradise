@@ -395,12 +395,12 @@ var/global/list/default_medbay_channels = list(
 	if(ishuman(M) && M.GetVoice() != real_name)
 		displayname = M.GetVoice()
 		jobname = "Unknown"
-		voicemask = 1
+		voicemask = TRUE
 
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
 		jobname = "Unknown"
-		voicemask = 1
+		voicemask = TRUE
 
 
   /* ###### Radio headsets can only broadcast through subspace ###### */
