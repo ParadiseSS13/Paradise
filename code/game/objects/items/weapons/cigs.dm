@@ -306,6 +306,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 
 /obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/reagent_containers))
+		return
 	if(istype(W, /obj/item/match))
 		..()
 	else
@@ -371,6 +373,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	return
 
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/reagent_containers))
+		return
 	if(istype(W, /obj/item/match))
 		..()
 	else
