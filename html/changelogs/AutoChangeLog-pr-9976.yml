@@ -1,0 +1,4 @@
+author: "Mitchs98"
+delete-after: True
+changes: 
+  - bugfix: "Fixes #8036, Door controls not respecting range for pod doors."
