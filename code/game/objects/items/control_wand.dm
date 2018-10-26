@@ -20,8 +20,7 @@
 	ID = new /obj/item/card/id
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)
-	for(var/add_access in additional_access)
-		ID.access += add_access
+	ID.access += additional_access
 	ID.access = uniquelist(ID.access)	//remove duplicates
 
 /obj/item/door_remote/Destroy()
