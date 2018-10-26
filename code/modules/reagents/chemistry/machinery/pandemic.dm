@@ -216,7 +216,7 @@
 
 /obj/machinery/computer/pandemic/attack_hand(mob/user)
 	if(!anchored)
-		to_chat(user, "<span class='notice'>You must anchor [src] first</span>"
+		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
 		return
 	if(..())
 		return
@@ -322,17 +322,19 @@
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
 	if(iswrench(I))
+		if(isinspace())
+			return
 		playsound(src, I.usesound, 50)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
 			anchored = FALSE
 		else
-			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			to_chat(user, "<span class='notice'>You wrench [src] to the floor.</span>")
 			anchored = TRUE
 		return
-		
+
 	if(!anchored)
-		to_chat(user, "<span class='notice'>You must anchor [src] first</span>")
+		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
 		return
 
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))

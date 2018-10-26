@@ -152,17 +152,19 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
 	if(iswrench(I))
+		if(isinspace())
+			return
 		playsound(src, I.usesound, 50)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
 			anchored = FALSE
 		else
-			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			to_chat(user, "<span class='notice'>You wrench [src] to the floor.</span>")
 			anchored = TRUE
 		return
 	
 	if(!anchored)
-		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
+		to_chat(user, "<span class='notice'>You must anchor [src] first!!</span>")
 		return
 
 	if(istype(I, /obj/item/book))

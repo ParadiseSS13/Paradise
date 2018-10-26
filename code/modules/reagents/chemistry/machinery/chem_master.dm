@@ -51,18 +51,20 @@
 
 /obj/machinery/chem_master/attackby(obj/item/B, mob/user, params)
 
-	if(iswrench(I))
-		playsound(src, I.usesound, 50)
+	if(iswrench(B))
+		if(isinspace())
+			return
+		playsound(src, B.usesound, 50)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
 			anchored = FALSE
 		else
-			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			to_chat(user, "<span class='notice'>You wrench [src] to the floor.</span>")
 			anchored = TRUE
 		return
 	
 	if(!anchored)
-		to_chat(user, "<span class='notice'>You must anchor [src] first</span>")
+		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
 		return
 	
 	if(istype(B, /obj/item/reagent_containers/glass) || istype(B, /obj/item/reagent_containers/food/drinks/drinkingglass))
@@ -338,7 +340,7 @@
 
 /obj/machinery/chem_master/attack_hand(mob/user)
 	if(!anchored)
-		to_chat(user, "<span class='notice'>You must anchor [src] first</span>")
+		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
 		return
 	if(..())
 		return 1

@@ -17,12 +17,14 @@
 
 /obj/machinery/computer/library/attackby(obj/item/I, mob/user)
 	if(iswrench(I))
+		if(isinspace())
+			return
 		playsound(src, I.usesound, 50)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
 			anchored = FALSE
 		else
-			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			to_chat(user, "<span class='notice'>You wrench [src] to the floor.</span>")
 			anchored = TRUE
 		return
 
@@ -31,7 +33,7 @@
 		return 1
 
 	if(!anchored)
-		to_chat(user, "<span class='notice'>You must anchor [src] first</span>")
+		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
 		return
 
 	if(!Adjacent(user))

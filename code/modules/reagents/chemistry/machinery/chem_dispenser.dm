@@ -193,6 +193,9 @@
 	return 1 // update UIs attached to this object
 
 /obj/machinery/chem_dispenser/attackby(obj/item/reagent_containers/B, mob/user, params)
+	if(!anchored)
+		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
+		return
 	if(isrobot(user))
 		return
 
@@ -242,13 +245,15 @@
 			hackedcheck = 0
 			return
 
-	if(iswrench(I))
-		playsound(src, I.usesound, 50)
+	if(iswrench(B))
+		if(isinspace())
+			return
+		playsound(src, B.usesound, 50)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
 			anchored = FALSE
 		else
-			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			to_chat(user, "<span class='notice'>You wrench [src] to the floor.</span>")
 			anchored = TRUE
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
@@ -261,7 +266,7 @@
 	if(stat & BROKEN)
 		return
 	if(!anchored)
-		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
+		to_chat(user, "<span class='notice'>You must anchor [src] first!!</span>")
 		return
 
 	ui_interact(user)
