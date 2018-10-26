@@ -242,6 +242,15 @@
 			hackedcheck = 0
 			return
 
+	if(iswrench(I))
+		playsound(src, I.usesound, 50)
+		if(anchored)
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			anchored = FALSE
+		else
+			to_chat(user, "<span class='notice'>You unwrench [src] from the floor.</span>")
+			anchored = TRUE
+
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)
 
@@ -250,6 +259,9 @@
 
 /obj/machinery/chem_dispenser/attack_hand(mob/user)
 	if(stat & BROKEN)
+		return
+	if(!anchored)
+		to_chat(user, "<span class='notice'>You must anchor [src] first!</span>")
 		return
 
 	ui_interact(user)
