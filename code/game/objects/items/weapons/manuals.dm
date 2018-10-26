@@ -809,44 +809,6 @@
 		</html>
 
 		"}
-	var/selected_law = null
-	var/last_hit = 0
-
-/obj/item/book/manual/security_space_law/attack(mob/living/M, mob/living/user, def_zone)
-	. = ..()
-	if(ishuman(M))
-		if(last_hit < world.time - 30) // Every 3 seconds you can do this
-			last_hit = world.time
-			var/law = selected_law ? selected_law : pick(GLOB.space_laws)
-			show_law(M, law)
-		else
-			if(prob(33))
-				playsound(user, 'sound/weapons/Genhit.ogg', 50, 1)
-				user.Stun(3)
-				user.Weaken(3)
-				user.apply_effect(STUTTER, 3)
-				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
-				var/law = "106, Abuse of Equipment" // Fitting don't you think?
-				show_law(user, law)
-				if(prob(20))
-					user.adjustBrainLoss(5)
-					user.say("LAW!!!", null, "screams")
-
-/obj/item/book/manual/security_space_law/proc/show_law(mob/living/carbon/human/H, law)
-	H.show_message("<span class='danger'>You hear a stern voice in your head!</span>")
-	H.show_message("<span class='danger'>[law]. [GLOB.space_laws[law]]</span>")
-
-/obj/item/book/manual/security_space_law/AltClick(mob/user)
-	if(ishuman(user) && ishuman(loc))
-		if(!selected_law)
-			selected_law = input(usr, "Pick a law to show.", "Law selection") as null|anything in GLOB.space_laws
-			user.show_message("<span class='notice'>You will now show [selected_law].</span>")
-		else
-			selected_law = null
-			user.show_message("<span class='notice'>You will now show a random law.</span>")
-	else
-		. = ..()
-	
 
 /obj/item/book/manual/security_space_law/black
 	name = "Space Law - Limited Edition"
