@@ -1,4 +1,0 @@
-author: "Mitchs98"
-delete-after: True
-changes: 
-  - bugfix: "Now when holding a flag it won't be stabbing into your characters face. Burning a flag also won't magically change its orientation."
