@@ -617,7 +617,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	else
 		H.see_invisible = SEE_INVISIBLE_LIVING
 
-	if(H.client.eye != H)
+	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
 		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
 			return
