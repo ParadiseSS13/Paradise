@@ -274,6 +274,9 @@
 	set category = "Object"
 	set src in oview(1)
 
+	if(!can_touch(usr) || ismouse(usr))
+		return
+
 	if(!unflip())
 		to_chat(usr, "<span class='notice'>It won't budge.</span>")
 		return
