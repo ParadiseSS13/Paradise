@@ -110,7 +110,8 @@
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
+	var/chem_amount = holder.get_reagent_amount("sorium")
+	goonchem_vortex(T, 1, min(10, chem_amount), min(11, chem_amount + 1))
 
 /datum/chemical_reaction/liquid_dark_matter
 	name = "Liquid Dark Matter"
@@ -135,7 +136,8 @@
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
+	var/chem_amount = holder.get_reagent_amount("liquid_dark_matter")
+	goonchem_vortex(T, 0, min(10, chem_amount), min(11, chem_amount + 1))
 
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
