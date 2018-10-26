@@ -1,4 +1,0 @@
-author: "dovydas12345"
-delete-after: True
-changes: 
-  - bugfix: "Fixes ghosts being able to unflip flipped tables."
