@@ -27,7 +27,7 @@
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'> None of [src] left, oh no!</span>")
 		return FALSE
-	
+
 	if(!is_drainable())
 		to_chat(user, "<span class='warning'> You need to open [src] first!</span>")
 		return FALSE
@@ -70,7 +70,7 @@
 		if(target.reagents.holder_full())
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
-		
+
 		var/datum/reagent/refill
 		var/datum/reagent/refillName
 		if(isrobot(user))
@@ -388,8 +388,8 @@
 	list_reagents = list()
 
 /obj/item/reagent_containers/food/drinks/oilcan
-	name = "Oil Injection Device"
-	desc = "A device with a spout on one end for use in replacing fluid in synthtics who have sprung leaks."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "fixovein_old"
+	name = "oil can"
+	desc = "Contains oil intended for use on cyborgs, robots, and other synthetics."
+	icon = 'icons/goonstation/objects/oil.dmi'
+	icon_state = "oilcan"
 	volume = 100
