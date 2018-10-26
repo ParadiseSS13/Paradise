@@ -104,14 +104,15 @@
 /datum/chemical_reaction/sorium_vortex
 	name = "sorium_vortex"
 	id = "sorium_vortex"
-	result = null
+	result = "sorium_vortex"
 	required_reagents = list("sorium" = 1)
+	result_amount = 1
 	min_temp = 474
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	var/chem_amount = holder.get_reagent_amount("sorium")
-	goonchem_vortex(T, 1, min(10, chem_amount), min(11, chem_amount + 1))
+	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
+	holder.remove_reagent("sorium_vortex", created_volume)
 
 /datum/chemical_reaction/liquid_dark_matter
 	name = "Liquid Dark Matter"
@@ -130,14 +131,15 @@
 /datum/chemical_reaction/ldm_vortex
 	name = "LDM Vortex"
 	id = "ldm_vortex"
-	result = null
+	result = "ldm_vortex"
 	required_reagents = list("liquid_dark_matter" = 1)
+	result_amount = 1
 	min_temp = 474
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
-	var/chem_amount = holder.get_reagent_amount("liquid_dark_matter")
-	goonchem_vortex(T, 0, min(10, chem_amount), min(11, chem_amount + 1))
+	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
+	holder.remove_reagent("ldm_vortex", created_volume)
 
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
