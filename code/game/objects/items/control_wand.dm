@@ -115,7 +115,7 @@
 
 /obj/item/door_remote/omni/access_tuner
 	name = "access tuner"
-	desc = "A device illegally interfacing with doors."
+	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
 	item_state = "hacktool"
 	var/hack_speed = 30
