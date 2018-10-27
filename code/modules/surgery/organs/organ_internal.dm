@@ -64,6 +64,7 @@
 			log_runtime(EXCEPTION("[src] attempted to remove from a [parent_organ], but [parent_organ] didn't exist! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs -= src
+		H.update_int_organs()
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -104,6 +105,10 @@
 		return 0
 	insert(H)
 	return 1
+
+// Rendering!
+/obj/item/organ/internal/proc/render()
+	return
 
 /obj/item/reagent_containers/food/snacks/organ
 	name = "appendix"
@@ -247,7 +252,7 @@
 		to_chat(owner, "<font color='red' size='7'>HONK</font>")
 		owner.SetSleeping(0)
 		owner.Stuttering(20)
-		owner.AdjustEarDeaf(30)
+		owner.MinimumDeafTicks(30)
 		owner.Weaken(3)
 		owner << 'sound/items/AirHorn.ogg'
 		if(prob(30))

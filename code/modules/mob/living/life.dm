@@ -170,15 +170,6 @@
 	else if(eye_blurry)			//blurry eyes heal slowly
 		AdjustEyeBlurry(-1)
 
-	//Ears
-	if(disabilities & DEAF)		//disabled-deaf, doesn't get better on its own
-		EarDeaf(1)
-	else
-		// deafness heals slowly over time, unless ear_damage is over 100
-		if(ear_damage < 100)
-			AdjustEarDamage(-0.05)
-			AdjustEarDeaf(-1)
-
 //this handles hud updates. Calls update_vision() and handle_hud_icons()
 /mob/living/proc/handle_regular_hud_updates()
 	if(!client)	return 0

@@ -48,7 +48,7 @@
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
-	var/list/species_allowed = list("Human", "Slime People")
+	var/list/species_allowed = list("Human", "Felinid", "Slime People")
 	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
 	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.
 	var/list/tails_allowed = null //Specifies which, if any, tails a tail marking is compatible with.
@@ -75,7 +75,7 @@
 /datum/sprite_accessory/hair/bald
 	name = "Bald"
 	icon_state = "bald"
-	species_allowed = list("Human", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
+	species_allowed = list("Human", "Felinid", "Unathi", "Vox", "Diona", "Kidan", "Grey", "Plasmaman", "Skeleton", "Vulpkanin", "Tajaran")
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/short
@@ -169,7 +169,7 @@
 	name = "Pompadour"
 	icon_state = "hair_pompadour"
 	gender = MALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list("Human", "Felinid", "Slime People", "Unathi")
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/quiff
@@ -194,19 +194,19 @@
 	name = "Beehive"
 	icon_state = "hair_beehive"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list("Human", "Felinid", "Slime People", "Unathi")
 
 /datum/sprite_accessory/hair/bobcurl
 	name = "Bobcurl"
 	icon_state = "hair_bobcurl"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list("Human", "Felinid", "Slime People", "Unathi")
 
 /datum/sprite_accessory/hair/bob
 	name = "Bob"
 	icon_state = "hair_bobcut"
 	gender = FEMALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list("Human", "Felinid", "Slime People", "Unathi")
 
 /datum/sprite_accessory/hair/bowl
 	name = "Bowl"
@@ -234,7 +234,7 @@
 	name = "Buzzcut"
 	icon_state = "hair_buzzcut"
 	gender = MALE
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list("Human", "Felinid", "Slime People", "Unathi")
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/crew
@@ -303,7 +303,7 @@
 /datum/sprite_accessory/hair/mohawk
 	name = "Mohawk"
 	icon_state = "hair_d"
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list("Human", "Felinid", "Slime People", "Unathi")
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/jensen
@@ -338,7 +338,7 @@
 /datum/sprite_accessory/hair/spiky
 	name = "Spiky"
 	icon_state = "hair_spikey"
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list("Human", "Felinid", "Slime People", "Unathi")
 	glasses_over = 1
 
 /datum/sprite_accessory/hair/kusanagi
@@ -1535,7 +1535,7 @@
 	name = "Shaved"
 	icon_state = "bald"
 	gender = NEUTER
-	species_allowed = list("Human", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People")
+	species_allowed = list("Human", "Felinid", "Unathi", "Tajaran", "Skrell", "Vox", "Diona", "Kidan", "Greys", "Vulpkanin", "Slime People")
 
 /datum/sprite_accessory/facial_hair/watson
 	name = "Watson Mustache"
@@ -1576,7 +1576,7 @@
 /datum/sprite_accessory/facial_hair/elvis
 	name = "Elvis Sideburns"
 	icon_state = "facial_elvis"
-	species_allowed = list("Human", "Slime People", "Unathi")
+	species_allowed = list("Human", "Felinid", "Slime People", "Unathi")
 
 /datum/sprite_accessory/facial_hair/abe
 	name = "Abraham Lincoln Beard"
@@ -1813,7 +1813,7 @@
 /datum/sprite_accessory/skin/human
 	name = "Default human skin"
 	icon_state = "default"
-	species_allowed = list("Human")
+	species_allowed = list("Human", "Felinid")
 
 /datum/sprite_accessory/skin/human/human_tatt01
 	name = "Tatt01 human skin"
@@ -1848,13 +1848,13 @@
 ///////////////////////////
 /datum/sprite_accessory/underwear
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Felinid", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/underwear/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Felinid", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/underwear/male
 	gender = MALE
@@ -1974,13 +1974,13 @@
 ////////////////////////////
 /datum/sprite_accessory/undershirt
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Felinid", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/undershirt/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Felinid", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 //plain color shirts
 /datum/sprite_accessory/undershirt/shirt_white
@@ -2210,13 +2210,13 @@
 ///////////////////////
 /datum/sprite_accessory/socks
 	icon = 'icons/mob/underwear.dmi'
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
+	species_allowed = list("Human", "Felinid", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask")
 	gender = NEUTER
 
 /datum/sprite_accessory/socks/nude
 	name = "Nude"
 	icon_state = null
-	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
+	species_allowed = list("Human", "Felinid", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox")
 
 /datum/sprite_accessory/socks/white_norm
 	name = "Normal White"
@@ -2342,7 +2342,7 @@
 
 /datum/sprite_accessory/head_accessory/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
+	species_allowed = list("Human", "Felinid", "Unathi", "Diona", "Grey", "Kidan", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/head_accessory/unathi
@@ -2595,7 +2595,7 @@
 
 /datum/sprite_accessory/body_markings/none
 	name = "None"
-	species_allowed = list("Human", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox", "Kidan")
+	species_allowed = list("Human", "Felinid", "Unathi", "Diona", "Grey", "Machine", "Tajaran", "Vulpkanin", "Skrell", "Slime People", "Skeleton", "Vox", "Kidan")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/tiger
@@ -2863,7 +2863,7 @@
 	models_allowed = list("Xion Manufacturing Group alt.")
 
 /datum/sprite_accessory/body_markings/tattoo // Tattoos applied post-round startup with tattoo guns in item_defines.dm
-	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
+	species_allowed = list("Human", "Felinid", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "accessory_none"
 
 /datum/sprite_accessory/body_markings/tattoo/elliot
@@ -2873,7 +2873,7 @@
 
 /datum/sprite_accessory/body_markings/tattoo/tiger_body
 	name = "Tiger-stripe Tattoo"
-	species_allowed = list("Human", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
+	species_allowed = list("Human", "Felinid", "Unathi", "Vulpkanin", "Tajaran", "Skrell")
 	icon_state = "markings_tiger"
 
 /datum/sprite_accessory/body_markings/tattoo/heart
