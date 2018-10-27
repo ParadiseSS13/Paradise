@@ -15,10 +15,10 @@
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
-	var/secured = 1
+	var/secured = TRUE
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
-	var/cooldown = 0 //To prevent spam
+	var/cooldown = FALSE //To prevent spam
 	var/wires = WIRE_RECEIVE | WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
@@ -31,10 +31,10 @@
 /obj/item/assembly/proc/activate()									//What the device does when turned on
 	return
 
-/obj/item/assembly/proc/pulsed(radio = 0)						//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
+/obj/item/assembly/proc/pulsed(radio = FALSE)						//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
 	return
 
-/obj/item/assembly/proc/pulse(radio = 0)						//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
+/obj/item/assembly/proc/pulse(radio = FALSE)						//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
 	return
 
 /obj/item/assembly/proc/toggle_secure()								//Code that has to happen when the assembly is un\secured goes here
@@ -73,14 +73,14 @@
 		holder = null
 	return ..()
 
-/obj/item/assembly/pulsed(radio = 0)
+/obj/item/assembly/pulsed(radio = FALSE)
 	if(holder && (wires & WIRE_RECEIVE))
 		activate()
 	if(radio && (wires & WIRE_RADIO_RECEIVE))
 		activate()
 	return TRUE
 
-/obj/item/assembly/pulse(radio = 0)
+/obj/item/assembly/pulse(radio = FALSE)
 	if(holder && (wires & WIRE_PULSE))
 		holder.process_activation(src, 1, 0)
 	if(holder && (wires & WIRE_PULSE_SPECIAL))

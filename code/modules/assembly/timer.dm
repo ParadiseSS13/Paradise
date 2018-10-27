@@ -5,13 +5,13 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 	origin_tech = "magnets=1;engineering=1"
 
-	secured = 0
+	secured = FALSE
 
 	bomb_name = "time bomb"
 
-	var/timing = 0
+	var/timing = FALSE
 	var/time = 10
-	var/repeat = 0
+	var/repeat = FALSE
 	var/set_time = 10
 
 /obj/item/assembly/timer/describe()
@@ -31,7 +31,7 @@
 	if(secured)
 		processing_objects.Add(src)
 	else
-		timing = 0
+		timing = FALSE
 		processing_objects.Remove(src)
 	update_icon()
 	return secured
@@ -45,7 +45,6 @@
 	cooldown = 2
 	spawn(10)
 		process_cooldown()
-	return
 
 /obj/item/assembly/timer/process()
 	if(timing && (time > 0))
@@ -54,7 +53,6 @@
 		timing = repeat
 		timer_end()
 		time = set_time
-	return
 
 /obj/item/assembly/timer/update_icon()
 	overlays.Cut()
@@ -64,7 +62,6 @@
 		attached_overlays += "timer_timing"
 	if(holder)
 		holder.update_icon()
-	return
 
 /obj/item/assembly/timer/interact(mob/user as mob)//TODO: Have this use the wires
 	if(!secured)
@@ -94,11 +91,10 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "timer")
-	return
 
 /obj/item/assembly/timer/Topic(href, href_list)
 	..()
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(usr.incapacitated() || !in_range(loc, usr))
 		usr << browse(null, "window=timer")
 		onclose(usr, "timer")
 		return

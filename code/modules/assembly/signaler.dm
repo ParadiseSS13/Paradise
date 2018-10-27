@@ -8,7 +8,7 @@
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
 	secured = 1
-	var/receiving = 0
+	var/receiving = FALSE
 
 	bomb_name = "remote-control bomb"
 
@@ -35,7 +35,7 @@
 	return ..()
 
 /obj/item/assembly/signaler/describe()
-	return "\The [src]'s power light is [receiving?"on":"off"]"
+	return "[src]'s power light is [receiving ? "on" : "off"]"
 
 /obj/item/assembly/signaler/activate()
 	if(cooldown > 0)
@@ -52,7 +52,7 @@
 		holder.update_icon()
 	return
 
-/obj/item/assembly/signaler/interact(mob/user as mob, flag1)
+/obj/item/assembly/signaler/interact(mob/user, flag1)
 	var/t1 = "-------"
 	var/dat = {"
 		<TT>
@@ -84,8 +84,6 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "radio")
-	return
-
 
 /obj/item/assembly/signaler/Topic(href, href_list)
 	..()
@@ -116,10 +114,9 @@
 	if(usr)
 		attack_self(usr)
 
-	return
-
 /obj/item/assembly/signaler/proc/signal()
-	if(!radio_connection) return
+	if(!radio_connection)
+		return
 
 	var/datum/signal/signal = new
 	signal.source = src
@@ -132,9 +129,7 @@
 	if(usr)
 		lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
 
-	return
-
-/obj/item/assembly/signaler/pulse(var/radio = 0)
+/obj/item/assembly/signaler/pulse(var/radio = FALSE)
 	if(connected && wires)
 		connected.Pulse(src)
 	else
@@ -153,7 +148,6 @@
 
 	for(var/mob/O in hearers(1, loc))
 		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
-	return
 
 /obj/item/assembly/signaler/proc/set_frequency(new_frequency)
 	if(!radio_controller)
@@ -163,7 +157,6 @@
 	radio_controller.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
-	return
 
 // Embedded signaller used in anomalies.
 /obj/item/assembly/signaler/anomaly
@@ -171,7 +164,7 @@
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
 	icon_state = "anomaly core"
 	item_state = "electronic"
-	receiving = 1
+	receiving = TRUE
 
 /obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
 	..()

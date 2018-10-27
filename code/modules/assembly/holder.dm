@@ -9,11 +9,11 @@
 	throw_speed = 3
 	throw_range = 10
 
-	var/secured = 0
+	var/secured = FALSE
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
-/obj/item/assembly_holder/proc/attach(var/obj/item/D, var/obj/item/D2, var/mob/user)
+/obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
 	return
 
 /obj/item/assembly_holder/proc/process_activation(var/obj/item/D)
@@ -29,26 +29,28 @@
 		a_right.holder = null
 	return ..()
 
-/obj/item/assembly_holder/attach(var/obj/item/D, var/obj/item/D2, var/mob/user)
+/obj/item/assembly_holder/attach(obj/item/D, obj/item/D2, mob/user)
 	if(!D || !D2)
 		return FALSE
 	if(!isassembly(D) || !isassembly(D2))
 		return FALSE
-	if(D:secured || D2:secured)
+	var/obj/item/assembly/A1 = D
+	var/obj/item/assembly/A2 = D2
+	if(A1.secured || A2.secured)
 		return FALSE
-	if(!D.remove_item_from_storage(src))
+	if(!A1.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(D)
-		D.loc = src
-	if(!D2.remove_item_from_storage(src))
+			user.remove_from_mob(A1)
+		A1.loc = src
+	if(!A2.remove_item_from_storage(src))
 		if(user)
-			user.remove_from_mob(D2)
-		D2.loc = src
-	D:holder = src
-	D2:holder = src
-	a_left = D
-	a_right = D2
-	name = "[D.name]-[D2.name] assembly"
+			user.remove_from_mob(A2)
+		A2.loc = src
+	A1.holder = src
+	A2.holder = src
+	a_left = A1
+	a_right = A2
+	name = "[A1.name]-[A2.name] assembly"
 	update_icon()
 	return TRUE
 
@@ -71,38 +73,38 @@
 	..(user)
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			to_chat(user, "\The [src] is ready!")
+			to_chat(user, "[src] is ready!")
 		else
-			to_chat(user, "\The [src] can be attached!")
+			to_chat(user, "[src] can be attached!")
 
 
-/obj/item/assembly_holder/HasProximity(atom/movable/AM as mob|obj)
+/obj/item/assembly_holder/HasProximity(atom/movable/AM)
 	if(a_left)
 		a_left.HasProximity(AM)
 	if(a_right)
 		a_right.HasProximity(AM)
 
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM as mob|obj)
+/obj/item/assembly_holder/Crossed(atom/movable/AM)
 	if(a_left)
 		a_left.Crossed(AM)
 	if(a_right)
 		a_right.Crossed(AM)
 
-/obj/item/assembly_holder/on_found(mob/finder as mob)
+/obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
 		a_left.on_found(finder)
 	if(a_right)
 		a_right.on_found(finder)
 
 
-/obj/item/assembly_holder/hear_talk(mob/living/M as mob, msg)
+/obj/item/assembly_holder/hear_talk(mob/living/M, msg)
 	if(a_left)
 		a_left.hear_talk(M, msg)
 	if(a_right)
 		a_right.hear_talk(M, msg)
 
-/obj/item/assembly_holder/hear_message(mob/living/M as mob, msg)
+/obj/item/assembly_holder/hear_message(mob/living/M, msg)
 	if(a_left)
 		a_left.hear_message(M, msg)
 	if(a_right)
@@ -137,8 +139,8 @@
 	..()
 	return
 
-/obj/item/assembly_holder/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/screwdriver))
+/obj/item/assembly_holder/attackby(obj/item/W, mob/user, params)
+	if(isscrewdriver(W))
 		if(!a_left || !a_right)
 			to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
 			return
@@ -146,9 +148,9 @@
 		a_right.toggle_secure()
 		secured = !secured
 		if(secured)
-			to_chat(user, "<span class='notice'>\The [src] is ready!</span>")
+			to_chat(user, "<span class='notice'>[src] is ready!</span>")
 		else
-			to_chat(user, "<span class='notice'>\The [src] can now be taken apart!</span>")
+			to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
 		update_icon()
 		return
 	else
@@ -156,16 +158,18 @@
 	return
 
 
-/obj/item/assembly_holder/attack_self(mob/user as mob)
+/obj/item/assembly_holder/attack_self(mob/user)
 	add_fingerprint(user)
 	if(secured)
 		if(!a_left || !a_right)
 			to_chat(user, "<span class='warning'>Assembly part missing!</span>")
 			return
-		if(istype(a_left,a_right.type))//If they are the same type it causes issues due to window code
+		if(istype(a_left, a_right.type))//If they are the same type it causes issues due to window code
 			switch(alert("Which side would you like to use?",,"Left","Right"))
-				if("Left")	a_left.attack_self(user)
-				if("Right")	a_right.attack_self(user)
+				if("Left")
+					a_left.attack_self(user)
+				if("Right")
+					a_right.attack_self(user)
 			return
 		else
 			a_left.attack_self(user)
@@ -175,17 +179,15 @@
 		if(!T)
 			return FALSE
 		if(a_left)
-			a_left:holder = null
+			a_left.holder = null
 			a_left.loc = T
 		if(a_right)
-			a_right:holder = null
+			a_right.holder = null
 			a_right.loc = T
-		spawn(0)
-			qdel(src)
-	return
+		qdel(src)
 
 
-/obj/item/assembly_holder/process_activation(var/obj/D, var/normal = 1, var/special = 1)
+/obj/item/assembly_holder/process_activation(obj/D, normal = TRUE, special = TRUE)
 	if(!D)
 		return FALSE
 	if(normal && a_right && a_left)
@@ -197,17 +199,13 @@
 		master.receive_signal()
 	return TRUE
 
-
 /obj/item/assembly_holder/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(1)
 			qdel(src)
-			return
-		if(2.0)
+		if(2)
 			if(prob(50))
 				qdel(src)
-				return
-		if(3.0)
+		if(3)
 			if(prob(25))
 				qdel(src)
-				return

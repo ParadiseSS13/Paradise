@@ -4,7 +4,7 @@
 	icon_state = "mousetrap"
 	materials = list(MAT_METAL=100)
 	origin_tech = "combat=1;materials=2;engineering=1"
-	var/armed = 0
+	var/armed = FALSE
 
 	bomb_name = "contact mine"
 
@@ -27,7 +27,7 @@
 			playsound(usr.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
 
 /obj/item/assembly/mousetrap/describe()
-	return "The pressure switch is [armed?"primed":"safe"]."
+	return "The pressure switch is [armed ? "primed" : "safe"]."
 
 /obj/item/assembly/mousetrap/update_icon()
 	if(armed)
@@ -37,7 +37,7 @@
 	if(holder)
 		holder.update_icon()
 
-/obj/item/assembly/mousetrap/proc/triggered(mob/target as mob, var/type = "feet")
+/obj/item/assembly/mousetrap/proc/triggered(mob/target, var/type = "feet")
 	if(!armed)
 		return
 	var/obj/item/organ/external/affecting = null
@@ -60,11 +60,11 @@
 		M.splat()
 	playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 	layer = MOB_LAYER - 0.2
-	armed = 0
+	armed = FALSE
 	update_icon()
 	pulse(0)
 
-/obj/item/assembly/mousetrap/attack_self(mob/living/user as mob)
+/obj/item/assembly/mousetrap/attack_self(mob/living/user)
 	if(!armed)
 		to_chat(user, "<span class='notice'>You arm [src].</span>")
 	else
@@ -81,7 +81,7 @@
 	update_icon()
 	playsound(user.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -3)
 
-/obj/item/assembly/mousetrap/attack_hand(mob/living/user as mob)
+/obj/item/assembly/mousetrap/attack_hand(mob/living/user)
 	if(armed)
 		if((user.getBrainLoss() >= 60 || CLUMSY in user.mutations) && prob(50))
 			var/which_hand = "l_hand"
@@ -93,7 +93,7 @@
 			return
 	..()
 
-/obj/item/assembly/mousetrap/Crossed(var/atom/movable/AM as mob|obj)
+/obj/item/assembly/mousetrap/Crossed(atom/movable/AM)
 	if(armed)
 		if(ishuman(AM))
 			var/mob/living/carbon/H = AM
@@ -107,7 +107,7 @@
 			triggered(AM)
 	..()
 
-/obj/item/assembly/mousetrap/on_found(mob/finder as mob)
+/obj/item/assembly/mousetrap/on_found(mob/finder)
 	if(armed)
 		finder.visible_message("<span class='warning'>[finder] accidentally sets off [src], breaking [finder.p_their()] fingers.</span>", \
 							   "<span class='warning'>You accidentally trigger [src]!</span>")
@@ -115,7 +115,7 @@
 		return TRUE	//end the search!
 	return FALSE
 
-/obj/item/assembly/mousetrap/hitby(A as mob|obj)
+/obj/item/assembly/mousetrap/hitby(atom/movable/A)
 	if(!armed)
 		return ..()
 	visible_message("<span class='warning'>[src] is triggered by [A].</span>")
