@@ -292,8 +292,8 @@
 	return
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
+	if(M.a_intent == INTENT_HELP || M.melee_damage_upper == 0)
+		M.custom_emote(1, "[M.friendly] [src].")
 		return 0
 	else
 		if(M.attack_sound)
