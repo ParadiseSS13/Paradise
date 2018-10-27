@@ -1,0 +1,4 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - rscadd: "You can now tell if a borg has suicided by examining them"
