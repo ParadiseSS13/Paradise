@@ -1,4 +1,0 @@
-author: "Certhic"
-delete-after: True
-changes: 
-  - bugfix: "fixed wrenched down unconnected pipes being invisible"
