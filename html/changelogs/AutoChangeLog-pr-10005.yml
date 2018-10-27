@@ -1,0 +1,4 @@
+author: "Certhic"
+delete-after: True
+changes: 
+  - bugfix: "fixes invisible diona observers"
