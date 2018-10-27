@@ -191,6 +191,7 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/clothing/suit/armor/secjacket(src)
 
 
 /obj/structure/closet/secure_closet/brigdoc
