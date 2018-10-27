@@ -1119,15 +1119,15 @@ var/list/ai_verbs_default = list(
 
 /mob/living/silicon/ai/proc/check_unable(flags = 0)
 	if(stat == DEAD)
-		to_chat(usr, "<span class='warning'>You are dead!</span>")
+		to_chat(src, "<span class='warning'>You are dead!</span>")
 		return TRUE
 
 	if(lacks_power())
-		to_chat(usr, "<span class='warning'>Power systems failure!</span>")
+		to_chat(src, "<span class='warning'>Power systems failure!</span>")
 		return TRUE
 
 	if((flags & AI_CHECK_WIRELESS) && control_disabled)
-		to_chat(usr, "<span class='warning'>Wireless control is disabled!</span>")
+		to_chat(src, "<span class='warning'>Wireless control is disabled!</span>")
 		return TRUE
 	if((flags & AI_CHECK_RADIO) && aiRadio.disabledAi)
 		to_chat(src, "<span class='warning'>System Error - Transceiver Disabled!</span>")
