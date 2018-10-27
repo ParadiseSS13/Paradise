@@ -2,7 +2,7 @@
 	if(!skipcatch)
 		if(in_throw_mode && canmove && !restrained())  //Makes sure player is in throw mode
 			if(!istype(AM,/obj/item) || !isturf(AM.loc))
-				retrun FALSE
+				return FALSE
 			if(get_active_hand())
 				return FALSE
 			if(istype(AM, /obj/item/twohanded))
