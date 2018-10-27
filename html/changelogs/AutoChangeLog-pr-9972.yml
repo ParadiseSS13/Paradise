@@ -1,4 +1,0 @@
-author: "Alonefromhell"
-delete-after: True
-changes: 
-  - bugfix: "Runtime in species.dm, 620 fixed"

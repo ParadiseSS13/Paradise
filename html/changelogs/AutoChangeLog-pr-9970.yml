@@ -1,4 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "Dusting a mob now dusts everything he holds and has equiped"
