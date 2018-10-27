@@ -1,4 +1,0 @@
-author: "Alonefromhell"
-delete-after: True
-changes: 
-  - bugfix: "Backend: Added dummy vortex reagents to prevent further runtimes."
