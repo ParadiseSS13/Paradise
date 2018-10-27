@@ -27,9 +27,3 @@
 			setStaminaLoss(health - 2)
 			handle_hud_icons_health()
 			return
-
-/mob/living/carbon/can_hear()
-	. = FALSE
-	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
-	if(istype(ears) && !ears.deaf)
-		. = TRUE

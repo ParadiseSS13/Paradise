@@ -48,7 +48,8 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 
 		if(ishuman(body))
 			var/mob/living/carbon/human/H = body
-			appearance = H.appearance
+			icon = H.stand_icon
+			overlays = H.overlays_standing
 		else
 			icon = body.icon
 			icon_state = body.icon_state

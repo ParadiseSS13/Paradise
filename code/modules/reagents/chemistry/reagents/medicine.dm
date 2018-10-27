@@ -543,23 +543,21 @@
 /datum/reagent/medicine/oculine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(80))
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
+		if(ishuman(M))
+			var/mob/living/carbon/human/H = M
+			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
 				E.heal_internal_damage(1)
-			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-			if(istype(ears))
-				ears.AdjustEarDamage(-1)
-				if(ears.ear_damage < 25 && prob(30))
-					ears.deaf = 0
 		update_flags |= M.AdjustEyeBlurry(-1, FALSE)
-		update_flags |= M.AdjustEarDamage(-1)
+		update_flags |= M.AdjustEarDamage(-1, FALSE)
 	if(prob(50))
 		update_flags |= M.CureNearsighted(FALSE)
 	if(prob(30))
 		update_flags |= M.CureBlind(FALSE)
 		update_flags |= M.SetEyeBlind(0, FALSE)
+	if(M.ear_damage <= 25)
+		if(prob(30))
+			M.SetEarDeaf(0)
 	return ..() | update_flags
 
 /datum/reagent/medicine/atropine

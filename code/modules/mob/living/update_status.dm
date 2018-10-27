@@ -41,7 +41,7 @@
 
 // Whether the mob can hear things
 /mob/living/can_hear()
-	. = !(disabilities & DEAF)
+	return !(ear_deaf || (disabilities & DEAF))
 
 // Whether the mob is able to see
 // `information_only` is for stuff that's purely informational - like understanding nonverbal languages, or blindness overlays
@@ -137,6 +137,10 @@
 			SetEyeBlind(eye_blind)
 		if("eye_blurry")
 			SetEyeBlurry(eye_blurry)
+		if("ear_deaf")
+			SetEarDeaf(ear_deaf)
+		if("ear_damage")
+			SetEarDamage(ear_damage)
 		if("druggy")
 			SetDruggy(druggy)
 		if("maxHealth")
