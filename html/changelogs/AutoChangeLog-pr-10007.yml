@@ -1,0 +1,4 @@
+author: "Certhic"
+delete-after: True
+changes: 
+  - bugfix: "Fixes simple animals attacking while they were on help intent."
