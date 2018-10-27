@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	/obj/machinery/door/airlock/medical = "Medical",			/obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
 	/obj/machinery/door/airlock/maintenance = "Maintenance",	/obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
 	/obj/machinery/door/airlock/external = "External",			/obj/machinery/door/airlock/external/glass = "External (Glass)",
-	/obj/machinery/door/airlock/maintenance/external = "External Maintenance", 
+	/obj/machinery/door/airlock/maintenance/external = "External Maintenance",
 		/obj/machinery/door/airlock/maintenance/external/glass = "External Maintenance (Glass)",
 	/obj/machinery/door/airlock/freezer = "Freezer",
 	/obj/machinery/door/airlock/mining = "Mining",		/obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 
 
 /obj/item/rcd/attack_self(mob/user)
-	//Change the mode // Oh I thought the UI was just for fucking staring at 
+	//Change the mode // Oh I thought the UI was just for fucking staring at
 	radial_menu(user)
 
 /obj/item/rcd/attack_self_tk(mob/user)
@@ -276,7 +276,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 		to_chat(user, "Building Airlock...")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		if(do_after(user, 50 * toolspeed, target = A))
-			if(locate(/obj/machinery/door) in A.contents)
+			if(locate(/obj/machinery/door/airlock) in A.contents)
 				return FALSE
 			if(!useResource(10, user))
 				return FALSE
