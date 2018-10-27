@@ -827,7 +827,7 @@
 			i++
 			while(strs[i] == "</td></tr>") //Do it for all the crime codes on this level
 				i += 2 // Skip the </td></tr>
-				var/crime_code = copytext(strs[i], 5, 0) //Get the crime code
+				var/crime_code = copytext(strs[i], 6, 0) //Get the crime code
 				i += 4 // Go to the crime name
 				var/crime_name = copytext(strs[i], 8, length(strs[i]) - 3) // Get the crime name, remove the </b> from the end
 				i += 2 // Go to the crime description
