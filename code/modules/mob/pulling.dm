@@ -5,7 +5,7 @@
 		return
 	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
 		return
-	if(!(AM.anchored))
+	if(!(AM.anchored) && !usr.incapacitated())
 		AM.add_fingerprint(src)
 
 		// If we're pulling something then drop what we're currently pulling and pull this instead.
