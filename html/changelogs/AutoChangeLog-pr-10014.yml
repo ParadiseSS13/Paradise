@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "fixes the runtime in the AI code. You now get messages if you lose power and stuf."
