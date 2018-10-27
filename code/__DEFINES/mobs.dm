@@ -143,7 +143,6 @@
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
-#define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))

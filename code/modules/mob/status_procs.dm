@@ -52,13 +52,23 @@
 	return
 
 
-/mob/proc/RestoreEars()
+/mob/proc/EarDamage()
+	return
+
+/mob/proc/SetEarDamage()
 	return
 
 /mob/proc/AdjustEarDamage()
 	return
 
-/mob/proc/MinimumDeafTicks()
+
+/mob/proc/EarDeaf()
+	return
+
+/mob/proc/SetEarDeaf()
+	return
+
+/mob/proc/AdjustEarDeaf()
 	return
 
 
