@@ -122,7 +122,7 @@ var/static/regex/multispin_words = regex("like a record baby")
 
 	var/mob/living/list/listeners = list()
 	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE))
-		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
+		if(!L.ear_deaf && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
 				if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs))

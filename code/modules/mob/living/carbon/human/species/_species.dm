@@ -153,9 +153,6 @@
 		"l_foot" = list("path" = /obj/item/organ/external/foot),
 		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
 
-	// Mutant pieces
-	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
-
 /datum/species/New()
 	//If the species has eyes, they are the default vision organ
 	if(!vision_organ && has_organ["eyes"])
@@ -168,6 +165,7 @@
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
+
 	QDEL_LIST(H.internal_organs)
 	QDEL_LIST(H.bodyparts)
 
@@ -186,20 +184,11 @@
 		// organ new code calls `insert` on its own
 		new organ(H)
 
-	create_mutant_organs(H)
-
 	for(var/name in H.bodyparts_by_name)
 		H.bodyparts |= H.bodyparts_by_name[name]
 
 	for(var/obj/item/organ/external/O in H.bodyparts)
 		O.owner = H
-
-/datum/species/proc/create_mutant_organs(mob/living/carbon/human/H)
-	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
-	if(ears)
-		qdel(ears)
-	
-	ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))

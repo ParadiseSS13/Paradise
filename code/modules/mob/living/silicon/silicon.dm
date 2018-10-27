@@ -330,5 +330,9 @@
 	return 1
 
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
-/mob/living/silicon/can_hear()
-	. = TRUE
+
+/mob/living/silicon/SetEarDamage()
+	return
+
+/mob/living/silicon/SetEarDeaf()
+	return
