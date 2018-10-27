@@ -2,13 +2,26 @@
 	if(!skipcatch)
 		if(in_throw_mode && !get_active_hand())  //empty active hand and we're in throw mode
 			if(canmove && !restrained())
-				if(istype(AM, /obj/item))
+				if(istype(AM, /obj/item/twohanded))
+					var/obj/item/twohanded/I = AM
+					if(!get_active_hand() && !get_inactive_hand())
+						if(isturf(I.loc))
+							put_in_active_hand(I)
+							visible_message("<span class='warning'>[src] catches [I]!</span>")
+							throw_mode_off()
+							return 1
+					else
+						visible_message("<span class='warning'>[src] fails to catch [I]!</span>")
+
+				else if(istype(AM, /obj/item))
 					var/obj/item/I = AM
 					if(isturf(I.loc))
 						put_in_active_hand(I)
 						visible_message("<span class='warning'>[src] catches [I]!</span>")
 						throw_mode_off()
 						return 1
+		else
+			visible_message("<span class='warning'>[src] fails to catch [I]!</span>")		
 	..()
 
 /mob/living/carbon/water_act(volume, temperature, source)
