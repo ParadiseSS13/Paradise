@@ -816,7 +816,7 @@
 	. = ..()
 	if(GLOB.space_laws) //Already filled please god don't do it again
 		return 1
-	var/http = world.Export("http://Nanotrasen.se/wiki/index.php?title=Space_law&printable=yes&remove_links=1")
+	var/http = world.Export("http://unsecure-wiki.nanotrasen.se:8979/wiki/index.php/Space_law")
 	if(!http)
 		return 0
 	var/list/strs = file2list(http["CONTENT"])
