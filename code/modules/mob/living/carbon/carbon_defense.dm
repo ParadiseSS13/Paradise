@@ -14,8 +14,8 @@
 						visible_message("<span class='warning'>[src] fails to catch [I]!</span>")
 
 				else if(istype(AM, /obj/item))
+					var/obj/item/I = AM
 					if(!get_active_hand()) //Makes sure active hand is empty
-						var/obj/item/I = AM
 						if(isturf(I.loc))
 							put_in_active_hand(I)
 							visible_message("<span class='warning'>[src] catches [I]!</span>")
