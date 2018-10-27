@@ -5,31 +5,31 @@
 		return
 	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
 		return
+	if(!incapacitated())
+		return
 	if(!(AM.anchored))
-		if(!incapacitated())
-			AM.add_fingerprint(src)
+		AM.add_fingerprint(src)
 
-			// If we're pulling something then drop what we're currently pulling and pull this instead.
-			if(pulling)
-				// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
-				if(AM == pulling)
-					return
-				stop_pulling()
+		// If we're pulling something then drop what we're currently pulling and pull this instead.
+		if(pulling)
+			// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
+			if(AM == pulling)
+				return
+			stop_pulling()
+		if(AM.pulledby)
+			visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
+			AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 
-			if(AM.pulledby)
-				visible_message("<span class='danger'>[src] has pulled [AM] from [AM.pulledby]'s grip.</span>")
-				AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
-
-			pulling = AM
-			AM.pulledby = src
-			if(pullin)
-				pullin.update_icon(src)
-			if(ismob(AM))
-				var/mob/M = AM
-				if(!iscarbon(src))
-					M.LAssailant = null
-				else
-					M.LAssailant = usr
+		pulling = AM
+		AM.pulledby = src
+		if(pullin)
+			pullin.update_icon(src)
+		if(ismob(AM))
+			var/mob/M = AM
+			if(!iscarbon(src))
+				M.LAssailant = null
+			else
+				M.LAssailant = usr
 
 /mob/verb/stop_pulling()
 	set name = "Stop Pulling"
