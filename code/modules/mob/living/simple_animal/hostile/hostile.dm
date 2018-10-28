@@ -3,7 +3,6 @@
 	stop_automated_movement_when_pulled = 0
 	obj_damage = 40
 	environment_smash = 1 //Set to 1 to break closets,tables,racks, etc; 2 for walls; 3 for rwalls
-	a_intent = INTENT_HARM
 	var/atom/target
 	var/ranged = 0
 	var/rapid = 0
