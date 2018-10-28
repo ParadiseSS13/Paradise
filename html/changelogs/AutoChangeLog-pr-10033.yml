@@ -1,0 +1,4 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - bugfix: "Fixes shadowling game mode delaying the game ticker"
