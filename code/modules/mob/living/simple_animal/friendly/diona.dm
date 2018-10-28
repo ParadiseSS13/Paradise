@@ -32,6 +32,7 @@
 	melee_damage_upper = 8
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
+	var/chirp_sound = 'sound/misc/nymphchirp.ogg'
 
 	speed = 0
 	stop_automated_movement = 0
@@ -42,6 +43,13 @@
 	holder_type = /obj/item/holder/diona
 	can_collar = 1
 
+	a_intent = INTENT_HELP
+	var/gestalt_alert = "merged with gestalt"
+	var/evolve_donors = 5
+	var/awareness_donors = 3
+	var/nutrition_need = 500
+	
+
 /mob/living/simple_animal/diona/New()
 	..()
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
@@ -49,7 +57,16 @@
 		real_name = name
 
 	add_language("Rootspeak")
-	verbs += /mob/living/simple_animal/diona/proc/merge
+
+/mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
+	if(isdiona(A) && src in A.contents) //can't attack your gestalt
+		visible_message("[src] wiggles around a bit.")
+	else
+		..()
+
+/mob/living/simple_animal/diona/resist()
+	..()
+	split()
 
 /mob/living/simple_animal/diona/attack_hand(mob/living/carbon/human/M)
 	//Let people pick the little buggers up.
@@ -57,88 +74,68 @@
 		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			verbs += /mob/living/simple_animal/diona/proc/split
-			verbs -= /mob/living/simple_animal/diona/proc/merge
+			throw_alert(gestalt_alert, /obj/screen/alert/nymph) //adds a screen alert that can call resist
 			forceMove(M)
 		else
 			get_scooped(M)
 
-	..()
-
-/mob/living/simple_animal/diona/proc/merge()
-	set category = "Diona"
-	set name = "Merge with gestalt"
-	set desc = "Merge with another diona."
-
-	if(iscarbon(loc))
-		verbs -= /mob/living/simple_animal/diona/proc/merge
-		return
+/mob/living/simple_animal/diona/proc/merge() //called by the hud (/obj/screen/diona/merge)
+	if(!isnymph(src) || src.stat)
+		return FALSE
 
 	var/list/choices = list()
-	for(var/mob/living/carbon/C in view(1,src))
-
-		if(!(Adjacent(C)) || !(C.client))
+	for(var/mob/living/carbon/human/H in view(1,src))
+		if(!(Adjacent(H)) || !isdiona(H))
 			continue
+		choices += H
 
-		if(ishuman(C))
-			var/mob/living/carbon/human/D = C
-			if(isdiona(D))
-				choices += C
+	if(!choices.len)
+		to_chat(src, "<span class='warning'>No suitable diona nearby.</span>")
 
 	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices
 
-	if(!M || !src || !(Adjacent(M)))
+	if(!M || !src || !(Adjacent(M)) || src.stat) //input can take a while, so re-validate
 		return
 
-	if(ishuman(M))
+	if(isdiona(M))
 		to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 		M.status_flags |= PASSEMOTES
-
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
-		verbs += /mob/living/simple_animal/diona/proc/split
-		verbs -= /mob/living/simple_animal/diona/proc/merge
+		throw_alert("merged with gestalt", /obj/screen/alert/nymph) //adds a screen alert that can call resist
+		return TRUE
 	else
-		return
+		return FALSE
 
-/mob/living/simple_animal/diona/proc/split()
-	set category = "Diona"
-	set name = "Split from gestalt"
-	set desc = "Split away from your gestalt as a lone nymph."
-
-	if(!(iscarbon(loc)))
-		verbs -= /mob/living/simple_animal/diona/proc/split
-		return
-
+/mob/living/simple_animal/diona/proc/split() //called by the hud (obj/screen/alert/nymph)
+	if(!isnymph(src) || src.stat || !isdiona(loc))
+		return FALSE
+	var/mob/living/carbon/human/D = loc
+	T = get_turf(src)
+	if(!T)
+		return FALSE
 	to_chat(loc, "You feel a pang of loss as [src] splits away from your biomass.")
 	to_chat(src, "You wiggle out of the depths of [loc]'s biomass and plop to the ground.")
+	forceMove(T)
+	D.status_flags &= ~PASSEMOTES
+	clear_alert(gestalt_alert)
+	return TRUE
 
-	var/mob/living/M = loc
-
-	forceMove(get_turf(src))
-	verbs -= /mob/living/simple_animal/diona/proc/split
-	verbs += /mob/living/simple_animal/diona/proc/merge
-
-	if(istype(M))
-		for(var/atom/A in M.contents)
-			if(istype(A, /mob/living/simple_animal/borer) || istype(A, /obj/item/holder))
-				return
-	M.status_flags &= ~PASSEMOTES
-
-/mob/living/simple_animal/diona/verb/evolve()
-	set category = "Diona"
-	set name = "Evolve"
-	set desc = "Grow to a more complex form."
-
-	if(donors.len < 5)
+/mob/living/simple_animal/diona/proc/evolve()  //called by the hud (/obj/screen/diona/evolve)
+	if(!isnymph(src) || src.stat)
+		return FALSE
+	
+	if(donors.len < evolve_donors)
 		to_chat(src, "<span class='warning'>You need more blood in order to ascend to a new state of consciousness...</span>")
-		return
+		return FALSE
 
-	if(nutrition < 500)
+	if(nutrition < nutrition_need)
 		to_chat(src, "<span class='warning'>You need to binge on weeds in order to have the energy to grow...</span>")
-		return
+		return FALSE
 
-	split()
+	if(isdiona(loc) && !split()) //if it's merged with diona, needs to able to split before evolving
+		return FALSE
+	
 	visible_message("<span class='danger'>[src] begins to shift and quiver, and erupts in a shower of shed bark as it splits into a tangle of nearly a dozen new dionaea.</span>","<span class='danger'>You begin to shift and quiver, feeling your awareness splinter. All at once, we consume our stored nutrients to surge with growth, splitting into a tangle of at least a dozen new dionaea. We have attained our gestalt form.</span>")
 
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
@@ -162,28 +159,32 @@
 		unEquip(W)
 
 	qdel(src)
+	return TRUE
 
-/mob/living/simple_animal/diona/verb/steal_blood()
-	set category = "Diona"
-	set name = "Steal Blood"
-	set desc = "Take a blood sample from a suitable donor."
-
+/mob/living/simple_animal/diona/proc/steal_blood()  //called by the hud (/obj/screen/diona/blood)
+	if(!isnymph(src) || src.stat)
+		return FALSE
+	
 	var/list/choices = list()
 	for(var/mob/living/carbon/human/H in oview(1,src))
-		choices += H
+		if(Adjacent(H))
+			choices += H
+
+	if(!choices.len)
+		to_chat(src, "<span class='warning'>No suitable blood donors nearby.</span>")
 
 	var/mob/living/carbon/human/M = input(src,"Who do you wish to take a sample from?") in null|choices
 
-	if(!M || !src)
+	if(!M || !src || !(Adjacent(M)) || src.stat) //input can take a while, so re-validate
 		return
 
-	if(NO_BLOOD in M.dna.species.species_traits)
+	if(!M.dna || NO_BLOOD in M.dna.species.species_traits)
 		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
-		return
+		return FALSE
 
 	if(donors.Find(M.real_name))
 		to_chat(src, "<span class='warning'>That donor offers you nothing new.</span>")
-		return
+		return FALSE
 
 	visible_message("<span class='danger'>[src] flicks out a feeler and neatly steals a sample of [M]'s blood.</span>","<span class='danger'>You flick out a feeler and neatly steal a sample of [M]'s blood.</span>")
 	donors += M.real_name
@@ -195,13 +196,13 @@
 		update_progression()
 
 /mob/living/simple_animal/diona/proc/update_progression()
-	if(!donors.len)
+	if(src.stat || !donors.len)
 		return
 
-	if(donors.len == 5)
+	if(donors.len == evolve_donors)
 		ready_evolve = 1
 		to_chat(src, "<span class='noticealien'>You feel ready to move on to your next stage of growth.</span>")
-	else if(donors.len == 3)
+	else if(donors.len == awareness_donors)
 		universal_understand = 1
 		to_chat(src, "<span class='noticealien'>You feel your awareness expand, and realize you know how to understand the creatures around you.</span>")
 	else
@@ -237,6 +238,6 @@
 		if("chirp")
 			message = "<B>\The [src]</B> chirps!"
 			m_type = 2 //audible
-			playsound(src, 'sound/misc/nymphchirp.ogg', 40, 1, 1)
+			playsound(src, chirp_sound, 40, 1, 1)
 
 	..(act, m_type, message)
