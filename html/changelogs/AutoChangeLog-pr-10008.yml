@@ -1,0 +1,4 @@
+author: "Normalyman"
+delete-after: True
+changes: 
+  - bugfix: "Fixed being able to open containers via dragging, while being incapacitated."
