@@ -310,6 +310,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
 		return 1
@@ -498,6 +499,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 /obj/item/throw_impact(atom/A)
 	if(A && !QDELETED(A))
+		SEND_SIGNAL(src, COMSIG_MOVABLE_IMPACT, A)
 		var/itempush = 1
 		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = 0 // too light to push anything
@@ -548,6 +550,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	return I == src
 
 /obj/item/Crossed(atom/movable/AM)
+	. = ..()
 	if(prob(trip_chance) && ishuman(AM))
 		var/mob/living/carbon/human/H = AM
 		on_trip(H)

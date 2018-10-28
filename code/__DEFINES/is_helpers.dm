@@ -11,6 +11,7 @@
 #define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
 
 //Objects
+#define isitem(A) (istype(A, /obj/item))
 
 #define ismecha(A) (istype(A, /obj/mecha))
 

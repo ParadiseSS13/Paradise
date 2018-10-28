@@ -126,10 +126,11 @@
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
 /atom/movable/Crossed(atom/movable/AM)
-	return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
 
 /atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
 	if(A && yes)
+		SEND_SIGNAL(src, COMSIG_MOVABLE_BUMP, A)
 		if(throwing)
 			throwing.hit_atom(A)
 			. = 1
