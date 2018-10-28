@@ -97,6 +97,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/trip_walksafe = TRUE
 	var/trip_tiles = 0
 
+	var/hispania_icon = FALSE
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)
@@ -107,6 +109,11 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"
+
+	icon = (hispania_icon ? 'icons/hispania/obj/items.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/items_righthand.dmi' : righthand_file)
+
 
 /obj/item/Destroy()
 	flags &= ~DROPDEL	//prevent reqdels
