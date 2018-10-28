@@ -226,7 +226,7 @@
 // See software.dm for Topic()
 
 /mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M)
-	if(M.a_intent == INTENT_HELP || M.melee_damage_upper == 0)
+	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src].")
 	else
 		M.do_attack_animation(src)
