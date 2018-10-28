@@ -55,9 +55,12 @@ var/const/AIRLOCK_WIRE_LIGHT = 512
 /datum/wires/airlock/CanUse(mob/living/L)
 	var/obj/machinery/door/airlock/A = holder
 	if(iscarbon(L))
-		if(A.isElectrified())
-			if(A.shock(L, 100))
-				return 0
+		if(A.x - L.x <= 1 && A.x - L.x >= -1 && A.y - L.y <= 1 && A.y - L.y >= -1)
+			if(A.isElectrified())
+				if(A.shock(L, 100))
+					return 0
+		else
+			return 0
 	if(A.panel_open)
 		return 1
 	return 0
