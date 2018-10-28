@@ -1,0 +1,4 @@
+author: "Mitchs98"
+delete-after: True
+changes: 
+  - rscadd: "Adds the Security Jacket to the standard sec gear lockers, an alternative to the standard armor vest that covers more area but protects less. Style matters."
