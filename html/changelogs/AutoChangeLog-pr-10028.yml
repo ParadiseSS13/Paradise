@@ -1,4 +1,0 @@
-author: "gatchapod"
-delete-after: True
-changes: 
-  - bugfix: "Fixed airlocks electrocuting people remotely through open UI"
