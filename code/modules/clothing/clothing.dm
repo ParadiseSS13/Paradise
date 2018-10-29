@@ -171,7 +171,9 @@ SEE_PIXELS// if an object is located on an unlit area, but some of its pixels ar
           // in a lit area (via pixel_x,y or smooth movement), can see those pixels
 BLIND     // can't see anything
 */
-
+/obj/item/clothing/glasses/New()
+	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/clothing/glasses.dmi' : icon)
 
 //Gloves
 /obj/item/clothing/gloves
@@ -193,6 +195,10 @@ BLIND     // can't see anything
 		"Vox" = 'icons/mob/species/vox/gloves.dmi',
 		"Drask" = 'icons/mob/species/drask/gloves.dmi'
 		)
+
+/obj/item/clothing/gloves/New()
+	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/clothing/gloves.dmi' : icon)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
@@ -285,6 +291,10 @@ BLIND     // can't see anything
 	var/vision_flags = 0
 	var/can_toggle = null
 
+/obj/item/clothing/head/New()
+	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/clothing/hats.dmi' : icon)
+
 //Mask
 /obj/item/clothing/mask
 	name = "mask"
@@ -295,6 +305,10 @@ BLIND     // can't see anything
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
+
+/obj/item/clothing/mask/New()
+	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/clothing/masks.dmi' : icon)
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
@@ -382,6 +396,10 @@ BLIND     // can't see anything
 		"Vox" = 'icons/mob/species/vox/shoes.dmi'
 		)
 
+/obj/item/clothing/shoes/New()
+	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/clothing/shoes.dmi' : icon)
+
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
@@ -451,6 +469,10 @@ BLIND     // can't see anything
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
 	var/list/hide_tail_by_species = null
+
+/obj/item/clothing/suit/New()
+	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/clothing/suits.dmi' : icon)
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
@@ -590,6 +612,10 @@ BLIND     // can't see anything
 	var/displays_id = 1
 	var/rolled_down = 0
 	var/basecolor
+
+/obj/item/clothing/under/New()
+	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/clothing/uniforms.dmi' : icon)
 
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST(accessories)
