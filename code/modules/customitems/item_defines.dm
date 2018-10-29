@@ -1416,7 +1416,6 @@
 /obj/item/melee/classic_baton/telescopic/diosdado
 	name = "El Expropiador"
 	desc = "When simply stunnning your target isn't enough"
-	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "expropiador0"
 	item_state = null
 	slot_flags = SLOT_BELT
@@ -1559,7 +1558,6 @@
 /obj/item/clothing/suit/storage/labcoat/killerhoodie
 	name = "blue hoodie"
 	desc = "It's just a plain sky blue hoodie."
-	icon = 'icons/hispania/obj/clothing/suits.dmi'
 	icon_state = "killerhoodie_open"
 	item_state = "killerhoodie_open"
 	adjust_flavour = "unhoodie"
