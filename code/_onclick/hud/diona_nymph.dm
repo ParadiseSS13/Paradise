@@ -23,10 +23,10 @@
 /obj/screen/diona/intent/Click()
 	if(isnymph(usr))
 		var/mob/living/simple_animal/diona/N = usr
-		if(N.a_intent == "help") 
-			N.a_intent = "harm"
+		if(N.a_intent == INTENT_HELP) 
+			N.a_intent = INTENT_HARM
 		else
-			N.a_intent = "help"
+			N.a_intent = INTENT_HELP
 		icon_state = N.a_intent
 
 /obj/screen/diona/blood

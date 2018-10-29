@@ -48,7 +48,6 @@
 	var/evolve_donors = 5
 	var/awareness_donors = 3
 	var/nutrition_need = 500
-	
 
 /mob/living/simple_animal/diona/New()
 	..()
@@ -59,7 +58,7 @@
 	add_language("Rootspeak")
 
 /mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
-	if(isdiona(A) && src in A.contents) //can't attack your gestalt
+	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
 	else
 		..()
@@ -80,7 +79,7 @@
 			get_scooped(M)
 
 /mob/living/simple_animal/diona/proc/merge() //called by the hud (/obj/screen/diona/merge)
-	if(!isnymph(src) || src.stat)
+	if(stat != CONSCIOUS)
 		return FALSE
 
 	var/list/choices = list()
@@ -91,24 +90,25 @@
 
 	if(!choices.len)
 		to_chat(src, "<span class='warning'>No suitable diona nearby.</span>")
+		return FALSE
 
 	var/mob/living/M = input(src,"Who do you wish to merge with?") in null|choices
 
-	if(!M || !src || !(Adjacent(M)) || src.stat) //input can take a while, so re-validate
-		return
+	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
+		return FALSE
 
 	if(isdiona(M))
 		to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 		M.status_flags |= PASSEMOTES
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
-		throw_alert("merged with gestalt", /obj/screen/alert/nymph) //adds a screen alert that can call resist
+		throw_alert(gestalt_alert, /obj/screen/alert/nymph) //adds a screen alert that can call resist
 		return TRUE
 	else
 		return FALSE
 
 /mob/living/simple_animal/diona/proc/split() //called by the hud (obj/screen/alert/nymph)
-	if(!isnymph(src) || src.stat || !isdiona(loc))
+	if((stat != CONSCIOUS) || !isdiona(loc))
 		return FALSE
 	var/mob/living/carbon/human/D = loc
 	T = get_turf(src)
@@ -117,12 +117,19 @@
 	to_chat(loc, "You feel a pang of loss as [src] splits away from your biomass.")
 	to_chat(src, "You wiggle out of the depths of [loc]'s biomass and plop to the ground.")
 	forceMove(T)
-	D.status_flags &= ~PASSEMOTES
+	
+	var/hasMobs = FALSE
+	for(var/atom/A in D.contents)
+		if(istype(A, /mob/) || istype(A, /obj/item/holder))
+			hasMobs = TRUE
+	if(!hasMobs)
+		D.status_flags &= ~PASSEMOTES
+
 	clear_alert(gestalt_alert)
 	return TRUE
 
 /mob/living/simple_animal/diona/proc/evolve()  //called by the hud (/obj/screen/diona/evolve)
-	if(!isnymph(src) || src.stat)
+	if(stat != CONSCIOUS)		
 		return FALSE
 	
 	if(donors.len < evolve_donors)
@@ -162,23 +169,24 @@
 	return TRUE
 
 /mob/living/simple_animal/diona/proc/steal_blood()  //called by the hud (/obj/screen/diona/blood)
-	if(!isnymph(src) || src.stat)
+	if(stat != CONSCIOUS)		
 		return FALSE
 	
 	var/list/choices = list()
 	for(var/mob/living/carbon/human/H in oview(1,src))
-		if(Adjacent(H))
-			choices += H
+		if(Adjacent(H) && H.dna && !(NO_BLOOD in H.dna.species.species_traits))
+			choices += H		
 
 	if(!choices.len)
 		to_chat(src, "<span class='warning'>No suitable blood donors nearby.</span>")
+		return FALSE
 
 	var/mob/living/carbon/human/M = input(src,"Who do you wish to take a sample from?") in null|choices
 
-	if(!M || !src || !(Adjacent(M)) || src.stat) //input can take a while, so re-validate
-		return
+	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
+		return FALSE
 
-	if(!M.dna || NO_BLOOD in M.dna.species.species_traits)
+	if(!M.dna || (NO_BLOOD in M.dna.species.species_traits))
 		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
 		return FALSE
 
@@ -196,8 +204,8 @@
 		update_progression()
 
 /mob/living/simple_animal/diona/proc/update_progression()
-	if(src.stat || !donors.len)
-		return
+	if(stat != CONSCIOUS || !donors.len)
+		return FALSE
 
 	if(donors.len == evolve_donors)
 		ready_evolve = 1
@@ -220,7 +228,7 @@
 	return
 
 /mob/living/simple_animal/diona/emote(act, m_type=1, message = null)
-	if(stat)
+	if(stat != CONSCIOUS)
 		return
 
 	var/on_CD = 0

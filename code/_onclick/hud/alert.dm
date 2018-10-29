@@ -323,11 +323,10 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /obj/screen/alert/nymph/Click()
 	if(!usr || !usr.client)
-		return
-	else
-		if(istype(usr, /mob/living/simple_animal/diona))
-			var/mob/living/simple_animal/D = usr
-			return D.resist()
+		return		
+	if(isnymph(usr))
+		var/mob/living/simple_animal/diona/D = usr
+		return D.resist()
 
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /obj/screen/alert/hacked
