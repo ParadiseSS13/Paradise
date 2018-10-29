@@ -199,6 +199,9 @@
 		deal_damage(P.damage)
 	P.on_hit(src)
 
+/obj/spacepod/AllowDrop()
+	return TRUE
+
 /obj/spacepod/blob_act()
 	deal_damage(30)
 	return
