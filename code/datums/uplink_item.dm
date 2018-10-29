@@ -960,6 +960,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 20
 
+/datum/uplink_item/stealthy_tools/safecracking
+	name = "Safe-cracking Kit"
+	desc = "Everything you need to quietly open a mechanical combination safe."
+	reference = "SCK"
+	item = /obj/item/storage/box/syndie_kit/safecracking
+	cost = 1
+
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
