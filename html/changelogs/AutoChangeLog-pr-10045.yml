@@ -1,0 +1,4 @@
+author: "Squirgenheimer"
+delete-after: True
+changes: 
+  - bugfix: "regular mining satchels will now only hold 10 slots of ore stacks instead of 50"
