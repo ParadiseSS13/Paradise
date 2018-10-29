@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - rscadd: "Round start time is now variable. Defaults to 240 if not filled in"
