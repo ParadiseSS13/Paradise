@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "Items dropped in a space pod are now under the seat. No more magical dropping out of the pod"
