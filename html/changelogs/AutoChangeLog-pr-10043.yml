@@ -1,5 +1,0 @@
-author: "Squirgenheimer"
-delete-after: True
-changes: 
-  - bugfix: "Deleting mechs no longer causes a runtime"
-  - bugfix: "Mech speech bubbles should now follow the mech."
