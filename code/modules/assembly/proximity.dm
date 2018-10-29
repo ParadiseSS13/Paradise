@@ -19,11 +19,11 @@
 	return "The proximity sensor is [scanning ? "armed" : "disarmed"]."
 
 /obj/item/assembly/prox_sensor/activate()
-	if(!..())	
-		return 0 //Cooldown check
+	if(!..())
+		return FALSE //Cooldown check
 	timing = !timing
 	update_icon()
-	return 0
+	return FALSE
 
 /obj/item/assembly/prox_sensor/toggle_secure()
 	secured = !secured
@@ -39,14 +39,14 @@
 /obj/item/assembly/prox_sensor/HasProximity(atom/movable/AM)
 	if(!isobj(AM) && !isliving(AM))
 		return
-	if(istype(AM, /obj/effect))	
+	if(istype(AM, /obj/effect))
 		return
 	if(AM.move_speed < 12)
 		sense()
 
 /obj/item/assembly/prox_sensor/proc/sense()
-	if((!secured)||(!scanning)||(cooldown > 0))	
-		return 0
+	if(!secured || !scanning || cooldown > 0)
+		return FALSE
 	pulse(0)
 	visible_message("[bicon(src)] *beep* *beep*", "*beep* *beep*")
 	cooldown = 2
@@ -69,7 +69,7 @@
 
 /obj/item/assembly/prox_sensor/proc/toggle_scan()
 	if(!secured)
-		return 0
+		return FALSE
 	scanning = !scanning
 	update_icon()
 
@@ -95,7 +95,7 @@
 /obj/item/assembly/prox_sensor/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
 		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
-		return 0
+		return FALSE
 	var/second = time % 60
 	var/minute = (time - second) / 60
 	var/dat = text("<TT><B>Proximity Sensor</B>\n[] []:[]\n<A href='?src=[UID()];tp=-30'>-</A> <A href='?src=[UID()];tp=-1'>-</A> <A href='?src=[UID()];tp=1'>+</A> <A href='?src=[UID()];tp=30'>+</A>\n</TT>", (timing ? "<A href='?src=[UID()];time=0'>Arming</A>" : "<A href='?src=[UID()];time=1'>Not Arming</A>"), minute, second)

@@ -15,10 +15,10 @@
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
-	var/secured = 1
+	var/secured = TRUE
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
-	var/cooldown = 0 //To prevent spam
+	var/cooldown = FALSE //To prevent spam
 	var/wires = WIRE_RECEIVE | WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
 
@@ -31,10 +31,10 @@
 /obj/item/assembly/proc/activate()									//What the device does when turned on
 	return
 
-/obj/item/assembly/proc/pulsed(radio = 0)						//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
+/obj/item/assembly/proc/pulsed(radio = FALSE)						//Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
 	return
 
-/obj/item/assembly/proc/pulse(radio = 0)						//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
+/obj/item/assembly/proc/pulse(radio = FALSE)						//Called when this device attempts to act on another device, var/radio determines if it was sent via radio or direct
 	return
 
 /obj/item/assembly/proc/toggle_secure()								//Code that has to happen when the assembly is un\secured goes here
@@ -58,10 +58,10 @@
 /obj/item/assembly/process_cooldown()
 	cooldown--
 	if(cooldown <= 0)
-		return 0
+		return FALSE
 	spawn(10)
 		process_cooldown()
-	return 1
+	return TRUE
 
 /obj/item/assembly/Destroy()
 	if(istype(loc, /obj/item/assembly_holder) || istype(holder))
@@ -73,14 +73,14 @@
 		holder = null
 	return ..()
 
-/obj/item/assembly/pulsed(radio = 0)
+/obj/item/assembly/pulsed(radio = FALSE)
 	if(holder && (wires & WIRE_RECEIVE))
 		activate()
 	if(radio && (wires & WIRE_RADIO_RECEIVE))
 		activate()
-	return 1
+	return TRUE
 
-/obj/item/assembly/pulse(radio = 0)
+/obj/item/assembly/pulse(radio = FALSE)
 	if(holder && (wires & WIRE_PULSE))
 		holder.process_activation(src, 1, 0)
 	if(holder && (wires & WIRE_PULSE_SPECIAL))
@@ -88,15 +88,15 @@
 	if(istype(loc, /obj/item/grenade)) // This is a hack.  Todo: Manage this better -Sayu
 		var/obj/item/grenade/G = loc
 		G.prime()                // Adios, muchachos
-	return 1
+	return TRUE
 
 /obj/item/assembly/activate()
-	if(!secured || (cooldown > 0))
-		return 0
+	if(!secured || cooldown > 0)
+		return FALSE
 	cooldown = 2
 	spawn(10)
 		process_cooldown()
-	return 1
+	return TRUE
 
 /obj/item/assembly/toggle_secure()
 	secured = !secured
@@ -107,13 +107,13 @@
 	holder = new /obj/item/assembly_holder(get_turf(src))
 	if(holder.attach(A, src, user))
 		to_chat(user, "<span class='notice'>You attach [A] to [src]!</span>")
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/assembly/attackby(obj/item/W, mob/user, params)
 	if(isassembly(W))
 		var/obj/item/assembly/A = W
-		if((!A.secured) && (!secured))
+		if(!A.secured && !secured)
 			attach_assembly(A, user)
 			return
 	if(isscrewdriver(W))
@@ -129,7 +129,7 @@
 
 /obj/item/assembly/examine(mob/user)
 	..()
-	if((in_range(src, user) || loc == user))
+	if(in_range(src, user) || loc == user)
 		if(secured)
 			to_chat(user, "[src] is ready!")
 		else
@@ -140,7 +140,7 @@
 		return
 	user.set_machine(src)
 	interact(user)
-	return 1
+	return TRUE
 
 /obj/item/assembly/interact(mob/user)
 	return
