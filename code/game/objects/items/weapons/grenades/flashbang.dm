@@ -1,14 +1,20 @@
-/obj/item/weapon/grenade/flashbang
+/obj/item/grenade/flashbang
 	name = "flashbang"
 	icon_state = "flashbang"
 	item_state = "flashbang"
 	origin_tech = "materials=2;combat=3"
+	light_power = 10
+	light_color = LIGHT_COLOR_WHITE
+	var/light_time = 2
 
-/obj/item/weapon/grenade/flashbang/prime()
+/obj/item/grenade/flashbang/prime()
 	update_mob()
 	var/flashbang_turf = get_turf(src)
 	if(!flashbang_turf)
 		return
+
+	set_light(7)
+
 	for(var/mob/living/M in hearers(7, flashbang_turf))
 		bang(get_turf(M), M)
 
@@ -16,9 +22,11 @@
 		var/damage = round(30/(get_dist(B,get_turf(src))+1))
 		B.health -= damage
 		B.update_icon()
-	qdel(src)
 
-/obj/item/weapon/grenade/flashbang/proc/bang(var/turf/T , var/mob/living/M)
+	spawn(light_time)
+		qdel(src)
+
+/obj/item/grenade/flashbang/proc/bang(var/turf/T , var/mob/living/M)
 	M.show_message("<span class='warning'>BANG</span>", 2)
 	playsound(loc, 'sound/effects/bang.ogg', 25, 1)
 

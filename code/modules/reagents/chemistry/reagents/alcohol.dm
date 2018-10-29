@@ -13,16 +13,16 @@
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc)
 	M.AdjustDizzy(dizzy_adj)
-	..()
+	return ..()
 
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
-	if(istype(O,/obj/item/weapon/paper))
-		var/obj/item/weapon/paper/paperaffected = O
+	if(istype(O,/obj/item/paper))
+		var/obj/item/paper/paperaffected = O
 		paperaffected.clearpaper()
 		to_chat(usr, "The solution melts away the ink on the paper.")
-	if(istype(O,/obj/item/weapon/book))
+	if(istype(O,/obj/item/book))
 		if(volume >= 5)
-			var/obj/item/weapon/book/affectedbook = O
+			var/obj/item/book/affectedbook = O
 			affectedbook.dat = null
 			to_chat(usr, "The solution melts away the ink on the book.")
 		else
@@ -103,10 +103,12 @@
 //copy paste from LSD... shoot me
 /datum/reagent/consumable/ethanol/absinthe/on_mob_life(mob/living/M)
 	M.AdjustHallucinate(5)
-	..()
+	return ..()
 
 /datum/reagent/consumable/ethanol/absinthe/overdose_process(mob/living/M, severity)
-	M.adjustToxLoss(1)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return list(0, update_flags)
 
 /datum/reagent/consumable/ethanol/rum
 	name = "Rum"
@@ -121,7 +123,9 @@
 	drink_desc = "Now you want to Pray for a pirate suit, don't you?"
 
 /datum/reagent/consumable/ethanol/rum/overdose_process(mob/living/M, severity)
-	M.adjustToxLoss(1)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	return list(0, update_flags)
 
 /datum/reagent/consumable/ethanol/mojito
 	name = "Mojito"
@@ -237,12 +241,13 @@
 	taste_message = "party"
 
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-7)
-	M.AdjustSleeping(-2)
+	update_flags |= M.AdjustSleeping(-2, FALSE)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.Jitter(5)
-	..()
+	return ..() | update_flags
 
 
 /////////////////////////////////////////////////////////////////cocktail entities//////////////////////////////////////////////
@@ -475,7 +480,7 @@
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
 		M.bodytemperature = min(330, M.bodytemperature + (15 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
-	..()
+	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash
 	name = "Beepsky Smash"
@@ -491,8 +496,9 @@
 	taste_message = "THE LAW"
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
-	M.Stun(1)
-	..()
+	var/update_flag = STATUS_UPDATE_NONE
+	update_flag |= M.Stun(1, FALSE)
+	return ..() | update_flag
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
@@ -640,7 +646,7 @@
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 330)
 		M.bodytemperature = min(330, M.bodytemperature + (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
-	..()
+	return ..()
 
 /datum/reagent/consumable/ethanol/barefoot
 	name = "Barefoot"
@@ -888,13 +894,14 @@
 	taste_message = "brain damageeeEEeee"
 
 /datum/reagent/consumable/ethanol/neurotoxin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 13)
-		M.Weaken(3)
+		update_flags |= M.Weaken(3, FALSE)
 	if(current_cycle >= 55)
-		M.Druggy(55)
+		update_flags |= M.Druggy(55, FALSE)
 	if(current_cycle >= 200)
-		M.adjustToxLoss(2)
-	..()
+		update_flags |= M.adjustToxLoss(2, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/hippies_delight
 	name = "Hippie's Delight"
@@ -908,25 +915,29 @@
 	drink_desc = "A drink enjoyed by people during the 1960's."
 
 /datum/reagent/consumable/ethanol/hippies_delight/on_mob_life(mob/living/M)
-	M.Druggy(50)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.Druggy(50, FALSE)
 	switch(current_cycle)
 		if(1 to 5)
-			if(!M.stuttering) M.stuttering = 1
+			M.Stuttering(1)
 			M.Dizzy(10)
-			if(prob(10)) M.emote(pick("twitch","giggle"))
+			if(prob(10))
+				M.emote(pick("twitch","giggle"))
 		if(5 to 10)
-			if(!M.stuttering) M.stuttering = 1
+			M.Stuttering(1)
 			M.Jitter(20)
 			M.Dizzy(20)
-			M.Druggy(45)
-			if(prob(20)) M.emote(pick("twitch","giggle"))
+			update_flags |= M.Druggy(45, FALSE)
+			if(prob(20))
+				M.emote(pick("twitch","giggle"))
 		if(10 to INFINITY)
-			if(!M.stuttering) M.stuttering = 1
+			M.Stuttering(1)
 			M.Jitter(40)
 			M.Dizzy(40)
-			M.Druggy(60)
-			if(prob(30)) M.emote(pick("twitch","giggle"))
-	..()
+			update_flags |= M.Druggy(60, FALSE)
+			if(prob(30))
+				M.emote(pick("twitch","giggle"))
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/changelingsting
 	name = "Changeling Sting"
@@ -993,8 +1004,8 @@
 
 /datum/reagent/consumable/ethanol/driestmartini/on_mob_life(mob/living/M)
 	if(current_cycle >= 55 && current_cycle < 115)
-		M.stuttering += 10
-	..()
+		M.AdjustStuttering(10)
+	return ..()
 
 /datum/reagent/consumable/ethanol/kahlua
 	name = "Kahlua"
@@ -1008,11 +1019,12 @@
 	taste_message = "sweet alcohol"
 
 /datum/reagent/consumable/ethanol/kahlua/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDizzy(-5)
 	M.AdjustDrowsy(-3)
-	M.AdjustSleeping(-2)
+	update_flags |= (M.AdjustSleeping(-2) ? STATUS_UPDATE_STAT : STATUS_UPDATE_NONE)
 	M.Jitter(5)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/ginsonic
 	name = "Gin and sonic"
@@ -1026,11 +1038,12 @@
 	taste_message = "SPEED"
 
 /datum/reagent/ginsonic/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
 	if(prob(25))
-		M.AdjustParalysis(-1)
-		M.AdjustStunned(-1)
-		M.AdjustWeakened(-1)
+		update_flags |= M.AdjustParalysis(-1, FALSE)
+		update_flags |= M.AdjustStunned(-1, FALSE)
+		update_flags |= M.AdjustWeakened(-1, FALSE)
 	if(prob(8))
 		M.reagents.add_reagent("methamphetamine",1.2)
 		var/sonic_message = pick("Gotta go fast!", "Time to speed, keed!", "I feel a need for speed!", "Let's juice.", "Juice time.", "Way Past Cool!")
@@ -1038,7 +1051,7 @@
 			M.say("[sonic_message]")
 		else
 			to_chat(M, "<span class='notice'>[sonic_message ]</span>")
-	..()
+	return ..() | update_flags
 
 /datum/reagent/consumable/ethanol/applejack
 	name = "Applejack"
@@ -1101,6 +1114,7 @@
 			M.adjust_fire_stacks(3)
 
 /datum/reagent/consumable/ethanol/dragons_breath/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(M.reagents.has_reagent("milk"))
 		to_chat(M, "<span class='notice'>The milk stops the burning. Ahhh.</span>")
 		M.reagents.del_reagent("milk")
@@ -1111,7 +1125,7 @@
 	if(prob(50))
 		to_chat(M, "<span class='danger'>Your throat burns terribly!</span>")
 		M.emote(pick("scream","cry","choke","gasp"))
-		M.Stun(1)
+		update_flags |= M.Stun(1, FALSE)
 	if(prob(8))
 		to_chat(M, "<span class='danger'>Why!? WHY!?</span>")
 	if(prob(8))
@@ -1125,7 +1139,7 @@
 			M.visible_message("<span class='danger'>[M] is consumed in flames!</span>")
 			M.dust()
 			return
-	..()
+	return ..() | update_flags
 
 // ROBOT ALCOHOL PAST THIS POINT
 // WOOO!

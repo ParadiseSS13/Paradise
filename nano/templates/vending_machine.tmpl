@@ -33,6 +33,17 @@
 	<div class='itemContent'>{{:helper.link(data.coin, 'eject', {'remove_coin' : 1})}}</div>
 </div>
 {{/if}}
+{{if data.item_slot == 1}}
+<h2>Item Slot</h2>
+<div class='item'>
+	<div class='itemLabel'>Item Slot:</div>
+	{{if data.inserted_item}}
+		<div class='itemContent'>{{:helper.link(data.inserted_item, 'eject', {'remove_item' : 1})}}</div>
+	{{else}}
+		<div class='itemContent'>Empty</div>
+	{{/if}}
+</div>
+{{/if}}
 {{else data.mode == 1}} <!-- Payment screen -->
 <h2>Item selected</h2>
 <div class='item'>

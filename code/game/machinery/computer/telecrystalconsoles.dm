@@ -137,7 +137,7 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 	var/list/transferlog = list()
 
 /obj/machinery/computer/telecrystals/boss/proc/logTransfer(var/logmessage)
-	transferlog += ("<b>[worldtime2text()]</b> [logmessage]")
+	transferlog += ("<b>[station_time_timestamp()]</b> [logmessage]")
 
 /obj/machinery/computer/telecrystals/boss/proc/scanUplinkers()
 	for(var/obj/machinery/computer/telecrystals/uplinker/A in range(scanrange, src.loc))
@@ -151,7 +151,7 @@ var/list/possible_uplinker_IDs = list("Alfa","Bravo","Charlie","Delta","Echo","F
 /obj/machinery/computer/telecrystals/boss/proc/getDangerous()//This scales the TC assigned with the round population.
 	..()
 	var/danger
-	danger = player_list.len
+	danger = GLOB.player_list.len
 	while(!IsMultiple(++danger,10))//Just round up to the nearest multiple of ten.
 	scaleTC(danger)
 

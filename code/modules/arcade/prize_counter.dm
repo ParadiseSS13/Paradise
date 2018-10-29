@@ -6,18 +6,18 @@
 	icon_state = "prize_counter-on"
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	var/tickets = 0
 
 /obj/machinery/prize_counter/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/prize_counter(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/prize_counter(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	RefreshParts()
 
 /obj/machinery/prize_counter/update_icon()
@@ -40,16 +40,16 @@
 		else
 			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
 		return
-	if(istype(O, /obj/item/weapon/screwdriver) && anchored)
+	if(istype(O, /obj/item/screwdriver) && anchored)
 		playsound(src.loc, O.usesound, 50, 1)
 		panel_open = !panel_open
 		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
 		update_icon()
 		return
 	if(panel_open)
-		if(istype(O, /obj/item/weapon/wrench))
+		if(istype(O, /obj/item/wrench))
 			default_unfasten_wrench(user, O)
-		if(component_parts && istype(O, /obj/item/weapon/crowbar))
+		if(component_parts && istype(O, /obj/item/crowbar))
 			if(tickets)		//save the tickets!
 				print_tickets()
 			default_deconstruction_crowbar(O)
@@ -80,53 +80,60 @@ html {
 	color:#999;
 }
 
+table {background:#303030;border:1px solid #262626;}
+
+caption {text-align:left;}
+
+.button {
+	color:#cfcfcf;
+	text-decoration:none;
+	font-weight:bold;
+	text-align:center;
+	width:75px;
+	padding:21px;
+	box-sizing:border-box;
+	background:none;
+	border:none;
+	display: inline-block;
+}
+.button:hover {color:#ffffff;}
+
 a {
 	color:#cfcfcf;
 	text-decoration:none;
 	font-weight:bold;
 }
+a:hover {color:#ffffff;}
 
-a:hover {
-	color:#ffffff;
-}
-tr {
-	background:#303030;
-	border-radius:6px;
-	margin-bottom:0.5em;
-	border-bottom:1px solid black;
-}
-tr:nth-child(even) {
-	background:#3f3f3f;
-}
+p {margin:0;}
 
-td.cost {
-	font-size:20pt;
-	font-weight:bold;
-}
+tr.dark {background:#303030;}
 
-td.cost.affordable {
-	background:green;
-}
+tr.light {background:#3f3f3f;}
 
-td.cost.toomuch {
-	background:maroon;
-}
+td,th {padding:15px;border-bottom:1px solid #262626;}
 
+th.cost{padding:0px;border-left:1px solid #262626;}
+
+th.cost.affordable {background:green;}
+
+th.cost.toomuch {background:maroon;}
 
 		</style>
 	</head>
 	<body>
-	<p style="float:right"><b>Tickets:</b> [tickets] | <a href='byond://?src=[UID()];eject=1'>Eject Tickets</a></p>
+	<p style="float:right"><b>Tickets: [tickets]</b> | <a href='byond://?src=[UID()];eject=1'>Eject Tickets</a></p>
 	<h1>Arcade Ticket Exchange</h1>
 	<p>
 		<b>Exchange that pile of tickets for a pile of cool prizes!</b>
 	</p>
-	<h2>Available Prizes:</h2>
+	<br>
 	<table cellspacing="0" cellpadding="0">
+		<caption><b>Available Prizes:</b></caption>
 		<thead>
 			<th>#</th>
 			<th>Name/Description</th>
-			<th>Price</th>
+			<th>Tickets</th>
 		</thead>
 		<tbody>
 	"}
@@ -136,8 +143,11 @@ td.cost.toomuch {
 		if(item.cost>tickets)
 			cost_class="toomuch"
 		var/itemID = global_prizes.prizes.Find(item)
+		var/row_color="light"
+		if(itemID%2 == 0)
+			row_color="dark"
 		dat += {"
-			<tr>
+			<tr class="[row_color]">
 				<th>
 					[itemID]
 				</th>
@@ -147,10 +157,10 @@ td.cost.toomuch {
 				</td>
 		"}
 		dat += {"
-			<td class="cost [cost_class]">
-				<a href="byond://?src=[UID()];buy=[itemID]">[item.cost] Tickets</a>
-			</td>
-		</tr>
+				<th class="cost [cost_class]">
+					<a href="byond://?src=[UID()];buy=[itemID]" class="button">[item.cost]</a>
+				</th>
+			</tr>
 		"}
 
 	dat += {"
@@ -158,7 +168,7 @@ td.cost.toomuch {
 	</table>
 	</body>
 </html>"}
-	user << browse(dat, "window=prize_counter")
+	user << browse(dat, "window=prize_counter;size=440x600;can_resize=0")
 	onclose(user, "prize_counter")
 	return
 

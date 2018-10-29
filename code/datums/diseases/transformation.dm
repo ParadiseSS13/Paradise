@@ -50,7 +50,7 @@
 		affected_mob.overlays.Cut()
 		affected_mob.invisibility = 101
 		for(var/obj/item/W in affected_mob)
-			if(istype(W, /obj/item/weapon/implant))
+			if(istype(W, /obj/item/implant))
 				qdel(W)
 				continue
 			W.layer = initial(W.layer)
@@ -194,13 +194,13 @@
 		if(1)
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/H = affected_mob
-				if(H.species.name == "Slime People")
+				if(isslimeperson(H))
 					stage = 5
 		if(3)
 			if(ishuman(affected_mob))
 				var/mob/living/carbon/human/human = affected_mob
-				if(human.species.name != "Slime People")
-					human.set_species("Slime People")
+				if(!isslimeperson(human))
+					human.set_species(/datum/species/slime)
 
 /datum/disease/transformation/corgi
 	name = "The Barkening"

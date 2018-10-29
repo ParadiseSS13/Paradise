@@ -1,6 +1,6 @@
 // Glass shards
 
-/obj/item/weapon/shard
+/obj/item/shard
 	name = "glass shard"
 	icon = 'icons/obj/shards.dmi'
 	icon_state = "large"
@@ -13,13 +13,14 @@
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0)
 
-/obj/item/weapon/shard/suicide_act(mob/user)
-		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting \his wrists with \the [src]! It looks like \he's trying to commit suicide.</span>",
-									"<span class='danger'>[user] is slitting \his throat with \the [src]! It looks like \he's trying to commit suicide.</span>"))
+/obj/item/shard/suicide_act(mob/user)
+		to_chat(viewers(user), pick("<span class='danger'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
+									"<span class='danger'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
 		return (BRUTELOSS)
 
-/obj/item/weapon/shard/New()
+/obj/item/shard/New()
 	..()
 	icon_state = pick("large", "medium", "small")
 	switch(icon_state)
@@ -33,27 +34,26 @@
 			pixel_x = rand(-5, 5)
 			pixel_y = rand(-5, 5)
 
-/obj/item/weapon/shard/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity || !(src in user))
 		return
 	if(isturf(AM))
 		return
-	if(istype(AM, /obj/item/weapon/storage))
+	if(istype(AM, /obj/item/storage))
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves)
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-			if(affecting.status & ORGAN_ROBOT)
+			if(affecting.is_robotic())
 				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
 			if(affecting.receive_damage(force*0.5))
 				H.UpdateDamageIcon()
-				H.updatehealth()
 
-/obj/item/weapon/shard/attackby(obj/item/I, mob/user, params)
+/obj/item/shard/attackby(obj/item/I, mob/user, params)
 	if(iswelder(I))
-		var/obj/item/weapon/weldingtool/WT = I
+		var/obj/item/weldingtool/WT = I
 		if(WT.remove_fuel(0, user))
 			var/obj/item/stack/sheet/glass/NG = new (user.loc)
 			for(var/obj/item/stack/sheet/glass/G in user.loc)
@@ -67,7 +67,7 @@
 	else
 		return ..()
 
-/obj/item/weapon/shard/Crossed(AM as mob|obj)
+/obj/item/shard/Crossed(AM as mob|obj)
 	if(isliving(AM))
 		var/mob/living/M = AM
 		if(M.incorporeal_move || M.flying || M.throwing)//you are incorporal or flying or being thrown ..no shard stepping!
@@ -81,15 +81,14 @@
 				var/obj/item/organ/external/affecting = H.get_organ(pick("l_foot", "r_foot"))
 				if(!affecting)
 					return
-				if(affecting.status & ORGAN_ROBOT)
+				if(affecting.is_robotic())
 					return
 				H.Weaken(3)
 				if(affecting.receive_damage(5, 0))
 					H.UpdateDamageIcon()
-				H.updatehealth()
 	..()
 
-/obj/item/weapon/shard/plasma
+/obj/item/shard/plasma
 	name = "plasma shard"
 	desc = "A shard of plasma glass. Considerably tougher then normal glass shards. Apparently not tough enough to be a window."
 	force = 8
@@ -97,7 +96,7 @@
 	icon_state = "plasmalarge"
 	sharp = TRUE
 
-/obj/item/weapon/shard/plasma/New()
+/obj/item/shard/plasma/New()
 	..()
 	icon_state = pick("plasmalarge", "plasmamedium", "plasmasmall")
 	switch(icon_state)
@@ -111,9 +110,9 @@
 			pixel_x = rand(-5, 5)
 			pixel_y = rand(-5, 5)
 
-/obj/item/weapon/shard/plasma/attackby(obj/item/weapon/W, mob/user, params)
+/obj/item/shard/plasma/attackby(obj/item/W, mob/user, params)
 	if(iswelder(W))
-		var/obj/item/weapon/weldingtool/WT = W
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			var/obj/item/stack/sheet/plasmaglass/NG = new (user.loc)
 			for(var/obj/item/stack/sheet/plasmaglass/G in user.loc)

@@ -1,7 +1,3 @@
-#define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 3 //Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 1000K point
-
 /mob/living/carbon/alien
 	name = "alien"
 	voice_name = "alien"
@@ -9,15 +5,10 @@
 	icon = 'icons/mob/alien.dmi'
 	gender = NEUTER
 	dna = null
-
-
 	alien_talk_understand = 1
-
 	nightvision = 1
-
-	var/obj/item/weapon/card/id/wear_id = null // Fix for station bounced radios -- Skie
+	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = 0
-
 	var/move_delay_add = 0 // movement delay to add
 
 	status_flags = CANPARALYSE|CANPUSH
@@ -27,8 +18,9 @@
 	var/heat_protection = 0.5
 	var/leaping = 0
 	ventcrawler = 2
-
 	var/list/alien_organs = list()
+	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
+	var/death_sound = 'sound/voice/hiss6.ogg'
 
 /mob/living/carbon/alien/New()
 	verbs += /mob/living/verb/mob_sleep
@@ -42,7 +34,7 @@
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)
 		return default_language
-	return all_languages["Xenomorph"]
+	return GLOB.all_languages["Xenomorph"]
 
 /mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
 	var/verb = "hisses"
@@ -59,25 +51,25 @@
 
 
 /mob/living/carbon/alien/adjustToxLoss(amount)
-	return
+	return STATUS_UPDATE_NONE
 
 /mob/living/carbon/alien/adjustFireLoss(amount) // Weak to Fire
 	if(amount > 0)
-		..(amount * 2)
+		return ..(amount * 2)
 	else
-		..(amount)
-	return
+		return ..(amount)
 
 
 /mob/living/carbon/alien/check_eye_prot()
 	return 2
 
-/mob/living/carbon/alien/updatehealth()
+/mob/living/carbon/alien/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
 		stat = CONSCIOUS
 		return
 	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	update_stat("updatehealth([reason])")
 
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 
@@ -117,31 +109,6 @@
 					apply_damage(HEAT_DAMAGE_LEVEL_2, BURN)
 	else
 		clear_alert("alien_fire")
-
-/mob/living/carbon/alien/handle_mutations_and_radiation()
-	// Aliens love radiation nom nom nom
-	if(radiation)
-		if(radiation > 100)
-			radiation = 100
-
-		if(radiation < 0)
-			radiation = 0
-
-		switch(radiation)
-			if(1 to 49)
-				radiation--
-				if(prob(25))
-					adjustToxLoss(1)
-
-			if(50 to 74)
-				radiation -= 2
-				adjustToxLoss(1)
-				if(prob(5))
-					radiation -= 5
-
-			if(75 to 100)
-				radiation -= 3
-				adjustToxLoss(3)
 
 /mob/living/carbon/alien/handle_fire()//Aliens on fire code
 	if(..())
@@ -199,11 +166,11 @@
 	//Lasertag bullshit
 	if(lasercolor)
 		if(lasercolor == "b")//Lasertag turrets target the opposing team, how great is that? -Sieve
-			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/redtag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/redtag)) || (istype(l_hand,/obj/item/gun/energy/laser/redtag)))
 				threatcount += 4
 
 		if(lasercolor == "r")
-			if((istype(r_hand,/obj/item/weapon/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/weapon/gun/energy/laser/bluetag)))
+			if((istype(r_hand,/obj/item/gun/energy/laser/bluetag)) || (istype(l_hand,/obj/item/gun/energy/laser/bluetag)))
 				threatcount += 4
 
 		return threatcount
@@ -227,7 +194,7 @@ Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
 	if(client)
-		for(var/mob/living/C in mob_list)
+		for(var/mob/living/C in GLOB.mob_list)
 			if(C.status_flags & XENO_HOST)
 				var/obj/item/organ/internal/body_egg/alien_embryo/A = C.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo)
 				if(A)
@@ -259,10 +226,6 @@ Des: Removes all infected images from the alien.
 
 /mob/living/carbon/alien/can_use_vents()
 	return
-
-#undef HEAT_DAMAGE_LEVEL_1
-#undef HEAT_DAMAGE_LEVEL_2
-#undef HEAT_DAMAGE_LEVEL_3
 
 /mob/living/carbon/alien/handle_footstep(turf/T)
 	if(..())

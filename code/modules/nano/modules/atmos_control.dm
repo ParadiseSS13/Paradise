@@ -11,7 +11,7 @@
 	access.req_one_access = req_one_access
 
 	if(monitored_alarm_ids)
-		for(var/obj/machinery/alarm/alarm in machines)
+		for(var/obj/machinery/alarm/alarm in GLOB.machines)
 			if(alarm.alarm_id && alarm.alarm_id in monitored_alarm_ids)
 				monitored_alarms += alarm
 		// machines may not yet be ordered at this point
@@ -23,13 +23,13 @@
 
 	if(href_list["alarm"])
 		if(ui_ref)
-			var/obj/machinery/alarm/alarm = locate(href_list["alarm"]) in (monitored_alarms ? monitored_alarms : machines)
+			var/obj/machinery/alarm/alarm = locate(href_list["alarm"]) in (monitored_alarms ? monitored_alarms : GLOB.machines)
 			if(alarm)
 				var/datum/topic_state/air_alarm/TS = generate_state(alarm)
 				alarm.ui_interact(usr, master_ui = ui_ref, state = TS)
 
 /datum/nano_module/atmos_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "atmos_control.tmpl", src.name, 900, 800, state = state)
 		ui.add_template("mapContent", "atmos_control_map_content.tmpl")

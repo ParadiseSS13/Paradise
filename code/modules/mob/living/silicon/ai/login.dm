@@ -1,4 +1,4 @@
-/mob/living/silicon/ai/Login()	//ThisIsDumb(TM) TODO: tidy this up ¬_¬ ~Carn
+/mob/living/silicon/ai/Login()	//ThisIsDumb(TM) TODO: tidy this up ï¿½_ï¿½ ~Carn
 	..()
 	for(var/obj/effect/rune/rune in world)
 		var/image/blood = image(loc = rune)
@@ -7,7 +7,9 @@
 	regenerate_icons()
 
 	if(stat != DEAD)
-		for(var/obj/machinery/ai_status_display/O in machines) //change status
+		for(var/obj/machinery/ai_status_display/O in GLOB.machines) //change status
 			O.mode = 1
 			O.emotion = "Neutral"
+	if(multicam_on)
+		end_multicam()
 	view_core()

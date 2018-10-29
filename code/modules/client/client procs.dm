@@ -65,7 +65,7 @@
 
 	//search the href for script injection
 	if( findtext(href,"<script",1,0) )
-		log_to_dd("Attempted use of scripts within a topic call, by [src]")
+		log_world("Attempted use of scripts within a topic call, by [src]")
 		log_runtime(EXCEPTION("Attempted use of scripts within a topic call, by [src]"), src)
 		message_admins("Attempted use of scripts within a topic call, by [src]")
 		return
@@ -94,8 +94,8 @@
 
 
 	//Logs all hrefs
-	if(config && config.log_hrefs && href_logfile)
-		to_chat(href_logfile, "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>")
+	if(config && config.log_hrefs)
+		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	if(href_list["karmashop"])
 		if(config.disable_karma)
@@ -109,136 +109,42 @@
 			if("shop")
 				if(href_list["KarmaBuy"])
 					var/karma=verify_karma()
+					if(isnull(karma)) //Doesn't display anything if karma database is down.
+						return
 					switch(href_list["KarmaBuy"])
 						if("1")
-							if(karma <5)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Barber?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Barber",5)
-								return
+							karma_purchase(karma,5,"job","Barber")
 						if("2")
-							if(karma <5)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Brig Physician?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Brig Physician",5)
-								return
+							karma_purchase(karma,5,"job","Brig Physician")
 						if("3")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Nanotrasen Representative?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Nanotrasen Representative",30)
-								return
+							karma_purchase(karma,30,"job","Nanotrasen Representative")
 						if("5")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Blueshield?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Blueshield",30)
-								return
+							karma_purchase(karma,30,"job","Blueshield")
 						if("6")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Mechanic?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Mechanic",30)
-								return
+							karma_purchase(karma,30,"job","Mechanic")
 						if("7")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Magistrate?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Magistrate",45)
-								return
+							karma_purchase(karma,45,"job","Magistrate")
 						if("9")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Security Pod Pilot?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_job_unlock("Security Pod Pilot",30)
-								return
+							karma_purchase(karma,30,"job","Security Pod Pilot")
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
+					if(isnull(karma)) //Doesn't display anything if karma database is down.
+						return
 					switch(href_list["KarmaBuy2"])
 						if("1")
-							if(karma <15)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Machine People?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Machine",15)
-								return
+							karma_purchase(karma,15,"species","Machine People","Machine")
 						if("2")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Kidan?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Kidan",30)
-								return
+							karma_purchase(karma,30,"species","Kidan")
 						if("3")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Grey?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Grey",30)
-								return
+							karma_purchase(karma,30,"species","Grey")
 						if("4")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Vox?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Vox",45)
-								return
+							karma_purchase(karma,45,"species","Vox")
 						if("5")
-							if(karma <45)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Slime People?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Slime People",45)
-								return
+							karma_purchase(karma,45,"species","Slime People")
 						if("6")
-							if(karma <100)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Plasmaman?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Plasmaman",100)
-								return
+							karma_purchase(karma,100,"species","Plasmaman")
 						if("7")
-							if(karma <30)
-								to_chat(usr, "You do not have enough karma!")
-								return
-							else
-								if(alert("Are you sure you want to unlock Drask?", "Confirmation", "No", "Yes") != "Yes")
-									return
-								DB_species_unlock("Drask",30)
-								return
+							karma_purchase(karma,30,"species","Drask")
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
 					var/job = href_list["KarmaRefund"]
@@ -400,13 +306,13 @@
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 
-	clients += src
-	directory[ckey] = src
+	GLOB.clients += src
+	GLOB.directory[ckey] = src
 
 	//Admin Authorisation
 	holder = admin_datums[ckey]
 	if(holder)
-		admins += src
+		GLOB.admins += src
 		holder.owner = src
 
 	donator_check()
@@ -418,6 +324,8 @@
 		preferences_datums[ckey] = prefs
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
+	if(world.byond_version >= 511 && byond_version >= 511 && prefs.clientfps)
+		fps = prefs.clientfps
 
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
@@ -476,15 +384,18 @@
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
+	Master.UpdateTickRate()
+
 //////////////
 //DISCONNECT//
 //////////////
 /client/Del()
 	if(holder)
 		holder.owner = null
-		admins -= src
-	directory -= ckey
-	clients -= src
+		GLOB.admins -= src
+	GLOB.directory -= ckey
+	GLOB.clients -= src
+	Master.UpdateTickRate()
 	return ..()
 
 
@@ -554,7 +465,7 @@
 
 	//Log all the alts
 	if(related_accounts_cid.len)
-		log_access("Alts: [key_name(src)]:[jointext(related_accounts_cid, " - ")]")
+		log_admin("[key_name(src)] alts:[jointext(related_accounts_cid, " - ")]")
 
 
 	var/watchreason = check_watchlist(ckey)
@@ -663,7 +574,7 @@
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
 
-			log_access("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
+			log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer confirmed (oldcid: [oldcid])")
 
 			del(src)
 			return TRUE
@@ -705,7 +616,7 @@
 /client/proc/cid_check_reconnect()
 	var/token = md5("[rand(0,9999)][world.time][rand(0,9999)][ckey][rand(0,9999)][address][rand(0,9999)][computer_id][rand(0,9999)]")
 	. = token
-	log_access("Failed Login: [key] [computer_id] [address] - CID randomizer check")
+	log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer check")
 	var/url = winget(src, null, "url")
 	//special javascript to make them reconnect under a new window.
 	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
@@ -737,8 +648,8 @@
 
 //For debugging purposes
 /client/proc/list_all_languages()
-	for(var/L in all_languages)
-		var/datum/language/lang = all_languages[L]
+	for(var/L in GLOB.all_languages)
+		var/datum/language/lang = GLOB.all_languages[L]
 		var/message = "[lang.name] : [lang.type]"
 		if(lang.flags & RESTRICTED)
 			message += " (RESTRICTED)"

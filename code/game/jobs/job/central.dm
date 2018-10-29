@@ -24,20 +24,17 @@
 	gloves =  /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/centcom/officer
-	l_ear = /obj/item/device/radio/headset/centcom
+	l_ear = /obj/item/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/centcom
-	pda = /obj/item/device/pda/centcom
-	backpack_contents = list(
-		/obj/item/weapon/gun/energy/pulse/pistol = 1,
-		/obj/item/weapon/implanter/dust = 1,
-		/obj/item/weapon/implanter/death_alarm = 1
+	id = /obj/item/card/id/centcom
+	pda = /obj/item/pda/centcom
+	belt = /obj/item/gun/energy/pulse/pistol
+	implants = list(
+		/obj/item/implant/mindshield,
+		/obj/item/implant/dust
 	)
-
-	implants = list(/obj/item/weapon/implant/mindshield)
-
-	backpack = /obj/item/weapon/storage/backpack/satchel
-
+	backpack = /obj/item/storage/backpack/satchel
+	box = /obj/item/storage/box/centcomofficer
 
 
 // CC Officials who lead ERTs, Death Squads, etc.
@@ -61,22 +58,33 @@
 /datum/outfit/job/ntspecops
 	name = "Special Operations Officer"
 	jobtype = /datum/job/ntspecops
-
-	uniform = /obj/item/clothing/under/syndicate/combat
+	uniform = /obj/item/clothing/under/rank/centcom_commander
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
+	back = /obj/item/storage/backpack/security
+	belt = /obj/item/gun/energy/pulse/pistol/m1911
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
-	head = /obj/item/clothing/head/beret/centcom/officer/navy
-	l_ear = /obj/item/device/radio/headset/centcom
+	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
+	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
+	l_ear = /obj/item/radio/headset/centcom
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
-	id = /obj/item/weapon/card/id/centcom
-	pda = /obj/item/device/pda/centcom
+	id = /obj/item/card/id/centcom
+	pda = /obj/item/pda/centcom
+	r_pocket = /obj/item/storage/box/matches
+	box = /obj/item/storage/box/centcomofficer
+	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
-		/obj/item/weapon/implanter/dust = 1,
-		/obj/item/weapon/gun/energy/pulse/pistol/m1911 = 1,
-		/obj/item/weapon/implanter/death_alarm = 1
+		/obj/item/clothing/shoes/magboots/advance = 1,
+		/obj/item/twohanded/dualsaber/red = 1,
+		/obj/item/storage/box/zipties = 1
 	)
-
-	implants = list(/obj/item/weapon/implant/mindshield)
-
-	backpack = /obj/item/weapon/storage/backpack/satchel
+	implants = list(
+		/obj/item/implant/mindshield,
+		/obj/item/implant/dust
+	)
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/xray,
+		/obj/item/organ/internal/cyberimp/brain/anti_drop,
+		/obj/item/organ/internal/cyberimp/brain/anti_stun,
+		/obj/item/organ/internal/cyberimp/chest/nutriment/plus
+	)

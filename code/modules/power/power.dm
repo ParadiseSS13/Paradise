@@ -12,7 +12,7 @@
 	anchored = 1.0
 	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
-	use_power = 0
+	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
 
@@ -59,11 +59,13 @@
 // defaults to power_channel
 /obj/machinery/proc/powered(var/chan = -1) // defaults to power_channel
 
-	if(!src.loc)
+	if(!loc)
 		return 0
+	if(!use_power)
+		return 1
 
-	var/area/A = src.loc.loc		// make sure it's in an area
-	if(!A || !isarea(A))
+	var/area/A = get_area(src)		// make sure it's in an area
+	if(!A)
 		return 0					// if not, then not powered
 	if(chan == -1)
 		chan = power_channel
@@ -72,7 +74,7 @@
 // increment the power usage stats for an area
 /obj/machinery/proc/use_power(var/amount, var/chan = -1) // defaults to power_channel
 	var/area/A = get_area(src)		// make sure it's in an area
-	if(!A || !isarea(A))
+	if(!A)
 		return
 	if(chan == -1)
 		chan = power_channel
@@ -119,7 +121,7 @@
 
 // attach a wire to a power machine - leads from the turf you are standing on
 //almost never called, overwritten by all power machines but terminal and generator
-/obj/machinery/power/attackby(obj/item/weapon/W, mob/user)
+/obj/machinery/power/attackby(obj/item/W, mob/user)
 
 	if(istype(W, /obj/item/stack/cable_coil))
 
@@ -232,29 +234,9 @@
 					. += C
 	return .
 
-/hook/startup/proc/buildPowernets()
-	return makepowernets()
-
-// rebuild all power networks from scratch - only called at world creation or by the admin verb
-/proc/makepowernets()
-	for(var/datum/powernet/PN in powernets)
-		qdel(PN)
-	powernets.Cut()
-
-	for(var/obj/structure/cable/PC in cable_list)
-		makepowernet_for(PC)
-
-	return 1
-
-/proc/makepowernet_for(var/obj/structure/cable/PC)
-	if(!PC.powernet)
-		var/datum/powernet/NewPN = new()
-		NewPN.add_cable(PC)
-		propagate_network(PC,PC.powernet)
-
 //remove the old powernet and replace it with a new one throughout the network.
 /proc/propagate_network(var/obj/O, var/datum/powernet/PN)
-	//log_to_dd("propagating new network")
+	//log_world("propagating new network")
 	var/list/worklist = list()
 	var/list/found_machines = list()
 	var/index = 1
@@ -317,7 +299,7 @@
 //source is an object caused electrocuting (airlock, grille, etc)
 //No animations will be performed by this proc.
 /proc/electrocute_mob(mob/living/carbon/M as mob, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
-	if(!istype(M)) 
+	if(!istype(M))
 		return 0
 	if(istype(M.loc,/obj/mecha))
 		return 0	//feckin mechs are dumb
@@ -325,7 +307,7 @@
 		var/mob/living/carbon/human/H = M
 		if(H.gloves)
 			var/obj/item/clothing/gloves/G = H.gloves
-			if(G.siemens_coefficient == 0)	
+			if(G.siemens_coefficient == 0)
 				return 0		//to avoid spamming with insulated glvoes on
 
 	var/area/source_area
@@ -337,11 +319,11 @@
 		power_source = Cable.powernet
 
 	var/datum/powernet/PN
-	var/obj/item/weapon/stock_parts/cell/cell
+	var/obj/item/stock_parts/cell/cell
 
 	if(istype(power_source,/datum/powernet))
 		PN = power_source
-	else if(istype(power_source,/obj/item/weapon/stock_parts/cell))
+	else if(istype(power_source,/obj/item/stock_parts/cell))
 		cell = power_source
 	else if(istype(power_source,/obj/machinery/power/apc))
 		var/obj/machinery/power/apc/apc = power_source
@@ -376,6 +358,6 @@
 	else if(istype(power_source,/datum/powernet))
 		var/drained_power = drained_energy/CELLRATE //convert from "joules" to "watts"
 		drained_power = PN.draw_power(drained_power)
-	else if(istype(power_source, /obj/item/weapon/stock_parts/cell))
+	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy

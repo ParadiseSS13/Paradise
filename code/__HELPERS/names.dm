@@ -17,19 +17,7 @@ var/church_name = null
 
 var/command_name = null
 /proc/command_name()
-	if(command_name)
-		return command_name
-
-	var/name = "Central Command"
-
-	command_name = name
-	return name
-
-/proc/change_command_name(var/name)
-
-	command_name = name
-
-	return name
+	return using_map.dock_name
 
 var/religion_name = null
 /proc/religion_name()
@@ -44,20 +32,10 @@ var/religion_name = null
 	return capitalize(name)
 
 /proc/system_name()
-	return "Nyx"
+	return using_map.starsys_name
 
 /proc/station_name()
-	if(station_name)
-		return station_name
-
-	var/name = ""
-
-	if(config && config.server_name)
-		world.name = "[config.server_name]: [name]"
-	else
-		world.name = station_name
-
-	return station_name
+	return using_map.station_name
 
 /proc/new_station_name()
 	var/random = rand(1,5)
@@ -101,18 +79,6 @@ var/religion_name = null
 		if(13)
 			new_station_name += pick("13","XIII","Thirteen")
 	return new_station_name
-
-
-/proc/world_name(var/name)
-
-	station_name = name
-
-	if(config && config.server_name)
-		world.name = "[config.server_name]: [name]"
-	else
-		world.name = name
-
-	return name
 
 var/syndicate_name = null
 /proc/syndicate_name()
@@ -198,11 +164,11 @@ var/syndicate_code_response//Code response for traitors.
 						if(names.len&&prob(70))
 							code_phrase += pick(names)
 						else
-							code_phrase += pick(pick(first_names_male,first_names_female))
+							code_phrase += pick(pick(GLOB.first_names_male,GLOB.first_names_female))
 							code_phrase += " "
-							code_phrase += pick(last_names)
+							code_phrase += pick(GLOB.last_names)
 					if(2)
-						code_phrase += pick(joblist)//Returns a job.
+						code_phrase += pick(GLOB.joblist)//Returns a job.
 				safety -= 1
 			if(2)
 				switch(rand(1,2))//Places or things.
@@ -216,9 +182,9 @@ var/syndicate_code_response//Code response for traitors.
 					if(1)
 						code_phrase += pick(nouns)
 					if(2)
-						code_phrase += pick(adjectives)
+						code_phrase += pick(GLOB.adjectives)
 					if(3)
-						code_phrase += pick(verbs)
+						code_phrase += pick(GLOB.verbs)
 		if(words==1)
 			code_phrase += "."
 		else
@@ -253,9 +219,9 @@ var/syndicate_code_response//Code response for traitors.
 		if(1)
 			syndicate_code_phrase += pick("I'm looking for","Have you seen","Maybe you've seen","I'm trying to find","I'm tracking")
 			syndicate_code_phrase += " "
-			syndicate_code_phrase += pick(pick(first_names_male,first_names_female))
+			syndicate_code_phrase += pick(pick(GLOB.first_names_male,GLOB.first_names_female))
 			syndicate_code_phrase += " "
-			syndicate_code_phrase += pick(last_names)
+			syndicate_code_phrase += pick(GLOB.last_names)
 			syndicate_code_phrase += "."
 		if(2)
 			syndicate_code_phrase += pick("How do I get to","How do I find","Where is","Where do I find")
@@ -279,7 +245,7 @@ var/syndicate_code_response//Code response for traitors.
 		if(5)
 			syndicate_code_phrase += pick("Do we have","Is there","Where is","Where's","Who's")
 			syndicate_code_phrase += " "
-			syndicate_code_phrase += "[pick(joblist)]"
+			syndicate_code_phrase += "[pick(GLOB.joblist)]"
 			syndicate_code_phrase += "?"
 
 	switch(choice)
@@ -303,12 +269,12 @@ var/syndicate_code_response//Code response for traitors.
 				syndicate_code_response += pick("Try asking","Ask","Talk to","Go see","Follow","Hunt down")
 				syndicate_code_response += " "
 				if(prob(50))
-					syndicate_code_response += pick(pick(first_names_male,first_names_female))
+					syndicate_code_response += pick(pick(GLOB.first_names_male,GLOB.first_names_female))
 					syndicate_code_response += " "
-					syndicate_code_response += pick(last_names)
+					syndicate_code_response += pick(GLOB.last_names)
 				else
 					syndicate_code_response += " the "
-					syndicate_code_response += "[pic(joblist)]"
+					syndicate_code_response += "[pic(GLOB.joblist)]"
 				syndicate_code_response += "."
 			else
 				syndicate_code_response += pick("*shrug*","*smile*","*blink*","*sigh*","*laugh*","*nod*","*giggle*")

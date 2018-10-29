@@ -4,14 +4,14 @@
 	set desc = "Tag yourself for delivery through the disposals system."
 	set category = "Drone"
 
-	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in TAGGERLOCATIONS
+	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
 
-	if(!tag || TAGGERLOCATIONS[tag])
+	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
 		return
 
 	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
-	mail_destination = TAGGERLOCATIONS.Find(tag)
+	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
@@ -43,11 +43,11 @@
 	control_headlamp()
 
 //Actual picking-up event.
-/mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M as mob)
+/mob/living/silicon/robot/drone/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
-
-	..()
+	else
+		..()
 
 /mob/living/silicon/robot/drone/verb/customize()
 	set name = "Customize Chassis"
@@ -79,7 +79,7 @@
 	verbs -= /mob/living/silicon/robot/drone/verb/customize
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
-	var/obj/item/weapon/holder/H = ..()
+	var/obj/item/holder/H = ..()
 	if(!istype(H))
 		return
 	if(resting)

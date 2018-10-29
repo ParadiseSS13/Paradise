@@ -1,4 +1,8 @@
 /mob/living/carbon/slime/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	if(!gibbed)
 		if(is_adult)
 			var/mob/living/carbon/slime/M = new /mob/living/carbon/slime(loc)
@@ -11,17 +15,7 @@
 			number = rand(1, 1000)
 			name = "[colour] [is_adult ? "adult" : "baby"] slime ([number])"
 			return
-
-	if(stat == DEAD)	return
-	stat = DEAD
+		else
+			visible_message("<b>The [name]</b> seizes up and falls limp...")
 	icon_state = "[colour] baby slime dead"
-	overlays.len = 0
-	for(var/mob/O in viewers(src, null))
-		O.show_message("<b>The [name]</b> seizes up and falls limp...", 1) //ded -- Urist
-
-	update_canmove()
-
-	if(ticker && ticker.mode)
-		ticker.mode.check_win()
-
-	return ..(gibbed)
+	overlays.Cut()

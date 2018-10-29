@@ -25,9 +25,9 @@
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
 		if(gender==FEMALE)
-			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 		else
-			return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 
 	var/full_name = ""
 	var/new_name = ""
@@ -99,13 +99,13 @@
 	if(!check_can_speak(speaker))
 		return FALSE
 
-	log_say("[key_name(speaker)]: ([name]) [message]")
+	log_say("([name]-HIVE) [message]", speaker)
 
 	if(!speaker_mask)
 		speaker_mask = speaker.name
 	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
 
-	for(var/mob/player in player_list)
+	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
 			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [format_message(message, get_spoken_verb(message))]</span></i>"
 			to_chat(player, msg_dead)
@@ -226,7 +226,14 @@
 	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
 
 /datum/language/vox/get_random_name()
-	return ..(FEMALE,1,6)
+	var/sounds = rand(2, 8)
+	var/i = 0
+	var/newname = ""
+
+	while(i <= sounds)
+		i++
+		newname += pick(GLOB.vox_name_syllables)
+	return capitalize(newname)
 
 /datum/language/diona
 	name = "Rootspeak"
@@ -240,8 +247,8 @@
 	syllables = list("hs","zt","kr","st","sh")
 
 /datum/language/diona/get_random_name()
-	var/new_name = "[pick(list("To Sleep Beneath","Wind Over","Embrace of","Dreams of","Witnessing","To Walk Beneath","Approaching the"))]"
-	new_name += " [pick(list("the Void","the Sky","Encroaching Night","Planetsong","Starsong","the Wandering Star","the Empty Day","Daybreak","Nightfall","the Rain"))]"
+	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace of", "Dreams of", "Witnessing", "To Walk Beneath", "Approaching the", "Glimmer of", "The Ripple of", "Colors of", "The Still of", "Silence of", "Gentle Breeze of", "Glistening Waters under", "Child of", "Blessed Plant-ling of", "Grass-Walker of", "Element of", "Spawn of"))]"
+	new_name += " [pick(list("the Void", "the Sky", "Encroaching Night", "Planetsong", "Starsong", "the Wandering Star", "the Empty Day", "Daybreak", "Nightfall", "the Rain", "the Stars", "the Waves", "Dusk", "Night", "the Wind", "the Summer Wind", "the Blazing Sun", "the Scorching Sun", "Eternal Fields", "the Soothing Plains", "the Undying Fiona", "Mother Nature's Bousum"))]"
 	return new_name
 
 /datum/language/trinary
@@ -260,7 +267,7 @@
 	if(prob(70))
 		new_name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
 	else
-		new_name = pick(ai_names)
+		new_name = pick(GLOB.ai_names)
 	return new_name
 
 /datum/language/kidan
@@ -310,12 +317,7 @@
 		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
 		return FALSE
 
-	var/their = "their"
-	if(speaker.gender == "female")
-		their = "her"
-	if(speaker.gender == "male")
-		their = "his"
-	speaker.visible_message("<span class='notice'>[speaker] touches [their] fingers to [their] temple.</span>") //If placed in grey/broadcast, it will happen regardless of the success of the action.
+	speaker.visible_message("<span class='notice'>[speaker] touches [speaker.p_their()] fingers to [speaker.p_their()] temple.</span>") //If placed in grey/broadcast, it will happen regardless of the success of the action.
 
 	return TRUE
 
@@ -512,8 +514,10 @@
 	..(speaker,message,speaker.real_name)
 
 /datum/language/abductor/check_special_condition(mob/living/carbon/human/other, mob/living/carbon/human/speaker)
-	if(other.mind && other.mind.abductor)
-		if(other.mind.abductor.team == speaker.mind.abductor.team)
+	if(isabductor(other) && isabductor(speaker))
+		var/datum/species/abductor/A = speaker.dna.species
+		var/datum/species/abductor/A2 = other.dna.species
+		if(A.team == A2.team)
 			return TRUE
 	return FALSE
 
@@ -553,23 +557,22 @@
 	var/drone_only
 
 /datum/language/binary/broadcast(mob/living/speaker, message, speaker_mask)
-
 	if(!speaker.binarycheck())
 		return
 
 	if(!message)
 		return
-	
-	log_robot("[key_name(speaker)] : [message]")
-	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i> <span class='ibm'>\"[message]\"</span></span></span>"
 
-	for(var/mob/M in dead_mob_list)
+	log_say("(ROBOT) [message]", speaker)
+	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
+	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
+
+	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
 			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
-	for(var/mob/living/S in living_mob_list)
+	for(var/mob/living/S in GLOB.living_mob_list)
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(isAI(S))
@@ -618,13 +621,13 @@
 	exclaim_verb = "tones"
 	colour = "say_quote"
 	key = "z"//Zwarmer...Or Zerg!
-	flags = RESTRICTED || HIVEMIND
+	flags = RESTRICTED | HIVEMIND
 	follow = 1
 
 // Language handling.
 /mob/proc/add_language(language)
 
-	var/datum/language/new_language = all_languages[language]
+	var/datum/language/new_language = GLOB.all_languages[language]
 
 	if(!istype(new_language) || new_language in languages)
 		return FALSE
@@ -633,12 +636,12 @@
 	return TRUE
 
 /mob/proc/remove_language(rem_language)
-	var/datum/language/L = all_languages[rem_language]
+	var/datum/language/L = GLOB.all_languages[rem_language]
 	. = (L in languages)
 	languages.Remove(L)
 
 /mob/living/remove_language(rem_language)
-	var/datum/language/L = all_languages[rem_language]
+	var/datum/language/L = GLOB.all_languages[rem_language]
 	if(default_language == L)
 		default_language = null
 	return ..()
@@ -683,7 +686,7 @@
 		if(href_list["default_lang"] == "reset")
 			set_default_language(null)
 		else
-			var/datum/language/L = all_languages[href_list["default_lang"]]
+			var/datum/language/L = GLOB.all_languages[href_list["default_lang"]]
 			if(L)
 				set_default_language(L)
 		check_languages()

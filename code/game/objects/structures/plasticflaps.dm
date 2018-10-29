@@ -6,6 +6,7 @@
 	density = 0
 	anchored = 1
 	layer = 4
+	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100)
 	var/list/mobs_can_pass = list(
 		/mob/living/carbon/slime,
 		/mob/living/simple_animal/mouse,
@@ -45,7 +46,7 @@
 				to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
 	else if(iswelder(W))
 		if(state == PLASTIC_FLAPS_DETACHED)
-			var/obj/item/weapon/weldingtool/WT = W
+			var/obj/item/weldingtool/WT = W
 			if(!WT.remove_fuel(0, user))
 				return
 			playsound(loc, WT.usesound, 100, 1)
@@ -64,8 +65,8 @@
 	if(istype(A) && A.checkpass(PASSGLASS))
 		return prob(60)
 
-	var/obj/structure/stool/bed/B = A
-	if(istype(A, /obj/structure/stool/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
+	var/obj/structure/bed/B = A
+	if(istype(A, /obj/structure/bed) && B.buckled_mob)//if it's a bed/chair and someone is buckled, it will not pass
 		return 0
 
 	if(istype(A, /obj/structure/closet/cardboard))
@@ -85,7 +86,7 @@
 				return ..()
 		if(istype(A, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
-			if(H.species.is_small)
+			if(H.dna.species.is_small)
 				return ..()
 		return 0
 
@@ -123,7 +124,7 @@
 	name = "airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."
 
-/obj/structure/plasticflaps/mining/initialize()
+/obj/structure/plasticflaps/mining/Initialize()
 	air_update_turf(1)
 	..()
 

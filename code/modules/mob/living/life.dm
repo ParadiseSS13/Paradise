@@ -1,4 +1,4 @@
-/mob/living/Life()
+/mob/living/Life(seconds, times_fired)
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
@@ -8,12 +8,6 @@
 		return
 	var/datum/gas_mixture/environment = loc.return_air()
 
-	//Apparently, the person who wrote this code designed it so that
-	//blinded get reset each cycle and then get activated later in the
-	//code. Very ugly. I dont care. Moving this stuff here so its easy
-	//to find it.
-	blinded = null
-
 	if(stat != DEAD)
 		//Chemicals in the body
 		handle_chemicals_in_body()
@@ -22,7 +16,7 @@
 		handle_mutations_and_radiation()
 
 		//Breathing, if applicable
-		handle_breathing()
+		handle_breathing(times_fired)
 
 		//Random events (vomiting etc)
 		handle_random_events()
@@ -38,20 +32,18 @@
 	handle_fire()
 
 	//stuff in the stomach
-	handle_stomach()
+	handle_stomach(times_fired)
 
 	update_gravity(mob_has_gravity())
 
 	update_pulling()
 
-	for(var/obj/item/weapon/grab/G in src)
+	for(var/obj/item/grab/G in src)
 		G.process()
 
 	if(handle_regular_status_updates()) // Status & health update, are we dead or alive etc.
 		handle_disabilities() // eye, ear, brain damages
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
-
-	update_canmove(1) // set to 1 to not update icon action buttons; rip this argument out if Life is ever refactored to be non-stupid. -Fox
 
 	if(client)
 		//regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
@@ -61,7 +53,7 @@
 
 	..()
 
-/mob/living/proc/handle_breathing()
+/mob/living/proc/handle_breathing(times_fired)
 	return
 
 /mob/living/proc/handle_mutations_and_radiation()
@@ -80,7 +72,7 @@
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
 	return
 
-/mob/living/proc/handle_stomach()
+/mob/living/proc/handle_stomach(times_fired)
 	return
 
 /mob/living/proc/update_pulling()
@@ -90,21 +82,7 @@
 
 //This updates the health and status of the mob (conscious, unconscious, dead)
 /mob/living/proc/handle_regular_status_updates()
-
-	updatehealth()
-
-	if(stat != DEAD)
-
-		if(paralysis)
-			stat = UNCONSCIOUS
-
-		else if(status_flags & FAKEDEATH)
-			stat = UNCONSCIOUS
-
-		else
-			stat = CONSCIOUS
-
-		return 1
+	return stat != DEAD
 
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/proc/handle_status_effects()
@@ -215,29 +193,6 @@
 
 	if(stat == DEAD)
 		return
-	if(blinded || eye_blind)
-		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		throw_alert("blind", /obj/screen/alert/blind)
-	else
-		clear_fullscreen("blind")
-		clear_alert("blind")
-
-		if(disabilities & NEARSIGHTED)
-			overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
-		else
-			clear_fullscreen("nearsighted")
-
-		if(eye_blurry)
-			overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
-		else
-			clear_fullscreen("blurry")
-
-		if(druggy)
-			overlay_fullscreen("high", /obj/screen/fullscreen/high)
-			throw_alert("high", /obj/screen/alert/high)
-		else
-			clear_fullscreen("high")
-			clear_alert("high")
 
 	if(machine)
 		if(!machine.check_eye(src))
@@ -247,6 +202,8 @@
 			reset_perspective(null)
 
 /mob/living/proc/update_sight()
+	if(stat == DEAD)
+		grant_death_vision()
 	return
 
 // Gives a mob the vision of being dead

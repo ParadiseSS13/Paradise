@@ -9,19 +9,19 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		smoothTurfs = turfs
 
 	log_debug("Setting up atmos")
-	if(air_master)
-		air_master.setup_allturfs(turfs)
+	if(SSair)
+		SSair.setup_allturfs(turfs)
 	log_debug("\tTook [stop_watch(subtimer)]s")
 
 	subtimer = start_watch()
 	log_debug("Smoothing tiles")
 	for(var/turf/T in smoothTurfs)
 		if(T.smooth)
-			smooth_icon(T)
+			queue_smooth(T)
 		for(var/R in T)
 			var/atom/A = R
 			if(A.smooth)
-				smooth_icon(A)
+				queue_smooth(A)
 		if(istype(T, /turf/simulated/mineral)) // For the listening post, among other maps
 			var/turf/simulated/mineral/MT = T
 			MT.add_edges()
@@ -57,9 +57,9 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			maploader.load_map(file, z_offset = zlev)
 			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
 			space_manager.remove_dirt(zlev)
-			log_to_dd("  Away mission loaded: [map]")
+			log_world("  Away mission loaded: [map]")
 
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name != "awaystart")
 				continue
 			awaydestinations.Add(L)
@@ -88,11 +88,11 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 				maploader.load_map(file, z_offset = zlev)
 				late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
 				space_manager.remove_dirt(zlev)
-				log_to_dd("  Away mission loaded: [map]")
+				log_world("  Away mission loaded: [map]")
 
 			//map_transition_config.Add(AWAY_MISSION_LIST)
 
-			for(var/obj/effect/landmark/L in landmarks_list)
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name != "awaystart")
 					continue
 				awaydestinations.Add(L)
@@ -156,7 +156,8 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 		while(sanity > 0)
 			sanity--
-			var/turf/T = locate(rand(25, world.maxx - 25), rand(25, world.maxy - 25), z_level)
+			// 8: 7 is the normal view distance of a client, +1 so that ruins don't suddenly appear
+			var/turf/T = locate(rand(TRANSITION_BORDER_WEST + (8 + ruin.width/2), TRANSITION_BORDER_EAST - (8 + ruin.width/2)), rand(TRANSITION_BORDER_SOUTH + (8 + ruin.height/2), TRANSITION_BORDER_NORTH - (8 + ruin.height/2)), z_level)
 			var/valid = 1
 
 			for(var/turf/check in ruin.get_affected_turfs(T,1))
@@ -168,7 +169,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			if(!valid)
 				continue
 
-			log_to_dd("  Ruin \"[ruin.name]\" loaded in [stop_watch(watch)]s at ([T.x], [T.y], [T.z]).")
+			log_world("  Ruin \"[ruin.name]\" loaded in [stop_watch(watch)]s at ([T.x], [T.y], [T.z]).")
 
 			var/obj/effect/ruin_loader/R = new /obj/effect/ruin_loader(T)
 			R.Load(ruins,ruin)
@@ -179,13 +180,13 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 
 	if(initialbudget == budget) //Kill me
-		log_to_dd("  No ruins loaded.")
+		log_world("  No ruins loaded.")
 
 
 /obj/effect/ruin_loader
 	name = "random ruin"
 	desc = "If you got lucky enough to see this..."
-	icon = 'icons/obj/weapons.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "syndballoon"
 	invisibility = 0
 

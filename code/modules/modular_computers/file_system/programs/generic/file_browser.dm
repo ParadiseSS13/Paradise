@@ -17,7 +17,7 @@
 	return t
 
 /datum/computer_file/program/filemanager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		var/datum/asset/assets = get_asset_datum(/datum/asset/simple/headers)
 		assets.send(user)
@@ -29,8 +29,8 @@
 /datum/computer_file/program/filemanager/ui_data(mob/user)
 	var/list/data = get_header_data()
 
-	var/obj/item/weapon/computer_hardware/hard_drive/HDD = computer.all_components[MC_HDD]
-	var/obj/item/weapon/computer_hardware/hard_drive/portable/RHDD = computer.all_components[MC_SDD]
+	var/obj/item/computer_hardware/hard_drive/HDD = computer.all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/portable/RHDD = computer.all_components[MC_SDD]
 	if(error)
 		data["error"] = error
 	if(open_file)
@@ -55,7 +55,8 @@
 					"name" = F.filename,
 					"type" = F.filetype,
 					"size" = F.size,
-					"undeletable" = F.undeletable
+					"undeletable" = F.undeletable,
+					"encrypted" = !!F.password
 				)))
 			data["files"] = files
 			if(RHDD)
@@ -66,7 +67,8 @@
 						"name" = F.filename,
 						"type" = F.filetype,
 						"size" = F.size,
-						"undeletable" = F.undeletable
+						"undeletable" = F.undeletable,
+						"encrypted" = !!F.password
 					)))
 				data["usbfiles"] = usbfiles
 
@@ -76,13 +78,16 @@
 	if(..())
 		return 1
 
-	var/obj/item/weapon/computer_hardware/hard_drive/HDD = computer.all_components[MC_HDD]
-	var/obj/item/weapon/computer_hardware/hard_drive/RHDD = computer.all_components[MC_SDD]
-	var/obj/item/weapon/computer_hardware/printer/printer = computer.all_components[MC_PRINT]
+	var/obj/item/computer_hardware/hard_drive/HDD = computer.all_components[MC_HDD]
+	var/obj/item/computer_hardware/hard_drive/RHDD = computer.all_components[MC_SDD]
+	var/obj/item/computer_hardware/printer/printer = computer.all_components[MC_PRINT]
 
 	switch(href_list["action"])
 		if("PRG_openfile")
 			. = 1
+			var/datum/computer_file/F = HDD.find_file_by_name(href_list["name"])
+			if(!F.can_access_file(usr))
+				return
 			open_file = href_list["name"]
 		if("PRG_newtextfile")
 			. = 1
@@ -198,3 +203,26 @@
 				return 1
 			var/datum/computer_file/C = F.clone(0)
 			HDD.store_file(C)
+		if("PRG_encrypt")
+			. = 1
+			if(!HDD)
+				return 1
+			var/datum/computer_file/F = HDD.find_file_by_name(href_list["name"])
+			if(!F || F.undeletable)
+				return 1
+			if(F.password)
+				return
+			var/new_password = sanitize(input(usr, "Enter an encryption key:", "Encrypt File"))
+			if(!new_password)
+				to_chat(usr, "<span class='warning'>File not encrypted.</span>")
+				return
+			F.password=new_password
+		if("PRG_decrypt")
+			. = 1
+			if(!HDD)
+				return 1
+			var/datum/computer_file/F = HDD.find_file_by_name(href_list["name"])
+			if(!F || F.undeletable)
+				return 1
+			if(F.can_access_file(usr))
+				F.password = ""

@@ -8,7 +8,7 @@
 	desc = "A power-generating treadmill."
 	layer = 2.2
 	anchored = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 
 	var/speed = 0
 	var/friction = 0.15		// lose this much speed every ptick
@@ -18,7 +18,7 @@
 	var/list/mobs_running[0]
 	var/id = null			// for linking to monitor
 
-/obj/machinery/power/treadmill/initialize()
+/obj/machinery/power/treadmill/Initialize()
 	..()
 	if(anchored)
 		connect_to_network()
@@ -137,10 +137,10 @@
 	var/frame = 0				// on 0, show labels, on 1 show numbers
 	var/redeem_immediately = 0	// redeem immediately for holding cell
 
-/obj/machinery/treadmill_monitor/initialize()
+/obj/machinery/treadmill_monitor/Initialize()
 	..()
 	if(id)
-		for(var/obj/machinery/power/treadmill/T in machines)
+		for(var/obj/machinery/power/treadmill/T in GLOB.machines)
 			if(T.id == id)
 				treadmill = T
 				break

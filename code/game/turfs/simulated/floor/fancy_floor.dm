@@ -18,7 +18,7 @@
 /turf/simulated/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
 		return
-	var/obj/item/weapon/tool
+	var/obj/item/tool
 	if(isscrewdriver(user.get_inactive_hand()))
 		tool = user.get_inactive_hand()
 	if(!tool && iscrowbar(user.get_inactive_hand()))
@@ -72,9 +72,8 @@
 /turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
-	if(istype(C, /obj/item/weapon/shovel))
-		new /obj/item/weapon/ore/glass(src)
-		new /obj/item/weapon/ore/glass(src) //Make some sand if you shovel grass
+	if(istype(C, /obj/item/shovel))
+		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
@@ -82,7 +81,6 @@
 // NEEDS TO BE UPDATED
 /turf/simulated/floor/basalt //By your powers combined, I am captain planet
 	name = "volcanic floor"
-	icon = 'icons/turf/floors.dmi'
 	icon_state = "basalt0"
 	oxygen = 14
 	nitrogen = 23
@@ -91,9 +89,8 @@
 /turf/simulated/floor/basalt/attackby(obj/item/W, mob/user, params)
 	if(..())
 		return
-	if(istype(W, /obj/item/weapon/shovel))
-		new /obj/item/weapon/ore/glass/basalt(src)
-		new /obj/item/weapon/ore/glass/basalt(src)
+	if(istype(W, /obj/item/shovel))
+		new /obj/item/stack/ore/glass/basalt(src, 2)
 		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
@@ -107,7 +104,7 @@
 				set_light(1, 1)
 
 /turf/simulated/floor/carpet
-	name = "Carpet"
+	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
 	icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
@@ -131,11 +128,11 @@
 		return 0
 	if(!broken && !burnt)
 		if(smooth)
-			smooth_icon(src)
+			queue_smooth(src)
 	else
 		make_plating()
 		if(smooth)
-			smooth_icon_neighbors(src)
+			queue_smooth_neighbors(src)
 
 /turf/simulated/floor/carpet/break_tile()
 	broken = 1

@@ -1,7 +1,30 @@
+/mob/living/Initialize()
+	. = ..()
+	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.add_to_hud(src)
+
+/mob/living/prepare_huds()
+	..()
+	prepare_data_huds()
+
+/mob/living/proc/prepare_data_huds()
+	..()
+	med_hud_set_health()
+	med_hud_set_status()
+
 
 /mob/living/Destroy()
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
+	remove_from_all_data_huds()
+
+	if(LAZYLEN(status_effects))
+		for(var/s in status_effects)
+			var/datum/status_effect/S = s
+			if(S.on_remove_on_mob_delete) //the status effect calls on_remove when its mob is deleted
+				qdel(S)
+			else
+				S.be_replaced()
 	return ..()
 
 /mob/living/ghostize(can_reenter_corpse = 1)
@@ -114,10 +137,12 @@
 	if(!AM.anchored)
 		now_pushing = 1
 		var/t = get_dir(src, AM)
-		if(istype(AM, /obj/structure/window/full))
-			for(var/obj/structure/window/win in get_step(AM, t))
-				now_pushing = 0
-				return
+		if(istype(AM, /obj/structure/window))
+			var/obj/structure/window/W = AM
+			if(W.fulltile)
+				for(var/obj/structure/window/win in get_step(W, t))
+					now_pushing = 0
+					return
 		if(pulling == AM)
 			stop_pulling()
 		var/current_dir
@@ -132,7 +157,7 @@
 /mob/living/Stat()
 	. = ..()
 	if(. && get_rig_stats)
-		var/obj/item/weapon/rig/rig = get_rig()
+		var/obj/item/rig/rig = get_rig()
 		if(rig)
 			SetupStat(rig)
 
@@ -175,7 +200,7 @@
 	if(!..())
 		return FALSE
 	var/obj/item/hand_item = get_active_hand()
-	if(istype(hand_item, /obj/item/weapon/gun) && A != hand_item)
+	if(istype(hand_item, /obj/item/gun) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [A] with [hand_item]")
 			return TRUE
@@ -189,16 +214,14 @@
 /mob/living/verb/succumb()
 	set hidden = 1
 	if(InCritical())
-		attack_log += "[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!"
+		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
 		adjustOxyLoss(health - config.health_threshold_dead)
-		updatehealth()
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
 		for(var/i = 1 to 5)
 			if(health < config.health_threshold_dead)
 				break
 			take_overall_damage(max(5, health - config.health_threshold_dead), 0)
-			updatehealth()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 /mob/living/proc/InCritical()
@@ -208,12 +231,16 @@
 	..()
 	flash_eyes()
 
-/mob/living/proc/updatehealth()
+/mob/living/proc/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
 		stat = CONSCIOUS
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+
+	update_stat("updatehealth([reason])")
+	handle_hud_icons_health()
+	med_hud_set_health()
 
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
@@ -242,135 +269,52 @@
 	return temperature
 
 
-// ++++ROCKDTBEN++++ MOB PROCS -- Ask me before touching.
-// Stop! ... Hammertime! ~Carn
-// I touched them without asking... I'm soooo edgy ~Erro (added nodamage checks)
-// no ~Tigerkitty
-
-/mob/living/proc/getBruteLoss()
-	return bruteloss
-
-/mob/living/proc/adjustBruteLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	bruteloss = min(max(bruteloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/getOxyLoss()
-	return oxyloss
-
-/mob/living/proc/adjustOxyLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	oxyloss = min(max(oxyloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/setOxyLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	oxyloss = amount
-
-/mob/living/proc/getToxLoss()
-	return toxloss
-
-/mob/living/proc/adjustToxLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	toxloss = min(max(toxloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/setToxLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	toxloss = amount
-
-/mob/living/proc/getFireLoss()
-	return fireloss
-
-/mob/living/proc/adjustFireLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	fireloss = min(max(fireloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/getCloneLoss()
-	return cloneloss
-
-/mob/living/proc/adjustCloneLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	cloneloss = min(max(cloneloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/setCloneLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	cloneloss = amount
-
-/mob/living/proc/getBrainLoss()
-	return brainloss
-
-/mob/living/proc/adjustBrainLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	brainloss = min(max(brainloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/setBrainLoss(var/amount)
-	if(status_flags & GODMODE)	return 0	//godmode
-	brainloss = amount
-
-/mob/living/proc/getStaminaLoss()
-	return staminaloss
-
-/mob/living/proc/adjustStaminaLoss(var/amount)
-	if(status_flags & GODMODE)	return 0
-	staminaloss = min(max(staminaloss + amount, 0),(maxHealth*2))
-
-/mob/living/proc/setStaminaLoss(var/amount)
-	if(status_flags & GODMODE)	return 0
-	staminaloss = amount
-
-/mob/living/proc/getMaxHealth()
-	return maxHealth
-
-/mob/living/proc/setMaxHealth(var/newMaxHealth)
-	maxHealth = newMaxHealth
-
-// ++++ROCKDTBEN++++ MOB PROCS //END
-
-
 /mob/proc/get_contents()
 
 
 //Recursive function to find everything a mob is holding.
-/mob/living/get_contents(var/obj/item/weapon/storage/Storage = null)
+/mob/living/get_contents(var/obj/item/storage/Storage = null)
 	var/list/L = list()
 
 	if(Storage) //If it called itself
 		L += Storage.return_inv()
 
 		//Leave this commented out, it will cause storage items to exponentially add duplicate to the list
-		//for(var/obj/item/weapon/storage/S in Storage.return_inv()) //Check for storage items
+		//for(var/obj/item/storage/S in Storage.return_inv()) //Check for storage items
 		//	L += get_contents(S)
 
-		for(var/obj/item/weapon/gift/G in Storage.return_inv()) //Check for gift-wrapped items
+		for(var/obj/item/gift/G in Storage.return_inv()) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/weapon/storage))
+			if(istype(G.gift, /obj/item/storage))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in Storage.return_inv()) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/weapon/storage)) //this should never happen
+			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
 				L += get_contents(D.wrapped)
 		return L
 
 	else
 
 		L += contents
-		for(var/obj/item/weapon/storage/S in contents)	//Check for storage items
+		for(var/obj/item/storage/S in contents)	//Check for storage items
 			L += get_contents(S)
 		for(var/obj/item/clothing/suit/storage/S in contents)//Check for labcoats and jackets
 			L += get_contents(S)
 		for(var/obj/item/clothing/accessory/storage/S in contents)//Check for holsters
 			L += get_contents(S)
-		for(var/obj/item/weapon/implant/storage/I in contents) //Check for storage implants.
+		for(var/obj/item/implant/storage/I in contents) //Check for storage implants.
 			L += I.get_contents()
-		for(var/obj/item/weapon/gift/G in contents) //Check for gift-wrapped items
+		for(var/obj/item/gift/G in contents) //Check for gift-wrapped items
 			L += G.gift
-			if(istype(G.gift, /obj/item/weapon/storage))
+			if(istype(G.gift, /obj/item/storage))
 				L += get_contents(G.gift)
 
 		for(var/obj/item/smallDelivery/D in contents) //Check for package wrapped items
 			L += D.wrapped
-			if(istype(D.wrapped, /obj/item/weapon/storage)) //this should never happen
+			if(istype(D.wrapped, /obj/item/storage)) //this should never happen
 				L += get_contents(D.wrapped)
-		for(var/obj/item/weapon/folder/F in contents)
+		for(var/obj/item/folder/F in contents)
 			L += F.contents //Folders can't store any storage items.
 
 		return L
@@ -385,7 +329,13 @@
 
 
 /mob/living/proc/can_inject()
-	return 1
+	return TRUE
+
+/mob/living/is_injectable(allowmobs = TRUE)
+	return (allowmobs && reagents && can_inject())
+
+/mob/living/is_drawable(allowmobs = TRUE)
+	return (allowmobs && reagents && can_inject())
 
 /mob/living/proc/get_organ_target()
 	var/mob/shooter = src
@@ -394,35 +344,6 @@
 		t = "head"
 	var/obj/item/organ/external/def_zone = ran_zone(t)
 	return def_zone
-
-// heal ONE external organ, organ gets randomly selected from damaged ones.
-/mob/living/proc/heal_organ_damage(var/brute, var/burn)
-	adjustBruteLoss(-brute)
-	adjustFireLoss(-burn)
-	updatehealth()
-
-// damage ONE external organ, organ gets randomly selected from damaged ones.
-/mob/living/proc/take_organ_damage(var/brute, var/burn)
-	if(status_flags & GODMODE)	return 0	//godmode
-	adjustBruteLoss(brute)
-	adjustFireLoss(burn)
-	updatehealth()
-
-// heal MANY external organs, in random order
-/mob/living/proc/heal_overall_damage(var/brute, var/burn)
-	adjustBruteLoss(-brute)
-	adjustFireLoss(-burn)
-	updatehealth()
-
-// damage MANY external organs, in random order
-/mob/living/proc/take_overall_damage(var/brute, var/burn, var/used_weapon = null)
-	if(status_flags & GODMODE)	return 0	//godmode
-	adjustBruteLoss(brute)
-	adjustFireLoss(burn)
-	updatehealth()
-
-/mob/living/proc/has_organic_damage()
-	return (maxHealth - health)
 
 
 /mob/living/proc/restore_all_organs()
@@ -444,10 +365,11 @@
 		C.update_inv_legcuffed()
 
 		if(C.reagents)
-			for(var/datum/reagent/R in C.reagents.reagent_list)
-				C.reagents.clear_reagents()
-			C.reagents.addiction_list.Cut()
+			C.reagents.clear_reagents()
+			QDEL_LIST(C.reagents.addiction_list)
 
+// rejuvenate: Called by `revive` to get the mob into a revivable state
+// the admin "rejuvenate" command calls `revive`, not this proc.
 /mob/living/proc/rejuvenate()
 	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
 
@@ -470,7 +392,6 @@
 	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
-	blinded = 0
 	nutrition = NUTRITION_LEVEL_FED + 50
 	bodytemperature = 310
 	CureBlind()
@@ -518,11 +439,10 @@
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
-		dead_mob_list -= src
-		living_mob_list += src
-		timeofdeath = 0
+		update_revive()
+	else if(stat == UNCONSCIOUS)
+		WakeUp()
 
-	stat = CONSCIOUS
 	update_fire()
 	regenerate_icons()
 	restore_blood()
@@ -634,14 +554,14 @@
 						TH.transfer_mob_blood_dna(src)
 						if(ishuman(src))
 							var/mob/living/carbon/human/H = src
-							if(H.species.blood_color)
-								TH.color = H.species.blood_color
+							if(H.dna.species.blood_color)
+								TH.color = H.dna.species.blood_color
 						else
 							TH.color = "#A10808"
 
 /mob/living/carbon/human/makeTrail(turf/T)
 
-	if((NO_BLOOD in species.species_traits) || species.exotic_blood || !bleed_rate || bleedsuppress)
+	if((NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !bleed_rate || bleedsuppress)
 		return
 	..()
 
@@ -692,7 +612,7 @@
 		qdel(O)
 		resisting++
 	for(var/X in grabbed_by)
-		var/obj/item/weapon/grab/G = X
+		var/obj/item/grab/G = X
 		resisting++
 		switch(G.state)
 			if(GRAB_PASSIVE)
@@ -769,7 +689,7 @@
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
 	if(check_eye_prot() < intensity && (override_blindness_check || !(disabilities & BLIND)))
 		overlay_fullscreen("flash", type)
-		addtimer(src, "clear_fullscreen", 25, FALSE, "flash", 25)
+		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
 		return 1
 
 /mob/living/proc/check_eye_prot()
@@ -792,7 +712,7 @@
 			who.unEquip(what)
 			if(silent)
 				put_in_hands(what)
-			add_logs(src, who, "stripped", addition="of [what]", print_attack_log = isLivingSSD(who))
+			add_attack_logs(src, who, "Stripped of [what]")
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
@@ -811,8 +731,7 @@
 			if(what && Adjacent(who))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
-				add_logs(src, who, "equipped", what, print_attack_log = isLivingSSD(who))
-
+				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
 	var/gain = 20
@@ -828,81 +747,11 @@
 		makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, src, null, 1)
 	spawn_dust()
 	gib()
-	return
 
-/atom/movable/proc/do_attack_animation(atom/A, end_pixel_y)
-	var/pixel_x_diff = 0
-	var/pixel_y_diff = 0
-	var/final_pixel_y = initial(pixel_y)
-	if(end_pixel_y)
-		final_pixel_y = end_pixel_y
-
-	var/direction = get_dir(src, A)
-	if(direction & NORTH)
-		pixel_y_diff = 8
-	else if(direction & SOUTH)
-		pixel_y_diff = -8
-
-	if(direction & EAST)
-		pixel_x_diff = 8
-	else if(direction & WEST)
-		pixel_x_diff = -8
-
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = final_pixel_y, time = 2)
-
-
-/mob/living/do_attack_animation(atom/A)
-	var/final_pixel_y = get_standard_pixel_y_offset(lying)
-	..(A, final_pixel_y)
-	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
-
-	// What icon do we use for the attack?
-	var/image/I
-	if(hand && l_hand) // Attacked with item in left hand.
-		I = image(l_hand.icon, A, l_hand.icon_state, A.layer + 1)
-	else if(!hand && r_hand) // Attacked with item in right hand.
-		I = image(r_hand.icon, A, r_hand.icon_state, A.layer + 1)
-	else // Attacked with a fist?
-		return
-
-	// Who can see the attack?
-	var/list/viewing = list()
-	for(var/mob/M in viewers(A))
-		if(M.client && M.client.prefs.show_ghostitem_attack)
-			viewing |= M.client
-	flick_overlay(I, viewing, 5) // 5 ticks/half a second
-
-	// Scale the icon.
-	I.transform *= 0.75
-	// The icon should not rotate.
-	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-
-	// Set the direction of the icon animation.
-	var/direction = get_dir(src, A)
-	if(direction & NORTH)
-		I.pixel_y = -16
-	else if(direction & SOUTH)
-		I.pixel_y = 16
-
-	if(direction & EAST)
-		I.pixel_x = -16
-	else if(direction & WEST)
-		I.pixel_x = 16
-
-	if(!direction) // Attacked self?!
-		I.pixel_z = 16
-
-	// And animate the attack!
-	animate(I, alpha = 175, pixel_x = 0, pixel_y = 0, pixel_z = 0, time = 3)
-
-/atom/movable/proc/receiving_damage(atom/A)
-	var/pixel_x_diff = rand(-3,3)
-	var/pixel_y_diff = rand(-3,3)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
-
-/mob/living/receiving_damage(atom/A)
+/mob/living/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
+	end_pixel_y = get_standard_pixel_y_offset(lying)
+	if(!used_item)
+		used_item = get_active_hand()
 	..()
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -959,16 +808,17 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(stat == DEAD && !isnull(butcher_results)) //can we butcher it?
-		if(istype(I, /obj/item/weapon/kitchen/knife))
+	if(user.a_intent == INTENT_HARM && stat == DEAD && butcher_results) //can we butcher it?
+		var/sharpness = is_sharp(I)
+		if(sharpness)
 			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
 			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_mob(user, src, 80))
+			if(do_mob(user, src, 80 / sharpness) && Adjacent(I))
 				harvest(user)
 			return 1
 
 /mob/living/proc/harvest(mob/living/user)
-	if(qdeleted(src))
+	if(QDELETED(src))
 		return
 	if(butcher_results)
 		for(var/path in butcher_results)
@@ -997,7 +847,7 @@
 				. += config.walk_speed
 
 
-/mob/living/proc/can_use_guns(var/obj/item/weapon/gun/G)
+/mob/living/proc/can_use_guns(var/obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !issmall(src))
 		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return 0

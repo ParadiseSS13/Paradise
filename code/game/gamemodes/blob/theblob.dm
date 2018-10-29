@@ -147,7 +147,10 @@
 	..()
 	take_damage(power/400, BURN)
 
-/obj/structure/blob/attackby(var/obj/item/weapon/W, var/mob/living/user, params)
+/obj/structure/blob/hulk_damage()
+	return 15
+
+/obj/structure/blob/attackby(var/obj/item/W, var/mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
@@ -206,7 +209,7 @@
 
 
 /obj/structure/blob/proc/get_chem_name()
-	for(var/mob/camera/blob/B in mob_list)
+	for(var/mob/camera/blob/B in GLOB.mob_list)
 		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.name
 	return "unknown"

@@ -1,36 +1,20 @@
 /mob/living/carbon/brain/handle_mutations_and_radiation()
 	if(radiation)
 		if(radiation > 100)
-			radiation -= 3
-			adjustToxLoss(3)
-			updatehealth()
 			if(!container)
 				to_chat(src, "<span class='danger'>You feel weak.</span>")
 			else
 				to_chat(src, "<span class='danger'>STATUS: CRITICAL AMOUNTS OF RADIATION DETECTED.</span>")
 
 		switch(radiation)
-			if(0 to 49)
-				radiation--
-				if(prob(25))
-					adjustToxLoss(1)
-					updatehealth()
 
-			if(50 to 74)
-				radiation -= 2
-				adjustToxLoss(1)
+			if(50 to 75)
 				if(prob(5))
-					radiation -= 5
 					if(!container)
 						to_chat(src, "<span class='danger'>You feel weak.</span>")
 					else
 						to_chat(src, "<span class='danger'>STATUS: DANGEROUS AMOUNTS OF RADIATION DETECTED.</span>")
-				updatehealth()
-
-			if(75 to 100)
-				radiation -= 3
-				adjustToxLoss(3)
-				updatehealth()
+		..()
 
 /mob/living/carbon/brain/proc/handle_temperature_damage(body_part, exposed_temperature, exposed_intensity)
 	if(status_flags & GODMODE)
@@ -38,29 +22,19 @@
 
 	if(exposed_temperature > bodytemperature)
 		var/discomfort = min( abs(exposed_temperature - bodytemperature)*(exposed_intensity)/2000000, 1.0)
-		//adjustFireLoss(2.5*discomfort)
-		//adjustFireLoss(5.0*discomfort)
 		adjustFireLoss(20.0*discomfort)
 
 	else
 		var/discomfort = min( abs(exposed_temperature - bodytemperature)*(exposed_intensity)/2000000, 1.0)
-		//adjustFireLoss(2.5*discomfort)
 		adjustFireLoss(5.0*discomfort)
 
 /mob/living/carbon/brain/handle_regular_status_updates()
-	updatehealth()
+	. = ..()
 
-	if(stat == DEAD)
-		blinded = 1
-		SetSilence(0)
-	else
+	if(.)
 		if(!container && (health < config.health_threshold_dead || ((world.time - timeofhostdeath) > config.revival_brain_life)))
 			death()
-			blinded = 1
-			SetSilence(0)
-			return 1
-
-		. = 1
+			return 0
 
 /mob/living/carbon/brain/breathe()
 	return

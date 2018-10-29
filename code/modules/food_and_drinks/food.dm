@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Food.
 ////////////////////////////////////////////////////////////////////////////////
-/obj/item/weapon/reagent_containers/food
+/obj/item/reagent_containers/food
 	possible_transfer_amounts = null
 	volume = 50 //Sets the default container amount for all food items.
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
@@ -14,8 +14,9 @@
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	var/taste = TRUE//whether you can taste eating from this
 	burn_state = FLAMMABLE
+	container_type = INJECTABLE
 
-/obj/item/weapon/reagent_containers/food/New()
+/obj/item/reagent_containers/food/New()
 	..()
 	pixel_x = rand(-5, 5) //Randomizes postion
 	pixel_y = rand(-5, 5)

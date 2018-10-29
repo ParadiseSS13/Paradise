@@ -13,31 +13,31 @@
 /obj/machinery/telecomms/attackby(obj/item/P as obj, mob/user as mob, params)
 
 	// Using a multitool lets you access the receiver's interface
-	if(istype(P, /obj/item/device/multitool))
+	if(istype(P, /obj/item/multitool))
 		attack_hand(user)
 
 
 	switch(construct_op)
 		if(0)
-			if(istype(P, /obj/item/weapon/screwdriver))
+			if(istype(P, /obj/item/screwdriver))
 				to_chat(user, "You unfasten the bolts.")
 				playsound(src.loc, P.usesound, 50, 1)
 				construct_op++
 		if(1)
-			if(istype(P, /obj/item/weapon/screwdriver))
+			if(istype(P, /obj/item/screwdriver))
 				to_chat(user, "You fasten the bolts.")
 				playsound(src.loc,P.usesound, 50, 1)
 				construct_op--
-			if(istype(P, /obj/item/weapon/wrench))
+			if(istype(P, /obj/item/wrench))
 				to_chat(user, "You dislodge the external plating.")
 				playsound(src.loc, P.usesound, 75, 1)
 				construct_op++
 		if(2)
-			if(istype(P, /obj/item/weapon/wrench))
+			if(istype(P, /obj/item/wrench))
 				to_chat(user, "You secure the external plating.")
 				playsound(src.loc, P.usesound, 75, 1)
 				construct_op--
-			if(istype(P, /obj/item/weapon/wirecutters))
+			if(istype(P, /obj/item/wirecutters))
 				playsound(src.loc, P.usesound, 50, 1)
 				to_chat(user, "You remove the cables.")
 				construct_op++
@@ -56,7 +56,7 @@
 						qdel(A)
 					construct_op--
 					stat &= ~BROKEN // the machine's not borked anymore!
-			if(istype(P, /obj/item/weapon/crowbar))
+			if(istype(P, /obj/item/crowbar))
 				to_chat(user, "You begin prying out the circuit board other components...")
 				playsound(src.loc, P.usesound, 50, 1)
 				if(do_after(user, 60 * P.toolspeed, target = src))
@@ -69,7 +69,7 @@
 					else
 						// If the machine wasn't made during runtime, probably doesn't have components:
 						// manually find the components and drop them!
-						var/obj/item/weapon/circuitboard/C = new circuitboard
+						var/obj/item/circuitboard/C = new circuitboard
 						for(var/I in C.req_components)
 							for(var/i = 1, i <= C.req_components[I], i++)
 								var/obj/item/s = new I
@@ -98,11 +98,11 @@
 /obj/machinery/telecomms/attack_hand(var/mob/user as mob)
 	update_multitool_menu(user)
 
-/obj/machinery/telecomms/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+/obj/machinery/telecomms/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	// You need a multitool to use this, or be silicon
 	if(!issilicon(user))
 		// istype returns false if the value is null
-		if(!istype(user.get_active_hand(), /obj/item/device/multitool))
+		if(!istype(user.get_active_hand(), /obj/item/multitool))
 			return
 
 	if(stat & (BROKEN|NOPOWER))
@@ -189,15 +189,15 @@
 
 /obj/machinery/telecomms/proc/get_multitool(mob/user as mob)
 
-	var/obj/item/device/multitool/P = null
+	var/obj/item/multitool/P = null
 	// Let's double check
-	if(!issilicon(user) && istype(user.get_active_hand(), /obj/item/device/multitool))
+	if(!issilicon(user) && istype(user.get_active_hand(), /obj/item/multitool))
 		P = user.get_active_hand()
 	else if(isAI(user))
 		var/mob/living/silicon/ai/U = user
 		P = U.aiMulti
 	else if(isrobot(user) && in_range(user, src))
-		if(istype(user.get_active_hand(), /obj/item/device/multitool))
+		if(istype(user.get_active_hand(), /obj/item/multitool))
 			P = user.get_active_hand()
 	return P
 
@@ -222,7 +222,7 @@
 /obj/machinery/telecomms/processor/Options_Topic(href, href_list)
 
 	if(href_list["process"])
-		temp = "<font color = #666633>-% Processing mode changed. %-</font color>"
+		temp = "<font color = #666633>-% Processing mode changed. %-</font>"
 		src.process_mode = !src.process_mode
 */
 
@@ -240,18 +240,18 @@
 
 	if(href_list["receive"])
 		receiving = !receiving
-		temp = "<font color = #666633>-% Receiving mode changed. %-</font color>"
+		temp = "<font color = #666633>-% Receiving mode changed. %-</font>"
 	if(href_list["broadcast"])
 		broadcasting = !broadcasting
-		temp = "<font color = #666633>-% Broadcasting mode changed. %-</font color>"
+		temp = "<font color = #666633>-% Broadcasting mode changed. %-</font>"
 	if(href_list["change_listening"])
 		//Lock to the station OR lock to the current position!
 		//You need at least two receivers and two broadcasters for this to work, this includes the machine.
 		var/result = toggle_level()
 		if(result)
-			temp = "<font color = #666633>-% [src]'s signal has been successfully changed.</font color>"
+			temp = "<font color = #666633>-% [src]'s signal has been successfully changed.</font>"
 		else
-			temp = "<font color = #666633>-% [src] could not lock it's signal onto the station. Two broadcasters or receivers required.</font color>"
+			temp = "<font color = #666633>-% [src] could not lock it's signal onto the station. Two broadcasters or receivers required.</font>"
 
 // BUS
 
@@ -270,22 +270,22 @@
 					newfreq *= 10 // shift the decimal one place
 				if(newfreq < 10000)
 					change_frequency = newfreq
-					temp = "<font color = #666633>-% New frequency to change to assigned: \"[newfreq] GHz\" %-</font color>"
+					temp = "<font color = #666633>-% New frequency to change to assigned: \"[newfreq] GHz\" %-</font>"
 			else
 				change_frequency = 0
-				temp = "<font color = #666633>-% Frequency changing deactivated %-</font color>"
+				temp = "<font color = #666633>-% Frequency changing deactivated %-</font>"
 
 
 /obj/machinery/telecomms/Topic(href, href_list)
 
 	if(!issilicon(usr))
-		if(!istype(usr.get_active_hand(), /obj/item/device/multitool))
+		if(!istype(usr.get_active_hand(), /obj/item/multitool))
 			return
 
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	var/obj/item/device/multitool/P = get_multitool(usr)
+	var/obj/item/multitool/P = get_multitool(usr)
 
 	if(href_list["input"])
 		switch(href_list["input"])
@@ -293,27 +293,27 @@
 			if("toggle")
 
 				src.toggled = !src.toggled
-				temp = "<font color = #666633>-% [src] has been [src.toggled ? "activated" : "deactivated"].</font color>"
+				temp = "<font color = #666633>-% [src] has been [src.toggled ? "activated" : "deactivated"].</font>"
 				update_power()
 
 			/*
 			if("hide")
 				src.hide = !hide
-				temp = "<font color = #666633>-% Shadow Link has been [src.hide ? "activated" : "deactivated"].</font color>"
+				temp = "<font color = #666633>-% Shadow Link has been [src.hide ? "activated" : "deactivated"].</font>"
 			*/
 
 			if("id")
 				var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID for this machine", src, id) as null|text),1,MAX_MESSAGE_LEN)
 				if(newid && canAccess(usr))
 					id = newid
-					temp = "<font color = #666633>-% New ID assigned: \"[id]\" %-</font color>"
+					temp = "<font color = #666633>-% New ID assigned: \"[id]\" %-</font>"
 
 			if("network")
 				var/newnet = input(usr, "Specify the new network for this machine. This will break all current links.", src, network) as null|text
 				if(newnet && canAccess(usr))
 
 					if(length(newnet) > 15)
-						temp = "<font color = #666633>-% Too many characters in new network tag %-</font color>"
+						temp = "<font color = #666633>-% Too many characters in new network tag %-</font>"
 
 					else
 						for(var/obj/machinery/telecomms/T in links)
@@ -321,7 +321,7 @@
 
 						network = newnet
 						links = list()
-						temp = "<font color = #666633>-% New network tag assigned: \"[network]\" %-</font color>"
+						temp = "<font color = #666633>-% New network tag assigned: \"[network]\" %-</font>"
 
 
 			if("freq")
@@ -331,21 +331,21 @@
 						newfreq *= 10 // shift the decimal one place
 					if(!(newfreq in freq_listening) && newfreq < 10000)
 						freq_listening.Add(newfreq)
-						temp = "<font color = #666633>-% New frequency filter assigned: \"[newfreq] GHz\" %-</font color>"
+						temp = "<font color = #666633>-% New frequency filter assigned: \"[newfreq] GHz\" %-</font>"
 
 	if(href_list["delete"])
 
 		// changed the layout about to workaround a pesky runtime -- Doohl
 
 		var/x = text2num(href_list["delete"])
-		temp = "<font color = #666633>-% Removed frequency filter [x] %-</font color>"
+		temp = "<font color = #666633>-% Removed frequency filter [x] %-</font>"
 		freq_listening.Remove(x)
 
 	if(href_list["unlink"])
 
 		if(text2num(href_list["unlink"]) <= length(links))
 			var/obj/machinery/telecomms/T = links[text2num(href_list["unlink"])]
-			temp = "<font color = #666633>-% Removed \ref[T] [T.name] from linked entities. %-</font color>"
+			temp = "<font color = #666633>-% Removed \ref[T] [T.name] from linked entities. %-</font>"
 
 			// Remove link entries from both T and src.
 
@@ -363,20 +363,20 @@
 				if(!(P.buffer in src.links))
 					src.links.Add(P.buffer)
 
-				temp = "<font color = #666633>-% Successfully linked with \ref[P.buffer] [P.buffer.name] %-</font color>"
+				temp = "<font color = #666633>-% Successfully linked with \ref[P.buffer] [P.buffer.name] %-</font>"
 
 			else
-				temp = "<font color = #666633>-% Unable to acquire buffer %-</font color>"
+				temp = "<font color = #666633>-% Unable to acquire buffer %-</font>"
 
 	if(href_list["buffer"])
 
 		P.buffer = src
-		temp = "<font color = #666633>-% Successfully stored \ref[P.buffer] [P.buffer.name] in buffer %-</font color>"
+		temp = "<font color = #666633>-% Successfully stored \ref[P.buffer] [P.buffer.name] in buffer %-</font>"
 
 
 	if(href_list["flush"])
 
-		temp = "<font color = #666633>-% Buffer successfully flushed. %-</font color>"
+		temp = "<font color = #666633>-% Buffer successfully flushed. %-</font>"
 		P.buffer = null
 
 	src.Options_Topic(href, href_list)

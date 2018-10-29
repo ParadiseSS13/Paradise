@@ -9,7 +9,7 @@
 	density = 0
 	anchored = 1
 	luminosity = 3
-	var/obj/item/device/assembly/signaler/anomaly/aSignal = null
+	var/obj/item/assembly/signaler/anomaly/aSignal = null
 
 /obj/effect/anomaly/New()
 	set_light(initial(luminosity))
@@ -18,11 +18,11 @@
 
 	var/new_frequency = sanitize_frequency(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ))
 	aSignal.set_frequency(new_frequency)
-	poi_list |= src
+	GLOB.poi_list |= src
 
 /obj/effect/anomaly/Destroy()
 	QDEL_NULL(aSignal)
-	poi_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/effect/anomaly/proc/anomalyEffect()
@@ -43,7 +43,7 @@
 
 
 /obj/effect/anomaly/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/analyzer))
+	if(istype(I, /obj/item/analyzer))
 		to_chat(user, "<span class='notice'>Analyzing... [src]'s unstable field is fluctuating along frequency [aSignal.code]:[format_frequency(aSignal.frequency)].</span>")
 
 ///////////////////////

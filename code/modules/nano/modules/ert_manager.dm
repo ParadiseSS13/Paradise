@@ -11,8 +11,8 @@
 	var/autoclose = 0
 
 
-/datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/nano_module/ert_manager/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = admin_state)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(ui && autoclose)
 		ui.close()
 		return 0
@@ -50,7 +50,7 @@
 		cyborg_slots = text2num(href_list["set_cyb"])
 
 	if(href_list["dispatch_ert"])
-		ert_request_answered = 1
+		ert_request_answered = TRUE
 		var/slots_list = list()
 		if(commander_slots > 0)
 			slots_list += "commander: [commander_slots]"

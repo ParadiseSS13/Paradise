@@ -37,6 +37,9 @@ LOG_SAY
 ## log admin actions
 LOG_ADMIN
 
+## log admin chat
+LOG_ADMINCHAT
+
 ## log client access (logon/logoff)
 LOG_ACCESS
 
@@ -62,16 +65,13 @@ LOG_PDA
 LOG_RUNTIME
 
 ## log world.log messages
-# LOG_WORLD_OUTPUT
+LOG_WORLD_OUTPUT
 
 ## log all Topic() calls (for use by coders in tracking down Topic issues)
 # LOG_HREFS
 
 ## log admin warning messages
-##LOG_ADMINWARN  ## Also duplicates a bunch of other messages.
-
-## disconnect players who did nothing during 15 minutes
-KICK_INACTIVE
+LOG_ADMINWARN
 
 ## probablities for game modes chosen in "secret" and "random" modes
 ##
@@ -95,6 +95,9 @@ PROBABILITY EXTENDED 2
 PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
 
+## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
+SHADOWLING_MAX_AGE 0
+
 ## Hash out to disable random events during the round.
 ALLOW_RANDOM_EVENTS
 
@@ -109,6 +112,9 @@ ALLOW_ADMIN_OOCCOLOR
 
 ## If metadata is supported
 ALLOW_METADATA
+
+## The time it takes for a round to start in seconds
+PREGAME_TIMESTART 240
 
 ## allow players to initiate a restart vote
 #ALLOW_VOTE_RESTART
@@ -179,6 +185,9 @@ CHECK_RANDOMIZER
 
 ## GitHub address
 # GITHUBURL http://example.org
+
+## Discord address
+# DISCORDURL http://example.org
 
 ## Donations address
 # DONATIONSURL http://example.org
@@ -301,7 +310,13 @@ PLAYER_REROUTE_CAP 0
 #DISABLE_AWAY_MISSIONS
 
 ## Disable the loading of space ruins
-DISABLE_SPACE_RUINS
+#DISABLE_SPACE_RUINS
+
+## Minimum number of space ruins levels to generate
+EXTRA_SPACE_RUINS_LEVELS_MIN 2
+
+## Maximum number of space ruins levels to generate
+EXTRA_SPACE_RUINS_LEVELS_MAX 4
 
 ## Uncomment to disable the OOC/LOOC channel by default.
 #DISABLE_OOC
@@ -344,3 +359,30 @@ DISABLE_SPACE_RUINS
 
 ## Uncomment this to disable karma and unlock all karma purchases for players by default
 #DISABLE_KARMA
+
+## Defines the ticklimit for subsystem initialization (In percents of a byond tick). Lower makes world start smoother. Higher makes it faster.
+##This is currently a testing optimized setting. A good value for production would be 98.
+TICK_LIMIT_MC_INIT 500
+
+###Master Controller High Pop Mode###
+
+##The Master Controller(MC) is the primary system controlling timed tasks and events in SS13 (lobby timer, game checks, lighting updates, atmos, etc)
+##Default base MC tick rate (1 = process every "byond tick" (see: tick_lag/fps config settings), 2 = process every 2 byond ticks, etc)
+##	Setting this to 0 will prevent the Master Controller from ticking
+BASE_MC_TICK_RATE 1
+
+##High population MC tick rate
+##	Byond rounds timer values UP, but the tick rate is modified with heuristics during lag spites so setting this to something like 2
+##	will make it run every 2 byond ticks, but will also double the effect of anti-lag heuristics. You can instead set it to something like
+##	1.1 to make it run every 2 byond ticks, but only increase the effect of anti-lag heuristics by 10%. or 1.5 for 50%.
+##	(As an aside, you could in theory also reduce the effect of anti-lag heuristics in the base tick rate by setting it to something like 0.5)
+HIGH_POP_MC_TICK_RATE 1.1
+
+##Engage high pop mode if player count raises above this (Player in this context means any connected user. Lobby, ghost or in-game all count)
+HIGH_POP_MC_MODE_AMOUNT 65
+
+##Disengage high pop mode if player count drops below this
+DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
+
+##Uncomment to enable developer start. Auto starts the server after initialization
+##DEVELOPER_EXPRESS_START

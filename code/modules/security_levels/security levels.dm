@@ -27,6 +27,10 @@
 
 	//Will not be announced if you try to set to the same level as it already is
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != security_level)
+		if(level >= SEC_LEVEL_RED && security_level < SEC_LEVEL_RED)
+			// Mark down this time to prevent shuttle cheese
+			SSshuttle.emergency_sec_level_time = world.time
+
 		switch(level)
 			if(SEC_LEVEL_GREEN)
 				security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.")
@@ -34,7 +38,7 @@
 
 				post_status("alert", "outline")
 
-				for(var/obj/machinery/firealarm/FA in machines)
+				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
@@ -48,7 +52,7 @@
 
 				post_status("alert", "outline")
 
-				for(var/obj/machinery/firealarm/FA in machines)
+				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
@@ -60,14 +64,14 @@
 					security_announcement_down.Announce("The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised.","Attention! Code Red!")
 				security_level = SEC_LEVEL_RED
 
-				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in airlocks
+				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
 				if(R && is_station_level(R.z))
 					R.locked = 0
 					R.update_icon()
 
 				post_status("alert", "redalert")
 
-				for(var/obj/machinery/firealarm/FA in machines)
+				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_red")
@@ -79,19 +83,19 @@
 				move_gamma_ship()
 
 				if(security_level < SEC_LEVEL_RED)
-					for(var/obj/machinery/door/airlock/highsecurity/red/R in airlocks)
+					for(var/obj/machinery/door/airlock/highsecurity/red/R in GLOB.airlocks)
 						if(is_station_level(R.z))
 							R.locked = 0
 							R.update_icon()
 
-				for(var/obj/machinery/door/airlock/hatch/gamma/H in airlocks)
+				for(var/obj/machinery/door/airlock/hatch/gamma/H in GLOB.airlocks)
 					if(is_station_level(H.z))
 						H.locked = 0
 						H.update_icon()
 
 				post_status("alert", "gammaalert")
 
-				for(var/obj/machinery/firealarm/FA in machines)
+				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_gamma")
@@ -103,7 +107,7 @@
 
 				post_status("alert", "epsilonalert")
 
-				for(var/obj/machinery/firealarm/FA in machines)
+				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
@@ -114,7 +118,7 @@
 
 				post_status("alert", "deltaalert")
 
-				for(var/obj/machinery/firealarm/FA in machines)
+				for(var/obj/machinery/firealarm/FA in GLOB.machines)
 					if(is_station_contact(FA.z))
 						FA.overlays.Cut()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_delta")
@@ -123,6 +127,7 @@
 			atc.reroute_traffic(yes = TRUE) // Tell them fuck off we're busy.
 		else
 			atc.reroute_traffic(yes = FALSE)
+		SSnightshift.check_nightshift(TRUE)
 
 	else
 		return

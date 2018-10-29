@@ -1,4 +1,4 @@
-/mob/living/silicon/robot/Life()
+/mob/living/silicon/robot/Life(seconds, times_fired)
 	set invisibility = 0
 	set background = BACKGROUND_ENABLED
 
@@ -21,22 +21,22 @@
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
-		if(!is_component_functioning("power cell") || !cell)
-			Paralyse(2)
+		if(!is_component_functioning("power cell"))
 			uneq_all()
 			low_power_mode = 1
 			update_headlamp()
 			diag_hud_set_borgcell()
 			return
 		if(low_power_mode)
-			if(is_component_functioning("power cell") && cell && cell.charge)
+			if(is_component_functioning("power cell") && cell.charge)
 				low_power_mode = 0
 				update_headlamp()
 		else if(stat == CONSCIOUS)
 			use_power()
 
 /mob/living/silicon/robot/proc/use_power()
-	if(is_component_functioning("power cell") && cell && cell.charge)
+	// this check is safe because `cell` is guaranteed to be set when the power cell is functioning
+	if(is_component_functioning("power cell") && cell.charge)
 		if(cell.charge <= 100)
 			uneq_all()
 		var/amt = Clamp((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
@@ -57,22 +57,10 @@
 		else
 			camera.status = 1
 
-	if(getOxyLoss() > 50)
-		Paralyse(3)
-
 	if(sleeping)
-		Paralyse(3)
 		AdjustSleeping(-1)
 
-	if(resting)
-		Weaken(5)
-
 	if(.) //alive
-		if(health <= config.health_threshold_dead)
-			death()
-			diag_hud_set_status()
-			return
-
 		if(!istype(src, /mob/living/silicon/robot/drone))
 			if(health < 50) //Gradual break down of modules as more damage is sustained
 				if(uneq_module(module_state_3))
@@ -86,19 +74,8 @@
 						if(uneq_module(module_state_1))
 							to_chat(src, "<span class='warning'>CRITICAL ERROR: All modules OFFLINE.</span>")
 
-		if(paralysis || stunned || weakened)
-			stat = UNCONSCIOUS
-
-			if(!paralysis > 0)
-				SetEyeBlind(0)
-
-		else
-			stat = CONSCIOUS
-
 		diag_hud_set_health()
 		diag_hud_set_status()
-	else //dead
-		SetEyeBlind(0)
 
 	//update the state of modules and components here
 	if(stat != CONSCIOUS)
@@ -108,14 +85,6 @@
 		radio.on = 0
 	else
 		radio.on = 1
-
-	if(is_component_functioning("camera") && stat == CONSCIOUS)
-		blinded = 0
-	else
-		blinded = 1
-
-	if(!is_component_functioning("actuator"))
-		Paralyse(3)
 
 	return 1
 
@@ -234,7 +203,7 @@
 			weaponlock_time = 120
 
 /mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || weakened || buckled || lockcharge)
+	if(paralysis || stunned || weakened || buckled || lockcharge || stat)
 		canmove = 0
 	else
 		canmove = 1

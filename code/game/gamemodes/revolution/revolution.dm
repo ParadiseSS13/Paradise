@@ -51,9 +51,9 @@
 		lenin.restricted_roles = restricted_jobs
 
 	if(head_revolutionaries.len < required_enemies)
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 
 /datum/game_mode/revolution/post_setup()
@@ -68,20 +68,17 @@
 		update_rev_icons_removed(trotsky)
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
-		log_game("[rev_mind.key] (ckey) has been selected as a head rev")
+		log_game("[key_name(rev_mind)] has been selected as a head rev")
 		for(var/datum/mind/head_mind in heads)
 			mark_for_death(rev_mind, head_mind)
 
-		spawn(rand(10,100))
-		//	equip_traitor(rev_mind.current, 1) //changing how revs get assigned their uplink so they can get PDA uplinks. --NEO
-		//	Removing revolutionary uplinks.	-Pete
-			equip_revolutionary(rev_mind.current)
+		addtimer(CALLBACK(src, .proc/equip_revolutionary, rev_mind.current), rand(10, 100))
 
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
-	if(shuttle_master)
-		shuttle_master.emergencyNoEscape = 1
+	if(SSshuttle)
+		SSshuttle.emergencyNoEscape = 1
 	..()
 
 
@@ -92,7 +89,7 @@
 			check_heads()
 			ticker.mode.check_win()
 		check_counter = 0
-	return 0
+	return FALSE
 
 
 /datum/game_mode/proc/forge_revolutionary_objectives(datum/mind/rev_mind)
@@ -127,7 +124,7 @@
 			mob.mutations.Remove(CLUMSY)
 
 
-	var/obj/item/device/flash/T = new(mob)
+	var/obj/item/flash/T = new(mob)
 	var/obj/item/toy/crayon/spraycan/R = new(mob)
 	var/obj/item/clothing/glasses/hud/security/chameleon/C = new(mob)
 
@@ -195,7 +192,7 @@
 			var/datum/mind/stalin = pick(promotable_revs)
 			revolutionaries -= stalin
 			head_revolutionaries += stalin
-			log_game("[stalin.key] (ckey) has been promoted to a head rev")
+			log_game("[key_name(stalin)] has been promoted to a head rev")
 			equip_revolutionary(stalin.current)
 			forge_revolutionary_objectives(stalin)
 			greet_revolutionary(stalin)
@@ -216,14 +213,14 @@
 /datum/game_mode/revolution/check_finished()
 	if(config.continuous_rounds)
 		if(finished != 0)
-			shuttle_master.emergencyNoEscape = 0
-			if(shuttle_master.emergency.mode == SHUTTLE_STRANDED)
-				shuttle_master.emergency.mode = SHUTTLE_DOCKED
-				shuttle_master.emergency.timer = world.time
+			SSshuttle.emergencyNoEscape = 0
+			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+				SSshuttle.emergency.mode = SHUTTLE_DOCKED
+				SSshuttle.emergency.timer = world.time
 				command_announcement.Announce("Hostile enviroment resolved. You have 3 minutes to board the Emergency Shuttle.", null, 'sound/AI/shuttledock.ogg')
 		return ..()
 	if(finished != 0)
-		return 1
+		return TRUE
 	else
 		return ..()
 
@@ -267,7 +264,7 @@
 
 		if(beingborged)
 			to_chat(rev_mind.current, "<span class='danger'><FONT size = 3>The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who flashed you."]</FONT></span>")
-			message_admins("[key_name_admin(rev_mind.current)] <A HREF='?_src_=holder;adminmoreinfo=\ref[rev_mind.current]'>?</A> (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[rev_mind.current]'>FLW</A>) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
+			message_admins("[key_name_admin(rev_mind.current)] [ADMIN_QUE(rev_mind.current,"?")] ([ADMIN_FLW(rev_mind.current,"FLW")]) has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 
 		else
 			rev_mind.current.Paralyse(5)
@@ -279,7 +276,7 @@
 				to_chat(M, "The frame beeps contentedly, purging the hostile memory engram from the MMI before initalizing it.")
 
 			else
-				to_chat(M, "[rev_mind.current] looks like they just remembered their real allegiance!")
+				to_chat(M, "[rev_mind.current] looks like [rev_mind.current.p_they()] just remembered [rev_mind.current.p_their()] real allegiance!")
 
 /////////////////////////////////////
 //Adds the rev hud to a new convert//
@@ -304,9 +301,9 @@
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		for(var/datum/objective/mutiny/objective in rev_mind.objectives)
 			if(!(objective.check_completion()))
-				return 0
+				return FALSE
 
-		return 1
+	return TRUE
 
 /////////////////////////////
 //Checks for a head victory//
@@ -316,28 +313,28 @@
 		var/turf/T = get_turf(rev_mind.current)
 		if((rev_mind) && (rev_mind.current) && (rev_mind.current.stat != DEAD) && rev_mind.current.client && T && is_station_level(T.z))
 			if(ishuman(rev_mind.current))
-				return 0
-	return 1
+				return FALSE
+	return TRUE
 
 //////////////////////////////////////////////////////////////////////
 //Announces the end of the game with all relavent information stated//
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
 	if(finished == 1)
-		feedback_set_details("round_end_result","win - heads killed")
+		feedback_set_details("round_end_result","revolution win - heads killed")
 		to_chat(world, "<span class='redtext'>The heads of staff were killed or exiled! The revolutionaries win!</span>")
 	else if(finished == 2)
-		feedback_set_details("round_end_result","loss - rev heads killed")
+		feedback_set_details("round_end_result","revolution loss - rev heads killed")
 		to_chat(world, "<span class='redtext'>The heads of staff managed to stop the revolution!</span>")
 	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/proc/auto_declare_completion_revolution()
 	var/list/targets = list()
 	if(head_revolutionaries.len || GAMEMODE_IS_REVOLUTION)
 		var/num_revs = 0
 		var/num_survivors = 0
-		for(var/mob/living/carbon/survivor in living_mob_list)
+		for(var/mob/living/carbon/survivor in GLOB.living_mob_list)
 			if(survivor.ckey)
 				num_survivors++
 				if(survivor.mind)

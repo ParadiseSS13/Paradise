@@ -103,6 +103,27 @@ function linkify(text) {
 	});
 }
 
+function byondDecode(message) {
+	// Basically we url_encode twice server side so we can manually read the encoded version and actually do UTF-8.
+	// The replace for + is because FOR SOME REASON, BYOND replaces spaces with a + instead of %20, and a plus with %2b.
+	// Marvelous.
+	message = message.replace(/\+/g, "%20");
+	try { 
+		// This is a workaround for the above not always working when BYOND's shitty url encoding breaks.
+		// Basically, sometimes BYOND's double encoding trick just arbitrarily produces something that makes decodeURIComponent
+		// throw an "Invalid Encoding URI" URIError... the simplest way to work around this is to just ignore it and use unescape instead
+		// which just fails to decode shit instead of throwing errors
+		if (decodeURIComponent) {
+			message = decodeURIComponent(message);
+		} else {
+			throw new Error("Easiest way to trigger the fallback")
+		}
+	} catch (err) {
+		message = unescape(message);
+	}
+	return message;
+}
+
 function emojiparse(el) {
 
 	if ((typeof UNICODE_9_EMOJI === 'undefined') || (typeof twemoji === 'undefined')) {
@@ -159,11 +180,7 @@ function output(message, flag) {
 	if (flag !== 'internal')
 		opts.lastPang = Date.now();
 
-	// Basically we url_encode twice server side so we can manually read the encoded version and actually do UTF-8.
-	// The replace for + is because FOR SOME REASON, BYOND replaces spaces with a + instead of %20, and a plus with %2b.
-	// Marvelous.
-	message = message.replace(/\+/g, "%20");
-	message = decoder(message);
+	message = byondDecode(message).trim();
 
 	//The behemoth of filter-code (for Admin message filters)
 	//Note: This is proooobably hella inefficient
@@ -872,31 +889,57 @@ $(function() {
 	});
 
 	$('#saveLog').click(function(e) {
-		var saved = '';
+		var openWindow = function (content) { //opens a window
+			var win;
+			try {
+				win = window.open('', 'RAW Chat Log', 'toolbar=no, location=no, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=yes, width=1200, height=800, top='+(screen.height-400)+', left='+(screen.width-840));
+			} catch (e) {
+				return;
+			}
+			if (win && win.document && window.document.body) {
+				win.document.body.innerHTML = content;
+				return win;
+			}
+		};
 
-		if (window.XMLHtpRequest) {
+		if (window.XMLHttpRequest) {
 			xmlHttp = new XMLHttpRequest();
 		} else {
 			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		xmlHttp.open('GET', 'browserOutput.css', false);
+		
+		// synchronous requests are depricated in modern browsers
+		xmlHttp.open('GET', 'browserOutput.css', true);			
+		xmlHttp.onload = function (e) {
+			if (xmlHttp.status === 200) {	// request successful
+				
+				// Generate Log
+				var saved = '<style>'+xmlHttp.responseText+'</style>';
+				saved += $messages.html();
+				saved = saved.replace(/&/g, '&amp;');
+				saved = saved.replace(/</g, '&lt;');
+				
+				// Generate final output and open the window
+				var finalText = '<head><title>Chat Log</title></head> \
+					<iframe src="saveInstructions.html" id="instructions" style="border:none;" height="220" width="100%"></iframe>'+
+					saved
+				openWindow(finalText);
+			} else {						// request returned http error
+				openWindow('Style Doc Retrieve Error: '+xmlHttp.statusText);
+			}
+		}
+		
+		// timeout and request errors
+		xmlHttp.timeout = 300;
+		xmlHttp.ontimeout = function (e) {
+			openWindow('XMLHttpRequest Timeout');
+		}
+		xmlHttp.onerror = function (e) {
+			openWindow('XMLHttpRequest Error: '+xmlHttp.statusText);
+		}
+		// css needs special headers
 		xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xmlHttp.send();
-		saved += '<style>'+xmlHttp.responseText+'</style>';
-
-		saved += $messages.html();
-		saved = saved.replace(/&/g, '&amp;');
-		saved = saved.replace(/</g, '&lt;');
-
-		var win;
-		try {
-			win = window.open('', 'Chat Log', 'toolbar=no, location=no, directories=no, status=no, menubar=yes, scrollbars=yes, resizable=yes, width=780, height=200, top='+(screen.height-400)+', left='+(screen.width-840));
-		} catch (e) {
-			return;
-		}
-		if (win && win.document && window.document.body) {
-			win.document.body.innerHTML = saved;
-		}
+		xmlHttp.send(null);
 	});
 
 	$('#highlightTerm').click(function(e) {

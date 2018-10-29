@@ -4,17 +4,17 @@
 	icon_state = "recharger0"
 	desc = "A charging dock for energy based weaponry."
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 250
 	var/obj/item/charging = null
-	var/list/allowed_devices = list(/obj/item/weapon/gun/energy, /obj/item/weapon/melee/baton, /obj/item/device/modular_computer, /obj/item/weapon/rcs)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer)
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
 	var/icon_state_idle = "recharger0"
 
-/obj/machinery/recharger/attackby(obj/item/weapon/G, mob/user, params)
+/obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
 	if(iswrench(G))
 		if(charging)
 			to_chat(user, "<span class='notice'>Remove the charging item first!</span>")
@@ -38,8 +38,8 @@
 				to_chat(user, "<span class='notice'>[src] blinks red as you try to insert [G].</span>")
 				return 1
 
-			if(istype(G, /obj/item/weapon/gun/energy))
-				var/obj/item/weapon/gun/energy/E = G
+			if(istype(G, /obj/item/gun/energy))
+				var/obj/item/gun/energy/E = G
 				if(!E.can_charge)
 					to_chat(user, "<span class='notice'>Your gun has no external power connector.</span>")
 					return 1
@@ -48,13 +48,13 @@
 				return 1
 			G.forceMove(src)
 			charging = G
-			use_power = 2
+			use_power = ACTIVE_POWER_USE
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
 	else
-		..()
+		return ..()
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))
@@ -66,7 +66,7 @@
 		charging.forceMove(loc)
 		user.put_in_hands(charging)
 		charging = null
-		use_power = 1
+		use_power = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/recharger/attack_tk(mob/user)
@@ -74,7 +74,7 @@
 		charging.update_icon()
 		charging.forceMove(loc)
 		charging = null
-		use_power = 1
+		use_power = IDLE_POWER_USE
 		update_icon()
 
 /obj/machinery/recharger/process()
@@ -83,36 +83,43 @@
 
 	var/using_power = 0
 	if(charging)
-		if(istype(charging, /obj/item/weapon/gun/energy))
-			var/obj/item/weapon/gun/energy/E = charging
+		if(istype(charging, /obj/item/gun/energy))
+			var/obj/item/gun/energy/E = charging
 			if(E.power_supply.charge < E.power_supply.maxcharge)
 				E.power_supply.give(E.power_supply.chargerate)
 				use_power(250)
 				using_power = 1
 
 
-		if(istype(charging, /obj/item/weapon/melee/baton))
-			var/obj/item/weapon/melee/baton/B = charging
+		if(istype(charging, /obj/item/melee/baton))
+			var/obj/item/melee/baton/B = charging
 			if(B.bcell)
 				if(B.bcell.give(B.bcell.chargerate))
 					use_power(200)
 					using_power = 1
 
-		if(istype(charging, /obj/item/device/modular_computer))
-			var/obj/item/device/modular_computer/C = charging
-			var/obj/item/weapon/computer_hardware/battery/battery_module = C.all_components[MC_CELL]
+		if(istype(charging, /obj/item/modular_computer))
+			var/obj/item/modular_computer/C = charging
+			var/obj/item/computer_hardware/battery/battery_module = C.all_components[MC_CELL]
 			if(battery_module)
-				var/obj/item/weapon/computer_hardware/battery/B = battery_module
+				var/obj/item/computer_hardware/battery/B = battery_module
 				if(B.battery)
 					if(B.battery.charge < B.battery.maxcharge)
 						B.battery.give(B.battery.chargerate)
 						use_power(200)
 						using_power = 1
 
-		if(istype(charging, /obj/item/weapon/rcs))
-			var/obj/item/weapon/rcs/R = charging
+		if(istype(charging, /obj/item/rcs))
+			var/obj/item/rcs/R = charging
 			if(R.rcell)
 				if(R.rcell.give(R.rcell.chargerate))
+					use_power(200)
+					using_power = 1
+		
+		if(istype(charging, /obj/item/bodyanalyzer))
+			var/obj/item/bodyanalyzer/B = charging
+			if(B.power_supply)
+				if(B.power_supply.give(B.power_supply.chargerate))
 					use_power(200)
 					using_power = 1
 
@@ -123,13 +130,13 @@
 		..(severity)
 		return
 
-	if(istype(charging,  /obj/item/weapon/gun/energy))
-		var/obj/item/weapon/gun/energy/E = charging
+	if(istype(charging,  /obj/item/gun/energy))
+		var/obj/item/gun/energy/E = charging
 		if(E.power_supply)
 			E.power_supply.emp_act(severity)
 
-	else if(istype(charging, /obj/item/weapon/melee/baton))
-		var/obj/item/weapon/melee/baton/B = charging
+	else if(istype(charging, /obj/item/melee/baton))
+		var/obj/item/melee/baton/B = charging
 		if(B.bcell)
 			B.bcell.charge = 0
 	..(severity)

@@ -13,7 +13,7 @@
 /obj/structure/lamarr/ex_act(severity)
 	switch(severity)
 		if(1)
-			new /obj/item/weapon/shard(loc)
+			new /obj/item/shard(loc)
 			Break()
 			qdel(src)
 		if(2)
@@ -35,7 +35,7 @@
 
 /obj/structure/lamarr/blob_act()
 	if(prob(75))
-		new /obj/item/weapon/shard(loc)
+		new /obj/item/shard(loc)
 		Break()
 		qdel(src)
 
@@ -44,7 +44,7 @@
 		if(!( src.destroyed ))
 			src.density = 0
 			src.destroyed = 1
-			new /obj/item/weapon/shard(loc)
+			new /obj/item/shard(loc)
 			playsound(src, "shatter", 70, 1)
 			Break()
 	else
@@ -59,7 +59,7 @@
 	return
 
 
-/obj/structure/lamarr/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
+/obj/structure/lamarr/attackby(obj/item/W as obj, mob/user as mob, params)
 	src.health -= W.force
 	src.healthcheck()
 	..()
@@ -69,10 +69,7 @@
 	if(src.destroyed)
 		return
 	else
-		to_chat(usr, text("<span class='notice'>You kick the lab cage.</span>"))
-		for(var/mob/O in oviewers())
-			if((O.client && !( O.blinded )))
-				to_chat(O, text("<span class='warning'>[] kicks the lab cage.</span>", usr))
+		user.visible_message("<span class='warning'>[user] kicks the lab cage.</span>", "<span class='notice'>You kick the lab cage.</span>")
 		src.health -= 2
 		healthcheck()
 		return

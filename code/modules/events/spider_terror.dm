@@ -13,7 +13,7 @@
 /datum/event/spider_terror/start()
 
 	var/list/vents = list()
-	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in all_vent_pumps)
+	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in GLOB.all_vent_pumps)
 		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
 			if(temp_vent.parent.other_atmosmch.len > 50)
 				vents += temp_vent
@@ -22,7 +22,7 @@
 	switch(infestation_type)
 		if(1)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/green
-			spawncount = 4
+			spawncount = 5
 		if(2)
 			spider_type = /mob/living/simple_animal/hostile/poison/terror_spider/white
 			spawncount = 2
@@ -38,8 +38,7 @@
 	while(spawncount >= 1 && vents.len)
 		var/obj/vent = pick(vents)
 		var/obj/structure/spider/spiderling/terror_spiderling/S = new(vent.loc)
-		S.name = "evil-looking spiderling"
 		S.grow_as = spider_type
-		S.amount_grown = 75
+		S.amount_grown = 90
 		vents -= vent
 		spawncount--

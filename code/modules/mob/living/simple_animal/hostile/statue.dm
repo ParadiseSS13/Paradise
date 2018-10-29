@@ -19,6 +19,7 @@
 	healable = 0
 
 	harm_intent_damage = 35
+	obj_damage = 100
 	melee_damage_lower = 34
 	melee_damage_upper = 42
 	attacktext = "claws"
@@ -178,7 +179,7 @@
 	range = 10
 
 /obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets, mob/user = usr)
-	for(var/mob/living/L in living_mob_list)
+	for(var/mob/living/L in GLOB.living_mob_list)
 		if(L == user)
 			continue
 		var/turf/T = get_turf(L.loc)

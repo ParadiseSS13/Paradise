@@ -1,5 +1,5 @@
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
-/client/proc/cmd_admin_pm_context(mob/M as mob in mob_list)
+/client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
 	set category = null
 	set name = "Admin PM Mob"
 	if(!holder)
@@ -67,7 +67,7 @@
 	if(istext(whom))
 		if(cmptext(copytext(whom,1,2),"@"))
 			whom = findStealthKey(whom)
-		C = directory[whom]
+		C = GLOB.directory[whom]
 	else if(istype(whom,/client))
 		C = whom
 
@@ -88,7 +88,7 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = input(src,"Message:", "Private message to [key_name(C, 0, 0)]") as text|null
+		msg = input(src,"Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]") as text|null
 
 		if(!msg)
 			return
@@ -152,9 +152,9 @@
 
 
 	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][key_name(src, C, C.holder ? 1 : 0, type)]</b>: [emoji_msg]</span>"
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type][C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>: [emoji_msg]</span>"
 	to_chat(C, recieve_message)
-	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[key_name(C, src, holder ? 1 : 0, type)]</b>: [emoji_msg]</font>")
+	to_chat(src, "<font color='blue'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</font>")
 
 	/*if(holder && !C.holder)
 		C.last_pm_recieved = world.time
@@ -167,7 +167,7 @@
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		//check client/X is an admin and isn't the sender or recipient
 		if(X == C || X == src)
 			continue
@@ -175,25 +175,26 @@
 			switch(type)
 				if("Mentorhelp")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [emoji_msg]</span>")
+						to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
 				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [emoji_msg]</span>")
+						to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, X, 0, type)]-&gt;[key_name(C, X, 0, type)]: [emoji_msg]</span>")
+						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
 
+	if(type == "Mentorhelp")
+		return
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
-	tickets = globAdminTicketHolder.checkForTicket(C)
+	tickets = SStickets.checkForTicket(C)
 	if(tickets)
 		for(var/datum/admin_ticket/i in tickets)
 			i.addResponse(src, msg) // Add this response to their open tickets.
 		return
 
-	tickets = globAdminTicketHolder.checkForTicket(src)
 	if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
-		tickets = globAdminTicketHolder.checkForTicket(src)
+		tickets = SStickets.checkForTicket(src)
 		if(tickets)
 			for(var/datum/admin_ticket/i in tickets)
 				i.addResponse(src, msg)
@@ -222,8 +223,8 @@
 	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
 
 	log_admin("PM: [key_name(src)]->IRC: [msg]")
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-			to_chat(X, "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></font>")
+			to_chat(X, "<B><font color='blue'>PM: [key_name(src, TRUE, 0)]-&gt;IRC-Admins:</B> <span class='notice'>[msg]</span></font>")

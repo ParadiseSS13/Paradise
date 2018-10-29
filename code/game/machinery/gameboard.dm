@@ -5,15 +5,15 @@
 	desc = "A holographic table allowing the crew to have fun(TM) on boring shifts! One player per board."
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	var/cooling_down = 0
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/gameboard/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/gameboard(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/circuitboard/gameboard(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 3)
 	component_parts += new /obj/item/stack/sheet/glass(null, 1)
 	RefreshParts()
@@ -93,8 +93,11 @@
 	if(href_list["close"])
 		close_game()
 
-/obj/machinery/gameboard/attackby(var/obj/item/weapon/G as obj, var/mob/user as mob, params)
-	if(istype(G, /obj/item/weapon/wrench))
-		default_unfasten_wrench(user, G)
-	else if(istype(G, /obj/item/weapon/crowbar))
-		default_deconstruction_crowbar(G, ignore_panel = 1)
+/obj/machinery/gameboard/attackby(obj/item/I, mob/user, params)
+	if(default_unfasten_wrench(user, I))
+		return
+
+	if(default_deconstruction_crowbar(I, ignore_panel = TRUE))
+		return
+	else
+		return ..()

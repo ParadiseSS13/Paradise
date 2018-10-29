@@ -39,8 +39,8 @@
 	if(command_completed(cur_command))
 		cur_command = null
 	else
-		if(!(src in machine_processing))
-			machine_processing += src
+		if(!isprocessing)
+			START_PROCESSING(SSmachines, src)
 
 /obj/machinery/door/airlock/proc/do_command(command)
 	switch(command)
@@ -132,7 +132,7 @@
 		frequency = new_frequency
 		radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/door/airlock/initialize()
+/obj/machinery/door/airlock/Initialize()
 	..()
 	if(frequency)
 		set_frequency(frequency)
@@ -207,7 +207,7 @@
 	frequency = new_frequency
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/airlock_sensor/initialize()
+/obj/machinery/airlock_sensor/Initialize()
 	..()
 	set_frequency(frequency)
 
@@ -215,6 +215,12 @@
 	..()
 	if(radio_controller)
 		set_frequency(frequency)
+
+/obj/machinery/airlock_sensor/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
 
 /obj/machinery/airlock_sensor/airlock_interior
 	command = "cycle_interior"
@@ -245,7 +251,7 @@
 
 /obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
 	//Swiping ID on the access button
-	if(istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/pda))
+	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		attack_hand(user)
 		return
 	..()
@@ -269,7 +275,7 @@
 	frequency = new_frequency
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/access_button/initialize()
+/obj/machinery/access_button/Initialize()
 	..()
 	set_frequency(frequency)
 
@@ -278,6 +284,12 @@
 
 	if(radio_controller)
 		set_frequency(frequency)
+
+/obj/machinery/access_button/Destroy()
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	return ..()
 
 /obj/machinery/access_button/airlock_interior
 	frequency = 1379

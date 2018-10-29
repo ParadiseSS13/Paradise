@@ -37,8 +37,7 @@
 	add_to_streak("G",D)
 	if(check_streak(A,D))
 		return 1
-	D.grabbedby(A,1)
-	var/obj/item/weapon/grab/G = A.get_active_hand()
+	var/obj/item/grab/G = D.grabbedby(A,1)
 	if(G)
 		G.state = GRAB_NECK
 
@@ -75,7 +74,7 @@
 			D.revive()
 			D.suiciding = 0
 		if(!D.ckey)
-			for(var/mob/dead/observer/ghost in player_list)
+			for(var/mob/dead/observer/ghost in GLOB.player_list)
 				if(D.real_name == ghost.real_name)
 					ghost.reenter_corpse()
 					break
@@ -96,14 +95,14 @@
 	to_chat(usr, "<span class='notice'>Healing Palm:</span>:Combo:Grab,Help intent. Heals or revives a crature.")
 
 
-/obj/item/weapon/adminfu_scroll
+/obj/item/adminfu_scroll
 	name = "frayed scroll"
 	desc = "An aged and frayed scrap of paper written in shifting runes. There are hand-drawn illustrations of pugilism."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state ="scroll2"
 	var/used = 0
 
-/obj/item/weapon/adminfu_scroll/attack_self(mob/user as mob)
+/obj/item/adminfu_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
 		return
 	if(!used)

@@ -45,7 +45,7 @@ Difficulty: Medium
 	ranged = 1
 	pixel_x = -16
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
-	butcher_results = list(/obj/item/weapon/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
+	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
 	var/swooping = 0
 	var/swoop_cooldown = 0
 	medal_type = MEDAL_PREFIX
@@ -55,7 +55,7 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/New()
 	..()
-	internal_gps = new/obj/item/device/gps/internal/dragon(src)
+	internal_gps = new/obj/item/gps/internal/dragon(src)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/ex_act(severity, target)
 	if(severity == 3)
@@ -86,7 +86,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/Process_Spacemove(movement_dir = 0)
 	return 1
 
-/obj/effect/overlay/temp/fireball
+/obj/effect/temp_visual/fireball
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "fireball"
 	name = "fireball"
@@ -96,18 +96,18 @@ Difficulty: Medium
 	duration = 12
 	pixel_z = 500
 
-/obj/effect/overlay/temp/fireball/New(loc)
+/obj/effect/temp_visual/fireball/New(loc)
 	..()
 	animate(src, pixel_z = 0, time = 12)
 
-/obj/effect/overlay/temp/target
+/obj/effect/temp_visual/target
 	icon = 'icons/mob/actions.dmi'
 	icon_state = "sniper_zoom"
 	layer = MOB_LAYER - 0.1
 	luminosity = 2
 	duration = 12
 
-/obj/effect/overlay/temp/dragon_swoop
+/obj/effect/temp_visual/dragon_swoop
 	name = "certain death"
 	desc = "Don't just stand there, move!"
 	icon = 'icons/effects/96x96.dmi'
@@ -118,18 +118,18 @@ Difficulty: Medium
 	color = "#FF0000"
 	duration = 10
 
-/obj/effect/overlay/temp/target/ex_act()
+/obj/effect/temp_visual/target/ex_act()
 	return
 
-/obj/effect/overlay/temp/target/New(loc)
+/obj/effect/temp_visual/target/New(loc)
 	..()
 	spawn(0)
 		fall()
 
-/obj/effect/overlay/temp/target/proc/fall()
+/obj/effect/temp_visual/target/proc/fall()
 	var/turf/T = get_turf(src)
 	playsound(T,'sound/magic/Fireball.ogg', 200, 1)
-	new /obj/effect/overlay/temp/fireball(T)
+	new /obj/effect/temp_visual/fireball(T)
 	sleep(12)
 	explosion(T, 0, 0, 1, 0, 0, 0, 1)
 
@@ -161,7 +161,7 @@ Difficulty: Medium
 	visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
 	for(var/turf/turf in range(12,get_turf(src)))
 		if(prob(10))
-			new /obj/effect/overlay/temp/target(turf)
+			new /obj/effect/temp_visual/target(turf)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_walls()
 	playsound(get_turf(src),'sound/magic/Fireball.ogg', 200, 1)
@@ -218,22 +218,22 @@ Difficulty: Medium
 		fire_rain()
 
 	icon_state = "dragon"
-	if(swoop_target && !qdeleted(swoop_target) && swoop_target.z == src.z)
+	if(swoop_target && !QDELETED(swoop_target) && swoop_target.z == src.z)
 		tturf = get_turf(swoop_target)
 	else
 		tturf = get_turf(src)
 	forceMove(tturf)
-	new /obj/effect/overlay/temp/dragon_swoop(tturf)
+	new /obj/effect/temp_visual/dragon_swoop(tturf)
 	animate(src, pixel_x = initial(pixel_x), pixel_z = 0, time = 10)
 	sleep(10)
 	playsound(src.loc, 'sound/effects/meteorimpact.ogg', 200, 1)
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
-			visible_message("<span class='warning'>[src] slams down on [L], crushing them!</span>")
+			visible_message("<span class='warning'>[src] slams down on [L], crushing [L.p_them()]!</span>")
 			L.gib()
 		else
 			L.adjustBruteLoss(75)
-			if(L && !qdeleted(L)) // Some mobs are deleted on death
+			if(L && !QDELETED(L)) // Some mobs are deleted on death
 				var/throw_dir = get_dir(src, L)
 				if(L.loc == loc)
 					throw_dir = pick(alldirs)
@@ -256,7 +256,7 @@ Difficulty: Medium
 		return
 	swoop_attack(1, A)
 
-/obj/item/device/gps/internal/dragon
+/obj/item/gps/internal/dragon
 	icon_state = null
 	gpstag = "Fiery Signal"
 	desc = "Here there be dragons."
@@ -267,6 +267,7 @@ Difficulty: Medium
 	maxHealth = 200
 	health = 200
 	faction = list("neutral")
+	obj_damage = 80
 	melee_damage_upper = 30
 	melee_damage_lower = 30
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)

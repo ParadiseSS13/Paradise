@@ -1,4 +1,4 @@
-/obj/item/weapon/picture_frame
+/obj/item/picture_frame
 	name = "picture frame"
 	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster, and canvas sizes."
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -12,39 +12,37 @@
 		"poster22_legit", "poster23", "poster23_legit", "poster24", "poster24_legit",
 		"poster25", "poster27_legit", "poster28", "poster29")
 
-/obj/item/weapon/picture_frame/New(loc, obj/item/weapon/D)
+/obj/item/picture_frame/New(loc, obj/item/D)
 	..()
 	if(D)
 		insert(D)
 	update_icon()
 
-/obj/item/weapon/picture_frame/Destroy()
+/obj/item/picture_frame/Destroy()
 	if(displayed)
 		displayed = null
 		for(var/A in contents)
 			qdel(A)
 	return ..()
 
-/obj/item/weapon/picture_frame/update_icon()
+/obj/item/picture_frame/update_icon()
 	overlays.Cut()
 
 	if(displayed)
 		overlays |= getFlatIcon(displayed)
 
-	if(istype(displayed, /obj/item/weapon/photo))
+	if(istype(displayed, /obj/item/photo))
 		icon_state = "[icon_base]-photo"
 	else if(istype(displayed, /obj/structure/sign/poster))
 		icon_state = "[icon_base]-[(displayed.icon_state in wide_posters) ? "wposter" : "poster"]"
-	else if(istype(displayed, /obj/item/weapon/canvas))
-		icon_state = "[icon_base]-canvas-[displayed.icon_state]"
 	else
 		icon_state = "[icon_base]-paper"
 
 	overlays |= icon_state
 
-/obj/item/weapon/picture_frame/proc/insert(obj/D)
-	if(istype(D, /obj/item/weapon/poster))
-		var/obj/item/weapon/poster/P = D
+/obj/item/picture_frame/proc/insert(obj/D)
+	if(istype(D, /obj/item/poster))
+		var/obj/item/poster/P = D
 		displayed = P.poster_structure
 		P.poster_structure = null
 	else
@@ -54,14 +52,14 @@
 	displayed.pixel_x = 0
 	displayed.pixel_y = 0
 	displayed.forceMove(src)
-	if(istype(D, /obj/item/weapon/poster))
+	if(istype(D, /obj/item/poster))
 		qdel(D)
 
-/obj/item/weapon/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/weapon/screwdriver))
+/obj/item/picture_frame/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/screwdriver))
 		if(displayed)
 			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class=warning>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class=warning>You unfasten \the [displayed] out of \the [src].</span>")
+			user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
 
 			if(istype(displayed, /obj/structure/sign/poster))
 				var/obj/structure/sign/poster/P = displayed
@@ -72,10 +70,10 @@
 			name = initial(name)
 			update_icon()
 		else
-			to_chat(user, "<span class=notice>There is nothing to remove from \the [src].</span>")
-	else if(istype(I, /obj/item/weapon/crowbar))
+			to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
+	else if(istype(I, /obj/item/crowbar))
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class=warning>[user] breaks down \the [src].</span>", "<span class=warning>You break down \the [src].</span>")
+		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
 		for(var/A in contents)
 			if(istype(A, /obj/structure/sign/poster))
 				var/obj/structure/sign/poster/P = A
@@ -85,23 +83,23 @@
 				O.forceMove(user.loc)
 		displayed = null
 		qdel(src)
-	else if(istype(I, /obj/item/weapon/paper) || istype(I, /obj/item/weapon/photo) || istype(I, /obj/item/weapon/poster))
+	else if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/poster))
 		if(!displayed)
 			user.unEquip(I)
 			insert(I)
 			update_icon()
 		else
-			to_chat(user, "<span class=notice>\The [src] already contains \a [displayed].</span>")
+			to_chat(user, "<span class='notice'>\The [src] already contains \a [displayed].</span>")
 	else
 		return ..()
 
-/obj/item/weapon/picture_frame/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag)
 	if(proximity_flag && istype(target, /turf/simulated/wall))
 		place(target, user)
 	else
 		..()
 
-/obj/item/weapon/picture_frame/proc/place(turf/T, mob/user)
+/obj/item/picture_frame/proc/place(turf/T, mob/user)
 	var/stuff_on_wall = 0
 	for(var/obj/O in user.loc.contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign))
@@ -139,12 +137,12 @@
 
 	playsound(PF.loc, usesound, 100, 1)
 
-/obj/item/weapon/picture_frame/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
+/obj/item/picture_frame/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
 	..()
 	if(displayed)
 		displayed.examine(user, distance, infix, suffix)
 
-/obj/item/weapon/picture_frame/attack_self(mob/user)
+/obj/item/picture_frame/attack_self(mob/user)
 	if(displayed)
 		if(istype(displayed, /obj/item))
 			var/obj/item/I = displayed
@@ -154,16 +152,16 @@
 
 
 
-/obj/item/weapon/picture_frame/glass
+/obj/item/picture_frame/glass
 	icon_base = "glass"
 	icon_state = "glass-poster"
 	materials = list(MAT_METAL = 25, MAT_GLASS = 75)
 
-/obj/item/weapon/picture_frame/wooden
+/obj/item/picture_frame/wooden
 	icon_base = "wood"
 	icon_state = "wood-poster"
 
-/obj/item/weapon/picture_frame/wooden/New()
+/obj/item/picture_frame/wooden/New()
 	..()
 	new /obj/item/stack/sheet/wood(src, 1)
 
@@ -173,8 +171,8 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "glass-poster"
 
-	var/obj/item/weapon/picture_frame/frame
-	var/obj/item/weapon/explosive
+	var/obj/item/picture_frame/frame
+	var/obj/item/explosive
 
 	var/tilted = 0
 	var/tilt_transform = null
@@ -212,26 +210,26 @@
 		icon_state = initial(icon_state)
 
 /obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(istype(I, /obj/item/screwdriver))
 		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class=warning>[user] begins to unfasten \the [src] from the wall.</span>", "<span class=warning>You begin to unfasten \the [src] from the wall.</span>")
+		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
 		if(do_after(user, 100 * I.toolspeed, target = src))
 			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class=warning>[user] unfastens \the [src] from the wall.</span>", "<span class=warning>You unfasten \the [src] from the wall.</span>")
+			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
 			frame.forceMove(user.loc)
 			frame = null
 			if(explosive)
 				explosive.forceMove(user.loc)
 				explosive = null
 			qdel(src)
-	if(istype(I, /obj/item/weapon/grenade) || istype(I, /obj/item/weapon/grenade/plastic/c4))
+	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/grenade/plastic/c4))
 		if(explosive)
 			to_chat(user, "<span class='warning'>There is already a device attached behind \the [src], remove it first.</span>")
 			return 1
 		if(!tilted)
 			to_chat(user, "<span class='warning'>\The [src] needs to be already tilted before being rigged with \the [I].</span>")
 			return 1
-		user.visible_message("<span class=warning>[user] is fiddling around behind \the [src].</span>", "<span class=warning>You begin to secure \the [I] behind \the [src].</span>")
+		user.visible_message("<span class='warning'>[user] is fiddling around behind \the [src].</span>", "<span class='warning'>You begin to secure \the [I] behind \the [src].</span>")
 		if(do_after(user, 150, target = src))
 			if(explosive || !tilted)
 				return
@@ -264,8 +262,8 @@
 	..(severity)
 
 /obj/structure/sign/picture_frame/proc/explode()
-	if(istype(explosive, /obj/item/weapon/grenade))
-		var/obj/item/weapon/grenade/G = explosive
+	if(istype(explosive, /obj/item/grenade))
+		var/obj/item/grenade/G = explosive
 		explosive = null
 		G.prime()
 

@@ -1,6 +1,16 @@
 //Object specific defines
 #define CANDLE_LUM 3 //For how bright candles are
 
+//Directions (already defined on BYOND natively, purely here for reference)
+//#define NORTH		1
+//#define SOUTH		2
+//#define EAST		4
+//#define WEST		8
+//#define NORTHEAST	5
+//#define SOUTHEAST 6
+//#define NORTHWEST 9
+//#define SOUTHWEST 10
+
 //Security levels
 #define SEC_LEVEL_GREEN	0
 #define SEC_LEVEL_BLUE	1
@@ -162,20 +172,6 @@
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
 
-//Material defines
-#define MAT_METAL			"$metal"
-#define MAT_GLASS			"$glass"
-#define MAT_SILVER			"$silver"
-#define MAT_GOLD			"$gold"
-#define MAT_DIAMOND			"$diamond"
-#define MAT_URANIUM			"$uranium"
-#define MAT_PLASMA			"$plasma"
-#define MAT_BANANIUM		"$bananium"
-#define MAT_TRANQUILLITE	"$tranquillite"
-#define MAT_BIOMASS			"$biomass"
-
-#define MAX_STACK_SIZE 50
-
 //check_target_facings() return defines
 #define FACING_FAILED											0
 #define FACING_SAME_DIR											1
@@ -214,7 +210,7 @@
 #define MARKINGS_LAYER			4
 #define UNDERWEAR_LAYER			5
 #define MUTATIONS_LAYER			6
-#define DAMAGE_LAYER			7
+#define H_DAMAGE_LAYER			7
 #define UNIFORM_LAYER			8
 #define ID_LAYER				9
 #define SHOES_LAYER				10
@@ -308,12 +304,6 @@
 #define RADIO_CONNECTION_FAIL 0
 #define RADIO_CONNECTION_NON_SUBSPACE 1
 
-//Fire stuff, for burn_state
-#define LAVA_PROOF -2
-#define FIRE_PROOF -1
-#define FLAMMABLE 0
-#define ON_FIRE 1
-
 // Bluespace shelter deploy checks
 #define SHELTER_DEPLOY_ALLOWED "allowed"
 #define SHELTER_DEPLOY_BAD_TURFS "bad turfs"
@@ -348,7 +338,6 @@
 #define SECOND_DIAG_STEP 2
 
 #define ARBITRARY_VIEWRANGE_NOHUD 2
-#define SECOND_DIAG_STEP 2
 
 //Bloody shoes/footprints
 #define MAX_SHOE_BLOODINESS			100
@@ -361,5 +350,36 @@
 #define BLOOD_STATE_XENO			"xeno"
 #define BLOOD_STATE_NOT_BLOODY		"no blood whatsoever"
 
+//for obj explosion block calculation
+#define EXPLOSION_BLOCK_PROC -1
+
+// Defines for investigate to prevent typos and for styling
+#define INVESTIGATE_LABEL "labels"
+
+#define INVESTIGATE_BOMB "bombs"
+
 // The SQL version required by this version of the code
-#define SQL_VERSION 1
+#define SQL_VERSION 4
+
+// Vending machine stuff
+#define CAT_NORMAL 1
+#define CAT_HIDDEN 2
+#define CAT_COIN   4
+
+// Jobs
+// used for alternate_option
+#define GET_RANDOM_JOB 0
+#define BE_ASSISTANT 1
+#define RETURN_TO_LOBBY 2
+
+//Melting Temperatures for various specific objects
+#define GIRDER_MELTING_TEMP 5000
+
+// Area selection defines
+#define AREASELECT_CORNERA "corner A"
+#define AREASELECT_CORNERB "corner B"
+
+//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
+#define MOUSE_OPACITY_TRANSPARENT 0
+#define MOUSE_OPACITY_ICON 1
+#define MOUSE_OPACITY_OPAQUE 2

@@ -1,4 +1,4 @@
-/obj/item/device/flashlight
+/obj/item/flashlight
 	name = "flashlight"
 	desc = "A hand-held emergency light."
 	icon = 'icons/obj/lighting.dmi'
@@ -12,7 +12,7 @@
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
 
-/obj/item/device/flashlight/initialize()
+/obj/item/flashlight/Initialize()
 	..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
@@ -21,7 +21,7 @@
 		icon_state = initial(icon_state)
 		set_light(0)
 
-/obj/item/device/flashlight/proc/update_brightness(var/mob/user = null)
+/obj/item/flashlight/proc/update_brightness(var/mob/user = null)
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 		set_light(brightness_on)
@@ -29,7 +29,7 @@
 		icon_state = initial(icon_state)
 		set_light(0)
 
-/obj/item/device/flashlight/attack_self(mob/user)
+/obj/item/flashlight/attack_self(mob/user)
 	if(!isturf(user.loc))
 		to_chat(user, "You cannot turn the light on while in this [user.loc].")//To prevent some lighting anomalities.
 
@@ -43,7 +43,7 @@
 	return 1
 
 
-/obj/item/device/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/attack(mob/living/M as mob, mob/living/user as mob)
 	add_fingerprint(user)
 	if(on && user.zone_sel.selecting == "eyes")
 
@@ -61,10 +61,10 @@
 
 		if(M == user)	//they're using it on themselves
 			if(M.flash_eyes(visual = 1))
-				M.visible_message("<span class='notice'>[M] directs [src] to \his eyes.</span>", \
+				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
 									 "<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
 			else
-				M.visible_message("<span class='notice'>[M] directs [src] to \his eyes.</span>", \
+				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
 									 "<span class='notice'>You wave the light in front of your eyes.</span>")
 		else
 
@@ -83,7 +83,7 @@
 	else
 		return ..()
 
-/obj/item/device/flashlight/pen
+/obj/item/flashlight/pen
 	name = "penlight"
 	desc = "A pen-sized light, used by medical staff."
 	icon_state = "penlight"
@@ -93,7 +93,7 @@
 	flags = CONDUCT
 	brightness_on = 2
 
-/obj/item/device/flashlight/seclite
+/obj/item/flashlight/seclite
 	name = "seclite"
 	desc = "A robust flashlight used by security."
 	icon_state = "seclite"
@@ -102,7 +102,7 @@
 	brightness_on = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
 
-/obj/item/device/flashlight/drone
+/obj/item/flashlight/drone
 	name = "low-power flashlight"
 	desc = "A miniature lamp, that might be used by small robots."
 	icon_state = "penlight"
@@ -112,7 +112,7 @@
 	w_class = WEIGHT_CLASS_TINY
 
 // the desk lamps are a bit special
-/obj/item/device/flashlight/lamp
+/obj/item/flashlight/lamp
 	name = "desk lamp"
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
@@ -125,14 +125,14 @@
 
 
 // green-shaded desk lamp
-/obj/item/device/flashlight/lamp/green
+/obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
 
 
 
-/obj/item/device/flashlight/lamp/verb/toggle_light()
+/obj/item/flashlight/lamp/verb/toggle_light()
 	set name = "Toggle light"
 	set category = "Object"
 	set src in oview(1)
@@ -141,7 +141,7 @@
 		attack_self(usr)
 
 //Bananalamp
-obj/item/device/flashlight/lamp/bananalamp
+obj/item/flashlight/lamp/bananalamp
 	name = "banana lamp"
 	desc = "Only a clown would think to make a ghetto banana-shaped lamp. Even has a goofy pullstring."
 	icon_state = "bananalamp"
@@ -150,7 +150,7 @@ obj/item/device/flashlight/lamp/bananalamp
 
 // FLARES
 
-/obj/item/device/flashlight/flare
+/obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
 	w_class = WEIGHT_CLASS_SMALL
@@ -162,11 +162,11 @@ obj/item/device/flashlight/lamp/bananalamp
 	var/on_damage = 7
 	var/produce_heat = 1500
 
-/obj/item/device/flashlight/flare/New()
+/obj/item/flashlight/flare/New()
 	fuel = rand(800, 1000) // Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.
 	..()
 
-/obj/item/device/flashlight/flare/process()
+/obj/item/flashlight/flare/process()
 	var/turf/pos = get_turf(src)
 	if(pos)
 		pos.hotspot_expose(produce_heat, 5)
@@ -177,7 +177,7 @@ obj/item/device/flashlight/lamp/bananalamp
 			src.icon_state = "[initial(icon_state)]-empty"
 		processing_objects -= src
 
-/obj/item/device/flashlight/flare/proc/turn_off()
+/obj/item/flashlight/flare/proc/turn_off()
 	on = 0
 	src.force = initial(src.force)
 	src.damtype = initial(src.damtype)
@@ -187,14 +187,14 @@ obj/item/device/flashlight/lamp/bananalamp
 	else
 		update_brightness(null)
 
-/obj/item/device/flashlight/flare/update_brightness(var/mob/user = null)
+/obj/item/flashlight/flare/update_brightness(var/mob/user = null)
 	..()
 	if(on)
 		item_state = "[initial(item_state)]-on"
 	else
 		item_state = "[initial(item_state)]"
 
-/obj/item/device/flashlight/flare/attack_self(mob/user)
+/obj/item/flashlight/flare/attack_self(mob/user)
 
 	// Usual checks
 	if(!fuel)
@@ -211,7 +211,7 @@ obj/item/device/flashlight/lamp/bananalamp
 		src.damtype = "fire"
 		processing_objects += src
 
-/obj/item/device/flashlight/flare/torch
+/obj/item/flashlight/flare/torch
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
 	w_class = WEIGHT_CLASS_BULKY
@@ -220,7 +220,7 @@ obj/item/device/flashlight/lamp/bananalamp
 	item_state = "torch"
 	on_damage = 10
 
-/obj/item/device/flashlight/slime
+/obj/item/flashlight/slime
 	gender = PLURAL
 	name = "glowing slime extract"
 	desc = "A glowing ball of what appears to be amber."
@@ -233,16 +233,16 @@ obj/item/device/flashlight/lamp/bananalamp
 	materials = list()
 	on = 1 //Bio-luminesence has one setting, on.
 
-/obj/item/device/flashlight/slime/New()
+/obj/item/flashlight/slime/New()
 	set_light(brightness_on)
 	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
 		update_brightness()
 		icon_state = initial(icon_state)
 
-/obj/item/device/flashlight/slime/attack_self(mob/user)
+/obj/item/flashlight/slime/attack_self(mob/user)
 	return //Bio-luminescence does not toggle.
 
-/obj/item/device/flashlight/emp
+/obj/item/flashlight/emp
 	origin_tech = "magnets=3;syndicate=1"
 
 	var/emp_max_charges = 4
@@ -250,27 +250,27 @@ obj/item/device/flashlight/lamp/bananalamp
 	var/charge_tick = 0
 
 
-/obj/item/device/flashlight/emp/New()
+/obj/item/flashlight/emp/New()
 	..()
 	processing_objects.Add(src)
 
-/obj/item/device/flashlight/emp/Destroy()
+/obj/item/flashlight/emp/Destroy()
 	processing_objects.Remove(src)
 	return ..()
 
-/obj/item/device/flashlight/emp/process()
+/obj/item/flashlight/emp/process()
 	charge_tick++
 	if(charge_tick < 10) return 0
 	charge_tick = 0
 	emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
 	return 1
 
-/obj/item/device/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
+/obj/item/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
 	if(on && user.zone_sel.selecting == "eyes") // call original attack proc only if aiming at the eyes
 		..()
 	return
 
-/obj/item/device/flashlight/emp/afterattack(atom/A as mob|obj, mob/user, proximity)
+/obj/item/flashlight/emp/afterattack(atom/A as mob|obj, mob/user, proximity)
 	if(!proximity) return
 	if(emp_cur_charges > 0)
 		emp_cur_charges -= 1
@@ -278,9 +278,25 @@ obj/item/device/flashlight/lamp/bananalamp
 											"<span class='userdanger'>[user] blinks \the [src] at \the [A].")
 		if(ismob(A))
 			var/mob/M = A
-			add_logs(user, M, "attacked", object="EMP-light")
+			add_attack_logs(user, M, "Hit with EMP-light")
 		to_chat(user, "[src] now has [emp_cur_charges] charge\s.")
 		A.emp_act(1)
 	else
 		to_chat(user, "<span class='warning'>\The [src] needs time to recharge!</span>")
 	return
+
+/obj/item/flashlight/spotlight //invisible lighting source
+	name = "disco light"
+	desc = "Groovy..."
+	icon_state = null
+	light_color = null
+	brightness_on = 0
+	light_range = 0
+	light_power = 10
+	alpha = 0
+	layer = 0
+	on = TRUE
+	anchored = TRUE
+	var/range = null
+	unacidable = TRUE
+	burn_state = LAVA_PROOF

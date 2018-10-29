@@ -5,7 +5,7 @@
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
-/mob/living/carbon/slime/Life()
+/mob/living/carbon/slime/Life(seconds, times_fired)
 	if(..())
 		handle_nutrition()
 		handle_targets()
@@ -131,7 +131,7 @@
 	else // a hot place
 		bodytemperature += adjust_body_temperature(bodytemperature, loc_temp, 1)
 
-	updatehealth()
+	updatehealth("handle environment")
 
 	return //TODO: DEFERRED
 
@@ -156,7 +156,14 @@
 
 	if(reagents)
 		reagents.metabolize(src)
-	src.updatehealth()
+
+	if(reagents.get_reagent_amount("plasma")>=5)
+		mutation_chance = min(mutation_chance + 5,50) //Prevents mutation chance going >50%
+		reagents.remove_reagent("plasma", 5)
+	if(reagents.get_reagent_amount("epinephrine")>=5)
+		mutation_chance = max(mutation_chance - 5,0) //Prevents mutation chance going <0%
+		reagents.remove_reagent("epinephrine", 5)
+	updatehealth("handle chemicals in body")
 
 	return //TODO: DEFERRED
 
@@ -188,7 +195,6 @@
 
 	if(src.stat == DEAD)
 		src.lying = 1
-		src.blinded = 1
 	else
 		if(src.paralysis || src.stunned || src.weakened || (status_flags && FAKEDEATH)) //Stunned etc.
 			if(src.stunned > 0)
@@ -200,7 +206,6 @@
 				src.stat = 0
 			if(src.paralysis > 0)
 				AdjustParalysis(-1)
-				src.blinded = 0
 				src.lying = 0
 				src.stat = 0
 
@@ -212,7 +217,6 @@
 
 	if(src.eye_blind)
 		src.SetEyeBlind(0)
-		src.blinded = 1
 
 	if(src.ear_deaf > 0) SetEarDeaf(0)
 	if(src.ear_damage < 25)
@@ -220,8 +224,6 @@
 
 	src.density = !( src.lying )
 
-	if(src.disabilities & BLIND)
-		src.blinded = 1
 	if(src.disabilities & DEAF)
 		EarDeaf(1)
 
@@ -234,6 +236,10 @@
 	return 1
 
 /mob/living/carbon/slime/proc/handle_nutrition()
+
+	if(docile) //God as my witness, I will never go hungry again
+		nutrition = 700
+		return
 
 	if(prob(15))
 		nutrition -= 1 + is_adult
@@ -254,6 +260,15 @@
 		else
 			Evolve()
 
+/mob/living/carbon/slime/proc/add_nutrition(nutrition_to_add = 0, lastnut = 0)
+	nutrition = min((nutrition + nutrition_to_add), get_max_nutrition())
+	if(nutrition >= (lastnut + 50))
+		if(prob(80))
+			lastnut = nutrition
+			powerlevel++
+			if(powerlevel > 10)
+				powerlevel = 10
+				adjustToxLoss(-10)
 
 /mob/living/carbon/slime/proc/handle_targets()
 	if(Tempstun)
@@ -282,7 +297,7 @@
 
 		if(Target)
 			--target_patience
-			if(target_patience <= 0 || SStun || Discipline || attacked) // Tired of chasing or something draws out attention
+			if(target_patience <= 0 || SStun || Discipline || attacked || docile) // Tired of chasing or something draws out attention
 				target_patience = 0
 				Target = null
 
@@ -317,7 +332,7 @@
 
 					if(istype(L, /mob/living/carbon/human)) //Ignore slime(wo)men
 						var/mob/living/carbon/human/H = L
-						if(H.species.name == "Slime People")
+						if(isslimeperson(H))
 							continue
 
 					if(!L.canmove) // Only one slime can latch on at a time.
@@ -365,6 +380,8 @@
 			else
 				if(holding_still)
 					holding_still = max(holding_still - 1, 0)
+				else if(docile && pulledby)
+					holding_still = 10
 				else if(canmove && isturf(loc) && prob(33))
 					step(src, pick(cardinal))
 		else if(!AIproc)
@@ -374,8 +391,12 @@
 /mob/living/carbon/slime/proc/handle_speech_and_mood()
 	//Mood starts here
 	var/newmood = ""
-	if(rabid || attacked) newmood = "angry"
-	else if(Target) newmood = "mischevous"
+	if(rabid || attacked)
+		newmood = "angry"
+	else if(docile)
+		newmood = ":3"
+	else if(Target)
+		newmood = "mischevous"
 
 	if(!newmood)
 		if(Discipline && prob(25))
@@ -544,8 +565,13 @@
 	if(is_adult) return 300
 	else return 200
 
-/mob/living/carbon/slime/proc/will_hunt(var/hunger = -1) // Check for being stopped from feeding and chasing
-	if(hunger == 2 || rabid || attacked) return 1
-	if(Leader) return 0
-	if(holding_still) return 0
+/mob/living/carbon/slime/proc/will_hunt(hunger = -1) // Check for being stopped from feeding and chasing
+	if(docile)
+		return 0
+	if(hunger == 2 || rabid || attacked)
+		return 1
+	if(Leader)
+		return 0
+	if(holding_still)
+		return 0
 	return 1

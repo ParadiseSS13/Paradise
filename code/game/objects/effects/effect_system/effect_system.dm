@@ -7,9 +7,10 @@ would spawn and follow the beaker, even if it is carried or thrown.
 
 /obj/effect/particle_effect
 	name = "particle effect"
-	mouse_opacity = 0
-	unacidable = 1//So effects are not targeted by alien acid.
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	unacidable = TRUE //So effects are not targeted by alien acid.
 	pass_flags = PASSTABLE | PASSGRILLE
+	anchored = TRUE
 
 /obj/effect/particle_effect/New()
 	..()
@@ -28,6 +29,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	var/atom/holder
 	var/effect_type
 	var/total_effects = 0
+	var/autocleanup = FALSE //will delete itself after use
 
 /datum/effect_system/Destroy()
 	holder = null
@@ -51,7 +53,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	for(var/i in 1 to number)
 		if(total_effects > 20)
 			return
-		addtimer(src, "generate_effect", 0)
+		INVOKE_ASYNC(src, .proc/generate_effect)
 
 /datum/effect_system/proc/generate_effect()
 	if(holder)
@@ -67,7 +69,9 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	for(var/j in 1 to steps_amt)
 		sleep(5)
 		step(E,direction)
-	addtimer(src, "decrement_total_effect", 20)
+	addtimer(CALLBACK(src, .proc/decrement_total_effect), 20)
 
 /datum/effect_system/proc/decrement_total_effect()
 	total_effects--
+	if(autocleanup && total_effects <= 0)
+		qdel(src)

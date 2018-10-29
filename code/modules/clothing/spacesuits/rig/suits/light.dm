@@ -1,10 +1,10 @@
 // Light rigs are not space-capable, but don't suffer excessive slowdown or sight issues when depowered.
-/obj/item/weapon/rig/light
+/obj/item/rig/light
 	name = "light suit control module"
 	desc = "A lighter, less armoured rig suit."
 	icon_state = "ninja_rig"
 	suit_type = "light suit"
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/restraints/handcuffs,/obj/item/weapon/tank,/obj/item/weapon/stock_parts/cell)
+	allowed = list(/obj/item/gun,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/stock_parts/cell)
 	emp_protection = 10
 	active_slowdown = 0
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
@@ -29,7 +29,7 @@
 /obj/item/clothing/head/helmet/space/new_rig/light
 	name = "hood"
 
-/obj/item/weapon/rig/light/hacker
+/obj/item/rig/light/hacker
 	name = "cybersuit control module"
 	suit_type = "cyber"
 	desc = "An advanced powered armour suit with many cyberwarfare enhancements. Comes with built-in insulated gloves for safely tampering with electronics."
@@ -70,7 +70,7 @@
 /obj/item/clothing/gloves/lightrig/hacker
 	siemens_coefficient = 0
 
-/obj/item/weapon/rig/light/ninja
+/obj/item/rig/light/ninja
 	name = "ominous suit control module"
 	suit_type = "ominous"
 	desc = "A unique, vaccum-proof suit of nano-enhanced armor designed specifically for Spider Clan assassins."
@@ -99,8 +99,6 @@
 		/obj/item/rig_module/self_destruct
 		)
 
-	..()
-
 /obj/item/clothing/gloves/rig/light/ninja
 	name = "insulated gloves"
 	siemens_coefficient = 0
@@ -108,7 +106,7 @@
 /obj/item/clothing/suit/space/new_rig/light/ninja
 	breach_threshold = 38 //comparable to regular hardsuits
 
-/obj/item/weapon/rig/light/stealth
+/obj/item/rig/light/stealth
 	name = "stealth suit control module"
 	suit_type = "stealth"
 	desc = "A highly advanced and expensive suit designed for covert operations."

@@ -16,8 +16,8 @@
 	flick("gibbed-r", animation)
 	robogibs(loc)
 
-	living_mob_list -= src
-	dead_mob_list -= src
+	GLOB.living_mob_list -= src
+	GLOB.dead_mob_list -= src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
@@ -39,18 +39,27 @@
 	new /obj/effect/decal/remains/robot(loc)
 	if(mmi)		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
 
-	dead_mob_list -= src
+	GLOB.dead_mob_list -= src
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
 
 
 /mob/living/silicon/robot/death(gibbed)
-	if(stat == DEAD)	return
-	if(!gibbed)
-		emote("deathgasp")
-	stat = DEAD
-	update_canmove()
+	if(can_die())
+		if(!gibbed)
+			emote("deathgasp")
+
+		if(module)
+			module.handle_death(gibbed)
+
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
+
+	diag_hud_set_status()
+	diag_hud_set_health()
 	if(camera)
 		camera.status = 0
 	update_headlamp(1) //So borg lights are disabled when killed.
@@ -59,13 +68,6 @@
 		var/obj/machinery/recharge_station/RC = loc
 		RC.go_out()
 
-	sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 	update_icons()
-	timeofdeath = world.time
-	if(mind)	mind.store_memory("Time of death: [worldtime2text(timeofdeath)]", 0)
 
 	sql_report_cyborg_death(src)
-
-	return ..(gibbed)

@@ -1,9 +1,9 @@
 /obj/item/clothing/suit/storage
-	var/obj/item/weapon/storage/internal/pockets
+	var/obj/item/storage/internal/pockets
 
 /obj/item/clothing/suit/storage/New()
 	..()
-	pockets = new/obj/item/weapon/storage/internal(src)
+	pockets = new/obj/item/storage/internal(src)
 	pockets.storage_slots = 2	//two slots
 	pockets.max_w_class = WEIGHT_CLASS_SMALL		//fit only pocket sized items
 	pockets.max_combined_w_class = 4
@@ -42,11 +42,11 @@
 
 	L += src.contents
 
-	for(var/obj/item/weapon/storage/S in src)
+	for(var/obj/item/storage/S in src)
 		L += S.return_inv()
-	for(var/obj/item/weapon/gift/G in src)
+	for(var/obj/item/gift/G in src)
 		L += G.gift
-		if(istype(G.gift, /obj/item/weapon/storage))
+		if(istype(G.gift, /obj/item/storage))
 			L += G.gift:return_inv()
 	return L
 

@@ -19,17 +19,13 @@ var/list/admin_verbs_admin = list(
 	/client/proc/resetcolorooc,			/*allows us to set a reset our ooc color*/
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
-	/datum/admins/proc/view_txt_log,	/*shows the server log (diary) for today*/
-	/datum/admins/proc/view_atk_log,	/*shows the server combat-log, doesn't do anything presently*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
-	/client/proc/giveruntimelog,		/*allows us to give access to runtime logs to somebody*/
-	/client/proc/getruntimelog,			/*allows us to access runtime logs to somebody*/
-	/client/proc/getserverlog,			/*allows us to fetch server logs (diary) for other days*/
+	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
 	/client/proc/jumptocoord,			/*we ghost and jump to a coordinate*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
@@ -80,6 +76,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds,
+	/client/proc/cmd_admin_headset_message,
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -159,8 +156,8 @@ var/list/admin_verbs_debug = list(
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
 	/client/proc/toggledebuglogs,
-	/client/proc/qdel_toggle,
 	/client/proc/cmd_display_del_log,
+	/client/proc/cmd_display_del_log_simple,
 	/client/proc/debugNatureMapGenerator,
 	/client/proc/check_bomb_impacts,
 	/client/proc/test_movable_UI,
@@ -173,7 +170,6 @@ var/list/admin_verbs_debug = list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
-	/client/proc/startadmintickets,
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -216,7 +212,6 @@ var/list/admin_verbs_proccall = list(
 )
 var/list/admin_verbs_snpc = list(
 	/client/proc/resetSNPC,
-	/client/proc/toggleSNPC,
 	/client/proc/customiseSNPC,
 	/client/proc/hide_snpc_verbs
 )
@@ -450,10 +445,10 @@ var/list/admin_verbs_ticket = list(
 
 /client/proc/findStealthKey(txt)
 	if(txt)
-		for(var/P in stealthminID)
-			if(stealthminID[P] == txt)
+		for(var/P in GLOB.stealthminID)
+			if(GLOB.stealthminID[P] == txt)
 				return P
-	txt = stealthminID[ckey]
+	txt = GLOB.stealthminID[ckey]
 	return txt
 
 /client/proc/createStealthKey()
@@ -461,11 +456,11 @@ var/list/admin_verbs_ticket = list(
 	var/i = 0
 	while(i == 0)
 		i = 1
-		for(var/P in stealthminID)
-			if(num == stealthminID[P])
+		for(var/P in GLOB.stealthminID)
+			if(num == GLOB.stealthminID[P])
 				num++
 				i = 0
-	stealthminID["[ckey]"] = "@[num2text(num)]"
+	GLOB.stealthminID["[ckey]"] = "@[num2text(num)]"
 
 /client/proc/stealth()
 	set category = "Admin"
@@ -525,7 +520,7 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	var/datum/preferences/D
-	var/client/C = directory[warned_ckey]
+	var/client/C = GLOB.directory[warned_ckey]
 	if(C)	D = C.prefs
 	else	D = preferences_datums[warned_ckey]
 
@@ -597,7 +592,7 @@ var/list/admin_verbs_ticket = list(
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
 	feedback_add_details("admin_verb","DB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/give_spell(mob/T as mob in mob_list) // -- Urist
+/client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = "Event"
 	set name = "Give Spell"
 	set desc = "Gives a spell to a mob."
@@ -622,7 +617,7 @@ var/list/admin_verbs_ticket = list(
 	log_admin("[key_name(usr)] gave [key_name(T)] the spell [S].")
 	message_admins("[key_name_admin(usr)] gave [key_name(T)] the spell [S].", 1)
 
-/client/proc/give_disease(mob/T in mob_list)
+/client/proc/give_disease(mob/T in GLOB.mob_list)
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
@@ -709,7 +704,7 @@ var/list/admin_verbs_ticket = list(
 	message_admins("[key_name_admin(usr)] deadmined themself.")
 	deadmin()
 	verbs += /client/proc/readmin
-	deadmins += ckey
+	GLOB.deadmins += ckey
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -767,17 +762,17 @@ var/list/admin_verbs_ticket = list(
 					flags = text2num(flags)
 				D = new(admin_rank, flags, ckey)
 
-		var/client/C = directory[ckey]
+		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
-		deadmins -= ckey
+		GLOB.deadmins -= ckey
 		feedback_add_details("admin_verb","RAS")
 		return
 	else
 		to_chat(src, "You are already an admin.")
 		verbs -= /client/proc/readmin
-		deadmins -= ckey
+		GLOB.deadmins -= ckey
 		return
 
 /client/proc/toggle_log_hrefs()
@@ -811,7 +806,7 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in silicon_mob_list
+	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
 	if(!S) return
 
 	var/datum/nano_module/law_manager/L = new(S)
@@ -819,7 +814,7 @@ var/list/admin_verbs_ticket = list(
 	log_and_message_admins("has opened [S]'s law manager.")
 	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in mob_list)
+/client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
 	set category = "Admin"
@@ -830,10 +825,10 @@ var/list/admin_verbs_ticket = list(
 	if(!istype(H))
 		if(istype(H, /mob/living/carbon/brain))
 			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/device/mmi/posibrain/ipc))
-				var/obj/item/device/mmi/posibrain/ipc/C = B.container
+			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
+				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
+				if(ishuman(P.owner))
 					H = P.owner
 			else
 				return
@@ -845,7 +840,7 @@ var/list/admin_verbs_ticket = list(
 		H.change_appearance(APPEARANCE_ALL, usr, usr, check_species_whitelist = 0)
 	feedback_add_details("admin_verb","CHAA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/change_human_appearance_self(mob/living/carbon/human/H in mob_list)
+/client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
 	set category = "Admin"
@@ -856,10 +851,10 @@ var/list/admin_verbs_ticket = list(
 	if(!istype(H))
 		if(istype(H, /mob/living/carbon/brain))
 			var/mob/living/carbon/brain/B = H
-			if(istype(B.container, /obj/item/device/mmi/posibrain/ipc))
-				var/obj/item/device/mmi/posibrain/ipc/C = B.container
+			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
+				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
-				if(istype(P.owner, /mob/living/carbon/human))
+				if(ishuman(P.owner))
 					H = P.owner
 			else
 				return
@@ -872,10 +867,10 @@ var/list/admin_verbs_ticket = list(
 
 	switch(alert("Do you wish for [H] to be allowed to select non-whitelisted races?","Alter Mob Appearance","Yes","No","Cancel"))
 		if("Yes")
-			admin_log_and_message_admins("has allowed [H] to change \his appearance, without whitelisting of races.")
+			admin_log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, without whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 0)
 		if("No")
-			admin_log_and_message_admins("has allowed [H] to change \his appearance, with whitelisting of races.")
+			admin_log_and_message_admins("has allowed [H] to change [H.p_their()] appearance, with whitelisting of races.")
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	feedback_add_details("admin_verb","CMAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -906,12 +901,27 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	prefs.toggles ^= CHAT_ATTACKLOGS
-	prefs.save_preferences(src)
-	if(prefs.toggles & CHAT_ATTACKLOGS)
-		to_chat(usr, "You now will get attack log messages")
+	if(prefs.atklog == ATKLOG_ALL)
+		prefs.atklog = ATKLOG_ALMOSTALL
+		to_chat(usr, "Your attack logs preference is now: show ALMOST ALL attack logs (notable exceptions: NPCs attacking other NPCs, vampire bites, equipping/stripping, people pushing each other over)")
+	else if(prefs.atklog == ATKLOG_ALMOSTALL)
+		prefs.atklog = ATKLOG_MOST
+		to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides attacks by players on NPCs)")
+	else if(prefs.atklog == ATKLOG_MOST)
+		prefs.atklog = ATKLOG_FEW
+		to_chat(usr, "Your attack logs preference is now: show FEW attack logs (only the most important stuff: attacks on SSDs, use of explosives, messing with the engine, gibbing, AI wiping, forcefeeding, acid sprays, and organ extraction)")
+	else if(prefs.atklog == ATKLOG_FEW)
+		prefs.atklog = ATKLOG_NONE
+		to_chat(usr, "Your attack logs preference is now: show NO attack logs")
+	else if(prefs.atklog == ATKLOG_NONE)
+		prefs.atklog = ATKLOG_ALL
+		to_chat(usr, "Your attack logs preference is now: show ALL attack logs")
 	else
-		to_chat(usr, "You now won't get attack log messages")
+		prefs.atklog = ATKLOG_ALL
+		to_chat(usr, "Your attack logs preference is now: show ALL attack logs (your preference was set to an invalid value, it has been reset)")
+
+	prefs.save_preferences(src)
+
 
 /client/proc/toggleadminlogs()
 	set name = "Toggle Admin Log Messages"
@@ -966,7 +976,7 @@ var/list/admin_verbs_ticket = list(
 	else
 		to_chat(usr, "You now won't get debug log messages")
 
-/client/proc/man_up(mob/T as mob in mob_list)
+/client/proc/man_up(mob/T as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Man Up"
 	set desc = "Tells mob to man up and deal with it."
@@ -976,6 +986,7 @@ var/list/admin_verbs_ticket = list(
 
 	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
 	to_chat(T, "<span class='notice'>Move on.</span>")
+	T << 'sound/voice/ManUp1.ogg'
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
 	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
@@ -991,7 +1002,7 @@ var/list/admin_verbs_ticket = list(
 	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
 
 	if(confirm == "Yes")
-		for(var/mob/T as mob in mob_list)
+		for(var/mob/T as mob in GLOB.mob_list)
 			to_chat(T, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
 			T << 'sound/voice/ManUp1.ogg'
 

@@ -27,7 +27,7 @@
 	*/
 
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
@@ -37,9 +37,9 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-/obj/machinery/door_control/attackby(obj/item/weapon/W, mob/user as mob, params)
+/obj/machinery/door_control/attackby(obj/item/W, mob/user as mob, params)
 	/* For later implementation
-	if(istype(W, /obj/item/weapon/screwdriver))
+	if(istype(W, /obj/item/screwdriver))
 	{
 		if(wiresexposed)
 			icon_state = "doorctrl0"
@@ -52,7 +52,7 @@
 		return
 	}
 	*/
-	if(istype(W, /obj/item/device/detective_scanner))
+	if(istype(W, /obj/item/detective_scanner))
 		return
 	return attack_hand(user)
 
@@ -62,7 +62,7 @@
 		req_access = list()
 		req_one_access = list()
 		playsound(loc, "sparks", 100, 1)
-		
+
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
@@ -113,7 +113,7 @@
 						D.safe = 1
 
 	else
-		for(var/obj/machinery/door/poddoor/M in airlocks)
+		for(var/obj/machinery/door/poddoor/M in range(range))
 			if(M.id_tag == id)
 				if(M.density)
 					spawn( 0 )

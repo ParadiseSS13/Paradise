@@ -71,7 +71,7 @@
 		if(answer == "Yes")
 			var/turf/T = get_turf_or_move(P.loc)
 			for(var/mob/v in viewers(T))
-				v.show_message("<span class='notice'>[M] presses \his thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
+				v.show_message("<span class='notice'>[M] presses [M.p_their()] thumb against [P].</span>", 3, "<span class='notice'>[P] makes a sharp clicking sound as it extracts DNA material from [M].</span>", 2)
 			var/datum/dna/dna = M.dna
 			to_chat(P, "<font color = red><h3>[M]'s UE string : [dna.unique_enzymes]</h3></font>")
 			if(dna.unique_enzymes == P.master_dna)
@@ -79,7 +79,7 @@
 			else
 				to_chat(P, "<b>DNA does not match stored Master DNA.</b>")
 		else
-			to_chat(P, "[M] does not seem like \he is going to provide a DNA sample willingly.")
+			to_chat(P, "[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly.")
 		return 1
 
 /datum/pai_software/radio_config
@@ -104,7 +104,7 @@
 		var/ch_stat = user.radio.channels[ch_name]
 		var/ch_dat[0]
 		ch_dat["name"] = ch_name
-		// FREQ_LISTENING is const in /obj/item/device/radio
+		// FREQ_LISTENING is const in /obj/item/radio
 		ch_dat["listening"] = !!(ch_stat & user.radio.FREQ_LISTENING)
 		channels[++channels.len] = ch_dat
 
@@ -165,7 +165,7 @@
 
 	var/pdas[0]
 	if(!M.toff)
-		for(var/obj/item/device/pda/P in PDAs)
+		for(var/obj/item/pda/P in PDAs)
 			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 			if(P == user.pda || !PM || !PM.can_receive())
@@ -224,123 +224,6 @@
 
 			var/target = locate(href_list["target"])
 			M.create_message(P, target, 1)
-			return 1
-
-/datum/pai_software/chatroom
-	name = "Digital Chatroom"
-	ram_cost = 5
-	id = "chatroom"
-	toggle = 0
-
-	autoupdate = 1
-	template_file = "pai_chatroom.tmpl"
-	ui_title = "Digital Chatroom"
-
-/datum/pai_software/chatroom/on_ui_data(mob/living/silicon/pai/user, datum/topic_state/state = self_state)
-	var/data[0]
-
-	if(!user.pda)
-		log_runtime(EXCEPTION("pAI found without PDA."), user)
-		return data
-	var/datum/data/pda/app/chatroom/M = user.pda.find_program(/datum/data/pda/app/chatroom)
-	if(!M)
-		log_runtime(EXCEPTION("pAI PDA lacks a chatroom program"), user)
-		return data
-
-	data["receiver_off"] = M.toff
-	data["ringer_off"] = M.notify_silent
-
-	var/list/rooms[0]
-	for(var/datum/chatroom/c in chatrooms)
-		if((M in c.users) || (M in c.invites) || c.is_public)
-			rooms += list(list(name = "[c]", ref = "\ref[c]"))
-	data["rooms"] = rooms
-
-	if(M.disconnected || !M.messaging_available(1))
-		data["disconnected"] = 1
-	else if(M.current_room)
-		data["current_room"] = "\ref[M.current_room]"
-		data["current_room_name"] = M.current_room.name
-		data["current_room_topic"] = M.current_room.topic
-		data["messages"] = M.current_room.logs
-		var/list/users[0]
-		for(var/U in M.current_room.users)
-			var/datum/data/pda/app/chatroom/ch = U
-			users += "<span class='good'>[ch.pda.owner]</span>"
-		for(var/U in (M.current_room.invites - M.current_room.users))
-			var/datum/data/pda/app/chatroom/ch = U
-			users += "<span class='average'>[ch.pda.owner]</span>"
-		data["users"] = users
-
-	return data
-
-/datum/pai_software/chatroom/Topic(href, href_list)
-	var/mob/living/silicon/pai/P = usr
-	if(!istype(P))
-		return
-
-	if(!isnull(P.pda) && P.pda.can_use())
-		var/datum/data/pda/app/chatroom/M = P.pda.find_program(/datum/data/pda/app/chatroom)
-		if(!M)
-			return
-
-		if(href_list["toggler"])
-			M.toff = href_list["toggler"] != "1"
-			return 1
-		else if(href_list["ringer"])
-			M.notify_silent = href_list["ringer"] != "1"
-			return 1
-		else if(href_list["topic"])
-			if(!M.current_room)
-				return 1
-
-			var/t = input("Enter new topic:", M.current_room, M.current_room.topic) as text|null
-			spawn()
-				if(!t || !M.check_messaging_available() || !P.pda.can_use())
-					return
-				t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
-				t = readd_quotes(t)
-				if(!t)
-					return
-
-				M.current_room.topic = t
-				M.current_room.announce(M, "Topic has been changed to '[t]' by [P.pda.owner].")
-			return 1
-		else if(href_list["select"])
-			var/s = href_list["select"]
-			if(s == "*NONE*")
-				M.current_room = null
-			else
-				var/datum/chatroom/CR = locate(s)
-				if(istype(CR))
-					if(!(M in CR.users))
-						if(!CR.login(M))
-							return
-					M.current_room = CR
-			return 1
-		else if(href_list["target"])
-			if(P.silence_time)
-				return alert("Communications circuits remain uninitialized.")
-
-			var/datum/chatroom/target = locate(href_list["target"])
-			if(istype(target))
-				if(!(M in target.users))
-					if(!target.login(M))
-						return
-				var/t = input("Please enter message", target) as text|null
-				spawn()
-					if(!t || !M.check_messaging_available())
-						return
-					t = sanitize(copytext(t, 1, MAX_MESSAGE_LEN))
-					t = readd_quotes(t)
-					if(!t || !P.pda.can_use())
-						return
-
-					target.post(M, t)
-			return 1
-		else if(href_list["reconnect"])
-			spawn()
-				M.messaging_available()
 			return 1
 
 /datum/pai_software/med_records
@@ -492,7 +375,7 @@
 	else if(href_list["cable"])
 		var/turf/T = get_turf_or_move(P.loc)
 		P.hack_aborted = 0
-		P.cable = new /obj/item/weapon/pai_cable(T)
+		P.cable = new /obj/item/pai_cable(T)
 		for(var/mob/M in viewers(T))
 			M.show_message("<span class='warning'>A port on [P] opens to reveal [P.cable], which promptly falls to the floor.</span>", 3,
 			               "<span class='warning'>You hear the soft click of something light and hard falling to the ground.</span>", 2)
@@ -500,7 +383,7 @@
 
 /mob/living/silicon/pai/proc/hackloop()
 	var/turf/T = get_turf_or_move(src.loc)
-	for(var/mob/living/silicon/ai/AI in player_list)
+	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		if(!T || !is_station_contact(T.z))
 			break
 		if(T.loc)

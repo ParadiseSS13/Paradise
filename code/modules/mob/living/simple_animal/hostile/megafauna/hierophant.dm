@@ -53,7 +53,7 @@ Difficulty: Hard
 	pixel_x = -16
 	ranged_cooldown_time = 40
 	aggro_vision_range = 23
-	loot = list(/obj/item/weapon/hierophant_staff)
+	loot = list(/obj/item/hierophant_staff)
 	wander = FALSE
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -73,10 +73,10 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/New()
 	..()
-	internal_gps = new/obj/item/device/gps/internal/hierophant(src)
+	internal_gps = new/obj/item/gps/internal/hierophant(src)
 	spawned_rune = new(loc)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/Life()
+/mob/living/simple_animal/hostile/megafauna/hierophant/Life(seconds, times_fired)
 	. = ..()
 	if(. && spawned_rune && !client)
 		if(target || loc == spawned_rune.loc)
@@ -95,17 +95,16 @@ Difficulty: Hard
 				visible_message("<span class='hierophant'>\"Vitemvw gsqtpixi. Stivexmsrep ijjmgmirgc gsqtvsqmwih.\"</span>")*/
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/death()
-	if(health > 0 || stat == DEAD)
-		return
-	else
-		stat = DEAD
-		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
-		animate(src, alpha = 0, color = "660099", time = 20, easing = EASE_OUT)
-		burst_range = 10
-		//visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")
-		visible_message("<span class='hierophant_warning'>[src] disappears in a massive burst of magic, leaving only its staff.</span>")
-		burst(get_turf(src))
-		..()
+	if(!can_die())
+		return FALSE
+	blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
+	animate(src, alpha = 0, color = "660099", time = 20, easing = EASE_OUT)
+	burst_range = 10
+	//visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")
+	visible_message("<span class='hierophant_warning'>[src] disappears in a massive burst of magic, leaving only its staff.</span>")
+	burst(get_turf(src))
+	// Things are in this order due to `del_on_death`
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
 	QDEL_NULL(spawned_rune)
@@ -242,7 +241,7 @@ Difficulty: Hard
 							pickedtarget = pick_n_take(targets)
 						if(pickedtarget.stat == DEAD)
 							pickedtarget = target
-						var/obj/effect/overlay/temp/hierophant/chaser/C = new /obj/effect/overlay/temp/hierophant/chaser(loc, src, pickedtarget, chaser_speed, FALSE)
+						var/obj/effect/temp_visual/hierophant/chaser/C = new /obj/effect/temp_visual/hierophant/chaser(loc, src, pickedtarget, chaser_speed, FALSE)
 						C.moving = 3
 						C.moving_dir = pick_n_take(cardinal_copy)
 						sleep(10)
@@ -277,10 +276,10 @@ Difficulty: Hard
 				spawn(0)
 					diagonal_blasts(target)
 	else if(chaser_cooldown < world.time) //if chasers are off cooldown, fire some!
-		var/obj/effect/overlay/temp/hierophant/chaser/C = new /obj/effect/overlay/temp/hierophant/chaser(loc, src, target, chaser_speed, FALSE)
+		var/obj/effect/temp_visual/hierophant/chaser/C = new /obj/effect/temp_visual/hierophant/chaser(loc, src, target, chaser_speed, FALSE)
 		chaser_cooldown = world.time + initial(chaser_cooldown)
 		if((prob(anger_modifier) || target.Adjacent(src)) && target != src)
-			var/obj/effect/overlay/temp/hierophant/chaser/OC = new /obj/effect/overlay/temp/hierophant/chaser(loc, src, target, max(1.5, 5 - anger_modifier * 0.07), FALSE)
+			var/obj/effect/temp_visual/hierophant/chaser/OC = new /obj/effect/temp_visual/hierophant/chaser(loc, src, target, max(1.5, 5 - anger_modifier * 0.07), FALSE)
 			OC.moving = 4
 			OC.moving_dir = pick(cardinal - C.moving_dir)
 	else //just release a burst of power
@@ -291,11 +290,11 @@ Difficulty: Hard
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
-	new /obj/effect/overlay/temp/hierophant/telegraph/diagonal(T, src)
+	new /obj/effect/temp_visual/hierophant/telegraph/diagonal(T, src)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
-	new /obj/effect/overlay/temp/hierophant/blast(T, src, FALSE)
+	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
 	for(var/d in diagonals)
 		spawn(0)
 			blast_wall(T, d)
@@ -304,11 +303,11 @@ Difficulty: Hard
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
-	new /obj/effect/overlay/temp/hierophant/telegraph/cardinal(T, src)
+	new /obj/effect/temp_visual/hierophant/telegraph/cardinal(T, src)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
-	new /obj/effect/overlay/temp/hierophant/blast(T, src, FALSE)
+	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
 	for(var/d in cardinal)
 		spawn(0)
 			blast_wall(T, d)
@@ -317,11 +316,11 @@ Difficulty: Hard
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
-	new /obj/effect/overlay/temp/hierophant/telegraph(T, src)
+	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
-	new /obj/effect/overlay/temp/hierophant/blast(T, src, FALSE)
+	new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
 	for(var/d in alldirs)
 		spawn(0)
 			blast_wall(T, d)
@@ -331,7 +330,7 @@ Difficulty: Hard
 	var/turf/previousturf = T
 	var/turf/J = get_step(previousturf, dir)
 	for(var/i in 1 to range)
-		new /obj/effect/overlay/temp/hierophant/blast(J, src, FALSE)
+		new /obj/effect/temp_visual/hierophant/blast(J, src, FALSE)
 		previousturf = J
 		J = get_step(previousturf, dir)
 
@@ -340,21 +339,21 @@ Difficulty: Hard
 		return
 	var/turf/T = get_turf(victim)
 	var/turf/source = get_turf(src)
-	new /obj/effect/overlay/temp/hierophant/telegraph(T, src)
-	new /obj/effect/overlay/temp/hierophant/telegraph(source, src)
+	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
+	new /obj/effect/temp_visual/hierophant/telegraph(source, src)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
 	//playsound(T,'sound/magic/Wand_Teleport.ogg', 200, 1)
 	playsound(source,'sound/magic/blink.ogg', 200, 1)
 	//playsound(source,'sound/machines/AirlockOpen.ogg', 200, 1)
 	blinking = TRUE
 	sleep(2) //short delay before we start...
-	new /obj/effect/overlay/temp/hierophant/telegraph/teleport(T, src)
-	new /obj/effect/overlay/temp/hierophant/telegraph/teleport(source, src)
+	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
+	new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, src)
 	for(var/t in RANGE_TURFS(1, T))
-		var/obj/effect/overlay/temp/hierophant/blast/B = new /obj/effect/overlay/temp/hierophant/blast(t, src, FALSE)
+		var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
 		B.damage = 30
 	for(var/t in RANGE_TURFS(1, source))
-		var/obj/effect/overlay/temp/hierophant/blast/B = new /obj/effect/overlay/temp/hierophant/blast(t, src, FALSE)
+		var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
 		B.damage = 30
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	sleep(1)
@@ -376,12 +375,12 @@ Difficulty: Hard
 	var/turf/T = get_turf(victim)
 	if(!T)
 		return
-	new /obj/effect/overlay/temp/hierophant/telegraph(T, src)
+	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
 	//playsound(T,'sound/effects/bin_close.ogg', 200, 1)
 	sleep(2)
 	for(var/t in RANGE_TURFS(1, T))
-		new /obj/effect/overlay/temp/hierophant/blast(t, src, FALSE)
+		new /obj/effect/temp_visual/hierophant/blast(t, src, FALSE)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/burst(turf/original) //release a wave of blasts
 	playsound(original,'sound/magic/blink.ogg', 200, 1)
@@ -395,7 +394,7 @@ Difficulty: Hard
 		if(dist > last_dist)
 			last_dist = dist
 			sleep(1 + (burst_range - last_dist) * 0.5) //gets faster as it gets further out
-		new /obj/effect/overlay/temp/hierophant/blast(T, src, FALSE)
+		new /obj/effect/temp_visual/hierophant/blast(T, src, FALSE)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/AltClickOn(atom/A) //player control handler(don't give this to a player holy fuck)
 	if(!istype(A) || get_dist(A, src) <= 2)
@@ -403,16 +402,16 @@ Difficulty: Hard
 	blink(A)
 
 //Hierophant overlays
-/obj/effect/overlay/temp/hierophant
+/obj/effect/temp_visual/hierophant
 	layer = MOB_LAYER - 0.1
 	var/mob/living/caster //who made this, anyway
 
-/obj/effect/overlay/temp/hierophant/New(loc, new_caster)
+/obj/effect/temp_visual/hierophant/New(loc, new_caster)
 	..()
 	if(new_caster)
 		caster = new_caster
 
-/obj/effect/overlay/temp/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
+/obj/effect/temp_visual/hierophant/chaser //a hierophant's chaser. follows target around, moving and producing a blast every speed deciseconds.
 	duration = 98
 	var/mob/living/target //what it's following
 	var/turf/targetturf //what turf the target is actually on
@@ -426,7 +425,7 @@ Difficulty: Hard
 	var/currently_seeking = FALSE
 	var/friendly_fire_check = FALSE //if blasts produced apply friendly fire
 
-/obj/effect/overlay/temp/hierophant/chaser/New(loc, new_caster, new_target, new_speed, is_friendly_fire)
+/obj/effect/temp_visual/hierophant/chaser/New(loc, new_caster, new_target, new_speed, is_friendly_fire)
 	..()
 	target = new_target
 	friendly_fire_check = is_friendly_fire
@@ -435,18 +434,18 @@ Difficulty: Hard
 	spawn(0)
 		seek_target()
 
-/obj/effect/overlay/temp/hierophant/chaser/proc/get_target_dir()
+/obj/effect/temp_visual/hierophant/chaser/proc/get_target_dir()
 	. = get_cardinal_dir(src, targetturf)
 	if((. != previous_moving_dir && . == more_previouser_moving_dir) || . == 0) //we're alternating, recalculate
 		var/list/cardinal_copy = cardinal.Copy()
 		cardinal_copy -= more_previouser_moving_dir
 		. = pick(cardinal_copy)
 
-/obj/effect/overlay/temp/hierophant/chaser/proc/seek_target()
+/obj/effect/temp_visual/hierophant/chaser/proc/seek_target()
 	if(!currently_seeking)
 		currently_seeking = TRUE
 		targetturf = get_turf(target)
-		while(target && src && !qdeleted(src) && currently_seeking && x && y && targetturf) //can this target actually be sook out
+		while(target && src && !QDELETED(src) && currently_seeking && x && y && targetturf) //can this target actually be sook out
 			if(!moving) //we're out of tiles to move, find more and where the target is!
 				more_previouser_moving_dir = previous_moving_dir
 				previous_moving_dir = moving_dir
@@ -470,27 +469,31 @@ Difficulty: Hard
 				sleep(speed)
 			targetturf = get_turf(target)
 
-/obj/effect/overlay/temp/hierophant/chaser/proc/make_blast()
-	new /obj/effect/overlay/temp/hierophant/blast(loc, caster, friendly_fire_check)
+/obj/effect/temp_visual/hierophant/chaser/proc/make_blast()
+	new /obj/effect/temp_visual/hierophant/blast(loc, caster, friendly_fire_check)
 
-/obj/effect/overlay/temp/hierophant/telegraph
+/obj/effect/temp_visual/hierophant/telegraph
 	icon = 'icons/effects/96x96.dmi'
 	icon_state = "hierophant_telegraph"
 	pixel_x = -32
 	pixel_y = -32
 	duration = 3
 
-/obj/effect/overlay/temp/hierophant/telegraph/diagonal
+/obj/effect/temp_visual/hierophant/telegraph/diagonal
 	icon_state = "hierophant_telegraph_diagonal"
 
-/obj/effect/overlay/temp/hierophant/telegraph/cardinal
+/obj/effect/temp_visual/hierophant/telegraph/cardinal
 	icon_state = "hierophant_telegraph_cardinal"
 
-/obj/effect/overlay/temp/hierophant/telegraph/teleport
+/obj/effect/temp_visual/hierophant/telegraph/teleport
 	icon_state = "hierophant_telegraph_teleport"
 	duration = 9
 
-/obj/effect/overlay/temp/hierophant/blast
+/obj/effect/temp_visual/hierophant/telegraph/edge
+	icon_state = "hierophant_telegraph_edge"
+	duration = 40
+
+/obj/effect/temp_visual/hierophant/blast
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "hierophant_blast"
 	name = "vortex blast"
@@ -502,7 +505,7 @@ Difficulty: Hard
 	var/friendly_fire_check = FALSE
 	var/bursting = FALSE //if we're bursting and need to hit anyone crossing us
 
-/obj/effect/overlay/temp/hierophant/blast/New(loc, new_caster, friendly_fire)
+/obj/effect/temp_visual/hierophant/blast/New(loc, new_caster, friendly_fire)
 	..()
 	friendly_fire_check = friendly_fire
 	if(new_caster)
@@ -513,7 +516,7 @@ Difficulty: Hard
 	spawn(0)
 		blast()
 
-/obj/effect/overlay/temp/hierophant/blast/proc/blast()
+/obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -524,12 +527,12 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-/obj/effect/overlay/temp/hierophant/blast/Crossed(atom/movable/AM)
+/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM)
 	..()
 	if(bursting)
 		do_damage(get_turf(src))
 
-/obj/effect/overlay/temp/hierophant/blast/proc/do_damage(turf/T)
+/obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	for(var/mob/living/L in T.contents - hit_things) //find and damage mobs...
 		hit_things += L
 		if((friendly_fire_check && caster && caster.faction_check(L)) || L.stat == DEAD)
@@ -543,7 +546,7 @@ Difficulty: Hard
 		L.apply_damage(damage, BURN, limb_to_hit, armor)
 		if(ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid))
 			L.adjustBruteLoss(damage)
-		add_logs(caster, L, "struck with a [name]")
+		add_attack_logs(caster, L, "Struck with a [name]")
 	for(var/obj/mecha/M in T.contents - hit_things) //and mechs.
 		hit_things += M
 		if(M.occupant)
@@ -563,14 +566,14 @@ Difficulty: Hard
 	color = "#CC00FF"
 
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weapon/hierophant_staff))
-		var/obj/item/weapon/hierophant_staff/H = I
+	if(istype(I, /obj/item/hierophant_staff))
+		var/obj/item/hierophant_staff/H = I
 		if(H.rune == src)
 			to_chat(user, "<span class='notice'>You start removing your hierophant rune...</span>")
 			H.timer = world.time + 51
 			if(do_after(user, 50, target = src))
 				playsound(src,'sound/magic/Blind.ogg', 200, 1, -4)
-				new /obj/effect/overlay/temp/hierophant/telegraph/teleport(get_turf(src), user)
+				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "<span class='hierophant_warning'>You touch the rune with the staff, dispelling it!</span>")
 				H.rune = null
 				user.update_action_buttons_icon()
@@ -583,7 +586,7 @@ Difficulty: Hard
 	else
 		..()
 
-/obj/item/device/gps/internal/hierophant
+/obj/item/gps/internal/hierophant
 	icon_state = null
 	gpstag = "Zealous Signal"
 	desc = "Heed its words."

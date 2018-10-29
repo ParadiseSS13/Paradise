@@ -1,4 +1,6 @@
 
+#define VIRUS_SYMPTOM_LIMIT	6
+
 //Visibility Flags
 #define HIDDEN_SCANNER	1
 #define HIDDEN_PANDEMIC	2
@@ -65,7 +67,7 @@ var/list/diseases = subtypesof(/datum/disease)
 
 /datum/disease/Destroy()
 	affected_mob = null
-	active_diseases.Remove(src)
+	GLOB.active_diseases.Remove(src)
 	return ..()
 
 /datum/disease/proc/stage_act()

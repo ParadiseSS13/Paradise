@@ -96,7 +96,7 @@
 			if(ticker && ticker.mode)
 				ticker.mode.xenos += new_xeno.mind
 			new_xeno.mind.name = new_xeno.name
-			new_xeno.mind.assigned_role = "MODE"
+			new_xeno.mind.assigned_role = SPECIAL_ROLE_XENOMORPH
 			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH
 			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)//To get the player's attention
 
@@ -112,7 +112,7 @@ Proc: AddInfectionImages(C)
 Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
 /obj/item/organ/internal/body_egg/alien_embryo/AddInfectionImages()
-	for(var/mob/living/carbon/alien/alien in player_list)
+	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
 		if(alien.client)
 			var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
 			alien.client.images += I
@@ -122,7 +122,7 @@ Proc: RemoveInfectionImage(C)
 Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
 /obj/item/organ/internal/body_egg/alien_embryo/RemoveInfectionImages()
-	for(var/mob/living/carbon/alien/alien in player_list)
+	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
 		if(alien.client)
 			for(var/image/I in alien.client.images)
 				if(dd_hasprefix_case(I.icon_state, "infected") && I.loc == owner)

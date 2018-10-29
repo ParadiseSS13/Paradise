@@ -13,10 +13,10 @@
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
-	var/datum/supply_packs/P = shuttle_master.supply_packs["[/datum/supply_packs/misc/shield_sat]"]
+	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/shield_sat]"]
 	P.special_enabled = TRUE
 
-	P = shuttle_master.supply_packs["[/datum/supply_packs/misc/shield_sat_control]"]
+	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/shield_sat_control]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/station_shield/check_completion()
@@ -28,13 +28,13 @@
 
 /datum/station_goal/proc/get_coverage()
 	var/list/coverage = list()
-	for(var/obj/machinery/satellite/meteor_shield/A in machines)
+	for(var/obj/machinery/satellite/meteor_shield/A in GLOB.machines)
 		if(!A.active || !is_station_level(A.z))
 			continue
 		coverage |= view(A.kill_range, A)
 	return coverage.len
 
-/obj/item/weapon/circuitboard/computer/sat_control
+/obj/item/circuitboard/computer/sat_control
 	name = "Satellite Network Control (Computer Board)"
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
@@ -42,18 +42,18 @@
 /obj/machinery/computer/sat_control
 	name = "Satellite control"
 	desc = "Used to control the satellite network."
-	circuit = /obj/item/weapon/circuitboard/computer/sat_control
+	circuit = /obj/item/circuitboard/computer/sat_control
 	icon_screen = "accelerator"
 	icon_keyboard = "accelerator_key"
 	var/notice
-	
+
 /obj/machinery/computer/sat_control/attack_hand(mob/user)
 	if(..())
 		return 1
 	ui_interact(user)
 
 /obj/machinery/computer/sat_control/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "sat_control.tmpl", name, 475, 400)
 		ui.open()
@@ -67,7 +67,7 @@
 		. = TRUE
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
-	for(var/obj/machinery/satellite/S in machines)
+	for(var/obj/machinery/satellite/S in GLOB.machines)
 		if(S.id == id && atoms_share_level(src, S))
 			S.toggle()
 
@@ -75,7 +75,7 @@
 	var/list/data = list()
 
 	data["satellites"] = list()
-	for(var/obj/machinery/satellite/S in machines)
+	for(var/obj/machinery/satellite/S in GLOB.machines)
 		data["satellites"] += list(list(
 			"id" = S.id,
 			"active" = S.active,
@@ -90,7 +90,7 @@
 		data["meteor_shield_coverage_max"] = G.coverage_goal
 		data["meteor_shield_coverage_percentage"] = (G.get_coverage() / G.coverage_goal) * 100
 	return data
-	
+
 /obj/machinery/satellite
 	name = "Defunct Satellite"
 	desc = ""
@@ -106,7 +106,7 @@
 /obj/machinery/satellite/New()
 	..()
 	id = gid++
-	
+
 /obj/machinery/satellite/attack_hand(mob/user)
 	if(..())
 		return 1
@@ -135,7 +135,7 @@
 	icon_state = active ? "sat_active" : "sat_inactive"
 
 /obj/machinery/satellite/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/device/multitool))
+	if(istype(I, /obj/item/multitool))
 		to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
 	else
 		return ..()
@@ -156,7 +156,7 @@
 /obj/machinery/satellite/meteor_shield/process()
 	if(!active)
 		return
-	for(var/obj/effect/meteor/M in meteor_list)
+	for(var/obj/effect/meteor/M in GLOB.meteor_list)
 		if(M.z != z)
 			continue
 		if(get_dist(M, src) > kill_range)

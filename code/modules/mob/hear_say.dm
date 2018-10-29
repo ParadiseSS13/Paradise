@@ -1,6 +1,6 @@
 // At minimum every mob has a hear_say proc.
 
-/mob/proc/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/alt_name = "", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
+/mob/proc/hear_say(var/message, var/verb = "says", var/datum/language/language = null, var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
 	if(!client)
 		return 0
 
@@ -28,7 +28,7 @@
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if(language && (language.flags & NONVERBAL))
-		if(!has_vision()) //blind people can't see dumbass
+		if(!has_vision(information_only = TRUE)) //blind people can't see dumbass
 			message = stars(message)
 
 		if(!speaker || !(speaker in view(src)))
@@ -70,12 +70,12 @@
 			if(speaker == src)
 				to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 			else
-				to_chat(src, "<span class='name'>[speaker_name]</span>[alt_name] talks but you cannot hear them.")
+				to_chat(src, "<span class='name'>[speaker_name]</span>[speaker.GetAltName()] talks but you cannot hear [speaker.p_them()].")
 	else
 		if(language)
-			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][language.format_message(message, verb)]</span>")
+			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][language.format_message(message, verb)]</span>")
 		else
-			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[alt_name] [track][verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>")
+			to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb], <span class='message'><span class='body'>\"[message]\"</span></span></span>")
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			src.playsound_local(source, speech_sound, sound_vol, 1)
@@ -95,7 +95,7 @@
 
 	//non-verbal languages are garbled if you can't see the speaker. Yes, this includes if they are inside a closet.
 	if(language && (language.flags & NONVERBAL))
-		if(!has_vision()) //blind people can't see dumbass
+		if(!has_vision(information_only=TRUE)) //blind people can't see dumbass
 			message = stars(message)
 
 		if(!speaker || !(speaker in view(src)))
@@ -159,7 +159,7 @@
 		message = "<B>[src]</B> [verb]."
 
 	if(src.status_flags & PASSEMOTES)
-		for(var/obj/item/weapon/holder/H in src.contents)
+		for(var/obj/item/holder/H in src.contents)
 			H.show_message(message)
 		for(var/mob/living/M in src.contents)
 			M.show_message(message)

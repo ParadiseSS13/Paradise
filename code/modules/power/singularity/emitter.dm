@@ -7,7 +7,7 @@
 	density = 1
 	req_access = list(access_engine_equip)
 
-	use_power = 0
+	use_power = NO_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 300
 
@@ -24,28 +24,31 @@
 	var/frequency = 0
 	var/id_tag = null
 	var/datum/radio_frequency/radio_connection
+	var/datum/effect_system/spark_spread/sparks
 
 /obj/machinery/power/emitter/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/emitter(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/emitter(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
+	sparks = new
+	sparks.set_up(5, 1, src)
 
 /obj/machinery/power/emitter/RefreshParts()
 	var/max_firedelay = 120
 	var/firedelay = 120
 	var/min_firedelay = 24
 	var/power_usage = 350
-	for(var/obj/item/weapon/stock_parts/micro_laser/L in component_parts)
+	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		max_firedelay -= 20 * L.rating
 		min_firedelay -= 4 * L.rating
 		firedelay -= 20 * L.rating
 	maximum_fire_delay = max_firedelay
 	minimum_fire_delay = min_firedelay
 	fire_delay = firedelay
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		power_usage -= 50 * M.rating
 	active_power_usage = power_usage
 
@@ -76,13 +79,14 @@
 		return
 	rotate()
 
-/obj/machinery/power/emitter/initialize()
+/obj/machinery/power/emitter/Initialize()
 	..()
 	if(state == 2 && anchored)
 		connect_to_network()
 	if(frequency)
 		set_frequency(frequency)
-/obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/device/multitool/P)
+
+/obj/machinery/power/emitter/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
 	<ul>
 		<li><b>Frequency:</b> <a href="?src=[UID()];set_freq=-1">[format_frequency(frequency)] GHz</a> (<a href="?src=[UID()];set_freq=[1439]">Reset</a>)</li>
@@ -117,9 +121,13 @@
 		update_icon()
 
 /obj/machinery/power/emitter/Destroy()
-	msg_admin_attack("Emitter deleted at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+	if(radio_controller)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
+	msg_admin_attack("Emitter deleted at ([x],[y],[z] - [ADMIN_JMP(src)])", ATKLOG_FEW)
 	log_game("Emitter deleted at ([x],[y],[z])")
 	investigate_log("<font color='red'>deleted</font> at ([x],[y],[z])","singulo")
+	QDEL_NULL(sparks)
 	return ..()
 
 /obj/machinery/power/emitter/update_icon()
@@ -163,7 +171,7 @@
 /*	if((severity == 1)&&prob(1)&&prob(1))
 		if(src.active)
 			src.active = 0
-			src.use_power = 1	*/
+			src.use_power = IDLE_POWER_USE	*/
 	return 1
 
 
@@ -202,9 +210,7 @@
 		A.dir = src.dir
 		playsound(get_turf(src), 'sound/weapons/emitter.ogg', 25, 1)
 		if(prob(35))
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(5, 1, src)
-			s.start()
+			sparks.start()
 
 		switch(dir)
 			if(NORTH)
@@ -223,11 +229,11 @@
 
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/device/multitool))
+	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
 
-	if(istype(W, /obj/item/weapon/wrench))
+	if(istype(W, /obj/item/wrench))
 		if(active)
 			to_chat(user, "Turn off the [src] first.")
 			return
@@ -250,8 +256,8 @@
 				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
 		return
 
-	if(istype(W, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/WT = W
+	if(istype(W, /obj/item/weldingtool))
+		var/obj/item/weldingtool/WT = W
 		if(active)
 			to_chat(user, "Turn off the [src] first.")
 			return
@@ -286,7 +292,7 @@
 					to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
 		return
 
-	if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(emagged)
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
 			return

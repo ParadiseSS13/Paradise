@@ -14,7 +14,7 @@
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 
-		var/obj/item/weapon/card/id/id = H.wear_id
+		var/obj/item/card/id/id = H.wear_id
 		if((istype(id) && id.is_untrackable()) && H.HasVoiceChanger())
 			changed_voice = 1
 			var/mob/living/carbon/human/I = locate(speaker_name)
@@ -148,7 +148,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 		// If there is no single listener, broadcast to everyone in the same z level
 		if(!only_listener)
 			// Play voice for all mobs in the z level
-			for(var/mob/M in player_list)
+			for(var/mob/M in GLOB.player_list)
 				if(M.client)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())

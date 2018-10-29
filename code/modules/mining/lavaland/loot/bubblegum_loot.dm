@@ -10,7 +10,7 @@
 		if(2)
 			new /obj/item/blood_contract(src)
 		if(3)
-			new /obj/item/weapon/gun/magic/staff/spellblade(src)
+			new /obj/item/gun/magic/staff/spellblade(src)
 		
 // Mayhem
 		
@@ -44,7 +44,7 @@
 		return
 		
 	used = TRUE
-	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in player_list
+	var/choice = input(user,"Who do you want dead?","Choose Your Victim") as null|anything in GLOB.player_list
 
 	if(!choice)
 		used = FALSE
@@ -72,10 +72,10 @@
 			var/obj/effect/mine/pickup/bloodbath/B = new(L)
 			B.mineEffect(L)
 
-		for(var/mob/living/carbon/human/H in player_list)
+		for(var/mob/living/carbon/human/H in GLOB.player_list)
 			if(H == L)
 				continue
-			to_chat(H, "<span class='userdanger'>You have an overwhelming desire to kill [L]. They have been marked red! Go kill them!</span>")
-			H.put_in_hands(new /obj/item/weapon/kitchen/knife/butcher(H))
+			to_chat(H, "<span class='userdanger'>You have an overwhelming desire to kill [L]. [L.p_they(TRUE)] [L.p_have()] been marked red! Go kill [L.p_them()]!</span>")
+			H.put_in_hands(new /obj/item/kitchen/knife/butcher(H))
 
 	qdel(src)

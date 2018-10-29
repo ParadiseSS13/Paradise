@@ -151,12 +151,12 @@
 		ticker.syndicate_coalition.Add(S)
 
 /proc/setupcult()
-	var/static/picked_cult // Only needs to get picked once
+	var/static/datum/cult_info/picked_cult // Only needs to get picked once
 
 	if(picked_cult)
 		return picked_cult
 
-	var/random_cult = pick(all_cults)
+	var/random_cult = pick(typesof(/datum/cult_info))
 	picked_cult = new random_cult()
 
 	if(!picked_cult)

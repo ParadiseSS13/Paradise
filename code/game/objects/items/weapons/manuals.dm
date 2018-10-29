@@ -1,38 +1,38 @@
 /*********************MANUALS (BOOKS)***********************/
 
 //Oh god what the fuck I am not good at computer
-/obj/item/weapon/book/manual
+/obj/item/book/manual
 	icon = 'icons/obj/library.dmi'
 	due_date = 0 // Game time in 1/10th seconds
 	unique = 1   // 0 - Normal book, 1 - Should not be treated as normal book, unable to be copied, unable to be modified
 
 
-/obj/item/weapon/book/manual/engineering_construction
+/obj/item/book/manual/engineering_construction
 	name = "Station Repairs and Construction"
 	icon_state ="bookEngineering"
 	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
 	title = "Station Repairs and Construction"
-	/*dat = {"
+	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://wiki.nanotrasen.com/index.php?title=Guide_to_construction&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://Nanotrasen.se/wiki/index.php?title=Guide_to_Construction&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
 
-		"}*/
+		"}
 
-/obj/item/weapon/book/manual/engineering_particle_accelerator
+/obj/item/book/manual/engineering_particle_accelerator
 	name = "Particle Accelerator User's Guide"
 	icon_state ="bookParticleAccelerator"
 	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
 	title = "Particle Accelerator User's Guide"
 //big pile of shit below.
 
-	/*dat = {"<html>
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -65,10 +65,10 @@
 				</ol>
 
 				</body>
-				</html>"}*/
+				</html>"}
 
 
-/obj/item/weapon/book/manual/supermatter_engine
+/obj/item/book/manual/supermatter_engine
 	name = "Supermatter Engine User's Guide"
 	icon_state = "bookParticleAccelerator"   //TEMP FIXME
 	author = "Waleed Asad"
@@ -151,34 +151,34 @@
 
 			-Waleed Asad, Senior Engine Technician."}
 
-/obj/item/weapon/book/manual/engineering_hacking
+/obj/item/book/manual/engineering_hacking
 	name = "Hacking"
 	icon_state ="bookHacking"
 	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
 	title = "Hacking"
 //big pile of shit below.
 
-	/*dat = {"
+	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://wiki.nanotrasen.com/index.php?title=Hacking&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://Nanotrasen.se/wiki/index.php?title=Hacking&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
 
-		"}*/
+		"}
 
-/obj/item/weapon/book/manual/engineering_singularity_safety
+/obj/item/book/manual/engineering_singularity_safety
 	name = "Singularity Safety in Special Circumstances"
 	icon_state ="bookEngineeringSingularitySafety"
 	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
 	title = "Singularity Safety in Special Circumstances"
 //big pile of shit below.
 
-	/*dat = {"<html>
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -217,14 +217,14 @@
 				Step one: <b>GET THE FUCK OUT OF THERE!!! FORGET THE WOMEN AND CHILDREN, SAVE YOURSELF!!!</b><br>
 				</body>
 				</html>
-				"}*/
+				"}
 
-/obj/item/weapon/book/manual/hydroponics_pod_people
+/obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
 	icon_state ="bookHydroponicsPodPeople"
 	author = "Farmer John"
 	title = "The Human Harvest - From seed to market"
-	/*dat = {"<html>
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -252,16 +252,16 @@
 
 				</body>
 				</html>
-				"}*/
+				"}
 
-/obj/item/weapon/book/manual/medical_cloning
+/obj/item/book/manual/medical_cloning
 	name = "Cloning techniques of the 26th century"
 	icon_state ="bookCloning"
 	author = "Medical Journal, volume 3"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
 	title = "Cloning techniques of the 26th century"
 //big pile of shit below.
 
-	/*dat = {"<html>
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -329,17 +329,17 @@
 
 				</body>
 				</html>
-				"}*/
+				"}
 
 
-/obj/item/weapon/book/manual/ripley_build_and_repair
+/obj/item/book/manual/ripley_build_and_repair
 	name = "APLU \"Ripley\" Construction and Operation Manual"
 	icon_state ="book"
 	author = "Weyland-Yutani Corp"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
 	title = "APLU \"Ripley\" Construction and Operation Manual"
 //big pile of shit below.
 
-	/*dat = {"<html>
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -405,9 +405,9 @@
 
 				<h2>Operation</h2>
 				Coming soon...
-			"}*/
+			"}
 
-/obj/item/weapon/book/manual/experimentor
+/obj/item/book/manual/experimentor
 	name = "Mentoring your Experiments"
 	icon_state = "rdbook"
 	author = "Dr. H.P. Kritz"
@@ -539,12 +539,12 @@
 	</html>
 	"}
 
-/obj/item/weapon/book/manual/research_and_development
+/obj/item/book/manual/research_and_development
 	name = "Research and Development 101"
 	icon_state = "rdbook"
 	author = "Dr. L. Ight"
 	title = "Research and Development 101"
-	/*dat = {"
+	dat = {"
 	<html>
 				<head>
 				<style>
@@ -580,19 +580,22 @@
 				<h2>Protolathe</h2>
 				This machine is an advanced form of the Autolathe that produce non-circuit designs. Unlike the Autolathe, it can use processed metal, glass, solid plasma, silver, gold, and diamonds along with a variety of chemicals to produce devices. The downside is that, again, not all devices you make are 100% reliable when you first discover them.
 
+				<h1>Reliability and You</h1>
+				As it has been stated, many devices when they're first discovered do not have a 100% reliablity when you first discover them. Instead, the reliablity of the device is dependent upon a base reliability value, whatever improvements to the design you've discovered through the Destructive Analyzer, and any advancements you've made with the device's source technologies. To be able to improve the reliability of a device, you have to use the device until it breaks beyond repair. Once that happens, you can analyze it in a Destructive Analyzer. Once the device reachs a certain minimum reliability, you'll gain tech advancements from it.
+
 				<h1>Building a Better Machine</h1>
-				Many machines produces from circuit boards and inserted into a machine frame require a variety of parts to construct. These are parts like capacitors, batteries, matter bins, and so forth. As your knowledge of science improves, more advanced versions are unlocked. If you use these parts when constructing something, its attributes may be improved. For example, if you use an advanced matter bin when constructing an autolathe (rather then a regular one), it'll hold more materials. Experiment around with stock parts of various qualities to see how they affect the end results!
+				Many machines produces from circuit boards and inserted into a machine frame require a variety of parts to construct. These are parts like capacitors, batteries, matter bins, and so forth. As your knowledge of science improves, more advanced versions are unlocked. If you use these parts when constructing something, its attributes may be improved. For example, if you use an advanced matter bin when constructing an autolathe (rather then a regular one), it'll hold more materials. Experiment around with stock parts of various qualities to see how they affect the end results! Be warned, however: Tier 3 and higher stock parts don't have 100% reliability and their low reliability may affect the reliability of the end machine.
 				</body>
 				</html>
-			"}*/
+			"}
 
 
-/obj/item/weapon/book/manual/robotics_cyborgs
+/obj/item/book/manual/robotics_cyborgs
 	name = "Cyborgs for Dummies"
 	icon_state = "borgbook"
 	author = "XISC"
 	title = "Cyborgs for Dummies"
-	/*dat = {"<html>
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 21px; margin: 15px 0px 5px;}
@@ -787,9 +790,9 @@
 
         </body>
 		</html>
-		"}*/
+		"}
 
-/obj/item/weapon/book/manual/security_space_law
+/obj/item/book/manual/security_space_law
 	name = "Space Law"
 	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
 	icon_state = "bookSpaceLaw"
@@ -801,42 +804,42 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://nanotrasen.se/wiki/index.php?title=Space_law&printable=yes" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://Nanotrasen.se/wiki/index.php?title=Space_law&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
-/obj/item/weapon/book/manual/security_space_law/black
+/obj/item/book/manual/security_space_law/black
 	name = "Space Law - Limited Edition"
 	desc = "A leather-bound, immaculately-written copy of JUSTICE."
 	icon_state = "bookSpaceLawblack"
 	title = "Space Law - Limited Edition"
 
-/obj/item/weapon/book/manual/engineering_guide
+/obj/item/book/manual/engineering_guide
 	name = "Engineering Textbook"
 	icon_state ="bookEngineering2"
 	author = "Engineering Encyclopedia"
 	title = "Engineering Textbook"
-	/*dat = {"
+	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://wiki.nanotrasen.com/index.php?title=Guide_to_engineering&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://Nanotrasen.se/wiki/index.php?title=Guide_to_Engineering&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
-		"}*/
+		"}
 
 
-/obj/item/weapon/book/manual/chef_recipes
+/obj/item/book/manual/chef_recipes
 	name = "Chef Recipes"
 	icon_state = "cooked_book"
 	author = "Victoria Ponsonby"
 	title = "Chef Recipes"
-	/*dat = {"<html>
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -884,14 +887,14 @@
 
 				</body>
 				</html>
-			"}*/
+			"}
 
-/obj/item/weapon/book/manual/barman_recipes
+/obj/item/book/manual/barman_recipes
 	name = "Barman Recipes"
 	icon_state = "barbook"
 	author = "Sir John Rose"
 	title = "Barman Recipes"
-	/*dat = {"<html>
+	dat = {"<html>
 				<head>
 				<style>
 				h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -936,15 +939,15 @@
 
 				</body>
 				</html>
-			"}*/
+			"}
 
 
-/obj/item/weapon/book/manual/detective
+/obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
 	icon_state ="bookDetective"
 	author = "Nanotrasen"
 	title = "The Film Noir: Proper Procedures for Investigations"
-	/*dat = {"<html>
+	dat = {"<html>
 			<head>
 			<style>
 			h1 {font-size: 18px; margin: 15px 0px 5px;}
@@ -978,14 +981,14 @@
 			It really is that easy! Good luck!
 
 			</body>
-			</html>"}*/
+			</html>"}
 
-/obj/item/weapon/book/manual/nuclear
+/obj/item/book/manual/nuclear
 	name = "Fission Mailed: Nuclear Sabotage 101"
 	icon_state ="bookNuclear"
 	author = "Syndicate"
 	title = "Fission Mailed: Nuclear Sabotage 101"
-	/*dat = {"<html>
+	dat = {"<html>
 			Nuclear Explosives 101:<br>
 			Hello and thank you for choosing the Syndicate for your nuclear information needs.<br>
 			Today's crash course will deal with the operation of a Fusion Class Nanotrasen made Nuclear Device.<br>
@@ -1013,9 +1016,9 @@
 			<b>Disk, Code, Safety, Timer, Disk, RUN!</b><br>
 			Intelligence Analysts believe that normal Nanotrasen procedure is for the Captain to secure the nuclear authorisation disk.<br>
 			Good luck!
-			</html>"}*/
+			</html>"}
 
-/obj/item/weapon/book/manual/atmospipes
+/obj/item/book/manual/atmospipes
 	name = "Pipes and You: Getting To Know Your Scary Tools"
 	icon_state = "pipingbook"
 	author = "Maria Crash, Senior Atmospherics Technician"
@@ -1112,7 +1115,7 @@
 				</html>
 			"}
 
-/obj/item/weapon/book/manual/evaguide
+/obj/item/book/manual/evaguide
 	name = "EVA Gear and You: Not Spending All Day Inside"
 	icon_state = "evabook"
 	author = "Maria Crash, Senior Atmospherics Technician"
@@ -1181,7 +1184,7 @@
 				</html>
 			"}
 
-/obj/item/weapon/book/manual/faxes
+/obj/item/book/manual/faxes
 	name = "A Guide to Faxes"
 	desc = "A Nanotrasen-approved guide to writing faxes"
 	icon_state = "book6"
@@ -1240,7 +1243,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_science
+/obj/item/book/manual/sop_science
 	name = "Science Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all scientific activities."
 	icon_state = "book6"
@@ -1396,7 +1399,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_medical
+/obj/item/book/manual/sop_medical
 	name = "Medical Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all medical activities."
 	icon_state = "book7"
@@ -1590,7 +1593,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_engineering
+/obj/item/book/manual/sop_engineering
 	name = "Engineering Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all engineering activities."
 	icon_state = "book3"
@@ -1633,7 +1636,7 @@
                     <li>The Chief Engineer is bound to the same rules regarding the axe as Atmospheric Technicians;</li>
                     <li>The Chief Engineer is permitted to carry a telescopic baton and a flash; </li>
                     <li>The Chief Engineer is responsible for maintaining the integrity of the Gravitational Singularity Engine and/or the Supermatter Engine and/or the Tesla Engine. Neglecting this duty is grounds for termination should the Engine malfunction;</li>
-                    <li>The Chief Engineer is responsible for maintaining the integrity of the Cyberiad's Atmospherics System. Failure to maintain this integrity is grounds for termination;</li>
+                    <li>The Chief Engineer is responsible for maintaining the integrity of the station's Atmospherics System. Failure to maintain this integrity is grounds for termination;</li>
                     <li>The Chief Engineer may declare an area "Condemned", if it is damaged to the point where repairs cannot reasonably be completed within an acceptable frame of time;</li>
                     <li>The Chief Engineer is permitted to grant Building Permits to crewmembers, but must keep the Station Blueprints in a safe location at all times.</li>
 				</ol>
@@ -1649,7 +1652,7 @@
                     <li>Engineers must constantly monitor the Supermatter Engine, if it is the chosen method of power generation, if it is currently active (ie, under Emitter Fire). This is not negotiable;</li>
                     <li>Engineers must respond promptly to breaches, regardless of size. Failure to report within fifteen (15) minutes will be considered a breach of Standard Operating Procedure, unless there are no spare Engineers to report or an Atmospheric Technician has arrived on scene first. All Hazard Zones must be cordoned off with Engineering Tape, for the sake of everyone else;</li>
                     <li>Engineers are permitted to hack doors to gain unauthorized access to locations if said locations happen to require urgent repairs;</li>
-                    <li>Engineers are to maintain the integrity of the Cyberiad's Power Network. In addition, hotwiring the Gravitational Singularity Engine, Supermatter Engine or Tesla Engine is strictly forbidden;</li>
+                    <li>Engineers are to maintain the integrity of the station's Power Network. In addition, hotwiring the Gravitational Singularity Engine, Supermatter Engine or Tesla Engine is strictly forbidden;</li>
                     <li>Engineers must ensure there is at least one (1) engineering hardsuit available on the station at all times, unless there is an emergency that requires the use of all suits.</li>
 				</ol>
                 <br><br>
@@ -1679,7 +1682,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_service
+/obj/item/book/manual/sop_service
 	name = "Service Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all service activities."
 	icon_state = "book4"
@@ -1807,7 +1810,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_supply
+/obj/item/book/manual/sop_supply
 	name = "Supply Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all supply activities."
 	icon_state = "book1"
@@ -1886,7 +1889,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_security
+/obj/item/book/manual/sop_security
 	name = "Security Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all security activities."
 	icon_state = "book2"
@@ -2060,7 +2063,7 @@
 					<li>The Security Pod Pilot is not permitted to use the Laser Module during arrests, and must switch to the Disabler Module;</li>
 					<li>The Security Pod Pilot must carry around a spare set of tools and energy cell, for their own sake;</li>
 					<li>The Security Pod Pilot may immediately, and without warning, conduct arrests on individuals attempting to perform E.V.A actions near the AI Satellite. Exception is made if the AI Unit is malfunctioning;</li>
-					<li>The Security Pod Pilot is not permitted to explore the area surrounding the station, and must therefore be confined to the immediate orbital area of the NSS Cyberiad, the NXS Klapaucius (the Telecomms Satellite) and the Mining/Research Asteroid. Exception is made if the Head of Security permits otherwise.</li>
+					<li>The Security Pod Pilot is not permitted to explore the area surrounding the station, and must therefore be confined to the immediate orbital area of the station, the NXS Klapaucius (the Telecomms Satellite) and the Mining/Research Asteroid. Exception is made if the Head of Security permits otherwise.</li>
 				</ol><BR>
 
 				<h style='color: darkblue'>Code Blue</h>
@@ -2116,7 +2119,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_legal
+/obj/item/book/manual/sop_legal
 	name = "Legal Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all legal activities."
 	icon_state = "book1"
@@ -2221,7 +2224,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_general
+/obj/item/book/manual/sop_general
 	name = "Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all station activities."
 	icon_state = "book1"
@@ -2462,7 +2465,7 @@
 
 		"}
 
-/obj/item/weapon/book/manual/sop_command
+/obj/item/book/manual/sop_command
 	name = "Command Standard Operating Procedures"
 	desc = "A set of guidelines aiming at the safe conduct of all Command activities."
 	icon_state = "book4"
@@ -2503,11 +2506,11 @@
 					<li>The Captain is not permitted to perform regular Security Duty. However, they may still assist Security if they are understaffed, or if they see a crime being committed. However, the Captain is not permitted to take items from the Armory under normal circumstances, unless authorized by the Head of Security. In addition, the Captain may not requisition weaponry for themselves from Cargo and/or Science, unless there's an immediate threat to station and/or crew;</li>
 					<li>If a Department lacks a Head of Staff, the Captain should make reasonable efforts to appoint an Acting Head of Staff, if there are available personnel to fill the position;</li>
 					<li>The Captain is to ensure that Space Law is being correctly applied. This should be done in cooperation with the Head of Security;</li>
-					<li>The Captain is not to leave the NSS Cyberiad unless given specific permission by Central Command, or it happens to be the end of the shift. This includes via space or via the Gateway. To do so is to be considered abandoning their posts and is grounds for termination;</li>
+					<li>The Captain is not to leave the station unless given specific permission by Central Command, or it happens to be the end of the shift. This includes via space or via the Gateway. To do so is to be considered abandoning their posts and is grounds for termination;</li>
 					<li>The Captain must keep the Nuclear Authentication Disk on their person at all times or, failing that, in the possession of the Head of Security or Blueshield;</li>
 					<li>The Captain is to attempt to resolve every issue that arises in Command locally before contacting Central Command;</li>
 					<li>The Captain is not permitted to carry their Antique Laser Gun or Space Armor unless there's an immediate emergency that requires attending to;</li>
-					<li>The Captain, despite being in charge of the Cyberiad, is not independent from Nanotrasen. Any attempts to disregard general company policy are to be considered an instant condition for contract termination;</li>
+					<li>The Captain, despite being in charge of the station, is not independent from Nanotrasen. Any attempts to disregard general company policy are to be considered an instant condition for contract termination;</li>
 					<li>The Captain may only promote personnel to a Acting Head of Staff position if there is no assigned Head of Staff associated with the Department. Said Acting Head of Staff must be a member of the Department they are to lead. See below for more information on Chain of Command;</li>
                     <li>The Captain may not fire any Head of Staff without reasonable justification (ie, incompetency, criminal activity, or otherwise any action that endangers/compromises the station and/or crew). The Captain may not fire any Central Command VIPs (ie, Blueshield, Magistrate, Nanotrasen Representative) without permission from Central Command, unless they are blatantly acting against the well-being and safety of the crew and station.</li>
 				</ol><BR>

@@ -14,7 +14,7 @@
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				H.nutrition += nutriment_factor	// For hunger and fatness
-	..()
+	return ..()
 
 /datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective
 	name = "Nutriment"
@@ -23,19 +23,19 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
-	taste_message = "bland food"
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(!(M.mind in ticker.mode.vampires))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				if(prob(50))
-					M.adjustBruteLoss(-1)
-					if(!(NO_BLOOD in H.species.species_traits))//do not restore blood on things with no blood by nature.
+					update_flags |= M.adjustBruteLoss(-1, FALSE)
+					if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 						if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 							H.blood_volume += 0.4
-	..()
+	return ..() | update_flags
 
 /datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Protein"
@@ -49,7 +49,7 @@
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
-	taste_message = "plant matter"
+	taste_message = "vegetables"
 
 /datum/reagent/consumable/vitamin
 	name = "Vitamin"
@@ -60,17 +60,18 @@
 	taste_message = null
 
 /datum/reagent/consumable/vitamin/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(50))
-		M.adjustBruteLoss(-1)
-		M.adjustFireLoss(-1)
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(M.satiety < 600)
 		M.satiety += 30
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.species.species_traits))//do not restore blood on things with no blood by nature.
+		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.5
-	..()
+	return ..() | update_flags
 
 /datum/reagent/consumable/sugar
 	name = "Sugar"
@@ -83,16 +84,17 @@
 	taste_message = "sweetness"
 
 /datum/reagent/consumable/sugar/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustDrowsy(-5)
 	if(current_cycle >= 90)
 		M.AdjustJitter(2)
 	if(prob(50))
-		M.AdjustParalysis(-1)
-		M.AdjustStunned(-1)
-		M.AdjustWeakened(-1)
+		update_flags |= M.AdjustParalysis(-1, FALSE)
+		update_flags |= M.AdjustStunned(-1, FALSE)
+		update_flags |= M.AdjustWeakened(-1, FALSE)
 	if(prob(4))
 		M.reagents.add_reagent("epinephrine", 1.2)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
@@ -100,10 +102,12 @@
 	..()
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
-	M.Paralyse(3 * severity)
-	M.Weaken(4 * severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.Paralyse(3 * severity, FALSE)
+	update_flags |= M.Weaken(4 * severity, FALSE)
 	if(prob(8))
-		M.adjustToxLoss(severity)
+		update_flags |= M.adjustToxLoss(severity, FALSE)
+	return list(0, update_flags)
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
@@ -112,7 +116,7 @@
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#792300" // rgb: 121, 35, 0
-	taste_message = "salt"
+	taste_message = "soy"
 
 /datum/reagent/consumable/ketchup
 	name = "Ketchup"
@@ -151,7 +155,7 @@
 			M.bodytemperature += 20 * TEMPERATURE_DAMAGE_COEFFICIENT
 			if(isslime(M))
 				M.bodytemperature += rand(20,25)
-	..()
+	return ..()
 
 /datum/reagent/consumable/condensedcapsaicin
 	name = "Condensed Capsaicin"
@@ -164,7 +168,7 @@
 /datum/reagent/consumable/condensedcapsaicin/on_mob_life(mob/living/M)
 	if(prob(5))
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
-	..()
+	return ..()
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == TOUCH)
@@ -254,7 +258,7 @@
 				M.emote("shiver")
 			if(isslime(M))
 				M.bodytemperature -= rand(20,25)
-	..()
+	return ..()
 
 /datum/reagent/consumable/frostoil/reaction_turf(turf/T, volume)
 	if(volume >= 5)
@@ -271,9 +275,10 @@
 	taste_message = "salt"
 
 /datum/reagent/consumable/sodiumchloride/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(70))
-		M.adjustBrainLoss(1)
-	..()
+		update_flags |= M.adjustBrainLoss(1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/blackpepper
 	name = "Black Pepper"
@@ -312,7 +317,7 @@
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	..()
+	return ..()
 
 /datum/reagent/consumable/sprinkles
 	name = "Sprinkles"
@@ -322,10 +327,11 @@
 	taste_message = "sweetness"
 
 /datum/reagent/consumable/sprinkles/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.job in list("Security Officer", "Security Pod Pilot", "Detective", "Warden", "Head of Security", "Brig Physician", "Internal Affairs Agent", "Magistrate"))
-		M.adjustBruteLoss(-1)
-		M.adjustFireLoss(-1)
-	..()
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/cornoil
 	name = "Corn Oil"
@@ -372,12 +378,12 @@
 	reagent_state = LIQUID
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
-	taste_message = "ramen"
+	taste_message = "cheap ramen and memories"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (10 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	..()
+	return ..()
 
 /datum/reagent/consumable/hell_ramen
 	name = "Hell Ramen"
@@ -390,7 +396,7 @@
 
 /datum/reagent/consumable/hell_ramen/on_mob_life(mob/living/M)
 	M.bodytemperature += 10 * TEMPERATURE_DAMAGE_COEFFICIENT
-	..()
+	return ..()
 
 /datum/reagent/consumable/flour
 	name = "flour"
@@ -462,7 +468,7 @@
 
 /datum/reagent/consumable/corn_syrup/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 1.2)
-	..()
+	return ..()
 
 /datum/reagent/consumable/vhfcs
 	name = "Very-high-fructose corn syrup"
@@ -474,7 +480,7 @@
 
 /datum/reagent/consumable/vhfcs/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 2.4)
-	..()
+	return ..()
 
 /datum/reagent/consumable/honey
 	name = "Honey"
@@ -486,11 +492,12 @@
 	taste_message = "sweetness"
 
 /datum/reagent/consumable/honey/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.reagents.add_reagent("sugar", 3)
 	if(prob(20))
-		M.adjustBruteLoss(-3)
-		M.adjustFireLoss(-1)
-	..()
+		update_flags |= M.adjustBruteLoss(-3, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/onion
 	name = "Concentrated Onion Juice"
@@ -525,11 +532,11 @@
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
 	M.reagents.add_reagent("sugar", 0.8)
-	..()
+	return ..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/choc_pile(T)
+		new /obj/item/reagent_containers/food/snacks/choc_pile(T)
 
 /datum/reagent/consumable/mugwort
 	name = "Mugwort"
@@ -540,13 +547,14 @@
 	taste_message = "tea"
 
 /datum/reagent/consumable/mugwort/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M) && M.mind)
 		if(M.mind.special_role == SPECIAL_ROLE_WIZARD)
-			M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
-			M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
-			M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
-			M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
-	..()
+			update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			update_flags |= M.adjustOxyLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			update_flags |= M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+			update_flags |= M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/porktonium
 	name = "Porktonium"
@@ -564,6 +572,7 @@
 	if(prob(8))
 		M.reagents.add_reagent("radium", 15)
 		M.reagents.add_reagent("cyanide", 10)
+	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/chicken_soup
 	name = "Chicken soup"
@@ -586,11 +595,11 @@
 /datum/reagent/consumable/cheese/on_mob_life(mob/living/M)
 	if(prob(3))
 		M.reagents.add_reagent("cholesterol", rand(1,2))
-	..()
+	return ..()
 
 /datum/reagent/consumable/cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/cheesewedge(T)
+		new /obj/item/reagent_containers/food/snacks/cheesewedge(T)
 
 /datum/reagent/consumable/fake_cheese
 	name = "Cheese substitute"
@@ -602,9 +611,11 @@
 	taste_message = "cheese?"
 
 /datum/reagent/consumable/fake_cheese/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(8))
 		to_chat(M, "<span class='warning'>You feel something squirming in your stomach. Your thoughts turn to cheese and you begin to sweat.</span>")
-		M.adjustToxLoss(rand(1,2))
+		update_flags |= M.adjustToxLoss(rand(1,2), FALSE)
+	return list(0, update_flags)
 
 /datum/reagent/consumable/weird_cheese
 	name = "Weird cheese"
@@ -618,11 +629,11 @@
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
 	if(prob(5))
 		M.reagents.add_reagent("cholesterol", rand(1,3))
-	..()
+	return ..()
 
 /datum/reagent/consumable/weird_cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/weirdcheesewedge(T)
+		new /obj/item/reagent_containers/food/snacks/weirdcheesewedge(T)
 
 /datum/reagent/consumable/beans
 	name = "Refried beans"
@@ -635,7 +646,7 @@
 /datum/reagent/consumable/beans/on_mob_life(mob/living/M)
 	if(prob(10))
 		M.emote("fart")
-	..()
+	return ..()
 
 /datum/reagent/consumable/bread
 	name = "Bread"
@@ -658,7 +669,7 @@
 		M.reagents.add_reagent("cholesterol", rand(1,3))
 	if(prob(8))
 		M.reagents.add_reagent("porktonium", 5)
-	..()
+	return ..()
 
 /datum/reagent/consumable/hydrogenated_soybeanoil
 	name = "Partially hydrogenated space-soybean oil"
@@ -679,19 +690,21 @@
 		metabolization_rate = 0.4
 	else
 		metabolization_rate = 0.2
-	..()
+	return ..()
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(33))
 		to_chat(M, "<span class='warning'>You feel horribly weak.</span>")
 	if(prob(10))
 		to_chat(M, "<span class='warning'>You cannot breathe!</span>")
-		M.adjustOxyLoss(5)
+		update_flags |= M.adjustOxyLoss(5, FALSE)
 	if(prob(5))
 		to_chat(M, "<span class='warning'>You feel a sharp pain in your chest!</span>")
-		M.adjustOxyLoss(25)
-		M.Stun(5)
-		M.Paralyse(10)
+		update_flags |= M.adjustOxyLoss(25, FALSE)
+		update_flags |= M.Stun(5, FALSE)
+		update_flags |= M.Paralyse(10, FALSE)
+	return list(0, update_flags)
 
 /datum/reagent/consumable/meatslurry
 	name = "Meat Slurry"
@@ -704,7 +717,7 @@
 /datum/reagent/consumable/meatslurry/on_mob_life(mob/living/M)
 	if(prob(4))
 		M.reagents.add_reagent("cholesterol", rand(1,3))
-	..()
+	return ..()
 
 /datum/reagent/consumable/meatslurry/reaction_turf(turf/T, volume)
 	if(prob(10) && volume >= 5 && !isspaceturf(T))
@@ -743,7 +756,7 @@
 	else if(prob(6))
 		to_chat(M, "<span class='warning'>[pick("You feel ill.","Your stomach churns.","You feel queasy.","You feel sick.")]</span>")
 		M.emote(pick("groan","moan"))
-	..()
+	return ..()
 
 /datum/reagent/consumable/pepperoni
 	name = "Pepperoni"
@@ -787,8 +800,9 @@
 
 /datum/reagent/questionmark/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
-		M.Stun(2)
-		M.Weaken(2)
+		M.Stun(2, FALSE)
+		M.Weaken(2, FALSE)
+		M.update_canmove()
 		to_chat(M, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		M.ForceContractDisease(new /datum/disease/food_poisoning(0))
 
@@ -802,13 +816,14 @@
 	taste_message = "excellent cuisine"
 
 /datum/reagent/msg/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(5))
 		if(prob(10))
-			M.adjustToxLoss(rand(2.4))
+			update_flags |= M.adjustToxLoss(rand(2.4), FALSE)
 		if(prob(7))
 			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
-			M.Stun(rand(2,5))
-	..()
+			update_flags |= M.Stun(rand(2,5), FALSE)
+	return ..() | update_flags
 
 /datum/reagent/cholesterol
 	name = "cholesterol"
@@ -819,22 +834,23 @@
 	taste_message = "heart attack"
 
 /datum/reagent/cholesterol/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(volume >= 25 && prob(volume*0.15))
 		to_chat(M, "<span class='warning'>Your chest feels [pick("weird","uncomfortable","nasty","gross","odd","unusual","warm")]!</span>")
-		M.adjustToxLoss(rand(1,2))
+		update_flags |= M.adjustToxLoss(rand(1,2), FALSE)
 	else if(volume >= 45 && prob(volume*0.08))
 		to_chat(M, "<span class='warning'>Your chest [pick("hurts","stings","aches","burns")]!</span>")
-		M.adjustToxLoss(rand(2,4))
-		M.Stun(1)
+		update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
+		update_flags |= M.Stun(1, FALSE)
 	else if(volume >= 150 && prob(volume*0.01))
 		to_chat(M, "<span class='warning'>Your chest is burning with pain!</span>")
-		M.Stun(1)
-		M.Weaken(1)
+		update_flags |= M.Stun(1, FALSE)
+		update_flags |= M.Weaken(1, FALSE)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(!H.undergoing_cardiac_arrest())
 				H.set_heartattack(TRUE)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/fungus
 	name = "Space fungus"
@@ -869,7 +885,7 @@
 	var/spooky_message = pick("You notice something moving out of the corner of your eye, but nothing is there...", "Your eyes twitch, you feel like something you can't see is here...", "You've got the heebie-jeebies.", "You feel uneasy.", "You shudder as if cold...", "You feel something gliding across your back...")
 	if(prob(8))
 		to_chat(M, "<span class='warning'>[spooky_message]</span>")
-	..()
+	return ..()
 
 /datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -878,13 +894,13 @@
 
 /datum/reagent/ectoplasm/reaction_turf(turf/T, volume)
 	if(volume >= 10 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/ectoplasm(T)
-
-///Vomit///
+		new /obj/item/reagent_containers/food/snacks/ectoplasm(T)
 
 /datum/reagent/consumable/bread/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
-		new /obj/item/weapon/reagent_containers/food/snacks/breadslice(T)
+		new /obj/item/reagent_containers/food/snacks/breadslice(T)
+
+		///Vomit///
 
 /datum/reagent/vomit
 	name = "Vomit"
@@ -922,15 +938,16 @@
 	taste_message = "mold"
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(current_cycle >= 10)
-		M.Paralyse(2)
+		update_flags |= M.Paralyse(2, FALSE)
 	if(prob(20))
-		M.LoseBreath(4)
-		M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER)
-		M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER)
-		M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER)
-		M.EyeBlurry(5)
-	..()
+		update_flags |= M.LoseBreath(4, FALSE)
+		update_flags |= M.adjustBrainLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustToxLoss(3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustStaminaLoss(10 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.EyeBlurry(5, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/tinlux
 	name = "Tinea Luxor"
@@ -944,7 +961,7 @@
 	if(!light_activated)
 		M.set_light(2)
 		light_activated = 1
-	..()
+	return ..()
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
 	M.set_light(0)
@@ -958,7 +975,8 @@
 	taste_message = "sweetness"
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(80))
-		M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
-		M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER)
-	..()
+		update_flags |= M.adjustBruteLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustFireLoss(-1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags

@@ -2,7 +2,7 @@
 /// 								Droppers.								 ///
 ////////////////////////////////////////////////////////////////////////////////
 
-/obj/item/weapon/reagent_containers/dropper
+/obj/item/reagent_containers/dropper
 	name = "dropper"
 	desc = "A dropper. Transfers 5 units."
 	icon_state = "dropper"
@@ -11,16 +11,16 @@
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
 
-/obj/item/weapon/reagent_containers/dropper/on_reagent_change()
+/obj/item/reagent_containers/dropper/on_reagent_change()
 	if(!reagents.total_volume)
 		icon_state = "[initial(icon_state)]"
 	else
 		icon_state = "[initial(icon_state)]1"
 
-/obj/item/weapon/reagent_containers/dropper/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/reagent_containers/dropper/attack(mob/living/M, mob/living/user, def_zone)
 	return
 
-/obj/item/weapon/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity)
+/obj/item/reagent_containers/dropper/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
 	var/to_transfer = 0
@@ -61,7 +61,7 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			injected += R.name
 		var/contained = english_list(injected)
-		add_logs(user, C, "dripped", src, "([contained])")
+		add_attack_logs(user, C, "Dripped with [src] containing ([contained]), transfering [to_transfer]")
 
 		to_transfer = reagents.trans_to(C, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
@@ -71,7 +71,7 @@
 			return
 
 		if(reagents.total_volume)
-			if(!target.is_open_container() && !(istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/weapon/reagent_containers/food/pill)) && !istype(target, /obj/item/clothing/mask/cigarette))
+			if(!target.is_open_container() && !(istype(target, /obj/item/reagent_containers/food) && !istype(target, /obj/item/reagent_containers/food/pill)) && !istype(target, /obj/item/clothing/mask/cigarette))
 				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
 				return
 
@@ -95,17 +95,50 @@
 
 			to_chat(user, "<span class='notice'>You fill [src] with [to_transfer] units of the solution.</span>")
 
-/obj/item/weapon/reagent_containers/dropper/cyborg
+/obj/item/reagent_containers/dropper/cyborg
 	name = "Industrial Dropper"
 	desc = "A larger dropper. Transfers 10 units."
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 	volume = 10
 
-/obj/item/weapon/reagent_containers/dropper/precision
+/obj/item/reagent_containers/dropper/precision
 	name = "pipette"
 	desc = "A high precision pippette. Holds 1 unit."
 	icon_state = "pipette"
 	amount_per_transfer_from_this = 1
 	possible_transfer_amounts = list(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
 	volume = 1
+
+//Syndicate item. Virus transmitting mini hypospray
+/obj/item/reagent_containers/dropper/precision/viral_injector
+
+/obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/M, mob/living/user, def_zone)
+	if(M.can_inject(user, 1))
+		to_chat(user, "<span class='warning'>You stab [M] with the [src].</span>")
+		if(reagents.total_volume && M.reagents)
+			var/list/injected = list()
+			for(var/datum/reagent/R in reagents.reagent_list)
+				injected += R.name
+				var/datum/reagent/blood/B = R
+
+				if(istype(B) && B.data["viruses"])
+					var/virList = list()
+					for(var/dis in B.data["viruses"])
+						var/datum/disease/D = dis
+						var/virusData = D.name
+						var/english_symptoms = list()
+						var/datum/disease/advance/A = D
+						if(A)
+							for(var/datum/symptom/S in A.symptoms)
+								english_symptoms += S.name
+							virusData += " ([english_list(english_symptoms)])"
+						virList += virusData
+					var/str = english_list(virList)
+					add_attack_logs(user, M, "Infected with [str].") 
+					
+				reagents.reaction(M, INGEST, reagents.total_volume)
+				reagents.trans_to(M, 1)
+
+			var/contained = english_list(injected)
+			add_attack_logs(user, M, "Injected with [src] containing ([contained])")

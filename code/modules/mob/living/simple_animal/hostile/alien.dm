@@ -10,10 +10,11 @@
 	response_disarm = "shoves the"
 	response_harm = "hits the"
 	speed = 0
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/xenomeat = 3)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/xenomeat = 3)
 	maxHealth = 100
 	health = 100
 	harm_intent_damage = 5
+	obj_damage = 60
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	attacktext = "slashes"
@@ -145,6 +146,7 @@
 	melee_damage_upper = 0
 	a_intent = INTENT_HELP
 	friendly = "caresses"
+	obj_damage = 0
 	environment_smash = 0
 	icon_state = "maid"
 	icon_living = "maid"

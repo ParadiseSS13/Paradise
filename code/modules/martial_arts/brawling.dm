@@ -11,15 +11,15 @@
 
 /datum/martial_art/boxing/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 
-	A.do_attack_animation(D)
+	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
-
-	var/damage = rand(5, 8) + A.species.punchdamagelow
+	
+	var/damage = rand(5, 8) + A.dna.species.punchdamagelow
 	if(!damage)
 		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to hit [D] with a [atk_verb]!</span>")
-		add_logs(A, D, "attempted to hit", atk_verb)
+		add_attack_logs(A, D, "Melee attacked with [src] (miss/block)", ATKLOG_ALL)
 		return 0
 
 
@@ -32,7 +32,7 @@
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
 
 	D.apply_damage(damage, STAMINA, affecting, armor_block)
-	add_logs(A, D, "punched")
+	add_attack_logs(A, D, "Melee attacked with [src]", ATKLOG_ALL)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
@@ -40,9 +40,9 @@
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.apply_effect(10,WEAKEN,armor_block)
 			D.SetSleeping(5)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 	return 1
 
 /datum/martial_art/drunk_brawling
@@ -53,16 +53,15 @@
 		A.visible_message("<span class='warning'>[A] tries to grab ahold of [D], but fails!</span>", \
 							"<span class='warning'>You fail to grab ahold of [D]!</span>")
 		return 1
-	D.grabbedby(A,1)
-	var/obj/item/weapon/grab/G = A.get_active_hand()
+	var/obj/item/grab/G = D.grabbedby(A,1)
 	if(G)
 		D.visible_message("<span class='danger'>[A] grabs ahold of [D] drunkenly!</span>", \
 								"<span class='userdanger'>[A] grabs ahold of [D] drunkenly!</span>")
 	return 1
 
 /datum/martial_art/drunk_brawling/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	add_logs(A, D, "punched")
-	A.do_attack_animation(D)
+	add_attack_logs(A, D, "Melee attacked with [src]")
+	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("jab","uppercut","overhand punch","drunken right hook","drunken left hook")
 
@@ -100,7 +99,7 @@
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.apply_effect(10,WEAKEN,armor_block)
 			D.Paralyse(5)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 	return 1

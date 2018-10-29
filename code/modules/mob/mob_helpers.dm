@@ -1,7 +1,7 @@
 /proc/issmall(A)
 	if(A && istype(A, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = A
-		if(H.species && H.species.is_small)
+		if(H.dna.species && H.dna.species.is_small)
 			return 1
  	return 0
 
@@ -16,9 +16,9 @@
 	return 0
 
 /mob/living/carbon/human/isSynthetic()
-	if(get_species() == "Machine")
-		return 1
-	return 0
+	if(ismachine(src))
+		return TRUE
+	return FALSE
 
 /mob/proc/get_screen_colour()
 
@@ -40,13 +40,13 @@
 		return eyes.get_colourmatrix()
 
 /proc/ismindshielded(A) //Checks to see if the person contains a mindshield implant, then checks that the implant is actually inside of them
-	for(var/obj/item/weapon/implant/mindshield/L in A)
+	for(var/obj/item/implant/mindshield/L in A)
 		if(L && L.implanted)
 			return 1
 	return 0
 
 /proc/ismindslave(A) //Checks to see if the person contains a mindslave implant, then checks that the implant is actually inside of them
-	for(var/obj/item/weapon/implant/traitor/T in A)
+	for(var/obj/item/implant/traitor/T in A)
 		if(T && T.implanted)
 			return 1
 	return 0
@@ -308,7 +308,7 @@ proc/muffledspeech(phrase)
 
 
 /proc/findname(msg)
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M.real_name == text("[msg]"))
 			return 1
 	return 0
@@ -356,7 +356,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src))
+		else if(isrobot(src) || islarva(src) || isanimal(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP
@@ -397,16 +397,9 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 		to_chat(src, "<span class='notice'>You are now getting up.</span>")
 		StopResting()
 
-/proc/is_blind(A)
-	if(iscarbon(A))
-		var/mob/living/carbon/C = A
-		if(C.disabilities & BLIND || C.blinded)
-			return 1
-	return 0
-
 /proc/get_multitool(mob/user as mob)
 	// Get tool
-	var/obj/item/device/multitool/P
+	var/obj/item/multitool/P
 	if(isrobot(user) || ishuman(user))
 		P = user.get_active_hand()
 	else if(isAI(user))
@@ -442,7 +435,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 			else
 				name = realname
 
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(M.client && ((!istype(M, /mob/new_player) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(CHAT_DEAD))
 			var/follow
 			var/lname
@@ -467,9 +460,9 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, var/action = NOTIFY_JUMP) //Easy notification of ghosts.
-	for(var/mob/dead/observer/O in player_list)
+	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client)
-			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]<span>")
+			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
 			if(ghost_sound)
 				O << sound(ghost_sound)
 			if(flashwindow)
@@ -498,7 +491,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 						A.overlays += alert_overlay
 
 /mob/proc/switch_to_camera(var/obj/machinery/camera/C)
-	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || blinded || !canmove))
+	if(!C.can_use() || stat || (get_dist(C, src) > 1 || machine != src || !has_vision() || !canmove))
 		return 0
 	check_eye(src)
 	return 1
@@ -527,16 +520,16 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 		var/search_pda = 1
 
 		for(var/A in searching)
-			if( search_id && istype(A,/obj/item/weapon/card/id) )
-				var/obj/item/weapon/card/id/ID = A
+			if( search_id && istype(A,/obj/item/card/id) )
+				var/obj/item/card/id/ID = A
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
 					ID.name = "[newname]'s ID Card ([ID.assignment])"
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/device/pda) )
-				var/obj/item/device/pda/PDA = A
+			else if( search_pda && istype(A,/obj/item/pda) )
+				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
 					PDA.name = "PDA-[newname] ([PDA.ownjob])"
@@ -568,7 +561,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 
-			for(var/mob/living/M in player_list)
+			for(var/mob/living/M in GLOB.player_list)
 				if(M == src)
 					continue
 				if(!newname || M.real_name == newname)

@@ -1,6 +1,7 @@
-/obj/item/device/hailer
+/obj/item/hailer
 	name = "hailer"
 	desc = "Used by obese officers to save their breath for running."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "voice0"
 	item_state = "flashtool"	//looks exactly like a flash (and nothing like a flashbang)
 	w_class = WEIGHT_CLASS_TINY
@@ -9,7 +10,7 @@
 	var/spamcheck = 0
 	var/emagged = 0
 
-/obj/item/device/hailer/attack_self(mob/living/carbon/user as mob)
+/obj/item/hailer/attack_self(mob/living/carbon/user as mob)
 	if(spamcheck)
 		return
 
@@ -24,7 +25,7 @@
 	spawn(20)
 		spamcheck = 0
 
-/obj/item/device/hailer/emag_act(user as mob)
+/obj/item/hailer/emag_act(user as mob)
 	if(!emagged)
 		to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
 		emagged = 1

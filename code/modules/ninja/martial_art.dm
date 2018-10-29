@@ -9,7 +9,7 @@
 // Creeping Widow injector - Single use nanomachine thing that teaches people the creeping widow style.
 
 
-/obj/item/weapon/creeping_widow_injector/
+/obj/item/creeping_widow_injector/
 	name = "strange injector"
 	desc = "A strange autoinjector made of a black metal.<br>You can see a green liquid through the glass."
 	icon = 'icons/obj/ninjaobjects.dmi'
@@ -17,10 +17,10 @@
 	attack_verb = list("poked", "prodded")
 	var/used = 0
 
-/obj/item/weapon/creeping_widow_injector/attack_self(mob/living/carbon/human/user as mob)
+/obj/item/creeping_widow_injector/attack_self(mob/living/carbon/human/user as mob)
 	if(!used)
 		user.visible_message("<span class='warning'>You stick the [src]'s needle into your arm and press the button.", \
-			  "<span class='warning'>[user] sticks the [src]'s needle \his arm and presses the button.")
+			  "<span class='warning'>[user] sticks the [src]'s needle [user.p_their()] arm and presses the button.")
 		to_chat(user, "<span class='info'>The nanomachines in the [src] flow through your bloodstream.")
 
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
@@ -87,8 +87,7 @@
 						  "<span class='userdanger'>[A]\ puts you in a [hold_name]! You are unable to speak!</span>")
 		step_to(D,get_step(D,D.dir),1)
 
-		D.grabbedby(A, 1)
-		var/obj/item/weapon/grab/G = A.get_active_hand()
+		var/obj/item/grab/G = D.grabbedby(A, 1)
 		if(G)
 			G.state = GRAB_NECK
 
@@ -98,8 +97,8 @@
 				D.silent += 1
 				D.adjustOxyLoss(1)
 			else
-				D.visible_message("<span class='warning'>[A] loses \his grip on [D]'s neck!</span>", \
-									"<span class='userdanger'>[A] loses \his grip on your neck!</span>")
+				D.visible_message("<span class='warning'>[A] loses [A.p_their()] grip on [D]'s neck!</span>", \
+									"<span class='userdanger'>[A] loses [A.p_their()] grip on your neck!</span>")
 				has_choke_hold = 0
 				return 0
 			I++
@@ -136,8 +135,7 @@
 	return A.pointed(D)
 
 /datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D) //Instant aggressive grab
-	D.grabbedby(A)
-	var/obj/item/weapon/grab/G = A.get_active_hand()
+	var/obj/item/grab/G = D.grabbedby(A)
 	if(G)
 		G.state = GRAB_AGGRESSIVE
 

@@ -92,7 +92,7 @@ var/list/event_last_fired = list()
 	// Otherwise, follow the standard setup process
 	else
 		var/playercount_modifier = 1
-		switch(player_list.len)
+		switch(GLOB.player_list.len)
 			if(0 to 10)
 				playercount_modifier = 1.2
 			if(11 to 15)
@@ -138,7 +138,9 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Mundane News", 		/datum/event/mundane_news, 		300),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Vermin Infestation",/datum/event/infestation, 		100,	list(ASSIGNMENT_JANITOR = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Sentience",			/datum/event/sentience,			50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50))
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Aurora Caelus",		/datum/event/aurora_caelus,		15,		is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		80,)
 	)
 
 /datum/event_container/moderate

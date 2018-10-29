@@ -1,21 +1,20 @@
-/obj/structure/stool/bed/chair/wheelchair
+/obj/structure/chair/wheelchair
 	name = "wheelchair"
-	desc = "You sit in this. Either by will or force."
-	icon = 'icons/obj/objects.dmi'
 	icon_state = "wheelchair"
-	anchored = 0
-	movable = 1
+	item_chair = null
+	anchored = FALSE
+	movable = TRUE
 
 	var/move_delay = null
 
-/obj/structure/stool/bed/chair/wheelchair/handle_rotation()
+/obj/structure/chair/wheelchair/handle_rotation()
 	overlays = null
 	var/image/O = image(icon = icon, icon_state = "[icon_state]_overlay", layer = FLY_LAYER, dir = src.dir)
 	overlays += O
 	if(buckled_mob)
 		buckled_mob.dir = dir
 
-/obj/structure/stool/bed/chair/wheelchair/relaymove(mob/user, direction)
+/obj/structure/chair/wheelchair/relaymove(mob/user, direction)
 	if(propelled)
 		return 0
 
@@ -39,9 +38,7 @@
 
 		if(ishuman(buckled_mob))
 			var/mob/living/carbon/human/driver = user
-			var/obj/item/organ/external/l_hand = driver.get_organ("l_hand")
-			var/obj/item/organ/external/r_hand = driver.get_organ("r_hand")
-			if(!l_hand && !r_hand)
+			if(!driver.has_left_hand() && !driver.has_right_hand())
 				return 0 // No hands to drive your chair? Tough luck!
 
 			for(var/organ_name in list("l_hand","r_hand","l_arm","r_arm"))
@@ -69,9 +66,11 @@
 		else
 			. = 1
 
-/obj/structure/stool/bed/chair/wheelchair/Bump(atom/A)
+/obj/structure/chair/wheelchair/Bump(atom/A)
 	..()
-	if(!buckled_mob)	return
+
+	if(!buckled_mob)
+		return
 
 	if(istype(A, /obj/machinery/door))
 		A.Bumped(buckled_mob)
@@ -95,14 +94,14 @@
 
 		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
 
-/obj/structure/stool/bed/chair/wheelchair/bike
+/obj/structure/chair/wheelchair/bike
 	name = "bicycle"
 	desc = "Two wheels of FURY!"
 	//placeholder until i get a bike sprite
 	icon = 'icons/vehicles/motorcycle.dmi'
 	icon_state = "motorcycle_4dir"
 
-/obj/structure/stool/bed/chair/wheelchair/bike/relaymove(mob/user, direction)
+/obj/structure/chair/wheelchair/bike/relaymove(mob/user, direction)
 	if(propelled)
 		return 0
 

@@ -10,7 +10,7 @@
 	if(!..())
 		return
 	var/datum/changeling/changeling = user.mind.changeling
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 
 	if(changeling.islinking)
 		to_chat(user, "<span class='warning'>We have already formed a link with the victim!</span>")
@@ -36,7 +36,7 @@
 
 /obj/effect/proc_holder/changeling/linglink/sting_action(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/target = G.affecting
 	changeling.islinking = 1
 	for(var/stage = 1, stage<=3, stage++)
@@ -47,10 +47,10 @@
 				to_chat(user, "<span class='notice'>We stealthily stab [target] with a minor proboscis...</span>")
 				to_chat(target, "<span class='userdanger'>You experience a stabbing sensation and your ears begin to ring...</span>")
 			if(3)
-				to_chat(user, "<span class='notice'>You mold the [target]'s mind like clay, they can now speak in the hivemind!</span>")
+				to_chat(user, "<span class='notice'>You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!</span>")
 				to_chat(target, "<span class='userdanger'>A migraine throbs behind your eyes, you hear yourself screaming - but your mouth has not opened!</span>")
-				for(var/mob/M in mob_list)
-					if(all_languages["Changeling"] in M.languages)
+				for(var/mob/M in GLOB.mob_list)
+					if(GLOB.all_languages["Changeling"] in M.languages)
 						to_chat(M, "<i><font color=#800080>We can sense a foreign presence in the hivemind...</font></i>")
 				target.mind.linglink = 1
 				target.add_language("Changeling")

@@ -1,15 +1,19 @@
-/mob/living/silicon/decoy/Life()
-	if(src.stat == 2)
-		return
-	else
-		if(src.health <= config.health_threshold_dead && src.stat != 2)
-			death()
-			return
+/mob/living/silicon/decoy/Life(seconds, times_fired)
+	return
 
 
-/mob/living/silicon/decoy/updatehealth()
+/mob/living/silicon/decoy/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 100
 		stat = CONSCIOUS
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+	update_stat("updatehealth([reason])")
+
+
+/mob/living/silicon/decoy/update_stat(reason = "none given")
+	if(stat == DEAD)
+		return
+	if(health <= 0)
+		death()
+		create_debug_log("died of damage, trigger reason: [reason]")

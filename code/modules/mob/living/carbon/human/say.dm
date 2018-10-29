@@ -1,10 +1,10 @@
 /mob/living/carbon/human/say(var/message, var/sanitize = TRUE, var/ignore_speech_problems = FALSE, var/ignore_atmospherics = FALSE)
-	var/alt_name = ""
+	..(message, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
 
+/mob/living/carbon/human/GetAltName()
 	if(name != GetVoice())
-		alt_name = " (as [get_id_name("Unknown")])"
-
-	..(message, alt_name = alt_name, sanitize = sanitize, ignore_speech_problems = ignore_speech_problems, ignore_atmospherics = ignore_atmospherics)	//ohgod we should really be passing a datum here.
+		return " (as [get_id_name("Unknown")])"
+	return ..()
 
 /mob/living/carbon/human/proc/forcesay(list/append)
 	if(stat == CONSCIOUS)
@@ -42,7 +42,7 @@
 	if(has_brain_worms()) //Brain worms translate everything. Even mice and alien speak.
 		return 1
 
-	if(species.can_understand(other))
+	if(dna.species.can_understand(other))
 		return 1
 
 	//These only pertain to common. Languages are handled by mob/say_understands()
@@ -62,8 +62,8 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
-	if(istype(back,/obj/item/weapon/rig))
-		var/obj/item/weapon/rig/rig = back
+	if(istype(back,/obj/item/rig))
+		var/obj/item/rig/rig = back
 		if(rig.speech && rig.speech.voice_holder && rig.speech.voice_holder.active && rig.speech.voice_holder.voice)
 			return rig.speech.voice_holder.voice
 
@@ -87,7 +87,7 @@
 
 /mob/living/carbon/human/IsVocal()
 	// how do species that don't breathe talk? magic, that's what.
-	var/breathes = (!(NO_BREATHE in species.species_traits))
+	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
@@ -150,7 +150,7 @@
 				message = uppertext(message)
 				verb = "yells loudly"
 
-	if((COMIC in mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs))
+	if((COMIC in mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) || istype(get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown))
 		span = "sans"
 
 	if(span)
@@ -160,16 +160,16 @@
 	returns[3] = speech_problem_flag
 	return returns
 
-/mob/living/carbon/human/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios, var/alt_name)
+/mob/living/carbon/human/handle_message_mode(var/message_mode, var/message, var/verb, var/speaking, var/used_radios)
 	switch(message_mode)
 		if("intercom")
-			for(var/obj/item/device/radio/intercom/I in view(1, src))
+			for(var/obj/item/radio/intercom/I in view(1, src))
 				spawn(0)
 					I.talk_into(src, message, null, verb, speaking)
 				used_radios += I
 
 		if("headset")
-			var/obj/item/device/radio/R = null
+			var/obj/item/radio/R = null
 			if(isradio(l_ear))
 				R = l_ear
 				used_radios += R
@@ -183,7 +183,7 @@
 					return
 
 		if("right ear")
-			var/obj/item/device/radio/R
+			var/obj/item/radio/R
 			if(isradio(r_ear))
 				R = r_ear
 			else if(isradio(r_hand))
@@ -193,7 +193,7 @@
 				R.talk_into(src, message, null, verb, speaking)
 
 		if("left ear")
-			var/obj/item/device/radio/R
+			var/obj/item/radio/R
 			if(isradio(l_ear))
 				R = l_ear
 			else if(isradio(l_hand))
@@ -203,7 +203,7 @@
 				R.talk_into(src, message, null, verb, speaking)
 
 		if("whisper")
-			whisper_say(message, speaking, alt_name)
+			whisper_say(message, speaking)
 			return 1
 		else
 			if(message_mode)
@@ -219,20 +219,20 @@
 
 /mob/living/carbon/human/handle_speech_sound()
 	var/list/returns[2]
-	if(species.speech_sounds && prob(species.speech_chance))
-		returns[1] = sound(pick(species.speech_sounds))
+	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
+		returns[1] = sound(pick(dna.species.speech_sounds))
 		returns[2] = 50
 	return returns
 
 /mob/living/carbon/human/binarycheck()
 	. = FALSE
-	var/obj/item/device/radio/headset/R
-	if(istype(l_ear, /obj/item/device/radio/headset))
+	var/obj/item/radio/headset/R
+	if(istype(l_ear, /obj/item/radio/headset))
 		R = l_ear
 		if(R.translate_binary)
 			. = TRUE
 
-	if(istype(r_ear, /obj/item/device/radio/headset))
+	if(istype(r_ear, /obj/item/radio/headset))
 		R = r_ear
 		if(R.translate_binary)
 			. = TRUE

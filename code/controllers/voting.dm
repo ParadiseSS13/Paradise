@@ -20,9 +20,9 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 			qdel(vote)
 		vote = src
 	spawn(0)
-		while(!gcDestroyed)
+		while(!QDELETED(src))
 			try
-				while(!gcDestroyed)
+				while(!QDELETED(src))
 					sleep(10)
 					process()
 			catch(var/exception/e)
@@ -95,7 +95,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 	choices = sorted_choices
 	//default-vote for everyone who didn't vote
 	if(!config.vote_no_default && choices.len)
-		var/non_voters = (clients.len - total_votes)
+		var/non_voters = (GLOB.clients.len - total_votes)
 		if(non_voters > 0)
 			if(mode == "restart")
 				choices["Continue Playing"] += non_voters

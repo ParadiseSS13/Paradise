@@ -128,10 +128,12 @@
 /datum/dna/gene/disability/colourblindness/activate(var/mob/M, var/connected, var/flags)
 	..()
 	M.update_client_colour() //Handle the activation of the colourblindness on the mob.
+	M.update_icons() //Apply eyeshine as needed.
 
 /datum/dna/gene/disability/colourblindness/deactivate(var/mob/M, var/connected, var/flags)
 	..()
 	M.update_client_colour() //Handle the deactivation of the colourblindness on the mob.
+	M.update_icons() //Remove eyeshine as needed.
 
 /datum/dna/gene/disability/deaf
 	name="Deafness"
@@ -156,6 +158,14 @@
 
 /datum/dna/gene/disability/nearsighted/New()
 	block=GLASSESBLOCK
+
+/datum/dna/gene/disability/nearsighted/activate(mob/living/M, connected, flags)
+	. = ..()
+	M.update_nearsighted_effects()
+
+/datum/dna/gene/disability/nearsighted/deactivate(mob/living/M, connected, flags)
+	. = ..()
+	M.update_nearsighted_effects()
 
 /datum/dna/gene/disability/lisp
 	name = "Lisp"

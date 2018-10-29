@@ -22,7 +22,7 @@
 	..()
 	levels += src
 
-/obj/effect/levelref/initialize()
+/obj/effect/levelref/Initialize()
 	..()
 	for(var/obj/effect/levelref/O in levels)
 		if(id == O.id && O != src)
@@ -159,12 +159,12 @@
 
 /obj/effect/view_portal/New()
 	..()
-	portals += src
+	GLOB.portals += src
 
-/obj/effect/view_portal/initialize()
+/obj/effect/view_portal/Initialize()
 	..()
 	if(id)
-		for(var/obj/effect/view_portal/O in portals)
+		for(var/obj/effect/view_portal/O in GLOB.portals)
 			if(id == O.id && O != src && can_link(O))
 				other = O
 				O.other = src
@@ -174,7 +174,7 @@
 					return
 
 /obj/effect/view_portal/Destroy()
-	portals -= src
+	GLOB.portals -= src
 	return ..()
 
 /obj/effect/view_portal/proc/can_link(obj/effect/view_portal/P)

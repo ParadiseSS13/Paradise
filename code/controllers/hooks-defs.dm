@@ -75,14 +75,14 @@
 /**
  * Employee reassignment hook.
  * Called in card.dm when someone's card is reassigned at the HoP's desk.
- * Parameters: var/obj/item/weapon/card/id
+ * Parameters: var/obj/item/card/id
  */
 /hook/reassign_employee
 
 /**
  * Employee terminated hook.
  * Called in card.dm when someone's card is terminated at the HoP's desk.
- * Parameters: var/obj/item/weapon/card/id
+ * Parameters: var/obj/item/card/id
  */
 /hook/terminate_employee
 

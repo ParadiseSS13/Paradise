@@ -12,10 +12,10 @@
 	unacidable = 1
 	burn_state = LAVA_PROOF | FIRE_PROOF
 	pixel_y = -4
-	use_power = 0
+	use_power = NO_POWER_USE
 	var/memory_saved = FALSE
 	var/list/stored_items = list()
-	var/static/list/blacklist = typecacheof(list(/obj/item/weapon/spellbook))
+	var/static/list/blacklist = typecacheof(list(/obj/item/spellbook))
 
 /obj/machinery/smartfridge/black_box/update_icon()
 	return
@@ -97,7 +97,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	luminosity = 8
-	use_power = 0
+	use_power = NO_POWER_USE
 	density = 1
 	burn_state = LAVA_PROOF | FIRE_PROOF
 	unacidable = 1
@@ -196,22 +196,22 @@
 		if("winter") //Snow terrain is slow to move in and cold! Get the assistants to shovel your driveway.
 			NewTerrainFloors = /turf/simulated/floor/snow // Needs to be updated after turf update
 			NewTerrainWalls = /turf/simulated/wall/mineral/wood
-			NewTerrainChairs = /obj/structure/stool/bed/chair/wood/normal
+			NewTerrainChairs = /obj/structure/chair/wood/normal
 			NewTerrainTables = /obj/structure/table/glass
 			NewFlora = list(/obj/structure/flora/grass/green, /obj/structure/flora/grass/brown, /obj/structure/flora/grass/both)
 		if("jungle") //Beneficial due to actually having breathable air. Plus, monkeys and bows and arrows.
 			NewTerrainFloors = /turf/simulated/floor/grass
 			NewTerrainWalls = /turf/simulated/wall/mineral/sandstone
-			NewTerrainChairs = /obj/structure/stool/bed/chair/wood/normal
-			NewTerrainTables = /obj/structure/table/woodentable
+			NewTerrainChairs = /obj/structure/chair/wood/normal
+			NewTerrainTables = /obj/structure/table/wood
 			NewFlora = list(/obj/structure/flora/ausbushes/sparsegrass, /obj/structure/flora/ausbushes/fernybush, /obj/structure/flora/ausbushes/leafybush,
 							/obj/structure/flora/ausbushes/grassybush, /obj/structure/flora/ausbushes/sunnybush, /obj/structure/flora/tree/palm, /mob/living/carbon/human/monkey,
-							/obj/item/weapon/gun/projectile/bow, /obj/item/weapon/storage/backpack/quiver/full)
+							/obj/item/gun/projectile/bow, /obj/item/storage/backpack/quiver/full)
 			florachance = 20
 		if("alien") //Beneficial, turns stuff into alien alloy which is useful to cargo and research. Also repairs atmos.
 			NewTerrainFloors = /turf/simulated/floor/mineral/abductor
 			NewTerrainWalls = /turf/simulated/wall/mineral/abductor
-			NewTerrainChairs = /obj/structure/stool/bed/abductor //ayys apparently don't have chairs. An entire species of people who only recline.
+			NewTerrainChairs = /obj/structure/bed/abductor //ayys apparently don't have chairs. An entire species of people who only recline.
 			NewTerrainTables = /obj/structure/table/abductor
 
 /obj/machinery/anomalous_crystal/theme_warp/ActivationReaction(mob/user, method)
@@ -233,9 +233,9 @@
 					if(iswallturf(T) && NewTerrainWalls)
 						T.ChangeTurf(NewTerrainWalls)
 						continue
-				if(istype(Stuff, /obj/structure/stool/bed/chair) && NewTerrainChairs)
-					var/obj/structure/stool/bed/chair/Original = Stuff
-					var/obj/structure/stool/bed/chair/C = new NewTerrainChairs(Original.loc)
+				if(istype(Stuff, /obj/structure/chair) && NewTerrainChairs)
+					var/obj/structure/chair/Original = Stuff
+					var/obj/structure/chair/C = new NewTerrainChairs(Original.loc)
 					C.dir = Original.dir
 					qdel(Stuff)
 					continue
@@ -284,12 +284,12 @@
 	if(..())
 		for(var/i in range(1, src))
 			if(isturf(i))
-				new /obj/effect/overlay/temp/cult/sparks(i)
+				new /obj/effect/temp_visual/cult/sparks(i)
 				continue
 			if(ishuman(i))
 				var/mob/living/carbon/human/H = i
 				if(H.stat == DEAD)
-					H.set_species("Shadow")
+					H.set_species(/datum/species/shadow)
 					H.revive()
 					H.disabilities |= NOCLONE //Free revives, but significantly limits your options for reviving except via the crystal
 					H.grab_ghost(force = TRUE)
@@ -335,6 +335,7 @@
 	friendly = "mends"
 	density = 0
 	flying = 1
+	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
@@ -367,7 +368,7 @@
 		var/mob/living/L = target
 		if(L.stat < DEAD)
 			L.heal_overall_damage(heal_power, heal_power)
-			new /obj/effect/overlay/temp/heal(get_turf(target), "#80F5FF")
+			new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 
 /mob/living/simple_animal/hostile/lightgeist/ghostize()
 	if(..())
@@ -377,7 +378,7 @@
 	activation_method = "touch"
 	cooldown_add = 50
 	activation_sound = 'sound/magic/TIMEPARADOX2.ogg'
-	var/list/banned_items_typecache = list(/obj/item/weapon/storage, /obj/item/weapon/implant, /obj/item/weapon/implanter, /obj/item/weapon/disk/nuclear, /obj/item/projectile, /obj/item/weapon/spellbook)
+	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear, /obj/item/projectile, /obj/item/spellbook)
 
 /obj/machinery/anomalous_crystal/refresher/New()
 	..()
@@ -388,11 +389,11 @@
 	if(..())
 		var/list/L = list()
 		var/turf/T = get_step(src, dir)
-		new /obj/effect/overlay/temp/emp/pulse(T)
+		new /obj/effect/temp_visual/emp/pulse(T)
 		for(var/i in T)
 			if(istype(i, /obj/item) && !is_type_in_typecache(i, banned_items_typecache))
 				var/obj/item/W = i
-				if(!W.admin_spawned)
+				if(!W.admin_spawned && !(W.flags_2 & HOLOGRAM_2) && !(W.flags & ABSTRACT))
 					L += W
 		if(L.len)
 			var/obj/item/CHOSEN = pick(L)
@@ -426,7 +427,7 @@
 
 /obj/structure/closet/stasis/process()
 	if(holder_animal)
-		if(holder_animal.stat == DEAD && !qdeleted(holder_animal))
+		if(holder_animal.stat == DEAD && !QDELETED(holder_animal))
 			dump_contents()
 			holder_animal.gib()
 			return
@@ -454,7 +455,7 @@
 		L.disabilities &= ~MUTE
 		L.status_flags &= ~GODMODE
 		L.notransform = 0
-		if(holder_animal && !qdeleted(holder_animal))
+		if(holder_animal && !QDELETED(holder_animal))
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/exit_possession)
 		if(kill || !isanimal(loc))

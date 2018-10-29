@@ -29,8 +29,9 @@
 	health = 10
 	faction = list("hostile")
 	move_to_delay = 0
+	obj_damage = 0
 	environment_smash = 0
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	flying = 1
 	search_objects = 1 //have to find those plant trays!
@@ -245,8 +246,8 @@
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 /obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
-	if(istype(I,/obj/item/weapon/reagent_containers/syringe))
-		var/obj/item/weapon/reagent_containers/syringe/S = I
+	if(istype(I,/obj/item/reagent_containers/syringe))
+		var/obj/item/reagent_containers/syringe/S = I
 		if(S.reagents.has_reagent("royal_bee_jelly")) //checked twice, because I really don't want royal bee jelly to be duped
 			if(S.reagents.has_reagent("royal_bee_jelly",5))
 				S.reagents.remove_reagent("royal_bee_jelly", 5)
@@ -262,7 +263,7 @@
 			else
 				to_chat(user, "<span class='warning'>You don't have enough royal bee jelly to split a bee in two!</span>")
 		else
-			var/datum/reagent/R = chemical_reagents_list[S.reagents.get_master_reagent_id()]
+			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
 			if(R && S.reagents.has_reagent(R.id, 5))
 				S.reagents.remove_reagent(R.id,5)
 				queen.assign_reagent(R)

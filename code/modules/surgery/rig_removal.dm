@@ -9,7 +9,7 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/backitem = H.get_item_by_slot(slot_back)
-		if(istype(backitem,/obj/item/weapon/rig)) //Check if we have a rig to operate on
+		if(istype(backitem,/obj/item/rig)) //Check if we have a rig to operate on
 			if(backitem.flags&NODROP) //Check if the rig is sealed, if not, we don't need to operate
 				return 1
 	return 0
@@ -18,9 +18,9 @@
 /datum/surgery_step/rigsuit
 	name="Cut Seals"
 	allowed_tools = list(
-		/obj/item/weapon/weldingtool = 80,
-		/obj/item/weapon/circular_saw = 60,
-		/obj/item/weapon/gun/energy/plasmacutter = 100
+		/obj/item/weldingtool = 80,
+		/obj/item/circular_saw = 60,
+		/obj/item/gun/energy/plasmacutter = 100
 		)
 
 	can_infect = 0
@@ -31,11 +31,11 @@
 /datum/surgery_step/hardsuit/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(!istype(target))
 		return 0
-	if(istype(tool,/obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/welder = tool
+	if(istype(tool,/obj/item/weldingtool))
+		var/obj/item/weldingtool/welder = tool
 		if(!welder.isOn() || !welder.remove_fuel(1,user))
 			return 0
-	return (target_zone == "chest") && istype(target.back, /obj/item/weapon/rig) && (target.back.flags&NODROP)
+	return (target_zone == "chest") && istype(target.back, /obj/item/rig) && (target.back.flags&NODROP)
 
 /datum/surgery_step/rigsuit/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message("[user] starts cutting through the support systems of [target]'s [target.back] with \the [tool]." , \
@@ -44,7 +44,7 @@
 
 /datum/surgery_step/rigsuit/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 
-	var/obj/item/weapon/rig/rig = target.back
+	var/obj/item/rig/rig = target.back
 	if(!istype(rig))
 		return
 	rig.reset()

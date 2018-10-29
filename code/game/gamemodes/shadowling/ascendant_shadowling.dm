@@ -28,7 +28,7 @@
 
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	environment_smash = 3
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
 
 	faction = list("faithless")
 
@@ -49,7 +49,7 @@
 
 /mob/living/simple_animal/ascendant_shadowling/proc/announce(var/text, var/size = 4, var/new_sound = null)
 	var/message = "<font size=[size]><span class='shadowling'><b>\"[text]\"</font></span>"
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M) && M.client)
 			to_chat(M, message)
 			if(new_sound)

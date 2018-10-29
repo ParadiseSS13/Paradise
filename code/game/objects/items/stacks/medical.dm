@@ -12,6 +12,7 @@
 	var/self_delay = 20
 	var/unique_handling = 0 //some things give a special prompt, do we want to bypass some checks in parent?
 	var/stop_bleeding = 0
+	var/healverb = "bandage"
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	if(!iscarbon(M) && !isanimal(M))
@@ -34,7 +35,7 @@
 			to_chat(user, "<span class='danger'>That limb is missing!</span>")
 			return 1
 
-		if(affecting.status & ORGAN_ROBOT)
+		if(affecting.is_robotic())
 			to_chat(user, "<span class='danger'>This can't be used on a robotic limb.</span>")
 			return 1
 
@@ -72,10 +73,45 @@
 
 	else
 		M.heal_organ_damage(heal_brute, heal_burn)
-		M.updatehealth()
 		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", \
 							 "<span class='green'>You apply [src] on [M].</span>")
 		use(1)
+
+/obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
+	var/mob/living/carbon/human/H = M
+	var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
+						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
+
+	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
+	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
+	var/nrembrute = rembrute
+	var/nremburn = remburn
+	affecting.heal_damage(heal_brute, heal_burn)
+	var/list/achildlist
+	if(!isnull(affecting.children))
+		achildlist = affecting.children.Copy()
+	var/parenthealed = FALSE
+	while(rembrute + remburn > 0) // Don't bother if there's not enough leftover heal
+		var/obj/item/organ/external/E
+		if(LAZYLEN(achildlist))
+			E = pick_n_take(achildlist) // Pick a random children and then remove it from the list
+		else if(affecting.parent && !parenthealed) // If there's a parent and no healing attempt was made on it
+			E = affecting.parent
+			parenthealed = TRUE
+		else
+			break // If the organ have no child left and no parent / parent healed, break
+		if(E.status & ORGAN_ROBOT || E.open) // Ignore robotic or open limb
+			continue
+		else if(!E.brute_dam && !E.burn_dam) // Ignore undamaged limb
+			continue
+		nrembrute = max(0, rembrute - E.brute_dam) // Deduct the healed damage from the remain
+		nremburn = max(0, remburn - E.burn_dam)
+		E.heal_damage(rembrute, remburn)
+		rembrute = nrembrute
+		remburn = nremburn
+		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
+							 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
 
 //Bruise Packs//
 
@@ -98,13 +134,12 @@
 		if(affecting.open == 0)
 			affecting.germ_level = 0
 
-			user.visible_message("<span class='green'>[user] bandages the wounds on [H]'s [affecting.name].</span>", \
-							 	 "<span class='green'>You bandage the wounds on [H]'s [affecting.name].</span>" )
-
 			if(stop_bleeding)
 				if(!H.bleedsuppress) //so you can't stack bleed suppression
 					H.suppress_bloodloss(stop_bleeding)
-			affecting.heal_damage(heal_brute, heal_burn)
+
+			heal(H, user)
+
 			H.UpdateDamageIcon()
 			use(1)
 		else
@@ -131,6 +166,7 @@
 	singular_name = "ointment"
 	icon_state = "ointment"
 	origin_tech = "biotech=2"
+	healverb = "salve"
 
 /obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
 	if(..())
@@ -143,9 +179,8 @@
 		if(affecting.open == 0)
 			affecting.germ_level = 0
 
-			user.visible_message("<span class='green'>[user] salves the wounds on [H]'s [affecting.name].</span>", \
-							 	 "<span class='green'>You salve the wounds on [H]'s [affecting.name].</span>" )
-			affecting.heal_damage(heal_brute, heal_burn)
+			heal(H, user)
+
 			H.UpdateDamageIcon()
 			use(1)
 		else
@@ -169,6 +204,7 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "tea_aspera_leaves"
 	color = "#378C61"
+	stop_bleeding = 0
 	heal_brute = 12
 
 
@@ -211,7 +247,7 @@
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
 			return
 		if(M == user)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to their [limb].</span>", \
+			user.visible_message("<span class='notice'>[user] starts to apply [src] to [user.p_their()] [limb].</span>", \
 								 "<span class='notice'>You start to apply [src] to your [limb].</span>", \
 								 "<span class='notice'>You hear something being wrapped.</span>")
 			if(!do_mob(user, H, self_delay))

@@ -5,9 +5,8 @@
 	item_color = "punpun"
 	species_restricted = list("Monkey")
 
-/mob/living/carbon/human/monkey/punpun/New()
+/mob/living/carbon/human/monkey/punpun/Initialize(mapload)
 	..()
-	spawn(1)
-		name = "Pun Pun"
-		real_name = name
-		equip_to_slot(new /obj/item/clothing/under/punpun(src), slot_w_uniform)
+	name = "Pun Pun"
+	real_name = name
+	equip_to_slot(new /obj/item/clothing/under/punpun(src), slot_w_uniform)

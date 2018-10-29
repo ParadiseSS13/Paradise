@@ -1,4 +1,4 @@
-/obj/item/device/assembly/signaler
+/obj/item/assembly/signaler
 	name = "remote signaling device"
 	desc = "Used to remotely activate devices."
 	icon_state = "signaller"
@@ -8,7 +8,7 @@
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
 	secured = 1
-	var/receiving = 0
+	var/receiving = FALSE
 
 	bomb_name = "remote-control bomb"
 
@@ -18,43 +18,42 @@
 	var/datum/radio_frequency/radio_connection
 	var/airlock_wire = null
 
-/obj/item/device/assembly/signaler/New()
+/obj/item/assembly/signaler/New()
 	..()
 	if(radio_controller)
 		set_frequency(frequency)
 
-/obj/item/device/assembly/signaler/initialize()
+/obj/item/assembly/signaler/Initialize()
+	..()
 	if(radio_controller)
 		set_frequency(frequency)
 
-/obj/item/device/assembly/signaler/Destroy()
+/obj/item/assembly/signaler/Destroy()
 	if(radio_controller)
-		radio_controller.remove_object(src,frequency)
+		radio_controller.remove_object(src, frequency)
+	radio_connection = null
 	return ..()
 
-/obj/item/device/assembly/signaler/describe()
-	return "\The [src]'s power light is [receiving?"on":"off"]"
+/obj/item/assembly/signaler/describe()
+	return "[src]'s power light is [receiving ? "on" : "off"]"
 
-/obj/item/device/assembly/signaler/activate()
-	if(cooldown > 0)	return 0
+/obj/item/assembly/signaler/activate()
+	if(cooldown > 0)
+		return FALSE
 	cooldown = 2
 	spawn(10)
 		process_cooldown()
 
 	signal()
-	return 1
+	return TRUE
 
-/obj/item/device/assembly/signaler/update_icon()
+/obj/item/assembly/signaler/update_icon()
 	if(holder)
 		holder.update_icon()
 	return
 
-/obj/item/device/assembly/signaler/interact(mob/user as mob, flag1)
+/obj/item/assembly/signaler/interact(mob/user, flag1)
 	var/t1 = "-------"
-//	if((src.b_stat && !( flag1 )))
-//		t1 = text("-------<BR>\nGreen Wire: []<BR>\nRed Wire:   []<BR>\nBlue Wire:  []<BR>\n", (src.wires & 4 ? "<A href='?src=[UID()];wires=4'>Cut Wire</A>" : "<A href='?src=[UID()];wires=4'>Mend Wire</A>"), (src.wires & 2 ? "<A href='?src=[UID()];wires=2'>Cut Wire</A>" : "<A href='?src=[UID()];wires=2'>Mend Wire</A>"), (src.wires & 1 ? "<A href='?src=[UID()];wires=1'>Cut Wire</A>" : "<A href='?src=[UID()];wires=1'>Mend Wire</A>"))
-//	else
-//		t1 = "-------"	Speaker: [src.listening ? "<A href='byond://?src=[UID()];listen=0'>Engaged</A>" : "<A href='byond://?src=[UID()];listen=1'>Disengaged</A>"]<BR>
 	var/dat = {"
 		<TT>
 	"}
@@ -68,14 +67,14 @@
 		Frequency:
 		<A href='byond://?src=[UID()];freq=-10'>-</A>
 		<A href='byond://?src=[UID()];freq=-2'>-</A>
-		[format_frequency(src.frequency)]
+		[format_frequency(frequency)]
 		<A href='byond://?src=[UID()];freq=2'>+</A>
 		<A href='byond://?src=[UID()];freq=10'>+</A><BR>
 
 		Code:
 		<A href='byond://?src=[UID()];code=-5'>-</A>
 		<A href='byond://?src=[UID()];code=-1'>-</A>
-		[src.code]
+		[code]
 		<A href='byond://?src=[UID()];code=1'>+</A>
 		<A href='byond://?src=[UID()];code=5'>+</A><BR>
 		[t1]
@@ -85,10 +84,8 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "radio")
-	return
 
-
-/obj/item/device/assembly/signaler/Topic(href, href_list)
+/obj/item/assembly/signaler/Topic(href, href_list)
 	..()
 
 	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
@@ -103,10 +100,10 @@
 		set_frequency(new_frequency)
 
 	if(href_list["code"])
-		src.code += text2num(href_list["code"])
-		src.code = round(src.code)
-		src.code = min(100, src.code)
-		src.code = max(1, src.code)
+		code += text2num(href_list["code"])
+		code = round(code)
+		code = min(100, code)
+		code = max(1, code)
 	if(href_list["receive"])
 		receiving = !receiving
 
@@ -117,10 +114,9 @@
 	if(usr)
 		attack_self(usr)
 
-	return
-
-/obj/item/device/assembly/signaler/proc/signal()
-	if(!radio_connection) return
+/obj/item/assembly/signaler/proc/signal()
+	if(!radio_connection)
+		return
 
 	var/datum/signal/signal = new
 	signal.source = src
@@ -133,29 +129,27 @@
 	if(usr)
 		lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
 
-	return
-
-/obj/item/device/assembly/signaler/pulse(var/radio = 0)
-	if(src.connected && src.wires)
+/obj/item/assembly/signaler/pulse(var/radio = FALSE)
+	if(connected && wires)
 		connected.Pulse(src)
 	else
 		return ..(radio)
 
-/obj/item/device/assembly/signaler/receive_signal(datum/signal/signal)
-	if( !receiving || !signal )
-		return 0
+/obj/item/assembly/signaler/receive_signal(datum/signal/signal)
+	if(!receiving || !signal)
+		return FALSE
 
 	if(signal.encryption != code)
-		return 0
+		return FALSE
 
-	if(!(src.wires & WIRE_RADIO_RECEIVE))	return 0
+	if(!(wires & WIRE_RADIO_RECEIVE))
+		return FALSE
 	pulse(1)
 
-	for(var/mob/O in hearers(1, src.loc))
+	for(var/mob/O in hearers(1, loc))
 		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
-	return
 
-/obj/item/device/assembly/signaler/proc/set_frequency(new_frequency)
+/obj/item/assembly/signaler/proc/set_frequency(new_frequency)
 	if(!radio_controller)
 		sleep(20)
 	if(!radio_controller)
@@ -163,20 +157,19 @@
 	radio_controller.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = radio_controller.add_object(src, frequency, RADIO_CHAT)
-	return
 
 // Embedded signaller used in anomalies.
-/obj/item/device/assembly/signaler/anomaly
+/obj/item/assembly/signaler/anomaly
 	name = "anomaly core"
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
 	icon_state = "anomaly core"
 	item_state = "electronic"
-	receiving = 1
+	receiving = TRUE
 
-/obj/item/device/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
+/obj/item/assembly/signaler/anomaly/receive_signal(datum/signal/signal)
 	..()
 	for(var/obj/effect/anomaly/A in orange(0, src))
 		A.anomalyNeutralize()
 
-/obj/item/device/assembly/signaler/anomaly/attack_self()
+/obj/item/assembly/signaler/anomaly/attack_self()
 	return

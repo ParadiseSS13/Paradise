@@ -1,7 +1,7 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
-	mob_list -= src
-	dead_mob_list -= src
-	living_mob_list -= src
+	GLOB.mob_list -= src
+	GLOB.dead_mob_list -= src
+	GLOB.living_mob_list -= src
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -22,23 +22,33 @@
 			AA.viewers -= src
 		viewing_alternate_appearances = null
 	..()
-	return QDEL_HINT_HARDDEL_NOW
+	return QDEL_HINT_HARDDEL
 
-/mob/New()
-	mob_list += src
+/mob/Initialize()
+	GLOB.mob_list += src
 	if(stat == DEAD)
-		dead_mob_list += src
+		GLOB.dead_mob_list += src
 	else
-		living_mob_list += src
+		GLOB.living_mob_list += src
 	prepare_huds()
 	..()
 
 /atom/proc/prepare_huds()
+	hud_list = list()
 	for(var/hud in hud_possible)
-		hud_list[hud] = image('icons/mob/hud.dmi', src, "")
+		var/hint = hud_possible[hud]
+		switch(hint)
+			if(HUD_LIST_LIST)
+				hud_list[hud] = list()
+			else
+				var/image/I = image('icons/mob/hud.dmi', src, "")
+				hud_list[hud] = I
 
 /mob/proc/generate_name()
 	return name
+
+/mob/proc/GetAltName()
+	return ""
 
 
 /mob/proc/Cell()
@@ -65,7 +75,7 @@
 	if(!client)	return
 
 	if(type)
-		if(type & 1 && !has_vision())//Vision related
+		if(type & 1 && !has_vision(information_only=TRUE))//Vision related
 			if(!( alt ))
 				return
 			else
@@ -77,7 +87,7 @@
 			else
 				msg = alt
 				type = alt_type
-				if(type & 1 && !has_vision())
+				if(type & 1 && !has_vision(information_only=TRUE))
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || (sleeping > 0 && stat != DEAD))
@@ -154,7 +164,7 @@
 		M.show_message( message, 2, deaf_message, 1)
 
 /mob/proc/findname(msg)
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(M.real_name == text("[]", msg))
 			return M
 	return 0
@@ -162,7 +172,17 @@
 /mob/proc/movement_delay()
 	return 0
 
-/mob/proc/Life()
+/mob/proc/Life(seconds, times_fired)
+	if(forced_look)
+		if(!isnum(forced_look))
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				var/view = client ? client.view : world.view
+				if(get_dist(src, A) > view || !(src in viewers(view, A)))
+					forced_look = null
+					to_chat(src, "<span class='notice'>Your direction target has left your view, you are no longer facing anything.</span>")
+					return
+		setDir()
 //	handle_typing_indicator()
 	return
 
@@ -233,8 +253,8 @@
 		equip_to_slot_or_del(W, slot)
 	else
 		//Mob can't equip it.  Put it their backpack or toss it on the floor
-		if(istype(back, /obj/item/weapon/storage))
-			var/obj/item/weapon/storage/S = back
+		if(istype(back, /obj/item/storage))
+			var/obj/item/storage/S = back
 			//Now, B represents a container we can insert W into.
 			S.handle_item_insertion(W,1)
 			return S
@@ -272,7 +292,7 @@ var/list/slot_equipment_priority = list( \
 	if(!istype(W)) return 0
 
 	for(var/slot in slot_equipment_priority)
-		if(istype(W,/obj/item/weapon/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
+		if(istype(W,/obj/item/storage/) && slot == slot_head) // Storage items should be put on the belt before the head
 			continue
 		if(equip_to_slot_if_possible(W, slot, 0, 1, 1)) //del_on_fail = 0; disable_warning = 0; redraw_mob = 1
 			return 1
@@ -455,7 +475,7 @@ var/list/slot_equipment_priority = list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if( istype(src, /obj/item/device/pda) || istype(src, /obj/item/weapon/pen) || is_type_in_list(src, H.wear_suit.allowed) )
+				if( istype(src, /obj/item/pda) || istype(src, /obj/item/pen) || is_type_in_list(src, H.wear_suit.allowed) )
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -467,18 +487,18 @@ var/list/slot_equipment_priority = list( \
 			if(slot_handcuffed)
 				if(H.handcuffed)
 					return 0
-				if(!istype(src, /obj/item/weapon/restraints/handcuffs))
+				if(!istype(src, /obj/item/restraints/handcuffs))
 					return 0
 				return 1
 			if(slot_legcuffed)
 				if(H.legcuffed)
 					return 0
-				if(!istype(src, /obj/item/weapon/restraints/legcuffs))
+				if(!istype(src, /obj/item/restraints/legcuffs))
 					return 0
 				return 1
 			if(slot_in_backpack)
-				if(H.back && istype(H.back, /obj/item/weapon/storage/backpack))
-					var/obj/item/weapon/storage/backpack/B = H.back
+				if(H.back && istype(H.back, /obj/item/storage/backpack))
+					var/obj/item/storage/backpack/B = H.back
 					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)
 						return 1
 				return 0
@@ -526,6 +546,17 @@ var/list/slot_equipment_priority = list( \
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
+/mob/setDir(new_dir)
+	if(forced_look)
+		if(isnum(forced_look))
+			dir = forced_look
+		else
+			var/atom/A = locateUID(forced_look)
+			if(istype(A))
+				dir = get_cardinal_dir(src, A)
+		return
+	. = ..()
+
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
@@ -545,7 +576,7 @@ var/list/slot_equipment_priority = list( \
 	set name = "Examine"
 	set category = "IC"
 
-	if((is_blind(src) || usr.stat) && !isobserver(src))
+	if(!has_vision(information_only = TRUE) && !isobserver(src))
 		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
 		return 1
 
@@ -564,7 +595,7 @@ var/list/slot_equipment_priority = list( \
 		return
 	if(!src || !isturf(src.loc))
 		return 0
-	if(istype(A, /obj/effect/decal/point))
+	if(istype(A, /obj/effect/temp_visual/point))
 		return 0
 
 	var/tile = get_turf(A)
@@ -572,16 +603,12 @@ var/list/slot_equipment_priority = list( \
 		return 0
 
 	changeNext_move(CLICK_CD_POINT)
-	var/obj/P = new /obj/effect/decal/point(tile)
+	var/obj/P = new /obj/effect/temp_visual/point(tile)
 	P.invisibility = invisibility
-	spawn (20)
-		if(P)
-			qdel(P)
-
 	return 1
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/weapon/grab) ) && !( istype(r_hand, /obj/item/weapon/grab) )))
+	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
 		if(!( L ))
 			return null
 		else
@@ -591,14 +618,14 @@ var/list/slot_equipment_priority = list( \
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
-		if(istype(l_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = l_hand
+		if(istype(l_hand, /obj/item/grab))
+			var/obj/item/grab/G = l_hand
 			if(!( L.container.Find(G.affecting) ))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if(istype(r_hand, /obj/item/weapon/grab))
-			var/obj/item/weapon/grab/G = r_hand
+		if(istype(r_hand, /obj/item/grab))
+			var/obj/item/grab/G = r_hand
 			if(!( L.container.Find(G.affecting) ))
 				L.container += G.affecting
 				if(G.affecting)
@@ -762,7 +789,7 @@ var/list/slot_equipment_priority = list( \
 	for(var/obj/O in world)				//EWWWWWWWWWWWWWWWWWWWWWWWW ~needs to be optimised
 		if(!O.loc)
 			continue
-		if(istype(O, /obj/item/weapon/disk/nuclear))
+		if(istype(O, /obj/item/disk/nuclear))
 			var/name = "Nuclear Disk"
 			if(names.Find(name))
 				namecounts[name]++
@@ -783,7 +810,7 @@ var/list/slot_equipment_priority = list( \
 			creatures[name] = O
 
 
-	for(var/mob/M in sortAtom(mob_list))
+	for(var/mob/M in sortAtom(GLOB.mob_list))
 		var/name = M.name
 		if(names.Find(name))
 			namecounts[name]++
@@ -833,7 +860,7 @@ var/list/slot_equipment_priority = list( \
 		if(machine && in_range(src, usr))
 			show_inv(machine)
 
-	if(!usr.stat && usr.canmove && !usr.restrained() && in_range(src, usr))
+	if(!usr.incapacitated() && in_range(src, usr))
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
 			var/obj/item/what = get_item_by_slot(slot)
@@ -899,9 +926,9 @@ var/list/slot_equipment_priority = list( \
 			return 0
 
 	// If they still have their ID they're not brigged.
-	for(var/obj/item/weapon/card/id/card in src)
+	for(var/obj/item/card/id/card in src)
 		return 0
-	for(var/obj/item/device/pda/P in src)
+	for(var/obj/item/pda/P in src)
 		if(P.id)
 			return 0
 
@@ -939,18 +966,38 @@ var/list/slot_equipment_priority = list( \
 
 			if(processScheduler)
 				processScheduler.statProcesses()
+		if(statpanel("MC")) //looking at that panel
+			var/turf/T = get_turf(client.eye)
+			stat("Location:", COORD(T))
+			stat("CPU:", "[world.cpu]")
+			stat("Instances:", "[num2text(world.contents.len, 10)]")
+			GLOB.stat_entry()
+			stat(null)
+			if(Master)
+				Master.stat_entry()
+			else
+				stat("Master Controller:", "ERROR")
+			if(Failsafe)
+				Failsafe.stat_entry()
+			else
+				stat("Failsafe Controller:", "ERROR")
+			if(Master)
+				stat(null)
+				for(var/datum/controller/subsystem/SS in Master.subsystems)
+					SS.stat_entry()
 
 	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
-	stat(null, "Station Time: [worldtime2text()]")
+	stat(null, "Round Time: [worldtime2text()]")
+	stat(null, "Station Time: [station_time_timestamp()]")
 
 // this function displays the shuttles ETA in the status panel if the shuttle has been called
 /mob/proc/show_stat_emergency_shuttle_eta()
-	var/ETA = shuttle_master.emergency.getModeStr()
+	var/ETA = SSshuttle.emergency.getModeStr()
 	if(ETA)
-		stat(null, "[ETA] [shuttle_master.emergency.getTimerStr()]")
+		stat(null, "[ETA] [SSshuttle.emergency.getTimerStr()]")
 
 /mob/proc/show_stat_turf_contents()
 	if(listed_turf && client)
@@ -1036,9 +1083,6 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/proc/get_species()
-	return ""
-
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
@@ -1051,26 +1095,26 @@ var/list/slot_equipment_priority = list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
+	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
 		var/list/creatures = list("Mouse")
-		for(var/mob/living/L in living_mob_list)
+		for(var/mob/living/L in GLOB.living_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)
 				if(!L.key)
 					creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				respawnable_list -= usr
+				GLOB.respawnable_list -= usr
 				become_mouse()
 				spawn(5)
-					respawnable_list += usr
+					GLOB.respawnable_list += usr
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					respawnable_list -= usr
+					GLOB.respawnable_list -= usr
 					NPC.key = key
 					spawn(5)
-						respawnable_list += usr
+						GLOB.respawnable_list += usr
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
@@ -1131,7 +1175,7 @@ var/list/slot_equipment_priority = list( \
 			new /obj/effect/decal/cleanable/vomit/green(location)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src] pukes all over \himself!</span>","<span class='warning'>You puke all over yourself!</span>")
+				visible_message("<span class='warning'>[src] pukes all over [p_them()]self!</span>","<span class='warning'>You puke all over yourself!</span>")
 			location.add_vomit_floor(src, 1)
 		playsound(location, 'sound/effects/splat.ogg', 50, 1)
 
@@ -1202,13 +1246,22 @@ var/list/slot_equipment_priority = list( \
 			return 1
 	return 0
 
-/mob/proc/create_attack_log(var/text, var/collapse = 1)//forgive me code gods for this shitcode proc
+/mob/proc/create_attack_log(text, collapse = TRUE)
+	LAZYINITLIST(attack_log)
+	create_log_in_list(attack_log, text, collapse, last_log)
+	last_log = world.timeofday
+
+/mob/proc/create_debug_log(text, collapse = TRUE)
+	LAZYINITLIST(debug_log)
+	create_log_in_list(debug_log, text, collapse, world.timeofday)
+
+/proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
 	//That makes the logs easier to read, but because all of this is stored in strings, weird things have to be used to get it all out.
 	var/new_log = "\[[time_stamp()]] [text]"
 
-	if(length(attack_log) > 0)//if there are other logs already present
-		var/previous_log = attack_log[length(attack_log)]//get the latest log
+	if(target.len)//if there are other logs already present
+		var/previous_log = target[target.len]//get the latest log
 		var/last_log_is_range = (copytext(previous_log, 10, 11) == "-") //whether the last log is a time range or not. The "-" will be an indicator that it is.
 		var/x_sign_position = findtext(previous_log, "x")
 
@@ -1233,10 +1286,9 @@ var/list/slot_equipment_priority = list( \
 				rep = text2num(copytext(previous_log, 44, x_sign_position))//get whatever number is right before the 'x'
 
 			new_log = "\[[old_timestamp]-[time_stamp()]]<font color='purple'><b>[rep?rep+1:2]x</b></font> [text]"
-			attack_log -= attack_log[length(attack_log)]//remove the last log
+			target -= target[target.len]//remove the last log
 
-	attack_log += new_log
-	last_log = world.timeofday
+	target += new_log
 
 /mob/vv_get_dropdown()
 	. = ..()

@@ -10,6 +10,7 @@
 	move_self = 1 //Do we move on our own?
 	grav_pull = 5 //How many tiles out do we pull?
 	consume_range = 6 //How many tiles out do we eat
+	gender = FEMALE
 
 /obj/singularity/narsie/large
 	name = "Nar-Sie"
@@ -24,20 +25,21 @@
 
 /obj/singularity/narsie/large/New()
 	..()
-	icon_state = ticker.mode.cultdat.entity_icon_state
-	name = ticker.mode.cultdat.entity_name
+	icon_state = ticker.cultdat.entity_icon_state
+	name = ticker.cultdat.entity_name
 	to_chat(world, "<font size='15' color='red'><b> [name] HAS RISEN</b></font>")
 	world << pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg'))
 
 	var/area/A = get_area(src)
 	if(A)
-		var/image/alert_overlay = image('icons/effects/effects.dmi', "ghostalertsie")
+		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
 		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action=NOTIFY_ATTACK)
 
 	narsie_spawn_animation()
 
 	sleep(70)
-	shuttle_master.emergency.request(null, 0.3) // Cannot recall
+	SSshuttle.emergency.request(null, 0.3) // Cannot recall
+	SSshuttle.emergency.canRecall = FALSE
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, null, 1)
@@ -91,7 +93,7 @@
 /obj/singularity/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
 	var/list/cultists = list()
 	var/list/noncultists = list()
-	for(var/mob/living/carbon/food in living_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
+	for(var/mob/living/carbon/food in GLOB.living_mob_list) //we don't care about constructs or cult-Ians or whatever. cult-monkeys are fair game i guess
 		var/turf/pos = get_turf(food)
 		if(pos.z != src.z)
 			continue
@@ -110,7 +112,7 @@
 			return
 
 	//no living humans, follow a ghost instead.
-	for(var/mob/dead/observer/ghost in player_list)
+	for(var/mob/dead/observer/ghost in GLOB.player_list)
 		if(!ghost.client)
 			continue
 		var/turf/pos = get_turf(ghost)
@@ -125,12 +127,12 @@
 /obj/singularity/narsie/proc/acquire(var/mob/food)
 	if(food == target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(ticker.mode.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, "<span class='cultlarge'>[uppertext(ticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
 	target = food
 	if(ishuman(target))
-		to_chat(target, "<span class ='cultlarge'>[uppertext(ticker.mode.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(ticker.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")
 	else
-		to_chat(target, "<span class ='cultlarge'>[uppertext(ticker.mode.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(ticker.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
 
 //Wizard narsie
 /obj/singularity/narsie/wizard

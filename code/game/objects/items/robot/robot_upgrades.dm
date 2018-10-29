@@ -34,6 +34,7 @@
 	R.notify_ai(2)
 
 	R.uneq_all()
+	R.sight_mode = null
 	R.hands.icon_state = "nomod"
 	R.icon_state = "robot"
 	R.module.remove_subsystems_and_actions(R)
@@ -89,13 +90,13 @@
 		return 0
 
 	if(!R.key)
-		for(var/mob/dead/observer/ghost in player_list)
+		for(var/mob/dead/observer/ghost in GLOB.player_list)
 			if(ghost.mind && ghost.mind.current == R)
 				R.key = ghost.key
 
 	R.stat = CONSCIOUS
-	dead_mob_list -= R //please never forget this ever kthx
-	living_mob_list += R
+	GLOB.dead_mob_list -= R //please never forget this ever kthx
+	GLOB.living_mob_list += R
 	R.notify_ai(1)
 
 	return 1
@@ -126,13 +127,13 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4;combat=4"
 	require_module = 1
-	module_type = /obj/item/weapon/robot_module/security
+	module_type = /obj/item/robot_module/security
 
 /obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
-	var/obj/item/weapon/gun/energy/disabler/cyborg/T = locate() in R.module.modules
+	var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
 	if(!T)
 		to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
 		return
@@ -168,18 +169,18 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=5"
 	require_module = 1
-	module_type = /obj/item/weapon/robot_module/miner
+	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
-	for(var/obj/item/weapon/pickaxe/drill/cyborg/D in R.module.modules)
+	for(var/obj/item/pickaxe/drill/cyborg/D in R.module.modules)
 		qdel(D)
-	for(var/obj/item/weapon/shovel/S in R.module.modules)
+	for(var/obj/item/shovel/S in R.module.modules)
 		qdel(S)
 
-	R.module.modules += new /obj/item/weapon/pickaxe/drill/cyborg/diamond(R.module)
+	R.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
 	R.module.rebuild()
 
 	return 1
@@ -190,16 +191,16 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=4;bluespace=4"
 	require_module = 1
-	module_type = /obj/item/weapon/robot_module/miner
+	module_type = /obj/item/robot_module/miner
 
 /obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
-	for(var/obj/item/weapon/storage/bag/ore/cyborg/S in R.module.modules)
+	for(var/obj/item/storage/bag/ore/cyborg/S in R.module.modules)
 		qdel(S)
 
-	R.module.modules += new /obj/item/weapon/storage/bag/ore/holding(R.module)
+	R.module.modules += new /obj/item/storage/bag/ore/holding(R.module)
 	R.module.rebuild()
 
 	return 1
@@ -301,14 +302,12 @@
 
 		if(cyborg.health < cyborg.maxHealth)
 			if(cyborg.health < 0)
-				repair_amount = -2.5
+				repair_amount = 2.5
 				powercost = 30
 			else
-				repair_amount = -1
+				repair_amount = 1
 				powercost = 10
-			cyborg.adjustBruteLoss(repair_amount)
-			cyborg.adjustFireLoss(repair_amount)
-			cyborg.updatehealth()
+			cyborg.heal_overall_damage(repair_amount, repair_amount)
 			cyborg.cell.use(powercost)
 		else
 			cyborg.cell.use(5)

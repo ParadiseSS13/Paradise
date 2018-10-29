@@ -1,4 +1,4 @@
-/obj/item/weapon/tank/jetpack
+/obj/item/tank/jetpack
 	name = "Jetpack (Empty)"
 	desc = "A tank of compressed gas for use as propulsion in zero-gravity areas. Use with caution."
 	icon_state = "jetpack"
@@ -11,16 +11,16 @@
 	var/stabilizers = 0
 	var/volume_rate = 500              //Needed for borg jetpack transfer
 
-/obj/item/weapon/tank/jetpack/New()
+/obj/item/tank/jetpack/New()
 	..()
 	ion_trail = new /datum/effect_system/trail_follow/ion()
 	ion_trail.set_up(src)
 
-/obj/item/weapon/tank/jetpack/Destroy()
+/obj/item/tank/jetpack/Destroy()
 	QDEL_NULL(ion_trail)
 	return ..()
 
-/obj/item/weapon/tank/jetpack/ui_action_click(mob/user, actiontype)
+/obj/item/tank/jetpack/ui_action_click(mob/user, actiontype)
 	if(actiontype == /datum/action/item_action/toggle_jetpack)
 		cycle(user)
 	else if(actiontype == /datum/action/item_action/jetpack_stabilization)
@@ -28,13 +28,13 @@
 	else
 		toggle_internals(user)
 
-/obj/item/weapon/tank/jetpack/proc/toggle_stabilization(mob/user)
+/obj/item/tank/jetpack/proc/toggle_stabilization(mob/user)
 	if(on)
 		stabilizers = !stabilizers
 		to_chat(user, "<span class='notice'>You turn [src]'s stabilization [stabilizers ? "on" : "off"].</span>")
 
 
-/obj/item/weapon/tank/jetpack/examine(mob/user)
+/obj/item/tank/jetpack/examine(mob/user)
 	if(!..(user, 0))
 		return
 
@@ -43,7 +43,7 @@
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 
-/obj/item/weapon/tank/jetpack/proc/cycle(mob/user)
+/obj/item/tank/jetpack/proc/cycle(mob/user)
 	if(user.incapacitated())
 		return
 
@@ -58,19 +58,19 @@
 		A.UpdateButtonIcon()
 
 
-/obj/item/weapon/tank/jetpack/proc/turn_on()
+/obj/item/tank/jetpack/proc/turn_on()
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"
 	ion_trail.start()
 
-/obj/item/weapon/tank/jetpack/proc/turn_off()
+/obj/item/tank/jetpack/proc/turn_off()
 	on = FALSE
 	stabilizers = FALSE
 	icon_state = initial(icon_state)
 	ion_trail.stop()
 
 
-/obj/item/weapon/tank/jetpack/proc/allow_thrust(num, mob/living/user as mob)
+/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user as mob)
 	if(!on)
 		return 0
 	if((num < 0.005 || air_contents.total_moles() < num))
@@ -86,28 +86,36 @@
 	T.assume_air(removed)
 	return 1
 
-/obj/item/weapon/tank/jetpack/void
+/obj/item/tank/jetpack/void
 	name = "Void Jetpack (Oxygen)"
 	desc = "It works well in a void."
 	icon_state = "jetpack-void"
 	item_state =  "jetpack-void"
 
-/obj/item/weapon/tank/jetpack/void/New()
+/obj/item/tank/jetpack/void/New()
 	..()
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
+/obj/item/tank/jetpack/void/grey
+	name = "Void Jetpack (Oxygen)"
+	icon_state = "jetpack-void-grey"
 
-/obj/item/weapon/tank/jetpack/oxygen
+/obj/item/tank/jetpack/void/gold
+	name = "Retro Jetpack (Oxygen)"
+	icon_state = "jetpack-void-gold"
+
+
+/obj/item/tank/jetpack/oxygen
 	name = "Jetpack (Oxygen)"
 	desc = "A tank of compressed oxygen for use as propulsion in zero-gravity areas. Use with caution."
 	icon_state = "jetpack"
 	item_state = "jetpack"
 
-/obj/item/weapon/tank/jetpack/oxygen/New()
+/obj/item/tank/jetpack/oxygen/New()
 	..()
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
-/obj/item/weapon/tank/jetpack/oxygen/captain
+/obj/item/tank/jetpack/oxygen/captain
 	name = "Captain's jetpack"
 	desc = "A compact, lightweight jetpack containing a high amount of compressed oxygen."
 	icon_state = "jetpack-captain"
@@ -115,7 +123,7 @@
 	volume = 90
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/weapon/tank/jetpack/oxygen/harness
+/obj/item/tank/jetpack/oxygen/harness
 	name = "jet harness (oxygen)"
 	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks."
 	icon_state = "jetpack-mini"
@@ -124,30 +132,30 @@
 	throw_range = 8
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/weapon/tank/jetpack/oxygenblack
+/obj/item/tank/jetpack/oxygenblack
 	name = "Jetpack (Oxygen)"
 	desc = "A black tank of compressed oxygen for use as propulsion in zero-gravity areas. Use with caution."
 	icon_state = "jetpack-black"
 	item_state = "jetpack-black"
 
-/obj/item/weapon/tank/jetpack/oxygenblack/New()
+/obj/item/tank/jetpack/oxygenblack/New()
 	..()
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
-/obj/item/weapon/tank/jetpack/carbondioxide
+/obj/item/tank/jetpack/carbondioxide
 	name = "Jetpack (Carbon Dioxide)"
 	desc = "A tank of compressed carbon dioxide for use as propulsion in zero-gravity areas. Painted black to indicate that it should not be used as a source for internals."
 	distribute_pressure = 0
 	icon_state = "jetpack-black"
 	item_state =  "jetpack-black"
 
-/obj/item/weapon/tank/jetpack/carbondioxide/New()
+/obj/item/tank/jetpack/carbondioxide/New()
 	..()
 	ion_trail = new /datum/effect_system/trail_follow/ion()
 	ion_trail.set_up(src)
 	air_contents.carbon_dioxide = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
-/obj/item/weapon/tank/jetpack/carbondioxide/examine(mob/user)
+/obj/item/tank/jetpack/carbondioxide/examine(mob/user)
 	if(!..(user, 0))
 		return
 
@@ -156,16 +164,16 @@
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 
-/obj/item/weapon/tank/jetpack/rig
+/obj/item/tank/jetpack/rig
 	name = "jetpack"
-	var/obj/item/weapon/rig/holder
+	var/obj/item/rig/holder
 	actions_types = list(/datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 
-/obj/item/weapon/tank/jetpack/rig/examine()
+/obj/item/tank/jetpack/rig/examine()
 	to_chat(usr, "It's a jetpack. If you can see this, report it on the bug tracker.")
 	return 0
 
-/obj/item/weapon/tank/jetpack/rig/allow_thrust(num, mob/living/user as mob)
+/obj/item/tank/jetpack/rig/allow_thrust(num, mob/living/user as mob)
 	if(!on)
 		return 0
 

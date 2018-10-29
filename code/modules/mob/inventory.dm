@@ -83,7 +83,7 @@
 //This is probably the main one you need to know :)
 //Just puts stuff on the floor for most mobs, since all mobs have hands but putting stuff in the AI/corgi/ghost hand is VERY BAD.
 /mob/proc/put_in_hands(obj/item/W)
-	W.forceMove(get_turf(src))
+	W.forceMove(drop_location())
 	W.layer = initial(W.layer)
 	W.plane = initial(W.plane)
 	W.dropped()
@@ -137,7 +137,7 @@
 	if(I)
 		if(client)
 			client.screen -= I
-		I.forceMove(loc)
+		I.forceMove(drop_location())
 		I.dropped(src)
 		if(I)
 			I.layer = initial(I.layer)
@@ -191,7 +191,7 @@
 		M.s_active.handle_item_insertion(src)
 		return 1
 
-	var/obj/item/weapon/storage/S = M.get_inactive_hand()
+	var/obj/item/storage/S = M.get_inactive_hand()
 	if(istype(S) && S.can_be_inserted(src, 1))	//see if we have box in other hand
 		S.handle_item_insertion(src)
 		return 1

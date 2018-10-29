@@ -15,11 +15,11 @@
 		return 0
 	if(!the_gateway)
 		return 0
-	new /obj/item/device/unactivated_swarmer(get_turf(the_gateway))
+	new /obj/item/unactivated_swarmer(get_turf(the_gateway))
 
 
 /datum/event/spawn_swarmer/proc/find_swarmer()
-	for(var/mob/living/M in mob_list)
+	for(var/mob/living/M in GLOB.mob_list)
 		if(istype(M, /mob/living/simple_animal/hostile/swarmer) && M.client) //If there is a swarmer with an active client, we've found our swarmer
 			return 1
 	return 0

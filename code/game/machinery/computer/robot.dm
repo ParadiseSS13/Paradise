@@ -5,7 +5,7 @@
 	icon_keyboard = "tech_key"
 	icon_screen = "robot"
 	req_access = list(access_robotics)
-	circuit = /obj/item/weapon/circuitboard/robotics
+	circuit = /obj/item/circuitboard/robotics
 	var/temp = null
 
 	light_color = LIGHT_COLOR_PURPLE
@@ -35,7 +35,7 @@
 	return 0
 
 /obj/machinery/computer/robotics/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "robot_control.tmpl", "Robotic Control Console", 400, 500)
 		ui.open()
@@ -172,7 +172,7 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
 		log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
 
-		for(var/mob/living/silicon/robot/R in mob_list)
+		for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 			if(istype(R, /mob/living/silicon/robot/drone))
 				continue
 			// Ignore antagonistic cyborgs
@@ -190,7 +190,7 @@
 /obj/machinery/computer/robotics/proc/get_cyborgs(var/mob/operator)
 	var/list/robots = list()
 
-	for(var/mob/living/silicon/robot/R in mob_list)
+	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		// Ignore drones
 		if(istype(R, /mob/living/silicon/robot/drone))
 			continue
@@ -240,6 +240,6 @@
 /obj/machinery/computer/robotics/proc/get_cyborg_by_name(var/name)
 	if(!name)
 		return
-	for(var/mob/living/silicon/robot/R in mob_list)
+	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(R.name == name)
 			return R

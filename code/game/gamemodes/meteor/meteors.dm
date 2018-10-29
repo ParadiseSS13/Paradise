@@ -98,7 +98,7 @@
 	var/meteorsound = 'sound/effects/meteorimpact.ogg'
 	var/z_original = 1
 
-	var/meteordrop = /obj/item/weapon/ore/iron
+	var/meteordrop = /obj/item/stack/ore/iron
 	var/dropamt = 2
 
 /obj/effect/meteor/Move()
@@ -118,13 +118,13 @@
 	return .
 
 /obj/effect/meteor/Destroy()
-	meteor_list -= src
+	GLOB.meteor_list -= src
 	walk(src,0) //this cancels the walk_towards() proc
 	return ..()
 
 /obj/effect/meteor/New()
 	..()
-	meteor_list += src
+	GLOB.meteor_list += src
 	SpinAnimation()
 
 /obj/effect/meteor/Bump(atom/A)
@@ -158,8 +158,8 @@
 /obj/effect/meteor/ex_act()
 	return
 
-/obj/effect/meteor/attackby(obj/item/weapon/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weapon/pickaxe))
+/obj/effect/meteor/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/pickaxe))
 		qdel(src)
 		return
 	..()
@@ -174,7 +174,7 @@
 		var/sound/meteor_sound = sound(meteorsound)
 		var/random_frequency = get_rand_frequency()
 
-		for(var/P in player_list)
+		for(var/P in GLOB.player_list)
 			var/mob/M = P
 			var/turf/T = get_turf(M)
 			if(!T || T.z != src.z)
@@ -196,7 +196,7 @@
 	hits = 1
 	hitpwr = 3
 	meteorsound = 'sound/weapons/tap.ogg'
-	meteordrop = /obj/item/weapon/ore/glass
+	meteordrop = /obj/item/stack/ore/glass
 
 //Medium-sized
 /obj/effect/meteor/medium
@@ -226,7 +226,7 @@
 	hits = 5
 	heavy = 1
 	meteorsound = 'sound/effects/bamf.ogg'
-	meteordrop = /obj/item/weapon/ore/plasma
+	meteordrop = /obj/item/stack/ore/plasma
 
 /obj/effect/meteor/flaming/meteor_effect()
 	..(heavy)
@@ -237,7 +237,7 @@
 	name = "glowing meteor"
 	icon_state = "glowing"
 	heavy = 1
-	meteordrop = /obj/item/weapon/ore/uranium
+	meteordrop = /obj/item/stack/ore/uranium
 
 
 /obj/effect/meteor/irradiated/meteor_effect()
@@ -256,7 +256,7 @@
 	hitpwr = 1
 	heavy = 1
 	meteorsound = 'sound/effects/bamf.ogg'
-	meteordrop = /obj/item/weapon/ore/plasma
+	meteordrop = /obj/item/stack/ore/plasma
 
 /obj/effect/meteor/tunguska/meteor_effect()
 	..(heavy)
@@ -276,7 +276,7 @@
 	hits = 1
 	hitpwr = 0
 	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = /obj/item/weapon/reagent_containers/food/snacks/meat
+	meteordrop = /obj/item/reagent_containers/food/snacks/meat
 	var/meteorgibs = /obj/effect/gibspawner/generic
 
 /obj/effect/meteor/gore/make_debris()
@@ -300,7 +300,7 @@
 	hits = 10
 	hitpwr = 1
 	meteorsound = 'sound/effects/blobattack.ogg'
-	meteordrop = /obj/item/weapon/reagent_containers/food/snacks/meat
+	meteordrop = /obj/item/reagent_containers/food/snacks/meat
 	var/meteorgibs = /obj/effect/gibspawner/generic
 
 /obj/effect/meteor/goreops/make_debris()

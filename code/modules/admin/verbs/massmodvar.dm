@@ -201,7 +201,7 @@
 	if(rejected)
 		to_chat(src, "[rejected] out of [count] objects rejected your edit")
 
-	log_to_dd("### MassVarEdit by [src]: [O.type] (A/R [accepted]/[rejected]) [variable]=[html_encode("[O.vars[variable]]")]([list2params(value)])")
+	log_world("### MassVarEdit by [src]: [O.type] (A/R [accepted]/[rejected]) [variable]=[html_encode("[O.vars[variable]]")]([list2params(value)])")
 	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
 	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
 
@@ -212,19 +212,19 @@
 		typecache = typecacheof(typecache)
 	. = list()
 	if(ispath(T, /mob))
-		for(var/mob/thing in mob_list)
+		for(var/mob/thing in GLOB.mob_list)
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
 	else if(ispath(T, /obj/machinery/door))
-		for(var/obj/machinery/door/thing in airlocks)
+		for(var/obj/machinery/door/thing in GLOB.airlocks)
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
 
 	else if(ispath(T, /obj/machinery))
-		for(var/obj/machinery/thing in machines)
+		for(var/obj/machinery/thing in GLOB.machines)
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK
@@ -254,7 +254,7 @@
 			CHECK_TICK
 
 	else if(ispath(T, /client))
-		for(var/client/thing in clients)
+		for(var/client/thing in GLOB.clients)
 			if(typecache[thing.type])
 				. += thing
 			CHECK_TICK

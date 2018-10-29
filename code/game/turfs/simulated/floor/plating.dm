@@ -1,10 +1,11 @@
 /turf/simulated/floor/plating
 	name = "plating"
 	icon_state = "plating"
+	icon = 'icons/turf/floors/plating.dmi'
 	intact = 0
 	floor_tile = null
-	broken_states = list("platingdmg1", "platingdmg2", "platingdmg3")
-	burnt_states = list("panelscorched")
+	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
+	burnt_states = list("floorscorched1", "floorscorched2")
 
 	footstep_sounds = list(
 	"human" = list('sound/effects/footstep/plating_human.ogg'),
@@ -14,6 +15,7 @@
 /turf/simulated/floor/plating/New()
 	..()
 	icon_plating = icon_state
+	update_icon()
 
 /turf/simulated/floor/plating/update_icon()
 	if(!..())
@@ -54,15 +56,17 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return 1
 
-	else if(istype(C, /obj/item/weapon/weldingtool))
-		var/obj/item/weapon/weldingtool/welder = C
+	else if(istype(C, /obj/item/weldingtool))
+		var/obj/item/weldingtool/welder = C
 		if( welder.isOn() && (broken || burnt) )
 			if(welder.remove_fuel(0,user))
 				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
 				playsound(src, welder.usesound, 80, 1)
-				icon_state = icon_plating
+				overlays -= current_overlay
+				current_overlay = null
 				burnt = 0
 				broken = 0
+				update_icon()
 			return 1
 
 /turf/simulated/floor/plating/airless
@@ -98,7 +102,7 @@
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
 		return
-	if(istype(C, /obj/item/weapon/wrench))
+	if(istype(C, /obj/item/wrench))
 		to_chat(user, "<span class='notice'>You begin removing rods...</span>")
 		playsound(src, C.usesound, 80, 1)
 		if(do_after(user, 30 * C.toolspeed, target = src))
@@ -141,10 +145,17 @@
 /turf/simulated/floor/engine/cult/New()
 	..()
 	if(ticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
-		icon_state = ticker.mode.cultdat.cult_floor_icon_state
+		icon_state = ticker.cultdat.cult_floor_icon_state
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
+
+/turf/simulated/floor/engine/cult/ratvar_act()
+	. = ..()
+	if(istype(src, /turf/simulated/floor/engine/cult)) //if we haven't changed type
+		var/previouscolor = color
+		color = "#FAE48C"
+		animate(src, color = previouscolor, time = 8)
 
 /turf/simulated/floor/engine/n20/New()
 	..()
@@ -184,9 +195,13 @@
 	oxygen = 0
 	nitrogen = 0
 
+/turf/simulated/floor/plating/ironsand
+	name = "Iron Sand"
+	icon = 'icons/turf/floors/ironsand.dmi'
+	icon_state = "ironsand1"
+
 /turf/simulated/floor/plating/ironsand/New()
 	..()
-	name = "Iron Sand"
 	icon_state = "ironsand[rand(1,15)]"
 
 /turf/simulated/floor/plating/snow

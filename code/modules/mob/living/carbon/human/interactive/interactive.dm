@@ -44,13 +44,13 @@
 	var/list/blacklistItems = list() // items we should be ignoring
 	var/maxStepsTick = 6 // step as many times as we can per frame
 	//Job and mind data
-	var/obj/item/weapon/card/id/MYID
-	var/obj/item/weapon/card/id/RPID // the "real" idea they use
-	var/obj/item/device/pda/MYPDA
+	var/obj/item/card/id/MYID
+	var/obj/item/card/id/RPID // the "real" idea they use
+	var/obj/item/pda/MYPDA
 	var/obj/item/main_hand
 	var/obj/item/other_hand
 	var/TRAITS = 0
-	var/obj/item/weapon/card/id/Path_ID
+	var/obj/item/card/id/Path_ID
 	var/default_job = /datum/job/civilian	// the type for the default job
 	var/datum/job/myjob
 	var/list/myPath = list()
@@ -67,13 +67,12 @@
 	//modules
 	var/list/functions = list("nearbyscan","combat","shitcurity","chatter")
 	var/restrictedJob = 0
-	var/shouldUseDynamicProc = 0 // switch to make the AI control it's own proccessing
-	var/alternateProcessing = 0
 	var/forceProcess = 0
-	var/processTime = 10
 	var/speak_file = "npc_chatter.json"
 	var/debugexamine = FALSE //If we show debug info in our examine
 	var/showexaminetext = TRUE	//If we show our telltale examine text
+
+	var/voice_saved = FALSE
 
 	var/list/knownStrings = list()
 
@@ -95,6 +94,8 @@
 		knownStrings = list()
 
 /mob/living/carbon/human/interactive/proc/saveVoice()
+	if(voice_saved)
+		return
 	var/savefile/S = new /savefile("data/npc_saves/snpc.sav")
 	S["knownStrings"] << knownStrings
 
@@ -128,7 +129,7 @@
 	//this is here because this has no client/prefs/brain whatever.
 	age = rand(AGE_MIN, AGE_MAX)
 	change_gender(pick("male", "female"))
-	rename_character(real_name, species.get_random_name(gender))
+	rename_character(real_name, dna.species.get_random_name(gender))
 	//job handling
 	myjob = new default_job()
 	job = myjob.title
@@ -142,7 +143,7 @@
 	doing = 0
 	inactivity_period = 0
 
-/client/proc/resetSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
+/client/proc/resetSNPC(mob/living/carbon/human/interactive/T in SSnpcpool.processing)
 	set name = "Reset SNPC"
 	set desc = "Reset the SNPC"
 	set category = "Debug"
@@ -153,20 +154,7 @@
 	if(istype(T))
 		T.reset()
 
-/client/proc/toggleSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
-	set name = "Toggle SNPC Proccessing Mode"
-	set desc = "Toggle SNPC Proccessing Mode"
-	set category = "Debug"
-
-	if(!holder)
-		return
-
-	if(istype(T))
-		T.alternateProcessing = !T.alternateProcessing
-		T.forceProcess = 1
-		to_chat(usr, "[T]'s processing has been switched to [T.alternateProcessing ? "High Profile" : "Low Profile"]")
-
-/client/proc/customiseSNPC(mob/living/carbon/human/interactive/T in npc_master.botPool_l)
+/client/proc/customiseSNPC(mob/living/carbon/human/interactive/T in SSnpcpool.processing)
 	set name = "Customize SNPC"
 	set desc = "Customize the SNPC"
 	set category = "Debug"
@@ -191,15 +179,19 @@
 		T.myjob = cjob
 		T.job = cjob.title
 		T.mind.assigned_role = cjob.title
-		for(var/obj/item/W in T)
-			qdel(W)
+		for(var/obj/item/I in T)
+			if(istype(I, /obj/item/implant))
+				continue
+			if(istype(I, /obj/item/organ))
+				continue
+			qdel(I)
 		T.myjob.equip(T)
 		T.doSetup(alt_title)
 
 	var/shouldDoppel = input("Do you want the SNPC to disguise themself as a crewmember?") as anything in list("Yes", "No")
 	if(shouldDoppel == "Yes")
 		var/list/validchoices = list()
-		for(var/mob/living/carbon/human/M in mob_list)
+		for(var/mob/living/carbon/human/M in GLOB.mob_list)
 			validchoices += M
 
 		var/mob/living/carbon/human/chosen = input("Which crewmember?") as null|anything in validchoices
@@ -208,9 +200,9 @@
 			var/datum/dna/toDoppel = chosen.dna
 
 			T.real_name = toDoppel.real_name
-			T.set_species(chosen.species.name)
-			T.body_accessory = chosen.body_accessory
+			T.set_species(chosen.dna.species.type)
 			T.dna = toDoppel.Clone()
+			T.body_accessory = chosen.body_accessory
 			T.UpdateAppearance()
 			domutcheck(T)
 
@@ -229,7 +221,7 @@
 	T.revive()
 
 /mob/living/carbon/human/interactive/proc/doSetup(alt_title = null)
-	Path_ID = new /obj/item/weapon/card/id(src)
+	Path_ID = new /obj/item/card/id(src)
 
 	var/datum/job/captain/C = new/datum/job/captain
 	Path_ID.access = C.get_access()
@@ -245,7 +237,7 @@
 	MYID.age = age
 	MYID.registered_name = real_name
 	MYID.photo = get_id_photo(src)
-	MYID.access = Path_ID.access // Automatons have strange powers... strange indeed
+	MYID.access = Path_ID.access.Copy() // Automatons have strange powers... strange indeed
 
 	RPID = new(src)
 	RPID.name = "[real_name]'s ID Card ([alt_title])"
@@ -257,7 +249,10 @@
 	RPID.photo = get_id_photo(src)
 	RPID.access = myjob.get_access()
 
-	equip_to_slot_or_del(MYID, slot_wear_id)
+	if(wear_id)
+		qdel(wear_id)
+	if(!equip_to_slot_or_del(MYID, slot_wear_id))
+		create_attack_log("<font color='blue'>Deleted ID due to slot contention</font>")
 	if(wear_pda)
 		MYPDA = wear_pda
 	else
@@ -313,46 +308,52 @@
 	if(TRAITS & TRAIT_THIEVING)
 		slyness = 75
 
+/mob/living/carbon/human/interactive/proc/InteractiveProcess()
+	if(ticker.current_state == GAME_STATE_FINISHED)
+		saveVoice()
+		voice_saved = TRUE
+	doProcess()
+
 /mob/living/carbon/human/interactive/proc/setup_job(thejob)
 	switch(thejob)
 		if("Civilian")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon)
+			favoured_types = list(/obj/item/clothing, /obj/item)
 		if("Captain", "Head of Personnel")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/captain,/obj/item/weapon/disk/nuclear)
+			favoured_types = list(/obj/item/clothing, /obj/item/stamp/captain,/obj/item/disk/nuclear)
 		if("Nanotrasen Representative")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/centcom, /obj/item/weapon/paper, /obj/item/weapon/melee/classic_baton/ntcane)
+			favoured_types = list(/obj/item/clothing, /obj/item/stamp/centcom, /obj/item/paper, /obj/item/melee/classic_baton/ntcane)
 			functions += "paperwork"
 		if("Magistrate", "Internal Affairs Agent")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/law, /obj/item/weapon/paper)
+			favoured_types = list(/obj/item/clothing, /obj/item/stamp/law, /obj/item/paper)
 			functions += "paperwork"
 		if("Quartermaster", "Cargo Technician")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon/stamp/granted, /obj/item/weapon/stamp/denied, /obj/item/weapon/paper, /obj/item/weapon/clipboard)
+			favoured_types = list(/obj/item/clothing, /obj/item/stamp/granted, /obj/item/stamp/denied, /obj/item/paper, /obj/item/clipboard)
 			functions += "stamping"
 		if("Chef")
-			favoured_types = list(/obj/item/weapon/reagent_containers/food, /obj/item/weapon/kitchen)
+			favoured_types = list(/obj/item/reagent_containers/food, /obj/item/kitchen)
 			functions += "souschef"
 			restrictedJob = 1
 		if("Bartender")
-			favoured_types = list(/obj/item/weapon/reagent_containers/food, /obj/item/weapon/kitchen)
+			favoured_types = list(/obj/item/reagent_containers/food, /obj/item/kitchen)
 			functions += "bartend"
 			restrictedJob = 1
 		if("Station Engineer", "Chief Engineer", "Life Support Specialist", "Mechanic")
-			favoured_types = list(/obj/item/stack, /obj/item/weapon, /obj/item/clothing)
+			favoured_types = list(/obj/item/stack, /obj/item, /obj/item/clothing)
 		if("Chief Medical Officer", "Medical Doctor", "Chemist", "Virologist", "Geneticist", "Psychiatrist", "Paramedic", "Brig Physician")
-			favoured_types = list(/obj/item/weapon/reagent_containers/glass/beaker, /obj/item/weapon/storage/firstaid, /obj/item/stack/medical, /obj/item/weapon/reagent_containers/syringe)
+			favoured_types = list(/obj/item/reagent_containers/glass/beaker, /obj/item/storage/firstaid, /obj/item/stack/medical, /obj/item/reagent_containers/syringe)
 			functions += "healpeople"
 		if("Research Director", "Scientist", "Roboticist")
-			favoured_types = list(/obj/item/weapon/reagent_containers/glass/beaker, /obj/item/stack, /obj/item/weapon/reagent_containers)
+			favoured_types = list(/obj/item/reagent_containers/glass/beaker, /obj/item/stack, /obj/item/reagent_containers)
 		if("Head of Security", "Warden", "Security Officer", "Detective", "Security Pod Pilot", "Blueshield")
-			favoured_types = list(/obj/item/clothing, /obj/item/weapon, /obj/item/weapon/restraints)
+			favoured_types = list(/obj/item/clothing, /obj/item, /obj/item/restraints)
 		if("Janitor")
-			favoured_types = list(/obj/item/weapon/mop, /obj/item/weapon/reagent_containers/glass/bucket, /obj/item/weapon/reagent_containers/spray/cleaner, /obj/effect/decal/cleanable)
+			favoured_types = list(/obj/item/mop, /obj/item/reagent_containers/glass/bucket, /obj/item/reagent_containers/spray/cleaner, /obj/effect/decal/cleanable)
 			functions += "dojanitor"
 		if("Clown")
-			favoured_types = list(/obj/item/weapon/soap, /obj/item/weapon/reagent_containers/food/snacks/grown/banana, /obj/item/weapon/grown/bananapeel)
+			favoured_types = list(/obj/item/soap, /obj/item/reagent_containers/food/snacks/grown/banana, /obj/item/grown/bananapeel)
 			functions += "clowning"
 		if("Botanist")
-			favoured_types = list(/obj/machinery/hydroponics,  /obj/item/weapon/reagent_containers, /obj/item/weapon)
+			favoured_types = list(/obj/machinery/hydroponics,  /obj/item/reagent_containers, /obj/item)
 			functions += "botany"
 			restrictedJob = 1
 		else
@@ -403,18 +404,22 @@
 	if(!hud_used)
 		hud_used = new /datum/hud/human(src)
 
-/mob/living/carbon/human/interactive/New(var/new_loc, var/new_species = null)
+/mob/living/carbon/human/interactive/Initialize()
 	..()
-	snpc_list += src
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/carbon/human/interactive/LateInitialize()
+	. = ..()
+	GLOB.snpc_list += src
 
 	create_mob_hud()
 
 	sync_mind()
 	random()
 	doSetup()
-	npc_master.insertBot(src)
+	START_PROCESSING(SSnpcpool, src)
 	loadVoice()
-	hear_radio_list += src
+	GLOB.hear_radio_list += src
 
 	// a little bit of variation to make individuals more unique
 	robustness += rand(-10, 10)
@@ -425,8 +430,7 @@
 	doProcess()
 
 /mob/living/carbon/human/interactive/Destroy()
-	hear_radio_list -= src
-	snpc_list -= src
+	SSnpcpool.stop_processing(src)
 	return ..()
 
 /mob/living/carbon/human/interactive/proc/retalTarget(mob/living/target)
@@ -554,10 +558,14 @@
 /mob/living/carbon/human/interactive/proc/insert_into_backpack()
 	var/list/slots = list(slot_l_store, slot_r_store, slot_l_hand, slot_r_hand)
 	var/obj/item/I = get_item_by_slot(pick(slots))
-	var/obj/item/weapon/storage/BP = get_item_by_slot(slot_back)
+	var/obj/item/storage/BP = get_item_by_slot(slot_back)
 	if(back && BP && I)
+		// hack to allow SNPCs to "sticky grab" items without losing their inventorying
+		var/oldnodrop = I.flags | NODROP
+		I.flags &= ~NODROP
 		if(BP.can_be_inserted(I))
 			BP.handle_item_insertion(I)
+		I.flags |= oldnodrop
 	else
 		unEquip(I,TRUE)
 	update_hands = 1
@@ -566,10 +574,13 @@
 	return get_dist(get_turf(towhere), get_turf(src))
 
 /mob/living/carbon/human/interactive/death()
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	saveVoice()
-	..()
 
-/mob/living/carbon/human/interactive/hear_say(message, verb = "says", datum/language/language = null, alt_name = "", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
+/mob/living/carbon/human/interactive/hear_say(message, verb = "says", datum/language/language = null, italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
 	if(!istype(speaker, /mob/living/carbon/human/interactive))
 		knownStrings |= html_decode(message)
 	..()
@@ -580,17 +591,7 @@
 	..()
 
 /mob/living/carbon/human/interactive/proc/doProcess()
-	forceProcess = 0
-
-	if(shouldUseDynamicProc)
-		var/isSeen = 0
-		for(var/mob/living/carbon/human/A in orange(12, src))
-			if(A.client)
-				isSeen = 1
-		alternateProcessing = isSeen
-		if(alternateProcessing)
-			forceProcess = 1
-
+	set waitfor = FALSE
 	if(IsDeadOrIncap())
 		reset()
 		return
@@ -618,10 +619,13 @@
 							if(istype(D,/obj/machinery/door/airlock))
 								var/obj/machinery/door/airlock/AL = D
 								if(!AL.CanAStarPass(RPID)) // only crack open doors we can't get through
-									AL.p_open = 1
+									inactivity_period = 20
+									AL.panel_open = 1
 									AL.update_icon()
 									AL.shock(src, mistake_chance)
 									sleep(5)
+									if(QDELETED(AL))
+										return
 									AL.unlock()
 									if(prob(mistake_chance))
 										if(!AL.wires.IsIndexCut(AIRLOCK_WIRE_DOOR_BOLTS))
@@ -638,7 +642,9 @@
 									if(prob(mistake_chance) && !AL.wires.IsIndexCut(AIRLOCK_WIRE_ELECTRIFY))
 										AL.wires.CutWireIndex(AIRLOCK_WIRE_ELECTRIFY)
 									sleep(5)
-									AL.p_open = 0
+									if(QDELETED(AL))
+										return
+									AL.panel_open = 0
 									AL.update_icon()
 							D.open()
 
@@ -658,7 +664,7 @@
 		update_hands = 0
 
 	if(grabbed_by.len > 0)
-		for(var/obj/item/weapon/grab/G in grabbed_by)
+		for(var/obj/item/grab/G in grabbed_by)
 			if(Adjacent(G))
 				a_intent = INTENT_DISARM
 				G.assailant.attack_hand(src)
@@ -671,7 +677,7 @@
 	//proc functions
 	for(var/Proc in functions)
 		if(!IsDeadOrIncap())
-			callfunction(Proc)
+			INVOKE_ASYNC(src, Proc)
 
 
 	//target interaction stays hardcoded
@@ -685,8 +691,8 @@
 		if(istype(TARGET, /obj/machinery/door))
 			var/obj/machinery/door/D = TARGET
 			if(D.check_access(MYID) && !istype(D,/obj/machinery/door/poddoor))
+				inactivity_period = 10
 				D.open()
-				sleep(15)
 				var/turf/T = get_step(get_step(D.loc, dir), dir) //recursion yo
 				tryWalk(T)
 		//THIEVING SKILLS
@@ -696,8 +702,8 @@
 			var/obj/item/I = TARGET
 			if(I.anchored)
 				TARGET = null
-			else if(istype(TARGET, /obj/item/weapon))
-				var/obj/item/weapon/W = TARGET
+			else if(istype(TARGET, /obj/item))
+				var/obj/item/W = TARGET
 				if(W.force >= best_force || prob((SNPC_FUZZY_CHANCE_LOW + SNPC_FUZZY_CHANCE_HIGH) / 2) || favouredObjIn(list(W)))
 					if(!l_hand || !r_hand)
 						put_in_hands(W)
@@ -710,15 +716,8 @@
 					insert_into_backpack()
 		//---------FASHION
 		if(istype(TARGET, /obj/item/clothing))
-			var/obj/item/clothing/C = TARGET
 			drop_item()
-			spawn(5)
-				take_to_slot(C,1)
-				if(!equip_to_appropriate_slot(C))
-					var/obj/item/I = get_item_by_slot(C)
-					unEquip(I)
-					spawn(5)
-						equip_to_appropriate_slot(C)
+			dressup(TARGET)
 			update_hands = 1
 			if(MYPDA in loc)
 				equip_to_appropriate_slot(MYPDA)
@@ -729,7 +728,7 @@
 		if(istype(TARGET, /obj/structure))
 			var/obj/structure/STR = TARGET
 			if(main_hand)
-				var/obj/item/weapon/W = main_hand
+				var/obj/item/W = main_hand
 				STR.attackby(W, src)
 			else
 				STR.attack_hand(src)
@@ -775,9 +774,19 @@
 			TARGET = traitorTarget
 		tryWalk(TARGET)
 	LAST_TARGET = TARGET
-	if(alternateProcessing)
-		spawn(processTime)
-			doProcess()
+
+/mob/living/carbon/human/interactive/proc/dressup(obj/item/clothing/C)
+	set waitfor = FALSE
+	inactivity_period = 12
+	sleep(5)
+	if(!QDELETED(C) && !QDELETED(src))
+		take_to_slot(C,1)
+		if(!equip_to_appropriate_slot(C))
+			var/obj/item/I = get_item_by_slot(C)
+			unEquip(I)
+			sleep(5)
+			if(!QDELETED(src) && !QDELETED(C))
+				equip_to_appropriate_slot(C)
 
 /mob/living/carbon/human/interactive/proc/favouredObjIn(list/inList)
 	var/list/outList = list()
@@ -788,10 +797,6 @@
 	if(!outList.len)
 		outList = inList
 	return outList
-
-/mob/living/carbon/human/interactive/proc/callfunction(Proc)
-	spawn(0)
-		call(src, Proc)(src)
 
 /mob/living/carbon/human/interactive/proc/tryWalk(turf/inTarget)
 	if(restrictedJob) // we're a job that has to stay in our home
@@ -881,7 +886,7 @@
 			return pick(/area/hallway, /area/crew_quarters)
 
 /mob/living/carbon/human/interactive/proc/target_filter(target)
-	var/list/filtered_targets = list(/area, /turf, /obj/machinery/door, /atom/movable/lighting_overlay, /obj/structure/cable, /obj/machinery/atmospherics, /obj/item/device/radio/intercom)
+	var/list/filtered_targets = list(/area, /turf, /obj/machinery/door, /atom/movable/lighting_overlay, /obj/structure/cable, /obj/machinery/atmospherics, /obj/item/radio/intercom)
 	var/list/L = target
 	for(var/atom/A in target) // added a bunch of "junk" that clogs up the general find procs
 		if(is_type_in_list(A,filtered_targets))

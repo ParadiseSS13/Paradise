@@ -4,7 +4,7 @@
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "qpad-idle"
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 400 //30 seconds base due to base parts
@@ -17,10 +17,10 @@
 /obj/machinery/quantumpad/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/quantumpad(null)
-	component_parts += new /obj/item/weapon/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/circuitboard/quantumpad(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -30,11 +30,11 @@
 
 /obj/machinery/quantumpad/RefreshParts()
 	var/E = 0
-	for(var/obj/item/weapon/stock_parts/capacitor/C in component_parts)
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		E += C.rating
 	power_efficiency = E
 	E = 0
-	for(var/obj/item/weapon/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		E += M.rating
 	teleport_speed = initial(teleport_speed)
 	teleport_speed -= (E*10)
@@ -47,12 +47,12 @@
 
 	if(panel_open)
 		if(ismultitool(I))
-			var/obj/item/device/multitool/M = I
+			var/obj/item/multitool/M = I
 			M.buffer = src
 			to_chat(user, "<span class='notice'>You save the data in the [I.name]'s buffer.</span>")
 			return 1
 	else if(ismultitool(I))
-		var/obj/item/device/multitool/M = I
+		var/obj/item/multitool/M = I
 		if(istype(M.buffer, /obj/machinery/quantumpad))
 			linked_pad = M.buffer
 			to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
@@ -71,7 +71,7 @@
 		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
 		return
 
-	if(!linked_pad || qdeleted(linked_pad))
+	if(!linked_pad || QDELETED(linked_pad))
 		to_chat(user, "<span class='warning'>There is no linked pad!</span>")
 		return
 
@@ -94,9 +94,7 @@
 	doteleport(user)
 
 /obj/machinery/quantumpad/proc/sparks()
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, get_turf(src))
-	s.start()
+	do_sparks(5, 1, get_turf(src))
 
 /obj/machinery/quantumpad/attack_ghost(mob/dead/observer/ghost)
 	if(linked_pad)
@@ -108,14 +106,14 @@
 		teleporting = 1
 
 		spawn(teleport_speed)
-			if(!src || qdeleted(src))
+			if(!src || QDELETED(src))
 				teleporting = 0
 				return
 			if(stat & NOPOWER)
 				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
 				teleporting = 0
 				return
-			if(!linked_pad || qdeleted(linked_pad) || linked_pad.stat & NOPOWER)
+			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
 				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
 				teleporting = 0
 				return
@@ -132,6 +130,7 @@
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
 			flick("qpad-beam", linked_pad)
 			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, 1, extrarange = 3, falloff = 5)
+			var/tele_success = TRUE
 			for(var/atom/movable/ROI in get_turf(src))
 				// if is anchored, don't let through
 				if(ROI.anchored)
@@ -145,4 +144,6 @@
 							continue
 					else if(!isobserver(ROI))
 						continue
-				do_teleport(ROI, get_turf(linked_pad))
+				tele_success = do_teleport(ROI, get_turf(linked_pad))
+			if(!tele_success)
+				to_chat(user, "<span class='warning'>Teleport failed due to bluespace interference.</span>")

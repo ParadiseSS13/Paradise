@@ -8,7 +8,7 @@ var/total_runtimes_skipped = 0
 #ifdef DEBUG
 /world/Error(var/exception/e, var/datum/e_src)
 	if(!istype(e)) // Something threw an unusual exception
-		log_to_dd("\[[time_stamp()]] Uncaught exception: [e]")
+		log_world("\[[time_stamp()]] Uncaught exception: [e]")
 		return ..()
 	if(!error_last_seen) // A runtime is occurring too early in start-up initialization
 		return ..()
@@ -39,7 +39,7 @@ var/total_runtimes_skipped = 0
 			var/skipcount = abs(error_cooldown[erroruid]) - 1
 			error_cooldown[erroruid] = 0
 			if(skipcount > 0)
-				log_to_dd("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file],[e.line].")
+				log_world("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file],[e.line].")
 				error_cache.logError(e, skipCount = skipcount)
 	error_last_seen[erroruid] = world.time
 	error_cooldown[erroruid] = cooldown
@@ -95,12 +95,13 @@ var/total_runtimes_skipped = 0
 		desclines += "  (This error will now be silenced for [ERROR_SILENCE_TIME / 600] minutes)"
 
 	// Now to actually output the error info...
-	log_to_dd("\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]")
+	log_world("\[[time_stamp()]] Runtime in [e.file],[e.line]: [e]")
+	log_runtime_txt("Runtime in [e.file],[e.line]: [e]")
 	for(var/line in desclines)
-		log_to_dd(line)
+		log_world(line)
+		log_runtime_txt(line)
 	if(error_cache)
 		error_cache.logError(e, desclines, e_src = e_src)
-
 #endif
 
 /proc/log_runtime(exception/e, datum/e_src, extra_info)

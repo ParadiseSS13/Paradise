@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// Pills.
 ////////////////////////////////////////////////////////////////////////////////
-/obj/item/weapon/reagent_containers/food/pill
+/obj/item/reagent_containers/food/pill
 	name = "pill"
 	desc = "a pill."
 	icon = 'icons/obj/chemical.dmi'
@@ -12,15 +12,15 @@
 	consume_sound = null
 	taste = FALSE
 
-/obj/item/weapon/reagent_containers/food/pill/New()
+/obj/item/reagent_containers/food/pill/New()
 	..()
 	if(!icon_state)
 		icon_state = "pill[rand(1,20)]"
 
-/obj/item/weapon/reagent_containers/food/pill/attack_self(mob/user)
+/obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	return
 
-/obj/item/weapon/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
+/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
 		return 0
 	bitesize = reagents.total_volume
@@ -30,7 +30,7 @@
 		return 1
 	return 0
 
-/obj/item/weapon/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
 
@@ -51,62 +51,68 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 //Pills
-/obj/item/weapon/reagent_containers/food/pill/tox
+/obj/item/reagent_containers/food/pill/tox
 	name = "Toxins pill"
 	desc = "Highly toxic."
 	icon_state = "pill21"
 	list_reagents = list("toxin" = 50)
 
-/obj/item/weapon/reagent_containers/food/pill/initropidril
+/obj/item/reagent_containers/food/pill/initropidril
 	name = "initropidril pill"
 	desc = "Don't swallow this."
 	icon_state = "pill21"
 	list_reagents = list("initropidril" = 50)
 
-/obj/item/weapon/reagent_containers/food/pill/adminordrazine
+/obj/item/reagent_containers/food/pill/adminordrazine
 	name = "Adminordrazine pill"
 	desc = "It's magic. We don't have to explain it."
 	icon_state = "pill16"
 	list_reagents = list("adminordrazine" = 50)
 
-/obj/item/weapon/reagent_containers/food/pill/methamphetamine
+/obj/item/reagent_containers/food/pill/methamphetamine
 	name = "Methamphetamine pill"
 	desc = "Helps improve the ability to concentrate."
 	icon_state = "pill8"
 	list_reagents = list("methamphetamine" = 5)
 
-/obj/item/weapon/reagent_containers/food/pill/haloperidol
+/obj/item/reagent_containers/food/pill/haloperidol
 	name = "Haloperidol pill"
 	desc = "Haloperidol is an anti-psychotic use to treat psychiatric problems."
 	icon_state = "pill8"
 	list_reagents = list("haloperidol" = 15)
 
-/obj/item/weapon/reagent_containers/food/pill/happy
+/obj/item/reagent_containers/food/pill/happy
 	name = "Happy pill"
 	desc = "Happy happy joy joy!"
 	icon_state = "pill18"
 	list_reagents = list("space_drugs" = 15, "sugar" = 15)
 
-/obj/item/weapon/reagent_containers/food/pill/zoom
+/obj/item/reagent_containers/food/pill/zoom
 	name = "Zoom pill"
 	desc = "Zoooom!"
 	icon_state = "pill18"
 	list_reagents = list("synaptizine" = 5, "methamphetamine" = 5)
 
-/obj/item/weapon/reagent_containers/food/pill/charcoal
+/obj/item/reagent_containers/food/pill/charcoal
 	name = "Charcoal pill"
 	desc = "Neutralizes many common toxins."
 	icon_state = "pill17"
 	list_reagents = list("charcoal" = 25)
 
-/obj/item/weapon/reagent_containers/food/pill/salicylic
+/obj/item/reagent_containers/food/pill/salicylic
 	name = "Salicylic Acid pill"
 	desc = "Commonly used to treat moderate pain and fevers."
 	icon_state = "pill4"
 	list_reagents = list("sal_acid" = 20)
 
-/obj/item/weapon/reagent_containers/food/pill/salbutamol
+/obj/item/reagent_containers/food/pill/salbutamol
 	name = "Salbutamol pill"
 	desc = "Used to treat respiratory distress."
 	icon_state = "pill8"
 	list_reagents = list("salbutamol" = 20)
+
+/obj/item/reagent_containers/food/pill/hydrocodone
+	name = "Hydrocodone pill"
+	desc = "Used to treat extreme pain."
+	icon_state = "pill6"
+	list_reagents = list("hydrocodone" = 15)

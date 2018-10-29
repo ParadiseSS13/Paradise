@@ -11,7 +11,8 @@ var/list/chatResources = list(
 	"goon/browserassets/css/fonts/PxPlus_IBM_MDA.ttf",
 	"goon/browserassets/css/font-awesome.css",
 	"goon/browserassets/css/browserOutput.css",
-	"goon/browserassets/json/unicode_9_annotations.json"
+	"goon/browserassets/json/unicode_9_annotations.json",
+	"goon/browserassets/html/saveInstructions.html"
 )
 
 /var/savefile/iconCache = new /savefile("data/iconCache.sav")

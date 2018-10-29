@@ -5,7 +5,7 @@
 	icon_state = "table2-idle"
 	density = 1
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 1
 	active_power_usage = 5
 	var/mob/living/carbon/human/victim = null
@@ -15,6 +15,8 @@
 	buckle_lying = 90
 	var/no_icon_updates = 0 //set this to 1 if you don't want the icons ever changing
 	var/list/injected_reagents = list()
+	var/reagent_target_amount = 1
+	var/inject_amount = 1
 
 /obj/machinery/optable/New()
 	..()
@@ -54,13 +56,12 @@
 	if(prob(75))
 		qdel(src)
 
-/obj/machinery/optable/attack_hand(mob/user as mob)
-	if(HULK in usr.mutations)
-		to_chat(usr, text("<span class='notice'>You destroy the table.</span>"))
-		visible_message("<span class='warning'>[usr] destroys the operating table!</span>")
-		src.density = 0
+/obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	if(user.a_intent == INTENT_HARM)
+		..(user, TRUE)
+		visible_message("<span class='warning'>[user] destroys the operating table!</span>")
 		qdel(src)
-	return
+		return TRUE
 
 /obj/machinery/optable/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0) return 1
@@ -107,9 +108,9 @@
 	check_victim()
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
+			var/datum/reagents/R = C.reagents
 			for(var/chemical in injected_reagents)
-				if(C.reagents.get_reagent_amount(chemical) < 1)
-					C.reagents.add_reagent(chemical, 1)
+				R.check_and_add(chemical,reagent_target_amount,inject_amount)
 
 /obj/machinery/optable/proc/take_victim(mob/living/carbon/C, mob/living/carbon/user as mob)
 	if(C == user)
@@ -121,6 +122,8 @@
 	C.forceMove(loc)
 	if(user.pulling == C)
 		user.stop_pulling()
+	if(C.s_active) //Close the container opened
+		C.s_active.close(C)
 	for(var/obj/O in src)
 		O.loc = src.loc
 	src.add_fingerprint(user)
@@ -143,19 +146,20 @@
 
 	take_victim(usr,usr)
 
-/obj/machinery/optable/attackby(obj/item/weapon/W as obj, mob/living/carbon/user as mob, params)
-	if(istype(W, /obj/item/weapon/grab))
-		if(iscarbon(W:affecting))
-			take_victim(W:affecting,usr)
-			qdel(W)
-			return
-	if(istype(W, /obj/item/weapon/wrench))
-		playsound(src.loc, W.usesound, 50, 1)
-		if(do_after(user, 20 * W.toolspeed, target = src))
+/obj/machinery/optable/attackby(obj/item/I, mob/living/carbon/user, params)
+	if(istype(I, /obj/item/grab))
+		var/obj/item/grab/G = I
+		if(iscarbon(G.affecting))
+			take_victim(G.affecting, user)
+			qdel(G)
+	if(iswrench(I))
+		playsound(loc, I.usesound, 50, 1)
+		if(do_after(user, 20 * I.toolspeed, target = src))
 			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
 			new /obj/item/stack/sheet/plasteel(loc, 5)
 			qdel(src)
-
+	else
+		return ..()
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
 	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)

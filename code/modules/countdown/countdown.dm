@@ -28,13 +28,13 @@
 
 /obj/effect/countdown/proc/start()
 	if(!started)
-		fast_processing += src
+		GLOB.fast_processing += src
 		started = TRUE
 
 /obj/effect/countdown/proc/stop()
 	if(started)
 		maptext = null
-		fast_processing -= src
+		GLOB.fast_processing -= src
 		started = FALSE
 
 /obj/effect/countdown/proc/get_value()
@@ -42,7 +42,7 @@
 	return
 
 /obj/effect/countdown/process()
-	if(!attached_to || qdeleted(attached_to))
+	if(!attached_to || QDELETED(attached_to))
 		qdel(src)
 	forceMove(get_turf(attached_to))
 	var/new_val = get_value()
@@ -57,7 +57,7 @@
 
 /obj/effect/countdown/Destroy()
 	attached_to = null
-	fast_processing -= src
+	GLOB.fast_processing -= src
 	return ..()
 
 /obj/effect/countdown/ex_act(severity) //immune to explosions

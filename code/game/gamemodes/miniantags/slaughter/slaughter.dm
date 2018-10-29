@@ -29,6 +29,7 @@
 	health = 200
 	environment_smash = 1
 	//universal_understand = 1
+	obj_damage = 50
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	see_in_dark = 8
@@ -57,6 +58,7 @@
 
 /mob/living/simple_animal/slaughter/New()
 	..()
+	remove_from_all_data_huds()
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
 	whisper_action = new()
@@ -80,7 +82,7 @@
 			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
 
 
-/mob/living/simple_animal/slaughter/Life()
+/mob/living/simple_animal/slaughter/Life(seconds, times_fired)
 	..()
 	if(boost<world.time)
 		speed = 1
@@ -94,10 +96,15 @@
 	desc = "A repulsive pile of guts and gore."
 
 /mob/living/simple_animal/slaughter/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..()
+	if(!.)
+		return FALSE
 	for(var/mob/living/M in consumed_mobs)
-		M.forceMove(get_turf(src))
-	..()
+		release_consumed(M)
 
+/mob/living/simple_animal/slaughter/proc/release_consumed(mob/living/M)
+	M.forceMove(get_turf(src))
 
 /mob/living/simple_animal/slaughter/phasein()
 	. = ..()
@@ -113,7 +120,7 @@
 	health = 500
 	melee_damage_upper = 60
 	melee_damage_lower = 60
-	environment_smash = 3 //Smashes through EVERYTHING - r-walls included
+	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
 	faction = list("cult")
 	playstyle_string = "<b><span class='userdanger'>You are a Harbringer of the Slaughter.</span> Brought forth by the servants of Nar-Sie, you have a single purpose: slaughter the heretics \
 	who do not worship your master. You may use the ability 'Blood Crawl' near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \
@@ -134,7 +141,7 @@
 
 /obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets)
 	var/list/victims = targets
-	for(var/mob/living/L in living_mob_list)
+	for(var/mob/living/L in GLOB.living_mob_list)
 		if(!L.stat && !iscultist(L) && L.key && L != usr)
 			victims.Add(L)
 	if(!targets.len)
@@ -147,7 +154,7 @@
 	if(!A)
 		to_chat(usr, "<span class='warning'>You could not locate any sapient heretics for the Slaughter.</span>")
 		return 0
-	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show them the error of their ways.</b></span>")
+	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
 
 /mob/living/simple_animal/slaughter/cult/New()
 	..()
@@ -215,10 +222,10 @@
 	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
-	log_say("Slaughter Demon Transmit: [key_name(usr)]->[key_name(choice)]: [msg]")
+	log_say("(SLAUGHTER to [key_name(choice)]) [msg]", usr)
 	to_chat(usr, "<span class='info'><b>You whisper to [choice]: </b>[msg]</span>")
 	to_chat(choice, "<span class='deadsay'><b>Suddenly a strange, demonic voice resonates in your head... </b></span><i><span class='danger'> [msg]</span></I>")
-	for(var/mob/dead/observer/G in player_list)
+	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message("<i>Demonic message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")
 
 
@@ -239,7 +246,7 @@
 	return // Just so people don't accidentally waste it
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] raises [src] to their mouth and tears into it with their teeth!</span>", \
+	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/Demon_consume.ogg', 50, 1)
 	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
@@ -295,13 +302,12 @@
 	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 
-/mob/living/simple_animal/slaughter/laughter/death(gibbed)
-	for(var/mob/living/M in consumed_mobs)
-		if(M.revive())
-			M.grab_ghost(force = TRUE)
-			playsound(get_turf(src), feast_sound, 50, 1, -1)
-			to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
-	..()
+/mob/living/simple_animal/slaughter/laughter/release_consumed(mob/living/M)
+	if(M.revive())
+		M.grab_ghost(force = TRUE)
+		playsound(get_turf(src), feast_sound, 50, 1, -1)
+		to_chat(M, "<span class='clown'>You leave the [src]'s warm embrace, and feel ready to take on the world.</span>")
+	..(M)
 
 
 //Objectives and helpers.

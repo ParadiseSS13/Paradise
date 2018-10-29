@@ -87,7 +87,7 @@
 	desc = "A .45 rubber bullet casing."
 	caliber = ".45"
 	icon_state = "r-casing"
-	projectile_type = /obj/item/projectile/bullet/weakbullet4
+	projectile_type = /obj/item/projectile/bullet/midbullet_r
 
 /obj/item/ammo_casing/c45
 	desc = "A .45 bullet casing."
@@ -242,11 +242,11 @@
 	name = "shotgun dart"
 	desc = "A dart for use in shotguns. Can be injected with up to 30 units of any chemical."
 	icon_state = "cshell"
+	container_type = OPENCONTAINER
 	projectile_type = /obj/item/projectile/bullet/dart
 
 /obj/item/ammo_casing/shotgun/dart/New()
 	..()
-	flags |= OPENCONTAINER
 	create_reagents(30)
 
 /obj/item/ammo_casing/shotgun/dart/attackby()
@@ -334,11 +334,11 @@
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if(istype(A, /obj/item/weapon/screwdriver) && !modified)
+	if(istype(A, /obj/item/screwdriver) && !modified)
 		modified = 1
 		FD.damage_type = BRUTE
 		update_icon()
-	else if((istype(A, /obj/item/weapon/pen)) && modified && !FD.pen)
+	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		A.loc = FD

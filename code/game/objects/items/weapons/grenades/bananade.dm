@@ -1,7 +1,7 @@
 
 var/turf/T
 
-/obj/item/weapon/grenade/bananade
+/obj/item/grenade/bananade
 	name = "bananade"
 	desc = "A yellow grenade."
 	w_class = WEIGHT_CLASS_SMALL
@@ -9,9 +9,9 @@ var/turf/T
 	icon_state = "banana"
 	item_state = "flashbang"
 	var/deliveryamt = 8
-	var/spawner_type = /obj/item/weapon/grown/bananapeel
+	var/spawner_type = /obj/item/grown/bananapeel
 
-/obj/item/weapon/grenade/bananade/prime()
+/obj/item/grenade/bananade/prime()
 	if(spawner_type && deliveryamt)
 		// Make a quick flash
 		var/turf/T = get_turf(src)
@@ -30,24 +30,24 @@ var/turf/T
 	qdel(src)
 	return
 
-/obj/item/weapon/grenade/bananade/casing
+/obj/item/grenade/bananade/casing
 	name = "bananium casing"
 	desc = "A grenade casing made of bananium."
 	icon_state = "banana_casing"
 	var/fillamt = 0
 
 
-/obj/item/weapon/grenade/bananade/casing/attackby(var/obj/item/I, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/grown/bananapeel))
+/obj/item/grenade/bananade/casing/attackby(var/obj/item/I, mob/user as mob, params)
+	if(istype(I, /obj/item/grown/bananapeel))
 		if(fillamt < 9)
 			to_chat(usr, "<span  class='notice'>You add another banana peel to the assembly.</span>")
 			fillamt += 1
 			qdel(I)
 		else
 			to_chat(usr, "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>")
-	if(istype(I, /obj/item/weapon/screwdriver))
+	if(istype(I, /obj/item/screwdriver))
 		if(fillamt)
-			var/obj/item/weapon/grenade/bananade/G = new /obj/item/weapon/grenade/bananade
+			var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
 			user.unEquip(src)
 			user.put_in_hands(G)
 			G.deliveryamt = src.fillamt

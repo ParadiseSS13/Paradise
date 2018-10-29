@@ -4,11 +4,11 @@
 	var/team = 0
 
 /obj/machinery/abductor/New()
-	abductor_equipment.Add(src)
+	GLOB.abductor_equipment.Add(src)
 	..()
 
 /obj/machinery/abductor/Destroy()
-	abductor_equipment.Remove(src)
+	GLOB.abductor_equipment.Remove(src)
 	return ..()
 
 //Console
@@ -20,14 +20,14 @@
 	icon_state = "console"
 	density = TRUE
 	anchored = TRUE
-	var/obj/item/device/abductor/gizmo/gizmo
+	var/obj/item/abductor/gizmo/gizmo
 	var/obj/item/clothing/suit/armor/abductor/vest/vest
 	var/obj/machinery/abductor/experiment/experiment
 	var/obj/machinery/abductor/pad/pad
 	var/obj/machinery/computer/camera_advanced/abductor/camera
 	var/list/datum/icon_snapshot/disguises = list()
 
-/obj/machinery/abductor/console/initialize()
+/obj/machinery/abductor/console/Initialize()
 	..()
 	Link_Abduction_Equipment()
 
@@ -54,21 +54,22 @@
 		dat += "<a href='?src=[UID()];dispense=vest'>Agent Vest</A><br>"
 		dat += "<a href='?src=[UID()];dispense=silencer'>Radio Silencer</A><br>"
 		dat += "<a href='?src=[UID()];dispense=tool'>Science Tool</A><br>"
+		dat += "<a href='?src=[UID()];dispense=mind_device'>Mental Interface Device</A><br>"
 	else
 		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
 
-	if(pad!=null)
+	if(pad)
 		dat += "<span class='bad'>Emergency Teleporter System.</span>"
 		dat += "<span class='bad'>Consider using primary observation console first.</span>"
 		dat += "<a href='?src=[UID()];teleporter_send=1'>Activate Teleporter</A><br>"
-		if(gizmo!=null && gizmo.marked!=null)
+		if(gizmo && gizmo.marked)
 			dat += "<a href='?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</A><br>"
 		else
 			dat += "<span class='linkOff'>Retrieve Mark</span><br>"
 	else
 		dat += "<span class='bad'>NO TELEPAD DETECTED</span></br>"
 
-	if(vest!=null)
+	if(vest)
 		dat += "<h4> Agent Vest Mode </h4><br>"
 		var/mode = vest.mode
 		if(mode == VEST_STEALTH)
@@ -100,34 +101,37 @@
 	else if(href_list["flip_vest"])
 		FlipVest()
 	else if(href_list["toggle_vest"])
-		toggle_vest()
+		if(vest)
+			vest.toggle_nodrop()
 	else if(href_list["select_disguise"])
 		SelectDisguise()
 	else if(href_list["dispense"])
 		switch(href_list["dispense"])
 			if("baton")
-				Dispense(/obj/item/weapon/abductor_baton,cost=2)
+				Dispense(/obj/item/abductor_baton, cost = 2)
 			if("helmet")
 				Dispense(/obj/item/clothing/head/helmet/abductor)
 			if("silencer")
-				Dispense(/obj/item/device/abductor/silencer)
+				Dispense(/obj/item/abductor/silencer)
 			if("tool")
-				Dispense(/obj/item/device/abductor/gizmo)
+				Dispense(/obj/item/abductor/gizmo)
 			if("vest")
 				Dispense(/obj/item/clothing/suit/armor/abductor/vest)
+			if("mind_device")
+				Dispense(/obj/item/abductor/mind_device, cost = 2)
 	updateUsrDialog()
 
 
 /obj/machinery/abductor/console/proc/TeleporterRetrieve()
-	if(gizmo!=null && pad!=null && gizmo.marked)
+	if(pad && gizmo && gizmo.marked)
 		pad.Retrieve(gizmo.marked)
 
 /obj/machinery/abductor/console/proc/TeleporterSend()
-	if(pad!=null)
+	if(pad)
 		pad.Send()
 
 /obj/machinery/abductor/console/proc/FlipVest()
-	if(vest!=null)
+	if(vest)
 		vest.flip_mode()
 
 /obj/machinery/abductor/console/proc/SelectDisguise(remote = 0)
@@ -148,17 +152,17 @@
 
 /obj/machinery/abductor/console/proc/Link_Abduction_Equipment() // these must all be explicitly `in machines` or they will not properly link.
 
-	for(var/obj/machinery/abductor/pad/p in abductor_equipment)
+	for(var/obj/machinery/abductor/pad/p in GLOB.abductor_equipment)
 		if(p.team == team)
 			pad = p
 			break
 
-	for(var/obj/machinery/abductor/experiment/e in abductor_equipment)
+	for(var/obj/machinery/abductor/experiment/e in GLOB.abductor_equipment)
 		if(e.team == team)
 			experiment = e
 			e.console = src
 
-	for(var/obj/machinery/computer/camera_advanced/abductor/c in abductor_equipment)
+	for(var/obj/machinery/computer/camera_advanced/abductor/c in GLOB.abductor_equipment)
 		if(c.team == team)
 			camera = c
 			c.console = src
@@ -175,21 +179,36 @@
 		return
 	disguises[entry.name] = entry
 
+/obj/machinery/abductor/console/proc/AddGizmo(obj/item/abductor/gizmo/G)
+	if(G == gizmo && G.console == src)
+		return FALSE
+
+	if(G.console)
+		G.console.gizmo = null
+
+	gizmo = G
+	G.console = src
+	return TRUE
+
+/obj/machinery/abductor/console/proc/AddVest(obj/item/clothing/suit/armor/abductor/vest/V)
+	if(vest == V)
+		return FALSE
+
+	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+		if(C.vest == V)
+			C.vest = null
+			break
+
+	vest = V
+	return TRUE
+
 /obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/device/abductor/gizmo))
-		var/obj/item/device/abductor/gizmo/G = O
+	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
 		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
-		gizmo = G
-		G.console = src
-	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest))
-		var/obj/item/clothing/suit/armor/abductor/vest/V = O
+	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
 		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
-		if(istype(vest))
-			if(vest.flags & NODROP)
-				toggle_vest()
-		vest = V
 	else
-		..()
+		return ..()
 
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)
@@ -202,9 +221,3 @@
 			new item(src.loc)
 	else
 		atom_say("Insufficent data!")
-
-/obj/machinery/abductor/console/proc/toggle_vest()
-	vest.flags ^= NODROP
-	var/mob/M = vest.loc
-	if(istype(M))
-		to_chat(M, "<span class='notice'>[src] is now [vest.flags & NODROP ? "locked" : "unlocked"].</span>")

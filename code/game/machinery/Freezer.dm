@@ -5,41 +5,42 @@
 	density = 1
 	var/min_temperature = 0
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	current_heat_capacity = 1000
 	layer = 3
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/New()
 	..()
 	initialize_directions = dir
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/thermomachine(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/thermomachine(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/weapon/circuitboard/thermomachine(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(null)
+	component_parts += new /obj/item/circuitboard/thermomachine(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
+	component_parts += new /obj/item/stock_parts/console_screen(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/RefreshParts()
 	var/H
 	var/T
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		H += M.rating
-	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		T += M.rating
 	min_temperature = max(0,T0C - (170 + (T*15)))
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
@@ -56,9 +57,10 @@
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
 
-	if(istype(I, /obj/item/weapon/wrench))
+	if(iswrench(I))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
@@ -74,6 +76,8 @@
 				break
 		build_network()
 		update_icon()
+	else
+		return ..()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -99,7 +103,7 @@
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -136,7 +140,11 @@
 	if(href_list["toggleStatus"])
 		src.on = !src.on
 		update_icon()
-	if(href_list["temp"])
+	else if(href_list["minimum"])
+		current_temperature = min_temperature
+	else if(href_list["maximum"])
+		current_temperature = T20C
+	else if(href_list["temp"])
 		var/amount = text2num(href_list["temp"])
 		if(amount > 0)
 			src.current_temperature = min(T20C, src.current_temperature+amount)
@@ -159,37 +167,37 @@
 	var/max_temperature = 0
 	anchored = 1.0
 	layer = 3
-
 	current_heat_capacity = 1000
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/New()
 	..()
 	initialize_directions = dir
-	var/obj/item/weapon/circuitboard/thermomachine/H = new /obj/item/weapon/circuitboard/thermomachine(null)
+	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 	H.name = "circuit board (Heater)"
 	component_parts = list()
 	component_parts += H
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin(src)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/stock_parts/matter_bin(src)
+	component_parts += new /obj/item/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/stock_parts/micro_laser(src)
+	component_parts += new /obj/item/stock_parts/console_screen(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded/New()
 	..()
-	var/obj/item/weapon/circuitboard/thermomachine/H = new /obj/item/weapon/circuitboard/thermomachine(null)
+	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 	H.name = "circuit board (Heater)"
 	component_parts = list()
 	component_parts += H
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
-	component_parts += new /obj/item/weapon/stock_parts/matter_bin/super(src)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(src)
-	component_parts += new /obj/item/weapon/stock_parts/micro_laser/ultra(src)
-	component_parts += new /obj/item/weapon/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(src)
+	component_parts += new /obj/item/stock_parts/micro_laser/ultra(src)
+	component_parts += new /obj/item/stock_parts/console_screen(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
@@ -199,9 +207,9 @@
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/RefreshParts()
 	var/H
 	var/T
-	for(var/obj/item/weapon/stock_parts/matter_bin/M in component_parts)
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
 		H += M.rating
-	for(var/obj/item/weapon/stock_parts/micro_laser/M in component_parts)
+	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		T += M.rating
 	max_temperature = T20C + (140 * T)
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
@@ -215,9 +223,10 @@
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
 
-	if(istype(I, /obj/item/weapon/wrench))
+	if(iswrench(I))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 			return
@@ -233,6 +242,8 @@
 				break
 		build_network()
 		update_icon()
+	else
+		return ..()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)
@@ -257,7 +268,7 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -292,7 +303,11 @@
 	if(href_list["toggleStatus"])
 		src.on = !src.on
 		update_icon()
-	if(href_list["temp"])
+	else if(href_list["minimum"])
+		current_temperature = T20C
+	else if(href_list["maximum"])
+		current_temperature = max_temperature + T20C
+	else if(href_list["temp"])
 		var/amount = text2num(href_list["temp"])
 		if(amount > 0)
 			src.current_temperature = min((T20C+max_temperature), src.current_temperature+amount)

@@ -18,7 +18,7 @@
 	light_color = LIGHT_COLOR_DARKGREEN
 
 	req_access = list(access_tcomsat)
-	circuit = /obj/item/weapon/circuitboard/comm_traffic
+	circuit = /obj/item/circuitboard/comm_traffic
 
 /obj/machinery/computer/telecomms/traffic/attack_hand(mob/user)
 	interact(user)
@@ -117,6 +117,7 @@
 						function compileCode() {
 							var codeText = cMirror_fSubmit.getValue();
 							document.getElementById("cMirrorPost").value = codeText;
+							document.getElementById("cMirrorPostList").value = JSON.stringify(codeText.split(''));
 							document.getElementById("theform").submit();
 						}
 
@@ -135,6 +136,7 @@
 						<input type="hidden" name="choice" value="Compile">
 						<input type="hidden" name="src" value="[UID()]">
 						<input type="hidden" id="cMirrorPost" name="cMirror" value="">
+						<input type="hidden" id="cMirrorPostList" name="cMirrorList" value="">
 					</form>
 					"}
 		else
@@ -189,6 +191,10 @@
 	if(code)
 		storedcode = code
 
+	var/list/codelist = href_list["cMirrorList"]
+	if(istext(codelist))
+		codelist = json_decode(codelist)
+
 	add_fingerprint(user)
 	user.set_machine(src)
 
@@ -198,14 +204,14 @@
 
 	switch(href_list["choice"])
 		if("Compile")
-			if(!code)
+			if(!istype(codelist))
 				return 0
 			if(user != editingcode)
 				return 0 //only one editor
 
 			if(SelectedServer)
 				var/obj/machinery/telecomms/server/Server = SelectedServer
-				Server.setcode(code)
+				Server.setcode(codelist)
 
 				spawn(0)
 					// Output all the compile-time errors
@@ -234,7 +240,7 @@
 					updateUsrDialog()
 
 					for(var/obj/machinery/telecomms/server/Server in servers)
-						Server.setcode(code)
+						Server.setcode(codelist)
 						var/list/compileerrors = Server.compile(user)
 						if(!telecomms_check(user))
 							return
@@ -295,7 +301,7 @@
 
 			if("scan")
 				if(servers.len > 0)
-					temp = "<font color = #D70B00>- FAILED: CANNOT PROBE WHEN BUFFER FULL -</font color>"
+					temp = "<font color = #D70B00>- FAILED: CANNOT PROBE WHEN BUFFER FULL -</font>"
 
 				else
 					for(var/obj/machinery/telecomms/server/T in range(25, src))
@@ -303,9 +309,9 @@
 							servers.Add(T)
 
 					if(!servers.len)
-						temp = "<font color = #D70B00>- FAILED: UNABLE TO LOCATE SERVERS IN \[[network]\] -</font color>"
+						temp = "<font color = #D70B00>- FAILED: UNABLE TO LOCATE SERVERS IN \[[network]\] -</font>"
 					else
-						temp = "<font color = #336699>- [servers.len] SERVERS PROBED & BUFFERED -</font color>"
+						temp = "<font color = #336699>- [servers.len] SERVERS PROBED & BUFFERED -</font>"
 
 					screen = 0
 
@@ -327,26 +333,26 @@
 
 		if(newnet && canAccess(user))
 			if(length(newnet) > 15)
-				temp = "<font color = #D70B00>- FAILED: NETWORK TAG STRING TOO LENGHTLY -</font color>"
+				temp = "<font color = #D70B00>- FAILED: NETWORK TAG STRING TOO LENGHTLY -</font>"
 
 			else
 
 				network = newnet
 				screen = 0
 				servers = list()
-				temp = "<font color = #336699>- NEW NETWORK TAG SET IN ADDRESS \[[network]\] -</font color>"
+				temp = "<font color = #336699>- NEW NETWORK TAG SET IN ADDRESS \[[network]\] -</font>"
 
 	updateUsrDialog()
 
-/obj/machinery/computer/telecomms/traffic/attackby(var/obj/item/weapon/D as obj, var/mob/user as mob, params)
-	if(istype(D, /obj/item/weapon/screwdriver))
+/obj/machinery/computer/telecomms/traffic/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+	if(istype(D, /obj/item/screwdriver))
 		playsound(get_turf(src), D.usesound, 50, 1)
 		if(do_after(user, 20 * D.toolspeed, target = src))
 			if(src.stat & BROKEN)
 				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/weapon/shard(loc)
-				var/obj/item/weapon/circuitboard/comm_traffic/M = new /obj/item/weapon/circuitboard/comm_traffic( A )
+				new /obj/item/shard(loc)
+				var/obj/item/circuitboard/comm_traffic/M = new /obj/item/circuitboard/comm_traffic( A )
 				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M
@@ -357,7 +363,7 @@
 			else
 				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/weapon/circuitboard/comm_traffic/M = new /obj/item/weapon/circuitboard/comm_traffic( A )
+				var/obj/item/circuitboard/comm_traffic/M = new /obj/item/circuitboard/comm_traffic( A )
 				for(var/obj/C in src)
 					C.loc = src.loc
 				A.circuit = M

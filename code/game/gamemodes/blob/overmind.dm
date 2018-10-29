@@ -36,7 +36,7 @@
 	updateallghostimages()
 	..()
 
-/mob/camera/blob/Life()
+/mob/camera/blob/Life(seconds, times_fired)
 	if(!blob_core)
 		qdel(src)
 	..()
@@ -88,7 +88,7 @@
 	blob_talk(message)
 
 /mob/camera/blob/proc/blob_talk(message)
-	log_say("[key_name(src)] : [message]")
+	log_say("(BLOB) [message]", src)
 
 	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 
@@ -98,7 +98,7 @@
 	var/verb = "states,"
 	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
-	for(var/mob/M in mob_list)
+	for(var/mob/M in GLOB.mob_list)
 		if(isovermind(M) || isobserver(M))
 			M.show_message(rendered, 2)
 

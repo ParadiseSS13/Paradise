@@ -30,7 +30,7 @@
 	dat += "<h2 ALIGN=CENTER>SpiderOS v.1.337</h2>"
 	dat += "Welcome, <b>[U.real_name]</b>.<br>"
 	dat += "<br>"
-	dat += "<img src=sos_10.png> Current Time: [worldtime2text()]<br>"
+	dat += "<img src=sos_10.png> Current Time: [station_time_timestamp()]<br>"
 	dat += "<img src=sos_9.png> Battery Life: [round(cell.charge/100)]%<br>"
 	dat += "<img src=sos_11.png> Smoke Bombs: \Roman [s_bombs]<br>"
 	dat += "<br><br>"
@@ -101,7 +101,7 @@
 			dat += "<h4><img src=sos_6.png> Detected PDAs:</h4>"
 			dat += "<ul>"
 			var/count = 0
-			for(var/obj/item/device/pda/P in get_viewable_pdas())
+			for(var/obj/item/pda/P in get_viewable_pdas())
 				dat += "<li><a href='byond://?src=[UID()];choice=Message;target=\ref[P]'>[P]</a>"
 				dat += "</li>"
 				count++
@@ -210,7 +210,7 @@
 				spideros = round(spideros/10)//Best way to do this, flooring to nearest integer.
 
 		if("Message")
-			var/obj/item/device/pda/P = locate(href_list["target"])
+			var/obj/item/pda/P = locate(href_list["target"])
 			var/t = input(U, "Please enter untraceable message.") as text
 			t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
 			if(!t||U.stat||U.wear_suit!=src||!s_initialized)//Wow, another one of these. Man...

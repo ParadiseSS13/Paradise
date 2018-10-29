@@ -69,7 +69,7 @@
 	P.failchance = 0
 	P.icon_state = "anom"
 	P.name = "wormhole"
-	message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[chassis.occupant]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[chassis.occupant]'>FLW</A>) used a Wormhole Generator in ([loc.x],[loc.y],[loc.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)",0,1)
+	message_admins("[key_name_admin(chassis.occupant, chassis.occupant.client)]([ADMIN_QUE(chassis.occupant,"?")]) ([ADMIN_FLW(chassis.occupant,"FLW")]) used a Wormhole Generator in ([loc.x],[loc.y],[loc.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[loc.x];Y=[loc.y];Z=[loc.z]'>JMP</a>)",0,1)
 	log_game("[key_name(chassis.occupant)] used a Wormhole Generator in ([loc.x],[loc.y],[loc.z])")
 	src = null
 	spawn(rand(150,300))
@@ -125,7 +125,7 @@
 						step_away(A,target)
 						sleep(2)
 			var/turf/T = get_turf(target)
-			log_game("[chassis.occupant.ckey]([chassis.occupant]) used a Gravitational Catapult in ([T.x],[T.y],[T.z])")
+			log_game("[key_name(chassis.occupant)] used a Gravitational Catapult in ([T.x],[T.y],[T.z])")
 			return 1
 
 

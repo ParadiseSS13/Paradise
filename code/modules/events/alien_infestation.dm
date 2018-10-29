@@ -24,7 +24,7 @@
 			var/obj/vent = pick_n_take(vents)
 			var/mob/C = pick_n_take(candidates)
 			if(C)
-				respawnable_list -= C.client
+				GLOB.respawnable_list -= C.client
 				var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 				new_xeno.key = C.key
 				if(ticker && ticker.mode)

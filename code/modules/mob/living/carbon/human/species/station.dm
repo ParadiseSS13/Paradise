@@ -3,14 +3,13 @@
 	name_plural = "Humans"
 	icobase = 'icons/mob/human_races/r_human.dmi'
 	deform = 'icons/mob/human_races/r_def_human.dmi'
-	primitive_form = "Monkey"
-	path = /mob/living/carbon/human/human
+	primitive_form = /datum/species/monkey
 	language = "Sol Common"
 	species_traits = list(LIPS, CAN_BE_FAT)
+	skinned_type = /obj/item/stack/sheet/animalhide/human
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
-	unarmed_type = /datum/unarmed_attack/punch
 	blurb = "Humanity originated in the Sol system, and over the last five centuries has spread \
 	colonies across a wide swathe of space. They hold a wide range of forms and creeds.<br/><br/> \
 	While the central Sol government maintains control of its far-flung people, powerful corporate \
@@ -25,12 +24,11 @@
 	name_plural = "Unathi"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	deform = 'icons/mob/human_races/r_def_lizard.dmi'
-	path = /mob/living/carbon/human/unathi
-	default_language = "Galactic Common"
 	language = "Sinta'unathi"
 	tail = "sogtail"
+	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	unarmed_type = /datum/unarmed_attack/claws
-	primitive_form = "Stok"
+	primitive_form = /datum/species/monkey/unathi
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -58,6 +56,7 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
+	brute_mod = 1.05
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart,
@@ -78,6 +77,38 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
+	var/datum/action/innate/tail_lash/lash = new()
+
+
+/datum/species/unathi/handle_post_spawn(var/mob/living/carbon/human/H)
+	lash.Grant(H)
+	..()
+
+/datum/action/innate/tail_lash
+	name = "Tail lash"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "tail"
+
+/datum/action/innate/tail_lash/Activate()
+	var/mob/living/carbon/human/user = owner
+	if(!user.restrained() || !user.buckled)
+		to_chat(user, "<span class='warning'>You need freedom of movement to tail lash!</span>")
+		return
+	if(user.getStaminaLoss() >= 50)
+		to_chat(user, "<span class='warning'>Rest before tail lashing again!</span>")
+		return
+	for(var/mob/living/carbon/human/C in orange(1))
+		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
+		if(E)
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.visible_message("<span class='danger'>[src] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
+			user.adjustStaminaLoss(15)
+			C.apply_damage(5, BRUTE, E)
+			user.spin(20, 1)
+			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
+
+
+
 /datum/species/unathi/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
@@ -86,10 +117,9 @@
 	name_plural = "Tajaran"
 	icobase = 'icons/mob/human_races/r_tajaran.dmi'
 	deform = 'icons/mob/human_races/r_def_tajaran.dmi'
-	path = /mob/living/carbon/human/tajaran
-	default_language = "Galactic Common"
 	language = "Siik'tajr"
 	tail = "tajtail"
+	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "The Tajaran race is a species of feline-like bipeds hailing from the planet of Ahdomai in the \
@@ -106,7 +136,7 @@
 	heat_level_2 = 380
 	heat_level_3 = 440
 
-	primitive_form = "Farwa"
+	primitive_form = /datum/species/monkey/tajaran
 
 	species_traits = list(LIPS, CAN_BE_FAT)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
@@ -146,11 +176,10 @@
 	name_plural = "Vulpkanin"
 	icobase = 'icons/mob/human_races/r_vulpkanin.dmi'
 	deform = 'icons/mob/human_races/r_vulpkanin.dmi'
-	path = /mob/living/carbon/human/vulpkanin
-	default_language = "Galactic Common"
 	language = "Canilunzt"
-	primitive_form = "Wolpin"
+	primitive_form = /datum/species/monkey/vulpkanin
 	tail = "vulptail"
+	skinned_type = /obj/item/stack/sheet/fur
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Vulpkanin are a species of sharp-witted canine-pideds residing on the planet Altam just barely within the \
@@ -163,6 +192,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
+	hunger_drain = 0.11
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
 	flesh_color = "#966464"
@@ -199,11 +229,8 @@
 	name_plural = "Skrell"
 	icobase = 'icons/mob/human_races/r_skrell.dmi'
 	deform = 'icons/mob/human_races/r_def_skrell.dmi'
-	path = /mob/living/carbon/human/skrell
-	default_language = "Galactic Common"
 	language = "Skrellian"
-	primitive_form = "Neara"
-	unarmed_type = /datum/unarmed_attack/punch
+	primitive_form = /datum/species/monkey/skrell
 
 	blurb = "An amphibious species, Skrell come from the star system known as Qerr'Vallis, which translates to 'Star of \
 	the royals' or 'Light of the Crown'.<br/><br/>Skrell are a highly advanced and logical race who live under the rule \
@@ -249,9 +276,6 @@
 	name_plural = "Vox"
 	icobase = 'icons/mob/human_races/vox/r_vox.dmi'
 	deform = 'icons/mob/human_races/vox/r_def_vox.dmi'
-	path = /mob/living/carbon/human/vox
-
-	default_language = "Galactic Common"
 	language = "Vox-pidgin"
 	tail = "voxtail"
 	speech_sounds = list('sound/voice/shriek1.ogg')
@@ -316,7 +340,7 @@
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
-		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
+		"stack" =    /obj/item/organ/internal/stack //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
@@ -329,16 +353,6 @@
 /datum/species/vox/handle_death(var/mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
-/datum/species/vox/makeName(var/gender,var/mob/living/carbon/human/H=null)
-	var/sounds = rand(2,8)
-	var/i = 0
-	var/newname = ""
-
-	while(i<=sounds)
-		i++
-		newname += pick(vox_name_syllables)
-	return capitalize(newname)
-
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
@@ -347,9 +361,9 @@
 	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	if(tank_pref)//Diseasel, here you go
-		H.equip_or_collect(new /obj/item/weapon/tank/nitrogen(H), slot_l_hand)
+		H.equip_or_collect(new /obj/item/tank/nitrogen(H), slot_l_hand)
 	else
-		H.equip_or_collect(new /obj/item/weapon/tank/emergency_oxygen/vox(H), slot_l_hand)
+		H.equip_or_collect(new /obj/item/tank/emergency_oxygen/vox(H), slot_l_hand)
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from the [H.l_hand] in your hand. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")
 	H.internal = H.l_hand
 	H.update_action_buttons_icon()
@@ -361,7 +375,7 @@
 	..()
 
 /datum/species/vox/updatespeciescolor(var/mob/living/carbon/human/H, var/owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
-	if(H.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
+	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
 		var/new_deform = 'icons/mob/human_races/vox/r_def_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
@@ -409,7 +423,6 @@
 	name_plural = "Vox Armalis"
 	icobase = 'icons/mob/human_races/r_armalis.dmi'
 	deform = 'icons/mob/human_races/r_armalis.dmi'
-	path = /mob/living/carbon/human/voxarmalis
 	unarmed_type = /datum/unarmed_attack/claws/armalis
 
 	warning_low_pressure = 50
@@ -447,7 +460,7 @@
 		"kidneys" =  /obj/item/organ/internal/kidneys,
 		"brain" =    /obj/item/organ/internal/brain,
 		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
-		"stack" =    /obj/item/organ/internal/stack/vox //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
+		"stack" =    /obj/item/organ/internal/stack //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
@@ -465,8 +478,6 @@
 	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
-	path = /mob/living/carbon/human/kidan
-	default_language = "Galactic Common"
 	language = "Chittin"
 	unarmed_type = /datum/unarmed_attack/claws
 
@@ -507,12 +518,9 @@
 /datum/species/slime
 	name = "Slime People"
 	name_plural = "Slime People"
-	default_language = "Galactic Common"
 	language = "Bubblish"
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	deform = 'icons/mob/human_races/r_slime.dmi'
-	path = /mob/living/carbon/human/slime
-	unarmed_type = /datum/unarmed_attack/punch
 	remains_type = /obj/effect/decal/remains/slime
 
 	// More sensitive to the cold
@@ -549,12 +557,28 @@
 		"is ripping out their own core!",
 		"is turning a dull, brown color and melting into a puddle!")
 
-	var/list/mob/living/carbon/human/recolor_list = list()
+	var/reagent_skin_coloring = FALSE
+
+	var/datum/action/innate/regrow/grow = new()
 
 	species_abilities = list(
 		/mob/living/carbon/human/verb/toggle_recolor_verb,
 		/mob/living/carbon/human/proc/regrow_limbs
 		)
+
+/datum/species/slime/handle_post_spawn(var/mob/living/carbon/human/H)
+	grow.Grant(H)
+	..()
+
+/datum/action/innate/regrow
+	name = "Regrow limbs"
+	icon_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "greenglow"
+
+/datum/action/innate/regrow/Activate()
+	var/mob/living/carbon/human/user = owner
+	user.regrow_limbs()
+
 
 /datum/species/slime/handle_life(var/mob/living/carbon/human/H)
 //This is allegedly for code "style". Like a plaid sweater?
@@ -562,7 +586,7 @@
 #define SLIMEPERSON_ICON_UPDATE_PERIOD 200 // 20 seconds
 #define SLIMEPERSON_BLOOD_SCALING_FACTOR 5 // Used to adjust how much of an effect the blood has on the rate of color change. Higher is slower.
 	// Slowly shifting to the color of the reagents
-	if((H in recolor_list) && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
+	if(reagent_skin_coloring && H.reagents.total_volume > SLIMEPERSON_COLOR_SHIFT_TRIGGER)
 		var/blood_amount = H.blood_volume
 		var/r_color = mix_color_from_reagents(H.reagents.reagent_list)
 		var/new_body_color = BlendRGB(r_color, H.skin_colour, (blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)/((blood_amount*SLIMEPERSON_BLOOD_SCALING_FACTOR)+(H.reagents.total_volume)))
@@ -570,7 +594,7 @@
 		if(world.time % SLIMEPERSON_ICON_UPDATE_PERIOD > SLIMEPERSON_ICON_UPDATE_PERIOD - 20) // The 20 is because this gets called every 2 seconds, from the mob controller
 			for(var/organname in H.bodyparts_by_name)
 				var/obj/item/organ/external/E = H.bodyparts_by_name[organname]
-				if(istype(E) && E.dna.species == "Slime People")
+				if(istype(E) && E.dna && istype(E.dna.species, /datum/species/slime))
 					E.sync_colour_to_human(H)
 			H.update_hair(0)
 			H.update_body()
@@ -580,19 +604,19 @@
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD
 #undef SLIMEPERSON_BLOOD_SCALING_FACTOR
 
-/mob/living/carbon/human/proc/toggle_recolor(var/silent = 0)
-	var/datum/species/slime/S = all_species[get_species()]
-	if(!istype(S))
+/mob/living/carbon/human/proc/toggle_recolor(silent = FALSE)
+	if(!isslimeperson(src))
 		if(!silent)
 			to_chat(src, "You're not a slime person!")
 		return
 
-	if(src in S.recolor_list)
-		S.recolor_list -= src
+	var/datum/species/slime/S = dna.species
+	if(S.reagent_skin_coloring)
+		S.reagent_skin_coloring = TRUE
 		if(!silent)
 			to_chat(src, "You adjust your internal chemistry to filter out pigments from things you consume.")
 	else
-		S.recolor_list += src
+		S.reagent_skin_coloring = TRUE
 		if(!silent)
 			to_chat(src, "You adjust your internal chemistry to permit pigments in chemicals you consume to tint you.")
 
@@ -625,7 +649,7 @@
 	for(var/l in bodyparts_by_name)
 		var/obj/item/organ/external/E = bodyparts_by_name[l]
 		if(!istype(E))
-			var/list/limblist = species.has_limbs[l]
+			var/list/limblist = dna.species.has_limbs[l]
 			var/obj/item/organ/external/limb = limblist["path"]
 			var/parent_organ = initial(limb.parent_organ)
 			var/obj/item/organ/external/parentLimb = bodyparts_by_name[parent_organ]
@@ -640,7 +664,7 @@
 	var/limb_select = input(src, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
 	var/chosen_limb = missing_limbs[limb_select]
 
-	visible_message("<span class='notice'>[src] begins to hold still and concentrate on their missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
+	visible_message("<span class='notice'>[src] begins to hold still and concentrate on [p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
 	if(do_after(src, SLIMEPERSON_REGROWTHDELAY, needhand=0, target = src))
 		if(stat || paralysis || stunned)
 			to_chat(src, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
@@ -661,7 +685,7 @@
 			stored_burn = doomedStump.burn_dam
 			qdel(O)
 
-		var/limb_list = species.has_limbs[chosen_limb]
+		var/limb_list = dna.species.has_limbs[chosen_limb]
 		var/obj/item/organ/external/limb_path = limb_list["path"]
 		// Parent check
 		var/obj/item/organ/external/potential_parent = bodyparts_by_name[initial(limb_path.parent_organ)]
@@ -675,10 +699,10 @@
 		adjustBruteLoss(stored_brute)
 		adjustFireLoss(stored_burn)
 		update_body()
-		updatehealth()
+		updatehealth("slime person regrowth")
 		UpdateDamageIcon()
 		nutrition -= SLIMEPERSON_HUNGERCOST
-		visible_message("<span class='notice'>[src] finishes regrowing their missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
+		visible_message("<span class='notice'>[src] finishes regrowing [p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
 	else
 		to_chat(src, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")
 	return
@@ -687,9 +711,9 @@
 #undef SLIMEPERSON_MINHUNGER
 #undef SLIMEPERSON_REGROWTHDELAY
 
-/datum/species/slime/handle_pre_change(var/mob/living/carbon/human/H)
+/datum/species/slime/handle_pre_change(mob/living/carbon/human/H)
 	..()
-	if(H in recolor_list)
+	if(reagent_skin_coloring)
 		H.toggle_recolor(silent = 1)
 
 /datum/species/grey
@@ -697,9 +721,7 @@
 	name_plural = "Greys"
 	icobase = 'icons/mob/human_races/r_grey.dmi'
 	deform = 'icons/mob/human_races/r_def_grey.dmi'
-	default_language = "Galactic Common"
 	language = "Psionic Communication"
-	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "grey_eyes_s"
 	butt_sprite = "grey"
 
@@ -744,13 +766,17 @@
 	if(speech_pref)
 		H.mind.speech_span = "wingdings"
 
+/datum/species/grey/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "sacid")
+		H.reagents.del_reagent(R.id)
+		return 0
+	return ..()
+
 /datum/species/diona
 	name = "Diona"
 	name_plural = "Dionaea"
 	icobase = 'icons/mob/human_races/r_diona.dmi'
 	deform = 'icons/mob/human_races/r_def_plant.dmi'
-	path = /mob/living/carbon/human/diona
-	default_language = "Galactic Common"
 	language = "Rootspeak"
 	speech_sounds = list('sound/voice/dionatalk1.ogg') //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 	speech_chance = 20
@@ -781,8 +807,10 @@
 
 	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN)
 	clothing_flags = HAS_SOCKS
-	dietflags = 0		//Diona regenerate nutrition in light, no diet necessary
+	default_hair_colour = "#000000"
+	dietflags = 0		//Diona regenerate nutrition in light and water, no diet necessary
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
+	skinned_type = /obj/item/stack/sheet/wood
 
 	oxy_mod = 0
 
@@ -871,11 +899,9 @@
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
-	path = /mob/living/carbon/human/machine
-	default_language = "Galactic Common"
 	language = "Trinary"
-	unarmed_type = /datum/unarmed_attack/punch
 	remains_type = /obj/effect/decal/remains/robot
+	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
 	brute_mod = 2.5 // 100% * 2.5 * 0.6 (robolimbs) ~= 150%
@@ -941,6 +967,8 @@
 
 /datum/species/machine/handle_death(var/mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	if(!head_organ)
+		return
 	head_organ.h_style = "Bald"
 	head_organ.f_style = "Shaved"
 	spawn(100)
@@ -953,20 +981,17 @@
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
-	path = /mob/living/carbon/human/drask
-	default_language = "Galactic Common"
 	language = "Orluum"
-	unarmed_type = /datum/unarmed_attack/punch
 	eyes = "drask_eyes_s"
 
 	speech_sounds = list('sound/voice/DraskTalk.ogg')
 	speech_chance = 20
 	male_scream_sound = 'sound/voice/DraskTalk2.ogg'
 	female_scream_sound = 'sound/voice/DraskTalk2.ogg'
-	male_cough_sounds = null      //whale cough when
-	female_cough_sounds = null
-	male_sneeze_sound = null
-	female_sneeze_sound = null
+	male_cough_sounds = 'sound/voice/DraskCough.ogg'
+	female_cough_sounds = 'sound/voice/DraskCough.ogg'
+	male_sneeze_sound = 'sound/voice/DraskSneeze.ogg'
+	female_sneeze_sound = 'sound/voice/DraskSneeze.ogg'
 
 	burn_mod = 2
 	//exotic_blood = "cryoxadone"

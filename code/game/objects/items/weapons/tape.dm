@@ -3,6 +3,7 @@
 	desc = "A roll of sticky tape. Possibly for taping ducks... or was that ducts?"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "taperoll"
+	singular_name = "tape roll"
 	w_class = WEIGHT_CLASS_TINY
 	amount = 10
 	max_amount = 10
@@ -14,11 +15,11 @@
 
 /obj/item/stack/tape_roll/attack(mob/living/carbon/human/M as mob, mob/living/user as mob)
 	if(M.wear_mask)
-		to_chat(user, "Remove their mask first!")
+		to_chat(user, "Remove [M.p_their()] mask first!")
 	else if(amount < 2)
 		to_chat(user, "You'll need more tape for this!")
 	else if(!M.check_has_mouth())
-		to_chat(user, "They have no mouth to tape over!")
+		to_chat(user, "[M.p_they(TRUE)] [M.p_have()] no mouth to tape over!")
 	else
 		if(M == user)
 			to_chat(user, "You try to tape your own mouth shut.")
@@ -29,7 +30,7 @@
 			if(M == user)
 				to_chat(user, "You cover your own mouth with a piece of duct tape.")
 			else
-				to_chat(user, "You cover [M]'s mouth with a piece of duct tape. That will shut them up!")
+				to_chat(user, "You cover [M]'s mouth with a piece of duct tape. That will shut [M.p_them()] up!")
 				M.visible_message("<span class='warning'>[user] tapes [M]'s mouth shut!</span>")
 			var/obj/item/clothing/mask/muzzle/G = new /obj/item/clothing/mask/muzzle/tapegag
 			M.equip_to_slot(G, slot_wear_mask)
@@ -45,16 +46,16 @@
 /obj/item/stack/tape_roll/attack_self(mob/user as mob)
 	to_chat(user, "You remove a length of tape from [src].")
 
-	var/obj/item/weapon/ducttape/tape = new()
+	var/obj/item/ducttape/tape = new()
 	user.put_in_hands(tape)
 */
 
-/obj/item/stack/tape_roll/proc/stick(var/obj/item/weapon/W, mob/user)
-	if(!istype(W, /obj/item/weapon/paper))
+/obj/item/stack/tape_roll/proc/stick(var/obj/item/W, mob/user)
+	if(!istype(W, /obj/item/paper))
 		return
 
 	user.unEquip(W)
-	var/obj/item/weapon/ducttape/tape = new(get_turf(src))
+	var/obj/item/ducttape/tape = new(get_turf(src))
 	tape.attach(W)
 	user.put_in_hands(tape)
 
@@ -71,7 +72,7 @@
 	else
 		icon_state = "taperoll-4"
 
-/obj/item/weapon/ducttape
+/obj/item/ducttape
 	name = "tape"
 	desc = "A piece of sticky tape."
 	icon = 'icons/obj/bureaucracy.dmi'
@@ -80,23 +81,23 @@
 	layer = 4
 	anchored = 1 //it's sticky, no you cant move it
 
-	var/obj/item/weapon/stuck = null
+	var/obj/item/stuck = null
 
-/obj/item/weapon/ducttape/New()
+/obj/item/ducttape/New()
 	..()
 	flags |= NOBLUDGEON
 
-/obj/item/weapon/ducttape/examine(mob/user)
+/obj/item/ducttape/examine(mob/user)
 	return stuck.examine(user)
 
-/obj/item/weapon/ducttape/proc/attach(var/obj/item/weapon/W)
+/obj/item/ducttape/proc/attach(var/obj/item/W)
 	stuck = W
 	W.forceMove(src)
 	icon_state = W.icon_state + "_taped"
 	name = W.name + " (taped)"
 	overlays = W.overlays
 
-/obj/item/weapon/ducttape/attack_self(mob/user)
+/obj/item/ducttape/attack_self(mob/user)
 	if(!stuck)
 		return
 
@@ -109,7 +110,7 @@
 	overlays = null
 	qdel(src)
 
-/obj/item/weapon/ducttape/afterattack(var/A, mob/user, flag, params)
+/obj/item/ducttape/afterattack(var/A, mob/user, flag, params)
 	if(!in_range(user, A) || istype(A, /obj/machinery/door) || !stuck)
 		return
 

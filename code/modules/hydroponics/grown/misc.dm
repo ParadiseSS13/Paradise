@@ -34,7 +34,7 @@
 	icon_state = "seed-cabbage"
 	species = "cabbage"
 	plantname = "Cabbages"
-	product = /obj/item/weapon/reagent_containers/food/snacks/grown/cabbage
+	product = /obj/item/reagent_containers/food/snacks/grown/cabbage
 	lifespan = 50
 	endurance = 25
 	maturation = 3
@@ -46,7 +46,7 @@
 	mutatelist = list(/obj/item/seeds/replicapod)
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.1)
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/cabbage
+/obj/item/reagent_containers/food/snacks/grown/cabbage
 	seed = /obj/item/seeds/cabbage
 	name = "cabbage"
 	desc = "Ewwwwwwwwww. Cabbage."
@@ -62,7 +62,7 @@
 	icon_state = "seed-sugarcane"
 	species = "sugarcane"
 	plantname = "Sugarcane"
-	product = /obj/item/weapon/reagent_containers/food/snacks/grown/sugarcane
+	product = /obj/item/reagent_containers/food/snacks/grown/sugarcane
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	lifespan = 60
 	endurance = 50
@@ -71,7 +71,7 @@
 	growthstages = 3
 	reagents_add = list("sugar" = 0.25)
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/sugarcane
+/obj/item/reagent_containers/food/snacks/grown/sugarcane
 	seed = /obj/item/seeds/sugarcane
 	name = "sugarcane"
 	desc = "Sickly sweet."
@@ -87,7 +87,7 @@
 	icon_state = "seed-gatfruit"
 	species = "gatfruit"
 	plantname = "Gatfruit Tree"
-	product = /obj/item/weapon/reagent_containers/food/snacks/grown/shell/gatfruit
+	product = /obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	lifespan = 20
 	endurance = 20
@@ -100,13 +100,13 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	reagents_add = list("sulfur" = 0.1, "carbon" = 0.1, "nitrogen" = 0.07, "potassium" = 0.05)
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/shell/gatfruit
+/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 	seed = /obj/item/seeds/gatfruit
 	name = "gatfruit"
 	desc = "It smells like burning."
 	icon_state = "gatfruit"
 	origin_tech = "combat=6"
-	trash = /obj/item/weapon/gun/projectile/revolver
+	trash = /obj/item/gun/projectile/revolver
 	bitesize_mod = 2
 
 //Cherry Bombs
@@ -116,12 +116,12 @@
 	icon_state = "seed-cherry_bomb"
 	species = "cherry_bomb"
 	plantname = "Cherry Bomb Tree"
-	product = /obj/item/weapon/reagent_containers/food/snacks/grown/cherry_bomb
+	product = /obj/item/reagent_containers/food/snacks/grown/cherry_bomb
 	mutatelist = list()
 	reagents_add = list("plantmatter" = 0.1, "sugar" = 0.1, "blackpowder" = 0.7)
 	rarity = 60 //See above
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/cherry_bomb
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb
 	name = "cherry bombs"
 	desc = "You think you can hear the hissing of a tiny fuse."
 	icon_state = "cherry_bomb"
@@ -130,21 +130,21 @@
 	bitesize_mod = 2
 	volume = 125 //Gives enough room for the black powder at max potency
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/cherry_bomb/attack_self(mob/living/user)
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/attack_self(mob/living/user)
 	var/area/A = get_area(user)
 	user.visible_message("<span class='warning'>[user] plucks the stem from [src]!</span>", "<span class='userdanger'>You pluck the stem from [src], which begins to hiss loudly!</span>")
 	message_admins("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x], [user.y], [user.z]) <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>(JMP)</a>")
 	log_game("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x],[user.y],[user.z]).")
 	prime()
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/cherry_bomb/burn()
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/burn()
 	prime()
 	..()
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity)
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs
 
-/obj/item/weapon/reagent_containers/food/snacks/grown/cherry_bomb/proc/prime()
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/prime()
 	icon_state = "cherry_bomb_lit"
 	playsound(src, 'sound/goonstation/misc/fuse.ogg', seed.potency, 0)
 	reagents.chem_temp = 1000 //Sets off the black powder

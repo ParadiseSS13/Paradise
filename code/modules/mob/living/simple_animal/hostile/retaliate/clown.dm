@@ -22,6 +22,7 @@
 	melee_damage_upper = 10
 	attacktext = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
+	obj_damage = 0
 	environment_smash = 0
 	minbodytemp = 270
 	maxbodytemp = 370

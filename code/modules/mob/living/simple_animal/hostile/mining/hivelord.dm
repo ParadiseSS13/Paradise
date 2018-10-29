@@ -7,7 +7,7 @@
 	icon_aggro = "Hivelord_alert"
 	icon_dead = "Hivelord_dead"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 14
 	ranged = 1
 	vision_range = 5
@@ -17,6 +17,7 @@
 	maxHealth = 75
 	health = 75
 	harm_intent_damage = 5
+	obj_damage = 0
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	attacktext = "lashes out at"
@@ -45,8 +46,11 @@
 	OpenFire()
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/death(gibbed)
-	mouse_opacity = 1
-	..(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
+	mouse_opacity = MOUSE_OPACITY_ICON
 
 /obj/item/organ/internal/hivelord_core
 	name = "hivelord remains"
@@ -61,13 +65,15 @@
 
 /obj/item/organ/internal/hivelord_core/New()
 	..()
-	addtimer(src, "inert_check", 2400)
+	addtimer(CALLBACK(src, .proc/inert_check), 2400)
 
 /obj/item/organ/internal/hivelord_core/proc/inert_check()
-	if(!owner && !preserved)
-		go_inert()
-	else
+	if(owner)
 		preserved(implanted = 1)
+	else if(preserved)
+		preserved()
+	else
+		go_inert()
 
 /obj/item/organ/internal/hivelord_core/proc/preserved(implanted = 0)
 	inert = FALSE
@@ -129,7 +135,7 @@
 	icon_aggro = "Hivelordbrood"
 	icon_dead = "Hivelordbrood"
 	icon_gib = "syndicate_gib"
-	mouse_opacity = 2
+	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 1
 	friendly = "buzzes near"
 	vision_range = 10
@@ -150,7 +156,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/New()
 	..()
-	addtimer(src, "death", 100)
+	addtimer(CALLBACK(src, .proc/death), 100)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
@@ -162,9 +168,10 @@
 	color = "#C80000"
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death()
-	if(loc) // Splash the turf we are on with blood
+	if(can_die() && loc)
+		// Splash the turf we are on with blood
 		reagents.reaction(get_turf(src))
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/New()
 	create_reagents(30)
@@ -232,15 +239,17 @@
 	var/mob/living/carbon/human/stored_mob
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
-	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
-	var/turf/T = get_turf(src)
-	if(T)
-		if(stored_mob)
-			stored_mob.forceMove(get_turf(src))
-			stored_mob = null
-		else
-			new /obj/effect/landmark/corpse/damaged(T)
-	..(gibbed)
+	if(can_die())
+		visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
+		var/turf/T = get_turf(src)
+		if(T)
+			if(stored_mob)
+				stored_mob.forceMove(get_turf(src))
+				stored_mob = null
+			else
+				new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
+	// due to `del_on_death`
+	return ..(gibbed)
 
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
@@ -268,7 +277,7 @@
 	stat_attack = 1
 	robust_searching = 1
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
 	if(isturf(loc))
 		for(var/mob/living/carbon/human/H in view(src,1)) //Only for corpse right next to/on same tile
 			if(H.stat == UNCONSCIOUS)
@@ -313,8 +322,18 @@
 	..()
 	desc = "[src] has been stabilized. It no longer crackles with power, but it's healing properties are preserved indefinitely."
 
-/obj/item/weapon/legion_skull
+/obj/item/legion_skull
 	name = "legion's head"
 	desc = "The once living, now empty eyes of the former human's skull cut deep into your soul."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "skull"
+
+
+/obj/effect/mob_spawn/human/corpse/charredskeleton
+	name = "charred skeletal remains"
+	burn_damage = 1000
+	mob_name = "ashen skeleton"
+	mob_gender = NEUTER
+	husk = FALSE
+	mob_species = /datum/species/skeleton
+	mob_color = "#454545"

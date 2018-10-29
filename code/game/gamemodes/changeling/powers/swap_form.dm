@@ -9,7 +9,7 @@
 /obj/effect/proc_holder/changeling/swap_form/can_sting(var/mob/living/carbon/user)
 	if(!..())
 		return
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 	if(!istype(G) || (G.state < GRAB_AGGRESSIVE))
 		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
 		return
@@ -17,14 +17,14 @@
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
 		to_chat(user, "<span class='warning'>DNA of [target] is ruined beyond usability!</span>")
 		return
-	if(!istype(target) || issmall(target) || NO_DNA in target.species.species_traits)
+	if(!istype(target) || issmall(target) || NO_DNA in target.dna.species.species_traits)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
 	return 1
 
 
 /obj/effect/proc_holder/changeling/swap_form/sting_action(var/mob/living/carbon/user)
-	var/obj/item/weapon/grab/G = user.get_active_hand()
+	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling
 
@@ -36,7 +36,7 @@
 		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
 		return
 
-	to_chat(target, "<span class='userdanger'>[user] tightens their grip as a painful sensation invades your body.</span>")
+	to_chat(target, "<span class='userdanger'>[user] tightens [user.p_their()] grip as a painful sensation invades your body.</span>")
 
 	changeling.absorbed_dna -= changeling.find_dna(user.dna)
 	changeling.protected_dna -= changeling.find_dna(user.dna)
@@ -49,8 +49,9 @@
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
+		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
 		user.key = ghost.key
-
+	qdel(ghost)
 	user.Paralyse(2)
 	target.add_language("Changeling")
 	user.remove_language("Changeling")

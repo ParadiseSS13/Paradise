@@ -1,6 +1,7 @@
 /obj/structure/shuttle
 	name = "shuttle"
 	icon = 'icons/turf/shuttle.dmi'
+	armor = list(melee = 100, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0) //default + ignores melee
 
 /obj/structure/shuttle/shuttleRotate(rotation)
 	..()

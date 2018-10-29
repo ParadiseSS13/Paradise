@@ -6,6 +6,10 @@
 	bloodiness = MAX_SHOE_BLOODINESS
 	blood_state = BLOOD_STATE_XENO
 
+/obj/effect/decal/cleanable/blood/xeno/splatter
+	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
+	amount = 2
+
 /obj/effect/decal/cleanable/blood/gibs/xeno
 	name = "xeno gibs"
 	desc = "Gnarly..."
@@ -17,10 +21,10 @@
 	color = "#FFFFFF"
 
 /obj/effect/decal/cleanable/blood/gibs/xeno/up
-	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6","xgibup1","xgibup1","xgibup1")
+	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6", "xgibup1", "xgibup1", "xgibup1")
 
 /obj/effect/decal/cleanable/blood/gibs/xeno/down
-	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6","xgibdown1","xgibdown1","xgibdown1")
+	random_icon_states = list("xgib1", "xgib2", "xgib3", "xgib4", "xgib5", "xgib6", "xgibdown1", "xgibdown1", "xgibdown1")
 
 /obj/effect/decal/cleanable/blood/gibs/xeno/body
 	random_icon_states = list("xgibhead", "xgibtorso")

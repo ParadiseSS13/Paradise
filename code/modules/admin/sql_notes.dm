@@ -121,7 +121,7 @@
 	var/ruler
 	ruler = "<hr style='background:#000000; border:0; height:3px'>"
 	navbar = "<a href='?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='?_src_=holder;nonalpha=2'>\[#\]</a>"
-	for(var/letter in alphabet)
+	for(var/letter in GLOB.alphabet)
 		navbar += "|<a href='?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
 	navbar += "<br><form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\

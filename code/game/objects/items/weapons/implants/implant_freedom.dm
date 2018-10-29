@@ -1,4 +1,4 @@
-/obj/item/weapon/implant/freedom
+/obj/item/implant/freedom
 	name = "freedom implant"
 	desc = "Use this to escape from those evil Red Shirts."
 	icon_state = "freedom"
@@ -7,7 +7,7 @@
 	uses = 4
 
 
-/obj/item/weapon/implant/freedom/activate()
+/obj/item/implant/freedom/activate()
 	uses--
 	to_chat(imp_in, "You feel a faint click.")
 	if(iscarbon(imp_in))
@@ -17,7 +17,7 @@
 		qdel(src)
 
 
-/obj/item/weapon/implant/freedom/get_data()
+/obj/item/implant/freedom/get_data()
 	var/dat = {"
 <b>Implant Specifications:</b><BR>
 <b>Name:</b> Freedom Beacon<BR>
@@ -34,18 +34,18 @@ No Implant Specifics"}
 	return dat
 
 
-/obj/item/weapon/implanter/freedom
+/obj/item/implanter/freedom
 	name = "implanter (freedom)"
 
-/obj/item/weapon/implanter/freedom/New()
-	imp = new /obj/item/weapon/implant/freedom(src)
+/obj/item/implanter/freedom/New()
+	imp = new /obj/item/implant/freedom(src)
 	..()
 
 
-/obj/item/weapon/implantcase/freedom
+/obj/item/implantcase/freedom
 	name = "implant case - 'Freedom'"
 	desc = "A glass case containing a freedom implant."
 
-/obj/item/weapon/implantcase/freedom/New()
-	imp = new /obj/item/weapon/implant/freedom(src)
+/obj/item/implantcase/freedom/New()
+	imp = new /obj/item/implant/freedom(src)
 	..()

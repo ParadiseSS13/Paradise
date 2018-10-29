@@ -14,7 +14,7 @@
 /obj/structure/blob/core/New(loc, var/h = 200, var/client/new_overmind = null, var/new_rate = 2, offspring)
 	blob_cores += src
 	processing_objects.Add(src)
-	poi_list |= src
+	GLOB.poi_list |= src
 	adjustcolors(color) //so it atleast appears
 	if(!overmind)
 		create_overmind(new_overmind)
@@ -42,7 +42,7 @@
 		overmind.blob_core = null
 	overmind = null
 	processing_objects.Remove(src)
-	poi_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	return ..()
 
 /obj/structure/blob/core/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -60,7 +60,7 @@
 /obj/structure/blob/core/RegenHealth()
 	return // Don't regen, we handle it in Life()
 
-/obj/structure/blob/core/Life()
+/obj/structure/blob/core/Life(seconds, times_fired)
 	if(!overmind)
 		create_overmind()
 	else
@@ -121,3 +121,16 @@
 			spawn(0)
 				if(is_offspring)
 					B.verbs -= /mob/camera/blob/verb/split_consciousness
+
+/obj/structure/blob/core/proc/lateblobtimer()
+	addtimer(CALLBACK(src, .proc/lateblobcheck), 50)
+
+/obj/structure/blob/core/proc/lateblobcheck()
+	if(overmind)
+		overmind.add_points(60)
+		if(overmind.mind)
+			overmind.mind.special_role = SPECIAL_ROLE_BLOB_OVERMIND
+		else
+			log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks a overmind.mind.")
+	else
+		log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks an overmind.")

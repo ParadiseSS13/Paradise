@@ -33,8 +33,8 @@
 
 
 	attackby(obj/item/W as obj, mob/user as mob, params)
-		if(istype(W, /obj/item/weapon/weldingtool))
-			var/obj/item/weapon/weldingtool/WT = W
+		if(istype(W, /obj/item/weldingtool))
+			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0, user))
 				overlays.Cut()
 				to_chat(usr, "You slice off [src]'s uneven chunks of aluminum and scorch marks.")
@@ -94,9 +94,7 @@
 
 		hp -= Proj.damage
 		if(hp <= 0)
-			for(var/mob/O in oviewers())
-				if((O.client && !( O.blinded )))
-					to_chat(O, "<span class='warning'>[src] breaks into tiny pieces and collapses!</span>")
+			visible_message("<span class='warning'>[src] breaks into tiny pieces and collapses!</span>")
 			qdel(src)
 
 		// Create a temporary object to represent the damage
@@ -161,21 +159,21 @@
 	var/b2y1 = 0
 	var/b2y2 = 0
 
-	New(var/obj/item/target/Target, var/pixel_x = 0, var/pixel_y = 0)
-		if(!Target) return
+/datum/bullethole/New(obj/item/target/Target, pixel_x = 0, pixel_y = 0)
+	if(!Target) return
 
-		// Randomize the first box
-		b1x1 = pixel_x - pick(1,1,1,1,2,2,3,3,4)
-		b1x2 = pixel_x + pick(1,1,1,1,2,2,3,3,4)
-		b1y = pixel_y
-		if(prob(35))
-			b1y += rand(-4,4)
+	// Randomize the first box
+	b1x1 = pixel_x - pick(1,1,1,1,2,2,3,3,4)
+	b1x2 = pixel_x + pick(1,1,1,1,2,2,3,3,4)
+	b1y = pixel_y
+	if(prob(35))
+		b1y += rand(-4,4)
 
-		// Randomize the second box
-		b2x = pixel_x
-		if(prob(35))
-			b2x += rand(-4,4)
-		b2y1 = pixel_y + pick(1,1,1,1,2,2,3,3,4)
-		b2y2 = pixel_y - pick(1,1,1,1,2,2,3,3,4)
+	// Randomize the second box
+	b2x = pixel_x
+	if(prob(35))
+		b2x += rand(-4,4)
+	b2y1 = pixel_y + pick(1,1,1,1,2,2,3,3,4)
+	b2y2 = pixel_y - pick(1,1,1,1,2,2,3,3,4)
 
-		Target.bulletholes.Add(src)
+	Target.bulletholes.Add(src)

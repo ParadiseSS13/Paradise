@@ -27,7 +27,7 @@
 	icon_state = "explosion"
 	opacity = 1
 	anchored = 1
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	pixel_x = -32
 	pixel_y = -32
 
@@ -58,4 +58,4 @@
 
 /datum/effect_system/explosion/smoke/start()
 	..()
-	addtimer(src, "create_smoke", 5)
+	addtimer(CALLBACK(src, .proc/create_smoke), 5)

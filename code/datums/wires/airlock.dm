@@ -55,10 +55,11 @@ var/const/AIRLOCK_WIRE_LIGHT = 512
 /datum/wires/airlock/CanUse(mob/living/L)
 	var/obj/machinery/door/airlock/A = holder
 	if(iscarbon(L))
-		if(A.isElectrified())
-			if(A.shock(L, 100))
-				return 0
-	if(A.p_open)
+		if(A.Adjacent(L))
+			if(A.isElectrified())
+				if(A.shock(L, 100))
+					return 0
+	if(A.panel_open)
 		return 1
 	return 0
 
@@ -164,9 +165,10 @@ var/const/AIRLOCK_WIRE_LIGHT = 512
 			//one wire for door bolts. Sending a pulse through this drops door bolts if they're not down (whether power's on or not),
 			//raises them if they are down (only if power's on)
 			if(!A.locked)
-				A.lock()
-			else
-				A.unlock()
+				if(A.lock())
+					A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
+			else if(A.unlock())
+				A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", null,  1)
 
 		if(AIRLOCK_WIRE_BACKUP_POWER1)
 			//two wires for backup power. Sending a pulse through either one causes a breaker to trip, but this does not disable it unless main power is down too (in which case it is disabled for 1 minute or however long it takes main power to come back, whichever is shorter).

@@ -4,7 +4,7 @@
 	icon_screen = "power"
 	icon_keyboard = "power_key"
 	req_access = list(access_engine_equip)
-	circuit = /obj/item/weapon/circuitboard/drone_control
+	circuit = /obj/item/circuitboard/drone_control
 
 	//Used when pinging drones.
 	var/drone_call_area = "Engineering"
@@ -63,9 +63,9 @@
 	if(href_list["setarea"])
 
 		//Probably should consider using another list, but this one will do.
-		var/t_area = input("Select the area to ping.", "Set Target Area", null) as null|anything in TAGGERLOCATIONS
+		var/t_area = input("Select the area to ping.", "Set Target Area", null) as null|anything in GLOB.TAGGERLOCATIONS
 
-		if(!t_area || TAGGERLOCATIONS[t_area])
+		if(!t_area || GLOB.TAGGERLOCATIONS[t_area])
 			return
 
 		drone_call_area = t_area

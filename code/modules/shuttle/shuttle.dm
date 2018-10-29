@@ -1,4 +1,5 @@
 //use this define to highlight docking port bounding boxes (ONLY FOR DEBUG USE)
+// also uncomment the #undef at the bottom of the file
 //#define DOCKING_PORT_HIGHLIGHT
 
 //NORTH default dir
@@ -32,6 +33,9 @@
 	else
 
 		return QDEL_HINT_LETMELIVE
+
+/obj/docking_port/take_damage()
+	return
 
 /obj/docking_port/singularity_pull()
 	return
@@ -150,15 +154,15 @@
 	var/lock_shuttle_doors = 0
 
 /obj/docking_port/stationary/register()
-	if(!shuttle_master)
+	if(!SSshuttle)
 		throw EXCEPTION("docking port [src] could not initialize.")
 		return 0
 
-	shuttle_master.stationary += src
+	SSshuttle.stationary += src
 	if(!id)
-		id = "[shuttle_master.stationary.len]"
+		id = "[SSshuttle.stationary.len]"
 	if(name == "dock")
-		name = "dock[shuttle_master.stationary.len]"
+		name = "dock[SSshuttle.stationary.len]"
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#f00")
@@ -187,7 +191,7 @@
 
 	name = "In transit" //This looks weird, but- it means that the on-map instances can be named something actually usable to search for, but still appear correctly in terminals.
 
-	shuttle_master.transit += src
+	SSshuttle.transit += src
 	return 1
 
 /obj/docking_port/mobile
@@ -226,28 +230,28 @@
 
 
 
-/obj/docking_port/mobile/initialize()
+/obj/docking_port/mobile/Initialize()
 	if(!timid)
 		register()
 	..()
 
 /obj/docking_port/mobile/register()
-	if(!shuttle_master)
+	if(!SSshuttle)
 		throw EXCEPTION("docking port [src] could not initialize.")
 		return 0
 
-	shuttle_master.mobile += src
+	SSshuttle.mobile += src
 
 	if(!id)
-		id = "[shuttle_master.mobile.len]"
+		id = "[SSshuttle.mobile.len]"
 	if(name == "shuttle")
-		name = "shuttle[shuttle_master.mobile.len]"
+		name = "shuttle[SSshuttle.mobile.len]"
 
 	return 1
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
-		shuttle_master.mobile -= src
+		SSshuttle.mobile -= src
 		areaInstance = null
 		destination = null
 		previous = null
@@ -383,7 +387,7 @@
 /obj/docking_port/mobile/proc/create_ripples(obj/docking_port/stationary/S1)
 	var/list/turfs = ripple_area(S1)
 	for(var/i in turfs)
-		ripples += new /obj/effect/overlay/temp/ripple(i)
+		ripples += new /obj/effect/temp_visual/ripple(i)
 
 /obj/docking_port/mobile/proc/remove_ripples()
 	if(ripples.len)
@@ -490,15 +494,15 @@
 			T1.shuttleRotate(rotation)
 
 		//lighting stuff
-		air_master.remove_from_active(T1)
+		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
-		air_master.add_to_active(T1,1)
+		SSair.add_to_active(T1,1)
 
 		T0.ChangeTurf(turf_type)
 
-		air_master.remove_from_active(T0)
+		SSair.remove_from_active(T0)
 		T0.CalculateAdjacentTurfs()
-		air_master.add_to_active(T0,1)
+		SSair.add_to_active(T0,1)
 
 	for(var/A1 in L1)
 		var/turf/T1 = A1
@@ -513,14 +517,14 @@
 
 
 /obj/docking_port/mobile/proc/findTransitDock()
-	var/obj/docking_port/stationary/transit/T = shuttle_master.getDock("[id]_transit")
+	var/obj/docking_port/stationary/transit/T = SSshuttle.getDock("[id]_transit")
 	if(T && check_dock(T))
 		return T
 
 
 /obj/docking_port/mobile/proc/findRoundstartDock()
 	var/obj/docking_port/stationary/D
-	D = shuttle_master.getDock(roundstart_move)
+	D = SSshuttle.getDock(roundstart_move)
 
 	if(D)
 		return D
@@ -532,7 +536,7 @@
 	. = dock_id(roundstart_move)
 
 /obj/docking_port/mobile/proc/dock_id(id)
-	var/port = shuttle_master.getDock(id)
+	var/port = SSshuttle.getDock(id)
 	if(port)
 		. = dock(port)
 	else
@@ -549,7 +553,7 @@
 	if(!istype(S0))
 		return 1
 
-	for(var/obj/machinery/door/airlock/A in airlocks)
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == S0.id)
 			spawn(-1)
 				A.close()
@@ -559,7 +563,7 @@
 	if(!istype(S1))
 		return 0
 
-	for(var/obj/machinery/door/airlock/A in airlocks)
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.id_tag == S1.id)
 			spawn(-1)
 				if(A.locked)
@@ -684,14 +688,14 @@
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
 	req_access = list( )
-	circuit = /obj/item/weapon/circuitboard/shuttle
+	circuit = /obj/item/circuitboard/shuttle
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
 	var/max_connect_range = 7
 	var/docking_request = 0
 
-/obj/machinery/computer/shuttle/New(location, obj/item/weapon/circuitboard/shuttle/C)
+/obj/machinery/computer/shuttle/New(location, obj/item/circuitboard/shuttle/C)
 	..()
 	if(istype(C))
 		possible_destinations = C.possible_destinations
@@ -703,20 +707,20 @@
 	var/obj/docking_port/mobile/M
 	if(!shuttleId)
 		// find close shuttle that is ok to mess with
-		if(!shuttle_master) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
+		if(!SSshuttle) //intentionally mapping shuttle consoles without actual shuttles IS POSSIBLE OH MY GOD WHO KNEW *glare*
 			return
-		for(var/obj/docking_port/mobile/D in shuttle_master.mobile)
+		for(var/obj/docking_port/mobile/D in SSshuttle.mobile)
 			if(get_dist(src, D) <= max_connect_range && D.rebuildable)
 				M = D
 				shuttleId = M.id
 				break
-	else if(!possible_destinations && shuttle_master) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
-		M = shuttle_master.getShuttle(shuttleId)
+	else if(!possible_destinations && SSshuttle) //possible destinations should **not** always exist; so, if it's specifically set to null, don't make it exist
+		M = SSshuttle.getShuttle(shuttleId)
 
 	if(M && !possible_destinations)
 		// find perfect fits
 		possible_destinations = ""
-		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!istype(S, /obj/docking_port/stationary/transit) && S.width == M.width && S.height == M.height && S.dwidth == M.dwidth && S.dheight == M.dheight && findtext(S.id, M.id))
 				possible_destinations += "[possible_destinations ? ";" : ""][S.id]"
 
@@ -730,22 +734,22 @@
 	ui_interact(user)
 
 /obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui, force_open)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "shuttle_console.tmpl", M ? M.name : "shuttle", 300, 200)
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
-	var/obj/docking_port/mobile/M = shuttle_master.getShuttle(shuttleId)
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	data["status"] = M ? M.getStatusText() : null
 	if(M)
 		data["shuttle"] = 1
 		var/list/docking_ports = list()
 		data["docking_ports"] = docking_ports
 		var/list/options = params2list(possible_destinations)
-		for(var/obj/docking_port/stationary/S in shuttle_master.stationary)
+		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
 			if(!options.Find(S.id))
 				continue
 			if(!M.check_dock(S))
@@ -771,7 +775,7 @@
 			// Seriously, though, NEVER trust a Topic with something like this. Ever.
 			message_admins("move HREF ([src] attempted to move to: [href_list["move"]]) exploit attempted by [key_name_admin(usr)] on [src] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 			return
-		switch(shuttle_master.moveShuttle(shuttleId, href_list["move"], 1))
+		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
 				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
 			if(1)
@@ -788,14 +792,14 @@
 
 /obj/machinery/computer/shuttle/ferry
 	name = "transport ferry console"
-	circuit = /obj/item/weapon/circuitboard/ferry
+	circuit = /obj/item/circuitboard/ferry
 	shuttleId = "ferry"
 	possible_destinations = "ferry_home;ferry_away"
 
 
 /obj/machinery/computer/shuttle/ferry/request
 	name = "ferry console"
-	circuit = /obj/item/weapon/circuitboard/ferry/request
+	circuit = /obj/item/circuitboard/ferry/request
 	var/cooldown //prevents spamming admins
 	possible_destinations = "ferry_home"
 	admin_controlled = 1
@@ -811,13 +815,13 @@
 		log_admin("[key_name(usr)] requested to move the transport ferry to Centcom.")
 		message_admins("<b>FERRY: <font color='blue'>[key_name_admin(usr)] (<A HREF='?_src_=holder;secretsfun=moveferry'>Move Ferry</a>)</b> is requesting to move the transport ferry to Centcom.</font>")
 		. = 1
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		spawn(600) //One minute cooldown
 			cooldown = 0
 
 /obj/machinery/computer/shuttle/ert
 	name = "specops shuttle console"
-	//circuit = /obj/item/weapon/circuitboard/ert
+	//circuit = /obj/item/circuitboard/ert
 	req_access = list(access_cent_general)
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away"
@@ -826,7 +830,7 @@
 /obj/machinery/computer/shuttle/white_ship
 	name = "White Ship Console"
 	desc = "Used to control the White Ship."
-	circuit = /obj/item/weapon/circuitboard/white_ship
+	circuit = /obj/item/circuitboard/white_ship
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
@@ -866,7 +870,7 @@
 	desc = "Used to call and send the SIT shuttle."
 	req_access = list(access_syndicate)
 	shuttleId = "sit"
-	possible_destinations = "sit_arrivals;sit_scimaint;sit_engshuttle;sit_away"
+	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away"
 
 
 var/global/trade_dock_timelimit = 0
@@ -877,7 +881,7 @@ var/global/trade_dockrequest_timelimit = 0
 	docking_request = 1
 	var/possible_destinations_dock
 	var/possible_destinations_nodock
-	var/docking_request_message = "A trading ship has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
+	var/docking_request_message = "A trading ship has submitted a request to dock for trading. This request can be accepted or denied using a communications console."
 
 /obj/machinery/computer/shuttle/trade/attack_hand(mob/user)
 	if(world.time < trade_dock_timelimit)
@@ -906,7 +910,7 @@ var/global/trade_dockrequest_timelimit = 0
 	shuttleId = "trade_sol"
 	docking_request_message = "A trading ship of Sol origin has requested docking aboard the NSS Cyberiad for trading. This request can be accepted or denied using a communications console."
 
-#undef DOCKING_PORT_HIGHLIGHT
+//#undef DOCKING_PORT_HIGHLIGHT
 
 
 /turf/proc/copyTurf(turf/T)

@@ -14,7 +14,7 @@
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
 	req_access = list(access_heads)
-	circuit = /obj/item/weapon/circuitboard/communications
+	circuit = /obj/item/circuitboard/communications
 	var/prints_intercept = 1
 	var/authenticated = COMM_AUTHENTICATION_NONE
 	var/list/messagetitle = list()
@@ -37,7 +37,7 @@
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
-	shuttle_caller_list += src
+	GLOB.shuttle_caller_list += src
 	..()
 	crew_announcement.newscast = 0
 
@@ -91,18 +91,18 @@
 		if(access_captain in access)
 			authenticated = COMM_AUTHENTICATION_MAX
 			var/mob/living/carbon/human/H = usr
-			var/obj/item/weapon/card/id = H.get_idcard(TRUE)
+			var/obj/item/card/id = H.get_idcard(TRUE)
 			if(istype(id))
 				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
 
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	if(href_list["logout"])
 		authenticated = COMM_AUTHENTICATION_NONE
 		crew_announcement.announcer = ""
 		setMenuState(usr,COMM_SCREEN_MAIN)
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 		return
 
 	if(!is_authenticated(usr))
@@ -128,9 +128,9 @@
 
 			var/mob/living/carbon/human/L = usr
 			var/obj/item/card = L.get_active_hand()
-			var/obj/item/weapon/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
-			if(istype(I, /obj/item/device/pda))
-				var/obj/item/device/pda/pda = I
+			var/obj/item/card/id/I = (card && card.GetID()) || L.wear_id || L.wear_pda
+			if(istype(I, /obj/item/pda))
+				var/obj/item/pda/pda = I
 				I = pda.id
 			if(I && istype(I))
 				if(access_captain in I.access)
@@ -145,11 +145,11 @@
 			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
 				if(message_cooldown)
 					to_chat(usr, "<span class='warning'>Please allow at least one minute to pass between announcements.</span>")
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				var/input = input(usr, "Please write a message to announce to the station crew.", "Priority Announcement")
 				if(!input || message_cooldown || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				crew_announcement.Announce(input)
 				message_cooldown = 1
@@ -159,23 +159,23 @@
 		if("callshuttle")
 			var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
 			if(!input || ..() || !is_authenticated(usr))
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 				return
 
 			call_shuttle_proc(usr, input)
-			if(shuttle_master.emergency.timer)
+			if(SSshuttle.emergency.timer)
 				post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
 		if("cancelshuttle")
 			if(isAI(usr) || isrobot(usr))
 				to_chat(usr, "<span class='warning'>Firewalls prevent you from recalling the shuttle.</span>")
-				nanomanager.update_uis(src)
+				SSnanoui.update_uis(src)
 				return 1
 			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
 			if(response == "Yes")
 				cancel_call_proc(usr)
-				if(shuttle_master.emergency.timer)
+				if(SSshuttle.emergency.timer)
 					post_status("shuttle")
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
@@ -229,15 +229,15 @@
 			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
 				if(centcomm_message_cooldown)
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
-				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","") as text|null
+				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
 				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
-				log_say("[key_name(usr)] has requested the nuclear codes from Centcomm")
+				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
 				priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = 1
 				spawn(6000)//10 minute cooldown
@@ -248,16 +248,16 @@
 			if(is_authenticated(usr) == COMM_AUTHENTICATION_MAX)
 				if(centcomm_message_cooldown)
 					to_chat(usr, "<span class='warning'>Arrays recycling. Please stand by.</span>")
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
+				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				Centcomm_announce(input, usr)
-				print_centcom_report(input, worldtime2text() +" Captain's Message")
+				print_centcom_report(input, station_time_timestamp() + " Captain's Message")
 				to_chat(usr, "Message transmitted.")
-				log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
+				log_game("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = 1
 				spawn(6000)//10 minute cooldown
 					centcomm_message_cooldown = 0
@@ -268,15 +268,15 @@
 			if((is_authenticated(usr) == COMM_AUTHENTICATION_MAX) && (src.emagged))
 				if(centcomm_message_cooldown)
 					to_chat(usr, "Arrays recycling.  Please stand by.")
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "") as text|null
+				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
 				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
-					nanomanager.update_uis(src)
+					SSnanoui.update_uis(src)
 					return
 				Syndicate_announce(input, usr)
 				to_chat(usr, "Message transmitted.")
-				log_say("[key_name(usr)] has made a Syndicate announcement: [input]")
+				log_game("[key_name(usr)] has made a Syndicate announcement: [input]")
 				centcomm_message_cooldown = 1
 				spawn(6000)//10 minute cooldown
 					centcomm_message_cooldown = 0
@@ -288,8 +288,8 @@
 			setMenuState(usr,COMM_SCREEN_MAIN)
 
 		if("RestartNanoMob")
-			if(mob_hunt_server)
-				if(mob_hunt_server.manual_reboot())
+			if(SSmob_hunt)
+				if(SSmob_hunt.manual_reboot())
 					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
 										"Capturing all of them", "Fixing minor text issues", "Being the very best",
 										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
@@ -313,14 +313,14 @@
 			atc.squelched = !atc.squelched
 			to_chat(usr, "<span class='notice'>ATC traffic is now: [atc.squelched ? "Disabled" : "Enabled"].</span>")
 
-	nanomanager.update_uis(src)
+	SSnanoui.update_uis(src)
 	return 1
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
 		src.emagged = 1
 		to_chat(user, "<span class='notice'>You scramble the communication routing circuits!</span>")
-		nanomanager.update_uis(src)
+		SSnanoui.update_uis(src)
 
 /obj/machinery/computer/communications/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
@@ -340,7 +340,7 @@
 
 /obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = nanomanager.try_update_ui(user, src, ui_key, ui)
+	ui = SSnanoui.try_update_ui(user, src, ui_key, ui)
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
@@ -392,16 +392,16 @@
 		data["current_message"] = data["is_ai"] ? messagetext[aicurrmsg] : messagetext[currmsg]
 		data["current_message_title"] = data["is_ai"] ? messagetitle[aicurrmsg] : messagetitle[currmsg]
 
-	data["lastCallLoc"]     = shuttle_master.emergencyLastCallLoc ? format_text(shuttle_master.emergencyLastCallLoc.name) : null
+	data["lastCallLoc"]     = SSshuttle.emergencyLastCallLoc ? format_text(SSshuttle.emergencyLastCallLoc.name) : null
 
 	var/shuttle[0]
-	switch(shuttle_master.emergency.mode)
+	switch(SSshuttle.emergency.mode)
 		if(SHUTTLE_IDLE, SHUTTLE_RECALL)
 			shuttle["callStatus"] = 2 //#define
 		else
 			shuttle["callStatus"] = 1
-	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
-		var/timeleft = shuttle_master.emergency.timeLeft()
+	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
+		var/timeleft = SSshuttle.emergency.timeLeft()
 		shuttle["eta"] = "[timeleft / 60 % 60]:[add_zero(num2text(timeleft % 60), 2)]"
 
 	data["shuttle"] = shuttle
@@ -447,11 +447,11 @@
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
 		return
 
-	if(shuttle_master.emergencyNoEscape)
+	if(SSshuttle.emergencyNoEscape)
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be sent at this time. Please try again later.</span>")
 		return
 
-	if(shuttle_master.emergency.mode > SHUTTLE_ESCAPE)
+	if(SSshuttle.emergency.mode > SHUTTLE_ESCAPE)
 		to_chat(user, "<span class='warning'>The emergency shuttle may not be called while returning to Central Command.</span>")
 		return
 
@@ -459,7 +459,7 @@
 		to_chat(user, "<span class='warning'>Under directive 7-10, [station_name()] is quarantined until further notice.</span>")
 		return
 
-	shuttle_master.requestEvac(user, reason)
+	SSshuttle.requestEvac(user, reason)
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
 
@@ -468,7 +468,7 @@
 /proc/init_shift_change(var/mob/user, var/force = 0)
 	// if force is 0, some things may stop the shuttle call
 	if(!force)
-		if(shuttle_master.emergencyNoEscape)
+		if(SSshuttle.emergencyNoEscape)
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
@@ -485,11 +485,11 @@
 			return
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
-		shuttle_master.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
-		shuttle_master.emergency.canRecall = FALSE
+		SSshuttle.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
+		SSshuttle.emergency.canRecall = FALSE
 	else
-		shuttle_master.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
-		shuttle_master.emergency.canRecall = FALSE
+		SSshuttle.emergency.request(null, 1, null, " Automatic Crew Transfer", 0)
+		SSshuttle.emergency.canRecall = FALSE
 	if(user)
 		log_game("[key_name(user)] has called the shuttle.")
 		message_admins("[key_name_admin(user)] has called the shuttle - [formatJumpTo(user)].", 1)
@@ -500,10 +500,13 @@
 	if(ticker.mode.name == "meteor")
 		return
 
-	shuttle_master.cancelEvac(user)
-	log_game("[key_name(user)] has recalled the shuttle.")
-	message_admins("[key_name_admin(user)] has recalled the shuttle - [formatJumpTo(user)].", 1)
-	return
+	if(SSshuttle.cancelEvac(user))
+		log_game("[key_name(user)] has recalled the shuttle.")
+		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
+	else
+		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
+		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
+		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
@@ -525,56 +528,57 @@
 		if("alert")
 			status_signal.data["picture_state"] = data1
 
-	frequency.post_signal(src, status_signal)
+	spawn(0)
+		frequency.post_signal(src, status_signal)
 
 
 /obj/machinery/computer/communications/Destroy()
-	shuttle_caller_list -= src
-	shuttle_master.autoEvac()
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
 	return ..()
 
-/obj/item/weapon/circuitboard/communications/New()
-	shuttle_caller_list += src
+/obj/item/circuitboard/communications/New()
+	GLOB.shuttle_caller_list += src
 	..()
 
-/obj/item/weapon/circuitboard/communications/Destroy()
-	shuttle_caller_list -= src
-	shuttle_master.autoEvac()
+/obj/item/circuitboard/communications/Destroy()
+	GLOB.shuttle_caller_list -= src
+	SSshuttle.autoEvac()
 	return ..()
 
 /proc/print_command_report(text = "", title = "Central Command Update")
-	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
+	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+	for(var/datum/computer_file/program/comm/P in GLOB.shuttle_caller_list)
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_station_contact(T.z))
 			if(P.computer)
-				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
+				var/obj/item/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
 				if(printer)
 					printer.print_text(text, "paper- '[title]'")
 			P.messagetitle.Add("[title]")
 			P.messagetext.Add(text)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")
-	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
+	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(C.loc)
+			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+	for(var/datum/computer_file/program/comm/P in GLOB.shuttle_caller_list)
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_admin_level(T.z))
 			if(P.computer)
-				var/obj/item/weapon/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
+				var/obj/item/computer_hardware/printer/printer = P.computer.all_components[MC_PRINT]
 				if(printer)
 					printer.print_text(text, "paper- '[title]'")
 			P.messagetitle.Add("[title]")

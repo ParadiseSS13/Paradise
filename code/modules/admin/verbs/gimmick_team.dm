@@ -42,7 +42,7 @@
 	var/list/players_to_spawn = list()
 	if(pick_manually)
 		var/list/possible_ghosts = list()
-		for(var/mob/dead/observer/G in player_list)
+		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(!G.client.is_afk())
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					possible_ghosts += G
@@ -70,7 +70,7 @@
 		H.dna.ready_dna(H)
 
 		H.mind_initialize()
-		H.mind.assigned_role = "MODE"
+		H.mind.assigned_role = "Event Character"
 		H.mind.special_role = "Event Character"
 
 		H.key = thisplayer.key

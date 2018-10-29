@@ -24,21 +24,38 @@
 			if(prob(5))
 				qdel(src)
 
-/obj/structure/spider/attackby(obj/item/weapon/W, mob/user, params)
+/obj/structure/spider/attackby(obj/item/W, mob/user, params)
 	if(W.attack_verb.len)
 		visible_message("<span class='danger'>[user] has [pick(W.attack_verb)] [src] with [W]!</span>")
 	else
 		visible_message("<span class='danger'>[user] has attacked [src] with [W]!</span>")
-
 	var/damage = W.force / 4
-
 	if(iswelder(W))
-		var/obj/item/weapon/weldingtool/WT = W
-
+		var/obj/item/weldingtool/WT = W
 		if(WT.remove_fuel(0, user))
 			damage = 15
 			playsound(loc, WT.usesound, 100, 1)
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.do_attack_animation(src)
+	health -= damage
+	healthcheck()
 
+/obj/structure/spider/attack_animal(mob/living/simple_animal/M)
+	if(M.melee_damage_upper == 0)
+		return
+	var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>")
+	health -= damage
+	healthcheck()
+
+/obj/structure/spider/attack_alien(mob/living/carbon/alien/humanoid/M)
+	playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+	visible_message("<span class='danger'>[M] has slashed at [src]!</span>", "<span class='userdanger'>[M] has slashed at [src]!</span>")
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	var/damage = rand(10, 20)
 	health -= damage
 	healthcheck()
 
@@ -219,7 +236,7 @@
 						if(C)
 							S.key = C.key
 							if(S.master_commander)
-								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist them in completing their goals at any cost.</span>")
+								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
 			qdel(src)
 
 /obj/effect/decal/cleanable/spiderling_remains

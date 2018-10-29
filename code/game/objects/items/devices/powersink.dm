@@ -1,8 +1,9 @@
 // Powersink - used to drain station power
 
-/obj/item/device/powersink
+/obj/item/powersink
 	name = "power sink"
 	desc = "A nulling power sink which drains energy from electrical systems."
+	icon = 'icons/obj/device.dmi'
 	icon_state = "powersink0"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_BULKY
@@ -24,15 +25,15 @@
 	var/datum/powernet/PN			// Our powernet
 	var/obj/structure/cable/attached		// the attached cable
 
-/obj/item/device/powersink/Destroy()
+/obj/item/powersink/Destroy()
 	processing_objects.Remove(src)
-	processing_power_items.Remove(src)
+	GLOB.processing_power_items.Remove(src)
 	PN = null
 	attached = null
 	return ..()
 
-/obj/item/device/powersink/attackby(var/obj/item/I, var/mob/user)
-	if(istype(I, /obj/item/weapon/screwdriver))
+/obj/item/powersink/attackby(var/obj/item/I, var/mob/user)
+	if(istype(I, /obj/item/screwdriver))
 		if(mode == 0)
 			var/turf/T = loc
 			if(isturf(T) && !T.intact)
@@ -53,7 +54,7 @@
 		else
 			if(mode == 2)
 				processing_objects.Remove(src) // Now the power sink actually stops draining the station's power if you unhook it. --NeoFite
-				processing_power_items.Remove(src)
+				GLOB.processing_power_items.Remove(src)
 			anchored = 0
 			mode = 0
 			src.visible_message("<span class='notice'>[user] detaches [src] from the cable!</span>")
@@ -64,10 +65,10 @@
 	else
 		..()
 
-/obj/item/device/powersink/attack_ai()
+/obj/item/powersink/attack_ai()
 	return
 
-/obj/item/device/powersink/attack_hand(var/mob/user)
+/obj/item/powersink/attack_hand(var/mob/user)
 	switch(mode)
 		if(0)
 			..()
@@ -76,16 +77,16 @@
 			mode = 2
 			icon_state = "powersink1"
 			processing_objects.Add(src)
-			processing_power_items.Add(src)
+			GLOB.processing_power_items.Add(src)
 		if(2)  //This switch option wasn't originally included. It exists now. --NeoFite
 			src.visible_message("<span class='notice'>[user] deactivates [src]!</span>")
 			mode = 1
 			set_light(0)
 			icon_state = "powersink0"
 			processing_objects.Remove(src)
-			processing_power_items.Remove(src)
+			GLOB.processing_power_items.Remove(src)
 
-/obj/item/device/powersink/pwr_drain()
+/obj/item/powersink/pwr_drain()
 	if(!attached)
 		return 0
 
@@ -120,7 +121,7 @@
 	return 1
 
 
-/obj/item/device/powersink/process()
+/obj/item/powersink/process()
 	drained_this_tick = 0
 	power_drained -= min(dissipation_rate, power_drained)
 	if(power_drained > max_power * 0.98)

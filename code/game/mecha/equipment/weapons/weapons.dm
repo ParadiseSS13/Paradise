@@ -60,7 +60,7 @@
 	set_ready_state(0)
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
+	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
 	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
 	return
@@ -159,16 +159,13 @@
 	if(ismob(A))
 		var/mob/M = A
 		if(istype(firer, /mob))
-			M.create_attack_log("<b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
-			firer.create_attack_log("<b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
-			log_attack("<font color='red'>[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src]</font>")
+			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
 			if(!iscarbon(firer))
 				M.LAssailant = null
 			else
 				M.LAssailant = firer
 		else
-			M.create_attack_log("<b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>")
-			log_attack("<font color='red'>UNKNOWN shot [M] ([M.ckey]) with a [src]</font>")
+			add_attack_logs(null, M, "Mecha-shot with <b>[src]</b>")
 	if(life <= 0)
 		qdel(src)
 	return
@@ -239,7 +236,7 @@
 	chassis.use_power(energy_drain)
 	log_message("Honked from [name]. HONK!")
 	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] used a Mecha Honker in ([T.x], [T.y], [T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
+	msg_admin_attack("[key_name_admin(chassis.occupant)] used a Mecha Honker in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
 	log_game("[key_name(chassis.occupant)] used a Mecha Honker in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
 	return
@@ -353,7 +350,7 @@
 	projectiles--
 	log_message("Fired from [name], targeting [target].")
 	var/turf/T = get_turf(src)
-	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>)")
+	msg_admin_attack("[key_name_admin(chassis.occupant)] fired a [src] in ([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])")
 	log_game("[key_name(chassis.occupant)] fired a [src] in [T.x], [T.y], [T.z]")
 	do_after_cooldown()
 	return
@@ -384,7 +381,7 @@
 	name = "SGL-6 Grenade Launcher"
 	icon_state = "mecha_grenadelnchr"
 	origin_tech = "combat=4;engineering=4"
-	projectile = /obj/item/weapon/grenade/flashbang
+	projectile = /obj/item/grenade/flashbang
 	fire_sound = 'sound/effects/bang.ogg'
 	projectiles = 6
 	missile_speed = 1.5
@@ -396,7 +393,7 @@
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/weapon/grenade/flashbang/F = new projectile(chassis.loc)
+	var/obj/item/grenade/flashbang/F = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, 1)
 	F.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
@@ -411,7 +408,7 @@
 	desc = "A weapon for combat exosuits. Launches primed clusterbangs. You monster."
 	origin_tech = "combat=4;materials=4"
 	projectiles = 3
-	projectile = /obj/item/weapon/grenade/clusterbuster
+	projectile = /obj/item/grenade/clusterbuster
 	projectile_energy_cost = 1600 //getting off cheap seeing as this is 3 times the flashbangs held in the grenade launcher.
 	equip_cooldown = 90
 	size=1
@@ -425,7 +422,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar
 	name = "Banana Mortar"
 	icon_state = "mecha_bananamrtr"
-	projectile = /obj/item/weapon/grown/bananapeel
+	projectile = /obj/item/grown/bananapeel
 	fire_sound = 'sound/items/bikehorn.ogg'
 	projectiles = 15
 	missile_speed = 1.5
@@ -442,7 +439,7 @@
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/weapon/grown/bananapeel/B = new projectile(chassis.loc)
+	var/obj/item/grown/bananapeel/B = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 60, 1)
 	B.throw_at(target, missile_range, missile_speed, chassis)
 	projectiles--
@@ -454,7 +451,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
 	name = "Mousetrap Mortar"
 	icon_state = "mecha_mousetrapmrtr"
-	projectile = /obj/item/device/assembly/mousetrap
+	projectile = /obj/item/assembly/mousetrap
 	fire_sound = 'sound/items/bikehorn.ogg'
 	projectiles = 15
 	missile_speed = 1.5
@@ -471,7 +468,7 @@
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/device/assembly/mousetrap/M = new projectile(chassis.loc)
+	var/obj/item/assembly/mousetrap/M = new projectile(chassis.loc)
 	M.secured = 1
 	playsound(chassis, fire_sound, 60, 1)
 	M.throw_at(target, missile_range, missile_speed, chassis)
@@ -484,7 +481,7 @@
 	name = "PCMK-6 Bola Launcher"
 	icon_state = "mecha_bola"
 	origin_tech = "combat=4;engineering=4"
-	projectile = /obj/item/weapon/restraints/legcuffs/bola
+	projectile = /obj/item/restraints/legcuffs/bola
 	fire_sound = 'sound/weapons/whip.ogg'
 	projectiles = 10
 	missile_speed = 1
@@ -502,7 +499,7 @@
 	if(!action_checks(target))
 		return
 	set_ready_state(0)
-	var/obj/item/weapon/restraints/legcuffs/bola/M = new projectile(chassis.loc)
+	var/obj/item/restraints/legcuffs/bola/M = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, 1)
 	M.throw_at(target, missile_range, missile_speed)
 	projectiles--

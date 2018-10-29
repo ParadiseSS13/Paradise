@@ -39,29 +39,29 @@
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 	if(smooth && ticker && ticker.current_state == GAME_STATE_PLAYING)
-		smooth_icon(src)
+		queue_smooth(src)
 
 /hook/startup/proc/smooth_world()
 	var/watch = start_watch()
 	log_startup_progress("Smoothing atoms...")
 	for(var/turf/T in world)
 		if(T.smooth)
-			smooth_icon(T)
+			queue_smooth(T)
 		for(var/A in T)
 			var/atom/AA = A
 			if(AA.smooth)
-				smooth_icon(AA)
+				queue_smooth(AA)
 	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
 	return 1
 
 /turf/Destroy()
 // Adds the adjacent turfs to the current atmos processing
-	if(air_master)
+	if(SSair)
 		for(var/direction in cardinal)
 			if(atmos_adjacent_turfs & direction)
 				var/turf/simulated/T = get_step(src, direction)
 				if(istype(T))
-					air_master.add_to_active(T)
+					SSair.add_to_active(T)
 	..()
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -71,6 +71,21 @@
 /turf/ex_act(severity)
 	return 0
 
+/turf/rpd_act(mob/user, obj/item/rpd/our_rpd) //This is the default turf behaviour for the RPD; override it as required
+	if(our_rpd.mode == RPD_ATMOS_MODE)
+		our_rpd.create_atmos_pipe(user, src)
+	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
+		for(var/obj/machinery/door/airlock/A in src)
+			if(A.density)
+				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
+				return
+		our_rpd.create_disposals_pipe(user, src)
+	else if(our_rpd.mode == RPD_ROTATE_MODE)
+		our_rpd.rotate_all_pipes(user, src)
+	else if(our_rpd.mode == RPD_FLIP_MODE)
+		our_rpd.flip_all_pipes(user, src)
+	else if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj ,/obj/item/projectile/beam/pulse))
@@ -167,8 +182,8 @@
 	var/old_corners = corners
 
 	BeforeChange()
-	if(air_master)
-		air_master.remove_from_active(src)
+	if(SSair)
+		SSair.remove_from_active(src)
 	var/turf/W = new path(src)
 	if(!defer_change)
 		W.AfterChange()
@@ -204,8 +219,8 @@
 	levelupdate()
 	CalculateAdjacentTurfs()
 
-	if(air_master && !ignore_air)
-		air_master.add_to_active(src)
+	if(SSair && !ignore_air)
+		SSair.add_to_active(src)
 
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
@@ -246,8 +261,8 @@
 		air.carbon_dioxide = (aco/max(turf_count,1))
 		air.toxins = (atox/max(turf_count,1))
 		air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
-		if(air_master)
-			air_master.add_to_active(src)
+		if(SSair)
+			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
 	src.ChangeTurf(/turf/space)
@@ -277,7 +292,7 @@
 
 // Returns the surrounding cardinal turfs with open links
 // Including through doors openable with the ID
-/turf/proc/CardinalTurfsWithAccess(var/obj/item/weapon/card/id/ID)
+/turf/proc/CardinalTurfsWithAccess(var/obj/item/card/id/ID)
 	var/list/L = new()
 	var/turf/simulated/T
 
@@ -307,7 +322,7 @@
 
 // Returns the surrounding simulated turfs with open links
 // Including through doors openable with the ID
-/turf/proc/AdjacentTurfsWithAccess(var/obj/item/weapon/card/id/ID = null,var/list/closed)//check access if one is passed
+/turf/proc/AdjacentTurfsWithAccess(var/obj/item/card/id/ID = null,var/list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/simulated/T
 	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
@@ -333,7 +348,7 @@
 	return L
 
 // check for all turfs, including unsimulated ones
-/turf/proc/AdjacentTurfsSpace(var/obj/item/weapon/card/id/ID = null, var/list/closed)//check access if one is passed
+/turf/proc/AdjacentTurfsSpace(var/obj/item/card/id/ID = null, var/list/closed)//check access if one is passed
 	var/list/L = new()
 	var/turf/T
 	for(var/dir in list(NORTHWEST,NORTHEAST,SOUTHEAST,SOUTHWEST,NORTH,EAST,SOUTH,WEST)) //arbitrarily ordered list to favor non-diagonal moves in case of ties
@@ -397,8 +412,8 @@
 					return
 			C.place_turf(src, user)
 			return 1
-		else if(istype(I, /obj/item/weapon/twohanded/rcl))
-			var/obj/item/weapon/twohanded/rcl/R = I
+		else if(istype(I, /obj/item/twohanded/rcl))
+			var/obj/item/twohanded/rcl/R = I
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2==0)
@@ -414,6 +429,15 @@
 
 /turf/proc/can_lay_cable()
 	return can_have_cabling() & !intact
+
+/turf/ratvar_act(force, ignore_mobs, probability = 40)
+	. = (prob(probability) || force)
+	for(var/I in src)
+		var/atom/A = I
+		if(ignore_mobs && ismob(A))
+			continue
+		if(ismob(A) || .)
+			A.ratvar_act()
 
 /turf/proc/add_blueprints(atom/movable/AM)
 	var/image/I = new
@@ -448,6 +472,9 @@
 
 	T0.ChangeTurf(turf_type)
 
-	air_master.remove_from_active(T0)
+	SSair.remove_from_active(T0)
 	T0.CalculateAdjacentTurfs()
-	air_master.add_to_active(T0,1)
+	SSair.add_to_active(T0,1)
+
+/turf/AllowDrop()
+	return TRUE

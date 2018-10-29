@@ -89,7 +89,7 @@
 	icon_state = "default"
 	name = "Alert"
 	desc = "Something seems to have gone wrong with this alert, so report this bug please"
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	var/timeout = 0 //If set to a number, this alert will clear itself after that many deciseconds
 	var/severity = 0
 	var/alerttooltipstyle = ""
@@ -433,7 +433,7 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "Someone is trying to capture your soul in a soul stone. Click to allow it."
 	icon_state = "template"
 	timeout = 10 SECONDS
-	var/obj/item/device/soulstone/stone = null
+	var/obj/item/soulstone/stone = null
 	var/stoner = null
 
 /obj/screen/alert/notify_soulstone/Click()

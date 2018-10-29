@@ -3,6 +3,7 @@
 	pressure_resistance = 8
 	var/climbable
 	var/mob/climber
+	var/broken = FALSE
 
 /obj/structure/blob_act()
 	if(prob(50))
@@ -31,8 +32,8 @@
 	..()
 	if(smooth)
 		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
-			smooth_icon(src)
-			smooth_icon_neighbors(src)
+			queue_smooth(src)
+			queue_smooth_neighbors(src)
 		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
@@ -45,7 +46,7 @@
 	if(smooth)
 		var/turf/T = get_turf(src)
 		spawn(0)
-			smooth_icon_neighbors(T)
+			queue_smooth_neighbors(T)
 	return ..()
 
 /obj/structure/proc/climb_on()
@@ -146,7 +147,6 @@
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
-			H.updatehealth()
 	return
 
 /obj/structure/proc/can_touch(var/mob/user)
@@ -164,3 +164,24 @@
 		return 0
 	return 1
 
+/obj/structure/examine(mob/user)
+	..()
+	if(!(resistance_flags & INDESTRUCTIBLE))
+		if(burn_state == ON_FIRE)
+			to_chat(user, "<span class='warning'>It's on fire!</span>")
+		if(broken)
+			to_chat(user, "<span class='notice'>It appears to be broken.</span>")
+		var/examine_status = examine_status(user)
+		if(examine_status)
+			to_chat(user, examine_status)
+
+/obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
+	var/healthpercent = (obj_integrity/max_integrity) * 100
+	switch(healthpercent)
+		if(50 to 99)
+			return  "It looks slightly damaged."
+		if(25 to 50)
+			return  "It appears heavily damaged."
+		if(0 to 25)
+			if(!broken)
+				return  "<span class='warning'>It's falling apart!</span>"

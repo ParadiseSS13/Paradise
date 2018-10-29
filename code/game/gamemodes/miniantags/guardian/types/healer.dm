@@ -32,7 +32,7 @@
 /mob/living/simple_animal/hostile/guardian/healer/New()
 	..()
 
-/mob/living/simple_animal/hostile/guardian/healer/Life()
+/mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
 	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
@@ -47,11 +47,14 @@
 			changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
 				var/mob/living/carbon/C = target
-				C.adjustBruteLoss(-5)
-				C.adjustFireLoss(-5)
+				C.adjustBruteLoss(-5, robotic=1)
+				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)
 				C.adjustToxLoss(-5)
 				heal_cooldown = world.time + 20
+				if(C == summoner)
+					med_hud_set_health()
+					med_hud_set_status()
 
 /mob/living/simple_animal/hostile/guardian/healer/ToggleMode()
 	if(loc == summoner)
@@ -125,9 +128,9 @@
 						if((Z.temperature > 270) && (Z.temperature < 360))
 							var/pressure = Z.return_pressure()
 							if((pressure > 20) && (pressure < 550))
-								new /obj/effect/overlay/temp/guardian/phase/out(get_turf(A))
+								new /obj/effect/temp_visual/guardian/phase/out(get_turf(A))
 								do_teleport(A, beacon, 0)
-								new /obj/effect/overlay/temp/guardian/phase(get_turf(A))
+								new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 						else
 							to_chat(src, "<span class='danger'>The beacon isn't in a safe location!</span>")
 					else

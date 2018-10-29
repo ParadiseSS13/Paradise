@@ -8,11 +8,12 @@
 	turns_per_move = 1
 	maxHealth = 10
 	health = 10
-	butcher_results = list(/obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice = 1)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/hugemushroomslice = 1)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "whacks"
 	harm_intent_damage = 5
+	obj_damage = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 1
 	attack_same = 2
@@ -21,7 +22,7 @@
 	faction = list("mushroom")
 	environment_smash = 0
 	stat_attack = 2
-	mouse_opacity = 1
+	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
 	ventcrawler = 2
 	robust_searching = 1
@@ -41,7 +42,7 @@
 	else
 		to_chat(user, "<span class='info'>It looks like it's been roughed up.</span>")
 
-/mob/living/simple_animal/hostile/mushroom/Life()
+/mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()
 	if(!stat)//Mushrooms slowly regenerate if conscious, for people who want to save them from being eaten
 		adjustBruteLoss(-2)
@@ -90,7 +91,10 @@
 	UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/death(gibbed)
-	..()
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	UpdateMushroomCap()
 
 /mob/living/simple_animal/hostile/mushroom/proc/UpdateMushroomCap()
@@ -125,7 +129,7 @@
 		bruised = 1
 
 /mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weapon/reagent_containers/food/snacks/grown/mushroom))
+	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/mushroom))
 		if(stat == DEAD && !recovery_cooldown)
 			Recover()
 			qdel(I)
@@ -155,7 +159,7 @@
 /mob/living/simple_animal/hostile/mushroom/harvest()
 	var/counter
 	for(counter=0, counter<=powerlevel, counter++)
-		var/obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice/S = new /obj/item/weapon/reagent_containers/food/snacks/hugemushroomslice(src.loc)
+		var/obj/item/reagent_containers/food/snacks/hugemushroomslice/S = new /obj/item/reagent_containers/food/snacks/hugemushroomslice(src.loc)
 		S.reagents.add_reagent("psilocybin", powerlevel)
 		S.reagents.add_reagent("omnizine", powerlevel)
 		S.reagents.add_reagent("synaptizine", powerlevel)

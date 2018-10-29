@@ -1,11 +1,12 @@
 // Playtime requirements for special roles (hours)
 
 var/global/list/role_playtime_requirements = list(
-	// CREW-FRIENDLY ROLES
+	// NT ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
 	ROLE_SENTIENT = 5,
 	ROLE_ERT = 10, // High, because they're team-based, and we want ERT to be robust
+	ROLE_DEATHSQUAD = 10,
 	ROLE_TRADER = 5,
 	ROLE_DRONE = 10, // High, because they're like mini engineering cyborgs that can ignore the AI, ventcrawl, and respawn themselves
 
@@ -49,7 +50,7 @@ var/global/list/role_playtime_requirements = list(
 	var/pline
 	var/datum/job/theirjob
 	var/jtext
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		jtext = "No Job"
 		if(C.mob.mind && C.mob.mind.assigned_role)
 			theirjob = job_master.GetJob(C.mob.mind.assigned_role)
@@ -211,7 +212,7 @@ var/global/list/role_playtime_requirements = list(
 	if(!establish_db_connection())
 		return -1
 	spawn(0)
-		for(var/client/L in clients)
+		for(var/client/L in GLOB.clients)
 			if(L.inactivity >= (10 MINUTES))
 				continue
 			spawn(0)

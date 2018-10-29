@@ -3,7 +3,7 @@
 #define POWER_RESTORATION_SEARCH_APC 2
 #define POWER_RESTORATION_APC_FOUND 3
 
-/mob/living/silicon/ai/Life()
+/mob/living/silicon/ai/Life(seconds, times_fired)
 	//doesn't call parent because it's a horrible mess
 	if(stat == DEAD)
 		return
@@ -14,14 +14,12 @@
 		reset_perspective(null)
 		unset_machine()
 
-	updatehealth()
+	updatehealth("life")
+	if(stat == DEAD)
+		return
 	update_gravity(mob_has_gravity())
 
-	if(health <= config.health_threshold_dead)
-		death()
-		return 0
-
-	if(!eyeobj || qdeleted(eyeobj) || !eyeobj.loc)
+	if(!eyeobj || QDELETED(eyeobj) || !eyeobj.loc)
 		view_core()
 
 	if(machine)
@@ -29,8 +27,10 @@
 
 	if(malfhack && malfhack.aidisabled)
 		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
-		malfhacking = 0
-		malfhack = null
+		deltimer(malfhacking)
+		// This proc handles cleanup of screen notifications and
+		// messenging the client
+		malfhacked(malfhack)
 
 	if(aiRestorePowerRoutine)
 		adjustOxyLoss(1)
@@ -42,21 +42,15 @@
 	var/area/my_area = get_area(src)
 
 	if(!lacks_power())
-		if(aiRestorePowerRoutine == 2)
-			to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
+		if(aiRestorePowerRoutine > 1)
+			update_blind_effects()
 			aiRestorePowerRoutine = 0
-			clear_fullscreen("blind")
 			update_sight()
-		else if(aiRestorePowerRoutine == 3)
-			to_chat(src, "Alert cancelled. Power has been restored.")
-			aiRestorePowerRoutine = 0
-			clear_fullscreen("blind")
-			update_sight()
+			to_chat(src, "Alert cancelled. Power has been restored[aiRestorePowerRoutine == 2 ? "without our assistance" : ""].")
 	else
-		overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-
 		if(lacks_power())
 			if(!aiRestorePowerRoutine)
+				update_blind_effects()
 				aiRestorePowerRoutine = 1
 				update_sight()
 				to_chat(src, "<span class='danger'>You have lost power!</span>")
@@ -65,13 +59,14 @@
 
 				spawn(20)
 					to_chat(src, "Backup battery online. Scanners, camera, and radio interface offline. Beginning fault-detection.")
+					end_multicam()
 					sleep(50)
 					my_area = get_area(src)
 					T = get_turf(src)
 					if(!lacks_power())
 						to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 						aiRestorePowerRoutine = 0
-						clear_fullscreen("blind")
+						update_blind_effects()
 						update_sight()
 						return
 					to_chat(src, "Fault confirmed: missing external power. Shutting down main control system to save power.")
@@ -110,7 +105,7 @@
 						if(!lacks_power())
 							to_chat(src, "Alert cancelled. Power has been restored without our assistance.")
 							aiRestorePowerRoutine = 0
-							clear_fullscreen("blind")
+							update_blind_effects()
 							update_sight()
 							return
 
@@ -127,8 +122,10 @@
 								to_chat(src, "Receiving control information from APC.")
 								sleep(2)
 								//bring up APC dialog
-								aiRestorePowerRoutine = 3
+								apc_override = 1
 								theAPC.attack_ai(src)
+								apc_override = 0
+								aiRestorePowerRoutine = 3
 								to_chat(src, "Here are your current laws:")
 								src.show_laws() //WHY THE FUCK IS THIS HERE
 						sleep(50)
@@ -139,12 +136,13 @@
 	if(get_nations_mode())
 		process_nations_ai()
 
-/mob/living/silicon/ai/updatehealth()
+/mob/living/silicon/ai/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = 100
 		stat = CONSCIOUS
 	else
 		health = 100 - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+		update_stat("updatehealth([reason])")
 		diag_hud_set_status()
 		diag_hud_set_health()
 

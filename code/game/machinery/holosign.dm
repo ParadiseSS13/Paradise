@@ -10,22 +10,22 @@
 	var/id = null
 	var/on_icon = "sign_on"
 
-	proc/toggle()
-		if(stat & (BROKEN|NOPOWER))
-			return
-		lit = !lit
-		update_icon()
-
+/obj/machinery/holosign/proc/toggle()
+	if(stat & (BROKEN|NOPOWER))
+		return
+	lit = !lit
 	update_icon()
-		if(!lit)
-			icon_state = "sign_off"
-		else
-			icon_state = on_icon
 
-	power_change()
-		if(stat & NOPOWER)
-			lit = 0
-		update_icon()
+/obj/machinery/holosign/update_icon()
+	if(!lit)
+		icon_state = "sign_off"
+	else
+		icon_state = on_icon
+
+/obj/machinery/holosign/power_change()
+	if(stat & NOPOWER)
+		lit = 0
+	update_icon()
 
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"
@@ -41,15 +41,15 @@
 	var/id = null
 	var/active = 0
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
 /obj/machinery/holosign_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/holosign_switch/attackby(obj/item/weapon/W, mob/user as mob, params)
-	if(istype(W, /obj/item/device/detective_scanner))
+/obj/machinery/holosign_switch/attackby(obj/item/W, mob/user as mob, params)
+	if(istype(W, /obj/item/detective_scanner))
 		return
 	return src.attack_hand(user)
 

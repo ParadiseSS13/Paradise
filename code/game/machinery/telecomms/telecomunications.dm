@@ -116,7 +116,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 		// TODO: Make the radio system cooperate with the space manager
 		listening_level = position.z
 
-/obj/machinery/telecomms/initialize()
+/obj/machinery/telecomms/Initialize()
 	..()
 	if(autolinkers.len)
 		// Links nearby machines
@@ -195,10 +195,10 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	desc = "This machine has a dish-like shape and green lights. It is designed to detect and process subspace radio activity."
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	machinetype = 1
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/receiver
+	circuitboard = /obj/item/circuitboard/telecomms/receiver
 
 /obj/machinery/telecomms/receiver/receive_signal(datum/signal/signal)
 
@@ -251,10 +251,10 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	desc = "A mighty piece of hardware used to send/receive massive amounts of data."
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 80
 	machinetype = 7
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/hub
+	circuitboard = /obj/item/circuitboard/telecomms/hub
 	long_range_link = 1
 	netspeed = 40
 
@@ -285,10 +285,10 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	desc = "A mighty piece of hardware used to send massive amounts of data far away."
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	machinetype = 8
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/relay
+	circuitboard = /obj/item/circuitboard/telecomms/relay
 	netspeed = 5
 	long_range_link = 1
 	var/broadcasting = 1
@@ -336,10 +336,10 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	desc = "A mighty piece of hardware used to send massive amounts of data quickly."
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	machinetype = 2
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/bus
+	circuitboard = /obj/item/circuitboard/telecomms/bus
 	netspeed = 40
 	var/change_frequency = 0
 
@@ -388,10 +388,10 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	desc = "This machine is used to process large quantities of information."
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
 	machinetype = 3
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/processor
+	circuitboard = /obj/item/circuitboard/telecomms/processor
 	var/process_mode = 1 // 1 = Uncompress Signals, 0 = Compress Signals
 
 	receive_information(datum/signal/signal, obj/machinery/telecomms/machine_from)
@@ -425,10 +425,10 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	desc = "A machine used to store data and network statistics."
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 15
 	machinetype = 4
-	circuitboard = /obj/item/weapon/circuitboard/telecomms/server
+	circuitboard = /obj/item/circuitboard/telecomms/server
 	var/list/log_entries = list()
 	var/list/stored_names = list()
 	var/list/TrafficActions = list()
@@ -436,7 +436,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/totaltraffic = 0 // gigabytes (if > 1024, divide by 1024 -> terrabytes)
 
 	var/list/memory = list()	// stored memory
-	var/rawcode = ""	// the code to compile (raw text)
+	var/list/rawcode = list() // the code to compile (list of characters)
 	var/datum/TCS_Compiler/Compiler	// the compiler that compiles and runs the code
 	var/autoruncode = 0		// 1 if the code is set to run every time a signal is picked up
 
@@ -444,7 +444,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	var/salt = "null"		// encryption salt: ie "123comsat"
 							// would add up to md5("password123comsat")
 	var/language = "human"
-	var/obj/item/device/radio/headset/server_radio = null
+	var/obj/item/radio/headset/server_radio = null
 
 /obj/machinery/telecomms/server/New()
 	..()
@@ -516,10 +516,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 				relay_information(signal, "/obj/machinery/telecomms/broadcaster")
 
 
-/obj/machinery/telecomms/server/proc/setcode(var/t)
-	if(t)
-		if(istext(t))
-			rawcode = t
+/obj/machinery/telecomms/server/proc/setcode(var/list/code)
+	if(istype(code))
+		rawcode = code
 
 /obj/machinery/telecomms/server/proc/compile(mob/user as mob)
 	if(Compiler)
@@ -547,9 +546,9 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 /obj/machinery/telecomms/server/proc/admin_log(var/mob/mob)
 	var/msg="[key_name(mob)] has compiled a script to server [src]:"
-	diary << msg
-	diary << rawcode
-	src.investigate_log("[msg]<br>[rawcode]", "ntsl")
+	log_game("NTSL: [msg]")
+	log_game("NTSL: [rawcode.Join("")]")
+	src.investigate_log("[msg]<br>[rawcode.Join("")]", "ntsl")
 	if(length(rawcode)) // Let's not bother the admins for empty code.
 		message_admins("[key_name_admin(mob)] has compiled and uploaded a NTSL script to [src.id] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 
