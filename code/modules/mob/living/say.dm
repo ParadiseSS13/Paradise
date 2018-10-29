@@ -274,7 +274,7 @@ proc/get_radio_key_from_channel(var/channel)
 	spawn(0)
 		if(loc && !isturf(loc))
 			var/atom/A = loc //Non-turf, let it handle the speech bubble
-			A.speech_bubble("hR[speech_bubble_test]", A.loc, speech_bubble_recipients)
+			A.speech_bubble("hR[speech_bubble_test]", A, speech_bubble_recipients)
 		else //Turf, leave speech bubbles to the mob
 			speech_bubble("h[speech_bubble_test]", src, speech_bubble_recipients)
 
