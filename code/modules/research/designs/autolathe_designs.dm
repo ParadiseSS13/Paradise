@@ -881,3 +881,11 @@
 	materials = list(MAT_GLASS = 2500)	//1.25 glass sheets, broken mirrors will return a shard (1 sheet)
 	build_path = /obj/item/mounted/mirror
 	category = list("initial", "Miscellaneous")
+
+/datum/design/rcd
+	name = "Safe Internals"
+	id = "safe"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000)
+	build_path = /obj/item/safe_internals
+	category = list("initial", "Construction")
