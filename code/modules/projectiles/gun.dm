@@ -63,6 +63,10 @@
 
 /obj/item/gun/New()
 	..()
+	icon = (hispania_icon ? 'icons/hispania/obj/guns/projectile.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/guns_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/guns_righthand.dmi' : righthand_file)
+
 	if(gun_light)
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
