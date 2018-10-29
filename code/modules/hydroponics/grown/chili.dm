@@ -28,11 +28,11 @@
 
 // Ice Chili
 /obj/item/seeds/chili/ice
-	name = "pack of ice pepper seeds"
-	desc = "These seeds grow into ice pepper plants."
+	name = "pack of chilly pepper seeds"
+	desc = "These seeds grow into chilly pepper plants."
 	icon_state = "seed-icepepper"
 	species = "chiliice"
-	plantname = "Ice Pepper Plants"
+	plantname = "Chilly Pepper Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/icepepper
 	lifespan = 25
 	maturation = 4
