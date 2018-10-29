@@ -359,7 +359,7 @@
 /datum/crafting_recipe/drill
 	name = "Thermal Drill"
 	result = /obj/item/thermal_drill
-	time = 60 // Building a functioning guillotine takes time
+	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
 		        /obj/item/mecha_parts/mecha_equipment/drill = 1,
 		        /obj/item/stock_parts/cell = 1,
@@ -371,7 +371,7 @@
 /datum/crafting_recipe/d_drill
 	name = "Diamond Tipped Thermal Drill"
 	result = /obj/item/thermal_drill/diamond_drill
-	time = 60 // Building a functioning guillotine takes time
+	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
 		        /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
 		        /obj/item/stock_parts/cell = 1,
