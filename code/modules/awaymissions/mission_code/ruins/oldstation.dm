@@ -14,24 +14,31 @@
 	new /obj/item/stack/medical/ointment(src)
 
 /obj/item/card/id/away/old
-	name = "a perfectly generic identification card"
-	desc = "A perfectly generic identification card. Looks like it could use some flavor."
+	name = "A perfectly retrograde identification card"
+	desc = "A perfectly retrograde identification card. Looks like it could use some flavor."
+	icon = 'icons/obj/card.dmi'
+	icon_state = "retro"
 	access = list(access_away01)
 
 /obj/item/card/id/away/old/sec
 	name = "Security Officer ID"
-	desc = "Security officers ID card."
-	icon_state = "centcom"
+	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in. This one is encoded for the Security Dept."
+	icon_state = "retro_security"
 
 /obj/item/card/id/away/old/sci
 	name = "Scientist ID"
-	desc = "Scientists ID card."
-	icon_state = "centcom"
+	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in. This one is encoded for the Science Dept."
+	icon_state = "retro_research"
+
+/obj/item/card/id/away/old/med
+	name = "Medical ID"
+	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in. This one is encoded for the Medical Dept."
+	icon_state = "retro_medical"
 
 /obj/item/card/id/away/old/eng
 	name = "Engineer ID"
-	desc = "Engineers ID card."
-	icon_state = "centcom"
+	desc = "A clip on ID Badge, has one of those fancy new magnetic strips built in. This one is encoded for the Engineering Dept."
+	icon_state = "retro_engineering"
 
 /obj/item/card/id/away/old/apc
 	name = "APC Access ID"
@@ -372,7 +379,7 @@
 	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
 	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
 	Work as a team with your fellow survivors and do not abandon them.</b>"
-	uniform = /obj/item/clothing/under/rank/security
+	uniform = /obj/item/clothing/under/retro/security
 	shoes = /obj/item/clothing/shoes/jackboots
 	id = /obj/item/card/id/away/old/sec
 	r_pocket = /obj/item/restraints/handcuffs
@@ -380,6 +387,30 @@
 	assignedrole = "Ancient Crew"
 
 /obj/effect/mob_spawn/human/oldsec/Destroy()
+	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
+	return ..()
+
+/obj/effect/mob_spawn/human/oldmed
+	name = "old cryogenics pod"
+	desc = "A humming cryo pod. You can barely recognise a medical uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	mob_name = "a medical doctor"
+	icon = 'icons/obj/Cryogenic2.dmi'
+	icon_state = "sleeper"
+	roundstart = FALSE
+	death = FALSE
+	random = TRUE
+	mob_species = /datum/species/human
+	flavour_text = "<span class='big bold'>You are a medical working for Nanotrasen,</span><b> stationed onboard a state of the art research station. You vaguely recall rushing into a \
+	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
+	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
+	Work as a team with your fellow survivors and do not abandon them.</b>"
+	uniform = /obj/item/clothing/under/retro/medical
+	shoes = /obj/item/clothing/shoes/white
+	id = /obj/item/card/id/away/old/med
+	l_pocket = /obj/item/healthanalyzer
+	assignedrole = "Ancient Crew"
+
+/obj/effect/mob_spawn/human/oldmed/Destroy()
 	new/obj/structure/showcase/machinery/oldpod/used(drop_location())
 	return ..()
 
@@ -397,7 +428,7 @@
 	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
 	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
 	Work as a team with your fellow survivors and do not abandon them.</b>"
-	uniform = /obj/item/clothing/under/rank/engineer
+	uniform = /obj/item/clothing/under/retro/engineering
 	shoes = /obj/item/clothing/shoes/workboots
 	id = /obj/item/card/id/away/old/eng
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
@@ -422,7 +453,7 @@
 	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
 	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
 	Work as a team with your fellow survivors and do not abandon them.</b>"
-	uniform = /obj/item/clothing/under/rank/scientist
+	uniform = /obj/item/clothing/under/retro/science
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/away/old/sci
 	l_pocket = /obj/item/stack/medical/bruise_pack
