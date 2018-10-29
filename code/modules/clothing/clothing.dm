@@ -174,6 +174,9 @@ BLIND     // can't see anything
 /obj/item/clothing/glasses/New()
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/glasses.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
+
 
 //Gloves
 /obj/item/clothing/gloves
@@ -199,6 +202,8 @@ BLIND     // can't see anything
 /obj/item/clothing/gloves/New()
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/gloves.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
@@ -294,6 +299,8 @@ BLIND     // can't see anything
 /obj/item/clothing/head/New()
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/hats.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 //Mask
 /obj/item/clothing/mask
@@ -309,6 +316,8 @@ BLIND     // can't see anything
 /obj/item/clothing/mask/New()
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/masks.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 //Proc that moves gas/breath masks out of the way
 /obj/item/clothing/mask/proc/adjustmask(var/mob/user)
@@ -399,6 +408,8 @@ BLIND     // can't see anything
 /obj/item/clothing/shoes/New()
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/shoes.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
@@ -473,6 +484,8 @@ BLIND     // can't see anything
 /obj/item/clothing/suit/New()
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/suits.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 //Proc that opens and closes jackets.
 /obj/item/clothing/suit/proc/adjustsuit(var/mob/user)
@@ -616,6 +629,8 @@ BLIND     // can't see anything
 /obj/item/clothing/under/New()
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/uniforms.dmi' : icon)
+	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
+	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
 
 /obj/item/clothing/under/Destroy()
 	QDEL_LIST(accessories)
