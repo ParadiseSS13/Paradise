@@ -1,0 +1,4 @@
+author: "Warior4356"
+delete-after: True
+changes: 
+  - bugfix: "Silicons are now able to open a door linked to a button regardless of proximity"
