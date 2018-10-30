@@ -17,28 +17,29 @@
 
 
 /obj/item/assembly/igniter/describe()
-	return "The igniter is [secured?"secured.":"unsecured."]"
+	return "The igniter is [secured ? "secured." : "unsecured."]"
 
 
 /obj/item/assembly/igniter/activate()
-	if(!..())	return 0//Cooldown check
+	if(!..())
+		return FALSE//Cooldown check
 	var/turf/location = get_turf(loc)
-	if(location)	location.hotspot_expose(1000,1000)
-	if(istype(src.loc,/obj/item/assembly_holder))
-		if(istype(src.loc.loc, /obj/structure/reagent_dispensers/fueltank/))
-			var/obj/structure/reagent_dispensers/fueltank/tank = src.loc.loc
+	if(location)
+		location.hotspot_expose(1000,1000)
+	if(istype(loc, /obj/item/assembly_holder))
+		if(istype(loc.loc, /obj/structure/reagent_dispensers/fueltank))
+			var/obj/structure/reagent_dispensers/fueltank/tank = loc.loc
 			if(tank)
 				tank.boom(TRUE)
-		if(istype(src.loc.loc, /obj/item/reagent_containers/glass/beaker/))
-			var/obj/item/reagent_containers/glass/beaker/beakerbomb = src.loc.loc
+		if(istype(loc.loc, /obj/item/reagent_containers/glass/beaker))
+			var/obj/item/reagent_containers/glass/beaker/beakerbomb = loc.loc
 			if(beakerbomb)
 				beakerbomb.heat_beaker()
-
 	sparks.start()
-	return 1
+	return TRUE
 
 
-/obj/item/assembly/igniter/attack_self(mob/user as mob)
+/obj/item/assembly/igniter/attack_self(mob/user)
 	activate()
 	add_fingerprint(user)
 	return

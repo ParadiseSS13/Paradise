@@ -180,12 +180,16 @@
 		var/obj/item/grab/G = I
 		if(G.affecting.buckled)
 			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
-			return 0
+			return FALSE
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 0
+			return FALSE
 		if(!G.confirm())
-			return 0
+			return FALSE
+		var/blocking_object = density_check()
+		if(blocking_object)
+			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
+			return FALSE
 		G.affecting.forceMove(get_turf(src))
 		G.affecting.Weaken(2)
 		item_placed(G.affecting)
@@ -193,7 +197,7 @@
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
 		qdel(I)
-		return 1
+		return TRUE
 	qdel(I)
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)

@@ -4,31 +4,32 @@
 	icon_state = "health"
 	materials = list(MAT_METAL=800, MAT_GLASS=200)
 	origin_tech = "magnets=1;biotech=1"
-	secured = 0
+	secured = FALSE
 
-	var/scanning = 0
+	var/scanning = FALSE
 	var/health_scan
 	var/alarm_health = 0
 
 
 
 /obj/item/assembly/health/activate()
-	if(!..())	return 0//Cooldown check
+	if(!..())
+		return FALSE//Cooldown check
 	toggle_scan()
-	return 0
+	return FALSE
 
 /obj/item/assembly/health/toggle_secure()
 	secured = !secured
 	if(secured && scanning)
 		processing_objects.Add(src)
 	else
-		scanning = 0
+		scanning = FALSE
 		processing_objects.Remove(src)
 	update_icon()
 	return secured
 
-/obj/item/assembly/health/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/multitool))
+/obj/item/assembly/health/attackby(obj/item/W, mob/user)
+	if(ismultitool(W))
 		if(alarm_health == 0)
 			alarm_health = -90
 			user.show_message("You toggle [src] to \"detect death\" mode.")
@@ -61,7 +62,8 @@
 	return
 
 /obj/item/assembly/health/proc/toggle_scan()
-	if(!secured)	return 0
+	if(!secured)
+		return FALSE
 	scanning = !scanning
 	if(scanning)
 		processing_objects.Add(src)
@@ -69,10 +71,10 @@
 		processing_objects.Remove(src)
 	return
 
-/obj/item/assembly/health/interact(mob/user as mob)//TODO: Change this to the wires thingy
+/obj/item/assembly/health/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
 		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
-		return 0
+		return FALSE
 	var/dat = text("<TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>")
 	if(scanning && health_scan)
 		dat += "<BR>Health: [health_scan]"
