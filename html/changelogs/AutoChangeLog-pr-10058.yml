@@ -1,4 +1,0 @@
-author: "Warior4356"
-delete-after: True
-changes: 
-  - bugfix: "Swiping an ID through a drone no longer causes a runtime and correctly shuts it down"
