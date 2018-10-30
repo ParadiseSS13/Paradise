@@ -1216,8 +1216,7 @@
 
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
-			M.unEquip(I)
-			if(I)
+			if(M.unEquip(I))
 				I.loc = locker
 				I.layer = initial(I.layer)
 				I.plane = initial(I.plane)

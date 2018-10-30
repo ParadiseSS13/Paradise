@@ -151,7 +151,7 @@ By design, d1 is the smallest direction and d2 is the highest
 						if(c.d1 == 12 || c.d2 == 12)
 							c.qdel()*/
 ///// Z-Level Stuff
-		investigate_log("was cut by [key_name(usr, usr.client)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
+		investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
 
 		qdel(src) // qdel
 		return
