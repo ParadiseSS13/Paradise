@@ -9,6 +9,9 @@ var/global/datum/prizes/global_prizes = new
 		prizes += new itempath()
 
 /datum/prizes/proc/PlaceOrder(var/obj/machinery/prize_counter/prize_counter, var/itemID)
+	if(!prize_counter.Adjacent(usr))
+		to_chat(usr, "<span class='warning'>You need to be closer!</span>")
+		return
 	if(!prize_counter)
 		return 0
 	var/datum/prize_item/item = global_prizes.prizes[itemID]
