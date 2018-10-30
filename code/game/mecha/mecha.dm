@@ -790,7 +790,7 @@
 							user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
 						else
 							user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name]</span>")
-							health += min(10, initial(health)-health)
+							health += min(20, initial(health)-health)
 					repairers -= user
 				else
 					to_chat(user, "<span class='warning'>You are already repairing [name]!</span>")
