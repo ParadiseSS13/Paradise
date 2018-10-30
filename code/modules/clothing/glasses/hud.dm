@@ -94,6 +94,7 @@
 	name = "Chameleon Security HUD"
 	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Toggle to disguise the HUD. Provides flash protection."
 	flash_protect = 1
+	antag_hints = "<span class='traitorhint'>It has a concealed security HUD and chameleon module.</span>"
 
 /obj/item/clothing/glasses/hud/security/chameleon/attack_self(mob/user)
 	chameleon(user)

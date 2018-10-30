@@ -765,6 +765,7 @@
 	item_state = "atmos_suit"
 	item_color = "atmos"
 	burn_state = FIRE_PROOF
+	antag_hints = "<span class='traitorhint'>This jumpsuit would let you contort into vents and other tight spaces.</span>"
 
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
 	if(!user.ventcrawler)

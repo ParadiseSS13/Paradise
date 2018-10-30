@@ -107,6 +107,7 @@
 
 /obj/item/dice/d20/e20
 	var/triggered = 0
+	antag_hints = "<span class='traitorhint'>This die conceals a small explosive held in quantum uncertainty. Rolling it collapses the superposition and possibly the building you are in.</span>"
 
 /obj/item/dice/attack_self(mob/user as mob)
 	diceroll(user)

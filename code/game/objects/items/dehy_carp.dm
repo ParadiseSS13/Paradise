@@ -7,6 +7,7 @@
 /obj/item/toy/carpplushie/dehy_carp
 	var/mob/owner = null	// Carp doesn't attack owner, set when using in hand
 	var/owned = 1	// Boolean, no owner to begin with
+	antag_hints = "<span class='traitorhint'>It conceals a real, live space carp. Just add water.</span>"
 
 
 /obj/item/toy/carpplushie/dehy_carp/Destroy()

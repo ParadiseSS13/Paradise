@@ -14,11 +14,12 @@
 	var/timing = 0
 	var/armed = 0
 	var/timepassed = 0
+	antag_hints = "<span class='traitorhint'>This sign has a powerful microexplosive attached to a proximity sensor. Once activated, walk to avoid triggering it.</span>"
 
 /obj/item/caution/proximity_sign/attack_self(mob/user as mob)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind.assigned_role != "Janitor")
+		if(H.mind.special_role != SPECIAL_ROLE_TRAITOR) // We like to be able to use your surplus crate gear, thanks!
 			return
 		if(armed)
 			armed = 0

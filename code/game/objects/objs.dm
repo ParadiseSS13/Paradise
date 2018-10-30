@@ -30,6 +30,9 @@
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 
+	var/antag_hints
+	var/antags_get_hints = list(SPECIAL_ROLE_NUKEOPS, SPECIAL_ROLE_TRAITOR, SPECIAL_ROLE_SYNDICATE_DEATHSQUAD, SPECIAL_ROLE_CHANGELING, SPECIAL_ROLE_VAMPIRE)
+
 /obj/New()
 	..()
 	if(!armor)
@@ -42,6 +45,16 @@
 			T.add_blueprints(src)
 		else
 			T.add_blueprints_preround(src)
+
+/obj/proc/get_antag_hints(mob/user)
+	if(antag_hints && user.mind && user.mind.special_role in antags_get_hints)
+		to_chat(user, antag_hints)
+		return 1
+	return 0
+
+/obj/examine(mob/user)
+	. = ..()
+	get_antag_hints(user)
 
 /obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
 	// Calling Topic without a corresponding window open causes runtime errors

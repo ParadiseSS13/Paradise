@@ -89,6 +89,7 @@ effective or pretty fucking useless.
 	var/intensity = 5 // how much damage the radiation does
 	var/wavelength = 10 // time it takes for the radiation to kick in, in seconds
 	var/used = 0 // is it cooling down?
+	antag_hints = "<span class='traitorhint'>Scanning someone with this will bathe them with a time-delayed radiation blast.</span>"
 
 /obj/item/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)

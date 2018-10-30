@@ -107,3 +107,4 @@
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
 	icon_state = "soapsyndie"
 	cleanspeed = 10 //much faster than mop so it is useful for traitors who want to clean crime scenes
+	antag_hints = "<span class='traitorhint'>It is perfect for cleaning up after a messy situation - and removing fingerprints.</span>"

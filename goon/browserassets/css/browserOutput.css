@@ -37,7 +37,7 @@ a.popt {text-decoration: none;}
 * CUSTOM FONTS
 *
 ******************************************/
-@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); } 
+@font-face { font-family: PxPlus IBM MDA; src: url('PxPlus_IBM_MDA.ttf'); }
 
 /*****************************************
 *
@@ -341,6 +341,7 @@ h1.alert, h2.alert			{color: #000000;}
 .drask					{color: #a3d4eb; font-family: "Arial Black";}
 .clown					{color: #ff0000;}
 .shadowling				{color: #3b2769;}
+.traitorhint			{color: #800000; font-stye: italic;}
 .vulpkanin				{color: #B97A57;}
 .abductor				{color: #800080; font-style: italic;}
 .mind_control				{color: #A00D6F; font-size: 3; font-weight: bold; font-style: italic;}

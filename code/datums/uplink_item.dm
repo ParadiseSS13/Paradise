@@ -910,7 +910,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
-	desc = "Agent cards prevent artificial intelligences from tracking the wearer, and can copy access from other identification cards. The access is cumulative, so scanning one card does not erase the access gained from another."
+	desc = "Agent cards allow the wearer to forge identities, and can copy access from other identification cards. The access is cumulative, so scanning one card does not erase the access gained from another."
 	reference = "AIDC"
 	item = /obj/item/card/id/syndicate
 	cost = 2

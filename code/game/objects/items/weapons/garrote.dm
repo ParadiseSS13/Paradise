@@ -12,6 +12,7 @@
 	var/mob/living/carbon/human/strangling
 	var/improvised = 0
 	var/garrote_time
+	antag_hints = "<span class='traitorhint'>Classic. I'd need to be behind someone to use this effectively. Obviously, this won't be very effective if my target doesn't breathe.</span>"
 
 /obj/item/twohanded/garrote/Destroy()
 	strangling = null

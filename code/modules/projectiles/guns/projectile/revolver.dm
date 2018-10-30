@@ -381,6 +381,7 @@
 	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 	suppressed = 1
 	needs_permit = 0 //its just a cane beepsky.....
+	antag_hints = "<span class='traitorhint'>This cane is a cleverly disguised shotgun.</span>"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
 	return 1
@@ -392,6 +393,11 @@
 	..()
 	if(istype(A, /obj/item/stack/cable_coil))
 		return
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_antag_hints(mob/user)
+	. = ..()
+	if(.)
+		to_chat(user, "<span class='traitorhint'>Has [get_ammo()] round\s remaining.</span>")
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
 	var/f_name = "\a [src]."
@@ -406,3 +412,4 @@
 
 	if(desc)
 		to_chat(user, desc)
+	get_antag_hints(user) // God this examine code is awful. I'll come back to fix you one day, I promise.

@@ -10,6 +10,7 @@
 	var/wires = list("orange", "green", "blue", "yellow", "aqua", "purple")
 	var/correct_wire
 	var/armer //Used for admin purposes
+	antag_hints = "<span class='traitorhint'>It conceals an explosive charge. Open it to set the explsive, then leave it somewhere conspicuous.</span>"
 
 /obj/item/pizza_bomb/attack_self(mob/user)
 	if(disarmed)

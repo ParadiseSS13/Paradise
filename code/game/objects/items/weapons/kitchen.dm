@@ -149,6 +149,7 @@
 	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
 	force = 25.0
 	throwforce = 15.0
+	antag_hints = "<span class='traitorhint'>You could easily butcher a person with this thing.</span>"
 
 /obj/item/kitchen/knife/combat
 	name = "combat knife"

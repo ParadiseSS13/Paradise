@@ -125,7 +125,13 @@
 /obj/item/pen/sleepy
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
+	antag_hints = "<span class='traitorhint'>It conceals a hypospray and a chemical cartridge for discretely delivering poisons.</span>"
 
+
+/obj/item/pen/sleepy/get_antag_hints(mob/user)
+	. = ..()
+	if(.)
+		to_chat(user, "<span class='traitorhint'>[src] has [reagents.total_volume] units remaining.")
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
 	if(!istype(M))	return
@@ -151,6 +157,7 @@
 	var/on = 0
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
+	antag_hints = "<span class='traitorhint'>It conceals a small energy blade emitter.</span>"
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)
@@ -192,6 +199,12 @@
 
 /obj/item/pen/poison
 	var/uses_left = 3
+	antag_hints = "<span class='traitorhint'>It has a small poison cartridge concealed inside of it. Writing with it will apply a contact poison to the paper.</span>"
+
+/obj/item/pen/poison/get_antag_hints(mob/user)
+	. = ..()
+	if(.)
+		to_chat(user, "<span class='traitorhint>[src] has [uses_left] doses of poison left.")
 
 /obj/item/pen/poison/on_write(obj/item/paper/P, mob/user)
 	if(P.contact_poison_volume)

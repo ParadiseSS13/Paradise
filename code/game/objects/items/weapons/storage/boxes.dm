@@ -458,6 +458,7 @@
 	name = "box of donk-pockets"
 	desc = "This box feels slightly warm"
 	icon_state = "donk_kit"
+	antag_hints = "<span class='traitorhint'>You notice these were distributed by a Syndicate subsidiary. They probably pack a punch.</span>"
 
 	New()
 		..()

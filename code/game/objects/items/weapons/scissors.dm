@@ -97,6 +97,7 @@
 	desc = "The blades of the scissors appear to be made of some sort of ultra-strong metal alloy."
 	force = 18 //same as e-daggers
 	var/is_cutting = 0 //to prevent spam clicking this for huge accumulation of losebreath.
+	antag_hints = "<span class='traitorhint'>It has been modified for easy throat-slitting. I could also use these on help intent to give a regular haircut.</span>"
 
 /obj/item/scissors/safety/attack(mob/living/carbon/M as mob, mob/user as mob)
 	if(user.a_intent != INTENT_HELP)

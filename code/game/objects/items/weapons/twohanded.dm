@@ -719,6 +719,7 @@
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/charged = 1
+	antag_hints = "<span class='traitorhint'>I could recharge this by breaking windows and grilles.</span>"
 
 /obj/item/twohanded/energizedfireaxe/update_icon()
 	if(wielded)
