@@ -1,4 +1,0 @@
-author: "Dave-TH"
-delete-after: True
-changes: 
-  - bugfix: "Adding a paper to a paper bundle no longer automatically opens the bundle."
