@@ -113,15 +113,15 @@
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/ntrep
-	desc = "A well-ironed dress shirt and matching set of black pants."
+	desc = "A dress shirt and stark blue tie for the brass that isn't <i>really</i> brass who reports to the top brass."
 	name = "dress shirt"
-	icon_state = "internalaffairs"
-	item_state = "internalaffairs"
-	item_color = "internalaffairs"
+	icon_state = "ntrep"
+	item_state = "ntrep"
+	item_color = "ntrep"
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/ntrep/skirt
-	desc = "A silky smooth black and gold representative uniform with blue markings."
+	desc = "A dress shirt and stark blue tie paired with a well tailored skirt. Smells like toner and the dry cleaner's."
 	name = "representative skirt"
 	icon_state = "ntrepf"
 	item_state = "ntrepf"
