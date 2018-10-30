@@ -71,7 +71,8 @@
 
 
 	update_icon()
-	attack_self(usr) //Update the browsed page.
+	if(winget(usr, "[name]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
+		attack_self(usr) //Update the browsed page.
 	add_fingerprint(usr)
 	return
 
