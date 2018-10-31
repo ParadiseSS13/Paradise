@@ -163,12 +163,12 @@
 
 /datum/reagent/consumable/drink/cold/rewriter
 	name = "Rewriter"
-	description = "The secert of the sanctuary of the Libarian..."
+	description = "The secret of the sanctuary of the Librarian..."
 	id = "rewriter"
 	color = "#485000" // rgb:72, 080, 0
 	drink_icon = "rewriter"
 	drink_name = "Rewriter"
-	drink_desc = "The secert of the sanctuary of the Libarian..."
+	drink_desc = "The secret of the sanctuary of the Librarian..."
 	taste_message = "coffee...soda?"
 
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
