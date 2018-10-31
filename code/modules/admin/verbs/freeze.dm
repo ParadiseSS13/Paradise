@@ -104,7 +104,6 @@ var/global/list/frozen_mob_list = list()
 						M.can_move = 0
 						M.overlays += adminomaly
 						if(M.occupant)
-							M.removeVerb(/obj/mecha/verb/eject)
 							to_chat(M.occupant, "<b><font color= red>You have been frozen by <a href='?priv_msg=[usr.client.UID()]'>[key]</a></b></font>")
 							message_admins("<span class='notice'>[key_name_admin(usr)] froze [key_name(M.occupant)] in a [M.name]</span>")
 							log_admin("[key_name(usr)] froze [key_name(M.occupant)] in a [M.name]")
@@ -115,7 +114,6 @@ var/global/list/frozen_mob_list = list()
 						M.can_move = 1
 						M.overlays -= adminomaly
 						if(M.occupant)
-							M.addVerb(/obj/mecha/verb/eject)
 							to_chat(M.occupant, "<b><font color= red>You have been unfrozen by <a href='?priv_msg=[usr.client.UID()]'>[key]</a></b></font>")
 							message_admins("<span class='notice'>[key_name_admin(usr)] unfroze [key_name(M.occupant)] in a [M.name]</span>")
 							log_admin("[key_name(usr)] unfroze [key_name(M.occupant)] in a [M.name]")

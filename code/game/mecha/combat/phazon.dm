@@ -6,6 +6,7 @@
 	step_in = 2
 	dir_in = 2 //Facing south.
 	step_energy_drain = 3
+	normal_step_energy_drain = 3
 	health = 200
 	deflect_chance = 30
 	damage_absorption = list("brute"=0.7,"fire"=0.7,"bullet"=0.7,"laser"=0.7,"energy"=0.7,"bomb"=0.7)
@@ -17,10 +18,16 @@
 	//operation_req_access = list()
 	internal_damage_threshold = 25
 	force = 15
-	var/phasing = 0
-	var/phasing_energy_drain = 200
+	phase_state = "phazon-phase"
 	max_equip = 3
 
+/obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)
+	..()
+	phasing_action.Grant(user, src)
+
+/obj/mecha/combat/phazon/RemoveActions(mob/living/user, human_occupant = 0)
+	..()
+	phasing_action.Remove(user)
 
 /obj/mecha/combat/phazon/New()
 	..()
@@ -28,25 +35,6 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
 	ME.attach(src)
-
-/obj/mecha/combat/phazon/mechstep(direction)
-	. = ..()
-	if(!. && phasing && get_charge() >= phasing_energy_drain)
-		if(can_move)
-			can_move = 0
-			flick("phazon-phase", src)
-			forceMove(get_step(src, direction))
-			use_power(phasing_energy_drain)
-			playsound(src,stepsound,40,1)
-			sleep(step_in * 3)
-			can_move = 1
-			return 1
-
-/obj/mecha/combat/phazon/click_action(atom/target,mob/user)
-	if(phasing)
-		occupant_message("Unable to interact with objects while phasing")
-		return
-	return ..()
 
 /obj/mecha/combat/phazon/verb/switch_damtype()
 	set category = "Exosuit Interface"
@@ -72,7 +60,6 @@
 	var/output = {"<div class='wr'>
 						<div class='header'>Special</div>
 						<div class='links'>
-						<a href='?src=[UID()];phasing=1'><span id="phasing_command">[phasing?"Dis":"En"]able phasing</span></a><br>
 						<a href='?src=[UID()];switch_damtype=1'>Change melee damage type</a><br>
 						</div>
 						</div>
@@ -84,7 +71,3 @@
 	..()
 	if(href_list["switch_damtype"])
 		switch_damtype()
-	if(href_list["phasing"])
-		phasing = !phasing
-		send_byjax(occupant,"exosuit.browser","phasing_command","[phasing?"Dis":"En"]able phasing")
-		occupant_message("<font color=\"[phasing?"#00f\">En":"#f00\">Dis"]abled phasing.</font>")
