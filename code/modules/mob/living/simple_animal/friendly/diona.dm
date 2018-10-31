@@ -73,7 +73,7 @@
 		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			throw_alert(gestalt_alert, /obj/screen/alert/nymph) //adds a screen alert that can call resist
+			throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 			forceMove(M)
 		else
 			get_scooped(M)
@@ -102,7 +102,7 @@
 		M.status_flags |= PASSEMOTES
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
-		throw_alert(gestalt_alert, /obj/screen/alert/nymph) //adds a screen alert that can call resist
+		throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 		return TRUE
 	else
 		return FALSE

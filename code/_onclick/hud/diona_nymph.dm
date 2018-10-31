@@ -5,14 +5,24 @@
 
 /datum/hud/diona/New()
 	..()
-	var/obj/screen/diona/blood = new /obj/screen/diona/blood()
-	var/obj/screen/diona/merge = new /obj/screen/diona/merge()
-	var/obj/screen/diona/evolve = new /obj/screen/diona/evolve()
-	var/obj/screen/diona/intent = new /obj/screen/diona/intent()
-	static_inventory += blood
-	static_inventory += merge
-	static_inventory += evolve
-	toggleable_inventory += intent
+	static_inventory += diona_button(new /obj/screen/diona/blood())
+	static_inventory += diona_button(new /obj/screen/diona/merge())
+	static_inventory += diona_button(new /obj/screen/diona/evolve())
+	toggleable_inventory += new /obj/screen/diona/intent()
+
+datum/hud/diona/proc/diona_button(var/obj/screen/diona/D)
+	var/obj/screen/diona/button/B = new /obj/screen/diona/button
+	B.overlays += D
+	B.master = D
+	B.screen_loc = D.screen_loc
+	return B
+
+/obj/screen/diona/button
+	icon = 'icons/mob/actions.dmi'
+	icon_state = "bg_default"
+
+/obj/screen/diona/button/Click(location, control, params)
+	return usr.client.Click(master, location, control, params)
 
 /obj/screen/diona/intent
 	name = "Intent"
