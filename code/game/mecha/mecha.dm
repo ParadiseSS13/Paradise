@@ -43,8 +43,6 @@
 	var/lights_power = 6
 	var/emagged = FALSE
 
-	var/list/repairers = new
-
 	//inner atmos
 	var/use_internal_tank = 0
 	var/internal_tank_valve = ONE_ATMOSPHERE
@@ -778,22 +776,16 @@
 
 	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weldingtool/WT = W
-		if(health<initial(health))
-			if (WT.remove_fuel(0,user))
-				if(!(user in repairers)) // Can only repair it once at a time
-					repairers += user
-					user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
-					playsound(user, WT.usesound, 50, 1)
-					if(do_after(user, 15 * WT.toolspeed, target = src)) // Takes 1.5 seconds to repair
-						if (internal_damage & MECHA_INT_TANK_BREACH)
-							clearInternalDamage(MECHA_INT_TANK_BREACH)
-							user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
-						else
-							user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name]</span>")
-							health += min(20, initial(health)-health)
-					repairers -= user
-				else
-					to_chat(user, "<span class='warning'>You are already repairing [name]!</span>")
+		if(health < initial(health))
+			if(WT.remove_fuel(0,user))
+				user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
+				if(do_after_once(user, 15 * WT.toolspeed, target = src, attempt_cancel_message = "You stop repairing [name]."))
+					if(internal_damage & MECHA_INT_TANK_BREACH)
+						clearInternalDamage(MECHA_INT_TANK_BREACH)
+						user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
+					else
+						user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
+						health += min(20, initial(health) - health)
 			else
 				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
 		else
