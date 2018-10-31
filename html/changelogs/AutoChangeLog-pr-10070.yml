@@ -1,4 +1,0 @@
-author: "TatsumakiMagi"
-delete-after: True
-changes: 
-  - bugfix: "fixed merch shop, arcade shop and the give command working from a distance"
