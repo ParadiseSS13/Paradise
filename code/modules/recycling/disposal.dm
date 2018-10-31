@@ -46,7 +46,7 @@
 		T.nicely_link_to_other_stuff(src)
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
-/obj/machinery/disposal/Moved(atom/OldLoc, Dir) 
+/obj/machinery/disposal/Moved(atom/OldLoc, Dir)
 	. = ..()
 	eject()
 	var/ptype = istype(src, /obj/machinery/disposal/deliveryChute) ? PIPE_DISPOSALS_CHUTE : PIPE_DISPOSALS_BIN //Check what disposaltype it is
@@ -1220,24 +1220,27 @@
 	// if not entering from disposal bin,
 	// transfer to linked object (outlet or bin)
 
-/obj/structure/disposalpipe/trunk/transfer(var/obj/structure/disposalholder/H)
-
+/obj/structure/disposalpipe/trunk/transfer(obj/structure/disposalholder/H)
+	if(!H)
+		return
 	if(H.dir == DOWN)		// we just entered from a disposer
 		return ..()		// so do base transfer proc
 	// otherwise, go to the linked object
-	if(linked)
-		var/obj/structure/disposaloutlet/O = linked
-		if(istype(O) && (H))
-			O.expel(H)	// expel at outlet
-		else
-			var/obj/machinery/disposal/D = linked
-			if(H)
-				D.expel(H)	// expel at disposal
-	else
-		if(H)
-			src.expel(H, src.loc, 0)	// expel at turf
-	return null
-
+	if(!linked)
+		expel(H, loc, FALSE)	// expel at turf
+	else if(istype(linked, /obj/structure/disposaloutlet))
+		var/obj/structure/disposaloutlet/DO = linked
+		for(var/atom/movable/AM in H)
+			AM.forceMove(DO)
+		qdel(H)
+		H.vent_gas(loc)
+		DO.expel()
+	else if(istype(linked, /obj/machinery/disposal))
+		var/obj/machinery/disposal/D = linked
+		H.forceMove(D)
+		D.expel(H)	// expel at disposal
+	else //just in case
+		expel(H, loc, FALSE)
 	// nextdir
 
 /obj/structure/disposalpipe/trunk/nextdir(var/fromdir)
@@ -1283,24 +1286,29 @@
 		if(T)
 			T.nicely_link_to_other_stuff(src)
 
-	// expel the contents of the holder object, then delete it
-	// called when the holder exits the outlet
-/obj/structure/disposaloutlet/proc/expel(var/obj/structure/disposalholder/H, animation = 1)
+/obj/structure/disposaloutlet/Destroy()
+	if(linkedtrunk)
+		linkedtrunk.remove_trunk_links()
+	expel(FALSE)
+	return ..()
+
+
+// expel the contents of the outlet
+/obj/structure/disposaloutlet/proc/expel(animation = TRUE)
 	if(animation)
 		flick("outlet-open", src)
 		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
 		sleep(20)	//wait until correct animation frame
 		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
-	if(H)
-		for(var/atom/movable/AM in H)
-			AM.forceMove(loc)
-			AM.pipe_eject(dir)
-			if(!istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
-				spawn(5)
-					if(AM)
-						AM.throw_at(target, 3, 1)
-		H.vent_gas(src.loc)
-		qdel(H)
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(loc)
+		AM.pipe_eject(dir)
+		if(istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+			return
+		spawn(5)
+			if(QDELETED(AM))
+				return
+			AM.throw_at(target, 3, 1)
 
 
 /obj/structure/disposaloutlet/attackby(var/obj/item/I, var/mob/user, params)
@@ -1339,7 +1347,7 @@
 			return
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
-/obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir) 
+/obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir)
 	. = ..()
 	var/turf/T = OldLoc
 	if(T.intact)
@@ -1355,11 +1363,6 @@
 	C.anchored = 0
 	C.density = 1
 	qdel(src)
-
-/obj/structure/disposaloutlet/Destroy()
-	if(linkedtrunk)
-		linkedtrunk.remove_trunk_links()
-	return ..()
 
 // called when movable is expelled from a disposal pipe or outlet
 // by default does nothing, override for special behaviour
