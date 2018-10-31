@@ -777,7 +777,7 @@
 	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weldingtool/WT = W
 		if(health < initial(health))
-			if(WT.remove_fuel(0,user))
+			if(WT.remove_fuel(0, user))
 				user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
 				if(do_after_once(user, 15 * WT.toolspeed, target = src, attempt_cancel_message = "You stop repairing [name]."))
 					if(internal_damage & MECHA_INT_TANK_BREACH)
