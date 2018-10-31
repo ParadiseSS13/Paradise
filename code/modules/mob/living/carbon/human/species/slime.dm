@@ -130,8 +130,8 @@
 	var/chosen_limb = missing_limbs[limb_select]
 
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
-	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, needhand = 0, target = H))
-		if(H.incapacitated())
+	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, needhand = 0, target = H, can_be_weakened = 1))
+		if(H.incapacitated(ignore_lying = TRUE, ignore_weakened = TRUE))
 			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
 			return
 

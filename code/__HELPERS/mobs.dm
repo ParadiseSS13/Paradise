@@ -316,7 +316,7 @@ This is always put in the attack log.
 	if(progress)
 		qdel(progbar)
 
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null)
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null, can_be_weakened = 0)
 	if(!user)
 		return 0
 	var/atom/Tloc = null
@@ -351,7 +351,7 @@ This is always put in the attack log.
 			drifting = 0
 			Uloc = user.loc
 
-		if(!user || user.stat || user.weakened || user.stunned  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
+		if(!user || user.stat || (user.weakened && !can_be_weakened) || user.stunned  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break
 
