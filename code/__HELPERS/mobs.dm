@@ -238,7 +238,7 @@ proc/age2agedescription(age)
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
-proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, var/list/authcard_access = list())
+/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, authcard_access = list())
 	var/status = criminal_status
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]
