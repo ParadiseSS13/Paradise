@@ -1,0 +1,4 @@
+author: "Warior4356"
+delete-after: True
+changes: 
+  - bugfix: "Ghosts can no longer re-enter a drone that has been shut down."
