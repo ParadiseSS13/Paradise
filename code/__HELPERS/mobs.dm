@@ -238,6 +238,32 @@ proc/age2agedescription(age)
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
+proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, var/list/authcard_access = list())
+	var/status = criminal_status
+	var/their_name = target_records.fields["name"]
+	var/their_rank = target_records.fields["rank"]
+	switch(criminal_status)
+		if("arrest")
+			status = "*Arrest*"
+		if("none")
+			status = "None"
+		if("execute")
+			if((access_magistrate in authcard_access) || (access_armory in authcard_access))
+				status = "*Execute*"
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
+			else
+				return 0
+		if("incarcerated")
+			status = "Incarcerated"
+		if("parolled")
+			status = "Parolled"
+		if("released")
+			status = "Released"
+	target_records.fields["criminal"] = status
+	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
+	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [current_date_string] [station_time_timestamp()], comment: [comment]"
+	update_all_mob_security_hud()
+	return 1
 
 /*
 Proc for attack log creation, because really why not
