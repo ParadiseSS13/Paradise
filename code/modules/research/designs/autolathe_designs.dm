@@ -882,7 +882,7 @@
 	build_path = /obj/item/mounted/mirror
 	category = list("initial", "Miscellaneous")
 
-/datum/design/rcd
+/datum/design/safe_internals
 	name = "Safe Internals"
 	id = "safe"
 	build_type = AUTOLATHE

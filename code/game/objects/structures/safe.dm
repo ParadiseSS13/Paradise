@@ -6,7 +6,7 @@ Safe Codes
 Safe Internals
 */
 
-var/list/global_safes = list()
+GLOBAL_LIST_EMPTY(safes)
 
 //SAFES
 /obj/structure/safe
@@ -32,15 +32,13 @@ var/list/global_safes = list()
 	var/time_to_drill
 	var/image/bar
 	var/drill_start_time
-	var/datum/looping_sound/thermal_drill/soundloop
-	var/datum/effect_system/spark_spread/spark_system
 	var/drill_x_offset = -13
 	var/drill_y_offset = -3
 	var/knownby = list()
 
 
 /obj/structure/safe/New()
-	global_safes += src
+	GLOB.safes += src
 	tumbler_2_pos = rand(0, 99) // first value in the combination set first
 	tumbler_2_open = rand(0, 99)
 
@@ -60,10 +58,6 @@ var/list/global_safes = list()
 
 	combo_to_open = "[num1] - [num2]"
 
-	soundloop = new(list(src), FALSE)
-	spark_system = new /datum/effect_system/spark_spread()
-	spark_system.set_up(1, 0, src)
-	spark_system.attach(src)
 
 /obj/structure/safe/Initialize()
 	..()
@@ -130,14 +124,14 @@ var/list/global_safes = list()
 				if(do_after(user, 2 SECONDS, target = src))
 					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill)
 					drill_start_time = world.time
-					soundloop.start()
+					drill.soundloop.start()
 					update_icon()
 					processing_objects.Add(src)
 			if("Turn Off")
 				if(do_after(user, 2 SECONDS, target = src))
 					deltimer(drill_timer)
 					drill_timer = null
-					soundloop.stop()
+					drill.soundloop.stop()
 					update_icon()
 					processing_objects.Remove(src)
 			if("Remove Drill")
@@ -289,14 +283,11 @@ var/list/global_safes = list()
 				to_chat(user, "There is already a drill attached!")
 			else if(do_after(user, 2 SECONDS, target = src))
 				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
+					to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the safe!</span>")
 					return
 				I.loc = src
 				drill = I
-				if(istype(drill, /obj/item/thermal_drill/diamond_drill))
-					time_to_drill = 150 SECONDS
-				else
-					time_to_drill = 300 SECONDS
+				time_to_drill = 300 SECONDS * drill.time_multiplier
 				update_icon()
 		else
 			to_chat(user, "<span class='warning'>You can't put [I] in into the safe while it is closed!</span>")
@@ -305,10 +296,9 @@ var/list/global_safes = list()
 /obj/structure/safe/proc/drill_open()
 	broken = TRUE
 	drill_timer = null
-	soundloop.stop()
+	drill.soundloop.stop()
 	update_icon()
 	processing_objects.Remove(src)
-	return
 
 /obj/structure/safe/blob_act()
 	return
@@ -320,9 +310,8 @@ var/list/global_safes = list()
 	return
 
 /obj/structure/safe/Destroy()
-	global_safes -= src
-	QDEL_NULL(soundloop)
-	QDEL_NULL(spark_system)
+	GLOB.safes -= src
+	drill.soundloop.stop()
 	return ..()
 
 /obj/structure/safe/process()
@@ -331,11 +320,12 @@ var/list/global_safes = list()
 		bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
 		overlays += bar
 		if(prob(15))
-			spark_system.start()
+			drill.spark_system.start()
 
 /obj/structure/safe/examine(mob/user)
 	..()
-	to_chat(user, "On the inside of the the door is <b>[combo_to_open]</b>")
+	if(open)
+		to_chat(user, "On the inside of the the door is <b>[combo_to_open]</b>")
 
 //FLOOR SAFES
 /obj/structure/safe/floor
@@ -370,7 +360,7 @@ var/list/global_safes = list()
 	addtimer(CALLBACK(src, .proc/populate_codes), 10)
 
 /obj/item/paper/safe_code/proc/populate_codes()
-	for(var/obj/structure/safe/S in global_safes)
+	for(var/obj/structure/safe/S in GLOB.safes)
 		if(owner in S.knownby)
 			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.combo_to_open]<br>"
 			info_links = info
