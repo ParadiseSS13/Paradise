@@ -282,9 +282,9 @@
 	syllables = list("click","clack")
 
 /datum/language/kidan/get_random_name()
-	var/new_name = "[pick(list("Vraz", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk"))]"
+	var/new_name = "[pick(list("Vrax", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx"))]"
 	new_name += ", "
-	new_name += "[pick(list("Noble", "Worker", "Scientist"))]"
+	new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer"))]"
 	new_name += " of Clan "
 	new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax"))]"	//I ran out of ideas after the first two tbh -_-
 	return new_name
