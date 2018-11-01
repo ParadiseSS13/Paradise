@@ -136,8 +136,8 @@
 				number_of_alphanumeric++
 				last_char_group = 3
 
-			// '  -  .
-			if(39,45,46)			//Common name punctuation
+			// '  -  . ,
+			if(39,45,46, 44)			//Common name punctuation
 				if(!last_char_group) continue
 				t_out += ascii2text(ascii_char)
 				last_char_group = 2

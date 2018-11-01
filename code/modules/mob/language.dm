@@ -281,6 +281,15 @@
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
 
+/datum/language/kidan/get_random_name()
+	var/new_name = "[pick(list("Vraz", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk"))]"
+	new_name += ", "
+	new_name += "[pick(list("Noble", "Worker", "Scientist"))]"
+	new_name += " of Clan "
+	new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax"))]"	//I ran out of ideas after the first two tbh -_-
+	return new_name
+
+
 /datum/language/slime
 	name = "Bubblish"
 	desc = "The language of slimes. It's a mixture of bubbling noises and pops. Very difficult to speak without mechanical aid for humans."
