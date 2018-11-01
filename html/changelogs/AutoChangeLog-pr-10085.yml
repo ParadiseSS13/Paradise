@@ -1,0 +1,4 @@
+author: "Mitchs98"
+delete-after: True
+changes: 
+  - bugfix: "Headslugs no longer teleport out of closed lockers upon bursting."
