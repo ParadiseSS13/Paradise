@@ -30,7 +30,7 @@
 	for(var/mob/living/silicon/S in range(2,user))
 		to_chat(S, "<span class='userdanger'>Your sensors are disabled by a shower of blood!</span>")
 		S.Weaken(3)
-	var/new_location = user.loc
+	var/new_location = user.drop_location()
 	spawn(5) // So it's not killed in explosion
 		var/mob/living/simple_animal/hostile/headcrab/crab = new(new_location)
 		for(var/obj/item/organ/internal/I in organs)
