@@ -19,7 +19,7 @@ var/global/list/datum/stack_recipe/sandstone_recipes = list ( \
 	null, \
 	new/datum/stack_recipe("Assistant Statue", /obj/structure/statue/sandstone/assistant, 5, one_per_turf = 1, on_floor = 1), \
 	null, \
-	new/datum/stack_recipe("Breakdown into sand", /obj/item/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
+	new/datum/stack_recipe("Breakdown into sand", /obj/item/stack/ore/glass, 1, one_per_turf = 0, on_floor = 1), \
 	)
 
 var/global/list/datum/stack_recipe/silver_recipes = list ( \
@@ -166,7 +166,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		message_admins("Plasma sheets ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		message_admins("Plasma sheets ignited by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
 		log_game("Plasma sheets ignited by [key_name(user)] in ([x],[y],[z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
 		fire_act()
@@ -242,6 +242,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 
 var/global/list/datum/stack_recipe/titanium_recipes = list (
 	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
+	new/datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = 1, on_floor = 1),
 	)
 
 /obj/item/stack/sheet/mineral/titanium/New(loc, amount=null)

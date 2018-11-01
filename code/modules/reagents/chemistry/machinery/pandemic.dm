@@ -30,7 +30,6 @@
 				if(BL.data && BL.data["viruses"])
 					var/list/viruses = BL.data["viruses"]
 					return viruses[index]
-	return null
 
 /obj/machinery/computer/pandemic/proc/GetResistancesByIndex(index)
 	if(beaker && beaker.reagents)
@@ -40,13 +39,11 @@
 				if(BL.data && BL.data["resistances"])
 					var/list/resistances = BL.data["resistances"]
 					return resistances[index]
-	return null
 
 /obj/machinery/computer/pandemic/proc/GetVirusTypeByIndex(index)
 	var/datum/disease/D = GetVirusByIndex(index)
 	if(D)
 		return D.GetDiseaseID()
-	return null
 
 /obj/machinery/computer/pandemic/proc/replicator_cooldown(waittime)
 	wait = 1
@@ -160,7 +157,7 @@
 		if(archive_diseases[id])
 			var/datum/disease/advance/A = archive_diseases[id]
 			A.AssignName(new_name)
-			for(var/datum/disease/advance/AD in active_diseases)
+			for(var/datum/disease/advance/AD in GLOB.active_diseases)
 				AD.Refresh()
 		updateUsrDialog()
 	else if(href_list["print_form"])
@@ -175,7 +172,6 @@
 		return
 
 	add_fingerprint(usr)
-	return
 
 //Prints a nice virus release form. Props to Urbanliner for the layout
 /obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/advance/D, mob/living/user)
@@ -319,12 +315,12 @@
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "pandemic")
-	return
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers) && (I.flags & OPENCONTAINER))
-		if(stat & (NOPOWER|BROKEN)) return
+	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
+		if(stat & (NOPOWER|BROKEN))
+			return
 		if(beaker)
 			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine!</span>")
 			return

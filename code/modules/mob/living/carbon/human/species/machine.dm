@@ -15,20 +15,25 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 2.5 // 100% * 2.5 * 0.66 (robolimbs) = 165%
-	burn_mod = 2.5  // So they take 65% extra damage from brute/burn overall.
+	brute_mod = 2.28 // 100% * 2.28 * 0.66 (robolimbs) ~= 150%
+	burn_mod = 2.28  // So they take 50% extra damage from brute/burn overall
 	tox_mod = 0
 	clone_mod = 0
 	oxy_mod = 0
 	death_message = "gives one shrill beep before falling limp, their monitor flashing blue before completely shutting off..."
 
-	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_SCAN, NO_BLOOD, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NOTRANSSTING)
+	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
+
+	blood_color = "#3C3C3C"
+	exotic_blood = "oil"
+	blood_damage_type = STAMINA
+
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"
 	can_revive_by_healing = 1
@@ -122,8 +127,8 @@
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
 		var/list/hair = list()
-		for(var/i in hair_styles_public_list)
-			var/datum/sprite_accessory/hair/tmp_hair = hair_styles_public_list[i]
+		for(var/i in GLOB.hair_styles_public_list)
+			var/datum/sprite_accessory/hair/tmp_hair = GLOB.hair_styles_public_list[i]
 			if((head_organ.dna.species.name in tmp_hair.species_allowed) && (robohead.company in tmp_hair.models_allowed)) //Populate the list of available monitor styles only with styles that the monitor-head is allowed to use.
 				hair += i
 

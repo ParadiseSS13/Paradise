@@ -19,7 +19,7 @@
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
-	for(var/mob/new_player/player in player_list)
+	for(var/mob/new_player/player in GLOB.player_list)
 		if((player.mind in possible_changelings) && (player.client.prefs.species in protected_species_changeling))
 			possible_changelings -= player.mind
 

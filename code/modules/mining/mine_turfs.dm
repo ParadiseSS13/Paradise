@@ -56,7 +56,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/mineral/New()
 	..()
-	mineral_turfs += src
+	GLOB.mineral_turfs += src
 
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in cardinal)
@@ -79,7 +79,7 @@ var/global/list/rockTurfEdgeCache = list(
 /hook/startup/proc/add_mineral_edges()
 	var/watch = start_watch()
 	log_startup_progress("Reticulating splines...")
-	for(var/turf/simulated/mineral/M in mineral_turfs)
+	for(var/turf/simulated/mineral/M in GLOB.mineral_turfs)
 		M.add_edges()
 	log_startup_progress(" Splines reticulated in [stop_watch(watch)]s.")
 	return 1
@@ -187,7 +187,7 @@ var/global/list/rockTurfEdgeCache = list(
 /turf/simulated/mineral/iron
 	name = "iron deposit"
 	icon_state = "rock_Iron"
-	mineralType = /obj/item/ore/iron
+	mineralType = /obj/item/stack/ore/iron
 	mineralName = "Iron"
 	spreadChance = 20
 	spread = 1
@@ -195,7 +195,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/mineral/uranium
 	name = "uranium deposit"
-	mineralType = /obj/item/ore/uranium
+	mineralType = /obj/item/stack/ore/uranium
 	mineralName = "Uranium"
 	spreadChance = 5
 	spread = 1
@@ -204,7 +204,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/mineral/diamond
 	name = "diamond deposit"
-	mineralType = /obj/item/ore/diamond
+	mineralType = /obj/item/stack/ore/diamond
 	mineralName = "Diamond"
 	spreadChance = 0
 	spread = 1
@@ -213,7 +213,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/mineral/gold
 	name = "gold deposit"
-	mineralType = /obj/item/ore/gold
+	mineralType = /obj/item/stack/ore/gold
 	mineralName = "Gold"
 	spreadChance = 5
 	spread = 1
@@ -222,7 +222,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/mineral/silver
 	name = "silver deposit"
-	mineralType = /obj/item/ore/silver
+	mineralType = /obj/item/stack/ore/silver
 	mineralName = "Silver"
 	spreadChance = 5
 	spread = 1
@@ -231,7 +231,7 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/mineral/titanium
 	name = "titanium deposit"
-	mineralType = /obj/item/ore/titanium
+	mineralType = /obj/item/stack/ore/titanium
 	spreadChance = 5
 	spread = 1
 	hidden = 1
@@ -240,7 +240,7 @@ var/global/list/rockTurfEdgeCache = list(
 /turf/simulated/mineral/plasma
 	name = "plasma deposit"
 	icon_state = "rock_Plasma"
-	mineralType = /obj/item/ore/plasma
+	mineralType = /obj/item/stack/ore/plasma
 	mineralName = "Plasma"
 	spreadChance = 8
 	spread = 1
@@ -250,7 +250,7 @@ var/global/list/rockTurfEdgeCache = list(
 /turf/simulated/mineral/clown
 	name = "bananium deposit"
 	icon_state = "rock_Clown"
-	mineralType = /obj/item/ore/bananium
+	mineralType = /obj/item/stack/ore/bananium
 	mineralName = "Bananium"
 	mineralAmt = 3
 	spreadChance = 0
@@ -260,7 +260,7 @@ var/global/list/rockTurfEdgeCache = list(
 /turf/simulated/mineral/mime
 	name = "tranquillite deposit"
 	icon_state = "rock_Mime"
-	mineralType = /obj/item/ore/tranquillite
+	mineralType = /obj/item/stack/ore/tranquillite
 	mineralAmt = 3
 	spreadChance = 0
 	spread = 0
@@ -269,7 +269,7 @@ var/global/list/rockTurfEdgeCache = list(
 /turf/simulated/mineral/bscrystal
 	name = "bluespace crystal deposit"
 	icon_state = "rock_BScrystal"
-	mineralType = /obj/item/ore/bluespace_crystal
+	mineralType = /obj/item/stack/ore/bluespace_crystal
 	mineralName = "Bluespace crystal"
 	mineralAmt = 1
 	spreadChance = 0
@@ -462,10 +462,10 @@ var/global/list/rockTurfEdgeCache = list(
 
 /turf/simulated/floor/plating/airless/asteroid/New()
 	var/proper_name = name
+	..()
 	name = proper_name
 	if(prob(20))
 		icon_state = "asteroid[rand(0,12)]"
-	..()
 
 /turf/simulated/floor/plating/airless/asteroid/ex_act(severity, target)
 	switch(severity)
@@ -518,7 +518,7 @@ var/global/list/rockTurfEdgeCache = list(
 	if(istype(W,/obj/item/storage/bag/ore))
 		var/obj/item/storage/bag/ore/S = W
 		if(S.collection_mode == 1)
-			for(var/obj/item/ore/O in src.contents)
+			for(var/obj/item/stack/ore/O in src.contents)
 				O.attackby(W,user)
 				return
 
@@ -531,11 +531,7 @@ var/global/list/rockTurfEdgeCache = list(
 /turf/simulated/floor/plating/airless/asteroid/proc/gets_dug()
 	if(dug)
 		return
-	new/obj/item/ore/glass(src)
-	new/obj/item/ore/glass(src)
-	new/obj/item/ore/glass(src)
-	new/obj/item/ore/glass(src)
-	new/obj/item/ore/glass(src)
+	new/obj/item/stack/ore/glass(src, 5)
 	dug = 1
 	playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1) //FUCK YO RUSTLE I GOT'S THE DIGS SOUND HERE
 	icon_plating = "asteroid_dug"

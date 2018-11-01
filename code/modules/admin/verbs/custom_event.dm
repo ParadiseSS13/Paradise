@@ -61,7 +61,7 @@
 
 	custom_event_admin_msg = input
 
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, "<h1 class='alert'>Custom Admin Event Info</h1>")
 			to_chat(X, "<h2 class='alert'>A custom event is starting. OOC Admin Info:</h2>")

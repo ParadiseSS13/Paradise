@@ -367,7 +367,7 @@
 	else
 		JaniData["user_loc"] = list("x" = 0, "y" = 0)
 	var/MopData[0]
-	for(var/obj/item/mop/M in janitorial_equipment)
+	for(var/obj/item/mop/M in GLOB.janitorial_equipment)
 		var/turf/ml = get_turf(M)
 		if(ml)
 			if(ml.z != cl.z)
@@ -380,7 +380,7 @@
 
 
 	var/BucketData[0]
-	for(var/obj/structure/mopbucket/B in janitorial_equipment)
+	for(var/obj/structure/mopbucket/B in GLOB.janitorial_equipment)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
@@ -392,7 +392,7 @@
 		BucketData[++BucketData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
 
 	var/CbotData[0]
-	for(var/mob/living/simple_animal/bot/cleanbot/B in simple_animal_list)
+	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.simple_animal_list)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)
@@ -404,7 +404,7 @@
 	if(!CbotData.len)
 		CbotData[++CbotData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
 	var/CartData[0]
-	for(var/obj/structure/janitorialcart/B in janitorial_equipment)
+	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)

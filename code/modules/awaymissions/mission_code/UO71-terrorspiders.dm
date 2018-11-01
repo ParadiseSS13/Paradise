@@ -248,7 +248,7 @@
 			spawn(1)
 				beenused = 1
 				var/unlocked_something = 0
-				for(var/obj/machinery/door/poddoor/P in airlocks)
+				for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
 					if(P.density && P.id_tag == door_to_open && P.z == z)
 						P.open()
 						unlocked_something = 1

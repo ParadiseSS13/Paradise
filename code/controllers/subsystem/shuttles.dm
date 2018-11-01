@@ -180,7 +180,7 @@ SUBSYSTEM_DEF(shuttle)
 /datum/controller/subsystem/shuttle/proc/autoEvac()
 	var/callShuttle = 1
 
-	for(var/thing in shuttle_caller_list)
+	for(var/thing in GLOB.shuttle_caller_list)
 		if(istype(thing, /mob/living/silicon/ai))
 			var/mob/living/silicon/ai/AI = thing
 			if(AI.stat || !AI.client)

@@ -14,12 +14,12 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
-
+	
 	var/damage = rand(5, 8) + A.dna.species.punchdamagelow
 	if(!damage)
 		playsound(D.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 		D.visible_message("<span class='warning'>[A] has attempted to hit [D] with a [atk_verb]!</span>")
-		add_attack_logs(A, D, "Melee attacked with [src] (miss/block)")
+		add_attack_logs(A, D, "Melee attacked with [src] (miss/block)", ATKLOG_ALL)
 		return 0
 
 
@@ -32,7 +32,7 @@
 								"<span class='userdanger'>[A] has hit [D] with a [atk_verb]!</span>")
 
 	D.apply_damage(damage, STAMINA, affecting, armor_block)
-	add_attack_logs(A, D, "Melee attacked with [src]")
+	add_attack_logs(A, D, "Melee attacked with [src]", ATKLOG_ALL)
 	if(D.getStaminaLoss() > 50)
 		var/knockout_prob = D.getStaminaLoss() + rand(-15,15)
 		if((D.stat != DEAD) && prob(knockout_prob))
@@ -40,9 +40,9 @@
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.apply_effect(10,WEAKEN,armor_block)
 			D.SetSleeping(5)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 	return 1
 
 /datum/martial_art/drunk_brawling
@@ -99,7 +99,7 @@
 								"<span class='userdanger'>[A] has knocked [D] out with a haymaker!</span>")
 			D.apply_effect(10,WEAKEN,armor_block)
 			D.Paralyse(5)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 		else if(D.lying)
-			D.forcesay(hit_appends)
+			D.forcesay(GLOB.hit_appends)
 	return 1

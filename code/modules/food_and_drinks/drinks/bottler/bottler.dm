@@ -235,7 +235,7 @@
 		//empties aren't sealed, so let's open it quietly
 		drink_container = new drink_container()
 		drink_container.canopened = 1
-		drink_container.flags |= OPENCONTAINER
+		drink_container.container_type |= OPENCONTAINER
 		drink_container.forceMove(loc)
 		containers[con_type]--
 

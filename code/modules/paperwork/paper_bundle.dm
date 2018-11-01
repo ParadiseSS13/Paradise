@@ -11,11 +11,15 @@
 	layer = 4
 	pressure_resistance = 1
 	attack_verb = list("bapped")
-	var/amount = 0 //Amount of items clipped to the paper
+	var/amount = 0 //Amount of items clipped to the paper. Note: If you have 2 paper, this should be 1
 	var/page = 1
 	var/screen = 0
 
-
+/obj/item/paper_bundle/New(default_papers = TRUE)
+	if(default_papers) // This is to avoid runtime occuring from a paper bundle being created without a paper in it.
+		new /obj/item/paper(src)
+		new /obj/item/paper(src)
+		amount += 1
 /obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	var/obj/item/paper/P
@@ -67,7 +71,8 @@
 
 
 	update_icon()
-	attack_self(usr) //Update the browsed page.
+	if(winget(usr, "[name]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
+		attack_self(usr) //Update the browsed page.
 	add_fingerprint(usr)
 	return
 

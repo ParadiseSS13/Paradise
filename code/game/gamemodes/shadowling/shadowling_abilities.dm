@@ -402,7 +402,7 @@
 
 		to_chat(target, "<span class='shadowling'><b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b></span>")
 
-		for(M in living_mob_list)
+		for(M in GLOB.living_mob_list)
 			if(is_thrall(M))
 				thralls++
 				to_chat(M, "<span class='shadowling'>You feel hooks sink into your mind and pull.</span>")
@@ -439,7 +439,7 @@
 		else if(thralls >= victory_threshold)
 			to_chat(target, "<span class='shadowling'><b>You are now powerful enough to ascend. Use the Ascendance ability when you are ready. <i>This will kill all of your thralls.</i></span>")
 			to_chat(target, "<span class='shadowling'><b>You may find Ascendance in the Shadowling Evolution tab.</b></span>")
-			for(M in living_mob_list)
+			for(M in GLOB.living_mob_list)
 				if(is_shadow(M))
 					var/obj/effect/proc_holder/spell/targeted/collective_mind/CM
 					if(CM in M.mind.spell_list)
@@ -540,9 +540,7 @@
 				to_chat(S, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
 				S << 'sound/misc/interference.ogg'
 				playsound(S, 'sound/machines/warning-buzzer.ogg', 50, 1)
-				var/datum/effect_system/spark_spread/sp = new /datum/effect_system/spark_spread
-				sp.set_up(5, 1, S)
-				sp.start()
+				do_sparks(5, 1, S)
 				S.Weaken(6)
 		for(var/obj/structure/window/W in T.contents)
 			W.take_damage(rand(80, 100))

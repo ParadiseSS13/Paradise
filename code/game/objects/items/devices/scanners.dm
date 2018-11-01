@@ -228,7 +228,7 @@ REAGENT SCANNER
 			var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 			var/blood_type = H.b_type
 			if(blood_id != "blood")//special blood substance
-				var/datum/reagent/R = chemical_reagents_list[blood_id]
+				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				if(R)
 					blood_type = R.name
 				else
@@ -439,7 +439,8 @@ REAGENT SCANNER
 	icon_state = "spectrometer"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
-	flags = CONDUCT | OPENCONTAINER
+	flags = CONDUCT
+	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 5
 	throw_speed = 4

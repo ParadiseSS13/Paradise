@@ -66,7 +66,7 @@
 				src.icon_state = "tube-construct-stage1"
 			if("bulb")
 				src.icon_state = "bulb-construct-stage1"
-		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, COLOR_RED)
+		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, paramcolor = COLOR_RED)
 		user.visible_message("[user.name] removes the wiring from [src].", \
 			"You remove the wiring from [src].", "You hear a noise.")
 		playsound(loc, W.usesound, 100, 1)
@@ -386,9 +386,7 @@
 
 		to_chat(user, "You stick \the [W] into the light socket!")
 		if(has_power() && (W.flags & CONDUCT))
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(3, 1, src)
-			s.start()
+			do_sparks(3, 1, src)
 			if(prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7,1.0))
 
@@ -540,9 +538,7 @@
 		if(status == LIGHT_OK || status == LIGHT_BURNED)
 			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		if(on || overloaded)
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(3, 1, src)
-			s.start()
+			do_sparks(3, 1, src)
 	status = LIGHT_BROKEN
 	update()
 

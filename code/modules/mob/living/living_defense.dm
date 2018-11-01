@@ -286,16 +286,14 @@
 				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
 				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
 
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(5, 1, src)
-				s.start()
+				do_sparks(5, 1, src)
 				return 1
 	add_attack_logs(src, M, "Slime'd")
 	return
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
+	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
+		M.custom_emote(1, "[M.friendly] [src].")
 		return 0
 	else
 		if(M.attack_sound)

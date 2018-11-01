@@ -150,7 +150,7 @@
 				message = uppertext(message)
 				verb = "yells loudly"
 
-	if((COMIC in mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs))
+	if((COMIC in mutations) || (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) || istype(get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown))
 		span = "sans"
 
 	if(span)

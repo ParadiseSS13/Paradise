@@ -80,3 +80,13 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 	build_path = /obj/item/clothing/mask/muzzle/safety/shock
 	category = list("Miscellaneous")
+	
+/datum/design/data_disk
+	name = "Genetics Data Disk"
+	desc = "Disk that allows you to store genetic data."
+	id = "datadisk"
+	req_tech = list("programming" = 3, "biotech" = 2)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=300, MAT_GLASS=100)
+	build_path = /obj/item/disk/data
+	category = list("Miscellaneous")

@@ -64,7 +64,7 @@
 			var/obj/item/organ/external/BP = X
 			var/brutedamage = BP.brute_dam
 
-			if(BP.is_robotic())
+			if(BP.is_robotic() && !isSynthetic())
 				continue
 
 			//We want an accurate reading of .len
@@ -102,7 +102,7 @@
 	if(!(NO_BLOOD in dna.species.species_traits))
 		..()
 		if(dna.species.exotic_blood)
-			var/datum/reagent/R = chemical_reagents_list[get_blood_id()]
+			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
 			if(istype(R) && isturf(loc))
 				R.reaction_turf(get_turf(src), amt)
 

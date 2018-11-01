@@ -194,6 +194,11 @@
 	reagent_state = LIQUID
 	color = "#3C3C3C"
 	taste_message = "motor oil"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/oil/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
+		new /obj/effect/decal/cleanable/blood/oil(T)
 
 /datum/reagent/iodine
 	name = "Iodine"
@@ -270,6 +275,13 @@
 	color = "#FFFFFF"
 	taste_message = "the rainbow"
 
+/datum/reagent/colorful_reagent/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+	return ..()
+
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
     if(isanimal(M))
         M.color = pick(random_color_list)
@@ -333,8 +345,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		var/datum/sprite_accessory/tmp_hair_style = hair_styles_full_list["Very Long Hair"]
-		var/datum/sprite_accessory/tmp_facial_hair_style = facial_hair_styles_list["Very Long Beard"]
+		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
+		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
 		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"

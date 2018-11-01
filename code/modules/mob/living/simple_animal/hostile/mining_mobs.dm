@@ -77,8 +77,8 @@
 	aggro_vision_range = 9
 	idle_vision_range = 2
 	turns_per_move = 5
-	loot = list(/obj/item/ore/diamond{layer = 4.1},
-				/obj/item/ore/diamond{layer = 4.1})
+	loot = list(/obj/item/stack/ore/diamond{layer = 4.1},
+				/obj/item/stack/ore/diamond{layer = 4.1})
 
 /obj/item/projectile/temp/basilisk
 	name = "freezing blast"

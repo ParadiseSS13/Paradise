@@ -88,8 +88,8 @@
 
 /datum/game_mode/proc/name_wizard(mob/living/carbon/human/wizard_mob)
 	//Allows the wizard to choose a custom name or go with a random one. Spawn 0 so it does not lag the round starting.
-	var/wizard_name_first = pick(wizard_first)
-	var/wizard_name_second = pick(wizard_second)
+	var/wizard_name_first = pick(GLOB.wizard_first)
+	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
 	spawn(0)
 		var/newname = sanitize(copytext(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
@@ -192,7 +192,7 @@
 
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
-		feedback_set_details("round_end_result","loss - wizard killed")
+		feedback_set_details("round_end_result","wizard loss - wizard killed")
 		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
 	..()
 	return 1

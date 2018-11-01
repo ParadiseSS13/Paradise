@@ -108,12 +108,12 @@ Made by Xhuis
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
 		log_game("[key_name(shadow)] has been selected as a Shadowling.")
-		sleep(10)
-		to_chat(shadow.current, "<br>")
-		to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
-		greet_shadow(shadow)
-		finalize_shadowling(shadow)
-		process_shadow_objectives(shadow)
+		spawn(rand(10,100))
+			to_chat(shadow.current, "<br>")
+			to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
+			greet_shadow(shadow)
+			finalize_shadowling(shadow)
+			process_shadow_objectives(shadow)
 		//give_shadowling_abilities(shadow)
 	..()
 
@@ -256,12 +256,16 @@ Made by Xhuis
 
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
+		feedback_set_details("round_end_result","shadowling win - shadowling ascension")
 		to_chat(world, "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
+		feedback_set_details("round_end_result","shadowling loss - shadowling killed")
 		to_chat(world, "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
 	else if(!check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+		feedback_set_details("round_end_result","shadowling loss - crew escaped")
 		to_chat(world, "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
 	else
+		feedback_set_details("round_end_result","shadowling loss - generic failure")
 		to_chat(world, "<span class='redtext'><b>The shadowlings have failed!</b></span>")
 	..()
 	return 1

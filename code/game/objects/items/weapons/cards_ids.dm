@@ -774,9 +774,9 @@
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
-	desc = "A modification kit to make your ID cards look snazzy.."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "batterer"
+	desc = "A nano-cellophane wrap that molds to an ID card to make it look snazzy."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "id_decal"
 	var/decal_name = "identification card"
 	var/decal_desc = "A card used to provide ID and determine access across the station."
 	var/decal_icon_state = "id"
@@ -784,30 +784,40 @@
 	var/override_name = 0
 
 /obj/item/id_decal/gold
-	name = "gold ID card card decal"
+	name = "gold ID card decal"
+	icon_state = "id_decal_gold"
+	desc = "Make your ID look like the Captain's or a self-centered HOP's. Applies to any ID."
 	decal_desc = "A golden card which shows power and might."
 	decal_icon_state = "gold"
 	decal_item_state = "gold_id"
 
 /obj/item/id_decal/silver
 	name = "silver ID card decal"
+	icon_state = "id_decal_silver"
+	desc = "Make your ID look like HOP's because they wouldn't change it officially. Applies to any ID."
 	decal_desc = "A silver card which shows honour and dedication."
 	decal_icon_state = "silver"
 	decal_item_state = "silver_id"
 
 /obj/item/id_decal/prisoner
 	name = "prisoner ID card decal"
+	icon_state = "id_decal_prisoner"
+	desc = "All the cool kids have an ID that's this color. Applies to any ID."
 	decal_desc = "You are a number, you are not a free man."
 	decal_icon_state = "prisoner"
 	decal_item_state = "orange-id"
 
 /obj/item/id_decal/centcom
 	name = "centcom ID card decal"
+	icon_state = "id_decal_centcom"
+	desc = "All the prestige without the responsibility or the access. Applies to any ID."
 	decal_desc = "An ID straight from Cent. Com."
 	decal_icon_state = "centcom"
 
 /obj/item/id_decal/emag
 	name = "cryptographic sequencer ID card decal"
+	icon_state = "id_decal_emag"
+	desc = "A bundle of wires that you can tape to your ID to look very suspect. Applies to any ID."
 	decal_name = "cryptographic sequencer"
 	decal_desc = "It's a card with a magnetic strip attached to some circuitry."
 	decal_icon_state = "emag"

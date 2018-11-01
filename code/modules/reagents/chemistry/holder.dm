@@ -18,21 +18,21 @@ var/const/INGEST = 2
 	if(!(flags & REAGENT_NOREACT))
 		processing_objects |= src
 	//I dislike having these here but map-objects are initialised before world/New() is called. >_>
-	if(!chemical_reagents_list)
+	if(!GLOB.chemical_reagents_list)
 		//Chemical Reagents - Initialises all /datum/reagent into a list indexed by reagent id
 		var/paths = subtypesof(/datum/reagent)
-		chemical_reagents_list = list()
+		GLOB.chemical_reagents_list = list()
 		for(var/path in paths)
 			var/datum/reagent/D = new path()
-			chemical_reagents_list[D.id] = D
-	if(!chemical_reactions_list)
+			GLOB.chemical_reagents_list[D.id] = D
+	if(!GLOB.chemical_reactions_list)
 		//Chemical Reactions - Initialises all /datum/chemical_reaction into a list
 		// It is filtered into multiple lists within a list.
 		// For example:
 		// chemical_reaction_list["plasma"] is a list of all reactions relating to plasma
 
 		var/paths = subtypesof(/datum/chemical_reaction)
-		chemical_reactions_list = list()
+		GLOB.chemical_reactions_list = list()
 
 		for(var/path in paths)
 
@@ -45,9 +45,9 @@ var/const/INGEST = 2
 
 			// Create filters based on each reagent id in the required reagents list
 			for(var/id in reaction_ids)
-				if(!chemical_reactions_list[id])
-					chemical_reactions_list[id] = list()
-				chemical_reactions_list[id] += D
+				if(!GLOB.chemical_reactions_list[id])
+					GLOB.chemical_reactions_list[id] = list()
+				GLOB.chemical_reactions_list[id] += D
 				break // Don't bother adding ourselves to other reagent ids, it is redundant.
 
 /datum/reagents/proc/remove_any(amount=1)
@@ -377,7 +377,7 @@ var/const/INGEST = 2
 	do
 		reaction_occured = 0
 		for(var/datum/reagent/R in reagent_list) // Usually a small list
-			for(var/reaction in chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we filtered it with our reagent id
+			for(var/reaction in GLOB.chemical_reactions_list[R.id]) // Was a big list but now it should be smaller since we filtered it with our reagent id
 				if(!reaction)
 					continue
 
@@ -570,7 +570,7 @@ var/const/INGEST = 2
 				handle_reactions()
 			return 0
 
-	var/datum/reagent/D = chemical_reagents_list[reagent]
+	var/datum/reagent/D = GLOB.chemical_reagents_list[reagent]
 	if(D)
 
 		var/datum/reagent/R = new D.type()
@@ -593,6 +593,11 @@ var/const/INGEST = 2
 	handle_reactions()
 
 	return 1
+
+/datum/reagents/proc/check_and_add(reagent, check, add)
+	if(get_reagent_amount(reagent) < check)
+		add_reagent(reagent, add)
+		return TRUE
 
 /datum/reagents/proc/remove_reagent(reagent, amount, safety)//Added a safety check for the trans_id_to
 
@@ -678,6 +683,16 @@ var/const/INGEST = 2
 			stuff += A.id
 	return english_list(stuff)
 
+/datum/reagents/proc/log_list()
+	if(!length(reagent_list))
+		return "no reagents"
+	var/list/data = list()
+	for(var/r in reagent_list) //no reagents will be left behind
+		var/datum/reagent/R = r
+		data += "[R.id] ([round(R.volume, 0.1)]u)"
+		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
+	return english_list(data)
+
 //two helper functions to preserve data across reactions (needed for xenoarch)
 /datum/reagents/proc/get_data(reagent_id)
 	for(var/datum/reagent/D in reagent_list)
@@ -739,10 +754,17 @@ var/const/INGEST = 2
 			break
 	return result
 
+/datum/reagents/proc/holder_full()
+	if(total_volume >= maximum_volume)
+		return TRUE
+	return FALSE
+
 /datum/reagents/Destroy()
 	. = ..()
 	processing_objects -= src
 	QDEL_LIST(reagent_list)
 	reagent_list = null
+	QDEL_LIST(addiction_list)
+	addiction_list = null
 	if(my_atom && my_atom.reagents == src)
 		my_atom.reagents = null

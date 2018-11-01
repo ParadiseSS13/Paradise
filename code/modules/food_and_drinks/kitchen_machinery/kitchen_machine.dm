@@ -8,7 +8,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 100
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	var/operating = 0 // Is it on?
 	var/dirty = 0 // = {0..100} Does it need cleaning?
 	var/broken = 0 // ={0,1,2} How broken is it???
@@ -93,7 +93,7 @@
 				icon_state = off_icon
 				broken = 0 // Fix it!
 				dirty = 0 // just to be sure
-				flags = OPENCONTAINER
+				container_type = OPENCONTAINER
 		else
 			to_chat(user, "<span class='alert'>It's broken!</span>")
 			return 1
@@ -105,7 +105,7 @@
 				dirty = 0 // It's clean!
 				broken = 0 // just to be sure
 				icon_state = off_icon
-				flags = OPENCONTAINER
+				container_type = OPENCONTAINER
 		else //Otherwise bad luck!!
 			to_chat(user, "<span class='alert'>It's dirty!</span>")
 			return 1
@@ -392,9 +392,7 @@
 	updateUsrDialog()
 
 /obj/machinery/kitchen_machine/proc/broke()
-	var/datum/effect_system/spark_spread/s = new
-	s.set_up(2, 1, src)
-	s.start()
+	do_sparks(2, 1, src)
 	icon_state = broken_icon // Make it look all busted up and shit
 	visible_message("<span class='alert'>The [src] breaks!</span>") //Let them know they're stupid
 	broken = 2 // Make it broken so it can't be used util fixed

@@ -10,22 +10,22 @@
 	var/id = null
 	var/on_icon = "sign_on"
 
-	proc/toggle()
-		if(stat & (BROKEN|NOPOWER))
-			return
-		lit = !lit
-		update_icon()
-
+/obj/machinery/holosign/proc/toggle()
+	if(stat & (BROKEN|NOPOWER))
+		return
+	lit = !lit
 	update_icon()
-		if(!lit)
-			icon_state = "sign_off"
-		else
-			icon_state = on_icon
 
-	power_change()
-		if(stat & NOPOWER)
-			lit = 0
-		update_icon()
+/obj/machinery/holosign/update_icon()
+	if(!lit)
+		icon_state = "sign_off"
+	else
+		icon_state = on_icon
+
+/obj/machinery/holosign/power_change()
+	if(stat & NOPOWER)
+		lit = 0
+	update_icon()
 
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"

@@ -248,7 +248,7 @@
 	if(!L || L && (L.status & ORGAN_DEAD))
 		if(health >= config.health_threshold_crit)
 			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else
+		else if(!(NOCRITDAMAGE in dna.species.species_traits))
 			adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
 		failed_last_breath = TRUE
@@ -709,14 +709,10 @@
 				adjustToxLoss(0.1)
 		else //stuff only for synthetics
 			if(alcohol_strength >= spark_start && prob(25))
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
+				do_sparks(3, 1, src)
 			if(alcohol_strength >= collapse_start && prob(10))
 				emote("collapse")
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(3, 1, src)
-				s.start()
+				do_sparks(3, 1, src)
 			if(alcohol_strength >= braindamage_start && prob(10))
 				adjustBrainLoss(1)
 

@@ -139,12 +139,15 @@
 
 
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
+	if(!ismob(L)) //because this was being called on turfs for some reason
+		return
+	
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
 			return
-
+	
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.apply_effect(STUTTER, stunforce)
@@ -166,7 +169,7 @@
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.forcesay(hit_appends)
+		H.forcesay(GLOB.hit_appends)
 
 /obj/item/melee/baton/emp_act(severity)
 	if(bcell)

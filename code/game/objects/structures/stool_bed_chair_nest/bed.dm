@@ -80,11 +80,12 @@
 		density = TRUE
 		icon_state = "up"
 		M.pixel_y = initial(M.pixel_y)
-	else
-		density = FALSE
-		icon_state = "down"
-		M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-		M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+
+/obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
+	density = FALSE
+	icon_state = "down"
+	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
+	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
 
 /obj/item/roller
 	name = "roller bed"

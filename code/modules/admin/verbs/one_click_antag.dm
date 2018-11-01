@@ -57,7 +57,7 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making [antnum] traitors with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] traitors with One-Click-Antag")
 
-	for(var/mob/living/carbon/human/applicant in player_list)
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_TRAITOR, applicant, temp))
 			candidates += applicant
 
@@ -88,7 +88,7 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making [antnum] changelings with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] changelings with One-Click-Antag")
 
-	for(var/mob/living/carbon/human/applicant in player_list)
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_CHANGELING, applicant, temp))
 			candidates += applicant
 
@@ -118,7 +118,7 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] revolutionaries with One-Click-Antag")
 
-	for(var/mob/living/carbon/human/applicant in player_list)
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_REV, applicant, temp))
 			candidates += applicant
 
@@ -166,7 +166,7 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making a Cult with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a Cult with One-Click-Antag")
 
-	for(var/mob/living/carbon/human/applicant in player_list)
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_CULTIST, applicant, temp))
 			candidates += applicant
 
@@ -195,7 +195,7 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making a [antnum] person Nuke Op Team with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making a [antnum] person Nuke Op Team with One-Click-Antag")
 
-	for(var/mob/G in respawnable_list)
+	for(var/mob/G in GLOB.respawnable_list)
 		if(istype(G) && G.client && (ROLE_OPERATIVE in G.client.prefs.be_special))
 			if(!jobban_isbanned(G, "operative") && !jobban_isbanned(G, "Syndicate"))
 				if(player_old_enough_antag(G.client,ROLE_OPERATIVE))
@@ -328,7 +328,7 @@ client/proc/one_click_antag()
 		var/syndicate_leader_selected = 0 //when the leader is chosen. The last person spawned.
 
 		//Generates a list of commandos from active ghosts. Then the user picks which characters to respawn as the commandos.
-		for(var/mob/G in respawnable_list)
+		for(var/mob/G in GLOB.respawnable_list)
 			if(!jobban_isbanned(G, "Syndicate"))
 				spawn(0)
 					switch(alert(G,"Do you wish to be considered for an elite syndicate strike team being sent in?","Please answer in 30 seconds!","Yes","No"))
@@ -399,7 +399,7 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
 	var/syndicate_commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/syndicate_commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
-	var/syndicate_commando_name = pick(last_names)
+	var/syndicate_commando_name = pick(GLOB.last_names)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(syndicate_leader_selected)
@@ -437,7 +437,7 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making Vox Raiders with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Vox Raiders with One-Click-Antag")
 //Generates a list of candidates from active ghosts.
-	for(var/mob/G in respawnable_list)
+	for(var/mob/G in GLOB.respawnable_list)
 		if(istype(G) && G.client && (ROLE_RAIDER in G.client.prefs.be_special))
 			if(player_old_enough_antag(G.client,ROLE_RAIDER))
 				if(!jobban_isbanned(G, "raider") && !jobban_isbanned(G, "Syndicate"))
@@ -542,7 +542,7 @@ client/proc/one_click_antag()
 	log_admin("[key_name(owner)] tried making Vampires with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making Vampires with One-Click-Antag")
 
-	for(var/mob/living/carbon/human/applicant in player_list)
+	for(var/mob/living/carbon/human/applicant in GLOB.player_list)
 		if(CandCheck(ROLE_VAMPIRE, applicant, temp))
 			candidates += applicant
 
@@ -567,7 +567,7 @@ client/proc/one_click_antag()
 	message_admins("[key_name_admin(owner)] tried making Thunderdone Teams with One-Click-Antag")
 
 	//Generates a list of candidates from active ghosts.
-	for(var/mob/G in respawnable_list)
+	for(var/mob/G in GLOB.respawnable_list)
 		spawn(0)
 			switch(alert(G,"Do you wish to be considered for a Thunderdome match about to start?","Please answer in 30 seconds!","Yes","No"))
 				if("Yes")

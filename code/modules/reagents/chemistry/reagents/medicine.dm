@@ -192,7 +192,7 @@
 /datum/reagent/medicine/styptic_powder
 	name = "Styptic Powder"
 	id = "styptic_powder"
-	description = "Styptic (aluminium sulfate) powder helps control bleeding and heal physical wounds."
+	description = "Styptic (aluminum sulfate) powder helps control bleeding and heal physical wounds."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 3
@@ -558,7 +558,7 @@
 	if(M.ear_damage <= 25)
 		if(prob(30))
 			M.SetEarDeaf(0)
-	..()
+	return ..() | update_flags
 
 /datum/reagent/medicine/atropine
 	name = "Atropine"
@@ -641,6 +641,7 @@
 			update_flags |= M.Weaken(3, FALSE)
 		if(effect <= 15)
 			M.emote("collapse")
+	return list(effect, update_flags)
 
 /datum/reagent/medicine/strange_reagent
 	name = "Strange Reagent"

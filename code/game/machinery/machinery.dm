@@ -134,7 +134,7 @@ Class Procs:
 		else
 			START_DEFERRED_PROCESSING(SSmachines, src)
 	else
-		fast_processing += src
+		GLOB.fast_processing += src
 		isprocessing = TRUE // all of these  isprocessing = TRUE  can be removed when the PS is dead
 
 // gotta go fast
@@ -143,7 +143,7 @@ Class Procs:
 		return
 	speed_process = 1
 	STOP_PROCESSING(SSmachines, src)
-	fast_processing += src
+	GLOB.fast_processing += src
 	isprocessing = TRUE
 
 // gotta go slow
@@ -152,20 +152,20 @@ Class Procs:
 		return
 	speed_process = 0
 	START_PROCESSING(SSmachines, src)
-	fast_processing -= src
+	GLOB.fast_processing -= src
 
 /obj/machinery/New() //new
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
-	machines += src
+	GLOB.machines += src
 	..()
 
 /obj/machinery/Destroy()
 	if(myArea)
 		myArea = null
-	fast_processing -= src
+	GLOB.fast_processing -= src
 	STOP_PROCESSING(SSmachines, src)
-	machines -= src
+	GLOB.machines -= src
 	return ..()
 
 /obj/machinery/proc/locate_machinery()
@@ -391,6 +391,9 @@ Class Procs:
 
 	return ..()
 
+/obj/machinery/proc/is_operational()
+	return !(stat & (NOPOWER|BROKEN|MAINT))
+
 /obj/machinery/CheckParts(list/parts_list)
 	..()
 	RefreshParts()
@@ -587,9 +590,7 @@ Class Procs:
 		return 0
 	if((TK in user.mutations) && !Adjacent(user))
 		return 0
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
+	do_sparks(5, 1, src)
 	if(electrocute_mob(user, get_area(src), src, 0.7))
 		if(user.stunned)
 			return 1

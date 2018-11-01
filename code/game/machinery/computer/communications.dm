@@ -37,7 +37,7 @@
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
 /obj/machinery/computer/communications/New()
-	shuttle_caller_list += src
+	GLOB.shuttle_caller_list += src
 	..()
 	crew_announcement.newscast = 0
 
@@ -502,11 +502,11 @@
 
 	if(SSshuttle.cancelEvac(user))
 		log_game("[key_name(user)] has recalled the shuttle.")
-		message_admins("[key_name_admin(user)] has recalled the shuttle - [ADMIN_FLW(user)].", 1)
+		message_admins("[key_name_admin(user)] has recalled the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 	else
 		to_chat(user, "<span class='warning'>Central Command has refused the recall request!</span>")
 		log_game("[key_name(user)] has tried and failed to recall the shuttle.")
-		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - [ADMIN_FLW(user)].", 1)
+		message_admins("[key_name_admin(user)] has tried and failed to recall the shuttle - ([ADMIN_FLW(user,"FLW")]).", 1)
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
@@ -533,21 +533,21 @@
 
 
 /obj/machinery/computer/communications/Destroy()
-	shuttle_caller_list -= src
+	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 	return ..()
 
 /obj/item/circuitboard/communications/New()
-	shuttle_caller_list += src
+	GLOB.shuttle_caller_list += src
 	..()
 
 /obj/item/circuitboard/communications/Destroy()
-	shuttle_caller_list -= src
+	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 	return ..()
 
 /proc/print_command_report(text = "", title = "Central Command Update")
-	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
+	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
@@ -555,7 +555,7 @@
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+	for(var/datum/computer_file/program/comm/P in GLOB.shuttle_caller_list)
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_station_contact(T.z))
 			if(P.computer)
@@ -566,7 +566,7 @@
 			P.messagetext.Add(text)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")
-	for(var/obj/machinery/computer/communications/C in shuttle_caller_list)
+	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_admin_level(C.z))
 			var/obj/item/paper/P = new /obj/item/paper(C.loc)
 			P.name = "paper- '[title]'"
@@ -574,7 +574,7 @@
 			P.update_icon()
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
-	for(var/datum/computer_file/program/comm/P in shuttle_caller_list)
+	for(var/datum/computer_file/program/comm/P in GLOB.shuttle_caller_list)
 		var/turf/T = get_turf(P.computer)
 		if(T && P.program_state != PROGRAM_STATE_KILLED && is_admin_level(T.z))
 			if(P.computer)

@@ -272,3 +272,4 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/mask/balaclava(src)
 	new /obj/item/clothing/accessory/stethoscope(src)
+	new /obj/item/book/manual/engineering_hacking(src)

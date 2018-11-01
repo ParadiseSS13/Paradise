@@ -51,7 +51,7 @@
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/dna_vault/V in machines)
+	for(var/obj/machinery/dna_vault/V in GLOB.machines)
 		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count && is_station_contact(V.z))
 			return TRUE
 	return FALSE
@@ -60,8 +60,8 @@
 	name = "DNA Sampler"
 	desc = "Can be used to take chemical and genetic samples of pretty much anything."
 	icon = 'icons/obj/hypo.dmi'
-	item_state = "hypo"
-	icon_state = "hypo"
+	item_state = "sampler_hypo"
+	icon_state = "sampler_hypo"
 	flags = NOBLUDGEON
 	var/list/animals = list()
 	var/list/plants = list()

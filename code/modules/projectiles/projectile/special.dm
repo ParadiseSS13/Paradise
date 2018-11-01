@@ -193,9 +193,7 @@
 	icon_state = "snappop"
 
 /obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(loc)
 	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)

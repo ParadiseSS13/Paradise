@@ -84,9 +84,9 @@ GLOBAL_LIST_EMPTY(safes)
 			to_chat(user, "<span class='italics'>You hear a [pick("clack", "scrape", "clank")] from [src].</span>")
 		if(tum2 && (turns_total == 1 || prob(10))) // So multi turns dont super spam the chat
 			to_chat(user, "<span class='italics'>You hear a [pick("click", "chink", "clink")] from [src].</span>")
-		if(tumbler_1_pos == tumbler_1_open && turns_total == 1) // You cant hear tumblers if you spin fast!
+		if(tumbler_1_pos == tumbler_1_open && turns_total == 1 && tum1) // You cant hear tumblers if you spin fast!
 			to_chat(user, "<span class='italics'>You hear a [pick("tonk", "krunk", "plunk")] from [src].</span>")
-		if(tumbler_2_pos == tumbler_2_open && turns_total == 1 ) // You cant hear tumblers if you spin fast!
+		if(tumbler_2_pos == tumbler_2_open && turns_total == 1 && tum2) // You cant hear tumblers if you spin fast!
 			to_chat(user, "<span class='italics'>You hear a [pick("tink", "krink", "plink")] from [src].</span>")
 	if(!locked)
 		if(user)

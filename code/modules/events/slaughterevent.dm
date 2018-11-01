@@ -16,13 +16,13 @@
 		var/datum/mind/player_mind = new /datum/mind(key_of_slaughter)
 		player_mind.active = 1
 		var/list/spawn_locs = list()
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(isturf(L.loc))
 				switch(L.name)
 					if("revenantspawn")
 						spawn_locs += L.loc
 		if(!spawn_locs) //If we can't find any revenant spawns, try the carp spawns
-			for(var/obj/effect/landmark/L in landmarks_list)
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(isturf(L.loc))
 					switch(L.name)
 						if("carpspawn")

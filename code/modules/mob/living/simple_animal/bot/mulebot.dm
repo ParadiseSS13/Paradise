@@ -214,7 +214,7 @@
 			if(mode == BOT_IDLE || mode == BOT_DELIVER)
 				start_home()
 		if("destination")
-			var/new_dest = input(usr, "Enter Destination:", name, destination) as null|anything in deliverybeacontags
+			var/new_dest = input(usr, "Enter Destination:", name, destination) as null|anything in GLOB.deliverybeacontags
 			if(new_dest)
 				set_destination(new_dest)
 		if("setid")
@@ -222,7 +222,7 @@
 			if(new_id)
 				set_suffix(new_id)
 		if("sethome")
-			var/new_home = input(usr, "Enter Home:", name, home_destination) as null|anything in deliverybeacontags
+			var/new_home = input(usr, "Enter Home:", name, home_destination) as null|anything in GLOB.deliverybeacontags
 			if(new_home)
 				home_destination = new_home
 		if("unload")
@@ -401,9 +401,16 @@
 			M.layer = layer + 0.1
 
 	else //post unbuckling
-		load = null
-		M.layer = initial(M.layer)
-		M.pixel_y = initial(M.pixel_y)
+		reset_buckled_mob(M)
+
+/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/M)
+	. = ..()
+	reset_buckled_mob(M)
+
+/mob/living/simple_animal/bot/mulebot/proc/reset_buckled_mob(mob/living/M)
+	load = null
+	M.layer = initial(M.layer)
+	M.pixel_y = initial(M.pixel_y)
 
 // called to unload the bot
 // argument is optional direction to unload
@@ -809,7 +816,7 @@
 	if(!on || !wires.BeaconRX())
 		return
 
-	for(var/obj/machinery/navbeacon/NB in deliverybeacons)
+	for(var/obj/machinery/navbeacon/NB in GLOB.deliverybeacons)
 		if(NB.location == new_destination)	// if the beacon location matches the set destination
 			destination = new_destination	// the we will navigate there
 			target = NB.loc
@@ -840,9 +847,7 @@
 		cell.update_icon()
 		cell = null
 
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	..()

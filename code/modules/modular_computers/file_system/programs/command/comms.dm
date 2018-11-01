@@ -28,12 +28,12 @@
 	var/datum/announcement/priority/crew_announcement = new
 
 /datum/computer_file/program/comm/New()
-	shuttle_caller_list += src
+	GLOB.shuttle_caller_list += src
 	..()
 	crew_announcement.newscast = 0
 
 /datum/computer_file/program/comm/Destroy()
-	shuttle_caller_list -= src
+	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 	return ..()
 

@@ -8,6 +8,7 @@
 	icon_state = "grey slime extract"
 	force = 1
 	w_class = WEIGHT_CLASS_TINY
+	container_type = INJECTABLE | DRAWABLE
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 6
@@ -485,7 +486,7 @@
 
 /obj/effect/timestop/New()
 	..()
-	for(var/mob/living/M in player_list)
+	for(var/mob/living/M in GLOB.player_list)
 		for(var/obj/effect/proc_holder/spell/aoe_turf/conjure/timestop/T in M.mind.spell_list) //People who can stop time are immune to timestop
 			immune |= M
 
