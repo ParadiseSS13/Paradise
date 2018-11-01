@@ -321,11 +321,7 @@
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/item/clothing/mask/gas/M = target
 		M.name = "Prescription Gas Mask"
-<<<<<<< HEAD
-		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words �Property of Yon-Dale� can be seen on the inner band."
-=======
 		M.desc = "It looks heavily modified, but otherwise functions as a gas mask. The words Property of Yon-Dale can be seen on the inner band."
->>>>>>> ea39e6765911304af2e1277a53046b75bdea3d93
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.species_fit = list("Vulpkanin")
@@ -1667,4 +1663,3 @@
 	//                    ---
 
 	return
-
