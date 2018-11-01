@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "Random news feed now does not contain random code."
