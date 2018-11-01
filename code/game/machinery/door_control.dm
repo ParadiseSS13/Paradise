@@ -82,7 +82,7 @@
 	add_fingerprint(user)
 
 	if(normaldoorcontrol)
-		for(var/obj/machinery/door/airlock/D in range(range))
+		for(var/obj/machinery/door/airlock/D in range(range, src))
 			if(D.id_tag == id)
 				if(specialfunctions & OPEN)
 					if(D.density)
@@ -113,7 +113,7 @@
 						D.safe = 1
 
 	else
-		for(var/obj/machinery/door/poddoor/M in range(range))
+		for(var/obj/machinery/door/poddoor/M in range(range, src))
 			if(M.id_tag == id)
 				if(M.density)
 					spawn( 0 )

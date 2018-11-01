@@ -47,6 +47,7 @@
 	message = sanitize(copytext(message, 1, MAX_MESSAGE_LEN))
 	if(!message)
 		return
+	message = user.handle_speech_problems(message)[1]
 	message = capitalize(message)
 	if((loc == user && !user.incapacitated()))
 		if(emagged)
