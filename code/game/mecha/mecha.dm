@@ -776,17 +776,18 @@
 
 	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weldingtool/WT = W
-		if(health<initial(health))
-			if (WT.remove_fuel(0,user))
-				if (internal_damage & MECHA_INT_TANK_BREACH)
-					clearInternalDamage(MECHA_INT_TANK_BREACH)
-					to_chat(user, "<span class='notice'>You repair the damaged gas tank.</span>")
-				else
-					user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>")
-					health += min(10, initial(health)-health)
+		if(health < initial(health))
+			if(WT.remove_fuel(0, user))
+				user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
+				if(do_after_once(user, 15 * WT.toolspeed, target = src, attempt_cancel_message = "You stop repairing [name]."))
+					if(internal_damage & MECHA_INT_TANK_BREACH)
+						clearInternalDamage(MECHA_INT_TANK_BREACH)
+						user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
+					else
+						user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
+						health += min(20, initial(health) - health)
 			else
 				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
-				return 1
 		else
 			to_chat(user, "<span class='warning'>The [name] is at full integrity!</span>")
 		return 1
