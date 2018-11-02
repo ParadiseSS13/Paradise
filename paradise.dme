@@ -108,6 +108,7 @@
 #include "code\_globalvars\lists\names.dm"
 #include "code\_globalvars\lists\objects.dm"
 #include "code\_globalvars\lists\reagents.dm"
+#include "code\_globalvars\lists\typecache.dm"
 #include "code\_onclick\adjacent.dm"
 #include "code\_onclick\ai.dm"
 #include "code\_onclick\click.dm"
