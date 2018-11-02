@@ -24,10 +24,12 @@
 /obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)
 	..()
 	phasing_action.Grant(user, src)
+	switch_damtype_action.Grant(user, src)
 
 /obj/mecha/combat/phazon/RemoveActions(mob/living/user, human_occupant = 0)
 	..()
 	phasing_action.Remove(user)
+	switch_damtype_action.Remove(user)
 
 /obj/mecha/combat/phazon/New()
 	..()
@@ -35,26 +37,6 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
 	ME.attach(src)
-
-/obj/mecha/combat/phazon/verb/switch_damtype()
-	set category = "Exosuit Interface"
-	set name = "Reconfigure arm microtool arrays"
-	set src = usr.loc
-	set popup_menu = 0
-	if(usr != occupant)
-		return
-	var/new_damtype = alert(occupant, "Arm Tool Selection", null, "Fists", "Torch", "Toxic Injector")
-	switch(new_damtype)
-		if("Fists")
-			damtype = "brute"
-			occupant_message("Your exosuit's hands form into fists.")
-		if("Torch")
-			damtype = "fire"
-			occupant_message("A torch tip extends from your exosuit's hand, glowing red.")
-		if("Toxic Injector")
-			damtype = "tox"
-			occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
-	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
 
 /obj/mecha/combat/phazon/get_commands()
 	var/output = {"<div class='wr'>
@@ -66,8 +48,3 @@
 						"}
 	output += ..()
 	return output
-
-/obj/mecha/combat/phazon/Topic(href, href_list)
-	..()
-	if(href_list["switch_damtype"])
-		switch_damtype()

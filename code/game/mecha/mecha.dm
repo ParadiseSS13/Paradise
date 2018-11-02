@@ -1075,10 +1075,6 @@
 /obj/mecha/portableConnectorReturnAir()
 	return internal_tank.return_air()
 
-
-/////////////////////////
-////////  Verbs  ////////
-/////////////////////////
 /obj/mecha/proc/toggle_lights()
 	lights = !lights
 	if(lights)
