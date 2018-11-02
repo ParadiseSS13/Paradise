@@ -24,7 +24,7 @@
 	force = 5
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
-	var/can_move = 1
+	var/can_move = 0 // time of next allowed movement
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
@@ -96,8 +96,8 @@
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
-/obj/mecha/New()
-	..()
+/obj/mecha/Initialize()
+	. = ..()
 	events = new
 	icon_state += "-open"
 	add_radio()
@@ -124,13 +124,6 @@
 ////////////////////////
 ////// Helpers /////////
 ////////////////////////
-
-/obj/mecha/proc/removeVerb(verb_path)
-	verbs -= verb_path
-
-/obj/mecha/proc/addVerb(verb_path)
-	verbs += verb_path
-
 /obj/mecha/proc/add_airtank()
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
@@ -159,7 +152,6 @@
 	radio.icon_state = icon_state
 	radio.subspace_transmission = 1
 
-
 /obj/mecha/examine(mob/user)
 	..(user)
 	var/integrity = health/initial(health)*100
@@ -179,12 +171,9 @@
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
 			to_chat(user, "[bicon(ME)] [ME]")
 
-
-
 /obj/mecha/hear_talk(mob/M, text)
 	if(M == occupant && radio.broadcasting)
 		radio.talk_into(M, text)
-
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!occupant || occupant != user )
@@ -298,7 +287,7 @@
 	return domove(direction)
 
 /obj/mecha/proc/domove(direction)
-	if(!can_move)
+	if(can_move >= world.time)
 		return 0
 	if(!Process_Spacemove(direction))
 		return 0
@@ -327,12 +316,9 @@
 		move_result = mechstep(direction)
 		move_type = MECHAMOVE_STEP
 
-	can_move = FALSE
-	spawn(step_in)
-		can_move = TRUE
-
 	if(move_result && move_type)
 		aftermove(move_type)
+		can_move = world.time + step_in
 		return TRUE
 	return FALSE
 
@@ -354,7 +340,6 @@
 			step_energy_drain = initial(step_energy_drain)
 			occupant_message("<font color='red'>Leg actuators damage threshold exceded. Disabling overload.</font>")
 
-
 /obj/mecha/proc/mechturn(direction)
 	dir = direction
 	if(turnsound)
@@ -365,15 +350,13 @@
 	. = step(src, direction)
 	if(!.)
 		if(phasing && get_charge() >= phasing_energy_drain)
-			if(can_move)
-				can_move = 0
-				. = TRUE
+			if(can_move < world.time)
+				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
 				flick("phazon-phase", src)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain)
 				playsound(src, stepsound, 40, 1)
-				spawn(step_in * 3)
-					can_move = 1
+				can_move = world.time + (step_in * 3)
 	else if(stepsound)
 		playsound(src, stepsound, 40, 1)
 
@@ -381,8 +364,6 @@
 	. = step_rand(src)
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
-
-
 
 /obj/mecha/Bump(var/atom/obstacle, bump_allowed)
 	if(throwing) //high velocity mechas in your face!
@@ -1496,3 +1477,35 @@
 			else if(damtype == TOX)
 				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
 	..()
+
+/obj/mecha/CtrlClick(mob/living/L)
+	if(occupant != L || !istype(L))
+		return ..()
+
+	var/list/choices = list("Cancel / No Change" = mutable_appearance(icon = 'icons/mob/screen_gen.dmi', icon_state = "x"))
+	var/list/choices_to_refs = list()
+
+	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
+		if(!MT.selectable || selected == MT)
+			continue
+		var/mutable_appearance/clean/MA = new(MT)
+		choices[MT.name] = MA
+		choices_to_refs[MT.name] = MT
+
+	var/choice = show_radial_menu(L, src, choices, radius = 48, custom_check = CALLBACK(src, .proc/check_menu, L))
+	if(!check_menu(L) || choice == "Cancel / No Change")
+		return
+
+	var/obj/item/mecha_parts/mecha_equipment/new_sel = LAZYACCESS(choices_to_refs, choice)
+	if(istype(new_sel))
+		selected = new_sel
+		occupant_message("<span class='notice'>You switch to [selected].</span>")
+		visible_message("[src] raises [selected]")
+		send_byjax(occupant, "exosuit.browser", "eq_list", get_equipment_list())
+
+/obj/mecha/proc/check_menu(mob/living/L)
+	if(L != occupant || !istype(L))
+		return FALSE
+	if(L.incapacitated())
+		return FALSE
+	return TRUE
