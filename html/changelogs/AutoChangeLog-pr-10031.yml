@@ -1,0 +1,8 @@
+author: "Certhic"
+delete-after: True
+changes: 
+  - rscadd: "Added diona nymph action buttons"
+  - rscadd: "Added diona nymph resist alert when they're merged"
+  - rscadd: "Diona nymph can now initiate merge with the gestalt"
+  - bugfix: "Diona nymph can now leave their gestalt by resisting"
+  - bugfix: "Diona nymph can no longer attack its gestalt"
