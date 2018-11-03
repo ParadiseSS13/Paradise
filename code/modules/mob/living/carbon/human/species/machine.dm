@@ -27,12 +27,13 @@
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	dietflags = 0		//IPCs can't eat, so no diet
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
-	blood_color = "#1F181F"
 	flesh_color = "#AAAAAA"
 
-	blood_color = "#3C3C3C"
+	blood_color = "#030303"
 	exotic_blood = "oil"
 	blood_damage_type = STAMINA
+	blood_drip_decal = /obj/effect/decal/cleanable/blood/drip/oil
+	blood_splatter_decal = /obj/effect/decal/cleanable/blood/splatter/oil
 
 	//Default styles for created mobs.
 	default_hair = "Blue IPC Screen"

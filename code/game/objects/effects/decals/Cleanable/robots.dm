@@ -48,6 +48,16 @@
 	basecolor = "#030303"
 	bloodiness = MAX_SHOE_BLOODINESS
 
+/obj/effect/decal/cleanable/blood/splatter/oil
+	name = "motor oil"
+	desc = "It's black and greasy. Looks like Beepsky made another mess."
+	basecolor = "#030303"	
+
+/obj/effect/decal/cleanable/blood/drip/oil
+	name = "drips of oil"
+	desc = "It's black."
+	basecolor = "#030303"
+
 /obj/effect/decal/cleanable/blood/oil/can_bloodcrawl_in()
 	return FALSE
 
