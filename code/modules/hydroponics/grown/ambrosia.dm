@@ -77,7 +77,7 @@
 	light_range = 3
 	seed = /obj/item/seeds/ambrosia/gaia
 	wine_power = 0.7
-	wine_flavor = "the earthmothert's blessing"
+	wine_flavor = "the earthmother's blessing"
 
 // Ambrosia Cruciatus
 /obj/item/seeds/ambrosia/cruciatus
