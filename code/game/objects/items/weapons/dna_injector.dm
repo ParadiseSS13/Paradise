@@ -175,26 +175,26 @@
 	block = HULKBLOCK
 	..()
 
-/obj/item/dnainjector/xraymut
-	name = "DNA-Injector (Xray)"
-	desc = "Finally you can see what the Captain does."
+/obj/item/dnainjector/nightvisionmut
+	name = "DNA-Injector (Nightvision)"
+	desc = "Finally you can sleep without a light on."
 	datatype = DNA2_BUF_SE
 	value = 0xFFF
 	//block = 8
 
-/obj/item/dnainjector/xraymut/New()
-	block = XRAYBLOCK
+/obj/item/dnainjector/nightvisionmut/New()
+	block = NIGHTVISIONBLOCK
 	..()
 
-/obj/item/dnainjector/antixray
-	name = "DNA-Injector (Anti-Xray)"
-	desc = "It will make you see harder."
+/obj/item/dnainjector/antinightvision
+	name = "DNA-Injector (Anti-Nightvision)"
+	desc = "Shadows will accompany you once more."
 	datatype = DNA2_BUF_SE
 	value = 0x001
 	//block = 8
 
-/obj/item/dnainjector/antixray/New()
-	block = XRAYBLOCK
+/obj/item/dnainjector/antinightvision/New()
+	block = NIGHTVISIONBLOCK
 	..()
 
 /obj/item/dnainjector/firemut

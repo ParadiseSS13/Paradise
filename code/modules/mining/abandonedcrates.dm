@@ -113,7 +113,7 @@
 		if(92)
 			new /obj/item/katana(src)
 		if(93)
-			new /obj/item/dnainjector/xraymut(src)
+			new /obj/item/dnainjector/nightvisionmut(src)
 		if(94)
 			new /obj/item/storage/backpack/clown(src)
 			new /obj/item/clothing/under/rank/clown(src)
