@@ -480,6 +480,8 @@
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective:target.current
+				possible_targets = sortNames(possible_targets)
+
 
 				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 				if(!new_target)
@@ -573,7 +575,7 @@
 				for(var/datum/mind/possible_target in ticker.minds)
 					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target
-
+				possible_targets = sortByKey(possible_targets)
 				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 				if(!new_target)
 					return
