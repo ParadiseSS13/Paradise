@@ -264,28 +264,27 @@
 	name = "NT Undercover Operative"
 	// Disguised NT special forces, sent to quietly eliminate mutinous people in high positions (e.g: captain)
 
-	uniform = /obj/item/clothing/under/chameleon
+	uniform = /obj/item/clothing/under/color/black
 	back = /obj/item/storage/backpack
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/syndigaloshes
+	shoes = /obj/item/clothing/shoes/syndigaloshes/black
 	l_ear = /obj/item/radio/headset/centcom
-	id = /obj/item/card/id/syndicate
+	id = /obj/item/card/id
 	pda = /obj/item/pda
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/door_remote/omni = 1,
-		/obj/item/implanter/mindshield = 1, // not implanted by default, as that would make them suspicious
-		/obj/item/implanter/storage = 1 // do not auto-implant this, that causes a bug
+		/obj/item/reagent_containers/food/drinks/chicken_soup = 2,
+		/obj/item/pinpointer/crew = 1
 	)
 	implants = list(
 		/obj/item/implant/dust
 	)
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/shield,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/eyes/xray,
-		/obj/item/organ/internal/cyberimp/brain/anti_drop,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
@@ -299,7 +298,6 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Civilian")
-		I.icon_state = "deathsquad"
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))

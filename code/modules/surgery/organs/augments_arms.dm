@@ -241,10 +241,8 @@
 /obj/item/organ/internal/cyberimp/arm/combat/centcom
 	name = "specops cybernetics implant"
 	desc = "An extremely powerful cybernetic implant that contains combat and utility modules used by special forces"
-	contents = newlist(/obj/item/gun/energy/pulse/destroyer, /obj/item/melee/energy/blade/hardlight, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
-
-/obj/item/organ/internal/cyberimp/arm/combat/centcom/emp_act()
-	return
+	contents = newlist(/obj/item/gun/energy/pulse/pistol/m1911, /obj/item/door_remote/omni, /obj/item/melee/energy/blade/hardlight, /obj/item/reagent_containers/hypospray/combat/nanites, /obj/item/gun/medbeam, /obj/item/borg/stun, /obj/item/flash/armimplant)
+	emp_proof = 1
 
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
