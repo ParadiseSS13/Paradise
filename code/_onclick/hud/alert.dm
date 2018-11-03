@@ -319,7 +319,6 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 /obj/screen/alert/nymph
 	name = "Gestalt merge"
 	desc = "You have merged with a diona gestalt and are now part of it's biomass. You can still wiggle yourself free though."
-	icon_state = "nymph"
 
 /obj/screen/alert/nymph/Click()
 	if(!usr || !usr.client)

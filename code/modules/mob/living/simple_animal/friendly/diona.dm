@@ -32,30 +32,62 @@
 	melee_damage_upper = 8
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	var/chirp_sound = 'sound/misc/nymphchirp.ogg'
+	var/chirp_sound = 'sound/misc/nymphchirp.ogg' //used in emote
 
 	speed = 0
 	stop_automated_movement = 0
 	turns_per_move = 4
 
 	var/list/donors = list()
-	var/ready_evolve = 0
 	holder_type = /obj/item/holder/diona
-	can_collar = 1
+	can_collar = TRUE
 
 	a_intent = INTENT_HELP
-	var/gestalt_alert = "merged with gestalt"
-	var/evolve_donors = 5
-	var/awareness_donors = 3
-	var/nutrition_need = 500
+	var/gestalt_alert = "merged with gestalt" //used in adding and clearing alert
+	var/evolve_donors = 5 //amount of blood donors needed before evolving
+	var/awareness_donors = 3 //amount of blood donors needed for understand language
+	var/nutrition_need = 500 //amount of nutrition needed before evolving
+
+	var/datum/action/innate/diona/merge/merge_action = new()
+	var/datum/action/innate/diona/evolve/evolve_action = new()
+	var/datum/action/innate/diona/steal_blood/steal_blood_action = new()
+
+/datum/action/innate/diona/merge
+	name = "Merge with gestalt"
+	icon_icon = 'icons/mob/human_races/r_diona.dmi'
+	button_icon_state = "preview"
+
+/datum/action/innate/diona/merge/Activate()
+	var/mob/living/simple_animal/diona/user = owner
+	user.merge()
+	
+/datum/action/innate/diona/evolve
+	name = "Evolve"
+	icon_icon = 'icons/obj/cloning.dmi'
+	button_icon_state = "pod_1"
+
+/datum/action/innate/diona/evolve/Activate()
+	var/mob/living/simple_animal/diona/user = owner
+	user.evolve()
+
+/datum/action/innate/diona/steal_blood
+	name = "Steal blood"
+	icon_icon = 'icons/obj/bloodpack.dmi'
+	button_icon_state = "full"
+
+/datum/action/innate/diona/steal_blood/Activate()
+	var/mob/living/simple_animal/diona/user = owner
+	user.steal_blood()
 
 /mob/living/simple_animal/diona/New()
 	..()
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
-
 	add_language("Rootspeak")
+	merge_action.Grant(src)
+	evolve_action.Grant(src)
+	steal_blood_action.Grant(src)
 
 /mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
@@ -78,7 +110,7 @@
 		else
 			get_scooped(M)
 
-/mob/living/simple_animal/diona/proc/merge() //called by the hud (/obj/screen/diona/merge)
+/mob/living/simple_animal/diona/proc/merge()
 	if(stat != CONSCIOUS)
 		return FALSE
 
@@ -107,7 +139,7 @@
 	else
 		return FALSE
 
-/mob/living/simple_animal/diona/proc/split() //called by the hud (obj/screen/alert/nymph)
+/mob/living/simple_animal/diona/proc/split()
 	if((stat != CONSCIOUS) || !isdiona(loc))
 		return FALSE
 	var/mob/living/carbon/human/D = loc
@@ -128,7 +160,7 @@
 	clear_alert(gestalt_alert)
 	return TRUE
 
-/mob/living/simple_animal/diona/proc/evolve()  //called by the hud (/obj/screen/diona/evolve)
+/mob/living/simple_animal/diona/proc/evolve()
 	if(stat != CONSCIOUS)		
 		return FALSE
 	
@@ -168,7 +200,7 @@
 	qdel(src)
 	return TRUE
 
-/mob/living/simple_animal/diona/proc/steal_blood()  //called by the hud (/obj/screen/diona/blood)
+/mob/living/simple_animal/diona/proc/steal_blood() 
 	if(stat != CONSCIOUS)		
 		return FALSE
 	
@@ -208,7 +240,6 @@
 		return FALSE
 
 	if(donors.len == evolve_donors)
-		ready_evolve = 1
 		to_chat(src, "<span class='noticealien'>You feel ready to move on to your next stage of growth.</span>")
 	else if(donors.len == awareness_donors)
 		universal_understand = 1
