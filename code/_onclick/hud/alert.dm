@@ -315,6 +315,18 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "Unit's power cell is running low. Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
 	icon_state = "lowcell"
 
+//Diona Nymph
+/obj/screen/alert/nymph
+	name = "Gestalt merge"
+	desc = "You have merged with a diona gestalt and are now part of it's biomass. You can still wiggle yourself free though."
+
+/obj/screen/alert/nymph/Click()
+	if(!usr || !usr.client)
+		return		
+	if(isnymph(usr))
+		var/mob/living/simple_animal/diona/D = usr
+		return D.resist()
+
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /obj/screen/alert/hacked
 	name = "Hacked"
