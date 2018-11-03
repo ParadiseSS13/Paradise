@@ -262,6 +262,7 @@ GLOBAL_LIST_EMPTY(safes)
 			qdel(I)
 			broken = !broken
 			update_icon()
+			return
 		else if(I.w_class + space <= maxspace)
 			space += I.w_class
 			if(!user.drop_item())
@@ -360,9 +361,9 @@ GLOBAL_LIST_EMPTY(safes)
 	addtimer(CALLBACK(src, .proc/populate_codes), 10)
 
 /obj/item/paper/safe_code/proc/populate_codes()
-	for(var/obj/structure/safe/S in GLOB.safes)
+	for(var/safe in GLOB.safes)
+		var/obj/structure/safe/S = safe
 		if(owner in S.knownby)
 			info += "<br> The combination for the safe located in the [get_area(S).name] is: [S.combo_to_open]<br>"
 			info_links = info
-			overlays.Cut()
-			overlays += "paper_words"
+			update_icon()
