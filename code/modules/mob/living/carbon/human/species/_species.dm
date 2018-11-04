@@ -527,7 +527,7 @@
 
 /datum/species/proc/handle_hud_icons_health_side(mob/living/carbon/human/H)
 	if(H.healths)
-		if(H.stat == DEAD)
+		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healths.icon_state = "health7"
 		else
 			switch(H.hal_screwyhud)
@@ -546,7 +546,7 @@
 
 /datum/species/proc/handle_hud_icons_health_doll(mob/living/carbon/human/H)
 	if(H.healthdoll)
-		if(H.stat == DEAD)
+		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healthdoll.icon_state = "healthdoll_DEAD"
 			if(H.healthdoll.overlays.len)
 				H.healthdoll.overlays.Cut()
