@@ -1314,6 +1314,7 @@
 #include "code\modules\clothing\under\chameleon.dm"
 #include "code\modules\clothing\under\color.dm"
 #include "code\modules\clothing\under\miscellaneous.dm"
+#include "code\modules\clothing\under\oldstation_uni.dm"
 #include "code\modules\clothing\under\pants.dm"
 #include "code\modules\clothing\under\shorts.dm"
 #include "code\modules\clothing\under\syndicate.dm"
