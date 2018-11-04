@@ -31,6 +31,10 @@
 		new /obj/item/flashlight/flare(src)
 	new /obj/item/radio(src)
 
+/obj/item/storage/toolbox/emergency/old
+	name = "rusty red toolbox"
+	icon_state = "toolbox_red_old"
+
 /obj/item/storage/toolbox/mechanical
 	name = "mechanical toolbox"
 	icon_state = "blue"
@@ -47,6 +51,10 @@
 
 /obj/item/storage/toolbox/mechanical/greytide
 	flags = NODROP
+
+/obj/item/storage/toolbox/mechanical/old
+	name = "rusty blue toolbox"
+	icon_state = "toolbox_blue_old"
 
 /obj/item/storage/toolbox/electrical
 	name = "electrical toolbox"

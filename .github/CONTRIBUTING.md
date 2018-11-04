@@ -525,6 +525,8 @@ pull requests/issues, and merging/closing pull requests.
 ### Maintainer List
 * [Fox P McCloud](https://github.com/Fox-McCloud)
 * [Crazy Lemon](https://github.com/Crazylemon64)
+* [Tigercat2000](https://github.com/tigercat2000)
+* [Ansari](https://github.com/variableundefined)
 
 ### Maintainer instructions
 * Do not `self-merge`; this refers to the practice of opening a pull request, then

@@ -992,6 +992,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/card/emag
 	cost = 6
 
+/datum/uplink_item/device_tools/access_tuner
+	name = "Access Tuner"
+	desc = "The access tuner is a small device that can interface with airlocks from range. It takes a few seconds to connect and can change the bolt state, open the door, or toggle emergency access."
+	reference = "HACK"
+	item = /obj/item/door_remote/omni/access_tuner
+	cost = 6
+
 /datum/uplink_item/device_tools/toolbox
 	name = "Fully Loaded Toolbox"
 	desc = "The syndicate toolbox is a suspicious black and red. Aside from tools, it comes with insulated gloves and a multitool."
