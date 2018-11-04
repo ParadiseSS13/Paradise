@@ -152,8 +152,8 @@
 
 /datum/dna/gene/basic/xray
 	name="X-Ray Vision"
-	activation_messages=list("The walls suddenly disappear.")
-	deactivation_messages=list("the walls around you re-appear.")
+	activation_messages=list("I CAN SEE THROUGH EVERYTHING!")
+	deactivation_messages=list("Thank God that's over.")
 	instability = GENE_INSTABILITY_MAJOR
 	mutation=XRAY
 	activation_prob=15
