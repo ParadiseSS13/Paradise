@@ -1,4 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a bug in machines when switching between speedy and normal processing speeds."
