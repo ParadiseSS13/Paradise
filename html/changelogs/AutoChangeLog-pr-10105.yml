@@ -1,0 +1,5 @@
+author: "Triiodine"
+delete-after: True
+changes: 
+  - rscadd: "ghost role sprites with a palette more depressed than the playerbase"
+  - rscadd: "medical doc spawn to ghost station"
