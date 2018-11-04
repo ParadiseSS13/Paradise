@@ -277,6 +277,7 @@
 			return
 
 		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
+		add_attack_logs(src, C, "[src] pulled [C] with a tentacle, attacking them with [I]")
 		C.apply_damage(I.force, BRUTE, "chest")
 		do_item_attack_animation(C, used_item = I)
 		add_blood(C)
