@@ -1063,6 +1063,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 	excludefrom = list(/datum/game_mode/nuclear)
 
+/datum/uplink_item/suits/internals
+	name = "Syndicate Internals Box"
+	desc = "Standard issue syndicate internals. Contains an extended oxygen tank, a syndicate gas mask and an emergency auto-injector."
+	reference = "SIB"
+	item = /obj/item/storage/box/syndie_kit/internals
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
 	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."

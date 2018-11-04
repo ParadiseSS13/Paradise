@@ -107,6 +107,16 @@
 	new /obj/item/clothing/head/helmet/space/hardsuit/syndi(src)
 	return
 
+/obj/item/storage/box/syndie_kit/internals
+	name = "suspicious internals box"
+
+/obj/item/storage/box/syndie_kit/internals/New()
+	..()
+	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	return
+
 /obj/item/storage/box/syndie_kit/elite_hardsuit
 	name = "Boxed Elite Syndicate Hardsuit and Helmet"
 	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi/elite, /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite)
