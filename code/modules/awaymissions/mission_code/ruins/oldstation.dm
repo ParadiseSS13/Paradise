@@ -405,9 +405,10 @@
 	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod. \
 	Work as a team with your fellow survivors and do not abandon them.</b>"
 	uniform = /obj/item/clothing/under/retro/medical
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/black
 	id = /obj/item/card/id/away/old/med
-	l_pocket = /obj/item/healthanalyzer
+	l_pocket = /obj/item/stack/medical/ointment
+	r_pocket = /obj/item/stack/medical/ointment
 	assignedrole = "Ancient Crew"
 
 /obj/effect/mob_spawn/human/oldmed/Destroy()
