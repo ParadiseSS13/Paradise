@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "Clings now appear dead on medical huds when using regenerative stasis"
