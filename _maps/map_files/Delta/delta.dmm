@@ -9590,7 +9590,7 @@
 "dCv" = (/obj/structure/table/wood,/obj/item/storage/fancy/cigarettes/cigpack_uplift,/obj/item/storage/fancy/cigarettes/cigpack_carp,/obj/item/lighter/zippo,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/security/detectives_office)
 "dCw" = (/obj/structure/rack,/obj/item/storage/briefcase,/obj/item/storage/secure/briefcase,/turf/simulated/floor/plating,/area/security/detectives_office)
 "dCx" = (/obj/structure/grille,/obj/structure/cable/yellow{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/effect/decal/warning_stripes/north,/turf/simulated/floor/plating/airless,/area/engine/engineering)
-"dCy" = (/turf/unsimulated/wall,/area/toxins/test_area)
+"dCy" = (/turf/simulated/shuttle/wall{icon_state = "wall3"},/area/toxins/test_area)
 "dCz" = (/obj/machinery/camera{active_power_usage = 0; c_tag = "Bomb Test Site"; dir = 4; invuln = 1; network = list("SS13,Toxins"); use_power = 0},/obj/item/target,/turf/simulated/floor/plating/airless,/area/toxins/test_area)
 "dCA" = (/obj/structure/chair{dir = 8},/obj/effect/decal/warning_stripes/northeast,/turf/simulated/floor/plating/airless,/area/toxins/test_area)
 "dCB" = (/obj/effect/decal/warning_stripes/west,/turf/simulated/floor/plating/airless,/area/toxins/mixing)
