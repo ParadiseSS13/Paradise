@@ -1,6 +1,7 @@
 #define DIRECTION_FORWARDS	1
 #define DIRECTION_OFF		0
 #define DIRECTION_REVERSED	-1
+#define IS_OPERATING		(can_conveyor_run() && operating)
 
 GLOBAL_LIST_INIT(conveyor_belts, list()) //Saves us having to look through the entire machines list for our things
 GLOBAL_LIST_INIT(conveyor_switches, list())
@@ -22,7 +23,6 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/operable = TRUE		// Can this belt actually go?
 	var/list/affecting		// the list of all items that will be moved this ptick
 	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed
-	speed_process = TRUE	//gotta go fast
 	var/id					//ID of the connected lever
 
 	// create a conveyor
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor/update_icon()
 	..()
-	if(operating && can_conveyor_run())
+	if(IS_OPERATING)
 		icon_state = "conveyor_started_[clockwise ? "cw" : "ccw"]"
 		if(reversed)
 			icon_state += "_r"
@@ -161,20 +161,27 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	update_icon()
 
 /obj/machinery/conveyor/process()
-	if(!operating)
-		return
-	if(!can_conveyor_run())
+	if(!IS_OPERATING)
 		return
 	use_power(100)
 	affecting = loc.contents - src // moved items will be all in loc
-	if(!affecting)
-		return
-	sleep(1)
-	for(var/atom/movable/A in affecting)
-		if(!A.anchored)
-			if(A.loc == loc) // prevents the object from being affected if it's not currently here.
-				step(A,forwards)
+	var/still_stuff_to_move = FALSE
+	for(var/atom/movable/AM in affecting)
+		if(AM.anchored)
+			continue
+		still_stuff_to_move = TRUE
+		sleep(1)
+		if(AM.loc == loc) // prevents the object from being affected if it's not currently here.
+			step(A,forwards)
 		CHECK_TICK
+	if(!still_stuff_to_move)
+		makeNormalProcess()
+	else
+		makeSpeedProcess()
+
+/obj/machinery/conveyor/Crossed(atom/movable/AM)
+	makeSpeedProcess()
+	..()
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
 	if(stat & BROKEN)
@@ -475,3 +482,4 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 #undef DIRECTION_FORWARDS
 #undef DIRECTION_OFF
 #undef DIRECTION_REVERSED
+#undef IS_OPERATING
