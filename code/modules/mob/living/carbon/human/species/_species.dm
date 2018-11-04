@@ -82,7 +82,7 @@
 	var/blood_color = "#A10808" //Red.
 	var/flesh_color = "#FFC896" //Pink.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
-	var/blood_drip_decal = /obj/effect/decal/cleanable/blood/drip/ //determines colour and behaviour of blood drops
+	var/blood_drip_decal = /obj/effect/decal/cleanable/blood/drip //determines colour and behaviour of blood drops
 	var/blood_splatter_decal = /obj/effect/decal/cleanable/blood/splatter //determines colour and behaviour of blood splatter
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
 	var/base_color      //Used when setting species.

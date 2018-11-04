@@ -246,16 +246,16 @@
 				drop.drips++
 				drop.overlays |= pick(drop.random_icon_states)
 				drop.transfer_mob_blood_dna(src)
-				drop.basecolor = src.dna.species.blood_color
+				drop.basecolor = dna.species.blood_color
 				drop.update_icon()
 			else
 				temp_blood_DNA = list()
 				temp_blood_DNA |= drop.blood_DNA.Copy() //we transfer the dna from the drip to the splatter
 				qdel(drop)
 		else
-			drop = new src.dna.species.blood_drip_decal(T)
+			drop = new dna.species.blood_drip_decal(T)
 			drop.transfer_mob_blood_dna(src)
-			drop.basecolor = src.dna.species.blood_color
+			drop.basecolor = dna.species.blood_color
 			drop.update_icon()
 			return
 
@@ -266,13 +266,13 @@
 		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
 		B = locate() in bloods
 	if(!B)
-		B = new src.dna.species.blood_splatter_decal(T)
+		B = new dna.species.blood_splatter_decal(T)
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.blood_DNA |= temp_blood_DNA
 	B.pixel_x = (shift_x)
 	B.pixel_y = (shift_y)
-	B.basecolor = src.dna.species.blood_color
+	B.basecolor = dna.species.blood_color
 	B.update_icon()
 	if(shift_x || shift_y)
 		B.off_floor = TRUE
