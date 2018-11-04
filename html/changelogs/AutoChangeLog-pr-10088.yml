@@ -1,5 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - tweak: "Allow , in names, Kidan of the world, rejoice"
-  - tweak: "Made kidan random name generation less shitty"
