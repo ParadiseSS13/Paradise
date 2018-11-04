@@ -1,0 +1,4 @@
+author: "Regen"
+delete-after: True
+changes: 
+  - bugfix: "The tentacle changeling power now generates admin logs."
