@@ -1,4 +1,0 @@
-author: "R1f73r"
-delete-after: True
-changes: 
-  - bugfix: "Admin Character names will no longer appear in adminhelps"
