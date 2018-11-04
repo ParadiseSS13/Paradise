@@ -118,6 +118,28 @@
 	icon_state = "gangtool-blue"
 	region_access = list(REGION_CENTCOMM)
 
+/obj/item/door_remote/omni/access_tuner
+	name = "access tuner"
+	desc = "A device used for illegally interfacing with doors."
+	icon_state = "hacktool"
+	item_state = "hacktool"
+	var/hack_speed = 30
+	var/busy = FALSE
+
+/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
+	if(!istype(D))
+		return
+	if(busy)
+		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
+		return
+	icon_state = "hacktool-g"
+	busy = TRUE
+	to_chat(user, "<span class='notice'>[src] is attempting to interface with [D]...</span>")
+	if(do_after(user, hack_speed, target = D))
+		. = ..()
+	busy = FALSE
+	icon_state = "hacktool"
+
 #undef WAND_OPEN
 #undef WAND_BOLT
 #undef WAND_EMERGENCY
