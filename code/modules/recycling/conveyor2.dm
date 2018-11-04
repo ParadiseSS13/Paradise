@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		still_stuff_to_move = TRUE
 		sleep(1)
 		if(AM.loc == loc) // prevents the object from being affected if it's not currently here.
-			step(A,forwards)
+			step(AM,forwards)
 		CHECK_TICK
 	if(!still_stuff_to_move)
 		makeNormalProcess()
