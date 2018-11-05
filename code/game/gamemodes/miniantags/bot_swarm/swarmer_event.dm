@@ -19,7 +19,7 @@
 
 
 /datum/event/spawn_swarmer/proc/find_swarmer()
-	for(var/mob/living/M in mob_list)
+	for(var/mob/living/M in GLOB.mob_list)
 		if(istype(M, /mob/living/simple_animal/hostile/swarmer) && M.client) //If there is a swarmer with an active client, we've found our swarmer
 			return 1
 	return 0

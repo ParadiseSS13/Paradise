@@ -39,7 +39,7 @@
 
 /obj/machinery/syndicatebomb/process()
 	if(!active)
-		fast_processing -= src
+		GLOB.fast_processing -= src
 		detonation_timer = null
 		next_beep = null
 		countdown.stop()
@@ -73,7 +73,7 @@
 		if(defused && payload in src)
 			payload.defuse()
 			countdown.stop()
-			fast_processing -= src
+			GLOB.fast_processing -= src
 
 /obj/machinery/syndicatebomb/New()
 	wires 	= new(src)
@@ -86,7 +86,7 @@
 /obj/machinery/syndicatebomb/Destroy()
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
-	fast_processing -= src
+	GLOB.fast_processing -= src
 	return ..()
 
 /obj/machinery/syndicatebomb/examine(mob/user)
@@ -205,7 +205,7 @@
 
 /obj/machinery/syndicatebomb/proc/activate()
 	active = TRUE
-	fast_processing += src
+	GLOB.fast_processing += src
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
@@ -487,7 +487,8 @@
 		else
 			to_chat(user, "<span class='warning'>The [I] wont fit! The [src] can only hold up to [max_beakers] containers.</span>")
 			return
-	..()
+	else
+		return ..()
 
 /obj/item/bombcore/chemical/CheckParts(list/parts_list)
 	..()
@@ -545,7 +546,7 @@
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
 	if(timer < world.time)
-		for(var/obj/machinery/syndicatebomb/B in machines)
+		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
 			if(B.active)
 				B.detonation_timer = world.time + BUTTON_DELAY
 				detonated++

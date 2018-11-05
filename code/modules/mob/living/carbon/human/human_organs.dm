@@ -38,7 +38,7 @@
 
 	// Buckled to a bed/chair. Stance damage is forced to 0 since they're sitting on something solid
 	// Not standing, so no need to care about stance
-	if(istype(buckled, /obj/structure/stool/bed) || !isturf(loc))
+	if(istype(buckled, /obj/structure/chair) || !isturf(loc))
 		return
 
 	for(var/limb_tag in list("l_leg","r_leg","l_foot","r_foot"))
@@ -62,7 +62,7 @@
 	// standing is poor
 	if(stance_damage >= 8)
 		if(!(lying || resting))
-			if(!(NO_PAIN in species.species_traits))
+			if(!(NO_PAIN in dna.species.species_traits))
 				emote("scream")
 			custom_emote(1, "collapses!")
 		Weaken(5) //can't emote while weakened, apparently.
@@ -90,7 +90,7 @@
 					continue
 
 			var/emote_scream = pick("screams in pain and ", "lets out a sharp cry and ", "cries out and ")
-			custom_emote(1, "[(NO_PAIN in species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
+			custom_emote(1, "[(NO_PAIN in dna.species.species_traits) ? "" : emote_scream ]drops what [p_they()] [p_were()] holding in [p_their()] [E.name]!")
 
 		else if(E.is_malfunctioning())
 
@@ -107,12 +107,7 @@
 
 			custom_emote(1, "drops what [p_they()] [p_were()] holding, [p_their()] [E.name] malfunctioning!")
 
-			var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
-			spark_system.set_up(5, 0, src)
-			spark_system.attach(src)
-			spark_system.start()
-			spawn(10)
-				qdel(spark_system)
+			do_sparks(5, 0, src)
 
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, "<span class='notice'>You feel fit again!</span>")
@@ -178,7 +173,7 @@ I use this to standardize shadowling dethrall code
 /mob/living/carbon/human/has_organic_damage()
 	var/odmg = 0
 	for(var/obj/item/organ/external/O in bodyparts)
-		if(O.status & ORGAN_ROBOT)
+		if(O.is_robotic())
 			odmg += O.brute_dam
 			odmg += O.burn_dam
 	return (health < (100 - odmg))

@@ -6,27 +6,21 @@
 	density = 1
 	anchored = 0
 	pressure_resistance = 2*ONE_ATMOSPHERE
+	container_type = DRAINABLE | AMOUNT_VISIBLE
 
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
 
-/obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)
-	return
+/obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
+	if(I.is_refillable())
+		return FALSE //so we can refill them via their afterattack.
+	. = ..()
 
 /obj/structure/reagent_dispensers/New()
 	create_reagents(tank_volume)
 	reagents.add_reagent(reagent_id, tank_volume)
 	..()
-
-/obj/structure/reagent_dispensers/examine(mob/user)
-	if(!..(user, 2))
-		return
-	if(reagents.total_volume)
-		to_chat(user, "<span class='notice'>It has [reagents.total_volume] units left.</span>")
-	else
-		to_chat(user, "<span class='danger'>It's empty.</span>")
-
 
 /obj/structure/reagent_dispensers/proc/boom()
 	visible_message("<span class='danger'>[src] ruptures!</span>")
@@ -61,6 +55,13 @@
 	icon_state = "water_high" //I was gonna clean my room...
 	tank_volume = 100000
 
+
+/obj/structure/reagent_dispensers/oil
+	name = "oil tank"
+	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."
+	icon_state = "oil"
+	reagent_id = "oil"
+	tank_volume = 3000
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"

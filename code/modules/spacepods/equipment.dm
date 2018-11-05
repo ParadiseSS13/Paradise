@@ -2,6 +2,7 @@
 	if(my_atom.next_firetime > world.time)
 		to_chat(usr, "<span class='warning'>Your weapons are recharging.</span>")
 		return
+	my_atom.next_firetime = world.time + fire_delay
 	var/turf/firstloc
 	var/turf/secondloc
 	if(!my_atom.equipment_system || !my_atom.equipment_system.weapon_system)
@@ -41,7 +42,6 @@
 			projone.dumbfire(my_atom.dir)
 			projtwo.dumbfire(my_atom.dir)
 		sleep(2)
-	my_atom.next_firetime = world.time + fire_delay
 
 /datum/spacepod/equipment
 	var/obj/spacepod/my_atom
@@ -203,7 +203,7 @@
 	icon_state = "cargo_ore"
 
 /obj/item/spacepod_equipment/cargo/ore/passover(var/obj/item/I)
-	if(storage && istype(I,/obj/item/ore))
+	if(storage && istype(I,/obj/item/stack/ore))
 		I.forceMove(storage)
 
 // Crate System

@@ -139,11 +139,15 @@ Property of Nanotrasen</font><br>
 		{{else}}
 			{{for data.messages}}
 				<div class='statusDisplay'>
-					<b>{{:value.title}}</b><br>
-					{{:value.body}}<br>
+					<p style='text-align: center;'> 
+						<font size="5"><b>{{:value.title}}</b></font><br>
+					</p>
 					{{if value.img}}
-						<img src='data:image/png;base64,{{:value.img}}' width=180><br>
-					{{/if}}
+						<img src='tmp_photo{{:value.message_number}}.png' style='display: block; margin-left: auto; margin-right: auto;' width=350><br>
+					{{/if}}		
+					<p style='text-align: justify;'> 					
+						{{:value.body}}<br>
+					</p>
 					<i><font size=1>[{{:value.message_type}} by <span class='good'>{{:value.author}}</span>]</font></i><br>
 					<i><font size=1>Message view count: {{:value.view_count}}</font></i>
 				</div>
@@ -296,10 +300,10 @@ Property of Nanotrasen</font><br>
 			<div class='itemContent'>{{:data.description}}</div>
 		</div>
 		<div class='item'>
-			<div class='itemLabel'>Photo:</div>
+			<div class='itemLabel'>Photo:</div><br>
 			<div class='itemContent'>
 				{{if data.photo}}
-					<img src='data:image/png;base64,{{:data.photo}}' width=180>
+					<img src='tmp_photow.png' width=350><br>
 				{{else}}
 					None
 				{{/if}}

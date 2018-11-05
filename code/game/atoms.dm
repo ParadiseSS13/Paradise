@@ -16,6 +16,7 @@
 	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
 	///Chemistry.
+	var/container_type = NONE
 	var/datum/reagents/reagents = null
 
 	//This atom's HUD (med/sec, etc) images. Associative list.
@@ -23,9 +24,6 @@
 	//HUD images that this atom can provide.
 	var/list/hud_possible
 
-
-	//var/chem_is_open_container = 0
-	// replaced by OPENCONTAINER flags and atom/proc/is_open_container()
 	///Chemistry.
 
 
@@ -44,15 +42,19 @@
 
 	var/initialized = FALSE
 
+	var/list/priority_overlays	//overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
+	var/list/remove_overlays // a very temporary list of overlays to remove
+	var/list/add_overlays // a very temporary list of overlays to add
+
 /atom/New(loc, ...)
 	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		_preloader.load(src)
 	. = ..()
-	attempt_init(...)
+	attempt_init(arglist(args))
 
 // This is distinct from /tg/ because of our space management system
 // This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
-/atom/proc/attempt_init(loc, ...)
+/atom/proc/attempt_init(...)
 	var/do_initialize = SSatoms.initialized
 	if(do_initialize != INITIALIZATION_INSSATOMS)
 		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
@@ -83,6 +85,9 @@
 	if(opacity && isturf(loc))
 		var/turf/T = loc
 		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
+	
+	if(loc)
+		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	ComponentInitialize()
 
@@ -97,6 +102,8 @@
 /atom/proc/ComponentInitialize()
 	return
 
+/atom/proc/InitializedOn(atom/A) // Proc for when something is initialized on a atom - Optional to call. Useful for observer pattern etc.
+	return
 
 /atom/proc/onCentcom()
 	var/turf/T = get_turf(src)
@@ -108,7 +115,7 @@
 
 	//check for centcomm shuttles
 	for(var/centcom_shuttle in list("emergency", "pod1", "pod2", "pod3", "pod4", "ferry"))
-		var/obj/docking_port/mobile/M = shuttle_master.getShuttle(centcom_shuttle)
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(centcom_shuttle)
 		if(T in M.areaInstance)
 			return 1
 
@@ -137,6 +144,8 @@
 
 	QDEL_NULL(reagents)
 	invisibility = 101
+	LAZYCLEARLIST(overlays)
+	LAZYCLEARLIST(priority_overlays)
 	return ..()
 
 //Hook for running code when a dir change occurs
@@ -187,25 +196,21 @@
 /atom/proc/Bumped(AM as mob|obj)
 	return
 
-// Convenience proc to see if a container is open for chemistry handling
-// returns true if open
-// false if closed
+// Convenience procs to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
-	return flags & OPENCONTAINER
+	return is_refillable() && is_drainable()
 
-/*//Convenience proc to see whether a container can be accessed in a certain way.
+/atom/proc/is_injectable(allowmobs = TRUE)
+	return reagents && (container_type & (INJECTABLE | REFILLABLE))
 
-	proc/can_subract_container()
-		return flags & EXTRACT_CONTAINER
+/atom/proc/is_drawable(allowmobs = TRUE)
+	return reagents && (container_type & (DRAWABLE | DRAINABLE))
 
-	proc/can_add_container()
-		return flags & INSERT_CONTAINER
-*/
+/atom/proc/is_refillable()
+	return reagents && (container_type & REFILLABLE)
 
-
-
-/atom/proc/allow_drop()
-	return 1
+/atom/proc/is_drainable()
+	return reagents && (container_type & DRAINABLE)
 
 /atom/proc/CheckExit()
 	return 1
@@ -271,19 +276,26 @@
 	if(desc)
 		to_chat(user, desc)
 
-	if(reagents && is_open_container()) //is_open_container() isn't really the right proc for this, but w/e
-		to_chat(user, "It contains:")
-		if(reagents.reagent_list.len)
-			if(user.can_see_reagents()) //Show each individual reagent
-				for(var/datum/reagent/R in reagents.reagent_list)
-					to_chat(user, "[R.volume] units of [R.name]")
-			else //Otherwise, just show the total volume
-				if(reagents && reagents.reagent_list.len)
-					to_chat(user, "[reagents.total_volume] units of various reagents.")
-		else
-			to_chat(user, "Nothing.")
+	if(reagents)
+		if(container_type & TRANSPARENT)
+			to_chat(user, "<span class='notice'>It contains:</span>")
+			if(reagents.reagent_list.len)
+				if(user.can_see_reagents()) //Show each individual reagent
+					for(var/I in reagents.reagent_list)
+						var/datum/reagent/R = I
+						to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
+				else //Otherwise, just show the total volume
+					if(reagents && reagents.reagent_list.len)
+						to_chat(user, "<span class='notice'>[reagents.total_volume] units of various reagents.</span>")
+			else
+				to_chat(user, "<span class='notice'>Nothing.</span>	")
+		else if(container_type & AMOUNT_VISIBLE)
+			if(reagents.total_volume)
+				to_chat(user, "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>")
+			else
+				to_chat(user, "<span class='danger'>It's empty.</span>")
 
-	SendSignal(COMSIG_PARENT_EXAMINE, user)
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
 
 	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
 
@@ -301,6 +313,13 @@
 
 /atom/proc/emag_act()
 	return
+
+/atom/proc/rpd_act()
+	return
+
+/atom/proc/rpd_blocksusage()
+	// Atoms that return TRUE prevent RPDs placing any kind of pipes on their turf.
+	return FALSE
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked)
 	if(density && !has_gravity(AM)) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
@@ -706,3 +725,12 @@ var/list/blood_splatter_icons = list()
 	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
 	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
+
+/atom/proc/AllowDrop()
+	return FALSE
+
+/atom/proc/drop_location()
+	var/atom/L = loc
+	if(!L)
+		return null
+	return L.AllowDrop() ? L : get_turf(L)

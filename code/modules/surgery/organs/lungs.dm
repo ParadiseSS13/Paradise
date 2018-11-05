@@ -51,6 +51,12 @@
 	var/heat_level_3_damage = HEAT_GAS_DAMAGE_LEVEL_3
 	var/heat_damage_types = list(BURN = 1)
 
+/obj/item/organ/internal/lungs/emp_act()
+	if(!is_robotic() || emp_proof)
+		return
+	if(owner)
+		owner.LoseBreath(20)
+
 /obj/item/organ/internal/lungs/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
 	..()
 	for(var/thing in list("oxy", "tox", "co2", "nitro"))
@@ -83,7 +89,7 @@
 	if(!breath || (breath.total_moles() == 0))
 		if(H.health >= config.health_threshold_crit)
 			H.adjustOxyLoss(HUMAN_MAX_OXYLOSS)
-		else
+		else if(!(NOCRITDAMAGE in H.dna.species.species_traits))
 			H.adjustOxyLoss(HUMAN_CRIT_MAX_OXYLOSS)
 
 		H.failed_last_breath = TRUE
@@ -148,12 +154,12 @@
 	if(safe_nitro_min)
 		if(N2_pp < safe_nitro_min)
 			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
-			H.throw_alert("nitro", /obj/screen/alert/not_enough_nitro)
+			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
 		else
 			H.failed_last_breath = FALSE
 			H.adjustOxyLoss(-5)
 			gas_breathed = breath.nitrogen
-			H.clear_alert("nitro")
+			H.clear_alert("not_enough_nitro")
 
 	//Exhale
 	breath.nitrogen -= gas_breathed
@@ -265,11 +271,11 @@
 	var/breath_temperature = breath.temperature
 
 	var/species_traits = list()
-	if(H && H.species && H.species.species_traits)
-		species_traits = H.species.species_traits
+	if(H && H.dna.species && H.dna.species.species_traits)
+		species_traits = H.dna.species.species_traits
 
 	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
-		var/CM = abs(H.species.coldmod)
+		var/CM = abs(H.dna.species.coldmod)
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
 			TC = cold_level_3_damage
@@ -285,7 +291,7 @@
 				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
 
 	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
-		var/HM = abs(H.species.heatmod)
+		var/HM = abs(H.dna.species.heatmod)
 		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
 			TH = heat_level_1_damage
@@ -309,7 +315,6 @@
 	name = "plasma filter"
 	desc = "A spongy rib-shaped mass for filtering plasma from the air."
 	icon_state = "lungs-plasma"
-	species = "Plasmaman"
 
 	safe_oxygen_min = 0 //We don't breath this
 	safe_toxins_min = 16 //We breathe THIS!
@@ -318,7 +323,6 @@
 /obj/item/organ/internal/lungs/vox
 	name = "Vox lungs"
 	desc = "They're filled with dust....wow."
-	species = "Vox"
 
 	safe_oxygen_min = 0 //We don't breathe this
 	safe_oxygen_max = 1 //This is toxic to us
@@ -327,7 +331,6 @@
 
 /obj/item/organ/internal/lungs/drask
 	icon = 'icons/obj/surgery_drask.dmi'
-	species = "Drask"
 
 	cold_message = "an invigorating coldness"
 	cold_level_3_threshold = 60
@@ -335,3 +338,23 @@
 	cold_level_2_damage = -COLD_GAS_DAMAGE_LEVEL_2
 	cold_level_3_damage = -COLD_GAS_DAMAGE_LEVEL_3
 	cold_damage_types = list(BRUTE = 1, BURN = 0.5)
+
+/obj/item/organ/internal/lungs/cybernetic
+	name = "cybernetic lungs"
+	desc = "A cybernetic version of the lungs found in traditional humanoid entities. It functions the same as an organic lung and is merely meant as a replacement."
+	icon_state = "lungs-c"
+	origin_tech = "biotech=4"
+	status = ORGAN_ROBOT
+
+/obj/item/organ/internal/lungs/cybernetic/upgraded
+	name = "upgraded cybernetic lungs"
+	desc = "A more advanced version of the stock cybernetic lungs. They are capable of filtering out lower levels of toxins and carbon dioxide."
+	icon_state = "lungs-c-u"
+	origin_tech = "biotech=5"
+
+	safe_toxins_max = 20
+	safe_co2_max = 20
+
+	cold_level_1_threshold = 200
+	cold_level_2_threshold = 140
+	cold_level_3_threshold = 100

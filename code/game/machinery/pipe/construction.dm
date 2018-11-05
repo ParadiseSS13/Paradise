@@ -1,44 +1,3 @@
-#define PIPE_SIMPLE_STRAIGHT		0
-#define PIPE_SIMPLE_BENT			1
-#define PIPE_HE_STRAIGHT			2
-#define PIPE_HE_BENT				3
-#define PIPE_CONNECTOR				4
-#define PIPE_MANIFOLD				5
-#define PIPE_JUNCTION				6
-#define PIPE_UVENT					7
-#define PIPE_MVALVE					8
-#define PIPE_PUMP					9
-#define PIPE_SCRUBBER				10
-#define PIPE_INSULATED_STRAIGHT		11
-#define PIPE_INSULATED_BENT			12
-#define PIPE_GAS_FILTER				13
-#define PIPE_GAS_MIXER				14
-#define PIPE_PASSIVE_GATE      		15
-#define PIPE_VOLUME_PUMP        	16
-#define PIPE_HEAT_EXCHANGE     		17
-#define PIPE_TVALVE					18
-#define PIPE_MANIFOLD4W				19
-#define PIPE_CAP					20
-#define PIPE_OMNI_MIXER				21
-#define PIPE_OMNI_FILTER			22
-#define PIPE_UNIVERSAL				23
-#define PIPE_SUPPLY_STRAIGHT		24
-#define PIPE_SUPPLY_BENT			25
-#define PIPE_SCRUBBERS_STRAIGHT		26
-#define PIPE_SCRUBBERS_BENT			27
-#define PIPE_SUPPLY_MANIFOLD		28
-#define PIPE_SCRUBBERS_MANIFOLD		29
-#define PIPE_SUPPLY_MANIFOLD4W		30
-#define PIPE_SCRUBBERS_MANIFOLD4W	31
-#define PIPE_SUPPLY_CAP				32
-#define PIPE_SCRUBBERS_CAP			33
-#define PIPE_INJECTOR    			34
-#define PIPE_DVALVE           	 	35
-#define PIPE_DP_VENT    			36
-#define PIPE_PASV_VENT				37
-#define PIPE_DTVALVE				38
-#define PIPE_CIRCULATOR				39
-
 /obj/item/pipe
 	name = "pipe"
 	desc = "A pipe"
@@ -180,93 +139,20 @@
 
 //update the name and icon of the pipe item depending on the type
 
+/obj/item/pipe/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	. = TRUE
+	if(our_rpd.mode == RPD_ROTATE_MODE)
+		rotate()
+	else if(our_rpd.mode == RPD_FLIP_MODE)
+		flip()
+	else if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_single_pipe(user, src)
+	else
+		return ..()
+
 /obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
-	var/list/nlist = list( \
-		"pipe", \
-		"bent pipe", \
-		"h/e pipe", \
-		"bent h/e pipe", \
-		"connector", \
-		"manifold", \
-		"junction", \
-		"uvent", \
-		"mvalve", \
-		"pump", \
-		"scrubber", \
-		"insulated pipe", \
-		"bent insulated pipe", \
-		"gas filter", \
-		"gas mixer", \
-		"passive gate", \
-		"volume pump", \
-		"heat exchanger", \
-		"t-valve", \
-		"4-way manifold", \
-		"pipe cap", \
-		"omni mixer", \
-		"omni filter", \
-		"universal pipe adapter", \
-		"supply pipe", \
-		"bent supply pipe", \
-		"scrubbers pipe", \
-		"bent scrubbers pipe", \
-		"supply manifold", \
-		"scrubbers manifold", \
-		"supply 4-way manifold", \
-		"scrubbers 4-way manifold", \
-		"supply pipe cap", \
-		"scrubbers pipe cap", \
-		"air injector", \
-		"digital valve", \
-		"dual-port vent", \
-		"passive vent", \
-		"digital t-valve", \
-		"circulator/heat exchanger", \
-	)
-	name = nlist[pipe_type+1] + " fitting"
-	var/list/islist = list( \
-		"simple", \
-		"simple", \
-		"he", \
-		"he", \
-		"connector", \
-		"manifold", \
-		"junction", \
-		"uvent", \
-		"mvalve", \
-		"pump", \
-		"scrubber", \
-		"insulated", \
-		"insulated", \
-		"filter", \
-		"mixer", \
-		"passivegate", \
-		"volumepump", \
-		"heunary", \
-		"tvalve", \
-		"manifold4w", \
-		"cap", \
-		"omni_mixer", \
-		"omni_filter", \
-		"universal", \
-		"simple", \
-		"simple", \
-		"simple", \
-		"simple", \
-		"manifold", \
-		"manifold", \
-		"manifold4w", \
-		"manifold4w", \
-		"cap", \
-		"cap", \
-		"injector", \
-		"dvalve", \
-		"dual-port vent", \
-		"passive vent", \
-		"dtvalve", \
-		"circ", \
-		)
-	icon_state = islist[pipe_type + 1]
+	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
+	icon_state = get_pipe_icon(pipe_type)
 	var/obj/machinery/atmospherics/trinary/triP = make_from
 	if(istype(triP) && triP.flipped)
 		icon_state = "m_[icon_state]"
@@ -370,7 +256,7 @@
 		if(PIPE_SIMPLE_BENT, PIPE_INSULATED_BENT, PIPE_HE_BENT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_BENT)
 			return dir //dir|acw
 		if(PIPE_CONNECTOR, PIPE_UVENT, PIPE_PASV_VENT, PIPE_SCRUBBER, PIPE_HEAT_EXCHANGE, PIPE_INJECTOR)
-			return dir
+			return dir|flip
 		if(PIPE_MANIFOLD4W, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_OMNI_MIXER, PIPE_OMNI_FILTER)
 			return dir|flip|cw|acw
 		if(PIPE_MANIFOLD, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD)
@@ -381,7 +267,7 @@
 			else
 				return flip|cw|acw
 		if(PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP)
-			return dir
+			return dir|flip
 	return 0
 
 /obj/item/pipe/proc/get_pdir() //endpoints for regular pipes
@@ -650,6 +536,12 @@
 	to_chat(user, "<span class='notice'>You have fastened the meter to the pipe.</span>")
 	qdel(src)
 
+/obj/item/pipe_meter/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_single_pipe(user, src)
+	else
+		..()
+
 /obj/item/pipe_gsensor
 	name = "gas sensor"
 	desc = "A sensor that can be hooked to a computer"
@@ -667,43 +559,8 @@
 	to_chat(user, "<span class='notice'>You have fastened the gas sensor.</span>")
 	qdel(src)
 
-#undef PIPE_SIMPLE_STRAIGHT
-#undef PIPE_SIMPLE_BENT
-#undef PIPE_HE_STRAIGHT
-#undef PIPE_HE_BENT
-#undef PIPE_CONNECTOR
-#undef PIPE_MANIFOLD
-#undef PIPE_JUNCTION
-#undef PIPE_UVENT
-#undef PIPE_MVALVE
-#undef PIPE_PUMP
-#undef PIPE_SCRUBBER
-#undef PIPE_INSULATED_STRAIGHT
-#undef PIPE_INSULATED_BENT
-#undef PIPE_GAS_FILTER
-#undef PIPE_GAS_MIXER
-#undef PIPE_PASSIVE_GATE
-#undef PIPE_VOLUME_PUMP
-#undef PIPE_HEAT_EXCHANGE
-#undef PIPE_TVALVE
-#undef PIPE_MANIFOLD4W
-#undef PIPE_CAP
-#undef PIPE_OMNI_MIXER
-#undef PIPE_OMNI_FILTER
-#undef PIPE_UNIVERSAL
-#undef PIPE_SUPPLY_STRAIGHT
-#undef PIPE_SUPPLY_BENT
-#undef PIPE_SCRUBBERS_STRAIGHT
-#undef PIPE_SCRUBBERS_BENT
-#undef PIPE_SUPPLY_MANIFOLD
-#undef PIPE_SCRUBBERS_MANIFOLD
-#undef PIPE_SUPPLY_MANIFOLD4W
-#undef PIPE_SCRUBBERS_MANIFOLD4W
-#undef PIPE_SUPPLY_CAP
-#undef PIPE_SCRUBBERS_CAP
-#undef PIPE_INJECTOR
-#undef PIPE_DVALVE
-#undef PIPE_DP_VENT
-#undef PIPE_PASV_VENT
-#undef PIPE_DTVALVE
-#undef PIPE_CIRCULATOR
+/obj/item/pipe_gsensor/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_single_pipe(user, src)
+	else
+		..()

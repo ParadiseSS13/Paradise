@@ -119,6 +119,9 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/rubbershot
 	max_ammo = 6
 
+/obj/item/ammo_box/magazine/internal/shot/riot/short
+	max_ammo = 3
+
 /obj/item/ammo_box/magazine/internal/grenadelauncher
 	name = "grenade launcher internal magazine"
 	ammo_type = /obj/item/ammo_casing/a40mm
@@ -198,13 +201,6 @@
 	desc= "A gun magazine. Loaded with rounds which penetrate armour, but are less effective against normal targets"
 	ammo_type = /obj/item/ammo_casing/c10mm/ap
 
-/obj/item/ammo_box/magazine/m10mm/empty		//for maint drops
-	desc = "A gun magazine. Seems to be broken and can only hold one bullet. Pretty useless."
-	max_ammo = 1
-
-/obj/item/ammo_box/magazine/m10mm/empty/update_icon()
-	icon_state = "[initial(icon_state)]-[stored_ammo.len ? "8" : "0"]"
-
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
 	icon_state = "45"
@@ -212,12 +208,16 @@
 	caliber = ".45"
 	max_ammo = 8
 	multiple_sprites = 1
-/obj/item/ammo_box/magazine/m45/enforcer45
-	name = "handgun magazine (.45)"
-	icon_state = "enforcer"
-	ammo_type = /obj/item/ammo_casing/rubber45
 
-/obj/item/ammo_box/magazine/m45/enforcer45/update_icon()
+/obj/item/ammo_box/magazine/enforcer
+	name = "handgun magazine (9mm)"
+	icon_state = "enforcer"
+	ammo_type = /obj/item/ammo_casing/rubber9mm
+	max_ammo = 8
+	multiple_sprites = 1
+	caliber = "9mm"
+
+/obj/item/ammo_box/magazine/enforcer/update_icon()
 	..()
 	overlays.Cut()
 
@@ -225,21 +225,21 @@
 	if(ammo && is_rubber())
 		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
 
-/obj/item/ammo_box/magazine/m45/enforcer45/examine(mob/user, var/distance)
+/obj/item/ammo_box/magazine/enforcer/examine(mob/user, var/distance)
 	..()
 	if(distance <= 2)
 		to_chat(user, "It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets.")//only can see the topmost one.
 
-/obj/item/ammo_box/magazine/m45/enforcer45/proc/is_rubber()//if the topmost bullet is a rubber one
+/obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
 	if(!ammo)
 		return 0
-	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber45))
+	if(istype(contents[contents.len], /obj/item/ammo_casing/rubber9mm))
 		return 1
 	return 0
 
-/obj/item/ammo_box/magazine/m45/enforcer45/lethal
-	ammo_type = /obj/item/ammo_casing/c45
+/obj/item/ammo_box/magazine/enforcer/lethal
+	ammo_type = /obj/item/ammo_casing/c9mm
 
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"

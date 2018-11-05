@@ -57,16 +57,13 @@ RSF
 	if(!proximity) return
 	if(!(istype(A, /obj/structure/table) || istype(A, /turf/simulated/floor)))
 		return
-
 	var spawn_location
-	if(istype(A, /obj/structure/table))
-		spawn_location = A.loc
-	else if (istype(A, /obj/structure/table))
-		spawn_location = A
+	var/turf/T = get_turf(A)
+	if(istype(T) && !T.density)
+		spawn_location = T
 	else
 		to_chat(user, "The RSF can only create service items on tables, or floors.")
 		return
-
 	if(isrobot(user))
 		var/mob/living/silicon/robot/engy = user
 		if(!engy.cell.use(configured_items[mode][2]))

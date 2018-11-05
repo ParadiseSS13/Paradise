@@ -257,7 +257,7 @@
 
 /obj/item/gun/projectile/automatic/lasercarbine
 	name = "\improper IK-60 Laser Carbine"
-	desc = "An experimental carbine. Uses encased laser projectors as ammunition."//we need to uncouple the toroidal resistance dejammers
+	desc = "A short, compact carbine like rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "laser"
 	w_class = WEIGHT_CLASS_NORMAL

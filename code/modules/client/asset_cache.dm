@@ -147,7 +147,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		var/datum/asset/A = new type()
 		A.register()
 
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		//doing this to a client too soon after they've connected can cause issues, also the proc we call sleeps
 		spawn(10)
 			getFilesSlow(C, asset_cache, FALSE)
@@ -200,6 +200,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"large_stamp-law.png"       = 'icons/paper_icons/large_stamp-law.png',
 		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
 		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
+		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
 	)
@@ -246,6 +247,13 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		"sig_low.gif" 				= 'icons/program_icons/sig_low.gif',
 		"sig_lan.gif" 				= 'icons/program_icons/sig_lan.gif',
 		"sig_none.gif" 				= 'icons/program_icons/sig_none.gif',
+		"smmon_0.gif"				= 'icons/program_icons/smmon_0.gif',
+		"smmon_1.gif"				= 'icons/program_icons/smmon_1.gif',
+		"smmon_2.gif"				= 'icons/program_icons/smmon_2.gif',
+		"smmon_3.gif"				= 'icons/program_icons/smmon_3.gif',
+		"smmon_4.gif"				= 'icons/program_icons/smmon_4.gif',
+		"smmon_5.gif"				= 'icons/program_icons/smmon_5.gif',
+		"smmon_6.gif"				= 'icons/program_icons/smmon_6.gif',
 	)
 
 /datum/asset/nanoui
@@ -317,7 +325,7 @@ proc/getFilesSlow(var/client/client, var/list/files, var/register_asset = TRUE)
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
 	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
-		if(!(state in list("conpipe-c", "conpipe-j1", "conpipe-s", "conpipe-t", "conpipe-y", "intake", "outlet"))) //Pipes we want sprites for
+		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet"))) //Pipes we want sprites for
 			continue
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)

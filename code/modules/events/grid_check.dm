@@ -20,9 +20,9 @@
 	var/list/skipped_areas = list(/area/turret_protected/ai)
 	var/list/skipped_areas_apc = list(/area/engine/engineering)
 
-	for(var/obj/machinery/power/smes/S in machines)
+	for(var/obj/machinery/power/smes/S in GLOB.machines)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas || !is_station_level(S.z))
+		if((current_area.type in skipped_areas) || !is_station_level(S.z))
 			continue
 		S.last_charge			= S.charge
 		S.last_output_attempt	= S.output_attempt
@@ -33,9 +33,9 @@
 		S.update_icon()
 		S.power_change()
 
-	for(var/obj/machinery/power/apc/C in apcs)
+	for(var/obj/machinery/power/apc/C in GLOB.apcs)
 		var/area/current_area = get_area(C)
-		if(current_area.type in skipped_areas_apc || !is_station_level(C.z))
+		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
 			continue
 		if(C.cell)
 			C.cell.charge = 0
@@ -46,15 +46,15 @@
 
 	if(announce)
 		event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
-	for(var/obj/machinery/power/apc/C in apcs)
+	for(var/obj/machinery/power/apc/C in GLOB.apcs)
 		var/area/current_area = get_area(C)
-		if(current_area.type in skipped_areas_apc || !is_station_level(C.z))
+		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
 			continue
 		if(C.cell)
 			C.cell.charge = C.cell.maxcharge
-	for(var/obj/machinery/power/smes/S in machines)
+	for(var/obj/machinery/power/smes/S in GLOB.machines)
 		var/area/current_area = get_area(S)
-		if(current_area.type in skipped_areas || !is_station_level(S.z))
+		if((current_area.type in skipped_areas) || !is_station_level(S.z))
 			continue
 		S.charge = S.last_charge
 		S.output_attempt = S.last_output_attempt
@@ -65,7 +65,7 @@
 /proc/power_restore_quick(var/announce = 1)
 	if(announce)
 		event_announcement.Announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
-	for(var/obj/machinery/power/smes/S in machines)
+	for(var/obj/machinery/power/smes/S in GLOB.machines)
 		if(!is_station_level(S.z))
 			continue
 		S.charge = S.capacity

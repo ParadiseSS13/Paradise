@@ -65,12 +65,13 @@
 	taste_message = "cola"
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.Jitter(20)
-	M.Druggy(30)
+	update_flags |= M.Druggy(30, FALSE)
 	M.AdjustDizzy(5)
 	M.SetDrowsy(0)
 	M.status_flags |= GOTTAGOFAST
-	..()
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
 	M.status_flags &= ~GOTTAGOFAST
@@ -162,14 +163,14 @@
 
 /datum/reagent/consumable/drink/cold/rewriter
 	name = "Rewriter"
-	description = "The secert of the sanctuary of the Libarian..."
+	description = "The secret of the sanctuary of the Librarian..."
 	id = "rewriter"
 	color = "#485000" // rgb:72, 080, 0
 	drink_icon = "rewriter"
 	drink_name = "Rewriter"
-	drink_desc = "The secert of the sanctuary of the Libarian..."
+	drink_desc = "The secret of the sanctuary of the Librarian..."
 	taste_message = "coffee...soda?"
 
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(5)
-	..()
+	return ..()

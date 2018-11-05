@@ -24,8 +24,8 @@
 	throw_message = "sinks in slowly, before being pushed out of "
 	status_flags = CANPUSH
 	search_objects = 1
-	wanted_objects = list(/obj/item/ore/diamond, /obj/item/ore/gold, /obj/item/ore/silver,
-						  /obj/item/ore/uranium)
+	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
+						  /obj/item/stack/ore/uranium)
 
 	var/chase_time = 100
 	var/will_burrow = TRUE
@@ -34,17 +34,17 @@
 	..()
 	var/i = rand(1,3)
 	while(i)
-		loot += pick(/obj/item/ore/silver, /obj/item/ore/gold, /obj/item/ore/uranium, /obj/item/ore/diamond)
+		loot += pick(/obj/item/stack/ore/silver, /obj/item/stack/ore/gold, /obj/item/stack/ore/uranium, /obj/item/stack/ore/diamond)
 		i--
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(new_target)
 	target = new_target
 	if(target != null)
-		if(istype(target, /obj/item/ore) && loot.len < 10)
-			visible_message("<span class='notice'>The [src.name] looks at [target.name] with hungry eyes.</span>")
+		if(istype(target, /obj/item/stack/ore) && loot.len < 10)
+			visible_message("<span class='notice'>The [name] looks at [target.name] with hungry eyes.</span>")
 		else if(isliving(target))
 			Aggro()
-			visible_message("<span class='danger'>The [src.name] tries to flee from [target.name]!</span>")
+			visible_message("<span class='danger'>The [name] tries to flee from [target.name]!</span>")
 			retreat_distance = 10
 			minimum_distance = 10
 			if(will_burrow)
@@ -52,17 +52,20 @@
 					Burrow()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/AttackingTarget()
-	if(istype(target, /obj/item/ore))
+	if(istype(target, /obj/item/stack/ore))
 		EatOre(target)
 		return
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/EatOre(var/atom/targeted_ore)
-	for(var/obj/item/ore/O in targeted_ore.loc)
+	for(var/obj/item/stack/ore/O in get_turf(targeted_ore))
 		if(loot.len < 10)
-			loot += O.type
-			qdel(O)
+			var/using = min(10 - loot.len, O.amount)
+			for(var/i in 1 to using)
+				loot += O.type
+			O.use(using)
 	visible_message("<span class='notice'>The ore was swallowed whole!</span>")
+
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//Begin the chase to kill the goldgrub in time
 	if(!stat)

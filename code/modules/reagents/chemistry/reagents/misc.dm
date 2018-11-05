@@ -155,7 +155,7 @@
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!H.species.exotic_blood && !(NO_BLOOD in H.species.species_traits))
+		if(!H.dna.species.exotic_blood && !(NO_BLOOD in H.dna.species.species_traits))
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.8
 	..()
@@ -194,6 +194,11 @@
 	reagent_state = LIQUID
 	color = "#3C3C3C"
 	taste_message = "motor oil"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/oil/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
+		new /obj/effect/decal/cleanable/blood/oil(T)
 
 /datum/reagent/iodine
 	name = "Iodine"
@@ -250,8 +255,9 @@
 	taste_message = null
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
-	M.adjustToxLoss(1.5)
-	..()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1.5, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/saltpetre
 	name = "Saltpetre"
@@ -268,6 +274,13 @@
 	reagent_state = LIQUID
 	color = "#FFFFFF"
 	taste_message = "the rainbow"
+
+/datum/reagent/colorful_reagent/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
     if(isanimal(M))
@@ -313,8 +326,8 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
-		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name)
+		head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+		head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
 	..()
@@ -332,17 +345,17 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		var/datum/sprite_accessory/tmp_hair_style = hair_styles_full_list["Very Long Hair"]
-		var/datum/sprite_accessory/tmp_facial_hair_style = facial_hair_styles_list["Very Long Beard"]
+		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
+		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
-		if(head_organ.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
+		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
 			head_organ.h_style = "Very Long Hair"
 		else //Otherwise, give them a random hair style.
-			head_organ.h_style = random_hair_style(H.gender, head_organ.species.name)
-		if(head_organ.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
+			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species.name)
+		if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
 			head_organ.f_style = "Very Long Beard"
 		else //Otherwise, give them a random facial hair style.
-			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.species.name)
+			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
 		H.update_hair()
 		H.update_fhair()
 		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache))
@@ -362,20 +375,21 @@
 	taste_message = "mexican cuisine"
 
 /datum/reagent/fartonium/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(66))
 		M.emote("fart")
 
 	if(holder.has_reagent("simethicone"))
 		if(prob(25))
 			to_chat(M, "<span class='danger'>[pick("Oh god, something doesn't feel right!", "IT HURTS!", "FUCK!", "Something is seriously wrong!", "THE PAIN!", "You feel like you're gonna die!")]</span>")
-			M.adjustBruteLoss(1)
+			update_flags |= M.adjustBruteLoss(1, FALSE)
 		if(prob(10))
 			M.custom_emote(1,"strains, but nothing happens.")
-			M.adjustBruteLoss(2)
+			update_flags |= M.adjustBruteLoss(2, FALSE)
 		if(prob(5))
 			M.emote("scream")
-			M.adjustBruteLoss(4)
-	..()
+			update_flags |= M.adjustBruteLoss(4, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/hugs
 	name = "Pure hugs"
@@ -412,7 +426,7 @@
 					M.visible_message("<span class='notice'>[M] gives [C] a [pick("hug","warm embrace")].</span>")
 					playsound(get_turf(M), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 					break
-	..()
+	return ..()
 
 /datum/reagent/love/on_mob_delete(mob/living/M)
 	M.can_change_intents = 1
@@ -432,7 +446,7 @@
 /datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
 	if(prob(2))
 		M.say(pick("Bzzz...","BZZ BZZ","Bzzzzzzzzzzz..."))
-	..()
+	return ..()
 
 /datum/reagent/growthserum
 	name = "Growth serum"
@@ -459,7 +473,7 @@
 	H.resize = newsize/current_size
 	current_size = newsize
 	H.update_transform()
-	..()
+	return ..()
 
 /datum/reagent/growthserum/on_mob_delete(mob/living/M)
 	M.resize = 1/current_size
@@ -493,9 +507,10 @@
 	taste_message = "puke"
 
 /datum/reagent/plantnutriment/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(tox_prob))
-		M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
-	..()
+		update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/plantnutriment/eznutriment
 	name = "E-Z-Nutrient"

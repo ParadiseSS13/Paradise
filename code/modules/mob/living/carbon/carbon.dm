@@ -60,7 +60,7 @@
 					if(organ.receive_damage(d, 0))
 						H.UpdateDamageIcon()
 
-				H.updatehealth()
+				H.updatehealth("stomach attack")
 
 			else
 				src.take_organ_damage(d)
@@ -77,6 +77,10 @@
 				src.gib()
 
 #undef STOMACH_ATTACK_DELAY
+
+/mob/living/carbon/proc/has_mutated_organs()
+	return FALSE
+
 
 /mob/living/carbon/proc/vomit(var/lost_nutrition = 10, var/blood = 0, var/stun = 1, var/distance = 0, var/message = 1)
 	if(src.is_muzzled())
@@ -140,7 +144,7 @@
 		return 0
 	if(reagents.has_reagent("teslium"))
 		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	take_overall_damage(0,shock_damage, used_weapon = "Electrocution")
+	take_overall_damage(0,shock_damage, TRUE, used_weapon = "Electrocution")
 	visible_message(
 		"<span class='danger'>[src] was shocked by \the [source]!</span>", \
 		"<span class='userdanger'>You feel a powerful shock coursing through your body!</span>", \
@@ -265,7 +269,7 @@
 						H.w_uniform.add_fingerprint(M)
 				AdjustSleeping(-5)
 				if(sleeping == 0)
-					resting = 0
+					StopResting()
 				AdjustParalysis(-3)
 				AdjustStunned(-3)
 				AdjustWeakened(-3)
@@ -342,7 +346,7 @@
 			AdjustEyeBlurry(damage * rand(3, 6))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
-				if(!(E.status & ORGAN_ROBOT))
+				if(!E.is_robotic())
 					to_chat(src, "<span class='warning'>Your eyes start to burn badly!</span>")
 				else //snowflake conditions piss me off for the record
 					to_chat(src, "<span class='warning'>The flash blinds you!</span>")
@@ -382,7 +386,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(!ventcrawler)
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
-			ventcrawlerlocal = H.species.ventcrawler
+			ventcrawlerlocal = H.dna.species.ventcrawler
 
 	if(!ventcrawlerlocal)	return
 
@@ -574,14 +578,14 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /mob/living/carbon/can_use_hands()
 	if(handcuffed)
-		return 0
-	if(buckled && ! istype(buckled, /obj/structure/stool/bed/chair)) // buckling does not restrict hands
-		return 0
-	return 1
+		return FALSE
+	if(buckled && ! istype(buckled, /obj/structure/chair)) // buckling does not restrict hands
+		return FALSE
+	return TRUE
 
 /mob/living/carbon/restrained()
 	if(handcuffed)
-		return 1
+		return TRUE
 	return
 
 
@@ -1015,7 +1019,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagentlist(toEat)]", ATKLOG_FEW)
+	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", ATKLOG_MOST)
 	if(!iscarbon(user))
 		LAssailant = null
 	else

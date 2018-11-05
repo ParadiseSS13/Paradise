@@ -22,6 +22,7 @@
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
 	var/sql_enabled = 0					// for sql switching
 	var/allow_admin_ooccolor = 0		// Allows admins with relevant permissions to have their own ooc colour
+	var/pregame_timestart = 240			// Time it takes for the server to start the game
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
 	var/vote_delay = 6000				// minimum time between voting sessions (deciseconds, 10 minute default)
@@ -85,6 +86,7 @@
 	var/githuburl = "http://example.org"
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
+	var/discordurl = "http://example.org"
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
@@ -171,6 +173,9 @@
 
 	var/disable_away_missions = 0 // disable away missions
 	var/disable_space_ruins = 0 //disable space ruins
+
+	var/extra_space_ruin_levels_min = 2
+	var/extra_space_ruin_levels_max = 4
 
 	var/ooc_allowed = 1
 	var/looc_allowed = 1
@@ -329,6 +334,9 @@
 				if("allow_admin_ooccolor")
 					config.allow_admin_ooccolor = 1
 
+				if("pregame_timestart")
+					config.pregame_timestart = text2num(value)
+
 				if("allow_vote_restart")
 					config.allow_vote_restart = 1
 
@@ -385,7 +393,10 @@
 
 				if("githuburl")
 					config.githuburl = value
-
+				
+				if("discordurl")
+					config.discordurl = value
+				
 				if("donationsurl")
 					config.donationsurl = value
 
@@ -580,6 +591,14 @@
 
 				if("disable_cid_warn_popup")
 					config.disable_cid_warn_popup = 1
+
+				if("extra_space_ruin_levels_min")
+					var/vvalue = text2num(value)
+					config.extra_space_ruin_levels_min = max(vvalue, 0)
+
+				if("extra_space_ruin_levels_max")
+					var/vvalue = text2num(value)
+					config.extra_space_ruin_levels_max = max(vvalue, 0)
 
 				if("max_loadout_points")
 					config.max_loadout_points = text2num(value)

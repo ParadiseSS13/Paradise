@@ -1,5 +1,5 @@
 //allows right clicking mobs to send an admin PM to their client, forwards the selected mob's client to cmd_admin_pm
-/client/proc/cmd_admin_pm_context(mob/M as mob in mob_list)
+/client/proc/cmd_admin_pm_context(mob/M as mob in GLOB.mob_list)
 	set category = null
 	set name = "Admin PM Mob"
 	if(!holder)
@@ -67,7 +67,7 @@
 	if(istext(whom))
 		if(cmptext(copytext(whom,1,2),"@"))
 			whom = findStealthKey(whom)
-		C = directory[whom]
+		C = GLOB.directory[whom]
 	else if(istype(whom,/client))
 		C = whom
 
@@ -167,7 +167,7 @@
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		//check client/X is an admin and isn't the sender or recipient
 		if(X == C || X == src)
 			continue
@@ -187,15 +187,14 @@
 		return
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
-	tickets = globAdminTicketHolder.checkForTicket(C)
+	tickets = SStickets.checkForTicket(C)
 	if(tickets)
 		for(var/datum/admin_ticket/i in tickets)
 			i.addResponse(src, msg) // Add this response to their open tickets.
 		return
 
-	tickets = globAdminTicketHolder.checkForTicket(src)
 	if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
-		tickets = globAdminTicketHolder.checkForTicket(src)
+		tickets = SStickets.checkForTicket(src)
 		if(tickets)
 			for(var/datum/admin_ticket/i in tickets)
 				i.addResponse(src, msg)
@@ -224,7 +223,7 @@
 	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
 
 	log_admin("PM: [key_name(src)]->IRC: [msg]")
-	for(var/client/X in admins)
+	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))

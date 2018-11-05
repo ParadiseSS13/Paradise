@@ -38,14 +38,16 @@
 //		sd_set_light(0)
 
 //Don't want to render prison breaks impossible
-/obj/machinery/flasher/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wirecutters))
+/obj/machinery/flasher/attackby(obj/item/I, mob/user, params)
+	if(iswirecutter(I))
 		add_fingerprint(user)
 		disable = !disable
 		if(disable)
-			user.visible_message("<span class='warning'>[user] has disconnected the [src]'s flashbulb!</span>", "<span class='warning'>You disconnect the [src]'s flashbulb!</span>")
+			user.visible_message("<span class='warning'>[user] has disconnected [src]'s flashbulb!</span>", "<span class='warning'>You disconnect [src]'s flashbulb!</span>")
 		if(!disable)
-			user.visible_message("<span class='warning'>[user] has connected the [src]'s flashbulb!</span>", "<span class='warning'>You connect the [src]'s flashbulb!</span>")
+			user.visible_message("<span class='warning'>[user] has connected [src]'s flashbulb!</span>", "<span class='warning'>You connect [src]'s flashbulb!</span>")
+	else
+		return ..()
 
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
@@ -95,8 +97,8 @@
 		if((M.m_intent != MOVE_INTENT_WALK) && (anchored))
 			flash()
 
-/obj/machinery/flasher/portable/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
+/obj/machinery/flasher/portable/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
 		add_fingerprint(user)
 		anchored = !anchored
 
@@ -107,6 +109,8 @@
 		else if(anchored)
 			user.show_message(text("<span class='warning'>[src] is now secured.</span>"))
 			overlays += "[base_state]-s"
+	else
+		return ..()
 
 // Flasher button
 /obj/machinery/flasher_button
@@ -117,7 +121,7 @@
 	var/id = null
 	var/active = 0
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 

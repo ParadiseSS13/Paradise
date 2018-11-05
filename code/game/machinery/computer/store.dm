@@ -13,7 +13,6 @@
 /obj/machinery/computer/merch/New()
 	..()
 
-
 /obj/machinery/computer/merch/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return attack_hand(user)
@@ -43,43 +42,49 @@ html {
 	color:#999;
 }
 
+table {background:#303030;border:1px solid #262626;}
+
+caption {text-align:left;}
+
+.button {
+	color:#cfcfcf;
+	text-decoration:none;
+	font-weight:bold;
+	text-align:center;
+	width:75px;
+	padding:21px;
+	box-sizing:border-box;
+	background:none;
+	border:none;
+	display: inline-block;
+}
+.button:hover {color:#ffffff;}
+
 a {
 	color:#cfcfcf;
 	text-decoration:none;
 	font-weight:bold;
 }
+a:hover {color:#ffffff;}
 
-a:hover {
-	color:#ffffff;
-}
-tr {
-	background:#303030;
-	border-radius:6px;
-	margin-bottom:0.5em;
-	border-bottom:1px solid black;
-}
-tr:nth-child(even) {
-	background:#3f3f3f;
-}
+p {margin:0;}
 
-td.cost {
-	font-size:20pt;
-	font-weight:bold;
-}
+tr.dark {background:#303030;}
 
-td.cost.affordable {
-	background:green;
-}
+tr.light {background:#3f3f3f;}
 
-td.cost.toomuch {
-	background:maroon;
-}
+td,th {padding:15px;border-bottom:1px solid #262626;}
 
+th.cost {padding:0px;border-left:1px solid #262626;}
+
+th.cost.affordable {background:green;}
+
+th.cost.toomuch {background:maroon;}
 
 		</style>
 	</head>
 	<body>
-	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance:</b> $[balance]</p>
+	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance: $[balance]</b></p>
 	<h1>[command_name()] Merchandise</h1>
 	<p>
 		<b>Doing your job and not getting any recognition at work?</b>  Well, welcome to the
@@ -87,8 +92,9 @@ td.cost.toomuch {
 		completed your Job Objectives.
 	</p>
 	<p>Work hard. Get cash. Acquire bragging rights.</p>
-	<h2>In Stock:</h2>
+	<br>
 	<table cellspacing="0" cellpadding="0">
+		<caption><b>In Stock:</b></caption>
 		<thead>
 			<th>#</th>
 			<th>Name/Description</th>
@@ -101,8 +107,11 @@ td.cost.toomuch {
 		if(item.cost>balance)
 			cost_class="toomuch"
 		var/itemID=centcomm_store.items.Find(item)
+		var/row_color="light"
+		if(itemID%2 == 0)
+			row_color="dark"
 		dat += {"
-			<tr>
+			<tr class="[row_color]">
 				<th>
 					[itemID]
 				</th>
@@ -110,9 +119,9 @@ td.cost.toomuch {
 					<p><b>[item.name]</b></p>
 					<p>[item.desc]</p>
 				</td>
-				<td class="cost [cost_class]">
-					<a href="byond://?src=[UID()];buy=[itemID]">$[item.cost]</a>
-				</td>
+				<th class="cost [cost_class]">
+					<a href="byond://?src=[UID()];buy=[itemID]" class="button">$[item.cost]</a>
+				</th>
 			</tr>
 		"}
 	dat += {"
@@ -120,7 +129,7 @@ td.cost.toomuch {
 	</table>
 	</body>
 </html>"}
-	user << browse(dat, "window=merch")
+	user << browse(dat, "window=merch;size=440x600;can_resize=0")
 	onclose(user, "merch")
 	return
 
@@ -136,12 +145,15 @@ td.cost.toomuch {
 		var/itemID = text2num(href_list["buy"])
 		var/datum/storeitem/item = centcomm_store.items[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
+		if(!Adjacent(usr))
+			to_chat(usr, "<span class='warning'>You are not close enough to do that.</span>")
+			return
 		if(sure=="No")
 			updateUsrDialog()
 			return
 		if(!centcomm_store.PlaceOrder(usr,itemID))
 			to_chat(usr, "<span class='warning'>Unable to charge your account.</span>")
 		else
-			to_chat(usr, "<span class='notice'>You've successfully purchased the item.  It should be in your hands or on the floor.</span>")
+			to_chat(usr, "<span class='notice'>You've successfully purchased the item. It should be in your hands or on the floor.</span>")
 	src.updateUsrDialog()
 	return

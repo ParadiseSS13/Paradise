@@ -48,8 +48,8 @@
 	if(!message)
 		return
 
-	var/tmp/message_title = new_title ? new_title : title
-	var/tmp/message_sound = new_sound ? sound(new_sound) : sound
+	var/message_title = new_title ? new_title : title
+	var/message_sound = new_sound ? sound(new_sound) : sound
 
 	if(!msg_sanitized)
 		message = trim_strip_html_properly(message, allow_lines = 1)
@@ -59,7 +59,7 @@
 	if(announcer)
 		message_announcer = html_encode(announcer)
 
-	var/datum/language/message_language = all_languages[msg_language ? msg_language : language]
+	var/datum/language/message_language = GLOB.all_languages[msg_language ? msg_language : language]
 
 	var/list/combined_receivers = Get_Receivers(message_language)
 	var/list/receivers = combined_receivers[1]
@@ -81,11 +81,11 @@
 	var/list/garbled_receivers = list()
 
 	if(admin_announcement)
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
 	else
-		for(var/obj/item/radio/R in global_radios)
+		for(var/obj/item/radio/R in GLOB.global_radios)
 			receivers |= R.send_announcement()
 		for(var/mob/M in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
@@ -94,7 +94,7 @@
 			if(!M.say_understands(null, message_language))
 				receivers -= M
 				garbled_receivers |= M
-		for(var/mob/M in dead_mob_list)
+		for(var/mob/M in GLOB.dead_mob_list)
 			if(M.client && M.stat == DEAD)
 				receivers |= M
 

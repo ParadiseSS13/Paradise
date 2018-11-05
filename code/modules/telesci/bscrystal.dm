@@ -1,5 +1,5 @@
 // Bluespace crystals, used in telescience and when crushed it will blink you to a random turf.
-/obj/item/ore/bluespace_crystal
+/obj/item/stack/ore/bluespace_crystal
 	name = "bluespace crystal"
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
 	icon = 'icons/obj/telescience.dmi'
@@ -13,38 +13,38 @@
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
 
-/obj/item/ore/bluespace_crystal/New()
+/obj/item/stack/ore/bluespace_crystal/New()
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/ore/bluespace_crystal/attack_self(var/mob/user)
+/obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
 	blink_mob(user)
 	user.drop_item()
 	user.visible_message("<span class='notice'>[user] crushes the [src]!</span>")
 	qdel(src)
 
-/obj/item/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
+/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
 	if(!is_teleport_allowed(L.z))
-		src.visible_message("<span class=warning>[src]'s fragments begin rapidly vibrating and blink out of existence.<span>")
+		src.visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
 		qdel(src)
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
 
-/obj/item/ore/bluespace_crystal/throw_impact(atom/hit_atom)
+/obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom)
 	..()
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)
 	qdel(src)
 
-// Blueapce crystal fragments (stops point farming)
-/obj/item/ore/bluespace_crystal/refined
+// Bluespace crystal fragments (stops point farming)
+/obj/item/stack/ore/bluespace_crystal/refined
 	name = "refined bluespace crystal"
 	points = 0
 	refined_type = null
 
 // Artifical bluespace crystal, doesn't give you much research.
-/obj/item/ore/bluespace_crystal/artificial
+/obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
 	origin_tech = "bluespace=3;plasmatech=4"
@@ -55,7 +55,7 @@
 
 // Polycrystals, aka stacks
 
-var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/ore/bluespace_crystal/refined, 1, one_per_turf = 0, on_floor = 1))
+var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/stack/ore/bluespace_crystal/refined, 1))
 
 /obj/item/stack/sheet/bluespace_crystal
 	name = "bluespace polycrystal"

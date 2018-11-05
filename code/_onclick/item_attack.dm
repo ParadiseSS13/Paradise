@@ -14,10 +14,12 @@
 
 // No comment
 /atom/proc/attackby(obj/item/W, mob/user, params)
-	return SendSignal(COMSIG_PARENT_ATTACKBY, W, user, params)
+	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
+		return TRUE
+	return FALSE
 
 /obj/attackby(obj/item/I, mob/living/user, params)
-	return ..() || I.attack_obj(src, user)
+	return ..() || (can_be_hit && I.attack_obj(src, user))
 
 /mob/living/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -37,13 +39,13 @@
 				return 1
 		if(istype(src,/obj/item/organ/external))
 			var/obj/item/organ/external/E = src
-			if(E.robotic == 2) // Robot limbs are less messy to attach
+			if(E.is_robotic()) // Robot limbs are less messy to attach
 				if(!attempt_initiate_surgery(src, M, user,1))
 					return 0
 				else
 					return 1
 
-		if(isscrewdriver(src) && M.get_species() == "Machine")
+		if(isscrewdriver(src) && ismachine(M))
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else

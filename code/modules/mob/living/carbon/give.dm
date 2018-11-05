@@ -29,7 +29,7 @@
 			if("Yes")
 				if(!I)
 					return
-				if(!Adjacent(usr))
+				if(!Adjacent(target))
 					to_chat(usr, "<span class='warning'> You need to stay in reaching distance while giving an object.</span>")
 					to_chat(target, "<span class='warning'> [usr.name] moved too far away.</span>")
 					return
@@ -56,6 +56,7 @@
 				target.update_inv_l_hand()
 				target.update_inv_r_hand()
 				target.visible_message("<span class='notice'> [usr.name] handed \the [I.name] to [target.name].</span>")
+				I.on_give(usr, target)
 			if("No")
 				target.visible_message("<span class='warning'> [usr.name] tried to hand [I.name] to [target.name] but [target.name] didn't want it.</span>")
 	else

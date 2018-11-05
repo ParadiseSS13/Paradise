@@ -7,14 +7,15 @@
 	origin_tech = "bluespace=1"
 	var/emagged = 0
 	var/syndicate = 0
+	var/area_bypass = FALSE
 
 /obj/item/radio/beacon/New()
 	..()
-	code = "[code] ([beacons.len + 1])"
-	beacons += src
+	code = "[code] ([GLOB.beacons.len + 1])"
+	GLOB.beacons += src
 
 /obj/item/radio/beacon/Destroy()
-	beacons -= src
+	GLOB.beacons -= src
 	return ..()
 
 /obj/item/radio/beacon/emag_act(user as mob)
@@ -45,18 +46,25 @@
 	return
 
 /obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
-	proc/digest_delay()
+
+/obj/item/radio/beacon/bacon/proc/digest_delay()
 		spawn(600)
-			qdel(src)
+		qdel(src)
 
 // SINGULO BEACON SPAWNER
 /obj/item/radio/beacon/syndicate
 	name = "suspicious beacon"
 	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
 	origin_tech = "bluespace=6;syndicate=5"
-	syndicate = 1
+	syndicate = TRUE
+	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
-/obj/item/radio/beacon/syndicate/attack_self(mob/user as mob)
+/obj/item/radio/beacon/syndicate/Destroy()
+	if(mycomputer)
+		mycomputer.mybeacon = null
+	return ..()
+
+/obj/item/radio/beacon/syndicate/attack_self(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/power/singularity_beacon/syndicate( user.loc )
@@ -69,7 +77,7 @@
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
 	origin_tech = "bluespace=5;syndicate=5"
 
-/obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user as mob)
+/obj/item/radio/beacon/syndicate/bomb/attack_self(mob/user)
 	if(user)
 		to_chat(user, "<span class='notice'>Locked In</span>")
 		new /obj/machinery/syndicatebomb( user.loc )

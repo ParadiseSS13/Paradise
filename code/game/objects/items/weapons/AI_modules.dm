@@ -43,7 +43,7 @@ AI MODULES
 			src.transmitInstructions(comp.current, usr)
 			to_chat(comp.current, "These are your laws now:")
 			comp.current.show_laws()
-			for(var/mob/living/silicon/robot/R in mob_list)
+			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 				if(R.lawupdate && (R.connected_ai == comp.current))
 					to_chat(R, "These are your laws now:")
 					R.show_laws()

@@ -14,15 +14,13 @@
 	circuit = /obj/item/circuitboard/message_monitor
 	//Server linked to.
 	var/obj/machinery/message_server/linkedServer = null
-	//Sparks effect - For emag
-	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread
 	//Messages - Saves me time if I want to change something.
 	var/noserver = "<span class='alert'>ALERT: No server detected.</span>"
 	var/incorrectkey = "<span class='warning'>ALERT: Incorrect decryption key!</span>"
 	var/defaultmsg = "<span class='notice'>Welcome. Please select an option.</span>"
 	var/rebootmsg = "<span class='warning'>%$&(£: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
 	//Computer properties
-	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message, 4 = chat room selection, 5 = chat room logs
+	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
 	var/emag = 0		// When it is emagged.
 	var/message = "<span class='notice'>System bootup complete. Please select an option.</span>"	// The message that shows on the main menu.
@@ -33,7 +31,6 @@
 	var/obj/item/pda/customrecepient = null
 	var/customjob		= "Admin"
 	var/custommessage 	= "This is a test, please ignore."
-	var/datum/chatroom/current_chatroom = null
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
@@ -57,8 +54,7 @@
 			icon_screen = hack_icon // An error screen I made in the computers.dmi
 			emag = 1
 			screen = 2
-			spark_system.set_up(5, 0, src)
-			src.spark_system.start()
+			do_sparks(5, 0, src)
 			var/obj/item/paper/monitorkey/MK = new/obj/item/paper/monitorkey
 			MK.loc = src.loc
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
@@ -129,7 +125,6 @@
 					dat += "<dd><A href='?src=[UID()];clearr=1'>&#09;[++i]. Clear Request Console Logs</a><br></dd>"
 					dat += "<dd><A href='?src=[UID()];pass=1'>&#09;[++i]. Set Custom Key</a><br></dd>"
 					dat += "<dd><A href='?src=[UID()];msg=1'>&#09;[++i]. Send Admin Message</a><br></dd>"
-					dat += "<dd><A href='?src=[UID()];chatroom=1'>&#09;[++i]. View Chatrooms</a><br></dd>"
 			else
 				for(var/n = ++i; n <= optioncount; n++)
 					dat += "<dd><font color='blue'>&#09;[n]. ---------------</font><br></dd>"
@@ -247,42 +242,6 @@
 				dat += {"<tr><td width = '5%'><center><A href='?src=[UID()];deleter=\ref[rc]' style='color: rgb(255,0,0)'>X</a></center></td><td width='15%'>[rc.send_dpt]</td>
 				<td width='15%'>[rc.rec_dpt]</td><td width='300px'>[rc.message]</td><td width='15%'>[rc.stamp]</td><td width='15%'>[rc.id_auth]</td><td width='15%'>[rc.priority]</td></tr>"}
 			dat += "</table>"
-		//Chat room list
-		if(5)
-			dat += "<center><A href='?src=[UID()];back=1'>Back</a> - <A href='?src=[UID()];refresh=1'>Refresh</center><hr>"
-			dat += {"<table border='1' width='100%'>
-					<tr>
-					<th width='40%'>Room Name</th>
-					<th width='20%'>Users</th>
-					<th width='20%'>Invites</th>
-					<th width='20%'>Messages</th>
-					</tr>"}
-			for(var/datum/chatroom/C in chatrooms)
-				var/list/invites = (C.invites - C.users)
-				dat += {"<tr>
-					<td><a href='?src=[UID()];viewroom=\ref[C]'>[C.name]</a></td>
-					<td>[C.users.len]</td>
-					<td>[invites.len]</td>
-					<td>[C.logs.len]</td>
-					</tr>"}
-			dat += "</table>"
-		//View chat room logs
-		if(6)
-			dat += "<center><A href='?src=[UID()];chatroom=1'>Back</a> - <A href='?src=[UID()];refresh=1'>Refresh</center><hr>"
-			dat += {"<table border='1' width='100%'>
-					<tr>
-					<th width='25%'>Name</th>
-					<th width='75%'>Message</th>
-					</tr>"}
-			if(current_chatroom)
-				for(var/M in current_chatroom.logs)
-					var/list/message = M
-					dat += {"<tr>
-						<td>[message["username"]]</td>
-						<td>[message["message"]]</td>
-						</tr>"}
-			dat += "</table>"
-
 	dat += "</body>"
 	message = defaultmsg
 	user << browse(dat, "window=message;size=700x700")
@@ -520,19 +479,6 @@
 
 		if(href_list["back"])
 			src.screen = 0
-		// View chat room list
-		if(href_list["chatroom"])
-			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
-				message = noserver
-			else if(auth)
-				screen = 5
-		if(href_list["viewroom"])
-			if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
-				message = noserver
-			else if(auth)
-				current_chatroom = locate(href_list["viewroom"])
-				if(current_chatroom)
-					screen = 6
 
 	return src.attack_hand(usr)
 

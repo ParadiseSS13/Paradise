@@ -396,6 +396,14 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/spesslaw
 
+/datum/recipe/microwave/macncheese
+	reagents = list("water" = 5, "milk" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/macaroni,
+	)
+	result = /obj/item/reagent_containers/food/snacks/macncheese
+
 /datum/recipe/microwave/superbiteburger
 	reagents = list("sodiumchloride" = 5, "blackpepper" = 5)
 	items = list(
@@ -463,7 +471,7 @@ datum/recipe/microwave/slimesandwich
 /datum/recipe/microwave/clownstears
 	reagents = list("water" = 10)
 	items = list(
-		/obj/item/ore/bananium,
+		/obj/item/stack/ore/bananium,
 		/obj/item/reagent_containers/food/snacks/grown/banana
 	)
 	result = /obj/item/reagent_containers/food/snacks/clownstears

@@ -44,13 +44,13 @@
 
 /obj/machinery/computer/mob_battle_terminal/Destroy()
 	eject_card(1)
-	if(mob_hunt_server)
-		if(mob_hunt_server.battle_turn)
-			mob_hunt_server.battle_turn = null
-		if(mob_hunt_server.red_terminal == src)
-			mob_hunt_server.red_terminal = null
-		if(mob_hunt_server.blue_terminal == src)
-			mob_hunt_server.blue_terminal = null
+	if(SSmob_hunt)
+		if(SSmob_hunt.battle_turn)
+			SSmob_hunt.battle_turn = null
+		if(SSmob_hunt.red_terminal == src)
+			SSmob_hunt.red_terminal = null
+		if(SSmob_hunt.blue_terminal == src)
+			SSmob_hunt.blue_terminal = null
 	QDEL_NULL(avatar)
 	return ..()
 
@@ -80,7 +80,7 @@
 
 /obj/machinery/computer/mob_battle_terminal/proc/eject_card(override = 0)
 	if(!override)
-		if(ready && mob_hunt_server.battle_turn != team)
+		if(ready && SSmob_hunt.battle_turn != team)
 			audible_message("You can't recall on your rival's turn!", null, 2)
 			return
 	card.mob_data = mob_info
@@ -126,7 +126,7 @@
 		dat += "<h1>No Nano-Mob card loaded.</h1>"
 		dat += "</td>"
 		dat += "</tr>"
-		if(ready && mob_hunt_server.battle_turn)	//offer the surrender option if they are in a battle (ready), but don't have a card loaded
+		if(ready && SSmob_hunt.battle_turn)	//offer the surrender option if they are in a battle (ready), but don't have a card loaded
 			dat += "<tr>"
 			dat += "<td><a href='?src=[UID()];surrender=1'>Surrender!</a></td>"
 			dat += "</tr>"
@@ -170,7 +170,7 @@
 			dat += "<tr>"
 			dat += "<td><a href='?src=[UID()];ready=1'>Battle!</a></td>"
 			dat += "</tr>"
-		if(ready && !mob_hunt_server.battle_turn)
+		if(ready && !SSmob_hunt.battle_turn)
 			dat += "<tr>"
 			dat += "<td><a href='?src=[UID()];ready=2'>Cancel Battle!</a></td>"
 			dat += "</tr>"
@@ -205,23 +205,23 @@
 
 /obj/machinery/computer/mob_battle_terminal/proc/check_connection()
 	if(team == "Red")
-		if(mob_hunt_server && !mob_hunt_server.red_terminal)
-			mob_hunt_server.red_terminal = src
+		if(SSmob_hunt && !SSmob_hunt.red_terminal)
+			SSmob_hunt.red_terminal = src
 	else if(team == "Blue")
-		if(mob_hunt_server && !mob_hunt_server.blue_terminal)
-			mob_hunt_server.blue_terminal = src
+		if(SSmob_hunt && !SSmob_hunt.blue_terminal)
+			SSmob_hunt.blue_terminal = src
 
 /obj/machinery/computer/mob_battle_terminal/proc/do_attack()
 	if(!ready)		//no attacking if you arent ready to fight (duh)
 		return
-	if(!mob_hunt_server || team != mob_hunt_server.battle_turn)		//don't attack unless it is actually our turn
+	if(!SSmob_hunt || team != SSmob_hunt.battle_turn)		//don't attack unless it is actually our turn
 		return
 	else
 		var/message = "[mob_info.mob_name] attacks!"
 		if(mob_info.nickname)
 			message = "[mob_info.nickname] attacks!"
 		audible_message(message, null, 5)
-		mob_hunt_server.launch_attack(team, mob_info.get_raw_damage(), mob_info.get_attack_type())
+		SSmob_hunt.launch_attack(team, mob_info.get_raw_damage(), mob_info.get_attack_type())
 
 /obj/machinery/computer/mob_battle_terminal/proc/start_battle()
 	if(ready)	//don't do anything if we are still ready
@@ -230,20 +230,20 @@
 		return
 	ready = 1
 	audible_message("[team] Player is ready for battle! Waiting for rival...", null, 5)
-	mob_hunt_server.start_check()
+	SSmob_hunt.start_check()
 
 /obj/machinery/computer/mob_battle_terminal/proc/receive_attack(raw_damage, datum/mob_type/attack_type)
 	var/message = mob_info.take_damage(raw_damage, attack_type)
 	avatar.audible_message(message, null, 5)
 	if(!mob_info.cur_health)
-		mob_hunt_server.end_battle(team)
+		SSmob_hunt.end_battle(team)
 		eject_card(1)	//force the card out, they were defeated
 	else
-		mob_hunt_server.end_turn()
+		SSmob_hunt.end_turn()
 
 /obj/machinery/computer/mob_battle_terminal/proc/surrender()
 	audible_message("[team] Player surrenders the battle!", null, 5)
-	mob_hunt_server.end_battle(team, 1)
+	SSmob_hunt.end_battle(team, 1)
 
 //////////////////////////////
 //	Mob Healing Terminal	//

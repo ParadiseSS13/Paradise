@@ -31,7 +31,7 @@
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
-		if("attack_log")
+		if("attack_log", "debug_log")
 			return debug_variable(var_name, vars[var_name], 0, src, sanitize = FALSE)
 		if("vars")
 			return debug_variable(var_name, list(), 0, src)
@@ -546,7 +546,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
-		var/new_name = sanitize(copytext(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null,1,MAX_NAME_LEN))
+		var/new_name = reject_bad_name(sanitize(copytext(input(usr,"What would you like to name this mob?","Input a name",M.real_name) as text|null,1,MAX_NAME_LEN)))
 		if( !new_name || !M )	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -781,6 +781,30 @@
 				log_admin("[key_name(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 				message_admins("[key_name_admin(usr)] deleted all objects of type or subtype of [O_type] ([i] objects deleted)")
 
+	else if(href_list["makespeedy"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+		var/obj/A = locateUID(href_list["makespeedy"])
+		if(!istype(A))
+			return
+		A.var_edited = TRUE
+		A.makeSpeedProcess()
+		log_admin("[key_name(usr)] has made [A] speed process")
+		message_admins("<span class='notice'>[key_name(usr)] has made [A] speed process</span>")
+		return TRUE
+
+	else if(href_list["makenormalspeed"])
+		if(!check_rights(R_DEBUG|R_ADMIN))
+			return
+		var/obj/A = locateUID(href_list["makenormalspeed"])
+		if(!istype(A))
+			return
+		A.var_edited = TRUE
+		A.makeNormalProcess()
+		log_admin("[key_name(usr)] has made [A] process normally")
+		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
+		return TRUE
+
 	else if(href_list["addreagent"]) /* Made on /TG/, credit to them. */
 		if(!check_rights(R_DEBUG|R_ADMIN))	return
 
@@ -793,7 +817,7 @@
 
 		if(A.reagents)
 			var/chosen_id
-			var/list/reagent_options = sortAssoc(chemical_reagents_list)
+			var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
 			switch(alert(usr, "Choose a method.", "Add Reagents", "Enter ID", "Choose ID"))
 				if("Enter ID")
 					var/valid_id
@@ -986,14 +1010,15 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human")
 			return
 
-		var/new_species = input("Please choose a new species.","Species",null) as null|anything in all_species
+		var/new_species = input("Please choose a new species.","Species",null) as null|anything in GLOB.all_species
 
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore")
 			return
 
-		if(H.set_species(new_species))
-			to_chat(usr, "Set species of [H] to [H.species].")
+		var/datum/species/S = GLOB.all_species[new_species]
+		if(H.set_species(S.type))
+			to_chat(usr, "Set species of [H] to [H.dna.species].")
 			H.regenerate_icons()
 			message_admins("[key_name_admin(usr)] has changed the species of [key_name_admin(H)] to [new_species]")
 			log_admin("[key_name(usr)] has changed the species of [key_name(H)] to [new_species]")
@@ -1008,7 +1033,7 @@
 			to_chat(usr, "This can only be done to instances of type /mob")
 			return
 
-		var/new_language = input("Please choose a language to add.","Language",null) as null|anything in all_languages
+		var/new_language = input("Please choose a language to add.","Language",null) as null|anything in GLOB.all_languages
 
 		if(!new_language)
 			return
@@ -1190,8 +1215,8 @@
 			return
 
 		switch(Text)
-			if("brute")	L.adjustBruteLoss(amount)
-			if("fire")	L.adjustFireLoss(amount)
+			if("brute")	L.adjustBruteLoss(amount, robotic=1)
+			if("fire")	L.adjustFireLoss(amount, robotic=1)
 			if("toxin")	L.adjustToxLoss(amount)
 			if("oxygen")L.adjustOxyLoss(amount)
 			if("brain")	L.adjustBrainLoss(amount)

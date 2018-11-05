@@ -136,7 +136,7 @@
 			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
 		var/obj/item/organ/internal/H = M.get_int_organ(/obj/item/organ/internal/heart)
 		var/obj/item/organ/internal/L = M.get_int_organ(/obj/item/organ/internal/lungs)
-		if((H && M.pulse) || (L && !(BREATHLESS in M.mutations) && !(NO_BREATHE in M.species.species_traits)))
+		if((H && M.pulse) || (L && !(BREATHLESS in M.mutations) && !(NO_BREATHE in M.dna.species.species_traits)))
 			var/color = "notice"
 			if(H)
 				var/heart_sound
@@ -243,7 +243,6 @@
 /obj/item/clothing/accessory/holobadge/cord
 	icon_state = "holobadge-cord"
 	item_color = "holobadge-cord"
-	slot_flags = SLOT_MASK | SLOT_TIE
 
 /obj/item/clothing/accessory/holobadge/attack_self(mob/user as mob)
 	if(!stored_name)
@@ -391,7 +390,7 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = SLOT_TIE
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
@@ -399,7 +398,7 @@
 	icon_state = "locket"
 	item_state = "locket"
 	item_color = "locket"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = SLOT_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.

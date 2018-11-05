@@ -46,15 +46,21 @@
 	cost = 200
 
 /datum/storeitem/dnd
-	name = "Dungeons & Dragons set"
+	name = "Dungeons & Dragons Set"
 	desc = "A box containing minifigures suitable for a good game of D&D."
 	typepath = /obj/item/storage/box/characters
 	cost = 200
 
 /datum/storeitem/dice
-	name = "Dice set"
+	name = "Dice Set"
 	desc = "A box containing multiple different types of die."
 	typepath = /obj/item/storage/box/dice
+	cost = 200
+
+/datum/storeitem/candle
+	name = "Candles"
+	desc = "A box of candles. Use them to fool others into thinking you're out for a romantic dinner...or something."
+	typepath = /obj/item/storage/fancy/candle_box/full
 	cost = 200
 
 /datum/storeitem/nanomob_booster
@@ -65,57 +71,51 @@
 
 /datum/storeitem/crayons
 	name = "Crayons"
-	desc = "Let security know how they're doing by scrawling lovenotes all over their hallways."
+	desc = "Let security know how they're doing by scrawling love notes all over their hallways."
 	typepath = /obj/item/storage/fancy/crayons
 	cost = 350
 
 /datum/storeitem/pipe
-	name = "smoking pipe"
-	desc = "A pipe, for smoking. Probably made of meershaum or something."
+	name = "Smoking Pipe"
+	desc = "A pipe, for smoking. Probably made of meerschaum or something."
 	typepath = /obj/item/clothing/mask/cigarette/pipe
 	cost = 350
 
-/datum/storeitem/candle
-	name = "Candles"
-	desc = "A box of chandles. Use them to fool others into thinking you're out for a romantic dinner...or something."
-	typepath = /obj/item/storage/fancy/candle_box/full
-	cost = 200
-
 /datum/storeitem/minigibber
-	name = "miniature gibber"
+	name = "Miniature Gibber"
 	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
 	typepath = /obj/item/toy/minigibber
 	cost = 400
 
 /datum/storeitem/katana
-	name = "replica katana"
+	name = "Replica Katana"
 	desc = "Woefully underpowered in D20."
 	typepath = /obj/item/toy/katana
 	cost = 500
 
-/datum/storeitem/piano_synth
-	name = "piano synthesizer"
-	desc = "An advanced electronic synthesizer that can be used as various instruments."
-	typepath = /obj/item/instrument/piano_synth
-	cost = 1000
-
 /datum/storeitem/violin
-	name = "space violin"
+	name = "Space Violin"
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
 	typepath = /obj/item/instrument/violin
 	cost = 500
 
 /datum/storeitem/guitar
-	name = "guitar"
+	name = "Guitar"
 	desc = "It's made of wood and has bronze strings."
 	typepath = /obj/item/instrument/guitar
 	cost = 500
 
 /datum/storeitem/eguitar
-	name = "electric guitar"
+	name = "Electric Guitar"
 	desc = "Makes all your shredding needs possible."
 	typepath = /obj/item/instrument/eguitar
 	cost = 500
+
+/datum/storeitem/piano_synth
+	name = "Piano Synthesizer"
+	desc = "An advanced electronic synthesizer that can emulate various instruments."
+	typepath = /obj/item/instrument/piano_synth
+	cost = 1000
 
 /datum/storeitem/baby
 	name = "Toddler"
@@ -124,91 +124,91 @@
 	cost = 1000
 
 /datum/storeitem/flag_slime
-	name = "Slime People flag"
+	name = "Slime People Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Slime People."
 	typepath = /obj/item/flag/species/slime
 	cost = 1000
 
 /datum/storeitem/flag_skrell
-	name = "Skrell flag"
+	name = "Skrell Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Skrell."
 	typepath = /obj/item/flag/species/skrell
 	cost = 1000
 
 /datum/storeitem/flag_vox
-	name = "Vox flag"
+	name = "Vox Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Vox."
 	typepath = /obj/item/flag/species/vox
 	cost = 1000
 
 /datum/storeitem/flag_machine
-	name = "Synthetics flag"
+	name = "Synthetics Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Synthetics."
 	typepath = /obj/item/flag/species/machine
 	cost = 1000
 
 /datum/storeitem/flag_diona
-	name = "Diona flag"
+	name = "Diona Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Dionae."
 	typepath = /obj/item/flag/species/diona
 	cost = 1000
 
 /datum/storeitem/flag_human
-	name = "Human flag"
+	name = "Human Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Humans."
 	typepath = /obj/item/flag/species/human
 	cost = 1000
 
 /datum/storeitem/flag_greys
-	name = "Greys flag"
+	name = "Greys Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Greys."
 	typepath = /obj/item/flag/species/greys
 	cost = 1000
 
 /datum/storeitem/flag_kidan
-	name = "Kidan flag"
+	name = "Kidan Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Kidan."
 	typepath = /obj/item/flag/species/kidan
 	cost = 1000
 
 /datum/storeitem/flag_taj
-	name = "Tajaran flag"
+	name = "Tajaran Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Tajara."
 	typepath = /obj/item/flag/species/taj
 	cost = 1000
 
 /datum/storeitem/flag_unathi
-	name = "Unathi flag"
+	name = "Unathi Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Unathi."
 	typepath = /obj/item/flag/species/unathi
 	cost = 1000
 
 /datum/storeitem/flag_vulp
-	name = "Vulpkanin flag"
+	name = "Vulpkanin Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Vulpkanin."
 	typepath = /obj/item/flag/species/vulp
 	cost = 1000
 
 /datum/storeitem/flag_drask
-	name = "Drask flag"
+	name = "Drask Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Drask."
 	typepath = /obj/item/flag/species/drask
 	cost = 1000
 
 /datum/storeitem/flag_plasma
-	name = "Plasmaman flag"
+	name = "Plasmaman Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Plasmamen."
 	typepath = /obj/item/flag/species/plasma
 	cost = 1000
 
 /datum/storeitem/flag_ian
-	name = "Ian flag"
+	name = "Ian Flag"
 	desc = "The banner of Ian, because SQUEEEEE."
 	typepath = /obj/item/flag/ian
 	cost = 1500
 
 /datum/storeitem/banhammer
-	desc = "A banhammer"
-	name = "banhammer"
+	name = "Banhammer"
+	desc = "A Banhammer."
 	typepath = /obj/item/banhammer
 	cost = 2000

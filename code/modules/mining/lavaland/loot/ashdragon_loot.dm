@@ -36,14 +36,14 @@
 	..()
 	spirits = list()
 	processing_objects.Add(src)
-	poi_list |= src
+	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in spirits)
 		G.invisibility = initial(G.invisibility)
 	spirits.Cut()
 	processing_objects.Remove(src)
-	poi_list -= src
+	GLOB.poi_list -= src
 	. = ..()
 
 /obj/item/melee/ghost_sword/attack_self(mob/user)
@@ -71,7 +71,7 @@
 	var/list/contents = T.GetAllContents()
 	var/mob/dead/observer/current_spirits = list()
 
-	for(var/mob/dead/observer/O in player_list)
+	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(is_type_in_list(O.following, contents))
 			ghost_counter++
 			O.invisibility = 0
@@ -116,7 +116,7 @@
 	switch(random)
 		if(1)
 			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
-			H.set_species("Skeleton")
+			H.set_species(/datum/species/skeleton)
 		if(2)
 			to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
 			if(user.mind)

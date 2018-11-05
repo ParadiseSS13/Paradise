@@ -52,6 +52,9 @@
 /datum/atom_hud/data/bot_path
 	hud_icons = list(DIAG_PATH_HUD)
 
+/datum/atom_hud/abductor
+	hud_icons = list(GLAND_HUD)
+
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
@@ -160,7 +163,7 @@
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(stat == DEAD)
+	if(stat == DEAD || (status_flags & FAKEDEATH))
 		holder.icon_state = "huddead"
 	else if(status_flags & XENO_HOST)
 		holder.icon_state = "hudxeno"

@@ -61,10 +61,10 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 /proc/load_admins()
 	//clear the datums references
 	admin_datums.Cut()
-	for(var/client/C in admins)
+	for(var/client/C in GLOB.admins)
 		C.remove_admin_verbs()
 		C.holder = null
-	admins.Cut()
+	GLOB.admins.Cut()
 
 	if(config.admin_legacy_system)
 		load_admin_ranks()
@@ -97,7 +97,7 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
-			D.associate(directory[ckey])
+			D.associate(GLOB.directory[ckey])
 
 	else
 		//The current admin system uses SQL
@@ -121,7 +121,7 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
-			D.associate(directory[ckey])
+			D.associate(GLOB.directory[ckey])
 		if(!admin_datums)
 			log_world("The database query in load_admins() resulted in no admins being added to the list. Reverting to legacy system.")
 			config.admin_legacy_system = 1

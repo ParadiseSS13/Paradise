@@ -88,17 +88,17 @@
 			to_chat(usr, "<span class='warning'>There's nothing attached to the IV drip!</span>")
 
 
-/obj/machinery/iv_drip/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/reagent_containers))
+/obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers))
 		if(beaker)
 			to_chat(user, "<span class='warning'>There is already a reagent container loaded!</span>")
 			return
 		if(!user.drop_item())
 			return
 
-		W.forceMove(src)
-		beaker = W
-		to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
+		I.forceMove(src)
+		beaker = I
+		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 		update_icon()
 	else
 		return ..()

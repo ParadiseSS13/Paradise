@@ -4,20 +4,20 @@
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mopbucket"
 	density = 1
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
 
 /obj/structure/mopbucket/New()
 	..()
 	create_reagents(100)
-	janitorial_equipment += src
+	GLOB.janitorial_equipment += src
 
 /obj/structure/mopbucket/full/New()
 	..()
 	reagents.add_reagent("water", 100)
 
 /obj/structure/mopbucket/Destroy()
-	janitorial_equipment -= src
+	GLOB.janitorial_equipment -= src
 	return ..()
 
 /obj/structure/mopbucket/examine(mob/user)

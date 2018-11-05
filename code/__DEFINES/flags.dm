@@ -17,8 +17,6 @@
 
 #define HEADBANGPROTECT			4096
 
-#define OPENCONTAINER			4096	// is an open container for chemistry purposes
-
 #define BLOCK_GAS_SMOKE_EFFECT	8192	// blocks the effect that chemical clouds would have on a mob --glasses, mask and helmets ONLY!
 #define THICKMATERIAL 			8192	//prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body. (NOTE: flag shared with BLOCK_GAS_SMOKE_EFFECT)
 
@@ -53,6 +51,8 @@
 
 // LAVA_PROTECT used on the flags_2 variable for both SUIT and HEAD items, and stops lava damage. Must be present in both to stop lava damage.
 #define LAVA_PROTECT_2			2048
+
+#define OVERLAY_QUEUED_2		4096
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -101,7 +101,6 @@
 
 //turf-only flags
 #define NOJAUNT		1
-#define RPD_ALLOWED_HERE 2//By default, RPD is disabled on turfs.
 
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_OCLOTHING 1

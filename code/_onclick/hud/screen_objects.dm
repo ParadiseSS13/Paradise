@@ -9,7 +9,7 @@
 /obj/screen
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
-	layer = 20
+	layer = HUD_LAYER_SCREEN
 	plane = HUD_PLANE
 	unacidable = 1
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
@@ -23,10 +23,13 @@
 	master = null
 	return ..()
 
+/obj/screen/proc/component_click(obj/screen/component_button/component, params)
+	return
+
 /obj/screen/text
 	icon = null
 	icon_state = null
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = "CENTER-7,CENTER-7"
 	maptext_height = 480
 	maptext_width = 480
@@ -71,17 +74,14 @@
 	if(ishuman(usr))
 		var/_x = text2num(params2list(params)["icon-x"])
 		var/_y = text2num(params2list(params)["icon-y"])
-
 		if(_x<=16 && _y<=16)
 			usr.a_intent_change(INTENT_HARM)
 		else if(_x<=16 && _y>=17)
 			usr.a_intent_change(INTENT_HELP)
 		else if(_x>=17 && _y<=16)
 			usr.a_intent_change(INTENT_GRAB)
-
 		else if(_x>=17 && _y>=17)
 			usr.a_intent_change(INTENT_DISARM)
-
 	else
 		usr.a_intent_change("right")
 
@@ -96,6 +96,11 @@
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
+
+
+/obj/screen/act_intent/simple_animal
+	icon = 'icons/mob/screen_simplemob.dmi'
+	screen_loc = ui_acti
 
 /obj/screen/mov_intent/Click()
 	if(iscarbon(usr))
@@ -173,66 +178,111 @@
 	icon_state = "zone_sel"
 	screen_loc = ui_zonesel
 	var/selecting = "chest"
+	var/static/list/hover_overlays_cache = list()
+	var/hovering
 
 /obj/screen/zone_sel/Click(location, control,params)
+	if(isobserver(usr))
+		return
+
 	var/list/PL = params2list(params)
 	var/icon_x = text2num(PL["icon-x"])
 	var/icon_y = text2num(PL["icon-y"])
-	var/old_selecting = selecting //We're only going to update_icon() if there's been a change
+	var/choice = get_zone_at(icon_x, icon_y)
+	if(!choice)
+		return 1
 
+	return set_selected_zone(choice, usr)
+
+/obj/screen/zone_sel/MouseEntered(location, control, params)
+	MouseMove(location, control, params)
+
+/obj/screen/zone_sel/MouseMove(location, control, params)
+	if(isobserver(usr))
+		return
+
+	var/list/PL = params2list(params)
+	var/icon_x = text2num(PL["icon-x"])
+	var/icon_y = text2num(PL["icon-y"])
+	var/choice = get_zone_at(icon_x, icon_y)
+
+	if(hovering == choice)
+		return
+	cut_overlay(hover_overlays_cache[hovering])
+	hovering = choice
+
+	var/obj/effect/overlay/zone_sel/overlay_object = hover_overlays_cache[choice]
+	if(!overlay_object)
+		overlay_object = new
+		overlay_object.icon_state = "[choice]"
+		hover_overlays_cache[choice] = overlay_object
+	add_overlay(overlay_object)
+
+
+/obj/effect/overlay/zone_sel
+	icon = 'icons/mob/zone_sel.dmi'
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	alpha = 128
+	anchored = TRUE
+	layer = ABOVE_HUD_LAYER
+	plane = ABOVE_HUD_PLANE
+
+/obj/screen/zone_sel/MouseExited(location, control, params)
+	if(!isobserver(usr) && hovering)
+		cut_overlay(hover_overlays_cache[hovering])
+	hovering = null
+
+/obj/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
 	switch(icon_y)
 		if(1 to 3) //Feet
 			switch(icon_x)
 				if(10 to 15)
-					selecting = "r_foot"
+					return "r_foot"
 				if(17 to 22)
-					selecting = "l_foot"
-				else
-					return 1
+					return "l_foot"
 		if(4 to 9) //Legs
 			switch(icon_x)
 				if(10 to 15)
-					selecting = "r_leg"
+					return "r_leg"
 				if(17 to 22)
-					selecting = "l_leg"
-				else
-					return 1
+					return "l_leg"
 		if(10 to 13) //Hands and groin
 			switch(icon_x)
 				if(8 to 11)
-					selecting = "r_hand"
+					return "r_hand"
 				if(12 to 20)
-					selecting = "groin"
+					return "groin"
 				if(21 to 24)
-					selecting = "l_hand"
-				else
-					return 1
+					return "l_hand"
 		if(14 to 22) //Chest and arms to shoulders
 			switch(icon_x)
 				if(8 to 11)
-					selecting = "r_arm"
+					return "r_arm"
 				if(12 to 20)
-					selecting = "chest"
+					return "chest"
 				if(21 to 24)
-					selecting = "l_arm"
-				else
-					return 1
+					return "l_arm"
 		if(23 to 30) //Head, but we need to check for eye or mouth
 			if(icon_x in 12 to 20)
-				selecting = "head"
 				switch(icon_y)
 					if(23 to 24)
 						if(icon_x in 15 to 17)
-							selecting = "mouth"
+							return "mouth"
 					if(26) //Eyeline, eyes are on 15 and 17
 						if(icon_x in 14 to 18)
-							selecting = "eyes"
+							return "eyes"
 					if(25 to 27)
 						if(icon_x in 15 to 17)
-							selecting = "eyes"
+							return "eyes"
+				return "head"
 
-	if(old_selecting != selecting)
-		update_icon()
+/obj/screen/zone_sel/proc/set_selected_zone(choice, mob/user)
+	if(isobserver(user))
+		return
+
+	if(choice != selecting)
+		selecting = choice
+		update_icon(usr)
 	return 1
 
 /obj/screen/zone_sel/update_icon()
@@ -273,7 +323,37 @@
 
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
+	var/list/object_overlays = list()
 	layer = 19
+
+/obj/screen/inventory/MouseEntered()
+	..()
+	add_overlays()
+
+/obj/screen/inventory/MouseExited()
+	..()
+	cut_overlay(object_overlays)
+	object_overlays.Cut()
+
+/obj/screen/inventory/proc/add_overlays()
+	var/mob/user = hud.mymob
+
+	if(hud && user && slot_id)
+		var/obj/item/holding = user.get_active_hand()
+
+		if(!holding || user.get_item_by_slot(slot_id))
+			return
+
+		var/image/item_overlay = image(holding)
+		item_overlay.alpha = 92
+
+		if(!user.can_equip(holding, slot_id, disable_warning = TRUE))
+			item_overlay.color = "#ff0000"
+		else
+			item_overlay.color = "#00ff00"
+
+		object_overlays += item_overlay
+		add_overlay(object_overlays)
 
 /obj/screen/inventory/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
@@ -377,10 +457,22 @@
 	icon = 'icons/mob/guardian.dmi'
 	icon_state = "base"
 	screen_loc = ui_health
-	mouse_opacity = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/screen/healthdoll
 	name = "health doll"
 	icon_state = "healthdoll_DEAD"
 	screen_loc = ui_healthdoll
 	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays
+
+/obj/screen/component_button
+	var/obj/screen/parent
+
+
+/obj/screen/component_button/Initialize(mapload, obj/screen/new_parent)
+	. = ..()
+	parent = new_parent
+
+/obj/screen/component_button/Click(params)
+	if(parent)
+		parent.component_click(src, params)

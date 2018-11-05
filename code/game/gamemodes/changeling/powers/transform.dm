@@ -14,18 +14,14 @@
 
 	if(!chosen_dna)
 		return
-	user.dna = chosen_dna.Clone()
-	user.real_name = chosen_dna.real_name
-	if(ishuman(user))
-		user.set_species(chosen_dna.species)
-	domutcheck(user, null, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
-	user.flavor_text = ""
-	user.dna.UpdateSE()
-	user.dna.UpdateUI()
-	user.sync_organ_dna(1)
-	user.UpdateAppearance()
+
+	transform_dna(user,chosen_dna)
 
 	user.changeling_update_languages(changeling.absorbed_languages)
+
+	if(user.mind.speech_span == "wingdings") //greys' wingdings isn't stored in DNA
+		user.mind.speech_span = ""
+		to_chat(user, "<span class='warning'>Our vocal cords have permanently shifted. We will now speak regularly.</span>")
 
 	feedback_add_details("changeling_powers","TR")
 	return 1

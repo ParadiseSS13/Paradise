@@ -72,7 +72,7 @@
 	if(!damage_overlays[1]) //list hasn't been populated
 		generate_overlays()
 
-	smooth_icon(src)
+	queue_smooth(src)
 	if(!damage)
 		if(damage_overlay)
 			overlays -= damage_overlays[damage_overlay]
@@ -168,6 +168,18 @@
 	if(prob(50))
 		dismantle_wall()
 
+/turf/simulated/wall/rpd_act(mob/user, obj/item/rpd/our_rpd)
+	if(our_rpd.mode == RPD_ATMOS_MODE)
+		playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
+		user.visible_message("<span class='notice'>[user] starts drilling a hole in [src]...</span>", "<span class='notice'>You start drilling a hole in [src]...</span>", "<span class='warning'>You hear drilling.</span>")
+		if(!do_after(user, our_rpd.walldelay, target = src)) //Drilling into walls takes time
+			return
+		our_rpd.create_atmos_pipe(user, src)
+	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
+		return
+	else
+		..()
+
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")
 		playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
@@ -188,7 +200,10 @@
 		for(var/i=0, i<number_rots, i++)
 			new /obj/effect/overlay/wall_rot(src)
 
-/turf/simulated/wall/proc/thermitemelt(mob/user as mob)
+/turf/simulated/wall/proc/thermitemelt(mob/user as mob, speed)
+	var/wait = 100
+	if(speed)
+		wait = speed
 	if(istype(sheet_type, /obj/item/stack/sheet/mineral/diamond))
 		return
 
@@ -206,9 +221,10 @@
 	var/turf/simulated/floor/F = src
 	F.burn_tile()
 	F.icon_state = "wall_thermite"
-	to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
+	if(user)
+		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
 
-	spawn(100)
+	spawn(wait)
 		if(O)	qdel(O)
 	return
 

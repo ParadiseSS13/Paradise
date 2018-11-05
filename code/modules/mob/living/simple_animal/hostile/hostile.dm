@@ -18,7 +18,7 @@
 	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
 	var/minimum_distance = 1 //Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set higher to make mobs keep distance
-
+	
 //These vars are related to how mobs locate and target
 	var/robust_searching = 0 //By default, mobs have a simple searching method, set this to 1 for the more scrutinous searching (stat_attack, stat_exclusive, etc), should be disabled on most mobs
 	var/vision_range = 9 //How big of an area to search for targets in, a vision of 9 attempts to find targets as soon as they walk into screen view
@@ -178,7 +178,7 @@
 
 		if(ishuman(the_target))
 			var/mob/living/carbon/human/H = the_target
-			if(is_type_in_list(src, H.species.ignored_by))
+			if(is_type_in_list(src, H.dna.species.ignored_by))
 				return 0
 
 		if(istype(the_target, /obj/mecha))
@@ -289,8 +289,11 @@
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(!.)
+		return FALSE
 	LoseTarget()
-	..(gibbed)
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance)
 	do_alert_animation(src)

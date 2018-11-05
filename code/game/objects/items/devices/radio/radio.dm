@@ -36,7 +36,7 @@ var/global/list/default_medbay_channels = list(
 	var/listening = 1
 	var/list/channels = list() //see communications.dm for full list. First channes is a "default" for :h
 	var/subspace_transmission = 0
-	var/syndie = 0//Holder to see if it's a syndicate encrpyed radio
+	var/obj/item/encryptionkey/syndicate/syndiekey = null //Holder for the syndicate encryption key if present
 	var/disable_timer = 0 //How many times this is disabled by EMPs
 
 	var/is_special = 0 //For electropacks mostly, skips Topic() checks
@@ -69,7 +69,7 @@ var/global/list/default_medbay_channels = list(
 	wires = new(src)
 
 	internal_channels = default_internal_channels.Copy()
-	global_radios |= src
+	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
 	QDEL_NULL(wires)
@@ -78,7 +78,7 @@ var/global/list/default_medbay_channels = list(
 		for(var/ch_name in channels)
 			radio_controller.remove_object(src, radiochannels[ch_name])
 	radio_connection = null
-	global_radios -= src
+	GLOB.global_radios -= src
 	follow_target = null
 	return ..()
 
@@ -131,7 +131,7 @@ var/global/list/default_medbay_channels = list(
 		data["chan_list"] = chanlist
 		data["chan_list_len"] = chanlist.len
 
-	if(syndie)
+	if(syndiekey)
 		data["useSyndMode"] = 1
 
 	return data
@@ -250,7 +250,7 @@ var/global/list/default_medbay_channels = list(
 	A.role = role
 	A.message = message
 	var/jammed = FALSE
-	for(var/obj/item/jammer/jammer in active_jammers)
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
 			jammed = TRUE
 			break
@@ -342,7 +342,7 @@ var/global/list/default_medbay_channels = list(
 	var/turf/position = get_turf(src)
 
 	var/jammed = FALSE
-	for(var/obj/item/jammer/jammer in active_jammers)
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
 		if(get_dist(position, get_turf(jammer)) < jammer.range)
 			jammed = TRUE
 			break
@@ -395,8 +395,12 @@ var/global/list/default_medbay_channels = list(
 	if(ishuman(M) && M.GetVoice() != real_name)
 		displayname = M.GetVoice()
 		jobname = "Unknown"
-		voicemask = 1
+		voicemask = TRUE
 
+	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
+		displayname = syndiekey.fake_name
+		jobname = "Unknown"
+		voicemask = TRUE
 
 
   /* ###### Radio headsets can only broadcast through subspace ###### */
@@ -552,7 +556,7 @@ var/global/list/default_medbay_channels = list(
 		if(!position || !(position.z in level))
 			return -1
 	if(freq in ANTAG_FREQS)
-		if(!(syndie))//Checks to see if it's allowed on that frequency, based on the encryption keys
+		if(!(syndiekey))//Checks to see if it's allowed on that frequency, based on the encryption keys
 			return -1
 	if(!freq) //recieved on main frequency
 		if(!listening)
@@ -652,7 +656,6 @@ var/global/list/default_medbay_channels = list(
 	subspace_transmission = 1
 
 /obj/item/radio/borg/syndicate
-	syndie = 1
 	keyslot = new /obj/item/encryptionkey/syndicate
 
 /obj/item/radio/borg/syndicate/CanUseTopic(mob/user, datum/topic_state/state)
@@ -669,6 +672,7 @@ var/global/list/default_medbay_channels = list(
 
 /obj/item/radio/borg/syndicate/New()
 	..()
+	syndiekey = keyslot
 	set_frequency(SYND_FREQ)
 
 /obj/item/radio/borg/deathsquad
@@ -726,32 +730,32 @@ var/global/list/default_medbay_channels = list(
 	return
 
 /obj/item/radio/borg/proc/recalculateChannels()
-	src.channels = list()
-	src.syndie = 0
+	channels = list()
+	syndiekey = null
 
-	var/mob/living/silicon/robot/D = src.loc
+	var/mob/living/silicon/robot/D = loc
 	if(D.module)
 		for(var/ch_name in D.module.channels)
-			if(ch_name in src.channels)
+			if(ch_name in channels)
 				continue
-			src.channels += ch_name
-			src.channels[ch_name] += D.module.channels[ch_name]
+			channels += ch_name
+			channels[ch_name] += D.module.channels[ch_name]
 	if(keyslot)
 		for(var/ch_name in keyslot.channels)
-			if(ch_name in src.channels)
+			if(ch_name in channels)
 				continue
-			src.channels += ch_name
-			src.channels[ch_name] += keyslot.channels[ch_name]
+			channels += ch_name
+			channels[ch_name] += keyslot.channels[ch_name]
 
 		if(keyslot.syndie)
-			src.syndie = 1
+			syndiekey = keyslot
 
 
-	for(var/ch_name in src.channels)
+	for(var/ch_name in channels)
 		if(!radio_controller)
 			sleep(30) // Waiting for the radio_controller to be created.
 		if(!radio_controller)
-			src.name = "broken radio"
+			name = "broken radio"
 			return
 
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
@@ -814,7 +818,7 @@ var/global/list/default_medbay_channels = list(
 		data["chan_list"] = chanlist
 		data["chan_list_len"] = chanlist.len
 
-	if(syndie)
+	if(syndiekey)
 		data["useSyndMode"] = 1
 
 	data["has_loudspeaker"] = 1

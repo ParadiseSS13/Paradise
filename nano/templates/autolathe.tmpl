@@ -121,7 +121,7 @@ Used In File(s): \code\game\machinery\autolathe.dm
 							{{if !value.can_build}}
 								<span class='bad'>
 							{{/if}}
-							{{:value.name}} {{:value.multiplier > 1 ? '(xvalue.multiplier)' : ''}}
+							{{:value.name}} {{:value.multiplier > 1 ? '(' + value.multiplier + ')' : ''}}
 							{{if !value.can_build}}
 								</span>
 							{{/if}}

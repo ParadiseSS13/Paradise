@@ -50,7 +50,7 @@
 		M.change_eye_color(new_eyes)
 
 	//Alt heads.
-	if(head_organ.species.bodyflags & HAS_ALT_HEADS)
+	if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 		var/list/valid_alt_heads = M.generate_valid_alt_heads()
 		var/new_alt_head = input("Please select alternate head", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
 		if(new_alt_head)
@@ -68,7 +68,7 @@
 	if(new_hair)
 		M.change_hair_color(new_hair)
 
-	var/datum/sprite_accessory/hair_style = hair_styles_public_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
 	if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 		new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
 		if(new_hair)
@@ -85,14 +85,14 @@
 	if(new_facial)
 		M.change_facial_hair_color(new_facial)
 
-	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
+	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 		new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
 		if(new_facial)
 			M.change_facial_hair_color(new_facial, 1)
 
 	//Head accessory.
-	if(head_organ.species.bodyflags & HAS_HEAD_ACCESSORY)
+	if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 		var/list/valid_head_accessories = M.generate_valid_head_accessories()
 		var/new_head_accessory = input("Please select head accessory style", "Character Generation", head_organ.ha_style) as null|anything in valid_head_accessories
 		if(new_head_accessory)
@@ -103,7 +103,7 @@
 			M.change_head_accessory_color(new_head_accessory_colour)
 
 	//Body accessory.
-	if(M.species.tail && M.species.bodyflags & HAS_TAIL)
+	if(M.dna.species.tail && M.dna.species.bodyflags & HAS_TAIL)
 		var/list/valid_body_accessories = M.generate_valid_body_accessories()
 		if(valid_body_accessories.len > 1) //By default valid_body_accessories will always have at the very least a 'none' entry populating the list, even if the user's species is not present in any of the list items.
 			var/new_body_accessory = input("Please select body accessory style", "Character Generation", M.body_accessory) as null|anything in valid_body_accessories
@@ -111,7 +111,7 @@
 				M.change_body_accessory(new_body_accessory)
 
 	//Head markings.
-	if(M.species.bodyflags & HAS_HEAD_MARKINGS)
+	if(M.dna.species.bodyflags & HAS_HEAD_MARKINGS)
 		var/list/valid_head_markings = M.generate_valid_markings("head")
 		var/new_marking = input("Please select head marking style", "Character Generation", M.m_styles["head"]) as null|anything in valid_head_markings
 		if(new_marking)
@@ -121,7 +121,7 @@
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "head")
 	//Body markings.
-	if(M.species.bodyflags & HAS_BODY_MARKINGS)
+	if(M.dna.species.bodyflags & HAS_BODY_MARKINGS)
 		var/list/valid_body_markings = M.generate_valid_markings("body")
 		var/new_marking = input("Please select body marking style", "Character Generation", M.m_styles["body"]) as null|anything in valid_body_markings
 		if(new_marking)
@@ -131,7 +131,7 @@
 		if(new_marking_colour)
 			M.change_marking_color(new_marking_colour, "body")
 	//Tail markings.
-	if(M.species.bodyflags & HAS_TAIL_MARKINGS)
+	if(M.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/list/valid_tail_markings = M.generate_valid_markings("tail")
 		var/new_marking = input("Please select tail marking style", "Character Generation", M.m_styles["tail"]) as null|anything in valid_tail_markings
 		if(new_marking)
@@ -142,7 +142,7 @@
 			M.change_marking_color(new_marking_colour, "tail")
 
 	//Skin tone.
-	if(M.species.bodyflags & HAS_SKIN_TONE)
+	if(M.dna.species.bodyflags & HAS_SKIN_TONE)
 		var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", M.s_tone) as null|text
 		if(!new_tone)
 			new_tone = 35
@@ -150,11 +150,11 @@
 			new_tone = 35 - max(min(round(text2num(new_tone)), 220), 1)
 			M.change_skin_tone(new_tone)
 
-	if(M.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/prompt = "Please select skin tone: 1-[M.species.icon_skin_tones.len] ("
-		for(var/i = 1 to M.species.icon_skin_tones.len)
-			prompt += "[i] = [M.species.icon_skin_tones[i]]"
-			if(i != M.species.icon_skin_tones.len)
+	if(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
+		var/prompt = "Please select skin tone: 1-[M.dna.species.icon_skin_tones.len] ("
+		for(var/i = 1 to M.dna.species.icon_skin_tones.len)
+			prompt += "[i] = [M.dna.species.icon_skin_tones[i]]"
+			if(i != M.dna.species.icon_skin_tones.len)
 				prompt += ", "
 		prompt += ")"
 
@@ -162,11 +162,11 @@
 		if(!new_tone)
 			new_tone = 0
 		else
-			new_tone = max(min(round(text2num(new_tone)), M.species.icon_skin_tones.len), 1)
+			new_tone = max(min(round(text2num(new_tone)), M.dna.species.icon_skin_tones.len), 1)
 			M.change_skin_tone(new_tone)
 
 	//Skin colour.
-	if(M.species.bodyflags & HAS_SKIN_COLOR)
+	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
 		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)
@@ -239,7 +239,7 @@
 		else
 			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
 		user.show_message("<span class='abductor'>You project your mind into [target.name]: [say]</span>")
-		for(var/mob/dead/observer/G in player_list)
+		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
 /datum/dna/gene/basic/grant_spell/remoteview
@@ -271,7 +271,7 @@
 /obj/effect/proc_holder/spell/targeted/remoteview/choose_targets(mob/user = usr)
 	var/list/targets = list()
 	var/list/remoteviewers = new /list()
-	for(var/mob/M in living_mob_list)
+	for(var/mob/M in GLOB.living_mob_list)
 		if(PSY_RESIST in M.mutations)
 			continue
 		if(REMOTE_VIEW in M.mutations)

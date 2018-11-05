@@ -114,7 +114,7 @@
 		if(G.tint)
 			update_tint()
 		if(G.prescription)
-			clear_fullscreen("nearsighted")
+			update_nearsighted_effects()
 		if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
 			update_sight()
 		update_inv_glasses()
@@ -266,8 +266,7 @@
 			if(G.tint)
 				update_tint()
 			if(G.prescription)
-				if(disabilities & NEARSIGHTED)
-					overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+				update_nearsighted_effects()
 			if(G.vision_flags || G.darkness_view || G.invis_override || G.invis_view)
 				update_sight()
 			update_inv_glasses(redraw_mob)
@@ -419,7 +418,7 @@
 	..(what, who, where, silent = is_silent)
 
 /mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = 0)
-	switch(species.handle_can_equip(I, slot, disable_warning, src))
+	switch(dna.species.handle_can_equip(I, slot, disable_warning, src))
 		if(1)	return 1
 		if(2)	return 0 //if it returns 2, it wants no normal handling
 

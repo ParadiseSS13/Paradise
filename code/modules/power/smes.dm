@@ -13,6 +13,7 @@
 	icon_state = "smes"
 	density = 1
 	anchored = 1
+	defer_process = 1
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -38,7 +39,6 @@
 	var/name_tag = null
 	var/building_terminal = 0 //Suggestions about how to avoid clickspam building several terminals accepted!
 	var/obj/machinery/power/terminal/terminal = null
-
 
 /obj/machinery/power/smes/New()
 	..()
@@ -184,9 +184,7 @@
 
 		if(do_after(user, 50 * I.toolspeed, target = src))
 			if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal)) //animate the electrocution if uncautious and unlucky
-				var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-				s.set_up(5, 1, src)
-				s.start()
+				do_sparks(5, 1, src)
 				return
 
 			//give the wires back and delete the terminal
@@ -323,9 +321,7 @@
 		var/turf/T = get_turf(user)
 		var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
 		if(prob(50) && electrocute_mob(user, N, N)) //animate the electrocution if uncautious and unlucky
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(5, 1, src)
-			s.start()
+			do_sparks(5, 1, src)
 			return
 
 		user.visible_message(\
@@ -446,9 +442,7 @@
 			qdel(src)
 			return
 		if(prob(15)) //Power drain
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(3, 1, src)
-			s.start()
+			do_sparks(3, 1, src)
 			if(prob(50))
 				emp_act(1)
 			else

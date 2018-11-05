@@ -5,60 +5,65 @@
 
 /proc/makeDatumRefLists()
 	//markings
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, marking_styles_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/body_markings, GLOB.marking_styles_list)
 	//head accessory
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, head_accessory_styles_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/head_accessory, GLOB.head_accessory_styles_list)
 	//hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, hair_styles_public_list, hair_styles_male_list, hair_styles_female_list, hair_styles_full_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/hair, GLOB.hair_styles_public_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list, GLOB.hair_styles_full_list)
 	//facial hair
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, facial_hair_styles_list, facial_hair_styles_male_list, facial_hair_styles_female_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/facial_hair, GLOB.facial_hair_styles_list, GLOB.facial_hair_styles_male_list, GLOB.facial_hair_styles_female_list)
 	//underwear
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, underwear_list, underwear_m, underwear_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/underwear, GLOB.underwear_list, GLOB.underwear_m, GLOB.underwear_f)
 	//undershirt
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, undershirt_list, undershirt_m, undershirt_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/undershirt, GLOB.undershirt_list, GLOB.undershirt_m, GLOB.undershirt_f)
 	//socks
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, socks_list, socks_m, socks_f)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/socks, GLOB.socks_list, GLOB.socks_m, GLOB.socks_f)
 	//alt heads
-	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, alt_heads_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
-	init_subtypes(/datum/surgery_step, surgery_steps)
+	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 
 	for(var/path in (subtypesof(/datum/surgery)))
-		surgeries_list += new path()
+		GLOB.surgeries_list += new path()
 
-	init_datum_subtypes(/datum/job, joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
-	init_datum_subtypes(/datum/superheroes, all_superheroes, null, "name")
-	init_datum_subtypes(/datum/nations, all_nations, null, "default_name")
-	init_datum_subtypes(/datum/language, all_languages, null, "name")
+	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
+	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
+	init_datum_subtypes(/datum/nations, GLOB.all_nations, null, "default_name")
+	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
 
-	for(var/language_name in all_languages)
-		var/datum/language/L = all_languages[language_name]
+	for(var/language_name in GLOB.all_languages)
+		var/datum/language/L = GLOB.all_languages[language_name]
 		if(!(L.flags & NONGLOBAL))
-			language_keys[":[lowertext(L.key)]"] = L
-			language_keys[".[lowertext(L.key)]"] = L
-			language_keys["#[lowertext(L.key)]"] = L
+			GLOB.language_keys[":[lowertext(L.key)]"] = L
+			GLOB.language_keys[".[lowertext(L.key)]"] = L
+			GLOB.language_keys["#[lowertext(L.key)]"] = L
 
-	var/list/paths = subtypesof(/datum/species)
 	var/rkey = 0
-	for(var/T in paths)
-		var/datum/species/S = new T
+	for(var/spath in subtypesof(/datum/species))
+		var/datum/species/S = new spath()
 		S.race_key = ++rkey //Used in mob icon caching.
-		all_species[S.name] = S
+		GLOB.all_species[S.name] = S
 
 		if(IS_WHITELISTED in S.species_traits)
-			whitelisted_species += S.name
+			GLOB.whitelisted_species += S.name
 
-	init_subtypes(/datum/crafting_recipe, crafting_recipes)
+	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
+	//Pipe list building
+	init_subtypes(/datum/pipes, GLOB.construction_pipe_list)
+	for(var/D in GLOB.construction_pipe_list)
+		var/datum/pipes/P = D
+		if(P.rpd_dispensable)
+			GLOB.rpd_pipe_list += list(list("pipe_name" = P.pipe_name, "pipe_id" = P.pipe_id, "pipe_type" = P.pipe_type, "pipe_category" = P.pipe_category, "orientations" = P.orientations, "pipe_icon" = P.pipe_icon, "bendy" = P.bendy))
 	return 1
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 
-	for(var/reaction in chemical_reactions_list)
-		. += "chemical_reactions_list\[\"[reaction]\"\] = \"[chemical_reactions_list[reaction]]\"\n"
-		if(islist(chemical_reactions_list[reaction]))
-			var/list/L = chemical_reactions_list[reaction]
+	for(var/reaction in GLOB.chemical_reactions_list)
+		. += "GLOB.chemical_reactions_list\[\"[reaction]\"\] = \"[GLOB.chemical_reactions_list[reaction]]\"\n"
+		if(islist(GLOB.chemical_reactions_list[reaction]))
+			var/list/L = GLOB.chemical_reactions_list[reaction]
 			for(var/t in L)
 				. += "    has: [t]\n"
 	to_chat(world, .)

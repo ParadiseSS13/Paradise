@@ -130,7 +130,7 @@
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/seeds/ambrosia/cruciatus = 3,
-				/obj/item/gun/projectile/automatic/pistol/empty = 1,
+				/obj/item/gun/projectile/automatic/pistol = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
 				/obj/item/soap/syndie = 7,
 				/obj/item/gun/syringe/syndicate = 2,
@@ -143,7 +143,7 @@
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
 				/obj/item/storage/backpack/duffel/syndie/surgery_fake = 2,
-				/obj/item/storage/belt/military = 2,
+				/obj/item/storage/belt/military/traitor = 2,
 				/obj/item/storage/box/syndie_kit/space = 2,
 				/obj/item/multitool/ai_detect = 2,
 				/obj/item/implanter/storage = 1,

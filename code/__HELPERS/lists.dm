@@ -9,6 +9,35 @@
  * Misc
  */
 
+ // binary search sorted insert
+// IN: Object to be inserted
+// LIST: List to insert object into
+// TYPECONT: The typepath of the contents of the list
+// COMPARE: The variable on the objects to compare
+#define BINARY_INSERT(IN, LIST, TYPECONT, COMPARE) \
+	var/__BIN_CTTL = length(LIST);\
+	if(!__BIN_CTTL) {\
+		LIST += IN;\
+	} else {\
+		var/__BIN_LEFT = 1;\
+		var/__BIN_RIGHT = __BIN_CTTL;\
+		var/__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
+		var/##TYPECONT/__BIN_ITEM;\
+		while(__BIN_LEFT < __BIN_RIGHT) {\
+			__BIN_ITEM = LIST[__BIN_MID];\
+			if(__BIN_ITEM.##COMPARE <= IN.##COMPARE) {\
+				__BIN_LEFT = __BIN_MID + 1;\
+			} else {\
+				__BIN_RIGHT = __BIN_MID;\
+			};\
+			__BIN_MID = (__BIN_LEFT + __BIN_RIGHT) >> 1;\
+		};\
+		__BIN_ITEM = LIST[__BIN_MID];\
+		__BIN_MID = __BIN_ITEM.##COMPARE > IN.##COMPARE ? __BIN_MID : __BIN_MID + 1;\
+		LIST.Insert(__BIN_MID, IN);\
+	}
+
+
 //Returns a list in plain english as a string
 /proc/english_list(var/list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = input.len
@@ -181,12 +210,16 @@
 	return null
 
 //Returns the top(last) element from the list and removes it from the list (typical stack function)
-/proc/pop(list/listfrom)
-	if(listfrom.len > 0)
-		var/picked = listfrom[listfrom.len]
-		listfrom.len--
-		return picked
-	return null
+/proc/pop(list/L)
+	if(L.len)
+		. = L[L.len]
+		L.len--
+
+/proc/popleft(list/L)
+	if(L.len)
+		. = L[1]
+		L.Cut(1,2)
+
 
 /*
  * Sorting

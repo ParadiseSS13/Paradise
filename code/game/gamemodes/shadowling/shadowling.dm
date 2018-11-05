@@ -108,12 +108,12 @@ Made by Xhuis
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
 		log_game("[key_name(shadow)] has been selected as a Shadowling.")
-		sleep(10)
-		to_chat(shadow.current, "<br>")
-		to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
-		greet_shadow(shadow)
-		finalize_shadowling(shadow)
-		process_shadow_objectives(shadow)
+		spawn(rand(10,100))
+			to_chat(shadow.current, "<br>")
+			to_chat(shadow.current, "<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
+			greet_shadow(shadow)
+			finalize_shadowling(shadow)
+			process_shadow_objectives(shadow)
 		//give_shadowling_abilities(shadow)
 	..()
 
@@ -209,7 +209,7 @@ Made by Xhuis
 		if(shadow.special_role == SPECIAL_ROLE_SHADOWLING && config.shadowling_max_age)
 			if(ishuman(shadow.current))
 				var/mob/living/carbon/human/H = shadow.current
-				if(H.get_species() != "Shadow")
+				if(!isshadowling(H))
 					for(var/obj/effect/proc_holder/spell/targeted/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
 						if(!H.stunned && prob(20) && hatch_ability.cycles_unused > config.shadowling_max_age)
@@ -255,13 +255,17 @@ Made by Xhuis
 
 
 /datum/game_mode/shadowling/declare_completion()
-	if(check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
+	if(check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
+		feedback_set_details("round_end_result","shadowling win - shadowling ascension")
 		to_chat(world, "<span class='greentext'><b>The shadowlings have ascended and taken over the station!</b></span>")
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
+		feedback_set_details("round_end_result","shadowling loss - shadowling killed")
 		to_chat(world, "<span class='redtext'><b>The shadowlings have been killed by the crew!</b></span>")
-	else if(!check_shadow_victory() && shuttle_master.emergency.mode >= SHUTTLE_ESCAPE)
+	else if(!check_shadow_victory() && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+		feedback_set_details("round_end_result","shadowling loss - crew escaped")
 		to_chat(world, "<span class='redtext'><b>The crew escaped the station before the shadowlings could ascend!</b></span>")
 	else
+		feedback_set_details("round_end_result","shadowling loss - generic failure")
 		to_chat(world, "<span class='redtext'><b>The shadowlings have failed!</b></span>")
 	..()
 	return 1
@@ -305,93 +309,6 @@ Made by Xhuis
 /*
 	MISCELLANEOUS
 */
-
-
-/datum/species/shadow/ling
-	//Normal shadowpeople but with enhanced effects
-	name = "Shadowling"
-
-	icobase = 'icons/mob/human_races/r_shadowling.dmi'
-	deform = 'icons/mob/human_races/r_shadowling.dmi'
-
-	blood_color = "#555555"
-	flesh_color = "#222222"
-
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS) //Can't use guns due to muzzle flash
-	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
-	oxy_mod = 0
-	heatmod = 1.5
-
-	silent_steps = 1
-	grant_vision_toggle = 0
-
-	has_organ = list(
-		"brain" =    /obj/item/organ/internal/brain,
-		"eyes" =     /obj/item/organ/internal/eyes)
-
-/datum/species/shadow/ling/handle_life(var/mob/living/carbon/human/H)
-	if(!H.weakeyes)
-		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
-	var/light_amount = 0
-	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
-	if(isturf(H.loc))
-		var/turf/T = H.loc
-		light_amount = T.get_lumcount() * 10
-		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move) //Can survive in very small light levels. Also doesn't take damage while incorporeal, for shadow walk purposes
-			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
-			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN)
-			if(H.stat != DEAD)
-				to_chat(H, "<span class='userdanger'>The light burns you!</span>")//Message spam to say "GET THE FUCK OUT"
-				H << 'sound/weapons/sear.ogg'
-		else if(light_amount < LIGHT_HEAL_THRESHOLD)
-			H.clear_alert("lightexposure")
-			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
-			if(istype(E))
-				E.receive_damage(-1)
-			H.heal_overall_damage(5, 5)
-			H.adjustToxLoss(-5)
-			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
-			H.AdjustEyeBlurry(-1)
-			H.CureNearsighted()
-			H.CureBlind()
-			H.adjustCloneLoss(-1)
-			H.SetWeakened(0)
-			H.SetStunned(0)
-	..()
-
-
-/datum/species/shadow/ling/lesser //Empowered thralls. Obvious, but powerful
-	name = "Lesser Shadowling"
-
-	icobase = 'icons/mob/human_races/r_lshadowling.dmi'
-	deform = 'icons/mob/human_races/r_lshadowling.dmi'
-
-	blood_color = "#CCCCCC"
-	flesh_color = "#AAAAAA"
-
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE)
-	burn_mod = 1.1
-	oxy_mod = 0
-	heatmod = 1.1
-
-/datum/species/shadow/ling/lesser/handle_life(var/mob/living/carbon/human/H)
-	if(!H.weakeyes)
-		H.weakeyes = 1 //Makes them more vulnerable to flashes and flashbangs
-	var/light_amount = 0
-	H.nutrition = NUTRITION_LEVEL_WELL_FED //i aint never get hongry
-	if(isturf(H.loc))
-		var/turf/T = H.loc
-		light_amount = T.get_lumcount() * 10
-		if(light_amount > LIGHT_DAM_THRESHOLD && !H.incorporeal_move)
-			H.throw_alert("lightexposure", /obj/screen/alert/lightexposure)
-			H.take_overall_damage(0, LIGHT_DAMAGE_TAKEN/2)
-		else if(light_amount < LIGHT_HEAL_THRESHOLD)
-			H.clear_alert("lightexposure")
-			H.heal_overall_damage(2,2)
-			H.adjustToxLoss(-5)
-			H.adjustBrainLoss(-25)
-			H.adjustCloneLoss(-1)
-	..()
 
 /datum/game_mode/proc/update_shadow_icons_added(datum/mind/shadow_mind)
 	var/datum/atom_hud/antag/shadow_hud = huds[ANTAG_HUD_SHADOW]

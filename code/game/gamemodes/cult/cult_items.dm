@@ -50,7 +50,7 @@
 	..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if((H.stat != DEAD) && !(NO_BLOOD in H.species.species_traits))
+		if((H.stat != DEAD) && !(NO_BLOOD in H.dna.species.species_traits))
 			H.bleed(50)
 
 /obj/item/restraints/legcuffs/bola/cult
@@ -201,6 +201,7 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
+	claw_damage_increase = 2
 
 /obj/item/whetstone/cult/update_icon()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
@@ -246,14 +247,14 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in poi_list || locate(/mob/living/simple_animal/slaughter/cult) in mob_list)
+	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
-	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
+	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
-		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
-		shuttle_master.emergency.setTimer(timer)
+		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
+		SSshuttle.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
 		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 50, 1)
 		qdel(src)

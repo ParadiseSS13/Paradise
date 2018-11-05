@@ -13,25 +13,25 @@ proc/GetOppositeDir(var/dir)
 proc/random_underwear(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = underwear_m
-		if(FEMALE)	pick_list = underwear_f
-		else		pick_list = underwear_list
+		if(MALE)	pick_list = GLOB.underwear_m
+		if(FEMALE)	pick_list = GLOB.underwear_f
+		else		pick_list = GLOB.underwear_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/random_undershirt(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = undershirt_m
-		if(FEMALE)	pick_list = undershirt_f
-		else		pick_list = undershirt_list
+		if(MALE)	pick_list = GLOB.undershirt_m
+		if(FEMALE)	pick_list = GLOB.undershirt_f
+		else		pick_list = GLOB.undershirt_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/random_socks(gender, species = "Human")
 	var/list/pick_list = list()
 	switch(gender)
-		if(MALE)	pick_list = socks_m
-		if(FEMALE)	pick_list = socks_f
-		else		pick_list = socks_list
+		if(MALE)	pick_list = GLOB.socks_m
+		if(FEMALE)	pick_list = GLOB.socks_f
+		else		pick_list = GLOB.socks_list
 	return pick_species_allowed_underwear(pick_list, species)
 
 proc/pick_species_allowed_underwear(list/all_picks, species)
@@ -49,8 +49,8 @@ proc/pick_species_allowed_underwear(list/all_picks, species)
 proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
-	for(var/hairstyle in hair_styles_public_list)
-		var/datum/sprite_accessory/S = hair_styles_public_list[hairstyle]
+	for(var/hairstyle in GLOB.hair_styles_public_list)
+		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
 
 		if(hairstyle == "Bald") //Just in case.
 			valid_hairstyles += hairstyle
@@ -78,8 +78,8 @@ proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohea
 proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/robohead)
 	var/f_style = "Shaved"
 	var/list/valid_facial_hairstyles = list()
-	for(var/facialhairstyle in facial_hair_styles_list)
-		var/datum/sprite_accessory/S = facial_hair_styles_list[facialhairstyle]
+	for(var/facialhairstyle in GLOB.facial_hair_styles_list)
+		var/datum/sprite_accessory/S = GLOB.facial_hair_styles_list[facialhairstyle]
 
 		if(facialhairstyle == "Shaved") //Just in case.
 			valid_facial_hairstyles += facialhairstyle
@@ -107,8 +107,8 @@ proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/
 proc/random_head_accessory(species = "Human")
 	var/ha_style = "None"
 	var/list/valid_head_accessories = list()
-	for(var/head_accessory in head_accessory_styles_list)
-		var/datum/sprite_accessory/S = head_accessory_styles_list[head_accessory]
+	for(var/head_accessory in GLOB.head_accessory_styles_list)
+		var/datum/sprite_accessory/S = GLOB.head_accessory_styles_list[head_accessory]
 
 		if(!(species in S.species_allowed))
 			continue
@@ -122,8 +122,8 @@ proc/random_head_accessory(species = "Human")
 proc/random_marking_style(var/location = "body", species = "Human", var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
 	var/m_style = "None"
 	var/list/valid_markings = list()
-	for(var/marking in marking_styles_list)
-		var/datum/sprite_accessory/body_markings/S = marking_styles_list[marking]
+	for(var/marking in GLOB.marking_styles_list)
+		var/datum/sprite_accessory/body_markings/S = GLOB.marking_styles_list[marking]
 		if(S.name == "None")
 			valid_markings += marking
 			continue
@@ -139,7 +139,7 @@ proc/random_marking_style(var/location = "body", species = "Human", var/datum/ro
 				if(!S.tails_allowed || !(body_accessory in S.tails_allowed))
 					continue
 		if(location == "head")
-			var/datum/sprite_accessory/body_markings/head/M = marking_styles_list[S.name]
+			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(species == "Machine")//If the user is a species that can have a robotic head...
 				if(!robohead)
 					robohead = all_robolimbs["Morpheus Cyberkinetics"]
@@ -178,13 +178,13 @@ proc/random_name(gender, species = "Human")
 
 	var/datum/species/current_species
 	if(species)
-		current_species = all_species[species]
+		current_species = GLOB.all_species[species]
 
 	if(!current_species || current_species.name == "Human")
 		if(gender==FEMALE)
-			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 		else
-			return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 	else
 		return current_species.get_random_name(gender)
 
@@ -238,6 +238,32 @@ proc/age2agedescription(age)
 		if(70 to INFINITY)	return "elderly"
 		else				return "unknown"
 
+/proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list())
+	var/status = criminal_status
+	var/their_name = target_records.fields["name"]
+	var/their_rank = target_records.fields["rank"]
+	switch(criminal_status)
+		if("arrest")
+			status = "*Arrest*"
+		if("none")
+			status = "None"
+		if("execute")
+			if((access_magistrate in authcard_access) || (access_armory in authcard_access))
+				status = "*Execute*"
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
+			else
+				return 0
+		if("incarcerated")
+			status = "Incarcerated"
+		if("parolled")
+			status = "Parolled"
+		if("released")
+			status = "Released"
+	target_records.fields["criminal"] = status
+	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
+	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [current_date_string] [station_time_timestamp()], comment: [comment]"
+	update_all_mob_security_hud()
+	return 1
 
 /*
 Proc for attack log creation, because really why not
@@ -255,8 +281,8 @@ This is always put in the attack log.
 			add_attack_logs(user, M, what_done, custom_level)
 		return
 
-	var/user_str = key_name_log(user)
-	var/target_str = key_name_log(target)
+	var/user_str = key_name_log(user) + COORD(user)
+	var/target_str = key_name_log(target) + COORD(target)
 
 	if(istype(user))
 		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
@@ -265,7 +291,6 @@ This is always put in the attack log.
 	log_attack(user_str, target_str, what_done)
 
 	var/loglevel = ATKLOG_MOST
-
 	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))
@@ -373,11 +398,32 @@ This is always put in the attack log.
 	if(progress)
 		qdel(progbar)
 
-/proc/is_species(A, species_name)
+#define DOAFTERONCE_MAGIC "Magic~~"
+GLOBAL_LIST_INIT(do_after_once_tracker, list())
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, attempt_cancel_message = "Attempt cancelled.")
+	if(!user || !target)
+		return
+
+	var/cache_key = "[user.UID()][target.UID()]"
+	if(GLOB.do_after_once_tracker[cache_key])
+		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
+		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
+		return FALSE
+	GLOB.do_after_once_tracker[cache_key] = TRUE
+	. = do_after(user, delay, needhand, target, progress, extra_checks = CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key))
+	GLOB.do_after_once_tracker[cache_key] = FALSE
+
+/proc/do_after_once_checks(cache_key)
+	if(GLOB.do_after_once_tracker[cache_key] && GLOB.do_after_once_tracker[cache_key] == DOAFTERONCE_MAGIC)
+		GLOB.do_after_once_tracker[cache_key] = FALSE
+		return FALSE
+	return TRUE
+
+/proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))
 		var/mob/living/carbon/human/H = A
-		if(H.get_species() == species_name)
+		if(H.dna && istype(H.dna.species, species_datum))
 			. = TRUE
 
 /proc/spawn_atom_to_turf(spawn_type, target, amount, admin_spawn=FALSE, list/extra_args)
@@ -445,7 +491,7 @@ This is always put in the attack log.
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=\ref[M]'>PM</a>) (<A HREF='?_src_=holder;adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=[M.UID()]'>VV</A>) (<A HREF='?_src_=holder;subtlemessage=\ref[M]'>SM</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[M]'>FLW</A>) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>)")
+	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>)")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -489,7 +535,7 @@ This is always put in the attack log.
 	LogMouseMacro(".mouse", params)
 
 /proc/update_all_mob_security_hud()
-	for(var/mob/living/carbon/human/H in mob_list)
+	for(var/mob/living/carbon/human/H in GLOB.mob_list)
 		H.sec_hud_set_security_status()
 
 /proc/getviewsize(view)

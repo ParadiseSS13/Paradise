@@ -8,7 +8,7 @@
 	desc = "A power-generating treadmill."
 	layer = 2.2
 	anchored = 1
-	use_power = 0
+	use_power = NO_POWER_USE
 
 	var/speed = 0
 	var/friction = 0.15		// lose this much speed every ptick
@@ -115,7 +115,7 @@
 #define CHARS_PER_LINE 5
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
-#define FONT_STYLE "Arial Black"
+#define FONT_STYLE "Small Fonts"
 
 /obj/machinery/treadmill_monitor
 	name = "Treadmill Monitor"
@@ -126,6 +126,7 @@
 	density = 0
 	maptext_height = 26
 	maptext_width = 32
+	maptext_y = -1
 
 	var/on = 0					// if we should be metering or not
 	var/id = null				// id of treadmill
@@ -140,7 +141,7 @@
 /obj/machinery/treadmill_monitor/Initialize()
 	..()
 	if(id)
-		for(var/obj/machinery/power/treadmill/T in machines)
+		for(var/obj/machinery/power/treadmill/T in GLOB.machines)
 			if(T.id == id)
 				treadmill = T
 				break
@@ -200,6 +201,8 @@
 //Checks to see if there's 1 line or 2, adds text-icons-numbers/letters over display
 // Stolen from status_display
 /obj/machinery/treadmill_monitor/proc/update_display(var/line1, var/line2)
+	line1 = uppertext(line1)
+	line2 = uppertext(line2)
 	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text

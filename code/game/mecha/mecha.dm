@@ -41,7 +41,7 @@
 	var/datum/effect_system/spark_spread/spark_system = new
 	var/lights = 0
 	var/lights_power = 6
-	var/emagged = 0
+	var/emagged = FALSE
 
 	//inner atmos
 	var/use_internal_tank = 0
@@ -95,9 +95,9 @@
 
 	processing_objects.Add(src)
 	removeVerb(/obj/mecha/verb/disconnect_from_port)
-	poi_list |= src
+	GLOB.poi_list |= src
 	log_message("[src] created.")
-	mechas_list += src //global mech list
+	GLOB.mechas_list += src //global mech list
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
 		diag_hud.add_to_hud(src)
@@ -165,8 +165,6 @@
 			to_chat(user, "[bicon(ME)] [ME]")
 
 
-/obj/mecha/proc/drop_item()//Derpfix, but may be useful in future for engineering exosuits.
-	return
 
 /obj/mecha/hear_talk(mob/M, text)
 	if(M == occupant && radio.broadcasting)
@@ -499,8 +497,8 @@
 	log_message("Attack by simple animal. Attacker - [user].",1)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
-	if(user.melee_damage_upper == 0)
-		user.custom_emote(1, "[user.friendly] [src]")
+	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
+		user.custom_emote(1, "[user.friendly] [src].")
 	else
 		user.do_attack_animation(src)
 		if(!prob(deflect_chance))
@@ -618,7 +616,7 @@
 		QDEL_NULL(internal_tank)
 
 	processing_objects.Remove(src)
-	poi_list.Remove(src)
+	GLOB.poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
 	internal_tank = null
@@ -630,7 +628,7 @@
 	cabin_air = null
 	QDEL_NULL(spark_system)
 
-	mechas_list -= src //global mech list
+	GLOB.mechas_list -= src //global mech list
 	return ..()
 
 /obj/mecha/ex_act(severity)
@@ -778,17 +776,18 @@
 
 	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weldingtool/WT = W
-		if(health<initial(health))
-			if (WT.remove_fuel(0,user))
-				if (internal_damage & MECHA_INT_TANK_BREACH)
-					clearInternalDamage(MECHA_INT_TANK_BREACH)
-					to_chat(user, "<span class='notice'>You repair the damaged gas tank.</span>")
-				else
-					user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>")
-					health += min(10, initial(health)-health)
+		if(health < initial(health))
+			if(WT.remove_fuel(0, user))
+				user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
+				if(do_after_once(user, 15 * WT.toolspeed, target = src, attempt_cancel_message = "You stop repairing [name]."))
+					if(internal_damage & MECHA_INT_TANK_BREACH)
+						clearInternalDamage(MECHA_INT_TANK_BREACH)
+						user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
+					else
+						user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
+						health += min(20, initial(health) - health)
 			else
 				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
-				return 1
 		else
 			to_chat(user, "<span class='warning'>The [name] is at full integrity!</span>")
 		return 1
@@ -853,14 +852,8 @@
 		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 
 
-/obj/mecha/emag_act(user as mob)
-	if(istype(src,	/obj/mecha/working/ripley) && emagged == 0)
-		emagged = 1
-		to_chat(usr, "<span class='notice'>You slide the card through the [src]'s ID slot.</span>")
-		playsound(loc, "sparks", 100, 1)
-		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
-	else
-		to_chat(usr, "<span class='warning'>The [src]'s ID slot rejects the card.</span>")
+/obj/mecha/emag_act(mob/user)
+	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
 	return
 
 
@@ -1206,6 +1199,10 @@
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
 		brainmob.canmove = 1
+		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
+			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
+			if(R.imprinted_master)
+				to_chat(brainmob, "<span class='notice'>Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm.</span>")
 		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
 		verbs -= /obj/mecha/verb/eject
@@ -1305,6 +1302,10 @@
 			mmi.mecha = null
 			mmi.update_icon()
 			L.canmove = 0
+			if(istype(mmi, /obj/item/mmi/robotic_brain))
+				var/obj/item/mmi/robotic_brain/R = mmi
+				if(R.imprinted_master)
+					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
 		icon_state = initial(icon_state)+"-open"
 		dir = dir_in
 

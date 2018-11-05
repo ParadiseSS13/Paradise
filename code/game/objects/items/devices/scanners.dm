@@ -228,7 +228,7 @@ REAGENT SCANNER
 			var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 			var/blood_type = H.b_type
 			if(blood_id != "blood")//special blood substance
-				var/datum/reagent/R = chemical_reagents_list[blood_id]
+				var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 				if(R)
 					blood_type = R.name
 				else
@@ -245,7 +245,7 @@ REAGENT SCANNER
 		user.show_message("<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
 		var/implant_detect
 		for(var/obj/item/organ/internal/cyberimp/CI in H.internal_organs)
-			if(CI.status == ORGAN_ROBOT)
+			if(CI.is_robotic())
 				implant_detect += "[H.name] is modified with a [CI.name].<br>"
 		if(implant_detect)
 			user.show_message("<span class='notice'>Detected cybernetic modifications:</span>")
@@ -439,7 +439,8 @@ REAGENT SCANNER
 	icon_state = "spectrometer"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
-	flags = CONDUCT | OPENCONTAINER
+	flags = CONDUCT
+	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
@@ -509,7 +510,7 @@ REAGENT SCANNER
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(P)
-			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
+			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 			datatoprint = ""
 	else
 		to_chat(usr, "<span class='notice'>[src] has no logs or is already in use.</span>")
@@ -580,7 +581,7 @@ REAGENT SCANNER
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(P)
-			to_chat(M, "<span class='notice'>Report printed. Log cleared.<span>")
+			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
 			datatoprint = ""
 			scanning = 1
 	else
@@ -632,3 +633,253 @@ REAGENT SCANNER
 	if(T.cores > 1)
 		user.show_message("Anomalous slime core amount detected", 1)
 	user.show_message("Growth progress: [T.amount_grown]/10", 1)
+
+/obj/item/bodyanalyzer
+	name = "handheld body analyzer"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "bodyanalyzer_0"
+	item_state = "healthanalyser"
+	desc = "A handheld scanner capable of deep-scanning an entire body."
+	slot_flags = SLOT_BELT
+	throwforce = 3
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 5
+	throw_range = 10
+	origin_tech = "magnets=6;biotech=6"
+	var/obj/item/stock_parts/cell/power_supply
+	var/cell_type = /obj/item/stock_parts/cell/upgraded
+	var/ready = TRUE // Ready to scan
+	var/time_to_use = 0 // How much time remaining before next scan is available.
+	var/usecharge = 750
+
+/obj/item/bodyanalyzer/advanced
+	cell_type = /obj/item/stock_parts/cell/upgraded/plus
+
+/obj/item/bodyanalyzer/New()
+	..()
+	power_supply = new cell_type(src)
+	power_supply.give(power_supply.maxcharge)
+	update_icon()
+
+/obj/item/bodyanalyzer/proc/setReady()
+	ready = TRUE
+	playsound(src, 'sound/machines/defib_saftyOn.ogg', 50, 0)
+	update_icon()
+
+/obj/item/bodyanalyzer/update_icon(printing = FALSE)
+	overlays.Cut()
+	var/percent = power_supply.percent()
+	if(ready)
+		icon_state = "bodyanalyzer_1"
+	else
+		icon_state = "bodyanalyzer_2"
+	
+	var/overlayid = round(percent / 10)
+	overlayid = "bodyanalyzer_charge[overlayid]"
+	overlays += icon(icon, overlayid)
+
+	if(printing)
+		overlays += icon(icon, "bodyanalyzer_printing")
+
+/obj/item/bodyanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
+	if(user.incapacitated() || !user.Adjacent(M))
+		return
+	
+	if(!ready)
+		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's currently recharging - [round((time_to_use - world.time) * 0.1)] seconds remaining.</span>")
+		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+		return
+	
+	if(power_supply.charge >= usecharge)
+		mobScan(M, user)
+	else
+		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!</span>")
+		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
+	
+/obj/item/bodyanalyzer/proc/mobScan(mob/living/M, mob/user)
+	if(ishuman(M))
+		var/report = generate_printing_text(M, user)
+		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
+		if(do_after(user, 100, target = M))
+			var/obj/item/paper/printout = new
+			printout.info = report
+			printout.name = "Scan report - [M.name]"
+			playsound(user.loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+			user.put_in_hands(printout)
+			time_to_use = world.time + 600
+			power_supply.use(usecharge)
+			ready = FALSE
+			update_icon(TRUE)
+			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), 600)
+			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/update_icon), 20)
+
+	else if(iscorgi(M) && M.stat == DEAD)
+		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(
+		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+		ready = FALSE
+		addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), 600)
+		time_to_use = world.time + 600
+	else
+		to_chat(user, "<span class='notice'>Scanning error detected. Invalid specimen.</span>")
+		
+//Unashamedly ripped from adv_med.dm
+/obj/item/bodyanalyzer/proc/generate_printing_text(mob/living/M, mob/user)
+	var/dat = ""
+	var/mob/living/carbon/human/target = M
+	
+	dat = "<font color='blue'><b>Target Statistics:</b></font><br>"
+	var/t1
+	switch(target.stat) // obvious, see what their status is
+		if(CONSCIOUS)
+			t1 = "Conscious"
+		if(UNCONSCIOUS)
+			t1 = "Unconscious"
+		else
+			t1 = "*dead*"
+	dat += "[target.health > 50 ? "<font color='blue'>" : "<font color='red'>"]\tHealth %: [target.health], ([t1])</font><br>"
+
+	var/found_disease = FALSE
+	for(var/thing in target.viruses)
+		var/datum/disease/D = thing
+		if(D.visibility_flags) //If any visibility flags are on.
+			continue
+		found_disease = TRUE
+		break
+	if(found_disease)
+		dat += "<font color='red'>Disease detected in target.</font><BR>"
+
+	var/extra_font = null
+	extra_font = (target.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
+	dat += "[extra_font]\t-Brute Damage %: [target.getBruteLoss()]</font><br>"
+
+	extra_font = (target.getOxyLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
+	dat += "[extra_font]\t-Respiratory Damage %: [target.getOxyLoss()]</font><br>"
+
+	extra_font = (target.getToxLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
+	dat += "[extra_font]\t-Toxin Content %: [target.getToxLoss()]</font><br>"
+
+	extra_font = (target.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
+	dat += "[extra_font]\t-Burn Severity %: [target.getFireLoss()]</font><br>"
+
+	extra_font = (target.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
+	dat += "[extra_font]\tRadiation Level %: [target.radiation]</font><br>"
+
+	extra_font = (target.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
+	dat += "[extra_font]\tGenetic Tissue Damage %: [target.getCloneLoss()]<br>"
+
+	extra_font = (target.getBrainLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
+	dat += "[extra_font]\tApprox. Brain Damage %: [target.getBrainLoss()]<br>"
+
+	dat += "Paralysis Summary %: [target.paralysis] ([round(target.paralysis / 4)] seconds left!)<br>"
+	dat += "Body Temperature: [target.bodytemperature-T0C]&deg;C ([target.bodytemperature*1.8-459.67]&deg;F)<br>"
+
+	dat += "<hr>"
+
+	if(target.has_brain_worms())
+		dat += "Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended.<br>"
+
+	var/blood_percent =  round((target.blood_volume / BLOOD_VOLUME_NORMAL))
+	blood_percent *= 100
+
+	extra_font = (target.blood_volume > 448 ? "<font color='blue'>" : "<font color='red'>")
+	dat += "[extra_font]\tBlood Level %: [blood_percent] ([target.blood_volume] units)</font><br>"
+
+	if(target.reagents)
+		dat += "Epinephrine units: [target.reagents.get_reagent_amount("Epinephrine")] units<BR>"
+		dat += "Ether: [target.reagents.get_reagent_amount("ether")] units<BR>"
+
+		extra_font = (target.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tSilver Sulfadiazine: [target.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
+
+		extra_font = (target.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount("styptic_powder")] units<BR>"
+
+		extra_font = (target.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
+		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount("salbutamol")] units<BR>"
+
+	dat += "<hr><table border='1'>"
+	dat += "<tr>"
+	dat += "<th>Organ</th>"
+	dat += "<th>Burn Damage</th>"
+	dat += "<th>Brute Damage</th>"
+	dat += "<th>Other Wounds</th>"
+	dat += "</tr>"
+
+	for(var/obj/item/organ/external/e in target.bodyparts)
+		dat += "<tr>"
+		var/AN = ""
+		var/open = ""
+		var/infected = ""
+		var/robot = ""
+		var/imp = ""
+		var/bled = ""
+		var/splint = ""
+		var/internal_bleeding = ""
+		var/lung_ruptured = ""
+		if(e.internal_bleeding)
+			internal_bleeding = "<br>Internal bleeding"
+		if(istype(e, /obj/item/organ/external/chest) && target.is_lung_ruptured())
+			lung_ruptured = "Lung ruptured:"
+		if(e.status & ORGAN_SPLINTED)
+			splint = "Splinted:"
+		if(e.status & ORGAN_BROKEN)
+			AN = "[e.broken_description]:"
+		if(e.is_robotic())
+			robot = "Robotic:"
+		if(e.open)
+			open = "Open:"
+		switch(e.germ_level)
+			if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
+				infected = "Mild Infection:"
+			if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
+				infected = "Mild Infection+:"
+			if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
+				infected = "Mild Infection++:"
+			if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
+				infected = "Acute Infection:"
+			if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
+				infected = "Acute Infection+:"
+			if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 400)
+				infected = "Acute Infection++:"
+			if(INFECTION_LEVEL_THREE to INFINITY)
+				infected = "Septic:"
+
+		var/unknown_body = 0
+		for(var/I in e.embedded_objects)
+			unknown_body++
+
+		if(unknown_body || e.hidden)
+			imp += "Unknown body present:"
+		if(!AN && !open && !infected & !imp)
+			AN = "None:"
+		dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot][bled][AN][splint][open][infected][imp][internal_bleeding][lung_ruptured]</td>"
+		dat += "</tr>"
+	for(var/obj/item/organ/internal/i in target.internal_organs)
+		var/mech = i.desc
+		var/infection = "None"
+		switch(i.germ_level)
+			if(1 to INFECTION_LEVEL_ONE + 200)
+				infection = "Mild Infection:"
+			if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
+				infection = "Mild Infection+:"
+			if(INFECTION_LEVEL_ONE + 300 to INFECTION_LEVEL_ONE + 400)
+				infection = "Mild Infection++:"
+			if(INFECTION_LEVEL_TWO to INFECTION_LEVEL_TWO + 200)
+				infection = "Acute Infection:"
+			if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
+				infection = "Acute Infection+:"
+			if(INFECTION_LEVEL_TWO + 300 to INFINITY)
+				infection = "Acute Infection++:"
+
+		dat += "<tr>"
+		dat += "<td>[i.name]</td><td>N/A</td><td>[i.damage]</td><td>[infection]:[mech]</td><td></td>"
+		dat += "</tr>"
+	dat += "</table>"
+	if(target.disabilities & BLIND)
+		dat += "<font color='red'>Cataracts detected.</font><BR>"
+	if(target.disabilities & COLOURBLIND)
+		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
+	if(target.disabilities & NEARSIGHTED)
+		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
+	
+	return dat

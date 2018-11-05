@@ -23,6 +23,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
+	container_type = INJECTABLE
 	var/lit = FALSE
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
@@ -50,7 +51,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	processing_objects -= src
 	return ..()
 
-/obj/item/clothing/mask/cigarette/attack(var/mob/living/M, var/mob/living/user, def_zone)
+/obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
 		user.changeNext_move(CLICK_CD_MELEE)
 		user.do_attack_animation(M)
@@ -305,6 +306,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 
 /obj/item/clothing/mask/cigarette/cigar/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/reagent_containers))
+		return
 	if(istype(W, /obj/item/match))
 		..()
 	else
@@ -370,6 +373,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	return
 
 /obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/W as obj, mob/user as mob, params)
+	if(istype(W, /obj/item/reagent_containers))
+		return
 	if(istype(W, /obj/item/match))
 		..()
 	else

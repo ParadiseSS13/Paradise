@@ -6,7 +6,7 @@
 
 /datum/event/revenant/proc/get_revenant(var/end_if_fail = 0)
 	var/deadMobs = 0
-	for(var/mob/M in dead_mob_list)
+	for(var/mob/M in GLOB.dead_mob_list)
 		deadMobs++
 	if(deadMobs < REVENANT_SPAWN_THRESHOLD)
 		message_admins("Random event attempted to spawn a revenant, but there were only [deadMobs]/[REVENANT_SPAWN_THRESHOLD] dead mobs.")
@@ -26,13 +26,13 @@
 		var/datum/mind/player_mind = new /datum/mind(key_of_revenant)
 		player_mind.active = 1
 		var/list/spawn_locs = list()
-		for(var/obj/effect/landmark/L in landmarks_list)
+		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(isturf(L.loc))
 				switch(L.name)
 					if("revenantspawn")
 						spawn_locs += L.loc
 		if(!spawn_locs) //If we can't find any revenant spawns, try the carp spawns
-			for(var/obj/effect/landmark/L in landmarks_list)
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(isturf(L.loc))
 					switch(L.name)
 						if("carpspawn")

@@ -1,14 +1,17 @@
 /mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0)
 	if(!skipcatch)
-		if(in_throw_mode && !get_active_hand())  //empty active hand and we're in throw mode
-			if(canmove && !restrained())
-				if(istype(AM, /obj/item))
-					var/obj/item/I = AM
-					if(isturf(I.loc))
-						put_in_active_hand(I)
-						visible_message("<span class='warning'>[src] catches [I]!</span>")
-						throw_mode_off()
-						return 1
+		if(in_throw_mode && canmove && !restrained())  //Makes sure player is in throw mode
+			if(!istype(AM,/obj/item) || !isturf(AM.loc))
+				return FALSE
+			if(get_active_hand())
+				return FALSE
+			if(istype(AM, /obj/item/twohanded))
+				if(get_inactive_hand())
+					return FALSE
+			put_in_active_hand(AM)
+			visible_message("<span class='warning'>[src] catches [AM]!</span>")
+			throw_mode_off()
+			return TRUE
 	..()
 
 /mob/living/carbon/water_act(volume, temperature, source)
@@ -55,7 +58,7 @@
 		var/stunprob = M.powerlevel * 7 + 10
 		if(prob(stunprob) && M.powerlevel >= 8)
 			adjustFireLoss(M.powerlevel * rand(6,10))
-			updatehealth()
+			updatehealth("slime attack")
 		return 1
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)

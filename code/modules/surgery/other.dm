@@ -24,7 +24,7 @@
 		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
 		if(!affected)
 			return 0
-		if(affected.status & ORGAN_ROBOT)
+		if(affected.is_robotic())
 			return 0
 		return 1
 	return 0
@@ -260,7 +260,7 @@
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
-	if(affected.status & ORGAN_ROBOT)
+	if(affected.is_robotic())
 		return 0
 	if(!(B in affected.internal_organs))
 		return 0
@@ -276,7 +276,7 @@
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
-	if(!(affected.status & ORGAN_ROBOT))
+	if(!affected.is_robotic())
 		return 0
 	if(!(B in affected.internal_organs))
 		return 0
@@ -303,11 +303,11 @@
 	..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(target.get_species() == "Lesser Shadowling") //Empowered thralls cannot be deconverted
+	if(isshadowlinglesser(target)) //Empowered thralls cannot be deconverted
 		to_chat(target, "<span class='shadowling'><b><i>NOT LIKE THIS!</i></b></span>")
 		user.visible_message("<span class='warning'>[target] suddenly slams upward and knocks down [user]!</span>", \
 							 "<span class='userdanger'>[target] suddenly bolts up and slams you with tremendous force!</span>")
-		user.resting = 0 //Remove all stuns
+		user.StopResting() //Remove all stuns
 		user.SetSleeping(0)
 		user.SetStunned(0)
 		user.SetWeakened(0)

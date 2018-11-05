@@ -39,18 +39,18 @@
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 	if(smooth && ticker && ticker.current_state == GAME_STATE_PLAYING)
-		smooth_icon(src)
+		queue_smooth(src)
 
 /hook/startup/proc/smooth_world()
 	var/watch = start_watch()
 	log_startup_progress("Smoothing atoms...")
 	for(var/turf/T in world)
 		if(T.smooth)
-			smooth_icon(T)
+			queue_smooth(T)
 		for(var/A in T)
 			var/atom/AA = A
 			if(AA.smooth)
-				smooth_icon(AA)
+				queue_smooth(AA)
 	log_startup_progress(" Smoothed atoms in [stop_watch(watch)]s.")
 	return 1
 
@@ -71,6 +71,21 @@
 /turf/ex_act(severity)
 	return 0
 
+/turf/rpd_act(mob/user, obj/item/rpd/our_rpd) //This is the default turf behaviour for the RPD; override it as required
+	if(our_rpd.mode == RPD_ATMOS_MODE)
+		our_rpd.create_atmos_pipe(user, src)
+	else if(our_rpd.mode == RPD_DISPOSALS_MODE)
+		for(var/obj/machinery/door/airlock/A in src)
+			if(A.density)
+				to_chat(user, "<span class='warning'>That type of pipe won't fit under [A]!</span>")
+				return
+		our_rpd.create_disposals_pipe(user, src)
+	else if(our_rpd.mode == RPD_ROTATE_MODE)
+		our_rpd.rotate_all_pipes(user, src)
+	else if(our_rpd.mode == RPD_FLIP_MODE)
+		our_rpd.flip_all_pipes(user, src)
+	else if(our_rpd.mode == RPD_DELETE_MODE)
+		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(var/obj/item/projectile/Proj)
 	if(istype(Proj ,/obj/item/projectile/beam/pulse))
@@ -460,3 +475,6 @@
 	SSair.remove_from_active(T0)
 	T0.CalculateAdjacentTurfs()
 	SSair.add_to_active(T0,1)
+
+/turf/AllowDrop()
+	return TRUE

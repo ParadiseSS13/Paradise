@@ -29,7 +29,7 @@
 
 			var/mob/living/carbon/human/H = M
 
-			if(H.get_species() != "Grey") //God this is so gross I hate it.
+			if(!isgrey(H)) //God this is so gross I hate it.
 				return
 
 			if(volume > 25)
@@ -58,7 +58,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
-			if(H.get_species() != "Grey")
+			if(!isgrey(H))
 				return
 
 			if(volume < 10)
@@ -316,7 +316,7 @@
 			M.fakevomit(1)
 		else
 			M.fakevomit(0)
-	..()
+	return ..()
 
 /datum/reagent/fishwater/toiletwater
 	name = "Toilet Water"
@@ -342,6 +342,7 @@
 	taste_message = null
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustJitter(-5)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
@@ -370,7 +371,7 @@
 		if(M.mind.vampire.bloodusable)
 			M.Stuttering(1)
 			M.Jitter(30)
-			M.adjustStaminaLoss(5)
+			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
 			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
@@ -388,7 +389,7 @@
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
-					M.adjustFireLoss(1)
+					update_flags |= M.adjustFireLoss(1, FALSE)
 					M.Stuttering(1)
 					M.Jitter(20)
 					if(prob(20))
@@ -397,16 +398,16 @@
 				if(13 to INFINITY)
 					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
 					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!<span>", M), 1)
+						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!</span>", M), 1)
 					M.fire_stacks = min(5,M.fire_stacks + 3)
 					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-					M.adjustFireLoss(3)		//Hence the other damages... ain't I a bastard?
+					update_flags |= M.adjustFireLoss(3, FALSE)		//Hence the other damages... ain't I a bastard?
 					M.Stuttering(1)
 					M.Jitter(30)
 					if(prob(40))
 						M.emote("scream")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-	..()
+	return ..() | update_flags
 
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -442,23 +443,24 @@
 	taste_message = null
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	if(iscultist(M))
 		M.AdjustDrowsy(-5)
-		M.AdjustParalysis(-1)
-		M.AdjustStunned(-2)
-		M.AdjustWeakened(-2)
-		M.adjustToxLoss(-2)
-		M.adjustFireLoss(-2)
-		M.adjustOxyLoss(-2)
-		M.adjustBruteLoss(-2)
+		update_flags |= M.AdjustParalysis(-1, FALSE)
+		update_flags |= M.AdjustStunned(-2, FALSE)
+		update_flags |= M.AdjustWeakened(-2, FALSE)
+		update_flags |= M.adjustToxLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE)
+		update_flags |= M.adjustOxyLoss(-2, FALSE)
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
 	else
-		M.adjustBrainLoss(3)
-		M.adjustToxLoss(1)
-		M.adjustFireLoss(2)
-		M.adjustOxyLoss(2)
-		M.adjustBruteLoss(2)
+		update_flags |= M.adjustBrainLoss(3, FALSE)
+		update_flags |= M.adjustToxLoss(1, FALSE)
+		update_flags |= M.adjustFireLoss(2, FALSE)
+		update_flags |= M.adjustOxyLoss(2, FALSE)
+		update_flags |= M.adjustBruteLoss(2, FALSE)
 		M.AdjustCultSlur(10)//CUASE WHY THE HELL NOT
-	..()
+	return ..() | update_flags
 
 /datum/reagent/hellwater
 	name = "Hell Water"
@@ -470,12 +472,13 @@
 	taste_message = "admin abuse"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.fire_stacks = min(5, M.fire_stacks + 3)
 	M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-	M.adjustToxLoss(1)
-	M.adjustFireLoss(1)		//Hence the other damages... ain't I a bastard?
-	M.adjustBrainLoss(5)
-	..()
+	update_flags |= M.adjustToxLoss(1, FALSE)
+	update_flags |= M.adjustFireLoss(1, FALSE)		//Hence the other damages... ain't I a bastard?
+	update_flags |= M.adjustBrainLoss(5, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/liquidgibs
 	name = "Liquid gibs"

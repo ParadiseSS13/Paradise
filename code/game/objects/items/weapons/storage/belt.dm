@@ -127,11 +127,47 @@
 		/obj/item/flashlight/pen,
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/gloves/color/latex,
-        /obj/item/reagent_containers/hypospray/autoinjector,
-        /obj/item/rad_laser,
+		/obj/item/reagent_containers/hypospray/autoinjector,
+		/obj/item/reagent_containers/hypospray/CMO,
+		/obj/item/reagent_containers/hypospray/safety,
+		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 	)
+
+/obj/item/storage/belt/medical/surgery
+	max_w_class = WEIGHT_CLASS_NORMAL
+	max_combined_w_class = 17
+	use_to_pickup = 1
+	name = "Surgical Belt"
+	desc = "Can hold various surgical tools."
+	storage_slots = 9
+	use_item_overlays = 1
+	can_hold = list(
+		/obj/item/scalpel,
+		/obj/item/hemostat,
+		/obj/item/retractor,
+		/obj/item/circular_saw,
+		/obj/item/bonegel,
+		/obj/item/bonesetter,
+		/obj/item/FixOVein,
+		/obj/item/surgicaldrill,
+		/obj/item/cautery,
+	)
+
+/obj/item/storage/belt/medical/surgery/loaded
+
+/obj/item/storage/belt/medical/surgery/loaded/New()
+	..()
+	new /obj/item/scalpel(src)
+	new /obj/item/hemostat(src)
+	new /obj/item/retractor(src)
+	new /obj/item/circular_saw(src)
+	new /obj/item/bonegel(src)
+	new /obj/item/bonesetter(src)
+	new /obj/item/FixOVein(src)
+	new /obj/item/surgicaldrill(src)
+	new /obj/item/cautery(src)
 
 /obj/item/storage/belt/medical/response_team
 
@@ -203,10 +239,19 @@
 
 /obj/item/storage/belt/security/response_team/New()
 	..()
-	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/flash(src)
 	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/grenade/flashbang(src)
+	update_icon()
+
+/obj/item/storage/belt/security/response_team_gamma/New()
+	..()
+	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/flash(src)
+	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
@@ -249,6 +294,13 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/storage/belt/military/traitor
+	name = "tool-belt"
+	desc = "Can hold various tools. This model seems to have additional compartments."
+	icon_state = "utilitybelt"
+	item_state = "utility"
+	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
@@ -586,21 +638,21 @@
 	max_combined_w_class = 280
 	can_hold = list()
 
-	New()
-		..()
-		new /obj/item/crowbar(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/weldingtool/hugetank(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/wrench(src)
-		new /obj/item/multitool(src)
-		new /obj/item/stack/cable_coil(src)
+/obj/item/storage/belt/bluespace/admin/New()
+	..()
+	new /obj/item/crowbar(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/weldingtool/hugetank(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wrench(src)
+	new /obj/item/multitool(src)
+	new /obj/item/stack/cable_coil(src)
 
-		new /obj/item/restraints/handcuffs(src)
-		new /obj/item/dnainjector/xraymut(src)
-		new /obj/item/dnainjector/firemut(src)
-		new /obj/item/dnainjector/telemut(src)
-		new /obj/item/dnainjector/hulkmut(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/dnainjector/xraymut(src)
+	new /obj/item/dnainjector/firemut(src)
+	new /obj/item/dnainjector/telemut(src)
+	new /obj/item/dnainjector/hulkmut(src)
 //		new /obj/item/spellbook(src) // for smoke effects, door openings, etc
 //		new /obj/item/magic/spellbook(src)
 
@@ -615,15 +667,15 @@
 	max_combined_w_class = 280
 	can_hold = list()
 
-	New()
-		..()
-		new /obj/item/crowbar(src)
-		new /obj/item/screwdriver(src)
-		new /obj/item/weldingtool/hugetank(src)
-		new /obj/item/wirecutters(src)
-		new /obj/item/wrench(src)
-		new /obj/item/multitool(src)
-		new /obj/item/stack/cable_coil(src)
+/obj/item/storage/belt/bluespace/sandbox/New()
+	..()
+	new /obj/item/crowbar(src)
+	new /obj/item/screwdriver(src)
+	new /obj/item/weldingtool/hugetank(src)
+	new /obj/item/wirecutters(src)
+	new /obj/item/wrench(src)
+	new /obj/item/multitool(src)
+	new /obj/item/stack/cable_coil(src)
 
-		new /obj/item/analyzer(src)
-		new /obj/item/healthanalyzer(src)
+	new /obj/item/analyzer(src)
+	new /obj/item/healthanalyzer(src)
