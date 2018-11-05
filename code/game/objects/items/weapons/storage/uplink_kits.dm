@@ -87,13 +87,15 @@
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red)
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/space/New()
 	..()
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
+	new /obj/item/clothing/mask/gas/syndicate(src)
+	new /obj/item/tank/emergency_oxygen/syndi(src)
 	return
 
 /obj/item/storage/box/syndie_kit/hardsuit
