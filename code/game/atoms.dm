@@ -150,6 +150,7 @@
 
 //Hook for running code when a dir change occurs
 /atom/proc/setDir(newdir)
+	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 
 /atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)

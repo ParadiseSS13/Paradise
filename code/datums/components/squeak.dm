@@ -24,6 +24,8 @@
 		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/play_squeak_crossed)
 		if(isitem(parent))
 			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT, COMSIG_ITEM_ATTACK_SELF), .proc/play_squeak)
+			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
+			RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_drop)
 			if(istype(parent, /obj/item/clothing/shoes))
 				RegisterSignal(parent, COMSIG_SHOES_STEP_ACTION, .proc/step_squeak)
 
@@ -54,6 +56,12 @@
 	else
 		steps++
 
+/datum/component/squeak/proc/on_equip(datum/source, mob/equipper, slot)
+	RegisterSignal(equipper, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react, TRUE)
+
+/datum/component/squeak/proc/on_drop(datum/source, mob/user)
+	UnregisterSignal(user, COMSIG_MOVABLE_DISPOSING)
+
 /datum/component/squeak/proc/play_squeak_crossed(atom/movable/AM)
 	if(isitem(AM))
 		var/obj/item/I = AM
@@ -65,4 +73,13 @@
 				return
 	var/atom/current_parent = parent
 	if(isturf(current_parent.loc))
+		play_squeak()
+
+/datum/component/squeak/proc/disposing_react(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/source)
+	//We don't need to worry about unregistering this signal as it will happen for us automaticaly when the holder is qdeleted
+	RegisterSignal(holder, COMSIG_ATOM_DIR_CHANGE, .proc/holder_dir_change)
+
+/datum/component/squeak/proc/holder_dir_change(datum/source, old_dir, new_dir)
+	//If the dir changes it means we're going through a bend in the pipes, let's pretend we bumped the wall
+	if(old_dir != new_dir)
 		play_squeak()

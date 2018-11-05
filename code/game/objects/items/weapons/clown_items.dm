@@ -27,9 +27,6 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, honk_sounds, 50)
 
-/obj/item/bikehorn/Crossed()
-	. = ..()
-
 /obj/item/bikehorn/airhorn
 	name = "air horn"
 	desc = "Damn son, where'd you find this?"
