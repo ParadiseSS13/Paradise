@@ -1,0 +1,4 @@
+author: "TatsumakiMagi"
+delete-after: True
+changes: 
+  - bugfix: "target icon updates when lit by user"
