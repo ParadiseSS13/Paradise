@@ -74,12 +74,18 @@
 	if(istype(crayon, /obj/item/toy/crayon/spraycan))
 		var/obj/item/toy/crayon/spraycan/can = crayon
 		if(can.capped)
-			to_chat(user, "<span class='warning'>The cap is on [src] remove it first!</span>")
+			to_chat(user, "<span class='warning'>The cap is on the spray can remove it first!</span>")
 			return
 	if(pushed_over)
 		to_chat(user, "<span class='warning'>Right [src] first!</span>")
 		return
 	var/new_appearance = input(user, "Choose a new appearance for [src].", "26th Century Deception") as null|anything in possible_appearances
+	if(!Adjacent(usr))
+		user.visible_message("<span class='danger'>You need to be closer!</span>")
+		return
+	if(pushed_over)
+		to_chat(user, "<span class='warning'>Right [src] first!</span>")
+		return	
 	if(!new_appearance || !crayon)
 		return
 	if(!do_after(user, 10, FALSE, src, TRUE))
