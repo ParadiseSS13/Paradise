@@ -1,4 +1,0 @@
-author: "TatsumakiMagi"
-delete-after: True
-changes: 
-  - bugfix: "Fixes adjacency and standing checks for cutouts"
