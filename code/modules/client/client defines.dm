@@ -12,6 +12,7 @@
 		//OTHER//
 		/////////
 	var/datum/preferences/prefs = null
+	var/skip_antag = FALSE //Decline to be selected as a game mode antagonist.
 	var/move_delay		= 1
 	var/moving			= null
 	var/adminobs		= null

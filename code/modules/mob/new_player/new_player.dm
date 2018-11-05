@@ -1,6 +1,5 @@
 /mob/new_player
 	var/ready = 0
-	var/skip_antag = 0	//For declining an antag roll this round.
 	var/spawning = 0	//Referenced when you want to delete the new_player later on in the code.
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
@@ -68,9 +67,9 @@
 
 		var/list/antags = client.prefs.be_special
 		if(antags && antags.len)
-			if(!skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+			if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
 			else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-			output += "<br /><small>You are <b>[skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
+			output += "<br /><small>You are <b>[client.skip_antag ? "ineligible" : "eligible"]</b> for all antag roles.</small></p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
@@ -172,7 +171,7 @@
 		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
-		skip_antag = !skip_antag
+		client.skip_antag = !client.skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
