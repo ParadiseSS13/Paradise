@@ -1,0 +1,7 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - rscadd: "Added Traitor's toolbelt"
+  - tweak: "Replaced Military belt with Traitor's toolbelt in the uplink."
+  - tweak: "Price of new belt lowered to 2TC"
+  - tweak: "Replaced Military belt with Traitor's toolbelt in maintenance loot."
