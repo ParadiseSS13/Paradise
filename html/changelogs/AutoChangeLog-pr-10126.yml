@@ -1,5 +1,0 @@
-author: "Squirgenheimer"
-delete-after: True
-changes: 
-  - bugfix: "blob and autotraitor game modes will now check for Global Antag Candidacy when picking new antagonists after round start"
-  - tweak: "Global Antag Candidacy button will now show up after round start"
