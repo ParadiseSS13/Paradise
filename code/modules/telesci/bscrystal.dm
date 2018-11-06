@@ -19,11 +19,9 @@
 	pixel_y = rand(-5, 5)
 
 /obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
-	blink_mob(user)
-	user.drop_item()
-	user.visible_message("<span class='notice'>[user] crushes the [src]!</span>")
-	if(!zero_amount())
-		amount -= 1
+	if(use(1))
+		blink_mob(user)
+		user.visible_message("<span class='notice'>[user] crushes a [singular_name]!</span>")
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
 	if(!is_teleport_allowed(L.z))
