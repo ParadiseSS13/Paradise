@@ -47,12 +47,13 @@
 	var/obj/item/card/id/access_card = new (src)
 	access_card.access = get_all_accesses()//THERE IS NO ESCAPE
 	access_card.flags |= NODROP
-	if(!is_station_level(src))//admin spawned off station Z for some reason do not trigger anything else
-		admincluwne = TRUE
-		return
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
 	Manifest()
 	if(!current_victim)
+		var/turf/current_location = get_turf(src)
+		if(!is_admin_level(current_location.z))//admin spawned off station Z for some reason do not trigger anything else
+			admincluwne = TRUE
+			return
 		Acquire_Victim()
 
 
@@ -153,6 +154,7 @@
 				message_admins("Smiting Floor Cluwne was deleted due to a lack of valid target. Someone killed them first.")
 				qdel(src)
 			if(H.stat != DEAD && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
+				current_victim = H
 				return target = current_victim
 
 		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
@@ -202,7 +204,7 @@
 			if(prob(3))
 				H.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
 
-			if(prob(2))
+			if(prob(10))
 				H.playsound_local(src,'sound/spookoween/ghost_whisper.ogg', 5)
 
 			if(prob(3))
@@ -254,9 +256,6 @@
 			if(prob(1))
 				playsound(src,'sound/hallucinations/growl2.ogg', 30, 1)
 
-			if(prob(5))
-				playsound(src,'sound/spookoween/ghost_whisper.ogg', 30, 1)
-
 			if(prob(4))
 				for(var/obj/item/I in orange(H, 5))
 					if(I && !I.anchored)
@@ -300,11 +299,14 @@
 			if(!eating)
 				for(var/I in getline(src,H))
 					var/turf/T = I
-					if(T.density)
-						forceMove(H.loc)
 					for(var/obj/structure/O in T)
+						if(istype(O, /obj/structure/closet))
+							var/obj/structure/closet/locker = O
+							locker.dump_contents()
 						if(O.density || istype(O, /obj/machinery/door/airlock))
 							forceMove(H.loc)
+					if(T.density)
+						forceMove(H.loc)
 					if(H.buckled)
 						H.buckled.unbuckle_mob()
 				manifested = TRUE
@@ -353,7 +355,7 @@
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Kill(mob/living/carbon/human/H)
-	playsound(H, 'sound/spookoween/scary_horn2.ogg', 100, 0, -4)
+	playsound(H, 'sound/spookoween/scary_horn2.ogg', 100, 0)
 	var/old_color = H.client.color
 	var/red_splash = list(1,0,0,0.8,0.2,0, 0.8,0,0.2,0.1,0,0)
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
