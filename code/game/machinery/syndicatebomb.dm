@@ -538,7 +538,7 @@
 	var/obj/item/transfer_valve/ttv = null
 
 /obj/item/bombcore/toxins/attackby(obj/item/I, mob/user, params)
-	if(iscrowbar(I) && ttv != null)
+	if(iscrowbar(I) && ttv)
 		playsound(loc, I.usesound, 50, 1)
 		ttv.loc = get_turf(src)
 		ttv = null
@@ -563,7 +563,7 @@
 	return
 
 /obj/item/bombcore/toxins/detonate()
-	if(ttv != null)
+	if(ttv)
 		ttv.toggle_valve()
 
 ///Syndicate Detonator (aka the big red button)///
