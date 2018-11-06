@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Added syndicate themed internals to traitor spacesuit and hardsuit."
