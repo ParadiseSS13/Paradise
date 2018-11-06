@@ -11,8 +11,8 @@
 	icon_state = "cursedclown"
 	icon_living = "cursedclown"
 	icon_gib = "clown_gib"
-	maxHealth = 250
-	health = 250
+	maxHealth = 200
+	health = 200
 	speed = -1
 	attacktext = "attacks"
 	attack_sound = 'sound/items/bikehorn.ogg'
@@ -38,13 +38,18 @@
 	var/invalid_area_typecache = list(/area/space, /area/centcom)
 	var/eating = FALSE
 	var/smiting = FALSE
+	var/admincluwne = FALSE
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/New()
 	. = ..()
+	remove_from_all_data_huds()
 	var/obj/item/card/id/access_card = new (src)
 	access_card.access = get_all_accesses()//THERE IS NO ESCAPE
 	access_card.flags |= NODROP
+	if(!is_station_level(src))//admin spawned off station Z for some reason do not trigger anything else
+		admincluwne = TRUE
+		return
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
 	Manifest()
 	if(!current_victim)
@@ -73,7 +78,7 @@
 		var/area/tp = teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
 
-	if(!current_victim)
+	if(!current_victim && !admincluwne)
 		Acquire_Victim()
 
 	if(stage && !manifested)
@@ -87,8 +92,9 @@
 
 	var/turf/T = get_turf(current_victim)
 	if(prob(5))//checks roughly every 20 ticks
-		if(current_victim.stat == DEAD || current_victim.get_int_organ(/obj/item/organ/internal/honktumor/cursed) || is_type_in_typecache(get_area(T), invalid_area_typecache))
-			Acquire_Victim()
+		if(!admincluwne)
+			if(current_victim.stat == DEAD || current_victim.get_int_organ(/obj/item/organ/internal/honktumor/cursed) || is_type_in_typecache(get_area(T), invalid_area_typecache))
+				Acquire_Victim()
 
 	if(get_dist(src, current_victim) > 9 && !manifested &&  !is_type_in_typecache(get_area(T), invalid_area_typecache))//if cluwne gets stuck he just teleports
 		do_teleport(src, T)
@@ -146,10 +152,10 @@
 			if((!H || H.stat == DEAD) && smiting)//safety check, target somehow DIED after we sent a smite
 				message_admins("Smiting Floor Cluwne was deleted due to a lack of valid target. Someone killed them first.")
 				qdel(src)
-			if(H.stat != DEAD && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
+			if(H.stat != DEAD && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 				return target = current_victim
 
-		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
+		if(H && ishuman(H) && H.stat != DEAD && H != current_victim && !isLivingSSD(H) &&  H.client && !H.get_int_organ(/obj/item/organ/internal/honktumor/cursed) && !is_type_in_typecache(get_area(H.loc), invalid_area_typecache))
 			current_victim = H
 			interest = 0
 			return target = current_victim
@@ -193,10 +199,10 @@
 			if(prob(5))
 				H.AdjustEyeBlurry(1)
 
-			if(prob(5))
+			if(prob(3))
 				H.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
 
-			if(prob(5))
+			if(prob(2))
 				H.playsound_local(src,'sound/spookoween/ghost_whisper.ogg', 5)
 
 			if(prob(3))
@@ -211,10 +217,10 @@
 				H.slip("???", 5, 2)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
-			if(prob(5))
+			if(prob(3))
 				H.playsound_local(src,'sound/spookoween/scary_horn.ogg', 2)
 
-			if(prob(5))
+			if(prob(2))
 				H.playsound_local(src,'sound/spookoween/scary_horn2.ogg', 2)
 
 			if(prob(5))
@@ -242,10 +248,10 @@
 			if(prob(3))
 				playsound(src,pick('sound/spookoween/scary_horn.ogg', 'sound/spookoween/scary_horn2.ogg', 'sound/spookoween/scary_horn3.ogg'), 30, 1)
 
-			if(prob(3))
+			if(prob(2))
 				playsound(src,'sound/hallucinations/growl1.ogg', 30, 1)
 
-			if(prob(3))
+			if(prob(1))
 				playsound(src,'sound/hallucinations/growl2.ogg', 30, 1)
 
 			if(prob(5))
@@ -299,7 +305,8 @@
 					for(var/obj/structure/O in T)
 						if(O.density || istype(O, /obj/machinery/door/airlock))
 							forceMove(H.loc)
-
+					if(H.buckled)
+						H.buckled.unbuckle_mob()
 				manifested = TRUE
 				Manifest()
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")
@@ -358,7 +365,7 @@
 	if(do_after(src, 50, target = H))
 
 
-		if(prob(75))
+		if(prob(50))
 			if(smiting)//if we are smiting we might as well cluwne them ANYWAY
 				H.makeCluwne()
 				H.adjustBruteLoss(30)
@@ -385,7 +392,8 @@
 	Reset_View(FALSE, old_color, H)
 
 	eating = FALSE
-	switch_stage = switch_stage * 0.75 //he gets faster after each feast
+	if(prob(2))
+		switch_stage = switch_stage * 0.75 //he gets a chance to be faster after each feast
 	if(smiting)
 		playsound(loc, 'sound/spookoween/scary_horn2.ogg', 100, 0, -4)
 		qdel(src)
