@@ -537,22 +537,20 @@
 	icon_state = "chemcore"
 	var/obj/item/transfer_valve/ttv = null
 
-/obj/item/bombcore/toxins/attackby(obj/item/I, mob/user, params)
+/obj/item/bombcore/toxins/attackby(obj/item/I, mob/user)
 	if(iscrowbar(I) && ttv)
 		playsound(loc, I.usesound, 50, 1)
-		ttv.loc = get_turf(src)
+		ttv.forceMove(get_turf(src))
 		ttv = null
-		return
 	else if(istype(I, /obj/item/transfer_valve))
 		if(!ttv)
 			if(!user.drop_item())
 				return
 			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
 			ttv = I
-			I.loc = src
+			I.forceMove(src)
 		else
 			to_chat(user, "<span class='warning'>Another tank transfer valve is already loaded.</span>")
-			return
 	else
 		return ..()
 
