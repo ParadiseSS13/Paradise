@@ -1,4 +1,4 @@
-var $ = require("../node_modules/jquery/dist/jquery.min.js");
+var $ = require("jquery");
 
 function createLink(href, text) {
 	let $link = $("<div>");
@@ -115,7 +115,6 @@ module.exports.parseCurrentPage = function () {
 					.text("Enabled")
 			} else {
 				$("#WORK")
-					.addClass("linkOff")
 					.text("Disabled")
 			}
 		}

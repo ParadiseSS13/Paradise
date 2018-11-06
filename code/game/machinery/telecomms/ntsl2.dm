@@ -81,8 +81,8 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 
 
 /datum/ntsl2_configuration/proc/update_languages()
-	for(var/language in all_languages)
-		var/datum/language/L = all_languages[language]
+	for(var/language in GLOB.all_languages)
+		var/datum/language/L = GLOB.all_languages[language]
 		if(L.flags & HIVEMIND)
 			continue
 		valid_languages[language] = TRUE
@@ -94,7 +94,6 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		.[variable] = vars[variable]
 	. = json_encode(.)
 	
-
 // This loads a configuration from a JSON string.
 // Fucking broken as shit, someone help me fix this.
 /datum/ntsl2_configuration/proc/ntsl_deserialize(text, obj/machinery/computer/telecomms/traffic/source)
@@ -121,7 +120,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			if(!islist(variable))
 				return list()
 			// Insert html filtering for the regexes here if you're boring
-			return variable
+			return sanitize(variable)
 		if("string")
 			return "[variable]"
 
@@ -173,24 +172,17 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		if(setting_language == "--DISABLE--")
 			setting_language = null
 		else
-			signal.data["language"] = all_languages[setting_language]
+			signal.data["language"] = GLOB.all_languages[setting_language]
 
 	// Regex replacements
 	if(islist(regex) && regex.len > 0)
 		var/original = signal.data["message"]
 		var/new_message = original
 		for(var/reg in regex)
-			var/replacePattern = regex[reg]
-			var/regex/start = new(reg, "g")
+			var/replacePattern = pencode_to_html(regex[reg])
+			var/regex/start = new(reg, "gi")
 			new_message = start.Replace(original, replacePattern)
 		signal.data["message"] = new_message
-
-	// Check the message for forbidden HTML (REMOVE THIS IF YOU START STRIPPING HTML IN REGEX)
-	var/regex/bannedTags = new("(<script|<iframe|<video|<audio)")
-	if(bannedTags.Find(signal.data["message"]))
-		message_admins("Warning: Current NTSL2 configuration contains banned HTML. Stripping message.")
-		log_admin("Warning: Current NTSL2 configuration contains banned HTML. Stripping message.")
-		signal.data["message"] = sanitize(signal.data["message"])
 
 	// Make sure the message is valid after we tinkered with it, otherwise reject it
 	if(signal.data["message"] == "" || !signal.data["message"])
