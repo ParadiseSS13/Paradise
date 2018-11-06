@@ -201,6 +201,9 @@
 			return
 
 		var/obj/item/stack/sheet/S = W
+		if(!S.wall_allowed)
+			to_chat(user, "<span class='warning'>You don't think that is good material for a wall!</span>")
+			return
 
 		if(istype(S, /obj/item/stack/sheet/wood))
 			if(state == GIRDER_DISPLACED)
@@ -313,9 +316,6 @@
 
 		if(S.sheettype)
 			var/M = S.sheettype
-			if(M == "tranquillite")	//tranquilite walls don't exist in the code (yet)
-				to_chat(user, "<span class='warning'>You don't think that is good material for a wall!</span>")
-				return
 			if(state == GIRDER_DISPLACED)
 				if(S.get_amount() < 2)
 					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
