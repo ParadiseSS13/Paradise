@@ -339,6 +339,16 @@
 	time = 50
 	category = CAT_WEAPON
 
+/datum/crafting_recipe/toxins_payload
+	name = "Toxins Payload Casing"
+	result = /obj/item/bombcore/toxins
+	reqs = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/assembly/signaler = 1,
+		/obj/item/stack/sheet/metal = 2
+	)
+	category = CAT_WEAPON
+
 /datum/crafting_recipe/bonfire
 	name = "Bonfire"
 	time = 60

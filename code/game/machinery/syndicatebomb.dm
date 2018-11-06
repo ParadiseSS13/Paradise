@@ -530,6 +530,42 @@
 
 		qdel(G)
 
+/obj/item/bombcore/toxins
+	name = "toxins payload"
+	desc = "A payload casing designed to secure a gas based bomb. Must be loaded with a tank transfer valve and installed into a plasteel bomb frame in order to be detonated."
+	origin_tech = "materials=1;engineering=1"
+	icon_state = "chemcore"
+	var/obj/item/transfer_valve/ttv = null
+
+/obj/item/bombcore/toxins/attackby(obj/item/I, mob/user, params)
+	if(iscrowbar(I) && ttv != null)
+		playsound(loc, I.usesound, 50, 1)
+		ttv.loc = get_turf(src)
+		ttv = null
+		return
+	else if(istype(I, /obj/item/transfer_valve))
+		if(!ttv)
+			if(!user.drop_item())
+				return
+			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
+			ttv = I
+			I.loc = src
+		else
+			to_chat(user, "<span class='warning'>Another tank transfer valve is already loaded.</span>")
+			return
+	else
+		return ..()
+
+/obj/item/bombcore/toxins/ex_act(severity) //No chain reactions, the explosion only occurs when gas mixes
+	return
+
+/obj/item/bombcore/toxins/burn()
+	return
+
+/obj/item/bombcore/toxins/detonate()
+	if(ttv != null)
+		ttv.toggle_valve()
+
 ///Syndicate Detonator (aka the big red button)///
 
 /obj/item/syndicatedetonator
