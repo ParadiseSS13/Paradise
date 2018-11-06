@@ -197,6 +197,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		if(!(var_to_toggle in to_serialize))
 			return
 		vars[var_to_toggle] = !vars[var_to_toggle]
+		log_action(user, "toggled NTSL2 variable [var_to_toggle] [vars[var_to_toggle] ? "on" : "off"]")
 
 	// Strings
 	if(href_list["setting_language"])
@@ -209,6 +210,8 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		else
 			setting_language = new_language
 			to_chat(user, "<span class='notice'>Messages will now be converted to [new_language].</span>")
+
+		log_action(user, new_language == "--DISABLE--" ? "disabled NTSL2 language conversion" : "set NTSL2 language conversion to [new_language]", TRUE)
 
 	// Tables
 	if(href_list["create_row"])
@@ -224,6 +227,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			var/list/table = vars[href_list["table"]]
 			table[new_key] = new_value
 			to_chat(user, "<span class='notice'>Added row [new_key] -> [new_value].</span>")
+			log_action(user, "updated [href_list["table"]] - new row [new_key] -> [new_value]")
 
 	if(href_list["delete_row"])
 		if(href_list["table"] && href_list["table"] in tables)
@@ -232,6 +236,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			var/list/table = vars[href_list["table"]]
 			table.Remove(href_list["delete_row"])
 			to_chat(user, "<span class='warning'>Removed row [href_list["delete_row"]] from [href_list["table"]]</span>")
+			log_action(user, "updated [href_list["table"]] - removed row [href_list["delete_row"]]")
 
 	// Arrays
 	if(href_list["create_item"])
@@ -244,6 +249,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			var/list/array = vars[href_list["array"]]
 			array.Add(new_value)
 			to_chat(user, "<span class='notice'>Added row [new_value].</span>")
+			log_action(user, "updated [href_list["array"]] - new value [new_value]")
 
 	if(href_list["delete_item"])
 		if(href_list["array"] && href_list["array"] in arrays)
@@ -252,15 +258,24 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			var/list/array = vars[href_list["array"]]
 			array.Remove(href_list["delete_item"])
 			to_chat(user, "<span class='warning'>Removed [href_list["delete_item"]] from [href_list["array"]]</span>")
+			log_action(user, "updated [href_list["array"]] - removed [href_list["delete_item"]]")
 
 	// Spit out the serialized config to the user
 	if(href_list["save_config"])
 		user << browse(ntsl_serialize(), "window=save_ntsl2")
 
 	if(href_list["load_config"])
-		ntsl_deserialize(input(user, "Provide configuration JSON below.", "Load Config", ntsl_serialize()) as message, source)
+		var/json = input(user, "Provide configuration JSON below.", "Load Config", ntsl_serialize()) as message
+		ntsl_deserialize(json, source)
+		log_action(user, "has uploaded a NTSL2 JSON configuration: [json]", TRUE)
 
 	user << output(list2params(list(ntsl_serialize())), "[window_id].browser:updateConfig")
+
+/datum/ntsl2_configuration/proc/log_action(user, msg, adminmsg = FALSE)
+	log_game("NTSL2: [key_name(user)] [msg]")
+	log_investigate("[key_name(user)] [msg]", "ntsl")
+	if(adminmsg)
+		message_admins("[key_name_admin(user)] [msg]")
 
 /* Asset datum for the UI */
 /datum/asset/simple/ntsl2
