@@ -258,7 +258,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		user << browse(ntsl_serialize(), "window=save_ntsl2")
 
 	if(href_list["load_config"])
-		ntsl_deserialize(input(user, "Provide configuration JSON below.", "Load Config", ntsl_serialize()) as message)
+		ntsl_deserialize(input(user, "Provide configuration JSON below.", "Load Config", ntsl_serialize()) as message, source)
 
 	user << output(list2params(list(ntsl_serialize())), "[window_id].browser:updateConfig")
 
