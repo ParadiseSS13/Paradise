@@ -27,6 +27,7 @@
 	..()
 	if(stat == DEAD)
 		to_chat(desc = "It appears to be dead.")
+
 /mob/living/simple_animal/hostile/headcrab/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
 	egg.insert(victim)
