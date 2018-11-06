@@ -78,22 +78,24 @@
 		for(var/mob/living/player in GLOB.mob_list)
 			if(player.client && player.stat != DEAD)
 				playercount += 1
-			if(player.client && player.mind && player.mind.special_role && player.stat != DEAD)
-				traitorcount += 1
-			if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD)
+				if(!player.mind)
+					continue
+				if(player.mind.special_role)
+					traitorcount += 1
+					continue
 				if(ishuman(player) || isrobot(player) || isAI(player))
-					if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
+					if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 						possible_traitors += player.mind
 		for(var/datum/mind/player in possible_traitors)
 			for(var/job in restricted_jobs)
 				if(player.assigned_role == job)
 					possible_traitors -= player
-			if(player.current) // Remove mindshield-implanted mobs from the list
-				if(ishuman(player.current))
-					var/mob/living/carbon/human/H = player.current
-					for(var/obj/item/implant/mindshield/I in H.contents)
-						if(I && I.implanted)
-							possible_traitors -= player
+			if(!player.current || !ishuman(player.current)) // Remove mindshield-implanted mobs from the list
+				continue
+			var/mob/living/carbon/human/H = player.current
+			for(var/obj/item/implant/mindshield/I in H.contents)
+				if(I && I.implanted)
+					possible_traitors -= player
 
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
@@ -159,7 +161,7 @@
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return
 	//message_admins("Late Join Check")
-	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, "Syndicate"))
+	if(character.client && (ROLE_TRAITOR in character.client.prefs.be_special) && !character.client.skip_antag && !jobban_isbanned(character, ROLE_TRAITOR) && !jobban_isbanned(character, "Syndicate"))
 		//message_admins("Late Joiner has Be Syndicate")
 		//message_admins("Checking number of players")
 		var/playercount = 0
@@ -167,8 +169,8 @@
 		for(var/mob/living/player in GLOB.mob_list)
 			if(player.client && player.stat != DEAD)
 				playercount += 1
-			if(player.client && player.mind && player.mind.special_role && player.stat != DEAD)
-				traitorcount += 1
+				if(player.mind && player.mind.special_role)
+					traitorcount += 1
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
 
