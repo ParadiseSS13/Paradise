@@ -22,7 +22,8 @@
 	blink_mob(user)
 	user.drop_item()
 	user.visible_message("<span class='notice'>[user] crushes the [src]!</span>")
-	qdel(src)
+	if(!zero_amount())
+		amount -= 1
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
 	if(!is_teleport_allowed(L.z))
