@@ -220,6 +220,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	origin_tech = "materials=4"
 	sheettype = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
+	wall_allowed = FALSE	//no tranquilite walls in code
 
 /obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
 	..()

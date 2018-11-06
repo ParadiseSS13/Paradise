@@ -201,6 +201,9 @@
 			return
 
 		var/obj/item/stack/sheet/S = W
+		if(!S.wall_allowed)
+			to_chat(user, "<span class='warning'>You don't think that is good material for a wall!</span>")
+			return
 
 		if(istype(S, /obj/item/stack/sheet/wood))
 			if(state == GIRDER_DISPLACED)
