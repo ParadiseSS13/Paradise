@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - bugfix: "Can no longer attempt to build tranquilite walls (and delete the wall in the process)"
