@@ -1,5 +1,0 @@
-author: "Triiodine"
-delete-after: True
-changes: 
-  - rscadd: "[delta] APC to virology mainroom"
-  - bugfix: "[delta] All unsimulated turfs are now simulated."

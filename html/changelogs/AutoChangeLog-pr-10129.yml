@@ -1,7 +1,0 @@
-author: "Triiodine"
-delete-after: True
-changes: 
-  - rscadd: "Airlock sensors & vent system to west mining outpost (Safety first!)"
-  - tweak: "Disposals inlet now directly goes to cargo _delivery_ (not conveyor)"
-  - bugfix: "More spawns for science nerds in accordance to highpop."
-  - bugfix: "All conflicting C_tags, dispatch cops or AI should freely use all cameras now."
