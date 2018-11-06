@@ -1,0 +1,4 @@
+author: "R1f73r"
+delete-after: True
+changes: 
+  - rscadd: "Added a death text to headslugs when they die"
