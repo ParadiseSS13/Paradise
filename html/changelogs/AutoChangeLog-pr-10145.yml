@@ -1,4 +1,0 @@
-author: "Spartan"
-delete-after: True
-changes: 
-  - bugfix: "Bluespace Crystals no longer use the entire stack when used on self to teleport."
