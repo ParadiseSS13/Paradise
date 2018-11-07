@@ -2,6 +2,8 @@
 				BLOOD SYSTEM
 ****************************************************/
 
+#define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
+
 /mob/living/carbon/human/proc/suppress_bloodloss(amount)
 	if(bleedsuppress)
 		return
@@ -104,7 +106,7 @@
 		if(dna.species.exotic_blood)
 			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
 			if(istype(R) && isturf(loc))
-				R.reaction_turf(get_turf(src), amt)
+				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)
