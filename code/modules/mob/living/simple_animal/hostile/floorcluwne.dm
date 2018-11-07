@@ -178,7 +178,7 @@
 		density = FALSE
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
-	layer = LYING_MOB_LAYER
+	layer = MOB_LAYER
 	invisibility = FALSE
 	mouse_opacity = 1
 	density = TRUE
@@ -201,13 +201,13 @@
 			if(prob(5))
 				H.AdjustEyeBlurry(1)
 
-			if(prob(3))
+			if(prob(5))
 				H.playsound_local(src,'sound/spookoween/insane_low_laugh.ogg', 1)
 
-			if(prob(10))
+			if(prob(8))
 				H.playsound_local(src,'sound/spookoween/ghost_whisper.ogg', 5)
 
-			if(prob(3))
+			if(prob(5))
 				var/obj/item/I = locate() in orange(H, 8)
 				if(I && !I.anchored)
 					I.throw_at(H, 4, 3)
@@ -222,7 +222,7 @@
 			if(prob(3))
 				H.playsound_local(src,'sound/spookoween/scary_horn.ogg', 2)
 
-			if(prob(2))
+			if(prob(8))
 				H.playsound_local(src,'sound/spookoween/scary_horn2.ogg', 2)
 
 			if(prob(5))
@@ -247,14 +247,12 @@
 				H.slip("???", 5, 2)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
+			if(prob(5))
+				playsound(src, pick('sound/spookoween/scary_horn.ogg', 'sound/spookoween/scary_horn2.ogg', 'sound/spookoween/scary_horn3.ogg'), 30, 1)
+
 			if(prob(3))
-				playsound(src,pick('sound/spookoween/scary_horn.ogg', 'sound/spookoween/scary_horn2.ogg', 'sound/spookoween/scary_horn3.ogg'), 30, 1)
+				playsound(src, pick('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg') , 30, 1)
 
-			if(prob(2))
-				playsound(src,'sound/hallucinations/growl1.ogg', 30, 1)
-
-			if(prob(1))
-				playsound(src,'sound/hallucinations/growl2.ogg', 30, 1)
 
 			if(prob(4))
 				for(var/obj/item/I in orange(H, 5))
@@ -262,28 +260,28 @@
 						I.throw_at(H, 4, 3)
 				to_chat(H, "<span class='warning'>What the hell?!</span>")
 
-			if(prob(2))
+			if(prob(5))
 				to_chat(H, "<span class='warning'>Something feels very wrong...</span>")
 				H.playsound_local(src,'sound/hallucinations/behind_you1.ogg', 25)
 				H.flash_eyes()
 
-			if(prob(2))
+			if(prob(5))
 				to_chat(H, "<font face='Comic Sans MS'><i>!?REHTOMKNOH eht esiarp uoy oD</i></font>")
 				to_chat(H, "<span class='warning'>Something grabs your foot!</span>")
 				H.playsound_local(src,'sound/hallucinations/i_see_you1.ogg', 25)
 				H.Stun(10)
 
-			if(prob(3))
+			if(prob(5))
 				to_chat(H, "<font face='Comic Sans MS'><i>!KNOH ?od nottub siht seod tahW</i></font>")
 				for(var/obj/machinery/M in range(H, 6))
 					M.attack_hand(src)
 
-			if(prob(3))
+			if(prob(6))
 				for(var/turf/simulated/floor/O in range(src, 6))
 					O.MakeSlippery(TURF_WET_WATER, 10)
 					playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
 
-			if(prob(1))
+			if(prob(5))
 				to_chat(H, "<span class='userdanger'>WHAT THE FUCK IS THAT?!</span>")
 				to_chat(H, "<font face='Comic Sans MS'><i>.KNOH !nuf hcum os si uoy htiw gniyalP .KNOH KNOH KNOH</i></font>")
 				H.playsound_local(src,'sound/hallucinations/im_here1.ogg', 25)
@@ -361,37 +359,32 @@
 	var/pure_red = list(0,0,0,0,0,0,0,0,0,1,0,0)
 	H.client.color = pure_red
 
-	animate(H.client,color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
+	animate(H.client, color = red_splash, time = 10, easing = SINE_EASING|EASE_OUT)
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
 	if(do_after(src, 50, target = H))
 
 
-		if(prob(50))
-			if(smiting)//if we are smiting we might as well cluwne them ANYWAY
-				H.makeCluwne()
-				H.adjustBruteLoss(30)
-				H.adjustBrainLoss(100)
-				//..and THEN dismember them...
-			for(var/I in H.bodyparts)
-				var/obj/item/organ/external/O = I
-				if(O.name == "head")//irksome runtimes
-					O.droplimb()
-					continue
-				O.drop_organs()
-				O.droplimb()
-		else
+		if(prob(50) || smiting)
 			H.makeCluwne()
-			H.adjustBruteLoss(30)
-			H.adjustBrainLoss(100)
 
+		H.adjustBruteLoss(30)
+		H.adjustBrainLoss(100)
+		for(var/I in H.bodyparts)
+			var/obj/item/organ/external/O = I
+			if(O.name == "head")//irksome runtimes
+				O.droplimb()
+				continue
+			O.drop_organs()
+			O.droplimb()
+
+	Reset_View(FALSE, old_color, H)
 	H.CureBlind()
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)
 	H.density = initial(H.density)
 	H.anchored = initial(H.anchored)
-	Reset_View(FALSE, old_color, H)
 
 	eating = FALSE
 	if(prob(2))
