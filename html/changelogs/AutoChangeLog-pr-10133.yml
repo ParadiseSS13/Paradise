@@ -1,0 +1,4 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - bugfix: "IPCs and slimes now have an effect on the floor when bleeding."
