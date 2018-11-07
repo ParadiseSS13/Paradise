@@ -471,7 +471,7 @@
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
 				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
 
-				var/list/possible_targets = list("Free objective")
+				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in ticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
 						possible_targets += possible_target.current
@@ -480,8 +480,8 @@
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective:target.current
-				possible_targets = sortNames(possible_targets)
-
+				possible_targets = sortAtom(possible_targets)
+				possible_targets += "Free objective"
 
 				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 				if(!new_target)
@@ -571,11 +571,12 @@
 				new_objective.target_amount = target_number
 
 			if("identity theft")
-				var/list/possible_targets = list("Free objective")
+				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in ticker.minds)
 					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target
-				possible_targets = sortByKey(possible_targets)
+				possible_targets = sortAtom(possible_targets)
+				possible_targets += "Free objective"
 				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 				if(!new_target)
 					return
