@@ -1,4 +1,0 @@
-author: "name here"
-delete-after: True
-changes: 
-  - tweak: "objective lists are now sorted for admins."
