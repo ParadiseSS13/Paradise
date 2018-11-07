@@ -1,0 +1,4 @@
+author: "Squirgenheimer"
+delete-after: True
+changes: 
+  - tweak: "toggling off global antag candidacy will disable you from being selected by the Create Antagonist verb."
