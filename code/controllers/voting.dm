@@ -191,7 +191,7 @@ var/global/list/round_voters = list() //Keeps track of the individuals voting fo
 
 
 	if(restart)
-		world.Reboot("Restart vote successful.", "end_error", "restart vote")
+		world.Reboot("Restart vote successful.", "restart vote")
 
 	return .
 

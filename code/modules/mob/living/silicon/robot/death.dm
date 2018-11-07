@@ -70,4 +70,4 @@
 
 	update_icons()
 
-	sql_report_cyborg_death(src)
+	SSblackbox.ReportDeath(src)

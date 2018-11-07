@@ -273,12 +273,10 @@ var/global/list/all_cults = list()
 	bonus_check()
 
 	if(!check_cult_victory())
-		feedback_set_details("round_end_result","cult win - cult win")
-		feedback_set("round_end_result",acolytes_survived)
+		ticker.mode_result = "cult win - cult win"
 		to_chat(world, "<span class='danger'> <FONT size = 3> The cult wins! It has succeeded in serving its dark masters!</FONT></span>")
 	else
-		feedback_set_details("round_end_result","cult loss - staff stopped the cult")
-		feedback_set("round_end_result",acolytes_survived)
+		ticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
 
 	var/text = "<b>Cultists escaped:</b> [acolytes_survived]"
@@ -291,75 +289,75 @@ var/global/list/all_cults = list()
 				if("survive")
 					if(!check_survive())
 						explanation = "Make sure at least [acolytes_needed] acolytes escape on the shuttle. <font color='green'><B>Success!</B></font>"
-						feedback_add_details("cult_objective","cult_survive|SUCCESS|[acolytes_needed]")
+						SSblackbox.add_details("cult_objective","cult_survive|SUCCESS|[acolytes_needed]")
 					else
 						explanation = "Make sure at least [acolytes_needed] acolytes escape on the shuttle. <font color='red'>Fail.</font>"
-						feedback_add_details("cult_objective","cult_survive|FAIL|[acolytes_needed]")
+						SSblackbox.add_details("cult_objective","cult_survive|FAIL|[acolytes_needed]")
 				if("sacrifice")
 					if(sacrifice_target)
 						if(sacrifice_target in sacrificed)
 							explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='green'><B>Success!</B></font>"
-							feedback_add_details("cult_objective","cult_sacrifice|SUCCESS")
+							SSblackbox.add_details("cult_objective","cult_sacrifice|SUCCESS")
 						else if(sacrifice_target && sacrifice_target.current)
 							explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='red'>Fail.</font>"
-							feedback_add_details("cult_objective","cult_sacrifice|FAIL")
+							SSblackbox.add_details("cult_objective","cult_sacrifice|FAIL")
 						else
 							explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='red'>Fail (Gibbed).</font>"
-							feedback_add_details("cult_objective","cult_sacrifice|FAIL|GIBBED")
+							SSblackbox.add_details("cult_objective","cult_sacrifice|FAIL|GIBBED")
 				if("eldergod")
 					if(!eldergod)
 						explanation = "Summon [ticker.cultdat.entity_name]. <font color='green'><B>Success!</B></font>"
-						feedback_add_details("cult_objective","cult_narsie|SUCCESS")
+						SSblackbox.add_details("cult_objective","cult_narsie|SUCCESS")
 					else
 						explanation = "Summon [ticker.cultdat.entity_name]. <font color='red'>Fail.</font>"
-						feedback_add_details("cult_objective","cult_narsie|FAIL")
+						SSblackbox.add_details("cult_objective","cult_narsie|FAIL")
 				if("slaughter")
 					if(demons_summoned)
 						explanation = "Bring the Slaughter. <span class='greenannounce'>Success!</span>"
-						feedback_add_details("cult_objective","cult_demons|SUCCESS")
+						SSblackbox.add_details("cult_objective","cult_demons|SUCCESS")
 					else
 						explanation = "Bring the Slaughter. <span class='boldannounce'>Fail.</span>"
-						feedback_add_details("cult_objective","cult_demons|FAIL")
+						SSblackbox.add_details("cult_objective","cult_demons|FAIL")
 
 				if("convert")//convert half the crew
 					if(cult.len >= convert_target)
 						explanation = "Convert [convert_target] crewmembers ([cult.len] cultists at round end). <font color='green'><B>Success!</B></font>"
-						feedback_add_details("cult_objective","cult_convertion|SUCCESS")
+						SSblackbox.add_details("cult_objective","cult_convertion|SUCCESS")
 					else
 						explanation = "Convert [convert_target] crewmembers ([cult.len] total cultists). <font color='red'><B>Fail!</B></font>"
-						feedback_add_details("cult_objective","cult_convertion|FAIL")
+						SSblackbox.add_details("cult_objective","cult_convertion|FAIL")
 
 				if("bloodspill")//cover a large portion of the station in blood
 					if(max_spilled_blood >= spilltarget)
 						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='green'><B>Success!</B></font>"
-						feedback_add_details("cult_objective","cult_bloodspill|SUCCESS")
+						SSblackbox.add_details("cult_objective","cult_bloodspill|SUCCESS")
 					else
 						explanation = "Cover [spilltarget] tiles of the station in blood (The peak number of covered tiles was: [max_spilled_blood]). <font color='red'><B>Fail!</B></font>"
-						feedback_add_details("cult_objective","cult_bloodspill|FAIL")
+						SSblackbox.add_details("cult_objective","cult_bloodspill|FAIL")
 
 				if("harvest")
 					if(harvested > harvest_target)
 						explanation = "Offer [harvest_target] humans for [ticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='green'><B>Success!</B></font>"
-						feedback_add_details("cult_objective","cult_harvest|SUCCESS")
+						SSblackbox.add_details("cult_objective","cult_harvest|SUCCESS")
 					else
 						explanation = "Offer [harvest_target] humans for [ticker.cultdat.entity_name]'s first meal of the day. ([harvested] sacrificed) <font color='red'><B>Fail!</B></font>"
-						feedback_add_details("cult_objective","cult_harvest|FAIL")
+						SSblackbox.add_details("cult_objective","cult_harvest|FAIL")
 
 				if("hijack")
 					if(!escaped_shuttle)
 						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='green'><B>Success!</B></font>"
-						feedback_add_details("cult_objective","cult_hijack|SUCCESS")
+						SSblackbox.add_details("cult_objective","cult_hijack|SUCCESS")
 					else
 						explanation = "Do not let a single non-cultist board the Escape Shuttle. ([escaped_shuttle] escaped on the shuttle) ([escaped_pod] escaped on pods) <font color='red'><B>Fail!</B></font>"
-						feedback_add_details("cult_objective","cult_hijack|FAIL")
+						SSblackbox.add_details("cult_objective","cult_hijack|FAIL")
 
 				if("massacre")
 					if(survivors < massacre_target)
 						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humans left alive) <font color='green'><B>Success!</B></font>"
-						feedback_add_details("cult_objective","cult_massacre|SUCCESS")
+						SSblackbox.add_details("cult_objective","cult_massacre|SUCCESS")
 					else
 						explanation = "Massacre the crew until less than [massacre_target] people are left on the station. ([survivors] humans left alive) <font color='red'><B>Fail!</B></font>"
-						feedback_add_details("cult_objective","cult_massacre|FAIL")
+						SSblackbox.add_details("cult_objective","cult_massacre|FAIL")
 
 			text += "<br><B>Objective #[obj_count]</B>: [explanation]"
 

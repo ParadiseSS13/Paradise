@@ -137,6 +137,9 @@
 /proc/log_href(text)
 	WRITE_LOG(GLOB.world_href_log, "HREF: [html_decode(text)]")
 
+/proc/log_sql(text)
+	WRITE_LOG(GLOB.sql_error_log, "SQL: [text]")
+
 /**
  * Standardized method for tracking startup times.
  */
@@ -153,7 +156,7 @@
 
 /* For logging round startup. */
 /proc/start_log(log)
-	WRITE_LOG(log, "Starting up.\n-------------------------")
+	WRITE_LOG(log, "Starting up. Round ID [GLOB.round_id].\n-------------------------")
 
 /* Close open log handles. This should be called as late as possible, and no logging should hapen after. */
 /proc/shutdown_logging()

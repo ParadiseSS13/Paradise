@@ -64,9 +64,9 @@
 		message_admins("[key_name_admin(user)] has changed the security level to [get_security_level()].")
 		switch(security_level)
 			if(SEC_LEVEL_GREEN)
-				feedback_inc("alert_comms_green", 1)
+				SSblackbox.inc("alert_comms_green", 1)
 			if(SEC_LEVEL_BLUE)
-				feedback_inc("alert_comms_blue", 1)
+				SSblackbox.inc("alert_comms_blue", 1)
 	tmp_alertlevel = 0
 
 /datum/computer_file/program/comm/proc/setCurrentMessage(mob/user, value)

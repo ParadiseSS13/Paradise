@@ -181,7 +181,7 @@
 			playsound(src.loc, 'sound/arcade/Win.ogg', 20, 1, extrarange = -6, falloff = 10)
 
 			if(emagged)
-				feedback_inc("arcade_win_emagged")
+				SSblackbox.inc("arcade_win_emagged")
 				new /obj/effect/spawner/newbomb/timer/syndicate(get_turf(src))
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
@@ -189,7 +189,7 @@
 				New()
 				emagged = 0
 			else
-				feedback_inc("arcade_win_normal")
+				SSblackbox.inc("arcade_win_normal")
 				var/score = player_hp + player_mp + 5
 				prizevend(score)
 
@@ -212,10 +212,10 @@
 			temp = "You have been drained! GAME OVER"
 			playsound(src.loc, 'sound/arcade/Lose.ogg', 20, 1, extrarange = -6, falloff = 10)
 			if(emagged)
-				feedback_inc("arcade_loss_mana_emagged")
+				SSblackbox.inc("arcade_loss_mana_emagged")
 				usr.gib()
 			else
-				feedback_inc("arcade_loss_mana_normal")
+				SSblackbox.inc("arcade_loss_mana_normal")
 
 	else if((enemy_hp <= 10) && (enemy_mp > 4))
 		temp = "[enemy_name] heals for 4 health!"
@@ -234,10 +234,10 @@
 		temp = "You have been crushed! GAME OVER"
 		playsound(src.loc, 'sound/arcade/Lose.ogg', 20, 1, extrarange = -6, falloff = 10)
 		if(emagged)
-			feedback_inc("arcade_loss_hp_emagged")
+			SSblackbox.inc("arcade_loss_hp_emagged")
 			usr.gib()
 		else
-			feedback_inc("arcade_loss_hp_normal")
+			SSblackbox.inc("arcade_loss_hp_normal")
 
 	blocked = 0
 	return

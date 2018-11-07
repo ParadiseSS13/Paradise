@@ -63,7 +63,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/controller/master/New()
 	//temporary file used to record errors with loading config, moved to log directory once logging is set up
-	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = "data/logs/config_error.log"
+	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_error_log = "data/logs/config_error.log"
 	load_configuration()
 	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 

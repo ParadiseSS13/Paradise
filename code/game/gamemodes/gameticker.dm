@@ -6,6 +6,9 @@ var/round_start_time = 0
 	var/current_state = GAME_STATE_PREGAME
 	var/force_ending = 0
 
+	var/mode_result = "undefined"
+	var/end_state = "undefined"
+
 	var/hide_mode = 0 // leave here at 0 ! setup() will take care of it when needed for Secret mode -walter0o
 	var/datum/game_mode/mode = null
 	var/event_time = null
@@ -160,6 +163,7 @@ var/round_start_time = 0
 			for(var/obj/effect/landmark/spacepod/random/R in L)
 				qdel(R)
 
+		SSdbcore.SetRoundStart()
 		to_chat(world, "<FONT color='blue'><B>Enjoy the game!</B></FONT>")
 		world << sound('sound/AI/welcome.ogg')// Skie
 
@@ -230,10 +234,6 @@ var/round_start_time = 0
 	*/
 
 	processScheduler.start()
-
-	if(config.sql_enabled)
-		spawn(3000)
-			statistic_cycle() // Polls population totals regularly and stores them in an SQL DB
 
 	votetimer()
 
@@ -403,9 +403,9 @@ var/round_start_time = 0
 			callHook("roundend")
 
 			if(mode.station_was_nuked)
-				world.Reboot("Station destroyed by Nuclear Device.", "end_proper", "nuke")
+				world.Reboot("Station destroyed by Nuclear Device.", "nuke")
 			else
-				world.Reboot("Round ended.", "end_proper", "proper completion")
+				world.Reboot("Round ended.", "proper completion")
 
 	return 1
 
@@ -474,5 +474,7 @@ var/round_start_time = 0
 
 	//Ask the event manager to print round end information
 	event_manager.RoundEnd()
+
+	SSdbcore.SetRoundEnd()
 
 	return 1

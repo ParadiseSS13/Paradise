@@ -109,8 +109,7 @@
 			H.mind.kills += "[key_name(src)]"
 
 	if(ticker && ticker.mode)
-//		log_world("k")
-		sql_report_death(src)
+		SSblackbox.ReportDeath(src)
 
 	if(wearing_rig)
 		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")

@@ -3,7 +3,14 @@
 var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
+	if(SSdbcore.Connect())
+		log_world("Database connection established.")
+	else
+		log_world("Your server failed to establish a connection with the database.")
+	
+	SSdbcore.SetRoundID()
 	SetupLogs()
+	
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 
@@ -27,6 +34,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	// Create robolimbs for chargen.
 	populate_robolimb_list()
+
 
 	Master.Initialize(10, FALSE)
 
@@ -278,7 +286,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	world_topic_spam_protect_ip = addr
 	return "Bad Key"
 
-/world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
+/world/Reboot(var/reason, end_string, var/time)
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
@@ -312,12 +320,12 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(!ticker.delay_end)
 				world << round_end_sound
 	sleep(delay)
-	if(blackbox)
-		blackbox.save_all_data_to_sql()
 	if(ticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
-	feedback_set_details("[feedback_c]","[feedback_r]")
+	if(end_string)
+		ticker.end_state = end_string
+	Master.Shutdown() //run SS shutdowns
 	log_game("<span class='boldannounce'>Rebooting world. [reason]</span>")
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
@@ -432,65 +440,19 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(src.status != s)
 		src.status = s
 
-#define FAILED_DB_CONNECTION_CUTOFF 5
-var/failed_db_connections = 0
-var/failed_old_db_connections = 0
-
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
+	GLOB.sql_error_log = "[GLOB.log_directory]/sql.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_qdel_log)
+	start_log(GLOB.sql_error_log)
 
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
-
-
-/hook/startup/proc/connectDB()
-	if(!setup_database_connection())
-		log_world("Your server failed to establish a connection with the feedback database.")
-	else
-		log_world("Feedback database connection established.")
-	return 1
-
-/proc/setup_database_connection()
-
-	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
-		return 0
-
-	if(!dbcon)
-		dbcon = new()
-
-	var/user = sqlfdbklogin
-	var/pass = sqlfdbkpass
-	var/db = sqlfdbkdb
-	var/address = sqladdress
-	var/port = sqlport
-
-	dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
-	. = dbcon.IsConnected()
-	if( . )
-		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
-	else
-		failed_db_connections++		//If it failed, increase the failed connections counter.
-		log_world(dbcon.ErrorMsg())
-
-	return .
-
-//This proc ensures that the connection to the feedback database (global variable dbcon) is established
-proc/establish_db_connection()
-	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
-		return 0
-
-	if(!dbcon || !dbcon.IsConnected())
-		return setup_database_connection()
-	else
-		return 1
-
-#undef FAILED_DB_CONNECTION_CUTOFF

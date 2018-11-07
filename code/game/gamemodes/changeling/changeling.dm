@@ -202,19 +202,19 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 				for(var/datum/objective/objective in changeling.objectives)
 					if(objective.check_completion())
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
-						feedback_add_details("changeling_objective","[objective.type]|SUCCESS")
+						SSblackbox.add_details("changeling_objective","[objective.type]|SUCCESS")
 					else
 						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
-						feedback_add_details("changeling_objective","[objective.type]|FAIL")
+						SSblackbox.add_details("changeling_objective","[objective.type]|FAIL")
 						changelingwin = 0
 					count++
 
 			if(changelingwin)
 				text += "<br><font color='green'><B>The changeling was successful!</B></font>"
-				feedback_add_details("changeling_success","SUCCESS")
+				SSblackbox.add_details("changeling_success","SUCCESS")
 			else
 				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
-				feedback_add_details("changeling_success","FAIL")
+				SSblackbox.add_details("changeling_success","FAIL")
 
 		to_chat(world, text)
 

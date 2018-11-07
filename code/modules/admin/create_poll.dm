@@ -3,7 +3,7 @@
 	set category = "Server"
 	if(!check_rights(R_SERVER))	
 		return
-	if(!dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	create_poll_window()
@@ -125,7 +125,7 @@ function onload() {
 	
 	var/starttime
 	var/endtime
-	var/DBQuery/query = dbcon.NewQuery("SELECT Now() AS starttime, ADDDATE(Now(), INTERVAL [poll_len] DAY) AS endtime")
+	var/datum/DBQuery/query = SSdbcore.NewQuery("SELECT Now() AS starttime, ADDDATE(Now(), INTERVAL [poll_len] DAY) AS endtime")
 	query.Execute()
 	while(query.NextRow())
 		starttime = query.item[1]
@@ -176,14 +176,14 @@ function onload() {
 					descmax = sanitizeSQL(descmax)
 			option_queries += "INSERT INTO [format_table_name("poll_option")] (pollid, text, percentagecalc, minval, maxval, descmin, descmid, descmax) VALUES ('{POLLID}', '[option]', '[percentagecalc]', '[minval]', '[maxval]', '[descmin]', '[descmid]', '[descmax]')"
 	
-	query = dbcon.NewQuery(pollquery)
+	query = SSdbcore.NewQuery(pollquery)
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")
 		log_game("SQL ERROR adding new poll question to table. Error : \[[err]\]\n")
 		return
 	var/pollid = 0
-	query = dbcon.NewQuery(idquery)
+	query = SSdbcore.NewQuery(idquery)
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")
@@ -192,7 +192,7 @@ function onload() {
 	if(query.NextRow())
 		pollid = text2num(query.item[1])
 	for(var/querytext in option_queries)
-		query = dbcon.NewQuery(replacetext(idquery, "{POLLID}", pollid))
+		query = SSdbcore.NewQuery(replacetext(idquery, "{POLLID}", pollid))
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")

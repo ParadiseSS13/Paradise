@@ -11,13 +11,12 @@
 	return istext(player_age) || player_age >= 30
 
 /client/proc/handle_player_polling()
-	establish_db_connection()
-	if(dbcon.IsConnected())
+	if(SSdbcore.Connect())
 		var/isadmin = 0
 		if(holder)
 			isadmin = 1
 
-		var/DBQuery/select_query = dbcon.NewQuery("SELECT id, question, (id IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = '[ckey]') OR id IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = '[ckey]')) AS voted FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime")
+		var/datum/DBQuery/select_query = SSdbcore.NewQuery("SELECT id, question, (id IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = '[ckey]') OR id IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = '[ckey]')) AS voted FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime")
 		select_query.Execute()
 
 		var/output = "<div align='center'><B>Player polls</B>"
@@ -44,7 +43,7 @@
 		// (just like tgstation's web interface so don't complain)
 		// (Also why was there no ingame interface tg not having an ingame
 		// interface is retarded because it cucks downstreams)
-		select_query = dbcon.NewQuery("SELECT id, question FROM [format_table_name("poll_question")] WHERE Now() > endtime ORDER BY id DESC")
+		select_query = SSdbcore.NewQuery("SELECT id, question FROM [format_table_name("poll_question")] WHERE Now() > endtime ORDER BY id DESC")
 		select_query.Execute()
 		
 		output += "<tr><th>Expired Polls</th></tr>"
@@ -60,10 +59,9 @@
 /client/proc/poll_results(var/pollid = -1)
 	if(pollid == -1)
 		return
-	establish_db_connection()
-	if(!dbcon.IsConnected())
+	if(!SSdbcore.Connect())
 		return
-	var/DBQuery/select_query = dbcon.NewQuery("SELECT polltype, question, adminonly, multiplechoiceoptions, starttime, endtime FROM [format_table_name("poll_question")] WHERE id = [pollid] AND endtime < Now()")
+	var/datum/DBQuery/select_query = SSdbcore.NewQuery("SELECT polltype, question, adminonly, multiplechoiceoptions, starttime, endtime FROM [format_table_name("poll_question")] WHERE id = [pollid] AND endtime < Now()")
 	select_query.Execute()
 	var/question = ""
 	var/polltype = ""
@@ -92,7 +90,7 @@
 	
 	var output = "<!DOCTYPE html><html><body>"
 	if(polltype == POLLTYPE_MULTI || polltype == POLLTYPE_OPTION)
-		select_query = dbcon.NewQuery("SELECT text, percentagecalc, (SELECT COUNT(optionid) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id GROUP BY optionid) AS votecount FROM [format_table_name("poll_option")] WHERE pollid = [pollid]");
+		select_query = SSdbcore.NewQuery("SELECT text, percentagecalc, (SELECT COUNT(optionid) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id GROUP BY optionid) AS votecount FROM [format_table_name("poll_option")] WHERE pollid = [pollid]");
 		select_query.Execute()
 		var/list/options = list()
 		var/total_votes = 1
@@ -140,7 +138,7 @@
 		<tr bgcolor='#ddffdd'>
 			<th colspan='4' align='center'>[question]<br><font size='1'><b>[starttime] - [endtime]</b></font></th>
 		</tr>"}
-		select_query = dbcon.NewQuery("SELECT id, text, (SELECT AVG(rating) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id AND rating != 'abstain') AS avgrating, (SELECT COUNT(rating) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id AND rating != 'abstain') AS countvotes, minval, maxval FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
+		select_query = SSdbcore.NewQuery("SELECT id, text, (SELECT AVG(rating) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id AND rating != 'abstain') AS avgrating, (SELECT COUNT(rating) FROM [format_table_name("poll_vote")] WHERE optionid = poll_option.id AND rating != 'abstain') AS countvotes, minval, maxval FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
 		select_query.Execute()
 		while(select_query.NextRow())
 			output += {"
@@ -156,7 +154,7 @@
 			var/maxvote = 1
 			var/list/votecounts = list()
 			for(var/I in minval to maxval)
-				var/DBQuery/rating_query = dbcon.NewQuery("SELECT COUNT(rating) AS countrating FROM [format_table_name("poll_vote")] WHERE optionid = [optionid] AND rating = [I] GROUP BY rating")
+				var/datum/DBQuery/rating_query = SSdbcore.NewQuery("SELECT COUNT(rating) AS countrating FROM [format_table_name("poll_vote")] WHERE optionid = [optionid] AND rating = [I] GROUP BY rating")
 				rating_query.Execute()
 				var/votecount = 0
 				while(rating_query.NextRow())
@@ -177,7 +175,7 @@
 			output += "</table></td></tr>"
 		output += "</table>"
 	if(polltype == POLLTYPE_TEXT)
-		select_query = dbcon.NewQuery("SELECT replytext, COUNT(replytext) AS countresponse, GROUP_CONCAT(DISTINCT ckey SEPARATOR ', ') as ckeys FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] GROUP BY replytext ORDER BY countresponse DESC");
+		select_query = SSdbcore.NewQuery("SELECT replytext, COUNT(replytext) AS countresponse, GROUP_CONCAT(DISTINCT ckey SEPARATOR ', ') as ckeys FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] GROUP BY replytext ORDER BY countresponse DESC");
 		select_query.Execute()
 		output += {"
 		<table width='900' align='center' bgcolor='#eeffee' cellspacing='0' cellpadding='4'>
@@ -200,10 +198,8 @@
 
 /client/proc/poll_player(var/pollid = -1, var/inline = 0)
 	if(pollid == -1) return
-	establish_db_connection()
-	if(dbcon.IsConnected())
-
-		var/DBQuery/select_query = dbcon.NewQuery("SELECT starttime, endtime, question, polltype, multiplechoiceoptions FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime [holder ? "AND adminonly = 0" : ""]")
+	if(SSdbcore.Connect())
+		var/datum/DBQuery/select_query = SSdbcore.NewQuery("SELECT starttime, endtime, question, polltype, multiplechoiceoptions FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime [holder ? "AND adminonly = 0" : ""]")
 		select_query.Execute()
 
 		var/pollstarttime = ""
@@ -229,7 +225,7 @@
 		switch(polltype)
 			//Polls that have enumerated options
 			if(POLLTYPE_OPTION)
-				var/DBQuery/voted_query = dbcon.NewQuery("SELECT optionid FROM [format_table_name("poll_vote")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
+				var/datum/DBQuery/voted_query = SSdbcore.NewQuery("SELECT optionid FROM [format_table_name("poll_vote")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
 				voted_query.Execute()
 
 				var/voted = 0 // If the can't vote then consider them voted
@@ -241,7 +237,7 @@
 
 				var/list/datum/polloption/options = list()
 
-				var/DBQuery/options_query = dbcon.NewQuery("SELECT id, text FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
+				var/datum/DBQuery/options_query = SSdbcore.NewQuery("SELECT id, text FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
 				options_query.Execute()
 				while(options_query.NextRow())
 					var/datum/polloption/PO = new()
@@ -286,7 +282,7 @@
 
 			//Polls with a text input
 			if(POLLTYPE_TEXT)
-				var/DBQuery/voted_query = dbcon.NewQuery("SELECT replytext FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
+				var/datum/DBQuery/voted_query = SSdbcore.NewQuery("SELECT replytext FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
 				voted_query.Execute()
 
 				var/voted = 0
@@ -331,7 +327,7 @@
 
 			//Polls with a text input
 			if(POLLTYPE_RATING)
-				var/DBQuery/voted_query = dbcon.NewQuery("SELECT o.text, v.rating FROM [format_table_name("poll_option")] o, erro_poll_vote v WHERE o.pollid = [pollid] AND v.ckey = '[ckey]' AND o.id = v.optionid")
+				var/datum/DBQuery/voted_query = SSdbcore.NewQuery("SELECT o.text, v.rating FROM [format_table_name("poll_option")] o, erro_poll_vote v WHERE o.pollid = [pollid] AND v.ckey = '[ckey]' AND o.id = v.optionid")
 				voted_query.Execute()
 				
 				var/output
@@ -358,7 +354,7 @@
 					var/minid = 999999
 					var/maxid = 0
 
-					var/DBQuery/option_query = dbcon.NewQuery("SELECT id, text, minval, maxval, descmin, descmid, descmax FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
+					var/datum/DBQuery/option_query = SSdbcore.NewQuery("SELECT id, text, minval, maxval, descmin, descmid, descmax FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
 					option_query.Execute()
 					while(option_query.NextRow())
 						var/optionid = text2num(option_query.item[1])
@@ -404,7 +400,7 @@
 				else
 					src << browse(output,"window=playerpoll;size=500x500")
 			if(POLLTYPE_MULTI)
-				var/DBQuery/voted_query = dbcon.NewQuery("SELECT optionid FROM [format_table_name("poll_vote")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
+				var/datum/DBQuery/voted_query = SSdbcore.NewQuery("SELECT optionid FROM [format_table_name("poll_vote")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
 				voted_query.Execute()
 
 				var/list/votedfor = list()
@@ -417,7 +413,7 @@
 				var/maxoptionid = 0
 				var/minoptionid = 0
 
-				var/DBQuery/options_query = dbcon.NewQuery("SELECT id, text FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
+				var/datum/DBQuery/options_query = SSdbcore.NewQuery("SELECT id, text FROM [format_table_name("poll_option")] WHERE pollid = [pollid]")
 				options_query.Execute()
 				while(options_query.NextRow())
 					var/datum/polloption/PO = new()
@@ -477,10 +473,9 @@
 
 	if(!isnum(pollid) || !isnum(optionid))
 		return
-	establish_db_connection()
-	if(dbcon.IsConnected())
+	if(SSdbcore.Connect())
 
-		var/DBQuery/select_query = dbcon.NewQuery("SELECT starttime, endtime, question, polltype, multiplechoiceoptions FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime [holder ? "AND adminonly = 0" : ""]")
+		var/datum/DBQuery/select_query = SSdbcore.NewQuery("SELECT starttime, endtime, question, polltype, multiplechoiceoptions FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime [holder ? "AND adminonly = 0" : ""]")
 		select_query.Execute()
 
 		var/validpoll = 0
@@ -498,7 +493,7 @@
 			to_chat(usr, "<span class='warning'>Poll is not valid.</span>")
 			return
 
-		var/DBQuery/select_query2 = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_option")] WHERE id = [optionid] AND pollid = [pollid]")
+		var/datum/DBQuery/select_query2 = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_option")] WHERE id = [optionid] AND pollid = [pollid]")
 		select_query2.Execute()
 
 		var/validoption = 0
@@ -513,7 +508,7 @@
 
 		var/alreadyvoted = 0
 
-		var/DBQuery/voted_query = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_vote")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
+		var/datum/DBQuery/voted_query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_vote")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
 		voted_query.Execute()
 
 		while(voted_query.NextRow())
@@ -534,7 +529,7 @@
 			adminrank = usr.client.holder.rank
 
 
-		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO [format_table_name("poll_vote")] (id ,datetime ,pollid ,optionid ,ckey ,ip ,adminrank) VALUES (null, Now(), [pollid], [optionid], '[ckey]', '[usr.client.address]', '[adminrank]')")
+		var/datum/DBQuery/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("poll_vote")] (id ,datetime ,pollid ,optionid ,ckey ,ip ,adminrank) VALUES (null, Now(), [pollid], [optionid], '[ckey]', '[usr.client.address]', '[adminrank]')")
 		insert_query.Execute()
 
 		to_chat(usr, "<span class='notice'>Vote successful.</span>")
@@ -547,10 +542,9 @@
 
 	if(!isnum(pollid) || !istext(replytext))
 		return
-	establish_db_connection()
-	if(dbcon.IsConnected())
-
-		var/DBQuery/select_query = dbcon.NewQuery("SELECT starttime, endtime, question, polltype FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime [holder ? "AND adminonly = 0" : ""]")
+	
+	if(SSdbcore.Connect())
+		var/datum/DBQuery/select_query = SSdbcore.NewQuery("SELECT starttime, endtime, question, polltype FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime [holder ? "AND adminonly = 0" : ""]")
 		select_query.Execute()
 
 		var/validpoll = 0
@@ -567,7 +561,7 @@
 
 		var/alreadyvoted = 0
 
-		var/DBQuery/voted_query = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
+		var/datum/DBQuery/voted_query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_textreply")] WHERE pollid = [pollid] AND ckey = '[ckey]'")
 		voted_query.Execute()
 
 		while(voted_query.NextRow())
@@ -592,7 +586,7 @@
 			to_chat(usr, "The text you entered was blank, contained illegal characters or was too long. Please correct the text and submit again.")
 			return
 
-		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO [format_table_name("poll_textreply")] (id ,datetime ,pollid ,ckey ,ip ,replytext ,adminrank) VALUES (null, Now(), [pollid], '[ckey]', '[usr.client.address]', '[replytext]', '[adminrank]')")
+		var/datum/DBQuery/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("poll_textreply")] (id ,datetime ,pollid ,ckey ,ip ,replytext ,adminrank) VALUES (null, Now(), [pollid], '[ckey]', '[usr.client.address]', '[replytext]', '[adminrank]')")
 		insert_query.Execute()
 
 		to_chat(usr, "<span class='notice'>Feedback logging successful.</span>")
@@ -605,10 +599,9 @@
 
 	if(!isnum(pollid) || !isnum(optionid))
 		return
-	establish_db_connection()
-	if(dbcon.IsConnected())
+	if(SSdbcore.Connect())
 
-		var/DBQuery/select_query = dbcon.NewQuery("SELECT starttime, endtime, question, polltype FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime [holder ? "AND adminonly = 0" : ""]")
+		var/datum/DBQuery/select_query = SSdbcore.NewQuery("SELECT starttime, endtime, question, polltype FROM [format_table_name("poll_question")] WHERE id = [pollid] AND Now() BETWEEN starttime AND endtime [holder ? "AND adminonly = 0" : ""]")
 		select_query.Execute()
 
 		var/validpoll = 0
@@ -623,7 +616,7 @@
 			to_chat(usr, "<span class='warning'>Poll is not valid.</span>")
 			return
 
-		var/DBQuery/select_query2 = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_option")] WHERE id = [optionid] AND pollid = [pollid]")
+		var/datum/DBQuery/select_query2 = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_option")] WHERE id = [optionid] AND pollid = [pollid]")
 		select_query2.Execute()
 
 		var/validoption = 0
@@ -638,7 +631,7 @@
 
 		var/alreadyvoted = 0
 
-		var/DBQuery/voted_query = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_vote")] WHERE optionid = [optionid] AND ckey = '[ckey]'")
+		var/datum/DBQuery/voted_query = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_vote")] WHERE optionid = [optionid] AND ckey = '[ckey]'")
 		voted_query.Execute()
 
 		while(voted_query.NextRow())
@@ -654,7 +647,7 @@
 			adminrank = usr.client.holder.rank
 
 
-		var/DBQuery/insert_query = dbcon.NewQuery("INSERT INTO [format_table_name("poll_vote")] (id ,datetime ,pollid ,optionid ,ckey ,ip ,adminrank, rating) VALUES (null, Now(), [pollid], [optionid], '[ckey]', '[usr.client.address]', '[adminrank]', [(isnull(rating)) ? "null" : rating])")
+		var/datum/DBQuery/insert_query = SSdbcore.NewQuery("INSERT INTO [format_table_name("poll_vote")] (id ,datetime ,pollid ,optionid ,ckey ,ip ,adminrank, rating) VALUES (null, Now(), [pollid], [optionid], '[ckey]', '[usr.client.address]', '[adminrank]', [(isnull(rating)) ? "null" : rating])")
 		insert_query.Execute()
 
 		to_chat(usr, "<span class='notice'>Vote successful.</span>")

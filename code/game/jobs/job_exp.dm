@@ -209,7 +209,7 @@ var/global/list/role_playtime_requirements = list(
 		return "none"
 
 /proc/update_exp(var/mins, var/ann = 0)
-	if(!establish_db_connection())
+	if(!SSdbcore.Connect())
 		return -1
 	spawn(0)
 		for(var/client/L in GLOB.clients)
@@ -222,7 +222,7 @@ var/global/list/role_playtime_requirements = list(
 /client/proc/update_exp_client(var/minutes, var/announce_changes = 0)
 	if(!src ||!ckey)
 		return
-	var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[ckey]'")
+	var/datum/DBQuery/exp_read = SSdbcore.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[ckey]'")
 	if(!exp_read.Execute())
 		var/err = exp_read.ErrorMsg()
 		log_game("SQL ERROR during exp_update_client read. Error : \[[err]\]\n")
@@ -264,7 +264,7 @@ var/global/list/role_playtime_requirements = list(
 	var/new_exp = list2params(play_records)
 	prefs.exp = new_exp
 	new_exp = sanitizeSQL(new_exp)
-	var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]' WHERE ckey='[ckey]'")
+	var/datum/DBQuery/update_query = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]' WHERE ckey='[ckey]'")
 	if(!update_query.Execute())
 		var/err = update_query.ErrorMsg()
 		log_game("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")

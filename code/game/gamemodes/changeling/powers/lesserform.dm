@@ -26,5 +26,5 @@
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	H.monkeyize()
 	changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/humanform(null)
-	feedback_add_details("changeling_powers","LF")
+	SSblackbox.add_details("changeling_powers","LF")
 	return 1

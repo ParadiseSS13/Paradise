@@ -229,7 +229,7 @@ obj/item/gun/proc/newshot()
 			user.update_inv_l_hand()
 		else
 			user.update_inv_r_hand()
-	feedback_add_details("gun_fired","[type]")
+	SSblackbox.add_details("gun_fired","[type]")
 
 /obj/item/gun/attack(mob/M as mob, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging

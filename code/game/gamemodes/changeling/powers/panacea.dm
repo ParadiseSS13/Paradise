@@ -39,5 +39,5 @@
 			continue
 		D.cure()
 
-	feedback_add_details("changeling_powers","AP")
+	SSblackbox.add_details("changeling_powers","AP")
 	return 1

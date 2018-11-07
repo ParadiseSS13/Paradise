@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
-		feedback_add_details("traitor_uplink_items_bought", name)
+		SSblackbox.add_details("traitor_uplink_items_bought", name)
 		return new item(loc)
 
 /datum/uplink_item/proc/description()
@@ -1320,7 +1320,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(findtext(item, /obj/item/organ/internal/cyberimp))
 			U.uses -= max(cost, 0)
 			U.used_TC += cost
-			feedback_add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
+			SSblackbox.add_details("traitor_uplink_items_bought", name) //this one and the line before copypasted because snowflaek code
 			return new /obj/item/storage/box/cyber_implants(loc, item)
 		else
 			return ..()
@@ -1439,7 +1439,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(possible_items.len)
 		var/datum/uplink_item/I = pick(possible_items)
 		U.uses -= max(0, I.cost)
-		feedback_add_details("traitor_uplink_items_bought","RN")
+		SSblackbox.add_details("traitor_uplink_items_bought","RN")
 		return new I.item(loc) */
 
 /datum/uplink_item/badass/surplus_crate

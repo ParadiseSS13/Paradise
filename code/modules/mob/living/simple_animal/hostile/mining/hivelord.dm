@@ -81,15 +81,15 @@
 	update_icon()
 
 	if(implanted)
-		feedback_add_details("hivelord_core", "[type]|implanted")
+		SSblackbox.add_details("hivelord_core", "[type]|implanted")
 	else
-		feedback_add_details("hivelord_core", "[type]|stabilizer")
+		SSblackbox.add_details("hivelord_core", "[type]|stabilizer")
 
 
 /obj/item/organ/internal/hivelord_core/proc/go_inert()
 	inert = TRUE
 	desc = "The remains of a hivelord that have become useless, having been left alone too long after being harvested."
-	feedback_add_details("hivelord_core", "[src.type]|inert")
+	SSblackbox.add_details("hivelord_core", "[src.type]|inert")
 	update_icon()
 
 /obj/item/organ/internal/hivelord_core/ui_action_click()
@@ -113,10 +113,10 @@
 				return
 			if(H != user)
 				H.visible_message("[user] forces [H] to apply [src]... They quickly regenerate all injuries!")
-				feedback_add_details("hivelord_core","[src.type]|used|other")
+				SSblackbox.add_details("hivelord_core","[src.type]|used|other")
 			else
 				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. It feels and smells disgusting, but you feel amazingly refreshed in mere moments.</span>")
-				feedback_add_details("hivelord_core","[src.type]|used|self")
+				SSblackbox.add_details("hivelord_core","[src.type]|used|self")
 			playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 			H.revive()
 			user.drop_item()

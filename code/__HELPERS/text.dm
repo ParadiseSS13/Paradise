@@ -19,7 +19,7 @@
 		return null
 	if(!istext(t))
 		t = "[t]" // Just quietly assume any non-texts are supposed to be text
-	var/sqltext = dbcon.Quote(t);
+	var/sqltext = SSdbcore.Quote(t)
 	return copytext(sqltext, 2, lentext(sqltext));//Quote() adds quotes around input, we already do that
 
 /proc/format_table_name(table as text)

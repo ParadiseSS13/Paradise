@@ -25,11 +25,11 @@ var/list/whitelist = list()
 			return 1
 		if(check_rights(R_ADMIN, 0, M))
 			return 1
-		if(!dbcon.IsConnected())
+		if(!SSdbcore.IsConnected())
 			to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
 			return 0
 		else
-			var/DBQuery/query = dbcon.NewQuery("SELECT job FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
+			var/datum/DBQuery/query = SSdbcore.NewQuery("SELECT job FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
 			query.Execute()
 
 
@@ -72,11 +72,11 @@ var/list/whitelist = list()
 		return 1
 	if(!alien_whitelist)
 		return 0
-	if(!dbcon.IsConnected())
+	if(!SSdbcore.IsConnected())
 		to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
 		return 0
 	else
-		var/DBQuery/query = dbcon.NewQuery("SELECT species FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
+		var/datum/DBQuery/query = SSdbcore.NewQuery("SELECT species FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
 		query.Execute()
 
 		while(query.NextRow())

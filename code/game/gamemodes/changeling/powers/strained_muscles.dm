@@ -47,5 +47,5 @@
 			stacks--
 		sleep(20)
 
-	feedback_add_details("changeling_powers","SANIC")
+	SSblackbox.add_details("changeling_powers","SANIC")
 	return 1

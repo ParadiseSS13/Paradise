@@ -586,7 +586,7 @@ var/global/datum/controller/occupations/job_master
 			else level4++ //not selected
 
 		tmp_str += "HIGH=[level1]|MEDIUM=[level2]|LOW=[level3]|NEVER=[level4]|BANNED=[level5]|YOUNG=[level6]|DISABILITY=[level7]|-"
-		feedback_add_details("job_preferences",tmp_str)
+		SSblackbox.add_details("job_preferences",tmp_str)
 
 
 /datum/controller/occupations/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)

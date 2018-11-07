@@ -50,7 +50,7 @@
 		used = TRUE
 
 	if(used)
-		feedback_add_details("changeling_powers","BD")
+		SSblackbox.add_details("changeling_powers","BD")
 	return TRUE
 
 /obj/effect/proc_holder/changeling/biodegrade/proc/dissolve_handcuffs(mob/living/carbon/human/user, obj/O)

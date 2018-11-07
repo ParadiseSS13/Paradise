@@ -111,7 +111,7 @@
 
 	spawn(10)
 		transform_dna(target,selected_dna)//target is always human so no problem here
-	feedback_add_details("changeling_powers","TS")
+	SSblackbox.add_details("changeling_powers","TS")
 	return TRUE
 
 obj/effect/proc_holder/changeling/sting/extract_dna
@@ -130,7 +130,7 @@ obj/effect/proc_holder/changeling/sting/extract_dna
 	add_attack_logs(user, target, "Extraction sting (changeling)")
 	if(!(user.mind.changeling.has_dna(target.dna)))
 		user.mind.changeling.absorb_dna(target, user)
-	feedback_add_details("changeling_powers","ED")
+	SSblackbox.add_details("changeling_powers","ED")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/mute
@@ -144,7 +144,7 @@ obj/effect/proc_holder/changeling/sting/mute
 /obj/effect/proc_holder/changeling/sting/mute/sting_action(var/mob/user, var/mob/living/carbon/target)
 	add_attack_logs(user, target, "Mute sting (changeling)")
 	target.AdjustSilence(30)
-	feedback_add_details("changeling_powers","MS")
+	SSblackbox.add_details("changeling_powers","MS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/blind
@@ -161,7 +161,7 @@ obj/effect/proc_holder/changeling/sting/blind
 	target.BecomeNearsighted()
 	target.EyeBlind(20)
 	target.EyeBlurry(40)
-	feedback_add_details("changeling_powers","BS")
+	SSblackbox.add_details("changeling_powers","BS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/LSD
@@ -177,7 +177,7 @@ obj/effect/proc_holder/changeling/sting/LSD
 	spawn(rand(300,600))
 		if(target)
 			target.Hallucinate(400)
-	feedback_add_details("changeling_powers","HS")
+	SSblackbox.add_details("changeling_powers","HS")
 	return 1
 
 obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
@@ -193,5 +193,5 @@ obj/effect/proc_holder/changeling/sting/cryo //Enable when mob cooling is fixed 
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
-	feedback_add_details("changeling_powers","CS")
+	SSblackbox.add_details("changeling_powers","CS")
 	return 1

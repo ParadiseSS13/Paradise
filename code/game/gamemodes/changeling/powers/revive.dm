@@ -65,5 +65,5 @@
 	user.mind.changeling.purchasedpowers -= src
 	user.med_hud_set_status()
 	user.med_hud_set_health()
-	feedback_add_details("changeling_powers","CR")
+	SSblackbox.add_details("changeling_powers","CR")
 	return 1

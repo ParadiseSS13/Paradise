@@ -364,7 +364,7 @@
 		if( contents.len )
 			if(mode == 2)
 				spawn(0)
-					feedback_inc("disposal_auto_flush",1)
+					SSblackbox.inc("disposal_auto_flush",1)
 					flush()
 		flush_count = 0
 

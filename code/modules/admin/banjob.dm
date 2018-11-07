@@ -77,17 +77,17 @@ DEBUG
 			else
 				log_runtime(EXCEPTION("Skipping malformed job ban: [s]"))
 	else
-		if(!establish_db_connection())
+		if(!SSdbcore.Connect())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
 			config.ban_legacy_system = 1
 			jobban_loadbanfile()
 			return
 
 		//Job permabans
-		var/DBQuery/permabans = dbcon.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
+		var/datum/DBQuery/permabans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
 		permabans.Execute()
 		// Job tempbans
-		var/DBQuery/tempbans = dbcon.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
+		var/datum/DBQuery/tempbans = SSdbcore.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
 		tempbans.Execute()
 
 		while(TRUE)
@@ -152,7 +152,7 @@ DEBUG
 	else
 		//using the SQL ban system
 		var/is_actually_banned = FALSE
-		var/DBQuery/select_query = dbcon.NewQuery("SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey like '[ckey]' AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned) ORDER BY bantime DESC LIMIT 100")
+		var/datum/DBQuery/select_query = SSdbcore.NewQuery("SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey like '[ckey]' AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned) ORDER BY bantime DESC LIMIT 100")
 		select_query.Execute()
 
 		while(select_query.NextRow())

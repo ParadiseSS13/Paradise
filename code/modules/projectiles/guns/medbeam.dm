@@ -51,7 +51,7 @@
 	spawn(0)
 		current_beam.Start()
 
-	feedback_add_details("gun_fired","[type]")
+	SSblackbox.add_details("gun_fired","[type]")
 
 /obj/item/gun/medbeam/process()
 	var/mob/living/carbon/human/H = loc

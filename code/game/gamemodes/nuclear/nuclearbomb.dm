@@ -390,7 +390,7 @@ var/bomb_set
 															//kinda shit but I couldn't  get permission to do what I wanted to do.
 
 			if(!ticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
-				world.Reboot("Station destroyed by Nuclear Device.", "end_error", "nuke - unhandled ending")
+				world.Reboot("Station destroyed by Nuclear Device.", "nuke - unhandled ending")
 				return
 	return
 

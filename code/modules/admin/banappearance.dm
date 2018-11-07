@@ -51,14 +51,14 @@ DEBUG
 			appearance_keylist=list()
 			log_admin("appearance_keylist was empty")
 	else
-		if(!establish_db_connection())
+		if(!SSdbcore.Connect())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
 			config.ban_legacy_system = 1
 			appearance_loadbanfile()
 			return
 
 		//appearance bans
-		var/DBQuery/query = dbcon.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE bantype = 'APPEARANCE_BAN' AND NOT unbanned = 1")
+		var/datum/DBQuery/query = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("ban")] WHERE bantype = 'APPEARANCE_BAN' AND NOT unbanned = 1")
 		query.Execute()
 
 		while(query.NextRow())

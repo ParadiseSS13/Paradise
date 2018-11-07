@@ -26,7 +26,7 @@ var/list/adminfaxes = list()
 	set category = "Event"
 	if(holder)
 		holder.fax_panel(usr)
-	feedback_add_details("admin_verb","FXP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.add_details("admin_verb","FXP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /datum/admins/proc/fax_panel(var/mob/living/user)

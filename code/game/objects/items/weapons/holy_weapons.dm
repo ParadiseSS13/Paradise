@@ -54,7 +54,7 @@
 
 	var/obj/item/nullrod/holy_weapon = new A
 
-	feedback_set_details("chaplain_weapon","[choice]")
+	SSblackbox.set_details("chaplain_weapon","[choice]")
 
 	if(holy_weapon)
 		holy_weapon.reskinned = TRUE

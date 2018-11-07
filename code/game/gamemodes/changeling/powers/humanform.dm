@@ -39,6 +39,6 @@
 
 	changeling.purchasedpowers -= src
 	//O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/lesserform(null)
-	feedback_add_details("changeling_powers","LFT")
+	SSblackbox.add_details("changeling_powers","LFT")
 	return 1
 

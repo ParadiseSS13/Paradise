@@ -90,7 +90,7 @@
 
 	message_admins("[key_name_admin(src)] has spawned a Gimmick Team.", 1)
 	log_admin("[key_name(src)] used Spawn Gimmick Team.")
-	feedback_add_details("admin_verb","SPAWNGIM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.add_details("admin_verb","SPAWNGIM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
 

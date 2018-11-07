@@ -12,5 +12,5 @@
 		var/obj/structure/spider/spiderling/S = new(user.loc)
 		S.grow_as = /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 
-	feedback_add_details("changeling_powers","SI")
+	SSblackbox.add_details("changeling_powers","SI")
 	return 1

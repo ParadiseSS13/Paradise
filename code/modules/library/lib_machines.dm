@@ -98,7 +98,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=[sqlid]")
+	var/datum/DBQuery/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=[sqlid]")
 	query.Execute()
 
 /datum/library_catalog/proc/rmBookByID(mob/user, id)
@@ -111,7 +111,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[sqlid]")
+	var/datum/DBQuery/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=[sqlid]")
 	query.Execute()
 
 /datum/library_catalog/proc/getBookByID(id)
@@ -121,7 +121,7 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/sqlid = text2num(id)
 	if(!sqlid)
 		return
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
+	var/datum/DBQuery/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=[sqlid]")
 	query.Execute()
 
 	var/list/results=list()

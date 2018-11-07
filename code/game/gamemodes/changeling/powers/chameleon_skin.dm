@@ -17,7 +17,7 @@
 		H.dna.SetSEState(CHAMELEONBLOCK, 1)
 		genemutcheck(H, CHAMELEONBLOCK, null, MUTCHK_FORCED)
 
-	feedback_add_details("changeling_powers","CS")
+	SSblackbox.add_details("changeling_powers","CS")
 	return TRUE
 
 /obj/effect/proc_holder/changeling/chameleon_skin/on_refund(mob/user)
