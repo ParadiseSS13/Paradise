@@ -170,18 +170,21 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		if(AM.anchored)
 			continue
 		still_stuff_to_move = TRUE
-		sleep(1)
-		if(AM.loc == loc) // prevents the object from being affected if it's not currently here.
-			step(AM,forwards)
+		addtimer(CALLBACK(src, .proc/move_thing, AM), 1)
 		CHECK_TICK
-	if(!still_stuff_to_move)
+	if(!still_stuff_to_move && speed_process)
 		makeNormalProcess()
-	else
+	else if(still_stuff_to_move && !speed_process)
 		makeSpeedProcess()
 
 /obj/machinery/conveyor/Crossed(atom/movable/AM)
-	makeSpeedProcess()
+	if(!speed_process)
+		makeSpeedProcess()
 	..()
+
+/obj/machinery/conveyor/proc/move_thing(atom/movable/AM)
+	if(!AM.anchored && AM.loc == loc)
+		step(AM, forwards)
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
 	if(stat & BROKEN)
