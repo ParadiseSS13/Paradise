@@ -1,5 +1,0 @@
-author: "Spartan"
-delete-after: True
-changes: 
-  - tweak: "Plastic bags and wet floor signs can now spawn in maint."
-  - rscadd: "Plastic bags are now supplied to your syndicate uplink. Apply directly to head."

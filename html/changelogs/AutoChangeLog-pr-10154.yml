@@ -1,4 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "Mining bots now function as expected when giving them a health upgrade. No more repairing without healing"
