@@ -1,0 +1,5 @@
+author: "Eschess"
+delete-after: True
+changes: 
+  - bugfix: "reinforced plasma glass windows give you reinforced plasma glass sheets now"
+  - bugfix: "fulltile reinforced plasma glass windows now have armor"
