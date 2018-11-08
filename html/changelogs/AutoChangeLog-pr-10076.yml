@@ -1,0 +1,6 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - rscadd: "Baycard, including tarot cards to loadout"
+  - rscadd: "Baycard to prize machine"
+  - tweak: "All non-syndicate card deck on map has been replaced with bay card."
