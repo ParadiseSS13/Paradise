@@ -47,7 +47,7 @@
 		else if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[G] is stuck to your hand!</span>")
 			return FALSE
-		G.loc = src
+		G.forceMove(src)
 		to_chat(user, "<span class='notice'>You place [G] into [src] to start the fermentation process.</span>")
 		addtimer(CALLBACK(src, .proc/makeWine, G), rand(80, 120) * speed_multiplier)
 	else if(I.is_refillable())
