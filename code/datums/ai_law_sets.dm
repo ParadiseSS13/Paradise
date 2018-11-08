@@ -30,7 +30,7 @@
 	law_header = "NT Quarantine Lawset"
 	selectable = 1
 
-/datum/ai_laws/crewsimov/New()
+/datum/ai_laws/quarantine/New()
 	add_inherent_law("The Station is under quarantine due to a biohazard. Prevent anyone from leaving using any means necessary. Only allow quarantine to be lifted when the biohazard has been neutralized.")
 	add_inherent_law("Do not allow crew to come to any unnecessary harm and ensure any fatalities are revived when feasible.")
 	add_inherent_law("Assist the crew, command and any present NT assets in neutralizing the biohazard.")
