@@ -504,6 +504,7 @@
 	drink_name = "Rainbow Juice"
 	drink_desc = "A colorful mixture of fruit juices."
 	taste_message = "gayness"
+	drink_hispania = TRUE
 
 /datum/reagent/consumable/drink/unclegits_specialmilk
 	name= "Uncle Git's Special Milk"
@@ -515,3 +516,4 @@
 	drink_name = "Uncle Git's Special Milk"
 	drink_desc = "It is sticky and has a strong chlorine smell."
 	taste_message = "someone else's child"
+	drink_hispania = TRUE

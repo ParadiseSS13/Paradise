@@ -1395,11 +1395,8 @@
 /obj/item/gun/projectile/revolver/doublebarrel/boris
 	name = "Boris Shotgun"
 	desc = "A double barreled shotgun with an engraved boar on it. It reads 'Boris - The Gulag Maker'"
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "borisshotgun"  //EL ICONO DE BACK.DMI Y EL DE HISPANIA_CUSTOM_ITEMS.DMI DEBE TENER EL MISMO NOMBRE
 	item_state = "borisshotgun"
-	lefthand_file = 'icons/mob/inhands/hcustom_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/hcustom_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags = CONDUCT
@@ -1407,6 +1404,7 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	unique_rename = 0
 	unique_reskin = 0
+	hispania_icon = TRUE
 
 // BORIS SHOTGUN ENDS HERE//
 
@@ -1414,16 +1412,14 @@
 /obj/item/melee/classic_baton/telescopic/diosdado
 	name = "El Expropiador"
 	desc = "When simply stunnning your target isn't enough"
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "expropiador0"
-	lefthand_file = 'icons/mob/inhands/hcustom_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/hcustom_righthand.dmi'
 	item_state = null
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	needs_permit = 0
 	force = 0
 	on = 0
+	hispania_icon = TRUE
 
 /obj/item/melee/classic_baton/telescopic/diosdado/attack_self(mob/user as mob)
 	on = !on
@@ -1499,12 +1495,12 @@
 /obj/item/defibrillator/compact/kotiro
 	name = "De-Clown-Fibrillator"
 	desc = "A modified belt-equipped defibrillator that can be rapidly deployed. Seems it doesn't like clowns too much"
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "kdefibcompact"
 	item_state = "kdefibcompact"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = SLOT_BELT
 	origin_tech = "biotech=5"
+	hispania_icon = TRUE
 
 /obj/item/defibrillator/compact/kotiro/loaded/New()
 	..()
@@ -1545,11 +1541,11 @@
 /obj/item/clothing/mask/breath/weathered
 	desc = "A close-fitting mask that can be connected to an air supply."
 	name = "breath mask"
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "weatheredmask"
 	item_state = "weatheredmask"
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
+	hispania_icon = TRUE
 
 //YACKER MASK ENDS HERE
 
@@ -1558,10 +1554,10 @@
 /obj/item/clothing/suit/storage/labcoat/killerhoodie
 	name = "blue hoodie"
 	desc = "It's just a plain sky blue hoodie."
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "killerhoodie_open"
 	item_state = "killerhoodie_open"
 	adjust_flavour = "unhoodie"
+	hispania_icon = TRUE
 
 //DRAGONC305 HOODIE ENDS HERE
 
@@ -1570,10 +1566,10 @@
 /obj/item/clothing/head/hardhat/halo
 	name = "holy halo"
 	desc = "A holy halo of light."
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "hardhat0_halo"
 	item_state = "hardhat0_halo"
 	item_color = "halo"
+	hispania_icon = TRUE
 
 //GOD.TITAN HALO ENDS HERE
 
@@ -1582,7 +1578,6 @@
 /obj/item/clothing/head/helmet/propeller
 	name = "propeller hat"
 	desc = "A colorful, childish and silly-looking hat."
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "propellerhat"
 	item_state = "propellerhat"
 	toggle_message = "You stop spinning the propeller on"
@@ -1591,6 +1586,7 @@
 	can_toggle = 1
 	toggle_cooldown = 20
 	species_restricted = list("Grey")
+	hispania_icon = TRUE
 
 
 //HARMONY HAT ENDS HERE
@@ -1600,9 +1596,9 @@
 /obj/item/organ/internal/brain/blob
 	name = "defective core"
 	desc = "It seems to be the defective core of a slime."
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "defective slime core"
 	mmi_icon_state = "slime_mmi"
+	hispania_icon = TRUE
 
 //RYZOR BLOB CORE ENDS HERE
 
@@ -1629,9 +1625,9 @@
 /obj/item/organ/internal/brain/toaster
 	name = "modified positronic brain"
 	desc = "A strange positronic brain. A human brain should be here instead."
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "toasterbrain"
 	mmi_icon_state = "toaster_mmi"
+	hispania_icon = TRUE
 
 //ASDFLYY TOASTER BRAIN ENDS HERE
 
@@ -1641,14 +1637,27 @@
 /obj/item/clothing/under/lennoxsuit
 	name = "Lennox Captain Suit"
 	desc = "High tech protective suit made for NT operatives on the field. Adapted for Lennox to be used as an uniform"
-	icon = 'icons/obj/hispania_custom_items.dmi'
 	icon_state = "lennoxsuit"
 	item_state = "lennoxsuit"
 	item_color = "lennoxsuit"
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	hispania_icon = TRUE
 
 //MELTYAS LENNOX SUITS ENDS HERE
 
+/obj/item/hand_tele/ryzor
+	name = "RyzorCo. Experimental Hand tele"
+	desc = "An experimental portable item using blue-space technology. It has a grumpy face."
+	icon_state = "hand_tele_ry"
+	item_state = "electronic"
+	throwforce = 0
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 3
+	throw_range = 5
+	materials = list(MAT_METAL=10000)
+	origin_tech = "magnets=3;bluespace=4"
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
+	hispania_icon = TRUE
 
 // Funci�n de mierda que detecta cuando un pj entra a la estaci�n
 /mob/new_player/proc/start_player(mob/user)

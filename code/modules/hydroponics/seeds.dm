@@ -37,6 +37,10 @@
 
 /obj/item/seeds/New(loc, nogenes = 0)
 	..()
+
+	icon = (hispania_icon ? 'icons/hispania/obj/hydroponics/seeds.dmi' : icon)
+	growing_icon = (hispania_icon ? 'icons/hispania/obj/hydroponics/growing.dmi' : growing_icon)
+
 	pixel_x = rand(-8, 8)
 	pixel_y = rand(-8, 8)
 

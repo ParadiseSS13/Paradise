@@ -199,7 +199,7 @@
 /obj/item/flag/species/murghal
 	name = "Murghal Flag"
 	desc = "A banner of the Murghal Diplomatic Corps"
-	icon = 'icons/obj/hispania_custom_items.dmi'
+	icon = 'icons/hispania/obj/flag.dmi'
 	icon_state = "murghalflag"
 
 //Chameleon
