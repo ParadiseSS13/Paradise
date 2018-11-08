@@ -1,0 +1,4 @@
+author: "Warior4356"
+delete-after: True
+changes: 
+  - bugfix: "Mecha drills now tell you when they can't drill"
