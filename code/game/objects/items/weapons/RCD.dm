@@ -255,10 +255,9 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 			var/turf/AT = get_turf(A)
 			AT.ChangeTurf(/turf/simulated/floor/plating)
 			return TRUE
-		else
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this floor!</span>")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
-			return FALSE
+		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this floor!</span>")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		return FALSE
 
 	if(isfloorturf(A))
 		if(checkResource(3, user))
@@ -271,10 +270,12 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 				var/turf/AT = A
 				AT.ChangeTurf(/turf/simulated/wall)
 				return TRUE
-		else
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this wall!</span>")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
+		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this wall!</span>")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		return FALSE
+	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for wall construction!</span>")
+	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	return FALSE
 
 /obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
@@ -296,14 +297,13 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 				else
 					T.req_access = door_accesses.Copy()
 				return FALSE
-		else
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this airlock!</span>")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
-	else
-		to_chat(user, "<span class='warning'>ERROR! No stable floor detected for airlock construction!</span>")
+		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to construct this airlock!</span>")
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		return FALSE
+	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for airlock construction!</span>")
+	playsound(loc, 'sound/machines/click.ogg', 50, 1)
+	return FALSE
 
 /obj/item/rcd/proc/mode_decon(atom/A, mob/user)
 	if(iswallturf(A))
@@ -319,10 +319,10 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 				var/turf/AT = A
 				AT.ChangeTurf(/turf/simulated/floor/plating)
 				return TRUE
-		else
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this wall!</span>")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
+		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this wall!</span>")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		return FALSE
 
 	if(isfloorturf(A))
 		if(checkResource(5, user))
@@ -335,10 +335,10 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 				var/turf/AT = A
 				AT.ChangeTurf(/turf/space)
 				return TRUE
-		else
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this floor!</span>")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
+		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this floor!</span>")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		return FALSE
 
 	if(istype(A, /obj/machinery/door/airlock))
 		if(checkResource(20, user))
@@ -350,10 +350,10 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 				playsound(loc, usesound, 50, 1)
 				qdel(A)
 				return TRUE
-		else
-			to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this airlock!</span>")
-			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
+		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this airlock!</span>")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		return FALSE
 
 	if(istype(A, /obj/structure/window)) // You mean the grille of course, do you?
 		A = locate(/obj/structure/grille) in A.loc
@@ -419,10 +419,9 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 		var/turf/AT = A
 		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
 		return 1
-	else
-		to_chat(user, "<span class='warning'>ERROR! No stable floor detected for window construction!</span>")
-		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		return 0
+	to_chat(user, "<span class='warning'>ERROR! Location unsuitable for window construction!</span>")
+	playsound(loc, 'sound/machines/click.ogg', 50, 1)
+	return 0
 
 /obj/item/rcd/afterattack(atom/A, mob/user, proximity)
 	if(!proximity)
