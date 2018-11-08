@@ -83,6 +83,7 @@
 	damage_absorption = list("brute"=0.6,"fire"=0.4,"bullet"=0.6,"laser"=0.6,"energy"=1,"bomb"=0.3)
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
+	normal_step_energy_drain = 0
 
 /obj/mecha/working/ripley/deathripley/New()
 	..()

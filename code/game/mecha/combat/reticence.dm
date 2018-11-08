@@ -15,7 +15,8 @@
 	add_req_access = 0
 	internal_damage_threshold = 60
 	max_equip = 3
-	step_energy_drain = 3
+	step_energy_drain = 3 
+	normal_step_energy_drain = 3
 	stepsound = null
 	turnsound = null
 

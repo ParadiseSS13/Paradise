@@ -1401,6 +1401,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
 
+/datum/uplink_item/badass/plasticbag
+	name = "Plastic Bag"
+	desc = "A simple, plastic bag. Keep out of reach of small children, do not apply to head."
+	reference = "PBAG"
+	item = /obj/item/storage/bag/plasticbag
+	cost = 1
+	excludefrom = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/badass/balloon
 	name = "For showing that you are The Boss"
 	desc = "A useless red balloon with the syndicate logo on it, which can blow the deepest of covers."
