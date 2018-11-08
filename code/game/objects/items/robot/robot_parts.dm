@@ -136,7 +136,7 @@
 	if(l_arm && r_arm)
 		if(l_leg && r_leg)
 			if(chest && head)
-				SSblackbox.inc("cyborg_frames_built",1)
+				SSblackbox.record_feedback("amount", "cyborg_frames_built", 1)
 				return 1
 	return 0
 
@@ -305,7 +305,7 @@
 			O.mmi = W
 			O.Namepick()
 
-			SSblackbox.inc("cyborg_birth",1)
+			SSblackbox.record_feedback("amount", "cyborg_birth", 1)
 			callHook("borgify", list(O))
 
 			forceMove(O)

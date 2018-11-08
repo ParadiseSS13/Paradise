@@ -25,7 +25,7 @@
 		L.on = 1
 		L.broken()
 
-	SSblackbox.add_details("changeling_powers","RS")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /obj/effect/proc_holder/changeling/dissonant_shriek

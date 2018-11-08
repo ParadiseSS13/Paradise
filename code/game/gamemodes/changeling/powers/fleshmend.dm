@@ -32,7 +32,7 @@
 
 	recent_uses++
 	INVOKE_ASYNC(src, .proc/fleshmend, user)
-	SSblackbox.add_details("changeling_powers","RR")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /obj/effect/proc_holder/changeling/fleshmend/proc/fleshmend(mob/living/user)

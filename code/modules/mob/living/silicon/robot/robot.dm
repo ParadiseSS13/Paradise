@@ -398,8 +398,6 @@ var/list/robot_verbs_default = list(
 			module = new /obj/item/robot_module/alien/hunter(src)
 			icon_state = "xenoborg-state-a"
 			modtype = "Xeno-Hu"
-			SSblackbox.inc("xeborg_hunter",1)
-
 
 	//languages
 	module.add_languages(src)
@@ -411,7 +409,7 @@ var/list/robot_verbs_default = list(
 		module_sprites["Custom"] = "[src.ckey]-[modtype]"
 
 	hands.icon_state = lowertext(module.module_type)
-	SSblackbox.inc("cyborg_[lowertext(modtype)]",1)
+	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
 	rename_character(real_name, get_default_name())
 
 	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Nations")

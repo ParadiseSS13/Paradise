@@ -6,7 +6,7 @@
 	prefs.toggles ^= CHAT_GHOSTEARS
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTEARS) ? "see all speech in the world" : "only see speech from nearby mobs"].")
 	prefs.save_preferences(src)
-	SSblackbox.add_details("admin_verb","TGE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TGE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_ghost_sight()
 	set name = "Show/Hide GhostSight"
@@ -15,7 +15,7 @@
 	prefs.toggles ^= CHAT_GHOSTSIGHT
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTSIGHT) ? "see all emotes in the world" : "only see emotes from nearby mobs"].")
 	prefs.save_preferences(src)
-	SSblackbox.add_details("admin_verb","TGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_ghost_radio()
 	set name = "Enable/Disable GhostRadio"
@@ -24,7 +24,7 @@
 	prefs.toggles ^= CHAT_GHOSTRADIO
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTRADIO) ? "hear all radio chat in the world" : "only hear from nearby speakers"].")
 	prefs.save_preferences(src)
-	SSblackbox.add_details("admin_verb","TGR")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TGR")
 
 /client/proc/toggle_hear_radio()
 	set name = "Show/Hide RadioChatter"
@@ -34,7 +34,7 @@
 	prefs.toggles ^= CHAT_RADIO
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.toggles & CHAT_RADIO) ? "now" : "no longer"] see radio chatter from radios or speakers")
-	SSblackbox.add_details("admin_verb","THR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "THR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Admin Bwoinks"
@@ -44,7 +44,7 @@
 	prefs.sound ^= SOUND_ADMINHELP
 	prefs.save_preferences(src)
 	to_chat(usr, "You will [(prefs.sound & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
-	SSblackbox.add_details("admin_verb","AHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "AHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/deadchat() // Deadchat toggle is usable by anyone.
 	set name = "Show/Hide Deadchat"
@@ -58,7 +58,7 @@
 	else
 		to_chat(src, "As a ghost, you will [(prefs.toggles & CHAT_DEAD) ? "now" : "no longer"] see deadchat.")
 
-	SSblackbox.add_details("admin_verb","TDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggleprayers()
 	set name = "Show/Hide Prayers"
@@ -67,7 +67,7 @@
 	prefs.toggles ^= CHAT_PRAYER
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles & CHAT_PRAYER) ? "now" : "no longer"] see prayerchat.")
-	SSblackbox.add_details("admin_verb","TP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/togglescoreboard()
 	set name = "Hide/Display End Round Scoreboard"
@@ -76,7 +76,7 @@
 	prefs.toggles ^= DISABLE_SCOREBOARD
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles & DISABLE_SCOREBOARD) ? "no longer" : "now"] see the end of round scoreboard.")
-	SSblackbox.add_details("admin_verb","TScoreboard") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TScoreboard") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/togglekarmareminder()
 	set name = "Hide/Display End Round Karma Reminder"
@@ -85,7 +85,7 @@
 	prefs.toggles ^= DISABLE_KARMA_REMINDER
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles & DISABLE_KARMA_REMINDER) ? "no longer" : "now"] see the end of round karma reminder.")
-	SSblackbox.add_details("admin_verb","TKarmabugger") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TKarmabugger") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence LobbyMusic"
@@ -101,7 +101,7 @@
 		to_chat(src, "You will no longer hear music in the game lobby.")
 		usr.stop_sound_channel(CHANNEL_LOBBYMUSIC)
 
-	SSblackbox.add_details("admin_verb","TLobby") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TLobby") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/togglemidis()
 	set name = "Hear/Silence Midis"
@@ -115,7 +115,7 @@
 		usr.stop_sound_channel(CHANNEL_ADMIN)
 
 		to_chat(src, "You will no longer hear sounds uploaded by admins; any currently playing midis have been disabled.")
-	SSblackbox.add_details("admin_verb","TMidi") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TMidi") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/listen_ooc()
 	set name = "Show/Hide OOC"
@@ -124,7 +124,7 @@
 	prefs.toggles ^= CHAT_OOC
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles & CHAT_OOC) ? "now" : "no longer"] see messages on the OOC channel.")
-	SSblackbox.add_details("admin_verb","TOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /client/verb/listen_looc()
@@ -134,7 +134,7 @@
 	prefs.toggles ^= CHAT_LOOC
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles & CHAT_LOOC) ? "now" : "no longer"] see messages on the LOOC channel.")
-	SSblackbox.add_details("admin_verb","TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TLOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /client/verb/Toggle_Soundscape() //All new ambience should be added here so it works with this verb until someone better at things comes up with a fix that isn't awful
@@ -148,7 +148,7 @@
 	else
 		to_chat(src, "You will no longer hear ambient sounds.")
 		usr.stop_sound_channel(CHANNEL_AMBIENCE)
-	SSblackbox.add_details("admin_verb","TAmbi") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TAmbi") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
 	set name = "Hear/Silence White Noise"
@@ -161,7 +161,7 @@
 	else
 		to_chat(src, "You will no longer hear ambient white noise.")
 		usr.stop_sound_channel(CHANNEL_BUZZ)
-	SSblackbox.add_details("admin_verb","TBuzz") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TBuzz") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /client/verb/Toggle_Heartbeat() //to toggle off heartbeat sounds, in case they get too annoying
@@ -175,7 +175,7 @@
 	else
 		to_chat(src, "You will no longer hear heartbeat sounds.")
 		usr.stop_sound_channel(CHANNEL_HEARTBEAT)
-	SSblackbox.add_details("admin_verb","Thb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Thb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // This needs a toggle because you people are awful and spammed terrible music
 /client/verb/toggle_instruments()
@@ -188,7 +188,7 @@
 		to_chat(src, "You will now hear people playing musical instruments.")
 	else
 		to_chat(src, "You will no longer hear musical instruments.")
-	SSblackbox.add_details("admin_verb","TInstru") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TInstru") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/setup_character()
 	set name = "Game Preferences"

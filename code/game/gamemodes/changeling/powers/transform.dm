@@ -23,7 +23,7 @@
 		user.mind.speech_span = ""
 		to_chat(user, "<span class='warning'>Our vocal cords have permanently shifted. We will now speak regularly.</span>")
 
-	SSblackbox.add_details("changeling_powers","TR")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /datum/changeling/proc/select_dna(var/prompt, var/title)

@@ -47,5 +47,5 @@
 			stacks--
 		sleep(20)
 
-	SSblackbox.add_details("changeling_powers","SANIC")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

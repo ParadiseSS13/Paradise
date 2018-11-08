@@ -50,7 +50,7 @@
 		used = TRUE
 
 	if(used)
-		SSblackbox.add_details("changeling_powers","BD")
+		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
 
 /obj/effect/proc_holder/changeling/biodegrade/proc/dissolve_handcuffs(mob/living/carbon/human/user, obj/O)

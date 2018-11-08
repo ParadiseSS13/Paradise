@@ -360,24 +360,9 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 		// --- Some more pre-message formatting ---
 		var/part_b = "</span> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/part_c = "</span></span>"
-
-
-		// --- Filter the message; place it in quotes apply a verb ---
-
-		var/quotedmsg = null
-		if(M)
-			quotedmsg = M.say_quote(message)
-		else
-			quotedmsg = "says, \"[message]\""
 
 		// --- This following recording is intended for research and feedback in the use of department radio channels ---
-
-		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/blackbox_msg = "[part_a][name][part_blackbox_b][quotedmsg][part_c]"
-		//var/blackbox_admin_msg = "[part_a][M.name] (Real name: [M.real_name])[part_blackbox_b][quotedmsg][part_c]"
-
-		SSblackbox.LogBroadcast(blackbox_msg, display_freq)
+		SSblackbox.LogBroadcast(display_freq)
 		//End of research and feedback code.
 
 	 /* ###### Send the message ###### */
@@ -529,11 +514,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			part_b_extra = " <i>(Intercepted)</i>"
 
 		var/part_b = "</span><b> \[[freq_text]\][part_b_extra]</b> <span class='message'>" // Tweaked for security headsets -- TLE
-		var/part_blackbox_b = "</span><b> \[[freq_text]\]</b> <span class='message'>"
 		var/part_c = "</span></span>"
-
-		var/blackbox_msg = "[part_a][source][part_blackbox_b]\"[text]\"[part_c]"
-		SSblackbox.LogBroadcast(blackbox_msg, display_freq)
+		SSblackbox.LogBroadcast(display_freq)
 
 		//End of research and feedback code.
 

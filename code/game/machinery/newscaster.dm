@@ -331,7 +331,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				newChannel.channel_name = channel_name
 				newChannel.author = scanned_user
 				newChannel.locked = c_locked
-				SSblackbox.inc("newscaster_channels", 1)
+				SSblackbox.record_feedback("text", "newscaster_channels", 1, "[channel_name]")
 				news_network.network_channels += newChannel //Adding channel to the global network
 				temp = "<span class='good'>Feed channel '[channel_name]' created successfully.</span>"
 				temp_back_screen = NEWSCASTER_MAIN
@@ -371,7 +371,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			newMsg.body = msg
 			if(photo)
 				newMsg.img = photo.img
-			SSblackbox.inc("newscaster_stories",1)
+			SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 			var/announcement = ""
 			for(var/datum/feed_channel/FC in news_network.network_channels)
 				if(FC.channel_name == channel_name)
@@ -818,7 +818,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	return FALSE
 
 /obj/machinery/newscaster/proc/print_paper()
-	SSblackbox.inc("newscaster_newspapers_printed",1)
+	SSblackbox.record_feedback("amount", "newscaster_newspapers_printed",1)
 	var/obj/item/newspaper/NEWSPAPER = new /obj/item/newspaper
 	for(var/datum/feed_channel/FC in news_network.network_channels)
 		NEWSPAPER.news_content += FC

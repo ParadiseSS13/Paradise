@@ -39,6 +39,9 @@
 			S.use(STANDARD_STACK_AMOUNT)
 	return 1
 
+/datum/construction/mecha/spawn_result(name)
+	SSblackbox.record_feedback("tally", "mechas_created", 1, "[name]")
+
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
 	if(istype(used_atom, /obj/item/weldingtool))
 		var/obj/item/weldingtool/W = used_atom
@@ -93,6 +96,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/ripley_chassis/spawn_result()
+	..("Ripley")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/ripley(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -278,13 +282,6 @@
 				holder.icon_state = "ripley12"
 	return 1
 
-/datum/construction/reversible/mecha/ripley/spawn_result()
-	..()
-	SSblackbox.inc("mecha_ripley_created",1)
-	return
-
-
-
 /datum/construction/mecha/gygax_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/gygax_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/gygax_left_arm),//2
@@ -304,6 +301,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/gygax_chassis/spawn_result()
+	..("Gygax")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/gygax(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -559,11 +557,6 @@
 				holder.icon_state = "gygax18"
 	return 1
 
-/datum/construction/reversible/mecha/gygax/spawn_result()
-	..()
-	SSblackbox.inc("mecha_gygax_created",1)
-	return
-
 /datum/construction/mecha/firefighter_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/ripley_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/ripley_left_arm),//2
@@ -583,6 +576,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/firefighter_chassis/spawn_result()
+	..("Firefighter Ripley")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/firefighter(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -782,13 +776,6 @@
 				holder.icon_state = "fireripley13"
 	return 1
 
-/datum/construction/reversible/mecha/firefighter/spawn_result()
-	..()
-	SSblackbox.inc("mecha_firefighter_created",1)
-	return
-
-
-
 /datum/construction/mecha/honker_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/honker_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/honker_left_arm),//2
@@ -808,6 +795,7 @@
 	return 1
 
 /datum/construction/mecha/honker_chassis/spawn_result()
+	..("Honker")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/mecha/honker(const_holder)
 	const_holder.density = 1
@@ -860,11 +848,6 @@
 			qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/honker/spawn_result()
-	..()
-	SSblackbox.inc("mecha_honker_created",1)
-	return
-
 /datum/construction/mecha/reticence_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/reticence_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/reticence_left_arm),//2
@@ -884,6 +867,7 @@
 	return 1
 
 /datum/construction/mecha/reticence_chassis/spawn_result()
+	..("Reticence")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/mecha/reticence(const_holder)
 	const_holder.density = 1
@@ -937,11 +921,6 @@
 			qdel(used_atom)
 	return 1
 
-/datum/construction/mecha/reticence/spawn_result()
-	..()
-	SSblackbox.inc("mecha_reticence_created",1)
-	return
-
 /datum/construction/mecha/durand_chassis
 	steps = list(list("key"=/obj/item/mecha_parts/part/durand_torso),//1
 					 list("key"=/obj/item/mecha_parts/part/durand_left_arm),//2
@@ -961,6 +940,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/durand_chassis/spawn_result()
+	..("Durand")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/durand(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1216,11 +1196,6 @@
 				holder.icon_state = "durand18"
 	return 1
 
-/datum/construction/reversible/mecha/durand/spawn_result()
-	..()
-	SSblackbox.inc("mecha_durand_created",1)
-	return
-
 //PHAZON
 
 /datum/construction/mecha/phazon_chassis
@@ -1243,6 +1218,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/phazon_chassis/spawn_result()
+	..("Phazon")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/phazon(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1540,11 +1516,6 @@
 				qdel(used_atom)
 	return 1
 
-/datum/construction/reversible/mecha/phazon/spawn_result()
-	..()
-	SSblackbox.inc("mecha_phazon_created",1)
-	return
-
 //ODYSSEUS
 
 /datum/construction/mecha/odysseus_chassis
@@ -1566,6 +1537,7 @@
 	return check_all_steps(used_atom,user)
 
 /datum/construction/mecha/odysseus_chassis/spawn_result()
+	..("Odysseus")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/odysseus(const_holder)
 	const_holder.icon = 'icons/mecha/mech_construction.dmi'
@@ -1750,8 +1722,3 @@
 				user.visible_message("[user] unfastens the external armor layer.", "You unfasten the external armor layer.")
 				holder.icon_state = "odysseus12"
 	return 1
-
-/datum/construction/reversible/mecha/odysseus/spawn_result()
-	..()
-	SSblackbox.inc("mecha_odysseus_created",1)
-	return

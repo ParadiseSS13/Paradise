@@ -39,6 +39,6 @@
 
 	changeling.purchasedpowers -= src
 	//O.mind.changeling.purchasedpowers += new /obj/effect/proc_holder/changeling/lesserform(null)
-	SSblackbox.add_details("changeling_powers","LFT")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 

@@ -49,7 +49,7 @@ var/list/datum/dna/hivemind_bank = list()
 
 	hivemind_bank += chosen_dna
 	to_chat(user, "<span class='notice'>We channel the DNA of [chosen_name] to the air.</span>")
-	SSblackbox.add_details("changeling_powers","HU")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1
 
 /obj/effect/proc_holder/changeling/hivemind_download
@@ -86,5 +86,5 @@ var/list/datum/dna/hivemind_bank = list()
 
 	changeling.store_dna(chosen_dna, user)
 	to_chat(user, "<span class='notice'>We absorb the DNA of [S] from the air.</span>")
-	SSblackbox.add_details("changeling_powers","HD")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

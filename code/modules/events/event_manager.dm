@@ -307,7 +307,7 @@
 	set category = "Event"
 	if(event_manager)
 		event_manager.Interact(usr)
-	SSblackbox.add_details("admin_verb","EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!

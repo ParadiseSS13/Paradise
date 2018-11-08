@@ -107,7 +107,7 @@ var/global/admin_ooc_colour = "#b82e00"
 	log_admin("[key_name(usr)] has set the default player OOC color to [newColor]")
 
 
-	SSblackbox.add_details("admin_verb","SOOC")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "SOOC")
 
 /client/proc/reset_ooc()
 	set name = "Reset Player OOC Color"
@@ -120,7 +120,7 @@ var/global/admin_ooc_colour = "#b82e00"
 	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
 	log_admin("[key_name(usr)] has reset the default player OOC color")
 
-	SSblackbox.add_details("admin_verb","ROOC")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "ROOC")
 
 /client/proc/colorooc()
 	set name = "Set Your OOC Color"
@@ -135,7 +135,7 @@ var/global/admin_ooc_colour = "#b82e00"
 		prefs.save_preferences(src)
 		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
 
-	SSblackbox.add_details("admin_verb","OC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "OC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/resetcolorooc()
 	set name = "Reset Your OOC Color"
@@ -148,7 +148,7 @@ var/global/admin_ooc_colour = "#b82e00"
 	prefs.save_preferences(src)
 	to_chat(usr, "Your OOC color has been reset.")
 
-	SSblackbox.add_details("admin_verb","ROC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "ROC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/looc(msg as text)
 	set name = "LOOC"

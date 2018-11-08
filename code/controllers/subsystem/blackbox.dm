@@ -5,20 +5,10 @@ SUBSYSTEM_DEF(blackbox)
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	init_order = INIT_ORDER_BLACKBOX
 
-	var/list/msg_common = list()
-	var/list/msg_science = list()
-	var/list/msg_command = list()
-	var/list/msg_medical = list()
-	var/list/msg_engineering = list()
-	var/list/msg_security = list()
-	var/list/msg_deathsquad = list()
-	var/list/msg_syndicate = list()
-	var/list/msg_syndteam = list()
-	var/list/msg_service = list()
-	var/list/msg_cargo = list()
-	var/list/msg_other = list()
-
 	var/list/feedback = list()	//list of datum/feedback_variable
+	var/sealed = FALSE	//time to stop tracking stats?
+	var/list/research_levels = list() //list of highest tech levels attained that isn't lost lost by destruction of RD computers
+	var/list/versions = list() //associative list of any feedback variables that have had their format changed since creation and their current version, remember to update this
 
 //poll population
 /datum/controller/subsystem/blackbox/fire()
@@ -33,78 +23,49 @@ SUBSYSTEM_DEF(blackbox)
 	query_record_playercount.Execute()
 
 /datum/controller/subsystem/blackbox/Recover()
-	msg_common = SSblackbox.msg_common
-	msg_science = SSblackbox.msg_science
-	msg_command = SSblackbox.msg_command
-	msg_medical = SSblackbox.msg_medical
-	msg_engineering = SSblackbox.msg_engineering
-	msg_security = SSblackbox.msg_security
-	msg_deathsquad = SSblackbox.msg_deathsquad
-	msg_syndicate = SSblackbox.msg_syndicate
-	msg_syndteam = SSblackbox.msg_syndteam
-	msg_service = SSblackbox.msg_service
-	msg_cargo = SSblackbox.msg_cargo
-	msg_other = SSblackbox.msg_other
-	
 	feedback = SSblackbox.feedback
+	sealed = SSblackbox.sealed
 
 //no touchie
 /datum/controller/subsystem/blackbox/can_vv_get(var_name)
 	if(var_name == "feedback")
-		return FALSE
+		return debug_variable(var_name, deepCopyList(feedback), 0, src)
 	return ..()
 
 /datum/controller/subsystem/blackbox/vv_edit_var(var_name, var_value)
-	return FALSE
+	switch(var_name)
+		if("feedback")
+			return FALSE
+		if("sealed")
+			if(var_value)
+				return Seal()
+			return FALSE
+	return ..()
 
 /datum/controller/subsystem/blackbox/Shutdown()
-	var/pda_msg_amt = 0
-	var/rc_msg_amt = 0
+	sealed = FALSE
+	// record_feedback("tally", "ahelp_stats", GLOB.ahelp_tickets.active_tickets.len, "unresolved")
+	for(var/obj/machinery/message_server/MS in message_servers)
+		if(MS.pda_msgs.len)
+			record_feedback("tally", "radio_usage", MS.pda_msgs.len, "PDA")
+		if(MS.rc_msgs.len)
+			record_feedback("tally", "radio_usage", MS.rc_msgs.len, "request console")
 
-	for (var/obj/machinery/message_server/MS in message_servers)
-		if(MS.pda_msgs.len > pda_msg_amt)
-			pda_msg_amt = MS.pda_msgs.len
-		if(MS.rc_msgs.len > rc_msg_amt)
-			rc_msg_amt = MS.rc_msgs.len
-
-	set_details("radio_usage","")
-	add_details("radio_usage", "COM-[msg_common.len]")
-	add_details("radio_usage", "SCI-[msg_science.len]")
-	add_details("radio_usage", "HEA-[msg_command.len]")
-	add_details("radio_usage", "MED-[msg_medical.len]")
-	add_details("radio_usage", "ENG-[msg_engineering.len]")
-	add_details("radio_usage", "SEC-[msg_security.len]")
-	add_details("radio_usage", "DTH-[msg_deathsquad.len]")
-	add_details("radio_usage", "SYN-[msg_syndicate.len]")
-	add_details("radio_usage", "SYT-[msg_syndteam.len]")
-	add_details("radio_usage", "SRV-[msg_service.len]")
-	add_details("radio_usage", "CAR-[msg_cargo.len]")
-	add_details("radio_usage", "OTH-[msg_other.len]")
-	add_details("radio_usage", "PDA-[pda_msg_amt]")
-	add_details("radio_usage", "RC-[rc_msg_amt]")
+	if(research_levels.len)
+		record_feedback("associative", "high_research_level", 1, research_levels)
 
 	if(!SSdbcore.Connect())
 		return
 
-	var/round_id
-
-	var/datum/DBQuery/query_feedback_max_id = SSdbcore.NewQuery("SELECT MAX(round_id) AS round_id FROM [format_table_name("feedback")]")
-	if(!query_feedback_max_id.Execute())
-		return
-	while (query_feedback_max_id.NextRow())
-		round_id = query_feedback_max_id.item[1]
-
-	if(!isnum(round_id))
-		round_id = text2num(round_id)
-	round_id++
-
 	var/sqlrowlist = ""
 
-	for (var/datum/feedback_variable/FV in feedback)
+	for(var/datum/feedback_variable/FV in feedback)
+		var/sqlversion = 1
+		if(FV.key in versions)
+			sqlversion = versions[FV.key]
 		if(sqlrowlist != "")
 			sqlrowlist += ", " //a comma (,) at the start of the first row to insert will trigger a SQL error
-
-		sqlrowlist += "(null, Now(), [round_id], \"[sanitizeSQL(FV.get_variable())]\", [FV.get_value()], \"[sanitizeSQL(FV.get_details())]\")"
+		sqlrowlist += "(null, Now(), [GLOB.round_id], \"[sanitizeSQL(FV.key)]\", \"[sanitizeSQL(FV.key_type)]\", [sqlversion], \"[sanitizeSQL(json_encode(FV.json))]\")"
 
 	if(sqlrowlist == "")
 		return
@@ -112,63 +73,172 @@ SUBSYSTEM_DEF(blackbox)
 	var/datum/DBQuery/query_feedback_save = SSdbcore.NewQuery("INSERT DELAYED IGNORE INTO [format_table_name("feedback")] VALUES " + sqlrowlist)
 	query_feedback_save.Execute()
 
-/datum/controller/subsystem/blackbox/proc/LogBroadcast(blackbox_msg, freq)
+/datum/controller/subsystem/blackbox/proc/Seal()
+	if(sealed)
+		return FALSE
+	log_game("Blackbox sealed.")
+	sealed = TRUE
+	return TRUE
+
+/datum/controller/subsystem/blackbox/proc/log_research(tech, level)
+	if(!(tech in research_levels) || research_levels[tech] < level)
+		research_levels[tech] = level
+
+/datum/controller/subsystem/blackbox/proc/LogBroadcast(freq)
+	if(sealed)
+		return
 	switch(freq)
 		if(PUB_FREQ)
-			msg_common += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "common")
 		if(SCI_FREQ)
-			msg_science += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "science")
 		if(COMM_FREQ)
-			msg_command += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "command")
 		if(MED_FREQ)
-			msg_medical += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "medical")
 		if(ENG_FREQ)
-			msg_engineering += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "engineering")
 		if(SEC_FREQ)
-			msg_security += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "security")
 		if(DTH_FREQ)
-			msg_deathsquad += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "deathsquad")
 		if(SYND_FREQ)
-			msg_syndicate += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "syndicate")
 		if(SYNDTEAM_FREQ)
-			msg_syndteam += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "syndicate team")
 		if(SUP_FREQ)
-			msg_cargo += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "supply")
 		if(SRV_FREQ)
-			msg_service += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "service")
 		else
-			msg_other += blackbox_msg
+			record_feedback("tally", "radio_usage", 1, "other")
 
-/datum/controller/subsystem/blackbox/proc/find_feedback_datum(variable)
+/datum/controller/subsystem/blackbox/proc/find_feedback_datum(key, key_type)
 	for(var/datum/feedback_variable/FV in feedback)
-		if(FV.get_variable() == variable)
+		if(FV.key == key)
 			return FV
 
-	var/datum/feedback_variable/FV = new(variable)
+	var/datum/feedback_variable/FV = new(key, key_type)
 	feedback += FV
 	return FV
 
-/datum/controller/subsystem/blackbox/proc/set_val(variable, value)
-	var/datum/feedback_variable/FV = find_feedback_datum(variable)
-	FV.set_value(value)
+/*
+feedback data can be recorded in 5 formats:
+"text"
+	used for simple single-string records i.e. the current map
+	further calls to the same key will append saved data unless the overwrite argument is true or it already exists
+	when encoded calls made with overwrite will lack square brackets
+	calls: 	SSblackbox.record_feedback("text", "example", 1, "sample text")
+			SSblackbox.record_feedback("text", "example", 1, "other text")
+	json: {"data":["sample text","other text"]}
+"amount"
+	used to record simple counts of data i.e. the number of ahelps recieved
+	further calls to the same key will add or subtract (if increment argument is a negative) from the saved amount
+	calls:	SSblackbox.record_feedback("amount", "example", 8)
+			SSblackbox.record_feedback("amount", "example", 2)
+	json: {"data":10}
+"tally"
+	used to track the number of occurances of multiple related values i.e. how many times each type of gun is fired
+	further calls to the same key will:
+	 	add or subtract from the saved value of the data key if it already exists
+		append the key and it's value if it doesn't exist
+	calls:	SSblackbox.record_feedback("tally", "example", 1, "sample data")
+			SSblackbox.record_feedback("tally", "example", 4, "sample data")
+			SSblackbox.record_feedback("tally", "example", 2, "other data")
+	json: {"data":{"sample data":5,"other data":2}}
+"nested tally"
+	used to track the number of occurances of structured semi-relational values i.e. the results of arcade machines
+	similar to running total, but related values are nested in a multi-dimensional array built
+	the final element in the data list is used as the tracking key, all prior elements are used for nesting
+	further calls to the same key will:
+	 	add or subtract from the saved value of the data key if it already exists in the same multi-dimensional position
+		append the key and it's value if it doesn't exist
+	calls: 	SSblackbox.record_feedback("nested tally", "example", 1, list("fruit", "orange", "apricot"))
+			SSblackbox.record_feedback("nested tally", "example", 2, list("fruit", "orange", "orange"))
+			SSblackbox.record_feedback("nested tally", "example", 3, list("fruit", "orange", "apricot"))
+			SSblackbox.record_feedback("nested tally", "example", 10, list("fruit", "red", "apple"))
+			SSblackbox.record_feedback("nested tally", "example", 1, list("vegetable", "orange", "carrot"))
+	json: {"data":{"fruit":{"orange":{"apricot":4,"orange":2},"red":{"apple":10}},"vegetable":{"orange":{"carrot":1}}}}
+	tracking values associated with a number can't merge with a nesting value, trying to do so will append the list
+	call:	SSblackbox.record_feedback("nested tally", "example", 3, list("fruit", "orange"))
+	json: {"data":{"fruit":{"orange":{"apricot":4,"orange":2},"red":{"apple":10},"orange":3},"vegetable":{"orange":{"carrot":1}}}}
+"associative"
+	used to record text that's associated with a value i.e. coordinates
+	further calls to the same key will append a new list to existing data
+	calls:	SSblackbox.record_feedback("associative", "example", 1, list("text" = "example", "path" = /obj/item, "number" = 4))
+			SSblackbox.record_feedback("associative", "example", 1, list("number" = 7, "text" = "example", "other text" = "sample"))
+	json: {"data":{"1":{"text":"example","path":"/obj/item","number":"4"},"2":{"number":"7","text":"example","other text":"sample"}}}
 
-/datum/controller/subsystem/blackbox/proc/inc(variable, value)
-	var/datum/feedback_variable/FV = find_feedback_datum(variable)
-	FV.inc(value)
+Versioning
+	If the format of a feedback variable is ever changed, i.e. how many levels of nesting are used or a new type of data is added to it, add it to the versions list
+	When feedback is being saved if a key is in the versions list the value specified there will be used, otherwise all keys are assumed to be version = 1
+	versions is an associative list, remember to use the same string in it as defined on a feedback variable, example:
+	list/versions = list("round_end_stats" = 4,
+						"admin_toggle" = 2,
+						"gun_fired" = 2)
+*/
+/datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
+	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
+		return
+	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
+	switch(key_type)
+		if("text")
+			if(!istext(data))
+				return
+			if(!islist(FV.json["data"]))
+				FV.json["data"] = list()
+			if(overwrite)
+				FV.json["data"] = data
+			else
+				FV.json["data"] |= data
+		if("amount")
+			FV.json["data"] += increment
+		if("tally")
+			if(!islist(FV.json["data"]))
+				FV.json["data"] = list()
+			FV.json["data"]["[data]"] += increment
+		if("nested tally")
+			if(!islist(data))
+				return
+			if(!islist(FV.json["data"]))
+				FV.json["data"] = list()
+			FV.json["data"] = record_feedback_recurse_list(FV.json["data"], data, increment)
+		if("associative")
+			if(!islist(data))
+				return
+			if(!islist(FV.json["data"]))
+				FV.json["data"] = list()
+			var/pos = length(FV.json["data"]) + 1
+			FV.json["data"]["[pos]"] = list() //in 512 "pos" can be replaced with "[FV.json["data"].len+1]"
+			for(var/i in data)
+				FV.json["data"]["[pos]"]["[i]"] = "[data[i]]" //and here with "[FV.json["data"].len]"
 
-/datum/controller/subsystem/blackbox/proc/dec(variable,value)
-	var/datum/feedback_variable/FV = find_feedback_datum(variable)
-	FV.dec(value)
+/datum/controller/subsystem/blackbox/proc/record_feedback_recurse_list(list/L, list/key_list, increment, depth = 1)
+	if(depth == key_list.len)
+		if(L.Find(key_list[depth]))
+			L["[key_list[depth]]"] += increment
+		else
+			var/list/LFI = list(key_list[depth] = increment)
+			L += LFI
+	else
+		if(!L.Find(key_list[depth]))
+			var/list/LGD = list(key_list[depth] = list())
+			L += LGD
+		L["[key_list[depth-1]]"] = .(L["[key_list[depth]]"], key_list, increment, ++depth)
+	return L
 
-/datum/controller/subsystem/blackbox/proc/set_details(variable,details)
-	var/datum/feedback_variable/FV = find_feedback_datum(variable)
-	FV.set_details(details)
+/datum/feedback_variable
+	var/key
+	var/key_type
+	var/list/json = list()
 
-/datum/controller/subsystem/blackbox/proc/add_details(variable,details)
-	var/datum/feedback_variable/FV = find_feedback_datum(variable)
-	FV.add_details(details)
+/datum/feedback_variable/New(new_key, new_key_type)
+	key = new_key
+	key_type = new_key_type
 
 /datum/controller/subsystem/blackbox/proc/ReportDeath(mob/living/L)
+	if(sealed)
+		return
 	if(!SSdbcore.Connect())
 		return
 	if(!L || !L.key || !L.mind)
@@ -197,64 +267,3 @@ SUBSYSTEM_DEF(blackbox)
 VALUES ('[sqlname]', '[sqlkey]', '[sqljob]', '[sqlspecial]', '[sqlpod]', '[SQLtime()]', '[laname]', '[lakey]', '[sqlgender]', \
 [sqlbrute], [sqlfire], [sqlbrain], [sqloxy], '[coord]')")
 	query_report_death.Execute()
-
-
-//feedback variable datum, for storing all kinds of data
-/datum/feedback_variable
-	var/variable
-	var/value
-	var/details
-
-/datum/feedback_variable/New(param_variable, param_value = 0)
-	variable = param_variable
-	value = param_value
-
-/datum/feedback_variable/proc/inc(num = 1)
-	if(isnum(value))
-		value += num
-	else
-		value = text2num(value)
-		if(isnum(value))
-			value += num
-		else
-			value = num
-
-/datum/feedback_variable/proc/dec(num = 1)
-	if(isnum(value))
-		value -= num
-	else
-		value = text2num(value)
-		if(isnum(value))
-			value -= num
-		else
-			value = -num
-
-/datum/feedback_variable/proc/set_value(num)
-	if(isnum(num))
-		value = num
-
-/datum/feedback_variable/proc/get_value()
-	if(!isnum(value))
-		return 0
-	return value
-
-/datum/feedback_variable/proc/get_variable()
-	return variable
-
-/datum/feedback_variable/proc/set_details(text)
-	if(istext(text))
-		details = text
-
-/datum/feedback_variable/proc/add_details(text)
-	if(istext(text))
-		text = replacetext(text, " ", "_")
-		if(!details)
-			details = text
-		else
-			details += " [text]"
-
-/datum/feedback_variable/proc/get_details()
-	return details
-
-/datum/feedback_variable/proc/get_parsed()
-	return list(variable, value, details)

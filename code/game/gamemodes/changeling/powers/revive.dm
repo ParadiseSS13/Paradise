@@ -65,5 +65,5 @@
 	user.mind.changeling.purchasedpowers -= src
 	user.med_hud_set_status()
 	user.med_hud_set_health()
-	SSblackbox.add_details("changeling_powers","CR")
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return 1

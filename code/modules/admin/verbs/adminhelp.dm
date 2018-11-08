@@ -141,7 +141,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 	else
 		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
-	SSblackbox.add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /proc/send2irc_adminless_only(source, msg, requiredflags = R_BAN)

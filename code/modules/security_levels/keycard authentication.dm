@@ -147,13 +147,10 @@
 	switch(event)
 		if("Red Alert")
 			set_security_level(SEC_LEVEL_RED)
-			SSblackbox.inc("alert_keycard_auth_red",1)
 		if("Grant Emergency Maintenance Access")
 			make_maint_all_access()
-			SSblackbox.inc("alert_keycard_auth_maintGrant",1)
 		if("Revoke Emergency Maintenance Access")
 			revoke_maint_all_access()
-			SSblackbox.inc("alert_keycard_auth_maintRevoke",1)
 		if("Emergency Response Team")
 			if(is_ert_blocked())
 				to_chat(usr, "<span class='warning'>All Emergency Response Teams are dispatched and can not be called at this time.</span>")
@@ -169,7 +166,7 @@
 				ert_request_answered = TRUE
 				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = "Reason for ERT"
-				SSblackbox.inc("alert_keycard_auth_ert",1)
+				SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 				spawn(3000)
 					if(!ert_request_answered)
 						ERT_Announce(ert_reason , event_triggered_by, 1)
@@ -188,6 +185,7 @@ var/global/maint_all_access = 0
 			D.update_icon(0)
 	minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
 	maint_all_access = 1
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
 	for(var/area/maintenance/A in world)
@@ -196,3 +194,4 @@ var/global/maint_all_access = 0
 			D.update_icon(0)
 	minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
 	maint_all_access = 0
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))

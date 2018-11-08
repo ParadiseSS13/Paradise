@@ -32,7 +32,7 @@ var/list/sounds_cache = list()
 		if(M.client.prefs.sound & SOUND_MIDI)
 			M << uploaded_sound
 
-	SSblackbox.add_details("admin_verb","PGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "PGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /client/proc/play_local_sound(S as sound)
@@ -43,7 +43,7 @@ var/list/sounds_cache = list()
 	log_admin("[key_name(src)] played a local sound [S]")
 	message_admins("[key_name_admin(src)] played a local sound [S]", 1)
 	playsound(get_turf(src.mob), S, 50, 0, 0)
-	SSblackbox.add_details("admin_verb","PLS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "PLS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/play_server_sound()
 	set category = "Event"
@@ -57,7 +57,7 @@ var/list/sounds_cache = list()
 	if(!melody)	return
 
 	play_sound(melody)
-	SSblackbox.add_details("admin_verb","PSS") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "PSS") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
 
 /client/proc/play_intercomm_sound()
 	set category = "Event"

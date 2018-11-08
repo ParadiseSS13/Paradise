@@ -41,11 +41,7 @@
 		if(do_mob(user, C, 30))
 			apply_cuffs(C,user)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-			if(istype(src, /obj/item/restraints/handcuffs/cable))
-				SSblackbox.add_details("handcuffs","C")
-			else
-				SSblackbox.add_details("handcuffs","H")
-
+			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 			add_attack_logs(user, C, "Handcuffed ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")

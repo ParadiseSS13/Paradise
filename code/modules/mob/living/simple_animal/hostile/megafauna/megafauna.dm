@@ -53,7 +53,7 @@
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
-		SSblackbox.set_details("megafauna_kills","[initial(name)]")
+		SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			grant_achievement(medal_type,score_type)
 	return ..()

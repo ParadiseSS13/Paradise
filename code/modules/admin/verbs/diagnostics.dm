@@ -22,7 +22,7 @@
 	message_admins("[key_name_admin(usr)] has checked the air status of [T]")
 	log_admin("[key_name(usr)] has checked the air status of [T]")
 
-	SSblackbox.add_details("admin_verb","DAST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "DAST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/fix_next_move()
 	set category = "Debug"
@@ -61,7 +61,7 @@
 	message_admins("[key_name_admin(largest_click_mob)] had the largest click delay with [largest_click_time] frames / [largest_click_time/10] seconds!", 1)
 	message_admins("world.time = [world.time]", 1)
 
-	SSblackbox.add_details("admin_verb","UFE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "UFE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/radio_report()
@@ -106,7 +106,7 @@
 	message_admins("[key_name_admin(usr)] has generated a radio report")
 	log_admin("[key_name(usr)] has generated a radio report")
 
-	SSblackbox.add_details("admin_verb","RR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "RR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/reload_admins()
 	set name = "Reload Admins"
@@ -119,7 +119,7 @@
 	log_admin("[key_name(usr)] has manually reloaded admins")
 
 	load_admins()
-	SSblackbox.add_details("admin_verb","RLDA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "RLDA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
 /client/proc/print_jobban_old()

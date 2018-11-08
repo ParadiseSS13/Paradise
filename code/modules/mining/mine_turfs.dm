@@ -396,7 +396,7 @@ var/global/list/rockTurfEdgeCache = list(
 				to_chat(user, "<span class='notice'>You finish cutting into the rock.</span>")
 				P.update_icon()
 				gets_drilled(user)
-				SSblackbox.add_details("pick_used_mining","[P.name]")
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.type)
 	else
 		return attack_hand(user)
 	return
@@ -406,7 +406,7 @@ var/global/list/rockTurfEdgeCache = list(
 		var/i
 		for(i=0;i<mineralAmt;i++)
 			new mineralType(src)
-		SSblackbox.add_details("ore_mined","[mineralType]|[mineralAmt]")
+		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 	N.fullUpdateMineralOverlays()

@@ -51,7 +51,7 @@
 					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
 				return 1
 	//No same spell found - just learn it
-	SSblackbox.add_details("wizard_spell_learned",log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	user.mind.AddSpell(S)
 	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
 	return 1
@@ -265,7 +265,7 @@
 
 /datum/spellbook_entry/item/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
 	new item_path(get_turf(user))
-	SSblackbox.add_details("wizard_spell_learned",log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	return 1
 
 /datum/spellbook_entry/item/GetInfo()
@@ -467,7 +467,7 @@
 		return 1
 
 /datum/spellbook_entry/summon/guns/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	SSblackbox.add_details("wizard_spell_learned",log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	user.rightandwrong(0)
 	book.uses += 1
 	active = 1
@@ -490,7 +490,7 @@
 		return 1
 
 /datum/spellbook_entry/summon/magic/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	SSblackbox.add_details("wizard_spell_learned",log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	user.rightandwrong(1)
 	book.uses += 1
 	active = 1

@@ -69,7 +69,7 @@
 				B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
 			else
 				B.name = "The Holy Book of [new_religion]"
-		SSblackbox.set_details("religion_name","[new_religion]")
+		SSblackbox.record_feedback("text", "religion_name", 1, "[new_religion]", 1)
 
 		var/deity_name = "Space Jesus"
 		var/new_deity = sanitize(copytext(input(H, "Would you like to change your deity? Default is Space Jesus.", "Name change", deity_name),1,MAX_NAME_LEN))
@@ -163,5 +163,5 @@
 			ticker.Bible_item_state = B.item_state
 			ticker.Bible_name = B.name
 			ticker.Bible_deity_name = B.deity_name
-		SSblackbox.set_details("religion_deity","[new_deity]")
-		SSblackbox.set_details("religion_book","[new_book_style]")
+		SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
+		SSblackbox.record_feedback("text", "religion_book", 1, "[new_book_style]", 1)

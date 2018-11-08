@@ -34,4 +34,4 @@ var/list/admin_verbs_show_debug_verbs = list(
 
 	verbs += admin_verbs_show_debug_verbs
 
-	SSblackbox.add_details("admin_verb","mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

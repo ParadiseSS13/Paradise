@@ -42,4 +42,4 @@
 		prefix = "Administrator"
 	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
 
-	SSblackbox.add_details("admin_verb","D") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "D") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

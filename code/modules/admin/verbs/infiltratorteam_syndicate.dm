@@ -133,7 +133,7 @@ var/global/sent_syndicate_infiltration_team = 0
 			to_chat(syndimgmtmob, "<span class='userdanger'>You have spawned as Syndicate Management. You should brief them on their mission before they go.</span>")
 	message_admins("[key_name_admin(src)] has spawned a Syndicate Infiltration Team.", 1)
 	log_admin("[key_name(src)] used Spawn Syndicate Infiltration Team.")
-	SSblackbox.add_details("admin_verb","SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "SPAWNSIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 // ---------------------------------------------------------------------------------------------------------
 

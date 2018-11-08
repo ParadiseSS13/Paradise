@@ -64,11 +64,6 @@
 		//Only notify the admins if an actual change happened
 		log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
-		switch(security_level)
-			if(SEC_LEVEL_GREEN)
-				SSblackbox.inc("alert_comms_green",1)
-			if(SEC_LEVEL_BLUE)
-				SSblackbox.inc("alert_comms_blue",1)
 	tmp_alertlevel = 0
 
 /obj/machinery/computer/communications/Topic(href, href_list)

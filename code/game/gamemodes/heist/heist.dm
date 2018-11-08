@@ -242,10 +242,10 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	for(var/datum/objective/objective in raid_objectives)
 		if(objective.check_completion())
 			to_chat(world, "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>")
-			SSblackbox.add_details("traitor_objective","[objective.type]|SUCCESS")
+			SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 		else
 			to_chat(world, "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>")
-			SSblackbox.add_details("traitor_objective","[objective.type]|FAIL")
+			SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 		count++
 
 	..()

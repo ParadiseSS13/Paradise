@@ -218,7 +218,7 @@
 				M.Friends = Friends.Copy()
 				babies += M
 				M.mutation_chance = Clamp(mutation_chance+(rand(5,-5)),0,100)
-				SSblackbox.add_details("slime_babies_born","slimebirth_[replacetext(M.colour," ","_")]")
+				SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
 
 			var/mob/living/carbon/slime/new_slime = pick(babies)
 			new_slime.universal_speak = universal_speak

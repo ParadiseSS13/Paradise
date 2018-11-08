@@ -475,6 +475,9 @@ var/round_start_time = 0
 	//Ask the event manager to print round end information
 	event_manager.RoundEnd()
 
+	// Seal the blackbox, stop collecting info
+	SSblackbox.Seal()
+
 	SSdbcore.SetRoundEnd()
 
 	return 1

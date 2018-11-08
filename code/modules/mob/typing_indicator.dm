@@ -89,4 +89,4 @@ var/global/image/typing_indicator
 	if(prefs.toggles & SHOW_TYPING)
 		if(istype(mob)) mob.set_typing_indicator(0)
 
-	SSblackbox.add_details("admin_verb","TID") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "TID") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
