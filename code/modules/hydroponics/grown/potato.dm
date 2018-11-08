@@ -25,6 +25,7 @@
 	icon_state = "potato"
 	filling_color = "#E9967A"
 	bitesize = 100
+	distill_reagent = "vodka"
 
 
 /obj/item/reagent_containers/food/snacks/grown/potato/wedges
@@ -33,6 +34,7 @@
 	icon_state = "potato_wedges"
 	filling_color = "#E9967A"
 	bitesize = 100
+	distill_reagent = "sbiten"
 
 
 /obj/item/reagent_containers/food/snacks/grown/potato/attackby(obj/item/W, mob/user, params)
