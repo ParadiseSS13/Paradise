@@ -1029,7 +1029,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/thermal_drill
-	name = "Thermal Drill"
+	name = "Thermal Safe Drill"
 	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
 	reference = "DRL"
 	item = /obj/item/thermal_drill
@@ -1037,7 +1037,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/diamond_drill
-	name = "Diamond Tipped Thermal Drill"
+	name = "Diamond Tipped Thermal Safe Drill"
 	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
 	reference = "DDRL"
 	item = /obj/item/thermal_drill/diamond_drill
