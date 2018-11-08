@@ -1,0 +1,7 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - rscadd: "Mecha now use action buttons instead of ugly verbs."
+  - rscadd: "Mecha weapons can now be selected through a radial menu brought up by Ctrl Clicking on the Mecha while you are piloting it."
+  - rscadd: "Tooltips now appear on radial menu buttons when you hover over them. Seriously, why wasn't this a thing in the first place?"
+  - tweak: "Action button icons are now located in their own file."
