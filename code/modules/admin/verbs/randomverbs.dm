@@ -646,8 +646,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/atom/A = D
 	var/coords = istype(A) ? "at ([A.x], [A.y], [A.z])" : ""
 	if(alert(src, "Are you sure you want to delete:\n[D]\n[coords]?", "Confirmation", "Yes", "No") == "Yes")
-		log_admin("[key_name(usr)] deleted [D][coords]")
-		message_admins("[key_name_admin(usr)] deleted [D][coords]", 1)
+		log_admin("[key_name(usr)] deleted [D] [coords]")
+		message_admins("[key_name_admin(usr)] deleted [D] [coords]", 1)
 		feedback_add_details("admin_verb","DEL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		if(isturf(D))
 			var/turf/T = D

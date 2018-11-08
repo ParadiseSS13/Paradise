@@ -17,7 +17,7 @@
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle
 	name = "Hide Buttons"
-	icon = 'icons/mob/actions.dmi'
+	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "bg_default"
 	var/hidden = 0
 

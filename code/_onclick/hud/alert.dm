@@ -315,6 +315,18 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "Unit's power cell is running low. Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
 	icon_state = "lowcell"
 
+//Diona Nymph
+/obj/screen/alert/nymph
+	name = "Gestalt merge"
+	desc = "You have merged with a diona gestalt and are now part of it's biomass. You can still wiggle yourself free though."
+
+/obj/screen/alert/nymph/Click()
+	if(!usr || !usr.client)
+		return		
+	if(isnymph(usr))
+		var/mob/living/simple_animal/diona/D = usr
+		return D.resist()
+
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /obj/screen/alert/hacked
 	name = "Hacked"
@@ -358,11 +370,47 @@ so as to remain in compliance with the most up-to-date laws."
 		AI.eyeobj.setLoc(T)
 
 //MECHS
-
 /obj/screen/alert/low_mech_integrity
 	name = "Mech Damaged"
 	desc = "Mech integrity is low."
 	icon_state = "low_mech_integrity"
+
+/obj/screen/alert/mech_port_available
+	name = "Connect to Port"
+	desc = "Click here to connect to an air port and refill your oxygen!"
+	icon_state = "mech_port"
+	var/obj/machinery/atmospherics/unary/portables_connector/target = null
+
+/obj/screen/alert/mech_port_available/Destroy()
+	target = null
+	return ..()
+
+/obj/screen/alert/mech_port_available/Click()
+	if(!usr || !usr.client)
+		return
+	if(!istype(usr.loc, /obj/mecha) || !target)
+		return
+	var/obj/mecha/M = usr.loc
+	if(M.connect(target))
+		to_chat(usr, "<span class='notice'>[M] connects to the port.</span>")
+	else
+		to_chat(usr, "<span class='notice'>[M] failed to connect to the port.</span>")
+
+/obj/screen/alert/mech_port_disconnect
+	name = "Disconnect from Port"
+	desc = "Click here to disconnect from your air port."
+	icon_state = "mech_port_x"
+
+/obj/screen/alert/mech_port_disconnect/Click()
+	if(!usr || !usr.client)
+		return
+	if(!istype(usr.loc, /obj/mecha))
+		return
+	var/obj/mecha/M = usr.loc
+	if(M.disconnect())
+		to_chat(usr, "<span class='notice'>[M] disconnects from the port.</span>")
+	else
+		to_chat(usr, "<span class='notice'>[M] is not connected to a port at the moment.</span>")
 
 //GUARDIANS
 /obj/screen/alert/cancharge

@@ -147,6 +147,12 @@
 	icon_state = "emergency_engi"
 	volume = 6
 
+/obj/item/tank/emergency_oxygen/syndi
+	name = "suspicious emergency oxygen tank"
+	icon_state = "emergency_syndi"
+	desc = "A dark emergency oxygen tank. The label on the back reads \"Original Oxygen Tank Design, Do Not Steal.\""
+	volume = 6
+
 /obj/item/tank/emergency_oxygen/double
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"

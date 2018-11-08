@@ -64,7 +64,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/fire_act()
 	light()
 
-/obj/item/clothing/mask/cigarette/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/clothing/mask/cigarette/attackby(obj/item/W as obj, mob/user as mob, mob/living/carbon/target, params)
 	..()
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/WT = W
@@ -89,7 +89,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else if(istype(W, /obj/item/melee/energy/sword/saber))
 		var/obj/item/melee/energy/sword/saber/S = W
 		if(S.active)
-			light("<span class='warning'>[user] swings their [W], barely missing their nose. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] in the process.</span>")
+			light("<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] with [W] in the process.</span>")
 
 	else if(istype(W, /obj/item/assembly/igniter))
 		light("<span class='notice'>[user] fiddles with [W], and manages to light [user.p_their()] [name].</span>")
@@ -107,6 +107,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
+	target.update_inv_wear_mask()
 	user.update_inv_l_hand()
 	user.update_inv_r_hand()
 	return
@@ -195,7 +196,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(reagents && reagents.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
-			reagents.trans_to(C, REAGENTS_METABOLISM)
+			for (var/datum/reagent/R in reagents.reagent_list)
+				reagents.trans_to(C, REAGENTS_METABOLISM)
 			if(!reagents.total_volume) // There were reagents, but now they're gone
 				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
 		else // else just remove some of the reagents
@@ -232,7 +234,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	throw_speed = 0.5
 	item_state = "spliffoff"
 	smoketime = 180
-	chem_volume = 50
+	chem_volume = 100
 
 /obj/item/clothing/mask/cigarette/rollie/New()
 	..()

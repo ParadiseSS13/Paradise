@@ -35,10 +35,12 @@
 	#include "map_files\RandomRuins\SpaceRuins\intactemptyship.dmm"
 	#include "map_files\RandomRuins\SpaceRuins\listeningpost.dmm"
 	#include "map_files\RandomRuins\SpaceRuins\mechtransport.dmm"
+	#include "map_files\RandomRuins\SpaceRuins\oldstation.dmm"
 	#include "map_files\RandomRuins\SpaceRuins\onehalf.dmm"
 	#include "map_files\RandomRuins\SpaceRuins\spacebar.dmm"
 	#include "map_files\RandomRuins\SpaceRuins\turretedoutpost.dmm"
 	#include "map_files\RandomRuins\SpaceRuins\way_home.dmm"
+
 
 	// Shuttle Templates
 	#include "map_files\shuttles\cargo_base.dmm"

@@ -1,4 +1,4 @@
 author: "Citinited"
 delete-after: True
 changes: 
-  - bugfix: "A disposal nullspace bug."
+  - tweak: "Conveyors use less power now"

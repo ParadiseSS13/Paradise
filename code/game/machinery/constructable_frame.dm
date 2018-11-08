@@ -730,6 +730,13 @@ obj/item/circuitboard/rdserver
 							/obj/item/stock_parts/matter_bin = 1)
 	var/target
 
+/obj/item/circuitboard/teleporter_perma/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/gps))
+		var/obj/item/gps/L = I
+		if(L.locked_location)
+			target = get_turf(L.locked_location)
+			to_chat(user, "<span class='caution'>You upload the data from [L]</span>")
+
 /obj/item/circuitboard/telesci_pad
 	name = "Circuit board (Telepad)"
 	build_path = /obj/machinery/telepad
