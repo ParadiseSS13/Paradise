@@ -1,0 +1,4 @@
+author: "Eschess"
+delete-after: True
+changes: 
+  - bugfix: "fixes the NOR, NAND and XOR logical gates"

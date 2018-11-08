@@ -141,16 +141,15 @@ Class Procs:
 /obj/machinery/makeSpeedProcess()
 	if(speed_process)
 		return
-	speed_process = 1
+	speed_process = TRUE
 	STOP_PROCESSING(SSmachines, src)
 	GLOB.fast_processing += src
-	isprocessing = TRUE
 
 // gotta go slow
 /obj/machinery/makeNormalProcess()
 	if(!speed_process)
 		return
-	speed_process = 0
+	speed_process = FALSE
 	START_PROCESSING(SSmachines, src)
 	GLOB.fast_processing -= src
 

@@ -21,6 +21,7 @@
 	icon_state = "carrot"
 	filling_color = "#FFA500"
 	bitesize_mod = 2
+	wine_power = 0.3
 
 /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
 	name = "carrot wedges"
@@ -59,6 +60,7 @@
 	desc = "Closely related to carrots."
 	icon_state = "parsnip"
 	bitesize_mod = 2
+	wine_power = 0.35
 
 
 // White-Beet
@@ -84,6 +86,7 @@
 	icon_state = "whitebeet"
 	filling_color = "#F4A460"
 	bitesize_mod = 2
+	wine_power = 0.4
 
 // Red Beet
 /obj/item/seeds/redbeet
@@ -107,3 +110,4 @@
 	desc = "You can't beat red beet."
 	icon_state = "redbeet"
 	bitesize_mod = 2
+	wine_power = 0.6

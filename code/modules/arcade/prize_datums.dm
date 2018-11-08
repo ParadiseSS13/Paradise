@@ -79,7 +79,7 @@ var/global/datum/prizes/global_prizes = new
 /datum/prize_item/cards
 	name = "Deck of Cards"
 	desc = "Anyone fancy a game of 52-card Pickup?"
-	typepath = /obj/item/toy/cards/deck
+	typepath = /obj/item/deck/cards
 	cost = 25
 
 /datum/prize_item/crayons

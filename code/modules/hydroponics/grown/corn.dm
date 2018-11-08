@@ -24,6 +24,8 @@
 	filling_color = "#FFFF00"
 	trash = /obj/item/grown/corncob
 	bitesize_mod = 2
+	distill_reagent = "whiskey"
+	wine_power = 0.4
 
 /obj/item/grown/corncob
 	name = "corn cob"

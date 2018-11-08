@@ -992,6 +992,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/card/emag
 	cost = 6
 
+/datum/uplink_item/device_tools/access_tuner
+	name = "Access Tuner"
+	desc = "The access tuner is a small device that can interface with airlocks from range. It takes a few seconds to connect and can change the bolt state, open the door, or toggle emergency access."
+	reference = "HACK"
+	item = /obj/item/door_remote/omni/access_tuner
+	cost = 6
+
 /datum/uplink_item/device_tools/toolbox
 	name = "Fully Loaded Toolbox"
 	desc = "The syndicate toolbox is a suspicious black and red. Aside from tools, it comes with insulated gloves and a multitool."
@@ -1013,12 +1020,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 6
 
-/datum/uplink_item/device_tools/military_belt
-	name = "Military Belt"
-	desc = "A robust seven-slot red belt made for carrying a broad variety of weapons, ammunition and explosives"
+/datum/uplink_item/device_tools/traitor_belt
+	name = "Traitor's Toolbelt"
+	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
 	reference = "SBM"
-	item = /obj/item/storage/belt/military
-	cost = 3
+	item = /obj/item/storage/belt/military/traitor
+	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medkit
@@ -1038,8 +1045,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
 	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
-			fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit \
-			sightings, however."
+			fits inside bags, and has a weapon slot. Comes packaged with internals. Nanotrasen crewmembers are trained to report red space suit \
+			sightings, however. "
 	reference = "SS"
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 4
@@ -1049,7 +1056,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The feared suit of a syndicate nuclear agent. Features armor and a combat mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
-			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
+			Additionally the suit is collapsible, making it small enough to fit within a backpack. Comes packaged with internals. \
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/storage/box/syndie_kit/hardsuit
@@ -1393,6 +1400,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CASH"
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
+
+/datum/uplink_item/badass/plasticbag
+	name = "Plastic Bag"
+	desc = "A simple, plastic bag. Keep out of reach of small children, do not apply to head."
+	reference = "PBAG"
+	item = /obj/item/storage/bag/plasticbag
+	cost = 1
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/balloon
 	name = "For showing that you are The Boss"

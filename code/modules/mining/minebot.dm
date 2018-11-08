@@ -274,7 +274,9 @@
 	if(M.maxHealth != initial(M.maxHealth))
 		to_chat(user, "[M] already has a reinforced chassis!")
 		return
+	var/previous = M.maxHealth
 	M.maxHealth = 170
+	M.health += M.maxHealth - previous
 	to_chat(user, "You reinforce [M]'s chassis.")
 	qdel(src)
 

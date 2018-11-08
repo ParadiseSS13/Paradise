@@ -135,7 +135,7 @@
 /obj/item/claymore/fluff/hit_reaction()
 	return 0
 
-/obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki
+/obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki Atan
 	name = "ceremonial katana"
 	desc = "A shimmering ceremonial golden katana, for the most discerning class of ninja. Looks expensive, and fragile."
 	icon = 'icons/obj/custom_items.dmi'
@@ -1016,6 +1016,26 @@
 	desc = "A black hood attached to a stripped winter coat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_winterhood"
+	body_parts_covered = HEAD
+	flags = NODROP|BLOCKHAIR
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
+	name = "custom fit bomber jacket"
+	desc = "Made for Unathi who likes to show off their big horns."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xydonus_jacket"
+	ignore_suitadjust = 0
+	hoodtype = /obj/item/clothing/head/hood/fluff/xydonus
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
+
+/obj/item/clothing/head/hood/fluff/xydonus
+	name = "custom fit hood"
+	desc = "A hood with some horns <i>glued</i> to them, or something like that. Custom fit for a Unathi's head shape."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "xydonus_bomberhood"
 	body_parts_covered = HEAD
 	flags = NODROP|BLOCKHAIR
 	flags_inv = HIDEEARS
