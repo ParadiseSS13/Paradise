@@ -55,6 +55,7 @@
 /obj/item/implantcase/chem
 	name = "implant case - 'Remote Chemical'"
 	desc = "A glass case containing a remote chemical implant."
+	container_type = OPENCONTAINER | INJECTABLE | DRAWABLE
 
 /obj/item/implantcase/chem/New()
 	imp = new /obj/item/implant/chem(src)
