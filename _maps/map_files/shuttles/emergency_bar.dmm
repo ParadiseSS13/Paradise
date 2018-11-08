@@ -51,7 +51,7 @@
 "aY" = (/obj/structure/table/wood,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/shuttle/escape)
 "aZ" = (/obj/structure/table,/obj/machinery/chem_dispenser/soda,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
 "ba" = (/obj/structure/grille,/obj/structure/window/full/shuttle{icon_state = "8"},/turf/simulated/floor/plating,/area/shuttle/escape)
-"bb" = (/obj/structure/table/wood,/obj/item/toy/cards/deck,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/shuttle/escape)
+"bb" = (/obj/structure/table/wood,/obj/item/deck/cards,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/shuttle/escape)
 "bc" = (/obj/structure/chair/comfy/brown{dir = 8},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/shuttle/escape)
 "bd" = (/obj/structure/table,/obj/item/storage/box/drinkingglasses,/obj/item/reagent_containers/food/drinks/shaker,/obj/item/clothing/mask/cigarette/cigar,/turf/simulated/floor/plasteel{icon_state = "cafeteria"; dir = 2},/area/shuttle/escape)
 "be" = (/obj/structure/chair/wood/wings{tag = "icon-wooden_chair_wings (NORTH)"; icon_state = "wooden_chair_wings"; dir = 1},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/shuttle/escape)
