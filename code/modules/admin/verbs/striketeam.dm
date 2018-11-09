@@ -159,7 +159,7 @@ var/global/sent_strike_team = 0
 	R.set_frequency(DTH_FREQ)
 	equip_to_slot_or_del(R, slot_l_ear)
 	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom/officer(src), slot_w_uniform)
 	else
 		equip_to_slot_or_del(new /obj/item/clothing/under/color/green(src), slot_w_uniform)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/advance(src), slot_shoes)

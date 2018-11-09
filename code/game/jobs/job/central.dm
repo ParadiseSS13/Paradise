@@ -58,7 +58,7 @@
 /datum/outfit/job/ntspecops
 	name = "Special Operations Officer"
 	jobtype = /datum/job/ntspecops
-	uniform = /obj/item/clothing/under/rank/centcom_commander
+	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
 	back = /obj/item/storage/backpack/security
 	belt = /obj/item/gun/energy/pulse/pistol/m1911

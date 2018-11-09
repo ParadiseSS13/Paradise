@@ -31,7 +31,7 @@
 	rt_assignment = "Emergency Response Team Leader"
 	rt_job = "Emergency Response Team Leader"
 
-	uniform = /obj/item/clothing/under/rank/centcom_officer
+	uniform = /obj/item/clothing/under/rank/centcom/ranker
 	back = /obj/item/storage/backpack/ert/commander
 
 	id = /obj/item/card/id/ert/commander
@@ -146,7 +146,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
-	
+
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,

@@ -88,43 +88,39 @@
 	icon_state = "solgovr"
 	item_color = "solgovr"
 
-/obj/item/clothing/under/rank/centcom_officer
-	desc = "It's a jumpsuit worn by CentComm Officers."
-	name = "\improper CentComm officer's jumpsuit"
-	icon_state = "officer"
+/obj/item/clothing/under/rank/centcom/ranker
+	name = "\improper Nanotrasen Officers Uniform"
+	desc = "Gold and green trim on authoritarian sage cloth, this uniform displays the rank of \"Ensign\" and bears \"N.A.S. Trurl\" on the left shoulder."
+	icon_state = "centcomm_ranker"
 	item_state = "g_suit"
-	item_color = "officer"
-
-/obj/item/clothing/under/rank/centcom_commander
-	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
-	name = "\improper CentComm officer's jumpsuit"
-	icon_state = "centcom"
-	item_state = "dg_suit"
-	item_color = "centcom"
+	item_color = "centcomm_ranker"
+	displays_id = 0
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
-	name = "\improper Nanotrasen Officers Uniform"
-	icon_state = "officer"
+	name = "\improper Nanotrasen Commanders Uniform"
+	desc = "Gold and blue trim on authoritarian sage cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
+	icon_state = "centcomm_officer"
 	item_state = "g_suit"
-	item_color = "officer"
+	item_color = "centcomm_officer"
 	displays_id = 0
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
 	name = "\improper Nanotrasen Captains Uniform"
-	icon_state = "centcom"
+	desc = "Gold and red trim on authoritarian sage cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
+	icon_state = "centcomm_navycap"
 	item_state = "dg_suit"
-	item_color = "centcom"
+	item_color = "centcomm_navycap"
 	displays_id = 0
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
 	name = "\improper Nanotrasen Navy Uniform"
-	icon_state = "officer"
+	icon_state = "centcomm_ranker"
 	item_state = "g_suit"
-	item_color = "officer"
+	item_color = "centcomm_ranker"
 	displays_id = 0
 	flags_size = ONESIZEFITSALL
 
@@ -133,17 +129,17 @@
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/representative
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
+	desc = "Gold and blue trim on a tightly pressed dress shirt, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
 	name = "\improper Nanotrasen Navy Uniform"
-	icon_state = "officer"
+	icon_state = "nt_rep"
 	item_state = "g_suit"
-	item_color = "officer"
+	item_color = "nt_rep"
 	displays_id = 0
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/representative/New()
 	..()
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears [station_name()] on the left shoulder."
+	desc = "Gold and blue trim on a tightly pressed dress shirt, this uniform displays the rank of \"Ensign\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
