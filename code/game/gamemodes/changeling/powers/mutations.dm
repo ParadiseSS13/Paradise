@@ -275,7 +275,7 @@
 			I = l_hand
 		if(!is_sharp(I))
 			return
-
+		add_attack_logs(src, C, "impaled with [I].", ATKLOG_ALMOSTALL)
 		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
 		add_attack_logs(src, C, "[src] pulled [C] with a tentacle, attacking them with [I]") //Attack log is here so we can fetch the item they're stabbing with.
 		C.apply_damage(I.force, BRUTE, "chest")
