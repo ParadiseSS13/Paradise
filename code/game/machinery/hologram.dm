@@ -403,7 +403,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/hologram/holopad/update_icon()
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
-	if(ringing)
+	if(icon_state == "holopad_open")
+		return
+	else if(ringing)
 		icon_state = "holopad_ringing"
 	else if(total_users)
 		icon_state = "holopad1"
