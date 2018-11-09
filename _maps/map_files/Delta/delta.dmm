@@ -5522,11 +5522,7 @@
 "ccj" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/disposalpipe/segment{dir = 4},/obj/machinery/atmospherics/unary/vent_scrubber{on = 1},/turf/simulated/floor/plasteel{icon_state = "wood"},/area/crew_quarters/captain/bedroom)
 "cck" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/structure/disposalpipe/segment{dir = 2; icon_state = "pipe-c"},/obj/machinery/atmospherics/pipe/simple/hidden/supply,/obj/machinery/hologram/holopad,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/plasteel{icon_state = "wood"},/area/crew_quarters/captain/bedroom)
 "ccl" = (/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; tag = ""},/obj/machinery/atmospherics/unary/vent_pump{dir = 1; on = 1},/turf/simulated/floor/plasteel{icon_state = "wood"},/area/crew_quarters/captain/bedroom)
-<<<<<<< HEAD
 "ccm" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/machinery/door/window{dir = 8; req_access_txt = "63"},/obj/structure/safe/floor{knownby = list("captain")},/obj/item/gun/projectile/revolver/russian,/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,/obj/item/lighter/zippo/nt_rep,/obj/item/storage/fancy/cigarettes/cigpack_robustgold,/obj/item/toy/figure/captain,/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/crew_quarters/captain/bedroom)
-=======
-"ccm" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"; tag = ""},/obj/machinery/door/window{dir = 8; req_access_txt = "63"},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/crew_quarters/captain/bedroom)
->>>>>>> 527b6b1a7f7a00ed6773ec2483b4b48e5ae6a84a
 "ccn" = (/turf/simulated/floor/carpet,/area/crew_quarters/captain/bedroom)
 "cco" = (/obj/structure/bed,/obj/item/bedsheet/captain,/obj/machinery/light/small{dir = 4; pixel_y = 0},/obj/effect/landmark/start{name = "Captain"},/turf/simulated/floor/carpet,/area/crew_quarters/captain/bedroom)
 "ccp" = (/obj/structure/table,/obj/machinery/kitchen_machine/microwave,/obj/machinery/newscaster{pixel_x = -32},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/crew_quarters/courtroom)
