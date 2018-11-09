@@ -22,6 +22,7 @@
 	splat_type = /obj/effect/decal/cleanable/tomato_smudge
 	filling_color = "#FF6347"
 	bitesize_mod = 2
+	distill_reagent = "enzyme"
 
 // Blood Tomato
 /obj/item/seeds/tomato/blood
@@ -43,6 +44,7 @@
 	splat_type = /obj/effect/gibspawner/generic
 	filling_color = "#FF0000"
 	origin_tech = "biotech=5"
+	distill_reagent = "bloodymary"
 
 
 // Blue Tomato
@@ -89,6 +91,8 @@
 	desc = "So lubricated, you might slip through space-time."
 	icon_state = "bluespacetomato"
 	origin_tech = "biotech=4;bluespace=5"
+	distill_reagent = null
+	wine_power = 0.8
 
 
 // Killer Tomato
@@ -117,6 +121,7 @@
 	var/awakening = 0
 	filling_color = "#FF0000"
 	origin_tech = "biotech=4;combat=5"
+	distill_reagent = "demonsblood"
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack(mob/M, mob/user, def_zone)
 	if(awakening)

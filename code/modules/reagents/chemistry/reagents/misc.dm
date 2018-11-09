@@ -275,6 +275,13 @@
 	color = "#FFFFFF"
 	taste_message = "the rainbow"
 
+/datum/reagent/colorful_reagent/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+	return ..()
+
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
     if(isanimal(M))
         M.color = pick(random_color_list)

@@ -13,6 +13,7 @@
 	var/full_window = null			//moving the var declaration to here so this can be checked cleaner until someone is willing to make them share a base type properly
 	usesound = 'sound/items/Deconstruct.ogg'
 	toolspeed = 1
+	var/wall_allowed = TRUE	//determines if sheet can be used in wall construction or not.
 
 
 // Since the sheetsnatcher was consolidated into weapon/storage/bag we now use

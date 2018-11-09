@@ -254,7 +254,7 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
-	
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
@@ -294,6 +294,13 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/storage/belt/military/traitor
+	name = "tool-belt"
+	desc = "Can hold various tools. This model seems to have additional compartments."
+	icon_state = "utilitybelt"
+	item_state = "utility"
+	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"

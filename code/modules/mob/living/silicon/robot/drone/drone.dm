@@ -132,7 +132,7 @@
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
 				return
 
-			if(!allowed(usr))
+			if(!allowed(W))
 				to_chat(user, "<span class='warning'>Access denied.</span>")
 				return
 
@@ -158,7 +158,7 @@
 			if(emagged)
 				return
 
-			if(allowed(usr))
+			if(allowed(W))
 				shut_down()
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -222,6 +222,10 @@
 		return
 	health = 35 - (getBruteLoss() + getFireLoss())
 	update_stat("updatehealth([reason])")
+
+/mob/living/silicon/robot/drone/death(gibbed)
+	. = ..(gibbed)
+	ghostize(can_reenter_corpse = 0)
 
 
 //CONSOLE PROCS

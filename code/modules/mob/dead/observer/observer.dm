@@ -30,7 +30,9 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER_AI_EYE
 	see_in_dark = 100
-	verbs += /mob/dead/observer/proc/dead_tele
+	verbs += list(
+		/mob/dead/observer/proc/dead_tele,
+		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/boo(null))
@@ -677,3 +679,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		mind.transfer_to(new_char)
 	else
 		new_char.key = key
+
+/mob/dead/observer/proc/open_spawners_menu()
+	set name = "Mob spawners menu"
+	set desc = "See all currently available ghost spawners"
+	set category = "Ghost"
+	
+	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
+	menu.ui_interact(src)

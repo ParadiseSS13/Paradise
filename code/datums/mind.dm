@@ -471,7 +471,7 @@
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
 				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
 
-				var/list/possible_targets = list("Free objective")
+				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in ticker.minds)
 					if((possible_target != src) && istype(possible_target.current, /mob/living/carbon/human))
 						possible_targets += possible_target.current
@@ -480,6 +480,8 @@
 				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective:target.current
+				possible_targets = sortAtom(possible_targets)
+				possible_targets += "Free objective"
 
 				var/new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
 				if(!new_target)
@@ -569,11 +571,12 @@
 				new_objective.target_amount = target_number
 
 			if("identity theft")
-				var/list/possible_targets = list("Free objective")
+				var/list/possible_targets = list()
 				for(var/datum/mind/possible_target in ticker.minds)
 					if((possible_target != src) && ishuman(possible_target.current))
 						possible_targets += possible_target
-
+				possible_targets = sortAtom(possible_targets)
+				possible_targets += "Free objective"
 				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 				if(!new_target)
 					return
@@ -598,6 +601,7 @@
 
 		if(objective)
 			objectives -= objective
+			qdel(objective)
 			objectives.Insert(objective_pos, new_objective)
 		else
 			objectives += new_objective
@@ -613,6 +617,7 @@
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
 		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s objectives: [objective]")
+		qdel(objective)
 
 	else if(href_list["obj_completed"])
 		var/datum/objective/objective = locate(href_list["obj_completed"])
@@ -939,6 +944,7 @@
 					special_role = null
 					for(var/datum/objective/nuclear/O in objectives)
 						objectives-=O
+						qdel(O)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
