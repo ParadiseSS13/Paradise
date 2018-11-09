@@ -82,7 +82,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	else if("players" in input)
 		var/n = 0
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(M.client)
 				n++
 		return n
@@ -107,7 +107,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		var/player_count = 0
 		var/admin_count = 0
 
-		for(var/client/C in clients)
+		for(var/client/C in GLOB.clients)
 			if(C.holder)
 				if(C.holder.fakekey)
 					continue	//so stealthmins aren't revealed by the hub
@@ -122,15 +122,14 @@ var/world_topic_spam_protect_time = world.timeofday
 		if(key_valid)
 			if(ticker && ticker.mode)
 				s["real_mode"] = ticker.mode.name
+				s["security_level"] = get_security_level()
+				s["ticker_state"] = ticker.current_state
 
-			s["security_level"] = get_security_level()
-			s["ticker_state"] = ticker.current_state
-
-			if(shuttle_master && shuttle_master.emergency)
+			if(SSshuttle && SSshuttle.emergency)
 				// Shuttle status, see /__DEFINES/stat.dm
-				s["shuttle_mode"] = shuttle_master.emergency.mode
+				s["shuttle_mode"] = SSshuttle.emergency.mode
 				// Shuttle timer, in seconds
-				s["shuttle_timer"] = shuttle_master.emergency.timeLeft()
+				s["shuttle_timer"] = SSshuttle.emergency.timeLeft()
 
 			for(var/i in 1 to admins.len)
 				var/list/A = admins[i]
@@ -186,7 +185,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		var/client/C
 
-		for(var/client/K in clients)
+		for(var/client/K in GLOB.clients)
 			if(K.ckey == input["adminmsg"])
 				C = K
 				break
@@ -202,7 +201,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		C << 'sound/effects/adminhelp.ogg'
 		to_chat(C, message)
 
-		for(var/client/A in admins)
+		for(var/client/A in GLOB.admins)
 			if(A != C)
 				to_chat(A, amessage)
 
@@ -225,7 +224,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(input["key"] != config.comms_password)
 				return "Bad Key"
 			else
-				for(var/client/C in clients)
+				for(var/client/C in GLOB.clients)
 					to_chat(C, "<span class='announce'>PR: [input["announce"]]</span>")
 
 	else if("kick" in input)
@@ -238,7 +237,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		var/client/C
 
-		for(var/client/K in clients)
+		for(var/client/K in GLOB.clients)
 			if(K.ckey == input["kick"])
 				C = K
 				break
@@ -306,8 +305,8 @@ var/world_topic_spam_protect_time = world.timeofday
 		return
 	to_chat(world, "<span class='boldannounce'>Rebooting world in [delay/10] [delay > 10 ? "seconds" : "second"]. [reason]</span>")
 
-	var/round_end_sound = pick(round_end_sounds)
-	var/sound_length = round_end_sounds[round_end_sound]
+	var/round_end_sound = pick(GLOB.round_end_sounds)
+	var/sound_length = GLOB.round_end_sounds[round_end_sound]
 	if(delay > sound_length) // If there's time, play the round-end sound before rebooting
 		spawn(delay - sound_length)
 			if(!ticker.delay_end)
@@ -325,7 +324,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	processScheduler.stop()
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
-	for(var/client/C in clients)
+	for(var/client/C in GLOB.clients)
 		if(config.server)       //if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")
 
@@ -408,7 +407,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		features += "AI allowed"
 
 	var/n = 0
-	for(var/mob/M in player_list)
+	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			n++
 
@@ -442,9 +441,11 @@ var/failed_old_db_connections = 0
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
+	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
+	start_log(GLOB.world_qdel_log)
 
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")

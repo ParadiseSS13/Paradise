@@ -25,9 +25,7 @@
 	if(triggered)
 		return
 	visible_message("<span class='danger'>[victim] sets off [bicon(src)] [src]!</span>")
-	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-	s.set_up(3, 1, src)
-	s.start()
+	do_sparks(3, 1, src)
 	mineEffect(victim)
 	triggered = 1
 	qdel(src)
@@ -147,7 +145,7 @@
 	spawn(10)
 		animate(victim.client,color = old_color, time = duration)//, easing = SINE_EASING|EASE_OUT)
 	spawn(duration)
-		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.<span>")
+		to_chat(victim, "<span class='notice'>Your bloodlust seeps back into the bog of your subconscious and you regain self control.</span>")
 		qdel(chainsaw)
 		qdel(src)
 
@@ -172,7 +170,7 @@
 	if(!victim.client || !istype(victim))
 		return
 	to_chat(victim, "<span class='notice'>You feel fast!</span>")
-	victim.status_flags |= GOTTAGOREALLYFAST
+	victim.status_flags |= GOTTAGOFAST
 	spawn(duration)
-		victim.status_flags &= ~GOTTAGOREALLYFAST
+		victim.status_flags &= ~GOTTAGOFAST
 		to_chat(victim, "<span class='notice'>You slow down.</span>")

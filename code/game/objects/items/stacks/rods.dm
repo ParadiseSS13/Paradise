@@ -47,7 +47,6 @@ var/global/list/datum/stack_recipe/rod_recipes = list ( \
 
 		if(WT.remove_fuel(0,user))
 			var/obj/item/stack/sheet/metal/new_item = new(user.loc)
-			new_item.add_to_stacks(user)
 			if(new_item.get_amount() <= 0)
 				// stack was moved into another one on the pile
 				new_item = locate() in user.loc

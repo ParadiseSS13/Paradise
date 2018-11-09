@@ -191,6 +191,7 @@
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/head/helmet(src)
 	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/clothing/suit/armor/secjacket(src)
 
 
 /obj/structure/closet/secure_closet/brigdoc
@@ -253,6 +254,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/under/rank/centcom/blueshield(src)
 
 
 /obj/structure/closet/secure_closet/ntrep

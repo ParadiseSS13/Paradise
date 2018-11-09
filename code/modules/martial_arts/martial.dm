@@ -66,9 +66,9 @@
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(4, WEAKEN, armor_block)
-		D.forcesay(hit_appends)
+		D.forcesay(GLOB.hit_appends)
 	else if(D.lying)
-		D.forcesay(hit_appends)
+		D.forcesay(GLOB.hit_appends)
 	return 1
 
 /datum/martial_art/proc/teach(var/mob/living/carbon/human/H,var/make_temporary=0)

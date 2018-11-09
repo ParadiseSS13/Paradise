@@ -253,6 +253,7 @@ obj/machinery/lapvend/attackby(obj/item/I, mob/user)
 				fabricated_laptop.forceMove(loc)
 				fabricated_laptop = null
 			else if((devtype == 2) && fabricated_tablet)
+				fabricated_tablet.update_icon()
 				fabricated_tablet.forceMove(loc)
 				fabricated_tablet = null
 			atom_say("Enjoy your new product!")
@@ -282,21 +283,9 @@ obj/machinery/lapvend/attackby(obj/item/I, mob/user)
 		atom_say("Insufficient funds in account.")
 		return 0
 	else
-		var/paid = customer_account.charge(total_price,
-			transaction_purpose = "Purchase of [(devtype == 1) ? "laptop computer" : "tablet microcomputer"].",
-			terminal_name = name,
-			terminal_id = name,
-			dest_name = vendor_account.owner_name)
+		customer_account.charge(total_price, vendor_account,
+		"Purchase of [(devtype == 1) ? "laptop computer" : "tablet microcomputer"].",
+		name, customer_account.owner_name, "Sale of [(devtype == 1) ? "laptop computer" : "tablet microcomputer"].",
+		customer_account.owner_name)
 
-		if(paid)
-			vendor_account.money += total_price
-			var/datum/transaction/T = new()
-			T.target_name = customer_account.owner_name
-			T.purpose = "Purchase of [(devtype == 1) ? "laptop computer" : "tablet microcomputer"]"
-			T.amount = "[total_price]"
-			T.source_terminal = name
-			T.date = current_date_string
-			T.time = station_time_timestamp()
-			vendor_account.transaction_log.Add(T)
-			return 1
-		return 0
+		return 1

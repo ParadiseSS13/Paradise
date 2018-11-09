@@ -36,7 +36,7 @@
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
 		if(m_type == EMOTE_SOUND && M.mute >= MUZZLE_MUTE_MUFFLE)
 			return //Not all muzzles block sound
-	if(!can_speak())
+	if(m_type == EMOTE_SOUND && !can_speak())
 		return
 
 	var/input
@@ -56,7 +56,7 @@
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.
 
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(!M.client)
 				continue //skip monkeys and leavers
 			if(istype(M, /mob/new_player))
@@ -126,7 +126,7 @@
 
 
 	if(message)
-		for(var/mob/M in player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(istype(M, /mob/new_player))
 				continue
 

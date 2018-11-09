@@ -11,7 +11,7 @@
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	var/ignore_flags = FALSE
 	var/emagged = FALSE
@@ -52,7 +52,7 @@
 	if(safety_hypo && !emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
-			if(!safe_chem_list.Find(R.id))
+			if(!GLOB.safe_chem_list.Find(R.id))
 				reagents.del_reagent(R.id)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
@@ -72,6 +72,9 @@
 	desc = "A general use medical hypospray for quick injection of chemicals. There is a safety button by the trigger."
 	icon_state = "medivend_hypo"
 	safety_hypo = TRUE
+
+/obj/item/reagent_containers/hypospray/safety/ert
+	list_reagents = list("omnizine" = 30)
 
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)

@@ -40,7 +40,7 @@
 		var/real_rank = t.fields["real_rank"]
 		if(OOC)
 			var/active = 0
-			for(var/mob/M in player_list)
+			for(var/mob/M in GLOB.player_list)
 				if(M.real_name == name && M.client && M.client.inactivity <= 10 * 60 * 10)
 					active = 1
 					break
@@ -222,7 +222,7 @@ var/global/list/PDA_Manifest = list()
 
 
 /datum/datacore/proc/manifest()
-	for(var/mob/living/carbon/human/H in player_list)
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		manifest_inject(H)
 
 /datum/datacore/proc/manifest_modify(name, assignment)
@@ -324,6 +324,7 @@ var/record_id_num = 1001
 			S.fields["notes"] = H.sec_record
 		else
 			S.fields["notes"] = "No notes."
+		LAZYINITLIST(S.fields["comments"])
 		security += S
 
 		//Locked Record
@@ -358,7 +359,7 @@ var/record_id_num = 1001
 	preview_icon.Blend(temp, ICON_OVERLAY)
 	var/head = "head"
 	if(head_organ.alt_head && head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
-		var/datum/sprite_accessory/alt_heads/alternate_head = alt_heads_list[head_organ.alt_head]
+		var/datum/sprite_accessory/alt_heads/alternate_head = GLOB.alt_heads_list[head_organ.alt_head]
 		if(alternate_head.icon_state)
 			head = alternate_head.icon_state
 	temp = new /icon(icobase, "[head]_[g]")
@@ -390,7 +391,7 @@ var/record_id_num = 1001
 	var/icon/t_marking_s
 	if(H.dna.species.bodyflags & HAS_TAIL_MARKINGS)
 		var/tail_marking = H.m_styles["tail"]
-		var/datum/sprite_accessory/tail_marking_style = marking_styles_list[tail_marking]
+		var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[tail_marking]
 		if(tail_marking_style && tail_marking_style.species_allowed)
 			t_marking_s = new/icon("icon" = tail_marking_style.icon, "icon_state" = "[tail_marking_style.icon_state]_s")
 			t_marking_s.Blend(H.m_colours["tail"], ICON_ADD)
@@ -405,7 +406,7 @@ var/record_id_num = 1001
 		eyes_s.Blend(eyes_organ.eye_colour, ICON_ADD)
 		face_s.Blend(eyes_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/hair_style = hair_styles_full_list[head_organ.h_style]
+	var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	if(hair_style)
 		var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 		// I'll want to make a species-specific proc for this sooner or later
@@ -425,13 +426,13 @@ var/record_id_num = 1001
 
 	//Head Accessory
 	if(head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
-		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[head_organ.ha_style]
+		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[head_organ.ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed)
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			head_accessory_s.Blend(head_organ.headacc_colour, ICON_ADD)
 			face_s.Blend(head_accessory_s, ICON_OVERLAY)
 
-	var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[head_organ.f_style]
+	var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 	if(facial_hair_style && facial_hair_style.species_allowed)
 		var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 		if(istype(head_organ.dna.species, /datum/species/slime))
@@ -451,14 +452,14 @@ var/record_id_num = 1001
 	if((H.dna.species.bodyflags & HAS_HEAD_MARKINGS) || (H.dna.species.bodyflags & HAS_BODY_MARKINGS))
 		if(H.dna.species.bodyflags & HAS_BODY_MARKINGS) //Body markings.
 			var/body_marking = H.m_styles["body"]
-			var/datum/sprite_accessory/body_marking_style = marking_styles_list[body_marking]
+			var/datum/sprite_accessory/body_marking_style = GLOB.marking_styles_list[body_marking]
 			if(body_marking_style && body_marking_style.species_allowed)
 				var/icon/b_marking_s = new/icon("icon" = body_marking_style.icon, "icon_state" = "[body_marking_style.icon_state]_s")
 				b_marking_s.Blend(H.m_colours["body"], ICON_ADD)
 				face_s.Blend(b_marking_s, ICON_OVERLAY)
 		if(H.dna.species.bodyflags & HAS_HEAD_MARKINGS) //Head markings.
 			var/head_marking = H.m_styles["head"]
-			var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
+			var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 			if(head_marking_style && head_marking_style.species_allowed)
 				var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 				h_marking_s.Blend(H.m_colours["head"], ICON_ADD)

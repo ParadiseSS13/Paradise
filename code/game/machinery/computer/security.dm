@@ -50,7 +50,7 @@
 /obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "secure_data.tmpl", name, 800, 380)
+		ui = new(user, src, ui_key, "secure_data.tmpl", name, 800, 800)
 		ui.open()
 
 /obj/machinery/computer/secure_data/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
@@ -149,9 +149,9 @@
 				update_all_mob_security_hud()
 				setTemp("<h3>All records deleted.</h3>")
 			if("del_alllogs2")
-				if(cell_logs.len)
+				if(GLOB.cell_logs.len)
 					setTemp("<h3>All cell logs deleted.</h3>")
-					cell_logs.Cut()
+					GLOB.cell_logs.Cut()
 				else
 					to_chat(usr, "<span class='notice'>Error; No cell logs to delete.</span>")
 			if("del_r2")
@@ -169,45 +169,20 @@
 				screen = SEC_DATA_R_LIST
 			if("criminal")
 				if(active2)
-					var/their_name = active2.fields["name"]
-					var/their_rank = active2.fields["rank"]
 					var/t1
 					if(temp_href[2] == "execute")
 						t1 = copytext(trim(sanitize(input("Explain why they are being executed. Include a list of their crimes, and victims.", "EXECUTION ORDER", null, null) as text)), 1, MAX_MESSAGE_LEN)
 					else
 						t1 = copytext(trim(sanitize(input("Enter Reason:", "Secure. records", null, null) as text)), 1, MAX_MESSAGE_LEN)
-					var/visible_reason
-					if(t1)
-						visible_reason = t1
-					else
+					if(!t1)
 						t1 = "(none)"
-						visible_reason = "<span class='warning'>NO REASON PROVIDED</span>"
-					switch(temp_href[2])
-						if("none")
-							active2.fields["criminal"] = "None"
-						if("arrest")
-							active2.fields["criminal"] = "*Arrest*"
-						if("execute")
-							if((access_magistrate in authcard_access) || (access_armory in authcard_access))
-								active2.fields["criminal"] = "*Execute*"
-								message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [visible_reason]")
-							else
-								setTemp("<h3 class='bad'>Error: permission denied.</h3>")
-								return 1
-						if("incarcerated")
-							active2.fields["criminal"] = "Incarcerated"
-						if("parolled")
-							active2.fields["criminal"] = "Parolled"
-						if("released")
-							active2.fields["criminal"] = "Released"
-					var/newstatus = active2.fields["criminal"]
-					log_admin("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [newstatus], comment: [t1]")
-					active2.fields["comments"] += "Set to [newstatus] by [usr.name] ([rank]) on [current_date_string] [station_time_timestamp()], comment: [t1]"
-					update_all_mob_security_hud()
+					if(!set_criminal_status(usr, active2, temp_href[2], t1, rank, authcard_access))
+						setTemp("<h3 class='bad'>Error: permission denied.</h3>")
+						return 1
 			if("rank")
 				if(active1)
 					active1.fields["rank"] = temp_href[2]
-					if(temp_href[2] in joblist)
+					if(temp_href[2] in GLOB.joblist)
 						active1.fields["real_rank"] = temp_href[2]
 
 	if(href_list["scan"])
@@ -385,8 +360,8 @@
 */
 
 		else if(href_list["printlogs"])
-			if(cell_logs.len && !printing)
-				var/obj/item/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in cell_logs
+			if(GLOB.cell_logs.len && !printing)
+				var/obj/item/paper/P = input(usr, "Select log to print", "Available Cell Logs") as null|anything in GLOB.cell_logs
 				if(!P)
 					return 0
 				printing = 1
@@ -500,7 +475,7 @@
 					//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
 					if(istype(active1, /datum/data/record) && L.Find(rank))
 						var/list/buttons = list()
-						for(var/rank in joblist)
+						for(var/rank in GLOB.joblist)
 							buttons[++buttons.len] = list("name" = rank, "icon" = null, "href" = "rank=[rank]", "status" = (active1.fields["rank"] == rank ? "selected" : null))
 						setTemp("<h3>Rank</h3>", buttons)
 					else
@@ -566,7 +541,7 @@
 		if(prob(10/severity))
 			switch(rand(1,6))
 				if(1)
-					R.fields["name"] = "[pick(pick(first_names_male), pick(first_names_female))] [pick(last_names)]"
+					R.fields["name"] = "[pick(pick(GLOB.first_names_male), pick(GLOB.first_names_female))] [pick(GLOB.last_names)]"
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)

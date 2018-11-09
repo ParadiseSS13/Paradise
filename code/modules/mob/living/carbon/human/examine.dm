@@ -180,7 +180,7 @@
 			if(!key)
 				var/foundghost = FALSE
 				if(mind)
-					for(var/mob/dead/observer/G in player_list)
+					for(var/mob/dead/observer/G in GLOB.player_list)
 						if(G.mind == mind)
 							foundghost = TRUE
 							if(G.can_reenter_corpse == 0)
@@ -291,16 +291,17 @@
 		else
 			msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
 
-	if(blood_volume < BLOOD_VOLUME_SAFE)
+	if(!isSynthetic() && blood_volume < BLOOD_VOLUME_SAFE)
 		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
 
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
+		var/bleed_message = !isSynthetic() ? "bleeding" : "leaking"
 		if(reagents.has_reagent("heparin"))
-			msg += "<B>[p_they(TRUE)] [p_are()] bleeding uncontrollably!</B>\n"
+			msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message] uncontrollably!</B>\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
+			msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"

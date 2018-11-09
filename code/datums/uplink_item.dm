@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
-				log_game("[key_name(user)] purchased [I.name]")
+				log_game("[key_name(user)] purchased [name]")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -214,13 +214,23 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/rad_laser
 	name = "Radiation Laser"
-	desc = "A radiation laser concealed inside of a Health Analyser. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyser, only appears like one. May not function correctly on radiation resistant humanoids!"
+	desc = "A radiation laser concealed inside of a Health Analyzer. After a moderate delay, causes temporary collapse and radiation. Has adjustable controls, but will not function as a regular health analyzer, only appears like one. May not function correctly on radiation resistant humanoids!"
 	reference = "RL"
 	item = /obj/item/rad_laser
 	cost = 5
 	job = list("Chief Medical Officer", "Medical Doctor", "Geneticist", "Psychiatrist",	"Chemist", "Paramedic", "Coroner", "Virologist")
 
-/datum/uplink_item/dangerous/cat_grenade
+//Virology
+
+/datum/uplink_item/jobspecific/viral_injector
+	name = "Viral Injector"
+	desc = "A modified hypospray disguised as a functional pipette. The pipette can infect victims with viruses upon injection."
+	reference = "VI"
+	item = /obj/item/reagent_containers/dropper/precision/viral_injector
+	cost = 3
+	job = list("Virologist")
+
+/datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
 	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
@@ -352,7 +362,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/pen/poison
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
-	job = list("Head of Personnel", "Quartermaster", "Cargo Technician")
+	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian")
 
 
 // DANGEROUS WEAPONS
@@ -500,6 +510,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "AGG"
 	item = /obj/item/storage/box/syndie_kit/atmosgasgrenades
 	cost = 11
+	surplus = 0
 
 /datum/uplink_item/dangerous/emp
 	name = "EMP Grenades and Implanter Kit"
@@ -959,6 +970,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 20
 
+/datum/uplink_item/stealthy_tools/safecracking
+	name = "Safe-cracking Kit"
+	desc = "Everything you need to quietly open a mechanical combination safe."
+	reference = "SCK"
+	item = /obj/item/storage/box/syndie_kit/safecracking
+	cost = 1
+
+/datum/uplink_item/stealthy_tools/clownkit
+	name = "Honk Brand Infiltration Kit"
+	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer clown mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
+	reference = "HBIK"
+	item = /obj/item/storage/backpack/clown/syndie
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
@@ -970,6 +997,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The cryptographic sequencer, also known as an emag, is a small card that unlocks hidden functions in electronic devices, subverts intended functions and characteristically breaks security mechanisms."
 	reference = "EMAG"
 	item = /obj/item/card/emag
+	cost = 6
+
+/datum/uplink_item/device_tools/access_tuner
+	name = "Access Tuner"
+	desc = "The access tuner is a small device that can interface with airlocks from range. It takes a few seconds to connect and can change the bolt state, open the door, or toggle emergency access."
+	reference = "HACK"
+	item = /obj/item/door_remote/omni/access_tuner
 	cost = 6
 
 /datum/uplink_item/device_tools/toolbox
@@ -993,13 +1027,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/bonerepair
 	cost = 6
 
-/datum/uplink_item/device_tools/military_belt
-	name = "Military Belt"
-	desc = "A robust seven-slot red belt made for carrying a broad variety of weapons, ammunition and explosives"
+/datum/uplink_item/device_tools/traitor_belt
+	name = "Traitor's Toolbelt"
+	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
 	reference = "SBM"
-	item = /obj/item/storage/belt/military
+	item = /obj/item/storage/belt/military/traitor
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/device_tools/thermal_drill
+	name = "Thermal Safe Drill"
+	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
+	reference = "DRL"
+	item = /obj/item/thermal_drill
 	cost = 3
 	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/device_tools/diamond_drill
+	name = "Diamond Tipped Thermal Safe Drill"
+	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
+	reference = "DDRL"
+	item = /obj/item/thermal_drill/diamond_drill
+	cost = 1
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"
@@ -1018,8 +1068,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/space_suit
 	name = "Syndicate Space Suit"
 	desc = "This red and black syndicate space suit is less encumbering than Nanotrasen variants, \
-			fits inside bags, and has a weapon slot. Nanotrasen crewmembers are trained to report red space suit \
-			sightings, however."
+			fits inside bags, and has a weapon slot. Comes packaged with internals. Nanotrasen crewmembers are trained to report red space suit \
+			sightings, however. "
 	reference = "SS"
 	item = /obj/item/storage/box/syndie_kit/space
 	cost = 4
@@ -1029,7 +1079,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "The feared suit of a syndicate nuclear agent. Features armor and a combat mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
-			Additionally the suit is collapsible, making it small enough to fit within a backpack. \
+			Additionally the suit is collapsible, making it small enough to fit within a backpack. Comes packaged with internals. \
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
 	item = /obj/item/storage/box/syndie_kit/hardsuit
@@ -1373,6 +1423,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CASH"
 	item = /obj/item/storage/secure/briefcase/syndie
 	cost = 1
+
+/datum/uplink_item/badass/plasticbag
+	name = "Plastic Bag"
+	desc = "A simple, plastic bag. Keep out of reach of small children, do not apply to head."
+	reference = "PBAG"
+	item = /obj/item/storage/bag/plasticbag
+	cost = 1
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/badass/balloon
 	name = "For showing that you are The Boss"

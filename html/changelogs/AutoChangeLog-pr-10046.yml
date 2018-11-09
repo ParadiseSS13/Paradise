@@ -1,0 +1,8 @@
+author: "Warior4356"
+delete-after: True
+changes: 
+  - rscadd: "Thermal Drill, Diamond Tipped Thermal Drill, Safe Codes Paper, Safe Internals, Gives Captain Floor Safe, Gives Captain Safe Codes, Safe-cracking Kit"
+  - rscdel: "Removed Captain's Digital Safe"
+  - tweak: "Changes safe contents"
+  - soundadd: "Added a safe drilling sound"
+  - imageadd: "Added drill and safe intenral sprites made by Shazbot194"

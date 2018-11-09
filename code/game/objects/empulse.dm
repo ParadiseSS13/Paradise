@@ -1,12 +1,12 @@
-/proc/empulse(turf/epicenter, heavy_range, light_range, log=0)
+/proc/empulse(turf/epicenter, heavy_range, light_range, log=0, cause = null)
 	if(!epicenter) return
 
 	if(!istype(epicenter, /turf))
 		epicenter = get_turf(epicenter.loc)
 
 	if(log)
-		message_admins("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [ADMIN_COORDJMP(epicenter)]</a>")
-		log_game("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [COORD(epicenter)]")
+		message_admins("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])": ] [ADMIN_COORDJMP(epicenter)]</a>")
+		log_game("EMP with size ([heavy_range], [light_range]) in area [epicenter.loc.name] [cause ? "(Cause: [cause])" : ] [COORD(epicenter)]")
 
 	if(heavy_range > 1)
 		new/obj/effect/temp_visual/emp/pulse(epicenter)

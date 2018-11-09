@@ -89,7 +89,7 @@
 /*
 /datum/intercept_text/proc/pick_mob()
 	var/list/dudes = list()
-	for(var/mob/living/carbon/human/man in player_list)
+	for(var/mob/living/carbon/human/man in GLOB.player_list)
 		if(!man.mind) continue
 		if(man.mind.assigned_role == man.mind.special_role) continue
 		dudes += man
@@ -109,7 +109,7 @@
 
 /datum/intercept_text/proc/get_suspect()
 	var/list/dudes = list()
-	for(var/mob/living/carbon/human/man in player_list)
+	for(var/mob/living/carbon/human/man in GLOB.player_list)
 		if(man.client && man.client.prefs.nanotrasen_relation == "Opposed")
 			//don't include suspects who can't possibly be the antag based on their job (no suspecting the captain of being a damned dirty tator)
 			if(man.mind && man.mind.assigned_role)
@@ -119,8 +119,8 @@
 			if(man.dna.species.name in ticker.mode.protected_species)
 				return
 			dudes += man
-	for(var/i = 0, i < max(player_list.len/10,2), i++)
-		dudes += pick(player_list)
+	for(var/i = 0, i < max(GLOB.player_list.len/10,2), i++)
+		dudes += pick(GLOB.player_list)
 	return pick(dudes)
 
 /datum/intercept_text/proc/build_traitor(datum/mind/correct_person)
@@ -211,11 +211,11 @@
 	if(prob(prob_right_job))
 		if(correct_person)
 			if(correct_person:assigned_role == correct_person:special_role)
-				changeling_job = pick(joblist)
+				changeling_job = pick(GLOB.joblist)
 			else
 				changeling_job = correct_person:assigned_role
 	else
-		changeling_job = pick(joblist)
+		changeling_job = pick(GLOB.joblist)
 	if(prob(prob_right_dude) && ticker.mode == "changeling")
 		if(correct_person:assigned_role == correct_person:special_role)
 			changeling_name = correct_person:current

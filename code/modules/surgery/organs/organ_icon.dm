@@ -112,7 +112,7 @@ var/global/list/limb_icon_cache = list()
 
 	var/head_marking = owner.m_styles["head"]
 	if(head_marking && head_marking != "None")
-		var/datum/sprite_accessory/head_marking_style = marking_styles_list[head_marking]
+		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
 			var/icon/h_marking_s = new/icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
 			if(head_marking_style.do_colouration)
@@ -120,7 +120,7 @@ var/global/list/limb_icon_cache = list()
 			overlays |= h_marking_s
 
 	if(ha_style)
-		var/datum/sprite_accessory/head_accessory_style = head_accessory_styles_list[ha_style]
+		var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
 		if(head_accessory_style && head_accessory_style.species_allowed && (dna.species.name in head_accessory_style.species_allowed))
 			var/icon/head_accessory_s = new/icon("icon" = head_accessory_style.icon, "icon_state" = "[head_accessory_style.icon_state]_s")
 			if(head_accessory_style.do_colouration)
@@ -128,7 +128,7 @@ var/global/list/limb_icon_cache = list()
 			overlays |= head_accessory_s
 
 	if(f_style)
-		var/datum/sprite_accessory/facial_hair_style = facial_hair_styles_list[f_style]
+		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 		if(facial_hair_style && ((facial_hair_style.species_allowed && (dna.species.name in facial_hair_style.species_allowed)) || (dna.species.bodyflags & ALL_RPARTS)))
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 			if(istype(dna.species, /datum/species/slime)) // I am el worstos
@@ -138,7 +138,7 @@ var/global/list/limb_icon_cache = list()
 			overlays |= facial_s
 
 	if(h_style && !(owner.head && (owner.head.flags & BLOCKHEADHAIR)))
-		var/datum/sprite_accessory/hair_style = hair_styles_full_list[h_style]
+		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
 		if(hair_style && ((dna.species.name in hair_style.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 			if(istype(dna.species, /datum/species/slime)) // I am el worstos

@@ -178,7 +178,7 @@
 		var/list/L = list()
 		var/list/areaindex = list()
 
-		for(var/obj/item/radio/beacon/R in beacons)
+		for(var/obj/item/radio/beacon/R in GLOB.beacons)
 			var/turf/T = get_turf(R)
 			if(!T)
 				continue
@@ -193,7 +193,7 @@
 				areaindex[tmpname] = 1
 			L[tmpname] = R
 
-		for(var/obj/item/implant/tracking/I in tracked_implants)
+		for(var/obj/item/implant/tracking/I in GLOB.tracked_implants)
 			if(!I.implanted || !ismob(I.loc))
 				continue
 			else
@@ -269,7 +269,7 @@
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
 	var/accurate = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
@@ -281,9 +281,7 @@
 	link_power_station()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
@@ -291,9 +289,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
 
@@ -389,7 +385,7 @@
 	desc = "A teleporter with the target pre-set on the circuit board."
 	icon_state = "tele0"
 	var/recalibrating = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 
@@ -466,7 +462,7 @@
 	desc = "The power control station for a bluespace teleporter."
 	icon_state = "controller"
 	var/engaged = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
 	var/obj/machinery/computer/teleporter/teleporter_console
@@ -478,8 +474,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_station(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
-	component_parts += new /obj/item/ore/bluespace_crystal/artificial(null)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)

@@ -39,7 +39,7 @@
 
 /obj/machinery/syndicatebomb/process()
 	if(!active)
-		fast_processing -= src
+		GLOB.fast_processing -= src
 		detonation_timer = null
 		next_beep = null
 		countdown.stop()
@@ -73,7 +73,7 @@
 		if(defused && payload in src)
 			payload.defuse()
 			countdown.stop()
-			fast_processing -= src
+			GLOB.fast_processing -= src
 
 /obj/machinery/syndicatebomb/New()
 	wires 	= new(src)
@@ -86,7 +86,7 @@
 /obj/machinery/syndicatebomb/Destroy()
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
-	fast_processing -= src
+	GLOB.fast_processing -= src
 	return ..()
 
 /obj/machinery/syndicatebomb/examine(mob/user)
@@ -205,7 +205,7 @@
 
 /obj/machinery/syndicatebomb/proc/activate()
 	active = TRUE
-	fast_processing += src
+	GLOB.fast_processing += src
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)
@@ -530,6 +530,48 @@
 
 		qdel(G)
 
+/obj/item/bombcore/toxins
+	name = "toxins payload"
+	desc = "A payload casing designed to secure a gas based bomb. Must be loaded with a tank transfer valve and installed into a plasteel bomb frame in order to be detonated."
+	origin_tech = "materials=1;engineering=1"
+	icon_state = "chemcore"
+	var/obj/item/transfer_valve/ttv = null
+
+/obj/item/bombcore/toxins/attackby(obj/item/I, mob/user)
+	if(iscrowbar(I) && ttv)
+		playsound(loc, I.usesound, 50, 1)
+		ttv.forceMove(get_turf(src))
+		ttv = null
+	else if(istype(I, /obj/item/transfer_valve))
+		if(!ttv && !check_attached(I))
+			if(!user.drop_item())
+				return
+			to_chat(user, "<span class='notice'>You load [src] with [I].</span>")
+			ttv = I
+			I.forceMove(src)
+		else if (ttv)
+			to_chat(user, "<span class='warning'>Another tank transfer valve is already loaded.</span>")
+		else
+			to_chat(user, "<span class='warning'>Remove the attached assembly component first.</span>")
+	else
+		return ..()
+
+/obj/item/bombcore/toxins/proc/check_attached(obj/item/transfer_valve/ttv)
+	if (ttv.attached_device)
+		return TRUE
+	else
+		return FALSE
+
+/obj/item/bombcore/toxins/ex_act(severity) //No chain reactions, the explosion only occurs when gas mixes
+	return
+
+/obj/item/bombcore/toxins/burn()
+	return
+
+/obj/item/bombcore/toxins/detonate()
+	if(ttv)
+		ttv.toggle_valve()
+
 ///Syndicate Detonator (aka the big red button)///
 
 /obj/item/syndicatedetonator
@@ -546,7 +588,7 @@
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
 	if(timer < world.time)
-		for(var/obj/machinery/syndicatebomb/B in machines)
+		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
 			if(B.active)
 				B.detonation_timer = world.time + BUTTON_DELAY
 				detonated++

@@ -1,12 +1,12 @@
 {{if data.menu == 1}}
 	<h3>RCD Modes:</h3>
-	<div class='item'>{{:helper.link('Floor and Walls', 'arrow-right', {'mode': 1}, data.mode == 1 ? 'linkOn' : null)}}</div>
+	<div class='item'>{{:helper.link('Floor and Walls', 'arrow-right', {'mode': "Turf"}, data.mode == "Turf" ? 'linkOn' : null)}}</div>
 	<div class='item'>
-		{{:helper.link('Airlock', 'arrow-right', {'mode': 2}, data.mode == 2 ? 'linkOn' : null)}}
+		{{:helper.link('Airlock', 'arrow-right', {'mode': "Airlock"}, data.mode == "Airlock" ? 'linkOn' : null)}}
 		{{:helper.link('', 'gear', {'menu': 2})}}
 	</div>
-	<div class='item'>{{:helper.link('Deconstruct', 'arrow-right', {'mode': 3}, data.mode == 3 ? 'linkOn' : null)}}</div>
-	<div class='item'>{{:helper.link('Windows', 'arrow-right', {'mode': 4}, data.mode == 4 ? 'linkOn' : null)}}</div>
+	<div class='item'>{{:helper.link('Deconstruct', 'arrow-right', {'mode': "Deconstruct"}, data.mode == "Deconstruct" ? 'linkOn' : null)}}</div>
+	<div class='item'>{{:helper.link('Windows', 'arrow-right', {'mode': "Windows"}, data.mode == "Windows" ? 'linkOn' : null)}}</div>
 	<div class='statusDisplay'>
 		<div class='item'>RCD ammo: {{:data.matter}} / {{:data.max_matter}}</div>
 	</div>

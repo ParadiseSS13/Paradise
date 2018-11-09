@@ -1,7 +1,7 @@
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
 #define WARNING_FONT_COLOR "#f90"
-#define FONT_STYLE "Arial Black"
+#define FONT_STYLE "Small Fonts"
 #define SCROLL_SPEED 2
 
 // Status display
@@ -16,7 +16,7 @@
 	name = "status display"
 	anchored = 1
 	density = 0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/mode = 1	// 0 = Blank
 					// 1 = Shuttle timer
@@ -39,6 +39,7 @@
 
 	maptext_height = 26
 	maptext_width = 32
+	maptext_y = -1
 
 	var/const/CHARS_PER_LINE = 5
 	var/const/STATUS_DISPLAY_BLANK = 0
@@ -89,10 +90,10 @@
 			return 1
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
 			var/use_warn = 0
-			if(shuttle_master.emergency && shuttle_master.emergency.timer)
+			if(SSshuttle.emergency && SSshuttle.emergency.timer)
 				use_warn = 1
-				message1 = "-[shuttle_master.emergency.getModeStr()]-"
-				message2 = shuttle_master.emergency.getTimerStr()
+				message1 = "-[SSshuttle.emergency.getModeStr()]-"
+				message2 = SSshuttle.emergency.getTimerStr()
 
 				if(length(message2) > CHARS_PER_LINE)
 					message2 = "Error!"
@@ -157,6 +158,8 @@
 	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
 
 /obj/machinery/status_display/proc/update_display(line1, line2, warning = 0)
+	line1 = uppertext(line1)
+	line2 = uppertext(line2)
 	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[warning ? WARNING_FONT_COLOR : FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text

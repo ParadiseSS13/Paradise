@@ -208,7 +208,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	usr.show_message(t, 1)
 	feedback_add_details("admin_verb","ASL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_robotize(var/mob/M in mob_list)
+/client/proc/cmd_admin_robotize(var/mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Robot"
 
@@ -226,7 +226,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		alert("Invalid mob")
 
-/client/proc/cmd_admin_animalize(var/mob/M in mob_list)
+/client/proc/cmd_admin_animalize(var/mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Simple Animal"
 
@@ -250,7 +250,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		M.Animalize()
 
 
-/client/proc/makepAI(var/turf/T in mob_list)
+/client/proc/makepAI(var/turf/T in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make pAI"
 	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
@@ -259,7 +259,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 
 	var/list/available = list()
-	for(var/mob/C in mob_list)
+	for(var/mob/C in GLOB.mob_list)
 		if(C.key)
 			available.Add(C)
 	var/mob/choice = input("Choose a player to play the pAI", "Spawn pAI") in available
@@ -271,7 +271,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			return 0
 	var/obj/item/paicard/card = new(T)
 	var/mob/living/silicon/pai/pai = new(card)
-	pai.name = input(choice, "Enter your pAI name:", "pAI Name", "Personal AI") as text
+	var/raw_name = input(choice, "Enter your pAI name:", "pAI Name", "Personal AI") as text
+	var/new_name = reject_bad_name(raw_name, 1)
+	if(new_name)
+		pai.name = new_name
+		pai.real_name = new_name
+	else
+		to_chat(usr, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 	pai.real_name = pai.name
 	pai.key = choice.key
 	card.setPersonality(pai)
@@ -280,7 +286,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			paiController.pai_candidates.Remove(candidate)
 	feedback_add_details("admin_verb","MPAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_alienize(var/mob/M in mob_list)
+/client/proc/cmd_admin_alienize(var/mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Alien"
 
@@ -300,7 +306,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		alert("Invalid mob")
 
-/client/proc/cmd_admin_slimeize(var/mob/M in mob_list)
+/client/proc/cmd_admin_slimeize(var/mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make slime"
 
@@ -320,7 +326,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	else
 		alert("Invalid mob")
 
-/client/proc/cmd_admin_super(var/mob/M in mob_list)
+/client/proc/cmd_admin_super(var/mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Superhero"
 
@@ -331,8 +337,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		alert("Wait until the game starts")
 		return
 	if(ishuman(M))
-		var/type = input("Pick the Superhero","Superhero") as null|anything in all_superheroes
-		var/datum/superheroes/S = all_superheroes[type]
+		var/type = input("Pick the Superhero","Superhero") as null|anything in GLOB.all_superheroes
+		var/datum/superheroes/S = GLOB.all_superheroes[type]
 		if(S)
 			S.create(M)
 		log_admin("[key_name(src)] has turned [M.key] into a Superhero.")
@@ -371,7 +377,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(confirm != "Yes")
 		return
 
-	for(var/I in singularities)
+	for(var/I in GLOB.singularities)
 		var/obj/singularity/S = I
 		if(!is_level_reachable(S.z))
 			continue
@@ -392,7 +398,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
 	feedback_add_details("admin_verb","MPWN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/cmd_admin_grantfullaccess(var/mob/M in mob_list)
+/client/proc/cmd_admin_grantfullaccess(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Grant Full Access"
 
@@ -426,7 +432,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	log_admin("[key_name(src)] has granted [M.key] full access.")
 	message_admins("<span class='notice'>[key_name_admin(usr)] has granted [M.key] full access.</span>", 1)
 
-/client/proc/cmd_assume_direct_control(var/mob/M in mob_list)
+/client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Assume direct control"
 	set desc = "Direct intervention"
@@ -563,7 +569,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	for(var/areatype in areas_without_camera)
 		to_chat(world, "* [areatype]")
 
-/client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in mob_list)
+/client/proc/cmd_admin_dress(var/mob/living/carbon/human/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Select equipment"
 
@@ -685,11 +691,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
 		return
 
-	for(var/obj/machinery/power/emitter/E in machines)
+	for(var/obj/machinery/power/emitter/E in GLOB.machines)
 		if(E.anchored)
 			E.active = 1
 
-	for(var/obj/machinery/field/generator/F in machines)
+	for(var/obj/machinery/field/generator/F in GLOB.machines)
 		if(F.active == 0)
 			F.active = 1
 			F.state = 2
@@ -700,13 +706,13 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			F.update_icon()
 
 	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in machines)
+		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
 			if(G.anchored)
 				var/obj/singularity/S = new /obj/singularity(get_turf(G))
 				S.energy = 800
 				break
 
-	for(var/obj/machinery/power/rad_collector/Rad in machines)
+	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
 		if(Rad.anchored)
 			if(!Rad.P)
 				var/obj/item/tank/plasma/Plasma = new/obj/item/tank/plasma(Rad)
@@ -718,7 +724,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			if(!Rad.active)
 				Rad.toggle_power()
 
-	for(var/obj/machinery/power/smes/SMES in machines)
+	for(var/obj/machinery/power/smes/SMES in GLOB.machines)
 		if(SMES.anchored)
 			SMES.input_attempt = 1
 
@@ -732,21 +738,21 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 	switch(input("Which list?") in list("Players","Admins","Mobs","Living Mobs","Dead Mobs","Silicons","Clients","Respawnable Mobs"))
 		if("Players")
-			to_chat(usr, jointext(player_list,","))
+			to_chat(usr, jointext(GLOB.player_list,","))
 		if("Admins")
-			to_chat(usr, jointext(admins,","))
+			to_chat(usr, jointext(GLOB.admins,","))
 		if("Mobs")
-			to_chat(usr, jointext(mob_list,","))
+			to_chat(usr, jointext(GLOB.mob_list,","))
 		if("Living Mobs")
-			to_chat(usr, jointext(living_mob_list,","))
+			to_chat(usr, jointext(GLOB.living_mob_list,","))
 		if("Dead Mobs")
-			to_chat(usr, jointext(dead_mob_list,","))
+			to_chat(usr, jointext(GLOB.dead_mob_list,","))
 		if("Silicons")
-			to_chat(usr, jointext(silicon_mob_list,","))
+			to_chat(usr, jointext(GLOB.silicon_mob_list,","))
 		if("Clients")
-			to_chat(usr, jointext(clients,","))
+			to_chat(usr, jointext(GLOB.clients,","))
 		if("Respawnable Mobs")
-			to_chat(usr, jointext(respawnable_list,","))
+			to_chat(usr, jointext(GLOB.respawnable_list,","))
 
 /client/proc/cmd_display_del_log()
 	set category = "Debug"
@@ -860,7 +866,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		return
 
 	var/list/names = list()
-	for(var/i in ruin_landmarks)
+	for(var/i in GLOB.ruin_landmarks)
 		var/obj/effect/landmark/ruin/ruin_landmark = i
 		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
 

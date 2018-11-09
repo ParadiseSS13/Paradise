@@ -123,7 +123,7 @@
  * Sleepypens
  */
 /obj/item/pen/sleepy
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
 
 

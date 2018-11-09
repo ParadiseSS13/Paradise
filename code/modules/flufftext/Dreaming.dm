@@ -2,7 +2,7 @@
 
 
 /mob/living/carbon/proc/dream()
-	var/list/dreams = custom_dreams(dream_strings, src)
+	var/list/dreams = custom_dreams(GLOB.dream_strings, src)
 
 	for(var/obj/item/bedsheet/sheet in loc)
 		dreams += sheet.dream_messages
@@ -24,7 +24,7 @@
 
 //NIGHTMARES
 /mob/living/carbon/proc/nightmare()
-	var/list/nightmares = nightmare_strings.Copy()
+	var/list/nightmares = GLOB.nightmare_strings.Copy()
 
 	for(var/obj/item/bedsheet/sheet in loc)
 		nightmares += sheet.nightmare_messages
@@ -43,7 +43,7 @@
 		nightmare()
 		if(ishuman(src))
 			if(prob(10))
-				emote("writhes in [p_their()] sleep.")
+				custom_emote(1,"writhes in [p_their()] sleep.")
 				dir = pick(cardinal)
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)

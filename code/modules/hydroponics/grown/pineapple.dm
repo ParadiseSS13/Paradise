@@ -25,3 +25,4 @@
   filling_color = "#e5b437"
   w_class = WEIGHT_CLASS_NORMAL
   bitesize_mod = 3
+  wine_power = 0.4

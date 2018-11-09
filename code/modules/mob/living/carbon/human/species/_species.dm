@@ -161,7 +161,7 @@
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
-	var/datum/language/species_language = all_languages[language]
+	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
 
 /datum/species/proc/create_organs(mob/living/carbon/human/H) //Handles creation of mob organs.
@@ -253,8 +253,8 @@
 
 		if(H.status_flags & GOTTAGOFAST)
 			. -= 1
-		if(H.status_flags & GOTTAGOREALLYFAST)
-			. -= 2
+		if(H.status_flags & GOTTAGOFAST_METH)
+			. -= 1
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
@@ -285,6 +285,11 @@
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
+
+		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
+		if((H.health <= config.health_threshold_crit) && takes_crit_damage)
+			H.adjustBruteLoss(1)
+	return
 
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
@@ -361,9 +366,9 @@
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
 							"<span class='userdanger'>[user] has weakened [target]!</span>")
 			target.apply_effect(4, WEAKEN, armor_block)
-			target.forcesay(hit_appends)
+			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
-			target.forcesay(hit_appends)
+			target.forcesay(GLOB.hit_appends)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.disarm_act(user, target))
@@ -504,45 +509,25 @@
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return FALSE
 
-/datum/species/proc/handle_vision(mob/living/carbon/human/H)
-	// Right now this just handles blind, blurry, and similar states
-	if(H.blinded || H.eye_blind)
-		H.overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-		H.throw_alert("blind", /obj/screen/alert/blind)
-	else
-		H.clear_fullscreen("blind")
-		H.clear_alert("blind")
-
-
-	if(H.disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
-		if(H.glasses)					//to every /obj/item
-			var/obj/item/clothing/glasses/G = H.glasses
-			if(G.prescription)
-				H.clear_fullscreen("nearsighted")
-			else
-				H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
-		else
-			H.overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
-	else
-		H.clear_fullscreen("nearsighted")
-
-	if(H.eye_blurry)
-		H.overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
-	else
-		H.clear_fullscreen("blurry")
-
-	if(H.druggy)
-		H.overlay_fullscreen("high", /obj/screen/fullscreen/high)
-		H.throw_alert("high", /obj/screen/alert/high)
-	else
-		H.clear_fullscreen("high")
-		H.clear_alert("high")
+/datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
+	return 100 - ((NO_PAIN in species_traits) ? 0 : H.traumatic_shock) - H.getStaminaLoss()
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)
 		return
+	handle_hud_icons_health(H)
+	H.handle_hud_icons_health_overlay()
+	handle_hud_icons_nutrition(H)
+
+/datum/species/proc/handle_hud_icons_health(mob/living/carbon/H)
+	if(!H.client)
+		return
+	handle_hud_icons_health_side(H)
+	handle_hud_icons_health_doll(H)
+
+/datum/species/proc/handle_hud_icons_health_side(mob/living/carbon/human/H)
 	if(H.healths)
-		if(H.stat == DEAD)
+		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healths.icon_state = "health7"
 		else
 			switch(H.hal_screwyhud)
@@ -550,7 +535,7 @@
 				if(SCREWYHUD_DEAD)	H.healths.icon_state = "health7"
 				if(SCREWYHUD_HEALTHY)	H.healths.icon_state = "health0"
 				else
-					switch(100 - ((NO_PAIN in species_traits) ? 0 : H.traumatic_shock) - H.staminaloss)
+					switch(get_perceived_trauma(H))
 						if(100 to INFINITY)		H.healths.icon_state = "health0"
 						if(80 to 100)			H.healths.icon_state = "health1"
 						if(60 to 80)			H.healths.icon_state = "health2"
@@ -559,8 +544,9 @@
 						if(0 to 20)				H.healths.icon_state = "health5"
 						else					H.healths.icon_state = "health6"
 
+/datum/species/proc/handle_hud_icons_health_doll(mob/living/carbon/human/H)
 	if(H.healthdoll)
-		if(H.stat == DEAD)
+		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healthdoll.icon_state = "healthdoll_DEAD"
 			if(H.healthdoll.overlays.len)
 				H.healthdoll.overlays.Cut()
@@ -588,6 +574,7 @@
 			H.healthdoll.overlays -= (cached_overlays - new_overlays)
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
+/datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
 	switch(H.nutrition)
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			H.throw_alert("nutrition", /obj/screen/alert/fat)
@@ -630,7 +617,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	else
 		H.see_invisible = SEE_INVISIBLE_LIVING
 
-	if(H.client.eye != H)
+	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
 		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
 			return

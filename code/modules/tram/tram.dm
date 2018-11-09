@@ -23,7 +23,7 @@
 	var/delay_timer = null
 
 	var/list/blacklist = list(/obj/tram/rail,/atom/movable/lighting_overlay)
-	var/list/ancwhitelist = list(/obj/tram, /obj/vehicle, /obj/structure/stool/bed/chair, /obj/structure/grille, /obj/structure/window)
+	var/list/ancwhitelist = list(/obj/tram, /obj/vehicle, /obj/structure/chair, /obj/structure/grille, /obj/structure/window)
 
 /obj/tram/tram_controller/New()
 	spawn(1)

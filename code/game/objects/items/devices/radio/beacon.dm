@@ -11,11 +11,11 @@
 
 /obj/item/radio/beacon/New()
 	..()
-	code = "[code] ([beacons.len + 1])"
-	beacons += src
+	code = "[code] ([GLOB.beacons.len + 1])"
+	GLOB.beacons += src
 
 /obj/item/radio/beacon/Destroy()
-	beacons -= src
+	GLOB.beacons -= src
 	return ..()
 
 /obj/item/radio/beacon/emag_act(user as mob)
@@ -46,9 +46,10 @@
 	return
 
 /obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
-	proc/digest_delay()
+
+/obj/item/radio/beacon/bacon/proc/digest_delay()
 		spawn(600)
-			qdel(src)
+		qdel(src)
 
 // SINGULO BEACON SPAWNER
 /obj/item/radio/beacon/syndicate

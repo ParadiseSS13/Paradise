@@ -27,7 +27,7 @@
 	*/
 
 	anchored = 1.0
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 
@@ -62,7 +62,7 @@
 		req_access = list()
 		req_one_access = list()
 		playsound(loc, "sparks", 100, 1)
-		
+
 /obj/machinery/door_control/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
@@ -82,7 +82,7 @@
 	add_fingerprint(user)
 
 	if(normaldoorcontrol)
-		for(var/obj/machinery/door/airlock/D in range(range))
+		for(var/obj/machinery/door/airlock/D in range(range, src))
 			if(D.id_tag == id)
 				if(specialfunctions & OPEN)
 					if(D.density)
@@ -113,7 +113,7 @@
 						D.safe = 1
 
 	else
-		for(var/obj/machinery/door/poddoor/M in airlocks)
+		for(var/obj/machinery/door/poddoor/M in range(range, src))
 			if(M.id_tag == id)
 				if(M.density)
 					spawn( 0 )

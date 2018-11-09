@@ -48,7 +48,7 @@ var/global/sent_syndicate_infiltration_team = 0
 
 	if(pick_manually)
 		var/list/possible_ghosts = list()
-		for(var/mob/dead/observer/G in player_list)
+		for(var/mob/dead/observer/G in GLOB.player_list)
 			if(!G.client.is_afk())
 				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					possible_ghosts += G
@@ -69,7 +69,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	var/list/sit_spawns = list()
 	var/list/sit_spawns_leader = list()
 	var/list/sit_spawns_mgmt = list()
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "Syndicate-Infiltrator")
 			sit_spawns += L
 		if(L.name == "Syndicate-Infiltrator-Leader")

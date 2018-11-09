@@ -58,7 +58,6 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
-		RG.add_to_stacks(user)
 		V.use(1)
 		var/obj/item/stack/sheet/glass/G = src
 		src = null
@@ -124,7 +123,6 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 		var/obj/item/stack/rods/V  = W
 		var/obj/item/stack/sheet/plasmarglass/RG = new (user.loc)
 		RG.add_fingerprint(user)
-		RG.add_to_stacks(user)
 		V.use(1)
 		var/obj/item/stack/sheet/glass/G = src
 		src = null

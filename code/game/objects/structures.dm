@@ -32,8 +32,8 @@
 	..()
 	if(smooth)
 		if(ticker && ticker.current_state == GAME_STATE_PLAYING)
-			smooth_icon(src)
-			smooth_icon_neighbors(src)
+			queue_smooth(src)
+			queue_smooth_neighbors(src)
 		icon_state = ""
 	if(climbable)
 		verbs += /obj/structure/proc/climb_on
@@ -46,7 +46,7 @@
 	if(smooth)
 		var/turf/T = get_turf(src)
 		spawn(0)
-			smooth_icon_neighbors(T)
+			queue_smooth_neighbors(T)
 	return ..()
 
 /obj/structure/proc/climb_on()
@@ -64,25 +64,25 @@
 	if(C == user)
 		do_climb(user)
 
+/obj/structure/proc/density_check()
+	for(var/obj/O in orange(0, src))
+		if(O.density && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
+			return O
+	var/turf/T = get_turf(src)
+	if(T.density)
+		return T
+	return null
 
 /obj/structure/proc/do_climb(var/mob/living/user)
-
 	if(!can_touch(user) || !climbable)
 		return
+	var/blocking_object = density_check()
+	if(blocking_object)
+		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
+		return
 
-	for(var/obj/O in range(0, src))
-		if(O.density == 1 && O != src && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
-			to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [O]!</span>")
-			return
-	for(var/turf/T in range(0, src))
-		if(T.density == 1)
-			to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [T]!</span>")
-			return
 	var/turf/T = src.loc
 	if(!T || !istype(T)) return
-
-	var/obj/machinery/door/poddoor/shutters/S = locate() in T.contents
-	if(S && S.density) return
 
 	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
@@ -91,11 +91,6 @@
 		return
 
 	if(!can_touch(user) || !climbable)
-		climber = null
-		return
-
-	S = locate() in T.contents
-	if(S && S.density)
 		climber = null
 		return
 
@@ -147,7 +142,6 @@
 				H.adjustBruteLoss(damage)
 
 			H.UpdateDamageIcon()
-			H.updatehealth()
 	return
 
 /obj/structure/proc/can_touch(var/mob/user)

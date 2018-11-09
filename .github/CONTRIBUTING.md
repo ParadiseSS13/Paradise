@@ -37,9 +37,9 @@ actual development.
  * Document and explain your pull requests thoroughly. Detail what each commit changes,
  and why it changes it. We do not want to have to read all of you commit names to figure
  out what your pull request is about.
- * Any pull request that is not solely composed of fixes or non gameplay-affecting
- refactors must have a changelog. Inline changelogs are supported through the format
- described [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
+ * Any pull request must have a changelog, this is to allow us to know when a PR is deployed 
+ on the live server. Inline changelogs are supported through the format described 
+ [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
  and should be used rather than manually edited .yml file changelogs.
  * Pull requests should not have any merge commits except in the case of fixing merge
  conflicts for an existing pull request. New pull requests should not have any merge
@@ -517,14 +517,15 @@ There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be u
 `GLOBAL_LIST_INIT` allows you to define a list global var with an initial value. Etc.
 
 ## Maintainers
-The only current official role for GitHub staff are the `Maintainers`. There are up to
-three  `Maintainers` at once, and they share equal power. The `Maintainers` are
+The only current official role for GitHub staff are the `Maintainers`. They share equal power. The `Maintainers` are
 responsible for properly tagging new pull requests and issues, moderating comments in
 pull requests/issues, and merging/closing pull requests.
 
 ### Maintainer List
 * [Fox P McCloud](https://github.com/Fox-McCloud)
 * [Crazy Lemon](https://github.com/Crazylemon64)
+* [Tigercat2000](https://github.com/tigercat2000)
+* [Ansari](https://github.com/variableundefined)
 
 ### Maintainer instructions
 * Do not `self-merge`; this refers to the practice of opening a pull request, then

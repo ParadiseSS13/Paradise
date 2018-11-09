@@ -117,7 +117,7 @@
 		return 0
 	if(disabilities_allowed)
 		return 0
-	var/list/prohibited_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_BLIND, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_SCRAMBLED, DISABILITY_FLAG_EPILEPTIC, DISABILITY_FLAG_TOURETTES, DISABILITY_FLAG_NEARSIGHTED, DISABILITY_FLAG_DIZZY)
+	var/list/prohibited_disabilities = list(DISABILITY_FLAG_DEAF, DISABILITY_FLAG_BLIND, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_SCRAMBLED, DISABILITY_FLAG_EPILEPTIC, DISABILITY_FLAG_TOURETTES, DISABILITY_FLAG_DIZZY)
 	for(var/i = 1, i < prohibited_disabilities.len, i++)
 		var/this_disability = prohibited_disabilities[i]
 		if(C.prefs.disabilities & this_disability)
@@ -215,7 +215,7 @@
 				if(isturf(placed_in))
 					to_chat(H, "<span class='notice'>Placing [G.display_name] on [placed_in]!</span>")
 				else
-					to_chat(H, "<span class='noticed'>Placing [G.display_name] in [placed_in.name]")
+					to_chat(H, "<span class='notice'>Placing [G.display_name] in [placed_in.name].</span>")
 				continue
 			if(H.equip_to_appropriate_slot(G))
 				to_chat(H, "<span class='notice'>Placing [G.display_name] in your inventory!</span>")
