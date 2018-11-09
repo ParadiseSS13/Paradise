@@ -65,6 +65,7 @@
 	max_combined_w_class = 42 // 21*2
 
 /obj/item/storage/box/survival
+	icon_state = "box_civ"
 	New()
 		..()
 		contents = list()
@@ -74,6 +75,7 @@
 		return
 
 /obj/item/storage/box/engineer
+	icon_state = "box_eng"
 	New()
 		..()
 		contents = list()
@@ -83,6 +85,7 @@
 		return
 
 /obj/item/storage/box/survival_mining
+	icon_state = "box_min"
 	New()
 		..()
 		contents = list()
@@ -834,7 +837,8 @@
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
-
+	icon_state = "box_ert"
+	
 /obj/item/storage/box/centcomofficer/New()
 	..()
 	contents = list()

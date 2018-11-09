@@ -87,6 +87,7 @@
 /obj/item/storage/box/evidence
 	name = "evidence bag box"
 	desc = "A box claiming to contain evidence bags."
+	icon_state = "box_evidence"
 
 /obj/item/storage/box/evidence/New()
 	new /obj/item/evidencebag(src)

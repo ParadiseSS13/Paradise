@@ -287,6 +287,7 @@
 
 /obj/item/storage/box/holobadge
 	name = "holobadge box"
+	icon_state = "box_badge"
 	desc = "A box claiming to contain holobadges."
 	New()
 		new /obj/item/clothing/accessory/holobadge(src)
