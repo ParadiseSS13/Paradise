@@ -108,6 +108,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	desc = "A very strong and very resistant sheet of a plasma-glass alloy."
 	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
+	item_state = "sheet-rglass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
 	origin_tech = "plasmatech=2;materials=2"
 	created_window = /obj/structure/window/plasmabasic
@@ -147,6 +148,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	desc = "Plasma glass which seems to have rods or something stuck in them."
 	singular_name = "reinforced plasma glass sheet"
 	icon_state = "sheet-plasmarglass"
+	item_state = "sheet-rglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT*2)
 	origin_tech = "plasmatech=2;materials=2"
 	created_window = /obj/structure/window/plasmareinforced
@@ -166,7 +168,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	desc = "A glass sheet made out of a titanium-silicate alloy."
 	singular_name = "titanium glass sheet"
 	icon_state = "sheet-titaniumglass"
-	item_state = "sheet-titaniumglass"
+	item_state = "sheet-rglass"
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/titaniumglass
 	full_window = /obj/structure/window/full/shuttle
@@ -184,7 +186,7 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	desc = "A glass sheet made out of a plasma-titanium-silicate alloy."
 	singular_name = "plastitanium glass sheet"
 	icon_state = "sheet-plastitaniumglass"
-	item_state = "sheet-plastitaniumglass"
+	item_state = "sheet-rglass"
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA=MINERAL_MATERIAL_AMOUNT, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	merge_type = /obj/item/stack/sheet/plastitaniumglass
 	full_window = /obj/structure/window/plastitanium
