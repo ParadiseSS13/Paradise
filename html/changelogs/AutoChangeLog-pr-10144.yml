@@ -1,4 +1,0 @@
-author: "AzuleUtama"
-delete-after: True
-changes: 
-  - bugfix: "RCD now gives visible messages when building without enough ammo or on an invalid tile."
