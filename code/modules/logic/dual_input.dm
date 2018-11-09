@@ -45,9 +45,9 @@
 
 /obj/machinery/logic_gate/nand/handle_logic()
 	if((input1_state == LOGIC_ON || input1_state == LOGIC_FLICKER) && (input2_state == LOGIC_ON || input2_state == LOGIC_FLICKER))
-		output_state = LOGIC_OFF										//This can only output continuous signals
-	else	//At least one input was ON/FLICKER, so output is off
-		output_state = LOGIC_OFF
+		output_state = LOGIC_OFF										//Both inputs are ON/FLICKER, so output is off
+	else
+		output_state = LOGIC_ON		//This can only output continuous signals
 	return
 
 // NOR Gate
@@ -58,9 +58,9 @@
 	output_state = LOGIC_ON
 
 /obj/machinery/logic_gate/nor/handle_logic()
-	if(input1_state == LOGIC_OFF ||input2_state == LOGIC_OFF)
+	if(input1_state == LOGIC_OFF && input2_state == LOGIC_OFF)		//Both inputs are OFF, so output is ON
 		output_state = LOGIC_ON										//This can only output continuous signals
-	else	//Both inputs are ON, so output is OFF
+	else
 		output_state = LOGIC_OFF
 	return
 
@@ -71,13 +71,14 @@
 	icon_state = "logic_xor"
 
 /obj/machinery/logic_gate/xor/handle_logic()
-	if((input1_state == LOGIC_ON || input1_state == LOGIC_FLICKER) || input2_state == LOGIC_OFF)			//Only input1 is ON/FLICKER, so output matches input1
+	if((input1_state == LOGIC_ON || input1_state == LOGIC_FLICKER) && (input2_state == LOGIC_OFF))			//Only input1 is ON/FLICKER, so output matches input1
 		output_state = input1_state
-	else if((input2_state == LOGIC_ON || input2_state == LOGIC_FLICKER) || input1_state == LOGIC_OFF)		//Only input2 is ON/FLICKER, so output matches input2
+	else if((input2_state == LOGIC_ON || input2_state == LOGIC_FLICKER) && (input1_state == LOGIC_OFF))		//Only input2 is ON/FLICKER, so output matches input2
 		output_state = input2_state
 	else																									//Both inputs are ON or OFF, so output is OFF
 		output_state = LOGIC_OFF
 	return
+
 
 // XNOR Gate
 /obj/machinery/logic_gate/xnor

@@ -127,6 +127,8 @@
 				/obj/item/seeds/ambrosia = 20,
 				/obj/item/clothing/under/color/black = 30,
 				/obj/item/stack/tape_roll = 10,
+				/obj/item/storage/bag/plasticbag = 20,
+				/obj/item/caution = 10,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/seeds/ambrosia/cruciatus = 3,
@@ -143,7 +145,7 @@
 				/obj/item/storage/backpack/satchel_flat = 2,
 				/obj/item/storage/toolbox/syndicate = 2,
 				/obj/item/storage/backpack/duffel/syndie/surgery_fake = 2,
-				/obj/item/storage/belt/military = 2,
+				/obj/item/storage/belt/military/traitor = 2,
 				/obj/item/storage/box/syndie_kit/space = 2,
 				/obj/item/multitool/ai_detect = 2,
 				/obj/item/implanter/storage = 1,

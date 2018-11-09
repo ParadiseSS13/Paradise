@@ -223,6 +223,10 @@
 	health = 35 - (getBruteLoss() + getFireLoss())
 	update_stat("updatehealth([reason])")
 
+/mob/living/silicon/robot/drone/death(gibbed)
+	. = ..(gibbed)
+	ghostize(can_reenter_corpse = 0)
+
 
 //CONSOLE PROCS
 /mob/living/silicon/robot/drone/proc/law_resync()

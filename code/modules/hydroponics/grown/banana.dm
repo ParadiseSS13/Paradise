@@ -23,6 +23,7 @@
 	trash = /obj/item/grown/bananapeel
 	filling_color = "#FFFF00"
 	bitesize = 5
+	distill_reagent = "bananahonk"
 
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is aiming the [name] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -74,6 +75,7 @@
 	icon_state = "mimana"
 	trash = /obj/item/grown/bananapeel/mimanapeel
 	filling_color = "#FFFFEE"
+	distill_reagent = "silencer"
 
 /obj/item/grown/bananapeel/mimanapeel
 	seed = /obj/item/seeds/banana/mime
@@ -102,6 +104,8 @@
 	trash = /obj/item/grown/bananapeel/bluespace
 	filling_color = "#0000FF"
 	origin_tech = "biotech=3;bluespace=5"
+	wine_power = 0.6
+	wine_flavor = "slippery hypercubes"
 
 /obj/item/grown/bananapeel/bluespace
 	seed = /obj/item/seeds/banana/bluespace
