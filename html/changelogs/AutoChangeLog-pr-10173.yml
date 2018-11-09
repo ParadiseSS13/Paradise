@@ -1,4 +1,0 @@
-author: "Alonefromhell"
-delete-after: True
-changes: 
-  - bugfix: "Holopad should no longer automatically revert to default sprite."
