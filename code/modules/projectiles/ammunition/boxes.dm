@@ -118,10 +118,12 @@
 	icon_state = "foambox"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 40
+	materials = list(MAT_METAL = 500)
 
 /obj/item/ammo_box/foambox/riot
 	icon_state = "foambox_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+	materials = list(MAT_METAL = 50000)
 
 /obj/item/ammo_box/caps
 	name = "speed loader (caps)"

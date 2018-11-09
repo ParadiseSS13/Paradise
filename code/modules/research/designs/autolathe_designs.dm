@@ -619,7 +619,7 @@
 	name = "Box of Foam Darts"
 	id = "foam_dart"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30000)
+	materials = list(MAT_METAL = 500)
 	build_path = /obj/item/ammo_box/foambox
 	category = list("initial", "Miscellaneous")
 
