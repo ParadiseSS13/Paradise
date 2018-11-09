@@ -62,15 +62,3 @@
 	var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
 	if(ears)
 		ears.MinimumDeafTicks(value)
-
-
-// Kitty ears!!
-/obj/item/organ/internal/ears/cat
-	name = "cat ears"
-	icon = 'icons/obj/clothing/hats.dmi'
-	icon_state = "kitty"
-	color = "#aa4444"
-	transform = matrix(0.7, 0, 0, 0, 0.7, 0)
-
-/obj/item/organ/internal/ears/cat/render()
-	. = mutable_appearance('icons/mob/head.dmi', "kitty", layer = -HEAD_ACC_OVER_LAYER)
