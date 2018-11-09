@@ -20,7 +20,7 @@
 	name = "Nanotrasen Navy Officer"
 	jobtype = /datum/job/ntnavyofficer
 
-	uniform = /obj/item/clothing/under/rank/centcom/officer
+	uniform = /obj/item/clothing/under/rank/centcom/ranker
 	gloves =  /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/centcom/officer
@@ -58,7 +58,7 @@
 /datum/outfit/job/ntspecops
 	name = "Special Operations Officer"
 	jobtype = /datum/job/ntspecops
-	uniform = /obj/item/clothing/under/rank/centcom/commander
+	uniform = /obj/item/clothing/under/rank/centcom/officer
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
 	back = /obj/item/storage/backpack/security
 	belt = /obj/item/gun/energy/pulse/pistol/m1911
