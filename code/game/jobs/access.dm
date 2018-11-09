@@ -224,6 +224,8 @@ var/const/access_trade_sol = 160
 			return list(access_syndicate)
 		if("Syndicate Operative Leader")
 			return list(access_syndicate, access_syndicate_leader)
+		if("Syndicate Agent")
+			return list(access_syndicate, access_maint_tunnels)
 		if("Vox Raider")
 			return list(access_vox)
 		if("Vox Trader")

@@ -214,14 +214,6 @@
 	for(var/i = 0, i < storage_slots - 2, i++)
 		handle_item_insertion(new /obj/item/stack/spacecash/c1000, 1)
 
-/obj/item/storage/secure/briefcase/reaper/New()
-	..()
-	handle_item_insertion(new /obj/item/gun/energy/kinetic_accelerator/crossbow, 1)
-	handle_item_insertion(new /obj/item/gun/projectile/revolver/mateba, 1)
-	handle_item_insertion(new /obj/item/ammo_box/a357, 1)
-	handle_item_insertion(new /obj/item/grenade/plastic/c4, 1)
-
-
 // -----------------------------
 //        Secure Safe
 // -----------------------------
