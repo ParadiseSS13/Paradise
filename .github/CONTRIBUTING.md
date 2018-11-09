@@ -517,14 +517,15 @@ There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be u
 `GLOBAL_LIST_INIT` allows you to define a list global var with an initial value. Etc.
 
 ## Maintainers
-The only current official role for GitHub staff are the `Maintainers`. There are up to
-three  `Maintainers` at once, and they share equal power. The `Maintainers` are
+The only current official role for GitHub staff are the `Maintainers`. They share equal power. The `Maintainers` are
 responsible for properly tagging new pull requests and issues, moderating comments in
 pull requests/issues, and merging/closing pull requests.
 
 ### Maintainer List
 * [Fox P McCloud](https://github.com/Fox-McCloud)
 * [Crazy Lemon](https://github.com/Crazylemon64)
+* [Tigercat2000](https://github.com/tigercat2000)
+* [Ansari](https://github.com/variableundefined)
 
 ### Maintainer instructions
 * Do not `self-merge`; this refers to the practice of opening a pull request, then

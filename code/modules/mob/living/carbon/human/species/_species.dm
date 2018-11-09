@@ -286,6 +286,11 @@
 		H.setOxyLoss(0)
 		H.SetLoseBreath(0)
 
+		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
+		if((H.health <= config.health_threshold_crit) && takes_crit_damage)
+			H.adjustBruteLoss(1)
+	return
+
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
@@ -522,7 +527,7 @@
 
 /datum/species/proc/handle_hud_icons_health_side(mob/living/carbon/human/H)
 	if(H.healths)
-		if(H.stat == DEAD)
+		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healths.icon_state = "health7"
 		else
 			switch(H.hal_screwyhud)
@@ -541,7 +546,7 @@
 
 /datum/species/proc/handle_hud_icons_health_doll(mob/living/carbon/human/H)
 	if(H.healthdoll)
-		if(H.stat == DEAD)
+		if(H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			H.healthdoll.icon_state = "healthdoll_DEAD"
 			if(H.healthdoll.overlays.len)
 				H.healthdoll.overlays.Cut()
@@ -612,7 +617,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	else
 		H.see_invisible = SEE_INVISIBLE_LIVING
 
-	if(H.client.eye != H)
+	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
 		if(A.update_remote_sight(H)) //returns 1 if we override all other sight updates.
 			return

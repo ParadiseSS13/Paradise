@@ -50,11 +50,11 @@
 	if(use_preloader && (src.type == _preloader.target_path))//in case the instanciated atom is creating other atoms in New()
 		_preloader.load(src)
 	. = ..()
-	attempt_init(...)
+	attempt_init(arglist(args))
 
 // This is distinct from /tg/ because of our space management system
 // This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
-/atom/proc/attempt_init(loc, ...)
+/atom/proc/attempt_init(...)
 	var/do_initialize = SSatoms.initialized
 	if(do_initialize != INITIALIZATION_INSSATOMS)
 		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD

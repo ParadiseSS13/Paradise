@@ -325,6 +325,7 @@ var/record_id_num = 1001
 			S.fields["notes"] = H.sec_record
 		else
 			S.fields["notes"] = "No notes."
+		LAZYINITLIST(S.fields["comments"])
 		security += S
 
 		//Locked Record

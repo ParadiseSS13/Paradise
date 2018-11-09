@@ -13,9 +13,9 @@
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
 
 /obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
-	. = ..()
 	if(I.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
+	. = ..()
 
 /obj/structure/reagent_dispensers/New()
 	create_reagents(tank_volume)
@@ -55,6 +55,13 @@
 	icon_state = "water_high" //I was gonna clean my room...
 	tank_volume = 100000
 
+
+/obj/structure/reagent_dispensers/oil
+	name = "oil tank"
+	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."
+	icon_state = "oil"
+	reagent_id = "oil"
+	tank_volume = 3000
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"

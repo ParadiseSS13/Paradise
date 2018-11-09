@@ -276,7 +276,8 @@
 /obj/effect/landmark/damageturf/New()
 	..()
 	var/turf/simulated/T = get_turf(src)
-	T.break_tile()
+	if(istype(T))
+		T.break_tile()
 
 /obj/effect/landmark/burnturf
 	icon_state = "burned"

@@ -22,6 +22,7 @@
 	desc = "These aromatic tips of the tea plant can be dried to make tea."
 	icon_state = "tea_aspera_leaves"
 	filling_color = "#008000"
+	can_distill = FALSE
 
 // Tea Astra
 /obj/item/seeds/tea/astra
@@ -67,6 +68,7 @@
 	icon_state = "coffee_arabica"
 	filling_color = "#DC143C"
 	bitesize_mod = 2
+	distill_reagent = "kahlua"
 
 // Coffee Robusta
 /obj/item/seeds/coffee/robusta

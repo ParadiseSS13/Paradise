@@ -53,6 +53,7 @@
 	icon_state = "cabbage"
 	filling_color = "#90EE90"
 	bitesize_mod = 2
+	wine_power = 0.2
 
 
 // Sugarcane
@@ -78,6 +79,7 @@
 	icon_state = "sugarcane"
 	filling_color = "#FFD700"
 	bitesize_mod = 2
+	distill_reagent = "rum"
 
 
 // Gatfruit
@@ -108,6 +110,7 @@
 	origin_tech = "combat=6"
 	trash = /obj/item/gun/projectile/revolver
 	bitesize_mod = 2
+	wine_power = 0.9 //It burns going down, too.
 
 //Cherry Bombs
 /obj/item/seeds/cherry/bomb
@@ -129,6 +132,7 @@
 	seed = /obj/item/seeds/cherry/bomb
 	bitesize_mod = 2
 	volume = 125 //Gives enough room for the black powder at max potency
+	wine_power = 0.8
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/attack_self(mob/living/user)
 	var/area/A = get_area(user)

@@ -57,9 +57,9 @@
 	add_to_all_human_data_huds()
 
 /mob/living/carbon/human/Destroy()
+	. = ..()
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
-	return ..()
 
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	..(mapload, /datum/species/skrell)
@@ -727,25 +727,22 @@
 
 								if(hasHUD(usr, "security") && setcriminal != "Cancel")
 									found_record = 1
-									var/their_name = R.fields["name"]
-									var/their_rank = R.fields["rank"]
 									if(R.fields["criminal"] == "*Execute*")
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
-									else
+									else 
+										var/rank
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-										if(isrobot(usr))
+											rank = U.get_assignment()
+										else if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-										if(isAI(usr))
-											var/mob/living/silicon/ai/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-
-										R.fields["criminal"] = setcriminal
-										log_admin("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [setcriminal], comment: [t1]")
-										spawn()
-											sec_hud_set_security_status()
+											rank = "[U.modtype] [U.braintype]"
+										else if(isAI(usr))
+											rank = "AI"
+										set_criminal_status(usr, R, setcriminal, t1, rank)
+								break // Git out of the securiy records loop!
+						if(found_record)
+							break // Git out of the general records
 
 			if(!found_record)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")

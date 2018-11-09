@@ -23,6 +23,9 @@
 	master = null
 	return ..()
 
+/obj/screen/proc/component_click(obj/screen/component_button/component, params)
+	return
+
 /obj/screen/text
 	icon = null
 	icon_state = null
@@ -461,3 +464,15 @@
 	icon_state = "healthdoll_DEAD"
 	screen_loc = ui_healthdoll
 	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays
+
+/obj/screen/component_button
+	var/obj/screen/parent
+
+
+/obj/screen/component_button/Initialize(mapload, obj/screen/new_parent)
+	. = ..()
+	parent = new_parent
+
+/obj/screen/component_button/Click(params)
+	if(parent)
+		parent.component_click(src, params)

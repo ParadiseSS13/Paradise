@@ -220,6 +220,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 	origin_tech = "materials=4"
 	sheettype = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
+	wall_allowed = FALSE	//no tranquilite walls in code
 
 /obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
 	..()
@@ -242,6 +243,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 
 var/global/list/datum/stack_recipe/titanium_recipes = list (
 	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
+	new/datum/stack_recipe("surgical tray", /obj/structure/table/tray, 2, one_per_turf = 1, on_floor = 1),
 	)
 
 /obj/item/stack/sheet/mineral/titanium/New(loc, amount=null)

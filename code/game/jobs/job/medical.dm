@@ -117,7 +117,7 @@
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H.mind.role_alt_title)
+	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Surgeon")
 				uniform = /obj/item/clothing/under/rank/medical/blue
@@ -269,7 +269,7 @@
 
 /datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H.mind.role_alt_title)
+	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
 			if("Psychiatrist")
 				uniform = /obj/item/clothing/under/rank/psych

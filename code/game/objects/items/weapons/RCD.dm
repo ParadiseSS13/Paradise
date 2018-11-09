@@ -1,7 +1,34 @@
 /*
 CONTAINS:
-RCD
+RCD // no fucking shit sherlock
 */
+#define RCD_PAGE_MAIN 1
+#define RCD_PAGE_AIRLOCK 2
+
+#define RCD_MODE_TURF		"Turf"
+#define RCD_MODE_AIRLOCK	"Airlock"
+#define RCD_MODE_DECON		"Deconstruct"
+#define RCD_MODE_WINDOW		"Windows"
+
+GLOBAL_LIST_INIT(rcd_door_types, list(
+	/obj/machinery/door/airlock = "Standard",					/obj/machinery/door/airlock/glass = "Standard (Glass)",
+	/obj/machinery/door/airlock/command = "Command",			/obj/machinery/door/airlock/command/glass = "Command (Glass)",
+	/obj/machinery/door/airlock/security = "Security",			/obj/machinery/door/airlock/security/glass = "Security (Glass)",
+	/obj/machinery/door/airlock/engineering = "Engineering",	/obj/machinery/door/airlock/engineering/glass = "Engineering (Glass)",
+	/obj/machinery/door/airlock/medical = "Medical",			/obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
+	/obj/machinery/door/airlock/maintenance = "Maintenance",	/obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
+	/obj/machinery/door/airlock/external = "External",			/obj/machinery/door/airlock/external/glass = "External (Glass)",
+	/obj/machinery/door/airlock/maintenance/external = "External Maintenance",
+		/obj/machinery/door/airlock/maintenance/external/glass = "External Maintenance (Glass)",
+	/obj/machinery/door/airlock/freezer = "Freezer",
+	/obj/machinery/door/airlock/mining = "Mining",		/obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
+	/obj/machinery/door/airlock/research = "Research",	/obj/machinery/door/airlock/research/glass = "Research (Glass)",
+	/obj/machinery/door/airlock/atmos = "Atmospherics",	/obj/machinery/door/airlock/atmos/glass = "Atmospherics (Glass)",
+	/obj/machinery/door/airlock/science = "Science",	/obj/machinery/door/airlock/science/glass = "Science (Glass)",
+	/obj/machinery/door/airlock/hatch = "Airtight Hatch",
+	/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch"
+))
+
 /obj/item/rcd
 	name = "rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
@@ -21,76 +48,123 @@ RCD
 	toolspeed = 1
 	usesound = 'sound/items/Deconstruct.ogg'
 	flags_2 = NO_MAT_REDEMPTION_2
+	req_access = list(access_engine)
+
+	// Important shit
 	var/datum/effect_system/spark_spread/spark_system
-	var/max_matter = 100
 	var/matter = 0
-	var/working = 0
-	var/mode = 1
+	var/max_matter = 100
+	var/mode = RCD_MODE_TURF
 	var/canRwall = 0
-	var/menu = 1
+
+	// UI shit
+	var/menu = RCD_PAGE_MAIN
+	var/locked = TRUE
 	var/door_type = /obj/machinery/door/airlock
 	var/door_name = "Airlock"
-	req_access = list(access_engine)
 	var/list/door_accesses = list()
 	var/list/door_accesses_list = list()
 	var/one_access
-	var/locked = 1
-	var/static/list/allowed_door_types = list(
-		/obj/machinery/door/airlock = "Standard", /obj/machinery/door/airlock/glass = "Standard (Glass)",
-		/obj/machinery/door/airlock/command = "Command", /obj/machinery/door/airlock/command/glass = "Command (Glass)",
-		/obj/machinery/door/airlock/security = "Security", /obj/machinery/door/airlock/security/glass = "Security (Glass)",
-		/obj/machinery/door/airlock/engineering = "Engineering", /obj/machinery/door/airlock/engineering/glass = "Engineering (Glass)",
-		/obj/machinery/door/airlock/medical = "Medical", /obj/machinery/door/airlock/medical/glass = "Medical (Glass)",
-		/obj/machinery/door/airlock/maintenance = "Maintenance", /obj/machinery/door/airlock/maintenance/glass = "Maintenance (Glass)",
-		/obj/machinery/door/airlock/external = "External", /obj/machinery/door/airlock/external/glass = "External (Glass)",
-		/obj/machinery/door/airlock/maintenance/external = "External Maintenance", /obj/machinery/door/airlock/maintenance/external/glass = "External Maintenance (Glass)",
-		/obj/machinery/door/airlock/freezer = "Freezer",
-		/obj/machinery/door/airlock/mining = "Mining", /obj/machinery/door/airlock/mining/glass = "Mining (Glass)",
-		/obj/machinery/door/airlock/research = "Research", /obj/machinery/door/airlock/research/glass = "Research (Glass)",
-		/obj/machinery/door/airlock/atmos = "Atmospherics", /obj/machinery/door/airlock/atmos/glass = "Atmospherics (Glass)",
-		/obj/machinery/door/airlock/science = "Science", /obj/machinery/door/airlock/science/glass = "Science (Glass)",
-		/obj/machinery/door/airlock/hatch = "Airtight Hatch",
-		/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch")
 
-/obj/item/rcd/New()
-	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
+	// Stupid shit
+	var/static/allowed_targets = list(/turf, /obj/structure/grille, /obj/structure/window, /obj/structure/lattice, /obj/machinery/door/airlock)
+
+/obj/item/rcd/Initialize()
+	. = ..()
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 	GLOB.rcd_list += src
+
 	door_accesses_list = list()
 	for(var/access in get_all_accesses())
 		door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
-	return
+
+/obj/item/rcd/examine(mob/user)
+	. = ..()
+	to_chat(user, "MATTER: [matter]/[max_matter] matter-units.")
+	to_chat(user, "MODE: [mode].")
 
 /obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)
 	GLOB.rcd_list -= src
 	return ..()
 
+/obj/item/rcd/proc/get_airlock_image(airlock_type)
+	var/obj/machinery/door/airlock/proto = airlock_type
+	var/ic = initial(proto.icon)
+	var/mutable_appearance/MA = mutable_appearance(ic, "closed")
+	if(!initial(proto.glass))
+		MA.overlays += "fill_closed"
+	// Not scaling these down to button size because they look horrible then, instead just bumping up radius.
+	return MA
+
+/obj/item/rcd/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
 /obj/item/rcd/attackby(obj/item/W, mob/user, params)
 	..()
+
 	if(istype(W, /obj/item/rcd_ammo))
 		var/obj/item/rcd_ammo/R = W
 		if((matter + R.ammoamt) > max_matter)
 			to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 			return
 		matter += R.ammoamt
-		user.drop_item()
-		qdel(W)
+		if(!user.unEquip(R))
+			to_chat(user, "<span class='warning'>[R] is stuck to your hand!</span>")
+			return
+		qdel(R)
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
-		desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 		SSnanoui.update_uis(src)
+
+/obj/item/rcd/proc/radial_menu(mob/user)
+	if(!check_menu(user))
 		return
+	var/list/choices = list(
+		RCD_MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "airlock"),
+		RCD_MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "delete"),
+		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "grillewindow"),
+		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
+		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
+	)
+	if(mode == RCD_MODE_AIRLOCK)
+		choices += list(
+			"Change Access" = image(icon = 'icons/obj/interface.dmi', icon_state = "access"),
+			"Change Airlock Type" = image(icon = 'icons/obj/interface.dmi', icon_state = "airlocktype")
+		)
+	choices -= mode // Get rid of the current mode, clicking it won't do anything.
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	if(!check_menu(user))
+		return
+	switch(choice)
+		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF)
+			mode = choice
+		if("UI")
+			menu = RCD_PAGE_MAIN
+			ui_interact(user)
+			return
+		if("Change Access", "Change Airlock Type")
+			menu = RCD_PAGE_AIRLOCK
+			ui_interact(user)
+			return
+		else
+			return
+	playsound(src, 'sound/effects/pop.ogg', 50, 0)
+	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
 
 
 /obj/item/rcd/attack_self(mob/user)
-	//Change the mode
-	ui_interact(user)
+	//Change the mode // Oh I thought the UI was just for fucking staring at
+	radial_menu(user)
 
 /obj/item/rcd/attack_self_tk(mob/user)
-	ui_interact(user)
+	radial_menu(user)
 
 /obj/item/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -110,10 +184,10 @@ RCD
 	data["one_access"] = one_access
 	data["locked"] = locked
 
-	if(menu == 2)
+	if(menu == RCD_PAGE_AIRLOCK)
 		var/list/door_types_list = list()
-		for(var/type in allowed_door_types)
-			door_types_list[++door_types_list.len] = list("name" = allowed_door_types[type], "type" = type)
+		for(var/type in GLOB.rcd_door_types)
+			door_types_list[++door_types_list.len] = list("name" = GLOB.rcd_door_types[type], "type" = type)
 		data["allowed_door_types"] = door_types_list
 
 		data["door_accesses"] = door_accesses_list
@@ -128,13 +202,13 @@ RCD
 		spark_system.start()
 
 	if(href_list["mode"])
-		mode = text2num(href_list["mode"])
+		mode = href_list["mode"]
 		. = 1
 
 	if(href_list["door_type"])
 		var/new_door_type = text2path(href_list["door_type"])
-		if(!(new_door_type in allowed_door_types))
-			message_admins("RCD HREF exploit attempted by [key_name(usr, usr.client)]!")
+		if(!(new_door_type in GLOB.rcd_door_types))
+			message_admins("RCD Door HREF exploit attempted by [key_name(usr)]!")
 			return
 		door_type = new_door_type
 		. = 1
@@ -144,238 +218,228 @@ RCD
 		. = 1
 
 	if(href_list["login"])
-		if(istype(usr,/mob/living/silicon))
-			locked = 0
-		else
-			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/pda))
-				var/obj/item/pda/pda = I
-				I = pda.id
-			var/obj/item/card/id/ID = I
-			if(istype(ID) && ID)
-				if(check_access(ID))
-					locked = 0
-				else 
-					to_chat(usr, "<span class='warning'>This ID lacks access.</span>")
-			else
-				to_chat(usr, "<span class='warning'>You can't swipe without your ID in hand.</span>")
+		if(allowed(usr))
+			locked = FALSE
 		. = 1
 
 	if(href_list["logout"])
-		locked = 1
+		locked = TRUE
 		. = 1
 
-	if(href_list["toggle_one_access"] && !locked)
-		one_access = !one_access
-		. = 1
+	if(!locked)
+		if(href_list["toggle_one_access"])
+			one_access = !one_access
+			. = 1
 
-	if(href_list["toggle_access"] && !locked)
-		var/href_access = text2num(href_list["toggle_access"])
-		if(href_access in door_accesses)
-			door_accesses -= href_access
-		else
-			door_accesses += href_access
-		door_accesses_list = list()
-		for(var/access in get_all_accesses())
-			door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
-		. = 1
+		if(href_list["toggle_access"])
+			var/href_access = text2num(href_list["toggle_access"])
+			if(href_access in door_accesses)
+				door_accesses -= href_access
+			else
+				door_accesses += href_access
+			door_accesses_list = list()
+			for(var/access in get_all_accesses())
+				door_accesses_list[++door_accesses_list.len] = list("name" = get_access_desc(access), "id" = access, "enabled" = (access in door_accesses))
+			. = 1
 
-	if(href_list["choice"] && !locked)
-		var/temp_t = sanitize(copytext(input("Enter a custom Airlock Name.","Airlock Name"),1,MAX_MESSAGE_LEN))
-		if(temp_t)
-			door_name = temp_t
+		if(href_list["choice"])
+			var/temp_t = sanitize(copytext(input("Enter a custom Airlock Name.", "Airlock Name"), 1, MAX_MESSAGE_LEN))
+			if(temp_t)
+				door_name = temp_t
 
-/obj/item/rcd/proc/activate()
-	playsound(loc, usesound, 50, 1)
+/obj/item/rcd/proc/mode_turf(atom/A, mob/user)
+	if(isspaceturf(A) || istype(A, /obj/structure/lattice))
+		if(useResource(1, user))
+			to_chat(user, "Building Floor...")
+			playsound(loc, usesound, 50, 1)
+			var/turf/AT = get_turf(A)
+			AT.ChangeTurf(/turf/simulated/floor/plating)
+			return TRUE
+		return FALSE
 
+	if(isfloorturf(A))
+		if(checkResource(3, user))
+			to_chat(user, "Building Wall...")
+			playsound(loc, 'sound/machines/click.ogg', 50, 1)
+			if(do_after(user, 20 * toolspeed, target = A))
+				if(!useResource(3, user))
+					return FALSE
+				playsound(loc, usesound, 50, 1)
+				var/turf/AT = A
+				AT.ChangeTurf(/turf/simulated/wall)
+				return TRUE
+		return FALSE
+	return FALSE
+
+/obj/item/rcd/proc/mode_airlock(atom/A, mob/user)
+	if(isfloorturf(A) && checkResource(10, user))
+		to_chat(user, "Building Airlock...")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		if(do_after(user, 50 * toolspeed, target = A))
+			if(locate(/obj/machinery/door/airlock) in A.contents)
+				return FALSE
+			if(!useResource(10, user))
+				return FALSE
+			playsound(loc, usesound, 50, 1)
+			var/obj/machinery/door/airlock/T = new door_type(A)
+			T.name = door_name
+			T.autoclose = TRUE
+			if(one_access)
+				T.req_one_access = door_accesses.Copy()
+			else
+				T.req_access = door_accesses.Copy()
+			return FALSE
+	return FALSE
+
+/obj/item/rcd/proc/mode_decon(atom/A, mob/user)
+	if(iswallturf(A))
+		if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
+			return FALSE
+		if(checkResource(5, user))
+			to_chat(user, "Deconstructing Wall...")
+			playsound(loc, 'sound/machines/click.ogg', 50, 1)
+			if(do_after(user, 40 * toolspeed, target = A))
+				if(!useResource(5, user))
+					return FALSE
+				playsound(loc, usesound, 50, 1)
+				var/turf/AT = A
+				AT.ChangeTurf(/turf/simulated/floor/plating)
+				return TRUE
+		return FALSE
+
+	if(isfloorturf(A))
+		if(checkResource(5, user))
+			to_chat(user, "Deconstructing Floor...")
+			playsound(loc, 'sound/machines/click.ogg', 50, 1)
+			if(do_after(user, 50 * toolspeed, target = A))
+				if(!useResource(5, user))
+					return FALSE
+				playsound(loc, usesound, 50, 1)
+				var/turf/AT = A
+				AT.ChangeTurf(/turf/space)
+				return TRUE
+		return FALSE
+
+	if(istype(A, /obj/machinery/door/airlock))
+		if(checkResource(20, user))
+			to_chat(user, "Deconstructing Airlock...")
+			playsound(loc, 'sound/machines/click.ogg', 50, 1)
+			if(do_after(user, 50 * toolspeed, target = A))
+				if(!useResource(20, user))
+					return FALSE
+				playsound(loc, usesound, 50, 1)
+				qdel(A)
+				return TRUE
+		return FALSE
+
+	if(istype(A, /obj/structure/window)) // You mean the grille of course, do you?
+		A = locate(/obj/structure/grille) in A.loc
+	if(istype(A, /obj/structure/grille))
+		if(!checkResource(2, user))
+			return 0
+		to_chat(user, "Deconstructing window...")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		if(!do_after(user, 20 * toolspeed, target = A))
+			return 0
+		if(!useResource(2, user))
+			return 0
+		playsound(loc, usesound, 50, 1)
+		var/turf/T1 = get_turf(A)
+		QDEL_NULL(A)
+		for(var/obj/structure/window/W in T1.contents)
+			qdel(W)
+		for(var/cdir in cardinal)
+			var/turf/T2 = get_step(T1, cdir)
+			if(locate(/obj/structure/window/full/shuttle) in T2)
+				continue // Shuttle windows? Nah. We don't need extra windows there.
+			if(!(locate(/obj/structure/grille) in T2))
+				continue
+			for(var/obj/structure/window/W in T2)
+				if(W.dir == turn(cdir, 180))
+					qdel(W)
+			var/obj/structure/window/reinforced/W = new(T2)
+			W.dir = turn(cdir, 180)
+		return TRUE
+	return FALSE
+
+/obj/item/rcd/proc/mode_window(atom/A, mob/user)
+	if(isfloorturf(A))
+		if(locate(/obj/structure/grille) in A)
+			return 0 // We already have window
+		if(!checkResource(2, user))
+			return 0
+		to_chat(user, "Constructing window...")
+		playsound(loc, 'sound/machines/click.ogg', 50, 1)
+		if(!do_after(user, 20 * toolspeed, target = A))
+			return 0
+		if(locate(/obj/structure/grille) in A)
+			return 0 // We already have window
+		if(!useResource(2, user))
+			return 0
+		playsound(loc, usesound, 50, 1)
+		new /obj/structure/grille(A)
+		for(var/obj/structure/window/W in A)
+			qdel(W)
+		for(var/cdir in cardinal)
+			var/turf/T = get_step(A, cdir)
+			if(locate(/obj/structure/grille) in T)
+				for(var/obj/structure/window/W in T)
+					if(W.dir == turn(cdir, 180))
+						qdel(W)
+			else // Build a window!
+				var/obj/structure/window/reinforced/W = new(A)
+				W.dir = cdir
+		var/turf/AT = A
+		AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
+		return 1
 
 /obj/item/rcd/afterattack(atom/A, mob/user, proximity)
-	if(!proximity) return
-	if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
-		return 0
-	if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock) || istype(A, /obj/structure/grille) || istype(A, /obj/structure/window) || istype(A, /obj/structure/lattice)))
-		return 0
+	if(!proximity)
+		return FALSE
+	if(istype(A, /turf/space/transit))
+		return FALSE
+	if(!is_type_in_list(A, allowed_targets))
+		return FALSE
 
 	switch(mode)
-		if(1)
-			if(istype(A, /turf/space) || istype(A, /obj/structure/lattice))
-				if(useResource(1, user))
-					to_chat(user, "Building Floor...")
-					activate()
-					var/turf/AT = get_turf(A)
-					AT.ChangeTurf(/turf/simulated/floor/plating)
-					return 1
-				return 0
-
-			if(istype(A, /turf/simulated/floor))
-				if(checkResource(3, user))
-					to_chat(user, "Building Wall ...")
-					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 20 * toolspeed, target = A))
-						if(!useResource(3, user))
-							return 0
-						activate()
-						var/turf/AT = A
-						AT.ChangeTurf(/turf/simulated/wall)
-						return 1
-				return 0
-
-		if(2)
-			if(istype(A, /turf/simulated/floor))
-				if(checkResource(10, user))
-					to_chat(user, "Building Airlock...")
-					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50 * toolspeed, target = A))
-						for(var/obj/machinery/door/airlock/D in A.contents)
-							return 0
-						if(!useResource(10, user))
-							return 0
-						activate()
-						var/obj/machinery/door/airlock/T = new door_type(A)
-						T.name = door_name
-						T.autoclose = 1
-						if(one_access)
-							T.req_one_access = door_accesses.Copy()
-						else
-							T.req_access = door_accesses.Copy()
-						return 1
-					return 0
-				return 0
-
-		if(3)
-			if(istype(A, /turf/simulated/wall))
-				if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
-					return 0
-				if(checkResource(5, user))
-					to_chat(user, "Deconstructing Wall...")
-					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 40 * toolspeed, target = A))
-						if(!useResource(5, user))
-							return 0
-						activate()
-						var/turf/AT = A
-						AT.ChangeTurf(/turf/simulated/floor/plating)
-						return 1
-				return 0
-
-			if(istype(A, /turf/simulated/floor))
-				if(checkResource(5, user))
-					to_chat(user, "Deconstructing Floor...")
-					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50 * toolspeed, target = A))
-						if(!useResource(5, user))
-							return 0
-						activate()
-						var/turf/AT = A
-						AT.ChangeTurf(/turf/space)
-						return 1
-				return 0
-
-			if(istype(A, /obj/machinery/door/airlock))
-				if(checkResource(20, user))
-					to_chat(user, "Deconstructing Airlock...")
-					playsound(loc, 'sound/machines/click.ogg', 50, 1)
-					if(do_after(user, 50 * toolspeed, target = A))
-						if(!useResource(20, user))
-							return 0
-						activate()
-						qdel(A)
-						return 1
-				return	0
-
-			if(istype(A, /obj/structure/window)) // You mean the grille of course, do you?
-				A = locate(/obj/structure/grille) in A.loc
-
-			if(istype(A, /obj/structure/grille))
-				if(!checkResource(2, user))
-					return 0
-				to_chat(user, "Deconstructing window...")
-				playsound(loc, 'sound/machines/click.ogg', 50, 1)
-				if(!do_after(user, 20 * toolspeed, target = A))
-					return 0
-				if(locate(/obj/structure/window/full/shuttle) in A.contents)
-					return 0 // Let's not give shuttle-griefers an easy time.
-				if(!useResource(2, user))
-					return 0
-				activate()
-				var/turf/T1 = get_turf(A)
-				QDEL_NULL(A)
-				for(var/obj/structure/window/W in T1.contents)
-					qdel(W)
-				for(var/cdir in cardinal)
-					var/turf/T2 = get_step(T1, cdir)
-					if(locate(/obj/structure/window/full/shuttle) in T2.contents)
-						continue // Shuttle windows? Nah. We don't need extra windows there.
-					if(!(locate(/obj/structure/grille) in T2.contents))
-						continue
-					for(var/obj/structure/window/W in T2.contents)
-						if(W.dir == turn(cdir, 180))
-							qdel(W)
-					var/obj/structure/window/reinforced/W = new(T2)
-					W.dir = turn(cdir, 180)
-				return 1
-			return 0
-		if(4)
-			if(istype(A, /turf/simulated/floor))
-				if(locate(/obj/structure/grille) in contents)
-					return 0 // We already have window
-				if(!checkResource(2, user))
-					return 0
-				to_chat(user, "Constructing window...")
-				playsound(loc, 'sound/machines/click.ogg', 50, 1)
-				if(!do_after(user, 20 * toolspeed, target = A))
-					return 0
-				if(locate(/obj/structure/grille) in A.contents)
-					return 0 // We already have window
-				if(!useResource(2, user))
-					return 0
-				activate()
-				new /obj/structure/grille(A)
-				for(var/obj/structure/window/W in contents)
-					qdel(W)
-				for(var/cdir in cardinal)
-					var/turf/T = get_step(A, cdir)
-					if(locate(/obj/structure/grille) in T.contents)
-						for(var/obj/structure/window/W in T.contents)
-							if(W.dir == turn(cdir, 180))
-								qdel(W)
-					else // Build a window!
-						var/obj/structure/window/reinforced/W = new(A)
-						W.dir = cdir
-				var/turf/AT = A
-				AT.ChangeTurf(/turf/simulated/floor/plating) // Platings go under windows.
-				return 1
+		if(RCD_MODE_TURF)
+			. = mode_turf(A, user)
+		if(RCD_MODE_AIRLOCK)
+			. = mode_airlock(A, user)
+		if(RCD_MODE_DECON)
+			. = mode_decon(A, user)
+		if(RCD_MODE_WINDOW)
+			. = mode_window(A, user)
 		else
 			to_chat(user, "ERROR: RCD in MODE: [mode] attempted use by [user]. Send this text #coderbus or an admin.")
-			return 0
+			. = 0
 
 	SSnanoui.update_uis(src)
 
-/obj/item/rcd/proc/useResource(var/amount, var/mob/user)
+/obj/item/rcd/proc/useResource(amount, mob/user)
 	if(matter < amount)
 		return 0
 	matter -= amount
-	desc = "A RCD. It currently holds [matter]/[max_matter] matter-units."
 	SSnanoui.update_uis(src)
 	return 1
 
-/obj/item/rcd/proc/checkResource(var/amount, var/mob/user)
+/obj/item/rcd/proc/checkResource(amount, mob/user)
 	return matter >= amount
-/obj/item/rcd/borg/useResource(var/amount, var/mob/user)
+
+/obj/item/rcd/borg/useResource(amount, mob/user)
 	if(!isrobot(user))
 		return 0
-	return user:cell:use(amount * 160)
+	var/mob/living/silicon/robot/R = user
+	return R.cell.use(amount * 160)
 
-/obj/item/rcd/borg/checkResource(var/amount, var/mob/user)
+/obj/item/rcd/borg/checkResource(amount, mob/user)
 	if(!isrobot(user))
 		return 0
-	return user:cell:charge >= (amount * 160)
+	var/mob/living/silicon/robot/R = user
+	return R.cell.charge >= (amount * 160)
 
-/obj/item/rcd/borg/New()
-	..()
-	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
+/obj/item/rcd/borg
 	canRwall = 1
-
 
 /obj/item/rcd/proc/detonate_pulse()
 	audible_message("<span class='danger'><b>[src] begins to vibrate and \

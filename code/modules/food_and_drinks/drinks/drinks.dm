@@ -27,7 +27,7 @@
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'> None of [src] left, oh no!</span>")
 		return FALSE
-	
+
 	if(!is_drainable())
 		to_chat(user, "<span class='warning'> You need to open [src] first!</span>")
 		return FALSE
@@ -62,7 +62,7 @@
 	if(!proximity)
 		return
 
-	if(target.is_open_container()) //Something like a glass. Player probably wants to transfer TO it.
+	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
 			to_chat(user, "<span class='warning'> [src] is empty.</span>")
 			return FALSE
@@ -70,7 +70,7 @@
 		if(target.reagents.holder_full())
 			to_chat(user, "<span class='warning'> [target] is full.</span>")
 			return FALSE
-		
+
 		var/datum/reagent/refill
 		var/datum/reagent/refillName
 		if(isrobot(user))
@@ -386,3 +386,10 @@
 
 /obj/item/reagent_containers/food/drinks/waterbottle/large/empty
 	list_reagents = list()
+
+/obj/item/reagent_containers/food/drinks/oilcan
+	name = "oil can"
+	desc = "Contains oil intended for use on cyborgs, robots, and other synthetics."
+	icon = 'icons/goonstation/objects/oil.dmi'
+	icon_state = "oilcan"
+	volume = 100

@@ -25,6 +25,8 @@
 	bitesize_mod = 2
 	slice_path = /obj/item/reagent_containers/food/snacks/onion_slice
 	slices_num = 2
+	wine_power = 0.2
+	wine_flavor = "pungentness"
 
 /obj/item/seeds/onion/red
 	name = "pack of red onion seeds"
@@ -43,6 +45,8 @@
 	icon_state = "onion_red"
 	filling_color = "#C29ACF"
 	slice_path = /obj/item/reagent_containers/food/snacks/onion_slice/red
+	wine_power = 0.6
+	wine_flavor = "powerful pungentness"
 
 /obj/item/reagent_containers/food/snacks/onion_slice
 	name = "onion slices"

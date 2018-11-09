@@ -96,6 +96,7 @@
 				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
+				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Stun(stun_strength)
 				C.Weaken(stun_strength)
 				C.apply_effect(STUTTER, stun_strength)

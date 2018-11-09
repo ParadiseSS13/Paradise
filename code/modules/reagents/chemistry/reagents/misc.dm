@@ -194,6 +194,11 @@
 	reagent_state = LIQUID
 	color = "#3C3C3C"
 	taste_message = "motor oil"
+	process_flags = ORGANIC | SYNTHETIC
+
+/datum/reagent/oil/reaction_turf(turf/T, volume)
+	if(volume >= 3 && !isspaceturf(T) && !locate(/obj/effect/decal/cleanable/blood/oil) in T)
+		new /obj/effect/decal/cleanable/blood/oil(T)
 
 /datum/reagent/iodine
 	name = "Iodine"
@@ -269,6 +274,13 @@
 	reagent_state = LIQUID
 	color = "#FFFFFF"
 	taste_message = "the rainbow"
+
+/datum/reagent/colorful_reagent/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
+			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
+	return ..()
 
 /datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
     if(isanimal(M))

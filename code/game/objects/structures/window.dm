@@ -562,7 +562,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
 	icon_state = "plasmarwindow"
 	shardtype = /obj/item/shard/plasma
-	glass_type = /obj/item/stack/sheet/plasmaglass
+	glass_type = /obj/item/stack/sheet/plasmarglass
 	reinf = TRUE
 	max_integrity = 160
 	explosion_block = 2
@@ -607,10 +607,12 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
 	icon_state = "rplasmawindow"
 	shardtype = /obj/item/shard/plasma
-	glass_type = /obj/item/stack/sheet/plasmaglass
+	glass_type = /obj/item/stack/sheet/plasmarglass
 	smooth = SMOOTH_TRUE
 	reinf = TRUE
 	max_integrity = 320
+	explosion_block = 2
+	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100)
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
