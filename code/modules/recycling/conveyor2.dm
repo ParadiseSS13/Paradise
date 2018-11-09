@@ -1,7 +1,7 @@
 #define DIRECTION_FORWARDS	1
 #define DIRECTION_OFF		0
 #define DIRECTION_REVERSED	-1
-#define IS_OPERATING		(can_conveyor_run() && operating)
+#define IS_OPERATING		(operating && can_conveyor_run())
 
 GLOBAL_LIST_INIT(conveyor_belts, list()) //Saves us having to look through the entire machines list for our things
 GLOBAL_LIST_INIT(conveyor_switches, list())
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		makeSpeedProcess()
 
 /obj/machinery/conveyor/Crossed(atom/movable/AM)
-	if(!speed_process)
+	if(!speed_process && !AM.anchored)
 		makeSpeedProcess()
 	..()
 
