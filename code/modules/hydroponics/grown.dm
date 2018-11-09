@@ -60,7 +60,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
-	if(slices_num && slices_num >0 && slice_path)
+	if(slices_num && slice_path)
 		var/inaccurate = TRUE
 		if(O.sharp)
 			if(istype(O, /obj/item/kitchen/knife) || istype(O, /obj/item/scalpel))
