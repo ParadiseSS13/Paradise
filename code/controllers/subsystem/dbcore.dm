@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(dbcore)
 	// This is as clsoe as we can get to the true round end before Disconnect() without changing where it's called, deafeating the reason this is a subsystem
 	if(SSdbcore.Connect())
 		var/sql_station_name = sanitizeSQL(station_name())
-		var/datum/DBQuery/query_round_end = SSdbcore.NewQuery("INSERT INTO [format_table_name("round")] (end_datetime, game_mode_result, end_state, station_name) VALUES (Now(), '[ticker.mode_result]', '[ticker.end_state]', '[sql_station_name]') WHERE id = [GLOB.round_id]")
+		var/datum/DBQuery/query_round_end = SSdbcore.NewQuery("INSERT INTO [format_table_name("round")] (shutdown_datetime, game_mode_result, end_state, station_name) VALUES (Now(), '[ticker.mode_result]', '[ticker.end_state]', '[sql_station_name]') WHERE id = [GLOB.round_id]")
 		query_round_end.Execute()
 	if(IsConnected())
 		Disconnect()

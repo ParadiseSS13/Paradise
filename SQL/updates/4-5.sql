@@ -7,6 +7,7 @@ CREATE TABLE `paradise`.`round` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `initialize_datetime` DATETIME NOT NULL,
   `start_datetime` DATETIME NULL,
+  `shutdown_datetime` DATETIME NULL,
   `end_datetime` DATETIME NULL,
   `server_ip` INT(10) UNSIGNED NOT NULL,
   `server_port` SMALLINT(5) UNSIGNED NOT NULL,

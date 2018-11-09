@@ -60,7 +60,9 @@ for row in rows:
 			rounds_obj[var_name_mapping[var_name]] = date_obj
 			rounds_obj['initialize_datetime'] = date_obj
 		elif var_name == 'round_end':
-			rounds_obj[var_name_mapping[var_name]] = datetime.strptime(details, "%a %b %d %H:%M:%S %Y")
+			date_obj = datetime.strptime(details, "%a %b %d %H:%M:%S %Y")
+			rounds_obj[var_name_mapping[var_name]] = date_obj
+			rounds_obj['shutdown_datetime'] = date_obj
 		elif var_name == 'server_ip':
 			server_ip_arr = details.split(':')
 			if not server_ip_arr[0]:
