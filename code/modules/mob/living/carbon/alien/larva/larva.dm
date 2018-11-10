@@ -33,12 +33,20 @@
 	..()
 	stat(null, "Progress: [amount_grown]/[max_grown]")
 
-
 /mob/living/carbon/alien/larva/adjustPlasma(amount)
 	if(stat != DEAD && amount > 0)
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
 
+/mob/living/carbon/alien/larva/movement_delay()
+	. = 1
+
+/mob/living/carbon/alien/larva/start_pulling(var/atom/movable/AM)
+	if(stat || sleeping || paralysis || weakened)
+		return
+	if(istype(AM,/obj/item))
+		to_chat(src, "<span class='warning'>You are far too small to pull anything!</span>")
+	return
 
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()
