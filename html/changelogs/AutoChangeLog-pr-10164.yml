@@ -1,5 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - bugfix: "Prevents an infinite metal exploit using the autolathe."
-  - tweak: "Minimum returnable metal of ammunition boxes has been lowered from 2000 to 500."
