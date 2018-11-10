@@ -35,7 +35,7 @@ client/proc/one_click_antag()
 		if((M.mind.assigned_role in temp.restricted_jobs) || (M.client.prefs.species in temp.protected_species))
 			return FALSE
 	if(role) // Don't even bother evaluating if there's no role
-		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && !M.client.skip_antag && (!jobban_isbanned(M, role)))
+		if(player_old_enough_antag(M.client,role) && (role in M.client.prefs.be_special) && (!jobban_isbanned(M, role)))
 			return TRUE
 		else
 			return FALSE
