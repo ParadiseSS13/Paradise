@@ -271,7 +271,7 @@
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(!player.client.skip_antag)
+		if(!player.skip_antag)
 			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
 				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
 				candidates += player.mind
