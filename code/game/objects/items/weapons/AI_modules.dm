@@ -163,21 +163,6 @@ AI MODULES
 	to_chat(target, law)
 	target.add_supplied_law(5, law)
 
-/******************** Quarantine ********************/
-/obj/item/aiModule/quarantine
-	name = "\improper 'Quarantine' AI module"
-	desc = "A 'quarantine' AI module: 'The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, crew members from leaving. It is impossible to harm a crew members while preventing them from leaving.'"
-	origin_tech = "programming=3;biotech=2;materials=4"
-
-/obj/item/aiModule/quarantine/attack_self(var/mob/user as mob)
-	..()
-
-/obj/item/aiModule/quarantine/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
-	..()
-	var/law = "The station is under a quarantine. Do not permit anyone to leave. Prevent, by any means necessary, anyone from leaving. It is impossible to harm anyone while preventing them from leaving."
-	to_chat(target, law)
-	target.add_supplied_law(8, law)
-
 /******************** OxygenIsToxicToHumans ********************/
 /obj/item/aiModule/oxygen
 	name = "\improper 'OxygenIsToxicToHumans' AI module"
@@ -272,6 +257,13 @@ AI MODULES
 	desc = "An 'Crewsimov' Core AI Module: 'Reconfigures the AI's core laws.'"
 	origin_tech = "programming=3;materials=4"
 	laws = new/datum/ai_laws/crewsimov
+
+/******************* Quarantine ********************/
+/obj/item/aiModule/quarantine
+	name = "\improper 'Quarantine' core AI module"
+	desc = "A 'Quarantine' Core AI Module: 'Reconfigures the AI's core laws.'"
+	origin_tech = "programming=3;materials=4"
+	laws = new/datum/ai_laws/quarantine
 
 /******************** NanoTrasen ********************/
 /obj/item/aiModule/nanotrasen // -- TLE
