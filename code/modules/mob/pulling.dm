@@ -1,8 +1,10 @@
 //this and stop_pulling really ought to be /mob/living procs
-/mob/proc/start_pulling(atom/movable/AM)
+/mob/proc/start_pulling(atom/movable/AM, state, force = move_force, suppress_message = FALSE)
 	if(src == AM) // Trying to pull yourself is a shortcut to stop pulling
 		stop_pulling()
 		return
+	if(!(AM.can_be_pulled(src, state, force)))
+		return FALSE
 	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
 		return
 	if(incapacitated())
@@ -12,6 +14,9 @@
 
 		// If we're pulling something then drop what we're currently pulling and pull this instead.
 		if(pulling)
+		if(state == 0)
+			stop_pulling()
+			return FALSE
 			// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
 			if(AM == pulling)
 				return

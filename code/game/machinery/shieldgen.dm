@@ -4,6 +4,7 @@
 		icon = 'icons/effects/effects.dmi'
 		icon_state = "shield-old"
 		density = 1
+		move_resist = INFINITY
 		opacity = FALSE
 		anchored = 1
 		unacidable = 1
@@ -154,6 +155,7 @@
 
 	active = 1
 	update_icon()
+	move_resist = INFINITY
 
 	for(var/turf/target_tile in range(2, src))
 		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
@@ -166,6 +168,7 @@
 
 	active = 0
 	update_icon()
+	move_resist = initial(move_resist)
 
 	for(var/obj/machinery/shield/shield_tile in deployed_shields)
 		qdel(shield_tile)

@@ -3,6 +3,9 @@
 	appearance_flags = TILE_BOUND
 	var/last_move = null
 	var/anchored = 0
+	var/move_resist = MOVE_RESIST_DEFAULT
+	var/move_force = MOVE_FORCE_DEFAULT
+	var/pull_force = PULL_FORCE_DEFAULT
 	// var/elevation = 2    - not used anywhere
 	var/move_speed = 10
 	var/l_move_time = 1
@@ -55,6 +58,14 @@
 		pulledby = null
 	return ..()
 
+/atom/movable/proc/can_be_pulled(user, grab_state, force)
+	if(src == user || !isturf(loc))
+		return FALSE
+	if(anchored || throwing)
+		return FALSE
+	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
+		return FALSE
+	return TRUE
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
 /atom/movable/proc/setLoc(var/T, var/teleported=0)
@@ -216,12 +227,12 @@
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
-/atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked)
-	if(!anchored && hitpush)
+/atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked, datum/thrownthing/throwingdatum)
+	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, var/datum/callback/callback)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, /datum/callback/callback, force = INFINITY)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
@@ -327,6 +338,19 @@
 		buckled_mob.inertia_dir = last_move
 		return 0
 	return 1
+
+/atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	return FALSE
+ /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
+	. = AM.force_pushed(src, force, direction)
+	if(!silent && .)
+		visible_message("<span class='warning'>[src] forcefully pushes against [AM]!</span>", "<span class='warning'>You forcefully push against [AM]!</span>")
+ /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
+	. = AM.move_crushed(src, force, direction)
+	if(!silent && .)
+		visible_message("<span class='danger'>[src] crushes past [AM]!</span>", "<span class='danger'>You crush [AM]!</span>")
+ /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
 	if(buckled_mob == mover)
