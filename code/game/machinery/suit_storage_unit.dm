@@ -165,6 +165,44 @@
 		playsound(loc, I.usesound, 100, 1)
 		to_chat(user, text("<span class='notice'>You [panel_open ? "open up" : "close"] the unit's maintenance panel.</span>"))
 		updateUsrDialog()
+		return
+		
+	if(!state_open)
+		to_chat(user, "<span class ='warning'>It's closed!</span>")
+		return
+
+	if(istype(I, /obj/item/clothing/head/helmet)) // Helmets
+		if(helmet)
+			to_chat(user, "<span class='warning'>The unit already contains a helmet!</span>")
+			return
+		user.drop_item()
+		I.forceMove(src)
+		helmet = I
+		update_icon()
+		updateUsrDialog()
+		to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
+	
+	if(istype(I, /obj/item/clothing/suit/space)) // Space Suits
+		if(suit)
+			to_chat(user, "<span class='warning'>The unit already contains a suit!</span>")
+			return
+		user.drop_item()
+		I.forceMove(src)
+		suit = I
+		update_icon()
+		updateUsrDialog()
+		to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
+	
+	if(istype(I, /obj/item/clothing/mask)) // Masks
+		if(mask)
+			to_chat(user, "<span class='warning'>The unit already contains a mask!</span>")
+			return
+		user.drop_item()
+		I.forceMove(src)
+		mask = I
+		update_icon()
+		updateUsrDialog()
+		to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
 
 /obj/machinery/suit_storage_unit/power_change()
 	..()
