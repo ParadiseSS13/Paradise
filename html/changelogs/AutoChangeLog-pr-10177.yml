@@ -1,5 +1,0 @@
-author: "Shazbot"
-delete-after: True
-changes: 
-  - imageadd: "Some fancy new box sprites, props to Shazbot for the sprites"
-  - imagedel: "Old cuff box is gone"
