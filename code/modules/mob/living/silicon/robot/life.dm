@@ -9,6 +9,7 @@
 	clamp_values()
 
 	if(..())
+		update_stat("Robot/Life")
 		handle_robot_cell()
 		process_locks()
 		process_queued_alarms()
