@@ -60,7 +60,7 @@
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
-	if(slices_num > 0 && slice_path)
+	if(slices_num && slice_path)
 		var/inaccurate = TRUE
 		if(O.sharp)
 			if(istype(O, /obj/item/kitchen/knife) || istype(O, /obj/item/scalpel))
@@ -72,16 +72,15 @@
 
 			var/slices_lost = 0
 			if(!inaccurate)
-				user.visible_message("<span class='notice'>[user] slices [src]!</span>",
-					"<span class='notice'>You slice [src]!</span>")
+				user.visible_message("<span class='notice'>[user] slices [src] with [O]!</span>", "<span class='notice'>You slice [src]!</span>")
 			else
-				user.visible_message("<span class='notice'>[user] crudely slices [src] with [O]!</span>", "<span class='notice'>You crudely slice [src] with your [O]</span>!")
-				slices_lost = rand(1,min(1,round(slices_num/2)))
+				user.visible_message("<span class='notice'>[user] crudely slices [src] with [O]!</span>", "<span class='notice'>You crudely slice [src] with your [O]!</span>")
+				slices_lost = rand(1, min(1, round(slices_num / 2)))
 
 			var/reagents_per_slice = reagents.total_volume/slices_num
-			for(var/i=1 to (slices_num-slices_lost))
+			for(var/i = 1 to (slices_num - slices_lost))
 				var/obj/slice = new slice_path (loc)
-				reagents.trans_to(slice,reagents_per_slice)
+				reagents.trans_to(slice, reagents_per_slice)
 			qdel(src)
 			return ..()
 
