@@ -181,7 +181,8 @@
 		update_icon()
 		updateUsrDialog()
 		to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
-	
+		return
+		
 	if(istype(I, /obj/item/clothing/suit/space)) // Space Suits
 		if(suit)
 			to_chat(user, "<span class='warning'>The unit already contains a suit!</span>")
@@ -192,7 +193,8 @@
 		update_icon()
 		updateUsrDialog()
 		to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
-	
+		return
+		
 	if(istype(I, /obj/item/clothing/mask)) // Masks
 		if(mask)
 			to_chat(user, "<span class='warning'>The unit already contains a mask!</span>")
@@ -203,7 +205,8 @@
 		update_icon()
 		updateUsrDialog()
 		to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
-
+		return
+		
 /obj/machinery/suit_storage_unit/power_change()
 	..()
 	if(!is_operational() && state_open)
