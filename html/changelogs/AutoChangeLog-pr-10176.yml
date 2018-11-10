@@ -1,0 +1,4 @@
+author: "Dovydas12345"
+delete-after: True
+changes: 
+  - bugfix: "Fixes being unable to slice certain food grown by hydroponics (pineapple, watermelon etc.)"
