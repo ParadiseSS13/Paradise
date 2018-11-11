@@ -104,7 +104,7 @@ var/list/ai_verbs_default = list(
 
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
-	var/multicam_allowed = FALSE
+	var/multicam_allowed = TRUE
 	var/multicam_on = FALSE
 	var/obj/screen/movable/pic_in_pic/ai/master_multicam
 	var/list/multicam_screens = list()
