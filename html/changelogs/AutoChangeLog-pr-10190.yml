@@ -1,4 +1,0 @@
-author: "Azule Utama"
-delete-after: True
-changes: 
-  - bugfix: "Borgs can no longer stunbaton into infinity. Their batons will now deactivate if they have no power left after hitting someone and cannot be turned back on until they recharge."

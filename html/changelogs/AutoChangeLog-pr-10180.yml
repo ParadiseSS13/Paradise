@@ -1,4 +1,0 @@
-author: "Squirgenheimer"
-delete-after: True
-changes: 
-  - tweak: "Hatched alien larvas will default to being created on the turf of the mob instead of the mob's location, unless specifically allowed (like closets and spacepods)"

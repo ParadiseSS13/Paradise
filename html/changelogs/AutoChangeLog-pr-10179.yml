@@ -1,6 +1,0 @@
-author: "Eschess"
-delete-after: True
-changes: 
-  - bugfix: "large cardboard boxes now show their size when examining"
-  - bugfix: "fulltile plasma glass windows now have armor"
-  - tweak: "rised plastitanium windows integrity"
