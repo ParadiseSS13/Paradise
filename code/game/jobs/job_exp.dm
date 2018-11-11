@@ -37,6 +37,17 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_ABDUCTOR = 10,
 )
 
+// Client Verbs
+
+/client/verb/cmd_check_own_playtime()
+	set category = "Special Verbs"
+	set name = "Check my playtime"
+
+	if(!config.use_exp_restrictions)
+		return to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
+
+	to_chat(src, "<span class='notice>Your playtime is [src.get_exp_living()].</span>")
+
 // Admin Verbs
 
 /client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
