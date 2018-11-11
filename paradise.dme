@@ -2290,6 +2290,7 @@
 #include "code\modules\surgery\organs\autoimplanter.dm"
 #include "code\modules\surgery\organs\blood.dm"
 #include "code\modules\surgery\organs\body_egg.dm"
+#include "code\modules\surgery\organs\ears.dm"
 #include "code\modules\surgery\organs\eyes.dm"
 #include "code\modules\surgery\organs\heart.dm"
 #include "code\modules\surgery\organs\helpers.dm"

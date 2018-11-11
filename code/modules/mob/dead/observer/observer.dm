@@ -12,6 +12,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	stat = DEAD
 	density = 0
 	canmove = 0
+	alpha = 127
 	anchored = 1	//  don't get pushed around
 	invisibility = INVISIBILITY_OBSERVER
 	var/can_reenter_corpse
@@ -48,29 +49,19 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		if(ishuman(body))
-			var/mob/living/carbon/human/H = body
-			icon = H.stand_icon
-			overlays = H.overlays_standing
-		else
-			icon = body.icon
-			icon_state = body.icon_state
-			overlays = body.overlays
-
-		alpha = 127
-		gender = body.gender
+		var/mutable_appearance/MA = copy_appearance(body) 
 		if(body.mind && body.mind.name)
-			name = body.mind.name
+			MA.name = body.mind.name
+		else if(body.real_name)
+			MA.name = body.real_name
 		else
-			if(body.real_name)
-				name = body.real_name
+			if(gender == MALE)
+				MA.name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 			else
-				if(gender == MALE)
-					name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
-				else
-					name = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
+				MA.name = capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 
 		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
+		appearance = MA
 
 	ghostimage = image(icon = icon, loc = src, icon_state = icon_state)
 	ghostimage.overlays = overlays
@@ -98,6 +89,36 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
+
+// This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
+// Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
+// You might recognize these things as "fucking ridiculous to put in an appearance"
+// You'd be right, but that's fucking BYOND for you.
+/mob/dead/observer/proc/copy_appearance(mutable_appearance/COPY)
+	var/mutable_appearance/MA = new(src)
+
+	MA.appearance_flags = COPY.appearance_flags
+	MA.blend_mode = COPY.blend_mode
+	MA.color = COPY.color
+	MA.dir = COPY.dir
+	MA.gender = COPY.gender
+	MA.icon = COPY.icon
+	MA.icon_state = COPY.icon_state
+	MA.layer = COPY.layer
+	MA.maptext = COPY.maptext
+	MA.maptext_width = COPY.maptext_width
+	MA.maptext_height = COPY.maptext_height
+	MA.maptext_x = COPY.maptext_x
+	MA.maptext_y = COPY.maptext_y
+	MA.mouse_opacity = COPY.mouse_opacity
+	MA.overlays = COPY.overlays
+	if(!isicon(MA.icon) && !LAZYLEN(MA.overlays)) // Gibbing/dusting/melting removes the icon before ghostize()ing the mob, so we need to account for that
+		MA.icon = initial(icon)
+		MA.icon_state = initial(icon_state)
+	MA.suffix = COPY.suffix
+	MA.underlays = COPY.underlays
+
+	. = MA
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
 	return 1
