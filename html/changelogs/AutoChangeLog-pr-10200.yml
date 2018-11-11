@@ -1,5 +1,0 @@
-author: "Farie82"
-delete-after: True
-changes: 
-  - bugfix: "Can put suits and such back into the suit storage units"
-  - spellcheck: "Fixed the tank/magboots storage part being called Breathmask storage, lazy copy pasta"
