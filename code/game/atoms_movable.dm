@@ -16,6 +16,8 @@
 	var/no_spin_thrown = 0
 	var/moved_recently = 0
 	var/mob/pulledby = null
+	var/atom/movable/pulling
+	var/canmove = 1
 
 	var/inertia_dir = 0
 	var/atom/inertia_last_loc
@@ -57,6 +59,62 @@
 			pulledby.pulling = null
 		pulledby = null
 	return ..()
+
+/atom/movable/proc/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+	if(QDELETED(AM))
+		return FALSE
+	if(!(AM.can_be_pulled(src, state, force)))
+		return FALSE
+
+	// If we're pulling something then drop what we're currently pulling and pull this instead.
+	if(pulling)
+		if(state == 0)
+			stop_pulling()
+			return FALSE
+		// Are we trying to pull something we are already pulling? Then enter grab cycle and end.
+		if(AM == pulling)
+			if(istype(AM,/mob/living))
+				var/mob/living/AMob = AM
+				AMob.grabbedby(src)
+			return TRUE
+		stop_pulling()
+	if(AM.pulledby)
+		add_attack_logs(AM, AM.pulledby, "pulled from", src)
+		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
+	pulling = AM
+	AM.pulledby = src
+	if(ismob(AM))
+		var/mob/M = AM
+		add_attack_logs(src, M, "grabbed", addition="passive grab")
+		if(!supress_message)
+			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
+	return TRUE
+
+/atom/movable/proc/stop_pulling()
+	if(pulling)
+		pulling.pulledby = null
+		var/mob/living/ex_pulled = pulling
+		pulling = null
+		if(isliving(ex_pulled))
+			var/mob/living/L = ex_pulled
+			L.update_canmove()// mob gets up if it was lyng down in a chokehold
+
+/atom/movable/proc/check_pulling()
+	if(pulling)
+		var/atom/movable/pullee = pulling
+		if(pullee && get_dist(src, pullee) > 1)
+			stop_pulling()
+			return
+		if(!isturf(loc))
+			stop_pulling()
+			return
+		if(pullee && !isturf(pullee.loc) && pullee.loc != loc) //to be removed once all code that changes an object's loc uses forceMove().
+			log_game("DEBUG:[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
+			stop_pulling()
+			return
+		if(pulling.anchored)
+			stop_pulling()
+			return
 
 /atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
@@ -232,7 +290,7 @@
 		step(src, AM.dir)
 	..()
 
-/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, /datum/callback/callback, force = INFINITY)
+/atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY)
 	if(!target || (flags & NODROP) || speed <= 0)
 		return 0
 
@@ -341,15 +399,15 @@
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
- /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
+/atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
 		visible_message("<span class='warning'>[src] forcefully pushes against [AM]!</span>", "<span class='warning'>You forcefully push against [AM]!</span>")
- /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
+/atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
 		visible_message("<span class='danger'>[src] crushes past [AM]!</span>", "<span class='danger'>You crush [AM]!</span>")
- /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+/atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
