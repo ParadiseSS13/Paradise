@@ -3102,3 +3102,50 @@
 	name = "Long Light and Dark Quills"
 	icon_state = "lightdark"
 	species_allowed = list("Murghal")
+
+/datum/sprite_accessory/hair/80ponytail
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "80's Ponytail"
+	icon_state = "hair_80_ponytail"
+
+/datum/sprite_accessory/hair/80ponytailalt
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "80's Ponytail alt"
+	icon_state = "hair_80_ponytail_alt"
+
+/datum/sprite_accessory/hair/bangsunder
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "Bangs Undercut"
+	icon_state = "hair_bangs_undercut"
+
+/datum/sprite_accessory/hair/himeponytail
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "Himecut Ponytail"
+	icon_state = "hair_himecut_ponytail"
+
+/datum/sprite_accessory/hair/himelong
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "Himecut Long"
+	icon_state = "hair_himecut_long"
+
+/datum/sprite_accessory/hair/himelongponytail
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "Himecut Long Ponytail"
+	icon_state = "hair_himecut_long_ponytail"
+
+/datum/sprite_accessory/hair/curlslong
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "Long Curly"
+	icon_state = "hair_long_curls"
+
+/datum/sprite_accessory/hair/curlslongalt
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "Long Curly alt"
+	icon_state = "hair_long_curls_alt"
+
+/datum/sprite_accessory/hair/milo
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "Milo"
+	icon_state = "hair_Milo"
+
+///Ume was here :P
