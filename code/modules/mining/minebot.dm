@@ -79,11 +79,12 @@
 			if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
 				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
 				return
-			if(maxHealth == health)
-				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
-			else
-				adjustBruteLoss(-10)
-				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
+			if(do_after_once(user, 15, target = src))
+				if(maxHealth == health)
+					to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
+				else
+					adjustBruteLoss(-20)
+					to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 			return
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
