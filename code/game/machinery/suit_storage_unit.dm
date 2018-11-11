@@ -412,7 +412,7 @@
 			dat+= text("Breathmask storage compartment: <B>[]</B><BR>",(mask ? mask.name : "</font><font color ='grey'>No breathmask detected.") )
 			if(mask && state_open)
 				dat+="<A href='?src=[UID()];dispense_mask=1'>Dispense mask</A><BR>"
-			dat+= text("Jetpack, Magboots storage compartment: <B>[]</B><BR>",(storage ? storage.name : "</font><font color ='grey'>No storage item detected.") )
+			dat+= text("Tank, Magboots storage compartment: <B>[]</B><BR>",(storage ? storage.name : "</font><font color ='grey'>No storage item detected.") )
 			if(storage && state_open)
 				dat+="<A href='?src=[UID()];dispense_storage=1'>Dispense storage item</A><BR>"
 			if(occupant)
