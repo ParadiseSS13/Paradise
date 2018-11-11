@@ -44,9 +44,10 @@ var/global/list/role_playtime_requirements = list(
 	set name = "Check my playtime"
 
 	if(!config.use_exp_restrictions)
-		return to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
+		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
+		return
 
-	to_chat(src, "<span class='notice>Your playtime is [src.get_exp_living()].</span>")
+	to_chat(src, "<span class='notice>Your playtime is [get_exp_living()].</span>")
 
 // Admin Verbs
 
