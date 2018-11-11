@@ -600,6 +600,8 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	max_integrity = 240
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	explosion_block = 1
+	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100)
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -671,7 +673,7 @@ obj/structure/window/full/reinforced/ice
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window"
 	dir = FULLTILE_WINDOW_DIR
-	max_integrity = 100
+	max_integrity = 200
 	fulltile = TRUE
 	reinf = TRUE
 	heat_resistance = 1600
