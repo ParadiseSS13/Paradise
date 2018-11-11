@@ -72,7 +72,7 @@
 /obj/item/melee/baton/examine(mob/user)
 	..(user)
 	if(isrobot(loc))
-		return
+		to_chat(user, "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>")
 	if(bcell)
 		to_chat(user, "<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>")
 	if(!bcell)
