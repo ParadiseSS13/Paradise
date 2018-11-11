@@ -172,9 +172,9 @@
 		return
 	if(state_open)
 		if(store_item(I, user))
-			src.update_icon()
-			src.updateUsrDialog()
-			to_chat(user, "<span class='notice'>You load the [I.name] into the storage compartment.</span>")
+			update_icon()
+			updateUsrDialog()
+			to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
 		else
 			to_chat(user, "<span class='notice'>The unit already contains that item.</span>")
 
