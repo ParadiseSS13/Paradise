@@ -27,11 +27,6 @@
 	add_language("Hivemind")
 	..()
 
-
-/mob/living/carbon/alien/humanoid/movement_delay()
-	. = ..()
-	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
-
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
 	if(..())
 		return 1
