@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "You can now hurt mining bots with welders on any attempt other than help"
