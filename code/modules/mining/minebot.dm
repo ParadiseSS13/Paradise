@@ -101,6 +101,18 @@
 	DropOre(0)
 	qdel(src)
 
+/mob/living/simple_animal/hostile/mining_drone/Shoot(atom/targeted_atom)
+	var/obj/item/projectile/kinetic/K = ..()
+	var/turf/proj_turf = get_turf(K)
+	if(!isturf(proj_turf))
+		return
+	var/datum/gas_mixture/environment = proj_turf.return_air()
+	var/pressure = environment.return_pressure()
+	if(pressure > 50)
+		K.name = "weakened [K.name]"
+		
+		K.damage *= K.pressure_decrease
+
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		toggle_mode()
