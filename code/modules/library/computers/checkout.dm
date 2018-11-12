@@ -199,6 +199,9 @@
 		to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/W as obj, mob/user as mob)
+	if(default_unfasten_wrench(user, W))
+		power_change()
+		return
 	if(istype(W, /obj/item/barcodescanner))
 		var/obj/item/barcodescanner/scanner = W
 		scanner.computer = src

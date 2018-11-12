@@ -199,8 +199,8 @@
 		num_ammo++
 	for(var/M in initial_mats) //In case we have multiple types of materials
 		var/materials_per = initial_mats[M] / max_ammo
-		
-		var/value = max(materials_per * num_ammo, 2000) //Enforce a minimum of 2000 units even if empty.
+
+		var/value = max(materials_per * num_ammo, 500) //Enforce a minimum of 500 units even if empty.
 		materials[M] = value
 
 //Behavior for magazines

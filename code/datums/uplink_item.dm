@@ -232,7 +232,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/cat_grenade
 	name = "Feral Cat Delivery Grenade"
-	desc = "The feral cat delivery grenade contains 8 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
 	cost = 4
@@ -970,6 +970,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 20
 
+/datum/uplink_item/stealthy_tools/safecracking
+	name = "Safe-cracking Kit"
+	desc = "Everything you need to quietly open a mechanical combination safe."
+	reference = "SCK"
+	item = /obj/item/storage/box/syndie_kit/safecracking
+	cost = 1
+
 /datum/uplink_item/stealthy_tools/clownkit
 	name = "Honk Brand Infiltration Kit"
 	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer clown mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
@@ -1027,6 +1034,22 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/belt/military/traitor
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/device_tools/thermal_drill
+	name = "Thermal Safe Drill"
+	desc = "A tungsten carbide thermal drill with magnetic clamps for the purpose of drilling hardened objects. Guaranteed 100% jam proof."
+	reference = "DRL"
+	item = /obj/item/thermal_drill
+	cost = 3
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/device_tools/diamond_drill
+	name = "Diamond Tipped Thermal Safe Drill"
+	desc = "A diamond tipped thermal drill with magnetic clamps for the purpose of quickly drilling hardened objects. Guaranteed 100% jam proof."
+	reference = "DDRL"
+	item = /obj/item/thermal_drill/diamond_drill
+	cost = 1
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/medkit
 	name = "Syndicate Combat Medic Kit"

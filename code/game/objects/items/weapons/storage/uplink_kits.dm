@@ -266,3 +266,14 @@
 
 To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. Bones should begin repair after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype.</font><BR><HR></font>
 	"}
+
+/obj/item/storage/box/syndie_kit/safecracking
+	name = "Safe-cracking Kit"
+	desc = "Everything you need to quietly open a mechanical combination safe."
+
+/obj/item/storage/box/syndie_kit/safecracking/New()
+	..()
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/mask/balaclava(src)
+	new /obj/item/clothing/accessory/stethoscope(src)
+	new /obj/item/book/manual/engineering_hacking(src)

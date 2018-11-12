@@ -33,14 +33,14 @@
 			<div style='display: inline-block;'>{{:helper.link('Left 10', 'arrow-left', {'increment': 10})}} </div>
 			<div style='display: inline-block;'>{{:helper.link('Left 1', 'arrow-left', {'increment': 1})}} </div>
 			<div style='display: inline-block;'><div class="link yellowButton"> {{:data.dial}} </div></div>
-			{{if data.unlocked}}
-				<div style='display: inline-block;'>{{:helper.link('Right 1', 'arrow-right', null, 'disabled')}} </div>
-				<div style='display: inline-block;'>{{:helper.link('Right 10', 'arrow-right', null, 'disabled')}} </div>
-				<div style='display: inline-block;'>{{:helper.link('Right 100', 'arrow-right', null, 'disabled')}} </div>
-			{{else}}
+			{{if data.locked}}
 				<div style='display: inline-block;'>{{:helper.link('Right 1', 'arrow-right', {'decrement': 1})}} </div>
 				<div style='display: inline-block;'>{{:helper.link('Right 10', 'arrow-right', {'decrement': 10})}} </div>
 				<div style='display: inline-block;'>{{:helper.link('Right 50', 'arrow-right', {'decrement': 50})}} </div>
+			{{else}}
+				<div style='display: inline-block;'>{{:helper.link('Right 1', 'arrow-right', null, 'disabled')}} </div>
+				<div style='display: inline-block;'>{{:helper.link('Right 10', 'arrow-right', null, 'disabled')}} </div>
+				<div style='display: inline-block;'>{{:helper.link('Right 100', 'arrow-right', null, 'disabled')}} </div>
 			{{/if}}
 		</div>
 	</div>

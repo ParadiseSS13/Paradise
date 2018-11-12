@@ -46,14 +46,6 @@
 		else if(eye_blurry)	//blurry eyes heal slowly
 			AdjustEyeBlurry(-1)
 
-		//Ears
-		if(disabilities & DEAF)	//disabled-deaf, doesn't get better on its own
-			EarDeaf(1)
-		else if(ear_deaf)			//deafness, heals slowly over time
-			AdjustEarDeaf(-1)
-		else if(ear_damage < 25)	//ear damage heals slowly under this threshold.
-			AdjustEarDamage(-0.05)
-
 		if(stuttering)
 			AdjustStuttering(-1)
 

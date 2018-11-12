@@ -396,13 +396,13 @@
 /datum/reagent/consumable/ethanol/booger
 	name = "Booger"
 	id = "booger"
-	description = "Ewww..."
+	description = "Eww..."
 	reagent_state = LIQUID
 	color = "#A68310" // rgb: 166, 131, 16
 	alcohol_perc = 0.2
 	drink_icon = "booger"
 	drink_name = "Booger"
-	drink_desc = "Ewww..."
+	drink_desc = "Eww..."
 	taste_message = "sweet alcohol"
 
 /datum/reagent/consumable/ethanol/bloody_mary

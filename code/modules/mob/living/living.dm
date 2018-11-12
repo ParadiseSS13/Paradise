@@ -404,8 +404,7 @@
 	CureNervous()
 	SetEyeBlind(0)
 	SetEyeBlurry(0)
-	SetEarDamage(0)
-	SetEarDeaf(0)
+	RestoreEars()
 	heal_overall_damage(1000, 1000)
 	ExtinguishMob()
 	fire_stacks = 0

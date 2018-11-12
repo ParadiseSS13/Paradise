@@ -73,7 +73,7 @@
 	check_friendly_fire = 0
 
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weldingtool))
+	if(istype(I, /obj/item/weldingtool) && user.a_intent == INTENT_HELP)
 		var/obj/item/weldingtool/W = I
 		if(W.welding && !stat)
 			if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
@@ -100,6 +100,18 @@
 	new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 	DropOre(0)
 	qdel(src)
+
+/mob/living/simple_animal/hostile/mining_drone/Shoot(atom/targeted_atom)
+	var/obj/item/projectile/kinetic/K = ..()
+	var/turf/proj_turf = get_turf(K)
+	if(!isturf(proj_turf))
+		return
+	var/datum/gas_mixture/environment = proj_turf.return_air()
+	var/pressure = environment.return_pressure()
+	if(pressure > 50)
+		K.name = "weakened [K.name]"
+		
+		K.damage *= K.pressure_decrease
 
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
