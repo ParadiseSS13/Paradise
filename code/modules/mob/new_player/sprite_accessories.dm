@@ -3103,16 +3103,6 @@
 	icon_state = "lightdark"
 	species_allowed = list("Murghal")
 
-/datum/sprite_accessory/hair/80ponytail
-	icon = 'icons/hispania/mob/human_face.dmi'
-	name = "80's Ponytail"
-	icon_state = "hair_80_ponytail"
-
-/datum/sprite_accessory/hair/80ponytailalt
-	icon = 'icons/hispania/mob/human_face.dmi'
-	name = "80's Ponytail alt"
-	icon_state = "hair_80_ponytail_alt"
-
 /datum/sprite_accessory/hair/bangsunder
 	icon = 'icons/hispania/mob/human_face.dmi'
 	name = "Bangs Undercut"
@@ -3147,5 +3137,15 @@
 	icon = 'icons/hispania/mob/human_face.dmi'
 	name = "Milo"
 	icon_state = "hair_Milo"
+
+/datum/sprite_accessory/hair/eightiesponytail
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "80's Ponytail"
+	icon_state = "hair_80_ponytail"
+
+/datum/sprite_accessory/hair/eightiesponytailalt
+	icon = 'icons/hispania/mob/human_face.dmi'
+	name = "80's Low Ponytail"
+	icon_state = "hair_80_ponytail_alt"
 
 ///Ume was here :P
