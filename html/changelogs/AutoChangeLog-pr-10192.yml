@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "Added the pressure damage reduction to mining bots. No more killing machines called mining bots."
