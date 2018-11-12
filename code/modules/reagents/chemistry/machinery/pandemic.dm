@@ -185,18 +185,18 @@
 			english_symptoms += S.name
 		var/symtoms = english_list(english_symptoms)
 
-		
+
 		var/signature
 		if(alert(user,"Would you like to add your signature?",,"Yes","No") == "Yes")
 			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Anonymous"]</i></font>"
-		else 
+		else
 			signature = "<span class=\"paper_field\"></span>"
-		
+
 		printing = 1
 		var/obj/item/paper/P = new /obj/item/paper(loc)
 		visible_message("<span class='notice'>[src] rattles and prints out a sheet of paper.</span>")
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
-		
+
 		P.info = "<U><font size=\"4\"><B><center> Releasing Virus </B></center></font></U>"
 		P.info += "<HR>"
 		P.info += "<U>Name of the Virus:</U> [D.name] <BR>"
@@ -318,6 +318,9 @@
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
 		if(stat & (NOPOWER|BROKEN))
 			return

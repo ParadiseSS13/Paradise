@@ -151,6 +151,9 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 	var/obj/item/book/cache		// Last scanned book
 
 /obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
 	if(istype(I, /obj/item/book))
 		user.drop_item()
 		I.forceMove(src)
@@ -208,6 +211,9 @@ var/global/list/library_section_names = list("Any", "Fiction", "Non-Fiction", "A
 
 /obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
 	var/obj/item/paper/P = I
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
 	if(istype(P))
 		user.drop_item()
 		user.visible_message("[user] loads some paper into [src].", "You load some paper into [src].")
