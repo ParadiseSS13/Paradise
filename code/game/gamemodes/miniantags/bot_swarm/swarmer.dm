@@ -421,6 +421,7 @@
 	icon = 'icons/mob/swarmer.dmi'
 	icon_state = "ui_light"
 	layer = MOB_LAYER
+	anchored = 1
 	unacidable = 1
 	light_range = 1
 	mouse_opacity = MOUSE_OPACITY_ICON

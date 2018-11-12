@@ -89,14 +89,14 @@ field_generator power level display
 				user.visible_message("[user.name] secures [name] to the floor.", \
 					"<span class='notice'>You secure the external reinforcing bolts to the floor.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				move_resist = INFINITY
+				anchored = 1
 			if(FG_SECURED)
 				state = FG_UNSECURED
 				playsound(loc, W.usesound, 75, 1)
 				user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 					"<span class='notice'>You undo the external reinforcing bolts.</span>", \
 					"<span class='italics'>You hear ratchet.</span>")
-				move_resist = initial(move_resist)
+				anchored = 0
 			if(FG_WELDED)
 				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
 

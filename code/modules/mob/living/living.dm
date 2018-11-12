@@ -146,6 +146,7 @@
 	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
 		now_pushing = FALSE
 		return
+
 	if (istype(AM, /obj/structure/window))
 		var/obj/structure/window/W = AM
 		if(W.fulltile)
@@ -196,9 +197,19 @@
 	set name = "Pull"
 	set category = "Object"
 
-	if(AM.Adjacent(src))
+	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM)
-	return
+	else
+		stop_pulling()
+
+/mob/living/stop_pulling()
+	..()
+	pullin.update_icon(src)
+
+/mob/living/verb/stop_pulling1()
+	set name = "Stop Pulling"
+	set category = "IC"
+	stop_pulling()
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
@@ -865,6 +876,8 @@
 	if(src == AM) // Trying to pull yourself is a shortcut to stop pulling
 		stop_pulling()
 		return
+	if(!(AM.can_be_pulled(src, force)))
+		return FALSE
 	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
 		return
 	if(incapacitated())
@@ -892,15 +905,6 @@
 				M.LAssailant = null
 			else
 				M.LAssailant = usr
-
-/mob/living/verb/stop_pulling1()
-	set name = "Stop Pulling"
-	set category = "IC"
-	if(pulling)
-		pulling.pulledby = null
-		pulling = null
-		if(pullin)
-			pullin.update_icon(src)
 
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))

@@ -79,13 +79,13 @@
 			return TRUE
 		stop_pulling()
 	if(AM.pulledby)
-		add_attack_logs(AM, AM.pulledby, "pulled from", src)
+		add_attack_logs(AM, AM.pulledby, "pulled from", ATKLOG_ALMOSTALL)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = AM
 	AM.pulledby = src
 	if(ismob(AM))
 		var/mob/M = AM
-		add_attack_logs(src, M, "grabbed", addition="passive grab")
+		add_attack_logs(src, M, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(!supress_message)
 			visible_message("<span class='warning'>[src] has grabbed [M] passively!</span>")
 	return TRUE
@@ -399,14 +399,17 @@
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
+
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
 		visible_message("<span class='warning'>[src] forcefully pushes against [AM]!</span>", "<span class='warning'>You forcefully push against [AM]!</span>")
+
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
 		visible_message("<span class='danger'>[src] crushes past [AM]!</span>", "<span class='danger'>You crush [AM]!</span>")
+
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 

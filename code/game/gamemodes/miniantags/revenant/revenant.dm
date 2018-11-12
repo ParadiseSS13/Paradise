@@ -32,7 +32,7 @@
 	wander = 0
 	density = 0
 	flying = 1
-	move_resist = MOVE_FORCE_OVERPOWERING
+	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	speed = 1

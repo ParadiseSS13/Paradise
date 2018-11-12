@@ -5,7 +5,6 @@
 	req_one_access_txt = "24;10"
 
 	anchored = 1
-	move_resist = INFINITY
 	var/state = 0
 	var/bolts = 1
 

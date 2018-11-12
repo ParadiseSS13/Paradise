@@ -3,7 +3,7 @@
 	desc = "A gravitational singularity."
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
-	move_resist = INFINITY
+	anchored = 1
 	density = 1
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
