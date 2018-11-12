@@ -49,7 +49,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		T = get_turf(body)				//Where is the body located?
 		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
 
-		var/mutable_appearance/MA = copy_appearance(body) 
+		var/mutable_appearance/MA = copy_appearance(body)
 		if(body.mind && body.mind.name)
 			MA.name = body.mind.name
 		else if(body.real_name)
@@ -119,6 +119,18 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 	MA.underlays = COPY.underlays
 
 	. = MA
+
+/mob/dead/observer/proc/make_tourist()
+	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
+	client.prefs.copy_to(mannequin)
+	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
+	var/mutable_appearance/MA = copy_appearance(mannequin) //Tourist Apperance
+	var/mutable_appearance/tourist_overlay = mutable_appearance('icons/mob/uniform.dmi', "tourist_s", BODY_LAYER)
+	var/mutable_appearance/shoe_overlay = mutable_appearance('icons/obj/clothing/shoes.dmi', "black", SHOES_LAYER)
+
+	MA.add_overlay(tourist_overlay)
+	MA.add_overlay(shoe_overlay)
+	appearance = MA
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
 	return 1
@@ -706,6 +718,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Mob spawners menu"
 	set desc = "See all currently available ghost spawners"
 	set category = "Ghost"
-	
+
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)

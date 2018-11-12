@@ -1166,3 +1166,10 @@
 	var/obj/item/radio/headset/R = H.l_ear
 	if(istype(R))
 		R.flags |= NODROP
+
+/datum/outfit/admin/tourist
+	name = "Tourist"
+
+	uniform = /obj/item/clothing/under/tourist
+	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/black

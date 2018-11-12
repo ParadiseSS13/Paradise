@@ -197,8 +197,7 @@
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
 			observer.loc = O.loc
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
-			client.prefs.update_preview_icon(1)
-			observer.icon = client.prefs.preview_icon
+			observer.icon = observer.make_tourist()
 			observer.alpha = 127
 
 			if(client.prefs.be_random_name)

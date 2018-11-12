@@ -840,3 +840,11 @@
 	item_state = "medicalgown"
 	item_color = "medicalgown"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/tourist
+	name = "tourist outfit
+	desc = "it has salt and tear stains on it."
+	icon_state = "tourist"
+	item_state = "tourist"
+	item_color = "tourist"
+	flags_size = ONESIZEFITSALL
