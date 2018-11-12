@@ -1,0 +1,4 @@
+author: "CornMyCob"
+delete-after: True
+changes: 
+  - rscadd: "You can now unwrench and move the library machines/computers, chem master, chem heater, washing machine, pandemic and PDA painter"
