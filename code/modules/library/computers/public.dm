@@ -6,6 +6,11 @@
 		return
 	interact(user)
 
+/obj/machinery/computer/library/public/attackby(obj/item/W as obj, mob/user as mob)
+	if(default_unfasten_wrench(user, W))
+		power_change()
+		return
+
 /obj/machinery/computer/library/public/interact(var/mob/user)
 	if(interact_check(user))
 		return

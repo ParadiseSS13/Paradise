@@ -353,16 +353,3 @@ var/ert_request_answered = FALSE
 	name = "centcomm bounced radio"
 	frequency = ERT_FREQ
 	icon_state = "radio"
-
-/obj/item/storage/box/responseteam/
-	name = "boxed survival kit"
-
-/obj/item/storage/box/responseteam/New()
-	..()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/emergency_oxygen/engi(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)

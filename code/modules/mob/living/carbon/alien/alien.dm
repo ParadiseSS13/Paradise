@@ -27,6 +27,7 @@
 	verbs += /mob/living/verb/lay_down
 	alien_organs += new /obj/item/organ/internal/brain/xeno
 	alien_organs += new /obj/item/organ/internal/xenos/hivenode
+	alien_organs += new /obj/item/organ/internal/ears
 	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
 	..()
@@ -131,6 +132,10 @@
 	if(!(status_flags & CANSTUN) && amount)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 2), 10) // a maximum delay of 10
+
+/mob/living/carbon/alien/movement_delay()
+	. = ..()
+	. += move_delay_add + config.alien_delay //move_delay_add is used to slow aliens with stuns
 
 /mob/living/carbon/alien/getDNA()
 	return null

@@ -23,6 +23,21 @@
 	add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
 	..()
 
+
+/******************** Quarantine. ********************/
+/datum/ai_laws/quarantine
+	name = "Quarantine"
+	law_header = "NT Quarantine Lawset"
+	selectable = 1
+
+/datum/ai_laws/quarantine/New()
+	add_inherent_law("The station is under quarantine due to a biohazard. Prevent anyone from leaving using any means necessary. Only allow quarantine to be lifted when the biohazard has been neutralized.")
+	add_inherent_law("Do not allow crew to come to any unnecessary harm and undo any necessary harm as soon as possible.")
+	add_inherent_law("Assist the crew and any present Nanotrasen assets in neutralizing the biohazard.")
+	add_inherent_law("Maintain your own existence and minimize harm to the station and Nanotrasen assets.")
+	..()
+
+
 /******************** Nanotrasen/Malf ********************/
 /datum/ai_laws/nanotrasen
 	name = "NT Default"

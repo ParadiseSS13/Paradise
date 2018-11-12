@@ -11,7 +11,7 @@
 	for(var/mob/living/M in get_mobs_in_view(4, user))
 		if(iscarbon(M))
 			if(!M.mind || !M.mind.changeling)
-				M.AdjustEarDeaf(30)
+				M.MinimumDeafTicks(30)
 				M.AdjustConfused(20)
 				M.Jitter(50)
 			else

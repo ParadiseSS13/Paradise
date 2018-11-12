@@ -69,6 +69,9 @@
 	SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
 	if(isrobot(user))
 		return
 

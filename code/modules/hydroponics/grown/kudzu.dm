@@ -95,3 +95,4 @@
 	icon_state = "kudzupod"
 	filling_color = "#6B8E23"
 	bitesize_mod = 2
+	wine_power = 0.2

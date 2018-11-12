@@ -91,7 +91,7 @@
 		owner.overlays += overlay
 
 		spawn(6)
-			var/mob/living/carbon/alien/larva/new_xeno = new(owner.loc)
+			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
 			new_xeno.key = C.key
 			if(ticker && ticker.mode)
 				ticker.mode.xenos += new_xeno.mind

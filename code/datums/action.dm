@@ -11,10 +11,10 @@
 	var/check_flags = 0
 	var/processing = 0
 	var/obj/screen/movable/action_button/button = null
-	var/button_icon = 'icons/mob/actions.dmi'
+	var/button_icon = 'icons/mob/actions/actions.dmi'
 	var/background_icon_state = "bg_default"
 
-	var/icon_icon = 'icons/mob/actions.dmi'
+	var/icon_icon = 'icons/mob/actions/actions.dmi'
 	var/button_icon_state = "default"
 	var/mob/owner
 

@@ -8,6 +8,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=2"
+	container_type = OPENCONTAINER | INJECTABLE | DRAWABLE
 	materials = list(MAT_GLASS=500)
 	var/obj/item/implant/imp = null
 

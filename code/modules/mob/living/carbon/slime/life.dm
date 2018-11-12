@@ -218,14 +218,7 @@
 	if(src.eye_blind)
 		src.SetEyeBlind(0)
 
-	if(src.ear_deaf > 0) SetEarDeaf(0)
-	if(src.ear_damage < 25)
-		SetEarDamage(0)
-
 	src.density = !( src.lying )
-
-	if(src.disabilities & DEAF)
-		EarDeaf(1)
 
 	if(src.eye_blurry > 0)
 		SetEyeBlurry(0)

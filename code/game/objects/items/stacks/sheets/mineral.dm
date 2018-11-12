@@ -232,6 +232,7 @@ var/global/list/datum/stack_recipe/abductor_recipes = list ( \
 /obj/item/stack/sheet/mineral/titanium
 	name = "titanium"
 	icon_state = "sheet-titanium"
+	item_state = "sheet-metal"
 	singular_name = "titanium sheet"
 	force = 5
 	throwforce = 5
@@ -260,6 +261,7 @@ var/global/list/datum/stack_recipe/titanium_recipes = list (
 /obj/item/stack/sheet/mineral/plastitanium
 	name = "plastitanium"
 	icon_state = "sheet-plastitanium"
+	item_state = "sheet-metal"
 	singular_name = "plastitanium sheet"
 	force = 5
 	throwforce = 5
