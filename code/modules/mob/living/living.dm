@@ -146,8 +146,7 @@
 	if((AM.anchored && !push_anchored) || (force < (AM.move_resist * MOVE_FORCE_PUSH_RATIO)))
 		now_pushing = FALSE
 		return
-
-	if (istype(AM, /obj/structure/window))
+	if(istype(AM, /obj/structure/window))
 		var/obj/structure/window/W = AM
 		if(W.fulltile)
 			for(var/obj/structure/window/win in get_step(W,t))
@@ -876,7 +875,7 @@
 	if(src == AM) // Trying to pull yourself is a shortcut to stop pulling
 		stop_pulling()
 		return
-	if(!(AM.can_be_pulled(src, force)))
+	if(!(AM.can_be_pulled(src, state, force)))
 		return FALSE
 	if(!AM || !isturf(AM.loc))	//if there's no object or the object being pulled is inside something: abort!
 		return

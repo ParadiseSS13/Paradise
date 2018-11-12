@@ -73,7 +73,7 @@
 			return FALSE
 		// Are we trying to pull something we are already pulling? Then enter grab cycle and end.
 		if(AM == pulling)
-			if(istype(AM,/mob/living))
+			if(isLiving(AM))
 				var/mob/living/AMob = AM
 				AMob.grabbedby(src)
 			return TRUE
