@@ -392,10 +392,12 @@ var/global/list/default_medbay_channels = list(
 	// --- Modifications to the mob's identity ---
 
 	// The mob is disguising their identity:
-	if(ishuman(M) && M.GetVoice() != real_name)
-		displayname = M.GetVoice()
-		jobname = "Unknown"
-		voicemask = TRUE
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		displayname = H.voice
+		if(H.voice != real_name)	
+			jobname = "Unknown"
+			voicemask = 1
 
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
