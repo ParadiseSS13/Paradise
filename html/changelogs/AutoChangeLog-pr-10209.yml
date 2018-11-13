@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - bugfix: "Prevent wizards from casting rod form inside the wizard den."
