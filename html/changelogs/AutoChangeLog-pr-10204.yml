@@ -1,4 +1,0 @@
-author: "craftxbox"
-delete-after: True
-changes: 
-  - bugfix: "use mob voice instead of mob name for radios broadcasting signals."
