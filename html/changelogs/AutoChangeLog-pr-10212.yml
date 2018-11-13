@@ -1,5 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - bugfix: "Ancient station's lockdown is now lifted correctly."
-  - bugfix: "Ancient station RD console can now be used."
