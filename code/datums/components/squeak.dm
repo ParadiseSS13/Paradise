@@ -11,11 +11,11 @@
 	var/steps = 0
 	var/step_delay = 1
 
-	// This is to stop squeak spam (Apply to both usage and normal triggering unlike tg which only apply it to use)
-	var/last_squeak = 0
-	var/squeak_delay = 20
+	// This is to stop squeak spam from inhand usage
+	var/last_use = 0
+	var/use_delay = 20
 
-/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, squeak_delay_override)
+/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), .proc/play_squeak)
@@ -23,7 +23,8 @@
 		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), .proc/play_squeak)
 		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/play_squeak_crossed)
 		if(isitem(parent))
-			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT, COMSIG_ITEM_ATTACK_SELF), .proc/play_squeak)
+			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), .proc/play_squeak)
+			RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, .proc/use_squeak)
 			RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
 			RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_drop)
 			if(istype(parent, /obj/item/clothing/shoes))
@@ -36,13 +37,10 @@
 		volume = volume_override
 	if(isnum(step_delay_override))
 		step_delay = step_delay_override
-	if(isnum(squeak_delay_override))
-		squeak_delay = squeak_delay_override
+	if(isnum(use_delay_override))
+		use_delay = use_delay_override
 
 /datum/component/squeak/proc/play_squeak()
-	if(last_squeak + squeak_delay >= world.time)
-		return
-	last_squeak = world.time
 	if(prob(squeak_chance))
 		if(!override_squeak_sounds)
 			playsound(parent, pickweight(default_squeak_sounds), volume, 1, -1)
@@ -73,6 +71,11 @@
 				return
 	var/atom/current_parent = parent
 	if(isturf(current_parent.loc))
+		play_squeak()
+
+/datum/component/squeak/proc/use_squeak()
+	if(last_use + use_delay < world.time)
+		last_use = world.time
 		play_squeak()
 
 /datum/component/squeak/proc/disposing_react(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/source)
