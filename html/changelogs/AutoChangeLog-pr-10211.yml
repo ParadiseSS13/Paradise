@@ -1,0 +1,4 @@
+author: "Certhic"
+delete-after: True
+changes: 
+  - bugfix: "fixed a cigs runtime error"
