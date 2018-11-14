@@ -1,4 +1,0 @@
-author: "uc_guy"
-delete-after: True
-changes: 
-  - bugfix: "Borgs no longer have infinite roller beds."
