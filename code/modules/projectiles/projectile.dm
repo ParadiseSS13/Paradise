@@ -32,6 +32,8 @@
 	animate_movement = 0
 
 	var/damage = 10
+	var/tile_dropoff = 0	//how much damage should be decremented as the bullet moves
+	var/tile_dropoff_s = 0	//same as above but for stamina
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
@@ -60,9 +62,15 @@
 	return ..()
 
 /obj/item/projectile/proc/Range()
-	range--
-	if(range <= 0 && loc)
-		on_range()
+    range--
+    if(damage > 0)
+        damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
+    if(stamina > 0)
+        stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
+    if(range <= 0 && loc)
+        on_range()
+    if(damage == 0 && stamina == 0)
+        on_range()
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
