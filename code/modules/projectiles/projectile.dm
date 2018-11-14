@@ -63,9 +63,9 @@
 
 /obj/item/projectile/proc/Range()
     range--
-    if(damage > 0)
+    if(damage > 0 && tile_dropoff)
         damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
-    if(stamina > 0)
+    if(stamina > 0 && tile_dropoff)
         stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
     if(range <= 0 && loc)
         on_range()
