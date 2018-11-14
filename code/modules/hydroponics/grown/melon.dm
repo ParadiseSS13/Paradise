@@ -25,6 +25,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	filling_color = "#008000"
 	bitesize_mod = 3
+	wine_power = 0.4
 
 // Holymelon
 /obj/item/seeds/watermelon/holy
@@ -45,3 +46,5 @@
 	icon_state = "holymelon"
 	filling_color = "#FFD700"
 	dried_type = null
+	wine_power = 0.7 //Water to wine, baby.
+	wine_flavor = "divinity"

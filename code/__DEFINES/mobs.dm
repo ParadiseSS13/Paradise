@@ -143,6 +143,7 @@
 
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
+#define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
@@ -177,8 +178,7 @@
 #define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
-
-
+#define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))

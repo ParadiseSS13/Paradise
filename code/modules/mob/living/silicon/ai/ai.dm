@@ -370,7 +370,8 @@ var/list/ai_verbs_default = list(
 		"Fuzzy",
 		"Glitchman",
 		"House",
-		"Database"
+		"Database",
+		"Alien"
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -451,6 +452,8 @@ var/list/ai_verbs_default = list(
 			icon_state = "ai-house"
 		if("Database")
 			icon_state = "ai-database"
+		if("Alien")
+			icon_state = "ai-alien"
 		else
 			icon_state = "ai"
 	//else

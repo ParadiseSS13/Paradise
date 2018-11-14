@@ -50,6 +50,9 @@
 			stat |= NOPOWER
 
 /obj/machinery/chem_master/attackby(obj/item/B, mob/user, params)
+	if(default_unfasten_wrench(user, B))
+		power_change()
+		return
 
 	if(istype(B, /obj/item/reagent_containers/glass) || istype(B, /obj/item/reagent_containers/food/drinks/drinkingglass))
 

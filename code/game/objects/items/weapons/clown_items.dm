@@ -53,6 +53,6 @@
 	for(M in ohearers(7, T))
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
-			if(istype(H.l_ear, /obj/item/clothing/ears/earmuffs) || istype(H.r_ear, /obj/item/clothing/ears/earmuffs) || H.ear_deaf)
+			if(!H.can_hear())
 				continue
 		M.emote("flip")

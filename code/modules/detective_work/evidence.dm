@@ -84,15 +84,3 @@
 		to_chat(user, "[src] is empty.")
 		icon_state = "evidenceobj"
 
-/obj/item/storage/box/evidence
-	name = "evidence bag box"
-	desc = "A box claiming to contain evidence bags."
-
-/obj/item/storage/box/evidence/New()
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	..()

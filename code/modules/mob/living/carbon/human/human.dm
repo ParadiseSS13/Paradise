@@ -7,6 +7,7 @@
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
 /mob/living/carbon/human/New(loc)
+	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	if(length(args) > 1)
 		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
 	. = ..()
@@ -264,8 +265,7 @@
 				else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				AdjustEarDamage(30)
-				AdjustEarDeaf(120)
+				AdjustEarDamage(30, 120)
 			if(prob(70) && !shielded)
 				Paralyse(10)
 
@@ -289,8 +289,7 @@
 					else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
-				AdjustEarDamage(15)
-				AdjustEarDeaf(60)
+				AdjustEarDamage(15, 60)
 			if(prob(50) && !shielded)
 				Paralyse(10)
 
@@ -731,25 +730,22 @@
 
 								if(hasHUD(usr, "security") && setcriminal != "Cancel")
 									found_record = 1
-									var/their_name = R.fields["name"]
-									var/their_rank = R.fields["rank"]
 									if(R.fields["criminal"] == "*Execute*")
 										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
-									else
+									else 
+										var/rank
 										if(ishuman(usr))
 											var/mob/living/carbon/human/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.get_authentification_name()] ([U.get_assignment()]) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-										if(isrobot(usr))
+											rank = U.get_assignment()
+										else if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] ([U.modtype] [U.braintype]) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-										if(isAI(usr))
-											var/mob/living/silicon/ai/U = usr
-											R.fields["comments"] += "Set to [setcriminal] by [U.name] (artificial intelligence) on [current_date_string] [station_time_timestamp()] with comment: [t1]<BR>"
-
-										R.fields["criminal"] = setcriminal
-										log_admin("[key_name_admin(usr)] set secstatus of [their_rank] [their_name] to [setcriminal], comment: [t1]")
-										spawn()
-											sec_hud_set_security_status()
+											rank = "[U.modtype] [U.braintype]"
+										else if(isAI(usr))
+											rank = "AI"
+										set_criminal_status(usr, R, setcriminal, t1, rank)
+								break // Git out of the securiy records loop!
+						if(found_record)
+							break // Git out of the general records
 
 			if(!found_record)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
@@ -1527,8 +1523,9 @@
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-
-	return image(get_icon_difference(get_eyecon(), hair), layer = LIGHTING_LAYER + 1) //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
+	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = LIGHTING_LAYER + 1)
+	MA.plane = LIGHTING_PLANE
+	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
 
 /*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.
 Eyes need to have significantly high darksight to shine unless the mob has the XRAY vision mutation. Eyes will not shine if they are covered in any way.*/
