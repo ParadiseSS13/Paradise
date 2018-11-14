@@ -1687,7 +1687,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		var/etypes = list("Borgification","Corgification","Death By Fire","Total Brain Death","Honk Tumor","Cluwne","Demotion Notice")
+		var/etypes = list("Borgification", "Corgification", "Death By Fire", "Total Brain Death", "Honk Tumor", "Cluwne", "Demote", "Demote with Bot", "Revoke Fax Access", "Angry Fax Machine")
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
@@ -1721,8 +1721,8 @@
 		P.overlays += stampoverlay
 		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
-		//fax.receivefax(P) // this does not work, it does not preserve the type, we have to physically teleport the fax paper instead
-		P.loc = fax.loc
+		P.faxmachineid = fax.UID()
+		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
@@ -1744,7 +1744,8 @@
 			btypes += "Super Powers"
 			btypes += "Scarab Guardian"
 			btypes += "Human Protector"
-			btypes += "Pet"
+			btypes += "Sentient Pet"
+			btypes += "All Access"
 		var/blessing = input(owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
 		if(!(blessing in btypes))
 			return
@@ -1794,28 +1795,55 @@
 				spawn(700)
 					qdel(scarab)
 				logmsg = "scarab guardian."
-			if("Pet")
-				var/pets = subtypesof(/mob/living/simple_animal/pet)
+			if("Sentient Pet")
+				var/pets = subtypesof(/mob/living/simple_animal)
 				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
 				if(isnull(petchoice))
 					return
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
-				var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [P], pet of [H]?", poll_time = 100, min_hours = 10)
+				var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [P], pet of [H]?", poll_time = 200, min_hours = 10)
 				var/mob/dead/observer/theghost = null
 				if(candidates.len)
 					theghost = pick(candidates)
 					P.key = theghost.key
 					P.master_commander = H
+					P.universal_speak = 1
+					P.universal_understand = 1
+					P.can_collar = 1
+					var/obj/item/clothing/accessory/petcollar/C = new /obj/item/clothing/accessory/petcollar(P)
+					P.collar = C
+					C.equipped(P)
+					var/obj/item/card/id/I = H.wear_id
+					if(I)
+						var/obj/item/card/id/D = new /obj/item/card/id(C)
+						D.access = I.access
+						D.registered_name = P.name
+						D.assignment = "Pet"
+						C.access_id = D
 					spawn(30)
 						var/newname = sanitize(copytext(input(P, "You are [P], pet of [H]. Would you like to change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
 						if(newname && newname != P.name)
 							P.name = newname
 							if(P.mind)
 								P.mind.name = newname
+				else
+					to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play [P].</span>")
+					qdel(P)
 				logmsg = "pet ([P])."
 			if("Human Protector")
 				usr.client.create_eventmob_for(H, 0)
 				logmsg = "syndie protector."
+			if("All Access")
+				var/obj/item/card/id/I = H.wear_id
+				if(I)
+					var/list/access_to_give = get_all_accesses()
+					for(var/this_access in access_to_give)
+						if(!(this_access in I.access))
+							// don't have it - add it
+							I.access |= this_access
+				else
+					to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>")
+				logmsg = "all access."
 		if(logmsg)
 			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
 			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
