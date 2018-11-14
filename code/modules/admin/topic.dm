@@ -1961,8 +1961,12 @@
 		if(!isLivingSSD(H))
 			to_chat(usr, "This can only be used on living, SSD players.")
 			return
-		var/success = cryo_ssd(H)
-		if(success)
+		if(istype(H.loc, /obj/machinery/cryopod))
+			var/obj/machinery/cryopod/P = H.loc
+			P.despawn_occupant()
+			log_admin("[key_name(usr)] despawned [H.job] [H] in cryo.")
+			message_admins("[key_name_admin(usr)] despawned [H.job] [H] in cryo.")
+		else if(cryo_ssd(H))
 			log_admin("[key_name(usr)] sent [H.job] [H] to cryo.")
 			message_admins("[key_name_admin(usr)] sent [H.job] [H] to cryo.")
 	else if(href_list["FaxReplyTemplate"])
