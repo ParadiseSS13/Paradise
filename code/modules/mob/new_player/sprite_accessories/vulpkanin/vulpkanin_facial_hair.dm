@@ -3,6 +3,10 @@
 	species_allowed = list("Vulpkanin")
 	gender = NEUTER
 
+/datum/sprite_accessory/facial_hair/vulpkanin/vulp_earfluff
+	name = "Earfluff"
+	icon_state = "earfluff"
+
 /datum/sprite_accessory/facial_hair/vulpkanin/vulp_blaze
 	name = "Blaze"
 	icon_state = "blaze"
