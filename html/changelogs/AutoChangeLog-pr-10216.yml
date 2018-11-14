@@ -1,0 +1,5 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Vulpkanin Earfluff can be selected in facial hair again."
+  - bugfix: "Vulpine Fluff and Earfluff head accessories and facial hair now have correct icon states."
