@@ -4,7 +4,7 @@
 	gender = NEUTER
 
 /datum/sprite_accessory/facial_hair/vulpkanin/vulp_earfluff
-	name = "Earfluff"
+	name = "Vulpkanin Earfluff"
 	icon_state = "earfluff"
 
 /datum/sprite_accessory/facial_hair/vulpkanin/vulp_blaze
