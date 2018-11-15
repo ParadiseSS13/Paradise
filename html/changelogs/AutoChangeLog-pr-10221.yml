@@ -1,0 +1,6 @@
+author: "Certhic"
+delete-after: True
+changes: 
+  - rscadd: "The scrollbar of NanoUI now looks more Nano-ish"
+  - rscadd: "The title bar of NanoUI now sticks while scrolling"
+  - tweak: "changed the mouse hover behavior on the fancy NanoUI buttons"
