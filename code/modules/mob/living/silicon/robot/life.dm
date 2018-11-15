@@ -9,7 +9,6 @@
 	clamp_values()
 
 	if(..())
-		update_stat("Robot/Life")
 		handle_robot_cell()
 		process_locks()
 		process_queued_alarms()
@@ -208,6 +207,7 @@
 		canmove = 0
 	else
 		canmove = 1
+	update_stat("robot/update_canmove")
 	update_transform()
 	if(!delay_action_updates)
 		update_action_buttons_icon()
