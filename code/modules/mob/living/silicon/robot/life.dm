@@ -207,7 +207,6 @@
 		canmove = 0
 	else
 		canmove = 1
-	update_stat("robot/update_canmove")
 	update_transform()
 	if(!delay_action_updates)
 		update_action_buttons_icon()
