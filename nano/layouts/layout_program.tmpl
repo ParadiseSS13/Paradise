@@ -7,42 +7,6 @@
     <i class='close fancy fa fa-close fa-2x' unselectable='on'></i>
     <div id='uiCornerTR' class='fancy'>&nbsp;</div>
 </div>
-
-<div class="floatLeft">
-    <div class='item'>
-        <table><tr>
-        {{if data.PC_batteryicon && data.PC_showbatteryicon}}
-            <td><img src='{{:data.PC_batteryicon}}'>
-        {{/if}}
-        {{if data.PC_batterypercent && data.PC_showbatteryicon}}
-            <td><b>{{:data.PC_batterypercent}}</b>
-        {{/if}}
-        {{if data.PC_ntneticon}}
-            <td><img src='{{:data.PC_ntneticon}}'>
-        {{/if}}
-            {{if data.PC_apclinkicon}}
-            <td><img src='{{:data.PC_apclinkicon}}'>
-        {{/if}}
-        {{if data.PC_stationtime}}
-            <td><b>{{:data.PC_stationtime}}<b>
-        {{/if}}
-        {{for data.PC_programheaders}}
-            <td><img src='{{:value.icon}}'>
-        {{/for}}
-        </table>
-    </div>
-</div>
-<div class="floatRight">
-    <div class='item'>
-        <table><tr>
-            <td>{{:helper.link('Shutdown', 'power-off', {'action' : 'PC_shutdown'})}}
-            {{if data.PC_showexitprogram}}
-                <td>{{:helper.link('EXIT PROGRAM', 'times', {'action' : 'PC_exit'})}}
-                    <td>{{:helper.link('Minimize Program', 'minus', {'action' : 'PC_minimize'})}}
-            {{/if}}
-        </table>
-    </div>
-</div>
 <div class='fancy resizeArea top'    rx='0'  ry='-1'></div>
 <div class='fancy resizeArea tr'     rx='1'  ry='-1'></div>
 <div class='fancy resizeArea right'  rx='1'  ry='0'></div>
@@ -52,6 +16,41 @@
 <div class='fancy resizeArea left'   rx='-1' ry='0'></div>
 <div class='fancy resizeArea tl'     rx='-1' ry='-1'></div>
 <div id='cornerWrapper'>
+    <div class="floatLeft">
+        <div class='item'>
+            <table><tr>
+            {{if data.PC_batteryicon && data.PC_showbatteryicon}}
+                <td><img src='{{:data.PC_batteryicon}}'>
+            {{/if}}
+            {{if data.PC_batterypercent && data.PC_showbatteryicon}}
+                <td><b>{{:data.PC_batterypercent}}</b>
+            {{/if}}
+            {{if data.PC_ntneticon}}
+                <td><img src='{{:data.PC_ntneticon}}'>
+            {{/if}}
+                {{if data.PC_apclinkicon}}
+                <td><img src='{{:data.PC_apclinkicon}}'>
+            {{/if}}
+            {{if data.PC_stationtime}}
+                <td><b>{{:data.PC_stationtime}}<b>
+            {{/if}}
+            {{for data.PC_programheaders}}
+                <td><img src='{{:value.icon}}'>
+            {{/for}}
+            </table>
+        </div>
+    </div>
+    <div class="floatRight">
+        <div class='item'>
+            <table><tr>
+                <td>{{:helper.link('Shutdown', 'power-off', {'action' : 'PC_shutdown'})}}
+                {{if data.PC_showexitprogram}}
+                    <td>{{:helper.link('EXIT PROGRAM', 'times', {'action' : 'PC_exit'})}}
+                        <td>{{:helper.link('Minimize Program', 'minus', {'action' : 'PC_minimize'})}}
+                {{/if}}
+            </table>
+        </div>
+    </div>
     <div id='uiMapWrapper' class="hidden" unselectable="on">
         <div id='uiMapHeader' unselectable="on">
             {{:helper.link('Hide Map', 'close', {'showMap' : 0})}}
