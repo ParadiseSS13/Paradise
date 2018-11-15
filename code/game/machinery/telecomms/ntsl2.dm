@@ -1,10 +1,10 @@
-GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
-// Custom Implementations for NTSL2
-/* NTSL2 Configuration Datum
+GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
+// Custom Implementations for NTTC
+/* NTTC Configuration Datum
  * This is an abstract handler for the configuration loadout. It's set up like this both for ease of transfering in and out of the UI 
  * as well as allowing users to save and load configurations.
  */
-/datum/ntsl2_configuration
+/datum/nttc_configuration
 	/* Simple Toggles */
 	var/toggle_activated = TRUE
 	var/toggle_jobs = FALSE
@@ -61,7 +61,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 	// Used to determine what languages are allowable for conversion. Generated during runtime.
 	var/list/valid_languages = list("--DISABLE--")
 
-/datum/ntsl2_configuration/proc/reset()
+/datum/nttc_configuration/proc/reset()
 	/* Simple Toggles */
 	toggle_activated = initial(toggle_activated)
 	toggle_jobs = initial(toggle_jobs)
@@ -80,7 +80,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 	firewall = list()
 
 
-/datum/ntsl2_configuration/proc/update_languages()
+/datum/nttc_configuration/proc/update_languages()
 	for(var/language in GLOB.all_languages)
 		var/datum/language/L = GLOB.all_languages[language]
 		if(L.flags & HIVEMIND)
@@ -88,7 +88,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		valid_languages[language] = TRUE
 
 // I'd use serialize() but it's used by another system. This converts the configuration into a JSON string.
-/datum/ntsl2_configuration/proc/ntsl_serialize()
+/datum/nttc_configuration/proc/nttc_serialize()
 	. = list()
 	for(var/variable in to_serialize)
 		.[variable] = vars[variable]
@@ -96,7 +96,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 	
 // This loads a configuration from a JSON string.
 // Fucking broken as shit, someone help me fix this.
-/datum/ntsl2_configuration/proc/ntsl_deserialize(text, obj/machinery/computer/telecomms/traffic/source)
+/datum/nttc_configuration/proc/nttc_deserialize(text, obj/machinery/computer/telecomms/traffic/source)
 	var/list/var_list = json_decode(text)
 	for(var/variable in var_list)
 		if(variable in to_serialize) // Don't just accept any random vars jesus christ!
@@ -104,12 +104,12 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 				continue
 			var/sanitize_method = serialize_sanitize[variable]
 			var/variable_value = var_list[variable]
-			variable_value = sanitize(variable_value, sanitize_method)
-			if(variable_value)
+			variable_value = nttc_sanitize(variable_value, sanitize_method)
+			if(variable_value != null)
 				vars[variable] = variable_value
 
 // Sanitizing user input. Don't blindly trust the JSON.
-/datum/ntsl2_configuration/proc/sanitize(variable, sanitize_method)
+/datum/nttc_configuration/proc/nttc_sanitize(variable, sanitize_method)
 	if(!sanitize_method)
 		return null
 
@@ -120,14 +120,17 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			if(!islist(variable))
 				return list()
 			// Insert html filtering for the regexes here if you're boring
-			return sanitize(variable)
+			var/newlist = json_decode(html_decode(json_encode(variable)))
+			if(!islist(newlist))
+				return null
+			return newlist
 		if("string")
 			return "[variable]"
 
 	return variable
 
 // Primary signal modification. This is where all of the variables behavior are actually implemented.
-/datum/ntsl2_configuration/proc/modify_signal(datum/signal/signal)
+/datum/nttc_configuration/proc/modify_signal(datum/signal/signal)
 	// Servers are deliberately turned off. Mark every signal as rejected.
 	if(!toggle_activated)
 		signal.data["reject"] = TRUE
@@ -163,7 +166,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		var/honklength = split.len
 		var/new_message = ""
 		for(var/i in 1 to honklength)
-			new_message += pick("HoNK!", "HONK", "HOOOoONK", "HONKHONK!", "HoNnnkKK!!!", "HOOOOOOOOOOONK!!!!11!", "henk!")
+			new_message += pick("HoNK!", "HONK", "HOOOoONK", "HONKHONK!", "HoNnnkKK!!!", "HOOOOOOOOOOONK!!!!11!", "henk!") + " "
 		signal.data["message"] = new_message
 
 
@@ -180,15 +183,15 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		var/new_message = original
 		for(var/reg in regex)
 			var/replacePattern = pencode_to_html(regex[reg])
-			var/regex/start = new(reg, "gi")
-			new_message = start.Replace(original, replacePattern)
+			var/regex/start = regex(reg, "gi")
+			new_message = start.Replace(new_message, replacePattern)
 		signal.data["message"] = new_message
 
 	// Make sure the message is valid after we tinkered with it, otherwise reject it
 	if(signal.data["message"] == "" || !signal.data["message"])
 		signal.data["reject"] = 1
 
-/datum/ntsl2_configuration/Topic(mob/user, href_list, window_id, obj/machinery/computer/telecomms/traffic/source)
+/datum/nttc_configuration/Topic(mob/user, href_list, window_id, obj/machinery/computer/telecomms/traffic/source)
 	// Toggles
 	if(href_list["toggle"])
 		var/var_to_toggle = href_list["toggle"]
@@ -197,7 +200,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 		if(!(var_to_toggle in to_serialize))
 			return
 		vars[var_to_toggle] = !vars[var_to_toggle]
-		log_action(user, "toggled NTSL2 variable [var_to_toggle] [vars[var_to_toggle] ? "on" : "off"]")
+		log_action(user, "toggled NTTC variable [var_to_toggle] [vars[var_to_toggle] ? "on" : "off"]")
 
 	// Strings
 	if(href_list["setting_language"])
@@ -211,7 +214,7 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 			setting_language = new_language
 			to_chat(user, "<span class='notice'>Messages will now be converted to [new_language].</span>")
 
-		log_action(user, new_language == "--DISABLE--" ? "disabled NTSL2 language conversion" : "set NTSL2 language conversion to [new_language]", TRUE)
+		log_action(user, new_language == "--DISABLE--" ? "disabled NTTC language conversion" : "set NTTC language conversion to [new_language]", TRUE)
 
 	// Tables
 	if(href_list["create_row"])
@@ -262,50 +265,50 @@ GLOBAL_DATUM_INIT(ntsl2_config, /datum/ntsl2_configuration, new())
 
 	// Spit out the serialized config to the user
 	if(href_list["save_config"])
-		user << browse(ntsl_serialize(), "window=save_ntsl2")
+		user << browse(nttc_serialize(), "window=save_nttc")
 
 	if(href_list["load_config"])
-		var/json = input(user, "Provide configuration JSON below.", "Load Config", ntsl_serialize()) as message
-		ntsl_deserialize(json, source)
-		log_action(user, "has uploaded a NTSL2 JSON configuration: [json]", TRUE)
+		var/json = input(user, "Provide configuration JSON below.", "Load Config", nttc_serialize()) as message
+		nttc_deserialize(json, source)
+		log_action(user, "has uploaded a NTTC JSON configuration: [ADMIN_SHOWDETAILS("Show", json)]", TRUE)
 
-	user << output(list2params(list(ntsl_serialize())), "[window_id].browser:updateConfig")
+	user << output(list2params(list(nttc_serialize())), "[window_id].browser:updateConfig")
 
-/datum/ntsl2_configuration/proc/log_action(user, msg, adminmsg = FALSE)
-	log_game("NTSL2: [key_name(user)] [msg]")
+/datum/nttc_configuration/proc/log_action(user, msg, adminmsg = FALSE)
+	log_game("NTTC: [key_name(user)] [msg]")
 	log_investigate("[key_name(user)] [msg]", "ntsl")
 	if(adminmsg)
 		message_admins("[key_name_admin(user)] [msg]")
 
 /* Asset datum for the UI */
-/datum/asset/simple/ntsl2
+/datum/asset/simple/nttc
 	assets = list(
-		"bundle.css" = 'html/ntsl2/dist/bundle.css',
-		"bundle.js" = 'html/ntsl2/dist/bundle.js',
-		"tab_home.html" = 'html/ntsl2/dist/tab_home.html',
-		"tab_hack.html" = 'html/ntsl2/dist/tab_hack.html',
-		"tab_filtering.html" = 'html/ntsl2/dist/tab_filtering.html',
-		"tab_firewall.html" = 'html/ntsl2/dist/tab_firewall.html',
-		"tab_regex.html" = 'html/ntsl2/dist/tab_regex.html',
-		"uiTitleFluff.png" = 'html/ntsl2/dist/uiTitleFluff.png'
+		"bundle.css" = 'html/nttc/dist/bundle.css',
+		"bundle.js" = 'html/nttc/dist/bundle.js',
+		"tab_home.html" = 'html/nttc/dist/tab_home.html',
+		"tab_hack.html" = 'html/nttc/dist/tab_hack.html',
+		"tab_filtering.html" = 'html/nttc/dist/tab_filtering.html',
+		"tab_firewall.html" = 'html/nttc/dist/tab_firewall.html',
+		"tab_regex.html" = 'html/nttc/dist/tab_regex.html',
+		"uiTitleFluff.png" = 'html/nttc/dist/uiTitleFluff.png'
 	)
 
 /* Custom subtype of /datum/browser that behaves as we want for our project */
-/datum/browser/ntsl2
-	var/initial_config // Initial NTSL2 configuration
+/datum/browser/nttc
+	var/initial_config // Initial NTTC configuration
 
-/datum/browser/ntsl2/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null, ntsl2_config)
+/datum/browser/nttc/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, var/atom/nref = null, nttc_config)
 	. = ..()
-	initial_config = ntsl2_config
+	initial_config = nttc_config
 // Prevent all stylesheets from being added, we have our own CSS that's bundled with gulp
-/datum/browser/ntsl2/add_stylesheet()
+/datum/browser/nttc/add_stylesheet()
 	return
 // No header, we're running a fully complete .html file
-/datum/browser/ntsl2/get_header()
+/datum/browser/nttc/get_header()
 	return
 // We inject a little code at the bottom of the file, similar to NanoUI, but more limited.
 // This code is used for delivering live updates of config changes & allowing the UI to provide Topic data.
-/datum/browser/ntsl2/get_footer()
+/datum/browser/nttc/get_footer()
 	var/byondSrc = "byond://?src=[ref.UID()];"
 	var/dat = "<script type='text/javascript'>"
 	dat += "window.byondSrc = '[byondSrc]';"

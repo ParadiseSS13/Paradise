@@ -937,19 +937,19 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/reset_all_tcs()
 	set category = "Admin"
-	set name = "Reset NTSL2 Configuration"
-	set desc = "Resets NTSL2 to the default configuration."
+	set name = "Reset NTTC Configuration"
+	set desc = "Resets NTTC to the default configuration."
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert(src, "You sure you want to reset NTSL2?", "Confirm", "Yes", "No")
+	var/confirm = alert(src, "You sure you want to reset NTTC?", "Confirm", "Yes", "No")
 	if(confirm != "Yes")
 		return
 
-	GLOB.ntsl2_config.reset()
-	log_admin("[key_name(usr)] reset NTSL2 scripts.")
-	message_admins("[key_name_admin(usr)] reset NTSL2 scripts.")
+	GLOB.nttc_config.reset()
+	log_admin("[key_name(usr)] reset NTTC scripts.")
+	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
 	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/list_ssds()
