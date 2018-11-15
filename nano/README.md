@@ -101,5 +101,5 @@ of the `Gulpfile.js` and `Gulpfile.coffee` files to perform compilation tasks.
 
 In order to build an un-minified version of NanoUI, you may simply run `gulp` in the
 `nanoui` directory. However, this should only be used while testing, and you should run
-the command `gulp --min` before commiting changes, in order to produce minified
+the command `export NODE_ENV=production; gulp` before commiting changes, in order to produce minified
 JavaScript.

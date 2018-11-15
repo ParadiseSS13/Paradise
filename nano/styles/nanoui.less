@@ -5,6 +5,7 @@
 @import "_color";
 @import "_config";
 @import "_display";
+@import "_fancy";
 @import "_formatting";
 @import "_icon";
 @import "_lists";
@@ -12,16 +13,8 @@
 @import "_native";
 @import "_tooltip";
 
-
-body {
-    background: data-uri('nanotrasen.svg') no-repeat fixed center/70% 70%,
-        linear-gradient(to bottom,
-        @background-start 0%,
-        @background-end 100%) no-repeat fixed center/100% 100%;
-}
-
 //nano scrollbar styling
-html,body {
+html, body {
     scrollbar-face-color:#666666;
     scrollbar-arrow-color:#E9C183;
     scrollbar-track-color:#363636;
@@ -41,6 +34,7 @@ html,body {
     min-width: 100%;   
     background-color: #363636;
     top: 0px;
+    right: 0px;
     overflow: hidden;
     z-index: 100;
     & > div {
@@ -50,6 +44,36 @@ html,body {
         cursor: default;
     }
 }
+
+.corner() {
+    position: fixed;
+    min-width: 30px;
+    background-color: #FF00E4;
+    z-index: 101;
+    min-height: 30px;
+}
+
+#uiCornerTL {
+    .corner;
+    top: 0px;
+    left: 0px;
+    background: data-uri('tl.gif') no-repeat;
+}
+
+#uiCornerTR {
+    .corner;
+    top: 0px;
+    right: 0px;
+    background: data-uri('tr.gif') no-repeat;
+}
+
+#uiCornerBR {
+    .corner;
+    bottom: 0px;
+    right: 0px;
+    background: data-uri('br.gif') no-repeat;
+}
+
 
 #uiTitleText {
     position: absolute;
@@ -132,12 +156,6 @@ html,body {
 #uiMapFooter {
     position: relative;
     clear: both;
-}
-
-#uiContent {
-    clear: both;
-    padding: 8px;
-    margin-top: 30px;
 }
 
 #uiMapTooltip {
