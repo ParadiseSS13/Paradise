@@ -842,7 +842,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/tourist
-	name = "tourist outfit
+	name = "tourist outfit"
 	desc = "it has salt and tear stains on it."
 	icon_state = "tourist"
 	item_state = "tourist"
