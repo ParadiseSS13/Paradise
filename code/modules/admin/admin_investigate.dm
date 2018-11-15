@@ -26,6 +26,13 @@
 	investigate_log_subjects |= subject
 	F << "<small>[time_stamp()] \ref[src] ([x],[y],[z])</small> || [src] [message]<br>"
 
+/proc/log_investigate(message, subject)
+	if(!message) return
+	var/F = investigate_subject2file(subject)
+	if(!F) return
+	investigate_log_subjects |= subject
+	F << "<small>[time_stamp()] || [message]<br>"
+
 //ADMINVERBS
 /client/proc/investigate_show( subject in investigate_log_subjects )
 	set name = "Investigate"

@@ -937,25 +937,20 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/reset_all_tcs()
 	set category = "Admin"
-	set name = "Reset Telecomms Scripts"
-	set desc = "Blanks all telecomms scripts from all telecomms servers"
+	set name = "Reset NTSL2 Configuration"
+	set desc = "Resets NTSL2 to the default configuration."
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/confirm = alert(src, "You sure you want to blank all NTSL scripts?", "Confirm", "Yes", "No")
+	var/confirm = alert(src, "You sure you want to reset NTSL2?", "Confirm", "Yes", "No")
 	if(confirm != "Yes")
 		return
 
-	for(var/obj/machinery/telecomms/server/S in telecomms_list)
-		var/datum/TCS_Compiler/C = S.Compiler
-		S.rawcode = ""
-		C.Compile("")
-	for(var/obj/machinery/computer/telecomms/traffic/T in GLOB.machines)
-		T.storedcode = ""
-	log_admin("[key_name(usr)] blanked all telecomms scripts.")
-	message_admins("[key_name_admin(usr)] blanked all telecomms scripts.")
-	feedback_add_details("admin_verb","RAT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	GLOB.ntsl2_config.reset()
+	log_admin("[key_name(usr)] reset NTSL2 scripts.")
+	message_admins("[key_name_admin(usr)] reset NTSL2 scripts.")
+	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/list_ssds()
 	set category = "Admin"

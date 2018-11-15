@@ -720,7 +720,7 @@ var/list/admin_verbs_ticket = list(
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
 			var/list/splitline = splittext(line, " - ")
-			if(n_lower(splitline[1]) == ckey)
+			if(lowertext(splitline[1]) == ckey)
 				if(splitline.len >= 2)
 					rank = ckeyEx(splitline[2])
 				break
