@@ -1,4 +1,0 @@
-author: "Azule Utama"
-delete-after: True
-changes: 
-  - bugfix: "Fixed an exploit which allowed cultists to curse the shuttle more than twice. Steve can only take so much punishment ya know..."
