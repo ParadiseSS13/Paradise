@@ -38,9 +38,6 @@
 		amount_grown = min(amount_grown + 1, max_grown)
 	..(amount)
 
-/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, force = move_force, supress_message = FALSE)
-	return
-
 /mob/living/carbon/alien/larva/ex_act(severity)
 	..()
 
