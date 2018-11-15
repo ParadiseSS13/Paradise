@@ -235,7 +235,7 @@
 					I.throw_at(H, 4, 3)
 					to_chat(H, "<span class='warning'>What threw that?</span>")
 
-			if(prob(2))
+			if(prob(4))
 				to_chat(H, "<font face='Comic Sans MS'><i>yalp ot tnaw I</i></font>")
 				Appear()
 				manifested = FALSE
@@ -279,7 +279,7 @@
 			if(prob(6))
 				for(var/turf/simulated/floor/O in range(src, 6))
 					O.MakeSlippery(TURF_WET_WATER, 10)
-					playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
+					playsound(src, 'sound/effects/clownstep1.ogg', 30, 1)
 
 			if(prob(5))
 				to_chat(H, "<span class='userdanger'>WHAT THE FUCK IS THAT?!</span>")
@@ -345,8 +345,13 @@
 			H.anchored = TRUE
 			addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Kill, H), 100)
 			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
-	else
+		else//some fuck pulled away our food
+			stage = STAGE_TORMENT
+			eating = FALSE
+
+	else//STOP PULLING AWAY THE FOOD
 		eating = FALSE
+		stage = STAGE_TORMENT
 
 	manifested = FALSE
 	Manifest()
