@@ -499,6 +499,7 @@
 	mask = /obj/item/clothing/mask/gas
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
+	l_hand = /obj/item/storage/toolbox/mechanical
 	r_hand = /obj/item/flag/grey
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
@@ -1016,6 +1017,36 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Singuloth Knight")
+
+/datum/outfit/admin/dark_lord
+	name = "Dark Lord"
+
+	uniform = /obj/item/clothing/under/color/black
+	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	back = /obj/item/storage/backpack
+	gloves = /obj/item/clothing/gloves/combat
+	shoes = /obj/item/clothing/shoes/syndigaloshes/black
+	l_ear = /obj/item/radio/headset/syndicate
+	id = /obj/item/card/id/syndicate
+	l_hand = /obj/item/twohanded/dualsaber/red
+	backpack_contents = list(
+		/obj/item/storage/box/survival = 1,
+		/obj/item/flashlight = 1,
+	)
+
+/datum/outfit/admin/dark_lord/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = H.wear_suit
+	if(istype(C))
+		C.name = "dark lord robes"
+		C.hood.name = "dark lord hood"
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Dark Lord", "syndie")
 
 
 /datum/outfit/admin/ancient_vampire

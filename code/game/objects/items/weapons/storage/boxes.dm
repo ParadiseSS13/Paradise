@@ -851,7 +851,7 @@
 
 	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
 	new /obj/item/pinpointer(src)
-	new /obj/item/pinpointer/crew(src)
+	new /obj/item/pinpointer/crew/centcom(src)
 
 
 #undef NODESIGN

@@ -84,6 +84,16 @@
 	armor = list(melee = 65, bullet = 55, laser = 35, energy = 20, bomb = 30, bio = 30, rad = 30)
 	flags =  STOPSPRESSUREDMAGE | THICKMATERIAL
 
+/obj/item/clothing/suit/space/deathsquad/officer
+	name = "officer jacket"
+	desc = "An armored jacket used in special operations."
+	icon_state = "detective"
+	item_state = "det_suit"
+	blood_overlay_type = "coat"
+	flags_inv = 0
+	slowdown = 0
+	w_class = WEIGHT_CLASS_NORMAL
+
 //Space santa outfit suit
 /obj/item/clothing/head/helmet/space/santahat
 	name = "Santa's hat"
