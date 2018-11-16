@@ -1,0 +1,4 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - rscadd: "SPEEEEEEEED to the asset cache, making preloaded UI assets transfer much faster."
