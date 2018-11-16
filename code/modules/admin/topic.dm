@@ -1853,6 +1853,7 @@
 			ptypes += "Assassin"
 			ptypes += "Hunter"
 			ptypes += "Crew Traitor"
+			ptypes += "Floor Cluwne"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -1960,6 +1961,12 @@
 			if("Gib")
 				logmsg = "gibbed."
 				M.gib(FALSE)
+			if("Floor Cluwne")
+				logmsg = "floor cluwne"
+				var/turf/T = get_turf(M)
+				var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
+				FC.smiting = TRUE
+				FC.Acquire_Victim(M)
 		if(logmsg)
 			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")
 			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
