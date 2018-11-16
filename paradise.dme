@@ -203,6 +203,7 @@
 #include "code\controllers\ProcessScheduler\core\process.dm"
 #include "code\controllers\ProcessScheduler\core\processScheduler.dm"
 #include "code\controllers\subsystem\air.dm"
+#include "code\controllers\subsystem\assets.dm"
 #include "code\controllers\subsystem\atoms.dm"
 #include "code\controllers\subsystem\fires.dm"
 #include "code\controllers\subsystem\garbage.dm"
