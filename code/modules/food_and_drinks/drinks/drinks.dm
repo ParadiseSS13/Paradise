@@ -292,12 +292,6 @@
 	materials = list(MAT_METAL=250)
 	volume = 60
 
-/obj/item/reagent_containers/food/drinks/flask/soup
-	name = "soup flask"
-	desc = "An large, insulated soup flask, designed to store nutritious soup for the spaceman on the go."
-	volume = 100
-	list_reagents = list("chicken_soup" = 100)
-
 /obj/item/reagent_containers/food/drinks/flask/barflask
 	name = "flask"
 	desc = "For those who can't be bothered to hang out at the bar to drink."
