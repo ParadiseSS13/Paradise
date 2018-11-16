@@ -35,7 +35,9 @@
 	)
 	backpack = /obj/item/storage/backpack/satchel
 	box = /obj/item/storage/box/centcomofficer
-
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/drinks/flask/soup = 1
+	)
 
 // CC Officials who lead ERTs, Death Squads, etc.
 /datum/job/ntspecops
@@ -73,7 +75,8 @@
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
 		/obj/item/clothing/shoes/magboots/advance = 1,
-		/obj/item/storage/box/zipties = 1
+		/obj/item/storage/box/zipties = 1,
+		/obj/item/reagent_containers/food/drinks/flask/soup = 1
 	)
 	implants = list(
 		/obj/item/implant/mindshield,

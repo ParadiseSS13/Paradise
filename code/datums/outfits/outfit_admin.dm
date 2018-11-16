@@ -270,7 +270,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
 		/obj/item/flashlight = 1,
-		/obj/item/reagent_containers/food/drinks/chicken_soup = 2,
+		/obj/item/reagent_containers/food/drinks/flask/soup = 1,
 		/obj/item/pinpointer/crew = 1
 	)
 	implants = list(
@@ -281,7 +281,6 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/eyes/xray,
 		/obj/item/organ/internal/cyberimp/brain/anti_stun,
-		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
 
@@ -299,7 +298,6 @@
 	if(istype(R))
 		R.name = "radio headset"
 		R.icon_state = "headset"
-
 
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"

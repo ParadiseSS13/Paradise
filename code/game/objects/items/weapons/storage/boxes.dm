@@ -879,7 +879,7 @@
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
 	icon_state = "box_ert"
-  storage_slots = 14
+	storage_slots = 14
 	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/New()
