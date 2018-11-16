@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "The admin verb to list SSD players now highlights players who are another player's antag target. Additionally it lets you despawn players whose body is already in cryo."
