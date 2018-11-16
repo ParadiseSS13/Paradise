@@ -9,7 +9,7 @@
 	var/bolts = 1
 
 	var/id_tag
-	var/frequency = 1439
+	var/frequency = ATMOS_VENTSCRUB
 	Mtoollink = 1
 	settagwhitelist = list("id_tag")
 
@@ -147,7 +147,7 @@
 
 	name = "Computer"
 
-	var/frequency = 1439
+	var/frequency = ATMOS_VENTSCRUB
 	var/show_sensors=1
 	var/list/sensors = list()
 	Mtoollink = 1

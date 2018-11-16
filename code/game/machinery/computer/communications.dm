@@ -27,7 +27,6 @@
 	var/centcomm_message_cooldown = 0
 	var/tmp_alertlevel = 0
 
-	var/status_display_freq = "1435"
 	var/stat_msg1
 	var/stat_msg2
 	var/display_type="blank"
@@ -510,7 +509,7 @@
 
 /proc/post_status(command, data1, data2, mob/user = null)
 
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(1435)
+	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
 
 	if(!frequency) return
 
