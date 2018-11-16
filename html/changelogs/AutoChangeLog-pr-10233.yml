@@ -1,7 +1,0 @@
-author: "tigercat2000"
-delete-after: True
-changes: 
-  - bugfix: "NTTC deserializing works again"
-  - bugfix: "NTTC regex works again"
-  - bugfix: "NTTC no longer spams admins"
-  - spellcheck: "NTSL2 no more, it is officially NTTC"
