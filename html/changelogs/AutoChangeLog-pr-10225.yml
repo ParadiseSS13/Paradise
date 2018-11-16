@@ -1,0 +1,7 @@
+author: "Azule Utama"
+delete-after: True
+changes: 
+  - tweak: "Changed falloff damage to be usable on any desired projectile rather than just shotgun pellets.
+balance: X-ray lasers now use 100 charge per shot (previously 50).
+balance: X-ray laser guns now have falloff damage. The longer the laser is in the air, the lower its damage becomes."
+  - spellcheck: "Slight addition to X-ray laser's description."
