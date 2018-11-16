@@ -162,7 +162,7 @@
 
 
 /obj/item/integrated_radio/signal
-	var/frequency = 1457
+	var/frequency = RSD_FREQ
 	var/code = 30.0
 	var/last_transmission
 	var/datum/radio_frequency/radio_connection
