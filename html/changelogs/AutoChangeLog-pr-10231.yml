@@ -1,0 +1,6 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - rscadd: "NanoUI's fancy mode is hot shit again!"
+  - bugfix: "NanoUI's fancy mode is no longer broken as hell!"
+  - bugfix: "512 support for Nano dev tools"
