@@ -1,0 +1,4 @@
+author: "Triiodine"
+delete-after: True
+changes: 
+  - bugfix: "Hotfixes taser projectiles being borked due to X-Ray re-work."
