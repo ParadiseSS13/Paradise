@@ -69,7 +69,7 @@
         stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
     if(range <= 0 && loc)
         on_range()
-    if(!damage && !stamina)
+    if(!damage && !stamina && !nodamage)
         on_range()
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
