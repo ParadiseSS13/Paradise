@@ -1,0 +1,4 @@
+author: "Certhic"
+delete-after: True
+changes: 
+  - tweak: "Replaces radio freq magic numbers with constants"
