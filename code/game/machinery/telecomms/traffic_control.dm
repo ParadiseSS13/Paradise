@@ -6,7 +6,7 @@
 	req_access = list(access_tcomsat)
 	circuit = /obj/item/circuitboard/comm_traffic
 
-	// NTSL2
+	// NTTC
 	var/window_id // mostly used to let the configuration datum update the user's UI
 	var/unlocked = FALSE
 
@@ -25,16 +25,16 @@ Reopen the UI to see the difference.</span>")
 	if(stat & (BROKEN|NOPOWER))
 		return 0
 
-	if(GLOB.ntsl2_config.valid_languages.len == 1)
-		GLOB.ntsl2_config.update_languages() // this is silly but it has to be done because ntsl2 inits before languages do 
+	if(GLOB.nttc_config.valid_languages.len == 1)
+		GLOB.nttc_config.update_languages() // this is silly but it has to be done because NTTC inits before languages do 
 
-	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/ntsl2)
+	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/nttc)
 	assets.send(user)
 
-	var/dat = file2text("html/ntsl2/dist/index.html")
+	var/dat = file2text("html/nttc/dist/index.html")
 	if(unlocked)
 		dat += "\n<script type='text/javascript'>window.secretsunlocked = true;</script>"
-	var/datum/browser/ntsl2/nt_browser = new(user, name, "NTSL2", 720, 480, src, GLOB.ntsl2_config.ntsl_serialize())
+	var/datum/browser/nttc/nt_browser = new(user, name, "NTTC", 720, 480, src, GLOB.nttc_config.nttc_serialize())
 	nt_browser.set_content(dat)
 	nt_browser.open()
 	window_id = nt_browser.window_id
@@ -47,4 +47,4 @@ Reopen the UI to see the difference.</span>")
 	if(!istype(user) || !user.client)
 		return 0
 
-	GLOB.ntsl2_config.Topic(user, href_list, window_id, src)
+	GLOB.nttc_config.Topic(user, href_list, window_id, src)
