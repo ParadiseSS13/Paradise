@@ -1,5 +1,0 @@
-author: "Jazz23"
-delete-after: True
-changes: 
-  - rscadd: "Added flasher buttons in perma brig as well as windoors in botany, the wardens office, and cargo. Also added blast doors to transit tube."
-  - bugfix: "HoP's flasher button not working, CE's secure shutter button and transit tube lockdown button not working."
