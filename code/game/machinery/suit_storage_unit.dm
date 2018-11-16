@@ -159,12 +159,44 @@
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(!is_operational())
+		if(panel_open)
+			to_chat(usr, "<span class='warning'>Close the maintenance panel first.</span>")
+		else
+			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
 		return
 	if(isscrewdriver(I))
 		panel_open = !panel_open
 		playsound(loc, I.usesound, 100, 1)
 		to_chat(user, text("<span class='notice'>You [panel_open ? "open up" : "close"] the unit's maintenance panel.</span>"))
 		updateUsrDialog()
+		return
+	if(state_open)
+		if(store_item(I, user))
+			update_icon()
+			updateUsrDialog()
+			to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
+		else
+			to_chat(user, "<span class='notice'>The unit already contains that item.</span>")
+
+
+/obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
+	. = FALSE
+	if(istype(I, /obj/item/clothing/suit/space) && !suit)
+		suit = I
+		. = TRUE
+	if(istype(I, /obj/item/clothing/head/helmet) && !helmet)
+		helmet = I
+		. = TRUE
+	if(istype(I, /obj/item/clothing/mask) && !mask)
+		mask = I
+		. = TRUE
+	if((istype(I, /obj/item/tank) || istype(I, /obj/item/clothing/shoes/magboots)) && !storage)
+		storage = I
+		. = TRUE
+	if(.)
+		user.drop_item()
+		I.forceMove(src)
+
 
 /obj/machinery/suit_storage_unit/power_change()
 	..()
@@ -380,7 +412,7 @@
 			dat+= text("Breathmask storage compartment: <B>[]</B><BR>",(mask ? mask.name : "</font><font color ='grey'>No breathmask detected.") )
 			if(mask && state_open)
 				dat+="<A href='?src=[UID()];dispense_mask=1'>Dispense mask</A><BR>"
-			dat+= text("Breathmask storage compartment: <B>[]</B><BR>",(storage ? storage.name : "</font><font color ='grey'>No storage item detected.") )
+			dat+= text("Tank, Magboots storage compartment: <B>[]</B><BR>",(storage ? storage.name : "</font><font color ='grey'>No storage item detected.") )
 			if(storage && state_open)
 				dat+="<A href='?src=[UID()];dispense_storage=1'>Dispense storage item</A><BR>"
 			if(occupant)

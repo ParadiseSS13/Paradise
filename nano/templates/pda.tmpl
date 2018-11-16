@@ -6,12 +6,12 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 	<head>
 		<style type="text/css">
 			html {
-				height: 100%; 
-				overflow: auto;
+				height: 100%;
 			}
 
-			body {
-				background: #6F7961;
+			#cornerWrapper {
+				background: #6F7961 !important;
+				border: none;
 			}
 
 			.itemLabelNarrow, .itemLabel, .itemLabelWide, .itemLabelWider, .itemLabelWidest {
@@ -104,9 +104,26 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			#uiTitleText, #pdaFooter {
 				color: #000000;
 			}
+
+			#uiTitleWrapper {
+				background-color: #8C997B;	
+			}
+			#uiTitleText {
+				left: 30px !important;
+			}
+
+
+			#uiCornerTL, #uiCornerTR,
+			#uiCornerBR, #uiCornerBL {
+				opacity: 0;
+			}
 			
 			.pmon {
 				background: black;
+			}
+
+			.statusicon {
+				display: none;
 			}
 			
 			.itemLabel {
@@ -119,6 +136,15 @@ Used In File(s): \code\game\objects\items\devices\PDA\PDA.dm
 			
 			.statusDisplayRecords .average, .statusDisplay .average {
 				color: #110;
+			}
+		</style>
+	</head>
+{{else}}
+	<head>
+		<style type="text/css">
+			/* These things just don't render correctly at all for us */
+			#uiCornerBR, #uiCornerBL {
+				opacity: 0;
 			}
 		</style>
 	</head>

@@ -73,17 +73,18 @@
 	check_friendly_fire = 0
 
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/weldingtool))
+	if(istype(I, /obj/item/weldingtool) && user.a_intent == INTENT_HELP)
 		var/obj/item/weldingtool/W = I
 		if(W.welding && !stat)
 			if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
 				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
 				return
-			if(maxHealth == health)
-				to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
-			else
-				adjustBruteLoss(-10)
-				to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
+			if(do_after_once(user, 15, target = src))
+				if(maxHealth == health)
+					to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
+				else
+					adjustBruteLoss(-20)
+					to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
 			return
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
@@ -100,6 +101,18 @@
 	new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
 	DropOre(0)
 	qdel(src)
+
+/mob/living/simple_animal/hostile/mining_drone/Shoot(atom/targeted_atom)
+	var/obj/item/projectile/kinetic/K = ..()
+	var/turf/proj_turf = get_turf(K)
+	if(!isturf(proj_turf))
+		return
+	var/datum/gas_mixture/environment = proj_turf.return_air()
+	var/pressure = environment.return_pressure()
+	if(pressure > 50)
+		K.name = "weakened [K.name]"
+		
+		K.damage *= K.pressure_decrease
 
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
@@ -274,7 +287,9 @@
 	if(M.maxHealth != initial(M.maxHealth))
 		to_chat(user, "[M] already has a reinforced chassis!")
 		return
+	var/previous = M.maxHealth
 	M.maxHealth = 170
+	M.health += M.maxHealth - previous
 	to_chat(user, "You reinforce [M]'s chassis.")
 	qdel(src)
 

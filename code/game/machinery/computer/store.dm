@@ -145,6 +145,9 @@ th.cost.toomuch {background:maroon;}
 		var/itemID = text2num(href_list["buy"])
 		var/datum/storeitem/item = centcomm_store.items[itemID]
 		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for $[item.cost]?","You sure?","Yes","No") in list("Yes","No")
+		if(!Adjacent(usr))
+			to_chat(usr, "<span class='warning'>You are not close enough to do that.</span>")
+			return
 		if(sure=="No")
 			updateUsrDialog()
 			return

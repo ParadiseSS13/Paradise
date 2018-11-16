@@ -80,11 +80,12 @@
 		density = TRUE
 		icon_state = "up"
 		M.pixel_y = initial(M.pixel_y)
-	else
-		density = FALSE
-		icon_state = "down"
-		M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
-		M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
+
+/obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
+	density = FALSE
+	icon_state = "down"
+	M.pixel_x = M.get_standard_pixel_x_offset(M.lying)
+	M.pixel_y = M.get_standard_pixel_y_offset(M.lying)
 
 /obj/item/roller
 	name = "roller bed"
@@ -131,6 +132,7 @@
 /obj/item/roller_holder/attack_self(mob/user as mob)
 	if(!held)
 		to_chat(user, "<span class='info'> The rack is empty.</span>")
+		return
 
 	to_chat(user, "<span class='notice'>You deploy the roller bed.</span>")
 	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)

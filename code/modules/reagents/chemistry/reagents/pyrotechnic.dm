@@ -116,6 +116,12 @@
 	reagent_state = LIQUID
 	color = "#FFA500"
 
+/datum/reagent/sorium_vortex
+	name = "sorium_vortex"
+	id = "sorium_vortex"
+	reagent_state = LIQUID
+	color = "#FFA500"
+
 /datum/reagent/liquid_dark_matter
 	name = "Liquid Dark Matter"
 	id = "liquid_dark_matter"
@@ -123,6 +129,12 @@
 	reagent_state = LIQUID
 	color = "#800080"
 	taste_message = "the end of the world"
+
+/datum/reagent/ldm_vortex
+	name = "LDM Vortex"
+	id = "ldm_vortex"
+	reagent_state = LIQUID
+	color = "#800080"
 
 /datum/reagent/blackpowder
 	name = "Black Powder"

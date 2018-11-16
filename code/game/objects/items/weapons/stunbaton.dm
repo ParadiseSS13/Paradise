@@ -41,6 +41,16 @@
 	return
 
 /obj/item/melee/baton/proc/deductcharge(var/chrgdeductamt)
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/R = loc
+		if(R.cell && R.cell.charge < (hitcost+chrgdeductamt))
+			status = 0
+			update_icon()
+			playsound(loc, "sparks", 75, 1, -1)
+		if(R.cell.use(chrgdeductamt))
+			return 1
+		else
+			return 0
 	if(bcell)
 		if(bcell.charge < (hitcost+chrgdeductamt)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
 			status = 0
@@ -61,6 +71,8 @@
 
 /obj/item/melee/baton/examine(mob/user)
 	..(user)
+	if(isrobot(loc))
+		to_chat(user, "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>")
 	if(bcell)
 		to_chat(user, "<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>")
 	if(!bcell)
@@ -95,7 +107,17 @@
 	return
 
 /obj/item/melee/baton/attack_self(mob/user)
-	if(bcell && bcell.charge >= hitcost)
+
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/R = loc
+		if(R && R.cell &&  R.cell.charge >= (hitcost))
+			status = !status
+			to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
+			playsound(loc, "sparks", 75, 1, -1)
+		else
+			status = 0
+			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge the [src]!</span>")
+	else if(bcell && bcell.charge >= hitcost)
 		status = !status
 		to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
 		playsound(loc, "sparks", 75, 1, -1)
@@ -141,13 +163,13 @@
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
 	if(!ismob(L)) //because this was being called on turfs for some reason
 		return
-	
+
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
 			return
-	
+
 	L.Stun(stunforce)
 	L.Weaken(stunforce)
 	L.apply_effect(STUTTER, stunforce)
@@ -160,12 +182,7 @@
 		add_attack_logs(user, L, "stunned")
 	playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 
-	if(isrobot(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell)
-			R.cell.use(hitcost)
-	else
-		deductcharge(hitcost)
+	deductcharge(hitcost)
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L

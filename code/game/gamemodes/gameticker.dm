@@ -29,7 +29,6 @@ var/round_start_time = 0
 	var/list/availablefactions = list()	  // list of factions with openings
 
 	var/pregame_timeleft = 0
-
 	var/delay_end = 0	//if set to nonzero, the round will not restart on it's own
 
 	var/triai = 0//Global holder for Triumvirate
@@ -48,7 +47,7 @@ var/round_start_time = 0
 	'sound/music/Title2.ogg',\
 	'sound/music/Title3.ogg',)
 	do
-		pregame_timeleft = 180
+		pregame_timeleft = config.pregame_timestart
 		to_chat(world, "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>")
 		to_chat(world, "Please, setup your character and select ready. Game will start in [pregame_timeleft] seconds")
 		while(current_state == GAME_STATE_PREGAME)

@@ -4,6 +4,7 @@
 	icon_state = "earmuffs"
 	item_state = "earmuffs"
 	flags = EARBANGPROTECT
+	flags_2 = HEALS_EARS_2
 	strip_delay = 15
 	put_on_delay = 25
 	burn_state = FLAMMABLE

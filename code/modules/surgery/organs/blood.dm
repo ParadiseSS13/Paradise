@@ -2,6 +2,8 @@
 				BLOOD SYSTEM
 ****************************************************/
 
+#define EXOTIC_BLEED_MULTIPLIER 4 //Multiplies the actually bled amount by this number for the purposes of turf reaction calculations.
+
 /mob/living/carbon/human/proc/suppress_bloodloss(amount)
 	if(bleedsuppress)
 		return
@@ -83,7 +85,7 @@
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
 
 		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
-			bleed(internal_bleeding_rate)
+			bleed_internal(internal_bleeding_rate)
 
 		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
 			bleed(bleed_rate)
@@ -104,7 +106,27 @@
 		if(dna.species.exotic_blood)
 			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
 			if(istype(R) && isturf(loc))
-				R.reaction_turf(get_turf(src), amt)
+				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+
+/mob/living/carbon/proc/bleed_internal(amt) // Return 1 if we've coughed blood up, 2 if we're vomited it.
+	if(blood_volume)
+		blood_volume = max(blood_volume - amt, 0)
+		if (prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
+			custom_emote(1, "coughs up blood!")
+			add_splatter_floor(loc, 1)
+			return 1
+		else if (amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
+			vomit(0, 1)
+			return 2
+	return 0
+
+/mob/living/carbon/human/bleed_internal(amt)
+	if(!(NO_BLOOD in dna.species.species_traits))
+		.=..()
+		if(dna.species.exotic_blood && .) // Do we have exotic blood, and have we left any on the ground?
+			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
+			if(istype(R) && isturf(loc))
+				R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
 
 /mob/living/proc/restore_blood()
 	blood_volume = initial(blood_volume)

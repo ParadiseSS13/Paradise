@@ -62,7 +62,7 @@
 			continue
 		handleTemp(M)	//handles pool temp effects on the swimmers
 		if(ishuman(M)) //Only human types will drown, to keep things simple for non-human mobs that live in the water
-			handleDrowning(M)		
+			handleDrowning(M)
 
 /obj/machinery/poolcontroller/proc/cleanPool()
 	for(var/obj/effect/decal/cleanable/decal in decalinpool)		//Cleans up cleanable decals like blood and such
@@ -79,11 +79,11 @@
 			to_chat(M, "<span class='danger'>The water is searing hot!</span>")
 
 		if(WARM) //Warm the mob.
-			if(prob(50)) //inform the mob of warm water half the time
+			if(prob(5)) //inform the mob of warm water occasionally
 				to_chat(M, "<span class='warning'>The water is quite warm.</span>")//Inform the mob it's warm water.
 
 		if(COOL) //Cool the mob.
-			if(prob(50)) //inform the mob of cold water half the time
+			if(prob(5)) //inform the mob of cold water occasionally
 				to_chat(M, "<span class='warning'>The water is chilly.</span>")//Inform the mob it's chilly water.
 
 		if(FRIGID) //YOU'RE AS COLD AS ICE

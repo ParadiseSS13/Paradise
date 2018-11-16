@@ -69,17 +69,8 @@
 /obj/item/projectile/bullet/pellet
 	name = "pellet"
 	damage = 12.5
-	var/tile_dropoff = 0.75
-	var/tile_dropoff_s = 1.25
-
-/obj/item/projectile/bullet/pellet/Range()
-	..()
-	if(damage > 0)
-		damage -= tile_dropoff
-	if(stamina > 0)
-		stamina -= tile_dropoff_s
-	if(damage < 0 && stamina < 0)
-		qdel(src)
+	tile_dropoff = 0.75
+	tile_dropoff_s = 1.25
 
 /obj/item/projectile/bullet/pellet/rubber
 	name = "rubber pellet"

@@ -104,13 +104,15 @@
 /datum/chemical_reaction/sorium_vortex
 	name = "sorium_vortex"
 	id = "sorium_vortex"
-	result = null
+	result = "sorium_vortex"
 	required_reagents = list("sorium" = 1)
+	result_amount = 1
 	min_temp = 474
 
 /datum/chemical_reaction/sorium_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	goonchem_vortex(T, 1, min(10, created_volume), min(11, created_volume + 1))
+	holder.remove_reagent("sorium_vortex", created_volume)
 
 /datum/chemical_reaction/liquid_dark_matter
 	name = "Liquid Dark Matter"
@@ -129,13 +131,15 @@
 /datum/chemical_reaction/ldm_vortex
 	name = "LDM Vortex"
 	id = "ldm_vortex"
-	result = null
+	result = "ldm_vortex"
 	required_reagents = list("liquid_dark_matter" = 1)
+	result_amount = 1
 	min_temp = 474
 
 /datum/chemical_reaction/ldm_vortex/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/simulated/T = get_turf(holder.my_atom)
 	goonchem_vortex(T, 0, min(10, created_volume), min(11, created_volume + 1))
+	holder.remove_reagent("ldm_vortex", created_volume)
 
 /datum/chemical_reaction/blackpowder
 	name = "Black Powder"
@@ -283,16 +287,19 @@ datum/chemical_reaction/flash_powder
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
-			M.AdjustEarDamage(rand(0, 5))
-			M.EarDeaf(15)
-			if(M.ear_damage >= 15)
-				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-				if(prob(M.ear_damage - 5))
-					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-					M.disabilities |= DEAF
-			else
-				if(M.ear_damage >= 5)
-					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+			M.AdjustEarDamage(rand(0, 5), 15)
+			if(iscarbon(M))
+				var/mob/living/carbon/C = M
+				var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+				if(istype(ears))
+					if(ears.ear_damage >= 15)
+						to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+						if(prob(ears.ear_damage - 5))
+							to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+							M.BecomeDeaf()
+					else
+						if(ears.ear_damage >= 5)
+							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
 	holder.remove_reagent("sonic_powder", created_volume)
 
 /datum/chemical_reaction/sonic_powder_deafen
@@ -318,16 +325,20 @@ datum/chemical_reaction/flash_powder
 		if(!ear_safety)
 			M.Stun(max(10/distance, 3))
 			M.Weaken(max(10/distance, 3))
-			M.AdjustEarDamage(rand(0, 5))
-			M.EarDeaf(15)
-			if(M.ear_damage >= 15)
-				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-				if(prob(M.ear_damage - 5))
-					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-					M.BecomeDeaf()
-			else
-				if(M.ear_damage >= 5)
-					to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+			M.AdjustEarDamage(rand(0, 5), 15)
+			if(iscarbon(M))
+				var/mob/living/carbon/C = M
+				var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+				if(istype(ears))
+					if(ears.ear_damage >= 15)
+						to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+						if(prob(ears.ear_damage - 5))
+							to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+							M.BecomeDeaf()
+					else
+						if(ears.ear_damage >= 5)
+							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+
 
 /datum/chemical_reaction/phlogiston
 	name = "phlogiston"

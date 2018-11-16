@@ -128,6 +128,7 @@
 #define LIGHT_COLOR_DARKGREEN	"#50AB00"
 #define LIGHT_COLOR_PURE_GREEN	"#00FF00"
 
+#define LIGHT_COLOR_BLUE       "#6496FA" //Cold, diluted blue. rgb(100, 150, 250)
 #define LIGHT_COLOR_LIGHTBLUE	"#0099FF"
 #define LIGHT_COLOR_DARKBLUE	"#315AB4"
 #define LIGHT_COLOR_PURE_BLUE	"#0000FF"
@@ -135,6 +136,8 @@
 #define LIGHT_COLOR_FADEDPURPLE	"#A97FAA"
 #define LIGHT_COLOR_PURPLE		"#CD00CD"
 #define LIGHT_COLOR_PINK		"#FF33CC"
+
+#define LIGHT_COLOR_YELLOW     "#E1E17D" //Dimmed yellow, leaning kaki. rgb(225, 225, 125)
 
 #define LIGHT_COLOR_WHITE		"#FFFFFF"
 
@@ -204,40 +207,44 @@
 #define MFOAM_IRON 		2
 
 //Human Overlays Indexes/////////
-#define MUTANTRACE_LAYER		1
-#define TAIL_UNDERLIMBS_LAYER	2	//Tail split-rendering.
-#define LIMBS_LAYER				3
-#define MARKINGS_LAYER			4
-#define UNDERWEAR_LAYER			5
-#define MUTATIONS_LAYER			6
-#define H_DAMAGE_LAYER			7
-#define UNIFORM_LAYER			8
-#define ID_LAYER				9
-#define SHOES_LAYER				10
-#define GLOVES_LAYER			11
-#define EARS_LAYER				12
-#define SUIT_LAYER				13
-#define BELT_LAYER				14	//Possible make this an overlay of somethign required to wear a belt?
-#define SUIT_STORE_LAYER		15
-#define BACK_LAYER				16
-#define HEAD_ACCESSORY_LAYER	17
+#define BODY_LAYER				37
+#define MUTANTRACE_LAYER		36
+#define TAIL_UNDERLIMBS_LAYER	35	//Tail split-rendering.
+#define LIMBS_LAYER				34
+#define INTORGAN_LAYER			33
+#define MARKINGS_LAYER			32
+#define UNDERWEAR_LAYER			31
+#define MUTATIONS_LAYER			30
+#define H_DAMAGE_LAYER			29
+#define UNIFORM_LAYER			28
+#define ID_LAYER				27
+#define SHOES_LAYER				26
+#define GLOVES_LAYER			25
+#define EARS_LAYER				24
+#define SUIT_LAYER				23
+#define BELT_LAYER				22	//Possible make this an overlay of somethign required to wear a belt?
+#define SUIT_STORE_LAYER		21
+#define BACK_LAYER				20
+#define HEAD_ACCESSORY_LAYER	19
 #define FHAIR_LAYER				18
-#define GLASSES_LAYER			19
-#define HAIR_LAYER				20	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		22	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		23	//Select-layer rendering.
-#define TAIL_LAYER				24	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			25
-#define HEAD_LAYER				26
-#define COLLAR_LAYER			27
-#define HANDCUFF_LAYER			28
-#define LEGCUFF_LAYER			29
-#define L_HAND_LAYER			30
-#define R_HAND_LAYER			31
-#define TARGETED_LAYER			32	//BS12: Layer for the target overlay from weapon targeting system
-#define FIRE_LAYER				33	//If you're on fire
-#define TOTAL_LAYERS			33
+#define GLASSES_LAYER			17
+#define HAIR_LAYER				16	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		15	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		14	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		13	//Select-layer rendering.
+#define TAIL_LAYER				12	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			11
+#define HEAD_LAYER				10
+#define COLLAR_LAYER			9
+#define HANDCUFF_LAYER			8
+#define LEGCUFF_LAYER			7
+#define L_HAND_LAYER			6
+#define R_HAND_LAYER			5
+#define TARGETED_LAYER			4	//BS12: Layer for the target overlay from weapon targeting system
+#define FIRE_LAYER				3	//If you're on fire
+#define MISC_LAYER				2
+#define FROZEN_LAYER			1
+#define TOTAL_LAYERS			37
 
 ///Access Region Codes///
 #define REGION_ALL			0

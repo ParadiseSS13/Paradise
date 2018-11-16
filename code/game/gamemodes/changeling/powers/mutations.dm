@@ -277,6 +277,7 @@
 			return
 
 		C.visible_message("<span class='danger'>[src] impales [C] with [I]!</span>", "<span class='userdanger'>[src] impales you with [I]!</span>")
+		add_attack_logs(src, C, "[src] pulled [C] with a tentacle, attacking them with [I]") //Attack log is here so we can fetch the item they're stabbing with.
 		C.apply_damage(I.force, BRUTE, "chest")
 		do_item_attack_animation(C, used_item = I)
 		add_blood(C)
@@ -292,6 +293,7 @@
 		var/obj/item/I = target
 		if(!I.anchored)
 			to_chat(firer, "<span class='notice'>You pull [I] towards yourself.</span>")
+			add_attack_logs(src, I, "[src] pulled [I] towards them with a tentacle")
 			H.throw_mode_on()
 			I.throw_at(H, 10, 2)
 			. = 1
@@ -304,6 +306,7 @@
 				switch(firer.a_intent)
 					if(INTENT_HELP)
 						C.visible_message("<span class='danger'>[L] is pulled by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+						add_attack_logs(H, L, "[H] pulled [L] towards them with a tentacle")
 						C.throw_at(get_step_towards(H,C), 8, 2)
 						return 1
 
@@ -312,10 +315,12 @@
 						if(I)
 							if(C.drop_item())
 								C.visible_message("<span class='danger'>[I] is yanked out of [C]'s hand by [src]!</span>","<span class='userdanger'>A tentacle pulls [I] away from you!</span>")
+								add_attack_logs(src, C, "[src] has grabbed [I] out of [C]'s hand with a tentacle")
 								on_hit(I) //grab the item as if you had hit it directly with the tentacle
 								return 1
 							else
 								to_chat(firer, "<span class='danger'>You can't seem to pry [I] out of [C]'s hands!</span>")
+								add_attack_logs(src, C, "[src] tried to grab [I] out of [C]'s hand with a tentacle, but failed")
 								return 0
 						else
 							to_chat(firer, "<span class='danger'>[C] has nothing in hand to disarm!</span>")
@@ -323,6 +328,7 @@
 
 					if(INTENT_GRAB)
 						C.visible_message("<span class='danger'>[L] is grabbed by [H]'s tentacle!</span>","<span class='userdanger'>A tentacle grabs you and pulls you towards [H]!</span>")
+						add_attack_logs(src, C, "[src] has grabbed [C] and pulled them towards [H] with a tentacle")
 						C.throw_at(get_step_towards(H,C), 8, 2, callback=CALLBACK(H, /mob/proc/tentacle_grab, C))
 						return 1
 

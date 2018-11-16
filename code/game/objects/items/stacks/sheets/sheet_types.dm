@@ -174,7 +174,8 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wooden buckler", /obj/item/shield/riot/buckler, 20, time = 40),
 	new /datum/stack_recipe("apiary", /obj/structure/beebox, 40, time = 50),
 	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 10),
-	new /datum/stack_recipe("baseball bat", /obj/item/melee/baseball_bat, 5, time = 15)
+	new /datum/stack_recipe("baseball bat", /obj/item/melee/baseball_bat, 5, time = 15),
+	new /datum/stack_recipe("fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 50)
 )
 
 /obj/item/stack/sheet/wood
@@ -281,6 +282,7 @@ var/global/list/datum/stack_recipe/cult = list ( \
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
 	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
+	item_state = "sheet-metal"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
 

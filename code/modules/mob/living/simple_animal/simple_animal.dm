@@ -578,9 +578,5 @@
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-/mob/living/simple_animal/SetEarDamage()
-	return
-
-/mob/living/simple_animal/SetEarDeaf()
-	return
-
+/mob/living/simple_animal/can_hear()
+	. = TRUE

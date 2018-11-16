@@ -82,6 +82,10 @@
 	new /obj/structure/table/reinforced/brass(loc)
 	qdel(src)
 
+/obj/structure/table/do_climb(mob/living/user)
+	. = ..()
+	item_placed(user)
+
 /obj/structure/table/attack_hand(mob/living/user)
 	..()
 	if(climber)
@@ -89,6 +93,9 @@
 		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You see [climber.name] get knocked off the table</span>")
 
 /obj/structure/table/attack_tk() // no telehulk sorry
+	return
+
+/obj/structure/table/proc/item_placed(item)
 	return
 
 /obj/structure/table/CanPass(atom/movable/mover, turf/target, height=0)
@@ -173,19 +180,24 @@
 		var/obj/item/grab/G = I
 		if(G.affecting.buckled)
 			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
-			return 0
+			return FALSE
 		if(G.state < GRAB_AGGRESSIVE)
 			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 0
+			return FALSE
 		if(!G.confirm())
-			return 0
+			return FALSE
+		var/blocking_object = density_check()
+		if(blocking_object)
+			to_chat(user, "<span class='warning'>You cannot do this there is \a [blocking_object] in the way!</span>")
+			return FALSE
 		G.affecting.forceMove(get_turf(src))
 		G.affecting.Weaken(2)
+		item_placed(G.affecting)
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
 		qdel(I)
-		return 1
+		return TRUE
 	qdel(I)
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
@@ -221,6 +233,7 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = Clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = Clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+			item_placed(I)
 	else
 		return ..()
 
@@ -273,6 +286,9 @@
 	set desc = "Puts flipped table back"
 	set category = "Object"
 	set src in oview(1)
+
+	if(!can_touch(usr) || ismouse(usr))
+		return
 
 	if(!unflip())
 		to_chat(usr, "<span class='notice'>It won't budge.</span>")
@@ -544,6 +560,72 @@
 
 /obj/structure/table/reinforced/brass/ratvar_act()
 	obj_integrity = max_integrity
+
+/obj/structure/table/tray
+	name = "surgical tray"
+	desc = "A small metal tray with wheels."
+	anchored = FALSE
+	smooth = SMOOTH_FALSE
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "tray"
+	buildstack = /obj/item/stack/sheet/mineral/titanium
+	buildstackamount = 2
+	var/list/typecache_can_hold = list(/mob, /obj/item)
+	var/list/held_items = list()
+
+/obj/structure/table/tray/Initialize()
+	. = ..()
+	verbs -= /obj/structure/table/verb/do_flip
+	typecache_can_hold = typecacheof(typecache_can_hold)
+	for(var/atom/movable/held in get_turf(src))
+		if(is_type_in_typecache(held, typecache_can_hold))
+			held_items += held.UID()
+
+/obj/structure/table/tray/Move(NewLoc, direct)
+	var/atom/OldLoc = loc
+
+	. = ..()
+	if(!.) // ..() will return 0 if we didn't actually move anywhere.
+		return .
+
+	if(direct & (direct - 1)) // This represents a diagonal movement, which is split into multiple cardinal movements. We'll handle moving the items on the cardinals only.
+		return .
+
+	playsound(loc, pick('sound/items/cartwheel1.ogg', 'sound/items/cartwheel2.ogg'), 100, 1, ignore_walls = FALSE)
+
+	var/atom/movable/held
+	for(var/held_uid in held_items)
+		held = locateUID(held_uid)
+		if(!held)
+			held_items -= held_uid
+			continue
+		if(OldLoc != held.loc)
+			held_items -= held_uid
+			continue
+		held.forceMove(NewLoc)
+
+/obj/structure/table/tray/item_placed(atom/movable/item)
+	. = ..()
+	if(is_type_in_typecache(item, typecache_can_hold))
+		held_items += item.UID()
+
+/obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
+	if(can_deconstruct)
+		var/turf/T = get_turf(src)
+		new buildstack(T, buildstackamount)
+	qdel(src)
+
+/obj/structure/table/tray/deconstruction_hints(mob/user)
+	to_chat(user, "<span class='notice'>It is held together by some <b>screws</b> and <b>bolts</b>.</span>")
+
+/obj/structure/table/tray/flip()
+	return 0
+
+/obj/structure/table/tray/narsie_act()
+	return 0
+
+/obj/structure/table/tray/ratvar_act()
+	return 0
 
 /*
  * Racks

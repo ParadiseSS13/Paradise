@@ -15,7 +15,8 @@
 		return
 	if(isobj(target))
 		var/obj/target_obj = target
-		if(target_obj.unacidable)
+		if(target_obj.unacidable && !istype(target_obj, /obj/mecha))
+			occupant_message("<span class='danger'>[target] is too durable to drill through.</span>")
 			return
 	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",

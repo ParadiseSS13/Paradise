@@ -71,7 +71,7 @@
 		if(!iconrotation && P.is_bent_pipe()) //Automatically rotates dispensed pipes if the user selected auto-rotation
 			P.dir = turn(user.dir, 135)
 		else if(!iconrotation && P.pipe_type in list(PIPE_CONNECTOR, PIPE_UVENT, PIPE_SCRUBBER, PIPE_HEAT_EXCHANGE, PIPE_CAP, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_INJECTOR, PIPE_PASV_VENT)) //Some pipes dispense oppositely to what you'd expect, but we don't want to do anything if they selected a direction
-			P.flip()
+			P.dir = turn(user.dir, -180)
 		else if(iconrotation && P.is_bent_pipe()) //If user selected a rotation and the pipe is bent
 			P.dir = turn(iconrotation, -45)
 		else if(!iconrotation) //If user selected a rotation

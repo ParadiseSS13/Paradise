@@ -5,12 +5,12 @@
 	icon_state = "headset"
 	item_state = "headset"
 	materials = list(MAT_METAL=75)
-	subspace_transmission = 1
+	subspace_transmission = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
 
 	slot_flags = SLOT_EARS
-	var/translate_binary = 0
-	var/translate_hive = 0
+	var/translate_binary = FALSE
+	var/translate_hive = FALSE
 	var/obj/item/encryptionkey/keyslot1 = null
 	var/obj/item/encryptionkey/keyslot2 = null
 
@@ -26,10 +26,14 @@
 
 	if(ks1type)
 		keyslot1 = new ks1type(src)
+		if(keyslot1.syndie)
+			syndiekey = keyslot1
 	if(ks2type)
 		keyslot2 = new ks2type(src)
+		if(keyslot2.syndie)
+			syndiekey = keyslot2
 
-	recalculateChannels(1)
+	recalculateChannels(TRUE)
 
 /obj/item/radio/headset/Destroy()
 	QDEL_NULL(keyslot1)
@@ -79,8 +83,7 @@
 
 /obj/item/radio/headset/syndicate
 	origin_tech = "syndicate=3"
-	syndie = 1
-	ks1type = /obj/item/encryptionkey/syndicate
+	ks1type = /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
@@ -349,48 +352,48 @@
 	return
 
 
-/obj/item/radio/headset/proc/recalculateChannels(var/setDescription = 0)
-	src.channels = list()
-	src.translate_binary = 0
-	src.translate_hive = 0
-	src.syndie = 0
+/obj/item/radio/headset/proc/recalculateChannels(var/setDescription = FALSE)
+	channels = list()
+	translate_binary = FALSE
+	translate_hive = FALSE
+	syndiekey = null
 
 	if(keyslot1)
 		for(var/ch_name in keyslot1.channels)
-			if(ch_name in src.channels)
+			if(ch_name in channels)
 				continue
-			src.channels += ch_name
-			src.channels[ch_name] = keyslot1.channels[ch_name]
+			channels += ch_name
+			channels[ch_name] = keyslot1.channels[ch_name]
 
 		if(keyslot1.translate_binary)
-			src.translate_binary = 1
+			translate_binary = TRUE
 
 		if(keyslot1.translate_hive)
-			src.translate_hive = 1
+			translate_hive = TRUE
 
 		if(keyslot1.syndie)
-			src.syndie = 1
+			syndiekey = keyslot1
 
 	if(keyslot2)
 		for(var/ch_name in keyslot2.channels)
-			if(ch_name in src.channels)
+			if(ch_name in channels)
 				continue
-			src.channels += ch_name
-			src.channels[ch_name] = keyslot2.channels[ch_name]
+			channels += ch_name
+			channels[ch_name] = keyslot2.channels[ch_name]
 
 		if(keyslot2.translate_binary)
-			src.translate_binary = 1
+			translate_binary = TRUE
 
 		if(keyslot2.translate_hive)
-			src.translate_hive = 1
+			translate_hive = TRUE
 
 		if(keyslot2.syndie)
-			src.syndie = 1
+			syndiekey = keyslot2
 
 
 	for(var/ch_name in channels)
 		if(!radio_controller)
-			src.name = "broken radio headset"
+			name = "broken radio headset"
 			return
 
 		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
@@ -414,5 +417,5 @@
 /obj/item/radio/headset/proc/make_syndie() // Turns normal radios into Syndicate radios!
 	qdel(keyslot1)
 	keyslot1 = new /obj/item/encryptionkey/syndicate
-	syndie = 1
+	syndiekey = keyslot1
 	recalculateChannels()

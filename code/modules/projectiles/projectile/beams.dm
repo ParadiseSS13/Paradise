@@ -34,6 +34,7 @@
 	name = "xray beam"
 	icon_state = "xray"
 	damage = 15
+	tile_dropoff = 0.75
 	irradiate = 30
 	forcedodge = 1
 	range = 15

@@ -43,10 +43,6 @@
 			A trippy overlay appears.
 	*	Drunk						*
 			Essentially what your "BAC" is - the higher it is, the more alcohol you have in you
-	* EarDamage				*
-			Doesn't do much, but if it's 25+, you go deaf. Heals much slower than other statuses - 0.05 normally
-	*	EarDeaf					*
-			You cannot hear. Prevents EarDamage from healing naturally.
 	*	EyeBlind				*
 			You cannot see. Prevents EyeBlurry from healing naturally.
 	*	EyeBlurry				*
@@ -115,8 +111,6 @@
 	var/drowsyness = 0
 	var/druggy = 0
 	var/drunk = 0
-	var/ear_damage = 0
-	var/ear_deaf = 0
 	var/eye_blind = 0
 	var/eye_blurry = 0
 	var/hallucination = 0
@@ -232,30 +226,6 @@
 /mob/living/AdjustDruggy(amount, bound_lower = 0, bound_upper = INFINITY, updating = TRUE)
 	var/new_value = directional_bounded_sum(druggy, amount, bound_lower, bound_upper)
 	return SetDruggy(new_value, updating)
-
-// EAR_DAMAGE
-
-/mob/living/EarDamage(amount)
-	SetEarDamage(max(ear_damage, amount))
-
-/mob/living/SetEarDamage(amount)
-	ear_damage = max(amount, 0)
-
-/mob/living/AdjustEarDamage(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(ear_damage, amount, bound_lower, bound_upper)
-	SetEarDamage(new_value)
-
-// EAR_DEAF
-
-/mob/living/EarDeaf(amount)
-	SetEarDeaf(max(ear_deaf, amount))
-
-/mob/living/SetEarDeaf(amount)
-	ear_deaf = max(amount, 0)
-
-/mob/living/AdjustEarDeaf(amount, bound_lower = 0, bound_upper = INFINITY)
-	var/new_value = directional_bounded_sum(ear_deaf, amount, bound_lower, bound_upper)
-	SetEarDeaf(new_value)
 
 // EYE_BLIND
 
@@ -572,7 +542,7 @@
 	CureIfHasDisability(TWITCHBLOCK)
 
 /mob/living/proc/CureIfHasDisability(block)
-	if(dna.GetSEState(block))
+	if(dna && dna.GetSEState(block))
 		dna.SetSEState(block, 0, 1) //Fix the gene
 		genemutcheck(src, block,null, MUTCHK_FORCED)
 		dna.UpdateSE()

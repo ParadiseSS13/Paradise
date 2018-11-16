@@ -1,7 +1,7 @@
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
 #define WARNING_FONT_COLOR "#f90"
-#define FONT_STYLE "Arial Black"
+#define FONT_STYLE "Small Fonts"
 #define SCROLL_SPEED 2
 
 // Status display
@@ -30,7 +30,7 @@
 	var/index1			// display index for scrolling messages or 0 if non-scrolling
 	var/index2
 
-	var/frequency = 1435		// radio frequency
+	var/frequency = DISPLAY_FREQ		// radio frequency
 
 	var/friendc = 0      // track if Friend Computer mode
 	var/ignore_friendc = 0
@@ -39,6 +39,7 @@
 
 	maptext_height = 26
 	maptext_width = 32
+	maptext_y = -1
 
 	var/const/CHARS_PER_LINE = 5
 	var/const/STATUS_DISPLAY_BLANK = 0
@@ -157,6 +158,8 @@
 	overlays += image('icons/obj/status_display.dmi', icon_state=picture_state)
 
 /obj/machinery/status_display/proc/update_display(line1, line2, warning = 0)
+	line1 = uppertext(line1)
+	line2 = uppertext(line2)
 	var/new_text = {"<div style="font-size:[FONT_SIZE];color:[warning ? WARNING_FONT_COLOR : FONT_COLOR];font:'[FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
