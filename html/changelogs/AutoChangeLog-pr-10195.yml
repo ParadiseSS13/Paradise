@@ -1,0 +1,4 @@
+author: "Farie82"
+delete-after: True
+changes: 
+  - bugfix: "Borgs can't get perma stunned anymore by goliaths and slings and such"
