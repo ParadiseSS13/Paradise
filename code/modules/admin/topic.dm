@@ -1905,8 +1905,10 @@
 			if("Cold")
 				H.reagents.add_reagent("frostoil", 40)
 				H.reagents.add_reagent("ice", 40)
+				logmsg = "cold."
 			if("Cluwne")
 				H.makeCluwne()
+				H.mutations |= NOCLONE
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -1927,11 +1929,10 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
-				logmsg = "hunter."
 				H.mutations |= NOCLONE
 				usr.client.create_eventmob_for(H, 1)
+				logmsg = "hunter."
 			if("Crew Traitor")
-				logmsg = "crew traitor."
 				var/list/possible_traitors = list()
 				for(var/mob/living/player in GLOB.living_mob_list)
 					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
@@ -1962,8 +1963,8 @@
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return
+				logmsg = "crew traitor."
 			if("Lynch")
-				logmsg = "lynch."
 				for(var/datum/mind/crew in ticker.minds)
 					if(!crew.current)
 						continue
@@ -1973,12 +1974,13 @@
 						continue
 					to_chat(crew.current, "<BR><span class='userdanger'>The gods have given you a task: find [H.real_name], located in [get_area(H.loc)], and slay them!</span>");
 					to_chat(crew.current, "<span class='userdanger'>Do not harm anyone other than [H.real_name] while carrying out this task.</span><BR>");
+				logmsg = "lynch."
 			if("Gib")
-				logmsg = "gibbed."
 				M.gib(FALSE)
+				logmsg = "gibbed."
 		if(logmsg)
-			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")
-			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
+			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
+			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return
