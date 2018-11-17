@@ -642,9 +642,9 @@
 		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality
 		'html/panels.css' // Used for styling certain panels, such as in the new player panel
 	)
-	spawn (10) //removing this spawn causes all clients to not get verbs.
+	spawn (10)
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
-		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
+		getFilesSlow(src, asset_cache, register_asset = FALSE)
 
 //For debugging purposes
 /client/proc/list_all_languages()

@@ -55,6 +55,7 @@ var/global/pipe_processing_killed = 0
 
 	space_manager.do_transition_setup()
 
+	setup_asset_cache()
 	setupfactions()
 	setup_economy()
 
@@ -62,3 +63,9 @@ var/global/pipe_processing_killed = 0
 		make_mining_asteroid_secret()
 
 	populate_spawn_points()
+
+/datum/controller/game_controller/proc/setup_asset_cache()
+	var/watch = start_watch()
+	log_startup_progress("Populating asset cache...")
+	populate_asset_cache()
+	log_startup_progress("	Populated [asset_cache.len] assets in [stop_watch(watch)]s.")
