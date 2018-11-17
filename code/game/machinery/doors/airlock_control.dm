@@ -236,7 +236,7 @@
 	power_channel = ENVIRON
 
 	var/master_tag
-	var/frequency = 1449
+	var/frequency = AIRLOCK_FREQ
 	var/command = "cycle"
 
 	var/datum/radio_frequency/radio_connection

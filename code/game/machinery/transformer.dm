@@ -133,7 +133,7 @@
 		return
 
 	// Crossed didn't like people lying down.
-	if(isobject(AM))
+	if(isatom(AM))
 		AM.loc = src.loc
 		do_transform_mime(AM)
 	else
@@ -221,7 +221,7 @@
 			AM.loc = src.loc
 			irradiate(AM)
 
-	else if(isobject(AM))
+	else if(isatom(AM))
 		AM.loc = src.loc
 		scan(AM)
 

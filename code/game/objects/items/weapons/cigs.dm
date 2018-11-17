@@ -64,7 +64,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/fire_act()
 	light()
 
-/obj/item/clothing/mask/cigarette/attackby(obj/item/W as obj, mob/user as mob, mob/living/carbon/target, params)
+/obj/item/clothing/mask/cigarette/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/WT = W
@@ -107,7 +107,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 	//can't think of any other way to update the overlays :<
 	user.update_inv_wear_mask()
-	target.update_inv_wear_mask()
 	user.update_inv_l_hand()
 	user.update_inv_r_hand()
 	return

@@ -18,7 +18,7 @@
 
 /obj/item/radio/intercom/interrogation
 	name = "station intercom (Interrogation)"
-	frequency  = 1449
+	frequency  = AIRLOCK_FREQ
 
 /obj/item/radio/intercom/private
 	name = "station intercom (Private)"
