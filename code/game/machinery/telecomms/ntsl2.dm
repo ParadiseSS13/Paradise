@@ -5,16 +5,31 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
  * as well as allowing users to save and load configurations.
  */
 /datum/nttc_configuration
+	// ALL JOBS
+	var/jobs_ai = list("Personal AI", "AI", "Cyborg", "Android", "Robot"); // All Silicon Jobs
+	var/jobs_command = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield"); // All command jobs
+	var/jobs_engineering = list("Chief Engineer", "Station Engineer", "Maintenance Technician", "Engine Technician", "Electrician", "Life Support Specialist", "Atmospheric Technician", "Mechanic"); // All Engineering Jobs
+	var/jobs_ert = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member"); // All ERT Jobs
+	var/jobs_medical = list("Chief Medical Officer", "Medical Doctor", "Surgeon", "Nurse", "Coroner", "Chemist", "Pharmacist", "Pharmacologist", "Virologist", "Pathologist", "Microbiologist", "Psychiatrist", "Psychologist", "Therapist", "Paramedic"); // All Medical Jobs
+	var/jobs_science = list("Research Director", "Geneticist", "Scientist", "Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher", "Roboticist", "Biomechanical Engineer", "Mechatronic Engineer"); // All Science Jobs
+	var/jobs_security = list("Internal Affairs Agent", "Human Resources Agent", "Head of Security", "Warden", "Detective", "Magistrate", "Forensic Technician", "Security Officer", "Brig Physician", "Security Pod Pilot"); // All Security Jobs
+	var/jobs_supply = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Spelunker"); // All Supply Jobs
+	var/jobs_service = list("Bartender", "Chef", "Cook", "Culinary Artist", "Butcher", "Botanist", "Hydroponicist", "Botanical Researcher", "Clown", "Mime", "Janitor", "Custodial Technician", "Librarian", "Journalist", "Barber", "Hair Stylist", "Beautician", "Chaplain"); // All Service/Support Jobs
+
+	// Just command members
+	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security")
 	/* Simple Toggles */
 	var/toggle_activated = TRUE
 	var/toggle_jobs = FALSE
 	var/toggle_timecode = FALSE
+	var/toggle_command_bold = FALSE
 	// Hack section
 	var/toggle_gibberish = FALSE
 	var/toggle_honk = FALSE
 
 	/* Strings */
 	var/setting_language = null
+	var/job_indicator_type = null
 
 	/* Tables */
 	var/list/regex = list()
@@ -38,7 +53,9 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	var/list/to_serialize = list(
 		"toggle_activated",
 		"toggle_jobs",
+		"job_indicator_type",
 		"toggle_timecode",
+		"toggle_command_bold",
 		"toggle_gibberish",
 		"toggle_honk",
 		"setting_language",
@@ -50,7 +67,9 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	var/list/serialize_sanitize = list(
 		"toggle_activated" = "bool",
 		"toggle_jobs" = "bool",
+		"job_indicator_type" = "string",
 		"toggle_timecode" = "bool",
+		"toggle_command_bold" = "bool",
 		"toggle_gibberish" = "bool",
 		"toggle_honk" = "bool",
 		"setting_language" = "string",
@@ -58,6 +77,13 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"firewall" = "array"
 	)
 
+	// These are the job card styles
+	var/list/job_card_styles = list(
+		"Style 1: Name (Job)",
+		"Style 2: Name - Job",
+		"Style 3: \[Job\] Name",
+		"Style 4: (Job) Name",
+	)
 	// Used to determine what languages are allowable for conversion. Generated during runtime.
 	var/list/valid_languages = list("--DISABLE--")
 
@@ -66,12 +92,14 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	toggle_activated = initial(toggle_activated)
 	toggle_jobs = initial(toggle_jobs)
 	toggle_timecode = initial(toggle_timecode)
+	toggle_command_bold = initial(toggle_command_bold)
 	// Hack section
 	toggle_gibberish = initial(toggle_gibberish)
 	toggle_honk = initial(toggle_honk)
 
 	/* Strings */
 	setting_language = initial(setting_language)
+	job_indicator_type = initial(job_indicator_type)
 
 	/* Tables */
 	regex = list()
@@ -144,16 +172,53 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 
 	// These two stack properly.
 	// Simple job indicator switch.
-	if(toggle_jobs)
-		var/new_name = signal.data["name"] + " ([signal.data["job"]]) "
-		signal.data["name"] = new_name
-		signal.data["realname"] = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
+	if(job_indicator_type)
+		var/new_name = signal.data["name"]
+		var/job = signal.data["job"]
+		var/job_color = "#000000"
+		if(job in jobs_ai)
+			job_color = "#FF00FF"
+		if(job in jobs_command)
+			job_color = "#204090"
+		if(job in jobs_engineering)
+			job_color = "#A66300"
+		if(job in jobs_ert)
+			job_color = "#5C5C7C"
+			job = "ERT"
+		if(job in jobs_medical)
+			job_color = "#009190"
+		if(job in jobs_science)
+			job_color = "#993399F"
+		if(job in jobs_security)
+			job_color = "#A30000"
+		if(job in jobs_supply)
+			job_color = "#7F6539"
+		if(job in jobs_service)
+			job_color = "#80A000"
+		switch(job_indicator_type)
+			if("Style 1: Name (Job)")
+				new_name = signal.data["name"] + " <font color=\"[job_color]\">([job])</font> "
+			if("Style 2: Name - Job")
+				new_name = signal.data["name"] + " - <font color=\"[job_color]\">[job]</font> "
+			if("Style 3: \[Job\] Name")
+				new_name = "<font color=\"[job_color]\"><small>\[[job]\]</small></font> " + signal.data["name"] + " "
+			if("Style 4: (Job) Name")
+				new_name = "<font color=[job_color]>([job])</font> " + signal.data["name"] + " "
+		if(toggle_jobs)
+			signal.data["name"] = new_name
+			signal.data["realname"] = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
 
 	// Add the current station time like a time code.
 	if(toggle_timecode)
 		var/new_name = "\[[station_time_timestamp()]] " + signal.data["name"]
 		signal.data["name"] = new_name
 		signal.data["realname"] = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
+
+	// Makes heads of staff bold
+	if(toggle_command_bold)
+		var/job = signal.data["job"]
+		if((job in jobs_ert) || (job in heads))
+			signal.data["message"] = "<b>" + signal.data["message"] + "</b>"
 
 	// Hacks!
 	// Censor dat shit like nobody's business
@@ -169,7 +234,6 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			new_message += pick("HoNK!", "HONK", "HOOOoONK", "HONKHONK!", "HoNnnkKK!!!", "HOOOOOOOOOOONK!!!!11!", "henk!") + " "
 		signal.data["message"] = new_message
 
-
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])
 		if(setting_language == "--DISABLE--")
@@ -183,7 +247,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		var/new_message = original
 		for(var/reg in regex)
 			var/replacePattern = pencode_to_html(regex[reg])
-			var/regex/start = regex(reg, "gi")
+			var/regex/start = regex("\\b[reg]\\b", "gi")
 			new_message = start.Replace(new_message, replacePattern)
 		signal.data["message"] = new_message
 
@@ -201,6 +265,15 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			return
 		vars[var_to_toggle] = !vars[var_to_toggle]
 		log_action(user, "toggled NTTC variable [var_to_toggle] [vars[var_to_toggle] ? "on" : "off"]")
+
+	// Job Format
+	if(href_list["setting_job_card_style"])
+		var/card_style = input(user, "Pick a job card format.", "Job Card Format") as null|anything in job_card_styles
+		if(!card_style)
+			return
+		job_indicator_type = card_style
+		to_chat(user, "<span class='notice'>Jobs will now have the style of [card_style].</span>")
+		log_action(user, "has set NTTC job card format to [card_style]", TRUE)
 
 	// Strings
 	if(href_list["setting_language"])
