@@ -1,3 +1,7 @@
+#define JOB_STYLE_1 "Name (Job)"
+#define JOB_STYLE_2 "Name - Job"
+#define JOB_STYLE_3 "\[Job\] Name"
+#define JOB_STYLE_4 "(Job) Name"
 GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 // Custom Implementations for NTTC
 /* NTTC Configuration Datum
@@ -79,10 +83,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 
 	// These are the job card styles
 	var/list/job_card_styles = list(
-		"Style 1: Name (Job)",
-		"Style 2: Name - Job",
-		"Style 3: \[Job\] Name",
-		"Style 4: (Job) Name",
+		JOB_STYLE_1, JOB_STYLE_2, JOB_STYLE_3, JOB_STYLE_4
 	)
 	// Used to determine what languages are allowable for conversion. Generated during runtime.
 	var/list/valid_languages = list("--DISABLE--")
@@ -196,13 +197,13 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		if(job in jobs_service)
 			job_color = "#80A000"
 		switch(job_indicator_type)
-			if("Style 1: Name (Job)")
+			if(JOB_STYLE_1)
 				new_name = signal.data["name"] + " <font color=\"[job_color]\">([job])</font> "
-			if("Style 2: Name - Job")
+			if(JOB_STYLE_2)
 				new_name = signal.data["name"] + " - <font color=\"[job_color]\">[job]</font> "
-			if("Style 3: \[Job\] Name")
+			if(JOB_STYLE_3)
 				new_name = "<font color=\"[job_color]\"><small>\[[job]\]</small></font> " + signal.data["name"] + " "
-			if("Style 4: (Job) Name")
+			if(JOB_STYLE_4)
 				new_name = "<font color=[job_color]>([job])</font> " + signal.data["name"] + " "
 		if(toggle_jobs)
 			signal.data["name"] = new_name
@@ -389,3 +390,4 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	dat += "window.updateConfig = function(config) { window.config = JSON.parse(config); window.reload_tab() };"
 	dat += "</script>"
 	return dat
+
