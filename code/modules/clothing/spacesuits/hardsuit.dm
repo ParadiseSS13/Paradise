@@ -69,6 +69,7 @@
 	armor = list(melee = 10, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	allowed = list(/obj/item/flashlight,/obj/item/tank,/obj/item/t_scanner, /obj/item/rcd)
 	siemens_coefficient = 0
+	actions_types = list(/datum/action/item_action/toggle_helmet)
 
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 	species_restricted = list("exclude","Diona","Wryn")
@@ -99,6 +100,7 @@
 	var/obj/item/clothing/shoes/magboots/boots = null // Deployable boots, if any.
 	var/attached_helmet = 1                           // Can't wear a helmet if one is deployable.
 	var/obj/item/clothing/head/helmet/helmet = null   // Deployable helmet, if any.
+	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 
 	var/list/max_mounted_devices = 0                  // Maximum devices. Easy.
 	var/list/can_mount = null                         // Types of device that can be hardpoint mounted.
@@ -155,6 +157,10 @@
 				boots.flags &= ~NODROP
 				H.unEquip(boots)
 				boots.forceMove(src)
+
+/obj/item/clothing/suit/space/hardsuit/ui_action_click()
+	..()
+	toggle_helmet()
 
 /obj/item/clothing/suit/space/hardsuit/verb/toggle_helmet()
 	set name = "Toggle Helmet"
