@@ -658,7 +658,7 @@ var/global/list/default_medbay_channels = list(
 	subspace_transmission = 1
 
 /obj/item/radio/borg/syndicate
-	keyslot = new /obj/item/encryptionkey/syndicate
+	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
 
 /obj/item/radio/borg/syndicate/CanUseTopic(mob/user, datum/topic_state/state)
 	. = ..()
