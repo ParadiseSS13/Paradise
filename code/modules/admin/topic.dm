@@ -1878,7 +1878,6 @@
 			ptypes += "Cluwne"
 			ptypes += "Mutagen Cookie"
 			ptypes += "Hellwater Cookie"
-			ptypes += "Assassin"
 			ptypes += "Hunter"
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
@@ -1894,15 +1893,19 @@
 				M.Weaken(5)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 				logmsg = "a lightning bolt."
-			if("Brain Damage")
-				H.adjustBrainLoss(75)
-				logmsg = "75 brain damage."
 			if("Fire Death")
 				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(M)
 				new /obj/effect/hotspot(T)
 				M.adjustFireLoss(150)
 				logmsg = "a firey death."
+			if("Gib")
+				M.gib(FALSE)
+				logmsg = "gibbed."
+
+			if("Brain Damage")
+				H.adjustBrainLoss(75)
+				logmsg = "75 brain damage."
 			if("Honk Tumor")
 				if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
 					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
@@ -1912,13 +1915,13 @@
 			if("Hallucinate")
 				H.Hallucinate(1000)
 				logmsg = "hallucinations."
-			if("Hunger")
-				H.nutrition = NUTRITION_LEVEL_CURSED
-				logmsg = "starvation."
 			if("Cold")
 				H.reagents.add_reagent("frostoil", 40)
 				H.reagents.add_reagent("ice", 40)
 				logmsg = "cold."
+			if("Hunger")
+				H.nutrition = NUTRITION_LEVEL_CURSED
+				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
 				H.mutations |= NOCLONE
@@ -1977,26 +1980,12 @@
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return
 				logmsg = "crew traitor."
-			if("Lynch")
-				for(var/datum/mind/crew in ticker.minds)
-					if(!crew.current)
-						continue
-					if(!isliving(crew.current))
-						continue
-					if(crew == H.mind)
-						continue
-					to_chat(crew.current, "<BR><span class='userdanger'>The gods have given you a task: find [H.real_name], located in [get_area(H.loc)], and slay them!</span>");
-					to_chat(crew.current, "<span class='userdanger'>Do not harm anyone other than [H.real_name] while carrying out this task.</span><BR>");
-				logmsg = "lynch."
-			if("Gib")
-				M.gib(FALSE)
-				logmsg = "gibbed."
 			if("Floor Cluwne")
-				logmsg = "floor cluwne"
 				var/turf/T = get_turf(M)
 				var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
 				FC.smiting = TRUE
 				FC.Acquire_Victim(M)
+				logmsg = "floor cluwne"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
