@@ -107,7 +107,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/New()
 	..()
-	for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in mob_list)
+	for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.mob_list)
 		if(B != src)
 			qdel(src) //There can be only one
 			break

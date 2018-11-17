@@ -30,7 +30,7 @@
 	if(istype(user.loc, /turf/space))
 		return
 	var/turf/T = get_turf(src)
-	message_admins("Kudzu planted by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) at ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a>)",0,1)
+	message_admins("Kudzu planted by [key_name_admin(user)]([ADMIN_QUE(user,"?")]) ([ADMIN_FLW(user,"FLW")]) at ([T.x],[T.y],[T.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>(JMP)</a>)",0,1)
 	investigate_log("was planted by [key_name(user)] at ([T.x],[T.y],[T.z])","kudzu")
 	new /obj/structure/spacevine_controller(user.loc, mutations, potency, production)
 	user.drop_item()
@@ -59,7 +59,7 @@
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
-	if(S.has_reagent("welding_fuel", 5))
+	if(S.has_reagent("fuel", 5))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == POSITIVE)
 				temp_mut_list += SM
@@ -95,3 +95,4 @@
 	icon_state = "kudzupod"
 	filling_color = "#6B8E23"
 	bitesize_mod = 2
+	wine_power = 0.2

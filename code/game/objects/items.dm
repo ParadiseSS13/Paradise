@@ -239,7 +239,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
 				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
-				H.updatehealth()
 				return
 		else
 			extinguish()
@@ -347,6 +346,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder as mob)
+	return
+
+// called when the giver gives it to the receiver
+/obj/item/proc/on_give(mob/living/carbon/giver, mob/living/carbon/receiver)
 	return
 
 // called after an item is placed in an equipment slot

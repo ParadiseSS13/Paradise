@@ -15,9 +15,7 @@
 	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
 		if(R.getBruteLoss() || R.getFireLoss() )
-			R.adjustBruteLoss(-15)
-			R.adjustFireLoss(-15)
-			R.updatehealth()
+			R.heal_overall_damage(15, 15)
 			use(1)
 			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
@@ -31,7 +29,6 @@
 		if(S && S.is_robotic())
 			if(S.get_damage())
 				S.heal_damage(15, 15, robo_repair = 1)
-				H.updatehealth()
 				use(1)
 				user.visible_message("<span class='notice'>\The [user] applies some nanite paste at[user != M ? " \the [M]'s" : " \the"][S.name] with \the [src].</span>",\
 				"<span class='notice'>You apply some nanite paste at [user == M ? "your" : "[M]'s"] [S.name].</span>")

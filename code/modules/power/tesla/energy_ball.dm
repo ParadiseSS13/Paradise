@@ -118,7 +118,7 @@
 /obj/singularity/energy_ball/orbit(obj/singularity/energy_ball/target)
 	if(istype(target))
 		target.orbiting_balls += src
-		poi_list -= src
+		GLOB.poi_list -= src
 		target.dissipate_strength = target.orbiting_balls.len
 
 	. = ..()

@@ -400,6 +400,9 @@
 	..()
 	processing_objects.Add(src)
 
+/obj/item/nullrod/rosary/Destroy()
+	processing_objects.Remove(src)
+	return ..()
 
 /obj/item/nullrod/rosary/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!iscarbon(M))
@@ -448,9 +451,8 @@
 /obj/item/nullrod/rosary/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/holder = loc
-
 		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
-			for(var/mob/living/carbon/human/H in range(5))
+			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full))
 					H.mind.vampire.nullified = max(5, H.mind.vampire.nullified + 2)
 					if(prob(10))
@@ -492,8 +494,8 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/holder = loc
 		//would like to make the holder mime if they have it in on thier person in general
-		if(src == holder.l_hand || src == holder.r_hand) // Holding this in your hand will
-			for(var/mob/living/carbon/human/H in range(5))
+		if(src == holder.l_hand || src == holder.r_hand)
+			for(var/mob/living/carbon/human/H in range(5, loc))
 				if(H.mind.assigned_role == "Clown")
 					H.Silence(10)
 					animate_fade_grayscale(H,20)

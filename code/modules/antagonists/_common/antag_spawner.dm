@@ -52,9 +52,7 @@
 	if(!borg_to_spawn) //If there's no type at all, let it still be used but don't do anything
 		used = FALSE
 		return
-	var/datum/effect_system/spark_spread/S = new /datum/effect_system/spark_spread
-	S.set_up(4, 1, src)
-	S.start()
+	do_sparks(4, 1, src)
 	var/mob/living/silicon/robot/R
 	switch(borg_to_spawn)
 		if("Medical")

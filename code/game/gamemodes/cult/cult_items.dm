@@ -247,16 +247,17 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in poi_list || locate(/mob/living/simple_animal/slaughter/cult) in mob_list)
+	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='warning'>Nar-Sie or his avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
-	if(shuttle_master.emergency.mode == SHUTTLE_CALL)
+	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/cursetime = 1800
-		var/timer = shuttle_master.emergency.timeLeft(1) + cursetime
-		shuttle_master.emergency.setTimer(timer)
+		var/timer = SSshuttle.emergency.timeLeft(1) + cursetime
+		SSshuttle.emergency.setTimer(timer)
 		to_chat(user,"<span class='danger'>You shatter the orb! A dark essence spirals into the air, then disappears.</span>")
 		playsound(user.loc, 'sound/effects/Glassbr1.ogg', 50, 1)
+		curselimit++
 		qdel(src)
 		sleep(20)
 		var/global/list/curses
@@ -270,7 +271,6 @@
 			"Steve repeatedly touched a lightbulb until his hands fell off. The shuttle will be delayed by two minutes.")
 		var/message = pick(curses)
 		command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
-		curselimit++
 
 /obj/item/cult_shift
 	name = "veil shifter"

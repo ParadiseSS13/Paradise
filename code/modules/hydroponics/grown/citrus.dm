@@ -5,6 +5,7 @@
 	desc = "It's so sour, your face will twist."
 	icon_state = "lime"
 	bitesize_mod = 2
+	wine_power = 0.3
 
 // Lime
 /obj/item/seeds/lime
@@ -29,6 +30,7 @@
 	desc = "It's so sour, your face will twist."
 	icon_state = "lime"
 	filling_color = "#00FF00"
+	distill_reagent = "triple_sec"
 
 // Orange
 /obj/item/seeds/orange
@@ -104,6 +106,8 @@
 	desc = "Made for burning houses down."
 	icon_state = "firelemon"
 	bitesize_mod = 2
+	wine_power = 0.7
+	wine_flavor = "fire"
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
 	var/area/A = get_area(user)

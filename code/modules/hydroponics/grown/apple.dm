@@ -23,6 +23,7 @@
 	icon_state = "apple"
 	filling_color = "#FF4500"
 	bitesize = 100 // Always eat the apple in one bite
+	distill_reagent = "hcider"
 
 // Posioned Apple
 /obj/item/seeds/apple/poisoned
@@ -55,3 +56,5 @@
 	icon_state = "goldapple"
 	filling_color = "#FFD700"
 	origin_tech = "biotech=4;materials=5"
+	distill_reagent = null
+	wine_power = 0.5

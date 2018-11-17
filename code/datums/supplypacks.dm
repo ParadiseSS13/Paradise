@@ -923,6 +923,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "machine prototype crate"
 	access = access_research
 
+/datum/supply_packs/science/oil
+    name = "Oil Tank Crate"
+    contains = list(/obj/structure/reagent_dispensers/oil, 
+					/obj/item/reagent_containers/food/drinks/oilcan)
+    cost = 10
+    containertype = /obj/structure/largecrate
+    containername = "oil tank crate"
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -943,6 +951,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/reagent_containers/food/condiment/peppermill,
 					/obj/item/kitchen/rollingpin,
 					/obj/item/storage/fancy/egg_box,
+					/obj/item/mixing_bowl,
+					/obj/item/mixing_bowl,
 					/obj/item/reagent_containers/food/condiment/enzyme,
 					/obj/item/reagent_containers/food/condiment/sugar,
 					/obj/item/reagent_containers/food/snacks/meat/monkey,

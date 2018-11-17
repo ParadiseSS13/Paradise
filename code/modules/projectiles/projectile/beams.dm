@@ -34,6 +34,7 @@
 	name = "xray beam"
 	icon_state = "xray"
 	damage = 15
+	tile_dropoff = 0.75
 	irradiate = 30
 	forcedodge = 1
 	range = 15
@@ -118,6 +119,16 @@
 
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"
+
+/obj/item/projectile/beam/immolator/strong
+	name = "heavy immolation beam"
+	damage = 45
+	icon_state = "heavylaser"
+
+/obj/item/projectile/beam/immolator/weak
+	name = "light immolation beam"
+	damage = 8
+	icon_state = "scatterlaser"
 
 /obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()

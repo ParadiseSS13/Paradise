@@ -6,7 +6,7 @@
 	icon = 'icons/obj/machines/research.dmi'
 	density = 1
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	var/busy = 0
 	var/hacked = 0
 	var/disabled = 0
@@ -22,7 +22,7 @@
 /obj/machinery/r_n_d/New()
 	materials = AddComponent(/datum/component/material_container,
 		list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE, MAT_PLASTIC), 0,
-		FALSE, list(/obj/item/stack, /obj/item/ore/bluespace_crystal), CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
+		TRUE, /obj/item/stack, CALLBACK(src, .proc/is_insertion_ready), CALLBACK(src, .proc/AfterMaterialInsert))
 	materials.precise_insertion = TRUE
 	..()
 	wires["Red"] = 0
@@ -121,7 +121,7 @@
 
 /obj/machinery/r_n_d/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	var/stack_name
-	if(ispath(type_inserted, /obj/item/ore/bluespace_crystal))
+	if(ispath(type_inserted, /obj/item/stack/ore/bluespace_crystal))
 		stack_name = "bluespace polycrystal"
 		use_power(MINERAL_MATERIAL_AMOUNT / 10)
 	else

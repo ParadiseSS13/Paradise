@@ -9,7 +9,7 @@
 	var/list/Lines = list()
 
 	if(check_rights(R_ADMIN,0))
-		for(var/client/C in clients)
+		for(var/client/C in GLOB.clients)
 			if(C.holder && C.holder.big_brother && !check_rights(R_PERMISSIONS, 0)) // need PERMISSIONS to see BB
 				continue
 
@@ -47,10 +47,10 @@
 
 			if(is_special_character(C.mob))
 				entry += " - <b><font color='red'>Antagonist</font></b>"
-			entry += " (<A HREF='?_src_=holder;adminmoreinfo=\ref[C.mob]'>?</A>)"
+			entry += " ([ADMIN_QUE(C.mob,"?")])"
 			Lines += entry
 	else
-		for(var/client/C in clients)
+		for(var/client/C in GLOB.clients)
 			if(C.holder && C.holder.big_brother) // BB doesn't show up at all
 				continue
 
@@ -74,7 +74,7 @@
 	var/num_mods_online = 0
 	var/num_admins_online = 0
 	if(holder)
-		for(var/client/C in admins)
+		for(var/client/C in GLOB.admins)
 			if(check_rights(R_ADMIN, 0, C.mob))
 
 				if(C.holder.fakekey && !check_rights(R_ADMIN, 0))		//Mentors can't see stealthmins
@@ -116,7 +116,7 @@
 				modmsg += "\n"
 				num_mods_online++
 	else
-		for(var/client/C in admins)
+		for(var/client/C in GLOB.admins)
 
 			if(check_rights(R_ADMIN, 0, C.mob))
 				if(!C.holder.fakekey)

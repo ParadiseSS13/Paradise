@@ -285,20 +285,6 @@
 	if(isliving(user))
 		user.visible_message("<span class='warning'>[user] invades [M]'s personal space, thrusting [src] into [M.p_their()] face insistently.</span>","<span class='warning'>You invade [M]'s personal space, thrusting [src] into [M.p_their()] face insistently. You are the law.</span>")
 
-/obj/item/storage/box/holobadge
-	name = "holobadge box"
-	desc = "A box claiming to contain holobadges."
-	New()
-		new /obj/item/clothing/accessory/holobadge(src)
-		new /obj/item/clothing/accessory/holobadge(src)
-		new /obj/item/clothing/accessory/holobadge(src)
-		new /obj/item/clothing/accessory/holobadge(src)
-		new /obj/item/clothing/accessory/holobadge/cord(src)
-		new /obj/item/clothing/accessory/holobadge/cord(src)
-		..()
-		return
-
-
 ///////////
 //SCARVES//
 ///////////
@@ -390,7 +376,7 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = SLOT_TIE
 
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
@@ -398,7 +384,7 @@
 	icon_state = "locket"
 	item_state = "locket"
 	item_color = "locket"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = SLOT_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.

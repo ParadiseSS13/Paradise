@@ -89,25 +89,25 @@
 	icon_state = "lightning"
 	desc = "test lightning"
 
-	New()
+/obj/item/lightning/New()
 		icon = midicon
 		icon_state = "1"
 
-	afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
-		var/angle = get_angle(A, user)
-//		to_chat(world, angle)
-		angle = round(angle) + 45
-		if(angle > 180)
-			angle -= 180
-		else
-			angle += 180
+/obj/item/lightning/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
+	var/angle = get_angle(A, user)
+	//to_chat(world, angle)
+	angle = round(angle) + 45
+	if(angle > 180)
+		angle -= 180
+	else
+		angle += 180
 
-		if(!angle)
-			angle = 1
-//		to_chat(world, "adjusted [angle]")
-		icon_state = "[angle]"
-//		to_chat(world, "[angle] [(get_dist(user, A) - 1)]")
-		user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)
+	if(!angle)
+		angle = 1
+  //to_chat(world, "adjusted [angle]")
+	icon_state = "[angle]"
+	//to_chat(world, "[angle] [(get_dist(user, A) - 1)]")
+	user.Beam(A, "lightning", 'icons/obj/zap.dmi', 50, 15)
 
 /obj/item/newton
 	name = "newton cradle"

@@ -48,7 +48,7 @@ var/global/sent_strike_team = 0
 	var/commando_number = commandos_possible //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 
 		if(commando_number <= 0)
 			break
@@ -108,7 +108,7 @@ var/global/sent_strike_team = 0
 			commando_number--
 
 	//Spawns the rest of the commando gear.
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "Commando_Manual")
 			//new /obj/item/gun/energy/pulse_rifle(L.loc)
 			var/obj/item/paper/P = new(L.loc)
@@ -119,7 +119,7 @@ var/global/sent_strike_team = 0
 			P.stamp(stamp)
 			qdel(stamp)
 
-	for(var/obj/effect/landmark/L in landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "Commando-Bomb")
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
@@ -132,7 +132,7 @@ var/global/sent_strike_team = 0
 	var/mob/living/carbon/human/new_commando = new(spawn_location.loc)
 	var/commando_leader_rank = pick("Lieutenant", "Captain", "Major")
 	var/commando_rank = pick("Corporal", "Sergeant", "Staff Sergeant", "Sergeant 1st Class", "Master Sergeant", "Sergeant Major")
-	var/commando_name = pick(last_names)
+	var/commando_name = pick(GLOB.last_names)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)

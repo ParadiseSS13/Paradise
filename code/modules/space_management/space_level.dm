@@ -21,7 +21,8 @@
 	var/dirt_count = 0
 	var/list/init_list = list()
 
-/datum/space_level/New(z, name, transition_type = SELFLOOPING, traits = list(BLOCK_TELEPORT))
+/datum/space_level/New(z, level_name, transition_type = SELFLOOPING, traits = list(BLOCK_TELEPORT))
+	name = level_name
 	zpos = z
 	flags = traits
 	build_space_destination_arrays()

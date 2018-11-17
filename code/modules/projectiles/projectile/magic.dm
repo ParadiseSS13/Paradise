@@ -79,7 +79,7 @@
 		target.suiciding = 0
 		target.revive()
 		if(!target.ckey)
-			for(var/mob/dead/observer/ghost in player_list)
+			for(var/mob/dead/observer/ghost in GLOB.player_list)
 				if(target.real_name == ghost.real_name)
 					ghost.reenter_corpse()
 					break

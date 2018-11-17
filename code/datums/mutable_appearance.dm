@@ -11,3 +11,10 @@
 	MA.icon_state = icon_state
 	MA.layer = layer
 	return MA
+
+/mutable_appearance/clean
+/mutable_appearance/clean/New()
+	. = ..()
+	alpha = 255
+	opacity = 1
+	transform = null

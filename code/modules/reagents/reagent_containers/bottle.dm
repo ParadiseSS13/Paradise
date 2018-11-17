@@ -9,7 +9,7 @@
 	item_state = "atoxinbottle"
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30)
-	flags = OPENCONTAINER
+	container_type = OPENCONTAINER
 	volume = 30
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()

@@ -58,13 +58,14 @@
 	name = "large box"
 	desc = "You could build a fort with this."
 	icon_state = "largebox"
-	w_class = 42 // Big, bulky.
+	w_class = 4 // Big, bulky.
 	foldable = /obj/item/stack/sheet/cardboard
 	amt = 4
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 
 /obj/item/storage/box/survival
+	icon_state = "box_civ"
 	New()
 		..()
 		contents = list()
@@ -74,6 +75,7 @@
 		return
 
 /obj/item/storage/box/engineer
+	icon_state = "box_eng"
 	New()
 		..()
 		contents = list()
@@ -83,6 +85,7 @@
 		return
 
 /obj/item/storage/box/survival_mining
+	icon_state = "box_min"
 	New()
 		..()
 		contents = list()
@@ -563,6 +566,33 @@
 		new /obj/item/cartridge/security(src)
 		new /obj/item/cartridge/security(src)
 
+/obj/item/storage/box/holobadge
+	name = "holobadge box"
+	icon_state = "box_badge"
+	desc = "A box claiming to contain holobadges."
+	New()
+		new /obj/item/clothing/accessory/holobadge(src)
+		new /obj/item/clothing/accessory/holobadge(src)
+		new /obj/item/clothing/accessory/holobadge(src)
+		new /obj/item/clothing/accessory/holobadge(src)
+		new /obj/item/clothing/accessory/holobadge/cord(src)
+		new /obj/item/clothing/accessory/holobadge/cord(src)
+		..()
+		return
+
+/obj/item/storage/box/evidence
+	name = "evidence bag box"
+	desc = "A box claiming to contain evidence bags."
+	icon_state = "box_evidence"
+
+/obj/item/storage/box/evidence/New()
+	new /obj/item/evidencebag(src)
+	new /obj/item/evidencebag(src)
+	new /obj/item/evidencebag(src)
+	new /obj/item/evidencebag(src)
+	new /obj/item/evidencebag(src)
+	new /obj/item/evidencebag(src)
+	..()
 
 /obj/item/storage/box/handcuffs
 	name = "spare handcuffs"
@@ -642,6 +672,20 @@
 		new /obj/item/storage/pill_bottle( src )
 		new /obj/item/storage/pill_bottle( src )
 
+/obj/item/storage/box/bodybags
+	name = "body bags"
+	desc = "This box contains body bags."
+	icon_state = "bodybags"
+
+/obj/item/storage/box/bodybags/New()
+	..()
+	new /obj/item/bodybag(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/bodybag(src)
+	new /obj/item/bodybag(src)
 
 /obj/item/storage/box/snappops
 	name = "snap pop box"
@@ -834,7 +878,8 @@
 
 /obj/item/storage/box/centcomofficer
 	name = "officer kit"
-
+	icon_state = "box_ert"
+	
 /obj/item/storage/box/centcomofficer/New()
 	..()
 	contents = list()
@@ -850,6 +895,19 @@
 	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
 	new /obj/item/pinpointer/advpinpointer(src)
 
+/obj/item/storage/box/responseteam
+	name = "boxed survival kit"
+	icon_state = "box_ert"
+
+/obj/item/storage/box/responseteam/New()
+	..()
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/tank/emergency_oxygen/engi(src)
+	new /obj/item/flashlight/flare(src)
+	new /obj/item/kitchen/knife/combat(src)
+	new /obj/item/radio/centcom(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

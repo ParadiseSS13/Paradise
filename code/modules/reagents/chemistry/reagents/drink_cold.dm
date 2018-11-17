@@ -14,7 +14,6 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Tonic Water"
 	drink_desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
-	taste_message = "tart and fresh"
 
 /datum/reagent/consumable/drink/cold/sodawater
 	name = "Soda Water"
@@ -26,7 +25,6 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Soda Water"
 	drink_desc = "Soda water. Why not make a scotch and soda?"
-	taste_message = "carbonated water"
 
 /datum/reagent/consumable/drink/cold/ice
 	name = "Ice"
@@ -38,7 +36,6 @@
 	drink_icon = "iceglass"
 	drink_name = "Glass of ice"
 	drink_desc = "Generally, you're supposed to put something else in there too..."
-	taste_message = "ice"
 
 /datum/reagent/consumable/drink/cold/ice/on_mob_life(mob/living/M)
 	M.bodytemperature = max(M.bodytemperature - 5 * TEMPERATURE_DAMAGE_COEFFICIENT, 0)
@@ -65,15 +62,16 @@
 	drink_icon = "nuka_colaglass"
 	drink_name = "Nuka Cola"
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
-	taste_message = "the future"
+	taste_message = "cola"
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
 	M.Jitter(20)
-	M.Druggy(30)
+	update_flags |= M.Druggy(30, FALSE)
 	M.AdjustDizzy(5)
 	M.SetDrowsy(0)
 	M.status_flags |= GOTTAGOFAST
-	..()
+	return ..() | update_flags
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/M)
 	M.status_flags &= ~GOTTAGOFAST
@@ -89,7 +87,7 @@
 	drink_icon = "Space_mountain_wind_glass"
 	drink_name = "Glass of Space Mountain Wind"
 	drink_desc = "Space Mountain Wind. As you know, there are no mountains in space, only wind."
-	taste_message = "sweet citrus soda"
+	taste_message = "lime soda"
 
 /datum/reagent/consumable/drink/cold/dr_gibb
 	name = "Dr. Gibb"
@@ -139,7 +137,7 @@
 	drink_icon = "kiraspecial"
 	drink_name = "Kira Special"
 	drink_desc = "Long live the guy who everyone had mistaken for a girl. Baka!"
-	taste_message = "citrus traps"
+	taste_message = "citrus soda"
 
 /datum/reagent/consumable/drink/cold/brownstar
 	name = "Brown Star"
@@ -165,14 +163,14 @@
 
 /datum/reagent/consumable/drink/cold/rewriter
 	name = "Rewriter"
-	description = "The secert of the sanctuary of the Libarian..."
+	description = "The secret of the sanctuary of the Librarian..."
 	id = "rewriter"
 	color = "#485000" // rgb:72, 080, 0
 	drink_icon = "rewriter"
 	drink_name = "Rewriter"
-	drink_desc = "The secert of the sanctuary of the Libarian..."
-	taste_message = "...huh, you forgot"
+	drink_desc = "The secret of the sanctuary of the Librarian..."
+	taste_message = "coffee...soda?"
 
 /datum/reagent/consumable/drink/cold/rewriter/on_mob_life(mob/living/M)
 	M.Jitter(5)
-	..()
+	return ..()

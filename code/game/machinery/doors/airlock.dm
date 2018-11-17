@@ -132,7 +132,7 @@ About the new airlock wires panel:
 	update_icon()
 
 /obj/machinery/door/airlock/proc/update_other_id()
-	for(var/obj/machinery/door/airlock/A in airlocks)
+	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)
 		if(A.closeOtherId == closeOtherId && A != src)
 			closeOther = A
 			break
@@ -306,18 +306,21 @@ About the new airlock wires panel:
 	else
 		return 0
 
+//Checks if the user can get shocked and shocks him if it can. Returns TRUE if it happened
+/obj/machinery/door/airlock/proc/shock_user(mob/user, prob)
+	return (!issilicon(user) && isElectrified() && shock(user, prob))
+
 /obj/machinery/door/airlock/update_icon(state=0, override=0)
 	if(operating && !override)
 		return
+	icon_state = density ? "closed" : "open"
 	switch(state)
 		if(0)
 			if(density)
 				state = AIRLOCK_CLOSED
 			else
 				state = AIRLOCK_OPEN
-			icon_state = ""
 		if(AIRLOCK_OPEN, AIRLOCK_CLOSED)
-			icon_state = ""
 		if(AIRLOCK_DENY, AIRLOCK_OPENING, AIRLOCK_CLOSING, AIRLOCK_EMAG)
 			icon_state = "nonexistenticonstate" //MADNESS
 	set_airlock_overlays(state)
@@ -624,40 +627,29 @@ About the new airlock wires panel:
 	if(isElectrified() && density && istype(mover, /obj/item))
 		var/obj/item/I = mover
 		if(I.flags & CONDUCT)
-			var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
-			s.set_up(5, 1, src)
-			s.start()
+			do_sparks(5, 1, src)
 	return ..()
 
 /obj/machinery/door/airlock/attack_hand(mob/user)
-	if(iszombie(user)) //From attack_alien
-		add_fingerprint(user)
-		if(isElectrified())
-			shock(user, 100)
+	if(shock_user(user, 100))
+		return
+
+	if(headbutt_airlock(user))
+		return//Smack that head against that airlock
+	if(remove_airlock_note(user, FALSE))
+		return
+
+	if(panel_open)
+		if(security_level)
+			to_chat(user, "<span class='warning'>Wires are protected!</span>")
 			return
-		if(!density) //Already open
-			return
-		if(locked || welded)
-			to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
-			return
-		user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
-							"<span class='noticealien'>You begin digging your hands into [src] with all your might!</span>",\
-							"<span class='warning'>You hear groaning metal...</span>")
-		var/time_to_open = 20
-		if(arePowerSystemsOn())
-			time_to_open = 90 //Powered airlocks take longer to open, and are loud.
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
+		wires.Interact(user)
+	else
+		..()
 
 
-		if(do_after(user, time_to_open, target = src))
-			if(density && !open(1)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
-				to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
-
-	if(!issilicon(user))
-		if(isElectrified())
-			if(shock(user, 100))
-				return
-
+//Checks if the user can headbutt the airlock and does it if it can. Returns TRUE if it happened
+/obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
 	if(ishuman(user) && prob(40) && density)
 		var/mob/living/carbon/human/H = user
 		if(H.getBrainLoss() >= 60 && Adjacent(user))
@@ -671,7 +663,15 @@ About the new airlock wires panel:
 					H.UpdateDamageIcon()
 			else
 				visible_message("<span class='warning'>[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet.</span>")
-			return
+			return TRUE
+	return FALSE
+
+//For the tools being used on the door. Since you don't want to call the attack_hand method if you're using hands. That would be silly
+//Also it's a bit inconsistent that when you access the panel you headbutt it. But not while crowbarring
+//Try to interact with the panel. If the user can't it'll try activating the door
+/obj/machinery/door/airlock/proc/interact_with_panel(mob/user)
+	if(shock_user(user, 100))
+		return
 
 	if(panel_open)
 		if(security_level)
@@ -679,7 +679,7 @@ About the new airlock wires panel:
 			return
 		wires.Interact(user)
 	else
-		..()
+		try_to_activate_door(user)
 
 /obj/machinery/door/airlock/CanUseTopic(mob/user)
 	if(!issilicon(user) && !isobserver(user))
@@ -800,12 +800,13 @@ About the new airlock wires panel:
 	return 1
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
-	if(!issilicon(user))
-		if(isElectrified())
-			if(shock(user, 75))
-				return
+	if(shock_user(user, 75))
+		return
 
 	add_fingerprint(user)
+
+	if(headbutt_airlock(user))//See if the user headbutts the airlock
+		return
 
 	if(panel_open)
 		switch(security_level)
@@ -945,23 +946,19 @@ About the new airlock wires panel:
 		update_icon()
 	else if(iswirecutter(C))
 		if(note)
-			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
-			playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
-			note.forceMove(get_turf(user))
-			note = null
-			update_icon()
+			remove_airlock_note(user, TRUE)
 		else
-			return attack_hand(user)
+			return interact_with_panel(user)
 	else if(ismultitool(C))
-		return attack_hand(user)
+		return interact_with_panel(user)
 	else if(istype(C, /obj/item/assembly/signaler))
-		return attack_hand(user)
+		return interact_with_panel(user)
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = C
 		cable.plugin(src, user)
 	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
 		if(note)
-			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters to remove it.</span>")
+			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
 		if(!user.unEquip(C))
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
@@ -1025,7 +1022,7 @@ About the new airlock wires panel:
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
 	else if(!welded && !operating)
-		if(!beingcrowbarred) //being fireaxe'd
+		if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific
 			var/obj/item/twohanded/fireaxe/F = I
 			if(F.wielded)
 				spawn(0)
@@ -1042,7 +1039,7 @@ About the new airlock wires panel:
 				else
 					close(1)
 
-	if(istype(I, /obj/item/crowbar/power))
+	if(ispowertool(I)) //jaws of life and rescue claw
 		if(isElectrified())
 			shock(user, 100)//it's like sticking a forck in a power socket
 			return
@@ -1316,6 +1313,23 @@ About the new airlock wires panel:
 		return "note"
 	else if(istype(note, /obj/item/photo))
 		return "photo"
+
+//Removes the current note on the door if any. Returns if a note is removed
+/obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used=TRUE)
+	if(note)
+		if(!wirecutters_used)
+			if (ishuman(user) && user.a_intent == INTENT_GRAB)//grab that note
+				user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
+				playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
+			else return FALSE
+		else
+			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
+			playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
+		note.forceMove(get_turf(user))
+		note = null
+		update_icon()
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/airlock/narsie_act()
 	var/turf/T = get_turf(src)

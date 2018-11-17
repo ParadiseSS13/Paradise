@@ -28,23 +28,28 @@ Bonus
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB * 3))
 		var/mob/living/M = A.affected_mob
+		var/datum/reagents/RD = M.reagents
+
 		switch(A.stage)
 			if(2)
-				if(M.reagents.get_reagent_amount("oculine")<10)
-					M.reagents.add_reagent("oculine", 10)
+				if(RD.check_and_add("oculine", 10, 10))
 					to_chat(M, "<span class='notice'>Your hearing feels clearer and crisp.</span>")
 			if(3)
-				if(M.reagents.get_reagent_amount("antihol") < 10 && M.reagents.get_reagent_amount("oculine") < 10 )
-					M.reagents.add_reagent_list(list("antihol"=10, "oculine"=10))
+				if(RD.check_and_add("antihol", 10, 10))
 					to_chat(M, "<span class='notice'>You feel sober.</span>")
+				RD.check_and_add("oculine", 10, 10)
 			if(4)
-				if(M.reagents.get_reagent_amount("antihol") < 10 && M.reagents.get_reagent_amount("oculine") < 10 && M.reagents.get_reagent_amount("synaphydramine") < 10)
-					M.reagents.add_reagent_list(list("antihol"=10, "oculine"=10, "synaphydramine"=5))
+				if(RD.check_and_add("synaphydramine", 10, 5))
 					to_chat(M, "<span class='notice'>You feel focused.</span>")
+				RD.check_and_add("antihol", 10, 10)
+				RD.check_and_add("oculine", 10, 10)
 			if(5)
-				if(M.reagents.get_reagent_amount("antihol") < 10 && M.reagents.get_reagent_amount("oculine") < 10 && M.reagents.get_reagent_amount("synaphydramine") < 10 && M.reagents.get_reagent_amount("mannitol") < 10)
-					M.reagents.add_reagent_list(list("mannitol"=10, "antihol"=10, "oculine"=10, "synaphydramine"=10))
+				if(RD.check_and_add("mannitol", 10, 10))
 					to_chat(M, "<span class='notice'>Your mind feels relaxed.</span>")
+				RD.check_and_add("synaphydramine", 10, 5)
+				RD.check_and_add("antihol", 10, 10)
+				RD.check_and_add("oculine", 10, 10)
+
 	return
 
 /*

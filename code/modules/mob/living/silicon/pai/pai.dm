@@ -160,9 +160,8 @@
 	return 1
 
 /mob/living/silicon/pai/blob_act()
-	if(stat != 2)
+	if(stat != DEAD)
 		adjustBruteLoss(60)
-		updatehealth()
 		return 1
 	return 0
 
@@ -226,9 +225,9 @@
 
 // See software.dm for Topic()
 
-/mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M as mob)
-	if(M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src]")
+/mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M)
+	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
+		M.custom_emote(1, "[M.friendly] [src].")
 	else
 		M.do_attack_animation(src)
 		if(M.attack_sound)
@@ -238,7 +237,6 @@
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		add_attack_logs(M, src, "Animal attacked for [damage] damage")
 		adjustBruteLoss(damage)
-		updatehealth()
 
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
@@ -324,11 +322,11 @@
 		return
 
 	if(loc != card)
-		to_chat(src, "<span class=warning>You are already in your mobile form!</span>")
+		to_chat(src, "<span class='warning'>You are already in your mobile form!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class=warning>You must wait before folding your chassis out again!</span>")
+		to_chat(src, "<span class='warning'>You must wait before folding your chassis out again!</span>")
 		return
 
 	last_special = world.time + 200
@@ -336,7 +334,7 @@
 	//I'm not sure how much of this is necessary, but I would rather avoid issues.
 	force_fold_out()
 
-	visible_message("<span class=notice>[src] folds outwards, expanding into a mobile form.</span>", "<span class=notice>You fold outwards, expanding into a mobile form.</span>")
+	visible_message("<span class='notice'>[src] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
 
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(istype(card.loc, /mob))
@@ -359,11 +357,11 @@
 		return
 
 	if(loc == card)
-		to_chat(src, "<span class=warning>You are already in your card form!</span>")
+		to_chat(src, "<span class='warning'>You are already in your card form!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class=warning>You must wait before returning to your card form!</span>")
+		to_chat(src, "<span class='warning'>You must wait before returning to your card form!</span>")
 		return
 
 	close_up()
@@ -454,9 +452,7 @@
 		if(stat == DEAD)
 			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
 		else if(getBruteLoss() || getFireLoss())
-			adjustBruteLoss(-15)
-			adjustFireLoss(-15)
-			updatehealth()
+			heal_overall_damage(15, 15)
 			N.use(1)
 			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
 				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
@@ -467,7 +463,6 @@
 	else if(W.force)
 		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
 		adjustBruteLoss(W.force)
-		updatehealth()
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
 	spawn(1)
@@ -494,7 +489,7 @@
 	if(loc == card)
 		return
 
-	visible_message("<span class=notice>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class=notice>You neatly fold inwards, compacting down to a rectangular card.</span>")
+	visible_message("<span class='notice'>[src] neatly folds inwards, compacting down to a rectangular card.</span>", "<span class='notice'>You neatly fold inwards, compacting down to a rectangular card.</span>")
 
 	stop_pulling()
 	reset_perspective(card)
@@ -557,7 +552,6 @@
 
 /mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
-	updatehealth()
 	if(stat != 2)
 		spawn(1)
 			close_up()

@@ -40,7 +40,7 @@
 
 /obj/item/deck/examine(mob/user)
 	..()
-	to_chat(user,"<span class='notice'>It contains [cards.len ? cards.len : "no"] cards</span class>")
+	to_chat(user,"<span class='notice'>It contains [cards.len ? cards.len : "no"] cards</span>")
 
 /obj/item/deck/attack_hand(mob/user as mob)
 	draw_card(user)
@@ -220,24 +220,20 @@
 	if(M.incapacitated() || !Adjacent(M))
 		return
 
-	if(over_object == M)
+	if(over_object == M || istype(over_object, /obj/screen))
 		if(!remove_item_from_storage(M))
 			M.unEquip(src)
-		M.put_in_hands(src)
+		if(over_object != M)
+			switch(over_object.name)
+				if("r_hand")
+					M.put_in_r_hand(src)
+				if("l_hand")
+					M.put_in_l_hand(src)
+		else
+			M.put_in_hands(src)
 
-	else if(istype(over_object, /obj/screen))
-		switch(over_object.name)
-			if("r_hand")
-				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_r_hand(src)
-			if("l_hand")
-				if(!remove_item_from_storage(M))
-					M.unEquip(src)
-				M.put_in_l_hand(src)
-
-	add_fingerprint(M)
-	usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+		add_fingerprint(M)
+		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
 	name = "Card Pack"
@@ -252,7 +248,7 @@
 
 /obj/item/pack/attack_self(mob/user as mob)
 	user.visible_message("<span class='notice'>[name] rips open the [src]!</span>", "<span class='notice'>You rips open the [src]!</span>")
-	var/obj/item/cardhand/H = new()
+	var/obj/item/cardhand/H = new(get_turf(user))
 
 	H.cards += cards
 	cards.Cut()
@@ -260,7 +256,7 @@
 	qdel(src)
 
 	H.update_icon()
-	user.put_in_active_hand(H)
+	user.put_in_hands(H)
 
 /obj/item/cardhand
 	name = "hand of cards"
@@ -317,9 +313,9 @@
 /obj/item/cardhand/examine(mob/user)
 	..(user)
 	if((!concealed) && cards.len)
-		to_chat(user,"<span class='notice'>It contains:</span class>")
+		to_chat(user,"<span class='notice'>It contains:</span>")
 		for(var/datum/playingcard/P in cards)
-			to_chat(user,"<span class='notice'>the [P.name].</span class>")
+			to_chat(user,"<span class='notice'>the [P.name].</span>")
 
 // Datum action here
 
@@ -370,7 +366,7 @@
 	var/datum/playingcard/card = pickablecards[pickedcard]
 
 	var/obj/item/cardhand/H = new(get_turf(src))
-	user.put_in_active_hand(H)
+	user.put_in_hands(H)
 	H.cards += card
 	cards -= card
 	H.parentdeck = parentdeck

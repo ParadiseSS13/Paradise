@@ -31,7 +31,6 @@
 				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
 				if(prob(20))
 					affected_mob.adjustToxLoss(1)
-					affected_mob.updatehealth()
 
 		if(3)
 			if(affected_mob.lying && prob(15))
@@ -50,5 +49,4 @@
 				to_chat(affected_mob, "<span class='danger'>Your stomach hurts.</span>")
 				if(prob(20))
 					affected_mob.adjustToxLoss(1)
-					affected_mob.updatehealth()
 	return

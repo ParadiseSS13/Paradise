@@ -19,7 +19,7 @@ log transactions
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "atm"
 	anchored = 1
-	use_power = 1
+	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	var/obj/machinery/computer/account_database/linked_db
 	var/datum/money_account/authenticated_account
@@ -74,7 +74,7 @@ log transactions
 				authenticated_account.charge(-cash_amount, null, "Credit deposit", terminal_id = machine_id, dest_name = "Terminal")
 
 /obj/machinery/atm/proc/reconnect_database()
-	for(var/obj/machinery/computer/account_database/DB in machines)
+	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
 		if(DB.z == z && !(DB.stat & NOPOWER) && DB.activated)
 			linked_db = DB
 			break

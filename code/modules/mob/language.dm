@@ -25,9 +25,9 @@
 /datum/language/proc/get_random_name(gender, name_count=2, syllable_count=4)
 	if(!syllables || !syllables.len || english_names)
 		if(gender==FEMALE)
-			return capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_female)) + " " + capitalize(pick(GLOB.last_names))
 		else
-			return capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+			return capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 
 	var/full_name = ""
 	var/new_name = ""
@@ -105,7 +105,7 @@
 		speaker_mask = speaker.name
 	var/msg = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> [format_message(message, get_spoken_verb(message))]</span></i>"
 
-	for(var/mob/player in player_list)
+	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
 			var/msg_dead = "<i><span class='game say'>[name], <span class='name'>[speaker_mask]</span> ([ghost_follow_link(speaker, ghost=player)]) [format_message(message, get_spoken_verb(message))]</span></i>"
 			to_chat(player, msg_dead)
@@ -232,7 +232,7 @@
 
 	while(i <= sounds)
 		i++
-		newname += pick(vox_name_syllables)
+		newname += pick(GLOB.vox_name_syllables)
 	return capitalize(newname)
 
 /datum/language/diona
@@ -267,7 +267,7 @@
 	if(prob(70))
 		new_name = "[pick(list("PBU","HIU","SINA","ARMA","OSI"))]-[rand(100, 999)]"
 	else
-		new_name = pick(ai_names)
+		new_name = pick(GLOB.ai_names)
 	return new_name
 
 /datum/language/kidan
@@ -280,6 +280,15 @@
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
+
+/datum/language/kidan/get_random_name()
+	var/new_name = "[pick(list("Vrax", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx"))]"
+	new_name += ", "
+	new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer", "Soldier", "Guard", "Prospector"))]"
+	new_name += " of Clan "
+	new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax"))]"	//I ran out of ideas after the first two tbh -_-
+	return new_name
+
 
 /datum/language/slime
 	name = "Bubblish"
@@ -567,12 +576,12 @@
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
 	var/message_body = "<span class='message'>[speaker.say_quote(message)],</i><span class='robot'>\"[message]\"</span></span></span>"
 
-	for(var/mob/M in dead_mob_list)
+	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
 			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
 			M.show_message("[message_start_dead] [message_body]", 2)
 
-	for(var/mob/living/S in living_mob_list)
+	for(var/mob/living/S in GLOB.living_mob_list)
 		if(drone_only && !istype(S,/mob/living/silicon/robot/drone))
 			continue
 		else if(isAI(S))
@@ -643,7 +652,7 @@
 // Language handling.
 /mob/proc/add_language(language)
 
-	var/datum/language/new_language = all_languages[language]
+	var/datum/language/new_language = GLOB.all_languages[language]
 
 	if(!istype(new_language) || new_language in languages)
 		return FALSE
@@ -652,12 +661,12 @@
 	return TRUE
 
 /mob/proc/remove_language(rem_language)
-	var/datum/language/L = all_languages[rem_language]
+	var/datum/language/L = GLOB.all_languages[rem_language]
 	. = (L in languages)
 	languages.Remove(L)
 
 /mob/living/remove_language(rem_language)
-	var/datum/language/L = all_languages[rem_language]
+	var/datum/language/L = GLOB.all_languages[rem_language]
 	if(default_language == L)
 		default_language = null
 	return ..()
@@ -702,7 +711,7 @@
 		if(href_list["default_lang"] == "reset")
 			set_default_language(null)
 		else
-			var/datum/language/L = all_languages[href_list["default_lang"]]
+			var/datum/language/L = GLOB.all_languages[href_list["default_lang"]]
 			if(L)
 				set_default_language(L)
 		check_languages()

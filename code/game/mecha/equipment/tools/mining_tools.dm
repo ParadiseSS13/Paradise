@@ -15,7 +15,8 @@
 		return
 	if(isobj(target))
 		var/obj/target_obj = target
-		if(target_obj.unacidable)
+		if(target_obj.unacidable && !istype(target_obj, /obj/mecha))
+			occupant_message("<span class='danger'>[target] is too durable to drill through.</span>")
 			return
 	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",
@@ -73,7 +74,7 @@
 	if(locate(/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp) in chassis.equipment)
 		var/obj/structure/ore_box/ore_box = locate(/obj/structure/ore_box) in chassis:cargo
 		if(ore_box)
-			for(var/obj/item/ore/ore in range(1, chassis))
+			for(var/obj/item/stack/ore/ore in range(1, chassis))
 				if(get_dir(chassis, ore) & chassis.dir)
 					ore.Move(ore_box)
 
@@ -94,7 +95,6 @@
 
 	if(target)
 		target.Paralyse(10)
-		target.updatehealth()
 
 
 /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill

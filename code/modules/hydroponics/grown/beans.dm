@@ -15,7 +15,7 @@
 	icon_dead = "soybean-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/soya/koi)
-	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
+	reagents_add = list("soybeanoil" = 0.2, "vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/soybeans
 	seed = /obj/item/seeds/soya
@@ -25,6 +25,7 @@
 	icon_state = "soybeans"
 	filling_color = "#F0E68C"
 	bitesize_mod = 2
+	wine_power = 0.2
 
 // Koibean
 /obj/item/seeds/soya/koi
@@ -46,3 +47,4 @@
 	icon_state = "koibeans"
 	filling_color = "#F0E68C"
 	bitesize_mod = 2
+	wine_power = 0.4

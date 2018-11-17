@@ -3,6 +3,8 @@
 	..(user)
 
 	var/msg = "<span class='info'>"
+	if(module)
+		msg += "It has loaded a [module.name].\n"
 	var/obj/act_module = get_active_hand()
 	if(act_module)
 		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
@@ -40,7 +42,10 @@
 		if(UNCONSCIOUS)
 			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
 		if(DEAD)
-			msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
+			if(!suiciding)
+				msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
+			else
+				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
 	msg += "*---------*</span>"
 
 	if(print_flavor_text()) msg += "\n[print_flavor_text()]\n"

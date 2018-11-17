@@ -44,6 +44,9 @@
 	return ..()
 
 /obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return
 	if(istype(I, /obj/item/pda))
 		if(storedpda)
 			to_chat(user, "There is already a PDA inside.")

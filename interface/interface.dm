@@ -41,9 +41,9 @@
 
 	if(prefs.lastchangelog != changelog_hash) //if it's already opened, no need to tell them they have unread changes
 		prefs.SetChangelog(src,changelog_hash)
-		
+
 /client/verb/forum()
-	set name = "Forum"
+	set name = "forum"
 	set desc = "Visit the forum."
 	set hidden = 1
 	if(config.forumurl)
@@ -66,6 +66,18 @@
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 	return
 
+/client/verb/github()
+	set name = "GitHub"
+	set desc = "Visit the GitHub page."
+	set hidden = 1
+	if(config.githuburl)
+		if(alert("This will open our GitHub repository in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link(config.githuburl)
+	else
+		to_chat(src, "<span class='danger'>The GitHub URL is not set in the server configuration.</span>")
+	return
+
 /client/verb/discord()
 	set name = "Discord"
 	set desc = "Join our Discord server."
@@ -76,6 +88,18 @@
 		src << link(config.discordurl)
 	else
 		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
+	return
+	
+/client/verb/donate()
+	set name = "Donate"
+	set desc = "Donate to help with hosting costs."
+	set hidden = 1
+	if(config.donationsurl)
+		if(alert("This will open the donation page in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link(config.donationsurl)
+	else
+		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
 	return
 
 /client/verb/hotkeys_help()
@@ -89,6 +113,7 @@ Admin:
 \tF7 = Player Panel
 \tF8 = Admin PM
 \tF9 = Invisimin
+
 Admin ghost:
 \tCtrl+Click = Player Panel
 \tCtrl+Shift+Click = View Variables
