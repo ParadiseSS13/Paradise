@@ -114,6 +114,7 @@ var/global/list/all_cults = list()
 				summon_spots += summon
 
 	for(var/datum/mind/cult_mind in cult)
+		cult_mind.current.playsound_local(get_turf(cult_mind.current), 'sound/ambience/antag/bloodcult.ogg',100,0)
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()

@@ -178,6 +178,10 @@
 
 
 /datum/game_mode/proc/greet_traitor(var/datum/mind/traitor)
+	if(istype(traitor.current, /mob/living/silicon))
+		traitor.current.playsound_local(get_turf(traitor.current), 'sound/ambience/antag/malf.ogg',100,0)
+	else
+		traitor.current.playsound_local(get_turf(traitor.current), 'sound/ambience/antag/tatoralert.ogg',100,0)
 	to_chat(traitor.current, "<B><font size=3 color=red>You are the traitor.</font></B>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in traitor.objectives)
