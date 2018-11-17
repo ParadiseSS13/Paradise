@@ -1,4 +1,8 @@
 /datum/configuration
+	// Hispania Configs
+	var/ryzorbot = "http://example.org"
+
+
 	var/server_name = null				// server name (for world name / status)
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
@@ -393,12 +397,15 @@
 
 				if("githuburl")
 					config.githuburl = value
-				
+
 				if("discordurl")
 					config.discordurl = value
-				
+
 				if("donationsurl")
 					config.donationsurl = value
+
+				if("ryzorbot")
+					config.ryzorbot = value
 
 				if("repositoryurl")
 					config.repositoryurl = value

@@ -17,8 +17,8 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 //When sending mutiple assets, how many before we give the client a quaint little sending resources message
 #define ASSET_CACHE_TELL_CLIENT_AMOUNT 8
 
-//When passively preloading assets, how many to send at once? Too high creates noticable lag where as too low can flood the client's cache with "verify" files 
-#define ASSET_CACHE_PRELOAD_CONCURRENT 3 
+//When passively preloading assets, how many to send at once? Too high creates noticable lag where as too low can flood the client's cache with "verify" files
+#define ASSET_CACHE_PRELOAD_CONCURRENT 3
 
 /client
 	var/list/cache = list() // List of all assets sent to this client by the asset cache.
@@ -289,7 +289,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	var/verify = FALSE
 
 /datum/asset/chem_master/register()
-	for(var/i = 1 to MAX_PILL_SPRITE)
+	for(var/i = 1 to 20)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
 	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
