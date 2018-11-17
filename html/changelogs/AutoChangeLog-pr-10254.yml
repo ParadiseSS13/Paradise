@@ -1,0 +1,4 @@
+author: "uc_guy"
+delete-after: True
+changes: 
+  - bugfix: "Syndicate borgs are no longer pseudonymous on syndie radio."
