@@ -216,7 +216,7 @@ proc/issyndicate(mob/living/M as mob)
 
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
-	syndicate.current.playsound_local(get_turf(syndicate.current), 'sound/ambience/antag/ops.ogg',100,0)
+	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
 	if(you_are)
 		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 	var/obj_count = 1
