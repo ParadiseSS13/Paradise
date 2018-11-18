@@ -1881,6 +1881,7 @@
 			ptypes += "Hunter"
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
+			ptypes += "Shamebrero"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -1986,6 +1987,12 @@
 				FC.smiting = TRUE
 				FC.Acquire_Victim(M)
 				logmsg = "floor cluwne"
+			if("Shamebrero")
+				if(H.head)
+					H.unEquip(H.head, TRUE)
+				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
+				H.equip_to_slot_or_del(S, slot_head)
+				logmsg = "shamebrero"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
