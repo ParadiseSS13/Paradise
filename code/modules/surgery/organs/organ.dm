@@ -71,7 +71,7 @@
 		else
 			blood_DNA = list()
 		blood_DNA[dna.unique_enzymes] = dna.b_type
-		dna.species = GLOB.all_species[new_dna.species]
+		dna.species = GLOB.all_species[new_dna.species.name]
 
 /obj/item/organ/proc/necrotize(update_sprite = TRUE)
 	damage = max_damage
