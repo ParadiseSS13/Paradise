@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Added antag alert sounds that play at roundstart for most major antagonists, ported from TG."
