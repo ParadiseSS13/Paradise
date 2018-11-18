@@ -326,6 +326,7 @@
 	icon_state = "hardsuit[on]-[item_color]"
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
+	toggle_hardsuit_mode()
 	on = !on
 	if(on)
 		to_chat(user, "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
@@ -378,7 +379,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
 
-/obj/item/clothing/suit/space/hardsuit/syndi/attack_self(mob/user)
+/obj/item/clothing/suit/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user)
 	on = !on
 	if(on)
 		to_chat(user, "<span class='notice'>You switch your hardsuit to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
