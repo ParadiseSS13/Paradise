@@ -112,12 +112,6 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 				</div>
 				{{/if}}
 				{{if data.occupant.inSurgery}}
-					{{props data}}
-						<div class="line">
-							<div class="floatLeft">{{:key}}</div>
-							<div class="floatRight">{{:value}}</div>
-						</div>
-					{{/props}}
 					{{props data.occupant.surgeries :value :surgeryLoc}}
 						<div class="line">
 							<div class="statusLabel floatLeft">Location: {{:helper.capitalizeFirstLetter(surgeryLoc)}}</div>

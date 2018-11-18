@@ -18,8 +18,8 @@
 	..()
 
 /datum/active_surgery/proc/next_step(mob/user, mob/living/carbon/target)
-	if(step_in_progress)	return
-	to_chat(world, "Trying to do surgery!") // FIXME world print
+	if(step_in_progress)	
+		return
 
 	if(!next_step_to_do) // We're not decided what we'll do next
 		var/obj/item/current_tool = user.get_active_hand()
@@ -34,11 +34,7 @@
 		for(var/thing in next_possible_steps)
 			var/datum/surgery_step/possible_step = new thing
 			if(possible_step.tool_quality(current_tool))
-				to_chat(world, "[current_tool] qualifies for step: '[possible_step]'") // FIXME world print
 				step_candidates[possible_step.name] = thing
-			else
-				to_chat(world, "[current_tool] does not qualify for step: '[possible_step]'") // FIXME world print
-
 			qdel(possible_step)
 
 
@@ -52,10 +48,8 @@
 			var/step_name = step_candidates[1]
 			next_step_to_do = step_candidates[step_name]
 		else
-			to_chat(world, "We couldn't find something to do!") // FIXME world print
 			return 0
 
-	to_chat(world, "We're going to do [initial(next_step_to_do.name)]!") // FIXME world print
 	var/datum/surgery_step/S = new next_step_to_do
 	if(S)
 		if(S.try_op(user, target, user.zone_sel.selecting, user.get_active_hand(), src))
@@ -202,7 +196,6 @@
 						continue
 					var/datum/surgery_step/the_next_step = surgery.steps_stack.get_next_step(S)
 					if(the_next_step && !surgery.next_possible_steps.Find(the_next_step))
-						to_chat(world, "Adding step '[the_next_step]' to the possible steps! [S] is our template surgery!")
 						surgery.next_possible_steps += the_next_step
 
 	if(surgery.steps_stack.is_empty())

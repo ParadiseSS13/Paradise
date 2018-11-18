@@ -1,6 +1,5 @@
 /proc/attempt_initiate_surgery(obj/item/I, mob/living/M, mob/user)
 	if(istype(M))
-		to_chat(world, "Attempting to initiate surgery!") // FIXME remove this
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
 		var/selected_zone = user.zone_sel.selecting
@@ -33,15 +32,12 @@
 
 					var/datum/surgery_step/first_step = S.steps[1]
 					var/datum/surgery_step/temp_reference = new first_step
-					to_chat(world, "Surgery: [S.name], First Step: [temp_reference.name]") // FIXME world print
 					if(possible_first_steps.Find(temp_reference.name))
 						continue
 					if(temp_reference.tool_quality(I) > 0)
 						// Our starter-tool can perform the first step,
 						// let's add this step to the list of ones we can do!
 						possible_first_steps[temp_reference.name] = first_step
-					else
-						to_chat(world, "Surgery: [S.name], Tool incompatible!") // FIXME world print
 					qdel(temp_reference)
 
 				/* This is where I build a list of possible steps
