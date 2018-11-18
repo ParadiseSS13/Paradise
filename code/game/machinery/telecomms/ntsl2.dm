@@ -25,6 +25,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	/* Simple Toggles */
 	var/toggle_activated = TRUE
 	var/toggle_jobs = FALSE
+	var/toggle_job_color = FALSE
+	var/toggle_name_color = FALSE
 	var/toggle_timecode = FALSE
 	var/toggle_command_bold = FALSE
 	// Hack section
@@ -57,6 +59,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	var/list/to_serialize = list(
 		"toggle_activated",
 		"toggle_jobs",
+		"toggle_job_color",
+		"toggle_name_color",
 		"job_indicator_type",
 		"toggle_timecode",
 		"toggle_command_bold",
@@ -71,6 +75,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	var/list/serialize_sanitize = list(
 		"toggle_activated" = "bool",
 		"toggle_jobs" = "bool",
+		"toggle_job_color" = "bool",
+		"toggle_name_color" = "bool",
 		"job_indicator_type" = "string",
 		"toggle_timecode" = "bool",
 		"toggle_command_bold" = "bool",
@@ -92,6 +98,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	/* Simple Toggles */
 	toggle_activated = initial(toggle_activated)
 	toggle_jobs = initial(toggle_jobs)
+	toggle_job_color = initial(toggle_job_color)
+	toggle_name_color = initial(toggle_name_color)
 	toggle_timecode = initial(toggle_timecode)
 	toggle_command_bold = initial(toggle_command_bold)
 	// Hack section
@@ -171,12 +179,10 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		if(firewall.Find(signal.data["name"]))
 			signal.data["reject"] = 1
 
-	// These two stack properly.
-	// Simple job indicator switch.
-	if(job_indicator_type)
-		var/new_name = signal.data["name"]
-		var/job = signal.data["job"]
+	// All job and coloring shit 
+	if(toggle_job_color || toggle_name_color)
 		var/job_color = "#000000"
+		var/job = signal.data["job"]
 		if(job in jobs_ai)
 			job_color = "#FF00FF"
 		else if(job in jobs_command)
@@ -185,7 +191,6 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			job_color = "#A66300"
 		else if(job in jobs_ert)
 			job_color = "#5C5C7C"
-			job = "ERT"
 		else if(job in jobs_medical)
 			job_color = "#009190"
 		else if(job in jobs_science)
@@ -196,18 +201,40 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			job_color = "#7F6539"
 		else if(job in jobs_service)
 			job_color = "#80A000"
-		switch(job_indicator_type)
-			if(JOB_STYLE_1)
-				new_name = signal.data["name"] + " <font color=\"[job_color]\">([job])</font> "
-			if(JOB_STYLE_2)
-				new_name = signal.data["name"] + " - <font color=\"[job_color]\">[job]</font> "
-			if(JOB_STYLE_3)
-				new_name = "<font color=\"[job_color]\"><small>\[[job]\]</small></font> " + signal.data["name"] + " "
-			if(JOB_STYLE_4)
-				new_name = "<font color=[job_color]>([job])</font> " + signal.data["name"] + " "
-		if(toggle_jobs)
-			signal.data["name"] = new_name
-			signal.data["realname"] = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
+		
+	if(toggle_name_color)
+		var/new_name = "<font color=\"[job_color]\">" + signal.data["name"] + "</font>"
+		signal.data["name"] = new_name
+		signal.data["realname"] = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
+
+	if(toggle_jobs)
+		var/new_name = ""
+		var/job = signal.data["job"]
+		if(job in jobs_ert)
+			job = "ERT"
+		if(toggle_job_color)
+			switch(job_indicator_type)
+				if(JOB_STYLE_1)
+					new_name = signal.data["name"] + " <font color=\"[job_color]\">([job])</font> "
+				if(JOB_STYLE_2)
+					new_name = signal.data["name"] + " - <font color=\"[job_color]\">[job]</font> "
+				if(JOB_STYLE_3)
+					new_name = "<font color=\"[job_color]\"><small>\[[job]\]</small></font> " + signal.data["name"] + " "
+				if(JOB_STYLE_4)
+					new_name = "<font color=[job_color]>([job])</font> " + signal.data["name"] + " "
+		else
+			switch(job_indicator_type)
+				if(JOB_STYLE_1)
+					new_name = signal.data["name"] + " ([job]) "
+				if(JOB_STYLE_2)
+					new_name = signal.data["name"] + " - [job] "
+				if(JOB_STYLE_3)
+					new_name = "<small>\[[job]\]</small> " + signal.data["name"] + " "
+				if(JOB_STYLE_4)
+					new_name = "([job]) " + signal.data["name"] + " "
+
+		signal.data["name"] = new_name
+		signal.data["realname"] = new_name // this is required because the broadcaster uses this directly if the speaker doesn't have a voice changer on
 
 	// Add the current station time like a time code.
 	if(toggle_timecode)
