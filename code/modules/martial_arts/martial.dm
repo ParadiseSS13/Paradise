@@ -143,6 +143,7 @@
 /obj/item/plasma_fist_scroll/attack_self(mob/user as mob)
 	if(!ishuman(user))
 		return
+
 	if(!used)
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
@@ -162,6 +163,14 @@
 /obj/item/sleeping_carp_scroll/attack_self(mob/living/carbon/human/user as mob)
 	if(!istype(user) || !user)
 		return
+	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
+		if(user.mind && user.mind.changeling) //Changelings
+			to_chat(user, "We try multiple times, but we are not able to comprehend the contents of the scroll!")
+			return
+		else //Vampires
+			to_chat(user, "Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!")
+			return
+
 	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
 					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
 					However, you are also unable to use any ranged weaponry. \
