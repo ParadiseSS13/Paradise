@@ -166,7 +166,7 @@ Made by Xhuis
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 		if(!victory_warning_announced && (length(shadowling_thralls) >= (required_thralls - 3)))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
-			command_announcement.Announce("Large concentration of psychic redspace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+			command_announcement.Announce("Large concentration of psychic redspace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!", "Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 
 
 		return 1
