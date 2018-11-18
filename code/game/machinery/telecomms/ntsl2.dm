@@ -179,22 +179,22 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		var/job_color = "#000000"
 		if(job in jobs_ai)
 			job_color = "#FF00FF"
-		if(job in jobs_command)
+		else if(job in jobs_command)
 			job_color = "#204090"
-		if(job in jobs_engineering)
+		else if(job in jobs_engineering)
 			job_color = "#A66300"
-		if(job in jobs_ert)
+		else if(job in jobs_ert)
 			job_color = "#5C5C7C"
 			job = "ERT"
-		if(job in jobs_medical)
+		else if(job in jobs_medical)
 			job_color = "#009190"
-		if(job in jobs_science)
+		else if(job in jobs_science)
 			job_color = "#993399F"
-		if(job in jobs_security)
+		else if(job in jobs_security)
 			job_color = "#A30000"
-		if(job in jobs_supply)
+		else if(job in jobs_supply)
 			job_color = "#7F6539"
-		if(job in jobs_service)
+		else if(job in jobs_service)
 			job_color = "#80A000"
 		switch(job_indicator_type)
 			if(JOB_STYLE_1)
