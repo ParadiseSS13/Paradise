@@ -9,19 +9,111 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
  * as well as allowing users to save and load configurations.
  */
 /datum/nttc_configuration
-	// ALL JOBS
-	var/jobs_ai = list("Personal AI", "AI", "Cyborg", "Android", "Robot"); // All Silicon Jobs
-	var/jobs_command = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield"); // All command jobs
-	var/jobs_engineering = list("Chief Engineer", "Station Engineer", "Maintenance Technician", "Engine Technician", "Electrician", "Life Support Specialist", "Atmospheric Technician", "Mechanic"); // All Engineering Jobs
-	var/jobs_ert = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member"); // All ERT Jobs
-	var/jobs_medical = list("Chief Medical Officer", "Medical Doctor", "Surgeon", "Nurse", "Coroner", "Chemist", "Pharmacist", "Pharmacologist", "Virologist", "Pathologist", "Microbiologist", "Psychiatrist", "Psychologist", "Therapist", "Paramedic"); // All Medical Jobs
-	var/jobs_science = list("Research Director", "Geneticist", "Scientist", "Xenoarcheologist", "Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher", "Roboticist", "Biomechanical Engineer", "Mechatronic Engineer"); // All Science Jobs
-	var/jobs_security = list("Internal Affairs Agent", "Human Resources Agent", "Head of Security", "Warden", "Detective", "Magistrate", "Forensic Technician", "Security Officer", "Brig Physician", "Security Pod Pilot"); // All Security Jobs
-	var/jobs_supply = list("Quartermaster", "Cargo Technician", "Shaft Miner", "Spelunker"); // All Supply Jobs
-	var/jobs_service = list("Bartender", "Chef", "Cook", "Culinary Artist", "Butcher", "Botanist", "Hydroponicist", "Botanical Researcher", "Clown", "Mime", "Janitor", "Custodial Technician", "Librarian", "Journalist", "Barber", "Hair Stylist", "Beautician", "Chaplain"); // All Service/Support Jobs
-
+	// ALL OF THE JOB CRAP
+	// Dict of all jobs and their colors
+	var/all_jobs = list(
+		// AI
+		"AI" = "#FF00FF",
+		"Android" = "#FF00FF",
+		"Cyborg" = "#FF00FF",
+		"Personal AI" = "#FF00FF",
+		"Robot" = "#FF00FF",
+		// Civilian + Varients
+		"Assistant" = "#408010",
+		"Businessman" = "#408010",
+		"Civilian" = "#408010",
+		"Tourist" = "#408010",
+		"Trader" = "#408010",
+		// Command (Solo command, not department heads)
+		"Blueshield" = "#204090",
+		"Captain" = "#204090",
+		"Head of Personnel" = "#204090",
+		"Nanotrasen Representative" = "#204090",
+		// Engineeering
+		"Atmospheric Technician" = "#A66300",
+		"Chief Engineer" = "#A66300",
+		"Electrician" = "#A66300",
+		"Engine Technician" = "#A66300",
+		"Life Support Specialist" = "#A66300",
+		"Maintenance Technician" = "#A66300",
+		"Mechanic" = "#A66300",
+		"Station Engineer" = "#A66300",
+		// ERT
+		"Emergency Response Team Engineer" = "#5C5C7C",
+		"Emergency Response Team Leader" = "#5C5C7C",
+		"Emergency Response Team Medic" = "#5C5C7C",
+		"Emergency Response Team Member" = "#5C5C7C",
+		"Emergency Response Team Officer" = "#5C5C7C",
+		// Medical
+		"Chemist" = "#009190",
+		"Chief Medical Officer" = "#009190",
+		"Coroner" = "#009190",
+		"Medical Doctor" = "#009190",
+		"Microbiologist" = "#009190",
+		"Nurse" = "#009190",
+		"Paramedic" = "#009190",
+		"Pharmacologist" = "#009190",
+		"Pharmacist" = "#009190",
+		"Psychiatrist" = "#009190",
+		"Psychologist" = "#009190",
+		"Surgeon" = "#009190",
+		"Therapist" = "#009190",
+		"Virologist" = "#009190",
+		// Science
+		"Anomalist" = "#993399",
+		"Biomechanical Engineer" = "#993399",
+		"Chemical Researcher" = "#993399",
+		"Geneticist" = "#993399",
+		"Mechatronic Engineer" = "#993399",
+		"Plasma Researcher" = "#993399",
+		"Research Director" = "#993399",
+		"Roboticist" = "#993399",
+		"Scientist" = "#993399",
+		"Xenoarcheologist" = "#993399",
+		"Xenobiologist" = "#993399",
+		// Security
+		"Brig Physician" = "#A30000",
+		"Detective" = "#A30000",
+		"Forensic Technician" = "#A30000",
+		"Head of Security" = "#A30000",
+		"Human Resources Agent" = "#A30000",
+		"Internal Affairs Agent" = "#A30000",
+		"Magistrate" = "#A30000",
+		"Security Officer" = "#A30000",
+		"Security Pod Pilot" = "#A30000",
+		"Warden" = "#A30000",
+		// Supply
+		"Quartermaster" = "#7F6539",
+		"Cargo Technician" = "#7F6539",
+		"Shaft Miner" = "#7F6539",
+		"Spelunker" = "#7F6539",
+		// Service
+		"Barber" = "#80A000",
+		"Bartender" = "#80A000",
+		"Beautician" = "#80A000",
+		"Botanical Researcher" = "#80A000",
+		"Botanist" = "#80A000",
+		"Butcher" = "#80A000",
+		"Chaplain" = "#80A000",
+		"Chef" = "#80A000",
+		"Clown" = "#80A000",
+		"Cook" = "#80A000",
+		"Culinary Artist" = "#80A000",
+		"Custodial Technician" = "#80A000",
+		"Hair Stylist" = "#80A000",
+		"Hydroponicist" = "#80A000",
+		"Janitor" = "#80A000",
+		"Journalist" = "#80A000",
+		"Librarian" = "#80A000",
+		"Mime" = "#80A000",
+	)
 	// Just command members
 	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security")
+	// Just ERT
+	var/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
+	// Defined so code compiles and incase someone has a non-standard job
+	var/job_color = "#000000"
+	// NOW FOR ACTUAL TOGGLES
 	/* Simple Toggles */
 	var/toggle_activated = TRUE
 	var/toggle_jobs = FALSE
@@ -181,26 +273,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 
 	// All job and coloring shit 
 	if(toggle_job_color || toggle_name_color)
-		var/job_color = "#000000"
 		var/job = signal.data["job"]
-		if(job in jobs_ai)
-			job_color = "#FF00FF"
-		else if(job in jobs_command)
-			job_color = "#204090"
-		else if(job in jobs_engineering)
-			job_color = "#A66300"
-		else if(job in jobs_ert)
-			job_color = "#5C5C7C"
-		else if(job in jobs_medical)
-			job_color = "#009190"
-		else if(job in jobs_science)
-			job_color = "#993399F"
-		else if(job in jobs_security)
-			job_color = "#A30000"
-		else if(job in jobs_supply)
-			job_color = "#7F6539"
-		else if(job in jobs_service)
-			job_color = "#80A000"
+		job_color = all_jobs[job]
 		
 	if(toggle_name_color)
 		var/new_name = "<font color=\"[job_color]\">" + signal.data["name"] + "</font>"
@@ -210,7 +284,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	if(toggle_jobs)
 		var/new_name = ""
 		var/job = signal.data["job"]
-		if(job in jobs_ert)
+		if(job in ert_jobs)
 			job = "ERT"
 		if(toggle_job_color)
 			switch(job_indicator_type)
@@ -245,7 +319,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	// Makes heads of staff bold
 	if(toggle_command_bold)
 		var/job = signal.data["job"]
-		if((job in jobs_ert) || (job in heads))
+		if((job in ert_jobs) || (job in heads))
 			signal.data["message"] = "<b>" + signal.data["message"] + "</b>"
 
 	// Hacks!
