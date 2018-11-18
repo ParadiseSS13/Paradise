@@ -51,7 +51,7 @@ Made by Xhuis
 	var/shadowling_ascended = 0 //If at least one shadowling has ascended
 	var/shadowling_dead = 0 //is shadowling kill
 	var/objective_explanation
-
+	var/victory_warning_announced = FALSE
 
 /proc/is_thrall(var/mob/living/M)
 	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.shadowling_thralls)
@@ -164,6 +164,10 @@ Made by Xhuis
 		to_chat(new_thrall_mind.current, "<span class='shadowling'>You may communicate with your allies by speaking in the Shadowling Hivemind (:8).</span>")
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
+		if(!victory_warning_announced && (length(shadowling_thralls) >= (required_thralls - 3)))//are the slings very close to winning?
+			victory_warning_announced = TRUE	//then let's give the station a warning
+			command_announcement.Announce("Large concentration of psychic redspace energy detected by long-ranged scanners. Shadowling ascension event imminent. Prevent it at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+
 
 		return 1
 
