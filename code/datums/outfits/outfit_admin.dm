@@ -257,7 +257,7 @@
 
 /datum/outfit/admin/nt_undercover
 	name = "NT Undercover Operative"
-	// Disguised NT special forces, sent to quietly eliminate mutinous people in high positions (e.g: captain)
+	// Disguised NT special forces, sent to quietly eliminate or keep tabs on people in high positions (e.g: captain)
 
 	uniform = /obj/item/clothing/under/color/black
 	back = /obj/item/storage/backpack
@@ -291,7 +291,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Civilian")
+		apply_to_card(I, H, get_centcom_access("NT Undercover Operative"), "Civilian")
 	H.sec_hud_set_ID() // Force it to show as Civ on sec huds
 
 	var/obj/item/radio/R = H.l_ear
