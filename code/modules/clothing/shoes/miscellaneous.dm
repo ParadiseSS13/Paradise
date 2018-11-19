@@ -10,6 +10,12 @@
 	var/list/clothing_choices = list()
 	silence_steps = 1
 
+/obj/item/clothing/shoes/syndigaloshes/black
+	name = "black shoes"
+	icon_state = "black"
+	item_color = "black"
+	desc = "A pair of black shoes. They seem to have extra grip."
+
 /obj/item/clothing/shoes/mime
 	name = "mime shoes"
 	icon_state = "mime"
