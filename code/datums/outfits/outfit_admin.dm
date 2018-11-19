@@ -427,7 +427,10 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
-		/obj/item/grenade/clown_grenade = 1
+		/obj/item/grenade/clown_grenade = 1,
+		/obj/item/melee/baton/cattleprod = 1,
+		/obj/item/stock_parts/cell/super = 1,
+		/obj/item/bikehorn/rubberducky = 1
 	)
 
 /datum/outfit/admin/tunnel_clown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -487,6 +490,7 @@
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
 		apply_to_card(I, H, list(access_mime, access_theatre, access_maint_tunnels), "Mime")
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/greytide
 	name = "Greytide"
@@ -597,8 +601,9 @@
 	if(istype(I))
 		apply_to_card(I, H, list(access_maint_tunnels), "Bard")
 
-
-
+	var/obj/item/clothing/ears/headphones/P = r_ear
+	if(istype(P))
+		P.attack_self(H) // activate them, display musical notes effect
 
 /datum/outfit/admin/soviet
 
@@ -1050,8 +1055,8 @@
 /datum/outfit/admin/ancient_vampire
 	name = "Ancient Vampire"
 
-	uniform = /obj/item/clothing/under/color/black
-	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
+	uniform = /obj/item/clothing/under/victsuit/red
+	suit = /obj/item/clothing/suit/draculacoat
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/syndigaloshes/black
@@ -1060,6 +1065,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
+		/obj/item/clothing/under/color/black = 1
 	)
 
 /datum/outfit/admin/ancient_vampire/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1067,10 +1073,11 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = H.wear_suit
+	var/obj/item/clothing/suit/hooded/chaplain_hoodie/C = new(H.loc)
 	if(istype(C))
 		C.name = "ancient robes"
 		C.hood.name = "ancient hood"
+		H.equip_to_slot_or_del(C, slot_in_backpack)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
@@ -1080,10 +1087,17 @@
 		if(!H.mind.vampire)
 			H.make_vampire()
 			if(H.mind.vampire)
-				H.mind.vampire.bloodusable = 999
-				H.mind.vampire.bloodtotal = 999
+				H.mind.vampire.bloodusable = 9999
+				H.mind.vampire.bloodtotal = 9999
 				H.mind.vampire.check_vampire_upgrade(0)
-
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/bats)
+				to_chat(H, "You have gained the ability to shapeshift into bat form. While capable of basic self defense, you cannot use your other abilities in that form.")
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
+				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
+				H.dna.SetSEState(JUMPBLOCK, 1)
+				genemutcheck(H, JUMPBLOCK,  null, MUTCHK_FORCED)
+				H.update_mutations()
+				H.gene_stability = 100
 
 /datum/outfit/admin/wizard
 	name = "Blue Wizard"
