@@ -1,0 +1,5 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - tweak: "Brings the logging of plasma statue ignition up to the same spec at as welder tank explosions."
+  - bugfix: "You can no longer ignite plasma statues with disablers."
