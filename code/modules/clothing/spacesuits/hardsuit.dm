@@ -100,7 +100,6 @@
 	var/obj/item/clothing/shoes/magboots/boots = null // Deployable boots, if any.
 	var/attached_helmet = 1                           // Can't wear a helmet if one is deployable.
 	var/obj/item/clothing/head/helmet/helmet = null   // Deployable helmet, if any.
-	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
 
 	var/list/max_mounted_devices = 0                  // Maximum devices. Easy.
 	var/list/can_mount = null                         // Types of device that can be hardpoint mounted.
@@ -117,16 +116,6 @@
 	spawn(1)	//to ensure the slot is set before we continue
 		if(H.wear_suit != src)
 			return
-
-		if(attached_helmet && helmet)
-			if(H.head)
-				to_chat(M, "You are unable to deploy your suit's helmet as \the [H.head] is in the way.")
-			else
-				to_chat(M, "Your suit's helmet deploys with a hiss.")
-				//TODO: Species check, skull damage for forcing an unfitting helmet on?
-				helmet.forceMove(H)
-				H.equip_to_slot(helmet, slot_head)
-				helmet.flags |= NODROP
 
 		if(attached_boots && boots)
 			if(H.shoes)
@@ -228,6 +217,7 @@
 			user.drop_item()
 			W.loc = src
 			src.helmet = W
+
 		return
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
@@ -318,6 +308,7 @@
 	item_color = "syndi"
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	on = 1
+	var/obj/item/clothing/suit/space/hardsuit/syndi/linkedsuit = null
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDETAIL
@@ -325,8 +316,12 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
 
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize()
+		. = ..()
+	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/syndi))
+		linkedsuit = loc
+
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
-	toggle_hardsuit_mode()
 	on = !on
 	if(on)
 		to_chat(user, "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
@@ -349,7 +344,34 @@
 
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
+	toggle_hardsuit_mode()
 	user.update_inv_head()
+
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
+	if(linkedsuit)
+		if(on)
+			linkedsuit.name = initial(linkedsuit.name)
+			linkedsuit.desc = initial(linkedsuit.desc)
+			linkedsuit.slowdown = 1
+			linkedsuit.flags |= BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
+			linkedsuit.flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+		else
+			linkedsuit.name += " (combat)"
+			linkedsuit.desc = linkedsuit.alt_desc
+			linkedsuit.slowdown = 0
+			linkedsuit.flags &= ~BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
+			linkedsuit.cold_protection &= ~(UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS)
+			linkedsuit.flags_inv &= ~(HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL)
+
+		linkedsuit.icon_state = "hardsuit[on]-[item_color]"
+		linkedsuit.update_icon()
+		user.update_inv_wear_suit()
+		user.update_inv_w_uniform()
 
 	for(var/X in actions)
 		var/datum/action/A = X
@@ -367,6 +389,7 @@
 /obj/item/clothing/suit/space/hardsuit/syndi
 	name = "blood-red hardsuit"
 	desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
+	alt_desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
 	icon_state = "hardsuit1-syndi"
 	item_state = "syndie_hardsuit"
 	item_color = "syndi"
@@ -378,34 +401,6 @@
 
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
-
-/obj/item/clothing/suit/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user)
-	on = !on
-	if(on)
-		to_chat(user, "<span class='notice'>You switch your hardsuit to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
-		name = "blood-red hardsuit"
-		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in travel mode. Property of Gorlex Marauders."
-		slowdown = 1
-		flags = STOPSPRESSUREDMAGE | THICKMATERIAL
-		flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
-		cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	else
-		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode. You will take damage in zero pressure environments, but you are more suited for a fight.</span>")
-		name = "blood-red hardsuit (combat)"
-		desc = "A dual-mode advanced hardsuit designed for work in special operations. It is in combat mode. Property of Gorlex Marauders."
-		slowdown = 0
-		flags = THICKMATERIAL
-		flags_inv = null
-		cold_protection = null
-
-	update_icon()
-	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
-	user.update_inv_wear_suit()
-	user.update_inv_w_uniform()
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
 
 //Elite Syndie suit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite
