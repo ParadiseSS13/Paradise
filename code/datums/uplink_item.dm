@@ -760,8 +760,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Unable to be understood by vampire and changeling agents."
 	reference = "SCS"
 	item = /obj/item/sleeping_carp_scroll
+	refund_path = /obj/item/sleeping_carp_scroll
 	cost = 17
 	excludefrom = list(/datum/game_mode/nuclear)
+	refundable = TRUE
 
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
