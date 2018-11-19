@@ -349,7 +349,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		var/new_message = original
 		for(var/reg in regex)
 			var/replacePattern = pencode_to_html(regex[reg])
-			var/regex/start = regex("\\b[reg]\\b", "gi")
+			var/regex/start = regex("[reg]", "gi")
 			new_message = start.Replace(new_message, replacePattern)
 		signal.data["message"] = new_message
 
