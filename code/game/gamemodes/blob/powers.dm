@@ -34,7 +34,7 @@
 /mob/camera/blob/verb/create_shield_power()
 	set category = "Blob"
 	set name = "Create Shield Blob (10)"
-	set desc = "Create a shield blob. "
+	set desc = "Create a shield blob."
 
 	var/turf/T = get_turf(src)
 	create_shield(T)
