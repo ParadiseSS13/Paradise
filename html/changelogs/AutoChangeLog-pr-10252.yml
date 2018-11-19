@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Added several new admin options for fax responses, blessings, and smiting."
