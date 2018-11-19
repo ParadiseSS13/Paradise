@@ -165,10 +165,10 @@
 		return
 	if(user.mind && (user.mind.changeling || user.mind.vampire)) //Prevents changelings and vampires from being able to learn it
 		if(user.mind && user.mind.changeling) //Changelings
-			to_chat(user, "We try multiple times, but we are not able to comprehend the contents of the scroll!")
+			to_chat(user, "<span class ='warning'>We try multiple times, but we are not able to comprehend the contents of the scroll!</span>")
 			return
 		else //Vampires
-			to_chat(user, "Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!")
+			to_chat(user, "<span class ='warning'>Your blood lust distracts you too much to be able to concentrate on the contents of the scroll!</span>")
 			return
 
 	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
