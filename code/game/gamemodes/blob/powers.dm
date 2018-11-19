@@ -34,7 +34,7 @@
 /mob/camera/blob/verb/create_shield_power()
 	set category = "Blob"
 	set name = "Create Shield Blob (10)"
-	set desc = "Create a shield blob."
+	set desc = "Create a shield blob. "
 
 	var/turf/T = get_turf(src)
 	create_shield(T)
@@ -59,7 +59,35 @@
 
 	return
 
+/mob/camera/blob/verb/upgrade_shield()
+	set category = "Blob"
+	set name = "Upgrade Shield Blob (20)"
+	set desc = "Using this on an existing shield blob turns it into a reflective blob, capable of reflecting most energy projectiles but making it much weaker than usual to brute attacks."
+	
+	var/turf/T = get_turf(src)
+	
+	var/obj/structure/blob/shield/S = locate(/obj/structure/blob/shield) in T
+	if(S)
+	
+		if(!can_buy(20))
+			return
 
+		if(S.health < S.maxHealth * 0.5)
+			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
+			return
+			
+		if(istype(S, /obj/structure/blob/shield/reflective))
+			to_chat(src, "<span class='warning'>There's already a reflector blob here!</span>")
+			return
+			
+		to_chat(src, "<span class='warning'>You secrete a reflective ooze over the shield blob, allowing it to reflect energy projectiles at the cost of reduced intregrity.</span>")
+		
+		S.change_to(/obj/structure/blob/shield/reflective)
+		S.color = blob_reagent_datum.color
+		
+	else
+		to_chat(src, "<span class='warning'>There is no shield blob here!</span>")
+	return
 
 /mob/camera/blob/verb/create_resource()
 	set category = "Blob"
