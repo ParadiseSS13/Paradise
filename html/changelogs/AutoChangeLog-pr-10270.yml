@@ -1,5 +1,0 @@
-author: "Citinited"
-delete-after: True
-changes: 
-  - tweak: "Alt-clicking a jumpsuit removes accessories from it"
-  - tweak: "Removing an accessory now shows a small message"

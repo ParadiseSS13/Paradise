@@ -1,4 +1,0 @@
-author: "Birdtalon"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a runtime in safe.dm"
