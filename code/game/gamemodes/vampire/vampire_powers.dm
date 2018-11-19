@@ -553,26 +553,25 @@
 	sound = 'sound/magic/WandODeath.ogg'
 
 /obj/effect/proc_holder/spell/targeted/raise_vampires/cast(list/targets, mob/user = usr)
-	var/raised_count = 0
 	new /obj/effect/temp_visual/cult/sparks(user.loc)
 	var/turf/T = get_turf(user)
 	to_chat(user, "<span class='warning'>You call out within bluespace, summoning more vampiric spirits to aid you!</span>")
 	for(var/mob/living/carbon/human/H in targets)
 		T.Beam(H, "sendbeam", 'icons/effects/effects.dmi', time=30, maxdistance=7, beam_type=/obj/effect/ebeam)
 		new /obj/effect/temp_visual/cult/sparks(H.loc)
-		raised_count += H.raise_vampire(user)
+		H.raise_vampire(user)
 
 
 /mob/living/carbon/human/proc/raise_vampire(var/mob/M)
 	if(!istype(M))
 		log_debug("human/proc/raise_vampire called with invalid argument.")
-		return 0
+		return
 	if(!mind)
 		visible_message("[src] looks to be too stupid to understand what is going on.")
-		return 0
+		return
 	if(dna && (NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !blood_volume)
 		visible_message("[src] looks unfazed!")
-		return 0
+		return
 	if(mind.vampire || mind.special_role == SPECIAL_ROLE_VAMPIRE || mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
 		visible_message("<span class='notice'>[src] looks refreshed!</span>")
 		adjustBruteLoss(-60)
@@ -581,7 +580,7 @@
 			if(prob(25))
 				if(E.mend_fracture())
 					E.perma_injury = 0
-		return 0
+		return
 	if(stat != DEAD)
 		if(weakened)
 			visible_message("<span class='warning'>[src] looks to be in pain!</span>")
@@ -589,7 +588,7 @@
 		else
 			visible_message("<span class='warning'>[src] looks to be stunned by the energy!</span>")
 			Weaken(20)
-		return 0
+		return
 	for(var/obj/item/implant/mindshield/L in src)
 		if(L && L.implanted)
 			qdel(L)
@@ -606,4 +605,3 @@
 	mind.make_Vampire()
 	revive()
 	Weaken(20)
-	return 1
