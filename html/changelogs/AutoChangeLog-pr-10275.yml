@@ -1,4 +1,0 @@
-author: "craftxbox"
-delete-after: True
-changes: 
-  - bugfix: "add observer/incapacitated check for all sec/medhud actions"

@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Tweaked many of the special admin outfits. This means centcom officers are less likely to be seen wielding illegal syndicate gear, and subtle flaws with many other outfits (such as pirates lacking radio, singulo knights lacking a backpack, several outfits not showing up on secHUDs correctly, etc etc etc) have been addressed."
