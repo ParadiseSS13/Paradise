@@ -379,34 +379,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Vox Armalis", "syndie")
 
-
-/datum/outfit/admin/unathibreacher
-	name = "Unathi Breacher"
-	uniform = /obj/item/clothing/under/syndicate/combat
-	suit = /obj/item/clothing/suit/space/unathi/breacher
-	back = /obj/item/storage/backpack
-	gloves = /obj/item/clothing/gloves/color/yellow
-	shoes = /obj/item/clothing/shoes/magboots
-	head = /obj/item/clothing/head/helmet/space/unathi/breacher
-	mask = /obj/item/clothing/mask/gas
-	l_ear = /obj/item/radio/headset
-	id = /obj/item/card/id
-	l_pocket = /obj/item/melee/classic_baton/telescopic
-	backpack_contents = list(
-		/obj/item/storage/box/survival = 1,
-		/obj/item/flashlight = 1
-	)
-
-/datum/outfit/admin/unathibreacher/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-
-	var/obj/item/card/id/I = H.wear_id
-	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Unathi Breacher")
-
-
 /datum/outfit/admin/tunnel_clown
 	name = "Tunnel Clown"
 
