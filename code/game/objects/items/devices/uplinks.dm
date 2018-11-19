@@ -65,6 +65,8 @@ var/list/world_uplinks = list()
 		category_items = 0
 
 		for(var/datum/uplink_item/I in uplink_items[category])
+			if(I.limited_stock == 0)
+				continue
 			if(I.cost > uses)
 				continue
 			if(I.job && I.job.len)
@@ -90,6 +92,8 @@ var/list/world_uplinks = list()
 	for(var/category in uplink_items)
 		nano[++nano.len] = list("Category" = category, "items" = list())
 		for(var/datum/uplink_item/I in uplink_items[category])
+			if(I.limited_stock == 0)
+				continue
 			if(I.job && I.job.len)
 				if(!(I.job.Find(job)))
 					continue

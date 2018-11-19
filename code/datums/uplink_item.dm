@@ -2,6 +2,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /proc/get_uplink_items(var/job = null)
 	var/list/uplink_items = list()
+	var/list/sales_items = list()
 	if(!uplink_items.len)
 
 		var/list/last = list()
@@ -22,12 +23,34 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
+			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
+				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
 			if(!uplink_items[I.category])
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
+
+	for(var/i in 1 to 3)
+		var/datum/uplink_item/I = pick_n_take(sales_items)
+		var/datum/uplink_item/A = new I.type
+		var/discount = 0.5
+		A.limited_stock = 1
+		I.refundable = FALSE
+		A.refundable = FALSE
+		if(A.cost >= 20)
+			discount *= 0.5
+		A.cost = max(round(A.cost * discount),1)
+		A.category = "Discounted Gear"
+		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+		A.desc += " Only [A.limited_stock] in stock. Normally costs [initial(A.cost)] TC. All sales final"
+		A.item = I.item
+
+		if(!uplink_items[A.category])
+			uplink_items[A.category] = list()
+
+		uplink_items[A.category] += A
 
 	return uplink_items
 
@@ -51,21 +74,27 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
+	var/cant_discount = FALSE
+	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
+
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
 			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
 			return
+
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
+		limited_stock--
 		feedback_add_details("traitor_uplink_items_bought", name)
 		return new item(loc)
+
 
 /datum/uplink_item/proc/description()
 	if(!desc)
@@ -117,8 +146,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 */
 //Work in Progress, job specific antag tools
 
+//Discounts (dynamically filled above)
+
+/datum/uplink_item/discounts
+	category = "Discounted Gear"
+
+//Job specific gear
+
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
+	cant_discount = TRUE
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -1483,6 +1520,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE // You fucking wish
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
