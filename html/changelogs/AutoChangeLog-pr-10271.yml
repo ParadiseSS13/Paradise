@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - rscadd: "A warning if slings are very close to ascension, so the crew can potentially still stop them"
