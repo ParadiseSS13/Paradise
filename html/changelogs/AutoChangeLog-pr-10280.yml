@@ -1,5 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - tweak: "Silencers now have a tech origin, give research levels when deconstructed"
-  - tweak: "Moved gun attachments to their own folder, code-wise."
