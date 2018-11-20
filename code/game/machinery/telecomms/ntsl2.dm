@@ -427,7 +427,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			var/list/array = vars[href_list["array"]]
 			array.Add(new_value)
 			to_chat(user, "<span class='notice'>Added row [new_value].</span>")
-			log_action(user, "updated [href_list["array"]] - new value [new_value]")
+			log_action(user, "updated [href_list["array"]] - new value [new_value]", TRUE)
 
 	if(href_list["delete_item"])
 		if(href_list["array"] && href_list["array"] in arrays)
