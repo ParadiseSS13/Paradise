@@ -17,23 +17,23 @@
 		return FALSE
 	if(findtext(streak,SLAM_COMBO))
 		streak = ""
-		Slam(A,D)
+		Slam(A, D)
 		return TRUE
 	if(findtext(streak,KICK_COMBO))
 		streak = ""
-		Kick(A,D)
+		Kick(A, D)
 		return TRUE
 	if(findtext(streak,RESTRAIN_COMBO))
 		streak = ""
-		Restrain(A,D)
+		Restrain(A, D)
 		return TRUE
 	if(findtext(streak,PRESSURE_COMBO))
 		streak = ""
-		Pressure(A,D)
+		Pressure(A, D)
 		return TRUE
 	if(findtext(streak,CONSECUTIVE_COMBO))
 		streak = ""
-		Consecutive(A,D)
+		Consecutive(A, D)
 	return FALSE
 
 /datum/martial_art/cqc/proc/Slam(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -95,7 +95,7 @@
 							"<span class='userdanger'>[A] strikes your abdomen, neck and back consecutively!</span>")
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 		var/obj/item/I = D.get_active_hand()
-		if(I &&  D.drop_item())
+		if(I && D.drop_item())
 			A.put_in_hands(I)
 		D.adjustStaminaLoss(50)
 		D.apply_damage(25, BRUTE)
@@ -104,10 +104,10 @@
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	add_to_streak("G",D)
-	if(check_streak(A,D))
+	add_to_streak("G", D)
+	if(check_streak(A, D))
 		return TRUE
-	var/obj/item/grab/G = D.grabbedby(A,1)
+	var/obj/item/grab/G = D.grabbedby(A, 1)
 	if(G)
 		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
 	return TRUE
@@ -115,8 +115,8 @@
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	add_to_streak("H",D)
-	if(check_streak(A,D))
+	add_to_streak("H", D)
+	if(check_streak(A, D))
 		return TRUE
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC'd", "Big Bossed")
@@ -142,9 +142,9 @@
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	add_to_streak("D",D)
+	add_to_streak("D", D)
 	var/obj/item/I = null
-	if(check_streak(A,D))
+	if(check_streak(A, D))
 		return TRUE
 	if(prob(65))
 		if(!D.stat || !D.weakened || !restraining)
