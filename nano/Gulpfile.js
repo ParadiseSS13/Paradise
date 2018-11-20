@@ -30,8 +30,6 @@ const output = {
 /* Dependencies */
 var bower         = require("main-bower-files");
 var child_process = require("child_process");
-var fs            = require("fs");
-var path          = require("path");
 var del           = require("del");
 var gulp          = require("gulp");
 var merge         = require("merge-stream");
@@ -52,7 +50,7 @@ const glob = function (path) {
 	return `${path}/*`;
 };
 
-var minify = ((process.env.NODE_ENV || 'development').trim().toLowerCase() === 'production');
+var minify = util.env["min"];
 
 /*------Task Section------*/
 
@@ -60,9 +58,7 @@ var minify = ((process.env.NODE_ENV || 'development').trim().toLowerCase() === '
  * Type: Default/Main
  * Just runs the rest of the compilation tasks.
  */
-gulp.task("default", ["fonts", "scripts", "styles"], function () {
-	console.log("Finished...", (minify ? "With minification" : ""))
-});
+gulp.task("default", ["fonts", "scripts", "styles"]);
 
 /* Task: Clean
  * Type: Dependency. 
@@ -95,40 +91,11 @@ gulp.task("watch", function () {
  * Run whenever a file is changed. Recompiles and pushes all changes directly to the local BYOND client cache.
  */
 gulp.task("reload", ["default"], function () {
-	child_process.exec("reload.bat", function (err, stdout) {
-		if (err)
-			throw err;
-
-		var byond_cache = path.join(stdout.trim(), "BYOND", "cache");
-		var files = fs.readdirSync(byond_cache);
-		for (let file of files) {
-			let filepath = path.join(byond_cache, file);
-			let stats = fs.statSync(filepath)
-			if (file.startsWith("tmp") && stats.isDirectory()) {
-				var tmpFiles = fs.readdirSync(filepath);
-				if (tmpFiles.includes(output.scripts.main)) {
-					setTimeout(function () {transfer_files(filepath)}, 500);
-				}
-			}
-		}
+	child_process.exec("reload.bat", function (err, stdout, stderr) {
+		if(err)
+			return console.log(err);
 	});
 });
-
-function transfer_files(target) {
-	let transfer = [input.images, input.layouts, input.templates, output._dir];
-	for (let trf of transfer) {
-		let files = fs.readdirSync(trf)
-		for (let file of files) {
-			let fileData = fs.statSync(path.join(trf, file))
-			if (fileData.isFile())
-				transfer_file(path.join(trf, file), path.join(target, file))
-		}
-	}
-}
-
-function transfer_file(input, target) {
-	fs.createReadStream(input).pipe(fs.createWriteStream(target))
-}
 
 /*---Buildtasks---*/
 
