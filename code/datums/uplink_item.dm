@@ -419,6 +419,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "RPGD"
 	item = /obj/item/clothing/gloves/fingerless/rapid
 	cost = 8
+	excludefrom = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/dangerous/sniper
 	name = "Sniper Rifle"
@@ -763,6 +764,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 17
 	excludefrom = list(/datum/game_mode/nuclear)
 	refundable = TRUE
+
+/datum/uplink_item/stealthy_weapons/cqc
+	name = "CQC Manual"
+	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing."
+	reference = "CQC"
+	item = /obj/item/CQC_manual
+	gamemodes = list(/datum/game_mode/nuclear)
+	cost = 8
+	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"

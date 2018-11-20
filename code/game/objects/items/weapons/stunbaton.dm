@@ -166,6 +166,8 @@
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
+		if(check_martial_counter(L, user))
+			return
 		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/Genhit.ogg', 50, 1)
 			return
