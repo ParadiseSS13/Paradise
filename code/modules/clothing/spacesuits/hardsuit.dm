@@ -117,6 +117,16 @@
 		if(H.wear_suit != src)
 			return
 
+		if(attached_helmet && helmet)
+			if(H.head)
+				to_chat(M, "You are unable to deploy your suit's helmet as \the [H.head] is in the way.")
+			else
+				to_chat(M, "Your suit's helmet deploys with a hiss.")
+				//TODO: Species check, skull damage for forcing an unfitting helmet on?
+				helmet.forceMove(H)
+				H.equip_to_slot(helmet, slot_head)
+				helmet.flags |= NODROP
+
 		if(attached_boots && boots)
 			if(H.shoes)
 				to_chat(M, "You are unable to deploy your suit's magboots as \the [H.shoes] are in the way.")
@@ -217,7 +227,10 @@
 			user.drop_item()
 			W.loc = src
 			src.helmet = W
-			helmet:link_suit()
+			var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
+			S.loc = src
+			helmet = S
+			S.link_suit()
 		return
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
