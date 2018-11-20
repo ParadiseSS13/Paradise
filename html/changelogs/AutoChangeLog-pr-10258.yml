@@ -1,8 +1,0 @@
-author: "AffectedArc07"
-delete-after: True
-changes: 
-  - rscadd: "NTTC now has multiple job tag styles"
-  - rscadd: "NTTC now has option to make job tags colored"
-  - rscadd: "NTTC now has option to make nametags colored"
-  - rscadd: "NTTC now has options to make command members louder (bold)"
-  - spellcheck: "The NTTC window title is no longer NTSL."
