@@ -217,7 +217,7 @@
 			user.drop_item()
 			W.loc = src
 			src.helmet = W
-			helmet.link_suit()
+			helmet:link_suit()
 		return
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
@@ -344,7 +344,7 @@
 
 	update_icon()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
-	toggle_hardsuit_mode()
+	toggle_hardsuit_mode(user)
 	user.update_inv_head()
 
 	for(var/X in actions)
@@ -357,18 +357,17 @@
 			linkedsuit.name = initial(linkedsuit.name)
 			linkedsuit.desc = initial(linkedsuit.desc)
 			linkedsuit.slowdown = 1
-			linkedsuit.flags |= BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
+			linkedsuit.flags |= BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
 			linkedsuit.flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 		else
 			linkedsuit.name += " (combat)"
 			linkedsuit.desc = linkedsuit.alt_desc
 			linkedsuit.slowdown = 0
-			linkedsuit.flags &= ~BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL | NODROP
+			linkedsuit.flags = THICKMATERIAL
 			linkedsuit.cold_protection &= ~(UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS)
 			linkedsuit.flags_inv &= ~(HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL)
 
-		linkedsuit.icon_state = "hardsuit[on]-[item_color]"
 		linkedsuit.update_icon()
 		user.update_inv_wear_suit()
 		user.update_inv_w_uniform()
