@@ -33,7 +33,7 @@
 	if(P.is_reflectable && prob(reflect_chance) && !istype(P, /obj/item/projectile/beam/pulse))
 		var/P_turf = get_turf(P)
 		var/face_direction = get_dir(src, P_turf)
-		var.face_angle = dir2angle(face_direction)
+		var/face_angle = dir2angle(face_direction)
 		var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
 		if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
 			return FALSE
