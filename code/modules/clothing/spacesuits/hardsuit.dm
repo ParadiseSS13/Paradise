@@ -217,7 +217,7 @@
 			user.drop_item()
 			W.loc = src
 			src.helmet = W
-
+			helmet.link_suit()
 		return
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
@@ -316,9 +316,9 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize()
-		. = ..()
-	if(istype(loc, /obj/item/clothing/suit/space/hardsuit/syndi))
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/link_suit()
+	. = ..()
+	if(istype(loc,/obj/item/clothing/suit/space/hardsuit/syndi))
 		linkedsuit = loc
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
