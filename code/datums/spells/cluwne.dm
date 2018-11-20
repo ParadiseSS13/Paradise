@@ -31,6 +31,9 @@
 	genemutcheck(src, NERVOUSBLOCK, null, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
 
+	dressCluwne()
+
+/mob/living/carbon/human/proc/dressCluwne()
 	unEquip(w_uniform, 1)
 	unEquip(shoes, 1)
 	unEquip(gloves, 1)

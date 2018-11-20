@@ -371,8 +371,10 @@
 	if(do_after(src, 50, target = H))
 
 
-		if(prob(50) || smiting)
+		if(smiting)
 			H.makeCluwne()
+		else if(prob(50))
+			H.dressCluwne() // Make it a bit less punishing to die to such a magnificent foe
 
 		H.adjustBruteLoss(30)
 		H.adjustBrainLoss(100)
