@@ -6,4 +6,6 @@ for /f "tokens=3* delims= " %%a in (
     set documents=%%a
 )
 
-echo %documents%
+copy assets\* "%documents%\BYOND\cache" /y
+copy templates\* "%documents%\BYOND\cache" /y
+copy layouts\* "%documents%\BYOND\cache" /y
