@@ -61,6 +61,11 @@ var NanoWindow = function ()
 
     var setupScroll = function() {
         $("#cornerWrapper").focus();
+        $("#uiContent").on("click", function (event) {
+            event = event || window.event;
+            event.stopPropagation();
+            $("#cornerWrapper").focus();
+        })
     };
 
     var fancyChrome = function() {
