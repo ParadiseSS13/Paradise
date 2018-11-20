@@ -235,7 +235,9 @@ Class Procs:
 		if(newfreq)
 			if(findtext(num2text(newfreq), "."))
 				newfreq *= 10 // shift the decimal one place
-			src:frequency = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+			newfreq = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+			src:set_frequency(newfreq) 
+			src:frequency = newfreq
 			return TRUE
 	return FALSE
 
