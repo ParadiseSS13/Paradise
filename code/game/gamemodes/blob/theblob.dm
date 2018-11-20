@@ -19,7 +19,7 @@
 	src.update_icon()
 	..(loc)
 	for(var/atom/A in loc)
-		A.blob_act()
+		A.blob_act(src)
 	return
 
 
@@ -126,7 +126,7 @@
 		qdel(B)
 
 	for(var/atom/A in T)//Hit everything in the turf
-		A.blob_act()
+		A.blob_act(src)
 	return 1
 
 /obj/structure/blob/ex_act(severity)
@@ -141,7 +141,7 @@
 
 /obj/structure/blob/Crossed(var/mob/living/L)
 	..()
-	L.blob_act()
+	L.blob_act(src)
 
 /obj/structure/blob/tesla_act(power)
 	..()
