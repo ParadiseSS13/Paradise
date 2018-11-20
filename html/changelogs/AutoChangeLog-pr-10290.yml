@@ -1,4 +1,0 @@
-author: "tigercat2000"
-delete-after: True
-changes: 
-  - bugfix: "Nano scrolling is 95% less buggy"
