@@ -27,9 +27,10 @@
 	brute_resist = 0
 	health = 50
 	maxHealth = 50
+	flags_1 = CHECK_RICOCHET_1
 	var/reflect_chance = 80 //80% chance to reflect
-	
-/obj/structure/blob/shield/reflective/bullet_act(obj/item/projectile/P)
+
+/obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
 	if(P.is_reflectable && prob(reflect_chance) && !istype(P, /obj/item/projectile/beam/pulse))
 		var/P_turf = get_turf(P)
 		var/face_direction = get_dir(src, P_turf)
@@ -44,3 +45,6 @@
 		return -1// complete projectile permutation 
 	else
 		take_damage(P.damage, P.damage_type)
+		
+/obj/structure/blob/shield/reflective/bullet_act()
+	return
