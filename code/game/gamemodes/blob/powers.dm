@@ -53,7 +53,7 @@
 			to_chat(src, "Unable to use this blob, find a normal one.")
 			return
 
-		else 	if(!can_buy(15))
+		else if(!can_buy(15))
 			return
 
 		B.color = blob_reagent_datum.color
