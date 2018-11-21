@@ -1699,7 +1699,7 @@
 		if(!istype(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human")
 			return
-		var/etypes = list("Borgification","Corgification","Death By Fire","Total Brain Death","Honk Tumor","Cluwne","Demotion Notice")
+		var/etypes = list("Borgification", "Corgification", "Death By Fire", "Total Brain Death", "Honk Tumor", "Cluwne", "Demote", "Demote with Bot", "Revoke Fax Access", "Angry Fax Machine")
 		var/eviltype = input(src.owner, "Which type of evil fax do you wish to send [H]?","Its good to be baaaad...", "") as null|anything in etypes
 		if(!(eviltype in etypes))
 			return
@@ -1733,8 +1733,8 @@
 		P.overlays += stampoverlay
 		P.stamps += "<HR><img src=large_stamp-[stampvalue].png>"
 		P.update_icon()
-		//fax.receivefax(P) // this does not work, it does not preserve the type, we have to physically teleport the fax paper instead
-		P.loc = fax.loc
+		P.faxmachineid = fax.UID()
+		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
@@ -1756,7 +1756,8 @@
 			btypes += "Super Powers"
 			btypes += "Scarab Guardian"
 			btypes += "Human Protector"
-			btypes += "Pet"
+			btypes += "Sentient Pet"
+			btypes += "All Access"
 		var/blessing = input(owner, "How would you like to bless [M]?", "Its good to be good...", "") as null|anything in btypes
 		if(!(blessing in btypes))
 			return
@@ -1806,28 +1807,55 @@
 				spawn(700)
 					qdel(scarab)
 				logmsg = "scarab guardian."
-			if("Pet")
-				var/pets = subtypesof(/mob/living/simple_animal/pet)
+			if("Sentient Pet")
+				var/pets = subtypesof(/mob/living/simple_animal)
 				var/petchoice = input("Select pet type", "Pets") as null|anything in pets
 				if(isnull(petchoice))
 					return
 				var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
-				var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [P], pet of [H]?", poll_time = 100, min_hours = 10)
+				var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [P], pet of [H]?", poll_time = 200, min_hours = 10)
 				var/mob/dead/observer/theghost = null
 				if(candidates.len)
 					theghost = pick(candidates)
 					P.key = theghost.key
 					P.master_commander = H
+					P.universal_speak = 1
+					P.universal_understand = 1
+					P.can_collar = 1
+					var/obj/item/clothing/accessory/petcollar/C = new /obj/item/clothing/accessory/petcollar(P)
+					P.collar = C
+					C.equipped(P)
+					var/obj/item/card/id/I = H.wear_id
+					if(I)
+						var/obj/item/card/id/D = new /obj/item/card/id(C)
+						D.access = I.access
+						D.registered_name = P.name
+						D.assignment = "Pet"
+						C.access_id = D
 					spawn(30)
 						var/newname = sanitize(copytext(input(P, "You are [P], pet of [H]. Would you like to change your name to something else?", "Name change", P.name) as null|text,1,MAX_NAME_LEN))
 						if(newname && newname != P.name)
 							P.name = newname
 							if(P.mind)
 								P.mind.name = newname
+				else
+					to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play [P].</span>")
+					qdel(P)
 				logmsg = "pet ([P])."
 			if("Human Protector")
 				usr.client.create_eventmob_for(H, 0)
 				logmsg = "syndie protector."
+			if("All Access")
+				var/obj/item/card/id/I = H.wear_id
+				if(I)
+					var/list/access_to_give = get_all_accesses()
+					for(var/this_access in access_to_give)
+						if(!(this_access in I.access))
+							// don't have it - add it
+							I.access |= this_access
+				else
+					to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>")
+				logmsg = "all access."
 		if(logmsg)
 			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a blessing: [logmsg]")
 			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a blessing: [logmsg]")
@@ -1850,10 +1878,10 @@
 			ptypes += "Cluwne"
 			ptypes += "Mutagen Cookie"
 			ptypes += "Hellwater Cookie"
-			ptypes += "Assassin"
 			ptypes += "Hunter"
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
+			ptypes += "Shamebrero"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -1866,15 +1894,19 @@
 				M.Weaken(5)
 				to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 				logmsg = "a lightning bolt."
-			if("Brain Damage")
-				H.adjustBrainLoss(75)
-				logmsg = "75 brain damage."
 			if("Fire Death")
 				to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
 				var/turf/simulated/T = get_turf(M)
 				new /obj/effect/hotspot(T)
 				M.adjustFireLoss(150)
 				logmsg = "a firey death."
+			if("Gib")
+				M.gib(FALSE)
+				logmsg = "gibbed."
+
+			if("Brain Damage")
+				H.adjustBrainLoss(75)
+				logmsg = "75 brain damage."
 			if("Honk Tumor")
 				if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
 					var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
@@ -1884,14 +1916,16 @@
 			if("Hallucinate")
 				H.Hallucinate(1000)
 				logmsg = "hallucinations."
-			if("Hunger")
-				H.nutrition = NUTRITION_LEVEL_CURSED
-				logmsg = "starvation."
 			if("Cold")
 				H.reagents.add_reagent("frostoil", 40)
 				H.reagents.add_reagent("ice", 40)
+				logmsg = "cold."
+			if("Hunger")
+				H.nutrition = NUTRITION_LEVEL_CURSED
+				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
+				H.mutations |= NOCLONE
 				logmsg = "cluwned."
 			if("Mutagen Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -1912,11 +1946,10 @@
 				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
-				logmsg = "hunter."
 				H.mutations |= NOCLONE
 				usr.client.create_eventmob_for(H, 1)
+				logmsg = "hunter."
 			if("Crew Traitor")
-				logmsg = "crew traitor."
 				var/list/possible_traitors = list()
 				for(var/mob/living/player in GLOB.living_mob_list)
 					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
@@ -1947,29 +1980,22 @@
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return
-			if("Lynch")
-				logmsg = "lynch."
-				for(var/datum/mind/crew in ticker.minds)
-					if(!crew.current)
-						continue
-					if(!isliving(crew.current))
-						continue
-					if(crew == H.mind)
-						continue
-					to_chat(crew.current, "<BR><span class='userdanger'>The gods have given you a task: find [H.real_name], located in [get_area(H.loc)], and slay them!</span>");
-					to_chat(crew.current, "<span class='userdanger'>Do not harm anyone other than [H.real_name] while carrying out this task.</span><BR>");
-			if("Gib")
-				logmsg = "gibbed."
-				M.gib(FALSE)
+				logmsg = "crew traitor."
 			if("Floor Cluwne")
-				logmsg = "floor cluwne"
 				var/turf/T = get_turf(M)
 				var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
 				FC.smiting = TRUE
 				FC.Acquire_Victim(M)
+				logmsg = "floor cluwne"
+			if("Shamebrero")
+				if(H.head)
+					H.unEquip(H.head, TRUE)
+				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
+				H.equip_to_slot_or_del(S, slot_head)
+				logmsg = "shamebrero"
 		if(logmsg)
-			log_admin("[key_name(owner)] answered [key_name(M)]'s prayer with a smiting: [logmsg]")
-			message_admins("[key_name_admin(owner)] answered [key_name_admin(M)]'s prayer with a smiting: [logmsg]")
+			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
+			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
 	else if(href_list["cryossd"])
 		if(!check_rights(R_ADMIN))
 			return

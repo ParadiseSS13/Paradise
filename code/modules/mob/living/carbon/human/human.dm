@@ -711,7 +711,8 @@
 
 	if(href_list["criminal"])
 		if(hasHUD(usr,"security"))
-
+			if(usr.incapacitated())
+				return
 			var/found_record = 0
 			var/perpname = "wot"
 			if(wear_id)
@@ -758,6 +759,8 @@
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr,"security"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/read = 0
 
@@ -788,6 +791,8 @@
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr,"security"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/read = 0
 
@@ -817,6 +822,8 @@
 
 	if(href_list["secrecordadd"])
 		if(hasHUD(usr,"security"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))
@@ -846,6 +853,8 @@
 
 	if(href_list["medical"])
 		if(hasHUD(usr,"medical"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/modified = 0
 
@@ -879,6 +888,8 @@
 
 	if(href_list["medrecord"])
 		if(hasHUD(usr,"medical"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/read = 0
 
@@ -910,6 +921,8 @@
 
 	if(href_list["medrecordComment"])
 		if(hasHUD(usr,"medical"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			var/read = 0
 
@@ -939,6 +952,8 @@
 
 	if(href_list["medrecordadd"])
 		if(hasHUD(usr,"medical"))
+			if(usr.incapacitated())
+				return
 			var/perpname = "wot"
 			if(wear_id)
 				if(istype(wear_id,/obj/item/card/id))

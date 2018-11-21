@@ -261,4 +261,4 @@
 		return .
 	if("toggleadvcontrol" in href_list)
 		advcontrol = !advcontrol
-		return MT_UPDATE
+		return TRUE

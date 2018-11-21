@@ -84,7 +84,7 @@
 /var/const/access_cent_storage = 105//Storage areas.
 /var/const/access_cent_shuttles = 106//Shuttle docks.
 /var/const/access_cent_telecomms = 107//Telecomms.
-/var/const/access_cent_teleporter = 108//Telecomms.
+/var/const/access_cent_teleporter = 108//Teleporter
 /var/const/access_cent_specops = 109//Special Ops.
 /var/const/access_cent_specops_commander = 110//Special Ops Commander.
 /var/const/access_cent_blackops = 111//Black Ops.
@@ -207,6 +207,8 @@ var/const/access_trade_sol = 160
 			return list(access_cent_general, access_cent_living, access_cent_medical, access_cent_security, access_cent_storage, access_cent_specops, access_cent_specops_commander, access_cent_blackops) + get_all_accesses()
 		if("Deathsquad Officer")
 			return get_all_centcom_access() + get_all_accesses()
+		if("NT Undercover Operative")
+			return get_all_centcom_access() + get_all_accesses()
 		if("Special Operations Officer")
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
@@ -224,6 +226,8 @@ var/const/access_trade_sol = 160
 			return list(access_syndicate)
 		if("Syndicate Operative Leader")
 			return list(access_syndicate, access_syndicate_leader)
+		if("Syndicate Agent")
+			return list(access_syndicate, access_maint_tunnels)
 		if("Vox Raider")
 			return list(access_vox)
 		if("Vox Trader")
