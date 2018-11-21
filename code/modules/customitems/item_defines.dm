@@ -1490,9 +1490,9 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	honk_sounds = list('sound/items/teri_horn.ogg' = 1)
 	icon_state = "teri_horn"
 	item_state = "teri_horn"
-	honk_sound = 'sound/items/teri_horn.ogg'
 
 /obj/item/clothing/accessory/medal/fluff/elo	//V-Force_Bomber: E.L.O.
 	name = "distinguished medal of loyalty and excellence"

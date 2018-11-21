@@ -150,9 +150,11 @@
 
 //Hook for running code when a dir change occurs
 /atom/proc/setDir(newdir)
+	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 
 /atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
+	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
 	if(does_attack_animation)
 		user.changeNext_move(CLICK_CD_MELEE)
 		add_attack_logs(user, src, "Punched with hulk powers")
@@ -305,8 +307,8 @@
 /atom/proc/ex_act()
 	return
 
-/atom/proc/blob_act()
-	return
+/atom/proc/blob_act(obj/structure/blob/B)
+	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 
 /atom/proc/fire_act()
 	return
@@ -734,3 +736,14 @@ var/list/blood_splatter_icons = list()
 	if(!L)
 		return null
 	return L.AllowDrop() ? L : get_turf(L)
+
+/atom/Entered(atom/movable/AM, atom/oldLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
+
+/atom/Exit(atom/movable/AM, atom/newLoc)
+	. = ..()
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, AM, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+		return FALSE
+
+/atom/Exited(atom/movable/AM, atom/newLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
