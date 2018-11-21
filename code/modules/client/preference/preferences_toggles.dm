@@ -88,7 +88,7 @@
 	feedback_add_details("admin_verb","TKarmabugger") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggletitlemusic()
-	set name = "Hear/Silence LobbyMusic"
+	set name = "Hear/Silence Lobby Music"
 	set category = "Preferences"
 	set desc = "Toggles hearing the GameLobby music"
 	prefs.sound ^= SOUND_LOBBY

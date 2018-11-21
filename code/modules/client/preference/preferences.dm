@@ -212,7 +212,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
 			if(C.donator_level >= DONATOR_LEVEL_ONE)
 				max_gear_slots += 5
-
+		if(config.lobby_sound_off)	//if server config is set, defaults to lobby sound being off. useful for test servers without a database setup
+			sound -= SOUND_LOBBY
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
 			if(load_character(C))

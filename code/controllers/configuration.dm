@@ -210,6 +210,9 @@
 	// Developer
 	var/developer_express_start = 0
 
+	//when set, lobby sound defaults to off for new players
+	var/lobby_sound_off = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -636,6 +639,8 @@
 					config.disable_high_pop_mc_mode_amount = text2num(value)
 				if("developer_express_start")
 					config.developer_express_start = 1
+				if("lobby_sound_off")
+					config.lobby_sound_off = 1
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
