@@ -171,7 +171,6 @@
 	if(check_streak(A, D))
 		return TRUE
 	if(!restraining)
-		I = D.get_active_hand()
 		D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
 							"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
