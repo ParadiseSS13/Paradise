@@ -189,7 +189,7 @@
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
-
+	box = /obj/item/storage/box/survival_mining
 
 
 //Griff //BS12 EDIT
