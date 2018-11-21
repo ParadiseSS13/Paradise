@@ -168,8 +168,20 @@
 				back = backpack //Department backpack
 
 	if(box)
-		backpack_contents.Insert(1, box) // Box always takes a first slot in backpack
-		backpack_contents[box] = 1
+		switch(H.dna.species.name) // For race-special starting boxes
+			if("Machine")
+				if(box == /obj/item/storage/box/survival) // Normal box
+					backpack_contents.Insert(1, /obj/item/storage/box/survival_machine) // Box always takes a first slot in backpack
+					backpack_contents[/obj/item/storage/box/survival_machine] = 1
+				if(box == /obj/item/storage/box/survival_mining) // + Crowbar
+					backpack_contents.Insert(1, /obj/item/storage/box/survival_mining_machine) // Box always takes a first slot in backpack
+					backpack_contents[/obj/item/storage/box/survival_mining_machine] = 1
+				if(box == /obj/item/storage/box/engineer) // Different icon as normal box
+					backpack_contents.Insert(1, /obj/item/storage/box/engineer_machine) // Box always takes a first slot in backpack
+					backpack_contents[/obj/item/storage/box/engineer_machine] = 1
+			else
+				backpack_contents.Insert(1, box) // Box always takes a first slot in backpack
+				backpack_contents[box] = 1
 
 	if(allow_loadout && H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
 		for(var/gear in H.client.prefs.gear)
