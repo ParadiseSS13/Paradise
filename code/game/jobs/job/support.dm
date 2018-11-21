@@ -191,6 +191,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 
 
+
 //Griff //BS12 EDIT
 
 /datum/job/clown
