@@ -1,0 +1,4 @@
+author: "MrKicker"
+delete-after: True
+changes: 
+  - soundadd: "Added generated sound files to sound/vox_fem , then added references to them in vox_sounds.dm"
