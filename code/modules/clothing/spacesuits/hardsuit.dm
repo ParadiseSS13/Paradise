@@ -228,7 +228,7 @@
 			W.loc = src
 			src.helmet = W
 			var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
-			S.loc = src
+			S.forceMove(src)
 			helmet = S
 			S.link_suit()
 		return
@@ -370,7 +370,7 @@
 			linkedsuit.name = initial(linkedsuit.name)
 			linkedsuit.desc = initial(linkedsuit.desc)
 			linkedsuit.slowdown = 1
-			linkedsuit.flags |= BLOCKHAIR | STOPSPRESSUREDMAGE | THICKMATERIAL
+			linkedsuit.flags |= STOPSPRESSUREDMAGE | THICKMATERIAL
 			linkedsuit.flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
 			linkedsuit.cold_protection |= UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 		else
