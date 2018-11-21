@@ -9,29 +9,34 @@
 	help_verb = /mob/living/carbon/human/proc/CQC_help
 	block_chance = 75
 
+/datum/martial_art/cqc/can_use(mob/living/carbon/human/H)
+	if (istype(H.gloves, /obj/item/clothing/gloves/fingerless/rapid))
+		return FALSE
+	return ..()
+
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
 
 /datum/martial_art/cqc/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	if(findtext(streak,SLAM_COMBO))
+	if(findtext(streak, SLAM_COMBO))
 		streak = ""
 		Slam(A, D)
 		return TRUE
-	if(findtext(streak,KICK_COMBO))
+	if(findtext(streak, KICK_COMBO))
 		streak = ""
 		Kick(A, D)
 		return TRUE
-	if(findtext(streak,RESTRAIN_COMBO))
+	if(findtext(streak, RESTRAIN_COMBO))
 		streak = ""
 		Restrain(A, D)
 		return TRUE
-	if(findtext(streak,PRESSURE_COMBO))
+	if(findtext(streak, PRESSURE_COMBO))
 		streak = ""
 		Pressure(A, D)
 		return TRUE
-	if(findtext(streak,CONSECUTIVE_COMBO))
+	if(findtext(streak, CONSECUTIVE_COMBO))
 		streak = ""
 		Consecutive(A, D)
 	return FALSE
@@ -45,6 +50,11 @@
 		playsound(get_turf(A), 'sound/weapons/slam.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
 		D.Weaken(6)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Slam", ATKLOG_ALL)
+	else //if target can't be slammed, do a regular grab attack then clear the streak
+		streak = ""
+		grab_act(A, D)
+		streak = ""
 	return TRUE
 
 /datum/martial_art/cqc/proc/Kick(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -57,12 +67,18 @@
 		var/atom/throw_target = get_edge_target_turf(D, A.dir)
 		D.throw_at(throw_target, 1, 14, A)
 		D.apply_damage(10, BRUTE)
-	if(D.weakened && !D.stat)
-		D.visible_message("<span class='warning'>[A] kicks [D]'s head, knocking [D.p_them()] out!</span>", \
-					  		"<span class='userdanger'>[A] kicks your head, knocking you out!</span>")
-		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
-		D.SetSleeping(15)
-		D.adjustBrainLoss(15, 150)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
+		if(D.weakened && !D.stat)
+			D.visible_message("<span class='warning'>[A] kicks [D]'s head, knocking [D.p_them()] out!</span>", \
+						  		"<span class='userdanger'>[A] kicks your head, knocking you out!</span>")
+			playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
+			D.SetSleeping(15)
+			D.adjustBrainLoss(15, 150)
+			add_attack_logs(A, D, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
+	else //if target can't be kicked, do a regular harm attack then clear the streak
+		streak = ""
+		harm_act(A, D)
+		streak = ""
 	return TRUE
 
 /datum/martial_art/cqc/proc/Pressure(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -71,6 +87,7 @@
 	D.visible_message("<span class='warning'>[A] forces their arm on [D]'s neck!</span>")
 	D.adjustStaminaLoss(60)
 	playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Pressure", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/cqc/proc/Restrain(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -85,6 +102,7 @@
 		D.Stun(5)
 		restraining = TRUE
 		addtimer(CALLBACK(src, .proc/drop_restraining), 50, TIMER_UNIQUE)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Restrain", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/cqc/proc/Consecutive(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -99,6 +117,11 @@
 			A.put_in_hands(I)
 		D.adjustStaminaLoss(50)
 		D.apply_damage(25, BRUTE)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Consecutive", ATKLOG_ALL)
+	else //if target can't be hit, do a regular harm attack then clear the streak
+		streak = ""
+		harm_act(A, D)
+		streak = ""
 	return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -119,7 +142,7 @@
 	if(check_streak(A, D))
 		return TRUE
 	A.do_attack_animation(D)
-	var/picked_hit_type = pick("CQC'd", "Big Bossed")
+	var/picked_hit_type = pick("CQC'd", "neck chopped", "gut punched")
 	var/bonus_damage = 13
 	if(D.weakened || D.resting || D.lying)
 		bonus_damage += 5
@@ -131,40 +154,36 @@
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
+	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
 	if(A.resting && !D.stat && !D.weakened)
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(10, BRUTE)
 		D.Weaken(3)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
 	add_to_streak("D", D)
-	var/obj/item/I = null
 	if(check_streak(A, D))
 		return TRUE
-	if(prob(65))
-		if(!D.stat || !D.weakened || !restraining)
-			I = D.get_active_hand()
-			D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
-								"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
-			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-			if(I &&  D.drop_item())
-				A.put_in_hands(I)
-			D.Jitter(2)
-			D.apply_damage(5, BRUTE)
-	else
-		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", \
-							"<span class='userdanger'>[A] attempted to disarm [D]!</span>")
-		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+	if(!restraining)
+		I = D.get_active_hand()
+		D.visible_message("<span class='warning'>[A] strikes [D]'s jaw with their hand!</span>", \
+							"<span class='userdanger'>[A] strikes your jaw, disorienting you!</span>")
+		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
+		D.Jitter(2)
+		D.apply_damage(5, BRUTE)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarm", ATKLOG_ALL)
 	if(restraining)
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
 							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
 		D.SetSleeping(20)
 		restraining = FALSE
+		add_attack_logs(A, D, "Knocked out with martial-art [src] : Choke hold", ATKLOG_ALL)
 	else
 		restraining = FALSE
 		return FALSE
