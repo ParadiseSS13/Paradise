@@ -388,4 +388,4 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 ##DEVELOPER_EXPRESS_START
 
 ##Uncomment to have the lobby sound default to off for new players, useful for testing servers without database.
-LOBBY_SOUND_OFF
+#LOBBY_SOUND_OFF
