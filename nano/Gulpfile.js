@@ -15,13 +15,13 @@ const INPUT = {
   'styles': {
     '_dir': path.join(__dirname, 'styles'),
     'nano': path.join(__dirname, 'styles', 'nanoui.less'),
-    'fa': path.join(__dirname, 'node_modules', 'font-awesome', 'less', 'font-awesome.less')
+    'fa': path.join(__dirname, 'node_modules', 'font-awesome', 'less', 'font-awesome.less'),
   },
   'scripts': {
     'lib': path.join(__dirname, 'scripts', 'libraries', '*.js'),
     'main': path.join(__dirname, 'scripts', 'nano', '*.js'),
     'es5shim': path.join(__dirname, 'node_modules', 'es5-shim', 'es5-shim.js'),
-    'domurl': path.join(__dirname, 'node_modules', 'domurl', 'url.js')
+    'domurl': path.join(__dirname, 'node_modules', 'domurl', 'url.js'),
   },
   'layouts': path.join(__dirname, 'layouts'),
   'templates': path.join(__dirname, 'templates'),
