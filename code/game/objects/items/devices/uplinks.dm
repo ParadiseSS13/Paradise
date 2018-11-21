@@ -136,7 +136,12 @@ var/list/world_uplinks = list()
 /obj/item/uplink/proc/buy(var/datum/uplink_item/UI, var/reference)
 	if(!UI)
 		return
+	if(UI.limited_stock == 0)
+		to_chat(usr, "<span class='warning'>You have redeemed this discount already!</span>")
+		return
 	UI.buy(src,usr)
+	if(UI.limited_stock > 0) // only decrement it if it's actually limited
+		UI.limited_stock--
 	SSnanoui.update_uis(src)
 
 	/* var/list/L = UI.spawn_item(get_turf(usr),src)

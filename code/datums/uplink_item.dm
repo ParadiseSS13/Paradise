@@ -3,6 +3,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /proc/get_uplink_items(var/job = null)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
+	var/newreference = 1
 	if(!uplink_items.len)
 
 		var/list/last = list()
@@ -40,12 +41,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		I.refundable = FALSE
 		A.refundable = FALSE
 		if(A.cost >= 20)
-			discount *= 0.5
-		A.cost = max(round(A.cost * discount),1)
+			discount *= 0.5 // If the item costs 20TC or more, it's only 25% off.
+		A.cost = max(round(A.cost * (1-discount)),1)
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
+		A.reference = "DIS[newreference]"
 		A.desc += " Only [A.limited_stock] in stock. Normally costs [initial(A.cost)] TC. All sales final"
 		A.item = I.item
+		newreference++
 
 		if(!uplink_items[A.category])
 			uplink_items[A.category] = list()
@@ -91,7 +95,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
-		limited_stock--
 		feedback_add_details("traitor_uplink_items_bought", name)
 		return new item(loc)
 
@@ -155,7 +158,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
-	cant_discount = TRUE
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -235,6 +237,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chaplain")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
+	cant_discount = TRUE
 
 //Janitor
 
@@ -593,6 +596,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 	refundable = TRUE
+	cant_discount = TRUE
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Toy Submachine Gun"
@@ -630,6 +634,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
+	cant_discount = TRUE
 
 // Ammunition
 
@@ -800,6 +805,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 17
 	excludefrom = list(/datum/game_mode/nuclear)
 	refundable = TRUE
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
@@ -1264,6 +1270,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/stack/telecrystal
 	cost = 1
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/telecrystal/five
 	name = "5 Raw Telecrystals"
@@ -1445,6 +1452,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate
 	cost = 20
 	excludefrom = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -1478,6 +1486,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 20
+	cant_discount = TRUE
 
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
