@@ -74,16 +74,6 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		return
 
-/obj/item/storage/box/survival_machine
-	icon_state = "box_civ_ipc"
-	New()
-		..()
-		contents = list()
-		new /obj/item/weldingtool/mini( src )
-		new /obj/item/stack/cable_coil( src, 10 )
-		new /obj/item/reagent_containers/food/drinks/oilcan/full( src )
-		return
-
 /obj/item/storage/box/engineer
 	icon_state = "box_eng"
 	New()
@@ -94,17 +84,6 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		return
 
-/obj/item/storage/box/engineer_machine
-	icon_state = "box_eng_ipc"
-	New()
-		..()
-		contents = list()
-		new /obj/item/weldingtool/mini( src )
-		new /obj/item/stack/cable_coil( src, 10 )
-		new /obj/item/reagent_containers/food/drinks/oilcan/full( src )
-		return
-
-
 /obj/item/storage/box/survival_mining
 	icon_state = "box_min"
 	New()
@@ -114,17 +93,6 @@
 		new /obj/item/tank/emergency_oxygen/engi(src)
 		new /obj/item/crowbar/red(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
-
-/obj/item/storage/box/survival_mining_machine
-	icon_state = "box_min_ipc"
-	New()
-		..()
-		contents = list()
-		new /obj/item/weldingtool/mini( src )
-		new /obj/item/stack/cable_coil( src, 10 )
-		new /obj/item/reagent_containers/food/drinks/oilcan/full( src )
-		new /obj/item/crowbar/red(src)
-		return
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
