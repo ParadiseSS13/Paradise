@@ -92,3 +92,23 @@
 	list/current_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
 	list/current_casters = list()
 	list/possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/hellhound
+	name = "Lesser Hellhound Form"
+	desc = "Take on the shape of a Hellhound."
+	invocation = "none"
+	invocation_type = "none"
+	action_background_icon_state = "bg_demon"
+	action_icon_state = "glare"
+
+	shapeshift_type = /mob/living/simple_animal/hostile/hellhound
+	list/current_shapes = list(/mob/living/simple_animal/hostile/hellhound)
+	list/current_casters = list()
+	list/possible_shapes = list(/mob/living/simple_animal/hostile/hellhound)
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/hellhound/greater
+	name = "Greater Hellhound Form"
+	shapeshift_type = /mob/living/simple_animal/hostile/hellhound/greater
+	list/current_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)
+	list/current_casters = list()
+	list/possible_shapes = list(/mob/living/simple_animal/hostile/hellhound/greater)

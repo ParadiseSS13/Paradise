@@ -1,0 +1,121 @@
+// Hellhound
+/mob/living/simple_animal/hostile/hellhound
+	// Sprites by FoS: http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+	name = "Lesser Hellhound"
+	desc = "A horrifying, black canine monster, with glowing red eyes and vicious-looking teeth."
+	icon_state = "blackdog"
+	icon_living = "blackdog"
+	icon_dead = "blackdog_dead"
+	icon_resting = "blackdog_rest"
+	mutations = list(BREATHLESS)
+	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	maxbodytemp = INFINITY
+	melee_damage_lower = 10 // slightly higher than araneus
+	melee_damage_upper = 30
+	a_intent = INTENT_HARM
+	environment_smash = 1
+	speak_chance = 0
+	speed = 0
+	maxHealth = 250 // same as sgt araneus
+	health = 250
+	obj_damage = 50
+	robust_searching = 1
+	stat_attack = 1
+	attacktext = "savages"
+	attack_sound = 'sound/effects/bite.ogg'
+	speak_emote = list("growls")
+	see_in_dark = 9
+	universal_understand = 1
+	wander = 0
+	var/life_regen_cycles = 0
+	var/life_regen_cycle_trigger = 10 // heal once for every X number of cycles spent resting
+	var/life_regen_amount = -10 // negative, because negative = healing
+	var/smoke_lastuse = 0
+	var/smoke_freq = 300 // 30 seconds
+	var/datum/action/innate/demon/whisper/whisper_action
+
+/mob/living/simple_animal/hostile/hellhound/New()
+	. = ..()
+	whisper_action = new()
+	whisper_action.Grant(src)
+
+/mob/living/simple_animal/hostile/hellhound/handle_automated_action()
+	. = ..()
+	if(resting)
+		if(!wants_to_rest())
+			custom_emote(1, "growls, and gets up.")
+			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
+			icon_state = "[icon_living]"
+			resting = 0
+			update_canmove()
+	else if(wants_to_rest())
+		custom_emote(1, "lays down, and starts to lick their wounds.")
+		icon_state = "[icon_living]_rest"
+		resting = 1
+		update_canmove()
+
+/mob/living/simple_animal/hostile/hellhound/examine(mob/user)
+	. = ..()
+	if(stat != DEAD)
+		var/list/msgs = list()
+		if(key)
+			msgs += "<span class='warning'>Its eyes have the spark of intelligence.</span>"
+		if(health > (maxHealth*0.95))
+			msgs += "<span class='notice'>It appears to be in excellent health.</span>"
+		else if(health > (maxHealth*0.75))
+			msgs += "<span class='notice'>It has a few injuries.</span>"
+		else if(health > (maxHealth*0.55))
+			msgs += "<span class='warning'>It has many injuries.</span>"
+		else if(health > (maxHealth*0.25))
+			msgs += "<span class='warning'>It is covered in wounds!</span>"
+		if(resting)
+			if(bruteloss > 0 || fireloss > 0)
+				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
+			else
+				msgs += "<span class='notice'>It is currently resting.</span>"
+		to_chat(usr,msgs.Join("<BR>"))
+
+/mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
+	. = ..()
+	if(stat != DEAD && resting && (bruteloss > 0) || (fireloss > 0))
+		if(life_regen_cycles >= life_regen_cycle_trigger)
+			life_regen_cycles = 0
+			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
+			adjustBruteLoss(life_regen_amount)
+			adjustFireLoss(life_regen_amount)
+		else
+			life_regen_cycles++
+
+/mob/living/simple_animal/hostile/hellhound/proc/wants_to_rest()
+	if(target)
+		return FALSE
+	if(bruteloss > 0 || fireloss > 0)
+		return TRUE
+	return FALSE
+
+/mob/living/simple_animal/hostile/hellhound/AttackingTarget()
+	. = ..()
+	if(ishuman(target))
+		special_aoe()
+
+/mob/living/simple_animal/hostile/hellhound/proc/special_aoe()
+	if(world.time < (smoke_lastuse + smoke_freq))
+		return
+	smoke_lastuse = world.time
+	var/datum/effect_system/smoke_spread/sleeping/smoke = new
+	smoke.set_up(10, 0, loc)
+	smoke.start()
+
+/mob/living/simple_animal/hostile/hellhound/greater
+	name = "Greater Hellhound"
+	maxHealth = 400
+	health = 400
+	melee_damage_lower = 20
+	melee_damage_upper = 30
+	environment_smash = 2
+	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	light_color = "#FF0000"
+	light_power = 6
+	light_range = 2
