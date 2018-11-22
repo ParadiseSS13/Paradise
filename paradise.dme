@@ -1556,6 +1556,7 @@
 #include "code\modules\map_fluff\metastation.dm"
 #include "code\modules\martial_arts\adminfu.dm"
 #include "code\modules\martial_arts\brawling.dm"
+#include "code\modules\martial_arts\cqc.dm"
 #include "code\modules\martial_arts\krav_maga.dm"
 #include "code\modules\martial_arts\martial.dm"
 #include "code\modules\martial_arts\mimejutsu.dm"

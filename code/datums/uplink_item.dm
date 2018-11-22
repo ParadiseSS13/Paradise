@@ -764,6 +764,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	excludefrom = list(/datum/game_mode/nuclear)
 	refundable = TRUE
 
+/datum/uplink_item/stealthy_weapons/cqc
+	name = "CQC Manual"
+	desc = "A manual that teaches a single user tactical Close-Quarters Combat before self-destructing. Does not restrict weapon usage, but cannot be used alongside Gloves of the North Star."
+	reference = "CQC"
+	item = /obj/item/CQC_manual
+	cost = 9
+
 /datum/uplink_item/stealthy_weapons/throwingweapons
 	name = "Box of Throwing Weapons"
 	desc = "A box of shurikens and reinforced bolas from ancient Earth martial arts. They are highly effective \
