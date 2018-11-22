@@ -1,0 +1,10 @@
+author: "AlAtEx"
+delete-after: True
+changes: 
+  - rscadd: "Added a new medkit for IPCs"
+  - imageadd: "added a purple medkit"
+  - rscadd: "Added a new medkit for IPCs"
+  - imageadd: "added a purple medkit"
+  - rscadd: "Added a repair kit box to start with for IPC's"
+  - rscadd: "Re-added the crowbar and extended tank to miner's boxes"
+  - imageadd: "added three new box images"
