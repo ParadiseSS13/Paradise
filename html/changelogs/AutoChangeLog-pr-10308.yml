@@ -1,0 +1,4 @@
+author: "Azule Utama"
+delete-after: True
+changes: 
+  - bugfix: "Made laser tag guns work again."
