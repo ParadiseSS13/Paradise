@@ -17,10 +17,10 @@
 /datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
-	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), .proc/play_squeak)
+	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), .proc/play_squeak_check)
 	if(ismovableatom(parent))
-		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), .proc/play_squeak)
-		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/play_squeak_crossed)
+		RegisterSignal(parent, list(COMSIG_MOVABLE_BUMP, COMSIG_MOVABLE_IMPACT), .proc/play_squeak_check)
+		RegisterSignal(parent, COMSIG_MOVABLE_CROSSED, .proc/play_squeak_check)
 		RegisterSignal(parent, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react)
 		if(isitem(parent))
 			RegisterSignal(parent, list(COMSIG_ITEM_ATTACK, COMSIG_ITEM_ATTACK_OBJ, COMSIG_ITEM_HIT_REACT), .proc/play_squeak)
@@ -60,13 +60,24 @@
 /datum/component/squeak/proc/on_drop(datum/source, mob/user)
 	UnregisterSignal(user, COMSIG_MOVABLE_DISPOSING)
 
-/datum/component/squeak/proc/play_squeak_crossed(atom/movable/AM)
-	if(isitem(AM))
-		var/obj/item/I = AM
+/datum/component/squeak/proc/play_squeak_check(atom/movable/signal_owner, atom/movable/signal_trigger)
+	// Signals are generally of the form SEND_SIGNAL(mob_listening_for_signals, signaltype, triggering_atom). E.g: SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
+	// Since proc/play_squeak_check's second argument is typed as /atom/movable/signal_trigger, it binds to the THIRD signal argument.
+	// Hence what we actually get here is play_squeak_check(mob/themouse, atom/whatever_trigged_the_squeak).... the latter could be a crossing/bumping mob, or collision with a solid object.
+	if(ismob(signal_owner))
+		var/mob/M = signal_owner
+		if(M.stat == DEAD) // Do not squeak if the squeaking mob is dead
+			return
+	if(ismob(signal_trigger))
+		var/mob/M = signal_trigger
+		if(M.stat == DEAD) // Do not squeak if the thing that is interacting with us is dead, e.g: a ghost
+			return
+	if(isitem(signal_trigger))
+		var/obj/item/I = signal_trigger
 		if(I.flags & ABSTRACT)
 			return
-		else if(istype(AM, /obj/item/projectile))
-			var/obj/item/projectile/P = AM
+		else if(istype(signal_trigger, /obj/item/projectile))
+			var/obj/item/projectile/P = signal_trigger
 			if(P.original != parent)
 				return
 	var/atom/current_parent = parent
