@@ -46,8 +46,8 @@ SUBSYSTEM_DEF(npcpool)
 		while(cachecurrentrun.len)
 			var/mob/living/carbon/human/interactive/thing = cachecurrentrun[cachecurrentrun.len]
 			--cachecurrentrun.len
-
-			thing.InteractiveProcess()
+			if(!thing.client)
+				thing.InteractiveProcess()
 
 			var/checkInRange = view(SNPC_MAX_RANGE_FIND,thing)
 			if(thing.IsDeadOrIncap(FALSE) || !(locate(thing.TARGET) in checkInRange))
