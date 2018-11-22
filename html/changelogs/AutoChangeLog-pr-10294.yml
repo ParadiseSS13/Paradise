@@ -1,0 +1,5 @@
+author: "Eschess"
+delete-after: True
+changes: 
+  - rscadd: "Adds ui button to toggle hardsuit helmet"
+  - tweak: "syndicate hardsuit combat mode is activated only by the helmet button"
