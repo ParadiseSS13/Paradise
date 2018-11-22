@@ -392,7 +392,7 @@
 		BucketData[++BucketData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
 
 	var/CbotData[0]
-	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.simple_animal_list)
+	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.simple_animals)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)

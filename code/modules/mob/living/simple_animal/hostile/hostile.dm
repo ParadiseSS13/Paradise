@@ -30,8 +30,6 @@
 	var/stat_exclusive = 0 //Mobs with this set to 1 will exclusively attack things defined by stat_attack, stat_attack 2 means they will only attack corpses
 	var/attack_same = 0 //Set us to 1 to allow us to attack our own faction, or 2, to only ever attack our own faction
 
-	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
-
 	//typecache of things this mob will attack in DestroySurroundings() if it has environment_smash
 	var/list/environment_target_typecache = list(
 	/obj/machinery/door/window,
@@ -80,7 +78,7 @@
 		DestroySurroundings()
 		if(!MoveToTarget(possible_targets))     //if we lose our target
 			if(AIShouldSleep(possible_targets))	// we try to acquire a new one
-				AIStatus = AI_IDLE				// otherwise we go idle
+				toggle_ai(AI_IDLE)				// otherwise we go idle
 	return 1
 
 /mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
@@ -262,7 +260,7 @@
 			search_objects = 0
 			target = null
 		if(AIStatus == AI_IDLE)
-			AIStatus = AI_ON
+			toggle_ai(AI_ON)
 			FindTarget()
 		else if(target != null && prob(40))//No more pulling a mob forever and having a second player attack it, it can switch targets now if it finds a more suitable one
 			FindTarget()
@@ -398,9 +396,14 @@
 		if(AI_IDLE)
 			if(FindTarget(possible_targets, 1))
 				. = 1
-				AIStatus = AI_ON //Wake up for more than one Life() cycle.
+				toggle_ai(AI_ON) //Wake up for more than one Life() cycle.
 			else
 				. = 0
 
 /mob/living/simple_animal/hostile/proc/AIShouldSleep(var/list/possible_targets)
 	return !FindTarget(possible_targets, 1)
+
+/mob/living/simple_animal/hostile/consider_wakeup()
+	..()
+	if(AIStatus == AI_IDLE && FindTarget(ListTargets(), 1))
+		toggle_ai(AI_ON)

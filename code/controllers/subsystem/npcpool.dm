@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(npcpool)
 	// 4. Process coordination: if a bot(or bots) has been asked to coordinate, assign them to help.
 	// 5. Do all assignments: goes through the delegated/coordianted bots and assigns the right variables/tasks to them.
 
-	if (!resumed)
+	if(!resumed)
 		currentrun = processing.Copy()
 		stage = PROCESSING_NPCS
 	//cache for sanic speed (lists are references anyways)

@@ -79,10 +79,14 @@
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
 
+	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
 
+	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
+
+	
 /mob/living/simple_animal/Initialize()
 	..()
-	GLOB.simple_animal_list += src
+	GLOB.simple_animals[AIStatus] += src
 	verbs -= /mob/verb/observe
 	if(!can_hide)
 		verbs -= /mob/living/simple_animal/verb/hide
@@ -96,7 +100,7 @@
 		collar.forceMove(loc)
 		collar = null
 	master_commander = null
-	GLOB.simple_animal_list -= src
+	GLOB.simple_animals[AIStatus] -= src
 	return ..()
 
 /mob/living/simple_animal/Login()
@@ -559,7 +563,7 @@
 /* End Inventory */
 
 /mob/living/simple_animal/proc/sentience_act() //Called when a simple animal gains sentience via gold slime potion
-	return
+	toggle_ai(AI_OFF)
 
 /mob/living/simple_animal/update_sight(reset_sight = FALSE)
 	if(!client)
@@ -580,3 +584,21 @@
 
 /mob/living/simple_animal/can_hear()
 	. = TRUE
+
+/mob/living/simple_animal/proc/toggle_ai(togglestatus)
+	if(AIStatus != togglestatus)
+		if(togglestatus > 0 && togglestatus < 4)
+			GLOB.simple_animals[AIStatus] -= src
+			GLOB.simple_animals[togglestatus] += src
+			AIStatus = togglestatus
+		else
+			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+/mob/living/simple_animal/proc/consider_wakeup()
+	if(pulledby || shouldwakeup)
+		toggle_ai(AI_ON)
+
+/mob/living/simple_animal/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+	. = ..()
+	if(!ckey && !stat)//Not unconscious
+		if(AIStatus == AI_IDLE)
+			toggle_ai(AI_ON) 

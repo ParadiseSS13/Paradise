@@ -29,7 +29,7 @@
 	spawned_mobs = null
 	return ..()
 
-/mob/living/simple_animal/hostile/spawner/process_ai()
+/mob/living/simple_animal/hostile/spawner/Life()
 	..()
 	spawn_mob()
 
