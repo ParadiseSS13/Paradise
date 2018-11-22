@@ -1937,7 +1937,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(dna.species)
 		return dna.species.taste_sensitivity
 	else
-		return 1
+		return TASTE_SENSITIVITY_NORMAL
 
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops

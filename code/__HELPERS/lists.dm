@@ -792,3 +792,32 @@ proc/dd_sortedObjectList(list/incoming)
 			L.Swap(start++, end--)
 
 	return L
+
+//Counterlist procs are used for doing operations on associative arrays that have numeric value entries
+//All of these procs modify in place
+/proc/counterlist_scale(list/L, scalar)
+	var/list/out = list()
+	for(var/key in L)
+		out[key] = L[key] * scalar
+	. = out
+
+/proc/counterlist_sum(list/L)
+	. = 0
+	for(var/key in L)
+		. += L[key]
+
+//normalize here means every value will represent its portion of the total sum in decimal form
+/proc/counterlist_normalize(list/L)
+	var/sum = counterlist_sum(L)
+	if(sum)
+		. = counterlist_scale(L, 1 / sum)
+	else
+		. = L
+
+/proc/counterlist_combine(list/L1, list/L2)
+	for(var/key in L2)
+		var/other_value = L2[key]
+		if(key in L1)
+			L1[key] += other_value
+		else
+			L1[key] = other_value
