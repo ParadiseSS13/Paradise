@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Added the CQC manual to nuke ops and traitor uplinks, letting them remember some of the basics of CQC."
