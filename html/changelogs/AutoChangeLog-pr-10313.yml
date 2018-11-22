@@ -1,0 +1,4 @@
+author: "AlAtEX"
+delete-after: True
+changes: 
+  - bugfix: "re-adds sprites for boxes that disappeared"
