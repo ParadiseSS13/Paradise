@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - rscadd: "Added hellhound, a dangerous new monster."
