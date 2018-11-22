@@ -10,7 +10,7 @@
 	block_chance = 75
 
 /datum/martial_art/cqc/can_use(mob/living/carbon/human/H)
-	if (istype(H.gloves, /obj/item/clothing/gloves/fingerless/rapid))
+	if(istype(H.gloves, /obj/item/clothing/gloves/fingerless/rapid))
 		return FALSE
 	return ..()
 
