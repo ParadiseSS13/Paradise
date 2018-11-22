@@ -65,6 +65,9 @@
 /mob/living/simple_animal/bot/medbot/fish
 	skin = "fish"
 
+/mob/living/simple_animal/bot/medbot/machine
+	skin = "machine"
+
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
@@ -578,6 +581,8 @@
 				T.syndicate_aligned = syndicate_aligned //This is a special case since Syndicate medibots and the mysterious medibot look the same; we also dont' want crew building Syndicate medibots if the mysterious medibot blows up.
 			if("fish")
 				new /obj/item/storage/firstaid/aquatic_kit(Tsec)
+			if("machine")
+				new /obj/item/storage/firstaid/machine/empty(Tsec)
 			else
 				new /obj/item/storage/firstaid(Tsec)
 
