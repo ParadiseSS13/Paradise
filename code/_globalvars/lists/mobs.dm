@@ -24,7 +24,6 @@ GLOBAL_LIST_INIT(dead_mob_list, list())				//List of all dead mobs, including cl
 GLOBAL_LIST_INIT(respawnable_list, list())			//List of all mobs, dead or in mindless creatures that still be respawned.
 GLOBAL_LIST_INIT(non_respawnable_keys, list())	//List of ckeys that are excluded from respawning for remainder of round.
 GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list())) // One for each AI_* status define	//List of all simple animals, including clientless
-GLOBAL_LIST_INIT(snpc_list, list())      			//List of all snpc's, including clientless
 GLOBAL_LIST_INIT(bots_list, list()) 					//List of all bots(beepsky, medibots,etc)
 
 GLOBAL_LIST_INIT(med_hud_users, list())
