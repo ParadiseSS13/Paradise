@@ -61,12 +61,6 @@
 		walk(src, 0)
 		return 0
 
-/mob/living/simple_animal/hostile/process_ai()
-	..()
-	if(!AICanContinue())
-		return 0
-	return 1
-
 /mob/living/simple_animal/hostile/handle_automated_action()
 	if(AIStatus == AI_OFF)
 		return 0

@@ -22,7 +22,12 @@ SUBSYSTEM_DEF(npcai)
         var/mob/living/simple_animal/SA = currentrun[currentrun.len]
         --currentrun.len
 
-        if(!SA.client && SA.stat == CONSCIOUS)
-            SA.process_ai() 
+        if(!SA.ckey && !SA.notransform)
+            if(SA.stat != DEAD)
+                SA.handle_automated_movement()
+            if(SA.stat != DEAD)
+                SA.handle_automated_action()
+            if(SA.stat != DEAD)
+                SA.handle_automated_speech()
         if(MC_TICK_CHECK)
             return

@@ -23,9 +23,10 @@ SUBSYSTEM_DEF(idlenpcpool)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
 
-		if(!SA.client && SA.stat == CONSCIOUS)
+		if(!SA.ckey)
 			if(SA.stat != DEAD)
-				SA.process_ai()
+				SA.handle_automated_movement()
+			if(SA.stat != DEAD)
 				SA.consider_wakeup()
 		if(MC_TICK_CHECK)
 			return

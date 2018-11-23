@@ -114,12 +114,6 @@
 	health = Clamp(health, 0, maxHealth)
 	med_hud_set_status()
 
-
-/mob/living/simple_animal/proc/process_ai()
-	handle_automated_movement()
-	handle_automated_action()
-	handle_automated_speech()
-
 /mob/living/simple_animal/lay_down()
 	..()
 	handle_resting_state_icons()

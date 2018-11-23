@@ -51,11 +51,7 @@
 			wander = 1
 		else if(prob(5))
 			emote("snuffles")
-
-/mob/living/simple_animal/mouse/process_ai()
-	..()
-
-	if(prob(0.5))
+	else if(prob(0.5))
 		stat = UNCONSCIOUS
 		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0
