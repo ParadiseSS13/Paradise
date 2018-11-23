@@ -137,7 +137,7 @@ var/list/world_uplinks = list()
 	if(!UI)
 		return
 	if(UI.limited_stock == 0)
-		to_chat(usr, "<span class='warning'>You have redeemed this discount already!</span>")
+		to_chat(usr, "<span class='warning'>You have redeemed this discount already.</span>")
 		return
 	UI.buy(src,usr)
 	if(UI.limited_stock > 0) // only decrement it if it's actually limited

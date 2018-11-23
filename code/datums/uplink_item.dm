@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
 		A.reference = "DIS[newreference]"
-		A.desc += " Only [A.limited_stock] in stock. Normally costs [initial(A.cost)] TC. All sales final"
+		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
 		A.item = I.item
 		newreference++
 
@@ -1355,6 +1355,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/uplink
 	cost = 14
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/implants/storage
 	name = "Storage Implant"
