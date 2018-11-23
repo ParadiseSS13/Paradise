@@ -27,7 +27,7 @@
 	brute_resist = 0
 	health = 50
 	maxHealth = 50
-	flags_1 = CHECK_RICOCHET_1
+	flags_2 = CHECK_RICOCHET_1
 	var/reflect_chance = 80 //80% chance to reflect
 
 /obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
@@ -39,11 +39,13 @@
 		if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
 			return FALSE
 		var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
-		P.Angle = new_angle_s
+		P.setAngle(new_angle_s)
 		P.firer = src //so people who fired the lasers are not immune to them when it reflects
 		visible_message("<span class='warning'>[P] reflects off [src]!</span>")
 		return -1// complete projectile permutation 
 	else
+		playsound(src, P.hitsound, 50, 1)
+		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
 		take_damage(P.damage, P.damage_type)
 		
 /obj/structure/blob/shield/reflective/bullet_act()

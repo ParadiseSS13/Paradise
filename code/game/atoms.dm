@@ -14,7 +14,7 @@
 	var/simulated = 1 //filter for actions - used by lighting overlays
 	var/atom_say_verb = "says"
 	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
-	var/flags_1 = NONE
+
 
 	///Chemistry.
 	var/container_type = NONE

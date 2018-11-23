@@ -304,6 +304,10 @@ obj/item/projectile/Crossed(atom/movable/AM) //A mob moving on a tile with a pro
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_1 & CHECK_RICOCHET_1)
+	if(A.flags_2 & CHECK_RICOCHET_1)
 		return TRUE
 	return FALSE
+	
+/obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
+	Angle = new_angle
+	return TRUE
