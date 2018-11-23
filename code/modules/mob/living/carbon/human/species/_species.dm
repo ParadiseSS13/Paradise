@@ -198,7 +198,7 @@
 	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
 	if(ears)
 		qdel(ears)
-	
+
 	ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
@@ -318,6 +318,9 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(target.check_block()) //cqc
+		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target))
 		return TRUE
 	else
@@ -344,6 +347,9 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
+	if(target.check_block()) //cqc
+		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return TRUE
 	else
@@ -382,6 +388,9 @@
 			target.forcesay(GLOB.hit_appends)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(target.check_block()) //cqc
+		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target))
 		return TRUE
 	else

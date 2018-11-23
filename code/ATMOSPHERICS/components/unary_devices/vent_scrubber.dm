@@ -351,7 +351,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_topic(var/mob/user, var/list/href_list, var/obj/O)
 	if("toggleadvcontrol" in href_list)
 		advcontrol = !advcontrol
-		return MT_UPDATE
+		return TRUE
 
 	if("set_id" in href_list)
 		var/newid = copytext(reject_bad_text(input(usr, "Specify the new ID tag for this machine", src, src:id_tag) as null|text),1,MAX_MESSAGE_LEN)
@@ -365,7 +365,7 @@
 		id_tag = newid
 		broadcast_status()
 
-		return MT_UPDATE
+		return TRUE
 
 	return ..()
 

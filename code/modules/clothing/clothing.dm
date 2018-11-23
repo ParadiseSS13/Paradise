@@ -411,6 +411,7 @@ BLIND     // can't see anything
 		..()
 
 /obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
+	SEND_SIGNAL(src, COMSIG_SHOES_STEP_ACTION)
 	if(shoe_sound)
 		var/turf/T = get_turf(H)
 
