@@ -1,4 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - bugfix: "no more runtime spam each time a simple mob is attacked"
