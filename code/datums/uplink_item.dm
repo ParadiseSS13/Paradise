@@ -146,6 +146,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	job = list("Mime")
 
+/datum/uplink_item/jobspecific/mimery
+	name = "Guide to Advanced Mimery Series"
+	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and creates large walls that can block an entire hallway!"
+	reference = "AM"
+	item = /obj/item/storage/box/syndie_kit/mimery
+	cost = 10
+	job = list("Mime")
+
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
 	name = "Chef Excellence's Special Sauce"
