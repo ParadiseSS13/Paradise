@@ -1,0 +1,5 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Dead mice no longer squeak."
+  - bugfix: "Ghosts walking over living mice no longer makes them squeak."
