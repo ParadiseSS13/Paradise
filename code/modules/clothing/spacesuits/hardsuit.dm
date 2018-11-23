@@ -206,6 +206,8 @@
 		else
 			to_chat(user, "You detach \the [helmet] from \the [src]'s helmet mount.")
 			helmet.loc = get_turf(src)
+			var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = helmet
+			S.linkedsuit = null
 			src.helmet = null
 			return
 		if(!boots)
@@ -335,6 +337,11 @@
 		linkedsuit = loc
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
+	
+	if(!linkedsuit)
+		to_chat(user, "<span class='notice'>You must attach the helmet to a syndicate hardsuit to toggle combat mode!</span>")
+		return
+
 	on = !on
 	if(on)
 		to_chat(user, "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
