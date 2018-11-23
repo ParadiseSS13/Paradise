@@ -93,7 +93,7 @@
 		if(stat == CONSCIOUS)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-			M << 'sound/effects/mousesqueek.ogg'
+			SEND_SOUND(M, 'sound/effects/mousesqueek.ogg')
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)
