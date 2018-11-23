@@ -48,6 +48,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
 		A.reference = "DIS[newreference]"
 		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
+		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
 		A.item = I.item
 		newreference++
 
