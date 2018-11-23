@@ -156,7 +156,7 @@ emp_act
 			return 1
 	return 0
 
-/mob/living/carbon/human/proc/check_block()
+/mob/living/carbon/human/check_block()
 	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
 
