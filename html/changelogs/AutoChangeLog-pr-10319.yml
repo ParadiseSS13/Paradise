@@ -1,0 +1,4 @@
+author: "Azule Utama"
+delete-after: True
+changes: 
+  - bugfix: "Additional check added to damage falloff code, will only delete bullets that reach 0 damage if they actually have a falloff value."
