@@ -69,10 +69,8 @@
 		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
 	if(range <= 0 && loc)
 		on_range()
-	if(!damage && !stamina)
-		if(tile_dropoff || tile_dropoff_s) // does the projectile have falloff to start with
-			on_range()
-
+	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
+		on_range()
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
