@@ -35,7 +35,6 @@
 
 /mob/living/simple_animal/mouse/Initialize()
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/mousesqueek.ogg' = 1), 50)
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
@@ -91,9 +90,10 @@
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
 	if(ishuman(AM))
-		if(!stat)
+		if(stat == CONSCIOUS)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
+			SEND_SOUND(M, 'sound/effects/mousesqueek.ogg')
 	..()
 
 /mob/living/simple_animal/mouse/death(gibbed)
