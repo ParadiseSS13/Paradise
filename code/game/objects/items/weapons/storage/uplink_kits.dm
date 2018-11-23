@@ -216,7 +216,7 @@
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
 /obj/item/storage/box/syndie_kit/mimery
-	name = "mimery kit"
+	name = "advanced mimery kit"
 
 /obj/item/storage/box/syndie_kit/mimery/New()
 	..()
