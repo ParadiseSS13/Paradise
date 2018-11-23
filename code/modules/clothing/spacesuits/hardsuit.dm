@@ -206,8 +206,9 @@
 		else
 			to_chat(user, "You detach \the [helmet] from \the [src]'s helmet mount.")
 			helmet.loc = get_turf(src)
-			var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = helmet
-			S.linkedsuit = null
+			if(istype(src,/obj/item/clothing/head/helmet/space/hardsuit/syndi))
+				var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = helmet
+				S.linkedsuit = null
 			src.helmet = null
 			return
 		if(!boots)
@@ -229,10 +230,11 @@
 			user.drop_item()
 			W.loc = src
 			src.helmet = W
-			var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
-			S.forceMove(src)
-			helmet = S
-			S.link_suit()
+			if(istype(src,/obj/item/clothing/head/helmet/space/hardsuit/syndi))
+				var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
+				S.forceMove(src)
+				helmet = S
+				S.link_suit()
 		return
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
