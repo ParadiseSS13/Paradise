@@ -62,15 +62,17 @@
 	return ..()
 
 /obj/item/projectile/proc/Range()
-    range--
-    if(damage && tile_dropoff)
-        damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
-    if(stamina && tile_dropoff_s)
-        stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
-    if(range <= 0 && loc)
-        on_range()
-    if(!damage && !stamina && !nodamage)
-        on_range()
+	range--
+	if(damage && tile_dropoff)
+		damage = max(0, damage - tile_dropoff) // decrement projectile damage based on dropoff value for each tile it moves
+	if(stamina && tile_dropoff_s)
+		stamina = max(0, stamina - tile_dropoff_s) // as above, but with stamina
+	if(range <= 0 && loc)
+		on_range()
+	if(!damage && !stamina)
+		if(tile_dropoff || tile_dropoff_s) // does the projectile have falloff to start with
+			on_range()
+
 
 /obj/item/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 	qdel(src)
