@@ -119,6 +119,8 @@
 	desc = "Pretend you're shooting bullets out of your fingers! 6 bullets available per cast."
 	gun = /obj/item/gun/projectile/revolver/fingergun/fake
 
+// Mime Spellbooks
+
 /obj/item/spellbook/oneuse/mime
 	spell = /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall
 	spellname = "Invisible Wall"
