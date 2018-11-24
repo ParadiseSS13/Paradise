@@ -1,7 +1,0 @@
-author: "tigercat2000"
-delete-after: True
-changes: 
-  - rscadd: "Fancier Transpara-corner Nano take 2."
-  - rscadd: "Nano's build-watching works on 512 again."
-  - bugfix: "Nano scrolling issues with the power monitor (they existed before I touched this goddamnit I swear!!!)"
-  - tweak: "Rewrote Nano's buildscripts and upgraded all the dependencies (again)"
