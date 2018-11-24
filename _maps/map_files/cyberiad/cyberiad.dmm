@@ -2828,7 +2828,7 @@
 "bct" = (/obj/machinery/door/firedoor,/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"},/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/turf/simulated/floor/plasteel,/area/hallway/secondary/entry)
 "bcu" = (/obj/structure/table/wood,/obj/item/pen,/obj/item/reagent_containers/food/drinks/bottle/holywater,/obj/machinery/light{dir = 1; on = 1},/turf/simulated/floor/carpet/black,/area/chapel/office)
 "bcv" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/structure/cable{d1 = 2; d2 = 4; icon_state = "2-4"},/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{dir = 8; initialize_directions = 11; level = 1},/obj/machinery/atmospherics/pipe/manifold/hidden/supply{dir = 8; initialize_directions = 11; level = 1},/turf/simulated/floor/plasteel,/area/hallway/secondary/entry)
-"bcw" = (/obj/machinery/alarm{pixel_y = 25},/obj/machinery/camera{c_tag = "Chapel Chaplain's Office"; dir = 2; network = list("SS13")},/obj/structure/table/wood,/obj/item/soulstone/anybody/chaplain,/turf/simulated/floor/carpet/black,/area/chapel/office)
+"bcw" = (/obj/machinery/alarm{pixel_y = 25},/obj/machinery/camera{c_tag = "Chapel Chaplain's Office"; dir = 2; network = list("SS13")},/obj/structure/table/wood,/turf/simulated/floor/carpet/black,/area/chapel/office)
 "bcx" = (/turf/simulated/floor/carpet/black,/area/chapel/office)
 "bcy" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,/turf/simulated/floor/grass,/area/hydroponics)
 "bcz" = (/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
@@ -2927,7 +2927,7 @@
 "beo" = (/obj/structure/chair/office/dark{dir = 8},/turf/simulated/floor/wood,/area/library)
 "bep" = (/obj/machinery/newscaster{pixel_x = 30},/turf/simulated/floor/wood,/area/library)
 "beq" = (/obj/machinery/ai_status_display{pixel_x = -32; pixel_y = 0; step_size = 0},/turf/simulated/floor/plasteel{icon_state = "grimy"},/area/chapel/office)
-"ber" = (/obj/structure/table/wood,/obj/item/stack/tile/carpet/black{amount = 10},/obj/item/nullrod,/turf/simulated/floor/carpet/black,/area/chapel/office)
+"ber" = (/obj/structure/table/wood,/obj/item/stack/tile/carpet/black{amount = 10},/turf/simulated/floor/carpet/black,/area/chapel/office)
 "bes" = (/obj/item/radio/intercom{name = "station intercom (General)"; pixel_y = -28},/turf/simulated/shuttle/floor,/area/shuttle/arrival/station)
 "bet" = (/obj/structure/chair{dir = 4},/obj/effect/landmark/start{name = "Chaplain"},/turf/simulated/floor/carpet/black,/area/chapel/office)
 "beu" = (/obj/machinery/atmospherics/unary/vent_pump{on = 1},/turf/simulated/floor/carpet/black,/area/chapel/office)
@@ -9164,3 +9164,4 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 "}
+

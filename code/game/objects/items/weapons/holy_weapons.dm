@@ -11,6 +11,8 @@
 	var/reskinned = FALSE
 	var/reskin_selectable = TRUE			//set to FALSE if a subtype is meant to not normally be available as a reskin option (fluff ones will get re-added through their list)
 	var/list/fluff_transformations = list() //does it have any special transformations only accessible to it? Should only be subtypes of /obj/item/nullrod
+	var/alignment_required
+	var/alignment_prohibited
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
@@ -26,9 +28,7 @@
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(reskinned)
-		return
-	if(user.mind && (user.mind.assigned_role == "Chaplain" || user.mind.special_role == SPECIAL_ROLE_ERT))
+	if(user.mind && (user.mind.isholy) && !reskinned)
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
@@ -36,6 +36,10 @@
 	for(var/entry in holy_weapons_list)
 		var/obj/item/nullrod/variant = entry
 		if(!initial(variant.reskin_selectable))
+			holy_weapons_list -= variant
+		else if(initial(variant.alignment_required) && M.mind.alignment != initial(variant.alignment_required))
+			holy_weapons_list -= variant
+		else if(initial(variant.alignment_prohibited) && M.mind.alignment == initial(variant.alignment_prohibited))
 			holy_weapons_list -= variant
 	if(fluff_transformations.len)
 		for(var/thing in fluff_transformations)
@@ -75,6 +79,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
+	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/staff
 	name = "red holy staff"
@@ -85,6 +90,7 @@
 	force = 5
 	slot_flags = SLOT_BACK
 	block_chance = 50
+	alignment_required = ALIGNMENT_NEUTRAL
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
@@ -102,6 +108,7 @@
 	sharp = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -115,6 +122,7 @@
 	desc = "Spread the glory of the dark gods!"
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
+	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/claymore/chainsaw_sword
 	name = "sacred chainsaw sword"
@@ -124,6 +132,7 @@
 	slot_flags = SLOT_BELT
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
+	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/claymore/glowing
 	name = "force weapon"
@@ -159,9 +168,10 @@
 	icon_state = "swordred"
 	item_state = "swordred"
 	desc = "Woefully ineffective when used on steep terrain."
+	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/claymore/saber/pirate
-	name = "nautical energy sword"
+	name = "nautical energy cutlass"
 	icon_state = "cutlass1"
 	item_state = "cutlass1"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
@@ -176,6 +186,7 @@
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/scythe
 	name = "reaper scythe"
@@ -188,6 +199,7 @@
 	sharp = 1
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/rapierhit.ogg'
+	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/scythe/vibro
 	name = "high frequency blade"
@@ -311,6 +323,7 @@
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 20
+	alignment_required = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"
@@ -320,6 +333,7 @@
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
+	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
@@ -335,7 +349,7 @@
 /obj/item/nullrod/carp/attack_self(mob/living/user)
 	if(used_blessing)
 		return
-	if(user.mind && (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT))
+	if(user.mind && !user.mind.isholy)
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
@@ -386,6 +400,7 @@
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
+	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/rosary
 	name = "prayer beads"
@@ -394,6 +409,7 @@
 	desc = "A set of prayer beads used by many of the more traditional religions in space.<br>Vampires and other unholy abominations have learned to fear these."
 	force = 0
 	throwforce = 0
+	alignment_required = ALIGNMENT_GOOD
 	var/praying = 0
 
 /obj/item/nullrod/rosary/New()
@@ -489,6 +505,7 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "baguette"
 	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
+	alignment_required = null
 
 /obj/item/nullrod/rosary/bread/process()
 	if(ishuman(loc))

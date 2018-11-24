@@ -1,3 +1,8 @@
+#define ALIGNMENT_GOOD "good"
+#define ALIGNMENT_NEUTRAL "neutral"
+#define ALIGNMENT_EVIL "evil"
+#define ALIGNMENT_GODLESS "godless"
+
 //Due to how large this one is it gets its own file
 /datum/job/chaplain
 	title = "Chaplain"
@@ -25,6 +30,7 @@
 	backpack_contents = list(
 		/obj/item/camera/spooky = 1
 	)
+	r_hand = /obj/item/nullrod
 
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -32,13 +38,20 @@
 	if(visualsOnly)
 		return
 
-	var/obj/item/storage/bible/B = new /obj/item/storage/bible(H)
+	if(H.mind)
+		H.mind.isholy = TRUE
 
 	spawn()
+
+		var/religion_type = input(H,"What type of religion do you have?") in list(ALIGNMENT_GOOD, ALIGNMENT_NEUTRAL, ALIGNMENT_EVIL, ALIGNMENT_GODLESS)
+		if(H.mind)
+			H.mind.alignment = religion_type
+
+		var/obj/item/storage/bible/B = new /obj/item/storage/bible(H)
 		H.equip_to_slot_or_del(B, slot_l_hand)
 
 		var/religion_name = "Christianity"
-		var/new_religion = sanitize(copytext(input(H, "You are the crew services officer. Would you like to change your religion? Default is Christianity, in SPACE.", "Name change", religion_name),1,MAX_NAME_LEN))
+		var/new_religion = sanitize(copytext(input(H, "What name do you give your beliefs? Default is Christianity.", "Name change", religion_name),1,MAX_NAME_LEN))
 
 		if(!new_religion)
 			new_religion = religion_name
@@ -72,11 +85,32 @@
 		feedback_set_details("religion_name","[new_religion]")
 
 		var/deity_name = "Space Jesus"
-		var/new_deity = sanitize(copytext(input(H, "Would you like to change your deity? Default is Space Jesus.", "Name change", deity_name),1,MAX_NAME_LEN))
+		var/new_deity = sanitize(copytext(input(H, "Who or what do you worship? Default is Space Jesus.", "Name change", deity_name),1,MAX_NAME_LEN))
 
 		if((length(new_deity) == 0) || (new_deity == "Space Jesus") )
 			new_deity = deity_name
 		B.deity_name = new_deity
+
+		if(religion_type == ALIGNMENT_GODLESS)
+			// Atheist chaplain. Give mindshield instead of blessing power.
+			var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
+			L.implant(H, null, 1)
+			if(H.mind)
+				H.mind.isholy = FALSE
+				H.mind.canpray = FALSE
+		else
+			// Otherwise, grant the ability to bless people, incrementing their religious_favor and showing up in prayers.
+			H.AddSpell(new /obj/effect/proc_holder/spell/targeted/chaplain_bless(null))
+
+		if(religion_type == ALIGNMENT_GOOD)
+			H.AddSpell(new /obj/effect/proc_holder/spell/targeted/chaplain_grantheal(null))
+		else if(religion_type == ALIGNMENT_NEUTRAL)
+			// neutral: give templar armor
+			H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/riot/knight/templar(H), slot_in_backpack)
+			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/riot/knight/templar(H), slot_in_backpack)
+		else if(religion_type == ALIGNMENT_EVIL)
+			H.equip_to_slot_or_del(new /obj/item/soulstone/anybody/chaplain(H), slot_in_backpack)
+
 
 		var/accepted = 0
 		var/outoftime = 0
@@ -165,3 +199,5 @@
 			ticker.Bible_deity_name = B.deity_name
 		feedback_set_details("religion_deity","[new_deity]")
 		feedback_set_details("religion_book","[new_book_style]")
+
+
