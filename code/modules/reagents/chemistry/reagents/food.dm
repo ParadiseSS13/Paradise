@@ -5,6 +5,8 @@
 /datum/reagent/consumable
 	name = "Consumable"
 	id = "consumable"
+	taste_message = "generic food"
+	taste_strength = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
 	var/diet_flags = DIET_OMNI | DIET_HERB | DIET_CARN
 
@@ -37,19 +39,41 @@
 							H.blood_volume += 0.4
 	return ..() | update_flags
 
+/datum/reagent/consumable/nutriment/on_new(list/supplied_data)
+	// taste data can sometimes be ("salt" = 3, "chips" = 1)
+	// and we want it to be in the form ("salt" = 0.75, "chips" = 0.25)
+	// which is called "normalizing"
+	if(!supplied_data)
+		supplied_data = data
+	// if data isn't an associative list, this has some WEIRD side effects
+	// TODO probably check for assoc list?
+	data = counterlist_normalize(supplied_data)
+
+/datum/reagent/consumable/nutriment/on_merge(list/newdata, newvolume)
+	if(!islist(newdata) || !newdata.len)
+		return
+	var/list/taste_amounts = list()
+	var/list/other_taste_amounts = newdata.Copy()
+	if(data)
+		taste_amounts = data.Copy()
+	counterlist_scale(taste_amounts, volume)
+	counterlist_combine(taste_amounts, other_taste_amounts)
+	counterlist_normalize(taste_amounts)
+	data = taste_amounts
+
 /datum/reagent/consumable/nutriment/protein			// Meat-based protein, digestable by carnivores and omnivores, worthless to herbivores
 	name = "Protein"
 	id = "protein"
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
 	diet_flags = DIET_CARN | DIET_OMNI
-	taste_message = "meat"
+	taste_message = "meat" //TODO: remove
 
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Plant-matter"
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
-	taste_message = "vegetables"
+	taste_message = "vegetables" //TODO: remove
 
 /datum/reagent/consumable/vitamin
 	name = "Vitamin"
@@ -82,6 +106,7 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 200 // Hyperglycaemic shock
 	taste_message = "sweetness"
+	taste_strength = 1.5 // stop sugar drowning out other flavours
 
 /datum/reagent/consumable/sugar/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -134,6 +159,7 @@
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
 	taste_message = "<span class='warning'>HOTNESS</span>"
+	taste_strength = 1.5
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
 	switch(current_cycle)

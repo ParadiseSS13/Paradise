@@ -902,6 +902,3 @@
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))
 		stop_pulling()
-
-/mob/living/proc/get_taste_sensitivity()
-	return TASTE_SENSITIVITY_NORMAL

@@ -12,6 +12,7 @@
 	filling_color = "#E8C31E"
 	junkiness = 20
 	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 3)
+	tastes = list("crisps" = 1)
 
 /obj/item/reagent_containers/food/snacks/sosjerky
 	name = "Scaredy's Private Reserve Beef Jerky"
@@ -21,6 +22,7 @@
 	filling_color = "#631212"
 	junkiness = 25
 	list_reagents = list("protein" = 1, "sugar" = 3)
+	tastes = list("dried meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/pistachios
 	name = "Pistachios"
@@ -30,6 +32,7 @@
 	filling_color = "#BAD145"
 	junkiness = 20
 	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 4)
+	tastes = list("pistachios" = 1)
 
 /obj/item/reagent_containers/food/snacks/no_raisin
 	name = "4no Raisins"
@@ -39,6 +42,7 @@
 	filling_color = "#343834"
 	junkiness = 25
 	list_reagents = list("plantmatter" = 2, "sugar" = 4)
+	tastes = list("dried raisins" = 1)
 
 /obj/item/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
@@ -56,6 +60,7 @@
 	filling_color = "#FFA305"
 	junkiness = 25
 	list_reagents = list("nutriment" = 1, "fake_cheese" = 2, "sugar" = 3)
+	tastes = list("cheese?" = 3, "crisps" = 2)
 
 /obj/item/reagent_containers/food/snacks/syndicake
 	name = "Syndi-Cakes"
@@ -65,6 +70,7 @@
 	trash = /obj/item/trash/syndi_cakes
 	bitesize = 3
 	list_reagents = list("nutriment" = 4, "salglu_solution" = 5)
+	tastes = list("sweetness" = 3, "cake" = 1)
 
 /obj/item/reagent_containers/food/snacks/tastybread
 	name = "bread tube"
@@ -74,6 +80,7 @@
 	filling_color = "#A66829"
 	junkiness = 20
 	list_reagents = list("nutriment" = 2, "sugar" = 4)
+	tastes = list("bread" = 1)
 
 
 //////////////////////
