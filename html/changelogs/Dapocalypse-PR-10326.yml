@@ -32,4 +32,4 @@ delete-after: True
 # Also, this gets changed to [] after reading.  Just remove the brackets when you add new shit.
 # Please surround your changes in  double quotes ("). It works without them, but if you use certain characters it screws up compiling. The quotes will not show up in the changelog.
 changes: 
-  - rscadd: "GREETINGS NSS CYBERIAD! With our new 2.01 update to NTOS, we have added special hidden files to OS, however, this is currently not functional and will be worked on by our team INTENSIVLY! GLORY TO NANOTRASEN!"
+  - wip: "GREETINGS NSS CYBERIAD! With our new 2.01 update to NTOS, we have added special hidden files to OS, however, this is currently not functional and will be worked on by our team INTENSIVLY! GLORY TO NANOTRASEN!"
