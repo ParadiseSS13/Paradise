@@ -1,0 +1,4 @@
+author: "Azule Utama"
+delete-after: True
+changes: 
+  - rscadd: "Added uplink discounts. Traitor and Nuclear Operative uplinks now have a discounted gear section! 3 random items will be chosen to be 50% off (rounded down), 25% if they usually cost 20 or more TC. You can only buy a discounted item once per uplink. Ported from TG."
