@@ -9,7 +9,7 @@ var/global/file_uid = 0
 	var/undeletable = 0										// Whether the file may be deleted. Setting to 1 prevents deletion/renaming/etc.
 	var/uid													// UID of this file
 	var/password = ""										// Placeholder for password.
-	var/hidden = false
+	var/hidden
 
 /datum/computer_file/New()
 	..()
