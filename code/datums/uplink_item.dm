@@ -1237,8 +1237,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/radio/beacon/syndicate
-	cost = 12
+	cost = 10
 	surplus = 0
+	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
+	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/syndicate_bomb
 	name = "Syndicate Bomb"
