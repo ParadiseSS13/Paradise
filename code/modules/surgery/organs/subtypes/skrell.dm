@@ -52,8 +52,8 @@
 	pocket.emp_act(severity)
 	..()
 
-/obj/item/organ/internal/headpocket/hear_talk(mob/living/M as mob, msg)
-	pocket.hear_talk(M, msg)
+/obj/item/organ/internal/headpocket/hear_talk(mob/living/M as mob, list/message_pieces)
+	pocket.hear_talk(M, message_pieces)
 	..()
 
 /obj/item/organ/internal/headpocket/hear_message(mob/living/M as mob, msg)

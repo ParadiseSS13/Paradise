@@ -98,11 +98,11 @@
 		a_right.on_found(finder)
 
 
-/obj/item/assembly_holder/hear_talk(mob/living/M, msg)
+/obj/item/assembly_holder/hear_talk(mob/living/M, list/message_pieces)
 	if(a_left)
-		a_left.hear_talk(M, msg)
+		a_left.hear_talk(M, message_pieces)
 	if(a_right)
-		a_right.hear_talk(M, msg)
+		a_right.hear_talk(M, message_pieces)
 
 /obj/item/assembly_holder/hear_message(mob/living/M, msg)
 	if(a_left)

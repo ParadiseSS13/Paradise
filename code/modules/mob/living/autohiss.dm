@@ -1,4 +1,4 @@
-/mob/living/proc/handle_autohiss(message, datum/language/L)
+/mob/proc/handle_autohiss(message, datum/language/L)
 	return message // no autohiss at this level
 
 /mob/living/carbon/human/handle_autohiss(message, datum/language/L)
