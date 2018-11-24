@@ -8,6 +8,7 @@
 	var/deflection_chance = 0 //Chance to deflect projectiles
 	var/block_chance = 0 //Chance to block melee attacks using items while on throw mode.
 	var/restraining = 0 //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
+	var/pistol_melee = 0 //can you use this martial art while holding a small arm such as a pistol
 	var/help_verb = null
 	var/no_guns = FALSE	//set to TRUE to prevent users of this style from using guns (sleeping carp, highlander). They can still pick them up, but not fire them.
 	var/no_guns_message = ""	//message to tell the style user if they try and use a gun while no_guns = TRUE (DISHONORABRU!)
@@ -34,6 +35,9 @@
 	streak = streak+element
 	if(length(streak) > max_streak_length)
 		streak = copytext(streak,2)
+	return
+
+/datum/martial_art/proc/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	return
 
 /datum/martial_art/proc/basic_hit(var/mob/living/carbon/human/A,var/mob/living/carbon/human/D)

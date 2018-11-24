@@ -6,7 +6,7 @@
 	name = "Mimejutsu"
 	help_verb = /mob/living/carbon/human/proc/mimejutsu_help
 
-/datum/martial_art/mimejutsu/proc/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/mimejutsu/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(findtext(streak,MIMECHUCKS_COMBO))
 		streak = ""
 		mimeChuck(A,D)

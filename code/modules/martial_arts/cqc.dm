@@ -8,6 +8,7 @@
 	name = "CQC"
 	help_verb = /mob/living/carbon/human/proc/CQC_help
 	block_chance = 75
+	pistol_melee = 1
 
 /datum/martial_art/cqc/can_use(mob/living/carbon/human/H)
 	if(istype(H.gloves, /obj/item/clothing/gloves/fingerless/rapid))
@@ -17,7 +18,7 @@
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
 
-/datum/martial_art/cqc/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
 	if(findtext(streak, SLAM_COMBO))
@@ -192,7 +193,7 @@
 	set name = "Remember The Basics"
 	set desc = "You try to remember some of the basics of CQC."
 	set category = "CQC"
-	to_chat(usr, "<b><i>You try to remember some of the basics of CQC.</i></b>")
+	to_chat(usr, "<b><i>You try to remember some of the basics of CQC. These moves can be used holding a pistol when fighting in close quarters.</i></b>")
 
 	to_chat(usr, "<span class='notice'>Slam</span>: Harm Grab. Slam opponent into the ground, knocking them down.")
 	to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")

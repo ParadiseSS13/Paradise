@@ -23,6 +23,7 @@
 	var/can_unsuppress = 1
 	var/recoil = 0						//boom boom shake the room
 	var/clumsy_check = 1
+	var/can_cqc = 0 					//can you use CQC melee attacks with this gun in hand
 	var/obj/item/ammo_casing/chambered = null
 	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
 	var/sawn_desc = null				//description change if weapon is sawn-off
@@ -117,6 +118,9 @@
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(target in user.contents) //can't shoot stuff inside us.
 			return
+		if(ishuman(target) && ishuman(user) && can_cqc && user.a_intent != INTENT_HELP) //CQC attack
+			if (perform_cqc(target, user))
+				return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
 			return
 		if(target == user && user.zone_sel.selecting != "mouth") //so we can't shoot ourselves (unless mouth selected)
@@ -152,6 +156,26 @@
 		return
 
 	process_fire(target,user,1,params)
+
+/obj/item/gun/proc/perform_cqc(mob/living/carbon/human/target, mob/living/carbon/human/user)
+	if(!user.martial_art.pistol_melee)
+		return FALSE
+	if(user.a_intent == INTENT_DISARM)
+		user.martial_art.disarm_act(user, target)
+		return TRUE
+	if(user.a_intent == INTENT_GRAB)
+		if(!user.get_inactive_hand() || istype(user.get_inactive_hand(), /obj/item/grab))
+			user.swap_hand()
+			user.martial_art.grab_act(user, target)
+			user.swap_hand()
+			return TRUE
+	if(user.a_intent == INTENT_HARM) //use gunbash instead of CQC attack
+		if(!user.martial_art.can_use(user))
+			return FALSE
+		user.martial_art.add_to_streak("H", target)
+		user.martial_art.check_streak(user, target)
+		return TRUE
+	return FALSE
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))

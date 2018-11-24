@@ -1,7 +1,7 @@
 /obj/item/storage/box/syndicate/
 	New()
 		..()
-		switch(pickweight(list("bloodyspai" = 1, "thief" = 1, "bond" = 1, "sabotage" = 1, "payday" = 1, "implant" = 1, "hacker" = 1, "darklord" = 1, "gadgets" = 1)))
+		switch(pickweight(list("bloodyspai" = 1, "thief" = 1, "bond" = 1, "sabotage" = 1, "payday" = 1, "implant" = 1, "hacker" = 1, "darklord" = 1, "gadgets" = 1, "tacticalespionageaction" = 1)))
 			if("bloodyspai")
 				new /obj/item/twohanded/garrote(src)
 				new /obj/item/pinpointer/advpinpointer(src)
@@ -78,6 +78,19 @@
 				new /obj/item/clothing/shoes/syndigaloshes(src)
 				new /obj/item/stamp/chameleon(src)
 				new /obj/item/multitool/ai_detect(src)
+				return
+
+			if("tacticalespionageaction")
+				new /obj/item/CQC_manual(src)
+				new /obj/item/gun/projectile/automatic/pistol(src)
+				new /obj/item/suppressor(src)
+				new /obj/item/ammo_box/magazine/m10mm(src)
+				new /obj/item/ammo_box/magazine/m10mm/ap(src)
+				new /obj/item/ammo_box/magazine/m10mm/hp(src)
+				new /obj/item/kitchen/knife/combat(src)
+				new /obj/item/clothing/mask/bandana/black(src)
+				new /obj/item/clothing/glasses/eyepatch(src)
+				new /obj/item/clothing/mask/cigarette/cigar/havana(src)
 				return
 
 /obj/item/storage/box/syndie_kit

@@ -104,6 +104,7 @@
 	can_flashlight = 0
 	max_mod_capacity = 0
 	empty_state = null
+	can_cqc = 1
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/ninja
 	name = "energy dart thrower"
@@ -117,6 +118,7 @@
 	materials = list(MAT_METAL=4000)
 	origin_tech = "combat=4;magnets=4;syndicate=2"
 	suppressed = 0
+	can_cqc = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
@@ -124,6 +126,7 @@
 	icon_state = "crossbowlarge"
 	origin_tech = null
 	materials = list()
+	can_cqc = 0
 
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)

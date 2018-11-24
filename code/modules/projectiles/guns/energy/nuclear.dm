@@ -34,6 +34,7 @@
 	ammo_x_offset = 2
 	charge_sections = 3
 	can_flashlight = 0 // Can't attach or detach the flashlight, and override it's icon update
+	can_cqc = 1
 
 /obj/item/gun/energy/gun/mini/New()
 	gun_light = new /obj/item/flashlight/seclite(src)

@@ -9,7 +9,7 @@
 	name = "Way of the Dancing Admin"
 	help_verb = /mob/living/carbon/human/proc/adminfu_help
 
-/datum/martial_art/adminfu/proc/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/adminfu/check_streak(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
 	if(findtext(streak,HEAL_COMBO))
 		streak = ""
 		healPalm(A,D)

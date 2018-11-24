@@ -6,6 +6,7 @@
 	origin_tech = "combat=3;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/m10mm
 	can_suppress = 1
+	can_cqc = 1
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()

@@ -43,6 +43,7 @@
 	item_state = "gun"
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
 	can_charge = 0
+	can_cqc = 1
 
 /obj/item/gun/energy/pulse/pistol/isHandgun()
 	return 1
