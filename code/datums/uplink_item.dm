@@ -159,6 +159,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
+	cant_discount = TRUE
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -238,7 +239,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chaplain")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
-	cant_discount = TRUE
 
 //Janitor
 
