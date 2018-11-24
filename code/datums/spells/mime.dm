@@ -130,11 +130,9 @@
 
 /obj/item/spellbook/oneuse/mime/attack_self(mob/user)
 	var/obj/effect/proc_holder/spell/S = new spell
-	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
-		if(knownspell.type == S.type)
-			if(user.mind)
-				to_chat(user, "<span class='notice'>You've already read this one.</span>")
-			return
+	if(locate(S) in user.mind.spell_list)
+		to_chat(user, "<span class='notice'>You've already read this one.</span>")
+		return
 	if(used)
 		recoil(user)
 	else
@@ -148,12 +146,9 @@
 
 /obj/item/spellbook/oneuse/mime/onlearned(mob/user)
 	used = 1
-	var/obj/effect/proc_holder/spell/S = new /obj/effect/proc_holder/spell/targeted/mime/speak
-	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
-		if(knownspell.type == S.type)
-			return
-	user.mind.AddSpell(S) //add vow of silence if not known by user
-	to_chat(user, "<span class='notice'>You have learned how to use silence to improve your performance.</span>")
+	if(!locate(/obj/effect/proc_holder/spell/targeted/mime/speak) in user.mind.spell_list) //add vow of silence if not known by user
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak)
+		to_chat(user, "<span class='notice'>You have learned how to use silence to improve your performance.</span>")
 
 /obj/item/spellbook/oneuse/mime/fingergun
 	spell = /obj/effect/proc_holder/spell/targeted/mime/fingergun
