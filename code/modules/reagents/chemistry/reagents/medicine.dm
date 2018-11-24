@@ -685,7 +685,7 @@
 					window_flash(ghost.client)
 					ghost << sound('sound/effects/genetics.ogg')
 					M.visible_message("<span class='notice'>[M] doesn't appear to respond, perhaps try again later?</span>")
-				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations) && !(M.mind && M.mind.is_revivable()))
+				if(!M.suiciding && !ghost && !(NOCLONE in M.mutations) && (M.mind && M.mind.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					M.adjustCloneLoss(50)
