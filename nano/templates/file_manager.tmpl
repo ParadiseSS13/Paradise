@@ -23,25 +23,27 @@
 					<th>Operations</th>
 				</tr>
 				{{for data.files}}
-					<tr>
-						<td>{{:value.name}}</td>
-						<td>.{{:value.type}}</td>
-						<td>{{:value.size}}GQ</td>
-						<td>
-							{{:helper.link('VIEW', 'eye', {'action' : 'PRG_openfile', 'name' : value.name})}}
-							{{:helper.link('DELETE', 'trash', {'action' : 'PRG_deletefile', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
-							{{:helper.link('RENAME', 'pencil', {'action' : 'PRG_rename', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
-							{{:helper.link('CLONE', 'files-o', {'action' : 'PRG_clone', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
-							{{if !value.encrypted}}
-								{{:helper.link('ENCRYPT', null, {'action' : 'PRG_encrypt', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
-							{{else}}
-								{{:helper.link('DECRYPT', null, {'action' : 'PRG_decrypt', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
-							{{/if}}
-							{{if data.usbconnected}}
-								{{:helper.link('EXPORT', 'upload', {'action' : 'PRG_copytousb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
-							{{/if}}
-						</td>
-					</tr>
+					{{if !value.hidden}}
+						<tr>
+							<td>{{:value.name}}</td>
+							<td>.{{:value.type}}</td>
+							<td>{{:value.size}}GQ</td>
+							<td>
+								{{:helper.link('VIEW', 'eye', {'action' : 'PRG_openfile', 'name' : value.name})}}
+								{{:helper.link('DELETE', 'trash', {'action' : 'PRG_deletefile', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{:helper.link('RENAME', 'pencil', {'action' : 'PRG_rename', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{:helper.link('CLONE', 'files-o', {'action' : 'PRG_clone', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{if !value.encrypted}}
+									{{:helper.link('ENCRYPT', null, {'action' : 'PRG_encrypt', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{else}}
+									{{:helper.link('DECRYPT', null, {'action' : 'PRG_decrypt', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{/if}}
+								{{if data.usbconnected}}
+									{{:helper.link('EXPORT', 'upload', {'action' : 'PRG_copytousb', 'name' : value.name}, value.undeletable ? 'disabled' : null)}}
+								{{/if}}
+							</td>
+						</tr>
+					{{/if}}
 				{{/for}}
 			</table>
 		</div>
