@@ -264,6 +264,24 @@
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/clothing/shoes/magboots(src)
 
+/obj/structure/closet/secure_closet/medical_hardsuit
+	name = "medical hardsuit storage"
+	desc = "A secure locker containing a medical hardsuit and magboots."
+	icon_state = "medical1"
+	icon_closed = "medical"
+	icon_locked = "medical1"
+	icon_opened = "medicalopen"
+	icon_broken = "medicalbroken"
+	icon_off = "medicaloff"
+	req_access = list(access_cmo)
+
+/obj/structure/closet/secure_closet/medical_hardsuit/New()
+	..()
+	new /obj/item/clothing/head/helmet/space/hardsuit/medical(src)
+	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/suit/space/hardsuit/medical(src)
+	new /obj/item/clothing/shoes/magboots(src)
+
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
 	desc = "Store dangerous chemicals in here."

@@ -53,3 +53,14 @@
 			overlays += icon(src.icon,"locked")
 		else
 			overlays += icon(src.icon,"open")
+
+/obj/structure/closet/secure_closet/guncabinet/hardsuit
+	name = "security hardsuit storage"
+	desc = "A secure locker containing a security hardsuit and magboots."
+
+/obj/structure/closet/secure_closet/guncabinet/hardsuit/New()
+	new /obj/item/clothing/head/helmet/space/hardsuit/security(src)
+	new /obj/item/clothing/mask/breath(src)
+	new /obj/item/clothing/suit/space/hardsuit/security(src)
+	new /obj/item/clothing/shoes/magboots(src)
+	..()
