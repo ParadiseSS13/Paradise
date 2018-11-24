@@ -31,7 +31,7 @@
 	var/reflect_chance = 80 //80% chance to reflect
 
 /obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
-	if(P.is_reflectable && prob(reflect_chance) && !istype(P, /obj/item/projectile/beam/pulse))
+	if(P.is_reflectable && prob(reflect_chance))
 		var/P_turf = get_turf(P)
 		var/face_direction = get_dir(src, P_turf)
 		var/face_angle = dir2angle(face_direction)
