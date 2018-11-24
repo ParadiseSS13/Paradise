@@ -135,7 +135,7 @@
 	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/claymore/glowing
-	name = "force weapon"
+	name = "force blade"
 	icon_state = "swordon"
 	item_state = "swordon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
@@ -156,7 +156,7 @@
 	slot_flags = SLOT_BELT
 
 /obj/item/nullrod/claymore/saber
-	name = "light energy sword"
+	name = "light energy blade"
 	hitsound = 'sound/weapons/blade1.ogg'
 	icon_state = "swordblue"
 	item_state = "swordblue"
@@ -164,7 +164,7 @@
 	slot_flags = SLOT_BELT
 
 /obj/item/nullrod/claymore/saber/red
-	name = "dark energy sword"
+	name = "dark energy blade"
 	icon_state = "swordred"
 	item_state = "swordred"
 	desc = "Woefully ineffective when used on steep terrain."
@@ -278,6 +278,7 @@
 	sharp = 1
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
+	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/clown
 	name = "clown dagger"
@@ -291,16 +292,17 @@
 
 /obj/item/nullrod/whip
 	name = "holy whip"
-	desc = "What a terrible night to be in spess"
+	desc = "A whip, blessed with the power to banish evil shadowy creatures. What a terrible night to be in spess."
 	icon_state = "chain"
 	item_state = "chain"
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed")
 	hitsound = 'sound/weapons/slash.ogg'
+	alignment_required = ALIGNMENT_GOOD
 
 /obj/item/nullrod/whip/New()
 	..()
-	desc = "What a terrible night to be on the [station_name()]."
+	desc = " What a terrible night to be on the [station_name()]."
 
 /obj/item/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -310,7 +312,7 @@
 		if(is_shadow(H))
 			var/phrase = pick("Die monster! You don't belong in this world!!!", "You steal men's souls and make them your slaves!!!", "Your words are as empty as your soul!!!", "Mankind ill needs a savior such as you!!!")
 			user.say("[phrase]")
-			H.adjustBruteLoss(8) //Bonus damage
+			H.adjustBruteLoss(12) //Bonus damage
 
 /obj/item/nullrod/fedora
 	name = "athiest's fedora"
@@ -322,7 +324,7 @@
 	force = 0
 	throw_speed = 4
 	throw_range = 7
-	throwforce = 20
+	throwforce = 25 // Yes, this is high, since you can typically only use it once in a fight.
 	alignment_required = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/armblade

@@ -56,6 +56,7 @@
 		if(!new_religion)
 			new_religion = religion_name
 
+
 		switch(lowertext(new_religion))
 			if("christianity")
 				B.name = pick("The Holy Bible")
@@ -103,9 +104,8 @@
 			H.AddSpell(new /obj/effect/proc_holder/spell/targeted/chaplain_bless(null))
 
 		if(religion_type == ALIGNMENT_GOOD)
-			H.AddSpell(new /obj/effect/proc_holder/spell/targeted/chaplain_grantheal(null))
+			H.equip_to_slot_or_del(new /obj/item/flashlight/holy_torch(H), slot_in_backpack)
 		else if(religion_type == ALIGNMENT_NEUTRAL)
-			// neutral: give templar armor
 			H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/riot/knight/templar(H), slot_in_backpack)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/riot/knight/templar(H), slot_in_backpack)
 		else if(religion_type == ALIGNMENT_EVIL)
