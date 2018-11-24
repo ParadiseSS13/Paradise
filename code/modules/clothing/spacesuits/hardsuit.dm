@@ -206,6 +206,9 @@
 		else
 			to_chat(user, "You detach \the [helmet] from \the [src]'s helmet mount.")
 			helmet.loc = get_turf(src)
+			if(istype(helmet,/obj/item/clothing/head/helmet/space/hardsuit/syndi))
+				var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = helmet
+				S.linkedsuit = null
 			src.helmet = null
 			return
 		if(!boots)
@@ -226,11 +229,12 @@
 			to_chat(user, "You attach \the [W] to \the [src]'s helmet mount.")
 			user.drop_item()
 			W.loc = src
-			src.helmet = W
-			var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
-			S.forceMove(src)
-			helmet = S
-			S.link_suit()
+			helmet = W
+			if(istype(helmet,/obj/item/clothing/head/helmet/space/hardsuit/syndi))
+				var/obj/item/clothing/head/helmet/space/hardsuit/syndi/S = W
+				S.forceMove(src)
+				helmet = S
+				S.link_suit()
 		return
 
 	else if(istype(W,/obj/item/clothing/shoes/magboots) && can_modify(user))
@@ -335,6 +339,11 @@
 		linkedsuit = loc
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/attack_self(mob/user)
+	
+	if(!linkedsuit)
+		to_chat(user, "<span class='notice'>You must attach the helmet to a syndicate hardsuit to toggle combat mode!</span>")
+		return
+
 	on = !on
 	if(on)
 		to_chat(user, "<span class='notice'>You switch your helmet to travel mode. It will allow you to stand in zero pressure environments, at the cost of speed.</span>")
