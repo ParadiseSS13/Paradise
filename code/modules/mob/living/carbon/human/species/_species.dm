@@ -318,7 +318,7 @@
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target))
@@ -347,7 +347,7 @@
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target))
@@ -388,7 +388,7 @@
 			target.forcesay(GLOB.hit_appends)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target))
