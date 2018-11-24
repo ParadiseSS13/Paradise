@@ -184,7 +184,7 @@
 	if(!user.mind.hasSoul)
 		to_chat(user, "<span class='notice'>You lack a soul to sign away!</span>")
 
-	if(user.mind.soulOwner != owner)
+	if(user.mind.soulOwner == owner)
 		to_chat(user, "<span class='notice'>This devil already owns your soul, you may not sell it to them again.</span>")
 		return FALSE
 
