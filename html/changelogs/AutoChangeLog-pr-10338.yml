@@ -1,4 +1,0 @@
-author: "MarsM0nd"
-delete-after: True
-changes: 
-  - bugfix: "Coins will now always show a side on being spawned."

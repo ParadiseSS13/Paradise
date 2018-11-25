@@ -1,8 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Fixes Unathi Snout 2 not using the correct sprite."
-  - bugfix: "Fixes Unathi Points Head not using the correct sprite."
-  - bugfix: "Fixes Unathi Sharp Tiger Head and Face not using the correct sprite."
-  - bugfix: "Fixes Unathi Tiger Head and Face not using the correct sprite."
-  - tweak: "Removes Unathi Sharp Points Head and enables Unathi Points Head marking for use on all Unathi head types."
