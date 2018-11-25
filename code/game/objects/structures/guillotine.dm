@@ -198,17 +198,17 @@
 		var/obj/item/weldingtool/WT = W
 		if(!WT.remove_fuel(0, user))
 			return
-		to_chat(user, "<span class='notice'>You begin cutting \the [src] apart...</span>")
+		to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
 		playsound(loc, WT.usesound, 40, 1)
 		if(do_after(user, 150 * WT.toolspeed, 1, target = src))
 			if(!WT.isOn())
 				return
 			playsound(loc, WT.usesound, 50, 1)
-			visible_message("<span class='notice'>[user] slices apart \the [src].</span>",
-							"<span class='notice'>You cut \the [src] apart with \the [WT].</span>",
+			visible_message("<span class='notice'>[user] slices apart [src].</span>",
+							"<span class='notice'>You cut [src] apart with [WT].</span>",
 							"<span class='italics'>You hear welding.</span>")
 			var/turf/T = get_turf(src)
-			if (blade_sharpness == GUILLOTINE_BLADE_MAX_SHARP)
+			if(blade_sharpness == GUILLOTINE_BLADE_MAX_SHARP)
 				new /obj/item/stack/sheet/plasteel(T, 3)
 			else
 				new /obj/item/stack/sheet/plasteel(T, 2) //prevents reconstructing to sharpen the guillotine without additional plasteel
