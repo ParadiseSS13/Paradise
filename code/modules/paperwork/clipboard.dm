@@ -83,7 +83,7 @@ obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/P, placing)
 	if(containedpen)
 		overlays += "clipboard_pen"
 	overlays += "clipboard_over"
-	return
+	..()
 
 /obj/item/clipboard/attackby(obj/item/W, mob/user)
 	if(isPaperwork(W)) //If it's a photo, paper bundle, or piece of paper, place it on the clipboard.

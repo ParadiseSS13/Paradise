@@ -146,7 +146,7 @@
 	return
 
 /obj/proc/update_icon()
-	return
+	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /mob/proc/unset_machine()
 	if(machine)

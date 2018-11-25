@@ -313,6 +313,9 @@
 /datum/action/item_action/toggle_helmet
 	name = "Toggle Helmet"
 
+/datum/action/item_action/remove_tape
+	name = "Remove Duct Tape"
+
 /datum/action/item_action/toggle_jetpack
 	name = "Toggle Jetpack"
 

@@ -217,6 +217,7 @@
 
 
 /obj/item/paper_bundle/update_icon()
+	..()
 	if(contents.len)
 		var/obj/item/paper/P = src[1]
 		icon_state = P.icon_state

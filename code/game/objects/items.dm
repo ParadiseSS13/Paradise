@@ -206,6 +206,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		msg += "*--------*"
 		to_chat(user, msg)
 
+/obj/item/afterattack(atom/target, mob/user, proximity, params)
+	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
+	..()
 
 /obj/item/attack_hand(mob/user as mob, pickupfireoverride = FALSE)
 	if(!user) return 0
@@ -415,6 +418,12 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/remove_tape)
+		GET_COMPONENT(DT, /datum/component/ducttape)
+		if(!DT)
+			return
+		DT.remove_tape(src, user)
+		return
 	attack_self(user)
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit

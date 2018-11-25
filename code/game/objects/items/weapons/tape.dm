@@ -13,7 +13,9 @@
 
 	update_icon()
 
-/obj/item/stack/tape_roll/attack(mob/living/carbon/human/M as mob, mob/living/user as mob)
+/obj/item/stack/tape_roll/attack(mob/living/carbon/human/M, mob/living/user)
+	if(!istype(M)) //What good is a duct tape mask if you are unable to speak?
+		return
 	if(M.wear_mask)
 		to_chat(user, "Remove [M.p_their()] mask first!")
 	else if(amount < 2)
@@ -40,25 +42,6 @@
 		user.unEquip(src, 1)
 		qdel(src)
 
-
-
-/* -- Disabled for now until it has a use --
-/obj/item/stack/tape_roll/attack_self(mob/user as mob)
-	to_chat(user, "You remove a length of tape from [src].")
-
-	var/obj/item/ducttape/tape = new()
-	user.put_in_hands(tape)
-*/
-
-/obj/item/stack/tape_roll/proc/stick(var/obj/item/W, mob/user)
-	if(!istype(W, /obj/item/paper))
-		return
-
-	user.unEquip(W)
-	var/obj/item/ducttape/tape = new(get_turf(src))
-	tape.attach(W)
-	user.put_in_hands(tape)
-
 /obj/item/stack/tape_roll/update_icon()
 	var/amount = get_amount()
 	if((amount <= 2) && (amount > 0))
@@ -72,72 +55,20 @@
 	else
 		icon_state = "taperoll-4"
 
-/obj/item/ducttape
-	name = "tape"
-	desc = "A piece of sticky tape."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "tape"
-	w_class = WEIGHT_CLASS_TINY
-	layer = 4
-	anchored = 1 //it's sticky, no you cant move it
-
-	var/obj/item/stuck = null
-
-/obj/item/ducttape/New()
+/obj/item/stack/tape_roll/afterattack(obj/item/I, mob/user, proximity, params)
 	..()
-	flags |= NOBLUDGEON
-
-/obj/item/ducttape/examine(mob/user)
-	return stuck.examine(user)
-
-/obj/item/ducttape/proc/attach(var/obj/item/W)
-	stuck = W
-	W.forceMove(src)
-	icon_state = W.icon_state + "_taped"
-	name = W.name + " (taped)"
-	overlays = W.overlays
-
-/obj/item/ducttape/attack_self(mob/user)
-	if(!stuck)
+	if(!proximity || !istype(I))
 		return
-
-	to_chat(user, "You remove \the [initial(name)] from [stuck].")
-
-	user.unEquip(src)
-	stuck.forceMove(get_turf(src))
-	user.put_in_hands(stuck)
-	stuck = null
-	overlays = null
-	qdel(src)
-
-/obj/item/ducttape/afterattack(var/A, mob/user, flag, params)
-	if(!in_range(user, A) || istype(A, /obj/machinery/door) || !stuck)
+	var/list/clickparams = params2list(params)
+	var/x_offset = text2num(clickparams["icon-x"])
+	var/y_offset = text2num(clickparams["icon-y"])
+	if(I.GetComponent(/datum/component/ducttape))
+		to_chat(user, "<span class='notice'>[I] already has some tape attached!</span>")
 		return
-
-	var/turf/target_turf = get_turf(A)
-	var/turf/source_turf = get_turf(user)
-
-	var/dir_offset = 0
-	if(target_turf != source_turf)
-		dir_offset = get_dir(source_turf, target_turf)
-		if(!(dir_offset in cardinal))
-			to_chat(user, "You cannot reach that from here.")// can only place stuck papers in cardinal directions, to
-			return											 // reduce papers around corners issue.
-
-	user.unEquip(src)
-	forceMove(source_turf)
-
-	if(params)
-		var/list/mouse_control = params2list(params)
-		if(mouse_control["icon-x"])
-			pixel_x = text2num(mouse_control["icon-x"]) - 16
-			if(dir_offset & EAST)
-				pixel_x += 32
-			else if(dir_offset & WEST)
-				pixel_x -= 32
-		if(mouse_control["icon-y"])
-			pixel_y = text2num(mouse_control["icon-y"]) - 16
-			if(dir_offset & NORTH)
-				pixel_y += 32
-			else if(dir_offset & SOUTH)
-				pixel_y -= 32
+	if(use(1))
+		to_chat(user, "<span class='notice'>You apply some tape to [I].</span>")
+		I.AddComponent(/datum/component/ducttape, I, user, x_offset, y_offset)
+		I.anchored = TRUE
+		user.transfer_fingerprints_to(src)
+	else
+		to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
