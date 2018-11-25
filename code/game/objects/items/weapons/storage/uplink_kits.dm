@@ -22,6 +22,8 @@
 			if("bond")
 				new /obj/item/gun/projectile/automatic/pistol(src)
 				new /obj/item/suppressor(src)
+				new /obj/item/ammo_box/magazine/m10mm(src)
+				new /obj/item/ammo_box/magazine/m10mm/ap(src)
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
 				new /obj/item/encryptionkey/syndicate(src)
 				new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)

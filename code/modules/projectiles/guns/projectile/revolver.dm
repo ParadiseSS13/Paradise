@@ -156,6 +156,7 @@
 	righthand_file = null
 	clumsy_check = 0 //Stole your uplink! Honk!
 	needs_permit = 0 //go away beepsky
+	can_cqc = 1 //It's just your hand...
 
 /obj/item/gun/projectile/revolver/fingergun/fake
 	desc = "Pew pew pew!"

@@ -8,6 +8,7 @@
 
 	var/mag_type = /obj/item/ammo_box/magazine/m10mm //Removes the need for max_ammo and caliber info
 	var/obj/item/ammo_box/magazine/magazine
+	var/has_knife = 0 //does this have a knife attached
 
 /obj/item/gun/projectile/New()
 	..()
@@ -87,10 +88,41 @@
 		else
 			to_chat(user, "<span class='warning'>You can't seem to figure out how to fit [S] on [src].</span>")
 			return
+	if(can_cqc && istype(A, /obj/item/kitchen/knife))
+		var/obj/item/kitchen/knife/K = A
+		if(!has_knife)
+			if(!user.unEquip(A))
+				return
+			to_chat(user, "<span class='notice'>You hold [K] together with [src], melee attacks will deal increased damage.</span>")
+			has_knife = K
+			attack_verb = K.attack_verb
+			force = K.force
+			hitsound = K.hitsound
+			sharp = K.sharp
+			K.loc = src
+			return
+		else
+			to_chat(user, "<span class='warning'>[src] already has a knife.</span>")
+			return
 	return 0
 
 /obj/item/gun/projectile/attack_hand(mob/user)
 	if(loc == user)
+		if(has_knife)
+			var/obj/item/kitchen/knife/K = has_knife
+			var/obj/item/gun/projectile/default = new src.type
+			if(user.l_hand != src && user.r_hand != src)
+				..()
+				return
+			to_chat(user, "<span class='notice'>You take the [K].</span>")
+			user.put_in_hands(has_knife)
+			attack_verb = default.attack_verb
+			force = default.force
+			hitsound = default.hitsound
+			sharp = default.sharp
+			has_knife = 0
+			qdel(default)
+			return
 		if(suppressed && can_unsuppress)
 			var/obj/item/suppressor/S = suppressed
 			if(user.l_hand != src && user.r_hand != src)
@@ -126,6 +158,8 @@
 /obj/item/gun/projectile/examine(mob/user)
 	..()
 	to_chat(user, "Has [get_ammo()] round\s remaining.")
+	if(has_knife)
+		to_chat(user, "Has a knife alongside it.")
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
