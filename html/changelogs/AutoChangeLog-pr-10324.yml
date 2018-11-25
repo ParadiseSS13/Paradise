@@ -1,0 +1,5 @@
+author: "Reagent Scanner Changes"
+delete-after: True
+changes: 
+  - rscdel: "Removed Mass Spectrometer and Advanced Mass Spectrometer"
+  - tweak: "Reagent Scanner and Advanced Reagent Scanners can now identify blood types"
