@@ -20,7 +20,3 @@
 	callHook("mob_logout", list("client" = client, "mob" = src))
 
 	return 1
-
-/mob/living/Logout()
-	. = ..()
-	update_z(null)

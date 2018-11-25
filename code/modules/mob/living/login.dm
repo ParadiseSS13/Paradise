@@ -5,6 +5,10 @@
 	update_stat("mob login")
 	update_sight()
 
+	if(loc)
+		var/turf/T = get_turf(src)
+		update_z(T.z)
+
 	//If they're SSD, remove it so they can wake back up.
 	player_logged = 0
 
