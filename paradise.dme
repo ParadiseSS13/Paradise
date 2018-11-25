@@ -1697,7 +1697,6 @@
 #include "code\modules\mob\living\carbon\human\status_procs.dm"
 #include "code\modules\mob\living\carbon\human\update_icons.dm"
 #include "code\modules\mob\living\carbon\human\update_stat.dm"
-#include "code\modules\mob\living\carbon\human\whisper.dm"
 #include "code\modules\mob\living\carbon\human\species\_species.dm"
 #include "code\modules\mob\living\carbon\human\species\abductor.dm"
 #include "code\modules\mob\living\carbon\human\species\diona.dm"

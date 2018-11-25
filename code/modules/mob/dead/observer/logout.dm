@@ -1,4 +1,5 @@
 /mob/dead/observer/Logout()
+	update_z(null)
 	if(client)
 		client.images -= ghost_darkness_images
 	..()

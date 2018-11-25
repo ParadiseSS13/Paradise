@@ -399,7 +399,7 @@
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(AIStatus != togglestatus)
-		if(togglestatus > 0 && togglestatus < 5)
+		if(togglestatus >= AI_ON && togglestatus <= AI_Z_OFF)
 			if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
 				var/turf/T = get_turf(src)
 				if(AIStatus == AI_Z_OFF)
@@ -443,7 +443,7 @@
 		if(get_dist(M, src) < vision_range)
 			if(isturf(M.loc))
 				. += M
-			else if (M.loc.type in hostile_machines)
+			else if(M.loc.type in hostile_machines)
 				. += M.loc
 
 /mob/living/simple_animal/onTransitZ(old_z, new_z)
