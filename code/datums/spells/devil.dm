@@ -132,7 +132,7 @@
 		pulledby.stop_pulling()
 	if(pulling)
 		stop_pulling()
-	forceMove(holder)
+	forceMove(s_holder)
 	holder = s_holder
 	notransform = FALSE
 	fakefireextinguish()
