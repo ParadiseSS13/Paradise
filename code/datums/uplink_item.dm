@@ -130,7 +130,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
-				log_game("[key_name(user)] purchased [name]")
+				if(limited_stock > 0)
+					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+				else
+					log_game("[key_name(user)] purchased [name].")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -159,6 +162,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
+	cant_discount = TRUE
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -238,7 +242,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	job = list("Chaplain")
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting
 	hijack_only = TRUE //This is a murderbone weapon, as such, it should only be available in those scenarios.
-	cant_discount = TRUE
 
 //Janitor
 
