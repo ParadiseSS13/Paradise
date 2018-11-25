@@ -1,5 +1,4 @@
 /mob/Logout()
-	update_z(null)
 	SSnanoui.user_logout(src) // this is used to clean up (remove) this user's Nano UIs
 	unset_machine()
 	GLOB.player_list -= src
@@ -21,3 +20,7 @@
 	callHook("mob_logout", list("client" = client, "mob" = src))
 
 	return 1
+
+/mob/living/Logout()
+	. = ..()
+	update_z(null)

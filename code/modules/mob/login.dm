@@ -63,10 +63,6 @@
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
 
-	if(loc)
-		var/turf/T = get_turf(src)
-		update_z(T.z)
-
 	add_click_catcher()
 
 	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
@@ -102,3 +98,9 @@
 		hotkeyname = hotkeys[client.hotkeyon ? "on" : "off"]//get the name of the hotkey, to not clutter winset() to much
 		client.hotkeyon = 0
 		winset(src, null, "mainwindow.macro=[hotkeyname] hotkey_toggle.is-checked=false input.focus=true input.background-color=#D3B5B5")
+
+/mob/living/Login()
+ . = ..()
+	if(loc)
+		var/turf/T = get_turf(src)
+		update_z(T.z)

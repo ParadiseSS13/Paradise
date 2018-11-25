@@ -62,7 +62,7 @@
 		return 0
 
 /mob/living/simple_animal/hostile/handle_automated_action()
-	if(AIStatus == AI_OFF)
+	if(AIStatus != AI_ON && AIStatus != AI_OFF)
 		return 0
 	var/list/possible_targets = ListTargets() //we look around for potential targets and make it a list for later use.
 	if(environment_smash)
@@ -397,7 +397,57 @@
 /mob/living/simple_animal/hostile/proc/AIShouldSleep(var/list/possible_targets)
 	return !FindTarget(possible_targets, 1)
 
+/mob/living/simple_animal/proc/toggle_ai(togglestatus)
+	if(AIStatus != togglestatus)
+		if(togglestatus > 0 && togglestatus < 5)
+			if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
+				var/turf/T = get_turf(src)
+				if(AIStatus == AI_Z_OFF)
+					SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
+				else
+					SSidlenpcpool.idle_mobs_by_zlevel[T.z] += src
+			GLOB.simple_animals[AIStatus] -= src
+			GLOB.simple_animals[togglestatus] += src
+			AIStatus = togglestatus
+		else
+			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+
 /mob/living/simple_animal/hostile/consider_wakeup()
 	..()
-	if(AIStatus == AI_IDLE && FindTarget(ListTargets(), 1))
+	var/list/tlist
+	var/turf/T = get_turf(src)
+
+	if(!T)
+		return
+
+	if(!length(SSmobs.clients_by_zlevel[T.z])) // It's fine to use .len here but doesn't compile on 511
+		toggle_ai(AI_Z_OFF)
+		return
+
+	var/cheap_search = isturf(T) && !(T.z == 1) // The original check for SSmapping's station z level trait, unfortunately it isn't here.
+	if(cheap_search)
+		tlist = ListTargetsLazy(T.z)
+	else
+		tlist = ListTargets()
+
+	if(AIStatus == AI_IDLE && FindTarget(tlist, 1))
+		if(cheap_search) //Try again with full effort
+			FindTarget()
 		toggle_ai(AI_ON)
+
+/mob/living/simple_animal/hostile/proc/ListTargetsLazy(var/_Z)//Step 1, find out what we can see
+	var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha))
+	. = list()
+	for(var/I in SSmobs.clients_by_zlevel[_Z])
+		var/mob/M = I
+		if(get_dist(M, src) < vision_range)
+			if(isturf(M.loc))
+				. += M
+			else if (M.loc.type in hostile_machines)
+				. += M.loc
+
+/mob/living/simple_animal/onTransitZ(old_z, new_z)
+	..()
+	if(AIStatus == AI_Z_OFF)
+		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
+		toggle_ai(initial(AIStatus)) 

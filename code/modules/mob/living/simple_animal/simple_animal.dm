@@ -578,15 +578,7 @@
 
 /mob/living/simple_animal/can_hear()
 	. = TRUE
-
-/mob/living/simple_animal/proc/toggle_ai(togglestatus)
-	if(AIStatus != togglestatus)
-		if(togglestatus > 0 && togglestatus < 4)
-			GLOB.simple_animals[AIStatus] -= src
-			GLOB.simple_animals[togglestatus] += src
-			AIStatus = togglestatus
-		else
-			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+	
 /mob/living/simple_animal/proc/consider_wakeup()
 	if(pulledby || shouldwakeup)
 		toggle_ai(AI_ON)

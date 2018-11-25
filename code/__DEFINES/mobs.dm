@@ -99,6 +99,7 @@
 #define AI_ON		1
 #define AI_IDLE		2
 #define AI_OFF		3
+#define AI_Z_OFF    4
 
 // Intents
 #define INTENT_HELP		"help"
