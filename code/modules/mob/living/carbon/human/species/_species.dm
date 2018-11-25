@@ -199,7 +199,8 @@
 	if(ears)
 		qdel(ears)
 
-	ears = new mutantears(H)
+	if(mutantears)
+		ears = new mutantears(H)
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
@@ -725,3 +726,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	var/picked_species = pick(random_species)
 	var/datum/species/selected_species = GLOB.all_species[picked_species]
 	return species_name ? picked_species : selected_species.type
+
+/datum/species/proc/can_hear(mob/living/carbon/human/H)
+	. = FALSE
+	var/obj/item/organ/internal/ears/ears = H.get_int_organ(/obj/item/organ/internal/ears)
+	if(istype(ears) && !ears.deaf)
+		. = TRUE
