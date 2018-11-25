@@ -74,5 +74,4 @@
 				user.visible_message("[user] has blessed [target] in the name of [ticker.Bible_deity_name].", "<span class='notice'>You have blessed [target] in the name of [ticker.Bible_deity_name].</span>")
 				target.mind.isblessed = TRUE
 				user.mind.religious_favor++
-				to_chat(user, "You now have [user.mind.religious_favor] points of favor with your god.")
 

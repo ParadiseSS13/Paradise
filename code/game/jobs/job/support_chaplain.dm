@@ -56,7 +56,6 @@
 		if(!new_religion)
 			new_religion = religion_name
 
-
 		switch(lowertext(new_religion))
 			if("christianity")
 				B.name = pick("The Holy Bible")
