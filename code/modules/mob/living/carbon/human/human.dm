@@ -120,6 +120,8 @@
 			continue
 		qdel(E)
 	for(var/obj/item/organ/O in internal_organs)
+		if(istype(O, /obj/item/organ/internal/ears))
+			continue
 		qdel(O)
 	regenerate_icons()
 	death()
