@@ -32,6 +32,7 @@
 /datum/sprite_accessory/body_markings/head/unathi/points_una //Companion marking for Unathi Points.
 	name = "Unathi Points Head"
 	icon_state = "pointsface"
+	heads_allowed = list("All")
 
 /datum/sprite_accessory/body_markings/head/unathi/sharp
 	heads_allowed = list("Unathi Sharp Snout")
@@ -47,7 +48,3 @@
 /datum/sprite_accessory/body_markings/head/unathi/sharp/snout_narrow_una_sharp //Companion marking for Unathi Narrow Belly.
 	name = "Unathi Sharp Snout 2"
 	icon_state = "facesharp"
-
-/datum/sprite_accessory/body_markings/head/unathi/sharp/points_una_sharp //Companion marking for Unathi Points.
-	name = "Unathi Sharp Points Head"
-	icon_state = "pointsface"
