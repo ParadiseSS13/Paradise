@@ -426,7 +426,7 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(!user.mind || (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT))
+	if(!user.mind || !user.mind.isholy)
 		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
 		return
 
@@ -488,7 +488,7 @@
 
 /obj/item/nullrod/salt/attack_self(mob/user)
 
-	if(!user.mind || (user.mind.assigned_role != "Chaplain" && user.mind.special_role != SPECIAL_ROLE_ERT ))
+	if(!user.mind || !user.mind.isholy)
 		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
 		return
 
