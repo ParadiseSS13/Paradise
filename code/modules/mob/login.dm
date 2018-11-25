@@ -63,6 +63,10 @@
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()
 
+	if(loc)
+		var/turf/T = get_turf(src)
+		update_z(T.z)
+
 	add_click_catcher()
 
 	if(viewing_alternate_appearances && viewing_alternate_appearances.len)

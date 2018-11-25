@@ -728,6 +728,9 @@
 	visible_message("<span class='danger'>[src] launches [throw_item.name] at [target.name]!</span>")
 	return 1
 
+/obj/machinery/vending/onTransitZ()
+	return
+
 /*
  * Vending machine types
  */
