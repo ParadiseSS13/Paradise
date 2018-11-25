@@ -172,7 +172,7 @@
 
 /obj/item/gun/projectile/revolver/fingergun/afterattack(atom/target, mob/living/user, flag, params)
 	if(!user.mind.miming)
-		to_chat(usr, "<span class='warning'>You must dedicate yourself to silence first.</span>")
+		to_chat(usr, "<span class='warning'>You must dedicate yourself to silence first. Use your fingers if you wish to holster them.</span>")
 		return
 	..()
 
