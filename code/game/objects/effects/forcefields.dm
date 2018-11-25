@@ -11,6 +11,18 @@
 /obj/effect/forcefield/CanAtmosPass(turf/T)
 	return !density
 
+/obj/effect/forcefield/wizard
+	var/mob/wizard
+
+/obj/effect/forcefield/wizard/Initialize(mapload, mob/summoner)
+	. = ..()
+	wizard = summoner
+
+/obj/effect/forcefield/wizard/CanPass(atom/movable/mover, turf/target)
+	if(mover == wizard)
+		return TRUE
+	return FALSE
+
 ///////////Mimewalls///////////
 
 /obj/effect/forcefield/mime
@@ -23,3 +35,8 @@
 	..()
 	if(lifetime)
 		QDEL_IN(src, lifetime)
+
+/obj/effect/forcefield/mime/advanced
+	name = "invisible blockade"
+	desc = "You might be here a while."
+	lifetime = 60 SECONDS

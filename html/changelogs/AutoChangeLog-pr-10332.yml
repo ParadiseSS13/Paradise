@@ -1,0 +1,5 @@
+author: "Azule Utama"
+delete-after: True
+changes: 
+  - tweak: "Job-specific gear can no longer be discounted."
+  - tweak: "Discounted items now get an alternate log entry stating the item's new price."

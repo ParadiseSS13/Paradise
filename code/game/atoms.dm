@@ -15,6 +15,7 @@
 	var/atom_say_verb = "says"
 	var/dont_save = 0 // For atoms that are temporary by necessity - like lighting overlays
 
+
 	///Chemistry.
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
@@ -696,6 +697,9 @@ var/list/blood_splatter_icons = list()
 	return
 
 /atom/proc/ratvar_act()
+	return
+
+/atom/proc/handle_ricochet(obj/item/projectile/P)
 	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d

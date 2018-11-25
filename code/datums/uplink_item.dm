@@ -2,6 +2,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /proc/get_uplink_items(var/job = null)
 	var/list/uplink_items = list()
+	var/list/sales_items = list()
+	var/newreference = 1
 	if(!uplink_items.len)
 
 		var/list/last = list()
@@ -22,12 +24,38 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
+			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
+				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
 			if(!uplink_items[I.category])
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
+
+	for(var/i in 1 to 3)
+		var/datum/uplink_item/I = pick_n_take(sales_items)
+		var/datum/uplink_item/A = new I.type
+		var/discount = 0.5
+		A.limited_stock = 1
+		I.refundable = FALSE
+		A.refundable = FALSE
+		if(A.cost >= 20)
+			discount *= 0.5 // If the item costs 20TC or more, it's only 25% off.
+		A.cost = max(round(A.cost * (1-discount)),1)
+		A.category = "Discounted Gear"
+		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
+		A.job = null // If you get a job specific item selected, actually lets you buy it in the discount section
+		A.reference = "DIS[newreference]"
+		A.desc += " Limit of [A.limited_stock] per uplink. Normally costs [initial(A.cost)] TC."
+		A.surplus = 0 // stops the surplus crate potentially giving out a bit too much
+		A.item = I.item
+		newreference++
+
+		if(!uplink_items[A.category])
+			uplink_items[A.category] = list()
+
+		uplink_items[A.category] += A
 
 	return uplink_items
 
@@ -51,21 +79,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/list/excludefrom = list() //Empty list does nothing. Place the name of gamemode you don't want this item to be available in here. This is so you dont have to list EVERY mode to exclude something.
 	var/list/job = null
 	var/surplus = 100 //Chance of being included in the surplus crate (when pick() selects it)
+	var/cant_discount = FALSE
+	var/limited_stock = -1 // Can you only buy so many? -1 allows for infinite purchases
 	var/hijack_only = FALSE //can this item be purchased only during hijackings?
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
 
 /datum/uplink_item/proc/spawn_item(var/turf/loc, var/obj/item/uplink/U)
+
 	if(hijack_only)
 		if(!(locate(/datum/objective/hijack) in usr.mind.objectives))
 			to_chat(usr, "<span class='warning'>The Syndicate lacks resources to provide you with this item.</span>")
 			return
+
 	if(item)
 		U.uses -= max(cost, 0)
 		U.used_TC += cost
 		feedback_add_details("traitor_uplink_items_bought", name)
 		return new item(loc)
+
 
 /datum/uplink_item/proc/description()
 	if(!desc)
@@ -97,7 +130,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(I)
 			if(ishuman(user))
 				var/mob/living/carbon/human/A = user
-				log_game("[key_name(user)] purchased [name]")
+				if(limited_stock > 0)
+					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+				else
+					log_game("[key_name(user)] purchased [name].")
 				A.put_in_any_hand_if_possible(I)
 
 				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
@@ -117,8 +153,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 */
 //Work in Progress, job specific antag tools
 
+//Discounts (dynamically filled above)
+
+/datum/uplink_item/discounts
+	category = "Discounted Gear"
+
+//Job specific gear
+
 /datum/uplink_item/jobspecific
 	category = "Job Specific Tools"
+	cant_discount = TRUE
 
 //Clown
 /datum/uplink_item/jobspecific/clowngrenade
@@ -143,6 +187,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A specialized, one shell shotgun with a built-in cloaking device to mimic a cane. The shotgun is capable of hiding it's contents and the pin alongside being supressed. Comes with 6 special darts and a preloaded shrapnel round."
 	reference = "MCS"
 	item = /obj/item/storage/box/syndie_kit/caneshotgun
+	cost = 10
+	job = list("Mime")
+
+/datum/uplink_item/jobspecific/mimery
+	name = "Guide to Advanced Mimery Series"
+	desc = "Contains two manuals to teach you advanced Mime skills. You will be able to shoot stunning bullets out of your fingers, and create large walls that can block an entire hallway!"
+	reference = "AM"
+	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 10
 	job = list("Mime")
 
@@ -556,6 +608,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 	refundable = TRUE
+	cant_discount = TRUE
 
 /datum/uplink_item/dangerous/foamsmg
 	name = "Toy Submachine Gun"
@@ -593,6 +646,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 12
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
+	cant_discount = TRUE
 
 // Ammunition
 
@@ -763,6 +817,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 17
 	excludefrom = list(/datum/game_mode/nuclear)
 	refundable = TRUE
+	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/cqc
 	name = "CQC Manual"
@@ -1234,6 +1289,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/stack/telecrystal
 	cost = 1
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/device_tools/telecrystal/five
 	name = "5 Raw Telecrystals"
@@ -1311,6 +1367,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/uplink
 	cost = 14
 	surplus = 0
+	cant_discount = TRUE
 
 /datum/uplink_item/implants/storage
 	name = "Storage Implant"
@@ -1415,6 +1472,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndicate
 	cost = 20
 	excludefrom = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE
 
 /datum/uplink_item/badass/syndiecards
 	name = "Syndicate Playing Cards"
@@ -1448,6 +1506,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "BABA"
 	item = /obj/item/toy/syndicateballoon
 	cost = 20
+	cant_discount = TRUE
 
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
@@ -1490,6 +1549,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 20
 	item = /obj/item/storage/box/syndicate
 	excludefrom = list(/datum/game_mode/nuclear)
+	cant_discount = TRUE // You fucking wish
 
 /datum/uplink_item/badass/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	var/obj/structure/closet/crate/C = new(loc)
