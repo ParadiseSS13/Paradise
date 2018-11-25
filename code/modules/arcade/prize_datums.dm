@@ -222,6 +222,12 @@ var/global/datum/prizes/global_prizes = new
 	typepath = /obj/item/spellbook/oneuse/fake_gib
 	cost = 100
 
+/datum/prize_item/fakefingergun
+	name = "Miming Manual : Finger Gun"
+	desc = "..."
+	typepath = /obj/item/spellbook/oneuse/mime/fingergun/fake
+	cost = 100
+
 /datum/prize_item/magic_conch
 	name = "Magic Conch Shell"
 	desc = "All hail the magic conch!"
