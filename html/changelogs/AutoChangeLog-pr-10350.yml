@@ -1,5 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - tweak: "Updated description of finger gun to point out you can holster the gun manually by using it in hand."
-  - bugfix: "Fixed a bug where you couldn't learn finger gun if you already knew fake finger gun."
