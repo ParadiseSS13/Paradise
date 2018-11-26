@@ -255,6 +255,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			return 0
 
 	pickup(user)
+
 	add_fingerprint(user)
 	user.put_in_active_hand(src)
 	return 1
@@ -332,7 +333,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
-	return
+	SEND_SIGNAL(src, COMSIG_ITEM_PICKUP, user)
 
 // called when this item is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /obj/item/proc/on_exit_storage(obj/item/storage/S as obj)

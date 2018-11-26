@@ -11,6 +11,7 @@
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/add_tape_text)
 	RegisterSignal(parent, COMSIG_OBJ_UPDATE_ICON, .proc/add_tape_overlay)
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, .proc/afterattack)
+	RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/pick_up)
 	I.update_icon() //Do this first so the action button preoperly shows the icon
 	var/datum/action/item_action/remove_tape/RT = new(I)
 	if(I.loc == user)
@@ -38,18 +39,32 @@
 	user.transfer_fingerprints_to(I)
 	Destroy()
 
-/datum/component/ducttape/proc/afterattack(datum/source, atom/target, mob/user, proximity, params)
+/datum/component/ducttape/proc/afterattack(obj/item/I, atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(!isturf(target))
 		return
+	if(!user.unEquip(I))
+		return
+	var/turf/source_turf = get_turf(I)
+	var/turf/target_turf = target
 	var/list/clickparams = params2list(params)
 	var/x_offset = text2num(clickparams["icon-x"]) - 16
 	var/y_offset = text2num(clickparams["icon-y"]) - 16
-	var/turf/T = target
-	var/obj/item/I = source
-	to_chat(user, "<span class='notice'>You stick [I] to [T].</span>")
-	user.unEquip(I)
-	I.forceMove(T)
+	if(target_turf != get_turf(I)) //Trying to stick it on a wall, don't move it to the actual wall or you can move the item through it. Instead set the pixels as appropriate
+		var/target_direction = get_dir(source_turf, target_turf)//The direction we clicked
+		if(target_direction & EAST)
+			x_offset += 32
+		else if(target_direction & WEST)
+			x_offset -= 32
+		if(target_direction & NORTH)
+			y_offset += 32
+		else if(target_direction & SOUTH)
+			y_offset -= 32
+	to_chat(user, "<span class='notice'>You stick [I] to [target_turf].</span>")
 	I.pixel_x = x_offset
 	I.pixel_y = y_offset
+
+/datum/component/ducttape/proc/pick_up(obj/item/I, mob/user)
+	I.pixel_x = initial(I.pixel_x)
+	I.pixel_y = initial(I.pixel_y)
