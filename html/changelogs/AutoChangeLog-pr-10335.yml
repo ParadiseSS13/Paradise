@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Power beacon cost reduced to 10 TC, and is now hijack-exclusive."
