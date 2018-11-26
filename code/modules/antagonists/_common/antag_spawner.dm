@@ -48,6 +48,7 @@
 	ticker.mode.equip_sleeper(agent.current)
 	agent.current.faction = list("syndicate")
 	to_chat(user, "<span class='notice'>[agent.name] the [agent.assigned_role] has been activated as a Sleeper Agent.</span>")
+	qdel(src)	//destroys itself after use
 
 
 
