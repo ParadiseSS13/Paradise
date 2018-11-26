@@ -36,6 +36,7 @@
 		user.Weaken(5)
 		user.unEquip(src, 1)
 		to_chat(user, "<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 
 /obj/item/nullrod/attack_self(mob/user)
 	if(user.mind && (user.mind.isholy) && !reskinned)
