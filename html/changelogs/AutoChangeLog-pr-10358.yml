@@ -1,0 +1,4 @@
+author: "Dovydas12345"
+delete-after: True
+changes: 
+  - bugfix: "Fixes being able to attach IV drips when incapacitated"
