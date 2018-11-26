@@ -157,7 +157,7 @@ emp_act
 	return 0
 
 /mob/living/carbon/human/check_block()
-	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
+	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE) && !get_active_hand() && !get_inactive_hand())
 		return TRUE
 
 /mob/living/carbon/human/emp_act(severity)

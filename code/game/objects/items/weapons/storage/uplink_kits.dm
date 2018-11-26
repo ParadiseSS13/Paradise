@@ -89,7 +89,7 @@
 				new /obj/item/ammo_box/magazine/m10mm(src)
 				new /obj/item/ammo_box/magazine/m10mm/ap(src)
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
-				new /obj/item/kitchen/knife/combat(src)
+				new /obj/item/kitchen/knife/combat/survival(src)
 				new /obj/item/clothing/mask/bandana/black(src)
 				new /obj/item/clothing/glasses/eyepatch(src)
 				new /obj/item/clothing/mask/cigarette/cigar/havana(src)

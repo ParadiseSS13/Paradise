@@ -193,7 +193,7 @@
 	set name = "Remember The Basics"
 	set desc = "You try to remember some of the basics of CQC."
 	set category = "CQC"
-	to_chat(usr, "<b><i>You try to remember some of the basics of CQC. These moves can be used holding a pistol when fighting in close quarters.</i></b>")
+	to_chat(usr, "<b><i>You try to remember some of the basics of CQC. These moves can be used holding a pistol when fighting in close quarters. A knife can be held alongside the pistol to further increase effectiveness, use the knife with the pistol.</i></b>")
 
 	to_chat(usr, "<span class='notice'>Slam</span>: Harm Grab. Slam opponent into the ground, knocking them down.")
 	to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
@@ -202,4 +202,4 @@
 	to_chat(usr, "<span class='notice'>Pressure</span>: Disarm Grab. Decent stamina damage.")
 	to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
 
-	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter melee attacks done to you.</i></b>")
+	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter melee attacks done to you, as long as your hands are empty.</i></b>")

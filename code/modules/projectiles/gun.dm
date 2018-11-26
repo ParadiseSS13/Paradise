@@ -24,6 +24,7 @@
 	var/recoil = 0						//boom boom shake the room
 	var/clumsy_check = 1
 	var/can_cqc = 0 					//can you use CQC melee attacks with this gun in hand
+	var/has_knife = 0 					//does this have a knife attached
 	var/obj/item/ammo_casing/chambered = null
 	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
 	var/sawn_desc = null				//description change if weapon is sawn-off
@@ -74,6 +75,8 @@
 		to_chat(user, "<span class='notice'>Alt-click it to reskin it.</span>")
 	if(unique_rename)
 		to_chat(user, "<span class='notice'>Use a pen on it to rename it.</span>")
+	if(has_knife)
+		to_chat(user, "Has [has_knife] alongside it.")
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -294,7 +297,45 @@ obj/item/gun/proc/newshot()
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
 			rename_gun(user)
+	if(ishuman(user) && can_cqc && istype(I, /obj/item/kitchen/knife))
+		attach_melee(I, user)
 	..()
+
+/obj/item/gun/proc/attach_melee(var/obj/item/A as obj, mob/living/carbon/human/user)
+	if(user.martial_art.pistol_melee) //CQC users only
+		var/obj/item/kitchen/knife/K = A
+		if(!has_knife)
+			if(!user.unEquip(A))
+				return
+			to_chat(user, "<span class='notice'>You hold [K] together with [src], melee attacks will deal increased damage.</span>")
+			has_knife = K
+			attack_verb = K.attack_verb
+			force = K.force
+			hitsound = K.hitsound
+			sharp = K.sharp
+			K.loc = src
+			return
+		else
+			to_chat(user, "<span class='warning'>[src] already has a knife.</span>")
+			return
+
+/obj/item/gun/attack_hand(mob/user)
+	if(loc == user)
+		if(has_knife)
+			var/obj/item/kitchen/knife/K = has_knife
+			var/obj/item/gun/default = new src.type
+			if(user.l_hand != src && user.r_hand != src)
+				..()
+				return
+			to_chat(user, "<span class='notice'>You take the [K].</span>")
+			user.put_in_hands(has_knife)
+			attack_verb = default.attack_verb
+			force = default.force
+			hitsound = default.hitsound
+			sharp = default.sharp
+			has_knife = 0
+			qdel(default)
+			return
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"
