@@ -1075,7 +1075,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SLEEP_AGENT"
 	item = /obj/item/antag_spawner/sleeper_activator
 	refund_path = /obj/item/antag_spawner/sleeper_activator
-	cost = 35	//not sure on this pricing just yet
+	cost = 40	//not sure on this pricing just yet
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 	refundable = TRUE
