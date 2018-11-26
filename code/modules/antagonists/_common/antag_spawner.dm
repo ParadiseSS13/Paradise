@@ -17,7 +17,6 @@
 	icon = 'icons/obj/device.dmi'	//same as borg tele
 	icon_state = "locator"
 	var/checking = FALSE
-	var/TC_cost = 0
 	var/desired_objective
 
 /obj/item/antag_spawner/sleeper_activator/attack_self(mob/user)
@@ -50,19 +49,14 @@
 	to_chat(user, "<span class='notice'>[agent.name] the [agent.assigned_role] has been activated as a Sleeper Agent.</span>")
 	qdel(src)	//destroys itself after use
 
-
-
-
 /obj/item/antag_spawner/sleeper_activator/proc/get_candidate_list()
 	var/list/agent_candidates = list()
-	for(var/mob/living/player in GLOB.mob_list)
+	for(var/mob/living/carbon/human/player in GLOB.mob_list)
 		if(!player.client)
 			continue 
 		if(player.stat == DEAD)
 			continue
 		if(player.mind.special_role)
-			continue
-		if(!ishuman(player))
 			continue
 		if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 			agent_candidates += player.mind
