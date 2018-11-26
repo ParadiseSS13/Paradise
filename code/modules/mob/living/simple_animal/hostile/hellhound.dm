@@ -102,8 +102,10 @@
 
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
 	. = ..()
-	if(target)
-		target = user
+	if(target && isliving(target))
+		var/mob/living/L = target
+		if(L.stat != CONSCIOUS)
+			target = user
 
 /mob/living/simple_animal/hostile/hellhound/proc/special_aoe()
 	if(world.time < (smoke_lastuse + smoke_freq))
