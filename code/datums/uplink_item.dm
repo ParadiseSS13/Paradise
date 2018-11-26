@@ -1134,6 +1134,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 	refundable = TRUE
+	cant_discount = TRUE
 
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
