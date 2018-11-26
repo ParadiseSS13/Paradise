@@ -228,7 +228,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/greet_sleeper(datum/mind/sleeper_agent)
 	SEND_SOUND(sleeper_agent.current, 'sound/ambience/antag/tatoralert.ogg')
-	to_chat(sleeper_agent.current, "<span class='notice'>You suddenly realize you are a Syndicate sleeper agent that has been activated in a rush. Nuclear operatives are on their way to destroy the station. Aid them in this task and fulfil your objective. <b> Be aware that they outrank you, their orders are to be followed</b></span>")
+	to_chat(sleeper_agent.current, "<span class='notice'>You suddenly realize you are a Syndicate sleeper agent that has been activated in a rush. Nuclear operatives are on their way to destroy the station. Aid them in this task and fulfil your objective. <b>Be aware that they outrank you, their orders are to be followed</b></span>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in sleeper_agent.objectives)
 		to_chat(sleeper_agent.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
@@ -260,19 +260,43 @@ proc/issyndicate(mob/living/M as mob)
 
 	// find a pda
 	var/obj/item/R = locate(/obj/item/pda) in sleeper_agent.contents //Hide the uplink in a PDA if available, otherwise radio
+	//find a radio as fallback
 	if(!R)
-		to_chat(sleeper_agent, "Unfortunately, the Syndicate wasn't able to get you a pda.")
+		R = locate(/obj/item/radio) in sleeper_agent.contents
+	if(!R)
+		to_chat(sleeper_agent, "Unfortunately, the Syndicate wasn't able to get you a radio.")
 		return
-	// generate a passcode if the uplink is hidden in a PDA
-	var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
-	var/obj/item/uplink/hidden/T = new(R)
-	R.hidden_uplink = T
-	T.uplink_owner = "[sleeper_agent.key]"
-	var/obj/item/pda/P = R
-	P.lock_code = pda_pass
 
-	to_chat(sleeper_agent, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
-	sleeper_agent.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
+	if(istype(R, /obj/item/radio))//generate radio code
+		var/obj/item/radio/target_radio = R
+		var/freq = PUBLIC_LOW_FREQ
+		var/list/freqlist = list()
+		while(freq <= PUBLIC_HIGH_FREQ)
+			if(freq < 1451 || freq > 1459)
+				freqlist += freq
+			freq += 2
+			if((freq % 2) == 0)
+				freq += 1
+		freq = freqlist[rand(1, freqlist.len)]
+
+		var/obj/item/uplink/hidden/T = new(R)
+		target_radio.hidden_uplink = T
+		T.uplink_owner = "[sleeper_agent.key]"
+		target_radio.traitor_frequency = freq
+		to_chat(sleeper_agent, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features.")
+		sleeper_agent.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [T.loc]).")
+
+	else	
+		// generate a passcode if the uplink is hidden in a PDA
+		var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
+		var/obj/item/uplink/hidden/T = new(R)
+		R.hidden_uplink = T
+		T.uplink_owner = "[sleeper_agent.key]"
+		var/obj/item/pda/P = R
+		P.lock_code = pda_pass
+		to_chat(sleeper_agent, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
+		sleeper_agent.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
+
 	R.hidden_uplink.uses = 10	//only 10 TC for sleeper agents
 		
 
@@ -454,7 +478,7 @@ proc/issyndicate(mob/living/M as mob)
 					text += "body destroyed"
 				text += ")"
 				for(var/obj/item/uplink/H in world_uplinks)
-					if(H && H.uplink_owner && H.uplink_owner==sleeper.key)
+					if(H && H.uplink_owner && H.uplink_owner == sleeper.key)
 						TC_uses += H.used_TC
 						purchases += H.purchase_log
 
