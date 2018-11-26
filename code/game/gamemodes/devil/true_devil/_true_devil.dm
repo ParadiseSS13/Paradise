@@ -25,7 +25,9 @@
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
 	dna = dna_source.dna.Clone()
 	var/obj/item/organ/internal/brain/B = new(src)
+	var/obj/item/organ/internal/ears/E = new(src)
 	B.insert()
+	E.insert()
 	..()
 
 
