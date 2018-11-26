@@ -14,6 +14,7 @@
 	var/alignment_required
 	var/alignment_prohibited
 	var/sanctify_force = 0
+	var/sound_played = FALSE
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
@@ -30,13 +31,24 @@
 
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
-	if(sanctify_force && (!user.mind || !user.mind.isholy))
-		user.adjustBruteLoss(force)
-		user.adjustFireLoss(sanctify_force)
-		user.Weaken(5)
-		user.unEquip(src, 1)
-		to_chat(user, "<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
-		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+	if(sanctify_force)
+		if(!user.mind || !user.mind.isholy)
+			user.adjustBruteLoss(force)
+			user.adjustFireLoss(sanctify_force)
+			user.Weaken(5)
+			user.unEquip(src, 1)
+			user.visible_message("<span class='warning'>[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!</span>", \
+			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
+			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+			spawn()
+				throw_at(get_edge_target_turf(user, pick(alldirs)), rand(1, 3), 5)
+		else
+			if(!sound_played)
+				sound_played = TRUE
+				SEND_SOUND(user, 'sound/effects/hallelujah.ogg')
+			user.visible_message("<span class='warning'>[src] glows with power as [user] picks it up!</span>", \
+			"<span class='userdanger'>[src] glows with power as you pick it up!</span>")
+
 
 /obj/item/nullrod/attack_self(mob/user)
 	if(user.mind && (user.mind.isholy) && !reskinned)
