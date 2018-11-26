@@ -134,6 +134,7 @@
 				/obj/item/seeds/ambrosia/cruciatus = 3,
 				/obj/item/gun/projectile/automatic/pistol = 1,
 				/obj/item/ammo_box/magazine/m10mm = 4,
+				/obj/item/kitchen/knife/combat/survival = 2,
 				/obj/item/soap/syndie = 7,
 				/obj/item/gun/syringe/syndicate = 2,
 				/obj/item/suppressor = 4,
