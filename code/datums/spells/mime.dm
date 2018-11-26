@@ -92,7 +92,7 @@
 
 /obj/effect/proc_holder/spell/targeted/mime/fingergun
 	name = "Finger Gun"
-	desc = "Shoot stunning, invisible bullets out of your fingers! 6 bullets available per cast."
+	desc = "Shoot stunning, invisible bullets out of your fingers! 6 bullets available per cast. Use your fingers to holster them manually."
 	school = "mime"
 	panel = "Mime"
 	clothes_req = 0
@@ -116,7 +116,7 @@
 			revert_cast(user)
 
 /obj/effect/proc_holder/spell/targeted/mime/fingergun/fake
-	desc = "Pretend you're shooting bullets out of your fingers! 6 bullets available per cast."
+	desc = "Pretend you're shooting bullets out of your fingers! 6 bullets available per cast. Use your fingers to holster them manually."
 	gun = /obj/item/gun/projectile/revolver/fingergun/fake
 
 // Mime Spellbooks
@@ -130,9 +130,11 @@
 
 /obj/item/spellbook/oneuse/mime/attack_self(mob/user)
 	var/obj/effect/proc_holder/spell/S = new spell
-	if(locate(S) in user.mind.spell_list)
-		to_chat(user, "<span class='notice'>You've already read this one.</span>")
-		return
+	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
+		if(knownspell.type == S.type)
+			if(user.mind)
+				to_chat(user, "<span class='notice'>You've already read this one.</span>")
+			return
 	if(used)
 		recoil(user)
 	else
