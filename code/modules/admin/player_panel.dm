@@ -426,6 +426,15 @@
 					dat += check_antagonists_line(M)
 				else
 					dat += "<tr><td><i>Nuclear Operative not found!</i></td></tr>"
+			dat += "</table><br><table cellspacing=5><tr><td><B>Sleeper Agents</B></td><td></td></tr>"
+			for(var/datum/mind/N in ticker.mode.sleeper_agents)
+				var/mob/M = N.current
+				if(M)
+					dat += check_antagonists_line(M)
+				else
+					dat += "<tr><td><i>Sleeper Agent not found!</i></td></tr>"
+			
+			
 			dat += "</table><br><table><tr><td><B>Nuclear Disk(s)</B></td></tr>"
 			for(var/obj/item/disk/nuclear/N in GLOB.poi_list)
 				dat += "<tr><td>[N.name], "
