@@ -421,6 +421,10 @@
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
 
+/obj/item/clothing/glasses/thermal/eyepatch/stealth
+	name = "eyepatch"
+	desc = "Kept you waiting, huh?"
+
 /obj/item/clothing/glasses/thermal/jensen
 	name = "Optical Thermal Implants"
 	desc = "A set of implantable lenses designed to augment your vision"

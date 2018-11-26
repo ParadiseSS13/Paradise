@@ -91,7 +91,7 @@
 				new /obj/item/ammo_box/magazine/m10mm/hp(src)
 				new /obj/item/kitchen/knife/combat/survival(src)
 				new /obj/item/clothing/mask/bandana/black(src)
-				new /obj/item/clothing/glasses/eyepatch(src)
+				new /obj/item/clothing/glasses/thermal/eyepatch/stealth(src)
 				new /obj/item/clothing/mask/cigarette/cigar/havana(src)
 				return
 
