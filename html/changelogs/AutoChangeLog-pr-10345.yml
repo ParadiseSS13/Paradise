@@ -1,0 +1,6 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - tweak: "Medbay secondary storage is now accessible to everyone with medbay access, hardsuits were put behind a windoor with CMO access to keep them at the same level of accessability."
+  - tweak: "Added and removed some items from medbay secondary storage."
+  - tweak: "Medical storage and secondary storage were renamed to be more accurate."
