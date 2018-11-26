@@ -234,7 +234,9 @@ var/global/list/lawlorify = list (
 /datum/devilinfo/proc/increase_blood_lizard()
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
+		var/list/language_temp = H.languages.Copy()
 		H.set_species("Unathi")
+		H.languages = language_temp
 		H.underwear = "Nude"
 		H.undershirt = "Nude"
 		H.socks = "Nude"
@@ -361,7 +363,7 @@ var/global/list/lawlorify = list (
 		body = owner.current
 	if(SOULVALUE > 0)
 		to_chat(owner.current, "<span class='userdanger'>Your body has been damaged to the point that you may no longer use it.  At the cost of some of your power, you will return to life soon.</span>")
-		addtimer(src, "activateResurrection", DEVILRESURRECTTIME, TRUE, body)
+		addtimer(CALLBACK(src, "activateResurrection", body), DEVILRESURRECTTIME)
 	else
 		to_chat(owner.messageable_mob(), "<span class='userdanger'>Your hellish powers are too weak to resurrect yourself.</span>")
 
