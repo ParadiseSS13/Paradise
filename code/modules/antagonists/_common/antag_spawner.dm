@@ -26,7 +26,7 @@
 		return
 	if(!(user.mind in ticker.mode.syndicates))
 		to_chat(user, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
-		return FALSE
+		return
 	if(checking)
 		to_chat(user, "<span class='warning'>[src] is already checking for sleeper agents to activate!</span>")
 		return
@@ -39,19 +39,21 @@
 		to_chat(user, "<span class='warning'>[src] failed to locate any potential sleeper agents on the station!</span>")
 		used = FALSE
 		checking = FALSE
+		return
 	var/datum/mind/agent = pick(agent_candidates)
 	ticker.mode.sleeper_agents += agent
 	agent.special_role = SPECIAL_ROLE_TRAITOR
 	ticker.mode.forge_sleeper_objectives(agent, desired_objective)	//gives our sleeper his objectives
 	ticker.mode.greet_sleeper(agent)
 	ticker.mode.equip_sleeper(agent.current)
+	agent.current.faction = list("syndicate")
 	to_chat(user, "<span class='notice'>[agent.name] the [agent.assigned_role] has been activated as a Sleeper Agent.</span>")
 
 
 
 
 /obj/item/antag_spawner/sleeper_activator/proc/get_candidate_list()
-	var/list/agent_candidates = new
+	var/list/agent_candidates = list()
 	for(var/mob/living/player in GLOB.mob_list)
 		if(!player.client)
 			continue 
@@ -62,7 +64,7 @@
 		if(!ishuman(player))
 			continue
 		if((ROLE_TRAITOR in player.client.prefs.be_special) && !player.client.skip_antag && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
-			player.mind += agent_candidates
+			agent_candidates += player.mind
 	for(var/datum/mind/player in agent_candidates)
 		var/mob/living/carbon/human/H = player.current
 		for(var/obj/item/implant/mindshield/I in H.contents)

@@ -217,6 +217,8 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/forge_sleeper_objectives(datum/mind/sleeper_agent, custom_objective)
 	var/datum/objective/nuclear_helper/syndobj = new
+	if(custom_objective == "")	//if people are too lazy to give a customised objective
+		custom_objective = "Follow all orders given by Nuclear Operatives."
 	var/datum/objective/custom_obj = new(custom_objective)
 	custom_obj.owner = sleeper_agent
 	custom_obj.completed = TRUE	//Defaults to completed, admins can toggle this if the sleeper fucks up
@@ -226,7 +228,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/greet_sleeper(datum/mind/sleeper_agent)
 	SEND_SOUND(sleeper_agent.current, 'sound/ambience/antag/tatoralert.ogg')
-	to_chat(sleeper_agent.current, "<span class='notice'>You suddenly realize you are a Syndicate sleeper agent that has been activated in a rush. Nuclear operatives are on their way to destroy the station. Aid them in this task and fulfil your objective.</span>")
+	to_chat(sleeper_agent.current, "<span class='notice'>You suddenly realize you are a Syndicate sleeper agent that has been activated in a rush. Nuclear operatives are on their way to destroy the station. Aid them in this task and fulfil your objective. <b> Be aware that they outrank you, their orders are to be followed</b></span>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in sleeper_agent.objectives)
 		to_chat(sleeper_agent.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
@@ -249,6 +251,8 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/proc/equip_sleeper(mob/living/carbon/human/sleeper_agent)
 	if(!istype(sleeper_agent))
 		return
+	update_synd_icons_added(sleeper_agent.mind)
+
 	if(sleeper_agent.mind)
 		if(sleeper_agent.mind.assigned_role == "Clown")
 			to_chat(sleeper_agent, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
@@ -436,7 +440,7 @@ proc/issyndicate(mob/living/M as mob)
 
 		if(length(sleeper_agents))
 			text += "<br>"
-			text += "The Syndicate Sleeper Agents were:"
+			text += "<br><FONT size=3><B>The Syndicate Sleeper Agents were:</B></FONT>"
 			for(var/datum/mind/sleeper in sleeper_agents)
 				text += "<br><b>[sleeper.key]</b> was <b>[sleeper.name]</b> ("
 				if(sleeper.current)
