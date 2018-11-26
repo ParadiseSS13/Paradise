@@ -1165,6 +1165,15 @@
 	construction_time = 200
 	category = list("Misc")
 
+/datum/design/ipc_microphone
+	name = "IPC Microphone"
+	id = "ipc_microphone"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/internal/ears/microphone
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 2500)
+	construction_time = 200
+	category = list("Misc")
+
 /datum/design/synthetic_flash
 	name = "Synthetic Flash"
 	desc = "A synthetic flash used mostly in borg construction."

@@ -55,6 +55,7 @@
 		)
 
 	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
+	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(
 		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
 		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),
