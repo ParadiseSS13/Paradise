@@ -4009,7 +4009,7 @@
 "bze" = (/obj/structure/sign/barsign,/turf/simulated/wall,/area/crew_quarters/bar)
 "bzf" = (/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
 "bzg" = (/obj/machinery/hologram/holopad,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
-"bzh" = (/obj/machinery/camera{c_tag = "Starboard Primary Hallway 2"; dir = 2; network = list("SS13")},/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
+"bzh" = (/obj/machinery/camera{c_tag = "Starboard Primary Hallway 2"; dir = 2; network = list("SS13")},/obj/structure/closet/crate/can,/turf/simulated/floor/plasteel{dir = 1; icon_state = "whitecorner"},/area/hallway/primary/starboard/west)
 "bzi" = (/obj/item/radio/intercom{pixel_y = 25},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/medical/morgue)
 "bzj" = (/obj/structure/table/reinforced,/obj/machinery/door/firedoor,/obj/machinery/door/window/westright{dir = 1; name = "Hydroponics Desk"; req_access_txt = "35"},/turf/simulated/floor/plasteel,/area/hydroponics)
 "bzk" = (/obj/machinery/door/firedoor,/obj/machinery/door/airlock/public/glass{name = "Hydroponics"; req_access_txt = "35"},/turf/simulated/floor/plasteel,/area/hydroponics)
