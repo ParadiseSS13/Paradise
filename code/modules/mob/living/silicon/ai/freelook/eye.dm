@@ -143,4 +143,8 @@
 
 /mob/camera/aiEye/hear_say(list/message_pieces, var/verb = "says", var/italics = 0, var/mob/speaker = null, var/sound/speech_sound, var/sound_vol)
 	if(relay_speech)
-		ai.relay_speech(speaker, message_pieces, verb)
+		if(istype(ai))
+			ai.relay_speech(speaker, message_pieces, verb)
+		else
+			var/mob/M = ai
+			M.hear_say(message_pieces, verb, italics, speaker, speech_sound, sound_vol)
