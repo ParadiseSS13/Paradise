@@ -329,6 +329,10 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	explanation_text = "Destroy the station with a nuclear device."
 	martyr_compatible = 1
 
+/datum/objective/nuclear_helper
+	explanation_text = "Aid in the destruction of the station with a nuclear device."
+	martyr_compatible = TRUE
+
 /datum/objective/steal
 	var/datum/theft_objective/steal_target
 	martyr_compatible = 0

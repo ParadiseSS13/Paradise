@@ -1125,6 +1125,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 7
 	gamemodes = list(/datum/game_mode/nuclear)
 
+	name = "Activate Sleeper Agent"
+	desc = "Activate a syndicate sleeper agent aboard the station, giving him a custom objective to direct him. He starts with an uplink with 10TC and could, if caught, compromise your coms, so buy with care. On the other hand, the potential mayhem he could cause should weaken the station for your attack."
+	reference = "SLEEP_AGENT"
+	item = /obj/item/antag_spawner/sleeper_activator
+	refund_path = /obj/item/antag_spawner/sleeper_activator
+	cost = 35	//not sure on this pricing just yet
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+	refundable = TRUE
+
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits and Hardsuits"

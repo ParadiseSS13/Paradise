@@ -1,5 +1,6 @@
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
+	var/list/datum/mind/sleeper_agents = list()
 
 proc/issyndicate(mob/living/M as mob)
 	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.syndicates)
@@ -7,8 +8,8 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
-	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
-	required_enemies = 5
+	required_players = 1	// 30 players - 5 players to be the nuke ops = 25 players remaining
+	required_enemies = 1	//for debugging/testing. Note to self: change this back later to 30/5
 	recommended_enemies = 5
 
 	var/const/agents_possible = 5 //If we ever need more syndicate agents.
@@ -214,6 +215,22 @@ proc/issyndicate(mob/living/M as mob)
 	syndobj.owner = syndicate
 	syndicate.objectives += syndobj
 
+/datum/game_mode/proc/forge_sleeper_objectives(datum/mind/sleeper_agent, custom_objective)
+	var/datum/objective/nuclear_helper/syndobj = new
+	var/datum/objective/custom_obj = new(custom_objective)
+	custom_obj.owner = sleeper_agent
+	custom_obj.completed = TRUE	//Defaults to completed, admins can toggle this if the sleeper fucks up
+	syndobj.owner = sleeper_agent
+	sleeper_agent.objectives += syndobj
+	sleeper_agent.objectives += custom_obj
+
+/datum/game_mode/proc/greet_sleeper(datum/mind/sleeper_agent)
+	SEND_SOUND(sleeper_agent.current, 'sound/ambience/antag/tatoralert.ogg')
+	to_chat(sleeper_agent.current, "<span class='notice'>You suddenly realize you are a Syndicate sleeper agent that has been activated in a rush. Nuclear operatives are on their way to destroy the station. Aid them in this task and fulfil your objective.</span>")
+	var/obj_count = 1
+	for(var/datum/objective/objective in sleeper_agent.objectives)
+		to_chat(sleeper_agent.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		obj_count++
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
 	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
@@ -229,6 +246,31 @@ proc/issyndicate(mob/living/M as mob)
 /datum/game_mode/proc/random_radio_frequency()
 	return 1337 // WHY??? -- Doohl
 
+/datum/game_mode/proc/equip_sleeper(mob/living/carbon/human/sleeper_agent)
+	if(!istype(sleeper_agent))
+		return
+	if(sleeper_agent.mind)
+		if(sleeper_agent.mind.assigned_role == "Clown")
+			to_chat(sleeper_agent, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+			sleeper_agent.mutations.Remove(CLUMSY)
+
+	// find a pda
+	var/obj/item/R = locate(/obj/item/pda) in sleeper_agent.contents //Hide the uplink in a PDA if available, otherwise radio
+	if(!R)
+		to_chat(sleeper_agent, "Unfortunately, the Syndicate wasn't able to get you a pda.")
+		return
+	// generate a passcode if the uplink is hidden in a PDA
+	var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
+	var/obj/item/uplink/hidden/T = new(R)
+	R.hidden_uplink = T
+	T.uplink_owner = "[sleeper_agent.key]"
+	var/obj/item/pda/P = R
+	P.lock_code = pda_pass
+
+	to_chat(sleeper_agent, "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [T.loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features.")
+	sleeper_agent.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [T.loc]).")
+	R.hidden_uplink.uses = 10	//only 10 TC for sleeper agents
+		
 
 /datum/game_mode/proc/equip_syndicate(mob/living/carbon/human/synd_mob)
 	var/radio_freq = SYND_FREQ
@@ -381,10 +423,40 @@ proc/issyndicate(mob/living/M as mob)
 
 		text += "<br>"
 
-		text += "(Syndicates used [TC_uses] TC) [purchases]"
+		text += "(Syndicates used [TC_uses] TC) [purchases]" 
 
+		
 		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
 			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/BadAss.dmi'] ICONSTATE='badass'></BIG>"
+
+
+		purchases = ""
+		TC_uses = 0
+
+
+		if(length(sleeper_agents))
+			text += "<br>"
+			text += "The Syndicate Sleeper Agents were:"
+			for(var/datum/mind/sleeper in sleeper_agents)
+				text += "<br><b>[sleeper.key]</b> was <b>[sleeper.name]</b> ("
+				if(sleeper.current)
+					if(sleeper.current.stat == DEAD)
+						text += "died"
+					else
+						text += "survived"
+					if(sleeper.current.real_name != sleeper.name)
+						text += "as <b>[sleeper.current.real_name]</b>"
+				else
+					text += "body destroyed"
+				text += ")"
+				for(var/obj/item/uplink/H in world_uplinks)
+					if(H && H.uplink_owner && H.uplink_owner==sleeper.key)
+						TC_uses += H.used_TC
+						purchases += H.purchase_log
+
+			text += "<br>"
+			text += "(Sleeper Agents used [TC_uses] TC) [purchases]" 
+
 
 		to_chat(world, text)
 	return 1
