@@ -144,15 +144,6 @@
 #define STATUS_UPDATE_NONE 0
 #define STATUS_UPDATE_ALL (~0)
 #define INVISIBILITY_ABSTRACT 101
-
-#define isliving(A)		(istype((A), /mob/living))
-#define iscarbon(A)		(istype((A), /mob/living/carbon))
-#define ishuman(A)		(istype((A), /mob/living/carbon/human))
-#define isbrain(A)		(istype((A), /mob/living/carbon/brain))
-#define isalien(A)		(istype((A), /mob/living/carbon/alien))
-#define isalienadult(A)	(istype((A), /mob/living/carbon/alien/humanoid))
-#define islarva(A)		(istype((A), /mob/living/carbon/alien/larva))
-#define isslime(A)		(istype((A), /mob/living/carbon/slime))
 #define UNHEALING_EAR_DAMAGE 100
 
 //Human sub-species
