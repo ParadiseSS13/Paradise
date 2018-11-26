@@ -13,6 +13,7 @@
 	var/list/fluff_transformations = list() //does it have any special transformations only accessible to it? Should only be subtypes of /obj/item/nullrod
 	var/alignment_required
 	var/alignment_prohibited
+	var/sanctify_force = 0
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
@@ -27,9 +28,23 @@
 					to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
 					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
 
+/obj/item/nullrod/pickup(mob/living/user)
+	. = ..()
+	if(sanctify_force && (!user.mind || !user.mind.isholy))
+		user.adjustBruteLoss(force)
+		user.adjustFireLoss(sanctify_force)
+		user.Weaken(5)
+		user.unEquip(src, 1)
+		to_chat(user, "<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
+
 /obj/item/nullrod/attack_self(mob/user)
 	if(user.mind && (user.mind.isholy) && !reskinned)
 		reskin_holy_weapon(user)
+
+/obj/item/nullrod/examine(mob/living/user)
+	. = ..()
+	if(sanctify_force)
+		to_chat(user, "<span class='notice'>It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>")
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
 	var/list/holy_weapons_list = typesof(/obj/item/nullrod)
@@ -64,10 +79,26 @@
 		holy_weapon.reskinned = TRUE
 		M.unEquip(src)
 		M.put_in_active_hand(holy_weapon)
+		if(sanctify_force)
+			holy_weapon.sanctify_force = sanctify_force
+			holy_weapon.name = "sanctified " + holy_weapon.name
 		qdel(src)
 
-/obj/item/nullrod/fluff		//fluff subtype to be used for all donator nullrods
+/obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
+	. = ..()
+	if(!sanctify_force)
+		return
+	if(isliving(AM))
+		var/mob/living/L = AM
+		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
+
+/obj/item/nullrod/fluff // fluff subtype to be used for all donator nullrods
 	reskin_selectable = FALSE
+
+/obj/item/nullrod/ert // ERT subtype, applies sanctified property to any derived rod
+	name = "inquisitor null rod"
+	reskin_selectable = FALSE
+	sanctify_force = 10
 
 /obj/item/nullrod/godhand
 	name = "god hand"
@@ -438,7 +469,7 @@
 
 	praying = 1
 	if(do_after(user, 150, target = M))
-		if(ishuman(M)) // This probably should not work on vulps. They're unholy abominations.
+		if(ishuman(M))
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)

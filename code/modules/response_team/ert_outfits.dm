@@ -146,7 +146,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
-	
+
 	backpack_contents = list(
 		/obj/item/clothing/head/helmet/space/hardsuit/ert/security = 1,
 		/obj/item/clothing/mask/gas/sechailer = 1,
@@ -380,7 +380,7 @@
 	backpack_contents = list(
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/holy_torch = 1
 		)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
@@ -395,7 +395,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	head = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
 	suit_store = /obj/item/gun/energy/gun
-	r_pocket = /obj/item/nullrod
+	r_pocket = /obj/item/nullrod/ert
 	glasses = /obj/item/clothing/glasses/sunglasses
 
 	cybernetic_implants = list(
@@ -411,7 +411,7 @@
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
-	r_pocket = /obj/item/nullrod
+	r_pocket = /obj/item/nullrod/ert
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
