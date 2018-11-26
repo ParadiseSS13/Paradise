@@ -336,6 +336,7 @@ obj/item/gun/proc/newshot()
 			has_knife = 0
 			qdel(default)
 			return
+	..()
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"
