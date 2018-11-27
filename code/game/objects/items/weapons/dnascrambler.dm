@@ -4,6 +4,7 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "syringe_0"
 	icon_state = "lepopen"
+	w_class = WEIGHT_CLASS_SMALL
 	var/used = null
 
 /obj/item/dnascrambler/update_icon()
@@ -57,7 +58,7 @@
 	name = "used " + name
 
 /obj/item/dnascrambler/renamer
-	name = "dna renamer"
+	name = "syndicate renamer"
 	desc = "An illegal genetic serum designed to alter the user's identity."
 
 /obj/item/dnascrambler/renamer/attack(mob/M as mob, mob/user as mob)
@@ -74,9 +75,9 @@
 		user.visible_message("<span class='danger'>[user] injects [user.p_them()]self with [src]!</span>")
 		injected(user, user)
 
-/obj/item/dnascrambler/renamer/injected(var/mob/living/carbon/human/target, var/mob/living/carbon/user)
+/obj/item/dnascrambler/renamer/injected(mob/living/carbon/human/target, mob/living/carbon/user)
 	var/newname = sanitize(copytext(input(target, "What would you like your new identity to be?", "Name change") as null|text,1,MAX_NAME_LEN))
-	if(!newname)
+	if(!newname || used)
 		return
 	target.real_name = newname
 	target.name = newname

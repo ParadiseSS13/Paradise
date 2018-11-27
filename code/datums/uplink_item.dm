@@ -1010,7 +1010,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 
 /datum/uplink_item/stealthy_tools/dnarenamer
-	name = "DNA Renamer"
+	name = "Syndicate Renamer"
 	desc = "A syringe similar to a DNA scrambler. However, instead of randomizing your appearance, it will let you rename yourself, bypassing Nanotrasen intruder detection, without changing your appearance."
 	reference = "DNAR"
 	item = /obj/item/dnascrambler/renamer
