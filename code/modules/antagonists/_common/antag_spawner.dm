@@ -29,8 +29,8 @@
 	if(checking)
 		to_chat(user, "<span class='warning'>[src] is already checking for sleeper agents to activate!</span>")
 		return
-	desired_objective = stripped_input(user, "What objective do you wish to give the sleeper agent?", "Objective")
 	checking = TRUE
+	desired_objective = stripped_input(user, "What objective do you wish to give the sleeper agent?", "Objective")
 	used = TRUE
 	to_chat(user, "<span class='notice'>Activating sleeper agent, stand by.</span>")
 	var/list/agent_candidates = get_candidate_list()
