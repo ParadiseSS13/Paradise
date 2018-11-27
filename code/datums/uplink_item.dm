@@ -1009,6 +1009,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/dnascrambler
 	cost = 4
 
+/datum/uplink_item/stealthy_tools/dnarenamer
+	name = "DNA Renamer"
+	desc = "A syringe similar to a DNA scrambler. However, instead of randomizing your appearance, it will let you rename yourself, bypassing Nanotrasen intruder detection, without changing your appearance."
+	reference = "DNAR"
+	item = /obj/item/dnascrambler/renamer
+	cost = 2
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
 /datum/uplink_item/stealthy_tools/smugglersatchel
 	name = "Smuggler's Satchel"
 	desc = "This satchel is thin enough to be hidden in the gap between plating and tiling, great for stashing your stolen goods. Comes with a crowbar and a floor tile inside."
@@ -1041,15 +1050,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SCK"
 	item = /obj/item/storage/box/syndie_kit/safecracking
 	cost = 1
-
-/datum/uplink_item/stealthy_tools/clownkit
-	name = "Honk Brand Infiltration Kit"
-	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer clown mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
-	reference = "HBIK"
-	item = /obj/item/storage/backpack/clown/syndie
-	cost = 6
-	gamemodes = list(/datum/game_mode/nuclear)
-	surplus = 0
 
 // DEVICE AND TOOLS
 
@@ -1517,6 +1517,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/implanter/explosive_macro
 	cost = 20
 	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/badass/clownkit
+	name = "Honk Brand Infiltration Kit"
+	desc = "All the tools you need to play the best prank Nanotrasen has ever seen. Includes a voice changer clown mask, magnetic clown shoes, and standard clown outfit, tools, and backpack."
+	reference = "HBIK"
+	item = /obj/item/storage/backpack/clown/syndie
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
+
+/datum/uplink_item/badass/cc_costume
+	name = "Central Command Officer Costume"
+	desc = "Inspect the disk! Nuke the station! Get killed for not talking on command comms and lacking access to the bridge! Fun for the whole family. \
+	Included in the leather satchel is a chameleon jumpsuit, a NT beret, matching gloves and shoes, a fake pulse pistol, \
+	fake CC headset, a pair of sechud glasses, a DNA Renamer and a Central Command sleeve for your ID."
+	reference = "CCOC"
+	item = /obj/item/storage/backpack/satchel/cc_costume
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+	surplus = 0
 
 /*/datum/uplink_item/badass/random
 	name = "Random Item"

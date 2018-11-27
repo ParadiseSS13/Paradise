@@ -55,3 +55,36 @@
 	used = 1
 	update_icon()
 	name = "used " + name
+
+/obj/item/dnascrambler/renamer
+	name = "dna renamer"
+	desc = "An illegal genetic serum designed to alter the user's identity."
+
+/obj/item/dnascrambler/renamer/attack(mob/M as mob, mob/user as mob)
+	if(!M || !user)
+		return
+
+	if(!ishuman(M) || !ishuman(user))
+		return
+
+	if(used)
+		return
+
+	if(M == user)
+		user.visible_message("<span class='danger'>[user] injects [user.p_them()]self with [src]!</span>")
+		injected(user, user)
+
+/obj/item/dnascrambler/renamer/injected(var/mob/living/carbon/human/target, var/mob/living/carbon/user)
+	var/newname = sanitize(copytext(input(target, "What would you like your new identity to be?", "Name change") as null|text,1,MAX_NAME_LEN))
+	if(!newname)
+		return
+	target.real_name = newname
+	target.name = newname
+	if(target.mind)
+		target.mind.name = newname
+
+	target.update_icons()
+	add_attack_logs(user, target, "injected with [src]")
+	used = 1
+	update_icon()
+	name = "used " + name

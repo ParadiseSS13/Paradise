@@ -161,3 +161,17 @@
 	needs_permit = 0
 	ammo_x_offset = 2
 	selfcharge = 1
+
+/obj/item/gun/energy/laser/pulsetag //nuke ops CC costume prop
+	name = "pulse pistol"
+	icon_state = "pulse_pistol"
+	item_state = "gun"
+	desc = "A pulse rifle in an easily concealed handgun package with low capacity."
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulsetag, /obj/item/ammo_casing/energy/laser/bluetag, /obj/item/ammo_casing/energy/laser/redtag)
+	origin_tech = "combat=2;magnets=2"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = SLOT_BELT
+	clumsy_check = 0
+	needs_permit = 0
+	ammo_x_offset = 2
+	selfcharge = 1
