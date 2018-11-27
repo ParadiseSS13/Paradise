@@ -12,7 +12,7 @@
 	var/num_modifier = 0 // Used for gamemodes, that are a child of traitor, that need more than the usual.
 	var/objective_count = 2
 	var/minimum_devils = 1
-	var/devil_scale_coefficient = 6
+	var/devil_scale_coefficient = 10
 
 /datum/game_mode/devil/announce()
 	to_chat(world, {"<B>The current game mode is - Devil!</B><br>)
