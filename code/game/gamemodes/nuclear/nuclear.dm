@@ -228,7 +228,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/greet_sleeper(datum/mind/sleeper_agent)
 	SEND_SOUND(sleeper_agent.current, 'sound/ambience/antag/tatoralert.ogg')
-	to_chat(sleeper_agent.current, "<span class='notice'>You suddenly realize you are a Syndicate sleeper agent that has been activated in a rush. Nuclear operatives are on their way to destroy the station. Aid them in this task and fulfil your objective. <b>Be aware that they outrank you, their orders are to be followed</b></span>")
+	to_chat(sleeper_agent.current, "<span class='notice'>You suddenly realize you are a Syndicate sleeper agent that has been activated in a rush. Nuclear operatives are on their way to destroy the station. Aid them in this task and fulfil your objective. <b>Be aware that they outrank you, their orders are to be followed.</b></span>")
 	var/obj_count = 1
 	for(var/datum/objective/objective in sleeper_agent.objectives)
 		to_chat(sleeper_agent.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
