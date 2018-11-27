@@ -51,16 +51,11 @@
 
 /obj/item/ammo_casing/energy/laser/bluetag
 	projectile_type = /obj/item/projectile/beam/lasertag/bluetag
-	select_name = "blue tag"
+	select_name = "bluetag"
 
 /obj/item/ammo_casing/energy/laser/redtag
 	projectile_type = /obj/item/projectile/beam/lasertag/redtag
-	select_name = "red tag"
-
-/obj/item/ammo_casing/energy/laser/pulsetag
-	projectile_type = /obj/item/projectile/beam/lasertag/pulse
-	select_name = "\"DESTROY\""
-	fire_sound = 'sound/weapons/pulse.ogg'
+	select_name = "redtag"
 
 /obj/item/ammo_casing/energy/xray
 	projectile_type = /obj/item/projectile/beam/xray

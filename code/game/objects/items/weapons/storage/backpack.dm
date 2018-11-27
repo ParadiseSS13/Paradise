@@ -180,20 +180,6 @@
 	icon_state = "satchel"
 	burn_state = FIRE_PROOF
 
-/obj/item/storage/backpack/satchel/cc_costume
-
-/obj/item/storage/backpack/satchel/cc_costume/New()
-	..()
-	new /obj/item/dnascrambler/renamer(src)
-	new /obj/item/clothing/under/chameleon(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-	new /obj/item/clothing/head/beret/centcom/officer(src)
-	new /obj/item/clothing/gloves/color/white(src)
-	new /obj/item/clothing/shoes/centcom(src)
-	new /obj/item/radio/headset/centcom/fake(src)
-	new /obj/item/gun/energy/laser/pulsetag(src)
-	new /obj/item/id_decal/centcom(src)
-
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"

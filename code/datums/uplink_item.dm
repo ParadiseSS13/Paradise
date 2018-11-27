@@ -1527,17 +1527,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 0
 
-/datum/uplink_item/badass/cc_costume
-	name = "Central Command Officer Costume"
-	desc = "Inspect the disk! Nuke the station! Get killed for not talking on command comms and lacking access to the bridge! Fun for the whole family. \
-	Included in the leather satchel is a chameleon jumpsuit, a NT beret, matching gloves and shoes, a fake pulse pistol, \
-	fake CC headset, a pair of sechud glasses, a DNA Renamer and a Central Command sleeve for your ID."
-	reference = "CCOC"
-	item = /obj/item/storage/backpack/satchel/cc_costume
-	cost = 6
-	gamemodes = list(/datum/game_mode/nuclear)
-	surplus = 0
-
 /*/datum/uplink_item/badass/random
 	name = "Random Item"
 	desc = "Picking this choice will send you a random item from the list. Useful for when you cannot think of a strategy to finish your objectives with."

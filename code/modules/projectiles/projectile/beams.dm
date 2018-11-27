@@ -108,10 +108,6 @@
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
 
-/obj/item/projectile/beam/lasertag/pulse
-	name = "pulse"
-	icon_state = "u_laser"
-
 /obj/item/projectile/beam/sniper
 	name = "sniper beam"
 	icon_state = "sniperlaser"

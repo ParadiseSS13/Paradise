@@ -291,9 +291,6 @@
 	item_state = "com_headset_alt"
 	ks2type = /obj/item/encryptionkey/centcom
 
-/obj/item/radio/headset/centcom/fake
-	ks2type = null
-
 /obj/item/radio/headset/heads/ai_integrated //No need to care about icons, it should be hidden inside the AI anyway.
 	name = "\improper AI subspace transceiver"
 	desc = "Integrated AI radio transceiver."
