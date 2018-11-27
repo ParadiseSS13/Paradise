@@ -100,7 +100,7 @@
 
 /obj/item/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/clothing/head/helmet/space/hardsuit/syndi, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/clothing/head/helmet/space/hardsuit/syndi, /obj/item/tank/jetpack/oxygen/harness, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/hardsuit/New()
@@ -108,7 +108,7 @@
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/clothing/head/helmet/space/hardsuit/syndi(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/emergency_oxygen/syndi(src)
+	new /obj/item/tank/jetpack/oxygen/harness(src)
 	return
 
 /obj/item/storage/box/syndie_kit/elite_hardsuit
