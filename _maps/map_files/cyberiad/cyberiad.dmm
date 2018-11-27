@@ -2685,7 +2685,7 @@
 "aZG" = (/obj/machinery/door/airlock/public/glass{name = "Central Access"},/turf/simulated/floor/plasteel{icon_state = "bluecorner"},/area/hallway/primary/fore)
 "aZH" = (/obj/structure/table,/obj/machinery/atmospherics/pipe/simple/visible/universal{dir = 4},/obj/machinery/requests_console{department = "Atmospherics"; departmentType = 3; name = "Atmospherics Requests Console"; pixel_y = -30},/obj/item/stack/sheet/glass{amount = 50},/obj/item/clothing/head/welding,/obj/item/clothing/head/welding,/obj/item/clothing/glasses/welding,/obj/item/clothing/glasses/welding,/turf/simulated/floor/plasteel,/area/atmos)
 "aZI" = (/obj/machinery/atmospherics/pipe/simple/hidden/supply{dir = 4},/turf/simulated/floor/plating,/area/maintenance/fsmaint)
-"aZJ" = (/obj/effect/decal/cleanable/cobweb,/obj/item/clothing/mask/muzzle/gag,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/brig)
+"aZJ" = (/obj/effect/decal/cleanable/cobweb,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/brig)
 "aZK" = (/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{dir = 4},/obj/structure/disposalpipe/segment{dir = 4},/obj/structure/cable{d1 = 4; d2 = 8; icon_state = "4-8"; pixel_x = 0; tag = ""},/turf/simulated/floor/plating,/area/maintenance/fsmaint2)
 "aZL" = (/obj/item/restraints/handcuffs/pinkcuffs,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/brig)
 "aZM" = (/obj/structure/chair,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/security/brig)

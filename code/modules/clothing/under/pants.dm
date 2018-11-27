@@ -80,10 +80,3 @@
 	desc = "A pair of woodland camouflage pants. Probably not the best choice for a space station."
 	icon_state = "camopants"
 	item_color = "camopants"
-
-/obj/item/clothing/under/pants/chaps
-	name = "black leather assless chaps"
-	desc = "For those brave enough to weather the breeze."
-	icon_state = "chaps"
-	item_color = "chaps"
-	flags_size = ONESIZEFITSALL
