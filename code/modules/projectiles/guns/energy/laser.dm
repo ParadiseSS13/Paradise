@@ -161,3 +161,4 @@
 	needs_permit = 0
 	ammo_x_offset = 2
 	selfcharge = 1
+	
