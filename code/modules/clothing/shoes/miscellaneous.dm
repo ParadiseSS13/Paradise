@@ -182,7 +182,7 @@
 	item_state = "noble_boot"
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tape_roll))
+	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
 		var/obj/item/stack/tape_roll/TR = I
 		if((!silence_steps || shoe_sound) && TR.use(4))
 			silence_steps = 1

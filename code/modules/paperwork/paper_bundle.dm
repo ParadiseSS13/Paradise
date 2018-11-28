@@ -62,8 +62,6 @@
 		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		qdel(W)
 	else
-		if(istype(W, /obj/item/stack/tape_roll))
-			return 0
 		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=[name]") //Closes the dialog
 		P = src[page]

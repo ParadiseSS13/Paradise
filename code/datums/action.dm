@@ -112,10 +112,10 @@
 	I.actions -= src
 	return ..()
 
-/datum/action/item_action/Trigger()
+/datum/action/item_action/Trigger(attack_self = TRUE) //Maybe we don't want to click the thing itself
 	if(!..())
 		return 0
-	if(target)
+	if(target && attack_self)
 		var/obj/item/I = target
 		I.ui_action_click(owner, type)
 	return 1
@@ -315,6 +315,11 @@
 
 /datum/action/item_action/remove_tape
 	name = "Remove Duct Tape"
+
+/datum/action/item_action/remove_tape/Trigger(attack_self = FALSE)
+	if(..())
+		GET_COMPONENT_FROM(DT, /datum/component/ducttape, target)
+		DT.remove_tape(target, usr)
 
 /datum/action/item_action/toggle_jetpack
 	name = "Toggle Jetpack"

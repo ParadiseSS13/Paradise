@@ -12,7 +12,7 @@
 	RegisterSignal(parent, COMSIG_OBJ_UPDATE_ICON, .proc/add_tape_overlay)
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, .proc/afterattack)
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/pick_up)
-	I.update_icon() //Do this first so the action button preoperly shows the icon
+	I.update_icon() //Do this first so the action button properly shows the icon
 	var/datum/action/item_action/remove_tape/RT = new(I)
 	if(I.loc == user)
 		RT.Grant(user)

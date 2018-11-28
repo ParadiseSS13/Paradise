@@ -310,6 +310,21 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 			else if(S.can_be_inserted(src))
 				S.handle_item_insertion(src)
+	else if(istype(I, /obj/item/stack/tape_roll))
+		var/obj/item/stack/tape_roll/TR = I
+		var/list/clickparams = params2list(params)
+		var/x_offset = text2num(clickparams["icon-x"])
+		var/y_offset = text2num(clickparams["icon-y"])
+		if(GetComponent(/datum/component/ducttape))
+			to_chat(user, "<span class='notice'>[src] already has some tape attached!</span>")
+			return
+		if(TR.use(1))
+			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
+			AddComponent(/datum/component/ducttape, src, user, x_offset, y_offset)
+			anchored = TRUE
+			user.transfer_fingerprints_to(src)
+		else
+			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
 	else
 		return ..()
 
@@ -419,12 +434,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
 /obj/item/proc/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/remove_tape)
-		GET_COMPONENT(DT, /datum/component/ducttape)
-		if(!DT)
-			return
-		DT.remove_tape(src, user)
-		return
 	attack_self(user)
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit

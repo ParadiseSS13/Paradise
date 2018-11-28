@@ -104,14 +104,13 @@
 		"Grey" = 'icons/mob/species/grey/mask.dmi'
 		)
 
-/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/living/carbon/human/user)
-	var/atom/movable/R = new /obj/item/trash/tapetrash
-	var/turf/T = get_turf(src)
-	R.loc = T
-	transfer_fingerprints_to(R)
-	playsound(src,'sound/items/poster_ripped.ogg',40,1)
+/obj/item/clothing/mask/muzzle/tapegag/dropped(mob/user)
+	var/obj/item/trash/tapetrash/TT = new(drop_location(src))
+	transfer_fingerprints_to(TT)
+	user.transfer_fingerprints_to(TT)
+	playsound(src, 'sound/items/poster_ripped.ogg', 40, 1)
+	..()
 	user.emote("scream")
-	. = ..()
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
