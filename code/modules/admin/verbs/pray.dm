@@ -13,10 +13,6 @@
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))
 			return
 
-	if(mind && !mind.canpray)
-		to_chat(usr, "<span class='warning'>You cannot pray (atheist).</span>")
-		return
-
 	var/image/cross = image('icons/obj/storage.dmi',"bible")
 	var/font_color = "purple"
 	var/prayer_type = "PRAYER"

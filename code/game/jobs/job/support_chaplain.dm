@@ -1,7 +1,6 @@
-#define ALIGNMENT_GOOD "good"
+#define ALIGNMENT_GOOD "light"
 #define ALIGNMENT_NEUTRAL "neutral"
-#define ALIGNMENT_EVIL "evil"
-#define ALIGNMENT_GODLESS "godless"
+#define ALIGNMENT_EVIL "dark"
 
 //Due to how large this one is it gets its own file
 /datum/job/chaplain
@@ -43,7 +42,7 @@
 
 	spawn()
 
-		var/religion_type = input(H,"What type of religion do you have?") in list(ALIGNMENT_GOOD, ALIGNMENT_NEUTRAL, ALIGNMENT_EVIL, ALIGNMENT_GODLESS)
+		var/religion_type = input(H,"What flavor of religion do you have?") in list(ALIGNMENT_GOOD, ALIGNMENT_NEUTRAL, ALIGNMENT_EVIL)
 		if(H.mind)
 			H.mind.alignment = religion_type
 
@@ -91,16 +90,7 @@
 			new_deity = deity_name
 		B.deity_name = new_deity
 
-		if(religion_type == ALIGNMENT_GODLESS)
-			// Atheist chaplain. Give mindshield instead of blessing power.
-			var/obj/item/implant/mindshield/L = new/obj/item/implant/mindshield(H)
-			L.implant(H, null, 1)
-			if(H.mind)
-				H.mind.isholy = FALSE
-				H.mind.canpray = FALSE
-		else
-			// Otherwise, grant the ability to bless people, incrementing their religious_favor and showing up in prayers.
-			H.AddSpell(new /obj/effect/proc_holder/spell/targeted/chaplain_bless(null))
+		H.AddSpell(new /obj/effect/proc_holder/spell/targeted/chaplain_bless(null))
 
 		if(religion_type == ALIGNMENT_GOOD)
 			H.equip_to_slot_or_del(new /obj/item/flashlight/holy_torch(H), slot_in_backpack)
@@ -118,8 +108,9 @@
 		var/new_book_style = "Bible"
 
 		while(!accepted)
-			if(!B) break // prevents possible runtime errors
-			new_book_style = input(H,"Which bible style would you like?") in list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "Athiest", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
+			if(!B)
+				break // prevents possible runtime errors
+			new_book_style = input(H,"Which bible style would you like?") in list("Bible", "Koran", "Scrapbook", "Creeper", "White Bible", "Holy Light", "PlainRed", "Tome", "The King in Yellow", "Ithaqua", "Scientology", "the bible melts", "Necronomicon", "Greentext")
 			switch(new_book_style)
 				if("Koran")
 					B.icon_state = "koran"
@@ -140,13 +131,9 @@
 				if("Holy Light")
 					B.icon_state = "holylight"
 					B.item_state = "syringe_kit"
-				if("Athiest")
+				if("PlainRed")
 					B.icon_state = "athiest"
 					B.item_state = "syringe_kit"
-					for(var/area/chapel/main/A in world)
-						for(var/turf/T in A.contents)
-							if(T.icon_state == "carpetsymbol")
-								T.dir = 10
 				if("Tome")
 					B.icon_state = "tome"
 					B.item_state = "syringe_kit"

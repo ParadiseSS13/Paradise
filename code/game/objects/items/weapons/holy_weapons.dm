@@ -122,7 +122,6 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
-	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/staff
 	name = "red holy staff"
@@ -151,7 +150,6 @@
 	sharp = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -175,7 +173,6 @@
 	slot_flags = SLOT_BELT
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
-	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/claymore/glowing
 	name = "force blade"
@@ -229,7 +226,6 @@
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	alignment_prohibited = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/scythe
 	name = "reaper scythe"
@@ -358,8 +354,8 @@
 			H.adjustBruteLoss(12) //Bonus damage
 
 /obj/item/nullrod/fedora
-	name = "athiest's fedora"
-	desc = "The brim of the hat is as sharp as your wit. Throwing it at someone would hurt almost as much as disproving the existence of God."
+	name = "binary fedora"
+	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
 	icon_state = "fedora"
 	item_state = "fedora"
 	slot_flags = SLOT_HEAD
@@ -368,7 +364,6 @@
 	throw_speed = 4
 	throw_range = 7
 	throwforce = 25 // Yes, this is high, since you can typically only use it once in a fight.
-	alignment_required = ALIGNMENT_GODLESS
 
 /obj/item/nullrod/armblade
 	name = "dark blessing"

@@ -60,7 +60,6 @@
 
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
-	var/canpray = TRUE // is this person allowed to use the PRAY verb? Atheist chaplains lose this
 	var/alignment // for chaplains
 	var/religious_favor = 0 // for prayers
 
