@@ -1,4 +1,0 @@
-author: "MrKicker"
-delete-after: True
-changes: 
-  - rscadd: "Sort callable holopads by name"
