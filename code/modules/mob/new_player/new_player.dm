@@ -195,7 +195,7 @@
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
-			observer.loc = O.loc
+			observer.forceMove(O.loc)
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
 			observer.icon = client.prefs.preview_icon
@@ -335,29 +335,29 @@
 
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
-			character.loc = pick(ertdirector)
+			character.forceMove(pick(ertdirector))
 		else
-			character.loc = pick(aroomwarp)
+			character.forceMove(pick(aroomwarp))
 		join_message = "has arrived"
 	else
 		if(spawning_at)
 			S = spawntypes[spawning_at]
 		if(S && istype(S))
 			if(S.check_job_spawning(rank))
-				character.loc = pick(S.turfs)
+				character.forceMove(pick(S.turfs))
 				join_message = S.msg
 			else
 				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-				character.loc = pick(latejoin)
+				character.forceMove(pick(latejoin))
 				join_message = "has arrived on the station"
 		else
-			character.loc = pick(latejoin)
+			character.forceMove(pick(latejoin))
 			join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
 	if(character.buckled && istype(character.buckled, /obj/structure/chair/wheelchair))
-		character.buckled.loc = character.loc
+		character.buckled.forceMove(character.loc)
 		character.buckled.dir = character.dir
 
 	character = job_master.EquipRank(character, rank, 1)					//equips the human

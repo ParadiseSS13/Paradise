@@ -488,7 +488,7 @@ var/global/datum/controller/occupations/job_master
 			T = S.loc
 
 		if(T)
-			H.loc = T
+			H.forceMove(T)
 			// Moving wheelchair if they have one
 			if(H.buckled && istype(H.buckled, /obj/structure/chair/wheelchair))
 				H.buckled.loc = H.loc
