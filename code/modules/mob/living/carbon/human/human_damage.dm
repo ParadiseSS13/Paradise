@@ -233,7 +233,6 @@
 	var/obj/item/organ/external/picked = pick(parts)
 	if(picked.receive_damage(brute, burn, sharp, updating_health))
 		UpdateDamageIcon()
-	speech_problem_flag = 1
 
 
 //Heal MANY external organs, in random order
@@ -256,7 +255,6 @@
 
 	if(updating_health)
 		updatehealth("heal overall damage")
-	speech_problem_flag = 1
 	if(update)
 		UpdateDamageIcon()
 

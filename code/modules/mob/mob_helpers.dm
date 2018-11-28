@@ -177,6 +177,10 @@
 		p++
 	return t
 
+/proc/stars_all(list/message_pieces, pr)
+	for(var/datum/multilingual_say_piece/S in message_pieces)
+		S.message = stars(S.message, pr)
+
 /proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
 	var/leng=lentext(phrase)
@@ -266,6 +270,11 @@
 
 	return returntext
 
+/proc/Gibberish_all(list/message_pieces, p)
+	for(var/datum/multilingual_say_piece/S in message_pieces)
+		S.message = Gibberish(S.message, p)
+
+
 proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
 	var/leng=lentext(phrase)
@@ -283,6 +292,10 @@ proc/muffledspeech(phrase)
 		newphrase+="[newletter]"
 		counter-=1
 	return newphrase
+
+/proc/muffledspeech_all(list/message_pieces)
+	for(var/datum/multilingual_say_piece/S in message_pieces)
+		S.message = muffledspeech(S.message)
 
 
 /proc/shake_camera(mob/M, duration, strength=1)

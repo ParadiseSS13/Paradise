@@ -182,9 +182,9 @@
 		trigger.HasProximity(AM)
 
 
-/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, msg)
+/obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M as mob, list/message_pieces)
 	if(trigger)
-		trigger.hear_talk(M, msg)
+		trigger.hear_talk(M, message_pieces)
 
 /obj/item/clothing/mask/muzzle/safety/shock/hear_message(mob/living/M as mob, msg)
 	if(trigger)
