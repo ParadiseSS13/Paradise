@@ -1,0 +1,6 @@
+author: "tigercat2000"
+delete-after: True
+changes: 
+  - rscadd: "You can now speak in multiple languages in the same message! This works for all forms of speech, including radios. Minus megaphones because fuck em."
+  - bugfix: "Some mild formatting errors and inconsistencies that have historically been present within mob speech."
+  - bugfix: "Holopads behaving a bit weirdly with how they interact with the typical say system"
