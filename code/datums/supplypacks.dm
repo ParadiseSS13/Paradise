@@ -1348,6 +1348,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	/obj/item/stack/tape_roll)
 	cost = 10
 	containername = "sticky tape crate"
+	containertype = /obj/structure/closet/crate/tape
 
 /datum/supply_packs/misc/toner
 	name = "Toner Cartridges Crate"
