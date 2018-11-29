@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - bugfix: "No more making infinite meat and crashing the server with gibbers"
