@@ -75,8 +75,7 @@
 		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
 		return
 
-	else
-		startgibbing(user)
+	startgibbing(user)
 
 /obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/grab))
@@ -279,11 +278,10 @@
 	occupant.death(1)
 	occupant.ghostize()
 
-	qdel(occupant)
+	QDEL_NULL(occupant)
 
 	spawn(gibtime)
 		playsound(get_turf(src), 'sound/effects/splat.ogg', 50, 1)
-		operating = 0
 
 		if(stealthmode)
 			for(var/atom/movable/AM in contents)
