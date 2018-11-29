@@ -38,10 +38,6 @@
 	return
 
 /obj/item/storage/bible/attack(mob/living/M as mob, mob/living/user as mob)
-	var/chaplain = 0
-	if(user.mind && (user.mind.assigned_role == "Chaplain"))
-		chaplain = 1
-
 	add_attack_logs(user, M, "Hit with [src]")
 	if(!iscarbon(user))
 		M.LAssailant = null
@@ -51,7 +47,7 @@
 	if(!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	if(!chaplain)
+	if(!user.mind || !user.mind.isholy)
 		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
 		user.take_organ_damage(0,10)
 		return
@@ -62,14 +58,7 @@
 		user.Paralyse(20)
 		return
 
-//	if(..() == BLOCKED)
-//		return
-
 	if(M.stat !=2)
-		/*if((M.mind in ticker.mode.cult) && (prob(20)))
-			to_chat(M, "<span class='warning'>The power of [src.deity_name] clears your mind of heresy!</span>")
-			to_chat(user, "<span class='warning'>You see how [M]'s eyes become clear, the cult no longer holds control over [M.p_them()]!</span>")
-			ticker.mode.remove_cultist(M.mind)*/
 		if((istype(M, /mob/living/carbon/human) && prob(60)))
 			bless(M)
 			for(var/mob/O in viewers(M, null))
@@ -94,11 +83,11 @@
 		return
 	if(istype(A, /turf/simulated/floor))
 		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
-		if(user.mind && (user.mind.assigned_role == "Chaplain"))
+		if(user.mind && (user.mind.isholy))
 			for(var/obj/effect/rune/R in A)
 				if(R.invisibility)
 					R.talismanreveal()
-	if(user.mind && (user.mind.assigned_role == "Chaplain"))
+	if(user.mind && (user.mind.isholy))
 		if(A.reagents && A.reagents.has_reagent("water")) //blesses all the water in the holder
 			to_chat(user, "<span class='notice'>You bless [A].</span>")
 			var/water2holy = A.reagents.get_reagent_amount("water")
