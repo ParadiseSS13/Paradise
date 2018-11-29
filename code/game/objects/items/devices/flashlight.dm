@@ -123,6 +123,7 @@
 	materials = list()
 	on = 1
 
+
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
