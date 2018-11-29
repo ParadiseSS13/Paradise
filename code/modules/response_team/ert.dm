@@ -280,7 +280,6 @@ var/ert_request_answered = FALSE
 			M.equipOutfit(paranormal_outfit)
 			M.job = "ERT Paranormal"
 			M.mind.isholy = TRUE
-			M.mind.alignment = ALIGNMENT_GOOD
 
 		if("Commander")
 			command_slots = 0

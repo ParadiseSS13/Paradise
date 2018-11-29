@@ -379,8 +379,7 @@
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
-		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/holy_torch = 1
+		/obj/item/storage/box/zipties = 1
 		)
 
 /datum/outfit/job/centcom/response_team/paranormal/amber

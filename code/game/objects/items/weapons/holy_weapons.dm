@@ -11,10 +11,7 @@
 	var/reskinned = FALSE
 	var/reskin_selectable = TRUE			//set to FALSE if a subtype is meant to not normally be available as a reskin option (fluff ones will get re-added through their list)
 	var/list/fluff_transformations = list() //does it have any special transformations only accessible to it? Should only be subtypes of /obj/item/nullrod
-	var/alignment_required
-	var/alignment_prohibited
 	var/sanctify_force = 0
-	var/sound_played = FALSE
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
@@ -41,12 +38,6 @@
 			"<span class='warning'>[src] slips out of your grip as you pick it up, bouncing upwards and smacking you in the face!</span>")
 			playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 			throw_at(get_edge_target_turf(user, pick(alldirs)), rand(1, 3), 5)
-		else
-			if(!sound_played)
-				sound_played = TRUE
-				SEND_SOUND(user, 'sound/effects/hallelujah.ogg')
-			user.visible_message("<span class='warning'>[src] glows with power as [user] picks it up!</span>", \
-			"<span class='userdanger'>[src] glows with power as you pick it up!</span>")
 
 
 /obj/item/nullrod/attack_self(mob/user)
@@ -63,10 +54,6 @@
 	for(var/entry in holy_weapons_list)
 		var/obj/item/nullrod/variant = entry
 		if(!initial(variant.reskin_selectable))
-			holy_weapons_list -= variant
-		else if(initial(variant.alignment_required) && M.mind.alignment != initial(variant.alignment_required))
-			holy_weapons_list -= variant
-		else if(initial(variant.alignment_prohibited) && M.mind.alignment == initial(variant.alignment_prohibited))
 			holy_weapons_list -= variant
 	if(fluff_transformations.len)
 		for(var/thing in fluff_transformations)
@@ -132,7 +119,6 @@
 	force = 5
 	slot_flags = SLOT_BACK
 	block_chance = 50
-	alignment_required = ALIGNMENT_NEUTRAL
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
@@ -163,7 +149,6 @@
 	desc = "Spread the glory of the dark gods!"
 	slot_flags = SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
-	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/claymore/chainsaw_sword
 	name = "sacred chainsaw sword"
@@ -208,7 +193,6 @@
 	icon_state = "swordred"
 	item_state = "swordred"
 	desc = "Woefully ineffective when used on steep terrain."
-	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/claymore/saber/pirate
 	name = "nautical energy cutlass"
@@ -238,7 +222,6 @@
 	sharp = 1
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/rapierhit.ogg'
-	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/scythe/vibro
 	name = "high frequency blade"
@@ -317,7 +300,6 @@
 	sharp = 1
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
-	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/clown
 	name = "clown dagger"
@@ -337,11 +319,10 @@
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed")
 	hitsound = 'sound/weapons/slash.ogg'
-	alignment_required = ALIGNMENT_GOOD
 
 /obj/item/nullrod/whip/New()
 	..()
-	desc = " What a terrible night to be on the [station_name()]."
+	desc = "What a terrible night to be on the [station_name()]."
 
 /obj/item/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -373,7 +354,6 @@
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = 1
-	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
@@ -440,7 +420,6 @@
 	attack_verb = list("poked", "impaled", "pierced", "jabbed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	alignment_required = ALIGNMENT_EVIL
 
 /obj/item/nullrod/rosary
 	name = "prayer beads"
@@ -449,7 +428,6 @@
 	desc = "A set of prayer beads used by many of the more traditional religions in space.<br>Vampires and other unholy abominations have learned to fear these."
 	force = 0
 	throwforce = 0
-	alignment_required = ALIGNMENT_GOOD
 	var/praying = 0
 
 /obj/item/nullrod/rosary/New()
@@ -545,7 +523,6 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "baguette"
 	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
-	alignment_required = null
 
 /obj/item/nullrod/rosary/bread/process()
 	if(ishuman(loc))

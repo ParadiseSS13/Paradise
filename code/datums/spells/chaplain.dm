@@ -69,5 +69,5 @@
 				user.visible_message("[user] has blessed [target] in the name of [ticker.Bible_deity_name].", "<span class='notice'>You have blessed [target] in the name of [ticker.Bible_deity_name].</span>")
 				if(!target.mind.isblessed)
 					target.mind.isblessed = TRUE
-					user.mind.religious_favor++
+					user.mind.num_blessed++
 

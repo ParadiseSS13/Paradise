@@ -60,8 +60,7 @@
 
 	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
-	var/alignment // for chaplains
-	var/religious_favor = 0 // for prayers
+	var/num_blessed = 0 // for prayers
 
 	// the world.time since the mob has been brigged, or -1 if not at all
 	var/brigged_since = -1

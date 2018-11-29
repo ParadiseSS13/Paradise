@@ -1,7 +1,3 @@
-#define ALIGNMENT_GOOD "light"
-#define ALIGNMENT_NEUTRAL "neutral"
-#define ALIGNMENT_EVIL "dark"
-
 //Due to how large this one is it gets its own file
 /datum/job/chaplain
 	title = "Chaplain"
@@ -42,15 +38,11 @@
 
 	spawn()
 
-		var/religion_type = input(H,"What flavor of religion do you have?") in list(ALIGNMENT_GOOD, ALIGNMENT_NEUTRAL, ALIGNMENT_EVIL)
-		if(H.mind)
-			H.mind.alignment = religion_type
-
 		var/obj/item/storage/bible/B = new /obj/item/storage/bible(H)
 		H.equip_to_slot_or_del(B, slot_l_hand)
 
 		var/religion_name = "Christianity"
-		var/new_religion = sanitize(copytext(input(H, "What name do you give your beliefs? Default is Christianity.", "Name change", religion_name),1,MAX_NAME_LEN))
+		var/new_religion = sanitize(copytext(input(H, "You are the Chaplain. What name do you give your beliefs? Default is Christianity.", "Name change", religion_name),1,MAX_NAME_LEN))
 
 		if(!new_religion)
 			new_religion = religion_name
@@ -91,15 +83,6 @@
 		B.deity_name = new_deity
 
 		H.AddSpell(new /obj/effect/proc_holder/spell/targeted/chaplain_bless(null))
-
-		if(religion_type == ALIGNMENT_GOOD)
-			H.equip_to_slot_or_del(new /obj/item/flashlight/holy_torch(H), slot_in_backpack)
-		else if(religion_type == ALIGNMENT_NEUTRAL)
-			H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/riot/knight/templar(H), slot_in_backpack)
-			H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/riot/knight/templar(H), slot_in_backpack)
-		else if(religion_type == ALIGNMENT_EVIL)
-			H.equip_to_slot_or_del(new /obj/item/soulstone/anybody/chaplain(H), slot_in_backpack)
-
 
 		var/accepted = 0
 		var/outoftime = 0

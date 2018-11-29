@@ -123,14 +123,6 @@
 	materials = list()
 	on = 1
 
-/obj/item/flashlight/holy_torch
-	name = "blessed torch"
-	desc = "A high-power, blessed, electric torch with a built-in power source. Modeled to look like an ancient torch."
-	icon_state = "torch"
-	item_state = "torch"
-	brightness_on = 9 // High power.
-	light_color = "#ffffb3" // Yellow tint.
-
 // green-shaded desk lamp
 /obj/item/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
