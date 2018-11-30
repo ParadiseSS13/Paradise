@@ -12,6 +12,7 @@
 	bitesize = 3
 	filling_color = "#FFD675"
 	list_reagents = list("nutriment" = 20, "oculine" = 10, "vitamin" = 5)
+	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
 
 /obj/item/reagent_containers/food/snacks/carrotcakeslice
 	name = "carrot cake slice"
@@ -19,6 +20,7 @@
 	icon_state = "carrotcake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFD675"
+	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/braincake
 	name = "brain cake"
@@ -29,6 +31,7 @@
 	filling_color = "#E6AEDB"
 	bitesize = 3
 	list_reagents = list("protein" = 10, "nutriment" = 10, "mannitol" = 10, "vitamin" = 5)
+	tastes = list("cake" = 5, "sweetness" = 2, "brains" = 1)
 
 /obj/item/reagent_containers/food/snacks/braincakeslice
 	name = "brain cake slice"
@@ -36,6 +39,7 @@
 	icon_state = "braincakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#E6AEDB"
+	tastes = list("cake" = 5, "sweetness" = 2, "brains" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/cheesecake
 	name = "cheese cake"
@@ -46,6 +50,7 @@
 	filling_color = "#FAF7AF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("cake" = 4, "cream cheese" = 3)
 
 /obj/item/reagent_containers/food/snacks/cheesecakeslice
 	name = "cheese cake slice"
@@ -53,6 +58,7 @@
 	icon_state = "cheesecake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FAF7AF"
+	tastes = list("cake" = 4, "cream cheese" = 3)
 
 /obj/item/reagent_containers/food/snacks/sliceable/plaincake
 	name = "vanilla cake"
@@ -63,6 +69,7 @@
 	bitesize = 3
 	filling_color = "#F7EDD5"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("vanilla" = 1, "sweetness" = 2,"cake" = 5)
 
 /obj/item/reagent_containers/food/snacks/plaincakeslice
 	name = "vanilla cake slice"
@@ -70,6 +77,7 @@
 	icon_state = "plaincake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#F7EDD5"
+	tastes = list("vanilla" = 1, "sweetness" = 2,"cake" = 5)
 
 /obj/item/reagent_containers/food/snacks/sliceable/orangecake
 	name = "orange cake"
@@ -80,6 +88,7 @@
 	bitesize = 3
 	filling_color = "#FADA8E"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("cake" = 5, "sweetness" = 2, "oranges" = 2)
 
 /obj/item/reagent_containers/food/snacks/orangecakeslice
 	name = "orange cake slice"
@@ -87,6 +96,7 @@
 	icon_state = "orangecake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FADA8E"
+	tastes = list("cake" = 5, "sweetness" = 2, "oranges" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/bananacake
 	name = "banana cake"
@@ -114,6 +124,7 @@
 	slices_num = 5
 	filling_color = "#CBFA8E"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("cake" = 5, "sweetness" = 2, "unbearable sourness" = 2)
 
 /obj/item/reagent_containers/food/snacks/limecakeslice
 	name = "lime cake slice"
@@ -121,6 +132,7 @@
 	icon_state = "limecake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#CBFA8E"
+	tastes = list("cake" = 5, "sweetness" = 2, "unbearable sourness" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/lemoncake
 	name = "lemon cake"
@@ -131,6 +143,7 @@
 	bitesize = 3
 	filling_color = "#FAFA8E"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("cake" = 5, "sweetness" = 2, "sourness" = 2)
 
 /obj/item/reagent_containers/food/snacks/lemoncakeslice
 	name = "lemon cake slice"
@@ -138,6 +151,7 @@
 	icon_state = "lemoncake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FAFA8E"
+	tastes = list("cake" = 5, "sweetness" = 2, "sourness" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/chocolatecake
 	name = "chocolate cake"
@@ -148,6 +162,7 @@
 	bitesize = 3
 	filling_color = "#805930"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("cake" = 5, "sweetness" = 1, "chocolate" = 4)
 
 /obj/item/reagent_containers/food/snacks/chocolatecakeslice
 	name = "chocolate cake slice"
@@ -155,6 +170,7 @@
 	icon_state = "chocolatecake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#805930"
+	tastes = list("cake" = 5, "sweetness" = 1, "chocolate" = 4)
 
 /obj/item/reagent_containers/food/snacks/sliceable/birthdaycake
 	name = "birthday cake"
@@ -165,6 +181,7 @@
 	filling_color = "#FFD6D6"
 	bitesize = 3
 	list_reagents = list("nutriment" = 20, "sprinkles" = 10, "vitamin" = 5)
+	tastes = list("cake" = 5, "sweetness" = 1)
 
 /obj/item/reagent_containers/food/snacks/birthdaycakeslice
 	name = "birthday cake slice"
@@ -172,6 +189,7 @@
 	icon_state = "birthdaycakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFD6D6"
+	tastes = list("cake" = 5, "sweetness" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/applecake
 	name = "apple cake"
@@ -182,6 +200,7 @@
 	bitesize = 3
 	filling_color = "#EBF5B8"
 	list_reagents = list("nutriment" = 20, "vitamin" = 5)
+	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 
 /obj/item/reagent_containers/food/snacks/applecakeslice
 	name = "apple cake slice"
@@ -189,6 +208,7 @@
 	icon_state = "applecakeslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#EBF5B8"
+	tastes = list("cake" = 5, "sweetness" = 1, "apple" = 1)
 
 
 //////////////////////

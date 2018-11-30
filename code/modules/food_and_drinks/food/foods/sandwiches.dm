@@ -10,6 +10,7 @@
 	filling_color = "#F2B6EA"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "prions" = 10, "vitamin" = 1)
+	tastes = list("bun" = 4, "brains" = 2)
 
 /obj/item/reagent_containers/food/snacks/ghostburger
 	name = "Ghost Burger"
@@ -18,6 +19,7 @@
 	filling_color = "#FFF2FF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "ectoplasm" = 2)
 
 /obj/item/reagent_containers/food/snacks/human
 	var/hname = ""
@@ -53,6 +55,7 @@
 	filling_color = "#FFFEE0"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "tofu" = 4)
 
 /obj/item/reagent_containers/food/snacks/roburger
 	name = "roburger"
@@ -61,6 +64,7 @@
 	filling_color = "#CCCCCC"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
+	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 
 /obj/item/reagent_containers/food/snacks/roburgerbig
 	name = "roburger"
@@ -70,6 +74,7 @@
 	volume = 120
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "nanomachines" = 70, "vitamin" = 5)
+	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 
 /obj/item/reagent_containers/food/snacks/xenoburger
 	name = "xenoburger"
@@ -78,6 +83,7 @@
 	filling_color = "#43DE18"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "acid" = 4)
 
 /obj/item/reagent_containers/food/snacks/clownburger
 	name = "Clown Burger"
@@ -110,6 +116,7 @@
 	filling_color = "#D505FF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "magic" = 2)
 
 /obj/item/reagent_containers/food/snacks/bigbiteburger
 	name = "Big Bite Burger"
@@ -126,6 +133,7 @@
 	filling_color = "#CCA26A"
 	bitesize = 7
 	list_reagents = list("nutriment" = 40, "vitamin" = 5)
+	tastes = list("bun" = 4, "type two diabetes" = 10)
 
 /obj/item/reagent_containers/food/snacks/jellyburger
 	name = "Jelly Burger"
@@ -133,6 +141,7 @@
 	icon_state = "jellyburger"
 	filling_color = "#B572AB"
 	bitesize = 3
+	tastes = list("bun" = 4, "jelly" = 2)
 
 /obj/item/reagent_containers/food/snacks/jellyburger/slime
 	list_reagents = list("nutriment" = 6, "slimejelly" = 5, "vitamin" = 1)

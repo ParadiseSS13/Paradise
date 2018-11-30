@@ -125,6 +125,7 @@
 	basename = "cake"
 	snack_overlays = 0
 	top = 0
+	tastes = list("cake" = 1)
 
 /obj/item/reagent_containers/food/snacks/customizable/cook/jelly
 	name = "jelly"
@@ -316,6 +317,7 @@
 	baseicon = "burgercustom"
 	basename = "burger"
 	toptype = new /obj/item/reagent_containers/food/snacks/bun()
+	tastes = list("bun" = 4)
 
 /obj/item/reagent_containers/food/snacks/customizable/attackby(obj/item/I, mob/user, params)
 	if(contents.len > sandwich_limit)

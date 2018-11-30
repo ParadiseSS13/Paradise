@@ -53,6 +53,7 @@
 	filling_color = "#FFDEFE"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "fish" = 4)
 
 /obj/item/reagent_containers/food/snacks/cubancarp
 	name = "Cuban Carp"

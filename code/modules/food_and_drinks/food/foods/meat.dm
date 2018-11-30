@@ -11,6 +11,7 @@
 	filling_color = "#FF1C1C"
 	bitesize = 3
 	list_reagents = list("protein" = 3)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -30,6 +31,7 @@
 	name = "-meat"
 	var/subjectname = ""
 	var/subjectjob = null
+	tastes = list("tender meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct
 	name = "meat product"
@@ -41,6 +43,7 @@
 /obj/item/reagent_containers/food/snacks/meat/corgi
 	name = "Corgi meat"
 	desc = "Tastes like... well you know..."
+	tastes = list("meat" = 4, "a fondness for wearing hats" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/pug
 	name = "Pug meat"
@@ -66,6 +69,7 @@
 	icon_state = "rawcutlet"
 	bitesize = 1
 	list_reagents = list("protein" = 1)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
 	if(istype(W,/obj/item/kitchen/knife))
@@ -83,6 +87,7 @@
 	filling_color = "#DB0000"
 	bitesize = 3
 	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
+	tastes = list("meat" = 1, "salmon" = 1)
 
 /obj/item/reagent_containers/food/snacks/xenomeat
 	name = "meat"
@@ -91,6 +96,7 @@
 	filling_color = "#43DE18"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 1)
+	tastes = list("meat" = 1, "acid" = 1)
 
 /obj/item/reagent_containers/food/snacks/spidermeat
 	name = "spider meat"
@@ -98,6 +104,7 @@
 	icon_state = "spidermeat"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3, "vitamin" = 1)
+	tastes = list("cobwebs" = 1)
 
 /obj/item/reagent_containers/food/snacks/lizardmeat
 	name = "mutant lizard meat"
@@ -118,6 +125,7 @@
 	desc = "It's fleshy and pink!"
 	icon_state = "raw_bacon"
 	list_reagents = list("nutriment" = 1, "porktonium" = 10)
+	tastes = list("bacon" = 1)
 
 /obj/item/reagent_containers/food/snacks/spidereggs
 	name = "spider eggs"
@@ -137,12 +145,14 @@
 	filling_color = "#7A3D11"
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/bacon
 	name = "bacon"
 	desc = "It looks juicy and tastes amazing!"
 	icon_state = "bacon2"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
+	tastes = list("bacon" = 1)
 
 /obj/item/reagent_containers/food/snacks/telebacon
 	name = "Tele Bacon"
@@ -180,6 +190,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "cutlet"
 	list_reagents = list("protein" = 2)
+	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/spidereggsham
 	name = "green eggs and ham"

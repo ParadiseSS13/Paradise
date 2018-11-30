@@ -98,6 +98,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "dough"
 	list_reagents = list("nutriment" = 6)
+	tastes = list("dough" = 1)
 
 // Dough + rolling pin = flat dough
 /obj/item/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user, params)
@@ -120,6 +121,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/doughslice
 	slices_num = 3
 	list_reagents = list("nutriment" = 6)
+	tastes = list("dough" = 1)
 
 /obj/item/reagent_containers/food/snacks/doughslice
 	name = "dough slice"
@@ -127,6 +129,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "doughslice"
 	list_reagents = list("nutriment" = 1)
+	tastes = list("dough" = 1)
 
 
 //////////////////////
