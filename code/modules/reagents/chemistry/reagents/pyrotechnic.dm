@@ -22,6 +22,7 @@
 	reagent_state = LIQUID
 	color = "#7A2B94"
 	taste_message = "corporate assets going to waste"
+	taste_strength = 1.5
 
 /datum/reagent/plasma/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -289,6 +290,7 @@
 	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
 	color = "#500064" // rgb: 80, 0, 100
 	taste_message = "corporate assets going to waste"
+	taste_strength = 1.5
 
 /datum/reagent/plasma_dust/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

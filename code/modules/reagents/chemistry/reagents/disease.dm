@@ -180,6 +180,7 @@
 	id = "plasmavirusfood"
 	description = "mutates blood"
 	color = "#A69DA9" // rgb: 166,157,169
+	taste_strength = 1.5
 
 /datum/reagent/plasma_dust/plasmavirusfood/weak
 	name = "weakened virus plasma"
