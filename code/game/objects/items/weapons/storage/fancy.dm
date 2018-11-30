@@ -48,12 +48,38 @@
 	name = "donut box"
 	storage_slots = 6
 	can_hold = list(/obj/item/reagent_containers/food/snacks/donut)
-
+	var/foldable = /obj/item/stack/sheet/cardboard
+	var/amount = 1
 
 /obj/item/storage/fancy/donut_box/New()
 	..()
 	for(var/i = 1 to storage_slots)
 		new /obj/item/reagent_containers/food/snacks/donut(src)
+
+/obj/item/storage/fancy/donut_box/attack_self(mob/user)
+	..()
+	if(!foldable)
+		return
+	if(contents.len)
+		to_chat(user, "<span class='warning'>You can't fold this box with items still inside!</span>")
+		return
+	if(!ispath(foldable))
+		return
+
+	// Close any open UI windows first
+	var/found = 0
+	for(var/mob/M in range(1))
+		if(M.s_active == src)
+			close(M)
+		if(M == user)
+			found = 1
+	if(!found)	// User is too far away
+		return
+
+	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	var/obj/item/stack/I = new foldable(get_turf(src), amount)
+	user.put_in_hands(I)
+	qdel(src)
 
 /*
  * Egg Box

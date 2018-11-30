@@ -244,6 +244,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	new /datum/stack_recipe("mouse traps", /obj/item/storage/box/mousetraps),
 	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
 	new /datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg),
+	new /datum/stack_recipe("donut box", /obj/item/storage/fancy/donut_box),
 	new /datum/stack_recipe("pizza box", /obj/item/pizzabox),
 	new /datum/stack_recipe("folder", /obj/item/folder),
 	new /datum/stack_recipe("cardboard tube", /obj/item/c_tube),
