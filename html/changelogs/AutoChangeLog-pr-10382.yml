@@ -1,4 +1,0 @@
-author: "Azule Utama"
-delete-after: True
-changes: 
-  - bugfix: "Fixed an ORM exploit which would let you smelt invalid stacks of alloys."
