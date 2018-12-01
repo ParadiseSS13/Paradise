@@ -1510,6 +1510,7 @@
 #include "code\modules\hydroponics\grown\chili.dm"
 #include "code\modules\hydroponics\grown\citrus.dm"
 #include "code\modules\hydroponics\grown\cocoa_vanilla.dm"
+#include "code\modules\hydroponics\grown\coconut.dm"
 #include "code\modules\hydroponics\grown\corn.dm"
 #include "code\modules\hydroponics\grown\eggplant.dm"
 #include "code\modules\hydroponics\grown\flowers.dm"
