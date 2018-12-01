@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed a couple of bugs with the special event pets triggered by admin bless command."
