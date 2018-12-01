@@ -133,14 +133,28 @@
 		holder = null
 		if(contents.len == 1)
 			Extend(contents[1])
-		else // TODO: make it similar to borg's storage-like module selection
-			var/obj/item/choise = input("Activate which item?", "Arm Implant", null, null) as null|anything in items_list
-			if(owner && owner == usr && owner.stat != DEAD && (src in owner.internal_organs) && !holder && istype(choise) && (choise in contents))
-				// This monster sanity check is a nice example of how bad input() is.
-				Extend(choise)
+		else
+			radial_menu(owner)
 	else
 		Retract()
 
+/obj/item/organ/internal/cyberimp/arm/proc/check_menu(var/mob/user)
+	return (owner && owner == user && owner.stat != DEAD && (src in owner.internal_organs) && !holder)
+
+/obj/item/organ/internal/cyberimp/arm/proc/radial_menu(mob/user)
+	var/list/choices = list()
+	for(var/obj/I in items_list)
+		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	if(!check_menu(user))
+		return
+	var/obj/item/selected
+	for(var/obj/item in items_list)
+		if(item.name == choice)
+			selected = item
+			break
+	if(istype(selected) && (selected in contents))
+		Extend(selected)
 
 /obj/item/organ/internal/cyberimp/arm/gun/emp_act(severity)
 	if(emp_proof)
